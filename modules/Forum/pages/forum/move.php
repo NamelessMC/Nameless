@@ -34,11 +34,11 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
     if (Input::exists()) {
         if (Token::check()) {
             $validate = new Validate();
-            $validation = $validate->check($_POST, array(
-                'forum' => array(
-                    'required' => true
-                )
-            ));
+            $validation = $validate->check($_POST, [
+                'forum' => [
+                    Validate::REQUIRED => true
+                ]
+            ]);
 
             // Ensure forum we're moving to exists
             $forum_moving_to = $queries->getWhere('forums', array('id', '=', Input::get('forum')));

@@ -2,25 +2,89 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr10
  *
  *  License: MIT
  *
  *  Validate class
  *
- * 	TODO: Regex validation? Example: Discord
+ * 	TODO: Regex, Check IP Ban, "isvalid" MC username check
  */
 
 class Validate {
 
-    private $_passed = false,
-        $_errors = array(),
-        $_db = null;
+    private $_message = null;
+    private $_messages = array();
+    private $_passed = false;
+    private $_to_convert = array();
+    private $_errors = array();
+    private $_db = null;
 
-    // Construct Validate class
-    // No parameters
+    /**
+     * Ensure this field is not empty
+     */
+    const REQUIRED = 'required';
+
+    /**
+     * Define minimum characters
+     */
+    const MIN = 'min';
+
+    /**
+     * Define max characters
+     */
+    const MAX = 'max';
+
+    /**
+     * Ensure provided value matches another
+     */
+    const MATCHES = 'matches';
+
+    /**
+     * Check the user has agreed to the terms and conditions
+     */
+    const AGREE = 'agree';
+
+    /**
+     * Check the value has not already been inputted in the database
+     */
+    const UNIQUE = 'unique';
+
+    /**
+     * Check if email is valid
+     */
+    const EMAIL = 'email';
+
+    /**
+     * Check that timezone is valid
+     */
+    const TIMEZONE = 'timezone';
+
+    /**
+     * Check that the specified user account is set as active (ie validated)
+     */
+    const IS_ACTIVE = 'isactive';
+
+    /**
+     * Check that the specified user account is not banned
+     */
+    const IS_BANNED = 'isbanned';
+
+    /**
+     * Check that the value is alphanumeric
+     */
+    const ALPHANUMERIC = 'alphanumeric';
+    
+    /**
+     * Check that the value is numeric
+     */
+    const NUMERIC = 'numeric';
+
+    /**
+     * Create new `Validate` instance
+     */
     public function __construct() {
-        // Connect to database in order to check whether user's data
+        // Connect to database for rules which need DB access
         try {
             $host = Config::get('mysql/host');
         } catch (Exception $e) {
@@ -32,10 +96,12 @@ class Validate {
         }
     }
 
-    // Validate an array of inputs
-    // Params: $source (array) - the array containing the form input (eg $_POST)
-    //         $items (array)  - contains an array of items which need to be validated
-    public function check($source, $items = array()) {
+    /**
+     * Validate an array of inputs.
+     * @param array $source inputs (eg: $_POST)
+     * @param array $items subset of inputs to be validated
+     */
+    public function check(array $source, array $items = array()) {
 
         // Loop through the items which need validating
         foreach ($items as $item => $rules) {
@@ -49,126 +115,150 @@ class Validate {
                 $item = Output::getClean($item);
 
                 // Required rule
-                if ($rule === 'required' && empty($value)) {
+                if ($rule === Validate::REQUIRED && empty($value)) {
                     // The post array does not include this value, return an error
-                    $this->addError("{$item} is required");
-                } else if (!empty($value)) {
-                    // The post array does include this value, continue validating
-                    switch ($rule) {
-                            // Minimum of $rule_value characters
-                        case 'min';
-                            if (mb_strlen($value) < $rule_value) {
-                                // Not a minumum of $rule_value characters, return an error
-                                $this->addError("{$item} must be a minimum of {$rule_value} characters.");
-                            }
-                            break;
+                    $this->addError([
+                        'field' => $item,
+                        'rule' => Validate::REQUIRED,
+                        'fallback' => "{$item} is required."
+                    ]);
+                    continue;
+                } 
+                
+                if (empty($value)) {
+                    continue;
+                }
 
-                            // Maximum of $rule_value characters
-                        case 'max';
-                            if (mb_strlen($value) > $rule_value) {
-                                // Above the maximum of $rule_value characters, return an error
-                                $this->addError("{$item} must be a maximum of {$rule_value} characters.");
-                            }
-                            break;
+                // The post array does include this value, continue validating
+                switch ($rule) {
 
-                            // Check value matches another value
-                        case 'matches';
-                            if ($value != $source[$rule_value]) {
-                                // Value does not match, return an error
-                                $this->addError("{$rule_value} must match {$item}.");
-                            }
-                            break;
-
-                            // Check the user has agreed to the terms and conditions
-                        case 'agree';
-                            if ($value != 1) {
-                                // The user has not agreed, return an error
-                                $this->addError("You must agree to our terms and conditions in order to register.");
-                            }
-                            break;
-
-                            // Check the value has not already been inputted in the database
-                        case 'unique';
-                            $check = $this->_db->get($rule_value, array($item, '=', $value));
-                            if ($check->count()) {
-                                // The value has already been inputted, return an error
-                                $this->addError("The username/email {$item} already exists!");
-                            }
-                            break;
-
-                        // TODO: Fix isvalid
-                        /*
-                        case 'isvalid';
-                            $username = escape($value);
-                            $username = str_replace(' ', '%20', $username);
-                            $check_mcUser = file_get_contents('http://www.minecraft.net/haspaid.jsp?user='.($username).'');
-                            if($check_mcUser == 'false'){
-                                $this->addError("Your Minecraft name is not a valid Minecraft account.");
-                            }
+                    case Validate::MIN:
+                        if (mb_strlen($value) < $rule_value) {
+                            $this->addError([
+                                'field' => $item,
+                                'rule' => Validate::MIN,
+                                'fallback' => "{$item} must be a minimum of {$rule_value} characters."
+                            ]);
+                        }
                         break;
-                        */
 
-                            // Check if email is valid
-                        case 'email';
-                            if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
-                                // Value is not a valid email
-                                $this->addError("{$value} is not a valid email.");
-                            }
-                            break;
+                    case Validate::MAX:
+                        if (mb_strlen($value) > $rule_value) {
+                            $this->addError([
+                                'field' => $item,
+                                'rule' => Validate::MAX,
+                                'fallback' => "{$item} must be a maximum of {$rule_value} characters."
+                            ]);
+                        }
+                        break;
 
-                        case 'timezone':
-                            if (!in_array($value, DateTimeZone::listIdentifiers(DateTimeZone::ALL))) {
-                                $this->addError("The timezone {$item} is invalid.");
-                            }
-                            break;
+                    case Validate::MATCHES:
+                        if ($value != $source[$rule_value]) {
+                            $this->addError([
+                                'field' => $item,
+                                'rule' => Validate::MATCHES,
+                                'fallback' => "{$rule_value} must match {$item}."
+                            ]);
+                        }
+                        break;
 
-                            // Check that the specified user account is set as active (ie validated)
-                        case 'isactive';
-                            $check = $this->_db->get('users', array($item, '=', $value));
-                            if ($check->count()) {
-                                $isuseractive = $check->first()->active;
-                                if ($isuseractive == 0) {
-                                    // Not active, return an error
-                                    $this->addError("That username is inactive. Have you validated your account or requested a password reset?");
-                                }
-                            }
-                            break;
+                    case Validate::AGREE:
+                        if ($value != 1) {
+                            $this->addError([
+                                'field' => $item,
+                                'rule' => Validate::AGREE,
+                                'fallback' => "You must agree to our terms and conditions in order to register."
+                            ]);
+                        }
+                        break;
 
-                            // Check that the specified user account is not banned
-                        case 'isbanned';
-                            $check = $this->_db->get('users', array($item, '=', $value));
-                            if ($check->count()) {
-                                $isuserbanned = $check->first()->isbanned;
-                                if ($isuserbanned == 1) {
-                                    // The user is banned, return an error
-                                    $this->addError("The username {$item} is banned.");
-                                }
-                            }
-                            break;
+                    case Validate::UNIQUE:
+                        $check = $this->_db->get($rule_value, array($item, '=', $value));
+                        if ($check->count()) {
+                            $this->addError([
+                                'field' => $item,
+                                'rule' => Validate::UNIQUE,
+                                'fallback' => "The {$rule_value}.{$item} {$value} already exists!"
+                            ]);
+                        }
+                        break;
 
-                        case 'isbannedip';
-                            // Todo: Check if IP is banned
-                            break;
+                    case Validate::EMAIL:
+                        if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
+                            $this->addError([
+                                'field' => $item,
+                                'rule' => Validate::EMAIL,
+                                'fallback' => "{$value} is not a valid email."
+                            ]);
+                        }
+                        break;
 
-                        case 'alphanumeric':
-                            if (!ctype_alnum($value)) {
-                                // $value is not alphanumeric
-                                $this->addError("{$item} must be alphanumeric.");
-                            }
-                            break;
+                    case Validate::TIMEZONE:
+                        if (!in_array($value, DateTimeZone::listIdentifiers())) {
+                            $this->addError([
+                                'field' => $item,
+                                'rule' => Validate::TIMEZONE,
+                                'fallback' => "The timezone {$value} is invalid."
+                            ]);
+                        }
+                        break;
 
-                        case 'numeric':
-                            if (!is_numeric($value)) {
-                                // $value is not numeric
-                                $this->addError("{$item} must be numeric.");
-                            }
-                            break;
-                    }
+                    case Validate::IS_ACTIVE:
+                        $check = $this->_db->get('users', array($item, '=', $value));
+                        if (!$check->count()) {
+                            continue;
+                        }
+
+                        $isuseractive = $check->first()->active;
+                        if ($isuseractive == 0) {
+                            $this->addError([
+                                'field' => $item,
+                                'rule' => Validate::IS_ACTIVE,
+                                'fallback' => "That {$item} is inactive. Have you validated your account or requested a password reset?"
+                            ]);
+                        }
+                        break;
+
+                    case Validate::IS_BANNED: 
+                        $check = $this->_db->get('users', array($item, '=', $value));
+                        if (!$check->count()) {
+                            continue;
+                        }
+
+                        $isuserbanned = $check->first()->isbanned;
+                        if ($isuserbanned == 1) {
+                            $this->addError([
+                                'field' => $item,
+                                'rule' => Validate::IS_BANNED,
+                                'fallback' => "The username {$value} is banned."
+                            ]);
+                        }
+                        break;
+
+                    case Validate::ALPHANUMERIC:
+                        if (!ctype_alnum($value)) {
+                            $this->addError([
+                                'field' => $item,
+                                'rule' => Validate::ALPHANUMERIC,
+                                'fallback' => "{$item} must be alphanumeric."
+                            ]);
+                        }
+                        break;
+
+                    case Validate::NUMERIC:
+                        if (!is_numeric($value)) {
+                            $this->addError([
+                                'field' => $item,
+                                'rule' => Validate::NUMERIC,
+                                'fallback' => "{$item} must be numeric."
+                            ]);
+                        }
+                        break;
                 }
             }
         }
 
-        if (empty($this->_errors)) {
+        if (empty($this->_to_convert)) {
             // Only return true if there are no errors
             $this->_passed = true;
         }
@@ -176,21 +266,100 @@ class Validate {
         return $this;
     }
 
-    // Add an error to the error array
-    // No parameters
-    private function addError($error) {
-        $this->_errors[] = $error;
+    /**
+     * Add generic message for any failures, specific `messages()` will override this
+     * @param string $message message to show if any failures occur
+     */
+    public function message($message) {
+        $this->_message = $message;
+        return $this;
     }
 
-    // Return the array of errors
-    // No parameters
+    /**
+     * Add custom messages to this `Validate` instance
+     * @param array $messages array of input names and strings or arrays to use as messages
+     */
+    public function messages(array $messages) {
+        $this->_messages = $messages;
+        return $this;
+    }
+
+    /**
+     * Add an array of information to generate an error message to the $_to_convert array
+     * 
+     * These errors will be translated in the `errors()` function later.
+     * @param string $error message to add to error array
+     */
+    private function addError(array $error) {
+        $this->_to_convert[] = $error;
+    }
+
+    /**
+     * Get message for provided field, returning fallback message unless generic message is supplied
+     * @param string $field name of field to search for 
+     * @param string $rule rule which check failed. should be from the constants defined above
+     * @param string $fallback fallback default message if custom message and generic message are not supplied
+     */
+    private function getMessage($field, $rule, $fallback) {
+
+        // No custom messages defined for this field
+        if (!isset($this->_messages[$field])) {
+            return $this->_message != null ? $this->_message : $fallback;
+        }
+
+        // Generic custom message for this field supplied - but not rule specific
+        if (!is_array($this->_messages[$field])) {
+            return $this->_messages[$field];
+        }
+
+        // Array of custom messages supplied, but none of their rules matches this rule
+        if (!array_key_exists($rule, $this->_messages[$field])) {
+            return $this->_message != null ? $this->_message : $fallback;
+        }
+
+        // Rule-specific custom message was supplied
+        return $this->_messages[$field][$rule];
+    }
+
+    /**
+     * Translate temp error information to their specific or generic or fallback messages and return
+     * @return array Any and all errors for this `Validate` instance
+     */
     public function errors() {
+
+        // If errors have already been translated, dont waste time redoing it
+        if (!empty($this->_errors)) {
+            return $this->_errors;
+        }
+
+        // Loop all errors to convert and get their custom messages
+        foreach ($this->_to_convert as $error) {
+
+            $message = $this->getMessage($error['field'], $error['rule'], $error['fallback']);
+
+            // If there is no generic `message()` set or the translated message is not equal to generic message
+            // we can continue without worrying about duplications
+            if ($this->_message == null || $message != $this->_message && !in_array($message, $this->_errors)) {
+                $this->_errors[] = $message;
+                continue;
+            }
+        
+            // If this new error is the generic message AND it has not already been added, add it
+            if ($message == $this->_message && !in_array($this->_message, $this->_errors)) {
+                $this->_errors[] = $this->_message;
+                continue;
+            }
+        }
+
         return $this->_errors;
     }
 
-    // Return whether the validation passed (true or false)
-    // No parameters
+    /**
+     * Get if this `Validate` instance passed
+     * @return bool whether this Validator passed or not
+     */
     public function passed() {
         return $this->_passed;
     }
+
 }

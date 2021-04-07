@@ -104,16 +104,13 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                         // Valid token
                         $validate = new Validate();
 
-                        $validation = $validate->check(
-                            $_POST,
-                            array(
-                                'post' => array(
-                                    'required' => true,
-                                    'min' => 1,
-                                    'max' => 10000
-                                )
-                            )
-                        );
+                        $validation = $validate->check($_POST, [
+                            'post' => [
+                                Validate::REQUIRED => true,
+                                Validate::MIN => 1,
+                                Validate::MAX => 10000
+                            ]
+                        ])->message($language->get('user', 'invalid_wall_post'));
 
                         if ($validation->passed()) {
                             // Validation successful
@@ -141,7 +138,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                             die();
                         } else {
                             // Validation failed
-                            $error = $language->get('user', 'invalid_wall_post');
+                            $error = $validation->errors();
                         }
                     } else {
                         $error = $language->get('general', 'invalid_token');
@@ -153,19 +150,16 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                         // Valid token
                         $validate = new Validate();
 
-                        $validation = $validate->check(
-                            $_POST,
-                            array(
-                                'reply' => array(
-                                    'required' => true,
-                                    'min' => 1,
-                                    'max' => 10000
-                                ),
-                                'post' => array(
-                                    'required' => true
-                                )
-                            )
-                        );
+                        $validation = $validate->check($_POST, [
+                            'reply' => [
+                                Validate::REQUIRED => true,
+                                Validate::MIN => 1,
+                                Validate::MAX => 10000
+                            ],
+                            'post' => [
+                                Validate::REQUIRED => true
+                            ]
+                        ])->message($language->get('user', 'invalid_wall_post'));
 
                         if ($validation->passed()) {
                             // Validation successful
@@ -204,7 +198,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                             die();
                         } else {
                             // Validation failed
-                            $error = $language->get('user', 'invalid_wall_post');
+                            $error = $validation->errors();
                         }
                     } else {
                         $error = $language->get('general', 'invalid_token');

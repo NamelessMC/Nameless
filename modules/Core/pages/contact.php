@@ -32,18 +32,21 @@ if (Input::exists()) {
         if ($captcha_passed) {
             // Validate input
             $validate = new Validate();
-            $validation = $validate->check($_POST, array(
-                'content' => array(
-                    'required' => true,
-                    'min' => 10,
-                    'max' => 5000
-                ),
-                'email' => array(
-                    'required' => true,
-                    'min' => 4,
-                    'max' => 64,
-                )
-            ));
+            $validation = $validate->check($_POST, [
+                'content' => [
+                    Validate::REQUIRED => true,
+                    Validate::MIN => 10,
+                    Validate::MAX => 5000
+                ],
+                'email' => [
+                    Validate::REQUIRED => true,
+                    Validate::MIN => 4,
+                    Validate::MAX => 64,
+                ]
+            ])->messages([
+                'content' => $language->get('general', 'contact_message_failed'),
+                'email' => $language->get('general', 'contact_message_email')
+            ]);
 
             if ($validation->passed()) {
                 try {
@@ -121,28 +124,19 @@ if (Input::exists()) {
                 $_SESSION['last_contact_sent'] = date('U');
                 $success = $language->get('general', 'contact_message_sent');
             } else {
-                foreach($validation->errors() as $validation_error){
-                    switch($validation_error){
-                        case (strpos($validation_error, 'content') !== false):
-                            $errorcontent = $language->get('general', 'contact_message_failed');
-                            break;
-                        case (strpos($validation_error, 'email') !== false):
-                            $erroremail = $language->get('general', 'contact_message_email');
-                            break;
-                    }
-                }
+                $errors = $validation->errors();
             }
 
         } else
             // Invalid recaptcha
-            $error = $language->get('user', 'invalid_recaptcha');
+        $errors = $language->get('user', 'invalid_recaptcha');
     } else {
         // TODO: This seems to never go down
-      $error = str_replace('{x}', round((date('U') - strtotime('- 1 hour')) / 60), $language->get('general', 'contact_message_limit'));
+      $errors = str_replace('{x}', round((date('U') - strtotime('- 1 hour')) / 60), $language->get('general', 'contact_message_limit'));
     }
   } else {
     // Invalid token
-    $error = $language->get('general', 'invalid_token');
+    $errors = $language->get('general', 'invalid_token');
   }
 }
 
@@ -162,8 +156,8 @@ if ($captcha === 'true') {
     }
 }
 
-if(isset($error))
-	$smarty->assign('ERROR', $error);
+if(isset($errors))
+	$smarty->assign('ERRORS', $errors);
 
 if(isset($erroremail))
 	$smarty->assign('ERROR_EMAIL', $erroremail);

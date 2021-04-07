@@ -95,16 +95,16 @@ if(!isset($_GET['action'])){
 					// Validate input
 					$validate = new Validate();
 
-					$validation = $validate->check($_POST, array(
-						'label_name' => array(
-							'required' => true,
-							'min' => 1,
-							'max' => 32
-						),
-						'label_id' => array(
-							'required' => true
-						)
-					));
+					$validation = $validate->check($_POST, [
+						'label_name' => [
+							Validate::REQUIRED => true,
+							Validate::MIN => 1,
+							Validate::MAX => 32
+                        ],
+						'label_id' => [
+							Validate::REQUIRED => true
+                        ]
+                    ])->message($forum_language->get('forum', 'label_creation_error'));
 
 					if($validation->passed()){
 						// Create string containing selected forum IDs
@@ -144,7 +144,7 @@ if(!isset($_GET['action'])){
 
 					} else {
 						// Validation errors
-						$errors = array($forum_language->get('forum', 'label_creation_error'));
+						$errors = $validation->errors();
 					}
 
 				} else {
@@ -240,16 +240,16 @@ if(!isset($_GET['action'])){
 					// Validate input
 					$validate = new Validate();
 
-					$validation = $validate->check($_POST, array(
-						'label_name' => array(
-							'required' => true,
-							'min' => 1,
-							'max' => 32
-						),
-						'label_id' => array(
-							'required' => true
-						)
-					));
+                    $validation = $validate->check($_POST, [
+                        'label_name' => [
+                            Validate::REQUIRED => true,
+                            Validate::MIN => 1,
+                            Validate::MAX => 32
+                        ],
+                        'label_id' => [
+                            Validate::REQUIRED => true
+                        ]
+                    ])->message($forum_language->get('forum', 'label_creation_error'));
 
 					if($validation->passed()){
 						// Create string containing selected forum IDs
@@ -289,7 +289,7 @@ if(!isset($_GET['action'])){
 
 					} else {
 						// Validation errors
-						$errors = array($forum_language->get('forum', 'label_creation_error'));
+						$errors = $validation->errors();
 					}
 
 				} else {
@@ -429,18 +429,18 @@ if(!isset($_GET['action'])){
 					// Validate input
 					$validate = new Validate();
 
-					$validation = $validate->check($_POST, array(
-						'label_name' => array(
-							'required' => true,
-							'min' => 1,
-							'max' => 32
-						),
-						'label_html' => array(
-							'required' => true,
-							'min' => 1,
-							'max' => 1024
-						)
-					));
+					$validation = $validate->check($_POST, [
+						'label_name' => [
+							Validate::REQUIRED => true,
+							Validate::MIN => 1,
+							Validate::MAX => 32
+                        ],
+						'label_html' => [
+                            Validate::REQUIRED => true,
+                            Validate::MIN => 1,
+							Validate::MAX => 1024
+                        ]
+                    ])->message($forum_language->get('forum', 'label_type_creation_error'));
 
 					if($validation->passed()){
 						try {
@@ -459,7 +459,7 @@ if(!isset($_GET['action'])){
 
 					} else {
 						// Validation errors
-						$errors = array($forum_language->get('forum', 'label_type_creation_error'));
+						$errors = $validation->errors();
 					}
 
 				} else {
@@ -515,18 +515,18 @@ if(!isset($_GET['action'])){
 					// Validate input
 					$validate = new Validate();
 
-					$validation = $validate->check($_POST, array(
-						'label_name' => array(
-							'required' => true,
-							'min' => 1,
-							'max' => 32
-						),
-						'label_html' => array(
-							'required' => true,
-							'min' => 1,
-							'max' => 1024
-						)
-					));
+                    $validation = $validate->check($_POST, [
+                        'label_name' => [
+                            Validate::REQUIRED => true,
+                            Validate::MIN => 1,
+                            Validate::MAX => 32
+                        ],
+                        'label_html' => [
+                            Validate::REQUIRED => true,
+                            Validate::MIN => 1,
+                            Validate::MAX => 1024
+                        ]
+                    ])->message($forum_language->get('forum', 'label_type_creation_error'));
 
 					if($validation->passed()){
 						try {
@@ -544,7 +544,7 @@ if(!isset($_GET['action'])){
 
 					} else {
 						// Validation errors
-						$errors = array($forum_language->get('forum', 'label_type_creation_error'));
+						$errors = $validation->errors();
 					}
 
 				} else {

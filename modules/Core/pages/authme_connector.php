@@ -42,30 +42,45 @@ if(Input::exists()){
             $custom_usernames = $custom_usernames[0]->value;
 
             if($custom_usernames == 'true'){
-                $validation = $validate->check($_POST, array(
-                    'nickname' => array(
-                        'required' => true,
-                        'min' => 3,
-                        'max' => 20,
-                        'unique' => 'users'
-                    ),
-                    'email' => array(
-                        'required' => true,
-                        'min' => 4,
-                        'max' => 64,
-                        'unique' => 'users'
-                    )
-                ));
+                $validation = $validate->check($_POST, [
+                    'nickname' => [
+                        Validate::REQUIRED => true,
+                        Validate::MIN => 3,
+                        Validate::MAX => 20,
+                        Validate::UNIQUE => 'users'
+                    ],
+                    'email' => [
+                        Validate::REQUIRED => true,
+                        Validate::MIN => 4,
+                        Validate::MAX => 64,
+                        Validate::UNIQUE => 'users'
+                    ]
+                ]);
             } else {
-                $validation = $validate->check($_POST, array(
-                    'email' => array(
-                        'required' => true,
-                        'min' => 4,
-                        'max' => 64,
-                        'unique' => 'users'
-                    )
-                ));
+                $validation = $validate->check($_POST, [
+                    'email' => [
+                        Validate::REQUIRED => true,
+                        Validate::MIN => 4,
+                        Validate::MAX => 64,
+                        Validate::UNIQUE => 'users'
+                    ]
+                ]);
             }
+
+            $validation->messages([
+                'username' => [
+                    Validate::REQUIRED => $language->get('user', 'username_required'),
+                    Validate::MIN => $language->get('user', 'username_minimum_3'),
+                    Validate::MAX => $language->get('user', 'username_maximum_20'),
+                    Validate::UNIQUE => $language->get('user', 'username_mcname_email_exists')
+                ],
+                'email' => [
+                    Validate::REQUIRED => $language->get('user', 'email_required'),
+                    Validate::MIN => $language->get('user', 'invalid_email'),
+                    Validate::MAX => $language->get('user', 'invalid_email'),
+                    Validate::UNIQUE => $language->get('user', 'username_mcname_email_exists')
+                ]
+            ]);
 
             if($validation->passed()){
                 // Get Authme hashing method
@@ -160,47 +175,7 @@ if(Input::exists()){
 
             } else {
                 // Validation errors
-                foreach($validation->errors() as $validation_error){
-                    if(strpos($validation_error, 'is required') !== false){
-                        // x is required
-                        switch($validation_error){
-                            case (strpos($validation_error, 'nickname') !== false):
-                                $errors[] = $language->get('user', 'username_required');
-                                break;
-                            case (strpos($validation_error, 'email') !== false):
-                                $errors[] = $language->get('user', 'email_required');
-                                break;
-                        }
-
-                    } else if(strpos($validation_error, 'minimum') !== false){
-                        // x must be a minimum of y characters long
-                        switch($validation_error){
-                            case (strpos($validation_error, 'nickname') !== false):
-                                $errors[] = $language->get('user', 'username_minimum_3');
-                                break;
-                            case (strpos($validation_error, 'email') !== false):
-                                $errors[] = $language->get('user', 'invalid_email');
-                                break;
-                        }
-
-                    } else if(strpos($validation_error, 'maximum') !== false){
-                        // x must be a maximum of y characters long
-                        switch($validation_error){
-                            case (strpos($validation_error, 'username') !== false):
-                                $errors[] = $language->get('user', 'username_maximum_20');
-                                break;
-                            case (strpos($validation_error, 'email') !== false):
-                                $errors[] = $language->get('user', 'invalid_email');
-                                break;
-                        }
-
-                    } else if(strpos($validation_error, 'already exists') !== false){
-                        // already exists
-                        if(!in_array($language->get('user', 'username_mcname_email_exists'), $errors))
-                            $errors[] = $language->get('user', 'username_mcname_email_exists');
-
-                    }
-                }
+                $errors[] = $validation->errors();
             }
 
         } else {
@@ -230,19 +205,28 @@ if(Input::exists()){
             if(isset($result['success']) && $result['success'] == 'true'){
                 // Valid recaptcha
                 $validate = new Validate();
-                $validation = $validate->check($_POST, array(
-                    'username' => array(
-                        'required' => true,
-                        'unique' => 'users'
-                    ),
-                    'password' => array(
-                        'required' => true
-                    ),
-                    't_and_c' => array(
-                        'required' => true,
-                        'agree' => true
-                    )
-                ));
+                $validation = $validate->check($_POST, [
+                    'username' => [
+                        Validate::REQUIRED => true,
+                        Validate::UNIQUE => 'users'
+                    ],
+                    'password' => [
+                        Validate::REQUIRED => true
+                    ],
+                    't_and_c' => [
+                        Validate::REQUIRED => true,
+                        Validate::AGREE => true
+                    ]
+                ])->messages([
+                    'username' => [
+                        Validate::REQUIRED => $language->get('user', 'username_required'),
+                        Validate::UNIQUE => $language->get('user', 'authme_username_exists')
+                    ],
+                    'password' => [
+                        Validate::REQUIRED => $language->get('user', 'password_required')
+                    ],
+                    't_and_c' => $language->get('user', 'accept_terms')
+                ]);
 
                 if($validation->passed()){
                     // Try connecting to AuthMe
@@ -361,23 +345,7 @@ if(Input::exists()){
                     }
                 } else {
                     // Validation errors
-                    foreach ($validation->errors() as $validation_error) {
-                        if (strpos($validation_error, 'is required') !== false) {
-                            switch ($validation_error) {
-                                case (strpos($validation_error, 'username') !== false):
-                                    $errors[] = $language->get('user', 'username_required');
-                                    break;
-                                case (strpos($validation_error, 'password') !== false):
-                                    $errors[] = $language->get('user', 'password_required');
-                                    break;
-                                case (strpos($validation_error, 't_and_c') !== false):
-                                    $errors[] = $language->get('user', 'accept_terms');
-                                    break;
-                            }
-                        } else if(strpos($validation_error, 'exists') !== false){
-                            $errors[] = $language->get('user', 'authme_username_exists');
-                        }
-                    }
+                    $errors[] = $validation->errors();
                 }
 
             } else {

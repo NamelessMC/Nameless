@@ -13,20 +13,20 @@ if (!isset($_SESSION['hostname']) || !isset($_SESSION['install_path']) || !isset
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 	$validate = new Validate();
-	$validation = $validate->check($_POST, array(
-		'db_address' => array(
-			'required' => true,
-		),
-		'db_port' => array(
-			'required' => true,
-		),
-		'db_username' => array(
-			'required' => true,
-		),
-		'db_name' => array(
-			'required' => true,
-		),
-	));
+	$validation = $validate->check($_POST, [
+        'db_address' => [
+            Validate::REQUIRED => true,
+        ],
+        'db_port' => [
+            Validate::REQUIRED => true,
+        ],
+        'db_username' => [
+            Validate::REQUIRED => true,
+        ],
+        'db_name' => [
+            Validate::REQUIRED => true,
+        ],
+    ]);
 
 	if (!$validation->passed()) {
 

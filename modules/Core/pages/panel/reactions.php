@@ -79,21 +79,31 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                     if (Token::check()) {
                         // Validate input
                         $validate = new Validate();
-                        $validation = $validate->check($_POST, array(
-                            'name' => array(
-                                'required' => true,
-                                'min' => 1,
-                                'max' => 16
-                            ),
-                            'html' => array(
-                                'required' => true,
-                                'min' => 1,
-                                'max' => 255
-                            ),
-                            'type' => array(
-                                'required' => true
-                            )
-                        ));
+                        $validation = $validate->check($_POST, [
+                            'name' => [
+                                Validate::REQUIRED => true,
+                                Validate::MIN => 1,
+                                Validate::MAX => 16
+                            ],
+                            'html' => [
+                                Validate::REQUIRED => true,
+                                Validate::MIN => 1,
+                                Validate::MAX => 255
+                            ],
+                            'type' => [
+                                Validate::REQUIRED => true
+                            ]
+                        ])->messages([
+                            'name' => [
+                                Validate::REQUIRED => $language->get('admin', 'name_required'),
+                                Validate::MAX => $language->get('admin', 'name_maximum_16')
+                            ],
+                            'html' => [
+                                Validate::REQUIRED => $language->get('admin', 'html_required'),
+                                Validate::MAX => $language->get('admin', 'html_maximum_255')
+                            ],
+                            'type' => $language->get('admin', 'type_required')
+                        ]);
 
                         if ($validation->passed()) {
                             // Check enabled status
@@ -125,30 +135,7 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                             die();
                         } else {
                             // Validation error
-                            foreach ($validation->errors() as $error) {
-                                if (strpos($error, 'required') !== false) {
-                                    // Required
-                                    if (strpos($error, 'name') !== false) {
-                                        // Name
-                                        $errors[] = $language->get('admin', 'name_required');
-                                    } else if (strpos($error, 'html') !== false) {
-                                        // HTML
-                                        $errors[] = $language->get('admin', 'html_required');
-                                    } else {
-                                        // Type
-                                        $errors[] = $language->get('admin', 'type_required');
-                                    }
-                                } else if (strpos($error, 'maximum') !== false) {
-                                    // Maximum
-                                    if (strpos($error, 'name') !== false) {
-                                        // Name
-                                        $errors[] = $language->get('admin', 'name_maximum_16');
-                                    } else {
-                                        // HTML
-                                        $errors[] = $language->get('admin', 'html_maximum_255');
-                                    }
-                                }
-                            }
+                            $errors = $validation->errors();
                         }
                     } else {
                         // Invalid token
@@ -218,21 +205,31 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
             if (Token::check()) {
                 // Validate input
                 $validate = new Validate();
-                $validation = $validate->check($_POST, array(
-                    'name' => array(
-                        'required' => true,
-                        'min' => 1,
-                        'max' => 16
-                    ),
-                    'html' => array(
-                        'required' => true,
-                        'min' => 1,
-                        'max' => 255
-                    ),
-                    'type' => array(
-                        'required' => true
-                    )
-                ));
+                $validation = $validate->check($_POST, [
+                    'name' => [
+                        Validate::REQUIRED => true,
+                        Validate::MIN => 1,
+                        Validate::MAX => 16
+                    ],
+                    'html' => [
+                        Validate::REQUIRED => true,
+                        Validate::MIN => 1,
+                        Validate::MAX => 255
+                    ],
+                    'type' => [
+                        Validate::REQUIRED => true
+                    ]
+                ])->messages([
+                    'name' => [
+                        Validate::REQUIRED => $language->get('admin', 'name_required'),
+                        Validate::MAX => $language->get('admin', 'name_maximum_16')
+                    ],
+                    'html' => [
+                        Validate::REQUIRED => $language->get('admin', 'html_required'),
+                        Validate::MAX => $language->get('admin', 'html_maximum_255')
+                    ],
+                    'type' => $language->get('admin', 'type_required')
+                ]);
 
                 if ($validation->passed()) {
                     // Check enabled status
@@ -264,30 +261,7 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                     die();
                 } else {
                     // Validation error
-                    foreach ($validation->errors() as $error) {
-                        if (strpos($error, 'required') !== false) {
-                            // Required
-                            if (strpos($error, 'name') !== false) {
-                                // Name
-                                $errors[] = $language->get('admin', 'name_required');
-                            } else if (strpos($error, 'html') !== false) {
-                                // HTML
-                                $errors[] = $language->get('admin', 'html_required');
-                            } else {
-                                // Type
-                                $errors[] = $language->get('admin', 'type_required');
-                            }
-                        } else if (strpos($error, 'maximum') !== false) {
-                            // Maximum
-                            if (strpos($error, 'name') !== false) {
-                                // Name
-                                $errors[] = $language->get('admin', 'name_maximum_16');
-                            } else {
-                                // HTML
-                                $errors[] = $language->get('admin', 'html_maximum_255');
-                            }
-                        }
-                    }
+                    $errors = $validation->errors();
                 }
             } else {
                 // Invalid token

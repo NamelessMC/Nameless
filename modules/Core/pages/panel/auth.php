@@ -43,16 +43,29 @@ if (Input::exists()) {
         // Validate input
         $validate = new Validate();
 
-        if ($method == 'email')
-            $to_validate = array(
-                'email' => array('required' => true, 'isbanned' => true, 'isactive' => true),
-                'password' => array('required' => true)
-            );
-        else
-            $to_validate = array(
-                'username' => array('required' => true, 'isbanned' => true, 'isactive' => true),
-                'password' => array('required' => true)
-            );
+        if ($method == 'email') {
+            $to_validate = [
+                'email' => [
+                    Validate::REQUIRED => true,
+                    Validate::IS_BANNED => true,
+                    Validate::IS_ACTIVE => true
+                ],
+                'password' => [
+                    Validate::REQUIRED => true
+                ]
+            ];   
+        } else {
+            $to_validate = [
+                'username' => [
+                    Validate::REQUIRED => true,
+                    Validate::IS_BANNED => true,
+                    Validate::IS_ACTIVE => true
+                ],
+                'password' => [
+                    Validate::REQUIRED => true
+                ]
+            ];
+        }
 
         $validation = $validate->check($_POST, $to_validate);
 

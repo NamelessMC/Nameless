@@ -35,23 +35,23 @@ if(Input::exists()){
         } else {
             // AuthMe config settings
             $validate = new Validate();
-            $validation = $validate->check($_POST, array(
-                'hashing_algorithm' => array(
-                    'required' => true
-                ),
-                'db_address' => array(
-                    'required' => true
-                ),
-                'db_name' => array(
-                    'required' => true
-                ),
-                'db_username' => array(
-                    'required' => true
-                ),
-                'db_table' => array(
-                    'required' => true
-                )
-            ));
+            $validation = $validate->check($_POST, [
+                'hashing_algorithm' => [
+                    Validate::REQUIRED => true
+                ],
+                'db_address' => [
+                    Validate::REQUIRED => true
+                ],
+                'db_name' => [
+                    Validate::REQUIRED => true
+                ],
+                'db_username' => [
+                    Validate::REQUIRED => true
+                ],
+                'db_table' => [
+                    Validate::REQUIRED => true
+                ]
+            ])->message($language->get('admin', 'enter_authme_db_details'));
 
             if($validation->passed()){
                 $authme_db = $queries->getWhere('settings', array('name', '=', 'authme_db'));
@@ -86,7 +86,7 @@ if(Input::exists()){
                 ));
 
             } else {
-                $errors[] = $language->get('admin', 'enter_authme_db_details');
+                $errors = $validation->errors();
             }
         }
 

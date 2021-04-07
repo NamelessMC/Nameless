@@ -59,18 +59,21 @@ if (Input::exists()) {
         // Validate input
         $validate = new Validate();
 
-        $validation = $validate->check($_POST, array(
-            'sitename' => array(
-                'required' => true,
-                'min' => 2,
-                'max' => 64
-            ),
-            'contact_email' => array(
-                'required' => true,
-                'min' => 3,
-                'max' => 255
-            )
-        ));
+        $validation = $validate->check($_POST, [
+            'sitename' => [
+                Validate::REQUIRED => true,
+                Validate::MIN => 2,
+                Validate::MAX => 64
+            ],
+            'contact_email' => [
+                Validate::REQUIRED => true,
+                Validate::MIN => 3,
+                Validate::MAX => 255
+            ]
+        ])->messages([
+            'sitename' => $language->get('admin', 'missing_sitename'),
+            'contact_email' => $language->get('admin', 'missing_contact_address')
+        ]);
 
         if ($validation->passed()) {
             // Update settings
@@ -285,15 +288,7 @@ if (Input::exists()) {
                 die();
             }
         } else {
-            $errors = array();
-
-            foreach ($validation->errors() as $error) {
-                if (strpos($error, 'sitename') !== false) {
-                    $errors[] = $language->get('admin', 'missing_sitename');
-                } else if (strpos($error, 'email') !== false) {
-                    $errors[] = $language->get('admin', 'missing_contact_address');
-                }
-            }
+            $errors = $validation->errors();
         }
     } else {
         // Invalid token

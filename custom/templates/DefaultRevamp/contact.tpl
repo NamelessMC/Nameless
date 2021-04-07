@@ -15,12 +15,16 @@
   </div>
 {/if}
 
-{if isset($ERROR)}
-  <div class="ui negative icon message">
+{if isset($ERRORS)}
+  <div class="ui error icon message">
     <i class="x icon"></i>
     <div class="content">
-      <div class="header">{$ERROR_TITLE}</div>
-      {$ERROR}
+      <div class="header">Error</div>
+      <ul class="list">
+        {foreach from=$ERRORS item=error}
+          <li>{$error}</li>
+        {/foreach}
+      </ul>
     </div>
   </div>
 {/if}

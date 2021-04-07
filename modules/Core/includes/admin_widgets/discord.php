@@ -23,25 +23,28 @@ if (Input::exists()) {
         if (isset($_POST['discord_guild_id'])) {
 
             $validate = new Validate();
-            $validation = $validate->check($_POST, array(
-                'discord_guild_id' => array(
-                    'min' => 18,
-                    'max' => 18,
-                    'numeric' => true
-                )
-            ));
+            $validation = $validate->check($_POST, [
+                'discord_guild_id' => [
+                    Validate::MIN => 18,
+                    Validate::MAX => 18,
+                    Validate::NUMERIC => true
+                ]
+            ])->messages([
+                'discord_guild_id' => [
+                    Validate::MIN => $language->get('admin', 'discord_id_length'),
+                    Validate::MAX => $language->get('admin', 'discord_id_length'),
+                    Validate::NUMERIC => $language->get('admin', 'discord_id_numeric')
+                ]
+            ]);
 
             if ($validation->passed()) {
+
                 $guild_id = $_POST['discord_guild_id'];
+                
             } else {
-                // Validation errors
-                foreach ($validation->errors() as $validation_error) {
-                    if (strpos($validation_error, 'minimum') !== false || strpos($validation_error, 'maximum') !== false) {
-                        $errors[] = $language->get('admin', 'discord_id_length');
-                    } else if (strpos($validation_error, 'numeric') !== false) {
-                        $errors[] = $language->get('admin', 'discord_id_numeric');
-                    }
-                }
+
+                $errors = $validation->errors();
+
             }
         } else {
             $guild_id = '';

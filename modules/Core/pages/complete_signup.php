@@ -40,23 +40,29 @@ if(!isset($_GET['c'])){
             if(Input::exists()){
                 if(Token::check()){
                     // Validate input
-                    $to_validation = array(
-                        'password' => array(
-                            'required' => true,
-                            'min' => 6,
-                            'max' => 30
-                        ),
-                        'password_again' => array(
-                            'matches' => 'password'
-                        ),
-                        't_and_c' => array(
-                            'required' => true,
-                            'agree' => true
-                        )
-                    );
-
                     $validate = new Validate();
-                    $validation = $validate->check($_POST, $to_validation);
+                    $validation = $validate->check($_POST, [
+                        'password' => [
+                            Validate::REQUIRED => true,
+                            Validate::MIN => 6,
+                            Validate::MAX => 30
+                        ],
+                        'password_again' => [
+                            Validate::MATCHES => 'password'
+                        ],
+                        't_and_c' => [
+                            Validate::REQUIRED => true,
+                            Validate::AGREE => true
+                        ]
+                    ])->messages([
+                        'password' => [
+                            Validate::REQUIRED => $language->get('user', 'password_required'),
+                            Validate::MIN => $language->get('user', 'password_minimum_6'),
+                            Validate::MAX => $language->get('user', 'password_maximum_30')
+                        ],
+                        'password_again' => $language->get('user', 'passwords_dont_match'),
+                        't_and_c' => $language->get('user', 'accept_terms')
+                    ]);
 
                     if($validation->passed()){
                         // Complete registration
@@ -87,31 +93,7 @@ if(!isset($_GET['c'])){
 
                     } else {
                         // Errors
-                        $errors = array();
-
-                        foreach($validation->errors() as $validation_error){
-                            if(strpos($validation_error, 'is required') !== false){
-                                // x is required
-                                switch($validation_error){
-                                    case (strpos($validation_error, 'password') !== false):
-                                        $errors[] = $language->get('user', 'password_required');
-                                        break;
-                                    case (strpos($validation_error, 't_and_c') !== false):
-                                        $errors[] = $language->get('user', 'accept_terms');
-                                        break;
-                                }
-
-                            } else if(strpos($validation_error, 'minimum') !== false){
-                                $errors[] = $language->get('user', 'password_minimum_6');
-
-                            } else if(strpos($validation_error, 'maximum') !== false){
-                                $errors[] = $language->get('user', 'password_maximum_30');
-
-                            } else if(strpos($validation_error, 'must match') !== false){
-                                // password must match password again
-                                $errors[] = $language->get('user', 'passwords_dont_match');
-                            }
-                        }
+                        $errors = $validation->errors();
                     }
 
                 } else {

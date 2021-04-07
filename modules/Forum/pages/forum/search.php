@@ -28,13 +28,13 @@ if (!isset($_GET['s'])) {
     if (Input::exists()) {
         if (Token::check()) {
             $validate = new Validate();
-            $validation = $validate->check($_POST, array(
-                'forum_search' => array(
-                    'required' => true,
-                    'min' => 3,
-                    'max' => 128
-                )
-            ));
+            $validation = $validate->check($_POST, [
+                'forum_search' => [
+                    Validate::REQUIRED => true,
+                    Validate::MIN => 3,
+                    Validate::MAX => 128
+                ]
+            ]);
 
             if ($validation->passed()) {
                 $search = str_replace(' ', '+', htmlspecialchars(Input::get('forum_search')));
@@ -42,10 +42,12 @@ if (!isset($_GET['s'])) {
 
                 Redirect::to(URL::build('/forum/search/', 's=' . $search . '&p=1'));
                 die();
-            } else
+            } else {
                 $error = $forum_language->get('forum', 'invalid_search_query');
-        } else
+            }
+        } else {
             $error = $language->get('general', 'invalid_token');
+        }
     }
 } else {
     $search = htmlspecialchars(str_replace('+', ' ', $_GET['s']));

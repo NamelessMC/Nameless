@@ -36,11 +36,12 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
     if (Input::exists()) {
         if (Token::check()) {
             $validate = new Validate();
-            $validation = $validate->check($_POST, array(
-                'merge' => array(
-                    'required' => true
-                )
-            ));
+            $validation = $validate->check($_POST, [
+                'merge' => [
+                    Validate::REQUIRED => true
+                ]
+            ]);
+
             $posts_to_move = $queries->getWhere('posts', array('topic_id', '=', $topic_id));
             if ($validation->passed()) {
 

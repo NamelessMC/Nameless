@@ -164,13 +164,13 @@ if (!isset($_GET['id'])) {
                 // Valid token
                 $validate = new Validate();
 
-                $validation = $validate->check($_POST, array(
-                    'content' => array(
-                        'required' => true,
-                        'min' => 1,
-                        'max' => 10000
-                    )
-                ));
+                $validation = $validate->check($_POST, [
+                    'content' => [
+                        Validate::REQUIRED => true,
+                        Validate::MIN => 1,
+                        Validate::MAX => 10000
+                    ]
+                ])->message($language->get('moderator', 'report_comment_invalid'));
 
                 if ($validation->passed()) {
                     $queries->create('reports_comments', array(
@@ -190,7 +190,7 @@ if (!isset($_GET['id'])) {
                     $success = $language->get('moderator', 'comment_created');
                 } else {
                     // Display error
-                    $errors[] = $language->get('moderator', 'report_comment_invalid');
+                    $errors = $validation->errors();
                 }
             } else {
                 // Invalid token

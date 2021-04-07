@@ -64,18 +64,43 @@ if (Input::exists()) {
 
 			// Initialise validation
 			$validate = new Validate();
-			if ($method == 'email')
-				$to_validate = array(
-					'email' => array('required' => true, 'isbanned' => true, 'isactive' => true),
-					'password' => array('required' => true)
-				);
-			else
-				$to_validate = array(
-					'username' => array('required' => true, 'isbanned' => true, 'isactive' => true),
-					'password' => array('required' => true)
-				);
+			if ($method == 'email') {
+                $to_validate = [
+                    'email' => [
+                        Validate::REQUIRED => true,
+                        Validate::IS_BANNED => true,
+                        Validate::IS_ACTIVE => true
+                    ],
+                    'password' => [
+                        Validate::REQUIRED => true
+                    ]
+                ];
+            } else {
+                $to_validate = [
+                    'username' => [
+                        Validate::REQUIRED => true,
+                        Validate::IS_BANNED => true,
+                        Validate::IS_ACTIVE => true
+                    ],
+                    'password' => [
+                        Validate::REQUIRED => true
+                    ]
+                ];
+            }
 
-			$validation = $validate->check($_POST, $to_validate);
+			$validation = $validate->check($_POST, $to_validate)->messages([
+                'email' => [
+                    Validate::REQUIRED => $language->get('user', 'must_input_email'),
+                    Validate::IS_BANNED => $language->get('user', 'account_banned'),
+                    Validate::IS_ACTIVE => $language->get('user', 'inactive_account')
+                ],
+                'username' => [
+                    Validate::REQUIRED => $language->get('user', 'must_input_username'),
+                    Validate::IS_BANNED => $language->get('user', 'account_banned'),
+                    Validate::IS_ACTIVE => $language->get('user', 'inactive_account')
+                ],
+                'password' => $language->get('user', 'must_input_password')
+            ]);
 
 			// Check if validation passed
 			if ($validation->passed()) {
@@ -232,29 +257,7 @@ if (Input::exists()) {
 				} else $return_error = array($language->get('user', 'incorrect_details'));
 			} else {
 				// Validation failed
-				$return_error = array();
-				foreach ($validation->errors() as $error) {
-					if (strpos($error, 'is required') !== false) {
-						if (strpos($error, 'username') !== false) {
-							// Empty username field
-							$return_error[] = $language->get('user', 'must_input_username');
-						} else if (strpos($error, 'email') !== false) {
-							// Empty email field
-							$return_error[] = $language->get('user', 'must_input_email');
-						} else if (strpos($error, 'password') !== false) {
-							// Empty password field
-							$return_error[] = $language->get('user', 'must_input_password');
-						}
-					}
-					if (strpos($error, 'active') !== false) {
-						// Account hasn't been activated
-						$return_error[] = $language->get('user', 'inactive_account');
-					}
-					if (strpos($error, 'banned') !== false) {
-						// Account is banned
-						$return_error[] = $language->get('user', 'account_banned');
-					}
-				}
+				$return_error = $validation->errors();
 			}
 		} else {
 			// reCAPTCHA failed

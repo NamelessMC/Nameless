@@ -14,28 +14,28 @@ require(ROOT_PATH . '/core/includes/password.php');
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 	$validate = new Validate();
-	$validation = $validate->check($_POST, array(
-		'username' => array(
-			'required' => true,
-			'min' => 3,
-			'max' => 20,
-		),
-		'email' => array(
-			'required' => true,
-			'min' => 4,
-			'max' => 64,
-			'email' => true,
-		),
-		'password' => array(
-			'required' => true,
-			'min' => 6,
-			'max' => 64,
-		),
-		'password_again' => array(
-			'required' => true,
-			'matches' => 'password',
-		),
-	));
+	$validation = $validate->check($_POST, [
+		'username' => [
+            Validate::REQUIRED => true,
+			Validate::MIN => 3,
+			Validate::MAX => 20,
+        ],
+		'email' => [
+            Validate::REQUIRED => true,
+            Validate::MIN => 4,
+            Validate::MAX => 64,
+            Validate::EMAIL => true,
+        ],
+		'password' => [
+            Validate::REQUIRED => true,
+            Validate::MIN => 6,
+            Validate::MAX => 64,
+        ],
+		'password_again' => [
+            Validate::REQUIRED => true,
+            Validate::MATCHES => 'password',
+        ],
+    ]);
 
 	if (!$validation->passed()) {
 

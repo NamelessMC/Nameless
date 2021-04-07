@@ -116,46 +116,58 @@ if (Input::exists()) {
             $_POST['signature'] = strip_tags(Input::get('signature'));
 
             $validate = new Validate();
-
-            $to_validation = array(
-                'email' => array(
-                    'required' => true,
-                    'min' => 4,
-                    'max' => 50
-                ),
-                'UUID' => array(
-                    'max' => 32
-                ),
-                'signature' => array(
-                    'max' => 900
-                ),
-                'ip' => array(
-                    'max' => 256
-                ),
-                'title' => array(
-                    'max' => 64
-                ),
-                'username' => array(
-                    'required' => true,
-                    'min' => 3,
-                    'max' => 20
-                ),
-                'nickname' => array(
-                    'required' => true,
-                    'min' => 3,
-                    'max' => 20
-                )
-            );
+            $validation = $validate->check($_POST, [
+                'email' => [
+                    Validate::REQUIRED => true,
+                    Validate::MIN => 4,
+                    Validate::MAX => 50
+                ],
+                'UUID' => [
+                    Validate::MAX => 32
+                ],
+                'signature' => [
+                    Validate::MAX => 900
+                ],
+                'ip' => [
+                    Validate::MAX => 256
+                ],
+                'title' => [
+                    Validate::MAX => 64
+                ],
+                'username' => [
+                    Validate::REQUIRED => true,
+                    Validate::MIN => 3,
+                    Validate::MAX => 20
+                ],
+                'nickname' => [
+                    Validate::REQUIRED => true,
+                    Validate::MIN => 3,
+                    Validate::MAX => 20
+                ]
+            ])->messages([
+                'email' => [
+                    Validate::REQUIRED => $language->get('user', 'email_required')
+                ],
+                'UUID' => $language->get('admin', 'uuid_max_32'),
+                'title' => $language->get('admin', 'title_max_64'),
+                'username' => [
+                    Validate::REQUIRED => $language->get('user', 'mcname_required'),
+                    Validate::MIN => $language->get('user', 'mcname_minimum_3'),
+                    Validate::MAX => $language->get('user', 'mcname_maximum_20')
+                ],
+                'nickname' => [
+                    Validate::REQUIRED => $language->get('user', 'username_required'),
+                    Validate::MIN => $language->get('user', 'username_minimum_3'),
+                    Validate::MAX => $language->get('user', 'username_maximum_20')
+                ]
+            ]);
 
             // Does user have any groups selected
             $passed = false;
             if ($view_user->data()->id == 1 || (isset($_POST['groups']) && count($_POST['groups']))) {
                 $passed = true;
-            } else {
-                $errors[] = $language->get('admin', 'select_user_group');
             }
 
-            $validation = $validate->check($_POST, $to_validation);
             if ($validation->passed() && $passed) {
                 try {
                     // Signature from Markdown -> HTML if needed
@@ -245,47 +257,9 @@ if (Input::exists()) {
                     $errors[] = $e->getMessage();
                 }
             } else {
-                foreach ($validation->errors() as $error) {
-                    if (strpos($error, 'is required') !== false) {
-                        // x is required
-                        switch ($error) {
-                            case (strpos($error, 'nickname') !== false):
-                                $errors[] = $language->get('user', 'username_required');
-                                break;
-                            case (strpos($error, 'email') !== false):
-                                $errors[] = $language->get('user', 'email_required');
-                                break;
-                            case (strpos($error, 'username') !== false):
-                                $errors[] = $language->get('user', 'mcname_required');
-                                break;
-                        }
-                    } else if (strpos($error, 'minimum') !== false) {
-                        // x must be a minimum of y characters long
-                        switch ($error) {
-                            case (strpos($error, 'nickname') !== false):
-                                $errors[] = $language->get('user', 'username_minimum_3');
-                                break;
-                            case (strpos($error, 'username') !== false):
-                                $errors[] = $language->get('user', 'mcname_minimum_3');
-                                break;
-                        }
-                    } else if (strpos($error, 'maximum') !== false) {
-                        // x must be a maximum of y characters long
-                        switch ($error) {
-                            case (strpos($error, 'nickname') !== false):
-                                $errors[] = $language->get('user', 'username_maximum_20');
-                                break;
-                            case (strpos($error, 'username') !== false):
-                                $errors[] = $language->get('user', 'mcname_maximum_20');
-                                break;
-                            case (strpos($error, 'UUID') !== false):
-                                $errors[] = $language->get('admin', 'uuid_max_32');
-                                break;
-                            case (strpos($error, 'title') !== false):
-                                $errors[] = $language->get('admin', 'title_max_64');
-                                break;
-                        }
-                    }
+                $errors = $validation->errors();
+                if (!$passed) {
+                    $errors[] = $language->get('admin', 'select_user_group');
                 }
             }
         } else if (Input::get('action') == 'delete') {

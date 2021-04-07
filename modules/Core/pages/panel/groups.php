@@ -30,19 +30,29 @@ if (Session::exists('admin_groups_error'))
 if (isset($_GET['action'])) {
     if ($_GET['action'] == 'new') {
         if (Input::exists()) {
+
             $errors = array();
+
             if (Token::check()) {
+
                 $validate = new Validate();
-                $validation = $validate->check($_POST, array(
-                    'groupname' => array(
-                        'required' => true,
-                        'min' => 2,
-                        'max' => 20
-                    ),
-                    'html' => array(
-                        'max' => 1024
-                    )
-                ));
+                $validation = $validate->check($_POST, [
+                    'groupname' => [
+                        Validate::REQUIRED => true,
+                        Validate::MIN => 2,
+                        Validate::MAX => 20
+                    ],
+                    'html' => [
+                        Validate::MAX => 1024
+                    ]
+                ])->messages([
+                    'groupname' => [
+                        Validate::REQUIRED => $language->get('admin', 'group_name_required'),
+                        Validate::MIN => $language->get('admin', 'group_name_minimum'),
+                        Validate::MAX => $language->get('admin', 'group_name_maximum')
+                    ],
+                    'html' => $language->get('admin', 'html_maximum')
+                ]);
 
                 if ($validation->passed()) {
                     try {
@@ -96,26 +106,7 @@ if (isset($_GET['action'])) {
                         $errors[] = $e->getMessage();
                     }
                 } else {
-                    foreach ($validation->errors() as $error) {
-                        if (strpos($error, 'is required') !== false) {
-                            $errors[] = $language->get('admin', 'group_name_required');
-                        } else if (strpos($error, 'minimum') !== false) {
-                            switch ($error) {
-                                case (strpos($error, 'groupname') !== false):
-                                    $errors[] = $language->get('admin', 'group_name_minimum') . '<br />';
-                                    break;
-                            }
-                        } else if (strpos($error, 'maximum') !== false) {
-                            switch ($error) {
-                                case (strpos($error, 'groupname') !== false):
-                                    $errors[] = $language->get('admin', 'group_name_maximum') . '<br />';
-                                    break;
-                                case (strpos($error, 'html') !== false):
-                                    $errors[] = $language->get('admin', 'html_maximum') . '<br />';
-                                    break;
-                            }
-                        }
-                    }
+                    $errors = $validation->errors();
                 }
             } else
                 $errors[] = $language->get('general', 'invalid_token');
@@ -173,17 +164,26 @@ if (isset($_GET['action'])) {
             $errors = array();
             if (Token::check()) {
                 if (Input::get('action') == 'update') {
+
                     $validate = new Validate();
-                    $validation = $validate->check($_POST, array(
-                        'groupname' => array(
-                            'required' => true,
-                            'min' => 2,
-                            'max' => 20
-                        ),
-                        'html' => array(
-                            'max' => 1024
-                        )
-                    ));
+
+                    $validation = $validate->check($_POST, [
+                        'groupname' => [
+                            Validate::REQUIRED => true,
+                            Validate::MIN => 2,
+                            Validate::MAX => 20
+                        ],
+                        'html' => [
+                            Validate::MAX => 1024
+                        ]
+                    ])->messages([
+                        'groupname' => [
+                            Validate::REQUIRED => $language->get('admin', 'group_name_required'),
+                            Validate::MIN => $language->get('admin', 'group_name_minimum'),
+                            Validate::MAX => $language->get('admin', 'group_name_maximum')
+                        ],
+                        'html' => $language->get('admin', 'html_maximum')
+                    ]);
 
                     if ($validation->passed()) {
                         try {
@@ -232,26 +232,7 @@ if (isset($_GET['action'])) {
                             $errors[] = $e->getMessage();
                         }
                     } else {
-                        foreach ($validation->errors() as $error) {
-                            if (strpos($error, 'is required') !== false) {
-                                $errors[] = $language->get('admin', 'group_name_required');
-                            } else if (strpos($error, 'minimum') !== false) {
-                                switch ($error) {
-                                    case (strpos($error, 'groupname') !== false):
-                                        $errors[] = $language->get('admin', 'group_name_minimum') . '<br />';
-                                        break;
-                                }
-                            } else if (strpos($error, 'maximum') !== false) {
-                                switch ($error) {
-                                    case (strpos($error, 'groupname') !== false):
-                                        $errors[] = $language->get('admin', 'group_name_maximum') . '<br />';
-                                        break;
-                                    case (strpos($error, 'html') !== false):
-                                        $errors[] = $language->get('admin', 'html_maximum') . '<br />';
-                                        break;
-                                }
-                            }
-                        }
+                        $errors = $validation->errors();
                     }
                 } else if (Input::get('action') == 'delete') {
                     try {

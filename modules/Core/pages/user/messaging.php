@@ -183,25 +183,33 @@ if(!isset($_GET['action'])) {
             if (Token::check()) {
                 // Validate input
                 $validate = new Validate();
-
-                $validation = $validate->check(
-                    $_POST,
-                    array(
-                        'title' => array(
-                            'required' => true,
-                            'min' => 2,
-                            'max' => 64
-                        ),
-                        'content' => array(
-                            'required' => true,
-                            'min' => 2,
-                            'max' => 20480
-                        ),
-                        'to' => array(
-                            'required' => true
-                        )
-                    )
-                );
+                $validation = $validate->check($_POST, [
+                    'title' => [
+                        Validate::REQUIRED => true,
+                        Validate::MIN => 2,
+                        Validate::MAX => 64
+                    ],
+                    'content' => [
+                        Validate::REQUIRED => true,
+                        Validate::MIN => 2,
+                        Validate::MAX => 20480
+                    ],
+                    'to' => [
+                        Validate::REQUIRED => true
+                    ]
+                ])->messages([
+                    'title' => [
+                        Validate::REQUIRED => $language->get('user', 'title_required'),
+                        Validate::MIN => $language->get('user', 'title_min_2'),
+                        Validate::MAX => $language->get('user', 'title_max_64')
+                    ],
+                    'content' => [
+                        Validate::REQUIRED => $language->get('user', 'content_required'),
+                        Validate::MIN => $language->get('user', 'content_min_2'),
+                        Validate::MAX => $language->get('user', 'content_max_20480')
+                    ],
+                    'to' => $language->get('user', 'users_to_required')
+                ]);
 
                 if ($validation->passed()) {
                     // Validation passed, validate recipients
@@ -327,33 +335,7 @@ if(!isset($_GET['action'])) {
                     }
                 } else {
                     // Errors
-                    $errors = array();
-
-                    foreach ($validation->errors() as $item) {
-                        if (strpos($item, 'is required') !== false) {
-                            if (strpos($item, 'title')) {
-                                $errors[] = $language->get('user', 'title_required');
-                            } else if (strpos($item, 'content') !== false) {
-                                $errors[] = $language->get('user', 'content_required');
-                                break;
-                            } else if (strpos($item, 'to')) {
-                                $errors[] = $language->get('user', 'users_to_required');
-                            }
-                        } else if (strpos($item, 'minimum') !== false) {
-                            if (strpos($item, 'title') !== false) {
-                                $errors[] = $language->get('user', 'title_min_2');
-                            } else if (strpos($item, 'content') !== false) {
-                                $errors[] = $language->get('user', 'content_min_2');
-                                break;
-                            }
-                        } else if (strpos($item, 'maximum') !== false) {
-                            if (strpos($item, 'title') !== false) {
-                                $errors[] = $language->get('user', 'title_max_64');
-                            } else if (strpos($item, 'content') !== false) {
-                                $errors[] = $language->get('user', 'content_max_20480');
-                            }
-                        }
-                    }
+                    $errors = $validation->errors();
 
                     $error = implode('<br />', $errors);
                 }
@@ -443,17 +425,19 @@ if(!isset($_GET['action'])) {
                 // Valid token
                 // Validate input
                 $validate = new Validate();
-
-                $validation = $validate->check(
-                    $_POST,
-                    array(
-                        'content' => array(
-                            'required' => true,
-                            'min' => 2,
-                            'max' => 20480
-                        )
-                    )
-                );
+                $validation = $validate->check($_POST, [
+                    'content' => [
+                        Validate::REQUIRED => true,
+                        Validate::MIN => 2,
+                        Validate::MAX => 20480
+                    ]
+                ])->messages([
+                    'content' => [
+                        Validate::REQUIRED => $language->get('user', 'content_required'),
+                        Validate::MIN => $language->get('user', 'content_min_2'),
+                        Validate::MAX => $language->get('user', 'content_max_20480')
+                    ]
+                ]);
 
                 if ($validation->passed()) {
                     // Parse markdown
@@ -509,15 +493,8 @@ if(!isset($_GET['action'])) {
 
                 } else {
                     // Errors
-                    foreach ($validation->errors() as $item) {
-                        if (strpos($item, 'is required') !== false) {
-                            $error = $language->get('user', 'content_required');
-                        } else if (strpos($item, 'minimum') !== false) {
-                            $error = $language->get('user', 'content_min_2');
-                        } else if (strpos($item, 'maximum') !== false) {
-                            $error = $language->get('user', 'content_max_20480');
-                        }
-                    }
+                    $errors = $validation->errors();
+                    $error = implode('<br />', $errors);
                 }
 
             } else {

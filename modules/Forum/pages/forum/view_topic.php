@@ -251,163 +251,167 @@ if (Input::exists()) {
     }
     if (Token::check()) {
         $validate = new Validate();
-        $validation = $validate->check($_POST, array(
-            'content' => array(
-                'required' => true,
-                'min' => 2,
-                'max' => 50000
-            )
-        ));
-        if ($validation->passed()) {
 
-            $cache->setCache('post_formatting');
-            $formatting = $cache->retrieve('formatting');
+        $validate->check($_POST, [
+            'content' => [
+                Validate::REQUIRED => true,
+                Validate::MIN => 2,
+                Validate::MAX => 50000
+            ]
+        ])->messages([
+            'content' => [
+                Validate::REQUIRED => $forum_language->get('forum', 'content_required'),
+                Validate::MIN => $forum_language->get('forum', 'content_min_2'),
+                Validate::MAX => $forum_language->get('forum', 'content_max_50000')
+            ]
+        ]);
 
-            if ($formatting == 'markdown') {
-                $content = Michelf\Markdown::defaultTransform(Input::get('content'));
-                $content = Output::getClean($content);
-            } else $content = Output::getClean(Input::get('content'));
+        if ($validate->passed()) {
+            try {
+                $cache->setCache('post_formatting');
+                $formatting = $cache->retrieve('formatting');
 
-            $queries->create("posts", array(
-                'forum_id' => $topic->forum_id,
-                'topic_id' => $tid,
-                'post_creator' => $user->data()->id,
-                'post_content' => $content,
-                'post_date' => date('Y-m-d H:i:s'),
-                'created' => date('U')
-            ));
+                if ($formatting == 'markdown') {
+                    $content = Michelf\Markdown::defaultTransform(Input::get('content'));
+                    $content = Output::getClean($content);
+                } else $content = Output::getClean(Input::get('content'));
 
-            // Get last post ID
-            $last_post_id = $queries->getLastId();
-            $content = $mentionsParser->parse($user->data()->id, $content, URL::build('/forum/topic/' . $tid, 'pid=' . $last_post_id), array('path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag'), array('path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag_info', 'replace' => '{x}', 'replace_with' => Output::getClean($user->data()->nickname)));
+                $queries->create("posts", array(
+                    'forum_id' => $topic->forum_id,
+                    'topic_id' => $tid,
+                    'post_creator' => $user->data()->id,
+                    'post_content' => $content,
+                    'post_date' => date('Y-m-d H:i:s'),
+                    'created' => date('U')
+                ));
 
-            $queries->update("posts", $last_post_id, array(
-                'post_content' => $content
-            ));
+                // Get last post ID
+                $last_post_id = $queries->getLastId();
+                $content = $mentionsParser->parse($user->data()->id, $content, URL::build('/forum/topic/' . $tid, 'pid=' . $last_post_id), array('path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag'), array('path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag_info', 'replace' => '{x}', 'replace_with' => Output::getClean($user->data()->nickname)));
 
-            $queries->update("forums", $topic->forum_id, array(
-                'last_topic_posted' => $tid,
-                'last_user_posted' => $user->data()->id,
-                'last_post_date' => date('U')
-            ));
-            $queries->update("topics", $tid, array(
-                'topic_last_user' => $user->data()->id,
-                'topic_reply_date' => date('U')
-            ));
+                $queries->update("posts", $last_post_id, array(
+                    'post_content' => $content
+                ));
 
-            // Alerts + Emails
-            $users_following = $queries->getWhere('topics_following', array('topic_id', '=', $tid));
-            if (count($users_following)) {
-                $users_following_info = array();
-                foreach ($users_following as $user_following) {
-                    if ($user_following->user_id != $user->data()->id) {
-                        if ($user_following->existing_alerts == 0) {
-                            Alert::create(
-                                $user_following->user_id,
-                                'new_reply',
-                                array('path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'new_reply_in_topic', 'replace' => array('{x}', '{y}'), 'replace_with' => array(Output::getClean($user->data()->nickname), Output::getClean($topic->topic_title))),
-                                array('path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'new_reply_in_topic', 'replace' => array('{x}', '{y}'), 'replace_with' => array(Output::getClean($user->data()->nickname), Output::getClean($topic->topic_title))),
-                                URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id)
-                            );
-                            $queries->update('topics_following', $user_following->id, array(
-                                'existing_alerts' => 1
-                            ));
+                $queries->update("forums", $topic->forum_id, array(
+                    'last_topic_posted' => $tid,
+                    'last_user_posted' => $user->data()->id,
+                    'last_post_date' => date('U')
+                ));
+                $queries->update("topics", $tid, array(
+                    'topic_last_user' => $user->data()->id,
+                    'topic_reply_date' => date('U')
+                ));
+
+                // Alerts + Emails
+                $users_following = $queries->getWhere('topics_following', array('topic_id', '=', $tid));
+                if (count($users_following)) {
+                    $users_following_info = array();
+                    foreach ($users_following as $user_following) {
+                        if ($user_following->user_id != $user->data()->id) {
+                            if ($user_following->existing_alerts == 0) {
+                                Alert::create(
+                                    $user_following->user_id,
+                                    'new_reply',
+                                    array('path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'new_reply_in_topic', 'replace' => array('{x}', '{y}'), 'replace_with' => array(Output::getClean($user->data()->nickname), Output::getClean($topic->topic_title))),
+                                    array('path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'new_reply_in_topic', 'replace' => array('{x}', '{y}'), 'replace_with' => array(Output::getClean($user->data()->nickname), Output::getClean($topic->topic_title))),
+                                    URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id)
+                                );
+                                $queries->update('topics_following', $user_following->id, array(
+                                    'existing_alerts' => 1
+                                ));
+                            }
+                            $user_info = $queries->getWhere('users', array('id', '=', $user_following->user_id));
+                            if ($user_info[0]->topic_updates) array_push($users_following_info, ['email' => $user_info[0]->email, 'username' => $user_info[0]->username]);
                         }
-                        $user_info = $queries->getWhere('users', array('id', '=', $user_following->user_id));
-                        if ($user_info[0]->topic_updates) array_push($users_following_info, ['email' => $user_info[0]->email, 'username' => $user_info[0]->username]);
+                    }
+                    $path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'custom', 'templates', TEMPLATE, 'email', 'forum_topic_reply.html'));
+                    $html = file_get_contents($path);
+
+                    // TODO: Add placeholder support for Email::formatEmail()
+                    $message = str_replace(
+                        array('[Sitename]', '[TopicReply]', '[Greeting]', '[Message]', '[Link]', '[Thanks]'),
+                        array(
+                            SITE_NAME,
+                            str_replace(array('{x}', '{y}'), array($user->data()->username, $topic->topic_title), $language->get('emails', 'forum_topic_reply_subject')),
+                            $language->get('emails', 'greeting'),
+                            str_replace(array('{x}', '{z}'), array($user->data()->username, html_entity_decode($content)), $language->get('emails', 'forum_topic_reply_message')),
+                            rtrim(Util::getSelfURL(), '/') . URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id),
+                            $language->get('emails', 'thanks')
+                        ),
+                        $html
+                    );
+                    $subject = SITE_NAME . ' - ' . str_replace(array('{x}', '{y}'), array($user->data()->username, $topic->topic_title), $language->get('emails', 'forum_topic_reply_subject'));
+                    $siteemail = $queries->getWhere('settings', array('name', '=', 'outgoing_email'));
+                    $siteemail = $siteemail[0]->value;
+                    $contactemail = $queries->getWhere('settings', array('name', '=', 'incoming_email'));
+                    $contactemail = $contactemail[0]->value;
+                    try {
+                        $php_mailer = $queries->getWhere('settings', array('name', '=', 'phpmailer'));
+                        $php_mailer = $php_mailer[0]->value;
+                        if ($php_mailer == '1') {
+                            foreach ($users_following_info as $user_info) {
+                                // PHP Mailer
+                                $email = array(
+                                    'replyto' => array('email' => $contactemail, 'name' => Output::getClean(SITE_NAME)),
+                                    'to' => array('email' => Output::getClean($user_info['email']), 'name' => Output::getClean($user_info['username'])),
+                                    'subject' => $subject,
+                                    'message' => $message
+                                );
+                                $sent = Email::send($email, 'mailer');
+
+                                if (isset($sent['error'])) {
+                                    // Error, log it
+                                    $queries->create('email_errors', array(
+                                        'type' => 5, // 5 = forum topic reply
+                                        'content' => $sent['error'],
+                                        'at' => date('U'),
+                                        'user_id' => ($user->isLoggedIn() ? $user->data()->id : null)
+                                    ));
+                                }
+                            }
+                        } else {
+                            foreach ($users_following_info as $user_info) {
+                                // PHP mail function
+                                $headers = 'From: ' . $siteemail . "\r\n" .
+                                    'Reply-To: ' . $contactemail . "\r\n" .
+                                    'X-Mailer: PHP/' . phpversion() . "\r\n" .
+                                    'MIME-Version: 1.0' . "\r\n" .
+                                    'Content-type: text/html; charset=UTF-8' . "\r\n";
+
+                                $email = array(
+                                    'to' => $user_info['email'],
+                                    'subject' => $subject,
+                                    'message' => $message,
+                                    'headers' => $headers
+                                );
+
+                                $sent = Email::send($email, 'php');
+
+                                if (isset($sent['error'])) {
+                                    // Error, log it
+                                    $queries->create('email_errors', array(
+                                        'type' => 5, // 5 = forum topic reply
+                                        'content' => $sent['error'],
+                                        'at' => date('U'),
+                                        'user_id' => ($user->isLoggedIn() ? $user->data()->id : null)
+                                    ));
+                                }
+                            }
+                        }
+                    } catch (Exception $e) {
+                        // Error
+                        $error = $e->getMessage();
                     }
                 }
-                $path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'custom', 'templates', TEMPLATE, 'email', 'forum_topic_reply.html'));
-                $html = file_get_contents($path);
-
-                // TODO: Add placeholder support for Email::formatEmail()
-                $message = str_replace(
-                    array('[Sitename]', '[TopicReply]', '[Greeting]', '[Message]', '[Link]', '[Thanks]'),
-                    array(
-                        SITE_NAME,
-                        str_replace(array('{x}', '{y}'), array($user->data()->username, $topic->topic_title), $language->get('emails', 'forum_topic_reply_subject')),
-                        $language->get('emails', 'greeting'),
-                        str_replace(array('{x}', '{z}'), array($user->data()->username, html_entity_decode($content)), $language->get('emails', 'forum_topic_reply_message')),
-                        rtrim(Util::getSelfURL(), '/') . URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id),
-                        $language->get('emails', 'thanks')
-                    ),
-                    $html
-                );
-                
-                $subject = SITE_NAME . ' - ' . str_replace(array('{x}', '{y}'), array($user->data()->username, $topic->topic_title), $language->get('emails', 'forum_topic_reply_subject'));
-                $siteemail = $queries->getWhere('settings', array('name', '=', 'outgoing_email'));
-                $siteemail = $siteemail[0]->value;
-                $contactemail = $queries->getWhere('settings', array('name', '=', 'incoming_email'));
-                $contactemail = $contactemail[0]->value;
-                $php_mailer = $queries->getWhere('settings', array('name', '=', 'phpmailer'));
-                $php_mailer = $php_mailer[0]->value;
-
-                if ($php_mailer == '1') {
-                    foreach ($users_following_info as $user_info) {
-                        // PHP Mailer
-                        $email = array(
-                            'replyto' => array('email' => $contactemail, 'name' => Output::getClean(SITE_NAME)),
-                            'to' => array('email' => Output::getClean($user_info['email']), 'name' => Output::getClean($user_info['username'])),
-                            'subject' => $subject,
-                            'message' => $message
-                        );
-                        $sent = Email::send($email, 'mailer');
-
-                        if (isset($sent['error'])) {
-                            // Error, log it
-                            $queries->create('email_errors', array(
-                                'type' => 5, // 5 = forum topic reply
-                                'content' => $sent['error'],
-                                'at' => date('U'),
-                                'user_id' => ($user->isLoggedIn() ? $user->data()->id : null)
-                            ));
-                        }
-                    }
-                } else {
-                    foreach ($users_following_info as $user_info) {
-                        // PHP mail function
-                        $headers = 'From: ' . $siteemail . "\r\n" .
-                            'Reply-To: ' . $contactemail . "\r\n" .
-                            'X-Mailer: PHP/' . phpversion() . "\r\n" .
-                            'MIME-Version: 1.0' . "\r\n" .
-                            'Content-type: text/html; charset=UTF-8' . "\r\n";
-
-                        $email = array(
-                            'to' => $user_info['email'],
-                            'subject' => $subject,
-                            'message' => $message,
-                            'headers' => $headers
-                        );
-
-                        $sent = Email::send($email, 'php');
-
-                        if (isset($sent['error'])) {
-                            // Error, log it
-                            $queries->create('email_errors', array(
-                                'type' => 5, // 5 = forum topic reply
-                                'content' => $sent['error'],
-                                'at' => date('U'),
-                                'user_id' => ($user->isLoggedIn() ? $user->data()->id : null)
-                            ));
-                        }
-                    }
-                }
+                Session::flash('success_post', $forum_language->get('forum', 'post_successful'));
+                Redirect::to(URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id));
+                die();
+            } catch (Exception $e) {
+                die($e->getMessage());
             }
-            Session::flash('success_post', $forum_language->get('forum', 'post_successful'));
-            Redirect::to(URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id));
-            die();
-
         } else {
-            $error = array();
-            foreach ($validation->errors() as $item) {
-                if (strpos($item, 'is required') !== false) {
-                    $error[] = $forum_language->get('forum', 'content_required');
-                } else if (strpos($item, 'minimum') !== false) {
-                    $error[] = $forum_language->get('forum', 'content_min_2');
-                } else if (strpos($item, 'maximum') !== false) {
-                    $error[] = $forum_language->get('forum', 'content_max_50000');
-                }
-            }
+            $error = $validate->errors();
         }
     } else {
         $error = array($language->get('general', 'invalid_token'));

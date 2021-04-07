@@ -28,27 +28,45 @@ if(isset($_GET['action'])){
                 if(Token::check()){
                     // Validate input
                     $validate = new Validate();
-                    $validation = $validate->check($_POST, array(
-                        'server_name' => array(
-                            'required' => true,
-                            'min' => 1,
-                            'max' => 20
-                        ),
-                        'server_address' => array(
-                            'required' => true,
-                            'min' => 1,
-                            'max' => 64
-                        ),
-                        'server_port' => array(
-                            'max' => 5
-                        ),
-                        'parent_server' => array(
-                            'required' => true
-                        ),
-                        'query_port' => array(
-                            'max' => 5
-                        )
-                    ));
+                    $validation = $validate->check($_POST, [
+                        'server_name' => [
+                            Validate::REQUIRED => true,
+                            Validate::MIN => 1,
+                            Validate::MAX => 20
+                        ],
+                        'server_address' => [
+                            Validate::REQUIRED => true,
+                            Validate::MIN => 1,
+                            Validate::MAX => 64
+                        ],
+                        'server_port' => [
+                            Validate::MAX => 5
+                        ],
+                        'parent_server' => [
+                            Validate::REQUIRED => true,
+                        ],
+                        'query_port' => [
+                            Validate::MAX => 5
+                        ]
+                    ])->messages([
+                        'server_name' => [
+                            Validate::REQUIRED => $language->get('admin', 'server_name_required'),
+                            Validate::MIN => $language->get('admin', 'server_name_minimum'),
+                            Validate::MAX => $language->get('admin', 'server_name_maximum')
+                        ],
+                        'server_address' => [
+                            Validate::REQUIRED => $language->get('admin', 'server_address_required'),
+                            Validate::MIN => $language->get('admin', 'server_address_minimum'),
+                            Validate::MAX => $language->get('admin', 'server_address_maximum')
+                        ],
+                        'server_port' => [
+                            Validate::REQUIRED => $language->get('admin', 'server_port_required'),
+                            Validate::MIN => $language->get('admin', 'server_port_minimum'),
+                            Validate::MAX => $language->get('admin', 'server_port_maximum')
+                        ],
+                        'parent_server' => $language->get('admin', 'server_parent_required'),
+                        'query_port' => $language->get('admin', 'query_port_maximum')
+                    ]);
 
                     if($validation->passed()){
                         // Handle input
@@ -133,51 +151,7 @@ if(isset($_GET['action'])){
                         }
                     } else {
                         // Validation failed
-                        foreach($validation->errors() as $item){
-                            if(strpos($item, 'is required') !== false){
-                                switch($item){
-                                    case (strpos($item, 'server_name') !== false):
-                                        $errors[] = $language->get('admin', 'server_name_required');
-                                        break;
-                                    case (strpos($item, 'server_address') !== false):
-                                        $errors[] = $language->get('admin', 'server_address_required');
-                                        break;
-                                    case (strpos($item, 'server_port') !== false):
-                                        $errors[] = $language->get('admin', 'server_port_required');
-                                        break;
-                                    case (strpos($item, 'parent_server') !== false):
-                                        $errors[] = $language->get('admin', 'server_parent_required');
-                                        break;
-                                }
-                            } else if(strpos($item, 'minimum') !== false){
-                                switch($item){
-                                    case (strpos($item, 'server_name') !== false):
-                                        $errors[] = $language->get('admin', 'server_name_minimum');
-                                        break;
-                                    case (strpos($item, 'server_address') !== false):
-                                        $errors[] = $language->get('admin', 'server_address_minimum');
-                                        break;
-                                    case (strpos($item, 'server_port') !== false):
-                                        $errors[] = $language->get('admin', 'server_port_minimum');
-                                        break;
-                                }
-                            } else if(strpos($item, 'maximum') !== false){
-                                switch($item){
-                                    case (strpos($item, 'server_name') !== false):
-                                        $errors[] = $language->get('admin', 'server_name_maximum');
-                                        break;
-                                    case (strpos($item, 'server_address') !== false):
-                                        $errors[] = $language->get('admin', 'server_address_maximum');
-                                        break;
-                                    case (strpos($item, 'server_port') !== false):
-                                        $errors[] = $language->get('admin', 'server_port_maximum');
-                                        break;
-                                    case (strpos($item, 'query_port') !== false):
-                                        $errors[] = $language->get('admin', 'query_port_maximum');
-                                        break;
-                                }
-                            }
-                        }
+                        $errors = $validation->errors();
                     }
 
                 } else
@@ -256,27 +230,45 @@ if(isset($_GET['action'])){
                 if(Token::check()){
                     // Validate input
                     $validate = new Validate();
-                    $validation = $validate->check($_POST, array(
-                        'server_name' => array(
-                            'required' => true,
-                            'min' => 1,
-                            'max' => 20
-                        ),
-                        'server_address' => array(
-                            'required' => true,
-                            'min' => 1,
-                            'max' => 64
-                        ),
-                        'server_port' => array(
-                            'max' => 5
-                        ),
-                        'parent_server' => array(
-                            'required' => true
-                        ),
-                        'query_port' => array(
-                            'max' => 5
-                        )
-                    ));
+                    $validation = $validate->check($_POST, [
+                        'server_name' => [
+                            Validate::REQUIRED => true,
+                            Validate::MIN => 1,
+                            Validate::MAX => 20
+                        ],
+                        'server_address' => [
+                            Validate::REQUIRED => true,
+                            Validate::MIN => 1,
+                            Validate::MAX => 64
+                        ],
+                        'server_port' => [
+                            Validate::MAX => 5
+                        ],
+                        'parent_server' => [
+                            Validate::REQUIRED => true,
+                        ],
+                        'query_port' => [
+                            Validate::MAX => 5
+                        ]
+                    ])->messages([
+                        'server_name' => [
+                            Validate::REQUIRED => $language->get('admin', 'server_name_required'),
+                            Validate::MIN => $language->get('admin', 'server_name_minimum'),
+                            Validate::MAX => $language->get('admin', 'server_name_maximum')
+                        ],
+                        'server_address' => [
+                            Validate::REQUIRED => $language->get('admin', 'server_address_required'),
+                            Validate::MIN => $language->get('admin', 'server_address_minimum'),
+                            Validate::MAX => $language->get('admin', 'server_address_maximum')
+                        ],
+                        'server_port' => [
+                            Validate::REQUIRED => $language->get('admin', 'server_port_required'),
+                            Validate::MIN => $language->get('admin', 'server_port_minimum'),
+                            Validate::MAX => $language->get('admin', 'server_port_maximum')
+                        ],
+                        'parent_server' => $language->get('admin', 'server_parent_required'),
+                        'query_port' => $language->get('admin', 'query_port_maximum')
+                    ]);
 
                     if($validation->passed()){
                         // Handle input
@@ -356,52 +348,7 @@ if(isset($_GET['action'])){
                         }
                     } else {
                         // Validation failed
-                        $errors = array();
-                        foreach($validation->errors() as $item){
-                            if(strpos($item, 'is required') !== false){
-                                switch($item){
-                                    case (strpos($item, 'server_name') !== false):
-                                        $errors[] = $language->get('admin', 'server_name_required');
-                                        break;
-                                    case (strpos($item, 'server_address') !== false):
-                                        $errors[] = $language->get('admin', 'server_address_required');
-                                        break;
-                                    case (strpos($item, 'server_port') !== false):
-                                        $errors[] = $language->get('admin', 'server_port_required');
-                                        break;
-                                    case (strpos($item, 'parent_server') !== false):
-                                        $errors[] = $language->get('admin', 'server_parent_required');
-                                        break;
-                                }
-                            } else if(strpos($item, 'minimum') !== false){
-                                switch($item){
-                                    case (strpos($item, 'server_name') !== false):
-                                        $errors[] = $language->get('admin', 'server_name_minimum');
-                                        break;
-                                    case (strpos($item, 'server_address') !== false):
-                                        $errors[] = $language->get('admin', 'server_address_minimum');
-                                        break;
-                                    case (strpos($item, 'server_port') !== false):
-                                        $errors[] = $language->get('admin', 'server_port_minimum');
-                                        break;
-                                }
-                            } else if(strpos($item, 'maximum') !== false){
-                                switch($item){
-                                    case (strpos($item, 'server_name') !== false):
-                                        $errors[] = $language->get('admin', 'server_name_maximum');
-                                        break;
-                                    case (strpos($item, 'server_address') !== false):
-                                        $errors[] = $language->get('admin', 'server_address_maximum');
-                                        break;
-                                    case (strpos($item, 'server_port') !== false):
-                                        $errors[] = $language->get('admin', 'server_port_maximum');
-                                        break;
-                                    case (strpos($item, 'query_port') !== false):
-                                        $errors[] = $language->get('admin', 'query_port_maximum');
-                                        break;
-                                }
-                            }
-                        }
+                        $errors = $validation->errors();
                     }
 
                 } else
