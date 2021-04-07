@@ -169,7 +169,7 @@ if(Input::exists()){
                     Redirect::to(URL::build('/'));
                     die();
 
-                } catch(Exception $e){
+                } catch (Exception $e) {
                     $errors[] = $e->getMessage();
                 }
 

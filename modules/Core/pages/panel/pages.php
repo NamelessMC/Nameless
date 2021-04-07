@@ -174,7 +174,7 @@ if(!isset($_GET['action'])){
                             Redirect::to(URL::build('/panel/core/pages'));
                             die();
 
-                        } catch(Exception $e){
+                        } catch (Exception $e) {
                             $errors[] = $e->getMessage();
                         }
 
@@ -413,7 +413,7 @@ if(!isset($_GET['action'])){
                                     ));
                                 }
 
-                            } catch(Exception $e) {
+                            } catch (Exception $e) {
                                 $errors[] = $e->getMessage();
                             }
 
@@ -450,7 +450,7 @@ if(!isset($_GET['action'])){
                                         ));
                                     }
 
-                                } catch(Exception $e) {
+                                } catch (Exception $e) {
                                     $errors[] = $e->getMessage();
                                 }
                             }
@@ -459,7 +459,7 @@ if(!isset($_GET['action'])){
                             Redirect::to(URL::build('/panel/core/pages'));
                             die();
 
-                        } catch(Exception $e){
+                        } catch (Exception $e) {
                             $errors[] = $e->getMessage();
                         }
 
@@ -536,13 +536,9 @@ if(!isset($_GET['action'])){
 
         case 'delete':
             if(isset($_GET['id']) && is_numeric($_GET['id'])){
-                try {
-                    $queries->delete('custom_pages', array('id', '=', $_GET['id']));
-                    $queries->delete('custom_pages_permissions', array('page_id', '=', $_GET['id']));
-
-                } catch(Exception $e){
-                    die($e->getMessage());
-                }
+                    
+                $queries->delete('custom_pages', array('id', '=', $_GET['id']));
+                $queries->delete('custom_pages_permissions', array('page_id', '=', $_GET['id']));
 
                 Session::flash('admin_pages', $language->get('admin', 'page_deleted_successfully'));
                 Redirect::to(URL::build('/panel/core/pages'));

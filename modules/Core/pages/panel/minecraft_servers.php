@@ -146,7 +146,7 @@ if(isset($_GET['action'])){
                             Redirect::to(URL::build('/panel/minecraft/servers'));
                             die();
 
-                        } catch(Exception $e){
+                        } catch (Exception $e) {
                             $errors = array($e->getMessage());
                         }
                     } else {
@@ -343,7 +343,7 @@ if(isset($_GET['action'])){
                             Redirect::to(URL::build('/panel/minecraft/servers/', 'action=edit&id=' . Output::getClean($server_editing->id)));
                             die();
 
-                        } catch(Exception $e){
+                        } catch (Exception $e) {
                             $errors = array($e->getMessage());
                         }
                     } else {
@@ -520,7 +520,7 @@ if(isset($_GET['action'])){
 
                 $success = $language->get('admin', 'minecraft_settings_updated_successfully');
 
-            } catch(Exception $e){
+            } catch (Exception $e) {
                 // Error
                 $errors[] = $e->getMessage();
             }

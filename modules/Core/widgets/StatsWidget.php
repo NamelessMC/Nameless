@@ -86,7 +86,7 @@ class StatsWidget extends WidgetBase {
                 $online_guests = DB::getInstance()->query('SELECT count(*) FROM nl2_online_guests WHERE last_seen > ?', array(strtotime('-5 minutes')))->first();
                 $online_guests = $online_guests->{'count(*)'};
                 $this->_cache->store('online_guests', $online_guests, 60);
-            } catch(Exception $e){
+            } catch (Exception $e) {
                 // Upgrade script hasn't been run
                 $online_guests = 0;
             }

@@ -11,21 +11,23 @@
 
 // Nameless error handling
 require_once(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'core', 'classes', 'ErrorHandler.php')));
-set_error_handler("ErrorHandler::catchError");
-register_shutdown_function("ErrorHandler::catchFatalError");
+set_exception_handler([ErrorHandler::class, 'catchException']);
+// catchError() used for throw_error or any exceptions which may be missed by catchException()
+set_error_handler([ErrorHandler::class, 'catchError']);
+register_shutdown_function([ErrorHandler::class, 'catchShutdownError']);
 
 session_start();
 
 // Page variable must be set
 if (!isset($page)) {
-    die();
+    die('$page variable is unset. Cannot continue.');
 }
 
 if (!file_exists(ROOT_PATH . '/core/config.php')) {
     if (is_writable(ROOT_PATH . '/core')) {
         fopen(ROOT_PATH . '/core/config.php', 'w');
     } else {
-        die('Your <strong>core</strong> directory is not writable, please check your file permissions.');
+        die('Your <strong>/core</strong> directory is not writable, please check your file permissions.');
     }
 }
 
@@ -33,27 +35,30 @@ if (!file_exists(ROOT_PATH . '/cache/templates_c')) {
     try {
         mkdir(ROOT_PATH . '/cache/templates_c', 0777, true);
     } catch (Exception $e) {
-        die('Unable to create /cache directories, please check your file permissions.');
+        die('Unable to create <strong>/cache</strong> directories, please check your file permissions.');
     }
 }
 
 // Require config
 require(ROOT_PATH . '/core/config.php');
 
-if (isset($conf) && is_array($conf))
+if (isset($conf) && is_array($conf)) {
     $GLOBALS['config'] = $conf;
-else if (!isset($GLOBALS['config']))
+} else if (!isset($GLOBALS['config'])) {
     $page = 'install';
+}
 
 /*
  *  Autoload classes
  */
-require_once ROOT_PATH . '/core/includes/smarty/Smarty.class.php'; // Smarty
+require_once ROOT_PATH . '/core/includes/smarty/Smarty.class.php';
 
-// Normal autoloader
+// Any errors thrown now will not be caught by the error handler, as they require some classes be preloaded
 spl_autoload_register(function ($class) {
     $path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'core', 'classes', $class . '.php'));
-    if (file_exists($path)) require_once($path);
+    if (file_exists($path)) {
+        require_once($path);
+    }
 });
 
 // If we're accessing the upgrade script don't initialise further
@@ -65,7 +70,7 @@ if (isset($_GET['route']) && rtrim($_GET['route'], '/') == '/panel/upgrade') {
 
 if ($page != 'install') {
     /*
-     *  Initialise
+     * Initialise
      */
 
     // Friendly URLs?
@@ -113,8 +118,9 @@ if ($page != 'install') {
 
             define('FORCE_SSL', true);
         }
-    } else
+    } else {
         $cache->store('force_https', false);
+    }
 
     if (!defined('FORCE_SSL')) {
         if (defined('FORCE_WWW') && strpos($_SERVER['HTTP_HOST'], 'www.') === false) {
@@ -123,6 +129,7 @@ if ($page != 'install') {
             } else {
                 header('Location: https://www.' . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
             }
+
             die();
         }
     }
@@ -157,9 +164,9 @@ if ($page != 'install') {
             ini_set('display_errors', 0);
         }
     }
-	
-	// Configurations
-	$configuration = new Configuration($cache);
+
+    // Configurations
+    $configuration = new Configuration($cache);
 
     // Get the Nameless version
     $nameless_version = $queries->getWhere('settings', array('name', '=', 'nameless_version'));
@@ -192,7 +199,10 @@ if ($page != 'install') {
 
     // Check if we're in a subdirectory
     if (isset($directories)) {
-        if (empty($directories[0])) unset($directories[0]);
+        if (empty($directories[0])) {
+            unset($directories[0]);
+        }
+
         $directories = array_values($directories);
 
         $config_path = Config::get('core/path');
@@ -208,29 +218,30 @@ if ($page != 'install') {
 
             $directories = array_values($directories);
         }
+
         $directory = implode('/', $directories);
 
         $directory = '/' . $directory;
 
         // Remove the trailing /
-        if (strlen($directory) > 1) $directory = rtrim($directory, '/');
+        if (strlen($directory) > 1) {
+            $directory = rtrim($directory, '/');
+        }
     }
 
     // Set timezone
-    try {
-        if ($user->isLoggedIn()) {
-            define('TIMEZONE', $user->data()->timezone);
+    if ($user->isLoggedIn()) {
+        define('TIMEZONE', $user->data()->timezone);
+    } else {
+        $cache->setCache('timezone_cache');
+        if ($cache->isCached('timezone')) {
+            define('TIMEZONE', $cache->retrieve('timezone'));
         } else {
-            $cache->setCache('timezone_cache');
-            if ($cache->isCached('timezone')) {
-                define('TIMEZONE', $cache->retrieve('timezone'));
-            } else define('TIMEZONE', 'Europe/London');
+            define('TIMEZONE', 'Europe/London');
         }
-
-        date_default_timezone_set(TIMEZONE);
-    } catch (Exception $e) {
-        die('Unable to set timezone: ' . $e->getMessage());
     }
+
+    date_default_timezone_set(TIMEZONE);
 
     // Language
     if (!$user->isLoggedIn() || !($user->data()->language_id)) {
@@ -466,7 +477,7 @@ if ($page != 'install') {
         ));
         $cache->store('module_core', true);
     }
-    $enabled_modules = $cache->retrieve('enabled_modules');
+    $enabled_modules = (array) $cache->retrieve('enabled_modules');
 
     foreach ($enabled_modules as $module) {
         if ($module['name'] == 'Core') {
@@ -490,8 +501,9 @@ if ($page != 'install') {
     });
 
     foreach ($enabled_modules as $module) {
-        if (file_exists(ROOT_PATH . '/modules/' . $module['name'] . '/init.php'))
+        if (file_exists(ROOT_PATH . '/modules/' . $module['name'] . '/init.php')) {
             require(ROOT_PATH . '/modules/' . $module['name'] . '/init.php');
+        }
     }
 
     // Get IP
@@ -628,3 +640,4 @@ if ($page != 'install') {
         unset($_SESSION['password']);
     }
 }
+

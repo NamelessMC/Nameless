@@ -94,7 +94,7 @@ $language = array(
     'password' => 'パスワード',
     'confirm_password' => 'パスワード再入力',
     'i_agree' => '同意します',
-    'agree_t_and_c' => '<strong class="label label-primary">登録</strong> をクリックすると、 <a href="{x}" target="_blank">利用規約</a> に同意したことになります。',
+    'agree_t_and_c' => 'I have read and accept the <a href="{x}" target="_blank">Terms and Conditions</a>.',
     'create_an_account' => 'アカウント作成',
     'terms_and_conditions' => '利用規約',
     'validation_complete' => 'アカウントが登録されました。ログインが可能です。',
@@ -193,7 +193,7 @@ $language = array(
     'no_about_fields' => 'フィールドの内容を追加していません。',
     'reply' => 'Reply',
     'discord_username' => 'Discord Username',
-    
+
     // Reports
     'invalid_report_content' => 'レポートを作成できません。 レポートの理由が 2~1024 文字であることを確認してください。',
     'report_post_content' => 'レポートの理由を入力してください。',

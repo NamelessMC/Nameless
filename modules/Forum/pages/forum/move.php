@@ -49,28 +49,26 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
 
             $posts_to_move = $queries->getWhere('posts', array('topic_id', '=', $topic_id));
             if ($validation->passed()) {
-                try {
-                    $queries->update('topics', $topic->id, array(
+
+                $queries->update('topics', $topic->id, array(
+                    'forum_id' => Input::get('forum')
+                ));
+                foreach ($posts_to_move as $post_to_move) {
+                    $queries->update('posts', $post_to_move->id, array(
                         'forum_id' => Input::get('forum')
                     ));
-                    foreach ($posts_to_move as $post_to_move) {
-                        $queries->update('posts', $post_to_move->id, array(
-                            'forum_id' => Input::get('forum')
-                        ));
-                    }
-
-                    //TODO: Topic name & and Forums name
-                    Log::getInstance()->log(Log::Action('forums/move'), Output::getClean($topic_id) . ' => ' . Output::getClean(Input::get('forum')));
-
-                    // Update latest posts in categories
-                    $forum->updateForumLatestPosts();
-                    $forum->updateTopicLatestPosts();
-
-                    Redirect::to(URL::build('/forum/topic/' . $topic_id));
-                    die();
-                } catch (Exception $e) {
-                    die($e->getMessage());
                 }
+
+                //TODO: Topic name & and Forums name
+                Log::getInstance()->log(Log::Action('forums/move'), Output::getClean($topic_id) . ' => ' . Output::getClean(Input::get('forum')));
+
+                // Update latest posts in categories
+                $forum->updateForumLatestPosts();
+                $forum->updateTopicLatestPosts();
+
+                Redirect::to(URL::build('/forum/topic/' . $topic_id));
+                die();
+
             } else {
                 echo 'Error processing that action. <a href="' . URL::build('/forum') . '">Forum index</a>';
                 die();

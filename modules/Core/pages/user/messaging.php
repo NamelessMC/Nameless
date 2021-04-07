@@ -258,80 +258,75 @@ if(!isset($_GET['action'])) {
                         $users = array_unique($users);
 
                         if (!isset($max_users)) {
-                            try {
-                                // Input the content
-                                $queries->create(
-                                    'private_messages',
-                                    array(
-                                        'author_id' => $user->data()->id,
-                                        'title' => Output::getClean(Input::get('title')),
-                                        'created' => date('U'),
-                                        'last_reply_user' => $user->data()->id,
-                                        'last_reply_date' => date('U')
-                                    )
-                                );
 
-                                // Get the PM ID
-                                $last_id = $queries->getLastId();
+                            // Input the content
+                            $queries->create(
+                                'private_messages',
+                                array(
+                                    'author_id' => $user->data()->id,
+                                    'title' => Output::getClean(Input::get('title')),
+                                    'created' => date('U'),
+                                    'last_reply_user' => $user->data()->id,
+                                    'last_reply_date' => date('U')
+                                )
+                            );
 
-                                // Parse markdown
-                                $cache->setCache('post_formatting');
-                                $formatting = $cache->retrieve('formatting');
+                            // Get the PM ID
+                            $last_id = $queries->getLastId();
 
-                                if ($formatting == 'markdown'){
-                                    $content = Michelf\Markdown::defaultTransform(Input::get('content'));
-                                    $content = Output::getClean($content);
-                                } else {
-                                    $content = Output::getClean(Input::get('content'));
-                                }
+                            // Parse markdown
+                            $cache->setCache('post_formatting');
+                            $formatting = $cache->retrieve('formatting');
 
-                                // Insert post content into database
-                                $queries->create(
-                                    'private_messages_replies',
-                                    array(
-                                        'pm_id' => $last_id,
-                                        'author_id' => $user->data()->id,
-                                        'created' => date('U'),
-                                        'content' => $content
-                                    )
-                                );
-
-                                // Add users to conversation
-                                foreach ($users as $item) {
-                                    // Get ID
-                                    $user_id = $user->nameToId($item);
-
-                                    if ($user_id) {
-                                        // Not the author
-                                        $queries->create(
-                                            'private_messages_users',
-                                            array(
-                                                'pm_id' => $last_id,
-                                                'user_id' => $user_id
-                                            )
-                                        );
-                                    }
-                                }
-
-                                // Add the author to the list of users
-                                $queries->create(
-                                    'private_messages_users',
-                                    array(
-                                        'pm_id' => $last_id,
-                                        'user_id' => $user->data()->id,
-                                        'read' => 1
-                                    )
-                                );
-
-                                // Sent successfully
-                                Session::flash('user_messaging_success', $language->get('user', 'message_sent_successfully'));
-                                Redirect::to(URL::build('/user/messaging'));
-                                die();
-
-                            } catch(Exception $e){
-                                // Exception
-                                die($e->getMessage());
+                            if ($formatting == 'markdown'){
+                                $content = Michelf\Markdown::defaultTransform(Input::get('content'));
+                                $content = Output::getClean($content);
+                            } else {
+                                $content = Output::getClean(Input::get('content'));
                             }
+
+                            // Insert post content into database
+                            $queries->create(
+                                'private_messages_replies',
+                                array(
+                                    'pm_id' => $last_id,
+                                    'author_id' => $user->data()->id,
+                                    'created' => date('U'),
+                                    'content' => $content
+                                )
+                            );
+
+                            // Add users to conversation
+                            foreach ($users as $item) {
+                                // Get ID
+                                $user_id = $user->nameToId($item);
+
+                                if ($user_id) {
+                                    // Not the author
+                                    $queries->create(
+                                        'private_messages_users',
+                                        array(
+                                            'pm_id' => $last_id,
+                                            'user_id' => $user_id
+                                        )
+                                    );
+                                }
+                            }
+
+                            // Add the author to the list of users
+                            $queries->create(
+                                'private_messages_users',
+                                array(
+                                    'pm_id' => $last_id,
+                                    'user_id' => $user->data()->id,
+                                    'read' => 1
+                                )
+                            );
+
+                            // Sent successfully
+                            Session::flash('user_messaging_success', $language->get('user', 'message_sent_successfully'));
+                            Redirect::to(URL::build('/user/messaging'));
+                            die();
 
                         } else {
                             // Over 10 users added

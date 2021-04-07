@@ -94,7 +94,7 @@ $language = array(
     'password' => '密碼',
     'confirm_password' => '確認密碼',
     'i_agree' => '我同意',
-    'agree_t_and_c' => '按下<strong class="label label-primary">註冊</strong>後，你就同意<a href="{x}" target="_blank">使用條款</a>.',
+    'agree_t_and_c' => 'I have read and accept the <a href="{x}" target="_blank">Terms and Conditions</a>.',
     'create_an_account' => '建立帳號',
     'terms_and_conditions' => '使用條款',
     'validation_complete' => '你的帳戶已被驗證，你現在可以登入.',

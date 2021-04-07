@@ -39,17 +39,14 @@ if ($user->isLoggedIn()) {
             $locked_status = 1;
         }
 
-        try {
-            $queries->update('topics', $topic_id, array(
-                'locked' => $locked_status
-            ));
-            Log::getInstance()->log(Log::Action('forums/topic/lock'), ($locked_status == 1) ? $language->get('log', 'info_forums_lock') : $language->get('log', 'info_forums_unlock'));
+        $queries->update('topics', $topic_id, array(
+            'locked' => $locked_status
+        ));
+        Log::getInstance()->log(Log::Action('forums/topic/lock'), ($locked_status == 1) ? $language->get('log', 'info_forums_lock') : $language->get('log', 'info_forums_unlock'));
 
-            Redirect::to(URL::build('/forum/topic/' . $topic_id));
-            die();
-        } catch (Exception $e) {
-            die($e->getMessage());
-        }
+        Redirect::to(URL::build('/forum/topic/' . $topic_id));
+        die();
+
     } else {
         Redirect::to(URL::build("/forum"));
         die();

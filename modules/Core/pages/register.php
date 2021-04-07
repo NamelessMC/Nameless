@@ -153,25 +153,25 @@ if (Input::exists()) {
             // Validate
             $validate = new Validate();
 
-            $to_validation = array( // Base field validation
-                'password' => array(
-                    'required' => true,
-                    'min' => 6,
-                    'max' => 30
-                ),
-                'password_again' => array(
-                    'matches' => 'password'
-                ),
-                'email' => array(
-                    'required' => true,
-                    'email' => true,
-                    'unique' => 'users'
-                ),
-                't_and_c' => array(
-                    'required' => true,
-                    'agree' => true
-                )
-            );
+            $to_validation = [
+                'password' => [
+                    Validate::REQUIRED => true,
+                    Validate::MIN => 6,
+                    Validate::MAX => 30
+                ],
+                'password_again' => [
+                    Validate::MATCHES => 'password'
+                ],
+                'email' => [
+                    Validate::REQUIRED => true,
+                    Validate::EMAIL => true,
+                    Validate::UNIQUE => 'users'
+                ],
+                't_and_c' => [
+                    Validate::REQUIRED => true,
+                    Validate::AGREE => true
+                ]
+            ];
 
             // Minecraft username?
             if (MINECRAFT) {
@@ -308,133 +308,128 @@ if (Input::exists()) {
                             $date = new DateTime();
                             $date = $date->getTimestamp();
 
-                            try {
-                                if ($api_verification == '1') {
-                                    // Generate shorter code for API validation
-                                    $code = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 10);
-                                    $active = 1;
-                                } else {
-                                    // Generate random code for email
-                                    $code = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 60);
-                                    $active = 0;
-                                }
+                            if ($api_verification == '1') {
+                                // Generate shorter code for API validation
+                                $code = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 10);
+                                $active = 1;
+                            } else {
+                                // Generate random code for email
+                                $code = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 60);
+                                $active = 0;
+                            }
 
-                                // Get default language ID before creating user
-                                $language_id = $queries->getWhere('languages', array('name', '=', LANGUAGE));
+                            // Get default language ID before creating user
+                            $language_id = $queries->getWhere('languages', array('name', '=', LANGUAGE));
 
-                                if (count($language_id)) {
-                                    $language_id = $language_id[0]->id;
-                                } else {
-                                    $language_id = 1; // fallback to EnglishUK
-                                }
+                            if (count($language_id)) {
+                                $language_id = $language_id[0]->id;
+                            } else {
+                                $language_id = 1; // fallback to EnglishUK
+                            }
 
-                                // Get default group ID
-                                $cache->setCache('default_group');
-                                if ($cache->isCached('default_group')) {
-                                    $default_group = $cache->retrieve('default_group');
-                                } else {
-                                    $default_group = $queries->getWhere('groups', array('default_group', '=', 1));
-                                    $default_group = $default_group[0]->id;
+                            // Get default group ID
+                            $cache->setCache('default_group');
+                            if ($cache->isCached('default_group')) {
+                                $default_group = $cache->retrieve('default_group');
+                            } else {
+                                $default_group = $queries->getWhere('groups', array('default_group', '=', 1));
+                                $default_group = $default_group[0]->id;
 
-                                    $cache->store('default_group', $default_group);
-                                }
+                                $cache->store('default_group', $default_group);
+                            }
 
-                                // Create user
-                                $user->create(
-                                    array(
-                                        'username' => $username,
-                                        'nickname' => $nickname,
-                                        'uuid' => $uuid,
-                                        'password' => $password,
-                                        'pass_method' => 'default',
-                                        'joined' => $date,
-                                        'email' => Output::getClean(Input::get('email')),
-                                        'reset_code' => $code,
-                                        'lastip' => Output::getClean($ip),
-                                        'last_online' => $date,
-                                        'language_id' => $language_id,
-                                        'active' => $active
-                                    )
-                                );
+                            // Create user
+                            $user->create(
+                                array(
+                                    'username' => $username,
+                                    'nickname' => $nickname,
+                                    'uuid' => $uuid,
+                                    'password' => $password,
+                                    'pass_method' => 'default',
+                                    'joined' => $date,
+                                    'email' => Output::getClean(Input::get('email')),
+                                    'reset_code' => $code,
+                                    'lastip' => Output::getClean($ip),
+                                    'last_online' => $date,
+                                    'language_id' => $language_id,
+                                    'active' => $active
+                                )
+                            );
 
-                                // Get user ID
-                                $user_id = $queries->getLastId();
+                            // Get user ID
+                            $user_id = $queries->getLastId();
 
-                                $user = new User($user_id);
-                                $user->addGroup($default_group);
+                            $user = new User($user_id);
+                            $user->addGroup($default_group);
 
-                                // Custom Fields
-                                if (count($profile_fields)) {
-                                    foreach ($profile_fields as $field) {
-                                        if ($field->required == false) {
-                                            continue;
-                                        }
-                                        $value = Input::get($field->name);
-                                        if (!empty($value)) {
-                                            // Insert custom field
-                                            $queries->create(
-                                                'users_profile_fields',
-                                                array(
-                                                    'user_id' => $user_id,
-                                                    'field_id' => $field->id,
-                                                    'value' => Output::getClean(Input::get($field->name))
-                                                )
-                                            );
-                                        }
+                            // Custom Fields
+                            if (count($profile_fields)) {
+                                foreach ($profile_fields as $field) {
+                                    if ($field->required == false) {
+                                        continue;
+                                    }
+                                    $value = Input::get($field->name);
+                                    if (!empty($value)) {
+                                        // Insert custom field
+                                        $queries->create(
+                                            'users_profile_fields',
+                                            array(
+                                                'user_id' => $user_id,
+                                                'field_id' => $field->id,
+                                                'value' => Output::getClean(Input::get($field->name))
+                                            )
+                                        );
                                     }
                                 }
-
-                                Log::getInstance()->log(Log::Action('user/register'), "", $user_id);
-
-                                if ($api_verification != '1' && $email_verification == '1') {
-                                    // Send registration email
-                                    sendRegisterEmail($queries, $language, Output::getClean(Input::get('email')), $username, $user_id, $code);
-
-                                } else if ($api_verification != '1') {
-                                    // Email verification disabled
-                                    HookHandler::executeEvent('registerUser', array(
-                                        'event' => 'registerUser',
-                                        'user_id' => $user_id,
-                                        'username' => Output::getClean(Input::get('username')),
-                                        'uuid' => $uuid,
-                                        'content' => str_replace('{x}', Output::getClean(Input::get('username')), $language->get('user', 'user_x_has_registered')),
-                                        'avatar_url' => $user->getAvatar(null, 128, true),
-                                        'url' => Util::getSelfURL() . ltrim(URL::build('/profile/' . Output::getClean(Input::get('username'))), '/'),
-                                        'language' => $language
-                                    ));
-
-                                    // Redirect straight to verification link
-                                    $url = URL::build('/validate/', 'c=' . $code);
-                                    Redirect::to($url);
-                                    die();
-                                }
-
-                                HookHandler::executeEvent(
-                                    'registerUser',
-                                    array(
-                                        'event' => 'registerUser',
-                                        'user_id' => $user_id,
-                                        'username' => Output::getClean(Input::get('username')),
-                                        'uuid' => $uuid,
-                                        'content' => str_replace('{x}', Output::getClean(Input::get('username')), $language->get('user', 'user_x_has_registered')),
-                                        'avatar_url' => $user->getAvatar(null, 128, true),
-                                        'url' => Util::getSelfURL() . ltrim(URL::build('/profile/' . Output::getClean(Input::get('username'))), '/'),
-                                        'language' => $language
-                                    )
-                                );
-
-                                if ($api_verification != '1') {
-                                    Session::flash('home', $language->get('user', 'registration_check_email'));
-                                } else {
-                                    Session::flash('home', $language->get('user', 'validation_complete'));
-                                }
-
-                                Redirect::to(URL::build('/'));
-                                die();
-
-                            } catch (Exception $e) {
-                                die($e->getMessage());
                             }
+
+                            Log::getInstance()->log(Log::Action('user/register'), "", $user_id);
+
+                            if ($api_verification != '1' && $email_verification == '1') {
+                                // Send registration email
+                                sendRegisterEmail($queries, $language, Output::getClean(Input::get('email')), $username, $user_id, $code);
+
+                            } else if ($api_verification != '1') {
+                                // Email verification disabled
+                                HookHandler::executeEvent('registerUser', array(
+                                    'event' => 'registerUser',
+                                    'user_id' => $user_id,
+                                    'username' => Output::getClean(Input::get('username')),
+                                    'uuid' => $uuid,
+                                    'content' => str_replace('{x}', Output::getClean(Input::get('username')), $language->get('user', 'user_x_has_registered')),
+                                    'avatar_url' => $user->getAvatar(null, 128, true),
+                                    'url' => Util::getSelfURL() . ltrim(URL::build('/profile/' . Output::getClean(Input::get('username'))), '/'),
+                                    'language' => $language
+                                ));
+
+                                // Redirect straight to verification link
+                                $url = URL::build('/validate/', 'c=' . $code);
+                                Redirect::to($url);
+                                die();
+                            }
+
+                            HookHandler::executeEvent(
+                                'registerUser',
+                                array(
+                                    'event' => 'registerUser',
+                                    'user_id' => $user_id,
+                                    'username' => Output::getClean(Input::get('username')),
+                                    'uuid' => $uuid,
+                                    'content' => str_replace('{x}', Output::getClean(Input::get('username')), $language->get('user', 'user_x_has_registered')),
+                                    'avatar_url' => $user->getAvatar(null, 128, true),
+                                    'url' => Util::getSelfURL() . ltrim(URL::build('/profile/' . Output::getClean(Input::get('username'))), '/'),
+                                    'language' => $language
+                                )
+                            );
+
+                            if ($api_verification != '1') {
+                                Session::flash('home', $language->get('user', 'registration_check_email'));
+                            } else {
+                                Session::flash('home', $language->get('user', 'validation_complete'));
+                            }
+
+                            Redirect::to(URL::build('/'));
+                            die();
                         }
                     } else {
                         $errors = array($uuid_error);
@@ -447,6 +442,7 @@ if (Input::exists()) {
 
             } else {
                 // Errors
+                // TODO: Update to new validation system
                 $errors = array();
                 foreach ($validation->errors() as $validation_error) {
 

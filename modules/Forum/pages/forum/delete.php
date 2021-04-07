@@ -40,31 +40,29 @@ if (!count($topic)) {
 $topic = $topic[0];
 
 if ($forum->canModerateForum($topic->forum_id, $user->getAllGroupIds())) {
-    try {
-        $queries->update('topics', $topic_id, array(
-            'deleted' => 1
-        ));
-        //TODO: TOPIC
-        Log::getInstance()->log(Log::Action('forums/topic/delete'), $topic_id);
 
-        $posts = $queries->getWhere('posts', array('topic_id', '=', $topic_id));
+    $queries->update('topics', $topic_id, array(
+        'deleted' => 1
+    ));
+    //TODO: TOPIC
+    Log::getInstance()->log(Log::Action('forums/topic/delete'), $topic_id);
 
-        if (count($posts)) {
-            foreach ($posts as $post) {
-                $queries->update('posts', $post->id, array(
-                    'deleted' => 1
-                ));
-            }
+    $posts = $queries->getWhere('posts', array('topic_id', '=', $topic_id));
+
+    if (count($posts)) {
+        foreach ($posts as $post) {
+            $queries->update('posts', $post->id, array(
+                'deleted' => 1
+            ));
         }
-
-        // Update latest posts in forums
-        $forum->updateForumLatestPosts();
-
-        Redirect::to(URL::build('/forum'));
-        die();
-    } catch (Exception $e) {
-        die($e->getMessage());
     }
+
+    // Update latest posts in forums
+    $forum->updateForumLatestPosts();
+
+    Redirect::to(URL::build('/forum'));
+    die();
+
 } else {
     Redirect::to(URL::build('/forum'));
     die();

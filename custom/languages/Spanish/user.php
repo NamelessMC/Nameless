@@ -89,7 +89,7 @@ $language = array(
     'password' => 'Contraseña',
     'confirm_password' => 'Confirmar contraseña',
     'i_agree' => 'Estoy de acuerdo',
-    'agree_t_and_c' => 'Haciendo click <strong class="label label-primary">Registro</strong>, tu aceptas nuestro <a href="{x}" target="_blank">Terminos y Condiciones</a>.',
+    'agree_t_and_c' => 'I have read and accept the <a href="{x}" target="_blank">Terms and Conditions</a>.',
     'create_an_account' => 'Crea una cuenta',
     'terms_and_conditions' => 'Términos y Condiciones',
     'validation_complete' => 'Su cuenta ha sido validada, ahora puede iniciar sesión.',
@@ -188,7 +188,7 @@ $language = array(
     'no_about_fields' => 'Este usuario todavía no ha agregado ningún campo sobre el.',
     'reply' => 'Responder',
     'discord_username' => 'Discord Username',
-    
+
     // Reports
     'invalid_report_content' => 'No se puede crear el informe. Asegúrese de que la razón de su informe es entre 2 y 1024 caracteres.',
     'report_post_content' => 'Introduzca una razón para su reporte',
