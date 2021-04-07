@@ -153,25 +153,25 @@ if (Input::exists()) {
             // Validate
             $validate = new Validate();
 
-            $to_validation = array( // Base field validation
-                'password' => array(
-                    'required' => true,
-                    'min' => 6,
-                    'max' => 30
-                ),
-                'password_again' => array(
-                    'matches' => 'password'
-                ),
-                'email' => array(
-                    'required' => true,
-                    'email' => true,
-                    'unique' => 'users'
-                ),
-                't_and_c' => array(
-                    'required' => true,
-                    'agree' => true
-                )
-            );
+            $to_validation = [
+                'password' => [
+                    Validate::REQUIRED => true,
+                    Validate::MIN => 6,
+                    Validate::MAX => 30
+                ],
+                'password_again' => [
+                    Validate::MATCHES => 'password'
+                ],
+                'email' => [
+                    Validate::REQUIRED => true,
+                    Validate::EMAIL => true,
+                    Validate::UNIQUE => 'users'
+                ],
+                't_and_c' => [
+                    Validate::REQUIRED => true,
+                    Validate::AGREE => true
+                ]
+            ];
 
             // Minecraft username?
             if (MINECRAFT) {
@@ -447,6 +447,7 @@ if (Input::exists()) {
 
             } else {
                 // Errors
+                // TODO: Update to new validation system
                 $errors = array();
                 foreach ($validation->errors() as $validation_error) {
 
