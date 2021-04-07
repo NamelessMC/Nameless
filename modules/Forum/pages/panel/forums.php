@@ -437,57 +437,50 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                             $posts = $queries->getWhere('posts', array('forum_id', '=', $_GET['fid']));
                             $topics = $queries->getWhere('topics', array('forum_id', '=', $_GET['fid']));
 
-                            try {
-                                foreach ($posts as $post) {
-                                    $queries->delete('posts', array('id', '=', $post->id));
-                                }
-                                foreach ($topics as $topic) {
-                                    $queries->delete('topics', array('id', '=', $topic->id));
-                                }
-
-                                $queries->delete('forums', array('id', '=', $_GET["fid"]));
-
-                                // Forum perm deletion
-                                foreach ($forum_perms as $perm) {
-                                    $queries->delete('forums_permissions', array('id', '=', $perm->id));
-                                }
-
-                                Session::flash('admin_forums', $forum_language->get('forum', 'forum_deleted_successfully'));
-                                Redirect::to(URL::build('/panel/forums'));
-                                die();
-                            } catch (Exception $e) {
-                                die($e->getMessage());
+                            foreach ($posts as $post) {
+                                $queries->delete('posts', array('id', '=', $post->id));
                             }
+                            foreach ($topics as $topic) {
+                                $queries->delete('topics', array('id', '=', $topic->id));
+                            }
+
+                            $queries->delete('forums', array('id', '=', $_GET["fid"]));
+
+                            // Forum perm deletion
+                            foreach ($forum_perms as $perm) {
+                                $queries->delete('forums_permissions', array('id', '=', $perm->id));
+                            }
+
+                            Session::flash('admin_forums', $forum_language->get('forum', 'forum_deleted_successfully'));
+                            Redirect::to(URL::build('/panel/forums'));
+                            die();
+
                         } else {
                             $new_forum = Input::get('move_forum');
                             $posts = $queries->getWhere('posts', array('forum_id', '=', $_GET['fid']));
                             $topics = $queries->getWhere('topics', array('forum_id', '=', $_GET['fid']));
 
-                            try {
-                                foreach ($posts as $post) {
-                                    $queries->update('posts', $post->id, array(
-                                        'forum_id' => $new_forum
-                                    ));
-                                }
-                                foreach ($topics as $topic) {
-                                    $queries->update('topics', $topic->id, array(
-                                        'forum_id' => $new_forum
-                                    ));
-                                }
-
-                                $queries->delete('forums', array('id', '=', $_GET["fid"]));
-
-                                // Forum perm deletion
-                                foreach ($forum_perms as $perm) {
-                                    $queries->delete('forums_permissions', array('id', '=', $perm->id));
-                                }
-
-                                Session::flash('admin_forums', $forum_language->get('forum', 'forum_deleted_successfully'));
-                                Redirect::to(URL::build('/panel/forums'));
-                                die();
-                            } catch (Exception $e) {
-                                die($e->getMessage());
+                            foreach ($posts as $post) {
+                                $queries->update('posts', $post->id, array(
+                                    'forum_id' => $new_forum
+                                ));
                             }
+                            foreach ($topics as $topic) {
+                                $queries->update('topics', $topic->id, array(
+                                    'forum_id' => $new_forum
+                                ));
+                            }
+
+                            $queries->delete('forums', array('id', '=', $_GET["fid"]));
+
+                            // Forum perm deletion
+                            foreach ($forum_perms as $perm) {
+                                $queries->delete('forums_permissions', array('id', '=', $perm->id));
+                            }
+
+                            Session::flash('admin_forums', $forum_language->get('forum', 'forum_deleted_successfully'));
+                            Redirect::to(URL::build('/panel/forums'));
+                            die();
                         }
                     }
                 } else {

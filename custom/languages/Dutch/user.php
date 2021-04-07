@@ -91,7 +91,7 @@ $language = array(
     'password' => 'Wachtwoord',
     'confirm_password' => 'Bevestig wachtwoord',
     'i_agree' => 'Akkoord',
-    'agree_t_and_c' => 'Door op <strong class="label label-primary">registreren</strong> te klikken, ga je akkoord met onze <a href="{x}" target="_blank">Voorwaarden</a>.',
+    'agree_t_and_c' => 'I have read and accept the <a href="{x}" target="_blank">Terms and Conditions</a>.',
     'create_an_account' => 'Maak een account',
     'terms_and_conditions' => 'Voorwaarden',
     'validation_complete' => 'Je account is bevestigd, je kunt nu inloggen.',
@@ -190,7 +190,7 @@ $language = array(
     'no_about_fields' => 'Deze gebruiker heeft nog geen over-velden toegevoegd.',
     'reply' => 'Antwoord',
     'discord_username' => 'Discord Username',
-    
+
     // Rapporten
     'invalid_report_content' => 'Kan geen rapport maken. Zorg ervoor dat je rapport reden tussen de 2 en 1024 karakters is.',
     'report_post_content' => 'Voer een reden in voor je rapport',

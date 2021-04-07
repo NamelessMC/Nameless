@@ -90,7 +90,7 @@ $language = array(
     'password' => 'Lösenord',
     'confirm_password' => 'Bekräfta Lösenord',
     'i_agree' => 'Jag accepterar.',
-    'agree_t_and_c' => 'Genom att klicka på <strong class="label label-primary">Registrera</strong> godkänner du våra <a href="{x}" target="_blank">användarvillkor</a>.',
+    'agree_t_and_c' => 'I have read and accept the <a href="{x}" target="_blank">Terms and Conditions</a>.',
     'create_an_account' => 'Skapa ett konto',
     'terms_and_conditions' => 'Användar Villkor',
     'validation_complete' => 'Ditt konto har validerats, du kan nu logga in.',
@@ -189,7 +189,7 @@ $language = array(
     'no_about_fields' => 'This user has not added any about fields yet.',
     'reply' => 'Reply',
     'discord_username' => 'Discord Username',
-    
+
     // Reports
     'invalid_report_content' => 'Det gick inte att skapa en anmäla. Var god och se till att din anmälnings orsak är mellan 2 och 1024 tecken.',
     'report_post_content' => 'Vänligen ange en anledning till din anmälning',

@@ -89,7 +89,7 @@ $language = array(
     'password' => 'Password',
     'confirm_password' => 'Conferma Password',
     'i_agree' => "Sono d'accordo",
-    'agree_t_and_c' => 'Facendo clic su <strong class="label label-primary">Registrati</strong>, accetti i nostri <a href="{x}" target="_blank"> Termini e condizioni</a>.',
+    'agree_t_and_c' => 'I have read and accept the <a href="{x}" target="_blank">Terms and Conditions</a>.',
     'create_an_account' => 'Crea un account',
     'terms_and_conditions' => 'Termini e condizioni',
     'validation_complete' => 'Il tuo account è stato convalidato, ora puoi effettuare il login.',
@@ -188,7 +188,7 @@ $language = array(
     'no_about_fields' => 'Questo utente non ha ancora aggiunto informazioni su se stesso',
     'reply' => 'Rispondi',
     'discord_username' => 'Discord Username',
-    
+
     // Reports
     'invalid_report_content' => 'Impossibile creare una segnalazione. Assicurati che il motivo della segnalazione sia compreso tra 2 e 1024 caratteri.',
     'report_post_content' => 'Per favore, inserisci un motivo per la segnalazione',

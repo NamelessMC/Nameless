@@ -93,11 +93,7 @@ class MCAssoc {
             throw new Exception('timestamp stale');
         }
 
-        try {
-            $key = $this->unwrapKey($rdata->key);
-        } catch (Exception $e) {
-            throw new Exception('key invalid');
-        }
+        $key = $this->unwrapKey($rdata->key);
 
         return $rdata;
     }

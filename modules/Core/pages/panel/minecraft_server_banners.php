@@ -90,7 +90,7 @@ if(!isset($_GET['server']) && !isset($_GET['edit'])){
 
                         $success = $language->get('admin', 'banner_updated_successfully');
                     }
-                } catch(Exception $e){
+                } catch (Exception $e) {
                     $errors = array($e->getMessage());
                 }
 

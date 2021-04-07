@@ -90,7 +90,7 @@ $language = array(
     'password' => 'Пароль',
     'confirm_password' => 'Подтвердить пароль',
     'i_agree' => 'Я подтверждаю',
-    'agree_t_and_c' => 'Нажимая на кнопку <strong class="label label-primary">зарегистрироваться</strong>, вы соглашаетесь с <a href="{x}" target="_blank">условиями и правилами</a>.',
+    'agree_t_and_c' => 'Я согласен с <a href="{x}" target="_blank">условиями и правилами использования</a>.',
     'create_an_account' => 'Создать аккаунт',
     'terms_and_conditions' => 'Правила и условия',
     'validation_complete' => 'Ваша учетная запись была подтверждена, теперь вы можете войти в систему.',

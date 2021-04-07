@@ -89,7 +89,7 @@ $language = array(
     'password' => 'Şifre',
     'confirm_password' => 'Şifre Onay',
     'i_agree' => 'Onaylıyorum',
-    'agree_t_and_c' => '<strong class="label label-birincil">Kaydol</strong>\'u tıklayarak <a href="{x}" target="_blank">Şartlar ve Koşullarımızı</a> kabul etmiş olursunuz.',
+    'agree_t_and_c' => 'I have read and accept the <a href="{x}" target="_blank">Terms and Conditions</a>.',
     'create_an_account' => 'Hesap Oluştur',
     'terms_and_conditions' => 'Şartlar ve koşullar',
     'validation_complete' => 'Hesabınız doğrulandı, şimdi giriş yapabilirsiniz.',
@@ -188,7 +188,7 @@ $language = array(
     'no_about_fields' => 'Bu kullanıcı henüz alanlarla ilgili herhangi bir bilgi eklemedi.',
     'reply' => 'cevap',
     'discord_username' => 'Discord Username',
-    
+
     // Reports
     'invalid_report_content' => 'Rapor oluşturulamıyor. Lütfen rapor nedeninizin 2 ila 1024 karakter arasında olduğundan emin olun.',
     'report_post_content' => 'Lütfen raporunuz için bir neden girin!',

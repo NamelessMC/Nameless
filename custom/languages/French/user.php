@@ -88,7 +88,7 @@ $language = array(
     'password' => 'Mot de passe',
     'confirm_password' => 'Confirmer le mot de passe',
     'i_agree' => 'Je suis d’accord',
-    'agree_t_and_c' => 'En cliquant sur <strong class="label label-primary">s\'enregistrer</strong>, vous acceptez nos <a href="{x}" target="_blank">Termds and Conditions</a>.',
+    'agree_t_and_c' => 'I have read and accept the <a href="{x}" target="_blank">Terms and Conditions</a>.',
     'create_an_account' => 'Créer un compte',
     'terms_and_conditions' => 'Termes and Conditions',
     'validation_complete' => 'Votre compte a été validé, vous pouvez maintenant vous connecter.',
@@ -187,7 +187,7 @@ $language = array(
     'no_about_fields' => 'Cet utilisateur n’a pas encore ajouté de champs.',
     'reply' => 'Répondre',
     'discord_username' => 'Discord Username',
-    
+
     // Reports
     'invalid_report_content' => 'Impossible de créer un signalement. Veuillez vous assurer que le motif de votre signalement comporte entre 2 et 1024 caractères.',
     'report_post_content' => 'Veuillez saisir une raison de votre signalement',

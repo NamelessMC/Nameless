@@ -137,62 +137,60 @@ if (Input::exists()) {
 
         if ($validation->passed()) {
             // Valid post content
-            try {
-                // Parse markdown
-                $cache->setCache('post_formatting');
-                $formatting = $cache->retrieve('formatting');
 
-                if ($formatting == 'markdown') {
-                    $content = Michelf\Markdown::defaultTransform(Input::get('content'));
-                    $content = Output::getClean($content);
-                } else $content = Output::getClean(Input::get('content'));
+            // Parse markdown
+            $cache->setCache('post_formatting');
+            $formatting = $cache->retrieve('formatting');
 
-                // Update post content
-                $queries->update("posts", $post_id, array(
-                    'post_content' => $content,
-                    'last_edited' => date('U')
-                ));
+            if ($formatting == 'markdown') {
+                $content = Michelf\Markdown::defaultTransform(Input::get('content'));
+                $content = Output::getClean($content);
+            } else $content = Output::getClean(Input::get('content'));
 
-                Log::getInstance()->log(Log::Action('forums/post/edit'), $post_id);
+            // Update post content
+            $queries->update("posts", $post_id, array(
+                'post_content' => $content,
+                'last_edited' => date('U')
+            ));
 
-                if (isset($edit_title)) {
-                    // Update title and labels
-                    $post_labels = array();
+            Log::getInstance()->log(Log::Action('forums/post/edit'), $post_id);
 
-                    if (isset($_POST['topic_label']) && !empty($_POST['topic_label']) && is_array($_POST['topic_label']) && count($_POST['topic_label'])) {
-                        foreach ($_POST['topic_label'] as $topic_label) {
-                            $label = $queries->getWhere('forums_topic_labels', array('id', '=', $topic_label));
-                            if (count($label)) {
-                                $lgroups = explode(',', $label[0]->gids);
+            if (isset($edit_title)) {
+                // Update title and labels
+                $post_labels = array();
 
-                                $hasperm = false;
-                                foreach ($user_groups as $group_id) {
-                                    if (in_array($group_id, $lgroups)) {
-                                        $hasperm = true;
-                                        break;
-                                    }
+                if (isset($_POST['topic_label']) && !empty($_POST['topic_label']) && is_array($_POST['topic_label']) && count($_POST['topic_label'])) {
+                    foreach ($_POST['topic_label'] as $topic_label) {
+                        $label = $queries->getWhere('forums_topic_labels', array('id', '=', $topic_label));
+                        if (count($label)) {
+                            $lgroups = explode(',', $label[0]->gids);
+
+                            $hasperm = false;
+                            foreach ($user_groups as $group_id) {
+                                if (in_array($group_id, $lgroups)) {
+                                    $hasperm = true;
+                                    break;
                                 }
-
-                                if ($hasperm) $post_labels[] = $label[0]->id;
                             }
+
+                            if ($hasperm) $post_labels[] = $label[0]->id;
                         }
                     }
-
-                    $queries->update('topics', $topic_id, array(
-                        'topic_title' => Output::getDecoded(Input::get('title')),
-                        'labels' => implode(',', $post_labels)
-                    ));
-
-                    Log::getInstance()->log(Log::Action('forums/topic/edit'), Output::getDecoded(Input::get('title')));
                 }
 
-                // Display success message and redirect
-                Session::flash('success_post', $forum_language->get('forum', 'post_edited_successfully'));
-                Redirect::to(URL::build('/forum/topic/' . $topic_id, 'pid=' . $post_id));
-                die();
-            } catch (Exception $e) {
-                die($e->getMessage());
+                $queries->update('topics', $topic_id, array(
+                    'topic_title' => Output::getDecoded(Input::get('title')),
+                    'labels' => implode(',', $post_labels)
+                ));
+
+                Log::getInstance()->log(Log::Action('forums/topic/edit'), Output::getDecoded(Input::get('title')));
             }
+
+            // Display success message and redirect
+            Session::flash('success_post', $forum_language->get('forum', 'post_edited_successfully'));
+            Redirect::to(URL::build('/forum/topic/' . $topic_id, 'pid=' . $post_id));
+            die();
+
         } else {
             // Error handling
             $errors = $validation->errors();

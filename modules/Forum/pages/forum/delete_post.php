@@ -43,48 +43,46 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
             if (isset($_POST['tid'])) {
                 // Is it the OP?
                 if (isset($_POST['number']) && Input::get('number') == 10) {
-                    try {
-                        $queries->update('topics', Input::get('tid'), array(
-                            'deleted' => 1
-                        ));
-                        Log::getInstance()->log(Log::Action('forums/post/delete'), Input::get('tid'));
-                        $opening_post = 1;
-                    } catch (Exception $e) {
-                        die($e->getMessage());
-                    }
+
+                    $queries->update('topics', Input::get('tid'), array(
+                        'deleted' => 1
+                    ));
+
+                    Log::getInstance()->log(Log::Action('forums/post/delete'), Input::get('tid'));
+                    $opening_post = 1;
+                        
                     $redirect = URL::build('/forum'); // Create a redirect string
                 } else {
                     $redirect = URL::build('/forum/topic/' . Input::get('tid'));
                 }
-            } else $redirect = URL::build('/forum/search/', 'p=1&s=' . htmlspecialchars($_POST['search_string']));
+            } else {
+                $redirect = URL::build('/forum/search/', 'p=1&s=' . htmlspecialchars($_POST['search_string']));
+            }
 
-            try {
-                $queries->update('posts', Input::get('pid'), array(
-                    'deleted' => 1
-                ));
+            $queries->update('posts', Input::get('pid'), array(
+                'deleted' => 1
+            ));
 
-                if (isset($opening_post)) {
-                    $posts = $queries->getWhere('posts', array('topic_id', '=', $_POST['tid']));
+            if (isset($opening_post)) {
+                $posts = $queries->getWhere('posts', array('topic_id', '=', $_POST['tid']));
 
-                    if (count($posts)) {
-                        foreach ($posts as $post) {
-                            $queries->update('posts', $post->id, array(
-                                'deleted' => 1
-                            ));
-                            Log::getInstance()->log(Log::Action('forums/post/delete'), $post->id);
-                        }
+                if (count($posts)) {
+                    foreach ($posts as $post) {
+                        $queries->update('posts', $post->id, array(
+                            'deleted' => 1
+                        ));
+                        Log::getInstance()->log(Log::Action('forums/post/delete'), $post->id);
                     }
                 }
-
-                // Update latest posts in categories
-                $forum->updateForumLatestPosts();
-                $forum->updateTopicLatestPosts();
-
-                Redirect::to($redirect);
-                die();
-            } catch (Exception $e) {
-                die($e->getMessage());
             }
+
+            // Update latest posts in categories
+            $forum->updateForumLatestPosts();
+            $forum->updateTopicLatestPosts();
+
+            Redirect::to($redirect);
+            die();
+
         } else {
             Redirect::to(URL::build('/forum/topic/' . Input::get('tid')));
             die();

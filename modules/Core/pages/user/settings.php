@@ -399,21 +399,18 @@ if(isset($_GET['do'])){
 					// Check old password matches 
 					$old_password = Input::get('old_password');
 					if($user->checkCredentials($user->data()->username, $old_password, 'username')){
-						try {
-							// Hash new password
-							$new_password = password_hash(Input::get('new_password'), PASSWORD_BCRYPT, array("cost" => 13));
-							
-							// Update password
-							$user->update(array(
-								'password' => $new_password,
-								'pass_method' => 'default'
-							));
-							
-							$success = $language->get('user', 'password_changed_successfully');
 
-						} catch(Exception $e) {
-							die($e->getMessage());
-						}
+                        // Hash new password
+                        $new_password = password_hash(Input::get('new_password'), PASSWORD_BCRYPT, array("cost" => 13));
+                        
+                        // Update password
+                        $user->update(array(
+                            'password' => $new_password,
+                            'pass_method' => 'default'
+                        ));
+                        
+                        $success = $language->get('user', 'password_changed_successfully');
+
 					} else {
 						// Invalid current password
 						Session::flash('settings_error', $language->get('user', 'incorrect_password'));
@@ -456,19 +453,16 @@ if(isset($_GET['do'])){
                         // Check password matches
                         $password = Input::get('password');
                         if ($user->checkCredentials($user->data()->username, $password, 'username')) {
-                            try {
-                                // Update email
-                                $user->update(array(
-                                    'email' => Output::getClean($_POST['email'])
-                                ));
 
-                                Session::flash('settings_success', $language->get('user', 'email_changed_successfully'));
-                                Redirect::to(URL::build('/user/settings'));
-                                die();
+                            // Update email
+                            $user->update(array(
+                                'email' => Output::getClean($_POST['email'])
+                            ));
 
-                            } catch (Exception $e) {
-                                die($e->getMessage());
-                            }
+                            Session::flash('settings_success', $language->get('user', 'email_changed_successfully'));
+                            Redirect::to(URL::build('/user/settings'));
+                            die();
+
                         } else {
                             // Invalid password
                             Session::flash('settings_error', $language->get('user', 'incorrect_password'));

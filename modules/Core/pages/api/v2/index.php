@@ -78,7 +78,7 @@ class Nameless2API {
             } else {
                 $this->throwError(1, $this->_language->get('api', 'invalid_api_key'));
             }
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             $this->throwError($e->getMessage());
         }
     }
