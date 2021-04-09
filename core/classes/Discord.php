@@ -2,7 +2,7 @@
 /*
  *	Made by Aberdeener
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr10
  *
  *  License: MIT
  *
@@ -14,22 +14,31 @@ class Discord {
 
     public static function discordBotRequest($url = '/status', $body = null) {
         $response = Util::curlGetContents(BOT_URL . $url, $body);
-        if (in_array($response, self::$_valid_responses)) return $response;
-        else return false;
+        if (in_array($response, self::$_valid_responses)) {
+            return $response;
+        } else {
+            return false;
+        }
     }
 
     public static function getDiscordRoleId(DB $db, $group_id) {
         $discord_role_id = $db->get('group_sync', array('website_group_id', '=', $group_id));
-        if ($discord_role_id->count()) return $discord_role_id->first()->discord_role_id;
-        else return null;
+        if ($discord_role_id->count()) {
+            return $discord_role_id->first()->discord_role_id;
+        } else {
+            return null;
+        }
     }
 
     public static function getWebsiteGroup(DB $db, $discord_role_id) {
         $website_group_id = $db->get('group_sync', array('discord_role_id', '=', $discord_role_id));
         if ($website_group_id->count()) {
             $group = $db->get('groups', array('id', '=', $website_group_id->first()->website_group_id));
-            if ($group->count()) return $group->first();
+            if ($group->count()) {
+                return $group->first();
+            }
         }
+
         return null;
     }
 
@@ -87,6 +96,7 @@ class Discord {
         if (file_exists(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('discord_roles') . '.cache')) {
             return json_decode(file_get_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('discord_roles') . '.cache'), true);
         }
+        
         return array();
     }
 
