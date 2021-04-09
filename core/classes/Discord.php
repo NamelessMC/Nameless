@@ -64,7 +64,7 @@ class Discord {
                     $json = self::assembleJson($user_query->data()->discord_id, 'remove_role_id', $role_id);
 =======
     public static function updateDiscordRoles(User $user_query, $added, $removed, Language $language, $redirect = true) {
-        
+
         if (!Util::getSetting(DB::getInstance(), 'discord_integration')) {
             return;
         }
@@ -75,6 +75,7 @@ class Discord {
             return;
         }
 
+<<<<<<< refs/remotes/upstream/v2
 <<<<<<< refs/remotes/upstream/v2
         $added_arr = self::assembleGroupArray($added, 'add');
         $removed_arr = self::assembleGroupArray($removed, 'remove');
@@ -87,13 +88,21 @@ class Discord {
 =======
         $added_json = self::assembleGroupJson($added, 'add');
         $removed_json = self::assembleGroupJson($removed, 'remove');
+=======
+        $added_arr = self::assembleGroupArray($added, 'add');
+        $removed_arr = self::assembleGroupArray($removed, 'remove');
+>>>>>>> remove unneeded json_encode + rename vars
 
-        if (!count($added_json) && !count($removed_json)) {
+        if (!count($added_arr) && !count($removed_arr)) {
             return;
         }
 
+<<<<<<< refs/remotes/upstream/v2
         $json = self::assembleJson($user_query->data()->discord_id, $added_json, $removed_json);
 >>>>>>> initial commit (untested)
+=======
+        $json = self::assembleJson($user_query->data()->discord_id, $added_arr, $removed_arr);
+>>>>>>> remove unneeded json_encode + rename vars
 
         $result = self::discordBotRequest('/roleChange', $json);
 
@@ -154,10 +163,14 @@ class Discord {
     }
 
 <<<<<<< refs/remotes/upstream/v2
+<<<<<<< refs/remotes/upstream/v2
     private static function assembleGroupArray($groups, $action) {
 =======
     private static function assembleGroupJson($groups, $action) {
 >>>>>>> initial commit (untested)
+=======
+    private static function assembleGroupArray($groups, $action) {
+>>>>>>> remove unneeded json_encode + rename vars
         $return = array();
 
         foreach ($groups as $group) {
@@ -180,22 +193,33 @@ class Discord {
     private static function assembleJson($user_id, $added_arr, $removed_arr) {
 =======
 <<<<<<< update/japanese
+<<<<<<< update/japanese
     // no docblock as this is revamped in PR
     private static function assembleJson($user_id, $action, $role_id) {
 =======
     private static function assembleJson($user_id, $added_json, $removed_json) {
 >>>>>>> initial commit (untested)
+<<<<<<< refs/remotes/upstream/v2
 >>>>>>> initial commit (untested)
+=======
+=======
+    private static function assembleJson($user_id, $added_arr, $removed_arr) {
+>>>>>>> remove unneeded json_encode + rename vars
+>>>>>>> remove unneeded json_encode + rename vars
         // TODO cache or define() website api key and discord guild id
         $return = array();
         $return['guild_id'] = trim(Output::getClean(Util::getSetting(DB::getInstance(), 'discord')));
         $return['user_id'] = $user_id;
         $return['api_key'] = trim(Output::getClean(Util::getSetting(DB::getInstance(), 'mc_api_key')));
 <<<<<<< refs/remotes/upstream/v2
+<<<<<<< refs/remotes/upstream/v2
         $return['roles'] = array_merge($added_arr, $removed_arr);
 =======
         $return['roles'] = json_encode(array_merge($added_json, $removed_json));
 >>>>>>> initial commit (untested)
+=======
+        $return['roles'] = array_merge($added_arr, $removed_arr);
+>>>>>>> remove unneeded json_encode + rename vars
         return json_encode($return);
     }
 }
