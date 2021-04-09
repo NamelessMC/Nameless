@@ -126,7 +126,7 @@ class ErrorHandler {
         return true;
     }
 
-    private static function catchShutdownError() {
+    public static function catchShutdownError() {
         $error = error_get_last();
 
         if ($error == null) {
