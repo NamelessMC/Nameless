@@ -14,6 +14,7 @@ class Discord {
 
     public static function discordBotRequest($url = '/status', $body = null) {
         $response = Util::curlGetContents(BOT_URL . $url, $body);
+<<<<<<< update/japanese
 
         if (in_array($response, self::$_valid_responses)) {
             return $response;
@@ -22,15 +23,39 @@ class Discord {
         // Log unknown error from bot
         Log::getInstance()->log(Log::Action('discord/role_set'), $response);
         return false;
+=======
+        if (in_array($response, self::$_valid_responses)) {
+            return $response;
+        } else {
+            return false;
+        }
+>>>>>>> formatting of Discord class return statements
     }
 
     public static function getDiscordRoleId(DB $db, $group_id) {
         $discord_role_id = $db->get('group_sync', array('website_group_id', '=', $group_id));
+<<<<<<< refs/remotes/upstream/v2
+=======
+<<<<<<< update/japanese
+
+>>>>>>> formatting of Discord class return statements
         if ($discord_role_id->count()) {
             return $discord_role_id->first()->discord_role_id;
         } else {
             return null;
         }
+<<<<<<< refs/remotes/upstream/v2
+=======
+
+        return null;
+=======
+        if ($discord_role_id->count()) {
+            return $discord_role_id->first()->discord_role_id;
+        } else {
+            return null;
+        }
+>>>>>>> formatting of Discord class return statements
+>>>>>>> formatting of Discord class return statements
     }
 
     public static function getWebsiteGroup(DB $db, $discord_role_id) {
@@ -139,7 +164,15 @@ class Discord {
         if (file_exists(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('discord_roles') . '.cache')) {
             return json_decode(file_get_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('discord_roles') . '.cache'), true);
         }
+<<<<<<< refs/remotes/upstream/v2
         
+=======
+<<<<<<< update/japanese
+
+=======
+        
+>>>>>>> formatting of Discord class return statements
+>>>>>>> formatting of Discord class return statements
         return array();
     }
 
