@@ -34,7 +34,7 @@ class Discord {
     }
 
     public static function updateDiscordRoles(User $user_query, $added, $removed, Language $language, $redirect = true) {
-        
+
         if (!Util::getSetting(DB::getInstance(), 'discord_integration')) {
             return;
         }
@@ -43,14 +43,14 @@ class Discord {
             return;
         }
 
-        $added_json = self::assembleGroupJson($added, 'add');
-        $removed_json = self::assembleGroupJson($removed, 'remove');
+        $added_arr = self::assembleGroupArray($added, 'add');
+        $removed_arr = self::assembleGroupArray($removed, 'remove');
 
-        if (!count($added_json) && !count($removed_json)) {
+        if (!count($added_arr) && !count($removed_arr)) {
             return;
         }
 
-        $json = self::assembleJson($user_query->data()->discord_id, $added_json, $removed_json);
+        $json = self::assembleJson($user_query->data()->discord_id, $added_arr, $removed_arr);
 
         $result = self::discordBotRequest('/roleChange', $json);
 
@@ -108,7 +108,7 @@ class Discord {
         return $errors;
     }
 
-    private static function assembleGroupJson($groups, $action) {
+    private static function assembleGroupArray($groups, $action) {
         $return = array();
 
         foreach ($groups as $group) {
@@ -127,13 +127,13 @@ class Discord {
         return $return;
     }
     
-    private static function assembleJson($user_id, $added_json, $removed_json) {
+    private static function assembleJson($user_id, $added_arr, $removed_arr) {
         // TODO cache or define() website api key and discord guild id
         $return = array();
         $return['guild_id'] = trim(Output::getClean(Util::getSetting(DB::getInstance(), 'discord')));
         $return['user_id'] = $user_id;
         $return['api_key'] = trim(Output::getClean(Util::getSetting(DB::getInstance(), 'mc_api_key')));
-        $return['roles'] = json_encode(array_merge($added_json, $removed_json));
+        $return['roles'] = array_merge($added_arr, $removed_arr);
         return json_encode($return);
     }
 }
