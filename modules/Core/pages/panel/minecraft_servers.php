@@ -532,9 +532,9 @@ if(isset($_GET['action'])){
     // List servers
     $servers = $queries->orderAll('mc_servers', '`order`', 'ASC');
     $default = 0;
+    $template_array = array();
 
     if(count($servers)){
-        $template_array = array();
 
         foreach($servers as $server){
             if($server->is_default == 1)
@@ -549,8 +549,6 @@ if(isset($_GET['action'])){
                 'is_default' => $server->is_default
             );
         }
-
-        $smarty->assign('SERVERS', $template_array);
 
     } else
         $smarty->assign('NO_SERVERS', $language->get('admin', 'no_servers_defined'));
@@ -602,7 +600,8 @@ if(isset($_GET['action'])){
         'EXTERNAL_QUERY_VALUE' => ($external_query == 1),
         'STATUS_PAGE' => $language->get('admin', 'status_page'),
         'STATUS_PAGE_VALUE' => ($status_page == '1'),
-        'REORDER_DRAG_URL' => URL::build('/panel/minecraft/servers')
+        'REORDER_DRAG_URL' => URL::build('/panel/minecraft/servers'),
+        'SERVERS' => $template_array
     ));
 
     $template_file = 'integrations/minecraft/minecraft_servers.tpl';
