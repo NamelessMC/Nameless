@@ -83,7 +83,7 @@ $language = array(
     'unable_to_load_converter' => 'Impossibile caricare il convertitore!',
     'finish' => 'Fine',
     'finish_message' => 'Grazie per aver installato NamelessMC! È ora possibile accedere al pannello amministrativo, dove è possibile configurare ulteriormente il sito web.',
-    'support_message' => 'Se hai bisogno di supporto, consulta il nostro sito <a href="https://namelessmc.com" target="_blank">qui</a>, oppure puoi anche visitare il nostro <a href="https://discord.gg/9vk93VR" target="_blank">Server Discord</a> o il nostro <a href="https://github.com/NamelessMC/Nameless/" target="_blank">Repository GitHub</a>.',
+    'support_message' => 'Se hai bisogno di supporto, consulta il nostro sito <a href="https://namelessmc.com" target="_blank">qui</a>, oppure puoi anche visitare il nostro <a href="https://discord.gg/nameless" target="_blank">Server Discord</a> o il nostro <a href="https://github.com/NamelessMC/Nameless/" target="_blank">Repository GitHub</a>.',
     'credits' => 'Crediti',
     'credits_message' => 'Un enorme ringraziamento a tutti i <a href="https://github.com/NamelessMC/Nameless/graphs/contributors" target="_blank">Collaboratori NamelessMC</a> dal 2014',
 
