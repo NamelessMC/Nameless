@@ -10,7 +10,13 @@
  */
 
 class Core_Module extends Module {
-    private $_language, $_configuration;
+
+    /** @var Language */
+    private $_language;
+
+    /** @var Configuration */
+    private $_configuration;
+    
     private static $_dashboard_graph = array(), $_notices = array(), $_user_actions = array();
 
     public function __construct($language, $pages, $user, $queries, $navigation, $cache, $endpoints){

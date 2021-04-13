@@ -12,27 +12,60 @@ class Discord {
 
     private static $_valid_responses = array('success', 'badparameter', 'error', 'invguild', 'invuser', 'notlinked', 'unauthorized', 'invrole');
 
+    /**
+     * Make a curl request to the `BOT_URL` and handle it's return value.
+     * 
+     * @param string|null $url Path to send request body to.
+     * @param string $body JSON encoded request body.
+     * @return string|bool Bot response (if request went thru and response was valid), otherwise `false`.
+     */
     public static function discordBotRequest($url = '/status', $body = null) {
         $response = Util::curlGetContents(BOT_URL . $url, $body);
-        if (in_array($response, self::$_valid_responses)) return $response;
-        else return false;
+
+        if (in_array($response, self::$_valid_responses)) {
+            return $response;
+        }
+        
+        return false;
     }
 
+    /**
+     * Get the Discord role ID of specified website group.
+     * 
+     * @param DB $db Instance of DB class to use.
+     * @param int $group_id Website group ID to search for.
+     * @return int|null Role ID if it is set, null otherwise.
+     */
     public static function getDiscordRoleId(DB $db, $group_id) {
         $discord_role_id = $db->get('group_sync', array('website_group_id', '=', $group_id));
-        if ($discord_role_id->count()) return $discord_role_id->first()->discord_role_id;
-        else return null;
-    }
 
-    public static function getWebsiteGroup(DB $db, $discord_role_id) {
-        $website_group_id = $db->get('group_sync', array('discord_role_id', '=', $discord_role_id));
-        if ($website_group_id->count()) {
-            $group = $db->get('groups', array('id', '=', $website_group_id->first()->website_group_id));
-            if ($group->count()) return $group->first();
+        if ($discord_role_id->count()) {
+            return $discord_role_id->first()->discord_role_id;
         }
+
         return null;
     }
 
+    /**
+     * Get the website group from a Discord Role ID.
+     * 
+     * @param DB $db Instance of DB class to use.
+     * @param int $discord_role_id Discord Role ID to search for.
+     */
+    public static function getWebsiteGroup(DB $db, $discord_role_id) {
+        $website_group_id = $db->get('group_sync', array('discord_role_id', '=', $discord_role_id));
+
+        if ($website_group_id->count()) {
+            $group = $db->get('groups', array('id', '=', $website_group_id->first()->website_group_id));
+            if ($group->count()) {
+                return $group->first();
+            }
+        }
+
+        return null;
+    }
+
+    // no doc blocks as these are getting yeeted soon
     public static function removeDiscordRole($user_query, $group, Language $language) {
         if (Util::getSetting(DB::getInstance(), 'discord_integration')) {
             if ($user_query->data()->discord_id != null && $user_query->data()->discord_id != 010) {
@@ -91,18 +124,36 @@ class Discord {
         }
     }
 
+    /**
+     * Save list of Discord Role ID and their name to flatfile.
+     * 
+     * @param string $roles Raw array of roles from bot to save.
+     */
     public static function saveRoles($roles) {
         $roles = array(json_encode($roles));
         file_put_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('discord_roles') . '.cache', $roles);
     }
 
+    /**
+     * Retreive roles from flatfile.
+     * 
+     * @return array Role array.
+     */
     public static function getRoles() {
         if (file_exists(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('discord_roles') . '.cache')) {
             return json_decode(file_get_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('discord_roles') . '.cache'), true);
         }
+
         return array();
     }
 
+    /**
+     * Generate a translated error message for specific result of bot request.
+     * 
+     * @param string $result Message sent by bot.
+     * @param Language $language Language instance to use to get right translation.
+     * @return array Array of this error message.
+     */
     private static function parseErrors($result, Language $language) {
         $errors = array();
 
@@ -121,6 +172,7 @@ class Discord {
         return $errors;
     }
     
+    // no docblock as this is revamped in PR
     private static function assembleJson($user_id, $action, $role_id) {
         // TODO cache or define() website api key and discord guild id
         $return = array();

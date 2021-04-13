@@ -9,6 +9,8 @@
  *  Queries class
  */
 class Queries {
+
+    /** @var DB */
     private $_db;
 
     public function __construct() {

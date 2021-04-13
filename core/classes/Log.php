@@ -174,29 +174,39 @@ class Log {
         ]
     ];
 
+    /** @var Log */
     private static $_instance = null;
 
+    /** @var DB */
     private $_db;
 
     public function __construct() {
         $this->_db = DB::getInstance();
     }
 
+    /**
+     * Get or create a new Log instance.
+     * 
+     * @return Log Instance
+     */
     public static function getInstance() {
         if (!isset(self::$_instance)) {
             self::$_instance = new Log();
         }
+
         return self::$_instance;
     }
 
     /**
-     * Get an action from the Action array
-     * @param  String $path the path to the action
-     * @return String/Array       The keys
+     * Get an action from the Action array.
+     * 
+     * @param  string $path The path to the action.
+     * @return string|array The keys
      */
     public static function Action($path) {
         $path = explode('/', $path);
         $config = self::$_actions;
+
         foreach ($path as $bit) {
             if (isset($config[$bit])) {
                 $config = $config[$bit];
@@ -207,16 +217,18 @@ class Log {
     }
 
     /**
-     * Logs an action
-     * @param  String $action The action being logged
-     * @param  String $info   Some more information about what the action is about
-     * @param  Int $user   The User ID who is doing the action
-     * @param  String $ip The ip of the user
-     * @return boolean         Return true or false if inserted into the database.
+     * Logs an action.
+     * 
+     * @param  string $action The action being logged
+     * @param  string $info Some more information about what the action is about
+     * @param  int $user The User ID who is doing the action
+     * @param  string $ip The ip of the user
+     * @return bool Return true or false if inserted into the database.
      */
     public function log($action, $info = '', $user = null, $ip = null) {
         $userTemp = new User();
         $ip = $userTemp->getIP();
+
         if ($user == null) {
             $user = ($userTemp->isLoggedIn() ? $userTemp->data()->id : 0);
         }

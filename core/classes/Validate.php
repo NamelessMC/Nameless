@@ -18,8 +18,10 @@ class Validate {
     private $_passed = false;
     private $_to_convert = array();
     private $_errors = array();
+    
+    /** @var DB */
     private $_db = null;
-
+    
     /**
      * Ensure this field is not empty
      */
@@ -98,8 +100,10 @@ class Validate {
 
     /**
      * Validate an array of inputs.
+     * 
      * @param array $source inputs (eg: $_POST)
      * @param array $items subset of inputs to be validated
+     * @return Validate This instance of Validate.
      */
     public function check(array $source, array $items = array()) {
 
@@ -267,8 +271,10 @@ class Validate {
     }
 
     /**
-     * Add generic message for any failures, specific `messages()` will override this
-     * @param string $message message to show if any failures occur
+     * Add generic message for any failures, specific `messages()` will override this.
+     * 
+     * @param string $message message to show if any failures occur.
+     * @return Validate This instance of Validate.
      */
     public function message($message) {
         $this->_message = $message;
@@ -276,8 +282,10 @@ class Validate {
     }
 
     /**
-     * Add custom messages to this `Validate` instance
-     * @param array $messages array of input names and strings or arrays to use as messages
+     * Add custom messages to this `Validate` instance.
+     * 
+     * @param array $messages array of input names and strings or arrays to use as messages.
+     * @return Validate This instance of Validate.
      */
     public function messages(array $messages) {
         $this->_messages = $messages;
@@ -285,9 +293,9 @@ class Validate {
     }
 
     /**
-     * Add an array of information to generate an error message to the $_to_convert array
-     * 
+     * Add an array of information to generate an error message to the $_to_convert array.
      * These errors will be translated in the `errors()` function later.
+     * 
      * @param string $error message to add to error array
      */
     private function addError(array $error) {
@@ -295,10 +303,12 @@ class Validate {
     }
 
     /**
-     * Get message for provided field, returning fallback message unless generic message is supplied
-     * @param string $field name of field to search for 
-     * @param string $rule rule which check failed. should be from the constants defined above
-     * @param string $fallback fallback default message if custom message and generic message are not supplied
+     * Get message for provided field, returning fallback message unless generic message is supplied.
+     * 
+     * @param string $field name of field to search for.
+     * @param string $rule rule which check failed. should be from the constants defined above.
+     * @param string $fallback fallback default message if custom message and generic message are not supplied.
+     * @return Validate This instance of Validate.
      */
     private function getMessage($field, $rule, $fallback) {
 
@@ -322,8 +332,9 @@ class Validate {
     }
 
     /**
-     * Translate temp error information to their specific or generic or fallback messages and return
-     * @return array Any and all errors for this `Validate` instance
+     * Translate temp error information to their specific or generic or fallback messages and return.
+     * 
+     * @return array Any and all errors for this `Validate` instance.
      */
     public function errors() {
 
@@ -355,8 +366,9 @@ class Validate {
     }
 
     /**
-     * Get if this `Validate` instance passed
-     * @return bool whether this Validator passed or not
+     * Get if this `Validate` instance passed.
+     * 
+     * @return bool whether this Validate passed or not.
      */
     public function passed() {
         return $this->_passed;

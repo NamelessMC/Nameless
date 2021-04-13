@@ -10,8 +10,12 @@
  */
 class Input {
 
-    // Check that input actually exists
-    // Params: $type (string) - check for either POST or GET submission (optional, defaults to POST)
+    /**
+     * Check that specified input type exists.
+     * 
+     * @param string|null $type Check for either POST or GET submission (optional, defaults to POST)
+     * @return bool Whether it exists or not.
+     */
     public static function exists($type = 'post') {
         switch ($type) {
             case 'post';
@@ -31,22 +35,29 @@ class Input {
         }
     }
 
-    // Get input with the specified name
-    // Params: $item (string) - name of element containing input
+    /**
+     * Get input with specified name.
+     * 
+     * @param string $item Name of element containing input to get.
+     * @return string Value of element in input.
+     */
     public static function get($item) {
         if (isset($_POST[$item])) {
             return $_POST[$item];
-        } 
-        else if (isset($_GET[$item])) {
+        } else if (isset($_GET[$item])) {
             return $_GET[$item];
         }
 
         return '';
     }
 
-    // Displays a new CKEditor field
-    // Params:  $name (string) - name of input field ID
-    //          $admin (boolean) - whether to add admin options or not - default false
+    /**
+     * Displays a new CKEditor field
+     * 
+     * @param string $name Name of input field ID
+     * @param bool|null $admin Whether to add admin options or not - default false
+     * @return string Editor javascript code. 
+     */
     public static function createEditor($name = null, $admin = false) {
         if ($name) {
             $editor = '
@@ -116,10 +127,13 @@ class Input {
         return null;
     }
 
-    // Create a new TinyMCE instance
-    // Params:  $language (Language) - language instance
-    //          $name (string) - name of input field ID
-    public static function createTinyEditor($language, $name = null) {
+    /**
+     * Create a new TinyMCE instance
+     * 
+     * @param Language $language Instance of language class to use for translation.
+     * @param string $name Name of input field ID.
+     */
+    public static function createTinyEditor(Language $language, $name = null) {
         if ($name) {
             $editor = '
             tinymce.init({

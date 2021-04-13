@@ -20,14 +20,17 @@ class Navigation {
         $this->_panel = $panel;
     }
 
-    // Add a simple item to the navigation
-    // Params: 	$name (string)		- unique name for the navbar item, if the page name equals this the item will display as active (required)
-    //			$title (string)		- item title (required)
-    //			$link (string)		- HTML href attribute, can be link built with URL class or hyperlink (required)
-    //			$location (string) 	- location to add item to, either 'top' or 'footer' (defaults to 'top')
-    //			$target (string)	- HTML target attribute (eg '_blank') (optional)
-    //          $order (int)        - nav item order (default 10)
-    //          $icon (string)      - icon to prepend to nav item (default '')
+    /**
+     * Add a simple item to this navigation instance.
+     * 
+     * @param string $name Unique name for the navbar item, if the page name equals this the item will display as active.
+     * @param string $title Item title.
+     * @param string $link HTML href attribute, can be link built with URL class or hyperlink.
+     * @param string|null $location Location to add item to, either 'top' or 'footer' (defaults to 'top').
+     * @param string|null $target HTML target attribute (eg '_blank').
+     * @param int|null Nav item order (default 10).
+     * @param string|null $icon Icon to prepend to nav item.
+     */
     public function add($name, $title, $link, $location = 'top', $target = null, $order = 10, $icon = '') {
         if ($this->_panel && $location == 'top') {
             // Discard order
@@ -64,12 +67,15 @@ class Navigation {
         }
     }
 
-    // Add a dropdown menu to the navigation
-    // Params:	$name (string)		- unique name for the navbar (required)
-    //			$title (string)		- dropdown title (required)
-    //			$location (string)	- location to add item to, either 'top' or 'footer' (defaults to 'top'),
-    //          $order (int)        - nav item order (default 10)
-    //          $icon (string)      - icon to prepend to nav item (default '')
+    /**
+     * Add a dropdown menu to the navigation.
+     *
+     * @param string $name Unique name for the dropdown
+     * @param string $title Dropdown title
+     * @param string|null $location Location to add item to, either 'top' or 'footer' (defaults to 'top').
+     * @param int|null $order Nav item order (default 10).
+     * @param string|null $icon Icon to prepend to nav item.
+     */
     public function addDropdown($name, $title, $location = 'top', $order = 10, $icon = '') {
         // Add the dropdown
         if ($location == 'top') {
@@ -93,15 +99,18 @@ class Navigation {
         }
     }
 
-    // Add an item to a menu dropdown
-    // Params:	$dropdown (string) 	- name of dropdown to add item to (required)
-    //			$name (string)		- unique name for the item, if the page name equals this the item will display as active (required)
-    //			$title (string)		- item title (required)
-    //			$link (string)		- HTML href attribute, can be link built with URL class or hyperlink (required)
-    //			$location (string)	- location to add item to, either 'top' or 'footer' (defaults to 'top')
-    //			$target (string)	- HTML target attribute (eg '_blank') (optional)
-    //          $icon (string)      - icon to prepend to nav item (default '')
-    //          $order (int)        - nav item order (default 10)
+    /**
+     * Add an item to a menu dropdown.
+     *
+     * @param string $dropdown Name of dropdown to add item to.
+     * @param string $name Unique name for the item, if the page name equals this the item will display as active.
+     * @param string $title Item title.
+     * @param string $link HTML href attribute, can be link built with URL class or hyperlink.
+     * @param string|null $location Location to add item to, either 'top' or 'footer' (defaults to 'top').
+     * @param string|null $target HTML target attribute (eg '_blank')
+     * @param string|null $icon Icon to prepend to nav item 
+     * @param int|null $order Nav item order
+     */
     public function addItemToDropdown($dropdown, $name, $title, $link, $location = 'top', $target = null, $icon = '', $order = 10) {
         // Add the item
         if ($location == 'top' && isset($this->_topNavbar[$dropdown])) {
@@ -123,13 +132,14 @@ class Navigation {
                 'order' => $order
             );
         }
-
-        // Unable to add item to dropdown, might not have been initialised
-        return false;
     }
 
-    // Return top navigation - returns array to pass to template
-    // Params: $location (string) - either 'top' or 'footer' (defaults to 'top')
+    /**
+     * Return top navigation.
+     *
+     * @param string|null $location Either 'top' or 'footer' (defaults to 'top').
+     * @return array Array to pass to template
+     */
     public function returnNav($location = 'top') {
         $return = array(); // String to return
         if ($location == 'top') {

@@ -11,6 +11,7 @@
 
 class Forum {
 
+    /** @var DB */
     private $_db;
 
     // Constructor, connect to database

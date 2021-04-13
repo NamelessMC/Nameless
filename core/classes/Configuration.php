@@ -11,8 +11,11 @@
 
 class Configuration {
 
-    private $_db,
-            $_cache;
+    /** @var DB */
+    private $_db;
+    
+    /** @var Cache */
+    private $_cache;
 
     public function __construct($cache){
         $this->_db = DB::getInstance();

@@ -28,21 +28,37 @@ abstract class Module {
         $this->_nameless_version = $nameless_version;
 
         // All modules should load after core
-        if ($name != 'Core')
+        if ($name != 'Core') {
             $load_after[] = 'Core';
+        }
 
         $this->_load_before = $load_before;
         $this->_load_after = $load_after;
     }
 
+    /**
+     * Set the name of this module.
+     * 
+     * @param string $name New name.
+     */
     protected final function setName($name) {
         $this->_name = $name;
     }
 
+    /**
+     * Set version of this module.
+     * 
+     * @param string $version Version to set.
+     */
     protected final function setVersion($version) {
         $this->_version = $version;
     }
 
+    /**
+     * Set NamelessMC version of this module.
+     * 
+     * @param string $nameless_version NamelessMC version to set.
+     */
     protected final function setNamelessVersion($nameless_version) {
         $this->_nameless_version = $nameless_version;
     }
@@ -57,6 +73,17 @@ abstract class Module {
     abstract function onDisable();
     abstract function onPageLoad($user, $pages, $cache, $smarty, $navs, $widgets, $template);
 
+    /**
+     * Call `onPageLoad()` function for all registered modules.
+     * 
+     * @param User $user User viewing the page.
+     * @param Pages $pages Instance of pages class.
+     * @param Cache $cache Instance of cache to pass.
+     * @param Smarty $smarty Instance of smarty to pass.
+     * @param array $navs Array of loaded navigation menus.
+     * @param Widgets $widgets Instance of widget class to pass.
+     * @param TemplateBase|null $template Template to pass.
+     */
     public static function loadPage($user, $pages, $cache, $smarty, $navs, $widgets, $template = null) {
         foreach (self::$_modules as $module) {
             $module->onPageLoad($user, $pages, $cache, $smarty, $navs, $widgets, $template);
@@ -109,6 +136,11 @@ abstract class Module {
         return array($before, $after);
     }
 
+    /**
+     * Determine loading arrangement of modules.
+     * 
+     * @return array Array with module order and any failed modules.
+     */
     public static function determineModuleOrder() {
         $module_order = array('Core');
         $failed = array();

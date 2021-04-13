@@ -12,10 +12,13 @@ class HookHandler {
     private static $_events = array();
     private static $_hooks = array();
 
-    // Register an event name
-    // Params:  $event - name of event to add
-    //          $description - human readable description
-    //          $params - array of available parameters and their descriptions
+    /**
+     * Register an event name.
+     * 
+     * @param string $event Name of event to add.
+     * @param string $description Human readable description.
+     * @param array|null $params Array of available parameters and their descriptions.
+     */
     public static function registerEvent($event, $description, $params = array()) {
         if (!isset(self::$_events[$event])) {
             self::$_events[$event] = array();
@@ -23,31 +26,37 @@ class HookHandler {
 
         self::$_events[$event]['description'] = $description;
         self::$_events[$event]['params'] = $params;
-
-        return true;
     }
 
+    /**
+     * Register hooks.
+     * 
+     * @param array $hooks Array of hooks to register
+     */
     public static function registerHooks($hooks) {
         self::$_hooks = $hooks;
-
-        return true;
     }
 
-    // Register an event hook
-    // Params:  $event - event name to hook into
-    //          $hook - function name to execute, eg Class::method
+    /**
+     * Register an event hook.
+     * 
+     * @param string $event Event name to hook into (must be registered with `registerEvent()`).
+     * @param string $hook Function name to execute.
+     */
     public static function registerHook($event, $hook) {
         if (!isset(self::$_events[$event])) {
             self::$_events[$event] = array();
         }
 
         self::$_events[$event]['hooks'][] = $hook;
-
-        return true;
     }
 
-    // Execute an event
-    // Params:  $event - event name to call
+    /**
+     * Execute an event.
+     * 
+     * @param string $event Event name to call.
+     * @param array|null $params Params to pass to the event's function.
+     */
     public static function executeEvent($event, $params = null) {
         if (!isset(self::$_events[$event])) {
             return false;
@@ -57,8 +66,9 @@ class HookHandler {
             $params = array();
         }
 
-        if (!isset($params['event']))
+        if (!isset($params['event'])) {
             $params['event'] = $event;
+        }
 
         // Execute system hooks
         if (isset(self::$_events[$event]['hooks'])) {
@@ -81,33 +91,50 @@ class HookHandler {
                 }
             }
         }
-
-        return true;
     }
 
-    // Get a list of hooks
+    /**
+     * Get a list of hooks.
+     * 
+     * @return array List of all currently registered hooks.
+     */
     public static function getHooks() {
         $return = array();
-        foreach (self::$_events as $key => $item)
+
+        foreach (self::$_events as $key => $item) {
             $return[$key] = $item['description'];
+        }
 
         return $return;
     }
 
-    // Get a certain hook
+    /**
+     * Get a certain hook.
+     * Not used internally - for modules instead.
+     * 
+     * @param string $hook Name of hook to find
+     * @return array|null Hook with name, null if one does not exist.
+     */
     public static function getHook($hook) {
-        if (isset(self::$_events[$hook]))
+        if (isset(self::$_events[$hook])) {
             return self::$_events[$hook];
-        else
-            return null;
+        }
+        
+        return null;
     }
 
-    // Get parameters
+    /**
+     * Get array of parameters for a specific registered event.
+     * Not used internally - for modules instead.
+     * 
+     * @param string $event Name of event to find.
+     * @return array|null Array of params or null if event under name doesnt exist.
+     */
     public static function getParameters($event) {
         if (isset(self::$_events[$event]['parameters'])) {
             return self::$_events[$event]['parameters'];
-        } else {
-            return null;
         }
+
+        return null;
     }
 }

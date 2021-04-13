@@ -9,24 +9,36 @@
  *  Output class
  */
 class Output {
-    
-    // Purifier object
+
+    /** @var HTMLPurifier */
     private static $_purifier = null;
 
-    // Returns a clean version of an inputted string
-    // Params: $input (string) - contains the string which will be cleaned
+    /**
+     * Returns a clean version of an inputted string.
+     *
+     * @param string $input The string which will be cleaned
+     * @return string Cleaned version of string.
+     */
     public static function getClean($input) {
         return str_replace('&amp;', '&', htmlspecialchars($input, ENT_QUOTES));
     }
 
-    // Returns a decoded version of a clean string
-    // Params: $input (string) - contains the clean string which will be decoded
+    /**
+     * Returns a decoded version of a clean string.
+     * 
+     * @param string $input Contains the clean string which will be decoded.
+     * @return string Decoded string.
+     */
     public static function getDecoded($input) {
         return htmlspecialchars_decode($input, ENT_QUOTES);
     }
 
-    // Returns a purified version of an inputted string with HTMLPurifier
-    // Params: $input (string) - contains the string which will be purified
+    /**
+     * Returns a purified version of an inputted string with HTMLPurifier.
+     *
+     * @param string $input String which will be purified.
+     * @return string Purified string.
+     */
     public static function getPurified($input) {
         // Require HTMLPurifier
         if (!self::$_purifier) {
@@ -52,15 +64,16 @@ class Output {
             $purifierConfig->set('HTML.DefinitionID', 'namelessmc');
             $purifierConfig->set('HTML.DefinitionRev', 1);
             $purifierConfig->set('Cache.DefinitionImpl', null);
+
             if ($def = $purifierConfig->maybeGetRawHTMLDefinition()) {
                 $def->addElement('figure', 'Block', 'Optional: (figcaption, Flow) | (Flow, figcaption) | Flow', 'Common');
                 $def->addElement('figcaption', 'Inline', 'Flow', 'Common');
             }
+
             self::$_purifier = new HTMLPurifier($purifierConfig);
         }
 
         // Purify the string
-        $purified = self::$_purifier->purify($input);
-        return $purified;
+        return self::$_purifier->purify($input);
     }
 }

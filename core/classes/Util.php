@@ -10,7 +10,14 @@
  */
 
 class Util {
-    // Converting Cyrillic to Latin letters (https://en.wikipedia.org/wiki/ISO_9)
+
+    /**
+     * Convert Cyrillic to Latin letters.
+     * https://en.wikipedia.org/wiki/ISO_9.
+     *
+     * @param string $string String to convert.
+     * @return string Converted string.
+     */
     public static function cyrillicToLatin($string) {
         $cyrillic = [
             'а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п',
@@ -24,13 +31,19 @@ class Util {
             'A', 'B', 'V', 'G', 'D', 'E', 'Io', 'Zh', 'Z', 'I', 'Y', 'K', 'L', 'M', 'N', 'O', 'P',
             'R', 'S', 'T', 'U', 'F', 'H', 'Ts', 'Ch', 'Sh', 'Sht', 'A', 'I', 'Y', 'e', 'Yu', 'Ya'
         ];
+        
         return str_replace($cyrillic, $latin, $string);
     }
 
-    // Recursively remove a directory
-    // Params: $directory (string)	- path to directory to remove (required)
+    /**
+     * Recursively remove a directory.
+     *
+     * @param string $directory Path to directory to remove.
+     * @return bool Whether the action succeeded or not.
+     */
     public static function recursiveRemoveDirectory($directory) {
-        if ((strpos($directory, 'custom') !== false)) { // safety precaution, only allow deleting files in "custom" directory
+        // safety precaution, only allow deleting files in "custom" directory
+        if ((strpos($directory, 'custom') !== false)) {
             // alright to proceed
         } else {
             return false;
@@ -48,9 +61,12 @@ class Util {
         rmdir($directory);
         return true;
     }
-
-    // Return an array containing all timezone lists
-    // No params
+ 
+    /**
+     * Get an array containing all timezone lists.
+     *
+     * @return array All timezones.
+     */
     public static function listTimezones() {
         // Array to contain timezones
         $timezones = array();
@@ -86,9 +102,13 @@ class Util {
         return $timezones;
     }
 
-    // Transform any plain-text URLs in a string to an HTML anchor tag with href attribute
-    // Regex pattern credit: https://daringfireball.net/2010/07/improved_regex_for_matching_urls
-    // "This pattern is free for anyone to use, no strings attached. Consider it public domain."
+    /**
+     * Transform any plain-text URLs in a string to an HTML anchor tag with href attribute.
+     * Regex pattern credit: https://daringfireball.net/2010/07/improved_regex_for_matching_urls.
+     *
+     * @param string $text String to convert.
+     * @return string Converted string.
+     */
     public static function urlToAnchorTag($text) {
         $pattern = '#(?i)\b((?:https?:(?:/{1,3}|[a-z0-9%])|[a-z0-9.\-]+[.](?:com|net|org|edu|gov|mil|aero|asia|biz|cat|coop|info|int|jobs|mobi|museum|name|post|pro|tel|travel|xxx|ac|ad|ae|af|ag|ai|al|am|an|ao|aq|ar|as|at|au|aw|ax|az|ba|bb|bd|be|bf|bg|bh|bi|bj|bm|bn|bo|br|bs|bt|bv|bw|by|bz|ca|cc|cd|cf|cg|ch|ci|ck|cl|cm|cn|co|cr|cs|cu|cv|cx|cy|cz|dd|de|dj|dk|dm|do|dz|ec|ee|eg|eh|er|es|et|eu|fi|fj|fk|fm|fo|fr|ga|gb|gd|ge|gf|gg|gh|gi|gl|gm|gn|gp|gq|gr|gs|gt|gu|gw|gy|hk|hm|hn|hr|ht|hu|id|ie|il|im|in|io|iq|ir|is|it|je|jm|jo|jp|ke|kg|kh|ki|km|kn|kp|kr|kw|ky|kz|la|lb|lc|li|lk|lr|ls|lt|lu|lv|ly|ma|mc|md|me|mg|mh|mk|ml|mm|mn|mo|mp|mq|mr|ms|mt|mu|mv|mw|mx|my|mz|na|nc|ne|nf|ng|ni|nl|no|np|nr|nu|nz|om|pa|pe|pf|pg|ph|pk|pl|pm|pn|pr|ps|pt|pw|py|qa|re|ro|rs|ru|rw|sa|sb|sc|sd|se|sg|sh|si|sj|Ja|sk|sl|sm|sn|so|sr|ss|st|su|sv|sx|sy|sz|tc|td|tf|tg|th|tj|tk|tl|tm|tn|to|tp|tr|tt|tv|tw|tz|ua|ug|uk|us|uy|uz|va|vc|ve|vg|vi|vn|vu|wf|ws|ye|yt|yu|za|zm|zw)/)(?:[^\s()<>{}\[\]]+|\([^\s()]*?\([^\s()]+\)[^\s()]*?\)|\([^\s]+?\))+(?:\([^\s()]*?\([^\s()]+\)[^\s()]*?\)|\([^\s]+?\)|[^\s`!()\[\]{};:\'".,<>?«»“”‘’])|(?:(?<!@)[a-z0-9]+(?:[.\-][a-z0-9]+)*[.](?:com|net|org|edu|gov|mil|aero|asia|biz|cat|coop|info|int|jobs|mobi|museum|name|post|pro|tel|travel|xxx|ac|ad|ae|af|ag|ai|al|am|an|ao|aq|ar|as|at|au|aw|ax|az|ba|bb|bd|be|bf|bg|bh|bi|bj|bm|bn|bo|br|bs|bt|bv|bw|by|bz|ca|cc|cd|cf|cg|ch|ci|ck|cl|cm|cn|co|cr|cs|cu|cv|cx|cy|cz|dd|de|dj|dk|dm|do|dz|ec|ee|eg|eh|er|es|et|eu|fi|fj|fk|fm|fo|fr|ga|gb|gd|ge|gf|gg|gh|gi|gl|gm|gn|gp|gq|gr|gs|gt|gu|gw|gy|hk|hm|hn|hr|ht|hu|id|ie|il|im|in|io|iq|ir|is|it|je|jm|jo|jp|ke|kg|kh|ki|km|kn|kp|kr|kw|ky|kz|la|lb|lc|li|lk|lr|ls|lt|lu|lv|ly|ma|mc|md|me|mg|mh|mk|ml|mm|mn|mo|mp|mq|mr|ms|mt|mu|mv|mw|mx|my|mz|na|nc|ne|nf|ng|ni|nl|no|np|nr|nu|nz|om|pa|pe|pf|pg|ph|pk|pl|pm|pn|pr|ps|pt|pw|py|qa|re|ro|rs|ru|rw|sa|sb|sc|sd|se|sg|sh|si|sj|Ja|sk|sl|sm|sn|so|sr|ss|st|su|sv|sx|sy|sz|tc|td|tf|tg|th|tj|tk|tl|tm|tn|to|tp|tr|tt|tv|tw|tz|ua|ug|uk|us|uy|uz|va|vc|ve|vg|vi|vn|vu|wf|ws|ye|yt|yu|za|zm|zw)\b/?(?!@)))#';
 
@@ -109,13 +129,20 @@ class Util {
         $text);
     }
 
-    // Get a Minecraft avatar from a UUID
+    /**
+     * Get a Minecraft avatar from a UUID.
+     *
+     * @param string $uuid UUID to get avatar for.
+     * @param int $size Size of avatar in pixels to get URL for.
+     * @return string URL to avatar.
+     */
     public static function getAvatarFromUUID($uuid, $size = 128) {
         if (defined('DEFAULT_AVATAR_SOURCE')) {
-            if (defined('DEFAULT_AVATAR_PERSPECTIVE'))
+            if (defined('DEFAULT_AVATAR_PERSPECTIVE')) {
                 $perspective = DEFAULT_AVATAR_PERSPECTIVE;
-            else
+            } else {
                 $perspective = 'face';
+            }
 
             switch (DEFAULT_AVATAR_SOURCE) {
                 case 'crafatar':
@@ -175,13 +202,18 @@ class Util {
         }
     }
 
-    // Get avatar source with UUID as {x} and size as {y}
+    /**
+     * Get avatar source with UUID as `{x}` and size as `{y}`.
+     *
+     * @return string URL to be formatted.
+     */
     public static function getAvatarSource() {
         if (defined('DEFAULT_AVATAR_SOURCE')) {
-            if (defined('DEFAULT_AVATAR_PERSPECTIVE'))
+            if (defined('DEFAULT_AVATAR_PERSPECTIVE')) {
                 $perspective = DEFAULT_AVATAR_PERSPECTIVE;
-            else
+            } else {
                 $perspective = 'face';
+            }
 
             switch (DEFAULT_AVATAR_SOURCE) {
                 case 'crafatar':
@@ -236,13 +268,18 @@ class Util {
         }
     }
 
-    /*
-     *  Get the server name
+    /**
+     * Get the server name.
+     *
+     * @param bool $protocol Whether to show http(s) at front or not.
+     * @return string Compiled URL.
      */
     public static function getSelfURL($protocol = true) {
         $hostname = Config::get('core/hostname');
-        if (is_array($hostname))
+        
+        if (is_array($hostname)) {
             $hostname = $_SERVER['SERVER_NAME'];
+        }
 
         if (strpos($hostname, 'www') === false && defined('FORCE_WWW') && FORCE_WWW) {
             $www = 'www.';
@@ -260,15 +297,18 @@ class Util {
             $url = $www . Output::getClean($hostname);
         }
 
-        if (substr($url, -1) !== '/') $url .= '/';
+        if (substr($url, -1) !== '/') {
+            $url .= '/';
+        }
 
         return $url;
     }
 
     /**
-     * Is a URL internal or external? Accepts full URL and also just a path
-     * @param $url string URL/path to check
-     * @return boolean whether URL is external or not
+     * Is a URL internal or external? Accepts full URL and also just a path.
+     * 
+     * @param string $url URL/path to check.
+     * @return bool Whether URL is external or not.
      */
     public static function isExternalURL($url) {
         if ($url[0] == '/' && $url[1] != '/') {
@@ -279,8 +319,13 @@ class Util {
 
         return !(str_replace('www.', '', rtrim(Util::getSelfURL(false), '/')) == str_replace('www.', '', $parsed['host']));
     }
-
-    // URL-ify a string
+ 
+    /**
+     * URL-ify a string
+     *
+     * @param string $string String to URLify
+     * @return string Url-ified string. (I dont know what this means)
+     */
     public static function stringToURL($string = null) {
         if ($string) {
             $string = preg_replace("/[^A-Za-z0-9 ]/", '', $string);
@@ -402,9 +447,11 @@ class Util {
         return $truncate;
     }
 
-    /*
-     *  Check for Nameless updates
-     *  Returns JSON object with information about any updates
+    /**
+     * Check for Nameless updates.
+     *
+     * @param string $current_version Current local namelessmc version to compare.
+     * @return string JSON object with information about any updates.
      */
     public static function updateCheck($current_version = null) {
         $queries = new Queries();
@@ -461,8 +508,10 @@ class Util {
         }
     }
 
-    /*
-     *  Get the latest Nameless news
+    /**
+     * Get the latest Nameless news.
+     *
+     * @return string NamelessMC news.
      */
     public static function getLatestNews() {
         $ch = curl_init();
@@ -484,15 +533,26 @@ class Util {
             return $news;
         }
     }
-
+    
+    /**
+     * Make a GET request to a URL using cURL.
+     * Failures will automatically be logged along with the error.
+     * 
+     * @param string $full_url URL to send request to.
+     * @param string $body Request body to attach to request.
+     * @return string|bool Response from remote server, false on failure.
+     */
     public static function curlGetContents($full_url, $body = null) {
         $ch = curl_init();
+        
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_URL, $full_url);
+
         if ($body != null) {
             curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
             curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
         }
+
         $contents = curl_exec($ch);
 
         if ($contents == false) {
@@ -505,9 +565,12 @@ class Util {
         }
     }
 
-    /*
-     *  Add target and rel attributes to external links only
-     *  From https://stackoverflow.com/a/53461987
+    /**
+     * Add target and rel attributes to external links only.
+     * From https://stackoverflow.com/a/53461987
+     * 
+     * @param string $data Data to replace.
+     * @return string Replaced string.
      */
     public static function replaceAnchorsWithText($data) {
         $data = preg_replace_callback('/]*href=["|\']([^"|\']*)["|\'][^>]*>([^<]*)<\/a>/i', function ($m) {
@@ -516,44 +579,81 @@ class Util {
             else
                 return '<a href="' . $m[1] . '" target="_blank">' . $m[2] . '</a>';
         }, $data);
+
         return $data;
     }
-
+    
+    /**
+     * Get a setting from the database table `nl2_settings`.
+     *
+     * @param DB $db Instance of DB class to use.
+     * @param string $setting Setting to check.
+     * @param mixed $fallback Fallback to return if $setting is not set in DB.
+     * @return mixed Setting from DB or $fallback.
+     */
     public static function getSetting(DB $db, $setting, $fallback = null) {
         $value = $db->get('settings', array('name', '=', $setting));
-        if ($value->count()) return $value->first()->value;
-        else return $fallback;
-    }
+        
+        if ($value->count()) {
+            return $value->first()->value;
+        }
 
+        return $fallback;
+    }
+    
+    /**
+     * Recursively scan, preload and register EndpointBase classes in a folder.
+     *
+     * @param string $path Path to scan from.
+     * @param Endpoints $endpoints Instance of Endpoints class to register endpoints to.
+     */
     public static function loadEndpoints($path, $endpoints) {
         $rii = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS));
 
         foreach ($rii as $file) {
             if ($file->isDir()) {
-                self::loadEndpoints($file, $endpoints);
-            } else {
-                $endpoint_path = $file->getPathName();
-                $endpoint_file_name = $file->getFilename();
-                require_once($endpoint_path);
-                $endpoint_class_name = str_replace('.php', '', $endpoint_file_name);
-                $endpoints->add(new $endpoint_class_name);
+                return self::loadEndpoints($file, $endpoints);
             }
+            
+            $endpoint_path = $file->getPathName();
+            require_once($endpoint_path);
+
+            $endpoint_file_name = $file->getFilename();
+            $endpoint_class_name = str_replace('.php', '', $endpoint_file_name);
+
+            $endpoints->add(new $endpoint_class_name);
         }
     }
-
+    
+    /**
+     * Get in-game rank name from a website group ID, uses Group Sync rules.
+     *
+     * @param int $website_group_id ID of website group to search for.
+     * @return string|null Name of in-game rank or null if rule is not setup.
+     */
     public static function getIngameRankName($website_group_id) {
         $data = DB::getInstance()->get('group_sync', array('website_group_id', '=', $website_group_id));
+        
         if ($data->count()) {
             return $data->first()->ingame_rank_name;
         }
+
         return null;
     }
-
+    
+    /**
+     * Get a website group's name from it's ID.
+     *
+     * @param int $group_id ID of group to find.
+     * @return string|null Name of group, null if doesnt exist.
+     */
     public static function getGroupNameFromId($group_id) {
         $data = DB::getInstance()->get('groups', array('id', '=', $group_id));
+
         if ($data->count()) {
             return $data->first()->name;
         }
+        
         return null;
     }
 }
