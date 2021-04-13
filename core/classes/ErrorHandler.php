@@ -76,8 +76,8 @@ class ErrorHandler {
             'number' => is_null($number) ? (is_null($exception) ? 1 : count($exception->getTrace()) + 1) : $number,
             'file' => $frame_file,
             'line' => $frame_line,
-            'start_line' => count($lines) >= self::LINE_BUFFER ? ($frame_line - self::LINE_BUFFER) : 1,
-            'highlight_line' => count($lines) >= self::LINE_BUFFER ? (self::LINE_BUFFER + 1) : $frame_line,
+            'start_line' => (is_countable($lines) && count($lines) >= self::LINE_BUFFER) ? ($frame_line - self::LINE_BUFFER) : 1,
+            'highlight_line' => (is_countable($lines) && count($lines) >= self::LINE_BUFFER) ? (self::LINE_BUFFER + 1) : $frame_line,
             'code' => self::parseFile($lines, $frame_line)
         ];
     }

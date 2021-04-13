@@ -36,6 +36,8 @@ class ServerStatusWidget extends WidgetBase {
         // Generate HTML code for widget
         $this->_cache->setCache('server_status_widget');
 
+        $server_array = array();
+
         if ($this->_cache->isCached('server_status')) {
             $server_array = $this->_cache->retrieve('server_status');
         } else {

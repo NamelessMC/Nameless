@@ -16,7 +16,7 @@ class ExternalMCQuery {
      * 
      * @param string $ip IP to query
      * @param int|null $port Port to query, `25565` by default.
-     * @return array Query result.
+     * @return object Query result.
      */
     public static function query($ip, $port = 25565) {
         $queryUrl = 'https://api.namelessmc.com/api/server/' . $ip . '/' . $port;
