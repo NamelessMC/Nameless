@@ -25,7 +25,7 @@ The following list is a brief summary of the features available in v2 pre-releas
 Installing NamelessMC v2 is fairly straightforward, provided you already have a web host.
 
 #### Requirements
-- PHP 5.4 -> 7.4 (PHP 7.4 recommended) with:
+- PHP 7.4 with:
     - php-curl
     - php-exif (optional)
     - php-gd with png and jpeg support
@@ -33,7 +33,9 @@ Installing NamelessMC v2 is fairly straightforward, provided you already have a 
     - php-mysql or php-mysqlnd
     - php-pdo
     - php-xml
-- A MySQL database
+- A MySQL/MariaDB database
+
+Older versions of PHP are supported (PHP 5.4+) but be aware that these versions have unfixed security vulnerabilities, do not use in production. PHP 8 works for the most part but still has some issues, please stick with PHP 7.4 for now.
 
 #### Installation Instructions
 1) Download the latest release from [https://github.com/NamelessMC/Nameless/releases](https://github.com/NamelessMC/Nameless/releases).
