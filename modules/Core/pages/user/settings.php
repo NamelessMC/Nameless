@@ -190,7 +190,7 @@ if(isset($_GET['do'])){
 
 				if (count($profile_fields)) {
 					foreach ($profile_fields as $field) {
-						if ($field->required = "1") {
+						if ($field->required == "1") {
 							$to_validate[$field->id] = array(
 								'required' => true,
 								'max' => (is_null($field->length) ? 1024 : $field->length)
