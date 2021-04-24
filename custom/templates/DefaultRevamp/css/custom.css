@@ -1014,6 +1014,11 @@ body.dark .ui.top.right.attached.label {
 	color: rgba(255, 255, 255, 0.6);
 }
 
+body.dark .ui.button.red {
+	background-color: #db2828;
+	color: #fff;
+}
+
 body.dark .ui.image.label,
 body.dark .ui.selection.dropdown {
 	background-color: #282828;
