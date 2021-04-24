@@ -15,9 +15,10 @@ class Alert {
      * 
      * @param int $user_id Contains the ID of the user who we are creating the alert for.
      * @param string $type Contains the alert type, eg 'tag' for user tagging.
-     * @param string $text_short Contains the alert text in short form for the dropdown.
-     * @param string $text Contains full information about the alert.
+     * @param array $text_short Contains the alert text in short form for the dropdown.
+     * @param array $text Contains full information about the alert.
      * @param string|null $link Contains link to view the alert, defaults to #
+     * @throws Exception if unable to create alert
      */
     public static function create($user_id, $type, $text_short, $text, $link = '#') {
         $db = DB::getInstance();
