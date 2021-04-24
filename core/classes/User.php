@@ -376,6 +376,10 @@ class User {
      * @return array Array of all their group IDs.
      */
     public function getAllGroupIds() {
+        if (!$this->isLoggedIn()) {
+            return array(0);
+        }
+
         $groups = array();
 
         if (count($this->_groups)) {
