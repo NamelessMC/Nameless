@@ -59,7 +59,7 @@ $smarty->assign(array(
     'FATAL_ERROR_TITLE' => $language->get('errors', 'fatal_error_title'),
     'FATAL_ERROR_MESSAGE_ADMIN' => $language->get('errors', 'fatal_error_message_admin'),
     'FATAL_ERROR_MESSAGE_USER' => $language->get('errors', 'fatal_error_message_user'),
-    'ERROR_TYPE' => is_null($e) ? $language->get('general', 'error') : (new ReflectionClass($e))->getName(),
+    'ERROR_TYPE' => is_null($exception) ? $language->get('general', 'error') : (new ReflectionClass($exception))->getName(),
     'ERROR_STRING' => $error_string,
     'ERROR_FILE' => $error_file,
     'CURRENT_URL' => $current_url,
