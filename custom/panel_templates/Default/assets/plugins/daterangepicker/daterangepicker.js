@@ -1,3 +1,4 @@
+// @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&dn=expat.txt Expat/MIT
 /**
 * @version: 1.3.21
 * @author: Dan Grossman http://www.dangrossman.info/
@@ -536,7 +537,7 @@
 
             this.updateCalendars();
         },
-        
+
         keydown: function (e) {
             //hide on tab or enter
         	if ((e.keyCode === 9) || (e.keyCode === 13)) {
@@ -560,7 +561,7 @@
                 };
                 parentRightEdge = this.parentEl[0].clientWidth + this.parentEl.offset().left;
             }
-            
+
             if (this.drops == 'up')
             	containerTop = this.element.offset().top - this.container.outerHeight() - parentOffset.top;
             else
@@ -1302,3 +1303,4 @@
     };
 
 }));
+// @license-end
