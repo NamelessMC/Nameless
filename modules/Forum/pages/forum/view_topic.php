@@ -81,7 +81,7 @@ if (isset($_GET['p'])) {
         Redirect::to(URL::build('/forum'));
         die();
     } else {
-        if ($_GET['p'] == 1) {
+        if ($_GET['p'] <= 1) {
             // Avoid bug in pagination class
             Redirect::to(URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title)));
             die();
