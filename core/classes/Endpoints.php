@@ -16,6 +16,8 @@ class Endpoints {
 
     /**
      * Get all registered Endpoints
+     * 
+     * @return EndpointBase[] All endpoints.
      */
     public function getAll() {
         return $this->_endpoints;

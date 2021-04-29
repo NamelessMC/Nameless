@@ -126,7 +126,7 @@ class Widgets {
     /**
      * List all widgets, sorted by their order.
      *
-     * @return array List of widgets.
+     * @return WidgetBase[] List of widgets.
      */
     public function getAll() {
         $widgets = $this->_widgets;

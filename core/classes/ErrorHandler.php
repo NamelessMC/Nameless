@@ -44,6 +44,7 @@ class ErrorHandler {
         $frames[] = self::parseFrame($exception, $error_file, $error_line);
 
         // Loop all frames in the exception trace & get relevent information
+        // TODO: Skip duplicate frames if file and line number matches and they are consecutive. ie: DB->query() sql syntax error calls DB class line 55 twice in a row
         if ($exception != null) {
 
             $i = count($exception->getTrace());
