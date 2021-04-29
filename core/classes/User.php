@@ -464,6 +464,11 @@ class User {
                     $perspective = 'face';
 
                 switch (DEFAULT_AVATAR_SOURCE) {
+                    case 'crafthead':
+                        return 'https://crafthead.net/avatar/' . Output::getClean($uuid) . '/' . $size;
+
+                        break;
+
                     case 'crafatar':
                         if ($perspective == 'face')
                             return 'https://crafatar.com/avatars/' . Output::getClean($uuid) . '?size=' . $size . '&amp;overlay';
