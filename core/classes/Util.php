@@ -145,6 +145,11 @@ class Util {
             }
 
             switch (DEFAULT_AVATAR_SOURCE) {
+                case 'crafthead':
+                    return 'https://crafthead.net/avatar/' . Output::getClean($uuid) . '/' . $size;
+
+                    break;
+
                 case 'crafatar':
                     if ($perspective == 'face')
                         return 'https://crafatar.com/avatars/' . Output::getClean($uuid) . '?size=' . $size . '&amp;overlay';
@@ -216,19 +221,28 @@ class Util {
             }
 
             switch (DEFAULT_AVATAR_SOURCE) {
+                case 'crafthead':
+                    return 'https://crafthead.net/avatar/{x}/{y}';
+
+                    break;
+
                 case 'crafatar':
                     if ($perspective == 'face')
                         return 'https://crafatar.com/avatars/{x}?size={y}&amp;overlay';
                     else
                         return 'https://crafatar.com/renders/head/{x}?overlay';
+
                     break;
+
                 case 'nameless':
                     // Only supports face currently
                     if (defined('FRIENDLY_URLS') && FRIENDLY_URLS == true)
                         return URL::build('/avatar/{x}');
                     else
                         return ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'core/avatar/face.php?u={x}';
+
                     break;
+
                 case 'mc-heads':
                     if ($perspective == 'face')
                         return 'https://mc-heads.net/avatar/{x}/{y}';
@@ -254,12 +268,14 @@ class Util {
                         return 'https://visage.surgeplay.com/head/{y}/{x}';
 
                     break;
+
                 case 'cravatar':
                 default:
                     if ($perspective == 'face')
                         return 'https://cravatar.eu/helmavatar/{x}/{y}.png';
                     else
                         return 'https://cravatar.eu/helmhead/{x}/{y}.png';
+
                     break;
             }
         } else {
