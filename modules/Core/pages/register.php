@@ -353,6 +353,7 @@ if (Input::exists()) {
                                     'last_online' => $date,
                                     'language_id' => $language_id,
                                     'active' => $active
+                                    'timezone' => ((isset($_POST['timezone']) && $_POST['timezone']) ? Output::getClean($_POST['timezone']) : Output::getClean('Europe/London'))
                                 )
                             );
 

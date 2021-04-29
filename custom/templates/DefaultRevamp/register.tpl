@@ -86,6 +86,7 @@
             </div>
           </div>
           <input type="hidden" name="token" value="{$TOKEN}">
+          <input id="timezone" type="hidden" name="timezone" value=''>
           <input type="submit" class="ui primary button" value="{$REGISTER}" tabindex="8">
         </form>
         <div class="ui horizontal divider">{$ALREADY_REGISTERED}</div>
