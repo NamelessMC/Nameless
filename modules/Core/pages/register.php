@@ -355,7 +355,7 @@ if (Input::exists()) {
                                     'lastip' => Output::getClean($ip),
                                     'last_online' => $date,
                                     'language_id' => $language_id,
-                                    'active' => $active
+                                    'active' => $active,
                                     'timezone' => ((isset($_POST['timezone']) && $_POST['timezone']) ? Output::getClean(Input::get('timezone')) : Output::getClean(TIMEZONE))
                                 )
                             );
