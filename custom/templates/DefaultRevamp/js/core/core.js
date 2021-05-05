@@ -84,12 +84,12 @@ $(function() {
         onShow: function(e) {this.html(cachedUsers[$(e).data('poload')].html)}
     });
 
-		var timezone = document.getElementById('timezone');
+		const timezone = document.getElementById('timezone');
 
 		if (timezone) {
 		  timezone.value = Intl.DateTimeFormat().resolvedOptions().timeZone;
 		}
-		
+
 });
 
 const announcements = document.querySelectorAll('[id^="announcement"]');
