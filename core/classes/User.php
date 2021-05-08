@@ -404,127 +404,56 @@ class User {
         return $this->data()->signature;
     }
 
-    // Get a user's avatar, based on user ID    
     /**
      * Get this user's avatar.
      *
-     * @param mixed $path TODO: NOT USED. REMOVE.
      * @param int $size Size of image to render in pixels.
-     * @param bool $full Whether to use full URL or not.
+     * @param bool $full Whether to use full site URL or not, for external loading - ie discord webhooks.
      * @return string URL to their avatar image.
      */
-    public function getAvatar($path = null, $size = 128, $full = false) {
-        $data = $this->data();
-        if (empty($data)) {
-            // User doesn't exist
-            return false;
+    public function getAvatar($size = 128, $full = false) {
+
+        // If custom avatars are enabled, first check if they have gravatar enabled, and then fallback to normal image
+        if (defined('CUSTOM_AVATARS')) {
+
+            if ($this->data()->gravatar) {
+                return "https://secure.gravatar.com/avatar/" . md5(strtolower(trim($this->data()->email))) . "?s=" . $size;
+            }
+
+            if ($this->data()->has_avatar) {
+                $exts = array('png', 'jpg', 'jpeg');
+
+                if ($this->hasPermission('usercp.gif_avatar')) {
+                    $exts[] = 'gif';
+                }
+
+                foreach ($exts as $ext) {
+                    if (file_exists(ROOT_PATH . "/uploads/avatars/" . $this->data()->id . "." . $ext)) {
+                        return ($full ? rtrim(Util::getSelfURL(), '/') : '') . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . "uploads/avatars/" . $this->data()->id . "." . $ext . '?v=' . Output::getClean($this->data()->avatar_updated);
+                    }
+                }
+            }
         }
 
-        if ($data->uuid != null && $data->uuid != 'none') {
-            $uuid = Output::getClean($data->uuid);
+        // Fallback to default avatar image if it is set and the avatar type is custom
+        if (defined('DEFAULT_AVATAR_TYPE') && DEFAULT_AVATAR_TYPE == 'custom') {
+            if (file_exists(ROOT_PATH . '/uploads/avatars/defaults/' . DEFAULT_AVATAR_IMAGE)) {
+                return ($full ? rtrim(Util::getSelfURL(), '/') : '') . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/avatars/defaults/' . DEFAULT_AVATAR_IMAGE;
+            }
+        }
+
+        // If all else fails, or custom avatars are disabled or default avatar type is 'minecraft', get their MC avatar
+        if ($this->data()->uuid != null && $this->data()->uuid != 'none') {
+            $uuid = $this->data()->uuid;
         } else {
-            $uuid = Output::getClean($data->username);
-            //fix accounts with special characters in name having no avatar
+            $uuid = $this->data()->username;
+            // Fallback to steve avatar if they have an invalid uuid
             if (preg_match("#[^][_A-Za-z0-9]#", $uuid)) {
                 $uuid = 'Steve';
             }
         }
 
-        // Get avatar type
-        if (defined('CUSTOM_AVATARS')) {
-            // Custom avatars
-            if ($data->gravatar == 1) {
-                // Gravatar
-                return "https://secure.gravatar.com/avatar/" . md5(strtolower(trim($data->email))) . "?s=128";
-            } else if ($data->has_avatar == 1) {
-                // Custom avatar
-                $exts = array('gif', 'png', 'jpg', 'jpeg');
-                foreach ($exts as $ext) {
-                    if (file_exists(ROOT_PATH . "/uploads/avatars/" . $data->id . "." . $ext)) {
-                        $avatar_path = ($full ? rtrim(Util::getSelfURL(), '/') : '') . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . "uploads/avatars/" . $data->id . "." . $ext . '?v=' . Output::getClean($data->avatar_updated);
-                        break;
-                    }
-                }
-                if (isset($avatar_path)) {
-                    return $avatar_path;
-                }
-            }
-        }
-
-        // Default avatar
-        if (defined('DEFAULT_AVATAR_TYPE') && DEFAULT_AVATAR_TYPE == 'custom') {
-            // Custom default avatar
-            return (($full ? rtrim(Util::getSelfURL(), '/') : '') . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/avatars/defaults/' . DEFAULT_AVATAR_IMAGE);
-        } else {
-            // Minecraft avatar
-            if (defined('DEFAULT_AVATAR_SOURCE')) {
-                if (defined('DEFAULT_AVATAR_PERSPECTIVE'))
-                    $perspective = DEFAULT_AVATAR_PERSPECTIVE;
-                else
-                    $perspective = 'face';
-
-                switch (DEFAULT_AVATAR_SOURCE) {
-                    case 'crafthead':
-                        return 'https://crafthead.net/avatar/' . Output::getClean($uuid) . '/' . $size;
-
-                        break;
-
-                    case 'crafatar':
-                        if ($perspective == 'face')
-                            return 'https://crafatar.com/avatars/' . Output::getClean($uuid) . '?size=' . $size . '&amp;overlay';
-                        else
-                            return 'https://crafatar.com/renders/head/' . Output::getClean($uuid) . '?overlay';
-
-                        break;
-
-                    case 'nameless':
-                        // Only supports face currently
-                        if (defined('FRIENDLY_URLS') && FRIENDLY_URLS == true)
-                            return (($full ? rtrim(Util::getSelfURL(), '/') : '') . URL::build('/avatar/' . Output::getClean($uuid)));
-                        else
-                            return (($full ? rtrim(Util::getSelfURL(), '/') : '') . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'core/avatar/face.php?u=' . Output::getClean($uuid));
-
-                        break;
-
-                    case 'mc-heads':
-                        if ($perspective == 'face')
-                            return 'https://mc-heads.net/avatar/' . Output::getClean($uuid) . '/' . $size;
-                        else
-                            return 'https://mc-heads.net/head/' . Output::getClean($uuid) . '/' . $size;
-
-                        break;
-
-                    case 'minotar':
-                        if ($perspective == 'face')
-                            return 'https://minotar.net/helm/' .  Output::getClean($uuid) . '/' . $size . '.png';
-                        else
-                            return 'https://minotar.net/cube/' .  Output::getClean($uuid) . '/' . $size . '.png';
-
-                        break;
-
-                    case 'visage':
-                        if ($perspective == 'face')
-                            return 'https://visage.surgeplay.com/face/' . $size . '/' . Output::getClean($uuid);
-                        else if ($perspective == 'bust')
-                            return 'https://visage.surgeplay.com/bust/' . $size . '/' . Output::getClean($uuid);
-                        else
-                            return 'https://visage.surgeplay.com/head/' . $size . '/' . Output::getClean($uuid);
-
-                        break;
-
-                    case 'cravatar':
-                    default:
-                        if ($perspective == 'face')
-                            return 'https://cravatar.eu/helmavatar/' . Output::getClean($uuid) . '/' . $size . '.png';
-                        else
-                            return 'https://cravatar.eu/helmhead/' . Output::getClean($uuid) . '/' . $size . '.png';
-                        break;
-                }
-            } else {
-                // Fall back to cravatar
-                return 'https://cravatar.eu/helmavatar/' . Output::getClean($uuid) . '/' . $size . '.png';
-            }
-        }
+        return AvatarSource::getAvatarFromUUID($this->data()->uuid, $size);
     }
 
     /**
