@@ -37,6 +37,22 @@ abstract class AvatarSource {
 
         return self::getActiveSource()->getAvatar($uuid, $perspective, $size);
     }
+
+    /**
+     * Get raw url of active avatar source with placeholders.
+     * 
+     * @param string $perspective Perspective to render.
+     * @return string URL with placeholders.
+     */
+    public static function getUrlToFormat() {
+        if (defined('DEFAULT_AVATAR_PERSPECTIVE')) {
+            $perspective = DEFAULT_AVATAR_PERSPECTIVE;
+        } else {
+            $perspective = 'face';
+        }
+
+        return self::getActiveSource()->getUrlToFormat($perspective);
+    }
     
     /**
      * Register avatar source.
@@ -70,6 +86,11 @@ abstract class AvatarSource {
         self::$_active_source = $source;
     }
 
+    /**
+     * Find an avatar source instance by it's name.
+     * 
+     * @return AvatarSourceBase|null Instance if found, null if not found.
+     */
     public static function getSourceByName($name) {
         foreach (self::getAllSources() as $source) {
             if (strtolower($source->_name) == strtolower($name)) {
@@ -87,6 +108,11 @@ abstract class AvatarSource {
         return self::$_sources;
     }
 
+    /**
+     * Get the names of all the registered avatar sources for displaying.
+     * 
+     * @return array List of names.
+     */
     public static function getAllSourceNames() {
         $names = [];
         

@@ -61,6 +61,9 @@ abstract class AvatarSourceBase {
         return $this->_perspectives_map[$perspective];
     }
 
+    /**
+     * 
+     */
     public function formatUrl($url_to_format, $uuid, $size) {
         return str_replace(['{x}', '{y}'], [$uuid, $size], $url_to_format);
     }

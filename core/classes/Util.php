@@ -143,66 +143,11 @@ class Util {
     /**
      * Get avatar source with UUID as `{x}` and size as `{y}`.
      * Used for avatar preview in online players list.
-     * use getUrlToFormat
      *
      * @return string URL to be formatted.
      */
     public static function getAvatarSource() {
-        if (defined('DEFAULT_AVATAR_SOURCE')) {
-            if (defined('DEFAULT_AVATAR_PERSPECTIVE')) {
-                $perspective = DEFAULT_AVATAR_PERSPECTIVE;
-            } else {
-                $perspective = 'face';
-            }
-
-            switch (DEFAULT_AVATAR_SOURCE) {
-                case 'crafthead':
-                    return 'https://crafthead.net/avatar/{x}/{y}';
-
-                case 'crafatar':
-                    if ($perspective == 'face')
-                        return 'https://crafatar.com/avatars/{x}?size={y}&amp;overlay';
-                    else
-                        return 'https://crafatar.com/renders/head/{x}?overlay';
-
-                case 'nameless':
-                    // Only supports face currently
-                    if (defined('FRIENDLY_URLS') && FRIENDLY_URLS == true)
-                        return URL::build('/avatar/{x}');
-                    else
-                        return ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'core/avatar/face.php?u={x}';
-
-                case 'mc-heads':
-                    if ($perspective == 'face')
-                        return 'https://mc-heads.net/avatar/{x}/{y}';
-                    else
-                        return 'https://mc-heads.net/head/{x}/{y}';
-
-                case 'minotar':
-                    if ($perspective == 'face')
-                        return 'https://minotar.net/helm/{x}/{y}.png';
-                    else
-                        return 'https://minotar.net/cube/{x}/{y}.png';
-
-                case 'visage':
-                    if ($perspective == 'face')
-                        return 'https://visage.surgeplay.com/face/{y}/{x}';
-                    else if ($perspective == 'bust')
-                        return 'https://visage.surgeplay.com/bust/{y}/{x}';
-                    else
-                        return 'https://visage.surgeplay.com/head/{y}/{x}';
-
-                case 'cravatar':
-                default:
-                    if ($perspective == 'face')
-                        return 'https://cravatar.eu/helmavatar/{x}/{y}.png';
-                    else
-                        return 'https://cravatar.eu/helmhead/{x}/{y}.png';
-            }
-        } else {
-            // Fall back to cravatar
-            return 'https://cravatar.eu/helmavatar/{x}/{y}.png';
-        }
+        return AvatarSource::getUrlToFormat();
     }
 
     /**
