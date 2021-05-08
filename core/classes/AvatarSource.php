@@ -93,7 +93,7 @@ abstract class AvatarSource {
      */
     public static function getSourceByName($name) {
         foreach (self::getAllSources() as $source) {
-            if (strtolower($source->_name) == strtolower($name)) {
+            if (strtolower($source->getName()) == strtolower($name)) {
                 return $source;
             }
         }
@@ -102,6 +102,8 @@ abstract class AvatarSource {
     }
 
     /**
+     * Get all registered sources.
+     * 
      * @return AvatarSourceBase[]
      */
     public static function getAllSources() {
@@ -109,7 +111,8 @@ abstract class AvatarSource {
     }
 
     /**
-     * Get the names of all the registered avatar sources for displaying.
+     * Get the names and base urls of all the registered avatar sources for displaying.
+     * Used for showing list of sources in staffcp.
      * 
      * @return array List of names.
      */
@@ -117,9 +120,27 @@ abstract class AvatarSource {
         $names = [];
         
         foreach (self::getAllSources() as $source) {
-            $names[] = $source->_name;
+            $names[$source->getName()] = rtrim($source->getBaseUrl(), '/');
         }
 
         return $names;
+    }
+
+    /**
+     * Get key value array of all registered sources and their available perspectives.
+     * Used for autoupdating dropdown selector in staffcp.
+     * 
+     * @return array Array of source => [] perspectives.
+     */
+    public static function getAllPerspectives() {
+        $perspectives = [];
+
+        foreach (self::getAllSources() as $source) {
+            foreach ($source->getPerspectives() as $perspective) {
+                $perspectives[$source->getName()][] = $perspective;
+            }
+        }
+
+        return $perspectives;
     }
 }
