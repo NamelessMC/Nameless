@@ -70,6 +70,7 @@
                 </select>
               </div>
             {/if}
+            {if isset($CUSTOM_AVATARS)}
             <div class="field">
               <label for="inputGravatar">{$GRAVATAR}</label>
               <select class="ui fluid dropdown" name="gravatar" id="inputGravatar">
@@ -77,6 +78,7 @@
                 <option value="1"{if ($GRAVATAR_VALUE == '1')} selected {/if}>{$ENABLED}</option>
               </select>
             </div>
+            {/if}
             <div class="field">
               <label for="inputLanguage">{$ACTIVE_LANGUAGE}</label>
               <select class="ui fluid dropdown" name="language" id="inputLanguage">

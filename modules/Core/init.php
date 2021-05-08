@@ -20,6 +20,15 @@ if (!$module_installed) {
 require_once(ROOT_PATH . '/modules/Core/classes/hCaptcha.php');
 require_once(ROOT_PATH . '/modules/Core/classes/Recaptcha2.php');
 require_once(ROOT_PATH . '/modules/Core/classes/Recaptcha3.php');
+
+require_once(ROOT_PATH . '/modules/Core/classes/CrafatarAvatarSource.php');
+require_once(ROOT_PATH . '/modules/Core/classes/CraftheadAvatarSource.php');
+require_once(ROOT_PATH . '/modules/Core/classes/CravatarAvatarSource.php');
+require_once(ROOT_PATH . '/modules/Core/classes/MCHeadsAvatarSource.php');
+require_once(ROOT_PATH . '/modules/Core/classes/MinotarAvatarSource.php');
+require_once(ROOT_PATH . '/modules/Core/classes/NamelessMCAvatarSource.php');
+require_once(ROOT_PATH . '/modules/Core/classes/VisageAvatarSource.php');
+
 require_once(ROOT_PATH . '/modules/Core/module.php');
 
 $module = new Core_Module($language, $pages, $user, $queries, $navigation, $cache, $endpoints);

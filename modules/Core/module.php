@@ -281,6 +281,16 @@ class Core_Module extends Module {
         CaptchaBase::addProvider(new Recaptcha3($captchaPrivateKey, $captchaPublicKey));
         CaptchaBase::setActiveProvider($activeCaptcha);
 
+        // Avatar Sources
+        AvatarSource::registerSource(new CrafatarAvatarSource());
+        AvatarSource::registerSource(new CraftheadAvatarSource());
+        AvatarSource::registerSource(new CravatarAvatarSource());
+        AvatarSource::registerSource(new MCHeadsAvatarSource());
+        AvatarSource::registerSource(new MinotarAvatarSource());
+        AvatarSource::registerSource(new NamelessMCAvatarSource($language));
+        AvatarSource::registerSource(new VisageAvatarSource());
+        AvatarSource::setActiveSource(DEFAULT_AVATAR_SOURCE);
+
         // Autoload API Endpoints
         Util::loadEndpoints(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'modules', 'Core', 'includes', 'endpoints')), $endpoints);
     }
