@@ -56,8 +56,8 @@
                             <div class="form-group">
                                 <label for="inputMinecraftAvatarSource">{$MINECRAFT_AVATAR_SOURCE}</label>
                                 <select class="form-control" name="avatar_source" id="inputMinecraftAvatarSource">
-                                    {foreach from=$MINECRAFT_AVATAR_VALUES key=key item=item}
-                                        <option value="{$key}" {if $key eq $MINECRAFT_AVATAR_VALUE} selected{/if}>{$item}</option>
+                                    {foreach from=$MINECRAFT_AVATAR_VALUES item=item}
+                                        <option value="{$item}" {if $item eq $MINECRAFT_AVATAR_VALUE} selected{/if}>{$item}</option>
                                     {/foreach}
                                 </select>
                             </div>

@@ -44,7 +44,7 @@ abstract class AvatarSource {
      * @param AvatarSourceBase $source Instance of avatar source to register.
      */
     public static function registerSource(AvatarSourceBase $source) {
-        self::$_sources[$source->_name] = $source;
+        self::$_sources[] = $source;
     }
 
     /** 
@@ -62,19 +62,38 @@ abstract class AvatarSource {
      * @param string $name Name of source to set as active.
      */
     public static function setActiveSource($name) {
-        $source = self::$_sources[strtolower($name)];
+        $source = self::getSourceByName($name);
         if ($source == null) {
-            $source = self::$_sources['cravatar'];
+            $source = self::getSourceByName('cravatar');
         }
-    
+
         self::$_active_source = $source;
     }
 
-    /** 
-     * Get all of the registered avatar sources.
+    public static function getSourceByName($name) {
+        foreach (self::getAllSources() as $source) {
+            if (strtolower($source->_name) == strtolower($name)) {
+                return $source;
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * @return AvatarSourceBase[]
      */
     public static function getAllSources() {
         return self::$_sources;
+    }
+
+    public static function getAllSourceNames() {
+        $names = [];
+        
+        foreach (self::getAllSources() as $source) {
+            $names[] = $source->_name;
+        }
+
+        return $names;
     }
 }
