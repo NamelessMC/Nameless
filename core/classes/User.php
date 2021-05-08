@@ -453,7 +453,7 @@ class User {
             }
         }
 
-        return AvatarSource::getAvatarFromUUID($this->data()->uuid, $size);
+        return AvatarSource::getAvatarFromUUID($uuid, $size);
     }
 
     /**
