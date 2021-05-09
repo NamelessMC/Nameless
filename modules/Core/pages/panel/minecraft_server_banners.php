@@ -2,14 +2,17 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr0
  *
  *  License: MIT
  *
  *  Panel Minecraft server banners page
  */
 
-$user->handlePanelPageLoad('admincp.minecraft.banners');
+if(!$user->handlePanelPageLoad('admincp.minecraft.banners')) {
+    require_once(ROOT_PATH . '/403.php');
+    die();
+}
 
 if (!function_exists('exif_imagetype')) {
     require_once(ROOT_PATH . '/403.php');

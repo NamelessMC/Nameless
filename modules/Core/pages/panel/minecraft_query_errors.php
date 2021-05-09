@@ -2,14 +2,17 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr9
  *
  *  License: MIT
  *
  *  Panel Minecraft query errors page
  */
 
-$user->handlePanelPageLoad('admincp.minecraft.query_errors');
+if(!$user->handlePanelPageLoad('admincp.minecraft.query_errors')) {
+    require_once(ROOT_PATH . '/403.php');
+    die();
+}
 
 define('PAGE', 'panel');
 define('PARENT_PAGE', 'integrations');

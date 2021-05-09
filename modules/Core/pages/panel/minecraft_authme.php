@@ -9,7 +9,10 @@
  *  Panel Minecraft Authme page
  */
 
-$user->handlePanelPageLoad('admincp.minecraft.authme');
+if(!$user->handlePanelPageLoad('admincp.minecraft.authme')) {
+    require_once(ROOT_PATH . '/403.php');
+    die();
+}
 
 define('PAGE', 'panel');
 define('PARENT_PAGE', 'integrations');

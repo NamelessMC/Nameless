@@ -9,7 +9,10 @@
  *  Panel users page
  */
 
-$user->handlePanelPageLoad('admincp.users');
+if(!$user->handlePanelPageLoad('admincp.users')) {
+    require_once(ROOT_PATH . '/403.php');
+    die();
+}
 
 define('PAGE', 'panel');
 define('PARENT_PAGE', 'users');
