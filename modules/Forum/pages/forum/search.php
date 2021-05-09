@@ -77,7 +77,7 @@ if (!isset($_GET['s'])) {
             // Check permissions
             $perms = $queries->getWhere('forums_permissions', array('forum_id', '=', $result->forum_id));
             foreach ($perms as $perm) {
-                if (in_array($perm->group_id, $user_groups) && $perm->view == 1) {
+                if (in_array($perm->group_id, $user_groups) && $perm->view == 1 && $perm->view_other_topics == 1) {
                     if (isset($result->topic_id)) {
                         // Post
                         if (!isset($results[$result->id]) && $result->deleted == 0) {
