@@ -37,7 +37,7 @@ if ($cache->isCached('news')) {
             'author_style' => $post_user->getGroupClass(),
             'author_name' => $post_user->getDisplayname(true),
             'author_nickname' => $post_user->getDisplayname(),
-            'author_avatar' => $post_user->getAvatar("../", 64),
+            'author_avatar' => $post_user->getAvatar(64),
             'author_group' => Output::getClean($post_user->getMainGroup()->name),
             'author_group_html' => $post_user->getMainGroup()->group_html,
             'content' => Output::getPurified($item['content']),
