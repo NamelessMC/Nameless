@@ -39,6 +39,14 @@ try {
     echo $e->getMessage() . '<br />';
 }
 
+// plugin -> website placeholders
+try {
+    DB::getInstance()->createTable('nl2_users_placeholders', '', "ENGINE=$engine DEFAULT CHARSET=$charset");
+    DB::getInstance()->query('ALTER TABLE `nl2_users_placeholders` ADD PRIMARY KEY(`server_id`, `uuid`, `name`)');
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+
 // Update version number
 $version_number_id = $queries->getWhere('settings', array('name', '=', 'nameless_version'));
 

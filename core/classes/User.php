@@ -13,6 +13,7 @@ class User {
     
     private $_data,
             $_groups,
+            $_placeholders,
             $_sessionName,
             $_cookieName,
             $_isLoggedIn,
@@ -140,6 +141,20 @@ class User {
                     
                     $this->addGroup($default_group_id);
                     $this->_groups[$default_group_id] = $default_group;
+                }
+
+                // Get their placeholders only if they have a valid uuid
+                if ($this->_data->uuid != null && $this->_data->uuid != 'none') {
+
+                    $placeholders = $this->_db->query('SELECT * FROM nl2_users_placeholders WHERE uuid = ?', array($this->_data->uuid));
+
+                    if ($placeholders->count()) {
+
+                        $placeholders = $placeholders->results();
+                        foreach ($placeholders as $placeholder) {
+                            $this->_placeholders[$placeholder->name] = $placeholder;
+                        }
+                    }
                 }
 
                 return true;
@@ -531,6 +546,15 @@ class User {
      */
     public function getGroups() {
         return $this->_groups;
+    }
+
+    /**
+     * Get the currently logged in user's placeholders.
+     * 
+     * @return array Their placeholders.
+     */
+    public function getPlaceholders() {
+        return $this->_placeholders;
     }
 
     /**
@@ -1084,5 +1108,25 @@ class User {
         $groups = rtrim($groups, ',') . ')';
 
         return $this->_db->query('SELECT template.id, template.name FROM nl2_templates AS template WHERE template.enabled = 1 AND template.id IN (SELECT template_id FROM nl2_groups_templates WHERE can_use_template = 1 AND group_id IN ' . $groups . ')')->results();
+    }
+
+    /**
+     * Save/update this users placeholders.
+     * 
+     * @param int $server_id Server ID from staffcp -> integrations to assoc these placeholders with.
+     * @param array $placeholders Key/value array of placeholders name/value from API endpoint.
+     */
+    public function savePlaceholders($server_id, $placeholders) {
+        foreach ($placeholders as $name => $value) {
+            $this->_db->query('INSERT INTO nl2_user_placeholders (server_id, uuid, name, value, last_update) VALUES (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE value = ? AND last_update = ?', [
+                $server_id,
+                $this->data()->uuid,
+                $name,
+                $value,
+                time(),
+                $value,
+                time()
+            ]);
+        }
     }
 }
