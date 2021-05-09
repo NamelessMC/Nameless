@@ -91,7 +91,7 @@ if (!isset($_GET['view'])) {
                 $errors[] = $e->getMessage();
             }
 
-            $username_sync = isset($_POST['username_sync']) && $_POST['username_sync'] == 'on' ? 0 : 1;
+            $username_sync = isset($_POST['username_sync']) && $_POST['username_sync'] == 'on' ? 1 : 0;
             $username_sync_id = $queries->getWhere('settings', array('name', '=', 'username_sync'))[0]->id;
 
             try {
