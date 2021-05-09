@@ -181,7 +181,7 @@ if (isset($_GET['s'])) {
             $posts[$n] = array(
                 'post_author' => $post_user->getDisplayname(),
                 'post_author_id' => Output::getClean($results->data[$n]['post_author']),
-                'post_author_avatar' => $post_user->getAvatar('../', 25),
+                'post_author_avatar' => $post_user->getAvatar(25),
                 'post_author_profile' => $post_user->getProfileURL(),
                 'post_author_style' => $post_user->getGroupClass(),
                 'post_date_full' => date('d M Y, H:i', strtotime($results->data[$n]['post_date'])),

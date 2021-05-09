@@ -110,7 +110,7 @@ class LatestPostsWidget extends WidgetBase {
 				    'forum_id' => $discussions[$n]['forum_id'],
 				    'views' => $discussions[$n]['topic_views'],
 				    'posts' => $posts,
-				    'last_reply_avatar' => $last_reply_user->getAvatar("../", 64),
+				    'last_reply_avatar' => $last_reply_user->getAvatar(64),
 				    'last_reply_rough' => $timeago->inWords(date('d M Y, H:i', $discussions[$n]['topic_reply_date']), $this->_language->getTimeLanguage()),
 				    'last_reply' => date('d M Y, H:i', $discussions[$n]['topic_reply_date']),
 				    'last_reply_username' => $last_reply_user->getDisplayname(),

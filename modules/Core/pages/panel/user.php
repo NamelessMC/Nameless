@@ -84,7 +84,7 @@ $smarty->assign(array(
     'PAGE' => PANEL_PAGE,
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit'),
-    'AVATAR' => $view_user->getAvatar('', 256),
+    'AVATAR' => $view_user->getAvatar(256),
     'NICKNAME' => $view_user->getDisplayname(),
     'USERNAME' => $view_user->getDisplayname(true),
     'USER_STYLE' => $view_user->getGroupClass(),
