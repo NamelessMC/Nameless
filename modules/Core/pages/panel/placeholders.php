@@ -20,24 +20,27 @@ define('PANEL_PAGE', 'placeholders');
 $page_title = $language->get('admin', 'placeholders');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 $queries = new Queries();
+
 $all_placeholders = $queries->getWhere('placeholders_settings', ['name', '<>', '']);
 
 
 if (Input::exists()) {
 
     // TODO: Token and error/success messages
-    // TODO: dropdown doesnt open auto to placeholders active
+    // TODO: navbar dropdown doesnt open auto to placeholders active
     if (Token::check()) {
 
         foreach ($all_placeholders as $placeholder) {
 
             $friendly_name_input = Input::get('friendly_name-' . $placeholder->name);
             $friendly_name = $friendly_name_input == '' ? null : $friendly_name_input;
-            $public = Input::get('public-' . $placeholder->name) == 'on' ? 1 : 0;
+            $show_on_profile = Input::get('show_on_profile-' . $placeholder->name) == 'on' ? 1 : 0;
+            $show_on_forum = Input::get('show_on_forum-' . $placeholder->name) == 'on' ? 1 : 0;
 
-            DB::getInstance()->query("UPDATE nl2_placeholders_settings SET friendly_name = ?, public = ? WHERE name = ?", [
+            DB::getInstance()->query("UPDATE nl2_placeholders_settings SET friendly_name = ?, show_on_profile = ?, show_on_forum = ? WHERE name = ?", [
                 $friendly_name,
-                $public,
+                $show_on_profile,
+                $show_on_forum,
                 $placeholder->name
             ]);
         }
@@ -72,15 +75,17 @@ $smarty->assign(array(
     'CONFIGURATION' => $language->get('admin', 'configuration'),
     'TOKEN' => Token::get(),
     'INFO' => $language->get('general', 'info'),
-    'FRIENDLY_NAME_INFO' => 'Use this to set a \'nickname\' to this placeholder. The friendly name will be used instead of the raw name.',
-    'PUBLIC_PRIVATE_INFO' => 'If this is disabled, users will not be able to view this placeholder\'s settings or display it publically.',
     'SUBMIT' => $language->get('general', 'submit'),
     'PLACEHOLDERS_INFO' => 'Placeholders allow the NamelessMC Spigot plugin to send statistics about each player to your website so they can display them on their profile and forum posts.',
     'ALL_PLACEHOLDERS' => $all_placeholders,
     'PLACEHOLDERS' => $language->get('admin', 'placeholders'),
     'NAME' => 'Name',
     'FRIENDLY_NAME' => 'Friendly Name',
-    'PUBLIC' => 'Public'
+    'SHOW_ON_PROFILE' => 'Show on Profile',
+    'SHOW_ON_FORUM' => 'Show on Forum',
+    'FRIENDLY_NAME_INFO' => 'Use this to set a \'nickname\' to this placeholder. The friendly name will be used instead of the raw name.',
+    'SHOW_ON_PROFILE_INFO' => 'Whether to show this placeholder on each user\'s profile or not.',
+    'SHOW_ON_FORUM_INFO' => 'Whether to show this placeholder on each user\'s forum posts or not.',
 ));
 
 $page_load = microtime(true) - $start;

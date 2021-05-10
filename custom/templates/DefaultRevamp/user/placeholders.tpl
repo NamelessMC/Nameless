@@ -48,7 +48,8 @@
                   <th>Name</th>
                   <th>Value</th>
                   <th>Last Updated</th>
-                  <th></th>
+                  <th>{$SHOW_ON_PROFILE}</th>
+                  <th>{$SHOW_ON_FORUM}</th>
                 </tr>
               </thead>
               <tbody>
@@ -68,7 +69,18 @@
                   {$data.last_updated}
                 </td>
                 <td>
-                  <button class="ui yellow icon button" onclick="showPlaceholderSettings('{$data.name}')"><i class="fas fa-cog icon black"></i></button>
+                {if $data.show_on_profile eq 1}
+                    <i class="fa fa-check-circle"></i>
+                {else}
+                    <i class="fa fa-times-circle"></i>
+                {/if}
+                </td>
+                <td>
+                {if $data.show_on_forum eq 1}
+                    <i class="fa fa-check-circle"></i>
+                {else}
+                    <i class="fa fa-times-circle"></i>
+                {/if}
                 </td>
               </tr>
               {/foreach}
@@ -84,78 +96,8 @@
           {/nocache}
         </div>
       </div>
-
-      {nocache}
-      {if count($PLACEHOLDERS_LIST)}
-        {foreach from=$PLACEHOLDERS_LIST item=data}
-            <div class="ui ten wide tablet twelve wide computer column placeholder-settings" id="placeholder-settings-{$data.name}" style="display: none;">
-                <div class="ui segment">
-                <h3 class="ui header">
-                    {$OPTIONS}
-                    <div class="sub header">{$data.friendly_name}</div>
-                </h3>
-                <div class="ui middle aligned">
-                    <table class="ui fixed single line selectable unstackable small padded res table" id="subforums-table">
-                        <thead>
-                            <tr>
-                            <th class="center aligned">Show on Profile</th>
-                            <th class="center aligned">Show on Forum Posts</th>
-                            <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        
-                        <form action="" method="POST">
-
-                            <input type="hidden" name="placeholder_name" value="{$data.name}">
-                            <input type="hidden" name="token" value="{$TOKEN}">
-
-                            <tr class="center aligned">
-                                <td>
-                                    <div class="ui checkbox">
-                                        <input type="checkbox" name="show_on_profile" {if $data.show_on_profile eq 1} checked {/if}>
-                                        <label></label>
-                                    </div>
-                                </td>
-
-                                <td>
-                                    <div class="ui checkbox">
-                                        <input type="checkbox" name="show_on_forum" {if $data.show_on_forum eq 1} checked {/if}>
-                                        <label></label>
-                                    </div>
-                                </td>
-
-                                <td>
-                                    <button class="ui primary icon button" type="submit"><i class="fas fa-save icon white"></i></button>
-                                </td>
-                            </tr>
-
-                        </form>
-
-                    </table>
-                </div>
-                </div>
-            </div> 
-        {/foreach}
-      {/if}
-      {/nocache}
-
     </div>
   </div>
 </div>
-
-<script>
-
-const placeholder_settings = document.getElementsByClassName('placeholder-settings');
-
-function showPlaceholderSettings(name) {
-      Array.prototype.forEach.call(placeholder_settings, (ps) => {
-          $(ps).hide(100);
-      });
-
-      $('#placeholder-settings-' + name).show(100);
-}
-
-</script>
 
 {include file='footer.tpl'}

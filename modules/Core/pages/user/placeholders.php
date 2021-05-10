@@ -20,30 +20,6 @@ define('PAGE', 'cc_placeholders');
 $page_title = $language->get('user', 'user_cp');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-
-if (Input::exists()) {
-
-    if (Token::check()) {
-
-        $placeholder_name = Output::getClean(Input::get('placeholder_name'));
-        $show_on_profile_value = Input::get('show_on_profile') == 'on' ? 1 : 0;
-        $show_on_forum_value = Input::get('show_on_forum') == 'on' ? 1 : 0;
-
-        $user->updatePlaceholderSettings($placeholder_name, [
-            'show_on_profile' => $show_on_profile_value,
-            'show_on_forum' => $show_on_forum_value
-        ]);
-
-        Session::flash('settings_success', 'Updated placeholder settings successfully.');
-
-        Redirect::to(URL::build('/user/placeholders'));
-
-    } else {
-        Session::flash('settings_error', $language->get('general', 'invalid_token'));
-    }
-}
-
-
 $timeago = new TimeAgo(TIMEZONE);
 
 $placeholders_list = array();
@@ -60,26 +36,13 @@ foreach ($user->getPlaceholders() as $placeholder) {
     ];
 }
 
-if (Session::exists('settings_success')) {
-    $smarty->assign(array(
-        'SUCCESS_TITLE' => $language->get('general', 'success'),
-        'SUCCESS' => Session::flash('settings_success')
-    ));
-}
-
-if (Session::exists('settings_error')) {
-    $smarty->assign(array(
-        'ERRORS' => Session::flash('settings_error')
-    ));
-}
-
 $smarty->assign(array(
     'USER_CP' => $language->get('user', 'user_cp'),
     'NO_PLACEHOLDERS' => $language->get('user', 'no_placeholders'),
     'PLACEHOLDERS' => $language->get('user', 'placeholders'),
     'PLACEHOLDERS_LIST' => $placeholders_list,
-    'OPTIONS' => $language->get('admin', 'email_message_options'),
-    'TOKEN' => Token::get()
+    'SHOW_ON_PROFILE' => 'Show on Profile',
+    'SHOW_ON_FORUM' => 'Show on Forum',
 ));
 
 // Load modules + template

@@ -64,11 +64,18 @@
                                                             data-content="{$FRIENDLY_NAME_INFO}"></i></span>
                                                 </th>
                                                 <th class="text-center">
-                                                    {$PUBLIC}
+                                                    {$SHOW_ON_PROFILE}
                                                     <span class="badge badge-info" style="margin-right:10px"><i
                                                             class="fas fa-question-circle" data-container="body"
                                                             data-toggle="popover" title="{$INFO}"
-                                                            data-content="{$PUBLIC_PRIVATE_INFO}"></i></span>
+                                                            data-content="{$SHOW_ON_PROFILE_INFO}"></i></span>
+                                                </th>
+                                                <th class="text-center">
+                                                    {$SHOW_ON_FORUM}
+                                                    <span class="badge badge-info" style="margin-right:10px"><i
+                                                            class="fas fa-question-circle" data-container="body"
+                                                            data-toggle="popover" title="{$INFO}"
+                                                            data-content="{$SHOW_ON_FORUM_INFO}"></i></span>
                                                 </th>
                                             </tr>
                                         </thead>
@@ -80,7 +87,10 @@
                                                         <input type="text" class="form-control" name="friendly_name-{$placeholder->name}" value="{$placeholder->friendly_name}">
                                                     </td>
                                                     <td class="text-center">
-                                                        <input type="checkbox" class="js-switch" name="public-{$placeholder->name}" {if $placeholder->public eq 1} checked {/if}>
+                                                        <input type="checkbox" class="js-switch" name="show_on_profile-{$placeholder->name}" {if $placeholder->show_on_profile eq 1} checked {/if}>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <input type="checkbox" class="js-switch" name="show_on_forum-{$placeholder->name}" {if $placeholder->show_on_forum eq 1} checked {/if}>
                                                     </td>
                                                 </tr>
                                             {/foreach}

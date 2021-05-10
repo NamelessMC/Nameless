@@ -147,7 +147,7 @@ class User {
                 if ($this->_data->uuid != null && $this->_data->uuid != 'none') {
 
                     // TODO: probably can handle assigning friendly_name from within the query
-                    $placeholders = $this->_db->query('SELECT * FROM nl2_users_placeholders up JOIN nl2_placeholders_settings ps ON up.name = ps.name WHERE up.uuid = ? AND ps.public = 1', array($this->_data->uuid));
+                    $placeholders = $this->_db->query('SELECT * FROM nl2_users_placeholders up JOIN nl2_placeholders_settings ps ON up.name = ps.name WHERE up.uuid = ?', array($this->_data->uuid));
 
                     if ($placeholders->count()) {
 
