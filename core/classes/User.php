@@ -1118,7 +1118,7 @@ class User {
      */
     public function savePlaceholders($server_id, $placeholders) {
         foreach ($placeholders as $name => $value) {
-            $this->_db->query('INSERT INTO nl2_user_placeholders (server_id, uuid, name, value, last_update) VALUES (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE value = ? AND last_update = ?', [
+            $this->_db->query('INSERT INTO nl2_users_placeholders (server_id, uuid, name, value, last_update) VALUES (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE value = ? AND last_update = ?', [
                 $server_id,
                 $this->data()->uuid,
                 $name,
@@ -1128,5 +1128,18 @@ class User {
                 time()
             ]);
         }
+    }
+
+    public function updatePlaceholderSettings($placeholder_name, $settings) {
+
+        $update = 'SET ';
+
+        foreach ($settings as $setting => $value) {
+            $update .= "$setting = $value, ";
+        }
+
+        $update = rtrim($update, ', ');
+
+        $this->_db->query("UPDATE nl2_users_placeholders $update WHERE name = ? AND uuid = ?", [$placeholder_name, $this->data()->uuid]);
     }
 }

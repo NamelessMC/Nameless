@@ -30,7 +30,7 @@
               </thead>
               <tbody>
               
-              {foreach from=$PLACEHOLDERS_LIST key=name item=data}
+              {foreach from=$PLACEHOLDERS_LIST item=data}
               <tr>
                 <td>
                   {$data.server_id}
@@ -45,7 +45,7 @@
                   {$data.last_updated}
                 </td>
                 <td>
-                  <button class="ui yellow icon button"><i class="fas fa-cog icon black"></i></button>
+                  <button class="ui yellow icon button" onclick="showPlaceholderSettings('{$data.name}')"><i class="fas fa-cog icon black"></i></button>
                 </td>
               </tr>
               {/foreach}
@@ -62,48 +62,74 @@
         </div>
       </div>
 
-      <div class="ui ten wide tablet twelve wide computer column">
-        <div class="ui segment">
-          <h3 class="ui header">
-            {$OPTIONS}
-              <div class="sub header">kitpvp_rank</div>
-          </h3>
-          <div class="ui middle aligned">
-            <table class="ui fixed single line selectable unstackable small padded res table" id="subforums-table">
-              <thead>
-                <tr>
-                  <th class="center aligned">Show on Profile</th>
-                  <th class="center aligned">Show on Forum Posts</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-              
-              <tr class="center aligned">
-                <td>
-                  <div class="ui checkbox">
-                    <input type="checkbox" name="example">
-                    <label></label>
-                  </div>
-                </td>
-                <td>
-                  <div class="ui checkbox">
-                    <input type="checkbox" name="example">
-                    <label></label>
-                  </div>
-                </td>
-                <td>
-                  <button class="ui primary icon button"><i class="fas fa-save icon white"></i></button>
-                </td>
-              </tr>
+      {if count($PLACEHOLDERS_LIST)}
+        {foreach from=$PLACEHOLDERS_LIST item=data}
+            <div class="ui ten wide tablet twelve wide computer column placeholder-settings" id="placeholder-settings-{$data.name}" style="display: none;">
+                <div class="ui segment">
+                <h3 class="ui header">
+                    {$OPTIONS}
+                    <div class="sub header">{$data.name}</div>
+                </h3>
+                <div class="ui middle aligned">
+                    <table class="ui fixed single line selectable unstackable small padded res table" id="subforums-table">
+                        <thead>
+                            <tr>
+                            <th class="center aligned">Show on Profile</th>
+                            <th class="center aligned">Show on Forum Posts</th>
+                            <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        
+                        <form action="" method="POST">
 
-            </table>
-          </div>
-        </div>
-      </div>
+                            <input type="hidden" name="placeholder_name" value="{$data.name}">
+
+                            <tr class="center aligned">
+                                <td>
+                                    <div class="ui checkbox">
+                                        <input type="checkbox" name="show_on_profile" {if $data.show_on_profile eq 1} checked {/if}>
+                                        <label></label>
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <div class="ui checkbox">
+                                        <input type="checkbox" name="show_on_forum" {if $data.show_on_forum eq 1} checked {/if}>
+                                        <label></label>
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <button class="ui primary icon button" type="submit"><i class="fas fa-save icon white"></i></button>
+                                </td>
+                            </tr>
+
+                        </form>
+
+                    </table>
+                </div>
+                </div>
+            </div> 
+        {/foreach}
+      {/if}
 
     </div>
   </div>
 </div>
+
+<script>
+
+const placeholder_settings = document.getElementsByClassName('placeholder-settings');
+
+function showPlaceholderSettings(name) {
+      Array.prototype.forEach.call(placeholder_settings, (ps) => {
+          ps.style.display = 'none';
+      });
+
+      document.getElementById('placeholder-settings-' + name).style.display = 'block';
+}
+
+</script>
 
 {include file='footer.tpl'}
