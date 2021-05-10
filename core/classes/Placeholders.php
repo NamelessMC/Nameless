@@ -148,7 +148,7 @@ class Placeholders {
 
         $sort = $this->getPlaceholderByName($placeholder_name)->leaderboard_sort;
 
-        $leaderboard_data = $this->_db->query("SELECT * FROM nl2_users_placeholders WHERE name = ? ORDER BY value {$sort}", [$placeholder_name]);
+        $leaderboard_data = $this->_db->query("SELECT * FROM nl2_users_placeholders WHERE name = ? ORDER BY value {$sort} LIMIT 50", [$placeholder_name]);
 
         if (!$leaderboard_data->count()) {
             return [];

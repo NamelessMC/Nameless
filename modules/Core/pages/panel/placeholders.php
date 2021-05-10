@@ -50,7 +50,7 @@ if (isset($_GET['leaderboard'])) {
                     $placeholder->name
                 ]);
 
-                Session::flash('placeholders_success', 'Updated leaderboard settings successfully');
+                Session::flash('placeholders_success', $language->get('admin', 'placeholder_leaderboard_updated'));
 
                 Redirect::to(URL::build('/panel/core/placeholders'));
 
@@ -66,14 +66,17 @@ if (isset($_GET['leaderboard'])) {
             'CONFIGURATION' => $language->get('admin', 'configuration'),
             'TOKEN' => Token::get(),
             'INFO' => $language->get('general', 'info'),
-            'ENABLED_INFO' => 'Leaderboards work best with numeric placeholders (such as coins, kills, blocks mined, etc). If you enable a leaderboard on a text-based placeholder - you cannot be sure it will order it as you want.',
+            'ENABLED_INFO' => $language->get('admin', 'placeholder_leaderboard_enable_info'),
             'SUBMIT' => $language->get('general', 'submit'),
             'BACK' => $language->get('general', 'back'),
             'BACK_LINK' => URL::build('/panel/core/placeholders'),
             'PLACEHOLDERS' => $language->get('admin', 'placeholders'),
-            'PLACEHOLDER_LEADERBOARD_SETTINGS' => 'Placeholder Leaderboard Settings',
-            'PLACEHOLDER_LEADERBOARD_INFO' => 'Placeholder Leaderboards let you create leaderboards to display ranked players on your server according to any placeholder.',
-            'PLACEHOLDER' => $placeholder
+            'PLACEHOLDER_LEADERBOARD_SETTINGS' => $language->get('admin', 'placeholder_leaderboard_settings'),
+            'PLACEHOLDER_LEADERBOARD_INFO' => $language->get('admin', 'placeholder_leaderboard_info'),
+            'PLACEHOLDER' => $placeholder,
+            'LEADERBOARD_ENABLED' => $language->get('admin', 'placeholder_leaderboard_enabled'),
+            'LEADERBOARD_TITLE' => $language->get('admin', 'placeholder_leaderboard_title'),
+            'LEADERBOARD_SORT' => $language->get('admin', 'placeholder_leaderboard_sort')
         ));
 
     } else {
@@ -129,8 +132,8 @@ if (isset($_GET['leaderboard'])) {
         'FRIENDLY_NAME_INFO' => $language->get('admin', 'placeholders_friendly_name_info'),
         'SHOW_ON_PROFILE_INFO' => $language->get('admin', 'placeholders_show_on_profile_info'),
         'SHOW_ON_FORUM_INFO' => $language->get('admin', 'placeholders_show_on_forum_info'),
-        'LEADERBOARD_ENABLED' => 'Leaderboard Enabled',
-        'LEADERBOARD_SETTINGS' => 'Leaderboard Settings',
+        'LEADERBOARD_ENABLED' => $language->get('admin', 'placeholder_leaderboard_enabled'),
+        'LEADERBOARD_SETTINGS' => $language->get('admin', 'leaderboard_settings'),
     ));
 }
 

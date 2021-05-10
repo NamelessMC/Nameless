@@ -35,7 +35,7 @@
                     <div class="card shadow mb-4">
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-9">
+                                <div class="col-md-12">
                                     <p style="margin-top: 7px; margin-bottom: 7px;">{$PLACEHOLDERS_INFO}</p>
                                 </div>
                             </div>

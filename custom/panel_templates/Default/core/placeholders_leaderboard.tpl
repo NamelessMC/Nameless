@@ -53,19 +53,19 @@
 
                                 <div class="form-group">
                                     <label for="leaderboard_enabled">
-                                        Leaderboard Enabled
+                                        {$LEADERBOARD_ENABLED}
                                         <span class="badge badge-info" data-toggle="popover" data-title="{$INFO}" data-content="{$ENABLED_INFO}"><i class="fa fa-question"></i>
                                     </label>
                                     <input type="checkbox" class="js-switch" name="leaderboard_enabled" {if $PLACEHOLDER->leaderboard eq 1} checked {/if}>
                                 </div>
                             
                                 <div class="form-group">
-                                    <label for="leaderboard_title">Leaderboard Title</label>
+                                    <label for="leaderboard_title">{$LEADERBOARD_TITLE}</label>
                                     <input type="text" name="leaderboard_title" class="form-control" value="{$PLACEHOLDER->leaderboard_title}">
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="leaderboard_sort">Leaderboard Sort</label>
+                                    <label for="leaderboard_sort">{$LEADERBOARD_SORT}</label>
                                     <select name="leaderboard_sort" class="form-control">
                                         <option value="ASC" {if $PLACEHOLDER->leaderboard_sort eq 'ASC'} selected {/if}>Ascending</option>
                                         <option value="DESC" {if $PLACEHOLDER->leaderboard_sort eq 'DESC'} selected {/if}>Descending</option>
