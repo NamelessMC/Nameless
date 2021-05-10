@@ -42,8 +42,8 @@ class Queries {
         return $data->results();
     }
 
-    public function update($table, $id, $fields = array()) {
-        if(!$this->_db->update($table, $id, $fields)) {
+    public function update($table, $id, $fields = array(), $id_column = 'id') {
+        if(!$this->_db->update($table, $id, $fields, $id_column)) {
             throw new Exception('There was a problem performing that action.');
         }
     }

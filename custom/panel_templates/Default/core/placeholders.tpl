@@ -1,0 +1,120 @@
+{include file='header.tpl'}
+
+<body id="page-top">
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        {include file='sidebar.tpl'}
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                {include file='navbar.tpl'}
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">{$PLACEHOLDERS}</h1>
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{$PANEL_INDEX}">{$DASHBOARD}</a></li>
+                            <li class="breadcrumb-item active">{$PLACEHOLDERS}</li>
+                        </ol>
+                    </div>
+
+                    <!-- Update Notification -->
+                    {include file='includes/update.tpl'}
+
+                    <div class="card shadow mb-4">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <p style="margin-top: 7px; margin-bottom: 7px;">{$PLACEHOLDERS_INFO}</p>
+                                </div>
+                            </div>
+                            {if isset($ALL_PLACEHOLDERS)}
+                                <hr />
+                            {else}
+                                <br />
+                            {/if}
+
+                            <!-- Success and Error Alerts -->
+                            {include file='includes/alerts.tpl'}
+
+                            {if isset($ALL_PLACEHOLDERS)}
+                            <form action="" method="POST">
+                                <input type="hidden" name="token" value="{$TOKEN}">
+                                <div class="table-responsive">
+                                    <table class="table table-borderless table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>{$NAME}</th>
+                                                <th>
+                                                    {$FRIENDLY_NAME}
+                                                    <span class="badge badge-info" style="margin-right:10px"><i
+                                                            class="fas fa-question-circle" data-container="body"
+                                                            data-toggle="popover" title="{$INFO}"
+                                                            data-content="{$FRIENDLY_NAME_INFO}"></i></span>
+                                                </th>
+                                                <th class="text-center">
+                                                    {$PUBLIC}
+                                                    <span class="badge badge-info" style="margin-right:10px"><i
+                                                            class="fas fa-question-circle" data-container="body"
+                                                            data-toggle="popover" title="{$INFO}"
+                                                            data-content="{$PUBLIC_PRIVATE_INFO}"></i></span>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {foreach from=$ALL_PLACEHOLDERS item=placeholder}
+                                                <tr>
+                                                    <td><code>{$placeholder->name}</code></td>
+                                                    <td>
+                                                        <input type="text" class="form-control" name="friendly_name-{$placeholder->name}" value="{$placeholder->friendly_name}">
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <input type="checkbox" class="js-switch" name="public-{$placeholder->name}" {if $placeholder->public eq 1} checked {/if}>
+                                                    </td>
+                                                </tr>
+                                            {/foreach}
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary">{$SUBMIT}</button>
+                            </form>
+                            {else}
+                                {$NO_PLACEHOLDERS}
+                            {/if}
+                        </div>
+                    </div>
+
+                    <!-- Spacing -->
+                    <div style="height:1rem;"></div>
+
+                    <!-- End Page Content -->
+                </div>
+
+                <!-- End Main Content -->
+            </div>
+
+            {include file='footer.tpl'}
+
+            <!-- End Content Wrapper -->
+        </div>
+
+        <!-- End Wrapper -->
+    </div>
+
+    {include file='scripts.tpl'}
+
+</body>
+
+</html>

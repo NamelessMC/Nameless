@@ -47,6 +47,8 @@ try {
     echo $e->getMessage() . '<br />';
 }
 
+$queries->addPermissionGroup(2, 'admincp.core.placeholders');
+
 // Update version number
 $version_number_id = $queries->getWhere('settings', array('name', '=', 'nameless_version'));
 

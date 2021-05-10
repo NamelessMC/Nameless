@@ -180,7 +180,7 @@ class DB {
         return (!$this->createQuery($sql, $fields)->error());
     }
 
-    public function update($table, $id, $fields) {
+    public function update($table, $id, $fields, $id_column = 'id') {
         $set = '';
         $x = 1;
 
@@ -193,7 +193,7 @@ class DB {
             $x++;
         }
         $table = $this->_prefix . $table;
-        $sql = "UPDATE {$table} SET {$set} WHERE id = {$id}";
+        $sql = "UPDATE {$table} SET {$set} WHERE {$id_column} = {$id}";
 
         return (!$this->createQuery($sql, $fields)->error());
     }
