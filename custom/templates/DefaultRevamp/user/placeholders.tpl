@@ -150,10 +150,10 @@ const placeholder_settings = document.getElementsByClassName('placeholder-settin
 
 function showPlaceholderSettings(name) {
       Array.prototype.forEach.call(placeholder_settings, (ps) => {
-          ps.style.display = 'none';
+          $(ps).hide(100);
       });
 
-      document.getElementById('placeholder-settings-' + name).style.display = 'block';
+      $('#placeholder-settings-' + name).show(100);
 }
 
 </script>
