@@ -78,17 +78,17 @@
             .claro {
                 background-color: #fafafa26;
             }
-            dl {
+            span {
                 margin: 0;
             }
-            dl.code {
+            span.code {
                 background-color: #20232a;
                 color: #0eab1a;
                 padding: 0.2rem 1rem;
                 border-radius: .2rem;
-                
+
             }
-            dl.code > pre {
+            span.code > pre {
                 white-space: normal;
             }
         </style>
@@ -101,22 +101,21 @@
         <main>
             <section>
                 <h3>Assigned template variables</h3>
-                
-                
+
+
                 {foreach $assigned_vars as $vars}
                     <div class="opccion {if $vars@iteration % 2 eq 0}oscuro{else}claro{/if}">
                         <div>
                             <h5 style="margin: 0; margin-bottom: auto;">
                                 ${$vars@key}
                             </h5>
-                            <small>    
+                            <small>
                                 {if isset($vars['nocache'])}<b>Nocache</b><br />{/if}
                                 {if isset($vars['scope'])}<b>Origin:</b> {$vars['scope']|debug_print_var nofilter}{/if}
                             </small>
                         </div>
                         <div>
-                            <dt>Value</dt>
-                            <dl class="code"><pre><code>{$vars['value']|debug_print_var:10:80 nofilter}</code></pre></dl>
+                            <span class="code"><pre><code>{$vars['value']|debug_print_var:10:80 nofilter}</code></pre></span>
                             {if isset($vars['attributes'])}
                                 <dl>
                                     <h3>Attributes</h3>
@@ -136,7 +135,7 @@
                                 <h5 style="margin: 0; margin-bottom: auto;">
                                     {$template.name}
                                 </h5>
-                                <small>    
+                                <small>
                                     (compile {$template['compile_time']|string_format:"%.5f"}) (render {$template['render_time']|string_format:"%.5f"}) (cache {$template['cache_time']|string_format:"%.5f"})
                                 </small>
                             </div>
@@ -153,22 +152,18 @@
                                 <h5 style="margin: 0; margin-bottom: auto;">
                                     #{$vars@key}#
                                 </h5>
-                                <small> 
+                                <small>
                                     {if isset($vars['scope'])}<b>Origin:</b> {$vars['scope']|debug_print_var nofilter}{/if}
                                 </small>
                             </div>
                             <div>
-                                <dt>Value</dt>
-                                <dl>{$vars['value']|debug_print_var:10:80 nofilter}</dl>
+                                <span>{$vars['value']|debug_print_var:10:80 nofilter}</span>
                             </div>
                         </div>
                     {/foreach}
                 </section>
             {/if}
         </main>
-        <footer>
-            Design by <a href="http://cuberico.xyz" target="_blank" rel="noopener noreferrer">zJerino</a>
-        </footer>
     </body>
     </html>
 {/capture}
