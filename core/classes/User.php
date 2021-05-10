@@ -558,6 +558,24 @@ class User {
     }
 
     /**
+     * Get this user's placeholders to display on their profile.
+     * 
+     * @return array Profile placeholders.
+     */
+    public function getProfilePlaceholders() {
+        return array_filter($this->_placeholders, fn ($placeholder) => $placeholder->show_on_profile);
+    }
+
+    /**
+     * Get this user's placeholders to display on their forum posts.
+     * 
+     * @return array Forum placeholders.
+     */
+    public function getForumPlaceholders() {
+        return array_filter($this->_placeholders, fn ($placeholder) => $placeholder->show_on_forum);
+    }
+
+    /**
      * Get this user's main group (with highest order).
      *
      * @return object The group
@@ -1130,14 +1148,17 @@ class User {
         }
     }
 
+    /**
+     * Update display settings for specific placeholder for user
+     * 
+     * @param string $placeholder_name Name of placeholder to update
+     * @param array $settings Setting Name => Setting Value array
+     */
     public function updatePlaceholderSettings($placeholder_name, $settings) {
-
         $update = 'SET ';
-
         foreach ($settings as $setting => $value) {
             $update .= "$setting = $value, ";
         }
-
         $update = rtrim($update, ', ');
 
         $this->_db->query("UPDATE nl2_users_placeholders $update WHERE name = ? AND uuid = ?", [$placeholder_name, $this->data()->uuid]);
