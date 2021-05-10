@@ -7,7 +7,7 @@
  *  License: MIT
  *
  *  Chinese Simplified Language - General terms
- *  Translation(Chinese Simplified) by ahdg,lian20
+ *  Translation(Chinese Simplified) by ahdg, lian20, Dreta
  *  Translation progress(v2-pr8) : 100%
  */
 
@@ -69,8 +69,8 @@ $language = array(
     'are_you_sure' => '您确定?',
     'spoiler' => '展开',
     'invalid_timezone' => '此时区不可用',
-    'link' => 'Link',
-    'unlink' => 'Unlink',
+    'link' => '链接',
+    'unlink' => '解除链接',
     
     /*
      *  Contact form
