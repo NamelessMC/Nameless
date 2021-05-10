@@ -71,7 +71,7 @@ $language = array(
     'upload_profile_banner' => '上传个人资料背景',
     'upload' => '上传',
     'topic_updates' => '从您关注的话题中获取更新邮件。',
-    'gravatar' => 'Use Gravatar as avatar',
+    'gravatar' => '用 Gravatar 作为头像',
 
     // Alerts
     'user_tag_info' => '用户 {x} 在一个帖子中提及了您。', // Don't replace {x}
@@ -91,7 +91,7 @@ $language = array(
     'password' => '密码',
     'confirm_password' => '二次确认密码',
     'i_agree' => '我同意',
-    'agree_t_and_c' => 'I have read and accept the <a href="{x}" target="_blank">Terms and Conditions</a>.',
+    'agree_t_and_c' => '我已认真阅读并同意<a href="{x}" target="_blank">条款与条件</a>。',
     'create_an_account' => '创建一个帐号',
     'terms_and_conditions' => '服务条款与相关条件',
     'validation_complete' => '您的帐号已通过验证，现在您可以进行登录等操作。',
@@ -117,14 +117,14 @@ $language = array(
     'mcname_minimum_3' => '您的 Minecraft 玩家名必须至少包含 3 个字符。',
     'password_minimum_6' => '您的密码必须至少为 6 个字符。',
     'username_maximum_20' => '您的用户名不能超过 20 个字符。',
-    'mcname_maximum_20' => '您的Minecraft玩家名不能超过 20 个字符。',
+    'mcname_maximum_20' => '您的 Minecraft 玩家名不能超过 20 个字符。',
     'password_maximum_30' => '您的密码不能超过 30 个字符。',
     'passwords_dont_match' => '您的密码与前文不匹配。',
     'username_mcname_email_exists' => '您的用户名或电子邮箱地址已经存在于我们的数据库中。',
     'invalid_mcname' => '您的 Minecraft 玩家名是无效的。',
     'invalid_email' => '您的电子邮箱地址是无效的。',
     'mcname_lookup_error' => '与 Mojang 的服务器通信以验证您的玩家名时出错。请稍后再试。',
-    'invalid_recaptcha' => '无效的 reCAPTCHA 响应。',
+    'invalid_recaptcha' => 'reCAPTCHA 响应无效。',
     'verify_account' => '验证账户',
     'verify_account_help' => '请按照以下说明进行操作，以便我们可以验证您是否拥有相应的 Minecraft 帐户。',
     'validate_account' => '验证账户',
@@ -189,7 +189,7 @@ $language = array(
     'new_wall_post_reply_your_profile' => '{x} 已留言在您的留言板。', // Don't replace {x}
     'no_about_fields' => '该用户很懒，并没有填写个性签名。',
     'reply' => '回复',
-    'discord_username' => 'Discord Username',
+    'discord_username' => 'Discord 用户名',
 
     // Reports
     'invalid_report_content' => '无法创建报告。请确保您的反馈内容在 2 到 1024 个字符之间。',
@@ -237,7 +237,7 @@ $language = array(
      *  Hooks
      */
     'user_x_has_registered' => '{x} 加入了 ' . SITE_NAME . '!',
-    'user_x_has_validated' => '{x} has validated their account!',
+    'user_x_has_validated' => '{x} 已验证他的帐号!',
 
     // Discord
     'discord_link' => 'Discord 链接',
