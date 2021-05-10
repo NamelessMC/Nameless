@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr9
  *
  *  Translator
  *  - SimplyRin( @SimplyRin_, https://www.simplyrin.net )
@@ -40,7 +40,7 @@ $language = array(
     'alerts' => 'アラート',
     'delete_all' => 'すべて削除',
     'private_profile' => 'プライベートプロフィール',
-    'gif_avatar' => 'Upload .gif as custom avatar',
+    'gif_avatar' => 'カスタムアバターとして.gifをアップロード',
 
     // Profile settings
     'field_is_required' => '{x} は必須です。', // Don't replace {x}
@@ -62,7 +62,7 @@ $language = array(
     'invalid_tfa' => '無効なコードです。再試行してください。',
     'tfa_successful' => '二段階認証が設定されました。次回ログイン時から二段階認証が有効になります。',
     'active_language' => '有効な言語',
-    'active_template' => 'Active Template',
+    'active_template' => 'アクティブテンプレート',
     'timezone' => 'タイムゾーン',
     'upload_new_avatar' => '新しいアバターをアップロード',
     'nickname_already_exists' => '指定したニックネームは既に存在します。別のニックネームを指定してください。',
@@ -74,7 +74,7 @@ $language = array(
     'upload_profile_banner' => 'プロフィールバナーをアップロード',
     'upload' => 'アップロード',
     'topic_updates' => 'フォローしているトピックのメールを受け取る',
-    'gravatar' => 'Use Gravatar as avatar',
+    'gravatar' => 'アバターとしてGravatarを使用',
 
     // Alerts
     'user_tag_info' => '{x} の投稿にタグがつけられました。', // Don't replace {x}
@@ -94,7 +94,7 @@ $language = array(
     'password' => 'パスワード',
     'confirm_password' => 'パスワード再入力',
     'i_agree' => '同意します',
-    'agree_t_and_c' => 'I have read and accept the <a href="{x}" target="_blank">Terms and Conditions</a>.',
+    'agree_t_and_c' => '<a href="{x}" target="_blank">利用規約</a>を読み、同意しました。',
     'create_an_account' => 'アカウント作成',
     'terms_and_conditions' => '利用規約',
     'validation_complete' => 'アカウントが登録されました。ログインが可能です。',
@@ -191,8 +191,8 @@ $language = array(
     'new_wall_post_reply' => '{x}さんが{y}のプロフィールの投稿に返信しました。',// {x}か{y}
     'new_wall_post_reply_your_profile' => '{x}さんがプロフィールの投稿に返信しました。',// {x}を置き換えないでください
     'no_about_fields' => 'フィールドの内容を追加していません。',
-    'reply' => 'Reply',
-    'discord_username' => 'Discord Username',
+    'reply' => '返信',
+    'discord_username' => 'Discord ユーザー名',
 
     // Reports
     'invalid_report_content' => 'レポートを作成できません。 レポートの理由が 2~1024 文字であることを確認してください。',
@@ -240,7 +240,7 @@ $language = array(
      *  Hooks
      */
     'user_x_has_registered' => '{x} が ' . SITE_NAME . ' に登録しました。',
-    'user_x_has_validated' => '{x} has validated their account!',
+    'user_x_has_validated' => '{x} がアカウントを認証しました！',
 
     // Discord
     'discord_link' => 'Discord リンク',
