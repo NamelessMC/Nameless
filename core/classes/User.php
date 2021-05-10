@@ -150,6 +150,8 @@ class User {
 
                     if (count($placeholders)) {
                         $this->_placeholders = $placeholders;
+                    } else {
+                        $this->_placeholders = [];
                     }
                 }
 

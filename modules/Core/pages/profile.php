@@ -732,7 +732,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
         );
     }
 
-    $profile_placeholders = $user->getProfilePlaceholders();
+    $profile_placeholders = $profile_user->getProfilePlaceholders();
     foreach ($profile_placeholders as $profile_placeholder) {
         $fields[] = array(
             'title' => $profile_placeholder->friendly_name,
