@@ -41,8 +41,12 @@ $smarty->assign(array(
     'NO_PLACEHOLDERS' => $language->get('user', 'no_placeholders'),
     'PLACEHOLDERS' => $language->get('user', 'placeholders'),
     'PLACEHOLDERS_LIST' => $placeholders_list,
-    'SHOW_ON_PROFILE' => 'Show on Profile',
-    'SHOW_ON_FORUM' => 'Show on Forum',
+    'SERVER_ID' => $language->get('admin', 'placeholders_server_id'),
+    'NAME' => $language->get('admin', 'placeholders_name'),
+    'VALUE' => $language->get('admin', 'placeholders_value'),
+    'LAST_UPDATED' => $language->get('admin', 'placeholders_last_updated'),
+    'SHOW_ON_PROFILE' => $language->get('admin', 'placeholders_show_on_profile'),
+    'SHOW_ON_FORUM' => $language->get('admin', 'placeholders_show_on_forum')
 ));
 
 // Load modules + template

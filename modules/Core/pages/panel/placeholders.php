@@ -43,7 +43,7 @@ if (Input::exists()) {
             ]);
         }
 
-        Session::flash('placeholders_success', 'Updated placeholder settings successfully.');
+        Session::flash('placeholders_success', $language->get('admin', 'updated_placeholder_settings'));
 
         Redirect::to(URL::build('/panel/core/placeholders'));
 
@@ -78,16 +78,17 @@ $smarty->assign(array(
     'TOKEN' => Token::get(),
     'INFO' => $language->get('general', 'info'),
     'SUBMIT' => $language->get('general', 'submit'),
-    'PLACEHOLDERS_INFO' => 'Placeholders allow the NamelessMC Spigot plugin to send statistics about each player to your website so they can display them on their profile and forum posts.',
+    'PLACEHOLDERS_INFO' => $language->get('admin', 'placeholders_info'),
     'ALL_PLACEHOLDERS' => $all_placeholders,
+    'NO_PLACEHOLDERS' => $language->get('admin', 'placeholders_none'),
     'PLACEHOLDERS' => $language->get('admin', 'placeholders'),
-    'NAME' => 'Name',
-    'FRIENDLY_NAME' => 'Friendly Name',
-    'SHOW_ON_PROFILE' => 'Show on Profile',
-    'SHOW_ON_FORUM' => 'Show on Forum',
-    'FRIENDLY_NAME_INFO' => 'Use this to set a \'nickname\' to this placeholder. The friendly name will be used instead of the raw name.',
-    'SHOW_ON_PROFILE_INFO' => 'Whether to show this placeholder on each user\'s profile or not.',
-    'SHOW_ON_FORUM_INFO' => 'Whether to show this placeholder on each user\'s forum posts or not.',
+    'NAME' => $language->get('admin', 'placeholders_name'),
+    'FRIENDLY_NAME' => $language->get('admin', 'placeholders_friendly_name'),
+    'SHOW_ON_PROFILE' => $language->get('admin', 'placeholders_show_on_profile'),
+    'SHOW_ON_FORUM' => $language->get('admin', 'placeholders_show_on_forum'),
+    'FRIENDLY_NAME_INFO' => $language->get('admin', 'placeholders_friendly_name_info'),
+    'SHOW_ON_PROFILE_INFO' => $language->get('admin', 'placeholders_show_on_profile_info'),
+    'SHOW_ON_FORUM_INFO' => $language->get('admin', 'placeholders_show_on_forum_info'),
 ));
 
 $page_load = microtime(true) - $start;

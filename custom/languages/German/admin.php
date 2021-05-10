@@ -175,6 +175,22 @@ $language = array(
     'emails_mass_message_replacements' => 'Sie können Variablen in Ihrer E-Mail-Nachricht verwenden. Unterstützte Variablen: {username}, {sitename}',
     'emails_mass_message_loading' => 'Laden ... Bitte laden Sie die Seite nicht neu. Das kann eine Weile dauern.',
 
+    // Placeholders
+    'placeholders' => 'Placeholders',
+    'updated_placeholder_settings' => 'Updated placeholder settings successfully.',
+    'placeholders_info' => 'Placeholders allow the NamelessMC Spigot plugin to send statistics about each player to your website so they can display them on their profile and forum posts.',
+    'placeholders_none' => 'There are no placeholders.',
+    'placeholders_server_id' => 'Server ID',
+    'placeholders_name' => 'Name',
+    'placeholders_value' => 'Value',
+    'placeholders_last_updated' => 'Last Updated',
+    'placeholders_friendly_name' => 'Friendly Name',
+    'placeholders_friendly_name_info' => 'Use this to set a \'nickname\' to this placeholder. The friendly name will be used instead of the raw name.',
+    'placeholders_show_on_profile' => 'Show on Profile',
+    'placeholders_show_on_profile_info' => 'Whether to show this placeholder on each user\'s profile or not.',
+    'placeholders_show_on_forum' => 'Show on Forum',
+    'placeholders_show_on_forum_info' => 'Whether to show this placeholder on each user\'s forum posts or not.',
+
     // SEO
     'seo' => 'SEO',
     'google_analytics' => 'Google Analytics',

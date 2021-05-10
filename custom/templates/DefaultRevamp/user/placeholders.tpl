@@ -44,10 +44,10 @@
             <table class="ui fixed single line selectable unstackable small padded res table" id="subforums-table">
               <thead>
                 <tr>
-                  <th>Server ID</th>
-                  <th>Name</th>
-                  <th>Value</th>
-                  <th>Last Updated</th>
+                  <th>{$SERVER_ID}</th>
+                  <th>{$NAME}</th>
+                  <th>{$VALUE}</th>
+                  <th>{$LAST_UPDATED}</th>
                   <th>{$SHOW_ON_PROFILE}</th>
                   <th>{$SHOW_ON_FORUM}</th>
                 </tr>

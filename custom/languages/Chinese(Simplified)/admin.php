@@ -177,6 +177,22 @@ $language = array(
     'emails_mass_message_replacements' => '您可在信息中使用占位符。可用占位符: {username}（用户名）, {sitename}（网站名）',
     'emails_mass_message_loading' => '加载中... 请勿刷新此页面。这可能需要几分钟。',
 
+    // Placeholders
+    'placeholders' => 'Placeholders',
+    'updated_placeholder_settings' => 'Updated placeholder settings successfully.',
+    'placeholders_info' => 'Placeholders allow the NamelessMC Spigot plugin to send statistics about each player to your website so they can display them on their profile and forum posts.',
+    'placeholders_none' => 'There are no placeholders.',
+    'placeholders_server_id' => 'Server ID',
+    'placeholders_name' => 'Name',
+    'placeholders_value' => 'Value',
+    'placeholders_last_updated' => 'Last Updated',
+    'placeholders_friendly_name' => 'Friendly Name',
+    'placeholders_friendly_name_info' => 'Use this to set a \'nickname\' to this placeholder. The friendly name will be used instead of the raw name.',
+    'placeholders_show_on_profile' => 'Show on Profile',
+    'placeholders_show_on_profile_info' => 'Whether to show this placeholder on each user\'s profile or not.',
+    'placeholders_show_on_forum' => 'Show on Forum',
+    'placeholders_show_on_forum_info' => 'Whether to show this placeholder on each user\'s forum posts or not.',
+
     // SEO
     'seo' => 'SEO',
     'google_analytics' => 'Google Analytics',
