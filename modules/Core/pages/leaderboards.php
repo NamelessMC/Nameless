@@ -21,6 +21,8 @@ $page_title = $language->get('general', 'leaderboards');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 $leaderboard_placeholders_data = [];
+$leaderboard_users = [];
+$timeago = new TimeAgo(TIMEZONE);
 
 foreach ($leaderboard_placeholders as $leaderboard_placeholder) {
     $data = Placeholders::getInstance()->getLeaderboardData($leaderboard_placeholder->name);
@@ -29,7 +31,18 @@ foreach ($leaderboard_placeholders as $leaderboard_placeholder) {
         continue;
     }
 
-    $leaderboard_placeholders_data[$leaderboard_placeholder->name] = $data[0];
+    $data = $data[0];
+
+    if (!array_key_exists($data->uuid, $leaderboard_users)) {
+        $user_data = DB::getInstance()->get('users', ['uuid', '=', $data->uuid])->results()[0];
+        $leaderboard_users[$data->uuid] = $user_data; 
+    }
+
+    $data->username = $leaderboard_users[$data->uuid]->username;
+    $data->avatar = Util::getAvatarFromUUID($data->uuid, 24);
+    $data->last_updated = ucfirst($timeago->inWords(date('d M Y, H:i', $data->last_updated), $language->getTimeLanguage()));
+
+    $leaderboard_placeholders_data[$leaderboard_placeholder->name] = $data;
 }
 
 $smarty->assign(array(
@@ -37,6 +50,37 @@ $smarty->assign(array(
     'LEADERBOARD_PLACEHOLDERS' => $leaderboard_placeholders,
     'LEADERBOARD_PLACEHOLDERS_DATA' => $leaderboard_placeholders_data
 ));
+
+$template->addJSScript('
+    window.onLoad = showTable(null, true);
+
+    function showTable(name, first = false) {
+
+        if (name == null) {
+            name = $(".leaderboard_tab").first().attr("name");
+        }
+
+        if (!first) {
+            disableTabs();
+            hideTables();
+        }
+
+        $("#tab-" + name).addClass("active");
+        $("#table-" + name).show();
+    }
+
+    function disableTabs() {
+        $(".leaderboard_tab").each(function(i, e) {
+            $(e).removeClass("active");
+        });
+    }
+
+    function hideTables() {
+        $(".leaderboard_table").each(function(i, e) {
+            $(e).hide();
+        });
+    }
+');
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
