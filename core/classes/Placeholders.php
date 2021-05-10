@@ -45,6 +45,7 @@ class Placeholders {
             $data->leaderboard = $placeholder->leaderboard;
             $data->leaderboard_title = isset($placeholder->leaderboard_title) ? $placeholder->leaderboard_title : $data->friendly_name;
             $data->leaderboard_sort = $placeholder->leaderboard_sort;
+            $data->leaderboard_settings_url = URL::build('/panel/core/placeholders', 'leaderboard=' . $placeholder->name);
 
             $placeholders[] = $data;
         }
@@ -65,10 +66,16 @@ class Placeholders {
      * Get placeholder data by name of placeholder.
      * 
      * @param string $placeholder_name Name of placeholder.
-     * @return object This placeholder's data.
+     * @return object|null This placeholder's data, null if not exist.
      */
     public function getPlaceholderByName($placeholder_name) {
-        return array_filter($this->_all_placeholders, fn($placeholder) => $placeholder->name == $placeholder_name)[0];
+        foreach ($this->_all_placeholders as $placeholder) {
+            if ($placeholder->name == $placeholder_name) {
+                return $placeholder;
+            }
+        }
+
+        return null;
     }
 
     /**

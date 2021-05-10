@@ -77,6 +77,8 @@
                                                             data-toggle="popover" title="{$INFO}"
                                                             data-content="{$SHOW_ON_FORUM_INFO}"></i></span>
                                                 </th>
+                                                <th class="text-center">{$LEADERBOARD_ENABLED}</th>
+                                                <th class="text-center">{$LEADERBOARD_SETTINGS}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -91,6 +93,18 @@
                                                     </td>
                                                     <td class="text-center">
                                                         <input type="checkbox" class="js-switch" name="show_on_forum-{$placeholder->name}" {if $placeholder->show_on_forum eq 1} checked {/if}>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        {if $placeholder->leaderboard eq 1}
+                                                            <i class="fa fa-check-circle text-success"></i>
+                                                        {else}
+                                                            <i class="fa fa-times-circle text-danger"></i>
+                                                        {/if}
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <a class="btn btn-secondary text-white" href="{$placeholder->leaderboard_settings_url}">
+                                                            <i class="fas fa-cog"></i>
+                                                        </a>
                                                     </td>
                                                 </tr>
                                             {/foreach}
