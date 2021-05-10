@@ -5,6 +5,29 @@
   {$TITLE}
 </h2>
 
+{if isset($SUCCESS)}
+  <div class="ui success icon message">
+    <i class="check icon"></i>
+    <div class="content">
+      <div class="header">{$SUCCESS_TITLE}</div>
+      {$SUCCESS}
+    </div>
+  </div>
+{/if}
+
+{if isset($ERRORS)}
+<div class="ui error icon message">
+  <i class="x icon"></i>
+  <div class="content">
+    <ul class="list">
+      {foreach from=$ERRORS item=error}
+      <li>{$error}</li>
+      {/foreach}
+    </ul>
+  </div>
+</div>
+{/if}
+
 <div class="ui stackable grid" id="alerts">
   <div class="ui centered row">
     <div class="ui six wide tablet four wide computer column">
@@ -62,6 +85,7 @@
         </div>
       </div>
 
+      {nocache}
       {if count($PLACEHOLDERS_LIST)}
         {foreach from=$PLACEHOLDERS_LIST item=data}
             <div class="ui ten wide tablet twelve wide computer column placeholder-settings" id="placeholder-settings-{$data.name}" style="display: none;">
@@ -84,6 +108,7 @@
                         <form action="" method="POST">
 
                             <input type="hidden" name="placeholder_name" value="{$data.name}">
+                            <input type="hidden" name="token" value="{$TOKEN}">
 
                             <tr class="center aligned">
                                 <td>
@@ -113,6 +138,7 @@
             </div> 
         {/foreach}
       {/if}
+      {/nocache}
 
     </div>
   </div>
