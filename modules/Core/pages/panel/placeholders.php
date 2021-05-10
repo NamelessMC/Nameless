@@ -26,7 +26,6 @@ $all_placeholders = $queries->getWhere('placeholders_settings', ['name', '<>', '
 
 if (Input::exists()) {
 
-    // TODO: Token and error/success messages
     if (Token::check()) {
 
         foreach ($all_placeholders as $placeholder) {
@@ -44,9 +43,13 @@ if (Input::exists()) {
             ]);
         }
 
-        Redirect::to(URL::build('/panel/core/placeholders'));
-    }
+        Session::flash('placeholders_success', 'Updated placeholder settings successfully.');
 
+        Redirect::to(URL::build('/panel/core/placeholders'));
+
+    } else {
+        $errors[] = $language->get('general', 'invalid_token');
+    }
 }
 
 
