@@ -2,14 +2,16 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr9
  *
  *  User class
  */
 class User {
-
-    private $_db,
-            $_data,
+    
+    /** @var DB */
+    private $_db;
+    
+    private $_data,
             $_groups,
             $_sessionName,
             $_cookieName,
@@ -28,16 +30,12 @@ class User {
                 $user = Session::get($this->_sessionName);
                 if ($this->find($user, $field)) {
                     $this->_isLoggedIn = true;
-                } else {
-                    // process logout
                 }
             }
             if (Session::exists($this->_admSessionName)) {
                 $user = Session::get($this->_admSessionName);
                 if ($user == $this->data()->id && $this->find($user, $field)) {
                     $this->_isAdmLoggedIn = true;
-                } else {
-                    // process logout
                 }
             }
         } else {
@@ -45,7 +43,11 @@ class User {
         }
     }
 
-    // Get a group's CSS class
+    /**
+     * Get this user's main group CSS styling
+     *
+     * @return string|bool Styling on success, false if they have no groups.
+     */
     public function getGroupClass() {
         $groups = $this->_groups;
         if (count($groups)) {
@@ -56,19 +58,28 @@ class User {
 
         return false;
     }
-
+    
+    /**
+     * Get the logged in user's IP address.
+     *
+     * @return string Their IP.
+     */
     public function getIP() {
         if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
-            $ip = $_SERVER['HTTP_CLIENT_IP'];
+            return $_SERVER['HTTP_CLIENT_IP'];
         } else if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-        } else {
-            $ip = $_SERVER['REMOTE_ADDR'];
+            return $_SERVER['HTTP_X_FORWARDED_FOR'];
         }
-        return $ip;
+        
+        return $_SERVER['REMOTE_ADDR'];
     }
 
-    // Update a user's data
+    /**
+     * Update a user's data in the database.
+     *
+     * @param array $fields Column names and values to update.
+     * @param int $id If not supplied, will use ID of logged in user.
+     */
     public function update($fields = array(), $id = null) {
 
         if (!$id) {
@@ -80,32 +91,45 @@ class User {
         }
     }
 
-    // Create a new user
+    /**
+     * Create a new user.
+     *
+     * @param array $fields Column names and values to insert to database.
+     */
     public function create($fields = array()) {
         if (!$this->_db->insert('users', $fields)) {
             throw new Exception('There was a problem creating an account.');
         }
     }
 
-    // Find a specified user by username
-    // Params: $user (mixed) - either username or user ID to search for
-    //         $field (string) - database field to use, eg email, username, id
-    public function find($user = null, $field = 'id') {
-        if ($user) {
-            $data = $this->_db->get('users', array($field, '=', $user));
+    /**
+     * Find a user by unique identifier (username, ID, email, etc).
+     * Loads instance variables for this class.
+     *
+     * @param string $value Unique identifier.
+     * @param string $field What column to check for their unique identifier in.
+     * @return bool True/false on success or failure respectfully.
+     */
+    public function find($value = null, $field = 'id') {
+        if ($value) {
+            $data = $this->_db->get('users', array($field, '=', $value));
 
             if ($data->count()) {
                 $this->_data = $data->first();
 
                 // Get user groups
                 $groups_query = $this->_db->query('SELECT nl2_groups.* FROM nl2_users_groups INNER JOIN nl2_groups ON group_id = nl2_groups.id WHERE user_id = ? AND deleted = 0 ORDER BY `order`;', array($this->_data->id));
+                
                 if ($groups_query->count()) {
+                    
                     $groups_query = $groups_query->results();
                     foreach ($groups_query as $item) {
                         $this->_groups[$item->id] = $item;
                     }
+
                 } else {
                     // Get default group
+                    // TODO: Use PRE_VALIDATED_DEFAULT ?
                     $default_group = $this->_db->query('SELECT * FROM nl2_groups WHERE default_group = 1', array())->first();
                     if ($default_group) {
                         $default_group_id = $default_group->id;
@@ -113,16 +137,24 @@ class User {
                         $default_group_id = 1; // default to 1
                         $default_group = $this->_db->query('SELECT * FROM nl2_groups WHERE id = 1', array())->first();
                     }
+                    
                     $this->addGroup($default_group_id);
                     $this->_groups[$default_group_id] = $default_group;
                 }
+
                 return true;
             }
         }
+
         return false;
     }
 
-    // Get username from ID
+    /**
+     * Get a user's username from their ID.
+     *
+     * @param int $id Their ID.
+     * @return string|bool Their username, false on failure.
+     */
     public function idToName($id = null) {
         if ($id) {
             $data = $this->_db->get('users', array('id', '=', $id));
@@ -132,11 +164,17 @@ class User {
                 return $results[0]->username;
             }
         }
+
         return false;
     }
 
-    // Get nickname from ID
-    public function IdToNickname($id = null) {
+    /**
+     * Get a user's nickname from their ID.
+     *
+     * @param int $id Their ID.
+     * @return string|bool Their nickname, false on failure.
+     */
+    public function idToNickname($id = null) {
         if ($id) {
             $data = $this->_db->get('users', array('id', '=', $id));
 
@@ -145,18 +183,31 @@ class User {
                 return $results[0]->nickname;
             }
         }
+
         return false;
     }
 
-    // Log the user in
+    /**
+     * Log the user in.
+     *
+     * @param string $username Their username (or email, depending on $method).
+     * @param string $password Their password.
+     * @param bool|null $remember Whether to keep them logged in or not.
+     * @param string|null $method What column to check for their details in. Can be either `username` or `email`.
+     * @return bool True/false on success or failure respectfully.
+     */
     public function login($username = null, $password = null, $remember = false, $method = 'email') {
         if (!$username && !$password && $this->exists()) {
+
             Session::put($this->_sessionName, $this->data()->id);
             $this->_isLoggedIn = true;
+            
         } else {
+
             if ($this->checkCredentials($username, $password, $method) === true) {
                 // Valid credentials
                 Session::put($this->_sessionName, $this->data()->id);
+
                 if ($remember) {
                     $hash = Hash::unique();
                     $hashCheck = $this->_db->get('users_session', array('user_id', '=', $this->data()->id));
@@ -166,22 +217,35 @@ class User {
                             'user_id' => $this->data()->id,
                             'hash' => $hash
                         ));
-                    } else
+                    } else {
                         $hash = $hashCheck->first()->hash;
+                    }
 
                     Cookie::put($this->_cookieName, $hash, Config::get('remember/cookie_expiry'));
                 }
+
                 return true;
             }
         }
+
         return false;
     }
 
-    // Handle StaffCP logins
+    /**
+     * Handle StaffCP logins.
+     *
+     * @param string $username Their username (or email, depending on $method).
+     * @param string $password Their password.
+     * @param string|null $method What column to check for their details in. Can be either `username` or `email`.
+     * @return bool True/false on success or failure respectfully.
+     */
     public function adminLogin($username = null, $password = null, $method = 'email') {
         if (!$username && !$password && $this->exists()) {
+
             Session::put($this->_admSessionName, $this->data()->id);
+            
         } else {
+
             if ($this->checkCredentials($username, $password, $method) === true) {
                 Session::put($this->_admSessionName, $this->data()->id);
 
@@ -202,10 +266,18 @@ class User {
                 return true;
             }
         }
+
         return false;
     }
 
-    // Check whether given credentials are valid
+    /**
+     * Check whether given credentials are valid.
+     *
+     * @param string $username Username (or email) to check.
+     * @param string $password Password entered by user.
+     * @param string $method Column to search for user with. Can be `email` or `username`.
+     * @return bool True if correct, false otherwise.
+     */
     public function checkCredentials($username, $password, $method = 'email') {
         $user = $this->find($username, $method);
         if ($user) {
@@ -253,29 +325,38 @@ class User {
         return false;
     }
 
-
-    // Get displayname
-    // Params: $force - force username
-    public function getDisplayname($force = false) {
-        if ($force == true) {
+    /**
+     * Get user's display name.
+     *
+     * @param bool|null $username If true, will use their username. If false, will use their nickname.
+     * @return string Their display name.
+     */
+    public function getDisplayName($username = false) {
+        if ($username) {
             return Output::getClean($this->_data->username);
         }
+        
         return Output::getClean($this->_data->nickname);
     }
 
-    // Build profile link
+    /**
+     * Build this user's profile link.
+     *
+     * @return string Compiled profile URL.
+     */
     public function getProfileURL() {
         return Output::getClean(URL::build("/profile/" . $this->data()->username));
     }
 
-    // Get the order of a specified group
-    public function getGroupOrder($group_id) {
-        return $this->_db->get('groups', array('id', '=', $group_id))->results()[0]->order;
-    }
-
-    // Get all of a user's groups. We can return their ID only or their HTML display code
+    /**
+     * Get all of a user's groups. We can return their ID only or their HTML display code.
+     *
+     * @param mixed $html If not null, will use group_html column instead of ID.
+     * @return array Array of all their group's IDs or HTML.
+     */
     public function getAllGroups($html = null) {
         $groups = array();
+
         if (count($this->_groups)) {
             foreach ($this->_groups as $group) {
                 if (is_null($html)) {
@@ -285,166 +366,136 @@ class User {
                 }
             }
         }
+        
         return $groups;
     }
-
-    // Get all of a user's groups id.
+   
+    /**
+     * Get all of a user's groups id.
+     *
+     * @return array Array of all their group IDs.
+     */
     public function getAllGroupIds() {
+        if (!$this->isLoggedIn()) {
+            return array(0);
+        }
+
+        $groups = array();
+
         if (count($this->_groups)) {
-            $groups = array();
             foreach ($this->_groups as $group) {
                 $groups[$group->id] = $group->id;
             }
-            return $groups;
         }
-        return array(0);
+
+        return $groups;
     }
 
-    // Get a user's signature
+    /**
+     * Get this user's signature.
+     *
+     * @return string Their signature.
+     */
     public function getSignature() {
-        if (!empty($this->data()->signature)) {
-            return $this->data()->signature;
-        } else {
-            return "";
+        if (empty($this->data()->signature)) {
+            return '';
         }
+
+        return $this->data()->signature;
     }
 
-    // Get a user's avatar, based on user ID
-    public function getAvatar($path = null, $size = 128, $full = false) {
-        $data = $this->data();
-        if (empty($data)) {
-            // User doesn't exist
-            return false;
-        }
+    /**
+     * Get this user's avatar.
+     *
+     * @param int $size Size of image to render in pixels.
+     * @param bool $full Whether to use full site URL or not, for external loading - ie discord webhooks.
+     * @return string URL to their avatar image.
+     */
+    public function getAvatar($size = 128, $full = false) {
 
-        if ($data->uuid != null && $data->uuid != 'none')
-            $uuid = Output::getClean($data->uuid);
-        else {
-            $uuid = Output::getClean($data->username);
-            //fix accounts with special characters in name having no avatar
-            if (preg_match("#[^][_A-Za-z0-9]#", $uuid))
-                $uuid = 'Steve';
-        }
-
-        // Get avatar type
+        // If custom avatars are enabled, first check if they have gravatar enabled, and then fallback to normal image
         if (defined('CUSTOM_AVATARS')) {
-            // Custom avatars
-            if ($data->gravatar == 1) {
-                // Gravatar
-                return "https://secure.gravatar.com/avatar/" . md5(strtolower(trim($data->email))) . "?s=128";
-            } else if ($data->has_avatar == 1) {
-                // Custom avatar
-                $exts = array('gif', 'png', 'jpg', 'jpeg');
+
+            if ($this->data()->gravatar) {
+                return "https://secure.gravatar.com/avatar/" . md5(strtolower(trim($this->data()->email))) . "?s=" . $size;
+            }
+
+            if ($this->data()->has_avatar) {
+                $exts = array('png', 'jpg', 'jpeg');
+
+                if ($this->hasPermission('usercp.gif_avatar')) {
+                    $exts[] = 'gif';
+                }
+
                 foreach ($exts as $ext) {
-                    if (file_exists(ROOT_PATH . "/uploads/avatars/" . $data->id . "." . $ext)) {
-                        $avatar_path = ($full ? rtrim(Util::getSelfURL(), '/') : '') . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . "uploads/avatars/" . $data->id . "." . $ext . '?v=' . Output::getClean($data->avatar_updated);
-                        break;
+                    if (file_exists(ROOT_PATH . "/uploads/avatars/" . $this->data()->id . "." . $ext)) {
+                        return ($full ? rtrim(Util::getSelfURL(), '/') : '') . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . "uploads/avatars/" . $this->data()->id . "." . $ext . '?v=' . Output::getClean($this->data()->avatar_updated);
                     }
                 }
-                if (isset($avatar_path)) {
-                    return $avatar_path;
-                }
             }
         }
 
-        // Default avatar
+        // Fallback to default avatar image if it is set and the avatar type is custom
         if (defined('DEFAULT_AVATAR_TYPE') && DEFAULT_AVATAR_TYPE == 'custom') {
-            // Custom default avatar
-            return (($full ? rtrim(Util::getSelfURL(), '/') : '') . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/avatars/defaults/' . DEFAULT_AVATAR_IMAGE);
-        } else {
-            // Minecraft avatar
-            if (defined('DEFAULT_AVATAR_SOURCE')) {
-                if (defined('DEFAULT_AVATAR_PERSPECTIVE'))
-                    $perspective = DEFAULT_AVATAR_PERSPECTIVE;
-                else
-                    $perspective = 'face';
-
-                switch (DEFAULT_AVATAR_SOURCE) {
-                    case 'crafatar':
-                        if ($perspective == 'face')
-                            return 'https://crafatar.com/avatars/' . Output::getClean($uuid) . '?size=' . $size . '&amp;overlay';
-                        else
-                            return 'https://crafatar.com/renders/head/' . Output::getClean($uuid) . '?overlay';
-
-                        break;
-
-                    case 'nameless':
-                        // Only supports face currently
-                        if (defined('FRIENDLY_URLS') && FRIENDLY_URLS == true)
-                            return (($full ? rtrim(Util::getSelfURL(), '/') : '') . URL::build('/avatar/' . Output::getClean($uuid)));
-                        else
-                            return (($full ? rtrim(Util::getSelfURL(), '/') : '') . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'core/avatar/face.php?u=' . Output::getClean($uuid));
-
-                        break;
-
-                    case 'mc-heads':
-                        if ($perspective == 'face')
-                            return 'https://mc-heads.net/avatar/' . Output::getClean($uuid) . '/' . $size;
-                        else
-                            return 'https://mc-heads.net/head/' . Output::getClean($uuid) . '/' . $size;
-
-                        break;
-
-                    case 'minotar':
-                        if ($perspective == 'face')
-                            return 'https://minotar.net/helm/' .  Output::getClean($uuid) . '/' . $size . '.png';
-                        else
-                            return 'https://minotar.net/cube/' .  Output::getClean($uuid) . '/' . $size . '.png';
-
-                        break;
-
-                    case 'visage':
-                        if ($perspective == 'face')
-                            return 'https://visage.surgeplay.com/face/' . $size . '/' . Output::getClean($uuid);
-                        else if ($perspective == 'bust')
-                            return 'https://visage.surgeplay.com/bust/' . $size . '/' . Output::getClean($uuid);
-                        else
-                            return 'https://visage.surgeplay.com/head/' . $size . '/' . Output::getClean($uuid);
-
-                        break;
-
-                    case 'cravatar':
-                    default:
-                        if ($perspective == 'face')
-                            return 'https://cravatar.eu/helmavatar/' . Output::getClean($uuid) . '/' . $size . '.png';
-                        else
-                            return 'https://cravatar.eu/helmhead/' . Output::getClean($uuid) . '/' . $size . '.png';
-                        break;
-                }
-            } else {
-                // Fall back to cravatar
-                return 'https://cravatar.eu/helmavatar/' . Output::getClean($uuid) . '/' . $size . '.png';
+            if (file_exists(ROOT_PATH . '/uploads/avatars/defaults/' . DEFAULT_AVATAR_IMAGE)) {
+                return ($full ? rtrim(Util::getSelfURL(), '/') : '') . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/avatars/defaults/' . DEFAULT_AVATAR_IMAGE;
             }
         }
+
+        // If all else fails, or custom avatars are disabled or default avatar type is 'minecraft', get their MC avatar
+        if ($this->data()->uuid != null && $this->data()->uuid != 'none') {
+            $uuid = $this->data()->uuid;
+        } else {
+            $uuid = $this->data()->username;
+            // Fallback to steve avatar if they have an invalid uuid
+            if (preg_match("#[^][_A-Za-z0-9]#", $uuid)) {
+                $uuid = 'Steve';
+            }
+        }
+
+        return AvatarSource::getAvatarFromUUID($uuid, $size);
     }
 
-    // Does the user have any infractions?
+    /**
+     * If the user has infractions, list them all. Or else return false.
+     * Not used internally.
+     * 
+     * @return array|bool Array of infractions if they have one or more, else false.
+     */
     public function hasInfraction() {
         $data = $this->_db->get('infractions', array('punished', '=', $this->data()->id))->results();
         if (empty($data)) {
             return false;
-        } else {
-            $return = array();
-            $n = 0;
-            foreach ($data as $infraction) {
-                if ($infraction->acknowledged == '0') {
-                    $return[$n]["id"] = $infraction->id;
-                    $return[$n]["staff"] = $infraction->staff;
-                    $return[$n]["reason"] = $infraction->reason;
-                    $return[$n]["date"] = $infraction->infraction_date;
-                    $n++;
-                }
-            }
-            return $return;
         }
+
+        $return = array();
+        $n = 0;
+        foreach ($data as $infraction) {
+            if ($infraction->acknowledged == '0') {
+                $return[$n]["id"] = $infraction->id;
+                $return[$n]["staff"] = $infraction->staff;
+                $return[$n]["reason"] = $infraction->reason;
+                $return[$n]["date"] = $infraction->infraction_date;
+                $n++;
+            }
+        }
+        
+        return $return;
     }
 
-    // Does the user exist?
+    /**
+     * Does this user exist?
+     *
+     * @return bool Whether the user exists (has data) or not.
+     */
     public function exists() {
         return (!empty($this->_data));
     }
 
-    // Log the user out
+    /**
+     * Log the user out.
+     * Deletes their cookies, sessions and database session entry.
+     */
     public function logout() {
 
         $this->_db->delete('users_session', array('user_id', '=', $this->data()->id));
@@ -452,44 +503,59 @@ class User {
         Session::delete($this->_sessionName);
         Cookie::delete($this->_cookieName);
     }
-
-    // Process logout if user is admin
+ 
+    /**
+     * Process logout if user is admin
+     */
     public function admLogout() {
 
         $this->_db->delete('users_admin_session', array('user_id', '=', $this->data()->id));
 
         Session::delete($this->_admSessionName);
-        Cookie::delete($this->_cookieName . "_adm");
+        Cookie::delete($this->_cookieName . '_adm');
     }
-
-    // Returns the currently logged in user's data
+  
+    /**
+     * Get the currently logged in user's data.
+     *
+     * @return object This user's data.
+     */
     public function data() {
         return $this->_data;
     }
 
-    // Returns the currently logged in user's groups
+    /**
+     * Get the currently logged in user's groups.
+     *
+     * @return array Their groups.
+     */
     public function getGroups() {
         return $this->_groups;
     }
 
-    // Get the main group
+    /**
+     * Get this user's main group (with highest order).
+     *
+     * @return object The group
+     */
     public function getMainGroup() {
         if (count($this->_groups)) {
             foreach ($this->_groups as $group) {
                 return $group;
             }
         }
+
         return false;
     }
-
-    // Set a group to user and remove all other groups
+   
+    /**
+     * Set a group to user and remove all other groups
+     *
+     * @param int $group_id ID of group to set as main group.
+     * @param int|null $expire Expiry in epoch time. If not supplied, group will never expire.
+     */
     public function setGroup($group_id, $expire = 0) {
-        $this->_db->createQuery(
-            'DELETE FROM `nl2_users_groups` WHERE `user_id` = ?',
-            array(
-                $this->data()->id
-            )
-        );
+        $this->_db->createQuery('DELETE FROM `nl2_users_groups` WHERE `user_id` = ?', array($this->data()->id));
 
         $this->_db->createQuery(
             'INSERT INTO `nl2_users_groups` (`user_id`, `group_id`, `received`, `expire`) VALUES (?, ?, ?, ?)',
@@ -502,111 +568,143 @@ class User {
         );
     }
 
-    // Add a group to the user
-    // Returns false if they already had this group
+    /**
+     * Add a group to this user.
+     *
+     * @param int $group_id ID of group to give.
+     * @param int|null $expire Expiry in epoch time. If not supplied, group will never expire.
+     * @return bool True on success, false if they already have it.
+     */
     public function addGroup($group_id, $expire = 0) {
         $groups = $this->_groups ? $this->_groups : [];
-        if (!array_key_exists($group_id, $groups)) {
-            $this->_db->createQuery(
-                'INSERT INTO `nl2_users_groups` (`user_id`, `group_id`, `received`, `expire`) VALUES (?, ?, ?, ?)',
-                array(
-                    $this->data()->id,
-                    $group_id,
-                    date('U'),
-                    $expire
-                )
-            );
 
-            return true;
+        if (array_key_exists($group_id, $groups)) {
+            return false;
         }
 
-        return false;
+        $this->_db->createQuery(
+            'INSERT INTO `nl2_users_groups` (`user_id`, `group_id`, `received`, `expire`) VALUES (?, ?, ?, ?)',
+            array(
+                $this->data()->id,
+                $group_id,
+                date('U'),
+                $expire
+            )
+        );
+
+        return true;
     }
 
-    // Remove a group from the user
-    // Returns false if they did not have this group or the admin group is being removed from root user
+    /**
+     * Remove a group from the user.
+     *
+     * @param int $group_id ID of group to remove.
+     * @return bool Returns false if they did not have this group or the admin group is being removed from root user
+     */
     public function removeGroup($group_id) {
         $groups = $this->_groups ? $this->_groups : [];
-        if (array_key_exists($group_id, $groups)) {
-            if ($group_id == 2 && $this->data()->id == 1) {
-                return false;
-            }
-
-            $this->_db->createQuery(
-                'DELETE FROM `nl2_users_groups` WHERE `user_id` = ? AND `group_id` = ?',
-                array(
-                    $this->data()->id,
-                    $group_id
-                )
-            );
-
-            return true;
+        
+        if (!array_key_exists($group_id, $groups)) {
+            return false;
         }
 
-        return false;
+        if ($group_id == 2 && $this->data()->id == 1) {
+            return false;
+        }
+
+        $this->_db->createQuery(
+            'DELETE FROM `nl2_users_groups` WHERE `user_id` = ? AND `group_id` = ?',
+            array(
+                $this->data()->id,
+                $group_id
+            )
+        );
+
+        return true;
     }
 
-    // Removes all groups this user has
+    /**
+     * Removes all groups this user has.
+     */
     public function removeGroups() {
         $where = 'WHERE `user_id` = ?';
+        
         if ($this->data()->id == 1) {
             $where .= ' AND `group_id` <> 2';
         }
 
-        $this->_db->createQuery(
-            'DELETE FROM `nl2_users_groups` ' . $where,
-            array(
-                $this->data()->id
-            )
-        );
+        $this->_db->createQuery('DELETE FROM `nl2_users_groups` ' . $where, array($this->data()->id));
     }
 
-    // Returns true if the current user is logged in
+    /**
+     * Get if this user is currently logged in or not.
+     *
+     * @return bool Whether they're logged in.
+     */
     public function isLoggedIn() {
         return $this->_isLoggedIn;
     }
 
-    // Returns true if the current user is authenticated as an administrator
+    /**
+     * Get if the current user is authenticated as an administrator.
+     *
+     * @return bool Whether they're logged in as admin.
+     */
     public function isAdmLoggedIn() {
         return $this->_isAdmLoggedIn;
     }
 
-    // Returns whether this user has been validated/activated
+    /**
+     * Get if this user is active/validated or not.
+     *
+     * @return bool Whether this user has been validated/activated.
+     */
     public function isValidated() {
         return $this->data()->active;
     }
 
-    // Return a comma separated string of all users - this is for the new private message dropdown
+    /**
+     * Get a comma separated string of all users.
+     * For the new private message dropdown.
+     *
+     * @return string CSV list of user's usernames.
+     */
     public function listAllUsers() {
         $data = $this->_db->get('users', array('id', '<>', '0'))->results();
-        $return = "";
-        $i = 1;
+        $return = '';
 
         foreach ($data as $item) {
-            if ($i != count($data)) {
-                $return .= '"' . $item->username . '",';
-            } else {
-                $return .= '"' . $item->username . '"';
-            }
-            $i++;
+            $return .= '"' . $item->username . '",';
         }
-        return $return;
+        
+        return rtrim($return, ',');
     }
-
-    // Return an ID from a username
-    public function nameToId($name = null) {
-        if ($name) {
-            $data = $this->_db->get('users', array('username', '=', $name));
+  
+    /**
+     * Return an ID from a username.
+     *
+     * @param string $username Username to get ID for.
+     * @return int|bool ID on success, false on failure.
+     */
+    public function nameToId($username = null) {
+        if ($username) {
+            $data = $this->_db->get('users', array('username', '=', $username));
 
             if ($data->count()) {
                 $results = $data->results();
                 return $results[0]->id;
             }
         }
+        
         return false;
     }
 
-    // Return an ID from an email
+    /**
+     * Return an ID from an email.
+     *
+     * @param string $email Email to get ID for.
+     * @return int|bool ID on success, false on failure.
+     */
     public function emailToId($email = null) {
         if ($email) {
             $data = $this->_db->get('users', array('email', '=', $email));
@@ -616,10 +714,16 @@ class User {
                 return $results[0]->id;
             }
         }
+        
         return false;
     }
-
-    // Get a list of PMs a user has access to
+   
+    /**
+     * Get a list of PMs a user has access to.
+     *
+     * @param int $user_id ID of user to get PMs for.
+     * @return array|bool Array of PMs, false on failure.
+     */
     public function listPMs($user_id = null) {
         if ($user_id) {
             $return = array(); // Array to return containing info of PMs
@@ -659,10 +763,17 @@ class User {
 
             return $return;
         }
+
         return false;
     }
-
-    // Get a specific private message, and see if the user actually has permission to view it
+   
+    /**
+     * Get a specific private message, and see if the user actually has permission to view it
+     *
+     * @param int $pm_id ID of PM to find.
+     * @param int $user_id ID of user to check permission for.
+     * @return array|bool Array of info about PM, false on failure.
+     */
     public function getPM($pm_id = null, $user_id = null) {
         if ($user_id && $pm_id) {
             // Get the PM - is the user the author?
@@ -707,10 +818,17 @@ class User {
                 return array($data, $users);
             }
         }
+
         return false;
     }
-
-    // Delete a user's access to view the PM, or if they're the author, the PM itself
+    
+    /**
+     * Delete a user's access to view the PM, or if they're the author, the PM itself.
+     *
+     * @param int $pm_id ID of Pm to delete.
+     * @param int $user_id ID of user to use.
+     * @return bool Whether the action succeeded or not.
+     */
     public function deletePM($pm_id = null, $user_id = null) {
         if ($user_id && $pm_id) {
             // Is the user the author?
@@ -737,6 +855,7 @@ class User {
                 }
             }
         }
+        
         return false;
     }
 
@@ -757,10 +876,16 @@ class User {
                 return 0;
             }
         }
+        
         return false;
     }
-
-    // Can the specified user view the Panel?
+  
+    /**
+     * Can the specified user view StaffCP?
+     * TODO: Rename to canViewStaffCP()
+     *
+     * @return bool Whether they can view it or not.
+     */
     public function canViewACP() {
         if (count($this->_groups)) {
             foreach ($this->_groups as $group) {
@@ -769,10 +894,16 @@ class User {
                 }
             }
         }
+
         return false;
     }
 
-    // Can they view this staffcp page?
+    /**
+     * Check the user's permission to see if they can view this staffCP page or not.
+     * If they cannot, this will handle appropriate redirection.
+     *
+     * @param string $permission Permission required for this page.
+     */
     public function handlePanelPageLoad($permission = null) {
         if (!$this->isLoggedIn()) {
             Redirect::to(URL::build('/login'));
@@ -790,15 +921,19 @@ class User {
         }
 
         if ($permission != null && !$this->hasPermission($permission)) {
-            require_once(ROOT_PATH . '/404.php');
-            die();
+            return false;
         }
+        return true;
     }
 
-    // Return profile fields for specified user
-    // Params:  $user_id (integer) - user id of user to retrieve fields from
-    //			$public (boolean)  - whether to only return public fields or not (default true)
-    //			$forum (boolean)   - whether to only return fields which display on forum posts, only if $public is true (default false)
+    /**
+     * Get profile fields for specified user
+     *
+     * @param int $user_id User to retrieve fields for.
+     * @param bool|null $public Whether to only return public fields or not (default `true`).
+     * @param bool|null $forum Whether to only return fields which display on forum posts, only if $public is true (default `false`).
+     * @return array|bool Array of profile fields. False on failure.
+     */
     public function getProfileFields($user_id = null, $public = true, $forum = false) {
         if ($user_id) {
             $data = $this->_db->get('users_profile_fields', array('user_id', '=', $user_id));
@@ -851,10 +986,12 @@ class User {
         return false;
     }
 
-    /*
-     *  Is a user blocked?
-     *  Params: $user - ID of first user
-     *          $blocked - ID of user who may or may not be blocked
+    /**
+     * Is a user blocked?
+     *
+     * @param int $user ID of first user
+     * @param int $blocked ID of user who may or may not be blocked
+     * @return bool Whether they are blocked or not.
      */
     public function isBlocked($user, $blocked) {
         if ($user && $blocked) {
@@ -863,20 +1000,21 @@ class User {
                 $possible_users = $possible_users->results();
 
                 foreach ($possible_users as $possible_user) {
-                    if ($possible_user->user_blocked_id == $blocked)
+                    if ($possible_user->user_blocked_id == $blocked) {
                         return true;
+                    }
                 }
             }
         }
+
         return false;
     }
 
     /**
-     * Does the user have a given permission?
+     * Does the user have a given permission in any of their groups?
      *
-     * @param string $permission name of permission
-     *
-     * @return boolean
+     * @param string $permission Permission node to check recursively for.
+     * @return bool Whether they inherit this permission or not.
      */
     public function hasPermission($permission) {
         $groups = $this->_groups;
@@ -889,52 +1027,52 @@ class User {
                 }
             }
         }
+
         return false;
     }
 
     /**
-     * Get a user's profile views, by user ID
+     * Get this user's profile views.
      *
-     * @return int
+     * @return int Numer of profile views they have
      */
     public function getProfileViews() {
         if (count($this->data())) {
             return $this->data()->profile_views;
-        } else {
-            return 0;
         }
+
+        return 0;
     }
 
     /**
      * Is private profile enabled and does he have the permission to use it?
      *
-     * @return boolean
+     * @return bool Whether profile privatizing is allowed and if they have permission to use it.
      */
     public function canPrivateProfile() {
         $settings_data = $this->_db->get('settings', array('name', '=', 'private_profile'));
         $settings_results = $settings_data->results();
+
         return (($settings_results[0]->value == 1) && ($this->hasPermission('usercp.private_profile')));
     }
 
     /**
      * Is the profile page set to private?
      *
-     * @return boolean
+     * @return bool Whether their profile is set to private or not.
      */
     public function isPrivateProfile() {
         if ($this->_data->private_profile == 1) {
-            // It's private
             return true;
-        } else {
-            // It's not private
-            return false;
         }
+        
+        return false;
     }
 
     /**
-     * Get templates a user's group has access to
+     * Get templates this user's group has access to.
      *
-     * @return
+     * @return object Templates which the user has access to.
      */
     public function getUserTemplates() {
         $groups = '(';

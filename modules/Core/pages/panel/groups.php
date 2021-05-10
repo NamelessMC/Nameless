@@ -2,14 +2,17 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr9
  *
  *  License: MIT
  *
  *  Panel groups page
  */
 
-$user->handlePanelPageLoad('admincp.groups');
+if(!$user->handlePanelPageLoad('admincp.groups')) {
+    require_once(ROOT_PATH . '/403.php');
+    die();
+}
 
 define('PAGE', 'panel');
 define('PARENT_PAGE', 'groups');

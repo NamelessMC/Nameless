@@ -2,14 +2,17 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr9
  *
  *  License: MIT
  *
  *  Panel update page
  */
 
-$user->handlePanelPageLoad('admincp.update');
+if(!$user->handlePanelPageLoad('admincp.update')) {
+    require_once(ROOT_PATH . '/403.php');
+    die();
+}
 
 if (isset($_GET['recheck'])) {
     $cache->setCache('update_check');

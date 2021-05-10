@@ -77,7 +77,7 @@ if (!isset($_GET['s'])) {
             // Check permissions
             $perms = $queries->getWhere('forums_permissions', array('forum_id', '=', $result->forum_id));
             foreach ($perms as $perm) {
-                if (in_array($perm->group_id, $user_groups) && $perm->view == 1) {
+                if (in_array($perm->group_id, $user_groups) && $perm->view == 1 && $perm->view_other_topics == 1) {
                     if (isset($result->topic_id)) {
                         // Post
                         if (!isset($results[$result->id]) && $result->deleted == 0) {
@@ -181,7 +181,7 @@ if (isset($_GET['s'])) {
             $posts[$n] = array(
                 'post_author' => $post_user->getDisplayname(),
                 'post_author_id' => Output::getClean($results->data[$n]['post_author']),
-                'post_author_avatar' => $post_user->getAvatar('../', 25),
+                'post_author_avatar' => $post_user->getAvatar(25),
                 'post_author_profile' => $post_user->getProfileURL(),
                 'post_author_style' => $post_user->getGroupClass(),
                 'post_date_full' => date('d M Y, H:i', strtotime($results->data[$n]['post_date'])),

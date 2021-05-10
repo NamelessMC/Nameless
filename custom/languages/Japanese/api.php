@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr9
  *
  *  Translator
  *  - SimplyRin( @SimplyRin_, https://www.simplyrin.net )
@@ -17,7 +17,7 @@
 $language = array(
 
     // Errors
-    'api_disabled' => 'API is disabled',
+    'api_disabled' => 'APIが無効',
     'unknown_error' => '不明なエラー',
     'invalid_api_key' => '無効な API キー',
     'invalid_language_file' => '言語ファイルが無効です。',
@@ -38,7 +38,7 @@ $language = array(
     'unable_to_find_group' => '指定されたグループを見つけることができませんでした。',
     'unable_to_update_group' => 'ユーザーのグループを更新できませんでした。',
     'report_content_too_long' => 'レポートの内容は <strong>255文字</strong>　以内にする必要があります。',
-    'cannot_report_yourself' => 'You cannot report yourself.',
+    'cannot_report_yourself' => '自分自身を報告することはできません。',
     'you_have_been_banned_from_website' => 'あなたはウェブサイトにてアカウントがロックされています。',
     'you_have_open_report_already' => '既に指定されたプレイヤーのレポートが存在します。',
     'unable_to_create_report' => 'レポートを作成できませんでした。',
@@ -50,11 +50,11 @@ $language = array(
     'discord_integration_disabled' => 'Discordの連携は無効になっています。',
     'unable_to_set_discord_id' => 'Discord IDを設定できません。',
     'unable_to_set_discord_bot_url' => 'DiscordボットのURLが設定できません。',
-    'provide_one_discord_settings' => 'Please provide at least one of the following: "url", "guild_id"',
-    'no_pending_verification_for_token' => 'There are no verifications pending under the supplied token.',
-    'unable_to_update_discord_username' => 'Unable to update Discord username.',
-    'unable_to_update_discord_roles' => 'Unable to update Discord roles list.',
-    'unable_to_update_discord_bot_username' => 'Unable to update Discord bot username.',
+    'provide_one_discord_settings' => '次の項目のうち、少なくとも1つをご記入ください: "URL"、"guild_id"',
+    'no_pending_verification_for_token' => '提供されたトークンの下で保留中の検証はありません。',
+    'unable_to_update_discord_username' => 'Discordのユーザー名を更新できません。',
+    'unable_to_update_discord_roles' => 'Discordのロールリストを更新できません。',
+    'unable_to_update_discord_bot_username' => 'Discordボットのユーザー名を更新できません。',
 
     // Success messages
     'finish_registration_link' => '登録を完了するには次のリンクをクリックしてください:',
@@ -67,5 +67,5 @@ $language = array(
     'account_validated' => 'アカウントの検証が完了しました。',
     'discord_id_set' => 'Discord IDの設定に成功しました。',
     'discord_bot_url_updated' => 'Discord botのURLが更新されました。',
-    'discord_usernames_updated' => 'Discord usernames updated successfully'
+    'discord_usernames_updated' => 'Discordユーザー名の更新に成功'
 );

@@ -9,7 +9,10 @@
  *  Panel users page
  */
 
-$user->handlePanelPageLoad('admincp.users.edit');
+if(!$user->handlePanelPageLoad('admincp.users.edit')) {
+    require_once(ROOT_PATH . '/403.php');
+    die();
+}
 
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
     Redirect::to(URL::build('/panel/users'));

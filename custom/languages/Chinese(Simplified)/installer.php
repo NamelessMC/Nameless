@@ -2,13 +2,13 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr9
  *
  *  License: MIT
  *
  *  Chinese Simplified Language - Installation
  *  Translation(Chinese Simplified) by ahdg,lian20,Dreta
- *  Translation progress(v2-pr8) : 100%
+ *  Translation progress(v2-pr9) : 100%
  */
 
 $language = array(
@@ -85,7 +85,7 @@ $language = array(
     'unable_to_load_converter' => '无法加载转换器!',
     'finish' => '完成',
     'finish_message' => '感谢安装 NamelessMC! 现在，您可以进入管理员面板，在那里可以进一步配置您的网站。',
-    'support_message' => '如果你需要任何帮助，请在 <a href="https://namelessmc.com" target="_blank">我们的网站</a> 上查找 , 或者你可以访问我们的 <a href="https://discord.gg/9vk93VR" target="_blank">Discord 服务器</a> 或 <a href="https://github.com/NamelessMC/Nameless/" target="_blank">GitHub 资料库</a>.',
+    'support_message' => '如果你需要任何帮助，请在 <a href="https://namelessmc.com" target="_blank">我们的网站</a> 上查找 , 或者你可以访问我们的 <a href="https://discord.gg/nameless" target="_blank">Discord 服务器</a> 或 <a href="https://github.com/NamelessMC/Nameless/" target="_blank">GitHub 资料库</a>.',
     'credits' => '开发人员',
     'credits_message' => '向所有自 2014 年以来的 <a href="https://github.com/NamelessMC/Nameless/graphs/contributors" target="_blank">NamelessMC 代码贡献者</a> 致敬',
 

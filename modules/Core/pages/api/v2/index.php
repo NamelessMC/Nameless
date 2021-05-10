@@ -29,9 +29,14 @@ $api = new Nameless2API($route, $language, $endpoints);
 
 class Nameless2API {
 
-    private $_db,
-            $_language,
-            $_endpoints;
+    /** @var DB */
+    private $_db;
+    
+    /** @var Language */
+    private $_language;
+
+    /** @var Endpoints */
+    private $_endpoints;
 
     public function getDb() {
         return $this->_db;

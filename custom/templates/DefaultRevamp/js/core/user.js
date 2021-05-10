@@ -1,3 +1,4 @@
+// @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&dn=expat.txt Expat/MIT
 if (!('Notification' in window))
 	window.Notification = null;
 
@@ -20,7 +21,7 @@ if (loggedIn == 1) {
 
 		countAlerts = data.value;
     }
-    
+
     function notifyAlerts(data) {
 		if (data.value > 0) {
 			if (data.value == 1) {
@@ -49,7 +50,7 @@ if (loggedIn == 1) {
             countAlerts = data.value;
     	}
     }
-    
+
     function updatePMs(data) {
 		if (data.value > 0) {
 			$("#button-pms").removeClass('default').addClass("red");
@@ -64,7 +65,7 @@ if (loggedIn == 1) {
 
 		countPms = data.value;
     }
-    
+
     function notifyPMs(data) {
 		if (data.value > 0) {
 			if (data.value == 1) {
@@ -93,24 +94,24 @@ if (loggedIn == 1) {
             countPms = data.value;
     	}
     }
-    
-    $(document).ready(function () {	
-        
+
+    $(document).ready(function () {
+
 		if (Notification) {
 			if (Notification.permission !== "granted")
 				Notification.requestPermission();
 		}
-        
+
         $.getJSON(URLBuild('queries/alerts'), function(data) {
 			updateAlerts(data);
 		});
-		
+
 		$.getJSON(URLBuild('queries/pms'), function(data) {
 			updatePMs(data);
 		});
-		
+
 		window.setInterval(function () {
-		    
+
             $.getJSON(URLBuild('queries/alerts'), function(data) {
                 if (countAlerts < data.value) {
                     notifyAlerts(data);
@@ -118,7 +119,7 @@ if (loggedIn == 1) {
 
 				updateAlerts(data);
     		});
-    		
+
     		$.getJSON(URLBuild('queries/pms'), function(data) {
                 if (countPms < data.value) {
                     notifyPMs(data);
@@ -128,12 +129,13 @@ if (loggedIn == 1) {
 		    });
 
 		}, 10000);
-		
+
     });
-    
+
 } else if (cookie == 1) {
 	toastr.options.onclick = () => $('.toast .toast-close-button').focus();
 	toastr.options.onHidden = () => $.cookie('accept', 'accepted', {path: '/'});
 	toastr.options.timeOut = 0;
 	toastr.info(cookieNotice);
 }
+// @license-end

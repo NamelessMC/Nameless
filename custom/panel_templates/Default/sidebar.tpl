@@ -24,7 +24,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 {if count($item.items)}
                 {foreach from=$item.items key=subKey item=subItem}
-                <a class="collapse-item {if $PAGE eq $subKey} active{/if}" href="{$subItem.link}">{$subItem.icon} {$subItem.title}</a>
+                <a class="collapse-item {if $PAGE eq $subKey} active{/if}" href="{$subItem.link}" target="{$subItem.target}">{$subItem.icon} {$subItem.title}</a>
                 {/foreach}
                 {/if}
             </div>

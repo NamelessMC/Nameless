@@ -9,18 +9,23 @@
  *  Report class
  */
 class Report {
+
+    /** @var DB */
     private $_db;
 
     // Construct Report class
-    public function __construct(){
+    public function __construct() {
         $this->_db = DB::getInstance();
     }
 
-    // Create a report
-    // Params: $post - array containing fields
-    public function create($post = array()){
+    /**
+     * Create a report.
+     *
+     * @param array $post Array containing fields.
+     */
+    public function create($post = array()) {
         // Insert into database
-        if(!$this->_db->insert('reports', $post)) {
+        if (!$this->_db->insert('reports', $post)) {
             throw new Exception('There was a problem creating the report.');
         }
 
@@ -29,10 +34,10 @@ class Report {
         // Alert moderators
         $moderator_groups = DB::getInstance()->query('SELECT id FROM nl2_groups WHERE permissions LIKE \'%"modcp.reports":1%\'')->results();
 
-        if(count($moderator_groups)){
+        if (count($moderator_groups)) {
             $groups = '(';
-            foreach($moderator_groups as $group){
-                if(is_numeric($group->id)){
+            foreach ($moderator_groups as $group) {
+                if (is_numeric($group->id)) {
                     $groups .= ((int) $group->id) . ',';
                 }
             }
@@ -40,13 +45,11 @@ class Report {
 
             $moderators = DB::getInstance()->query('SELECT DISTINCT(nl2_users.id) AS id FROM nl2_users LEFT JOIN nl2_users_groups ON nl2_users.id = nl2_users_groups.user_id WHERE group_id in ' . $groups)->results();
 
-            if(count($moderators)){
-                foreach($moderators as $moderator){
+            if (count($moderators)) {
+                foreach ($moderators as $moderator) {
                     Alert::create($moderator->id, 'report', array('path' => 'core', 'file' => 'moderator', 'term' => 'report_alert'), array('path' => 'core', 'file' => 'moderator', 'term' => 'report_alert'), URL::build('/panel/users/reports/', 'id=' . $id));
                 }
             }
-
         }
-
     }
 }

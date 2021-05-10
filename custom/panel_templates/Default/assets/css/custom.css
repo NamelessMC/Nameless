@@ -158,7 +158,7 @@ option:checked {
         border: none !important;
         outline: none;
     }
-    
+
     .dark select option:hover,
     .dark select option:focus,
     .dark select option:active,
@@ -313,7 +313,6 @@ i,
     position: fixed;
     height: 100vh;
     z-index: 999;
-    overflow-y: scroll !important;
     overflow-x: hidden;
 }
 

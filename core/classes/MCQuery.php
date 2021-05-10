@@ -11,12 +11,15 @@
 
 class MCQuery {
 
-    // Query a single server
-    // Returns array containing query result
-    // Params:  $ip - full server IP address with port (separated by :) to query
-    //          $type - type of query to use (internal or external)
-    //          $language - query language object
-    //          $queries - Queries instance to pass through for error logging
+    /**
+     * Query a single server
+     *
+     * @param string $ip Full server IP address with port (separated by :) to query.
+     * @param string $type Type of query to use (`internal` or `external`).
+     * @param Language $language Query language object.
+     * @param Queries $queries Queries instance to pass through for error logging.
+     * @return array Array containing query result.
+     */
     public static function singleQuery($ip = null, $type = 'internal', $language, $queries) {
         if ($ip) {
             try {
@@ -24,7 +27,7 @@ class MCQuery {
                     // Internal query
                     $query_ip = explode(':', $ip['ip']);
 
-                    if (count($query_ip) == 1 || (count($query_ip[1]) == 2 && empty($query_ip[1]))) {
+                    if (count($query_ip) == 1 || (strlen($query_ip[1]) == 2 && empty($query_ip[1]))) {
                         $query_ip[1] = 25565;
                     }
 
@@ -119,11 +122,11 @@ class MCQuery {
     /**
      * Query multiple servers
 
-     * @param $servers    Servers
-     * @param $type       Type of query to use (internal or external)
-     * @param $language   Query language object
-     * @param $accumulate Whether to return as one accumulated result or not
-     * @param $queries    Queries instance to pass through for error logging
+     * @param array $servers    Servers
+     * @param string $type       Type of query to use (internal or external)
+     * @param Language $language   Query language object
+     * @param bool $accumulate Whether to return as one accumulated result or not
+     * @param Queries $queries    Queries instance to pass through for error logging
      *
      * @throws Exception if not able to query the server
      *
@@ -268,10 +271,9 @@ class MCQuery {
     }
 
     /**
-     * Formats a list of players into something useful for the frontend
-
-     * @param $player_list array Unformatted array of players in format 'id' => string (UUID), 'name' => string (username)
-
+     * Formats a list of players into something useful for the frontend.
+     *
+     * @param array $player_list Unformatted array of players in format 'id' => string (UUID), 'name' => string (username)
      * @return array Array of formatted players
      **/
     private static function formatPlayerList($player_list) {

@@ -9,7 +9,10 @@
  *  Panel seo page
  */
 
-$user->handlePanelPageLoad('admincp.core.seo');
+if(!$user->handlePanelPageLoad('admincp.core.seo')) {
+    require_once(ROOT_PATH . '/403.php');
+    die();
+}
 
 define('PAGE', 'panel');
 define('PARENT_PAGE', 'core_configuration');

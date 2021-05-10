@@ -1,3 +1,4 @@
+// @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&dn=expat.txt Expat/MIT
 toastr.options = {
 	progressBar: true,
 	closeButton: true,
@@ -23,31 +24,31 @@ function copy(element) {
 	toastr.success(copied);
 }
 $(function() {
-    
+
     $('.ui.sidebar').sidebar('attach events', '.toc.item');
-    
+
     $('.ui.dropdown:not(.search)').dropdown();
-    
+
     $('[data-toggle="tooltip"]').popup({
         hoverable: true
     });
 
-	$('[data-toggle="popup"]').popup({ 
+	$('[data-toggle="popup"]').popup({
         hoverable: true,
         variation: 'special flowing',
     });
-    
+
     $('[data-toggle="modal"]').click(function() {
         let att = $(this).attr("data-target");
         $(att).modal('show');
     });
-	
+
 	$('.menu .item').tab();
 
     $('.message .close').on('click', function() {
         $(this).closest('.message').transition('fade');
     });
-	
+
 });
 
 $(function() {
@@ -74,7 +75,7 @@ $(function() {
             image.src = img.src;
         });
     });
-                    
+
     $('*[data-poload]').popup({
         hoverable: true,
         variation: 'special flowing',
@@ -82,6 +83,13 @@ $(function() {
         delay: {show: 500, hide: 200},
         onShow: function(e) {this.html(cachedUsers[$(e).data('poload')].html)}
     });
+
+		const timezone = document.getElementById('timezone');
+
+		if (timezone) {
+		  timezone.value = Intl.DateTimeFormat().resolvedOptions().timeZone;
+		}
+
 });
 
 const announcements = document.querySelectorAll('[id^="announcement"]');
@@ -93,3 +101,4 @@ announcements.forEach((announcement) => {
 		});
 	}
 });
+// @license-end

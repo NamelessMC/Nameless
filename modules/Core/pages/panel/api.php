@@ -2,14 +2,17 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr9
  *
  *  License: MIT
  *
  *  Panel API page
  */
 
-$user->handlePanelPageLoad('admincp.core.api');
+if(!$user->handlePanelPageLoad('admincp.core.api')) {
+    require_once(ROOT_PATH . '/403.php');
+    die();
+}
 
 define('PAGE', 'panel');
 define('PARENT_PAGE', 'core_configuration');
@@ -88,7 +91,7 @@ if (!isset($_GET['view'])) {
                 $errors[] = $e->getMessage();
             }
 
-            $username_sync = isset($_POST['username_sync']) && $_POST['username_sync'] == 'on' ? 0 : 1;
+            $username_sync = isset($_POST['username_sync']) && $_POST['username_sync'] == 'on' ? 1 : 0;
             $username_sync_id = $queries->getWhere('settings', array('name', '=', 'username_sync'))[0]->id;
 
             try {

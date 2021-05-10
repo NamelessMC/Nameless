@@ -11,10 +11,13 @@
 
 class DB_Custom {
 
+    /** @var DB_Custom */
     private static $_instance = null;
 
-    private $_pdo,
-        $_query,
+    /** @var PDO */
+    private $_pdo;
+
+    private $_query,
         $_error = false,
         $_results,
         $_prefix,

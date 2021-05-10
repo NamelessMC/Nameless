@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		'password' => [
             Validate::REQUIRED => true,
             Validate::MIN => 6,
-            Validate::MAX => 64,
+            Validate::MAX => 30,
         ],
 		'password_again' => [
             Validate::REQUIRED => true,

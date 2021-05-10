@@ -81,7 +81,7 @@ if (isset($_GET['p'])) {
         Redirect::to(URL::build('/forum'));
         die();
     } else {
-        if ($_GET['p'] == 1) {
+        if ($_GET['p'] <= 1) {
             // Avoid bug in pagination class
             Redirect::to(URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title)));
             die();
@@ -690,7 +690,7 @@ for ($n = 0; $n < count($results->data); $n++) {
                     'username' => $reaction_user->getDisplayname(true),
                     'nickname' => $reaction_user->getDisplayname(),
                     'style' => $reaction_user->getGroupClass(),
-                    'avatar' => $reaction_user->getAvatar('../', 500),
+                    'avatar' => $reaction_user->getAvatar(500),
                     'profile' => $reaction_user->getProfileURL()
                 );
             }
@@ -716,7 +716,7 @@ for ($n = 0; $n < count($results->data); $n++) {
         'heading' => $heading,
         'id' => $results->data[$n]->id,
         'user_id' => $post_creator->data()->id,
-        'avatar' => $post_creator->getAvatar('../', 500),
+        'avatar' => $post_creator->getAvatar(500),
         'uuid' => Output::getClean($post_creator->data()->uuid),
         'username' => $post_creator->getDisplayname(),
         'mcname' => $post_creator->getDisplayname(true),

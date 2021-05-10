@@ -10,12 +10,16 @@
  */
 class Alert {
 
-    // Creates an alert for the specified user
-    // Params:  $user_id (int) 			- contains the ID of the user who we are creating the alert for
-    // 			$type (string) 			- contains the alert type, eg 'tag' for user tagging
-    //			$text_short (string)	- contains the alert text in short form for the dropdown
-    //			$text (string)			- contains full information about the alert
-    //			$link (string,optional) - contains link to view the alert, defaults to #
+    /**
+     * Creates an alert for the specified user.
+     * 
+     * @param int $user_id Contains the ID of the user who we are creating the alert for.
+     * @param string $type Contains the alert type, eg 'tag' for user tagging.
+     * @param array $text_short Contains the alert text in short form for the dropdown.
+     * @param array $text Contains full information about the alert.
+     * @param string|null $link Contains link to view the alert, defaults to #
+     * @throws Exception if unable to create alert
+     */
     public static function create($user_id, $type, $text_short, $text, $link = '#') {
         $db = DB::getInstance();
 
@@ -38,29 +42,39 @@ class Alert {
         }
     }
 
-    // Get user alerts
-    // Params: 	$user_id (int)		     - contains the ID of the user who we are getting alerts for
-    //			$all (boolean, optional) - do we want to get all alerts (including read), or not; defaults to false)
+    /**
+     * Get user alerts.
+     * 
+     * @param int $user_id Contains the ID of the user who we are getting alerts for.
+     * @param bool|null $all Do we want to get all alerts (including read), or not; defaults to false).
+     * @return array All their alerts.
+     */
     public static function getAlerts($user_id, $all = false) {
         $db = DB::getInstance();
 
         if ($all == true) {
             return $db->get('alerts', array('user_id', '=', $user_id))->results();
-        } else {
-            $alerts = $db->get('alerts', array('user_id', '=', $user_id))->results();
-            $unread = array();
-            foreach ($alerts as $alert) {
-                if ($alert->read == 0) {
-                    $unread[] = $alert;
-                }
-            }
-            return $unread;
         }
+
+        $alerts = $db->get('alerts', array('user_id', '=', $user_id))->results();
+        $unread = array();
+
+        foreach ($alerts as $alert) {
+            if ($alert->read == 0) {
+                $unread[] = $alert;
+            }
+        }
+
+        return $unread;
     }
 
-    // Get user unread messages
-    // Params: 	$user_id (int)		     - contains the ID of the user who we are getting messages for
-    //			$all (boolean, optional) - do we want to get all alerts (including read), or not; defaults to false)
+    /**
+     * Get user unread messages.
+     * 
+     * @param int $user_id Contains the ID of the user who we are getting messages for.
+     * @param bool|null $all Do we want to get all alerts (including read), or not; defaults to false)
+     * @return array All their messages matching the $all filter.
+     */
     public static function getPMs($user_id, $all = false) {
         $db = DB::getInstance();
 
@@ -86,28 +100,29 @@ class Alert {
             }
 
             return $pms;
-        } else {
-            $pms = $db->get('private_messages_users', array('user_id', '=', $user_id))->results();
-            $unread = array();
-
-            foreach ($pms as $pm) {
-                if ($pm->read == 0) {
-                    $pm_full = $db->get('private_messages', array('id', '=', $pm->pm_id))->results();
-
-                    if (!count($pm_full)) continue;
-                    else $pm_full = $pm_full[0];
-
-                    $unread[] = array(
-                        'id' => $pm_full->id,
-                        'title' => Output::getClean($pm_full->title),
-                        'created' => $pm_full->created,
-                        'author_id' => $pm_full->author_id,
-                        'last_reply_user' => $pm_full->last_reply_user,
-                        'last_reply_date' => $pm_full->last_reply_date
-                    );
-                }
-            }
-            return $unread;
         }
+
+        $pms = $db->get('private_messages_users', array('user_id', '=', $user_id))->results();
+        $unread = array();
+
+        foreach ($pms as $pm) {
+            if ($pm->read == 0) {
+                $pm_full = $db->get('private_messages', array('id', '=', $pm->pm_id))->results();
+
+                if (!count($pm_full)) continue;
+                else $pm_full = $pm_full[0];
+
+                $unread[] = array(
+                    'id' => $pm_full->id,
+                    'title' => Output::getClean($pm_full->title),
+                    'created' => $pm_full->created,
+                    'author_id' => $pm_full->author_id,
+                    'last_reply_user' => $pm_full->last_reply_user,
+                    'last_reply_date' => $pm_full->last_reply_date
+                );
+            }
+        }
+        
+        return $unread;
     }
 }

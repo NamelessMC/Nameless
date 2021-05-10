@@ -312,7 +312,7 @@ class Cache {
     /**
      * Cache name Getter
      *
-     * @return void
+     * @return string
      */
     public function getCache() {
         return $this->_cachename;

@@ -10,7 +10,13 @@
  */
 
 class Core_Module extends Module {
-    private $_language, $_configuration;
+
+    /** @var Language */
+    private $_language;
+
+    /** @var Configuration */
+    private $_configuration;
+    
     private static $_dashboard_graph = array(), $_notices = array(), $_user_actions = array();
 
     public function __construct($language, $pages, $user, $queries, $navigation, $cache, $endpoints){
@@ -274,6 +280,16 @@ class Core_Module extends Module {
         CaptchaBase::addProvider(new Recaptcha2($captchaPrivateKey, $captchaPublicKey));
         CaptchaBase::addProvider(new Recaptcha3($captchaPrivateKey, $captchaPublicKey));
         CaptchaBase::setActiveProvider($activeCaptcha);
+
+        // Avatar Sources
+        AvatarSource::registerSource(new CrafatarAvatarSource());
+        AvatarSource::registerSource(new CraftheadAvatarSource());
+        AvatarSource::registerSource(new CravatarAvatarSource());
+        AvatarSource::registerSource(new MCHeadsAvatarSource());
+        AvatarSource::registerSource(new MinotarAvatarSource());
+        AvatarSource::registerSource(new NamelessMCAvatarSource($language));
+        AvatarSource::registerSource(new VisageAvatarSource());
+        AvatarSource::setActiveSource(DEFAULT_AVATAR_SOURCE);
 
         // Autoload API Endpoints
         Util::loadEndpoints(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'modules', 'Core', 'includes', 'endpoints')), $endpoints);
@@ -717,7 +733,7 @@ class Core_Module extends Module {
                     } else
                         $icon = $cache->retrieve('general_settings_icon');
 
-                    $navs[2]->addItemToDropdown('core_configuration', 'general_settings', $language->get('admin', 'general_settings'), URL::build('/panel/core/general_settings'), 'top', $order, $icon);
+                    $navs[2]->addItemToDropdown('core_configuration', 'general_settings', $language->get('admin', 'general_settings'), URL::build('/panel/core/general_settings'), 'top', null, $icon, $order);
                 }
 
                 if($user->hasPermission('admincp.core.api')){
@@ -727,7 +743,7 @@ class Core_Module extends Module {
                     } else
                         $icon = $cache->retrieve('api_icon');
 
-                    $navs[2]->addItemToDropdown('core_configuration', 'api', $language->get('admin', 'api'), URL::build('/panel/core/api'), 'top', $order, $icon);
+                    $navs[2]->addItemToDropdown('core_configuration', 'api', $language->get('admin', 'api'), URL::build('/panel/core/api'), 'top', null, $icon, $order);
                 }
 
                 if($user->hasPermission('admincp.core.seo')){
@@ -737,7 +753,7 @@ class Core_Module extends Module {
                     } else
                         $icon = $cache->retrieve('seo_icon');
 
-                    $navs[2]->addItemToDropdown('core_configuration', 'seo', $language->get('admin', 'seo'), URL::build('/panel/core/seo'), 'top', $order, $icon);
+                    $navs[2]->addItemToDropdown('core_configuration', 'seo', $language->get('admin', 'seo'), URL::build('/panel/core/seo'), 'top', null, $icon, $order);
                 }
 
                 if($user->hasPermission('admincp.core.avatars')){
@@ -747,7 +763,7 @@ class Core_Module extends Module {
                     } else
                         $icon = $cache->retrieve('avatars_icon');
 
-                    $navs[2]->addItemToDropdown('core_configuration', 'avatars', $language->get('admin', 'avatars'), URL::build('/panel/core/avatars'), 'top', $order, $icon);
+                    $navs[2]->addItemToDropdown('core_configuration', 'avatars', $language->get('admin', 'avatars'), URL::build('/panel/core/avatars'), 'top', null, $icon, $order);
                 }
 
                 if($user->hasPermission('admincp.core.fields')){
@@ -757,7 +773,7 @@ class Core_Module extends Module {
                     } else
                         $icon = $cache->retrieve('custom_profile_fields_icon');
 
-                    $navs[2]->addItemToDropdown('core_configuration', 'custom_profile_fields', $language->get('admin', 'custom_fields'), URL::build('/panel/core/profile_fields'), 'top', $order, $icon);
+                    $navs[2]->addItemToDropdown('core_configuration', 'custom_profile_fields', $language->get('admin', 'custom_fields'), URL::build('/panel/core/profile_fields'), 'top', null, $icon, $order);
                 }
 
                 if($user->hasPermission('admincp.core.debugging')){
@@ -767,7 +783,7 @@ class Core_Module extends Module {
                     } else
                         $icon = $cache->retrieve('debugging_icon');
 
-                    $navs[2]->addItemToDropdown('core_configuration', 'debugging_and_maintenance', $language->get('admin', 'maintenance'), URL::build('/panel/core/debugging_and_maintenance'), 'top', $order, $icon);
+                    $navs[2]->addItemToDropdown('core_configuration', 'debugging_and_maintenance', $language->get('admin', 'maintenance'), URL::build('/panel/core/debugging_and_maintenance'), 'top', null, $icon, $order);
                 }
 
                 if($user->hasPermission('admincp.core.emails')){
@@ -777,7 +793,7 @@ class Core_Module extends Module {
                     } else
                         $icon = $cache->retrieve('email_icon');
 
-                    $navs[2]->addItemToDropdown('core_configuration', 'emails', $language->get('admin', 'emails'), URL::build('/panel/core/emails'), 'top', $order, $icon);
+                    $navs[2]->addItemToDropdown('core_configuration', 'emails', $language->get('admin', 'emails'), URL::build('/panel/core/emails'), 'top', null, $icon, $order);
                 }
 
                 if($user->hasPermission('admincp.core.navigation')){
@@ -787,7 +803,7 @@ class Core_Module extends Module {
                     } else
                         $icon = $cache->retrieve('navigation_icon');
 
-                    $navs[2]->addItemToDropdown('core_configuration', 'navigation', $language->get('admin', 'navigation'), URL::build('/panel/core/navigation'), 'top', $order, $icon);
+                    $navs[2]->addItemToDropdown('core_configuration', 'navigation', $language->get('admin', 'navigation'), URL::build('/panel/core/navigation'), 'top', null, $icon, $order);
                 }
 
                 if($user->hasPermission('admincp.core.terms')){
@@ -797,7 +813,7 @@ class Core_Module extends Module {
                     } else
                         $icon = $cache->retrieve('privacy_and_terms_icon');
 
-                    $navs[2]->addItemToDropdown('core_configuration', 'privacy_and_terms', $language->get('admin', 'privacy_and_terms'), URL::build('/panel/core/privacy_and_terms'), 'top', $order, $icon);
+                    $navs[2]->addItemToDropdown('core_configuration', 'privacy_and_terms', $language->get('admin', 'privacy_and_terms'), URL::build('/panel/core/privacy_and_terms'), 'top', null, $icon, $order);
                 }
 
                 if($user->hasPermission('admincp.core.reactions')){
@@ -807,7 +823,7 @@ class Core_Module extends Module {
                     } else
                         $icon = $cache->retrieve('reactions_icon');
 
-                    $navs[2]->addItemToDropdown('core_configuration', 'reactions', $language->get('user', 'reactions'), URL::build('/panel/core/reactions'), 'top', $order, $icon);
+                    $navs[2]->addItemToDropdown('core_configuration', 'reactions', $language->get('user', 'reactions'), URL::build('/panel/core/reactions'), 'top', null, $icon, $order);
                 }
 
                 if($user->hasPermission('admincp.core.registration')){
@@ -817,7 +833,7 @@ class Core_Module extends Module {
                     } else
                         $icon = $cache->retrieve('registration_icon');
 
-                    $navs[2]->addItemToDropdown('core_configuration', 'registration', $language->get('admin', 'registration'), URL::build('/panel/core/registration'), 'top', $order, $icon);
+                    $navs[2]->addItemToDropdown('core_configuration', 'registration', $language->get('admin', 'registration'), URL::build('/panel/core/registration'), 'top', null, $icon, $order);
                 }
 
                 if($user->hasPermission('admincp.core.social_media')){
@@ -827,7 +843,7 @@ class Core_Module extends Module {
                     } else
                         $icon = $cache->retrieve('social_media_icon');
 
-                    $navs[2]->addItemToDropdown('core_configuration', 'social_media', $language->get('admin', 'social_media'), URL::build('/panel/core/social_media'), 'top', $order, $icon);
+                    $navs[2]->addItemToDropdown('core_configuration', 'social_media', $language->get('admin', 'social_media'), URL::build('/panel/core/social_media'), 'top', null, $icon, $order);
                 }
 
                 if($user->hasPermission('admincp.core.hooks')){
@@ -837,7 +853,7 @@ class Core_Module extends Module {
                     } else
                         $icon = $cache->retrieve('hooks_icon');
 
-                    $navs[2]->addItemToDropdown('core_configuration', 'hooks', $language->get('admin', 'hooks'), URL::build('/panel/core/hooks'), 'top', $order, $icon);
+                    $navs[2]->addItemToDropdown('core_configuration', 'hooks', $language->get('admin', 'hooks'), URL::build('/panel/core/hooks'), 'top', null, $icon, $order);
                 }
             }
 
@@ -899,7 +915,7 @@ class Core_Module extends Module {
                 } else
                     $icon = $cache->retrieve('minecraft_icon');
 
-                $navs[2]->addItemToDropdown('integrations', 'minecraft', $language->get('admin', 'minecraft'), URL::build('/panel/minecraft'), 'top', $order, $icon);
+                $navs[2]->addItemToDropdown('integrations', 'minecraft', $language->get('admin', 'minecraft'), URL::build('/panel/minecraft'), 'top', null, $icon, $order);
             }
 
             if ($user->hasPermission('admincp.discord')) {
@@ -909,7 +925,7 @@ class Core_Module extends Module {
                 } else
                 $icon = $cache->retrieve('discord_icon');
 
-                $navs[2]->addItemToDropdown('integrations', 'discord', $language->get('admin', 'discord'), URL::build('/panel/discord'), 'top', $order, $icon);
+                $navs[2]->addItemToDropdown('integrations', 'discord', $language->get('admin', 'discord'), URL::build('/panel/discord'), 'top', null, $icon, $order);
             }
 
             if($user->hasPermission('admincp.styles') || $user->hasPermission('admincp.sitemap') || $user->hasPermission('admincp.widgets')){
@@ -935,7 +951,7 @@ class Core_Module extends Module {
                     } else
                         $icon = $cache->retrieve('images_icon');
 
-                    $navs[2]->addItemToDropdown('layout', 'images', $language->get('admin', 'images'), URL::build('/panel/core/images'), 'top', $order, $icon);
+                    $navs[2]->addItemToDropdown('layout', 'images', $language->get('admin', 'images'), URL::build('/panel/core/images'), 'top', null, $icon, $order);
                 }
 
                 if($user->hasPermission('admincp.styles.panel_templates')){
@@ -945,7 +961,7 @@ class Core_Module extends Module {
                     } else
                         $icon = $cache->retrieve('panel_templates_icon');
 
-                    $navs[2]->addItemToDropdown('layout', 'panel_templates', $language->get('admin', 'panel_templates'), URL::build('/panel/core/panel_templates'), 'top', $order, $icon);
+                    $navs[2]->addItemToDropdown('layout', 'panel_templates', $language->get('admin', 'panel_templates'), URL::build('/panel/core/panel_templates'), 'top', null, $icon, $order);
                 }
 
                 if($user->hasPermission('admincp.styles')){
@@ -955,7 +971,7 @@ class Core_Module extends Module {
                     } else
                         $icon = $cache->retrieve('templates_icon');
 
-                    $navs[2]->addItemToDropdown('layout', 'template', $language->get('admin', 'templates'), URL::build('/panel/core/templates'), 'top', $order, $icon);
+                    $navs[2]->addItemToDropdown('layout', 'template', $language->get('admin', 'templates'), URL::build('/panel/core/templates'), 'top', null, $icon, $order);
                 }
 
                 if($user->hasPermission('admincp.widgets')){
@@ -965,7 +981,7 @@ class Core_Module extends Module {
                     } else
                         $icon = $cache->retrieve('widgets_icon');
 
-                    $navs[2]->addItemToDropdown('layout', 'widgets', $language->get('admin', 'widgets'), URL::build('/panel/core/widgets'), 'top', $order, $icon);
+                    $navs[2]->addItemToDropdown('layout', 'widgets', $language->get('admin', 'widgets'), URL::build('/panel/core/widgets'), 'top', null, $icon, $order);
                 }
             }
 
@@ -1059,7 +1075,7 @@ class Core_Module extends Module {
                 } else
                     $icon = $cache->retrieve('user_icon');
 
-                $navs[2]->addItemToDropdown('users', 'users', $language->get('admin', 'users'), URL::build('/panel/users'), 'top', $order, $icon);
+                $navs[2]->addItemToDropdown('users', 'users', $language->get('admin', 'users'), URL::build('/panel/users'), 'top', null, $icon, $order);
 
                 if($user->hasPermission('modcp.ip_lookup')){
                     if(!$cache->isCached('ip_lookup_icon')){
@@ -1068,7 +1084,7 @@ class Core_Module extends Module {
                     } else
                         $icon = $cache->retrieve('ip_lookup_icon');
 
-                    $navs[2]->addItemToDropdown('users', 'ip_lookup', $language->get('moderator', 'ip_lookup'), URL::build('/panel/users/ip_lookup'), 'top', $order, $icon);
+                    $navs[2]->addItemToDropdown('users', 'ip_lookup', $language->get('moderator', 'ip_lookup'), URL::build('/panel/users/ip_lookup'), 'top', null, $icon, $order);
                 }
 
                 if($user->hasPermission('modcp.punishments')){
@@ -1078,7 +1094,7 @@ class Core_Module extends Module {
                     } else
                         $icon = $cache->retrieve('punishments_icon');
 
-                    $navs[2]->addItemToDropdown('users', 'punishments', $language->get('moderator', 'punishments'), URL::build('/panel/users/punishments'), 'top', $order, $icon);
+                    $navs[2]->addItemToDropdown('users', 'punishments', $language->get('moderator', 'punishments'), URL::build('/panel/users/punishments'), 'top', null, $icon, $order);
                 }
 
                 if($user->hasPermission('modcp.reports')){
@@ -1088,7 +1104,7 @@ class Core_Module extends Module {
                     } else
                         $icon = $cache->retrieve('reports_icon');
 
-                    $navs[2]->addItemToDropdown('users', 'reports', $language->get('moderator', 'reports'), URL::build('/panel/users/reports'), 'top', $order, $icon);
+                    $navs[2]->addItemToDropdown('users', 'reports', $language->get('moderator', 'reports'), URL::build('/panel/users/reports'), 'top', null, $icon, $order);
                 }
             }
 

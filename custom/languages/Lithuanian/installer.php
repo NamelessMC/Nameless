@@ -82,7 +82,7 @@ $language = array(
   'unable_to_load_converter' => 'Unable to load converter!',
   'finish' => 'Baigti',
   'finish_message' => 'Dėkojame, kad įdiegėte NamelessMC! Dabar galite pereiti prie StaffCP, kur galite toliau konfigūruoti savo svetainę.',
-  'support_message' => 'Jei jums reikia pagalbos, apsilankykite mūsų tinklalapyje <a href="https://namelessmc.com" target="_blank">čia</a>, ar taip pat galite apsilankyti mūsų <a href="https://discord.gg/9vk93VR" target="_blank">Discord serveryje</a> arba mūsų <a href="https://github.com/NamelessMC/Nameless/" target="_blank">GitHub</a>.',
+  'support_message' => 'Jei jums reikia pagalbos, apsilankykite mūsų tinklalapyje <a href="https://namelessmc.com" target="_blank">čia</a>, ar taip pat galite apsilankyti mūsų <a href="https://discord.gg/nameless" target="_blank">Discord serveryje</a> arba mūsų <a href="https://github.com/NamelessMC/Nameless/" target="_blank">GitHub</a>.',
   'credits' => 'Kreditai',
   'credits_message' => 'Labai ačiū visiems <a href="https://github.com/NamelessMC/Nameless/graphs/contributors" target="_blank">NamelessMC tiems, kas prisidėjo</a> nuo 2014.',
 

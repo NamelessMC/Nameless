@@ -84,7 +84,7 @@ $language = array (
     'unable_to_load_converter' => 'Nepodařilo se načíst konvertor!',
     'finish' => 'Dokončit',
     'finish_message' => 'Děkujeme za instalaci NamelessMC! Nyní můžete pokračovat do panelu, kde můžete dále nastavit váš web.',
-    'support_message' => 'Pokud potřebujete jakoukoli podporu, podívejte se na <a href="https://namelessmc.com" target="_blank">náš web</a> nebo navštivte náš <a href="https://discord.gg/9vk93VR" target="_blank">Discord server</a> nebo náš <a href="https://github.com/NamelessMC/Nameless/" target="_blank">GitHub repozitář</a>.',
+    'support_message' => 'Pokud potřebujete jakoukoli podporu, podívejte se na <a href="https://namelessmc.com" target="_blank">náš web</a> nebo navštivte náš <a href="https://discord.gg/nameless" target="_blank">Discord server</a> nebo náš <a href="https://github.com/NamelessMC/Nameless/" target="_blank">GitHub repozitář</a>.',
     'credits' => 'Poděkování',
     'credits_message' => 'Velké poděkování všem <a href="https://github.com/NamelessMC/Nameless/graphs/contributors" target="_blank">přispěvatelům NamelessMC</a> od roku 2014',
 

@@ -2,14 +2,17 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr9
  *
  *  License: MIT
  *
  *  Panel reports page
  */
 
-$user->handlePanelPageLoad('modcp.reports');
+if(!$user->handlePanelPageLoad('modcp.reports')) {
+    require_once(ROOT_PATH . '/403.php');
+    die();
+}
 
 define('PAGE', 'panel');
 define('PARENT_PAGE', 'users');
@@ -91,7 +94,7 @@ if (!isset($_GET['id'])) {
                 $user_reported = $target_user->getDisplayname();
                 $user_profile = URL::build('/panel/user/' . Output::getClean($report->reported_id . '-' . $target_user->data()->username));
                 $user_style = $target_user->getGroupClass();
-                $user_avatar = $target_user->getAvatar('', 128);
+                $user_avatar = $target_user->getAvatar(128);
             } else {
                 // Ingame report
                 $user_reported = Output::getClean($report->reported_mcname);
@@ -114,7 +117,7 @@ if (!isset($_GET['id'])) {
                 'updated_by' => $updated_by_user->getDisplayname(),
                 'updated_by_profile' => URL::build('/panel/user/' . Output::getClean($report->updated_by . '-' . $updated_by_user->data()->username)),
                 'updated_by_style' => $updated_by_user->getGroupClass(),
-                'updated_by_avatar' => $updated_by_user->getAvatar('', 128),
+                'updated_by_avatar' => $updated_by_user->getAvatar(128),
                 'updated_at' => ($report->updated ? $timeago->inWords(date('Y-m-d H:i:s', $report->updated), $language->getTimeLanguage()) : $timeago->inWords($report->date_updated, $language->getTimeLanguage())),
                 'updated_at_full' => ($report->updated ? date('d M Y, H:i', $report->updated) : date('d M Y, H:i', strtotime($report->date_updated))),
                 'comments' => $comments
@@ -220,7 +223,7 @@ if (!isset($_GET['id'])) {
             if ($reported_user->data()) {
                 $reported_user_profile = URL::build('/panel/user/' . Output::getClean($reported_user->data()->id . '-' . $reported_user->data()->username));
                 $reported_user_style = $reported_user->getGroupClass();
-                $reported_user_avatar = $reported_user->getAvatar('', 128);
+                $reported_user_avatar = $reported_user->getAvatar(128);
             } else {
                 $reported_user_profile = '#';
                 $reported_user_style = '';

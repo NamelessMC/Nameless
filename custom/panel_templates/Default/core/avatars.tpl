@@ -56,17 +56,14 @@
                             <div class="form-group">
                                 <label for="inputMinecraftAvatarSource">{$MINECRAFT_AVATAR_SOURCE}</label>
                                 <select class="form-control" name="avatar_source" id="inputMinecraftAvatarSource">
-                                    {foreach from=$MINECRAFT_AVATAR_VALUES key=key item=item}
-                                        <option value="{$key}" {if $key eq $MINECRAFT_AVATAR_VALUE} selected{/if}>{$item}</option>
+                                    {foreach from=$MINECRAFT_AVATAR_VALUES key=name item=url}
+                                        <option value="{$name}" {if $name eq $MINECRAFT_AVATAR_VALUE} selected{/if}>{$url}</option>
                                     {/foreach}
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="inputAvatarPerspective">{$MINECRAFT_AVATAR_PERSPECTIVE}</label>
                                 <select class="form-control" name="avatar_perspective" id="inputAvatarPerspective">
-                                    <option value="face" {if $MINECRAFT_AVATAR_PERSPECTIVE_VALUE eq "avatar" OR $MINECRAFT_AVATAR_PERSPECTIVE_VALUE eq "helmavatar" OR $MINECRAFT_AVATAR_PERSPECTIVE_VALUE eq "face" } selected{/if}>{$FACE}</option>
-                                    <option value="bust" {if $MINECRAFT_AVATAR_PERSPECTIVE_VALUE eq "bust" } selected{/if}>{$BUST}</option>
-                                    <option value="head" {if $MINECRAFT_AVATAR_PERSPECTIVE_VALUE eq "head" } selected{/if}>{$HEAD}</option>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -154,6 +151,45 @@
 
     <!-- End Wrapper -->
 </div>
+
+<script>
+
+const perspective_selector = document.getElementById('inputAvatarPerspective');
+const source_selector = document.getElementById('inputMinecraftAvatarSource');
+source_selector.addEventListener('change', () => reloadPerspectives(source_selector.value));
+
+document.onLoad = reloadPerspectives(source_selector.value, true);
+
+function reloadPerspectives(source, firstLoad = false) {
+    removeOptions(perspective_selector);
+    {foreach $MINECRAFT_AVATAR_PERSPECTIVE_VALUES key=source item=perspectives}
+        if ('{$source}' == source) {
+            {foreach $perspectives item=$perspective}
+                if (firstLoad) {
+                    {if $perspective|strtolower eq $MINECRAFT_AVATAR_PERSPECTIVE_VALUE|strtolower}
+                        option = new Option('{$perspective|ucfirst}', '{$perspective|ucfirst}', true, true);
+                        perspective_selector.add(option, undefined);
+                    {else}
+                        option = new Option('{$perspective|ucfirst}', '{$perspective|ucfirst}');
+                        perspective_selector.add(option, undefined);
+                    {/if}
+                } else {
+                    option = new Option('{$perspective|ucfirst}', '{$perspective|ucfirst}');
+                    perspective_selector.add(option, undefined);
+                }
+            {/foreach}
+        }
+    {/foreach}
+}
+
+function removeOptions(selectElement) {
+   var i, L = selectElement.options.length - 1;
+   for(i = L; i >= 0; i--) {
+      selectElement.remove(i);
+   }
+}
+
+</script>
 
 {include file='scripts.tpl'}
 

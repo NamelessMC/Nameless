@@ -1,5 +1,6 @@
+// @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&dn=expat.txt Expat/MIT
 if (page !== '') {
-	
+
 	if (page === 'status') {
 		$(function() {
 			$(".server").each(function() {
@@ -24,11 +25,11 @@ if (page !== '') {
 									for (var i = 0; i < data.player_list.length; i++) {
 										players += '<a href="' + URLBuild('profile/' + data.player_list[i].name) + '" data-tooltip="' + data.player_list[i].name + '" data-variation="mini" data-inverted="" data-position="bottom center"><img class="ui mini circular image" src="' + avatarSource.replace('{x}', data.player_list[i].id).replace('{y}', 64) + '" alt="' + data.player_list[i].name + '"></a>';
 									}
-								
+
 									if(data.player_list.length < data.player_count) {
 										players += '<span class="ui blue circular label">+' + (data.player_count - data.player_list.length) + '</span>';
 									}
-									
+
 								} else {
 									players += noPlayersOnline;
 								}
@@ -39,7 +40,7 @@ if (page !== '') {
 						content = offline;
 						players = noPlayersOnline;
 					}
-										
+
 					$(serverElem).find('#server-status').html(content);
 					$(serverElem).find('#server-players').html(players);
 				});
@@ -68,7 +69,7 @@ if (page !== '') {
 			minCharacters: 3
 		});
 	}
-	
+
 	else if (route.indexOf("/forum/topic/") != -1) {
 		$(function() {
 			var postId = window.location.hash.replace('#post-', '');
@@ -80,3 +81,4 @@ if (page !== '') {
 		});
 	}
 }
+// @license-end

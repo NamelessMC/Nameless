@@ -2,14 +2,17 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr9
  *
  *  License: MIT
  *
  *  Panel avatars page
  */
 
-$user->handlePanelPageLoad('admincp.core.avatars');
+if(!$user->handlePanelPageLoad('admincp.core.avatars')) {
+    require_once(ROOT_PATH . '/403.php');
+    die();
+}
 
 define('PAGE', 'panel');
 define('PARENT_PAGE', 'core_configuration');
@@ -137,10 +140,11 @@ $smarty->assign(array(
     'MINECRAFT_AVATAR' => $language->get('admin', 'minecraft_avatar'),
     'CUSTOM_AVATAR' => $language->get('admin', 'custom_avatar'),
     'MINECRAFT_AVATAR_SOURCE' => $language->get('admin', 'minecraft_avatar_source'),
-    'MINECRAFT_AVATAR_VALUES' => array('crafatar' => 'crafatar.com', 'cravatar' => 'cravatar.eu', 'mc-heads' => 'mc-heads.net', 'minotar' => 'minotar.net', 'visage' => 'visage.surgeplay.com', 'nameless' => $language->get('admin', 'built_in_avatars')),
+    'MINECRAFT_AVATAR_VALUES' => AvatarSource::getAllSourceNames(),
     'MINECRAFT_AVATAR_VALUE' => $mc_avatar_source,
     'MINECRAFT_AVATAR_PERSPECTIVE' => $language->get('admin', 'minecraft_avatar_perspective'),
     'MINECRAFT_AVATAR_PERSPECTIVE_VALUE' => $mc_avatar_perspective,
+    'MINECRAFT_AVATAR_PERSPECTIVE_VALUES' => AvatarSource::getAllPerspectives(),
     'HEAD' => $language->get('admin', 'head'),
     'FACE' => $language->get('admin', 'face'),
     'BUST' => $language->get('admin', 'bust'),

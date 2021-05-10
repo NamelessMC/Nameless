@@ -11,6 +11,11 @@
 
 class Config {
 
+    /**
+     * Get a config value from `core/config.php` file.
+     * 
+     * @param string $path `/` seperated path of key to get from config file.
+     */
     public static function get($path = null) {
         if ($path) {
 
@@ -27,12 +32,19 @@ class Config {
                     $config = $config[$bit];
                 }
             }
+
             return $config;
         }
         
         return false;
     }
 
+    /**
+     * Write a value to `core/config.php` file.
+     * 
+     * @param string $key `/` seperated path of key to set.
+     * @param mixed $value Value to set under $key.
+     */
     public static function set($key, $value) {
         if (!file_exists(ROOT_PATH . '/core/config.php')) {
             fopen(ROOT_PATH . '/core/config.php', 'w');
@@ -61,6 +73,11 @@ class Config {
         return static::write($conf);
     }
 
+    /**
+     * Overwrite new `core/config.php` file.
+     * 
+     * @param array $config New config array to store.
+     */
     public static function write($config) {
         $file = fopen(ROOT_PATH . '/core/config.php', 'wa+');
         fwrite($file, '<?php' . PHP_EOL . '$conf = ' . var_export($config, true) . ';' . PHP_EOL . '$CONFIG[\'installed\'] = true;');

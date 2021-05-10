@@ -11,30 +11,37 @@
 
 class Token {
 
-    // Generate a form token and store in a session variable
-    // No parameters
+    /**
+     * Generate a form token and store in a session variable
+     */
     public static function generate() {
         // Generate random token using md5
-        return Session::put(Config::get('session/token_name'), md5(uniqid()));
+        Session::put(Config::get('session/token_name'), md5(uniqid()));
     }
 
-    // Get the current form token
-    // No parameters
+    /**
+     * Get current form token.
+     *
+     * @return string current form token.
+     */
     public static function get() {
         $tokenName = Config::get('session/token_name');
 
         // Return if it already exists
         if (Session::exists($tokenName)) {
             return Session::get($tokenName);
-        }
-        else {
+        } else {
             // Otherwise generate a new one
             return self::generate();
         }
     }
 
-    // Check a token in session matches
-    // Params: $token (string) - contains the form token which will be checked against the session variable
+    /**
+     * Check if token in session matches current token.
+     *
+     * @param string|null $token Contains the form token which will be checked against the session variable. If empty, 
+     * @return bool Whether token matches.
+     */
     public static function check($token = null) {
         if ($token == null) {
             $token = Input::get('token');

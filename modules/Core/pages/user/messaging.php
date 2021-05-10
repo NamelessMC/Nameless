@@ -125,7 +125,7 @@ if(!isset($_GET['action'])) {
             'last_message_user_id' => Output::getClean($results->data[$n]['user_updated']),
             'last_message_user' => $target_user->getDisplayname(),
             'last_message_user_profile' => $target_user->getProfileURL(),
-            'last_message_user_avatar' => $target_user->getAvatar("../", 30),
+            'last_message_user_avatar' => $target_user->getAvatar(30),
             'last_message_user_style' => $target_user->getGroupClass(),
             'last_message_date' => $timeago->inWords(date('d M Y, H:i', $results->data[$n]['updated']), $language->getTimeLanguage()),
             'last_message_date_full' => date('d M Y, H:i', $results->data[$n]['updated'])
@@ -529,7 +529,7 @@ if(!isset($_GET['action'])) {
                 'author_id' => $results->data[$n]->author_id,
                 'author_username' => $target_user->getDisplayname(),
                 'author_profile' => $target_user->getProfileURL(),
-                'author_avatar' => $target_user->getAvatar("../", 100),
+                'author_avatar' => $target_user->getAvatar(100),
                 'author_style' => $target_user->getGroupClass(),
                 'author_groups' => $target_user->getAllGroups('true'),
                 'message_date' => $timeago->inWords(date('d M Y, H:i', $results->data[$n]->created), $language->getTimeLanguage()),

@@ -82,7 +82,7 @@ $language = array(
     'unable_to_load_converter' => 'Kan converter niet laden!',
     'finish' => 'Voltooien',
     'finish_message' => 'Bedankt voor het installeren van NamelessMC! U kunt nu doorgaan naar het controle paneel, waar u uw website verder kunt configureren.',
-    'support_message' => 'Als je hulp nodig hebt, check onze website <a href="https://namelessmc.com" target="_blank">hier</a>, of je kan onze <a href="https://discord.gg/9vk93VR" target="_blank">Discord server</a> bezoeken of onze <a href="https://github.com/NamelessMC/Nameless/" target="_blank">GitHub repository</a>.',
+    'support_message' => 'Als je hulp nodig hebt, check onze website <a href="https://namelessmc.com" target="_blank">hier</a>, of je kan onze <a href="https://discord.gg/nameless" target="_blank">Discord server</a> bezoeken of onze <a href="https://github.com/NamelessMC/Nameless/" target="_blank">GitHub repository</a>.',
     'credits' => 'Credits',
     'credits_message' => 'Een grote dank aan alle <a href="https://github.com/NamelessMC/Nameless/graphs/contributors" target="_blank">NamelessMC bijdragers</a> sinds 2014!',
 

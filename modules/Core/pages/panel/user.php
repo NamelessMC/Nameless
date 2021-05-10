@@ -2,14 +2,17 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr9
  *
  *  License: MIT
  *
  *  Panel user page
  */
 
-$user->handlePanelPageLoad();
+if(!$user->handlePanelPageLoad()) {
+    require_once(ROOT_PATH . '/403.php');
+    die();
+}
 
 $uid = explode('/', $route);
 $uid = $uid[count($uid) - 1];
@@ -81,7 +84,7 @@ $smarty->assign(array(
     'PAGE' => PANEL_PAGE,
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit'),
-    'AVATAR' => $view_user->getAvatar('', 256),
+    'AVATAR' => $view_user->getAvatar(256),
     'NICKNAME' => $view_user->getDisplayname(),
     'USERNAME' => $view_user->getDisplayname(true),
     'USER_STYLE' => $view_user->getGroupClass(),

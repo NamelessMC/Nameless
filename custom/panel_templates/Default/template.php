@@ -15,8 +15,12 @@
 // Always have the following if statement around your class
 if (!class_exists('Default_Panel_Template')) {
     class Default_Panel_Template extends TemplateBase {
-        // Private variable to store language + user
-        private $_language, $_user, $_pages;
+
+        // Private variable to store user
+        private $_user, $_pages;
+
+        /** @var Language */
+        private $_language;
 
         // Constructor - set template name, version, Nameless version and author here
         public function __construct($cache, $smarty, $language, $user, $pages) {

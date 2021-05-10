@@ -10,6 +10,7 @@
  *  CaptchaBase class
  */
 abstract class CaptchaBase {
+    
     protected static $_providers = array(), $_activeProvider = '';
 
     protected $_name, $_publicKey, $_privateKey;

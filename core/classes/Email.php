@@ -11,9 +11,12 @@
 
 class Email {
 
-    // Send an email
-    // Params:  $email - array containing all necessary email information to send as per the sendPHP and sendMailer functions
-    //          $method - email sending method to use (php or mailer)
+    /**
+     * Send an email.
+     * 
+     * @param array $email Array containing all necessary email information to send as per the sendPHP and sendMailer functions.
+     * @param string|null $method Email sending method to use (`php` or `mailer`). Uses `php` if not provided. 
+     */
     public static function send($email, $method = 'php') {
         if ($method == 'php') {
             return self::sendPHP($email);
@@ -26,32 +29,39 @@ class Email {
         }
     }
 
-    // Send an email using PHP's sendmail() function
-    // Params: $email - array containing
-    //                  - to = email address to send email to
-    //                  - subject = subject line
-    //                  - message = email contents
-    //                  - headers = email headers
+    /**
+     * Send an email using PHP's sendmail() function.
+     * 
+     * @param array $email Array containing `to`, `subject`, `message` and `headers` values.
+     */
     private static function sendPHP($email) {
         try {
             $mail = mail($email['to'], $email['subject'], $email['message'], $email['headers']);
-            if ($mail)
+
+            if ($mail) {
                 return true;
-            else {
-                $error = error_get_last();
-                if (isset($error['message']))
-                    return array('error' => $error['message']);
-                else
-                    return array('error' => 'Unknown');
             }
+            
+            $error = error_get_last();
+
+            if (isset($error['message'])) {
+                return array('error' => $error['message']);
+            } else {
+                return array('error' => 'Unknown');
+            }
+        
         } catch (Exception $e) {
-            // Error
             return array('error' => $e->getMessage());
         }
+
         return false;
     }
 
-    // Send an email using the PHPMailer library
+    /**
+     * Send an email using the PHPMailer library.
+     * 
+     * @param array $email array of email to send.
+     */
     private static function sendMailer($email) {
         require_once(ROOT_PATH . '/core/includes/phpmailer/PHPMailerAutoload.php');
         require(ROOT_PATH . '/core/email.php');
@@ -87,15 +97,22 @@ class Email {
 
             if (!$mail->send()) {
                 return array('error' => $mail->ErrorInfo);
-            } else {
-                return true;
             }
+
+            return true;
+
         } catch (Exception $e) {
             return array('error' => $e->getMessage());
         }
     }
 
-    public static function formatEmail($email, $viewing_language) {
+    /**
+     * Format an email template and replace placeholders.
+     * 
+     * @param string $email Name of email to format.
+     * @param Language $viewing_language Instance of Language class to use for translations.
+     */
+    public static function formatEmail($email, Language $viewing_language) {
         return str_replace(
             ['[Sitename]', '[Greeting]', '[Message]', '[Thanks]'],
             [SITE_NAME, $viewing_language->get('emails', 'greeting'), $viewing_language->get('emails', $email . '_message'), $viewing_language->get('emails', 'thanks')],
