@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr9
  *
  *  Translator
  *  - SimplyRin( @SimplyRin_, https://www.simplyrin.net )
@@ -50,7 +50,7 @@ $language = array(
     'email_errors_logged' => '電子メールエラーが検出されました。',
 
     // Core
-    'mode_toggle' => 'Dark/Light Mode',
+    'mode_toggle' => 'ダーク/ライト モード',
     'settings' => '設定',
     'general_settings' => '一般設定',
     'sitename' => 'サイト名',
@@ -85,10 +85,10 @@ $language = array(
     'discord_widget_theme' => 'Discord ウィジェットテーマ',
     'discord_id_length' => 'Discord IDは18文字以内にしてください。',
     'discord_id_numeric' => 'Discord IDが数字であることを確認してください（数字のみ）',
-    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://namelessmc.com/discord-bot-invite">here</a>. Then, send a DM to the bot with the <code>!apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
-    'discord_bot_must_be_setup' => 'Cannot enable Discord Integration until you have setup the bot. For information, please <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">click here</a>.',
-    'discord_bot_setup' => 'Bot Setup',
-    'discord_integration_not_setup' => 'Discord Integration is not setup',
+    'discord_invite_info' => 'Nameless LinkボットをDiscordサーバーに招待するには、<a target="_blank" href="https://namelessmc.com/discord-bot-invite">こちら</a>をクリックします。その後、ボットに<code>!apiurl</code>コマンドでDMを送り、ボットとウェブサイトをリンクさせます。あるいは、<a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">自分でボットをホスティングすることもできます</a>。',
+    'discord_bot_must_be_setup' => 'ボットを設定するまでは、Discordインテグレーションを有効にすることはできません。詳細については、<a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">ここをクリック</a>してください。',
+    'discord_bot_setup' => 'ボットの設定',
+    'discord_integration_not_setup' => 'Discordインテグレーションが設定されていません',
     'dark' => 'ダーク',
     'light' => 'ライト',
     'google_plus_url' => 'Google+ URL',
@@ -161,11 +161,11 @@ $language = array(
     'navigation_settings_updated_successfully' => 'ナビゲーションバーの設定が正常に更新されました。',
     'dropdown_items' => 'ドロップダウンメニュー',
     'enable_page_load_timer' => 'ページロード時間を表示しますか？',
-    'captcha_general' => 'Enable Captcha on registration and contact page?',
-    'captcha_login' => 'Enable Captcha on login page?',
+    'captcha_general' => '登録ページや問い合わせページでCaptchaを有効にしますか？',
+    'captcha_login' => 'ログインページでCaptchaを有効にしますか？',
     'captcha_type' => 'Captchaの種類',
-    'captcha_site_key' => 'Captcha Site Key',
-    'captcha_secret_key' => 'Captcha Secret Key',
+    'captcha_site_key' => 'Captchaサイトキー',
+    'captcha_secret_key' => 'Captchaシークレットキー',
     'registration_disabled_message' => '新規登録無効時メッセージ',
     'enable_nicknames_on_registration' => 'ユーザー登録時、Minecarft以外のユーザーネームの登録を許可しますか？',
     'validation_promote_group' => '検証後昇格先グループ',
@@ -183,7 +183,7 @@ $language = array(
     // SEO
     'seo' => 'SEO',
     'google_analytics' => 'Google Analytics',
-    'google_analytics_help' => 'Add Google Analytics to your website to track visitors and statistics. You will need to create a Google Analytics account to use this functionality. Enter your Google Analytics Web Property ID. The ID looks like UA-XXXXA-X and you can find it in your account information or in the tracking code provided by Google.',
+    'google_analytics_help' => 'ウェブサイトにGoogle Analyticsを追加して、訪問者や統計情報を追跡します。この機能を利用するには、Google Analyticsのアカウントを作成する必要があります。Google AnalyticsのWeb Property IDを入力します。IDはUA-XXXXA-Xのような形式をしており、アカウント情報やGoogleが提供するトラッキングコードに記載されています。',
 
     // Reactions
     'icon' => 'アイコン',
@@ -345,15 +345,15 @@ $language = array(
     'unable_to_retrieve_modules' => 'モジュールを取得できませんでした。',
     'module' => 'モジュール',
     'unable_to_enable_module' => '互換性のないモジュールを有効にすることはできません。',
-    'unable_to_enable_module_dependencies' => 'Unable to enable module since it depends on the module {x}, which is not enabled.', // Don't replace {x}
-    'unable_to_disable_module' => 'Unable to disable module - the module {x} depends on it.', // Don't replace {x}
+    'unable_to_enable_module_dependencies' => 'モジュール {x} に依存しているため、モジュールを有効にすることができませんでした。', // Don't replace {x}
+    'unable_to_disable_module' => 'モジュールを無効にすることができません - モジュール {x} はそれに依存しています。', // Don't replace {x}
 
     // Styles
     'templates' => 'テンプレート',
     'panel_templates' => 'Panel Templates',
     'view_all_panel_templates' => 'View all panel templates',
     'template_outdated' => '選択したテンプレートは NamelessMC バージョン {x} に対応していますが、現在 NamelessMC バージョン {y} を実行しています。', // Don't replace "{x}" or "{y}"
-    'template_not_supported' => 'As of NamelessMC 2.0.0-pr8 the Default template is not supported. For the best experience, please use a supported template.',
+    'template_not_supported' => 'NamelessMC 2.0.0-pr8では、デフォルトテンプレートはサポートされていません。サポートされているテンプレートを使用してください。',
     'active' => 'アクティブ',
     'deactivate' => '非アクティブ',
     'activate' => 'アクティベート',
@@ -375,19 +375,19 @@ $language = array(
     'delete' => '削除',
     'template_deleted_successfully' => 'テンプレートが正常に削除されました。',
     'background_image_x' => '背景画像: <strong>{x}</strong>', // Don't replace {x}
-    'banner_image_x' => 'Banner image: <strong>{x}</strong>', // Don't replace {x}
-    'logo_image_x' => 'Logo image: <strong>{x}</strong>', // Don't replace {x}
-    'favicon_image_x' => 'Favicon image: <strong>{x}</strong>', // Don't replace {x}
+    'banner_image_x' => 'バナー画像: <strong>{x}</strong>', // Don't replace {x}
+    'logo_image_x' => 'ロゴ画像: <strong>{x}</strong>', // Don't replace {x}
+    'favicon_image_x' => 'ファビコン画像: <strong>{x}</strong>', // Don't replace {x}
     'x_directory_not_writable' => '<strong>{x}</strong> ディレクトリは書き込み可能ではありません！', // Don't replace {x}
     'template_banner_reset_successfully' => 'バナーのリセットに成功しました。',
     'template_banner_updated_successfully' => 'バナーの更新に成功しました。',
     'reset_banner' => 'バナーのリセット',
-    'logo_reset_successfully' => 'Logo reset successfully.',
-    'logo_updated_successfully' => 'Logo updated successfully.',
+    'logo_reset_successfully' => 'ロゴのリセットに成功しました。',
+    'logo_updated_successfully' => 'ロゴの更新に成功しました。',
     'reset_logo' => 'Reset Logo',
-    'favicon_reset_successfully' => 'Favicon reset successfully.',
-    'favicon_updated_successfully' => 'Favicon updated successfully.',
-    'reset_favicon' => 'Reset Favicon',
+    'favicon_reset_successfully' => 'ファビコンのリセットに成功しました。',
+    'favicon_updated_successfully' => 'ファビコンの更新に成功しました。',
+    'reset_favicon' => 'ファビコンのリセット',
     'find_templates' => 'テンプレートを探す',
     'view_all_templates' => 'すべてのテンプレートを見る',
     'unable_to_retrieve_templates' => 'テンプレートを取得できませんでした。',
@@ -404,10 +404,10 @@ $language = array(
     'background_updated_successfully' => '背景が正常に更新されました。',
     'unable_to_enable_template' => '互換性のないテンプレートを有効にすることはできません。',
     'background_image_info' => 'このオプションはほとんどのテンプレートと互換性がない可能性があるので、注意してください。',
-    'dark_mode' => 'Dark Mode',
-    'navbar_colour' => 'Navbar Colour',
-    'clear_cache' => 'Clear Template Cache',
-    'cache_cleared' => 'Template cache cleared',
+    'dark_mode' => 'ダークモード',
+    'navbar_colour' => 'ナビゲーションバーの色',
+    'clear_cache' => 'テンプレートキャッシュの消去',
+    'cache_cleared' => 'テンプレートキャッシュの消去',
 
     // Users & groups
     'users' => 'ユーザー',
@@ -418,8 +418,8 @@ $language = array(
     'registered' => '登録',
     'user_created' => 'ユーザーが正常に作成されました。',
     'cant_delete_root_user' => 'Root ユーザーは削除できません。',
-    'cant_modify_root_user' => 'Can\'t modify this user\'s main group!',
-    'main_group' => 'Main Group',
+    'cant_modify_root_user' => 'このユーザーのメイングループを変更することはできません！',
+    'main_group' => 'メイングループ',
     'user_deleted' => 'ユーザーは正常に削除されました。',
     'confirm_user_deletion' => '<strong>{x}</strong> を削除してもよろしいですか？', // Don't replace {x}
     'validate_user' => 'ユーザー検証',
@@ -446,7 +446,7 @@ $language = array(
     'group_html' => 'グループ HTML',
     'group_html_lg' => 'グループ HTML(大)',
     'group_username_colour' => 'グループテーマカラー',
-    'group_username_css' => 'Group Username CSS',
+    'group_username_css' => 'グループユーザー名 CSS',
     'group_staff' => 'スタッフグループに設定しますか？',
     'delete_group' => 'グループ削除',
     'confirm_group_deletion' => 'グループ {x} を削除してもよろしいですか？', // Don't replace {x}
@@ -455,7 +455,7 @@ $language = array(
     'secondary_groups_info' => 'セカンダリグループを設定したユーザーは、セカンダリグループからメイングループにプラスして権限を取得します。複数のグループを 選択/選択解除 するには 「Ctrl+クリック」 します。',
     'unable_to_update_uuid' => 'UUID を更新できませんでした。',
     'default_group' => 'デフォルトグループに設定しますか？ (新規ユーザー向け)',
-    'user_id' => 'User ID',
+    'user_id' => 'ユーザーID',
     'uuid' => 'UUID',
     'group_order' => 'グループ順番',
     'group_created_successfully' => 'グループが正常に作成されました。',
@@ -471,9 +471,9 @@ $language = array(
     'force_tfa' => 'グループメンバーに二要素認証を強制しますか？',
     'force_tfa_warning' => 'これが何をするのかを確認してください。そうでなければ、あなた自身とグループメンバー全員を締め出す危険があります。',
     'force_tfa_alert' => 'あなたのグループでは、二要素認証を有効にする必要があります。',
-    'resend_activation_email' => 'Resend Activation Email',
-    'email_resent_successfully' => 'Email resent successfully.',
-    'email_resend_failed' => 'Email resend failed, please check your email settings.',
+    'resend_activation_email' => 'アクティベーションメールの再送信',
+    'email_resent_successfully' => 'メールの再送信に成功しました。',
+    'email_resend_failed' => 'メールの再送信に失敗しました。メール設定を確認してください。',
 
     // Permissions
     'select_all' => 'すべて選択',
@@ -508,8 +508,8 @@ $language = array(
     'all_logs' => '全ログ',
     'action' => '操作',
     'action_info' => '操作情報',
-    'groups_removed' => 'Groups Removed',
-    'groups_added' => 'Groups Added',
+    'groups_removed' => '削除されたグループ',
+    'groups_added' => '追加されたグループ',
     
     // Updates
     'update' => 'アップデート',
@@ -534,9 +534,9 @@ $language = array(
     'editing_widget_x' => 'ウィジェット {x} の編集', // Don't replace {x}
     'module_x' => 'モジュール: {x}', // Don't replace {x}
     'widget_order' => 'ウィジェット順番',
-    'widget_location' => 'Widget Location',
-    'left' => 'Left',
-    'right' => 'Right',
+    'widget_location' => 'ウィジェットの位置',
+    'left' => '左',
+    'right' => '右',
 
     // Online users widget
     'include_staff_in_user_widget' => 'スタッフウィジェットをユーザーウィジェットに含めますか？',
@@ -559,12 +559,12 @@ $language = array(
     'page_content' => 'ページ コンテンツ',
     'page_redirect' => 'ページをリダイレクトしますか？',
     'page_redirect_to' => 'リダイレクトリンク (http:// から入力してください。)',
-    'page_target' => 'Open page in a new tab?',
+    'page_target' => '新しいタブでページを開きますか？',
     'unsafe_html' => '安全でない HTML を許可しますか？',
     'unsafe_html_warning' => 'このオプションを有効にすると、危険な JavaScript を含む HTML をページで使用することを許可します。 HTMLが安全であると確認できた場合のみ、有効にしてください。',
     'include_in_sitemap' => 'サイトマップを含めますか？',
-    'sitemap_link' => 'Sitemap link:',
-    'basic_page' => 'Basic page?',
+    'sitemap_link' => 'サイトマップリンク:',
+    'basic_page' => '基本的なページ？',
     'page_permissions' => 'ページのアクセス権利',
     'view_page' => 'ページを表示しますか？',
     'editing_page_x' => '編集ページ: {x}', // Don't replace {x}
@@ -616,7 +616,7 @@ $language = array(
     'group_sync_rule_created_successfully' => 'グループ同期ルールが正常に作成されました。',
     'group_sync_rules_updated_successfully' => 'グループ同期ルールが正常に更新されました。',
     'group_sync_rule_deleted_successfully' => 'グループ同期ルールが正常に削除されました。',
-    'group_sync_plugin_not_set_up' => 'Plugin not set up',
+    'group_sync_plugin_not_set_up' => 'プラグインが設定されていません',
     'existing_rules' => '既存のルール',
     'new_rule' => '新しいルール',
     'api_endpoints' => 'API エンドポイント',
@@ -643,7 +643,7 @@ $language = array(
     // Hooks
     'hooks' => 'ウェブフック',
     'hooks_info' => 'ウェブフックでは、特定のイベントが発生したときに外部サービスに通知することができます。指定したイベントが発生したとき',
-    'no_hooks_yet' => 'There are no webhooks yet.',
+    'no_hooks_yet' => 'Webhooksはまだありません。',
     'new_hook' => '新しいウェブフック',
     'creating_new_hook' => '新しいウェブフックの作成',
     'editing_hook' => 'ウェブフックの編集',
@@ -724,7 +724,7 @@ $language = array(
     'message_required' => 'メッセージは必須です。',
     'background_colour_required' => '背景色は必須です。',
     'text_colour_required' => 'テキスト色は必須です。',
-    'no_announcements' => 'No announcements have been made yet.',
+    'no_announcements' => 'まだお知らせはありません。',
 
     // Discord
     'discord' => 'Discord',
@@ -743,13 +743,13 @@ $language = array(
     'discord_cannot_interact' => 'Nameless LinkボットはDiscordでこのユーザーと対話することはできません。彼らの役割はNameless Linkのロールよりも高い可能性があります。',
 
     // Discord bot Errors
-    'discord_bot_error_badparameter' => 'Invalid request body.',
-    'discord_bot_error_error' => 'An internal bot error occured.',
-    'discord_bot_error_invguild' => 'Provided Guild ID is invalid, or the bot is not in it.',
-    'discord_bot_error_invuser' => 'Provided User ID is invalid, or is not in specified Guild.',
-    'discord_bot_error_notlinked' => 'The bot is not linked to this website for provided Guild ID.',
-    'discord_bot_error_unauthorized' => 'Website API key is invalid',
-    'discord_bot_error_invrole' => 'Provided Role ID is invalid.',
-    'discord_bot_error_hierarchy' => 'The bot cannot edit this user\'s roles.'
+    'discord_bot_error_badparameter' => '無効なリクエストボディです。',
+    'discord_bot_error_error' => 'ボットの内部エラーが発生しました。',
+    'discord_bot_error_invguild' => '提供されたギルドIDが無効であるか、ボットが入っていません。',
+    'discord_bot_error_invuser' => '提供されたユーザーIDが無効であるか、指定されたギルドに入っていません。',
+    'discord_bot_error_notlinked' => '提供されたギルドIDに対して、ボットはウェブサイトにリンクされていません。',
+    'discord_bot_error_unauthorized' => 'ウェブサイトのAPIキーが無効',
+    'discord_bot_error_invrole' => '提供されたロールIDが無効です。',
+    'discord_bot_error_hierarchy' => 'ボットはこのユーザーのロールを編集できません。'
 
 );
