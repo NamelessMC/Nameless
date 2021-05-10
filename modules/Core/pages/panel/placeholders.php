@@ -15,7 +15,7 @@ if(!$user->handlePanelPageLoad('admincp.core.placeholders')) {
 }
 
 define('PAGE', 'panel');
-define('PARENT_PAGE', 'placeholders');
+define('PARENT_PAGE', 'core_configuration');
 define('PANEL_PAGE', 'placeholders');
 $page_title = $language->get('admin', 'placeholders');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
@@ -27,7 +27,6 @@ $all_placeholders = $queries->getWhere('placeholders_settings', ['name', '<>', '
 if (Input::exists()) {
 
     // TODO: Token and error/success messages
-    // TODO: navbar dropdown doesnt open auto to placeholders active
     if (Token::check()) {
 
         foreach ($all_placeholders as $placeholder) {
