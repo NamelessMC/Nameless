@@ -146,25 +146,10 @@ class User {
                 // Get their placeholders only if they have a valid uuid
                 if ($this->_data->uuid != null && $this->_data->uuid != 'none') {
 
-                    // TODO: probably can handle assigning friendly_name from within the query
-                    $placeholders = $this->_db->query('SELECT * FROM nl2_users_placeholders up JOIN nl2_placeholders_settings ps ON up.name = ps.name WHERE up.uuid = ?', array($this->_data->uuid));
+                    $placeholders = Placeholders::getInstance()->loadUserPlaceholders($this->_data->uuid);
 
-                    if ($placeholders->count()) {
-
-                        $placeholders = $placeholders->results();
-                        foreach ($placeholders as $placeholder) {
-                            $data = new stdClass();
-
-                            $data->server_id = $placeholder->server_id;
-                            $data->name = $placeholder->name;
-                            $data->friendly_name = isset($placeholder->friendly_name) ? $placeholder->friendly_name : $placeholder->name;
-                            $data->value = $placeholder->value;
-                            $data->last_updated = $placeholder->last_updated;
-                            $data->show_on_profile = $placeholder->show_on_profile;
-                            $data->show_on_forum = $placeholder->show_on_forum;
-
-                            $this->_placeholders[$placeholder->name] = $data;
-                        }
+                    if (count($placeholders)) {
+                        $this->_placeholders = $placeholders;
                     }
                 }
 
@@ -1147,7 +1132,7 @@ class User {
      */
     public function savePlaceholders($server_id, $placeholders) {
         foreach ($placeholders as $name => $value) {
-            Util::registerPlaceholder($name);
+            Placeholders::getInstance()->registerPlaceholder($name);
 
             $this->_db->query('INSERT INTO nl2_users_placeholders (server_id, uuid, name, value, last_update) VALUES (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE value = ? AND last_update = ?', [
                 $server_id,

@@ -21,8 +21,7 @@ $page_title = $language->get('admin', 'placeholders');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 $queries = new Queries();
 
-$all_placeholders = $queries->getWhere('placeholders_settings', ['name', '<>', '']);
-
+$all_placeholders = Placeholders::getInstance()->getAllPlaceholders();
 
 if (Input::exists()) {
 

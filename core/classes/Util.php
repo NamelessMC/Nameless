@@ -538,13 +538,4 @@ class Util {
         
         return null;
     }
-
-    /**
-     * Create a new row in nl2_placeholders_settings if a row with the "name" of $name does not exist.
-     * 
-     * @param string $name Name of placeholder
-     */
-    public static function registerPlaceholder($name) {
-        DB::getInstance()->query("INSERT IGNORE INTO nl2_placeholders_settings (name) VALUES (?)", [$name]);
-    }
 }

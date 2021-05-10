@@ -41,7 +41,7 @@
         <div class="ui middle aligned">
           {nocache}
             {if count($PLACEHOLDERS_LIST)}
-            <table class="ui fixed single line selectable unstackable small padded res table" id="subforums-table">
+            <table class="ui fixed single line selectable unstackable small padded res table">
               <thead>
                 <tr>
                   <th>{$SERVER_ID}</th>
@@ -84,7 +84,6 @@
                 </td>
               </tr>
               {/foreach}
-
             </table>
             {else}
               <div class="ui info message">

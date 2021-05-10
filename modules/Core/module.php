@@ -53,6 +53,7 @@ class Core_Module extends Module {
         $pages->add('Core', '/forgot_password', 'pages/forgot_password.php');
         $pages->add('Core', '/complete_signup', 'pages/complete_signup.php');
         $pages->add('Core', '/status', 'pages/status.php', 'status');
+        $pages->add('Core', '/leaderboards', 'pages/leaderboards.php', 'leaderboards');
 
         $pages->add('Core', '/user', 'pages/user/index.php');
         $pages->add('Core', '/user/settings', 'pages/user/settings.php');
@@ -558,6 +559,28 @@ class Core_Module extends Module {
 
                 $navs[0]->add('status', $language->get('general', 'status'), URL::build('/status'), 'top', null, $status_order, $icon);
             }
+        }
+
+        $leaderboard_placeholders = Placeholders::getInstance()->getLeaderboardPlaceholders();
+
+        // Only add leaderboard link if there is at least one enabled placeholder
+        if (count($leaderboard_placeholders)) {
+
+            $cache->setCache('navbar_order');
+            if (!$cache->isCached('leaderboards_order')) {
+                $leaderboards_order = 4;
+                $cache->store('leaderboards_order', 4);
+            } else {
+                $leaderboards_order = $cache->retrieve('leaderboards_order');
+            }
+
+            $cache->setCache('navbar_icons');
+            if (!$cache->isCached('leaderboards_icon'))
+                $leaderboards_icon = '';
+            else
+                $leaderboards_icon = $cache->retrieve('leaderboards_icon');
+
+            $navs[0]->add('leaderboards', $language->get('general', 'leaderboards'), URL::build('/leaderboards'), 'top', null, $leaderboards_order, $leaderboards_icon);
         }
 
         // Check page type (frontend or backend)
