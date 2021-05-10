@@ -156,15 +156,20 @@
             .claro {
                 background-color: #fafafa26;
             }
-            dl {
+            span {
                 margin: 0;
             }
+<<<<<<< refs/remotes/upstream/v2
             dl.code {
 >>>>>>> design modern
+=======
+            span.code {
+>>>>>>> apply requested changes from PR
                 background-color: #20232a;
                 color: #0eab1a;
                 padding: 0.2rem 1rem;
                 border-radius: .2rem;
+<<<<<<< refs/remotes/upstream/v2
 <<<<<<< refs/remotes/upstream/v2
 
             }
@@ -174,6 +179,11 @@
             }
             dl.code > pre {
 >>>>>>> design modern
+=======
+
+            }
+            span.code > pre {
+>>>>>>> apply requested changes from PR
                 white-space: normal;
             }
         </style>
@@ -187,12 +197,17 @@
             <section>
                 <h3>Assigned template variables</h3>
 <<<<<<< refs/remotes/upstream/v2
+<<<<<<< refs/remotes/upstream/v2
 
 
 =======
                 
                 
 >>>>>>> design modern
+=======
+
+
+>>>>>>> apply requested changes from PR
                 {foreach $assigned_vars as $vars}
                     <div class="opccion {if $vars@iteration % 2 eq 0}oscuro{else}claro{/if}">
                         <div>
@@ -200,21 +215,29 @@
                                 ${$vars@key}
                             </h5>
 <<<<<<< refs/remotes/upstream/v2
+<<<<<<< refs/remotes/upstream/v2
                             <small>
 =======
                             <small>    
 >>>>>>> design modern
+=======
+                            <small>
+>>>>>>> apply requested changes from PR
                                 {if isset($vars['nocache'])}<b>Nocache</b><br />{/if}
                                 {if isset($vars['scope'])}<b>Origin:</b> {$vars['scope']|debug_print_var nofilter}{/if}
                             </small>
                         </div>
                         <div>
 <<<<<<< refs/remotes/upstream/v2
+<<<<<<< refs/remotes/upstream/v2
                             <span class="code"><pre><code>{$vars['value']|debug_print_var:10:80 nofilter}</code></pre></span>
 =======
                             <dt>Value</dt>
                             <dl class="code"><pre><code>{$vars['value']|debug_print_var:10:80 nofilter}</code></pre></dl>
 >>>>>>> design modern
+=======
+                            <span class="code"><pre><code>{$vars['value']|debug_print_var:10:80 nofilter}</code></pre></span>
+>>>>>>> apply requested changes from PR
                             {if isset($vars['attributes'])}
                                 <dl>
                                     <h3>Attributes</h3>
@@ -235,10 +258,14 @@
                                     {$template.name}
                                 </h5>
 <<<<<<< refs/remotes/upstream/v2
+<<<<<<< refs/remotes/upstream/v2
                                 <small>
 =======
                                 <small>    
 >>>>>>> design modern
+=======
+                                <small>
+>>>>>>> apply requested changes from PR
                                     (compile {$template['compile_time']|string_format:"%.5f"}) (render {$template['render_time']|string_format:"%.5f"}) (cache {$template['cache_time']|string_format:"%.5f"})
                                 </small>
                             </div>
@@ -256,20 +283,28 @@
                                     #{$vars@key}#
                                 </h5>
 <<<<<<< refs/remotes/upstream/v2
+<<<<<<< refs/remotes/upstream/v2
                                 <small>
 =======
                                 <small> 
 >>>>>>> design modern
+=======
+                                <small>
+>>>>>>> apply requested changes from PR
                                     {if isset($vars['scope'])}<b>Origin:</b> {$vars['scope']|debug_print_var nofilter}{/if}
                                 </small>
                             </div>
                             <div>
+<<<<<<< refs/remotes/upstream/v2
 <<<<<<< refs/remotes/upstream/v2
                                 <span>{$vars['value']|debug_print_var:10:80 nofilter}</span>
 =======
                                 <dt>Value</dt>
                                 <dl>{$vars['value']|debug_print_var:10:80 nofilter}</dl>
 >>>>>>> design modern
+=======
+                                <span>{$vars['value']|debug_print_var:10:80 nofilter}</span>
+>>>>>>> apply requested changes from PR
                             </div>
                         </div>
                     {/foreach}
@@ -277,11 +312,14 @@
             {/if}
         </main>
 <<<<<<< refs/remotes/upstream/v2
+<<<<<<< refs/remotes/upstream/v2
 =======
         <footer>
             Design by <a href="http://cuberico.xyz" target="_blank" rel="noopener noreferrer">zJerino</a>
         </footer>
 >>>>>>> design modern
+=======
+>>>>>>> apply requested changes from PR
     </body>
     </html>
 {/capture}
