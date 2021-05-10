@@ -59,7 +59,7 @@
                   {$data.server_id}
                 </td>
                 <td>
-                  {$data.name}
+                  {$data.friendly_name}
                 </td>
                 <td>
                   {$data.value}
@@ -92,7 +92,7 @@
                 <div class="ui segment">
                 <h3 class="ui header">
                     {$OPTIONS}
-                    <div class="sub header">{$data.name}</div>
+                    <div class="sub header">{$data.friendly_name}</div>
                 </h3>
                 <div class="ui middle aligned">
                     <table class="ui fixed single line selectable unstackable small padded res table" id="subforums-table">

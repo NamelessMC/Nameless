@@ -735,7 +735,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     $profile_placeholders = $user->getProfilePlaceholders();
     foreach ($profile_placeholders as $profile_placeholder) {
         $fields[] = array(
-            'title' => $profile_placeholder->name,
+            'title' => $profile_placeholder->friendly_name,
             'type' => 'text',
             'value' => $profile_placeholder->value,
             'tooltip' => 'Last Updated: ' . $timeago->inWords(date('d M Y, H:i', $profile_placeholder->last_updated), $language->getTimeLanguage()),

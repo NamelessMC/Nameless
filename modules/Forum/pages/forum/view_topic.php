@@ -667,7 +667,7 @@ for ($n = 0; $n < count($results->data); $n++) {
     $forum_placeholders = $post_creator->getForumPlaceholders();
     foreach ($forum_placeholders as $forum_placeholder) {
         $fields[] = [
-            'name' => $forum_placeholder->name,
+            'name' => $forum_placeholder->friendly_name,
             'value' => $forum_placeholder->value
         ];
     }
