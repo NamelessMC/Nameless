@@ -182,7 +182,11 @@ function removeAllActive() {
 }
 
 $(document).ready(function() {
+<<<<<<< refs/remotes/upstream/v2
     openFrame({$FRAMES|count + $SKIP_FRAMES})
+=======
+    openFrame({$FRAMES|count + 1})
+>>>>>>> skip consective error frames with same error file and line
 });
 
 function openFrame(id) {
