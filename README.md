@@ -16,6 +16,7 @@ The following list is a brief summary of the features available in v2 pre-releas
 - New template and language systems, allowing for total customisation.
 - Pretty URL option (requires mod_rewrite).
 - Widget system - allows modules to create widgets which can be displayed on most user-facing pages and display almost anything.
+- PlaceholderAPI Sync - Sync user's placeholders from your server(s) to your NamelessMC website. You can create automatic leaderboards for each placeholder type, and allow players to display them on their profile and forum posts.
 
 #### Customising Nameless
 - Check out [this wiki article](https://github.com/NamelessMC/Nameless/wiki/Nameless-2.0-Module-Developer-Documentation) for the Module Developer Documenation.
