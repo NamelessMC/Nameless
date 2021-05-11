@@ -5,7 +5,7 @@
 # export USER_ID=$(id -u); export GROUP_ID=$(id -g); docker-compose build; docker-compose pull
 #
 # Run:
-# docker-compose up
+# export USER_ID=$(id -u); export GROUP_ID=$(id -g); docker-compose up
 #
 # Uninstall
 # docker-compose down
