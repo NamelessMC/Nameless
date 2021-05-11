@@ -64,6 +64,7 @@ $smarty->assign(array(
     'ERROR_FILE' => $error_file,
     'CURRENT_URL' => $current_url,
     'FRAMES' => $frames,
+    'SKIP_FRAMES' => $skip_frames,
     'BACK' => $language->get('general', 'back'),
     'HOME' => $language->get('general', 'home'),
     'HOME_URL' => URL::build('/')

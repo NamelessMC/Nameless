@@ -2,13 +2,13 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr9
  *
  *  License: MIT
  *
  *  Chinese Simplified Language - Installation
  *  Translation(Chinese Simplified) by ahdg,lian20,Dreta
- *  Translation progress(v2-pr8) : 100%
+ *  Translation progress(v2-pr9) : 100%
  */
 
 $language = array(

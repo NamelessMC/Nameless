@@ -30,7 +30,7 @@ class Widgets {
         $this->_db = DB::getInstance();
 
         $enabled = $this->_cache->retrieve('enabled');
-        if (count($enabled)) {
+        if ($enabled != null && count($enabled)) {
             $this->_enabled = $enabled;
         }
     }

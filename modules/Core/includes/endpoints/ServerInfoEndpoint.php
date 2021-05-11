@@ -150,7 +150,7 @@ class ServerInfoEndpoint extends EndpointBase {
                                 $log_array['removed'][] = $group->name;
                             }
 
-                            Discord::removeDiscordRole($user, $group->id, $api->getLanguage(), false);
+                            Discord::updateDiscordRoles($user, [], [$group->id], $api->getLanguage(), false);
                         }
 
                         // Any synced groups to add?
@@ -170,7 +170,7 @@ class ServerInfoEndpoint extends EndpointBase {
                                 $log_array['added'][] = Util::getGroupNameFromId($group_info['website']);
                             }
 
-                            Discord::addDiscordRole($user, $group_info['website'], $api->getLanguage(), false);
+                            Discord::updateDiscordRoles($user, $group_info['website'], [], $api->getLanguage(), false);
                         }
 
                         if ($should_log) {

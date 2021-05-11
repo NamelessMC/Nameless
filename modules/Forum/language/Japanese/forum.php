@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr9
  *
  *  Translator
  *  - SimplyRin( @SimplyRin_, https://www.simplyrin.net )
@@ -178,8 +178,8 @@ $language = array(
     'label_deleted_successfully' => 'ラベルが削除されました。',
     'label_type_deleted_successfully' => 'ラベルタイプが削除されました。',
     'topic_placeholder' => 'トピックのプレースホルダ',
-    'default_labels' => 'Default Labels',
-    'default_labels_info' => 'These will be assigned to a new topic in the forum unless overridden during topic creation. Ctrl+Click to select multiple',
+    'default_labels' => 'デフォルトのラベル',
+    'default_labels_info' => 'これらはトピック作成時に上書きされない限り、フォーラムの新しいトピックに割り当てられます。Ctrl+クリックで複数選択',
 
     // Search
     'forum_search' => 'フォーラムの検索',
@@ -198,11 +198,11 @@ $language = array(
     'your_posts' => '投稿数',
     'average_posts' => 'ユーザーの平均投稿数',
     'total_posts' => '累計投稿数',
-    'following_topics' => 'Followed Topics',
-    'unfollow_all_topics' => 'Unfollow All Topics',
-    'confirm_unfollow_all_topics' => 'Are you sure you want to unfollow all topics?',
-    'all_topics_unfollowed' => 'All topics have been unfollowed.',
-    'not_following_any_topics' => 'You are not following any topics.',
+    'following_topics' => 'フォローされたトピック',
+    'unfollow_all_topics' => 'すべてのトピックのフォローを解除する',
+    'confirm_unfollow_all_topics' => '本当にすべてのトピックのフォローを解除してもよろしいでしょうか？',
+    'all_topics_unfollowed' => 'すべてのトピックのフォローが解除されました。',
+    'not_following_any_topics' => 'どのトピックもフォローしていません。',
 
     // Hooks
     'new_topic_hook_info' => '新しいトピック',

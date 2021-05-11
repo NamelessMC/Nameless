@@ -2,13 +2,13 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr9
  *
  *  License: MIT
  *
  *  Chinese Simplified Language - Admin
  *  Translation(Chinese Simplified) by ahdg,lian20,LingDong,NEWLY_1129514,Dreta
- *  Translation progress(v2-pr8) : 100%
+ *  Translation progress(v2-pr9) : 100%
  */
 
 $language = array(
@@ -47,7 +47,7 @@ $language = array(
     'email_errors_logged' => '邮件错误已被记录',
 
     // Core
-    'mode_toggle' => 'Dark/Light Mode',
+    'mode_toggle' => '深色 / 浅色模式',
     'settings' => '设置',
     'general_settings' => '通用设置',
     'sitename' => '网站名称',
@@ -83,9 +83,9 @@ $language = array(
     'discord_id_length' => '请确保您的 Discord ID 长 18 位。',
     'discord_id_numeric' => '请确保您的 Discord ID 只包含数字。',
     'discord_invite_info' => '您可点击<a target="_blank" href="https://namelessmc.com/discord-bot-invite">此处</a>来将 Nameless Link 机器人邀请至您的 Discord 服务器. 随后，您需要向机器人发送包含 <code>!apiurl</code> 命令的消息来链接您的网站。或者，您也可以<a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">自己部署机器人</a>。',
-    'discord_bot_must_be_setup' => 'Cannot enable Discord Integration until you have setup the bot. For information, please <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">click here</a>.',
-    'discord_bot_setup' => 'Bot Setup',
-    'discord_integration_not_setup' => 'Discord Integration is not setup',
+    'discord_bot_must_be_setup' => '您必须配置 Discord 机器人后才能启用 Discord 集成。您可<a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">点击此处</a>了解详情。',
+    'discord_bot_setup' => '机器人已配置?',
+    'discord_integration_not_setup' => 'Discord 集成尚未配置',
     'dark' => '暗调',
     'light' => '亮色',
     'google_plus_url' => 'Google Plus 链接 (URL)',
@@ -97,7 +97,7 @@ $language = array(
     'debugging_settings_updated_successfully' => 'Debugging 设置已更新成功。',
     'enable_debug_mode' => '是否启用 debug 模式?',
     'force_https' => '是否强制使用 https?',
-    'force_https_help' => '如果启用，对您网站的所有请求都将重定向到https。您必须具有有效的有效SSL证书，此证书才能正常工作。',
+    'force_https_help' => '如果启用，对您网站的所有请求都将重定向到 https。您必须具有有效的有效 SSL 证书，此功能才能正常工作。',
     'force_www' => '是否强制使用 www?',
     'contact_email_address' => '电子邮件联络地址',
     'emails' => '邮件',
@@ -158,11 +158,11 @@ $language = array(
     'navigation_settings_updated_successfully' => '导引配置已更新成功。',
     'dropdown_items' => '下拉项目',
     'enable_page_load_timer' => '是否启用页面加载计时器?',
-    'captcha_general' => 'Enable Captcha on registration and contact page?',
-    'captcha_login' => 'Enable Captcha on login page?',
+    'captcha_general' => '在注册和联系页上启用验证码? (大陆可能无法使用)',
+    'captcha_login' => '在登录页上启用验证码?',
     'captcha_type' => '验证码类型',
-    'captcha_site_key' => 'Captcha Site Key',
-    'captcha_secret_key' => 'Captcha Secret Key',
+    'captcha_site_key' => '验证码 Site Key',
+    'captcha_secret_key' => '验证码 Secret Key',
     'registration_disabled_message' => '禁用注册消息',
     'enable_nicknames_on_registration' => '是否启用昵称用来注册账户?',
     'validation_promote_group' => '邮箱验证后权限组',
@@ -205,8 +205,8 @@ $language = array(
 
     // SEO
     'seo' => 'SEO',
-    'google_analytics' => 'Google Analytics',
-    'google_analytics_help' => 'Add Google Analytics to your website to track visitors and statistics. You will need to create a Google Analytics account to use this functionality. Enter your Google Analytics Web Property ID. The ID looks like UA-XXXXA-X and you can find it in your account information or in the tracking code provided by Google.',
+    'google_analytics' => 'Google 分析',
+    'google_analytics_help' => '您可在网站上添加 Google 分析以了解各项统计数据。您必须先创建一个 Google 分析帐号。请输入您的 Google 分析 Web Property ID。 此 ID 格式为 UA-XXXXA-X，您可在您的帐号信息中找到此 ID。',
 
     // Reactions
     'icon' => '图标',
@@ -368,8 +368,8 @@ $language = array(
     'unable_to_retrieve_modules' => '无法检索模块',
     'module' => '模块',
     'unable_to_enable_module' => '无法启用不兼容的模块。',
-    'unable_to_enable_module_dependencies' => 'Unable to enable module since it depends on the module {x}, which is not enabled.', // Don't replace {x}
-    'unable_to_disable_module' => 'Unable to disable module - the module {x} depends on it.', // Don't replace {x}
+    'unable_to_enable_module_dependencies' => '因为此模块依赖于被禁用的模块 {x}, 所以无法启用。', // Don't replace {x}
+    'unable_to_disable_module' => '无法禁用此模块 - 模块 {x} 依赖于此模块。', // Don't replace {x}
 
     // Styles
     'templates' => '模板',
@@ -405,12 +405,12 @@ $language = array(
     'template_banner_reset_successfully' => '条幅重置成功。',
     'template_banner_updated_successfully' => '条幅更新成功。',
     'reset_banner' => '重置条幅',
-    'logo_reset_successfully' => 'Logo reset successfully.',
-    'logo_updated_successfully' => 'Logo updated successfully.',
-    'reset_logo' => 'Reset Logo',
-    'favicon_reset_successfully' => 'Favicon reset successfully.',
-    'favicon_updated_successfully' => 'Favicon updated successfully.',
-    'reset_favicon' => 'Reset Favicon',
+    'logo_reset_successfully' => '图标重置成功。',
+    'logo_updated_successfully' => '图标更新成功。',
+    'reset_logo' => '重置图标',
+    'favicon_reset_successfully' => 'Favicon 重置成功。',
+    'favicon_updated_successfully' => 'Favicon 更新成功。',
+    'reset_favicon' => '重置 Favicon',
     'find_templates' => '寻找模板',
     'view_all_templates' => '预览所有模板',
     'unable_to_retrieve_templates' => '无法检索模板',
@@ -427,10 +427,10 @@ $language = array(
     'background_updated_successfully' => '背景更新成功。',
     'unable_to_enable_template' => '无法启用不兼容的模板。',
     'background_image_info' => '注意：此选项与大部分模版都不兼容。',
-    'dark_mode' => 'Dark Mode',
-    'navbar_colour' => 'Navbar Colour',
-    'clear_cache' => 'Clear Template Cache',
-    'cache_cleared' => 'Template cache cleared',
+    'dark_mode' => '深色模式',
+    'navbar_colour' => '导航栏颜色',
+    'clear_cache' => '清空模板缓存',
+    'cache_cleared' => '模板缓存已清空',
 
     // Users & groups
     'users' => '账号',
@@ -441,8 +441,8 @@ $language = array(
     'registered' => '注册过的',
     'user_created' => '账号创建成功。',
     'cant_delete_root_user' => '不能删除 root 账号!',
-    'cant_modify_root_user' => 'Can\'t modify this user\'s main group!',
-    'main_group' => 'Main Group',
+    'cant_modify_root_user' => '无法修改此用户的主权限组!',
+    'main_group' => '主权限组',
     'user_deleted' => '账号删除成功。',
     'confirm_user_deletion' => '你确定要删除账号 <strong>{x}</strong>?', // Don't replace {x}
     'validate_user' => '验证账号',
@@ -494,9 +494,9 @@ $language = array(
     'force_tfa' => '是否强制为该组成员开启二步验证？',
     'force_tfa_warning' => '如果你不明白你在做什么，你可能会导致你自己和该组成员无法使用账户',
     'force_tfa_alert' => '你所在的组必须要开启二步验证',
-    'resend_activation_email' => 'Resend Activation Email',
-    'email_resent_successfully' => 'Email resent successfully.',
-    'email_resend_failed' => 'Email resend failed, please check your email settings.',
+    'resend_activation_email' => '重新发送激活邮件',
+    'email_resent_successfully' => '邮件已重新发送。',
+    'email_resend_failed' => '邮件发送失败，请检查邮件设置。',
 
     // Permissions
     'select_all' => '全选',
@@ -531,8 +531,8 @@ $language = array(
     'all_logs' => '所有日志',
     'action' => '操作',
     'action_info' => '操作信息',
-    'groups_removed' => 'Groups Removed',
-    'groups_added' => 'Groups Added',
+    'groups_removed' => '删除的权限组',
+    'groups_added' => '添加的权限组',
     
     // Updates
     'update' => '更新',
@@ -582,7 +582,7 @@ $language = array(
     'page_content' => '页面内容',
     'page_redirect' => '页面重定向？',
     'page_redirect_to' => '重定向链接 (前面带有 http://)',
-    'page_target' => 'Open page in a new tab?',
+    'page_target' => '在新标签页中打开页面?',
     'unsafe_html' => '是否允许不安全的 HTML?',
     'unsafe_html_warning' => '启用此选项意味着可以在页面上使用任何 HTML，包括有潜在危险的 JavaScript。仅当您确定 HTML 安全时才启用此功能。',
     'include_in_sitemap' => '是否将其包含在站点地图里?',
@@ -639,7 +639,7 @@ $language = array(
     'group_sync_rule_created_successfully' => '组同步规则已成功创建。',
     'group_sync_rules_updated_successfully' => '组同步规则已成功更新。',
     'group_sync_rule_deleted_successfully' => '组同步规则已成功删除。',
-    'group_sync_plugin_not_set_up' => 'Plugin not set up',
+    'group_sync_plugin_not_set_up' => '插件尚未配置',
     'existing_rules' => '现有规则',
     'new_rule' => '新规则',
     'api_endpoints' => 'API 结点',
@@ -651,7 +651,7 @@ $language = array(
     'invalid_file_type' => '无效的文件类型!',
     'file_too_big' => '你上传的文件太大了，你上传的文件大小为 {{filesize}} 但你最大能上传 {{maxFilesize}}', // Don't replace {{filesize}} or {{maxFilesize}}
     'allowed_proxies' => '允许的代理',
-    'allowed_proxies_info' => '允许的代理IP的行分隔列表。',
+    'allowed_proxies_info' => '允许的代理 IP 的行分隔列表。',
 
     // Error logs
     'error_logs' => '错误日志',
@@ -667,7 +667,7 @@ $language = array(
     // Hooks
     'hooks' => 'Webhooks',
     'hooks_info' => 'Webhooks 允许第三方服务在出现特定事件时被提醒。',
-    'no_hooks_yet' => 'There are no webhooks yet.',
+    'no_hooks_yet' => '还没有任何 Webhook 呢!',
     'new_hook' => '创建新 Webhook',
     'creating_new_hook' => '正在创建新 Webhook',
     'editing_hook' => '编辑 Webhook',
@@ -689,12 +689,12 @@ $language = array(
 
     // Sitemap
     'unable_to_load_sitemap_file_x' => '无法加载站点地图文件 {x}', // Don't replace {x}
-    'sitemap_generated' => '站点地图生成成功',
+    'sitemap_generated' => 'Sitemap 生成成功',
     'sitemap_not_writable' => '<strong>cache/sitemaps</strong> 目录不可写。',
     'cache_not_writable' => '<strong>cache</strong> 目录不可写。',
-    'generate_sitemap' => '生成站点地图',
-    'download_sitemap' => '下载站点地图',
-    'sitemap_not_generated_yet' => '目前没有站点地图生成!',
+    'generate_sitemap' => '生成 Sitemap',
+    'download_sitemap' => '下载 Sitemap',
+    'sitemap_not_generated_yet' => '目前没有 Sitemap 生成!',
     'sitemap_last_generated_x' => '生成站点地图最近一次的时间  {x}', // Don't replace {x}
 
     // Page metadata
@@ -749,7 +749,7 @@ $language = array(
     'message_required' => '消息为必填项',
     'background_colour_required' => '背景颜色为必填项',
     'text_colour_required' => '文字颜色为必填项',
-    'no_announcements' => 'No announcements have been made yet.',
+    'no_announcements' => '还没有任何公告呢!',
 
     // Discord
     'discord' => 'Discord',
@@ -768,13 +768,13 @@ $language = array(
     'discord_cannot_interact' => 'Nameless Link 机器人无法对此用户进行操作。它的权限组可能比 Nameless Link 权限组更高。',
 
     // Discord bot Errors
-    'discord_bot_error_badparameter' => 'Invalid request body.',
-    'discord_bot_error_error' => 'An internal bot error occured.',
-    'discord_bot_error_invguild' => 'Provided Guild ID is invalid, or the bot is not in it.',
-    'discord_bot_error_invuser' => 'Provided User ID is invalid, or is not in specified Guild.',
-    'discord_bot_error_notlinked' => 'The bot is not linked to this website for provided Guild ID.',
-    'discord_bot_error_unauthorized' => 'Website API key is invalid',
-    'discord_bot_error_invrole' => 'Provided Role ID is invalid.',
-    'discord_bot_error_hierarchy' => 'The bot cannot edit this user\'s roles.'
+    'discord_bot_error_badparameter' => '非法请求体。',
+    'discord_bot_error_error' => '发生了一个内部机器人错误。',
+    'discord_bot_error_invguild' => '提供的服务器 ID 错误，或此机器人不在提供的服务器中。',
+    'discord_bot_error_invuser' => '提供的用户 ID 错误，或并不在指定的服务器中。',
+    'discord_bot_error_notlinked' => '提供的服务器中的机器人没有链接到此网站。',
+    'discord_bot_error_unauthorized' => '网站 API 密钥错误。',
+    'discord_bot_error_invrole' => '提供的权限组 ID 错误。',
+    'discord_bot_error_hierarchy' => '此机器人无法修改此用户的权限组。'
 
 );

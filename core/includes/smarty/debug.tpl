@@ -1,160 +1,176 @@
 {capture name='_smarty_debug' assign=debug_output}
-    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-    <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+    <!DOCTYPE html>
+    <html lang="en">
     <head>
-        <title>Smarty Debug Console</title>
-        <style type="text/css">
-            {literal}
-            body, h1, h2, h3, td, th, p {
-                font-family: sans-serif;
-                font-weight: normal;
-                font-size: 0.9em;
-                margin: 1px;
-                padding: 0;
+        <title>Smarty debugging console</title>
+        <style>
+            * {
+                box-sizing: border-box;
             }
-
-            h1 {
-                margin: 0;
-                text-align: left;
-                padding: 2px;
-                background-color: #f0c040;
-                color: black;
-                font-weight: bold;
-                font-size: 1.2em;
-            }
-
-            h2 {
-                background-color: #9B410E;
-                color: white;
-                text-align: left;
-                font-weight: bold;
-                padding: 2px;
-                border-top: 1px solid black;
-            }
-            h3 {
-                text-align: left;
-                font-weight: bold;
-                color: black;
-                font-size: 0.7em;
-                padding: 2px;
-            }
-
             body {
-                background: black;
-            }
-
-            p, table, div {
-                background: #f0ead8;
-            }
-
-            p {
                 margin: 0;
-                font-style: italic;
-                text-align: center;
+                background-color: #eeeeee;
+                font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+                font-size: 0.8rem;
             }
-
-            table {
+            body > header {
+                margin-bottom: 5rem;
+                display: flex;
+                background-color: rgba(255, 255, 255, 0.733);
+                backdrop-filter: blur(4px);
+                padding: 0.2rem 0.6rem;
+                min-height: 3rem;
+                position: fixed;
+                width: 100%;
+                align-items: center;
+                top: 0;
+            }
+            body > header > h1 {
+                margin: 0;
+                font-size: 1.2rem;
+            }
+            body > header > h2 {
+                margin: 0;
+                margin-left: auto;
+                font-size: 1rem;
+            }
+            body > main {
+                margin: 0 2rem;
+                margin-top: 5rem;
+            }
+            body > main > section {
+                background-color: #fff;
+                box-shadow: 0 1px 7px -2px #0002;
+                margin-bottom: 1rem;
+                border-radius: .4rem;
+                display: flex;
+                flex-direction: column;
+            }
+            body > footer {
+                width: 100%;
+                text-align: center;
+                padding-top: .5rem;
+            }
+            body > main > section > h3 {
+                margin-top: 1rem;
+                margin-bottom: 1.2rem;
+                margin-left: 1rem;
+            }
+            .opccion {
+                display: flex;
+                width: 100%;
+                padding: .2rem;
+            }
+            .opccion > * {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                margin: .2rem;
+            }
+            .opccion > * {
+                display: flex;
+                flex-direction: column;
                 width: 100%;
             }
+            .oscuro {
+                background-color: #7c7c7c17;
+            }
+            .claro {
+                background-color: #fafafa26;
+            }
+            span {
+                margin: 0;
+            }
+            span.code {
+                background-color: #20232a;
+                color: #0eab1a;
+                padding: 0.2rem 1rem;
+                border-radius: .2rem;
 
-            th, td {
-                font-family: monospace;
-                vertical-align: top;
-                text-align: left;
             }
-
-            td {
-                color: green;
+            span.code > pre {
+                white-space: normal;
             }
-
-            .odd {
-                background-color: #eeeeee;
-            }
-
-            .even {
-                background-color: #fafafa;
-            }
-
-            .exectime {
-                font-size: 0.8em;
-                font-style: italic;
-            }
-
-            #bold div {
-                color: black;
-                font-weight: bold;
-            }
-            #blue h3 {
-                color: blue;
-            }
-            #normal div {
-                color: black;
-                font-weight: normal;
-            }
-            #table_assigned_vars th {
-                color: blue;
-                font-weight: bold;
-            }
-
-            #table_config_vars th {
-                color: maroon;
-            }
-
-            {/literal}
         </style>
     </head>
     <body>
+        <header>
+            <h1>Smarty &bull; Debug</h1>
+            <h2>{if isset($template_name)}{$template_name|debug_print_var nofilter} {/if}</h2>
+        </header>
+        <main>
+            <section>
+                <h3>Assigned template variables</h3>
 
-    <h1>Smarty {Smarty::SMARTY_VERSION} Debug Console
-        -  {if isset($template_name)}{$template_name|debug_print_var nofilter} {/if}{if !empty($template_data)}Total Time {$execution_time|string_format:"%.5f"}{/if}</h1>
 
-    {if !empty($template_data)}
-        <h2>included templates &amp; config files (load time in seconds)</h2>
-        <div>
-            {foreach $template_data as $template}
-                <font color=brown>{$template.name}</font>
-                <br />&nbsp;&nbsp;<span class="exectime">
-                (compile {$template['compile_time']|string_format:"%.5f"}) (render {$template['render_time']|string_format:"%.5f"}) (cache {$template['cache_time']|string_format:"%.5f"})
-                 </span>
-                <br />
-            {/foreach}
-        </div>
-    {/if}
-
-    <h2>assigned template variables</h2>
-
-    <table id="table_assigned_vars">
-        {foreach $assigned_vars as $vars}
-            <tr class="{if $vars@iteration % 2 eq 0}odd{else}even{/if}">
-                <td><h3><font color=blue>${$vars@key}</font></h3>
-                    {if isset($vars['nocache'])}<b>Nocache</b><br />{/if}
-                    {if isset($vars['scope'])}<b>Origin:</b> {$vars['scope']|debug_print_var nofilter}{/if}
-                </td>
-                <td><h3>Value</h3>{$vars['value']|debug_print_var:10:80 nofilter}</td>
-                <td>{if isset($vars['attributes'])}<h3>Attributes</h3>{$vars['attributes']|debug_print_var nofilter} {/if}</td>
-         {/foreach}
-    </table>
-
-    <h2>assigned config file variables</h2>
-
-    <table id="table_config_vars">
-        {foreach $config_vars as $vars}
-            <tr class="{if $vars@iteration % 2 eq 0}odd{else}even{/if}">
-                <td><h3><font color=blue>#{$vars@key}#</font></h3>
-                    {if isset($vars['scope'])}<b>Origin:</b> {$vars['scope']|debug_print_var nofilter}{/if}
-                </td>
-                <td>{$vars['value']|debug_print_var:10:80 nofilter}</td>
-            </tr>
-        {/foreach}
-
-    </table>
+                {foreach $assigned_vars as $vars}
+                    <div class="opccion {if $vars@iteration % 2 eq 0}oscuro{else}claro{/if}">
+                        <div>
+                            <h5 style="margin: 0; margin-bottom: auto;">
+                                ${$vars@key}
+                            </h5>
+                            <small>
+                                {if isset($vars['nocache'])}<b>Nocache</b><br />{/if}
+                                {if isset($vars['scope'])}<b>Origin:</b> {$vars['scope']|debug_print_var nofilter}{/if}
+                            </small>
+                        </div>
+                        <div>
+                            <span class="code"><pre><code>{$vars['value']|debug_print_var:10:80 nofilter}</code></pre></span>
+                            {if isset($vars['attributes'])}
+                                <dl>
+                                    <h3>Attributes</h3>
+                                    {$vars['attributes']|debug_print_var nofilter}
+                                </dl>
+                            {/if}
+                        </div>
+                    </div>
+                {/foreach}
+            </section>
+            {if !empty($template_data)}
+                <section>
+                    <h3>Assigned template variables</h3>
+                    {foreach $template_data as $template}
+                        <div class="opccion {if $template@iteration % 2 eq 0}oscuro{else}claro{/if}">
+                            <div>
+                                <h5 style="margin: 0; margin-bottom: auto;">
+                                    {$template.name}
+                                </h5>
+                                <small>
+                                    (compile {$template['compile_time']|string_format:"%.5f"}) (render {$template['render_time']|string_format:"%.5f"}) (cache {$template['cache_time']|string_format:"%.5f"})
+                                </small>
+                            </div>
+                        </div>
+                    {/foreach}
+                </section>
+            {/if}
+            {if !empty($config_vars)}
+                <section>
+                    <h3>Assigned config file variables</h3>
+                    {foreach $config_vars as $vars}
+                        <div class="opccion {if $vars@iteration % 2 eq 0}oscuro{else}claro{/if}">
+                            <div>
+                                <h5 style="margin: 0; margin-bottom: auto;">
+                                    #{$vars@key}#
+                                </h5>
+                                <small>
+                                    {if isset($vars['scope'])}<b>Origin:</b> {$vars['scope']|debug_print_var nofilter}{/if}
+                                </small>
+                            </div>
+                            <div>
+                                <span>{$vars['value']|debug_print_var:10:80 nofilter}</span>
+                            </div>
+                        </div>
+                    {/foreach}
+                </section>
+            {/if}
+        </main>
     </body>
     </html>
 {/capture}
 <script type="text/javascript">
     {$id = '__Smarty__'}
     {if $display_mode}{$id = "$offset$template_name"|md5}{/if}
-    _smarty_console = window.open("", "console{$id}", "width=1024,height=600,left={$offset},top={$offset},resizable,scrollbars=yes");
+    _smarty_console = window.open("", "console{$id}", "width=800,height=600,left={$offset},top={$offset},resizable,scrollbars=yes");
     _smarty_console.document.write("{$debug_output|escape:'javascript' nofilter}");
     _smarty_console.document.close();
 </script>
