@@ -182,7 +182,7 @@ function removeAllActive() {
 }
 
 $(document).ready(function() {
-    openFrame({$FRAMES|count})
+    openFrame({$FRAMES|count + $SKIP_FRAMES})
 });
 
 function openFrame(id) {

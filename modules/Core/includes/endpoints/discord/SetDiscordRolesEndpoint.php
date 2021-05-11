@@ -33,7 +33,7 @@ class SetDiscordRolesEndpoint extends EndpointBase {
 
             $roles = $_POST['roles'];
 
-            $original_group_ids = $user->getAllGroupIds();
+            $original_group_ids = $user->getAllGroupIds(false);
             $added_groups_ids = array();
 
             $user->removeGroups();
@@ -65,9 +65,9 @@ class SetDiscordRolesEndpoint extends EndpointBase {
                 $log_array['removed'][] = Util::getGroupNameFromId($group_id);
             }
 
-        } else {
+        } else if ($user->data()->id != 1) {
 
-            $original_group_ids = $user->getAllGroupIds();
+            $original_group_ids = $user->getAllGroupIds(false);
             $added_group_id = 0;
 
             if ($user->isValidated()) {

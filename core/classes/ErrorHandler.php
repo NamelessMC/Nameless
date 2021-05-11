@@ -43,13 +43,21 @@ class ErrorHandler {
         // Most recent frame is not included in getTrace(), so deal with it individually
         $frames[] = self::parseFrame($exception, $error_file, $error_line);
 
+        $skip_frames = 0;
+
         // Loop all frames in the exception trace & get relevent information
-        // TODO: Skip duplicate frames if file and line number matches and they are consecutive. ie: DB->query() sql syntax error calls DB class line 55 twice in a row
         if ($exception != null) {
 
             $i = count($exception->getTrace());
 
             foreach ($exception->getTrace() as $frame) {
+
+                // Check if previous frame had same file and line number (ie: DB->query() reports same file and line twice in a row)
+                if (end($frames)['file'] == $frame['file'] && end($frames)['line'] = $frame['line']) {
+                    $skip_frames += 1;
+                    continue;
+                }
+
                 $frames[] = self::parseFrame($exception, $frame['file'], $frame['line'], $i);
                 $i--;
             }

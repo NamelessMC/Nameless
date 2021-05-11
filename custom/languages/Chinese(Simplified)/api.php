@@ -2,19 +2,19 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr9
  *
  *  License: MIT
  *
  *  Chinese Simplified Language - API
  *  Translation(Chinese Simplified) by ahdg,lian20,Dreta
- *  Translation progress(v2-pr8) : 100%
+ *  Translation progress(v2-pr9) : 100%
  */
 
 $language = array(
 
     // Errors
-    'api_disabled' => 'API is disabled',
+    'api_disabled' => 'API 已被禁用',
     'unknown_error' => '未知错误',
     'invalid_api_key' => '无效 API 密钥',
     'invalid_language_file' => '语言文件无效',
@@ -47,11 +47,11 @@ $language = array(
     'discord_integration_disabled' => '已关闭 Discord 集成。',
     'unable_to_set_discord_id' => '无法设置 Discord ID。',
     'unable_to_set_discord_bot_url' => '无法设置 Discord 机器人 URL',
-    'provide_one_discord_settings' => 'Please provide at least one of the following: "url", "guild_id"',
-    'no_pending_verification_for_token' => 'There are no verifications pending under the supplied token.',
-    'unable_to_update_discord_username' => 'Unable to update Discord username.',
-    'unable_to_update_discord_roles' => 'Unable to update Discord roles list.',
-    'unable_to_update_discord_bot_username' => 'Unable to update Discord bot username.',
+    'provide_one_discord_settings' => '请提供至少一个: "url", "guild_id"',
+    'no_pending_verification_for_token' => '此 token 下没有待进行的验证。',
+    'unable_to_update_discord_username' => '无法更新 Discord 用户名。',
+    'unable_to_update_discord_roles' => '无法更新 Discord 权限组列表。',
+    'unable_to_update_discord_bot_username' => '无法更新 Discord 机器人用户名。',
 
     // Success messages
     'finish_registration_link' => '请点击该链接以完成注册:',
@@ -63,6 +63,6 @@ $language = array(
     'server_info_updated' => '服务器信息更新成功',
     'account_validated' => '账号校验成功',
     'discord_id_set' => 'Discord ID 更新成功',
-    'discord_settings_updated' => 'Discord settings updated successfully',
-    'discord_usernames_updated' => 'Discord usernames updated successfully'
+    'discord_settings_updated' => 'Discord 设置更新成功',
+    'discord_usernames_updated' => 'Discord 用户名更新成功'
 );

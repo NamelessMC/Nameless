@@ -9,7 +9,7 @@
  *  Panel Discord page
  */
 
-if(!$user->handlePanelPageLoad('dmincp.discord')) {
+if(!$user->handlePanelPageLoad('admincp.discord')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }
