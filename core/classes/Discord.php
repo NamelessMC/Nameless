@@ -12,16 +12,38 @@ class Discord {
 
     private static $_valid_responses = array('fullsuccess', 'badparameter', 'error', 'invguild', 'invuser', 'notlinked', 'unauthorized', 'invrole');
 
+<<<<<<< refs/remotes/upstream/v2
+=======
+<<<<<<< update/japanese
+    /**
+     * Make a curl request to the `BOT_URL` and handle it's return value.
+     * 
+     * @param string|null $url Path to send request body to.
+     * @param string $body JSON encoded request body.
+     * @return string|bool Bot response (if request went thru and response was valid), otherwise `false`.
+     */
+>>>>>>> update discord class (got lost in merge?)
     public static function discordBotRequest($url = '/status', $body = null) {
         $response = Util::curlGetContents(BOT_URL . $url, $body);
 <<<<<<< update/japanese
 
+=======
+    public static function discordBotRequest($url = '/status', $body = null) {
+        $response = Util::curlGetContents(BOT_URL . $url, $body);
+>>>>>>> update discord class (got lost in merge?)
         if (in_array($response, self::$_valid_responses)) {
             return $response;
+        } else {
+            return false;
         }
+<<<<<<< refs/remotes/upstream/v2
 
         // Log unknown error from bot
         Log::getInstance()->log(Log::Action('discord/role_set'), $response);
+=======
+<<<<<<< update/japanese
+        
+>>>>>>> update discord class (got lost in merge?)
         return false;
 =======
         if (in_array($response, self::$_valid_responses)) {
@@ -30,6 +52,8 @@ class Discord {
             return false;
         }
 >>>>>>> formatting of Discord class return statements
+=======
+>>>>>>> update discord class (got lost in merge?)
     }
 
     public static function getDiscordRoleId(DB $db, $group_id) {
@@ -37,15 +61,25 @@ class Discord {
 <<<<<<< refs/remotes/upstream/v2
 =======
 <<<<<<< update/japanese
+<<<<<<< update/japanese
 
+<<<<<<< refs/remotes/upstream/v2
 >>>>>>> formatting of Discord class return statements
+=======
+=======
+>>>>>>> update discord class (got lost in merge?)
+>>>>>>> update discord class (got lost in merge?)
         if ($discord_role_id->count()) {
             return $discord_role_id->first()->discord_role_id;
         } else {
             return null;
         }
 <<<<<<< refs/remotes/upstream/v2
+<<<<<<< refs/remotes/upstream/v2
 =======
+=======
+<<<<<<< update/japanese
+>>>>>>> update discord class (got lost in merge?)
 
         return null;
 =======
@@ -55,7 +89,12 @@ class Discord {
             return null;
         }
 >>>>>>> formatting of Discord class return statements
+<<<<<<< refs/remotes/upstream/v2
 >>>>>>> formatting of Discord class return statements
+=======
+=======
+>>>>>>> update discord class (got lost in merge?)
+>>>>>>> update discord class (got lost in merge?)
     }
 
     public static function getWebsiteGroup(DB $db, $discord_role_id) {
@@ -78,6 +117,7 @@ class Discord {
         }
 =======
 <<<<<<< update/japanese
+<<<<<<< update/japanese
     // no doc blocks as these are getting yeeted soon
     public static function removeDiscordRole($user_query, $group, Language $language) {
         if (Util::getSetting(DB::getInstance(), 'discord_integration')) {
@@ -94,7 +134,17 @@ class Discord {
             return;
         }
 >>>>>>> initial commit (untested)
+<<<<<<< refs/remotes/upstream/v2
 >>>>>>> initial commit (untested)
+=======
+=======
+    public static function updateDiscordRoles(User $user_query, $added, $removed, Language $language, $redirect = true) {
+
+        if (!Util::getSetting(DB::getInstance(), 'discord_integration')) {
+            return;
+        }
+>>>>>>> update discord class (got lost in merge?)
+>>>>>>> update discord class (got lost in merge?)
 
         if ($user_query->data()->discord_id == null || $user_query->data()->discord_id == 010) {
             return;
@@ -168,11 +218,18 @@ class Discord {
         
 =======
 <<<<<<< update/japanese
+<<<<<<< update/japanese
 
 =======
         
 >>>>>>> formatting of Discord class return statements
+<<<<<<< refs/remotes/upstream/v2
 >>>>>>> formatting of Discord class return statements
+=======
+=======
+        
+>>>>>>> update discord class (got lost in merge?)
+>>>>>>> update discord class (got lost in merge?)
         return array();
     }
 
@@ -227,6 +284,7 @@ class Discord {
 =======
 <<<<<<< update/japanese
 <<<<<<< update/japanese
+<<<<<<< update/japanese
     // no docblock as this is revamped in PR
     private static function assembleJson($user_id, $action, $role_id) {
 =======
@@ -238,7 +296,13 @@ class Discord {
 =======
     private static function assembleJson($user_id, $added_arr, $removed_arr) {
 >>>>>>> remove unneeded json_encode + rename vars
+<<<<<<< refs/remotes/upstream/v2
 >>>>>>> remove unneeded json_encode + rename vars
+=======
+=======
+    private static function assembleJson($user_id, $added_arr, $removed_arr) {
+>>>>>>> update discord class (got lost in merge?)
+>>>>>>> update discord class (got lost in merge?)
         // TODO cache or define() website api key and discord guild id
         $return = array();
         $return['guild_id'] = trim(Output::getClean(Util::getSetting(DB::getInstance(), 'discord')));
