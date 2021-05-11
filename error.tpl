@@ -183,10 +183,14 @@ function removeAllActive() {
 
 $(document).ready(function() {
 <<<<<<< refs/remotes/upstream/v2
+<<<<<<< refs/remotes/upstream/v2
     openFrame({$FRAMES|count + $SKIP_FRAMES})
 =======
     openFrame({$FRAMES|count + 1})
 >>>>>>> skip consective error frames with same error file and line
+=======
+    openFrame({$FRAMES|count + $SKIP_FRAMES})
+>>>>>>> fix hardcoded frame skip variable
 });
 
 function openFrame(id) {

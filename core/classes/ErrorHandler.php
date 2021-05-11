@@ -55,9 +55,13 @@ class ErrorHandler {
                 // Check if previous frame had same file and line number (ie: DB->query() reports same file and line twice in a row)
                 if (end($frames)['file'] == $frame['file'] && end($frames)['line'] = $frame['line']) {
 <<<<<<< refs/remotes/upstream/v2
+<<<<<<< refs/remotes/upstream/v2
                     $skip_frames += 1;
 =======
 >>>>>>> skip consective error frames with same error file and line
+=======
+                    $skip_frames += 1;
+>>>>>>> fix hardcoded frame skip variable
                     continue;
                 }
 
