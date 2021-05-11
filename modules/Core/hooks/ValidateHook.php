@@ -19,6 +19,6 @@ class ValidateHook {
 
         $validate_user->setGroup(VALIDATED_DEFAULT);
 
-        Discord::addDiscordRole($validate_user, VALIDATED_DEFAULT, new Language(), false);
+        Discord::updateDiscordRoles($validate_user, [VALIDATED_DEFAULT], [], new Language(), false);
     }
 }

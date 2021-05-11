@@ -33,7 +33,7 @@ class RemoveGroupsEndpoint extends EndpointBase {
             $user->removeGroup($group);
 
             // Attempt to update their discord role as well, but ignore any output/errors
-            Discord::removeDiscordRole($user, $group, $api->getLanguage());
+            Discord::updateDiscordRoles($user, [], [$group], $api->getLanguage(), false);
         }
 
         $api->returnArray(array('message' => $api->getLanguage()->get('api', 'group_updated')));
