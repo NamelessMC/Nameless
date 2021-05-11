@@ -64,7 +64,7 @@
                                         {foreach from=$ALL_ANNOUNCEMENTS item=announcement}
                                         <tr>
                                             <td>{$announcement[0]->header}</td>
-                                            <td>{if count($announcement['pages']) gt 0}{$announcement['pages']}{else}<i>{$NONE}</i>{/if}</td>
+                                            <td>{if $announcement['pages'] != null}{$announcement['pages']}{else}<i>{$NONE}</i>{/if}</td>
                                             <td><span class="badge border" style="display: inline-block; width: 50px; height: 25px; background-color: {$announcement[0]->text_colour};" title="{$announcement[0]->text_colour}"></span></td>
                                             <td><span class="badge border" style="display: inline-block; width: 50px; height: 25px; background-color: {$announcement[0]->background_colour}; color:#ffffff;" title="{$announcement[0]->background_colour}"></span></td>
                                             <td>
