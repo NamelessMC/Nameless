@@ -373,11 +373,14 @@ class User {
     /**
      * Get all of a user's groups id.
      *
+     * @param bool $login_check If true, will first check if this user is logged in or not. Set to "false" for API usage.
      * @return array Array of all their group IDs.
      */
-    public function getAllGroupIds() {
-        if (!$this->isLoggedIn()) {
-            return array(0);
+    public function getAllGroupIds($login_check = true) {
+        if ($login_check) {
+            if (!$this->isLoggedIn()) {
+                return array(0);
+            }
         }
 
         $groups = array();
