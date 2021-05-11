@@ -26,6 +26,7 @@ class Discord {
     public static function discordBotRequest($url = '/status', $body = null) {
         $response = Util::curlGetContents(BOT_URL . $url, $body);
 <<<<<<< update/japanese
+<<<<<<< update/japanese
 
 =======
     public static function discordBotRequest($url = '/status', $body = null) {
@@ -46,14 +47,22 @@ class Discord {
 >>>>>>> update discord class (got lost in merge?)
         return false;
 =======
+=======
+
+>>>>>>> misc changes to improve discord bot error logging
         if (in_array($response, self::$_valid_responses)) {
             return $response;
-        } else {
-            return false;
         }
+<<<<<<< update/japanese
 >>>>>>> formatting of Discord class return statements
 =======
 >>>>>>> update discord class (got lost in merge?)
+=======
+
+        // Log unknown error from bot
+        Log::getInstance()->log(Log::Action('discord/role_set'), $response);
+        return false;
+>>>>>>> misc changes to improve discord bot error logging
     }
 
     public static function getDiscordRoleId(DB $db, $group_id) {
