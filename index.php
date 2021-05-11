@@ -10,7 +10,7 @@
  */
 
 // Uncomment to enable debugging
-define('DEBUGGING', 1);
+//define('DEBUGGING', 1);
 
 if (defined('DEBUGGING') && DEBUGGING) {
     ini_set('display_startup_errors', 1);
