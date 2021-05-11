@@ -1139,7 +1139,7 @@ class User {
         foreach ($placeholders as $name => $value) {
             Placeholders::getInstance()->registerPlaceholder($name);
 
-            $this->_db->query('INSERT INTO nl2_users_placeholders (server_id, uuid, name, value, last_updated) VALUES (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE value = ? AND last_updated = ?', [
+            $this->_db->query('INSERT INTO nl2_users_placeholders (server_id, uuid, name, value, last_updated) VALUES (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE value = ?, last_updated = ?', [
                 $server_id,
                 $this->data()->uuid,
                 $name,
