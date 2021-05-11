@@ -43,6 +43,8 @@ class ErrorHandler {
         // Most recent frame is not included in getTrace(), so deal with it individually
         $frames[] = self::parseFrame($exception, $error_file, $error_line);
 
+        $skip_frames = 0;
+
         // Loop all frames in the exception trace & get relevent information
         if ($exception != null) {
 
@@ -52,6 +54,7 @@ class ErrorHandler {
 
                 // Check if previous frame had same file and line number (ie: DB->query() reports same file and line twice in a row)
                 if (end($frames)['file'] == $frame['file'] && end($frames)['line'] = $frame['line']) {
+                    $skip_frames += 1;
                     continue;
                 }
 
