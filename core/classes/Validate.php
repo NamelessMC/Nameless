@@ -210,7 +210,7 @@ class Validate {
                     case Validate::IS_ACTIVE:
                         $check = $this->_db->get('users', array($item, '=', $value));
                         if (!$check->count()) {
-                            continue;
+                            break;
                         }
 
                         $isuseractive = $check->first()->active;
@@ -226,7 +226,7 @@ class Validate {
                     case Validate::IS_BANNED: 
                         $check = $this->_db->get('users', array($item, '=', $value));
                         if (!$check->count()) {
-                            continue;
+                            break;
                         }
 
                         $isuserbanned = $check->first()->isbanned;

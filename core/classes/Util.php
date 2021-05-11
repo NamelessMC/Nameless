@@ -437,14 +437,17 @@ class Util {
 
         $contents = curl_exec($ch);
 
-        if ($contents == false) {
+        // Make an error log if a curl error occurred
+        if ($contents === false) {
             Log::getInstance()->log(Log::Action('misc/curl_error'), curl_error($ch));
             curl_close($ch);
+
             return false;
-        } else {
-            curl_close($ch);
-            return $contents;
         }
+
+        curl_close($ch);
+
+        return $contents;
     }
 
     /**

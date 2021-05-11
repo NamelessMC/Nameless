@@ -14,11 +14,14 @@ class Discord {
 
     public static function discordBotRequest($url = '/status', $body = null) {
         $response = Util::curlGetContents(BOT_URL . $url, $body);
+
         if (in_array($response, self::$_valid_responses)) {
             return $response;
-        } else {
-            return false;
         }
+
+        // Log unknown error from bot
+        Log::getInstance()->log(Log::Action('discord/role_set'), $response);
+        return false;
     }
 
     public static function getDiscordRoleId(DB $db, $group_id) {
@@ -104,8 +107,9 @@ class Discord {
         $errors = array();
 
         if ($result === false) {
-            // This happens when the url is invalid OR the bot is unreachable (down, firewall, etc) OR they have `allow_url_fopen` disabled in php.ini
+            // This happens when the url is invalid OR the bot is unreachable (down, firewall, etc) OR they have `allow_url_fopen` disabled in php.ini OR the bot returned a new error (they should always check logs)
             $errors[] = $language->get('user', 'discord_communication_error');
+            $errors[] = $language->get('admin', 'discord_bot_check_logs');
         } else {
             if (in_array($result, self::$_valid_responses)) {
                 $errors[] = $language->get('admin', 'discord_bot_error_' . $result);
