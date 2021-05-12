@@ -46,11 +46,14 @@
 
                             {if count($ENDPOINTS_ARRAY)}
                                 <div class="table-responsive">
-                                    <table class="table table-striped">
-                                        <th>{$ROUTE}</th>
-                                        <th>{$DESCRIPTION}</th>
-                                        <th>{$MODULE}</th>
-                                        <th>Method</th>
+                                    <table class="table table-borderless table-striped">
+                                        <thead>
+                                            <th>{$ROUTE}</th>
+                                            <th>{$DESCRIPTION}</th>
+                                            <th>{$MODULE}</th>
+                                            <th>Method</th>
+                                        </thead>
+                                        <tbody>
                                         {foreach from=$ENDPOINTS_ARRAY item=endpoint}
                                             <tr>
                                                 <td>
@@ -67,6 +70,7 @@
                                                 </td>
                                             </tr>
                                         {/foreach}
+                                        </tbody>
                                     </table>
                                 </div>
                                 <hr />

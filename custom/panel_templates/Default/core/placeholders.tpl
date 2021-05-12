@@ -40,7 +40,7 @@
                                     <p style="margin-top: 7px; margin-bottom: 7px;">{$PLACEHOLDERS_INFO}</p>
                                 </div>
                             </div>
-                            {if isset($ALL_PLACEHOLDERS)}
+                            {if count($ALL_PLACEHOLDERS)}
                                 <hr />
                             {else}
                                 <br />
@@ -49,7 +49,7 @@
                             <!-- Success and Error Alerts -->
                             {include file='includes/alerts.tpl'}
 
-                            {if isset($ALL_PLACEHOLDERS)}
+                            {if count($ALL_PLACEHOLDERS)}
                             <form action="" method="POST">
                                 <input type="hidden" name="token" value="{$TOKEN}">
                                 <div class="table-responsive">
