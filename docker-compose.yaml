@@ -3,15 +3,19 @@
 # INSTRUCTIONS
 # Set up or update:
 # export USER_ID=$(id -u); export GROUP_ID=$(id -g); docker-compose build; docker-compose pull
+# sudo mkdir /opt/namelessmc
 #
 # Run:
-# docker-compose up
+# export USER_ID=$(id -u); export GROUP_ID=$(id -g); docker-compose up
 #
 # Uninstall
 # docker-compose down
+# rm core/config.php
+# rm -r cache/*
 # docker image prune -af
+# sudo rm -r /opt/namelessmc
 
-version: '2'
+version: '3.2'
 
 services:
 
@@ -45,6 +49,10 @@ services:
 
     db:
         image: mariadb
+        volumes:
+          - type: bind
+            source: /opt/namelessmc
+            target: /var/lib/db
         environment:
             MYSQL_ROOT_PASSWORD: nameless
             MYSQL_USER: nameless

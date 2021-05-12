@@ -115,7 +115,7 @@ class Announcements {
         
         $queries->update('custom_announcements', $id, array(
             'pages' => json_encode($pages), 
-            'groups' => json_encode($groups), 
+            '`groups`' => json_encode($groups), 
             'text_colour' => $text_colour, 
             'background_colour' => $background_colour, 
             'icon' => $icon, 

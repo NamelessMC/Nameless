@@ -71,7 +71,9 @@ if (Input::exists()) {
 
         //Log::getInstance()->log(Log::Action('admin/core/avatar'));
 
-        $success = $language->get('admin', 'avatar_settings_updated_successfully');
+        Session::flash('avatar_success', $language->get('admin', 'avatar_settings_updated_successfully'));
+        Redirect::to(URL::build('/panel/core/avatars'));
+
     } else
         $errors = array($language->get('general', 'invalid_token'));
 }
@@ -84,6 +86,13 @@ if (isset($success))
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ));
+
+if (Session::exists('avatar_success')) {
+    $smarty->assign(array(
+        'SUCCESS' => Session::flash('avatar_success'),
+        'SUCCESS_TITLE' => $language->get('general', 'success')
+    ));
+}
 
 if (isset($errors) && count($errors))
     $smarty->assign(array(

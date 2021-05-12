@@ -135,7 +135,7 @@ if (isset($_GET['user'])) {
                     try {
                         // Ensure user is not an admin
                         $banned_user = new User($query->id);
-                        $is_admin = $banned_user->canViewACP();
+                        $is_admin = $banned_user->canViewStaffCP();
 
                         // Ensure user is not admin
                         if (!$is_admin) {
