@@ -31,7 +31,7 @@
 		  <div class="field">
 			<label for="InputTo">{$TO}</label>
 			<div class="ui fluid multiple search selection dropdown">
- 			 <input name="to" id="InputTo" type="hidden">
+ 			 <input name="to" id="InputTo" type="hidden" {if isset($TO_USER)}value="{$TO_USER}"{/if}>
  			 <i class="dropdown icon"></i>
  			 <div class="default text">{$TO}</div>
  			 <div class="menu">
