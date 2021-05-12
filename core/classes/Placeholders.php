@@ -39,13 +39,14 @@ class Placeholders {
             $data = new stdClass();
 
             $data->name = $placeholder->name;
+            $data->safe_name = sha1($placeholder->name);
             $data->friendly_name = isset($placeholder->friendly_name) ? $placeholder->friendly_name : $placeholder->name;
             $data->show_on_profile = $placeholder->show_on_profile;
             $data->show_on_forum = $placeholder->show_on_forum;
             $data->leaderboard = $placeholder->leaderboard;
             $data->leaderboard_title = isset($placeholder->leaderboard_title) ? $placeholder->leaderboard_title : $data->friendly_name;
             $data->leaderboard_sort = $placeholder->leaderboard_sort;
-            $data->leaderboard_settings_url = URL::build('/panel/core/placeholders', 'leaderboard=' . $placeholder->name);
+            $data->leaderboard_settings_url = URL::build('/panel/core/placeholders', 'leaderboard=' . $data->safe_name);
 
             $placeholders[] = $data;
         }
@@ -70,7 +71,7 @@ class Placeholders {
      */
     public function getPlaceholderByName($placeholder_name) {
         foreach ($this->_all_placeholders as $placeholder) {
-            if ($placeholder->name == $placeholder_name) {
+            if ($placeholder->safe_name == $placeholder_name) {
                 return $placeholder;
             }
         }

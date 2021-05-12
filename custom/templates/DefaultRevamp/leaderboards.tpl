@@ -12,7 +12,7 @@
     <div class="ui six wide tablet four wide computer column">
         <div class="ui vertical pointing menu">
             {foreach from=$LEADERBOARD_PLACEHOLDERS item=placeholder}
-                <a class="item leaderboard_tab" name="{$placeholder->name}" id="tab-{$placeholder->name}" onclick="showTable('{$placeholder->name}');">
+                <a class="item leaderboard_tab" name="{$placeholder->safe_name}" id="tab-{$placeholder->safe_name}" onclick="showTable('{$placeholder->safe_name}');">
                     {$placeholder->leaderboard_title}
                 </a>
             {/foreach}
@@ -20,7 +20,7 @@
     </div>
     <div class="ui ten wide tablet twelve wide computer column">
         {foreach from=$LEADERBOARD_PLACEHOLDERS item=placeholder}
-            <div class="leaderboard_table" id="table-{$placeholder->name}" style="display: none;">
+            <div class="leaderboard_table" id="table-{$placeholder->safe_name}" style="display: none;">
                 <h2>{$placeholder->leaderboard_title}</h2>
                 <table class="ui fixed single line selectable unstackable small padded res table">
                     <thead>
