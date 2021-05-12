@@ -885,11 +885,10 @@ class User {
   
     /**
      * Can the specified user view StaffCP?
-     * TODO: Rename to canViewStaffCP()
      *
      * @return bool Whether they can view it or not.
      */
-    public function canViewACP() {
+    public function canViewStaffCP() {
         if (count($this->_groups)) {
             foreach ($this->_groups as $group) {
                 if ($group->admin_cp == 1) {
@@ -913,7 +912,7 @@ class User {
             die();
         }
 
-        if (!$this->canViewACP()) {
+        if (!$this->canViewStaffCP()) {
             Redirect::to(URL::build('/'));
             die();
         }

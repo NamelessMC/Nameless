@@ -45,7 +45,7 @@ if ($forum->canModerateForum($post->forum_id, $user->getAllGroupIds())) {
         // Get user
         $banned_user = new User($post->post_creator);
 
-        $is_admin = $banned_user->canViewACP();
+        $is_admin = $banned_user->canViewStaffCP();
 
         // Ensure user is not admin
         if ($is_admin) {
