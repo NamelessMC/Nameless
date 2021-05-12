@@ -61,6 +61,11 @@ class ErrorHandler {
                 $frames[] = self::parseFrame($exception, $frame['file'], $frame['line'], $i);
                 $i--;
             }
+
+            // Check if it is our own sql exception so we can display the exact query
+            if ($exception instanceof NamelessPDOException) {
+                $sql_query = SQLFormatter::highlight($exception->getSqlQuery());
+            }
         }
 
         define('ERRORHANDLER', true);

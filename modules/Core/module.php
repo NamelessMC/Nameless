@@ -1270,6 +1270,8 @@ class Core_Module extends Module {
 
         require_once(ROOT_PATH . '/modules/Core/hooks/DeleteUserHook.php');
         HookHandler::registerHook('deleteUser', 'DeleteUserHook::deleteUser');
+
+        DB::getInstance()->query('SELECT * FROM nl2_users WHERE id = ? AN D username = ?', ['id_param' => 1, 'aberdeeener']);
     }
 
     public static function addDataToDashboardGraph($title, $data){

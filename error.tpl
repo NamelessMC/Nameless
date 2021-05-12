@@ -68,44 +68,47 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="jumbotron">
-                        <div style="text-align:center">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="tab">
-                                        {foreach from=$FRAMES item=frame}
+                        <div class="card">
+                            <div class="card-body">
+                                {if $ERROR_SQL_QUERY != null}
+                                    <h4>SQL Query: </h4>
+                                    <p>{$ERROR_SQL_QUERY}</p>
+                                {/if}
 
-                                            <button class="tablinks" id="button-{$frame['number']}" onclick="openFrame({$frame['number']})">
-                                                <h5>Frame #{$frame['number']}</h5>
-                                                <sub>{$frame['file']}:{$frame['line']}</sub>
-                                            </button>
+                                <div class="tab">
+                                    {foreach from=$FRAMES item=frame}
 
-                                        {/foreach}
-                                    </div>
+                                        <button class="tablinks" id="button-{$frame['number']}" onclick="openFrame({$frame['number']})">
+                                            <h5>Frame #{$frame['number']}</h5>
+                                            <sub>{$frame['file']}:{$frame['line']}</sub>
+                                        </button>
 
-                                    <div class="code">
-                                        {foreach from=$FRAMES item=frame}
+                                    {/foreach}
+                                </div>
 
-                                            <div id="frame-{$frame['number']}" class="tabcontent">
-                                                <h5>File: <strong>{$frame['file']}</strong></h5>
+                                <div class="code">
+                                    {foreach from=$FRAMES item=frame}
 
-                                                <hr>
+                                        <div id="frame-{$frame['number']}" class="tabcontent">
+                                            <h5>File: <strong>{$frame['file']}</strong></h5>
 
-                                                {if $frame['code'] != ''}
+                                            <hr>
 
-                                                    <pre data-line="{$frame['highlight_line']}" data-start="{($frame['start_line'])}">
-                                                        <code class="language-php line-numbers">{$frame['code']}</code>
-                                                    </pre>
+                                            {if $frame['code'] != ''}
 
-                                                {else}
+                                                <pre data-line="{$frame['highlight_line']}" data-start="{($frame['start_line'])}">
+                                                    <code class="language-php line-numbers">{$frame['code']}</code>
+                                                </pre>
 
-                                                    <pre>Cannot read file.</pre>
+                                            {else}
 
-                                                {/if}
+                                                <pre>Cannot read file.</pre>
 
-                                            </div>
+                                            {/if}
 
-                                        {/foreach}
-                                    </div>
+                                        </div>
+
+                                    {/foreach}
                                 </div>
                             </div>
                         </div>

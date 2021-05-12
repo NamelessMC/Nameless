@@ -62,6 +62,7 @@ $smarty->assign(array(
     'ERROR_TYPE' => is_null($exception) ? $language->get('general', 'error') : (new ReflectionClass($exception))->getName(),
     'ERROR_STRING' => $error_string,
     'ERROR_FILE' => $error_file,
+    'ERROR_SQL_QUERY' => is_null($sql_query) ? null : $sql_query,
     'CURRENT_URL' => $current_url,
     'FRAMES' => $frames,
     'SKIP_FRAMES' => $skip_frames,

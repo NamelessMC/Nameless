@@ -52,12 +52,20 @@ class DB {
                 }
             }
 
-            if($this->_query->execute()) {
+            // if($this->_query->execute()) {
+            //     $this->_results = $this->_query->fetchAll($fetch_method);
+            //     $this->_count = $this->_query->rowCount();
+            // } else {
+            //     print_r($this->_pdo->errorInfo());
+            //     $this->_error = true;
+            // }
+
+            try {
+                $this->_query->execute();
                 $this->_results = $this->_query->fetchAll($fetch_method);
                 $this->_count = $this->_query->rowCount();
-            } else {
-                print_r($this->_pdo->errorInfo());
-                $this->_error = true;
+            } catch (PDOException $e) {
+                throw new NamelessPDOException($e, $sql, $params);
             }
 
         }
