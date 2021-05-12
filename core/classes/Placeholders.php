@@ -66,7 +66,7 @@ class Placeholders {
     /**
      * Get placeholder data by name of placeholder.
      * 
-     * @param string $placeholder_name Name of placeholder.
+     * @param string $placeholder_name Name of placeholder - must be hashed with sha1.
      * @return object|null This placeholder's data, null if not exist.
      */
     public function getPlaceholderByName($placeholder_name) {
