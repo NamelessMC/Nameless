@@ -9,6 +9,8 @@ class ServerInfoEndpoint extends EndpointBase {
         $this->_method = 'POST';
     }
 
+    private $user_cache = [];
+
     public function execute(Nameless2API $api) {
         $api->validateParams($_POST, ['server-id', 'max-memory', 'free-memory', 'allocated-memory', 'tps']);
         if (!isset($_POST['players'])) {
@@ -68,7 +70,7 @@ class ServerInfoEndpoint extends EndpointBase {
             if (Util::getSetting($api->getDb(), 'username_sync')) {
                 if (count($_POST['players'])) {
                     foreach ($_POST['players'] as $uuid => $player) {
-                        $user = new User($uuid, 'uuid');
+                        $user = $this->getUser($uuid);
                         if ($user->data()) {
                             if ($player['name'] != $user->data()->username) {
                                 // Update username
@@ -116,7 +118,7 @@ class ServerInfoEndpoint extends EndpointBase {
                 }
 
                 foreach ($_POST['players'] as $uuid => $player) {
-                    $user = new User($uuid, 'uuid');
+                    $user = $this->getUser($uuid);
                     if ($user->data()) {
 
                         $should_log = false;
@@ -186,7 +188,7 @@ class ServerInfoEndpoint extends EndpointBase {
         // Placeholder api
         try {
             foreach ($_POST['players'] as $uuid => $player) {
-                $user = new User($uuid, 'uuid');
+                $user = $this->getUser($uuid);
                 if ($user->data()) {
                     $user->savePlaceholders($_POST['server-id'], $player['placeholders']);
                 }
@@ -196,5 +198,23 @@ class ServerInfoEndpoint extends EndpointBase {
         }
 
         $api->returnArray(array('message' => $api->getLanguage()->get('api', 'server_info_updated'), 'meta' => json_encode($log_array)));
+    }
+
+    /**
+     * Get a user from cache (or create if not exist).
+     * 
+     * @param string $uuid Their uuid.
+     * @return User Their user instance.
+     */
+    private function getUser($uuid) {
+        if (isset($this->user_cache[$uuid])) {
+            return $this->user_cache[$uuid];
+        }
+
+        $user = new User($uuid, 'uuid');
+
+        $this->user_cache[$uuid] = $user;
+
+        return $user;
     }
 }

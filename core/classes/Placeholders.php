@@ -18,8 +18,8 @@ class Placeholders {
     /** @var DB */
     private $_db = null;
 
-    private array $_all_placeholders;
-    private array $_leaderboard_data;
+    private $_all_placeholders;
+    private $_leaderboard_data;
 
     public static function getInstance() {
         if(!isset(self::$_instance)) {
@@ -38,6 +38,12 @@ class Placeholders {
         foreach ($placeholders_query as $placeholder) {
             $data = new stdClass();
 
+            $sort = $placeholder->leaderboard_sort;
+
+            if (!array_key_exists($sort, ['ASC', 'DESC'])) {
+                $sort = 'DESC';
+            }
+
             $data->name = $placeholder->name;
             $data->safe_name = sha1($placeholder->name);
             $data->friendly_name = isset($placeholder->friendly_name) ? $placeholder->friendly_name : $placeholder->name;
@@ -45,7 +51,7 @@ class Placeholders {
             $data->show_on_forum = $placeholder->show_on_forum;
             $data->leaderboard = $placeholder->leaderboard;
             $data->leaderboard_title = isset($placeholder->leaderboard_title) ? $placeholder->leaderboard_title : $data->friendly_name;
-            $data->leaderboard_sort = $placeholder->leaderboard_sort;
+            $data->leaderboard_sort = $sort;
             $data->leaderboard_settings_url = URL::build('/panel/core/placeholders', 'leaderboard=' . $data->safe_name);
 
             $placeholders[] = $data;
@@ -98,7 +104,6 @@ class Placeholders {
 
         $user_placeholders = [];
 
-        // TODO: probably can handle assigning friendly_name from within the query
         $placeholders = $this->_db->query('SELECT * FROM nl2_users_placeholders up JOIN nl2_placeholders_settings ps ON up.name = ps.name WHERE up.uuid = ?', [$uuid]);
 
         if (!$placeholders->count()) {
@@ -110,14 +115,14 @@ class Placeholders {
             $data = new stdClass();
 
             $data->server_id = $placeholder->server_id;
-            $data->name = $placeholder->name;
-            $data->friendly_name = isset($placeholder->friendly_name) ? $placeholder->friendly_name : $placeholder->name;
-            $data->value = $placeholder->value;
+            $data->name = Output::getClean($placeholder->name);
+            $data->friendly_name = isset($placeholder->friendly_name) ? Output::getClean($placeholder->friendly_name) : Output::getClean($placeholder->name);
+            $data->value = Output::getClean($placeholder->value);
             $data->last_updated = $placeholder->last_updated;
             $data->show_on_profile = $placeholder->show_on_profile;
             $data->show_on_forum = $placeholder->show_on_forum;
 
-            $user_placeholders[$placeholder->name] = $data;
+            $user_placeholders[$data->name] = $data;
         }
 
         return $user_placeholders;

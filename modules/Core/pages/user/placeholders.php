@@ -27,7 +27,6 @@ $placeholders_list = array();
 
 foreach ($user->getPlaceholders() as $placeholder) {
     $placeholders_list[] = [
-        'server_id' => $placeholder->server_id,
         'name' => $placeholder->name,
         'friendly_name' => $placeholder->friendly_name,
         'value' => $placeholder->value,

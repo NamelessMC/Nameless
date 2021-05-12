@@ -44,7 +44,6 @@
             <table class="ui fixed single line selectable unstackable small padded res table">
               <thead>
                 <tr>
-                  <th>{$SERVER_ID}</th>
                   <th>{$NAME}</th>
                   <th>{$VALUE}</th>
                   <th>{$LAST_UPDATED}</th>
@@ -56,9 +55,6 @@
               
               {foreach from=$PLACEHOLDERS_LIST item=data}
               <tr>
-                <td>
-                  {$data.server_id}
-                </td>
                 <td>
                   {$data.friendly_name}
                 </td>

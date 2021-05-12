@@ -564,7 +564,9 @@ class User {
      * @return array Profile placeholders.
      */
     public function getProfilePlaceholders() {
-        return array_filter($this->_placeholders, fn ($placeholder) => $placeholder->show_on_profile);
+        return array_filter($this->_placeholders, function($placeholder) {
+            return $placeholder->show_on_profile;
+        });
     }
 
     /**
@@ -573,7 +575,9 @@ class User {
      * @return array Forum placeholders.
      */
     public function getForumPlaceholders() {
-        return array_filter($this->_placeholders, fn ($placeholder) => $placeholder->show_on_forum);
+        return array_filter($this->_placeholders, function($placeholder) {
+            return $placeholder->show_on_forum;
+        });
     }
 
     /**
@@ -1138,14 +1142,16 @@ class User {
         foreach ($placeholders as $name => $value) {
             Placeholders::getInstance()->registerPlaceholder($name);
 
+            $last_updated = time();
+
             $this->_db->query('INSERT INTO nl2_users_placeholders (server_id, uuid, name, value, last_updated) VALUES (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE value = ?, last_updated = ?', [
                 $server_id,
                 $this->data()->uuid,
                 $name,
                 $value,
-                time(),
+                $last_updated,
                 $value,
-                time()
+                $last_updated
             ]);
         }
     }
