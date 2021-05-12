@@ -339,8 +339,14 @@ i,
 }
 
 @media (min-width: 768px) {
+    .sidebar {
+        width: 17rem !important
+    }
     #content-wrapper {
-        margin-left: 14rem !important;
+        margin-left: 17rem !important;
+    }
+    .sidebar .nav-item .nav-link {
+        width: 16.5rem
     }
     .sidebar.toggled + #content-wrapper {
         margin-left: 6.5rem !important;
