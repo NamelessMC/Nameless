@@ -10,7 +10,7 @@
  */
 
 if ($user->isLoggedIn()) {
-    if (!$user->canViewACP()) {
+    if (!$user->canViewStaffCP()) {
         // No
         Redirect::to(URL::build('/'));
         die();
