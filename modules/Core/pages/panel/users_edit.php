@@ -334,7 +334,7 @@ if (defined('MINECRAFT') && MINECRAFT === true) {
     ));
 }
 
-if ($user_query->id != 1 && !$view_user->canViewACP()) {
+if ($user_query->id != 1 && !$view_user->canViewStaffCP()) {
     $smarty->assign(array(
         'DELETE_USER' => $language->get('admin', 'delete_user'),
         'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),

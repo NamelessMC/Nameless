@@ -233,7 +233,7 @@ if(!isset($_GET['action'])) {
 
                         $user_id = $user->nameToId($item);
                         if ($user_id) {
-                            if ($user->isBlocked($user_id, $user->data()->id) && !$user->canViewACP()) {
+                            if ($user->isBlocked($user_id, $user->data()->id) && !$user->canViewStaffCP()) {
                                 $blocked = true;
                                 unset($users[$n]);
                                 continue;

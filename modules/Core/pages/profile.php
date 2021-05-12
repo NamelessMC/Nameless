@@ -243,7 +243,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                             $post = $queries->getWhere('user_profile_wall_posts', array('id', '=', $_POST['post_id']));
                             if (count($post)) {
                                 $post = $post[0];
-                                if ($user->canViewACP() || $post->author_id == $user->data()->id) {
+                                if ($user->canViewStaffCP() || $post->author_id == $user->data()->id) {
                                     if (isset($_POST['content']) && strlen($_POST['content']) < 10000 && strlen($_POST['content']) >= 1) {
                                         try {
                                             $queries->update('user_profile_wall_posts', $_POST['post_id'], array(
@@ -269,7 +269,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                             $post = $queries->getWhere('user_profile_wall_posts', array('id', '=', $_POST['post_id']));
                             if (count($post)) {
                                 $post = $post[0];
-                                if ($user->canViewACP() || $post->author_id == $user->data()->id) {
+                                if ($user->canViewStaffCP() || $post->author_id == $user->data()->id) {
                                     try {
                                         $queries->delete('user_profile_wall_posts', array('id', '=', $_POST['post_id']));
                                         $queries->delete('user_profile_wall_posts_replies', array('post_id', '=', $_POST['post_id']));
@@ -291,7 +291,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                             $post = $queries->getWhere('user_profile_wall_posts_replies', array('id', '=', $_POST['post_id']));
                             if (count($post)) {
                                 $post = $post[0];
-                                if ($user->canViewACP() || $post->author_id == $user->data()->id) {
+                                if ($user->canViewStaffCP() || $post->author_id == $user->data()->id) {
                                     try {
                                         $queries->delete('user_profile_wall_posts_replies', array('id', '=', $_POST['post_id']));
                                     } catch (Exception $e) {
@@ -427,7 +427,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
             'LOGGED_IN' => true,
             'SUBMIT' => $language->get('general', 'submit'),
             'CANCEL' => $language->get('general', 'cancel'),
-            'CAN_MODERATE' => $user->canViewACP()
+            'CAN_MODERATE' => $user->canViewStaffCP()
         ));
 
         if ($user->hasPermission('profile.private.bypass')) {
@@ -500,7 +500,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                 'MESSAGE_LINK' => URL::build('/user/messaging/', 'action=new&amp;uid=' . $query->id),
                 'FOLLOW_LINK' => URL::build('/user/follow/', 'user=' . $query->id),
                 'CONFIRM' => $language->get('general', 'confirm'),
-                'MOD_OR_ADMIN' => $profile_user->canViewACP()
+                'MOD_OR_ADMIN' => $profile_user->canViewStaffCP()
             ));
 
             // Is the user blocked?
