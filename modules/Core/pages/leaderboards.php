@@ -62,8 +62,6 @@ $template->addJSScript('
             name = $(".leaderboard_tab").first().attr("name");
         }
 
-        name = name.replace(/:/, "\\\\:");
-
         if (!first) {
             disableTabs();
             hideTables();
