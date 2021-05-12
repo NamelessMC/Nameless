@@ -47,7 +47,7 @@ if ($user->isLoggedIn()) {
         )
     );
 
-    if ($user->canViewACP()) {
+    if ($user->canViewStaffCP()) {
         $user_area_left['account']['items']['panel'] = array(
             'link' => URL::build('/panel'),
             'target' => '',
@@ -100,7 +100,7 @@ if ($user->isLoggedIn()) {
         ),
     );
 
-    if ($user->canViewACP()) {
+    if ($user->canViewStaffCP()) {
         $user_section['panel'] = array(
             'title' => $language->get('moderator', 'staff_cp'),
             'icon' => '<i class="fas fa-cogs icon"></i>',
