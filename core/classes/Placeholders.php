@@ -134,7 +134,9 @@ class Placeholders {
      * @return array Array of placeholders which have leaderboard enabled.
      */
     public function getLeaderboardPlaceholders() {
-        return array_filter($this->_all_placeholders, fn($placeholder) => $placeholder->leaderboard);
+        return array_filter($this->_all_placeholders, function ($placeholder) {
+            return $placeholder->leaderboard;
+        });
     }
 
     /**
