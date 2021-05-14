@@ -23,6 +23,9 @@ class DB {
             $_prefix,
             $_count = 0;
 
+    private $_sql_stack;
+    private $_sql_stack_num = 1;
+
     private function __construct() {
         try {
             $this->_pdo = new PDO('mysql:host=' . Config::get('mysql/host') . ';port=' . Config::get('mysql/port') . ';dbname=' . Config::get('mysql/db') . ';charset='.Config::get('mysql/charset'), Config::get('mysql/username'), Config::get('mysql/password'));
@@ -52,25 +55,53 @@ class DB {
                 }
             }
 
-            // if($this->_query->execute()) {
-            //     $this->_results = $this->_query->fetchAll($fetch_method);
-            //     $this->_count = $this->_query->rowCount();
-            // } else {
-            //     print_r($this->_pdo->errorInfo());
-            //     $this->_error = true;
-            // }
+            $backtrace = array_shift(debug_backtrace());
+
+            $this->_sql_stack[] = [
+                'num' => $this->_sql_stack_num,
+                'frame_file' => $backtrace['file'],
+                'frame_line' => $backtrace['line'],
+                'sql_query' => $this->compileQuery($sql, $params)
+            ];
+
+            $this->_sql_stack_num++;
 
             try {
                 $this->_query->execute();
                 $this->_results = $this->_query->fetchAll($fetch_method);
                 $this->_count = $this->_query->rowCount();
-            } catch (PDOException $e) {
-                throw new NamelessPDOException($e, $sql, $params);
+            } catch (PDOException $exception) {
+                throw new NamelessPDOException($exception, $this->_sql_stack);
             }
 
         }
 
         return $this;
+    }
+
+    private function compileQuery($sql, $params) {
+        $comp = '';
+
+        $split = explode(' ?', $sql);
+
+        $i = 0;
+        foreach ($split as $section) {
+
+            if ($section == '') {
+                continue;
+            }
+
+            $param = $params[$i];
+
+            $comp .= "$section '$param'";
+            $i++;
+        }
+
+        if (!str_ends_with(';', $comp)) {
+            $comp .= ';';
+        }
+
+        return SQLFormatter::highlight(trim($comp));
     }
 
     public function createQuery($sql, $params = array()) {
@@ -83,6 +114,17 @@ class DB {
                     $x++;
                 }
             }
+
+            $backtrace = array_shift(debug_backtrace());
+
+            $this->_sql_stack[] = [
+                'num' => $this->_sql_stack_num,
+                'frame_file' => $backtrace['file'],
+                'frame_line' => $backtrace['line'],
+                'sql_query' => $this->compileQuery($sql, $params)
+            ];
+
+            $this->_sql_stack_num++;
 
             if($this->_query->execute()) {
                 $this->_count = $this->_query->rowCount();

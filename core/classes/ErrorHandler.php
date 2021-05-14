@@ -64,7 +64,8 @@ class ErrorHandler {
 
             // Check if it is our own sql exception so we can display the exact query
             if ($exception instanceof NamelessPDOException) {
-                $sql_query = SQLFormatter::highlight($exception->getSqlQuery());
+                $sql_query = $exception->getMostRecentSqlQuery();
+                $sql_stack = $exception->getSqlStack();
             }
         }
 

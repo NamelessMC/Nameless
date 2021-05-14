@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="{$FONT_AWESOME}">
     <link rel="stylesheet" href="{$PRISM_CSS}">
     <script src="{$JQUERY}"></script>
+    <script src="{$BOOTSTRAP_JS}"></script>
     <script src="{$PRISM_JS}"></script>
 
 </head>
@@ -27,7 +28,6 @@
     <br /><br />
     <div class="container">
         <div class="row">
-        
             <div class="col-md-{if $DETAILED_ERROR}12{else}6 offset-md-3{/if}">
                 <div class="jumbotron">
                     <div style="text-align:{if $DETAILED_ERROR} left {else} center {/if};">
@@ -70,45 +70,85 @@
                     <div class="jumbotron">
                         <div class="card">
                             <div class="card-body">
-                                {if $ERROR_SQL_QUERY != null}
-                                    <h4>SQL Query: </h4>
-                                    <p>{$ERROR_SQL_QUERY}</p>
-                                {/if}
 
-                                <div class="tab">
-                                    {foreach from=$FRAMES item=frame}
 
-                                        <button class="tablinks" id="button-{$frame['number']}" onclick="openFrame({$frame['number']})">
-                                            <h5>Frame #{$frame['number']}</h5>
-                                            <sub>{$frame['file']}:{$frame['line']}</sub>
-                                        </button>
+                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Stack trace</a>
+                                    </li>
+                                    {if $ERROR_SQL_QUERY != null}
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">SQL trace</a>
+                                    </li>
+                                    {/if}
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Request</a>
+                                    </li>
+                                </ul>
 
-                                    {/foreach}
-                                </div>
+                                <br />
 
-                                <div class="code">
-                                    {foreach from=$FRAMES item=frame}
+                                <div class="tab-content" id="myTabContent">
+                                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 
-                                        <div id="frame-{$frame['number']}" class="tabcontent">
-                                            <h5>File: <strong>{$frame['file']}</strong></h5>
+                                        <div class="tab">
+                                            {foreach from=$FRAMES item=frame}
 
-                                            <hr>
+                                                <button class="tablinks" id="button-{$frame['number']}"
+                                                    onclick="openFrame({$frame['number']})">
+                                                    <h5>Frame #{$frame['number']}</h5>
+                                                    <sub>{$frame['file']}:{$frame['line']}</sub>
+                                                </button>
 
-                                            {if $frame['code'] != ''}
-
-                                                <pre data-line="{$frame['highlight_line']}" data-start="{($frame['start_line'])}">
-                                                    <code class="language-php line-numbers">{$frame['code']}</code>
-                                                </pre>
-
-                                            {else}
-
-                                                <pre>Cannot read file.</pre>
-
-                                            {/if}
-
+                                            {/foreach}
                                         </div>
 
-                                    {/foreach}
+                                        <div class="code">
+                                            {foreach from=$FRAMES item=frame}
+
+                                                <div id="frame-{$frame['number']}" class="tabcontent">
+                                                    <h5>File: <strong>{$frame['file']}</strong></h5>
+
+                                                    <hr>
+
+                                                    {if $frame['code'] != ''}
+
+                                                        <pre data-line="{$frame['highlight_line']}"
+                                                            data-start="{($frame['start_line'])}">
+                                                                    <code class="language-php line-numbers">{$frame['code']}</code>
+                                                                </pre>
+
+                                                    {else}
+
+                                                        <pre class="text-center">Cannot read file.</pre>
+
+                                                    {/if}
+
+                                                </div>
+
+                                            {/foreach}
+                                        </div>
+                                    
+                                    </div>
+
+                                    {if $ERROR_SQL_QUERY != null}
+                                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                        <p>{$ERROR_SQL_QUERY}</p>   
+                                        <br>
+                                        {foreach from=$ERROR_SQL_STACK item=$stack }
+
+                                            <p>
+                                                <strong>{$stack['num']}:</strong>
+                                                {$stack['sql_query']}
+                                            </p>
+
+                                        {/foreach}
+                                    </div>
+                                    {/if}
+
+                                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                                        {$HEADERS|var_dump}
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -6,7 +6,7 @@
  *
  * @return string JSON Array
  */
-class AddGroupsEndpoint extends EndpointBase {
+class AddGroupsEn dpoint extends EndpointBase {
 
     public function __construct() {
         $this->_route = 'addGroups';
