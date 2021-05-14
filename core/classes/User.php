@@ -13,6 +13,7 @@ class User {
     
     private $_data,
             $_groups,
+            $_placeholders,
             $_sessionName,
             $_cookieName,
             $_isLoggedIn,
@@ -140,6 +141,18 @@ class User {
                     
                     $this->addGroup($default_group_id);
                     $this->_groups[$default_group_id] = $default_group;
+                }
+
+                // Get their placeholders only if they have a valid uuid
+                if ($this->_data->uuid != null && $this->_data->uuid != 'none') {
+
+                    $placeholders = Placeholders::getInstance()->loadUserPlaceholders($this->_data->uuid);
+
+                    if (count($placeholders)) {
+                        $this->_placeholders = $placeholders;
+                    } else {
+                        $this->_placeholders = [];
+                    }
                 }
 
                 return true;
@@ -534,6 +547,37 @@ class User {
      */
     public function getGroups() {
         return $this->_groups;
+    }
+
+    /**
+     * Get the currently logged in user's placeholders.
+     * 
+     * @return array Their placeholders.
+     */
+    public function getPlaceholders() {
+        return $this->_placeholders;
+    }
+
+    /**
+     * Get this user's placeholders to display on their profile.
+     * 
+     * @return array Profile placeholders.
+     */
+    public function getProfilePlaceholders() {
+        return array_filter($this->_placeholders, function($placeholder) {
+            return $placeholder->show_on_profile;
+        });
+    }
+
+    /**
+     * Get this user's placeholders to display on their forum posts.
+     * 
+     * @return array Forum placeholders.
+     */
+    public function getForumPlaceholders() {
+        return array_filter($this->_placeholders, function($placeholder) {
+            return $placeholder->show_on_forum;
+        });
     }
 
     /**
@@ -1064,11 +1108,7 @@ class User {
      * @return bool Whether their profile is set to private or not.
      */
     public function isPrivateProfile() {
-        if ($this->_data->private_profile == 1) {
-            return true;
-        }
-        
-        return false;
+        return $this->_data->private_profile;
     }
 
     /**
@@ -1086,5 +1126,29 @@ class User {
         $groups = rtrim($groups, ',') . ')';
 
         return $this->_db->query('SELECT template.id, template.name FROM nl2_templates AS template WHERE template.enabled = 1 AND template.id IN (SELECT template_id FROM nl2_groups_templates WHERE can_use_template = 1 AND group_id IN ' . $groups . ')')->results();
+    }
+
+    /**
+     * Save/update this users placeholders.
+     * 
+     * @param int $server_id Server ID from staffcp -> integrations to assoc these placeholders with.
+     * @param array $placeholders Key/value array of placeholders name/value from API endpoint.
+     */
+    public function savePlaceholders($server_id, $placeholders) {
+        foreach ($placeholders as $name => $value) {
+            Placeholders::getInstance()->registerPlaceholder($server_id, $name);
+
+            $last_updated = time();
+
+            $this->_db->query('INSERT INTO nl2_users_placeholders (server_id, uuid, name, value, last_updated) VALUES (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE value = ?, last_updated = ?', [
+                $server_id,
+                $this->data()->uuid,
+                $name,
+                $value,
+                $last_updated,
+                $value,
+                $last_updated
+            ]);
+        }
     }
 }

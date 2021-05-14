@@ -46,7 +46,8 @@ if (!isset($_GET['action'])) {
         'NEW' => $language->get('admin', 'new_announcement'),
         'ACTIONS' => $language->get('general', 'actions'),
         'EDIT_LINK' => URL::build('/panel/core/announcements', 'action=edit&id='),
-        'DELETE_LINK' => URL::build('/panel/core/announcements', 'action=delete&id={x}')
+        'DELETE_LINK' => URL::build('/panel/core/announcements', 'action=delete&id={x}'),
+        'REORDER_DRAG_URL' => URL::build('/panel/core/announcements')
     ));
 
     $template_file = 'core/announcements.tpl';
@@ -72,6 +73,10 @@ if (!isset($_GET['action'])) {
                         'text_colour' => [
                             Validate::REQUIRED => true
                         ],
+                        'order' => [
+                            Validate::REQUIRED => true,
+                            Validate::NUMERIC => true
+                        ]
                     ])->messages([
                         'header' => $language->get('admin', 'header_required'),
                         'message' => $language->get('admin', 'message_required'),
@@ -94,7 +99,7 @@ if (!isset($_GET['action'])) {
                         foreach (Input::get('pages') as $page) {
                             $pages[] = $page;
                         }
-                        if (!Announcements::create($pages, $all_groups, Output::getClean(Input::get('text_colour')), Output::getClean(Input::get('background_colour')), Output::getClean(Input::get('icon')), Output::getClean(Input::get('closable')), Output::getClean(Input::get('header')), Output::getClean(Input::get('message')))) {
+                        if (!Announcements::create($pages, $all_groups, Output::getClean(Input::get('text_colour')), Output::getClean(Input::get('background_colour')), Output::getClean(Input::get('icon')), Output::getClean(Input::get('closable')), Output::getClean(Input::get('header')), Output::getClean(Input::get('message')), Output::getClean(Input::get('order')))) {
                             Session::flash('announcement_error', $language->get('admin', 'creating_announcement_failure'));
                             Redirect::to(URL::build('/panel/core/announcements'));
                             die();
@@ -165,6 +170,10 @@ if (!isset($_GET['action'])) {
                         'text_colour' => [
                             Validate::REQUIRED => true
                         ],
+                        'order' => [
+                            Validate::REQUIRED => true,
+                            Validate::NUMERIC => true
+                        ]
                     ])->messages([
                         'header' => $language->get('admin', 'header_required'),
                         'message' => $language->get('admin', 'message_required'),
@@ -186,7 +195,7 @@ if (!isset($_GET['action'])) {
                         foreach (Input::get('pages') as $page) {
                             $pages[] = $page;
                         }
-                        if (!Announcements::edit($announcement->id, $pages, $all_groups, Output::getClean(Input::get('text_colour')), Output::getClean(Input::get('background_colour')), Output::getClean(Input::get('icon')), Output::getClean(Input::get('closable')), Output::getClean(Input::get('header')), Output::getClean(Input::get('message')))) {
+                        if (!Announcements::edit($announcement->id, $pages, $all_groups, Output::getClean(Input::get('text_colour')), Output::getClean(Input::get('background_colour')), Output::getClean(Input::get('icon')), Output::getClean(Input::get('closable')), Output::getClean(Input::get('header')), Output::getClean(Input::get('message')), Output::getClean(Input::get('order')))) {
                             Session::flash('announcement_error', $language->get('admin', 'editing_announcement_failure'));
                             Redirect::to(URL::build('/panel/core/announcements'));
                             die();
@@ -245,6 +254,21 @@ if (!isset($_GET['action'])) {
             die();
             break;
 
+        case 'order':
+            if (isset($_GET['announcements'])) {
+                $announcements = json_decode($_GET['announcements'])->announcements;
+
+                $i = 1;
+                foreach ($announcements as $item) {
+                    $queries->update('custom_announcements', $item, array(
+                        '`order`' => $i
+                    ));
+                    $i++;
+                }
+            }
+            Announcements::resetCache();
+            die('Complete');
+
         default:
             Redirect::to(URL::build('/panel/core/announcements'));
             die();
@@ -278,6 +302,7 @@ $smarty->assign(array(
     'ICON_INFO' => $language->get('admin', 'announcement_icon_instructions'),
     'YES' => $language->get('general', 'yes'),
     'NO' => $language->get('general', 'no'),
+    'ORDER' => $language->get('admin', 'announcement_order'),
     'HEADER' => $language->get('admin', 'header'),
     'MESSAGE' => $language->get('admin', 'message'),
     'BACK' => $language->get('general', 'back'),

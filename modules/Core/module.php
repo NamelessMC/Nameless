@@ -53,11 +53,13 @@ class Core_Module extends Module {
         $pages->add('Core', '/forgot_password', 'pages/forgot_password.php');
         $pages->add('Core', '/complete_signup', 'pages/complete_signup.php');
         $pages->add('Core', '/status', 'pages/status.php', 'status');
+        $pages->add('Core', '/leaderboards', 'pages/leaderboards.php', 'leaderboards');
 
         $pages->add('Core', '/user', 'pages/user/index.php');
         $pages->add('Core', '/user/settings', 'pages/user/settings.php');
         $pages->add('Core', '/user/messaging', 'pages/user/messaging.php');
         $pages->add('Core', '/user/alerts', 'pages/user/alerts.php');
+        $pages->add('Core', '/user/placeholders', 'pages/user/placeholders.php');
         $pages->add('Core', '/user/acknowledge', 'pages/user/acknowledge.php');
 
         // Panel
@@ -87,6 +89,7 @@ class Core_Module extends Module {
         $pages->add('Core', '/panel/core/modules', 'pages/panel/modules.php');
         $pages->add('Core', '/panel/core/pages', 'pages/panel/pages.php');
         $pages->add('Core', '/panel/core/hooks', 'pages/panel/hooks.php');
+        $pages->add('Core', '/panel/core/placeholders', 'pages/panel/placeholders.php');
         $pages->add('Core', '/panel/minecraft', 'pages/panel/minecraft.php');
         $pages->add('Core', '/panel/minecraft/authme', 'pages/panel/minecraft_authme.php');
         $pages->add('Core', '/panel/minecraft/account_verification', 'pages/panel/minecraft_account_verification.php');
@@ -334,6 +337,7 @@ class Core_Module extends Module {
             'admincp.core.terms' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'privacy_and_terms'),
             'admincp.core.hooks' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'hooks'),
             'admincp.core.announcements' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'announcements'),
+            'admincp.core.placeholders' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'placeholders'),
             'admincp.integrations' => $language->get('admin', 'integrations'),
             'admincp.minecraft' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft'),
             'admincp.discord' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'discord'),
@@ -555,6 +559,28 @@ class Core_Module extends Module {
 
                 $navs[0]->add('status', $language->get('general', 'status'), URL::build('/status'), 'top', null, $status_order, $icon);
             }
+        }
+
+        $leaderboard_placeholders = Placeholders::getInstance()->getLeaderboardPlaceholders();
+
+        // Only add leaderboard link if there is at least one enabled placeholder
+        if (count($leaderboard_placeholders)) {
+
+            $cache->setCache('navbar_order');
+            if (!$cache->isCached('leaderboards_order')) {
+                $leaderboards_order = 4;
+                $cache->store('leaderboards_order', 4);
+            } else {
+                $leaderboards_order = $cache->retrieve('leaderboards_order');
+            }
+
+            $cache->setCache('navbar_icons');
+            if (!$cache->isCached('leaderboards_icon'))
+                $leaderboards_icon = '';
+            else
+                $leaderboards_icon = $cache->retrieve('leaderboards_icon');
+
+            $navs[0]->add('leaderboards', $language->get('general', 'leaderboards'), URL::build('/leaderboards'), 'top', null, $leaderboards_order, $leaderboards_icon);
         }
 
         // Check page type (frontend or backend)
@@ -854,6 +880,16 @@ class Core_Module extends Module {
                         $icon = $cache->retrieve('hooks_icon');
 
                     $navs[2]->addItemToDropdown('core_configuration', 'hooks', $language->get('admin', 'hooks'), URL::build('/panel/core/hooks'), 'top', null, $icon, $order);
+                }
+
+                if ($user->hasPermission('admincp.core.placeholders')) {
+                    if (!$cache->isCached('placeholders_icon')) {
+                        $icon = '<i class="nav-icon fas fa-sticky-note"></i>';
+                        $cache->store('placeholders_icon', $icon);
+                    } else
+                        $icon = $cache->retrieve('placeholders_icon');
+
+                    $navs[2]->addItemToDropdown('core_configuration', 'placeholders', $language->get('admin', 'placeholders'), URL::build('/panel/core/placeholders'), 'top', null, $icon, $order);
                 }
             }
 

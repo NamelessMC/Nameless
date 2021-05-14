@@ -664,6 +664,14 @@ for ($n = 0; $n < count($results->data); $n++) {
 
     if ($mc_integration[0]->value == '1') $fields[] = array('name' => 'IGN', 'value' => $post_creator->getDisplayname(true));
 
+    $forum_placeholders = $post_creator->getForumPlaceholders();
+    foreach ($forum_placeholders as $forum_placeholder) {
+        $fields[] = [
+            'name' => $forum_placeholder->friendly_name,
+            'value' => $forum_placeholder->value
+        ];
+    }
+
     // Get post reactions
     $post_reactions = array();
     $total_karma = 0;

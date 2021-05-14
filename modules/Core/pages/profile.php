@@ -723,11 +723,22 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     $minecraft_integration = $minecraft_integration[0];
 
     if ($minecraft_integration->value == '1') {
+        // TODO: This does not display anywhere
         $fields['minecraft'] = array(
             'title' => 'IGN',
             'type' => 'text',
             'value' => Output::getClean($query->username),
             'image' => 'https://crafatar.com/renders/body/' . $query->uuid . '?overlay'
+        );
+    }
+
+    $profile_placeholders = $profile_user->getProfilePlaceholders();
+    foreach ($profile_placeholders as $profile_placeholder) {
+        $fields[] = array(
+            'title' => $profile_placeholder->friendly_name,
+            'type' => 'text',
+            'value' => $profile_placeholder->value,
+            'tooltip' => $language->get('admin', 'placeholders_last_updated') . ': ' . $timeago->inWords(date('d M Y, H:i', $profile_placeholder->last_updated), $language->getTimeLanguage()),
         );
     }
 

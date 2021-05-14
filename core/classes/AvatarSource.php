@@ -10,7 +10,7 @@
  *  AvatarSource class
  */
 
-abstract class AvatarSource {
+class AvatarSource {
 
     protected static $_sources = array();
 
