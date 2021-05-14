@@ -55,6 +55,9 @@ foreach ($leaderboard_placeholders as $leaderboard_placeholder) {
 }
 
 $smarty->assign(array(
+    'PLAYER' => $language->get('admin', 'placeholders_player'),
+    'SCORE' => $language->get('admin', 'placeholders_score'),
+    'LAST_UPDATED' => $language->get('admin', 'placeholders_last_updated'),
     'LEADERBOARDS' => $language->get('general', 'leaderboards'),
     'LEADERBOARD_PLACEHOLDERS' => $leaderboard_placeholders,
     'LEADERBOARD_PLACEHOLDERS_DATA' => $leaderboard_placeholders_data

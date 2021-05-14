@@ -25,9 +25,9 @@
                 <table class="ui fixed single line selectable unstackable small padded res table">
                     <thead>
                         <tr>
-                            <th>Player</th>
-                            <th>Score</th>
-                            <th>Last Updated</th>
+                            <th>{$PLAYER}</th>
+                            <th>{$SCORE}</th>
+                            <th>{$LAST_UPDATED}</th>
                         </tr>
                     </thead>
                     <tbody>
