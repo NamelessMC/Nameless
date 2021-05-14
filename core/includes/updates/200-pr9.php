@@ -52,6 +52,13 @@ try {
     echo $e->getMessage() . '<br />';
 }
 
+// announcement ordering
+try {
+    DB::getInstance()->createQuery('ALTER TABLE `nl2_custom_announcements` ADD `order` int(11) NOT NULL');
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+
 // Update version number
 $version_number_id = $queries->getWhere('settings', array('name', '=', 'nameless_version'));
 

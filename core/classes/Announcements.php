@@ -24,8 +24,8 @@ class Announcements {
             return $cache->retrieve('custom_announcements');
         }
 
-        $cache->store('custom_announcements', DB::getInstance()->query("SELECT * FROM nl2_custom_announcements")->results());
-        
+        $cache->store('custom_announcements', DB::getInstance()->query("SELECT * FROM nl2_custom_announcements ORDER BY `order` ASC")->results());
+
         return $cache->retrieve('custom_announcements');
     }
 
@@ -109,8 +109,9 @@ class Announcements {
      * @param bool $closable Whether this announcement should have an "x" to close and hide, or be shown 24/7.
      * @param string $header Header text to show at top of announcement.
      * @param string $message Main text to show in announcement.
+     * @param int $order Order of this announcement to use for sorting.
      */
-    public static function edit($id = null, $pages = null, $groups = null, $text_colour = null, $background_colour = null, $icon = null, $closable = null, $header = null, $message = null) {
+    public static function edit($id = null, $pages = null, $groups = null, $text_colour = null, $background_colour = null, $icon = null, $closable = null, $header = null, $message = null, $order = null) {
         $queries = new Queries();
         
         $queries->update('custom_announcements', $id, array(
@@ -121,7 +122,8 @@ class Announcements {
             'icon' => $icon, 
             'closable' => $closable ? 1 : 0, 
             'header' => $header, 
-            'message' => $message
+            'message' => $message,
+            '`order`' => $order
         ));
 
         self::resetCache();
@@ -138,8 +140,9 @@ class Announcements {
      * @param bool $closable Whether this announcement should have an "x" to close and hide, or be shown 24/7.
      * @param string $header Header text to show at top of announcement.
      * @param string $message Main text to show in announcement.
+     * @param int $order Order of this announcement to use for sorting.
      */
-    public static function create($pages = null, $groups = null, $text_colour = null, $background_colour = null, $icon = null, $closable = null, $header = null, $message = null) {
+    public static function create($pages = null, $groups = null, $text_colour = null, $background_colour = null, $icon = null, $closable = null, $header = null, $message = null, $order = null) {
         $queries = new Queries();
 
         $queries->create('custom_announcements', array(
@@ -150,7 +153,8 @@ class Announcements {
             'icon' => $icon, 
             'closable' => $closable ? 1 : 0, 
             'header' => $header, 
-            'message' => $message
+            'message' => $message,
+            'order' => $order
         ));
 
         self::resetCache();

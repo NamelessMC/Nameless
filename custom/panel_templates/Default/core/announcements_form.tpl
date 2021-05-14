@@ -94,6 +94,10 @@
                                        placeholder="fas fa-edit icon" value="{$ANNOUNCEMENT->icon|escape}">
                             </div>
                             <div class="form-group">
+                                <label for="icon">{$ORDER}</label>
+                                <input type="number" step="1.00" name="order" id="order" class="form-control" value="{$ANNOUNCEMENT->order|escape}">
+                            </div>
+                            <div class="form-group">
                                 <label for="closable">{$CLOSABLE}</label>
                                 <input id="closable" name="closable" type="checkbox" class="js-switch"
                                        value="1" {if $ANNOUNCEMENT->closable} checked{/if} />
