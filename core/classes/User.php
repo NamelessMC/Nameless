@@ -1108,11 +1108,7 @@ class User {
      * @return bool Whether their profile is set to private or not.
      */
     public function isPrivateProfile() {
-        if ($this->_data->private_profile == 1) {
-            return true;
-        }
-        
-        return false;
+        return $this->_data->private_profile;
     }
 
     /**
@@ -1140,7 +1136,7 @@ class User {
      */
     public function savePlaceholders($server_id, $placeholders) {
         foreach ($placeholders as $name => $value) {
-            Placeholders::getInstance()->registerPlaceholder($name);
+            Placeholders::getInstance()->registerPlaceholder($server_id, $name);
 
             $last_updated = time();
 

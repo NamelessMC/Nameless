@@ -44,8 +44,8 @@ try {
     DB::getInstance()->createTable('users_placeholders', '`server_id` int(11) NOT NULL, `uuid` varchar(32) NOT NULL, `name` varchar(256) NOT NULL, `value` TEXT NOT NULL, `last_updated` int(11) NOT NULL', "ENGINE=$engine DEFAULT CHARSET=$charset");
     DB::getInstance()->query('ALTER TABLE `nl2_users_placeholders` ADD PRIMARY KEY(`server_id`, `uuid`, `name`)');
 
-    DB::getInstance()->createTable('placeholders_settings', "`name` varchar(256) NOT NULL, `friendly_name` varchar(256) NULL DEFAULT NULL, `show_on_profile` tinyint(1) NOT NULL DEFAULT '1', `show_on_forum` tinyint(1) NOT NULL DEFAULT '1', `leaderboard` tinyint(1) NOT NULL DEFAULT '0', `leaderboard_title` varchar(36) NULL DEFAULT NULL, `leaderboard_sort` varchar(4) NOT NULL DEFAULT 'DESC'", "ENGINE=$engine DEFAULT CHARSET=$charset");
-    DB::getInstance()->query('ALTER TABLE `nl2_placeholders_settings` ADD PRIMARY KEY(`name`)');
+    DB::getInstance()->createTable('placeholders_settings', "`server_id` int(11) NOT NULL, `name` varchar(256) NOT NULL, `friendly_name` varchar(256) NULL DEFAULT NULL, `show_on_profile` tinyint(1) NOT NULL DEFAULT '1', `show_on_forum` tinyint(1) NOT NULL DEFAULT '1', `leaderboard` tinyint(1) NOT NULL DEFAULT '0', `leaderboard_title` varchar(36) NULL DEFAULT NULL, `leaderboard_sort` varchar(4) NOT NULL DEFAULT 'DESC'", "ENGINE=$engine DEFAULT CHARSET=$charset");
+    DB::getInstance()->query('ALTER TABLE `nl2_placeholders_settings` ADD PRIMARY KEY(`server_id`, `name`)');
 
     $queries->addPermissionGroup(2, 'admincp.core.placeholders');
 } catch (Exception $e) {

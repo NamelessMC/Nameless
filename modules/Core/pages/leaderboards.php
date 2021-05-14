@@ -27,24 +27,31 @@ require_once(ROOT_PATH . '/core/classes/Timeago.php');
 $timeago = new TimeAgo(TIMEZONE);
 
 foreach ($leaderboard_placeholders as $leaderboard_placeholder) {
-    $data = Placeholders::getInstance()->getLeaderboardData($leaderboard_placeholder->name);
+    // Get all rows from user placeholder table with this placeholders server id + name
+    $data = Placeholders::getInstance()->getLeaderboardData($leaderboard_placeholder->server_id, $leaderboard_placeholder->name);
 
-    if ($data == null || !count($data)) {
+    if (!count($data)) {
         continue;
     }
 
-    $data = $data[0];
+    // TODO: move this to placeholders class
+    foreach ($data as $row) {
+        $row_data = new stdClass();
 
-    if (!array_key_exists($data->uuid, $leaderboard_users)) {
-        $user_data = DB::getInstance()->get('users', ['uuid', '=', $data->uuid])->results()[0];
-        $leaderboard_users[$data->uuid] = $user_data; 
+        if (!array_key_exists($row->uuid, $leaderboard_users)) {
+            $user_data = DB::getInstance()->get('users', ['uuid', '=', $row->uuid])->first();
+            $leaderboard_users[$row->uuid] = $user_data; 
+        }
+
+        $row_data->server_id = $leaderboard_placeholder->server_id;
+        $row_data->name = $leaderboard_placeholder->name;
+        $row_data->username = Output::getClean($leaderboard_users[$row->uuid]->username);
+        $row_data->avatar = Util::getAvatarFromUUID($row->uuid, 24);
+        $row_data->value = $row->value;
+        $row_data->last_updated = ucfirst($timeago->inWords(date('d M Y, H:i', $row->last_updated), $language->getTimeLanguage()));
+
+        $leaderboard_placeholders_data[] = $row_data;
     }
-
-    $data->username = Output::getClean($leaderboard_users[$data->uuid]->username);
-    $data->avatar = Util::getAvatarFromUUID($data->uuid, 24);
-    $data->last_updated = ucfirst($timeago->inWords(date('d M Y, H:i', $data->last_updated), $language->getTimeLanguage()));
-
-    $leaderboard_placeholders_data[$leaderboard_placeholder->name] = $data;
 }
 
 $smarty->assign(array(
@@ -54,12 +61,13 @@ $smarty->assign(array(
 ));
 
 $template->addJSScript('
-    window.onLoad = showTable(null, true);
+    window.onLoad = showTable(null, null, true);
 
-    function showTable(name, first = false) {
+    function showTable(name, server_id, first = false) {
 
         if (name == null) {
             name = $(".leaderboard_tab").first().attr("name");
+            server_id = $(".leaderboard_tab").first().attr("server_id");
         }
 
         if (!first) {
@@ -67,8 +75,8 @@ $template->addJSScript('
             hideTables();
         }
 
-        $("#tab-" + name).addClass("active");
-        $("#table-" + name).show();
+        $("#tab-" + name + "-server-" + server_id).addClass("active");
+        $("#table-" + name + "-server-" + server_id).show();
     }
 
     function disableTabs() {

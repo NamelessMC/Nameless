@@ -56,6 +56,7 @@
                                     <table class="table table-borderless table-striped">
                                         <thead>
                                             <tr>
+                                                <th>{$SERVER_ID}</th>
                                                 <th>{$NAME}</th>
                                                 <th>
                                                     {$FRIENDLY_NAME}
@@ -85,15 +86,16 @@
                                         <tbody>
                                             {foreach from=$ALL_PLACEHOLDERS item=placeholder}
                                                 <tr>
+                                                    <td>{$placeholder->server_id}</td>
                                                     <td><code>{$placeholder->name}</code></td>
                                                     <td>
-                                                        <input type="text" class="form-control" name="friendly_name-{$placeholder->name}" value="{$placeholder->friendly_name}">
+                                                        <input type="text" class="form-control" name="friendly_name-{$placeholder->name}-server-{$placeholder->server_id}" value="{$placeholder->friendly_name}">
                                                     </td>
                                                     <td class="text-center">
-                                                        <input type="checkbox" class="js-switch" name="show_on_profile-{$placeholder->name}" {if $placeholder->show_on_profile eq 1} checked {/if}>
+                                                        <input type="checkbox" class="js-switch" name="show_on_profile-{$placeholder->name}-server-{$placeholder->server_id}" {if $placeholder->show_on_profile eq 1} checked {/if}>
                                                     </td>
                                                     <td class="text-center">
-                                                        <input type="checkbox" class="js-switch" name="show_on_forum-{$placeholder->name}" {if $placeholder->show_on_forum eq 1} checked {/if}>
+                                                        <input type="checkbox" class="js-switch" name="show_on_forum-{$placeholder->name}-server-{$placeholder->server_id}" {if $placeholder->show_on_forum eq 1} checked {/if}>
                                                     </td>
                                                     <td class="text-center">
                                                         {if $placeholder->leaderboard eq 1}

@@ -19,10 +19,9 @@ class Placeholders {
     private $_db = null;
 
     private $_all_placeholders;
-    private $_leaderboard_data;
 
     public static function getInstance() {
-        if(!isset(self::$_instance)) {
+        if (!isset(self::$_instance)) {
             self::$_instance = new Placeholders();
         }
 
@@ -40,10 +39,7 @@ class Placeholders {
 
             $sort = $placeholder->leaderboard_sort;
 
-            if (!array_key_exists($sort, ['ASC', 'DESC'])) {
-                $sort = 'DESC';
-            }
-
+            $data->server_id = $placeholder->server_id;
             $data->name = $placeholder->name;
             $data->safe_name = sha1($placeholder->name);
             $data->friendly_name = isset($placeholder->friendly_name) ? $placeholder->friendly_name : $placeholder->name;
@@ -52,8 +48,7 @@ class Placeholders {
             $data->leaderboard = $placeholder->leaderboard;
             $data->leaderboard_title = isset($placeholder->leaderboard_title) ? $placeholder->leaderboard_title : $data->friendly_name;
             $data->leaderboard_sort = $sort;
-            $data->leaderboard_settings_url = URL::build('/panel/core/placeholders', 'leaderboard=' . $data->safe_name);
-
+            $data->leaderboard_settings_url = URL::build('/panel/core/placeholders', 'leaderboard=' . $data->safe_name . '&server_id=' . $data->server_id);
             $placeholders[] = $data;
         }
 
@@ -70,14 +65,15 @@ class Placeholders {
     }
 
     /**
-     * Get placeholder data by name of placeholder.
+     * Get placeholder data by server id and  name of placeholder.
      * 
+     * @param int $server_id Server ID to get this placeholder from, if it exists across multiple.
      * @param string $placeholder_name Name of placeholder - must be hashed with sha1.
      * @return object|null This placeholder's data, null if not exist.
      */
-    public function getPlaceholderByName($placeholder_name) {
+    public function getPlaceholder($server_id, $placeholder_name) {
         foreach ($this->_all_placeholders as $placeholder) {
-            if ($placeholder->safe_name == $placeholder_name) {
+            if ($placeholder->server_id == $server_id && $placeholder->safe_name == $placeholder_name) {
                 return $placeholder;
             }
         }
@@ -86,31 +82,32 @@ class Placeholders {
     }
 
     /**
-     * Create a new row in nl2_placeholders_settings if a row with the "name" of $name does not exist.
+     * Create a new row in nl2_placeholders_settings if a row with the "server_id" of $server_id and "name" of $name does not exist (this lets the same placeholder name be used across multiple NamelessMC plugin servers).
      * 
+     * @param int $server_id ID of the server this placeholder resides on
      * @param string $name Name of placeholder
      */
-    public function registerPlaceholder($name) {
-        $this->_db->query("INSERT IGNORE INTO nl2_placeholders_settings (name) VALUES (?)", [$name]);
+    public function registerPlaceholder($server_id, $name) {
+        $this->_db->query("INSERT IGNORE INTO nl2_placeholders_settings (server_id, name) VALUES (?, ?)", [$server_id, $name]);
     }
 
     /**
-     * Load placeholders for this specific user.
+     * Load placeholders for a specific user.
      * 
      * @param string $uuid Their valid Minecraft uuid to use for lookup.
      * @return array Their placeholders.
      */
     public function loadUserPlaceholders($uuid) {
 
-        $user_placeholders = [];
+        $placeholder_query = $this->_db->query('SELECT * FROM nl2_users_placeholders up JOIN nl2_placeholders_settings ps ON up.name = ps.name AND up.server_id = ps.server_id WHERE up.uuid = ?', [$uuid]);
 
-        $placeholders = $this->_db->query('SELECT * FROM nl2_users_placeholders up JOIN nl2_placeholders_settings ps ON up.name = ps.name WHERE up.uuid = ?', [$uuid]);
-
-        if (!$placeholders->count()) {
-            return $user_placeholders;
+        if (!$placeholder_query->count()) {
+            return [];
         }
 
-        $placeholders = $placeholders->results();
+        $user_placeholders = [];
+
+        $placeholders = $placeholder_query->results();
         foreach ($placeholders as $placeholder) {
             $data = new stdClass();
 
@@ -140,30 +137,23 @@ class Placeholders {
     }
 
     /**
-     * Get (cached) leaderboard data for a specific leaderboard.
+     * Get leaderboard data for a specific leaderboard.
      * 
+     * @param int $server_id Server ID to get this placeholder from.
      * @param string $placeholder_name Unique name of placeholder to get data for.
-     * @return array|null Array of data or null if this placeholder is not setup for leaderboards.
+     * @return array Array of leaderboard data.
      */
-    public function getLeaderboardData($placeholder_name) {
-        if (!in_array($placeholder_name, array_column($this->getLeaderboardPlaceholders(), 'name'))) {
-            return null;
-        }
+    public function getLeaderboardData($server_id, $placeholder_name) {
 
-        if (isset($this->_leaderboard_data[$placeholder_name])) {
-            return $this->_leaderboard_data[$placeholder_name];
-        }
+        $sort = $this->getPlaceholder($server_id, sha1($placeholder_name))->leaderboard_sort;
 
-        $sort = $this->getPlaceholderByName($placeholder_name)->leaderboard_sort;
-
-        $leaderboard_data = $this->_db->query("SELECT * FROM nl2_users_placeholders WHERE name = ? ORDER BY value {$sort} LIMIT 50", [$placeholder_name]);
+        // We have to add 0 to value so mysql converts from the TEXT field to an integer value
+        $leaderboard_data = $this->_db->query("SELECT * FROM nl2_users_placeholders WHERE name = ? AND server_id = ? ORDER BY value + 0 {$sort} LIMIT 50", [$placeholder_name, $server_id]);
 
         if (!$leaderboard_data->count()) {
             return [];
         }
 
-        $this->_leaderboard_data[$placeholder_name] = $leaderboard_data->results();
-
-        return $this->_leaderboard_data[$placeholder_name];
+        return $leaderboard_data->results();
     }
 }
