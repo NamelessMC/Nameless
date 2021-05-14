@@ -10,6 +10,7 @@ if (!isset($_SESSION['site_initialized']) || $_SESSION['site_initialized'] != tr
 }
 
 require(ROOT_PATH . '/core/includes/password.php');
+require_once(ROOT_PATH . '/core/integration/uuid.php');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -64,12 +65,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			$language = $queries->getWhere('languages', array('is_default', '=', 1));
 
 			$ip = $user->getIP();
+            $uuid = 'none';
+
+            $profile = ProfileUtils::getProfile(Output::getClean(Input::get('username')));
+            if (!empty($profile)) {
+                $result = $profile->getProfileAsArray();
+                if (isset($result['uuid']) && !empty($result['uuid'])) {
+                    $uuid = Output::getClean($result['uuid']);
+                }
+            }
+
 			$user->create(array(
 				'username' => Output::getClean(Input::get('username')),
 				'nickname' => Output::getClean(Input::get('username')),
 				'password' => $password,
 				'pass_method' => 'default',
-				'uuid' => 'none',
+				'uuid' => $uuid,
 				'joined' => date('U'),
 				'email' => Output::getClean(Input::get('email')),
 				'lastip' => $ip,

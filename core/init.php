@@ -394,17 +394,15 @@ if ($page != 'install') {
     } else
         define('DEFAULT_AVATAR_TYPE', 'minecraft');
 
-    if (DEFAULT_AVATAR_TYPE == 'minecraft') {
-        if ($cache->isCached('avatar_source'))
-            define('DEFAULT_AVATAR_SOURCE', $cache->retrieve('avatar_source'));
-        else
-            define('DEFAULT_AVATAR_SOURCE', 'cravatar');
+    if ($cache->isCached('avatar_source'))
+        define('DEFAULT_AVATAR_SOURCE', $cache->retrieve('avatar_source'));
+    else
+        define('DEFAULT_AVATAR_SOURCE', 'cravatar');
 
-        if ($cache->isCached('avatar_perspective'))
-            define('DEFAULT_AVATAR_PERSPECTIVE', $cache->retrieve('avatar_perspective'));
-        else
-            define('DEFAULT_AVATAR_PERSPECTIVE', 'face');
-    }
+    if ($cache->isCached('avatar_perspective'))
+        define('DEFAULT_AVATAR_PERSPECTIVE', $cache->retrieve('avatar_perspective'));
+    else
+        define('DEFAULT_AVATAR_PERSPECTIVE', 'face');
 
     // Maintenance mode?
     $cache->setCache('maintenance_cache');

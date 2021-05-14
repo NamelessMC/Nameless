@@ -73,7 +73,7 @@ class AvatarSource {
 
     /**
      * Set the active source to the source by name. 
-     * Fallsback to Crafatar if name was not found.
+     * Fallsback to Cravatar if name was not found.
      * 
      * @param string $name Name of source to set as active.
      */
