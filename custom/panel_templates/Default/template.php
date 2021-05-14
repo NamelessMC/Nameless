@@ -220,7 +220,11 @@ if (!class_exists('Default_Panel_Template')) {
                     case 'reactions':
                     case 'social_media':
                     case 'widgets':
+<<<<<<< refs/remotes/upstream/v2
                     case 'minecraft':
+=======
+                    case 'placeholders':
+>>>>>>> Add placeholderapi support + configuration + leaderboards (#2264)
                         $this->addJSScript('
 						var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
 

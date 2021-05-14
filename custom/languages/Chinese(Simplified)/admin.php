@@ -178,6 +178,7 @@ $language = array(
     'emails_mass_message_loading' => '加载中... 请勿刷新此页面。这可能需要几分钟。',
 
     // Placeholders
+<<<<<<< refs/remotes/upstream/v2
     'placeholders' => '占位符',
     'updated_placeholder_settings' => '占位符设置更新成功。',
     'placeholders_info' => '通过占位符功能，NamelessMC Spigot 插件可以向您的网站上显示关于玩家的信息，这样，玩家就可以把这些信息添加到自己的个人资料上。',
@@ -202,6 +203,32 @@ $language = array(
     'placeholder_leaderboard_enabled' => '排行榜启用',
     'placeholder_leaderboard_title' => '排行榜标题',
     'placeholder_leaderboard_sort' => '排行榜排序',
+=======
+    'placeholders' => 'Placeholders',
+    'updated_placeholder_settings' => 'Updated placeholder settings successfully.',
+    'placeholders_info' => 'Placeholders allow the NamelessMC Spigot plugin to send statistics about each player to your website so they can display them on their profile and forum posts.',
+    'placeholders_none' => 'There are no placeholders.',
+    'placeholders_server_id' => 'Server ID',
+    'placeholders_name' => 'Name',
+    'placeholders_value' => 'Value',
+    'placeholders_last_updated' => 'Last Updated',
+    'placeholders_friendly_name' => 'Friendly Name',
+    'placeholders_friendly_name_info' => 'Use this to set a \'nickname\' to this placeholder. The friendly name will be used instead of the raw name.',
+    'placeholders_show_on_profile' => 'Show on Profile',
+    'placeholders_show_on_profile_info' => 'Whether to show this placeholder on each user\'s profile or not.',
+    'placeholders_show_on_forum' => 'Show on Forum',
+    'placeholders_show_on_forum_info' => 'Whether to show this placeholder on each user\'s forum posts or not.',
+
+    // Placeholder leaderboards
+    'leaderboard_settings' => 'Leaderboard Settings',
+    'placeholder_leaderboard_settings' => 'Placeholder Leaderboard Settings',
+    'placeholder_leaderboard_info' => 'Placeholder Leaderboards let you create leaderboards to display ranked players on your server according to any placeholder.',
+    'placeholder_leaderboard_enable_info' => 'Leaderboards work best with numeric placeholders (such as coins, kills, blocks mined, etc). If you enable a leaderboard on a text-based placeholder - you cannot be sure it will order it as you want.',
+    'placeholder_leaderboard_updated' => 'Updated leaderboard settings successfully',
+    'placeholder_leaderboard_enabled' => 'Leaderboard Enabled',
+    'placeholder_leaderboard_title' => 'Leaderboard Title',
+    'placeholder_leaderboard_sort' => 'Leaderboard Sort',
+>>>>>>> Add placeholderapi support + configuration + leaderboards (#2264)
 
     // SEO
     'seo' => 'SEO',

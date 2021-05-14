@@ -52,7 +52,11 @@ class Placeholders {
             $data->leaderboard = $placeholder->leaderboard;
             $data->leaderboard_title = isset($placeholder->leaderboard_title) ? $placeholder->leaderboard_title : $data->friendly_name;
             $data->leaderboard_sort = $sort;
+<<<<<<< refs/remotes/upstream/v2
             $data->leaderboard_settings_url = URL::build('/panel/minecraft/placeholders', 'leaderboard=' . $data->safe_name . '&server_id=' . $data->server_id);
+=======
+            $data->leaderboard_settings_url = URL::build('/panel/core/placeholders', 'leaderboard=' . $data->safe_name . '&server_id=' . $data->server_id);
+>>>>>>> Add placeholderapi support + configuration + leaderboards (#2264)
             $placeholders[] = $data;
         }
 

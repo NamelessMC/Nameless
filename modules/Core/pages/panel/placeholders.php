@@ -15,16 +15,25 @@ if(!$user->handlePanelPageLoad('admincp.core.placeholders')) {
 }
 
 define('PAGE', 'panel');
+<<<<<<< refs/remotes/upstream/v2
 define('PARENT_PAGE', 'integrations');
 define('PANEL_PAGE', 'minecraft');
 define('MINECRAFT_PAGE', 'placeholders');
+=======
+define('PARENT_PAGE', 'core_configuration');
+define('PANEL_PAGE', 'placeholders');
+>>>>>>> Add placeholderapi support + configuration + leaderboards (#2264)
 $page_title = $language->get('admin', 'placeholders');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 $queries = new Queries();
 
 $all_placeholders = Placeholders::getInstance()->getAllPlaceholders();
 
+<<<<<<< refs/remotes/upstream/v2
 $template_file = 'integrations/minecraft/placeholders.tpl';
+=======
+$template_file = 'core/placeholders.tpl';
+>>>>>>> Add placeholderapi support + configuration + leaderboards (#2264)
 
 if (isset($_GET['leaderboard'])) {
     
@@ -34,7 +43,11 @@ if (isset($_GET['leaderboard'])) {
 
     if ($placeholder != null) {
 
+<<<<<<< refs/remotes/upstream/v2
         $template_file = 'integrations/minecraft/placeholders_leaderboard.tpl';
+=======
+        $template_file = 'core/placeholders_leaderboard.tpl';
+>>>>>>> Add placeholderapi support + configuration + leaderboards (#2264)
 
         if (Input::exists()) {
 
@@ -55,7 +68,11 @@ if (isset($_GET['leaderboard'])) {
 
                 Session::flash('placeholders_success', $language->get('admin', 'placeholder_leaderboard_updated'));
 
+<<<<<<< refs/remotes/upstream/v2
                 Redirect::to(URL::build('/panel/minecraft/placeholders'));
+=======
+                Redirect::to(URL::build('/panel/core/placeholders'));
+>>>>>>> Add placeholderapi support + configuration + leaderboards (#2264)
 
             } else {
                 $errors[] = $language->get('general', 'invalid_token');
@@ -72,13 +89,18 @@ if (isset($_GET['leaderboard'])) {
             'ENABLED_INFO' => $language->get('admin', 'placeholder_leaderboard_enable_info'),
             'SUBMIT' => $language->get('general', 'submit'),
             'BACK' => $language->get('general', 'back'),
+<<<<<<< refs/remotes/upstream/v2
             'BACK_LINK' => URL::build('/panel/minecraft/placeholders'),
+=======
+            'BACK_LINK' => URL::build('/panel/core/placeholders'),
+>>>>>>> Add placeholderapi support + configuration + leaderboards (#2264)
             'PLACEHOLDERS' => $language->get('admin', 'placeholders'),
             'PLACEHOLDER_LEADERBOARD_SETTINGS' => $language->get('admin', 'placeholder_leaderboard_settings'),
             'PLACEHOLDER_LEADERBOARD_INFO' => $language->get('admin', 'placeholder_leaderboard_info'),
             'PLACEHOLDER' => $placeholder,
             'LEADERBOARD_ENABLED' => $language->get('admin', 'placeholder_leaderboard_enabled'),
             'LEADERBOARD_TITLE' => $language->get('admin', 'placeholder_leaderboard_title'),
+<<<<<<< refs/remotes/upstream/v2
             'LEADERBOARD_SORT' => $language->get('admin', 'placeholder_leaderboard_sort'),
             'INTEGRATIONS' => $language->get('admin', 'integrations'),
             'MINECRAFT' => $language->get('admin', 'minecraft'),
@@ -87,6 +109,13 @@ if (isset($_GET['leaderboard'])) {
 
     } else {
         Redirect::to(URL::build('/panel/minecraft/placeholders'));
+=======
+            'LEADERBOARD_SORT' => $language->get('admin', 'placeholder_leaderboard_sort')
+        ));
+
+    } else {
+        Redirect::to(URL::build('/panel/core/placeholders'));
+>>>>>>> Add placeholderapi support + configuration + leaderboards (#2264)
         die();
     }
 
@@ -114,7 +143,11 @@ if (isset($_GET['leaderboard'])) {
 
             Session::flash('placeholders_success', $language->get('admin', 'updated_placeholder_settings'));
 
+<<<<<<< refs/remotes/upstream/v2
             Redirect::to(URL::build('/panel/minecraft/placeholders'));
+=======
+            Redirect::to(URL::build('/panel/core/placeholders'));
+>>>>>>> Add placeholderapi support + configuration + leaderboards (#2264)
         } else {
             $errors[] = $language->get('general', 'invalid_token');
         }
@@ -142,9 +175,12 @@ if (isset($_GET['leaderboard'])) {
         'SHOW_ON_FORUM_INFO' => $language->get('admin', 'placeholders_show_on_forum_info'),
         'LEADERBOARD_ENABLED' => $language->get('admin', 'placeholder_leaderboard_enabled'),
         'LEADERBOARD_SETTINGS' => $language->get('admin', 'leaderboard_settings'),
+<<<<<<< refs/remotes/upstream/v2
         'INTEGRATIONS' => $language->get('admin', 'integrations'),
         'MINECRAFT' => $language->get('admin', 'minecraft'),
         'MINECRAFT_LINK' => URL::build('/panel/minecraft')
+=======
+>>>>>>> Add placeholderapi support + configuration + leaderboards (#2264)
     ));
 }
 
