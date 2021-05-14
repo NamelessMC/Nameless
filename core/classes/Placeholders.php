@@ -39,6 +39,10 @@ class Placeholders {
 
             $sort = $placeholder->leaderboard_sort;
 
+            if (!in_array($sort, ['ASC', 'DESC'])) {
+                $sort = 'DESC';
+            }
+
             $data->server_id = $placeholder->server_id;
             $data->name = $placeholder->name;
             $data->safe_name = sha1($placeholder->name);
