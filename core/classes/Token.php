@@ -30,10 +30,12 @@ class Token {
         // Return if it already exists
         if (Session::exists($tokenName)) {
             return Session::get($tokenName);
-        } else {
-            // Otherwise generate a new one
-            return self::generate();
         }
+
+        // Otherwise generate a new one
+        self::generate();
+        
+        return self::get();
     }
 
     /**
