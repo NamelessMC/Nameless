@@ -21,7 +21,7 @@ class DatabaseHandler {
         if (!isset(self::$_instance)) {
             self::$_instance = new DatabaseHandler();
         }
-        
+
         return self::$_instance;
     }
 
@@ -35,16 +35,28 @@ class DatabaseHandler {
 
     public function pushQuery($sql, $params) {
 
-        $backtrace = array_shift(debug_backtrace());
+        $backtrace = $this->lastReleventBacktrace(debug_backtrace());
 
         $this->_query_stack[] = [
-            'num' => $this->_query_stack_num,
-            'frame_file' => $backtrace['file'],
-            'frame_line' => $backtrace['line'],
+            'number' => $this->_query_stack_num,
+            'frame' => ErrorHandler::parseFrame(null, $backtrace['file'], $backtrace['line'], $this->_query_stack_num),
             'sql_query' => $this->compileQuery($sql, $params)
         ];
 
         $this->_query_stack_num++;
+    }
+
+    private function lastReleventBacktrace($backtrace) {
+
+        $current_file = $last_file = $backtrace[0]['file'];
+        $i = 1;
+
+        while ($current_file == $last_file) {
+            $last_file = $backtrace[$i]['file'];
+            $i++;
+        }
+
+        return $backtrace[$i];
     }
 
     private function compileQuery($sql, $params) {

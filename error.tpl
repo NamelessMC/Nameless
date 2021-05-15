@@ -130,13 +130,11 @@
                                     </div>
 
                                     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                        <p>{$ERROR_SQL_QUERY}</p>   
-                                        <br>
                                         {foreach from=$ERROR_SQL_STACK item=$stack }
 
                                             <p>
-                                                <strong>{$stack['num']}:</strong>
-                                                {$stack['sql_query']}
+                                                {$stack['number']}: {$stack['sql_query']}
+                                                {$stack['frame']['file']}:{$stack['frame']['line']}
                                             </p>
 
                                         {/foreach}

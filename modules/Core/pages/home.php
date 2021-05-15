@@ -35,7 +35,7 @@ if(Session::exists('home_error')){
 
 if(isset($front_page_modules)){
 	foreach($front_page_modules as $module){
-		require(ROOT_PATH . '/' . $module);
+		requ ire(ROOT_PATH . '/' . $module);
 	}
 }
 

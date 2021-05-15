@@ -61,9 +61,6 @@ class ErrorHandler {
                 $frames[] = self::parseFrame($exception, $frame['file'], $frame['line'], $i);
                 $i--;
             }
-
-            $sql_query = DatabaseHandler::getInstance()->getMostRecentSqlQuery();
-            $query_stack = DatabaseHandler::getInstance()->getSqlStack();
         }
 
         define('ERRORHANDLER', true);
@@ -81,7 +78,7 @@ class ErrorHandler {
      * @param int|null $number Higher number = more recent frame. If null, will use $exception trace count + 1.
      * @return array This frame in an array form.
      */
-    private static function parseFrame($exception, $frame_file, $frame_line, $number = null) {
+    public static function parseFrame($exception, $frame_file, $frame_line, $number = null) {
         $lines = file($frame_file);
 
         return [
