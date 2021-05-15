@@ -25,7 +25,8 @@
                         <h1 class="h3 mb-0 text-gray-800">{$PLACEHOLDER_LEADERBOARD_SETTINGS}</h1>
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{$PANEL_INDEX}">{$DASHBOARD}</a></li>
-                            <li class="breadcrumb-item active">{$CONFIGURATION}</li>
+                            <li class="breadcrumb-item active">{$INTEGRATIONS}</li>
+                            <li class="breadcrumb-item"><a href="{$MINECRAFT_LINK}">{$MINECRAFT}</a></li>
                             <li class="breadcrumb-item active">{$PLACEHOLDERS}</li>
                         </ol>
                     </div>
