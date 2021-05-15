@@ -90,6 +90,12 @@ class Nameless2API {
 
     // Internal functions
 
+    /**
+     * Validate provided API key to make sure it matches.
+     * 
+     * @param string $api_key API key to check.
+     * @return bool Whether it matches or not.
+     */
     private function validateKey($api_key = null) {
         if ($api_key) {
             // Check cached key
@@ -103,10 +109,15 @@ class Nameless2API {
                 // Store in cache file
                 file_put_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('apicache') . '.cache', $correct_key);
 
-            } else $correct_key = file_get_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('apicache') . '.cache');
+            } else {
+                $correct_key = file_get_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('apicache') . '.cache');
+            }
 
-            if ($api_key == $correct_key) return true;
+            if ($api_key == $correct_key) {
+                return true;
+            }
         }
+
         return false;
     }
 

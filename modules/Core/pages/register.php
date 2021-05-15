@@ -401,7 +401,7 @@ if (Input::exists()) {
                                     'username' => Output::getClean(Input::get('username')),
                                     'uuid' => $uuid,
                                     'content' => str_replace('{x}', Output::getClean(Input::get('username')), $language->get('user', 'user_x_has_registered')),
-                                    'avatar_url' => $user->getAvatar(null, 128, true),
+                                    'avatar_url' => $user->getAvatar(128, true),
                                     'url' => Util::getSelfURL() . ltrim(URL::build('/profile/' . Output::getClean(Input::get('username'))), '/'),
                                     'language' => $language
                                 ));
@@ -420,7 +420,7 @@ if (Input::exists()) {
                                     'username' => Output::getClean(Input::get('username')),
                                     'uuid' => $uuid,
                                     'content' => str_replace('{x}', Output::getClean(Input::get('username')), $language->get('user', 'user_x_has_registered')),
-                                    'avatar_url' => $user->getAvatar(null, 128, true),
+                                    'avatar_url' => $user->getAvatar(128, true),
                                     'url' => Util::getSelfURL() . ltrim(URL::build('/profile/' . Output::getClean(Input::get('username'))), '/'),
                                     'language' => $language
                                 )
