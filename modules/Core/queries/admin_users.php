@@ -73,7 +73,7 @@ if (count($results)) {
         $obj->joined = date('d M Y', $result->joined);
 
         // Get group
-        $group = DB::getInstance()->query('SELECT `name` FROM nl2_groups WHERE id = (SELECT group_id FROM nl2_users_groups WHERE user_id = ? ORDER BY `order` ASC LIMIT 1)', array($result->id));
+        $group = DB::getInstance()->query('SELECT `name` FROM nl2_groups g JOIN nl2_users_groups ug ON g.id = ug.group_id WHERE ug.user_id = ? ORDER BY g.order ASC LIMIT 1', array($result->id));
         $obj->groupName = $group->first()->name;
 
         $data[] = $obj;
