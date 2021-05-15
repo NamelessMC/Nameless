@@ -1086,9 +1086,13 @@ body.dark #user-popup .description,
 body.dark .ui.search.dropdown.active > input.search,
 body.dark .ui.search.selection.dropdown > input.search,
 <<<<<<< refs/remotes/upstream/v2
+<<<<<<< refs/remotes/upstream/v2
 body.dark .ui.selection.dropdown .menu > .message,
 =======
 >>>>>>> Update search dropdown dark mode CSS
+=======
+body.dark .ui.selection.dropdown .menu > .message,
+>>>>>>> Update search dropdown message dark mode CSS
 body.dark .ui.attached.tabular.menu .item.active,
 body.dark .ui.threaded.comments .comment .text {
 	color: #fff;
