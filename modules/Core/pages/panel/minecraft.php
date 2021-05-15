@@ -108,6 +108,13 @@ if($minecraft_enabled == 1){
             'BANNERS_LINK' => URL::build('/panel/minecraft/banners')
         ));
     }
+
+    if ($user->hasPermission('admincp.core.placeholders')) {
+        $smarty->assign(array(
+            'PLACEHOLDERS' => $language->get('admin', 'placeholders'),
+            'PLACEHOLDERS_LINK' => URL::build('/panel/minecraft/placeholders')
+        ));
+    }
 }
 
 $page_load = microtime(true) - $start;

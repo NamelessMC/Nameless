@@ -15,7 +15,7 @@ class Session {
      * Check to see if a session exists.
      *
      * @param string $name Session variable name to check for.
-     * @return void
+     * @return bool
      */
     public static function exists($name) {
         return isset($_SESSION[$name]);
