@@ -76,11 +76,9 @@
                                     <li class="nav-item" role="presentation">
                                         <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Stack trace</a>
                                     </li>
-                                    {if $ERROR_SQL_QUERY != null}
                                     <li class="nav-item" role="presentation">
                                         <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">SQL trace</a>
                                     </li>
-                                    {/if}
                                     <li class="nav-item" role="presentation">
                                         <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Request</a>
                                     </li>
@@ -131,7 +129,6 @@
                                     
                                     </div>
 
-                                    {if $ERROR_SQL_QUERY != null}
                                     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                         <p>{$ERROR_SQL_QUERY}</p>   
                                         <br>
@@ -144,7 +141,6 @@
 
                                         {/foreach}
                                     </div>
-                                    {/if}
 
                                     <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
                                         {$HEADERS|var_dump}

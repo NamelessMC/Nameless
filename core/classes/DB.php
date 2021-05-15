@@ -17,14 +17,14 @@ class DB {
     /** @var PDO */
     private $_pdo;
 
+    /** @var DatabaseHandler */
+    private $_database_handler;
+
     private $_query,
             $_error = false,
             $_results,
             $_prefix,
             $_count = 0;
-
-    private $_sql_stack;
-    private $_sql_stack_num = 1;
 
     private function __construct() {
         try {
@@ -34,6 +34,8 @@ class DB {
         } catch (PDOException $e) {
             die("<strong>Error:<br /></strong><div class=\"alert alert-danger\">" . $e->getMessage() . "</div>Please check your database connection settings.");
         }
+
+        $this->_database_handler = DatabaseHandler::getInstance();
     }
 
     public static function getInstance() {
@@ -55,53 +57,19 @@ class DB {
                 }
             }
 
-            $backtrace = array_shift(debug_backtrace());
+            $this->_database_handler->pushQuery($sql, $params);
 
-            $this->_sql_stack[] = [
-                'num' => $this->_sql_stack_num,
-                'frame_file' => $backtrace['file'],
-                'frame_line' => $backtrace['line'],
-                'sql_query' => $this->compileQuery($sql, $params)
-            ];
-
-            $this->_sql_stack_num++;
-
-            try {
-                $this->_query->execute();
+            if ($this->_query->execute()) {
                 $this->_results = $this->_query->fetchAll($fetch_method);
                 $this->_count = $this->_query->rowCount();
-            } catch (PDOException $exception) {
-                throw new NamelessPDOException($exception, $this->_sql_stack);
+            } else {
+                print_r($this->_pdo->errorInfo());
+                $this->_error = true;
             }
 
         }
 
         return $this;
-    }
-
-    private function compileQuery($sql, $params) {
-        $comp = '';
-
-        $split = explode(' ?', $sql);
-
-        $i = 0;
-        foreach ($split as $section) {
-
-            if ($section == '') {
-                continue;
-            }
-
-            $param = $params[$i];
-
-            $comp .= "$section '$param'";
-            $i++;
-        }
-
-        if (!str_ends_with(';', $comp)) {
-            $comp .= ';';
-        }
-
-        return SQLFormatter::highlight(trim($comp));
     }
 
     public function createQuery($sql, $params = array()) {
@@ -115,16 +83,7 @@ class DB {
                 }
             }
 
-            $backtrace = array_shift(debug_backtrace());
-
-            $this->_sql_stack[] = [
-                'num' => $this->_sql_stack_num,
-                'frame_file' => $backtrace['file'],
-                'frame_line' => $backtrace['line'],
-                'sql_query' => $this->compileQuery($sql, $params)
-            ];
-
-            $this->_sql_stack_num++;
+            $this->_database_handler->pushQuery($sql, $params);
 
             if($this->_query->execute()) {
                 $this->_count = $this->_query->rowCount();
