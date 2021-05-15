@@ -1085,6 +1085,7 @@ body.dark .ui.vertical.menu .item:hover,
 body.dark #user-popup .description,
 body.dark .ui.search.dropdown.active > input.search,
 body.dark .ui.search.selection.dropdown > input.search,
+body.dark .ui.selection.dropdown .menu > .message,
 body.dark .ui.attached.tabular.menu .item.active,
 body.dark .ui.threaded.comments .comment .text {
 	color: #fff;
