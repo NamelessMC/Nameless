@@ -17,14 +17,23 @@ $language = array(
     'pre-release' => 'pre-release',
     'installer_welcome' => 'Vitajte v NamelessMC verzie 2.0 pre-release.',
     'pre-release_warning' => 'Upozorňujeme, že toto predbežné vydanie nie je určené na použitie na verejnej stránke.',
+<<<<<<< refs/remotes/upstream/v2
     'installer_information' => 'Inštalátor vás prevedie procesom inštalácie.',
+=======
+    'installer_information' => 'Inštalačný program vás prevedie procesom inštalácie.',
+>>>>>>> Update Slovak translation (#2277)
     'terms_and_conditions' => 'Pokračovaním vyjadrujete súhlas s obchodnými podmienkami.',
     'new_installation_question' => 'Po prvé, ide o novú inštaláciu?',
     'new_installation' => 'Nová inštalácia &raquo;',
     'upgrading_from_v1' => 'Aktualizácia z v1 &raquo;',
     'requirements' => 'Požiadavky:',
+<<<<<<< refs/remotes/upstream/v2
     'config_writable' => 'core/config.php zapisovateľné',
     'cache_writable' => 'Cache zapisovateľná',
+=======
+    'config_writable' => 'core/config.php Zapisovateľné',
+    'cache_writable' => 'Cache Zapisovateľná',
+>>>>>>> Update Slovak translation (#2277)
     'template_cache_writable' => 'Cache šablóny zapisovateľná',
     'exif_imagetype_banners_disabled' => 'Bez funkcie exif_imagetype budú bannery servera zakázané.',
     'requirements_error' => 'Ak chcete pokračovať v inštalácii, musíte mať nainštalované všetky požadované rozšírenia a mať správne nastavené oprávnenia.',
@@ -39,15 +48,26 @@ $language = array(
     'nameless_path_info' => 'Toto je cesta, na ktorej je Nameless nainštalovaný, vo vzťahu k vašej doméne. Ak je napríklad Nameless nainštalovaný na adrese example.com/forum, musí to byť <strong>forum</strong>. Ak nie je Nameless v podpriečinku, nechajte ho prázdne.',
     'friendly_urls' => 'Priateľské URL',
     'friendly_urls_info' => 'Priateľské adresy URL zlepšia čitateľnosť adries URL vo vašom prehliadači. <br /> Napríklad: <br /><code>example.com/index.php?route=/forum</code><br />sa stane:<br /><code>example.com/forum</code><br /><div class="ui inverted orange segment"><i class="exclamation circle icon"></i><strong>Dôležité!</strong><br />Váš server musí byť správne nakonfigurovaný, aby to fungovalo. To, či môžete povoliť túto možnosť, zobrazíte kliknutím <a href="./rewrite_test" target="_blank" style="color:#2185D0">tu</a>.</div>',
+<<<<<<< refs/remotes/upstream/v2
     'enabled' => 'Povolené',
+=======
+    'enabled' => 'Zapnuté',
+>>>>>>> Update Slovak translation (#2277)
     'disabled' => 'Zakázané',
     'character_set' => 'Znaková sada',
     'database_engine' => 'Engine databázového úložiska',
     'host' => 'Hostname',
+<<<<<<< refs/remotes/upstream/v2
     'host_help' => 'Hostname je <strong>základná URL adresa</strong> vášho webu. Sem nezahŕňajte podpriečinky z poľa Cesta inštalácie ani http(s)://!',
     'database_error' => 'Skontrolujte, či sú všetky polia vyplnené.',
     'submit' => 'Potvrdiť',
     'installer_now_initialising_database' => 'Inštalátor teraz inicializuje databázu. Môže to chvíľu trvať...',
+=======
+    'host_help' => 'Názov hostiteľa je <strong>základná adresa URL</strong> vášho webu. Sem nezahŕňajte podpriečinky z poľa Inštalačná cesta ani http(s)://!',
+    'database_error' => 'Skontrolujte, či sú všetky polia vyplnené.',
+    'submit' => 'Potvrdiť',
+    'installer_now_initialising_database' => 'Inštalačný program teraz inicializuje databázu. Môže to chvíľu trvať...',
+>>>>>>> Update Slovak translation (#2277)
     'configuration' => 'Konfigurácia',
     'configuration_info' => 'Zadajte základné informácie o svojom webe. Tieto hodnoty je možné neskôr zmeniť prostredníctvom admin panela.',
     'configuration_error' => 'Zadajte platný názov webu s dĺžkou od 1 do 32 znakov a platné emailové adresy s dĺžkou od 4 do 64 znakov.',
@@ -63,7 +83,11 @@ $language = array(
     'input_maximum' => 'Uistite sa, že vaše užívateľské meno má najviac 20 znakov a vaša emailová adresa a heslo majú maximálne 64 znakov.',
     'email_invalid' => 'Váš email je neplatný.',
     'passwords_must_match' => 'Vaše heslá sa nezhodujú.',
+<<<<<<< refs/remotes/upstream/v2
     'creating_admin_account' => 'Vytvárnie admin účtu',
+=======
+    'creating_admin_account' => 'Vytvára sa admin účet',
+>>>>>>> Update Slovak translation (#2277)
     'enter_admin_details' => 'Zadajte podrobnosti pre admin účet.',
     'username' => 'Užívateľské meno',
     'email_address' => 'Emailová adresa',
@@ -81,9 +105,15 @@ $language = array(
     'converter' => 'Konvertor',
     'back' => 'Späť',
     'unable_to_load_converter' => 'Nepodarilo sa načítať konvertor!',
+<<<<<<< refs/remotes/upstream/v2
     'finish' => 'Dokončenie',
     'finish_message' => 'Ďakujeme, že ste si nainštalovali NamelessMC! Teraz môžete prejsť na StaffCP, kde môžete ďalej konfigurovať svoju webstránku.',
     'support_message' => 'Ak potrebujete podporu, navštívte našu <a href="https://namelessmc.com" target="_blank">webstránku</a> alebo môžete navštíviť aj náš <a href="https://discord.gg/nameless" target="_blank">Discord server</a> alebo naše <a href="https://github.com/NamelessMC/Nameless/" target="_blank">GitHub úložisko</a>.',
+=======
+    'finish' => 'Dokončiť',
+    'finish_message' => 'Ďakujeme, že ste si nainštalovali NamelessMC! Teraz môžete prejsť na StaffCP, kde môžete ďalej konfigurovať svoju webstránku.',
+    'support_message' => 'Ak potrebujete podporu, navštívte našu webstránku <a href="https://namelessmc.com" target="_blank">tu</a> alebo môžete navštíviť aj náš <a href="https://discord.gg/nameless" target="_blank">Discord server</a> alebo naše <a href="https://github.com/NamelessMC/Nameless/" target="_blank">GitHub úložisko</a>.',
+>>>>>>> Update Slovak translation (#2277)
     'credits' => 'Kredity',
     'credits_message' => 'Obrovské poďakovanie všetkým <a href="https://github.com/NamelessMC/Nameless/graphs/contributors" target="_blank">NamelessMC prispievateľom</a> od roku 2014',
 

@@ -69,7 +69,11 @@ $language = array(
     'missing_sitename' => 'Vložte názov webu o dĺžke 2 až 64 znakov.',
     'missing_contact_address' => 'Vložte kontaktnú emailovú adresu o dĺžke 3 až 255 znakov.',
     'use_friendly_urls' => 'Priateľské URL',
+<<<<<<< refs/remotes/upstream/v2
     'use_friendly_urls_help' => 'DÔLEŽITÉ: Aby to fungovalo, váš server musí byť nakonfigurovaný tak, aby umožňoval použitie mod_rewrite a .htaccess súboru.',
+=======
+    'use_friendly_urls_help' => 'DÔLEŽITÉ: Váš server musí byť nakonfigurovaný tak, aby umožňoval použitie mod_rewrite a .htaccess súborov, aby to fungovalo.',
+>>>>>>> Update Slovak translation (#2277)
     'config_not_writable' => 'Váš <strong>core/config.php</strong> není prepisovateľný. Skontrolujte oprávnenia pre tento súbor.',
     'settings_updated_successfully' => 'Všeobecné nastavenia boli úspešne aktualizované.',
     'social_media' => 'Sociálne média',
@@ -93,7 +97,11 @@ $language = array(
     'debugging_and_maintenance' => 'Ladenie a údržba',
     'maintenance' => 'Údržba',
     'debugging_settings_updated_successfully' => 'Nastavenia ladenia sa úspešne aktualizovali.',
+<<<<<<< refs/remotes/upstream/v2
     'enable_debug_mode' => 'Povoliť debug mód?',
+=======
+    'enable_debug_mode' => 'Zapnúť debug mód?',
+>>>>>>> Update Slovak translation (#2277)
     'force_https' => 'Vynútiť https?',
     'force_https_help' => 'Ak je povolené, všetky požiadavky na vaše webstránky budú presmerované na https. Aby táto funkcia fungovala správne, musíte mať aktívny a platný SSL certifikát.',
     'force_www' => 'Vynútiť www?',
@@ -108,7 +116,11 @@ $language = array(
     'confirm_email_error_deletion' => 'Ste si istý, že chcete zmazať túto chybu?',
     'viewing_email_error' => 'Zobrazenie chyby',
     'unable_to_write_email_config' => 'Nedá sa zapisovať do súboru <strong>core/email.php</strong>. Skontrolujte povolenia súborov.',
+<<<<<<< refs/remotes/upstream/v2
     'enable_mailer' => 'Povoliť PHPMailer?',
+=======
+    'enable_mailer' => 'Zapnúť PHPMailer?',
+>>>>>>> Update Slovak translation (#2277)
     'enable_mailer_help' => 'Túto možnosť povoľte, ak sa emaily predvolene neposielajú. Používanie PHPMaileru vyžaduje, aby ste mali službu schopnú odosielať emaily, napríklad Gmail alebo SMTP poskytovateľ.',
     'outgoing_email' => 'Odchazádzajúca emailová adresa',
     'outgoing_email_info' => 'Toto je emailová adresa, z akej NamelessMC posiela emaily.',
@@ -166,7 +178,11 @@ $language = array(
     'validation_promote_group' => 'Skupina po overení',
     'validation_promote_group_info' => 'To je skupina, do ktorej bude užívateľ povýšený, keď overí svoj účet.',
     'login_method' => 'Spôsob prihlásenia',
+<<<<<<< refs/remotes/upstream/v2
     'privacy_and_terms' => 'Súkromie a podmienky',
+=======
+    'privacy_and_terms' => 'Ochrana osobných údajov a podmienky',
+>>>>>>> Update Slovak translation (#2277)
     'dropdown_name' => 'Dropdown názov',
     'editing_messages' => 'Úpravy správ',
     'emails_mass_message' => 'Hromadná emailová správa',
@@ -174,6 +190,7 @@ $language = array(
     'emails_mass_message_sent_successfully' => 'Hromadná emailová správa bola úspešne odoslaná.',
     'emails_mass_message_replacements' => 'Vo svojej emailovej správe môžete použiť premenné. Podporované premenné: {username}, {sitename}',
     'emails_mass_message_loading' => 'Načítava sa... Stránku znova nerefreshujte. Môže to chvíľu trvať.',
+<<<<<<< refs/remotes/upstream/v2
 
     // Placeholders
     'placeholders' => 'Placeholdery',
@@ -200,32 +217,34 @@ $language = array(
     'placeholder_leaderboard_enabled' => 'Výsledková tabuľka je povolená',
     'placeholder_leaderboard_title' => 'Názov výsledkovej tabuľky',
     'placeholder_leaderboard_sort' => 'Zoradenie výsledkovej tabuľky',
+=======
+>>>>>>> Update Slovak translation (#2277)
 
     // Placeholders
-    'placeholders' => 'Placeholders',
-    'updated_placeholder_settings' => 'Updated placeholder settings successfully.',
-    'placeholders_info' => 'Placeholders allow the NamelessMC Spigot plugin to send statistics about each player to your website so they can display them on their profile and forum posts.',
-    'placeholders_none' => 'There are no placeholders.',
+    'placeholders' => 'Placeholdery',
+    'updated_placeholder_settings' => 'Nastavenia placeholderov boli úspešne aktualizované.',
+    'placeholders_info' => 'Placeholdery umožňujú NamelessMC Spigot pluginu odosielať štatistiky o jednotlivých hráčoch na vaše webstránky, aby ich mohli zobrazovať vo svojich profiloch a príspevkoch na fóre.',
+    'placeholders_none' => 'Neexistujú žiadne placeholdery.',
     'placeholders_server_id' => 'Server ID',
-    'placeholders_name' => 'Name',
-    'placeholders_value' => 'Value',
-    'placeholders_last_updated' => 'Last Updated',
-    'placeholders_friendly_name' => 'Friendly Name',
-    'placeholders_friendly_name_info' => 'Use this to set a \'nickname\' to this placeholder. The friendly name will be used instead of the raw name.',
-    'placeholders_show_on_profile' => 'Show on Profile',
-    'placeholders_show_on_profile_info' => 'Whether to show this placeholder on each user\'s profile or not.',
-    'placeholders_show_on_forum' => 'Show on Forum',
-    'placeholders_show_on_forum_info' => 'Whether to show this placeholder on each user\'s forum posts or not.',
+    'placeholders_name' => 'Názov',
+    'placeholders_value' => 'Hodnota',
+    'placeholders_last_updated' => 'Naposledy aktualizované',
+    'placeholders_friendly_name' => 'Priateľský názov',
+    'placeholders_friendly_name_info' => 'Použite na nastavenie \'prezývky\' pre tento placeholder. Namiesto raw názvu sa použije priateľský názov.',
+    'placeholders_show_on_profile' => 'Zobraziť v profile',
+    'placeholders_show_on_profile_info' => 'Či sa má tento placeholder zobraziť v profile každého používateľa alebo nie.',
+    'placeholders_show_on_forum' => 'Zobraziť na fóre',
+    'placeholders_show_on_forum_info' => 'Či sa má tento placeholder zobrazovať v príspevkoch na fóre každého užívateľa alebo nie.',
 
     // Placeholder leaderboards
-    'leaderboard_settings' => 'Leaderboard Settings',
-    'placeholder_leaderboard_settings' => 'Placeholder Leaderboard Settings',
-    'placeholder_leaderboard_info' => 'Placeholder Leaderboards let you create leaderboards to display ranked players on your server according to any placeholder.',
-    'placeholder_leaderboard_enable_info' => 'Leaderboards work best with numeric placeholders (such as coins, kills, blocks mined, etc). If you enable a leaderboard on a text-based placeholder - you cannot be sure it will order it as you want.',
-    'placeholder_leaderboard_updated' => 'Updated leaderboard settings successfully',
-    'placeholder_leaderboard_enabled' => 'Leaderboard Enabled',
-    'placeholder_leaderboard_title' => 'Leaderboard Title',
-    'placeholder_leaderboard_sort' => 'Leaderboard Sort',
+    'leaderboard_settings' => 'Nastavenia výsledkovej tabuľky',
+    'placeholder_leaderboard_settings' => 'Nastavenia placeholderu výsledkovej tabuľky',
+    'placeholder_leaderboard_info' => 'Výsledkové tabuľky placeholderu vám umožňujú vytvárať výsledkové tabuľky, aby sa na vašom serveri zobrazovali hodnotení hráči podľa ľubovoľného placeholderu.',
+    'placeholder_leaderboard_enable_info' => 'Výsledkové tabuľky najlepšie fungujú s číselnými placeholdermi (ako sú mince, zabitia, vyťažené bloky atď.). Ak povolíte výsledkovú tabuľku na textovom placeholderu - nemôžete si byť istí, že si ju zoradí tak, ako chcete.',
+    'placeholder_leaderboard_updated' => 'Nastavenia výsledkovej tabuľky boli úspešne aktualizované',
+    'placeholder_leaderboard_enabled' => 'Výsledková tabuľka je povolená',
+    'placeholder_leaderboard_title' => 'Názov výsledkovej tabuľky',
+    'placeholder_leaderboard_sort' => 'Zoradenie výsledkovej tabuľky',
 
     // SEO
     'seo' => 'SEO',
