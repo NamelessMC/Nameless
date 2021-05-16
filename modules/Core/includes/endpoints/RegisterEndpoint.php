@@ -228,6 +228,9 @@ class RegisterEndpoint extends EndpointBase {
             }
 
 <<<<<<< refs/remotes/upstream/v2
+<<<<<<< refs/remotes/upstream/v2
+=======
+>>>>>>> refractor
             $api->getDb()->insert('users', array(
                     'username' => Output::getClean($username),
                     'nickname' => Output::getClean($username),
@@ -241,6 +244,7 @@ class RegisterEndpoint extends EndpointBase {
                     'last_online' => date('U')
                 )
             );
+<<<<<<< refs/remotes/upstream/v2
 =======
             if ($api_verification) {
                 $api->getDb()->insert('users', array(
@@ -271,6 +275,8 @@ class RegisterEndpoint extends EndpointBase {
                 );
             }
 >>>>>>> potential solutino for #2067
+=======
+>>>>>>> refractor
 
             $user_id = $api->getDb()->lastId();
 
