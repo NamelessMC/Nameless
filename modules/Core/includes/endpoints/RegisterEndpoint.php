@@ -227,34 +227,19 @@ class RegisterEndpoint extends EndpointBase {
                 $code = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 60);
             }
 
-            if ($api_verification) {
-                $api->getDb()->insert('users', array(
-                        'username' => Output::getClean($username),
-                        'nickname' => Output::getClean($username),
-                        'uuid' => $uuid,
-                        'email' => Output::getClean($email),
-                        'password' => md5($code), // temp code
-                        'joined' => date('U'),
-                        'lastip' => 'Unknown',
-                        'active' => 1,
-                        'reset_code' => $code,
-                        'last_online' => date('U')
-                    )
-                );
-            } else {
-                $api->getDb()->insert('users', array(
-                        'username' => Output::getClean($username),
-                        'nickname' => Output::getClean($username),
-                        'uuid' => $uuid,
-                        'email' => Output::getClean($email),
-                        'password' => md5($code), // temp code
-                        'joined' => date('U'),
-                        'lastip' => 'Unknown',
-                        'reset_code' => $code,
-                        'last_online' => date('U')
-                    )
-                );
-            }
+            $api->getDb()->insert('users', array(
+                    'username' => Output::getClean($username),
+                    'nickname' => Output::getClean($username),
+                    'uuid' => $uuid,
+                    'email' => Output::getClean($email),
+                    'password' => md5($code), // temp code
+                    'joined' => date('U'),
+                    'lastip' => 'Unknown',
+                    'active' => $api_verification === true ? 1 : 0,
+                    'reset_code' => $code,
+                    'last_online' => date('U')
+                )
+            );
 
             $user_id = $api->getDb()->lastId();
 
