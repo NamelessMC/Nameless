@@ -82,14 +82,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 			try {
 
-				if (!is_writable('core/config.php')) {
+				if (!is_writable(ROOT_PATH . '/core/config.php')) {
 
 					$error = $language['config_not_writable'];
 
 				} else {
 
 					$config_content = '<?php' . PHP_EOL . '$conf = ' . var_export($conf, true) . ';';
-					file_put_contents('core/config.php', $config_content);
+					file_put_contents(ROOT_PATH . '/core/config.php', $config_content);
 
 					$_SESSION['charset'] = $charset;
 					$_SESSION['engine'] = $engine;
