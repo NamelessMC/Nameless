@@ -115,10 +115,14 @@ $language = array(
     'label_type_name' => 'Názov typu štítku',
     'label_type_html' => 'HTML typu štítku',
 <<<<<<< refs/remotes/upstream/v2
+<<<<<<< refs/remotes/upstream/v2
     'label_type_html_help' => 'HTML musí obsahovať {x} ako placeholder pre názov štítku',
 =======
     'label_type_html_help' => 'HTML musí obsahovať {x} ako zástupný symbol pre názov štítku',
 >>>>>>> Update Slovak translation (#2277)
+=======
+    'label_type_html_help' => 'HTML musí obsahovať {x} ako placeholder pre názov štítku',
+>>>>>>> Update Slovak translation (#2278)
     'label' => 'Štítok',
     'label_forums' => 'Štítky fóra',
     'label_groups' => 'Skupiny štítkov',

@@ -70,10 +70,14 @@ $language = array(
     'missing_contact_address' => 'Vložte kontaktnú emailovú adresu o dĺžke 3 až 255 znakov.',
     'use_friendly_urls' => 'Priateľské URL',
 <<<<<<< refs/remotes/upstream/v2
+<<<<<<< refs/remotes/upstream/v2
     'use_friendly_urls_help' => 'DÔLEŽITÉ: Aby to fungovalo, váš server musí byť nakonfigurovaný tak, aby umožňoval použitie mod_rewrite a .htaccess súboru.',
 =======
     'use_friendly_urls_help' => 'DÔLEŽITÉ: Váš server musí byť nakonfigurovaný tak, aby umožňoval použitie mod_rewrite a .htaccess súborov, aby to fungovalo.',
 >>>>>>> Update Slovak translation (#2277)
+=======
+    'use_friendly_urls_help' => 'DÔLEŽITÉ: Aby to fungovalo, váš server musí byť nakonfigurovaný tak, aby umožňoval použitie mod_rewrite a .htaccess súboru.',
+>>>>>>> Update Slovak translation (#2278)
     'config_not_writable' => 'Váš <strong>core/config.php</strong> není prepisovateľný. Skontrolujte oprávnenia pre tento súbor.',
     'settings_updated_successfully' => 'Všeobecné nastavenia boli úspešne aktualizované.',
     'social_media' => 'Sociálne média',
@@ -98,10 +102,14 @@ $language = array(
     'maintenance' => 'Údržba',
     'debugging_settings_updated_successfully' => 'Nastavenia ladenia sa úspešne aktualizovali.',
 <<<<<<< refs/remotes/upstream/v2
+<<<<<<< refs/remotes/upstream/v2
     'enable_debug_mode' => 'Povoliť debug mód?',
 =======
     'enable_debug_mode' => 'Zapnúť debug mód?',
 >>>>>>> Update Slovak translation (#2277)
+=======
+    'enable_debug_mode' => 'Povoliť debug mód?',
+>>>>>>> Update Slovak translation (#2278)
     'force_https' => 'Vynútiť https?',
     'force_https_help' => 'Ak je povolené, všetky požiadavky na vaše webstránky budú presmerované na https. Aby táto funkcia fungovala správne, musíte mať aktívny a platný SSL certifikát.',
     'force_www' => 'Vynútiť www?',
@@ -117,10 +125,14 @@ $language = array(
     'viewing_email_error' => 'Zobrazenie chyby',
     'unable_to_write_email_config' => 'Nedá sa zapisovať do súboru <strong>core/email.php</strong>. Skontrolujte povolenia súborov.',
 <<<<<<< refs/remotes/upstream/v2
+<<<<<<< refs/remotes/upstream/v2
     'enable_mailer' => 'Povoliť PHPMailer?',
 =======
     'enable_mailer' => 'Zapnúť PHPMailer?',
 >>>>>>> Update Slovak translation (#2277)
+=======
+    'enable_mailer' => 'Povoliť PHPMailer?',
+>>>>>>> Update Slovak translation (#2278)
     'enable_mailer_help' => 'Túto možnosť povoľte, ak sa emaily predvolene neposielajú. Používanie PHPMaileru vyžaduje, aby ste mali službu schopnú odosielať emaily, napríklad Gmail alebo SMTP poskytovateľ.',
     'outgoing_email' => 'Odchazádzajúca emailová adresa',
     'outgoing_email_info' => 'Toto je emailová adresa, z akej NamelessMC posiela emaily.',
@@ -179,10 +191,14 @@ $language = array(
     'validation_promote_group_info' => 'To je skupina, do ktorej bude užívateľ povýšený, keď overí svoj účet.',
     'login_method' => 'Spôsob prihlásenia',
 <<<<<<< refs/remotes/upstream/v2
+<<<<<<< refs/remotes/upstream/v2
     'privacy_and_terms' => 'Súkromie a podmienky',
 =======
     'privacy_and_terms' => 'Ochrana osobných údajov a podmienky',
 >>>>>>> Update Slovak translation (#2277)
+=======
+    'privacy_and_terms' => 'Súkromie a podmienky',
+>>>>>>> Update Slovak translation (#2278)
     'dropdown_name' => 'Dropdown názov',
     'editing_messages' => 'Úpravy správ',
     'emails_mass_message' => 'Hromadná emailová správa',
