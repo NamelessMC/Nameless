@@ -56,16 +56,7 @@ class Alert {
             return $db->get('alerts', array('user_id', '=', $user_id))->results();
         }
 
-        $alerts = $db->get('alerts', array('user_id', '=', $user_id))->results();
-        $unread = array();
-
-        foreach ($alerts as $alert) {
-            if ($alert->read == 0) {
-                $unread[] = $alert;
-            }
-        }
-
-        return $unread;
+        return $db->query('SELECT * FROM nl2_alerts WHERE user_id = ? AND `read` = 0', array($user_id))->results();
     }
 
     /**
