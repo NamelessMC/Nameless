@@ -179,6 +179,9 @@ $language = array(
 
     // Placeholders
 <<<<<<< refs/remotes/upstream/v2
+<<<<<<< refs/remotes/upstream/v2
+=======
+>>>>>>> Update admin.php (#2280)
     'placeholders' => '占位符',
     'updated_placeholder_settings' => '占位符设置更新成功。',
     'placeholders_info' => '通过占位符功能，NamelessMC Spigot 插件可以向您的网站上显示关于玩家的信息，这样，玩家就可以把这些信息添加到自己的个人资料上。',
@@ -193,6 +196,7 @@ $language = array(
     'placeholders_show_on_profile_info' => '是否在每个用户的个人资料上显示此占位符。',
     'placeholders_show_on_forum' => '在论坛上显示',
     'placeholders_show_on_forum_info' => '是否在每个用户的帖子上显示此占位符。',
+<<<<<<< refs/remotes/upstream/v2
 
     // Placeholder leaderboards
     'leaderboard_settings' => '排行榜设置',
@@ -229,6 +233,18 @@ $language = array(
     'placeholder_leaderboard_title' => 'Leaderboard Title',
     'placeholder_leaderboard_sort' => 'Leaderboard Sort',
 >>>>>>> Add placeholderapi support + configuration + leaderboards (#2264)
+=======
+
+    // Placeholder leaderboards
+    'leaderboard_settings' => '排行榜设置',
+    'placeholder_leaderboard_settings' => '占位符排行榜设置',
+    'placeholder_leaderboard_info' => '通过占位符排行榜，您可以根据一个占位符来把玩家列在排行榜里',
+    'placeholder_leaderboard_enable_info' => '排行班在占位符是数字的情况下 (例如硬币，击杀数，等等) 功能最强。文字占位符排行榜的顺序无法控制。',
+    'placeholder_leaderboard_updated' => '排行榜设置更新成功',
+    'placeholder_leaderboard_enabled' => '排行榜启用',
+    'placeholder_leaderboard_title' => '排行榜标题',
+    'placeholder_leaderboard_sort' => '排行榜排序',
+>>>>>>> Update admin.php (#2280)
 
     // SEO
     'seo' => 'SEO',
