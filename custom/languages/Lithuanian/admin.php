@@ -69,7 +69,7 @@ $language = array(
     'use_friendly_urls' => 'Draugiškos URLs',
     'use_friendly_urls_help' => 'SVARBU: Jūsų serveris turi būti sukonfigūruotas, kad būtų galima naudoti mod_rewrite ir .htaccess failus, kad tai veiktų.',
     'config_not_writable' => 'Jūsų <strong>core/config.php</strong> failas nėra įrašomas. Patikrinkite failų leidimus.',
-    'settings_updated_successfully' => 'Bendrieji nustatymai sėkmingai atnaujinti.',
+    'settings_updated_successfully' => 'Sėkmingai buvo atnaujinti bendrieji nustatymai.',
     'social_media' => 'Socialiniai Tinklai',
     'youtube_url' => 'Youtube URL',
     'twitter_url' => 'Twitter URL',
@@ -529,7 +529,7 @@ $language = array(
     'action_info' => 'Veiksmų Informacija',
     'groups_removed' => 'Groups Removed',
     'groups_added' => 'Groups Added',
-    
+
     // Updates
     'update' => 'Atnaujinti',
     'current_version_x' => 'Dabartinė versija: <strong>{x}</strong>', // Don't replace {x}
