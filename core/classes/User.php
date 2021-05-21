@@ -463,7 +463,7 @@ class User {
             $uuid = $this->data()->uuid;
         } else {
             $uuid = $this->data()->username;
-            // Fallback to steve avatar if they have an invalid uuid
+            // Fallback to steve avatar if they have an invalid username
             if (preg_match("#[^][_A-Za-z0-9]#", $uuid)) {
                 $uuid = 'Steve';
             }
