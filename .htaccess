@@ -3,6 +3,9 @@
   Options -Indexes
   RewriteEngine on
   IndexIgnore *
+  
+  Header append X-FRAME-OPTIONS "SAMEORIGIN"
+  
   RewriteCond %{REQUEST_URI}::$1 ^(.*?/)(.*)::\2$
   RewriteRule ^(.*)$ - [E=BASE:%1]
 
