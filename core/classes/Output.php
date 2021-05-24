@@ -37,9 +37,10 @@ class Output {
      * Returns a purified version of an inputted string with HTMLPurifier.
      *
      * @param string $input String which will be purified.
+     * @param boolean $escape_invalid Should invalid HTML be escaped instead of fully removed?
      * @return string Purified string.
      */
-    public static function getPurified($input) {
+    public static function getPurified($input, $escape_invalid = false) {
         // Require HTMLPurifier
         if (!self::$_purifier) {
             require_once(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'core', 'includes', 'htmlpurifier', 'HTMLPurifier.standalone.php')));
@@ -58,7 +59,7 @@ class Output {
             $purifierConfig->set('Attr.AllowedRel', array('noopener', 'nofollow'));
             $purifierConfig->set('HTML.SafeIframe', true);
             $purifierConfig->set('URI.SafeIframeRegexp', '%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%');
-            $purifierConfig->set('Core.EscapeInvalidTags', true);
+            $purifierConfig->set('Core.EscapeInvalidTags', $escape_invalid);
             $purifierConfig->set('AutoFormat.Linkify', true);
 
             $purifierConfig->set('HTML.DefinitionID', 'namelessmc');

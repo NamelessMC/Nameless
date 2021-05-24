@@ -708,7 +708,7 @@ for ($n = 0; $n < count($results->data); $n++) {
     // Purify post content
     $content = Util::replaceAnchorsWithText(Output::getDecoded($results->data[$n]->post_content));
     $content = $emojione->unicodeToImage($content);
-    $content = Output::getPurified($content);
+    $content = Output::getPurified($content, true);
 
     // Get post date
     if (is_null($results->data[$n]->created)) {
