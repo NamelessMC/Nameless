@@ -354,6 +354,7 @@ if ($page != 'install') {
 
     // Smarty
     $smarty = new Smarty();
+    $smarty->enableSecurity();
 
     // Basic Smarty variables
     $smarty->assign(array(
