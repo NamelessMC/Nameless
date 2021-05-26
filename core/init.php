@@ -354,7 +354,32 @@ if ($page != 'install') {
 
     // Smarty
     $smarty = new Smarty();
-    $smarty->enableSecurity();
+	$securityPolicy->php_modifiers = array(
+		'escape',
+		'count',
+		'key',
+		'round',
+		'ucfirst',
+		'defined',
+		'date',
+		'explode',
+        'htmlspecialchars_decode',
+        'implode'
+	);
+	$securityPolicy->php_functions = array(
+		'isset',
+		'empty',
+		'count',
+		'sizeof',
+		'in_array',
+		'is_array',
+		'time',
+		'nl2br',
+		'is_numeric',
+		'file_exists',
+		'array_key_exists'
+	);
+	$smarty->enableSecurity($securityPolicy);
 
     // Basic Smarty variables
     $smarty->assign(array(
