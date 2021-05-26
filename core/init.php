@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr9
  *
  *  License: MIT
  *
@@ -354,6 +354,7 @@ if ($page != 'install') {
 
     // Smarty
     $smarty = new Smarty();
+    $securityPolicy = new Smarty_Security($smarty);
     $securityPolicy->php_modifiers = array(
         'escape',
         'count',
