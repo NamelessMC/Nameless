@@ -602,6 +602,9 @@ class User {
      * @param int|null $expire Expiry in epoch time. If not supplied, group will never expire.
      */
     public function setGroup($group_id, $expire = 0) {
+        if ($this->data()->id == 1) {
+            return false;
+        }
         $this->_db->createQuery('DELETE FROM `nl2_users_groups` WHERE `user_id` = ?', array($this->data()->id));
 
         $this->_db->createQuery(
