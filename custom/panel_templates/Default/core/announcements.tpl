@@ -111,8 +111,9 @@
                         {$CONFIRM_DELETE_ANNOUNCEMENT}
                     </div>
                     <div class="modal-footer">
+                        <input type="hidden" id="deleteId" value="">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">{$NO}</button>
-                        <a href="{$DELETE_LINK}" id="deleteLink" class="btn btn-primary">{$YES}</a>
+                        <button type="button" onclick="deleteAnnouncement()" class="btn btn-primary">{$YES}</button>
                     </div>
                 </div>
             </div>
@@ -125,8 +126,16 @@
 
     <script type="text/javascript">
         function showDeleteModal(id) {
-            $('#deleteLink').attr('href', '{$DELETE_LINK}'.replace('{literal}{x}{/literal}', id));
+            $('#deleteId').attr('value', id);
             $('#deleteModal').modal().show();
+        }
+
+        function deleteAnnouncement() {
+          const id = $('#deleteId').attr('value');
+          if (id) {
+            const response = $.post("{$DELETE_LINK}", { id, action: 'delete', token: "{$TOKEN}" });
+            response.done(function() { window.location.reload(); });
+          }
         }
 
           $(document).ready(function () {

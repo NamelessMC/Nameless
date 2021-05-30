@@ -46,7 +46,7 @@ if (!isset($_GET['action'])) {
         'NEW' => $language->get('admin', 'new_announcement'),
         'ACTIONS' => $language->get('general', 'actions'),
         'EDIT_LINK' => URL::build('/panel/core/announcements', 'action=edit&id='),
-        'DELETE_LINK' => URL::build('/panel/core/announcements', 'action=delete&id={x}'),
+        'DELETE_LINK' => URL::build('/panel/core/announcements', 'action=delete'),
         'REORDER_DRAG_URL' => URL::build('/panel/core/announcements')
     ));
 
@@ -241,16 +241,18 @@ if (!isset($_GET['action'])) {
 
         case 'delete':
             // Delete Announcement
-            if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
-                Redirect::to(URL::build('/panel/core/announcements'));
-                die();
+            if (Input::exists()) {
+                if (Token::check(Input::get('token'))) {
+                    if (isset($_POST['id'])) {
+                        $queries->delete('custom_announcements', array('id', '=', $_POST['id']));
+
+                        Announcements::resetCache();
+                        Session::flash('announcement_success', $language->get('admin', 'deleted_announcement_success'));
+                    }
+                } else {
+                    Session::flash('announcement_error', $language->get('general', 'invalid_token'));
+                }
             }
-
-            $queries->delete('custom_announcements', array('id', '=', $_GET['id']));
-
-            Announcements::resetCache();
-            Session::flash('announcement_success', $language->get('admin', 'deleted_announcement_success'));
-            Redirect::to(URL::build('/panel/core/announcements'));
             die();
             break;
 
@@ -283,6 +285,11 @@ if (Session::exists('announcement_success'))
     $smarty->assign(array(
         'SUCCESS' => Session::flash('announcement_success'),
         'SUCCESS_TITLE' => $language->get('general', 'success')
+    ));
+if (Session::exists('announcement_error'))
+    $smarty->assign(array(
+        'ERRORS' => [Session::flash('announcement_error')],
+        'ERRORS_TITLE' => $language->get('general', 'error')
     ));
 if (isset($errors) && count($errors))
     $smarty->assign(array(

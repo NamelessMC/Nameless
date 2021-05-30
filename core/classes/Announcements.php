@@ -158,6 +158,7 @@ class Announcements {
         ));
 
         self::resetCache();
+        return true;
     }
 
     /**
