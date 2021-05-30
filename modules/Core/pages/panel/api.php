@@ -21,36 +21,36 @@ $page_title = $language->get('admin', 'api');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 if (!isset($_GET['view'])) {
-    if (isset($_GET['action']) && $_GET['action'] == 'api_regen') {
-        // Regenerate new API key
-        // Generate new key
-        $new_api_key = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 32);
-
-        $plugin_api = $queries->getWhere('settings', array('name', '=', 'mc_api_key'));
-        $plugin_api = $plugin_api[0]->id;
-
-        // Update key
-        $queries->update(
-            'settings',
-            $plugin_api,
-            array(
-                'value' => $new_api_key
-            )
-        );
-
-        // Cache
-        file_put_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('apicache') . '.cache', $new_api_key);
-
-        // Redirect
-        Session::flash('api_success', $language->get('admin', 'api_key_regenerated'));
-        Redirect::to(URL::build('/panel/core/api'));
-        die();
-    }
-
     if (Input::exists()) {
         $errors = array();
 
         if (Token::check()) {
+            if (isset($_POST['action']) && $_POST['action'] == 'regen') {
+                // Regenerate new API key
+                // Generate new key
+                $new_api_key = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 32);
+
+                $plugin_api = $queries->getWhere('settings', array('name', '=', 'mc_api_key'));
+                $plugin_api = $plugin_api[0]->id;
+
+                // Update key
+                $queries->update(
+                    'settings',
+                    $plugin_api,
+                    array(
+                        'value' => $new_api_key
+                    )
+                );
+
+                // Cache
+                file_put_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('apicache') . '.cache', $new_api_key);
+
+                // Redirect
+                Session::flash('api_success', $language->get('admin', 'api_key_regenerated'));
+                Redirect::to(URL::build('/panel/core/api'));
+                die();
+            }
+
             $plugin_id = $queries->getWhere('settings', array('name', '=', 'use_api'));
             $plugin_id = $plugin_id[0]->id;
             $queries->update(
@@ -115,23 +115,6 @@ if (!isset($_GET['view'])) {
     }
 } else {
     // Group sync
-    if (isset($_GET['action']) && $_GET['action'] == 'delete') {
-        if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
-            Redirect::to(URL::build('/panel/core/api/', 'view=group_sync'));
-            die();
-        }
-
-        try {
-            $queries->delete('group_sync', array('id', '=', $_GET['id']));
-            Session::flash('api_success', $language->get('admin', 'group_sync_rule_deleted_successfully'));
-        } catch (Exception $e) {
-            // Redirect anyway
-        }
-
-        Redirect::to(URL::build('/panel/core/api/', 'view=group_sync'));
-        die();
-    }
-
     if (Input::exists()) {
         if (Token::check()) {
             if ($_POST['action'] == 'create') {
@@ -249,6 +232,16 @@ if (!isset($_GET['view'])) {
                 if (!count($errors)) {
                     Session::flash('api_success', $language->get('admin', 'group_sync_rules_updated_successfully'));
                 }
+            } else if ($_POST['action'] == 'delete') {
+                if (isset($_POST['id'])) {
+                    try {
+                        $queries->delete('group_sync', array('id', '=', $_POST['id']));
+                        Session::flash('api_success', $language->get('admin', 'group_sync_rule_deleted_successfully'));
+                    } catch (Exception $e) {
+                        // Redirect anyway
+                    }
+                }
+                die();
             }
         } else {
             $errors[] = array($language->get('general', 'invalid_token'));
@@ -332,9 +325,6 @@ if (!isset($_GET['view'])) {
             'API_URL_VALUE' => rtrim(Util::getSelfURL(), '/') . rtrim(URL::build('/api/v2/' . Output::getClean($plugin_api), '', 'non-friendly'), '/'),
             'ENABLE_API_FOR_URL' => $language->get('api', 'api_disabled'),
             'COPY' => $language->get('admin', 'copy'),
-            'ENABLE_LEGACY_API' => $language->get('admin', 'enable_legacy_api'),
-            //'LEGACY_API_ENABLED' => $legacy_api_enabled,
-            //'LEGACY_API_INFO' => $language->get('admin', 'legacy_api_info'),
             'EMAIL_VERIFICATION' => $language->get('admin', 'email_verification'),
             'EMAIL_VERIFICATION_VALUE' => $emails,
             'API_VERIFICATION' => $language->get('admin', 'api_verification'),
@@ -385,8 +375,7 @@ if (!isset($_GET['view'])) {
                 'id' => Output::getClean($group->id),
                 'ingame' => Output::getClean($group->ingame_rank_name),
                 'discord' => $group->discord_role_id,
-                'website' => $group->website_group_id,
-                'delete_link' => URL::build('/panel/core/api/', 'view=group_sync&action=delete&id=' . Output::getClean($group->id))
+                'website' => $group->website_group_id
             );
         }
 
@@ -414,7 +403,8 @@ if (!isset($_GET['view'])) {
                 'NEW_RULE' => $language->get('admin', 'new_rule'),
                 'EXISTING_RULES' => $language->get('admin', 'existing_rules'),
                 'DISCORD_INTEGRATION_NOT_SETUP' => $language->get('admin', 'discord_integration_not_setup'),
-                'GROUP_SYNC_PLUGIN_NOT_SET_UP' => $language->get('admin', 'group_sync_plugin_not_set_up')
+                'GROUP_SYNC_PLUGIN_NOT_SET_UP' => $language->get('admin', 'group_sync_plugin_not_set_up'),
+                'DELETE_LINK' => URL::build('/panel/core/api/', 'view=group_sync')
             )
         );
 

@@ -82,14 +82,6 @@
                                        value="1"{if $API_ENABLED eq 1} checked{/if} />
                             </div>
 
-                            <!---<div class="form-group">
-                                <label for="enable_legacy_api">{$ENABLE_LEGACY_API}</label> <span class="badge badge-info" style="margin-right:10px" data-toggle="popover" data-title="{$INFO}" data-content="{$LEGACY_API_INFO}"><i class="fas fa-question-circle"></i></span>
-                                <input type="hidden" name="enable_legacy_api" value="0">
-                                <input id="enable_legacy_api" name="enable_legacy_api" type="checkbox"
-                                       class="js-switch"
-                                       value="1"{if $LEGACY_API_ENABLED eq 1} checked{/if} />
-                            </div>--->
-
                             <div class="form-group">
                                 <label for="verification" style="margin-right:10px">{$EMAIL_VERIFICATION}</label>
                                 <input name="verification" id="verification" type="checkbox"
@@ -157,7 +149,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">{$NO}</button>
-                    <a href="{$API_KEY_REGEN_URL}" class="btn btn-primary">{$YES}</a>
+                    <button type="button" onclick="regenKey()" class="btn btn-primary">{$YES}</button>
                 </div>
             </div>
         </div>
@@ -171,6 +163,11 @@
 <script type="text/javascript">
   function showRegenModal() {
     $('#regenModal').modal().show();
+  }
+
+  function regenKey() {
+    const regen = $.post("{$API_KEY_REGEN_URL}", { action: 'regen', token: "{$TOKEN}" });
+    regen.done(function() { window.location.reload(); })
   }
 
   function copyURL() {

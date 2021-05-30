@@ -100,7 +100,7 @@
                                             </div>
                                             <div class="col-md-1">
                                                 <div style="height:32px"></div>
-                                                <a href="{$group_sync.delete_link}" class="btn btn-danger">{$DELETE}</a>
+                                                <button type="button" onclick="deleteGroupSync('{$group_sync.id}')" class="btn btn-danger">{$DELETE}</button>
                                             </div>
                                         </div>
                                     </div>
@@ -183,6 +183,13 @@
 </div>
 
 {include file='scripts.tpl'}
+
+<script type="text/javascript">
+    function deleteGroupSync(id) {
+      const response = $.post("{$DELETE_LINK}", { id, action: 'delete', token: "{$TOKEN}" });
+      response.done(function() { window.location.reload(); })
+    }
+</script>
 
 </body>
 
