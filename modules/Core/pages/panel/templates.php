@@ -510,7 +510,7 @@ if (!isset($_GET['action'])) {
                 die();
             }
 
-            if ($_GET['template'] == 1 || $_GET['template'] == 2) {
+            if ($_GET['template'] == 1) {
                 $smarty->assign('DEFAULT_TEMPLATE_WARNING', $language->get('admin', 'warning_editing_default_template'));
             }
 
