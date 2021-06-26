@@ -3,30 +3,35 @@
  *	Made by Samerton
  *  Announcements by Aberdeener
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr9
  *
  *  License: MIT
  *
  *  Announcements class
  */
 class Announcements {
-
+    
+    private $_cache;
+    
+    public function __construct($cache) {
+        $this->_cache = $cache;
+    }
+    
     /**
      * Get all announcements for listing in StaffCP.
      * 
      * @return array All announcements.
      */
-    public static function getAll() {
-        $cache = new Cache();
-        $cache->setCache('custom_announcements');
+    public function getAll() {
+        $this->_cache->setCache('custom_announcements');
 
-        if ($cache->isCached('custom_announcements')) {
-            return $cache->retrieve('custom_announcements');
+        if ($this->_cache->isCached('custom_announcements')) {
+            return $this->_cache->retrieve('custom_announcements');
         }
 
-        $cache->store('custom_announcements', DB::getInstance()->query("SELECT * FROM nl2_custom_announcements ORDER BY `order` ASC")->results());
+        $this->_cache->store('custom_announcements', DB::getInstance()->query("SELECT * FROM nl2_custom_announcements ORDER BY `order` ASC")->results());
 
-        return $cache->retrieve('custom_announcements');
+        return $this->_cache->retrieve('custom_announcements');
     }
 
     /**
@@ -38,7 +43,7 @@ class Announcements {
      * @param array $user_groups All this user's groups.
      * @return array Array of announcements they should see on this specific page with their groups.
      */
-    public static function getAvailable($page = null, $custom_page = null, $user_groups = [0]) {
+    public function getAvailable($page = null, $custom_page = null, $user_groups = [0]) {
         $announcements = array();
 
         foreach(self::getAll() as $announcement) {
@@ -69,7 +74,7 @@ class Announcements {
      * @param Pages $pages Instance of Pages class.
      * @return array Name of all pages announcements can be on.
      */
-    public static function getPages(Pages $pages) {
+    public function getPages(Pages $pages) {
         $available_pages = array();
 
         foreach ($pages->returnPages() as $page) {
@@ -87,7 +92,7 @@ class Announcements {
      * @param string $pages_json JSON array of pages to implode.
      * @return string Comma seperated list of page names.
      */
-    public static function getPagesCsv($pages_json = null){
+    public function getPagesCsv($pages_json = null){
         $pages = json_decode($pages_json);
 
         if (!$pages) {
@@ -111,7 +116,7 @@ class Announcements {
      * @param string $message Main text to show in announcement.
      * @param int $order Order of this announcement to use for sorting.
      */
-    public static function edit($id = null, $pages = null, $groups = null, $text_colour = null, $background_colour = null, $icon = null, $closable = null, $header = null, $message = null, $order = null) {
+    public function edit($id = null, $pages = null, $groups = null, $text_colour = null, $background_colour = null, $icon = null, $closable = null, $header = null, $message = null, $order = null) {
         $queries = new Queries();
         
         $queries->update('custom_announcements', $id, array(
@@ -142,7 +147,7 @@ class Announcements {
      * @param string $message Main text to show in announcement.
      * @param int $order Order of this announcement to use for sorting.
      */
-    public static function create($pages = null, $groups = null, $text_colour = null, $background_colour = null, $icon = null, $closable = null, $header = null, $message = null, $order = null) {
+    public function create($pages = null, $groups = null, $text_colour = null, $background_colour = null, $icon = null, $closable = null, $header = null, $message = null, $order = null) {
         $queries = new Queries();
 
         $queries->create('custom_announcements', array(
@@ -165,14 +170,13 @@ class Announcements {
      * Erase and regenerate announcement cache file.
      * Used when creating or editing announcements.
      */
-    public static function resetCache() {
-        $cache = new Cache();
-        $cache->setCache('custom_announcements');
+    public function resetCache() {
+        $this->_cache->setCache('custom_announcements');
 
-        if ($cache->isCached('custom_announcements')) {
-            $cache->erase('custom_announcements');
+        if ($this->_cache->isCached('custom_announcements')) {
+            $this->_cache->erase('custom_announcements');
         }
 
-        $cache->store('custom_announcements', self::getAll());
+        $this->_cache->store('custom_announcements', self::getAll());
     }
 }

@@ -24,17 +24,17 @@ $queries = new Queries();
 if (!isset($_GET['action'])) {
     // View all announcements
 
-    $announcements = array();
-    foreach (Announcements::getAll() as $announcement) {
-        $announcements[] = array(
+    $announcements_list = array();
+    foreach ($announcements->getAll() as $announcement) {
+        $announcements_list[] = array(
             $announcement,
-            'pages' => Announcements::getPagesCsv($announcement->pages)
+            'pages' => $announcements_list->getPagesCsv($announcement->pages)
         );
     }
 
-    if (count($announcements) >= 1) {
+    if (count($announcements_list) >= 1) {
         $smarty->assign(array(
-            'ALL_ANNOUNCEMENTS' => $announcements
+            'ALL_ANNOUNCEMENTS' => $announcements_list
         ));
     }
 
@@ -99,7 +99,7 @@ if (!isset($_GET['action'])) {
                         foreach (Input::get('pages') as $page) {
                             $pages[] = $page;
                         }
-                        if (!Announcements::create($pages, $all_groups, Output::getClean(Input::get('text_colour')), Output::getClean(Input::get('background_colour')), Output::getClean(Input::get('icon')), Output::getClean(Input::get('closable')), Output::getClean(Input::get('header')), Output::getClean(Input::get('message')), Output::getClean(Input::get('order')))) {
+                        if (!$announcements->create($pages, $all_groups, Output::getClean(Input::get('text_colour')), Output::getClean(Input::get('background_colour')), Output::getClean(Input::get('icon')), Output::getClean(Input::get('closable')), Output::getClean(Input::get('header')), Output::getClean(Input::get('message')), Output::getClean(Input::get('order')))) {
                             Session::flash('announcement_error', $language->get('admin', 'creating_announcement_failure'));
                             Redirect::to(URL::build('/panel/core/announcements'));
                             die();
@@ -195,7 +195,7 @@ if (!isset($_GET['action'])) {
                         foreach (Input::get('pages') as $page) {
                             $pages[] = $page;
                         }
-                        if (!Announcements::edit($announcement->id, $pages, $all_groups, Output::getClean(Input::get('text_colour')), Output::getClean(Input::get('background_colour')), Output::getClean(Input::get('icon')), Output::getClean(Input::get('closable')), Output::getClean(Input::get('header')), Output::getClean(Input::get('message')), Output::getClean(Input::get('order')))) {
+                        if (!$announcements->edit($announcement->id, $pages, $all_groups, Output::getClean(Input::get('text_colour')), Output::getClean(Input::get('background_colour')), Output::getClean(Input::get('icon')), Output::getClean(Input::get('closable')), Output::getClean(Input::get('header')), Output::getClean(Input::get('message')), Output::getClean(Input::get('order')))) {
                             Session::flash('announcement_error', $language->get('admin', 'editing_announcement_failure'));
                             Redirect::to(URL::build('/panel/core/announcements'));
                             die();
@@ -246,7 +246,7 @@ if (!isset($_GET['action'])) {
                     if (isset($_POST['id'])) {
                         $queries->delete('custom_announcements', array('id', '=', $_POST['id']));
 
-                        Announcements::resetCache();
+                        $announcements->resetCache();
                         Session::flash('announcement_success', $language->get('admin', 'deleted_announcement_success'));
                     }
                 } else {
@@ -258,17 +258,17 @@ if (!isset($_GET['action'])) {
 
         case 'order':
             if (isset($_GET['announcements'])) {
-                $announcements = json_decode($_GET['announcements'])->announcements;
+                $announcements_list = json_decode($_GET['announcements'])->announcements;
 
                 $i = 1;
-                foreach ($announcements as $item) {
+                foreach ($announcements_list as $item) {
                     $queries->update('custom_announcements', $item, array(
                         '`order`' => $i
                     ));
                     $i++;
                 }
             }
-            Announcements::resetCache();
+            $announcements->resetCache();
             die('Complete');
 
         default:
@@ -319,7 +319,7 @@ $smarty->assign(array(
     'BACKGROUND_COLOUR' => $language->get('admin', 'background_colour'),
     'ICON' => $language->get('admin', 'icon'),
     'CLOSABLE' => $language->get('admin', 'closable'),
-    'PAGES_ARRAY' => Announcements::getPages($pages),
+    'PAGES_ARRAY' => $announcements->getPages($pages),
     'INFO' => $language->get('general', 'info'),
     'GUESTS' => $language->get('user', 'guests'),
     'NAME' => $language->get('admin', 'name'),

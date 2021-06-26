@@ -495,6 +495,9 @@ if ($page != 'install') {
 
     // Endpoints
     $endpoints = new Endpoints();
+    
+    // Announcements
+    $announcements = new Announcements($cache);
 
     // Modules
     $cache->setCache('modulescache');
