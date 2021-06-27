@@ -349,6 +349,7 @@ if ($page != 'install') {
         'file_exists',
         'array_key_exists'
     );
+    $securityPolicy->secure_dir = array(ROOT_PATH . '/custom/templates', ROOT_PATH . '/custom/panel_templates');
     $smarty->enableSecurity($securityPolicy);
 
     // Basic Smarty variables
