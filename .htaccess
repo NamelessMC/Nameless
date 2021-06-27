@@ -1,18 +1,18 @@
-  Options +FollowSymLinks
-  Options -MultiViews
+  <IfModule mod_negotiation.c>
+    Options -MultiViews
+  </IfModule>
   Options -Indexes
   RewriteEngine on
   IndexIgnore *
-  
-  Header append X-FRAME-OPTIONS "SAMEORIGIN"
-  
+
+  <IfModule mod_headers.c>
+    Header append X-FRAME-OPTIONS "SAMEORIGIN"
+  </IfModule>
+
   RewriteCond %{REQUEST_URI}::$1 ^(.*?/)(.*)::\2$
   RewriteRule ^(.*)$ - [E=BASE:%1]
 
   RewriteCond %{REQUEST_FILENAME} !-d
-
-  # Disabled
-  # RewriteRule ^(.+)/$ $1 [R=301,L]
 
   RewriteRule ^avatar/([^/]+)/([^/]+)/(f|l|r|b|front|left|right|back)/?$ %{ENV:BASE}core/avatar/face.php?u=$1&s=$2&v=$3
   RewriteRule ^avatar/([^/]+)/(f|l|r|b|front|left|right|back)/?$ %{ENV:BASE}core/avatar/face.php?u=$1&v=$2
@@ -23,7 +23,6 @@
   RewriteCond %{REQUEST_FILENAME} !-d
 
   RewriteRule ^(.*)$ %{ENV:BASE}index.php?route=/$1  [NC,L,QSA]
-  #RewriteRule ^(.*)$ ./index.php?route=/$1 [NC,L,QSA]
 
   # Prevent access to template files
   <files "*.tpl">
