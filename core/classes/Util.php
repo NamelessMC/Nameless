@@ -163,6 +163,13 @@ class Util {
             $hostname = $_SERVER['SERVER_NAME'];
         }
 
+        // https and www checks
+        if ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) {
+            $proto = 'https://';
+        } else {
+            $proto = 'http://';
+        }
+
         if (strpos($hostname, 'www') === false && defined('FORCE_WWW') && FORCE_WWW) {
             $www = 'www.';
         } else {
@@ -171,9 +178,9 @@ class Util {
 
         if ($protocol) {
             if ($_SERVER['SERVER_PORT'] == 80 || $_SERVER['SERVER_PORT'] == 443) {
-                $url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http') . "://" . $www . Output::getClean($hostname);
+                $url = $proto . $www . Output::getClean($hostname);
             } else {
-                $url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http') . "://" . $www . Output::getClean($hostname) . ":" . $_SERVER['SERVER_PORT'];
+                $url = $proto . $www . Output::getClean($hostname) . ":" . $_SERVER['SERVER_PORT'];
             }
         } else {
             $url = $www . Output::getClean($hostname);
