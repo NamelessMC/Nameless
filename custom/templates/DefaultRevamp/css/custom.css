@@ -1117,6 +1117,7 @@ body.dark .ui.relaxed.list .item .content {
 	color: rgba(255, 255, 255, 0.6);
 }
 
+body.dark .ui.secondary.inverted.menu .popup .list a.item,
 body.dark .ui.pointing.dropdown>.menu>.item {
 	color: rgba(255, 255, 255, 0.6) !important;
 }
