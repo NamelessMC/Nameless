@@ -51,9 +51,15 @@ class AvatarSource {
             $perspective = 'face';
         }
 
+        // Default to Cravatar
+        if (!self::getActiveSource()) {
+            require_once(ROOT_PATH . '/modules/Core/classes/CravatarAvatarSource.php');
+            return (new CravatarAvatarSource())->getUrlToFormat($perspective);
+        }
+
         return self::getActiveSource()->getUrlToFormat($perspective);
     }
-    
+
     /**
      * Register avatar source.
      *

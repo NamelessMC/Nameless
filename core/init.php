@@ -332,7 +332,9 @@ if ($page != 'install') {
         'date',
         'explode',
         'htmlspecialchars_decode',
-        'implode'
+        'implode',
+        'strtolower',
+        'strtoupper'
     );
     $securityPolicy->php_functions = array(
         'isset',
