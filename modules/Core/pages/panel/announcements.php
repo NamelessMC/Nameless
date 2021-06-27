@@ -28,7 +28,7 @@ if (!isset($_GET['action'])) {
     foreach ($announcements->getAll() as $announcement) {
         $announcements_list[] = array(
             $announcement,
-            'pages' => $announcements_list->getPagesCsv($announcement->pages)
+            'pages' => $announcements->getPagesCsv($announcement->pages)
         );
     }
 
