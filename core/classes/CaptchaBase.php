@@ -72,6 +72,20 @@ abstract class CaptchaBase {
     }
 
     /**
+     * Is captcha enabled for a given key?
+     * @param $key string Key to lookup in db, defaults to simply recaptcha (for register, contact pages etc)
+     * @return boolean Whether captcha is enabled or not
+     * @throws Exception If unable to query database
+     */
+    public static function isCaptchaEnabled($key = 'recaptcha') {
+        if (!Config::get('core/captcha')) {
+            return false;
+        }
+
+        return DB::getInstance()->query('SELECT `value` FROM nl2_settings WHERE `name` = ?', array($key))->first()->value == 'true';
+    }
+
+    /**
      * Validate a Captcha token
      * @param array $post Post body to validate
      * @return boolean Whether the token was valid or not

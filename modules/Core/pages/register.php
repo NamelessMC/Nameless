@@ -127,9 +127,7 @@ if ($minecraft == '1') {
     $uuid_linking = '0';
 }
 
-// Use captcha?
-$captcha = $queries->getWhere("settings", array("name", "=", "recaptcha"));
-$captcha = $captcha[0]->value;
+$captcha = CaptchaBase::isCaptchaEnabled();
 
 // Is email verification enabled?
 $email_verification = $queries->getWhere('settings', array('name', '=', 'email_verification'));
@@ -143,7 +141,7 @@ $api_verification = $api_verification[0]->value;
 if (Input::exists()) {
     if (Token::check()) {
         // Valid token
-        if ($captcha == 'true') {
+        if ($captcha) {
             $captcha_passed = CaptchaBase::getActiveProvider()->validateToken($_POST);
         } else {
             $captcha_passed = true;
@@ -569,7 +567,7 @@ $smarty->assign(
     )
 );
 
-if ($captcha === 'true') {
+if ($captcha) {
     $smarty->assign('CAPTCHA', CaptchaBase::getActiveProvider()->getHtml());
     $template->addJSFiles(array(CaptchaBase::getActiveProvider()->getJavascriptSource() => array()));
 

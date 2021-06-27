@@ -10,7 +10,7 @@
   <div class="ui error icon message">
     <i class="x icon"></i>
     <div class="content">
-      <div class="header">Error</div>
+      <div class="header">{$ERROR}</div>
       <ul class="list">
         {foreach from=$ERRORS item=error}
           <li>{$error}</li>
@@ -33,9 +33,9 @@
             <label for="inputPassword">{$PASSWORD}</label>
             <input type="password" id="inputPassword" name="password" placeholder="{$PASSWORD}" tabindex="2">
           </div>
-          {if isset($RECAPTCHA)}
+          {if $CAPTCHA}
             <div class="field">
-              <div class="g-recaptcha" data-sitekey="{$RECAPTCHA}" tabindex="3"></div>
+              {$CAPTCHA}
             </div>
           {/if}
           <div class="inline field">

@@ -17,11 +17,7 @@ $authme_enabled = $queries->getWhere('settings', array('name', '=', 'authme'));
 $authme_enabled = $authme_enabled[0]->value;
 
 // Use recaptcha?
-$recaptcha = $queries->getWhere("settings", array("name", "=", "recaptcha"));
-$recaptcha = $recaptcha[0]->value;
-
-$recaptcha_key = $queries->getWhere("settings", array("name", "=", "recaptcha_key"));
-$recaptcha_secret = $queries->getWhere('settings', array('name', '=', 'recaptcha_secret'));
+$captcha = CaptchaBase::isCaptchaEnabled();
 
 // Deal with any input
 $errors = array();
@@ -180,29 +176,13 @@ if(Input::exists()){
 
         } else {
             // Step 1
-            if($recaptcha == 'true'){
-                // Check reCAPCTHA
-                $url = 'https://www.google.com/recaptcha/api/siteverify';
-
-                $post_data = 'secret=' . $recaptcha_secret[0]->value . '&response=' . Input::get('g-recaptcha-response');
-
-                $ch = curl_init($url);
-                curl_setopt($ch, CURLOPT_POST, 1);
-                curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
-                curl_setopt($ch, CURLOPT_HEADER, 0);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-
-                $result = curl_exec($ch);
-
-                $result = json_decode($result, true);
+            if ($captcha) {
+                $captcha_passed = CaptchaBase::getActiveProvider()->validateToken($_POST);
             } else {
-                // reCAPTCHA is disabled
-                $result = array(
-                    'success' => 'true'
-                );
+                $captcha_passed = true;
             }
 
-            if(isset($result['success']) && $result['success'] == 'true'){
+            if($captcha_passed){
                 // Valid recaptcha
                 $validate = new Validate();
                 $validation = $validate->check($_POST, [
@@ -350,7 +330,7 @@ if(Input::exists()){
 
             } else {
                 // Invalid recaotcha
-
+                $errors[] = array($language->get('user', 'invalid_recaptcha'));
             }
         }
     } else {
@@ -361,6 +341,8 @@ if(Input::exists()){
 
 if(count($errors))
     $smarty->assign('ERRORS', $errors);
+
+$smarty->assign('ERROR', $language->get('general', 'error'));
 
 if(!isset($_GET['step'])){
     // Smarty
@@ -376,8 +358,19 @@ if(!isset($_GET['step'])){
     ));
 
     // Recaptcha
-    if($recaptcha == 'true'){
-        $smarty->assign('RECAPTCHA', Output::getClean($recaptcha_key[0]->value));
+    if($captcha){
+        $smarty->assign('CAPTCHA', CaptchaBase::getActiveProvider()->getHtml());
+        $template->addJSFiles(array(CaptchaBase::getActiveProvider()->getJavascriptSource() => array()));
+
+        $submitScript = CaptchaBase::getActiveProvider()->getJavascriptSubmit('form-contact');
+        if ($submitScript) {
+            $template->addJSScript('
+            $("#form-contact").submit(function(e) {
+                e.preventDefault();
+                ' . $submitScript . '
+            });
+        ');
+        }
     }
 
     $template_file = ROOT_PATH . '/custom/templates/' . TEMPLATE . '/authme.tpl';
@@ -403,12 +396,6 @@ if(!isset($_GET['step'])){
     ));
 
     $template_file = ROOT_PATH . '/custom/templates/' . TEMPLATE . '/authme_email.tpl';
-}
-
-if($recaptcha === "true"){
-	$template->addJSFiles(array(
-		'https://www.google.com/recaptcha/api.js' => array()
-	));
 }
 
 // Load modules + template

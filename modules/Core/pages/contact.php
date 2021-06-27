@@ -14,16 +14,14 @@ define('PAGE', 'contact');
 $page_title = $language->get('general', 'contact');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-// Use captcha?
-$captcha = $queries->getWhere("settings", array("name", "=", "recaptcha"));
-$captcha = $captcha[0]->value;
+$captcha = CaptchaBase::isCaptchaEnabled();
 
 // Handle input
 if (Input::exists()) {
   if (Token::check()) {
     // Check last contact message sending time
     if (!isset($_SESSION['last_contact_sent']) || (isset($_SESSION['last_contact_sent']) && $_SESSION['last_contact_sent'] < strtotime('-1 hour'))) {
-        if ($captcha == 'true') {
+        if ($captcha) {
             $captcha_passed = CaptchaBase::getActiveProvider()->validateToken($_POST);
         } else {
             $captcha_passed = true;
@@ -141,7 +139,7 @@ if (Input::exists()) {
 }
 
 // Smarty variables
-if ($captcha === 'true') {
+if ($captcha) {
     $smarty->assign('CAPTCHA', CaptchaBase::getActiveProvider()->getHtml());
     $template->addJSFiles(array(CaptchaBase::getActiveProvider()->getJavascriptSource() => array()));
 

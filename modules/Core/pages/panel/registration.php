@@ -70,6 +70,24 @@ if (Input::exists()) {
                 'value' => $captcha
             ));
 
+            // Config value
+            if (Input::get('enable_recaptcha') == 1 || Input::get('enable_recaptcha_login') == 1) {
+                if (is_writable(ROOT_PATH . '/' . join(DIRECTORY_SEPARATOR, array('core', 'config.php')))) {
+                    // Require config
+                    if (isset($path) && file_exists($path . 'core/config.php')) {
+                        $loadedConfig = json_decode(file_get_contents($path . 'core/config.php'), true);
+                    } else {
+                        $loadedConfig = json_decode(file_get_contents(ROOT_PATH . '/core/config.php'), true);
+                    }
+
+                    if (is_array($loadedConfig)) {
+                        $GLOBALS['config'] = $loadedConfig;
+                    }
+
+                    Config::set('core/captcha', true);
+                } else $errors = array($language->get('admin', 'config_not_writable'));
+            }
+
             // reCAPTCHA type
             $captcha_type = $queries->getWhere('settings', array('name', '=', 'recaptcha_type'));
             if (!count($captcha_type)) {

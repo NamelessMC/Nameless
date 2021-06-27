@@ -29,16 +29,14 @@ if ($user->isLoggedIn()) {
 $method = $queries->getWhere('settings', array('name', '=', 'login_method'));
 $method = $method[0]->value;
 
-// Use captcha?
-$captcha = $queries->getWhere('settings', array('name', '=', 'recaptcha_login'));
-$captcha = count($captcha) ? $captcha[0]->value : 'false';
+$captcha = CaptchaBase::isCaptchaEnabled('recaptcha_login');
 
 // Deal with input
 if (Input::exists()) {
 	// Check form token
 	if (Token::check()) {
 		// Valid token
-		if (!isset($_SESSION['tfa']) && $captcha == 'true') {
+		if (!isset($_SESSION['tfa']) && $captcha) {
 			$captcha_passed = CaptchaBase::getActiveProvider()->validateToken($_POST);
 		} else {
 			$captcha_passed = true;
@@ -304,7 +302,7 @@ if (isset($return_error)) {
 if (Session::exists('login_success'))
 	$smarty->assign('SUCCESS', Session::flash('login_success'));
 
-if ($captcha === 'true') {
+if ($captcha) {
     $smarty->assign('CAPTCHA', CaptchaBase::getActiveProvider()->getHtml());
     $template->addJSFiles(array(CaptchaBase::getActiveProvider()->getJavascriptSource() => array()));
 

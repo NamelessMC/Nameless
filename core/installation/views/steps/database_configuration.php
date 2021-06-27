@@ -76,6 +76,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 					'hostname' => $_SESSION['hostname'],
 					'path' => $_SESSION['install_path'],
 					'friendly' => $_SESSION['friendly_urls'] == 'true' ? true : false,
+					'force_https' => false,
+					'force_www' => false,
+					'captcha' => false,
 				),
 				'allowedProxies' => '',
 			);
