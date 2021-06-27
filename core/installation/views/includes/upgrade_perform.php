@@ -970,11 +970,6 @@ switch ($s) {
         ));
 
         $queries->create('settings', array(
-            'name' => 'force_https',
-            'value' => 'false'
-        ));
-
-        $queries->create('settings', array(
             'name' => 'default_avatar_type',
             'value' => 'minecraft'
         ));

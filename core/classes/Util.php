@@ -158,8 +158,8 @@ class Util {
      */
     public static function getSelfURL($protocol = true) {
         $hostname = Config::get('core/hostname');
-        
-        if (is_array($hostname)) {
+
+        if (!$hostname) {
             $hostname = $_SERVER['SERVER_NAME'];
         }
 

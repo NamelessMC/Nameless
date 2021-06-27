@@ -18,7 +18,6 @@ class Config {
      */
     public static function get($path = null) {
         if ($path) {
-
             if (!isset($GLOBALS['config'])) {
                 throw new Exception('Config unavailable. Please refresh the page.');
             }
@@ -30,12 +29,14 @@ class Config {
             foreach ($path as $bit) {
                 if (isset($config[$bit])) {
                     $config = $config[$bit];
+                } else {
+                    $not_matched = true;
                 }
             }
 
-            return $config;
+            if (!isset($not_matched)) return $config;
         }
-        
+
         return false;
     }
 
