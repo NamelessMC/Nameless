@@ -25,7 +25,9 @@ class DB {
 
     private function __construct() {
         try {
-            $this->_pdo = new PDO('mysql:host=' . Config::get('mysql/host') . ';port=' . Config::get('mysql/port') . ';dbname=' . Config::get('mysql/db') . ';charset='.Config::get('mysql/charset'), Config::get('mysql/username'), Config::get('mysql/password'));
+            $charset = Config::get('mysql/charset');
+            if (!$charset) $charset = 'utf8mb4';
+            $this->_pdo = new PDO('mysql:host=' . Config::get('mysql/host') . ';port=' . Config::get('mysql/port') . ';dbname=' . Config::get('mysql/db') . ';charset='.$charset, Config::get('mysql/username'), Config::get('mysql/password'));
             $this->_pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->_prefix = Config::get('mysql/prefix');
         } catch (PDOException $e) {
