@@ -1,5 +1,5 @@
 <?php
-// 2.0.0 pr-9 to 2.0.0 pr-10(?) updater
+// 2.0.0 pr-9 to 2.0.0 pr-10 updater
 try {
     $db_engine = Config::get('mysql/engine');
 } catch (Exception $e) {
@@ -39,13 +39,24 @@ try {
     echo $e->getMessage() . '<br />';
 }
 
+// New indexes
+try {
+    DB::getInstance()->createQuery('ALTER TABLE `nl2_groups` ADD INDEX `nl2_groups_idx_staff` (`staff`)');
+    DB::getInstance()->createQuery('ALTER TABLE `nl2_groups` ADD INDEX `nl2_groups_idx_id` (`id`)');
+    DB::getInstance()->createQuery('ALTER TABLE `nl2_users` ADD INDEX `nl2_users_idx_id_last_online` (`id`,`last_online`)');
+    DB::getInstance()->createQuery('ALTER TABLE `nl2_users_groups` ADD INDEX `nl2_users_groups_idx_group_id` (`group_id`)');
+    DB::getInstance()->createQuery('ALTER TABLE `nl2_users_groups` ADD INDEX `nl2_users_groups_idx_user_id` (`user_id`)');
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+
 // plugin -> website placeholders
 try {
-    DB::getInstance()->createTable('users_placeholders', '`server_id` int(11) NOT NULL, `uuid` varchar(32) NOT NULL, `name` varchar(256) NOT NULL, `value` TEXT NOT NULL, `last_updated` int(11) NOT NULL', "ENGINE=$engine DEFAULT CHARSET=$charset");
-    DB::getInstance()->query('ALTER TABLE `nl2_users_placeholders` ADD PRIMARY KEY(`server_id`, `uuid`, `name`)');
+    DB::getInstance()->createTable('users_placeholders', ' `server_id` int(11) NOT NULL, `uuid` varchar(32) NOT NULL, `name` varchar(256) NOT NULL, `value` TEXT NOT NULL, `last_updated` int(11) NOT NULL', "ENGINE=$db_engine DEFAULT CHARSET=$db_charset");
+    DB::getInstance()->createQuery('ALTER TABLE `nl2_users_placeholders` ADD PRIMARY KEY(`server_id`, `uuid`, `name`)');
 
-    DB::getInstance()->createTable('placeholders_settings', "`server_id` int(11) NOT NULL, `name` varchar(256) NOT NULL, `friendly_name` varchar(256) NULL DEFAULT NULL, `show_on_profile` tinyint(1) NOT NULL DEFAULT '1', `show_on_forum` tinyint(1) NOT NULL DEFAULT '1', `leaderboard` tinyint(1) NOT NULL DEFAULT '0', `leaderboard_title` varchar(36) NULL DEFAULT NULL, `leaderboard_sort` varchar(4) NOT NULL DEFAULT 'DESC'", "ENGINE=$engine DEFAULT CHARSET=$charset");
-    DB::getInstance()->query('ALTER TABLE `nl2_placeholders_settings` ADD PRIMARY KEY(`server_id`, `name`)');
+    DB::getInstance()->createTable('placeholders_settings', " `server_id` int(11) NOT NULL, `name` varchar(256) NOT NULL, `friendly_name` varchar(256) NULL DEFAULT NULL, `show_on_profile` tinyint(1) NOT NULL DEFAULT '1', `show_on_forum` tinyint(1) NOT NULL DEFAULT '1', `leaderboard` tinyint(1) NOT NULL DEFAULT '0', `leaderboard_title` varchar(36) NULL DEFAULT NULL, `leaderboard_sort` varchar(4) NOT NULL DEFAULT 'DESC'", "ENGINE=$db_engine DEFAULT CHARSET=$db_charset");
+    DB::getInstance()->createQuery('ALTER TABLE `nl2_placeholders_settings` ADD PRIMARY KEY(`server_id`, `name`)');
 
     $queries->addPermissionGroup(2, 'admincp.core.placeholders');
 } catch (Exception $e) {
@@ -62,20 +73,19 @@ try {
 // Update version number
 $version_number_id = $queries->getWhere('settings', array('name', '=', 'nameless_version'));
 
-// TODO: pre 10?
-//if (count($version_number_id)) {
-//    $version_number_id = $version_number_id[0]->id;
-//    $queries->update('settings', $version_number_id, array(
-//        'value' => '2.0.0-pr9'
-//    ));
-//} else {
-//    $version_number_id = $queries->getWhere('settings', array('name', '=', 'version'));
-//    $version_number_id = $version_number_id[0]->id;
-//
-//    $queries->update('settings', $version_number_id, array(
-//        'value' => '2.0.0-pr9'
-//    ));
-//}
+if (count($version_number_id)) {
+    $version_number_id = $version_number_id[0]->id;
+    $queries->update('settings', $version_number_id, array(
+        'value' => '2.0.0-pr10'
+    ));
+} else {
+    $version_number_id = $queries->getWhere('settings', array('name', '=', 'version'));
+    $version_number_id = $version_number_id[0]->id;
+
+    $queries->update('settings', $version_number_id, array(
+        'value' => '2.0.0-pr10'
+    ));
+}
 
 $version_update_id = $queries->getWhere('settings', array('name', '=', 'version_update'));
 $version_update_id = $version_update_id[0]->id;
