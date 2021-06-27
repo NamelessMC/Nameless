@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.0.0-pr10
  *
  *  License: MIT
  *
@@ -20,8 +20,8 @@ class Forum_Module extends Module {
 
 		$name = 'Forum';
 		$author = '<a href="https://samerton.me" target="_blank" rel="nofollow noopener">Samerton</a>';
-		$module_version = '2.0.0-pr9';
-		$nameless_version = '2.0.0-pr9';
+		$module_version = '2.0.0-pr10';
+		$nameless_version = '2.0.0-pr10';
 
 		parent::__construct($this, $name, $author, $module_version, $nameless_version);
 

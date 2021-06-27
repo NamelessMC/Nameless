@@ -1,4 +1,4 @@
-# NamelessMC - v2 pre-release 9
+# NamelessMC - v2 pre-release 10
 ![NamelessMC Banner](https://i.imgur.com/gt8uezk.png)
 NamelessMC is a free, easy to use & powerful website software for your Minecraft server, which includes a large range of features.
 
@@ -7,7 +7,7 @@ NamelessMC version 2.0.0 is still a pre-release, and is not yet recommended for 
 The official project website, providing support and additional downloads such as modules and templates, can be found at [https://namelessmc.com/](https://namelessmc.com/).
 
 ## Features
-The following list is a brief summary of the features available in v2 pre-release 9:
+The following list is a brief summary of the features available in v2 pre-release 10:
 - API - if used in conjunction with the [Nameless Plugin for v2](https://www.spigotmc.org/resources/nameless-plugin-for-v2.59032/), integration with your Minecraft server can be provided.
 - Custom page system - create your own HTML pages and even restrict access to them depending on rank.
 - Forum system.

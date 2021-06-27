@@ -572,3 +572,26 @@ NamelessMC version 2 Changelog
 - Make groups field in serverInfo endpoint optional
 - PHP 8 improvements
 - Full changeset https://github.com/NamelessMC/Nameless/compare/v2.0.0-pr8...v2.0.0-pr9
+
+2.0.0 pr-10
+- Add ability to upload favicon
+- Add Smarty security policy
+- Add support for environment variable based debugging
+- Auto detect user timezone when registering
+- Avatar rework and add Crafthead support
+- Captcha rework including Recaptcha v3 invisible support
+- Ensure cookie_secure is set in PHP config
+- Error handling revamp
+- Increase label HTML length
+- Move captcha/https/www configuration to config.php
+- Placeholder API integration
+- Remove unsafe tags when editing posts
+- Validation revamp
+- API updates - including group sync fixes
+- Default Revamp and Default panel template fixes
+- htaccess fixes and improvements
+- MCAssoc fixes
+- Server status widget fixes
+- Translation updates
+- PHP 8 improvements
+- Full changeset https://github.com/NamelessMC/Nameless/compare/v2.0.0-pr9...v2.0.0-pr10

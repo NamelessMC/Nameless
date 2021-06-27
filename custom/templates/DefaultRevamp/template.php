@@ -23,16 +23,15 @@ class DefaultRevamp_Template extends TemplateBase {
     private $_pages;
 	
 	public function __construct($cache, $smarty, $language, $user, $pages) {
-		
 		$template = array(
 			'name' => 'DefaultRevamp',
-			'version' => '2.0.0-pr9',
-			'nl_version' => "2.0.0-pr9",
+			'version' => '2.0.0-pr10',
+			'nl_version' => "2.0.0-pr10",
 			'author' => '<a href="https://xemah.com/" target="_blank">Xemah</a>',
 		);
-		
+
 		$template['path'] = (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/templates/' . $template['name'] . '/';
-		
+
 		parent::__construct($template['name'], $template['version'], $template['nl_version'], $template['author']);
 
 		$this->_settings = ROOT_PATH . '/custom/templates/DefaultRevamp/template_settings/settings.php';
@@ -90,7 +89,7 @@ class DefaultRevamp_Template extends TemplateBase {
 	public function onPageLoad() {
 		
 		$this->addCSSFiles(array(
-		    $this->_template['path'] . 'css/custom.css' => array()
+		    $this->_template['path'] . 'css/custom.css?v=2pr10' => array()
 		));
 	    
 	    $route = (isset($_GET['route']) ? rtrim($_GET['route'], '/') : '/');

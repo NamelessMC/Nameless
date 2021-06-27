@@ -70,6 +70,43 @@ try {
     echo $e->getMessage() . '<br />';
 }
 
+// Captcha
+$captcha = $queries->getWhere('settings', array('name', '=', 'recaptcha'));
+$captcha_login = $queries->getWhere('settings', array('name', '=', 'recaptcha_login'));
+if ($captcha[0]->value == 'true' || $captcha_login[0]->value == 'true') {
+    try {
+        Config::set('core/captcha', true);
+    } catch (Exception $e) {
+        echo $e->getMessage() . '<br />';
+    }
+}
+
+// Force HTTPS
+$cache->setCache('force_https_cache');
+if ($cache->isCached('force_https')) {
+    $force_https = $cache->retrieve('force_https');
+    if ($force_https == 'true') {
+        try {
+            Config::set('core/force_https', true);
+        } catch (Exception $e) {
+            echo $e->getMessage() . '<br />';
+        }
+    }
+}
+
+// Force WWW
+$cache->setCache('force_www_cache');
+if ($cache->isCached('force_www')) {
+    $force_www = $cache->retrieve('force_www');
+    if ($force_www == 'true') {
+        try {
+            Config::set('core/force_www', true);
+        } catch (Exception $e) {
+            echo $e->getMessage() . '<br />';
+        }
+    }
+}
+
 // Update version number
 $version_number_id = $queries->getWhere('settings', array('name', '=', 'nameless_version'));
 

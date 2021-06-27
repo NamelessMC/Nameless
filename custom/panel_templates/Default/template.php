@@ -30,8 +30,8 @@ if (!class_exists('Default_Panel_Template')) {
 
             parent::__construct(
                 'Default',  // Template name
-                '2.0.0-pr9',  // Template version
-                '2.0.0-pr9',  // Nameless version template is made for
+                '2.0.0-pr10',  // Template version
+                '2.0.0-pr10',  // Nameless version template is made for
                 '<a href="https://coldfiredzn.com" target="_blank">Coldfire</a>'  // Author, you can use HTML here
             );
 
