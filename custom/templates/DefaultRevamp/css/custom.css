@@ -972,6 +972,15 @@ body.dark .ui.secondary.menu .item.active {
 	color: #fff;
 }
 
+body.dark .ui.top.attached.menu:not(.inverted) {
+	background: #282828;
+	border: 1px solid #282828;
+}
+
+body.dark .ui.top.attached.menu:not(.inverted) .item {
+	color: #fff;
+}
+
 body.dark .ui.form input:not(.button) {
 	background-color: #303030 !important;
 }
