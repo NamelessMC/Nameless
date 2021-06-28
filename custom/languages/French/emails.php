@@ -12,7 +12,7 @@
 $language = array(
 
     // General Options
-    'greeting' => 'Bonjour,',
+    'greeting' => 'Hey,',
     'thanks' => 'Merci,',
 
     // Registration Email
