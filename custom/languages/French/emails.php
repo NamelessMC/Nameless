@@ -1,8 +1,8 @@
 <?php
 /*
- *  Made by Samerton
+ *  Made by Ikiae
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr10
  *
  *  License: MIT
  *
@@ -12,18 +12,18 @@
 $language = array(
 
     // General Options
-    'greeting' => 'Hi,',
-    'thanks' => 'Thanks,',
+    'greeting' => 'Hey,',
+    'thanks' => 'Merci,',
 
     // Registration Email
-    'register_subject' => 'Validate Account',
-    'register_message' => 'Thanks for registering! In order to complete your registration, please click the following link:',
+    'register_subject' => 'Validation du compte',
+    'register_message' => 'Merci de vous inscrire ! Afin de compléter votre inscription, veuillez cliquer sur le lien suivant :',
 
     // Change Password
-    'change_password_subject' => 'Forgot password',
-    'change_password_message' => 'To reset your password, please click the following link. If you did not request this yourself, you can safely delete this email.',
+    'change_password_subject' => 'Mot de passe oublié',
+    'change_password_message' => 'Pour réinitialiser votre mot de passe, veuillez cliquer sur le lien suivant. Si vous ne l\'avez pas demandé vous-même, vous pouvez supprimer cet e-mail en toute sécurité.',
 
     // Forum Topic Replies
-    'forum_topic_reply_subject' => '{x} has replied to {y}', // Don't remove {x} or {y}
-    'forum_topic_reply_message' => '{x} has replied to a topic you follow. Content: {z}' // Don't remove {x} or {z}
+    'forum_topic_reply_subject' => '{x} a répondu à {y}', // Don't remove {x} or {y}
+    'forum_topic_reply_message' => '{x} a répondu à un sujet que vous suivez. Contenu : {z}' // Don't remove {x} or {z}
 );
