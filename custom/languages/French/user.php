@@ -1,8 +1,8 @@
 <?php
 /*
- *	Made by White.
+ *	Made by Ikiae.
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr10
  *
  *  License: MIT
  *
@@ -58,14 +58,14 @@ $language = array(
     'active_language' => 'Langage actuel',
     'active_template' => 'Template actuelle',
     'timezone' => 'Fuseau horaire',
-    'upload_new_avatar' => 'Upload un nouvel avatar',
+    'upload_new_avatar' => 'Uploader un nouvel avatar',
     'nickname_already_exists' => 'Le surnom que vous avez choisi existe déjà.',
     'change_email_address' => 'Changer l\'adresse mail',
     'email_already_exists' => 'L’adresse mail que vous avez saisie existe déjà.',
     'email_changed_successfully' => 'Adresse mail changée avec succès.',
     'avatar' => 'Avatar',
     'profile_banner' => 'Bannière du profil',
-    'upload_profile_banner' => 'Upload une bannière',
+    'upload_profile_banner' => 'Uploader une bannière',
     'upload' => 'Upload',
     'topic_updates' => 'Get emails for topics you follow',
     'gravatar' => 'Use Gravatar as avatar',
@@ -151,15 +151,15 @@ $language = array(
 
     // Profile pages
     'profile' => 'Profil',
-    'follow' => 'Follow',
+    'follow' => 'Suivre',
     'no_wall_posts' => 'Aucun poste sur le mur de ce profil.',
     'change_banner' => 'Changer la bannière',
     'post_on_wall' => 'Poster sur le mur de {x}', // Don't replace {x}
     'invalid_wall_post' => 'Veuillez vous assurer que votre message comporte entre 1 et 10000 caractères.',
     '1_reaction' => '1 réaction',
     'x_reactions' => '{x} réactions', // Don't replace {x}
-    '1_like' => '1 like',
-    'x_likes' => '{x} likes', // Don't replace {x}
+    '1_like' => '1 j\'aime',
+    'x_likes' => '{x} j\'aime', // Don't replace {x}
     '1_reply' => '1 réponse',
     'x_replies' => '{x} réponses', // Don't replace {x}
     'no_replies_yet' => 'Aucune réponse',
@@ -181,12 +181,12 @@ $language = array(
     'user_blocked' => 'Utilisateur bloqué.',
     'user_unblocked' => 'Utilisateur débloqué.',
     'views' => 'Nombre de visites sur le profil:',
-    'private_profile_page' => 'Il s\'agit d\'un profil privé!',
+    'private_profile_page' => 'Il s\'agit d\'un profil privé !',
     'new_wall_post_reply' => '{x} a répondu à votre message sur le profil de {y}.', // Don't replace {x} or {y}
     'new_wall_post_reply_your_profile' => '{x} a répondu à votre poste sur votre profil.', // Don't replace {x}
     'no_about_fields' => 'Cet utilisateur n’a pas encore ajouté de champs.',
     'reply' => 'Répondre',
-    'discord_username' => 'Discord Username',
+    'discord_username' => 'Nom d\'utilisateur Discord',
 
     // Reports
     'invalid_report_content' => 'Impossible de créer un signalement. Veuillez vous assurer que le motif de votre signalement comporte entre 2 et 1024 caractères.',
@@ -217,15 +217,15 @@ $language = array(
     'last_message' => 'Dernier Message',
     'by' => 'par',
     'leave_conversation' => 'Quitter la conversation',
-    'confirm_leave' => 'Voulez-vous vraiment quitter cette conversation?',
+    'confirm_leave' => 'Voulez-vous vraiment quitter cette conversation ?',
     'one_or_more_users_blocked' => 'Vous ne pouvez pas envoyer de messages privés à au moins un membre de la conversation.',
     'messages' => 'Messages',
 
     /*
      *  Infractions area
      */
-    'you_have_been_banned' => 'Vous avez été banni!',
-    'you_have_received_a_warning' => 'Vous avez reçu un avertissement!',
+    'you_have_been_banned' => 'Vous avez été banni !',
+    'you_have_received_a_warning' => 'Vous avez reçu un avertissement !',
     'acknowledge' => 'Accusé de réception',
 
 
@@ -233,7 +233,7 @@ $language = array(
      *  Emails
      */
     'email_greeting' => 'Hey,',
-    'email_message' => 'Merci de vous être inscrit! Pour compléter votre inscription, veuillez cliquer sur le lien suivant:',
+    'email_message' => 'Merci de vous être inscrit! Pour compléter votre inscription, veuillez cliquer sur le lien suivant :',
     'forgot_password_email_message' => 'Pour réinitialiser votre mot de passe, cliquez sur le lien suivant. Si vous ne l’avez pas demandé vous-même, vous pouvez supprimer cet e-mail en toute sécurité.',
     'email_thanks' => 'Merci,',
 
@@ -241,21 +241,21 @@ $language = array(
      *  Hooks
      */
     'user_x_has_registered' => '{x} a rejoint ' . SITE_NAME . '!',
-    'user_x_has_validated' => '{x} has validated their account!',
+    'user_x_has_validated' => '{x} a validé son compte !',
 
     // Discord
-    'discord_link' => 'Discord Link',
-    'linked' => 'Linked',
-    'not_linked' => 'Not Linked',
-    'discord_id' => 'Discord User ID',
-    'discord_id_unlinked' => 'Successfully unlinked your Discord User ID.',
-    'discord_id_confirm' => 'Please send this message: "!verify {guild_id}:{token}" to {bot_username} to confirm your Discord User ID.',
-    'pending_link' => 'Pending',
-    'discord_id_taken' => 'That Discord ID has already been taken.',
-    'discord_invalid_id' => 'That Discord User ID is invalid.',
-    'discord_already_pending' => 'You already have a pending verification.',
-    'discord_database_error' => 'The Nameless Link database is currently down. Please try again later.',
-    'discord_communication_error' => 'There was an error while communicating with the Discord Bot. Please ensure the bot is running and your Bot URL is correct.',
-    'discord_unknown_error' => 'There was an unknown error while syncing Discord roles. Please contact an administrator.',
-    'discord_id_help' => 'For information on where to find Discord ID\'s, please read <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">this.</a>'
+    'discord_link' => 'Lien Discord',
+    'linked' => 'Lié',
+    'not_linked' => 'Non lié',
+    'discord_id' => 'ID de l\'utilisateur Discord',
+    'discord_id_unlinked' => 'Vous avez réussi à dissocier votre ID utilisateur Discord.',
+    'discord_id_confirm' => 'Veuillez envoyer ce message : "!verify {guild_id}:{token}" à {bot_username} pour confirmer votre identifiant Discord.',
+    'pending_link' => 'En attente',
+    'discord_id_taken' => 'Cet identifiant Discord a déjà été pris.',
+    'discord_invalid_id' => 'Cet ID utilisateur Discord n\'est pas valide.',
+    'discord_already_pending' => 'Vous avez déjà une vérification en cours.',
+    'discord_database_error' => 'La base de données du lien Nameless est actuellement en panne. Veuillez réessayer plus tard.',
+    'discord_communication_error' => 'Une erreur s\'est produite lors de la communication avec le robot Discord. Veuillez vous assurer que le robot est en cours d\'exécution et que votre URL de robot est correcte.',
+    'discord_unknown_error' => 'Une erreur inconnue s\'est produite lors de la synchronisation des rôles Discord. Veuillez contacter un administrateur.',
+    'discord_id_help' => 'Pour savoir où trouver les identifiants Discord, veuillez lire le <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">document</a>suivant.'
 );
