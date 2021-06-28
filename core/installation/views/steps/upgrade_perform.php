@@ -1,60 +1,27 @@
 <?php
 
-$s = (isset($_GET['s']) ? (int)$_GET['s'] : 0);
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-	if (isset($_POST['perform']) && $_POST['perform'] == 'true') {
-
-		try {
-
-			require(realpath(__DIR__ . '/../includes/upgrade_perform.php'));
-			$redirect_url = ($s < 9 ? '?step=upgrade_perform&s=' . ($s + 1) : '?step=finish');
-			
-			if (!empty($errors)) {
-
-				if (!isset($message)) {
-					$message = '<p>' . $language['errors_logged'] . '</p>';
-					$message .= '<div class="ui bulleted list">' . implode('', array_map(function($err) {
-						return '<div class="item">' . $err . '</div>';
-					}, $errors)) . '</div>';
+$scripts = array(
+	'
+	<script>
+		$(document).ready(function() {
+			$.post("?step=ajax_initialise&initialise=upgrade", {perform: "true"}, function(response) {
+				if (response.success) {
+					window.location.replace(response.redirect_url);
+				} else {
+					$("#info").html(response.message);
+					if (response.redirect_url) {
+						$("#continue-button").attr("href", response.redirect_url);
+						$("#continue-button").removeClass("disabled");
+					}
+					if (response.error) {
+						$("#continue-button").before("<button onclick=\"window.location.reload()\" class=\"ui small button\" id=\"reload-button\">' . $language['reload'] . '</button>");
+					}
 				}
-
-				$json = array(
-					'error' => true,
-					'message' => $message,
-					'redirect_url' => $redirect_url,
-				);
-
-			} else {
-
-				$json = array(
-					'success' => true,
-					'message' => $message,
-					'redirect_url' => $redirect_url,
-				);
-
-			}
-
-		} catch (Exception $e) {
-
-			$json = array(
-				'error' => true,
-				'message' => $e->getMessage(),
-				'redirect_url' => '',
-			);
-
-		}
-
-		ob_clean();
-		header('Content-Type: application/json');
-		echo json_encode($json);
-		die();
-
-	}
-
-}
-
+			});
+		});
+	</script>
+	'
+);
 ?>
 
 <form action="" method="post">
@@ -77,24 +44,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		</div>
 	</div>
 </form>
-
-<script>
-
-	window.addEventListener('load', function() {
-		$.post(window.location.href, {perform: 'true'}, function(response) {
-			if (!response.message) {
-				window.location.replace(response.redirect_url);
-			} else {
-				$('#info').html(response.message);
-				if (response.redirect_url) {
-					$('#continue-button').attr('href', response.redirect_url);
-					$('#continue-button').removeClass('disabled');
-				}
-				if (response.error) {
-					$('#continue-button').before('<button onclick="window.location.reload()" class="ui small button" id="reload-button"><?php echo $language['reload']; ?></button>');
-				}
-			}
-		});
-	});
-
-</script>
