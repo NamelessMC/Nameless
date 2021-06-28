@@ -1,8 +1,8 @@
 <?php
 /*
- *	Made by White.
+ *	Made by Ikiae.
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr10
  *
  *  License: MIT
  *
@@ -15,8 +15,8 @@ $language = array(
      */
     'submit' => 'Soumettre',
     'register' => 'Enregistrer',
-    'already_registered' => 'Déjà enregistré?',
-    'not_registered_yet' => 'Pas enregistré?',
+    'already_registered' => 'Déjà enregistré ?',
+    'not_registered_yet' => 'Pas enregistré ?',
     'sign_in' => 'Se connecter',
     'log_out' => 'Se déconnecter',
     'profile' => 'Profil',
@@ -29,9 +29,9 @@ $language = array(
     'edit' => 'Modifier',
     'next' => 'Suivant',
     'previous' => 'Précédent',
-    'confirm_cancel' => 'Voulez-vous vraiment annuler?',
+    'confirm_cancel' => 'Voulez-vous vraiment annuler ?',
     'confirm_delete' => 'Confirmer la suppression',
-    'confirm_deletion' => 'Êtes-vous sûr de vouloir supprimer ceci?',
+    'confirm_deletion' => 'Êtes-vous sûr de vouloir supprimer ceci ?',
     'cancel' => 'Annuler',
     'delete' => 'supprimer',
     'none' => 'Rien',
@@ -54,7 +54,7 @@ $language = array(
     'page_loaded_in' => 'Page chargée en {x}s', // Don't replace {x}, time unit is seconds
     'page_x' => 'Page {x}',
     'browse' => 'Parcourir',
-    'bypass' => 'Bypass',
+    'bypass' => 'Contourner',
     'yes' => 'Oui',
     'no' => 'Non',
     'content' => 'Contenu',
@@ -62,10 +62,10 @@ $language = array(
     'url' => 'URL',
     'success' => 'Succès',
     'error' => 'Erreur',
-    'are_you_sure' => 'Êtes-vous sûr?',
+    'are_you_sure' => 'Êtes-vous sûr ?',
     'spoiler' => 'Spoiler',
-    'link' => 'Link',
-    'unlink' => 'Unlink',
+    'link' => 'Lien',
+    'unlink' => 'Déconnecter',
     
     /*
      *  Contact form
@@ -104,19 +104,19 @@ $language = array(
     'online' => 'En ligne',
     'offline' => 'Hors ligne',
     'player_count' => '{x}/{y}', // Don't replace {x} or {y}
-    'ping' => 'Ping: {x}', // Don't replace {x}
-    'version' => 'Version: {x}', // Don't replace {x}
+    'ping' => 'Ping : {x}', // Don't replace {x}
+    'version' => 'Version : {x}', // Don't replace {x}
     'currently_1_player_online' => 'Il y a actuellement <strong>1</strong> joueur en ligne.',
     'currently_x_players_online' => 'Il y a actuellement <strong>{x}</strong> joueurs en ligne.', // Don't replace {x}
     'server_offline' => 'Le serveur est actuellement hors ligne.',
     'connect_with_ip_x' => 'Connectez-vous maintenant en utilisant l\'IP {x}', // Don't replace {x}
     'click_to_copy_tooltip' => 'Cliquez pour copier',
     'ip' => 'IP',
-    'copied' => 'Copié!',
-    'no_servers' => 'Il n’y a pas de serveurs à afficher!',
+    'copied' => 'Copié !',
+    'no_servers' => 'Il n’y a pas de serveurs à afficher !',
     'bungee_instance' => 'Ce serveur est une instance Bungeecord.',
     'no_players_online' => 'Il n’y a pas de joueurs en ligne.',
-    'and_x_more' => 'et {x} plus', // Don't replace {x}
+    'and_x_more' => 'et {x} en plus', // Don't replace {x}
 
     /*
      *  Cookie notice
