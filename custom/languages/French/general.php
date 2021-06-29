@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Ikiae.
+ *	Made by White, Ikiae.
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr10
  *
@@ -66,7 +66,7 @@ $language = array(
     'spoiler' => 'Spoiler',
     'link' => 'Lien',
     'unlink' => 'Déconnecter',
-    
+
     /*
      *  Contact form
      */
