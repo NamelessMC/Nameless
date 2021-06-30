@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.0.0-pr10
  *
  *  Translator
  *  - SimplyRin( @SimplyRin_, https://www.simplyrin.net )
@@ -29,8 +29,8 @@ $language = array(
     'topics' => 'トピック',
     'views' => 'ビュー',
     'posts' => '投稿',
-    'x_posts' => '{x} 回の投稿', // Don't replace {x}
-    'x_topics' => '{x} トピック', // Don't replace {x}
+    'x_posts' => '{x}回の投稿', // Don't replace {x}
+    'x_topics' => '{x}トピック', // Don't replace {x}
     'registered_x' => '登録日: {x}', // Don't replace {x}
     'by' => 'by',
     'in' => 'in',
@@ -46,8 +46,8 @@ $language = array(
     'post_successful' => '投稿に成功しました。',
     'post_edited_successfully' => '投稿の編集に成功しました。',
     'user_tag' => 'タグ付けされた投稿がありました。',
-    'user_tag_info' => '{x} の投稿でタグ付けされています。', // Don't replace "{x}"
-    'creating_topic_in_x' => '{x} でトピックを作成', // Don't replace "{x}"
+    'user_tag_info' => '{x}の投稿でタグ付けされています。', // Don't replace "{x}"
+    'creating_topic_in_x' => '{x}でトピックを作成', // Don't replace "{x}"
     'topic_title' => 'トピックタイトル',
     'new_reply' => '新しい返信',
     're' => 'RE: ',
@@ -92,13 +92,13 @@ $language = array(
     'spam_wait' => '再投稿する前に {x} 秒待ってください。',
     'overview' => '概要',
     'no_label' => '<span class="badge badge-secondary">ラベルなし</span>',
-    'forum_redirect_warning' => '注意：あなたはこのサイトを離れようとしています！ {x} に進んでよろしいですか？',
+    'forum_redirect_warning' => '注意：あなたはこのサイトを離れようとしています！{x}に進んでよろしいですか？',
     'follow' => 'フォロー',
     'unfollow' => 'フォロー解除',
     'now_following_topic' => '現在、このトピックをフォローしており、新しい返信があれば通知されます。',
     'no_longer_following_topic' => 'このトピックをフォローしていないので、新しい返信は通知されません。',
-    'new_reply_in_topic' => '{x} が {y} に返信しました。', // Don't replace {x} (username) or {y} (topic title)
-    'started_by_x' => '{x} によって開始されました', // Don't replace {x}
+    'new_reply_in_topic' => '{x}が{y}に返信しました。', // Don't replace {x} (username) or {y} (topic title)
+    'started_by_x' => '{x}によって開始されました', // Don't replace {x}
     'sticky_topics' => 'トピック固定',
 
     // Homepage
@@ -107,9 +107,9 @@ $language = array(
 
     // Admin tab
     'labels' => 'ラベル',
-    'new_forum' => '<i class="fa fa-plus-circle"></i> 新しいフォーラム',
-    'new_label' => '<i class="fa fa-plus-circle"></i> 新しいラベル',
-    'new_label_type' => '<i class="fa fa-plus-circle"></i> 新しいラベルタイプ',
+    'new_forum' => '<i class="fa fa-plus-circle"></i>新しいフォーラム',
+    'new_label' => '<i class="fa fa-plus-circle"></i>新しいラベル',
+    'new_label_type' => '<i class="fa fa-plus-circle"></i>新しいラベルタイプ',
     'label_types' => 'ラベルタイプ',
     'creating_label' => '新しいラベルを作成',
     'creating_label_type' => '新しいラベルタイプを作成',
@@ -118,8 +118,8 @@ $language = array(
     'label_name' => 'ラベル名',
     'label_type' => 'ラベルタイプ',
     'label_type_name' => 'ラベルタイプ名',
-    'label_type_html' => 'ラベルタイプ HTML',
-    'label_type_html_help' => 'HTMLには、ラベル名のプレースホルダとして {x} を含める必要があります。',
+    'label_type_html' => 'ラベルタイプHTML',
+    'label_type_html_help' => 'HTMLには、ラベル名のプレースホルダとして{x}を含める必要があります。',
     'label' => 'ラベル',
     'label_forums' => 'ラベル フォーラム',
     'label_groups' => 'ラベル グループ',
@@ -194,7 +194,7 @@ $language = array(
     'latest_posts' => '最新の投稿',
 
     // UserCP
-    'last_7_days_posts' => 'フォーラムへの投稿（過去7日間）',
+    'last_7_days_posts' => 'フォーラムへの投稿(過去7日間)',
     'your_posts' => '投稿数',
     'average_posts' => 'ユーザーの平均投稿数',
     'total_posts' => '累計投稿数',
