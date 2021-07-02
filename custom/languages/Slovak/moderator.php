@@ -1,16 +1,15 @@
 <?php
 /*
- *  Made by Slovak
+ *  Made by RobiNN
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr10
  *
  *  License: MIT
  *
- *  RobiNN Language - Moderator terms
+ *  Slovak Language - Moderator terms
  */
 
 $language = array(
-    'mod_cp' => 'ModCP',
     'staff_cp' => 'StaffCP',
     'overview' => 'Prehľad',
 
@@ -74,6 +73,7 @@ $language = array(
     'viewing_user_x' => 'Prezeranie užívateľa {x}', // Don't replace {x}
     'previous_punishments' => 'Predchádzajúce tresty',
     'no_previous_punishments' => 'Žiadne predchádzajúce tresty',
+    'reset_avatar' => 'Resetovať avatar',
     'warning' => 'Varovanie',
     'ip_ban' => 'IP Ban',
     'reason' => 'Dôvod',

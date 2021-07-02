@@ -2,7 +2,7 @@
 /*
  *  Made by RobiNN
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr10
  *
  *  License: MIT
  *
@@ -21,7 +21,6 @@ $language = array(
     'configuration' => 'Konfigurácia',
     'layout' => 'Rozloženie',
     'user_management' => 'Správa užívateľov',
-    'admin_cp' => 'AdminCP',
     'administration' => 'Administrácia',
     'overview' => 'Prehľad',
     'core' => 'Nastavenia',
@@ -31,7 +30,6 @@ $language = array(
     'security' => 'Zabezpečenie',
     'sitemap' => 'Sitemap',
     'styles' => 'Štýly',
-    'users_and_groups' => 'Užívatelia a skupiny',
 
     // Overview
     'running_nameless_version' => 'NamelessMC beží na verzií <strong>{x}</strong>', // Don't replace "{x}"
@@ -47,7 +45,7 @@ $language = array(
     // Core
     'mode_toggle' => 'Tmavý/Svetlý režim',
     'settings' => 'Nastavenia',
-    'general_settings' => 'Obecné nastavenia',
+    'general_settings' => 'Všeobecné nastavenia',
     'sitename' => 'Názov stránky',
     'default_language' => 'Hlavný jazyk',
     'default_language_help' => 'Užívatelia si budú môcť vybrať z ľubovoľných nainštalovaných jazykov.',
@@ -76,17 +74,8 @@ $language = array(
     'youtube_url' => 'Youtube URL',
     'twitter_url' => 'Twitter URL',
     'twitter_dark_theme' => 'Použiť pre Twitter tmavý vzhľad?',
-    'discord_id' => 'ID Discord serveru',
-    'discord_widget_theme' => 'Téma Discord widgetu',
-    'discord_id_length' => 'Uistite sa, že vaše Discord ID má 18 znakov.',
-    'discord_id_numeric' => 'Uistite sa, že vaše Discord ID je číselné (iba čísla).',
-    'discord_invite_info' => 'Ak chcete pozvať bota Nameless Link na váš Discord server, kliknite <a target="_blank" href="https://namelessmc.com/discord-bot-invite">tu</a>. Potom pošlite DM botovi pomocou príkazu <code>!apiurl</code>, ktorý prepojí bota s vašou webstránkou. Prípadne môžete <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">bota hosťovať sami</a>.',
-    'discord_bot_must_be_setup' => 'Discord integráciu nie je možné povoliť, kým nenastavíte bota. Pre informáciu prosím <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">kliknite tu</a>.',
-    'discord_bot_setup' => 'Bot nastavený?',
-    'discord_integration_not_setup' => 'Integrácia Discordu nie je nastavená',
     'dark' => 'Tmavý',
     'light' => 'Svetlý',
-    'google_plus_url' => 'Google Plus URL',
     'facebook_url' => 'Facebook URL',
     'social_media_settings_updated' => 'Nastavenia sociálnych médií sa úspešne aktualizovali.',
     'successfully_updated' => 'Úspešne aktualizované',
@@ -116,11 +105,6 @@ $language = array(
     'host' => 'Host',
     'email_port' => 'Port',
     'email_password_hidden' => 'Heslo sa z bezpečnostných dôvodov nezobrazuje.',
-    'send_test_email' => 'Odoslať skúšobny email',
-    'send_test_email_info' => 'Nasledujúce tlačidlo sa pokúsi odoslať email na vašu emailovú adresu <strong>{x}</strong>. Zobrazia sa všetky chyby vyhodené pri odosielaní emailu.', // Don't replace {x}
-    'send' => 'Odoslať',
-    'test_email_error' => 'Chyby skúšobného emailu:',
-    'test_email_success' => 'Skúšobný email úspešne odoslaný!',
     'edit_email_messages' => 'Emailové správy',
     'email_language_info' => 'Nevidíte svoj jazyk? Uistite sa, že súbor \'emails.php\' je vo vašom jazykovom adresári a je zapisovateľný vašim webovým serverom.',
     'editing_language' => 'Úpravy jazyka',
@@ -131,6 +115,11 @@ $language = array(
     'email_message_options' => 'Možnosti',
     'email_message_subject' => 'Predmet',
     'email_message_message' => 'Správa',
+    'send_test_email' => 'Odoslať skúšobny email',
+    'send_test_email_info' => 'Nasledujúce tlačidlo sa pokúsi odoslať email na vašu emailovú adresu <strong>{x}</strong>. Zobrazia sa všetky chyby vyhodené pri odosielaní emailu.', // Don't replace {x}
+    'send' => 'Odoslať',
+    'test_email_error' => 'Chyby skúšobného emailu:',
+    'test_email_success' => 'Skúšobný email úspešne odoslaný!',
     'terms_error' => 'Uistite sa prosím, že vaše podmienky niesu dlhšie ako 100000 znakov.',
     'privacy_policy_error' => 'Zadajte pravidlá ochrany osobných údajov, ktoré nie sú dlhšie ako 100 000 znakov.',
     'terms_updated' => 'Zásady ochrany osobných údajov a zmluvné podmienky boli úspešne aktualizované.',
@@ -183,6 +172,8 @@ $language = array(
     'placeholders_server_id' => 'Server ID',
     'placeholders_name' => 'Názov',
     'placeholders_value' => 'Hodnota',
+    'placeholders_player' => 'Hráč',
+    'placeholders_score' => 'Skóre',
     'placeholders_last_updated' => 'Naposledy aktualizované',
     'placeholders_friendly_name' => 'Priateľský názov',
     'placeholders_friendly_name_info' => 'Použite na nastavenie \'prezývky\' pre tento placeholder. Namiesto raw názvu sa použije priateľský názov.',
@@ -254,8 +245,6 @@ $language = array(
 
     // Minecraft
     'enable_minecraft_integration' => 'Povoliť Minecraft integráciu?',
-    'mc_service_status' => 'Stav služby Minecraftu',
-    'service_query_error' => 'Nepodarilo sa načítať stav služby.',
     'authme_integration' => 'Integrácia AuthMe',
     'authme_integration_info' => 'Keď je povolená AuthMe integrácia, užívatelia sa môžu zaregistrovať iba v hre.',
     'enable_authme' => 'Povoliť AuthMe integráciu?',
@@ -278,6 +267,7 @@ $language = array(
     'no_servers_defined' => 'Zatiaľ neboli definované žiadne servery',
     'query_settings' => 'Nastavenie query',
     'default_server' => 'Predvolený server',
+    'average_players' => 'Priemerne hráčov',
     'no_default_server' => 'Žiadny predvolený server',
     'external_query' => 'Použiť externé query?',
     'external_query_help' => 'Ak predvolená query na server nefunguje, povoľte túto možnosť.',
@@ -339,8 +329,6 @@ $language = array(
     'force_premium_accounts' => 'Vynútiť prémiové Minecraft účty?',
     'banner_background' => 'Pozadie banneru',
     'query_interval' => 'Interval query (v minútach, musí byť medzi 5 a 60)',
-    'player_graphs' => 'Grafy hráča',
-    'player_count_cronjob_info' => 'Môžete nastaviť cron job na dopytovanie serverov každých {x} minút pomocou nasledujúceho príkazu:',
     'status_page' => 'Povoliť stavovú stránku?',
     'minecraft_settings_updated_successfully' => 'Nastavenia sa úspešne aktualizovali.',
     'server_id_x' => 'Server ID: {x}', // Don't replace {x}
@@ -434,11 +422,7 @@ $language = array(
     'users' => 'Užívatelia',
     'groups' => 'Skupiny',
     'group' => 'Skupina',
-    'new_user' => '<i class="fa fa-plus-circle"></i> Nový užívateľ',
-    'creating_new_user' => 'Vytvoriť nového užívateľa',
     'registered' => 'Registrovaný',
-    'user_created' => 'Užívateľ bol úspešne vytvorený.',
-    'cant_delete_root_user' => 'Užívateľa root nie je možné odstrániť!',
     'cant_modify_root_user' => 'Nie je možné upraviť hlavnú skupinu tohto používateľa!',
     'main_group' => 'Hlavná skupina',
     'user_deleted' => 'Užívateľ úspešne zmazaný.',
@@ -450,8 +434,6 @@ $language = array(
     'punish_user' => 'Potrestať užívateľa',
     'delete_user' => 'Odstrániť užívateľa',
     'minecraft_uuid' => 'Minecraft UUID',
-    'other_actions' => 'Ďalšie akcie',
-    'disable_avatar' => 'Zakázať avatar',
     'select_user_group' => 'Musíte zvoliť užívateľovu skupinu.',
     'uuid_max_32' => 'UUID môže mať maximálne 32 znakov.',
     'title_max_64' => 'Užívateľské meno môže mať maximálne 64 znakov.',
@@ -463,7 +445,6 @@ $language = array(
     'group_name_minimum' => 'Uistite sa, že názov vašej skupiny má minimálne 2 znaky.',
     'group_name_maximum' => 'Uistite sa, že názov vašej skupiny má maximálne 20 znakov.',
     'creating_group' => 'Vytváranie novej skupiny',
-    'group_html_maximum' => 'Uistite sa, že HTML kód vašej skupiny nemá viac ako 1024 znakov.',
     'group_html' => 'HTML skupiny',
     'group_html_lg' => 'Veľké HTML skupiny',
     'group_username_colour' => 'Farba mena skupiny',
@@ -471,7 +452,6 @@ $language = array(
     'group_staff' => 'Je skupina skupinou adminov?',
     'delete_group' => 'Odstrániť skupinu',
     'confirm_group_deletion' => 'Naozaj chcete odstrániť skupinu {x}?', // Don't replace {x}
-    'group_not_exist' => 'Táto skupina neexistuje.',
     'secondary_groups' => 'Sekundárne skupiny',
     'secondary_groups_info' => 'Užívateľ získa od týchto skupín ďalšie oprávnenia. Ctrl + kliknutie umožňuje výber/zrušenie výberu viacerých skupín.',
     'unable_to_update_uuid' => 'Nedá sa aktualizovať UUID.',
@@ -499,18 +479,12 @@ $language = array(
     // Permissions
     'select_all' => 'Vybrať všetko',
     'deselect_all' => 'Odznačiť všetko',
-    'background_image' => 'Obrázok pozadia',
     'can_edit_own_group' => 'Môže upravovať oprávnenia vlastnej skupiny',
     'permissions_updated_successfully' => 'Oprávnenia sa úspešne aktualizovali.',
     'cant_edit_this_group' => 'Oprávnenia tejto skupiny nemôžete upravovať!',
 
     // General Admin language
-    'task_successful' => 'Úloha úspešná.',
-    'invalid_action' => 'Neplatná akcia.',
-    'enable_night_mode' => 'Povoliť nočný režim',
-    'disable_night_mode' => 'Zakázať nočný režim',
     'view_site' => 'Zobraziť stránku',
-    'signed_in_as_x' => 'Prihlásený ako {x}', // Don't replace {x}
     'warning' => 'Varovanie',
 
     // Maintenance
@@ -525,6 +499,8 @@ $language = array(
     'please_select_logs' => 'Vyberte záznamy, ktoré chcete zobraziť',
     'ip_address' => 'IP Adresa',
     'template_changes' => 'Zmena šablóny',
+    'email_logs' => 'Hromadné emaily',
+    'group_sync_logs' => 'Zmeny skupinovej synchronizácie',
     'file_changed' => 'Súbor bol zmenený',
     'all_logs' => 'Všetky záznamy',
     'action' => 'Akcia',
@@ -633,6 +609,7 @@ $language = array(
     'set_as_primary_group_info' => 'Ak je povolené, primárna skupina užívateľa na webstránke sa aktualizuje. Ak je zakázané, skupina v hre sa pridá do sekundárnych skupín užívateľa na webstránke.',
     'ingame_group_maximum' => 'Uistite sa, že názov vašej skupiny je dlhý maximálne 64 znakov.',
     'select_website_group' => 'Vyberte skupinu na webstránke.',
+    'at_least_one_external' => 'Zadajte aspoň 1 externú skupinu (Minecraft alebo Discord)',
     'ingame_group_already_exists' => 'Pravidlo synchronizácie hodnosti už pre túto skupinu v hre bolo vytvorené.',
     'group_sync_rule_created_successfully' => 'Pravidlo synchronizácie skupiny bolo úspešne vytvorené.',
     'group_sync_rules_updated_successfully' => 'Pravidlá synchronizácie skupiny boli úspešne aktualizované.',
@@ -707,12 +684,10 @@ $language = array(
     'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'recent_users' => 'Noví užívatelia',
     'recent_users_statistic_icon' => '<i class="fas fa-users"></i>',
-    'average_players' => 'Priemerne hráčov',
     'nameless_news' => 'NamelessMC novinky',
     'unable_to_retrieve_nameless_news' => 'Nie je možné načítať najnovšie novinky',
     'confirm_leave_site' => 'Chystáte sa opustiť túto stránku! Naozaj chcete navštíviť <strong id="leaveSiteURL">{x}</strong>?', // don't replace {x} and make sure it has the id leaveSiteURL
     'server_compatibility' => 'Kompatibilita so serverom',
-    'issues' => 'Problémy',
 
     // Other
     'source' => 'Zdroj',
@@ -746,6 +721,7 @@ $language = array(
     'background_colour_required' => 'Farba pozadia je povinná',
     'text_colour_required' => 'Farba textu je povinná',
     'no_announcements' => 'Zatiaľ neboli vytvorené žiadne oznámenia.',
+    'announcement_order' => 'Poradie',
 
     // Discord
     'discord' => 'Discord',
@@ -754,14 +730,14 @@ $language = array(
     'discord_role_id_numeric' => 'Discord Role ID musí byť číselné.',
     'discord_role_id_length' => 'Discord Role ID musí mať dĺžku 18 číslic.',
     'discord_settings_updated' => 'Vaše Discord nastavenia boli úspešne aktualizované.',
-    'discord_guild_id_required' => 'Ak chcete, aby Discord integrácia fungovala, zadajte svoje Discord Server ID.',
-    'discord_bot_url' => 'Discord Bot URL',
-    'discord_bot_url_info' => 'Umiestnenie, ktoré predstavuje vaša vlastná inštancia bota Nameless Link. Túto hodnotu zmeňte, iba ak viete, čo robíte!',
-    'discord_bot_url_required' => 'Zadajte svoju URL adresu bota, aby Discord integrácia fungovala.',
-    'discord_invalid_api_url' => 'Zdá sa, že vaša API URL sa zmenila. Požiadajte majiteľa guildu, aby aktualizoval URL pomocou bota Nameless Link.',
-    'test_bot_url' => 'Testovať Bot URL',
-    'discord_bot_url_valid' => 'Vaša URL bota je platná.',
-    'discord_cannot_interact' => 'Nameless Link bot nemôže s týmto užívateľom interagovať v Discorde. Je ich rola vyššia ako rola Nameless Link?',
+    'discord_id' => 'ID Discord serveru',
+    'discord_widget_theme' => 'Téma Discord widgetu',
+    'discord_id_length' => 'Uistite sa, že vaše Discord ID má 18 znakov.',
+    'discord_id_numeric' => 'Uistite sa, že vaše Discord ID je číselné (iba čísla).',
+    'discord_invite_info' => 'Ak chcete pozvať bota Nameless Link na váš Discord server, kliknite <a target="_blank" href="https://namelessmc.com/discord-bot-invite">tu</a>. Potom pošlite DM botovi pomocou príkazu <code>!apiurl</code>, ktorý prepojí bota s vašou webstránkou. Prípadne môžete <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">bota hosťovať sami</a>.',
+    'discord_bot_must_be_setup' => 'Discord integráciu nie je možné povoliť, kým nenastavíte bota. Pre informáciu prosím <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">kliknite tu</a>.',
+    'discord_bot_setup' => 'Bot nastavený?',
+    'discord_integration_not_setup' => 'Integrácia Discordu nie je nastavená',
 
     // Discord bot Errors
     'discord_bot_error_badparameter' => 'Neplatný text žiadosti.',
@@ -771,6 +747,6 @@ $language = array(
     'discord_bot_error_notlinked' => 'Bot nie je prepojený s týmto webovým serverom pre poskytnuté Guild ID.',
     'discord_bot_error_unauthorized' => 'API kľúč je neplatný',
     'discord_bot_error_invrole' => 'Poskytnuté ID role je neplatné.',
-    'discord_bot_error_hierarchy' => 'Bot nemôže upravovať roly tohto užívateľa.'
-
+    'discord_bot_error_hierarchy' => 'Bot nemôže upravovať roly tohto užívateľa.',
+    'discord_bot_check_logs' => 'Mali by ste skontrolovať konkrétnejšiu chybu (ak existuje) v StaffCP -> Zabezpečenie -> Všetky záznamy.'
 );
