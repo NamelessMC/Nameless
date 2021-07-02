@@ -2,7 +2,7 @@
 /*
  *  Made by RobiNN
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr10
  *
  *  License: MIT
  *
@@ -69,6 +69,7 @@ $language = array(
     'invalid_timezone' => 'Toto časové pásmo je neplatné',
     'link' => 'Pripojiť',
     'unlink' => 'Odpojiť',
+    'leaderboards' => 'Výsledkové tabuľky',
 
     /*
      *  Contact form
@@ -78,10 +79,9 @@ $language = array(
     'email_address' => 'Emailová adresa',
     'contact_email_subject' => 'Nové odoslanie kontaktného formulára',
     'contact_message_failed' => 'Správu sa nepodarilo odoslať. Uistite sa, že ste zadali správu s dĺžkou 10 až 5 000 znakov.',
-    'contact_message_email' => 'Zadaný email je neplatný.',
     'contact_message_sent' => 'Správa bola úspešne odoslaná.',
+    'contact_message_email' => 'Zadaný email je neplatný.',
     'contact_message_limit' => 'Za hodinu môžete odoslať iba jednu správu. Nasledujúcu správu môžete odoslať o {x} minút.', // Don't replace {x}
-
 
     /*
      *  Navbar
@@ -94,7 +94,6 @@ $language = array(
      *  Homepage
      */
     'social' => 'Sociálne',
-
 
     /*
      *  Help dialogues
@@ -144,7 +143,7 @@ $language = array(
     'total_online_users' => 'Celkom online užívateľov: {x}',
     'discord_widget_disabled' => 'Pre zadaný Discord server je widget zakázaný. Prejdite na kartu \'Widget\' v nastaveniach Discord servera a uistite sa, že je povolený Discord widget a či je správne ID.',
     'online_guests' => 'Online hostia',
-    'total_online' => 'Celkom online', // this is Online Users + Online Guests
+    'total_online' => 'Celkom online', // this is Online Users + Online Guests,
     'no_default_server' => 'Neexistuje žiadny predvolený server, vyberte ho v StaffCP - Integrácie - Minecraft.',
     'server_status' => 'Stav servera',
 

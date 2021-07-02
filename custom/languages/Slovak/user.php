@@ -1,8 +1,8 @@
 <?php
 /*
- *  Made by RobiNN
+ *  Made by Slovak
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr10
  *
  *  License: MIT
  *
@@ -30,12 +30,12 @@ $language = array(
     'successfully_logged_out' => 'Boli ste úspešne odhlásený.',
     'messaging' => 'Správy',
     'click_here_to_view' => 'Kliknite sem pre zobrazenie.',
-    'moderation' => 'Moderovanie',
-    'administration' => 'Administrácia',
     'alerts' => 'Upozornenia',
     'delete_all' => 'Vymazať všetko',
     'private_profile' => 'Súkromný profil',
     'gif_avatar' => 'Nahrať .gif ako vlastný avatar',
+    'placeholders' => 'Placeholdery',
+    'no_placeholders' => 'Žiadne placeholdery',
 
     // Profile settings
     'field_is_required' => '{x} je povinné.', // Don't replace {x}
@@ -79,7 +79,7 @@ $language = array(
     'x_new_alerts' => 'Máte {x} nových upozornení', // Don't replace {x}
     'no_alerts_usercp' => 'Nemáte žiadne upozornenia.',
 
-    // Registraton
+    // Registration
     'registration_check_email' => 'Ďakujeme za registráciu! Skontrolujte svoju emailovú adresu, pre získanie overovacieho odkazu, aby ste dokončili svoju registráciu. Ak email nenájdete, skontrolujte priečinok s nevyžiadanou poštou.',
     'username' => 'Užívateľské meno',
     'nickname' => 'Nick',
