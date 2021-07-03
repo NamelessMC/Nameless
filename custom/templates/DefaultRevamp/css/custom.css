@@ -1203,6 +1203,12 @@ body.dark .ui.table thead th {
 	color: rgba(255, 255, 255, 0.6);
 }
 
+body.dark .ui.top.attached.header {
+	background-color: #282828;
+	border-color: #282828;
+	color: rgba(255, 255, 255, 0.6);
+}
+
 body.dark .ui.table a {
 	color: #fff;
 }
