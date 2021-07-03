@@ -220,7 +220,6 @@ if (!class_exists('Default_Panel_Template')) {
                     case 'reactions':
                     case 'social_media':
                     case 'widgets':
-                    case 'minecraft':
                         $this->addJSScript('
 						var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
 
@@ -549,6 +548,14 @@ if (!class_exists('Default_Panel_Template')) {
 
                                 $this->addJSScript('$(".image-picker").imagepicker();');
                             }
+                        } else if (MINECRAFT_PAGE == 'placeholders') {
+                            $this->addJSScript('
+                            var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
+
+                            elems.forEach(function(html) {
+                              var switchery = new Switchery(html, {color: \'#23923d\', secondaryColor: \'#e56464\'});
+                            });
+                            ');
                         }
 
                         break;
