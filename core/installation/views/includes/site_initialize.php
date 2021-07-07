@@ -235,8 +235,8 @@ $queries->create('languages', array(
 ));
 
 $queries->create('languages', array(
-	'name' => 'SwedishES',
-	'is_default' => (Session::get('default_language') == 'SwedishES') ? 1 : 0
+	'name' => 'SpanishES',
+	'is_default' => (Session::get('default_language') == 'SpanishES') ? 1 : 0
 ));
 
 $queries->create('languages', array(
