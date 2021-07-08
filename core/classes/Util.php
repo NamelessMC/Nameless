@@ -357,15 +357,15 @@ class Util {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_URL, 'https://namelessmc.com/nl_core/nl2/stats.php?uid=' . $uid . '&version=' . $current_version . '&php_version=' . urlencode(phpversion()) . '&language=' . LANGUAGE . '&docker=' . (getenv('NAMELESSMC_METRICS_DOCKER') == true));
+        curl_setopt($ch, CURLOPT_URL, 'https://namelessmc.com/api/update_check?uid=' . $uid . '&version=' . $current_version . '&php_version=' . urlencode(phpversion()) . '&language=' . LANGUAGE . '&docker=' . (getenv('NAMELESSMC_METRICS_DOCKER') == true));
 
-        $update_check = curl_exec($ch);
+        $update_check = json_decode(curl_exec($ch));
 
         if (curl_error($ch)) {
             $error = curl_error($ch);
         } else {
-            if ($update_check == 'Failed') {
-                $error = 'Unknown error';
+            if ($update_check->error) {
+                $error = $update_check->message;
             }
         }
 
@@ -373,28 +373,20 @@ class Util {
 
         if (isset($error)) {
             return json_encode(array('error' => $error));
-        } else {
-            if ($update_check == 'None') {
-                return json_encode(array('no_update' => true));
-            } else {
-                $info = json_decode($update_check);
-
-                if (!isset($info->error) && !isset($info->no_update) && isset($info->new_version)) {
-                    if (isset($info->urgent) && $info->urgent == 'true')
-                        $to_db = 'urgent';
-                    else
-                        $to_db = 'true';
-
-                    $update_id = $queries->getWhere('settings', array('name', '=', 'version_update'));
-                    $update_id = $update_id[0]->id;
-                    $queries->update('settings', $update_id, array(
-                        'value' => $to_db
-                    ));
-                }
-
-                return $update_check;
-            }
         }
+
+        if (!$update_check->update_available) {
+            return json_encode(array('no_update' => true));
+        }
+
+        $update_id = $queries->getWhere('settings', array('name', '=', 'version_update'));
+        $update_id = $update_id[0]->id;
+
+        $queries->update('settings', $update_id, array(
+            'value' => ($update_check->urgent ? 'urgent' : 'true')
+        ));
+
+        return $update_check;
     }
 
     /**

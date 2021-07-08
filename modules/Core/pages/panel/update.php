@@ -55,35 +55,10 @@ if ($cache->isCached('update_check')) {
 
 $update_check = json_decode($update_check);
 
-if (!isset($update_check->error) && !isset($update_check->no_update) && isset($update_check->new_version)) {
-    // Unique ID + current version
-    $uid = $queries->getWhere('settings', array('name', '=', 'unique_id'));
-    $uid = $uid[0]->value;
-
-    $current_version = $queries->getWhere('settings', array('name', '=', 'nameless_version'));
-    $current_version = $current_version[0]->value;
-
-    // Get instructions
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    curl_setopt($ch, CURLOPT_URL, 'https://namelessmc.com/nl_core/nl2/instructions.php?uid=' . $uid . '&version=' . $current_version);
-
-    $instructions = curl_exec($ch);
-
-    if (curl_error($ch)) {
-        $instructions = curl_error($ch);
-    } else {
-        if ($instructions == 'Failed') {
-            $instructions = 'Unknown error';
-        }
-    }
-
-    curl_close($ch);
-
+if (!$update_check->error && $update_check->update_available) {
     $smarty->assign(array(
         'INSTRUCTIONS' => $language->get('admin', 'instructions'),
-        'INSTRUCTIONS_VALUE' => Output::getPurified($instructions)
+        'INSTRUCTIONS_VALUE' => Output::getPurified($update_check->install_instructions)
     ));
 }
 
