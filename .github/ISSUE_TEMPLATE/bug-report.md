@@ -20,7 +20,7 @@ What were you expecting to happen?
 **Screenshots**
 If applicable, add screenshots to help explain your problem.
 
-**NamelessMC version (from AdminCP -> Overview)**
+**NamelessMC version (from StaffCP -> Overview)**
 
 **Additional information**
 Add more information about the problem if necessary.
