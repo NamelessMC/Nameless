@@ -18,7 +18,7 @@ $language = array(
     'invalid_language_file' => 'Ogiltig språkfil',
     'invalid_api_method' => 'Ogiltig API-metod',
     'no_unique_site_id' => 'Inget unikt webbplats-ID tillgängligt',
-    'impossible_to_check_for_updates' => 'Det går inte att söka efter uppdateringar',
+    'unable_to_check_for_updates' => 'Det går inte att söka efter uppdateringar',
     'invalid_post_contents' => 'Ogiltigt POST-innehåll',
     'invalid_get_contents' => 'Ogiltigt GET-innehåll',
     'invalid_email_address' => 'Ogiltig e-postadress',
@@ -52,15 +52,15 @@ $language = array(
     'unable_to_update_discord_bot_username' => 'Det gick inte att uppdatera Discord bot-användarnamnet.',
 
     // Success messages
-    'finish_registration_link' => 'Please click on the following link to complete registration:',
-    'finish_registration_email' => 'Please check your emails to complete registration.',
-    'group_updated' => 'Group updated successfully',
-    'report_created' => 'Report created successfully',
-    'new_private_message_from' => 'New private message from {x}', // Don't replace {x}
-    'username_updated' => 'Username updated successfully',
-    'server_info_updated' => 'Server info updated successfully',
-    'account_validated' => 'Account validated successfully',
-    'discord_id_set' => 'Discord ID set successfully',
-    'discord_settings_updated' => 'Discord settings updated successfully',
-    'discord_usernames_updated' => 'Discord usernames updated successfully'
+    'finish_registration_link' => 'Klicka på följande länk för att slutföra registreringen:',
+    'finish_registration_email' => 'Kontrollera dina e-postmeddelanden för att slutföra registreringen.',
+    'group_updated' => 'Gruppen uppdaterades framgångsrikt',
+    'report_created' => 'Rapport skapades framgångsrikt',
+    'new_private_message_from' => 'Nytt privat meddelande från {x}', // Don't replace {x}
+    'username_updated' => 'Användarnamn uppdaterades framgångsrikt',
+    'server_info_updated' => 'Serverinfo uppdaterades framgångsrikt',
+    'account_validated' => 'Kontot validerades framgångsrikt',
+    'discord_id_set' => 'Discord ID har lyckats',
+    'discord_settings_updated' => 'Discord-inställningar uppdaterades framgångsrikt',
+    'discord_usernames_updated' => 'Discord-användarnamn uppdaterades framgångsrikt'
 );
