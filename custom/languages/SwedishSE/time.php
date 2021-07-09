@@ -6,7 +6,7 @@
  *
  *  License: MIT
  *
- *  Translated by IsS127
+ *  Translated by IsS127, ItsLynix
  *  SwedishSE Language - Time
  */
 
@@ -25,6 +25,6 @@ $language = array(
     '_days' => '{x} dagar sen',
     'about_1_month' => 'ungefär 1 månad sen',
     '_months' => '{x} månader sen',
-    'about_1_year' => 'ungefär ett år sedan',
+    'about_1_year' => 'ungefär ett år sen',
     'over_x_years' => 'över {x} år sen'
 );
