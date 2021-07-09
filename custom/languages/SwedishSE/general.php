@@ -6,7 +6,7 @@
  *
  *  License: MIT
  *
- *  Translated by IsS127
+ *  Translated by IsS127, ItsLynix
  *  SwedishSE Language - General Terms
  */
 
@@ -14,12 +14,12 @@ $language = array(
     /*
      *  General terms
      */
-    'help' => 'Help',
+    'help' => 'Hjälp',
     'submit' => 'Enter',
     'register' => 'Registrera',
-    'already_registered' => 'Already Registered?',
-    'custom_fields' => 'Custom Fields',
-    'not_registered_yet' => 'Not registered yet?',
+    'already_registered' => 'Redan registrerad?',
+    'custom_fields' => 'Anpassade Fält',
+    'not_registered_yet' => 'Inte registrerad än?',
     'sign_in' => 'Logga In',
     'log_out' => 'Logga Ut',
     'profile' => 'Profil',
@@ -58,18 +58,18 @@ $language = array(
     'page_x' => 'Sida {x}',
     'browse' => 'Bläddra',
     'bypass' => 'Undvika',
-    'yes' => 'Yes',
-    'no' => 'No',
-    'content' => 'Content',
-    'full_content' => 'Full Content',
+    'yes' => 'Ja',
+    'no' => 'Nej',
+    'content' => 'Innehåll',
+    'full_content' => 'Fullt Innehåll',
     'url' => 'URL',
-    'success' => 'Success',
-    'error' => 'Error',
-    'are_you_sure' => 'Are you sure?',
+    'success' => 'Klar',
+    'error' => 'Fel',
+    'are_you_sure' => 'Är du säker?',
     'spoiler' => 'Spoiler',
-    'invalid_timezone' => 'That timezone is invalid',
-    'link' => 'Link',
-    'unlink' => 'Unlink',
+    'invalid_timezone' => 'Ogiltig tidszon',
+    'link' => 'Länka',
+    'unlink' => 'Avlänka',
     
     /*
      *  Contact form
@@ -79,7 +79,7 @@ $language = array(
     'email_address' => 'Email Address',
     'contact_email_subject' => 'Ny kontaktformulär inlämning.',
     'contact_message_failed' => 'Det gick inte att skicka meddelandet. Vänligen Unable to send message. Please se till att du har skrivit ett meddelande mellan 10 och 5000 tecken långt.',
-    'contact_message_email' => 'The provided email is invalid.',
+    'contact_message_email' => 'Det angivna meddelandet är ogiltigt.',
     'contact_message_sent' => 'Meddelande sänt med framgång!',
     'contact_message_limit' => 'Du kan bara skicka ett meddelande per timme. Du kan sedan skicka ett meddelande om {x} minuter.', // Don't replace {x}
 
@@ -108,52 +108,52 @@ $language = array(
     'player_count' => '{x}/{y}', // Don't replace {x} or {y}
     'ping' => 'Ping: {x}', // Don't replace {x}
     'version' => 'Version: {x}', // Don't replace {x}
-    'currently_1_player_online' => 'There is currently <strong>1</strong> player online.',
+    'currently_1_player_online' => 'Det finns just nu <strong>1</strong> spelare online.',
     'currently_x_players_online' => 'Det finns närvarande <strong>{x}</strong> spelare online.', // Don't replace {x}
-    'server_offline' => 'Servern är närvarande offline.',
+    'server_offline' => 'Servern är offline.',
     'connect_with_ip_x' => 'Anslut nu med IP {x}', // Don't replace {x}
-    'click_to_copy_tooltip' => 'Click to copy',
+    'click_to_copy_tooltip' => 'Klicka för att kopiera',
     'ip' => 'IP',
-    'copied' => 'Copied!',
-    'no_servers' => 'There are no servers to display!',
-    'bungee_instance' => 'This server is a Bungee instance.',
-    'no_players_online' => 'There are no players online.',
-    'and_x_more' => 'and {x} more', // Don't replace {x}
+    'copied' => 'Kopierad!',
+    'no_servers' => 'Det finns inga servrar att visa!',
+    'bungee_instance' => 'Denna server är en Bungee-instans.',
+    'no_players_online' => 'Det finns inga spelare online.',
+    'and_x_more' => 'och {x} mer', // Don't replace {x}
 
     /*
      *  Cookie notice
      */
-    'cookie_notice' => 'This website uses cookies to enhance your browsing experience. By registering on our website or closing this notice you agree with their use.',
-    'cookie_agree' => 'Agree',
+    'cookie_notice' => 'Denna webbplats använder cookies för att förbättra din surfupplevelse. Genom att registrera dig på vår webbplats eller stänga detta meddelande godkänner du deras användning. ',
+    'cookie_agree' => 'Håller med',
 
     /*
      *  Widgets
      */
     'statistics' => 'Statistics',
-    'users_registered' => 'Users Registered',
-    'latest_member' => 'Latest Member',
-    'forum_statistics' => 'Forum Statistics',
-    'total_threads' => 'Total Threads',
-    'total_posts' => 'Total Posts',
-    'online_staff' => 'Online Staff',
-    'no_online_staff' => 'There are no staff members online.',
-    'total_online_staff' => 'Total online staff: {x}',
-    'online_users' => 'Online Users',
-    'no_online_users' => 'There are no users online.',
-    'total_online_users' => 'Total online users: {x}',
-    'discord_widget_disabled' => 'The widget is disabled for the specified Discord server. Please go to the \'Widget\' tab in your Discord server settings, and ensure the Discord widget is enabled and that the ID is correct.',
-    'online_guests' => 'Online Guests',
-    'total_online' => 'Total Online', // this is Online Users + Online Guests
-    'no_default_server' => 'There is no default server, please select one in StaffCP - Integrations - Minecraft.',
+    'users_registered' => 'Registrerade användare',
+    'latest_member' => 'Senaste medlem',
+    'forum_statistics' => 'Forumstatistik',
+    'total_threads' => 'Totalt antal trådar',
+    'total_posts' => 'Totalt antal inlägg',
+    'online_staff' => 'Online-personal',
+    'no_online_staff' => 'Det finns inga anställda online.',
+    'total_online_staff' => 'Totalt onlinepersonal: {x}',
+    'online_users' => 'Onlineanvändare',
+    'no_online_users' => 'Det finns inga användare online.',
+    'total_online_users' => 'Totalt onlineanvändare: {x}',
+    'discord_widget_disabled' => 'Widgeten är inaktiverad för den angivna Discord-servern. Gå till fliken \'Widget\' i dina Discord-serverinställningar och se till att Discord-widgeten är aktiverad och att ID: t är korrekt. ',
+    'online_guests' => 'Online-gäster',
+    'total_online' => 'Totalt Online', // this is Online Users + Online Guests
+    'no_default_server' => 'Det finns ingen standardserver, välj en i StaffKP - Integrationer - Minecraft.',
     'server_status' => 'Server Status',
 
     /*
      *  Privacy policy
      */
-    'privacy_policy' => 'Privacy Policy',
+    'privacy_policy' => 'Sekretesspolicy',
 
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{x}" rel="nofollow noopener">here</a>.' // Don't replace {x} which is the redirect URL
+    'redirecting_message' => 'Omdirigerar...<br />Om du inte omdirigeras automatiskt, klicka <a href="{x}" rel="nofollow noopener">här</a>.' // Don't replace {x} which is the redirect URL
 );

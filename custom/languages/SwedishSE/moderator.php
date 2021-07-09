@@ -6,13 +6,13 @@
  *
  *  License: MIT
  *
- *  Translated by IsS127
+ *  Translated by IsS127, ItsLynix
  *  SwedishSE Language - Moderator terms
  */
 
 $language = array(
     'mod_cp' => 'ModKP',
-    'staff_cp' => 'StaffCP',
+    'staff_cp' => 'StaffKP',
     'overview' => 'Översikt',
 
     // Spam
@@ -25,12 +25,12 @@ $language = array(
     // IP Lookup
     'ip_lookup' => 'IP Sökning',
     'search_for_ip' => 'Sök efter en användarnamn eller ett IP adress:',
-    'no_ips_with_username' => 'Inga IP Adresser hittades för den användraren.',
+    'no_ips_with_username' => 'Inga IP Adresser hittades för den användaren.',
     'no_accounts_with_that_ip' => 'Inga konton för den IP Adressen hittades.',
-    '1_account_with_ip' => 'Found 1 account with the IP {y}', // Don't replace "{y}"
-    'count_accounts_with_ip' => 'Hittat {x} kontor med IP {y}', // Don't replace "{x}" or "{y}"
-    '1_ip_with_name' => 'Found 1 IP address for user {y}', // Don't replace "{y}"
-    'count_ips_with_name' => 'Hittat {x} IP Adress(er) för användraren, {y}', // Don't replace "{x}" or "{y}"
+    '1_account_with_ip' => 'Hittat 1 konto med IP {y}', // Don't replace "{y}"
+    'count_accounts_with_ip' => 'Hittat {x} konto med IP {y}', // Don't replace "{x}" or "{y}"
+    '1_ip_with_name' => 'Hittat 1 IP address för användaren {y}', // Don't replace "{y}"
+    'count_ips_with_name' => 'Hittat {x} IP Adress(er) för användaren, {y}', // Don't replace "{x}" or "{y}"
     'no_users_or_ips_found' => 'Inga användare eller IP Adresser hittades.',
 
     // Reports
@@ -51,21 +51,21 @@ $language = array(
     'reopen_report' => 'Öppna Anmälning',
     '1_open_report' => 'There is currently <strong>1</strong> open report.',
     'open_reports' => 'Det finns för närvarande <strong>{x}</strong> öppnade anmälningar.', // Don't replace {x}
-    'no_open_reports' => 'There are currently no open reports.',
-    'no_closed_reports' => 'There are currently no closed reports.',
-    'recent_reports' => 'Recent Reports',
-    'reported_by' => 'Reported by:',
-    'website' => 'Website',
-    'ingame' => 'Ingame',
-    'x_closed_report' => '{x} closed this report.', // Don't replace {x} (username)
-    'x_reopened_report' => '{x} reopened this report.', // Don't replace {x} (username)
-    'report_reopened' => 'Report reopened successfully.',
-    'report_closed' => 'Report closed successfully.',
-    'comment_created' => 'Comment created successfully.',
+    'no_open_reports' => 'Det finns för tillfället inga öppna rapporter.',
+    'no_closed_reports' => 'Det finns för tillfället inga stängda rapporter.',
+    'recent_reports' => 'Senaste Rapporter',
+    'reported_by' => 'Rapporterad av:',
+    'website' => 'Hemsida',
+    'ingame' => 'I spelet',
+    'x_closed_report' => '{x} stängde denna rapport.', // Don't replace {x} (username)
+    'x_reopened_report' => '{x} åter-öppnade denna rapport.', // Don't replace {x} (username)
+    'report_reopened' => 'Rapport åter-öppnad.',
+    'report_closed' => 'Rapport stängd.',
+    'comment_created' => 'Kommentar skapad.',
 
     // Punishments
-    'punishments' => 'Straffar',
-    'view_punishments' => 'Visa Straffar',
+    'punishments' => 'Straff',
+    'view_punishments' => 'Visa Straff',
     'banned' => 'Bannad',
     'groups' => 'Grupper',
     'punish' => 'Straffa',
@@ -97,13 +97,13 @@ $language = array(
     'when' => 'När',
     'staff' => 'Personal',
     'type' => 'Typ',
-    'recent_punishments' => 'Recent Punishments',
-    'created' => 'Created:',
-    'staff:' => 'Staff:',
-    'reason:' => 'Reason:',
+    'recent_punishments' => 'Senaste straff',
+    'created' => 'Skapad:',
+    'staff:' => 'Personal:',
+    'reason:' => 'Orsak:',
 
     // Users
-    'recent_registrations' => 'Recent Registrations',
-    'reset_profile_banner' => 'Reset Profile Banner'
+    'recent_registrations' => 'Senaste registreringar',
+    'reset_profile_banner' => 'Återställ profil banner'
 
 );

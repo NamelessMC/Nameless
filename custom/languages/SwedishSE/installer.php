@@ -6,7 +6,7 @@
  *
  *  License: MIT
  *
- *  Translated by IsS127
+ *  Translated by IsS127, ItsLynix
  *  SwedishSE Language - Installer
  */
 
@@ -88,20 +88,20 @@ $language = array(
     'credits' => 'Credits',
     'credits_message' => 'Ett stort tack till alla <a href="https://github.com/NamelessMC/Nameless/graphs/contributors" target="_blank">NamelessMC bidragsgivare</a> sedan 2014',
 
-    'step_home' => 'Home',
-    'step_requirements' => 'Requirements',
-    'step_general_config' => 'General Configuration',
-    'step_database_config' => 'Database Configuration',
-    'step_site_config' => 'Site Configuration',
-    'step_admin_account' => 'Admin Account',
-    'step_conversion' => 'Conversion',
-    'step_finish' => 'Finish',
+    'step_home' => 'Hem',
+    'step_requirements' => 'Krav',
+    'step_general_config' => 'Allmän konfiguration',
+    'step_database_config' => 'Databas konfiguration',
+    'step_site_config' => 'Sid konfiguration',
+    'step_admin_account' => 'Admin Konto',
+    'step_conversion' => 'Konvertering',
+    'step_finish' => 'Klart',
 
-    'general_configuration' => 'General Configuration',
-    'reload' => 'Reload',
-    'reload_page' => 'Reload page',
-    'no_converters_available' => 'There are no converters available.',
-    'config_not_writable' => 'The config file is not writable.',
+    'general_configuration' => 'Allmän konfiguration',
+    'reload' => 'Ladda om',
+    'reload_page' => 'Ladda om sidan',
+    'no_converters_available' => 'Det finns inga konverterare tillgängliga.',
+    'config_not_writable' => 'Konfigurationsfilen är inte skrivbar.',
 
-    'session_doesnt_exist' => 'Unable to detect session. Sessions saving are a requirement to use Nameless. Please try again, and if the issue persists, please contact your web host for support.'
+    'session_doesnt_exist' => 'Det gick inte att upptäcka sessionen. Sessionsbesparingar är ett krav för att använda Nameless. Försök igen, och om problemet kvarstår, kontakta din webbhotell för support.'
 );
