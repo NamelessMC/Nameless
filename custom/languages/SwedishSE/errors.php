@@ -6,7 +6,7 @@
  *
  *  License: MIT
  *
- *  Translated by IsS127
+ *  Translated by IsS127, ItsLynix
  *  SwedishSE Language - Errors
  */
 
