@@ -151,6 +151,14 @@ class Util {
     }
 
     /**
+     * Detect if the current connection is using SSL.
+     * @return boolean Whether SSL is in use or not.
+     */
+    public static function isConnectionSSL() {
+        return (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https');
+    }
+
+    /**
      * Get the server name.
      *
      * @param bool $protocol Whether to show http(s) at front or not.
@@ -164,7 +172,7 @@ class Util {
         }
 
         // https and www checks
-        if ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) {
+        if (Util::isConnectionSSL()) {
             $proto = 'https://';
         } else {
             $proto = 'http://';

@@ -83,7 +83,7 @@ if ($page != 'install') {
     if (Config::get('core/force_https')) define('FORCE_SSL', true);
     if (Config::get('core/force_www')) define('FORCE_WWW', true);
 
-    if (defined('FORCE_SSL') && $_SERVER["HTTPS"] != "on") {
+    if (defined('FORCE_SSL') && !Util::isConnectionSSL()) {
         if (defined('FORCE_WWW') && strpos($_SERVER['HTTP_HOST'], 'www.') === false) {
             header('Location: https://www.' . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
             die();
@@ -94,7 +94,7 @@ if ($page != 'install') {
     }
 
     if (defined('FORCE_WWW') && strpos($_SERVER['HTTP_HOST'], 'www.') === false) {
-        if ($_SERVER["HTTPS"] != "on") {
+        if (!Util::isConnectionSSL()) {
             header('Location: http://www.' . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
         } else {
             header('Location: https://www.' . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
