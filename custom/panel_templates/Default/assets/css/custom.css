@@ -314,6 +314,7 @@ i,
     height: 100vh;
     z-index: 999;
     overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .sidebar::-webkit-scrollbar-track {
