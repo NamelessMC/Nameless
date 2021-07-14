@@ -351,7 +351,7 @@ if(!isset($_GET['step'])){
         'AUTHME_INFO' => $language->get('user', 'authme_help'),
         'USERNAME' => $language->get('user', 'username'),
         'PASSWORD' => $language->get('user', 'password'),
-        'TOKEN' => Token::generate(),
+        'TOKEN' => Token::get(),
         'SUBMIT' => $language->get('general', 'submit'),
         'I_AGREE' => $language->get('user', 'i_agree'),
         'AGREE_TO_TERMS' => str_replace('{x}', URL::build('/terms'), $language->get('user', 'agree_t_and_c'))
@@ -391,7 +391,7 @@ if(!isset($_GET['step'])){
         'AUTHME_SUCCESS' => $language->get('user', 'authme_account_linked'),
         'AUTHME_INFO' => $info,
         'EMAIL' => $language->get('user', 'email'),
-        'TOKEN' => Token::generate(),
+        'TOKEN' => Token::get(),
         'SUBMIT' => $language->get('general', 'submit')
     ));
 
