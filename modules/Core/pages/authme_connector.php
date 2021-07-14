@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr10
  *
  *  License: MIT
  *
@@ -325,7 +325,7 @@ if(Input::exists()){
                     }
                 } else {
                     // Validation errors
-                    $errors[] = $validation->errors();
+                    $errors = $validation->errors();
                 }
 
             } else {
