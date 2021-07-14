@@ -62,6 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 					'prefix' => 'nl2_',
 					'charset' => $charset,
 					'engine' => $engine,
+					'initialise_charset' => true,
 				),
 				'remember' => array(
 					'cookie_name' => 'nl2',
