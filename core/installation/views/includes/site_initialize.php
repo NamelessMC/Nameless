@@ -154,6 +154,11 @@ $queries->create('languages', array(
 ));
 
 $queries->create('languages', array(
+	'name' => 'Danish',
+	'is_default' => (Session::get('default_language') == 'Danish') ? 1 : 0
+));
+
+$queries->create('languages', array(
 	'name' => 'EnglishUS',
 	'is_default' => (Session::get('default_language') == 'EnglishUS') ? 1 : 0
 ));

@@ -703,6 +703,10 @@ switch ($s) {
             'is_default' => 0
         ));
         $queries->create('languages', array(
+            'name' => 'Danish',
+            'is_default' => 0
+        ));
+        $queries->create('languages', array(
             'name' => 'Dutch',
             'is_default' => 0
         ));

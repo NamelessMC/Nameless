@@ -1,0 +1,106 @@
+<?php
+/*
+ *  Made by Samerton & Translated by Codiaz
+ *  https://github.com/NamelessMC/Nameless/
+ *  NamelessMC version 2.0.0-pr8
+ *
+ *  License: MIT
+ *
+ *  Danish Language - General terms
+ */
+
+$language = array(
+    /*
+     *  Installation
+     */
+    'install' => 'Installér',
+    'pre-release' => 'pre-release',
+    'installer_welcome' => 'Velkommen til NamelessMC version 2.0 pre-release.',
+    'pre-release_warning' => 'Bemærk, at denne pre-release ikke er beregnet til brug på et offentligt websted.',
+    'installer_information' => 'Installationsprogrammet vil guide dig gennem installationsprocessen.',
+    'terms_and_conditions' => 'Ved at fortsætte accepterer du vilkårene og betingelserne.',
+    'new_installation_question' => 'For det første, er dette en ny installation?',
+    'new_installation' => 'Ny installation &raquo;',
+    'upgrading_from_v1' => 'Opgradering fra v1 &raquo;',
+    'requirements' => 'Krav:',
+    'config_writable' => 'core/config.php Skrivbar',
+    'cache_writable' => 'Cache Skrivbar',
+    'template_cache_writable' => 'Skabelon Cache Skrivbar',
+    'exif_imagetype_banners_disabled' => 'Uden funktionen exif_imagetype vil serverbannere blive deaktiveret.',
+    'requirements_error' => 'Du skal have alle de nødvendige udvidelser installeret, og have de korrekte tilladelser indstillet, for at fortsætte med installationen.',
+    'proceed' => 'Fortsæt',
+    'database_configuration' => 'Database Konfiguration',
+    'database_address' => 'Database Adresse',
+    'database_port' => 'Database Port',
+    'database_username' => 'Database Brugernavn',
+    'database_password' => 'Database Adgangskode',
+    'database_name' => 'Database Navn',
+    'nameless_path' => 'Installations Sti',
+    'nameless_path_info' => 'Dette er stien Nameless er installeret i, relativt til dit domæne. For eksempel, hvis Nameless er installeret i eksempel.com/forum, dette skal være <strong>forum</strong>. Efterlad blank, hvis Nameless ikke er i en undermappe.',
+    'friendly_urls' => 'Venlige URL\'er',
+    'friendly_urls_info' => 'Venlige URL\'er vil forbedre læsbarheden af URL\'er i din browser.<br />For eksempel: <br /><code>eksempel. om/index.php?route=/forum</code><br />vil blive:<br /><code>eksempel. com/forum</code><br /><div class="ui inverted orange segment"><i class="exclamation circle icon"></i><strong>Vigtigt!</strong><br />Din server skal konfigureres korrekt for at dette kan fungere. Du kan se, om du kan aktivere denne indstilling ved at klikke på <a href="./rewrite_test" target="_blank" style="color:#2185D0">her</a>.</div>',
+    'enabled' => 'Aktiveret',
+    'disabled' => 'Deaktiveret',
+    'character_set' => 'Tegn Sæt',
+    'database_engine' => 'Database Lager Motor',
+    'host' => 'Værtsnavn',
+    'host_help' => 'Værtsnavnet er <strong>basis-URL\'en</strong> for din hjemmeside. Inkludér ikke undermapperne fra feltet Installationssti eller http(s):// her!',
+    'database_error' => 'Sørg venligst for, at alle felter er udfyldt.',
+    'submit' => 'Indsend',
+    'installer_now_initialising_database' => 'Installationsprogrammet er nu ved at initialisere databasen. Dette kan tage et stykke tid...',
+    'configuration' => 'Indstilling',
+    'configuration_info' => 'Angiv grundlæggende information om dit websted. Disse værdier kan ændres senere gennem administrationspanelet.',
+    'configuration_error' => 'Angiv venligst et gyldigt webstedsnavn på mellem 1 og 32 tegn og gyldige e-mailadresser på mellem 4 og 64 tegn.',
+    'site_name' => 'Side Navn',
+    'contact_email' => 'Kontakt E-Mail',
+    'outgoing_email' => 'Udgående E-Mail',
+    'language' => 'Sprog',
+    'initialising_database_and_cache' => 'Initialiserer database og cache, vent venligst...',
+    'unable_to_login' => 'Kan ikke logge ind.',
+    'unable_to_create_account' => 'Kunne ikke oprette konto',
+    'input_required' => 'Indtast venligst et gyldigt brugernavn, e-mailadresse og adgangskode.',
+    'input_minimum' => 'Sørg venligst for, at dit brugernavn er mindst 3 tegn din e-mailadresse er minimum 4 tegn, og din adgangskode er minimum 6 tegn.',
+    'input_maximum' => 'Sørg venligst for, at dit brugernavn højst er 20 tegn, og din e-mailadresse og adgangskode er maksimalt 64 tegn.',
+    'email_invalid' => 'Din e-mail er ugyldig.',
+    'passwords_must_match' => 'Dine adgangskoder stemmer ikke overens.',
+    'creating_admin_account' => 'Opretter Administrationskonto',
+    'enter_admin_details' => 'Indtast venligst detaljerne for administratorkontoen.',
+    'username' => 'Brugernavn',
+    'email_address' => 'E-Mail Adresse',
+    'password' => 'Adgangskode',
+    'confirm_password' => 'Bekræft Adgangskode',
+    'upgrade' => 'Opgrader',
+    'input_v1_details' => 'Indtast venligst databaseoplysningerne til din Nameless version 1-installation.',
+    'installer_upgrading_database' => 'Vent venligst mens installationsprogrammet opgraderer din database...',
+    'errors_logged' => 'Fejl er blevet logget. Klik Fortsæt for at fortsætte med opgraderingen.',
+    'continue' => 'Fortsæt',
+    'convert' => 'Konvertér',
+    'convert_message' => 'Endelig, vil du konvertere fra et andet forum software?',
+    'yes' => 'Ja',
+    'no' => 'Nej',
+    'converter' => 'Konvertérer',
+    'back' => 'Tilbage',
+    'unable_to_load_converter' => 'Kan ikke indlæse konverteren!',
+    'finish' => 'Afslut',
+    'finish_message' => 'Tak for at installere NamelessMC! Du kan nu gå videre til PersonaleCP, hvor du yderligere kan konfigurere din hjemmeside.',
+    'support_message' => 'Hvis du har brug for støtte, så tjek vores hjemmeside <a href="https://namelessmc.com" target="_blank">her</a>, eller du kan også besøge vores <a href="https://discord.gg/9vk93VR" target="_blank">Discord server</a> eller vores <a href="https://github.com/NamelessMC/Nameless/" target="_blank">GitHub lager</a>.',
+    'credits' => 'Medvirkende',
+    'credits_message' => 'En stor tak til alle <a href="https://github.com/NamelessMC/Nameless/graphs/contributors" target="_blank">NamelessMC bidragsydere</a> siden 2014',
+
+    'step_home' => 'Hjem',
+    'step_requirements' => 'Krav',
+    'step_general_config' => 'Generel Konfiguration',
+    'step_database_config' => 'Database Konfiguration',
+    'step_site_config' => 'Websted Konfiguration',
+    'step_admin_account' => 'Administrator Konto',
+    'step_conversion' => 'Konvertering',
+    'step_finish' => 'Afslut',
+
+    'general_configuration' => 'Generel Konfiguration',
+    'reload' => 'Genindlæs',
+    'reload_page' => 'Genindlæs side',
+    'no_converters_available' => 'Der er ingen omdannere tilgængelige.',
+    'config_not_writable' => 'Konfigurationsfilen kan ikke skrives i.',
+
+    'session_doesnt_exist' => 'Ikke i stand til at opdage session. Session gemning er et krav for at bruge Nameless. Prøv igen, og hvis problemet fortsætter, bedes du kontakte din webvært for støtte.'
+);
