@@ -64,12 +64,12 @@ if(!isset($_GET['action'])){
                         'page_title' => [
                             Validate::REQUIRED => true,
                             Validate::MIN => 2,
-                            Validate::MAX => 30
+                            Validate::MAX => 255
                         ],
                         'page_url' => [
                             Validate::REQUIRED => true,
                             Validate::MIN => 2,
-                            Validate::MAX => 20
+                            Validate::MAX => 255
                         ],
                         'content' => [
                             Validate::MAX => 100000
@@ -84,12 +84,12 @@ if(!isset($_GET['action'])){
                         'page_title' => [
                             Validate::REQUIRED => $language->get('admin', 'page_title_required'),
                             Validate::MIN => $language->get('admin', 'page_title_minimum_2'),
-                            Validate::MAX => $language->get('admin', 'page_title_maximum_30')
+                            Validate::MAX => $language->get('admin', 'page_title_maximum_255')
                         ],
                         'page_url' => [
                             Validate::REQUIRED => $language->get('admin', 'page_url_required'),
                             Validate::MIN => $language->get('admin', 'page_url_minimum_2'),
-                            Validate::MAX => $language->get('admin', 'page_url_maximum_20')
+                            Validate::MAX => $language->get('admin', 'page_url_maximum_255')
                         ],
                         'content' => $language->get('admin', 'page_content_maximum_100000'),
                         'link_location' => [
@@ -259,12 +259,12 @@ if(!isset($_GET['action'])){
                         'page_title' => [
                             Validate::REQUIRED => true,
                             Validate::MIN => 2,
-                            Validate::MAX => 30
+                            Validate::MAX => 255
                         ],
                         'page_url' => [
                             Validate::REQUIRED => true,
                             Validate::MIN => 2,
-                            Validate::MAX => 20
+                            Validate::MAX => 255
                         ],
                         'content' => [
                             Validate::MAX => 100000
@@ -279,12 +279,12 @@ if(!isset($_GET['action'])){
                         'page_title' => [
                             Validate::REQUIRED => $language->get('admin', 'page_title_required'),
                             Validate::MIN => $language->get('admin', 'page_title_minimum_2'),
-                            Validate::MAX => $language->get('admin', 'page_title_maximum_30')
+                            Validate::MAX => $language->get('admin', 'page_title_maximum_255')
                         ],
                         'page_url' => [
                             Validate::REQUIRED => $language->get('admin', 'page_url_required'),
                             Validate::MIN => $language->get('admin', 'page_url_minimum_2'),
-                            Validate::MAX => $language->get('admin', 'page_url_maximum_20')
+                            Validate::MAX => $language->get('admin', 'page_url_maximum_255')
                         ],
                         'content' => $language->get('admin', 'page_content_maximum_100000'),
                         'link_location' => [
