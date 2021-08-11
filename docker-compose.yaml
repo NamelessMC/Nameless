@@ -11,7 +11,7 @@
 # Uninstall
 # docker-compose down
 # rm core/config.php
-# rm -r cache/*
+# rm -rf cache/*
 # docker image prune -af
 # sudo rm -r /opt/namelessmc
 
