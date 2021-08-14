@@ -242,7 +242,8 @@ if (Input::exists()) {
                             $removed = array();
                             // Any groups to remove?
                             foreach ($view_user->getGroups() as $group) {
-                                if (!in_array($group->id, $_POST['groups'])) {
+                                $form_groups = isset($_POST['groups']) ? $_POST['groups'] : [];
+                                if (!in_array($group->id, $form_groups)) {
                                     // be sure root user keep the root group
                                     if ($group->id == 2 && $view_user->data()->id == 1) {
                                         continue;
