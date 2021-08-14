@@ -104,7 +104,7 @@ $language = array(
 
     // Registration - Authme
     'connect_with_authme' => 'アカウントをAuthMeと接続する',
-    'authme_help' => ゲーム内の'AuthMeアカウントの詳細を入力してください。 まだアカウントを作成していない場合はサーバーに参加し、表示される説明に従ってください。',
+    'authme_help' => 'ゲーム内の AuthMeアカウントの詳細を入力してください。 まだアカウントを作成していない場合はサーバーに参加し、表示される説明に従ってください。',
     'unable_to_connect_to_authme_db' => 'AuthMeデータベースへの接続ができません。このエラーが続く場合は、管理者に連絡してください。',
     'authme_account_linked' => 'アカウントのリンクに成功しました。',
     'authme_email_help_1' => '最後に、メールアドレスを入力してください。',
