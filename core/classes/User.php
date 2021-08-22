@@ -117,6 +117,7 @@ class User {
 
             if ($data->count()) {
                 $this->_data = $data->first();
+                $this->_placeholders = [];
 
                 // Get user groups
                 $groups_query = $this->_db->query('SELECT nl2_groups.* FROM nl2_users_groups INNER JOIN nl2_groups ON group_id = nl2_groups.id WHERE user_id = ? AND deleted = 0 ORDER BY `order`;', array($this->_data->id));
@@ -150,8 +151,6 @@ class User {
 
                     if (count($placeholders)) {
                         $this->_placeholders = $placeholders;
-                    } else {
-                        $this->_placeholders = [];
                     }
                 }
 
