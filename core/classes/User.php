@@ -563,6 +563,7 @@ class User {
      * @return array Profile placeholders.
      */
     public function getProfilePlaceholders() {
+        if (!is_array($this->_placeholders)) return [];
         return array_filter($this->_placeholders, function($placeholder) {
             return $placeholder->show_on_profile;
         });
@@ -574,6 +575,7 @@ class User {
      * @return array Forum placeholders.
      */
     public function getForumPlaceholders() {
+        if (!is_array($this->_placeholders)) return [];
         return array_filter($this->_placeholders, function($placeholder) {
             return $placeholder->show_on_forum;
         });
@@ -1141,10 +1143,11 @@ class User {
             Placeholders::getInstance()->registerPlaceholder($server_id, $name);
 
             $last_updated = time();
+            $uuid = hex2bin(str_replace('-', '', $this->data()->uuid));
 
             $this->_db->query('INSERT INTO nl2_users_placeholders (server_id, uuid, name, value, last_updated) VALUES (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE value = ?, last_updated = ?', [
                 $server_id,
-                $this->data()->uuid,
+                $uuid,
                 $name,
                 $value,
                 $last_updated,
