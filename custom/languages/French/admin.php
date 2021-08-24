@@ -112,6 +112,7 @@ $language = array(
     'mailer_settings_info' => 'Les champs suivants sont requis si vous avez activé PHPMailer. Pour plus d’informations sur la façon de remplir ces champs, consultez <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-SMTP-with-Nameless-(e.g.-Gmail-or-Outlook)" target="_blank">le wiki</a>.',
     'host' => 'Hôte',
     'email_port' => 'Port',
+    'email_port_invalid' => 'Please insert a valid email port.',
     'email_password_hidden' => 'Le mot de passe n’est pas affiché pour des raisons de sécurité.',
     'send_test_email' => 'Envoyer un email de test',
     'send_test_email_info' => 'Le bouton suivant tentera d\'envoyer un courriel à votre adresse électronique, <strong>{x}</strong>. Toute erreur commise lors de l\'envoi du courriel sera affichée.', // Don't replace {x}

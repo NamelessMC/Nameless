@@ -117,6 +117,7 @@ $language = array(
     'mailer_settings_info' => '如果启用了 PHPMailer，则必须填写以下字段。 更多的填写信息请点击 <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-SMTP-with-Nameless-(e.g.-Gmail-or-Outlook)" target="_blank">NamelessMC Wiki相关页面</a>.',
     'host' => '主机 IP',
     'email_port' => '端口',
+    'email_port_invalid' => 'Please insert a valid email port.',
     'email_password_hidden' => '出于安全原因，未显示密码。',
     'send_test_email' => '发送测试邮件',
     'send_test_email_info' => '以下按钮将尝试向您的电子邮件地址 <strong>{x}</strong> 发送电子邮件. 发送电子邮件时抛出的任何错误都将显示。', // Don't replace {x}

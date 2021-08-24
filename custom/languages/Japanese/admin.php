@@ -120,6 +120,7 @@ $language = array(
     'mailer_settings_info' => 'PHPMailerを有効にした場合、以下のフィールドに必要事項を記入する必要があります。以下のフィールドに記入する方法については <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-SMTP-with-Nameless-(e.g.-Gmail-or-Outlook)" target="_blank">Wiki</a>を確認して下さい。',
     'host' => 'ホスト',
     'email_port' => 'ポート',
+    'email_port_invalid' => 'Please insert a valid email port.',
     'email_password_hidden' => 'セキュリティ保護のためパスワードは非表示です。',
     'send_test_email' => 'テストメール 送信',
     'send_test_email_info' => '<strong>{x}</strong>にNamelessMCからテストメールを送信します。テストを実行することで、メール設定が正しくされているかを確認できます。テスト終了後確認されたエラーは表示されます。送信するには「送信」を押してください。', // Don't replace {x}

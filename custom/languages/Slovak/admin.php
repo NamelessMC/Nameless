@@ -104,6 +104,7 @@ $language = array(
     'mailer_settings_info' => 'Nasledujúce polia sú povinné, ak ste povolili PHPMailer. Ďalšie informácie o tom, ako vyplniť tieto polia, nájdete na <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-SMTP-with-Nameless-(e.g.-Gmail-or-Outlook)" target="_blank">wiki</a>.',
     'host' => 'Host',
     'email_port' => 'Port',
+    'email_port_invalid' => 'Please insert a valid email port.',
     'email_password_hidden' => 'Heslo sa z bezpečnostných dôvodov nezobrazuje.',
     'edit_email_messages' => 'Emailové správy',
     'email_language_info' => 'Nevidíte svoj jazyk? Uistite sa, že súbor \'emails.php\' je vo vašom jazykovom adresári a je zapisovateľný vašim webovým serverom.',

@@ -113,6 +113,7 @@ $language = array(
     'mailer_settings_info' => 'Šie laukai reikalingi, jei įjungėte PHPMailer. Norėdami gauti daugiau informacijos, kaip užpildyti šiuos laukus, patikrinkite <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-Gmail-or-SMTP-with-Nameless" target="_blank">wiki</a>.',
     'host' => 'Host',
     'email_port' => 'Port',
+    'email_port_invalid' => 'Please insert a valid email port.',
     'email_password_hidden' => 'Saugos sumetimais slaptažodis nerodomas.',
     'send_test_email' => 'Siųsti bandomajį el. laišką',
     'send_test_email_info' => 'Sekantis mygtukas bandys išsiųsti el. Laišką į jūsų el. Pašto adresą, <strong>{x}</strong>. Bus rodomos klaidos siunčiant el. Laišką.', // Don't replace {x}

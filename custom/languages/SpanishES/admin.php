@@ -104,6 +104,7 @@ $language = array(
     'mailer_settings_info' => 'Los siguientes campos son obligatorios si ha activado PHPMailer. Para más información sobre cómo rellenar estos campos, consulte <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-SMTP-with-Nameless-(e.g.-Gmail-o-Outlook)" target="_blank">la wiki</a>.',
     'host' => 'Servidor',
     'email_port' => 'Puerto',
+    'email_port_invalid' => 'Please insert a valid email port.',
     'email_password_hidden' => 'La contraseña no se muestra por razones de seguridad.',
     'edit_email_messages' => 'Mensajes de correo electrónico',
     'email_language_info' => '¿No ve su idioma? Asegúrese de que \'emails.php\' está en su directorio de idiomas y es escribible por su servidor web.',

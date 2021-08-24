@@ -115,6 +115,7 @@ $language = array(
     'mailer_settings_info' => 'PHPMailer\'ı etkinleştirdiyseniz aşağıdaki alanlar gereklidir. Bu alanları doldurma hakkında daha fazla bilgi için <a href "https://github.com/NamelessMC/Nameless/wiki/Setting-up-SMTP-with-Nameless-(eg-Gmail-or-Outlook )" target =" _ blank "> iki</a>.',
     'host' => 'Host',
     'email_port' => 'Port',
+    'email_port_invalid' => 'Please insert a valid email port.',
     'email_password_hidden' => 'Güvenlik nedeniyle şifre gösterilmez.',
     'send_test_email' => 'Test E-Postası Gönder',
     'send_test_email_info' => 'Aşağıdaki düğme, e-posta adresinize <strong>{x}</strong> bir e-posta göndermeye çalışacaktır. E-posta gönderilirken atılan hatalar görüntülenir.', // Don't replace {x}

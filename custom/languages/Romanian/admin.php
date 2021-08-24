@@ -120,6 +120,7 @@ $language = array(
     'mailer_settings_info' => 'Următoarele câmpuri sunt necesare dacă ați activat PHPMailer. Pentru mai multe informații despre completarea acestor câmpuri, consultați <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-SMTP-with-Nameless-(e.g.-Gmail-or-Outlook)" target="_blank">wiki-ul</a>.',
     'host' => 'Gazdă',
     'email_port' => 'Port',
+    'email_port_invalid' => 'Please insert a valid email port.',
     'email_password_hidden' => 'Parola nu este afișată din motive de securitate.',
     'send_test_email' => 'Trimiteți e-mail de încercare (test)',
     'send_test_email_info' => 'Următorul buton va încerca să trimită un e-mail la adresa dvs. de e-mail, <strong>{x}</strong>. Orice erori întâmpinate în timp ce trimiteți e-mailul vor fi afișate.', // Don't replace {x}

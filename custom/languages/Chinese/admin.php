@@ -119,6 +119,7 @@ $language = array(
     'mailer_settings_info' => '如果您啟用的PHPMailer，則以下字段都必須要，不知道是什麼請造訪 <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-SMTP-with-Nameless-(e.g.-Gmail-or-Outlook)" target="_blank">維基</a>.',
     'host' => '伺服器',
     'email_port' => '端口',
+    'email_port_invalid' => 'Please insert a valid email port.',
     'email_password_hidden' => '安全原因，密碼不顯示.',
     'send_test_email' => '傳送測試電子郵件',
     'send_test_email_info' => '下面按鈕將會傳送測試電子郵件至 <strong>{x}</strong>. 任何錯誤都會被顯示.', // Don't replace {x}
