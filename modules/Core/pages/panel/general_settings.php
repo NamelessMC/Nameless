@@ -214,9 +214,11 @@ if (Input::exists()) {
                     $GLOBALS['config'] = $loadedConfig;
                 }
 
-                Config::set('core/friendly', $friendly);
-                Config::set('core/force_https', $https);
-                Config::set('core/force_www', $www);
+                Config::setMultiple(array(
+                    'core/friendly' => $friendly,
+                    'core/force_https' => $https,
+                    'core/force_www' => $www
+                ));
             } else $errors = array($language->get('admin', 'config_not_writable'));
 
             /*
