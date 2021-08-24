@@ -55,6 +55,12 @@ try {
     echo $e->getMessage() . '<br />';
 }
 
+try {
+    DB::getInstance()->createQuery('ALTER TABLE `nl2_posts` ADD INDEX `nl2_posts_idx_topic_id` (`topic_id`)');
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+
 // Update version number
 //$version_number_id = $queries->getWhere('settings', array('name', '=', 'nameless_version'));
 //
