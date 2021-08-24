@@ -36,6 +36,8 @@ $language = array(
     'delete_all' => 'Elimina tutto',
     'private_profile' => 'Profilo privato',
     'gif_avatar' => 'Carica .gif come avatar personalizzato',
+    'placeholders' => 'Placeholders',
+    'no_placeholders' => 'No Placeholders',
 
     // Profile settings
     'field_is_required' => '{x} è richiesto.', // Don't replace {x}

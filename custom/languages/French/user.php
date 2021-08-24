@@ -35,6 +35,8 @@ $language = array(
     'alerts' => 'Alertes',
     'delete_all' => 'Tout supprimer',
     'private_profile' => 'Profil privé',
+    'placeholders' => 'Placeholders',
+    'no_placeholders' => 'No Placeholders',
 
     // Profile settings
     'field_is_required' => '{x} est requis.', // Don't replace {x}

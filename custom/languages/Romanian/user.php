@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr10
  *
  *  License: MIT
  *
@@ -38,6 +38,8 @@ $language = array(
     'delete_all' => 'Şterge tot',
     'private_profile' => 'Profil privat',
     'gif_avatar' => 'Upload .gif as custom avatar',
+    'placeholders' => 'Placeholders',
+    'no_placeholders' => 'No Placeholders',
 
     // Profile settings
     'field_is_required' => 'Câmpul "{x}" este necesar.', // Don't replace {x}

@@ -4,7 +4,7 @@
  *  Made by Samerton
  *  Translation  by Hi_Michael
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr10
  *
  *  License: MIT
  *
@@ -41,6 +41,8 @@ $language = array(
     'delete_all' => '移除全部',
     'private_profile' => 'Private profile',
     'gif_avatar' => 'Upload .gif as custom avatar',
+    'placeholders' => 'Placeholders',
+    'no_placeholders' => 'No Placeholders',
 
     // Profile settings
     'field_is_required' => '需要 {x}.', // Don't replace {x}

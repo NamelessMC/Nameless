@@ -4,7 +4,7 @@
  *  en vertaald door Sander Lambrechts, Derkades en smessie
  *
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr10
  *
  *  License: MIT
  *
@@ -38,6 +38,8 @@ $language = array(
     'delete_all' => 'Verwijder alle meldingen',
     'private_profile' => 'Privé profiel',
     'gif_avatar' => 'Upload .gif as custom avatar',
+    'placeholders' => 'Placeholders',
+    'no_placeholders' => 'No Placeholders',
 
     // Profiel instellingen
     'field_is_required' => '{x} is nodig.', // Verander {x} niet

@@ -2,7 +2,7 @@
 /*
  *  Made by TheSuperSkills (Edited by Ariuw and iMaykolRD_)
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr10
  *
  *  License: MIT
  *
@@ -36,6 +36,8 @@ $language = array(
     'delete_all' => 'Eliminar todos',
     'private_profile' => 'Perfil privado',
     'gif_avatar' => 'Upload .gif as custom avatar',
+    'placeholders' => 'Placeholders',
+    'no_placeholders' => 'No Placeholders',
 
     // Profile settings
     'field_is_required' => '{x} es requerido.', // Don't replace {x}

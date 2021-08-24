@@ -3,7 +3,7 @@
  *  Made by Samerton
  *  Translated by Я научу тебя шить XIMI
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.0.0-pr10
  *
  *  License: MIT
  *
@@ -37,6 +37,8 @@ $language = array(
     'delete_all' => 'Удалить все',
     'private_profile' => 'Приватность профиля',
     'gif_avatar' => 'Загрузить .gif файл для аватарки',
+    'placeholders' => 'Placeholders',
+    'no_placeholders' => 'No Placeholders',
 
     // Profile settings
     'field_is_required' => '{x} обязательно.', // Don't replace {x}
