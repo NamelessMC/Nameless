@@ -169,9 +169,10 @@ if (Input::exists()) {
                     Validate::REQUIRED => true,
                     Validate::AGREE => true
                 ],
-                'timezone' => [
-                    Validate::TIMEZONE => true
-                ]
+                // TODO: re-enable this (#2355)
+                // 'timezone' => [
+                //     Validate::TIMEZONE => true
+                // ]
             ];
 
             // Minecraft username?
@@ -354,7 +355,9 @@ if (Input::exists()) {
                                     'last_online' => $date,
                                     'language_id' => $language_id,
                                     'active' => $active,
-                                    'timezone' => ((isset($_POST['timezone']) && $_POST['timezone']) ? Output::getClean(Input::get('timezone')) : Output::getClean(TIMEZONE))
+                                    // TODO: re-enable this (#2355)
+                                    // 'timezone' => ((isset($_POST['timezone']) && $_POST['timezone']) ? Output::getClean(Input::get('timezone')) : Output::getClean(TIMEZONE))
+                                    'timezone' => Output::getClean(TIMEZONE)
                                 )
                             );
 
