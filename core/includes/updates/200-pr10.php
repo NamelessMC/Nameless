@@ -18,27 +18,29 @@ try {
 if (!$db_charset || ($db_charset != 'utf8mb4' && $db_charset != 'latin1'))
     $db_charset = 'latin1';
 
-// Drop primary keys + add new ID columns
-try {
-    DB::getInstance()->createQuery('ALTER TABLE `nl2_users_placeholders` DROP PRIMARY KEY');
+// Drop old placeholder tables & re-create
+try {;
+    DB::getInstance()->createQuery('DROP TABLE `nl2_users_placeholders`');
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
 
 try {
-    DB::getInstance()->createQuery('ALTER TABLE `nl2_users_placeholders` ADD `id` INT NOT NULL AUTO_INCREMENT FIRST, ADD PRIMARY KEY (`id`)');
+    DB::getInstance()->createQuery('DROP TABLE `nl2_placeholders_settings`');
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
 
 try {
-    DB::getInstance()->createQuery('ALTER TABLE `nl2_placeholders_settings` DROP PRIMARY KEY');
+    $queries->createTable('placeholders_settings', " `id` int(11) NOT NULL AUTO_INCREMENT, `server_id` int(4) NOT NULL, `name` varchar(186) NOT NULL, `friendly_name` varchar(256) NULL DEFAULT NULL, `show_on_profile` tinyint(1) NOT NULL DEFAULT '1', `show_on_forum` tinyint(1) NOT NULL DEFAULT '1', `leaderboard` tinyint(1) NOT NULL DEFAULT '0', `leaderboard_title` varchar(36) NULL DEFAULT NULL, `leaderboard_sort` varchar(4) NOT NULL DEFAULT 'DESC'", "ENGINE=$db_engine DEFAULT CHARSET=$db_charset");
+    DB::getInstance()->createQuery('ALTER TABLE `nl2_placeholders_settings` ADD PRIMARY KEY(`server_id`, `name`)');
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
 
 try {
-    DB::getInstance()->createQuery('ALTER TABLE `nl2_placeholders_settings` ADD `id` INT NOT NULL AUTO_INCREMENT FIRST, ADD PRIMARY KEY (`id`)');
+    $queries->createTable('users_placeholders', ' `id` int(11) NOT NULL AUTO_INCREMENT, `server_id` int(4) NOT NULL, `uuid` varbinary(16) NOT NULL, `name` varchar(186) NOT NULL, `value` TEXT NOT NULL, `last_updated` int(11) NOT NULL', "ENGINE=$db_engine DEFAULT CHARSET=$db_charset");
+    DB::getInstance()->createQuery('ALTER TABLE `nl2_users_placeholders` ADD PRIMARY KEY(`server_id`, `uuid`, `name`)');
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
