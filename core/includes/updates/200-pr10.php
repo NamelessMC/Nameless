@@ -1,5 +1,5 @@
 <?php
-// 2.0.0 pr-10 to 2.0.0 updater
+// 2.0.0 pr-10 to 2.0.0 pr-11 updater
 try {
     $db_engine = Config::get('mysql/engine');
 } catch (Exception $e) {
@@ -69,21 +69,21 @@ try {
 }
 
 // Update version number
-//$version_number_id = $queries->getWhere('settings', array('name', '=', 'nameless_version'));
-//
-//if (count($version_number_id)) {
-//    $version_number_id = $version_number_id[0]->id;
-//    $queries->update('settings', $version_number_id, array(
-//        'value' => '2.0.0'
-//    ));
-//} else {
-//    $version_number_id = $queries->getWhere('settings', array('name', '=', 'version'));
-//    $version_number_id = $version_number_id[0]->id;
-//
-//    $queries->update('settings', $version_number_id, array(
-//        'value' => '2.0.0'
-//    ));
-//}
+$version_number_id = $queries->getWhere('settings', array('name', '=', 'nameless_version'));
+
+if (count($version_number_id)) {
+    $version_number_id = $version_number_id[0]->id;
+    $queries->update('settings', $version_number_id, array(
+        'value' => '2.0.0-pr11'
+    ));
+} else {
+    $version_number_id = $queries->getWhere('settings', array('name', '=', 'version'));
+    $version_number_id = $version_number_id[0]->id;
+
+    $queries->update('settings', $version_number_id, array(
+        'value' => '2.0.0-pr11'
+    ));
+}
 
 $version_update_id = $queries->getWhere('settings', array('name', '=', 'version_update'));
 $version_update_id = $version_update_id[0]->id;

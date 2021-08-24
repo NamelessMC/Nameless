@@ -25,8 +25,8 @@ class DefaultRevamp_Template extends TemplateBase {
 	public function __construct($cache, $smarty, $language, $user, $pages) {
 		$template = array(
 			'name' => 'DefaultRevamp',
-			'version' => '2.0.0-pr10',
-			'nl_version' => "2.0.0-pr10",
+			'version' => '2.0.0-pr11',
+			'nl_version' => "2.0.0-pr11",
 			'author' => '<a href="https://xemah.com/" target="_blank">Xemah</a>',
 		);
 
