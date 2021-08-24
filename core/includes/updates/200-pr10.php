@@ -19,7 +19,7 @@ if (!$db_charset || ($db_charset != 'utf8mb4' && $db_charset != 'latin1'))
     $db_charset = 'latin1';
 
 // Drop old placeholder tables & re-create
-try {;
+try {
     DB::getInstance()->createQuery('DROP TABLE `nl2_users_placeholders`');
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
