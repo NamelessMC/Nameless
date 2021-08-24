@@ -563,6 +563,7 @@ class User {
      * @return array Profile placeholders.
      */
     public function getProfilePlaceholders() {
+        if (!is_array($this->_placeholders)) return [];
         return array_filter($this->_placeholders, function($placeholder) {
             return $placeholder->show_on_profile;
         });
@@ -574,6 +575,7 @@ class User {
      * @return array Forum placeholders.
      */
     public function getForumPlaceholders() {
+        if (!is_array($this->_placeholders)) return [];
         return array_filter($this->_placeholders, function($placeholder) {
             return $placeholder->show_on_forum;
         });
