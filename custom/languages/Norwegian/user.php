@@ -36,6 +36,8 @@ $language = array(
     'delete_all' => 'Slett alle',
     'private_profile' => 'Private profiler',
     'gif_avatar' => 'Last opp .gif som egendefinert avatar',
+    'placeholders' => 'Placeholders',
+    'no_placeholders' => 'No Placeholders',
 
     // Profile settings
     'field_is_required' => '{x} er påkrevd.', // Don't replace {x}

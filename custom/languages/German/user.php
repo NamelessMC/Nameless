@@ -3,7 +3,7 @@
  *  Made by Samerton
  *  Translation by BukkitTNT, M_Viper
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.0.0-pr10
  *
  *  License: MIT
  *
@@ -37,6 +37,8 @@ $language = array(
     'delete_all' => 'Alle Löschen',
     'private_profile' => 'Privates Profil',
     'gif_avatar' => 'Laden Sie .gif als benutzerdefinierten Avatar hoch',
+    'placeholders' => 'Placeholders',
+    'no_placeholders' => 'No Placeholders',
 
     // Profile settings
     'field_is_required' => '{x} wird benötigt.', // Don't replace {x}

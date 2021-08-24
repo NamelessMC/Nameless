@@ -41,6 +41,8 @@ $language = array(
     'delete_all' => 'すべて削除',
     'private_profile' => 'プライベートプロフィール',
     'gif_avatar' => 'カスタムアバターとして.gifをアップロード',
+    'placeholders' => 'Placeholders',
+    'no_placeholders' => 'No Placeholders',
 
     // Profile settings
     'field_is_required' => '{x}は必須です。', // Don't replace {x}

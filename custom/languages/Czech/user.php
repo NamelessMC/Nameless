@@ -3,7 +3,7 @@
  *  Made by Samerton
  *  Translated by Fjuro
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr10
  *
  *  License: MIT
  *
@@ -35,6 +35,8 @@ $language = array(
     'delete_all' => 'Smazat všecny',
     'private_profile' => 'Soukromý profil',
     'gif_avatar' => 'Nahrát .gif jako vlastní avatar',
+    'placeholders' => 'Placeholders',
+    'no_placeholders' => 'No Placeholders',
 
     // Profile settings
     'field_is_required' => 'Pole {x} je vyžadováno.', // Don't replace {x}

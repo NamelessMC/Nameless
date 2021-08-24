@@ -33,6 +33,8 @@ $language = array(
     'delete_all' => 'Ištrinti viską',
     'private_profile' => 'Privatus Profilis',
     'gif_avatar' => 'Upload .gif as custom avatar',
+    'placeholders' => 'Placeholders',
+    'no_placeholders' => 'No Placeholders',
 
     // Profile settings
     'field_is_required' => 'Reikalingas {x}.', // Don't replace {x}
