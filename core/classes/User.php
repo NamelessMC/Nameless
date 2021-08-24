@@ -1143,10 +1143,11 @@ class User {
             Placeholders::getInstance()->registerPlaceholder($server_id, $name);
 
             $last_updated = time();
+            $uuid = hex2bin(str_replace('-', '', $this->data()->uuid));
 
             $this->_db->query('INSERT INTO nl2_users_placeholders (server_id, uuid, name, value, last_updated) VALUES (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE value = ?, last_updated = ?', [
                 $server_id,
-                $this->data()->uuid,
+                $uuid,
                 $name,
                 $value,
                 $last_updated,
