@@ -45,17 +45,26 @@ if (isset($_GET['leaderboard'])) {
                 $title = $title_input == '' ? null : $title_input;
                 $sort = Input::get('leaderboard_sort');
 
-                DB::getInstance()->query("UPDATE nl2_placeholders_settings SET leaderboard = ?, leaderboard_title = ?, leaderboard_sort = ? WHERE name = ? AND server_id = ?", [
-                    $enabled,
-                    $title,
-                    $sort,
-                    $placeholder->name,
-                    $placeholder->server_id
-                ]);
+                // TODO: this is temporary to assist with debugging #2327
+                try {
+                    DB::getInstance()->query("UPDATE nl2_placeholders_settings SET leaderboard = ?, leaderboard_title = ?, leaderboard_sort = ? WHERE `name` = ? AND server_id = ?", [
+                        $enabled,
+                        $title,
+                        $sort,
+                        $placeholder->name,
+                        $placeholder->server_id
+                    ]);
 
-                Session::flash('placeholders_success', $language->get('admin', 'placeholder_leaderboard_updated'));
-
-                Redirect::to(URL::build('/panel/minecraft/placeholders'));
+                    Session::flash('placeholders_success', $language->get('admin', 'placeholder_leaderboard_updated'));
+                    Redirect::to(URL::build('/panel/minecraft/placeholders'));
+                } catch (Exception $e) {
+                    $errors[] = $e->getMessage();
+                    $errors[] = 'Enabled - ' . $enabled;
+                    $errors[] = 'Title - ' . Output::getClean($title);
+                    $errors[] = 'Sort - ' . Output::getClean($sort);
+                    $errors[] = 'Name - ' . Output::getClean($placeholder->name);
+                    $errors[] = 'Server ID - ' . Output::getClean($placeholder->server_id);
+                }
 
             } else {
                 $errors[] = $language->get('general', 'invalid_token');
