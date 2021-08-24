@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton & Translated by Codiaz
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr10
  *
  *  License: MIT
  *
@@ -69,6 +69,7 @@ $language = array(
     'invalid_timezone' => 'Denne tidszone er ugyldig',
     'link' => 'Link',
     'unlink' => 'Afkobl',
+    'leaderboards' => 'Leaderboards',
 
     /*
      *  Contact form

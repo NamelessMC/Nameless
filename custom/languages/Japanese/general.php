@@ -74,6 +74,7 @@ $language = array(
     'invalid_timezone' => 'タイムゾーンが無効',
     'link' => 'リンク',
     'unlink' => 'リンク解除',
+    'leaderboards' => 'Leaderboards',
     
     /*
      *  Contact form

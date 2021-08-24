@@ -66,6 +66,7 @@ $language = array(
     'spoiler' => 'Spoiler',
     'link' => 'Lien',
     'unlink' => 'Déconnecter',
+    'leaderboards' => 'Leaderboards',
 
     /*
      *  Contact form
