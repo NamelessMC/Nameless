@@ -32,7 +32,6 @@ class ServerInfoEndpoint extends EndpointBase {
                     'server_id' => $_POST['server-id'],
                     'queried_at' => date('U'),
                     'players_online' => count($_POST['players']),
-                    'extra' => json_encode($_POST),
                     'groups' => isset($_POST['groups']) ? json_encode($_POST['groups']) : '[]'
                 )
             );

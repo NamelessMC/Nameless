@@ -61,6 +61,13 @@ try {
     echo $e->getMessage() . '<br />';
 }
 
+// Drop extra column from query results
+try {
+    DB::getInstance()->createQuery('ALTER TABLE `nl2_query_results` DROP COLUMN `extra`');
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+
 // Update version number
 //$version_number_id = $queries->getWhere('settings', array('name', '=', 'nameless_version'));
 //
