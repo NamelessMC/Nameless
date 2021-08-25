@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.0.0-pr11
  *
  *  License: MIT
  *
@@ -30,9 +30,9 @@ if(!isset($_GET['action'])){
     if(count($custom_pages)){
         foreach($custom_pages as $custom_page){
             $template_array[] = array(
+                'id' => Output::getClean($custom_page->id),
                 'edit_link' => URL::build('/panel/core/pages/', 'action=edit&id=' . Output::getClean($custom_page->id)),
-                'title' => Output::getClean($custom_page->title),
-                'delete_link' => URL::build('/panel/core/pages/', 'action=delete&id=' . Output::getClean($custom_page->id))
+                'title' => Output::getClean($custom_page->title)
             );
         }
     }
@@ -47,7 +47,8 @@ if(!isset($_GET['action'])){
         'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
         'CONFIRM_DELETE_PAGE' => $language->get('admin', 'confirm_delete_page'),
         'YES' => $language->get('general', 'yes'),
-        'NO' => $language->get('general', 'no')
+        'NO' => $language->get('general', 'no'),
+        'DELETE_LINK' => URL::build('/panel/core/pages', 'action=delete'),
     ));
 
     $template_file = 'core/pages.tpl';
@@ -538,15 +539,20 @@ if(!isset($_GET['action'])){
             break;
 
         case 'delete':
-            if(isset($_GET['id']) && is_numeric($_GET['id'])){
-                    
-                $queries->delete('custom_pages', array('id', '=', $_GET['id']));
-                $queries->delete('custom_pages_permissions', array('page_id', '=', $_GET['id']));
+            if (Input::exists()) {
+                if (Token::check(Input::get('token'))) {
+                    if(isset($_POST['id']) && is_numeric($_POST['id'])){
+                            
+                        $queries->delete('custom_pages', array('id', '=', $_POST['id']));
+                        $queries->delete('custom_pages_permissions', array('page_id', '=', $_POST['id']));
 
-                Session::flash('admin_pages', $language->get('admin', 'page_deleted_successfully'));
-                Redirect::to(URL::build('/panel/core/pages'));
-                die();
+                        Session::flash('admin_pages', $language->get('admin', 'page_deleted_successfully'));
+                    }
+                } else {
+                    Session::flash('admin_pages_error', $language->get('general', 'invalid_token'));
+                }
             }
+            die();
 
             break;
 
@@ -560,6 +566,9 @@ if(!isset($_GET['action'])){
 
 if(Session::exists('admin_pages'))
     $success = Session::flash('admin_pages');
+
+if(Session::exists('admin_pages_error'))
+    $errors = array(Session::flash('admin_pages_error'));
 
 if(isset($success))
     $smarty->assign(array(
