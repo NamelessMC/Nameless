@@ -23,7 +23,7 @@ Unfortunately it's only possible to view contributors for the default branch. Fo
 - Polish: brzezinsky, Cubixor, [kacperleague9](https://github.com/kacperleague9)
 - Portuguese: [dasilvaj4](https://github.com/dasilvaj4), [Douglas Teles](https://github.com/dgateles)
 - Romanian: [BaxAndrei](https://github.com/baxandrei)
-- Slovak: JozefSorokac
+- Slovak: [RobiNN1](https://github.com/RobiNN1)
 - Spanish: [Ariuw](https://github.com/Ariuw), [iMaykolRD_](https://namelessmc.com/profile/iMaykolRD_/), TheSuperSkills, [zJerino](https://namelessmc.com/profile/zJerino/)
 - Swedish: [IsS127](https://github.com/IsS127)
 - Turkish: xOrcun
