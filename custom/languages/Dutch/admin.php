@@ -4,7 +4,7 @@
  *  en vertaald en bijgewerkt door Sander Lambrechts, Jesse Geerts, Derkades, smessie en Tin Xian
  *
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.0.0-pr10
  *
  *  License: MIT
  *
@@ -47,7 +47,7 @@ $language = array(
     'email_errors_logged' => 'Email fouten zijn vastgesteld',
 
     // Core
-    'mode_toggle' => 'Dark/Light Mode',
+    'mode_toggle' => 'Donkere/Lichte modus',
     'settings' => 'Instellingen',
     'general_settings' => 'Algemene Instellingen',
     'sitename' => 'Site naam',
