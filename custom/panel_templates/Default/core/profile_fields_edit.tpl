@@ -115,6 +115,7 @@
 
                             <div class="form-group">
                                 <input type="hidden" name="token" value="{$TOKEN}">
+                                <input type="hidden" name="action" value="update">
                                 <input type="submit" class="btn btn-primary" value="{$SUBMIT}">
                             </div>
                         </form>
@@ -170,7 +171,12 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">{$NO}</button>
-                    <a href="{$DELETE_LINK}" class="btn btn-primary">{$YES}</a>
+                    <form action="" method="post">
+                        <input type="hidden" name="token" value="{$TOKEN}">
+                        <input type="hidden" name="action" value="delete">
+                        <input type="hidden" name="id" value="{$FIELD_ID}">
+                        <input type="submit" class="btn btn-primary" value="{$YES}">
+                    </form>
                 </div>
             </div>
         </div>
