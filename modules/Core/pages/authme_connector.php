@@ -171,7 +171,7 @@ if(Input::exists()){
 
             } else {
                 // Validation errors
-                $errors[] = $validation->errors();
+                $errors = $validation->errors();
             }
 
         } else {
