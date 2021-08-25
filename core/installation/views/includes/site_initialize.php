@@ -357,7 +357,7 @@ $queries->create('privacy_terms', array(
 
 $queries->create('settings', array(
 	'name' => 'nameless_version',
-	'value' => '2.0.0-pr10'
+	'value' => '2.0.0-pr11'
 ));
 
 $queries->create('settings', array(
