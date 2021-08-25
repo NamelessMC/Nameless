@@ -3,7 +3,7 @@
  *  Made by Samerton
  *  Translation by BukkitTNT, M_Viper
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.0.0-pr10
  *
  *  License: MIT
  *
@@ -41,9 +41,9 @@ $language = array(
     'registrations' => 'Anmeldungen',
     'topics' => 'Themen',
     'posts' => 'Posts',
-        'notices' => 'Ereignisse',
-        'no_notices' => 'Keine Ereignisse.',
-        'email_errors_logged' => 'Fehler bei der Email wurden gespeichert',
+    'notices' => 'Ereignisse',
+    'no_notices' => 'Keine Ereignisse.',
+    'email_errors_logged' => 'Fehler bei der Email wurden gespeichert',
 
     // Core
     'settings' => 'Einstellungen',

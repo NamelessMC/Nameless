@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton & Translated by Codiaz
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr10
  *
  *  License: MIT
  *
@@ -43,6 +43,7 @@ $language = array(
     'email_errors_logged' => 'E-mail fejl er blevet logget',
 
     // Core
+    'mode_toggle' => 'Mørk/Lys Mode',
     'settings' => 'Indstillinger',
     'general_settings' => 'Generelle Indstillinger',
     'sitename' => 'Side Navn',
