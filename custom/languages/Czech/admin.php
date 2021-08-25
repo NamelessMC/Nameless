@@ -3,7 +3,7 @@
  *  Made by Samerton
  *  Translated by Fjuro
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr11
  *
  *  License: MIT
  *
@@ -165,6 +165,8 @@ $language = array (
     'emails_mass_message_sent_successfully' => 'Hromadná zpráva úspěšně odeslána.',
     'emails_mass_message_replacements' => 'Ve vaší zprávě můžete použít proměnné. Podporované proměnné: {username}, {sitename}',
     'emails_mass_message_loading' => 'Načítání... Nenačítejte stránku znovu. Může to chvíli trvat.',
+    'administrator' => 'Administrator',
+    'administrator_permission_info' => 'Members with this permission will have every permission. This is a dangerous permission to grant.',
 
     // Placeholders
     'placeholders' => 'Placeholdery',

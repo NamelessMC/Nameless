@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr11
  *
  *  License: MIT
  *
@@ -176,6 +176,8 @@ $language = array(
     'emails_mass_message_sent_successfully' => 'Skickade ett massmeddelande.',
     'emails_mass_message_replacements' => 'Du kan använda variabler i ditt e-postmeddelande. Variabler som stöds: {username}, {sitename}',
     'emails_mass_message_loading' => 'Laddar ... Ladda inte om sidan. Det här kan ta ett tag.',
+    'administrator' => 'Administrator',
+    'administrator_permission_info' => 'Members with this permission will have every permission. This is a dangerous permission to grant.',
 
     // Placeholders
     'placeholders' => 'Placeholders',

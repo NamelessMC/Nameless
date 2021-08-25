@@ -4,7 +4,7 @@
  *  en vertaald en bijgewerkt door Sander Lambrechts, Jesse Geerts, Derkades, smessie en Tin Xian
  *
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr10
+ *  NamelessMC version 2.0.0-pr11
  *
  *  License: MIT
  *
@@ -177,6 +177,8 @@ $language = array(
     'emails_mass_message_sent_successfully' => 'Succesvol een massa e-mail bericht verstuurd.',
     'emails_mass_message_replacements' => 'U kunt variabelen gebruiken in uw e-mailbericht. Ondersteunde variabelen: {username}, {sitename}',
     'emails_mass_message_loading' => 'Laden... Laad de pagina niet opnieuw. Dit kan een tijdje duren.',
+    'administrator' => 'Administrator',
+    'administrator_permission_info' => 'Members with this permission will have every permission. This is a dangerous permission to grant.',
 
     // Placeholders
     'placeholders' => 'Placeholders',

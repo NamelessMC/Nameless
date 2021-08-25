@@ -3,7 +3,7 @@
  *  Made by Samerton
  *  Translated by Я научу тебя шить XIMI
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.0.0-pr11
  *
  *  License: MIT
  *
@@ -176,6 +176,8 @@ $language = array(
     'emails_mass_message_sent_successfully' => 'Сообщения отправлены.',
     'emails_mass_message_replacements' => 'Вы можете использовать различные переменные в сообщениях. Поддерживаемые переменные: {username}, {sitename}',
     'emails_mass_message_loading' => 'Загрузка... Не перезагружайте страницу. Это займёт какое-то время.',
+    'administrator' => 'Administrator',
+    'administrator_permission_info' => 'Members with this permission will have every permission. This is a dangerous permission to grant.',
 
     // Placeholders
     'placeholders' => 'Placeholders',

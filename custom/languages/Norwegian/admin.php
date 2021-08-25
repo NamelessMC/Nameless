@@ -2,7 +2,7 @@
 /*
  *  Translations by Maiu
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC versjon 2.0.0-pr8
+ *  NamelessMC versjon 2.0.0-pr11
  *
  *  License: MIT
  *
@@ -175,6 +175,8 @@ $language = array(
     'emails_mass_message_sent_successfully' => 'E-post-massemelding har blitt sendt.',
     'emails_mass_message_replacements' => 'Du kan bruke variabler i din e-post-massemelding. Støttede variabler: {username}, {sitename}',
     'emails_mass_message_loading' => 'Laster inn... Vennligst ikke last inn siden på nytt. Dette kan ta en stund.',
+    'administrator' => 'Administrator',
+    'administrator_permission_info' => 'Members with this permission will have every permission. This is a dangerous permission to grant.',
 
     // Placeholders
     'placeholders' => 'Placeholders',

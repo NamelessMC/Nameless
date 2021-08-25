@@ -2,7 +2,7 @@
 /*
  *  Made by RobiNN
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr10
+ *  NamelessMC version 2.0.0-pr11
  *
  *  License: MIT
  *
@@ -164,6 +164,8 @@ $language = array(
     'emails_mass_message_sent_successfully' => 'Hromadná emailová správa bola úspešne odoslaná.',
     'emails_mass_message_replacements' => 'Vo svojej emailovej správe môžete použiť premenné. Podporované premenné: {username}, {sitename}',
     'emails_mass_message_loading' => 'Načítava sa... Stránku znova nerefreshujte. Môže to chvíľu trvať.',
+    'administrator' => 'Administrator',
+    'administrator_permission_info' => 'Members with this permission will have every permission. This is a dangerous permission to grant.',
 
     // Placeholders
     'placeholders' => 'Placeholdery',

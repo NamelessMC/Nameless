@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr10
+ *  NamelessMC version 2.0.0-pr11
  *
  *  Translator
  *  - SimplyRin( @SimplyRin_, https://www.simplyrin.net )
@@ -180,6 +180,8 @@ $language = array(
     'emails_mass_message_sent_successfully' => '大量のメールメッセージの送信に成功しました。',
     'emails_mass_message_replacements' => 'メールメッセージでは、変数を使用することができます。サポートされている変数: {username}, {sitename}',
     'emails_mass_message_loading' => '読み込み中... ページを再読み込みしないでください。しばらく時間がかかる場合があります。',
+    'administrator' => 'Administrator',
+    'administrator_permission_info' => 'Members with this permission will have every permission. This is a dangerous permission to grant.',
 
     // Placeholders
     'placeholders' => 'プレースホルダー',

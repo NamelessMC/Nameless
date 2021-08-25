@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.0.0-pr11
  *
  *  User class
  */
@@ -1071,6 +1071,10 @@ class User {
         if ($this->isLoggedIn() && $groups) {
             foreach ($groups as $group) {
                 $this->_permissions = json_decode($group->permissions, true);
+                
+                if (isset($this->_permissions['administrator']) && $this->_permissions['administrator'] == 1) {
+                    return true;
+                }
 
                 if (isset($this->_permissions[$permission]) && $this->_permissions[$permission] == 1) {
                     return true;

@@ -2,7 +2,7 @@
 /*
  *  Made by alsoGAMER
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr11
  *
  *  License: MIT
  *
@@ -175,6 +175,8 @@ $language = array(
     'emails_mass_message_sent_successfully' => 'Inviato con successo un messaggio di massa via email.',
     'emails_mass_message_replacements' => 'Puoi utilizzare variabili nel tuo messaggio di email. Variabili supportate: {username}, {sitename}',
     'emails_mass_message_loading' => "Caricamento in corso... Non ricaricare la pagina. Potrebbe volerci un po'.",
+    'administrator' => 'Administrator',
+    'administrator_permission_info' => 'Members with this permission will have every permission. This is a dangerous permission to grant.',
 
     // Placeholders
     'placeholders' => 'Placeholders',

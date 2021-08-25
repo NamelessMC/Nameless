@@ -3,7 +3,7 @@
  *  Made by Samerton
  *  Translation by BukkitTNT, M_Viper
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr10
+ *  NamelessMC version 2.0.0-pr11
  *
  *  License: MIT
  *
@@ -175,6 +175,8 @@ $language = array(
     'emails_mass_message_sent_successfully' => 'Erfolgreich eine Massen-E-Mail-Nachricht gesendet.',
     'emails_mass_message_replacements' => 'Sie können Variablen in Ihrer E-Mail-Nachricht verwenden. Unterstützte Variablen: {username}, {sitename}',
     'emails_mass_message_loading' => 'Laden ... Bitte laden Sie die Seite nicht neu. Das kann eine Weile dauern.',
+    'administrator' => 'Administrator',
+    'administrator_permission_info' => 'Members with this permission will have every permission. This is a dangerous permission to grant.',
 
     // Placeholders
     'placeholders' => 'Placeholders',

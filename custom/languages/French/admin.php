@@ -2,7 +2,7 @@
 /*
  *  Made by White.
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr10
+ *  NamelessMC version 2.0.0-pr11
  *
  *  License: MIT
  *
@@ -154,6 +154,8 @@ $language = array(
     'validation_promote_group_info' => 'C’est le groupe auquel un utilisateur sera promu une fois qu’il aura validé son compte.',
     'login_method' => 'Méthode de connexion',
     'privacy_and_terms' => 'Confidentialité et conditions',
+    'administrator' => 'Administrator',
+    'administrator_permission_info' => 'Members with this permission will have every permission. This is a dangerous permission to grant.',
 
     // Placeholders
     'placeholders' => 'Espace réservé',
