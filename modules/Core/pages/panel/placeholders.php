@@ -27,7 +27,7 @@ $all_placeholders = Placeholders::getInstance()->getAllPlaceholders();
 $template_file = 'integrations/minecraft/placeholders.tpl';
 
 if (isset($_GET['leaderboard'])) {
-    
+
     $server_id = $_GET['server_id'];
     $placeholder_safe_name = $_GET['leaderboard'];
     $placeholder = Placeholders::getInstance()->getPlaceholder($server_id, $placeholder_safe_name);
@@ -104,25 +104,33 @@ if (isset($_GET['leaderboard'])) {
     if (Input::exists()) {
 
         if (Token::check()) {
-
+            // TODO: this is temporary to assist with debugging #2327
             foreach ($all_placeholders as $placeholder) {
+                try {
 
-                $friendly_name_input = Input::get('friendly_name-' . $placeholder->name . '-server-' . $placeholder->server_id);
-                $friendly_name = $friendly_name_input == '' ? null : $friendly_name_input;
-                $show_on_profile = Input::get('show_on_profile-' . $placeholder->name . '-server-' . $placeholder->server_id) == 'on' ? 1 : 0;
-                $show_on_forum = Input::get('show_on_forum-' . $placeholder->name . '-server-' . $placeholder->server_id) == 'on' ? 1 : 0;
+                    $friendly_name_input = Input::get('friendly_name-' . $placeholder->name . '-server-' . $placeholder->server_id);
+                    $friendly_name = $friendly_name_input == '' ? null : $friendly_name_input;
+                    $show_on_profile = Input::get('show_on_profile-' . $placeholder->name . '-server-' . $placeholder->server_id) == 'on' ? 1 : 0;
+                    $show_on_forum = Input::get('show_on_forum-' . $placeholder->name . '-server-' . $placeholder->server_id) == 'on' ? 1 : 0;
 
-                DB::getInstance()->query("UPDATE nl2_placeholders_settings SET friendly_name = ?, show_on_profile = ?, show_on_forum = ? WHERE name = ? AND server_id = ?", [
-                    $friendly_name,
-                    $show_on_profile,
-                    $show_on_forum,
-                    $placeholder->name,
-                    $placeholder->server_id
-                ]);
+                    DB::getInstance()->query("UPDATE nl2_placeholders_settings SET friendly_name = ?, show_on_profile = ?, show_on_forum = ? WHERE name = ? AND server_id = ?", [
+                        $friendly_name,
+                        $show_on_profile,
+                        $show_on_forum,
+                        $placeholder->name,
+                        $placeholder->server_id
+                    ]);
+                } catch (Exception $e) {
+                    $errors[] = $e->getMessage();
+                    // $errors[] = 'Enabled - ' . $enabled;
+                    // $errors[] = 'Title - ' . Output::getClean($title);
+                    // $errors[] = 'Sort - ' . Output::getClean($sort);
+                    $errors[] = 'Name - ' . Output::getClean($placeholder->name);
+                    $errors[] = 'Server ID - ' . Output::getClean($placeholder->server_id);
+                }
             }
 
             Session::flash('placeholders_success', $language->get('admin', 'updated_placeholder_settings'));
-
             Redirect::to(URL::build('/panel/minecraft/placeholders'));
         } else {
             $errors[] = $language->get('general', 'invalid_token');
