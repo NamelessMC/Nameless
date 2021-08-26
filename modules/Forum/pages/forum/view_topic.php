@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -447,8 +447,8 @@ if ($user->isLoggedIn())
     $template->addJSScript('var quotedPosts = [];');
 
 // Are reactions enabled?
-$reactions_enabled = $queries->getWhere('settings', array('name', '=', 'forum_reactions'));
-if ($reactions_enabled[0]->value == '1')
+$reactions_enabled = $configuration->get('Core', 'forum_reactions');
+if ($reactions_enabled == '1')
     $reactions_enabled = true;
 else
     $reactions_enabled = false;

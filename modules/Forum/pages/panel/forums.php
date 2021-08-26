@@ -22,33 +22,6 @@ $page_title = $forum_language->get('forum', 'forums');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 if (!isset($_GET['action']) && !isset($_GET['forum'])) {
-    if (Input::exists()) {
-        if (Token::check()) {
-            try {
-                // Get reactions value
-                if (isset($_POST['enabled']) && $_POST['enabled'] == 'on') $enabled = 1;
-                else $enabled = 0;
-
-                $forum_reactions_id = $queries->getWhere('settings', array('name', '=', 'forum_reactions'));
-                $forum_reactions_id = $forum_reactions_id[0]->id;
-                $queries->update('settings', $forum_reactions_id, array(
-                    'value' => $enabled
-                ));
-
-                Session::flash('admin_forums', $forum_language->get('forum', 'settings_updated_successfully'));
-                Redirect::to(URL::build('/panel/forums'));
-                die();
-            } catch (Exception $e) {
-                $errors = array($e->getMessage());
-            }
-        } else {
-            // Invalid token
-            Session::flash('admin_forums', $language->get('general', 'invalid_token'));
-            Redirect::to(URL::build('/panel/forums'));
-            die();
-        }
-    }
-
     $forums = $queries->orderAll('forums', 'forum_order', 'ASC');
     $template_array = array();
 
@@ -97,8 +70,6 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
         'NEW_FORUM' => $forum_language->get('forum', 'new_forum'),
         'NEW_FORUM_LINK' => URL::build('/panel/forums/', 'action=new'),
         'FORUMS_ARRAY' => $template_array,
-        'USE_REACTIONS' => $forum_language->get('forum', 'use_reactions'),
-        'USE_REACTIONS_VALUE' => ($forum_reactions == 1),
         'NO_FORUMS' => $forum_language->get('forum', 'no_forums'),
         'REORDER_DRAG_URL' => URL::build('/panel/forums')
     ));

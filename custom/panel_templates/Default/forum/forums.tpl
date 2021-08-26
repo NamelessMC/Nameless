@@ -78,16 +78,6 @@
                             <p>{$NO_FORUMS}</p>
                         {/if}
 
-                        <form action="" method="post">
-                            <div class="form-group">
-                                <label for="InputEnabled">{$USE_REACTIONS}</label>
-                                <input type="checkbox" name="enabled" id="InputEnabled"
-                                       class="js-switch" {if $USE_REACTIONS_VALUE} checked{/if} />
-                            </div>
-                            <input type="hidden" name="token" value="{$TOKEN}">
-                            <input type="submit" class="btn btn-primary" value="{$SUBMIT}" />
-                        </form>
-
                     </div>
                 </div>
 
