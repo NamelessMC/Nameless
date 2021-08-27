@@ -3,7 +3,7 @@
  *  Made by Samerton
  *  Translated by Fjuro
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr10
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -142,6 +142,8 @@ $language = array(
     'must_input_email' => 'Musíte zadat e-mailovou adresu.',
     'must_input_username' => 'Musíte zadat uživatelské jméno.',
     'must_input_password' => 'Musíte zadat heslo.',
+    'must_input_email_or_username' => 'You must input an email or username.',
+    'email_or_username' => 'Email or Username',
 
     // Forgot password
     'forgot_password_instructions' => 'Zadejte vaší e-mailovou adresu, abychom vám mohli odeslat další pokyny k obnově vašeho hesla.',

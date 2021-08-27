@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -143,6 +143,8 @@ $language = array(
     'must_input_email' => 'You must input an email address.',
     'must_input_username' => 'You must input a username.',
     'must_input_password' => 'You must input a password.',
+    'must_input_email_or_username' => 'You must input an email or username.',
+    'email_or_username' => 'Email or Username',
 
     // Forgot password
     'forgot_password_instructions' => 'Please enter your email address so we can send you further instructions on resetting your password.',

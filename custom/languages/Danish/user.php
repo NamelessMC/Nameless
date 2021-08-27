@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton & Translated by Codiaz
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr10
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -142,6 +142,8 @@ mappe.',
     'must_input_email' => 'Du skal indtaste en e-mail adresse.',
     'must_input_username' => 'Du skal indtaste et brugernavn.',
     'must_input_password' => 'Du skal indtaste en adgangskode.',
+    'must_input_email_or_username' => 'You must input an email or username.',
+    'email_or_username' => 'Email or Username',
 
     // Forgot password
     'forgot_password_instructions' => 'Indtast venligst din e-mailadresse, så vi kan sende dig yderligere instruktioner om nulstilling af din adgangskode.',

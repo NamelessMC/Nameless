@@ -3,7 +3,7 @@
  *  Made by Samerton
  *  Translated by Я научу тебя шить XIMI
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr10
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -144,6 +144,8 @@ $language = array(
     'must_input_email' => 'Вы должны ввести адрес электронной почты.',
     'must_input_username' => 'Вы должны ввести имя пользователя.',
     'must_input_password' => 'Вы должны ввести пароль.',
+    'must_input_email_or_username' => 'You must input an email or username.',
+    'email_or_username' => 'Email or Username',
 
     // Forgot password
     'forgot_password_instructions' => 'Пожалуйста, введите свой адрес электронной почты, чтобы мы могли отправить вам дальнейшие инструкции по сбросу пароля.',

@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -34,8 +34,8 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 require(ROOT_PATH . '/core/includes/password.php'); // Require password compat library
 
 // Get login method
-$method = $queries->getWhere('settings', array('name', '=', 'login_method'));
-$method = $method[0]->value;
+$login_method = $queries->getWhere('settings', array('name', '=', 'login_method'));
+$login_method = $login_method[0]->value;
 
 // Deal with any input
 if (Input::exists()) {
@@ -43,7 +43,7 @@ if (Input::exists()) {
         // Validate input
         $validate = new Validate();
 
-        if ($method == 'email') {
+        if ($login_method == 'email') {
             $to_validate = [
                 'email' => [
                     Validate::REQUIRED => true,
@@ -70,13 +70,23 @@ if (Input::exists()) {
         $validation = $validate->check($_POST, $to_validate);
 
         if ($validation->passed()) {
-            if ($method == 'email')
+            if ($login_method == 'email') {
                 $username = Input::get('email');
-            else
+                $method_field = 'email';
+            } else if ($login_method == 'email_or_username') {
                 $username = Input::get('username');
+                if (strpos(Input::get('username'), '@') !== false) {
+                    $method_field = 'email';
+                } else {
+                    $method_field = 'username';
+                }
+            } else {
+                $username = Input::get('username');
+                $method_field = 'username';
+            }
 
             $user = new User();
-            $login = $user->adminLogin($username, Input::get('password'), $method);
+            $login = $user->adminLogin($username, Input::get('password'), $method_field);
 
             if ($login) {
                 // Get IP
@@ -99,9 +109,13 @@ if (Input::exists()) {
     }
 }
 
-if ($method == 'email') {
+if ($login_method == 'email') {
     $smarty->assign(array(
         'EMAIL' => $language->get('user', 'email')
+    ));
+} else if ($login_method == 'email') {
+    $smarty->assign(array(
+        'USERNAME' => $language->get('user', 'email_or_username')
     ));
 } else {
     $smarty->assign(array(

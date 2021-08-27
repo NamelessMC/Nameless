@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr10
+ *  NamelessMC version 2.0.0-pr12
  *
  *  Translator
  *  - SimplyRin( @SimplyRin_, https://www.simplyrin.net )
@@ -148,6 +148,8 @@ $language = array(
     'must_input_email' => 'メールアドレスを入力する必要があります。',
     'must_input_username' => 'ユーザー名を入力する必要があります。',
     'must_input_password' => 'パスワードを入力する必要があります。',
+    'must_input_email_or_username' => 'You must input an email or username.',
+    'email_or_username' => 'Email or Username',
 
     // Forgot password
     'forgot_password_instructions' => 'パスワードをリセットするための詳しい説明をお送りしますので、メールアドレスを入力してください。',

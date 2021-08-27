@@ -2,7 +2,7 @@
 /*
  *  Made by alsoGAMER
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -143,6 +143,8 @@ $language = array(
     'must_input_email' => 'Devi inserire un indirizzo email.',
     'must_input_username' => 'Devi inserire un nome utente.',
     'must_input_password' => 'Devi inserire una password.',
+    'must_input_email_or_username' => 'You must input an email or username.',
+    'email_or_username' => 'Email or Username',
 
     // Forgot password
     'forgot_password_instructions' => 'Inserisci il tuo indirizzo e-mail in modo che possiamo inviarti ulteriori istruzioni sulla reimpostazione della password.',

@@ -4,7 +4,7 @@
  *  Made by Samerton
  *  Translation  by Hi_Michael
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr10
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -148,6 +148,8 @@ $language = array(
     'must_input_email' => 'You must input an email address.',
     'must_input_username' => '你必須輸入帳號.',
     'must_input_password' => '你必須輸入密碼.',
+    'must_input_email_or_username' => 'You must input an email or username.',
+    'email_or_username' => 'Email or Username',
 
     // Forgot password
     'forgot_password_instructions' => '請輸入你的電子郵件讓我們可以在你忘記密碼時寄一封信給你重設密碼.',

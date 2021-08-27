@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -367,7 +367,8 @@ $smarty->assign(array(
     'LOGIN_METHOD' => $language->get('admin', 'login_method'),
     'LOGIN_METHOD_VALUE' => $method,
     'EMAIL' => $language->get('user', 'email'),
-    'USERNAME' => $language->get('user', 'username')
+    'EMAIL_OR_USERNAME' => $language->get('user', 'email_or_username'),
+    'USERNAME' => $language->get('user', 'username'),
 ));
 
 $page_load = microtime(true) - $start;

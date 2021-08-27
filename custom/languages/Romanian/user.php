@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr10
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -146,6 +146,8 @@ $language = array(
     'must_input_email' => 'Trebuie să introduceți o adresă de e-mail.',
     'must_input_username' => 'Trebuie să introduceți un nume de utilizator.',
     'must_input_password' => 'Trebuie să introduceți o parolă.',
+    'must_input_email_or_username' => 'You must input an email or username.',
+    'email_or_username' => 'Email or Username',
 
     // Forgot password
     'forgot_password_instructions' => 'Introduceți adresa dvs. de e-mail pentru a vă putea trimite instrucțiuni suplimentare privind resetarea parolei.',

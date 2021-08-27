@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr10
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -145,6 +145,8 @@ $language = array(
     'must_input_email' => '您必须输入一个电子邮箱地址。',
     'must_input_username' => '您必须输入一个用户名。',
     'must_input_password' => '您必须输入您的密码。',
+    'must_input_email_or_username' => 'You must input an email or username.',
+    'email_or_username' => 'Email or Username',
 
     // Forgot password
     'forgot_password_instructions' => '请输入您的电子邮箱地址，以便我们向您发送有关重置密码的进一步说明。',
