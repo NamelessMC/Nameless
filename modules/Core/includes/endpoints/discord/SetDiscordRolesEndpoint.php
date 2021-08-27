@@ -21,82 +21,28 @@ class SetDiscordRolesEndpoint extends EndpointBase {
         if (!Util::getSetting($api->getDb(), 'discord_integration')) {
             $api->throwError(34, $api->getLanguage()->get('api', 'discord_integration_disabled'));
         }
+        
+        $user = $api->getUser('id', $_POST['user']);
 
-        $user_id = $_POST['user'];
-
-        $user = $api->getUser('id', $user_id);
-
-        $should_log = false;
         $log_array = array();
+        $roles = isset($_POST['roles']) ? $_POST['roles'] : array();
 
-        if ($_POST['roles'] != null) {
-
-            $roles = $_POST['roles'];
-
-            $original_group_ids = $user->getAllGroupIds(false);
-            $added_groups_ids = array();
-
-            $user->removeGroups();
-
-            foreach ($roles as $role) {
-                $group = Discord::getWebsiteGroup($api->getDb(), $role);
-                if ($group == null) {
-                    continue;
+        $groups = DB::getInstance()->query('SELECT nl2_group_sync.*, nl2_groups.name FROM nl2_group_sync INNER JOIN nl2_groups ON website_group_id=nl2_groups.id WHERE discord_role_id IS NOT NULL')->results();
+        foreach($groups as $group) {
+            if(in_array($group->discord_role_id, $roles)) {
+                // Add group if user don't have it
+                if($user->addGroup($group->website_group_id)) {
+                    $log_array['added'][] = $group->name;
                 }
-
-                if ($user->addGroup($group->id)) {
-                    // Don't log if we are just giving back a group
-                    if (in_array($group->id, $original_group_ids)) {
-                        continue;
-                    }
-
-                    $should_log = true;
-                    $log_array['added'][] = Util::getGroupNameFromId($group->name);
-                    $added_groups_ids[] = $group->id;
-                }
-            }
-
-            foreach ($original_group_ids as $group_id) {
-                // If this original group was added back, ignore it
-                if (in_array($group_id, $added_groups_ids)) {
-                    continue;
-                }
-
-                $log_array['removed'][] = Util::getGroupNameFromId($group_id);
-            }
-
-        } else if ($user->data()->id != 1) {
-
-            $original_group_ids = $user->getAllGroupIds(false);
-            $added_group_id = 0;
-
-            if ($user->isValidated()) {
-                $user->setGroup(VALIDATED_DEFAULT);
-                $added_group_id = VALIDATED_DEFAULT;
             } else {
-                $user->setGroup(PRE_VALIDATED_DEFAULT);
-                $added_group_id = PRE_VALIDATED_DEFAULT;
-            }
-
-            // If the new group they got was not in their original groups, log it
-            if (!in_array($added_group_id, $original_group_ids)) {
-                $should_log = true;
-                $log_array['added'][] = Util::getGroupNameFromId($added_group_id);
-            }
-
-            // Log all removed groups, but dont count the added group as removed
-            foreach ($original_group_ids as $group_id) {
-                if ($group_id == $added_group_id) {
-                    continue;
+                // Remove group if user have it
+                if($user->removeGroup($group->website_group_id)) {
+                    $log_array['removed'][] = $group->name;
                 }
-
-                $should_log = true;
-                $log_array['removed'][] = Util::getGroupNameFromId($group_id);
             }
-
         }
 
-        if ($should_log) {
+        if (count($log_array)) {
             Log::getInstance()->log(Log::Action('discord/role_set'), json_encode($log_array), $user->data()->id);
         }
 
