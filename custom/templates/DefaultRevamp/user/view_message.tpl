@@ -40,7 +40,7 @@
       {$PAGINATION}
       <div class="res right floated">
         <a class="ui small primary button" href="{$BACK_LINK}">{$BACK}</a>
-        <a class="ui small negative button" href="{$LEAVE_CONVERSATION_LINK}" onclick="return confirm('{$CONFIRM_LEAVE}');">{$LEAVE_CONVERSATION}</a>
+        <button class="ui small negative button" type="button" data-toggle="modal" data-target="#modal-leave">{$LEAVE_CONVERSATION}</button>
       </div>
       {foreach from=$MESSAGES item=message}
         <div class="ui fluid card" id="message">
@@ -76,6 +76,22 @@
         </form>
       </div>
     </div>
+  </div>
+</div>
+
+<div class="ui small modal" id="modal-leave">
+  <div class="header">
+    {$LEAVE_CONVERSATION}
+  </div>
+  <div class="content">
+    {$CONFIRM_LEAVE}
+    <form action="{$LEAVE_CONVERSATION_LINK}" method="post" id="leave-form">
+      <input type="hidden" name="token" value="{$TOKEN}">
+    </form>
+  </div>
+  <div class="actions">
+    <a class="ui negative button">{$NO}</a>
+    <a class="ui positive button" onclick="$('#leave-form').submit();">{$YES}</a>
   </div>
 </div>
 
