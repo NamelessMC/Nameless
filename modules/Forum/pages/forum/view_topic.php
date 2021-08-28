@@ -120,27 +120,29 @@ if (isset($_GET['pid'])) {
 // Follow/unfollow
 if (isset($_GET['action'])) {
     if ($user->isLoggedIn()) {
-        switch ($_GET['action']) {
-            case 'follow':
-                $already_following = DB::getInstance()->query('SELECT id FROM nl2_topics_following WHERE topic_id = ? AND user_id = ?', array($tid, $user->data()->id));
-                if (!$already_following->count()) {
-                    $queries->create('topics_following', array(
-                        'topic_id' => $tid,
-                        'user_id' => $user->data()->id,
-                        'existing_alerts' => 0
-                    ));
-                    Session::flash('success_post', $forum_language->get('forum', 'now_following_topic'));
-                }
-                break;
-            case 'unfollow':
-                $delete = DB::getInstance()->createQuery('DELETE FROM nl2_topics_following WHERE topic_id = ? AND user_id = ?', array($tid, $user->data()->id));
-                Session::flash('success_post', $forum_language->get('forum', 'no_longer_following_topic'));
-                if (isset($_GET['return']) && $_GET['return'] == 'list') {
-                    Redirect::to(URL::build('/user/following_topics'));
-                    die();
-                }
-                break;
-        }
+        if (Token::check($_POST['token'])) {
+            switch ($_GET['action']) {
+                case 'follow':
+                    $already_following = DB::getInstance()->query('SELECT id FROM nl2_topics_following WHERE topic_id = ? AND user_id = ?', array($tid, $user->data()->id));
+                    if (!$already_following->count()) {
+                        $queries->create('topics_following', array(
+                            'topic_id' => $tid,
+                            'user_id' => $user->data()->id,
+                            'existing_alerts' => 0
+                        ));
+                        Session::flash('success_post', $forum_language->get('forum', 'now_following_topic'));
+                    }
+                    break;
+                case 'unfollow':
+                    $delete = DB::getInstance()->createQuery('DELETE FROM nl2_topics_following WHERE topic_id = ? AND user_id = ?', array($tid, $user->data()->id));
+                    Session::flash('success_post', $forum_language->get('forum', 'no_longer_following_topic'));
+                    if (isset($_GET['return']) && $_GET['return'] == 'list') {
+                        Redirect::to(URL::build('/user/following_topics'));
+                        die();
+                    }
+                    break;
+            }
+        } else Session::flash('failure_post', $language->get('general', 'invalid_token'));
     }
 
     Redirect::to(URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title)));

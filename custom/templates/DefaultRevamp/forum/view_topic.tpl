@@ -56,9 +56,15 @@
       
 <div class="res right floated">
   {if isset($UNFOLLOW)}
-    <a class="ui small primary button" href="{$UNFOLLOW_URL}">{$UNFOLLOW}</a>
+    <form action="{$UNFOLLOW_URL}" method="post" style="display: inline">
+      <input type="hidden" value="{$TOKEN}" name="token" />
+      <button class="ui small primary button">{$UNFOLLOW}</button>
+    </form>
   {elseif isset($FOLLOW)}
-    <a class="ui small primary button" href="{$FOLLOW_URL}">{$FOLLOW}</a>
+    <form action="{$FOLLOW_URL}" method="post" style="display: inline">
+      <input type="hidden" value="{$TOKEN}" name="token" />
+      <button class="ui small primary button">{$FOLLOW}</button>
+    </form>
   {/if}
   {if isset($CAN_MODERATE)}
     <form action="{$LOCK_URL}" method="post" id="lockTopic" style="display: none">
