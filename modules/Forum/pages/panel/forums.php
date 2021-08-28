@@ -285,6 +285,12 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                     die();
                 }
 
+                if (!Token::check($_POST['token'])) {
+                    Session::flash('admin_forums_error', $language->get('general', 'invalid_token'));
+                    Redirect::to('/panel/forums');
+                    die();
+                }
+
                 $dir = $_GET['dir'];
 
                 $forum_id = $queries->getWhere('forums', array('id', '=', $_GET['fid']));
@@ -787,6 +793,9 @@ Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mo
 
 if (Session::exists('admin_forums'))
     $success = Session::flash('admin_forums');
+
+if (Session::exists('admin_forums_error'))
+    $errors = [Session::flash('admin_forums_error')];
 
 if (isset($success))
     $smarty->assign(array(
