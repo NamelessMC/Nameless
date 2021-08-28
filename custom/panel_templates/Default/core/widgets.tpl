@@ -49,10 +49,16 @@
                                 <div class="col-md-3">
                                     <div class="float-md-right">
                                         {if $widget.enabled}
-                                            <a href="{$widget.disable_link}" class="btn btn-danger">{$DISABLE}</a>
+                                            <form action="{$widget.disable_link}" method="post" style="display: inline">
+                                                <input type="hidden" name="token" value="{$TOKEN}" />
+                                                <input type="submit" class="btn btn-danger" value="{$DISABLE}">
+                                            </form>
                                             <a href="{$widget.settings_link}" class="btn btn-primary">{$EDIT}</a>
                                         {else}
-                                            <a href="{$widget.enable_link}" class="btn btn-success">{$ENABLE}</a>
+                                            <form action="{$widget.enable_link}" method="post" style="display: inline">
+                                                <input type="hidden" name="token" value="{$TOKEN}" />
+                                                <input type="submit" class="btn btn-success" value="{$ENABLE}">
+                                            </form>
                                         {/if}
                                     </div>
                                 </div>
