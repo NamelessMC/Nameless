@@ -61,7 +61,10 @@
     <a class="ui small primary button" href="{$FOLLOW_URL}">{$FOLLOW}</a>
   {/if}
   {if isset($CAN_MODERATE)}
-    <form action="{$LOCK_URL}" method="post" id="lockPost" style="display: none">
+    <form action="{$LOCK_URL}" method="post" id="lockTopic" style="display: none">
+      <input type="hidden" value="{$TOKEN}" name="token" />
+    </form>
+    <form action="{$STICK_URL}" method="post" id="stickTopic" style="display: none">
       <input type="hidden" value="{$TOKEN}" name="token" />
     </form>
     <div class="ui top right pointing dropdown small primary button">
@@ -69,11 +72,11 @@
       <i class="dropdown icon"></i>
       <div class="menu">
         <div class="header">{$MOD_ACTIONS}</div>
-        <a type="submit" class="item" onclick="document.getElementById('lockPost').submit()">{$LOCK}</a>
+        <a type="submit" class="item" onclick="document.getElementById('lockTopic').submit()">{$LOCK}</a>
         <a class="item" href="{$MERGE_URL}">{$MERGE}</a>
         <a class="item" data-toggle="modal" data-target="#modal-delete">{$DELETE}</a>
         <a class="item" href="{$MOVE_URL}">{$MOVE}</a>
-        <a class="item" href="{$STICK_URL}">{$STICK}</a>
+        <a type="submit" class="item" onclick="document.getElementById('stickTopic').submit()">{$STICK}</a>
       </div>
     </div>
   {/if}
