@@ -1122,7 +1122,8 @@ body.dark .ui.comments .comment .metadata,
 body.dark .ui.comments .comment .actions a,
 body.dark .ui.card>.extra a:not(.ui),
 body.dark .ui.cards>.card>.extra a:not(.ui),
-body.dark .ui.relaxed.list .item .content {
+body.dark .ui.relaxed.list .item .content,
+body.dark .ui.horizontal.divider {
 	color: rgba(255, 255, 255, 0.6);
 }
 
