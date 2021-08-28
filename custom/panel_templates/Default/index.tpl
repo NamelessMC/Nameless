@@ -28,7 +28,7 @@
                     </div>
 
                     <!-- Update Notification -->
-                    {include file='update.tpl'}
+                    {include file='includes/update.tpl'}
 
                     {if isset($DIRECTORY_WARNING)}
                     <div class="alert alert-warning">
