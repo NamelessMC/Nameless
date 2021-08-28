@@ -201,7 +201,7 @@ if ($topic->label != 0) { // yes
 
         $label_html = $queries->getWhere('forums_labels', array('id', '=', $label->label));
         if (count($label_html)) {
-            $label_html = $label_html[0]->html;
+            $label_html = Output::getPurified($label_html[0]->html);
             $label = str_replace('{x}', Output::getClean($label->name), $label_html);
         } else $label = '';
     } else $label = '';
@@ -221,7 +221,7 @@ if ($topic->labels) {
 
             $label_html = $queries->getWhere('forums_labels', array('id', '=', $label_query->label));
             if (count($label_html)) {
-                $label_html = $label_html[0]->html;
+                $label_html = Output::getPurified($label_html[0]->html);
                 $labels[] = str_replace('{x}', Output::getClean($label_query->name), $label_html);
             }
         }

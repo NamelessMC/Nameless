@@ -106,7 +106,7 @@ class Forum {
                                             $return[$forum->id]['subforums'][$item->id]->subforums[$subforum->id] = new stdClass();
                                             $return[$forum->id]['subforums'][$item->id]->subforums[$subforum->id]->title = Output::getClean($subforum->forum_title);
                                             $return[$forum->id]['subforums'][$item->id]->subforums[$subforum->id]->link = URL::build('/forum/view/' . $subforum->id . '-' . $this->titleToURL($subforum->forum_title));
-                                            $return[$forum->id]['subforums'][$item->id]->subforums[$subforum->id]->icon = htmlspecialchars_decode($subforum->icon);
+                                            $return[$forum->id]['subforums'][$item->id]->subforums[$subforum->id]->icon = Output::getPurified(Output::getDecoded($subforum->icon));
                                         }
                                     }
                                 }
@@ -385,7 +385,7 @@ class Forum {
 
                                 if ($label_html->count()) {
                                     $label_html = $label_html->first()->html;
-                                    $label = str_replace('{x}', Output::getClean($label->name), $label_html);
+                                    $label = str_replace('{x}', Output::getClean($label->name), Output::getPurified($label_html));
                                 } else $label = '';
                             } else $label = '';
 

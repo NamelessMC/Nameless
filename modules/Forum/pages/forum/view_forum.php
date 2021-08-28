@@ -308,7 +308,7 @@ if ($forum_query->redirect_forum == 1) {
 
                         $label_html = $queries->getWhere('forums_labels', array('id', '=', $label->label));
                         if (count($label_html)) {
-                            $label_html = $label_html[0]->html;
+                            $label_html = Output::getPurified($label_html[0]->html);
                             $label = str_replace('{x}', Output::getClean($label->name), $label_html);
                         } else $label = '';
                     } else $label = '';
@@ -334,7 +334,7 @@ if ($forum_query->redirect_forum == 1) {
 
                             $label_html = $queries->getWhere('forums_labels', array('id', '=', $label_query->label));
                             if (count($label_html)) {
-                                $label_html = $label_html[0]->html;
+                                $label_html = Output::getPurified($label_html[0]->html);
                                 $label_html = str_replace('{x}', Output::getClean($label_query->name), $label_html);
                                 $labels[] = $label_html;
                                 $labels_cache[$item] = $label_html;
@@ -409,7 +409,7 @@ if ($forum_query->redirect_forum == 1) {
                         $label_html = $queries->getWhere('forums_labels', array('id', '=', $label->label));
                         if (count($label_html)) {
                             $label_html = $label_html[0]->html;
-                            $label = str_replace('{x}', Output::getClean($label->name), $label_html);
+                            $label = str_replace('{x}', Output::getClean($label->name), Output::getPurified($label_html));
                         } else $label = '';
                     } else $label = '';
 
@@ -435,7 +435,7 @@ if ($forum_query->redirect_forum == 1) {
                             $label_html = $queries->getWhere('forums_labels', array('id', '=', $label_query->label));
                             if (count($label_html)) {
                                 $label_html = $label_html[0]->html;
-                                $label_html = str_replace('{x}', Output::getClean($label_query->name), $label_html);
+                                $label_html = str_replace('{x}', Output::getClean($label_query->name), Output::getPurified($label_html));
                                 $labels[] = $label_html;
                                 $labels_cache[$item] = $label_html;
                             }
