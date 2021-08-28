@@ -356,7 +356,11 @@
     </div>
     <div class="actions">
       <a class="ui negative button">{$CANCEL}</a>
-      <a class="ui positive button" href="{$DELETE_URL}">{$DELETE}</a>
+      
+      <form action="{$DELETE_URL}" method="post" id="deleteTopic" style="display: none">
+        <input type="hidden" value="{$TOKEN}" name="token" />
+      </form>
+      <a type="submit" class="ui positive button" onclick="document.getElementById('deleteTopic').submit()">{$DELETE}</a>
     </div>
   </div>
 {/if}
