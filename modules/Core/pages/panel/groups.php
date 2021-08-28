@@ -349,11 +349,11 @@ if (isset($_GET['action'])) {
         $template_file = 'core/groups_permissions.tpl';
     } else if ($_GET['action'] == 'order') {
         // Get groups
-        if(isset($_GET['groups'])){
-            $groups = json_decode($_GET['groups'])->groups;
+        if (isset($_POST['groups']) && Token::check($_POST['token'])) {
+            $groups = json_decode($_POST['groups'])->groups;
 
             $i = 1;
-            foreach($groups as $item){
+            foreach ($groups as $item) {
                 $queries->update('groups', $item, array(
                     '`order`' => $i
                 ));
@@ -392,7 +392,7 @@ if (isset($_GET['action'])) {
         'YES' => $language->get('general', 'yes'),
         'NO' => $language->get('general', 'no'),
         'EDIT' => $language->get('general', 'edit'),
-        'REORDER_DRAG_URL' => URL::build('/panel/core/groups')
+        'REORDER_DRAG_URL' => URL::build('/panel/core/groups', 'action=order')
     ));
 
     $template_file = 'core/groups.tpl';
