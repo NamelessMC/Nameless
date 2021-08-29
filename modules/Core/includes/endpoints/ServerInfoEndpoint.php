@@ -160,7 +160,7 @@ class ServerInfoEndpoint extends EndpointBase {
             $api->throwError(25, $api->getLanguage()->get('api', 'unable_to_update_server_info'), $e->getMessage());
         }
 
-        $api->returnArray(array('message' => $api->getLanguage()->get('api', 'server_info_updated'), 'meta' => json_encode($log_array)));
+        $api->returnArray(array_merge(array('message' => $api->getLanguage()->get('api', 'server_info_updated')), $log_array));
     }
 
     /**

@@ -55,6 +55,6 @@ class SetDiscordRolesEndpoint extends EndpointBase {
             Log::getInstance()->log(Log::Action('discord/role_set'), json_encode($log_array), $user->data()->id);
         }
 
-        $api->returnArray(array('message' => $api->getLanguage()->get('api', 'group_updated'), 'meta' => json_encode($log_array)));
+        $api->returnArray(array_merge(array('message' => $api->getLanguage()->get('api', 'group_updated')), $log_array));
     }
 }
