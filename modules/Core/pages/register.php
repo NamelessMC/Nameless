@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -365,7 +365,7 @@ if (Input::exists()) {
                             $user_id = $queries->getLastId();
 
                             $user = new User($user_id);
-                            $user->addGroup($default_group);
+                            $user->addGroup($default_group, 0, array(true));
 
                             // Custom Fields
                             if (count($profile_fields)) {

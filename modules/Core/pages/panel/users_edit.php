@@ -234,7 +234,7 @@ if (Input::exists()) {
                             // Any new groups?
                             foreach ($_POST['groups'] as $group) {
                                 if (!in_array($group, $user_groups)) {
-                                    $view_user->addGroup($group);
+                                    $view_user->addGroup($group, 0, array(true));
                                     $added[] = $group;
                                 }
                             }

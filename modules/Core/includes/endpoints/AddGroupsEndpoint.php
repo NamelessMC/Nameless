@@ -32,7 +32,7 @@ class AddGroupsEndpoint extends EndpointBase {
                 continue;
             }
 
-            $user->addGroup($group);
+            $user->addGroup($group, 0, $group_query->first());
 
             // Attempt to update their discord role as well, but ignore any output/errors
             Discord::updateDiscordRoles($user, [$group], [], $api->getLanguage(), false);

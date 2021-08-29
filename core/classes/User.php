@@ -140,8 +140,7 @@ class User {
                         $default_group = $this->_db->query('SELECT * FROM nl2_groups WHERE id = 1', array())->first();
                     }
                     
-                    $this->addGroup($default_group_id);
-                    $this->_groups[$default_group_id] = $default_group;
+                    $this->addGroup($default_group_id, 0, $default_group);
                 }
 
                 // Get their placeholders only if they have a valid uuid
@@ -601,8 +600,9 @@ class User {
      *
      * @param int $group_id ID of group to set as main group.
      * @param int|null $expire Expiry in epoch time. If not supplied, group will never expire.
+     * @param array|null $group_data Load data from existing query.
      */
-    public function setGroup($group_id, $expire = 0) {
+    public function setGroup($group_id, $expire = 0, $group_data = null) {
         if ($this->data()->id == 1) {
             return false;
         }
@@ -617,6 +617,16 @@ class User {
                 $expire
             )
         );
+        
+        $this->_groups = array();
+        if($group_data == null) {
+            $group_data = $this->_db->get('groups', array('id', '=', $group_id))->first();
+            if ($group_data->count()) {
+                $this->_groups[$group_id] = $group_data->first();
+            }
+        } else {
+            $this->_groups[$group_id] = $group_data;
+        }
     }
 
     /**
@@ -624,9 +634,10 @@ class User {
      *
      * @param int $group_id ID of group to give.
      * @param int|null $expire Expiry in epoch time. If not supplied, group will never expire.
+     * @param array|null $group_data Load data from existing query.
      * @return bool True on success, false if they already have it.
      */
-    public function addGroup($group_id, $expire = 0) {
+    public function addGroup($group_id, $expire = 0, $group_data = null) {
         $groups = $this->_groups ? $this->_groups : [];
 
         if (array_key_exists($group_id, $groups)) {
@@ -642,6 +653,15 @@ class User {
                 $expire
             )
         );
+        
+        if($group_data == null) {
+            $group_data = $this->_db->get('groups', array('id', '=', $group_id))->first();
+            if ($group_data->count()) {
+                $this->_groups[$group_id] = $group_data->first();
+            }
+        } else {
+            $this->_groups[$group_id] = $group_data;
+        }
 
         return true;
     }
@@ -670,6 +690,8 @@ class User {
                 $group_id
             )
         );
+        
+        unset($this->_groups[$group_id]);
 
         return true;
     }
@@ -685,6 +707,8 @@ class User {
         }
 
         $this->_db->createQuery('DELETE FROM `nl2_users_groups` ' . $where, array($this->data()->id));
+        
+        $this->_groups = array();
     }
 
     /**
