@@ -99,84 +99,39 @@ class ServerInfoEndpoint extends EndpointBase {
         }
 
         // Group sync
-        $log_array = array();
         try {
-            $group_sync = $api->getDb()->get('group_sync', array('id', '<>', 0));
+            $group_sync = DB::getInstance()->query('SELECT nl2_group_sync.*, nl2_groups.name FROM nl2_group_sync INNER JOIN nl2_groups ON website_group_id=nl2_groups.id WHERE ingame_rank_name != \'\'');
 
             if ($group_sync->count()) {
                 $group_sync = $group_sync->results();
-                $group_sync_updates = array();
-                foreach ($group_sync as $item) {
-                    if ($item->ingame_rank_name == '') {
-                        continue;
-                    }
-
-                    $group_sync_updates[strtolower($item->ingame_rank_name)] = array(
-                        'website' => $item->website_group_id
-                    );
-                }
 
                 foreach ($_POST['players'] as $uuid => $player) {
                     $user = $this->getUser($uuid);
                     if ($user->data()) {
+                        $log_array = array();
+                        $user_groups = isset($player['groups']) ? array_map('strtolower', $player['groups']) : array();
 
-                        $should_log = false;
-
-                        // Never edit root user
-                        if ($user->data()->id == 1) {
-                            continue;
+                        foreach($group_sync as $group) {
+                            if(in_array(strtolower($group->ingame_rank_name), $user_groups)) {
+                                // Add group if user don't have it
+                                if($user->addGroup($group->website_group_id)) {
+                                    $log_array['added'][] = $group->name;
+                                }
+                                
+                                Discord::updateDiscordRoles($user, [$group->website_group_id], [], $api->getLanguage(), false);
+                            } else {
+                                // Remove group if user have it
+                                if($user->removeGroup($group->website_group_id)) {
+                                    $log_array['removed'][] = $group->name;
+                                }
+                                
+                                Discord::updateDiscordRoles($user, [], [$group->website_group_id], $api->getLanguage(), false);
+                            }
                         }
-
-                        // Any synced groups to remove?
-                        foreach ($user->getGroups() as $group) {
-                            // Convert user group ID to minecraft group name. exit if this isnt set
-                            $ingame_rank_name = Util::getIngameRankName($group->id);
-                            if ($ingame_rank_name == null) {
-                                continue;
-                            }
-
-                            // Check that this website group is setup to sync
-                            if (!array_key_exists($ingame_rank_name, $group_sync_updates)) {
-                                continue;
-                            }
-
-                            // If they currently have this rank ingame, dont remove it
-                            if (in_array($ingame_rank_name, $player['groups'])) {
-                                continue;
-                            }
-
-                            // Only create a log entry if at least one new group was added/removed
-                            if ($user->removeGroup($group->id)) {
-                                $should_log = true;
-                                $log_array['removed'][] = $group->name;
-                            }
-
-                            Discord::updateDiscordRoles($user, [], [$group->id], $api->getLanguage(), false);
-                        }
-
-                        // Any synced groups to add?
-                        foreach ($player['groups'] as $group) {
-                            $ingame_rank_name = strtolower($group);
-                            // Check that this ingame group is setup to sync
-                            if (!array_key_exists($ingame_rank_name, $group_sync_updates)) {
-                                continue;
-                            }
-                            
-                            $group_info = $group_sync_updates[$ingame_rank_name];
-
-                            // Only create a log entry if at least one new group was added/removed
-                            if ($user->addGroup($group_info['website'])) {
-                                // TODO: this without another query for name. we cant loop their groups because that would require remaking the $user var
-                                $should_log = true;
-                                $log_array['added'][] = Util::getGroupNameFromId($group_info['website']);
-                            }
-
-                            Discord::updateDiscordRoles($user, $group_info['website'], [], $api->getLanguage(), false);
-                        }
-
-                        if ($should_log) {
+                        
+                        if(count($log_array)) {
                             Log::getInstance()->log(Log::Action('mc_group_sync/role_set'), json_encode($log_array), $user->data()->id);
-                       }
+                        }
                     }
                 }
             }
