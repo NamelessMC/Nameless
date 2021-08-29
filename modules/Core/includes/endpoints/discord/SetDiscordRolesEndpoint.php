@@ -31,10 +31,19 @@ class SetDiscordRolesEndpoint extends EndpointBase {
         foreach($groups as $group) {
             if(in_array($group->discord_role_id, $roles)) {
                 // Add group if user don't have it
-                if($user->addGroup($group->website_group_id)) {
+                if($user->addGroup($group->website_group_id, 0, array(true))) {
                     $log_array['added'][] = $group->name;
                 }
             } else {
+                // Check if user have another group synced to this NamelessMC group
+                foreach($groups as $item) {
+                    if(in_array($item->discord_role_id, $roles)) {
+                        if($item->website_group_id == $group->website_group_id) {
+                            continue 2;
+                        }
+                    }
+                }
+                
                 // Remove group if user have it
                 if($user->removeGroup($group->website_group_id)) {
                     $log_array['removed'][] = $group->name;

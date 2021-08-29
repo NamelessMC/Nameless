@@ -114,12 +114,21 @@ class ServerInfoEndpoint extends EndpointBase {
                         foreach($group_sync as $group) {
                             if(in_array(strtolower($group->ingame_rank_name), $user_groups)) {
                                 // Add group if user don't have it
-                                if($user->addGroup($group->website_group_id)) {
+                                if($user->addGroup($group->website_group_id, 0, array(true))) {
                                     $log_array['added'][] = $group->name;
                                     
                                     Discord::updateDiscordRoles($user, [$group->website_group_id], [], $api->getLanguage(), false);
                                 }
                             } else {
+                                // Check if user have another group synced to this NamelessMC group
+                                foreach($group_sync as $item) {
+                                    if(in_array(strtolower($item->ingame_rank_name), $user_groups)) {
+                                        if($item->website_group_id == $group->website_group_id) {
+                                            continue 2;
+                                        }
+                                    }
+                                }
+                                
                                 // Remove group if user have it
                                 if($user->removeGroup($group->website_group_id)) {
                                     $log_array['removed'][] = $group->name;
