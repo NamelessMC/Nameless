@@ -100,7 +100,7 @@ class ServerInfoEndpoint extends EndpointBase {
 
         // Group sync
         try {
-            $group_sync = DB::getInstance()->query('SELECT nl2_group_sync.*, nl2_groups.name FROM nl2_group_sync INNER JOIN nl2_groups ON website_group_id=nl2_groups.id WHERE ingame_rank_name != \'\'');
+            $group_sync = DB::getInstance()->query('SELECT nl2_group_sync.*, nl2_groups.name FROM nl2_group_sync INNER JOIN nl2_groups ON website_group_id=nl2_groups.id WHERE ingame_rank_name IS NOT NULL');
 
             if ($group_sync->count()) {
                 $group_sync = $group_sync->results();
@@ -116,16 +116,16 @@ class ServerInfoEndpoint extends EndpointBase {
                                 // Add group if user don't have it
                                 if($user->addGroup($group->website_group_id)) {
                                     $log_array['added'][] = $group->name;
+                                    
+                                    Discord::updateDiscordRoles($user, [$group->website_group_id], [], $api->getLanguage(), false);
                                 }
-                                
-                                Discord::updateDiscordRoles($user, [$group->website_group_id], [], $api->getLanguage(), false);
                             } else {
                                 // Remove group if user have it
                                 if($user->removeGroup($group->website_group_id)) {
                                     $log_array['removed'][] = $group->name;
+                                    
+                                    Discord::updateDiscordRoles($user, [], [$group->website_group_id], $api->getLanguage(), false);
                                 }
-                                
-                                Discord::updateDiscordRoles($user, [], [$group->website_group_id], $api->getLanguage(), false);
                             }
                         }
                         

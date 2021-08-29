@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -173,7 +173,7 @@ if (!isset($_GET['view'])) {
                             $errors[] = $language->get('admin', 'ingame_group_maximum');
                         }
                     } else {
-                        $fields['ingame_rank_name'] = '';
+                        $fields['ingame_rank_name'] = null;
                     }
 
                     if ($discord_role_id == null && empty($ingame_rank_name)) {
@@ -202,14 +202,14 @@ if (!isset($_GET['view'])) {
                             $fields = array();
                             $fields['website_group_id']  = intval($website_group);
 
-                            if (!empty($_POST['ingame_group'][$key])) {
+                            if (!empty($ingame_group)) {
                                 if (strlen(str_replace(' ', '', $ingame_group)) > 1 && strlen(str_replace(' ', '', $ingame_group)) < 65) {
                                     $fields['ingame_rank_name'] = $ingame_group;
                                 } else {
                                     $errors[] = $language->get('admin', 'group_name_minimum');
                                     $errors[] = $language->get('admin', 'ingame_group_maximum');
                                 }
-                            } else $fields['ingame_rank_name'] = '';
+                            } else $fields['ingame_rank_name'] = null;
                             if (strlen($discord_role_id) == 0 || strlen($discord_role_id) == 18) {
                                 $fields['discord_role_id'] = $discord_role_id;
                             } else {
@@ -404,7 +404,9 @@ if (!isset($_GET['view'])) {
                 'EXISTING_RULES' => $language->get('admin', 'existing_rules'),
                 'DISCORD_INTEGRATION_NOT_SETUP' => $language->get('admin', 'discord_integration_not_setup'),
                 'GROUP_SYNC_PLUGIN_NOT_SET_UP' => $language->get('admin', 'group_sync_plugin_not_set_up'),
-                'DELETE_LINK' => URL::build('/panel/core/api/', 'view=group_sync')
+                'DELETE_LINK' => URL::build('/panel/core/api/', 'view=group_sync'),
+                'NONE' => $language->get('general', 'none'),
+                'DISABLED' => $language->get('admin', 'disabled')
             )
         );
 

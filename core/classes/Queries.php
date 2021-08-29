@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -125,7 +125,7 @@ class Queries {
             $data = $this->_db->createTable("friends", " `id` int(11) NOT NULL AUTO_INCREMENT, `user_id` int(11) NOT NULL, `friend_id` int(11) NOT NULL, `notify` tinyint(1) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
             $data = $this->_db->createTable("groups", "`id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(20) NOT NULL, `group_html` varchar(1024) NOT NULL, `group_html_lg` varchar(1024) NOT NULL, `group_username_color` varchar(256) DEFAULT NULL, `group_username_css` varchar(256) DEFAULT NULL, `admin_cp` tinyint(1) NOT NULL DEFAULT '0', `staff` tinyint(1) NOT NULL DEFAULT '0', `permissions` mediumtext, `default_group` tinyint(1) NOT NULL DEFAULT '0', `order` int(11) NOT NULL DEFAULT '1', `force_tfa` tinyint(1) NOT NULL DEFAULT '0', `deleted` int(11) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
             $data = $this->_db->createTable("groups_templates", " `id` int(11) NOT NULL AUTO_INCREMENT, `group_id` int(11) NOT NULL, `template_id` int(11) NOT NULL, `can_use_template` tinyint(1) NOT NULL DEFAULT '1', PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
-            $data = $this->_db->createTable("group_sync", " `id` int(11) NOT NULL AUTO_INCREMENT, `ingame_rank_name` varchar(64) NOT NULL, `discord_role_id` bigint(18) DEFAULT NULL, `website_group_id` int(11) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
+            $data = $this->_db->createTable("group_sync", " `id` int(11) NOT NULL AUTO_INCREMENT, `ingame_rank_name` varchar(64) DEFAULT NULL, `discord_role_id` bigint(18) DEFAULT NULL, `website_group_id` int(11) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
             $data = $this->_db->createTable("hooks", " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(128) NOT NULL, `action` int(11) NOT NULL, `url` varchar(2048) NOT NULL, `events` varchar(2048) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
             $data = $this->_db->createTable("ip_bans", " `id` int(11) NOT NULL AUTO_INCREMENT, `ip` varchar(128) NOT NULL, `banned_by` int(11) NOT NULL, `banned_at` int(11) NOT NULL, `reason` varchar(255) DEFAULT NULL, PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
             $data = $this->_db->createTable("infractions", " `id` int(11) NOT NULL AUTO_INCREMENT, `type` int(11) NOT NULL, `punished` int(11) NOT NULL, `staff` int(11) NOT NULL, `reason` text NOT NULL, `infraction_date` datetime NOT NULL, `created` int(11) DEFAULT NULL, `acknowledged` tinyint(1) NOT NULL, `revoked` tinyint(1) NOT NULL DEFAULT '0', `revoked_by` int(11) DEFAULT NULL, `revoked_at` int(11) DEFAULT NULL, PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");

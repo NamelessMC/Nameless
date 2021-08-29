@@ -1,0 +1,51 @@
+<?php
+// 2.0.0 pr-11 to 2.0.0 pr-12 updater
+try {
+    $db_engine = Config::get('mysql/engine');
+} catch (Exception $e) {
+    // unable to retrieve from config
+    echo $e->getMessage() . '<br />';
+}
+if (!$db_engine || ($db_engine != 'MyISAM' && $db_engine != 'InnoDB'))
+    $db_engine = 'InnoDB';
+
+try {
+    $db_charset = Config::get('mysql/charset');
+} catch (Exception $e) {
+    // unable to retrieve from config
+    echo $e->getMessage() . '<br />';
+}
+if (!$db_charset || ($db_charset != 'utf8mb4' && $db_charset != 'latin1'))
+    $db_charset = 'latin1';
+
+// Change empty values to null
+try {
+    DB::getInstance()->createQuery("ALTER TABLE `nl2_group_sync` CHANGE `ingame_rank_name` `ingame_rank_name` VARCHAR(64) CHARACTER SET $db_charset NULL DEFAULT NULL;");
+    DB::getInstance()->createQuery('UPDATE `nl2_group_sync` SET `ingame_rank_name` = NULL WHERE `ingame_rank_name` = \'\';');
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+
+// Update version number
+/*$version_number_id = $queries->getWhere('settings', array('name', '=', 'nameless_version'));
+
+if (count($version_number_id)) {
+    $version_number_id = $version_number_id[0]->id;
+    $queries->update('settings', $version_number_id, array(
+        'value' => '2.0.0-pr12'
+    ));
+} else {
+    $version_number_id = $queries->getWhere('settings', array('name', '=', 'version'));
+    $version_number_id = $version_number_id[0]->id;
+
+    $queries->update('settings', $version_number_id, array(
+        'value' => '2.0.0-pr12'
+    ));
+}*/
+
+$version_update_id = $queries->getWhere('settings', array('name', '=', 'version_update'));
+$version_update_id = $version_update_id[0]->id;
+
+$queries->update('settings', $version_update_id, array(
+    'value' => 'false'
+));
