@@ -122,14 +122,12 @@ if (!isset($_GET['view'])) {
                 $validation = $validate->check($_POST, [
                         'ingame_rank_name' => [
                             Validate::MIN => 2,
-                            Validate::MAX => 64,
-                            Validate::UNIQUE => 'group_sync'
+                            Validate::MAX => 64
                         ],
                         'discord_role_id' => [
                             Validate::MIN => 18,
                             Validate::MAX => 18,
-                            Validate::NUMERIC => true,
-                            Validate::UNIQUE => 'group_sync'
+                            Validate::NUMERIC => true
                         ],
                         'website_group' => [
                             Validate::REQUIRED => true
@@ -138,14 +136,12 @@ if (!isset($_GET['view'])) {
                 )->messages([
                     'ingame_rank_name' => [
                         Validate::MIN => $language->get('admin', 'group_name_minimum'),
-                        Validate::MAX => $language->get('admin', 'ingame_group_maximum'),
-                        Validate::UNIQUE => $language->get('admin', 'ingame_group_already_exists')
+                        Validate::MAX => $language->get('admin', 'ingame_group_maximum')
                     ],
                     'discord_role_id' => [
                         Validate::MIN => $language->get('admin', 'discord_role_id_length'),
                         Validate::MAX => $language->get('admin', 'discord_role_id_length'),
-                        Validate::NUMERIC => $language->get('admin', 'discord_role_id_numeric'),
-                        Validate::UNIQUE => $language->get('user', 'discord_id_taken')
+                        Validate::NUMERIC => $language->get('admin', 'discord_role_id_numeric')
                     ]
                 ]);
 
