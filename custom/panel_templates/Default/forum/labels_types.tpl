@@ -96,7 +96,10 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">{$NO}</button>
-                    <a href="#" id="deleteLink" class="btn btn-primary">{$YES}</a>
+                    <form action="" id="deleteForm" method="post" style="display: inline">
+                        <input type="hidden" name="token" value="{$TOKEN}" />
+                        <input type="submit" class="btn btn-primary" value="{$YES}" />
+                    </form>
                 </div>
             </div>
         </div>
@@ -109,7 +112,7 @@
 
 <script type="text/javascript">
   function showDeleteModal(link) {
-    $('#deleteLink').attr('href', link);
+    $('#deleteForm').attr('action', link);
     $('#deleteModal').modal().show();
   }
 </script>

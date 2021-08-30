@@ -2,7 +2,7 @@
 /*
  *	Made by White, Ikiae.
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr10
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -35,6 +35,8 @@ $language = array(
     'alerts' => 'Alertes',
     'delete_all' => 'Tout supprimer',
     'private_profile' => 'Profil privé',
+    'placeholders' => 'Placeholders',
+    'no_placeholders' => 'No Placeholders',
 
     // Profile settings
     'field_is_required' => '{x} est requis.', // Don't replace {x}
@@ -140,6 +142,8 @@ $language = array(
     'must_input_email' => 'Vous devez saisir une adresse e-mail.',
     'must_input_username' => 'Vous devez saisir un nom d’utilisateur.',
     'must_input_password' => 'Vous devez saisir un mot de passe.',
+    'must_input_email_or_username' => 'You must input an email or username.',
+    'email_or_username' => 'Email or Username',
 
     // Forgot password
     'forgot_password_instructions' => 'Veuillez saisir votre adresse e-mail afin que nous puissions vous envoyer d’autres instructions sur la réinitialisation de votre mot de passe.',

@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr10
  *
  *  License: MIT
  *
@@ -25,6 +25,18 @@ require(ROOT_PATH . '/core/includes/phpass.php'); // phpass for Wordpress auth
 require(ROOT_PATH . '/core/includes/emojione/autoload.php'); // Emojione
 require(ROOT_PATH . '/core/includes/markdown/tohtml/Markdown.inc.php'); // Markdown to HTML
 $emojione = new Emojione\Client(new Emojione\Ruleset());
+
+// Forum enabled?
+$cache->setCache('modulescache');
+$enabled_modules = $cache->retrieve('enabled_modules');
+foreach($enabled_modules as $module){
+  // Forum module enabled?
+  if($module['name'] == 'Forum'){
+	  // Enabled
+	  $forum_enabled = true;
+	  break;
+  }
+}
 
 // Two factor auth?
 if(isset($_GET['do'])){
@@ -260,8 +272,6 @@ if(isset($_GET['do'])){
                             } else
                                 $signature = '';
 
-							$topicUpdates = Output::getClean(Input::get('topicUpdates'));
-
                             // Private profiles enabled?
                             $private_profiles = $queries->getWhere('settings', array('name', '=', 'private_profile'));
                             if($private_profiles[0]->value == 1) {
@@ -273,17 +283,25 @@ if(isset($_GET['do'])){
                                 $privateProfile = $user->data()->private_profile;
 
                             $gravatar = $_POST['gravatar'] == '1' ? 1 : 0;
-
-                            $user->update(array(
+                            
+                            $data = array(
                                 'language_id' => $new_language,
                                 'timezone' => $timezone,
                                 'signature' => $signature,
 								'nickname' => $displayname,
-								'topic_updates' => $topicUpdates,
                                 'private_profile' => $privateProfile,
 	                            'theme_id' => $new_template,
                                 'gravatar' => $gravatar
-                            ));
+                            );
+                            
+                            // Is forum enabled? Update topic Updates
+                            if(isset($forum_enabled) && $forum_enabled) {
+                                $topicUpdates = Output::getClean(Input::get('topicUpdates'));
+                                
+                                $data['topic_updates'] = $topicUpdates;
+                            }
+
+                            $user->update($data);
 
                             Log::getInstance()->log(Log::Action('user/ucp/update'));
 
@@ -666,8 +684,7 @@ if(isset($_GET['do'])){
         ));
 	}
 
-	$forum_enabled = $queries->getWhere('modules', array('name', '=', 'Forum'));
-	if($forum_enabled[0]->enabled == 1){
+	if(isset($forum_enabled) && $forum_enabled) {
 		$smarty->assign(array(
 			'TOPIC_UPDATES' => $language->get('user', 'topic_updates'),
 			'TOPIC_UPDATES_ENABLED' => DB::getInstance()->get('users', array('id', '=', $user->data()->id))->first()->topic_updates

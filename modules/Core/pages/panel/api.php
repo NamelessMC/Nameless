@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -122,14 +122,12 @@ if (!isset($_GET['view'])) {
                 $validation = $validate->check($_POST, [
                         'ingame_rank_name' => [
                             Validate::MIN => 2,
-                            Validate::MAX => 64,
-                            Validate::UNIQUE => 'group_sync'
+                            Validate::MAX => 64
                         ],
                         'discord_role_id' => [
                             Validate::MIN => 18,
                             Validate::MAX => 18,
-                            Validate::NUMERIC => true,
-                            Validate::UNIQUE => 'group_sync'
+                            Validate::NUMERIC => true
                         ],
                         'website_group' => [
                             Validate::REQUIRED => true
@@ -138,14 +136,12 @@ if (!isset($_GET['view'])) {
                 )->messages([
                     'ingame_rank_name' => [
                         Validate::MIN => $language->get('admin', 'group_name_minimum'),
-                        Validate::MAX => $language->get('admin', 'ingame_group_maximum'),
-                        Validate::UNIQUE => $language->get('admin', 'ingame_group_already_exists')
+                        Validate::MAX => $language->get('admin', 'ingame_group_maximum')
                     ],
                     'discord_role_id' => [
                         Validate::MIN => $language->get('admin', 'discord_role_id_length'),
                         Validate::MAX => $language->get('admin', 'discord_role_id_length'),
-                        Validate::NUMERIC => $language->get('admin', 'discord_role_id_numeric'),
-                        Validate::UNIQUE => $language->get('user', 'discord_id_taken')
+                        Validate::NUMERIC => $language->get('admin', 'discord_role_id_numeric')
                     ]
                 ]);
 
@@ -173,7 +169,7 @@ if (!isset($_GET['view'])) {
                             $errors[] = $language->get('admin', 'ingame_group_maximum');
                         }
                     } else {
-                        $fields['ingame_rank_name'] = '';
+                        $fields['ingame_rank_name'] = null;
                     }
 
                     if ($discord_role_id == null && empty($ingame_rank_name)) {
@@ -202,14 +198,14 @@ if (!isset($_GET['view'])) {
                             $fields = array();
                             $fields['website_group_id']  = intval($website_group);
 
-                            if (!empty($_POST['ingame_group'][$key])) {
+                            if (!empty($ingame_group)) {
                                 if (strlen(str_replace(' ', '', $ingame_group)) > 1 && strlen(str_replace(' ', '', $ingame_group)) < 65) {
                                     $fields['ingame_rank_name'] = $ingame_group;
                                 } else {
                                     $errors[] = $language->get('admin', 'group_name_minimum');
                                     $errors[] = $language->get('admin', 'ingame_group_maximum');
                                 }
-                            } else $fields['ingame_rank_name'] = '';
+                            } else $fields['ingame_rank_name'] = null;
                             if (strlen($discord_role_id) == 0 || strlen($discord_role_id) == 18) {
                                 $fields['discord_role_id'] = $discord_role_id;
                             } else {
@@ -404,7 +400,9 @@ if (!isset($_GET['view'])) {
                 'EXISTING_RULES' => $language->get('admin', 'existing_rules'),
                 'DISCORD_INTEGRATION_NOT_SETUP' => $language->get('admin', 'discord_integration_not_setup'),
                 'GROUP_SYNC_PLUGIN_NOT_SET_UP' => $language->get('admin', 'group_sync_plugin_not_set_up'),
-                'DELETE_LINK' => URL::build('/panel/core/api/', 'view=group_sync')
+                'DELETE_LINK' => URL::build('/panel/core/api/', 'view=group_sync'),
+                'NONE' => $language->get('general', 'none'),
+                'DISABLED' => $language->get('admin', 'disabled')
             )
         );
 

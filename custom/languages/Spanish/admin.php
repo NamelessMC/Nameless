@@ -2,7 +2,7 @@
 /*
  *  Made by TheSuperSkills (Edited by Ariuw, iMaykolRD_ and zJerino)
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr11
  *
  *  License: MIT
  *
@@ -115,6 +115,7 @@ $language = array(
     'mailer_settings_info' => 'Los campos siguientes son obligatorios si ha habilitado PHPMailer. Para obtener más información sobre como rellenar estos campos, consulta en <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-SMTP-with-Nameless-(e.g.-Gmail-or-Outlook)" target="_blank">the wiki</a>.',
     'host' => 'Dirección IP',
     'email_port' => 'Puerto',
+    'email_port_invalid' => 'Please insert a valid email port.',
     'email_password_hidden' => 'La contraseña no se muestra por razones de seguridad.',
     'send_test_email' => 'Enviar prueba de correo electrónico',
     'send_test_email_info' => 'El siguiente botón intentará enviar un correo electrónico a su dirección de correo electrónico, <strong>{x}</strong>. Se mostrarán todos los errores lanzados mientras se envía el correo.', // Don't replace {x}
@@ -173,6 +174,8 @@ $language = array(
     'emails_mass_message_sent_successfully' => 'Successfully sent a mass email message.',
     'emails_mass_message_replacements' => 'You can use variables in your email message. Supported variables: {username}, {sitename}',
     'emails_mass_message_loading' => 'Loading... Please do not reload the page. This may take a while.',
+    'administrator' => 'Administrator',
+    'administrator_permission_info' => 'Members with this permission will have every permission. This is a dangerous permission to grant.',
 
     // Placeholders
     'placeholders' => 'Placeholders',

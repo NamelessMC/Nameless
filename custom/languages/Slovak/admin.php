@@ -2,7 +2,7 @@
 /*
  *  Made by RobiNN
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr10
+ *  NamelessMC version 2.0.0-pr11
  *
  *  License: MIT
  *
@@ -104,6 +104,7 @@ $language = array(
     'mailer_settings_info' => 'Nasledujúce polia sú povinné, ak ste povolili PHPMailer. Ďalšie informácie o tom, ako vyplniť tieto polia, nájdete na <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-SMTP-with-Nameless-(e.g.-Gmail-or-Outlook)" target="_blank">wiki</a>.',
     'host' => 'Host',
     'email_port' => 'Port',
+    'email_port_invalid' => 'Please insert a valid email port.',
     'email_password_hidden' => 'Heslo sa z bezpečnostných dôvodov nezobrazuje.',
     'edit_email_messages' => 'Emailové správy',
     'email_language_info' => 'Nevidíte svoj jazyk? Uistite sa, že súbor \'emails.php\' je vo vašom jazykovom adresári a je zapisovateľný vašim webovým serverom.',
@@ -163,6 +164,8 @@ $language = array(
     'emails_mass_message_sent_successfully' => 'Hromadná emailová správa bola úspešne odoslaná.',
     'emails_mass_message_replacements' => 'Vo svojej emailovej správe môžete použiť premenné. Podporované premenné: {username}, {sitename}',
     'emails_mass_message_loading' => 'Načítava sa... Stránku znova nerefreshujte. Môže to chvíľu trvať.',
+    'administrator' => 'Administrator',
+    'administrator_permission_info' => 'Members with this permission will have every permission. This is a dangerous permission to grant.',
 
     // Placeholders
     'placeholders' => 'Placeholdery',

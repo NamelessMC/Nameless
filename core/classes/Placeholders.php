@@ -92,7 +92,7 @@ class Placeholders {
      * @param string $name Name of placeholder
      */
     public function registerPlaceholder($server_id, $name) {
-        $this->_db->query("INSERT IGNORE INTO nl2_placeholders_settings (server_id, name) VALUES (?, ?)", [$server_id, $name]);
+        $this->_db->createQuery("INSERT IGNORE INTO nl2_placeholders_settings (server_id, name) VALUES (?, ?)", [$server_id, $name]);
     }
 
     /**
@@ -102,8 +102,9 @@ class Placeholders {
      * @return array Their placeholders.
      */
     public function loadUserPlaceholders($uuid) {
+        $binUuid = hex2bin(str_replace('-', '', $uuid));
 
-        $placeholder_query = $this->_db->query('SELECT * FROM nl2_users_placeholders up JOIN nl2_placeholders_settings ps ON up.name = ps.name AND up.server_id = ps.server_id WHERE up.uuid = ?', [$uuid]);
+        $placeholder_query = $this->_db->query('SELECT * FROM nl2_users_placeholders up JOIN nl2_placeholders_settings ps ON up.name = ps.name AND up.server_id = ps.server_id WHERE up.uuid = ?', [$binUuid]);
 
         if (!$placeholder_query->count()) {
             return [];

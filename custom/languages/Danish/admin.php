@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton & Translated by Codiaz
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr11
  *
  *  License: MIT
  *
@@ -43,6 +43,7 @@ $language = array(
     'email_errors_logged' => 'E-mail fejl er blevet logget',
 
     // Core
+    'mode_toggle' => 'Mørk/Lys Mode',
     'settings' => 'Indstillinger',
     'general_settings' => 'Generelle Indstillinger',
     'sitename' => 'Side Navn',
@@ -103,6 +104,7 @@ $language = array(
     'mailer_settings_info' => 'The following fields are required if you have enabled PHPMailer. For more information on how to fill out these fields, check out <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-SMTP-with-Nameless-(e.g.-Gmail-or-Outlook)" target="_blank">the wiki</a>.',
     'host' => 'Host',
     'email_port' => 'Port',
+    'email_port_invalid' => 'Please insert a valid email port.',
     'email_password_hidden' => 'The password is not shown for security reasons.',
     'edit_email_messages' => 'Email Messages',
     'email_language_info' => 'Not seeing your language? Make sure \'emails.php\' is in your language directory and it is writable by your webserver.',
@@ -162,6 +164,8 @@ $language = array(
     'emails_mass_message_sent_successfully' => 'Successfully sent a mass email message.',
     'emails_mass_message_replacements' => 'You can use variables in your email message. Supported variables: {username}, {sitename}',
     'emails_mass_message_loading' => 'Loading... Please do not reload the page. This may take a while.',
+    'administrator' => 'Administrator',
+    'administrator_permission_info' => 'Members with this permission will have every permission. This is a dangerous permission to grant.',
     
     // SEO
     'seo' => 'SEO',
@@ -357,15 +361,17 @@ $language = array(
     'background_image_x' => 'Background image: <strong>{x}</strong>', // Don't replace {x}
     'banner_image_x' => 'Banner image: <strong>{x}</strong>', // Don't replace {x}
     'logo_image_x' => 'Logo image: <strong>{x}</strong>', // Don't replace {x}
-    'background_directory_not_writable' => 'The <strong>uploads/backgrounds</strong> directory is not writable!',
-    'template_banners_directory_not_writable' => 'The <strong>uploads/template_banners</strong> directory is not writable!',
-    'logos_directory_not_writable' => 'The <strong>uploads/logos</strong> directory is not writable!',
+    'favicon_image_x' => 'Favicon image: <strong>{x}</strong>', // Don't replace {x}
+    'x_directory_not_writable' => 'The <strong>{x}</strong> directory is not writable!', // Don't replace {x}
     'template_banner_reset_successfully' => 'Banner reset successfully.',
     'template_banner_updated_successfully' => 'Banner updated successfully.',
     'reset_banner' => 'Reset Banner',
     'logo_reset_successfully' => 'Logo reset successfully.',
     'logo_updated_successfully' => 'Logo updated successfully.',
     'reset_logo' => 'Reset Logo',
+    'favicon_reset_successfully' => 'Favicon reset successfully.',
+    'favicon_updated_successfully' => 'Favicon updated successfully.',
+    'reset_favicon' => 'Reset Favicon',
     'find_templates' => 'Find Templates',
     'view_all_templates' => 'View all templates',
     'unable_to_retrieve_templates' => 'Unable to retrieve templates',

@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr10
+ *  NamelessMC version 2.0.0-pr12
  *
  *  Translator
  *  - SimplyRin( @SimplyRin_, https://www.simplyrin.net )
@@ -41,6 +41,8 @@ $language = array(
     'delete_all' => 'すべて削除',
     'private_profile' => 'プライベートプロフィール',
     'gif_avatar' => 'カスタムアバターとして.gifをアップロード',
+    'placeholders' => 'Placeholders',
+    'no_placeholders' => 'No Placeholders',
 
     // Profile settings
     'field_is_required' => '{x}は必須です。', // Don't replace {x}
@@ -104,7 +106,7 @@ $language = array(
 
     // Registration - Authme
     'connect_with_authme' => 'アカウントをAuthMeと接続する',
-    'authme_help' => ゲーム内の'AuthMeアカウントの詳細を入力してください。 まだアカウントを作成していない場合はサーバーに参加し、表示される説明に従ってください。',
+    'authme_help' => 'ゲーム内の AuthMeアカウントの詳細を入力してください。 まだアカウントを作成していない場合はサーバーに参加し、表示される説明に従ってください。',
     'unable_to_connect_to_authme_db' => 'AuthMeデータベースへの接続ができません。このエラーが続く場合は、管理者に連絡してください。',
     'authme_account_linked' => 'アカウントのリンクに成功しました。',
     'authme_email_help_1' => '最後に、メールアドレスを入力してください。',
@@ -146,6 +148,8 @@ $language = array(
     'must_input_email' => 'メールアドレスを入力する必要があります。',
     'must_input_username' => 'ユーザー名を入力する必要があります。',
     'must_input_password' => 'パスワードを入力する必要があります。',
+    'must_input_email_or_username' => 'You must input an email or username.',
+    'email_or_username' => 'Email or Username',
 
     // Forgot password
     'forgot_password_instructions' => 'パスワードをリセットするための詳しい説明をお送りしますので、メールアドレスを入力してください。',

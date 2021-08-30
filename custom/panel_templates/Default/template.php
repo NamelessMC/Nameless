@@ -5,7 +5,7 @@
  *
  *  For NamelessMC
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -30,8 +30,8 @@ if (!class_exists('Default_Panel_Template')) {
 
             parent::__construct(
                 'Default',  // Template name
-                '2.0.0-pr10',  // Template version
-                '2.0.0-pr10',  // Nameless version template is made for
+                '2.0.0-pr11',  // Template version
+                '2.0.0-pr11',  // Nameless version template is made for
                 '<a href="https://coldfiredzn.com" target="_blank">Coldfire</a>'  // Author, you can use HTML here
             );
 
@@ -669,6 +669,9 @@ if (!class_exists('Default_Panel_Template')) {
                             (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/js/jquery-ui.min.js' => array()
                         ));
 
+                        break;
+                        
+                    case 'forum_settings':
                         $this->addJSScript('
 						var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
 

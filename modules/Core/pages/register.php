@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -169,9 +169,10 @@ if (Input::exists()) {
                     Validate::REQUIRED => true,
                     Validate::AGREE => true
                 ],
-                'timezone' => [
-                    Validate::TIMEZONE => true
-                ]
+                // TODO: re-enable this (#2355)
+                // 'timezone' => [
+                //     Validate::TIMEZONE => true
+                // ]
             ];
 
             // Minecraft username?
@@ -354,7 +355,9 @@ if (Input::exists()) {
                                     'last_online' => $date,
                                     'language_id' => $language_id,
                                     'active' => $active,
-                                    'timezone' => ((isset($_POST['timezone']) && $_POST['timezone']) ? Output::getClean(Input::get('timezone')) : Output::getClean(TIMEZONE))
+                                    // TODO: re-enable this (#2355)
+                                    // 'timezone' => ((isset($_POST['timezone']) && $_POST['timezone']) ? Output::getClean(Input::get('timezone')) : Output::getClean(TIMEZONE))
+                                    'timezone' => Output::getClean(TIMEZONE)
                                 )
                             );
 
@@ -362,7 +365,7 @@ if (Input::exists()) {
                             $user_id = $queries->getLastId();
 
                             $user = new User($user_id);
-                            $user->addGroup($default_group);
+                            $user->addGroup($default_group, 0, array(true));
 
                             // Custom Fields
                             if (count($profile_fields)) {

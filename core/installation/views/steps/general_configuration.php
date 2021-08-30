@@ -26,17 +26,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			<div class="ui centered grid">
 				<div class="sixteen wide mobile twelve wide tablet ten wide computer column">
 					<div class="ui form">
-						<?php create_field('text', $language['host'], 'hostname', 'inputHostname', getenv('NAMELESS_HOSTNAME') ?: Output::getClean($_SERVER['SERVER_NAME'])); ?>
-						<p><?php echo $language['host_help']; ?></p>
-						<div class="ui divider"></div>
-						<?php create_field('text', $language['nameless_path'], 'install_path', 'inputPath', getenv('NAMELESS_PATH') ?: Output::getClean($install_path)); ?>
-						<p><?php echo $language['nameless_path_info']; ?></p>
-						<div class="ui divider"></div>
-						<?php create_field('select', $language['friendly_urls'], 'friendly', 'inputFriendly', getenv('NAMELESS_FRIENDLY_URLS') ?: 'false', array(
-							'true' => $language['enabled'],
-							'false' => $language['disabled'],
-						)); ?>
-						<p><?php echo $language['friendly_urls_info']; ?></p>
+						<div <?php if (getenv("NAMELESS_HOSTNAME_HIDE") !== false) echo 'style="display: none"' ?>>
+							<?php create_field('text', $language['host'], 'hostname', 'inputHostname', getenv('NAMELESS_HOSTNAME') ?: Output::getClean($_SERVER['SERVER_NAME'])); ?>
+							<p><?php echo $language['host_help']; ?></p>
+							<div class="ui divider"></div>
+						</div>
+
+						<div <?php if (getenv("NAMELESS_PATH_HIDE") !== false) echo 'style="display: none"' ?>>
+							<?php create_field('text', $language['nameless_path'], 'install_path', 'inputPath', getenv('NAMELESS_PATH') ?: Output::getClean($install_path)); ?>
+							<p><?php echo $language['nameless_path_info']; ?></p>
+							<div class="ui divider"></div>
+						</div>
+
+						<div <?php if (getenv("NAMELESS_FRIENDLY_URLS_HIDE") !== false) echo 'style="display: none"' ?>>
+							<?php create_field('select', $language['friendly_urls'], 'friendly', 'inputFriendly', getenv('NAMELESS_FRIENDLY_URLS') ?: 'false', array(
+								'true' => $language['enabled'],
+								'false' => $language['disabled'],
+							)); ?>
+							<p><?php echo $language['friendly_urls_info']; ?></p>
+						</div>
 					</div>
 				</div>
 			</div>

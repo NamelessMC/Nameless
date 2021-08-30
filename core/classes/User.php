@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.0.0-pr11
  *
  *  User class
  */
@@ -117,6 +117,7 @@ class User {
 
             if ($data->count()) {
                 $this->_data = $data->first();
+                $this->_placeholders = [];
 
                 // Get user groups
                 $groups_query = $this->_db->query('SELECT nl2_groups.* FROM nl2_users_groups INNER JOIN nl2_groups ON group_id = nl2_groups.id WHERE user_id = ? AND deleted = 0 ORDER BY `order`;', array($this->_data->id));
@@ -139,8 +140,7 @@ class User {
                         $default_group = $this->_db->query('SELECT * FROM nl2_groups WHERE id = 1', array())->first();
                     }
                     
-                    $this->addGroup($default_group_id);
-                    $this->_groups[$default_group_id] = $default_group;
+                    $this->addGroup($default_group_id, 0, $default_group);
                 }
 
                 // Get their placeholders only if they have a valid uuid
@@ -150,8 +150,6 @@ class User {
 
                     if (count($placeholders)) {
                         $this->_placeholders = $placeholders;
-                    } else {
-                        $this->_placeholders = [];
                     }
                 }
 
@@ -564,6 +562,7 @@ class User {
      * @return array Profile placeholders.
      */
     public function getProfilePlaceholders() {
+        if (!is_array($this->_placeholders)) return [];
         return array_filter($this->_placeholders, function($placeholder) {
             return $placeholder->show_on_profile;
         });
@@ -575,6 +574,7 @@ class User {
      * @return array Forum placeholders.
      */
     public function getForumPlaceholders() {
+        if (!is_array($this->_placeholders)) return [];
         return array_filter($this->_placeholders, function($placeholder) {
             return $placeholder->show_on_forum;
         });
@@ -600,8 +600,9 @@ class User {
      *
      * @param int $group_id ID of group to set as main group.
      * @param int|null $expire Expiry in epoch time. If not supplied, group will never expire.
+     * @param array|null $group_data Load data from existing query.
      */
-    public function setGroup($group_id, $expire = 0) {
+    public function setGroup($group_id, $expire = 0, $group_data = null) {
         if ($this->data()->id == 1) {
             return false;
         }
@@ -616,6 +617,16 @@ class User {
                 $expire
             )
         );
+        
+        $this->_groups = array();
+        if($group_data == null) {
+            $group_data = $this->_db->get('groups', array('id', '=', $group_id))->first();
+            if ($group_data->count()) {
+                $this->_groups[$group_id] = $group_data->first();
+            }
+        } else {
+            $this->_groups[$group_id] = $group_data;
+        }
     }
 
     /**
@@ -623,9 +634,10 @@ class User {
      *
      * @param int $group_id ID of group to give.
      * @param int|null $expire Expiry in epoch time. If not supplied, group will never expire.
+     * @param array|null $group_data Load data from existing query.
      * @return bool True on success, false if they already have it.
      */
-    public function addGroup($group_id, $expire = 0) {
+    public function addGroup($group_id, $expire = 0, $group_data = null) {
         $groups = $this->_groups ? $this->_groups : [];
 
         if (array_key_exists($group_id, $groups)) {
@@ -641,6 +653,15 @@ class User {
                 $expire
             )
         );
+        
+        if($group_data == null) {
+            $group_data = $this->_db->get('groups', array('id', '=', $group_id))->first();
+            if ($group_data->count()) {
+                $this->_groups[$group_id] = $group_data->first();
+            }
+        } else {
+            $this->_groups[$group_id] = $group_data;
+        }
 
         return true;
     }
@@ -669,6 +690,8 @@ class User {
                 $group_id
             )
         );
+        
+        unset($this->_groups[$group_id]);
 
         return true;
     }
@@ -684,6 +707,8 @@ class User {
         }
 
         $this->_db->createQuery('DELETE FROM `nl2_users_groups` ' . $where, array($this->data()->id));
+        
+        $this->_groups = array();
     }
 
     /**
@@ -1070,6 +1095,10 @@ class User {
         if ($this->isLoggedIn() && $groups) {
             foreach ($groups as $group) {
                 $this->_permissions = json_decode($group->permissions, true);
+                
+                if (isset($this->_permissions['administrator']) && $this->_permissions['administrator'] == 1) {
+                    return true;
+                }
 
                 if (isset($this->_permissions[$permission]) && $this->_permissions[$permission] == 1) {
                     return true;
@@ -1142,10 +1171,11 @@ class User {
             Placeholders::getInstance()->registerPlaceholder($server_id, $name);
 
             $last_updated = time();
+            $uuid = hex2bin(str_replace('-', '', $this->data()->uuid));
 
-            $this->_db->query('INSERT INTO nl2_users_placeholders (server_id, uuid, name, value, last_updated) VALUES (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE value = ?, last_updated = ?', [
+            $this->_db->createQuery('INSERT INTO nl2_users_placeholders (server_id, uuid, name, value, last_updated) VALUES (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE value = ?, last_updated = ?', [
                 $server_id,
-                $this->data()->uuid,
+                $uuid,
                 $name,
                 $value,
                 $last_updated,

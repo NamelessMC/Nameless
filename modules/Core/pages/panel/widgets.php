@@ -66,27 +66,30 @@ if (!isset($_GET['action'])) {
         // Enable a widget
         if (!isset($_GET['w']) || !is_numeric($_GET['w'])) die('Invalid widget!');
 
-        // Get widget name
-        $name = $queries->getWhere('widgets', array('id', '=', $_GET['w']));
+        if (Token::check($_POST['token'])) {
+            // Get widget name
+            $name = $queries->getWhere('widgets', array('id', '=', $_GET['w']));
 
-        if (count($name)) {
-            $name = Output::getClean($name[0]->name);
-            $widget = $widgets->getWidget($name);
+            if (count($name)) {
+                $name = Output::getClean($name[0]->name);
+                $widget = $widgets->getWidget($name);
 
-            if (!is_null($widget)) {
-                $queries->update(
-                    'widgets',
-                    $_GET['w'],
-                    array(
-                        'enabled' => 1
-                    )
-                );
+                if (!is_null($widget)) {
+                    $queries->update(
+                        'widgets',
+                        $_GET['w'],
+                        array(
+                            'enabled' => 1
+                        )
+                    );
 
-                $widgets->enable($widget);
+                    $widgets->enable($widget);
 
-                Session::flash('admin_widgets', $language->get('admin', 'widget_enabled'));
+                    Session::flash('admin_widgets', $language->get('admin', 'widget_enabled'));
+                }
             }
-        }
+
+        } else Session::flash('admin_widgets_error', $language->get('general', 'invalid_token'));
 
         Redirect::to(URL::build('/panel/core/widgets'));
         die();
@@ -96,26 +99,29 @@ if (!isset($_GET['action'])) {
             die('Invalid widget!');
         }
 
-        // Get widget name
-        $name = $queries->getWhere('widgets', array('id', '=', $_GET['w']));
-        if (count($name)) {
-            $name = Output::getClean($name[0]->name);
-            $widget = $widgets->getWidget($name);
+        if (Token::check($_POST['token'])) {
+            // Get widget name
+            $name = $queries->getWhere('widgets', array('id', '=', $_GET['w']));
+            if (count($name)) {
+                $name = Output::getClean($name[0]->name);
+                $widget = $widgets->getWidget($name);
 
-            if (!is_null($widget)) {
-                $queries->update(
-                    'widgets',
-                    $_GET['w'],
-                    array(
-                        'enabled' => 0
-                    )
-                );
+                if (!is_null($widget)) {
+                    $queries->update(
+                        'widgets',
+                        $_GET['w'],
+                        array(
+                            'enabled' => 0
+                        )
+                    );
 
-                $widgets->disable($widget);
+                    $widgets->disable($widget);
 
-                Session::flash('admin_widgets', $language->get('admin', 'widget_disabled'));
+                    Session::flash('admin_widgets', $language->get('admin', 'widget_disabled'));
+                }
             }
-        }
+
+        } else Session::flash('admin_widgets_error', $language->get('general', 'invalid_token'));
 
         Redirect::to(URL::build('/panel/core/widgets'));
         die();
@@ -248,6 +254,10 @@ if (!isset($_GET['action'])) {
 
 if (Session::exists('admin_widgets')) {
     $success = Session::flash('admin_widgets');
+}
+
+if (Session::exists('admin_widgets_error')) {
+    $errors = [Session::flash('admin_widgets_error')];
 }
 
 if (isset($success)) {

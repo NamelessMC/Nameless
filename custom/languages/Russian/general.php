@@ -3,7 +3,7 @@
  *  Made by Samerton
  *  Translated by Я научу тебя шить XIMI
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.0.0-pr10
  *
  *  License: MIT
  *
@@ -70,6 +70,7 @@ $language = array(
     'invalid_timezone' => 'Часовая зона недействительна',
     'link' => 'Связать',
     'unlink' => 'Отвязать',
+    'leaderboards' => 'Leaderboards',
 
     /*
      *  Contact form

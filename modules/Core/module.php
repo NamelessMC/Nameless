@@ -25,8 +25,8 @@ class Core_Module extends Module {
 
         $name = 'Core';
         $author = '<a href="https://samerton.me" target="_blank" rel="nofollow noopener">Samerton</a>';
-        $module_version = '2.0.0-pr10';
-        $nameless_version = '2.0.0-pr10';
+        $module_version = '2.0.0-pr11';
+        $nameless_version = '2.0.0-pr11';
 
         parent::__construct($this, $name, $author, $module_version, $nameless_version);
 
@@ -319,6 +319,10 @@ class Core_Module extends Module {
         $language = $this->_language;
 
         // Permissions
+        PermissionHandler::registerPermissions($language->get('admin', 'administrator'), array(
+            'administrator' => $language->get('admin', 'administrator') . ' &raquo; ' . $language->get('admin', 'administrator_permission_info'),
+        ));
+        
         // AdminCP
         PermissionHandler::registerPermissions($language->get('moderator', 'staff_cp'), array(
             'admincp.core' => $language->get('admin', 'core'),

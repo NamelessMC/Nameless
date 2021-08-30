@@ -66,6 +66,13 @@
     {$script}
   {/foreach}
 
+  {if isset($GLOBAL_WARNING_TITLE)}
+    <script type="text/javascript">
+      $('#modal-acknowledge').modal({ closable: false }).modal('show');
+    </script>
+  {/if}
+
+
   {if isset($NEW_UPDATE) && ($NEW_UPDATE_URGENT != true)}
     <script src="{$TEMPLATE.path}/js/core/update.js"></script>
   {/if}

@@ -202,60 +202,66 @@ if (isset($_GET['action'])) {
                     ));
                 }
 
-                // Update config
-                $config_path = ROOT_PATH . DIRECTORY_SEPARATOR . 'core' . DIRECTORY_SEPARATOR . 'email.php';
-                if (file_exists($config_path)) {
-                    if (is_writable($config_path)) {
-                        require(ROOT_PATH . '/core/email.php');
-
-                        // Build new email config
-                        $config = '<?php' . PHP_EOL .
-                            '$GLOBALS[\'email\'] = array(' . PHP_EOL .
-                            '    \'email\' => \'' . str_replace('\'', '\\\'', (!empty($_POST['email']) ? $_POST['email'] : $GLOBALS['email']['email'])) . '\',' . PHP_EOL .
-                            '    \'username\' => \'' . str_replace('\'', '\\\'', (!empty($_POST['username']) ? $_POST['username'] : $GLOBALS['email']['username'])) . '\',' . PHP_EOL .
-                            '    \'password\' => \'' . str_replace('\'', '\\\'', ((!empty($_POST['password'])) ? $_POST['password'] : $GLOBALS['email']['password'])) . '\',' . PHP_EOL .
-                            '    \'name\' => \'' . str_replace('\'', '\\\'', (!empty($_POST['name']) ? $_POST['name'] : $GLOBALS['email']['name'])) . '\',' . PHP_EOL .
-                            '    \'host\' => \'' . str_replace('\'', '\\\'', (!empty($_POST['host']) ? $_POST['host'] : $GLOBALS['email']['host'])) . '\',' . PHP_EOL .
-                            '    \'port\' => ' . str_replace('\'', '\\\'', (!empty($_POST['port']) ? $_POST['port'] : $GLOBALS['email']['port'])) . ',' . PHP_EOL .
-                            '    \'secure\' => \'' . str_replace('\'', '\\\'', $GLOBALS['email']['secure']) . '\',' . PHP_EOL .
-                            '    \'smtp_auth\' => ' . (($GLOBALS['email']['smtp_auth']) ? 'true' : 'false') . PHP_EOL .
-                            ');';
-
-                        $file = fopen($config_path, 'w');
-                        fwrite($file, $config);
-                        fclose($file);
-                    } else {
-                        // Permissions incorrect
-                        $errors[] = $language->get('admin', 'unable_to_write_email_config');
-                    }
-                } else {
-                    // Create one now
-                    if (is_writable(ROOT_PATH . DIRECTORY_SEPARATOR . 'core')) {
-                        // Build new email config
-                        $config = '<?php' . PHP_EOL .
-                            '$GLOBALS[\'email\'] = array(' . PHP_EOL .
-                            '    \'email\' => \'' . str_replace('\'', '\\\'', (!empty($_POST['email']) ? $_POST['email'] : '')) . '\',' . PHP_EOL .
-                            '    \'username\' => \'' . str_replace('\'', '\\\'', (!empty($_POST['username']) ? $_POST['username'] : '')) . '\',' . PHP_EOL .
-                            '    \'password\' => \'' . str_replace('\'', '\\\'', ((!empty($_POST['password'])) ? $_POST['password'] : '')) . '\',' . PHP_EOL .
-                            '    \'name\' => \'' . str_replace('\'', '\\\'', (!empty($_POST['name']) ? $_POST['name'] : '')) . '\',' . PHP_EOL .
-                            '    \'host\' => \'' . str_replace('\'', '\\\'', (!empty($_POST['host']) ? $_POST['host'] : '')) . '\',' . PHP_EOL .
-                            '    \'port\' => \'' . str_replace('\'', '\\\'', (!empty($_POST['port']) ? $_POST['host'] : 587)) . ',' . PHP_EOL .
-                            '    \'secure\' => \'tls\',' . PHP_EOL .
-                            '    \'smtp_auth\' => true' . PHP_EOL .
-                            ');';
-                        $file = fopen($config_path, 'w');
-                        fwrite($file, $config);
-                        fclose($file);
-                    } else {
-                        $errors[] = $language->get('admin', 'unable_to_write_email_config');
-                    }
+                if ($_POST['port'] && !is_numeric($_POST['port'])) {
+                    $errors[] = $language->get('admin', 'email_port_invalid');
                 }
 
                 if (!count($errors)) {
-                    // Redirect to refresh config values
-                    Session::flash('emails_success', $language->get('admin', 'email_settings_updated_successfully'));
-                    Redirect::to(URL::build('/panel/core/emails'));
-                    die();
+                    // Update config
+                    $config_path = ROOT_PATH . DIRECTORY_SEPARATOR . 'core' . DIRECTORY_SEPARATOR . 'email.php';
+                    if (file_exists($config_path)) {
+                        if (is_writable($config_path)) {
+                            require(ROOT_PATH . '/core/email.php');
+
+                            // Build new email config
+                            $config = '<?php' . PHP_EOL .
+                                '$GLOBALS[\'email\'] = array(' . PHP_EOL .
+                                '    \'email\' => \'' . (!empty($_POST['email']) ? addslashes($_POST['email']) : $GLOBALS['email']['email']) . '\',' . PHP_EOL .
+                                '    \'username\' => \'' . (!empty($_POST['username']) ? addslashes($_POST['username']) : $GLOBALS['email']['username']) . '\',' . PHP_EOL .
+                                '    \'password\' => \'' . (!empty($_POST['password']) ? addslashes($_POST['password']) : $GLOBALS['email']['password']) . '\',' . PHP_EOL .
+                                '    \'name\' => \'' . (!empty($_POST['name']) ? addslashes($_POST['name']) : $GLOBALS['email']['name']) . '\',' . PHP_EOL .
+                                '    \'host\' => \'' . (!empty($_POST['host']) ? addslashes($_POST['host']) : $GLOBALS['email']['host']) . '\',' . PHP_EOL .
+                                '    \'port\' => ' . (!empty($_POST['port']) ? $_POST['port'] : $GLOBALS['email']['port']) . ',' . PHP_EOL .
+                                '    \'secure\' => \'' . $GLOBALS['email']['secure'] . '\',' . PHP_EOL .
+                                '    \'smtp_auth\' => ' . (($GLOBALS['email']['smtp_auth']) ? 'true' : 'false') . PHP_EOL .
+                                ');';
+
+                            $file = fopen($config_path, 'w');
+                            fwrite($file, $config);
+                            fclose($file);
+                        } else {
+                            // Permissions incorrect
+                            $errors[] = $language->get('admin', 'unable_to_write_email_config');
+                        }
+                    } else {
+                        // Create one now
+                        if (is_writable(ROOT_PATH . DIRECTORY_SEPARATOR . 'core')) {
+                            // Build new email config
+                            $config = '<?php' . PHP_EOL .
+                                '$GLOBALS[\'email\'] = array(' . PHP_EOL .
+                                '    \'email\' => \'' . (!empty($_POST['email']) ? addslashes($_POST['email']) : '') . '\',' . PHP_EOL .
+                                '    \'username\' => \'' . (!empty($_POST['username']) ? addslashes($_POST['username']) : '') . '\',' . PHP_EOL .
+                                '    \'password\' => \'' . (!empty($_POST['password']) ? addslashes($_POST['password']) : '') . '\',' . PHP_EOL .
+                                '    \'name\' => \'' . (!empty($_POST['name']) ? addslashes($_POST['name']) : '') . '\',' . PHP_EOL .
+                                '    \'host\' => \'' .  (!empty($_POST['host']) ? addslashes($_POST['host']) : '') . '\',' . PHP_EOL .
+                                '    \'port\' => \'' . (!empty($_POST['port']) ? $_POST['port'] : 587) . ',' . PHP_EOL .
+                                '    \'secure\' => \'tls\',' . PHP_EOL .
+                                '    \'smtp_auth\' => true' . PHP_EOL .
+                                ');';
+                            $file = fopen($config_path, 'w');
+                            fwrite($file, $config);
+                            fclose($file);
+                        } else {
+                            $errors[] = $language->get('admin', 'unable_to_write_email_config');
+                        }
+                    }
+
+                    if (!count($errors)) {
+                        // Redirect to refresh config values
+                        Session::flash('emails_success', $language->get('admin', 'email_settings_updated_successfully'));
+                        Redirect::to(URL::build('/panel/core/emails'));
+                        die();
+                    }
                 }
             }
         } else

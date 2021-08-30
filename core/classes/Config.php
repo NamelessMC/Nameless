@@ -53,8 +53,6 @@ class Config {
 
         require(ROOT_PATH . '/core/config.php');
 
-        $loadedConfig = json_decode(file_get_contents(ROOT_PATH . '/core/config.php'), true);
-
         if (!isset($conf) || !is_array($conf)) {
             $conf = [];
         }
@@ -69,6 +67,39 @@ class Config {
                 $loc = &$loc[$step];
             }
             $loc = $value;
+        }
+
+        return static::write($conf);
+    }
+
+    /**
+     * Write multiple values to `core/config.php` file.
+     *
+     * @param array $values Array of key/value pairs
+     */
+    public static function setMultiple($values) {
+        if (!file_exists(ROOT_PATH . '/core/config.php')) {
+            fopen(ROOT_PATH . '/core/config.php', 'w');
+        }
+
+        require(ROOT_PATH . '/core/config.php');
+
+        if (!isset($conf) || !is_array($conf)) {
+            $conf = [];
+        }
+
+        foreach ($values as $key => $value) {
+            $path = explode('/', $key);
+
+            if (!is_array($path)) {
+                $conf[$key] = $value;
+            } else {
+                $loc = &$conf;
+                foreach($path as $step) {
+                    $loc = &$loc[$step];
+                }
+                $loc = $value;
+            }
         }
 
         return static::write($conf);

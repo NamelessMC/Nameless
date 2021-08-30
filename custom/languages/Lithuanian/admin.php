@@ -3,7 +3,7 @@
  *  Made by Samerton
  *  Translation by Locus
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr11
  *
  *  License: MIT
  *
@@ -113,6 +113,7 @@ $language = array(
     'mailer_settings_info' => 'Šie laukai reikalingi, jei įjungėte PHPMailer. Norėdami gauti daugiau informacijos, kaip užpildyti šiuos laukus, patikrinkite <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-Gmail-or-SMTP-with-Nameless" target="_blank">wiki</a>.',
     'host' => 'Host',
     'email_port' => 'Port',
+    'email_port_invalid' => 'Please insert a valid email port.',
     'email_password_hidden' => 'Saugos sumetimais slaptažodis nerodomas.',
     'send_test_email' => 'Siųsti bandomajį el. laišką',
     'send_test_email_info' => 'Sekantis mygtukas bandys išsiųsti el. Laišką į jūsų el. Pašto adresą, <strong>{x}</strong>. Bus rodomos klaidos siunčiant el. Laišką.', // Don't replace {x}
@@ -172,6 +173,8 @@ $language = array(
     'emails_mass_message_sent_successfully' => 'Successfully sent a mass email message.',
     'emails_mass_message_replacements' => 'You can use variables in your email message. Supported variables: {username}, {sitename}',
     'emails_mass_message_loading' => 'Loading... Please do not reload the page. This may take a while.',
+    'administrator' => 'Administrator',
+    'administrator_permission_info' => 'Members with this permission will have every permission. This is a dangerous permission to grant.',
 
     // Placeholders
     'placeholders' => 'Placeholders',

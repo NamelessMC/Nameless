@@ -4,7 +4,7 @@
  *  Additions by Aberdeener
  *
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -84,7 +84,7 @@ class Nameless2API {
                 $this->throwError(1, $this->_language->get('api', 'invalid_api_key'));
             }
         } catch (Exception $e) {
-            $this->throwError($e->getMessage());
+            $this->throwError(0, $this->_language->get('api', 'unknown_error'), $e->getMessage());
         }
     }
 
@@ -124,7 +124,7 @@ class Nameless2API {
     public function getUser($column, $value) {
         $user = new User(Output::getClean($value), Output::getClean($column));
 
-        if (!$user) {
+        if (!$user->data()) {
             $this->throwError(16, $this->getLanguage()->get('api', 'unable_to_find_user'));
         }
 

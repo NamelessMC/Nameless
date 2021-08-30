@@ -19,10 +19,7 @@ class RemoveGroupsEndpoint extends EndpointBase {
         $api->validateParams($_POST, ['user', 'groups']);
 
         // Ensure user exists
-        $user = new User($_POST['user']);
-        if (!count($user->data())) {
-            $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'));
-        }
+        $user = $api->getUser('id', $_POST['user']);
 
         $groups = $_POST['groups'];
         if (!count($groups)) {

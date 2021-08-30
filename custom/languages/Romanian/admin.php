@@ -120,6 +120,7 @@ $language = array(
     'mailer_settings_info' => 'Următoarele câmpuri sunt necesare dacă ați activat PHPMailer. Pentru mai multe informații despre completarea acestor câmpuri, consultați <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-SMTP-with-Nameless-(e.g.-Gmail-or-Outlook)" target="_blank">wiki-ul</a>.',
     'host' => 'Gazdă',
     'email_port' => 'Port',
+    'email_port_invalid' => 'Please insert a valid email port.',
     'email_password_hidden' => 'Parola nu este afișată din motive de securitate.',
     'send_test_email' => 'Trimiteți e-mail de încercare (test)',
     'send_test_email_info' => 'Următorul buton va încerca să trimită un e-mail la adresa dvs. de e-mail, <strong>{x}</strong>. Orice erori întâmpinate în timp ce trimiteți e-mailul vor fi afișate.', // Don't replace {x}
@@ -179,6 +180,8 @@ $language = array(
     'emails_mass_message_sent_successfully' => 'Successfully sent a mass email message.',
     'emails_mass_message_replacements' => 'You can use variables in your email message. Supported variables: {username}, {sitename}',
     'emails_mass_message_loading' => 'Loading... Please do not reload the page. This may take a while.',
+    'administrator' => 'Administrator',
+    'administrator_permission_info' => 'Members with this permission will have every permission. This is a dangerous permission to grant.',
 
     // Placeholders
     'placeholders' => 'Placeholders',

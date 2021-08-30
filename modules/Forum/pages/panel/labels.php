@@ -42,7 +42,7 @@ if(!isset($_GET['action'])){
 			$forums_string = rtrim($forums_string, ', ');
 
 			$template_array[] = array(
-				'name' => str_replace('{x}', Output::getClean(Output::getDecoded($topic_label->name)), Output::getDecoded($label_type->html)),
+				'name' => str_replace('{x}', Output::getClean(Output::getDecoded($topic_label->name)), Output::getPurified(Output::getDecoded($label_type->html))),
 				'edit_link' => URL::build('/panel/forums/labels/', 'action=edit&lid=' . Output::getClean($topic_label->id)),
 				'delete_link' => URL::build('/panel/forums/labels/', 'action=delete&lid=' . Output::getClean($topic_label->id)),
 				'enabled_forums' => $forums_string
@@ -144,7 +144,7 @@ if(!isset($_GET['action'])){
 				foreach($labels as $label){
 					$template_array[] = array(
 						'id' => Output::getClean($label->id),
-						'name' => str_replace('{x}', Output::getClean($label->name), Output::getDecoded($label->html))
+						'name' => str_replace('{x}', Output::getClean($label->name), Output::getPurified(Output::getDecoded($label->html)))
 					);
 				}
 			}
@@ -289,7 +289,7 @@ if(!isset($_GET['action'])){
 				foreach($labels as $item){
 					$template_array[] = array(
 						'id' => Output::getClean($item->id),
-						'name' => str_replace('{x}', Output::getClean($item->name), Output::getDecoded($item->html)),
+						'name' => str_replace('{x}', Output::getClean($item->name), Output::getPurified(Output::getDecoded($item->html))),
 						'selected' => ($label->label == $item->id)
 					);
 				}
@@ -359,9 +359,12 @@ if(!isset($_GET['action'])){
 				die();
 			}
 
-            // Delete the label
-            $queries->delete('forums_topic_labels', array('id', '=', $_GET['lid']));
-            Session::flash('forum_labels', $forum_language->get('forum', 'label_deleted_successfully'));
+			if (Token::check($_POST['token'])) {
+                // Delete the label
+                $queries->delete('forums_topic_labels', array('id', '=', $_GET['lid']));
+                Session::flash('forum_labels', $forum_language->get('forum', 'label_deleted_successfully'));
+
+            } else Session::flash('forum_labels_error', $language->get('general', 'invalid_token'));
 
 			Redirect::to(URL::build('/panel/forums/labels'));
 			die();
@@ -376,7 +379,7 @@ if(!isset($_GET['action'])){
 			if(count($labels)){
 				foreach($labels as $label){
 					$template_array[] = array(
-						'name' => str_replace('{x}', Output::getClean(Output::getDecoded($label->name)), Output::getDecoded($label->html)),
+						'name' => str_replace('{x}', Output::getClean(Output::getDecoded($label->name)), Output::getPurified(Output::getDecoded($label->html))),
 						'edit_link' => URL::build('/panel/forums/labels/', 'action=edit_type&lid=' . Output::getClean($label->id)),
 						'delete_link' => URL::build('/panel/forums/labels/', 'action=delete_type&lid=' . Output::getClean($label->id)),
 					);
@@ -565,9 +568,12 @@ if(!isset($_GET['action'])){
 				die();
 			}
 
-            // Delete the label
-            $queries->delete('forums_labels', array('id', '=', $_GET['lid']));
-            Session::flash('forum_labels', $forum_language->get('forum', 'label_type_deleted_successfully'));
+			if (Token::check($_POST['token'])) {
+                // Delete the label
+                $queries->delete('forums_labels', array('id', '=', $_GET['lid']));
+                Session::flash('forum_labels', $forum_language->get('forum', 'label_type_deleted_successfully'));
+
+            } else Session::flash('forum_labels_error', $language->get('general', 'invalid_token'));
 
 			Redirect::to(URL::build('/panel/forums/labels/', 'action=types'));
 			die();
@@ -587,6 +593,9 @@ Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mo
 
 if(Session::exists('forum_labels'))
 	$success = Session::flash('forum_labels');
+
+if(Session::exists('forum_labels_error'))
+	$errors = [Session::flash('forum_labels_error')];
 
 if(isset($success))
 	$smarty->assign(array(

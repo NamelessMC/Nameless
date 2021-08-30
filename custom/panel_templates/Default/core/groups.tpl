@@ -114,9 +114,9 @@
 
         $.ajax({
           url: "{$REORDER_DRAG_URL}",
-          type: "GET",
+          type: "POST",
           data: {
-            action: "order",
+            token: "{$TOKEN}",
             {literal}groups: JSON.stringify({"groups": toSubmit}){/literal}
           },
           success: function (response) {

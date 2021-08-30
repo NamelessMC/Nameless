@@ -561,7 +561,9 @@ if(!isset($_GET['action'])) {
             'NEW_REPLY' => $language->get('user', 'new_reply'),
             'TOKEN' => Token::get(),
             'SUBMIT' => $language->get('general', 'submit'),
-            'SUCCESS_TITLE' => $language->get('general', 'success')
+            'SUCCESS_TITLE' => $language->get('general', 'success'),
+            'YES' => $language->get('general', 'yes'),
+            'NO' => $language->get('general', 'no'),
         ));
 
         // Markdown or HTML?
@@ -595,7 +597,7 @@ if(!isset($_GET['action'])) {
 
     } else if ($_GET['action'] == 'leave') {
         // Try to remove the user from the conversation
-        if (!isset($_GET['message']) || !is_numeric($_GET['message'])) {
+        if (!isset($_GET['message']) || !is_numeric($_GET['message']) || !Token::check($_POST['token'])) {
             Redirect::to(URL::build('/user/messaging'));
             die();
         }

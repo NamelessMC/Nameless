@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -139,79 +139,83 @@ if (isset($_GET['user'])) {
 
                         // Ensure user is not admin
                         if (!$is_admin) {
-                            $queries->create('infractions', array(
-                                'type' => $type,
-                                'punished' => $query->id,
-                                'staff' => $user->data()->id,
-                                'reason' => $_POST['reason'],
-                                'infraction_date' => date('Y-m-d H:i:s'),
-                                'created' => date('U'),
-                                'acknowledged' => (($type == 2) ? 0 : 1)
-                            ));
-
-                            if ($type == 1 || $type == 3) {
-                                // Ban the user
-                                $queries->update('users', $query->id, array(
-                                    'isbanned' => 1,
-                                    'active' => 0
+                            // Prevent ip banning if target ip match the user ip
+                            if ($type != 3 || $type == 3 && $user->data()->lastip != $banned_user->data()->lastip) {
+                                $queries->create('infractions', array(
+                                    'type' => $type,
+                                    'punished' => $query->id,
+                                    'staff' => $user->data()->id,
+                                    'reason' => $_POST['reason'],
+                                    'infraction_date' => date('Y-m-d H:i:s'),
+                                    'created' => date('U'),
+                                    'acknowledged' => (($type == 2) ? 0 : 1)
                                 ));
 
-                                $banned_user_ip = $banned_user->data()->lastip;
+                                if ($type == 1 || $type == 3) {
+                                    // Ban the user
+                                    $queries->update('users', $query->id, array(
+                                        'isbanned' => 1,
+                                        'active' => 0
+                                    ));
 
-                                $queries->delete('users_session', array('user_id', '=', $query->id));
+                                    $banned_user_ip = $banned_user->data()->lastip;
 
-                                if ($type == 3) {
-                                    // Ban IP
-                                    $queries->create('ip_bans', array(
-                                        'ip' => $banned_user_ip,
-                                        'banned_by' => $user->data()->id,
-                                        'banned_at' => date('U'),
-                                        'reason' => $_POST['reason']
+                                    $queries->delete('users_session', array('user_id', '=', $query->id));
+
+                                    if ($type == 3) {
+                                        // Ban IP
+                                        $queries->create('ip_bans', array(
+                                            'ip' => $banned_user_ip,
+                                            'banned_by' => $user->data()->id,
+                                            'banned_at' => date('U'),
+                                            'reason' => $_POST['reason']
+                                        ));
+                                    }
+                                } else if ($type == 4) {
+                                    // Need to delete any other avatars
+                                    $diff_str = implode(',', array('jpg', 'png', 'jpeg', 'gif'));
+
+                                    $to_remove = glob(ROOT_PATH . '/uploads/avatars/' . $query->id . '.{' . $diff_str . '}', GLOB_BRACE);
+
+                                    if ($to_remove) {
+                                        foreach ($to_remove as $item) {
+                                            unlink($item);
+                                        }
+                                    }
+
+                                    $queries->update('users', $query->id, array(
+                                        'has_avatar' => 0,
+                                        'avatar_updated' => date('U')
                                     ));
                                 }
-                            } else if ($type == 4) {
-                                // Need to delete any other avatars
-                                $diff_str = implode(',', array('jpg', 'png', 'jpeg', 'gif'));
 
-                                $to_remove = glob(ROOT_PATH . '/uploads/avatars/' . $query->id . '.{' . $diff_str . '}', GLOB_BRACE);
+                                // Send alerts
+                                $groups_query = DB::getInstance()->query('SELECT id FROM nl2_groups WHERE permissions LIKE \'%"modcp.punishments":1%\'');
+                                if ($groups_query->count()) {
+                                    $groups_query = $groups_query->results();
 
-                                if ($to_remove) {
-                                    foreach ($to_remove as $item) {
-                                        unlink($item);
+                                    $groups = '(';
+                                    foreach ($groups_query as $group) {
+                                        if (is_numeric($group->id)) {
+                                            $groups .= ((int) $group->id) . ',';
+                                        }
+                                    }
+                                    $groups = rtrim($groups, ',') . ')';
+
+                                    // Get users in this group
+                                    $users = DB::getInstance()->query('SELECT DISTINCT(nl2_users.id) AS id FROM nl2_users LEFT JOIN nl2_users_groups ON nl2_users.id = nl2_users_groups.user_id WHERE group_id in ' . $groups);
+
+                                    if ($users->count()) {
+                                        $users = $users->results();
+
+                                        foreach ($users as $item) {
+                                            // Send alert
+                                            Alert::create($item->id, 'punishment', array('path' => 'core', 'file' => 'moderator', 'term' => 'user_punished_alert', 'replace' => array('{x}', '{y}'), 'replace_with' => array(Output::getClean($user->data()->nickname), Output::getClean($query->nickname))), array('path' => 'core', 'file' => 'moderator', 'term' => 'user_punished_alert', 'replace' => array('{x}', '{y}'), 'replace_with' => array(Output::getClean($user->data()->nickname), Output::getClean($query->nickname))), URL::build('/panel/users/punishments/', 'user=' . Output::getClean($query->id)));
+                                        }
                                     }
                                 }
-
-                                $queries->update('users', $query->id, array(
-                                    'has_avatar' => 0,
-                                    'avatar_updated' => date('U')
-                                ));
-                            }
-
-                            // Send alerts
-                            $groups_query = DB::getInstance()->query('SELECT id FROM nl2_groups WHERE permissions LIKE \'%"modcp.punishments":1%\'');
-                            if ($groups_query->count()) {
-                                $groups_query = $groups_query->results();
-
-                                $groups = '(';
-                                foreach ($groups_query as $group) {
-                                    if (is_numeric($group->id)) {
-                                        $groups .= ((int) $group->id) . ',';
-                                    }
-                                }
-                                $groups = rtrim($groups, ',') . ')';
-
-                                // Get users in this group
-                                $users = DB::getInstance()->query('SELECT DISTINCT(nl2_users.id) AS id FROM nl2_users LEFT JOIN nl2_users_groups ON nl2_users.id = nl2_users_groups.user_id WHERE group_id in ' . $groups);
-
-                                if ($users->count()) {
-                                    $users = $users->results();
-
-                                    foreach ($users as $item) {
-                                        // Send alert
-                                        Alert::create($item->id, 'punishment', array('path' => 'core', 'file' => 'moderator', 'term' => 'user_punished_alert', 'replace' => array('{x}', '{y}'), 'replace_with' => array(Output::getClean($user->data()->nickname), Output::getClean($query->nickname))), array('path' => 'core', 'file' => 'moderator', 'term' => 'user_punished_alert', 'replace' => array('{x}', '{y}'), 'replace_with' => array(Output::getClean($user->data()->nickname), Output::getClean($query->nickname))), URL::build('/panel/users/punishments/', 'user=' . Output::getClean($query->id)));
-                                    }
-                                }
-                            }
+                            } else
+                                $errors[] = $language->get('moderator', 'cant_punish_admin');
                         } else
                             $errors[] = $language->get('moderator', 'cant_punish_admin');
                     } catch (Exception $e) {

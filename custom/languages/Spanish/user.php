@@ -2,7 +2,7 @@
 /*
  *  Made by TheSuperSkills (Edited by Ariuw and iMaykolRD_)
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -36,6 +36,8 @@ $language = array(
     'delete_all' => 'Eliminar todos',
     'private_profile' => 'Perfil privado',
     'gif_avatar' => 'Upload .gif as custom avatar',
+    'placeholders' => 'Placeholders',
+    'no_placeholders' => 'No Placeholders',
 
     // Profile settings
     'field_is_required' => '{x} es requerido.', // Don't replace {x}
@@ -141,6 +143,8 @@ $language = array(
     'must_input_email' => 'Debe introducir una dirección de correo electrónico.',
     'must_input_username' => 'Debe introducir un nombre de usuario.',
     'must_input_password' => 'Debe introducir una contraseña.',
+    'must_input_email_or_username' => 'You must input an email or username.',
+    'email_or_username' => 'Email or Username',
 
     // Forgot password
     'forgot_password_instructions' => 'Por favor, introduzca su dirección de correo electrónico para que podamos enviarle más instrucciones para restablecer su contraseña..',

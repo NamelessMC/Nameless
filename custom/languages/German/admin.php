@@ -3,7 +3,7 @@
  *  Made by Samerton
  *  Translation by BukkitTNT, M_Viper
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.0.0-pr11
  *
  *  License: MIT
  *
@@ -41,9 +41,9 @@ $language = array(
     'registrations' => 'Anmeldungen',
     'topics' => 'Themen',
     'posts' => 'Posts',
-        'notices' => 'Ereignisse',
-        'no_notices' => 'Keine Ereignisse.',
-        'email_errors_logged' => 'Fehler bei der Email wurden gespeichert',
+    'notices' => 'Ereignisse',
+    'no_notices' => 'Keine Ereignisse.',
+    'email_errors_logged' => 'Fehler bei der Email wurden gespeichert',
 
     // Core
     'settings' => 'Einstellungen',
@@ -115,6 +115,7 @@ $language = array(
     'mailer_settings_info' => 'Die folgenden Felder sind erforderlich, wenn Sie PHPMailer aktiviert haben. Weitere Informationen zum Ausfüllen dieser Felder finden Sie unter <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-SMTP-with-Nameless-(e.g.-Gmail-or-Outlook)" target="_blank">NamelessMC Wiki</a>.',
     'host' => 'Host',
     'email_port' => 'Port',
+    'email_port_invalid' => 'Please insert a valid email port.',
     'email_password_hidden' => 'Das Password wird aus Sicherheitsgründen nicht angezeigt.',
     'send_test_email' => 'Sende Test Email',
     'send_test_email_info' => 'Die folgende Schaltfläche versucht, eine E-Mail an Ihre E-Mail-Adresse zu senden, <strong> {x} </strong>. Falls Irgendwelche Fehler, die beim Senden der E-Mail enstehen, werden angezeigt.', // Don't replace {x}
@@ -174,6 +175,8 @@ $language = array(
     'emails_mass_message_sent_successfully' => 'Erfolgreich eine Massen-E-Mail-Nachricht gesendet.',
     'emails_mass_message_replacements' => 'Sie können Variablen in Ihrer E-Mail-Nachricht verwenden. Unterstützte Variablen: {username}, {sitename}',
     'emails_mass_message_loading' => 'Laden ... Bitte laden Sie die Seite nicht neu. Das kann eine Weile dauern.',
+    'administrator' => 'Administrator',
+    'administrator_permission_info' => 'Members with this permission will have every permission. This is a dangerous permission to grant.',
 
     // Placeholders
     'placeholders' => 'Placeholders',

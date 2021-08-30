@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -214,9 +214,11 @@ if (Input::exists()) {
                     $GLOBALS['config'] = $loadedConfig;
                 }
 
-                Config::set('core/friendly', $friendly);
-                Config::set('core/force_https', $https);
-                Config::set('core/force_www', $www);
+                Config::setMultiple(array(
+                    'core/friendly' => $friendly,
+                    'core/force_https' => $https,
+                    'core/force_www' => $www
+                ));
             } else $errors = array($language->get('admin', 'config_not_writable'));
 
             /*
@@ -365,7 +367,8 @@ $smarty->assign(array(
     'LOGIN_METHOD' => $language->get('admin', 'login_method'),
     'LOGIN_METHOD_VALUE' => $method,
     'EMAIL' => $language->get('user', 'email'),
-    'USERNAME' => $language->get('user', 'username')
+    'EMAIL_OR_USERNAME' => $language->get('user', 'email_or_username'),
+    'USERNAME' => $language->get('user', 'username'),
 ));
 
 $page_load = microtime(true) - $start;

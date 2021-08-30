@@ -13,9 +13,12 @@
         {/if}
         <a class="ui tiny default icon button" href="{$MESSAGE_LINK}" ><i class="envelope icon"></i></a>
         {if isset($RESET_PROFILE_BANNER)}
-          <a href="{$RESET_PROFILE_BANNER_LINK}" class="ui tiny negative icon button" data-toggle="tooltip" data-content="{$RESET_PROFILE_BANNER}">
-            <i class="picture icon"></i>
-          </a>
+          <form action="{$RESET_PROFILE_BANNER_LINK}" method="post" style="display: inline">
+            <input type="hidden" name="token" value="{$TOKEN}" />
+            <button class="ui tiny negative icon button" data-toggle="tooltip" data-content="{$RESET_PROFILE_BANNER}">
+              <i class="picture icon"></i>
+            </button>
+          </form>
         {/if}
       {/if}
     {/if}

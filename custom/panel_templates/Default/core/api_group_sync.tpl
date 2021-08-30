@@ -58,8 +58,8 @@
                                             <div class="col-md-4">
                                                 <label for="inputIngame">{$INGAME_GROUP_NAME}</label>
                                                 {if count($INGAME_GROUPS)}
-                                                    <select name="ingame_group[{$group_sync.id}]" class="form-control"
-                                                            id="inputIngame">
+                                                    <select name="ingame_group[{$group_sync.id}]" class="form-control" id="inputIngame">
+                                                        <option value="0" {if {$group_sync.ingame} == NULL} selected{/if}>{$NONE} ({$DISABLED})</option>
                                                         {foreach from=$INGAME_GROUPS item=group}
                                                             <option value="{$group}" {if {$group_sync.ingame} eq $group} selected{/if}>{$group}</option>
                                                         {/foreach}
@@ -74,8 +74,8 @@
                                             <div class="col-md-4">
                                                 <label for="inputDiscord">{$DISCORD_ROLE_ID}</label>
                                                 {if count($DISCORD_GROUPS)}
-                                                    <select name="discord_role[{$group_sync.id}]" class="form-control"
-                                                            id="inputDiscord">
+                                                    <select name="discord_role[{$group_sync.id}]" class="form-control" id="inputDiscord">
+                                                        <option value="0" {if {$group_sync.discord} == NULL} selected{/if}>{$NONE} ({$DISABLED})</option>
                                                         {foreach from=$DISCORD_GROUPS item=group}
                                                             <option value="{$group.id}" {if {$group_sync.discord} eq $group.id} selected{/if}>{$group.name}
                                                                 ({$group.id})
@@ -122,6 +122,7 @@
                                         <label for="inputIngame">{$INGAME_GROUP_NAME}</label>
                                         {if count($INGAME_GROUPS)}
                                             <select name="ingame_rank_name" class="form-control" id="inputIngame">
+                                                <option value="0">{$NONE} ({$DISABLED})</option>
                                                 {foreach from=$INGAME_GROUPS item=group}
                                                     <option value="{$group}">{$group}</option>
                                                 {/foreach}
@@ -135,6 +136,7 @@
                                         <label for="inputDiscord">{$DISCORD_ROLE_ID}</label>
                                         {if count($DISCORD_GROUPS)}
                                             <select name="discord_role_id" class="form-control" id="inputDiscord">
+                                                <option value="0">{$NONE} ({$DISABLED})</option>
                                                 {foreach from=$DISCORD_GROUPS item=group}
                                                     <option value="{$group.id}">{$group.name} ({$group.id})</option>
                                                 {/foreach}

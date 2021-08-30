@@ -2,7 +2,7 @@
 /*
  *	Made by Aberdeener
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr10
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -38,15 +38,16 @@ foreach ($leaderboard_placeholders as $leaderboard_placeholder) {
     foreach ($data as $row) {
         $row_data = new stdClass();
 
-        if (!array_key_exists($row->uuid, $leaderboard_users)) {
-            $user_data = DB::getInstance()->get('users', ['uuid', '=', $row->uuid])->first();
-            $leaderboard_users[$row->uuid] = $user_data; 
+        $uuid = bin2hex($row->uuid);
+        if (!array_key_exists($uuid, $leaderboard_users)) {
+            $user_data = DB::getInstance()->get('users', ['uuid', '=', $uuid])->first();
+            $leaderboard_users[$uuid] = $user_data; 
         }
 
         $row_data->server_id = $leaderboard_placeholder->server_id;
         $row_data->name = $leaderboard_placeholder->name;
-        $row_data->username = Output::getClean($leaderboard_users[$row->uuid]->username);
-        $row_data->avatar = Util::getAvatarFromUUID($row->uuid, 24);
+        $row_data->username = Output::getClean($leaderboard_users[$uuid]->username);
+        $row_data->avatar = Util::getAvatarFromUUID($uuid, 24);
         $row_data->value = $row->value;
         $row_data->last_updated = ucfirst($timeago->inWords(date('d M Y, H:i', $row->last_updated), $language->getTimeLanguage()));
 

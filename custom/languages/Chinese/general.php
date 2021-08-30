@@ -3,7 +3,7 @@
  *  Made by Samerton
  *  Translation  by Hi_Michael
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr10
  *
  *  License: MIT
  *
@@ -73,6 +73,7 @@ $language = array(
     'invalid_timezone' => 'That timezone is invalid',
     'link' => 'Link',
     'unlink' => 'Unlink',
+    'leaderboards' => 'Leaderboards',
     
     /*
      *  Contact form

@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -36,6 +36,8 @@ $language = array(
     'delete_all' => 'Excluir Todos',
     'private_profile' => 'Perfil privado',
     'gif_avatar' => 'Faça upload de um .gif como avatar personalizado',
+    'placeholders' => 'Placeholders',
+    'no_placeholders' => 'No Placeholders',
 
     // Profile settings
     'field_is_required' => '{x} é requerido.', // Don't replace {x}
@@ -139,6 +141,9 @@ $language = array(
     'must_input_email' => 'Você deve inserir um endereço de email.',
     'must_input_username' => 'Você deve inserir um nome de usuário.',
     'must_input_password' => 'Você deve inserir uma senha.',
+    'must_input_email_or_username' => 'You must input an email or username.',
+    'email_or_username' => 'Email or Username',
+    
     // Forgot password
     'forgot_password_instructions' => 'Por favor, insira seu endereço de email para que possamos enviar-lhe mais instruções sobre como redefinir sua senha.',
     'forgot_password_email_sent' => 'Se existe uma conta com o endereço de email, um email foi enviado contendo instruções adicionais. Se você não conseguir encontrá-lo, tente verificar sua pasta de spams.',

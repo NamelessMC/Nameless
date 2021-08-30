@@ -80,7 +80,7 @@ if($cache->isCached('news')){
 
     $news = array();
 
-    if(!isset($news_query->error) && count($news_query)){
+    if(!is_null($news_query) && !isset($news_query->error) && count($news_query)){
         $timeago = new Timeago();
 
         $i = 0;

@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr11
  *
  *  License: MIT
  *
@@ -115,6 +115,7 @@ $language = array(
     'mailer_settings_info' => 'Następujące pola są wymagane, jeśli masz włączony PHPMailer. Aby uzyskać więcej informacji na temat wypełniania tych pól, przeczytaj <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-Gmail-or-SMTP-with-Nameless" target="_blank">ten</a> artykuł w NamelessMC wiki.',
     'host' => 'Host',
     'email_port' => 'Port',
+    'email_port_invalid' => 'Please insert a valid email port.',
     'email_password_hidden' => 'Hasło nie jest pokazane ze względów bezpieczeństwa.',
     'send_test_email' => 'Wyślij testowy email',
     'send_test_email_info' => 'Poniższy przycisk wyśle wiadomość e-mail na twój adres e-mail <strong> {x} </strong>. Zostaną wyświetlone wszystkie błędy wygenerowane podczas wysyłania wiadomości.', // Don't replace {x}
@@ -174,6 +175,8 @@ $language = array(
     'emails_mass_message_sent_successfully' => 'Wysłano wiadomość pomyślnie.',
     'emails_mass_message_replacements' => 'Możesz użyć zmiennych w wiadomo. Przykłady:: {username}, {sitename}',
     'emails_mass_message_loading' => 'Ładowanie... Nie odświeżaj strony. To trochę zajmie.',
+    'administrator' => 'Administrator',
+    'administrator_permission_info' => 'Members with this permission will have every permission. This is a dangerous permission to grant.',
 
     // Placeholders
     'placeholders' => 'Placeholders',

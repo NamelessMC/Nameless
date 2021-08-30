@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -37,6 +37,8 @@ $language = array(
     'delete_all' => 'Radera Alla',
     'private_profile' => 'Privat profil',
     'gif_avatar' => 'Ladda upp .gif som anpassad avatar',
+    'placeholders' => 'Placeholders',
+    'no_placeholders' => 'No Placeholders',
 
     // Profile settings
     'field_is_required' => '{x} krävs', // Don't replace {x}
@@ -142,6 +144,8 @@ $language = array(
     'must_input_email' => 'Du måste ange ett e-postmeddelandet.',
     'must_input_username' => 'Du måste ange ett användarnamn.',
     'must_input_password' => 'Du måste ange ett lösenord.',
+    'must_input_email_or_username' => 'You must input an email or username.',
+    'email_or_username' => 'Email or Username',
 
     // Forgot password
     'forgot_password_instructions' => 'Var god och ange din e-postadress så att vi kan skicka dig ytterligare instruktioner om hur du återställer ditt lösenord.',

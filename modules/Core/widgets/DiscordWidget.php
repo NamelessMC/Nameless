@@ -47,7 +47,7 @@ class DiscordWidget extends WidgetBase {
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
             curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-            curl_setopt($ch, CURLOPT_URL, "https://discordapp.com/api/servers/" . Output::getClean($this->_discord) . "/widget.json");
+            curl_setopt($ch, CURLOPT_URL, "https://discord.com/api/guilds/" . Output::getClean($this->_discord) . "/widget.json");
             $result = curl_exec($ch);
             $result = json_decode($result);
             curl_close($ch);
@@ -69,7 +69,7 @@ class DiscordWidget extends WidgetBase {
             if($this->_cache->isCached('discord_widget_theme'))
                 $theme = $this->_cache->retrieve('discord_widget_theme');
 
-            $this->_content = '<iframe src="https://discordapp.com/widget?id=' . Output::getClean($this->_discord) . '&theme=' . Output::getClean($theme) . '" width="100%" height="500" allowtransparency="true" frameborder="0"></iframe><br />';
+            $this->_content = '<iframe src="https://discord.com/widget?id=' . Output::getClean($this->_discord) . '&theme=' . Output::getClean($theme) . '" width="100%" height="500" allowtransparency="true" frameborder="0"></iframe><br />';
 
         }
     }

@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.0.0-pr11
  *
  *  License: MIT
  *
@@ -117,6 +117,7 @@ $language = array(
     'mailer_settings_info' => '如果启用了 PHPMailer，则必须填写以下字段。 更多的填写信息请点击 <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-SMTP-with-Nameless-(e.g.-Gmail-or-Outlook)" target="_blank">NamelessMC Wiki相关页面</a>.',
     'host' => '主机 IP',
     'email_port' => '端口',
+    'email_port_invalid' => 'Please insert a valid email port.',
     'email_password_hidden' => '出于安全原因，未显示密码。',
     'send_test_email' => '发送测试邮件',
     'send_test_email_info' => '以下按钮将尝试向您的电子邮件地址 <strong>{x}</strong> 发送电子邮件. 发送电子邮件时抛出的任何错误都将显示。', // Don't replace {x}
@@ -176,6 +177,8 @@ $language = array(
     'emails_mass_message_sent_successfully' => '邮件广播发送成功。',
     'emails_mass_message_replacements' => '您可在信息中使用占位符。可用占位符: {username}（用户名）, {sitename}（网站名）',
     'emails_mass_message_loading' => '加载中... 请勿刷新此页面。这可能需要几分钟。',
+    'administrator' => 'Administrator',
+    'administrator_permission_info' => 'Members with this permission will have every permission. This is a dangerous permission to grant.',
 
     // Placeholders
     'placeholders' => '占位符',

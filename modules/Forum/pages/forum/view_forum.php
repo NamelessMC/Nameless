@@ -237,7 +237,7 @@ if ($forum_query->redirect_forum == 1) {
                     'topics' => $subforum_topics,
                     'link' => URL::build('/forum/view/' . $subforum->id . '-' . $forum->titleToURL($subforum->forum_title)),
                     'latest_post' => $latest_post,
-                    'icon' => Output::getDecoded($subforum->icon),
+                    'icon' => Output::getPurified(Output::getDecoded($subforum->icon)),
                     'redirect' => $subforum->redirect_forum
                 );
             }
@@ -261,7 +261,7 @@ if ($forum_query->redirect_forum == 1) {
     $smarty->assign('SUBFORUMS', $subforum_array);
     $smarty->assign('SUBFORUM_LANGUAGE', $forum_language->get('forum', 'subforums'));
     $smarty->assign('FORUM_TITLE', Output::getPurified(htmlspecialchars_decode($forum_query->forum_title)));
-    $smarty->assign('FORUM_ICON', htmlspecialchars_decode($forum_query->icon));
+    $smarty->assign('FORUM_ICON', Output::getPurified(Output::getDecoded($forum_query->icon)));
     $smarty->assign('STICKY_TOPICS', $forum_language->get('forum', 'sticky_topics'));
 
     // Can the user post here?
@@ -308,7 +308,7 @@ if ($forum_query->redirect_forum == 1) {
 
                         $label_html = $queries->getWhere('forums_labels', array('id', '=', $label->label));
                         if (count($label_html)) {
-                            $label_html = $label_html[0]->html;
+                            $label_html = Output::getPurified($label_html[0]->html);
                             $label = str_replace('{x}', Output::getClean($label->name), $label_html);
                         } else $label = '';
                     } else $label = '';
@@ -334,7 +334,7 @@ if ($forum_query->redirect_forum == 1) {
 
                             $label_html = $queries->getWhere('forums_labels', array('id', '=', $label_query->label));
                             if (count($label_html)) {
-                                $label_html = $label_html[0]->html;
+                                $label_html = Output::getPurified($label_html[0]->html);
                                 $label_html = str_replace('{x}', Output::getClean($label_query->name), $label_html);
                                 $labels[] = $label_html;
                                 $labels_cache[$item] = $label_html;
@@ -409,7 +409,7 @@ if ($forum_query->redirect_forum == 1) {
                         $label_html = $queries->getWhere('forums_labels', array('id', '=', $label->label));
                         if (count($label_html)) {
                             $label_html = $label_html[0]->html;
-                            $label = str_replace('{x}', Output::getClean($label->name), $label_html);
+                            $label = str_replace('{x}', Output::getClean($label->name), Output::getPurified($label_html));
                         } else $label = '';
                     } else $label = '';
 
@@ -435,7 +435,7 @@ if ($forum_query->redirect_forum == 1) {
                             $label_html = $queries->getWhere('forums_labels', array('id', '=', $label_query->label));
                             if (count($label_html)) {
                                 $label_html = $label_html[0]->html;
-                                $label_html = str_replace('{x}', Output::getClean($label_query->name), $label_html);
+                                $label_html = str_replace('{x}', Output::getClean($label_query->name), Output::getPurified($label_html));
                                 $labels[] = $label_html;
                                 $labels_cache[$item] = $label_html;
                             }

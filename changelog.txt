@@ -595,3 +595,26 @@ NamelessMC version 2 Changelog
 - Translation updates
 - PHP 8 improvements
 - Full changeset https://github.com/NamelessMC/Nameless/compare/v2.0.0-pr9...v2.0.0-pr10
+
+2.0.0 pr-11
+- Add Danish translation
+- Fix StaffCP Minecraft integration section
+- Add support for upward dropdowns in Default Revamp template
+- Add Default Revamp dark mode support for top attached headers
+- Fix invalid language during installation
+- Add SSL check before activating secure cookies
+- Fix missing favicons directory
+- Fix invalid token with AuthMe login
+- Add setting to initialise charset
+- Add environment variables to hide options in general configuration
+- Validate email port before updating config in StaffCP
+- Add method to set multiple config values at once
+- Temporarily disable auto timezone detection until #2355 is resolved
+- Change placeholder tables primary keys
+- Fix profile settings when forum is disabled
+- Add index on nl2_posts topic_id column
+- Remove extra column from nl2_query_results
+- Improve placeholder error message
+- Translation updates
+- PHP 8 improvements
+- Full changeset https://github.com/NamelessMC/Nameless/compare/v2.0.0-pr10...v2.0.0-pr11

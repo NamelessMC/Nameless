@@ -19,25 +19,29 @@ class AddGroupsEndpoint extends EndpointBase {
         $api->validateParams($_POST, ['user', 'groups']);
 
         // Ensure user exists
-        $user = new User($_POST['user']);
+        $user = $api->getUser('id', $_POST['user']);
 
         $groups = $_POST['groups'];
         if ($groups == null || !count($groups)) {
             $api->throwError(17, $api->getLanguage()->get('api', 'unable_to_find_group'), 'No groups provided');
         }
 
+        $log_array = array();
         foreach ($groups as $group) {
             $group_query = $api->getDb()->get('groups', array('id', '=', $group));
             if (!$group_query->count()) {
                 continue;
             }
+            $group_query = $group_query->first();
 
-            $user->addGroup($group);
+            if($user->addGroup($group, 0, $group_query)) {
+                $log_array['added'][] = $group_query->name;
+            }
 
             // Attempt to update their discord role as well, but ignore any output/errors
             Discord::updateDiscordRoles($user, [$group], [], $api->getLanguage(), false);
         }
 
-        $api->returnArray(array('message' => $api->getLanguage()->get('api', 'group_updated')));
+        $api->returnArray(array_merge(array('message' => $api->getLanguage()->get('api', 'group_updated')), $log_array));
     }
 }

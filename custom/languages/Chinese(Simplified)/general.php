@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.0.0-pr10
  *
  *  License: MIT
  *
@@ -71,6 +71,7 @@ $language = array(
     'invalid_timezone' => '此时区不可用',
     'link' => '链接',
     'unlink' => '解除链接',
+    'leaderboards' => 'Leaderboards',
     
     /*
      *  Contact form

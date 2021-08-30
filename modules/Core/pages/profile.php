@@ -363,13 +363,18 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                 break;
 
             case 'reset_banner':
-                if ($user->hasPermission('modcp.profile_banner_reset')) {
-                    $queries->update('users', $query->id, array(
-                        'banner' => null
-                    ));
-                }
+                if (Token::check($_POST['token'])) {
+                    if ($user->hasPermission('modcp.profile_banner_reset')) {
+                        $queries->update('users', $query->id, array(
+                            'banner' => null
+                        ));
+                    }
 
-                Redirect::to($profile_user->getProfileURL());
+                    Redirect::to($profile_user->getProfileURL());
+                    die();
+
+                } else $error = $language->get('general', 'invalid_token');
+
                 break;
             }
         }

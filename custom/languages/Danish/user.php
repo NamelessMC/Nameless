@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton & Translated by Codiaz
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -34,6 +34,8 @@ $language = array(
     'delete_all' => 'Slet Alle',
     'private_profile' => 'Privat profil',
     'gif_avatar' => 'Upload .gif som tilpasset avatar',
+    'placeholders' => 'Placeholders',
+    'no_placeholders' => 'No Placeholders',
     
     // Profile settings
     'field_is_required' => '{x} er påkrævet.', // Don't replace {x}
@@ -140,6 +142,8 @@ mappe.',
     'must_input_email' => 'Du skal indtaste en e-mail adresse.',
     'must_input_username' => 'Du skal indtaste et brugernavn.',
     'must_input_password' => 'Du skal indtaste en adgangskode.',
+    'must_input_email_or_username' => 'You must input an email or username.',
+    'email_or_username' => 'Email or Username',
 
     // Forgot password
     'forgot_password_instructions' => 'Indtast venligst din e-mailadresse, så vi kan sende dig yderligere instruktioner om nulstilling af din adgangskode.',

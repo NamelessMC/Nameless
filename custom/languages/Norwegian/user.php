@@ -2,7 +2,7 @@
 /*
  *  Translations by Maiu and OscarWoHA
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC versjon 2.0.0-pr8
+ *  NamelessMC versjon 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -36,6 +36,8 @@ $language = array(
     'delete_all' => 'Slett alle',
     'private_profile' => 'Private profiler',
     'gif_avatar' => 'Last opp .gif som egendefinert avatar',
+    'placeholders' => 'Placeholders',
+    'no_placeholders' => 'No Placeholders',
 
     // Profile settings
     'field_is_required' => '{x} er påkrevd.', // Don't replace {x}
@@ -140,6 +142,8 @@ $language = array(
     'must_input_email' => 'Du må skrive inn en e-postadresse',
     'must_input_username' => 'Du må skrive inn et brukernavn.',
     'must_input_password' => 'Du må skrive inn et passord.',
+    'must_input_email_or_username' => 'You must input an email or username.',
+    'email_or_username' => 'Email or Username',
 
     // Forgot password
     'forgot_password_instructions' => 'Vennligst oppgi e-postadressen din slik at vi kan sende deg en e-post med instruksjoner til hvordan du kan tilbakestille passordet ditt.',

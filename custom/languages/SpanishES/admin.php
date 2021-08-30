@@ -2,7 +2,7 @@
 /*
  *  Translated by ManiaNetwork
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr10
+ *  NamelessMC version 2.0.0-pr11
  *
  *  License: MIT
  *
@@ -104,6 +104,7 @@ $language = array(
     'mailer_settings_info' => 'Los siguientes campos son obligatorios si ha activado PHPMailer. Para más información sobre cómo rellenar estos campos, consulte <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-SMTP-with-Nameless-(e.g.-Gmail-o-Outlook)" target="_blank">la wiki</a>.',
     'host' => 'Servidor',
     'email_port' => 'Puerto',
+    'email_port_invalid' => 'Please insert a valid email port.',
     'email_password_hidden' => 'La contraseña no se muestra por razones de seguridad.',
     'edit_email_messages' => 'Mensajes de correo electrónico',
     'email_language_info' => '¿No ve su idioma? Asegúrese de que \'emails.php\' está en su directorio de idiomas y es escribible por su servidor web.',
@@ -163,6 +164,8 @@ $language = array(
     'emails_mass_message_sent_successfully' => 'Se ha enviado con éxito un mensaje de correo electrónico masivo.',
     'emails_mass_message_replacements' => 'Puede utilizar variables en su mensaje de correo electrónico. Variables admitidas: {username}, {sitename}',
     'emails_mass_message_loading' => 'Cargando... Por favor, no recargue la página. Esto puede llevar un tiempo.',
+    'administrator' => 'Administrator',
+    'administrator_permission_info' => 'Members with this permission will have every permission. This is a dangerous permission to grant.',
 
     // Placeholders
     'placeholders' => 'Marcadores de posición',
