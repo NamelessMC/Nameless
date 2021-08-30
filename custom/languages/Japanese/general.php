@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr10
+ *  NamelessMC version 2.0.0-pr11
  *
  *  Translator
  *  - SimplyRin( @SimplyRin_, https://www.simplyrin.net )
@@ -74,7 +74,7 @@ $language = array(
     'invalid_timezone' => 'タイムゾーンが無効',
     'link' => 'リンク',
     'unlink' => 'リンク解除',
-    'leaderboards' => 'Leaderboards',
+    'leaderboards' => 'リーダーボード',
     
     /*
      *  Contact form

@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr10
+ *  NamelessMC version 2.0.0-pr11
  *
  *  Translator
  *  - SimplyRin( @SimplyRin_, https://www.simplyrin.net )
@@ -66,6 +66,6 @@ $language = array(
     'server_info_updated' => 'サーバー情報が更新されました。',
     'account_validated' => 'アカウントの検証が完了しました。',
     'discord_id_set' => 'Discord IDの設定に成功しました。',
-    'discord_bot_url_updated' => 'Discord botのURLが更新されました。',
+    'discord_bot_url_updated' => 'DiscordボットのURLが更新されました。',
     'discord_usernames_updated' => 'Discordユーザー名の更新に成功'
 );
