@@ -26,6 +26,19 @@ try {
     echo $e->getMessage() . '<br />';
 }
 
+// Set CustomPages url and title length to 255
+try {
+    DB::getInstance()->createQuery('ALTER TABLE `nl2_custom_pages` MODIFY `url` varchar(255)');
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+
+try {
+    DB::getInstance()->createQuery('ALTER TABLE `nl2_custom_pages` MODIFY `title` varchar(255)');
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+
 // Update version number
 /*$version_number_id = $queries->getWhere('settings', array('name', '=', 'nameless_version'));
 
