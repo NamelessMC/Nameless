@@ -19,7 +19,7 @@ $language = array(
      *  Installation
      */
     'install' => 'インストール',
-    'pre-release' => 'プレリリース版',
+    'pre-release' => 'プレリリース',
     'installer_welcome' => 'NamelessMC v2プレリリースへようこそ。',
     'pre-release_warning' => 'このプレリリースは、公開サイトでの使用を意図したものではありませんのでご注意ください',
     'installer_information' => 'インストーラーがインストール手順を案内します。',
