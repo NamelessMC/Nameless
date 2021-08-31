@@ -700,7 +700,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
         }
     }
 
-    $forum_hooks = $forum[0]->hooks ?: array();
+    $forum_hooks = $forum[0]->hooks ?: '[]';
 
     $template_forums_array = array();
     if (count($available_forums)) {
