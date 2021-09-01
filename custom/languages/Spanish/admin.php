@@ -2,7 +2,7 @@
 /*
  *  Made by TheSuperSkills (Edited by Ariuw, iMaykolRD_ and zJerino)
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr11
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -179,6 +179,7 @@ $language = array(
 
     // Placeholders
     'placeholders' => 'Placeholders',
+    'enable_placeholders' => 'Enable Placeholders?',
     'updated_placeholder_settings' => 'Updated placeholder settings successfully.',
     'placeholders_info' => 'Placeholders allow the NamelessMC Spigot plugin to send statistics about each player to your website so they can display them on their profile and forum posts.',
     'placeholders_none' => 'There are no placeholders.',

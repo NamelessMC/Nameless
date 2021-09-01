@@ -1050,6 +1050,11 @@ switch ($s) {
             'name' => 'discord_bot_username',
             'value' => null
         ));
+        
+        $queries->create('settings', array(
+            'name' => 'placeholders',
+            'value' => '0'
+        ));
 
         // Templates
         $queries->create('templates', array(

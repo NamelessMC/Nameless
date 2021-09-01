@@ -3,7 +3,7 @@
  *  Made by Samerton
  *  Translated by Fjuro
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr11
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -170,6 +170,7 @@ $language = array (
 
     // Placeholders
     'placeholders' => 'Placeholdery',
+    'enable_placeholders' => 'Enable Placeholders?',
     'updated_placeholder_settings' => 'Nastavení placeholderů úspěšně aktualizována.',
     'placeholders_info' => 'Placeholdery umožňují NamelessMC Spigot pluginu posílat statistiky o každém hráči na váš web, takže můžou být zobrazeny na jejich profilu a příspěvcích ve fóru.',
     'placeholders_none' => 'Nemáte žádné placeholdery.',

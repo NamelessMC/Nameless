@@ -2,7 +2,7 @@
 /*
  *	Made by Aberdeener
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr10
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -45,7 +45,6 @@ if (isset($_GET['leaderboard'])) {
                 $title = $title_input == '' ? null : $title_input;
                 $sort = Input::get('leaderboard_sort');
 
-                // TODO: this is temporary to assist with debugging #2327
                 try {
                     DB::getInstance()->createQuery("UPDATE nl2_placeholders_settings SET leaderboard = ?, leaderboard_title = ?, leaderboard_sort = ? WHERE `name` = ? AND server_id = ?", [
                         $enabled,
@@ -104,7 +103,12 @@ if (isset($_GET['leaderboard'])) {
     if (Input::exists()) {
 
         if (Token::check()) {
-            // TODO: this is temporary to assist with debugging #2327
+            // Update placeholders value
+            if (isset($_POST['placeholders_enabled']) && $_POST['placeholders_enabled'] == 'on') $placeholders_enabled = 1;
+            else $placeholders_enabled = 0;
+            
+            $configuration->set('Core', 'placeholders', $placeholders_enabled);
+
             foreach ($all_placeholders as $placeholder) {
                 try {
 
@@ -136,6 +140,9 @@ if (isset($_GET['leaderboard'])) {
             $errors[] = $language->get('general', 'invalid_token');
         }
     }
+    
+    // Retrieve placeholders value
+    $placeholders_enabled = $configuration->get('Core', 'placeholders');
 
     $smarty->assign(array(
         'PAGE' => PANEL_PAGE,
@@ -161,7 +168,9 @@ if (isset($_GET['leaderboard'])) {
         'LEADERBOARD_SETTINGS' => $language->get('admin', 'leaderboard_settings'),
         'INTEGRATIONS' => $language->get('admin', 'integrations'),
         'MINECRAFT' => $language->get('admin', 'minecraft'),
-        'MINECRAFT_LINK' => URL::build('/panel/minecraft')
+        'MINECRAFT_LINK' => URL::build('/panel/minecraft'),
+        'ENABLE_PLACEHOLDERS' => $language->get('admin', 'enable_placeholders'),
+        'ENABLE_PLACEHOLDERS_VALUE' => ($placeholders_enabled == 1),
     ));
 }
 

@@ -615,6 +615,11 @@ $queries->create('settings', array(
 	'value' => '1'
 ));
 
+$queries->create('settings', array(
+    'name' => 'placeholders',
+    'value' => '0'
+));
+
 // Templates
 $queries->create('templates', array(
 	'name' => 'DefaultRevamp',

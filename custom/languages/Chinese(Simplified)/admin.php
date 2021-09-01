@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr11
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -182,6 +182,7 @@ $language = array(
 
     // Placeholders
     'placeholders' => '占位符',
+    'enable_placeholders' => 'Enable Placeholders?',
     'updated_placeholder_settings' => '占位符设置更新成功。',
     'placeholders_info' => '通过占位符功能，NamelessMC Spigot 插件可以向您的网站上显示关于玩家的信息，这样，玩家就可以把这些信息添加到自己的个人资料上。',
     'placeholders_none' => '没有任何占位符。',

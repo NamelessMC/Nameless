@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr11
+ *  NamelessMC version 2.0.0-pr12
  *
  *  Translator
  *  - SimplyRin( @SimplyRin_, https://www.simplyrin.net )
@@ -185,6 +185,7 @@ $language = array(
 
     // Placeholders
     'placeholders' => 'プレースホルダー',
+    'enable_placeholders' => 'Enable Placeholders?',
     'updated_placeholder_settings' => 'プレースホルダーの設定を更新しました。',
     'placeholders_info' => 'プレースホルダーは、NamelessMC Spigotプラグインが各プレイヤーの統計情報をウェブサイトに送信し、プレイヤーがプロフィールやフォーラムの投稿に表示できるようにするためのものです。',
     'placeholders_none' => 'プレースホルダーはありません。',

@@ -2,7 +2,7 @@
 /*
  *  Translated by ManiaNetwork
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr11
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -169,6 +169,7 @@ $language = array(
 
     // Placeholders
     'placeholders' => 'Marcadores de posición',
+    'enable_placeholders' => 'Enable Placeholders?',
     'updated_placeholder_settings' => 'Se ha actualizado la configuración del marcador de posición con éxito.',
     'placeholders_info' => 'Los marcadores de posición permiten que el plugin NamelessMC Spigot envíe las estadísticas de cada jugador a su sitio web para que puedan mostrarlas en su perfil y en los mensajes del foro.',
     'placeholders_none' => 'No hay marcadores de posición.',
