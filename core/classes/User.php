@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr11
+ *  NamelessMC version 2.0.0-pr12
  *
  *  User class
  */
@@ -620,7 +620,7 @@ class User {
         
         $this->_groups = array();
         if($group_data == null) {
-            $group_data = $this->_db->get('groups', array('id', '=', $group_id))->first();
+            $group_data = $this->_db->get('groups', array('id', '=', $group_id));
             if ($group_data->count()) {
                 $this->_groups[$group_id] = $group_data->first();
             }
