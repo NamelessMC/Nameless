@@ -41,6 +41,16 @@ try {
     echo $e->getMessage() . '<br />';
 }
 
+try {
+    $recaptcha_type = DB::getInstance()->query('SELECT id FROM nl2_settings WHERE `name` = ? AND `value` = ?', array('recaptcha_type', 'Recaptcha2'));
+    if ($recaptcha_type->count()) {
+        $cache->setCache('configuration');
+        $cache->store('recaptcha_type', 'Recaptcha2');
+    }
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+
 // Update version number
 /*$version_number_id = $queries->getWhere('settings', array('name', '=', 'nameless_version'));
 
