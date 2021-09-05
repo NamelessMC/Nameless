@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -38,13 +38,10 @@ if (Input::exists()) {
             ));
         } else {
             // Registration settings
-            if (isset($_POST['verification']) && $_POST['verification'] == 'on')
-                $verification = 1;
-            else
-                $verification = 0;
 
-            $verification_id = $queries->getWhere('settings', array('name', '=', 'email_verification'));
-            $verification_id = $verification_id[0]->id;
+            // Email verification
+            $verification = isset($_POST['verification']) && $_POST['verification'] == 'on' ? 1 : 0;
+            $configuration->set('Core', 'email_verification', $verification);
 
             // reCAPTCHA enabled?
             if (Input::get('enable_recaptcha') == 1) {
@@ -114,14 +111,6 @@ if (Input::exists()) {
                 'value' => htmlspecialchars(Input::get('message'))
             ));
 
-            try {
-                $queries->update('settings', $verification_id, array(
-                    'value' => $verification
-                ));
-            } catch (Exception $e) {
-                $errors[] = $e->getMessage();
-            }
-
             // Validation group
             $validation_group_id = $queries->getWhere('settings', array('name', '=', 'validate_user_action'));
             $validation_action = $validation_group_id[0]->value;
@@ -175,8 +164,7 @@ $registration_enabled = $queries->getWhere('settings', array('name', '=', 'regis
 $registration_enabled = $registration_enabled[0]->value;
 
 // Is email verification enabled
-$emails = $queries->getWhere('settings', array('name', '=', 'email_verification'));
-$emails = $emails[0]->value;
+$emails = $configuration->get('Core', 'email_verification');
 
 // Recaptcha
 $captcha_id = $queries->getWhere('settings', array('name', '=', 'recaptcha'));
