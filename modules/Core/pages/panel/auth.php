@@ -113,7 +113,7 @@ if ($login_method == 'email') {
     $smarty->assign(array(
         'EMAIL' => $language->get('user', 'email')
     ));
-} else if ($login_method == 'email') {
+} else if ($login_method == 'email_or_username') {
     $smarty->assign(array(
         'USERNAME' => $language->get('user', 'email_or_username')
     ));
