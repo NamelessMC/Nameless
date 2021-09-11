@@ -13,14 +13,14 @@ body {
 
 /* Dark color shades, starting with darkest */
 :root {
-    --dark-color-1: #202020;
-    --dark-color-2: #282828;
-    --dark-color-3: #303030;
-    --dark-color-4: #383838;
-    --dark-color-5: #404040;
-    --dark-color-6: #484848;
-    --dark-color-7: #585858;
-    --dark-text-shade-1: rgb(189, 189, 189);
+    --dark-color-1: #101010;
+    --dark-color-2: #151515;
+    --dark-color-3: #202020;
+    --dark-color-4: #252525;
+    --dark-color-5: #303030;
+    --dark-color-6: #353535;
+    --dark-color-7: #454545;
+    --dark-text-shade-1: rgb(162 162 162);
 }
 
 .dark body,
