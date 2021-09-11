@@ -1,11 +1,11 @@
 /* --------------- Prevents light flicker on dark mode --------------- */
 
 body {
-    display: none
+    display: none;
 }
 
 .visible {
-    display: block
+    display: block;
 }
 
 
@@ -20,21 +20,21 @@ body {
     --dark-color-5: #404040;
     --dark-color-6: #484848;
     --dark-color-7: #585858;
-    --dark-text-shade-1: rgb(189, 189, 189)
+    --dark-text-shade-1: rgb(189, 189, 189);
 }
 
 .dark body,
 .dark #wrapper #content-wrapper,
 .dark .error_log {
     background-color: var(--dark-color-2);
-    color: var(--dark-text-shade-1)
+    color: var(--dark-text-shade-1);
 }
 
 .dark .colorpicker-input-addon,
 .dark .colorpicker-input-addon::before,
 .dark .colorpicker-input-addon:focus,
 .dark .input-group-append:focus {
-    background-color: var(--dark-color-1)
+    background-color: var(--dark-color-1);
 }
 
 .dark .dropdown-item,
@@ -42,11 +42,11 @@ body {
 .dark .topbar .dropdown-list .dropdown-item:active {
     background-color: var(--dark-color-5);
     color: var(--dark-text-shade-1);
-    border-color: var(--dark-color-5) !important
+    border-color: var(--dark-color-5) !important;
 }
 
 .dark .dropdown-item:hover {
-    background-color: var(--dark-color-6)
+    background-color: var(--dark-color-6);
 }
 
 .dark .sidebar .nav-item .collapse .collapse-inner .collapse-item:hover,
@@ -54,16 +54,16 @@ body {
 .dark .sidebar .nav-item .collapse .collapse-inner .active,
 .dark .sidebar .nav-item .collapsing .collapse-inner .active,
 .dark .topbar #sidebarToggleTop:hover {
-    background-color: var(--dark-color-3)
+    background-color: var(--dark-color-3);
 }
 
 .dark .switchery>small,
 .dark input[type="radio"] {
-    background-color: var(--dark-text-shade-1) !important
+    background-color: var(--dark-text-shade-1) !important;
 }
 
 .dark .shadow {
-    box-shadow: 0 .15rem 1.75rem 0 rgba(121, 121, 121, 0.15)!important
+    box-shadow: 0 .15rem 1.75rem 0 rgba(121, 121, 121, 0.15)!important;
 }
 
 .dark .table th,
@@ -71,7 +71,7 @@ body {
 .dark .table thead th,
 .dark .border,
 .dark .table-bordered {
-    border-color: var(--dark-color-3) !important
+    border-color: var(--dark-color-3) !important;
 }
 
 .dark .text-gray-300,
@@ -88,22 +88,22 @@ body {
 .dark .popover-header,
 .dark .close,
 .dark .table {
-    color: var(--dark-text-shade-1)!important
+    color: var(--dark-text-shade-1) !important;
 }
 
 .dark .btn-default {
     background-color: var(--dark-color-2);
-    border-color: var(--dark-color-3)
+    border-color: var(--dark-color-3);
 }
 
 .dark .paginate_button a,
 .dark .pagination .page-item a {
     background-color: var(--dark-color-3) !important;
-    border-color: var(--dark-color-2) !important
+    border-color: var(--dark-color-2) !important;
 }
 
 .dark .list-group-item {
-    background-color: var(--dark-color-5)
+    background-color: var(--dark-color-5);
 }
 
 .dark .bg-white,
@@ -111,64 +111,64 @@ body {
 .dark .breadcrumb,
 .dark .modal-content,
 option:checked {
-    background-color: var(--dark-color-4) !important
+    background-color: var(--dark-color-4) !important;
 }
 
 .dark .popover {
-    background-color: var(--dark-color-5)
+    background-color: var(--dark-color-5);
 }
 
 .dark .popover .arrow,
 .dark .popover .arrow::after {
-    border-right-color: var(--dark-color-5)
+    border-right-color: var(--dark-color-5);
 }
 
 .dark .card-header,
 .dark .popover-header {
     background-color: var(--dark-color-6);
-    border: none
+    border: none;
 }
 
 .dark .modal-header,
 .dark .modal-footer {
-    border-color: var(--dark-color-6)
+    border-color: var(--dark-color-6);
 }
 
 .dark ul.thumbnails.image_picker_selector li .thumbnail {
-    border-color: var(--dark-color-7)
+    border-color: var(--dark-color-7);
 }
 
 .dark .form-control,
 .dark .dropzone {
     background-color: var(--dark-color-3);
-    border: none
+    border: none;
 }
 
 .dark .topbar-divider {
-    border-color: var(--dark-color-6)
+    border-color: var(--dark-color-6);
 }
 
 .dark ::-webkit-scrollbar-track,
 .dark ::-webkit-scrollbar-corner {
-    background: var(--dark-color-2)
+    background: var(--dark-color-2);
 }
 
 .dark ::-webkit-scrollbar-thumb {
-    background: var(--dark-color-3)
+    background: var(--dark-color-3);
 }
 
 .dark ::-webkit-scrollbar-thumb:hover {
-    background: var(--dark-color-5)
+    background: var(--dark-color-5);
 }
 
 .dark hr {
-    border-color: var(--dark-color-7)
+    border-color: var(--dark-color-7);
 }
 
 .dark .input-group-text.colorpicker-input-addon,
 .dark .input-group-text.colorpicker-input-addon:focus {
     border: none !important;
-    outline: none
+    outline: none;
 }
 
 .dark select option:hover,
@@ -176,22 +176,22 @@ option:checked {
 .dark select option:active,
 .dark select option:checked {
     background: linear-gradient(var(--dark-color-4), var(--dark-color-4)) !important;
-    background-color: var(--dark-color-4) !important /* IE Fallback */
+    background-color: var(--dark-color-4) !important; /* IE Fallback */
 }
 
 /* --------------- Scrollbar --------------- */
 
 ::-webkit-scrollbar {
-    width: 10px
+    width: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
     background: #C0C0C0;
-    border-radius: 10px
+    border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #B8B8B8
+    background: #B8B8B8;
 }
 
 /* --------------- Sidebar --------------- */
@@ -201,86 +201,86 @@ option:checked {
     height: 100vh;
     z-index: 999;
     overflow-x: hidden;
-    overflow-y: auto
+    overflow-y: auto;
 }
 
 .sidebar::-webkit-scrollbar-track {
-    background: transparent
+    background: transparent;
 }
 
 .sidebar::-webkit-scrollbar {
-    width: 6px
+    width: 6px;
 }
 
 .sidebar::-webkit-scrollbar-thumb {
     background: rgba(255, 255, 255, 0.25);
-    border-radius: 6px
+    border-radius: 6px;
 }
 
 .sidebar::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.35)
+    background: rgba(255, 255, 255, 0.35);
 }
 
 #content-wrapper {
     min-height: 100vh;
-    margin-left: 6.5rem !important
+    margin-left: 6.5rem !important;
 }
 
 @media (min-width: 768px) {
     .sidebar {
-        width: 17rem !important
+        width: 17rem !important;
     }
     #content-wrapper {
-        margin-left: 17rem !important
+        margin-left: 17rem !important;
     }
     .sidebar .nav-item .nav-link {
         width: 16.5rem;
-        padding: .70rem 1rem
+        padding: .70rem 1rem;
     }
     .sidebar.toggled + #content-wrapper {
-        margin-left: 6.5rem !important
+        margin-left: 6.5rem !important;
     }
     .sidebar .nav-item .nav-link span {
-        font-size: .90rem
+        font-size: .90rem;
     }
 }
 
 @media (max-width: 768px) {
     .sidebar.toggled + #content-wrapper {
-        margin-left: 0 !important
+        margin-left: 0 !important;
     }
 }
 
 /* --------------- Other --------------- */
 
 body {
-    color: #56575b
+    color: #56575b;
 }
 
 .btn-user,
 .form-control-user {
-    border-radius: .35rem !important
+    border-radius: .35rem !important;
 }
 
 .dark-switch-text {
-    padding-left: 10px
+    padding-left: 10px;
 }
 
 .thumbnails li img {
-    width: 60px
+    width: 60px;
 }
 
 .dropdown-menu-lg {
-    max-width: none
+    max-width: none;
 }
 
 .table-hover.dataTables-users tbody tr {
-    cursor: pointer
+    cursor: pointer;
 }
 
 .btn.disabled,
 .btn:disabled {
-    pointer-events: none
+    pointer-events: none;
 }
 
 a,
@@ -289,50 +289,50 @@ i,
 .alert span,
 .alert button,
 .close {
-    transition: .25s
+    transition: .25s;
 }
 
 .card {
-    border: none
+    border: none;
 }
 
 .btn-accordion {
     text-decoration: none !important;
-    box-shadow: none !important
+    box-shadow: none !important;
 }
 
 .alert span:hover,
 .alert button:hover {
-    color: #FFF
+    color: #FFF;
 }
 
 .btn-default {
     border: 1px solid #d1d3e2;
     background-color: #f4f4f4;
-    color: #444 !important
+    color: #444 !important;
 }
 
 @media (max-width: 575px) {
     #content .breadcrumb {
         background-color: transparent !important;
         padding: initial !important;
-        margin-top: 10px
+        margin-top: 10px;
     }
 }
 
 @media (max-width: 767px) {
     form .col-md-6:last-child {
-        padding-top: 10px
+        padding-top: 10px;
     }
     .dark-switch-text {
-        display: none
+        display: none;
     }
 }
 
 .CodeMirror {
-    border: 1px solid #ddd
+    border: 1px solid #ddd;
 }
 
 .profile-user-img {
-    max-width: 50%
+    max-width: 50%;
 }
