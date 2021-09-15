@@ -640,6 +640,7 @@ $language = array(
     'group_sync_rule_created_successfully' => 'De groep synchronisatie regel is succesvol aangemaakt.',
     'group_sync_rules_updated_successfully' => 'Group synchronisatie regels zijn succesvol bijgewerkt.',
     'group_sync_rule_deleted_successfully' => 'De group synchronisatie regel is succesvol verwijderd.',
+	'group_sync_plugin_not_set_up' => 'Plugin not set up',
     'existing_rules' => 'Bestaande Regels',
     'new_rule' => 'Nieuwe Regel',
     'api_endpoints' => 'API Endpoints',
