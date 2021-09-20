@@ -143,7 +143,7 @@ $language = array(
     'must_input_password' => 'Você deve inserir uma senha.',
     'must_input_email_or_username' => 'You must input an email or username.',
     'email_or_username' => 'Email or Username',
-    
+
     // Forgot password
     'forgot_password_instructions' => 'Por favor, insira seu endereço de email para que possamos enviar-lhe mais instruções sobre como redefinir sua senha.',
     'forgot_password_email_sent' => 'Se existe uma conta com o endereço de email, um email foi enviado contendo instruções adicionais. Se você não conseguir encontrá-lo, tente verificar sua pasta de spams.',
@@ -245,7 +245,7 @@ $language = array(
     'not_linked' => 'Ainda não foi vinculado',
     'discord_id' => 'ID do usuário do Discord',
     'discord_id_unlinked' => 'Desvinculou com sucesso seu ID de usuário do Discord.',
-    'discord_id_confirm' => 'Por favor envie esta mensagem: "!verify {guild_id}:{token}" para {bot_username} para confirmar o seu ID de usuário do Discord.',
+    'discord_id_confirm' => 'Please run the command "/verify token:{token}" in Discord to finish linking your Discord account.',
     'pending_link' => 'Pendente',
     'discord_id_taken' => 'Esse ID do Discord já foi obtido.',
     'discord_invalid_id' => 'Esse ID de usuário do Discord é inválido.',

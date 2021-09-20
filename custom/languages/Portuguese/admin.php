@@ -82,7 +82,7 @@ $language = array(
     'discord_widget_theme' => 'Tema do Widget do Discord',
     'discord_id_length' => 'Certifique-se de que seu ID do Discord tenha 18 caracteres.',
     'discord_id_numeric' => 'Certifique-se de que o seu ID Discord seja numérico (apenas números).',
-    'discord_invite_info' => 'Para convidar o bot Nameless Link para o seu servidor do Discord, clique <a target="_blank" href="https://namelessmc.com/discord-bot-invite">aqui</a>. Então, envie uma DM para o bot com o comando <code>!apiurl</code> para vincular o bot ao seu site. Alternativamente, você pode <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">hospedar o bot você mesmo</a>.',
+    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://namelessmc.com/discord-bot-invite">here</a>. Then, run the <code>/apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
     'discord_bot_must_be_setup' => 'Não é possível ativar a integração do Discord até que você configure o bot. Para informações, por favor <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">clique aqui</a>.',
     'discord_bot_setup' => 'Configuração do bot',
     'discord_integration_not_setup' => 'A integração do Discord não está configurada',
@@ -537,7 +537,7 @@ $language = array(
     'action_info' => 'Informação de Ação',
     'groups_removed' => 'Groups Removed',
     'groups_added' => 'Groups Added',
-    
+
     // Updates
     'update' => 'Atualizar',
     'current_version_x' => 'Versão atual: <strong>{x}</strong>', // Don't replaec {x}

@@ -85,7 +85,7 @@ $language = array(
     'discord_widget_theme' => 'Discord ウィジェットテーマ',
     'discord_id_length' => 'Discord IDは18文字以内にしてください。',
     'discord_id_numeric' => 'Discord IDが数字であることを確認してください(数字のみ)',
-    'discord_invite_info' => 'Nameless LinkボットをDiscordサーバーに招待するには、<a target="_blank" href="https://namelessmc.com/discord-bot-invite">こちら</a>をクリックします。その後、ボットに<code>!apiurl</code>コマンドでDMを送り、ボットとウェブサイトをリンクさせます。あるいは、<a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">自分でボットをホスティングすることもできます</a>。',
+    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://namelessmc.com/discord-bot-invite">here</a>. Then, run the <code>/apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
     'discord_bot_must_be_setup' => 'ボットを設定するまでは、Discord統合を有効にすることはできません。詳細については、<a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">ここをクリック</a>してください。',
     'discord_bot_setup' => 'ボットの設定',
     'discord_integration_not_setup' => 'Discord統合が設定されていません',
@@ -540,7 +540,7 @@ $language = array(
     'action_info' => '操作情報',
     'groups_removed' => '削除されたグループ',
     'groups_added' => '追加されたグループ',
-    
+
     // Updates
     'update' => 'アップデート',
     'current_version_x' => '現在のバージョン: <strong>{x}</strong>', // Don't replaec {x}

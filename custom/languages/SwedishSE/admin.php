@@ -81,7 +81,7 @@ $language = array(
     'discord_widget_theme' => 'Discord Widget Theme',
     'discord_id_length' => 'Vänligen se till att ditt Discord ID is 18 bokstäver långt.',
     'discord_id_numeric' => 'Vängligen se till att ditt Discord ID är numeriskt. (Endast Nummer).',
-    'discord_invite_info' => 'För att bjuda in Nameless Link botten, klicka <a target="_blank" href="https://namelessmc.com/discord-bot-invite">här</a>. Sedan, skicka DM till botten med <code>!apiurl</code> kommandot för att länka botten med din hemsida. Alternativt kan du <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">hålla botten själv</a>.',
+    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://namelessmc.com/discord-bot-invite">here</a>. Then, run the <code>/apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
     'discord_bot_must_be_setup' => 'Kan inte aktivera Discord Integrationen tills att du har ställt in botten. För mer information, vänligen <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">klicka här</a>.',
     'discord_bot_setup' => 'Bot Setup',
     'discord_integration_not_setup' => 'Discord Integrationen är inte inställd.',
@@ -536,7 +536,7 @@ $language = array(
     'action_info' => 'Action Info',
     'groups_removed' => 'Groups Removed',
     'groups_added' => 'Groups Added',
-    
+
     // Updates
     'update' => 'Uppdatera',
     'current_version_x' => 'Nuvarande version: <strong>{x}</strong>', // Don't replaec {x}

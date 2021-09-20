@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *  Made by Samerton & Translated by Codiaz
  *  https://github.com/NamelessMC/Nameless/
@@ -20,7 +20,7 @@ $language = array(
      */
     'guest' => 'Gæst',
     'guests' => 'Gæster',
-    
+
     // UserCP
     'user_cp' => 'Konto',
     'user_cp_icon' => '<i class="fa fa-cogs" aria-hidden="true"></i> <span class="mobile_only">Konto</span>',
@@ -36,7 +36,7 @@ $language = array(
     'gif_avatar' => 'Upload .gif som tilpasset avatar',
     'placeholders' => 'Placeholders',
     'no_placeholders' => 'No Placeholders',
-    
+
     // Profile settings
     'field_is_required' => '{x} er påkrævet.', // Don't replace {x}
     'settings_updated_successfully' => 'Indstillingerne blev opdateret.',
@@ -70,7 +70,7 @@ $language = array(
     'upload' => 'Upload',
     'topic_updates' => 'Få e-mails for emner, du følger',
     'gravatar' => 'Brug Gravatar som avatar',
-    
+
     // Alerts
     'user_tag_info' => 'Du er blevet tagget i et indlæg af {x}.', // Don't replace {x}
     'no_alerts' => 'Ingen nye advarsler',
@@ -78,7 +78,7 @@ $language = array(
     '1_new_alert' => 'Du har 1 ny advarsel',
     'x_new_alerts' => 'Du har {x} nye advarsler', // Don't replace {x}
     'no_alerts_usercp' => 'Du har ingen advarsler.',
-    
+
     // Registration
     'registration_check_email' => 'Tak for din registrering! Tjek venligst dine e-mails for at få et valideringslink for at fuldføre din registrering. Hvis du ikke kan finde e-mailen, så tjek din spam mappe.',
     'username' => 'Brugernavn',
@@ -104,7 +104,7 @@ $language = array(
     'authme_account_linked' => 'Konto tilknyttet succesfuldt.',
     'authme_email_help_1' => 'Endelig, indtast venligst din e-mailadresse.',
     'authme_email_help_2' => 'Endelig, indtast venligst din e-mailadresse, og også vælg et navn til visning af din konto.',
-    
+
     // Registration errors
     'username_required' => 'Et brugernavn er påkrævet.',
     'email_required' => 'En e-mail adresse er påkrævet.',
@@ -130,11 +130,11 @@ $language = array(
     'verification_success' => 'Succesfuldt valideret! Du kan nu logge ind.',
     'authme_username_exists' => 'Din Authme konto er allerede forbundet til hjemmesiden!',
     'uuid_already_exists' => 'Dit UUID eksisterer allerede, hvilket betyder, at denne Minecraft-konto allerede er registreret.',
-    
+
     // Login
     'successful_login' => 'Du er nu logget ind.',
     'incorrect_details' => 'Du har indtastet forkerte oplysninger.',
-    'inactive_account' => 'Din konto er inaktiv. Tjek venligst dine e-mails for et valideringslink, herunder i din spam 
+    'inactive_account' => 'Din konto er inaktiv. Tjek venligst dine e-mails for et valideringslink, herunder i din spam
 mappe.',
     'account_banned' => 'Denne konto er udelukket.',
     'forgot_password' => 'Glemt adgangskode?',
@@ -152,7 +152,7 @@ mappe.',
     'enter_new_password' => 'Bekræft venligst din e-mailadresse og indtast en ny adgangskode nedenfor.',
     'incorrect_email' => 'E-mail adressen du har indtastet stemmer ikke overens med anmodningen.',
     'forgot_password_change_successful' => 'Din adgangskode er blevet ændret. Du kan nu logge ind.',
-    
+
     // Profile pages
     'profile' => 'Profil',
     'follow' => 'Følg',
@@ -196,7 +196,7 @@ mappe.',
     'invalid_report_content' => 'Kunne ikke oprette rapport. Kontroller, at din rapport årsag er mellem 2 og 1024 tegn.',
     'report_post_content' => 'Angiv venligst en årsag til din rapport',
     'report_created' => 'Rapport oprettet',
-    
+
     // Messaging
     'no_messages' => 'Ingen nye beskeder',
     'no_messages_full' => 'Du har ingen beskeder.',
@@ -239,14 +239,14 @@ mappe.',
      */
     'user_x_has_registered' => '{x} har tilsluttet sig ' . SITE_NAME . '!',
     'user_x_has_validated' => '{x} har valideret deres konto!',
-    
+
     // Discord
     'discord_link' => 'Discord Link',
     'linked' => 'Linket',
     'not_linked' => 'Ikke Linket',
     'discord_id' => 'Discord Bruger ID',
     'discord_id_unlinked' => 'Dit Discord bruger-id blev afkoblet korrekt.',
-    'discord_id_confirm' => 'Send venligst denne besked: "!verify {guild_id}:{token}" til {bot_username} for at bekræfte dit Discord Bruger ID.',
+    'discord_id_confirm' => 'Please run the command "/verify token:{token}" in Discord to finish linking your Discord account.',
     'pending_link' => 'Afventer',
     'discord_id_taken' => 'Det Discord ID allerede er taget.',
     'discord_invalid_id' => 'Det Discord Bruger ID er ugyldigt.',

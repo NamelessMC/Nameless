@@ -510,7 +510,7 @@ $language = array (
     'action_info' => 'Informace o akci',
     'groups_removed' => 'Skupiny odebrány',
     'groups_added' => 'Skupiny přidány',
-    
+
     // Updates
     'update' => 'Aktualizovat',
     'current_version_x' => 'Současná verze: <strong>{x}</strong>', // Don't replace {x}
@@ -736,7 +736,7 @@ $language = array (
     'discord_widget_theme' => 'Téma Discord widgetu',
     'discord_id_length' => 'Ujistěte se, že vaše Discord ID je dlouhé 18 znaků.',
     'discord_id_numeric' => 'Ujistěte se, že vaše Discord ID obsahuje pouze čísla.',
-    'discord_invite_info' => 'Pro pozvání bota Nameless Link na váš Discord server klikněte <a target="_blank" href="https://namelessmc.com/discord-bot-invite">sem</a>. Poté pošlete botovi soukromou zprávu s příkazem <code>!apiurl</code> pro propojení bota s vaším webem. Můžete také <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">sami hostovat bota</a>.',
+    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://namelessmc.com/discord-bot-invite">here</a>. Then, run the <code>/apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
     'discord_bot_must_be_setup' => 'Nelze povolit integraci Discordu, dokud nenastavíte bota. Pro více informací <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">klikněte sem</a>.',
     'discord_bot_setup' => 'Bot nastaven?',
     'discord_integration_not_setup' => 'Integrace Discordu nenastavena',
