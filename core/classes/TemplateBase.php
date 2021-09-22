@@ -40,11 +40,10 @@ abstract class TemplateBase {
         if (is_array($files) && count($files)) {
             foreach ($files as $href => $file) {
                 $this->_css[] = '
-                <link rel="stylesheet" 
+                <link' . (isset($file['rel']) ? ' rel="' . $file['rel'] . '"' : ' rel="stylesheet"') . ' 
                 href="' . $href . '"' .
                     (isset($file['integrity']) ? ' integrity="' . $file['integrity'] . '"' : '') .
                     (isset($file['crossorigin']) ? ' crossorigin="' . $file['crossorigin'] . '"' : '') .
-                    (isset($file['rel']) ? ' rel="' . $file['rel'] . '"' : '') .
                     (isset($file['as']) ? ' as="' . $file['as'] . '"' : '') .
                     (isset($file['onload']) ? ' onload="' . $file['onload'] . '"' : '') .
                 '>';
