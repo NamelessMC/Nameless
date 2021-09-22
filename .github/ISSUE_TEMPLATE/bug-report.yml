@@ -15,10 +15,9 @@ body:
     label: NamelessMC Version
     description: From StaffCP -> Overview
     options:
-      - v2-Pre11 (latest)
-      - v2-Pre10
-      - From v2-Pre1 to V2-Pre9
-      - v1.0.21
+      - v2-Pre11 (v2 latest)
+      - < V2-Pre10
+      - v1.0.21 (v1 latest)
       - < v1.0.21
   validations:
     required: true
