@@ -67,22 +67,23 @@ class Nameless2API {
 
             $this->_language = $api_language;
 
-            if (isset($api_key)) {
-                // API key specified
-                $this->_endpoints = $endpoints;
-
-                $request = explode('/', $route);
-                $this->_db = DB::getInstance();
-                $request = $request[count($request) - 1];
-
-                $_POST = json_decode(file_get_contents('php://input'), true);
-
-                if ($this->_endpoints->handle($request, $this) == false) {
-                    $this->throwError(3, $this->_language->get('api', 'invalid_api_method'));
-                }
-            } else {
+            if (!isset($api_key)) {
                 $this->throwError(1, $this->_language->get('api', 'invalid_api_key'));
             }
+
+            // API key specified
+            $this->_endpoints = $endpoints;
+
+            $request = explode('/', $route);
+            $this->_db = DB::getInstance();
+            $request = $request[count($request) - 1];
+
+            $_POST = json_decode(file_get_contents('php://input'), true);
+
+            if ($this->_endpoints->handle($request, $this) == false) {
+                $this->throwError(3, $this->_language->get('api', 'invalid_api_method'), 'If you are seeing this while in a browser, this does not mean your API is not functioning!');
+            }
+
         } catch (Exception $e) {
             $this->throwError(0, $this->_language->get('api', 'unknown_error'), $e->getMessage());
         }

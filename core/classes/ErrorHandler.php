@@ -53,7 +53,7 @@ class ErrorHandler {
             foreach ($exception->getTrace() as $frame) {
 
                 // Check if previous frame had same file and line number (ie: DB->query() reports same file and line twice in a row)
-                if (end($frames)['file'] == $frame['file'] && end($frames)['line'] = $frame['line']) {
+                if (end($frames)['file'] == $frame['file'] && end($frames)['line'] == $frame['line']) {
                     $skip_frames += 1;
                     continue;
                 }
@@ -100,13 +100,12 @@ class ErrorHandler {
      */
     private static function parseFile($lines, $error_line) {
 
-        $return = '';
-
         if ($lines == false || count($lines) < 1) {
-            return $return;
+            return '';
         }
 
         $line_num = 1;
+        $return = '';
 
         foreach ($lines as $line) {
             if (($error_line - self::LINE_BUFFER) <= $line_num && $line_num <= ($error_line + self::LINE_BUFFER)) {

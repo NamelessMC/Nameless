@@ -103,6 +103,7 @@ class Validate {
      * 
      * @param array $source inputs (eg: $_POST)
      * @param array $items subset of inputs to be validated
+     * 
      * @return Validate This instance of Validate.
      */
     public function check(array $source, array $items = array()) {
@@ -274,6 +275,7 @@ class Validate {
      * Add generic message for any failures, specific `messages()` will override this.
      * 
      * @param string $message message to show if any failures occur.
+     * 
      * @return Validate This instance of Validate.
      */
     public function message($message) {
@@ -285,6 +287,7 @@ class Validate {
      * Add custom messages to this `Validate` instance.
      * 
      * @param array $messages array of input names and strings or arrays to use as messages.
+     * 
      * @return Validate This instance of Validate.
      */
     public function messages(array $messages) {
@@ -308,7 +311,8 @@ class Validate {
      * @param string $field name of field to search for.
      * @param string $rule rule which check failed. should be from the constants defined above.
      * @param string $fallback fallback default message if custom message and generic message are not supplied.
-     * @return Validate This instance of Validate.
+     * 
+     * @return string Message for this field and rule.
      */
     private function getMessage($field, $rule, $fallback) {
 

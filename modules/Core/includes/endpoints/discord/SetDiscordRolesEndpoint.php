@@ -21,31 +21,31 @@ class SetDiscordRolesEndpoint extends EndpointBase {
         if (!Util::getSetting($api->getDb(), 'discord_integration')) {
             $api->throwError(34, $api->getLanguage()->get('api', 'discord_integration_disabled'));
         }
-        
+
         $user = $api->getUser('id', $_POST['user']);
 
         $log_array = array();
         $roles = isset($_POST['roles']) ? $_POST['roles'] : array();
 
-        $groups = DB::getInstance()->query('SELECT nl2_group_sync.*, nl2_groups.name FROM nl2_group_sync INNER JOIN nl2_groups ON website_group_id=nl2_groups.id WHERE discord_role_id IS NOT NULL')->results();
-        foreach($groups as $group) {
-            if(in_array($group->discord_role_id, $roles)) {
+        $groups = DB::getInstance()->query('SELECT nl2_group_sync.*, nl2_groups.name FROM nl2_group_sync INNER JOIN nl2_groups ON website_group_id = nl2_groups.id WHERE discord_role_id IS NOT NULL')->results();
+        foreach ($groups as $group) {
+            if (in_array($group->discord_role_id, $roles)) {
                 // Add group if user don't have it
-                if($user->addGroup($group->website_group_id, 0, array(true))) {
+                if ($user->addGroup($group->website_group_id, 0, array(true))) {
                     $log_array['added'][] = $group->name;
                 }
             } else {
                 // Check if user have another group synced to this NamelessMC group
-                foreach($groups as $item) {
-                    if(in_array($item->discord_role_id, $roles)) {
-                        if($item->website_group_id == $group->website_group_id) {
+                foreach ($groups as $item) {
+                    if (in_array($item->discord_role_id, $roles)) {
+                        if ($item->website_group_id == $group->website_group_id) {
                             continue 2;
                         }
                     }
                 }
-                
+
                 // Remove group if user have it
-                if($user->removeGroup($group->website_group_id)) {
+                if ($user->removeGroup($group->website_group_id)) {
                     $log_array['removed'][] = $group->name;
                 }
             }
