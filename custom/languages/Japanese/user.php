@@ -18,7 +18,7 @@ $language = array(
     /*
      *  Change this for the account validation message
      */
-    'validate_account_command' => '登録を完了するには、ゲーム内で<strong>/validate {x}</strong>コマンドを送信してください。', // Don't replace {x}
+    'validate_account_command' => '登録を完了するには、ゲーム内で<strong>/verify {x}</strong>コマンドを送信してください。', // Don't replace {x}
 
     /*
      *  User Related

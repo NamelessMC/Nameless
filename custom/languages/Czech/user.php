@@ -14,7 +14,7 @@ $language = array(
     /*
      *  Change this for the account validation message
      */
-    'validate_account_command' => 'Pro dokončení registrace zadejte ve hře příkaz <strong>/validate {x}</strong>.', // Don't replace {x}
+    'validate_account_command' => 'Pro dokončení registrace zadejte ve hře příkaz <strong>/verify {x}</strong>.', // Don't replace {x}
 
     /*
      *  User Related

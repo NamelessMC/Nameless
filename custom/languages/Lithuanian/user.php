@@ -12,7 +12,7 @@
 
 $language = array(
     // Change this for the account validation message
-    'validate_account_command' => 'Norėdami užbaigti registraciją, rašykite komandą <strong>/validate {x}</strong> žaidime.', // Don't replace {x}
+    'validate_account_command' => 'Norėdami užbaigti registraciją, rašykite komandą <strong>/verify {x}</strong> žaidime.', // Don't replace {x}
 
     // User Related
     'guest' => 'Svečias',

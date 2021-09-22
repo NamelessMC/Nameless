@@ -13,7 +13,7 @@ $language = array(
     /*
      *  Change this for the account validation message
      */
-    'validate_account_command' => 'Aby zakończyć rejestrację wpisz komendę <strong>/validate {x}</strong> na serwerze.', // Don't replace {x}
+    'validate_account_command' => 'Aby zakończyć rejestrację wpisz komendę <strong>/verify {x}</strong> na serwerze.', // Don't replace {x}
 
     /*
      *  User Related

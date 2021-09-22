@@ -13,7 +13,7 @@ $language = array(
     /*
      *  Change this for the account validation message
      */
-    'validate_account_command' => 'For å fullføre registeringen, skriv inn kommandoen <strong>/validate {x}</strong> ingame.', // Don't replace {x}
+    'validate_account_command' => 'For å fullføre registeringen, skriv inn kommandoen <strong>/verify {x}</strong> ingame.', // Don't replace {x}
 
     /*
      *  User Related

@@ -13,7 +13,7 @@ $language = array(
     /*
      *  Change this for the account validation message
      */
-    'validate_account_command' => 'Registráciu dokončíte vykonaním príkazu <strong>/validate {x}</strong> v hre.', // Don't replace {x}
+    'validate_account_command' => 'Registráciu dokončíte vykonaním príkazu <strong>/verify {x}</strong> v hre.', // Don't replace {x}
 
     /*
      *  User Related

@@ -14,7 +14,7 @@ $language = array(
     /*
      *  Change this for the account validation message
      */
-    'validate_account_command' => 'För att slutföra registreringen, vänligen kör kommandot <strong>/validate {x}</strong> i spelet.', // Don't replace {x}
+    'validate_account_command' => 'För att slutföra registreringen, vänligen kör kommandot <strong>/verify {x}</strong> i spelet.', // Don't replace {x}
 
     /*
      *  User Related

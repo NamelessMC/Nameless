@@ -14,7 +14,7 @@ $language = array(
     /*
      *  Change this for the account validation message
      */
-    'validate_account_command' => 'Для завершения регистрации, пожалуйста, введите команду <strong>/validate {x}</strong> на сервере.', // Don't replace {x}
+    'validate_account_command' => 'Для завершения регистрации, пожалуйста, введите команду <strong>/verify {x}</strong> на сервере.', // Don't replace {x}
 
     /*
      *  User Related

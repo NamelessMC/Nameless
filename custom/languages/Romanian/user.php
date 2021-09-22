@@ -15,7 +15,7 @@ $language = array(
     /*
      *  Change this for the account validation message
      */
-    'validate_account_command' => 'Pentru a finaliza înregistrarea, vă rugăm să executați comanda <strong>/validate {x}</strong> in joc.', // Don't replace {x}
+    'validate_account_command' => 'Pentru a finaliza înregistrarea, vă rugăm să executați comanda <strong>/verify {x}</strong> in joc.', // Don't replace {x}
 
     /*
      *  User Related
