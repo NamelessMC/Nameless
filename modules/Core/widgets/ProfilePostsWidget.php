@@ -59,7 +59,8 @@ class ProfilePostsWidget extends WidgetBase {
                     if ($post_author->isPrivateProfile() && !$this->_user->hasPermission('profile.private.bypass')) continue;
                 } else if ($post_author->isPrivateProfile()) continue;
 
-                $link =  rtrim($post_author->getProfileURL(), '/');
+                $post_user = new User($post->user_id);
+                $link = rtrim($post_user->getProfileURL(), '/');
 
                 $posts_array[] = array(
                     'avatar' => $post_author->getAvatar(),
