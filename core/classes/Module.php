@@ -71,7 +71,7 @@ abstract class Module {
     abstract function onUninstall(); // TODO: Implement
     abstract function onEnable();
     abstract function onDisable();
-    abstract function onPageLoad($user, $pages, $cache, $smarty, $navs, $widgets, $template);
+    abstract function onPageLoad(User $user, Pages $pages, Cache $cache, Smarty $smarty, $navs, Widgets $widgets, $template);
 
     /**
      * Call `onPageLoad()` function for all registered modules.

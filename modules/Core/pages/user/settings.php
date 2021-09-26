@@ -27,16 +27,7 @@ require(ROOT_PATH . '/core/includes/markdown/tohtml/Markdown.inc.php'); // Markd
 $emojione = new Emojione\Client(new Emojione\Ruleset());
 
 // Forum enabled?
-$cache->setCache('modulescache');
-$enabled_modules = $cache->retrieve('enabled_modules');
-foreach($enabled_modules as $module){
-  // Forum module enabled?
-  if($module['name'] == 'Forum'){
-	  // Enabled
-	  $forum_enabled = true;
-	  break;
-  }
-}
+$forum_enabled = Util::isModuleEnabled('Forum');
 
 // Two factor auth?
 if(isset($_GET['do'])){
@@ -295,7 +286,7 @@ if(isset($_GET['do'])){
                             );
 
                             // Is forum enabled? Update topic Updates
-                            if(isset($forum_enabled) && $forum_enabled) {
+                            if($forum_enabled) {
                                 $topicUpdates = Output::getClean(Input::get('topicUpdates'));
 
                                 $data['topic_updates'] = $topicUpdates;
@@ -684,7 +675,7 @@ if(isset($_GET['do'])){
         ));
 	}
 
-	if(isset($forum_enabled) && $forum_enabled) {
+	if($forum_enabled) {
 		$smarty->assign(array(
 			'TOPIC_UPDATES' => $language->get('user', 'topic_updates'),
 			'TOPIC_UPDATES_ENABLED' => DB::getInstance()->get('users', array('id', '=', $user->data()->id))->first()->topic_updates

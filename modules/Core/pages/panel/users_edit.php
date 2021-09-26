@@ -254,7 +254,9 @@ if (Input::exists()) {
                                 }
                             }
 
-                            Discord::updateDiscordRoles($view_user, $added, $removed, $language);
+                            if (Util::isModuleEnabled('Discord Integration')) {
+                                Discord::updateDiscordRoles($view_user, $added, $removed, $language);
+                            }
                         }
                     }
 

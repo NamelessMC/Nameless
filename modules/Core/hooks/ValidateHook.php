@@ -8,17 +8,22 @@
  */
 
 class ValidateHook {
+
     public static function validatePromote($params = array()) {
-        if (!defined('VALIDATED_DEFAULT'))
+        if (!defined('VALIDATED_DEFAULT')) {
             define('VALIDATED_DEFAULT', 1);
+        }
 
         $validate_user = new User($params['user_id']);
         if (!$validate_user->data()) {
-            return false;
+            return;
         }
 
         $validate_user->setGroup(VALIDATED_DEFAULT);
 
-        Discord::updateDiscordRoles($validate_user, [VALIDATED_DEFAULT], [], new Language(), false);
+        if (Util::isModuleEnabled('Discord Integration')) {
+            Discord::updateDiscordRoles($validate_user, [VALIDATED_DEFAULT], [], new Language(), false);
+        }
     }
+
 }

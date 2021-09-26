@@ -272,7 +272,11 @@ $cache->store('enabled_modules', array(
 	array(
 		'name' => 'Forum',
 		'priority' => 4
-	)
+    ),
+    array(
+        'name' => 'Discord Integration',
+        'priority' => 7
+    )
 ));
 $cache->store('module_core', true);
 $cache->store('module_forum', true);

@@ -38,8 +38,10 @@ class AddGroupsEndpoint extends EndpointBase {
                 $log_array['added'][] = $group_query->name;
             }
 
-            // Attempt to update their discord role as well, but ignore any output/errors
-            Discord::updateDiscordRoles($user, [$group], [], $api->getLanguage(), false);
+            if (Util::isModuleEnabled('Discord Integration')) {
+                // Attempt to update their discord role as well, but ignore any output/errors
+                Discord::updateDiscordRoles($user, [$group], [], $api->getLanguage(), false);
+            }
         }
 
         $api->returnArray(array_merge(array('message' => $api->getLanguage()->get('api', 'group_updated')), $log_array));

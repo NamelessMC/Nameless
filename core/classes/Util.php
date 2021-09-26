@@ -556,4 +556,19 @@ class Util {
         
         return null;
     }
+
+    /**
+     * Determine if a specific module is enabled
+     * 
+     * @param string $name Name of module to check for.
+     * @return bool Whether this module is enabled or not.
+     */
+    public static function isModuleEnabled($name) {
+        $cache = new Cache();
+        $cache->setCache('modulescache');
+
+        $enabled_modules = (array) $cache->retrieve('enabled_modules');
+
+        return in_array($name, array_column($enabled_modules, 'name'));
+    }
 }
