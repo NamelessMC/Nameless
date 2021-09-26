@@ -585,11 +585,6 @@ $queries->create('settings', array(
 ));
 
 $queries->create('settings', array(
-	'name' => 'discord_hooks',
-	'value' => '{}'
-));
-
-$queries->create('settings', array(
 	'name' => 'api_verification',
 	'value' => '0'
 ));

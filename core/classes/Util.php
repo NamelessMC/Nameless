@@ -564,7 +564,7 @@ class Util {
      * @return bool Whether this module is enabled or not.
      */
     public static function isModuleEnabled($name) {
-        $cache = new Cache();
+        $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
         $cache->setCache('modulescache');
 
         $enabled_modules = (array) $cache->retrieve('enabled_modules');
