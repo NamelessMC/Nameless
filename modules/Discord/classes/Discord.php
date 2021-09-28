@@ -56,7 +56,7 @@ class Discord {
 
     public static function updateDiscordRoles(User $user_query, $added, $removed, Language $language, $redirect = true) {
 
-        if (!Util::getSetting(DB::getInstance(), 'discord_integration')) {
+        if (!(Util::isModuleEnabled('Discord Integration') && self::isBotSetup())) {
             return;
         }
 
@@ -156,5 +156,9 @@ class Discord {
             'api_key' => trim(Output::getClean(Util::getSetting(DB::getInstance(), 'mc_api_key'))),
             'roles' => array_merge($added_arr, $removed_arr),
         ]);
+    }
+
+    public static function isBotSetup() {
+        return DB::getInstance()->get('settings', array('name', '=', 'discord_integration'))->first()->value;
     }
 }

@@ -557,6 +557,8 @@ class Util {
         return null;
     }
 
+    private static $_enabled_modules = [];
+
     /**
      * Determine if a specific module is enabled
      * 
@@ -564,11 +566,20 @@ class Util {
      * @return bool Whether this module is enabled or not.
      */
     public static function isModuleEnabled($name) {
+        if (in_array($name, self::$_enabled_modules)) {
+            return true;
+        }
+
         $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
         $cache->setCache('modulescache');
 
         $enabled_modules = (array) $cache->retrieve('enabled_modules');
 
-        return in_array($name, array_column($enabled_modules, 'name'));
+        if (in_array($name, array_column($enabled_modules, 'name'))) {
+            self::$_enabled_modules[] = $name;
+            return true;
+        }
+
+        return false;
     }
 }

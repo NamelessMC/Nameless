@@ -323,7 +323,7 @@ if (!isset($_GET['view'])) {
 
         // Get Discord groups
         $discord_groups = array();
-        if (Util::getSetting(DB::getInstance(), 'discord_integration')) {
+        if (Util::isModuleEnabled('Discord Integration') && Discord::isBotSetup()) {
             $discord_groups = Discord::getRoles();
         }
 

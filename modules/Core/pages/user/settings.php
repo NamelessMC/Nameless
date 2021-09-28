@@ -690,7 +690,7 @@ if(isset($_GET['do'])){
 	}
 
 	$discord_linked = $user->data()->discord_id == null || $user->data()->discord_id == 010 ? false : true;
-	$discord_integration = Util::getSetting(DB::getInstance(), 'discord_integration');
+	$discord_integration = Util::isModuleEnabled('Discord Integration') && Discord::isBotSetup();
 
 	// Language values
 	$smarty->assign(array(

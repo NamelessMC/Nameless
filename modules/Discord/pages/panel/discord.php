@@ -78,8 +78,7 @@ if (Session::exists('discord_error'))
     ));
 
 // Check if Discord integration is enabled
-$discord_enabled = $queries->getWhere('settings', array('name', '=', 'discord_integration'));
-$discord_enabled = $discord_enabled[0]->value;
+$discord_enabled = Discord::isBotSetup();
 $guild_id = $queries->getWhere('settings', array('name', '=', 'discord'));
 $guild_id = $guild_id[0]->value;
 
