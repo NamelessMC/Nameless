@@ -90,6 +90,7 @@ abstract class Module {
         }
     }
 
+    /** @return Module[] */
     public static function getModules() {
         return self::$_modules;
     }

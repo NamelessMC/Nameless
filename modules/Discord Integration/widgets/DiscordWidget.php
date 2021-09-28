@@ -26,7 +26,7 @@ class DiscordWidget extends WidgetBase {
         $widget_query = DB::getInstance()->query('SELECT `location`, `order` FROM nl2_widgets WHERE `name` = ?', array('Discord'))->first();
 
         // Set widget variables
-        $this->_module = 'Core';
+        $this->_module = 'Discord Integration';
         $this->_name = 'Discord';
         $this->_location = isset($widget_query->location) ? $widget_query->location : null;
         $this->_description = 'Display your Discord channel on your site. Make sure you have entered your Discord widget details in the StaffCP -> Configuration -> Social Media tab first!';

@@ -8,7 +8,7 @@ class UpdateDiscordUsernames extends EndpointBase {
 
     public function __construct() {
         $this->_route = 'updateDiscordUsernames';
-        $this->_module = 'Core';
+        $this->_module = 'Discord Integration';
         $this->_description = 'Bulk update many user\'s Discord usernames to display on their settings page.';
         $this->_method = 'POST';
     }

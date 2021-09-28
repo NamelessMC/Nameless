@@ -774,6 +774,10 @@ switch ($s) {
             'name' => 'Forum',
             'enabled' => 1
         ));
+        $queries->create('modules', array(
+            'name' => 'Discord Integration',
+            'enabled' => 1
+        ));
         $cache->setCache('modulescache');
         $cache->store('enabled_modules', array(
             array('name' => 'Core', 'priority' => 1),

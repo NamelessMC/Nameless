@@ -28,11 +28,11 @@ class Discord_Module extends Module {
         }
         define('BOT_USERNAME', $bot_username);
 
-        $pages->add('Core', '/panel/discord', 'pages/panel/discord.php');
+        $pages->add('Discord Integration', '/panel/discord', 'pages/panel/discord.php');
 
-        require_once(ROOT_PATH . '/modules/Discord/hooks/DiscordHook.php');
+        require_once(ROOT_PATH . '/modules/Discord Integration/hooks/DiscordHook.php');
 
-        Util::loadEndpoints(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'modules', 'Discord', 'includes', 'endpoints')), $endpoints);
+        Util::loadEndpoints(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'modules', 'Discord Integration', 'includes', 'endpoints')), $endpoints);
     }
 
     public function onInstall() {
@@ -53,7 +53,7 @@ class Discord_Module extends Module {
             'admincp.discord' => $this->_language->get('admin', 'integrations') . ' &raquo; ' . $this->_language->get('admin', 'discord'),
         ]);
 
-        require_once(ROOT_PATH . '/modules/Core/widgets/DiscordWidget.php');
+        require_once(ROOT_PATH . '/modules/Discord Integration/widgets/DiscordWidget.php');
         $discord = $cache->retrieve('discord');
         $module_pages = $widgets->getPages('Discord');
         $widgets->add(new DiscordWidget($module_pages, $this->_language, $cache, $discord));

@@ -10,7 +10,7 @@ class SetDiscordRolesEndpoint extends EndpointBase {
 
     public function __construct() {
         $this->_route = 'setDiscordRoles';
-        $this->_module = 'Core';
+        $this->_module = 'Discord Integration';
         $this->_description = 'Set a NamelessMC user\'s according to the supplied Discord Role ID list';
         $this->_method = 'POST';
     }

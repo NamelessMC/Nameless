@@ -9,7 +9,7 @@ class UpdateDiscordBotSettingsEndpoint extends EndpointBase {
 
     public function __construct() {
         $this->_route = 'updateDiscordBotSettings';
-        $this->_module = 'Core';
+        $this->_module = 'Discord Integration';
         $this->_description = 'Updates the Discord Bot URL and/or Guild ID setting';
         $this->_method = 'POST';
     }
