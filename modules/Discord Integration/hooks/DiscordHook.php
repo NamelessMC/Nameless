@@ -9,7 +9,6 @@
 
 class DiscordHook {
 
-    // Execute hook
     public static function execute($params = array()) {
         // Ensure hook is compatible
         $return = array();

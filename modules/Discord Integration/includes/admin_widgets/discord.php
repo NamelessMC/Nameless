@@ -80,7 +80,7 @@ $smarty->assign(array(
     'ID_INFO' => $language->get('user', 'discord_id_help'),
     'DISCORD_THEME' => $language->get('admin', 'discord_widget_theme'),
     'DISCORD_THEME_VALUE' => $discord_theme,
-    'SETTINGS_TEMPLATE' => 'core/widgets/discord.tpl',
+    'SETTINGS_TEMPLATE' => 'discord_integration/widgets/discord.tpl',
     'DARK' => $language->get('admin', 'dark'),
     'LIGHT' => $language->get('admin', 'light')
 ));

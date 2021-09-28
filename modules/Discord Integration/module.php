@@ -3,6 +3,7 @@
 class Discord_Module extends Module {
     
     private $_language;
+    private $_discord_integration_language;
 
     public function __construct(Language $language, Pages $pages, Queries $queries, Endpoints $endpoints) {
         $this->_language = $language;
@@ -13,6 +14,8 @@ class Discord_Module extends Module {
         $nameless_version = '2.0.0-pr12';
 
         parent::__construct($this, $name, $author, $module_version, $nameless_version);
+
+        $this->_discord_integration_language = new Language(ROOT_PATH . "/modules/{$this->getName()}/language", LANGUAGE);
 
         $bot_url = $queries->getWhere('settings', array('name', '=', 'discord_bot_url'));
         $bot_url = $bot_url[0]->value;
@@ -28,11 +31,11 @@ class Discord_Module extends Module {
         }
         define('BOT_USERNAME', $bot_username);
 
-        $pages->add('Discord Integration', '/panel/discord', 'pages/panel/discord.php');
+        $pages->add($this->getName(), '/panel/discord', 'pages/panel/discord.php');
 
-        require_once(ROOT_PATH . '/modules/Discord Integration/hooks/DiscordHook.php');
+        require_once(ROOT_PATH . "/modules/{$this->getName()}/hooks/DiscordHook.php");
 
-        Util::loadEndpoints(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'modules', 'Discord Integration', 'includes', 'endpoints')), $endpoints);
+        Util::loadEndpoints(ROOT_PATH . "/modules/{$this->getName()}/includes/endpoints", $endpoints);
     }
 
     public function onInstall() {
@@ -49,11 +52,11 @@ class Discord_Module extends Module {
 
     public function onPageLoad(User $user, Pages $pages, Cache $cache, Smarty $smarty, $navs, Widgets $widgets, $template)
     {
-        PermissionHandler::registerPermissions($this->_language->get('moderator', 'staff_cp'), [
-            'admincp.discord' => $this->_language->get('admin', 'integrations') . ' &raquo; ' . $this->_language->get('admin', 'discord'),
+        PermissionHandler::registerPermissions($this->getName(), [
+            'admincp.discord' => $this->_language->get('admin', 'integrations') . ' &raquo; ' . $this->_discord_integration_language->get('discord_integration', 'discord'),
         ]);
 
-        require_once(ROOT_PATH . '/modules/Discord Integration/widgets/DiscordWidget.php');
+        require_once(ROOT_PATH . "/modules/{$this->getName()}/widgets/DiscordWidget.php");
         $discord = $cache->retrieve('discord');
         $module_pages = $widgets->getPages('Discord');
         $widgets->add(new DiscordWidget($module_pages, $this->_language, $cache, $discord));
@@ -67,7 +70,7 @@ class Discord_Module extends Module {
                     $icon = $cache->retrieve('discord_icon');
                 }
 
-                $navs[2]->addItemToDropdown('integrations', 'discord', $this->_language->get('admin', 'discord'), URL::build('/panel/discord'), 'top', null, $icon, $order);
+                $navs[2]->addItemToDropdown('integrations', 'discord', $this->_discord_integration_language->get('discord_integration', 'discord'), URL::build('/panel/discord'), 'top', null, $icon, $order);
             }
         }
     }

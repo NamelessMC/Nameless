@@ -30,7 +30,7 @@ class DiscordWidget extends WidgetBase {
         $this->_name = 'Discord';
         $this->_location = isset($widget_query->location) ? $widget_query->location : null;
         $this->_description = 'Display your Discord channel on your site. Make sure you have entered your Discord widget details in the StaffCP -> Configuration -> Social Media tab first!';
-        $this->_settings = ROOT_PATH . '/modules/Core/includes/admin_widgets/discord.php';
+        $this->_settings = ROOT_PATH . '/modules/Discord Integration/includes/admin_widgets/discord.php';
         $this->_order = isset($widget_query->order) ? $widget_query->order : null;
     }
 
@@ -54,7 +54,6 @@ class DiscordWidget extends WidgetBase {
 
             // Cache for 60 seconds
             $this->_cache->store('discord_widget_check', $result, 60);
-
         }
 
         // Check if the widget is disabled.
