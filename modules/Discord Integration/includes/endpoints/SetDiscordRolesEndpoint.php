@@ -19,7 +19,7 @@ class SetDiscordRolesEndpoint extends EndpointBase {
         $api->validateParams($_POST, ['user']);
 
         if (!Discord::isBotSetup()) {
-            $api->throwError(34, $api->getLanguage()->get('api', 'discord_integration_disabled'));
+            $api->throwError(34, Discord::getLanguageTerm('discord_integration_disabled'));
         }
 
         $user = $api->getUser('id', $_POST['user']);
@@ -55,6 +55,6 @@ class SetDiscordRolesEndpoint extends EndpointBase {
             Log::getInstance()->log(Log::Action('discord/role_set'), json_encode($log_array), $user->data()->id);
         }
 
-        $api->returnArray(array_merge(array('message' => $api->getLanguage()->get('api', 'group_updated')), $log_array));
+        $api->returnArray(array_merge(array('message' => Discord::getLanguageTerm('group_updated')), $log_array));
     }
 }

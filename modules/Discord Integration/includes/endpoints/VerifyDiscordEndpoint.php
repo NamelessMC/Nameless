@@ -24,7 +24,7 @@ class VerifyDiscordEndpoint extends EndpointBase {
         // Find the user's NamelessMC id
         $verification = $api->getDb()->get('discord_verifications', array('token', '=', $token));
         if (!$verification->count()) {
-            $api->throwError(28, $api->getLanguage()->get('api', 'no_pending_verification_for_token'));
+            $api->throwError(28, Discord::getLanguageTerm('no_pending_verification_for_token'));
         }
         $id = $verification->first()->user_id;
 
@@ -36,9 +36,9 @@ class VerifyDiscordEndpoint extends EndpointBase {
             $api->getDb()->update('users', $id, array('discord_username' => $discord_username));
             $api->getDb()->delete('discord_verifications', array('user_id', '=', $id));
         } catch (Exception $e) {
-            $api->throwError(29, $api->getLanguage()->get('api', 'unable_to_set_discord_id'), $e->getMessage());
+            $api->throwError(29, Discord::getLanguageTerm('unable_to_set_discord_id'), $e->getMessage());
         }
 
-        $api->returnArray(array('message' => $api->getLanguage()->get('api', 'discord_id_set')));
+        $api->returnArray(array('message' => Discord::getLanguageTerm('discord_id_set')));
     }
 }

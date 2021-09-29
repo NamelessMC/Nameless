@@ -49,7 +49,7 @@ if(!isset($_GET['c'])){
         ));
 
         if (Util::isModuleEnabled('Discord Integration')) {
-            Discord::updateDiscordRoles($user, [$user->getMainGroup()->id], [], $language, false);
+            Discord::updateDiscordRoles($user, [$user->getMainGroup()->id], [], false);
         }
 
 		Session::flash('home', $language->get('user', 'validation_complete'));

@@ -489,7 +489,7 @@ if(isset($_GET['do'])){
 						'discord_username' => null
 					));
 
-					Session::flash('settings_success', $language->get('user', 'discord_id_unlinked'));
+					Session::flash('settings_success', Discord::getLanguageTerm('discord_id_unlinked'));
 					Redirect::to(URL::build('/user/settings'));
 					die();
 
@@ -505,7 +505,7 @@ if(isset($_GET['do'])){
                         'discord_id' => 010
                     ));
 
-                    Session::flash('settings_success', str_replace(array('{guild_id}', '{token}'), array(Util::getSetting(DB::getInstance(), 'discord'), $token), $language->get('user', 'discord_id_confirm')));
+                    Session::flash('settings_success', str_replace(array('{guild_id}', '{token}'), array(Discord::getGuildId(), $token), Discord::getLanguageTerm('discord_id_confirm')));
                     Redirect::to(URL::build('/user/settings'));
                     die();
 				}
@@ -709,11 +709,11 @@ if(isset($_GET['do'])){
 		'NEW_PASSWORD' => $language->get('user', 'new_password'),
 		'CONFIRM_NEW_PASSWORD' => $language->get('user', 'confirm_new_password'),
 		'DISCORD_INTEGRATION' => $discord_integration,
-		'DISCORD_LINK' => $language->get('user', 'discord_link'),
+		'DISCORD_LINK' => Discord::getLanguageTerm('discord_link'),
 		'DISCORD_LINKED' => $discord_linked,
-		'DISCORD_USERNAME' => $language->get('user', 'discord_username'),
+		'DISCORD_USERNAME' => Discord::getLanguageTerm('discord_username'),
 		'DISCORD_USERNAME_VALUE' => $user->data()->discord_username,
-		'DISCORD_ID' => $language->get('user', 'discord_id'),
+		'DISCORD_ID' => Discord::getLanguageTerm('discord_user_id'),
 		'TWO_FACTOR_AUTH' => $language->get('user', 'two_factor_auth'),
 		'TIMEZONE' => $language->get('user', 'timezone'),
 		'TIMEZONES' => Util::listTimezones(),
@@ -725,7 +725,7 @@ if(isset($_GET['do'])){
 		'ERROR_TITLE' => $language->get('general', 'error'),
 		'HELP' => $language->get('general', 'help'),
 		'INFO' => $language->get('general', 'info'),
-		'ID_INFO' => $language->get('user', 'discord_id_help'),
+		'ID_INFO' => Discord::getLanguageTerm('discord_id_help'),
 		'ENABLED' => $language->get('user', 'enabled'),
 		'DISABLED' => $language->get('user', 'disabled'),
         'GRAVATAR' => $language->get('user', 'gravatar'),

@@ -17,39 +17,70 @@ if(!$user->handlePanelPageLoad('admincp.discord')) {
 define('PAGE', 'panel');
 define('PARENT_PAGE', 'integrations');
 define('PANEL_PAGE', 'discord');
-$page_title = $language->get('admin', 'discord');
+$page_title = Discord::getLanguageTerm('discord');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 if (Input::exists()) {
-    // Check token
     $errors = array();
 
     if (Token::check()) {
-        // Valid token
-        // Either enable or disable Discord integration
-        $enable_discord_id = $queries->getWhere('settings', array('name', '=', 'discord_integration'));
-        $enable_discord_id = $enable_discord_id[0]->id;
-        if ($_POST['enable_discord'] == '1') {
-            $guild_id = $queries->getWhere('settings', array('name', '=', 'discord'));
-            $guild_id = $guild_id[0]->value;
-            if (BOT_URL == '' || BOT_USERNAME == '' || $guild_id == '') {
-                $errors[] = $language->get('admin', 'discord_bot_must_be_setup');
+        if (isset($_POST['discord_guild_id'])) {
+            $validate = new Validate();
+            $validation = $validate->check($_POST, [
+                'discord_guild_id' => [
+                    Validate::MIN => 18,
+                    Validate::MAX => 18,
+                    Validate::NUMERIC => true,
+                    Validate::REQUIRED => true,
+                ]
+            ])->messages([
+                'discord_guild_id' => [
+                    Validate::MIN => Discord::getLanguageTerm('discord_id_length'),
+                    Validate::MAX => Discord::getLanguageTerm('discord_id_length'),
+                    Validate::NUMERIC => Discord::getLanguageTerm('discord_id_numeric')
+                ]
+            ]);
+
+            if ($validation->passed()) {
+
+                $discord_id = $queries->getWhere('settings', array('name', '=', 'discord'));
+                $discord_id = $discord_id[0]->id;
+
+                $queries->update('settings', $discord_id, array(
+                    'value' => Output::getClean(Input::get('discord_guild_id'))
+                ));
+
+                $success = Discord::getLanguageTerm('discord_settings_updated');
+
+            } else {
+                $errors = $validation->errors();
+            }
+        } else {
+            // Valid token
+            // Either enable or disable Discord integration
+            $enable_discord_id = $queries->getWhere('settings', array('name', '=', 'discord_integration'));
+            $enable_discord_id = $enable_discord_id[0]->id;
+            if ($_POST['enable_discord'] == '1') {
+                if (BOT_URL == '' || BOT_USERNAME == '' || Discord::getGuildId() == '') {
+                    $errors[] = Discord::getLanguageTerm('discord_bot_must_be_setup');
+                    $queries->update('settings', $enable_discord_id, array(
+                        'value' => 0
+                    ));
+                } else {
+                    $queries->update('settings', $enable_discord_id, array(
+                        'value' => 1
+                    ));
+                }
+            } else {
                 $queries->update('settings', $enable_discord_id, array(
                     'value' => 0
                 ));
-            } else {
-                $queries->update('settings', $enable_discord_id, array(
-                    'value' => 1
-                ));
             }
-        } else {
-            $queries->update('settings', $enable_discord_id, array(
-                'value' => 0
-            ));
         }
 
-        if (!count($errors))
-            $success = $language->get('admin', 'discord_settings_updated');
+        if (!count($errors)) {
+            $success = Discord::getLanguageTerm('discord_settings_updated');
+        }
     } else {
         // Invalid token
         $errors[] = array($language->get('general', 'invalid_token'));
@@ -77,28 +108,26 @@ if (Session::exists('discord_error'))
         'ERRORS_TITLE' => $language->get('general', 'error')
     ));
 
-// Check if Discord integration is enabled
-$discord_enabled = Discord::isBotSetup();
-$guild_id = $queries->getWhere('settings', array('name', '=', 'discord'));
-$guild_id = $guild_id[0]->value;
-
 $smarty->assign(array(
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'INTEGRATIONS' => $language->get('admin', 'integrations'),
-    'DISCORD' => $language->get('admin', 'discord'),
+    'DISCORD' => Discord::getLanguageTerm('discord'),
     'PAGE' => PANEL_PAGE,
     'INFO' => $language->get('general', 'info'),
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit'),
-    'ENABLE_DISCORD_INTEGRATION' => $language->get('admin', 'enable_discord_integration'),
-    'DISCORD_ENABLED' => $discord_enabled,
-    'INVITE_LINK' => $language->get('admin', 'discord_invite_info'),
-    'GUILD_ID_SET' => ($guild_id != ''),
+    'ENABLE_DISCORD_INTEGRATION' => Discord::getLanguageTerm('enable_discord_integration'),
+    'DISCORD_ENABLED' => Discord::isBotSetup(),
+    'INVITE_LINK' => Discord::getLanguageTerm('discord_invite_info'),
+    'GUILD_ID_SET' => (Discord::getGuildId() != ''),
     'BOT_URL_SET' => (BOT_URL != ''),
     'BOT_USERNAME_SET' => (BOT_USERNAME != ''),
     'REQUIREMENTS' => rtrim($language->get('installer', 'requirements'), ':'),
-    'BOT_SETUP' => $language->get('admin', 'discord_bot_setup')
+    'BOT_SETUP' => Discord::getLanguageTerm('discord_bot_setup'),
+    'DISCORD_GUILD_ID' => Discord::getLanguageTerm('discord_guild_id'),
+    'DISCORD_GUILD_ID_VALUE' => Discord::getGuildId(),
+    'ID_INFO' => Discord::getLanguageTerm('discord_id_help'),
 ));
 
 $page_load = microtime(true) - $start;

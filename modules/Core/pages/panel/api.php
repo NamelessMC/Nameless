@@ -106,9 +106,9 @@ if (!isset($_GET['view'])) {
                         Validate::MAX => $language->get('admin', 'ingame_group_maximum')
                     ],
                     'discord_role_id' => [
-                        Validate::MIN => $language->get('admin', 'discord_role_id_length'),
-                        Validate::MAX => $language->get('admin', 'discord_role_id_length'),
-                        Validate::NUMERIC => $language->get('admin', 'discord_role_id_numeric')
+                        Validate::MIN => Discord::getLanguageTerm('discord_role_id_length'),
+                        Validate::MAX => Discord::getLanguageTerm('discord_role_id_length'),
+                        Validate::NUMERIC => Discord::getLanguageTerm('discord_role_id_numeric')
                     ]
                 ]);
 
@@ -176,7 +176,7 @@ if (!isset($_GET['view'])) {
                             if (strlen($discord_role_id) == 0 || strlen($discord_role_id) == 18) {
                                 $fields['discord_role_id'] = $discord_role_id;
                             } else {
-                                $errors[] = $language->get('admin', 'discord_role_id_length');
+                                $errors[] = Discord::getLanguageTerm('discord_role_id_length');
                             }
 
                             if (!count($errors)) {
@@ -355,14 +355,14 @@ if (!isset($_GET['view'])) {
                 'INGAME_GROUPS' => is_array($ingame_groups) ? $ingame_groups : array(),
                 'INGAME_GROUP_NAME' => $language->get('admin', 'ingame_group'),
                 'DISCORD_GROUPS' => is_array($discord_groups) ? $discord_groups : array(),
-                'DISCORD_ROLE_ID' => $language->get('admin', 'discord_role_id'),
+                'DISCORD_ROLE_ID' => Discord::getLanguageTerm('discord_role_id'),
                 'WEBSITE_GROUP' => $language->get('admin', 'website_group'),
                 'GROUPS' => $website_groups,
                 'GROUP_SYNC_VALUES' => $template_groups,
                 'DELETE' => $language->get('general', 'delete'),
                 'NEW_RULE' => $language->get('admin', 'new_rule'),
                 'EXISTING_RULES' => $language->get('admin', 'existing_rules'),
-                'DISCORD_INTEGRATION_NOT_SETUP' => $language->get('admin', 'discord_integration_not_setup'),
+                'DISCORD_INTEGRATION_NOT_SETUP' => Discord::getLanguageTerm('discord_integration_not_setup'),
                 'GROUP_SYNC_PLUGIN_NOT_SET_UP' => $language->get('admin', 'group_sync_plugin_not_set_up'),
                 'DELETE_LINK' => URL::build('/panel/core/api/', 'view=group_sync'),
                 'NONE' => $language->get('general', 'none'),

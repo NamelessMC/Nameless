@@ -22,7 +22,7 @@ class ValidateHook {
         $validate_user->setGroup(VALIDATED_DEFAULT);
 
         if (Util::isModuleEnabled('Discord Integration')) {
-            Discord::updateDiscordRoles($validate_user, [VALIDATED_DEFAULT], [], new Language(), false);
+            Discord::updateDiscordRoles($validate_user, [VALIDATED_DEFAULT], [], false);
         }
     }
 

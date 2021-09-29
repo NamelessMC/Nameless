@@ -507,7 +507,7 @@ class Util {
      * @param string $path Path to scan from.
      * @param Endpoints $endpoints Instance of Endpoints class to register endpoints to.
      */
-    public static function loadEndpoints($path, $endpoints) {
+    public static function loadEndpoints($path, Endpoints $endpoints) {
         $rii = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS));
 
         foreach ($rii as $file) {

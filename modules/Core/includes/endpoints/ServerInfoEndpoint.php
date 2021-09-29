@@ -105,6 +105,8 @@ class ServerInfoEndpoint extends EndpointBase {
             if ($group_sync->count()) {
                 $group_sync = $group_sync->results();
 
+                $discord_enabled = Util::isModuleEnabled('Discord Integration');
+
                 foreach ($_POST['players'] as $uuid => $player) {
                     $user = $this->getUser($uuid);
                     if ($user->data()) {
@@ -117,7 +119,9 @@ class ServerInfoEndpoint extends EndpointBase {
                                 if($user->addGroup($group->website_group_id, 0, array(true))) {
                                     $log_array['added'][] = $group->name;
                                     
-                                    Discord::updateDiscordRoles($user, [$group->website_group_id], [], $api->getLanguage(), false);
+                                    if ($discord_enabled) {
+                                        Discord::updateDiscordRoles($user, [$group->website_group_id], [], false);
+                                    }
                                 }
                             } else {
                                 // Check if user have another group synced to this NamelessMC group
@@ -132,8 +136,10 @@ class ServerInfoEndpoint extends EndpointBase {
                                 // Remove group if user have it
                                 if($user->removeGroup($group->website_group_id)) {
                                     $log_array['removed'][] = $group->name;
-                                    
-                                    Discord::updateDiscordRoles($user, [], [$group->website_group_id], $api->getLanguage(), false);
+
+                                    if ($discord_enabled) {
+                                        Discord::updateDiscordRoles($user, [], [$group->website_group_id], false);
+                                    }
                                 }
                             }
                         }

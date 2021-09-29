@@ -16,7 +16,14 @@ class UserInfoEndpoint extends EndpointBase {
     }
 
     public function execute(Nameless2API $api) {
-        $query = 'SELECT nl2_users.id, nl2_users.username, nl2_users.language_id, nl2_languages.name as `language`, nl2_users.nickname as displayname, nl2_users.uuid, nl2_users.joined as registered_timestamp, nl2_users.last_online as last_online_timestamp, nl2_users.isbanned as banned, nl2_users.active as validated, nl2_users.user_title as user_title, nl2_users.discord_id as discord_id FROM nl2_users LEFT JOIN nl2_languages ON nl2_users.language_id = nl2_languages.id';
+        $discord_enabled = Util::isModuleEnabled('Discord Integration');
+
+        if ($discord_enabled) {
+            $query = 'SELECT nl2_users.id, nl2_users.username, nl2_users.language_id, nl2_languages.name as `language`, nl2_users.nickname as displayname, nl2_users.uuid, nl2_users.joined as registered_timestamp, nl2_users.last_online as last_online_timestamp, nl2_users.isbanned as banned, nl2_users.active as validated, nl2_users.user_title as user_title, nl2_users.discord_id as discord_id FROM nl2_users LEFT JOIN nl2_languages ON nl2_users.language_id = nl2_languages.id';
+        } else {
+            $query = 'SELECT nl2_users.id, nl2_users.username, nl2_users.language_id, nl2_languages.name as `language`, nl2_users.nickname as displayname, nl2_users.uuid, nl2_users.joined as registered_timestamp, nl2_users.last_online as last_online_timestamp, nl2_users.isbanned as banned, nl2_users.active as validated, nl2_users.user_title as user_title, =FROM nl2_users LEFT JOIN nl2_languages ON nl2_users.language_id = nl2_languages.id';
+        }
+
         $where = '';
         $params = array();
 
@@ -29,7 +36,7 @@ class UserInfoEndpoint extends EndpointBase {
         } else if (isset($_GET['uuid'])) {
             $where .= ' WHERE nl2_users.uuid = ?';
             array_push($params, str_replace('-', '', $_GET['uuid']));
-        } else if (isset($_GET['discord_id'])) {
+        } else if ($discord_enabled && isset($_GET['discord_id'])) {
             $where .= ' WHERE nl2_users.discord_id = ?';
             array_push($params, $_GET['discord_id']);
         } else {
@@ -50,7 +57,7 @@ class UserInfoEndpoint extends EndpointBase {
         $user->last_online_timestamp = intval($user->last_online_timestamp);
         $user->banned = (bool) $user->banned;
         $user->validated = (bool) $user->validated;
-        if ($user->discord_id != null) {
+        if ($discord_enabled && $user->discord_id != null) {
             $user->discord_id = intval($user->discord_id);
         }
 
@@ -71,17 +78,22 @@ class UserInfoEndpoint extends EndpointBase {
 
         $groups_array = array();
         foreach ($groups as $group) {
-            $groups_array[] = array(
+            $group_array = [
                 'id' => intval($group->id),
                 'name' => $group->name,
                 'staff' => (bool) $group->staff,
                 'order' => intval($group->order),
                 'ingame_rank_name' => Util::getIngameRankName($group->id),
-                'discord_role_id' => intval(Discord::getDiscordRoleId($api->getDb(), $group->id))
-            );
+            ];
+
+            if ($discord_enabled) {
+                $group_array['discord_role_id'] = intval(Discord::getDiscordRoleId($api->getDb(), $group->id));
+            }
+
+            $groups_array[] = $group_array;
         }
         $user->groups = $groups_array;
 
-        $api->returnArray((array)$user);
+        $api->returnArray((array) $user);
     }
 }

@@ -3,7 +3,6 @@
 class Discord_Module extends Module {
     
     private $_language;
-    private $_discord_integration_language;
 
     public function __construct(Language $language, Pages $pages, Queries $queries, Endpoints $endpoints) {
         $this->_language = $language;
@@ -14,8 +13,6 @@ class Discord_Module extends Module {
         $nameless_version = '2.0.0-pr12';
 
         parent::__construct($this, $name, $author, $module_version, $nameless_version);
-
-        $this->_discord_integration_language = new Language(ROOT_PATH . "/modules/{$this->getName()}/language", LANGUAGE);
 
         $bot_url = $queries->getWhere('settings', array('name', '=', 'discord_bot_url'));
         $bot_url = $bot_url[0]->value;
@@ -53,13 +50,13 @@ class Discord_Module extends Module {
     public function onPageLoad(User $user, Pages $pages, Cache $cache, Smarty $smarty, $navs, Widgets $widgets, $template)
     {
         PermissionHandler::registerPermissions($this->getName(), [
-            'admincp.discord' => $this->_language->get('admin', 'integrations') . ' &raquo; ' . $this->_discord_integration_language->get('discord_integration', 'discord'),
+            'admincp.discord' => $this->_language->get('admin', 'integrations') . ' &raquo; ' . Discord::getLanguageTerm('discord'),
         ]);
 
         require_once(ROOT_PATH . "/modules/{$this->getName()}/widgets/DiscordWidget.php");
         $discord = $cache->retrieve('discord');
         $module_pages = $widgets->getPages('Discord');
-        $widgets->add(new DiscordWidget($module_pages, $this->_language, $cache, $discord));
+        $widgets->add(new DiscordWidget($module_pages, $cache, $discord));
 
         if (!defined('FRONT_END')) {
             if ($user->hasPermission('admincp.discord')) {
@@ -70,7 +67,7 @@ class Discord_Module extends Module {
                     $icon = $cache->retrieve('discord_icon');
                 }
 
-                $navs[2]->addItemToDropdown('integrations', 'discord', $this->_discord_integration_language->get('discord_integration', 'discord'), URL::build('/panel/discord'), 'top', null, $icon, $order);
+                $navs[2]->addItemToDropdown('integrations', 'discord', Discord::getLanguageTerm('discord'), URL::build('/panel/discord'), 'top', null, $icon, $order);
             }
         }
     }

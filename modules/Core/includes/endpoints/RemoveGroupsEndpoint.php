@@ -26,11 +26,15 @@ class RemoveGroupsEndpoint extends EndpointBase {
             $api->throwError(6, $api->getLanguage()->get('api', 'invalid_post_contents'));
         }
 
+        $discord_enabled = Util::isModuleEnabled('Discord Integration');
+
         foreach ($groups as $group) {
             $user->removeGroup($group);
 
-            // Attempt to update their discord role as well, but ignore any output/errors
-            Discord::updateDiscordRoles($user, [], [$group], $api->getLanguage(), false);
+            if ($discord_enabled) {
+                // Attempt to update their discord role as well, but ignore any output/errors
+                Discord::updateDiscordRoles($user, [], [$group], false);
+            }
         }
 
         $api->returnArray(array('message' => $api->getLanguage()->get('api', 'group_updated')));

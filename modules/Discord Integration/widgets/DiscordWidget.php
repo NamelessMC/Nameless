@@ -11,12 +11,10 @@
  */
 class DiscordWidget extends WidgetBase {
 
-    private $_language,
-            $_cache,
+    private $_cache,
             $_discord;
 
-    public function __construct($pages = array(), $language, $cache, $discord = '') {
-        $this->_language = $language;
+    public function __construct($pages = array(), $cache, $discord = '') {
         $this->_cache = $cache;
         $this->_discord = $discord;
 
@@ -59,7 +57,7 @@ class DiscordWidget extends WidgetBase {
         // Check if the widget is disabled.
         if (!isset($result->channels) || isset($result->code)) {
             // Yes, it is: display message
-            $this->_content = $this->_language->get('general', 'discord_widget_disabled');
+            $this->_content = Discord::getLanguageTerm('discord_widget_disabled');
 
         } else {
             // No, it isn't: display the widget

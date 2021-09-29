@@ -40,7 +40,7 @@ class AddGroupsEndpoint extends EndpointBase {
 
             if (Util::isModuleEnabled('Discord Integration')) {
                 // Attempt to update their discord role as well, but ignore any output/errors
-                Discord::updateDiscordRoles($user, [$group], [], $api->getLanguage(), false);
+                Discord::updateDiscordRoles($user, [$group], [], false);
             }
         }
 

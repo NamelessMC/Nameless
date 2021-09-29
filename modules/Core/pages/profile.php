@@ -714,7 +714,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     $profile_user = new User($query->id);
     if (Util::isModuleEnabled('Discord Integration') && Discord::isBotSetup() && $profile_user->data()->discord_username != null) {
         $fields[] = array(
-            'title' => $language->get('user', 'discord_username') . ':',
+            'title' => Discord::getLanguageTerm('discord_username') . ':',
             'type' => 'text',
             'value' => $profile_user->data()->discord_username
         );
