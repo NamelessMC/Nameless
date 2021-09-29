@@ -257,15 +257,3 @@ $language = array(
     'discord_unknown_error' => 'เกิดข้อผิดพลาดที่ไม่รู้จักขณะซิงค์บทบาท Discord โปรดติดต่อผู้ดูแลระบบ',
     'discord_id_help' => 'สำหรับข้อมูลเกี่ยวกับตำแหน่งของ Discord ID โปรดอ่าน <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">this.</a>'
 );
-© 2021 GitHub, Inc.
-Terms
-Privacy
-Security
-Status
-Docs
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About

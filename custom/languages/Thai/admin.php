@@ -1,4 +1,4 @@
-<? php
+<?php
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
@@ -778,5 +778,4 @@ $language = array(
     'discord_bot_error_unauthorized' => 'คีย์ API ของเว็บไซต์ไม่ถูกต้อง',
     'discord_bot_error_invrole' => 'รหัสบทบาทที่ระบุไม่ถูกต้อง',
     'discord_bot_error_hierarchy' => 'บอทไม่สามารถแก้ไขสิ่งนี้ได้ user\'s roles.'
-
 );
