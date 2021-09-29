@@ -54,9 +54,8 @@ class Discord_Module extends Module {
         ]);
 
         require_once(ROOT_PATH . "/modules/{$this->getName()}/widgets/DiscordWidget.php");
-        $discord = $cache->retrieve('discord');
         $module_pages = $widgets->getPages('Discord');
-        $widgets->add(new DiscordWidget($module_pages, $cache, $discord));
+        $widgets->add(new DiscordWidget($module_pages, $cache));
 
         if (!defined('FRONT_END')) {
             if ($user->hasPermission('admincp.discord')) {

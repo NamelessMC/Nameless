@@ -112,8 +112,6 @@ $smarty->assign(array(
     'TWITTER_URL_VALUE' => Output::getClean($twitter_url[0]->value),
     'TWITTER_STYLE' => $language->get('admin', 'twitter_dark_theme'),
     'TWITTER_STYLE_VALUE' => $twitter_style[0]->value,
-    'DISCORD_SERVER_ID' => Discord::getLanguageTerm('discord_guild_id'),
-    'DISCORD_SERVER_ID_VALUE' => Discord::getGuildId(),
     'FACEBOOK_URL' => $language->get('admin', 'facebook_url'),
     'FACEBOOK_URL_VALUE' => Output::getClean($fb_url[0]->value),
 ));

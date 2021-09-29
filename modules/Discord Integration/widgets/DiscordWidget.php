@@ -11,12 +11,13 @@
  */
 class DiscordWidget extends WidgetBase {
 
-    private $_cache,
-            $_discord;
+    /** @var Cache */
+    private $_cache;
+    private $_guild_id;
 
-    public function __construct($pages = array(), $cache, $discord = '') {
+    public function __construct($pages = array(), $cache) {
         $this->_cache = $cache;
-        $this->_discord = $discord;
+        $this->_guild_id = Discord::getGuildId();
 
         parent::__construct($pages);
 
@@ -27,7 +28,7 @@ class DiscordWidget extends WidgetBase {
         $this->_module = 'Discord Integration';
         $this->_name = 'Discord';
         $this->_location = isset($widget_query->location) ? $widget_query->location : null;
-        $this->_description = 'Display your Discord channel on your site. Make sure you have entered your Discord widget details in the StaffCP -> Configuration -> Social Media tab first!';
+        $this->_description = 'Display your Discord channel on your site. Make sure you have entered your Discord widget details in the StaffCP -> Integrations -> Discord tab first!';
         $this->_settings = ROOT_PATH . '/modules/Discord Integration/includes/admin_widgets/discord.php';
         $this->_order = isset($widget_query->order) ? $widget_query->order : null;
     }
@@ -45,7 +46,7 @@ class DiscordWidget extends WidgetBase {
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
             curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-            curl_setopt($ch, CURLOPT_URL, "https://discord.com/api/guilds/" . Output::getClean($this->_discord) . "/widget.json");
+            curl_setopt($ch, CURLOPT_URL, "https://discord.com/api/guilds/" . Output::getClean($this->_guild_id) . "/widget.json");
             $result = curl_exec($ch);
             $result = json_decode($result);
             curl_close($ch);
@@ -66,7 +67,7 @@ class DiscordWidget extends WidgetBase {
             if($this->_cache->isCached('discord_widget_theme'))
                 $theme = $this->_cache->retrieve('discord_widget_theme');
 
-            $this->_content = '<iframe src="https://discord.com/widget?id=' . Output::getClean($this->_discord) . '&theme=' . Output::getClean($theme) . '" width="100%" height="500" allowtransparency="true" frameborder="0"></iframe><br />';
+            $this->_content = '<iframe src="https://discord.com/widget?id=' . Output::getClean($this->_guild_id) . '&theme=' . Output::getClean($theme) . '" width="100%" height="500" allowtransparency="true" frameborder="0"></iframe><br />';
 
         }
     }
