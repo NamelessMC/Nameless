@@ -249,6 +249,11 @@ $queries->create('languages', array(
 	'is_default' => (Session::get('default_language') == 'Turkish') ? 1 : 0
 ));
 
+$queries->create('languages', array(
+	'name' => 'Thai',
+	'is_default' => (Session::get('default_language') == 'Thai') ? 1 : 0
+));
+
 $cache->setCache('languagecache');
 $cache->store('language', Session::get('default_language'));
 
