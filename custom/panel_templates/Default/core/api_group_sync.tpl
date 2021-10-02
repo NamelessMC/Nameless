@@ -69,7 +69,7 @@
                                                         </select>
                                                     {else}
                                                         <p class="text-muted" style="padding-top: 5px">{$injector->getNotEnabledMessage($LANGUAGE)}</p>
-                                                        <input name="{$column_name}" type="hidden" id="inputIngame">
+                                                        <input name="{$column_name}" type="hidden" id="input_{$column_name}">
                                                     {/if}
                                                 </div>
                                             {/foreach}
@@ -109,7 +109,7 @@
                                                 </select>
                                             {else}
                                                 <p class="text-muted" style="padding-top: 5px">{$injector->getNotEnabledMessage($LANGUAGE)}</p>
-                                                <input name="{$column_name}" type="hidden" id="inputIngame">
+                                                <input name="{$column_name}" type="hidden" id="input_{$column_name}">
                                             {/if}
                                         </div>
                                     {/foreach}
