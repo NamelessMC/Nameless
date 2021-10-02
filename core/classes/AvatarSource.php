@@ -29,35 +29,35 @@ class AvatarSource {
      * @return string Compiled URL of avatar image.
      */
     public static function getAvatarFromUUID($uuid, $size = 128) {
-        if (defined('DEFAULT_AVATAR_PERSPECTIVE')) {
-            $perspective = DEFAULT_AVATAR_PERSPECTIVE;
-        } else {
-            $perspective = 'face';
-        }
-
-        return self::getActiveSource()->getAvatar($uuid, $perspective, $size);
+        return self::getActiveSource()->getAvatar($uuid, self::getDefaultPerspective(), $size);
     }
 
     /**
      * Get raw url of active avatar source with placeholders.
      * 
-     * @param string $perspective Perspective to render.
      * @return string URL with placeholders.
      */
     public static function getUrlToFormat() {
-        if (defined('DEFAULT_AVATAR_PERSPECTIVE')) {
-            $perspective = DEFAULT_AVATAR_PERSPECTIVE;
-        } else {
-            $perspective = 'face';
-        }
-
         // Default to Cravatar
         if (!self::getActiveSource()) {
             require_once(ROOT_PATH . '/modules/Core/classes/CravatarAvatarSource.php');
-            return (new CravatarAvatarSource())->getUrlToFormat($perspective);
+            return (new CravatarAvatarSource())->getUrlToFormat(self::getDefaultPerspective());
         }
 
-        return self::getActiveSource()->getUrlToFormat($perspective);
+        return self::getActiveSource()->getUrlToFormat(self::getDefaultPerspective());
+    }
+
+    /**
+     * Get default perspective to pass to the active avatar source.
+     * 
+     * @return string Perspective.
+     */
+    private static function getDefaultPerspective() {
+        if (defined('DEFAULT_AVATAR_PERSPECTIVE')) {
+            return DEFAULT_AVATAR_PERSPECTIVE;
+        }
+
+        return 'face';
     }
 
     /**
@@ -71,7 +71,8 @@ class AvatarSource {
 
     /** 
      * Get the currently active avatar source.
-     * @return AvatarSourceBase 
+     * 
+     * @return AvatarSourceBase The active source.
      */
     public static function getActiveSource() {
         return self::$_active_source;

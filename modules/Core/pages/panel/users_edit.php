@@ -39,23 +39,26 @@ Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mo
 
 if (isset($_GET['action'])) {
     if ($_GET['action'] == 'validate') {
-        // Validate the user
-        if ($user_query->active == 0) {
-            $queries->update('users', $user_query->id, array(
-                'active' => 1,
-                'reset_code' => ''
-            ));
+        if (Token::check()) {
+            // Validate the user
+            if ($user_query->active == 0) {
+                $queries->update('users', $user_query->id, array(
+                    'active' => 1,
+                    'reset_code' => ''
+                ));
 
-            HookHandler::executeEvent('validateUser', array(
-                'event' => 'validateUser',
-                'user_id' => $user_query->id,
-                'username' => Output::getClean($user_query->username),
-                'uuid' => Output::getClean($user_query->uuid),
-                'language' => $language
-            ));
+                HookHandler::executeEvent('validateUser', array(
+                    'event' => 'validateUser',
+                    'user_id' => $user_query->id,
+                    'username' => Output::getClean($user_query->username),
+                    'uuid' => Output::getClean($user_query->uuid),
+                    'language' => $language
+                ));
 
-            Session::flash('edit_user_success', $language->get('admin', 'user_validated_successfully'));
+                Session::flash('edit_user_success', $language->get('admin', 'user_validated_successfully'));
+            }
         }
+
     } else if ($_GET['action'] == 'update_mcname') {
         require_once(ROOT_PATH . '/core/integration/uuid.php');
         $uuid = $user_query->uuid;

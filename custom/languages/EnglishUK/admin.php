@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr11
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -169,6 +169,7 @@ $language = array(
 
     // Placeholders
     'placeholders' => 'Placeholders',
+    'enable_placeholders' => 'Enable Placeholders?',
     'updated_placeholder_settings' => 'Updated placeholder settings successfully.',
     'placeholders_info' => 'Placeholders allow the NamelessMC Spigot plugin to send statistics about each player to your website so they can display them on their profile and forum posts.',
     'placeholders_none' => 'There are no placeholders.',
@@ -737,7 +738,7 @@ $language = array(
     'discord_widget_theme' => 'Discord Widget Theme',
     'discord_id_length' => 'Please ensure your Discord ID is 18 characters long.',
     'discord_id_numeric' => 'Please ensure your Discord ID is numeric (Numbers only).',
-    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://namelessmc.com/discord-bot-invite">here</a>. Then, send a DM to the bot with the <code>!apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
+    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://namelessmc.com/discord-bot-invite">here</a>. Then, run the <code>/apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
     'discord_bot_must_be_setup' => 'Cannot enable Discord Integration until you have set up the bot. For information, please <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">click here</a>.',
     'discord_bot_setup' => 'Bot set up?',
     'discord_integration_not_setup' => 'Discord integration is not set up',

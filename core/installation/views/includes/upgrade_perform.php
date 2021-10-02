@@ -762,6 +762,10 @@ switch ($s) {
             'name' => 'Turkish',
             'is_default' => 0
         ));
+        $queries->create('languages', array(
+            'name' => 'Thai',
+            'is_default' => 0
+        ));
         $cache->setCache('languagecache');
         $cache->store('language', 'EnglishUK');
 
@@ -1049,6 +1053,11 @@ switch ($s) {
         $queries->create('settings', array(
             'name' => 'discord_bot_username',
             'value' => null
+        ));
+        
+        $queries->create('settings', array(
+            'name' => 'placeholders',
+            'value' => '0'
         ));
 
         // Templates

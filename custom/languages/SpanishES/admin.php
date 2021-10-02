@@ -2,7 +2,7 @@
 /*
  *  Translated by ManiaNetwork
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr11
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -169,6 +169,7 @@ $language = array(
 
     // Placeholders
     'placeholders' => 'Marcadores de posición',
+    'enable_placeholders' => 'Enable Placeholders?',
     'updated_placeholder_settings' => 'Se ha actualizado la configuración del marcador de posición con éxito.',
     'placeholders_info' => 'Los marcadores de posición permiten que el plugin NamelessMC Spigot envíe las estadísticas de cada jugador a su sitio web para que puedan mostrarlas en su perfil y en los mensajes del foro.',
     'placeholders_none' => 'No hay marcadores de posición.',
@@ -737,7 +738,7 @@ $language = array(
     'discord_widget_theme' => 'Tema del Widget de Discord',
     'discord_id_length' => 'Por favor, asegúrate de que la ID de Discord tiene 18 caracteres.',
     'discord_id_numeric' => 'Por favor, asegúrese de que su ID de Discord es numérica (sólo números).',
-    'discord_invite_info' => 'Para invitar al bot Nameless Link a tu servidor de Discord, haz clic en <a target="_blank" href="https://namelessmc.com/discord-bot-invite">aquí</a>. A continuación, envía un DM al bot con el comando <code>!apiurl</code> para enlazar el bot con tu sitio web. También puedes <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">alojar el bot tú mismo</a>.',
+    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://namelessmc.com/discord-bot-invite">here</a>. Then, run the <code>/apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
     'discord_bot_must_be_setup' => 'No se puede habilitar la integración de Discord hasta que no se haya configurado el bot. Para obtener información, por favor <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">haga clic aquí</a>.',
     'discord_bot_setup' => '¿Bot instalado?',
     'discord_integration_not_setup' => 'La integración de Discord no está configurada',

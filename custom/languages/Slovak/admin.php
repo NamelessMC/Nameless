@@ -2,7 +2,7 @@
 /*
  *  Made by RobiNN
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr11
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -169,6 +169,7 @@ $language = array(
 
     // Placeholders
     'placeholders' => 'Placeholdery',
+    'enable_placeholders' => 'Enable Placeholders?',
     'updated_placeholder_settings' => 'Nastavenia placeholderov boli úspešne aktualizované.',
     'placeholders_info' => 'Placeholdery umožňujú NamelessMC Spigot pluginu odosielať štatistiky o jednotlivých hráčoch na vaše webstránky, aby ich mohli zobrazovať vo svojich profiloch a príspevkoch na fóre.',
     'placeholders_none' => 'Neexistujú žiadne placeholdery.',
@@ -737,7 +738,7 @@ $language = array(
     'discord_widget_theme' => 'Téma Discord widgetu',
     'discord_id_length' => 'Uistite sa, že vaše Discord ID má 18 znakov.',
     'discord_id_numeric' => 'Uistite sa, že vaše Discord ID je číselné (iba čísla).',
-    'discord_invite_info' => 'Ak chcete pozvať bota Nameless Link na váš Discord server, kliknite <a target="_blank" href="https://namelessmc.com/discord-bot-invite">tu</a>. Potom pošlite DM botovi pomocou príkazu <code>!apiurl</code>, ktorý prepojí bota s vašou webstránkou. Prípadne môžete <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">bota hosťovať sami</a>.',
+    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://namelessmc.com/discord-bot-invite">here</a>. Then, run the <code>/apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
     'discord_bot_must_be_setup' => 'Discord integráciu nie je možné povoliť, kým nenastavíte bota. Pre informáciu prosím <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">kliknite tu</a>.',
     'discord_bot_setup' => 'Bot nastavený?',
     'discord_integration_not_setup' => 'Integrácia Discordu nie je nastavená',

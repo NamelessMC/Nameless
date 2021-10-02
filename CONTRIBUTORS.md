@@ -17,7 +17,7 @@ Unfortunately it's only possible to view contributors for the default branch. Fo
 - German: [BattleDev](https://github.com/BinFlauschigDEV), [BukkitTNT](https://github.com/BukkitTNT), [H4nSolo](https://github.com/H4nSolo)
 - Greek: [ArisC](https://github.com/Ar1sC)
 - Italian: [alsoGAMER](https://github.com/alsoGAMER)
-- Japanese: [Mari0914](https://github.com/Mari0914), [SimplyRin](https://www.simplyrin.net)
+- Japanese: [Mari0914](https://github.com/Mari0914), [SimplyRin](https://www.simplyrin.net), [snake](https://viasnake.com)
 - Lithuanian: [Govindas](https://github.com/Govindass), [Justas](https://github.com/madebyjustas)
 - Norwegian: [HeyImSushii](https://github.com/HeyImSushii), [Maiu](https://github.com/Maiu15), [OscarWoHA](https://github.com/OscarWoHA)
 - Polish: brzezinsky, Cubixor, [kacperleague9](https://github.com/kacperleague9)

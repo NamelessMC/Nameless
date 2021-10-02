@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr11
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -82,7 +82,7 @@ $language = array(
     'discord_widget_theme' => 'Discord Widget 主题',
     'discord_id_length' => '请确保您的 Discord ID 长 18 位。',
     'discord_id_numeric' => '请确保您的 Discord ID 只包含数字。',
-    'discord_invite_info' => '您可点击<a target="_blank" href="https://namelessmc.com/discord-bot-invite">此处</a>来将 Nameless Link 机器人邀请至您的 Discord 服务器. 随后，您需要向机器人发送包含 <code>!apiurl</code> 命令的消息来链接您的网站。或者，您也可以<a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">自己部署机器人</a>。',
+    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://namelessmc.com/discord-bot-invite">here</a>. Then, run the <code>/apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
     'discord_bot_must_be_setup' => '您必须配置 Discord 机器人后才能启用 Discord 集成。您可<a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">点击此处</a>了解详情。',
     'discord_bot_setup' => '机器人已配置?',
     'discord_integration_not_setup' => 'Discord 集成尚未配置',
@@ -182,6 +182,7 @@ $language = array(
 
     // Placeholders
     'placeholders' => '占位符',
+    'enable_placeholders' => 'Enable Placeholders?',
     'updated_placeholder_settings' => '占位符设置更新成功。',
     'placeholders_info' => '通过占位符功能，NamelessMC Spigot 插件可以向您的网站上显示关于玩家的信息，这样，玩家就可以把这些信息添加到自己的个人资料上。',
     'placeholders_none' => '没有任何占位符。',
@@ -536,7 +537,7 @@ $language = array(
     'action_info' => '操作信息',
     'groups_removed' => '删除的权限组',
     'groups_added' => '添加的权限组',
-    
+
     // Updates
     'update' => '更新',
     'current_version_x' => '当前版本: <strong>{x}</strong>', // Don't replace {x}

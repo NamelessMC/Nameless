@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -13,6 +13,13 @@
 if(!$user->isLoggedIn()){
 	Redirect::to(URL::build('/'));
 	die();
+}
+
+// Placeholders enabled?
+$placeholders_enabled = $configuration->get('Core', 'placeholders');
+if($placeholders_enabled != 1) {
+    require_once(ROOT_PATH . '/404.php');
+    die();
 }
  
 // Always define page name for navbar

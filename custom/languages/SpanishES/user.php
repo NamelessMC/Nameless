@@ -13,7 +13,7 @@ $language = array(
     /*
      *  Change this for the account validation message
      */
-    'validate_account_command' => 'Para completar el registro, ejecuta el comando <strong>/validate {x}</strong> dentro del juego.', // Don't replace {x}
+    'validate_account_command' => 'Para completar el registro, ejecuta el comando <strong>/verify {x}</strong> dentro del juego.', // Don't replace {x}
 
     /*
      *  User Related
@@ -245,7 +245,7 @@ $language = array(
     'not_linked' => 'No vinculado',
     'discord_id' => 'ID de usuario de Discord',
     'discord_id_unlinked' => 'Se ha desvinculado con éxito su ID de usuario de Discord.',
-    'discord_id_confirm' => 'Por favor, envía este mensaje: "!verify {guild_id}:{token}" a {bot_username} para confirmar tu ID de usuario de Discord.',
+    'discord_id_confirm' => 'Please run the command "/verify token:{token}" in Discord to finish linking your Discord account.',
     'pending_link' => 'Pendiente',
     'discord_id_taken' => 'Esa ID de Discord ya ha sido tomada.',
     'discord_invalid_id' => 'Esa ID de usuario de Discord no es válida.',

@@ -3,7 +3,7 @@
  *	Made by Samerton
  *  Announcements by Aberdeener
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -11,6 +11,7 @@
  */
 class Announcements {
     
+    /** @var Cache */
     private $_cache;
     
     public function __construct($cache) {
@@ -46,7 +47,7 @@ class Announcements {
     public function getAvailable($page = null, $custom_page = null, $user_groups = [0]) {
         $announcements = array();
 
-        foreach(self::getAll() as $announcement) {
+        foreach($this->getAll() as $announcement) {
 
             if (Cookie::exists('announcement-' . $announcement->id)) {
                 continue;
@@ -131,7 +132,7 @@ class Announcements {
             '`order`' => $order
         ));
 
-        self::resetCache();
+        $this->resetCache();
         return true;
     }
 
@@ -163,7 +164,7 @@ class Announcements {
             'order' => $order
         ));
 
-        self::resetCache();
+        $this->resetCache();
         return true;
     }
 
@@ -178,6 +179,6 @@ class Announcements {
             $this->_cache->erase('custom_announcements');
         }
 
-        $this->_cache->store('custom_announcements', self::getAll());
+        $this->_cache->store('custom_announcements', $this->getAll());
     }
 }

@@ -61,50 +61,17 @@ if (!isset($_GET['view'])) {
                 )
             );
 
+            // Update email verification
             $verification = isset($_POST['verification']) && $_POST['verification'] == 'on' ? 1 : 0;
+            $configuration->set('Core', 'email_verification', $verification);
 
-            $verification_id = $queries->getWhere('settings', array('name', '=', 'email_verification'))[0]->id;
-            try {
-                $queries->update(
-                    'settings',
-                    $verification_id,
-                    array(
-                        'value' => $verification
-                    )
-                );
-            } catch (Exception $e) {
-                $errors[] = $e->getMessage();
-            }
-
+            // Update API verification
             $api_verification = isset($_POST['api_verification']) && $_POST['api_verification'] == 'on' ? 1 : 0;
-            $api_verification_id = $queries->getWhere('settings', array('name', '=', 'api_verification'))[0]->id;
+            $configuration->set('Core', 'api_verification', $api_verification);
 
-            try {
-                $queries->update(
-                    'settings',
-                    $api_verification_id,
-                    array(
-                        'value' => $api_verification
-                    )
-                );
-            } catch (Exception $e) {
-                $errors[] = $e->getMessage();
-            }
-
+            // Update Username sync
             $username_sync = isset($_POST['username_sync']) && $_POST['username_sync'] == 'on' ? 1 : 0;
-            $username_sync_id = $queries->getWhere('settings', array('name', '=', 'username_sync'))[0]->id;
-
-            try {
-                $queries->update(
-                    'settings',
-                    $username_sync_id,
-                    array(
-                        'value' => $username_sync
-                    )
-                );
-            } catch (Exception $e) {
-                $errors[] = $e->getMessage();
-            }
+            $configuration->set('Core', 'username_sync', $username_sync);
 
             Session::flash('api_success', $language->get('admin', 'api_settings_updated_successfully'));
 
@@ -287,16 +254,13 @@ if (!isset($_GET['view'])) {
     $plugin_api = $plugin_api[0]->value;
 
     // Is email verification enabled
-    $emails = $queries->getWhere('settings', array('name', '=', 'email_verification'));
-    $emails = $emails[0]->value;
+    $emails = $configuration->get('Core', 'email_verification');
 
     // Is API verification enabled?
-    $api_verification = $queries->getWhere('settings', array('name', '=', 'api_verification'));
-    $api_verification = $api_verification[0]->value;
+    $api_verification = $configuration->get('Core', 'api_verification');
 
     // Is the username sync enabled?
-    $username_sync = $queries->getWhere('settings', array('name', '=', 'username_sync'));
-    $username_sync = $username_sync[0]->value;
+    $username_sync = $configuration->get('Core', 'username_sync');
 
     $smarty->assign(
         array(

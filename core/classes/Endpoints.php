@@ -12,7 +12,8 @@
 
 class Endpoints {
 
-    private $_endpoints = array();
+    /** @var EndpointBase[] */
+    private $_endpoints = [];
 
     /**
      * Get all registered Endpoints
@@ -42,7 +43,6 @@ class Endpoints {
      * @return bool True when endpoint is found and executed, false if not.
      */
     public function handle($request, Nameless2API $api) {
-
         foreach ($this->getAll() as $endpoint) {
             if ($endpoint->getRoute() == $request) {
                 $endpoint->execute($api);

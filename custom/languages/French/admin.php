@@ -2,7 +2,7 @@
 /*
  *  Made by White.
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr11
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -159,6 +159,7 @@ $language = array(
 
     // Placeholders
     'placeholders' => 'Espace réservé',
+    'enable_placeholders' => 'Enable Placeholders?',
     'updated_placeholder_settings' => 'Mise à jour des paramètres de l\'espace réservé avec succès.',
     'placeholders_info' => 'Les espaces réservés permettent au plugin NamelessMC Spigot d\'envoyer des statistiques sur chaque joueur à votre site web afin qu\'il puisse les afficher sur son profil et dans les messages du forum.',
     'placeholders_none' => 'Il n\'y a pas d\'espace réservé.',

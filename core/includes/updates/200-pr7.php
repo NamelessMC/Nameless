@@ -41,7 +41,7 @@ try {
 
 // Discord Integration
 try {
-    DB::getInstance()->query("CREATE TABLE `nl2_discord_verifications` (
+    DB::getInstance()->createQuery("CREATE TABLE `nl2_discord_verifications` (
         `id` int(11) NOT NULL AUTO_INCREMENT,
         `token` varchar(23) NOT NULL,
         `user_id` int(11) NOT NULL,
@@ -121,7 +121,7 @@ try {
     echo $e->getMessage() . '<br />';
 }
 try {
-    DB::getInstance()->query("CREATE TABLE `nl2_custom_announcements` (
+    DB::getInstance()->createQuery("CREATE TABLE `nl2_custom_announcements` (
         `id` int(11) NOT NULL AUTO_INCREMENT,
         `pages` varchar(1024) NOT NULL,
         `groups` varchar(1024) NOT NULL,
@@ -144,7 +144,7 @@ try {
 
 // Group Username Colour + Group CSS
 try {
-    DB::getInstance()->query("ALTER TABLE `nl2_groups` CHANGE `group_username_css` `group_username_color` VARCHAR(256) CHARACTER SET $db_charset NULL DEFAULT NULL;");
+    DB::getInstance()->createQuery("ALTER TABLE `nl2_groups` CHANGE `group_username_css` `group_username_color` VARCHAR(256) CHARACTER SET $db_charset NULL DEFAULT NULL;");
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
@@ -216,17 +216,17 @@ try {
 
 // Labels
 try {
-    DB::getInstance()->query("ALTER TABLE `nl2_forums_labels` CHANGE `html` `html` VARCHAR(1024) CHARACTER SET $db_charset NULL DEFAULT NULL;");
+    DB::getInstance()->createQuery("ALTER TABLE `nl2_forums_labels` CHANGE `html` `html` VARCHAR(1024) CHARACTER SET $db_charset NULL DEFAULT NULL;");
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
 try {
-    DB::getInstance()->query("ALTER TABLE `nl2_forums_labels` CHANGE `name` `name` VARCHAR(32) CHARACTER SET $db_charset NULL DEFAULT NULL;");
+    DB::getInstance()->createQuery("ALTER TABLE `nl2_forums_labels` CHANGE `name` `name` VARCHAR(32) CHARACTER SET $db_charset NULL DEFAULT NULL;");
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
 try {
-    DB::getInstance()->query("ALTER TABLE `nl2_forums_topic_labels` CHANGE `gids` `gids` VARCHAR(256) CHARACTER SET $db_charset NULL DEFAULT NULL;");
+    DB::getInstance()->createQuery("ALTER TABLE `nl2_forums_topic_labels` CHANGE `gids` `gids` VARCHAR(256) CHARACTER SET $db_charset NULL DEFAULT NULL;");
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
@@ -252,7 +252,7 @@ try {
 
 // Delete "group_id" from nl2_users table to prevent issues of it not being set
 try {
-    DB::getInstance()->query('ALTER TABLE `nl2_users` DROP COLUMN `group_id`;');
+    DB::getInstance()->createQuery('ALTER TABLE `nl2_users` DROP COLUMN `group_id`;');
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }

@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton & Translated by Codiaz
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr11
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -166,7 +166,36 @@ $language = array(
     'emails_mass_message_loading' => 'Loading... Please do not reload the page. This may take a while.',
     'administrator' => 'Administrator',
     'administrator_permission_info' => 'Members with this permission will have every permission. This is a dangerous permission to grant.',
-    
+
+    // Placeholders
+    'placeholders' => 'Placeholders',
+    'enable_placeholders' => 'Enable Placeholders?',
+    'updated_placeholder_settings' => 'Updated placeholder settings successfully.',
+    'placeholders_info' => 'Placeholders allow the NamelessMC Spigot plugin to send statistics about each player to your website so they can display them on their profile and forum posts.',
+    'placeholders_none' => 'There are no placeholders.',
+    'placeholders_server_id' => 'Server ID',
+    'placeholders_name' => 'Name',
+    'placeholders_value' => 'Value',
+    'placeholders_player' => 'Player',
+    'placeholders_score' => 'Score',
+    'placeholders_last_updated' => 'Last Updated',
+    'placeholders_friendly_name' => 'Friendly Name',
+    'placeholders_friendly_name_info' => 'Use this to set a \'nickname\' to this placeholder. The friendly name will be used instead of the raw name.',
+    'placeholders_show_on_profile' => 'Show on Profile',
+    'placeholders_show_on_profile_info' => 'Whether to show this placeholder on each user\'s profile or not.',
+    'placeholders_show_on_forum' => 'Show on Forum',
+    'placeholders_show_on_forum_info' => 'Whether to show this placeholder on each user\'s forum posts or not.',
+
+    // Placeholder leaderboards
+    'leaderboard_settings' => 'Leaderboard Settings',
+    'placeholder_leaderboard_settings' => 'Placeholder Leaderboard Settings',
+    'placeholder_leaderboard_info' => 'Placeholder Leaderboards let you create leaderboards to display ranked players on your server according to any placeholder.',
+    'placeholder_leaderboard_enable_info' => 'Leaderboards work best with numeric placeholders (such as coins, kills, blocks mined, etc). If you enable a leaderboard on a text-based placeholder - you cannot be sure it will order it as you want.',
+    'placeholder_leaderboard_updated' => 'Updated leaderboard settings successfully',
+    'placeholder_leaderboard_enabled' => 'Leaderboard Enabled',
+    'placeholder_leaderboard_title' => 'Leaderboard Title',
+    'placeholder_leaderboard_sort' => 'Leaderboard Sort',
+
     // SEO
     'seo' => 'SEO',
     'google_analytics' => 'Google Analytics',
@@ -587,6 +616,7 @@ $language = array(
     'group_sync_rule_created_successfully' => 'The group sync rule has been created successfully.',
     'group_sync_rules_updated_successfully' => 'Group sync rules have been updated successfully.',
     'group_sync_rule_deleted_successfully' => 'The group sync rule has been deleted successfully.',
+	'group_sync_plugin_not_set_up' => 'Plugin not set up',
     'existing_rules' => 'Existing Rules',
     'new_rule' => 'New Rule',
     'api_endpoints' => 'API Endpoints',
@@ -705,7 +735,7 @@ $language = array(
     'discord_widget_theme' => 'Discord Widget Theme',
     'discord_id_length' => 'Please ensure your Discord ID is 18 characters long.',
     'discord_id_numeric' => 'Please ensure your Discord ID is numeric (Numbers only).',
-    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://namelessmc.com/discord-bot-invite">here</a>. Then, send a DM to the bot with the <code>!apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
+    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://namelessmc.com/discord-bot-invite">here</a>. Then, run the <code>/apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
     'discord_bot_must_be_setup' => 'Cannot enable Discord Integration until you have set up the bot. For information, please <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">click here</a>.',
     'discord_bot_setup' => 'Bot set up?',
     'discord_integration_not_setup' => 'Discord integration is not set up',

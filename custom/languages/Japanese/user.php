@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr12
+ *  NamelessMC version 2.0.0-pr11
  *
  *  Translator
  *  - SimplyRin( @SimplyRin_, https://www.simplyrin.net )
@@ -18,7 +18,7 @@ $language = array(
     /*
      *  Change this for the account validation message
      */
-    'validate_account_command' => '登録を完了するには、ゲーム内で<strong>/validate {x}</strong>コマンドを送信してください。', // Don't replace {x}
+    'validate_account_command' => '登録を完了するには、ゲーム内で<strong>/verify {x}</strong>コマンドを送信してください。', // Don't replace {x}
 
     /*
      *  User Related
@@ -41,8 +41,8 @@ $language = array(
     'delete_all' => 'すべて削除',
     'private_profile' => 'プライベートプロフィール',
     'gif_avatar' => 'カスタムアバターとして.gifをアップロード',
-    'placeholders' => 'Placeholders',
-    'no_placeholders' => 'No Placeholders',
+    'placeholders' => 'プレースホルダー',
+    'no_placeholders' => 'プレースホルダーなし',
 
     // Profile settings
     'field_is_required' => '{x}は必須です。', // Don't replace {x}
@@ -148,8 +148,8 @@ $language = array(
     'must_input_email' => 'メールアドレスを入力する必要があります。',
     'must_input_username' => 'ユーザー名を入力する必要があります。',
     'must_input_password' => 'パスワードを入力する必要があります。',
-    'must_input_email_or_username' => 'You must input an email or username.',
-    'email_or_username' => 'Email or Username',
+    'must_input_email_or_username' => 'メールアドレスまたはユーザー名の入力が必要です。',
+    'email_or_username' => 'メールアドレスまたはユーザー名',
 
     // Forgot password
     'forgot_password_instructions' => 'パスワードをリセットするための詳しい説明をお送りしますので、メールアドレスを入力してください。',
@@ -252,7 +252,7 @@ $language = array(
     'not_linked' => 'リンクされていません',
     'discord_id' => 'DiscordユーザーID',
     'discord_id_unlinked' => 'Discord ユーザーIDのリンクを解除することに成功しました。',
-    'discord_id_confirm' => 'このメッセージを送信してください: "!verify {guild_id}:{token}" を {bot_username} に送信してDiscord ユーザーIDを確認します。',
+    'discord_id_confirm' => 'Please run the command "/verify token:{token}" in Discord to finish linking your Discord account.',
     'pending_link' => '保留中',
     'discord_id_taken' => 'そのDiscord IDはすでに取られています。',
     'discord_invalid_id' => 'そのDiscord ユーザーIDは無効です。',

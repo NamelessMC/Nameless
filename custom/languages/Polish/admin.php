@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr11
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -80,7 +80,7 @@ $language = array(
     'discord_widget_theme' => 'Styl widgetu Discord',
     'discord_id_length' => 'Sprawdź czy twoje ID Serwera Discord ma 18 znaków.',
     'discord_id_numeric' => 'Sprawdź czy twoje ID Discord ma odpowiednią ilość znaków (Tylko numery).',
-    'discord_invite_info' => 'Aby zaprosić bota kliknij <a target="_blank" href="https://namelessmc.com/discord-bot-invite">tutaj</a>. Następnie napisz do Bota <code>!apiurl</code>. Możesz również <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">hostować bota samemu</a>.',
+    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://namelessmc.com/discord-bot-invite">here</a>. Then, run the <code>/apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
     'discord_bot_must_be_setup' => 'Nie można włączyć integracji Discord dopóki dobrze jej nie skonfigurujesz, zobacz <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">ten artykuł</a>.',
     'discord_bot_setup' => 'Konfiguracja Bota',
     'discord_integration_not_setup' => 'Integracja Discord nie jest włączona',
@@ -180,6 +180,7 @@ $language = array(
 
     // Placeholders
     'placeholders' => 'Placeholders',
+    'enable_placeholders' => 'Enable Placeholders?',
     'updated_placeholder_settings' => 'Updated placeholder settings successfully.',
     'placeholders_info' => 'Placeholders allow the NamelessMC Spigot plugin to send statistics about each player to your website so they can display them on their profile and forum posts.',
     'placeholders_none' => 'There are no placeholders.',
@@ -533,7 +534,7 @@ $language = array(
     'action_info' => 'Informacje o Akcji',
     'groups_removed' => 'Groups Removed',
     'groups_added' => 'Groups Added',
-    
+
     // Updates
     'update' => 'Zaktualizuj',
     'current_version_x' => 'Aktualna wersja: <strong>{x}</strong>', // Don't replaec {x}

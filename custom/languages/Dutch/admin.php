@@ -4,7 +4,7 @@
  *  en vertaald en bijgewerkt door Sander Lambrechts, Jesse Geerts, Derkades, smessie en Tin Xian
  *
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr11
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -80,7 +80,7 @@ $language = array(
     'discord_widget_theme' => 'Discord Widget Thema',
     'discord_id_length' => 'Zorg ervoor dat uw Discord ID 18 karakters lang is.',
     'discord_id_numeric' => 'Zorg ervoor dat uw Discord ID numeriek is (alleen cijfers).',
-    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://namelessmc.com/discord-bot-invite">here</a>. Then, send a DM to the bot with the <code>!apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
+    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://namelessmc.com/discord-bot-invite">here</a>. Then, run the <code>/apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
     'discord_bot_must_be_setup' => 'Cannot enable Discord Integration until you have setup the bot. For information, please <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">click here</a>.',
     'discord_bot_setup' => 'Bot Setup',
     'discord_integration_not_setup' => 'Discord Integration is not setup',
@@ -182,6 +182,7 @@ $language = array(
 
     // Placeholders
     'placeholders' => 'Placeholders',
+    'enable_placeholders' => 'Enable Placeholders?',
     'updated_placeholder_settings' => 'Updated placeholder settings successfully.',
     'placeholders_info' => 'Placeholders allow the NamelessMC Spigot plugin to send statistics about each player to your website so they can display them on their profile and forum posts.',
     'placeholders_none' => 'There are no placeholders.',
@@ -533,7 +534,7 @@ $language = array(
     'action_info' => 'Actie Info',
     'groups_removed' => 'Groups Removed',
     'groups_added' => 'Groups Added',
-    
+
     // Updates
     'update' => 'Bijwerken',
     'current_version_x' => 'Huidige versie: <strong>{x}</strong>', // Verander "{x}" niet
@@ -639,6 +640,7 @@ $language = array(
     'group_sync_rule_created_successfully' => 'De groep synchronisatie regel is succesvol aangemaakt.',
     'group_sync_rules_updated_successfully' => 'Group synchronisatie regels zijn succesvol bijgewerkt.',
     'group_sync_rule_deleted_successfully' => 'De group synchronisatie regel is succesvol verwijderd.',
+	'group_sync_plugin_not_set_up' => 'Plugin not set up',
     'existing_rules' => 'Bestaande Regels',
     'new_rule' => 'Nieuwe Regel',
     'api_endpoints' => 'API Endpoints',

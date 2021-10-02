@@ -12,7 +12,7 @@
 
 $language = array(
     // Change this for the account validation message
-    'validate_account_command' => 'Norėdami užbaigti registraciją, rašykite komandą <strong>/validate {x}</strong> žaidime.', // Don't replace {x}
+    'validate_account_command' => 'Norėdami užbaigti registraciją, rašykite komandą <strong>/verify {x}</strong> žaidime.', // Don't replace {x}
 
     // User Related
     'guest' => 'Svečias',
@@ -240,7 +240,7 @@ $language = array(
     'not_linked' => 'Not Linked',
     'discord_id' => 'Discord User ID',
     'discord_id_unlinked' => 'Successfully unlinked your Discord User ID.',
-    'discord_id_confirm' => 'Please send this message: "!verify {guild_id}:{token}" to {bot_username} to confirm your Discord User ID.',
+    'discord_id_confirm' => 'Please run the command "/verify token:{token}" in Discord to finish linking your Discord account.',
     'pending_link' => 'Pending',
     'discord_id_taken' => 'That Discord ID has already been taken.',
     'discord_invalid_id' => 'That Discord User ID is invalid.',

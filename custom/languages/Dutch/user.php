@@ -15,7 +15,7 @@ $language = array(
     /*
      *  Change this for the account validation message
      */
-    'validate_account_command' => 'Om de registratie te voltooien, run alstublieft het commando <strong>/validate {x}</strong> ingame.', // Don't replace {x}
+    'validate_account_command' => 'Om de registratie te voltooien, run alstublieft het commando <strong>/verify {x}</strong> ingame.', // Don't replace {x}
 
     /*
      *  Gebruiker gerelateerd
@@ -249,7 +249,7 @@ $language = array(
     'not_linked' => 'Niet Gekoppeld',
     'discord_id' => 'Discord Gebruikers ID',
     'discord_id_unlinked' => 'Succesvol ontkoppeld van uw Discord Gebruikers-ID.',
-    'discord_id_confirm' => 'Please send this message: "!verify {guild_id}:{token}" to {bot_username} to confirm your Discord User ID.',
+    'discord_id_confirm' => 'Please run the command "/verify token:{token}" in Discord to finish linking your Discord account.',
     'pending_link' => 'Wachtende',
     'discord_id_taken' => 'Die Discord Gebruikers-ID is al ingenomen.',
     'discord_invalid_id' => 'Dat Discord Gebruikers-ID is ongeldig.',

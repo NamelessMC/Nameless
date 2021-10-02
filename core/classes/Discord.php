@@ -2,7 +2,7 @@
 /*
  *	Made by Aberdeener
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr10
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -10,7 +10,16 @@
  */
 class Discord {
 
-    private static $_valid_responses = array('fullsuccess', 'badparameter', 'error', 'invguild', 'invuser', 'notlinked', 'unauthorized', 'invrole');
+    private static $_valid_responses = [
+        'fullsuccess',
+        'badparameter',
+        'error',
+        'invguild',
+        'invuser',
+        'notlinked',
+        'unauthorized',
+        'invrole'
+    ];
 
     public static function discordBotRequest($url = '/status', $body = null) {
         $response = Util::curlGetContents(BOT_URL . $url, $body);
@@ -28,9 +37,9 @@ class Discord {
         $discord_role_id = $db->get('group_sync', array('website_group_id', '=', $group_id));
         if ($discord_role_id->count()) {
             return $discord_role_id->first()->discord_role_id;
-        } else {
-            return null;
         }
+
+        return null;
     }
 
     public static function getWebsiteGroup(DB $db, $discord_role_id) {
@@ -100,26 +109,24 @@ class Discord {
             return json_decode(file_get_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('discord_roles') . '.cache'), true);
         }
         
-        return array();
+        return [];
     }
 
     private static function parseErrors($result, Language $language) {
-        $errors = array();
-
         if ($result === false) {
             // This happens when the url is invalid OR the bot is unreachable (down, firewall, etc) OR they have `allow_url_fopen` disabled in php.ini OR the bot returned a new error (they should always check logs)
-            $errors[] = $language->get('user', 'discord_communication_error');
-            $errors[] = $language->get('admin', 'discord_bot_check_logs');
-        } else {
-            if (in_array($result, self::$_valid_responses)) {
-                $errors[] = $language->get('admin', 'discord_bot_error_' . $result);
-            } else {
-                // This should never happen
-                $errors[] = $language->get('user', 'discord_unknown_error');
-            }
+            return [
+                $language->get('user', 'discord_communication_error'),
+                $language->get('admin', 'discord_bot_check_logs'),
+            ];
         }
 
-        return $errors;
+        if (in_array($result, self::$_valid_responses)) {
+            return [$language->get('admin', 'discord_bot_error_' . $result)];
+        }
+
+        // This should never happen
+        return [$language->get('user', 'discord_unknown_error')];
     }
 
     private static function assembleGroupArray($groups, $action) {
@@ -143,11 +150,11 @@ class Discord {
     
     private static function assembleJson($user_id, $added_arr, $removed_arr) {
         // TODO cache or define() website api key and discord guild id
-        $return = array();
-        $return['guild_id'] = trim(Output::getClean(Util::getSetting(DB::getInstance(), 'discord')));
-        $return['user_id'] = $user_id;
-        $return['api_key'] = trim(Output::getClean(Util::getSetting(DB::getInstance(), 'mc_api_key')));
-        $return['roles'] = array_merge($added_arr, $removed_arr);
-        return json_encode($return);
+        return json_encode([
+            'guild_id' => trim(Output::getClean(Util::getSetting(DB::getInstance(), 'discord'))),
+            'user_id' => $user_id,
+            'api_key' => trim(Output::getClean(Util::getSetting(DB::getInstance(), 'mc_api_key'))),
+            'roles' => array_merge($added_arr, $removed_arr),
+        ]);
     }
 }

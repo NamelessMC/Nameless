@@ -71,7 +71,9 @@ if($user->isLoggedIn()){
 
 		$cache->store('default_group', $default_group);
 	}
-	if(in_array($default_group, $user->getAllGroupIds()) && ($user->data()->reset_code)) {
+    
+    $api_verification = $configuration->get('Core', 'api_verification');
+	if($api_verification == 1 && in_array($default_group, $user->getAllGroupIds()) && ($user->data()->reset_code)) {
 		// User needs to validate account
 		$smarty->assign('MUST_VALIDATE_ACCOUNT', str_replace('{x}', Output::getClean($user->data()->reset_code), $language->get('user', 'validate_account_command')));
 	}
@@ -132,5 +134,5 @@ if(!empty($favicon_image))
     $smarty->assign('FAVICON', Output::getClean($favicon_image));
 
 $analytics_id = $configuration->get('Core', 'ga_script');
-if($analytics_id != null && !empty($analytics_id))
-    $smarty->assign('ANALYTICS_ID', $analytics_id);
+if ($analytics_id)
+    $smarty->assign('ANALYTICS_ID', Output::getClean($analytics_id));

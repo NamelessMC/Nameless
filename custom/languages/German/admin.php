@@ -3,7 +3,7 @@
  *  Made by Samerton
  *  Translation by BukkitTNT, M_Viper
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr11
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -80,7 +80,7 @@ $language = array(
     'discord_widget_theme' => 'Discord Widget Theme',
     'discord_id_length' => 'Bitte stellen Sie sicher, dass Ihre Discord ID 18 Zeichen lang ist.',
     'discord_id_numeric' => 'Bitte stellen Sie sicher, dass Ihre Discord ID numerisch ist (nur Zahlen)..',
-    'discord_invite_info' => 'Klicken Sie auf <a target="_blank" href="https://namelessmc.com/discord-bot-invite">Bot</a>. um den Nameless Link-Bot auf Ihren Discord-Server einzuladen. Senden Sie dann mit dem Befehl <code>!apiurl</code> eine DM an den Bot, um den Bot mit Ihrer Website zu verknüpfen. Alternativ können Sie den Bot <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">selbst hosten </a>.',
+    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://namelessmc.com/discord-bot-invite">here</a>. Then, run the <code>/apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
     'discord_bot_must_be_setup' => 'Die Discord-Integration kann erst aktiviert werden, wenn Sie den Bot eingerichtet haben. Für Informationen klicken Sie bitte  <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">click hier</a>.',
     'discord_bot_setup' => 'Bot Setup',
     'discord_integration_not_setup' => 'Die Discord-Integration ist nicht eingerichtet',
@@ -180,6 +180,7 @@ $language = array(
 
     // Placeholders
     'placeholders' => 'Placeholders',
+    'enable_placeholders' => 'Enable Placeholders?',
     'updated_placeholder_settings' => 'Updated placeholder settings successfully.',
     'placeholders_info' => 'Placeholders allow the NamelessMC Spigot plugin to send statistics about each player to your website so they can display them on their profile and forum posts.',
     'placeholders_none' => 'There are no placeholders.',
@@ -532,7 +533,7 @@ $language = array(
     'action_info' => 'Aktion Info',
     'groups_removed' => 'Groups Removed',
     'groups_added' => 'Groups Added',
-    
+
     // Updates
     'update' => 'Update',
     'current_version_x' => 'Aktuelle Version: <strong>{x}</strong>', // Don't replaec {x}
@@ -638,6 +639,7 @@ $language = array(
     'group_sync_rule_created_successfully' => 'Die Gruppensynchronisierungsregel wurde erfolgreich erstellt.',
     'group_sync_rules_updated_successfully' => 'Gruppensynchronisierungsregeln wurden erfolgreich aktualisiert.',
     'group_sync_rule_deleted_successfully' => 'Die Gruppensynchronisierungsregel wurde erfolgreich gelöscht.',
+	'group_sync_plugin_not_set_up' => 'Plugin not set up',
     'existing_rules' => 'Bestehende Regeln',
     'new_rule' => 'Neue Regel',
     'api_endpoints' => 'API-Endpunkte',

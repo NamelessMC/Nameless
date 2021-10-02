@@ -32,8 +32,7 @@ try {
 try {
     $recaptcha_type = DB::getInstance()->query('SELECT id FROM nl2_settings WHERE `name` = ? AND `value` = ?', array('recaptcha_type', 'reCaptcha'));
     if ($recaptcha_type->count()) {
-        $id = $recaptcha_type->first()->id;
-        DB::getInstance()->createQuery('UPDATE nl2_settings SET `value` = ? WHERE id = ?', array('Recaptcha2', $id));
+        $configuration->set('Core', 'recaptcha_type', 'Recaptcha2');
     }
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';

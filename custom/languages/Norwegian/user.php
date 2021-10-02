@@ -13,7 +13,7 @@ $language = array(
     /*
      *  Change this for the account validation message
      */
-    'validate_account_command' => 'For å fullføre registeringen, skriv inn kommandoen <strong>/validate {x}</strong> ingame.', // Don't replace {x}
+    'validate_account_command' => 'For å fullføre registeringen, skriv inn kommandoen <strong>/verify {x}</strong> ingame.', // Don't replace {x}
 
     /*
      *  User Related
@@ -246,7 +246,7 @@ $language = array(
     'not_linked' => 'Ikke tilkoblet',
     'discord_id' => 'Discord-bruker-ID',
     'discord_id_unlinked' => 'Discord-bruker-ID-en din har blitt frakoblet.',
-    'discord_id_confirm' => 'Vennligst send meldingen: "!verify {guild_id}:{token}" til {bot_username} for å bekrefte din Discord-bruker-ID.',
+    'discord_id_confirm' => 'Please run the command "/verify token:{token}" in Discord to finish linking your Discord account.',
     'pending_link' => 'Venter',
     'discord_id_taken' => 'Den oppgitte Discord-bruker-ID-en er allerede koblet til en annen bruker.',
     'discord_invalid_id' => 'Den oppgitte Discord-bruker-ID-en er ikke gyldig.',

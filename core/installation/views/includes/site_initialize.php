@@ -249,6 +249,11 @@ $queries->create('languages', array(
 	'is_default' => (Session::get('default_language') == 'Turkish') ? 1 : 0
 ));
 
+$queries->create('languages', array(
+	'name' => 'Thai',
+	'is_default' => (Session::get('default_language') == 'Thai') ? 1 : 0
+));
+
 $cache->setCache('languagecache');
 $cache->store('language', Session::get('default_language'));
 
@@ -613,6 +618,11 @@ $queries->create('privacy_terms', array(
 $queries->create('settings', array(
 	'name' => 'status_page',
 	'value' => '1'
+));
+
+$queries->create('settings', array(
+    'name' => 'placeholders',
+    'value' => '0'
 ));
 
 // Templates

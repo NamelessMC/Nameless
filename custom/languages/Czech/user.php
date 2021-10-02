@@ -14,7 +14,7 @@ $language = array(
     /*
      *  Change this for the account validation message
      */
-    'validate_account_command' => 'Pro dokončení registrace zadejte ve hře příkaz <strong>/validate {x}</strong>.', // Don't replace {x}
+    'validate_account_command' => 'Pro dokončení registrace zadejte ve hře příkaz <strong>/verify {x}</strong>.', // Don't replace {x}
 
     /*
      *  User Related
@@ -246,7 +246,7 @@ $language = array(
     'not_linked' => 'Nepropojeno',
     'discord_id' => 'Uživatelské Discord ID',
     'discord_id_unlinked' => 'Úspěšně jste odpojili své uživatelské ID.',
-    'discord_id_confirm' => 'Pošlete prosím tuto zprávu: "!verify {guild_id}:{token}" uživateli {bot_username} pro potvrzení vašeho uživatelského ID.',
+    'discord_id_confirm' => 'Please run the command "/verify token:{token}" in Discord to finish linking your Discord account.',
     'pending_link' => 'Čekání',
     'discord_id_taken' => 'Toto Discord ID je již zabráno.',
     'discord_invalid_id' => 'Toto uživatelské Discord ID je neplatné.',

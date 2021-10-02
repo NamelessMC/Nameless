@@ -3,7 +3,7 @@
  *	Made by Aberdeener
  *
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr10
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -136,7 +136,7 @@ class Placeholders {
      * @return array Array of placeholders which have leaderboard enabled.
      */
     public function getLeaderboardPlaceholders() {
-        return array_filter($this->_all_placeholders, function ($placeholder) {
+        return array_filter($this->_all_placeholders, static function ($placeholder) {
             return $placeholder->leaderboard;
         });
     }

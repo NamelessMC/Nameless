@@ -81,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 							create_field('text', $language['database_address'], 'db_address', 'inputDBAddress', '127.0.0.1');
 							create_field('text', $language['database_port'], 'db_port', 'inputDBPort', '3306');
 							create_field('text', $language['database_username'], 'db_username', 'inputDBUsername');
-							create_field('text', $language['database_password'], 'db_password', 'inputDBPassword');
+							create_field('password', $language['database_password'], 'db_password', 'inputDBPassword');
 							create_field('text', $language['database_name'], 'db_name', 'inputDBName');
 						?>
 					</div>

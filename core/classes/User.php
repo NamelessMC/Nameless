@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr11
+ *  NamelessMC version 2.0.0-pr12
  *
  *  User class
  */
@@ -13,7 +13,6 @@ class User {
     
     private $_data,
             $_groups,
-            $_placeholders,
             $_sessionName,
             $_cookieName,
             $_isLoggedIn,
@@ -25,6 +24,7 @@ class User {
         $this->_sessionName = Config::get('session/session_name');
         $this->_cookieName = Config::get('remember/cookie_name');
         $this->_admSessionName = Config::get('session/admin_name');
+        $this->_placeholders = [];
 
         if (!$user) {
             if (Session::exists($this->_sessionName)) {
@@ -117,7 +117,6 @@ class User {
 
             if ($data->count()) {
                 $this->_data = $data->first();
-                $this->_placeholders = [];
 
                 // Get user groups
                 $groups_query = $this->_db->query('SELECT nl2_groups.* FROM nl2_users_groups INNER JOIN nl2_groups ON group_id = nl2_groups.id WHERE user_id = ? AND deleted = 0 ORDER BY `order`;', array($this->_data->id));
@@ -562,8 +561,7 @@ class User {
      * @return array Profile placeholders.
      */
     public function getProfilePlaceholders() {
-        if (!is_array($this->_placeholders)) return [];
-        return array_filter($this->_placeholders, function($placeholder) {
+        return array_filter($this->_placeholders, static function ($placeholder) {
             return $placeholder->show_on_profile;
         });
     }
@@ -574,8 +572,7 @@ class User {
      * @return array Forum placeholders.
      */
     public function getForumPlaceholders() {
-        if (!is_array($this->_placeholders)) return [];
-        return array_filter($this->_placeholders, function($placeholder) {
+        return array_filter($this->_placeholders, static function ($placeholder) {
             return $placeholder->show_on_forum;
         });
     }
@@ -620,7 +617,7 @@ class User {
         
         $this->_groups = array();
         if($group_data == null) {
-            $group_data = $this->_db->get('groups', array('id', '=', $group_id))->first();
+            $group_data = $this->_db->get('groups', array('id', '=', $group_id));
             if ($group_data->count()) {
                 $this->_groups[$group_id] = $group_data->first();
             }
@@ -655,7 +652,7 @@ class User {
         );
         
         if($group_data == null) {
-            $group_data = $this->_db->get('groups', array('id', '=', $group_id))->first();
+            $group_data = $this->_db->get('groups', array('id', '=', $group_id));
             if ($group_data->count()) {
                 $this->_groups[$group_id] = $group_data->first();
             }

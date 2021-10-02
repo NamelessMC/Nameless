@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr11
+ *  NamelessMC version 2.0.0-pr12
  *
  *  Translator
  *  - SimplyRin( @SimplyRin_, https://www.simplyrin.net )
@@ -85,10 +85,10 @@ $language = array(
     'discord_widget_theme' => 'Discord ウィジェットテーマ',
     'discord_id_length' => 'Discord IDは18文字以内にしてください。',
     'discord_id_numeric' => 'Discord IDが数字であることを確認してください(数字のみ)',
-    'discord_invite_info' => 'Nameless Link botをDiscordサーバーに招待するには、<a target="_blank" href="https://namelessmc.com/discord-bot-invite">こちら</a>をクリックします。その後、ボットに<code>!apiurl</code>コマンドでDMを送り、ボットとウェブサイトをリンクさせます。あるいは、<a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">自分でボットをホスティングすることもできます</a>。',
-    'discord_bot_must_be_setup' => 'ボットを設定するまでは、Discordインテグレーションを有効にすることはできません。詳細については、<a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">ここをクリック</a>してください。',
+    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://namelessmc.com/discord-bot-invite">here</a>. Then, run the <code>/apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
+    'discord_bot_must_be_setup' => 'ボットを設定するまでは、Discord統合を有効にすることはできません。詳細については、<a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">ここをクリック</a>してください。',
     'discord_bot_setup' => 'ボットの設定',
-    'discord_integration_not_setup' => 'Discordインテグレーションが設定されていません',
+    'discord_integration_not_setup' => 'Discord統合が設定されていません',
     'dark' => 'ダーク',
     'light' => 'ライト',
     'google_plus_url' => 'Google+ URL',
@@ -180,11 +180,12 @@ $language = array(
     'emails_mass_message_sent_successfully' => '大量のメールメッセージの送信に成功しました。',
     'emails_mass_message_replacements' => 'メールメッセージでは、変数を使用することができます。サポートされている変数: {username}, {sitename}',
     'emails_mass_message_loading' => '読み込み中... ページを再読み込みしないでください。しばらく時間がかかる場合があります。',
-    'administrator' => 'Administrator',
-    'administrator_permission_info' => 'Members with this permission will have every permission. This is a dangerous permission to grant.',
+    'administrator' => '管理者',
+    'administrator_permission_info' => 'この権限を持つメンバーは、すべての権限を持つことになります。これは許可するのは危険です。',
 
     // Placeholders
     'placeholders' => 'プレースホルダー',
+    'enable_placeholders' => 'Enable Placeholders?',
     'updated_placeholder_settings' => 'プレースホルダーの設定を更新しました。',
     'placeholders_info' => 'プレースホルダーは、NamelessMC Spigotプラグインが各プレイヤーの統計情報をウェブサイトに送信し、プレイヤーがプロフィールやフォーラムの投稿に表示できるようにするためのものです。',
     'placeholders_none' => 'プレースホルダーはありません。',
@@ -539,7 +540,7 @@ $language = array(
     'action_info' => '操作情報',
     'groups_removed' => '削除されたグループ',
     'groups_added' => '追加されたグループ',
-    
+
     // Updates
     'update' => 'アップデート',
     'current_version_x' => '現在のバージョン: <strong>{x}</strong>', // Don't replaec {x}

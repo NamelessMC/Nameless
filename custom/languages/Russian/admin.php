@@ -3,7 +3,7 @@
  *  Made by Samerton
  *  Translated by Я научу тебя шить XIMI
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr11
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -81,7 +81,7 @@ $language = array(
     'discord_widget_theme' => 'Тема для виджета',
     'discord_id_length' => 'Убедитесь что ваш ID длинее 18 символов.',
     'discord_id_numeric' => 'Убедитесь что ваш ID состоит из цифр.',
-    'discord_invite_info' => 'Чтобы пригласить бота на ваш сервер, нажмите <a target="_blank" href="https://namelessmc.com/discord-bot-invite">сюда</a>. Затем, напишите боту команду <code>!apiurl</code> для подключения сайта. Как вариант, вы можете <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">подключить своего бота</a>.',
+    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://namelessmc.com/discord-bot-invite">here</a>. Then, run the <code>/apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
     'discord_bot_must_be_setup' => 'Нельзя интегрировать сайт, пока вы не подключите бота. Информация <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">здесь</a>.',
     'discord_bot_setup' => 'Бот настроен?',
     'discord_integration_not_setup' => 'Discord не настроен',
@@ -181,6 +181,7 @@ $language = array(
 
     // Placeholders
     'placeholders' => 'Placeholders',
+    'enable_placeholders' => 'Enable Placeholders?',
     'updated_placeholder_settings' => 'Updated placeholder settings successfully.',
     'placeholders_info' => 'Placeholders allow the NamelessMC Spigot plugin to send statistics about each player to your website so they can display them on their profile and forum posts.',
     'placeholders_none' => 'There are no placeholders.',
