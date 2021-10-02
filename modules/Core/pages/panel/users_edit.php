@@ -221,42 +221,33 @@ if (Input::exists()) {
                         'theme_id' => $new_template
                     ));
 
-                    // Get current group ids
-                    $user_groups = array();
-                    foreach ($view_user->getGroups() as $group) {
-                        $user_groups[$group->id] = $group->id;
-                    }
-
-                    // Get groups
                     if ($view_user->data()->id != $user->data()->id || $user->hasPermission('admincp.groups.self')) {
                         if ($view_user->data()->id == 1 || (isset($_POST['groups']) && count($_POST['groups']))) {
-                            $added = array();
-                            // Any new groups?
+                            $modified = [];
+
+                            // Check for new groups to give them which they dont already have
                             foreach ($_POST['groups'] as $group) {
-                                if (!in_array($group, $user_groups)) {
+                                if (!in_array($group, $view_user->getAllGroupIds())) {
                                     $view_user->addGroup($group, 0, array(true));
-                                    $added[] = $group;
+                                    $modified[] = $group;
                                 }
                             }
 
-                            $removed = array();
-                            // Any groups to remove?
+                            // Check for groups they had, but werent in the $_POST groups
                             foreach ($view_user->getGroups() as $group) {
                                 $form_groups = isset($_POST['groups']) ? $_POST['groups'] : [];
                                 if (!in_array($group->id, $form_groups)) {
-                                    // be sure root user keep the root group
-                                    if ($group->id == 2 && $view_user->data()->id == 1) {
-                                        continue;
-                                    }
-
                                     $view_user->removeGroup($group->id);
-                                    $removed[] = $group->id;
+                                    $modified[] = $group->id;
                                 }
                             }
 
-                            if (Util::isModuleEnabled('Discord Integration')) {
-                                Discord::updateDiscordRoles($view_user, $added, $removed);
-                            }
+                            // Dispatch the modified groups
+                            GroupSyncManager::getInstance()->broadcastChange(
+                                $view_user,
+                                NamelessMCGroupSyncInjector::class,
+                                $modified
+                            );
                         }
                     }
 

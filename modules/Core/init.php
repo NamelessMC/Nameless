@@ -29,6 +29,9 @@ require_once(ROOT_PATH . '/modules/Core/classes/MinotarAvatarSource.php');
 require_once(ROOT_PATH . '/modules/Core/classes/NamelessMCAvatarSource.php');
 require_once(ROOT_PATH . '/modules/Core/classes/VisageAvatarSource.php');
 
+require_once(ROOT_PATH . '/modules/Core/classes/NamelessMCGroupSyncInjector.php');
+require_once(ROOT_PATH . '/modules/Core/classes/MinecraftGroupSyncInjector.php');
+
 require_once(ROOT_PATH . '/modules/Core/module.php');
 
 $module = new Core_Module($language, $pages, $user, $queries, $navigation, $cache, $endpoints);

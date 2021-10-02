@@ -76,7 +76,7 @@ class Discord {
         $result = self::discordBotRequest('/roleChange', $json);
 
         if ($result == 'fullsuccess') {
-            return;
+            return true;
         }
 
         // TODO: Add logging of this, as most people will want to be aware if this is an issue
@@ -85,7 +85,7 @@ class Discord {
                 Session::flash('edit_user_warnings', [Discord::getLanguageTerm('discord_bot_error_hierarchy')]);
             }
 
-            return;
+            return true;
         }
 
         $errors = self::parseErrors($result);
@@ -187,7 +187,7 @@ class Discord {
         if (!isset(self::$_discord_integration_language)) {
             self::$_discord_integration_language = new Language(ROOT_PATH . '/modules/Discord Integration/language', LANGUAGE);
         }
-        
+
         return self::$_discord_integration_language->get('discord_integration', $term);
     }
 }

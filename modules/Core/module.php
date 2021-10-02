@@ -293,6 +293,9 @@ class Core_Module extends Module {
 
         // Autoload API Endpoints
         Util::loadEndpoints(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'modules', 'Core', 'includes', 'endpoints')), $endpoints);
+
+        GroupSyncManager::getInstance()->registerInjector(NamelessMCGroupSyncInjector::class);
+        GroupSyncManager::getInstance()->registerInjector(MinecraftGroupSyncInjector::class);
     }
 
     public function onInstall(){

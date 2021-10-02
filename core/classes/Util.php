@@ -532,6 +532,7 @@ class Util {
      * @return string|null Name of in-game rank or null if rule is not setup.
      */
     public static function getIngameRankName($website_group_id) {
+        // TODO: Make more dynamic (dont hard code column names)
         $data = DB::getInstance()->get('group_sync', array('website_group_id', '=', $website_group_id));
         
         if ($data->count()) {

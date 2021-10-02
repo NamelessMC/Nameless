@@ -24,32 +24,11 @@ class SetDiscordRolesEndpoint extends EndpointBase {
 
         $user = $api->getUser('id', $_POST['user']);
 
-        $log_array = array();
-        $roles = isset($_POST['roles']) ? $_POST['roles'] : array();
-
-        $groups = DB::getInstance()->query('SELECT nl2_group_sync.*, nl2_groups.name FROM nl2_group_sync INNER JOIN nl2_groups ON website_group_id = nl2_groups.id WHERE discord_role_id IS NOT NULL')->results();
-        foreach ($groups as $group) {
-            if (in_array($group->discord_role_id, $roles)) {
-                // Add group if user don't have it
-                if ($user->addGroup($group->website_group_id, 0, array(true))) {
-                    $log_array['added'][] = $group->name;
-                }
-            } else {
-                // Check if user have another group synced to this NamelessMC group
-                foreach ($groups as $item) {
-                    if (in_array($item->discord_role_id, $roles)) {
-                        if ($item->website_group_id == $group->website_group_id) {
-                            continue 2;
-                        }
-                    }
-                }
-
-                // Remove group if user have it
-                if ($user->removeGroup($group->website_group_id)) {
-                    $log_array['removed'][] = $group->name;
-                }
-            }
-        }
+        $log_array = GroupSyncManager::getInstance()->broadcastChange(
+            $user,
+            DiscordGroupSyncInjector::class,
+            isset($_POST['roles']) ? $_POST['roles'] : []
+        );
 
         if (count($log_array)) {
             Log::getInstance()->log(Log::Action('discord/role_set'), json_encode($log_array), $user->data()->id);
