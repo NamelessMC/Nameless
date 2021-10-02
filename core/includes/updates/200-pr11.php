@@ -26,12 +26,25 @@ try {
     echo $e->getMessage() . '<br />';
 }
 
+// Set CustomPages url and title length to 255
+try {
+    DB::getInstance()->createQuery('ALTER TABLE `nl2_custom_pages` MODIFY `url` varchar(255)');
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+
+try {
+    DB::getInstance()->createQuery('ALTER TABLE `nl2_custom_pages` MODIFY `title` varchar(255)');
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+
 // Add placeholder enabled setting to settings table, Auto enable if placeholders contain data
 try {
     $placeholders_exist = $queries->getWhere('settings', array('name', '=', 'placeholders'));
     if(!count($placeholders_exist)) {
         $placeholders = $queries->getWhere('placeholders_settings', array('id', '<>', '0'));
-        
+
         $queries->create('settings', array(
             'name' => 'placeholders',
             'value' => (count($placeholders) ? '1' : '0')
