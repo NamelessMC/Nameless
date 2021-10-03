@@ -1,6 +1,6 @@
 <?php
 
-class NamelessMCGroupSyncInjector implements GroupSyncInjector
+class NamelessMCGroupSyncInjector extends GroupSyncInjector
 {
 
     public function getModule()

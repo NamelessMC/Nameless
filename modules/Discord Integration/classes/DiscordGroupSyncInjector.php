@@ -1,6 +1,6 @@
 <?php
 
-class DiscordGroupSyncInjector implements GroupSyncInjector
+class DiscordGroupSyncInjector extends GroupSyncInjector
 {
 
     public function getModule()
@@ -67,11 +67,11 @@ class DiscordGroupSyncInjector implements GroupSyncInjector
 
     public function addGroup(User $user, $group_id)
     {
-        return Discord::updateDiscordRoles($user, [$group_id], [], false);
+        return Discord::updateDiscordRoles($user, [$group_id], [], false) === true;
     }
 
     public function removeGroup(User $user, $group_id)
     {
-        return Discord::updateDiscordRoles($user, [], [$group_id], false);
+        return Discord::updateDiscordRoles($user, [], [$group_id], false) === true;
     }
 }
