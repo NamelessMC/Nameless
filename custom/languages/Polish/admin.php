@@ -157,11 +157,11 @@ $language = array(
     'navigation_settings_updated_successfully' => 'Ustawienia paska nawigacji zostały zaktualizowane.',
     'dropdown_items' => 'Rozwijane elementy',
     'enable_page_load_timer' => 'Włączyć wskaźnik czasu ładowania strony?',
-    'captcha_general' => 'Enable Captcha on registration and contact page?',
-    'captcha_login' => 'Enable Captcha on login page?',
+    'captcha_general' => 'Włączyć Captcha przy rejestracji?',
+    'captcha_login' => 'Włączyć Captcha przy logowaniu??',
     'captcha_type' => 'Typ Captcha',
-    'captcha_site_key' => 'Captcha Site Key',
-    'captcha_secret_key' => 'Captcha Secret Key',
+    'captcha_site_key' => 'Klucz Captcha Strony',
+    'captcha_secret_key' => 'Sekretny Klucz Captcha Strony',
     'registration_disabled_message' => 'Wiadomość o wyłączonej rejestracji',
     'enable_nicknames_on_registration' => 'Włączyć nicki dla rejestrowanych użytkowników?',
     'validation_promote_group' => 'Grupa po weryfikacji',
@@ -176,39 +176,39 @@ $language = array(
     'emails_mass_message_replacements' => 'Możesz użyć zmiennych w wiadomo. Przykłady:: {username}, {sitename}',
     'emails_mass_message_loading' => 'Ładowanie... Nie odświeżaj strony. To trochę zajmie.',
     'administrator' => 'Administrator',
-    'administrator_permission_info' => 'Members with this permission will have every permission. This is a dangerous permission to grant.',
+    'administrator_permission_info' => 'Każdy użytkownik z tymi uprawnieniami może robić wszystko, uważaj.',
 
     // Placeholders
-    'placeholders' => 'Placeholders',
-    'enable_placeholders' => 'Enable Placeholders?',
-    'updated_placeholder_settings' => 'Updated placeholder settings successfully.',
-    'placeholders_info' => 'Placeholders allow the NamelessMC Spigot plugin to send statistics about each player to your website so they can display them on their profile and forum posts.',
-    'placeholders_none' => 'There are no placeholders.',
-    'placeholders_server_id' => 'Server ID',
-    'placeholders_name' => 'Name',
-    'placeholders_value' => 'Value',
-    'placeholders_last_updated' => 'Last Updated',
-    'placeholders_friendly_name' => 'Friendly Name',
-    'placeholders_friendly_name_info' => 'Use this to set a \'nickname\' to this placeholder. The friendly name will be used instead of the raw name.',
-    'placeholders_show_on_profile' => 'Show on Profile',
-    'placeholders_show_on_profile_info' => 'Whether to show this placeholder on each user\'s profile or not.',
-    'placeholders_show_on_forum' => 'Show on Forum',
-    'placeholders_show_on_forum_info' => 'Whether to show this placeholder on each user\'s forum posts or not.',
+    'placeholders' => 'Zmiennie',
+    'enable_placeholders' => 'Włączyć Zmienne?',
+    'updated_placeholder_settings' => 'Zmieniono ustawienia zmiennych.',
+    'placeholders_info' => 'Zmienne pokazują zmienne serwerowe (z pluginu) na forum.',
+    'placeholders_none' => 'Nie ma żadnych zmiennych.',
+    'placeholders_server_id' => 'ID Serwera',
+    'placeholders_name' => 'Nazwa',
+    'placeholders_value' => 'Wartość',
+    'placeholders_last_updated' => 'Ostatnio Zaaktualizowano',
+    'placeholders_friendly_name' => 'Przyjazna Nazwa',
+    'placeholders_friendly_name_info' => 'Ustaw to aby ustalić \'nick\' tej zmiennej. Przyjemna nazwa będzie ukazywana na forum.',
+    'placeholders_show_on_profile' => 'Pokaż na Profilu',
+    'placeholders_show_on_profile_info' => 'Pokazuje zmienne użytkownika na profilu.',
+    'placeholders_show_on_forum' => 'Pokaż na Forum',
+    'placeholders_show_on_forum_info' => 'Pokazuje zmienne użytkownika na forum.',
 
     // Placeholder leaderboards
-    'leaderboard_settings' => 'Leaderboard Settings',
-    'placeholder_leaderboard_settings' => 'Placeholder Leaderboard Settings',
-    'placeholder_leaderboard_info' => 'Placeholder Leaderboards let you create leaderboards to display ranked players on your server according to any placeholder.',
-    'placeholder_leaderboard_enable_info' => 'Leaderboards work best with numeric placeholders (such as coins, kills, blocks mined, etc). If you enable a leaderboard on a text-based placeholder - you cannot be sure it will order it as you want.',
-    'placeholder_leaderboard_updated' => 'Updated leaderboard settings successfully',
-    'placeholder_leaderboard_enabled' => 'Leaderboard Enabled',
-    'placeholder_leaderboard_title' => 'Leaderboard Title',
-    'placeholder_leaderboard_sort' => 'Leaderboard Sort',
+    'leaderboard_settings' => 'Ustawienia Tabeli',
+    'placeholder_leaderboard_settings' => 'Ustawienia Zmiennych Tabeli',
+    'placeholder_leaderboard_info' => 'Tabele wyników pozwalają ci wyświetlać wyniki graczy na serwerze.',
+    'placeholder_leaderboard_enable_info' => 'Działają one z liczbami (np. monety, zabójstwa). Jeśli dodasz tekst, nie wiadomo czy zadziała.',
+    'placeholder_leaderboard_updated' => 'Zaaktualizowano ustawienia tabeli',
+    'placeholder_leaderboard_enabled' => 'Włączono Tabelę',
+    'placeholder_leaderboard_title' => 'Tytuł Tabeli',
+    'placeholder_leaderboard_sort' => 'Sortowanie Tabeli',
 
     // SEO
     'seo' => 'SEO',
-    'google_analytics' => 'Google Analytics',
-    'google_analytics_help' => 'Add Google Analytics to your website to track visitors and statistics. You will need to create a Google Analytics account to use this functionality. Enter your Google Analytics Web Property ID. The ID looks like UA-XXXXA-X and you can find it in your account information or in the tracking code provided by Google.',
+    'google_analytics' => 'Analityka Google',
+    'google_analytics_help' => 'Dodaj analitykę, aby zbierać dane o użytkownikach. Musisz posiadać konto google analityka, aby używać tej funkcji. Wpisz kod analityczny strony. ID wygląda tak UA-XXXXA-X i możesz znaleść go w ustawieniach konta.',
 
   // Reactions
     'icon' => 'Ikona',
@@ -369,8 +369,8 @@ $language = array(
     'unable_to_retrieve_modules' => 'Podczas pobierania modułów wystąpił błąd.',
     'module' => 'Moduł',
     'unable_to_enable_module' => 'Nie możesz włączyć niekompatybilnego modułu.',
-    'unable_to_enable_module_dependencies' => 'Unable to enable module since it depends on the module {x}, which is not enabled.', // Don't replace {x}
-    'unable_to_disable_module' => 'Unable to disable module - the module {x} depends on it.', // Don't replace {x}
+    'unable_to_enable_module_dependencies' => 'Nie można włączyć modułu, bo moduł {x} go wymaga.', // Don't replace {x}
+    'unable_to_disable_module' => 'Nie można usunąć modułu - moduł {x} go wymaga.', // Don't replace {x}
 
     // Styles
     'templates' => 'Szablony',
@@ -428,10 +428,10 @@ $language = array(
     'background_updated_successfully' => 'Tło zostało zmienione pomyślnie.',
     'unable_to_enable_template' => 'Nie możesz włączyć niekompatybilnego szablonu.',
     'background_image_info' => 'Ta opcja może być niekompatybilna z większością szablonów.',
-    'dark_mode' => 'Dark Mode',
-    'navbar_colour' => 'Navbar Colour',
-    'clear_cache' => 'Clear Template Cache',
-    'cache_cleared' => 'Template cache cleared',
+    'dark_mode' => 'Tryb Ciemny',
+    'navbar_colour' => 'Kolor Nawigacji',
+    'clear_cache' => 'Zresetuj Pamięć Podręczną stylów',
+    'cache_cleared' => 'Pamięć podręczna stylów została zresetowana',
 
     // Users & groups
     'users' => 'Użytkownicy',
@@ -495,9 +495,9 @@ $language = array(
     'force_tfa' => 'Wymusić weryfikację dwuetapową?',
     'force_tfa_warning' => 'Pamiętaj żeby nie zablokować siebie lub innych grup.',
     'force_tfa_alert' => 'Twoja grupa ma wymaganą weryfikację dwuetapową.',
-    'resend_activation_email' => 'Resend Activation Email',
-    'email_resent_successfully' => 'Email resent successfully.',
-    'email_resend_failed' => 'Email resend failed, please check your email settings.',
+    'resend_activation_email' => 'Wyślij Maila Ponownie',
+    'email_resent_successfully' => 'Wysłano maila ponownie.',
+    'email_resend_failed' => 'Wysyłanie maila nie udało się, sprawdź swoje ustawienia.',
 
     // Permissions
     'select_all' => 'Zaznacz wszystko',
@@ -532,8 +532,8 @@ $language = array(
     'all_logs' => 'Wszystkie Logi',
     'action' => 'Akcja',
     'action_info' => 'Informacje o Akcji',
-    'groups_removed' => 'Groups Removed',
-    'groups_added' => 'Groups Added',
+    'groups_removed' => 'Grupy Usunięte',
+    'groups_added' => 'Grupy Dodane',
 
     // Updates
     'update' => 'Zaktualizuj',
@@ -640,12 +640,12 @@ $language = array(
     'group_sync_rule_created_successfully' => 'Zasada synchronizowania grupy została stworzona pomyślnie.',
     'group_sync_rules_updated_successfully' => 'Zasada synchronizowania grupy została zaktualizowana pomyślnie.',
     'group_sync_rule_deleted_successfully' => 'Zasada synchronizowania grupy została usunięta pomyślnie',
-    'group_sync_plugin_not_set_up' => 'Plugin not set up',
+    'group_sync_plugin_not_set_up' => 'Plugin nie jest skonfigurowany',
     'existing_rules' => 'Istniejące zasady',
     'new_rule' => 'Nowa zasada',
     'api_endpoints' => 'Punkty API',
-    'api_endpoints_info' => 'API Endpoints allow Modules to create ways for external applications (such as Minecraft and Discord) to interact with your NamelessMC website.',
-    'route' => 'Route',
+    'api_endpoints_info' => 'Punkty API pomagają modułom w podłączaniu z różnymi usługami (np. Minecraft lub Discord), aby móc integrować z NamelessMC.',
+    'route' => 'Trasa',
 
     // File uploads
     'drag_files_here' => 'Przeciągnij pliki tutaj, aby je przesłać.',
@@ -767,13 +767,13 @@ $language = array(
     'discord_cannot_interact' => 'Bot nie może integrować z rolami użytkowników. Sprawdź czy rola bota jest na pewno nad rolami użytkowników.',
 
     // Discord bot Errors
-    'discord_bot_error_badparameter' => 'Invalid request body.',
-    'discord_bot_error_error' => 'An internal bot error occured.',
-    'discord_bot_error_invguild' => 'Provided Guild ID is invalid, or the bot is not in it.',
-    'discord_bot_error_invuser' => 'Provided User ID is invalid, or is not in specified Guild.',
-    'discord_bot_error_notlinked' => 'The bot is not linked to this website for provided Guild ID.',
-    'discord_bot_error_unauthorized' => 'Website API key is invalid',
-    'discord_bot_error_invrole' => 'Provided Role ID is invalid.',
-    'discord_bot_error_hierarchy' => 'The bot cannot edit this user\'s roles.'
+    'discord_bot_error_badparameter' => 'Nieprawidłowe informacje.',
+    'discord_bot_error_error' => 'Nastąpił wewnętrzny błąd.',
+    'discord_bot_error_invguild' => 'Podane ID serwera jest niepoprawne, lub bota nie ma na serwerze.',
+    'discord_bot_error_invuser' => 'Podane ID użytkownika jest niepoprawne, lub nie ma go na serwerze.',
+    'discord_bot_error_notlinked' => 'Bot nie jest podłączony do tej strony.',
+    'discord_bot_error_unauthorized' => 'Klucz API jest niepoprawny',
+    'discord_bot_error_invrole' => 'Podane ID roli jest niepoprawne.',
+    'discord_bot_error_hierarchy' => 'Bot nie ma uprawnień do dodawania użytkownika do ról.'
 
 );
