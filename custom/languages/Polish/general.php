@@ -67,9 +67,9 @@ $language = array(
     'are_you_sure' => 'Jesteś pewien?',
     'spoiler' => 'Spoiler',
     'invalid_timezone' => 'Ta strefa czasowa nie istnieje',
-    'link' => 'Link',
-    'unlink' => 'Unlink',
-    'leaderboards' => 'Leaderboards',
+    'link' => 'Podłącz',
+    'unlink' => 'Odłącz',
+    'leaderboards' => 'Ranking',
     
     /*
      *  Contact form
