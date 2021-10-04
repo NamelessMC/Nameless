@@ -82,7 +82,7 @@ $language = array(
     'discord_widget_theme' => 'Discord Widget 主题',
     'discord_id_length' => '请确保您的 Discord ID 长 18 位。',
     'discord_id_numeric' => '请确保您的 Discord ID 只包含数字。',
-    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://namelessmc.com/discord-bot-invite">here</a>. Then, run the <code>/apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
+    'discord_invite_info' => '您可点击 <a target="_blank" href="https://namelessmc.com/discord-bot-invite">此处</a> 来将 Nameless Link 机器人添加到您的 Discord 服务器中。添加完毕后，请运行指令 <code>/apiurl</code> 来将网站和机器人链接起来。 您也可以 <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">自建机器人</a>。',
     'discord_bot_must_be_setup' => '您必须配置 Discord 机器人后才能启用 Discord 集成。您可<a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">点击此处</a>了解详情。',
     'discord_bot_setup' => '机器人已配置?',
     'discord_integration_not_setup' => 'Discord 集成尚未配置',
@@ -117,7 +117,7 @@ $language = array(
     'mailer_settings_info' => '如果启用了 PHPMailer，则必须填写以下字段。 更多的填写信息请点击 <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-SMTP-with-Nameless-(e.g.-Gmail-or-Outlook)" target="_blank">NamelessMC Wiki相关页面</a>.',
     'host' => '主机 IP',
     'email_port' => '端口',
-    'email_port_invalid' => 'Please insert a valid email port.',
+    'email_port_invalid' => '请输入一个有效的邮箱端口。',
     'email_password_hidden' => '出于安全原因，未显示密码。',
     'send_test_email' => '发送测试邮件',
     'send_test_email_info' => '以下按钮将尝试向您的电子邮件地址 <strong>{x}</strong> 发送电子邮件. 发送电子邮件时抛出的任何错误都将显示。', // Don't replace {x}
@@ -177,12 +177,12 @@ $language = array(
     'emails_mass_message_sent_successfully' => '邮件广播发送成功。',
     'emails_mass_message_replacements' => '您可在信息中使用占位符。可用占位符: {username}（用户名）, {sitename}（网站名）',
     'emails_mass_message_loading' => '加载中... 请勿刷新此页面。这可能需要几分钟。',
-    'administrator' => 'Administrator',
-    'administrator_permission_info' => 'Members with this permission will have every permission. This is a dangerous permission to grant.',
+    'administrator' => '管理员',
+    'administrator_permission_info' => '拥有管理员权限的用户将会拥有所有权限。您只应授予受信任的用户此权限。',
 
     // Placeholders
     'placeholders' => '占位符',
-    'enable_placeholders' => 'Enable Placeholders?',
+    'enable_placeholders' => '启用占位符?',
     'updated_placeholder_settings' => '占位符设置更新成功。',
     'placeholders_info' => '通过占位符功能，NamelessMC Spigot 插件可以向您的网站上显示关于玩家的信息，这样，玩家就可以把这些信息添加到自己的个人资料上。',
     'placeholders_none' => '没有任何占位符。',
