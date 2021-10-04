@@ -71,7 +71,7 @@ $language = array(
     'invalid_timezone' => '此时区不可用',
     'link' => '链接',
     'unlink' => '解除链接',
-    'leaderboards' => 'Leaderboards',
+    'leaderboards' => '排行榜',
     
     /*
      *  Contact form
