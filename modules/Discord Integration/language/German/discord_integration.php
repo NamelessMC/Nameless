@@ -36,7 +36,7 @@ $language = [
     'discord_bot_error_notlinked' => 'Der Bot ist für die angegebene Gilden-ID nicht mit dieser Website verlinkt.',
     'discord_bot_error_unauthorized' => 'Der Website-API-Schlüssel ist ungültig',
     'discord_bot_error_invrole' => 'Die angegebene Rollen-ID ist ungültig.',
-    'discord_bot_error_hierarchy' => 'Der Bot kann die Rolle dieses Benutzers nicht bearbeiten.',
+    'discord_bot_error_partsuccess' => 'The bot could not edit one or more of the roles due to a Discord hierarchy misconfiguration.',
 
     // API Errors
     'discord_integration_disabled' => 'Die Discord-Integration ist deaktiviert.',

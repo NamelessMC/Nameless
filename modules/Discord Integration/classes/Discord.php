@@ -54,7 +54,7 @@ class Discord {
         return null;
     }
 
-    public static function updateDiscordRoles(User $user_query, $added, $removed, $redirect = true) {
+    public static function updateDiscordRoles(User $user_query, $added, $removed) {
 
         if (!self::isBotSetup()) {
             return false;
@@ -68,7 +68,7 @@ class Discord {
         $removed_arr = self::assembleGroupArray($removed, 'remove');
 
         if (!count($added_arr) && !count($removed_arr)) {
-            return;
+            return false;
         }
 
         $json = self::assembleJson($user_query->data()->discord_id, $added_arr, $removed_arr);
@@ -79,24 +79,18 @@ class Discord {
             return true;
         }
 
-        // TODO: Add logging of this, as most people will want to be aware if this is an issue
         if ($result == 'partsuccess') {
-            if ($redirect) {
-                Session::flash('edit_user_warnings', [Discord::getLanguageTerm('discord_bot_error_hierarchy')]);
-            }
-
+            Log::getInstance()->log(Log::Action('discord/role_set'), Discord::getLanguageTerm('discord_bot_error_partsuccess'));
             return true;
         }
 
         $errors = self::parseErrors($result);
 
-        if ($redirect) {
-            Session::flash('edit_user_errors', $errors);
-            Redirect::to(URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->data()->id)));
-            die();
+        foreach ($errors as $error) {
+            Log::getInstance()->log(Log::Action('discord/role_set'), $error, $user_query, $user_query->getIP());
         }
 
-        return $errors;
+        return false;
     }
 
     public static function saveRoles($roles) {

@@ -36,8 +36,7 @@ $language = [
     'discord_bot_error_notlinked' => '提供されたギルドIDに対して、ボットはウェブサイトにリンクされていません。',
     'discord_bot_error_unauthorized' => 'ウェブサイトのAPIキーが無効',
     'discord_bot_error_invrole' => '提供されたロールIDが無効です。',
-    'discord_bot_error_hierarchy' => 'ボットはこのユーザーのロールを編集できません。',
-
+    'discord_bot_error_partsuccess' => 'The bot could not edit one or more of the roles due to a Discord hierarchy misconfiguration.',
 
     // API Errors
     'discord_integration_disabled' => 'Discordの連携は無効になっています。',

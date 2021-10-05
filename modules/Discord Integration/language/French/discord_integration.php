@@ -24,7 +24,7 @@ $language = [
     'discord_bot_error_notlinked' => 'Le bot n\'est pas lié à ce site pour l\'identifiant Guild fourni..',
     'discord_bot_error_unauthorized' => 'La clé API du site web n\'est pas valide',
     'discord_bot_error_invrole' => 'L\'ID de rôle fourni n\'est pas valide.',
-    'discord_bot_error_hierarchy' => 'Le bot ne peut pas modifier les rôles de cet utilisateurv.',
+    'discord_bot_error_partsuccess' => 'The bot could not edit one or more of the roles due to a Discord hierarchy misconfiguration.',
 
     // API Errors
     'provide_one_discord_settings' => 'Veuillez fournir au moins un des éléments suivants : "url", "guild_id".',

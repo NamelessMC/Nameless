@@ -29,7 +29,7 @@ $language = [
     'discord_bot_error_notlinked' => 'Bot není propojen s tímto webem u zadaného ID serveru.',
     'discord_bot_error_unauthorized' => 'API klíč webu je neplatný',
     'discord_bot_error_invrole' => 'Zadané ID role je neplatné.',
-    'discord_bot_error_hierarchy' => 'Bot nemůže upravit role tohoto uživatele.',
+    'discord_bot_error_partsuccess' => 'The bot could not edit one or more of the roles due to a Discord hierarchy misconfiguration.',
 
     // API Errors
     'discord_integration_disabled' => 'Integrace Discordu je zakázána.',

@@ -36,7 +36,7 @@ $language = [
     'discord_bot_error_notlinked' => 'Boten er ikke koblet til nettsiden for den oppgitte guild-id.',
     'discord_bot_error_unauthorized' => 'Nettside-API-nøkkel er ugyldig.',
     'discord_bot_error_invrole' => 'Oppgitte rolle-id er ugyldig.',
-    'discord_bot_error_hierarchy' => 'Boten kan ikke endre denne brukerens roller.',
+    'discord_bot_error_partsuccess' => 'The bot could not edit one or more of the roles due to a Discord hierarchy misconfiguration.',
 
     // API Errors
     'discord_integration_disabled' => 'Discord-integrering er deaktivert.',
