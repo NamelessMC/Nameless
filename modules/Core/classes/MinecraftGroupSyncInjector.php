@@ -1,6 +1,6 @@
 <?php
 
-class MinecraftGroupSyncInjector extends GroupSyncInjector
+class MinecraftGroupSyncInjector implements GroupSyncInjector
 {
 
     public function getModule()

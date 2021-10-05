@@ -1,6 +1,6 @@
 <?php
 
-class DiscordGroupSyncInjector extends GroupSyncInjector
+class DiscordGroupSyncInjector implements GroupSyncInjector
 {
 
     public function getModule()

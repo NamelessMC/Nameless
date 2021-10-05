@@ -1,6 +1,6 @@
 <?php
 
-abstract class GroupSyncInjector
+interface GroupSyncInjector
 {
 
     /**
@@ -8,7 +8,7 @@ abstract class GroupSyncInjector
      * 
      * @return string Module name
      */
-    abstract public function getModule();
+    public function getModule();
 
     /**
      * Get a "friendly name" of this injector.
@@ -17,7 +17,7 @@ abstract class GroupSyncInjector
      * 
      * @return string Friendly name
      */
-    abstract public function getName();
+    public function getName();
 
     /**
      * Get the name of the column to store this injector's group ID in,
@@ -25,7 +25,7 @@ abstract class GroupSyncInjector
      * 
      * @return string Column name
      */
-    abstract public function getColumnName();
+    public function getColumnName();
 
     /**
      * Get the MySQL type to create the column with.
@@ -33,7 +33,7 @@ abstract class GroupSyncInjector
      * 
      * @return string Column type
      */
-    abstract public function getColumnType();
+    public function getColumnType();
 
     /**
      * Determine if this injector should be enabled or not.
@@ -42,7 +42,7 @@ abstract class GroupSyncInjector
      * 
      * @return bool Whether to enable this injector or not.
      */
-    abstract public function shouldEnable();
+    public function shouldEnable();
 
     /**
      * Get the message to display in place of the group dropdown on the Group Sync page.
@@ -51,7 +51,7 @@ abstract class GroupSyncInjector
      *
      * @return string Not enabled message
      */
-    abstract public function getNotEnabledMessage(Language $language);
+    public function getNotEnabledMessage(Language $language);
 
     /**
      * Get a list of groups available for this injector.
@@ -69,7 +69,7 @@ abstract class GroupSyncInjector
      * 
      * @return array
      */
-    abstract public function getSelectionOptions();
+    public function getSelectionOptions();
 
     /**
      * Get an array of rules to validate Group Sync creation/update requests with for this group.
@@ -81,7 +81,7 @@ abstract class GroupSyncInjector
      * 
      * @return array Validation rules
      */
-    abstract public function getValidationRules();
+    public function getValidationRules();
 
     /**
      * Get specific error messages to display for each validation rule their
@@ -93,7 +93,7 @@ abstract class GroupSyncInjector
      * 
      * @return array Validation error messages
      */
-    abstract public function getValidationMessages(Language $language);
+    public function getValidationMessages(Language $language);
 
     /**
      * Add this group to the user on your service.
@@ -106,7 +106,7 @@ abstract class GroupSyncInjector
      * 
      * @return bool Whether it was successfully added or not
      */
-    abstract public function addGroup(User $user, $group_id);
+    public function addGroup(User $user, $group_id);
 
     /**
      * Remove this group from the user
@@ -116,5 +116,5 @@ abstract class GroupSyncInjector
      * 
      * @return bool Whether it was successfully removed or not
      */
-    abstract public function removeGroup(User $user, $group_id);
+    public function removeGroup(User $user, $group_id);
 }
