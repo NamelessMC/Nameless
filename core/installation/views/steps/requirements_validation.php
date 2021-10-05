@@ -19,7 +19,7 @@ unset($_SESSION['requirements_validated']);
 		<div class="ui centered grid">
 			<div class="sixteen wide mobile eight wide tablet seven wide computer column">
 				<?php
-					validate_requirement('PHP 5.4+', version_compare(phpversion(), '5.4', '>='));
+					validate_requirement('PHP 7.4+', version_compare(phpversion(), '7.4', '>='));
 					validate_requirement('PHP MySQL', extension_loaded('mysql') || extension_loaded('mysqlnd'));
 					validate_requirement('PHP PDO', extension_loaded('PDO'));
 					validate_requirement('PHP XML', extension_loaded('xml'));

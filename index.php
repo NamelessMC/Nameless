@@ -18,9 +18,9 @@ if ((defined('DEBUGGING') && DEBUGGING) || (isset($_SERVER['NAMELESSMC_DEBUGGING
     error_reporting(-1);
 }
 
-// Ensure PHP version >= 5.4
-if (version_compare(phpversion(), '5.4', '<')) {
-    die('NamelessMC is not compatible with PHP versions older than 5.4');
+// Ensure PHP version >= 7.4
+if (version_compare(phpversion(), '7.4', '<')) {
+    die('NamelessMC is not compatible with PHP versions older than 7.4');
 }
 
 // Start page load timer

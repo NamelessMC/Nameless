@@ -112,7 +112,7 @@ if($user->hasPermission('admincp.core.debugging')){
     $compat_success = array();
     $compat_errors = array();
 
-    if(version_compare(phpversion(), '5.4', '<')){
+    if(version_compare(phpversion(), '7.4', '<')){
         $compat_errors[] = 'PHP ' . phpversion();
     } else {
         $compat_success[] = 'PHP ' . phpversion();
