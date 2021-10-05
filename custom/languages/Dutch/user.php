@@ -193,7 +193,6 @@ $language = array(
     'new_wall_post_reply_your_profile' => '{x} heeft gereageerd op jouw post op jouw eigen profiel.', // Don't replace {x}
     'no_about_fields' => 'Deze gebruiker heeft nog geen over-velden toegevoegd.',
     'reply' => 'Antwoord',
-    'discord_username' => 'Discord Username',
 
     // Rapporten
     'invalid_report_content' => 'Kan geen rapport maken. Zorg ervoor dat je rapport reden tussen de 2 en 1024 karakters is.',
@@ -242,20 +241,4 @@ $language = array(
      */
     'user_x_has_registered' => '{x} is lid geworden van ' . SITE_NAME . '!',
     'user_x_has_validated' => '{x} has validated their account!',
-
-    // Discord
-    'discord_link' => 'Discord Link',
-    'linked' => 'Gekoppeld',
-    'not_linked' => 'Niet Gekoppeld',
-    'discord_id' => 'Discord Gebruikers ID',
-    'discord_id_unlinked' => 'Succesvol ontkoppeld van uw Discord Gebruikers-ID.',
-    'discord_id_confirm' => 'Please run the command "/verify {token}" in Discord to finish linking your Discord account.',
-    'pending_link' => 'Wachtende',
-    'discord_id_taken' => 'Die Discord Gebruikers-ID is al ingenomen.',
-    'discord_invalid_id' => 'Dat Discord Gebruikers-ID is ongeldig.',
-    'discord_already_pending' => 'Je hebt al een lopende verificatie.',
-    'discord_database_error' => 'De Nameless Link database is op dit moment offline. Probeer het later nog eens.',
-    'discord_communication_error' => 'Er was een fout in de communicatie met de Discord Bot. Zorg ervoor dat de bot werkt en dat uw Bot-URL correct is.',
-    'discord_unknown_error' => 'Er was een onbekende fout bij het synchroniseren van de rollen van Discord. Neem contact op met een beheerder.',
-    'discord_id_help' => 'Voor informatie over waar je de Discord ID\'s kunt vinden, lees alsjeblieft <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">dit.</a>'
 );

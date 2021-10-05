@@ -45,6 +45,7 @@ final class GroupSyncManager
             throw new Exception("GroupSyncInjector column name {$injector->getColumnName()} already taken, {$class} tried to use it as well.");
         }
 
+        // TODO: do in onInstall / onEnable
         $this->addColumnToDb(
             $injector->getColumnName(),
             $injector->getColumnType()

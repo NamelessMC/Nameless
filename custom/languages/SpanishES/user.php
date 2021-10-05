@@ -189,7 +189,6 @@ $language = array(
     'new_wall_post_reply_your_profile' => '{x} ha respondido a tu mensaje en tu perfil.', // Don't replace {x}
     'no_about_fields' => 'Este usuario aún no ha añadido ningún campo para "Acerca de".',
     'reply' => 'Responder',
-    'discord_username' => 'Nombre de usuario en Discord',
 
     // Reports
     'invalid_report_content' => 'No se ha podido crear el informe. Por favor, asegúrese de que el motivo del informe tiene entre 2 y 1024 caracteres.',
@@ -238,20 +237,4 @@ $language = array(
      */
     'user_x_has_registered' => '¡{x} se ha unido a ' . SITE_NAME . '!',
     'user_x_has_validated' => '¡{x} ha validado su cuenta!',
-
-    // Discord
-    'discord_link' => 'Discord Link',
-    'linked' => 'Vinculado',
-    'not_linked' => 'No vinculado',
-    'discord_id' => 'ID de usuario de Discord',
-    'discord_id_unlinked' => 'Se ha desvinculado con éxito su ID de usuario de Discord.',
-    'discord_id_confirm' => 'Please run the command "/verify {token}" in Discord to finish linking your Discord account.',
-    'pending_link' => 'Pendiente',
-    'discord_id_taken' => 'Esa ID de Discord ya ha sido tomada.',
-    'discord_invalid_id' => 'Esa ID de usuario de Discord no es válida.',
-    'discord_already_pending' => 'Ya tienes una verificación pendiente.',
-    'discord_database_error' => 'La base de datos de Nameless Link no funciona actualmente. Por favor, inténtelo más tarde.',
-    'discord_communication_error' => 'Se ha producido un error al comunicarse con el Bot de Discord. Por favor, asegúrate de que el bot se está ejecutando y de que la URL de tu bot es correcta.',
-    'discord_unknown_error' => 'Se ha producido un error desconocido al sincronizar los roles de Discord. Por favor, póngase en contacto con un administrador.',
-    'discord_id_help' => 'Para obtener información sobre dónde encontrar ID\ de Discordia, por favor lea <a href="https://support.discord.com/hc/es-es/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">esto.</a>'
 );

@@ -1,5 +1,7 @@
 <?php
 
+// EnglishUK
+
 $language = [
 
     // Misc
@@ -31,7 +33,7 @@ $language = [
     'discord_bot_error_hierarchy' => 'The bot cannot edit this user\'s roles.',
     'discord_bot_check_logs' => 'You should check for a more specific error (if one exists) in StaffCP -> Security -> All Logs.',
 
-    // API Endpoint Errors
+    // API Errors
     'discord_integration_disabled' => 'Discord integration is disabled.',
     'unable_to_set_discord_id' => 'Unable to set Discord ID.',
     'unable_to_set_discord_bot_url' => 'Unable to set Discord bot URL',
@@ -41,7 +43,7 @@ $language = [
     'unable_to_update_discord_roles' => 'Unable to update Discord roles list.',
     'unable_to_update_discord_bot_username' => 'Unable to update Discord bot username.',
 
-    // API Endpoint Success
+    // API Success
     'discord_id_set' => 'Discord ID set successfully',
     'discord_settings_updated' => 'Discord settings updated successfully',
     'discord_usernames_updated' => 'Discord usernames updated successfully',

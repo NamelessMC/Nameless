@@ -42,14 +42,6 @@ $language = array(
     'invalid_server_id' => 'Ogiltigt server-ID',
     'invalid_code' => 'Ogiltig kod tillhandahålls',
     'user_already_active' => 'Ditt konto har redan aktiverats.',
-    'discord_integration_disabled' => 'Discord-integrering är inaktiverad.',
-    'unable_to_set_discord_id' => 'Det går inte att ställa in Discord-ID.',
-    'unable_to_set_discord_bot_url' => 'Det gick inte att ställa in Discord bot URL',
-    'provide_one_discord_settings' => 'Ange minst ett av följande: "url", "guild_id"',
-    'no_pending_verification_for_token' => 'Det finns inga bekräftelser under den medföljande token.',
-    'unable_to_update_discord_username' => 'Det går inte att uppdatera Discord-användarnamnet.',
-    'unable_to_update_discord_roles' => 'Det går inte att uppdatera Discord-rollistan.',
-    'unable_to_update_discord_bot_username' => 'Det gick inte att uppdatera Discord bot-användarnamnet.',
 
     // Success messages
     'finish_registration_link' => 'Klicka på följande länk för att slutföra registreringen:',
@@ -60,7 +52,4 @@ $language = array(
     'username_updated' => 'Användarnamn uppdaterades framgångsrikt',
     'server_info_updated' => 'Serverinfo uppdaterades framgångsrikt',
     'account_validated' => 'Kontot validerades framgångsrikt',
-    'discord_id_set' => 'Discord ID har lyckats',
-    'discord_settings_updated' => 'Discord-inställningar uppdaterades framgångsrikt',
-    'discord_usernames_updated' => 'Discord-användarnamn uppdaterades framgångsrikt'
 );

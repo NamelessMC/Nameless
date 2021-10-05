@@ -81,14 +81,6 @@ $language = array(
     'youtube_url' => 'YouTube URL',
     'twitter_url' => 'Twitter URL',
     'twitter_dark_theme' => 'Twitterダークテーマを使用しますか？',
-    'discord_id' => 'DiscordサーバーID',
-    'discord_widget_theme' => 'Discord ウィジェットテーマ',
-    'discord_id_length' => 'Discord IDは18文字以内にしてください。',
-    'discord_id_numeric' => 'Discord IDが数字であることを確認してください(数字のみ)',
-    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://namelessmc.com/discord-bot-invite">here</a>. Then, run the <code>/apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
-    'discord_bot_must_be_setup' => 'ボットを設定するまでは、Discord統合を有効にすることはできません。詳細については、<a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">ここをクリック</a>してください。',
-    'discord_bot_setup' => 'ボットの設定',
-    'discord_integration_not_setup' => 'Discord統合が設定されていません',
     'dark' => 'ダーク',
     'light' => 'ライト',
     'google_plus_url' => 'Google+ URL',
@@ -755,31 +747,4 @@ $language = array(
     'background_colour_required' => '背景色は必須です。',
     'text_colour_required' => 'テキスト色は必須です。',
     'no_announcements' => 'まだお知らせはありません。',
-
-    // Discord
-    'discord' => 'Discord',
-    'enable_discord_integration' => 'Discordの連携を有効にしますか？',
-    'discord_role_id' => 'Discord ロールID',
-    'discord_role_id_numeric' => 'Discord ロールIDは数値でなければなりません。',
-    'discord_role_id_length' => 'Discord ロールIDは18桁でなければなりません。',
-    'discord_settings_updated' => 'Discordの設定が更新されました。',
-    'discord_guild_id_required' => 'Discordの連携を利用するには、Discord サーバーIDを入力してください。',
-    'discord_bot_url' => 'Discord ボットURL',
-    'discord_bot_url_info' => 'あなたのカスタムインスタンスが存在する場所です。あなたが何をしているか分かっている場合のみ、この値を変更してください！',
-    'discord_bot_url_required' => 'Discordの連携を利用するには、ボットのURLを入力してください。',
-    'discord_invalid_api_url' => 'APIのURLが変更されたようです。ギルドオーナーにNameless Link botでURLを更新してもらってください。',
-    'test_bot_url' => 'テストボットURL',
-    'discord_bot_url_valid' => 'ボットのURLは有効です。',
-    'discord_cannot_interact' => 'Nameless Link botはDiscordでこのユーザーと対話することはできません。彼らの役割はNameless Linkのロールよりも高い可能性があります。',
-
-    // Discord bot Errors
-    'discord_bot_error_badparameter' => '無効なリクエストボディです。',
-    'discord_bot_error_error' => 'ボットの内部エラーが発生しました。',
-    'discord_bot_error_invguild' => '提供されたギルドIDが無効であるか、ボットが入っていません。',
-    'discord_bot_error_invuser' => '提供されたユーザーIDが無効であるか、指定されたギルドに入っていません。',
-    'discord_bot_error_notlinked' => '提供されたギルドIDに対して、ボットはウェブサイトにリンクされていません。',
-    'discord_bot_error_unauthorized' => 'ウェブサイトのAPIキーが無効',
-    'discord_bot_error_invrole' => '提供されたロールIDが無効です。',
-    'discord_bot_error_hierarchy' => 'ボットはこのユーザーのロールを編集できません。'
-
 );

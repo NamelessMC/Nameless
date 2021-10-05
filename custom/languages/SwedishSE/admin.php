@@ -77,14 +77,6 @@ $language = array(
     'youtube_url' => 'Youtube URL',
     'twitter_url' => 'Twitter URL',
     'twitter_dark_theme' => 'Använd Twitter mörker tema?',
-    'discord_id' => 'Discord Server ID',
-    'discord_widget_theme' => 'Discord Widget Theme',
-    'discord_id_length' => 'Vänligen se till att ditt Discord ID is 18 bokstäver långt.',
-    'discord_id_numeric' => 'Vängligen se till att ditt Discord ID är numeriskt. (Endast Nummer).',
-    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://namelessmc.com/discord-bot-invite">here</a>. Then, run the <code>/apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
-    'discord_bot_must_be_setup' => 'Kan inte aktivera Discord Integrationen tills att du har ställt in botten. För mer information, vänligen <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">klicka här</a>.',
-    'discord_bot_setup' => 'Bot Setup',
-    'discord_integration_not_setup' => 'Discord Integrationen är inte inställd.',
     'dark' => 'Mörkt',
     'light' => 'Ljust',
     'google_plus_url' => 'Google Plus URL', # Remove? It's shutdown
@@ -751,31 +743,4 @@ $language = array(
     'background_colour_required' => 'Bakgrundsfärg krävs',
     'text_colour_required' => 'Textfärg krävs',
     'no_announcements' => 'Inga meddelanden har gjorts ännu.',
-
-    // Discord
-    'discord' => 'Discord',
-    'enable_discord_integration' => 'Aktivera Discord-integration?',
-    'discord_role_id' => 'Discord Roll ID',
-    'discord_role_id_numeric' => 'Discord-roll-ID måste vara numeriskt.',
-    'discord_role_id_length' => 'Discord-roll-ID måste vara 18 siffror långt.',
-    'discord_settings_updated' => 'Dina Discord-inställningar uppdaterades.',
-    'discord_guild_id_required' => 'Ange ditt Discord Server-ID för att Discord-integrationen ska fungera.',
-    'discord_bot_url' => 'Discord Bot URL',
-    'discord_bot_url_info' => 'Platsen som din anpassade instans av Nameless Link-botten. Ändra bara detta värde om du vet vad du gör! ',
-    'discord_bot_url_required' => 'Ange din Bot-URL för att Discord-integration ska fungera.',
-    'discord_invalid_api_url' => 'Det verkar som om din API-URL har ändrats. Få guildägaren att uppdatera webbadressen med Nameless Link-botten. ',
-    'test_bot_url' => 'Testa bot-URL',
-    'discord_bot_url_valid' => 'Din webbadress är giltig.',
-    'discord_cannot_interact' => 'Nameless Link-botten kan inte interagera med den här användaren i Discord. Är deras roll högre än Nameless Link-rollen? ',
-
-    // Discord bot Errors
-    'discord_bot_error_badparameter' => 'Ogiltig begäran.',
-    'discord_bot_error_error' => 'Ett internt botfel uppstod.',
-    'discord_bot_error_invguild' => 'Förutsatt att Guild-ID är ogiltigt, eller så finns inte botten i det.',
-    'discord_bot_error_invuser' => 'Förutsatt att användar-ID är ogiltigt eller inte finns i specificerad guild.',
-    'discord_bot_error_notlinked' => 'Bot är inte länkad till den här webbplatsen för angivet guild-ID.',
-    'discord_bot_error_unauthorized' => 'Webbplatsens API-nyckel är ogiltig',
-    'discord_bot_error_invrole' => 'Angivet roll-ID är ogiltigt.',
-    'discord_bot_error_hierarchy' => 'Bot kan inte redigera användarens roller.'
-
 );

@@ -191,7 +191,6 @@ $language = array(
     'new_wall_post_reply_your_profile' => '{x} ha risposto al tuo post sul tuo profilo.', // Don't replace {x}
     'no_about_fields' => 'Questo utente non ha ancora aggiunto informazioni su se stesso',
     'reply' => 'Rispondi',
-    'discord_username' => 'Discord Username',
 
     // Reports
     'invalid_report_content' => 'Impossibile creare una segnalazione. Assicurati che il motivo della segnalazione sia compreso tra 2 e 1024 caratteri.',
@@ -240,20 +239,4 @@ $language = array(
      */
     'user_x_has_registered' => '{x} si è unito ' . SITE_NAME . '!',
     'user_x_has_validated' => '{x} has validated their account!',
-
-    // Discord
-    'discord_link' => 'Collegamento Discord',
-    'linked' => 'Collegato',
-    'not_linked' => 'Non collegato',
-    'discord_id' => 'ID utente Discord',
-    'discord_id_unlinked' => 'Scollegato con successo il tuo ID utente Discord.',
-    'discord_id_confirm' => 'Please run the command "/verify {token}" in Discord to finish linking your Discord account.',
-    'pending_link' => 'In attesa',
-    'discord_id_taken' => "Quell'ID Discord è già stato preso.",
-    'discord_invalid_id' => "Quell'ID utente Discord non è valido.",
-    'discord_already_pending' => 'Hai già una verifica in sospeso.',
-    'discord_database_error' => 'Il database dei collegamenti di Nameless è attualmente inattivo. Riprova più tardi.',
-    'discord_communication_error' => "Si è verificato un errore durante la comunicazione con il Bot di Discord. Assicurati che il bot sia in esecuzione e che l'URL del tuo Bot sia corretto.",
-    'discord_unknown_error' => 'Si è verificato un errore sconosciuto durante la sincronizzazione dei ruoli di Discord. Contatta un amministratore.',
-    'discord_id_help' => 'Per informazioni su dove trovare gli ID Discord, leggi <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">questo.</a>'
 );

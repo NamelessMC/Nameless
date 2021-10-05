@@ -76,14 +76,6 @@ $language = array(
     'youtube_url' => 'Youtube URL',
     'twitter_url' => 'Twitter URL',
     'twitter_dark_theme' => 'Benutze Dunkles Twitter Theme?',
-    'discord_id' => 'Discord Server ID',
-    'discord_widget_theme' => 'Discord Widget Theme',
-    'discord_id_length' => 'Bitte stellen Sie sicher, dass Ihre Discord ID 18 Zeichen lang ist.',
-    'discord_id_numeric' => 'Bitte stellen Sie sicher, dass Ihre Discord ID numerisch ist (nur Zahlen)..',
-    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://namelessmc.com/discord-bot-invite">here</a>. Then, run the <code>/apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
-    'discord_bot_must_be_setup' => 'Die Discord-Integration kann erst aktiviert werden, wenn Sie den Bot eingerichtet haben. Für Informationen klicken Sie bitte  <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">click hier</a>.',
-    'discord_bot_setup' => 'Bot Setup',
-    'discord_integration_not_setup' => 'Die Discord-Integration ist nicht eingerichtet',
     'dark' => 'Dark',
     'light' => 'Light',
     'google_plus_url' => 'Google Plus URL',
@@ -748,31 +740,4 @@ $language = array(
     'background_colour_required' => 'Hintergrundfarbe ist erforderlich',
     'text_colour_required' => 'Textfarbe ist erforderlich ',
     'no_announcements' => 'Es wurden noch keine Ankündigungen gemacht.',
-
-    // Discord
-    'discord' => 'Discord',
-    'enable_discord_integration' => 'Discord-Integration aktivieren?',
-    'discord_role_id' => 'Discord Rollen ID',
-    'discord_role_id_numeric' => 'Die ID der Discord Rolle muss numerisch sein.',
-    'discord_role_id_length' => 'Die Discord Rollen ID muss 18 Stellen lang sein.',
-    'discord_settings_updated' => 'Ihre Discord-Einstellungen wurden erfolgreich aktualisiert.',
-    'discord_guild_id_required' => 'Bitte geben Sie Ihre Discord Server ID ein, damit die Discord-Integration funktioniert.',
-    'discord_bot_url' => 'Discord Bot URL',
-    'discord_bot_url_info' => 'Der Speicherort Ihrer benutzerdefinierten Instanz des Nameless Link-Bots. Ändern Sie diesen Wert nur, wenn Sie wissen, was Sie tun!',
-    'discord_bot_url_required' => 'Bitte geben Sie Ihre Bot-URL ein, damit die Discord-Integration funktioniert.',
-    'discord_invalid_api_url' => 'Ihre API-URL hat sich anscheinend geändert. Bitte lassen Sie den Inhaber oder einen Admin die URL mit dem Nameless Link-Bot aktualisieren.',
-    'test_bot_url' => 'Testen Sie die Bot-URL',
-    'discord_bot_url_valid' => 'Ihre Bot-URL ist gültig.',
-    'discord_cannot_interact' => 'Der Nameless Link-Bot kann in Discord nicht mit diesem Benutzer interagieren. Ist ihre Rolle höher als die Rolle des Nameless-Links?',
-
-    // Discord bot Errors
-    'discord_bot_error_badparameter' => 'Ungültiger Anfragetext.',
-    'discord_bot_error_error' => 'Ein interner Bot-Fehler ist aufgetreten.',
-    'discord_bot_error_invguild' => 'Vorausgesetzt, die Gilden-ID ist ungültig oder der Bot ist nicht darin.',
-    'discord_bot_error_invuser' => 'Die angegebene Benutzer-ID ist ungültig oder befindet sich nicht in der angegebenen Gilde.',
-    'discord_bot_error_notlinked' => 'Der Bot ist für die angegebene Gilden-ID nicht mit dieser Website verlinkt.',
-    'discord_bot_error_unauthorized' => 'Der Website-API-Schlüssel ist ungültig',
-    'discord_bot_error_invrole' => 'Die angegebene Rollen-ID ist ungültig.',
-    'discord_bot_error_hierarchy' => 'Der Bot kann die Rolle dieses Benutzers nicht bearbeiten.'
-
 );

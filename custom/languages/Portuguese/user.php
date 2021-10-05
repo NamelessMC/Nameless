@@ -189,7 +189,6 @@ $language = array(
     'new_wall_post_reply_your_profile' => '{x} respondeu ao seu post no seu perfil.', // Don't replace {x}
     'no_about_fields' => 'Este usuário não adicionou nenhum campo sobre ele ainda.',
     'reply' => 'Responder',
-    'discord_username' => 'Nome de usuário do Discord',
 
     // Reports
     'invalid_report_content' => 'Não foi possível criar o alerta. Certifique-se de que o motivo do alerta está entre 2 e 1024 caracteres.',
@@ -238,20 +237,4 @@ $language = array(
      */
     'user_x_has_registered' => '{x} juntou-se ' . SITE_NAME . '!',
     'user_x_has_validated' => '{x} validou sua conta!',
-
-    // Discord
-    'discord_link' => 'Discord Link',
-    'linked' => 'Vinculado',
-    'not_linked' => 'Ainda não foi vinculado',
-    'discord_id' => 'ID do usuário do Discord',
-    'discord_id_unlinked' => 'Desvinculou com sucesso seu ID de usuário do Discord.',
-    'discord_id_confirm' => 'Please run the command "/verify {token}" in Discord to finish linking your Discord account.',
-    'pending_link' => 'Pendente',
-    'discord_id_taken' => 'Esse ID do Discord já foi obtido.',
-    'discord_invalid_id' => 'Esse ID de usuário do Discord é inválido.',
-    'discord_already_pending' => 'Você já tem uma verificação pendente.',
-    'discord_database_error' => 'O banco de dados Nameless Link está inativo no momento. Por favor, tente novamente mais tarde.',
-    'discord_communication_error' => 'Ocorreu um erro ao se comunicar com o Bot do Discord. Certifique-se de que o bot está funcionando e que o URL do bot está correto.',
-    'discord_unknown_error' => 'Ocorreu um erro desconhecido ao sincronizar as funções do Discord. Entre em contato com um administrador.',
-    'discord_id_help' => 'Para obter informações sobre onde encontrar as IDs do Discord, leia <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">isso.</a>'
 );
