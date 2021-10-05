@@ -56,7 +56,7 @@ class Discord {
 
     public static function updateDiscordRoles(User $user_query, $added, $removed, $redirect = true) {
 
-        if (!(Util::isModuleEnabled('Discord Integration') && self::isBotSetup())) {
+        if (!self::isBotSetup()) {
             return false;
         }
 
