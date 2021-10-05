@@ -118,7 +118,6 @@ $language = array(
     'password_minimum_6' => 'รหัสผ่านของคุณต้องมีอย่างน้อย 6 ตัวอักษร',
     'username_maximum_20' => 'ชื่อผู้ใช้ของคุณต้องมีอักขระไม่เกิน 20 ตัว',
     'mcname_maximum_20' => 'ชื่อผู้ใช้ Minecraft ของคุณต้องมีอักขระไม่เกิน 20 ตัว',
-    'password_maximum_30' => 'รหัสผ่านของคุณต้องมีอักขระไม่เกิน 30 ตัว',
     'passwords_dont_match' => 'รหัสผ่านของคุณไม่ตรงกัน',
     'username_mcname_email_exists' => 'ชื่อผู้ใช้หรือที่อยู่อีเมลของคุณมีอยู่แล้ว',
     'invalid_mcname' => 'ชื่อผู้ใช้ Minecraft ของคุณไม่ถูกต้อง',

@@ -118,7 +118,6 @@ $language = array(
     'password_minimum_6' => 'Şifreniz en az 6 karakterden oluşmalıdır.',
     'username_maximum_20' => 'Kullanıcı adınız en fazla 20 karakter olmalıdır.',
     'mcname_maximum_20' => 'Minecraft kullanıcı adınız maksimum 20 karakter olmalıdır.',
-    'password_maximum_30' => 'Şifreniz en fazla 30 karakterden oluşmalıdır.',
     'passwords_dont_match' => 'Şifreleriniz birbirine uymuyor.',
     'username_mcname_email_exists' => 'Kullanıcı adınız veya e-posta adresiniz zaten var.',
     'invalid_mcname' => 'Minecraft kullanıcı adınız geçersiz.',

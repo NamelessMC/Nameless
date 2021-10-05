@@ -117,7 +117,6 @@ $language = array(
     'password_minimum_6' => 'Vaše heslo musí obsahovat alespoň 6 znaků.',
     'username_maximum_20' => 'Vaše uživatelské jméno může obsahovat maximálně 20 znaků.',
     'mcname_maximum_20' => 'Vaše uživatelské jméno v Minecraftu může obsahovat maximálně 20 znaků.',
-    'password_maximum_30' => 'Vaše heslo může obsahovat maximálně 30 znaků.',
     'passwords_dont_match' => 'Vaše hesla se neshodují.',
     'username_mcname_email_exists' => 'Dané uživatelské jméno nebo e-mailová adresa již existuje.',
     'invalid_mcname' => 'Vaše jméno v Minecraftu je neplatné.',

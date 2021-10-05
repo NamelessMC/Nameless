@@ -44,8 +44,7 @@ if(!isset($_GET['c'])){
                     $validation = $validate->check($_POST, [
                         'password' => [
                             Validate::REQUIRED => true,
-                            Validate::MIN => 6,
-                            Validate::MAX => 30
+                            Validate::MIN => 6
                         ],
                         'password_again' => [
                             Validate::MATCHES => 'password'
@@ -57,8 +56,7 @@ if(!isset($_GET['c'])){
                     ])->messages([
                         'password' => [
                             Validate::REQUIRED => $language->get('user', 'password_required'),
-                            Validate::MIN => $language->get('user', 'password_minimum_6'),
-                            Validate::MAX => $language->get('user', 'password_maximum_30')
+                            Validate::MIN => $language->get('user', 'password_minimum_6')
                         ],
                         'password_again' => $language->get('user', 'passwords_dont_match'),
                         't_and_c' => $language->get('user', 'accept_terms')

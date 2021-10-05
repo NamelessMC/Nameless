@@ -155,7 +155,6 @@ if (Input::exists()) {
                 'password' => [
                     Validate::REQUIRED => true,
                     Validate::MIN => 6,
-                    Validate::MAX => 30
                 ],
                 'password_again' => [
                     Validate::MATCHES => 'password'
@@ -481,8 +480,6 @@ if (Input::exists()) {
                             $errors[] = $language->get('user', 'username_maximum_20');
                         } else if (strpos($validation_error, 'mcname') !== false) {
                             $errors[] = $language->get('user', 'mcname_maximum_20');
-                        } else if (strpos($validation_error, 'password') !== false) {
-                            $errors[] = $language->get('user', 'password_maximum_30');
                         }
                     } else if (strpos($validation_error, 'must match') !== false) {
                         // password must match password again

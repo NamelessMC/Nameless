@@ -117,7 +117,6 @@ $language = array(
     'password_minimum_6' => 'Votre mot de passe doit comporter au moins 6 caractères.',
     'username_maximum_20' => 'Votre nom d’utilisateur doit être un maximum de 20 caractères.',
     'mcname_maximum_20' => 'Votre nom d’utilisateur Minecraft doit avoir un maximum de 20 caractères.',
-    'password_maximum_30' => 'Votre mot de passe doit être un maximum de 30 caractères.',
     'passwords_dont_match' => 'Vos mots de passe ne correspondent pas.',
     'username_mcname_email_exists' => 'Votre nom d\'utilisateur ou votre adresse électronique existe déjà.',
     'invalid_mcname' => 'Votre nom d’utilisateur Minecraft est invalide.',

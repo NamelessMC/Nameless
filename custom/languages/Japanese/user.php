@@ -123,7 +123,6 @@ $language = array(
     'password_minimum_6' => 'パスワードが6文字以上であることをご確認ください。',
     'username_maximum_20' => 'ユーザー名が20文字以下であることをご確認ください。',
     'mcname_maximum_20' => 'Minecraftユーザー名が20文字以下であることをご確認ください。',
-    'password_maximum_30' => 'パスワードが30文字以下であることをご確認ください。',
     'passwords_dont_match' => 'パスワードが一致しません。',
     'username_mcname_email_exists' => '指定されたのユーザー名または電子メールアドレスはすでに存在します。',
     'invalid_mcname' => '指定されたのMinecraftユーザー名は無効です。',

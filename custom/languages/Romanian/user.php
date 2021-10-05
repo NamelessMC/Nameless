@@ -121,7 +121,6 @@ $language = array(
     'password_minimum_6' => 'Parola dvs. trebuie să aibă cel puțin 6 caractere.',
     'username_maximum_20' => 'Numele dvs. de utilizator trebuie să aibă maximum 20 de caractere.',
     'mcname_maximum_20' => 'Numele de utilizator Minecraft trebuie să aibă maximum 20 de caractere.',
-    'password_maximum_30' => 'Parola dvs. trebuie să aibă maximum 30 de caractere.',
     'passwords_dont_match' => 'Parolele nu se potrivesc.',
     'username_mcname_email_exists' => 'Numele de utilizator sau adresa dvs. de e-mail există deja în baza de date.',
     'invalid_mcname' => 'Numele dvs. de utilizator Minecraft este invalid.',
