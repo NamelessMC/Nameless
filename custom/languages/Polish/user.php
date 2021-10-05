@@ -118,7 +118,6 @@ $language = array(
     'password_minimum_6' => 'Twoje hasło musi mieć co najmniej 6 znaków.',
     'username_maximum_20' => 'Twoja nazwa użytkownika może mieć maksymalnie 20 znaków.',
     'mcname_maximum_20' => 'Twój nick z minecraft może mieć maksymalnie 20 znaków.',
-    'password_maximum_30' => 'Twoje hasło może mieć maksymalnie 30 znaków.',
     'passwords_dont_match' => 'Twoje hasła nie są takie same.',
     'username_mcname_email_exists' => 'Istnieje już konto z tą nazwą użytkownika lub emailem.',
     'invalid_mcname' => 'Wpisałeś zły nick z minecraft',

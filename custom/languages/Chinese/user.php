@@ -123,7 +123,6 @@ $language = array(
     'password_minimum_6' => '密碼最低限制 6 字元.',
     'username_maximum_20' => '帳號限制最高 20 字元.',
     'mcname_maximum_20' => 'Minecraft username (遊戲名稱) 最高限制 30 字元.',
-    'password_maximum_30' => '密碼最高限制 30 字元.',
     'passwords_dont_match' => '密碼不相同.',
     'username_mcname_email_exists' => '帳號或電子郵件已存在.',
     'invalid_mcname' => 'Minecraft username 不相符 (非正版).',

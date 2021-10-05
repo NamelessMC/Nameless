@@ -117,7 +117,6 @@ $language = array(
     'password_minimum_6' => 'Ditt passord må inneholde minst 6 tegn.',
     'username_maximum_20' => 'Ditt brukernavn må inneholde maks 20 tegn.',
     'mcname_maximum_20' => 'Ditt Minecraft-brukernavn må inneholde minst 20 tegn.',
-    'password_maximum_30' => 'Ditt passord må inneholde minst 30 tegn.',
     'passwords_dont_match' => 'Passordene stemmer ikke.',
     'username_mcname_email_exists' => 'Dette brukernavnet eller denne e-postadressen eksisterer allerede.',
     'invalid_mcname' => 'Dette Minecraft-brukernavnet er ugyldig.',

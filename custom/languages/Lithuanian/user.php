@@ -115,7 +115,6 @@ $language = array(
     'password_minimum_6' => 'Jūsų slaptažodis turi būti mažiausiai 6 simboliai.',
     'username_maximum_20' => 'Jūsų vartotojo vardas turi būti ne daugiau kaip 20 simbolių.',
     'mcname_maximum_20' => 'Jūsų Minecraft vartotojo vardas turi būti ne daugiau kaip 20 simbolių.',
-    'password_maximum_30' => 'Jūsų slaptažodis turi būti ne ilgesnis nei 30 simbolių.',
     'passwords_dont_match' => 'Jūsų slaptažodžiai nesutampa.',
     'username_mcname_email_exists' => 'Jūsų vartotojo vardas arba el. Pašto adresas jau egzistuoja.',
     'invalid_mcname' => 'Jūsų Minecraft naudotojo vardas yra negaliojantis.',

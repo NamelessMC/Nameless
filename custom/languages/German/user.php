@@ -119,7 +119,6 @@ $language = array(
     'mcname_minimum_3' => 'Dein Minecraftname muss mindestens 3 Zeichen lang sein.',
     'mcname_maximum_20' => 'Dein Minecraftname darf nicht länger als 20 Zeichen sein..',
     'password_minimum_6' => 'Dein Passwort muss mindestens 6 Zeichen haben..',
-    'password_maximum_30' => 'Dein Passwort darf nicht länger als 30 Zeichen sein.',
     'passwords_dont_match' => 'Deine Passwörter stimmen nicht überein.',
     'username_mcname_email_exists' => 'Dein Nutzername, Minecraftname oder deine E-Mail-Adresse sind bereits registriert. Hast du schon ein Konto eingerichtet?',
     'invalid_mcname' => 'Dein Minecraft Benutzername ist ungültig.',

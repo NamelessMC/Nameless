@@ -119,7 +119,6 @@ $language = array(
     'password_minimum_6' => 'Ditt lösenord måste minst innehålla 3 tecken.',
     'username_maximum_20' => 'Ditt användrarnamn får högst innehålla 20 tecken.',
     'mcname_maximum_20' => 'Ditt Minecraft användrarnamn får högst innehålla 20 tecken',
-    'password_maximum_30' => 'Ditt lösenord får högst innehålla 30 tecken.',
     'passwords_dont_match' => 'Dina lösenord matchar inte.',
     'username_mcname_email_exists' => 'Användrarnamnet eller e-postadressen finns redan.',
     'invalid_mcname' => 'Ditt Minecraft användarnamn är ogiltigt.',

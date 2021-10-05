@@ -120,7 +120,6 @@ $language = array(
     'password_minimum_6' => '您的密码必须至少为 6 个字符。',
     'username_maximum_20' => '您的用户名不能超过 20 个字符。',
     'mcname_maximum_20' => '您的 Minecraft 玩家名不能超过 20 个字符。',
-    'password_maximum_30' => '您的密码不能超过 30 个字符。',
     'passwords_dont_match' => '您的密码与前文不匹配。',
     'username_mcname_email_exists' => '您的用户名或电子邮箱地址已经存在于我们的数据库中。',
     'invalid_mcname' => '您的 Minecraft 玩家名是无效的。',

@@ -120,7 +120,6 @@ $language = array(
     'password_minimum_6' => 'Je wachtwoord moet uit minimaal 6 karakters bestaan.',
     'username_maximum_20' => 'Je gebruikersnaam mag maar uit maximaal 20 karakters bestaan.',
     'mcname_maximum_20' => 'Je Minecraft gebruikersnaam mag maar uit maximaal 20 karakters bestaan.',
-    'password_maximum_30' => 'Je wachtwoord mag maar uit maximaal 30 karakters bestaan.',
     'passwords_dont_match' => 'Je wachtwoorden komen niet overeen.',
     'username_mcname_email_exists' => 'Je gebruikersnaam of email adres bestaat al.',
     'invalid_mcname' => 'Je Minecraft gebruikersnaam is ongeldig.',

@@ -118,7 +118,6 @@ $language = array(
     'password_minimum_6' => 'La tua password deve contenere almeno 6 caratteri.',
     'username_maximum_20' => 'Il tuo username deve contenere un massimo di 20 caratteri.',
     'mcname_maximum_20' => 'Il tuo username Minecraft deve contenere un massimo di 20 caratteri.',
-    'password_maximum_30' => 'La tua password deve contenere un massimo di 30 caratteri.',
     'passwords_dont_match' => 'Le tue password non corrispondono.',
     'username_mcname_email_exists' => 'Il tuo username o indirizzo email esiste già.',
     'invalid_mcname' => 'Il tuo username Minecraft non è valido.',

@@ -392,8 +392,7 @@ if(isset($_GET['do'])){
                     ],
 					'new_password' => [
 						Validate::REQUIRED => true,
-						Validate::MIN => 6,
-						Validate::MAX => 30
+						Validate::MIN => 6
                     ],
 					'new_password_again' => [
                         Validate::REQUIRED => true,
@@ -403,8 +402,7 @@ if(isset($_GET['do'])){
                     'old_password' => $language->get('user', 'password_required') . '<br />',
                     'new_password' => [
                         Validate::REQUIRED => $language->get('user', 'password_required') . '<br />',
-                        Validate::MIN => $language->get('user', 'password_minimum_6') . '<br />',
-                        Validate::MAX => $language->get('user', 'password_maximum_30') . '<br />'
+                        Validate::MIN => $language->get('user', 'password_minimum_6') . '<br />'
                     ],
                     'new_password_again' => [
                         Validate::REQUIRED => $language->get('user', 'password_required') . '<br />',
