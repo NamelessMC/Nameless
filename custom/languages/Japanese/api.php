@@ -47,14 +47,6 @@ $language = array(
     'invalid_server_id' => '無効なサーバーID',
     'invalid_code' => '指定されたコードは無効です。',
     'user_already_active' => 'あなたのアカウントはすでに有効化されています。',
-    'discord_integration_disabled' => 'Discordの連携は無効になっています。',
-    'unable_to_set_discord_id' => 'Discord IDを設定できません。',
-    'unable_to_set_discord_bot_url' => 'DiscordボットのURLが設定できません。',
-    'provide_one_discord_settings' => '次の項目のうち、少なくとも1つをご記入ください: "URL"、"guild_id"',
-    'no_pending_verification_for_token' => '提供されたトークンの下で保留中の検証はありません。',
-    'unable_to_update_discord_username' => 'Discordのユーザー名を更新できません。',
-    'unable_to_update_discord_roles' => 'Discordのロールリストを更新できません。',
-    'unable_to_update_discord_bot_username' => 'Discordボットのユーザー名を更新できません。',
 
     // Success messages
     'finish_registration_link' => '登録を完了するには次のリンクをクリックしてください:',
@@ -65,7 +57,4 @@ $language = array(
     'username_updated' => 'ユーザー名が更新されました。',
     'server_info_updated' => 'サーバー情報が更新されました。',
     'account_validated' => 'アカウントの検証が完了しました。',
-    'discord_id_set' => 'Discord IDの設定に成功しました。',
-    'discord_bot_url_updated' => 'DiscordボットのURLが更新されました。',
-    'discord_usernames_updated' => 'Discordユーザー名の更新に成功'
 );

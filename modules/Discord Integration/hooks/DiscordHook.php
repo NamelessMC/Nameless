@@ -2,14 +2,13 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr12
  *
  *  Discord hook handler class
  */
 
 class DiscordHook {
 
-    // Execute hook
     public static function execute($params = array()) {
         // Ensure hook is compatible
         $return = array();

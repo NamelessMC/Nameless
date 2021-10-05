@@ -726,31 +726,4 @@ $language = array(
     'text_colour_required' => 'El color del texto es necesario',
     'no_announcements' => 'Todavía no se ha hecho ningún anuncio.',
     'announcement_order' => 'Orden',
-
-    // Discord
-    'discord' => 'Discord',
-    'enable_discord_integration' => '¿Activar la integración de Discord?',
-    'discord_role_id' => 'ID del rol de Discord',
-    'discord_role_id_numeric' => 'La ID del rol de Discord debe ser numérica.',
-    'discord_role_id_length' => 'La ID del rol de Discord debe tener 18 dígitos.',
-    'discord_settings_updated' => 'La configuración de Discord se ha actualizado correctamente.',
-    'discord_id' => 'ID del servidor de Discord',
-    'discord_widget_theme' => 'Tema del Widget de Discord',
-    'discord_id_length' => 'Por favor, asegúrate de que la ID de Discord tiene 18 caracteres.',
-    'discord_id_numeric' => 'Por favor, asegúrese de que su ID de Discord es numérica (sólo números).',
-    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://namelessmc.com/discord-bot-invite">here</a>. Then, run the <code>/apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
-    'discord_bot_must_be_setup' => 'No se puede habilitar la integración de Discord hasta que no se haya configurado el bot. Para obtener información, por favor <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">haga clic aquí</a>.',
-    'discord_bot_setup' => '¿Bot instalado?',
-    'discord_integration_not_setup' => 'La integración de Discord no está configurada',
-
-    // Discord bot Errors
-    'discord_bot_error_badparameter' => 'Cuerpo de la solicitud no válido.',
-    'discord_bot_error_error' => 'Se ha producido un error interno del bot.',
-    'discord_bot_error_invguild' => 'Siempre que la ID del servidor no sea válida, o el bot no esté en él.',
-    'discord_bot_error_invuser' => 'La ID de usuario proporcionada no es válida, o no está en el servidor especificado.',
-    'discord_bot_error_notlinked' => 'El bot no está vinculado a este sitio web para la ID del servidor proporcionada.',
-    'discord_bot_error_unauthorized' => 'La clave API del sitio web no es válida',
-    'discord_bot_error_invrole' => 'La ID del rol proporcionado no es válida.',
-    'discord_bot_error_hierarchy' => 'El bot no puede editar los roles de este usuario.',
-    'discord_bot_check_logs' => 'Debería comprobar si hay un error más específico (si existe) en "Seguridad -> Todos los registros"'
 );

@@ -503,7 +503,6 @@ $language = array (
     'ip_address' => 'IP adresa',
     'template_changes' => 'Změna šablony',
     'email_logs' => 'Hromadné e-maily',
-    'discord_logs' => 'Změna Discord role',
     'file_changed' => 'Změna souboru',
     'all_logs' => 'Všechny protokoly',
     'action' => 'Akce',
@@ -724,30 +723,4 @@ $language = array (
     'background_colour_required' => 'Je vyžadována barva pozadí',
     'text_colour_required' => 'Je vyžadována barva textu',
     'no_announcements' => 'Zatím jste nevytvořili žádná oznámení',
-
-    // Discord
-    'discord' => 'Discord',
-    'enable_discord_integration' => 'Povolit integraci Discordu?',
-    'discord_role_id' => 'ID Discord role',
-    'discord_role_id_numeric' => 'ID Discord role může obsahovat pouze čísla.',
-    'discord_role_id_length' => 'ID Discord role musí být dlouhé 18 znaků.',
-    'discord_settings_updated' => 'Nastavení Discordu úspěšně aktualizována.',
-    'discord_id' => 'ID Discord serveru',
-    'discord_widget_theme' => 'Téma Discord widgetu',
-    'discord_id_length' => 'Ujistěte se, že vaše Discord ID je dlouhé 18 znaků.',
-    'discord_id_numeric' => 'Ujistěte se, že vaše Discord ID obsahuje pouze čísla.',
-    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://namelessmc.com/discord-bot-invite">here</a>. Then, run the <code>/apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
-    'discord_bot_must_be_setup' => 'Nelze povolit integraci Discordu, dokud nenastavíte bota. Pro více informací <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">klikněte sem</a>.',
-    'discord_bot_setup' => 'Bot nastaven?',
-    'discord_integration_not_setup' => 'Integrace Discordu nenastavena',
-
-    // Discord bot Errors
-    'discord_bot_error_badparameter' => 'Neplatné tělo žádosti.',
-    'discord_bot_error_error' => 'Vyskytla se interní chyba bota.',
-    'discord_bot_error_invguild' => 'Zadané ID serveru je neplatné, nebo v něm není bot.',
-    'discord_bot_error_invuser' => 'Zadané ID uživatele je neplatné, nebo uživatel není v daném serveru.',
-    'discord_bot_error_notlinked' => 'Bot není propojen s tímto webem u zadaného ID serveru.',
-    'discord_bot_error_unauthorized' => 'API klíč webu je neplatný',
-    'discord_bot_error_invrole' => 'Zadané ID role je neplatné.',
-    'discord_bot_error_hierarchy' => 'Bot nemůže upravit role tohoto uživatele.'
 );

@@ -40,11 +40,6 @@ $language = array(
     'unable_to_update_server_info' => 'Impossible de mettre à jour les informations sur le serveur',
     'invalid_server_id' => 'ID de serveur invalide',
     'invalid_code' => 'Code invalide fourni',
-    'provide_one_discord_settings' => 'Veuillez fournir au moins un des éléments suivants : "url", "guild_id".',
-    'no_pending_verification_for_token' => 'Il n\'y a pas de vérifications en cours sous le jeton fourni.',
-    'unable_to_update_discord_username' => 'Impossible de mettre à jour le nom d\'utilisateur Discord.',
-    'unable_to_update_discord_roles' => 'Impossible de mettre à jour la liste des rôles Discord.',
-    'unable_to_update_discord_bot_username' => 'Impossible de mettre à jour le nom d\'utilisateur du robot Discord.',
 
     // Success messages
     'finish_registration_link' => 'Veuillez cliquer sur le lien suivant pour compléter l\'inscription :',
@@ -54,6 +49,4 @@ $language = array(
     'new_private_message_from' => 'Nouveau message privé de {x}', // Don't replace {x}
     'username_updated' => 'Le nom d\'utilisateur a été mis à jour avec succès',
     'server_info_updated' => 'Les informations sur le serveur ont été mises à jour avec succès',
-    'discord_settings_updated' => 'Les paramètres de Discord ont été mis à jour avec succès',
-    'discord_usernames_updated' => 'Les noms d\'utilisateur Discord ont été mis à jour avec succès'
 );

@@ -658,9 +658,9 @@ for ($n = 0; $n < count($results->data); $n++) {
     $fields = $post_creator->getProfileFields($post_creator->data()->id, true, true);
 
     // TODO: Add setting to hide/show this
-    if (Util::getSetting(DB::getInstance(), 'discord_integration', false)) {
+    if (Util::isModuleEnabled('Discord Integration') && Discord::isBotSetup()) {
         if ($post_creator->data()->discord_username != null) {
-            $fields[] = array('name' => $language->get('admin', 'discord'), 'value' => $post_creator->data()->discord_username);
+            $fields[] = array('name' => Discord::getLanguageTerm('discord'), 'value' => $post_creator->data()->discord_username);
         }
     }
 

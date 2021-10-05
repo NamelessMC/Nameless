@@ -190,7 +190,6 @@ $language = array(
     'new_wall_post_reply_your_profile' => '{x} profilinizdeki yayınınıza cevap verdi.', // Don't replace {x}
     'no_about_fields' => 'Bu kullanıcı henüz alanlarla ilgili herhangi bir bilgi eklemedi.',
     'reply' => 'cevap',
-    'discord_username' => 'Discord Username',
 
     // Reports
     'invalid_report_content' => 'Rapor oluşturulamıyor. Lütfen rapor nedeninizin 2 ila 1024 karakter arasında olduğundan emin olun.',
@@ -239,20 +238,4 @@ $language = array(
      */
     'user_x_has_registered' => '{x} katıldı ' . SITE_NAME . '!',
     'user_x_has_validated' => '{x} has validated their account!',
-
-    // Discord
-    'discord_link' => 'Discord Link',
-    'linked' => 'Linked',
-    'not_linked' => 'Not Linked',
-    'discord_id' => 'Discord User ID',
-    'discord_id_unlinked' => 'Successfully unlinked your Discord User ID.',
-    'discord_id_confirm' => 'Please run the command "/verify token:{token}" in Discord to finish linking your Discord account.',
-    'pending_link' => 'Pending',
-    'discord_id_taken' => 'That Discord ID has already been taken.',
-    'discord_invalid_id' => 'That Discord User ID is invalid.',
-    'discord_already_pending' => 'You already have a pending verification.',
-    'discord_database_error' => 'The Nameless Link database is currently down. Please try again later.',
-    'discord_communication_error' => 'There was an error while communicating with the Discord Bot. Please ensure the bot is running and your Bot URL is correct.',
-    'discord_unknown_error' => 'There was an unknown error while syncing Discord roles. Please contact an administrator.',
-    'discord_id_help' => 'For information on where to find Discord ID\'s, please read <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">this.</a>'
 );

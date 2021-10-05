@@ -188,7 +188,6 @@ $language = array(
     'new_wall_post_reply_your_profile' => '{x} odpovedal/a na váš príspevok vo vašom profile.', // Don't replace {x}
     'no_about_fields' => 'Tento užívateľ zatiaľ nepridal žiadne informácie.',
     'reply' => 'Odpoveď',
-    'discord_username' => 'Discord užívateľské meno',
 
     // Reports
     'invalid_report_content' => 'Nie je možné vytvoriť hlásenie. Uistite sa, že dôvod nahlásenia má medzi 2 a 1024 znakov.',
@@ -237,20 +236,4 @@ $language = array(
      */
     'user_x_has_registered' => '{x} sa pripojil/a ' . SITE_NAME . '!',
     'user_x_has_validated' => '{x} overil/a svoj účet!',
-
-    // Discord
-    'discord_link' => 'Discord prepojenie',
-    'linked' => 'Prepojené',
-    'not_linked' => 'Neprepojené',
-    'discord_id' => 'Discord užívateľské ID',
-    'discord_id_unlinked' => 'Vaše Discord ID bolo úspešne odpojené.',
-    'discord_id_confirm' => 'Please run the command "/verify token:{token}" in Discord to finish linking your Discord account.',
-    'pending_link' => 'Čaká sa',
-    'discord_id_taken' => 'Toto Discord ID už bolo použité.',
-    'discord_invalid_id' => 'Toto Discord užívateľské ID už bolo použité.',
-    'discord_already_pending' => 'Už máte čakajúce overenie.',
-    'discord_database_error' => 'Databáza Nameless Link je momentálne nefunkčná. Skúste neskôr prosím.',
-    'discord_communication_error' => 'Pri komunikácii s Discord botom sa vyskytla chyba. Skontrolujte, či je bot spustený a či je URL vášho adresa bota správna.',
-    'discord_unknown_error' => 'Pri synchronizácii Discord rolí sa vyskytla neznáma chyba. Prosím kontaktujte správcu.',
-    'discord_id_help' => 'Informácie o tom, kde nájdete Discord ID, si prečítajte <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">toto.</a>'
 );

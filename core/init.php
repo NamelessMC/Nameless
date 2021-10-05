@@ -140,17 +140,6 @@ if ($page != 'install') {
     $nameless_version = $nameless_version[0]->value;
     define('NAMELESS_VERSION', $nameless_version);
 
-    // Get the Bot URL(s)
-    $bot_url = $queries->getWhere('settings', array('name', '=', 'discord_bot_url'));
-    $bot_url = $bot_url[0]->value;
-    if ($bot_url == null) $bot_url = '';
-    define('BOT_URL', $bot_url);
-
-    $bot_username = $queries->getWhere('settings', array('name', '=', 'discord_bot_username'));
-    $bot_username = $bot_username[0]->value;
-    if ($bot_username == null) $bot_username = '';
-    define('BOT_USERNAME', $bot_username);
-
     // User initialisation
     $user = new User();
     // Do they need logging in (checked remember me)?

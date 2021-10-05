@@ -189,7 +189,6 @@ $language = array(
     'new_wall_post_reply_your_profile' => '{x} har svart på innlegget ditt på din profil', // Don't replace {x}
     'no_about_fields' => 'Denne brukeren har ikke skrevet noe om seg selv enda.',
     'reply' => 'Svar',
-    'discord_username' => 'Discord-brukernavn',
 
     // Reports
     'invalid_report_content' => 'Kunne ikke fullføre rapporteringen. Pass på at den er mellom 2 og 1024 tegn.',
@@ -238,20 +237,4 @@ $language = array(
      */
     'user_x_has_registered' => '{x} har registert seg hos ' . SITE_NAME . '!',
     'user_x_has_validated' => '{x} har validert kontoen deres!',
-
-    // Discord
-    'discord_link' => 'Discord-lenke',
-    'linked' => 'Tilkoblet',
-    'not_linked' => 'Ikke tilkoblet',
-    'discord_id' => 'Discord-bruker-ID',
-    'discord_id_unlinked' => 'Discord-bruker-ID-en din har blitt frakoblet.',
-    'discord_id_confirm' => 'Please run the command "/verify token:{token}" in Discord to finish linking your Discord account.',
-    'pending_link' => 'Venter',
-    'discord_id_taken' => 'Den oppgitte Discord-bruker-ID-en er allerede koblet til en annen bruker.',
-    'discord_invalid_id' => 'Den oppgitte Discord-bruker-ID-en er ikke gyldig.',
-    'discord_already_pending' => 'Du har allerede en verifiseringsforespørsel som venter.',
-    'discord_database_error' => 'Nameless Link-databasen er nede for øyeblikket. Prøv igjen senere.',
-    'discord_communication_error' => 'Det oppstod en feil under kommuniseringen med Discord-boten. Sjekk om boten er oppe, og at bot-URL-en er korrekt.',
-    'discord_unknown_error' => 'Det oppstod en ukjent feil under synkroniseringen av Discord-rollene. Vennligst kontakt en administrator.',
-    'discord_id_help' => 'For mer informasjon om hvordan man finner Discord-bruker-ID, vennligst les <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">denne artikkelen.</a>'
 );

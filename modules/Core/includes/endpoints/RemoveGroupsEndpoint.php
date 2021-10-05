@@ -26,12 +26,18 @@ class RemoveGroupsEndpoint extends EndpointBase {
             $api->throwError(6, $api->getLanguage()->get('api', 'invalid_post_contents'));
         }
 
+        $removed_groups = [];
         foreach ($groups as $group) {
-            $user->removeGroup($group);
-
-            // Attempt to update their discord role as well, but ignore any output/errors
-            Discord::updateDiscordRoles($user, [], [$group], $api->getLanguage(), false);
+            if ($user->removeGroup($group)) {
+                $removed_groups[] = $group;
+            }
         }
+
+        GroupSyncManager::getInstance()->broadcastChange(
+            $user,
+            NamelessMCGroupSyncInjector::class,
+            $removed_groups
+        );
 
         $api->returnArray(array('message' => $api->getLanguage()->get('api', 'group_updated')));
     }

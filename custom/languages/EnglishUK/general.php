@@ -141,7 +141,6 @@ $language = array(
     'online_users' => 'Online Users',
     'no_online_users' => 'There are no users online.',
     'total_online_users' => 'Total online users: {x}',
-    'discord_widget_disabled' => 'The widget is disabled for the specified Discord server. Please go to the \'Widget\' tab in your Discord server settings, and ensure the Discord widget is enabled and that the ID is correct.',
     'online_guests' => 'Online Guests',
     'total_online' => 'Total Online', // this is Online Users + Online Guests,
     'no_default_server' => 'There is no default server, please select one in StaffCP - Integrations - Minecraft.',

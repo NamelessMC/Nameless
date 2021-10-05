@@ -56,11 +56,6 @@
                                        class="js-switch" value="1" {if $TWITTER_STYLE_VALUE eq 'dark' } checked{/if} />
                             </div>
                             <div class="form-group">
-                                <label for="InputDiscord">{$DISCORD_SERVER_ID}</label>
-                                <input type="text" name="discordid" class="form-control" id="InputDiscord"
-                                       placeholder="{$DISCORD_SERVER_ID}" value="{$DISCORD_SERVER_ID_VALUE}">
-                            </div>
-                            <div class="form-group">
                                 <label for="InputFacebook">{$FACEBOOK_URL}</label>
                                 <input type="text" name="fburl" class="form-control" id="InputFacebook"
                                        placeholder="{$FACEBOOK_URL}" value="{$FACEBOOK_URL_VALUE}">

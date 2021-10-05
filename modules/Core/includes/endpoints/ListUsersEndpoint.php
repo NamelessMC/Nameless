@@ -13,7 +13,13 @@ class ListUsersEndpoint extends EndpointBase {
     }
 
     public function execute(Nameless2API $api) {
-        $query = 'SELECT id, username, uuid, isbanned, discord_id AS banned, active FROM nl2_users';
+        $discord_enabled = Util::isModuleEnabled('Discord Integration');
+
+        if ($discord_enabled) {
+            $query = 'SELECT id, username, uuid, isbanned AS banned, discord_id, active FROM nl2_users';
+        } else {
+            $query = 'SELECT id, username, uuid, isbanned AS banned, active FROM nl2_users';
+        }
 
         if (isset($_GET['banned'])) {
             $query .= ' WHERE `isbanned` = ' . ($_GET['banned'] == 'true' ? '1' : '0');
@@ -30,7 +36,7 @@ class ListUsersEndpoint extends EndpointBase {
             $filterActive = true;
         }
 
-        if (isset($_GET['discord_linked'])) {
+        if ($discord_enabled && isset($_GET['discord_linked'])) {
             if (isset($filterBanned) || isset($filterActive)) {
                 $query .= ' AND';
             } else {
@@ -43,13 +49,18 @@ class ListUsersEndpoint extends EndpointBase {
 
         $users_json = array();
         foreach ($users as $user) {
-            $user_json = array();
-            $user_json['id'] = intval($user->id);
-            $user_json['username'] = $user->username;
-            $user_json['uuid'] = $user->uuid;
-            $user_json['banned'] = (bool) $user->banned;
-            $user_json['verified'] = (bool) $user->active;
-            $user_json['discord_id'] = intval($user->discord_id);
+            $user_json = [
+                'id' => intval($user->id),
+                'username' => $user->username,
+                'uuid' => $user->uuid,
+                'banned' => (bool) $user->banned,
+                'verified' => (bool) $user->active,
+            ];
+
+            if ($discord_enabled) {
+                $user_json['discord_id'] = intval($user->discord_id);
+            }
+
             $users_json[] = $user_json;
         }
 

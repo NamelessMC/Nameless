@@ -27,16 +27,7 @@ require(ROOT_PATH . '/core/includes/markdown/tohtml/Markdown.inc.php'); // Markd
 $emojione = new Emojione\Client(new Emojione\Ruleset());
 
 // Forum enabled?
-$cache->setCache('modulescache');
-$enabled_modules = $cache->retrieve('enabled_modules');
-foreach($enabled_modules as $module){
-  // Forum module enabled?
-  if($module['name'] == 'Forum'){
-	  // Enabled
-	  $forum_enabled = true;
-	  break;
-  }
-}
+$forum_enabled = Util::isModuleEnabled('Forum');
 
 // Two factor auth?
 if(isset($_GET['do'])){
@@ -295,7 +286,7 @@ if(isset($_GET['do'])){
                             );
 
                             // Is forum enabled? Update topic Updates
-                            if(isset($forum_enabled) && $forum_enabled) {
+                            if($forum_enabled) {
                                 $topicUpdates = Output::getClean(Input::get('topicUpdates'));
 
                                 $data['topic_updates'] = $topicUpdates;
@@ -496,7 +487,7 @@ if(isset($_GET['do'])){
 						'discord_username' => null
 					));
 
-					Session::flash('settings_success', $language->get('user', 'discord_id_unlinked'));
+					Session::flash('settings_success', Discord::getLanguageTerm('discord_id_unlinked'));
 					Redirect::to(URL::build('/user/settings'));
 					die();
 
@@ -512,7 +503,7 @@ if(isset($_GET['do'])){
                         'discord_id' => 010
                     ));
 
-                    Session::flash('settings_success', str_replace(array('{guild_id}', '{token}'), array(Util::getSetting(DB::getInstance(), 'discord'), $token), $language->get('user', 'discord_id_confirm')));
+                    Session::flash('settings_success', str_replace(array('{guild_id}', '{token}'), array(Discord::getGuildId(), $token), Discord::getLanguageTerm('discord_id_confirm')));
                     Redirect::to(URL::build('/user/settings'));
                     die();
 				}
@@ -682,7 +673,7 @@ if(isset($_GET['do'])){
         ));
 	}
 
-	if(isset($forum_enabled) && $forum_enabled) {
+	if($forum_enabled) {
 		$smarty->assign(array(
 			'TOPIC_UPDATES' => $language->get('user', 'topic_updates'),
 			'TOPIC_UPDATES_ENABLED' => DB::getInstance()->get('users', array('id', '=', $user->data()->id))->first()->topic_updates
@@ -697,7 +688,7 @@ if(isset($_GET['do'])){
 	}
 
 	$discord_linked = $user->data()->discord_id == null || $user->data()->discord_id == 010 ? false : true;
-	$discord_integration = Util::getSetting(DB::getInstance(), 'discord_integration');
+	$discord_integration = Util::isModuleEnabled('Discord Integration') && Discord::isBotSetup();
 
 	// Language values
 	$smarty->assign(array(
@@ -716,11 +707,11 @@ if(isset($_GET['do'])){
 		'NEW_PASSWORD' => $language->get('user', 'new_password'),
 		'CONFIRM_NEW_PASSWORD' => $language->get('user', 'confirm_new_password'),
 		'DISCORD_INTEGRATION' => $discord_integration,
-		'DISCORD_LINK' => $language->get('user', 'discord_link'),
+		'DISCORD_LINK' => Discord::getLanguageTerm('discord_link'),
 		'DISCORD_LINKED' => $discord_linked,
-		'DISCORD_USERNAME' => $language->get('user', 'discord_username'),
+		'DISCORD_USERNAME' => Discord::getLanguageTerm('discord_username'),
 		'DISCORD_USERNAME_VALUE' => $user->data()->discord_username,
-		'DISCORD_ID' => $language->get('user', 'discord_id'),
+		'DISCORD_ID' => Discord::getLanguageTerm('discord_user_id'),
 		'TWO_FACTOR_AUTH' => $language->get('user', 'two_factor_auth'),
 		'TIMEZONE' => $language->get('user', 'timezone'),
 		'TIMEZONES' => Util::listTimezones(),
@@ -732,7 +723,7 @@ if(isset($_GET['do'])){
 		'ERROR_TITLE' => $language->get('general', 'error'),
 		'HELP' => $language->get('general', 'help'),
 		'INFO' => $language->get('general', 'info'),
-		'ID_INFO' => $language->get('user', 'discord_id_help'),
+		'ID_INFO' => Discord::getLanguageTerm('discord_id_help'),
 		'ENABLED' => $language->get('user', 'enabled'),
 		'DISABLED' => $language->get('user', 'disabled'),
         'GRAVATAR' => $language->get('user', 'gravatar'),

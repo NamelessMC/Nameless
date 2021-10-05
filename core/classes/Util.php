@@ -507,7 +507,7 @@ class Util {
      * @param string $path Path to scan from.
      * @param Endpoints $endpoints Instance of Endpoints class to register endpoints to.
      */
-    public static function loadEndpoints($path, $endpoints) {
+    public static function loadEndpoints($path, Endpoints $endpoints) {
         $rii = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS));
 
         foreach ($rii as $file) {
@@ -532,6 +532,7 @@ class Util {
      * @return string|null Name of in-game rank or null if rule is not setup.
      */
     public static function getIngameRankName($website_group_id) {
+        // TODO: Make more dynamic (dont hard code column names)
         $data = DB::getInstance()->get('group_sync', array('website_group_id', '=', $website_group_id));
         
         if ($data->count()) {
@@ -555,5 +556,31 @@ class Util {
         }
         
         return null;
+    }
+
+    private static $_enabled_modules = [];
+
+    /**
+     * Determine if a specific module is enabled
+     * 
+     * @param string $name Name of module to check for.
+     * @return bool Whether this module is enabled or not.
+     */
+    public static function isModuleEnabled($name) {
+        if (in_array($name, self::$_enabled_modules)) {
+            return true;
+        }
+
+        $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
+        $cache->setCache('modulescache');
+
+        $enabled_modules = (array) $cache->retrieve('enabled_modules');
+
+        if (in_array($name, array_column($enabled_modules, 'name'))) {
+            self::$_enabled_modules[] = $name;
+            return true;
+        }
+
+        return false;
     }
 }

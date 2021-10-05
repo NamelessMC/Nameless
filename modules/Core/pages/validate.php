@@ -48,7 +48,11 @@ if(!isset($_GET['c'])){
             'language' => $language
         ));
 
-        Discord::updateDiscordRoles($user, [$user->getMainGroup()->id], [], $language, false);
+        GroupSyncManager::getInstance()->broadcastChange(
+            $user,
+            NamelessMCGroupSyncInjector::class,
+            [$user->getMainGroup()->id]
+        );
 
 		Session::flash('home', $language->get('user', 'validation_complete'));
 		Redirect::to(URL::build('/'));

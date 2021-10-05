@@ -97,7 +97,6 @@ class Core_Module extends Module {
         $pages->add('Core', '/panel/minecraft/servers', 'pages/panel/minecraft_servers.php');
         $pages->add('Core', '/panel/minecraft/query_errors', 'pages/panel/minecraft_query_errors.php');
         $pages->add('Core', '/panel/minecraft/banners', 'pages/panel/minecraft_server_banners.php');
-        $pages->add('Core', '/panel/discord', 'pages/panel/discord.php');
         $pages->add('Core', '/panel/security', 'pages/panel/security.php');
         $pages->add('Core', '/panel/update', 'pages/panel/update.php');
         $pages->add('Core', '/panel/upgrade', 'pages/panel/upgrade.php');
@@ -242,34 +241,31 @@ class Core_Module extends Module {
         HookHandler::registerEvent('validateUser', $language->get('admin', 'validate_hook_info'), array('user_id' => $language->get('admin', 'user_id'), 'username' => $language->get('user', 'username'), 'uuid' => $language->get('admin', 'uuid')));
         HookHandler::registerEvent('deleteUser', $language->get('admin', 'delete_hook_info'), array('user_id' => $language->get('admin', 'user_id'), 'username' => $language->get('user', 'username'), 'uuid' => $language->get('admin', 'uuid'), 'email_address' => $language->get('user', 'email_address')));
 
-        // Discord hook
-        require_once(ROOT_PATH . '/modules/Core/hooks/DiscordHook.php');
-
         // Webhooks
         $cache->setCache('hooks');
         if($cache->isCached('hooks')){
             $hook_array = $cache->retrieve('hooks');
         } else {
             $hook_array = array();
-            $hooks = $queries->tableExists('hooks');
-            if (!empty($hooks)) {
-                $hooks = $queries->getWhere('hooks', array('id', '<>', 0));
-                if (count($hooks)) {
-                    foreach ($hooks as $hook) {
-                        if ($hook->action == 2) {
-                            $action = 'DiscordHook::execute';
-                        } else {
-                            continue;
-                        }
+            if (Util::isModuleEnabled('Discord Integration')) {
+                $hooks = $queries->tableExists('hooks');
+                if (!empty($hooks)) {
+                    $hooks = $queries->getWhere('hooks', array('id', '<>', 0));
+                    if (count($hooks)) {
+                        foreach ($hooks as $hook) {
+                            if ($hook->action != 2) {
+                                continue;
+                            }
 
-                        $hook_array[] = array(
-                            'id' => $hook->id,
-                            'url' => Output::getClean($hook->url),
-                            'action' => $action,
-                            'events' => json_decode($hook->events, true)
-                        );
+                            $hook_array[] = array(
+                                'id' => $hook->id,
+                                'url' => Output::getClean($hook->url),
+                                'action' => 'DiscordHook::execute',
+                                'events' => json_decode($hook->events, true)
+                            );
+                        }
+                        $cache->store('hooks', $hook_array);
                     }
-                    $cache->store('hooks', $hook_array);
                 }
             }
         }
@@ -297,6 +293,9 @@ class Core_Module extends Module {
 
         // Autoload API Endpoints
         Util::loadEndpoints(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'modules', 'Core', 'includes', 'endpoints')), $endpoints);
+
+        GroupSyncManager::getInstance()->registerInjector(NamelessMCGroupSyncInjector::class);
+        GroupSyncManager::getInstance()->registerInjector(MinecraftGroupSyncInjector::class);
     }
 
     public function onInstall(){
@@ -345,7 +344,6 @@ class Core_Module extends Module {
             'admincp.core.placeholders' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'placeholders'),
             'admincp.integrations' => $language->get('admin', 'integrations'),
             'admincp.minecraft' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft'),
-            'admincp.discord' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'discord'),
             'admincp.minecraft.authme' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'authme_integration'),
             'admincp.minecraft.verification' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'account_verification'),
             'admincp.minecraft.servers' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'minecraft_servers'),
@@ -424,12 +422,6 @@ class Core_Module extends Module {
 
             $widgets->add(new TwitterWidget($module_pages, $twitter, $theme));
         }
-
-        // Discord
-        require_once(ROOT_PATH . '/modules/Core/widgets/DiscordWidget.php');
-        $discord = $cache->retrieve('discord');
-        $module_pages = $widgets->getPages('Discord');
-        $widgets->add(new DiscordWidget($module_pages, $language, $cache, $discord));
 
         // Profile Posts
         require_once(ROOT_PATH . '/modules/Core/widgets/ProfilePostsWidget.php');
@@ -947,16 +939,6 @@ class Core_Module extends Module {
                     $icon = $cache->retrieve('minecraft_icon');
 
                 $navs[2]->addItemToDropdown('integrations', 'minecraft', $language->get('admin', 'minecraft'), URL::build('/panel/minecraft'), 'top', null, $icon, $order);
-            }
-
-            if ($user->hasPermission('admincp.discord')) {
-                if (!$cache->isCached('discord_icon')) {
-                    $icon = '<i class="nav-icon fab fa-discord"></i>';
-                    $cache->store('discord_icon', $icon);
-                } else
-                $icon = $cache->retrieve('discord_icon');
-
-                $navs[2]->addItemToDropdown('integrations', 'discord', $language->get('admin', 'discord'), URL::build('/panel/discord'), 'top', null, $icon, $order);
             }
 
             if($user->hasPermission('admincp.styles') || $user->hasPermission('admincp.sitemap') || $user->hasPermission('admincp.widgets')){
