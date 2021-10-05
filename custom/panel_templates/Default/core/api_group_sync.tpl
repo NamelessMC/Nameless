@@ -58,7 +58,7 @@
 
                                             {foreach from=$GROUP_SYNC_INJECTORS key=column_name item=injector}
                                                 <input type="hidden" >
-                                                <div class="col-md-{12 / count($GROUP_SYNC_INJECTORS)}">
+                                                <div class="col-md">
                                                     <label for="input_{$column_name}">{$injector->getName()}</label>
                                                     {if in_array($injector, $ENABLED_GROUP_SYNC_INJECTORS)}
                                                         <select name="existing[{$group_sync->id}][{$column_name}]" class="form-control" id="input_{$column_name}">
@@ -96,7 +96,7 @@
                                 <div class="row">
 
                                     {foreach from=$GROUP_SYNC_INJECTORS item=injector key=column_name}
-                                        <div class="col-md-{12 / count($GROUP_SYNC_INJECTORS)}">
+                                        <div class="col-md">
                                             <label for="input_{$column_name}">{$injector->getName()}</label>
                                             {if in_array($injector, $ENABLED_GROUP_SYNC_INJECTORS)}
                                                 <select name="{$column_name}" class="form-control" id="input_{$column_name}">
