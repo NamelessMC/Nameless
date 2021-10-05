@@ -762,6 +762,10 @@ switch ($s) {
             'name' => 'Turkish',
             'is_default' => 0
         ));
+        $queries->create('languages', array(
+            'name' => 'Thai',
+            'is_default' => 0
+        ));
         $cache->setCache('languagecache');
         $cache->store('language', 'EnglishUK');
 

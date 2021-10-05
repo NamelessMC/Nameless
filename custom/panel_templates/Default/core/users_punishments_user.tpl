@@ -257,8 +257,11 @@
                     </div>
                     <div class="modal-body" id="revokeModalContents"></div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-warning" data-dismiss="modal">{$NO}</button>
-                        <a href="" class="btn btn-danger" id="revokeModalLink">{$YES}</a>
+                        <form action="" method="post" id="revokeForm">
+                            <input type="hidden" name="token" value="{$TOKEN}" />
+                            <button type="button" class="btn btn-warning" data-dismiss="modal">{$NO}</button>
+                            <input type="submit" class="btn btn-danger" value="{$YES}" />
+                        </form>
                     </div>
                 </div>
             </div>
@@ -273,7 +276,7 @@
 <script type="text/javascript">
   function showRevokeModal(link, text) {
     $('#revokeModalContents').html(text);
-    $('#revokeModalLink').attr('href', link);
+    $('#revokeForm').attr('action', link);
     $('#revokeModal').modal().show();
   }
 </script>

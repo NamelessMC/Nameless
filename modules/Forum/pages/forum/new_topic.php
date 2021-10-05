@@ -205,20 +205,18 @@ if (Input::exists()) {
                     // Execute hooks and pass $available_hooks
                     $available_hooks = $queries->getWhere('forums', array('id', '=', $fid));
                     $available_hooks = json_decode($available_hooks[0]->hooks);
-                    if ($available_hooks != null) {
-                        HookHandler::executeEvent('newTopic', array(
-                            'event' => 'newTopic',
-                            'uuid' => Output::getClean($user->data()->uuid),
-                            'username' => $user->getDisplayname(true),
-                            'nickname' => $user->getDisplayname(),
-                            'content' => str_replace(array('{x}', '{y}'), array($forum_title, $user->getDisplayname()), $forum_language->get('forum', 'new_topic_text')),
-                            'content_full' => strip_tags(str_ireplace(array('<br />', '<br>', '<br/>'), "\r\n", Input::get('content'))),
-                            'avatar_url' => $user->getAvatar(128, true),
-                            'title' => Input::get('title'),
-                            'url' => Util::getSelfURL() . ltrim(URL::build('/forum/topic/' . $topic_id . '-' . $forum->titleToURL(Input::get('title'))), '/'),
-                            'available_hooks' => $available_hooks
-                        ));
-                    }
+                    HookHandler::executeEvent('newTopic', array(
+                        'event' => 'newTopic',
+                        'uuid' => Output::getClean($user->data()->uuid),
+                        'username' => $user->getDisplayname(true),
+                        'nickname' => $user->getDisplayname(),
+                        'content' => str_replace(array('{x}', '{y}'), array($forum_title, $user->getDisplayname()), $forum_language->get('forum', 'new_topic_text')),
+                        'content_full' => strip_tags(str_ireplace(array('<br />', '<br>', '<br/>'), "\r\n", Input::get('content'))),
+                        'avatar_url' => $user->getAvatar(128, true),
+                        'title' => Input::get('title'),
+                        'url' => Util::getSelfURL() . ltrim(URL::build('/forum/topic/' . $topic_id . '-' . $forum->titleToURL(Input::get('title'))), '/'),
+                        'available_hooks' => $available_hooks == null ? [] : $available_hooks
+                    ));
 
                     Session::flash('success_post', $forum_language->get('forum', 'post_successful'));
 

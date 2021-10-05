@@ -460,7 +460,7 @@ class Forum {
     // Transform a topic title to URL-ify it
     public function titleToURL($topic = null) {
         if ($topic) {
-            $topic = preg_replace("/[^A-Za-z0-9 ]/", '', Util::cyrillicToLatin($topic));
+            $topic = Util::cyrillicToLatin($topic);
             return Output::getClean(strtolower(urlencode(str_replace(' ', '-', htmlspecialchars_decode($topic)))));
         }
 

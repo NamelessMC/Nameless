@@ -35,54 +35,60 @@ if (isset($_GET['user'])) {
     $query = $view_user->data();
 
     if (isset($_GET['do']) && $_GET['do'] == 'revoke' && isset($_GET['id']) && is_numeric($_GET['id'])) {
-        $infraction = $queries->getWhere('infractions', array('id', '=', $_GET['id']));
-        if (!$user->hasPermission('modcp.punishments.revoke') || !count($infraction) || (count($infraction) && $infraction[0]->punished != $query->id)) {
-            Redirect::to(URL::build('/panel/users/punishments/', 'user=' . $query->id));
-            die();
-        }
-        $infraction = $infraction[0];
+        if (Token::checK()) {
+            $infraction = $queries->getWhere('infractions', array('id', '=', $_GET['id']));
+            if (!$user->hasPermission('modcp.punishments.revoke') || !count($infraction) || (count($infraction) && $infraction[0]->punished != $query->id)) {
+                Redirect::to(URL::build('/panel/users/punishments/', 'user=' . $query->id));
+                die();
+            }
+            $infraction = $infraction[0];
 
-        // Revoke infraction
-        // Unban user/IP
-        if ($infraction->type == 1) {
-            // Unban user
+            // Revoke infraction
+            // Unban user/IP
+            if ($infraction->type == 1) {
+                // Unban user
+                try {
+                    $queries->update('users', $query->id, array(
+                        'isbanned' => 0,
+                        'active' => 1
+                    ));
+                } catch (Exception $e) {
+                    // Error
+                    $errors = array($e->getMessage());
+                }
+            } else if ($infraction->type == 3) {
+                // Unban IP
+                try {
+                    $queries->update('users', $query->id, array(
+                        'isbanned' => 0,
+                        'active' => 1
+                    ));
+
+                    $queries->delete('ip_bans', array('ip', '=', $query->lastip));
+                } catch (Exception $e) {
+                    // Error
+                    $errors = array($e->getMessage());
+                }
+            }
+
             try {
-                $queries->update('users', $query->id, array(
-                    'isbanned' => 0,
-                    'active' => 1
+                $queries->update('infractions', $infraction->id, array(
+                    'acknowledged' => 1,
+                    'revoked' => 1,
+                    'revoked_by' => $user->data()->id,
+                    'revoked_at' => date('U')
                 ));
             } catch (Exception $e) {
                 // Error
                 $errors = array($e->getMessage());
             }
-        } else if ($infraction->type == 3) {
-            // Unban IP
-            try {
-                $queries->update('users', $query->id, array(
-                    'isbanned' => 0,
-                    'active' => 1
-                ));
 
-                $queries->delete('ip_bans', array('ip', '=', $query->lastip));
-            } catch (Exception $e) {
-                // Error
-                $errors = array($e->getMessage());
-            }
+            Session::flash('user_punishment_success', $language->get('moderator', 'punishment_revoked'));
+
+        } else {
+            $errors = array($language->get('general', 'invalid_token'));
         }
 
-        try {
-            $queries->update('infractions', $infraction->id, array(
-                'acknowledged' => 1,
-                'revoked' => 1,
-                'revoked_by' => $user->data()->id,
-                'revoked_at' => date('U')
-            ));
-        } catch (Exception $e) {
-            // Error
-            $errors = array($e->getMessage());
-        }
-
-        Session::flash('user_punishment_success', $language->get('moderator', 'punishment_revoked'));
         Redirect::to(URL::build('/panel/users/punishments/', 'user=' . $query->id));
         die();
     }
