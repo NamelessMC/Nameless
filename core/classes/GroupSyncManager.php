@@ -195,25 +195,81 @@ final class GroupSyncManager
 
         $logs = [];
 
-        // for each sending injector id, if it is in $group_ids, add if user doesnt have it, else take it, else take it
-        foreach ($sending_injector->getAllSyncedGroupIds() as $nameless_group_id => $sending_group_id) {
-            if (in_array($sending_group_id, $group_ids)) {
-                if (!in_array($nameless_group_id, $user->getAllGroupIds())) {
-                    $added_log = $this->addGroup($user, $sending_injector, $sending_group_id);
-                    if (count($added_log)) {
-                        $logs['added'][] = $added_log;
-                    }
+        $modified = [];
+
+        $namelessmc_injector = $this->getInjectorByClass(NamelessMCGroupSyncInjector::class);
+
+        // Get all group sync rules where this injector is not null
+        $rules = DB::getInstance()->query("SELECT * FROM nl2_group_sync WHERE {$sending_injector->getColumnName()} IS NOT NULL")->results();
+        foreach ($rules as $rule) {
+
+            foreach ($this->getEnabledInjectors() as $injector) {
+
+                if ($injector == $sending_injector) {
                     continue;
                 }
-            }
 
-            $removed_log = $this->removeGroup($user, $sending_injector, $sending_group_id);
-            if (count($removed_log)) {
-                $logs['removed'][] = $removed_log;
+                $injector_column = $injector->getColumnName();
+                $injector_group_id = $rule->{$injector_column};
+                $sending_group_id = $rule->{$sending_injector->getColumnName()};
+                $nameless_group_id = $rule->{$namelessmc_injector->getColumnName()};
+
+                // Skip this injector if it doesnt have a group id setup for this rule
+                if ($injector_group_id == null) {
+                    continue;
+                }
+
+                if (!isset($modified[$injector_column])) {
+                    $modified[$injector_column] = [];
+                }
+
+                // Skip this specific injector for this rule if we have already modified the user
+                // with the same injector group id
+                if (in_array($injector_group_id, $modified[$injector_column])) {
+                    continue;
+                }
+
+                if (
+                    in_array($sending_group_id, $group_ids)
+                    && !in_array($nameless_group_id, $user->getAllGroupIds())
+                ) {
+                    // Attempt to add group if this group id was sent in the broadcastChange() method
+                    // and if they dont have the namelessmc equivilant of it
+                    if ($injector->addGroup($user, $injector_group_id)) {
+                        $modified[$injector_column][] = $injector_group_id;
+                        $logs['added'][] = "{$injector_column} -> {$injector_group_id}";
+                    }
+                } else if (
+                    !$this->hasMultiRules($injector_column, $injector_group_id) xor !count($group_ids)
+                ) {
+                    // Attempt to remove this group if it doesnt have multiple rules, or if the group ids 
+                    // list sent to broadcastChange() was empty - NOT both
+                    if ($injector->removeGroup($user, $injector_group_id)) {
+                        $modified[$injector_column][] = $injector_group_id;
+                        $logs['removed'][] = "{$injector_column} -> {$injector_group_id}";
+                    }
+                }
             }
         }
 
         return $logs;
+    }
+
+    /**
+     * Determine if given injector and group ID if there are multiple group sync roles setup with it.
+     * 
+     * @param string $injector_column Column name of injector
+     * @param string $injector_group_id Group ID of injector to check for multiple rules with
+     * 
+     * @return bool Whether there are more than 1 rules setup for the $injector_group_id
+     */
+    private function hasMultiRules($injector_column, $injector_group_id)
+    {
+        return DB::getInstance()->get('group_sync', [
+            $injector_column,
+            '=',
+            $injector_group_id
+        ])->count() > 1;
     }
 
     /**
@@ -233,96 +289,5 @@ final class GroupSyncManager
         }
 
         return null;
-    }
-
-    /**
-     * Execute the `addGroup()` method on each of the synced injectors for the $sending_injector.
-     * 
-     * @param User $user NamelessMC user affected by the change
-     * @param GroupSyncInjector $sending_injector Injector initiating the group addition
-     * @param string $sending_group_id Group ID from $sending_injector to translate and add to the user from each synced injector
-     * 
-     * @return string[] Logs of successful additions
-     */
-    private function addGroup(User $user, GroupSyncInjector $sending_injector, $sending_group_id)
-    {
-        $added_log = [];
-
-        foreach (
-            $this->getSyncedInjectors($sending_injector, $sending_group_id) as $target_group_id => $target_injector
-        ) {
-            if ($target_injector->addGroup($user, $target_group_id)) {
-                $added_log[] = $target_injector->getName() . '-' . $target_group_id;
-            }
-        }
-
-        return $added_log;
-    }
-
-    /**
-     * Execute the `removeGroup()` method on each of the synced injectors for the $sending_injector.
-     * 
-     * @param User $user NamelessMC user affected by the change
-     * @param GroupSyncInjector $sending_injector Injector initiating the group removal
-     * @param string $sending_group_id Group ID from $sending_injector to translate and remove from the user on each synced injector
-     * 
-     * @return string[] Logs of successful removals
-     */
-    private function removeGroup(User $user, GroupSyncInjector $sending_injector, $sending_group_id)
-    {
-        $removed_log = [];
-
-        foreach (
-            $this->getSyncedInjectors($sending_injector, $sending_group_id) as $target_group_id => $target_injector
-        ) {
-            if ($target_injector->removeGroup($user, $target_group_id)) {
-                $removed_log[] = $target_injector->getName() . '-' . $target_group_id;
-            }
-        }
-
-        return $removed_log;
-    }
-
-    /**
-     * Get array of group IDs => GroupSyncInjectors which the $sending_injector is synced to with the $sending_group_id.
-     * 
-     * @param GroupSyncInjector $sending_injector Injector which initiated the sync
-     * @param mixed $sending_group_id Group ID from sending injector to get syncs for
-     * 
-     * @return array<string, GroupSyncInjector> Array of group IDs and injectors to execute
-     */
-    private function getSyncedInjectors(GroupSyncInjector $sending_injector, $sending_group_id)
-    {
-        $syncs = DB::getInstance()->get('group_sync', [
-            $sending_injector->getColumnName(),
-            '=',
-            $sending_group_id,
-        ])->results();
-
-        $synced_injectors = [];
-
-        foreach ($syncs as $row) {
-            foreach ($this->getColumnNames() as $column) {
-                if ($sending_injector->getColumnName() == $column) {
-                    continue;
-                }
-
-                if ($row->{$column} == null) {
-                    continue;
-                }
-
-                if (isset($synced_injectors[$row->{$column}])) {
-                    if ($synced_injectors[$row->{$column}] == $this->_enabled_injectors[$column]) {
-                        continue;
-                    }
-                }
-
-                if (isset($this->_enabled_injectors[$column])) {
-                    $synced_injectors[$row->{$column}] = $this->_enabled_injectors[$column];
-                }
-            }
-        }
-
-        return $synced_injectors;
     }
 }

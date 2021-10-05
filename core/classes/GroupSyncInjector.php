@@ -117,29 +117,4 @@ abstract class GroupSyncInjector
      * @return bool Whether it was successfully removed or not
      */
     abstract public function removeGroup(User $user, $group_id);
-
-    /**
-     * Get an array of NamelessMC group ID => this injector's group ID which are setup to sync
-     * 
-     * @return array[] Array of IDs
-     */
-    public function getAllSyncedGroupIds()
-    {
-        $nameless_injector = GroupSyncManager::getInstance()->getInjectorByClass(NamelessMCGroupSyncInjector::class);
-
-        $group_ids = [];
-
-        $group_ids_query = DB::getInstance()->get('group_sync', [
-            $this->getColumnName(),
-            '<>',
-            'null',
-        ])->results();
-
-        foreach ($group_ids_query as $row) {
-            $group_ids[$row->{$nameless_injector->getColumnName()}] = $row->{$this->getColumnName()};
-        }
-
-        return $group_ids;
-    }
-
 }
