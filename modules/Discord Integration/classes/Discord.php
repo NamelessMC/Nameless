@@ -57,11 +57,11 @@ class Discord {
     public static function updateDiscordRoles(User $user_query, $added, $removed, $redirect = true) {
 
         if (!(Util::isModuleEnabled('Discord Integration') && self::isBotSetup())) {
-            return;
+            return false;
         }
 
         if ($user_query->data()->discord_id == null || $user_query->data()->discord_id == 010) {
-            return;
+            return false;
         }
 
         $added_arr = self::assembleGroupArray($added, 'add');
