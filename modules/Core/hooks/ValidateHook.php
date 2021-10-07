@@ -9,7 +9,7 @@
 
 class ValidateHook {
 
-    public static function validatePromote($params = array()) {
+    public static function validatePromote(array $params = array()): void {
         if (!defined('VALIDATED_DEFAULT')) {
             define('VALIDATED_DEFAULT', 1);
         }
@@ -26,6 +26,5 @@ class ValidateHook {
             NamelessMCGroupSyncInjector::class,
             [VALIDATED_DEFAULT]
         );
-
     }
 }

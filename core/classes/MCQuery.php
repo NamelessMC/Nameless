@@ -20,7 +20,7 @@ class MCQuery {
      * @param Queries $queries Queries instance to pass through for error logging.
      * @return array Array containing query result.
      */
-    public static function singleQuery($ip = null, $type = 'internal', $language, $queries) {
+    public static function singleQuery($ip = null, string $type = 'internal', Language $language, Queries $queries) {
         if ($ip) {
             try {
                 if ($type == 'internal') {
@@ -132,7 +132,7 @@ class MCQuery {
      *
      * @return array Array containing query result
      */
-    public static function multiQuery($servers, $type = 'internal', $language, $accumulate = false, $queries) {
+    public static function multiQuery(array $servers, string $type = 'internal', Language $language, bool $accumulate = false, Queries $queries): array {
         if (count($servers)) {
             if ($type == 'internal') {
                 // Internal query
@@ -276,7 +276,7 @@ class MCQuery {
      * @param array $player_list Unformatted array of players in format 'id' => string (UUID), 'name' => string (username)
      * @return array Array of formatted players
      **/
-    private static function formatPlayerList($player_list) {
+    private static function formatPlayerList(array $player_list): array {
         $formatted = array();
 
         if (count($player_list)) {

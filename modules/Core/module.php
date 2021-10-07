@@ -314,7 +314,7 @@ class Core_Module extends Module {
         // Not necessary for Core
     }
 
-    public function onPageLoad($user, $pages, $cache, $smarty, $navs, $widgets, $template){
+    public function onPageLoad(User $user, Pages $pages, Cache $cache, Smarty $smarty, $navs, Widgets $widgets, ?TemplateBase $template){
         $language = $this->_language;
 
         // Permissions

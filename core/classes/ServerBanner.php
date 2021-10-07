@@ -35,9 +35,10 @@ class ServerBanner {
      * @param resource $favicon not implemented
      * @param string $background Image Path or Standard Value
      * @param int $ping not implemented
+     * 
      * @return resource the rendered banner
      */
-    public static function server($address, $motd = "§cOffline Server", $players = -1, $max_players = -1, $favicon = null, $background = null, $ping = 150) {
+    public static function server(string $address, string $motd = "§cOffline Server", int $players = -1, int $max_players = -1, $favicon = null, string $background = null, int $ping = 150) {
         $canvas = MinecraftBanner::getBackgroundCanvas(650, 80, $background);
 
         if ($favicon == null) {

@@ -139,6 +139,7 @@ class ServerInfoEndpoint extends EndpointBase {
      * Get a user from cache (or create if not exist).
      * 
      * @param string $uuid Their uuid.
+     * 
      * @return User Their user instance.
      */
     private function getUser($uuid) {

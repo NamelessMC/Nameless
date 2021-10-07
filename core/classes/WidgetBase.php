@@ -11,16 +11,16 @@
 
 abstract class WidgetBase {
 
-    protected $_name,
-              $_pages,
-              $_location,
-              $_content,
-              $_description,
-              $_module,
-              $_order,
-              $_settings = null;
+    protected string $_name;
+    protected array $_pages;
+    protected ?string $_location;
+    protected string $_content;
+    protected string $_description;
+    protected string $_module;
+    protected ?int $_order;
+    protected ?string $_settings = null;
 
-    public function __construct($pages = array()) {
+    public function __construct(array $pages = array()) {
         $this->_pages = $pages;
     }
 
@@ -29,7 +29,7 @@ abstract class WidgetBase {
      *
      * @return string Name of widget.
      */
-    public function getName() {
+    public function getName(): string {
         return $this->_name;
     }
 
@@ -38,7 +38,7 @@ abstract class WidgetBase {
      *
      * @return array Pages this widget is enabled on.
      */
-    public function getPages() {
+    public function getPages(): array {
         return $this->_pages;
     }
 
@@ -47,7 +47,7 @@ abstract class WidgetBase {
      *
      * @return string Location of widget.
      */
-    public function getLocation() {
+    public function getLocation(): string {
         return $this->_location;
     }
 
@@ -56,7 +56,7 @@ abstract class WidgetBase {
      *
      * @return string Content/HTML of this widget.
      */
-    public function display() {
+    public function display(): string {
         return $this->_content;
     }
 
@@ -65,7 +65,7 @@ abstract class WidgetBase {
      *
      * @return string Description of widget.
      */
-    public function getDescription() {
+    public function getDescription(): string {
         return $this->_description;
     }
 
@@ -74,7 +74,7 @@ abstract class WidgetBase {
      *
      * @return string Name of module.
      */
-    public function getModule() {
+    public function getModule(): string {
         return $this->_module;
     }
 
@@ -83,7 +83,7 @@ abstract class WidgetBase {
      *
      * @return string Widget settings URL.
      */
-    public function getSettings() {
+    public function getSettings(): string {
         return $this->_settings;
     }
 
@@ -92,7 +92,7 @@ abstract class WidgetBase {
      *
      * @return int Display order of widget.
      */
-    public function getOrder() {
+    public function getOrder(): ?int {
         return $this->_order;
     }
 

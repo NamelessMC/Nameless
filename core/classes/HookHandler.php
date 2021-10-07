@@ -9,8 +9,8 @@
 
 class HookHandler {
 
-    private static $_events = array();
-    private static $_hooks = array();
+    private static array $_events = array();
+    private static array $_hooks = array();
 
     /**
      * Register an event name.
@@ -19,7 +19,7 @@ class HookHandler {
      * @param string $description Human readable description.
      * @param array|null $params Array of available parameters and their descriptions.
      */
-    public static function registerEvent($event, $description, $params = array()) {
+    public static function registerEvent(string $event, string $description, array $params = array()): void {
         if (!isset(self::$_events[$event])) {
             self::$_events[$event] = array();
         }
@@ -33,7 +33,7 @@ class HookHandler {
      * 
      * @param array $hooks Array of hooks to register
      */
-    public static function registerHooks($hooks) {
+    public static function registerHooks(array $hooks): void {
         self::$_hooks = $hooks;
     }
 
@@ -43,7 +43,7 @@ class HookHandler {
      * @param string $event Event name to hook into (must be registered with `registerEvent()`).
      * @param string $hook Function name to execute.
      */
-    public static function registerHook($event, $hook) {
+    public static function registerHook(string $event, string $hook):  void {
         if (!isset(self::$_events[$event])) {
             self::$_events[$event] = array();
         }
@@ -57,7 +57,7 @@ class HookHandler {
      * @param string $event Event name to call.
      * @param array|null $params Params to pass to the event's function.
      */
-    public static function executeEvent($event, $params = null) {
+    public static function executeEvent(string $event, array $params = null) {
         if (!isset(self::$_events[$event])) {
             return false;
         }
@@ -98,7 +98,7 @@ class HookHandler {
      * 
      * @return array List of all currently registered hooks.
      */
-    public static function getHooks() {
+    public static function getHooks(): array {
         $return = array();
 
         foreach (self::$_events as $key => $item) {
@@ -115,7 +115,7 @@ class HookHandler {
      * @param string $hook Name of hook to find
      * @return array|null Hook with name, null if one does not exist.
      */
-    public static function getHook($hook) {
+    public static function getHook(string $hook): ?array {
         if (isset(self::$_events[$hook])) {
             return self::$_events[$hook];
         }
@@ -130,7 +130,7 @@ class HookHandler {
      * @param string $event Name of event to find.
      * @return array|null Array of params or null if event under name doesnt exist.
      */
-    public static function getParameters($event) {
+    public static function getParameters(string $event): ?array {
         if (isset(self::$_events[$event]['parameters'])) {
             return self::$_events[$event]['parameters'];
         }

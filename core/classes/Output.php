@@ -10,16 +10,16 @@
  */
 class Output {
 
-    /** @var HTMLPurifier */
-    private static $_purifier = null;
+    private static ?HTMLPurifier $_purifier = null;
 
     /**
      * Returns a clean version of an inputted string.
      *
      * @param string $input The string which will be cleaned
+     * 
      * @return string Cleaned version of string.
      */
-    public static function getClean($input) {
+    public static function getClean(?string $input): string {
         return str_replace('&amp;', '&', htmlspecialchars($input, ENT_QUOTES));
     }
 
@@ -27,9 +27,10 @@ class Output {
      * Returns a decoded version of a clean string.
      * 
      * @param string $input Contains the clean string which will be decoded.
+     * 
      * @return string Decoded string.
      */
-    public static function getDecoded($input) {
+    public static function getDecoded(?string $input): string {
         return htmlspecialchars_decode($input, ENT_QUOTES);
     }
 
@@ -38,9 +39,10 @@ class Output {
      *
      * @param string $input String which will be purified.
      * @param boolean $escape_invalid Should invalid HTML be escaped instead of fully removed?
+     * 
      * @return string Purified string.
      */
-    public static function getPurified($input, $escape_invalid = false) {
+    public static function getPurified(?string $input, bool $escape_invalid = false): string {
         // Require HTMLPurifier
         if (!self::$_purifier) {
             require_once(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'core', 'includes', 'htmlpurifier', 'HTMLPurifier.standalone.php')));

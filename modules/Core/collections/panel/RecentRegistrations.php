@@ -11,11 +11,11 @@
 
 class RecentRegistrationsItem extends CollectionItemBase {
 
-    private $_smarty, 
-            $_language, 
-            $_cache;
+    private Smarty $_smarty;
+    private Language $_language;
+    private Cache $_cache;
 
-    public function __construct($smarty, $language, $cache) {
+    public function __construct(Smarty $smarty, Language $language, Cache $cache) {
         $cache->setCache('dashboard_main_items_collection');
         if ($cache->isCached('recent_registrations')) {
             $from_cache = $cache->retrieve('recent_registrations');
@@ -40,7 +40,7 @@ class RecentRegistrationsItem extends CollectionItemBase {
         $this->_cache = $cache;
     }
 
-    public function getContent() {
+    public function getContent(): string {
         // Get recent registrations
         $timeago = new Timeago(TIMEZONE);
 
@@ -88,7 +88,7 @@ class RecentRegistrationsItem extends CollectionItemBase {
         return $this->_smarty->fetch('collections/dashboard_items/recent_registrations.tpl');
     }
 
-    public function getWidth() {
+    public function getWidth(): float {
         return 0.33; // 1/3 width
     }
 }

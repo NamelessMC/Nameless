@@ -28,7 +28,7 @@ class ErrorHandler {
      * @param string|null $error_file Path to most recent frame's file. Used when $exception is null.
      * @param int|null $error_line Line in $error_file which caused Exception. Used when $exception is null.
      */
-    public static function catchException($exception, $error_string = null, $error_file = null, $error_line = null) {
+    public static function catchException(?Exception $exception, ?string $error_string = null, ?string $error_file = null, ?int $error_line = null) {
 
         // Define variables based on if a Throwable was caught by the compiler, or if this was called manually
         $error_string = is_null($exception) ? $error_string : $exception->getMessage();
@@ -78,7 +78,7 @@ class ErrorHandler {
      * @param int|null $number Higher number = more recent frame. If null, will use $exception trace count + 1.
      * @return array This frame in an array form.
      */
-    private static function parseFrame($exception, $frame_file, $frame_line, $number = null) {
+    private static function parseFrame(?Exception $exception, string $frame_file, int $frame_line, ?int $number = null): array {
         $lines = file($frame_file);
 
         return [
@@ -98,7 +98,7 @@ class ErrorHandler {
      * @param int $error_line Line to center output around.
      * @return string Truncated string from this file.
      */
-    private static function parseFile($lines, $error_line) {
+    private static function parseFile($lines, int $error_line): string {
 
         if ($lines == false || count($lines) < 1) {
             return '';
@@ -127,7 +127,7 @@ class ErrorHandler {
      * @param int $error_line Line of $error_file which error occurred at.
      * @return bool False if error reporting is disabled, true otherwise.
      */
-    public static function catchError($error_number, $error_string, $error_file, $error_line) {
+    public static function catchError(int $error_number, string $error_string, string $error_file, int $error_line): bool {
 
         if (!(error_reporting() & $error_number)) {
             return false;
@@ -161,7 +161,7 @@ class ErrorHandler {
      * Called at end of every execution on page load.
      * If an error exists, and the type is fatal, pass execution to catchException().
      */
-    public static function catchShutdownError() {
+    public static function catchShutdownError(): void {
         $error = error_get_last();
 
         if ($error == null) {
@@ -179,7 +179,7 @@ class ErrorHandler {
      * @param string $type Which category/file to log this to. Must be: `warning`, `notice`, `other` or `fatal`.
      * @param string $contents The message to be saved.
      */
-    private static function logError($type, $contents) {
+    private static function logError(string $type, string $contents): void {
 
         $dir_exists = false;
 
@@ -209,7 +209,7 @@ class ErrorHandler {
      * 
      * @param string $contents Error to write to file.
      */
-    public static function logCustomError($contents) {
+    public static function logCustomError(string $contents): void {
         self::logError('other', $contents);
     }
 }

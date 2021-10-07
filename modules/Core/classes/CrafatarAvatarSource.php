@@ -11,7 +11,7 @@ class CrafatarAvatarSource extends AvatarSourceBase {
         ];
     }
 
-    public function getUrlToFormat($perspective) {
+    public function getUrlToFormat(string $perspective): string {
         return $this->_base_url . $this->getRelativePerspective($perspective) . '/{x}?size={y}&overlay';
     }
 }

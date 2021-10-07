@@ -12,17 +12,17 @@
 
 abstract class EndpointBase {
 
-    protected $_route,
-              $_module,
-              $_description,
-              $_method;
+    protected string $_route;
+    protected string $_module;
+    protected string $_description;
+    protected string $_method;
     
     /**
      * Get route of this Endpoint.
      *
      * @return string Endpoint's route.
      */
-    public function getRoute() {
+    public function getRoute(): string {
         return $this->_route;
     }
 
@@ -31,7 +31,7 @@ abstract class EndpointBase {
      *
      * @return string Endpoint's modules name.
      */
-    public function getModule() {
+    public function getModule(): string {
         return $this->_module;
     }
 
@@ -40,7 +40,7 @@ abstract class EndpointBase {
      *
      * @return string Endpoint's description.
      */
-    public function getDescription() {
+    public function getDescription(): string {
         return $this->_description;
     }
 
@@ -49,7 +49,7 @@ abstract class EndpointBase {
      *
      * @return string Endpoint's method.
      */
-    public function getMethod() {
+    public function getMethod(): string {
         return $this->_method;
     }
 

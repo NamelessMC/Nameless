@@ -11,17 +11,14 @@
 
 class Widgets {
 
-    /** @var DB */
-    private $_db;
-
-    /** @var Cache */
-    private $_cache;
+    private DB $_db;
+    private Cache $_cache;
     
-    private $_widgets = array(),
-            $_enabled = array(),
-            $_name;
+    private array $_widgets = array();
+    private array $_enabled = array();
+    private string $_name;
 
-    public function __construct($cache, $name = 'core') {
+    public function __construct(Cache $cache, string $name = 'core') {
         // Assign name to use in cache file
         $this->_name = $name;
         $this->_cache = $cache;
@@ -40,7 +37,7 @@ class Widgets {
      *
      * @param WidgetBase $widget Instance of widget to register.
      */
-    public function add($widget) {
+    public function add(WidgetBase $widget): void {
         $this->_widgets[$widget->getName()] = $widget;
     }
 
@@ -49,7 +46,7 @@ class Widgets {
      *
      * @param WidgetBase $widget Instance of widget to enable.
      */
-    public function enable($widget) {
+    public function enable(WidgetBase $widget): void {
         // Add widget to enabled widget list
         $this->_enabled[$widget->getName()] = true;
         $this->_cache->setCache($this->_name . '-widgets');
@@ -68,7 +65,7 @@ class Widgets {
      *
      * @param WidgetBase $widget Instance of widget to disable.
      */
-    public function disable($widget) {
+    public function disable(WidgetBase $widget): void {
         unset($this->_enabled[$widget->getName()]);
         $this->_cache->setCache($this->_name . '-widgets');
         $this->_cache->store('enabled', $this->_enabled);
@@ -85,9 +82,10 @@ class Widgets {
      * Get a widget by name.
      *
      * @param string $name Name of widget to get.
+     * 
      * @return WidgetBase|null Instance of widget with same name, null if it doesnt exist.
      */
-    public function getWidget($name = null) {
+    public function getWidget(string $name = null): ?WidgetBase {
         if ($name) {
             if (array_key_exists($name, $this->_widgets)) {
                 return $this->_widgets[$name];
@@ -101,9 +99,10 @@ class Widgets {
      * Get code for all enabled widgets on the current page.
      *
      * @param string $location Either `left` or `right`.
+     * 
      * @return array List of HTML to be displayed.
      */
-    public function getWidgets($location = 'right') {
+    public function getWidgets(string $location = 'right'): array {
         $ret = array();
 
         $widgets = $this->getAll();
@@ -128,7 +127,7 @@ class Widgets {
      *
      * @return WidgetBase[] List of widgets.
      */
-    public function getAll() {
+    public function getAll(): iterable {
         $widgets = $this->_widgets;
         
         uasort($widgets, function($a, $b) {
@@ -144,7 +143,7 @@ class Widgets {
      *
      * @return array List of enabled widget names.
      */
-    public function getAllEnabledNames() {
+    public function getAllEnabledNames(): array {
         return array_keys($this->_enabled);
     }
  
@@ -152,9 +151,10 @@ class Widgets {
      * Check if widget is enabled or not.
      *
      * @param WidgetBase $widget Instance of widget to check.
+     * 
      * @return bool Whether this widget is enabled or not.
      */
-    public function isEnabled($widget) {
+    public function isEnabled(WidgetBase $widget): bool {
         return array_key_exists($widget->getName(), $this->_enabled);
     }
 
@@ -162,9 +162,10 @@ class Widgets {
      * Get a list of pages a widget is enabled on.
      *
      * @param string $name Name of widget to get pages for.
+     * 
      * @return array List of page names.
      */
-    public function getPages($name) {
+    public function getPages(string $name): array {
         $pages = $this->_db->get('widgets', array('name', '=', $name));
 
         if ($pages->count()) {
@@ -181,7 +182,7 @@ class Widgets {
      *
      * @return string Name of this instance.
      */
-    public function getName() {
+    public function getName(): string {
         return $this->_name;
     }
 }

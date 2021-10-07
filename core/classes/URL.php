@@ -17,9 +17,10 @@ class URL {
      * @param string $url Contains the URL which will be formatted.
      * @param string $params Contains string with URL parameters.
      * @param string $force Determines whether or not to force a URL type (optional, can be either "friendly" or "non-friendly").
+     * 
      * @return string|bool Assembled URL, false on failure.
      */
-    public static function build($url, $params = '', $force = null) {
+    public static function build(?string $url, string $params = '', bool $force = null) {
         if (is_null($force)) {
             if ((defined('FRIENDLY_URLS') && FRIENDLY_URLS == true) || (!defined('FRIENDLY_URLS') && Config::get('core/friendly') == true)) {
                 // Friendly URLs are enabled
@@ -47,7 +48,7 @@ class URL {
      * @param string $params URL paramaters to append to end.
      * @return string Assembled URL.
      */
-    private static function buildFriendly($url, $params) {
+    private static function buildFriendly(?string $url, string $params): string {
         // Check for params
         if ($params != '' || $params === true) {
             if ($params === true) {
@@ -68,7 +69,7 @@ class URL {
      * @param string $params URL paramaters to append to end.
      * @return string Assembled URL.
      */
-    private static function buildNonFriendly($url, $params) {
+    private static function buildNonFriendly(?string $url, string $params): string {
         if ($params != '' || $params === true) {
             if ($params === true) {
                 $params = '';

@@ -12,15 +12,13 @@
 
 class Placeholders {
 
-    /** @var Placeholders */
-    private static $_instance = null;
+    private static ?Placeholders $_instance = null;
 
-    /** @var DB */
-    private $_db = null;
+    private ?DB $_db = null;
 
-    private $_all_placeholders;
+    private array $_all_placeholders;
 
-    public static function getInstance() {
+    public static function getInstance(): Placeholders {
         if (!isset(self::$_instance)) {
             self::$_instance = new Placeholders();
         }
@@ -64,7 +62,7 @@ class Placeholders {
      * 
      * @return array All placeholders.
      */
-    public function getAllPlaceholders() {
+    public function getAllPlaceholders(): array {
         return $this->_all_placeholders;
     }
 
@@ -73,9 +71,10 @@ class Placeholders {
      * 
      * @param int $server_id Server ID to get this placeholder from, if it exists across multiple.
      * @param string $placeholder_name Name of placeholder - must be hashed with sha1.
+     * 
      * @return object|null This placeholder's data, null if not exist.
      */
-    public function getPlaceholder($server_id, $placeholder_name) {
+    public function getPlaceholder(int $server_id, string $placeholder_name): ?object {
         foreach ($this->_all_placeholders as $placeholder) {
             if ($placeholder->server_id == $server_id && $placeholder->safe_name == $placeholder_name) {
                 return $placeholder;
@@ -89,9 +88,10 @@ class Placeholders {
      * Create a new row in nl2_placeholders_settings if a row with the "server_id" of $server_id and "name" of $name does not exist (this lets the same placeholder name be used across multiple NamelessMC plugin servers).
      * 
      * @param int $server_id ID of the server this placeholder resides on
+     * 
      * @param string $name Name of placeholder
      */
-    public function registerPlaceholder($server_id, $name) {
+    public function registerPlaceholder(int $server_id, string $name): void {
         $this->_db->createQuery("INSERT IGNORE INTO nl2_placeholders_settings (server_id, name) VALUES (?, ?)", [$server_id, $name]);
     }
 
@@ -99,9 +99,10 @@ class Placeholders {
      * Load placeholders for a specific user.
      * 
      * @param string $uuid Their valid Minecraft uuid to use for lookup.
+     * 
      * @return array Their placeholders.
      */
-    public function loadUserPlaceholders($uuid) {
+    public function loadUserPlaceholders(string $uuid): array {
         $binUuid = hex2bin(str_replace('-', '', $uuid));
 
         $placeholder_query = $this->_db->query('SELECT * FROM nl2_users_placeholders up JOIN nl2_placeholders_settings ps ON up.name = ps.name AND up.server_id = ps.server_id WHERE up.uuid = ?', [$binUuid]);
@@ -135,7 +136,7 @@ class Placeholders {
      * 
      * @return array Array of placeholders which have leaderboard enabled.
      */
-    public function getLeaderboardPlaceholders() {
+    public function getLeaderboardPlaceholders(): array {
         return array_filter($this->_all_placeholders, static function ($placeholder) {
             return $placeholder->leaderboard;
         });
@@ -146,9 +147,10 @@ class Placeholders {
      * 
      * @param int $server_id Server ID to get this placeholder from.
      * @param string $placeholder_name Unique name of placeholder to get data for.
+     * 
      * @return array Array of leaderboard data.
      */
-    public function getLeaderboardData($server_id, $placeholder_name) {
+    public function getLeaderboardData(int $server_id, string $placeholder_name): array {
 
         $sort = $this->getPlaceholder($server_id, sha1($placeholder_name))->leaderboard_sort;
 

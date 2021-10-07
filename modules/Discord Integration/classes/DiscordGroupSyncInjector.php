@@ -3,38 +3,31 @@
 class DiscordGroupSyncInjector implements GroupSyncInjector
 {
 
-    public function getModule()
-    {
+    public function getModule(): string {
         return 'Discord Integration';
     }
 
-    public function getName()
-    {
+    public function getName(): string {
         return 'Discord role';
     }
 
-    public function getColumnName()
-    {
+    public function getColumnName(): string {
         return 'discord_role_id';
     }
 
-    public function getColumnType()
-    {
+    public function getColumnType(): string {
         return 'BIGINT';
     }
 
-    public function shouldEnable()
-    {
+    public function shouldEnable(): bool {
         return Discord::isBotSetup();
     }
 
-    public function getNotEnabledMessage(Language $language)
-    {
+    public function getNotEnabledMessage(Language $language): string {
         return Discord::getLanguageTerm('discord_integration_not_setup');
     }
 
-    public function getSelectionOptions()
-    {
+    public function getSelectionOptions(): array {
         $roles = [];
 
         foreach (Discord::getRoles() as $role) {
@@ -47,8 +40,7 @@ class DiscordGroupSyncInjector implements GroupSyncInjector
         return $roles;
     }
 
-    public function getValidationRules()
-    {
+    public function getValidationRules(): array {
         return [
             Validate::MIN => 18,
             Validate::MAX => 18,
@@ -56,8 +48,7 @@ class DiscordGroupSyncInjector implements GroupSyncInjector
         ];
     }
 
-    public function getValidationMessages(Language $language)
-    {
+    public function getValidationMessages(Language $language): array {
         return [
             Validate::MIN => Discord::getLanguageTerm('discord_role_id_length'),
             Validate::MAX => Discord::getLanguageTerm('discord_role_id_length'),
@@ -65,13 +56,11 @@ class DiscordGroupSyncInjector implements GroupSyncInjector
         ];
     }
 
-    public function addGroup(User $user, $group_id)
-    {
-        return Discord::updateDiscordRoles($user, [$group_id], []) === true;
+    public function addGroup(User $user, $group_id): bool {
+        return Discord::updateDiscordRoles($user->data()->id, [$group_id], []) === true;
     }
 
-    public function removeGroup(User $user, $group_id)
-    {
-        return Discord::updateDiscordRoles($user, [], [$group_id]) === true;
+    public function removeGroup(User $user, $group_id): bool {
+        return Discord::updateDiscordRoles($user->data()->id, [], [$group_id]) === true;
     }
 }

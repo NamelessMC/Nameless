@@ -13,7 +13,7 @@ class Redirect {
     /**
      * Redirect the user to the specified location
      *
-     * @param string $location Path or URL to redirect to, or (int) 404 if the page is not found.
+     * @param string|int $location Path or URL to redirect to, or (int) 404 if the page is not found.
      */
     public static function to($location = null) {
         // Check the location is actually set

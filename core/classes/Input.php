@@ -16,7 +16,7 @@ class Input {
      * @param string|null $type Check for either POST or GET submission (optional, defaults to POST)
      * @return bool Whether it exists or not.
      */
-    public static function exists($type = 'post') {
+    public static function exists(string $type = 'post'): bool {
         switch ($type) {
             case 'post';
                 // Check the $_POST variable
@@ -39,9 +39,9 @@ class Input {
      * Get input with specified name.
      * 
      * @param string $item Name of element containing input to get.
-     * @return string Value of element in input.
+     * @return mixed Value of element in input.
      */
-    public static function get($item) {
+    public static function get(string $item) {
         if (isset($_POST[$item])) {
             return $_POST[$item];
         } else if (isset($_GET[$item])) {
@@ -58,7 +58,7 @@ class Input {
      * @param bool|null $admin Whether to add admin options or not - default false
      * @return string Editor javascript code. 
      */
-    public static function createEditor($name = null, $admin = false) {
+    public static function createEditor(string $name = null, bool $admin = false):  string {
         if ($name) {
             $editor = '
             window.path = "' . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . '";
@@ -133,7 +133,7 @@ class Input {
      * @param Language $language Instance of language class to use for translation.
      * @param string $name Name of input field ID.
      */
-    public static function createTinyEditor(Language $language, $name = null) {
+    public static function createTinyEditor(Language $language, string $name = null): ?string {
         if ($name) {
             $editor = '
             tinymce.init({

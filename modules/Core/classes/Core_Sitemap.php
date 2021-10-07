@@ -8,9 +8,13 @@
  *
  *  Core module Sitemap method
  */
+
+use SitemapPHP\Sitemap;
+
 class Core_Sitemap {
-	public static function generateSitemap($sitemap = null){
-		if(!$sitemap)
+
+	public static function generateSitemap(Sitemap $sitemap = null): void {
+		if (!$sitemap)
 			return;
 
 		// Core pages

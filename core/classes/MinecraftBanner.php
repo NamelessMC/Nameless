@@ -27,7 +27,7 @@ SOFTWARE.
 
 class MinecraftBanner {
 
-    public static function getBackgroundCanvas($width, $height, $background) {
+    public static function getBackgroundCanvas(int $width, int $height, $background) {
         $texture_size = 32;
 
         $canvas = imagecreatetruecolor($width, $height);
@@ -75,7 +75,7 @@ class MinecraftBanner {
         return $canvas;
     }
 
-    public static function getColours() {
+    public static function getColours(): array {
         return array(
             '0' => array(0, 0, 0), //Black
             '1' => array(0, 0, 170), //Dark Blue
@@ -96,11 +96,11 @@ class MinecraftBanner {
         );
     }
 
-    public static function getColourChar() {
+    public static function getColourChar(): string {
         return "§";
     }
 
-    public static function getFontFile() {
+    public static function getFontFile(): string {
         return ROOT_PATH . '/core/assets/fonts/minecraft.ttf';
     }
 

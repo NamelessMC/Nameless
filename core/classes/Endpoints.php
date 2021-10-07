@@ -13,14 +13,14 @@
 class Endpoints {
 
     /** @var EndpointBase[] */
-    private $_endpoints = [];
+    private iterable $_endpoints = [];
 
     /**
      * Get all registered Endpoints
      * 
      * @return EndpointBase[] All endpoints.
      */
-    public function getAll() {
+    public function getAll(): iterable {
         return $this->_endpoints;
     }
 
@@ -29,7 +29,7 @@ class Endpoints {
      * 
      * @param EndpointBase $endpoint Instance of endpoint class to register.
      */
-    public function add(EndpointBase $endpoint) {
+    public function add(EndpointBase $endpoint): void {
         if (!isset($this->_endpoints[$endpoint->getRoute()])) {
             $this->_endpoints[$endpoint->getRoute()] = $endpoint;
         }
@@ -42,7 +42,7 @@ class Endpoints {
      * @param Nameless2API $api Instance of api instance to provide the endpoint.
      * @return bool True when endpoint is found and executed, false if not.
      */
-    public function handle($request, Nameless2API $api) {
+    public function handle(string $request, Nameless2API $api): bool {
         foreach ($this->getAll() as $endpoint) {
             if ($endpoint->getRoute() == $request) {
                 $endpoint->execute($api);

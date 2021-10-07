@@ -10,8 +10,7 @@
  */
 class Report {
 
-    /** @var DB */
-    private $_db;
+    private DB $_db;
 
     // Construct Report class
     public function __construct() {
@@ -23,7 +22,7 @@ class Report {
      *
      * @param array $post Array containing fields.
      */
-    public function create($post = array()) {
+    public function create(array $post = array()): void {
         // Insert into database
         if (!$this->_db->insert('reports', $post)) {
             throw new Exception('There was a problem creating the report.');

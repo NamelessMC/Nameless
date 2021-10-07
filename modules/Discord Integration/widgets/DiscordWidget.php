@@ -11,11 +11,10 @@
  */
 class DiscordWidget extends WidgetBase {
 
-    /** @var Cache */
-    private $_cache;
-    private $_guild_id;
+    private Cache $_cache;
+    private ?int $_guild_id;
 
-    public function __construct($pages = array(), $cache) {
+    public function __construct(array $pages = array(), Cache $cache) {
         $this->_cache = $cache;
         $this->_guild_id = Discord::getGuildId();
 
@@ -33,7 +32,7 @@ class DiscordWidget extends WidgetBase {
         $this->_order = isset($widget_query->order) ? $widget_query->order : null;
     }
 
-    public function initialise() {
+    public function initialise(): void {
         // Generate HTML code for widget
         // First, check to see if the Discord server has the widget enabled.
         $this->_cache->setCache('social_media');

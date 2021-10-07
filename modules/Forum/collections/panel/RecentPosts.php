@@ -11,11 +11,11 @@
 
 class RecentPostsItem extends CollectionItemBase {
 
-    private $_smarty, 
-            $_language, 
-            $_posts;
+    private Smarty $_smarty;
+    private Language $_language;
+    private int $_posts;
 
-    public function __construct($smarty, $language, $cache, $posts) {
+    public function __construct(Smarty $smarty, Language $language, Cache $cache, int $posts) {
         $cache->setCache('dashboard_stats_collection');
         if ($cache->isCached('recent_posts')) {
             $from_cache = $cache->retrieve('recent_posts');
@@ -40,7 +40,7 @@ class RecentPostsItem extends CollectionItemBase {
         $this->_posts = $posts;
     }
 
-    public function getContent() {
+    public function getContent(): string {
         $this->_smarty->assign(array(
             'ICON' => $this->_language->get('forum', 'recent_posts_statistic_icon'),
             'TITLE' => $this->_language->get('forum', 'recent_posts'),

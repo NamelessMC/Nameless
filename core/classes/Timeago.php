@@ -27,7 +27,7 @@ THE SOFTWARE.
  */
 
 
-function timeAgoInWords($timestring, $timezone = null) {
+function timeAgoInWords(string $timestring, string $timezone = null) {
     $timeAgo = new TimeAgo($timezone);
 
     return $timeAgo->inWords($timestring, "now");
@@ -49,14 +49,14 @@ function timeAgoInWords($timestring, $timezone = null) {
 class TimeAgo {
     
     // defines the number of seconds per "unit"
-    private $secondsPerMinute = 60;
-    private $secondsPerHour = 3600;
-    private $secondsPerDay = 86400;
-    private $secondsPerMonth = 2592000;
-    private $secondsPerYear = 31104000;
-    private $timezone;
+    private int $secondsPerMinute = 60;
+    private int $secondsPerHour = 3600;
+    private int $secondsPerDay = 86400;
+    private int $secondsPerMonth = 2592000;
+    private int $secondsPerYear = 31104000;
+    private string $timezone;
 
-    public function __construct($timezone = null) {
+    public function __construct(string $timezone = null) {
         // if the $timezone is null, we take 'Europe/London' as the default
         // this was done, because the parent construct tossed an exception
         if($timezone == null) {
@@ -66,7 +66,7 @@ class TimeAgo {
         $this->timezone = $timezone;
     }
 
-    public function inWords($past, $time_language, $now = "now") {
+    public function inWords(string $past, $time_language, $now = "now"): string {
         // sets the default timezone
         date_default_timezone_set($this->timezone);
         // finds the past in datetime
@@ -227,7 +227,7 @@ class TimeAgo {
         }
     }
 
-    public function dateDifference($past, $now = "now") {
+    public function dateDifference(string $past, string $now = "now"): array {
         // initializes the placeholders for the different "times"
         $seconds = 0;
         $minutes = 0;

@@ -11,12 +11,12 @@
 
 class Pages {
 
-    private $_pages,
-			$_active_page,
-            $_sm_methods,
-            $_ajax_requests = array();
+    private array $_pages;
+	private array $_active_page;
+    private array $_sm_methods;
+    private array $_ajax_requests = array();
 
-    private $_id = 1;
+    private int $_id = 1;
 
     /**
      * Defines a page and assigns it to a module.
@@ -24,10 +24,10 @@ class Pages {
      * @param string $module Module which the page belongs to.
      * @param string $url URL string.
      * @param string $file Path (from module folder) to page file.
-     * @param string|null $name Name of page.
-     * @param bool|null $widgets Can widgets be used on the page? Default false.
+     * @param string $name Name of page.
+     * @param bool $widgets Can widgets be used on the page? Default false.
      */
-    public function add($module, $url, $file, $name = '', $widgets = false) {
+    public function add(string $module, string $url, string $file, string $name = '', bool $widgets = false): void {
         $this->_pages[$url] = array(
             'module' => $module,
             'file' => $file,
@@ -44,7 +44,7 @@ class Pages {
      * @param string $name Name of page.
      * @param bool|null $widgets Can widgets be used on the page? Default false.
      */
-    public function addCustom($url, $name, $widgets = false) {
+    public function addCustom(strinb $url, string $name, bool $widgets = false) {
         $this->_pages[$url] = array(
             'module' => 'Core',
             'file' => 'custom.php',
@@ -60,7 +60,7 @@ class Pages {
      * 
      * @return array All pages.
      */
-    public function returnPages() {
+    public function returnPages(): array {
         return $this->_pages;
     }
 
@@ -69,7 +69,7 @@ class Pages {
      * 
      * @return array All pages which allow widgets.
      */
-    public function returnWidgetPages() {
+    public function returnWidgetPages(): array {
         $ret = array();
 
         foreach ($this->_pages as $page) {
@@ -84,7 +84,7 @@ class Pages {
     /**
      * Register a method for sitemap generation.
      */
-    public function registerSitemapMethod($file, $method) {
+    public function registerSitemapMethod(string $file, string $method): void {
         if ($file && $method) {
             if (!isset($this->_sm_methods[$file])) {
                 $this->_sm_methods[$file] = array();
@@ -99,7 +99,7 @@ class Pages {
      * 
      * @return array Array of sitemap methods.
      */
-    public function getSitemapMethods() {
+    public function getSitemapMethods(): array {
         return $this->_sm_methods;
     }
 
@@ -107,9 +107,10 @@ class Pages {
      * Get page by ID
      *
      * @param int $page_id ID of page to find.
+     * 
      * @return array Page information.
      */
-    public function getPageById($page_id = null) {
+    public function getPageById(int $page_id = null): array {
         if ($page_id) {
             foreach ($this->_pages as $key => $page) {
                 if ($page['id'] == $page_id) {
@@ -126,9 +127,10 @@ class Pages {
      * Get page by URL.
      *
      * @param string $url URL of page to find.
+     * 
      * @return array Page information.
      */
-    public function getPageByURL($url = null) {
+    public function getPageByURL(string $url = null): array {
         if ($url) {
             foreach ($this->_pages as $key => $page) {
                 if ($key == $url) {
@@ -144,7 +146,7 @@ class Pages {
     /**
      * Set the page the user currently viewing.
      */
-	public function setActivePage($page) {
+	public function setActivePage(array $page):  void {
 		$this->_active_page = $page;
 	}
 
@@ -154,7 +156,7 @@ class Pages {
      *
      * @return array Details of current page.
      */
-	public function getActivePage() {
+	public function getActivePage(): array {
 		return $this->_active_page;
 	}
 
@@ -163,7 +165,7 @@ class Pages {
      *
      * @param string $script URL of js script to add.
      */
-    public function addAjaxScript($script = null) {
+    public function addAjaxScript(string $script = null): void {
         if ($script) {
             $this->_ajax_requests[] = $script;
         }
@@ -174,7 +176,7 @@ class Pages {
      *
      * @return array All registered ajax script URLs.
      */
-    public function getAjaxScripts() {
+    public function getAjaxScripts(): array {
         return $this->_ajax_requests;
     }
 }

@@ -11,11 +11,11 @@
 
 class RecentPunishmentsItem extends CollectionItemBase {
 
-    private $_smarty, 
-            $_language, 
-            $_cache;
+    private Smarty $_smarty;
+    private Language $_language;
+    private Cache $_cache;
 
-    public function __construct($smarty, $language, $cache) {
+    public function __construct(Smarty $smarty, Language $language, Cache $cache) {
         $cache->setCache('dashboard_main_items_collection');
         if ($cache->isCached('recent_punishments')) {
             $from_cache = $cache->retrieve('recent_punishments');
@@ -40,7 +40,7 @@ class RecentPunishmentsItem extends CollectionItemBase {
         $this->_cache = $cache;
     }
 
-    public function getContent() {
+    public function getContent(): string {
         // Get recent punishments
         $timeago = new Timeago(TIMEZONE);
 
@@ -142,7 +142,7 @@ class RecentPunishmentsItem extends CollectionItemBase {
         return $this->_smarty->fetch('collections/dashboard_items/recent_punishments.tpl');
     }
 
-    public function getWidth() {
+    public function getWidth(): float {
         return 0.33; // 1/3 width
     }
 }

@@ -2,21 +2,18 @@
 
 final class GroupSyncManager
 {
-
-    /** @var GroupSyncManager */
-    private static $_instance;
+    private static GroupSyncManager $_instance;
     /** @var GroupSyncInjector[] */
-    private $_injectors = [];
+    private iterable $_injectors = [];
     /** @var GroupSyncInjector[] */
-    private $_enabled_injectors;
+    private iterable $_enabled_injectors;
 
     /**
      * Get a singleton instance of the GroupSyncManager
      * 
      * @return GroupSyncManager New or existing instance
      */
-    public static function getInstance()
-    {
+    public static function getInstance(): GroupSyncManager {
         if (!isset(self::$_instance)) {
             self::$_instance = new GroupSyncManager();
         }
@@ -32,8 +29,7 @@ final class GroupSyncManager
      * 
      * @param string $class Class name of new injector
      */
-    public function registerInjector($class)
-    {
+    public function registerInjector(string $class): void {
         /** @var GroupSyncInjector */
         $injector = new $class();
 
@@ -61,8 +57,7 @@ final class GroupSyncManager
      * @param string $column_name Unique column name to use.
      * @param string $column_type Valid MySQL column type to assign the new column.
      */
-    private function addColumnToDb($column_name, $column_type)
-    {
+    private function addColumnToDb(string $column_name, string $column_type): void {
         try {
             DB::getInstance()->alterTable('groups', $column_name, "{$column_type} NULL DEFAULT NULL");
         } catch (PDOException $ignored) {
@@ -74,8 +69,7 @@ final class GroupSyncManager
      * 
      * @return GroupSyncInjector[] Registered injectors
      */
-    public function getInjectors()
-    {
+    public function getInjectors(): iterable {
         return $this->_injectors;
     }
 
@@ -91,8 +85,7 @@ final class GroupSyncManager
      * 
      * @return GroupSyncInjector[] Enabled injectors
      */
-    public function getEnabledInjectors()
-    {
+    public function getEnabledInjectors(): iterable {
         if (!isset($this->_enabled_injectors)) {
             $this->_enabled_injectors = [];
 
@@ -114,8 +107,7 @@ final class GroupSyncManager
      * 
      * @return string[] All column names
      */
-    public function getColumnNames()
-    {
+    public function getColumnNames(): array {
         $form_names = [];
 
         foreach ($this->_injectors as $injector) {
@@ -134,8 +126,7 @@ final class GroupSyncManager
      * 
      * @return Validate New `Validate` instance
      */
-    public function makeValidator($source, Language $language)
-    {
+    public function makeValidator(array $source, Language $language): Validate {
         return (new Validate)
             ->check($source, $this->compileValidatorRules())
             ->messages($this->compileValidatorMessages($language));
@@ -147,8 +138,7 @@ final class GroupSyncManager
      * 
      * @return array<string, array<string, mixed>> Array of each enabled injectors array of rules
      */
-    private function compileValidatorRules()
-    {
+    private function compileValidatorRules(): array {
         $rules = [];
 
         foreach ($this->getEnabledInjectors() as $injector) {
@@ -164,8 +154,7 @@ final class GroupSyncManager
      * 
      * @return array<string, array<string, string>>
      */
-    private function compileValidatorMessages(Language $language)
-    {
+    private function compileValidatorMessages(Language $language): array {
         $messages = [];
 
         foreach ($this->getEnabledInjectors() as $column_name => $injector) {
@@ -186,8 +175,7 @@ final class GroupSyncManager
      * 
      * @return array Array of logs of changed groups
      */
-    public function broadcastChange(User $user, $sending_injector_class, $group_ids)
-    {
+    public function broadcastChange(User $user, string $sending_injector_class, array $group_ids): array {
         $sending_injector = $this->getInjectorByClass($sending_injector_class);
 
         if ($sending_injector == null) {
@@ -264,8 +252,7 @@ final class GroupSyncManager
      * 
      * @return bool Whether there are more than 1 rules setup for the $injector_group_id
      */
-    private function hasMultiRules($injector_column, $injector_group_id)
-    {
+    private function hasMultiRules(string $injector_column, string $injector_group_id): bool {
         return DB::getInstance()->get('group_sync', [
             $injector_column,
             '=',
@@ -281,8 +268,7 @@ final class GroupSyncManager
      * @return GroupSyncInjector|null Instance of injector, null if it doesnt exist
      * or isnt enabled
      */
-    public function getInjectorByClass($class)
-    {
+    public function getInjectorByClass(string $class): ?GroupSyncInjector {
         foreach ($this->getEnabledInjectors() as $injector) {
             if ($injector instanceof $class) {
                 return $injector;

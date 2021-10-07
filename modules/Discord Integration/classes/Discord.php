@@ -10,7 +10,11 @@
  */
 class Discord {
 
-    private static $_valid_responses = [
+    private static bool $_is_bot_setup;
+    private static ?int $_guild_id;
+    private static Language $_discord_integration_language;
+
+    private static array $_valid_responses = [
         'fullsuccess',
         'badparameter',
         'error',
@@ -21,7 +25,7 @@ class Discord {
         'invrole',
     ];
 
-    public static function discordBotRequest($url = '/status', $body = null) {
+    public static function discordBotRequest(string $url = '/status', ?string $body = null) {
         $response = Util::curlGetContents(BOT_URL . $url, $body);
 
         if (in_array($response, self::$_valid_responses)) {
@@ -33,8 +37,10 @@ class Discord {
         return false;
     }
 
-    public static function getDiscordRoleId(DB $db, $group_id) {
-        $discord_role_id = $db->get('group_sync', ['website_group_id', '=', $group_id]);
+    public static function getDiscordRoleId(DB $db, int $nameless_group_id) {
+        $nameless_injector = GroupSyncManager::getInstance()->getInjectorByClass(NamelessMCGroupSyncInjector::class);
+
+        $discord_role_id = $db->get('group_sync', [$nameless_injector->getColumnName(), '=', $nameless_group_id]);
         if ($discord_role_id->count()) {
             return $discord_role_id->first()->discord_role_id;
         }
@@ -42,20 +48,7 @@ class Discord {
         return null;
     }
 
-    public static function getWebsiteGroup(DB $db, $discord_role_id) {
-        $website_group_id = $db->get('group_sync', ['discord_role_id', '=', $discord_role_id]);
-        if ($website_group_id->count()) {
-            $group = $db->get('groups', ['id', '=', $website_group_id->first()->website_group_id]);
-            if ($group->count()) {
-                return $group->first();
-            }
-        }
-
-        return null;
-    }
-
-    public static function updateDiscordRoles(User $user_query, $added, $removed) {
-
+    public static function updateDiscordRoles(User $user_query, array $added, array $removed): bool {
         if (!self::isBotSetup()) {
             return false;
         }
@@ -87,18 +80,18 @@ class Discord {
         $errors = self::parseErrors($result);
 
         foreach ($errors as $error) {
-            Log::getInstance()->log(Log::Action('discord/role_set'), $error, $user_query, $user_query->getIP());
+            Log::getInstance()->log(Log::Action('discord/role_set'), $error, $user_query->data()->id, $user_query->getIP());
         }
 
         return false;
     }
 
-    public static function saveRoles($roles) {
+    public static function saveRoles($roles): void {
         $roles = [json_encode($roles)];
         file_put_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('discord_roles') . '.cache', $roles);
     }
 
-    public static function getRoles() {
+    public static function getRoles(): array {
         if (file_exists(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('discord_roles') . '.cache')) {
             return json_decode(file_get_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('discord_roles') . '.cache'), true);
         }
@@ -106,9 +99,10 @@ class Discord {
         return [];
     }
 
-    private static function parseErrors($result) {
+    private static function parseErrors($result): array {
         if ($result === false) {
-            // This happens when the url is invalid OR the bot is unreachable (down, firewall, etc) OR they have `allow_url_fopen` disabled in php.ini OR the bot returned a new error (they should always check logs)
+            // This happens when the url is invalid OR the bot is unreachable (down, firewall, etc)
+            // OR they have `allow_url_fopen` disabled in php.ini OR the bot returned a new error (they should always check logs)
             return [
                 Discord::getLanguageTerm('discord_communication_error'),
                 Discord::getLanguageTerm('discord_bot_check_logs'),
@@ -123,7 +117,7 @@ class Discord {
         return [Discord::getLanguageTerm('discord_unknown_error')];
     }
 
-    private static function assembleGroupArray($groups, $action) {
+    private static function assembleGroupArray(array $groups, string $action): array {
         $return = [];
 
         foreach ($groups as $group) {
@@ -142,7 +136,7 @@ class Discord {
         return $return;
     }
     
-    private static function assembleJson($user_id, $added_arr, $removed_arr) {
+    private static function assembleJson(int $user_id, array $added_arr, array $removed_arr): string {
         // TODO cache or define() website api key and discord guild id
         return json_encode([
             'guild_id' => trim(self::getGuildId()),
@@ -152,10 +146,7 @@ class Discord {
         ]);
     }
 
-    /** @var bool */
-    private static $_is_bot_setup;
-
-    public static function isBotSetup() {
+    public static function isBotSetup(): bool {
         if (!isset(self::$_is_bot_setup)) {
             self::$_is_bot_setup = Util::getSetting(DB::getInstance(), 'discord_integration');
         }
@@ -163,10 +154,7 @@ class Discord {
         return self::$_is_bot_setup;
     }
 
-    /** @var int */
-    private static $_guild_id;
-
-    public static function getGuildId() {
+    public static function getGuildId(): ?int {
         if (!isset(self::$_guild_id)) {
             self::$_guild_id = Util::getSetting(DB::getInstance(), 'discord');
         }
@@ -174,10 +162,7 @@ class Discord {
         return self::$_guild_id;
     }
 
-    /** @var Language */
-    private static $_discord_integration_language;
-
-    public static function getLanguageTerm($term) {
+    public static function getLanguageTerm(string $term): string {
         if (!isset(self::$_discord_integration_language)) {
             self::$_discord_integration_language = new Language(ROOT_PATH . '/modules/Discord Integration/language', LANGUAGE);
         }

@@ -3,38 +3,31 @@
 class NamelessMCGroupSyncInjector implements GroupSyncInjector
 {
 
-    public function getModule()
-    {
+    public function getModule(): string {
         return 'Core';
     }
 
-    public function getName()
-    {
+    public function getName(): string {
         return 'Website group';
     }
 
-    public function getColumnName()
-    {
+    public function getColumnName(): string {
         return 'website_group_id';
     }
 
-    public function getColumnType()
-    {
+    public function getColumnType(): string {
         return 'INT';
     }
 
-    public function shouldEnable()
-    {
+    public function shouldEnable(): bool {
         return true;
     }
 
-    public function getNotEnabledMessage(Language $language)
-    {
+    public function getNotEnabledMessage(Language $language): string {
         throw new Exception(self::class . ' should always be enabled.');
     }
 
-    public function getSelectionOptions()
-    {
+    public function getSelectionOptions(): array {
         $groups_query = DB::getInstance()->get('groups', array('id', '<>', 0))->results();
         $groups = [];
 
@@ -48,27 +41,23 @@ class NamelessMCGroupSyncInjector implements GroupSyncInjector
         return $groups;
     }
 
-    public function getValidationRules()
-    {
+    public function getValidationRules(): array {
         return [
             Validate::REQUIRED => true,
         ];
     }
 
-    public function getValidationMessages(Language $language)
-    {
+    public function getValidationMessages(Language $language): array {
         return [
             Validate::REQUIRED => $language->get('general', 'Error')
         ];
     }
 
-    public function addGroup(User $user, $group_id)
-    {
+    public function addGroup(User $user, $group_id): bool {
         return $user->addGroup($group_id);
     }
 
-    public function removeGroup(User $user, $group_id)
-    {
+    public function removeGroup(User $user, $group_id): bool {
         return $user->removeGroup($group_id);
     }
 }

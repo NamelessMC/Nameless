@@ -16,7 +16,7 @@ class Config {
      * 
      * @param string $path `/` seperated path of key to get from config file.
      */
-    public static function get($path = null) {
+    public static function get(string $path = null) {
         if ($path) {
             if (!isset($GLOBALS['config'])) {
                 throw new Exception('Config unavailable. Please refresh the page.');
@@ -34,7 +34,9 @@ class Config {
                 }
             }
 
-            if (!isset($not_matched)) return $config;
+            if (!isset($not_matched)) {
+                return $config;
+            }
         }
 
         return false;
@@ -46,7 +48,7 @@ class Config {
      * @param string $key `/` seperated path of key to set.
      * @param mixed $value Value to set under $key.
      */
-    public static function set($key, $value) {
+    public static function set(string $key, $value): bool {
         if (!file_exists(ROOT_PATH . '/core/config.php')) {
             fopen(ROOT_PATH . '/core/config.php', 'w');
         }
@@ -77,7 +79,7 @@ class Config {
      *
      * @param array $values Array of key/value pairs
      */
-    public static function setMultiple($values) {
+    public static function setMultiple(array $values): bool {
         if (!file_exists(ROOT_PATH . '/core/config.php')) {
             fopen(ROOT_PATH . '/core/config.php', 'w');
         }
@@ -110,7 +112,7 @@ class Config {
      * 
      * @param array $config New config array to store.
      */
-    public static function write($config) {
+    public static function write(array $config): bool {
         $file = fopen(ROOT_PATH . '/core/config.php', 'wa+');
         fwrite($file, '<?php' . PHP_EOL . '$conf = ' . var_export($config, true) . ';' . PHP_EOL . '$CONFIG[\'installed\'] = true;');
         return fclose($file);

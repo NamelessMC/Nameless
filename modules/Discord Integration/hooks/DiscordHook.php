@@ -9,7 +9,7 @@
 
 class DiscordHook {
 
-    public static function execute($params = array()) {
+    public static function execute(array $params = array()): bool {
         // Ensure hook is compatible
         $return = array();
         if ($params['event'] == 'registerUser') {

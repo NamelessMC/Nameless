@@ -8,7 +8,7 @@ interface GroupSyncInjector
      * 
      * @return string Module name
      */
-    public function getModule();
+    public function getModule(): string;
 
     /**
      * Get a "friendly name" of this injector.
@@ -17,7 +17,7 @@ interface GroupSyncInjector
      * 
      * @return string Friendly name
      */
-    public function getName();
+    public function getName(): string;
 
     /**
      * Get the name of the column to store this injector's group ID in,
@@ -25,7 +25,7 @@ interface GroupSyncInjector
      * 
      * @return string Column name
      */
-    public function getColumnName();
+    public function getColumnName(): string;
 
     /**
      * Get the MySQL type to create the column with.
@@ -33,7 +33,7 @@ interface GroupSyncInjector
      * 
      * @return string Column type
      */
-    public function getColumnType();
+    public function getColumnType(): string;
 
     /**
      * Determine if this injector should be enabled or not.
@@ -42,7 +42,7 @@ interface GroupSyncInjector
      * 
      * @return bool Whether to enable this injector or not.
      */
-    public function shouldEnable();
+    public function shouldEnable(): bool;
 
     /**
      * Get the message to display in place of the group dropdown on the Group Sync page.
@@ -51,7 +51,7 @@ interface GroupSyncInjector
      *
      * @return string Not enabled message
      */
-    public function getNotEnabledMessage(Language $language);
+    public function getNotEnabledMessage(Language $language): string;
 
     /**
      * Get a list of groups available for this injector.
@@ -69,7 +69,7 @@ interface GroupSyncInjector
      * 
      * @return array
      */
-    public function getSelectionOptions();
+    public function getSelectionOptions(): array;
 
     /**
      * Get an array of rules to validate Group Sync creation/update requests with for this group.
@@ -81,7 +81,7 @@ interface GroupSyncInjector
      * 
      * @return array Validation rules
      */
-    public function getValidationRules();
+    public function getValidationRules(): array;
 
     /**
      * Get specific error messages to display for each validation rule their
@@ -93,7 +93,7 @@ interface GroupSyncInjector
      * 
      * @return array Validation error messages
      */
-    public function getValidationMessages(Language $language);
+    public function getValidationMessages(Language $language): array;
 
     /**
      * Add this group to the user on your service.
@@ -106,7 +106,7 @@ interface GroupSyncInjector
      * 
      * @return bool Whether it was successfully added or not
      */
-    public function addGroup(User $user, $group_id);
+    public function addGroup(User $user, $group_id): bool;
 
     /**
      * Remove this group from the user
@@ -116,5 +116,5 @@ interface GroupSyncInjector
      * 
      * @return bool Whether it was successfully removed or not
      */
-    public function removeGroup(User $user, $group_id);
+    public function removeGroup(User $user, $group_id): bool;
 }

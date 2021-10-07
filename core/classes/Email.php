@@ -17,7 +17,7 @@ class Email {
      * @param array $email Array containing all necessary email information to send as per the sendPHP and sendMailer functions.
      * @param string|null $method Email sending method to use (`php` or `mailer`). Uses `php` if not provided. 
      */
-    public static function send($email, $method = 'php') {
+    public static function send(array $email, string $method = 'php') {
         if ($method == 'php') {
             return self::sendPHP($email);
         } 
@@ -33,8 +33,10 @@ class Email {
      * Send an email using PHP's sendmail() function.
      * 
      * @param array $email Array containing `to`, `subject`, `message` and `headers` values.
+     * 
+     * @return array|bool
      */
-    private static function sendPHP($email) {
+    private static function sendPHP(array $email) {
         try {
             $mail = mail($email['to'], $email['subject'], $email['message'], $email['headers']);
 
@@ -61,8 +63,10 @@ class Email {
      * Send an email using the PHPMailer library.
      * 
      * @param array $email array of email to send.
+     * 
+     * @return array|bool
      */
-    private static function sendMailer($email) {
+    private static function sendMailer(array $email) {
         require_once(ROOT_PATH . '/core/includes/phpmailer/PHPMailerAutoload.php');
         require(ROOT_PATH . '/core/email.php');
 
@@ -112,7 +116,7 @@ class Email {
      * @param string $email Name of email to format.
      * @param Language $viewing_language Instance of Language class to use for translations.
      */
-    public static function formatEmail($email, Language $viewing_language) {
+    public static function formatEmail(string $email, Language $viewing_language): string {
         return str_replace(
             ['[Sitename]', '[Greeting]', '[Message]', '[Thanks]'],
             [SITE_NAME, $viewing_language->get('emails', 'greeting'), $viewing_language->get('emails', $email . '_message'), $viewing_language->get('emails', 'thanks')],

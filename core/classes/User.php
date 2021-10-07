@@ -8,18 +8,17 @@
  */
 class User {
     
-    /** @var DB */
-    private $_db;
+    private DB $_db;
     
-    private $_data,
-            $_groups,
-            $_sessionName,
-            $_cookieName,
-            $_isLoggedIn,
-            $_admSessionName,
-            $_isAdmLoggedIn;
+    private object $_data;
+    private array $_groups;
+    private string $_sessionName;
+    private string $_cookieName;
+    private bool $_isLoggedIn = false;
+    private string $_admSessionName;
+    private bool $_isAdmLoggedIn = false;
 
-    public function __construct($user = null, $field = 'id') {
+    public function __construct(string $user = null, string $field = 'id') {
         $this->_db = DB::getInstance();
         $this->_sessionName = Config::get('session/session_name');
         $this->_cookieName = Config::get('remember/cookie_name');
@@ -65,7 +64,7 @@ class User {
      *
      * @return string Their IP.
      */
-    public function getIP() {
+    public function getIP(): string {
         if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
             return $_SERVER['HTTP_CLIENT_IP'];
         } else if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
@@ -81,8 +80,7 @@ class User {
      * @param array $fields Column names and values to update.
      * @param int $id If not supplied, will use ID of logged in user.
      */
-    public function update($fields = array(), $id = null) {
-
+    public function update(array $fields = array(), int $id = null): void {
         if (!$id) {
             $id = $this->data()->id;
         }
@@ -97,7 +95,7 @@ class User {
      *
      * @param array $fields Column names and values to insert to database.
      */
-    public function create($fields = array()) {
+    public function create(array $fields = array()): void {
         if (!$this->_db->insert('users', $fields)) {
             throw new Exception('There was a problem creating an account.');
         }
@@ -109,9 +107,10 @@ class User {
      *
      * @param string $value Unique identifier.
      * @param string $field What column to check for their unique identifier in.
+     * 
      * @return bool True/false on success or failure respectfully.
      */
-    public function find($value = null, $field = 'id') {
+    public function find(string $value = null, string $field = 'id'): bool {
         if ($value) {
             $data = $this->_db->get('users', array($field, '=', $value));
 
@@ -163,9 +162,10 @@ class User {
      * Get a user's username from their ID.
      *
      * @param int $id Their ID.
+     * 
      * @return string|bool Their username, false on failure.
      */
-    public function idToName($id = null) {
+    public function idToName(int $id = null) {
         if ($id) {
             $data = $this->_db->get('users', array('id', '=', $id));
 
@@ -182,9 +182,10 @@ class User {
      * Get a user's nickname from their ID.
      *
      * @param int $id Their ID.
+     * 
      * @return string|bool Their nickname, false on failure.
      */
-    public function idToNickname($id = null) {
+    public function idToNickname(int $id = null) {
         if ($id) {
             $data = $this->_db->get('users', array('id', '=', $id));
 
@@ -202,11 +203,12 @@ class User {
      *
      * @param string $username Their username (or email, depending on $method).
      * @param string $password Their password.
-     * @param bool|null $remember Whether to keep them logged in or not.
-     * @param string|null $method What column to check for their details in. Can be either `username` or `email`.
+     * @param bool $remember Whether to keep them logged in or not.
+     * @param string| $method What column to check for their details in. Can be either `username` or `email`.
+     * 
      * @return bool True/false on success or failure respectfully.
      */
-    public function login($username = null, $password = null, $remember = false, $method = 'email') {
+    public function login(string $username = null, string $password = null, bool $remember = false, string $method = 'email'): bool {
         if (!$username && !$password && $this->exists()) {
 
             Session::put($this->_sessionName, $this->data()->id);
@@ -246,10 +248,11 @@ class User {
      *
      * @param string $username Their username (or email, depending on $method).
      * @param string $password Their password.
-     * @param string|null $method What column to check for their details in. Can be either `username` or `email`.
+     * @param string $method What column to check for their details in. Can be either `username` or `email`.
+     * 
      * @return bool True/false on success or failure respectfully.
      */
-    public function adminLogin($username = null, $password = null, $method = 'email') {
+    public function adminLogin(string $username = null, string $password = null, string $method = 'email'): bool {
         if (!$username && !$password && $this->exists()) {
 
             Session::put($this->_admSessionName, $this->data()->id);
@@ -286,9 +289,10 @@ class User {
      * @param string $username Username (or email) to check.
      * @param string $password Password entered by user.
      * @param string $method Column to search for user with. Can be `email` or `username`.
+     * 
      * @return bool True if correct, false otherwise.
      */
-    public function checkCredentials($username, $password, $method = 'email') {
+    public function checkCredentials(string $username, string $password, string $method = 'email'): bool {
         $user = $this->find($username, $method);
         if ($user) {
             switch ($this->data()->pass_method) {
@@ -341,7 +345,7 @@ class User {
      * @param bool|null $username If true, will use their username. If false, will use their nickname.
      * @return string Their display name.
      */
-    public function getDisplayName($username = false) {
+    public function getDisplayName(bool $username = false): string {
         if ($username) {
             return Output::getClean($this->_data->username);
         }
@@ -354,7 +358,7 @@ class User {
      *
      * @return string Compiled profile URL.
      */
-    public function getProfileURL() {
+    public function getProfileURL(): string {
         return Output::getClean(URL::build("/profile/" . $this->data()->username));
     }
 
@@ -364,7 +368,7 @@ class User {
      * @param mixed $html If not null, will use group_html column instead of ID.
      * @return array Array of all their group's IDs or HTML.
      */
-    public function getAllGroups($html = null) {
+    public function getAllGroups($html = null): array {
         $groups = array();
 
         if (count($this->_groups)) {
@@ -384,9 +388,10 @@ class User {
      * Get all of a user's groups id.
      *
      * @param bool $login_check If true, will first check if this user is logged in or not. Set to "false" for API usage.
+     * 
      * @return array Array of all their group IDs.
      */
-    public function getAllGroupIds($login_check = true) {
+    public function getAllGroupIds(bool $login_check = true): array {
         if ($login_check) {
             if (!$this->isLoggedIn()) {
                 return array(0);
@@ -409,7 +414,7 @@ class User {
      *
      * @return string Their signature.
      */
-    public function getSignature() {
+    public function getSignature(): string {
         if (empty($this->data()->signature)) {
             return '';
         }
@@ -422,9 +427,10 @@ class User {
      *
      * @param int $size Size of image to render in pixels.
      * @param bool $full Whether to use full site URL or not, for external loading - ie discord webhooks.
+     * 
      * @return string URL to their avatar image.
      */
-    public function getAvatar($size = 128, $full = false) {
+    public function getAvatar(int $size = 128, bool $full = false): string {
 
         // If custom avatars are enabled, first check if they have gravatar enabled, and then fallback to normal image
         if (defined('CUSTOM_AVATARS')) {
@@ -501,7 +507,7 @@ class User {
      *
      * @return bool Whether the user exists (has data) or not.
      */
-    public function exists() {
+    public function exists(): bool {
         return (!empty($this->_data));
     }
 
@@ -509,7 +515,7 @@ class User {
      * Log the user out.
      * Deletes their cookies, sessions and database session entry.
      */
-    public function logout() {
+    public function logout(): void {
 
         $this->_db->delete('users_session', array('user_id', '=', $this->data()->id));
 
@@ -520,7 +526,7 @@ class User {
     /**
      * Process logout if user is admin
      */
-    public function admLogout() {
+    public function admLogout(): void {
 
         $this->_db->delete('users_admin_session', array('user_id', '=', $this->data()->id));
 
@@ -533,7 +539,7 @@ class User {
      *
      * @return object This user's data.
      */
-    public function data() {
+    public function data(): object {
         return $this->_data;
     }
 
@@ -542,7 +548,7 @@ class User {
      *
      * @return array Their groups.
      */
-    public function getGroups() {
+    public function getGroups(): array {
         return $this->_groups;
     }
 
@@ -551,7 +557,7 @@ class User {
      * 
      * @return array Their placeholders.
      */
-    public function getPlaceholders() {
+    public function getPlaceholders(): array {
         return $this->_placeholders;
     }
 
@@ -560,7 +566,7 @@ class User {
      * 
      * @return array Profile placeholders.
      */
-    public function getProfilePlaceholders() {
+    public function getProfilePlaceholders(): array {
         return array_filter($this->_placeholders, static function ($placeholder) {
             return $placeholder->show_on_profile;
         });
@@ -571,7 +577,7 @@ class User {
      * 
      * @return array Forum placeholders.
      */
-    public function getForumPlaceholders() {
+    public function getForumPlaceholders(): array {
         return array_filter($this->_placeholders, static function ($placeholder) {
             return $placeholder->show_on_forum;
         });
@@ -580,7 +586,7 @@ class User {
     /**
      * Get this user's main group (with highest order).
      *
-     * @return object The group
+     * @return object|bool The group
      */
     public function getMainGroup() {
         if (count($this->_groups)) {
@@ -596,10 +602,10 @@ class User {
      * Set a group to user and remove all other groups
      *
      * @param int $group_id ID of group to set as main group.
-     * @param int|null $expire Expiry in epoch time. If not supplied, group will never expire.
-     * @param array|null $group_data Load data from existing query.
+     * @param int $expire Expiry in epoch time. If not supplied, group will never expire.
+     * @param array $group_data Load data from existing query.
      */
-    public function setGroup($group_id, $expire = 0, $group_data = null) {
+    public function setGroup(int $group_id, int $expire = 0, array $group_data = null) {
         if ($this->data()->id == 1) {
             return false;
         }
@@ -630,11 +636,12 @@ class User {
      * Add a group to this user.
      *
      * @param int $group_id ID of group to give.
-     * @param int|null $expire Expiry in epoch time. If not supplied, group will never expire.
-     * @param array|null $group_data Load data from existing query.
+     * @param int $expire Expiry in epoch time. If not supplied, group will never expire.
+     * @param $group_data Load data from existing query.
+     * 
      * @return bool True on success, false if they already have it.
      */
-    public function addGroup($group_id, $expire = 0, $group_data = null) {
+    public function addGroup(int $group_id, int $expire = 0, $group_data = null): bool {
         $groups = $this->_groups ? $this->_groups : [];
 
         if (array_key_exists($group_id, $groups)) {
@@ -667,9 +674,10 @@ class User {
      * Remove a group from the user.
      *
      * @param int $group_id ID of group to remove.
+     * 
      * @return bool Returns false if they did not have this group or the admin group is being removed from root user
      */
-    public function removeGroup($group_id) {
+    public function removeGroup(int $group_id): bool {
         $groups = $this->_groups ? $this->_groups : [];
         
         if (!array_key_exists($group_id, $groups)) {
@@ -696,7 +704,7 @@ class User {
     /**
      * Removes all groups this user has.
      */
-    public function removeGroups() {
+    public function removeGroups(): void {
         $where = 'WHERE `user_id` = ?';
         
         if ($this->data()->id == 1) {
@@ -713,7 +721,7 @@ class User {
      *
      * @return bool Whether they're logged in.
      */
-    public function isLoggedIn() {
+    public function isLoggedIn(): bool {
         return $this->_isLoggedIn;
     }
 
@@ -722,7 +730,7 @@ class User {
      *
      * @return bool Whether they're logged in as admin.
      */
-    public function isAdmLoggedIn() {
+    public function isAdmLoggedIn(): bool {
         return $this->_isAdmLoggedIn;
     }
 
@@ -731,7 +739,7 @@ class User {
      *
      * @return bool Whether this user has been validated/activated.
      */
-    public function isValidated() {
+    public function isValidated(): bool {
         return $this->data()->active;
     }
 
@@ -741,7 +749,7 @@ class User {
      *
      * @return string CSV list of user's usernames.
      */
-    public function listAllUsers() {
+    public function listAllUsers(): string {
         $data = $this->_db->get('users', array('id', '<>', '0'))->results();
         $return = '';
 
@@ -756,9 +764,10 @@ class User {
      * Return an ID from a username.
      *
      * @param string $username Username to get ID for.
+     * 
      * @return int|bool ID on success, false on failure.
      */
-    public function nameToId($username = null) {
+    public function nameToId(string $username = null) {
         if ($username) {
             $data = $this->_db->get('users', array('username', '=', $username));
 
@@ -777,7 +786,7 @@ class User {
      * @param string $email Email to get ID for.
      * @return int|bool ID on success, false on failure.
      */
-    public function emailToId($email = null) {
+    public function emailToId(string $email = null) {
         if ($email) {
             $data = $this->_db->get('users', array('email', '=', $email));
 
@@ -796,7 +805,7 @@ class User {
      * @param int $user_id ID of user to get PMs for.
      * @return array|bool Array of PMs, false on failure.
      */
-    public function listPMs($user_id = null) {
+    public function listPMs(int $user_id = null) {
         if ($user_id) {
             $return = array(); // Array to return containing info of PMs
 
@@ -846,7 +855,7 @@ class User {
      * @param int $user_id ID of user to check permission for.
      * @return array|bool Array of info about PM, false on failure.
      */
-    public function getPM($pm_id = null, $user_id = null) {
+    public function getPM(int $pm_id = null, int $user_id = null) {
         if ($user_id && $pm_id) {
             // Get the PM - is the user the author?
             $data = $this->_db->get('private_messages', array('id', '=', $pm_id));
@@ -901,7 +910,7 @@ class User {
      * @param int $user_id ID of user to use.
      * @return bool Whether the action succeeded or not.
      */
-    public function deletePM($pm_id = null, $user_id = null) {
+    public function deletePM(int $pm_id = null, int $user_id = null) {
         if ($user_id && $pm_id) {
             // Is the user the author?
             $data = $this->_db->get('private_messages', array('id', '=', $pm_id));
@@ -932,7 +941,7 @@ class User {
     }
 
     // Get the number of unread PMs for the specified user
-    public function getUnreadPMs($user_id = null) {
+    public function getUnreadPMs(int $user_id = null) {
         if ($user_id) {
             $pms = $this->_db->get('private_messages_users', array('user_id', '=', $user_id));
             if ($pms->count()) {
@@ -957,7 +966,7 @@ class User {
      *
      * @return bool Whether they can view it or not.
      */
-    public function canViewStaffCP() {
+    public function canViewStaffCP(): bool {
         if (count($this->_groups)) {
             foreach ($this->_groups as $group) {
                 if ($group->admin_cp == 1) {
@@ -975,7 +984,7 @@ class User {
      *
      * @param string $permission Permission required for this page.
      */
-    public function handlePanelPageLoad($permission = null) {
+    public function handlePanelPageLoad(string $permission = null): bool {
         if (!$this->isLoggedIn()) {
             Redirect::to(URL::build('/login'));
             die();
@@ -994,6 +1003,7 @@ class User {
         if ($permission != null && !$this->hasPermission($permission)) {
             return false;
         }
+
         return true;
     }
 
@@ -1001,11 +1011,12 @@ class User {
      * Get profile fields for specified user
      *
      * @param int $user_id User to retrieve fields for.
-     * @param bool|null $public Whether to only return public fields or not (default `true`).
-     * @param bool|null $forum Whether to only return fields which display on forum posts, only if $public is true (default `false`).
-     * @return array|bool Array of profile fields. False on failure.
+     * @param bool| $public Whether to only return public fields or not (default `true`).
+     * @param bool $forum Whether to only return fields which display on forum posts, only if $public is true (default `false`).
+     * 
+     * @return array Array of profile fields. False on failure.
      */
-    public function getProfileFields($user_id = null, $public = true, $forum = false) {
+    public function getProfileFields(int $user_id = null, bool $public = true, bool $forum = false): array {
         if ($user_id) {
             $data = $this->_db->get('users_profile_fields', array('user_id', '=', $user_id));
 
@@ -1062,9 +1073,10 @@ class User {
      *
      * @param int $user ID of first user
      * @param int $blocked ID of user who may or may not be blocked
+     * 
      * @return bool Whether they are blocked or not.
      */
-    public function isBlocked($user, $blocked) {
+    public function isBlocked(int $user, int $blocked): bool {
         if ($user && $blocked) {
             $possible_users = $this->_db->get('blocked_users', array('user_id', '=', $user));
             if ($possible_users->count()) {
@@ -1085,9 +1097,10 @@ class User {
      * Does the user have a given permission in any of their groups?
      *
      * @param string $permission Permission node to check recursively for.
+     * 
      * @return bool Whether they inherit this permission or not.
      */
-    public function hasPermission($permission) {
+    public function hasPermission(string $permission): bool {
         $groups = $this->_groups;
         if ($this->isLoggedIn() && $groups) {
             foreach ($groups as $group) {
@@ -1111,7 +1124,7 @@ class User {
      *
      * @return int Numer of profile views they have
      */
-    public function getProfileViews() {
+    public function getProfileViews(): int {
         if (count($this->data())) {
             return $this->data()->profile_views;
         }
@@ -1124,7 +1137,7 @@ class User {
      *
      * @return bool Whether profile privatizing is allowed and if they have permission to use it.
      */
-    public function canPrivateProfile() {
+    public function canPrivateProfile(): bool {
         $settings_data = $this->_db->get('settings', array('name', '=', 'private_profile'));
         $settings_results = $settings_data->results();
 
@@ -1136,16 +1149,16 @@ class User {
      *
      * @return bool Whether their profile is set to private or not.
      */
-    public function isPrivateProfile() {
+    public function isPrivateProfile(): bool {
         return $this->_data->private_profile;
     }
 
     /**
      * Get templates this user's group has access to.
      *
-     * @return object Templates which the user has access to.
+     * @return array Templates which the user has access to.
      */
-    public function getUserTemplates() {
+    public function getUserTemplates(): array {
         $groups = '(';
         foreach ($this->_groups as $group) {
             if (is_numeric($group->id)) {
@@ -1163,7 +1176,7 @@ class User {
      * @param int $server_id Server ID from staffcp -> integrations to assoc these placeholders with.
      * @param array $placeholders Key/value array of placeholders name/value from API endpoint.
      */
-    public function savePlaceholders($server_id, $placeholders) {
+    public function savePlaceholders(int $server_id, array $placeholders): void {
         foreach ($placeholders as $name => $value) {
             Placeholders::getInstance()->registerPlaceholder($server_id, $name);
 

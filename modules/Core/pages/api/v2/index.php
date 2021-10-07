@@ -29,24 +29,19 @@ $api = new Nameless2API($route, $language, $endpoints);
 
 class Nameless2API {
 
-    /** @var DB */
-    private $_db;
-    
-    /** @var Language */
-    private $_language;
+    private DB $_db;
+    private Language $_language;
+    private Endpoints $_endpoints;
 
-    /** @var Endpoints */
-    private $_endpoints;
-
-    public function getDb() {
+    public function getDb(): DB {
         return $this->_db;
     }
 
-    public function getLanguage() {
+    public function getLanguage(): Language {
         return $this->_language;
     }
 
-    public function __construct($route, $api_language, $endpoints) {
+    public function __construct(string $route, Language $api_language, Endpoints $endpoints) {
         try {
             $this->_db = DB::getInstance();
             $explode = explode('/', $route);
@@ -95,9 +90,10 @@ class Nameless2API {
      * Validate provided API key to make sure it matches.
      * 
      * @param string $api_key API key to check.
+     * 
      * @return bool Whether it matches or not.
      */
-    private function validateKey($api_key = null) {
+    private function validateKey(string $api_key = null): bool {
         if ($api_key) {
             // Check cached key
             if (!is_file(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('apicache') . '.cache')) {
@@ -122,7 +118,7 @@ class Nameless2API {
         return false;
     }
 
-    public function getUser($column, $value) {
+    public function getUser(string $column, string $value): User {
         $user = new User(Output::getClean($value), Output::getClean($column));
 
         if (!$user->data()) {
@@ -147,7 +143,7 @@ class Nameless2API {
         die(json_encode($arr, JSON_PRETTY_PRINT));
     }
 
-    public function validateParams($input, $required_fields, $type = 'post') {
+    public function validateParams(array $input, array $required_fields, string $type = 'post'): bool {
         if (!isset($input) || empty($input)) {
             $this->throwError(6, $this->_language->get('api', 'invalid_' . $type . '_contents'));
         }

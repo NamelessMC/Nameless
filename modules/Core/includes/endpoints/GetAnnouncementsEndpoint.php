@@ -24,15 +24,19 @@ class GetAnnouncementsEndpoint extends EndpointBase {
             $tempUser = null;
         }
 
-        $announcements = array();
+        $user_announcements = array();
 
-        foreach (Announcements::getAvailable('api', null, $tempUser != null ? $tempUser->data()->group_id : 0, $tempUser != null ? $tempUser->data()->secondary_groups : null) as $announcement) {
-            $announcements[$announcement->id]['pages'] = json_decode($announcement->pages);
-            $announcements[$announcement->id]['groups'] = array_map('intval', json_decode($announcement->groups));
-            $announcements[$announcement->id]['header'] = Output::getClean($announcement->header);
-            $announcements[$announcement->id]['message'] = Output::getPurified($announcement->message);
+        $announcements = new Announcements(
+            new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/'])
+        );
+
+        foreach ($announcements->getAvailable('api', null, $tempUser != null ? $tempUser->data()->group_id : 0, $tempUser != null ? $tempUser->data()->secondary_groups : null) as $announcement) {
+            $user_announcements[$announcement->id]['pages'] = json_decode($announcement->pages);
+            $user_announcements[$announcement->id]['groups'] = array_map('intval', json_decode($announcement->groups));
+            $user_announcements[$announcement->id]['header'] = Output::getClean($announcement->header);
+            $user_announcements[$announcement->id]['message'] = Output::getPurified($announcement->message);
         }
 
-        $api->returnArray(array('announcements' => $announcements));
+        $api->returnArray(array('announcements' => $user_announcements));
     }
 }

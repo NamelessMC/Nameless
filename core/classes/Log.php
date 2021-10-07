@@ -11,7 +11,7 @@
  */
 class Log {
     
-    private static $_actions = [
+    private static array $_actions = [
         'admin' => [
             'login' => 'acp_login',
             'core' => [
@@ -174,11 +174,9 @@ class Log {
         ]
     ];
 
-    /** @var Log */
-    private static $_instance = null;
+    private static ?Log $_instance = null;
 
-    /** @var DB */
-    private $_db;
+    private ?DB $_db;
 
     public function __construct() {
         $this->_db = DB::getInstance();
@@ -189,7 +187,7 @@ class Log {
      * 
      * @return Log Instance
      */
-    public static function getInstance() {
+    public static function getInstance(): Log {
         if (!isset(self::$_instance)) {
             self::$_instance = new Log();
         }
@@ -203,7 +201,7 @@ class Log {
      * @param  string $path The path to the action.
      * @return string|array The keys
      */
-    public static function Action($path) {
+    public static function Action(string $path) {
         $path = explode('/', $path);
         $config = self::$_actions;
 
@@ -225,7 +223,7 @@ class Log {
      * @param  string $ip The ip of the user
      * @return bool Return true or false if inserted into the database.
      */
-    public function log($action, $info = '', $user = null, $ip = null) {
+    public function log(string $action, string $info = '', int $user = null, string $ip = null): bool {
         $userTemp = new User();
         $ip = $userTemp->getIP();
 

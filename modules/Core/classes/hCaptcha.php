@@ -10,18 +10,20 @@
  *  hCaptcha class
  */
 class hCaptcha extends CaptchaBase {
+
     /**
      * hCaptcha constructor
+     * 
      * @param string $privateKey
      * @param string $publicKey
      */
-    public function __construct($privateKey, $publicKey) {
+    public function __construct(?string $privateKey, ?string $publicKey) {
         $this->_name = 'hCaptcha';
         $this->_privateKey = $privateKey;
         $this->_publicKey = $publicKey;
     }
 
-    public function validateToken($post) {
+    public function validateToken(array $post): bool {
         $token = $post['h-captcha-response'];
 
         $url = 'https://hcaptcha.com/siteverify';
@@ -40,15 +42,15 @@ class hCaptcha extends CaptchaBase {
         return $result['success'] == 'true';
     }
 
-    public function getHtml() {
+    public function getHtml(): string {
         return '<div class="h-captcha" data-sitekey="' . $this->getPublicKey() . '"></div>';
     }
 
-    public function getJavascriptSource() {
+    public function getJavascriptSource(): string {
         return 'https://hcaptcha.com/1/api.js';
     }
 
-    public function getJavascriptSubmit($id) {
+    public function getJavascriptSubmit(string $id) {
         return null;
     }
 }

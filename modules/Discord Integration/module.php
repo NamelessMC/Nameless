@@ -49,7 +49,7 @@ class Discord_Module extends Module {
     public function onEnable() {
     }
 
-    public function onPageLoad(User $user, Pages $pages, Cache $cache, Smarty $smarty, $navs, Widgets $widgets, $template)
+    public function onPageLoad(User $user, Pages $pages, Cache $cache, Smarty $smarty, $navs, Widgets $widgets, ?TemplateBase $template)
     {
         PermissionHandler::registerPermissions($this->getName(), [
             'admincp.discord' => $this->_language->get('admin', 'integrations') . ' &raquo; ' . Discord::getLanguageTerm('discord'),
@@ -68,7 +68,7 @@ class Discord_Module extends Module {
                     $icon = $cache->retrieve('discord_icon');
                 }
 
-                $navs[2]->addItemToDropdown('integrations', 'discord', Discord::getLanguageTerm('discord'), URL::build('/panel/discord'), 'top', null, $icon, $order);
+                $navs[2]->addItemToDropdown('integrations', 'discord', Discord::getLanguageTerm('discord'), URL::build('/panel/discord'), 'top', null, $icon, 1);
             }
         }
     }

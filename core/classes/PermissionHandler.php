@@ -9,7 +9,7 @@
 
 class PermissionHandler {
 
-    private static $_permissions;
+    private static array $_permissions;
 
     /**
      *  Register a permission for display in the StaffCP.
@@ -17,8 +17,8 @@ class PermissionHandler {
      * @param string $section Permission section to add permission to.
      * @param array $permissions List of unique permissions to register.
      */
-    public static function registerPermissions($section, $permissions) {
-        if(!is_array($permissions)) {
+    public static function registerPermissions(string $section, array $permissions): bool {
+        if (!is_array($permissions)) {
             return false;
         }
 
@@ -36,7 +36,7 @@ class PermissionHandler {
      *  
      * @return array Permission array.
      */
-    public static function getPermissions() {
+    public static function getPermissions(): array {
         return self::$_permissions;
     }
 }
