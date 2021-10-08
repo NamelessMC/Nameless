@@ -189,7 +189,6 @@ $smarty->assign(array(
     'PAGE' => PANEL_PAGE,
     'TOKEN' => Token::get(),
     'GENERATE' => $language->get('admin', 'generate_sitemap'),
-    'SUBMIT' => $language->get('general', 'submit'),
     'GOOGLE_ANALYTICS_VALUE' => $configuration->get('Core', 'ga_script'),
     'PAGE_TITLE' => $language->get('admin', 'page'),
     'PAGE_LIST' => $pages->returnPages(),

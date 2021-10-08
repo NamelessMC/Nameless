@@ -677,7 +677,6 @@ Vous devriez configurer votre groupe par défaut pour avoir des autorisations li
     'announcement_icon_instructions' => 'Vous pouvez également ajouter une icône à chaque annonce ici, par exemple en utilisant <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>, <a href="https://semantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Semantic UI</a>.',
     'header' => 'En-tête',
     'message' => 'Message',
-    'pages' => 'Pages',
     'text_colour' => 'Couleur du texte',
     'background_colour' => 'Couleur de fond',
     'closable' => 'Fermable',

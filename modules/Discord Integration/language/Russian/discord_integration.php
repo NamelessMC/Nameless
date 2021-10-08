@@ -5,7 +5,7 @@
 $language = [
 
     // Misc
-    'discord_id' => 'ID сервера в Discord',
+    'discord_guild_id' => 'ID сервера в Discord',
     'discord_widget_theme' => 'Тема для виджета',
     'discord_id_length' => 'Убедитесь что ваш ID длинее 18 символов.',
     'discord_id_numeric' => 'Убедитесь что ваш ID состоит из цифр.',
@@ -18,7 +18,6 @@ $language = [
     'discord_role_id' => 'ID роли',
     'discord_role_id_numeric' => 'ID роли имеет только цифры.',
     'discord_role_id_length' => 'ID роли имеет длину в 18 символов.',
-    'discord_settings_updated' => 'Настройки интеграции сохранены.',
     'discord_guild_id_required' => 'Введить ID сервера в Discord.',
     'discord_bot_url' => 'URL бота',
     'discord_bot_url_info' => 'Расположение вашего бота... Изменяйте это значение только в том случае, если вы знаете, что делаете!',

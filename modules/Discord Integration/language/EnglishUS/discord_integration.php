@@ -5,7 +5,7 @@
 $language = [
 
     // Misc
-    'discord_id' => 'Discord Server ID',
+    'discord_guild_id' => 'Discord Server ID',
     'discord_widget_theme' => 'Discord Widget Theme',
     'discord_id_length' => 'Please ensure your Discord ID is 18 characters long.',
     'discord_id_numeric' => 'Please ensure your Discord ID is numeric (Numbers only).',
@@ -18,7 +18,6 @@ $language = [
     'discord_role_id' => 'Discord Role ID',
     'discord_role_id_numeric' => 'Discord Role ID must be numeric.',
     'discord_role_id_length' => 'Discord Role ID must be 18 digits long.',
-    'discord_settings_updated' => 'Your Discord settings were updated successfully.',
     'discord_guild_id_required' => 'Please enter your Discord Server ID for Discord integration to work.',
     'discord_bot_url' => 'Discord Bot URL',
     'discord_bot_url_info' => 'The location which your custom instance of the Nameless Link bot. Only change this value if you know what you are doing!',

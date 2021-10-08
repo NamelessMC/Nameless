@@ -5,7 +5,7 @@
 $language = [
 
     // Misc
-    'discord_id' => 'ID Serwera Discord',
+    'discord_guild_id' => 'ID Serwera Discord',
     'discord_widget_theme' => 'Styl widgetu Discord',
     'discord_id_length' => 'Sprawdź czy twoje ID Serwera Discord ma 18 znaków.',
     'discord_id_numeric' => 'Sprawdź czy twoje ID Discord ma odpowiednią ilość znaków (Tylko numery).',
@@ -18,7 +18,6 @@ $language = [
     'discord_role_id' => 'ID Roli Discord',
     'discord_role_id_numeric' => 'ID Roli musi być liczbą.',
     'discord_role_id_length' => 'ID Roli musi mieć 18 znaków.',
-    'discord_settings_updated' => 'Twoje ustawienia Discord zostały zapisane',
     'discord_guild_id_required' => 'Wpisz URL Serwera, aby integracja działała.',
     'discord_bot_url' => 'URL Bota',
     'discord_bot_url_info' => 'Położenie własnego bota. Zmień, jeśli wiesz co robisz!',

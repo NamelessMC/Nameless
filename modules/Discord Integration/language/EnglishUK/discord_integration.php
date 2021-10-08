@@ -10,7 +10,6 @@ $language = [
     'discord_role_id' => 'Discord Role ID',
     'discord_role_id_numeric' => 'Discord Role ID must be numeric.',
     'discord_role_id_length' => 'Discord Role ID must be 18 digits long.',
-    'discord_settings_updated' => 'Your Discord settings were updated successfully.',
     'discord_guild_id' => 'Discord Server ID',
     'discord_widget_theme' => 'Discord Widget Theme',
     'discord_widget_disabled' => 'The widget is disabled for the specified Discord server. Please go to the \'Widget\' tab in your Discord server settings, and ensure the Discord widget is enabled and that the ID is correct.',

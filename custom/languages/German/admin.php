@@ -730,7 +730,6 @@ $language = array(
     'announcement_icon_instructions' => 'Sie können hier auch jeder Ankündigung ein Symbol hinzufügen, z. B. <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>, <a href="https://semantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Semantic UI</a>.',
     'header' => 'Header',
     'message' => 'Nachricht',
-    'pages' => 'Seiten',
     'text_colour' => 'Text Farbe',
     'background_colour' => 'Hintergrund Farbe',
     'closable' => 'Schließbar',

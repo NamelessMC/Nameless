@@ -711,7 +711,6 @@ $language = array (
     'announcement_icon_instructions' => 'Zde také můžete každému oznámení přiřadit ikonu, například pomocí <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a> nebo <a href="https://semantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Semantic UI</a>.',
     'header' => 'Záhlaví',
     'message' => 'Zpráva',
-    'pages' => 'Stránky',
     'text_colour' => 'Barva textu',
     'background_colour' => 'Barva pozadí',
     'closable' => 'Lze zavřít',

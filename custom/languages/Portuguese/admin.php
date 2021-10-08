@@ -732,7 +732,6 @@ $language = array(
     'announcement_icon_instructions' => 'Você também pode adicionar um ícone a cada anúncio aqui, por exemplo, usando <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>, <a href="https://semantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Semantic UI</a>.',
     'header' => 'Cabeçalho',
     'message' => 'Mensagem',
-    'pages' => 'Páginas',
     'text_colour' => 'Cor do Texto',
     'background_colour' => 'Cor de fundo',
     'closable' => 'Closable',

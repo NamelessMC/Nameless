@@ -5,7 +5,7 @@
 $language = [
 
     // Misc
-    'discord_id' => 'DiscordサーバーID',
+    'discord_guild_id' => 'DiscordサーバーID',
     'discord_widget_theme' => 'Discord ウィジェットテーマ',
     'discord_id_length' => 'Discord IDは18文字以内にしてください。',
     'discord_id_numeric' => 'Discord IDが数字であることを確認してください(数字のみ)',

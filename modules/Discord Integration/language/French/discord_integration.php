@@ -5,7 +5,7 @@
 $language = [
 
     // Misc
-    'discord_id' => 'ID du serveur discord',
+    'discord_guild_id' => 'ID du serveur discord',
     'discord_widget_theme' => 'Thème Discord Widget',
     'discord_bot_must_be_setup' => 'Vous ne pouvez pas activer l\'intégration Discord avant d\'avoir configuré le bot. Pour obtenir des informations, veuillez <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">cliquez ici</a>.',
     'discord_bot_setup' => 'Configuration du bot',

@@ -729,7 +729,6 @@ $language = array(
     'announcement_icon_instructions' => 'Du kan også legge til et ikon til hver kunngjøring her, for eksempel ved å bruke <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>, <a href="https://semantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Semantic UI</a>.',
     'header' => 'Overskrift',
     'message' => 'Melding',
-    'pages' => 'Sider',
     'text_colour' => 'Tekstfarge',
     'background_colour' => 'Bakgrunnsfarge',
     'closable' => 'Lukkbar',

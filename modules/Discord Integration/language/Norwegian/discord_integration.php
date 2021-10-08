@@ -5,7 +5,7 @@
 $language = [
 
     // Misc
-    'discord_id' => 'Discord Server-ID',
+    'discord_guild_id' => 'Discord Server-ID',
     'discord_widget_theme' => 'Discord Widget-Tema',
     'discord_id_length' => 'Pass på at Discord-ID-en inneholder 18 tegn.',
     'discord_id_numeric' => 'Pass på at Discord-ID-en er numerisk (kun tall).',
@@ -18,7 +18,6 @@ $language = [
     'discord_role_id' => 'Discord rolle-ID',
     'discord_role_id_numeric' => 'Discord rolle-ID må være numerisk',
     'discord_role_id_length' => 'Discord rolle-ID må inneholde 18 tegn.',
-    'discord_settings_updated' => 'Discord-innstillingene dine har blitt oppdatert.',
     'discord_guild_id_required' => 'Vennligst oppgi Discord-serveren din sin ID, slik at Discord-integreringen fungerer.',
     'discord_bot_url' => 'Discord Bot-URL',
     'discord_bot_url_info' => 'Plasseringen til din egne instance av Nameless Link Bot. Endre kun hvis du vet hva du gjør!',

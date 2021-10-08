@@ -730,7 +730,6 @@ $language = array(
     'announcement_icon_instructions' => 'Вы можете взять иконку с <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>, <a href="https://semantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Semantic UI</a>.',
     'header' => 'Заголовок',
     'message' => 'Сообщение',
-    'pages' => 'Страницы',
     'text_colour' => 'Цвет текста',
     'background_colour' => 'Цвет заднего фона',
     'closable' => 'Можно закрыть?',

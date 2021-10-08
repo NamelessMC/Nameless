@@ -729,7 +729,6 @@ $language = array(
     'announcement_icon_instructions' => 'Możesz tu dodać ikonkę korzystając z np. <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>, <a href="https://semantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Semantic UI</a>.',
     'header' => 'Tytuł',
     'message' => 'Wiadomość',
-    'pages' => 'Strony',
     'text_colour' => 'Kolor Tekstu',
     'background_colour' => 'Kolor Tła',
     'closable' => 'Zamykane',

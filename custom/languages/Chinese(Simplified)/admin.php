@@ -742,7 +742,6 @@ $language = array(
     'announcement_icon_instructions' => '您也可以为公告添加图标，例如使用 <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a> 或 <a href="https://semantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Semantic UI</a>.',
     'header' => '头部',
     'message' => '信息',
-    'pages' => '页面',
     'text_colour' => '文字颜色',
     'background_colour' => '背景颜色',
     'closable' => '可关闭',

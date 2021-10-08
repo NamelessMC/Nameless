@@ -735,7 +735,6 @@ $language = array(
     'announcement_icon_instructions' => 'また、<a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>, <a href="https://semantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Semantic UI</a>などを使用して、ここで各アナウンスにアイコンを追加することもできます。',
     'header' => 'ヘッダー',
     'message' => 'メッセージ',
-    'pages' => 'ページ',
     'text_colour' => 'テキスト色',
     'background_colour' => '背景色',
     'closable' => 'クローズ可能',

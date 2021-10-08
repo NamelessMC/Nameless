@@ -5,7 +5,7 @@
 $language = [
 
     // Misc
-    'discord_id' => 'Discord Server ID',
+    'discord_guild_id' => 'Discord Server ID',
     'discord_widget_theme' => 'Discord Widget Thema',
     'discord_id_length' => 'Zorg ervoor dat uw Discord ID 18 karakters lang is.',
     'discord_id_numeric' => 'Zorg ervoor dat uw Discord ID numeriek is (alleen cijfers).',
@@ -18,7 +18,6 @@ $language = [
     'discord_role_id' => 'Discord Rol ID',
     'discord_role_id_numeric' => 'Discord Rol ID moet numeriek zijn.',
     'discord_role_id_length' => 'Discord Rol ID moet 18 cijfers lang zijn.',
-    'discord_settings_updated' => 'Uw Discord-instellingen werden met succes geüpdatet.',
     'discord_guild_id_required' => 'Voer uw Discord Server ID in om de Discord integratie te laten werken.',
     'discord_bot_url' => 'Discord Bot URL',
     'discord_bot_url_info' => 'De locatie waar uw aangepaste exemplaar van de Nameless Link-bot zich bevindt. Verander deze waarde alleen als u weet wat u doet!',
