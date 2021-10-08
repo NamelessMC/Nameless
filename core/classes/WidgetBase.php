@@ -83,7 +83,7 @@ abstract class WidgetBase {
      *
      * @return string Widget settings URL.
      */
-    public function getSettings(): string {
+    public function getSettings(): ?string {
         return $this->_settings;
     }
 
