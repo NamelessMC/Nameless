@@ -7,9 +7,9 @@
  *  User class
  */
 class User {
-    
+
     private DB $_db;
-    
+
     private $_data;
     private array $_groups = [];
     private array $_placeholders = [];
@@ -58,7 +58,7 @@ class User {
 
         return false;
     }
-    
+
     /**
      * Get the logged in user's IP address.
      *
@@ -70,7 +70,7 @@ class User {
         } else if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
             return $_SERVER['HTTP_X_FORWARDED_FOR'];
         }
-        
+
         return $_SERVER['REMOTE_ADDR'];
     }
 
@@ -107,7 +107,7 @@ class User {
      *
      * @param string $value Unique identifier.
      * @param string $field What column to check for their unique identifier in.
-     * 
+     *
      * @return bool True/false on success or failure respectfully.
      */
     public function find(string $value = null, string $field = 'id'): bool {
@@ -119,9 +119,9 @@ class User {
 
                 // Get user groups
                 $groups_query = $this->_db->query('SELECT nl2_groups.* FROM nl2_users_groups INNER JOIN nl2_groups ON group_id = nl2_groups.id WHERE user_id = ? AND deleted = 0 ORDER BY `order`;', array($this->_data->id));
-                
+
                 if ($groups_query->count()) {
-                    
+
                     $groups_query = $groups_query->results();
                     foreach ($groups_query as $item) {
                         $this->_groups[$item->id] = $item;
@@ -137,7 +137,7 @@ class User {
                         $default_group_id = 1; // default to 1
                         $default_group = $this->_db->query('SELECT * FROM nl2_groups WHERE id = 1', array())->first();
                     }
-                    
+
                     $this->addGroup($default_group_id, 0, $default_group);
                 }
 
@@ -162,7 +162,7 @@ class User {
      * Get a user's username from their ID.
      *
      * @param int $id Their ID.
-     * 
+     *
      * @return string|bool Their username, false on failure.
      */
     public function idToName(int $id = null) {
@@ -182,7 +182,7 @@ class User {
      * Get a user's nickname from their ID.
      *
      * @param int $id Their ID.
-     * 
+     *
      * @return string|bool Their nickname, false on failure.
      */
     public function idToNickname(int $id = null) {
@@ -198,6 +198,42 @@ class User {
         return false;
     }
 
+    private function _commonLogin(string $username, string $password, bool $remember, string $method, bool $isAdmin): bool {
+        $sessionName = $isAdmin ? $this->_admSessionName : $this->_sessionName;
+        if (!$username && !$password && $this->exists()) {
+            Session::put($sessionName, $this->data()->id);
+            if (!$is_admin) {
+                $this->_isLoggedIn = true;
+            }
+        } else if ($this->checkCredentials($username, $password, $method) === true) {
+            // Valid credentials
+            Session::put($sessionName, $this->data()->id);
+
+            if ($remember) {
+                $hash = Hash::unique();
+                $table = $isAdmin ? 'users_admin_session' : 'users_session';
+                $hashCheck = $this->_db->get($table, array('user_id', '=', $this->data()->id));
+
+                if (!$hashCheck->count()) {
+                    $this->_db->insert($table, array(
+                        'user_id' => $this->data()->id,
+                        'hash' => $hash
+                    ));
+                } else {
+                    $hash = $hashCheck->first()->hash;
+                }
+
+                $expiry = $isAdmin ? 3600 : Config::get('remember/cookie_expiry');
+                $cookieName = $is_admin ? ($this->_cookieName . '_adm') : $this->_cookieName;
+                Cookie::put($cookieName, $hash, $expiry);
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
     /**
      * Log the user in.
      *
@@ -205,42 +241,11 @@ class User {
      * @param string $password Their password.
      * @param bool $remember Whether to keep them logged in or not.
      * @param string| $method What column to check for their details in. Can be either `username` or `email`.
-     * 
+     *
      * @return bool True/false on success or failure respectfully.
      */
     public function login(string $username = null, string $password = null, bool $remember = false, string $method = 'email'): bool {
-        if (!$username && !$password && $this->exists()) {
-
-            Session::put($this->_sessionName, $this->data()->id);
-            $this->_isLoggedIn = true;
-            
-        } else {
-
-            if ($this->checkCredentials($username, $password, $method) === true) {
-                // Valid credentials
-                Session::put($this->_sessionName, $this->data()->id);
-
-                if ($remember) {
-                    $hash = Hash::unique();
-                    $hashCheck = $this->_db->get('users_session', array('user_id', '=', $this->data()->id));
-
-                    if (!$hashCheck->count()) {
-                        $this->_db->insert('users_session', array(
-                            'user_id' => $this->data()->id,
-                            'hash' => $hash
-                        ));
-                    } else {
-                        $hash = $hashCheck->first()->hash;
-                    }
-
-                    Cookie::put($this->_cookieName, $hash, Config::get('remember/cookie_expiry'));
-                }
-
-                return true;
-            }
-        }
-
-        return false;
+        return $this->_commonLogin($username, $password, $remember, $method, false);
     }
 
     /**
@@ -249,38 +254,11 @@ class User {
      * @param string $username Their username (or email, depending on $method).
      * @param string $password Their password.
      * @param string $method What column to check for their details in. Can be either `username` or `email`.
-     * 
+     *
      * @return bool True/false on success or failure respectfully.
      */
     public function adminLogin(string $username = null, string $password = null, string $method = 'email'): bool {
-        if (!$username && !$password && $this->exists()) {
-
-            Session::put($this->_admSessionName, $this->data()->id);
-            
-        } else {
-
-            if ($this->checkCredentials($username, $password, $method) === true) {
-                Session::put($this->_admSessionName, $this->data()->id);
-
-                $hash = Hash::unique();
-                $hashCheck = $this->_db->get('users_admin_session', array('user_id', '=', $this->data()->id));
-
-                if (!$hashCheck->count()) {
-                    $this->_db->insert('users_admin_session', array(
-                        'user_id' => $this->data()->id,
-                        'hash' => $hash
-                    ));
-                } else {
-                    $hash = $hashCheck->first()->hash;
-                }
-
-                Cookie::put($this->_cookieName . "_adm", $hash, 3600);
-
-                return true;
-            }
-        }
-
-        return false;
+        return $this->_commonLogin($username, $password, true, $method, true);
     }
 
     /**
@@ -289,7 +267,7 @@ class User {
      * @param string $username Username (or email) to check.
      * @param string $password Password entered by user.
      * @param string $method Column to search for user with. Can be `email` or `username`.
-     * 
+     *
      * @return bool True if correct, false otherwise.
      */
     public function checkCredentials(string $username, string $password, string $method = 'email'): bool {
@@ -349,7 +327,7 @@ class User {
         if ($username) {
             return Output::getClean($this->_data->username);
         }
-        
+
         return Output::getClean($this->_data->nickname);
     }
 
@@ -380,15 +358,15 @@ class User {
                 }
             }
         }
-        
+
         return $groups;
     }
-   
+
     /**
      * Get all of a user's groups id.
      *
      * @param bool $login_check If true, will first check if this user is logged in or not. Set to "false" for API usage.
-     * 
+     *
      * @return array Array of all their group IDs.
      */
     public function getAllGroupIds(bool $login_check = true): array {
@@ -427,7 +405,7 @@ class User {
      *
      * @param int $size Size of image to render in pixels.
      * @param bool $full Whether to use full site URL or not, for external loading - ie discord webhooks.
-     * 
+     *
      * @return string URL to their avatar image.
      */
     public function getAvatar(int $size = 128, bool $full = false): string {
@@ -478,7 +456,7 @@ class User {
     /**
      * If the user has infractions, list them all. Or else return false.
      * Not used internally.
-     * 
+     *
      * @return array|bool Array of infractions if they have one or more, else false.
      */
     public function hasInfraction() {
@@ -498,7 +476,7 @@ class User {
                 $n++;
             }
         }
-        
+
         return $return;
     }
 
@@ -522,7 +500,7 @@ class User {
         Session::delete($this->_sessionName);
         Cookie::delete($this->_cookieName);
     }
- 
+
     /**
      * Process logout if user is admin
      */
@@ -533,7 +511,7 @@ class User {
         Session::delete($this->_admSessionName);
         Cookie::delete($this->_cookieName . '_adm');
     }
-  
+
     /**
      * Get the currently logged in user's data.
      *
@@ -554,7 +532,7 @@ class User {
 
     /**
      * Get the currently logged in user's placeholders.
-     * 
+     *
      * @return array Their placeholders.
      */
     public function getPlaceholders(): array {
@@ -563,7 +541,7 @@ class User {
 
     /**
      * Get this user's placeholders to display on their profile.
-     * 
+     *
      * @return array Profile placeholders.
      */
     public function getProfilePlaceholders(): array {
@@ -574,7 +552,7 @@ class User {
 
     /**
      * Get this user's placeholders to display on their forum posts.
-     * 
+     *
      * @return array Forum placeholders.
      */
     public function getForumPlaceholders(): array {
@@ -597,7 +575,7 @@ class User {
 
         return false;
     }
-   
+
     /**
      * Set a group to user and remove all other groups
      *
@@ -620,7 +598,7 @@ class User {
                 $expire
             )
         );
-        
+
         $this->_groups = array();
         if($group_data == null) {
             $group_data = $this->_db->get('groups', array('id', '=', $group_id));
@@ -638,7 +616,7 @@ class User {
      * @param int $group_id ID of group to give.
      * @param int $expire Expiry in epoch time. If not supplied, group will never expire.
      * @param $group_data Load data from existing query.
-     * 
+     *
      * @return bool True on success, false if they already have it.
      */
     public function addGroup(int $group_id, int $expire = 0, $group_data = null): bool {
@@ -657,7 +635,7 @@ class User {
                 $expire
             )
         );
-        
+
         if($group_data == null) {
             $group_data = $this->_db->get('groups', array('id', '=', $group_id));
             if ($group_data->count()) {
@@ -674,12 +652,12 @@ class User {
      * Remove a group from the user.
      *
      * @param int $group_id ID of group to remove.
-     * 
+     *
      * @return bool Returns false if they did not have this group or the admin group is being removed from root user
      */
     public function removeGroup(int $group_id): bool {
         $groups = $this->_groups ? $this->_groups : [];
-        
+
         if (!array_key_exists($group_id, $groups)) {
             return false;
         }
@@ -695,7 +673,7 @@ class User {
                 $group_id
             )
         );
-        
+
         unset($this->_groups[$group_id]);
 
         return true;
@@ -706,13 +684,13 @@ class User {
      */
     public function removeGroups(): void {
         $where = 'WHERE `user_id` = ?';
-        
+
         if ($this->data()->id == 1) {
             $where .= ' AND `group_id` <> 2';
         }
 
         $this->_db->createQuery('DELETE FROM `nl2_users_groups` ' . $where, array($this->data()->id));
-        
+
         $this->_groups = array();
     }
 
@@ -756,15 +734,15 @@ class User {
         foreach ($data as $item) {
             $return .= '"' . $item->username . '",';
         }
-        
+
         return rtrim($return, ',');
     }
-  
+
     /**
      * Return an ID from a username.
      *
      * @param string $username Username to get ID for.
-     * 
+     *
      * @return int|bool ID on success, false on failure.
      */
     public function nameToId(string $username = null) {
@@ -776,7 +754,7 @@ class User {
                 return $results[0]->id;
             }
         }
-        
+
         return false;
     }
 
@@ -795,10 +773,10 @@ class User {
                 return $results[0]->id;
             }
         }
-        
+
         return false;
     }
-   
+
     /**
      * Get a list of PMs a user has access to.
      *
@@ -847,7 +825,7 @@ class User {
 
         return false;
     }
-   
+
     /**
      * Get a specific private message, and see if the user actually has permission to view it
      *
@@ -902,7 +880,7 @@ class User {
 
         return false;
     }
-    
+
     /**
      * Delete a user's access to view the PM, or if they're the author, the PM itself.
      *
@@ -936,7 +914,7 @@ class User {
                 }
             }
         }
-        
+
         return false;
     }
 
@@ -957,10 +935,10 @@ class User {
                 return 0;
             }
         }
-        
+
         return false;
     }
-  
+
     /**
      * Can the specified user view StaffCP?
      *
@@ -1013,7 +991,7 @@ class User {
      * @param int $user_id User to retrieve fields for.
      * @param bool| $public Whether to only return public fields or not (default `true`).
      * @param bool $forum Whether to only return fields which display on forum posts, only if $public is true (default `false`).
-     * 
+     *
      * @return array Array of profile fields. False on failure.
      */
     public function getProfileFields(int $user_id = null, bool $public = true, bool $forum = false): array {
@@ -1073,7 +1051,7 @@ class User {
      *
      * @param int $user ID of first user
      * @param int $blocked ID of user who may or may not be blocked
-     * 
+     *
      * @return bool Whether they are blocked or not.
      */
     public function isBlocked(int $user, int $blocked): bool {
@@ -1097,7 +1075,7 @@ class User {
      * Does the user have a given permission in any of their groups?
      *
      * @param string $permission Permission node to check recursively for.
-     * 
+     *
      * @return bool Whether they inherit this permission or not.
      */
     public function hasPermission(string $permission): bool {
@@ -1105,7 +1083,7 @@ class User {
         if ($this->isLoggedIn() && $groups) {
             foreach ($groups as $group) {
                 $permissions = json_decode($group->permissions, true);
-                
+
                 if (isset($permissions['administrator']) && $permissions['administrator'] == 1) {
                     return true;
                 }
@@ -1172,7 +1150,7 @@ class User {
 
     /**
      * Save/update this users placeholders.
-     * 
+     *
      * @param int $server_id Server ID from staffcp -> integrations to assoc these placeholders with.
      * @param array $placeholders Key/value array of placeholders name/value from API endpoint.
      */
