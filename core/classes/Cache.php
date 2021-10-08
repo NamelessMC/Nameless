@@ -172,7 +172,7 @@ class Cache {
                 $cacheData = json_encode($cacheData);
                 file_put_contents($this->getCacheDir(), $cacheData);
             } else {
-                throw new Exception("Error: erase() - Key '{$key}' not found.");
+                throw new Exception("Error: erase() - Key '$key' not found.");
             }
         }
         return $this;

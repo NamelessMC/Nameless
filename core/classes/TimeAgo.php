@@ -248,7 +248,7 @@ class TimeAgo {
         $timeDifference = $now - $past;
 
         // starts determining the time difference
-        if($timeDifference >= 0) {
+        if ($timeDifference >= 0) {
             switch($timeDifference) {
                 // finds the number of years
                 case ($timeDifference >= $this->secondsPerYear):

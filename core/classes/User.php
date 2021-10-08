@@ -279,7 +279,6 @@ class User {
                     $phpass = new PasswordHash(8, FALSE);
 
                     return ($phpass->checkPassword($password, $this->data()->password));
-                    break;
 
                 case 'sha256':
                     $exploded = explode('$', $this->data()->password);
@@ -288,7 +287,6 @@ class User {
                     $pass = $exploded[1];
 
                     return ($salt . hash('sha256', hash('sha256', $password) . $salt) == $salt . $pass);
-                    break;
 
                 case 'pbkdf2':
                     $exploded = explode('$', $this->data()->password);
@@ -300,17 +298,14 @@ class User {
                     $hashed = hash_pbkdf2('sha256', $password, $salt, $iterations, 64, true);
 
                     return ($hashed == hex2bin($pass));
-                    break;
 
                 case 'modernbb':
                 case 'sha1':
                     return (sha1($password) == $this->data()->password);
-                    break;
 
                 default:
                     // Default to bcrypt
                     return (password_verify($password, $this->data()->password));
-                    break;
             }
         }
 

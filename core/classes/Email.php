@@ -55,8 +55,6 @@ class Email {
         } catch (Exception $e) {
             return array('error' => $e->getMessage());
         }
-
-        return false;
     }
 
     /**

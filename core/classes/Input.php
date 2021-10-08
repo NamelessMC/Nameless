@@ -21,17 +21,12 @@ class Input {
             case 'post';
                 // Check the $_POST variable
                 return !empty($_POST);
-                break;
-
             case 'get';
                 // Check the $_GET variable
                 return !empty($_GET);
-                break;
-
             default:
                 // Otherwise, return false
                 return false;
-                break;
         }
     }
 

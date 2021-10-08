@@ -145,8 +145,6 @@ class MinecraftPing {
             } else {
                 throw new MinecraftPingException('JSON parsing failed');
             }
-
-            return FALSE;
         }
 
         return $Data;

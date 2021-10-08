@@ -26,7 +26,6 @@ class Redirect {
                         header('HTTP/1.0 404 Not Found');
                         require(ROOT_PATH . '/404.php');
                         die();
-                    break;
                 }
             }
 
