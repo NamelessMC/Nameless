@@ -620,9 +620,7 @@ class User {
      * @return bool True on success, false if they already have it.
      */
     public function addGroup(int $group_id, int $expire = 0, $group_data = null): bool {
-        $groups = $this->_groups ? $this->_groups : [];
-
-        if (array_key_exists($group_id, $groups)) {
+        if (array_key_exists($group_id, $this->_groups)) {
             return false;
         }
 
@@ -656,9 +654,7 @@ class User {
      * @return bool Returns false if they did not have this group or the admin group is being removed from root user
      */
     public function removeGroup(int $group_id): bool {
-        $groups = $this->_groups ? $this->_groups : [];
-
-        if (!array_key_exists($group_id, $groups)) {
+        if (!array_key_exists($group_id, $this->_groups)) {
             return false;
         }
 

@@ -361,7 +361,6 @@ class Validate {
             // If this new error is the generic message AND it has not already been added, add it
             if ($message == $this->_message && !in_array($this->_message, $this->_errors)) {
                 $this->_errors[] = $this->_message;
-                continue;
             }
         }
 

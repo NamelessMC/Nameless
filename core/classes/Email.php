@@ -95,7 +95,7 @@ class Email {
             $mail->FromName = $GLOBALS['email']['name'];
             $mail->addAddress($email['to']['email'], $email['to']['name']);
             $mail->Subject = $email['subject'];
-            $mail->IsHTML(true);
+            $mail->IsHTML();
             $mail->msgHTML($email['message']);
             $mail->Body = $email['message'];
 

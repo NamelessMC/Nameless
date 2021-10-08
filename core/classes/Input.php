@@ -20,12 +20,12 @@ class Input {
         switch ($type) {
             case 'post';
                 // Check the $_POST variable
-                return (!empty($_POST)) ? true : false;
+                return !empty($_POST);
                 break;
 
             case 'get';
                 // Check the $_GET variable
-                return (!empty($_GET)) ? true : false;
+                return !empty($_GET);
                 break;
 
             default:
@@ -135,7 +135,7 @@ class Input {
      */
     public static function createTinyEditor(Language $language, string $name = null): ?string {
         if ($name) {
-            $editor = '
+            return '
             tinymce.init({
               selector: \'#' . $name . '\',
               browser_spellcheck: true,
@@ -150,8 +150,6 @@ class Input {
               skin: "' . (defined('TEMPLATE_TINY_EDITOR_STYLE') ? TEMPLATE_TINY_EDITOR_STYLE : 'oxide') . '"
             });
             ';
-
-            return $editor;
         }
         
         return null;

@@ -292,7 +292,7 @@ class TimeAgo {
             }
         }
 
-        $difference = array(
+        return array(
             "years" => $years,
             "months" => $months,
             "days" => $days,
@@ -300,7 +300,5 @@ class TimeAgo {
             "minutes" => $minutes,
             "seconds" => $seconds
         );
-
-        return $difference;
     }
 }

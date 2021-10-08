@@ -12,23 +12,12 @@
 class Hash {
 
     /**
-     * Generate a hash using sha256.
-     *
-     * @param string $string String to hash.
-     * @param string|null $salt Salt.
-     * @return string hashed string.
-     */
-    private static function make(string $string, string $salt = ''): string {
-        return hash('sha256', $string . $salt);
-    }
-
-    /**
      * Generate unique hash.
      *
      * @return string Generated hash.
      */
     public static function unique(): string {
-        return self::make(uniqid());
+        return hash('sha256', uniqid());
     }
 
 }

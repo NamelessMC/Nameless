@@ -81,7 +81,7 @@ class Util {
         $offsets = array();
 
         // Get all PHP timezones
-        $all_timezones = DateTimeZone::listIdentifiers(DateTimeZone::ALL);
+        $all_timezones = DateTimeZone::listIdentifiers();
 
         // Get current UTC time to calculate offset
         $current = new DateTime('now', new DateTimeZone('UTC'));
