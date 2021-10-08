@@ -170,7 +170,7 @@ class Widgets {
 
         if ($pages->count()) {
             $pages = $pages->first();
-            return json_decode($pages->pages, true);
+            return json_decode($pages->pages, true) ?? [];
         }
 
         return array();
