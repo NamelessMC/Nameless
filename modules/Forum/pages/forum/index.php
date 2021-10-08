@@ -18,7 +18,7 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 // Initialise
 $forum = new Forum();
-$timeago = new Timeago(TIMEZONE);
+$timeago = new TimeAgo(TIMEZONE);
 
 // Get user group IDs
 $groups = $user->getAllGroupIds();

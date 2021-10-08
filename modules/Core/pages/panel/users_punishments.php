@@ -14,7 +14,7 @@ if(!$user->handlePanelPageLoad('modcp.punishments')) {
     die();
 }
 
-$timeago = new Timeago(TIMEZONE);
+$timeago = new TimeAgo(TIMEZONE);
 
 define('PAGE', 'panel');
 define('PARENT_PAGE', 'users');

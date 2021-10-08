@@ -43,7 +43,7 @@ class LatestPostsWidget extends WidgetBase {
 	    require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
 	    $forum = new Forum();
 	    $queries = new Queries();
-	    $timeago = new Timeago(TIMEZONE);
+	    $timeago = new TimeAgo(TIMEZONE);
 
 		// Get user group IDs
 		$user_groups = $this->_user->getAllGroupIds();

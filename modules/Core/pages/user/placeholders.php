@@ -27,7 +27,7 @@ define('PAGE', 'cc_placeholders');
 $page_title = $language->get('user', 'user_cp');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-require_once(ROOT_PATH . '/core/classes/Timeago.php');
+require_once(ROOT_PATH . '/core/classes/TimeAgo.php');
 $timeago = new TimeAgo(TIMEZONE);
 
 $placeholders_list = array();

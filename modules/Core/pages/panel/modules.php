@@ -86,7 +86,7 @@ if(!isset($_GET['action'])){
 
         } else {
             $all_modules_query = json_decode($all_modules_query);
-            $timeago = new Timeago(TIMEZONE);
+            $timeago = new TimeAgo(TIMEZONE);
 
             foreach($all_modules_query as $item){
                 $all_modules[] = array(

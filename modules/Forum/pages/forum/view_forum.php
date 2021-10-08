@@ -14,7 +14,7 @@ define('PAGE', 'forum');
 
 require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
 $forum = new Forum();
-$timeago = new Timeago(TIMEZONE);
+$timeago = new TimeAgo(TIMEZONE);
 
 // Get forum ID
 $fid = explode('/', $route);

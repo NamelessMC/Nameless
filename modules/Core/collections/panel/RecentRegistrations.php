@@ -42,7 +42,7 @@ class RecentRegistrationsItem extends CollectionItemBase {
 
     public function getContent(): string {
         // Get recent registrations
-        $timeago = new Timeago(TIMEZONE);
+        $timeago = new TimeAgo(TIMEZONE);
 
         $this->_cache->setCache('dashboard_main_items_collection');
 

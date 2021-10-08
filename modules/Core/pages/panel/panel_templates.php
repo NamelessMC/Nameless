@@ -85,7 +85,7 @@ if(!isset($_GET['action'])){
 
         } else {
             $all_templates_query = json_decode($all_templates_query);
-            $timeago = new Timeago(TIMEZONE);
+            $timeago = new TimeAgo(TIMEZONE);
 
             foreach($all_templates_query as $item){
                 $all_templates[] = array(

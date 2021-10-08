@@ -20,7 +20,7 @@ define('PAGE', 'cc_alerts');
 $page_title = $language->get('user', 'user_cp');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-$timeago = new Timeago(TIMEZONE);
+$timeago = new TimeAgo(TIMEZONE);
 
 if(!isset($_GET['view'])){
 	if(!isset($_GET['action'])){

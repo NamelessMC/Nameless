@@ -426,7 +426,7 @@ class Core_Module extends Module {
         // Profile Posts
         require_once(ROOT_PATH . '/modules/Core/widgets/ProfilePostsWidget.php');
         $module_pages = $widgets->getPages('Latest Profile Posts');
-        $widgets->add(new ProfilePostsWidget($module_pages, $smarty, $language, $cache, $user, new Timeago(TIMEZONE)));
+        $widgets->add(new ProfilePostsWidget($module_pages, $smarty, $language, $cache, $user, new TimeAgo(TIMEZONE)));
 
         // Online staff
         require_once(ROOT_PATH . '/modules/Core/widgets/OnlineStaff.php');
@@ -703,7 +703,7 @@ class Core_Module extends Module {
                 // Collection
                 $user_id = $smarty->getTemplateVars('USER_ID');
 
-                $timeago = new Timeago(TIMEZONE);
+                $timeago = new TimeAgo(TIMEZONE);
 
                 if($user_id){
                     $user_query = $queries->getWhere('users', array('id', '=', $user_id));

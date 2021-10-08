@@ -134,7 +134,7 @@ class Language {
     /**
      * Return current time language.
      * 
-     * @return array Time lang for use in Timeago class.
+     * @return array Time lang for use in TimeAgo class.
      */
     public function getTimeLanguage(): array {
         $this->get('time', 'time');

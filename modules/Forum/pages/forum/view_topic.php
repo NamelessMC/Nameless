@@ -15,7 +15,7 @@ require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
 define('PAGE', 'forum');
 
 $forum = new Forum();
-$timeago = new Timeago(TIMEZONE);
+$timeago = new TimeAgo(TIMEZONE);
 $mentionsParser = new MentionsParser();
 
 require(ROOT_PATH . '/core/includes/emojione/autoload.php'); // Emojione

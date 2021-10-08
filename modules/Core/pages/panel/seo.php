@@ -20,7 +20,7 @@ define('PANEL_PAGE', 'seo');
 $page_title = $language->get('admin', 'seo');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
-$timeago = new Timeago(TIMEZONE);
+$timeago = new TimeAgo(TIMEZONE);
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);

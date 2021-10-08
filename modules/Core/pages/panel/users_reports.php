@@ -20,7 +20,7 @@ define('PANEL_PAGE', 'reports');
 $page_title = $language->get('moderator', 'reports');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
-$timeago = new Timeago(TIMEZONE);
+$timeago = new TimeAgo(TIMEZONE);
 
 if (!isset($_GET['id'])) {
     // Get all reports

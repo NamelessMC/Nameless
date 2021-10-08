@@ -36,7 +36,7 @@ if (!$view_user->data()) {
 }
 $user_query = $view_user->data();
 
-$timeago = new Timeago(TIMEZONE);
+$timeago = new TimeAgo(TIMEZONE);
 
 define('PAGE', 'panel');
 define('PANEL_PAGE', 'users');

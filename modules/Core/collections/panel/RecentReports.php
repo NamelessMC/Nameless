@@ -42,7 +42,7 @@ class RecentReportsItem extends CollectionItemBase {
 
     public function getContent(): string {
         // Get recent reports
-        $timeago = new Timeago(TIMEZONE);
+        $timeago = new TimeAgo(TIMEZONE);
 
         $this->_cache->setCache('dashboard_main_items_collection');
 

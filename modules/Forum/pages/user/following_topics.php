@@ -22,7 +22,7 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
 
 $forum = new Forum();
-$timeago = new Timeago(TIMEZONE);
+$timeago = new TimeAgo(TIMEZONE);
 
 if (Input::exists() && Input::get('action') == 'purge') {
     if (Token::check(Input::get('token'))) {

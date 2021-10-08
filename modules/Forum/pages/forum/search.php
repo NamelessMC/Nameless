@@ -18,7 +18,7 @@ require_once(ROOT_PATH . '/core/includes/emojione/autoload.php'); // Emojione
 define('PAGE', 'forum');
 
 // Initialise
-$timeago = new Timeago(TIMEZONE);
+$timeago = new TimeAgo(TIMEZONE);
 $emojione = new Emojione\Client(new Emojione\Ruleset());
 
 // Get user group ID

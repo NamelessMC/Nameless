@@ -23,7 +23,7 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 $leaderboard_placeholders_data = [];
 $leaderboard_users = [];
 
-require_once(ROOT_PATH . '/core/classes/Timeago.php');
+require_once(ROOT_PATH . '/core/classes/TimeAgo.php');
 $timeago = new TimeAgo(TIMEZONE);
 
 foreach ($leaderboard_placeholders as $leaderboard_placeholder) {
