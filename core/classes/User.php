@@ -10,9 +10,9 @@ class User {
     
     private DB $_db;
     
-    private object $_data;
-    private array $_groups;
-    private array $_placeholders;
+    private $_data;
+    private array $_groups = [];
+    private array $_placeholders = [];
     private string $_sessionName;
     private string $_cookieName;
     private bool $_isLoggedIn = false;
