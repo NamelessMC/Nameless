@@ -348,7 +348,7 @@ if (!isset($_GET['id'])) {
 }
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets);
 
 if (Session::exists('report_success'))
     $success = Session::flash('report_success');

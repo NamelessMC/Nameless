@@ -14,7 +14,7 @@ if(!$user->isLoggedIn()){
 	Redirect::to(URL::build('/'));
 	die();
 }
- 
+
 // Always define page name for navbar
 define('PAGE', 'cc_overview');
 $page_title = $language->get('user', 'user_cp');
@@ -104,9 +104,9 @@ if ($forum_enabled) {
 		'
 		$(document).ready(function() {
 			var ctx = $("#dataChart").get(0).getContext("2d");
-		
+
 			moment.locale(\'' . (defined('HTML_LANG') ? strtolower(HTML_LANG) : 'en'). '\');
-		
+
 			var data = {
 				labels: ' . $labels . ',
 				datasets: [
@@ -139,7 +139,7 @@ if ($forum_enabled) {
 					},
 				]
 			}
-		
+
 			var dataLineChart = new Chart(ctx, {
 				type: \'line\',
 				data: data,
@@ -154,7 +154,7 @@ if ($forum_enabled) {
 									if (Math.floor(label) === label) {
 										return label;
 									}
-		
+
 								}
 							}
 						}],
@@ -173,7 +173,7 @@ if ($forum_enabled) {
 }
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
 
 require(ROOT_PATH . '/core/templates/cc_navbar.php');
 

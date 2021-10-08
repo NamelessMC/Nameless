@@ -91,7 +91,7 @@ if (!isset($_GET['view'])) {
 
                 $external = false;
                 $fields = [];
-                
+
                 foreach (GroupSyncManager::getInstance()->getEnabledInjectors() as $injector) {
                     if (
                         $injector->getColumnName() == GroupSyncManager::getInstance()->getInjectorByClass(NamelessMCGroupSyncInjector::class)->getColumnName()
@@ -135,7 +135,7 @@ if (!isset($_GET['view'])) {
                         $external = false;
                         foreach ($values as $column => $group) {
                             if (
-                                $group 
+                                $group
                                 && $group != 0
                                 && $column != $namelessmc_injector->getColumnName()
                             ) {
@@ -178,7 +178,7 @@ if (!isset($_GET['view'])) {
 }
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets);
 
 if (Session::exists('api_success')) {
     $smarty->assign(

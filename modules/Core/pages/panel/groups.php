@@ -21,7 +21,7 @@ $page_title = $language->get('admin', 'groups');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets);
 
 if (Session::exists('admin_groups')) {
     $success = Session::flash('admin_groups');
@@ -68,7 +68,7 @@ if (isset($_GET['action'])) {
                         $default_group = $queries->getWhere('groups', array('default_group', '=', 1));
                         if (!count($default_group) && $default == 0)
                             $default = 1;
-                        
+
                         $last_group_order = DB::getInstance()->query('SELECT `order` FROM nl2_groups ORDER BY `order` DESC LIMIT 1')->results();
                         if (count($last_group_order)) $last_group_order = $last_group_order[0]->order;
                         else $last_group_order = 0;

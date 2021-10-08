@@ -17,7 +17,7 @@ $page_title = 'api';
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets);
 
 // Ensure API is actually enabled
 if (!Util::getSetting(DB::getInstance(), 'use_api')) {
@@ -83,9 +83,9 @@ class Nameless2API {
 
     /**
      * Validate provided API key to make sure it matches.
-     * 
+     *
      * @param string $api_key API key to check.
-     * 
+     *
      * @return bool Whether it matches or not.
      */
     private function validateKey(string $api_key = null): bool {

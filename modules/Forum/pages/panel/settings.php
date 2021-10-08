@@ -37,17 +37,17 @@ if (Input::exists()) {
             }
         } else
             $location = 1;
-											
+
         // Update Link location cache
         $cache->setCache('nav_location');
         $cache->store('forum_location', $location);
-        
+
         // Update reactions value
         if (isset($_POST['use_reactions']) && $_POST['use_reactions'] == 'on') $use_reactions = 1;
         else $use_reactions = 0;
-        
+
         $configuration->set('Core', 'forum_reactions', $use_reactions);
-        
+
         Session::flash('admin_forums_settings', $forum_language->get('forum', 'settings_updated_successfully'));
         Redirect::to(URL::build('/panel/forums/settings'));
         die();
@@ -67,7 +67,7 @@ $link_location = $cache->retrieve('forum_location');
 $use_reactions = $configuration->get('Core', 'forum_reactions');
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets);
 
 if (Session::exists('admin_forums_settings'))
     $success = Session::flash('admin_forums_settings');

@@ -13,7 +13,7 @@
 $smarty->assign(array(
 	'SITE_NAME' => SITE_NAME,
 	'PANEL_INDEX' => URL::build('/panel'),
-	'NAV_LINKS' => $mod_nav->returnNav('top'),
+	'NAV_LINKS' => $staffcp_nav->returnNav('top'),
 	'VIEW_SITE' => $language->get('admin', 'view_site'),
 	'PAGE_LOAD_TIME' => PAGE_LOAD_TIME,
 	'SUPPORT' => $language->get('admin', 'support'),

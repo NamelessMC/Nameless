@@ -21,7 +21,7 @@ $page_title = $language->get('admin', 'custom_fields');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets);
 
 if (isset($_GET['action'])) {
     if ($_GET['action'] == 'new') {
@@ -114,14 +114,14 @@ if (isset($_GET['action'])) {
             'PUBLIC_HELP' => $language->get('admin', 'profile_field_public_help'),
             'DISPLAY_FIELD_ON_FORUM_HELP' => $language->get('admin', 'profile_field_forum_help')
         ));
-        
+
         $template_file = 'core/profile_fields_create.tpl';
-        
+
     } else if ($_GET['action'] == 'edit') {
         if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
             Redirect::to(URL::build('/panel/core/groups'));
             die();
-        }  
+        }
         $id = intval($_GET['id']);
 
         $field = $queries->getWhere('profile_fields', array('id', '=', $id));
@@ -191,7 +191,7 @@ if (isset($_GET['action'])) {
                         // Error
                         $errors = $validation->errors();
                     }
-                    
+
                 } else if (Input::get('action') == 'delete') {
                     // Delete field
                     $queries->delete('profile_fields', array('id', '=', intval($_POST['id'])));
@@ -240,7 +240,7 @@ if (isset($_GET['action'])) {
             'PUBLIC_HELP' => $language->get('admin', 'profile_field_public_help'),
             'DISPLAY_FIELD_ON_FORUM_HELP' => $language->get('admin', 'profile_field_forum_help')
         ));
-        
+
         $template_file = 'core/profile_fields_edit.tpl';
     } else {
         Redirect::to(URL::build('/panel/core/profile_fields'));
@@ -288,7 +288,7 @@ if (isset($_GET['action'])) {
         'PUBLIC' => $language->get('admin', 'public'),
         'FORUM_POSTS' => $language->get('admin', 'forum_posts')
     ));
-    
+
     $template_file = 'core/profile_fields.tpl';
 }
 
