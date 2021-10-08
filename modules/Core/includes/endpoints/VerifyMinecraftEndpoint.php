@@ -20,11 +20,11 @@ class VerifyMinecraftEndpoint extends EndpointBase {
 
         $user = $api->getUser('id', $_POST['user']);
 
-        if ($user->data()->active || $user->reset_code == '') {
+        if ($user->data()->active || $user->data()->reset_code == '') {
             $api->throwError(32, $api->getLanguage()->get('api', 'user_already_active'));
         }
 
-        if ($user->reset_code != $_POST['code']) {
+        if ($user->data()->reset_code != $_POST['code']) {
             $api->throwError(28, $api->getLanguage()->get('api', 'invalid_code'));
         }
 
@@ -41,7 +41,7 @@ class VerifyMinecraftEndpoint extends EndpointBase {
             HookHandler::executeEvent('validateUser', array(
                 'event' => 'validateUser',
                 'user_id' => $user->data()->id,
-                'username' => Output::getClean($user->username),
+                'username' => Output::getClean($user->data()->username),
                 'language' => $api->getLanguage()
             ));
         } catch (Exception $e) {
