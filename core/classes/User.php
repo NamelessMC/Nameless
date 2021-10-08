@@ -988,7 +988,7 @@ class User {
      * @param bool| $public Whether to only return public fields or not (default `true`).
      * @param bool $forum Whether to only return fields which display on forum posts, only if $public is true (default `false`).
      *
-     * @return array Array of profile fields. False on failure.
+     * @return array Array of profile fields.
      */
     public function getProfileFields(int $user_id, bool $public = true, bool $forum = false): array {
         if ($user_id == null) {
