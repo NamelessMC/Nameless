@@ -198,8 +198,8 @@ class User {
         return false;
     }
 
-    private function _commonLogin(string $username, string $password, bool $remember, string $method, bool $isAdmin): bool {
-        $sessionName = $isAdmin ? $this->_admSessionName : $this->_sessionName;
+    private function _commonLogin(string $username, string $password, bool $remember, string $method, bool $is_admin): bool {
+        $sessionName = $is_admin ? $this->_admSessionName : $this->_sessionName;
         if (!$username && !$password && $this->exists()) {
             Session::put($sessionName, $this->data()->id);
             if (!$is_admin) {
@@ -211,7 +211,7 @@ class User {
 
             if ($remember) {
                 $hash = Hash::unique();
-                $table = $isAdmin ? 'users_admin_session' : 'users_session';
+                $table = $is_admin ? 'users_admin_session' : 'users_session';
                 $hashCheck = $this->_db->get($table, array('user_id', '=', $this->data()->id));
 
                 if (!$hashCheck->count()) {
@@ -223,7 +223,7 @@ class User {
                     $hash = $hashCheck->first()->hash;
                 }
 
-                $expiry = $isAdmin ? 3600 : Config::get('remember/cookie_expiry');
+                $expiry = $is_admin ? 3600 : Config::get('remember/cookie_expiry');
                 $cookieName = $is_admin ? ($this->_cookieName . '_adm') : $this->_cookieName;
                 Cookie::put($cookieName, $hash, $expiry);
             }
