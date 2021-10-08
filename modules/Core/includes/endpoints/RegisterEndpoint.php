@@ -86,10 +86,8 @@ class RegisterEndpoint extends EndpointBase {
      * @param string $username The username of the new user to create
      * @param string $uuid (optional) The Minecraft UUID of the new user
      * @param string $email The email of the new user
-     *
-     * @return string JSON Array
      */
-    private function sendRegistrationEmail(Nameless2API $api, $username, $uuid, $email) {
+    private function sendRegistrationEmail(Nameless2API $api, string $username, string $uuid, string $email) {
         // Generate random code
         $code = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 60);
 
@@ -190,10 +188,8 @@ class RegisterEndpoint extends EndpointBase {
      * @param string $uuid (optional) The Minecraft UUID of the new user
      * @param string $email The email of the new user
      * @param string $code The reset token/temp password of the new user
-     *
-     * @return string JSON Array
      */
-    private function createUser(Nameless2API $api, $username, $uuid, $email, $return, $code = null, $api_verification = false) {
+    private function createUser(Nameless2API $api, string $username, string $uuid, string $email, bool $return, string $code = null, bool $api_verification = false) {
         try {
             // Get default group ID
             if (!is_file(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('default_group') . '.cache')) {

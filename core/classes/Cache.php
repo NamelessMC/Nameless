@@ -199,6 +199,8 @@ class Cache {
             }
             return $counter;
         }
+
+        return -1;
     }
 
     /**
@@ -240,6 +242,8 @@ class Cache {
             $filename = preg_replace('/[^0-9a-z\.\_\-]/i', '', strtolower($filename));
             return $this->getCachePath() . $this->_getHash($filename) . $this->getExtension();
         }
+
+        return '';
     }
 
     /**

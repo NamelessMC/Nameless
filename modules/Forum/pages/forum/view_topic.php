@@ -41,7 +41,7 @@ $tid = $tid[0];
 // Does the topic exist, and can the user view it?
 $user_groups = $user->getAllGroupIds();
 
-$list = $forum->topicExist($tid, $user_groups);
+$list = $forum->topicExist($tid);
 if (!$list) {
     require_once(ROOT_PATH . '/404.php');
     die();

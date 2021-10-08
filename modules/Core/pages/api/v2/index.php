@@ -44,6 +44,8 @@ class Nameless2API {
     public function __construct(string $route, Language $api_language, Endpoints $endpoints) {
         try {
             $this->_db = DB::getInstance();
+            $this->_language = $api_language;
+
             $explode = explode('/', $route);
 
             for ($i = count($explode) - 1; $i >= 0; $i--) {
@@ -54,13 +56,6 @@ class Nameless2API {
                     }
                 }
             }
-
-            // Set language
-            if (!isset($api_language) || empty($api_language)) {
-                $this->throwError(2, 'Invalid language file');
-            }
-
-            $this->_language = $api_language;
 
             if (!isset($api_key)) {
                 $this->throwError(1, $this->_language->get('api', 'invalid_api_key'));

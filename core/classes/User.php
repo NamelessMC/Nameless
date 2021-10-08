@@ -12,6 +12,7 @@ class User {
     
     private object $_data;
     private array $_groups;
+    private array $_placeholders;
     private string $_sessionName;
     private string $_cookieName;
     private bool $_isLoggedIn = false;
@@ -23,7 +24,6 @@ class User {
         $this->_sessionName = Config::get('session/session_name');
         $this->_cookieName = Config::get('remember/cookie_name');
         $this->_admSessionName = Config::get('session/admin_name');
-        $this->_placeholders = [];
 
         if (!$user) {
             if (Session::exists($this->_sessionName)) {
@@ -1104,13 +1104,13 @@ class User {
         $groups = $this->_groups;
         if ($this->isLoggedIn() && $groups) {
             foreach ($groups as $group) {
-                $this->_permissions = json_decode($group->permissions, true);
+                $permissions = json_decode($group->permissions, true);
                 
-                if (isset($this->_permissions['administrator']) && $this->_permissions['administrator'] == 1) {
+                if (isset($permissions['administrator']) && $permissions['administrator'] == 1) {
                     return true;
                 }
 
-                if (isset($this->_permissions[$permission]) && $this->_permissions[$permission] == 1) {
+                if (isset($permissions[$permission]) && $permissions[$permission] == 1) {
                     return true;
                 }
             }
