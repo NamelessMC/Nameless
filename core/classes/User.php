@@ -990,56 +990,59 @@ class User {
      *
      * @return array Array of profile fields. False on failure.
      */
-    public function getProfileFields(int $user_id = null, bool $public = true, bool $forum = false): array {
-        if ($user_id) {
-            $data = $this->_db->get('users_profile_fields', array('user_id', '=', $user_id));
+    public function getProfileFields(int $user_id, bool $public = true, bool $forum = false): array {
+        if ($user_id == null) {
+            throw new InvalidArgumentException("User id is null");
+        }
 
-            if ($data->count()) {
-                if ($public == true) {
-                    // Return public fields only
-                    $return = array();
-                    foreach ($data->results() as $result) {
-                        $is_public = $this->_db->get('profile_fields', array('id', '=', $result->field_id));
-                        if (!$is_public->count()) continue;
-                        else $is_public = $is_public->results();
+        $data = $this->_db->get('users_profile_fields', array('user_id', '=', $user_id));
 
-                        if ($is_public[0]->public == 1) {
-                            if ($forum == true) {
-                                if ($is_public[0]->forum_posts == 1) {
-                                    $return[] = array(
-                                        'name' => Output::getClean($is_public[0]->name),
-                                        'value' => Output::getClean($result->value)
-                                    );
-                                }
-                            } else {
-                                $return[] = array(
-                                    'name' => Output::getClean($is_public[0]->name),
-                                    'value' => Output::getClean($result->value)
-                                );
-                            }
+        if (!$data->count()) {
+            return [];
+        }
+
+        if ($public == true) {
+            // Return public fields only
+            $return = array();
+            foreach ($data->results() as $result) {
+                $is_public = $this->_db->get('profile_fields', array('id', '=', $result->field_id));
+                if (!$is_public->count()) continue;
+                else $is_public = $is_public->results();
+
+                if ($is_public[0]->public == 1) {
+                    if ($forum == true) {
+                        if ($is_public[0]->forum_posts == 1) {
+                            $return[] = array(
+                                'name' => Output::getClean($is_public[0]->name),
+                                'value' => Output::getClean($result->value)
+                            );
                         }
-                    }
-
-                    return $return;
-                } else {
-                    // Return all fields
-                    $return = array();
-                    foreach ($data->results() as $result) {
-                        $name = $this->_db->get('profile_fields', array('id', '=', $result->field_id));
-                        if (!$name->count()) continue;
-                        else $name = $name->results();
-
+                    } else {
                         $return[] = array(
-                            'name' => Output::getClean($name[0]->name),
+                            'name' => Output::getClean($is_public[0]->name),
                             'value' => Output::getClean($result->value)
                         );
                     }
-
-                    return $return;
                 }
-            } else return false;
+            }
+
+            return $return;
+        } else {
+            // Return all fields
+            $return = array();
+            foreach ($data->results() as $result) {
+                $name = $this->_db->get('profile_fields', array('id', '=', $result->field_id));
+                if (!$name->count()) continue;
+                else $name = $name->results();
+
+                $return[] = array(
+                    'name' => Output::getClean($name[0]->name),
+                    'value' => Output::getClean($result->value)
+                );
+            }
+
+            return $return;
         }
-        return false;
     }
 
     /**
