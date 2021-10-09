@@ -37,7 +37,7 @@ if (!isset($_GET['s'])) {
             ]);
 
             if ($validation->passed()) {
-                $search = str_replace(' ', '+', htmlspecialchars(Input::get('forum_search')));
+                $search = str_replace(' ', '+', Output::getClean(Input::get('forum_search')));
                 $search = preg_replace("/[^a-zA-Z0-9 +]+/", "", $search); // alphanumeric only
 
                 Redirect::to(URL::build('/forum/search/', 's=' . $search . '&p=1'));
@@ -50,7 +50,7 @@ if (!isset($_GET['s'])) {
         }
     }
 } else {
-    $search = htmlspecialchars(str_replace('+', ' ', $_GET['s']));
+    $search = Output::getClean(str_replace('+', ' ', $_GET['s']));
     $search = preg_replace("/[^a-zA-Z0-9 +]+/", "", $search); // alphanumeric only
 
     if (isset($_GET['p']) && is_numeric($_GET['p']))
@@ -67,8 +67,8 @@ if (!isset($_GET['s'])) {
     $cache->setCache($search . '-' . rtrim(implode('-', $user_groups), '-'));
     if (!$cache->isCached('result')) {
         // Execute search
-        $search_topics = $queries->getLike('topics', 'topic_title', '%' . $search . '%');
-        $search_posts = $queries->getLike('posts', 'post_content', '%' . $search . '%');
+        $search_topics = DB::getInstance()->query('SELECT * FROM nl2_topics WHERE topic_title LIKE ?', array('%' . $search . '%'))->results();
+        $search_posts = DB::getInstance()->query('SELECT * FROM nl2_posts WHERE post_content LIKE ?', array('%' . $search . '%'))->results();
 
         $search_results = array_merge((array)$search_topics, (array)$search_posts);
 
@@ -101,9 +101,9 @@ if (!isset($_GET['s'])) {
                             break;
                     } else {
                         // Topic, get associated post
-                        $post = $queries->orderWhere('posts', 'topic_id = ' . $result->id, 'post_date', 'ASC LIMIT 1');
-                        if (count($post)) {
-                            $post = $post[0];
+                        $post = DB::getInstance()->query('SELECT * FROM nl2_posts WHERE topic_id = ? ORDER BY post_date ASC LIMIT 1', array($result->id));
+                        if ($post->count()) {
+                            $post = $post->first();
                             if (!isset($results[$post->id]) && $post->deleted == 0) {
                                 $results[$post->id] = array(
                                     'post_id' => $post->id,
