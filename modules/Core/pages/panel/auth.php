@@ -95,7 +95,13 @@ if (Input::exists()) {
                 // Create log
                 Log::getInstance()->log(Log::Action('admin/login'));
 
-                Redirect::to(URL::build('/panel'));
+                // Redirect to a certain page?
+                if (isset($_SESSION['last_page']) && substr($_SESSION['last_page'], -1) != '=') {
+                    Redirect::to($_SESSION['last_page']);
+                } else {
+                    Redirect::to(URL::build('/panel'));
+                }
+
                 die();
             } else {
                 Session::flash('adm_auth_error', $language->get('user', 'incorrect_details'));
