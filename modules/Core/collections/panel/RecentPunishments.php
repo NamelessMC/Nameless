@@ -112,7 +112,7 @@ class RecentPunishmentsItem extends CollectionItemBase {
                         'revoked_by_nickname' => ($revoked_by_user ? $revoked_by_user->getDisplayname() : ''),
                         'revoked_by_style' => ($revoked_by_user ? $revoked_by_user->getGroupClass() : ''),
                         'revoked_by_avatar' => ($revoked_by_user ? $revoked_by_user->getAvatar() : ''),
-                        'revoked_by_uuid' => ($revoked_by_user ? Output::getClean($revoked_by_user->uuid) : ''),
+                        'revoked_by_uuid' => ($revoked_by_user ? Output::getClean($revoked_by_user->data()->uuid) : ''),
                         'revoked_by_profile' => ($revoked_by_user ? URL::build('/panel/user/' . Output::getClean($revoked_by_user->data()->id) . '-' . Output::getClean($revoked_by_user->data()->username)) : ''),
                         'revoked_at' => $timeago->inWords(date('Y-m-d H:i:s', $item->revoked_at), $this->_language->getTimeLanguage())
                     );
