@@ -43,6 +43,7 @@ $language = array(
     'notices' => 'Powiadomienia',
     'no_notices' => 'Brak powiadomień.',
     'email_errors_logged' => 'Błędy email zostały zapisane. Kliknij <a href="{x}">tutaj</a> aby je zobaczyć.', // Don't replace "{x}"
+    'upgrade_php_version' => 'Please upgrade your PHP version to at least 7.4 - the next Nameless release will no longer support the version you are using.',
 
     // Core
     'mode_toggle' => 'Ciemny/Jasny Tryb',

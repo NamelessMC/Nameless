@@ -43,6 +43,7 @@ $language = array(
     'notices' => 'ประกาศ',
     'no_notices' => 'ไม่มีประกาศ',
     'email_errors_logged' => 'บันทึกข้อผิดพลาดทางอีเมลแล้ว',
+    'upgrade_php_version' => 'Please upgrade your PHP version to at least 7.4 - the next Nameless release will no longer support the version you are using.',
 
     // Core
     'mode_toggle' => 'โหมดมืด/แสง',

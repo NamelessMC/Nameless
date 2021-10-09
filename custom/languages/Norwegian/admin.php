@@ -43,6 +43,7 @@ $language = array(
     'notices' => 'Varsler',
     'no_notices' => 'Ingen varsler.',
     'email_errors_logged' => 'En e-postfeil har blitt loggført',
+    'upgrade_php_version' => 'Please upgrade your PHP version to at least 7.4 - the next Nameless release will no longer support the version you are using.',
 
     // Core
     'mode_toggle' => 'Dark/Light Mode',

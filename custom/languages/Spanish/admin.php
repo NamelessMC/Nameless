@@ -43,6 +43,7 @@ $language = array(
     'notices' => 'Noticias',
     'no_notices' => 'No hay noticias.',
     'email_errors_logged' => 'Se han registrado los errores de correo electrónico',
+    'upgrade_php_version' => 'Please upgrade your PHP version to at least 7.4 - the next Nameless release will no longer support the version you are using.',
 
     // Core
     'mode_toggle' => 'Dark/Light Mode',

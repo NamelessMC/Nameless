@@ -41,6 +41,7 @@ $language = array(
     'notices' => 'Pranešimai',
     'no_notices' => 'Nėra pranešimų',
     'email_errors_logged' => 'El. pašto klaidos buvo užregistruotos.',
+    'upgrade_php_version' => 'Please upgrade your PHP version to at least 7.4 - the next Nameless release will no longer support the version you are using.',
 
     // Core
     'mode_toggle' => 'Dark/Light Mode',
