@@ -247,7 +247,7 @@ if (!isset($_GET['id'])) {
             'REPORTS_LINK' => URL::build('/panel/users/reports'),
             'VIEWING_REPORT' => $language->get('moderator', 'viewing_report'),
             'BACK' => $language->get('general', 'back'),
-            'REPORTED_USER' => $reported_use_name,
+            'REPORTED_USER' => $reported_user_name,
             'REPORTED_USER_PROFILE' => $reported_user_profile,
             'REPORTED_USER_STYLE' => $reported_user_style,
             'REPORTED_USER_AVATAR' => $reported_user_avatar,
