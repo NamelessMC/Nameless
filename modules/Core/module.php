@@ -43,6 +43,7 @@ class Core_Module extends Module {
         $pages->add('Core', '/validate', 'pages/validate.php');
         $pages->add('Core', '/queries/admin_users', 'queries/admin_users.php');
         $pages->add('Core', '/queries/alerts', 'queries/alerts.php');
+        $pages->add('Core', '/queries/dark_light_mode', 'queries/dark_light_mode.php');
         $pages->add('Core', '/queries/pms', 'queries/pms.php');
         $pages->add('Core', '/queries/servers', 'queries/servers.php');
         $pages->add('Core', '/queries/server', 'queries/server.php');

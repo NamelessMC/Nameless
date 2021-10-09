@@ -12,10 +12,13 @@
             {if $PAGE_LOAD_TIME}
               <span class="item" id="page_load"></span>
             {/if}
+            {if isset($LOGGED_IN_USER)}
+              <a class="item" href="javascript:" onclick="toggleDarkLightMode()">{$DARK_LIGHT_MODE}</a>
+            {/if}
           </div>
         </div>
         <div class="five wide column">
-          <h4 class="ui inverted header">Links</h4>
+          <h4 class="ui inverted header">{$FOOTER_LINKS_TITLE}</h4>
           <div class="ui inverted link list">
             {foreach from=$FOOTER_NAVIGATION key=name item=item}
               {if isset($item.items)}
@@ -37,7 +40,7 @@
           </div>
         </div>
         <div class="five wide column">
-          <h4 class="ui inverted header">Social</h4>
+          <h4 class="ui inverted header">{$FOOTER_SOCIAL_TITLE}</h4>
           <div class="ui inverted link list">
             {foreach from=$SOCIAL_MEDIA_ICONS item=icon}
               <a class="item" href="{$icon.link}">{$icon.text}</a>
@@ -72,6 +75,18 @@
     </script>
   {/if}
 
+  {if isset($LOGGED_IN_USER)}
+    <script type="text/javascript">
+      function toggleDarkLightMode() {
+        $.post("{$DARK_LIGHT_MODE_ACTION}", { token: "{$DARK_LIGHT_MODE_TOKEN}" })
+          .done(function() {
+            window.location.reload();
+          });
+
+        return false;
+      }
+    </script>
+  {/if}
 
   {if isset($NEW_UPDATE) && ($NEW_UPDATE_URGENT != true)}
     <script src="{$TEMPLATE.path}/js/core/update.js"></script>

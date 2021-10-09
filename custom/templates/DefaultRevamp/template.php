@@ -58,13 +58,17 @@ class DefaultRevamp_Template extends TemplateBase {
 		$smartyDarkMode = false;
 		$smartyNavbarColour = '';
 
-        if ($cache->isCached('darkMode')) {
-            $darkMode = $cache->retrieve('darkMode');
-
-            if ($darkMode == '1') {
-                $smartyDarkMode = true;
-                define('TEMPLATE_TINY_EDITOR_STYLE', 'default-revamp');
+		if ($user->isLoggedIn()) {
+		    $darkMode = $user->data()->night_mode;
+        } else {
+            if ($cache->isCached('darkMode')) {
+                $darkMode = $cache->retrieve('darkMode');
             }
+        }
+
+        if (isset($darkMode) && $darkMode == '1') {
+            $smartyDarkMode = true;
+            define('TEMPLATE_TINY_EDITOR_STYLE', 'default-revamp');
         }
 
         if ($cache->isCached('navbarColour')) {

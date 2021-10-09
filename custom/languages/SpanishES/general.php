@@ -91,6 +91,11 @@ $language = array(
     'status' => 'Estado',
 
     /*
+     *  Footer
+     */
+    'links' => 'Links',
+
+    /*
      *  Homepage
      */
     'social' => 'Social',

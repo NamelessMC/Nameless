@@ -136,3 +136,11 @@ if(!empty($favicon_image))
 $analytics_id = $configuration->get('Core', 'ga_script');
 if ($analytics_id)
     $smarty->assign('ANALYTICS_ID', Output::getClean($analytics_id));
+
+$smarty->assign(array(
+    'FOOTER_LINKS_TITLE' => $language->get('general', 'links'),
+    'FOOTER_SOCIAL_TITLE' => $language->get('general', 'social'),
+    'DARK_LIGHT_MODE' => $language->get('admin', 'mode_toggle'),
+    'DARK_LIGHT_MODE_ACTION' => URL::build('/queries/dark_light_mode'),
+    'DARK_LIGHT_MODE_TOKEN' => $user->isLoggedIn() ? Token::get() : null
+));
