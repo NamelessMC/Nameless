@@ -514,7 +514,11 @@ class Util {
             if ($file->isDir()) {
                 return self::loadEndpoints($file, $endpoints);
             }
-            
+
+            if ($file->getFilename() === '.DS_Store') {
+                continue;
+            }
+
             $endpoint_path = $file->getPathName();
             require_once($endpoint_path);
 
