@@ -22,14 +22,13 @@ if (!$user->isLoggedIn()) {
     die();
 }
 
-
 if (!isset($_GET["tid"]) || !is_numeric($_GET["tid"])) {
     Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
     die();
 } else {
     $topic_id = $_GET["tid"];
-    $forum_id = $queries->getWhere('topics', array('id', '=', $topic_id));
-    $forum_id = $forum_id[0]->forum_id;
+    $forum_id = DB::getInstance()->query('SELECT forum_id FROM nl2_topics WHERE id = ?', array($topic_id))->first();
+    $forum_id = $forum_id->forum_id;
 }
 
 if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
@@ -73,7 +72,7 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
 $token = Token::get();
 
 // Get topics
-$topics = $queries->orderWhere('topics', 'forum_id = ' . $forum_id . ' AND deleted = 0 AND id <> ' . $topic_id, 'id', 'ASC');
+$topics = DB::getInstance()->query('SELECT * FROM nl2_topics WHERE forum_id = ? AND deleted = 0 AND id <> ? ORDER BY id ASC', array($forum_id, $topic_id))->results();
 
 // Smarty
 $smarty->assign(array(
@@ -83,7 +82,7 @@ $smarty->assign(array(
     'SUBMIT' => $language->get('general', 'submit'),
     'CANCEL' => $language->get('general', 'cancel'),
     'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
-    'CANCEL_LINK' => URL::build('/forum/topic/' . $topic_id),
+    'CANCEL_LINK' => URL::build('/forum/topic/' . Output::getClean($topic_id)),
     'TOPICS' => $topics
 ));
 
