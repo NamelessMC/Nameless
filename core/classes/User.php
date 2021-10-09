@@ -648,7 +648,7 @@ class User {
      *
      * @return bool Returns false if they did not have this group or the admin group is being removed from root user
      */
-    public function removeGroup(int $group_id): bool {
+    public function removeGroup(?int $group_id): bool {
         if (!array_key_exists($group_id, $this->_groups)) {
             return false;
         }

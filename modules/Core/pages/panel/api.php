@@ -101,7 +101,7 @@ if (!isset($_GET['view'])) {
                     }
 
                     if ($_POST[$injector->getColumnName()]) {
-                        if ($_POST[$injector->getColumnName()] == 0) {
+                        if ($_POST[$injector->getColumnName()] === 0) {
                             continue;
                         }
 
@@ -136,7 +136,7 @@ if (!isset($_GET['view'])) {
                         foreach ($values as $column => $group) {
                             if (
                                 $group
-                                && $group != 0
+                                && $group !== 0
                                 && $column != $namelessmc_injector->getColumnName()
                             ) {
                                 $external = true;

@@ -59,7 +59,7 @@ final class GroupSyncManager
      */
     private function addColumnToDb(string $column_name, string $column_type): void {
         try {
-            DB::getInstance()->alterTable('groups', $column_name, "{$column_type} NULL DEFAULT NULL");
+            DB::getInstance()->alterTable('group_sync', $column_name, "{$column_type} NULL DEFAULT NULL");
         } catch (PDOException $ignored) {
         }
     }
