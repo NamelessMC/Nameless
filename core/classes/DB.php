@@ -11,7 +11,7 @@
 
 class DB {
 
-    private static ?DB $_instance = null;
+    private static DB $_instance;
 
     private PDO $_pdo;
     private PDOStatement $_query;

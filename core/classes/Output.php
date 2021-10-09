@@ -10,7 +10,7 @@
  */
 class Output {
 
-    private static ?HTMLPurifier $_purifier = null;
+    private static HTMLPurifier $_purifier;
 
     /**
      * Returns a clean version of an inputted string.
@@ -44,7 +44,7 @@ class Output {
      */
     public static function getPurified(?string $input, bool $escape_invalid = false): string {
         // Require HTMLPurifier
-        if (!self::$_purifier) {
+        if (!isset(self::$_purifier)) {
             require_once(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'core', 'includes', 'htmlpurifier', 'HTMLPurifier.standalone.php')));
 
             $purifierConfig = HTMLPurifier_Config::createDefault();

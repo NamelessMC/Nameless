@@ -19,11 +19,11 @@ class ErrorHandler {
     const LINE_BUFFER = 20;
 
     /**
-     * Used to neatly display exceptions and the trace/frames leading up to it.
+     * Used to neatly display exceptions/errors and the trace/frames leading up to it.
      * If this is called manually, the error_string, error_file and error_line must be manually provided,
      * and a single trace frame will be generated for it.
      * 
-     * @param Throwable|null $exception Exception object to catch and render trace from. If null, other variables will be used to render trace.
+     * @param Throwable|null $exception Exception/Error to catch and render trace from. If null, other variables will be used to render trace.
      * @param string|null $error_string Main error message to be shown on top of page. Used when $exception is null.
      * @param string|null $error_file Path to most recent frame's file. Used when $exception is null.
      * @param int|null $error_line Line in $error_file which caused Exception. Used when $exception is null.

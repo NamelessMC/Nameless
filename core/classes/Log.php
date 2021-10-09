@@ -174,9 +174,9 @@ class Log {
         ]
     ];
 
-    private static ?Log $_instance = null;
+    private static Log $_instance;
 
-    private ?DB $_db;
+    private DB $_db;
 
     public function __construct() {
         $this->_db = DB::getInstance();

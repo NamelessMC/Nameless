@@ -19,7 +19,7 @@ class Validate {
     private array $_to_convert = array();
     private array $_errors = array();
     
-    private ?DB $_db = null;
+    private DB $_db;
     
     /**
      * Ensure this field is not empty

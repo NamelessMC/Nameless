@@ -11,7 +11,7 @@
 
 class DB_Custom {
 
-    private static ?DB_Custom $_instance = null;
+    private static DB_Custom $_instance;
 
     private PDO $_pdo;
     private PDOStatement $_query;

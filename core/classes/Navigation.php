@@ -31,7 +31,7 @@ class Navigation {
      * @param int Nav item order (default 10).
      * @param string $icon Icon to prepend to nav item.
      */
-    public function add(string $name, string $title, string $link, string $location = 'top', string $target = null, int $order = 10, string $icon = ''): void {
+    public function add(string $name, string $title, string $link, string $location = 'top', string $target = null, int $order = 10, ?string $icon = ''): void {
         if ($this->_panel && $location == 'top') {
             // Discard order
             // TODO: only a temporary solution to the link conflict issue in the StaffCP

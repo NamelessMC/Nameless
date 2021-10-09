@@ -12,9 +12,9 @@
 
 class Placeholders {
 
-    private static ?Placeholders $_instance = null;
+    private static Placeholders $_instance;
 
-    private ?DB $_db = null;
+    private DB $_db;
 
     private array $_all_placeholders;
 
