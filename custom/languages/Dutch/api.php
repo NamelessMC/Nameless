@@ -12,7 +12,7 @@
 $language = array(
 
     // Errors
-    'api_disabled' => 'API is disabled',
+    'api_disabled' => 'API is uitgeschakeld',
     'unknown_error' => 'Onbekende error',
     'invalid_api_key' => 'Ongeldige API key',
     'invalid_language_file' => 'Ongeldig taalbestand',
@@ -33,7 +33,7 @@ $language = array(
     'unable_to_find_group' => 'Kon groep niet vinden',
     'unable_to_update_group' => 'Kon gebruikersgroep niet bijwerken',
     'report_content_too_long' => 'De inhoud van het rapport mag maximaal 255 karakters of minder bevatten',
-    'cannot_report_yourself' => 'You cannot report yourself.',
+    'cannot_report_yourself' => 'Je kunt jezelf niet aangeven.',
     'you_have_been_banned_from_website' => 'Je bent verbannen van de website',
     'you_have_open_report_already' => 'Je hebt al een rapport open staan over deze speler',
     'unable_to_create_report' => 'Kon rapport niet maken',
@@ -41,7 +41,7 @@ $language = array(
     'unable_to_update_server_info' => 'Kon server informatie niet bijwerken',
     'invalid_server_id' => 'Ongeldige server ID',
     'invalid_code' => 'Ongeldige code voorzien',
-    'user_already_active' => 'Your account has already been activated.',
+    'user_already_active' => 'Uw account is al geactiveerd.',
 
     // Success messages
     'finish_registration_link' => 'Klik alstublieft op de volgende link om de registratie te voltooien:',

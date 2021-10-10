@@ -61,7 +61,7 @@ $language = array(
     'invalid_tfa' => 'Verkeerde code, probeer opnieuw.',
     'tfa_successful' => 'Twee factor authenticatie succesvol ingesteld. Je moet nu elke keer een code hebben om in te kunnen loggen.',
     'active_language' => 'Actieve taal',
-    'active_template' => 'Active Template',
+    'active_template' => 'Actief sjabloon',
     'timezone' => 'Tijdzone',
     'upload_new_avatar' => 'Upload een nieuwe avatar',
     'nickname_already_exists' => 'Je gekozen nicknaam bestaat al.',
@@ -93,7 +93,7 @@ $language = array(
     'password' => 'Wachtwoord',
     'confirm_password' => 'Bevestig wachtwoord',
     'i_agree' => 'Akkoord',
-    'agree_t_and_c' => 'I have read and accept the <a href="{x}" target="_blank">Terms and Conditions</a>.',
+    'agree_t_and_c' => 'Ik heb de <a href="{x}" target="_blank">Voorwaarden</a> gelezen en accepteer deze.',
     'create_an_account' => 'Maak een account',
     'terms_and_conditions' => 'Voorwaarden',
     'validation_complete' => 'Je account is bevestigd, je kunt nu inloggen.',
@@ -144,8 +144,8 @@ $language = array(
     'must_input_email' => 'Je moet een emailadres invoeren.',
     'must_input_username' => 'Je moet een gebruikersnaam invoeren.',
     'must_input_password' => 'Je moet een wachtwoord invoeren.',
-    'must_input_email_or_username' => 'You must input an email or username.',
-    'email_or_username' => 'Email or Username',
+    'must_input_email_or_username' => 'U moet een e-mail of gebruikersnaam invoeren.',
+    'email_or_username' => 'E-mail of gebruikersnaam',
 
     // Forgot password
        'forgot_password_instructions' => 'Graag je email adres invoeren zodat we verdere instructies kunnen sturen om je wachtwoord te herstellen.',
@@ -239,5 +239,5 @@ $language = array(
      *  Hooks
      */
     'user_x_has_registered' => '{x} is lid geworden van ' . SITE_NAME . '!',
-    'user_x_has_validated' => '{x} has validated their account!',
+    'user_x_has_validated' => '{x} heeft hun account gevalideerd!',
 );

@@ -12,5 +12,5 @@
  */
 
 // Welke versie van NamelessMC is dit taal bestand geüpdatet voor?
-$language_version = '2.0.0-pr8';
+$language_version = '2.0.0-pr10';
 $language_html = 'nl';
