@@ -1266,3 +1266,23 @@ body.dark .ui.red.cards>.card {
 	-webkit-box-shadow: 0 0 0 1px #d4d4d5, 0 5px 0 0 #db2828, 0 1px 3px 0 #d4d4d5;
 	box-shadow: 0 0 0 1px #d4d4d5, 0 5px 0 0 #db2828, 0 1px 3px 0 #d4d4d5;
 }
+
+body.dark .ui.tabular.menu {
+	border-color: #282828;
+}
+
+body.dark .ui.tabular.menu .item {
+	color: #fff;
+}
+
+body.dark .ui.tabular.menu .active.item {
+	background-color: #282828;
+	border-color: #282828;
+}
+
+/*
+ * Colours
+ */
+body.dark .white {
+	color: #fff;
+}
