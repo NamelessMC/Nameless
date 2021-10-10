@@ -8,6 +8,9 @@
  *
  *  Forum module Sitemap method
  */
+
+use SitemapPHP\Sitemap;
+
 class Forum_Sitemap {
         
     /**
@@ -15,7 +18,7 @@ class Forum_Sitemap {
      *
      * @param Sitemap $sitemap Instance of sitemap generator.
      */
-    public static function generateSitemap($sitemap = null) {
+    public static function generateSitemap(Sitemap $sitemap = null): void {
         if (!$sitemap)
             return;
 

@@ -121,7 +121,7 @@ if (!isset($_GET['action'])) {
 
             $template_file = 'core/hooks_new.tpl';
             break;
-            
+
         case 'edit':
             // Edit hook
             if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
@@ -239,7 +239,7 @@ if (!isset($_GET['action'])) {
 }
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets);
 
 if (Session::exists('admin_hooks'))
     $success = Session::flash('admin_hooks');

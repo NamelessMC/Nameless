@@ -99,9 +99,9 @@ if(!isset($_GET['step'])){
 				'lastip' => htmlspecialchars($ip),
 				'last_online' => date('U')
             ));
-            
+
             $new_user = new User(DB::getInstance()->lastId());
-            // TODO: which group should they be set to? 
+            // TODO: which group should they be set to?
             // VALIDATED_DEFAULT
             // PRE_VALIDATED_DEFAULT
             $new_user->setGroup(1);
@@ -123,7 +123,7 @@ if(!isset($_GET['step'])){
 }
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets);
 
 $page_load = microtime(true) - $start;
 define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));

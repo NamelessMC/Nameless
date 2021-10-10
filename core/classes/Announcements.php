@@ -11,10 +11,9 @@
  */
 class Announcements {
     
-    /** @var Cache */
-    private $_cache;
+    private Cache $_cache;
     
-    public function __construct($cache) {
+    public function __construct(Cache $cache) {
         $this->_cache = $cache;
     }
     
@@ -23,7 +22,7 @@ class Announcements {
      * 
      * @return array All announcements.
      */
-    public function getAll() {
+    public function getAll(): array {
         $this->_cache->setCache('custom_announcements');
 
         if ($this->_cache->isCached('custom_announcements')) {
@@ -42,9 +41,10 @@ class Announcements {
      * @param string|null $page Name of the page they're viewing.
      * @param string|null $custom_page Title of custom page they're viewing.
      * @param array $user_groups All this user's groups.
+     * 
      * @return array Array of announcements they should see on this specific page with their groups.
      */
-    public function getAvailable($page = null, $custom_page = null, $user_groups = [0]) {
+    public function getAvailable(?string $page = null, ?string $custom_page = null, array $user_groups = [0]): array {
         $announcements = array();
 
         foreach($this->getAll() as $announcement) {
@@ -73,9 +73,10 @@ class Announcements {
      * Get all pages which can have announcements on them (they will have a 'name' attribute).
      * 
      * @param Pages $pages Instance of Pages class.
-     * @return array Name of all pages announcements can be on.
+     * 
+     * @return array<string> Name of all pages announcements can be on.
      */
-    public function getPages(Pages $pages) {
+    public function getPages(Pages $pages): array {
         $available_pages = array();
 
         foreach ($pages->returnPages() as $page) {
@@ -91,9 +92,10 @@ class Announcements {
      * Get prettified output of the pages a specific announcement is on.
      * 
      * @param string $pages_json JSON array of pages to implode.
+     * 
      * @return string Comma seperated list of page names.
      */
-    public function getPagesCsv($pages_json = null){
+    public function getPagesCsv(?string $pages_json = null): string {
         $pages = json_decode($pages_json);
 
         if (!$pages) {
@@ -107,8 +109,8 @@ class Announcements {
      * Edit an existing announcement.
      * 
      * @param int $id ID of announcement to edit.
-     * @param array $pages Array of page names this announcement should be on.
-     * @param array $groups Array of group IDs this announcement should be visible to.
+     * @param array<string> $pages Array of page names this announcement should be on.
+     * @param array<int> $groups Array of group IDs this announcement should be visible to.
      * @param string $text_colour Hex code of text colour to use.
      * @param string $background_colour Hex code of background banner colour of announcement.
      * @param string $icon HTML to use to display icon on announcement.
@@ -117,7 +119,7 @@ class Announcements {
      * @param string $message Main text to show in announcement.
      * @param int $order Order of this announcement to use for sorting.
      */
-    public function edit($id = null, $pages = null, $groups = null, $text_colour = null, $background_colour = null, $icon = null, $closable = null, $header = null, $message = null, $order = null) {
+    public function edit(int $id, array $pages, array $groups, string $text_colour, string $background_colour, string $icon, bool $closable, string $header, string $message, int $order): bool {
         $queries = new Queries();
         
         $queries->update('custom_announcements', $id, array(
@@ -133,14 +135,15 @@ class Announcements {
         ));
 
         $this->resetCache();
+
         return true;
     }
 
     /**
      * Create an announcement.
      * 
-     * @param array $pages Array of page names this announcement should be on.
-     * @param array $groups Array of group IDs this announcement should be visible to.
+     * @param array<string> $pages Array of page names this announcement should be on.
+     * @param array<int> $groups Array of group IDs this announcement should be visible to.
      * @param string $text_colour Hex code of text colour to use.
      * @param string $background_colour Hex code of background banner colour of announcement.
      * @param string $icon HTML to use to display icon on announcement.
@@ -149,7 +152,7 @@ class Announcements {
      * @param string $message Main text to show in announcement.
      * @param int $order Order of this announcement to use for sorting.
      */
-    public function create($pages = null, $groups = null, $text_colour = null, $background_colour = null, $icon = null, $closable = null, $header = null, $message = null, $order = null) {
+    public function create(array $pages, array $groups, string $text_colour, string $background_colour, string $icon, bool $closable, string $header, string $message, int $order): bool {
         $queries = new Queries();
 
         $queries->create('custom_announcements', array(
@@ -165,6 +168,7 @@ class Announcements {
         ));
 
         $this->resetCache();
+
         return true;
     }
 
@@ -172,7 +176,7 @@ class Announcements {
      * Erase and regenerate announcement cache file.
      * Used when creating or editing announcements.
      */
-    public function resetCache() {
+    public function resetCache(): void {
         $this->_cache->setCache('custom_announcements');
 
         if ($this->_cache->isCached('custom_announcements')) {

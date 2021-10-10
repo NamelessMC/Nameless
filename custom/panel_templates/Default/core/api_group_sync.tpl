@@ -55,52 +55,28 @@
                                 {foreach from=$GROUP_SYNC_VALUES item=group_sync}
                                     <div class="form-group">
                                         <div class="row">
-                                            <div class="col-md-4">
-                                                <label for="inputIngame">{$INGAME_GROUP_NAME}</label>
-                                                {if count($INGAME_GROUPS)}
-                                                    <select name="ingame_group[{$group_sync.id}]" class="form-control" id="inputIngame">
-                                                        <option value="0" {if {$group_sync.ingame} == NULL} selected{/if}>{$NONE} ({$DISABLED})</option>
-                                                        {foreach from=$INGAME_GROUPS item=group}
-                                                            <option value="{$group}" {if {$group_sync.ingame} eq $group} selected{/if}>{$group}</option>
-                                                        {/foreach}
-                                                    </select>
-                                                {else}
-                                                    <p class="text-muted" style="padding-top: 5px">{$GROUP_SYNC_PLUGIN_NOT_SET_UP}</p>
-                                                    <input name="ingame_group[{$group_sync.id}]"
-                                                           type="hidden" id="inputIngame"
-                                                           value="{$group_sync.ingame}">
-                                                {/if}
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label for="inputDiscord">{$DISCORD_ROLE_ID}</label>
-                                                {if count($DISCORD_GROUPS)}
-                                                    <select name="discord_role[{$group_sync.id}]" class="form-control" id="inputDiscord">
-                                                        <option value="0" {if {$group_sync.discord} == NULL} selected{/if}>{$NONE} ({$DISABLED})</option>
-                                                        {foreach from=$DISCORD_GROUPS item=group}
-                                                            <option value="{$group.id}" {if {$group_sync.discord} eq $group.id} selected{/if}>{$group.name}
-                                                                ({$group.id})
-                                                            </option>
-                                                        {/foreach}
-                                                    </select>
-                                                {else}
-                                                    <p class="text-muted" style="padding-top: 5px">{$DISCORD_INTEGRATION_NOT_SETUP}</p>
-                                                    <input name="discord_role[{$group_sync.id}]"
-                                                           type="hidden" id="inputDiscord"
-                                                           value="0">
-                                                {/if}
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label for="inputWebsite">{$WEBSITE_GROUP}</label>
-                                                <select name="website_group[{$group_sync.id}]" class="form-control"
-                                                        id="inputWebsite">
-                                                    {foreach from=$GROUPS item=group}
-                                                        <option value="{$group.id}"{if $group_sync.website eq $group.id} selected{/if}>{$group.name}</option>
-                                                    {/foreach}
-                                                </select>
-                                            </div>
+
+                                            {foreach from=$GROUP_SYNC_INJECTORS key=column_name item=injector}
+                                                <input type="hidden" >
+                                                <div class="col-md">
+                                                    <label for="input_{$column_name}">{$injector->getName()}</label>
+                                                    {if in_array($injector, $ENABLED_GROUP_SYNC_INJECTORS)}
+                                                        <select name="existing[{$group_sync->id}][{$column_name}]" class="form-control" id="input_{$column_name}">
+                                                        <option value="0" {if {$group_sync->$column_name} eq null} selected {/if}>{$NONE} ({$DISABLED})</option>
+                                                            {foreach from=$injector->getSelectionOptions() item=group}
+                                                                <option value="{$group.id}" {if $group_sync->$column_name eq $group.id} selected {/if}>{$group.name}</option>
+                                                            {/foreach}
+                                                        </select>
+                                                    {else}
+                                                        <p class="text-muted" style="padding-top: 5px">{$injector->getNotEnabledMessage($LANGUAGE)}</p>
+                                                        <input name="{$column_name}" type="hidden" id="input_{$column_name}">
+                                                    {/if}
+                                                </div>
+                                            {/foreach}
+
                                             <div class="col-md-1">
                                                 <div style="height:32px"></div>
-                                                <button type="button" onclick="deleteGroupSync('{$group_sync.id}')" class="btn btn-danger">{$DELETE}</button>
+                                                <button type="button" onclick="deleteGroupSync('{$group_sync->id}')" class="btn btn-danger">{$DELETE}</button>
                                             </div>
                                         </div>
                                     </div>
@@ -118,43 +94,26 @@
                         <form action="" method="post">
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-4">
-                                        <label for="inputIngame">{$INGAME_GROUP_NAME}</label>
-                                        {if count($INGAME_GROUPS)}
-                                            <select name="ingame_rank_name" class="form-control" id="inputIngame">
-                                                <option value="0">{$NONE} ({$DISABLED})</option>
-                                                {foreach from=$INGAME_GROUPS item=group}
-                                                    <option value="{$group}">{$group}</option>
-                                                {/foreach}
-                                            </select>
-                                        {else}
-                                            <p class="text-muted" style="padding-top: 5px">{$GROUP_SYNC_PLUGIN_NOT_SET_UP}</p>
-                                            <input name="ingame_rank_name" type="hidden" id="inputIngame">
-                                        {/if}
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label for="inputDiscord">{$DISCORD_ROLE_ID}</label>
-                                        {if count($DISCORD_GROUPS)}
-                                            <select name="discord_role_id" class="form-control" id="inputDiscord">
-                                                <option value="0">{$NONE} ({$DISABLED})</option>
-                                                {foreach from=$DISCORD_GROUPS item=group}
-                                                    <option value="{$group.id}">{$group.name} ({$group.id})</option>
-                                                {/foreach}
-                                            </select>
-                                        {else}
-                                            <p class="text-muted" style="padding-top: 5px">{$DISCORD_INTEGRATION_NOT_SETUP}</p>
-                                            <input class="form-control" name="discord_role_id" type="hidden"
-                                                   id="inputDiscord" value="0">
-                                        {/if}
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label for="inputWebsite">{$WEBSITE_GROUP}</label>
-                                        <select name="website_group" class="form-control" id="inputWebsite">
-                                            {foreach from=$GROUPS item=group}
-                                                <option value="{$group.id}">{$group.name}</option>
-                                            {/foreach}
-                                        </select>
-                                    </div>
+
+                                    {foreach from=$GROUP_SYNC_INJECTORS item=injector key=column_name}
+                                        <div class="col-md">
+                                            <label for="input_{$column_name}">{$injector->getName()}</label>
+                                            {if in_array($injector, $ENABLED_GROUP_SYNC_INJECTORS)}
+                                                <select name="{$column_name}" class="form-control" id="input_{$column_name}">
+                                                    {if $column_name != $NAMELESS_INJECTOR_COLUMN}
+                                                        <option value="0">{$NONE} ({$DISABLED})</option>
+                                                    {/if}
+                                                    {foreach from=$injector->getSelectionOptions() item=group}
+                                                        <option value="{$group.id}">{$group.name}</option>
+                                                    {/foreach}
+                                                </select>
+                                            {else}
+                                                <p class="text-muted" style="padding-top: 5px">{$injector->getNotEnabledMessage($LANGUAGE)}</p>
+                                                <input name="{$column_name}" type="hidden" id="input_{$column_name}">
+                                            {/if}
+                                        </div>
+                                    {/foreach}
+
                                 </div>
                             </div>
                             <div class="form-group">

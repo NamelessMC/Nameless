@@ -12,7 +12,7 @@
 // Always define page name
 define('PAGE', 'profile');
 
-$timeago = new Timeago(TIMEZONE);
+$timeago = new TimeAgo(TIMEZONE);
 
 require(ROOT_PATH . '/core/includes/emojione/autoload.php'); // Emojione
 $emojione = new Emojione\Client(new Emojione\Ruleset());
@@ -712,9 +712,9 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     }
 
     $profile_user = new User($query->id);
-    if ($profile_user->data()->discord_username != null) {
+if (Util::isModuleEnabled('Discord Integration') && $profile_user->data()->discord_username != null) {
         $fields[] = array(
-            'title' => $language->get('user', 'discord_username') . ':',
+            'title' => Discord::getLanguageTerm('discord_username') . ':',
             'type' => 'text',
             'value' => $profile_user->data()->discord_username
         );
@@ -796,7 +796,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     }
 
     // Load modules + template
-    Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
+    Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
 
     $page_load = microtime(true) - $start;
     define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
@@ -820,7 +820,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
             'NOT_FOUND' => $language->get('user', 'couldnt_find_that_user')
         ));
         // Load modules + template
-        Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
+        Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
 
         $page_load = microtime(true) - $start;
         define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));

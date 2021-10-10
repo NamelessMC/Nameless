@@ -10,7 +10,7 @@ class NamelessMCAvatarSource extends AvatarSourceBase {
         ];
     }
 
-    public function getUrlToFormat($perspective) {
+    public function getUrlToFormat(string $perspective): string {
         if (defined('FRIENDLY_URLS') && FRIENDLY_URLS == true) {
             return URL::build('/avatar/{x}');
         }

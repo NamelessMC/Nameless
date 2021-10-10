@@ -14,7 +14,7 @@ class ServerInfoEndpoint extends EndpointBase {
     public function execute(Nameless2API $api) {
         $api->validateParams($_POST, ['server-id', 'max-memory', 'free-memory', 'allocated-memory', 'tps']);
         if (!isset($_POST['players'])) {
-            $api->throwError(6, $this->_language->get('api', 'invalid_post_contents'), 'players');
+            $api->throwError(6, $api->getLanguage()->get('api', 'invalid_post_contents'), 'players');
         }
 
         $serverId = $_POST['server-id'];
@@ -99,48 +99,20 @@ class ServerInfoEndpoint extends EndpointBase {
         }
 
         // Group sync
+        $log = [];
         try {
-            $group_sync = DB::getInstance()->query('SELECT nl2_group_sync.*, nl2_groups.name FROM nl2_group_sync INNER JOIN nl2_groups ON website_group_id=nl2_groups.id WHERE ingame_rank_name IS NOT NULL');
+            foreach ($_POST['players'] as $uuid => $player) {
+                $user = $this->getUser($uuid);
+                if ($user->exists()) {
 
-            if ($group_sync->count()) {
-                $group_sync = $group_sync->results();
+                    $log = GroupSyncManager::getInstance()->broadcastChange(
+                        $user, 
+                        MinecraftGroupSyncInjector::class,
+                        isset($player['groups']) ? array_map('strtolower', $player['groups']) : []
+                    );
 
-                foreach ($_POST['players'] as $uuid => $player) {
-                    $user = $this->getUser($uuid);
-                    if ($user->data()) {
-                        $log_array = array();
-                        $user_groups = isset($player['groups']) ? array_map('strtolower', $player['groups']) : array();
-
-                        foreach($group_sync as $group) {
-                            if(in_array(strtolower($group->ingame_rank_name), $user_groups)) {
-                                // Add group if user don't have it
-                                if($user->addGroup($group->website_group_id, 0, array(true))) {
-                                    $log_array['added'][] = $group->name;
-                                    
-                                    Discord::updateDiscordRoles($user, [$group->website_group_id], [], $api->getLanguage(), false);
-                                }
-                            } else {
-                                // Check if user have another group synced to this NamelessMC group
-                                foreach($group_sync as $item) {
-                                    if(in_array(strtolower($item->ingame_rank_name), $user_groups)) {
-                                        if($item->website_group_id == $group->website_group_id) {
-                                            continue 2;
-                                        }
-                                    }
-                                }
-                                
-                                // Remove group if user have it
-                                if($user->removeGroup($group->website_group_id)) {
-                                    $log_array['removed'][] = $group->name;
-                                    
-                                    Discord::updateDiscordRoles($user, [], [$group->website_group_id], $api->getLanguage(), false);
-                                }
-                            }
-                        }
-                        
-                        if(count($log_array)) {
-                            Log::getInstance()->log(Log::Action('mc_group_sync/role_set'), json_encode($log_array), $user->data()->id);
-                        }
+                    if (count($log)) {
+                        Log::getInstance()->log(Log::Action('mc_group_sync/role_set'), json_encode($log), $user->data()->id);
                     }
                 }
             }
@@ -160,13 +132,14 @@ class ServerInfoEndpoint extends EndpointBase {
             $api->throwError(25, $api->getLanguage()->get('api', 'unable_to_update_server_info'), $e->getMessage());
         }
 
-        $api->returnArray(array_merge(array('message' => $api->getLanguage()->get('api', 'server_info_updated')), $log_array));
+        $api->returnArray(array_merge(array('message' => $api->getLanguage()->get('api', 'server_info_updated')), ['log' => $log]));
     }
 
     /**
      * Get a user from cache (or create if not exist).
      * 
      * @param string $uuid Their uuid.
+     * 
      * @return User Their user instance.
      */
     private function getUser($uuid) {

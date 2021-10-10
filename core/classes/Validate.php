@@ -13,14 +13,13 @@
 
 class Validate {
 
-    private $_message = null;
-    private $_messages = array();
-    private $_passed = false;
-    private $_to_convert = array();
-    private $_errors = array();
+    private ?string $_message = null;
+    private array $_messages = array();
+    private bool $_passed = false;
+    private array $_to_convert = array();
+    private array $_errors = array();
     
-    /** @var DB */
-    private $_db = null;
+    private DB $_db;
     
     /**
      * Ensure this field is not empty
@@ -106,7 +105,7 @@ class Validate {
      * 
      * @return Validate This instance of Validate.
      */
-    public function check(array $source, array $items = array()) {
+    public function check(array $source, array $items = array()): Validate {
 
         // Loop through the items which need validating
         foreach ($items as $item => $rules) {
@@ -278,7 +277,7 @@ class Validate {
      * 
      * @return Validate This instance of Validate.
      */
-    public function message($message) {
+    public function message(string $message): Validate {
         $this->_message = $message;
         return $this;
     }
@@ -290,7 +289,7 @@ class Validate {
      * 
      * @return Validate This instance of Validate.
      */
-    public function messages(array $messages) {
+    public function messages(array $messages): Validate {
         $this->_messages = $messages;
         return $this;
     }
@@ -301,7 +300,7 @@ class Validate {
      * 
      * @param string $error message to add to error array
      */
-    private function addError(array $error) {
+    private function addError(array $error): void {
         $this->_to_convert[] = $error;
     }
 
@@ -314,7 +313,7 @@ class Validate {
      * 
      * @return string Message for this field and rule.
      */
-    private function getMessage($field, $rule, $fallback) {
+    private function getMessage(string $field, string $rule, string $fallback): string {
 
         // No custom messages defined for this field
         if (!isset($this->_messages[$field])) {
@@ -340,7 +339,7 @@ class Validate {
      * 
      * @return array Any and all errors for this `Validate` instance.
      */
-    public function errors() {
+    public function errors(): array {
 
         // If errors have already been translated, dont waste time redoing it
         if (!empty($this->_errors)) {
@@ -362,7 +361,6 @@ class Validate {
             // If this new error is the generic message AND it has not already been added, add it
             if ($message == $this->_message && !in_array($this->_message, $this->_errors)) {
                 $this->_errors[] = $this->_message;
-                continue;
             }
         }
 
@@ -374,7 +372,7 @@ class Validate {
      * 
      * @return bool whether this Validate passed or not.
      */
-    public function passed() {
+    public function passed(): bool {
         return $this->_passed;
     }
 

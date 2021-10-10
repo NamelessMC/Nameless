@@ -189,7 +189,6 @@ $language = array(
     'new_wall_post_reply_your_profile' => '{x} odpověděl na váš příspěvek na vašem profilu.', // Don't replace {x}
     'no_about_fields' => 'Tento uživatel o sobě zatím nepřidal žádné informace.',
     'reply' => 'Odpovědět',
-    'discord_username' => 'Uživatelské jméno na Discordu',
 
     // Reports
     'invalid_report_content' => 'Nepodařilo se vytvořit nahlášení. Ujistěte se, že váš důvod nahlášení obsahuje mezi 2 a 1024 znaky.',
@@ -238,20 +237,4 @@ $language = array(
      */
     'user_x_has_registered' => '{x} se připojil na ' . SITE_NAME . '!',
     'user_x_has_validated' => '{x} ověřil svůj účet!',
-
-    // Discord
-    'discord_link' => 'Propojení s Discordem',
-    'linked' => 'Propojeno',
-    'not_linked' => 'Nepropojeno',
-    'discord_id' => 'Uživatelské Discord ID',
-    'discord_id_unlinked' => 'Úspěšně jste odpojili své uživatelské ID.',
-    'discord_id_confirm' => 'Please run the command "/verify token:{token}" in Discord to finish linking your Discord account.',
-    'pending_link' => 'Čekání',
-    'discord_id_taken' => 'Toto Discord ID je již zabráno.',
-    'discord_invalid_id' => 'Toto uživatelské Discord ID je neplatné.',
-    'discord_already_pending' => 'Již máte čekající ověření.',
-    'discord_database_error' => 'Databáze Nameless Link momentálně není dostupná. Zkuste to prosím znovu za chvíli.',
-    'discord_communication_error' => 'Při komunikaci s Discord botem se vyskytla chyba. Ujistěte se, že bot běží a že URL bota je správná.',
-    'discord_unknown_error' => 'Při synchronizaci Discord rolí se vyskytla neznámá chyba. Kontaktujte prosím správce.',
-    'discord_id_help' => 'Pro informace, kde nalézt Discord ID, si přečtěte <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">toto.</a>'
 );

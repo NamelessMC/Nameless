@@ -189,7 +189,6 @@ $language = array(
     'new_wall_post_reply_your_profile' => '{x} a répondu à votre poste sur votre profil.', // Don't replace {x}
     'no_about_fields' => 'Cet utilisateur n’a pas encore ajouté de champs.',
     'reply' => 'Répondre',
-    'discord_username' => 'Nom d\'utilisateur Discord',
 
     // Reports
     'invalid_report_content' => 'Impossible de créer un signalement. Veuillez vous assurer que le motif de votre signalement comporte entre 2 et 1024 caractères.',
@@ -245,20 +244,4 @@ $language = array(
      */
     'user_x_has_registered' => '{x} a rejoint ' . SITE_NAME . '!',
     'user_x_has_validated' => '{x} a validé son compte !',
-
-    // Discord
-    'discord_link' => 'Lien Discord',
-    'linked' => 'Lié',
-    'not_linked' => 'Non lié',
-    'discord_id' => 'ID de l\'utilisateur Discord',
-    'discord_id_unlinked' => 'Vous avez réussi à dissocier votre ID utilisateur Discord.',
-    'discord_id_confirm' => 'Please run the command "/verify token:{token}" in Discord to finish linking your Discord account.',
-    'pending_link' => 'En attente',
-    'discord_id_taken' => 'Cet identifiant Discord a déjà été pris.',
-    'discord_invalid_id' => 'Cet ID utilisateur Discord n\'est pas valide.',
-    'discord_already_pending' => 'Vous avez déjà une vérification en cours.',
-    'discord_database_error' => 'La base de données du lien Nameless est actuellement en panne. Veuillez réessayer plus tard.',
-    'discord_communication_error' => 'Une erreur s\'est produite lors de la communication avec le robot Discord. Veuillez vous assurer que le robot est en cours d\'exécution et que votre URL de robot est correcte.',
-    'discord_unknown_error' => 'Une erreur inconnue s\'est produite lors de la synchronisation des rôles Discord. Veuillez contacter un administrateur.',
-    'discord_id_help' => 'Pour savoir où trouver les identifiants Discord, veuillez lire le <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">document</a>suivant.'
 );

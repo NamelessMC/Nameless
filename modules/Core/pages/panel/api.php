@@ -85,109 +85,74 @@ if (!isset($_GET['view'])) {
     if (Input::exists()) {
         if (Token::check()) {
             if ($_POST['action'] == 'create') {
-                $validate = new Validate();
-                $validation = $validate->check($_POST, [
-                        'ingame_rank_name' => [
-                            Validate::MIN => 2,
-                            Validate::MAX => 64
-                        ],
-                        'discord_role_id' => [
-                            Validate::MIN => 18,
-                            Validate::MAX => 18,
-                            Validate::NUMERIC => true
-                        ],
-                        'website_group' => [
-                            Validate::REQUIRED => true
-                        ]
-                    ]
-                )->messages([
-                    'ingame_rank_name' => [
-                        Validate::MIN => $language->get('admin', 'group_name_minimum'),
-                        Validate::MAX => $language->get('admin', 'ingame_group_maximum')
-                    ],
-                    'discord_role_id' => [
-                        Validate::MIN => $language->get('admin', 'discord_role_id_length'),
-                        Validate::MAX => $language->get('admin', 'discord_role_id_length'),
-                        Validate::NUMERIC => $language->get('admin', 'discord_role_id_numeric')
-                    ]
-                ]);
+                $validation = GroupSyncManager::getInstance()->makeValidator($_POST, $language);
 
                 $errors = array();
 
-                if (empty($_POST['ingame_rank_name']) && empty($_POST['discord_role_id'])) {
+                $external = false;
+                $fields = [];
+
+                foreach (GroupSyncManager::getInstance()->getEnabledInjectors() as $injector) {
+                    if (
+                        $injector->getColumnName() == GroupSyncManager::getInstance()->getInjectorByClass(NamelessMCGroupSyncInjector::class)->getColumnName()
+                    ) {
+                        $fields[$injector->getColumnName()] = $_POST[$injector->getColumnName()];
+                        continue;
+                    }
+
+                    if ($_POST[$injector->getColumnName()]) {
+                        if ($_POST[$injector->getColumnName()] === 0) {
+                            continue;
+                        }
+
+                        $fields[$injector->getColumnName()] = $_POST[$injector->getColumnName()];
+                        $external = true;
+                    }
+                }
+
+                if (!$external) {
                     $errors[] = $language->get('admin', 'at_least_one_external');
                 } else if ($validation->passed()) {
 
-                    $discord_role_id = intval(Input::get('discord_role_id'));
-                    if ($discord_role_id == 0) {
-                        $discord_role_id = null;
-                    }
-                    $fields = array();
-                    $fields['website_group_id']  = intval(Input::get('website_group'));
-                    $fields['discord_role_id'] = $discord_role_id;
+                    $queries->create('group_sync', $fields);
+                    Session::flash('api_success', $language->get('admin', 'group_sync_rule_created_successfully'));
 
-                    $ingame_rank_name = $_POST['ingame_rank_name'];
-
-                    if (!empty($ingame_rank_name)) {
-                        if (strlen(str_replace(' ', '', $ingame_rank_name)) > 1 && strlen(str_replace(' ', '', $ingame_rank_name)) < 65) {
-                            $fields['ingame_rank_name'] = $ingame_rank_name;
-                        } else {
-                            $errors[] = $language->get('admin', 'group_name_minimum');
-                            $errors[] = $language->get('admin', 'ingame_group_maximum');
-                        }
-                    } else {
-                        $fields['ingame_rank_name'] = null;
-                    }
-
-                    if ($discord_role_id == null && empty($ingame_rank_name)) {
-                        $errors[] = $language->get('admin', 'at_least_one_external');
-                    }
-
-                    if (!count($errors)) {
-                        $queries->create('group_sync', $fields);
-                        Session::flash('api_success', $language->get('admin', 'group_sync_rule_created_successfully'));
-                    }
                 } else {
                     $errors = $validation->errors();
                 }
             } else if ($_POST['action'] == 'update') {
-                $errors = array();
 
-                if (isset($_POST['ingame_group']) && isset($_POST['discord_role']) && isset($_POST['website_group'])) {
+                $namelessmc_injector = GroupSyncManager::getInstance()->getInjectorByClass(NamelessMCGroupSyncInjector::class);
 
-                    foreach ($_POST['website_group'] as $key => $website_group) {
-                        if (!empty($_POST['ingame_group'][$key]) || !empty($_POST['discord_role'][$key])) {
+                foreach ($_POST['existing'] as $group_sync_id => $values) {
+                    $errors = [];
 
-                            $ingame_group = $_POST['ingame_group'][$key];
-                            $discord_role_id = intval($_POST['discord_role'][$key]);
-                            if ($discord_role_id == 0) $discord_role_id = null;
+                    $validator = GroupSyncManager::getInstance()->makeValidator($values, $language);
 
-                            $fields = array();
-                            $fields['website_group_id']  = intval($website_group);
-
-                            if (!empty($ingame_group)) {
-                                if (strlen(str_replace(' ', '', $ingame_group)) > 1 && strlen(str_replace(' ', '', $ingame_group)) < 65) {
-                                    $fields['ingame_rank_name'] = $ingame_group;
-                                } else {
-                                    $errors[] = $language->get('admin', 'group_name_minimum');
-                                    $errors[] = $language->get('admin', 'ingame_group_maximum');
-                                }
-                            } else $fields['ingame_rank_name'] = null;
-                            if (strlen($discord_role_id) == 0 || strlen($discord_role_id) == 18) {
-                                $fields['discord_role_id'] = $discord_role_id;
-                            } else {
-                                $errors[] = $language->get('admin', 'discord_role_id_length');
+                    if (!$validator->passed()) {
+                        $errors = $validator->errors();
+                    } else {
+                        $external = false;
+                        foreach ($values as $column => $group) {
+                            if (
+                                $group
+                                && $group !== 0
+                                && $column != $namelessmc_injector->getColumnName()
+                            ) {
+                                $external = true;
                             }
+                        }
 
-                            if (!count($errors)) {
-                                try {
-                                    $queries->update('group_sync', $key, $fields);
-                                } catch (Exception $e) {
-                                    $errors[] = $e->getMessage();
-                                }
-                            }
-                        } else {
+                        if (!$external) {
                             $errors[] = $language->get('admin', 'at_least_one_external');
+                        }
+                    }
+
+                    if (!count($errors)) {
+                        try {
+                            $queries->update('group_sync', $group_sync_id, $values);
+                        } catch (Exception $e) {
+                            $errors[] = $e->getMessage();
                         }
                     }
                 }
@@ -213,7 +178,7 @@ if (!isset($_GET['view'])) {
 }
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets);
 
 if (Session::exists('api_success')) {
     $smarty->assign(
@@ -307,37 +272,6 @@ if (!isset($_GET['view'])) {
 } else {
 
     if ($_GET['view'] == 'group_sync') {
-        // Get all groups
-        $groups = $queries->getWhere('groups', array('id', '<>', 0));
-        $website_groups = array();
-        foreach ($groups as $group) {
-            $website_groups[] = array(
-                'id' => Output::getClean($group->id),
-                'name' => Output::getClean($group->name)
-            );
-        }
-
-        // Get ingame groups
-        $ingame_groups = DB::getInstance()->query("SELECT `groups` FROM `nl2_query_results` ORDER BY `id` DESC LIMIT 1")->first();
-        $ingame_groups = json_decode($ingame_groups->groups, true);
-
-        // Get Discord groups
-        $discord_groups = array();
-        if (Util::getSetting(DB::getInstance(), 'discord_integration')) {
-            $discord_groups = Discord::getRoles();
-        }
-
-        // Get existing group sync configuration
-        $group_sync = $queries->getWhere('group_sync', array('id', '<>', 0));
-        $template_groups = array();
-        foreach ($group_sync as $group) {
-            $template_groups[] = array(
-                'id' => Output::getClean($group->id),
-                'ingame' => Output::getClean($group->ingame_rank_name),
-                'discord' => $group->discord_role_id,
-                'website' => $group->website_group_id
-            );
-        }
 
         $smarty->assign(
             array(
@@ -352,18 +286,14 @@ if (!isset($_GET['view'])) {
                 'BACK_LINK' => URL::build('/panel/core/api'),
                 'TOKEN' => Token::get(),
                 'SUBMIT' => $language->get('general', 'submit'),
-                'INGAME_GROUPS' => is_array($ingame_groups) ? $ingame_groups : array(),
-                'INGAME_GROUP_NAME' => $language->get('admin', 'ingame_group'),
-                'DISCORD_GROUPS' => is_array($discord_groups) ? $discord_groups : array(),
-                'DISCORD_ROLE_ID' => $language->get('admin', 'discord_role_id'),
-                'WEBSITE_GROUP' => $language->get('admin', 'website_group'),
-                'GROUPS' => $website_groups,
-                'GROUP_SYNC_VALUES' => $template_groups,
+                'GROUP_SYNC_VALUES' => $queries->getWhere('group_sync', array('id', '<>', 0)),
+                'GROUP_SYNC_INJECTORS' => GroupSyncManager::getInstance()->getInjectors(),
+                'ENABLED_GROUP_SYNC_INJECTORS' => GroupSyncManager::getInstance()->getEnabledInjectors(),
+                'NAMELESS_INJECTOR_COLUMN' => GroupSyncManager::getInstance()->getInjectorByClass(NamelessMCGroupSyncInjector::class)->getColumnName(),
+                'LANGUAGE' => $language,
                 'DELETE' => $language->get('general', 'delete'),
                 'NEW_RULE' => $language->get('admin', 'new_rule'),
                 'EXISTING_RULES' => $language->get('admin', 'existing_rules'),
-                'DISCORD_INTEGRATION_NOT_SETUP' => $language->get('admin', 'discord_integration_not_setup'),
-                'GROUP_SYNC_PLUGIN_NOT_SET_UP' => $language->get('admin', 'group_sync_plugin_not_set_up'),
                 'DELETE_LINK' => URL::build('/panel/core/api/', 'view=group_sync'),
                 'NONE' => $language->get('general', 'none'),
                 'DISABLED' => $language->get('admin', 'disabled')

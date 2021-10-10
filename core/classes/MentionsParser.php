@@ -11,8 +11,7 @@
  */
 class MentionsParser {
 
-    /** @var DB */
-    private $_db;
+    private DB $_db;
 
     /**
      * Create a new instance of MentionsParser.
@@ -27,14 +26,14 @@ class MentionsParser {
      * @param int $author_id User ID of post creator.
      * @param string $value Post content.
      * @param string $link Link back to post.
-     * @param string $alert_short Short alert info.
-     * @param string $alert_full Full alert info.
+     * @param array $alert_short Short alert info.
+     * @param array $alert_full Full alert info.
      *
      * @throws Exception If alert is not created (see `Alert::create()`).
      *
      * @return string Parsed post content.
      */
-    public function parse($author_id, $value, $link, $alert_short, $alert_full) {
+    public function parse(int $author_id, string $value, string $link, array $alert_short, array $alert_full): string {
         if (preg_match_all("/\@([A-Za-z0-9\-_!\.]+)/", $value, $matches)) {
             $matches = $matches[1];
 

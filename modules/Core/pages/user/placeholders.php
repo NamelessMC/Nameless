@@ -21,13 +21,13 @@ if($placeholders_enabled != 1) {
     require_once(ROOT_PATH . '/404.php');
     die();
 }
- 
+
 // Always define page name for navbar
 define('PAGE', 'cc_placeholders');
 $page_title = $language->get('user', 'user_cp');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-require_once(ROOT_PATH . '/core/classes/Timeago.php');
+require_once(ROOT_PATH . '/core/classes/TimeAgo.php');
 $timeago = new TimeAgo(TIMEZONE);
 
 $placeholders_list = array();
@@ -57,7 +57,7 @@ $smarty->assign(array(
 ));
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
 
 require(ROOT_PATH . '/core/templates/cc_navbar.php');
 

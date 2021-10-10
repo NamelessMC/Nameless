@@ -21,7 +21,7 @@ $page_title = $language->get('admin', 'modules');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets);
 
 if(!isset($_GET['action'])){
     // Get all modules
@@ -86,7 +86,7 @@ if(!isset($_GET['action'])){
 
         } else {
             $all_modules_query = json_decode($all_modules_query);
-            $timeago = new Timeago(TIMEZONE);
+            $timeago = new TimeAgo(TIMEZONE);
 
             foreach($all_modules_query as $item){
                 $all_modules[] = array(

@@ -11,7 +11,8 @@
 
 class CollectionManager {
 
-    private static $_collections = array();
+    /** @var Collection[] */
+    private static array $_collections = array();
 
     public static function addItemToCollection($collection, $item) {
         if (!isset(self::$_collections[$collection])) {
@@ -32,17 +33,17 @@ class CollectionManager {
 
 class Collection {
 
-    private $_items;
+    private array $_items;
 
     public function __construct() {
         $this->_items = array();
     }
 
-    public function addItem($item) {
+    public function addItem($item): void {
         $this->_items[] = $item;
     }
 
-    public function getEnabledItems() {
+    public function getEnabledItems(): array {
         $items = array();
 
         foreach ($this->_items as $item) {
@@ -51,16 +52,16 @@ class Collection {
             }
         }
 
-        uasort($items, function ($a, $b) {
+        uasort($items, static function ($a, $b) {
             return $a->getOrder() - $b->getOrder();
         });
 
         return $items;
     }
 
-    public function getAllItems() {
+    public function getAllItems(): array {
         $items = $this->_items;
-        uasort($items, function ($a, $b) {
+        uasort($items, static function ($a, $b) {
             return $a->getOrder() - $b->getOrder();
         });
         

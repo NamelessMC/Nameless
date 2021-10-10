@@ -20,10 +20,10 @@ define('PANEL_PAGE', 'seo');
 $page_title = $language->get('admin', 'seo');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
-$timeago = new Timeago(TIMEZONE);
+$timeago = new TimeAgo(TIMEZONE);
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets);
 
 $errors = array();
 if (!is_dir(ROOT_PATH . '/cache/sitemaps')) {
@@ -189,7 +189,6 @@ $smarty->assign(array(
     'PAGE' => PANEL_PAGE,
     'TOKEN' => Token::get(),
     'GENERATE' => $language->get('admin', 'generate_sitemap'),
-    'SUBMIT' => $language->get('general', 'submit'),
     'GOOGLE_ANALYTICS_VALUE' => $configuration->get('Core', 'ga_script'),
     'PAGE_TITLE' => $language->get('admin', 'page'),
     'PAGE_LIST' => $pages->returnPages(),

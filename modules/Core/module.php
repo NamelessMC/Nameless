@@ -16,7 +16,7 @@ class Core_Module extends Module {
 
     /** @var Configuration */
     private $_configuration;
-    
+
     private static $_dashboard_graph = array(), $_notices = array(), $_user_actions = array();
 
     public function __construct($language, $pages, $user, $queries, $navigation, $cache, $endpoints){
@@ -98,7 +98,6 @@ class Core_Module extends Module {
         $pages->add('Core', '/panel/minecraft/servers', 'pages/panel/minecraft_servers.php');
         $pages->add('Core', '/panel/minecraft/query_errors', 'pages/panel/minecraft_query_errors.php');
         $pages->add('Core', '/panel/minecraft/banners', 'pages/panel/minecraft_server_banners.php');
-        $pages->add('Core', '/panel/discord', 'pages/panel/discord.php');
         $pages->add('Core', '/panel/security', 'pages/panel/security.php');
         $pages->add('Core', '/panel/update', 'pages/panel/update.php');
         $pages->add('Core', '/panel/upgrade', 'pages/panel/upgrade.php');
@@ -243,34 +242,31 @@ class Core_Module extends Module {
         HookHandler::registerEvent('validateUser', $language->get('admin', 'validate_hook_info'), array('user_id' => $language->get('admin', 'user_id'), 'username' => $language->get('user', 'username'), 'uuid' => $language->get('admin', 'uuid')));
         HookHandler::registerEvent('deleteUser', $language->get('admin', 'delete_hook_info'), array('user_id' => $language->get('admin', 'user_id'), 'username' => $language->get('user', 'username'), 'uuid' => $language->get('admin', 'uuid'), 'email_address' => $language->get('user', 'email_address')));
 
-        // Discord hook
-        require_once(ROOT_PATH . '/modules/Core/hooks/DiscordHook.php');
-
         // Webhooks
         $cache->setCache('hooks');
         if($cache->isCached('hooks')){
             $hook_array = $cache->retrieve('hooks');
         } else {
             $hook_array = array();
-            $hooks = $queries->tableExists('hooks');
-            if (!empty($hooks)) {
-                $hooks = $queries->getWhere('hooks', array('id', '<>', 0));
-                if (count($hooks)) {
-                    foreach ($hooks as $hook) {
-                        if ($hook->action == 2) {
-                            $action = 'DiscordHook::execute';
-                        } else {
-                            continue;
-                        }
+            if (Util::isModuleEnabled('Discord Integration')) {
+                $hooks = $queries->tableExists('hooks');
+                if (!empty($hooks)) {
+                    $hooks = $queries->getWhere('hooks', array('id', '<>', 0));
+                    if (count($hooks)) {
+                        foreach ($hooks as $hook) {
+                            if ($hook->action != 2) {
+                                continue;
+                            }
 
-                        $hook_array[] = array(
-                            'id' => $hook->id,
-                            'url' => Output::getClean($hook->url),
-                            'action' => $action,
-                            'events' => json_decode($hook->events, true)
-                        );
+                            $hook_array[] = array(
+                                'id' => $hook->id,
+                                'url' => Output::getClean($hook->url),
+                                'action' => 'DiscordHook::execute',
+                                'events' => json_decode($hook->events, true)
+                            );
+                        }
+                        $cache->store('hooks', $hook_array);
                     }
-                    $cache->store('hooks', $hook_array);
                 }
             }
         }
@@ -298,6 +294,9 @@ class Core_Module extends Module {
 
         // Autoload API Endpoints
         Util::loadEndpoints(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'modules', 'Core', 'includes', 'endpoints')), $endpoints);
+
+        GroupSyncManager::getInstance()->registerInjector(NamelessMCGroupSyncInjector::class);
+        GroupSyncManager::getInstance()->registerInjector(MinecraftGroupSyncInjector::class);
     }
 
     public function onInstall(){
@@ -316,14 +315,14 @@ class Core_Module extends Module {
         // Not necessary for Core
     }
 
-    public function onPageLoad($user, $pages, $cache, $smarty, $navs, $widgets, $template){
+    public function onPageLoad(User $user, Pages $pages, Cache $cache, Smarty $smarty, $navs, Widgets $widgets, ?TemplateBase $template){
         $language = $this->_language;
 
         // Permissions
         PermissionHandler::registerPermissions($language->get('admin', 'administrator'), array(
             'administrator' => $language->get('admin', 'administrator') . ' &raquo; ' . $language->get('admin', 'administrator_permission_info'),
         ));
-        
+
         // AdminCP
         PermissionHandler::registerPermissions($language->get('moderator', 'staff_cp'), array(
             'admincp.core' => $language->get('admin', 'core'),
@@ -346,7 +345,6 @@ class Core_Module extends Module {
             'admincp.core.placeholders' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'placeholders'),
             'admincp.integrations' => $language->get('admin', 'integrations'),
             'admincp.minecraft' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft'),
-            'admincp.discord' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'discord'),
             'admincp.minecraft.authme' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'authme_integration'),
             'admincp.minecraft.verification' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'account_verification'),
             'admincp.minecraft.servers' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'minecraft_servers'),
@@ -426,16 +424,10 @@ class Core_Module extends Module {
             $widgets->add(new TwitterWidget($module_pages, $twitter, $theme));
         }
 
-        // Discord
-        require_once(ROOT_PATH . '/modules/Core/widgets/DiscordWidget.php');
-        $discord = $cache->retrieve('discord');
-        $module_pages = $widgets->getPages('Discord');
-        $widgets->add(new DiscordWidget($module_pages, $language, $cache, $discord));
-
         // Profile Posts
         require_once(ROOT_PATH . '/modules/Core/widgets/ProfilePostsWidget.php');
         $module_pages = $widgets->getPages('Latest Profile Posts');
-        $widgets->add(new ProfilePostsWidget($module_pages, $smarty, $language, $cache, $user, new Timeago(TIMEZONE)));
+        $widgets->add(new ProfilePostsWidget($module_pages, $smarty, $language, $cache, $user, new TimeAgo(TIMEZONE)));
 
         // Online staff
         require_once(ROOT_PATH . '/modules/Core/widgets/OnlineStaff.php');
@@ -712,7 +704,7 @@ class Core_Module extends Module {
                 // Collection
                 $user_id = $smarty->getTemplateVars('USER_ID');
 
-                $timeago = new Timeago(TIMEZONE);
+                $timeago = new TimeAgo(TIMEZONE);
 
                 if($user_id){
                     $user_query = $queries->getWhere('users', array('id', '=', $user_id));
@@ -889,23 +881,6 @@ class Core_Module extends Module {
                 }
             }
 
-            if($user->hasPermission('admincp.groups')){
-                if(!$cache->isCached('groups_order')){
-                    $order = 3;
-                    $cache->store('groups_order', 3);
-                } else {
-                    $order = $cache->retrieve('groups_order');
-                }
-
-                if(!$cache->isCached('groups_icon')){
-                    $icon = '<i class="nav-icon fas fa-address-book"></i>';
-                    $cache->store('group_icon', $icon);
-                } else
-                    $icon = $cache->retrieve('group_icon');
-
-                $navs[2]->add('groups', $language->get('admin', 'groups'), URL::build('/panel/core/groups'), 'top', null, $order, $icon);
-            }
-
             if ($user->hasPermission('admincp.core.announcements')) {
                 if (!$cache->isCached('announcements_order')) {
                     $order = 4;
@@ -948,16 +923,6 @@ class Core_Module extends Module {
                     $icon = $cache->retrieve('minecraft_icon');
 
                 $navs[2]->addItemToDropdown('integrations', 'minecraft', $language->get('admin', 'minecraft'), URL::build('/panel/minecraft'), 'top', null, $icon, $order);
-            }
-
-            if ($user->hasPermission('admincp.discord')) {
-                if (!$cache->isCached('discord_icon')) {
-                    $icon = '<i class="nav-icon fab fa-discord"></i>';
-                    $cache->store('discord_icon', $icon);
-                } else
-                $icon = $cache->retrieve('discord_icon');
-
-                $navs[2]->addItemToDropdown('integrations', 'discord', $language->get('admin', 'discord'), URL::build('/panel/discord'), 'top', null, $icon, $order);
             }
 
             if($user->hasPermission('admincp.styles') || $user->hasPermission('admincp.sitemap') || $user->hasPermission('admincp.widgets')){
@@ -1041,7 +1006,7 @@ class Core_Module extends Module {
                 } else {
                     $order = $cache->retrieve('pages_order');
                 }
-                
+
                 if(!$cache->isCached('pages_icon')){
                     $icon = '<i class="nav-icon fas fa-file"></i>';
                     $cache->store('pages_icon', $icon);
@@ -1051,7 +1016,84 @@ class Core_Module extends Module {
                 $navs[2]->add('custom_pages', $language->get('admin', 'custom_pages'), URL::build('/panel/core/pages'), 'top', null, $order, $icon);
             }
 
-            if($user->hasPermission('admincp.security')){
+            if ($user->hasPermission('admincp.groups')){
+                if(!$cache->isCached('groups_order')){
+                    $order = 3;
+                    $cache->store('groups_order', 3);
+                } else {
+                    $order = $cache->retrieve('groups_order');
+                }
+
+                if(!$cache->isCached('groups_icon')){
+                    $icon = '<i class="nav-icon fas fa-address-book"></i>';
+                    $cache->store('group_icon', $icon);
+                } else
+                    $icon = $cache->retrieve('group_icon');
+
+                $navs[2]->add('groups', $language->get('admin', 'groups'), URL::build('/panel/core/groups'), 'top', null, $order, $icon);
+            }
+
+            if ($user->hasPermission('admincp.users')) {
+                if (!$cache->isCached('users_order')) {
+                    $order = 11;
+                    $cache->store('users_order', 11);
+                } else {
+                    $order = $cache->retrieve('users_order');
+                }
+
+                if (!$cache->isCached('users_icon')) {
+                    $icon = '<i class="nav-icon fas fa-user-circle"></i>';
+                    $cache->store('users_icon', $icon);
+                } else {
+                    $icon = $cache->retrieve('users_icon');
+                }
+
+                $navs[2]->addDropdown('users', $language->get('admin', 'user_management'), 'top', $order, $icon);
+
+                if (!$cache->isCached('user_icon')) {
+                    $icon = '<i class="nav-icon fas fa-users"></i>';
+                    $cache->store('user_icon', $icon);
+                } else {
+                    $icon = $cache->retrieve('user_icon');
+                }
+
+                $navs[2]->addItemToDropdown('users', 'users', $language->get('admin', 'users'), URL::build('/panel/users'), 'top', null, $icon, $order);
+
+                if ($user->hasPermission('modcp.ip_lookup')) {
+                    if (!$cache->isCached('ip_lookup_icon')) {
+                        $icon = '<i class="nav-icon fas fa-binoculars"></i>';
+                        $cache->store('ip_lookup_icon', $icon);
+                    } else {
+                        $icon = $cache->retrieve('ip_lookup_icon');
+                    }
+
+                    $navs[2]->addItemToDropdown('users', 'ip_lookup', $language->get('moderator', 'ip_lookup'), URL::build('/panel/users/ip_lookup'), 'top', null, $icon, $order);
+                }
+
+                if ($user->hasPermission('modcp.punishments')) {
+                    if (!$cache->isCached('punishments_icon')) {
+                        $icon = '<i class="nav-icon fas fa-gavel"></i>';
+                        $cache->store('punishments_icon', $icon);
+                    } else {
+                        $icon = $cache->retrieve('punishments_icon');
+                    }
+
+                    $navs[2]->addItemToDropdown('users', 'punishments', $language->get('moderator', 'punishments'), URL::build('/panel/users/punishments'), 'top', null, $icon, $order);
+                }
+
+                if ($user->hasPermission('modcp.reports')) {
+                    if (!$cache->isCached('reports_icon')) {
+                        $icon = '<i class="nav-icon fas fa-exclamation-triangle"></i>';
+                        $cache->store('reports_icon', $icon);
+                    } else {
+                        $icon = $cache->retrieve('reports_icon');
+                    }
+
+                    $navs[2]->addItemToDropdown('users', 'reports', $language->get('moderator', 'reports'), URL::build('/panel/users/reports'), 'top', null, $icon, $order);
+                }
+            }
+
+            if ($user->hasPermission('admincp.security')) {
                 if(!$cache->isCached('security_order')){
                     $order = 9;
                     $cache->store('security_order', 9);
@@ -1068,7 +1110,7 @@ class Core_Module extends Module {
                 $navs[2]->add('security', $language->get('admin', 'security'), URL::build('/panel/security'), 'top', null, $order, $icon);
             }
 
-            if($user->hasPermission('admincp.update')){
+            if ($user->hasPermission('admincp.update')) {
                 if(!$cache->isCached('update_order')){
                     $order = 10;
                     $cache->store('update_order', 10);
@@ -1083,61 +1125,6 @@ class Core_Module extends Module {
                     $icon = $cache->retrieve('update_icon');
 
                 $navs[2]->add('update', $language->get('admin', 'update'), URL::build('/panel/update'), 'top', null, $order, $icon);
-            }
-
-            if($user->hasPermission('admincp.users')){
-                if(!$cache->isCached('users_order')){
-                    $order = 11;
-                    $cache->store('users_order', 11);
-                } else {
-                    $order = $cache->retrieve('users_order');
-                }
-
-                if(!$cache->isCached('users_icon')){
-                    $icon = '<i class="nav-icon fas fa-user-circle"></i>';
-                    $cache->store('users_icon', $icon);
-                } else
-                    $icon = $cache->retrieve('users_icon');
-
-                $navs[2]->addDropdown('users', $language->get('admin', 'user_management'), 'top', $order, $icon);
-
-                if(!$cache->isCached('user_icon')){
-                    $icon = '<i class="nav-icon fas fa-users"></i>';
-                    $cache->store('user_icon', $icon);
-                } else
-                    $icon = $cache->retrieve('user_icon');
-
-                $navs[2]->addItemToDropdown('users', 'users', $language->get('admin', 'users'), URL::build('/panel/users'), 'top', null, $icon, $order);
-
-                if($user->hasPermission('modcp.ip_lookup')){
-                    if(!$cache->isCached('ip_lookup_icon')){
-                        $icon = '<i class="nav-icon fas fa-binoculars"></i>';
-                        $cache->store('ip_lookup_icon', $icon);
-                    } else
-                        $icon = $cache->retrieve('ip_lookup_icon');
-
-                    $navs[2]->addItemToDropdown('users', 'ip_lookup', $language->get('moderator', 'ip_lookup'), URL::build('/panel/users/ip_lookup'), 'top', null, $icon, $order);
-                }
-
-                if($user->hasPermission('modcp.punishments')){
-                    if(!$cache->isCached('punishments_icon')){
-                        $icon = '<i class="nav-icon fas fa-gavel"></i>';
-                        $cache->store('punishments_icon', $icon);
-                    } else
-                        $icon = $cache->retrieve('punishments_icon');
-
-                    $navs[2]->addItemToDropdown('users', 'punishments', $language->get('moderator', 'punishments'), URL::build('/panel/users/punishments'), 'top', null, $icon, $order);
-                }
-
-                if($user->hasPermission('modcp.reports')){
-                    if(!$cache->isCached('reports_icon')){
-                        $icon = '<i class="nav-icon fas fa-exclamation-triangle"></i>';
-                        $cache->store('reports_icon', $icon);
-                    } else
-                        $icon = $cache->retrieve('reports_icon');
-
-                    $navs[2]->addItemToDropdown('users', 'reports', $language->get('moderator', 'reports'), URL::build('/panel/users/reports'), 'top', null, $icon, $order);
-                }
             }
 
             // Notices

@@ -14,13 +14,13 @@ if(!$user->isLoggedIn()){
 	Redirect::to(URL::build('/'));
 	die();
 }
- 
+
 // Always define page name for navbar
 define('PAGE', 'cc_alerts');
 $page_title = $language->get('user', 'user_cp');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-$timeago = new Timeago(TIMEZONE);
+$timeago = new TimeAgo(TIMEZONE);
 
 if(!isset($_GET['view'])){
 	if(!isset($_GET['action'])){
@@ -57,7 +57,7 @@ if(!isset($_GET['view'])){
 		));
 
 		// Load modules + template
-		Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
+		Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
 
 		require(ROOT_PATH . '/core/templates/cc_navbar.php');
 

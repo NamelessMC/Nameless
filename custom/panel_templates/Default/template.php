@@ -16,17 +16,11 @@
 if (!class_exists('Default_Panel_Template')) {
     class Default_Panel_Template extends TemplateBase {
 
-        // Private variable to store user
-        private $_user, $_pages;
-
-        /** @var Language */
-        private $_language;
+        private Language $_language;
 
         // Constructor - set template name, version, Nameless version and author here
-        public function __construct($cache, $smarty, $language, $user, $pages) {
+        public function __construct(Smarty $smarty, Language $language) {
             $this->_language = $language;
-            $this->_user = $user;
-            $this->_pages = $pages;
 
             parent::__construct(
                 'Default',  // Template name
@@ -687,4 +681,4 @@ if (!class_exists('Default_Panel_Template')) {
     }
 }
 
-$template = new Default_Panel_Template($cache, $smarty, $language, $user, $pages);
+$template = new Default_Panel_Template($smarty, $language);

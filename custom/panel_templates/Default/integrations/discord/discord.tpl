@@ -79,6 +79,18 @@
                             </div>
                         </form>
 
+                        <hr>
+                        <form action="" method="POST">
+                            <div class="form-group">
+                                <label for="inputDiscordId">{$DISCORD_GUILD_ID} <span class="badge badge-info" data-toggle="popover" data-title="{$INFO}" data-content="{$ID_INFO|escape}"><i class="fa fa-question"></i></label>
+                                <input class="form-control" type="number" name="discord_guild_id" id="inputDiscordId" value="{$DISCORD_GUILD_ID_VALUE}">
+                            </div>
+                            <div type="form-group">
+                                <input type="hidden" name="token" value="{$TOKEN}">
+                                <input type="submit" class="btn btn-primary" value="{$SUBMIT}">
+                            </div>
+                        </form>
+
                     </div>
                 </div>
 

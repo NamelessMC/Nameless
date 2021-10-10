@@ -11,12 +11,12 @@
 
 class Paginator {
 
-    private $_limit,
-        $_page,
-        $_total,
-        $_class;
+    private int $_limit;
+    private int $_page;
+    private int $_total;
+    private array $_class;
 
-    public function __construct($class = array()) {
+    public function __construct(array $class = array()) {
         if (!count($class)) {
             $this->_class = array('ul' => 'pagination d-inline-flex', 'li' => 'page-item {x}', 'a' => 'page-link');
         } else {
@@ -28,12 +28,13 @@ class Paginator {
      * Generate object of provided data
      *
      * @param array $data Data to paginate.
-     * @param int|null $limit
-     * @param int|null $page
-     * @param int|null $total
+     * @param int $limit
+     * @param int $page
+     * @param int $total
+     * 
      * @return object
      */
-    public function getLimited($data, $limit = 10, $page = 1, $total = 10) {
+    public function getLimited(array $data, int $limit = 10, int $page = 1, int $total = 10): object {
         $this->_limit = $limit;
         $this->_page = (int) $page;
 
@@ -63,10 +64,11 @@ class Paginator {
      * Generate HTML for data to be presented with.
      *
      * @param int $links Number of links to be shown on each page.
-     * @param string|null $href URL prefix to use when next page is clicked.
+     * @param string $href URL prefix to use when next page is clicked.
+     * 
      * @return string Generated HTML to display in template.
      */
-    public function generate($links, $href = '?') {
+    public function generate(int $links, string $href = '?'): string {
         $last = ceil($this->_total / $this->_limit);
 
         $start = (($this->_page - $links) > 0) ? $this->_page - $links : 1;
@@ -146,7 +148,7 @@ class Paginator {
      * @param int $limit
      * @param int $page
      */
-    public function setValues($total, $limit, $page) {
+    public function setValues(int $total, int $limit, int $page): void {
         $this->_total = $total;
         $this->_limit = $limit;
         $this->_page = $page;

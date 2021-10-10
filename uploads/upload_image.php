@@ -22,7 +22,7 @@ if ($user->isLoggedIn()) {
         mkdir(ROOT_PATH . '/uploads/images');
     }
 
-    $image = new Bulletproof\Image($_FILES);
+    $image = new BulletProof\Image($_FILES);
 
     $image->setSize(1000, 2 * 1048576)
         ->setMime(array('jpeg', 'png', 'gif'))

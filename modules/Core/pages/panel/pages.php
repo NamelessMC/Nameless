@@ -21,7 +21,7 @@ $page_title = $language->get('admin', 'custom_pages');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets);
 
 if(!isset($_GET['action'])){
     $custom_pages = $queries->getWhere('custom_pages', array('id', '<>', 0));
@@ -330,7 +330,7 @@ if(!isset($_GET['action'])){
                             else $basic = 0;
 
                             $page_url = Output::getClean(rtrim(Input::get('page_url'), '/'));
-                            
+
                             $queries->update('custom_pages', $page->id, array(
                                 'url' => $page_url,
                                 'title' => Output::getClean(Input::get('page_title')),
@@ -542,7 +542,7 @@ if(!isset($_GET['action'])){
             if (Input::exists()) {
                 if (Token::check(Input::get('token'))) {
                     if(isset($_POST['id']) && is_numeric($_POST['id'])){
-                            
+
                         $queries->delete('custom_pages', array('id', '=', $_POST['id']));
                         $queries->delete('custom_pages_permissions', array('page_id', '=', $_POST['id']));
 

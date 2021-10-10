@@ -43,14 +43,6 @@ $language = array(
     'invalid_server_id' => 'Неверный ID сервера',
     'invalid_code' => 'Неверный предоставленный код',
     'user_already_active' => 'Ваш аккаунт уже активирован.',
-    'discord_integration_disabled' => 'Интеграция с Discord отключена.',
-    'unable_to_set_discord_id' => 'Не удалось установить Discord ID.',
-    'unable_to_set_discord_bot_url' => 'Не удалось установить URL бота в Discord',
-    'provide_one_discord_settings' => 'Please provide at least one of the following: "url", "guild_id"',
-    'no_pending_verification_for_token' => 'По предоставленному токену нет ожидающих проверки регистрации.',
-    'unable_to_update_discord_username' => 'Не удалось обновить никнеймы в Discord.',
-    'unable_to_update_discord_roles' => 'Не удалось обновить роли в Discord.',
-    'unable_to_update_discord_bot_username' => 'Не удалось обновить никнейм бота в Discord.',
 
     // Success messages
     'finish_registration_link' => 'Пожалуйста, нажмите на следующую ссылку, чтобы завершить регистрацию:',
@@ -61,7 +53,4 @@ $language = array(
     'username_updated' => 'Имя пользователя успешно обновлено',
     'server_info_updated' => 'Информация о сервере успешно обновлена',
     'account_validated' => 'Учетная запись успешно подтверждена',
-    'discord_id_set' => 'Discord ID установлен',
-    'discord_settings_updated' => 'Настройки в Discord обновлены',
-    'discord_usernames_updated' => 'Никнеймы в Discord обновлены'
 );

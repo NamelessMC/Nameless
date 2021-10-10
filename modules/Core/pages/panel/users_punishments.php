@@ -14,7 +14,7 @@ if(!$user->handlePanelPageLoad('modcp.punishments')) {
     die();
 }
 
-$timeago = new Timeago(TIMEZONE);
+$timeago = new TimeAgo(TIMEZONE);
 
 define('PAGE', 'panel');
 define('PARENT_PAGE', 'users');
@@ -23,7 +23,7 @@ $page_title = $language->get('moderator', 'punishments');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets);
 
 if (isset($_GET['user'])) {
     // Viewing a certain user

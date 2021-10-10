@@ -189,7 +189,6 @@ mappe.',
     'new_wall_post_reply_your_profile' => '{x} har svaret på dit indlæg på din profil.', // Don't replace {x}
     'no_about_fields' => 'Denne bruger har endnu ikke tilføjet nogle omkring felter.',
     'reply' => 'Svar',
-    'discord_username' => 'Discord Brugernavn',
 
     // Reports
     'invalid_report_content' => 'Kunne ikke oprette rapport. Kontroller, at din rapport årsag er mellem 2 og 1024 tegn.',
@@ -238,20 +237,4 @@ mappe.',
      */
     'user_x_has_registered' => '{x} har tilsluttet sig ' . SITE_NAME . '!',
     'user_x_has_validated' => '{x} har valideret deres konto!',
-
-    // Discord
-    'discord_link' => 'Discord Link',
-    'linked' => 'Linket',
-    'not_linked' => 'Ikke Linket',
-    'discord_id' => 'Discord Bruger ID',
-    'discord_id_unlinked' => 'Dit Discord bruger-id blev afkoblet korrekt.',
-    'discord_id_confirm' => 'Please run the command "/verify token:{token}" in Discord to finish linking your Discord account.',
-    'pending_link' => 'Afventer',
-    'discord_id_taken' => 'Det Discord ID allerede er taget.',
-    'discord_invalid_id' => 'Det Discord Bruger ID er ugyldigt.',
-    'discord_already_pending' => 'Du har allerede en afventende bekræftelse.',
-    'discord_database_error' => 'Nameless Link databasen er i øjeblikket nede. Prøv igen senere.',
-    'discord_communication_error' => 'Der opstod en fejl under kommunikation med Discord Botten. Kontroller, at botten kører, og at din Bot URL er korrekt.',
-    'discord_unknown_error' => 'Der opstod en ukendt fejl under synkronisering af Discord roller. Kontakt venligst en administrator.',
-    'discord_id_help' => 'For information om, hvor du kan finde Discord ID\'s, læs venligst <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">denne.</a>'
 );

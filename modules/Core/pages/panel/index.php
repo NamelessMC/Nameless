@@ -20,7 +20,7 @@ $page_title = $language->get('admin', 'dashboard');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets);
 
 $dashboard_graphs = Core_Module::getDashboardGraphs();
 $graphs = array();
@@ -81,7 +81,7 @@ if($cache->isCached('news')){
     $news = array();
 
     if(!is_null($news_query) && !isset($news_query->error) && count($news_query)){
-        $timeago = new Timeago();
+        $timeago = new TimeAgo();
 
         $i = 0;
 
@@ -112,7 +112,7 @@ if($user->hasPermission('admincp.core.debugging')){
     $compat_success = array();
     $compat_errors = array();
 
-    if(version_compare(phpversion(), '5.4', '<')){
+    if(version_compare(phpversion(), '7.4', '<')){
         $compat_errors[] = 'PHP ' . phpversion();
     } else {
         $compat_success[] = 'PHP ' . phpversion();

@@ -15,7 +15,7 @@ if ($cache->isCached('news')) {
 } else {
     require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
     $forum = new Forum();
-    $timeago = new Timeago(TIMEZONE);
+    $timeago = new TimeAgo(TIMEZONE);
 
     $latest_news = $forum->getLatestNews(5); // Get latest 5 items
 

@@ -9,8 +9,7 @@
 
 class DeleteUserHook {
     
-    // Execute hook
-    public static function deleteUser($params = array()) {
+    public static function deleteUser(array $params = array()): bool {
         if (isset($params['user_id']) && $params['user_id'] > 1) {
             $queries = new Queries();
 

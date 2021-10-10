@@ -60,7 +60,7 @@ if ($formatting == 'markdown') {
     $template->addJSScript(Input::createTinyEditor($language, 'reply'));
 }
 
-$timeago = new Timeago(TIMEZONE);
+$timeago = new TimeAgo(TIMEZONE);
 
 require(ROOT_PATH . '/core/includes/emojione/autoload.php'); // Emojione
 require(ROOT_PATH . '/core/includes/markdown/tohtml/Markdown.inc.php'); // Markdown to HTML
@@ -157,7 +157,7 @@ if(!isset($_GET['action'])) {
     }
 
     // Load modules + template
-    Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
+    Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
 
     require(ROOT_PATH . '/core/templates/cc_navbar.php');
 
@@ -388,7 +388,7 @@ if(!isset($_GET['action'])) {
         );
 
         // Load modules + template
-        Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
+        Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
 
         require(ROOT_PATH . '/core/templates/cc_navbar.php');
 
@@ -580,7 +580,7 @@ if(!isset($_GET['action'])) {
             $smarty->assign('CONTENT', Output::getClean($_POST['content']));
         else $smarty->assign('CONTENT', '');
 
-        Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
+        Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
 
         require(ROOT_PATH . '/core/templates/cc_navbar.php');
 

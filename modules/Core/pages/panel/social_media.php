@@ -61,16 +61,6 @@ if (Input::exists()) {
 
         $cache->store('twitter_theme', $theme);
 
-        // Discord ID
-        $discord_id = $queries->getWhere('settings', array('name', '=', 'discord'));
-        $discord_id = $discord_id[0]->id;
-
-        $queries->update('settings', $discord_id, array(
-            'value' => Output::getClean(Input::get('discordid'))
-        ));
-
-        $cache->store('discord', Output::getClean(Input::get('discordid')));
-
         // Facebook URL
         $fb_url_id = $queries->getWhere('settings', array('name', '=', 'fb_url'));
         $fb_url_id = $fb_url_id[0]->id;
@@ -88,7 +78,7 @@ if (Input::exists()) {
 }
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets);
 
 if (isset($success))
     $smarty->assign(array(
@@ -106,7 +96,6 @@ if (isset($errors) && count($errors))
 $youtube_url = $queries->getWhere('settings', array('name', '=', 'youtube_url'));
 $twitter_url = $queries->getWhere('settings', array('name', '=', 'twitter_url'));
 $twitter_style = $queries->getWhere('settings', array('name', '=', 'twitter_style'));
-$discord = $queries->getWhere('settings', array('name', '=', 'discord'));
 $fb_url = $queries->getWhere('settings', array('name', '=', 'fb_url'));
 
 $smarty->assign(array(
@@ -123,8 +112,6 @@ $smarty->assign(array(
     'TWITTER_URL_VALUE' => Output::getClean($twitter_url[0]->value),
     'TWITTER_STYLE' => $language->get('admin', 'twitter_dark_theme'),
     'TWITTER_STYLE_VALUE' => $twitter_style[0]->value,
-    'DISCORD_SERVER_ID' => $language->get('admin', 'discord_id'),
-    'DISCORD_SERVER_ID_VALUE' => Output::getClean($discord[0]->value),
     'FACEBOOK_URL' => $language->get('admin', 'facebook_url'),
     'FACEBOOK_URL_VALUE' => Output::getClean($fb_url[0]->value),
 ));

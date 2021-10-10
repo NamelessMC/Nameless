@@ -220,7 +220,7 @@ if (!isset($_GET['action'])) {
 
             $guest_permissions = in_array("0", json_decode($announcement->groups));
             $groups = array();
-            
+
             foreach (DB::getInstance()->query('SELECT * FROM nl2_groups ORDER BY `order`')->results() as $group) {
                 $groups[$group->id] = array(
                     'name' => $group->name,
@@ -279,7 +279,7 @@ if (!isset($_GET['action'])) {
 }
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets);
 
 if (Session::exists('announcement_success'))
     $smarty->assign(array(

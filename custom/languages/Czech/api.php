@@ -42,14 +42,6 @@ $language = array (
     'invalid_server_id' => 'Neplatné ID serveru',
     'invalid_code' => 'Zadali jste neplatný kód',
     'user_already_active' => 'Váš účet již byl aktivován.',
-    'discord_integration_disabled' => 'Integrace Discordu je zakázána.',
-    'unable_to_set_discord_id' => 'Nepodařilo se nastavit ID Discordu.',
-    'unable_to_set_discord_bot_url' => 'Nepodařilo se nastavit URL Discord bota',
-    'provide_one_discord_settings' => 'Zadejte alespoň jedno z následujících: "url", "guild_id"',
-    'no_pending_verification_for_token' => 'U poskytnutého tokenu nejsou žádná čekající ověření.',
-    'unable_to_update_discord_username' => 'Nepodařilo se aktualizovat uživatelské jméno na Discordu.',
-    'unable_to_update_discord_roles' => 'Nepodařilo se aktualizovat seznam rolí na Discordu.',
-    'unable_to_update_discord_bot_username' => 'Nepodařilo se aktualizovat uživatelské jméno Discord bota.',
 
     // Success messages
     'finish_registration_link' => 'Klikněte na následující odkaz pro dokončení registrace:',
@@ -59,7 +51,4 @@ $language = array (
     'username_updated' => 'Uživatelské jméno úspěšně aktualizováno',
     'server_info_updated' => 'Informace o serveru úspěšně aktualizovány',
     'account_validated' => 'Účet úspěšně ověřen',
-    'discord_id_set' => 'ID Discordu úspěšně nastaveno',
-    'discord_settings_updated' => 'Nastavení Discordu úspěšně aktualizována',
-    'discord_usernames_updated' => 'Uživatelská jména na Discordu úspěšně aktualizována'
 );

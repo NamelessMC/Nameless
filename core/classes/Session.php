@@ -15,9 +15,10 @@ class Session {
      * Check to see if a session exists.
      *
      * @param string $name Session variable name to check for.
+     * 
      * @return bool
      */
-    public static function exists($name) {
+    public static function exists(string $name): bool {
         return isset($_SESSION[$name]);
     }
 
@@ -27,7 +28,7 @@ class Session {
      * @param string $name Contains the session variable name that will be created.
      * @param string $value Contains the variable value to store
      */
-    public static function put($name, $value) {
+    public static function put(string $name, string $value): void {
         $_SESSION[$name] = $value;
     }
 
@@ -35,18 +36,19 @@ class Session {
      * Get a session variable.
      *
      * @param string $name Contains the session variable name to retrieve.
+     * 
      * @return mixed Session variable.
      */
-    public static function get($name) {
+    public static function get(string $name) {
         return $_SESSION[$name];
     }
     
     /**
      * Delete a session variable.
      *
-     * @param  mixed $name Contains the session variable name to delete.
+     * @param string $name Contains the session variable name to delete.
      */
-    public static function delete($name) {
+    public static function delete(string $name): void {
         if (self::exists($name)) {
             unset($_SESSION[$name]);
         }
@@ -56,10 +58,10 @@ class Session {
      * Flash a session variable on the screen.
      *
      * @param string $name Contains the session variable name to flash on screen.
-     * @param string|null $string Contains the message to flash on the screen (optional).
+     * @param string $string Contains the message to flash on the screen (optional).
      * @return mixed Session variable if it exists, nothing if it is being set.
      */
-    public static function flash($name, $string = '') {
+    public static function flash(string $name, string $string = '') {
         // If the session exists, display it on screen ("flash" it)
         if (self::exists($name)) {
             $session = self::get($name);

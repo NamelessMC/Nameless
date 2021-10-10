@@ -743,7 +743,6 @@ $language = array(
     'announcement_icon_instructions' => '您也可以为公告添加图标，例如使用 <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a> 或 <a href="https://semantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Semantic UI</a>.',
     'header' => '头部',
     'message' => '信息',
-    'pages' => '页面',
     'text_colour' => '文字颜色',
     'background_colour' => '背景颜色',
     'closable' => '可关闭',
@@ -755,31 +754,4 @@ $language = array(
     'background_colour_required' => '背景颜色为必填项',
     'text_colour_required' => '文字颜色为必填项',
     'no_announcements' => '还没有任何公告呢!',
-
-    // Discord
-    'discord' => 'Discord',
-    'enable_discord_integration' => '启用 Discord 集成?',
-    'discord_role_id' => 'Discord 身份组 ID',
-    'discord_role_id_numeric' => 'Discord 身份组 ID 必须为数字。',
-    'discord_role_id_length' => 'Discord 身份组 ID 必须为 18 位长。',
-    'discord_settings_updated' => '已成功更新您的 Discord 设置。',
-    'discord_guild_id_required' => '请输入您的 Discord 服务器 ID:',
-    'discord_bot_url' => 'Discord 机器人链接',
-    'discord_bot_url_info' => '您的自定义 Nameless Link 机器人的链接。请您在理解此项的用途后更改。',
-    'discord_bot_url_required' => '请输入您 Nameless Link 机器人的链接。',
-    'discord_invalid_api_url' => '好像您的 API 链接变化了。请您联系服务器拥有者修改链接。',
-    'test_bot_url' => '测试机器人 URL',
-    'discord_bot_url_valid' => '您的机器人 URL 有效。',
-    'discord_cannot_interact' => 'Nameless Link 机器人无法对此用户进行操作。它的权限组可能比 Nameless Link 权限组更高。',
-
-    // Discord bot Errors
-    'discord_bot_error_badparameter' => '非法请求体。',
-    'discord_bot_error_error' => '发生了一个内部机器人错误。',
-    'discord_bot_error_invguild' => '提供的服务器 ID 错误，或此机器人不在提供的服务器中。',
-    'discord_bot_error_invuser' => '提供的用户 ID 错误，或并不在指定的服务器中。',
-    'discord_bot_error_notlinked' => '提供的服务器中的机器人没有链接到此网站。',
-    'discord_bot_error_unauthorized' => '网站 API 密钥错误。',
-    'discord_bot_error_invrole' => '提供的权限组 ID 错误。',
-    'discord_bot_error_hierarchy' => '此机器人无法修改此用户的权限组。'
-
 );

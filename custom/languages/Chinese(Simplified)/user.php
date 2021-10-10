@@ -192,7 +192,6 @@ $language = array(
     'new_wall_post_reply_your_profile' => '{x} 已留言在您的留言板。', // Don't replace {x}
     'no_about_fields' => '该用户很懒，并没有填写个性签名。',
     'reply' => '回复',
-    'discord_username' => 'Discord 用户名',
 
     // Reports
     'invalid_report_content' => '无法创建报告。请确保您的反馈内容在 2 到 1024 个字符之间。',
@@ -241,20 +240,4 @@ $language = array(
      */
     'user_x_has_registered' => '{x} 加入了 ' . SITE_NAME . '!',
     'user_x_has_validated' => '{x} 已验证他的帐号!',
-
-    // Discord
-    'discord_link' => 'Discord 链接',
-    'linked' => '已链接',
-    'not_linked' => '未链接',
-    'discord_id' => 'Discord 用户 ID',
-    'discord_id_unlinked' => '成功取消了您的 Discord 链接。',
-    'discord_id_confirm' => 'Please run the command "/verify token:{token}" in Discord to finish linking your Discord account.',
-    'pending_link' => '待定',
-    'discord_id_taken' => '此 Discord 用户 ID 已被使用。',
-    'discord_invalid_id' => '此 Discord 用户 ID 不符合要求。',
-    'discord_already_pending' => '您已经有待定验证了。',
-    'discord_database_error' => 'Nameless Link 数据库目前掉线了。请您稍后再试。',
-    'discord_communication_error' => '无法与 Discord 机器人交流。请您确保机器人正在运行并且您的机器人链接是正确的。',
-    'discord_unknown_error' => '在同步 Discord 身份组时出现了错误。请联系管理员。',
-    'discord_id_help' => '您可阅读 <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">此文章</a> 来了解如何获得您的用户 ID。'
 );

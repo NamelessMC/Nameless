@@ -10,18 +10,20 @@
  *  Recaptcha2 class
  */
 class Recaptcha2 extends CaptchaBase {
+
     /**
      * Recaptcha2 constructor
+     * 
      * @param string $privateKey
      * @param string $publicKey
      */
-    public function __construct($privateKey, $publicKey) {
+    public function __construct(?string $privateKey, ?string $publicKey) {
         $this->_name = 'Recaptcha2';
         $this->_privateKey = $privateKey;
         $this->_publicKey = $publicKey;
     }
 
-    public function validateToken($post) {
+    public function validateToken(array $post): bool {
         $token = $post['g-recaptcha-response'];
 
         $url = 'https://www.google.com/recaptcha/api/siteverify';
@@ -40,15 +42,15 @@ class Recaptcha2 extends CaptchaBase {
         return $result['success'] == 'true';
     }
 
-    public function getHtml() {
+    public function getHtml(): string {
         return '<div class="g-recaptcha" data-sitekey="' . $this->getPublicKey() . '"></div>';
     }
 
-    public function getJavascriptSource() {
+    public function getJavascriptSource(): string {
         return 'https://www.google.com/recaptcha/api.js';
     }
 
-    public function getJavascriptSubmit($id) {
+    public function getJavascriptSubmit(string $id) {
         return null;
     }
 }

@@ -17,7 +17,7 @@ class Cookie {
      * @param string $name Name of cookie to check
      * @return bool Whether this cookie exists or not.
      */
-    public static function exists($name) {
+    public static function exists(string $name): bool {
         return isset($_COOKIE[$name]);
     }
 
@@ -26,7 +26,7 @@ class Cookie {
      * 
      * @param string $name Name of cookie to return value of
      */
-    public static function get($name) {
+    public static function get(string $name) {
         return $_COOKIE[$name];
     }
 
@@ -37,7 +37,7 @@ class Cookie {
      * @param string $value Value to store in cookie.
      * @param int $expiry When does the cookie expire?
      */
-    public static function put($name, $value, $expiry) {
+    public static function put(string $name, string $value, int $expiry): bool {
         return setcookie($name, $value, time() + $expiry, '/');
     }
 
@@ -46,7 +46,7 @@ class Cookie {
      * 
      * @param string $name Name of cookie to delete
      */
-    public static function delete($name) {
+    public static function delete(string $name): bool {
         return setcookie($name, '', time() - 1, '/');
     }
 }

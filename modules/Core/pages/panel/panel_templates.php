@@ -85,7 +85,7 @@ if(!isset($_GET['action'])){
 
         } else {
             $all_templates_query = json_decode($all_templates_query);
-            $timeago = new Timeago(TIMEZONE);
+            $timeago = new TimeAgo(TIMEZONE);
 
             foreach($all_templates_query as $item){
                 $all_templates[] = array(
@@ -341,7 +341,7 @@ if(!isset($_GET['action'])){
 }
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets);
 
 if(Session::exists('admin_templates'))
     $success = Session::flash('admin_templates');

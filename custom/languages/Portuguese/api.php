@@ -44,14 +44,6 @@ $language = array(
     'invalid_server_id' => 'O ID do servidor é inválido',
     'invalid_code' => 'O código fornecido é inválido',
     'user_already_active' => 'A sua conta já foi ativada.',
-    'discord_integration_disabled' => 'A integração do Discord está desativada.',
-    'unable_to_set_discord_id' => 'Não foi possível definir o Discord ID.',
-    'unable_to_set_discord_bot_url' => 'Não foi possível definir o URL do bot do Discord',
-    'provide_one_discord_settings' => 'Forneça pelo menos um dos seguintes: "url", "guild_id"',
-    'no_pending_verification_for_token' => 'Não há verificações pendentes no token fornecido.',
-    'unable_to_update_discord_username' => 'Não foi possível atualizar o nome de usuário do Discord.',
-    'unable_to_update_discord_roles' => 'Não foi possível atualizar a lista de funções do Discord.',
-    'unable_to_update_discord_bot_username' => 'Não foi possível atualizar o nome de usuário do bot do Discord.',
 
     // Success messages
     'finish_registration_link' => 'Por favor, clique no seguinte link para concluir o registro:',
@@ -62,7 +54,4 @@ $language = array(
     'username_updated' => 'Nome de usuário atualizado com sucesso',
     'server_info_updated' => 'Informações do servidor atualizadas com sucesso',
     'account_validated' => 'A conta foi validada com sucesso',
-    'discord_id_set' => 'Discord ID definido com sucesso',
-    'discord_settings_updated' => 'Configurações do Discord atualizadas com sucesso',
-    'discord_usernames_updated' => 'Nomes de usuário do Discord atualizados com sucesso'
 );

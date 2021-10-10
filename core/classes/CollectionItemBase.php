@@ -11,21 +11,21 @@
 
 abstract class CollectionItemBase {
 
-    private $_order, 
-            $_enabled;
+    private int $_order;
+    private bool $_enabled;
 
-    public function __construct($order, $enabled) {
+    public function __construct(int $order, bool $enabled) {
         $this->_order = $order;
         $this->_enabled = $enabled;
     }
 
-    public function getOrder() {
+    public function getOrder(): int {
         return $this->_order;
     }
 
-    public function isEnabled() {
+    public function isEnabled(): bool {
         return $this->_enabled;
     }
 
-    public abstract function getContent();
+    public abstract function getContent(): string;
 }

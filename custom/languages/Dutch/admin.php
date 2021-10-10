@@ -77,14 +77,6 @@ $language = array(
     'settings_updated_successfully' => 'Algemene instellingen succesvol bijgewerkt.',
     'social_media' => 'Sociale Media',
     'youtube_url' => 'Youtube URL',
-    'discord_id' => 'Discord Server ID',
-    'discord_widget_theme' => 'Discord Widget Thema',
-    'discord_id_length' => 'Zorg ervoor dat uw Discord ID 18 karakters lang is.',
-    'discord_id_numeric' => 'Zorg ervoor dat uw Discord ID numeriek is (alleen cijfers).',
-    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://namelessmc.com/discord-bot-invite">here</a>. Then, run the <code>/apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
-    'discord_bot_must_be_setup' => 'Cannot enable Discord Integration until you have setup the bot. For information, please <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">click here</a>.',
-    'discord_bot_setup' => 'Bot Setup',
-    'discord_integration_not_setup' => 'Discord Integration is not setup',
     'dark' => 'Donker',
     'light' => 'Licht',
     'twitter_url' => 'Twitter URL',
@@ -749,31 +741,4 @@ $language = array(
     'background_colour_required' => 'Achtergrondkleur is vereist',
     'text_colour_required' => 'Tekstkleur is vereist',
     'no_announcements' => 'No announcements have been made yet.',
-
-    // Discord
-    'discord' => 'Discord',
-    'enable_discord_integration' => 'Discordintegratie inschakelen?',
-    'discord_role_id' => 'Discord Rol ID',
-    'discord_role_id_numeric' => 'Discord Rol ID moet numeriek zijn.',
-    'discord_role_id_length' => 'Discord Rol ID moet 18 cijfers lang zijn.',
-    'discord_settings_updated' => 'Uw Discord-instellingen werden met succes geüpdatet.',
-    'discord_guild_id_required' => 'Voer uw Discord Server ID in om de Discord integratie te laten werken.',
-    'discord_bot_url' => 'Discord Bot URL',
-    'discord_bot_url_info' => 'De locatie waar uw aangepaste exemplaar van de Nameless Link-bot zich bevindt. Verander deze waarde alleen als u weet wat u doet!',
-    'discord_bot_url_required' => 'Voer uw Bot-URL in voor de integratie van Discord om te kunnen werken.',
-    'discord_invalid_api_url' => 'Het lijkt erop dat uw API URL is veranderd. Laat de guild eigenaar de URL updaten met de Nameless Link bot.',
-    'test_bot_url' => 'Test Bot URL',
-    'discord_bot_url_valid' => 'Uw Bot-URL is geldig.',
-    'discord_cannot_interact' => 'De Nameless Link-bot kan niet communiceren met deze gebruiker in Discord. Is hun rol hoger dan die van de Nameless Link?',
-
-    // Discord bot Errors
-    'discord_bot_error_badparameter' => 'Invalid request body.',
-    'discord_bot_error_error' => 'Er is een interne fout opgetreden.',
-    'discord_bot_error_invguild' => 'Provided Guild ID is invalid, or the bot is not in it.',
-    'discord_bot_error_invuser' => 'Provided User ID is invalid, or is not in specified Guild.',
-    'discord_bot_error_notlinked' => 'The bot is not linked to this website for provided Guild ID.',
-    'discord_bot_error_unauthorized' => 'Website API-sleutel is ongeldig',
-    'discord_bot_error_invrole' => 'Opgegeven rol-ID is ongeldig.',
-    'discord_bot_error_hierarchy' => 'De bot kan de rollen van deze gebruiker niet bewerken.'
-
 );

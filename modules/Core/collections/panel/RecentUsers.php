@@ -11,10 +11,10 @@
 
 class RecentUsersItem extends CollectionItemBase {
 
-    private $_smarty, 
-            $_language;
+    private Smarty $_smarty;
+    private Language $_language;
 
-    public function __construct($smarty, $language, $cache) {
+    public function __construct(Smarty $smarty, Language $language, Cache $cache) {
         $cache->setCache('dashboard_stats_collection');
         if ($cache->isCached('recent_users')) {
             $from_cache = $cache->retrieve('recent_users');
@@ -38,7 +38,7 @@ class RecentUsersItem extends CollectionItemBase {
         $this->_language = $language;
     }
 
-    public function getContent() {
+    public function getContent(): string {
         // Get the number of recent users
         $queries = new Queries();
         $users_query = $queries->getWhere('users', array('joined', '>', strtotime('7 days ago')));

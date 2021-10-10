@@ -195,7 +195,6 @@ $language = array(
     'new_wall_post_reply_your_profile' => '{x}さんがプロフィールの投稿に返信しました。',// {x}を置き換えないでください
     'no_about_fields' => 'フィールドの内容を追加していません。',
     'reply' => '返信',
-    'discord_username' => 'Discord ユーザー名',
 
     // Reports
     'invalid_report_content' => 'レポートを作成できません。レポートの理由が2~1024文字であることを確認してください。',
@@ -244,20 +243,4 @@ $language = array(
      */
     'user_x_has_registered' => '{x}が' . SITE_NAME . 'に登録しました。',
     'user_x_has_validated' => '{x}がアカウントを認証しました！',
-
-    // Discord
-    'discord_link' => 'Discord リンク',
-    'linked' => 'リンク済み',
-    'not_linked' => 'リンクされていません',
-    'discord_id' => 'DiscordユーザーID',
-    'discord_id_unlinked' => 'Discord ユーザーIDのリンクを解除することに成功しました。',
-    'discord_id_confirm' => 'Please run the command "/verify token:{token}" in Discord to finish linking your Discord account.',
-    'pending_link' => '保留中',
-    'discord_id_taken' => 'そのDiscord IDはすでに取られています。',
-    'discord_invalid_id' => 'そのDiscord ユーザーIDは無効です。',
-    'discord_already_pending' => 'すでに検証が保留されています。',
-    'discord_database_error' => 'Nameless Link データベースが現在ダウンしています。後でもう一度お試しください。',
-    'discord_communication_error' => 'Discordボットとの通信中にエラーが発生しました。ボットが動作しているかどうか、ボットのURLが正しいかどうかを確認してください。',
-    'discord_unknown_error' => 'Discordロールの同期中に不明なエラーが発生しました。管理者に連絡してください。',
-    'discord_id_help' => 'Discord IDがどこにあるかについては、<a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">こちら</a>をご確認ください。'
 );

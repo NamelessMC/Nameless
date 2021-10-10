@@ -36,7 +36,7 @@ if (!$view_user->data()) {
 }
 $user_query = $view_user->data();
 
-$timeago = new Timeago(TIMEZONE);
+$timeago = new TimeAgo(TIMEZONE);
 
 define('PAGE', 'panel');
 define('PANEL_PAGE', 'users');
@@ -45,7 +45,7 @@ $page_title = Output::getClean($user_query->username);
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets);
 
 if (isset($success))
     $smarty->assign(array(

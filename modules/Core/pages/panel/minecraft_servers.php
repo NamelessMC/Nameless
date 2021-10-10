@@ -125,7 +125,7 @@ if(isset($_GET['action'])){
                                 $query_port = Input::get('query_port');
                             else
                                 $query_port = 25565;
-                            
+
                             $last_server_order = DB::getInstance()->query('SELECT `order` FROM nl2_mc_servers ORDER BY `order` DESC LIMIT 1')->results();
                             if (count($last_server_order)) $last_server_order = $last_server_order[0]->order;
                             else $last_server_order = 0;
@@ -615,7 +615,7 @@ if(isset($_GET['action'])){
 }
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets);
 
 if(Session::exists('admin_mc_servers_success'))
     $success = Session::flash('admin_mc_servers_success');

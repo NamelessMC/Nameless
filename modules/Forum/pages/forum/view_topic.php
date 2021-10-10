@@ -15,7 +15,7 @@ require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
 define('PAGE', 'forum');
 
 $forum = new Forum();
-$timeago = new Timeago(TIMEZONE);
+$timeago = new TimeAgo(TIMEZONE);
 $mentionsParser = new MentionsParser();
 
 require(ROOT_PATH . '/core/includes/emojione/autoload.php'); // Emojione
@@ -41,7 +41,7 @@ $tid = $tid[0];
 // Does the topic exist, and can the user view it?
 $user_groups = $user->getAllGroupIds();
 
-$list = $forum->topicExist($tid, $user_groups);
+$list = $forum->topicExist($tid);
 if (!$list) {
     require_once(ROOT_PATH . '/404.php');
     die();
@@ -657,9 +657,9 @@ for ($n = 0; $n < count($results->data); $n++) {
     $fields = $post_creator->getProfileFields($post_creator->data()->id, true, true);
 
     // TODO: Add setting to hide/show this
-    if (Util::getSetting(DB::getInstance(), 'discord_integration', false)) {
+    if (Util::isModuleEnabled('Discord Integration') && Discord::isBotSetup()) {
         if ($post_creator->data()->discord_username != null) {
-            $fields[] = array('name' => $language->get('admin', 'discord'), 'value' => $post_creator->data()->discord_username);
+            $fields[] = array('name' => Discord::getLanguageTerm('discord'), 'value' => $post_creator->data()->discord_username);
         }
     }
 
@@ -949,7 +949,7 @@ if ($user->isLoggedIn()) {
 }
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
 
 $page_load = microtime(true) - $start;
 define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));

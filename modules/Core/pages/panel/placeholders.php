@@ -106,7 +106,7 @@ if (isset($_GET['leaderboard'])) {
             // Update placeholders value
             if (isset($_POST['placeholders_enabled']) && $_POST['placeholders_enabled'] == 'on') $placeholders_enabled = 1;
             else $placeholders_enabled = 0;
-            
+
             $configuration->set('Core', 'placeholders', $placeholders_enabled);
 
             foreach ($all_placeholders as $placeholder) {
@@ -140,7 +140,7 @@ if (isset($_GET['leaderboard'])) {
             $errors[] = $language->get('general', 'invalid_token');
         }
     }
-    
+
     // Retrieve placeholders value
     $placeholders_enabled = $configuration->get('Core', 'placeholders');
 
@@ -176,7 +176,7 @@ if (isset($_GET['leaderboard'])) {
 
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets);
 
 if (Session::exists('placeholders_success')) {
     $smarty->assign(array(

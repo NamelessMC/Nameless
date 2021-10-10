@@ -778,10 +778,15 @@ switch ($s) {
             'name' => 'Forum',
             'enabled' => 1
         ));
+        $queries->create('modules', array(
+            'name' => 'Discord Integration',
+            'enabled' => 1
+        ));
         $cache->setCache('modulescache');
         $cache->store('enabled_modules', array(
             array('name' => 'Core', 'priority' => 1),
-            array('name' => 'Forum', 'priority' => 4)
+            array('name' => 'Forum', 'priority' => 4),
+            array('name' => 'Discord Integration', 'priority' => 7)
         ));
         $cache->store('module_core', true);
         $cache->store('module_forum', true);
@@ -995,11 +1000,6 @@ switch ($s) {
         $queries->create('settings', array(
             'name' => 'registration_disabled_message',
             'value' => null
-        ));
-
-        $queries->create('settings', array(
-            'name' => 'discord_hooks',
-            'value' => '{}'
         ));
 
         $queries->create('settings', array(

@@ -10,89 +10,88 @@
  */
 class Queries {
 
-    /** @var DB */
-    private $_db;
+    private DB $_db;
 
     public function __construct() {
         $this->_db = DB::getInstance();
     }
 
-    public function getWhere($table, $where) {
+    public function getWhere(string $table, array $where): array {
         $data = $this->_db->get($table, $where);
         return $data->results();
     }
 
-    public function getAll($table, $where = array()) {
+    public function getAll(string $table, array $where = array()): array {
         $data = $this->_db->get($table, $where);
         return $data->results();
     }
 
-    public function orderAll($table, $order, $sort = null) {
+    public function orderAll(string $table, string $order, string $sort = null): array {
         $data = $this->_db->orderAll($table, $order, $sort);
         return $data->results();
     }
 
-    public function orderWhere($table, $where, $order, $sort = null) {
+    public function orderWhere(string $table, string $where, string $order, string $sort = null): array {
         $data = $this->_db->orderWhere($table, $where, $order, $sort);
         return $data->results();
     }
 
-    public function getLike($table, $where, $like){
+    public function getLike(string $table, string $where, string $like): array {
         $data = $this->_db->like($table, $where, $like);
         return $data->results();
     }
 
-    public function update($table, $id, $fields = array()) {
-        if(!$this->_db->update($table, $id, $fields)) {
+    public function update(string $table, int $id, array $fields = array()): void {
+        if (!$this->_db->update($table, $id, $fields)) {
             throw new Exception('There was a problem performing that action.');
         }
     }
 
-    public function create($table, $fields = array()) {
-        if(!$this->_db->insert($table, $fields)) {
+    public function create(string $table, array $fields = array()): void {
+        if (!$this->_db->insert($table, $fields)) {
             throw new Exception('There was a problem performing that action.');
         }
     }
 
-    public function delete($table, $where) {
-        if(!$this->_db->delete($table, $where)) {
+    public function delete(string $table, array $where): void {
+        if (!$this->_db->delete($table, $where)) {
             throw new Exception('There was a problem performing that action.');
         }
     }
 
-    public function increment($table, $id, $field) {
-        if(!$this->_db->increment($table, $id, $field)) {
+    public function increment(string $table, int $id, string $field): void {
+        if (!$this->_db->increment($table, $id, $field)) {
             throw new Exception('There was a problem performing that action.');
         }
     }
 
-    public function decrement($table, $id, $field) {
-        if(!$this->_db->decrement($table, $id, $field)) {
+    public function decrement(string $table, int $id, string $field): void {
+        if (!$this->_db->decrement($table, $id, $field)) {
             throw new Exception('There was a problem performing that action.');
         }
     }
 
-    public function createTable($table, $columns, $other) {
-        if(!$this->_db->createTable($table, $columns, $other)) {
+    public function createTable(string $table, string $columns, string $other): void {
+        if (!$this->_db->createTable($table, $columns, $other)) {
             throw new Exception('There was a problem performing that action.');
         }
     }
 
-    public function getLastId() {
+    public function getLastId(): int {
         return $this->_db->lastId();
     }
 
-    public function alterTable($table, $column, $attributes){
-        if(!$this->_db->alterTable($table, $column, $attributes)) {
+    public function alterTable(string $table, string $column, string $attributes): void {
+        if (!$this->_db->alterTable($table, $column, $attributes)) {
             throw new Exception('There was a problem performing that action.');
         }
     }
 
-    public function tableExists($table){
+    public function tableExists(string $table) {
         return $this->_db->showTables($table);
     }
 
-    public function addPermissionGroup($group_id, $permission) {
+    public function addPermissionGroup(int $group_id, string $permission): void {
         $permissions = $this->getWhere('groups', array('id', '=', $group_id));
         if (count($permissions)) {
             $permissions = $permissions[0]->permissions;
@@ -105,7 +104,7 @@ class Queries {
         }
     }
 
-    public function dbInitialise($charset = 'latin1', $engine = 'InnoDB'){
+    public function dbInitialise(string $charset = 'latin1', string $engine = 'InnoDB') {
         $data = $this->_db->showTables('settings');
         if(!empty($data)){
             return '<div class="alert alert-warning">Database already initialised!</div>';
@@ -125,7 +124,7 @@ class Queries {
             $data = $this->_db->createTable("friends", " `id` int(11) NOT NULL AUTO_INCREMENT, `user_id` int(11) NOT NULL, `friend_id` int(11) NOT NULL, `notify` tinyint(1) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
             $data = $this->_db->createTable("groups", "`id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(20) NOT NULL, `group_html` varchar(1024) NOT NULL, `group_html_lg` varchar(1024) NOT NULL, `group_username_color` varchar(256) DEFAULT NULL, `group_username_css` varchar(256) DEFAULT NULL, `admin_cp` tinyint(1) NOT NULL DEFAULT '0', `staff` tinyint(1) NOT NULL DEFAULT '0', `permissions` mediumtext, `default_group` tinyint(1) NOT NULL DEFAULT '0', `order` int(11) NOT NULL DEFAULT '1', `force_tfa` tinyint(1) NOT NULL DEFAULT '0', `deleted` int(11) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
             $data = $this->_db->createTable("groups_templates", " `id` int(11) NOT NULL AUTO_INCREMENT, `group_id` int(11) NOT NULL, `template_id` int(11) NOT NULL, `can_use_template` tinyint(1) NOT NULL DEFAULT '1', PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
-            $data = $this->_db->createTable("group_sync", " `id` int(11) NOT NULL AUTO_INCREMENT, `ingame_rank_name` varchar(64) DEFAULT NULL, `discord_role_id` bigint(18) DEFAULT NULL, `website_group_id` int(11) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
+            $data = $this->_db->createTable("group_sync", " `id` int(11) NOT NULL AUTO_INCREMENT, `website_group_id` int(11) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
             $data = $this->_db->createTable("hooks", " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(128) NOT NULL, `action` int(11) NOT NULL, `url` varchar(2048) NOT NULL, `events` varchar(2048) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
             $data = $this->_db->createTable("ip_bans", " `id` int(11) NOT NULL AUTO_INCREMENT, `ip` varchar(128) NOT NULL, `banned_by` int(11) NOT NULL, `banned_at` int(11) NOT NULL, `reason` varchar(255) DEFAULT NULL, PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
             $data = $this->_db->createTable("infractions", " `id` int(11) NOT NULL AUTO_INCREMENT, `type` int(11) NOT NULL, `punished` int(11) NOT NULL, `staff` int(11) NOT NULL, `reason` text NOT NULL, `infraction_date` datetime NOT NULL, `created` int(11) DEFAULT NULL, `acknowledged` tinyint(1) NOT NULL, `revoked` tinyint(1) NOT NULL DEFAULT '0', `revoked_by` int(11) DEFAULT NULL, `revoked_at` int(11) DEFAULT NULL, PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");

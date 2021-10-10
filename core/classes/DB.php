@@ -11,17 +11,14 @@
 
 class DB {
 
-    /** @var DB */
-    private static $_instance = null;
+    private static DB $_instance;
 
-    /** @var PDO */
-    private $_pdo;
-
-    private $_query,
-            $_error = false,
-            $_results,
-            $_prefix,
-            $_count = 0;
+    private PDO $_pdo;
+    private PDOStatement $_query;
+    private bool $_error = false;
+    private array $_results;
+    private string $_prefix;
+    private int $_count = 0;
 
     private function __construct() {
         try {
@@ -41,7 +38,7 @@ class DB {
         }
     }
 
-    public static function getInstance() {
+    public static function getInstance(): DB {
         if(!isset(self::$_instance)) {
             self::$_instance = new DB();
         }
@@ -49,7 +46,7 @@ class DB {
         return self::$_instance;
     }
 
-    public function query($sql, $params = array(), $fetch_method = PDO::FETCH_OBJ) {
+    public function query(string $sql,  array $params = array(), int $fetch_method = PDO::FETCH_OBJ): DB {
         $this->_error = false;
         if($this->_query = $this->_pdo->prepare($sql)) {
             $x = 1;
@@ -73,7 +70,7 @@ class DB {
         return $this;
     }
 
-    public function createQuery($sql, $params = array()) {
+    public function createQuery(string $sql, array $params = array()): DB {
         $this->_error = false;
         if($this->_query = $this->_pdo->prepare($sql)) {
             $x = 1;
@@ -95,7 +92,7 @@ class DB {
         return $this;
     }
 
-    public function createTable($name, $table_data, $other){
+    public function createTable(string $name, string $table_data, string $other) {
         $name = $this->_prefix . $name;
         $sql = "CREATE TABLE `{$name}` ({$table_data}) {$other}";
 
@@ -106,7 +103,7 @@ class DB {
         return false;
     }
 
-    public function action($action, $table, $where = array()) {
+    public function action(string $action, string $table, array $where = array()) {
         if(count($where) === 3) {
             $operators = array('=', '>', '<', '>=', '<=', '<>');
 
@@ -128,7 +125,7 @@ class DB {
         return false;
     }
 
-    public function deleteAction($action, $table, $where = array()) {
+    public function deleteAction(string $action, string $table, array $where = array()) {
         if(count($where) === 3) {
             $operators = array('=', '>', '<', '>=', '<=', '<>');
 
@@ -150,11 +147,11 @@ class DB {
         return false;
     }
 
-    public function get($table, $where) {
+    public function get(string $table, array $where) {
         return $this->action('SELECT *', $table, $where);
     }
 
-    public function like($table, $column, $like) {
+    public function like(string $table, string $column, string $like) {
         $table = $this->_prefix . $table;
         $sql = "SELECT * FROM {$table} WHERE {$column} LIKE '{$like}'";
 
@@ -165,11 +162,11 @@ class DB {
         return false;
     }
 
-    public function delete($table, $where) {
+    public function delete(string $table, array $where) {
         return $this->deleteAction('DELETE', $table, $where);
     }
 
-    public function insert($table, $fields = array()) {
+    public function insert(string $table, array $fields = array()): bool {
         $keys = array_keys($fields);
         $values = '';
         $x = 1;
@@ -188,7 +185,7 @@ class DB {
         return (!$this->createQuery($sql, $fields)->error());
     }
 
-    public function update($table, $id, $fields) {
+    public function update(string $table, int $id, array $fields): bool {
         $set = '';
         $x = 1;
 
@@ -206,43 +203,43 @@ class DB {
         return (!$this->createQuery($sql, $fields)->error());
     }
 
-    public function increment($table, $id, $field) {
+    public function increment(string $table, int $id, string $field): bool {
         $table = $this->_prefix . $table;
         $sql = "UPDATE {$table} SET {$field} = {$field} + 1 WHERE id = ?";
 
         return (!$this->createQuery($sql, array($id))->error());
     }
 
-    public function decrement($table, $id, $field) {
+    public function decrement(string $table, int $id, string $field) {
         $table = $this->_prefix . $table;
         $sql = "UPDATE {$table} SET {$field} = {$field} - 1 WHERE id = ?";
 
         return (!$this->createQuery($sql, array($id))->error());
     }
 
-    public function results() {
+    public function results(): array {
         return $this->_results;
     }
 
-    public function first() {
+    public function first(): ?object {
         $results = $this->results();
 
         return isset($results[0]) ? $results[0] : null;
     }
 
-    public function error() {
+    public function error(): bool {
         return $this->_error;
     }
 
-    public function count() {
+    public function count(): int {
         return $this->_count;
     }
 
-    public function lastId() {
+    public function lastId(): int {
         return $this->_pdo->lastInsertId();
     }
 
-    public function alterTable($name, $column, $attributes) {
+    public function alterTable(string $name, string $column, string $attributes) {
         $name = $this->_prefix . $name;
         $sql = "ALTER TABLE `{$name}` ADD {$column} {$attributes}";
 
@@ -252,7 +249,7 @@ class DB {
         return false;
     }
 
-    public function orderAll($table, $order, $sort) {
+    public function orderAll(string $table, string $order, string $sort) {
         $table = $this->_prefix . $table;
         if (isset($sort)) {
             $sql = "SELECT * FROM {$table} ORDER BY {$order} {$sort}";
@@ -267,7 +264,7 @@ class DB {
         return false;
     }
 
-    public function orderWhere($table, $where, $order, $sort) {
+    public function orderWhere(string $table, string $where, string $order, string $sort) {
         $table = $this->_prefix . $table;
         if (isset($sort)) {
             $sql = "SELECT * FROM {$table} WHERE {$where} ORDER BY {$order} {$sort}";
@@ -282,7 +279,7 @@ class DB {
         return false;
     }
 
-    public function showTables($showTable) {
+    public function showTables(string $showTable) {
         $showTable = $this->_prefix . $showTable;
         $sql = "SHOW TABLES LIKE '{$showTable}'";
 

@@ -140,17 +140,6 @@ if ($page != 'install') {
     $nameless_version = $nameless_version[0]->value;
     define('NAMELESS_VERSION', $nameless_version);
 
-    // Get the Bot URL(s)
-    $bot_url = $queries->getWhere('settings', array('name', '=', 'discord_bot_url'));
-    $bot_url = $bot_url[0]->value;
-    if ($bot_url == null) $bot_url = '';
-    define('BOT_URL', $bot_url);
-
-    $bot_username = $queries->getWhere('settings', array('name', '=', 'discord_bot_username'));
-    $bot_username = $bot_username[0]->value;
-    if ($bot_username == null) $bot_username = '';
-    define('BOT_USERNAME', $bot_username);
-
     // User initialisation
     $user = new User();
     // Do they need logging in (checked remember me)?
@@ -429,16 +418,16 @@ if ($page != 'install') {
         define('MINECRAFT', false);
 
     // Navbar links
-    $navigation = new Navigation();
-    $cc_nav     = new Navigation();
-    $mod_nav    = new Navigation(true); // $mod_nav = panel nav
+    $navigation  = new Navigation();
+    $cc_nav      = new Navigation();
+    $staffcp_nav = new Navigation(true); // $staffcp_nav = panel nav
 
     // Add links to cc_nav
     $cc_nav->add('cc_overview', $language->get('user', 'overview'), URL::build('/user'));
     $cc_nav->add('cc_alerts', $language->get('user', 'alerts'), URL::build('/user/alerts'));
     $cc_nav->add('cc_messaging', $language->get('user', 'messaging'), URL::build('/user/messaging'));
     $cc_nav->add('cc_settings', $language->get('user', 'profile_settings'), URL::build('/user/settings'));
-    
+
     // Placeholders enabled?
     $placeholders_enabled = $configuration->get('Core', 'placeholders');
     if($placeholders_enabled == 1) {
@@ -469,7 +458,7 @@ if ($page != 'install') {
 
     // Endpoints
     $endpoints = new Endpoints();
-    
+
     // Announcements
     $announcements = new Announcements($cache);
 
@@ -481,7 +470,7 @@ if ($page != 'install') {
         ));
         $cache->store('module_core', true);
     }
-    $enabled_modules = (array) $cache->retrieve('enabled_modules');
+    $enabled_modules = $cache->retrieve('enabled_modules');
 
     foreach ($enabled_modules as $module) {
         if ($module['name'] == 'Core') {

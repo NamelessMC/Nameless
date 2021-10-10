@@ -3171,7 +3171,10 @@ class Smarty_Internal_Templateparser
     public function yy_r140()
     {
         if ($this->security) {
-            $this->compiler->trigger_template_error(self::ERR2);
+            // Commented out by Aberdeener on October 1st 2021.
+            // We need to access dynamic properties of objects in the new API Group Sync page.
+
+            // $this->compiler->trigger_template_error(self::ERR2);
         }
         $this->_retvalue =
             '->{' .

@@ -741,7 +741,6 @@ $language = array(
     'announcement_icon_instructions' => 'คุณยังสามารถเพิ่มไอคอนในแต่ละประกาศได้ที่นี่ เช่น ใช้ <a href="https://fontaweee" target="_blasome.com/icons?d=gallery&m=frnk" rel="noopener nofollow">Font Awesome</a>, <a href="https://semantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Semantic UI</a>.',
     'header' => 'หัวข้อ',
     'message' => 'ข้อความ',
-    'pages' => 'หน้า',
     'text_colour' => 'สีข้อความ',
     'background_colour' => 'สีพื้นหลัง',
     'closable' => 'ปิดได้',

@@ -17,7 +17,7 @@ $page_title = 'api';
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets);
 
 // Ensure API is actually enabled
 if (!Util::getSetting(DB::getInstance(), 'use_api')) {
@@ -29,26 +29,23 @@ $api = new Nameless2API($route, $language, $endpoints);
 
 class Nameless2API {
 
-    /** @var DB */
-    private $_db;
-    
-    /** @var Language */
-    private $_language;
+    private DB $_db;
+    private Language $_language;
+    private Endpoints $_endpoints;
 
-    /** @var Endpoints */
-    private $_endpoints;
-
-    public function getDb() {
+    public function getDb(): DB {
         return $this->_db;
     }
 
-    public function getLanguage() {
+    public function getLanguage(): Language {
         return $this->_language;
     }
 
-    public function __construct($route, $api_language, $endpoints) {
+    public function __construct(string $route, Language $api_language, Endpoints $endpoints) {
         try {
             $this->_db = DB::getInstance();
+            $this->_language = $api_language;
+
             $explode = explode('/', $route);
 
             for ($i = count($explode) - 1; $i >= 0; $i--) {
@@ -59,13 +56,6 @@ class Nameless2API {
                     }
                 }
             }
-
-            // Set language
-            if (!isset($api_language) || empty($api_language)) {
-                $this->throwError(2, 'Invalid language file');
-            }
-
-            $this->_language = $api_language;
 
             if (!isset($api_key)) {
                 $this->throwError(1, $this->_language->get('api', 'invalid_api_key'));
@@ -93,11 +83,12 @@ class Nameless2API {
 
     /**
      * Validate provided API key to make sure it matches.
-     * 
+     *
      * @param string $api_key API key to check.
+     *
      * @return bool Whether it matches or not.
      */
-    private function validateKey($api_key = null) {
+    private function validateKey(string $api_key = null): bool {
         if ($api_key) {
             // Check cached key
             if (!is_file(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('apicache') . '.cache')) {
@@ -122,7 +113,7 @@ class Nameless2API {
         return false;
     }
 
-    public function getUser($column, $value) {
+    public function getUser(string $column, string $value): User {
         $user = new User(Output::getClean($value), Output::getClean($column));
 
         if (!$user->data()) {
@@ -147,7 +138,7 @@ class Nameless2API {
         die(json_encode($arr, JSON_PRETTY_PRINT));
     }
 
-    public function validateParams($input, $required_fields, $type = 'post') {
+    public function validateParams(array $input, array $required_fields, string $type = 'post'): bool {
         if (!isset($input) || empty($input)) {
             $this->throwError(6, $this->_language->get('api', 'invalid_' . $type . '_contents'));
         }

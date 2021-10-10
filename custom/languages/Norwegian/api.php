@@ -42,14 +42,6 @@ $language = array(
     'invalid_server_id' => 'Ugyldig server-ID',
     'invalid_code' => 'Ugyldig kode oppgitt',
     'user_already_active' => 'Kontoen din har allerede blitt aktivert.',
-    'discord_integration_disabled' => 'Discord-integrering er deaktivert.',
-    'unable_to_set_discord_id' => 'Kunne ikke oppdatere Discord-IDen.',
-    'unable_to_set_discord_bot_url' => 'Kunne ikke sette Discord-bot-URLen',
-    'provide_one_discord_settings' => 'Vennligst oppgi minst ett av følgende: "url, "guild_id"',
-    'no_pending_verification_for_token' => 'Ingen verifiseringer venter for den medfølgende koden.',
-    'unable_to_update_discord_username' => 'Kunne ikke oppdatere Discord-brukernavn.',
-    'unable_to_update_discord_roles' => 'Kunne ikke oppdatere Discord-rolleliste.',
-    'unable_to_update_discord_bot_username' => 'Kunne ikke oppdatere Discord-botbrukernavn.',
 
     // Success messages
     'finish_registration_link' => 'Vennligst klikk på følgende lenke for å fullføre registeringen:',
@@ -60,7 +52,4 @@ $language = array(
     'username_updated' => 'Brukernavnet har blitt oppdatert.',
     'server_info_updated' => 'Serverinfoen har blitt oppdatert',
     'account_validated' => 'Brukeren har blitt validert',
-    'discord_id_set' => 'Discord-ID-en har blitt endret.',
-    'discord_settings_updated' => 'Discord-innstillinger har blitt oppdatert',
-    'discord_usernames_updated' => 'Discord-brukernavn har blitt oppdatert'
 );
