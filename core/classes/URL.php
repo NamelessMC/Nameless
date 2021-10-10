@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -20,7 +20,7 @@ class URL {
      * 
      * @return string|bool Assembled URL, false on failure.
      */
-    public static function build(?string $url, string $params = '', bool $force = null) {
+    public static function build(?string $url, string $params = '', string $force = null) {
         if (is_null($force)) {
             if ((defined('FRIENDLY_URLS') && FRIENDLY_URLS == true) || (!defined('FRIENDLY_URLS') && Config::get('core/friendly') == true)) {
                 // Friendly URLs are enabled
