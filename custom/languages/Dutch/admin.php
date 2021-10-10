@@ -45,7 +45,7 @@ $language = array(
     'notices' => 'Berichten',
     'no_notices' => 'Geen berichten.',
     'email_errors_logged' => 'Email fouten zijn vastgesteld',
-    'upgrade_php_version' => 'Please upgrade your PHP version to at least 7.4 - the next Nameless release will no longer support the version you are using.',
+    'upgrade_php_version' => 'Upgrade alstublieft uw PHP versie naar tenminste 7.4 - de volgende Nameless release zal de versie die u gebruikt niet langer ondersteunen.',
 
     // Core
     'mode_toggle' => 'Donkere/Lichte modus',
@@ -152,8 +152,8 @@ $language = array(
     'navigation_settings_updated_successfully' => 'Navigatie-instellingen succesvol bijgewerkt.',
     'dropdown_items' => 'Dropdown Items',
     'enable_page_load_timer' => 'Pagina laad timer inschakelen?',
-    'captcha_general' => 'Enable Captcha on registration and contact page?',
-    'captcha_login' => 'Enable Captcha on login page?',
+    'captcha_general' => 'Captcha inschakelen op registratie- en contactpagina?',
+    'captcha_login' => 'Captcha op inlogpagina inschakelen?',
     'captcha_type' => 'Captcha Type',
     'captcha_site_key' => 'Captcha Site Key',
     'captcha_secret_key' => 'Captcha Secret Key',
@@ -171,39 +171,39 @@ $language = array(
     'emails_mass_message_replacements' => 'U kunt variabelen gebruiken in uw e-mailbericht. Ondersteunde variabelen: {username}, {sitename}',
     'emails_mass_message_loading' => 'Laden... Laad de pagina niet opnieuw. Dit kan een tijdje duren.',
     'administrator' => 'Administrator',
-    'administrator_permission_info' => 'Members with this permission will have every permission. This is a dangerous permission to grant.',
+    'administrator_permission_info' => 'Leden met deze toestemming hebben alle rechten. Dit is een gevaarlijke toestemming om te geven.',
 
     // Placeholders
     'placeholders' => 'Placeholders',
-    'enable_placeholders' => 'Enable Placeholders?',
-    'updated_placeholder_settings' => 'Updated placeholder settings successfully.',
-    'placeholders_info' => 'Placeholders allow the NamelessMC Spigot plugin to send statistics about each player to your website so they can display them on their profile and forum posts.',
-    'placeholders_none' => 'There are no placeholders.',
+    'enable_placeholders' => 'Placeholders inschakelen?',
+    'updated_placeholder_settings' => 'Placeholder instellingen succesvol bijgewerkt.',
+    'placeholders_info' => 'Placeholders laten de NamelessMC Spigot plugin toe om statistieken over elke speler naar uw website te sturen, zodat ze die kunnen weergeven op hun profiel en forumberichten.',
+    'placeholders_none' => 'Er zijn geen placeholders.',
     'placeholders_server_id' => 'Server ID',
-    'placeholders_name' => 'Name',
-    'placeholders_value' => 'Value',
-    'placeholders_last_updated' => 'Last Updated',
-    'placeholders_friendly_name' => 'Friendly Name',
-    'placeholders_friendly_name_info' => 'Use this to set a \'nickname\' to this placeholder. The friendly name will be used instead of the raw name.',
-    'placeholders_show_on_profile' => 'Show on Profile',
-    'placeholders_show_on_profile_info' => 'Whether to show this placeholder on each user\'s profile or not.',
-    'placeholders_show_on_forum' => 'Show on Forum',
-    'placeholders_show_on_forum_info' => 'Whether to show this placeholder on each user\'s forum posts or not.',
+    'placeholders_name' => 'Naam',
+    'placeholders_value' => 'Waarde',
+    'placeholders_last_updated' => 'Laatst Geüpdatet',
+    'placeholders_friendly_name' => 'Vriendelijke Naam',
+    'placeholders_friendly_name_info' => 'Gebruik dit om een \'bijnaam\' in te stellen op deze placeholder. De vriendelijke naam zal worden gebruikt in plaats van de onbewerkte naam.',
+    'placeholders_show_on_profile' => 'Toon op Profiel',
+    'placeholders_show_on_profile_info' => 'Of deze placeholder op het profiel van elke gebruiker getoond moet worden of niet.',
+    'placeholders_show_on_forum' => 'Toon op Forum',
+    'placeholders_show_on_forum_info' => 'Of deze placeholder getoond moet worden op de forumberichten van elke gebruiker of niet.',
 
     // Placeholder leaderboards
-    'leaderboard_settings' => 'Leaderboard Settings',
-    'placeholder_leaderboard_settings' => 'Placeholder Leaderboard Settings',
-    'placeholder_leaderboard_info' => 'Placeholder Leaderboards let you create leaderboards to display ranked players on your server according to any placeholder.',
-    'placeholder_leaderboard_enable_info' => 'Leaderboards work best with numeric placeholders (such as coins, kills, blocks mined, etc). If you enable a leaderboard on a text-based placeholder - you cannot be sure it will order it as you want.',
-    'placeholder_leaderboard_updated' => 'Updated leaderboard settings successfully',
-    'placeholder_leaderboard_enabled' => 'Leaderboard Enabled',
-    'placeholder_leaderboard_title' => 'Leaderboard Title',
-    'placeholder_leaderboard_sort' => 'Leaderboard Sort',
+    'leaderboard_settings' => 'Leaderboard Instellingen',
+    'placeholder_leaderboard_settings' => 'Placeholder Leaderboard Instellingen',
+    'placeholder_leaderboard_info' => 'Placeholder Leaderboards laten je leaderboards maken om gerangschikte spelers op je server weer te geven volgens een placeholder.',
+    'placeholder_leaderboard_enable_info' => 'Leaderboards werken het best met numerieke placeholders (zoals munten, kills, gedolven blokken, enz). Als je een leaderboard inschakelt op een tekst-gebaseerde placeholder - kun je er niet zeker van zijn dat het zal ordenen zoals jij het wilt.',
+    'placeholder_leaderboard_updated' => 'Leaderboard instellingen succesvol bijgewerkt',
+    'placeholder_leaderboard_enabled' => 'Leaderboard Ingeschakeld',
+    'placeholder_leaderboard_title' => 'Leaderboard Titel',
+    'placeholder_leaderboard_sort' => 'Leaderboard Sortering',
 
     // SEO
     'seo' => 'SEO',
     'google_analytics' => 'Google Analytics',
-    'google_analytics_help' => 'Add Google Analytics to your website to track visitors and statistics. You will need to create a Google Analytics account to use this functionality. Enter your Google Analytics Web Property ID. The ID looks like UA-XXXXA-X and you can find it in your account information or in the tracking code provided by Google.',
+    'google_analytics_help' => 'Voeg Google Analytics toe aan uw website om bezoekers en statistieken bij te houden. U moet een Google Analytics-account aanmaken om deze functionaliteit te kunnen gebruiken. Voer uw Google Analytics Web Property ID in. De ID ziet eruit als UA-XXXXA-X en is te vinden in uw accountgegevens of in de trackingcode van Google.',
 
     // Reacties
     'icon' => 'Icoon',
@@ -365,15 +365,15 @@ $language = array(
     'unable_to_retrieve_modules' => 'Niet in staat om modules op te halen',
     'module' => 'Module',
     'unable_to_enable_module' => 'Kan incompatibele module niet inschakelen.',
-    'unable_to_enable_module_dependencies' => 'Unable to enable module since it depends on the module {x}, which is not enabled.', // Don't replace {x}
-    'unable_to_disable_module' => 'Unable to disable module - the module {x} depends on it.', // Don't replace {x}
+    'unable_to_enable_module_dependencies' => 'Module kan niet geactiveerd worden omdat deze afhankelijk is van module {x}, die niet geactiveerd is.', // Don't replace {x}
+    'unable_to_disable_module' => 'Module kan niet uitgeschakeld worden - module {x} is hiervan afhankelijk.', // Don't replace {x}
 
     // Stijlen
     'templates' => 'Sjablonen',
     'panel_templates' => 'Paneel Sjablonen',
-    'view_all_panel_templates' => 'View all panel templates',
+    'view_all_panel_templates' => 'Alle paneelsjablonen bekijken',
     'template_outdated' => 'We hebben ontdekt dat dit sjabloon voor versie {x} is, maar je gebruikt versie {y}', // Verander "{x}" of "{y}" niet
-    'template_not_supported' => 'As of NamelessMC 2.0.0-pr8 the Default template is not supported. For the best experience, please use a supported template.',
+    'template_not_supported' => 'Vanaf NamelessMC 2.0.0-pr8 wordt het standaardsjabloon niet meer ondersteund. Voor de beste ervaring, gelieve een ondersteund sjabloon te gebruiken.',
     'active' => 'Actief',
     'deactivate' => 'Deactiveer',
     'activate' => 'Activeer',
@@ -396,8 +396,8 @@ $language = array(
     'template_deleted_successfully' => 'Sjabloon succesvol verwijderd.',
     'background_image_x' => 'Achtergrondafbeelding: <strong>{x}</strong>', // Don't replace {x}
     'banner_image_x' => 'Banner afbeelding: <strong>{x}</strong>', // Don't replace {x}
-    'logo_image_x' => 'Logo image: <strong>{x}</strong>', // Don't replace {x}
-    'favicon_image_x' => 'Favicon image: <strong>{x}</strong>', // Don't replace {x}
+    'logo_image_x' => 'Logo afbeelding: <strong>{x}</strong>', // Don't replace {x}
+    'favicon_image_x' => 'Favicon afbeelding: <strong>{x}</strong>', // Don't replace {x}
     'x_directory_not_writable' => 'De <strong>{x}</strong> folder is niet beschrijfbaar!', // Don't replace {x}
     'template_banner_reset_successfully' => 'Banner is met succes gereset.',
     'template_banner_updated_successfully' => 'Banner is met succes aangepast.',
@@ -424,10 +424,10 @@ $language = array(
     'background_updated_successfully' => 'Achtergrond met succes bijgewerkt.',
     'unable_to_enable_template' => 'Niet in staat om incompatibele sjablonen in te schakelen.',
     'background_image_info' => 'Houd er rekening mee dat deze optie mogelijk niet compatibel is met de meeste sjablonen.',
-    'dark_mode' => 'Dark Mode',
-    'navbar_colour' => 'Navbar Colour',
-    'clear_cache' => 'Clear Template Cache',
-    'cache_cleared' => 'Template cache cleared',
+    'dark_mode' => 'Donkere Modus',
+    'navbar_colour' => 'Navbar Kleur',
+    'clear_cache' => 'Wis sjabloon-cache',
+    'cache_cleared' => 'Sjabloon cache gewist',
 
     // Gebruikers & groepen
     'users' => 'Gebruikers',
@@ -438,8 +438,8 @@ $language = array(
     'registered' => 'Aangemeld',
     'user_created' => 'Gebruiker succesvol aangemaakt.',
     'cant_delete_root_user' => 'Kan de hoofdgebruiker niet verwijderen!',
-    'cant_modify_root_user' => 'Can\'t modify this user\'s main group!',
-    'main_group' => 'Main Group',
+    'cant_modify_root_user' => 'Kan de hoofdgroep van deze gebruiker niet veranderen!',
+    'main_group' => 'Hoofdgroep',
     'user_deleted' => 'Gebruiker succesvol verwijderd.',
     'confirm_user_deletion' => 'Weet je zeker dat je <strong>{x}</strong> wilt verwijderen?', // Verander "{x}" niet
     'validate_user' => 'Valideer gebruiker',
@@ -525,8 +525,8 @@ $language = array(
     'all_logs' => 'Alle Logboeken',
     'action' => 'Actie',
     'action_info' => 'Actie Info',
-    'groups_removed' => 'Groups Removed',
-    'groups_added' => 'Groups Added',
+    'groups_removed' => 'Groepen verwijderd',
+    'groups_added' => 'Groepen toegevoegd',
 
     // Updates
     'update' => 'Bijwerken',
@@ -576,7 +576,7 @@ $language = array(
     'page_content' => 'Pagina inhoud',
     'page_redirect' => 'Pagina doorsturing?',
     'page_redirect_to' => 'Doorstuur link (met vooraf http://)',
-    'page_target' => 'Open page in a new tab?',
+    'page_target' => 'Pagina openen in een nieuw tabblad?',
     'unsafe_html' => 'Toestaan van onveilige HTML?',
     'unsafe_html_warning' => 'Dit aanzetten betekent dat je HTML kan gebruiken op je pagina, inclusief potentieel gevaarlijke JavaScript. Alleen aanzetten als je weet dat je HTML veilig is.',
     'include_in_sitemap' => 'Op de sitemap opnemen?',
@@ -631,13 +631,13 @@ $language = array(
     'select_website_group' => 'Selecteer een website groep.',
     'ingame_group_already_exists' => 'Er bestaat al een groep synchronisatie regel voor deze in-game groep.',
     'group_sync_rule_created_successfully' => 'De groep synchronisatie regel is succesvol aangemaakt.',
-    'group_sync_rules_updated_successfully' => 'Group synchronisatie regels zijn succesvol bijgewerkt.',
-    'group_sync_rule_deleted_successfully' => 'De group synchronisatie regel is succesvol verwijderd.',
-	'group_sync_plugin_not_set_up' => 'Plugin not set up',
+    'group_sync_rules_updated_successfully' => 'Groep synchronisatie regels zijn succesvol bijgewerkt.',
+    'group_sync_rule_deleted_successfully' => 'De groep synchronisatie regel is succesvol verwijderd.',
+	'group_sync_plugin_not_set_up' => 'Plugin niet ingesteld',
     'existing_rules' => 'Bestaande Regels',
     'new_rule' => 'Nieuwe Regel',
-    'api_endpoints' => 'API Endpoints',
-    'api_endpoints_info' => 'API Endpoints allow Modules to create ways for external applications (such as Minecraft and Discord) to interact with your NamelessMC website.',
+    'api_endpoints' => 'API Eindpunten',
+    'api_endpoints_info' => 'API Eindpunten staan Modules toe om manieren te creëren voor externe applicaties (zoals Minecraft en Discord) om te communiceren met uw NamelessMC website.',
     'route' => 'Route',
 
     // Bestand uploads
@@ -660,7 +660,7 @@ $language = array(
     // Hooks
     'hooks' => 'Webhooks',
     'hooks_info' => 'Webhooks kunnen externe services informeren wanneer bepaalde gebeurtenissen plaatsvinden.',
-    'no_hooks_yet' => 'There are no webhooks yet.',
+    'no_hooks_yet' => 'Er zijn nog geen webhooks.',
     'new_hook' => 'Nieuwe webhook',
     'creating_new_hook' => 'Nieuwe webhook maken',
     'editing_hook' => 'Webhook bewerken',
@@ -720,7 +720,7 @@ $language = array(
     // Announcements
     'announcements' => 'Aankondigingen',
     'new_announcement' => 'Nieuwe aankondiging',
-    'announcement_info' => 'Create announcements to display a message to specific groups on specific pages of your website.',
+    'announcement_info' => 'Maak aankondigingen om een bericht te tonen aan specifieke groepen op specifieke pagina\'s van uw website.',
     'creating_announcement' => 'Aankondiging Maken',
     'editing_announcement' => 'Aankondiging Bewerken',
     'creating_announcement_success' => 'Aankondiging gemaakt.',
@@ -740,5 +740,5 @@ $language = array(
     'message_required' => 'Bericht is vereist.',
     'background_colour_required' => 'Achtergrondkleur is vereist',
     'text_colour_required' => 'Tekstkleur is vereist',
-    'no_announcements' => 'No announcements have been made yet.',
+    'no_announcements' => 'Er zijn nog geen aankondigingen gemaakt.',
 );
