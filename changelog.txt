@@ -618,3 +618,43 @@ NamelessMC version 2 Changelog
 - Translation updates
 - PHP 8 improvements
 - Full changeset https://github.com/NamelessMC/Nameless/compare/v2.0.0-pr10...v2.0.0-pr11
+
+2.0.0 pr-12
+- Add Thai translation
+- Increase max length of custom pages URL + title
+- Display non-alphanumeric characters in forum URLs
+- General placeholder fixes
+- General Authme fixes
+- Convert many GET requests to POST #2033
+- Add new administrator permission for full access
+- Add new forum settings page including link location option
+- Add ability to log in with either username or email
+- Discord sync rework
+- Ingame sync rework
+- Fix legacy panel template update alert style
+- Only send password reset email if user is already active
+- PHPMailer autoloader PHP 8 compatibility
+- Fix warning modal not showing
+- Prevent IP banning yourself
+- Allow disabling placeholders feature
+- Remove legacy X-UA-Compatible header
+- Prevent showing validate message when API verification is disabled
+- Update strings for Discord slash commands
+- API verification command renamed from /validate to /verify
+- Change installer DB password field to password type
+- Fix latest profile posts link
+- Fix duplicate rel="" attribute when using rel="preload"
+- Make hook fire even if no hooks are there
+- Remove password length limit
+- Convert forum queries to DB query()
+- Add notice to StaffCP update tab if not using PHP 7.4+
+- Add per-user dark mode toggle
+- Only clear 2fa state when not on 404 page
+- Fix StaffCP redirect after re-authentication
+- Add reported_username and reported_uid fields to createReport endpoint
+- Exclude .DS_Store files from endpoint scan
+- Default Revamp dark mode improvements
+- Default panel template dark mode improvements
+- Translation updates
+- PHP 8 improvements
+- Full changeset https://github.com/NamelessMC/Nameless/compare/v2.0.0-pr11...v2.0.0-pr12

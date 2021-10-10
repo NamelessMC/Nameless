@@ -44,6 +44,7 @@ $language = array(
     'notices' => 'Ereignisse',
     'no_notices' => 'Keine Ereignisse.',
     'email_errors_logged' => 'Fehler bei der Email wurden gespeichert',
+    'upgrade_php_version' => 'Please upgrade your PHP version to at least 7.4 - the next Nameless release will no longer support the version you are using.',
 
     // Core
     'settings' => 'Einstellungen',

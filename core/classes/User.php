@@ -954,6 +954,20 @@ class User {
      * @param string $permission Permission required for this page.
      */
     public function handlePanelPageLoad(string $permission = null): bool {
+        // Set page user is trying to access in session, to allow for redirection post-auth
+        if (FRIENDLY_URLS === true) {
+            $split = explode('?', $_SERVER['REQUEST_URI']);
+
+            if (count($split) > 1)
+                $_SESSION['last_page'] = URL::build($split[0], $split[1]);
+            else
+                $_SESSION['last_page'] = URL::build($split[0]);
+        } else
+            $_SESSION['last_page'] = URL::build($_GET['route']);
+
+        if (defined('CONFIG_PATH'))
+            $_SESSION['last_page'] = substr($_SESSION['last_page'], strlen(CONFIG_PATH));
+
         if (!$this->isLoggedIn()) {
             Redirect::to(URL::build('/login'));
             die();

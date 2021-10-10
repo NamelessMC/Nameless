@@ -93,6 +93,11 @@ $language = array(
     'status' => 'Серверы',
 
     /*
+     *  Footer
+     */
+    'links' => 'Links',
+
+    /*
      *  Homepage
      */
     'social' => 'Мы в социальных сетях',

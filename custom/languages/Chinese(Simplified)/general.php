@@ -94,6 +94,11 @@ $language = array(
     'status' => '服务器状态',
 
     /*
+     *  Footer
+     */
+    'links' => 'Links',
+
+    /*
      *  Homepage
      */
     'social' => '社区',

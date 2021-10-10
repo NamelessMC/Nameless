@@ -624,12 +624,4 @@ if ($page != 'install') {
             $_SESSION['checked'] = $date;
         }
     }
-
-    // Auto unset signin tfa variables if set
-    if (strpos($_GET['route'], '/queries/') === false && (isset($_SESSION['remember']) || isset($_SESSION['username']) || isset($_SESSION['email']) || isset($_SESSION['password'])) && (!isset($_POST['tfa_code']) && !isset($_SESSION['mcassoc']))) {
-        unset($_SESSION['remember']);
-        unset($_SESSION['username']);
-        unset($_SESSION['email']);
-        unset($_SESSION['password']);
-    }
 }
