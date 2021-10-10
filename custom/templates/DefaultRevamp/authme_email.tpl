@@ -56,24 +56,3 @@
 </div>
 
 {include file='footer.tpl'}
-
-<div class="container">
-  <div class="card">
-    <div class="card-body">
-      <form action="" method="post">
-        <h2>{$CONNECT_WITH_AUTHME}</h2>
-        <hr />
-
-        {if isset($ERRORS)}
-          <div class="alert alert-danger">
-            {foreach from=$ERRORS item=error}
-              {$error}<br />
-            {/foreach}
-          </div>
-        {/if}
-      </form>
-    </div>
-  </div>
-</div>
-
-{include file='footer.tpl'}
