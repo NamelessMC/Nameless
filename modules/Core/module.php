@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr10
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -25,8 +25,8 @@ class Core_Module extends Module {
 
         $name = 'Core';
         $author = '<a href="https://samerton.me" target="_blank" rel="nofollow noopener">Samerton</a>';
-        $module_version = '2.0.0-pr11';
-        $nameless_version = '2.0.0-pr11';
+        $module_version = '2.0.0-pr12';
+        $nameless_version = '2.0.0-pr12';
 
         parent::__construct($this, $name, $author, $module_version, $nameless_version);
 
@@ -43,6 +43,7 @@ class Core_Module extends Module {
         $pages->add('Core', '/validate', 'pages/validate.php');
         $pages->add('Core', '/queries/admin_users', 'queries/admin_users.php');
         $pages->add('Core', '/queries/alerts', 'queries/alerts.php');
+        $pages->add('Core', '/queries/dark_light_mode', 'queries/dark_light_mode.php');
         $pages->add('Core', '/queries/pms', 'queries/pms.php');
         $pages->add('Core', '/queries/servers', 'queries/servers.php');
         $pages->add('Core', '/queries/server', 'queries/server.php');

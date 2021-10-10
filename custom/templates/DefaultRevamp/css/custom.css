@@ -1144,6 +1144,12 @@ body.dark .ui.top.left.popup:before {
 	box-shadow: 1px 1px 0 0 #444;
 }
 
+body.dark .ui.right.center.popup:before {
+	background: #222;
+	-webkit-box-shadow: -1px 1px 0 0 #444;
+	box-shadow: -1px 1px 0 0 #444;
+}
+
 body.dark .ui.left.center.popup:before {
 	background: #222;
 	-webkit-box-shadow: 1px -1px 0 0 #444;
@@ -1175,6 +1181,12 @@ body.dark .ui.form input[type=text],
 body.dark .ui.form input[type=time],
 body.dark .ui.form input[type=url] {
 	color: #fff;
+}
+
+body.dark .ui.mini.info.message {
+	background-color: #282828;
+	box-shadow: 0 0 0 1px #282828 inset, 0 0 0 0 transparent;
+	-webkit-box-shadow: 0 0 0 1px #282828 inset, 0 0 0 0 transparent;
 }
 
 body.dark .ui.pagination {

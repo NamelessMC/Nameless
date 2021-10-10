@@ -41,6 +41,7 @@ $language = array(
     'notices' => 'Upozornenia',
     'no_notices' => 'Žiadné upozornenia.',
     'email_errors_logged' => 'Chyby s emailami boli zaznamenané',
+    'upgrade_php_version' => 'Please upgrade your PHP version to at least 7.4 - the next Nameless release will no longer support the version you are using.',
 
     // Core
     'mode_toggle' => 'Tmavý/Svetlý režim',

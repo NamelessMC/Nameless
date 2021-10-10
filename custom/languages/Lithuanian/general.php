@@ -80,10 +80,15 @@ $language = array(
     'contact_message_sent' => 'Pranešimas sėkmingai išsiųstas.',
     'contact_message_limit' => 'Galite siųsti tik vieną pranešimą per valandą. Jūs galėsite išsiųsti kitą pranešimą po {x} minučių.', // Don't replace {x}
 
-  // Navbar
+    // Navbar
     'home' => 'Namai',
     'more' => 'Daugiau',
     'status' => 'Statusas',
+
+    /*
+     *  Footer
+     */
+    'links' => 'Links',
 
     // Homepage
     'social' => 'Socialiniai',

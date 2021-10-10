@@ -41,6 +41,7 @@ $language = array(
     'notices' => 'Meddelelser',
     'no_notices' => 'Ingen meddelelser.',
     'email_errors_logged' => 'E-mail fejl er blevet logget',
+    'upgrade_php_version' => 'Please upgrade your PHP version to at least 7.4 - the next Nameless release will no longer support the version you are using.',
 
     // Core
     'mode_toggle' => 'Mørk/Lys Mode',

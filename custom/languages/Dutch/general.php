@@ -93,6 +93,11 @@ $language = array(
     'status' => 'Status',
 
     /*
+     *  Footer
+     */
+    'links' => 'Links',
+
+    /*
      *  Homepagina
      */
     'social' => 'Sociaal',

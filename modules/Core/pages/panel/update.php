@@ -87,6 +87,15 @@ if (!isset($update_check->error) && !isset($update_check->no_update) && isset($u
     ));
 }
 
+// PHP version check
+if (version_compare(phpversion(), '7.4', '<')) {
+    $smarty->assign('PHP_WARNING', $language->get('admin', 'upgrade_php_version'));
+
+    if (NAMELESS_VERSION !== '2.0.0-pr11') {
+        $smarty->assign('PREVENT_UPGRADE', true);
+    }
+}
+
 $smarty->assign(array(
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
