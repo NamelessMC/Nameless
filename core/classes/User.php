@@ -198,7 +198,7 @@ class User {
         return false;
     }
 
-    private function _commonLogin(string $username, string $password, bool $remember, string $method, bool $is_admin): bool {
+    private function _commonLogin(?string $username, ?string $password, bool $remember, string $method, bool $is_admin): bool {
         $sessionName = $is_admin ? $this->_admSessionName : $this->_sessionName;
         if (!$username && !$password && $this->exists()) {
             Session::put($sessionName, $this->data()->id);
@@ -244,7 +244,7 @@ class User {
      *
      * @return bool True/false on success or failure respectfully.
      */
-    public function login(string $username = null, string $password = null, bool $remember = false, string $method = 'email'): bool {
+    public function login(?string $username = null, ?string $password = null, bool $remember = false, string $method = 'email'): bool {
         return $this->_commonLogin($username, $password, $remember, $method, false);
     }
 
@@ -257,7 +257,7 @@ class User {
      *
      * @return bool True/false on success or failure respectfully.
      */
-    public function adminLogin(string $username = null, string $password = null, string $method = 'email'): bool {
+    public function adminLogin(?string $username = null, ?string $password = null, string $method = 'email'): bool {
         return $this->_commonLogin($username, $password, true, $method, true);
     }
 
