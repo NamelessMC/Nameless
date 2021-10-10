@@ -124,7 +124,7 @@ class Validate {
                     $this->addError([
                         'field' => $item,
                         'rule' => Validate::REQUIRED,
-                        'fallback' => "{$item} is required."
+                        'fallback' => "$item is required."
                     ]);
                     continue;
                 } 
@@ -141,7 +141,7 @@ class Validate {
                             $this->addError([
                                 'field' => $item,
                                 'rule' => Validate::MIN,
-                                'fallback' => "{$item} must be a minimum of {$rule_value} characters."
+                                'fallback' => "$item must be a minimum of $rule_value characters."
                             ]);
                         }
                         break;
@@ -151,7 +151,7 @@ class Validate {
                             $this->addError([
                                 'field' => $item,
                                 'rule' => Validate::MAX,
-                                'fallback' => "{$item} must be a maximum of {$rule_value} characters."
+                                'fallback' => "$item must be a maximum of $rule_value characters."
                             ]);
                         }
                         break;
@@ -161,7 +161,7 @@ class Validate {
                             $this->addError([
                                 'field' => $item,
                                 'rule' => Validate::MATCHES,
-                                'fallback' => "{$rule_value} must match {$item}."
+                                'fallback' => "$rule_value must match $item."
                             ]);
                         }
                         break;
@@ -182,7 +182,7 @@ class Validate {
                             $this->addError([
                                 'field' => $item,
                                 'rule' => Validate::UNIQUE,
-                                'fallback' => "The {$rule_value}.{$item} {$value} already exists!"
+                                'fallback' => "The $rule_value.$item $value already exists!"
                             ]);
                         }
                         break;
@@ -192,7 +192,7 @@ class Validate {
                             $this->addError([
                                 'field' => $item,
                                 'rule' => Validate::EMAIL,
-                                'fallback' => "{$value} is not a valid email."
+                                'fallback' => "$value is not a valid email."
                             ]);
                         }
                         break;
@@ -202,7 +202,7 @@ class Validate {
                             $this->addError([
                                 'field' => $item,
                                 'rule' => Validate::TIMEZONE,
-                                'fallback' => "The timezone {$value} is invalid."
+                                'fallback' => "The timezone $value is invalid."
                             ]);
                         }
                         break;
@@ -218,7 +218,7 @@ class Validate {
                             $this->addError([
                                 'field' => $item,
                                 'rule' => Validate::IS_ACTIVE,
-                                'fallback' => "That {$item} is inactive. Have you validated your account or requested a password reset?"
+                                'fallback' => "That $item is inactive. Have you validated your account or requested a password reset?"
                             ]);
                         }
                         break;
@@ -234,7 +234,7 @@ class Validate {
                             $this->addError([
                                 'field' => $item,
                                 'rule' => Validate::IS_BANNED,
-                                'fallback' => "The username {$value} is banned."
+                                'fallback' => "The username $value is banned."
                             ]);
                         }
                         break;
@@ -244,7 +244,7 @@ class Validate {
                             $this->addError([
                                 'field' => $item,
                                 'rule' => Validate::ALPHANUMERIC,
-                                'fallback' => "{$item} must be alphanumeric."
+                                'fallback' => "$item must be alphanumeric."
                             ]);
                         }
                         break;
@@ -254,7 +254,7 @@ class Validate {
                             $this->addError([
                                 'field' => $item,
                                 'rule' => Validate::NUMERIC,
-                                'fallback' => "{$item} must be numeric."
+                                'fallback' => "$item must be numeric."
                             ]);
                         }
                         break;
@@ -298,7 +298,7 @@ class Validate {
      * Add an array of information to generate an error message to the $_to_convert array.
      * These errors will be translated in the `errors()` function later.
      * 
-     * @param string $error message to add to error array
+     * @param array $error message to add to error array
      */
     private function addError(array $error): void {
         $this->_to_convert[] = $error;

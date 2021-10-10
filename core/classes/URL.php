@@ -20,7 +20,7 @@ class URL {
      *
      * @return string Assembled URL, false on failure.
      */
-    public static function build(string $url, string $params = '', ?string $force = null) {
+    public static function build(string $url, string $params = '', ?string $force = null): string {
         if (is_null($force)) {
             if ((defined('FRIENDLY_URLS') && FRIENDLY_URLS == true) || (!defined('FRIENDLY_URLS') && Config::get('core/friendly') == true)) {
                 // Friendly URLs are enabled
