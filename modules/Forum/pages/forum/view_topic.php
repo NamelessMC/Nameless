@@ -590,6 +590,9 @@ $replies = array();
 // Display the correct number of posts
 for ($n = 0; $n < count($results->data); $n++) {
     $post_creator = new User($results->data[$n]->post_creator);
+    if(!$post_creator->data()) {
+        continue;
+    }
 
     // Get user's group HTML formatting and their signature
     $user_groups_html = $post_creator->getAllGroups('true');
