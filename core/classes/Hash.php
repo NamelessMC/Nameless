@@ -17,7 +17,7 @@ class Hash {
      * @return string Generated hash.
      */
     public static function unique(): string {
-        return hash('sha256', uniqid());
+        return bin2hex(random_bytes(32));
     }
 
 }
