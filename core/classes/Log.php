@@ -219,11 +219,11 @@ class Log {
      * 
      * @param  string $action The action being logged
      * @param  string $info Some more information about what the action is about
-     * @param  int $user The User ID who is doing the action
-     * @param  string $ip The ip of the user
+     * @param  ?int $user The User ID who is doing the action
+     * @param  ?string $ip The ip of the user
      * @return bool Return true or false if inserted into the database.
      */
-    public function log(string $action, string $info = '', int $user = null, string $ip = null): bool {
+    public function log(string $action, string $info = '', ?int $user = null, string $ip = null): bool {
         $userTemp = new User();
         $ip = $userTemp->getIP();
 

@@ -51,8 +51,7 @@ class MCQuery {
                 $ping->close();
 
                 if (isset($query['players'])) {
-                    $player_list = isset($query['players']['sample']) ? $query['players']['sample'] : array();
-
+                    $player_list = $query['players']['sample'] ?? array();
 
                     return array(
                         'status_value' => 1,
@@ -62,7 +61,7 @@ class MCQuery {
                         'player_list' => $player_list,
                         'format_player_list' => self::formatPlayerList($player_list),
                         'x_players_online' => str_replace('{x}', Output::getClean($query['players']['online']), $language->get('general', 'currently_x_players_online')),
-                        'motd' => (isset($query['description']['text']) ? $query['description']['text'] : ''),
+                        'motd' => $query['description']['text'] ?? '',
                         'version' => $query['version']['name']
                     );
                 } else {
@@ -86,7 +85,7 @@ class MCQuery {
                 $query = ExternalMCQuery::query($query_ip[0], (isset($query_ip[1]) ? $query_ip[1] : 25565));
 
                 if (!$query->error && isset($query->response)) {
-                    $player_list = isset($query->response->players->list) ? $query->response->players->list : array();
+                    $player_list = $query->response->players->list ?? array();
 
                     return array(
                         'status_value' => 1,
@@ -117,7 +116,7 @@ class MCQuery {
                     'date' => date('U'),
                     'error' => $error,
                     'ip' => $query_ip[0],
-                    'port' => (isset($query_ip[1]) ? $query_ip[1] : 25565)
+                    'port' => $query_ip[1] ?? 25565
                 )
             );
 
@@ -288,29 +287,27 @@ class MCQuery {
     private static function formatPlayerList(array $player_list): array {
         $formatted = array();
 
-        if (count($player_list)) {
-            foreach ($player_list as $player) {
-                $player = (array)$player;
-                $user = new User($player['id'], 'uuid');
-                if (!$user->data()) {
-                    $user = new User($player['name'], 'username');
-                }
-
-                if (!$user->data()) {
-                    $avatar = Util::getAvatarFromUUID($player['id']);
-                    $profile = '#';
-                } else {
-                    $avatar = $user->getAvatar();
-                    $profile = $user->getProfileURL();
-                }
-
-                $formatted[] = array(
-                    'username' => Output::getClean($player['name']),
-                    'uuid' => Output::getClean($player['id']),
-                    'avatar' => $avatar,
-                    'profile' => $profile
-                );
+        foreach ($player_list as $player) {
+            $player = (array)$player;
+            $user = new User($player['id'], 'uuid');
+            if (!$user->data()) {
+                $user = new User($player['name'], 'username');
             }
+
+            if (!$user->data()) {
+                $avatar = Util::getAvatarFromUUID($player['id']);
+                $profile = '#';
+            } else {
+                $avatar = $user->getAvatar();
+                $profile = $user->getProfileURL();
+            }
+
+            $formatted[] = array(
+                'username' => Output::getClean($player['name']),
+                'uuid' => Output::getClean($player['id']),
+                'avatar' => $avatar,
+                'profile' => $profile
+            );
         }
 
         return $formatted;
