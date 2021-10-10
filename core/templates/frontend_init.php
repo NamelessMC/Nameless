@@ -29,7 +29,7 @@ if(defined('PAGE') && PAGE != 'login' && PAGE != 'register' && PAGE != 404 && PA
 
 }
 
-if (PAGE != 404) {
+if (defined('PAGE') && PAGE != 404) {
     // Auto unset signin tfa variables if set
     if (strpos($_GET['route'], '/queries/') === false && (isset($_SESSION['remember']) || isset($_SESSION['username']) || isset($_SESSION['email']) || isset($_SESSION['password'])) && (!isset($_POST['tfa_code']) && !isset($_SESSION['mcassoc']))) {
         unset($_SESSION['remember']);
