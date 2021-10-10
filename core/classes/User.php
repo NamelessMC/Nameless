@@ -512,7 +512,7 @@ class User {
      *
      * @return object This user's data.
      */
-    public function data(): object {
+    public function data(): ?object {
         return $this->_data;
     }
 
