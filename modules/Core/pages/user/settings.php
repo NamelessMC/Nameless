@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr10
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -687,8 +687,42 @@ if(isset($_GET['do'])){
         ));
 	}
 
-	$discord_linked = $user->data()->discord_id == null || $user->data()->discord_id == 010 ? false : true;
-	$discord_integration = Util::isModuleEnabled('Discord Integration') && Discord::isBotSetup();
+    // Discord Integration
+    if(Util::isModuleEnabled('Discord Integration')) {
+        $discord_linked = $user->data()->discord_id == null || $user->data()->discord_id == 010 ? false : true;
+
+        if ($discord_linked) {
+            $smarty->assign(array(
+                'UNLINK' => $language->get('general', 'unlink'),
+                'LINKED' => $language->get('user', 'linked'),
+                'DISCORD_ID_VALUE' => $user->data()->discord_id,
+            ));
+        } else {
+            $smarty->assign(array(
+                'LINK' => $language->get('general', 'link'),
+                'NOT_LINKED' => $language->get('user', 'not_linked'),
+            ));
+            if ($user->data()->discord_id == 010) {
+                $smarty->assign(array(
+                    'PENDING_LINK' => $language->get('user', 'pending_link')
+                ));
+            }
+        }
+
+        $smarty->assign(array(
+            'DISCORD_INTEGRATION' => true,
+            'DISCORD_LINK' => Discord::getLanguageTerm('discord_link'),
+            'DISCORD_LINKED' => $discord_linked,
+            'DISCORD_USERNAME' => Discord::getLanguageTerm('discord_username'),
+            'DISCORD_USERNAME_VALUE' => $user->data()->discord_username,
+            'DISCORD_ID' => Discord::getLanguageTerm('discord_user_id'),
+            'ID_INFO' => Discord::getLanguageTerm('discord_id_help'),
+        ));
+    } else {
+        $smarty->assign(array(
+            'DISCORD_INTEGRATION' => false
+        ));
+    }
 
 	// Language values
 	$smarty->assign(array(
@@ -706,12 +740,6 @@ if(isset($_GET['do'])){
 		'CURRENT_PASSWORD' => $language->get('user', 'current_password'),
 		'NEW_PASSWORD' => $language->get('user', 'new_password'),
 		'CONFIRM_NEW_PASSWORD' => $language->get('user', 'confirm_new_password'),
-		'DISCORD_INTEGRATION' => $discord_integration,
-		'DISCORD_LINK' => Discord::getLanguageTerm('discord_link'),
-		'DISCORD_LINKED' => $discord_linked,
-		'DISCORD_USERNAME' => Discord::getLanguageTerm('discord_username'),
-		'DISCORD_USERNAME_VALUE' => $user->data()->discord_username,
-		'DISCORD_ID' => Discord::getLanguageTerm('discord_user_id'),
 		'TWO_FACTOR_AUTH' => $language->get('user', 'two_factor_auth'),
 		'TIMEZONE' => $language->get('user', 'timezone'),
 		'TIMEZONES' => Util::listTimezones(),
@@ -723,30 +751,11 @@ if(isset($_GET['do'])){
 		'ERROR_TITLE' => $language->get('general', 'error'),
 		'HELP' => $language->get('general', 'help'),
 		'INFO' => $language->get('general', 'info'),
-		'ID_INFO' => Discord::getLanguageTerm('discord_id_help'),
 		'ENABLED' => $language->get('user', 'enabled'),
 		'DISABLED' => $language->get('user', 'disabled'),
         'GRAVATAR' => $language->get('user', 'gravatar'),
         'GRAVATAR_VALUE' => $user->data()->gravatar == '1' ? '1' : '0'
 	));
-
-	if ($discord_linked) {
-		$smarty->assign(array(
-			'UNLINK' => $language->get('general', 'unlink'),
-			'LINKED' => $language->get('user', 'linked'),
-			'DISCORD_ID_VALUE' => $user->data()->discord_id,
-		));
-	} else {
-		$smarty->assign(array(
-			'LINK' => $language->get('general', 'link'),
-			'NOT_LINKED' => $language->get('user', 'not_linked'),
-		));
-		if ($user->data()->discord_id == 010) {
-			$smarty->assign(array(
-				'PENDING_LINK' => $language->get('user', 'pending_link')
-			));
-		}
-	}
 
 	if(defined('CUSTOM_AVATARS')) {
       $smarty->assign(array(
