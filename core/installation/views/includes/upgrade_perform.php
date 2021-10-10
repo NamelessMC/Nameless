@@ -852,12 +852,12 @@ switch ($s) {
         if (count($version)) {
             $queries->update('settings', $version[0]->id, array(
                 'name' => 'nameless_version',
-                'value' => '2.0.0-pr11'
+                'value' => '2.0.0-pr12'
             ));
         } else {
             $queries->create('settings', array(
                 'name' => 'nameless_version',
-                'value' => '2.0.0-pr11'
+                'value' => '2.0.0-pr12'
             ));
         }
 
