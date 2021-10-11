@@ -9,7 +9,11 @@
  *  MCAssoc integration
  */
 
-if(!defined('MCASSOC') || !(isset($_POST['username']) || isset($_SESSION['mcassoc'])) || !isset($mcassoc_site_id)) die();
+if (!defined('MCASSOC') ||
+    !(isset($_POST['username']) || isset($_SESSION['mcassoc'])) ||
+    !isset($mcassoc_site_id)) {
+    die();
+}
 
 $page_title = $language->get('general', 'verify_account');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
@@ -19,21 +23,23 @@ $template->addJSFiles(array(
 ));
 
 // Assign post data to session variable
-if(!isset($_SESSION['mcassoc'])) $_SESSION['mcassoc'] = $_POST;
+if (!isset($_SESSION['mcassoc'])) {
+    $_SESSION['mcassoc'] = $_POST;
+}
 
 $smarty->assign(array(
 	'VERIFY_ACCOUNT' => $language->get('user', 'verify_account'),
 	'VERIFY_ACCOUNT_HELP' => $language->get('user', 'verify_account_help')
 ));
 
-if(!isset($_GET['step'])){
+if (!isset($_GET['step'])){
 	// Step 1 - MCAssoc
-	if($custom_usernames == 'true'){
-		if(isset($_SESSION['mcassoc']['mcname'])){
+	if ($custom_usernames == 'true') {
+		if(isset($_SESSION['mcassoc']['mcname'])) {
 			$username = $_SESSION['mcassoc']['mcname'];
 		}
 	} else {
-		if(isset($_SESSION['mcassoc']['username'])){
+		if(isset($_SESSION['mcassoc']['username'])) {
 			$username = $_SESSION['mcassoc']['username'];
 		}
 	}
@@ -52,7 +58,7 @@ if(!isset($_GET['step'])){
 	  MCAssoc.init("' . $mcassoc_site_id . '", "' . $key . '", "' . $return_link . '");
 	');
 
-} else if($_GET['step'] == 2){
+} else if($_GET['step'] == 2) {
 	// Final step - verify data matches form
 	if($custom_usernames == 'true'){
 		if(isset($_SESSION['mcassoc']['mcname'])){
@@ -71,7 +77,7 @@ if(!isset($_GET['step'])){
 	try {
 		$data = $mcassoc->unwrapData($_POST['data']);
 
-		if(!$data || $username != $data->username){
+		if (!$data || $username != $data->username) {
 			// Does not match MCAssoc
 			$smarty->assign('ERROR', $language->get('user', 'verification_failed'));
 			$smarty->assign('RETRY_LINK', URL::build('/register'));
