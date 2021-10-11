@@ -10,9 +10,9 @@ class Instanceable {
     /**
      * Get or make an instance of the class this was called on.
      * 
-     * @return static
+     * @return Instanceable
      */
-    final public static function getInstance(): static {
+    final public static function getInstance(): Instanceable {
         return self::$instances[static::class] ??= new static();
     }
 
