@@ -14,13 +14,13 @@ class MCQuery {
     /**
      * Query a single server
      *
-     * @param string $ip Full server IP address with port (separated by :) to query.
+     * @param array $ip Array ['ip' => string, 'pre' => int] - 'ip' contains ip:port, 'pre' 1 for pre-Minecraft 1.7 otherwise 0
      * @param string $type Type of query to use (`internal` or `external`).
      * @param Language $language Query language object.
      * @param Queries $queries Queries instance to pass through for error logging.
      * @return array Array containing query result.
      */
-    public static function singleQuery(string $ip, string $type = 'internal', Language $language, Queries $queries): array {
+    public static function singleQuery(array $ip, string $type, Language $language, Queries $queries): array {
         if ($ip == null) {
             throw new InvalidArgumentException("\$ip is null");
         }
