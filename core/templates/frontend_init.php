@@ -25,7 +25,7 @@ if(defined('PAGE') && PAGE != 'login' && PAGE != 'register' && PAGE != 404 && PA
 			$_SESSION['last_page'] = substr($_SESSION['last_page'], strlen(CONFIG_PATH));
 
 	} else
-		$_SESSION['last_page'] = URL::build($_GET['route']);
+		$_SESSION['last_page'] = URL::build($_GET['route'] ?? '/');
 
 }
 
