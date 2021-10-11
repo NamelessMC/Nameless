@@ -18,7 +18,7 @@ class DB extends Instanceable {
     private string $_prefix;
     private int $_count = 0;
 
-    private function __construct() {
+    public function __construct() {
         try {
             $charset = '';
             if(Config::get('mysql/initialise_charset')) {

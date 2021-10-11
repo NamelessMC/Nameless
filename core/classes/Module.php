@@ -82,7 +82,7 @@ abstract class Module {
      * @param Smarty $smarty Instance of smarty to pass.
      * @param Navigation[] $navs Array of loaded navigation menus.
      * @param Widgets $widgets Instance of widget class to pass.
-     * @param TemplateBase $template Template to pass.
+     * @param ?TemplateBase $template Template to pass.
      */
     public static function loadPage(User $user, Pages $pages, Cache $cache, Smarty $smarty, iterable $navs, Widgets $widgets, ?TemplateBase $template = null) {
         foreach (self::getModules() as $module) {

@@ -12,7 +12,7 @@ class Instanceable {
      * 
      * @return static
      */
-    final public static function getInstance(): static {
+    final public static function getInstance() {
         return self::$instances[static::class] ??= new static();
     }
 

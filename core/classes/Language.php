@@ -30,7 +30,7 @@ class Language {
         }
 
         // Require file
-        if (!$module || ($module && $module == 'core')) {
+        if (!$module || $module == 'core') {
             $path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'custom', 'languages', $this->_activeLanguage));
             $this->_module = 'Core';
         } else {

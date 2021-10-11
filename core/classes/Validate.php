@@ -341,7 +341,7 @@ class Validate {
      */
     public function errors(): array {
 
-        // If errors have already been translated, dont waste time redoing it
+        // If errors have already been translated, don't waste time redoing it
         if (!empty($this->_errors)) {
             return $this->_errors;
         }
@@ -370,7 +370,7 @@ class Validate {
     /**
      * Get if this `Validate` instance passed.
      * 
-     * @return bool whether this Validate passed or not.
+     * @return bool whether this 'Validate' passed or not.
      */
     public function passed(): bool {
         return $this->_passed;
