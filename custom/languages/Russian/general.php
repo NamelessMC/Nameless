@@ -95,7 +95,7 @@ $language = array(
     /*
      *  Footer
      */
-    'links' => 'Links',
+    'links' => 'Ссылки',
 
     /*
      *  Homepage
