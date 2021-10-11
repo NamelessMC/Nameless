@@ -90,7 +90,7 @@ $language = array(
      */
     'home' => 'Главная',
     'more' => 'Больше',
-    'status' => 'Серверы',
+    'status' => 'Сервера',
 
     /*
      *  Footer
