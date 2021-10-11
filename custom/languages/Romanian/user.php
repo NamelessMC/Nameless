@@ -33,7 +33,6 @@ $language = array(
     'messaging' => 'Mesaje Private',
     'click_here_to_view' => 'Faceți clic aici pentru a vedea.',
     'moderation' => 'Moderare',
-    'administration' => 'Administrare',
     'alerts' => 'Notificări',
     'delete_all' => 'Şterge tot',
     'private_profile' => 'Profil privat',

@@ -22,7 +22,6 @@ $language = array (
     'configuration' => 'Konfigurace',
     'layout' => 'Rozložení',
     'user_management' => 'Správce uživatelů',
-    'administration' => 'Správa',
     'overview' => 'Přehled',
     'core' => 'Jádro',
     'integrations' => 'Integrace',

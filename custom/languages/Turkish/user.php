@@ -31,7 +31,6 @@ $language = array(
     'messaging' => 'Özel Konuşmalar',
     'click_here_to_view' => 'Görmek için buraya tıklayın.',
     'moderation' => 'Moderasyon',
-    'administration' => 'Yönetim',
     'alerts' => 'Bildirimler',
     'delete_all' => 'Tümünü Sil',
     'private_profile' => 'Özel Profil',

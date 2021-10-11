@@ -22,7 +22,6 @@ $language = array(
     'layout' => 'Düzenleme',
     'user_management' => 'Kullanıcıları Yönet',
     'admin_cp' => 'Yönetim Paneli',
-    'administration' => 'Yönetim',
     'overview' => 'Genel Bakış',
     'core' => 'Menü',
     'integrations' => 'Entegrasyonlar',

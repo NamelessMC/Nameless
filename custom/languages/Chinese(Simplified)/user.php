@@ -33,7 +33,6 @@ $language = array(
     'messaging' => '私信',
     'click_here_to_view' => '点击这里查看。',
     'moderation' => '适度',
-    'administration' => '管理',
     'alerts' => '通知',
     'delete_all' => '清空',
     'private_profile' => '私人资料 (他人无法阅览)',

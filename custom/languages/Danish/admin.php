@@ -21,7 +21,6 @@ $language = array(
     'configuration' => 'Konfiguration',
     'layout' => 'Layout',
     'user_management' => 'Bruger Administration',
-    'administration' => 'Administration',
     'overview' => 'Oversigt',
     'core' => 'Kerne',
     'integrations' => 'Integrationer',

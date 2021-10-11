@@ -28,7 +28,6 @@ $language = array(
     'messaging' => 'Pranešimų Rašymas',
     'click_here_to_view' => 'Spauskite čia norėdami peržiūrėti.',
     'moderation' => 'Moderavimas',
-    'administration' => 'Administracija',
     'alerts' => 'Perspėjimai',
     'delete_all' => 'Ištrinti viską',
     'private_profile' => 'Privatus Profilis',

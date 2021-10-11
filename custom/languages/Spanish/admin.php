@@ -22,7 +22,6 @@ $language = array(
     'layout' => 'Diseño',
     'user_management' => 'Control de Usuarios',
     'admin_cp' => 'Panel Administrativo',
-    'administration' => 'Administración',
     'overview' => 'Principal',
     'core' => 'Configuraciones',
     'integrations' => 'Integraciones',

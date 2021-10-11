@@ -23,7 +23,6 @@ $language = array(
     'layout' => 'Макет',
     'user_management' => 'Настройки юзеров',
     'admin_cp' => 'Админ. панель',
-    'administration' => 'Administration',
     'overview' => 'Overview',
     'core' => 'Главное',
     'integrations' => 'Интеграции',

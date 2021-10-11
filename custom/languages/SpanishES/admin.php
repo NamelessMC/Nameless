@@ -21,7 +21,6 @@ $language = array(
     'configuration' => 'Configuración',
     'layout' => 'Diseño',
     'user_management' => 'Gestión de usuarios',
-    'administration' => 'Administración',
     'overview' => 'Resumen',
     'core' => 'Núcleo',
     'integrations' => 'Integraciones',

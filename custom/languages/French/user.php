@@ -31,7 +31,6 @@ $language = array(
     'messaging' => 'Messagerie',
     'click_here_to_view' => 'Clique ici pour voir.',
     'moderation' => 'Modération',
-    'administration' => 'Administration',
     'alerts' => 'Alertes',
     'delete_all' => 'Tout supprimer',
     'private_profile' => 'Profil privé',

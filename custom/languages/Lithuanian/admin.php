@@ -20,7 +20,6 @@ $language = array(
     'layout' => 'Išdėstymas',
     'user_management' => 'Vartotojo Valdymas',
     'admin_cp' => 'AdminCP',
-    'administration' => 'Administracija',
     'overview' => 'Apžvalga',
     'core' => 'Branduolys',
     'integrations' => 'Integracijos',
