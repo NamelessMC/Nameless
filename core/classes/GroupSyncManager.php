@@ -1,25 +1,11 @@
 <?php
 
-final class GroupSyncManager
+final class GroupSyncManager extends Instanceable
 {
-    private static GroupSyncManager $_instance;
     /** @var GroupSyncInjector[] */
     private iterable $_injectors = [];
     /** @var GroupSyncInjector[] */
     private iterable $_enabled_injectors;
-
-    /**
-     * Get a singleton instance of the GroupSyncManager
-     * 
-     * @return GroupSyncManager New or existing instance
-     */
-    public static function getInstance(): GroupSyncManager {
-        if (!isset(self::$_instance)) {
-            self::$_instance = new GroupSyncManager();
-        }
-
-        return self::$_instance;
-    }
 
     /**
      * Register a new GroupSyncInjector class.
