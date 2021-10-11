@@ -100,7 +100,7 @@ $language = array(
     /*
      *  Homepage
      */
-    'social' => 'Мы в социальных сетях',
+    'social' => 'Социальных сети',
 
 
     /*
