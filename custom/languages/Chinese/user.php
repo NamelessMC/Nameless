@@ -36,7 +36,6 @@ $language = array(
     'messaging' => '訊息',
     'click_here_to_view' => '點擊查看.',
     'moderation' => 'Moderation',
-    'administration' => '管理者',
     'alerts' => '提醒',
     'delete_all' => '移除全部',
     'private_profile' => 'Private profile',

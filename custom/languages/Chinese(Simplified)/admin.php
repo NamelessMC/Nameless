@@ -24,7 +24,6 @@ $language = array(
     'layout' => '排版',
     'user_management' => '用户管理',
     'admin_cp' => '管理员控制台',
-    'administration' => '管理者',
     'overview' => '总览',
     'core' => '核心',
     'integrations' => '集成',

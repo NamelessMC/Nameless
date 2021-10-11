@@ -27,7 +27,6 @@ $language = array(
     'layout' => 'レイアウト',
     'user_management' => 'ユーザー管理',
     'admin_cp' => 'StaffCP',
-    'administration' => '管理',
     'overview' => '概要',
     'core' => 'コア',
     'integrations' => '連携',

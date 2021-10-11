@@ -31,7 +31,6 @@ $language = array(
     'messaging' => 'Meldinger',
     'click_here_to_view' => 'Trykk her for å se',
     'moderation' => 'Moderering',
-    'administration' => 'Administrering',
     'alerts' => 'Viktige meldinger',
     'delete_all' => 'Slett alle',
     'private_profile' => 'Private profiler',

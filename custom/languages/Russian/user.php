@@ -32,7 +32,6 @@ $language = array(
     'messaging' => 'Сообщения',
     'click_here_to_view' => 'Нажмите, чтобы посмотреть.',
     'moderation' => 'Модераторы',
-    'administration' => 'Администраторы',
     'alerts' => 'Уведомления',
     'delete_all' => 'Удалить все',
     'private_profile' => 'Приватность профиля',

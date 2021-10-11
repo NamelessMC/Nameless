@@ -22,7 +22,6 @@ $language = array(
     'layout' => 'เค้าโครง',
     'user_management' => 'การจัดการผู้ใช้',
     'admin_cp' => 'AdminCP',
-    'administration' => 'การบริหาร',
     'overview' => 'ภาพรวม',
     'core' => 'แกนกลาง',
     'integrations' => 'การผสานรวม',

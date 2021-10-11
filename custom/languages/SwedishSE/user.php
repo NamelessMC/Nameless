@@ -32,7 +32,6 @@ $language = array(
     'messaging' => 'Meddelande',
     'click_here_to_view' => 'Klicka här för att visa.',
     'moderation' => 'Moderation',
-    'administration' => 'Administration',
     'alerts' => 'Alerts',
     'delete_all' => 'Radera Alla',
     'private_profile' => 'Privat profil',

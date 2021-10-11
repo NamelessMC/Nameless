@@ -31,7 +31,6 @@ $language = array(
     'messaging' => 'ข้อความ',
     'click_here_to_view' => 'คลิกที่นี่เพื่อดู.',
     'moderation' => 'การคัดกรอง',
-    'administration' => 'การบริหาร',
     'alerts' => 'การแจ้งเตือน',
     'delete_all' => 'ลบทั้งหมด',
     'private_profile' => 'ข้อมูลส่วนตัว',

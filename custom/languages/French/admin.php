@@ -22,7 +22,6 @@ $language = array(
     'layout' => 'Mise en page',
     'user_management' => 'Gestion Utilisateurs',
     'admin_cp' => 'Panel Admin',
-    'administration' => 'Administration',
     'overview' => 'Vue d\'ensemble',
     'core' => 'Coeur',
     'integrations' => 'Integrations',
@@ -506,7 +505,7 @@ $language = array(
     'action_info' => 'Infos actions',
     'groups_removed' => 'Groupes supprimés',
     'groups_added' => 'Groupes ajoutés',
-    
+
     // Updates
     'update' => 'Mise à jour',
     'current_version_x' => 'Version actuelle: <strong>{x}</strong>', // Don't replace {x}

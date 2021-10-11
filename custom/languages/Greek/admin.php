@@ -24,7 +24,6 @@ $language = array(
     'layout' => 'Layout',
     'user_management' => 'User Management',
     'admin_cp' => 'AdminCP',
-    'administration' => 'Διαχείριση',
     'overview' => 'Επισκόπηση',
     'core' => 'Πυρήνας',
     'integrations' => 'Integrations',

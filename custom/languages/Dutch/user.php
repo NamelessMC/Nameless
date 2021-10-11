@@ -33,7 +33,6 @@ $language = array(
     'messaging' => 'Berichten',
     'click_here_to_view' => 'Klik om te bekijken.',
     'moderation' => 'Moderatie',
-    'administration' => 'Administratie',
     'alerts' => 'Meldingen',
     'delete_all' => 'Verwijder alle meldingen',
     'private_profile' => 'Privé profiel',

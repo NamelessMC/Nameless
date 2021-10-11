@@ -23,7 +23,6 @@ $language = array(
     'layout' => 'Layout',
     'user_management' => 'Användarhantering',
     'admin_cp' => 'AdminKP',
-    'administration' => 'Administration',
     'overview' => 'Översikt',
     'core' => 'Kärna',
     'integrations' => 'Integrationer',

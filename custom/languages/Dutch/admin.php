@@ -24,7 +24,6 @@ $language = array(
     'layout' => 'Stijl',
     'user_management' => 'Gebruikersbeheer',
     'admin_cp' => 'Controle Paneel',
-    'administration' => 'Administratie',
     'overview' => 'Overzicht',
     'core' => 'Kern',
     'integrations' => 'Integraties',

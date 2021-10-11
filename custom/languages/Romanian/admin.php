@@ -24,7 +24,6 @@ $language = array(
     'layout' => 'Aspect',
     'user_management' => 'Gestionarea utilizatorilor',
     'admin_cp' => 'Panou Administrare',
-    'administration' => 'Administrare',
     'overview' => 'Prezentare generală',
     'core' => 'Bază',
     'integrations' => 'Integrări',

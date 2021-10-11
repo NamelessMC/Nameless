@@ -36,7 +36,6 @@ $language = array(
     'messaging' => 'メッセージ',
     'click_here_to_view' => 'クリックして表示',
     'moderation' => 'モデレーション',
-    'administration' => '管理',
     'alerts' => '通知',
     'delete_all' => 'すべて削除',
     'private_profile' => 'プライベートプロフィール',
