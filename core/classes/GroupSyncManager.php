@@ -252,22 +252,6 @@ final class GroupSyncManager
     }
 
     /**
-     * Determine if given injector and group ID if there are multiple group sync roles setup with it.
-     * 
-     * @param string $injector_column Column name of injector
-     * @param string $injector_group_id Group ID of injector to check for multiple rules with
-     * 
-     * @return bool Whether there are more than 1 rules setup for the $injector_group_id
-     */
-    private function hasMultiRules(string $injector_column, string $injector_group_id): bool {
-        return DB::getInstance()->get('group_sync', [
-            $injector_column,
-            '=',
-            $injector_group_id
-        ])->count() > 1;
-    }
-
-    /**
      * Get an enabled `GroupSyncInjector` from it's class name, if it exists.
      * 
      * @param string $class Class name to get injector from
