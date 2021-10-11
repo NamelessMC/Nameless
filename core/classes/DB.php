@@ -9,9 +9,7 @@
  *  Database class
  */
 
-class DB {
-
-    private static DB $_instance;
+class DB extends Instanceable {
 
     private PDO $_pdo;
     private PDOStatement $_query;
@@ -36,14 +34,6 @@ class DB {
         } catch (PDOException $e) {
             die("<strong>Error:<br /></strong><div class=\"alert alert-danger\">" . $e->getMessage() . "</div>Please check your database connection settings.");
         }
-    }
-
-    public static function getInstance(): DB {
-        if(!isset(self::$_instance)) {
-            self::$_instance = new DB();
-        }
-
-        return self::$_instance;
     }
 
     public function query(string $sql,  array $params = array(), int $fetch_method = PDO::FETCH_OBJ): DB {

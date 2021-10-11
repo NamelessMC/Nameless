@@ -10,21 +10,11 @@
  *  Plceholders class
  */
 
-class Placeholders {
-
-    private static Placeholders $_instance;
+class Placeholders extends Instanceable {
 
     private DB $_db;
 
     private array $_all_placeholders;
-
-    public static function getInstance(): Placeholders {
-        if (!isset(self::$_instance)) {
-            self::$_instance = new Placeholders();
-        }
-
-        return self::$_instance;
-    }
 
     public function __construct() {
         $this->_db = DB::getInstance();

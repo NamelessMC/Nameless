@@ -1,25 +1,11 @@
 <?php
 
-final class GroupSyncManager
+final class GroupSyncManager extends Instanceable
 {
-    private static GroupSyncManager $_instance;
     /** @var GroupSyncInjector[] */
     private iterable $_injectors = [];
     /** @var GroupSyncInjector[] */
     private iterable $_enabled_injectors;
-
-    /**
-     * Get a singleton instance of the GroupSyncManager
-     * 
-     * @return GroupSyncManager New or existing instance
-     */
-    public static function getInstance(): GroupSyncManager {
-        if (!isset(self::$_instance)) {
-            self::$_instance = new GroupSyncManager();
-        }
-
-        return self::$_instance;
-    }
 
     /**
      * Register a new GroupSyncInjector class.
@@ -187,6 +173,7 @@ final class GroupSyncManager
         $modified = [];
 
         $namelessmc_injector = $this->getInjectorByClass(NamelessMCGroupSyncInjector::class);
+        $namelessmc_column = $namelessmc_injector->getColumnName();
 
         // Get all group sync rules where this injector is not null
         $rules = DB::getInstance()->query("SELECT * FROM nl2_group_sync WHERE {$sending_injector->getColumnName()} IS NOT NULL")->results();
@@ -201,7 +188,7 @@ final class GroupSyncManager
                 $injector_column = $injector->getColumnName();
                 $injector_group_id = $rule->{$injector_column};
                 $sending_group_id = $rule->{$sending_injector->getColumnName()};
-                $nameless_group_id = $rule->{$namelessmc_injector->getColumnName()};
+                $nameless_group_id = $rule->{$namelessmc_column};
 
                 // Skip this injector if it doesnt have a group id setup for this rule
                 if ($injector_group_id == null) {
@@ -228,9 +215,15 @@ final class GroupSyncManager
                         $modified[$injector_column][] = $injector_group_id;
                         $logs['added'][] = "{$injector_column} -> {$injector_group_id}";
                     }
-                } else if (
-                    !$this->hasMultiRules($injector_column, $injector_group_id) xor !count($group_ids)
-                ) {
+                } else {
+                    foreach ($rules as $item) {
+                        if (in_array($item->{$sending_injector->getColumnName()}, $group_ids)) {
+                            if ($item->{$namelessmc_column} == $rule->{$namelessmc_column}) {
+                                continue 2;
+                            }
+                        }
+                    }
+
                     // Attempt to remove this group if it doesnt have multiple rules, or if the group ids 
                     // list sent to broadcastChange() was empty - NOT both
                     if ($injector->removeGroup($user, $injector_group_id)) {
@@ -242,22 +235,6 @@ final class GroupSyncManager
         }
 
         return $logs;
-    }
-
-    /**
-     * Determine if given injector and group ID if there are multiple group sync roles setup with it.
-     * 
-     * @param string $injector_column Column name of injector
-     * @param string $injector_group_id Group ID of injector to check for multiple rules with
-     * 
-     * @return bool Whether there are more than 1 rules setup for the $injector_group_id
-     */
-    private function hasMultiRules(string $injector_column, string $injector_group_id): bool {
-        return DB::getInstance()->get('group_sync', [
-            $injector_column,
-            '=',
-            $injector_group_id
-        ])->count() > 1;
     }
 
     /**

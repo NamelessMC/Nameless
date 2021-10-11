@@ -9,7 +9,7 @@
  *
  *
  */
-class Log {
+class Log extends Instanceable {
     
     private static array $_actions = [
         'admin' => [
@@ -174,25 +174,10 @@ class Log {
         ]
     ];
 
-    private static Log $_instance;
-
     private DB $_db;
 
     public function __construct() {
         $this->_db = DB::getInstance();
-    }
-
-    /**
-     * Get or create a new Log instance.
-     * 
-     * @return Log Instance
-     */
-    public static function getInstance(): Log {
-        if (!isset(self::$_instance)) {
-            self::$_instance = new Log();
-        }
-
-        return self::$_instance;
     }
 
     /**
