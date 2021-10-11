@@ -21,7 +21,6 @@ $language = array(
     'configuration' => 'Konfigurering',
     'layout' => 'Oppsett',
     'user_management' => 'Brukeradministering',
-    'admin_cp' => 'AdminCP',
     'overview' => 'Oppsummering',
     'core' => 'Kjerne',
     'integrations' => 'Integreringer',

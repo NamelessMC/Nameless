@@ -23,7 +23,6 @@ $language = array(
     'configuration' => 'Configuração',
     'layout' => 'Layout',
     'user_management' => 'Gerenciar Usuários',
-    'admin_cp' => 'AdminCP',
     'overview' => 'Visão Geral',
     'core' => 'Core',
     'integrations' => 'Integrações',
