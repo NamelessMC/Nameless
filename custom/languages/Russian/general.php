@@ -90,17 +90,17 @@ $language = array(
      */
     'home' => 'Главная',
     'more' => 'Больше',
-    'status' => 'Серверы',
+    'status' => 'Сервера',
 
     /*
      *  Footer
      */
-    'links' => 'Links',
+    'links' => 'Ссылки',
 
     /*
      *  Homepage
      */
-    'social' => 'Мы в социальных сетях',
+    'social' => 'Социальных сети',
 
 
     /*

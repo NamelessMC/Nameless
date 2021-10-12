@@ -29,7 +29,6 @@ $language = array(
     'security' => 'Security',
     'sitemap' => 'Sitemap',
     'styles' => 'Styles',
-    'users_and_groups' => 'Users and Groups',
 
     // Overview
     'running_nameless_version' => 'Running NamelessMC version <strong>{x}</strong>', // Don't replace "{x}"

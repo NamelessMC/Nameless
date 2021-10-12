@@ -237,5 +237,5 @@ $language = array(
      *  Hooks
      */
     'user_x_has_registered' => '{x} присоединился к ' . SITE_NAME . '!',
-    'user_x_has_validated' => '{x} has validated their account!',
+    'user_x_has_validated' => '{x} потдвердил свой аккаунт!',
 );
