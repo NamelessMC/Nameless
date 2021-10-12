@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr11
+ *  NamelessMC version 2.0.0-pr12
  *
  *  Translator
  *  - SimplyRin( @SimplyRin_, https://www.simplyrin.net )
@@ -98,7 +98,7 @@ $language = array(
     /*
      *  Footer
      */
-    'links' => 'Links',
+    'links' => 'リンク',
 
     /*
      *  Homepage
