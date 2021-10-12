@@ -47,7 +47,7 @@ $language = array(
     'notices' => '通知',
     'no_notices' => '通知はありません。',
     'email_errors_logged' => '電子メールエラーが検出されました。',
-    'upgrade_php_version' => 'Please upgrade your PHP version to at least 7.4 - the next Nameless release will no longer support the version you are using.',
+    'upgrade_php_version' => 'PHPのバージョンを7.4以上にアップグレードしてください。次のNamelessのリリースでは、現在使用しているバージョンがサポートされなくなります。',
 
     // Core
     'mode_toggle' => 'ダーク/ライト モード',
@@ -177,7 +177,7 @@ $language = array(
 
     // Placeholders
     'placeholders' => 'プレースホルダー',
-    'enable_placeholders' => 'Enable Placeholders?',
+    'enable_placeholders' => 'プレースホルダーを有効にしますか？',
     'updated_placeholder_settings' => 'プレースホルダーの設定を更新しました。',
     'placeholders_info' => 'プレースホルダーは、NamelessMC Spigotプラグインが各プレイヤーの統計情報をウェブサイトに送信し、プレイヤーがプロフィールやフォーラムの投稿に表示できるようにするためのものです。',
     'placeholders_none' => 'プレースホルダーはありません。',
