@@ -11,10 +11,10 @@
 
 class Forum_Module extends Module {
 
-    private $_language, 
-            $_forum_language;
+    private Language $_language;
+    private Language $_forum_language;
 
-	public function __construct($language, $forum_language, $pages) {
+	public function __construct(Language $language, Language $forum_language, Pages $pages) {
 		$this->_language = $language;
 		$this->_forum_language = $forum_language;
 
