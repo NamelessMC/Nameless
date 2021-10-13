@@ -70,7 +70,7 @@ $language = array (
     'invalid_timezone' => 'Zadané časové pásmo je neplatné',
     'link' => 'Propojit',
     'unlink' => 'Odpojit',
-    'leaderboards' => 'Leaderboards',
+    'leaderboards' => 'Žebříčky',
 
     /*
      *  Contact form
@@ -94,7 +94,7 @@ $language = array (
     /*
      *  Footer
      */
-    'links' => 'Links',
+    'links' => 'Odkazy',
 
     /*
      *  Homepage

@@ -35,8 +35,8 @@ $language = array(
     'delete_all' => 'Smazat všecny',
     'private_profile' => 'Soukromý profil',
     'gif_avatar' => 'Nahrát .gif jako vlastní avatar',
-    'placeholders' => 'Placeholders',
-    'no_placeholders' => 'No Placeholders',
+    'placeholders' => 'Placeholdery',
+    'no_placeholders' => 'Žádné placeholdery',
 
     // Profile settings
     'field_is_required' => 'Pole {x} je vyžadováno.', // Don't replace {x}
@@ -141,8 +141,8 @@ $language = array(
     'must_input_email' => 'Musíte zadat e-mailovou adresu.',
     'must_input_username' => 'Musíte zadat uživatelské jméno.',
     'must_input_password' => 'Musíte zadat heslo.',
-    'must_input_email_or_username' => 'You must input an email or username.',
-    'email_or_username' => 'Email or Username',
+    'must_input_email_or_username' => 'Musíte zadat e-mail nebo uživatelské jméno.',
+    'email_or_username' => 'E-mail nebo uživatelské jméno',
 
     // Forgot password
     'forgot_password_instructions' => 'Zadejte vaší e-mailovou adresu, abychom vám mohli odeslat další pokyny k obnově vašeho hesla.',
