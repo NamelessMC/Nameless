@@ -41,7 +41,7 @@ $language = array (
     'notices' => 'Upozornění',
     'no_notices' => 'Žádná upozornění.',
     'email_errors_logged' => 'Byly zaznamenány chyby e-mailů',
-    'upgrade_php_version' => 'Please upgrade your PHP version to at least 7.4 - the next Nameless release will no longer support the version you are using.',
+    'upgrade_php_version' => 'AKtualizujte prosím PHP alespoň na verzi 7.4 - další vydání Nameless již nebude podporovat verzi, kterou používáte.',
 
     // Core
     'mode_toggle' => 'Světlý / tmavý režim',
@@ -49,7 +49,7 @@ $language = array (
     'general_settings' => 'Obecná nastavení',
     'sitename' => 'Název webu',
     'default_language' => 'Výchozí jazyk',
-    'default_language_help' => 'Uživatelé si budou moct vybrat z nainstalovaných jazyků.',
+    'default_language_help' => 'Uživatelé si budou moci vybrat z nainstalovaných jazyků.',
     'install_language' => 'Nainstalovat jazyk',
     'update_user_languages' => 'Aktualizovat jazyk uživatelů',
     'update_user_languages_warning' => 'Tímto aktualizujete jazyk všech uživatelů na vašem webu, i když si už nějaký vybrali!',
@@ -105,7 +105,7 @@ $language = array (
     'mailer_settings_info' => 'Pro povolení PHPMaileru jsou vyžadována následující pole. Pro více informací, jak vyplnit tato pole, se podívejte na <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-SMTP-with-Nameless-(e.g.-Gmail-or-Outlook)" target="_blank">wiki</a>.',
     'host' => 'Hostitel',
     'email_port' => 'Port',
-    'email_port_invalid' => 'Please insert a valid email port.',
+    'email_port_invalid' => 'Zadejte platný e-mailový port.',
     'email_password_hidden' => 'Heslo není z bezpečnostních důvodů zobrazeno.',
     'edit_email_messages' => 'E-mailové zprávy',
     'email_language_info' => 'Nevidíte váš jazyk? Zkontrolujte, zda je v adresáři vašeho jazyka soubor \'emails.php\' a že je zapisovatelný vaším webovým serverem.',
@@ -165,12 +165,12 @@ $language = array (
     'emails_mass_message_sent_successfully' => 'Hromadná zpráva úspěšně odeslána.',
     'emails_mass_message_replacements' => 'Ve vaší zprávě můžete použít proměnné. Podporované proměnné: {username}, {sitename}',
     'emails_mass_message_loading' => 'Načítání... Nenačítejte stránku znovu. Může to chvíli trvat.',
-    'administrator' => 'Administrator',
-    'administrator_permission_info' => 'Members with this permission will have every permission. This is a dangerous permission to grant.',
+    'administrator' => 'Administrátor',
+    'administrator_permission_info' => 'Členové s tímto oprávněním mají všechna oprávnění. Udělovat toto oprávnění je nebezpečné.',
 
     // Placeholders
     'placeholders' => 'Placeholdery',
-    'enable_placeholders' => 'Enable Placeholders?',
+    'enable_placeholders' => 'Povolit placeholdery?',
     'updated_placeholder_settings' => 'Nastavení placeholderů úspěšně aktualizována.',
     'placeholders_info' => 'Placeholdery umožňují NamelessMC Spigot pluginu posílat statistiky o každém hráči na váš web, takže můžou být zobrazeny na jejich profilu a příspěvcích ve fóru.',
     'placeholders_none' => 'Nemáte žádné placeholdery.',
