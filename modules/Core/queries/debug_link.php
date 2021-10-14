@@ -77,12 +77,13 @@ foreach (DB::getInstance()->get('group_sync', ['id', '<>', 0])->results() as $ru
 
 
 $data = [
-    'generated_at' =>  date('d M Y, H:i:s', time()),
     'debug_version' => 1,
+    'generated_at' => time(),
+    'generated_by' => $user->data()->uuid ?? $user->data()->username,
     'namelessmc' => [
         'version' => Util::getSetting(DB::getInstance(), 'nameless_version'),
         'update_available' => Util::getSetting(DB::getInstance(), 'version_update') == 'false' ? false : true,
-        'update_checked' => date('d M Y, H:i:s', Util::getSetting(DB::getInstance(), 'version_checked')),
+        'update_checked' => (int) Util::getSetting(DB::getInstance(), 'version_checked'),
         'modules' => $namelessmc_modules,
         'templates' => [
             'front_end' => $namelessmc_fe_templates,
@@ -105,14 +106,14 @@ $data = [
         ],
     ],
     'enviroment' => [
-        'official_docker_images' => getenv('NAMELESSMC_METRICS_DOCKER') == true,
         'php_version' => phpversion(),
         'php_modules' => get_loaded_extensions(),
         'host_os' => php_uname('s'),
         'host_kernel_version' => php_uname('r'),
+        'official_docker_image' => getenv('NAMELESSMC_METRICS_DOCKER') == true,
     ],
 ];
 
 $result = Util::curlGetContents('https://paste.rkslot.nl/documents', json_encode($data, JSON_PRETTY_PRINT));
 
-die('https://paste.rkslot.nl/raw/' . json_decode($result, true)['key']);
+die('https://debug.namelessmc.com/' . json_decode($result, true)['key']);
