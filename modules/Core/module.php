@@ -98,6 +98,9 @@ class Core_Module extends Module {
         $pages->add('Core', '/panel/minecraft/servers', 'pages/panel/minecraft_servers.php');
         $pages->add('Core', '/panel/minecraft/query_errors', 'pages/panel/minecraft_query_errors.php');
         $pages->add('Core', '/panel/minecraft/banners', 'pages/panel/minecraft_server_banners.php');
+        $pages->add('Core', '/panel/minecraft/rcon', 'pages/panel/minecraft_servers_rcon.php');
+        $pages->add('Core', '/panel/minecraft/rcon/console', 'pages/panel/minecraft_rcon_console.php');
+        $pages->add('Core', '/panel/minecraft/rcon/permissions', 'pages/panel/minecraft_rcon_permissions.php');
         $pages->add('Core', '/panel/security', 'pages/panel/security.php');
         $pages->add('Core', '/panel/update', 'pages/panel/update.php');
         $pages->add('Core', '/panel/upgrade', 'pages/panel/upgrade.php');
@@ -350,6 +353,8 @@ class Core_Module extends Module {
             'admincp.minecraft.servers' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'minecraft_servers'),
             'admincp.minecraft.query_errors' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'query_errors'),
             'admincp.minecraft.banners' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'server_banners'),
+            'admincp.minecraft.rcon' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'server_rcon') . ' &raquo; ' . $language->get('admin', 'server_rcon_list_permissions'),
+            'admincp.minecraft.rcon.all' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'server_rcon') . ' &raquo; ' . $language->get('admin', 'server_rcon_all_permissions'),
             'admincp.modules' => $language->get('admin', 'modules'),
             'admincp.pages' => $language->get('admin', 'pages'),
             'admincp.security' => $language->get('admin', 'security'),
@@ -923,6 +928,15 @@ class Core_Module extends Module {
                     $icon = $cache->retrieve('minecraft_icon');
 
                 $navs[2]->addItemToDropdown('integrations', 'minecraft', $language->get('admin', 'minecraft'), URL::build('/panel/minecraft'), 'top', null, $icon, $order);
+            }
+
+            if ($user->hasPermission('admincp.minecraft.rcon')) {
+              if (!$cache->isCached('rcon_icon')) {
+                $icon = '<i class="nav-icon fas fa-terminal"></i>';
+                $cache->store('rcon_icon', $icon);
+              } else
+                $icon = $cache->retrieve('rcon_icon');
+              $navs[2]->addItemToDropdown('integrations', 'rcon', $language->get('admin', 'rcon'), URL::build('/panel/minecraft/rcon'), 'top', null, $icon, $order);
             }
 
             if($user->hasPermission('admincp.styles') || $user->hasPermission('admincp.sitemap') || $user->hasPermission('admincp.widgets')){

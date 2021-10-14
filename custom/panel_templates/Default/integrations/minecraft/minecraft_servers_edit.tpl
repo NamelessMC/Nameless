@@ -170,6 +170,38 @@
                                 <input name="query_port" placeholder="{$SERVER_QUERY_PORT}" id="inputQueryPort"
                                        value="{$SERVER_QUERY_PORT_VALUE}" class="form-control">
                             </div>
+                            {* rcon *}
+                            <div class="card shadow border-left-primary">
+                                <div class="card-body">
+                                    {$SERVER_RCON_SETTINGS}
+                                </div>
+                            </div>
+                            <br />
+                            <div class="form-group">
+                                <label for="inputStatusRconEnabled">{$SERVER_ENABLE_RCON_STATUS}</label> 
+                                <span class="badge badge-info">
+                                  <i class="fa fa-question-circle" data-container="body" data-toggle="popover" data-placement="top" data-html="true" title="{$INFO}" data-content="{$SERVER_ENABLE_RCON_STATUS_INFO}"></i>
+                                </span>
+                                <input type="hidden" name="rcon_status" value="0">
+                                <input id="inputStatusRconEnabled" name="rcon_status" type="checkbox" class="js-switch" value="1"{if $SERVER_ENABLE_RCON_STATUS_VALUE} checked{/if} />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputRconPort">{$SERVER_RCON_PORT}</label> <span class="badge badge-info"><i
+                                            class="fa fa-question-circle" data-container="body" data-toggle="popover"
+                                            data-placement="top" data-html="true" title="{$INFO}"
+                                            data-content="{$SERVER_RCON_PORT_INFO}"></i></span>
+                                <input name="rcon_port" id="inputRconPort" value="{$SERVER_RCON_PORT_VALUE}" class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputRconPass">{$SERVER_RCON_PASS}</label> <span class="badge badge-info"><i
+                                            class="fa fa-question-circle" data-container="body" data-toggle="popover"
+                                            data-placement="top" data-html="true" title="{$INFO}"
+                                            data-content="{$SERVER_RCON_PASS_INFO}"></i></span>
+                                <input type="password" name="rcon_pass" id="inputRconPass" class="form-control" placeholder="{$SERVER_RCON_PASS_HIDDEN}">
+                            </div>
+                            {* end rcon *}
                             <div class="form-group">
                                 <input type="hidden" name="token" value="{$TOKEN}">
                                 <input type="submit" class="btn btn-primary" value="{$SUBMIT}">

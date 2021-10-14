@@ -50,7 +50,10 @@ if(isset($_GET['action'])){
                         ],
                         'query_port' => [
                             Validate::MAX => 5
-                        ]
+                        ],
+                        'rcon_port' => [
+                          Validate::MAX => 5
+                        ],
                     ])->messages([
                         'server_name' => [
                             Validate::REQUIRED => $language->get('admin', 'server_name_required'),
@@ -67,9 +70,23 @@ if(isset($_GET['action'])){
                             Validate::MIN => $language->get('admin', 'server_port_minimum'),
                             Validate::MAX => $language->get('admin', 'server_port_maximum')
                         ],
+                        'rcon_port' => [
+                          Validate::MAX => $language->get('admin', 'rcon_port_maximum')
+                        ],
                         'parent_server' => $language->get('admin', 'server_parent_required'),
                         'query_port' => $language->get('admin', 'query_port_maximum')
-                    ]);
+                      ]);
+            
+                      // Handle rcon input
+                      if ($_POST['rcon_status'] == 1) {
+                        $rcon_status = 1;
+                        $rcon_port = (int) $_POST['rcon_port'];
+                        $rcon_pass = $_POST['rcon_pass'];
+                      } else {
+                        $rcon_status = 0;
+                        $rcon_port = NULL;
+                        $rcon_pass = NULL;
+                      }
 
                     if($validation->passed()){
                         // Handle input
@@ -142,7 +159,10 @@ if(isset($_GET['action'])){
                                 'port' => $port,
                                 'query_port' => $query_port,
                                 'show_ip' => $show_ip,
-                                'order' => $last_server_order + 1
+                                'order' => $last_server_order + 1,
+                                'rcon_status' => $rcon_status,
+                                'rcon_port' => $rcon_port,
+                                'rcon_pass' => $rcon_pass,
                             ));
 
                             Session::flash('admin_mc_servers_success', $language->get('admin', 'server_created'));
@@ -207,7 +227,15 @@ if(isset($_GET['action'])){
                 'ENABLE_PLAYER_LIST_INFO' => $language->get('admin', 'player_list_help'),
                 'SERVER_QUERY_PORT' => $language->get('admin', 'server_query_port'),
                 'SERVER_QUERY_PORT_INFO' => $language->get('admin', 'server_query_port_help'),
-                'SERVER_QUERY_PORT_VALUE' => Output::getClean(Input::get('query_port'))
+                'SERVER_QUERY_PORT_VALUE' => Output::getClean(Input::get('query_port')),
+                'SERVER_RCON_SETTINGS' => $language->get('admin', 'server_rcon_settings'),
+                'SERVER_ENABLE_RCON_STATUS' => $language->get('admin', 'server_enable_rcon_status'),
+                'SERVER_RCON_PORT' => $language->get('admin', 'server_rcon_port'),
+                'SERVER_RCON_PASS' => $language->get('admin', 'server_rcon_pass'),
+                'SERVER_ENABLE_RCON_STATUS_INFO' => $language->get('admin', 'server_enable_rcon_status_help'),
+                'SERVER_RCON_PORT_INFO' => $language->get('admin', 'server_rcon_port_help'),
+                'SERVER_RCON_PASS_INFO' => $language->get('admin', 'server_rcon_pass_help'),
+                'SERVER_RCON_PASS_HIDDEN' => $language->get('admin', 'server_rcon_pass_hidden'),
             ));
 
             $template_file = 'integrations/minecraft/minecraft_servers_new.tpl';
@@ -252,6 +280,9 @@ if(isset($_GET['action'])){
                         ],
                         'query_port' => [
                             Validate::MAX => 5
+                        ],
+                        'rcon_port' => [
+                          Validate::MAX => 5
                         ]
                     ])->messages([
                         'server_name' => [
@@ -269,9 +300,27 @@ if(isset($_GET['action'])){
                             Validate::MIN => $language->get('admin', 'server_port_minimum'),
                             Validate::MAX => $language->get('admin', 'server_port_maximum')
                         ],
+                        'rcon_port' => [
+                          Validate::MAX => $language->get('admin', 'rcon_port_maximum')
+                        ],
                         'parent_server' => $language->get('admin', 'server_parent_required'),
                         'query_port' => $language->get('admin', 'query_port_maximum')
                     ]);
+
+                    // Handle rcon input
+                    if ($_POST['rcon_status'] == 1) {
+                      $rcon_status = 1;
+                      $rcon_port = (int) $_POST['rcon_port'];
+                      if (empty($_POST['rcon_pass'])) {
+                        $rcon_pass = $server_editing->rcon_pass;
+                      } else {
+                        $rcon_pass = $_POST['rcon_pass'];
+                      }
+                    } else {
+                      $rcon_status = 0;
+                      $rcon_port = $server_editing->rcon_port;
+                      $rcon_pass = $server_editing->rcon_pass;
+                    }
 
                     if($validation->passed()){
                         // Handle input
@@ -339,7 +388,10 @@ if(isset($_GET['action'])){
                                 'bungee' => $bungee,
                                 'port' => $port,
                                 'query_port' => $query_port,
-                                'show_ip' => $show_ip
+                                'show_ip' => $show_ip,
+                                'rcon_status' => $rcon_status,
+                                'rcon_port' => $rcon_port,
+                                'rcon_pass' => $rcon_pass,
                             ));
 
                             Session::flash('admin_mc_servers_success', $language->get('admin', 'server_updated'));
@@ -410,7 +462,17 @@ if(isset($_GET['action'])){
                 'ENABLE_PLAYER_LIST_VALUE' => ($server_editing->player_list == 1),
                 'SERVER_QUERY_PORT' => $language->get('admin', 'server_query_port'),
                 'SERVER_QUERY_PORT_INFO' => $language->get('admin', 'server_query_port_help'),
-                'SERVER_QUERY_PORT_VALUE' => Output::getClean($server_editing->query_port)
+                'SERVER_QUERY_PORT_VALUE' => Output::getClean($server_editing->query_port),
+                'SERVER_RCON_SETTINGS' => $language->get('admin', 'server_rcon_settings'),
+                'SERVER_ENABLE_RCON_STATUS' => $language->get('admin', 'server_enable_rcon_status'),
+                'SERVER_RCON_PORT' => $language->get('admin', 'server_rcon_port'),
+                'SERVER_RCON_PASS' => $language->get('admin', 'server_rcon_pass'),
+                'SERVER_ENABLE_RCON_STATUS_INFO' => $language->get('admin', 'server_enable_rcon_status_help'),
+                'SERVER_RCON_PORT_INFO' => $language->get('admin', 'server_rcon_port_help'),
+                'SERVER_RCON_PASS_INFO' => $language->get('admin', 'server_rcon_pass_help'),
+                'SERVER_RCON_PASS_HIDDEN' => $language->get('admin', 'server_rcon_pass_hidden'),
+                'SERVER_ENABLE_RCON_STATUS_VALUE' => Output::getClean($server_editing->rcon_status),
+                'SERVER_RCON_PORT_VALUE' => Output::getClean($server_editing->rcon_port),
             ));
 
             $template_file = 'integrations/minecraft/minecraft_servers_edit.tpl';
