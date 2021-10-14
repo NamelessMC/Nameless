@@ -72,4 +72,13 @@ class Discord_Module extends Module {
             }
         }
     }
+
+    public function getDebugInfo(): array {
+        return [
+            'guild_id' => Discord::getGuildId(),
+            'roles' => Discord::getRoles(),
+            'bot_setup' => Discord::isBotSetup(),
+            'bot_url' => BOT_URL,
+        ];
+    }
 }

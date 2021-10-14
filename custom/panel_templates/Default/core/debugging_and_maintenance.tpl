@@ -37,8 +37,17 @@
                     <div class="card-body">
                         {if isset($ERROR_LOGS)}
                             <a href="{$ERROR_LOGS_LINK}" class="btn btn-primary">{$ERROR_LOGS}</a>
-                            <hr />
                         {/if}
+
+                        <button class="float-right btn btn-info d-flex align-items-center" id="debug_link">
+                            <span class="spinner-border spinner-border-sm mr-2" role="status" id="debug_link_loading" style="display: none;"></span>
+                            <span id="debug_link_text">Debug Link</span>
+                            <span id="debug_link_success" style="display: none;" data-toggle="tooltip" data-placement="top" title="{$TOOLTIP_COPIED}">
+                                <i class="fa fa-check"></i>
+                            </span>
+                        </button>
+
+                        <hr />
 
                         <!-- Success and Error Alerts -->
                         {include file='includes/alerts.tpl'}
@@ -92,6 +101,31 @@
 </div>
 
 {include file='scripts.tpl'}
+<script>
+let link_created = false;
+
+$('#debug_link').click(() => {
+    $('#debug_link').blur();
+
+    if (link_created) {
+        return;
+    }
+
+    $('#debug_link').prop('disabled', true);
+    $('#debug_link_loading').show(100);
+    $.get('{$DEBUG_LINK}')
+        .done((url) => {
+            link_created = true;
+            navigator.clipboard.writeText(url);
+            $('#debug_link_loading').hide(100);
+            $('#debug_link').removeClass('btn-info');
+            $('#debug_link').addClass('btn-success');
+            $('#debug_link_text').hide();
+            $('#debug_link_success').show();
+            $('#debug_link').prop('disabled', false);
+        });
+});
+</script>
 
 </body>
 

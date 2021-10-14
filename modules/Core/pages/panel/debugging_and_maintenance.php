@@ -154,7 +154,9 @@ $smarty->assign(array(
     'ENABLE_PAGE_LOAD_TIMER' => $language->get('admin', 'enable_page_load_timer'),
     'ENABLE_PAGE_LOAD_TIMER_VALUE' => $page_loading,
     'MAINTENANCE_MODE_MESSAGE' => $language->get('admin', 'maintenance_mode_message'),
-    'MAINTENANCE_MODE_MESSAGE_VALUE' => Output::getPurified(htmlspecialchars_decode($maintenance['message']))
+    'MAINTENANCE_MODE_MESSAGE_VALUE' => Output::getPurified(htmlspecialchars_decode($maintenance['message'])),
+    'DEBUG_LINK' => URL::build('/queries/debug_link'),
+    'TOOLTIP_COPIED' => $language->get('admin', 'debug_link_tooltip'),
 ));
 
 $page_load = microtime(true) - $start;

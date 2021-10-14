@@ -72,6 +72,7 @@ abstract class Module {
     abstract function onEnable();
     abstract function onDisable();
     abstract function onPageLoad(User $user, Pages $pages, Cache $cache, Smarty $smarty, iterable $navs, Widgets $widgets, ?TemplateBase $template);
+    abstract function getDebugInfo(): array;
 
     /**
      * Call `onPageLoad()` function for all registered modules.

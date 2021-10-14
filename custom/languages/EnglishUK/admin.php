@@ -80,6 +80,7 @@ $language = array(
     'successfully_updated' => 'Successfully updated',
     'debugging_and_maintenance' => 'Debugging & Maintenance',
     'maintenance' => 'Maintenance',
+    'debug_link_tooltip' => 'Copied debug link to your clipboard!',
     'debugging_settings_updated_successfully' => 'Debugging settings updated successfully.',
     'enable_debug_mode' => 'Enable debug mode?',
     'force_https' => 'Force https?',

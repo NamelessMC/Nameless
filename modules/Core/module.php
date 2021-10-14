@@ -11,15 +11,15 @@
 
 class Core_Module extends Module {
 
-    /** @var Language */
-    private $_language;
+    private Language $_language;
 
-    /** @var Configuration */
-    private $_configuration;
+    private Configuration $_configuration;
 
-    private static $_dashboard_graph = array(), $_notices = array(), $_user_actions = array();
+    private static array $_dashboard_graph = array();
+    private static array $_notices = array();
+    private static array $_user_actions = array();
 
-    public function __construct($language, $pages, $user, $queries, $navigation, $cache, $endpoints){
+    public function __construct(Language $language, Pages $pages, User $user, Queries $queries, Navigation $navigation, Cache $cache, Endpoints $endpoints) {
         $this->_language = $language;
         $this->_configuration = new Configuration($cache);
 
@@ -49,6 +49,7 @@ class Core_Module extends Module {
         $pages->add('Core', '/queries/server', 'queries/server.php');
         $pages->add('Core', '/queries/user', 'queries/user.php');
         $pages->add('Core', '/queries/users', 'queries/users.php');
+        $pages->add('Core', '/queries/debug_link', 'queries/debug_link.php');
         $pages->add('Core', '/banner', 'pages/minecraft/banner.php');
         $pages->add('Core', '/terms', 'pages/terms.php');
         $pages->add('Core', '/privacy', 'pages/privacy.php');
@@ -1289,6 +1290,29 @@ class Core_Module extends Module {
 
         require_once(ROOT_PATH . '/modules/Core/hooks/DeleteUserHook.php');
         HookHandler::registerHook('deleteUser', 'DeleteUserHook::deleteUser');
+    }
+
+    public function getDebugInfo(): array {
+        $servers = [];
+        foreach (DB::getInstance()->get('mc_servers', ['id', '<>', 0])->results() as $server) {
+            $servers[$server->id] = [
+                'id' => (int) $server->id,
+                'name' => $server->name,
+                'ip' => $server->ip,
+                'query_ip' => $server->query_ip,
+                'port' => $server->port,
+                'query_port' => $server->query_port,
+            ];
+        }
+
+        return [
+            'minecraft' => [
+                'mc_integration' => (bool) Util::getSetting(DB::getInstance(), 'mc_integration'),
+                'uuid_linking' => (bool) Util::getSetting(DB::getInstance(), 'uuid_linking'),
+                'username_sync' => (bool) Util::getSetting(DB::getInstance(), 'username_sync'),
+                'servers' => $servers,
+            ]
+        ];
     }
 
     public static function addDataToDashboardGraph($title, $data){
