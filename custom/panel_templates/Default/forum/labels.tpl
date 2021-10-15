@@ -46,11 +46,10 @@
                         {if count($ALL_LABELS)}
                             {foreach from=$ALL_LABELS item=label name=label_list}
                                 <div class="row">
-                                    <div class="col-md-9">
-                                        {$label.name}<br />
-                                        {$label.enabled_forums}
+                                    <div class="col-md-7">
+                                        {$label.name} {$label.enabled_forums}
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-5">
                                         <div class="float-md-right">
                                             <a href="{$label.edit_link}" class="btn btn-info btn-sm">{$EDIT}</a>
                                             <button onclick="showDeleteModal('{$label.delete_link}')"
