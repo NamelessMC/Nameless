@@ -108,9 +108,9 @@
                             <div class="table-responsive">
                                 <table class="table table-striped">
                                     <colgroup>
-                                        <col width="70%">
+                                        <col width="65%">
                                         <col width="20%">
-                                        <col width="10%">
+                                        <col width="15%">
                                     </colgroup>
                                     <thead>
                                     <tr>
