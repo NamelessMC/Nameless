@@ -10,18 +10,18 @@
 class HookHandler {
 
     private static array $_events = array();
-    private static array $_hooks = array();
+    private static array $_webhooks = array();
 
     /**
-     * Register an event name.
+     * Register an event.
      * 
      * @param string $event Name of event to add.
      * @param string $description Human readable description.
      * @param array|null $params Array of available parameters and their descriptions.
      */
-    public static function registerEvent(string $event, string $description, array $params = array()): void {
+    public static function registerEvent(string $event, string $description, array $params = []): void {
         if (!isset(self::$_events[$event])) {
-            self::$_events[$event] = array();
+            self::$_events[$event] = [];
         }
 
         self::$_events[$event]['description'] = $description;
@@ -31,10 +31,10 @@ class HookHandler {
     /**
      * Register hooks.
      * 
-     * @param array $hooks Array of webhooks to register
+     * @param array $webhooks Array of webhooks to register
      */
-    public static function registerWebhooks(array $hooks): void {
-        self::$_hooks = $hooks;
+    public static function registerWebhooks(array $webhooks): void {
+        self::$_webhooks = $webhooks;
     }
 
     /**
@@ -45,7 +45,7 @@ class HookHandler {
      */
     public static function registerListener(string $event, string $listener):  void {
         if (!isset(self::$_events[$event])) {
-            self::$_events[$event] = array();
+            self::$_events[$event] = [];
         }
 
         self::$_events[$event]['listeners'][] = $listener;
@@ -62,15 +62,11 @@ class HookHandler {
             return;
         }
 
-        if (!is_array($params)) {
-            $params = array();
-        }
-
         if (!isset($params['event'])) {
             $params['event'] = $event;
         }
 
-        // Execute module hooks
+        // Execute module listeners
         if (isset(self::$_events[$event]['listeners'])) {
             foreach (self::$_events[$event]['listeners'] as $listener) {
                 call_user_func($listener, $params);
@@ -78,16 +74,16 @@ class HookHandler {
         }
 
         // Execute user made Discord webhooks
-        foreach (self::$_hooks as $hook) {
-            if (in_array($event, $hook['events'])) {
+        foreach (self::$_webhooks as $webhook) {
+            if (in_array($event, $webhook['events'])) {
                 if (isset($params['available_hooks'])) {
-                    if (in_array($hook['id'], $params['available_hooks'])) {
-                        $params['webhook'] = $hook['url'];
-                        call_user_func($hook['action'], $params);
+                    if (in_array($webhook['id'], $params['available_hooks'])) {
+                        $params['webhook'] = $webhook['url'];
+                        call_user_func($webhook['action'], $params);
                     }
                 } else {
-                    $params['webhook'] = $hook['url'];
-                    call_user_func($hook['action'], $params);
+                    $params['webhook'] = $webhook['url'];
+                    call_user_func($webhook['action'], $params);
                 }
             }
         }
@@ -106,35 +102,5 @@ class HookHandler {
         }
 
         return $return;
-    }
-
-    /**
-     * Get a certain hook.
-     * Not used internally - for modules instead.
-     * 
-     * @param string $hook Name of hook to find
-     * @return array|null Hook with name, null if one does not exist.
-     */
-    public static function getHook(string $hook): ?array {
-        if (isset(self::$_events[$hook])) {
-            return self::$_events[$hook];
-        }
-        
-        return null;
-    }
-
-    /**
-     * Get array of parameters for a specific registered event.
-     * Not used internally - for modules instead.
-     * 
-     * @param string $event Name of event to find.
-     * @return array|null Array of params or null if event under name doesnt exist.
-     */
-    public static function getParameters(string $event): ?array {
-        if (isset(self::$_events[$event]['parameters'])) {
-            return self::$_events[$event]['parameters'];
-        }
-
-        return null;
     }
 }
