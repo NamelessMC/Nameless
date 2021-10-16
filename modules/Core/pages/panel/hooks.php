@@ -116,7 +116,7 @@ if (!isset($_GET['action'])) {
                 'HOOK_EVENTS' => $language->get('admin', 'hook_events'),
                 'BACK' => $language->get('general', 'back'),
                 'BACK_LINK' => URL::build('/panel/core/hooks'),
-                'ALL_HOOKS' => HookHandler::getHooks(),
+                'ALL_EVENTS' => HookHandler::getEvents(),
             ));
 
             $template_file = 'core/hooks_new.tpl';
@@ -205,7 +205,7 @@ if (!isset($_GET['action'])) {
                 'HOOK_EVENTS' => $language->get('admin', 'hook_events'),
                 'BACK' => $language->get('general', 'back'),
                 'BACK_LINK' => URL::build('/panel/core/hooks'),
-                'ALL_HOOKS' => HookHandler::getHooks(),
+                'ALL_EVENTS' => HookHandler::getEvents(),
                 'ENABLED_HOOKS' => json_decode($hook->events, true)
             ));
 

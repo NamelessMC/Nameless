@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0
  *
  *  Hook handler class
  */
@@ -31,35 +31,35 @@ class HookHandler {
     /**
      * Register hooks.
      * 
-     * @param array $hooks Array of hooks to register
+     * @param array $hooks Array of webhooks to register
      */
-    public static function registerHooks(array $hooks): void {
+    public static function registerWebhooks(array $hooks): void {
         self::$_hooks = $hooks;
     }
 
     /**
-     * Register an event hook.
+     * Register an event listener for a module.
      * 
      * @param string $event Event name to hook into (must be registered with `registerEvent()`).
-     * @param string $hook Function name to execute.
+     * @param string $listener Listener function name to execute.
      */
-    public static function registerHook(string $event, string $hook):  void {
+    public static function registerListener(string $event, string $listener):  void {
         if (!isset(self::$_events[$event])) {
             self::$_events[$event] = array();
         }
 
-        self::$_events[$event]['hooks'][] = $hook;
+        self::$_events[$event]['listeners'][] = $listener;
     }
 
     /**
      * Execute an event.
      * 
      * @param string $event Event name to call.
-     * @param array|null $params Params to pass to the event's function.
+     * @param array $params Params to pass to the event's function.
      */
-    public static function executeEvent(string $event, array $params = null) {
+    public static function executeEvent(string $event, array $params = []): void {
         if (!isset(self::$_events[$event])) {
-            return false;
+            return;
         }
 
         if (!is_array($params)) {
@@ -70,14 +70,14 @@ class HookHandler {
             $params['event'] = $event;
         }
 
-        // Execute system hooks
-        if (isset(self::$_events[$event]['hooks'])) {
-            foreach (self::$_events[$event]['hooks'] as $hook) {
-                call_user_func($hook, $params);
+        // Execute module hooks
+        if (isset(self::$_events[$event]['listeners'])) {
+            foreach (self::$_events[$event]['listeners'] as $listener) {
+                call_user_func($listener, $params);
             }
         }
 
-        // Execute user made webhooks
+        // Execute user made Discord webhooks
         foreach (self::$_hooks as $hook) {
             if (in_array($event, $hook['events'])) {
                 if (isset($params['available_hooks'])) {
@@ -94,15 +94,15 @@ class HookHandler {
     }
 
     /**
-     * Get a list of hooks.
+     * Get a list of events.
      * 
-     * @return array List of all currently registered hooks.
+     * @return array List of all currently registered events.
      */
-    public static function getHooks(): array {
+    public static function getEvents(): array {
         $return = array();
 
-        foreach (self::$_events as $key => $item) {
-            $return[$key] = $item['description'];
+        foreach (self::$_events as $name => $meta) {
+            $return[$name] = $meta['description'];
         }
 
         return $return;
