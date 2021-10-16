@@ -4,7 +4,14 @@ $namelessmc_modules = [];
 $namelessmc_fe_templates = [];
 $namelessmc_panel_templates = [];
 
-foreach (Module::getModules() as $module) {
+$modules_query = $queries->getWhere('modules', ['id', '<>', 0]);
+foreach ($modules_query as $module_row) {
+    $module_path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'modules', htmlspecialchars($module_row->name), 'init.php'));
+
+    if (file_exists($module_path)) {
+        require_once($module_path);
+    }
+
     $namelessmc_modules[$module->getName()] = [
         'name' => $module->getName(),
         'enabled' => Util::isModuleEnabled($module->getName()),
