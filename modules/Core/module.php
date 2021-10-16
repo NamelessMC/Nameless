@@ -476,7 +476,7 @@ class Core_Module extends Module {
 
         if($validate_action['action'] == 'promote') {
             require_once(ROOT_PATH . '/modules/Core/hooks/ValidateHook.php');
-            HookHandler::registerHook('validateUser', 'ValidateHook::validatePromote');
+            HookHandler::registerHook('validateUser', 'ValidateHook::execute');
             define('VALIDATED_DEFAULT', $validate_action['group']);
         }
 
@@ -1289,7 +1289,7 @@ class Core_Module extends Module {
         }
 
         require_once(ROOT_PATH . '/modules/Core/hooks/DeleteUserHook.php');
-        HookHandler::registerHook('deleteUser', 'DeleteUserHook::deleteUser');
+        HookHandler::registerHook('deleteUser', 'DeleteUserHook::execute');
     }
 
     public function getDebugInfo(): array {

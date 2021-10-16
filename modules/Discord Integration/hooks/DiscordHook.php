@@ -2,14 +2,14 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr12
+ *  NamelessMC version 2.0.0
  *
  *  Discord hook handler class
  */
 
-class DiscordHook {
+class DiscordHook implements Hook {
 
-    public static function execute(array $params = array()): bool {
+    public static function execute(array $params = array()): void {
         // Ensure hook is compatible
         $return = array();
         if ($params['event'] == 'registerUser') {
@@ -58,7 +58,5 @@ class DiscordHook {
             trigger_error($response['message'], E_USER_NOTICE);
 
         curl_close($ch);
-
-        return true;
     }
 }

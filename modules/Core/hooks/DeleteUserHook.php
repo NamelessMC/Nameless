@@ -2,14 +2,14 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0
  *
  *  Delete user hook handler class for Core module
  */
 
-class DeleteUserHook {
+class DeleteUserHook implements Hook {
     
-    public static function deleteUser(array $params = array()): bool {
+    public static function execute(array $params = array()): void {
         if (isset($params['user_id']) && $params['user_id'] > 1) {
             $queries = new Queries();
 
@@ -68,7 +68,5 @@ class DeleteUserHook {
             $queries->delete('user_profile_wall_posts_reactions', array('user_id', '=', $params['user_id']));
             $queries->delete('user_profile_wall_posts_replies', array('author_id', '=', $params['user_id']));
         }
-
-        return true;
     }
 }

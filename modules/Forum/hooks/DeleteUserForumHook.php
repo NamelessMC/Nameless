@@ -2,15 +2,15 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0
  *
  *  Delete user hook handler class for Forum module
  */
 
-class DeleteUserForumHook {
+class DeleteUserForumHook implements Hook {
 
-	public static function deleteUser(array $params = array()): bool {
-		if(isset($params['user_id']) && $params['user_id'] > 1){
+	public static function execute(array $params = array()): void {
+		if (isset($params['user_id']) && $params['user_id'] > 1) {
 			$queries = new Queries();
 
 			// Delete the user's posts
@@ -26,7 +26,5 @@ class DeleteUserForumHook {
 			// Topics following
 			$queries->delete('topics_following', array('user_id', '=', $params['user_id']));
 		}
-
-		return true;
 	}
 }

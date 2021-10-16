@@ -2,14 +2,14 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0
  *
  *  Validate user hook handler class
  */
 
-class ValidateHook {
+class ValidateHook implements Hook {
 
-    public static function validatePromote(array $params = array()): void {
+    public static function execute(array $params = array()): void {
         if (!defined('VALIDATED_DEFAULT')) {
             define('VALIDATED_DEFAULT', 1);
         }
