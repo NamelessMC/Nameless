@@ -41,8 +41,8 @@
 
                         <button class="float-right btn btn-info d-flex align-items-center" id="debug_link">
                             <span class="spinner-border spinner-border-sm mr-2" role="status" id="debug_link_loading" style="display: none;"></span>
-                            <span id="debug_link_text">Debug Link</span>
-                            <span id="debug_link_success" style="display: none;" data-toggle="tooltip" data-placement="top" title="{$TOOLTIP_COPIED}">
+                            <span id="debug_link_text">{$DEBUG_LINK}</span>
+                            <span id="debug_link_success" style="display: none;">
                                 <i class="fa fa-check"></i>
                             </span>
                         </button>
@@ -113,7 +113,7 @@ $('#debug_link').click(() => {
 
     $('#debug_link').prop('disabled', true);
     $('#debug_link_loading').show(100);
-    $.get('{$DEBUG_LINK}')
+    $.get('{$DEBUG_LINK_URL}')
         .done((url) => {
             link_created = true;
             navigator.clipboard.writeText(url);
@@ -123,6 +123,11 @@ $('#debug_link').click(() => {
             $('#debug_link_text').hide();
             $('#debug_link_success').show();
             $('#debug_link').prop('disabled', false);
+
+            toastr.options.progressBar = true;
+            toastr.options.closeButton = true;
+            toastr.options.positionClass = 'toast-bottom-left';
+            toastr.info('{$TOASTR_COPIED}');
         });
 });
 </script>

@@ -241,7 +241,12 @@ if (!class_exists('Default_Panel_Template')) {
 						');
 
                         $this->addJSFiles(array(
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/ckeditor.js' => array()
+                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/ckeditor.js' => array(),
+                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/toastr/toastr.min.js' => array()
+                        ));
+
+                        $this->addCSSFiles(array(
+                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/toastr/toastr.min.css' => array()
                         ));
 
                         $this->addJSScript(Input::createEditor('InputMaintenanceMessage'));

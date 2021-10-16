@@ -72,23 +72,19 @@ foreach (DB::getInstance()->get('group_sync', ['id', '<>', 0])->results() as $ru
         }
     }
 
-    $group_sync['rules'][$rule->id] = $rules;
+    $group_sync['rules'][(int) $rule->id] = $rules;
 }
 
 
 $data = [
     'debug_version' => 1,
     'generated_at' => time(),
-    'generated_by' => $user->data()->uuid ?? $user->data()->username,
+    'generated_by_name' => $user->data()->username,
+    'generated_by_uuid' => $user->data()->uuid ?? '',
     'namelessmc' => [
         'version' => Util::getSetting(DB::getInstance(), 'nameless_version'),
         'update_available' => Util::getSetting(DB::getInstance(), 'version_update') == 'false' ? false : true,
         'update_checked' => (int) Util::getSetting(DB::getInstance(), 'version_checked'),
-        'modules' => $namelessmc_modules,
-        'templates' => [
-            'front_end' => $namelessmc_fe_templates,
-            'panel' => $namelessmc_panel_templates,
-        ],
         'settings' => [
             'phpmailer' => (bool) Util::getSetting(DB::getInstance(), 'phpmailer'),
             'api_enabled' => (bool) Util::getSetting(DB::getInstance(), 'use_api'),
@@ -101,8 +97,13 @@ $data = [
             'group_sync' => $group_sync,
         ],
         'config' => [
-            'core' => array_filter($GLOBALS['config']['core'], static fn(string $key) => $key != 'hostname', ARRAY_FILTER_USE_KEY),
+            'core' => array_filter($GLOBALS['config']['core'], static fn (string $key) => $key != 'hostname', ARRAY_FILTER_USE_KEY),
             'allowedProxies' => $GLOBALS['config']['allowedProxies']
+        ],
+        'modules' => $namelessmc_modules,
+        'templates' => [
+            'front_end' => $namelessmc_fe_templates,
+            'panel' => $namelessmc_panel_templates,
         ],
     ],
     'enviroment' => [
@@ -111,6 +112,10 @@ $data = [
         'host_os' => php_uname('s'),
         'host_kernel_version' => php_uname('r'),
         'official_docker_image' => getenv('NAMELESSMC_METRICS_DOCKER') == true,
+        'disk_total_space' => disk_total_space('./'),
+        'disk_free_space' => disk_free_space('./'),
+        'memory_total_space' => ini_get('memory_limit'),
+        'memory_free_space' => ini_get('memory_limit') - memory_get_usage(),
     ],
 ];
 

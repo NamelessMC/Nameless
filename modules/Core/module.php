@@ -1295,7 +1295,7 @@ class Core_Module extends Module {
     public function getDebugInfo(): array {
         $servers = [];
         foreach (DB::getInstance()->get('mc_servers', ['id', '<>', 0])->results() as $server) {
-            $servers[$server->id] = [
+            $servers[(int) $server->id] = [
                 'id' => (int) $server->id,
                 'name' => $server->name,
                 'ip' => $server->ip,
