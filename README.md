@@ -8,15 +8,30 @@ The official project website, providing support and additional downloads such as
 
 ## Features
 The following list is a brief summary of the features available in v2 pre-release 12:
-- API - if used in conjunction with the [Nameless Plugin for v2](https://www.spigotmc.org/resources/nameless-plugin-for-v2.59032/), integration with your Minecraft server can be provided.
-- Custom page system - create your own HTML pages and even restrict access to them depending on rank.
-- Forum system.
-- Minecraft integration - possible to verify registered accounts, or disable altogether.
-- New powerful module system allowing for further NamelessMC integration.
-- New template and language systems, allowing for total customisation.
-- Pretty URL option (requires mod_rewrite).
-- Widget system - allows modules to create widgets which can be displayed on most user-facing pages and display almost anything.
-- PlaceholderAPI Sync - Sync user's placeholders from your server(s) to your NamelessMC website. You can create automatic leaderboards for each placeholder type, and allow players to display them on their profile and forum posts.
+- 🙋 Forums
+- 📃 Custom pages: create your own HTML pages and even restrict access to them depending on group.
+- 🎮 Minecraft integration
+  - Account verification using mcassoc or the plugin
+  - [In-game plugin](https://www.spigotmc.org/resources/nameless-plugin-for-v2.59032)
+    - Require in-game verification for NamelessMC accounts
+    - Allow registering for accounts in-game
+    - Synchronize Vault ranks with NamelessMC groups (unidirectional, game->website)
+    - Display website announcements in chat
+    - Whitelist players who have a website account
+    - Ban players who are banned from a website
+    - Display PlaceholderAPI placeholders on website user profiles or in leaderboards
+- 🗨️ Discord integration
+  - Webhook: receive updates for new members, forum posts, resources, etc.
+  - [Nameless-Link Discord bot](https://github.com/NamelessMC/Nameless-Link/wiki/Setup)
+    - Link Discord accounts with NamelessMC accounts
+    - Synchronize Discord roles with NamelessMC groups (bidirectional)
+- ⚙️ [API](https://github.com/NamelessMC/Nameless/wiki/v2-API) - Write your own integrations or use one of ours (see above)
+- 🧩 New powerful module system allowing for further NamelessMC integration.
+- ✏️ New template and language systems, allowing for total customisation.
+- ✨ Pretty URL option (requires mod_rewrite or special nginx config).
+- 🎛 Widgets: allows modules to create widgets which can be displayed on most user-facing pages and display almost anything.
+- 🚩 Translated into over [over 20 languages](https://github.com/NamelessMC/Nameless/tree/v2/custom/languages)
+
 
 #### Customising Nameless
 - Check out [this wiki article](https://github.com/NamelessMC/Nameless/wiki/Nameless-2.0-Module-Developer-Documentation) for the Module Developer Documenation.
