@@ -72,7 +72,7 @@
                             </div><br />
                             <div class="row justify-content-md-center">
                                 {/if}
-                                <div class="col-md-{$width}">{$item->getContent()}</div>
+                                <div class="col-md-6 col-lg-{$width}">{$item->getContent()}</div>
                                 {assign var="i" value=$i+1} {/foreach}
                             </div>
                             {/if}
