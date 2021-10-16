@@ -24,8 +24,11 @@ class HookHandler {
             self::$_events[$event] = [];
         }
 
-        self::$_events[$event]['description'] = $description;
-        self::$_events[$event]['params'] = $params;
+        self::$_events[$event] = [
+            'description' => $description,
+            'params' => $params,
+            'listeners' => [],
+        ];
     }
 
     /**
@@ -45,7 +48,7 @@ class HookHandler {
      */
     public static function registerListener(string $event, string $listener):  void {
         if (!isset(self::$_events[$event])) {
-            self::$_events[$event] = [];
+            self::registerEvent($event, $event); // Silently create event if it doesnt exist, maybe throw exception instead?
         }
 
         self::$_events[$event]['listeners'][] = $listener;
