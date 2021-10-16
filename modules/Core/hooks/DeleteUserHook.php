@@ -4,10 +4,10 @@
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0
  *
- *  Delete user hook handler class for Core module
+ *  Delete user event listener for Core module
  */
 
-class DeleteUserHook implements Hook {
+class DeleteUserHook implements Listener {
     
     public static function execute(array $params = array()): void {
         if (isset($params['user_id']) && $params['user_id'] > 1) {

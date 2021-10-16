@@ -4,10 +4,10 @@
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0
  *
- *  Discord hook handler class
+ *  Discord webhook handler class
  */
 
-class DiscordHook implements Hook {
+class DiscordHook {
 
     public static function execute(array $params = array()): void {
         // Ensure hook is compatible

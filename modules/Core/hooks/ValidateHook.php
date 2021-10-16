@@ -4,10 +4,10 @@
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0
  *
- *  Validate user hook handler class
+ *  Validate user event listener handler class
  */
 
-class ValidateHook implements Hook {
+class ValidateHook implements Listener {
 
     public static function execute(array $params = array()): void {
         if (!defined('VALIDATED_DEFAULT')) {
