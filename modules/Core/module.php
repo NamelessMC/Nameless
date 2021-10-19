@@ -1310,6 +1310,7 @@ class Core_Module extends Module {
                 'mc_integration' => (bool) Util::getSetting(DB::getInstance(), 'mc_integration'),
                 'uuid_linking' => (bool) Util::getSetting(DB::getInstance(), 'uuid_linking'),
                 'username_sync' => (bool) Util::getSetting(DB::getInstance(), 'username_sync'),
+                'external_query' => (bool) Util::getSetting(DB::getInstance(), 'external_query'),
                 'servers' => $servers,
             ]
         ];
