@@ -266,7 +266,7 @@ if (Input::exists()) {
 }
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $templates);
 
 if (Session::exists('general_language'))
     $success = Session::flash('general_language');
