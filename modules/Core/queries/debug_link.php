@@ -123,6 +123,8 @@ $data = [
         'disk_free_space' => disk_free_space('./'),
         'memory_total_space' => ini_get('memory_limit'),
         'memory_used_space' => memory_get_usage(),
+        'core_writable' => is_writable(ROOT_PATH . '/core/config.php'),
+        'cache_writable' => is_writable(ROOT_PATH . '/cache'),
     ],
 ];
 
