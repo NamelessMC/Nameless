@@ -122,7 +122,7 @@ $data = [
         'disk_total_space' => disk_total_space('./'),
         'disk_free_space' => disk_free_space('./'),
         'memory_total_space' => ini_get('memory_limit'),
-        'memory_free_space' => memory_get_usage(),
+        'memory_used_space' => memory_get_usage(),
     ],
 ];
 
