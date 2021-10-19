@@ -43,6 +43,7 @@ The following list is a brief summary of the features available in v2 pre-releas
 ---
 
 <img src="https://user-images.githubusercontent.com/26070412/137838848-f7aaec70-102f-4b4e-9cb0-c8a8ecc41eb1.png" alt="Installation" width="700">
+
 Please find installation instructions on [our wiki](https://docs.namelessmc.com/en/installation).
 
 ---
