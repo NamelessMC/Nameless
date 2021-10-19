@@ -6,7 +6,10 @@ NamelessMC version 2.0.0 is still a pre-release, and is not yet recommended for 
 
 The official project website, providing support and additional downloads such as modules and templates, can be found at [https://namelessmc.com/](https://namelessmc.com/).
 
-## Features
+---
+
+<img src="https://user-images.githubusercontent.com/26070412/137838580-168ebd24-a222-4a64-a220-d3029650f0ab.png" alt="Features" width="700">
+
 The following list is a brief summary of the features available in v2 pre-release 12:
 - 🙋 Forums
 - 📃 Custom pages: create your own HTML pages and even restrict access to them depending on group.
@@ -37,10 +40,16 @@ The following list is a brief summary of the features available in v2 pre-releas
 - Check out [this wiki article](https://github.com/NamelessMC/Nameless/wiki/Nameless-2.0-Module-Developer-Documentation) for the Module Developer Documenation.
 - Developer documentation is coming soon for template and widget development.
 
-## Installation
+---
+
+<img src="https://user-images.githubusercontent.com/26070412/137838848-f7aaec70-102f-4b4e-9cb0-c8a8ecc41eb1.png" alt="Installation" width="700">
+
 Please find installation instructions on [our wiki](https://docs.namelessmc.com/en/installation).
 
-## Support
+---
+
+<img src="https://user-images.githubusercontent.com/26070412/137838954-c0f26ae0-d5f9-429e-89ed-db22441a2057.png" alt="Support" width="700">
+
 Support can be found in one of the following places:
 - Discord [<img src="https://discordapp.com/api/guilds/246705793066467328/widget.png?style=shield">](https://discord.gg/nameless)
 - [Official support forum](https://namelessmc.com/forum)
