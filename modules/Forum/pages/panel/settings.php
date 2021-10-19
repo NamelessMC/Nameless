@@ -67,7 +67,7 @@ $link_location = $cache->retrieve('forum_location');
 $use_reactions = $configuration->get('Core', 'forum_reactions');
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $templates);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
 
 if (Session::exists('admin_forums_settings'))
     $success = Session::flash('admin_forums_settings');

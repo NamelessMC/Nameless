@@ -23,7 +23,7 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 $timeago = new TimeAgo(TIMEZONE);
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $templates);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
 
 $errors = array();
 if (!is_dir(ROOT_PATH . '/cache/sitemaps')) {

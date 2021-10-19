@@ -35,7 +35,7 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 require_once(ROOT_PATH . '/core/includes/markdown/tohtml/Markdown.inc.php');
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $templates);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
 
 if (isset($_GET['action'])) {
     if ($_GET['action'] == 'validate') {

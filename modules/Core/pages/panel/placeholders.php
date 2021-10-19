@@ -176,7 +176,7 @@ if (isset($_GET['leaderboard'])) {
 
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $templates);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
 
 if (Session::exists('placeholders_success')) {
     $smarty->assign(array(

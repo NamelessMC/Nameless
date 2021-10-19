@@ -117,7 +117,7 @@ if(!isset($_GET['id'])){
 }
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $templates);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
 
 if(Session::exists('panel_query_errors_success'))
     $success = Session::flash('panel_query_errors_success');

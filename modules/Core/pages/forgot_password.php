@@ -130,7 +130,7 @@ if (!isset($_GET['c'])) {
     define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
     // Load modules + template
-    Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $templates);
+    Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
     $template->onPageLoad();
 
     require(ROOT_PATH . '/core/templates/navbar.php');

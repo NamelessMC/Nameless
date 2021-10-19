@@ -615,7 +615,7 @@ if(isset($_GET['action'])){
 }
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $templates);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
 
 if(Session::exists('admin_mc_servers_success'))
     $success = Session::flash('admin_mc_servers_success');
