@@ -74,6 +74,7 @@ $language = array(
     'viewing_user_x' => "Visualizzazione dell'utente {x}", // Don't replace {x}
     'previous_punishments' => 'Punizioni precedenti',
     'no_previous_punishments' => "Nessuna punizione precedente",
+    'reset_avatar' => 'Reset Avatar',
     'warning' => 'Avvertimenti',
     'ip_ban' => 'IP Bannato',
     'reason' => 'Motivo',
