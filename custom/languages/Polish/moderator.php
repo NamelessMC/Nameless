@@ -64,45 +64,45 @@ $language = array(
 
     // Punishments
     'punishments' => 'Kary',
-  'view_punishments' => 'Pokaż kary',
-  'banned' => 'Zbanowani',
-  'groups' => 'Grupy',
-  'punish' => 'Ukaraj',
-  'ban' => 'Ban',
-  'warn' => 'Warn',
-  'ban_ip' => 'Ban IP',
-  'viewing_user_x' => 'Użytkownik {x}', // Don't replace {x}
-  'previous_punishments' => 'Poprzednie kary',
-  'no_previous_punishments' => 'Brak poprzednich kar',
-  'warning' => 'Ostrzeżenie',
-  'ip_ban' => 'Ban IP',
-  'reason' => 'Powód',
-  'warn_user' => 'Daj ostrzeżenie',
-  'ban_user' => 'Zbanuj',
-  'enter_valid_punishment_reason' => 'Wpisz powód kary mający od 5 do 5000 znaków.',
-  'user_punished' => 'Użytkownik został ukarany.',
-  'user_punished_alert' => '{x} ukarał użytkownika {y}', // Don't replace {x} (staff member) or {y} (user punished)
-  'revoke' => 'Unieważnij',
-  'revoked' => 'Unieważniono',
-  'acknowledged' => 'Potwierdzone',
-  'confirm_revoke_warning' => 'Jesteś pewny że chcesz unieważnić to ostrzeżenie?',
-  'confirm_revoke_ban' => 'Jesteś pewny że chcesz unieważnić ten ban?',
-  'punishment_revoked' => 'Kara unieważniona.',
-  'punishment_revoked_alert' => '{x} unieważnił karę użytkownika {y}', // Don't replace {x} (staff member) or {y} (user with revoked punishment)
-  'cant_punish_admin' => 'Nie możesz ukarać administratora!',
+    'view_punishments' => 'Pokaż kary',
+    'banned' => 'Zbanowani',
+    'groups' => 'Grupy',
+    'punish' => 'Ukaraj',
+    'ban' => 'Ban',
+    'warn' => 'Warn',
+    'ban_ip' => 'Ban IP',
+    'viewing_user_x' => 'Użytkownik {x}', // Don't replace {x}
+    'previous_punishments' => 'Poprzednie kary',
+    'no_previous_punishments' => 'Brak poprzednich kar',
+    'reset_avatar' => 'Reset Avatar',
+    'warning' => 'Ostrzeżenie',
+    'ip_ban' => 'Ban IP',
+    'reason' => 'Powód',
+    'warn_user' => 'Daj ostrzeżenie',
+    'ban_user' => 'Zbanuj',
+    'enter_valid_punishment_reason' => 'Wpisz powód kary mający od 5 do 5000 znaków.',
+    'user_punished' => 'Użytkownik został ukarany.',
+    'user_punished_alert' => '{x} ukarał użytkownika {y}', // Don't replace {x} (staff member) or {y} (user punished)
+    'revoke' => 'Unieważnij',
+    'revoked' => 'Unieważniono',
+    'acknowledged' => 'Potwierdzone',
+    'confirm_revoke_warning' => 'Jesteś pewny że chcesz unieważnić to ostrzeżenie?',
+    'confirm_revoke_ban' => 'Jesteś pewny że chcesz unieważnić ten ban?',
+    'punishment_revoked' => 'Kara unieważniona.',
+    'punishment_revoked_alert' => '{x} unieważnił karę użytkownika {y}', // Don't replace {x} (staff member) or {y} (user with revoked punishment)
+    'cant_punish_admin' => 'Nie możesz ukarać administratora!',
     'viewing_all_punishments' => 'Wszystkie kary',
     'no_punishments_found' => 'Nie znaleziono żadnych kar.',
     'view_user' => 'Pokaż profil użytkownika',
     'when' => 'Kiedy',
     'staff' => 'Od kogo',
     'type' => 'Typ',
-        'recent_punishments' => 'Ostatnie kary',
-     'created' => 'Utworzona:',
+    'recent_punishments' => 'Ostatnie kary',
+    'created' => 'Utworzona:',
     'staff:' => 'Moderator:',
     'reason:' => 'Powód:',
 
-        // Users
-       'recent_registrations' => 'Ostatnie rejestracje',
-         'reset_profile_banner' => 'Zresetuj banner profilowy'
-
+    // Users
+    'recent_registrations' => 'Ostatnie rejestracje',
+    'reset_profile_banner' => 'Zresetuj banner profilowy'
 );

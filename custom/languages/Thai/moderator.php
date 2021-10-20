@@ -74,6 +74,7 @@ $language = array(
     'viewing_user_x' => 'กำลังดูผู้ใช้ {x}', // Don't replace {x}
     'previous_punishments' => 'บทลงโทษก่อนหน้า',
     'no_previous_punishments' => 'ไม่มีการลงโทษก่อนหน้านี้',
+    'reset_avatar' => 'Reset Avatar',
     'warning' => 'คำเตือน',
     'ip_ban' => 'IP Ban',
     'reason' => 'เหตุผล',

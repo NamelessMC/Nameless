@@ -504,6 +504,7 @@ $language = array(
     'ip_address' => 'IP Address',
     'template_changes' => 'Template Changes',
     'email_logs' => 'Mass Emails',
+    'group_sync_logs' => 'Group Sync Changes',
     'file_changed' => 'File Changed',
     'all_logs' => 'All Logs',
     'action' => 'Action',

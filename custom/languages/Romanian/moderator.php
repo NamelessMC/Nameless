@@ -76,6 +76,7 @@ $language = array(
     'viewing_user_x' => 'Vizualizare utilizator {x}', // Don't replace {x}
     'previous_punishments' => 'Sancțiuni anterioare',
     'no_previous_punishments' => 'Nu există sancțiuni anterioare.',
+    'reset_avatar' => 'Reset Avatar',
     'warning' => 'Avertizare',
     'ip_ban' => 'IP Banat',
     'reason' => 'Motiv',
