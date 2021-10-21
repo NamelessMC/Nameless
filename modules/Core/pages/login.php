@@ -279,15 +279,16 @@ if (Input::exists()) {
 
 // Sign in template
 // Generate content
-if ($login_method == 'email')
+if ($login_method == 'email') {
 	$smarty->assign('EMAIL', $language->get('user', 'email'));
-else if ($login_method == 'email_or_username')
+} else if ($login_method == 'email_or_username') {
     $smarty->assign('USERNAME', $language->get('user', 'email_or_username'));
-else {
-	if (MINECRAFT)
+} else {
+	if (MINECRAFT) {
 		$smarty->assign('USERNAME', $language->get('user', 'minecraft_username'));
-	else
+	} else {
 		$smarty->assign('USERNAME', $language->get('user', 'username'));
+	}
 }
 
 $smarty->assign(array(
