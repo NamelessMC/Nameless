@@ -79,6 +79,7 @@ $language = array(
     'viewing_user_x' => 'ユーザー{x}を表示しています。', // Don't replace {x}
     'previous_punishments' => '処罰履歴',
     'no_previous_punishments' => '処罰履歴はありません。',
+    'reset_avatar' => 'Reset Avatar',
     'warning' => '警告',
     'ip_ban' => 'IP Ban',
     'reason' => '理由',

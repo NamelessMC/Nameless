@@ -24,7 +24,7 @@ $template->addJSFiles(array(
 
 // Retrieve privacy policy from database
 $policy = $queries->getWhere('privacy_terms', array('name', '=', 'privacy'));
-if(!count($policy)){
+if (!count($policy)) {
 	$policy = $queries->getWhere('settings', array('name', '=', 'privacy_policy'));
 }
 $policy = Output::getPurified($policy[0]->value);

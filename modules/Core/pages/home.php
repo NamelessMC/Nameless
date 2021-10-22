@@ -24,17 +24,18 @@ $template->addJSFiles(array(
 	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => array()
 ));
 
-if(Session::exists('home')){
+if (Session::exists('home')) {
     $smarty->assign('HOME_SESSION_FLASH', Session::flash('home'));
     $smarty->assign('SUCCESS_TITLE', $language->get('general', 'success'));
 }
-if(Session::exists('home_error')){
+
+if (Session::exists('home_error')) {
     $smarty->assign('HOME_SESSION_ERROR_FLASH', Session::flash('home_error'));
     $smarty->assign('ERROR_TITLE', $language->get('general', 'error'));
 }
 
-if(isset($front_page_modules)){
-	foreach($front_page_modules as $module){
+if (isset($front_page_modules)) {
+	foreach ($front_page_modules as $module) {
 		require(ROOT_PATH . '/' . $module);
 	}
 }
@@ -52,7 +53,6 @@ $template->onPageLoad();
 
 $smarty->assign('WIDGETS_LEFT', $widgets->getWidgets('left'));
 $smarty->assign('WIDGETS_RIGHT', $widgets->getWidgets('right'));
-
 
 require(ROOT_PATH . '/core/templates/navbar.php');
 require(ROOT_PATH . '/core/templates/footer.php');

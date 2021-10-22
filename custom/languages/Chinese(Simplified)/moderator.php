@@ -76,6 +76,7 @@ $language = array(
     'viewing_user_x' => '查看用户 {x}', // Don't replace {x}
     'previous_punishments' => '以前所受的处罚',
     'no_previous_punishments' => '该用户并没有前科喔=w=',
+    'reset_avatar' => 'Reset Avatar',
     'warning' => '警告',
     'ip_ban' => 'IP 封禁',
     'reason' => '理由',

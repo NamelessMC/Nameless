@@ -13,5 +13,8 @@
 $cache->setCache('portal_cache');
 $use_portal = $cache->retrieve('portal');
 
-if($use_portal !== 1) require('home.php');
-else require('portal.php');
+if ($use_portal !== 1) {
+    require('home.php');
+} else {
+    require('portal.php');
+}

@@ -13,7 +13,7 @@ class Widgets {
 
     private DB $_db;
     private Cache $_cache;
-    
+
     private array $_widgets = array();
     private array $_enabled = array();
     private string $_name;
@@ -31,7 +31,7 @@ class Widgets {
             $this->_enabled = $enabled;
         }
     }
-    
+
     /**
      * Register a widget to the widget list.
      *
@@ -82,14 +82,12 @@ class Widgets {
      * Get a widget by name.
      *
      * @param string $name Name of widget to get.
-     * 
+     *
      * @return WidgetBase|null Instance of widget with same name, null if it doesnt exist.
      */
-    public function getWidget(string $name = null): ?WidgetBase {
-        if ($name) {
-            if (array_key_exists($name, $this->_widgets)) {
-                return $this->_widgets[$name];
-            }
+    public function getWidget(string $name): ?WidgetBase {
+        if (array_key_exists($name, $this->_widgets)) {
+            return $this->_widgets[$name];
         }
 
         return null;
@@ -99,7 +97,7 @@ class Widgets {
      * Get code for all enabled widgets on the current page.
      *
      * @param string $location Either `left` or `right`.
-     * 
+     *
      * @return array List of HTML to be displayed.
      */
     public function getWidgets(string $location = 'right'): array {
@@ -129,14 +127,14 @@ class Widgets {
      */
     public function getAll(): iterable {
         $widgets = $this->_widgets;
-        
+
         uasort($widgets, function($a, $b) {
             return $a->getOrder() - $b->getOrder();
         });
 
         return $widgets;
     }
-    
+
     /**
      * Get all enabled widget names.
      * Not used internally.
@@ -146,12 +144,12 @@ class Widgets {
     public function getAllEnabledNames(): array {
         return array_keys($this->_enabled);
     }
- 
+
     /**
      * Check if widget is enabled or not.
      *
      * @param WidgetBase $widget Instance of widget to check.
-     * 
+     *
      * @return bool Whether this widget is enabled or not.
      */
     public function isEnabled(WidgetBase $widget): bool {
@@ -162,7 +160,7 @@ class Widgets {
      * Get a list of pages a widget is enabled on.
      *
      * @param string $name Name of widget to get pages for.
-     * 
+     *
      * @return array List of page names.
      */
     public function getPages(string $name): array {
