@@ -8,6 +8,9 @@
  *
  *  Recent topics dashboard collection item
  */
+
+use NamelessMC\Core\Collections\CollectionItemBase;
+
 class RecentTopicsItem extends CollectionItemBase {
 
     private Smarty $_smarty;

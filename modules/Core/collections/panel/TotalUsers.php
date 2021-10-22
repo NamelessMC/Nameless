@@ -9,6 +9,8 @@
  *  Total users dashboard collection item
  */
 
+use NamelessMC\Core\Collections\CollectionItemBase;
+
 class TotalUsersItem extends CollectionItemBase {
 
     private Smarty $_smarty;

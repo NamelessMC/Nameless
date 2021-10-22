@@ -1,5 +1,7 @@
 <?php
 
+use NamelessMC\Core\Avatars\AvatarSourceBase;
+
 class CrafatarAvatarSource extends AvatarSourceBase {
 
     public function __construct() {

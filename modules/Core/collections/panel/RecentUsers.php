@@ -9,6 +9,8 @@
  *  Recent users dashboard collection item
  */
 
+use NamelessMC\Core\Collections\CollectionItemBase;
+
 class RecentUsersItem extends CollectionItemBase {
 
     private Smarty $_smarty;

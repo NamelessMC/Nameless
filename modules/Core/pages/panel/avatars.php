@@ -9,6 +9,8 @@
  *  Panel avatars page
  */
 
+use NamelessMC\Core\Avatars\AvatarSource;
+
 if(!$user->handlePanelPageLoad('admincp.core.avatars')) {
     require_once(ROOT_PATH . '/403.php');
     die();

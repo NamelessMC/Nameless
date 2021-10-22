@@ -10,6 +10,12 @@
  *  Plceholders class
  */
 
+use stdClass;
+use NamelessMC\Core\Support\URL;
+use NamelessMC\Core\Database\DB;
+use NamelessMC\Core\Support\Output;
+use NamelessMC\Core\Support\Instanceable;
+
 class Placeholders extends Instanceable {
 
     private DB $_db;

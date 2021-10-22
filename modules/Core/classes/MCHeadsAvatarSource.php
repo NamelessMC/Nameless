@@ -1,5 +1,7 @@
 <?php
 
+use NamelessMC\Core\Avatars\AvatarSourceBase;
+
 class MCHeadsAvatarSource extends AvatarSourceBase {
 
     public function __construct() {

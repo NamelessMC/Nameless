@@ -8,6 +8,9 @@
  *
  *  Forum module file
  */
+use NamelessMC\Core\Support\Module;
+use NamelessMC\Core\Collections\CollectionManager;
+use NamelessMC\Core\Events\HookHandler;
 
 class Forum_Module extends Module {
 

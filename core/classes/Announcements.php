@@ -9,6 +9,10 @@
  *
  *  Announcements class
  */
+
+use NamelessMC\Core\Database\DB;
+use NamelessMC\Core\Support\Cache;
+
 class Announcements {
     
     private Cache $_cache;

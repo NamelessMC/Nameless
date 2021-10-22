@@ -1,5 +1,7 @@
 <?php
 
+use NamelessMC\Core\Database\DB_Custom;
+
 if ($s < 9) {
     $conn = DB_Custom::getInstance($_SESSION['db_address'], $_SESSION['db_name'], $_SESSION['db_username'], $_SESSION['db_password'], $_SESSION['db_port']);
 }

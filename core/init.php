@@ -9,8 +9,20 @@
  *  Initialisation file
  */
 
+// autoload + alias classes
+require_once(ROOT_PATH . '/core/autoload.php');
+
+use NamelessMC\Core\Database\DB;
+use NamelessMC\Core\Support\ErrorHandler;
+use Exception;
+use NamelessMC\Core\Support\Cache;
+use NamelessMC\Core\Support\Config;
+use NamelessMC\Core\Support\Pages;
+use NamelessMC\Core\Support\Util;
+use NamelessMC\Core\Database\Queries;
+use NamelessMC\Core\Support\User;
+
 // Nameless error handling
-require_once(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'core', 'classes', 'ErrorHandler.php')));
 set_exception_handler([ErrorHandler::class, 'catchException']);
 // catchError() used for throw_error or any exceptions which may be missed by catchException()
 set_error_handler([ErrorHandler::class, 'catchError']);
@@ -47,19 +59,6 @@ if (isset($conf) && is_array($conf)) {
 } else if (!isset($GLOBALS['config'])) {
     $page = 'install';
 }
-
-/*
- *  Autoload classes
- */
-require_once ROOT_PATH . '/core/includes/smarty/Smarty.class.php';
-
-// Any errors thrown now will not be caught by the error handler, as they require some classes be preloaded
-spl_autoload_register(function ($class) {
-    $path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'core', 'classes', $class . '.php'));
-    if (file_exists($path)) {
-        require_once($path);
-    }
-});
 
 // If we're accessing the upgrade script don't initialise further
 if (isset($_GET['route']) && rtrim($_GET['route'], '/') == '/panel/upgrade') {

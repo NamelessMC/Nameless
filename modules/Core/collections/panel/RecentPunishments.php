@@ -9,6 +9,8 @@
  *  Recent punishments dashboard collection item
  */
 
+use NamelessMC\Core\Collections\CollectionItemBase;
+
 class RecentPunishmentsItem extends CollectionItemBase {
 
     private Smarty $_smarty;

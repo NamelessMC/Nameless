@@ -1,4 +1,9 @@
 <?php
+use Exception;
+use NamelessMC\Core\Database\DB;
+use NamelessMC\Core\Support\Util;
+use NamelessMC\Core\Support\Config;
+
 // 2.0.0 pr-8 to 2.0.0 pr-9 updater
 try {
     $db_engine = Config::get('mysql/engine');

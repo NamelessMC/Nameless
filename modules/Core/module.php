@@ -9,6 +9,20 @@
  *  Core module file
  */
 
+use NamelessMC\Core\Support\Module;
+use NamelessMC\Core\Support\Language;
+use NamelessMC\Core\Support\Configuration;
+use NamelessMC\Core\Support\Pages;
+use NamelessMC\Core\Support\User;
+use NamelessMC\Core\Database\Queries;
+use NamelessMC\Core\Support\Navigation;
+use NamelessMC\Core\Endpoints\Endpoints;
+use NamelessMC\Core\Support\Cache;
+use NamelessMC\Core\Avatars\AvatarSource;
+use NamelessMC\Core\Widgets\Widgets;
+use NamelessMC\Core\Support\TemplateBase;
+use NamelessMC\Core\Collections\CollectionManager;
+
 class Core_Module extends Module {
 
     private Language $_language;

@@ -9,6 +9,8 @@
  *  Recent reports dashboard collection item
  */
 
+use NamelessMC\Core\Collections\CollectionItemBase;
+
 class RecentReportsItem extends CollectionItemBase {
 
     private Smarty $_smarty; 

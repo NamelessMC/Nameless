@@ -1,5 +1,11 @@
 <?php
 
+use NamelessMC\Core\Support\Input;
+use NamelessMC\Core\Support\Redirect;
+use NamelessMC\Core\Support\Validate;
+use mysqli;
+use NamelessMC\Core\Database\DB_Custom;
+
 if (!isset($_SESSION['admin_setup']) || $_SESSION['admin_setup'] != true) {
 	Redirect::to('?step=admin_account_setup');
 	die();
