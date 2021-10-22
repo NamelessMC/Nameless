@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/Users/aberdeener/Desktop/Nameless/core/classes/Widgets/WidgetBase.php</file>
+            <file>file:/Users/aberdeener/Desktop/Nameless/core/classes/Avatars/AvatarSourceBase.php</file>
+            <file>file:/Users/aberdeener/Desktop/Nameless/core/classes/Minecraft/MCQuery.php</file>
+            <file>file:/Users/aberdeener/Desktop/Nameless/core/classes/GroupSync/GroupSyncInjector.php</file>
+            <file>file:/Users/aberdeener/Desktop/Nameless/modules/Core/pages/complete_signup.php</file>
+            <file>file:/Users/aberdeener/Desktop/Nameless/core/classes/GroupSync/GroupSyncManager.php</file>
+            <file>file:/Users/aberdeener/Desktop/Nameless/core/classes/Minecraft/MCAssoc.php</file>
+            <file>file:/Users/aberdeener/Desktop/Nameless/404.php</file>
+            <file>file:/Users/aberdeener/Desktop/Nameless/core/classes/Minecraft/ExternalMCQuery.php</file>
+            <file>file:/Users/aberdeener/Desktop/Nameless/core/classes/Events/Hook.php</file>
+            <file>file:/Users/aberdeener/Desktop/Nameless/core/email.php</file>
+            <file>file:/Users/aberdeener/Desktop/Nameless/core/classes/Events/HookHandler.php</file>
+            <file>file:/Users/aberdeener/Desktop/Nameless/core/classes/Database/Queries.php</file>
+        </group>
+    </open-files>
+</project-private>

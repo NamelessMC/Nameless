@@ -9,6 +9,14 @@
  *  MCAssoc integration
  */
 
+use NamelessMC\Core\Support\Module;
+use NamelessMC\Core\Support\User;
+use NamelessMC\Core\Support\Output;
+use NamelessMC\Core\Support\Util;
+use NamelessMC\Core\Support\URL;
+use NamelessMC\Core\Database\DB;
+use Exception;
+
 if (!defined('MCASSOC') ||
     !(isset($_POST['username']) || isset($_SESSION['mcassoc'])) ||
     !isset($mcassoc_site_id)) {

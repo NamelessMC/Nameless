@@ -11,6 +11,14 @@
 
 namespace NamelessMC\Core\Minecraft;
 
+use NamelessMC\Core\Database\Queries;
+use NamelessMC\Core\Minecraft\ExternalMCQuery;
+use NamelessMC\Core\Minecraft\MinecraftPing;
+use NamelessMC\Core\Support\Language;
+use NamelessMC\Core\Support\Output;
+use NamelessMC\Core\Support\User;
+use NamelessMC\Core\Support\Util;
+
 class MCQuery {
 
     /**

@@ -9,6 +9,8 @@
  *  Forum class
  */
 
+use NamelessMC\Core\Database\DB;
+
 class Forum {
 
     private DB $_db;

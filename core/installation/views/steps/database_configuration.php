@@ -1,5 +1,9 @@
 <?php
 
+use mysqli;
+use NamelessMC\Core\Support\Validate;
+use NamelessMC\Core\Support\Redirect;
+
 if (isset($_SESSION['database_initialized']) && $_SESSION['database_initialized'] == true) {
 	Redirect::to('?step=site_configuration');
 	die();

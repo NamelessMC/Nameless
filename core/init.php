@@ -23,10 +23,10 @@ use NamelessMC\Core\Database\Queries;
 use NamelessMC\Core\Support\User;
 
 // Nameless error handling
-set_exception_handler([ErrorHandler::class, 'catchException']);
-// catchError() used for throw_error or any exceptions which may be missed by catchException()
-set_error_handler([ErrorHandler::class, 'catchError']);
-register_shutdown_function([ErrorHandler::class, 'catchShutdownError']);
+// set_exception_handler([ErrorHandler::class, 'catchException']);
+// // catchError() used for throw_error or any exceptions which may be missed by catchException()
+// set_error_handler([ErrorHandler::class, 'catchError']);
+// register_shutdown_function([ErrorHandler::class, 'catchShutdownError']);
 
 session_start();
 

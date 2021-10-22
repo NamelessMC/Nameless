@@ -1,4 +1,6 @@
 <?php
+use Exception;
+use NamelessMC\Core\Database\DB;
 // 2.0.0 pr-4 to 2.0.0 pr-5 updater
 try {
 	$db_engine = Config::get('mysql/engine');

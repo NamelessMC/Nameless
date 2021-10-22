@@ -2,12 +2,21 @@
 
 require_once ROOT_PATH . '/core/includes/smarty/Smarty.class.php';
 
-spl_autoload_register(function(string $class) {
+spl_autoload_register('loader');
+
+function loader(string $class) {
 
     $sections = explode('\\', $class);
     $section_count = count($sections);
 
-    if ($section_count == 1 || $section_count == 3) {
+    print_r($sections[0]);
+    if ($section_count == 1 && in_array($sections[0], CLASS_ALIASES)) {
+
+        print_r('aliasing ' . $sections[0] . ' to ' .  array_search($sections[0], CLASS_ALIASES) . PHP_EOL);
+        loader(array_search($sections[0], CLASS_ALIASES));
+        return;
+
+    } else if ($section_count == 1 || $section_count == 3) {
 
         $path = ROOT_PATH . "/core/classes/{$class}.php";
 
@@ -15,10 +24,10 @@ spl_autoload_register(function(string $class) {
 
         switch ($section_count) {
             case 4: {
-                // \NamelessMC\Core\<folder>\<class>
-                $folder = str_replace('_', '', $sections[2]);
-                $path = ROOT_PATH . "/core/classes/{$folder}/{$sections[3]}.php";
-                break;
+                    // \NamelessMC\Core\<folder>\<class>
+                    $folder = str_replace('_', '', $sections[2]);
+                    $path = ROOT_PATH . "/core/classes/{$folder}/{$sections[3]}.php";
+                    break;
             }
         }
     }
@@ -26,9 +35,9 @@ spl_autoload_register(function(string $class) {
     if (file_exists($path)) {
         require_once($path);
     }
-});
+};
 
-$aliases = [
+define('CLASS_ALIASES', [
     \NamelessMC\Core\Support\Alert::class => 'Alert',
     \NamelessMC\Core\Avatars\AvatarSource::class => 'AvatarSource',
     \NamelessMC\Core\Avatars\AvatarSourceBase::class => 'AvatarSourceBase',
@@ -80,9 +89,9 @@ $aliases = [
     \NamelessMC\Core\Support\Validate::class => 'Validate',
     \NamelessMC\Core\Widgets\WidgetBase::class => 'WidgetBase',
     \NamelessMC\Core\Widgets\Widgets::class => 'Widgets',
-];
+]);
 
 // we alias classes so modules will still work if they dont import the class
-foreach ($aliases as $class => $alias) {
+foreach (CLASS_ALIASES as $class => $alias) {
     class_alias($class, $alias);
 }

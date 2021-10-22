@@ -1,4 +1,7 @@
 <?php
+
+use NamelessMC\Core\Support\Module;
+use NamelessMC\Core\Support\URL;
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/

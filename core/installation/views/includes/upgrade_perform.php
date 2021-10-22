@@ -1,5 +1,8 @@
 <?php
 
+use Exception;
+use NamelessMC\Core\Support\Cache;
+use NamelessMC\Core\Database\Queries;
 use NamelessMC\Core\Database\DB_Custom;
 
 if ($s < 9) {
