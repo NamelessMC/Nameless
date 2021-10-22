@@ -54,11 +54,11 @@
           </div>
           <div class="field">
             <label>{$PASSWORD}</label>
-            <input type="password" name="password" id="password" placeholder="{$PASSWORD}" tabindex="4">
+            <input type="password" name="password" id="password" placeholder="{$PASSWORD}" tabindex="4" required>
           </div>
           <div class="field">
             <label>{$CONFIRM_PASSWORD}</label>
-            <input type="password" name="password_again" id="password_again" placeholder="{$CONFIRM_PASSWORD}" tabindex="5">
+            <input type="password" name="password_again" id="password_again" placeholder="{$CONFIRM_PASSWORD}" tabindex="5" required>
           </div>
           {if count($CUSTOM_FIELDS)}
             {foreach $CUSTOM_FIELDS as $field}

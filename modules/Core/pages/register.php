@@ -157,6 +157,8 @@ if (Input::exists()) {
                     Validate::MIN => 6,
                 ],
                 'password_again' => [
+                    Validate::REQUIRED => true,
+                    Validate::MIN => 6,
                     Validate::MATCHES => 'password'
                 ],
                 'email' => [
@@ -387,7 +389,7 @@ if (Input::exists()) {
                                 }
                             }
 
-                            Log::getInstance()->log(Log::Action('user/register'), "", $user_id);
+                            Log::getInstance()->log(Log::Action('user/register'), "");
 
                             if ($api_verification != '1' && $email_verification == '1') {
                                 // Send registration email
