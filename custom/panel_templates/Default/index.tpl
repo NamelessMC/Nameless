@@ -207,15 +207,6 @@
                                 position: '{$axis}'
                             },
                             {/foreach}
-                            {
-                                gridLines: {
-                                    color: "rgb(189,189,189)",
-                                    zeroLineColor: "rgb(189,189,189)",
-                                    drawBorder: false,
-                                    borderDash: [2],
-                                    zeroLineBorderDash: [2]
-                                }
-                            }
                         ]
                     },
                     tooltips: {
@@ -288,15 +279,6 @@
                                 position: '{$axis}'
                             },
                             {/foreach}
-                            {
-                                gridLines: {
-                                    color: "rgb(234, 236, 244)",
-                                    zeroLineColor: "rgb(234, 236, 244)",
-                                    drawBorder: false,
-                                    borderDash: [2],
-                                    zeroLineBorderDash: [2]
-                                }
-                            }
                         ]
                     },
                     tooltips: {
