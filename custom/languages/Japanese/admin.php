@@ -686,6 +686,7 @@ $language = array(
     'register_hook_info' => 'ユーザー登録',
     'validate_hook_info' => 'ユーザー検証',
     'delete_hook_info' => 'ユーザー削除',
+    'report_hook_info' => 'Report creation',
 
     //サイトマップ
     'unable_to_load_sitemap_file_x' => 'サイトマップファイル{x}を読み込むことができませんでした。',// {x}を置き換えない

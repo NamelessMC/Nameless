@@ -679,6 +679,7 @@ $language = array(
     'register_hook_info' => 'Brukerregistrering',
     'validate_hook_info' => 'Brukerverifisering',
     'delete_hook_info' => 'Brukersletting',
+    'report_hook_info' => 'Report creation',
 
     // Sitemap
     'unable_to_load_sitemap_file_x' => 'Kunne ikke laste inn sitemapfilen {x}', // Don't replace {x}

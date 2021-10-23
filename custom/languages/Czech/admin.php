@@ -662,6 +662,7 @@ $language = array (
     'register_hook_info' => 'Registrace uživatele',
     'validate_hook_info' => 'Ověření uživatele',
     'delete_hook_info' => 'Odstranění uživatele',
+    'report_hook_info' => 'Report creation',
 
     // Sitemap
     'unable_to_load_sitemap_file_x' => 'Nepodařilo se načíst soubor Sitemap {x}', // Don't replace {x}

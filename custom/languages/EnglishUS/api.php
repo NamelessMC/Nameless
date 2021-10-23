@@ -42,8 +42,6 @@ $language = array(
     'invalid_server_id' => 'Invalid server ID',
     'invalid_code' => 'Invalid code provided',
     'user_already_active' => 'Your account has already been activated.',
-    'reported_by' => 'Reported by',
-    'view_report' => 'Click to view report',
 
     // Success messages
     'finish_registration_link' => 'Please click on the following link to complete registration:',

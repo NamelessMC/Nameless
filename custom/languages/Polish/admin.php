@@ -680,6 +680,7 @@ $language = array(
     'register_hook_info' => 'Rejestracja użytkownika',
     'validate_hook_info' => 'Weryfikacja użytkownia',
     'delete_hook_info' => 'Usunięcie użytkownika',
+    'report_hook_info' => 'Report creation',
 
     // Sitemap
     'unable_to_load_sitemap_file_x' => 'Nie można załadować pliku mapy strony {x}', // Don't replace {x}
