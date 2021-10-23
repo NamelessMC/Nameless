@@ -22,7 +22,7 @@ class Report {
      *
      * @param array $post Array containing fields.
      */
-    public function create(array $post = array()): int {
+    public function create(array $post = array()): array {
         // Insert into database
         if (!$this->_db->insert('reports', $post)) {
             throw new Exception('There was a problem creating the report.');
@@ -51,7 +51,9 @@ class Report {
             }
         }
 
-        return $id;
+
+        $post['id'] = $id;
+        return $post;
 
     }
 }
