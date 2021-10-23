@@ -50,5 +50,8 @@ class Report {
                 }
             }
         }
+
+        return $id;
+
     }
 }

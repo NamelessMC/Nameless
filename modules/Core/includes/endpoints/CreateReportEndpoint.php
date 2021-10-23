@@ -43,14 +43,14 @@ class CreateReportEndpoint extends EndpointBase {
         }
 
         // See if reported user exists
-        $user_reported_id = $api->getDb()->get('users', array('id', '=', Output::getClean($_POST['reported'])));
-        if (!$user_reported_id->count()) {
-            $user_reported_id = 0;
+        $user_reported = $api->getDb()->get('users', array('id', '=', Output::getClean($_POST['reported'])));
+        if (!$user_reported->count()) {
+            $user_reported->id = 0;
         } else {
-            $user_reported_id = $user_reported_id->first()->id;
+            $user_reported = $user_reported->first();
         }
 
-        if ($user_reporting->id == $user_reported_id) {
+        if ($user_reporting->id == $user_reported->id) {
             $api->throwError(26, $api->getLanguage()->get('api', 'cannot_report_yourself'));
         }
 
@@ -67,11 +67,11 @@ class CreateReportEndpoint extends EndpointBase {
         // Create report
         try {
             $report = new Report();
-            $report->create(
+            $id = $report->create(
                 array(
                     'type' => $user_reported_id ? 0 : 1, // TODO: report origin (#2440)
                     'reporter_id' => $user_reporting->id,
-                    'reported_id' => $user_reported_id,
+                    'reported_id' => $user_reported->id,
                     'date_reported' => date('Y-m-d H:i:s'),
                     'date_updated' => date('Y-m-d H:i:s'),
                     'report_reason' => Output::getClean($_POST['content']),
@@ -82,7 +82,15 @@ class CreateReportEndpoint extends EndpointBase {
                     'reported_uuid' => $_POST['reported_uid'] ? Output::getClean($_POST['reported_uid']) : null
                 )
             );
-
+            HookHandler::executeEvent('createReport', array(
+                'event' => 'createReport',
+                'username' => $user_reported->username,
+                'content' => 'Reported by ' . $user_reporting->username,
+                'content_full' => Output::getClean($_POST['content']),
+                'avatar_url' => null,
+                'title' => 'Click to view report',
+                'url' => rtrim(Util::getSelfURL(), '/') . URL::build('/panel/users/reports/', 'id=' . $id)
+            ));
             $api->returnArray(array('message' => $api->getLanguage()->get('api', 'report_created')));
         } catch (Exception $e) {
             $api->throwError(23, $api->getLanguage()->get('api', 'unable_to_create_report'), $e->getMessage());
