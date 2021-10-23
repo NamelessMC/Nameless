@@ -85,10 +85,10 @@ class CreateReportEndpoint extends EndpointBase {
             HookHandler::executeEvent('createReport', array(
                 'event' => 'createReport',
                 'username' => $user_reported->username,
-                'content' => 'Reported by ' . $user_reporting->username,
+                'content' => $api->getLanguage()->get('api', 'reported_by') . ' ' . $user_reporting->username,
                 'content_full' => Output::getClean($_POST['content']),
                 'avatar_url' => null,
-                'title' => 'Click to view report',
+                'title' => $api->getLanguage()->get('api', 'view_report'),
                 'url' => rtrim(Util::getSelfURL(), '/') . URL::build('/panel/users/reports/', 'id=' . $id)
             ));
             $api->returnArray(array('message' => $api->getLanguage()->get('api', 'report_created')));
