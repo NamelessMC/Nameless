@@ -14,9 +14,8 @@ class BanUserEndpoint extends EndpointBase {
 
         $user = $api->getUser('id', $_POST['id']);
 
-        DB::getInstance()->update('users', $user->data()->id, [
+        $user->update([
             'isbanned' => 1,
-            'active' => 0
         ]);
 
         DB::getInstance()->delete('users_session', [
