@@ -239,7 +239,7 @@ class Core_Module extends Module {
         $custom_pages = null;
 
         // Hooks
-        HookHandler::registerEvent('registerUser',
+        EventHandler::registerEvent('registerUser',
             $language->get('admin', 'register_hook_info'),
             [
                 'user_id' => $language->get('admin', 'user_id'),
@@ -251,7 +251,7 @@ class Core_Module extends Module {
             ]
         );
 
-        HookHandler::registerEvent('validateUser',
+        EventHandler::registerEvent('validateUser',
             $language->get('admin', 'validate_hook_info'),
             [
                 'user_id' => $language->get('admin', 'user_id'),
@@ -260,7 +260,7 @@ class Core_Module extends Module {
             ]
         );
 
-        HookHandler::registerEvent('deleteUser',
+        EventHandler::registerEvent('deleteUser',
             $language->get('admin', 'delete_hook_info'),
             [
                 'user_id' => $language->get('admin', 'user_id'),
@@ -298,7 +298,7 @@ class Core_Module extends Module {
                 }
             }
         }
-        HookHandler::registerWebhooks($hook_array);
+        EventHandler::registerWebhooks($hook_array);
 
         // Captcha
         $captchaPublicKey = $this->_configuration->get('Core', 'recaptcha_key');
@@ -503,7 +503,7 @@ class Core_Module extends Module {
 
         if($validate_action['action'] == 'promote') {
             require_once(ROOT_PATH . '/modules/Core/hooks/ValidateHook.php');
-            HookHandler::registerListener('validateUser', 'ValidateHook::execute');
+            EventHandler::registerListener('validateUser', 'ValidateHook::execute');
             define('VALIDATED_DEFAULT', $validate_action['group']);
         }
 
@@ -1316,7 +1316,7 @@ class Core_Module extends Module {
         }
 
         require_once(ROOT_PATH . '/modules/Core/hooks/DeleteUserHook.php');
-        HookHandler::registerListener('deleteUser', 'DeleteUserHook::execute');
+        EventHandler::registerListener('deleteUser', 'DeleteUserHook::execute');
     }
 
     public function getDebugInfo(): array {

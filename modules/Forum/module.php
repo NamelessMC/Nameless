@@ -56,7 +56,7 @@ class Forum_Module extends Module {
 		$pages->add('Forum', '/forum/view_forum', 'pages/forum/redirect.php');
 
 		// Hooks
-		HookHandler::registerEvent('newTopic',
+		EventHandler::registerEvent('newTopic',
             $this->_forum_language->get('forum', 'new_topic_hook_info'),
             [
                 'uuid' => $this->_language->get('admin', 'uuid'),
@@ -283,7 +283,7 @@ class Forum_Module extends Module {
 		}
 
 		require_once(ROOT_PATH . '/modules/Forum/hooks/DeleteUserForumHook.php');
-		HookHandler::registerListener('deleteUser', 'DeleteUserForumHook::execute');
+		EventHandler::registerListener('deleteUser', 'DeleteUserForumHook::execute');
 	}
 
     public function getDebugInfo(): array {

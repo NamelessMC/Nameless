@@ -163,7 +163,7 @@ class RegisterEndpoint extends EndpointBase {
         }
 
         $user = new User();
-        HookHandler::executeEvent('registerUser', array(
+        EventHandler::executeEvent('registerUser', array(
                 'event' => 'registerUser',
                 'user_id' => $user_id,
                 'username' => Output::getClean($username),
@@ -242,7 +242,7 @@ class RegisterEndpoint extends EndpointBase {
             $user = new User($user_id);
             $user->setGroup($default_group);
 
-            HookHandler::executeEvent('registerUser', array(
+            EventHandler::executeEvent('registerUser', array(
                     'event' => 'registerUser',
                     'user_id' => $user_id,
                     'username' => $user->getDisplayname(),

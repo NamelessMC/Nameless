@@ -38,7 +38,7 @@ class VerifyMinecraftEndpoint extends EndpointBase {
         );
 
         try {
-            HookHandler::executeEvent('validateUser', array(
+            EventHandler::executeEvent('validateUser', array(
                 'event' => 'validateUser',
                 'user_id' => $user->data()->id,
                 'username' => Output::getClean($user->data()->username),

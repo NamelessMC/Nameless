@@ -205,7 +205,7 @@ if (Input::exists()) {
                     // Execute hooks and pass $available_hooks
                     $available_hooks = $queries->getWhere('forums', array('id', '=', $fid));
                     $available_hooks = json_decode($available_hooks[0]->hooks);
-                    HookHandler::executeEvent('newTopic', array(
+                    EventHandler::executeEvent('newTopic', array(
                         'event' => 'newTopic',
                         'uuid' => Output::getClean($user->data()->uuid),
                         'username' => $user->getDisplayname(true),
