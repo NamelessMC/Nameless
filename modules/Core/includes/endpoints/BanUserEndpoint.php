@@ -10,9 +10,9 @@ class BanUserEndpoint extends EndpointBase {
     }
 
     public function execute(Nameless2API $api) {
-        $api->validateParams($_POST, ['id']);
+        $api->validateParams($_POST, ['user']);
 
-        $user = $api->getUser('id', $_POST['id']);
+        $user = $api->getUser('id', $_POST['user']);
 
         $user->update([
             'isbanned' => 1,
