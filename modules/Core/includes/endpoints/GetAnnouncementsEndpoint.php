@@ -30,7 +30,7 @@ class GetAnnouncementsEndpoint extends EndpointBase {
             new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/'])
         );
 
-        foreach ($announcements->getAvailable('api', null, $tempUser != null ? $tempUser->data()->group_id : 0) as $announcement) {
+        foreach ($announcements->getAvailable('api', null, $tempUser != null ? $tempUser->getAllGroupIds(false) : [0]) as $announcement) {
             $user_announcements[$announcement->id]['pages'] = json_decode($announcement->pages);
             $user_announcements[$announcement->id]['groups'] = array_map('intval', json_decode($announcement->groups));
             $user_announcements[$announcement->id]['header'] = Output::getClean($announcement->header);
