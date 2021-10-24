@@ -22,6 +22,10 @@ class ListUsersEndpoint extends EndpointBase {
             $query = 'SELECT u.id, u.username, u.uuid, u.isbanned AS banned, u.active FROM nl2_users u';
         }
 
+        $operator = isset($_GET['operator']) && $_GET['operator'] == 'OR'
+                        ? ' OR'
+                        : ' AND';
+
         if (isset($_GET['group_id'])) {
             $query .= ' INNER JOIN nl2_users_groups ug ON u.id = ug.user_id WHERE ug.group_id = ' . $_GET['group_id'];
             $filterGroup = true;
@@ -29,7 +33,7 @@ class ListUsersEndpoint extends EndpointBase {
 
         if (isset($_GET['banned'])) {
             if (isset($filterGroup)) {
-                $query .= ' AND';
+                $query .= $operator;
             } else {
                 $query .= ' WHERE';
             }
@@ -39,7 +43,7 @@ class ListUsersEndpoint extends EndpointBase {
 
         if (isset($_GET['active'])) {
             if (isset($filterBanned) || isset($filterGroup)) {
-                $query .= ' AND';
+                $query .= $operator;
             } else {
                 $query .= ' WHERE';
             }
@@ -49,7 +53,7 @@ class ListUsersEndpoint extends EndpointBase {
 
         if ($discord_enabled && isset($_GET['discord_linked'])) {
             if (isset($filterBanned) || isset($filterActive) || isset($filterGroup)) {
-                $query .= ' AND';
+                $query .= $operator;
             } else {
                 $query .= ' WHERE';
             }
