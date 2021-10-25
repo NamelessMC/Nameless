@@ -43,6 +43,7 @@ if ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (isset($_SERVER
     ini_set('session.cookie_secure', 'On');
 }
 
+ini_set('session.cookie_httponly', 1);
 ini_set('open_basedir', ROOT_PATH . PATH_SEPARATOR  . $tmp_dir . PATH_SEPARATOR . '/proc/stat');
 
 // Get the directory the user is trying to access
