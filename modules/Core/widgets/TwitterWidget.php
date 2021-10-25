@@ -14,7 +14,7 @@ class TwitterWidget extends WidgetBase {
         parent::__construct($pages);
 
         // Get widget
-        $widget_query = DB::getInstance()->query('SELECT `location`, `order` FROM nl2_widgets WHERE `name` = ?', array('Twitter'))->first();
+        $widget_query = DB::getInstance()->selectQuery('SELECT `location`, `order` FROM nl2_widgets WHERE `name` = ?', array('Twitter'))->first();
 
         // Set widget variables
         $this->_module = 'Core';

@@ -63,7 +63,7 @@ class ListUsersEndpoint extends EndpointBase {
             $query .= ' `u.discord_id` IS ' . ($_GET['discord_linked'] == 'true' ? 'NOT' : '') . ' NULL';
         }
 
-        $users = $api->getDb()->query($query, $params)->results();
+        $users = $api->getDb()->selectQuery($query, $params)->results();
 
         $users_json = array();
         foreach ($users as $user) {

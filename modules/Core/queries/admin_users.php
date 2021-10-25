@@ -10,7 +10,7 @@ $sortColumns = ['username' => 'username', 'nickname' => 'nickname', 'joined' => 
 
 $db = DB::getInstance();
 
-$total = $db->query('SELECT COUNT(*) as `total` FROM nl2_users', array())->first()->total;
+$total = $db->selectQuery('SELECT COUNT(*) as `total` FROM nl2_users', array())->first()->total;
 $query = 'SELECT nl2_users.id as id, nl2_users.username as username, nl2_users.nickname as nickname, nl2_users.joined as joined FROM nl2_users';
 $where = '';
 $order = '';
@@ -57,10 +57,10 @@ if (isset($_GET['start']) && $_GET['length'] != -1) {
 }
 
 if (strlen($where) > 0) {
-    $totalFiltered = $db->query('SELECT COUNT(*) as `total` FROM nl2_users' . $where, $params)->first()->total;
+    $totalFiltered = $db->selectQuery('SELECT COUNT(*) as `total` FROM nl2_users' . $where, $params)->first()->total;
 }
 
-$results = $db->query($query . $where . $order . $limit, $params)->results();
+$results = $db->selectQuery($query . $where . $order . $limit, $params)->results();
 $data = array();
 $groups = array();
 
@@ -73,7 +73,7 @@ if (count($results)) {
         $obj->joined = date('d M Y', $result->joined);
 
         // Get group
-        $group = DB::getInstance()->query('SELECT `name` FROM nl2_groups g JOIN nl2_users_groups ug ON g.id = ug.group_id WHERE ug.user_id = ? ORDER BY g.order ASC LIMIT 1', array($result->id));
+        $group = DB::getInstance()->selectQuery('SELECT `name` FROM nl2_groups g JOIN nl2_users_groups ug ON g.id = ug.group_id WHERE ug.user_id = ? ORDER BY g.order ASC LIMIT 1', array($result->id));
         $obj->groupName = $group->first()->name;
 
         $data[] = $obj;

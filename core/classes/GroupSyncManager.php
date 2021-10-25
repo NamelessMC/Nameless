@@ -176,7 +176,7 @@ final class GroupSyncManager extends Instanceable
         $namelessmc_column = $namelessmc_injector->getColumnName();
 
         // Get all group sync rules where this injector is not null
-        $rules = DB::getInstance()->query("SELECT * FROM nl2_group_sync WHERE {$sending_injector->getColumnName()} IS NOT NULL")->results();
+        $rules = DB::getInstance()->selectQuery("SELECT * FROM nl2_group_sync WHERE {$sending_injector->getColumnName()} IS NOT NULL")->results();
         foreach ($rules as $rule) {
 
             foreach ($this->getEnabledInjectors() as $injector) {

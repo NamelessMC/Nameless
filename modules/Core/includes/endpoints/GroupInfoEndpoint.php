@@ -45,7 +45,7 @@ class GroupInfoEndpoint extends EndpointBase {
             }
         }
 
-        $groups = $api->getDb()->query($query . $where . $order, $params)->results();
+        $groups = $api->getDb()->selectQuery($query . $where . $order, $params)->results();
 
         $groups_array = array();
         foreach ($groups as $group) {

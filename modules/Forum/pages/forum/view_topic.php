@@ -94,7 +94,7 @@ if (isset($_GET['p'])) {
 
 // Is the URL pointing to a specific post?
 if (isset($_GET['pid'])) {
-    $posts = DB::getInstance()->query('SELECT * FROM nl2_posts WHERE topic_id = ? AND deleted = 0', array($tid))->results();
+    $posts = DB::getInstance()->selectQuery('SELECT * FROM nl2_posts WHERE topic_id = ? AND deleted = 0', array($tid))->results();
     if (count($posts)) {
         $i = 0;
         while ($i < count($posts)) {
@@ -123,7 +123,7 @@ if (isset($_GET['action'])) {
         if (Token::check($_POST['token'])) {
             switch ($_GET['action']) {
                 case 'follow':
-                    $already_following = DB::getInstance()->query('SELECT id FROM nl2_topics_following WHERE topic_id = ? AND user_id = ?', array($tid, $user->data()->id));
+                    $already_following = DB::getInstance()->selectQuery('SELECT id FROM nl2_topics_following WHERE topic_id = ? AND user_id = ?', array($tid, $user->data()->id));
                     if (!$already_following->count()) {
                         $queries->create('topics_following', array(
                             'topic_id' => $tid,
@@ -175,7 +175,7 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 // Assign author + title to Smarty variables
 // Get first post
-$first_post = DB::getInstance()->query('SELECT * FROM nl2_posts WHERE topic_id = ? ORDER BY id ASC LIMIT 1', array($tid))->first();
+$first_post = DB::getInstance()->selectQuery('SELECT * FROM nl2_posts WHERE topic_id = ? ORDER BY id ASC LIMIT 1', array($tid))->first();
 
 $topic_user = new User($topic->topic_creator);
 
@@ -770,7 +770,7 @@ if ($user->isLoggedIn()) {
     }
 
     // Following?
-    $is_user_following = DB::getInstance()->query('SELECT id, existing_alerts FROM nl2_topics_following WHERE topic_id = ? AND user_id = ?', array($tid, $user->data()->id));
+    $is_user_following = DB::getInstance()->selectQuery('SELECT id, existing_alerts FROM nl2_topics_following WHERE topic_id = ? AND user_id = ?', array($tid, $user->data()->id));
 
     if ($is_user_following->count()) {
         $is_user_following = $is_user_following->first();

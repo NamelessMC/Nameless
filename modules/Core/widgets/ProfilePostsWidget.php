@@ -26,7 +26,7 @@ class ProfilePostsWidget extends WidgetBase {
         parent::__construct($pages);
 
         // Get widget
-        $widget_query = DB::getInstance()->query('SELECT `location`, `order` FROM nl2_widgets WHERE `name` = ?', array('Latest Profile Posts'))->first();
+        $widget_query = DB::getInstance()->selectQuery('SELECT `location`, `order` FROM nl2_widgets WHERE `name` = ?', array('Latest Profile Posts'))->first();
 
         // Set widget variables
         $this->_module = 'Core';
@@ -50,7 +50,7 @@ class ProfilePostsWidget extends WidgetBase {
         if ($this->_cache->isCached('profile_posts_' . $user_id)) {
              $posts_array = $this->_cache->retrieve('profile_posts_' . $user_id);
          } else {
-            $posts = DB::getInstance()->query('SELECT * FROM nl2_user_profile_wall_posts ORDER BY time DESC LIMIT 5')->results();
+            $posts = DB::getInstance()->selectQuery('SELECT * FROM nl2_user_profile_wall_posts ORDER BY time DESC LIMIT 5')->results();
             foreach ($posts as $post) {
                 $post_author = new User($post->author_id);
 

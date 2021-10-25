@@ -119,7 +119,7 @@ if (!isset($_GET['action'])) {
                 }
             }
 
-            $groups = DB::getInstance()->query('SELECT * FROM nl2_groups ORDER BY `order`')->results();
+            $groups = DB::getInstance()->selectQuery('SELECT * FROM nl2_groups ORDER BY `order`')->results();
             $template_array = array();
             foreach ($groups as $group) {
                 $template_array[Output::getClean($group->id)] = array(
@@ -221,7 +221,7 @@ if (!isset($_GET['action'])) {
             $guest_permissions = in_array("0", json_decode($announcement->groups));
             $groups = array();
 
-            foreach (DB::getInstance()->query('SELECT * FROM nl2_groups ORDER BY `order`')->results() as $group) {
+            foreach (DB::getInstance()->selectQuery('SELECT * FROM nl2_groups ORDER BY `order`')->results() as $group) {
                 $groups[$group->id] = array(
                     'name' => $group->name,
                     'id' => $group->id,

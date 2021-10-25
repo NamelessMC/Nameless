@@ -52,7 +52,7 @@ if (isset($_GET['pid']) && isset($_GET['tid'])) {
  *  Is the post the first in the topic? If so, allow the title to be edited.
  */
 
-$post_editing = DB::getInstance()->query('SELECT * FROM nl2_posts WHERE topic_id = ? ORDER BY id ASC LIMIT 1', array($topic_id))->results();
+$post_editing = DB::getInstance()->selectQuery('SELECT * FROM nl2_posts WHERE topic_id = ? ORDER BY id ASC LIMIT 1', array($topic_id))->results();
 
 // Check topic exists
 if (!count($post_editing)) {

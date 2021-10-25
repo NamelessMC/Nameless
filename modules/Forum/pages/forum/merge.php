@@ -27,7 +27,7 @@ if (!isset($_GET["tid"]) || !is_numeric($_GET["tid"])) {
     die();
 } else {
     $topic_id = $_GET["tid"];
-    $forum_id = DB::getInstance()->query('SELECT forum_id FROM nl2_topics WHERE id = ?', array($topic_id))->first();
+    $forum_id = DB::getInstance()->selectQuery('SELECT forum_id FROM nl2_topics WHERE id = ?', array($topic_id))->first();
     $forum_id = $forum_id->forum_id;
 }
 
@@ -72,7 +72,7 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
 $token = Token::get();
 
 // Get topics
-$topics = DB::getInstance()->query('SELECT * FROM nl2_topics WHERE forum_id = ? AND deleted = 0 AND id <> ? ORDER BY id ASC', array($forum_id, $topic_id))->results();
+$topics = DB::getInstance()->selectQuery('SELECT * FROM nl2_topics WHERE forum_id = ? AND deleted = 0 AND id <> ? ORDER BY id ASC', array($forum_id, $topic_id))->results();
 
 // Smarty
 $smarty->assign(array(

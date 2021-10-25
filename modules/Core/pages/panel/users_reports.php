@@ -29,11 +29,11 @@ if (!isset($_GET['id'])) {
     if (!isset($_GET['view'])) {
         // Get open reports
         if (!isset($_GET['uid'])) {
-            $report_query = DB::getInstance()->query('SELECT * FROM nl2_reports WHERE status = 0 ORDER BY date_updated DESC')->results();
+            $report_query = DB::getInstance()->selectQuery('SELECT * FROM nl2_reports WHERE status = 0 ORDER BY date_updated DESC')->results();
             $url = URL::build('/panel/users/reports/', true);
             $change_view_link = URL::build('/panel/users/reports/', 'view=closed');
         } else {
-            $report_query = DB::getInstance()->query('SELECT * FROM nl2_reports WHERE status = 0 AND reported_id = ? ORDER BY date_updated DESC', array(intval($_GET['uid'])))->results();
+            $report_query = DB::getInstance()->selectQuery('SELECT * FROM nl2_reports WHERE status = 0 AND reported_id = ? ORDER BY date_updated DESC', array(intval($_GET['uid'])))->results();
             $url = URL::build('/panel/users/reports/', 'uid=' . intval(Output::getClean($_GET['uid'])) . '&');
             $change_view_link = URL::build('/panel/users/reports/', 'view=closed&uid=' . intval(Output::getClean($_GET['uid'])));
         }
@@ -45,11 +45,11 @@ if (!isset($_GET['id'])) {
     } else {
         // Get closed reports
         if (!isset($_GET['uid'])) {
-            $report_query = DB::getInstance()->query('SELECT * FROM nl2_reports WHERE status = 1 ORDER BY date_updated DESC')->results();
+            $report_query = DB::getInstance()->selectQuery('SELECT * FROM nl2_reports WHERE status = 1 ORDER BY date_updated DESC')->results();
             $url = URL::build('/panel/users/reports/', 'view=closed&');
             $change_view_link = URL::build('/panel/users/reports');
         } else {
-            $report_query = DB::getInstance()->query('SELECT * FROM nl2_reports WHERE status = 1 AND reported_id = ? ORDER BY date_updated DESC', array(intval($_GET['uid'])))->results();
+            $report_query = DB::getInstance()->selectQuery('SELECT * FROM nl2_reports WHERE status = 1 AND reported_id = ? ORDER BY date_updated DESC', array(intval($_GET['uid'])))->results();
             $url = URL::build('/panel/users/reports/', 'view=closed&uid=' . intval(Output::getClean($_GET['uid'])) . '&');
             $change_view_link = URL::build('/panel/users/reports/', 'uid=' . intval(Output::getClean($_GET['uid'])));
         }

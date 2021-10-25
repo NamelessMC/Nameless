@@ -98,7 +98,7 @@ foreach ($categories as $category) {
     $template_forums[] = $to_add;
 
 
-    $forums = DB::getInstance()->query('SELECT * FROM nl2_forums WHERE parent = ? ORDER BY forum_order ASC', array($category->id));
+    $forums = DB::getInstance()->selectQuery('SELECT * FROM nl2_forums WHERE parent = ? ORDER BY forum_order ASC', array($category->id));
 
     if ($forums->count()) {
         $forums = $forums->results();

@@ -233,7 +233,7 @@ try {
 
 // Convert user groups
 try {
-    $users = DB::getInstance()->query('SELECT id, group_id, secondary_groups FROM nl2_users')->results();
+    $users = DB::getInstance()->selectQuery('SELECT id, group_id, secondary_groups FROM nl2_users')->results();
     $query = 'INSERT INTO nl2_users_groups (user_id, group_id) VALUES ';
     foreach ($users as $item) {
         $inserts = array('(' . Output::getClean($item->id) . ',' . Output::getClean($item->group_id) . '),');

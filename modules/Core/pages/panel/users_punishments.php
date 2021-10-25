@@ -196,7 +196,7 @@ if (isset($_GET['user'])) {
                                 }
 
                                 // Send alerts
-                                $groups_query = DB::getInstance()->query('SELECT id FROM nl2_groups WHERE permissions LIKE \'%"modcp.punishments":1%\'');
+                                $groups_query = DB::getInstance()->selectQuery('SELECT id FROM nl2_groups WHERE permissions LIKE \'%"modcp.punishments":1%\'');
                                 if ($groups_query->count()) {
                                     $groups_query = $groups_query->results();
 
@@ -209,7 +209,7 @@ if (isset($_GET['user'])) {
                                     $groups = rtrim($groups, ',') . ')';
 
                                     // Get users in this group
-                                    $users = DB::getInstance()->query('SELECT DISTINCT(nl2_users.id) AS id FROM nl2_users LEFT JOIN nl2_users_groups ON nl2_users.id = nl2_users_groups.user_id WHERE group_id in ' . $groups);
+                                    $users = DB::getInstance()->selectQuery('SELECT DISTINCT(nl2_users.id) AS id FROM nl2_users LEFT JOIN nl2_users_groups ON nl2_users.id = nl2_users_groups.user_id WHERE group_id in ' . $groups);
 
                                     if ($users->count()) {
                                         $users = $users->results();
@@ -320,7 +320,7 @@ if (isset($_GET['user'])) {
 } else {
     if (Input::exists() && isset($_POST['username'])) {
         if (Token::check()) {
-            $check = DB::getInstance()->query('SELECT id FROM nl2_users WHERE username = ? OR nickname = ?', array($_POST['username'], $_POST['username']));
+            $check = DB::getInstance()->selectQuery('SELECT id FROM nl2_users WHERE username = ? OR nickname = ?', array($_POST['username'], $_POST['username']));
 
             if ($check->count()) {
                 $check = $check->first();

@@ -29,7 +29,7 @@ class Announcements {
             return $this->_cache->retrieve('custom_announcements');
         }
 
-        $this->_cache->store('custom_announcements', DB::getInstance()->query("SELECT * FROM nl2_custom_announcements ORDER BY `order` ASC")->results());
+        $this->_cache->store('custom_announcements', DB::getInstance()->selectQuery("SELECT * FROM nl2_custom_announcements ORDER BY `order` ASC")->results());
 
         return $this->_cache->retrieve('custom_announcements');
     }

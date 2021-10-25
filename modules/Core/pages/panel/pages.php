@@ -189,7 +189,7 @@ if(!isset($_GET['action'])){
                     $errors[] = $language->get('general', 'invalid_token');
             }
 
-            $groups = DB::getInstance()->query('SELECT * FROM nl2_groups ORDER BY `order`')->results();
+            $groups = DB::getInstance()->selectQuery('SELECT * FROM nl2_groups ORDER BY `order`')->results();
             $template_array = array();
             foreach($groups as $group){
                 $template_array[Output::getClean($group->id)] = array(
@@ -474,7 +474,7 @@ if(!isset($_GET['action'])){
                     $errors[] = $language->get('general', 'invalid_token');
             }
 
-            $group_permissions = DB::getInstance()->query('SELECT id, `name`, group_html, subquery.view AS `view` FROM nl2_groups LEFT JOIN (SELECT `view`, group_id FROM nl2_custom_pages_permissions WHERE page_id = ?) AS subquery ON nl2_groups.id = subquery.group_id ORDER BY `order`', array($page->id))->results();
+            $group_permissions = DB::getInstance()->selectQuery('SELECT id, `name`, group_html, subquery.view AS `view` FROM nl2_groups LEFT JOIN (SELECT `view`, group_id FROM nl2_custom_pages_permissions WHERE page_id = ?) AS subquery ON nl2_groups.id = subquery.group_id ORDER BY `order`', array($page->id))->results();
             $template_array = array();
             foreach($group_permissions as $group){
                 $template_array[Output::getClean($group->id)] = array(
@@ -485,7 +485,7 @@ if(!isset($_GET['action'])){
                 );
             }
 
-            $guest_permissions = DB::getInstance()->query('SELECT `view` FROM nl2_custom_pages_permissions WHERE group_id = 0 AND page_id = ?', array($page->id))->results();
+            $guest_permissions = DB::getInstance()->selectQuery('SELECT `view` FROM nl2_custom_pages_permissions WHERE group_id = 0 AND page_id = ?', array($page->id))->results();
             $guest_can_view = 0;
             if(count($guest_permissions)){
                 if($guest_permissions[0]->view == 1){

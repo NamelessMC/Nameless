@@ -118,7 +118,7 @@ class User {
                 $this->_data = $data->first();
 
                 // Get user groups
-                $groups_query = $this->_db->query('SELECT nl2_groups.* FROM nl2_users_groups INNER JOIN nl2_groups ON group_id = nl2_groups.id WHERE user_id = ? AND deleted = 0 ORDER BY `order`;', array($this->_data->id));
+                $groups_query = $this->_db->selectQuery('SELECT nl2_groups.* FROM nl2_users_groups INNER JOIN nl2_groups ON group_id = nl2_groups.id WHERE user_id = ? AND deleted = 0 ORDER BY `order`;', array($this->_data->id));
 
                 if ($groups_query->count()) {
 
@@ -130,12 +130,12 @@ class User {
                 } else {
                     // Get default group
                     // TODO: Use PRE_VALIDATED_DEFAULT ?
-                    $default_group = $this->_db->query('SELECT * FROM nl2_groups WHERE default_group = 1', array())->first();
+                    $default_group = $this->_db->selectQuery('SELECT * FROM nl2_groups WHERE default_group = 1', array())->first();
                     if ($default_group) {
                         $default_group_id = $default_group->id;
                     } else {
                         $default_group_id = 1; // default to 1
-                        $default_group = $this->_db->query('SELECT * FROM nl2_groups WHERE id = 1', array())->first();
+                        $default_group = $this->_db->selectQuery('SELECT * FROM nl2_groups WHERE id = 1', array())->first();
                     }
 
                     $this->addGroup($default_group_id, 0, $default_group);
@@ -1153,7 +1153,7 @@ class User {
         }
         $groups = rtrim($groups, ',') . ')';
 
-        return $this->_db->query('SELECT template.id, template.name FROM nl2_templates AS template WHERE template.enabled = 1 AND template.id IN (SELECT template_id FROM nl2_groups_templates WHERE can_use_template = 1 AND group_id IN ' . $groups . ')')->results();
+        return $this->_db->selectQuery('SELECT template.id, template.name FROM nl2_templates AS template WHERE template.enabled = 1 AND template.id IN (SELECT template_id FROM nl2_groups_templates WHERE can_use_template = 1 AND group_id IN ' . $groups . ')')->results();
     }
 
     /**

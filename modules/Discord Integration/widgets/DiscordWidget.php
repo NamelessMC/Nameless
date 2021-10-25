@@ -21,7 +21,7 @@ class DiscordWidget extends WidgetBase {
         parent::__construct($pages);
 
         // Get widget
-        $widget_query = DB::getInstance()->query('SELECT `location`, `order` FROM nl2_widgets WHERE `name` = ?', array('Discord'))->first();
+        $widget_query = DB::getInstance()->selectQuery('SELECT `location`, `order` FROM nl2_widgets WHERE `name` = ?', array('Discord'))->first();
 
         // Set widget variables
         $this->_module = 'Discord Integration';

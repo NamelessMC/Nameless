@@ -55,7 +55,7 @@ try {
 }
 
 try {
-    $recaptcha_type = DB::getInstance()->query('SELECT id FROM nl2_settings WHERE `name` = ? AND `value` = ?', array('recaptcha_type', 'Recaptcha2'));
+    $recaptcha_type = DB::getInstance()->selectQuery('SELECT id FROM nl2_settings WHERE `name` = ? AND `value` = ?', array('recaptcha_type', 'Recaptcha2'));
     if ($recaptcha_type->count()) {
         $cache->setCache('configuration');
         $cache->store('recaptcha_type', 'Recaptcha2');

@@ -126,7 +126,7 @@ if(isset($_GET['action'])){
                             else
                                 $query_port = 25565;
 
-                            $last_server_order = DB::getInstance()->query('SELECT `order` FROM nl2_mc_servers ORDER BY `order` DESC LIMIT 1')->results();
+                            $last_server_order = DB::getInstance()->selectQuery('SELECT `order` FROM nl2_mc_servers ORDER BY `order` DESC LIMIT 1')->results();
                             if (count($last_server_order)) $last_server_order = $last_server_order[0]->order;
                             else $last_server_order = 0;
 

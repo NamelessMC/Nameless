@@ -24,7 +24,7 @@ class Alert {
     public static function create(int $user_id, string $type, array $text_short, array $text, string $link = '#'): void {
         $db = DB::getInstance();
 
-        $language = $db->query('SELECT nl2_languages.name AS `name` FROM nl2_users LEFT JOIN nl2_languages ON nl2_languages.id = nl2_users.language_id WHERE nl2_users.id = ?', array($user_id));
+        $language = $db->selectQuery('SELECT nl2_languages.name AS `name` FROM nl2_users LEFT JOIN nl2_languages ON nl2_languages.id = nl2_users.language_id WHERE nl2_users.id = ?', array($user_id));
 
         if ($language->count()) {
             $language_name = $language->first()->name;
@@ -58,7 +58,7 @@ class Alert {
             return $db->get('alerts', array('user_id', '=', $user_id))->results();
         }
 
-        return $db->query('SELECT * FROM nl2_alerts WHERE user_id = ? AND `read` = 0', array($user_id))->results();
+        return $db->selectQuery('SELECT * FROM nl2_alerts WHERE user_id = ? AND `read` = 0', array($user_id))->results();
     }
 
     /**

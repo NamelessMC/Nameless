@@ -50,7 +50,7 @@ if (!$can_reply) {
     die();
 }
 
-$current_forum = DB::getInstance()->query('SELECT * FROM nl2_forums WHERE id = ?', array($fid))->first();
+$current_forum = DB::getInstance()->selectQuery('SELECT * FROM nl2_forums WHERE id = ?', array($fid))->first();
 $forum_title = Output::getClean(Output::getDecoded($current_forum->forum_title));
 
 // Topic labels

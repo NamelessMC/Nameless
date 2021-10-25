@@ -714,8 +714,8 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
     }
 
     // Get all forum permissions
-    $guest_query = DB::getInstance()->query('SELECT 0 AS id, `view`, view_other_topics FROM nl2_forums_permissions WHERE group_id = 0 AND forum_id = ?', array($forum[0]->id))->results();
-    $group_query = DB::getInstance()->query('SELECT id, name, `view`, create_topic, edit_topic, create_post, view_other_topics, moderate FROM nl2_groups A LEFT JOIN (SELECT group_id, `view`, create_topic, edit_topic, create_post, view_other_topics, moderate FROM nl2_forums_permissions WHERE forum_id = ?) B ON A.id = B.group_id ORDER BY `order` ASC', array($forum[0]->id))->results();
+    $guest_query = DB::getInstance()->selectQuery('SELECT 0 AS id, `view`, view_other_topics FROM nl2_forums_permissions WHERE group_id = 0 AND forum_id = ?', array($forum[0]->id))->results();
+    $group_query = DB::getInstance()->selectQuery('SELECT id, name, `view`, create_topic, edit_topic, create_post, view_other_topics, moderate FROM nl2_groups A LEFT JOIN (SELECT group_id, `view`, create_topic, edit_topic, create_post, view_other_topics, moderate FROM nl2_forums_permissions WHERE forum_id = ?) B ON A.id = B.group_id ORDER BY `order` ASC', array($forum[0]->id))->results();
 
     // Get default labels
     $enabled_labels = $forum[0]->default_labels ? explode(',', $forum[0]->default_labels) : array();

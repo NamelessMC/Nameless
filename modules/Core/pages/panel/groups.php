@@ -69,7 +69,7 @@ if (isset($_GET['action'])) {
                         if (!count($default_group) && $default == 0)
                             $default = 1;
 
-                        $last_group_order = DB::getInstance()->query('SELECT `order` FROM nl2_groups ORDER BY `order` DESC LIMIT 1')->results();
+                        $last_group_order = DB::getInstance()->selectQuery('SELECT `order` FROM nl2_groups ORDER BY `order` DESC LIMIT 1')->results();
                         if (count($last_group_order)) $last_group_order = $last_group_order[0]->order;
                         else $last_group_order = 0;
 

@@ -37,7 +37,7 @@ foreach ($user_groups as $group) {
     $groups .= Output::getClean($group->id) . ',';
 }
 $groups = rtrim($groups, ',') . ')';
-$topics = DB::getInstance()->query('SELECT nl2_topics.id AS id, nl2_topics.topic_title AS topic_title, nl2_topics.topic_creator AS topic_creator, nl2_topics.topic_date AS topic_date, nl2_topics.topic_last_user AS last_user, nl2_topics.topic_reply_date AS topic_reply_date, nl2_topics_following.existing_alerts AS existing_alerts FROM nl2_topics LEFT JOIN nl2_topics_following ON nl2_topics.id = nl2_topics_following.topic_id WHERE deleted = 0 AND nl2_topics.id IN (SELECT topic_id FROM nl2_topics_following WHERE user_id = ?) AND forum_id IN (SELECT forum_id FROM nl2_forums_permissions WHERE group_id IN ' . $groups . ' AND `view` = 1) ORDER BY nl2_topics.topic_reply_date DESC', array($user->data()->id))->results();
+$topics = DB::getInstance()->selectQuery('SELECT nl2_topics.id AS id, nl2_topics.topic_title AS topic_title, nl2_topics.topic_creator AS topic_creator, nl2_topics.topic_date AS topic_date, nl2_topics.topic_last_user AS last_user, nl2_topics.topic_reply_date AS topic_reply_date, nl2_topics_following.existing_alerts AS existing_alerts FROM nl2_topics LEFT JOIN nl2_topics_following ON nl2_topics.id = nl2_topics_following.topic_id WHERE deleted = 0 AND nl2_topics.id IN (SELECT topic_id FROM nl2_topics_following WHERE user_id = ?) AND forum_id IN (SELECT forum_id FROM nl2_forums_permissions WHERE group_id IN ' . $groups . ' AND `view` = 1) ORDER BY nl2_topics.topic_reply_date DESC', array($user->data()->id))->results();
 
 // Pagination
 $p = (isset($_GET['p']) && is_numeric($_GET['p'])) ? $_GET['p'] : 1;
@@ -64,7 +64,7 @@ for ($n = 0; $n < count($results->data); $n++) {
         $authors[$topic->topic_last_user] = new User($topic->topic_last_user);
     }
 
-    $last_post = DB::getInstance()->query('SELECT id FROM nl2_posts WHERE deleted = 0 AND topic_id = ? ORDER BY created DESC LIMIT 1', array($topic->id))->first();
+    $last_post = DB::getInstance()->selectQuery('SELECT id FROM nl2_posts WHERE deleted = 0 AND topic_id = ? ORDER BY created DESC LIMIT 1', array($topic->id))->first();
 
     $template_array[] = array(
         'topic_title' => Output::getClean($topic->topic_title),

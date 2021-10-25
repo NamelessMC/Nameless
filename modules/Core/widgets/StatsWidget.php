@@ -23,7 +23,7 @@ class StatsWidget extends WidgetBase {
         parent::__construct($pages);
 
         // Get widget
-        $widget_query = DB::getInstance()->query('SELECT `location`, `order` FROM nl2_widgets WHERE `name` = ?', array('Statistics'))->first();
+        $widget_query = DB::getInstance()->selectQuery('SELECT `location`, `order` FROM nl2_widgets WHERE `name` = ?', array('Statistics'))->first();
 
         // Set widget variables
         $this->_module = 'Core';
@@ -74,7 +74,7 @@ class StatsWidget extends WidgetBase {
         };
 
         if (!$this->_cache->isCached('online_users')) {
-            $online_users = DB::getInstance()->query('SELECT count(*) FROM nl2_users WHERE last_online > ?', array(strtotime('-5 minutes')))->first();
+            $online_users = DB::getInstance()->selectQuery('SELECT count(*) FROM nl2_users WHERE last_online > ?', array(strtotime('-5 minutes')))->first();
             $online_users = $online_users->{'count(*)'};
             $this->_cache->store('online_users', $online_users, 60);
         } else {
@@ -83,7 +83,7 @@ class StatsWidget extends WidgetBase {
 
         if (!$this->_cache->isCached('online_guests')) {
             try {
-                $online_guests = DB::getInstance()->query('SELECT count(*) FROM nl2_online_guests WHERE last_seen > ?', array(strtotime('-5 minutes')))->first();
+                $online_guests = DB::getInstance()->selectQuery('SELECT count(*) FROM nl2_online_guests WHERE last_seen > ?', array(strtotime('-5 minutes')))->first();
                 $online_guests = $online_guests->{'count(*)'};
                 $this->_cache->store('online_guests', $online_guests, 60);
             } catch (Exception $e) {
@@ -100,7 +100,7 @@ class StatsWidget extends WidgetBase {
         if ($forum_module->enabled) {
             $this->_cache->setCache('forum_stats');
             if (!$this->_cache->isCached('total_topics')) {
-                $total_topics = DB::getInstance()->query('SELECT count(*) FROM nl2_topics WHERE deleted = 0')->first();
+                $total_topics = DB::getInstance()->selectQuery('SELECT count(*) FROM nl2_topics WHERE deleted = 0')->first();
                 $total_topics = $total_topics->{'count(*)'};
                 $this->_cache->store('total_topics', $total_topics, 60);
             } else {
@@ -108,7 +108,7 @@ class StatsWidget extends WidgetBase {
             }
 
             if (!$this->_cache->isCached('total_posts')) {
-                $total_posts = DB::getInstance()->query('SELECT count(*) FROM nl2_posts WHERE deleted = 0')->first();
+                $total_posts = DB::getInstance()->selectQuery('SELECT count(*) FROM nl2_posts WHERE deleted = 0')->first();
                 $total_posts = $total_posts->{'count(*)'};
                 $this->_cache->store('total_posts', $total_posts, 60);
             } else {
