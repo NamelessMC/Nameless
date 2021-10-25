@@ -20,7 +20,7 @@ if(!count($custom_page)){
 // Check permissions
 $perms = $queries->getWhere('custom_pages_permissions', array('page_id', '=', $custom_page->id));
 if($user->isLoggedIn()){
-    $groups = $user->getAllGroups();
+    $groups = $user->getAllGroupHtml();
     foreach($groups as $group){
         foreach($perms as $perm){
             if($perm->group_id == $group){

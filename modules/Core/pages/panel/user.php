@@ -89,7 +89,7 @@ $smarty->assign(array(
     'USERNAME' => $view_user->getDisplayname(true),
     'USER_STYLE' => $view_user->getGroupClass(),
     'USER_GROUP' => Output::getClean($view_user->getMainGroup()->name),
-    'USER_GROUPS' => $view_user->getAllGroups(true),
+    'USER_GROUPS' => $view_user->getAllGroupHtml(),
     'USER_TITLE' => Output::getClean($user_query->user_title),
     'UUID' => Output::getClean($user_query->uuid),
     'LANGUAGE' => Output::getClean($user_language),

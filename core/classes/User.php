@@ -336,21 +336,28 @@ class User {
     }
 
     /**
+     * @deprecated Use specific group HTML or group IDs methods instead
+     */
+    public function getAllGroups($html = null): array {
+        if (is_null($html)) {
+            return $this->getAllGroupIds();
+        }
+
+        return $this->getAllGroupHtml();
+    }
+
+    /**
      * Get all of a user's groups. We can return their ID only or their HTML display code.
      *
      * @param mixed $html If not null, will use group_html column instead of ID.
      * @return array Array of all their group's IDs or HTML.
      */
-    public function getAllGroups($html = null): array {
+    public function getAllGroupHtml(): array {
         $groups = array();
 
         if (count($this->_groups)) {
             foreach ($this->_groups as $group) {
-                if (is_null($html)) {
-                    $groups[] = $group->id;
-                } else {
-                    $groups[] = $group->group_html;
-                }
+                $groups[] = $group->group_html;
             }
         }
 

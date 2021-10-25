@@ -595,7 +595,7 @@ for ($n = 0; $n < count($results->data); $n++) {
     }
 
     // Get user's group HTML formatting and their signature
-    $user_groups_html = $post_creator->getAllGroups('true');
+    $user_groups_html = $post_creator->getAllGroupHtml();
     $signature = $post_creator->getSignature();
 
     // Panel heading content

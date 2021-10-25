@@ -61,7 +61,7 @@ if (!defined('PANEL_TEMPLATE_STAFF_USERS_AJAX')) {
             'profile' => $target_user->getProfileURL(),
             'panel_profile' => URL::build('/panel/user/' . Output::getClean($item->id . '-' . $item->username)),
             'primary_group' => Output::getClean($target_user->getMainGroup()->name),
-            'all_groups' => $target_user->getAllGroups(true),
+            'all_groups' => $target_user->getAllGroupHtml(),
             'registered' => date('d M Y', $item->joined),
             'registered_unix' => Output::getClean($item->joined)
         );

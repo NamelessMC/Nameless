@@ -531,7 +531,7 @@ if(!isset($_GET['action'])) {
                 'author_profile' => $target_user->getProfileURL(),
                 'author_avatar' => $target_user->getAvatar(100),
                 'author_style' => $target_user->getGroupClass(),
-                'author_groups' => $target_user->getAllGroups('true'),
+                'author_groups' => $target_user->getAllGroupHtml(),
                 'message_date' => $timeago->inWords(date('d M Y, H:i', $results->data[$n]->created), $language->getTimeLanguage()),
                 'message_date_full' => date('d M Y, H:i', $results->data[$n]->created),
                 'content' => Output::getPurified($emojione->unicodeToImage(Output::getDecoded($results->data[$n]->content)))
