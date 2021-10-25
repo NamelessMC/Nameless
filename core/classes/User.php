@@ -225,7 +225,7 @@ class User {
 
                 $expiry = $is_admin ? 3600 : Config::get('remember/cookie_expiry');
                 $cookieName = $is_admin ? ($this->_cookieName . '_adm') : $this->_cookieName;
-                Cookie::put($cookieName, $hash, $expiry);
+                Cookie::put($cookieName, $hash, $expiry, Util::isConnectionSSL(), true);
             }
 
             return true;
