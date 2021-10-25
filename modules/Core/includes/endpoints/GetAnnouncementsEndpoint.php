@@ -2,7 +2,6 @@
 
 /**
  * @param int $id NamelessMC ID of the user whose announcements to view
- * @param string $username NamelessMC sername of the user whose announcements to view
  *
  * @return string JSON Array of latest announcements
  */
@@ -18,8 +17,6 @@ class GetAnnouncementsEndpoint extends EndpointBase {
     public function execute(Nameless2API $api) {
         if (isset($_GET['id']) && is_numeric($_GET['id'])) {
             $tempUser = $api->getUser('id', $_GET['id']);
-        } else if (isset($_GET['username'])) {
-            $tempUser = $api->getUser('username', $_GET['username']);
         } else {
             $tempUser = null;
         }
@@ -31,10 +28,12 @@ class GetAnnouncementsEndpoint extends EndpointBase {
         );
 
         foreach ($announcements->getAvailable('api', null, $tempUser != null ? $tempUser->getAllGroupIds(false) : [0]) as $announcement) {
-            $user_announcements[$announcement->id]['pages'] = json_decode($announcement->pages);
-            $user_announcements[$announcement->id]['groups'] = array_map('intval', json_decode($announcement->groups));
-            $user_announcements[$announcement->id]['header'] = Output::getClean($announcement->header);
-            $user_announcements[$announcement->id]['message'] = Output::getPurified($announcement->message);
+            $user_announcements[(int) $announcement->id] = [
+                'header' => Output::getClean($announcement->header),
+                'message' => Output::getPurified($announcement->message),
+                'pages' => json_decode($announcement->pages),
+                'groups' => array_map('intval', json_decode($announcement->groups)),
+            ];
         }
 
         $api->returnArray(array('announcements' => $user_announcements));
