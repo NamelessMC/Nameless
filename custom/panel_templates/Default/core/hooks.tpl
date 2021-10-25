@@ -114,8 +114,11 @@
                     {$CONFIRM_DELETE_HOOK}
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{$NO}</button>
-                    <a href="#" id="deleteLink" class="btn btn-primary">{$YES}</a>
+                    <form action="" id="deleteForm" method="post">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{$NO}</button>
+                        <input type="hidden" name="token" value="{$TOKEN}">
+                        <button type="submit" class="btn btn-primary">{$YES}</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -128,7 +131,7 @@
 
 <script type="text/javascript">
   function showDeleteModal(id) {
-    $('#deleteLink').attr('href', id);
+    $('#deleteForm').attr('action', id);
     $('#deleteModal').modal().show();
   }
 </script>
