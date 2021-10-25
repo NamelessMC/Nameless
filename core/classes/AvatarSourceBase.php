@@ -61,7 +61,7 @@ abstract class AvatarSourceBase {
      * 
      * @return string Compiled URL of avatar image.
      */
-    public function getAvatar(STRING $uuid, string $perspective, int $size = 128): string {
+    public function getAvatar(string $uuid, string $perspective, int $size = 128): string {
         return $this->formatUrl($this->getUrlToFormat($perspective), $uuid, $size);
     }
 
