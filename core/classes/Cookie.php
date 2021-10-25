@@ -36,9 +36,12 @@ class Cookie {
      * @param string $name Name of cookie to create.
      * @param string $value Value to store in cookie.
      * @param int $expiry When does the cookie expire?
+     * @param ?bool $secure Create as secure cookie?
+     * @param ?bool $httpOnly Create as httpOnly cookie?
+     * @return bool Whether cookie was set or not
      */
-    public static function put(string $name, string $value, int $expiry): bool {
-        return setcookie($name, $value, time() + $expiry, '/');
+    public static function put(string $name, string $value, int $expiry, ?bool $secure = false, ?bool $httpOnly = false): bool {
+        return setcookie($name, $value, time() + $expiry, '/', null, $secure, $httpOnly);
     }
 
     /**

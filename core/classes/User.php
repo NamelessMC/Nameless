@@ -225,7 +225,7 @@ class User {
 
                 $expiry = $is_admin ? 3600 : Config::get('remember/cookie_expiry');
                 $cookieName = $is_admin ? ($this->_cookieName . '_adm') : $this->_cookieName;
-                Cookie::put($cookieName, $hash, $expiry);
+                Cookie::put($cookieName, $hash, $expiry, Util::isConnectionSSL(), true);
             }
 
             return true;
@@ -958,7 +958,7 @@ class User {
         if (FRIENDLY_URLS === true) {
             $split = explode('?', $_SERVER['REQUEST_URI']);
 
-            if (count($split) > 1)
+            if ($split != null && count($split) > 1)
                 $_SESSION['last_page'] = URL::build($split[0], $split[1]);
             else
                 $_SESSION['last_page'] = URL::build($split[0]);

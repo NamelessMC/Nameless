@@ -35,8 +35,11 @@
                 <div class="card shadow mb-4">
                     <div class="card-body">
 
-                        <a class="btn btn-primary" style="margin-bottom: 15px;"
-                           href="{$INSTALL_MODULE_LINK}">{$INSTALL_MODULE}</a>
+                        <form style="display:inline" action="{$INSTALL_MODULE_LINK}" method="post">
+                            <input type="hidden" name="token" value="{$TOKEN}">
+                            <button type="submit" class="btn btn-primary"
+                                    style="margin-bottom: 15px;">{$INSTALL_MODULE}</button>
+                        </form>
 
                         <!-- Success and Error Alerts -->
                         {include file='includes/alerts.tpl'}

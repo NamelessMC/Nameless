@@ -14,6 +14,8 @@ class ListUsersEndpoint extends EndpointBase {
     }
 
     public function execute(Nameless2API $api) {
+        $params = [];
+
         $discord_enabled = Util::isModuleEnabled('Discord Integration');
 
         if ($discord_enabled) {
@@ -27,7 +29,8 @@ class ListUsersEndpoint extends EndpointBase {
                         : ' AND';
 
         if (isset($_GET['group_id'])) {
-            $query .= ' INNER JOIN nl2_users_groups ug ON u.id = ug.user_id WHERE ug.group_id = ' . $_GET['group_id'];
+            $query .= ' INNER JOIN nl2_users_groups ug ON u.id = ug.user_id WHERE ug.group_id = ?';
+            $params[] = $_GET['group_id'];
             $filterGroup = true;
         }
 
@@ -60,7 +63,7 @@ class ListUsersEndpoint extends EndpointBase {
             $query .= ' `u.discord_id` IS ' . ($_GET['discord_linked'] == 'true' ? 'NOT' : '') . ' NULL';
         }
 
-        $users = $api->getDb()->query($query)->results();
+        $users = $api->getDb()->query($query, $params)->results();
 
         $users_json = array();
         foreach ($users as $user) {

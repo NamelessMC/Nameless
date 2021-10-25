@@ -36,10 +36,16 @@
                 <div class="card shadow mb-4">
                     <div class="card-body">
 
-                        <a class="btn btn-primary" style="margin-bottom: 15px;"
-                           href="{$INSTALL_TEMPLATE_LINK}">{$INSTALL_TEMPLATE}</a>
-                        <a class="btn btn-secondary" style="margin-bottom: 15px;"
-                           href="{$CLEAR_CACHE_LINK}">{$CLEAR_CACHE}</a>
+                        <form style="display:inline" action="{$INSTALL_TEMPLATE_LINK}" method="post">
+                            <input type="hidden" name="token" value="{$TOKEN}">
+                            <button type="submit" class="btn btn-primary"
+                                    style="margin-bottom: 15px;">{$INSTALL_TEMPLATE}</button>
+                        </form>
+                        <form style="display:inline" action="{$CLEAR_CACHE_LINK}" method="post">
+                            <input type="hidden" name="token" value="{$TOKEN}">
+                            <button type="submit" class="btn btn-secondary"
+                                    style="margin-bottom: 15px;">{$CLEAR_CACHE}</button>
+                        </form>
 
                         <!-- Success and Error Alerts -->
                         {include file='includes/alerts.tpl'}
@@ -68,8 +74,12 @@
                                             <div class="float-md-right">
                                                 {if $template.enabled}
                                                     {if $template.deactivate_link}
-                                                        <a class="btn btn-danger btn-sm"
-                                                           href="{$template.deactivate_link}">{$DEACTIVATE}</a>
+                                                        <form action="{$template.deactivate_link}" method="post" style="display:inline">
+                                                            <input type="hidden" name="token" value="{$TOKEN}">
+                                                            <button type="submit" class="btn btn-danger btn-sm">
+                                                                {$DEACTIVATE}
+                                                            </button>
+                                                        </form>
                                                     {else}
                                                         <button role="button" class="btn btn-success btn-sm"
                                                                 disabled>{$ACTIVE}</button>
@@ -79,12 +89,20 @@
                                                         <button role="button" class="btn btn-success btn-sm"
                                                                 disabled>{$DEFAULT}</button>
                                                     {else}
-                                                        <a class="btn btn-primary btn-sm"
-                                                           href="{$template.default_link}">{$MAKE_DEFAULT}</a>
+                                                        <form action="{$template.default_link}" method="post" style="display:inline">
+                                                            <input type="hidden" name="token" value="{$TOKEN}">
+                                                            <button type="submit" class="btn btn-primary btn-sm">
+                                                                {$MAKE_DEFAULT}
+                                                            </button>
+                                                        </form>
                                                     {/if}
                                                 {else}
-                                                    <a class="btn btn-primary btn-sm"
-                                                       href="{$template.activate_link}">{$ACTIVATE}</a>
+                                                    <form action="{$template.activate_link}" method="post" style="display:inline">
+                                                        <input type="hidden" name="token" value="{$TOKEN}">
+                                                        <button type="submit" class="btn btn-primary btn-sm">
+                                                            {$ACTIVATE}
+                                                        </button>
+                                                    </form>
                                                     <button role="button"
                                                             onclick="showDeleteModal('{$template.delete_link}')"
                                                             class="btn btn-danger btn-sm">{$DELETE}</button>
@@ -175,7 +193,7 @@
         <!-- End Content Wrapper -->
     </div>
 
-    <!-- Delete error modal -->
+    <!-- Delete modal -->
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -189,8 +207,11 @@
                     {$CONFIRM_DELETE_TEMPLATE}
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{$NO}</button>
-                    <a href="#" id="deleteLink" class="btn btn-primary">{$YES}</a>
+                    <form action="" id="deleteForm" method="post">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{$NO}</button>
+                        <input type="hidden" name="token" value="{$TOKEN}">
+                        <button type="submit" class="btn btn-primary">{$YES}</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -203,7 +224,7 @@
 
 <script type="text/javascript">
   function showDeleteModal(id) {
-    $('#deleteLink').attr('href', id);
+    $('#deleteForm').attr('action', id);
     $('#deleteModal').modal().show();
   }
 
