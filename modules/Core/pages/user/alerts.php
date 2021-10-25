@@ -45,6 +45,10 @@ if(!isset($_GET['view'])){
 			$n++;
 		}
 
+        if (Session::exists('alerts_error')) {
+            $smarty->assign('ERROR', Session::flash('alerts_error'));
+        }
+
 		// Language values
 		$smarty->assign(array(
 			'USER_CP' => $language->get('user', 'user_cp'),
@@ -53,7 +57,8 @@ if(!isset($_GET['view'])){
 			'DELETE_ALL' => $language->get('user', 'delete_all'),
 			'DELETE_ALL_LINK' => URL::build('/user/alerts/', 'action=purge'),
 			'CLICK_TO_VIEW' => $language->get('user', 'click_here_to_view'),
-			'NO_ALERTS' => $language->get('user', 'no_alerts_usercp')
+			'NO_ALERTS' => $language->get('user', 'no_alerts_usercp'),
+            'TOKEN' => Token::get()
 		));
 
 		// Load modules + template
@@ -74,7 +79,12 @@ if(!isset($_GET['view'])){
 
 	} else {
 		if($_GET['action'] == 'purge'){
-			$queries->delete('alerts', array('user_id', '=', $user->data()->id));
+            if (Token::check()) {
+                $queries->delete('alerts', array('user_id', '=', $user->data()->id));
+            } else {
+                Session::flash('alerts_error', $language->get('general', 'invalid_token'));
+            }
+
 			Redirect::to(URL::build('/user/alerts'));
 			die();
 		}

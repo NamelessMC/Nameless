@@ -155,65 +155,74 @@ if(!isset($_GET['action'])){
     $template_file = 'core/panel_templates.tpl';
 
 } else {
-    switch($_GET['action']){
+    switch ($_GET['action']) {
         case 'install':
-            // Install new template
-            // Scan template directory for new templates
-            $directories = glob(ROOT_PATH . DIRECTORY_SEPARATOR . 'custom' . DIRECTORY_SEPARATOR . 'panel_templates' . DIRECTORY_SEPARATOR . '*' , GLOB_ONLYDIR);
-            foreach($directories as $directory){
-                $folders = explode(DIRECTORY_SEPARATOR, $directory);
+            if (Token::check()) {
+                // Install new template
+                // Scan template directory for new templates
+                $directories = glob(ROOT_PATH . DIRECTORY_SEPARATOR . 'custom' . DIRECTORY_SEPARATOR . 'panel_templates' . DIRECTORY_SEPARATOR . '*' , GLOB_ONLYDIR);
+                foreach($directories as $directory){
+                    $folders = explode(DIRECTORY_SEPARATOR, $directory);
 
-                // Is it already in the database?
-                $exists = $queries->getWhere('panel_templates', array('name', '=', htmlspecialchars($folders[count($folders) - 1])));
-                if(!count($exists) && file_exists(ROOT_PATH . DIRECTORY_SEPARATOR . 'custom' . DIRECTORY_SEPARATOR . 'panel_templates' . DIRECTORY_SEPARATOR . str_replace(array('../', '/', '..'), '', $folders[count($folders) - 1]) . DIRECTORY_SEPARATOR . 'template.php')){
-                    $template = null;
-                    require_once(ROOT_PATH . DIRECTORY_SEPARATOR . 'custom' . DIRECTORY_SEPARATOR . 'panel_templates' . DIRECTORY_SEPARATOR . str_replace(array('../', '/', '..'), '', $folders[count($folders) - 1]) . DIRECTORY_SEPARATOR . 'template.php');
+                    // Is it already in the database?
+                    $exists = $queries->getWhere('panel_templates', array('name', '=', htmlspecialchars($folders[count($folders) - 1])));
+                    if(!count($exists) && file_exists(ROOT_PATH . DIRECTORY_SEPARATOR . 'custom' . DIRECTORY_SEPARATOR . 'panel_templates' . DIRECTORY_SEPARATOR . str_replace(array('../', '/', '..'), '', $folders[count($folders) - 1]) . DIRECTORY_SEPARATOR . 'template.php')){
+                        $template = null;
+                        require_once(ROOT_PATH . DIRECTORY_SEPARATOR . 'custom' . DIRECTORY_SEPARATOR . 'panel_templates' . DIRECTORY_SEPARATOR . str_replace(array('../', '/', '..'), '', $folders[count($folders) - 1]) . DIRECTORY_SEPARATOR . 'template.php');
 
-                    if($template instanceof TemplateBase){
-                        // No, add it now
-                        $queries->create('panel_templates', array(
-                            'name' => htmlspecialchars($folders[count($folders) - 1])
-                        ));
+                        if($template instanceof TemplateBase){
+                            // No, add it now
+                            $queries->create('panel_templates', array(
+                                'name' => htmlspecialchars($folders[count($folders) - 1])
+                            ));
+                        }
                     }
                 }
+
+                Session::flash('admin_templates', $language->get('admin', 'templates_installed_successfully'));
+            } else {
+                Session::flash('admin_templates_error', $language->get('general', 'invalid_token'));
             }
 
-            Session::flash('admin_templates', $language->get('admin', 'templates_installed_successfully'));
             Redirect::to(URL::build('/panel/core/panel_templates'));
             die();
 
             break;
 
         case 'activate':
-            // Activate a template
-            // Ensure it exists
-            $template = $queries->getWhere('panel_templates', array('id', '=', $_GET['template']));
-            if(!count($template)){
-                // Doesn't exist
-                Redirect::to(URL::build('/panel/core/panel_templates/'));
-                die();
-            }
-            $name = str_replace(array('../', '/', '..'), '', $template[0]->name);
-
-            if(file_exists(ROOT_PATH . DIRECTORY_SEPARATOR . 'custom' . DIRECTORY_SEPARATOR . 'panel_templates' . DIRECTORY_SEPARATOR . $name . DIRECTORY_SEPARATOR . 'template.php')){
-                $id = $template[0]->id;
-                $template = null;
-
-                require(ROOT_PATH . DIRECTORY_SEPARATOR . 'custom' . DIRECTORY_SEPARATOR . 'panel_templates' . DIRECTORY_SEPARATOR . $name . DIRECTORY_SEPARATOR . 'template.php');
-
-                if($template instanceof TemplateBase){
-                    // Activate the template
-                    $queries->update('panel_templates', $id, array(
-                        'enabled' => 1
-                    ));
-
-                    // Session
-                    Session::flash('admin_templates', $language->get('admin', 'template_activated'));
-
-                } else {
-                    // Session
-                    Session::flash('admin_templates_error', $language->get('admin', 'unable_to_enable_template'));
+            if (Token::check()) {
+                // Activate a template
+                // Ensure it exists
+                $template = $queries->getWhere('panel_templates', array('id', '=', $_GET['template']));
+                if (!count($template)) {
+                    // Doesn't exist
+                    Redirect::to(URL::build('/panel/core/panel_templates/'));
+                    die();
                 }
+                $name = str_replace(array('../', '/', '..'), '', $template[0]->name);
+
+                if (file_exists(ROOT_PATH . DIRECTORY_SEPARATOR . 'custom' . DIRECTORY_SEPARATOR . 'panel_templates' . DIRECTORY_SEPARATOR . $name . DIRECTORY_SEPARATOR . 'template.php')) {
+                    $id = $template[0]->id;
+                    $template = null;
+
+                    require(ROOT_PATH . DIRECTORY_SEPARATOR . 'custom' . DIRECTORY_SEPARATOR . 'panel_templates' . DIRECTORY_SEPARATOR . $name . DIRECTORY_SEPARATOR . 'template.php');
+
+                    if ($template instanceof TemplateBase) {
+                        // Activate the template
+                        $queries->update('panel_templates', $id, array(
+                            'enabled' => 1
+                        ));
+
+                        // Session
+                        Session::flash('admin_templates', $language->get('admin', 'template_activated'));
+
+                    } else {
+                        // Session
+                        Session::flash('admin_templates_error', $language->get('admin', 'unable_to_enable_template'));
+                    }
+                }
+            } else {
+                Session::flash('admin_templates_error', $language->get('general', 'invalid_token'));
             }
 
             Redirect::to(URL::build('/panel/core/panel_templates/'));
@@ -222,114 +231,131 @@ if(!isset($_GET['action'])){
             break;
 
         case 'deactivate':
-            // Deactivate a template
-            // Ensure it exists
-            $template = $queries->getWhere('panel_templates', array('id', '=', $_GET['template']));
-            if(!count($template)){
-                // Doesn't exist
-                Redirect::to(URL::build('/panel/core/panel_templates/'));
-                die();
+            if (Token::check()) {
+                // Deactivate a template
+                // Ensure it exists
+                $template = $queries->getWhere('panel_templates', array('id', '=', $_GET['template']));
+                if (!count($template)) {
+                    // Doesn't exist
+                    Redirect::to(URL::build('/panel/core/panel_templates/'));
+                    die();
+                }
+
+                $template = $template[0]->id;
+
+                // Deactivate the template
+                $queries->update('panel_templates', $template, array(
+                    'enabled' => 0
+                ));
+
+                // Session
+                Session::flash('admin_templates', $language->get('admin', 'template_deactivated'));
+            } else {
+                Session::flash('admin_templates_error', $language->get('general', 'invalid_token'));
             }
 
-            $template = $template[0]->id;
-
-            // Deactivate the template
-            $queries->update('panel_templates', $template, array(
-                'enabled' => 0
-            ));
-
-            // Session
-            Session::flash('admin_templates', $language->get('admin', 'template_deactivated'));
             Redirect::to(URL::build('/panel/core/panel_templates'));
             die();
 
             break;
 
         case 'delete':
-            if(!isset($_GET['template'])){
+            if (!isset($_GET['template'])) {
                 Redirect::to('/panel/core/panel_templates');
                 die();
             }
 
-            $item = $_GET['template'];
+            if (Token::check()) {
+                $item = $_GET['template'];
 
-            try {
-                // Ensure template is not default or active
-                $template = $queries->getWhere('panel_templates', array('id', '=', $item));
-                if(count($template)){
-                    $template = $template[0];
-                    if($template->name == 'Default' || $template->id == 1 || $template->enabled == 1 || $template->is_default == 1){
+                try {
+                    // Ensure template is not default or active
+                    $template = $queries->getWhere('panel_templates', array('id', '=', $item));
+                    if(count($template)){
+                        $template = $template[0];
+                        if($template->name == 'Default' || $template->id == 1 || $template->enabled == 1 || $template->is_default == 1){
+                            Redirect::to(URL::build('/panel/core/panel_templates'));
+                            die();
+                        }
+
+                        $item = $template->name;
+                    } else {
                         Redirect::to(URL::build('/panel/core/panel_templates'));
                         die();
                     }
 
-                    $item = $template->name;
-                } else {
-                    Redirect::to(URL::build('/panel/core/panel_templates'));
-                    die();
+                    if(!Util::recursiveRemoveDirectory(ROOT_PATH . '/custom/panel_templates/' . $item))
+                        Session::flash('admin_templates_error', $language->get('admin', 'unable_to_delete_template'));
+                    else
+                        Session::flash('admin_templates', $language->get('admin', 'template_deleted_successfully'));
+
+                    // Delete from database
+                    $queries->delete('templates', array('name', '=', $item));
+                } catch (Exception $e) {
+                    Session::flash('admin_templates_error', $e->getMessage());
                 }
-
-                if(!Util::recursiveRemoveDirectory(ROOT_PATH . '/custom/panel_templates/' . $item))
-                    Session::flash('admin_templates_error', $language->get('admin', 'unable_to_delete_template'));
-                else
-                    Session::flash('admin_templates', $language->get('admin', 'template_deleted_successfully'));
-
-                // Delete from database
-                $queries->delete('templates', array('name', '=', $item));
-                Redirect::to(URL::build('/panel/core/panel_templates'));
-                die();
-
-            } catch (Exception $e) {
-                Session::flash('admin_templates_error', $e->getMessage());
-                Redirect::to(URL::build('/panel/core/panel_templates'));
-                die();
+            } else {
+                Session::flash('admin_templates_error', $language->get('general', 'invalid_token'));
             }
+
+            Redirect::to(URL::build('/panel/core/panel_templates'));
+            die();
 
             break;
 
         case 'make_default':
-            // Make a template default
-            // Ensure it exists
-            $new_default = $queries->getWhere('panel_templates', array('id', '=', $_GET['template']));
-            if(!count($new_default)){
-                // Doesn't exist
-                Redirect::to(URL::build('/panel/core/panel_templates/'));
-                die();
-            } else {
-                $new_default_template = $new_default[0]->name;
-                $new_default = $new_default[0]->id;
-            }
+            if (Token::check()) {
+                // Make a template default
+                // Ensure it exists
+                $new_default = $queries->getWhere('panel_templates', array('id', '=', $_GET['template']));
+                if (!count($new_default)) {
+                    // Doesn't exist
+                    Redirect::to(URL::build('/panel/core/panel_templates/'));
+                    die();
+                } else {
+                    $new_default_template = $new_default[0]->name;
+                    $new_default = $new_default[0]->id;
+                }
 
-            // Get current default template
-            $current_default = $queries->getWhere('panel_templates', array('is_default', '=', 1));
-            if(count($current_default)){
-                $current_default = $current_default[0]->id;
-                // No longer default
-                $queries->update('panel_templates', $current_default, array(
-                    'is_default' => 0
+                // Get current default template
+                $current_default = $queries->getWhere('panel_templates', array('is_default', '=', 1));
+                if (count($current_default)) {
+                    $current_default = $current_default[0]->id;
+                    // No longer default
+                    $queries->update('panel_templates', $current_default, array(
+                        'is_default' => 0
+                    ));
+                }
+
+                // Make selected template default
+                $queries->update('panel_templates', $new_default, array(
+                    'is_default' => 1
                 ));
+
+                // Cache
+                $cache->setCache('templatecache');
+                $cache->store('panel_default', $new_default_template);
+
+                // Session
+                Session::flash('admin_templates', str_replace('{x}', Output::getClean($new_default_template), $language->get('admin', 'default_template_set')));
+            } else {
+                Session::flash('admin_templates_error', $language->get('general', 'invalid_token'));
             }
 
-            // Make selected template default
-            $queries->update('panel_templates', $new_default, array(
-                'is_default' => 1
-            ));
-
-            // Cache
-            $cache->setCache('templatecache');
-            $cache->store('panel_default', $new_default_template);
-
-            // Session
-            Session::flash('admin_templates', str_replace('{x}', Output::getClean($new_default_template), $language->get('admin', 'default_template_set')));
             Redirect::to(URL::build('/panel/core/panel_templates/'));
             die();
 
             break;
 
         case 'clear_cache':
-            $smarty->clearAllCache();
-            Session::flash('admin_templates', $language->get('admin', 'cache_cleared'));
-            Redirect::to(URL::build('/panel/core/panel_templates/'));
+            if (Token::check()) {
+                $smarty->clearAllCache();
+                Session::flash('admin_templates', $language->get('admin', 'cache_cleared'));
+            } else {
+                Session::flash('admin_templates_error', $language->get('general', 'invalid_token'));
+            }
+
+            Redirect::to(URL::build('/panel/core/panel_templates'));
             die();
             break;
 

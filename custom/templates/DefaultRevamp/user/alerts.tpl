@@ -15,9 +15,15 @@
         <h3 class="ui header">
           {$ALERTS}
           <div class="res right floated">
-            <a class="ui mini negative button" href="{$DELETE_ALL_LINK}">{$DELETE_ALL}</a>
+            <form action="{$DELETE_ALL_LINK}" method="post" style="display:inline">
+              <input type="hidden" name="token" value="{$TOKEN}">
+              <button type="submit" class="ui mini negative button">{$DELETE_ALL}</button>
+            </form>
           </div>
         </h3>
+        {if isset($ERROR)}
+          <div class="ui negative message">{$ERROR}</div>
+        {/if}
         <div class="ui middle aligned relaxed selection list">
           {nocache}
             {if count($ALERTS_LIST)}

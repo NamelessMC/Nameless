@@ -269,35 +269,40 @@ if(!isset($_GET['action'])){
         die();
 
     } else if($_GET['action'] == 'install'){
-        // Install any new modules
-        $directories = glob(ROOT_PATH . '/modules/*' , GLOB_ONLYDIR);
+        if (Token::check()) {
+            // Install any new modules
+            $directories = glob(ROOT_PATH . '/modules/*' , GLOB_ONLYDIR);
 
-        define('MODULE_INSTALL', true);
+            define('MODULE_INSTALL', true);
 
-        foreach($directories as $directory){
-            $folders = explode('/', $directory);
+            foreach($directories as $directory){
+                $folders = explode('/', $directory);
 
-            if(file_exists(ROOT_PATH . '/modules/' . $folders[count($folders) - 1] . '/init.php')){
-                // Is it already in the database?
-                $exists = $queries->getWhere('modules', array('name', '=', Output::getClean($folders[count($folders) - 1])));
+                if(file_exists(ROOT_PATH . '/modules/' . $folders[count($folders) - 1] . '/init.php')){
+                    // Is it already in the database?
+                    $exists = $queries->getWhere('modules', array('name', '=', Output::getClean($folders[count($folders) - 1])));
 
-                if(!count($exists)){
-                    $module = null;
+                    if(!count($exists)){
+                        $module = null;
 
-                    // No, add it now
-                    require_once(ROOT_PATH . '/modules/' . $folders[count($folders) - 1] . '/init.php');
+                        // No, add it now
+                        require_once(ROOT_PATH . '/modules/' . $folders[count($folders) - 1] . '/init.php');
 
-                    if($module instanceof Module){
-                        $queries->create('modules', array(
-                            'name' => Output::getClean($folders[count($folders) - 1])
-                        ));
-                        $module->onInstall();
+                        if($module instanceof Module){
+                            $queries->create('modules', array(
+                                'name' => Output::getClean($folders[count($folders) - 1])
+                            ));
+                            $module->onInstall();
+                        }
                     }
                 }
             }
+
+            Session::flash('admin_modules', $language->get('admin', 'modules_installed_successfully'));
+        } else {
+            Session::flash('admin_modules_error', $language->get('general', 'invalid_token'));
         }
 
-        Session::flash('admin_modules', $language->get('admin', 'modules_installed_successfully'));
         Redirect::to(URL::build('/panel/core/modules'));
         die();
     }
