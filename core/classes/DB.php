@@ -37,7 +37,7 @@ class DB extends Instanceable {
     }
 
     /**
-     * @deprecated
+     * @deprecated Use selectQuery function to select data from DB, or createQuery function to modify data in DB
      */
     public function query(string $sql,  array $params = array(), int $fetch_method = PDO::FETCH_OBJ): DB {
         return $this->selectQuery(...func_get_args());
