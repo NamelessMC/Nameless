@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -23,8 +23,6 @@ $language = array(
     'configuration' => 'Configuração',
     'layout' => 'Layout',
     'user_management' => 'Gerenciar Usuários',
-    'admin_cp' => 'AdminCP',
-    'administration' => 'Administração',
     'overview' => 'Visão Geral',
     'core' => 'Core',
     'integrations' => 'Integrações',
@@ -45,6 +43,7 @@ $language = array(
     'notices' => 'Notificações',
     'no_notices' => 'Sem notificações.',
     'email_errors_logged' => 'Erros de email foram registrados',
+    'upgrade_php_version' => 'Please upgrade your PHP version to at least 7.4 - the next Nameless release will no longer support the version you are using.',
 
     // Core
     'mode_toggle' => 'Modo Escuro/Claro',
@@ -78,14 +77,6 @@ $language = array(
     'youtube_url' => 'URL do Youtube',
     'twitter_url' => 'URL do Twitter',
     'twitter_dark_theme' => 'Utilizar tema escuro do Twitter?',
-    'discord_id' => 'ID do Servidor do Discord',
-    'discord_widget_theme' => 'Tema do Widget do Discord',
-    'discord_id_length' => 'Certifique-se de que seu ID do Discord tenha 18 caracteres.',
-    'discord_id_numeric' => 'Certifique-se de que o seu ID Discord seja numérico (apenas números).',
-    'discord_invite_info' => 'Para convidar o bot Nameless Link para o seu servidor do Discord, clique <a target="_blank" href="https://namelessmc.com/discord-bot-invite">aqui</a>. Então, envie uma DM para o bot com o comando <code>!apiurl</code> para vincular o bot ao seu site. Alternativamente, você pode <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">hospedar o bot você mesmo</a>.',
-    'discord_bot_must_be_setup' => 'Não é possível ativar a integração do Discord até que você configure o bot. Para informações, por favor <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">clique aqui</a>.',
-    'discord_bot_setup' => 'Configuração do bot',
-    'discord_integration_not_setup' => 'A integração do Discord não está configurada',
     'dark' => 'Escuro',
     'light' => 'Claro',
     'google_plus_url' => 'URL do Google Plus',
@@ -117,6 +108,7 @@ $language = array(
     'mailer_settings_info' => 'Os campos a seguir são necessários se você tiver habilitado o PHPMailer. Para obter mais informações sobre como preencher esses campos, confira <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-SMTP-with-Nameless-(e.g.-Gmail-or-Outlook)" target="_blank">a wiki</a>.',
     'host' => 'Host',
     'email_port' => 'Porta',
+    'email_port_invalid' => 'Please insert a valid email port.',
     'email_password_hidden' => 'A senha não é mostrada por razões de segurança.',
     'send_test_email' => 'Enviar email de teste',
     'send_test_email_info' => 'O seguinte botão irá tentar enviar um email para o seu endereço de email, <strong>{x}</strong>. Qualquer erro que occora enquanto envia o email será exibido.', // Don't replace {x}
@@ -176,6 +168,35 @@ $language = array(
     'emails_mass_message_sent_successfully' => 'Mensagem de email em massa enviada com sucesso.',
     'emails_mass_message_replacements' => 'Você pode usar variáveis ​​em sua mensagem de email. Variáveis ​​com suporte: {username}, {sitename}',
     'emails_mass_message_loading' => 'Carregando... Por favor, não recarregue a página. Isso pode demorar um pouco.',
+    'administrator' => 'Administrator',
+    'administrator_permission_info' => 'Members with this permission will have every permission. This is a dangerous permission to grant.',
+
+    // Placeholders
+    'placeholders' => 'Placeholders',
+    'enable_placeholders' => 'Enable Placeholders?',
+    'updated_placeholder_settings' => 'Updated placeholder settings successfully.',
+    'placeholders_info' => 'Placeholders allow the NamelessMC Spigot plugin to send statistics about each player to your website so they can display them on their profile and forum posts.',
+    'placeholders_none' => 'There are no placeholders.',
+    'placeholders_server_id' => 'Server ID',
+    'placeholders_name' => 'Name',
+    'placeholders_value' => 'Value',
+    'placeholders_last_updated' => 'Last Updated',
+    'placeholders_friendly_name' => 'Friendly Name',
+    'placeholders_friendly_name_info' => 'Use this to set a \'nickname\' to this placeholder. The friendly name will be used instead of the raw name.',
+    'placeholders_show_on_profile' => 'Show on Profile',
+    'placeholders_show_on_profile_info' => 'Whether to show this placeholder on each user\'s profile or not.',
+    'placeholders_show_on_forum' => 'Show on Forum',
+    'placeholders_show_on_forum_info' => 'Whether to show this placeholder on each user\'s forum posts or not.',
+
+    // Placeholder leaderboards
+    'leaderboard_settings' => 'Leaderboard Settings',
+    'placeholder_leaderboard_settings' => 'Placeholder Leaderboard Settings',
+    'placeholder_leaderboard_info' => 'Placeholder Leaderboards let you create leaderboards to display ranked players on your server according to any placeholder.',
+    'placeholder_leaderboard_enable_info' => 'Leaderboards work best with numeric placeholders (such as coins, kills, blocks mined, etc). If you enable a leaderboard on a text-based placeholder - you cannot be sure it will order it as you want.',
+    'placeholder_leaderboard_updated' => 'Updated leaderboard settings successfully',
+    'placeholder_leaderboard_enabled' => 'Leaderboard Enabled',
+    'placeholder_leaderboard_title' => 'Leaderboard Title',
+    'placeholder_leaderboard_sort' => 'Leaderboard Sort',
 
     // SEO
     'seo' => 'SEO',
@@ -501,13 +522,15 @@ $language = array(
     'please_select_logs' => 'Selecione o registro para visualizar',
     'ip_address' => 'Endereço IP',
     'template_changes' => 'Alterações do Template',
+    'email_logs' => 'Mass Emails',
+    'group_sync_logs' => 'Group Sync Changes',
     'file_changed' => 'Arquivo Modificado',
     'all_logs' => 'Todos os Registros',
     'action' => 'Ação',
     'action_info' => 'Informação de Ação',
     'groups_removed' => 'Groups Removed',
     'groups_added' => 'Groups Added',
-    
+
     // Updates
     'update' => 'Atualizar',
     'current_version_x' => 'Versão atual: <strong>{x}</strong>', // Don't replaec {x}
@@ -571,9 +594,9 @@ $language = array(
     'link_location_required' => 'É necessário um link.',
     'page_title_minimum_2' => 'O título da página deve ter no mínimo 2 caracteres.',
     'page_url_minimum_2' => 'O endereço da página deve ter no mínimo 2 caracteres.',
-    'page_title_maximum_30' => 'O título da página deve ter no máximo 30 caracteres.',
+    'page_title_maximum_255' => 'O título da página deve ter no máximo 255 caracteres.',
     'page_icon_maximum_64' => 'O ícone da página deve ter no máximo 64 caracteres.',
-    'page_url_maximum_20' => 'O endereço da página deve ter no máximo 20 caracteres.',
+    'page_url_maximum_255' => 'O endereço da página deve ter no máximo 255 caracteres.',
     'page_content_maximum_100000' => 'O conteudo da página deve ter no máximo 100000 caracteres.',
     'page_redirect_link_maximum_512' => 'O link de redirecionamento deve ter no máximo 512 caracteres.',
     'confirm_delete_page' => 'Você tem certeza que quer deletar está página?',
@@ -710,7 +733,6 @@ $language = array(
     'announcement_icon_instructions' => 'Você também pode adicionar um ícone a cada anúncio aqui, por exemplo, usando <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>, <a href="https://semantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Semantic UI</a>.',
     'header' => 'Cabeçalho',
     'message' => 'Mensagem',
-    'pages' => 'Páginas',
     'text_colour' => 'Cor do Texto',
     'background_colour' => 'Cor de fundo',
     'closable' => 'Closable',
@@ -722,31 +744,4 @@ $language = array(
     'background_colour_required' => 'A cor de fundo é necessária',
     'text_colour_required' => 'A cor do texto é obrigatória',
     'no_announcements' => 'Nenhum anúncio foi feito ainda.',
-
-    // Discord
-    'discord' => 'Discord',
-    'enable_discord_integration' => 'Ativar integração com o Discord?',
-    'discord_role_id' => 'Discord Role ID',
-    'discord_role_id_numeric' => 'O Role ID do discord deve ser numérico.',
-    'discord_role_id_length' => 'O Role ID do Discord deve ter 18 dígitos.',
-    'discord_settings_updated' => 'Suas configurações do Discord foram atualizadas com sucesso.',
-    'discord_guild_id_required' => 'Por favor, insira seu ID do servidor do Discord para que a integração do Discord funcione.',
-    'discord_bot_url' => 'URL do Bot do Discord',
-    'discord_bot_url_info' => 'O local em que sua instância personalizada do bot do Nameless Link. Só altere este valor se você souber o que está fazendo!',
-    'discord_bot_url_required' => 'Por favor, insira o URL do seu bot para que a integração do Discord funcione.',
-    'discord_invalid_api_url' => 'Parece que o URL da sua API mudou. Peça ao proprietário da guilda para atualizar o URL com o Bot Nameless Link.',
-    'test_bot_url' => 'URL do bot de teste',
-    'discord_bot_url_valid' => 'O URL do seu bot é válido.',
-    'discord_cannot_interact' => 'O bot Nameless Link não pode interagir com este usuário no Discord. O papel deles é maior do que o Nameless Link?',
-
-    // Discord bot Errors
-    'discord_bot_error_badparameter' => 'Corpo de solicitação inválido.',
-    'discord_bot_error_error' => 'Ocorreu um erro do bot interno.',
-    'discord_bot_error_invguild' => 'O Guild ID fornecido é inválido ou o bot não está nele.',
-    'discord_bot_error_invuser' => 'A ID de usuário fornecida é inválida ou não está na Guilda especificada.',
-    'discord_bot_error_notlinked' => 'O bot não está vinculado a este site para fornecer a Guild ID.',
-    'discord_bot_error_unauthorized' => 'A chave da API do site é inválida',
-    'discord_bot_error_invrole' => 'A Role ID fornecida é inválida.',
-    'discord_bot_error_hierarchy' => 'O bot não pode editar as funções deste usuário.'
-
 );

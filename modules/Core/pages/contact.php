@@ -14,16 +14,14 @@ define('PAGE', 'contact');
 $page_title = $language->get('general', 'contact');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-// Use captcha?
-$captcha = $queries->getWhere("settings", array("name", "=", "recaptcha"));
-$captcha = $captcha[0]->value;
+$captcha = CaptchaBase::isCaptchaEnabled();
 
 // Handle input
 if (Input::exists()) {
   if (Token::check()) {
     // Check last contact message sending time
     if (!isset($_SESSION['last_contact_sent']) || (isset($_SESSION['last_contact_sent']) && $_SESSION['last_contact_sent'] < strtotime('-1 hour'))) {
-        if ($captcha == 'true') {
+        if ($captcha) {
             $captcha_passed = CaptchaBase::getActiveProvider()->validateToken($_POST);
         } else {
             $captcha_passed = true;
@@ -93,7 +91,7 @@ if (Input::exists()) {
                         $headers = 'From: ' . $siteemail . "\r\n" .
                             'Reply-To: ' . $fromemail . "\r\n" .
                             'X-Mailer: PHP/' . phpversion() . "\r\n" .
-                            'MIME-Version: 1.0' . "\r\n" . 
+                            'MIME-Version: 1.0' . "\r\n" .
                             'Content-type: text/html; charset=UTF-8' . "\r\n";
 
                         $email = array(
@@ -141,7 +139,7 @@ if (Input::exists()) {
 }
 
 // Smarty variables
-if ($captcha === 'true') {
+if ($captcha) {
     $smarty->assign('CAPTCHA', CaptchaBase::getActiveProvider()->getHtml());
     $template->addJSFiles(array(CaptchaBase::getActiveProvider()->getJavascriptSource() => array()));
 
@@ -179,7 +177,7 @@ $smarty->assign(array(
 ));
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
 
 $page_load = microtime(true) - $start;
 define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));

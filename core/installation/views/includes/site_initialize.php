@@ -109,7 +109,7 @@ $queries->create('groups', array(
 	'group_username_color' => '#ff0000',
 	'group_username_css' => '',
 	'admin_cp' => 1,
-	'permissions' => '{"admincp.core":1,"admincp.core.api":1,"admincp.core.seo":1,"admincp.core.general":1,"admincp.core.avatars":1,"admincp.core.fields":1,"admincp.core.debugging":1,"admincp.core.emails":1,"admincp.core.navigation":1,"admincp.core.announcements":1,"admincp.core.reactions":1,"admincp.core.registration":1,"admincp.core.social_media":1,"admincp.core.terms":1,"admincp.errors":1,"admincp.integrations":1,"admincp.discord":1,"admincp.minecraft":1,"admincp.minecraft.authme":1,"admincp.minecraft.verification":1,"admincp.minecraft.servers":1,"admincp.minecraft.query_errors":1,"admincp.minecraft.banners":1,"admincp.modules":1,"admincp.pages":1,"admincp.security":1,"admincp.security.acp_logins":1,"admincp.security.template":1,"admincp.styles":1,"admincp.styles.panel_templates":1,"admincp.styles.templates":1,"admincp.styles.templates.edit":1,"admincp.styles.images":1,"admincp.update":1,"admincp.users":1,"admincp.users.edit":1,"admincp.groups":1,"admincp.groups.self":1,"admincp.widgets":1,"modcp.ip_lookup":1,"modcp.punishments":1,"modcp.punishments.warn":1,"modcp.punishments.ban":1,"modcp.punishments.banip":1,"modcp.punishments.revoke":1,"modcp.reports":1,"modcp.profile_banner_reset":1,"usercp.messaging":1,"usercp.signature":1,"admincp.forums":1,"usercp.private_profile":1,"usercp.nickname":1,"usercp.profile_banner":1,"profile.private.bypass":1, "admincp.security.all":1,"admincp.core.hooks":1,"admincp.security.group_sync":1,"admincp.core.emails_mass_message":1,"modcp.punishments.reset_avatar":1,"usercp.gif_avatar":1}',
+	'permissions' => '{"administrator":1,"admincp.core":1,"admincp.core.api":1,"admincp.core.seo":1,"admincp.core.general":1,"admincp.core.avatars":1,"admincp.core.fields":1,"admincp.core.debugging":1,"admincp.core.emails":1,"admincp.core.navigation":1,"admincp.core.announcements":1,"admincp.core.reactions":1,"admincp.core.registration":1,"admincp.core.social_media":1,"admincp.core.terms":1,"admincp.errors":1,"admincp.core.placeholders":1,"admincp.integrations":1,"admincp.discord":1,"admincp.minecraft":1,"admincp.minecraft.authme":1,"admincp.minecraft.verification":1,"admincp.minecraft.servers":1,"admincp.minecraft.query_errors":1,"admincp.minecraft.banners":1,"admincp.modules":1,"admincp.pages":1,"admincp.security":1,"admincp.security.acp_logins":1,"admincp.security.template":1,"admincp.styles":1,"admincp.styles.panel_templates":1,"admincp.styles.templates":1,"admincp.styles.templates.edit":1,"admincp.styles.images":1,"admincp.update":1,"admincp.users":1,"admincp.users.edit":1,"admincp.groups":1,"admincp.groups.self":1,"admincp.widgets":1,"modcp.ip_lookup":1,"modcp.punishments":1,"modcp.punishments.warn":1,"modcp.punishments.ban":1,"modcp.punishments.banip":1,"modcp.punishments.revoke":1,"modcp.reports":1,"modcp.profile_banner_reset":1,"usercp.messaging":1,"usercp.signature":1,"admincp.forums":1,"usercp.private_profile":1,"usercp.nickname":1,"usercp.profile_banner":1,"profile.private.bypass":1, "admincp.security.all":1,"admincp.core.hooks":1,"admincp.security.group_sync":1,"admincp.core.emails_mass_message":1,"modcp.punishments.reset_avatar":1,"usercp.gif_avatar":1}',
 	'order' => 1,
 	'staff' => 1
 ));
@@ -151,6 +151,11 @@ $queries->create('languages', array(
 $queries->create('languages', array(
 	'name' => 'Czech',
 	'is_default' => (Session::get('default_language') == 'Czech') ? 1 : 0
+));
+
+$queries->create('languages', array(
+	'name' => 'Danish',
+	'is_default' => (Session::get('default_language') == 'Danish') ? 1 : 0
 ));
 
 $queries->create('languages', array(
@@ -235,13 +240,18 @@ $queries->create('languages', array(
 ));
 
 $queries->create('languages', array(
-	'name' => 'SwedishES',
-	'is_default' => (Session::get('default_language') == 'SwedishES') ? 1 : 0
+	'name' => 'SpanishES',
+	'is_default' => (Session::get('default_language') == 'SpanishES') ? 1 : 0
 ));
 
 $queries->create('languages', array(
 	'name' => 'Turkish',
 	'is_default' => (Session::get('default_language') == 'Turkish') ? 1 : 0
+));
+
+$queries->create('languages', array(
+	'name' => 'Thai',
+	'is_default' => (Session::get('default_language') == 'Thai') ? 1 : 0
 ));
 
 $cache->setCache('languagecache');
@@ -258,6 +268,11 @@ $queries->create('modules', array(
 	'enabled' => 1
 ));
 
+$queries->create('modules', array(
+    'name' => 'Discord Integration',
+    'enabled' => 1
+));
+
 $cache->setCache('modulescache');
 $cache->store('enabled_modules', array(
 	array(
@@ -267,7 +282,11 @@ $cache->store('enabled_modules', array(
 	array(
 		'name' => 'Forum',
 		'priority' => 4
-	)
+    ),
+    array(
+        'name' => 'Discord Integration',
+        'priority' => 7
+    )
 ));
 $cache->store('module_core', true);
 $cache->store('module_forum', true);
@@ -352,7 +371,7 @@ $queries->create('privacy_terms', array(
 
 $queries->create('settings', array(
 	'name' => 'nameless_version',
-	'value' => '2.0.0-pr9'
+	'value' => '2.0.0-pr12'
 ));
 
 $queries->create('settings', array(
@@ -556,11 +575,6 @@ $queries->create('settings', array(
 ));
 
 $queries->create('settings', array(
-	'name' => 'force_https',
-	'value' => 'false'
-));
-
-$queries->create('settings', array(
 	'name' => 'default_avatar_type',
 	'value' => 'minecraft'
 ));
@@ -578,11 +592,6 @@ $queries->create('settings', array(
 $queries->create('settings', array(
 	'name' => 'registration_disabled_message',
 	'value' => null
-));
-
-$queries->create('settings', array(
-	'name' => 'discord_hooks',
-	'value' => '{}'
 ));
 
 $queries->create('settings', array(
@@ -613,6 +622,11 @@ $queries->create('privacy_terms', array(
 $queries->create('settings', array(
 	'name' => 'status_page',
 	'value' => '1'
+));
+
+$queries->create('settings', array(
+    'name' => 'placeholders',
+    'value' => '0'
 ));
 
 // Templates

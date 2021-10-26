@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -34,8 +34,8 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 require(ROOT_PATH . '/core/includes/password.php'); // Require password compat library
 
 // Get login method
-$method = $queries->getWhere('settings', array('name', '=', 'login_method'));
-$method = $method[0]->value;
+$login_method = $queries->getWhere('settings', array('name', '=', 'login_method'));
+$login_method = $login_method[0]->value;
 
 // Deal with any input
 if (Input::exists()) {
@@ -43,7 +43,7 @@ if (Input::exists()) {
         // Validate input
         $validate = new Validate();
 
-        if ($method == 'email') {
+        if ($login_method == 'email') {
             $to_validate = [
                 'email' => [
                     Validate::REQUIRED => true,
@@ -53,7 +53,7 @@ if (Input::exists()) {
                 'password' => [
                     Validate::REQUIRED => true
                 ]
-            ];   
+            ];
         } else {
             $to_validate = [
                 'username' => [
@@ -70,13 +70,23 @@ if (Input::exists()) {
         $validation = $validate->check($_POST, $to_validate);
 
         if ($validation->passed()) {
-            if ($method == 'email')
+            if ($login_method == 'email') {
                 $username = Input::get('email');
-            else
+                $method_field = 'email';
+            } else if ($login_method == 'email_or_username') {
                 $username = Input::get('username');
+                if (strpos(Input::get('username'), '@') !== false) {
+                    $method_field = 'email';
+                } else {
+                    $method_field = 'username';
+                }
+            } else {
+                $username = Input::get('username');
+                $method_field = 'username';
+            }
 
             $user = new User();
-            $login = $user->adminLogin($username, Input::get('password'), $method);
+            $login = $user->adminLogin($username, Input::get('password'), $method_field);
 
             if ($login) {
                 // Get IP
@@ -85,7 +95,13 @@ if (Input::exists()) {
                 // Create log
                 Log::getInstance()->log(Log::Action('admin/login'));
 
-                Redirect::to(URL::build('/panel'));
+                // Redirect to a certain page?
+                if (isset($_SESSION['last_page']) && substr($_SESSION['last_page'], -1) != '=') {
+                    Redirect::to($_SESSION['last_page']);
+                } else {
+                    Redirect::to(URL::build('/panel'));
+                }
+
                 die();
             } else {
                 Session::flash('adm_auth_error', $language->get('user', 'incorrect_details'));
@@ -99,9 +115,13 @@ if (Input::exists()) {
     }
 }
 
-if ($method == 'email') {
+if ($login_method == 'email') {
     $smarty->assign(array(
         'EMAIL' => $language->get('user', 'email')
+    ));
+} else if ($login_method == 'email_or_username') {
+    $smarty->assign(array(
+        'USERNAME' => $language->get('user', 'email_or_username')
     ));
 } else {
     $smarty->assign(array(
@@ -121,7 +141,7 @@ if (Session::exists('adm_auth_error'))
     $smarty->assign('ERROR', Session::flash('adm_auth_error'));
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
 
 $page_load = microtime(true) - $start;
 define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));

@@ -1,9 +1,11 @@
 <?php
 
 /**
- * @param string $reporter The NamelessMC username of the user who is creating the report
- * @param string $reported The NamelessMC username of the user who is getting reported
+ * @param string $reporter The NamelessMC ID of the user who is creating the report
+ * @param string $reported The NamelessMC ID of the user who is getting reported (optional, required if reported_username/reported_uid not provided)
  * @param string $content The content of the report
+ * @param string $reported_username The username of the reported user (optional, required if reported not provided)
+ * @param string $reported_uid A unique ID for the reported user (optional, required if reported not provided)
  *
  * @return string JSON Array
  */
@@ -17,7 +19,12 @@ class CreateReportEndpoint extends EndpointBase {
     }
 
     public function execute(Nameless2API $api) {
-        $api->validateParams($_POST, ['reporter', 'reported', 'content']);
+        $api->validateParams($_POST, ['reporter', 'content']);
+
+        // Ensure either reported OR reported_username AND reported_uid are provided
+        if (!$_POST['reported'] && !($_POST['reported_username'] && $_POST['reported_uid'])) {
+            $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'));
+        }
 
         // Ensure content is correct length
         if (strlen($_POST['content']) > 255) {
@@ -51,7 +58,7 @@ class CreateReportEndpoint extends EndpointBase {
         $user_reports = $api->getDb()->get('reports', array('reporter_id', '=', $user_reporting->id))->results();
         if (count($user_reports)) {
             foreach ($user_reports as $report) {
-                if ($report->reported_id == $user_reported_id && $report->status == 0) {
+                if ((($report->reported_id != 0 && $report->reported_id == $user_reported_id) || $report->reported_uuid == Output::getClean($_POST['reported_uid'])) && $report->status == 0) {
                     $api->throwError(22, $api->getLanguage()->get('api', 'you_have_open_report_already'));
                 }
             }
@@ -62,7 +69,7 @@ class CreateReportEndpoint extends EndpointBase {
             $report = new Report();
             $report->create(
                 array(
-                    'type' => 0,
+                    'type' => $user_reported_id ? 0 : 1, // TODO: report origin (#2440)
                     'reporter_id' => $user_reporting->id,
                     'reported_id' => $user_reported_id,
                     'date_reported' => date('Y-m-d H:i:s'),
@@ -70,7 +77,9 @@ class CreateReportEndpoint extends EndpointBase {
                     'report_reason' => Output::getClean($_POST['content']),
                     'updated_by' => $user_reporting->id,
                     'reported' => date('U'),
-                    'updated' => date('U')
+                    'updated' => date('U'),
+                    'reported_mcname' => $_POST['reported_username'] ? Output::getClean($_POST['reported_username']) : null,
+                    'reported_uuid' => $_POST['reported_uid'] ? Output::getClean($_POST['reported_uid']) : null
                 )
             );
 

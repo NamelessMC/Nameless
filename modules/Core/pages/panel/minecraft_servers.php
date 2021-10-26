@@ -125,8 +125,8 @@ if(isset($_GET['action'])){
                                 $query_port = Input::get('query_port');
                             else
                                 $query_port = 25565;
-                            
-                            $last_server_order = DB::getInstance()->query('SELECT `order` FROM nl2_mc_servers ORDER BY `order` DESC LIMIT 1')->results();
+
+                            $last_server_order = DB::getInstance()->selectQuery('SELECT `order` FROM nl2_mc_servers ORDER BY `order` DESC LIMIT 1')->results();
                             if (count($last_server_order)) $last_server_order = $last_server_order[0]->order;
                             else $last_server_order = 0;
 
@@ -418,12 +418,15 @@ if(isset($_GET['action'])){
             break;
 
         case 'delete':
-            if(isset($_GET['id'])){
-                $queries->delete('mc_servers', array('id', '=', $_GET['id']));
-                $queries->delete('query_results', array('server_id', '=', $_GET['id']));
+            if (Token::check($_POST['token'])) {
+                if (isset($_GET['id'])) {
+                    $queries->delete('mc_servers', array('id', '=', $_GET['id']));
+                    $queries->delete('query_results', array('server_id', '=', $_GET['id']));
 
-                Session::flash('admin_mc_servers_success', $language->get('admin', 'server_deleted'));
-            }
+                    Session::flash('admin_mc_servers_success', $language->get('admin', 'server_deleted'));
+                }
+
+            } else Session::flash('admin_mc_servers_error', $language->get('general', 'invalid_token'));
 
             Redirect::to(URL::build('/panel/minecraft/servers'));
             die();
@@ -431,11 +434,11 @@ if(isset($_GET['action'])){
             break;
         case 'order':
             // Get servers
-            if(isset($_GET['servers'])){
-                $servers = json_decode($_GET['servers'])->servers;
+            if (isset($_POST['servers']) && Token::check($_POST['token'])) {
+                $servers = json_decode($_POST['servers'])->servers;
 
                 $i = 1;
-                foreach($servers as $item){
+                foreach ($servers as $item) {
                     $queries->update('mc_servers', $item, array(
                         '`order`' => $i
                     ));
@@ -603,7 +606,7 @@ if(isset($_GET['action'])){
         'EXTERNAL_QUERY_VALUE' => ($external_query == 1),
         'STATUS_PAGE' => $language->get('admin', 'status_page'),
         'STATUS_PAGE_VALUE' => ($status_page == '1'),
-        'REORDER_DRAG_URL' => URL::build('/panel/minecraft/servers'),
+        'REORDER_DRAG_URL' => URL::build('/panel/minecraft/servers', 'action=order'),
         'SERVERS' => $template_array
     ));
 
@@ -612,10 +615,13 @@ if(isset($_GET['action'])){
 }
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
 
 if(Session::exists('admin_mc_servers_success'))
     $success = Session::flash('admin_mc_servers_success');
+
+if(Session::exists('admin_mc_servers_error'))
+    $errors = [Session::flash('admin_mc_servers_error')];
 
 if(isset($success))
     $smarty->assign(array(

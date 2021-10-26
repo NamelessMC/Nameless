@@ -14,7 +14,7 @@ define('PAGE', 'forum');
 
 require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
 $forum = new Forum();
-$timeago = new Timeago(TIMEZONE);
+$timeago = new TimeAgo(TIMEZONE);
 
 // Get forum ID
 $fid = explode('/', $route);
@@ -30,7 +30,7 @@ if (!is_numeric($fid[0])) {
     require_once(ROOT_PATH . '/404.php');
     die();
 }
-$fid = $fid[0];
+$fid = Output::getClean($fid[0]);
 
 // Get user group ID
 $user_groups = $user->getAllGroupIds();
@@ -89,7 +89,7 @@ if ($forum_query->redirect_forum == 1) {
     ));
 
     // Load modules + template
-    Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
+    Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
 
     $page_load = microtime(true) - $start;
     define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
@@ -112,12 +112,12 @@ if ($forum_query->redirect_forum == 1) {
         $user_id = 0;
 
     if ($forum->canViewOtherTopics($fid, $user_groups))
-        $topics = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky = 0 AND deleted = 0", "topic_reply_date", "DESC");
+        $topics = DB::getInstance()->selectQuery('SELECT * FROM nl2_topics WHERE forum_id = ? AND sticky = 0 AND deleted = 0 ORDER BY topic_reply_date DESC', array($fid))->results();
     else
-        $topics = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky = 0 AND deleted = 0 AND topic_creator = " . $user_id, "topic_reply_date", "DESC");
+        $topics = DB::getInstance()->selectQuery('SELECT * FROM nl2_topics WHERE forum_id = ? AND sticky = 0 AND deleted = 0 AND topic_creator = ? ORDER BY topic_reply_date DESC', array($fid, $user_id))->results();
 
     // Get sticky topics
-    $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky = 1 AND deleted = 0", "topic_reply_date", "DESC");
+    $stickies = DB::getInstance()->selectQuery('SELECT * FROM nl2_topics WHERE forum_id = ? AND sticky = 1 AND deleted = 0 ORDER BY topic_reply_date DESC', array($fid))->results();
 
     // Search bar
     $smarty->assign(array(
@@ -183,7 +183,7 @@ if ($forum_query->redirect_forum == 1) {
     $smarty->assign('FORUM_INDEX_LINK', URL::build('/forum'));
 
     // Any subforums?
-    $subforums = $queries->orderWhere('forums', 'parent = ' . $forum_query->id, 'forum_order', 'ASC');
+    $subforums = DB::getInstance()->selectQuery('SELECT * FROM nl2_forums WHERE parent = ? ORDER BY forum_order ASC', array($forum_query->id))->results();
 
     $subforum_array = array();
 
@@ -193,9 +193,9 @@ if ($forum_query->redirect_forum == 1) {
             // Get number of topics
             if ($forum->forumExist($subforum->id, $user_groups)) {
                 if ($forum->canViewOtherTopics($subforum->id, $user_groups))
-                    $latest_post = $queries->orderWhere('topics', 'forum_id = ' . $subforum->id . ' AND deleted = 0', 'topic_reply_date', 'DESC');
+                    $latest_post = DB::getInstance()->selectQuery('SELECT * FROM nl2_topics WHERE forum_id = ? AND deleted = 0 ORDER BY topic_reply_date DESC', array($subforum->id))->results();
                 else
-                    $latest_post = $queries->orderWhere('topics', 'forum_id = ' . $subforum->id . ' AND deleted = 0 AND topic_creator = ' . $user_id, 'topic_reply_date', 'DESC');
+                    $latest_post = DB::getInstance()->selectQuery('SELECT * FROM nl2_topics WHERE forum_id = ? AND deleted = 0 AND topic_creator = ? ORDER BY topic_reply_date DESC', array($subforum->id, $user_id))->results();
 
                 $subforum_topics = count($latest_post);
                 if (count($latest_post)) {
@@ -237,7 +237,7 @@ if ($forum_query->redirect_forum == 1) {
                     'topics' => $subforum_topics,
                     'link' => URL::build('/forum/view/' . $subforum->id . '-' . $forum->titleToURL($subforum->forum_title)),
                     'latest_post' => $latest_post,
-                    'icon' => Output::getDecoded($subforum->icon),
+                    'icon' => Output::getPurified(Output::getDecoded($subforum->icon)),
                     'redirect' => $subforum->redirect_forum
                 );
             }
@@ -261,7 +261,7 @@ if ($forum_query->redirect_forum == 1) {
     $smarty->assign('SUBFORUMS', $subforum_array);
     $smarty->assign('SUBFORUM_LANGUAGE', $forum_language->get('forum', 'subforums'));
     $smarty->assign('FORUM_TITLE', Output::getPurified(htmlspecialchars_decode($forum_query->forum_title)));
-    $smarty->assign('FORUM_ICON', htmlspecialchars_decode($forum_query->icon));
+    $smarty->assign('FORUM_ICON', Output::getPurified(Output::getDecoded($forum_query->icon)));
     $smarty->assign('STICKY_TOPICS', $forum_language->get('forum', 'sticky_topics'));
 
     // Can the user post here?
@@ -308,7 +308,7 @@ if ($forum_query->redirect_forum == 1) {
 
                         $label_html = $queries->getWhere('forums_labels', array('id', '=', $label->label));
                         if (count($label_html)) {
-                            $label_html = $label_html[0]->html;
+                            $label_html = Output::getPurified($label_html[0]->html);
                             $label = str_replace('{x}', Output::getClean($label->name), $label_html);
                         } else $label = '';
                     } else $label = '';
@@ -334,7 +334,7 @@ if ($forum_query->redirect_forum == 1) {
 
                             $label_html = $queries->getWhere('forums_labels', array('id', '=', $label_query->label));
                             if (count($label_html)) {
-                                $label_html = $label_html[0]->html;
+                                $label_html = Output::getPurified($label_html[0]->html);
                                 $label_html = str_replace('{x}', Output::getClean($label_query->name), $label_html);
                                 $labels[] = $label_html;
                                 $labels_cache[$item] = $label_html;
@@ -409,7 +409,7 @@ if ($forum_query->redirect_forum == 1) {
                         $label_html = $queries->getWhere('forums_labels', array('id', '=', $label->label));
                         if (count($label_html)) {
                             $label_html = $label_html[0]->html;
-                            $label = str_replace('{x}', Output::getClean($label->name), $label_html);
+                            $label = str_replace('{x}', Output::getClean($label->name), Output::getPurified($label_html));
                         } else $label = '';
                     } else $label = '';
 
@@ -435,7 +435,7 @@ if ($forum_query->redirect_forum == 1) {
                             $label_html = $queries->getWhere('forums_labels', array('id', '=', $label_query->label));
                             if (count($label_html)) {
                                 $label_html = $label_html[0]->html;
-                                $label_html = str_replace('{x}', Output::getClean($label_query->name), $label_html);
+                                $label_html = str_replace('{x}', Output::getClean($label_query->name), Output::getPurified($label_html));
                                 $labels[] = $label_html;
                                 $labels_cache[$item] = $label_html;
                             }
@@ -481,7 +481,7 @@ if ($forum_query->redirect_forum == 1) {
     }
 
     // Load modules + template
-    Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
+    Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
 
     $page_load = microtime(true) - $start;
     define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));

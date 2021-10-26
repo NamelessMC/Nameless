@@ -74,6 +74,7 @@ $language = array(
     'viewing_user_x' => 'Kullanıcı {x} görüntüleniyor', // Don't replace {x}
     'previous_punishments' => 'Önceki cezalar',
     'no_previous_punishments' => 'Şu an hiç bir cezanız yok.',
+    'reset_avatar' => 'Reset Avatar',
     'warning' => 'Uyarı',
     'ip_ban' => 'IP adresi yasağı',
     'reason' => 'Sebei',

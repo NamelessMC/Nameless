@@ -1,7 +1,7 @@
 <?php
 /*
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -31,11 +31,12 @@ $language = array(
     'messaging' => 'Özel Konuşmalar',
     'click_here_to_view' => 'Görmek için buraya tıklayın.',
     'moderation' => 'Moderasyon',
-    'administration' => 'Yönetim',
     'alerts' => 'Bildirimler',
     'delete_all' => 'Tümünü Sil',
     'private_profile' => 'Özel Profil',
     'gif_avatar' => 'Upload .gif as custom avatar',
+    'placeholders' => 'Placeholders',
+    'no_placeholders' => 'No Placeholders',
 
     // Profile settings
     'field_is_required' => '{x} gerekli!', // Don't replace {x}
@@ -116,7 +117,6 @@ $language = array(
     'password_minimum_6' => 'Şifreniz en az 6 karakterden oluşmalıdır.',
     'username_maximum_20' => 'Kullanıcı adınız en fazla 20 karakter olmalıdır.',
     'mcname_maximum_20' => 'Minecraft kullanıcı adınız maksimum 20 karakter olmalıdır.',
-    'password_maximum_30' => 'Şifreniz en fazla 30 karakterden oluşmalıdır.',
     'passwords_dont_match' => 'Şifreleriniz birbirine uymuyor.',
     'username_mcname_email_exists' => 'Kullanıcı adınız veya e-posta adresiniz zaten var.',
     'invalid_mcname' => 'Minecraft kullanıcı adınız geçersiz.',
@@ -141,6 +141,8 @@ $language = array(
     'must_input_email' => 'Bir e-posta adresi girmelisiniz.',
     'must_input_username' => 'Bir kullanıcı adı girmelisiniz.',
     'must_input_password' => 'Bir şifre girmelisiniz.',
+    'must_input_email_or_username' => 'You must input an email or username.',
+    'email_or_username' => 'Email or Username',
 
     // Forgot password
     'forgot_password_instructions' => 'Parolanızı sıfırlama konusunda size daha ayrıntılı talimatlar gönderebilmemiz için lütfen e-posta adresinizi girin.',
@@ -187,7 +189,6 @@ $language = array(
     'new_wall_post_reply_your_profile' => '{x} profilinizdeki yayınınıza cevap verdi.', // Don't replace {x}
     'no_about_fields' => 'Bu kullanıcı henüz alanlarla ilgili herhangi bir bilgi eklemedi.',
     'reply' => 'cevap',
-    'discord_username' => 'Discord Username',
 
     // Reports
     'invalid_report_content' => 'Rapor oluşturulamıyor. Lütfen rapor nedeninizin 2 ila 1024 karakter arasında olduğundan emin olun.',
@@ -236,20 +237,4 @@ $language = array(
      */
     'user_x_has_registered' => '{x} katıldı ' . SITE_NAME . '!',
     'user_x_has_validated' => '{x} has validated their account!',
-
-    // Discord
-    'discord_link' => 'Discord Link',
-    'linked' => 'Linked',
-    'not_linked' => 'Not Linked',
-    'discord_id' => 'Discord User ID',
-    'discord_id_unlinked' => 'Successfully unlinked your Discord User ID.',
-    'discord_id_confirm' => 'Please send this message: "!verify {guild_id}:{token}" to {bot_username} to confirm your Discord User ID.',
-    'pending_link' => 'Pending',
-    'discord_id_taken' => 'That Discord ID has already been taken.',
-    'discord_invalid_id' => 'That Discord User ID is invalid.',
-    'discord_already_pending' => 'You already have a pending verification.',
-    'discord_database_error' => 'The Nameless Link database is currently down. Please try again later.',
-    'discord_communication_error' => 'There was an error while communicating with the Discord Bot. Please ensure the bot is running and your Bot URL is correct.',
-    'discord_unknown_error' => 'There was an unknown error while syncing Discord roles. Please contact an administrator.',
-    'discord_id_help' => 'For information on where to find Discord ID\'s, please read <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">this.</a>'
 );

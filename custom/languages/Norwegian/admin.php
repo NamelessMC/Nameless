@@ -2,7 +2,7 @@
 /*
  *  Translations by Maiu
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC versjon 2.0.0-pr8
+ *  NamelessMC versjon 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -21,8 +21,6 @@ $language = array(
     'configuration' => 'Konfigurering',
     'layout' => 'Oppsett',
     'user_management' => 'Brukeradministering',
-    'admin_cp' => 'AdminCP',
-    'administration' => 'Administrasjon',
     'overview' => 'Oppsummering',
     'core' => 'Kjerne',
     'integrations' => 'Integreringer',
@@ -43,6 +41,7 @@ $language = array(
     'notices' => 'Varsler',
     'no_notices' => 'Ingen varsler.',
     'email_errors_logged' => 'En e-postfeil har blitt loggført',
+    'upgrade_php_version' => 'Please upgrade your PHP version to at least 7.4 - the next Nameless release will no longer support the version you are using.',
 
     // Core
     'mode_toggle' => 'Dark/Light Mode',
@@ -76,14 +75,6 @@ $language = array(
     'youtube_url' => 'YouTube-URL',
     'twitter_url' => 'Twitter-URL',
     'twitter_dark_theme' => 'Bruk mørkt tema for Twitter-modulen?',
-    'discord_id' => 'Discord Server-ID',
-    'discord_widget_theme' => 'Discord Widget-Tema',
-    'discord_id_length' => 'Pass på at Discord-ID-en inneholder 18 tegn.',
-    'discord_id_numeric' => 'Pass på at Discord-ID-en er numerisk (kun tall).',
-    'discord_invite_info' => 'For å invitere Nameless Link Bot til din Discord-server, klikk <a target="_blank" href="https://namelessmc.com/discord-bot-invite">her</a>. Send deretter en DM til boten med kommandoen <code>!apiurl</code> for å koble den til nettsiden din. Alternativt kan du <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">hoste boten selv.</a>',
-    'discord_bot_must_be_setup' => 'Kan ikke aktivere Discord-integrering før du har satt opp boten. For informasjon, vennligst <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">klikk her</a>.',
-    'discord_bot_setup' => 'Bot-oppsett',
-    'discord_integration_not_setup' => 'Discord-integrering er ikke satt opp',
     'dark' => 'Mørk',
     'light' => 'Lys',
     'google_plus_url' => 'Google+-URL',
@@ -115,6 +106,7 @@ $language = array(
     'mailer_settings_info' => 'De markerte feltene må være utfylt hvis du har PHPMailer aktivert. For mer informasjon om hvordan du fyller ut disse feltene, sjekk ut <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-SMTP-with-Nameless-(e.g.-Gmail-or-Outlook)" target="_blank">wiki</a>.',
     'host' => 'Vert',
     'email_port' => 'Port',
+    'email_port_invalid' => 'Please insert a valid email port.',
     'email_password_hidden' => 'Passordet vises ikke på grunn av sikkerhetsmessige årsaker.',
     'send_test_email' => 'Send test e-post',
     'send_test_email_info' => 'Denne knappen vil prøve å sende en test e-post til din e-postadressse, <strong>{x}</strong>. Alle feilmeldinger som blir oppdaget vil bli listet her.', // Don't replace {x}
@@ -174,6 +166,35 @@ $language = array(
     'emails_mass_message_sent_successfully' => 'E-post-massemelding har blitt sendt.',
     'emails_mass_message_replacements' => 'Du kan bruke variabler i din e-post-massemelding. Støttede variabler: {username}, {sitename}',
     'emails_mass_message_loading' => 'Laster inn... Vennligst ikke last inn siden på nytt. Dette kan ta en stund.',
+    'administrator' => 'Administrator',
+    'administrator_permission_info' => 'Members with this permission will have every permission. This is a dangerous permission to grant.',
+
+    // Placeholders
+    'placeholders' => 'Placeholders',
+    'enable_placeholders' => 'Enable Placeholders?',
+    'updated_placeholder_settings' => 'Updated placeholder settings successfully.',
+    'placeholders_info' => 'Placeholders allow the NamelessMC Spigot plugin to send statistics about each player to your website so they can display them on their profile and forum posts.',
+    'placeholders_none' => 'There are no placeholders.',
+    'placeholders_server_id' => 'Server ID',
+    'placeholders_name' => 'Name',
+    'placeholders_value' => 'Value',
+    'placeholders_last_updated' => 'Last Updated',
+    'placeholders_friendly_name' => 'Friendly Name',
+    'placeholders_friendly_name_info' => 'Use this to set a \'nickname\' to this placeholder. The friendly name will be used instead of the raw name.',
+    'placeholders_show_on_profile' => 'Show on Profile',
+    'placeholders_show_on_profile_info' => 'Whether to show this placeholder on each user\'s profile or not.',
+    'placeholders_show_on_forum' => 'Show on Forum',
+    'placeholders_show_on_forum_info' => 'Whether to show this placeholder on each user\'s forum posts or not.',
+
+    // Placeholder leaderboards
+    'leaderboard_settings' => 'Leaderboard Settings',
+    'placeholder_leaderboard_settings' => 'Placeholder Leaderboard Settings',
+    'placeholder_leaderboard_info' => 'Placeholder Leaderboards let you create leaderboards to display ranked players on your server according to any placeholder.',
+    'placeholder_leaderboard_enable_info' => 'Leaderboards work best with numeric placeholders (such as coins, kills, blocks mined, etc). If you enable a leaderboard on a text-based placeholder - you cannot be sure it will order it as you want.',
+    'placeholder_leaderboard_updated' => 'Updated leaderboard settings successfully',
+    'placeholder_leaderboard_enabled' => 'Leaderboard Enabled',
+    'placeholder_leaderboard_title' => 'Leaderboard Title',
+    'placeholder_leaderboard_sort' => 'Leaderboard Sort',
 
     // SEO
     'seo' => 'SEO',
@@ -498,13 +519,15 @@ $language = array(
     'please_select_logs' => 'Velg logger du vil se.',
     'ip_address' => 'IP-adresser',
     'template_changes' => 'Malendringer',
+    'email_logs' => 'Mass Emails',
+    'group_sync_logs' => 'Group Sync Changes',
     'file_changed' => 'Filendringer',
     'all_logs' => 'Alle logger',
     'action' => 'Handling',
     'action_info' => 'Info',
     'groups_removed' => 'Groups Removed',
     'groups_added' => 'Groups Added',
-    
+
     // Updates
     'update' => 'Oppdater',
     'current_version_x' => 'Denne versjonen: <strong>{x}</strong>', // Don't replaec {x}
@@ -568,9 +591,9 @@ $language = array(
     'link_location_required' => 'En lenkeplassering er påkrevd.',
     'page_title_minimum_2' => 'Sidetittelen må inneholde minst 2 tegn.',
     'page_url_minimum_2' => 'Sideplasseringen må inneholde minst 2 tegn.',
-    'page_title_maximum_30' => 'Sidetittelen må inneholde maks 30 tegn.',
+    'page_title_maximum_255' => 'Sidetittelen må inneholde maks 255 tegn.',
     'page_icon_maximum_64' => 'Sideikonet må inneholde maks 64 tegn.',
-    'page_url_maximum_20' => 'Sideplasseringen må inneholde maks 20 tegn.',
+    'page_url_maximum_255' => 'Sideplasseringen må inneholde maks 255 tegn.',
     'page_content_maximum_100000' => 'Sideinnholdet må inneholde maks 100000 tegn.',
     'page_redirect_link_maximum_512' => 'Sideomdirigeringen må inneholde maks 512 tegn.',
     'confirm_delete_page' => 'Er du sikker på at du vil slette denne siden?',
@@ -707,7 +730,6 @@ $language = array(
     'announcement_icon_instructions' => 'Du kan også legge til et ikon til hver kunngjøring her, for eksempel ved å bruke <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>, <a href="https://semantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Semantic UI</a>.',
     'header' => 'Overskrift',
     'message' => 'Melding',
-    'pages' => 'Sider',
     'text_colour' => 'Tekstfarge',
     'background_colour' => 'Bakgrunnsfarge',
     'closable' => 'Lukkbar',
@@ -719,31 +741,4 @@ $language = array(
     'background_colour_required' => 'En bakgrunnsfarge er påkrevd',
     'text_colour_required' => 'En tekstfarge er påkrevd',
     'no_announcements' => 'Ingen kunngjøringer har blitt opprettet enda.',
-
-	// Discord
-	'discord' => 'Discord',
-	'enable_discord_integration' => 'Aktiver Discord-integrering?',
-	'discord_role_id' => 'Discord rolle-ID',
-	'discord_role_id_numeric' => 'Discord rolle-ID må være numerisk',
-	'discord_role_id_length' => 'Discord rolle-ID må inneholde 18 tegn.',
-	'discord_settings_updated' => 'Discord-innstillingene dine har blitt oppdatert.',
-	'discord_guild_id_required' => 'Vennligst oppgi Discord-serveren din sin ID, slik at Discord-integreringen fungerer.',
-	'discord_bot_url' => 'Discord Bot-URL',
-	'discord_bot_url_info' => 'Plasseringen til din egne instance av Nameless Link Bot. Endre kun hvis du vet hva du gjør!',
-	'discord_bot_url_required' => 'Vennligst oppgi Bot-URL-en for at Discord-integreringen skal fungere.',
-	'discord_invalid_api_url' => 'Ser ut som API-URL-en har blitt endret. Vennligst få servereieren til å oppdatere URLen med Nameless Link Bot.',
-	'test_bot_url' => 'Testbot-URL',
-	'discord_bot_url_valid' => 'Din Bot-URL er gyldig.',
-	'discord_cannot_interact' => 'Nameless Link-boten kan ikke samhandle med denne brukeren på Discord. Er rollen deres høyere enn Nameless Link-boten sin?',
-
-    // Discord bot Errors
-    'discord_bot_error_badparameter' => 'Ugyldig forespørseltekst',
-    'discord_bot_error_error' => 'En intern botfeil oppstod.',
-    'discord_bot_error_invguild' => 'Oppgitte guild-ID  er ugyldig, eller så er ikke boten i den.',
-    'discord_bot_error_invuser' => 'Oppgitte bruker-ID er ugyldig, eller så er ikke brukeren i den spesifiserte guilden.',
-    'discord_bot_error_notlinked' => 'Boten er ikke koblet til nettsiden for den oppgitte guild-id.',
-    'discord_bot_error_unauthorized' => 'Nettside-API-nøkkel er ugyldig.',
-    'discord_bot_error_invrole' => 'Oppgitte rolle-id er ugyldig.',
-    'discord_bot_error_hierarchy' => 'Boten kan ikke endre denne brukerens roller.'
-
 );

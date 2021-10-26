@@ -31,7 +31,7 @@ if (!isset($_GET['c'])) {
             else {
                 // Check to see if the email exists
                 $target_user = new User(Input::get('email'), 'email');
-                if ($target_user->data()) {
+                if ($target_user->data() && $target_user->data()->active) {
                     // Generate a code
                     $code = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 60);
 
@@ -130,7 +130,7 @@ if (!isset($_GET['c'])) {
     define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
     // Load modules + template
-    Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+    Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
     $template->onPageLoad();
 
     require(ROOT_PATH . '/core/templates/navbar.php');
@@ -155,8 +155,7 @@ if (!isset($_GET['c'])) {
                 ],
                 'password' => [
                     Validate::REQUIRED => true,
-                    Validate::MIN => 6,
-                    Validate::MAX => 30
+                    Validate::MIN => 6
                 ],
                 'password_again' => [
                     Validate::MATCHES => 'password'
@@ -165,8 +164,7 @@ if (!isset($_GET['c'])) {
                 'email' => $language->get('user', 'email_required'),
                 'password' => [
                     Validate::REQUIRED => $language->get('user', 'password_required'),
-                    Validate::MIN => $language->get('user', 'password_minimum_6'),
-                    Validate::MAX => $language->get('user', 'password_maximum_30')
+                    Validate::MIN => $language->get('user', 'password_minimum_6')
                 ],
                 'password_again' => $language->get('user', 'passwords_dont_match')
             ]);
@@ -209,7 +207,7 @@ if (!isset($_GET['c'])) {
     ));
 
     // Load modules + template
-    Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
+    Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
 
     $page_load = microtime(true) - $start;
     define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));

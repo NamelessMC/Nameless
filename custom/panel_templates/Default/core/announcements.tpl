@@ -53,6 +53,7 @@
                                 <table class="table table-borderless table-striped">
                                     <thead>
                                         <tr>
+                                            <th>{$ORDER}</th>
                                             <th>{$HEADER}</th>
                                             <th>{$PAGES}</th>
                                             <th>{$TEXT_COLOUR}</th>
@@ -60,9 +61,10 @@
                                             <th>{$ACTIONS}</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="sortable">
                                         {foreach from=$ALL_ANNOUNCEMENTS item=announcement}
-                                        <tr>
+                                        <tr data-id="{$announcement[0]->id}">
+                                            <td>{$announcement[0]->order}</td>
                                             <td>{$announcement[0]->header}</td>
                                             <td>{if $announcement['pages'] != null}{$announcement['pages']}{else}<i>{$NONE}</i>{/if}</td>
                                             <td><span class="badge border" style="display: inline-block; width: 50px; height: 25px; background-color: {$announcement[0]->text_colour};" title="{$announcement[0]->text_colour}"></span></td>
@@ -109,8 +111,9 @@
                         {$CONFIRM_DELETE_ANNOUNCEMENT}
                     </div>
                     <div class="modal-footer">
+                        <input type="hidden" id="deleteId" value="">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">{$NO}</button>
-                        <a href="{$DELETE_LINK}" id="deleteLink" class="btn btn-primary">{$YES}</a>
+                        <button type="button" onclick="deleteAnnouncement()" class="btn btn-primary">{$YES}</button>
                     </div>
                 </div>
             </div>
@@ -123,9 +126,49 @@
 
     <script type="text/javascript">
         function showDeleteModal(id) {
-                       $('#deleteLink').attr('href', '{$DELETE_LINK}'.replace('{literal}{x}{/literal}', id));
+            $('#deleteId').attr('value', id);
             $('#deleteModal').modal().show();
         }
+
+        function deleteAnnouncement() {
+          const id = $('#deleteId').attr('value');
+          if (id) {
+            const response = $.post("{$DELETE_LINK}", { id, action: 'delete', token: "{$TOKEN}" });
+            response.done(function() { window.location.reload(); });
+          }
+        }
+
+          $(document).ready(function () {
+            $("#sortable").sortable({
+                start: function (event, ui) {
+                    let start_pos = ui.item.index();
+                    ui.item.data('startPos', start_pos);
+                },
+                update: function (event, ui) {
+                    let announcements = $("#sortable").children();
+                    let toSubmit = [];
+                    announcements.each(function () {
+                        toSubmit.push($(this).data().id);
+                    });
+
+                    $.ajax({
+                    url: "{$REORDER_DRAG_URL}",
+                    type: "GET",
+                    data: {
+                        action: "order",
+                        {literal}announcements: JSON.stringify({"announcements": toSubmit}){/literal}
+                    },
+                    success: function (response) {
+                        // Success
+                    },
+                    error: function (xhr) {
+                        // Error
+                        console.log(xhr);
+                    }
+                    });
+                }
+            });
+        });
     </script>
 
 </body>

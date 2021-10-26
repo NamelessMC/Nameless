@@ -39,7 +39,7 @@
                         <!-- Success and Error Alerts -->
                         {include file='includes/alerts.tpl'}
 
-                        {if isset($BACKGROUNDS_NOT_WRITABLE) || isset($TEMPLATE_BANNERS_DIRECTORY_NOT_WRITABLE)}
+                        {if isset($BACKGROUNDS_NOT_WRITABLE) || isset($TEMPLATE_BANNERS_DIRECTORY_NOT_WRITABLE) || isset($LOGOS_DIRECTORY_NOT_WRITABLE) || isset($FAVICONS_DIRECTORY_NOT_WRITABLE)}
                             <div class="alert alert-danger alert-dismissible">
                                 <h5><i class="icon fas fa-exclamation-triangle"></i> {$ERRORS_TITLE}</h5>
                                 <ul>
@@ -49,6 +49,14 @@
 
                                     {if isset($TEMPLATE_BANNERS_DIRECTORY_NOT_WRITABLE)}
                                         <li>{$TEMPLATE_BANNERS_DIRECTORY_NOT_WRITABLE}</li>
+                                    {/if}
+                                    
+                                    {if isset($LOGOS_DIRECTORY_NOT_WRITABLE)}
+                                        <li>{$LOGOS_DIRECTORY_NOT_WRITABLE}</li>
+                                    {/if}
+                                    
+                                    {if isset($FAVICONS_DIRECTORY_NOT_WRITABLE)}
+                                        <li>{$FAVICONS_DIRECTORY_NOT_WRITABLE}</li>
                                     {/if}
                                 </ul>
                             </div>

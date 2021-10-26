@@ -6,7 +6,7 @@
  *
  *  License: MIT
  *
- *  Translated by IsS127
+ *  Translated by IsS127, ItsLynix
  *  SwedishSE Language - Errors
  */
 
@@ -26,10 +26,10 @@ $language = array(
     '403_home' => 'Hem',
     'maintenance_title' => 'Under Uppbyggnad.',
     'maintenance_retry' => 'Prova igen',
-    'fatal_error' => 'Fatal Error',
+    'fatal_error' => 'Allvarligt fel',
     'fatal_error_title' => 'Förlåt!',
-    'fatal_error_message_user' => 'Sorry, but something went wrong while loading the page. Please contact an administrator.',
-    'fatal_error_message_admin' => 'Sorry, but something went wrong while loading the page. Error details:',
+    'fatal_error_message_user' => 'Tyvärr, men något gick fel när sidan laddades in. Kontakta en administratör.',
+    'fatal_error_message_admin' => 'Tyvärr, men något gick fel när sidan laddades in. Detaljer om felet:',
     'in_file' => 'in file <strong>{x}</strong>', // Don't replace {x}
     'on_line' => 'on line <strong>{x}</strong>' // Don't replace {x}
 );

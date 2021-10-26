@@ -62,6 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 					'prefix' => 'nl2_',
 					'charset' => $charset,
 					'engine' => $engine,
+					'initialise_charset' => true,
 				),
 				'remember' => array(
 					'cookie_name' => 'nl2',
@@ -75,21 +76,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				'core' => array(
 					'hostname' => $_SESSION['hostname'],
 					'path' => $_SESSION['install_path'],
-					'friendly' => $_SESSION['friendly_urls'] == 'true' ? true : false,
+					'friendly' => $_SESSION['friendly_urls'] == 'true',
+					'force_https' => false,
+					'force_www' => false,
+					'captcha' => false,
 				),
 				'allowedProxies' => '',
 			);
 
 			try {
 
-				if (!is_writable('core/config.php')) {
+				if (!is_writable(ROOT_PATH . '/core/config.php')) {
 
 					$error = $language['config_not_writable'];
 
 				} else {
 
 					$config_content = '<?php' . PHP_EOL . '$conf = ' . var_export($conf, true) . ';';
-					file_put_contents('core/config.php', $config_content);
+					file_put_contents(ROOT_PATH . '/core/config.php', $config_content);
 
 					$_SESSION['charset'] = $charset;
 					$_SESSION['engine'] = $engine;

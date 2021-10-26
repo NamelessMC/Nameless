@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -13,7 +13,7 @@ $language = array(
     /*
      *  Change this for the account validation message
      */
-    'validate_account_command' => 'To complete registration, please execute the command <strong>/validate {x}</strong> ingame.', // Don't replace {x}
+    'validate_account_command' => 'To complete registration, please execute the command <strong>/verify {x}</strong> ingame.', // Don't replace {x}
 
     /*
      *  User Related
@@ -31,11 +31,12 @@ $language = array(
     'messaging' => 'Messaging',
     'click_here_to_view' => 'Click here to view.',
     'moderation' => 'Moderation',
-    'administration' => 'Administration',
     'alerts' => 'Alerts',
     'delete_all' => 'Delete All',
     'private_profile' => 'Private profile',
     'gif_avatar' => 'Upload .gif as custom avatar',
+    'placeholders' => 'Placeholders',
+    'no_placeholders' => 'No Placeholders',
 
     // Profile settings
     'field_is_required' => '{x} is required.', // Don't replace {x}
@@ -116,7 +117,6 @@ $language = array(
     'password_minimum_6' => 'Your password must be a minimum of 6 characters.',
     'username_maximum_20' => 'Your username must be a maximum of 20 characters.',
     'mcname_maximum_20' => 'Your Minecraft username must be a maximum of 20 characters.',
-    'password_maximum_30' => 'Your password must be a maximum of 30 characters.',
     'passwords_dont_match' => 'Your passwords do not match.',
     'username_mcname_email_exists' => 'Your username or email address already exists.',
     'invalid_mcname' => 'Your Minecraft username is invalid.',
@@ -141,6 +141,8 @@ $language = array(
     'must_input_email' => 'You must input an email address.',
     'must_input_username' => 'You must input a username.',
     'must_input_password' => 'You must input a password.',
+    'must_input_email_or_username' => 'You must input an email or username.',
+    'email_or_username' => 'Email or Username',
 
     // Forgot password
     'forgot_password_instructions' => 'Please enter your email address so we can send you further instructions on resetting your password.',
@@ -187,7 +189,6 @@ $language = array(
     'new_wall_post_reply_your_profile' => '{x} has replied to your post on your profile.', // Don't replace {x}
     'no_about_fields' => 'This user has not added any about fields yet.',
     'reply' => 'Reply',
-    'discord_username' => 'Discord Username',
 
     // Reports
     'invalid_report_content' => 'Unable to create report. Please ensure your report reason is between 2 and 1024 characters.',
@@ -236,20 +237,4 @@ $language = array(
      */
     'user_x_has_registered' => '{x} has joined ' . SITE_NAME . '!',
     'user_x_has_validated' => '{x} has validated their account!',
-
-    // Discord
-    'discord_link' => 'Discord Link',
-    'linked' => 'Linked',
-    'not_linked' => 'Not Linked',
-    'discord_id' => 'Discord User ID',
-    'discord_id_unlinked' => 'Successfully unlinked your Discord User ID.',
-    'discord_id_confirm' => 'Please send this message: "!verify {guild_id}:{token}" to {bot_username} to confirm your Discord User ID.',
-    'pending_link' => 'Pending',
-    'discord_id_taken' => 'That Discord ID has already been taken.',
-    'discord_invalid_id' => 'That Discord User ID is invalid.',
-    'discord_already_pending' => 'You already have a pending verification.',
-    'discord_database_error' => 'The Nameless Link database is currently down. Please try again later.',
-    'discord_communication_error' => 'There was an error while communicating with the Discord Bot. Please ensure the bot is running and your Bot URL is correct.',
-    'discord_unknown_error' => 'There was an unknown error while syncing Discord roles. Please contact an administrator.',
-    'discord_id_help' => 'For information on where to find Discord ID\'s, please read <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">this.</a>'
 );

@@ -22,7 +22,7 @@ class ServerStatusWidget extends WidgetBase {
         parent::__construct($pages);
 
         // Get widget
-        $widget_query = DB::getInstance()->query('SELECT `location`, `order` FROM nl2_widgets WHERE `name` = ?', array('Server Status'))->first();
+        $widget_query = DB::getInstance()->selectQuery('SELECT `location`, `order` FROM nl2_widgets WHERE `name` = ?', array('Server Status'))->first();
 
         // Set widget variables
         $this->_module = 'Core';
@@ -41,7 +41,7 @@ class ServerStatusWidget extends WidgetBase {
         if ($this->_cache->isCached('server_status')) {
             $server_array = $this->_cache->retrieve('server_status');
         } else {
-            $server = DB::getInstance()->query('SELECT * FROM nl2_mc_servers WHERE is_default = 1')->results();
+            $server = DB::getInstance()->selectQuery('SELECT * FROM nl2_mc_servers WHERE is_default = 1')->results();
             $server = $server[0];
 
             if ($server != null) {

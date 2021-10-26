@@ -58,12 +58,18 @@
                                             <td>
                                                 <div class="float-md-right">
                                                     {if $item.up_link}
-                                                        <a href="{$item.up_link}" class="btn btn-success btn-sm"><i
-                                                                    class="fas fa-chevron-up"></i></a>
+                                                        <form action="{$item.up_link}" method="post" style="display: inline">
+                                                            <input type="hidden" name="token" value="{$TOKEN}" />
+                                                            <button class="btn btn-success btn-sm"><i
+                                                                        class="fas fa-chevron-up"></i></button>
+                                                        </form>
                                                     {/if}
                                                     {if $item.down_link}
-                                                        <a href="{$item.down_link}" class="btn btn-warning btn-sm"><i
-                                                                    class="fas fa-chevron-down"></i></a>
+                                                        <form action="{$item.down_link}" method="post" style="display: inline">
+                                                            <input type="hidden" name="token" value="{$TOKEN}" />
+                                                            <button class="btn btn-warning btn-sm"><i
+                                                                        class="fas fa-chevron-down"></i></button>
+                                                        </form>
                                                     {/if}
                                                     <a href="{$item.delete_link}" class="btn btn-danger btn-sm"><i
                                                                 class="fas fa-trash"></i></a>
@@ -77,16 +83,6 @@
                         {else}
                             <p>{$NO_FORUMS}</p>
                         {/if}
-
-                        <form action="" method="post">
-                            <div class="form-group">
-                                <label for="InputEnabled">{$USE_REACTIONS}</label>
-                                <input type="checkbox" name="enabled" id="InputEnabled"
-                                       class="js-switch" {if $USE_REACTIONS_VALUE} checked{/if} />
-                            </div>
-                            <input type="hidden" name="token" value="{$TOKEN}">
-                            <input type="submit" class="btn btn-primary" value="{$SUBMIT}" />
-                        </form>
 
                     </div>
                 </div>

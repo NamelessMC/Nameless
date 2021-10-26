@@ -30,24 +30,18 @@ class Cache {
 
     /**
      * The path to the cache file folder
-     *
-     * @var string
      */
-    private $_cachepath = 'cache/';
+    private string $_cachepath = 'cache/';
 
     /**
      * The name of the default cache file
-     *
-     * @var string
      */
-    private $_cachename = 'default';
+    private string $_cachename = 'default';
 
     /**
      * The cache file extension
-     *
-     * @var string
      */
-    private $_extension = '.cache';
+    private string $_extension = '.cache';
 
     /**
      * Default constructor
@@ -71,9 +65,10 @@ class Cache {
      * Check whether data accociated with a key
      *
      * @param string $key
-     * @return boolean
+     * 
+     * @return bool
      */
-    public function isCached($key) {
+    public function isCached(string $key): bool {
         if ($this->_loadCache()) {
             $cachedData = $this->_loadCache();
             if (isset($cachedData[$key])) {
@@ -85,6 +80,8 @@ class Cache {
                 }
             }
         }
+
+        return false;
     }
 
     /**
@@ -93,9 +90,10 @@ class Cache {
      * @param string $key
      * @param mixed $data
      * @param integer [optional] $expiration
-     * @return object
+     * 
+     * @return Cache
      */
-    public function store($key, $data, $expiration = 0) {
+    public function store(string $key, $data, int $expiration = 0): Cache {
         $storeData = array(
             'time'   => time(),
             'expire' => $expiration,
@@ -116,19 +114,25 @@ class Cache {
      * Retrieve cached data by its key
      *
      * @param string $key
-     * @param boolean [optional] $timestamp
-     * @return string
+     * @param bool [optional] $timestamp
+     * 
+     * @return mixed
      */
     public function retrieve($key, $timestamp = false) {
         $cachedData = $this->_loadCache();
         (!$timestamp) ? $type = 'data' : $type = 'time';
-        if (!isset($cachedData[$key][$type])) return null;
+
+        if (!isset($cachedData[$key][$type])) {
+            return null;
+        }
+
         if (!$timestamp) {
             $entry = $cachedData[$key];
             if ($entry && $this->_checkExpired($entry['time'], $entry['expire'])) {
                 return null;
             }
         }
+
         return unserialize($cachedData[$key][$type]);
     }
 
@@ -138,7 +142,7 @@ class Cache {
      * @param boolean [optional] $meta
      * @return array
      */
-    public function retrieveAll($meta = false) {
+    public function retrieveAll(bool $meta = false): array {
         if (!$meta) {
             $results = array();
             $cachedData = $this->_loadCache();
@@ -157,9 +161,10 @@ class Cache {
      * Erase cached entry by its key
      *
      * @param string $key
-     * @return object
+     * 
+     * @return Cache
      */
-    public function erase($key) {
+    public function erase(string $key): Cache {
         $cacheData = $this->_loadCache();
         if (is_array($cacheData)) {
             if (isset($cacheData[$key])) {
@@ -167,7 +172,7 @@ class Cache {
                 $cacheData = json_encode($cacheData);
                 file_put_contents($this->getCacheDir(), $cacheData);
             } else {
-                throw new Exception("Error: erase() - Key '{$key}' not found.");
+                throw new Exception("Error: erase() - Key '$key' not found.");
             }
         }
         return $this;
@@ -176,9 +181,9 @@ class Cache {
     /**
      * Erase all expired entries
      *
-     * @return integer
+     * @return int
      */
-    public function eraseExpired() {
+    public function eraseExpired(): int {
         $cacheData = $this->_loadCache();
         if (is_array($cacheData)) {
             $counter = 0;
@@ -194,14 +199,16 @@ class Cache {
             }
             return $counter;
         }
+
+        return -1;
     }
 
     /**
      * Erase all cached entries
      *
-     * @return object
+     * @return Cache
      */
-    public function eraseAll() {
+    public function eraseAll(): Cache {
         $cacheDir = $this->getCacheDir();
         if (file_exists($cacheDir)) {
             $cacheFile = fopen($cacheDir, 'w');
@@ -229,12 +236,14 @@ class Cache {
      *
      * @return string
      */
-    public function getCacheDir() {
+    public function getCacheDir(): string {
         if ($this->_checkCacheDir()) {
             $filename = $this->getCache();
             $filename = preg_replace('/[^0-9a-z\.\_\-]/i', '', strtolower($filename));
             return $this->getCachePath() . $this->_getHash($filename) . $this->getExtension();
         }
+
+        return '';
     }
 
     /**
@@ -242,18 +251,18 @@ class Cache {
      *
      * @return string
      */
-    private function _getHash($filename) {
+    private function _getHash($filename): string {
         return sha1($filename);
     }
 
     /**
      * Check whether a timestamp is still in the duration
      *
-     * @param integer $timestamp
-     * @param integer $expiration
-     * @return boolean
+     * @param int $timestamp
+     * @param int $expiration
+     * @return bool
      */
-    private function _checkExpired($timestamp, $expiration) {
+    private function _checkExpired(int $timestamp, int $expiration): bool {
         $result = false;
         if ($expiration !== 0) {
             $timeDiff = time() - $timestamp;
@@ -267,7 +276,7 @@ class Cache {
      *
      * @return boolean
      */
-    private function _checkCacheDir() {
+    private function _checkCacheDir(): bool {
         if (!is_dir($this->getCachePath()) && !mkdir($this->getCachePath(), 0775, true)) {
             throw new Exception('Unable to create cache directory ' . $this->getCachePath());
         } elseif (!is_readable($this->getCachePath()) || !is_writable($this->getCachePath())) {
@@ -282,9 +291,9 @@ class Cache {
      * Cache path Setter
      *
      * @param string $path
-     * @return object
+     * @return Cache
      */
-    public function setCachePath($path) {
+    public function setCachePath(string $path): Cache {
         $this->_cachepath = $path;
         return $this;
     }
@@ -294,7 +303,7 @@ class Cache {
      *
      * @return string
      */
-    public function getCachePath() {
+    public function getCachePath(): string {
         return $this->_cachepath;
     }
 
@@ -302,9 +311,9 @@ class Cache {
      * Cache name Setter
      *
      * @param string $name
-     * @return object
+     * @return Cache
      */
-    public function setCache($name) {
+    public function setCache(string $name): Cache {
         $this->_cachename = $name;
         return $this;
     }
@@ -314,7 +323,7 @@ class Cache {
      *
      * @return string
      */
-    public function getCache() {
+    public function getCache(): string {
         return $this->_cachename;
     }
 
@@ -322,9 +331,9 @@ class Cache {
      * Cache file extension Setter
      *
      * @param string $ext
-     * @return object
+     * @return Cache
      */
-    public function setExtension($ext) {
+    public function setExtension(string $ext): Cache {
         $this->_extension = $ext;
         return $this;
     }
@@ -334,7 +343,7 @@ class Cache {
      *
      * @return string
      */
-    public function getExtension() {
+    public function getExtension(): string {
         return $this->_extension;
     }
 }

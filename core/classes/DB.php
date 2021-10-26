@@ -2,32 +2,34 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr10
  *
  *  License: MIT
  *
  *  Database class
  */
 
-class DB {
+class DB extends Instanceable {
 
-    /** @var DB */
-    private static $_instance = null;
-
-    /** @var PDO */
-    private $_pdo;
-
+    private PDO $_pdo;
+    private PDOStatement $_query;
+    private bool $_error = false;
+    private array $_results;
+    private string $_prefix;
+    private int $_count = 0;
     private QueryRecorder $_query_recorder;
 
-    private $_query,
-            $_error = false,
-            $_results,
-            $_prefix,
-            $_count = 0;
-
-    private function __construct() {
+    public function __construct() {
         try {
-            $this->_pdo = new PDO('mysql:host=' . Config::get('mysql/host') . ';port=' . Config::get('mysql/port') . ';dbname=' . Config::get('mysql/db') . ';charset='.Config::get('mysql/charset'), Config::get('mysql/username'), Config::get('mysql/password'));
+            $charset = '';
+            if(Config::get('mysql/initialise_charset')) {
+                $charset = Config::get('mysql/charset');
+                if (!$charset) $charset = 'utf8mb4';
+                
+                $charset = 'charset=' . $charset;
+            }
+
+            $this->_pdo = new PDO('mysql:host=' . Config::get('mysql/host') . ';port=' . Config::get('mysql/port') . ';dbname=' . Config::get('mysql/db') . ';'.$charset, Config::get('mysql/username'), Config::get('mysql/password'));
             $this->_pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->_prefix = Config::get('mysql/prefix');
         } catch (PDOException $e) {
@@ -37,15 +39,14 @@ class DB {
         $this->_query_recorder = QueryRecorder::getInstance();
     }
 
-    public static function getInstance() {
-        if(!isset(self::$_instance)) {
-            self::$_instance = new DB();
-        }
-
-        return self::$_instance;
+    /**
+     * @deprecated Use selectQuery function to select data from DB, or createQuery function to modify data in DB
+     */
+    public function query(string $sql,  array $params = array(), int $fetch_method = PDO::FETCH_OBJ): DB {
+        return $this->selectQuery(...func_get_args());
     }
 
-    public function query($sql, $params = array(), $fetch_method = PDO::FETCH_OBJ) {
+    public function selectQuery(string $sql,  array $params = array(), int $fetch_method = PDO::FETCH_OBJ): DB {
         $this->_error = false;
         if($this->_query = $this->_pdo->prepare($sql)) {
             $x = 1;
@@ -71,7 +72,7 @@ class DB {
         return $this;
     }
 
-    public function createQuery($sql, $params = array()) {
+    public function createQuery(string $sql, array $params = array()): DB {
         $this->_error = false;
         if($this->_query = $this->_pdo->prepare($sql)) {
             $x = 1;
@@ -95,7 +96,7 @@ class DB {
         return $this;
     }
 
-    public function createTable($name, $table_data, $other){
+    public function createTable(string $name, string $table_data, string $other) {
         $name = $this->_prefix . $name;
         $sql = "CREATE TABLE `{$name}` ({$table_data}) {$other}";
 
@@ -106,7 +107,7 @@ class DB {
         return false;
     }
 
-    public function action($action, $table, $where = array()) {
+    public function action(string $action, string $table, array $where = array()) {
         if(count($where) === 3) {
             $operators = array('=', '>', '<', '>=', '<=', '<>');
 
@@ -119,7 +120,7 @@ class DB {
             if(in_array($operator, $operators)) {
                 $sql = "{$action} FROM {$table} WHERE {$field} {$operator} ?";
 
-                if(!$this->query($sql, array($value))->error()) {
+                if(!$this->selectQuery($sql, array($value))->error()) {
                     return $this;
                 }
             }
@@ -128,7 +129,7 @@ class DB {
         return false;
     }
 
-    public function deleteAction($action, $table, $where = array()) {
+    public function deleteAction(string $action, string $table, array $where = array()) {
         if(count($where) === 3) {
             $operators = array('=', '>', '<', '>=', '<=', '<>');
 
@@ -150,26 +151,26 @@ class DB {
         return false;
     }
 
-    public function get($table, $where) {
+    public function get(string $table, array $where) {
         return $this->action('SELECT *', $table, $where);
     }
 
-    public function like($table, $column, $like) {
+    public function like(string $table, string $column, string $like) {
         $table = $this->_prefix . $table;
         $sql = "SELECT * FROM {$table} WHERE {$column} LIKE '{$like}'";
 
-        if(!$this->query($sql)->error()) {
+        if(!$this->selectQuery($sql)->error()) {
             return $this;
         }
 
         return false;
     }
 
-    public function delete($table, $where) {
+    public function delete(string $table, array $where) {
         return $this->deleteAction('DELETE', $table, $where);
     }
 
-    public function insert($table, $fields = array()) {
+    public function insert(string $table, array $fields = array()): bool {
         $keys = array_keys($fields);
         $values = '';
         $x = 1;
@@ -188,7 +189,7 @@ class DB {
         return (!$this->createQuery($sql, $fields)->error());
     }
 
-    public function update($table, $id, $fields) {
+    public function update(string $table, int $id, array $fields): bool {
         $set = '';
         $x = 1;
 
@@ -206,43 +207,43 @@ class DB {
         return (!$this->createQuery($sql, $fields)->error());
     }
 
-    public function increment($table, $id, $field) {
+    public function increment(string $table, int $id, string $field): bool {
         $table = $this->_prefix . $table;
         $sql = "UPDATE {$table} SET {$field} = {$field} + 1 WHERE id = ?";
 
         return (!$this->createQuery($sql, array($id))->error());
     }
 
-    public function decrement($table, $id, $field) {
+    public function decrement(string $table, int $id, string $field) {
         $table = $this->_prefix . $table;
         $sql = "UPDATE {$table} SET {$field} = {$field} - 1 WHERE id = ?";
 
         return (!$this->createQuery($sql, array($id))->error());
     }
 
-    public function results() {
+    public function results(): array {
         return $this->_results;
     }
 
-    public function first() {
+    public function first(): ?object {
         $results = $this->results();
 
         return isset($results[0]) ? $results[0] : null;
     }
 
-    public function error() {
+    public function error(): bool {
         return $this->_error;
     }
 
-    public function count() {
+    public function count(): int {
         return $this->_count;
     }
 
-    public function lastId() {
+    public function lastId(): int {
         return $this->_pdo->lastInsertId();
     }
 
-    public function alterTable($name, $column, $attributes) {
+    public function alterTable(string $name, string $column, string $attributes) {
         $name = $this->_prefix . $name;
         $sql = "ALTER TABLE `{$name}` ADD {$column} {$attributes}";
 
@@ -252,7 +253,7 @@ class DB {
         return false;
     }
 
-    public function orderAll($table, $order, $sort) {
+    public function orderAll(string $table, string $order, string $sort) {
         $table = $this->_prefix . $table;
         if (isset($sort)) {
             $sql = "SELECT * FROM {$table} ORDER BY {$order} {$sort}";
@@ -260,14 +261,14 @@ class DB {
             $sql = "SELECT * FROM {$table} ORDER BY {$order}";
         }
 
-        if(!$this->query($sql)->error()) {
+        if(!$this->selectQuery($sql)->error()) {
             return $this;
         }
 
         return false;
     }
 
-    public function orderWhere($table, $where, $order, $sort) {
+    public function orderWhere(string $table, string $where, string $order, string $sort) {
         $table = $this->_prefix . $table;
         if (isset($sort)) {
             $sql = "SELECT * FROM {$table} WHERE {$where} ORDER BY {$order} {$sort}";
@@ -275,18 +276,18 @@ class DB {
             $sql = "SELECT * FROM {$table} WHERE {$where} ORDER BY {$order}";
         }
 
-        if(!$this->query($sql)->error()) {
+        if(!$this->selectQuery($sql)->error()) {
             return $this;
         }
 
         return false;
     }
 
-    public function showTables($showTable) {
+    public function showTables(string $showTable) {
         $showTable = $this->_prefix . $showTable;
         $sql = "SHOW TABLES LIKE '{$showTable}'";
 
-        if (!$this->query($sql)->error()) {
+        if (!$this->selectQuery($sql)->error()) {
             return $this->_query->rowCount();
         }
 

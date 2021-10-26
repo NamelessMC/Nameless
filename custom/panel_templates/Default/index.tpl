@@ -28,7 +28,7 @@
                     </div>
 
                     <!-- Update Notification -->
-                    {include file='update.tpl'}
+                    {include file='includes/update.tpl'}
 
                     {if isset($DIRECTORY_WARNING)}
                     <div class="alert alert-warning">
@@ -72,7 +72,7 @@
                             </div><br />
                             <div class="row justify-content-md-center">
                                 {/if}
-                                <div class="col-md-{$width}">{$item->getContent()}</div>
+                                <div class="col-md-6 col-lg-{$width}">{$item->getContent()}</div>
                                 {assign var="i" value=$i+1} {/foreach}
                             </div>
                             {/if}
@@ -290,8 +290,8 @@
                             {/foreach}
                             {
                                 gridLines: {
-                                    color: "rgb(234, 236, 244)",
-                                    zeroLineColor: "rgb(234, 236, 244)",
+                                    color: "rgb(189,189,189)",
+                                    zeroLineColor: "rgb(189,189,189)",
                                     drawBorder: false,
                                     borderDash: [2],
                                     zeroLineBorderDash: [2]

@@ -2,7 +2,7 @@
 /*
  *  Made by TheSuperSkills (Edited by iMaykolRD_)
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr10
  *
  *  License: MIT
  *
@@ -69,6 +69,7 @@ $language = array(
     'invalid_timezone' => 'Esa zona horaria no es válida.',
     'link' => 'Link',
     'unlink' => 'Unlink',
+    'leaderboards' => 'Leaderboards',
     
     /*
      *  Contact form
@@ -88,6 +89,11 @@ $language = array(
     'home' => 'Inicio',
     'more' => 'Más',
     'status' => 'Estado',
+
+    /*
+     *  Footer
+     */
+    'links' => 'Links',
 
     /*
      *  Homepage

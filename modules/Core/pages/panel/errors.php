@@ -28,7 +28,7 @@ if (isset($_GET['log']) && isset($_GET['do']) && $_GET['do'] == 'purge') {
 }
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
 
 if (Session::exists('error_log_success'))
     $smarty->assign(array(

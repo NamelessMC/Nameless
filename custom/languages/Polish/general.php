@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr10
  *
  *  License: MIT
  *
@@ -67,14 +67,15 @@ $language = array(
     'are_you_sure' => 'Jesteś pewien?',
     'spoiler' => 'Spoiler',
     'invalid_timezone' => 'Ta strefa czasowa nie istnieje',
-    'link' => 'Link',
-    'unlink' => 'Unlink',
+    'link' => 'Podłącz',
+    'unlink' => 'Odłącz',
+    'leaderboards' => 'Ranking',
     
     /*
      *  Contact form
      */
-  'contact' => 'Kontakt',
-  'message' => 'Wiadomość',
+    'contact' => 'Kontakt',
+    'message' => 'Wiadomość',
     'email_address' => 'Adres email',
     'contact_email_subject' => 'Nowe zgłoszenie formularza kontaktowego',
     'contact_message_failed' => 'Nie można wysłać wiadomości. Upewnij się że twoja wiadomość ma od 10 do 5000 znaków długości.',
@@ -88,6 +89,11 @@ $language = array(
     'home' => 'Strona główna',
     'more' => 'Więcej',
     'status' => 'Status',
+
+    /*
+     *  Footer
+     */
+    'links' => 'Links',
 
     /*
      *  Homepage

@@ -3,7 +3,7 @@
  *  Made by Samerton
  *  Translated by Я научу тебя шить XIMI
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -14,7 +14,7 @@ $language = array(
     /*
      *  Change this for the account validation message
      */
-    'validate_account_command' => 'Для завершения регистрации, пожалуйста, введите команду <strong>/validate {x}</strong> на сервере.', // Don't replace {x}
+    'validate_account_command' => 'Для завершения регистрации, пожалуйста, введите команду <strong>/verify {x}</strong> на сервере.', // Don't replace {x}
 
     /*
      *  User Related
@@ -32,11 +32,12 @@ $language = array(
     'messaging' => 'Сообщения',
     'click_here_to_view' => 'Нажмите, чтобы посмотреть.',
     'moderation' => 'Модераторы',
-    'administration' => 'Администраторы',
     'alerts' => 'Уведомления',
     'delete_all' => 'Удалить все',
     'private_profile' => 'Приватность профиля',
     'gif_avatar' => 'Загрузить .gif файл для аватарки',
+    'placeholders' => 'Placeholders',
+    'no_placeholders' => 'No Placeholders',
 
     // Profile settings
     'field_is_required' => '{x} обязательно.', // Don't replace {x}
@@ -117,7 +118,6 @@ $language = array(
     'password_minimum_6' => 'Ваш пароль должен содержать не менее 6-и символов.',
     'username_maximum_20' => 'Ваше имя пользователя должно содержать не более 20-и символов.',
     'mcname_maximum_20' => 'Ваше имя пользователя Minecraft должно содержать не более 20 символов.',
-    'password_maximum_30' => 'Ваш пароль должен содержать не более 30-и символов.',
     'passwords_dont_match' => 'Ваши пароли не совпадают.',
     'username_mcname_email_exists' => 'Ваше имя пользователя или адрес электронной почты уже существуют.',
     'invalid_mcname' => 'Ваше имя пользователя Minecraft недействительно.',
@@ -142,6 +142,8 @@ $language = array(
     'must_input_email' => 'Вы должны ввести адрес электронной почты.',
     'must_input_username' => 'Вы должны ввести имя пользователя.',
     'must_input_password' => 'Вы должны ввести пароль.',
+    'must_input_email_or_username' => 'You must input an email or username.',
+    'email_or_username' => 'Email or Username',
 
     // Forgot password
     'forgot_password_instructions' => 'Пожалуйста, введите свой адрес электронной почты, чтобы мы могли отправить вам дальнейшие инструкции по сбросу пароля.',
@@ -188,7 +190,6 @@ $language = array(
     'new_wall_post_reply_your_profile' => '{x} ответил(а) на сообщение в вашем профиле.', // Don't replace {x}
     'no_about_fields' => 'Этот пользователь еще не добавил никакой информации о себе.',
     'reply' => 'Ответить',
-    'discord_username' => 'Ваш Discord',
 
     // Reports
     'invalid_report_content' => 'Не удалось создать жалобу. Пожалуйста, убедитесь, что причина вашей жалобы состоит из не менее 2-х и не более 1024-х символов.',
@@ -236,21 +237,5 @@ $language = array(
      *  Hooks
      */
     'user_x_has_registered' => '{x} присоединился к ' . SITE_NAME . '!',
-    'user_x_has_validated' => '{x} has validated their account!',
-
-    // Discord
-    'discord_link' => 'Discord Link',
-    'linked' => 'Linked',
-    'not_linked' => 'Not Linked',
-    'discord_id' => 'Discord User ID',
-    'discord_id_unlinked' => 'Successfully unlinked your Discord User ID.',
-    'discord_id_confirm' => 'Please send this message: "!verify {guild_id}:{token}" to {bot_username} to confirm your Discord User ID.',
-    'pending_link' => 'Pending',
-    'discord_id_taken' => 'That Discord ID has already been taken.',
-    'discord_invalid_id' => 'That Discord User ID is invalid.',
-    'discord_already_pending' => 'You already have a pending verification.',
-    'discord_database_error' => 'The Nameless Link database is currently down. Please try again later.',
-    'discord_communication_error' => 'There was an error while communicating with the Discord Bot. Please ensure the bot is running and your Bot URL is correct.',
-    'discord_unknown_error' => 'There was an unknown error while syncing Discord roles. Please contact an administrator.',
-    'discord_id_help' => 'For information on where to find Discord ID\'s, please read <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">this.</a>'
+    'user_x_has_validated' => '{x} потдвердил свой аккаунт!',
 );

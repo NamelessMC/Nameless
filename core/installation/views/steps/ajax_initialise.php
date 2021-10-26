@@ -27,6 +27,16 @@ if (isset($_POST) && isset($_POST['perform']) && $_POST['perform'] == 'true') {
 
 			$_SESSION['site_initialized'] = true;
 
+		} else if ($_GET['initialise'] === 'upgrade') {
+            require(realpath(__DIR__ . '/../includes/upgrade_perform.php'));
+
+			$json = array(
+				'success' => true,
+				'redirect_url' => '?step=finish',
+			);
+
+			$_SESSION['admin_setup'] = true;
+
 		} else {
 			throw new Exception('Invalid initialisation');
 		}

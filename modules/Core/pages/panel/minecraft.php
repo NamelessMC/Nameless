@@ -43,7 +43,7 @@ if(Input::exists()){
 }
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
 
 if(isset($success))
     $smarty->assign(array(
@@ -106,6 +106,13 @@ if($minecraft_enabled == 1){
         $smarty->assign(array(
             'BANNERS' => $language->get('admin', 'server_banners'),
             'BANNERS_LINK' => URL::build('/panel/minecraft/banners')
+        ));
+    }
+
+    if ($user->hasPermission('admincp.core.placeholders')) {
+        $smarty->assign(array(
+            'PLACEHOLDERS' => $language->get('admin', 'placeholders'),
+            'PLACEHOLDERS_LINK' => URL::build('/panel/minecraft/placeholders')
         ));
     }
 }

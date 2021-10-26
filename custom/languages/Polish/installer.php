@@ -14,7 +14,7 @@ $language = array(
      *  Installation
      */
     'install' => 'Zainstaluj',
-    'pre-release' => 'pre-release',
+    'pre-release' => 'wersja-testowa',
     'installer_welcome' => 'Witamy w wersji NamelessMc 2.0 pre-release.',
     'pre-release_warning' => 'Pamiętaj, że wersja pre-release nie jest przeznaczona do użytku publicznego.',
     'installer_information' => 'Instalator przeprowadzi Cię przez proces instalacji.',
@@ -54,7 +54,7 @@ $language = array(
     'site_name' => 'Nazwa strony',
     'contact_email' => 'Email kontaktowy',
     'outgoing_email' => 'Email do wysyłania wiadomości do użytkowników',
-    'language' => 'Language',
+    'language' => 'Język',
     'initialising_database_and_cache' => 'Inicjowanie bazy danych i pamięci podręcznej, proszę czekać...',
     'unable_to_login' => 'Podczas logowania wystąpi błąd.',
     'unable_to_create_account' => 'Podczas tworzenia konta wystąpił błąd.',

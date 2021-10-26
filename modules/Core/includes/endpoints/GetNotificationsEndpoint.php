@@ -28,7 +28,7 @@ class GetNotificationsEndpoint extends EndpointBase {
         $return = array('notifications' => array());
 
         // Get unread alerts
-        $alerts = $api->getDb()->query('SELECT id, type, url, content_short FROM nl2_alerts WHERE user_id = ? AND `read` = 0', array($user));
+        $alerts = $api->getDb()->selectQuery('SELECT id, type, url, content_short FROM nl2_alerts WHERE user_id = ? AND `read` = 0', array($user));
         if ($alerts->count()) {
             foreach ($alerts->results() as $result) {
                 $return['notifications'][] = array(
@@ -41,7 +41,7 @@ class GetNotificationsEndpoint extends EndpointBase {
         }
 
         // Get unread messages
-        $messages = $api->getDb()->query('SELECT nl2_private_messages.id, nl2_private_messages.title FROM nl2_private_messages WHERE nl2_private_messages.id IN (SELECT nl2_private_messages_users.pm_id as id FROM nl2_private_messages_users WHERE user_id = ? AND `read` = 0)', array($user));
+        $messages = $api->getDb()->selectQuery('SELECT nl2_private_messages.id, nl2_private_messages.title FROM nl2_private_messages WHERE nl2_private_messages.id IN (SELECT nl2_private_messages_users.pm_id as id FROM nl2_private_messages_users WHERE user_id = ? AND `read` = 0)', array($user));
         if ($messages->count()) {
             foreach ($messages->results() as $result) {
                 $return['notifications'][] = array(

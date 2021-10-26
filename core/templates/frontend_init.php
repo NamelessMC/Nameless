@@ -25,8 +25,18 @@ if(defined('PAGE') && PAGE != 'login' && PAGE != 'register' && PAGE != 404 && PA
 			$_SESSION['last_page'] = substr($_SESSION['last_page'], strlen(CONFIG_PATH));
 
 	} else
-		$_SESSION['last_page'] = URL::build($_GET['route']);
+		$_SESSION['last_page'] = URL::build($_GET['route'] ?? '/');
 
+}
+
+if (defined('PAGE') && PAGE != 404) {
+    // Auto unset signin tfa variables if set
+    if (strpos($_GET['route'], '/queries/') === false && (isset($_SESSION['remember']) || isset($_SESSION['username']) || isset($_SESSION['email']) || isset($_SESSION['password'])) && (!isset($_POST['tfa_code']) && !isset($_SESSION['mcassoc']))) {
+        unset($_SESSION['remember']);
+        unset($_SESSION['username']);
+        unset($_SESSION['email']);
+        unset($_SESSION['password']);
+    }
 }
 
 $template_path = ROOT_PATH . '/custom/templates/' . TEMPLATE;
@@ -71,7 +81,9 @@ if($user->isLoggedIn()){
 
 		$cache->store('default_group', $default_group);
 	}
-	if(in_array($default_group, $user->getAllGroupIds()) && ($user->data()->reset_code)) {
+    
+    $api_verification = $configuration->get('Core', 'api_verification');
+	if($api_verification == 1 && in_array($default_group, $user->getAllGroupIds()) && ($user->data()->reset_code)) {
 		// User needs to validate account
 		$smarty->assign('MUST_VALIDATE_ACCOUNT', str_replace('{x}', Output::getClean($user->data()->reset_code), $language->get('user', 'validate_account_command')));
 	}
@@ -132,5 +144,13 @@ if(!empty($favicon_image))
     $smarty->assign('FAVICON', Output::getClean($favicon_image));
 
 $analytics_id = $configuration->get('Core', 'ga_script');
-if($analytics_id != null && !empty($analytics_id))
-    $smarty->assign('ANALYTICS_ID', $analytics_id);
+if ($analytics_id)
+    $smarty->assign('ANALYTICS_ID', Output::getClean($analytics_id));
+
+$smarty->assign(array(
+    'FOOTER_LINKS_TITLE' => $language->get('general', 'links'),
+    'FOOTER_SOCIAL_TITLE' => $language->get('general', 'social'),
+    'DARK_LIGHT_MODE' => $language->get('admin', 'mode_toggle'),
+    'DARK_LIGHT_MODE_ACTION' => URL::build('/queries/dark_light_mode'),
+    'DARK_LIGHT_MODE_TOKEN' => $user->isLoggedIn() ? Token::get() : null
+));

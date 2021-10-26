@@ -21,7 +21,7 @@ $page_title = $language->get('admin', 'groups');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
 
 if (Session::exists('admin_groups')) {
     $success = Session::flash('admin_groups');
@@ -68,8 +68,8 @@ if (isset($_GET['action'])) {
                         $default_group = $queries->getWhere('groups', array('default_group', '=', 1));
                         if (!count($default_group) && $default == 0)
                             $default = 1;
-                        
-                        $last_group_order = DB::getInstance()->query('SELECT `order` FROM nl2_groups ORDER BY `order` DESC LIMIT 1')->results();
+
+                        $last_group_order = DB::getInstance()->selectQuery('SELECT `order` FROM nl2_groups ORDER BY `order` DESC LIMIT 1')->results();
                         if (count($last_group_order)) $last_group_order = $last_group_order[0]->order;
                         else $last_group_order = 0;
 
@@ -349,11 +349,11 @@ if (isset($_GET['action'])) {
         $template_file = 'core/groups_permissions.tpl';
     } else if ($_GET['action'] == 'order') {
         // Get groups
-        if(isset($_GET['groups'])){
-            $groups = json_decode($_GET['groups'])->groups;
+        if (isset($_POST['groups']) && Token::check($_POST['token'])) {
+            $groups = json_decode($_POST['groups'])->groups;
 
             $i = 1;
-            foreach($groups as $item){
+            foreach ($groups as $item) {
                 $queries->update('groups', $item, array(
                     '`order`' => $i
                 ));
@@ -392,7 +392,7 @@ if (isset($_GET['action'])) {
         'YES' => $language->get('general', 'yes'),
         'NO' => $language->get('general', 'no'),
         'EDIT' => $language->get('general', 'edit'),
-        'REORDER_DRAG_URL' => URL::build('/panel/core/groups')
+        'REORDER_DRAG_URL' => URL::build('/panel/core/groups', 'action=order')
     ));
 
     $template_file = 'core/groups.tpl';

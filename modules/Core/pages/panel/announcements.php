@@ -24,17 +24,17 @@ $queries = new Queries();
 if (!isset($_GET['action'])) {
     // View all announcements
 
-    $announcements = array();
-    foreach (Announcements::getAll() as $announcement) {
-        $announcements[] = array(
+    $announcements_list = array();
+    foreach ($announcements->getAll() as $announcement) {
+        $announcements_list[] = array(
             $announcement,
-            'pages' => Announcements::getPagesCsv($announcement->pages)
+            'pages' => $announcements->getPagesCsv($announcement->pages)
         );
     }
 
-    if (count($announcements) >= 1) {
+    if (count($announcements_list) >= 1) {
         $smarty->assign(array(
-            'ALL_ANNOUNCEMENTS' => $announcements
+            'ALL_ANNOUNCEMENTS' => $announcements_list
         ));
     }
 
@@ -46,7 +46,8 @@ if (!isset($_GET['action'])) {
         'NEW' => $language->get('admin', 'new_announcement'),
         'ACTIONS' => $language->get('general', 'actions'),
         'EDIT_LINK' => URL::build('/panel/core/announcements', 'action=edit&id='),
-        'DELETE_LINK' => URL::build('/panel/core/announcements', 'action=delete&id={x}')
+        'DELETE_LINK' => URL::build('/panel/core/announcements', 'action=delete'),
+        'REORDER_DRAG_URL' => URL::build('/panel/core/announcements')
     ));
 
     $template_file = 'core/announcements.tpl';
@@ -72,6 +73,10 @@ if (!isset($_GET['action'])) {
                         'text_colour' => [
                             Validate::REQUIRED => true
                         ],
+                        'order' => [
+                            Validate::REQUIRED => true,
+                            Validate::NUMERIC => true
+                        ]
                     ])->messages([
                         'header' => $language->get('admin', 'header_required'),
                         'message' => $language->get('admin', 'message_required'),
@@ -94,7 +99,7 @@ if (!isset($_GET['action'])) {
                         foreach (Input::get('pages') as $page) {
                             $pages[] = $page;
                         }
-                        if (!Announcements::create($pages, $all_groups, Output::getClean(Input::get('text_colour')), Output::getClean(Input::get('background_colour')), Output::getClean(Input::get('icon')), Output::getClean(Input::get('closable')), Output::getClean(Input::get('header')), Output::getClean(Input::get('message')))) {
+                        if (!$announcements->create($pages, $all_groups, Output::getClean(Input::get('text_colour')), Output::getClean(Input::get('background_colour')), Output::getClean(Input::get('icon')), Output::getClean(Input::get('closable')), Output::getClean(Input::get('header')), Output::getClean(Input::get('message')), Output::getClean(Input::get('order')))) {
                             Session::flash('announcement_error', $language->get('admin', 'creating_announcement_failure'));
                             Redirect::to(URL::build('/panel/core/announcements'));
                             die();
@@ -114,7 +119,7 @@ if (!isset($_GET['action'])) {
                 }
             }
 
-            $groups = DB::getInstance()->query('SELECT * FROM nl2_groups ORDER BY `order`')->results();
+            $groups = DB::getInstance()->selectQuery('SELECT * FROM nl2_groups ORDER BY `order`')->results();
             $template_array = array();
             foreach ($groups as $group) {
                 $template_array[Output::getClean($group->id)] = array(
@@ -165,6 +170,10 @@ if (!isset($_GET['action'])) {
                         'text_colour' => [
                             Validate::REQUIRED => true
                         ],
+                        'order' => [
+                            Validate::REQUIRED => true,
+                            Validate::NUMERIC => true
+                        ]
                     ])->messages([
                         'header' => $language->get('admin', 'header_required'),
                         'message' => $language->get('admin', 'message_required'),
@@ -186,7 +195,7 @@ if (!isset($_GET['action'])) {
                         foreach (Input::get('pages') as $page) {
                             $pages[] = $page;
                         }
-                        if (!Announcements::edit($announcement->id, $pages, $all_groups, Output::getClean(Input::get('text_colour')), Output::getClean(Input::get('background_colour')), Output::getClean(Input::get('icon')), Output::getClean(Input::get('closable')), Output::getClean(Input::get('header')), Output::getClean(Input::get('message')))) {
+                        if (!$announcements->edit($announcement->id, $pages, $all_groups, Output::getClean(Input::get('text_colour')), Output::getClean(Input::get('background_colour')), Output::getClean(Input::get('icon')), Output::getClean(Input::get('closable')), Output::getClean(Input::get('header')), Output::getClean(Input::get('message')), Output::getClean(Input::get('order')))) {
                             Session::flash('announcement_error', $language->get('admin', 'editing_announcement_failure'));
                             Redirect::to(URL::build('/panel/core/announcements'));
                             die();
@@ -211,8 +220,8 @@ if (!isset($_GET['action'])) {
 
             $guest_permissions = in_array("0", json_decode($announcement->groups));
             $groups = array();
-            
-            foreach (DB::getInstance()->query('SELECT * FROM nl2_groups ORDER BY `order`')->results() as $group) {
+
+            foreach (DB::getInstance()->selectQuery('SELECT * FROM nl2_groups ORDER BY `order`')->results() as $group) {
                 $groups[$group->id] = array(
                     'name' => $group->name,
                     'id' => $group->id,
@@ -232,18 +241,35 @@ if (!isset($_GET['action'])) {
 
         case 'delete':
             // Delete Announcement
-            if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
-                Redirect::to(URL::build('/panel/core/announcements'));
-                die();
+            if (Input::exists()) {
+                if (Token::check(Input::get('token'))) {
+                    if (isset($_POST['id'])) {
+                        $queries->delete('custom_announcements', array('id', '=', $_POST['id']));
+
+                        $announcements->resetCache();
+                        Session::flash('announcement_success', $language->get('admin', 'deleted_announcement_success'));
+                    }
+                } else {
+                    Session::flash('announcement_error', $language->get('general', 'invalid_token'));
+                }
             }
-
-            $queries->delete('custom_announcements', array('id', '=', $_GET['id']));
-
-            Announcements::resetCache();
-            Session::flash('announcement_success', $language->get('admin', 'deleted_announcement_success'));
-            Redirect::to(URL::build('/panel/core/announcements'));
             die();
             break;
+
+        case 'order':
+            if (isset($_GET['announcements'])) {
+                $announcements_list = json_decode($_GET['announcements'])->announcements;
+
+                $i = 1;
+                foreach ($announcements_list as $item) {
+                    $queries->update('custom_announcements', $item, array(
+                        '`order`' => $i
+                    ));
+                    $i++;
+                }
+            }
+            $announcements->resetCache();
+            die('Complete');
 
         default:
             Redirect::to(URL::build('/panel/core/announcements'));
@@ -253,12 +279,17 @@ if (!isset($_GET['action'])) {
 }
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
 
 if (Session::exists('announcement_success'))
     $smarty->assign(array(
         'SUCCESS' => Session::flash('announcement_success'),
         'SUCCESS_TITLE' => $language->get('general', 'success')
+    ));
+if (Session::exists('announcement_error'))
+    $smarty->assign(array(
+        'ERRORS' => [Session::flash('announcement_error')],
+        'ERRORS_TITLE' => $language->get('general', 'error')
     ));
 if (isset($errors) && count($errors))
     $smarty->assign(array(
@@ -278,6 +309,7 @@ $smarty->assign(array(
     'ICON_INFO' => $language->get('admin', 'announcement_icon_instructions'),
     'YES' => $language->get('general', 'yes'),
     'NO' => $language->get('general', 'no'),
+    'ORDER' => $language->get('admin', 'announcement_order'),
     'HEADER' => $language->get('admin', 'header'),
     'MESSAGE' => $language->get('admin', 'message'),
     'BACK' => $language->get('general', 'back'),
@@ -287,7 +319,7 @@ $smarty->assign(array(
     'BACKGROUND_COLOUR' => $language->get('admin', 'background_colour'),
     'ICON' => $language->get('admin', 'icon'),
     'CLOSABLE' => $language->get('admin', 'closable'),
-    'PAGES_ARRAY' => Announcements::getPages($pages),
+    'PAGES_ARRAY' => $announcements->getPages($pages),
     'INFO' => $language->get('general', 'info'),
     'GUESTS' => $language->get('user', 'guests'),
     'NAME' => $language->get('admin', 'name'),

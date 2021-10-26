@@ -12,22 +12,13 @@
 class Hash {
 
     /**
-     * Generate a hash using sha256.
-     * 
-     * @param string $string String to hash.
-     * @param string|null $salt Salt.
-     * @return string hashed string.
+     * Generate unique hash.
+     *
+     * @return string Generated hash.
+     * @throws Exception if an appropriate source of randomness cannot be found.
      */
-    public static function make($string, $salt = '') {
-        return hash('sha256', $string . $salt);
+    public static function unique(): string {
+        return bin2hex(random_bytes(32));
     }
 
-    /**
-     * Generate unique hash.
-     * 
-     * @return string Generated hash.
-     */
-    public static function unique() {
-        return self::make(uniqid());
-    }
 }

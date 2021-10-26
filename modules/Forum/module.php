@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -11,23 +11,24 @@
 
 class Forum_Module extends Module {
 
-    private $_language, 
-            $_forum_language;
+    private Language $_language;
+    private Language $_forum_language;
 
-	public function __construct($language, $forum_language, $pages) {
+	public function __construct(Language $language, Language $forum_language, Pages $pages) {
 		$this->_language = $language;
 		$this->_forum_language = $forum_language;
 
 		$name = 'Forum';
 		$author = '<a href="https://samerton.me" target="_blank" rel="nofollow noopener">Samerton</a>';
-		$module_version = '2.0.0-pr9';
-		$nameless_version = '2.0.0-pr9';
+		$module_version = '2.0.0-pr12';
+		$nameless_version = '2.0.0-pr12';
 
 		parent::__construct($this, $name, $author, $module_version, $nameless_version);
 
 		// Define URLs which belong to this module
 		$pages->add('Forum', '/panel/forums', 'pages/panel/forums.php');
 		$pages->add('Forum', '/panel/forums/labels', 'pages/panel/labels.php');
+        $pages->add('Forum', '/panel/forums/settings', 'pages/panel/settings.php');
 
 		$pages->add('Forum', '/forum', 'pages/forum/index.php', 'forum', true);
 		$pages->add('Forum', '/forum/error', 'pages/forum/error.php');
@@ -84,6 +85,14 @@ class Forum_Module extends Module {
 		$pages->registerSitemapMethod(ROOT_PATH . '/modules/Forum/classes/Forum_Sitemap.php', 'Forum_Sitemap::generateSitemap');
 
 		// Add link to navbar
+        $cache->setCache('nav_location');
+        if(!$cache->isCached('forum_location')){
+            $link_location = 1;
+            $cache->store('forum_location', 1);
+        } else {
+            $link_location = $cache->retrieve('forum_location');
+        }
+        
 		$cache->setCache('navbar_order');
 		if(!$cache->isCached('forum_order')){
 			$forum_order = 2;
@@ -98,7 +107,20 @@ class Forum_Module extends Module {
 		else
 			$icon = $cache->retrieve('forum_icon');
 
-		$navs[0]->add('forum', $this->_forum_language->get('forum', 'forum'), URL::build('/forum'), 'top', null, $forum_order, $icon);
+        switch($link_location){
+            case 1:
+                // Navbar
+                $navs[0]->add('forum', $this->_forum_language->get('forum', 'forum'), URL::build('/forum'), 'top', null, $forum_order, $icon);
+            break;
+            case 2:
+                // "More" dropdown
+                $navs[0]->addItemToDropdown('more_dropdown', 'forum', $this->_forum_language->get('forum', 'forum'), URL::build('/forum'), 'top', null, $icon, $forum_order);
+            break;
+            case 3:
+                // Footer
+                $navs[0]->add('forum', $this->_forum_language->get('forum', 'forum'), URL::build('/forum'), 'footer', null, $forum_order, $icon);
+            break;
+        }
 
 		// Widgets
 		// Latest posts
@@ -144,15 +166,23 @@ class Forum_Module extends Module {
 				} else {
 					$order = $cache->retrieve('forum_order');
 				}
+                
+				if(!$cache->isCached('forum_settings_icon')){
+					$icon = '<i class="nav-icon fas fa-cogs"></i>';
+					$cache->store('forum_settings_icon', $icon);
+				} else
+					$icon = $cache->retrieve('forum_settings_icon');
 
+                $navs[2]->add('forum_divider', mb_strtoupper($this->_forum_language->get('forum', 'forum'), 'UTF-8'), 'divider', 'top', null, $order, '');
+                $navs[2]->add('forum_settings', $this->_language->get('admin', 'settings'), URL::build('/panel/forums/settings'), 'top', null, $order + 0.1, $icon);
+                
 				if(!$cache->isCached('forum_icon')){
 					$icon = '<i class="nav-icon fas fa-comments"></i>';
 					$cache->store('forum_icon', $icon);
 				} else
 					$icon = $cache->retrieve('forum_icon');
 
-				$navs[2]->add('forum_divider', mb_strtoupper($this->_forum_language->get('forum', 'forum'), 'UTF-8'), 'divider', 'top', null, $order, '');
-				$navs[2]->add('forums', $this->_forum_language->get('forum', 'forums'), URL::build('/panel/forums'), 'top', null, $order + 0.1, $icon);
+				$navs[2]->add('forums', $this->_forum_language->get('forum', 'forums'), URL::build('/panel/forums'), 'top', null, $order + 0.2, $icon);
 
 				if(!$cache->isCached('forum_label_icon')){
 					$icon = '<i class="nav-icon fas fa-tags"></i>';
@@ -160,7 +190,7 @@ class Forum_Module extends Module {
 				} else
 					$icon = $cache->retrieve('forum_label_icon');
 
-				$navs[2]->add('forum_labels', $this->_forum_language->get('forum', 'labels'), URL::build('/panel/forums/labels'), 'top', null, $order + 0.2, $icon);
+				$navs[2]->add('forum_labels', $this->_forum_language->get('forum', 'labels'), URL::build('/panel/forums/labels'), 'top', null, $order + 0.3, $icon);
 			}
 
 			if(defined('PANEL_PAGE') && PANEL_PAGE == 'dashboard'){
@@ -240,6 +270,10 @@ class Forum_Module extends Module {
 		}
 
 		require_once(ROOT_PATH . '/modules/Forum/hooks/DeleteUserForumHook.php');
-		HookHandler::registerHook('deleteUser', 'DeleteUserForumHook::deleteUser');
+		HookHandler::registerHook('deleteUser', 'DeleteUserForumHook::execute');
 	}
+
+    public function getDebugInfo(): array {
+        return [];
+    }
 }

@@ -109,7 +109,7 @@ if (Input::exists()) {
 }
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
 
 if (Session::exists('debugging_success'))
     $smarty->assign(array(
@@ -154,7 +154,10 @@ $smarty->assign(array(
     'ENABLE_PAGE_LOAD_TIMER' => $language->get('admin', 'enable_page_load_timer'),
     'ENABLE_PAGE_LOAD_TIMER_VALUE' => $page_loading,
     'MAINTENANCE_MODE_MESSAGE' => $language->get('admin', 'maintenance_mode_message'),
-    'MAINTENANCE_MODE_MESSAGE_VALUE' => Output::getPurified(htmlspecialchars_decode($maintenance['message']))
+    'MAINTENANCE_MODE_MESSAGE_VALUE' => Output::getPurified(htmlspecialchars_decode($maintenance['message'])),
+    'DEBUG_LINK' => $language->get('admin', 'debug_link'),
+    'DEBUG_LINK_URL' => URL::build('/queries/debug_link'),
+    'TOASTR_COPIED' => $language->get('admin', 'debug_link_toastr'),
 ));
 
 $page_load = microtime(true) - $start;

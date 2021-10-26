@@ -3,7 +3,7 @@
  *  Made by Samerton
  *  Translated by Fjuro
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -14,7 +14,7 @@ $language = array(
     /*
      *  Change this for the account validation message
      */
-    'validate_account_command' => 'Pro dokončení registrace zadejte ve hře příkaz <strong>/validate {x}</strong>.', // Don't replace {x}
+    'validate_account_command' => 'Pro dokončení registrace zadejte ve hře příkaz <strong>/verify {x}</strong>.', // Don't replace {x}
 
     /*
      *  User Related
@@ -35,6 +35,8 @@ $language = array(
     'delete_all' => 'Smazat všecny',
     'private_profile' => 'Soukromý profil',
     'gif_avatar' => 'Nahrát .gif jako vlastní avatar',
+    'placeholders' => 'Placeholdery',
+    'no_placeholders' => 'Žádné placeholdery',
 
     // Profile settings
     'field_is_required' => 'Pole {x} je vyžadováno.', // Don't replace {x}
@@ -88,7 +90,7 @@ $language = array(
     'password' => 'Heslo',
     'confirm_password' => 'Potvrdit heslo',
     'i_agree' => 'Souhlasím',
-    'agree_t_and_c' => 'I have read and accept the <a href="{x}" target="_blank">Terms and Conditions</a>.',
+    'agree_t_and_c' => 'Přečetl/a jsem si a souhlasím s <a href="{x}" target="_blank">pravidly a podmínkami</a>.',
     'create_an_account' => 'Vytvořit účet',
     'terms_and_conditions' => 'Pravidla a podmínky',
     'validation_complete' => 'Váš účet byl ověřen, nyní se můžete přihlásit.',
@@ -115,7 +117,6 @@ $language = array(
     'password_minimum_6' => 'Vaše heslo musí obsahovat alespoň 6 znaků.',
     'username_maximum_20' => 'Vaše uživatelské jméno může obsahovat maximálně 20 znaků.',
     'mcname_maximum_20' => 'Vaše uživatelské jméno v Minecraftu může obsahovat maximálně 20 znaků.',
-    'password_maximum_30' => 'Vaše heslo může obsahovat maximálně 30 znaků.',
     'passwords_dont_match' => 'Vaše hesla se neshodují.',
     'username_mcname_email_exists' => 'Dané uživatelské jméno nebo e-mailová adresa již existuje.',
     'invalid_mcname' => 'Vaše jméno v Minecraftu je neplatné.',
@@ -140,6 +141,8 @@ $language = array(
     'must_input_email' => 'Musíte zadat e-mailovou adresu.',
     'must_input_username' => 'Musíte zadat uživatelské jméno.',
     'must_input_password' => 'Musíte zadat heslo.',
+    'must_input_email_or_username' => 'Musíte zadat e-mail nebo uživatelské jméno.',
+    'email_or_username' => 'E-mail nebo uživatelské jméno',
 
     // Forgot password
     'forgot_password_instructions' => 'Zadejte vaší e-mailovou adresu, abychom vám mohli odeslat další pokyny k obnově vašeho hesla.',
@@ -186,7 +189,6 @@ $language = array(
     'new_wall_post_reply_your_profile' => '{x} odpověděl na váš příspěvek na vašem profilu.', // Don't replace {x}
     'no_about_fields' => 'Tento uživatel o sobě zatím nepřidal žádné informace.',
     'reply' => 'Odpovědět',
-    'discord_username' => 'Uživatelské jméno na Discordu',
 
     // Reports
     'invalid_report_content' => 'Nepodařilo se vytvořit nahlášení. Ujistěte se, že váš důvod nahlášení obsahuje mezi 2 a 1024 znaky.',
@@ -235,20 +237,4 @@ $language = array(
      */
     'user_x_has_registered' => '{x} se připojil na ' . SITE_NAME . '!',
     'user_x_has_validated' => '{x} ověřil svůj účet!',
-
-    // Discord
-    'discord_link' => 'Propojení s Discordem',
-    'linked' => 'Propojeno',
-    'not_linked' => 'Nepropojeno',
-    'discord_id' => 'Uživatelské Discord ID',
-    'discord_id_unlinked' => 'Úspěšně jste odpojili své uživatelské ID.',
-    'discord_id_confirm' => 'Pošlete prosím tuto zprávu: "!verify {guild_id}:{token}" uživateli {bot_username} pro potvrzení vašeho uživatelského ID.',
-    'pending_link' => 'Čekání',
-    'discord_id_taken' => 'Toto Discord ID je již zabráno.',
-    'discord_invalid_id' => 'Toto uživatelské Discord ID je neplatné.',
-    'discord_already_pending' => 'Již máte čekající ověření.',
-    'discord_database_error' => 'Databáze Nameless Link momentálně není dostupná. Zkuste to prosím znovu za chvíli.',
-    'discord_communication_error' => 'Při komunikaci s Discord botem se vyskytla chyba. Ujistěte se, že bot běží a že URL bota je správná.',
-    'discord_unknown_error' => 'Při synchronizaci Discord rolí se vyskytla neznámá chyba. Kontaktujte prosím správce.',
-    'discord_id_help' => 'Pro informace, kde nalézt Discord ID, si přečtěte <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">toto.</a>'
 );

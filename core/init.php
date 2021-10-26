@@ -1,8 +1,8 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr9
  *
  *  License: MIT
  *
@@ -79,58 +79,25 @@ if ($page != 'install') {
     // Set up cache
     $cache = new Cache(array('name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/'));
 
-    // Force https?
-    $cache->setCache('force_www_cache');
-    if ($cache->isCached('force_www')) {
-        $force_www = $cache->retrieve('force_www');
-        if ($force_www == 'true')
-            define('FORCE_WWW', true);
-    } else
-        $cache->store('force_www', false);
+    // Force https/www?
+    if (Config::get('core/force_https')) define('FORCE_SSL', true);
+    if (Config::get('core/force_www')) define('FORCE_WWW', true);
 
-    $cache->setCache('force_https_cache');
-    if ($cache->isCached('force_https')) {
-        $force_https = $cache->retrieve('force_https');
-        if ($force_https == 'true') {
-            if ($_SERVER["HTTPS"] != "on") {
-                // Redirect to https
-
-                // Force www?
-                if (defined('FORCE_WWW')) {
-                    if (strpos($_SERVER['HTTP_HOST'], 'www.') === false) {
-                        header('Location: https://www.' . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
-                        die();
-                    } else {
-                        header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
-                        die();
-                    }
-                } else {
-                    header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
-                    die();
-                }
-            } else {
-                // Force www?
-                if (defined('FORCE_WWW') && strpos($_SERVER['HTTP_HOST'], 'www.') === false) {
-                    header('Location: https://www.' . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
-                    die();
-                }
-            }
-
-            define('FORCE_SSL', true);
+    if (defined('FORCE_SSL') && !Util::isConnectionSSL()) {
+        if (defined('FORCE_WWW') && strpos($_SERVER['HTTP_HOST'], 'www.') === false) {
+            header('Location: https://www.' . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
+            die();
         }
-    } else {
-        $cache->store('force_https', false);
+
+        header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
+        die();
     }
 
-    if (!defined('FORCE_SSL')) {
-        if (defined('FORCE_WWW') && strpos($_SERVER['HTTP_HOST'], 'www.') === false) {
-            if ($_SERVER["HTTPS"] != "on") {
-                header('Location: http://www.' . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
-            } else {
-                header('Location: https://www.' . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
-            }
-
-            die();
+    if (defined('FORCE_WWW') && strpos($_SERVER['HTTP_HOST'], 'www.') === false) {
+        if (!Util::isConnectionSSL()) {
+            header('Location: http://www.' . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
+        } else {
+            header('Location: https://www.' . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
         }
     }
 
@@ -172,17 +139,6 @@ if ($page != 'install') {
     $nameless_version = $queries->getWhere('settings', array('name', '=', 'nameless_version'));
     $nameless_version = $nameless_version[0]->value;
     define('NAMELESS_VERSION', $nameless_version);
-
-    // Get the Bot URL(s)
-    $bot_url = $queries->getWhere('settings', array('name', '=', 'discord_bot_url'));
-    $bot_url = $bot_url[0]->value;
-    if ($bot_url == null) $bot_url = '';
-    define('BOT_URL', $bot_url);
-
-    $bot_username = $queries->getWhere('settings', array('name', '=', 'discord_bot_username'));
-    $bot_username = $bot_username[0]->value;
-    if ($bot_username == null) $bot_username = '';
-    define('BOT_USERNAME', $bot_username);
 
     // User initialisation
     $user = new User();
@@ -354,6 +310,36 @@ if ($page != 'install') {
 
     // Smarty
     $smarty = new Smarty();
+    $securityPolicy = new Smarty_Security($smarty);
+    $securityPolicy->php_modifiers = array(
+        'escape',
+        'count',
+        'key',
+        'round',
+        'ucfirst',
+        'defined',
+        'date',
+        'explode',
+        'htmlspecialchars_decode',
+        'implode',
+        'strtolower',
+        'strtoupper'
+    );
+    $securityPolicy->php_functions = array(
+        'isset',
+        'empty',
+        'count',
+        'sizeof',
+        'in_array',
+        'is_array',
+        'time',
+        'nl2br',
+        'is_numeric',
+        'file_exists',
+        'array_key_exists'
+    );
+    $securityPolicy->secure_dir = array(ROOT_PATH . '/custom/templates', ROOT_PATH . '/custom/panel_templates');
+    $smarty->enableSecurity($securityPolicy);
 
     // Basic Smarty variables
     $smarty->assign(array(
@@ -432,15 +418,21 @@ if ($page != 'install') {
         define('MINECRAFT', false);
 
     // Navbar links
-    $navigation = new Navigation();
-    $cc_nav     = new Navigation();
-    $mod_nav    = new Navigation(true); // $mod_nav = panel nav
+    $navigation  = new Navigation();
+    $cc_nav      = new Navigation();
+    $staffcp_nav = new Navigation(true); // $staffcp_nav = panel nav
 
     // Add links to cc_nav
     $cc_nav->add('cc_overview', $language->get('user', 'overview'), URL::build('/user'));
     $cc_nav->add('cc_alerts', $language->get('user', 'alerts'), URL::build('/user/alerts'));
     $cc_nav->add('cc_messaging', $language->get('user', 'messaging'), URL::build('/user/messaging'));
     $cc_nav->add('cc_settings', $language->get('user', 'profile_settings'), URL::build('/user/settings'));
+
+    // Placeholders enabled?
+    $placeholders_enabled = $configuration->get('Core', 'placeholders');
+    if($placeholders_enabled == 1) {
+        $cc_nav->add('cc_placeholders', $language->get('user', 'placeholders'), URL::build('/user/placeholders'));
+    }
 
     // Add homepage to navbar
     // Check navbar order + icon in cache
@@ -467,6 +459,9 @@ if ($page != 'install') {
     // Endpoints
     $endpoints = new Endpoints();
 
+    // Announcements
+    $announcements = new Announcements($cache);
+
     // Modules
     $cache->setCache('modulescache');
     if (!$cache->isCached('enabled_modules')) {
@@ -475,7 +470,7 @@ if ($page != 'install') {
         ));
         $cache->store('module_core', true);
     }
-    $enabled_modules = (array) $cache->retrieve('enabled_modules');
+    $enabled_modules = $cache->retrieve('enabled_modules');
 
     foreach ($enabled_modules as $module) {
         if ($module['name'] == 'Core') {
@@ -585,7 +580,7 @@ if ($page != 'install') {
 
         if (isset($forced) && $forced) {
             // Do they have TFA configured?
-            if (!$user->data()->tfa_enabled) {
+            if (!$user->data()->tfa_enabled && rtrim($_GET['route'], '/') != '/logout') {
                 if (strpos($_SERVER[REQUEST_URI], 'do=enable_tfa') === false) {
                     Session::put('force_tfa_alert', $language->get('admin', 'force_tfa_alert'));
                     Redirect::to(URL::build('/user/settings', 'do=enable_tfa'));
@@ -629,13 +624,4 @@ if ($page != 'install') {
             $_SESSION['checked'] = $date;
         }
     }
-
-    // Auto unset signin tfa variables if set
-    if (strpos($_GET['route'], '/queries/') === false && (isset($_SESSION['remember']) || isset($_SESSION['username']) || isset($_SESSION['email']) || isset($_SESSION['password'])) && (!isset($_POST['tfa_code']) && !isset($_SESSION['mcassoc']))) {
-        unset($_SESSION['remember']);
-        unset($_SESSION['username']);
-        unset($_SESSION['email']);
-        unset($_SESSION['password']);
-    }
 }
-

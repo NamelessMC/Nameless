@@ -1,0 +1,33 @@
+parameters:
+    level: 2
+    paths:
+        - ./
+    excludePaths:
+        - core/includes/
+        - cache/
+# Ignore notices which are thrown due to the procedural nature of Nameless
+    ignoreErrors:
+        - '#might not be defined#'
+        - '#Constant#'
+        - '#in isset\(\) always exists and is not nullable#'
+        - '#Undefined variable:#'
+        - '#in isset\(\) is never defined.#'
+    # Autoload classes
+    scanDirectories:
+        - core/classes
+        - modules/Core/classes
+        - modules/Discord Integration/classes
+        - modules/Forum/classes
+    scanFiles:
+        - core/includes/bulletproof/bulletproof.php
+        - core/includes/sitemapphp/Sitemap.php
+    bootstrapFiles:
+        - core/includes/emojione/autoload.php
+        - core/includes/htmlpurifier/HTMLPurifier.standalone.php
+        - core/includes/markdown/tohtml/Markdown.inc.php
+        - core/includes/markdown/tohtml/MarkdownExtra.inc.php
+        - core/includes/markdown/tomarkdown/autoload.php
+        - core/includes/phpmailer/PHPMailerAutoload.php
+        - core/includes/smarty/bootstrap.php
+        - core/includes/tfa/autoload.php
+        - core/includes/phpass.php

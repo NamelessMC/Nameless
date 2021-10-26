@@ -42,7 +42,7 @@ if (Input::exists()) {
     // Check token
     if (Token::check()) {
         // Token valid
-        $image = new Bulletproof\Image($_FILES);
+        $image = new BulletProof\Image($_FILES);
         $image->setSize(1, 2097152); // between 1b and 2mb
         $image->setDimension(2000, 2000); // 2k x 2k pixel maximum
         $image->setMime($image_extensions);

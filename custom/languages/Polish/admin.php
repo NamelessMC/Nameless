@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -22,7 +22,6 @@ $language = array(
     'layout' => 'Wygląd',
     'user_management' => 'Zarządzanie użytkownikami',
     'admin_cp' => 'Panel Administratora',
-    'administration' => 'Administracja',
     'overview' => 'Przegląd',
     'core' => 'Ustawienia',
     'integrations' => 'Integracje',
@@ -43,6 +42,7 @@ $language = array(
     'notices' => 'Powiadomienia',
     'no_notices' => 'Brak powiadomień.',
     'email_errors_logged' => 'Błędy email zostały zapisane. Kliknij <a href="{x}">tutaj</a> aby je zobaczyć.', // Don't replace "{x}"
+    'upgrade_php_version' => 'Please upgrade your PHP version to at least 7.4 - the next Nameless release will no longer support the version you are using.',
 
     // Core
     'mode_toggle' => 'Ciemny/Jasny Tryb',
@@ -76,14 +76,6 @@ $language = array(
     'youtube_url' => 'URL Youtube',
     'twitter_url' => 'URL Twittera',
     'twitter_dark_theme' => 'Użyć ciemnego stylu twittera?',
-    'discord_id' => 'ID Serwera Discord',
-    'discord_widget_theme' => 'Styl widgetu Discord',
-    'discord_id_length' => 'Sprawdź czy twoje ID Serwera Discord ma 18 znaków.',
-    'discord_id_numeric' => 'Sprawdź czy twoje ID Discord ma odpowiednią ilość znaków (Tylko numery).',
-    'discord_invite_info' => 'Aby zaprosić bota kliknij <a target="_blank" href="https://namelessmc.com/discord-bot-invite">tutaj</a>. Następnie napisz do Bota <code>!apiurl</code>. Możesz również <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">hostować bota samemu</a>.',
-    'discord_bot_must_be_setup' => 'Nie można włączyć integracji Discord dopóki dobrze jej nie skonfigurujesz, zobacz <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">ten artykuł</a>.',
-    'discord_bot_setup' => 'Konfiguracja Bota',
-    'discord_integration_not_setup' => 'Integracja Discord nie jest włączona',
     'dark' => 'Ciemny',
     'light' => 'Jasny',
     'google_plus_url' => 'URL Google Plus',
@@ -115,6 +107,7 @@ $language = array(
     'mailer_settings_info' => 'Następujące pola są wymagane, jeśli masz włączony PHPMailer. Aby uzyskać więcej informacji na temat wypełniania tych pól, przeczytaj <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-Gmail-or-SMTP-with-Nameless" target="_blank">ten</a> artykuł w NamelessMC wiki.',
     'host' => 'Host',
     'email_port' => 'Port',
+    'email_port_invalid' => 'Please insert a valid email port.',
     'email_password_hidden' => 'Hasło nie jest pokazane ze względów bezpieczeństwa.',
     'send_test_email' => 'Wyślij testowy email',
     'send_test_email_info' => 'Poniższy przycisk wyśle wiadomość e-mail na twój adres e-mail <strong> {x} </strong>. Zostaną wyświetlone wszystkie błędy wygenerowane podczas wysyłania wiadomości.', // Don't replace {x}
@@ -156,11 +149,11 @@ $language = array(
     'navigation_settings_updated_successfully' => 'Ustawienia paska nawigacji zostały zaktualizowane.',
     'dropdown_items' => 'Rozwijane elementy',
     'enable_page_load_timer' => 'Włączyć wskaźnik czasu ładowania strony?',
-    'captcha_general' => 'Enable Captcha on registration and contact page?',
-    'captcha_login' => 'Enable Captcha on login page?',
+    'captcha_general' => 'Włączyć Captcha przy rejestracji?',
+    'captcha_login' => 'Włączyć Captcha przy logowaniu??',
     'captcha_type' => 'Typ Captcha',
-    'captcha_site_key' => 'Captcha Site Key',
-    'captcha_secret_key' => 'Captcha Secret Key',
+    'captcha_site_key' => 'Klucz Captcha Strony',
+    'captcha_secret_key' => 'Sekretny Klucz Captcha Strony',
     'registration_disabled_message' => 'Wiadomość o wyłączonej rejestracji',
     'enable_nicknames_on_registration' => 'Włączyć nicki dla rejestrowanych użytkowników?',
     'validation_promote_group' => 'Grupa po weryfikacji',
@@ -174,11 +167,40 @@ $language = array(
     'emails_mass_message_sent_successfully' => 'Wysłano wiadomość pomyślnie.',
     'emails_mass_message_replacements' => 'Możesz użyć zmiennych w wiadomo. Przykłady:: {username}, {sitename}',
     'emails_mass_message_loading' => 'Ładowanie... Nie odświeżaj strony. To trochę zajmie.',
+    'administrator' => 'Administrator',
+    'administrator_permission_info' => 'Każdy użytkownik z tymi uprawnieniami może robić wszystko, uważaj.',
+
+    // Placeholders
+    'placeholders' => 'Zmiennie',
+    'enable_placeholders' => 'Włączyć Zmienne?',
+    'updated_placeholder_settings' => 'Zmieniono ustawienia zmiennych.',
+    'placeholders_info' => 'Zmienne pokazują zmienne serwerowe (z pluginu) na forum.',
+    'placeholders_none' => 'Nie ma żadnych zmiennych.',
+    'placeholders_server_id' => 'ID Serwera',
+    'placeholders_name' => 'Nazwa',
+    'placeholders_value' => 'Wartość',
+    'placeholders_last_updated' => 'Ostatnio Zaaktualizowano',
+    'placeholders_friendly_name' => 'Przyjazna Nazwa',
+    'placeholders_friendly_name_info' => 'Ustaw to aby ustalić \'nick\' tej zmiennej. Przyjemna nazwa będzie ukazywana na forum.',
+    'placeholders_show_on_profile' => 'Pokaż na Profilu',
+    'placeholders_show_on_profile_info' => 'Pokazuje zmienne użytkownika na profilu.',
+    'placeholders_show_on_forum' => 'Pokaż na Forum',
+    'placeholders_show_on_forum_info' => 'Pokazuje zmienne użytkownika na forum.',
+
+    // Placeholder leaderboards
+    'leaderboard_settings' => 'Ustawienia Tabeli',
+    'placeholder_leaderboard_settings' => 'Ustawienia Zmiennych Tabeli',
+    'placeholder_leaderboard_info' => 'Tabele wyników pozwalają ci wyświetlać wyniki graczy na serwerze.',
+    'placeholder_leaderboard_enable_info' => 'Działają one z liczbami (np. monety, zabójstwa). Jeśli dodasz tekst, nie wiadomo czy zadziała.',
+    'placeholder_leaderboard_updated' => 'Zaaktualizowano ustawienia tabeli',
+    'placeholder_leaderboard_enabled' => 'Włączono Tabelę',
+    'placeholder_leaderboard_title' => 'Tytuł Tabeli',
+    'placeholder_leaderboard_sort' => 'Sortowanie Tabeli',
 
     // SEO
     'seo' => 'SEO',
-    'google_analytics' => 'Google Analytics',
-    'google_analytics_help' => 'Add Google Analytics to your website to track visitors and statistics. You will need to create a Google Analytics account to use this functionality. Enter your Google Analytics Web Property ID. The ID looks like UA-XXXXA-X and you can find it in your account information or in the tracking code provided by Google.',
+    'google_analytics' => 'Analityka Google',
+    'google_analytics_help' => 'Dodaj analitykę, aby zbierać dane o użytkownikach. Musisz posiadać konto google analityka, aby używać tej funkcji. Wpisz kod analityczny strony. ID wygląda tak UA-XXXXA-X i możesz znaleść go w ustawieniach konta.',
 
   // Reactions
     'icon' => 'Ikona',
@@ -339,8 +361,8 @@ $language = array(
     'unable_to_retrieve_modules' => 'Podczas pobierania modułów wystąpił błąd.',
     'module' => 'Moduł',
     'unable_to_enable_module' => 'Nie możesz włączyć niekompatybilnego modułu.',
-    'unable_to_enable_module_dependencies' => 'Unable to enable module since it depends on the module {x}, which is not enabled.', // Don't replace {x}
-    'unable_to_disable_module' => 'Unable to disable module - the module {x} depends on it.', // Don't replace {x}
+    'unable_to_enable_module_dependencies' => 'Nie można włączyć modułu, bo moduł {x} go wymaga.', // Don't replace {x}
+    'unable_to_disable_module' => 'Nie można usunąć modułu - moduł {x} go wymaga.', // Don't replace {x}
 
     // Styles
     'templates' => 'Szablony',
@@ -398,10 +420,10 @@ $language = array(
     'background_updated_successfully' => 'Tło zostało zmienione pomyślnie.',
     'unable_to_enable_template' => 'Nie możesz włączyć niekompatybilnego szablonu.',
     'background_image_info' => 'Ta opcja może być niekompatybilna z większością szablonów.',
-    'dark_mode' => 'Dark Mode',
-    'navbar_colour' => 'Navbar Colour',
-    'clear_cache' => 'Clear Template Cache',
-    'cache_cleared' => 'Template cache cleared',
+    'dark_mode' => 'Tryb Ciemny',
+    'navbar_colour' => 'Kolor Nawigacji',
+    'clear_cache' => 'Zresetuj Pamięć Podręczną stylów',
+    'cache_cleared' => 'Pamięć podręczna stylów została zresetowana',
 
     // Users & groups
     'users' => 'Użytkownicy',
@@ -465,9 +487,9 @@ $language = array(
     'force_tfa' => 'Wymusić weryfikację dwuetapową?',
     'force_tfa_warning' => 'Pamiętaj żeby nie zablokować siebie lub innych grup.',
     'force_tfa_alert' => 'Twoja grupa ma wymaganą weryfikację dwuetapową.',
-    'resend_activation_email' => 'Resend Activation Email',
-    'email_resent_successfully' => 'Email resent successfully.',
-    'email_resend_failed' => 'Email resend failed, please check your email settings.',
+    'resend_activation_email' => 'Wyślij Maila Ponownie',
+    'email_resent_successfully' => 'Wysłano maila ponownie.',
+    'email_resend_failed' => 'Wysyłanie maila nie udało się, sprawdź swoje ustawienia.',
 
     // Permissions
     'select_all' => 'Zaznacz wszystko',
@@ -498,13 +520,15 @@ $language = array(
     'please_select_logs' => 'Wybierz logi do wyświetlenia',
     'ip_address' => 'Adres IP',
     'template_changes' => 'Zmiany szablonów',
+    'email_logs' => 'Mass Emails',
+    'group_sync_logs' => 'Group Sync Changes',
     'file_changed' => 'Zmiany plików',
     'all_logs' => 'Wszystkie Logi',
     'action' => 'Akcja',
     'action_info' => 'Informacje o Akcji',
-    'groups_removed' => 'Groups Removed',
-    'groups_added' => 'Groups Added',
-    
+    'groups_removed' => 'Grupy Usunięte',
+    'groups_added' => 'Grupy Dodane',
+
     // Updates
     'update' => 'Zaktualizuj',
     'current_version_x' => 'Aktualna wersja: <strong>{x}</strong>', // Don't replaec {x}
@@ -568,9 +592,9 @@ $language = array(
     'link_location_required' => 'Musisz wybrać lokalizację linku do strony.',
     'page_title_minimum_2' => 'Tytuł strony musi mieć co najmniej 2 znaki.',
     'page_url_minimum_2' => 'Adres strony musi mieć co najmniej 2 znaki.',
-    'page_title_maximum_30' => 'Tytuł strony może mieć maksymalnie 30 znaków.',
+    'page_title_maximum_255' => 'Tytuł strony może mieć maksymalnie 255 znaków.',
     'page_icon_maximum_64' => 'Ikona strony może mieć maksymalnie 64 znaki.',
-    'page_url_maximum_20' => 'Adres strony może mieć maksymalnie 20 znaków.',
+    'page_url_maximum_255' => 'Adres strony może mieć maksymalnie 255 znaków.',
     'page_content_maximum_20480' => 'Zawartość strony może mieć maksymalnie 20480 znaków.',
     'page_redirect_link_maximum_512' => 'Link przekierowania strony może mieć maksymalnie 512 znaków.',
     'confirm_delete_page' => 'Jesteś pewien, że chcesz usunąć tą stronę?',
@@ -610,12 +634,12 @@ $language = array(
     'group_sync_rule_created_successfully' => 'Zasada synchronizowania grupy została stworzona pomyślnie.',
     'group_sync_rules_updated_successfully' => 'Zasada synchronizowania grupy została zaktualizowana pomyślnie.',
     'group_sync_rule_deleted_successfully' => 'Zasada synchronizowania grupy została usunięta pomyślnie',
-    'group_sync_plugin_not_set_up' => 'Plugin not set up',
+    'group_sync_plugin_not_set_up' => 'Plugin nie jest skonfigurowany',
     'existing_rules' => 'Istniejące zasady',
     'new_rule' => 'Nowa zasada',
     'api_endpoints' => 'Punkty API',
-    'api_endpoints_info' => 'API Endpoints allow Modules to create ways for external applications (such as Minecraft and Discord) to interact with your NamelessMC website.',
-    'route' => 'Route',
+    'api_endpoints_info' => 'Punkty API pomagają modułom w podłączaniu z różnymi usługami (np. Minecraft lub Discord), aby móc integrować z NamelessMC.',
+    'route' => 'Trasa',
 
     // File uploads
     'drag_files_here' => 'Przeciągnij pliki tutaj, aby je przesłać.',
@@ -707,7 +731,6 @@ $language = array(
     'announcement_icon_instructions' => 'Możesz tu dodać ikonkę korzystając z np. <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>, <a href="https://semantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Semantic UI</a>.',
     'header' => 'Tytuł',
     'message' => 'Wiadomość',
-    'pages' => 'Strony',
     'text_colour' => 'Kolor Tekstu',
     'background_colour' => 'Kolor Tła',
     'closable' => 'Zamykane',
@@ -737,13 +760,13 @@ $language = array(
     'discord_cannot_interact' => 'Bot nie może integrować z rolami użytkowników. Sprawdź czy rola bota jest na pewno nad rolami użytkowników.',
 
     // Discord bot Errors
-    'discord_bot_error_badparameter' => 'Invalid request body.',
-    'discord_bot_error_error' => 'An internal bot error occured.',
-    'discord_bot_error_invguild' => 'Provided Guild ID is invalid, or the bot is not in it.',
-    'discord_bot_error_invuser' => 'Provided User ID is invalid, or is not in specified Guild.',
-    'discord_bot_error_notlinked' => 'The bot is not linked to this website for provided Guild ID.',
-    'discord_bot_error_unauthorized' => 'Website API key is invalid',
-    'discord_bot_error_invrole' => 'Provided Role ID is invalid.',
-    'discord_bot_error_hierarchy' => 'The bot cannot edit this user\'s roles.'
+    'discord_bot_error_badparameter' => 'Nieprawidłowe informacje.',
+    'discord_bot_error_error' => 'Nastąpił wewnętrzny błąd.',
+    'discord_bot_error_invguild' => 'Podane ID serwera jest niepoprawne, lub bota nie ma na serwerze.',
+    'discord_bot_error_invuser' => 'Podane ID użytkownika jest niepoprawne, lub nie ma go na serwerze.',
+    'discord_bot_error_notlinked' => 'Bot nie jest podłączony do tej strony.',
+    'discord_bot_error_unauthorized' => 'Klucz API jest niepoprawny',
+    'discord_bot_error_invrole' => 'Podane ID roli jest niepoprawne.',
+    'discord_bot_error_hierarchy' => 'Bot nie ma uprawnień do dodawania użytkownika do ról.'
 
 );

@@ -2,7 +2,7 @@
 /*
  *  Translations by Maiu
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC versjon 2.0.0-pr8
+ *  NamelessMC versjon 2.0.0-pr10
  *
  *  License: MIT
  *
@@ -69,6 +69,7 @@ $language = array(
     'invalid_timezone' => 'Denne tidssonen er ugyldig.',
     'link' => 'Koble til',
     'unlink' => 'Koble fra',
+    'leaderboards' => 'Leaderboards',
     
     /*
      *  Contact form
@@ -88,6 +89,11 @@ $language = array(
     'home' => 'Hjem',
     'more' => 'Mer',
     'status' => 'Status',
+
+    /*
+     *  Footer
+     */
+    'links' => 'Links',
 
     /*
      *  Homepage

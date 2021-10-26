@@ -572,3 +572,89 @@ NamelessMC version 2 Changelog
 - Make groups field in serverInfo endpoint optional
 - PHP 8 improvements
 - Full changeset https://github.com/NamelessMC/Nameless/compare/v2.0.0-pr8...v2.0.0-pr9
+
+2.0.0 pr-10
+- Add ability to upload favicon
+- Add Smarty security policy
+- Add support for environment variable based debugging
+- Auto detect user timezone when registering
+- Avatar rework and add Crafthead support
+- Captcha rework including Recaptcha v3 invisible support
+- Ensure cookie_secure is set in PHP config
+- Error handling revamp
+- Increase label HTML length
+- Move captcha/https/www configuration to config.php
+- Placeholder API integration
+- Remove unsafe tags when editing posts
+- Validation revamp
+- API updates - including group sync fixes
+- Default Revamp and Default panel template fixes
+- htaccess fixes and improvements
+- MCAssoc fixes
+- Server status widget fixes
+- Translation updates
+- PHP 8 improvements
+- Full changeset https://github.com/NamelessMC/Nameless/compare/v2.0.0-pr9...v2.0.0-pr10
+
+2.0.0 pr-11
+- Add Danish translation
+- Fix StaffCP Minecraft integration section
+- Add support for upward dropdowns in Default Revamp template
+- Add Default Revamp dark mode support for top attached headers
+- Fix invalid language during installation
+- Add SSL check before activating secure cookies
+- Fix missing favicons directory
+- Fix invalid token with AuthMe login
+- Add setting to initialise charset
+- Add environment variables to hide options in general configuration
+- Validate email port before updating config in StaffCP
+- Add method to set multiple config values at once
+- Temporarily disable auto timezone detection until #2355 is resolved
+- Change placeholder tables primary keys
+- Fix profile settings when forum is disabled
+- Add index on nl2_posts topic_id column
+- Remove extra column from nl2_query_results
+- Improve placeholder error message
+- Translation updates
+- PHP 8 improvements
+- Full changeset https://github.com/NamelessMC/Nameless/compare/v2.0.0-pr10...v2.0.0-pr11
+
+2.0.0 pr-12
+- Add Thai translation
+- Increase max length of custom pages URL + title
+- Display non-alphanumeric characters in forum URLs
+- General placeholder fixes
+- General Authme fixes
+- Convert many GET requests to POST #2033
+- Add new administrator permission for full access
+- Add new forum settings page including link location option
+- Add ability to log in with either username or email
+- Discord sync rework
+- Ingame sync rework
+- Fix legacy panel template update alert style
+- Only send password reset email if user is already active
+- PHPMailer autoloader PHP 8 compatibility
+- Fix warning modal not showing
+- Prevent IP banning yourself
+- Allow disabling placeholders feature
+- Remove legacy X-UA-Compatible header
+- Prevent showing validate message when API verification is disabled
+- Update strings for Discord slash commands
+- API verification command renamed from /validate to /verify
+- Change installer DB password field to password type
+- Fix latest profile posts link
+- Fix duplicate rel="" attribute when using rel="preload"
+- Make hook fire even if no hooks are there
+- Remove password length limit
+- Convert forum queries to DB query()
+- Add notice to StaffCP update tab if not using PHP 7.4+
+- Add per-user dark mode toggle
+- Only clear 2fa state when not on 404 page
+- Fix StaffCP redirect after re-authentication
+- Add reported_username and reported_uid fields to createReport endpoint
+- Exclude .DS_Store files from endpoint scan
+- Default Revamp dark mode improvements
+- Default panel template dark mode improvements
+- Translation updates
+- PHP 8 improvements
+- Full changeset https://github.com/NamelessMC/Nameless/compare/v2.0.0-pr11...v2.0.0-pr12

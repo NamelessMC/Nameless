@@ -60,7 +60,7 @@ $social_media_icons[] = array(
 // Assign to Smarty variables
 $smarty->assign(array(
 	'SOCIAL_MEDIA_ICONS' => $social_media_icons, 
-	'PAGE_LOAD_TIME' => ((isset($page_loading) && $page_loading == '1') ? true : false),
+	'PAGE_LOAD_TIME' => isset($page_loading) && $page_loading == '1',
 	'FOOTER_NAVIGATION' => $navigation->returnNav('footer')
 ));
 

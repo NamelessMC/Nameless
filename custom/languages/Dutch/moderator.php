@@ -76,6 +76,7 @@ $language = array(
     'viewing_user_x' => 'Gebruiker {x} aan het bekijken', // Verander {x} niet
     'previous_punishments' => 'Vorige straffen',
     'no_previous_punishments' => 'Geen vorige straffen',
+    'reset_avatar' => 'Reset Avatar',
     'warning' => 'Waarschuwing',
     'ip_ban' => 'IP verbanning',
     'reason' => 'Reden',

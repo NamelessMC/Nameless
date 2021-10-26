@@ -1,0 +1,58 @@
+name: Bug Report
+description: Inform us of any bugs/issues you may have found
+labels: ["bug"]
+body:
+- type: textarea      
+  attributes:
+    label: Describe the issue
+    description: Please describe the issue in as much detail as possible.
+  validations:
+    required: true
+
+- type: dropdown
+  id: version
+  attributes:
+    label: NamelessMC Version
+    description: From StaffCP -> Overview
+    options:
+      - 2.0.0-pr12
+      - <= 2.0.0-pr11
+      - 1.0.21
+      - <= 1.0.20
+  validations:
+    required: true
+
+- type: textarea      
+  attributes:
+    label: To Reproduce
+    description: "Steps to reproduce the behaviour."
+    placeholder: "1. Go to '...'
+
+     2. Click on '....'
+
+     3. Scroll down to '.....'
+
+     4. See error"
+  validations:
+    required: true
+
+- type: textarea      
+  attributes:
+    label: Expected Behaviour
+    description: What were you expecting to happen?
+  validations:
+    required: true
+
+- type: textarea      
+  attributes:
+    label: Screenshots
+    description: If applicable, add screenshots to help explain your problem.
+  validations:
+    required: false
+
+- type: textarea      
+  attributes:
+    label: Additional Information
+    description: Add more information about the problem if necessary.
+  validations:
+    required: false

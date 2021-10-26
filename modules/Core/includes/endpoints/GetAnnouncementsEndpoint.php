@@ -2,7 +2,6 @@
 
 /**
  * @param int $id NamelessMC ID of the user whose announcements to view
- * @param string $username NamelessMC sername of the user whose announcements to view
  *
  * @return string JSON Array of latest announcements
  */
@@ -18,21 +17,25 @@ class GetAnnouncementsEndpoint extends EndpointBase {
     public function execute(Nameless2API $api) {
         if (isset($_GET['id']) && is_numeric($_GET['id'])) {
             $tempUser = $api->getUser('id', $_GET['id']);
-        } else if (isset($_GET['username'])) {
-            $tempUser = $api->getUser('username', $_GET['username']);
         } else {
             $tempUser = null;
         }
 
-        $announcements = array();
+        $user_announcements = array();
 
-        foreach (Announcements::getAvailable('api', null, $tempUser != null ? $tempUser->data()->group_id : 0, $tempUser != null ? $tempUser->data()->secondary_groups : null) as $announcement) {
-            $announcements[$announcement->id]['pages'] = json_decode($announcement->pages);
-            $announcements[$announcement->id]['groups'] = array_map('intval', json_decode($announcement->groups));
-            $announcements[$announcement->id]['header'] = Output::getClean($announcement->header);
-            $announcements[$announcement->id]['message'] = Output::getPurified($announcement->message);
+        $announcements = new Announcements(
+            new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/'])
+        );
+
+        foreach ($announcements->getAvailable('api', null, $tempUser != null ? $tempUser->getAllGroupIds(false) : [0]) as $announcement) {
+            $user_announcements[(int) $announcement->id] = [
+                'header' => Output::getClean($announcement->header),
+                'message' => Output::getPurified($announcement->message),
+                'pages' => json_decode($announcement->pages),
+                'groups' => array_map('intval', json_decode($announcement->groups)),
+            ];
         }
 
-        $api->returnArray(array('announcements' => $announcements));
+        $api->returnArray(array('announcements' => $user_announcements));
     }
 }

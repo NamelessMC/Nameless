@@ -9,10 +9,12 @@ class ServerInfoEndpoint extends EndpointBase {
         $this->_method = 'POST';
     }
 
+    private $user_cache = [];
+
     public function execute(Nameless2API $api) {
         $api->validateParams($_POST, ['server-id', 'max-memory', 'free-memory', 'allocated-memory', 'tps']);
         if (!isset($_POST['players'])) {
-            $api->throwError(6, $this->_language->get('api', 'invalid_post_contents'), 'players');
+            $api->throwError(6, $api->getLanguage()->get('api', 'invalid_post_contents'), 'players');
         }
 
         $serverId = $_POST['server-id'];
@@ -30,7 +32,6 @@ class ServerInfoEndpoint extends EndpointBase {
                     'server_id' => $_POST['server-id'],
                     'queried_at' => date('U'),
                     'players_online' => count($_POST['players']),
-                    'extra' => json_encode($_POST),
                     'groups' => isset($_POST['groups']) ? json_encode($_POST['groups']) : '[]'
                 )
             );
@@ -68,7 +69,7 @@ class ServerInfoEndpoint extends EndpointBase {
             if (Util::getSetting($api->getDb(), 'username_sync')) {
                 if (count($_POST['players'])) {
                     foreach ($_POST['players'] as $uuid => $player) {
-                        $user = new User($uuid, 'uuid');
+                        $user = $this->getUser($uuid);
                         if ($user->data()) {
                             if ($player['name'] != $user->data()->username) {
                                 // Update username
@@ -98,84 +99,20 @@ class ServerInfoEndpoint extends EndpointBase {
         }
 
         // Group sync
-        $log_array = array();
+        $log = [];
         try {
-            $group_sync = $api->getDb()->get('group_sync', array('id', '<>', 0));
+            foreach ($_POST['players'] as $uuid => $player) {
+                $user = $this->getUser($uuid);
+                if ($user->exists()) {
 
-            if ($group_sync->count()) {
-                $group_sync = $group_sync->results();
-                $group_sync_updates = array();
-                foreach ($group_sync as $item) {
-                    if ($item->ingame_rank_name == '') {
-                        continue;
-                    }
-
-                    $group_sync_updates[strtolower($item->ingame_rank_name)] = array(
-                        'website' => $item->website_group_id
+                    $log = GroupSyncManager::getInstance()->broadcastChange(
+                        $user, 
+                        MinecraftGroupSyncInjector::class,
+                        isset($player['groups']) ? array_map('strtolower', $player['groups']) : []
                     );
-                }
 
-                foreach ($_POST['players'] as $uuid => $player) {
-                    $user = new User($uuid, 'uuid');
-                    if ($user->data()) {
-
-                        $should_log = false;
-
-                        // Never edit root user
-                        if ($user->data()->id == 1) {
-                            continue;
-                        }
-
-                        // Any synced groups to remove?
-                        foreach ($user->getGroups() as $group) {
-                            // Convert user group ID to minecraft group name. exit if this isnt set
-                            $ingame_rank_name = Util::getIngameRankName($group->id);
-                            if ($ingame_rank_name == null) {
-                                continue;
-                            }
-
-                            // Check that this website group is setup to sync
-                            if (!array_key_exists($ingame_rank_name, $group_sync_updates)) {
-                                continue;
-                            }
-
-                            // If they currently have this rank ingame, dont remove it
-                            if (in_array($ingame_rank_name, $player['groups'])) {
-                                continue;
-                            }
-
-                            // Only create a log entry if at least one new group was added/removed
-                            if ($user->removeGroup($group->id)) {
-                                $should_log = true;
-                                $log_array['removed'][] = $group->name;
-                            }
-
-                            Discord::updateDiscordRoles($user, [], [$group->id], $api->getLanguage(), false);
-                        }
-
-                        // Any synced groups to add?
-                        foreach ($player['groups'] as $group) {
-                            $ingame_rank_name = strtolower($group);
-                            // Check that this ingame group is setup to sync
-                            if (!array_key_exists($ingame_rank_name, $group_sync_updates)) {
-                                continue;
-                            }
-                            
-                            $group_info = $group_sync_updates[$ingame_rank_name];
-
-                            // Only create a log entry if at least one new group was added/removed
-                            if ($user->addGroup($group_info['website'])) {
-                                // TODO: this without another query for name. we cant loop their groups because that would require remaking the $user var
-                                $should_log = true;
-                                $log_array['added'][] = Util::getGroupNameFromId($group_info['website']);
-                            }
-
-                            Discord::updateDiscordRoles($user, $group_info['website'], [], $api->getLanguage(), false);
-                        }
-
-                        if ($should_log) {
-                            Log::getInstance()->log(Log::Action('mc_group_sync/role_set'), json_encode($log_array), $user->data()->id);
-                       }
+                    if (count($log)) {
+                        Log::getInstance()->log(Log::Action('mc_group_sync/role_set'), json_encode($log), $user->data()->id);
                     }
                 }
             }
@@ -183,6 +120,37 @@ class ServerInfoEndpoint extends EndpointBase {
             $api->throwError(25, $api->getLanguage()->get('api', 'unable_to_update_server_info'), $e->getMessage());
         }
 
-        $api->returnArray(array('message' => $api->getLanguage()->get('api', 'server_info_updated'), 'meta' => json_encode($log_array)));
+        // Placeholder api
+        try {
+            foreach ($_POST['players'] as $uuid => $player) {
+                $user = $this->getUser($uuid);
+                if ($user->data()) {
+                    $user->savePlaceholders($_POST['server-id'], $player['placeholders']);
+                }
+            }
+        } catch (Exception $e) {
+            $api->throwError(25, $api->getLanguage()->get('api', 'unable_to_update_server_info'), $e->getMessage());
+        }
+
+        $api->returnArray(array_merge(array('message' => $api->getLanguage()->get('api', 'server_info_updated')), ['log' => $log]));
+    }
+
+    /**
+     * Get a user from cache (or create if not exist).
+     * 
+     * @param string $uuid Their uuid.
+     * 
+     * @return User Their user instance.
+     */
+    private function getUser($uuid) {
+        if (isset($this->user_cache[$uuid])) {
+            return $this->user_cache[$uuid];
+        }
+
+        $user = new User($uuid, 'uuid');
+
+        $this->user_cache[$uuid] = $user;
+
+        return $user;
     }
 }

@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -13,7 +13,7 @@ $language = array(
     /*
      *  Change this for the account validation message
      */
-    'validate_account_command' => 'Aby zakończyć rejestrację wpisz komendę <strong>/validate {x}</strong> na serwerze.', // Don't replace {x}
+    'validate_account_command' => 'Aby zakończyć rejestrację wpisz komendę <strong>/verify {x}</strong> na serwerze.', // Don't replace {x}
 
     /*
      *  User Related
@@ -31,11 +31,12 @@ $language = array(
     'messaging' => 'Wiadomości',
     'click_here_to_view' => 'Kliknij by pokazać.',
     'moderation' => 'Moderacja',
-    'administration' => 'Administracja',
     'alerts' => 'Powiadomienia',
     'delete_all' => 'Usuń wszystko',
     'private_profile' => 'Prywatny profil',
     'gif_avatar' => 'Upload .gif as custom avatar',
+    'placeholders' => 'Zmienne',
+    'no_placeholders' => 'Brak Zmiennych',
 
     // Profile settings
     'field_is_required' => 'Pole {x} jest wymagane.', // Don't replace {x}
@@ -69,7 +70,7 @@ $language = array(
     'upload_profile_banner' => 'Dodaj baner profilowy',
     'upload' => 'Zatwierdź',
     'topic_updates' => 'Otrzymuj emaile z obserwowanych tematów',
-    'gravatar' => 'Use Gravatar as avatar',
+    'gravatar' => 'Użyj gravatar jako awatara',
 
     // Alerts
     'user_tag_info' => 'Zostałeś oznaczony w poście przez {x}.', // Don't replace {x}
@@ -116,7 +117,6 @@ $language = array(
     'password_minimum_6' => 'Twoje hasło musi mieć co najmniej 6 znaków.',
     'username_maximum_20' => 'Twoja nazwa użytkownika może mieć maksymalnie 20 znaków.',
     'mcname_maximum_20' => 'Twój nick z minecraft może mieć maksymalnie 20 znaków.',
-    'password_maximum_30' => 'Twoje hasło może mieć maksymalnie 30 znaków.',
     'passwords_dont_match' => 'Twoje hasła nie są takie same.',
     'username_mcname_email_exists' => 'Istnieje już konto z tą nazwą użytkownika lub emailem.',
     'invalid_mcname' => 'Wpisałeś zły nick z minecraft',
@@ -129,7 +129,7 @@ $language = array(
     'verification_failed' => 'Weryfikacja nie powiodła się. Spróbuj ponownie później.',
     'verification_success' => 'Pomyślnie zweryfikowano konto minecraft.',
     'authme_username_exists' => 'Twoje konto na serwerze jest już połączone ze stroną!',
-    'uuid_already_exists' => 'Twoje UUIC już istnieje. Oznacza to, że to konto minecrft jest już zarejestrowane.',
+    'uuid_already_exists' => 'Twoje UUID już istnieje. Oznacza to, że to konto minecrft jest już zarejestrowane.',
 
     // Login
     'successful_login' => 'Zostałeś zalogowany.',
@@ -141,6 +141,8 @@ $language = array(
     'must_input_email' => 'Musisz podać adres email.',
     'must_input_username' => 'Musisz podać nazwę użytkownika.',
     'must_input_password' => 'Musisz podać hasło.',
+    'must_input_email_or_username' => 'You must input an email or username.',
+    'email_or_username' => 'Email or Username',
 
      // Forgot password
    'forgot_password_instructions' => 'Wprowadź swój adres e-mail, abyśmy mogli wysłać Ci dalsze instrukcje dotyczące resetowania hasła.',
@@ -187,7 +189,6 @@ $language = array(
     'new_wall_post_reply_your_profile' => '{x} odpowiedział na twój post na twoim profilu.', // Don't replace {x}
     'no_about_fields' => 'Ten użytkownik nie dodał jeszcze żadnych informacji o sobie.',
     'reply' => 'Odpowiedz',
-    'discord_username' => 'Discord Username',
 
     // Reports
     'invalid_report_content' => 'Nie można wysłać zgłoszenia. Upewnij się że treść zgłoszenia ma od 2 do 1024 znaków.',
@@ -221,8 +222,8 @@ $language = array(
     'confirm_leave' => 'Jesteś pewny że chcesz opuścić tą konwersację?',
     'one_or_more_users_blocked' => 'Nie możesz wysyłać prywatnych wiadomości do co najmniej jednego członka rozmowy. (Jest on zablokowany)',
     'messages' => 'Wiadomości',
-    'latest_profile_posts' => 'Latest Profile Posts',
-    'no_profile_posts' => 'No profile posts.',
+    'latest_profile_posts' => 'Najnowsze Posty',
+    'no_profile_posts' => 'Brak postów.',
 
     /*
      *  Infractions area
@@ -235,21 +236,21 @@ $language = array(
      *  Hooks
      */
     'user_x_has_registered' => '{x} dołączył do ' . SITE_NAME . '!',
-    'user_x_has_validated' => '{x} has validated their account!',
+    'user_x_has_validated' => '{x} zweryfikował swoje konto!',
 
     // Discord
-    'discord_link' => 'Discord Link',
-    'linked' => 'Linked',
-    'not_linked' => 'Not Linked',
-    'discord_id' => 'Discord User ID',
-    'discord_id_unlinked' => 'Successfully unlinked your Discord User ID.',
-    'discord_id_confirm' => 'Please send this message: "!verify {guild_id}:{token}" to {bot_username} to confirm your Discord User ID.',
-    'pending_link' => 'Pending',
-    'discord_id_taken' => 'That Discord ID has already been taken.',
-    'discord_invalid_id' => 'That Discord User ID is invalid.',
-    'discord_already_pending' => 'You already have a pending verification.',
-    'discord_database_error' => 'The Nameless Link database is currently down. Please try again later.',
-    'discord_communication_error' => 'There was an error while communicating with the Discord Bot. Please ensure the bot is running and your Bot URL is correct.',
-    'discord_unknown_error' => 'There was an unknown error while syncing Discord roles. Please contact an administrator.',
-    'discord_id_help' => 'For information on where to find Discord ID\'s, please read <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">this.</a>'
+    'discord_link' => 'Synchronizacja Discord',
+    'linked' => 'Podłączono',
+    'not_linked' => 'Nie Podłączono',
+    'discord_id' => 'ID użytkownika Discord',
+    'discord_id_unlinked' => 'Pomyślnie odłączono twoje konto.',
+    'discord_id_confirm' => 'Napisz komendę "/verify token:{token}" na discordzie aby dokończyć synchronizację.',
+    'pending_link' => 'W trakcie',
+    'discord_id_taken' => 'To ID jest już zajęte.',
+    'discord_invalid_id' => 'To ID jest niepoprawne.',
+    'discord_already_pending' => 'Już masz weryfikację w trakcie.',
+    'discord_database_error' => 'Baza danych namelessmc ma problem. Spróbuj ponownie później.',
+    'discord_communication_error' => 'Wystąpił bląd poczas łączenia z botem. Upewnij się, że bot jest online i adres jest poprawny.',
+    'discord_unknown_error' => 'Podczas synchronizacji ról wystąpił błąd, skontaktuj się z administratorem.',
+    'discord_id_help' => 'Po informacje jak zdobyć ID Discord, przeczytaj <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">to.</a>'
 );

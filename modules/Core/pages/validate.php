@@ -15,7 +15,7 @@ $page_title = $language->get('general', 'register');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
 
 if(!isset($_GET['c'])){
 	Redirect::to(URL::build('/'));
@@ -43,12 +43,16 @@ if(!isset($_GET['c'])){
             'username' => $user->getDisplayname(),
             'uuid' => Output::getClean($user->data()->uuid),
             'content' => str_replace('{x}', $user->getDisplayname(), $language->get('user', 'user_x_has_validated')),
-            'avatar_url' => $user->getAvatar(null, 128, true),
+            'avatar_url' => $user->getAvatar(128, true),
             'url' => Util::getSelfURL() . ltrim($user->getProfileURL(), '/'),
             'language' => $language
         ));
 
-        Discord::updateDiscordRoles($user, [$user->getMainGroup()->id], [], $language, false);
+        GroupSyncManager::getInstance()->broadcastChange(
+            $user,
+            NamelessMCGroupSyncInjector::class,
+            [$user->getMainGroup()->id]
+        );
 
 		Session::flash('home', $language->get('user', 'validation_complete'));
 		Redirect::to(URL::build('/'));

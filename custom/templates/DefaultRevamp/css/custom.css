@@ -972,6 +972,15 @@ body.dark .ui.secondary.menu .item.active {
 	color: #fff;
 }
 
+body.dark .ui.top.attached.menu:not(.inverted) {
+	background: #282828;
+	border: 1px solid #282828;
+}
+
+body.dark .ui.top.attached.menu:not(.inverted) .item {
+	color: #fff;
+}
+
 body.dark .ui.form input:not(.button) {
 	background-color: #303030 !important;
 }
@@ -1083,6 +1092,9 @@ body.dark .ui.list>.item .description,
 body.dark .ui.vertical.menu .item.active,
 body.dark .ui.vertical.menu .item:hover,
 body.dark #user-popup .description,
+body.dark .ui.search.dropdown.active > input.search,
+body.dark .ui.search.selection.dropdown > input.search,
+body.dark .ui.selection.dropdown .menu > .message,
 body.dark .ui.attached.tabular.menu .item.active,
 body.dark .ui.threaded.comments .comment .text {
 	color: #fff;
@@ -1109,10 +1121,13 @@ body.dark .ui.attached.tabular.menu .item,
 body.dark .ui.comments .comment .metadata,
 body.dark .ui.comments .comment .actions a,
 body.dark .ui.card>.extra a:not(.ui),
-body.dark .ui.cards>.card>.extra a:not(.ui){
+body.dark .ui.cards>.card>.extra a:not(.ui),
+body.dark .ui.relaxed.list .item .content,
+body.dark .ui.horizontal.divider {
 	color: rgba(255, 255, 255, 0.6);
 }
 
+body.dark .ui.secondary.inverted.menu .popup .list a.item,
 body.dark .ui.pointing.dropdown>.menu>.item {
 	color: rgba(255, 255, 255, 0.6) !important;
 }
@@ -1127,6 +1142,12 @@ body.dark .ui.top.left.popup:before {
 	background: #222;
 	-webkit-box-shadow: 1px 1px 0 0 #444;
 	box-shadow: 1px 1px 0 0 #444;
+}
+
+body.dark .ui.right.center.popup:before {
+	background: #222;
+	-webkit-box-shadow: -1px 1px 0 0 #444;
+	box-shadow: -1px 1px 0 0 #444;
 }
 
 body.dark .ui.left.center.popup:before {
@@ -1162,6 +1183,12 @@ body.dark .ui.form input[type=url] {
 	color: #fff;
 }
 
+body.dark .ui.mini.info.message {
+	background-color: #282828;
+	box-shadow: 0 0 0 1px #282828 inset, 0 0 0 0 transparent;
+	-webkit-box-shadow: 0 0 0 1px #282828 inset, 0 0 0 0 transparent;
+}
+
 body.dark .ui.pagination {
 	background-color: #303030;
 }
@@ -1186,6 +1213,12 @@ body.dark .ui.table {
 
 body.dark .ui.table thead th {
 	background-color: #282828;
+	color: rgba(255, 255, 255, 0.6);
+}
+
+body.dark .ui.top.attached.header {
+	background-color: #282828;
+	border-color: #282828;
 	color: rgba(255, 255, 255, 0.6);
 }
 
@@ -1244,4 +1277,24 @@ body.dark .ui.red.card,
 body.dark .ui.red.cards>.card {
 	-webkit-box-shadow: 0 0 0 1px #d4d4d5, 0 5px 0 0 #db2828, 0 1px 3px 0 #d4d4d5;
 	box-shadow: 0 0 0 1px #d4d4d5, 0 5px 0 0 #db2828, 0 1px 3px 0 #d4d4d5;
+}
+
+body.dark .ui.tabular.menu {
+	border-color: #282828;
+}
+
+body.dark .ui.tabular.menu .item {
+	color: #fff;
+}
+
+body.dark .ui.tabular.menu .active.item {
+	background-color: #282828;
+	border-color: #282828;
+}
+
+/*
+ * Colours
+ */
+body.dark .white {
+	color: #fff;
 }

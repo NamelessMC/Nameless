@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -14,7 +14,7 @@ if(!$user->isLoggedIn()){
 	Redirect::to(URL::build('/'));
 	die();
 }
- 
+
 // Always define page name for navbar
 define('PAGE', 'cc_settings');
 $page_title = $language->get('user', 'user_cp');
@@ -26,20 +26,23 @@ require(ROOT_PATH . '/core/includes/emojione/autoload.php'); // Emojione
 require(ROOT_PATH . '/core/includes/markdown/tohtml/Markdown.inc.php'); // Markdown to HTML
 $emojione = new Emojione\Client(new Emojione\Ruleset());
 
+// Forum enabled?
+$forum_enabled = Util::isModuleEnabled('Forum');
+
 // Two factor auth?
 if(isset($_GET['do'])){
 	if($_GET['do'] == 'enable_tfa'){
 		// Enable TFA
 		require(ROOT_PATH . '/core/includes/tfa/autoload.php');
-		
+
 		// Ensure TFA is currently disabled
 		if($user->data()->tfa_enabled == 1){
 			Redirect::to(URL::build('/user/settings'));
 			die();
 		}
-		
+
         $tfa = new \RobThree\Auth\TwoFactorAuth(SITE_NAME);
-		
+
 		if(!isset($_GET['s'])){
 			// Generate secret
 			$secret = $tfa->createSecret();
@@ -65,14 +68,14 @@ if(isset($_GET['do'])){
 				'CANCEL_LINK' => URL::build('/user/settings/', 'do=disable_tfa'),
 				'ERROR_TITLE' => $language->get('general', 'error')
 			));
-			
+
 			if (isset($errors) && count($errors))
 				$smarty->assign(array(
 					'ERRORS' => $errors
 				));
 
 			// Load modules + template
-			Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
+			Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
 
 			require(ROOT_PATH . '/core/templates/cc_navbar.php');
 
@@ -126,7 +129,7 @@ if(isset($_GET['do'])){
 			));
 
 			// Load modules + template
-			Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
+			Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
 
 			require(ROOT_PATH . '/core/templates/cc_navbar.php');
 
@@ -155,7 +158,7 @@ if(isset($_GET['do'])){
 		Redirect::to(URL::build('/user/settings'));
 		die();
 	}
-	
+
 } else {
 	// Handle input
 	if(Input::exists()){
@@ -163,7 +166,7 @@ if(isset($_GET['do'])){
 			if(Input::get('action') == 'settings'){
 				// Validation
 				$validate = new Validate();
-				
+
 				$to_validate = array(
                     'signature' => array(
                         'max' => 900
@@ -202,9 +205,9 @@ if(isset($_GET['do'])){
 						}
 					}
 				}
-				
+
 				$validation = $validate->check($_POST, $to_validate);
-				
+
 				if($validation->passed()){
 				    // Check nickname is unique
                     if($user->hasPermission('usercp.nickname')) {
@@ -260,8 +263,6 @@ if(isset($_GET['do'])){
                             } else
                                 $signature = '';
 
-							$topicUpdates = Output::getClean(Input::get('topicUpdates'));
-
                             // Private profiles enabled?
                             $private_profiles = $queries->getWhere('settings', array('name', '=', 'private_profile'));
                             if($private_profiles[0]->value == 1) {
@@ -274,16 +275,24 @@ if(isset($_GET['do'])){
 
                             $gravatar = $_POST['gravatar'] == '1' ? 1 : 0;
 
-                            $user->update(array(
+                            $data = array(
                                 'language_id' => $new_language,
                                 'timezone' => $timezone,
                                 'signature' => $signature,
 								'nickname' => $displayname,
-								'topic_updates' => $topicUpdates,
                                 'private_profile' => $privateProfile,
 	                            'theme_id' => $new_template,
                                 'gravatar' => $gravatar
-                            ));
+                            );
+
+                            // Is forum enabled? Update topic Updates
+                            if($forum_enabled) {
+                                $topicUpdates = Output::getClean(Input::get('topicUpdates'));
+
+                                $data['topic_updates'] = $topicUpdates;
+                            }
+
+                            $user->update($data);
 
                             Log::getInstance()->log(Log::Action('user/ucp/update'));
 
@@ -335,7 +344,7 @@ if(isset($_GET['do'])){
                             Session::flash('settings_error', $e->getMessage());
                         }
                     }
-					
+
 				} else {
 					// Validation errors
 					foreach($validation->errors() as $item){
@@ -362,20 +371,19 @@ if(isset($_GET['do'])){
                                 $errors[] = str_replace('{x}', Output::getClean($field->name), $language->get('user', 'field_is_required')) . '<br />';
                             }
                         }
-					}					
+					}
 				}
 			} else if(Input::get('action') == 'password'){
 				// Change password
 				$validate = new Validate();
-				
+
 				$validation = $validate->check($_POST, [
 					'old_password' => [
 						Validate::REQUIRED => true
                     ],
 					'new_password' => [
 						Validate::REQUIRED => true,
-						Validate::MIN => 6,
-						Validate::MAX => 30
+						Validate::MIN => 6
                     ],
 					'new_password_again' => [
                         Validate::REQUIRED => true,
@@ -385,30 +393,29 @@ if(isset($_GET['do'])){
                     'old_password' => $language->get('user', 'password_required') . '<br />',
                     'new_password' => [
                         Validate::REQUIRED => $language->get('user', 'password_required') . '<br />',
-                        Validate::MIN => $language->get('user', 'password_minimum_6') . '<br />',
-                        Validate::MAX => $language->get('user', 'password_maximum_30') . '<br />'
+                        Validate::MIN => $language->get('user', 'password_minimum_6') . '<br />'
                     ],
                     'new_password_again' => [
                         Validate::REQUIRED => $language->get('user', 'password_required') . '<br />',
                         Validate::MATCHES => $language->get('user', 'passwords_dont_match') . '<br />'
                     ]
                 ]);
-				
+
 				if($validation->passed()){
 					// Update password
-					// Check old password matches 
+					// Check old password matches
 					$old_password = Input::get('old_password');
 					if($user->checkCredentials($user->data()->username, $old_password, 'username')){
 
                         // Hash new password
                         $new_password = password_hash(Input::get('new_password'), PASSWORD_BCRYPT, array("cost" => 13));
-                        
+
                         // Update password
                         $user->update(array(
                             'password' => $new_password,
                             'pass_method' => 'default'
                         ));
-                        
+
                         $success = $language->get('user', 'password_changed_successfully');
 
 					} else {
@@ -472,7 +479,7 @@ if(isset($_GET['do'])){
                     $errors = $validation->errors();
                 }
             } else if(Input::get('action') == 'discord'){
-				
+
 				if (Input::get('unlink') == 'true') {
 
 					$user->update(array(
@@ -480,7 +487,7 @@ if(isset($_GET['do'])){
 						'discord_username' => null
 					));
 
-					Session::flash('settings_success', $language->get('user', 'discord_id_unlinked'));
+					Session::flash('settings_success', Discord::getLanguageTerm('discord_id_unlinked'));
 					Redirect::to(URL::build('/user/settings'));
 					die();
 
@@ -495,8 +502,8 @@ if(isset($_GET['do'])){
                     $user->update(array(
                         'discord_id' => 010
                     ));
-                    
-                    Session::flash('settings_success', str_replace(array('{guild_id}', '{token}', '{bot_username}'), array(Util::getSetting(DB::getInstance(), 'discord'), $token, BOT_USERNAME), $language->get('user', 'discord_id_confirm')));
+
+                    Session::flash('settings_success', str_replace('{token}', $token, Discord::getLanguageTerm('discord_id_confirm')));
                     Redirect::to(URL::build('/user/settings'));
                     die();
 				}
@@ -551,7 +558,7 @@ if(isset($_GET['do'])){
 	// Error/success message?
 	if(Session::exists('settings_error')) $error = Session::flash('settings_error');
 	if(Session::exists('settings_success')) $success = Session::flash('settings_success');
-	
+
 	// Get languages
 	$languages = array();
 	$language_query = $queries->getWhere('languages', array('id', '<>', 0));
@@ -578,13 +585,13 @@ if(isset($_GET['do'])){
 	// Get custom fields
 	$custom_fields = $queries->getWhere('profile_fields', array('id', '<>', 0));
 	$user_custom_fields = $queries->getWhere('users_profile_fields', array('user_id', '=', $user->data()->id));
-	
+
 	$custom_fields_template = array(
 		'nickname' => array(
 			'disabled' => true
 		)
 	);
-	
+
 	if($user->hasPermission('usercp.nickname')){
 		$custom_fields_template['nickname'] = array(
 			'name' => $language->get('user', 'nickname'),
@@ -593,7 +600,7 @@ if(isset($_GET['do'])){
 			'type' => 'text'
 		);
 	}
-	
+
 	if(count($custom_fields)){
 		foreach($custom_fields as $field){
 			// Check if its editable if not, next
@@ -612,7 +619,7 @@ if(isset($_GET['do'])){
 					}
 				}
 			}
-			
+
 			// Get custom field type
 			if($field->type == 1)
 				$type = 'text';
@@ -620,7 +627,7 @@ if(isset($_GET['do'])){
 				$type = 'textarea';
 			else if($field->type == 3)
 				$type = 'date';
-			
+
 			$custom_fields_template[$field->name] = array(
 				'name' => Output::getClean($field->name),
 				'value' => $value,
@@ -630,7 +637,7 @@ if(isset($_GET['do'])){
 			);
 		}
 	}
-	
+
 	if(Session::exists('tfa_success')){
 		$success = Session::flash('tfa_success');
 	}
@@ -666,24 +673,57 @@ if(isset($_GET['do'])){
         ));
 	}
 
-	$forum_enabled = $queries->getWhere('modules', array('name', '=', 'Forum'));
-	if($forum_enabled[0]->enabled == 1){
+	if($forum_enabled) {
 		$smarty->assign(array(
 			'TOPIC_UPDATES' => $language->get('user', 'topic_updates'),
 			'TOPIC_UPDATES_ENABLED' => DB::getInstance()->get('users', array('id', '=', $user->data()->id))->first()->topic_updates
 		));
 	}
-	
+
 	if($user->canPrivateProfile($user->data()->id)){
         $smarty->assign(array(
             'PRIVATE_PROFILE' => $language->get('user', 'private_profile'),
             'PRIVATE_PROFILE_ENABLED' => $user->isPrivateProfile($user->data()->id)
         ));
 	}
-	
-	$discord_linked = $user->data()->discord_id == null || $user->data()->discord_id == 010 ? false : true;
-	$discord_integration = Util::getSetting(DB::getInstance(), 'discord_integration');
-	
+
+    // Discord Integration
+    if(Util::isModuleEnabled('Discord Integration')) {
+        $discord_linked = $user->data()->discord_id == null || $user->data()->discord_id == 010 ? false : true;
+
+        if ($discord_linked) {
+            $smarty->assign(array(
+                'UNLINK' => $language->get('general', 'unlink'),
+                'LINKED' => $language->get('user', 'linked'),
+                'DISCORD_ID_VALUE' => $user->data()->discord_id,
+            ));
+        } else {
+            $smarty->assign(array(
+                'LINK' => $language->get('general', 'link'),
+                'NOT_LINKED' => $language->get('user', 'not_linked'),
+            ));
+            if ($user->data()->discord_id == 010) {
+                $smarty->assign(array(
+                    'PENDING_LINK' => $language->get('user', 'pending_link')
+                ));
+            }
+        }
+
+        $smarty->assign(array(
+            'DISCORD_INTEGRATION' => true,
+            'DISCORD_LINK' => Discord::getLanguageTerm('discord_link'),
+            'DISCORD_LINKED' => $discord_linked,
+            'DISCORD_USERNAME' => Discord::getLanguageTerm('discord_username'),
+            'DISCORD_USERNAME_VALUE' => $user->data()->discord_username,
+            'DISCORD_ID' => Discord::getLanguageTerm('discord_user_id'),
+            'ID_INFO' => Discord::getLanguageTerm('discord_id_help'),
+        ));
+    } else {
+        $smarty->assign(array(
+            'DISCORD_INTEGRATION' => false
+        ));
+    }
+
 	// Language values
 	$smarty->assign(array(
 		'SETTINGS' => $language->get('user', 'profile_settings'),
@@ -700,12 +740,6 @@ if(isset($_GET['do'])){
 		'CURRENT_PASSWORD' => $language->get('user', 'current_password'),
 		'NEW_PASSWORD' => $language->get('user', 'new_password'),
 		'CONFIRM_NEW_PASSWORD' => $language->get('user', 'confirm_new_password'),
-		'DISCORD_INTEGRATION' => $discord_integration,
-		'DISCORD_LINK' => $language->get('user', 'discord_link'),
-		'DISCORD_LINKED' => $discord_linked,
-		'DISCORD_USERNAME' => $language->get('user', 'discord_username'),
-		'DISCORD_USERNAME_VALUE' => $user->data()->discord_username,
-		'DISCORD_ID' => $language->get('user', 'discord_id'),
 		'TWO_FACTOR_AUTH' => $language->get('user', 'two_factor_auth'),
 		'TIMEZONE' => $language->get('user', 'timezone'),
 		'TIMEZONES' => Util::listTimezones(),
@@ -717,30 +751,11 @@ if(isset($_GET['do'])){
 		'ERROR_TITLE' => $language->get('general', 'error'),
 		'HELP' => $language->get('general', 'help'),
 		'INFO' => $language->get('general', 'info'),
-		'ID_INFO' => $language->get('user', 'discord_id_help'),
 		'ENABLED' => $language->get('user', 'enabled'),
 		'DISABLED' => $language->get('user', 'disabled'),
         'GRAVATAR' => $language->get('user', 'gravatar'),
         'GRAVATAR_VALUE' => $user->data()->gravatar == '1' ? '1' : '0'
 	));
-
-	if ($discord_linked) {
-		$smarty->assign(array(
-			'UNLINK' => $language->get('general', 'unlink'),
-			'LINKED' => $language->get('user', 'linked'),
-			'DISCORD_ID_VALUE' => $user->data()->discord_id,
-		));
-	} else {
-		$smarty->assign(array(
-			'LINK' => $language->get('general', 'link'),
-			'NOT_LINKED' => $language->get('user', 'not_linked'),
-		));
-		if ($user->data()->discord_id == 010) {
-			$smarty->assign(array(
-				'PENDING_LINK' => $language->get('user', 'pending_link')
-			));
-		}
-	}
 
 	if(defined('CUSTOM_AVATARS')) {
       $smarty->assign(array(
@@ -750,7 +765,7 @@ if(isset($_GET['do'])){
         'UPLOAD_NEW_PROFILE_IMAGE' => $language->get('user', 'upload_new_avatar')
       ));
 	}
-	
+
 	if($user->data()->tfa_enabled == 1){
 		$smarty->assign('DISABLE', $language->get('user', 'disable'));
 		foreach($user->getGroups() as $group) {
@@ -759,7 +774,7 @@ if(isset($_GET['do'])){
 				break;
 			}
 		}
-		
+
 		if (isset($forced) && $forced) {
 			$smarty->assign('FORCED', true);
 		} else {
@@ -772,7 +787,7 @@ if(isset($_GET['do'])){
 	}
 
 	// Load modules + template
-	Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
+	Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
 
 	require(ROOT_PATH . '/core/templates/cc_navbar.php');
 

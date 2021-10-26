@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.0.0-pr11
  *
  *  License: MIT
  *
@@ -21,7 +21,7 @@ $page_title = $language->get('admin', 'custom_pages');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
 
 if(!isset($_GET['action'])){
     $custom_pages = $queries->getWhere('custom_pages', array('id', '<>', 0));
@@ -30,9 +30,9 @@ if(!isset($_GET['action'])){
     if(count($custom_pages)){
         foreach($custom_pages as $custom_page){
             $template_array[] = array(
+                'id' => Output::getClean($custom_page->id),
                 'edit_link' => URL::build('/panel/core/pages/', 'action=edit&id=' . Output::getClean($custom_page->id)),
-                'title' => Output::getClean($custom_page->title),
-                'delete_link' => URL::build('/panel/core/pages/', 'action=delete&id=' . Output::getClean($custom_page->id))
+                'title' => Output::getClean($custom_page->title)
             );
         }
     }
@@ -47,7 +47,8 @@ if(!isset($_GET['action'])){
         'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
         'CONFIRM_DELETE_PAGE' => $language->get('admin', 'confirm_delete_page'),
         'YES' => $language->get('general', 'yes'),
-        'NO' => $language->get('general', 'no')
+        'NO' => $language->get('general', 'no'),
+        'DELETE_LINK' => URL::build('/panel/core/pages', 'action=delete'),
     ));
 
     $template_file = 'core/pages.tpl';
@@ -64,12 +65,12 @@ if(!isset($_GET['action'])){
                         'page_title' => [
                             Validate::REQUIRED => true,
                             Validate::MIN => 2,
-                            Validate::MAX => 30
+                            Validate::MAX => 255
                         ],
                         'page_url' => [
                             Validate::REQUIRED => true,
                             Validate::MIN => 2,
-                            Validate::MAX => 20
+                            Validate::MAX => 255
                         ],
                         'content' => [
                             Validate::MAX => 100000
@@ -84,12 +85,12 @@ if(!isset($_GET['action'])){
                         'page_title' => [
                             Validate::REQUIRED => $language->get('admin', 'page_title_required'),
                             Validate::MIN => $language->get('admin', 'page_title_minimum_2'),
-                            Validate::MAX => $language->get('admin', 'page_title_maximum_30')
+                            Validate::MAX => $language->get('admin', 'page_title_maximum_255')
                         ],
                         'page_url' => [
                             Validate::REQUIRED => $language->get('admin', 'page_url_required'),
                             Validate::MIN => $language->get('admin', 'page_url_minimum_2'),
-                            Validate::MAX => $language->get('admin', 'page_url_maximum_20')
+                            Validate::MAX => $language->get('admin', 'page_url_maximum_255')
                         ],
                         'content' => $language->get('admin', 'page_content_maximum_100000'),
                         'link_location' => [
@@ -188,7 +189,7 @@ if(!isset($_GET['action'])){
                     $errors[] = $language->get('general', 'invalid_token');
             }
 
-            $groups = DB::getInstance()->query('SELECT * FROM nl2_groups ORDER BY `order`')->results();
+            $groups = DB::getInstance()->selectQuery('SELECT * FROM nl2_groups ORDER BY `order`')->results();
             $template_array = array();
             foreach($groups as $group){
                 $template_array[Output::getClean($group->id)] = array(
@@ -259,12 +260,12 @@ if(!isset($_GET['action'])){
                         'page_title' => [
                             Validate::REQUIRED => true,
                             Validate::MIN => 2,
-                            Validate::MAX => 30
+                            Validate::MAX => 255
                         ],
                         'page_url' => [
                             Validate::REQUIRED => true,
                             Validate::MIN => 2,
-                            Validate::MAX => 20
+                            Validate::MAX => 255
                         ],
                         'content' => [
                             Validate::MAX => 100000
@@ -279,12 +280,12 @@ if(!isset($_GET['action'])){
                         'page_title' => [
                             Validate::REQUIRED => $language->get('admin', 'page_title_required'),
                             Validate::MIN => $language->get('admin', 'page_title_minimum_2'),
-                            Validate::MAX => $language->get('admin', 'page_title_maximum_30')
+                            Validate::MAX => $language->get('admin', 'page_title_maximum_255')
                         ],
                         'page_url' => [
                             Validate::REQUIRED => $language->get('admin', 'page_url_required'),
                             Validate::MIN => $language->get('admin', 'page_url_minimum_2'),
-                            Validate::MAX => $language->get('admin', 'page_url_maximum_20')
+                            Validate::MAX => $language->get('admin', 'page_url_maximum_255')
                         ],
                         'content' => $language->get('admin', 'page_content_maximum_100000'),
                         'link_location' => [
@@ -329,7 +330,7 @@ if(!isset($_GET['action'])){
                             else $basic = 0;
 
                             $page_url = Output::getClean(rtrim(Input::get('page_url'), '/'));
-                            
+
                             $queries->update('custom_pages', $page->id, array(
                                 'url' => $page_url,
                                 'title' => Output::getClean(Input::get('page_title')),
@@ -473,7 +474,7 @@ if(!isset($_GET['action'])){
                     $errors[] = $language->get('general', 'invalid_token');
             }
 
-            $group_permissions = DB::getInstance()->query('SELECT id, `name`, group_html, subquery.view AS `view` FROM nl2_groups LEFT JOIN (SELECT `view`, group_id FROM nl2_custom_pages_permissions WHERE page_id = ?) AS subquery ON nl2_groups.id = subquery.group_id ORDER BY `order`', array($page->id))->results();
+            $group_permissions = DB::getInstance()->selectQuery('SELECT id, `name`, group_html, subquery.view AS `view` FROM nl2_groups LEFT JOIN (SELECT `view`, group_id FROM nl2_custom_pages_permissions WHERE page_id = ?) AS subquery ON nl2_groups.id = subquery.group_id ORDER BY `order`', array($page->id))->results();
             $template_array = array();
             foreach($group_permissions as $group){
                 $template_array[Output::getClean($group->id)] = array(
@@ -484,7 +485,7 @@ if(!isset($_GET['action'])){
                 );
             }
 
-            $guest_permissions = DB::getInstance()->query('SELECT `view` FROM nl2_custom_pages_permissions WHERE group_id = 0 AND page_id = ?', array($page->id))->results();
+            $guest_permissions = DB::getInstance()->selectQuery('SELECT `view` FROM nl2_custom_pages_permissions WHERE group_id = 0 AND page_id = ?', array($page->id))->results();
             $guest_can_view = 0;
             if(count($guest_permissions)){
                 if($guest_permissions[0]->view == 1){
@@ -538,15 +539,20 @@ if(!isset($_GET['action'])){
             break;
 
         case 'delete':
-            if(isset($_GET['id']) && is_numeric($_GET['id'])){
-                    
-                $queries->delete('custom_pages', array('id', '=', $_GET['id']));
-                $queries->delete('custom_pages_permissions', array('page_id', '=', $_GET['id']));
+            if (Input::exists()) {
+                if (Token::check(Input::get('token'))) {
+                    if(isset($_POST['id']) && is_numeric($_POST['id'])){
 
-                Session::flash('admin_pages', $language->get('admin', 'page_deleted_successfully'));
-                Redirect::to(URL::build('/panel/core/pages'));
-                die();
+                        $queries->delete('custom_pages', array('id', '=', $_POST['id']));
+                        $queries->delete('custom_pages_permissions', array('page_id', '=', $_POST['id']));
+
+                        Session::flash('admin_pages', $language->get('admin', 'page_deleted_successfully'));
+                    }
+                } else {
+                    Session::flash('admin_pages_error', $language->get('general', 'invalid_token'));
+                }
             }
+            die();
 
             break;
 
@@ -560,6 +566,9 @@ if(!isset($_GET['action'])){
 
 if(Session::exists('admin_pages'))
     $success = Session::flash('admin_pages');
+
+if(Session::exists('admin_pages_error'))
+    $errors = array(Session::flash('admin_pages_error'));
 
 if(isset($success))
     $smarty->assign(array(

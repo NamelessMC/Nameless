@@ -1,108 +1,108 @@
 <?php
 /*
- *  Made by Samerton
+ *  Made by RobiNN
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr10
  *
  *  License: MIT
  *
- *  EnglishUK Language - Moderator terms
+ *  Slovak Language - Moderator terms
  */
 
 $language = array(
-    'mod_cp' => 'ModCP',
     'staff_cp' => 'StaffCP',
-    'overview' => 'Overview',
+    'overview' => 'Prehľad',
 
     // Spam
     'spam' => 'Spam',
-    'mark_as_spam' => 'Mark as Spam',
-    'confirm_spam' => '<p>Are you sure you want to mark this user as spam?</p><p>The user will be IP banned, and all their content will be removed.</p>',
-    'user_marked_as_spam' => 'User marked as spam successfully.',
-    'cant_ban_admin' => 'You can\'t ban an administrator!',
+    'mark_as_spam' => 'Označiť ako spam',
+    'confirm_spam' => '<p>Naozaj chcete tohto užívateľa označiť ako spam?</p><p>Užívateľ bude mať IP ban a bude odstránený všetok jeho obsah.</p>',
+    'user_marked_as_spam' => 'Používateľ bol úspešne označený ako spam.',
+    'cant_ban_admin' => 'Nemôžete dať ban správcovi!',
 
     // IP Lookup
-    'ip_lookup' => 'IP Lookup',
-    'search_for_ip' => 'Search for a username or IP address:',
-    'no_ips_with_username' => 'No IP addresses for that user found.',
-    'no_accounts_with_that_ip' => 'No accounts for that IP address found.',
-    '1_account_with_ip' => 'Found 1 account with the IP {y}', // Don't replace "{y}"
-    'count_accounts_with_ip' => 'Found {x} accounts with the IP {y}', // Don't replace "{x}" or "{y}"
-    '1_ip_with_name' => 'Found 1 IP address for user {y}', // Don't replace "{y}"
-    'count_ips_with_name' => 'Found {x} IP address(es) for user {y}', // Don't replace "{x}" or "{y}"
-    'no_users_or_ips_found' => 'No users or IP addresses found.',
+    'ip_lookup' => 'Vyhľadať IP',
+    'search_for_ip' => 'Vyhľadajte užívateľské meno alebo IP adresu',
+    'no_ips_with_username' => 'Nenašli sa žiadne adresy IP tohto užívateľa.',
+    'no_accounts_with_that_ip' => 'Nenašli sa žiadne účty pre túto IP adresu.',
+    '1_account_with_ip' => 'Bol nájdený 1 účet s IP {y}', // Don't replace "{y}"
+    'count_accounts_with_ip' => 'Našlo sa {x} účtov s IP {y}', // Don't replace "{x}" or "{y}"
+    '1_ip_with_name' => 'Nájdená 1 IP adresa pre užívateľa {y}', // Don't replace "{y}"
+    'count_ips_with_name' => 'Nájdených {x} IP adries pre užívateľa {y}', // Don't replace "{x}" or "{y}"
+    'no_users_or_ips_found' => 'Nenašli sa žiadni užívatelia ani IP adresy.',
 
     // Reports
-    'reports' => 'Reports',
-    'report_alert' => 'New report submitted',
-    'user_reported' => 'User Reported',
-    'comments' => 'Comments',
-    'updated_by' => 'Updated By',
-    'actions' => 'Actions',
-    'view_closed' => 'View Closed',
-    'view_open' => 'View Open',
-    'viewing_report' => 'Viewing Report',
-    'view_content' => 'View reported content',
-    'no_comments' => 'No comments',
-    'new_comment' => 'New comment',
-    'report_comment_invalid' => 'Invalid comment content. Please ensure you have entered a comment between 1 and 10000 characters.',
-    'close_report' => 'Close report',
-    'reopen_report' => 'Reopen report',
-    '1_open_report' => 'There is currently <strong>1</strong> open report.',
-    'open_reports' => 'There are currently <strong>{x}</strong> open reports.', // Don't replace {x}
-    'no_open_reports' => 'There are currently no open reports.',
-    'no_closed_reports' => 'There are currently no closed reports.',
-    'recent_reports' => 'Recent Reports',
-    'reported_by' => 'Reported by:',
-    'website' => 'Website',
-    'ingame' => 'Ingame',
-    'x_closed_report' => '{x} closed this report.', // Don't replace {x} (username)
-    'x_reopened_report' => '{x} reopened this report.', // Don't replace {x} (username)
-    'report_reopened' => 'Report reopened successfully.',
-    'report_closed' => 'Report closed successfully.',
-    'comment_created' => 'Comment created successfully.',
+    'reports' => 'Hlásenia',
+    'report_alert' => 'Bola odoslané nové hlásenie',
+    'user_reported' => 'Užívateľ nahlásený',
+    'comments' => 'Komentáre',
+    'updated_by' => 'Aktualizované užívateľom',
+    'actions' => 'Akcie',
+    'view_closed' => 'Zobraziť zatvorené',
+    'view_open' => 'Zobraziť otvorené',
+    'viewing_report' => 'Prezeranie hlásenia',
+    'view_content' => 'Zobraziť nahlásený obsah',
+    'no_comments' => 'Žiadne komentáre',
+    'new_comment' => 'Novy komentár',
+    'report_comment_invalid' => 'Neplatný obsah komentára. Uistite sa, že ste zadali komentár s dĺžkou od 1 do 10 000 znakov.',
+    'close_report' => 'Zavrieť hlásenie',
+    'reopen_report' => 'Znova otvoriť hlásenie',
+    '1_open_report' => 'Momentálne existuje <strong>1</strong> otvorené hlásenie.',
+    'open_reports' => 'Momentálne existuje <strong> {x} </strong> otvorených hlásení.', // Don't replace {x}
+    'no_open_reports' => 'Momentálne nie sú k dispozícii žiadne otvorené hlásenia.',
+    'no_closed_reports' => 'Momentálne neexistujú žiadne uzavreté hlásenia.',
+    'recent_reports' => 'Posledné hlásenia',
+    'reported_by' => 'Nahlásene od:',
+    'website' => 'Webstránka',
+    'ingame' => 'V hre',
+    'x_closed_report' => '{x} uzavrel/a toto hlásenie.', // Don't replace {x} (username)
+    'x_reopened_report' => '{x} znovu otvoril/a toto hlásenie.', // Don't replace {x} (username)
+    'report_reopened' => 'Hlásenie sa znovu otvorilo úspešne.',
+    'report_closed' => 'Hlásenie sa zatvorilo úspešne.',
+    'comment_created' => 'Komentár bol úspešne vytvorený.',
 
     // Punishments
-    'punishments' => 'Punishments',
-    'view_punishments' => 'View Punishments',
-    'banned' => 'Banned',
-    'groups' => 'Groups',
-    'punish' => 'Punish',
+    'punishments' => 'Tresty',
+    'view_punishments' => 'Zobraziť tresty',
+    'banned' => 'Zabanovaný/a',
+    'groups' => 'Skupiny',
+    'punish' => 'Trestať',
     'ban' => 'Ban',
-    'warn' => 'Warn',
-    'ban_ip' => 'Ban IP',
-    'viewing_user_x' => 'Viewing user {x}', // Don't replace {x}
-    'previous_punishments' => 'Previous punishments',
-    'no_previous_punishments' => 'No previous punishments',
-    'warning' => 'Warning',
+    'warn' => 'Varovať',
+    'ban_ip' => 'Zabanovať IP',
+    'viewing_user_x' => 'Prezeranie užívateľa {x}', // Don't replace {x}
+    'previous_punishments' => 'Predchádzajúce tresty',
+    'no_previous_punishments' => 'Žiadne predchádzajúce tresty',
+    'reset_avatar' => 'Resetovať avatar',
+    'warning' => 'Varovanie',
     'ip_ban' => 'IP Ban',
-    'reason' => 'Reason',
-    'warn_user' => 'Warn User',
-    'ban_user' => 'Ban User',
-    'enter_valid_punishment_reason' => 'Please enter a valid reason for your punishment, between 5 and 5000 characters.',
-    'user_punished' => 'User punished.',
-    'user_punished_alert' => '{x} has punished user {y}', // Don't replace {x} (staff member) or {y} (user punished)
-    'revoke' => 'Revoke',
-    'revoked' => 'Revoked',
-    'acknowledged' => 'Acknowledged',
-    'confirm_revoke_warning' => 'Are you sure you want to revoke this warning?',
-    'confirm_revoke_ban' => 'Are you sure you want to revoke this ban? The user will be unbanned, even if they have a more recent ban!',
-    'punishment_revoked' => 'Punishment revoked.',
-    'punishment_revoked_alert' => '{x} has revoked a punishment for user {y}', // Don't replace {x} (staff member) or {y} (user with revoked punishment)
-    'cant_punish_admin' => 'You can\'t punish an administrator!',
-    'viewing_all_punishments' => 'Viewing all punishments',
-    'no_punishments_found' => 'No punishments found.',
-    'view_user' => 'View User',
-    'when' => 'When',
-    'staff' => 'Staff',
-    'type' => 'Type',
-    'recent_punishments' => 'Recent Punishments',
-    'created' => 'Created:',
-    'staff:' => 'Staff:',
-    'reason:' => 'Reason:',
+    'reason' => 'Dôvod',
+    'warn_user' => 'Varovať užívateľa',
+    'ban_user' => 'Zabanovať užívateľa',
+    'enter_valid_punishment_reason' => 'Zadajte platný dôvod vášho trestu v rozmedzí od 5 do 5 000 znakov.',
+    'user_punished' => 'Užívateľ bol potrestaný.',
+    'user_punished_alert' => '{x} potrestal/a užívateľa {y}', // Don't replace {x} (staff member) or {y} (user punished)
+    'revoke' => 'Odvolať',
+    'revoked' => 'Odvolané',
+    'acknowledged' => 'Uznávaný',
+    'confirm_revoke_warning' => 'Naozaj chcete odvolať toto varovanie?',
+    'confirm_revoke_ban' => 'Naozaj chcete zrušiť tento ban? Užívateľovi bude zrušený ban, aj keď má novší ban!',
+    'punishment_revoked' => 'Trest zrušený.',
+    'punishment_revoked_alert' => '{x} zrušil/a trest pre užívateľa {y}', // Don't replace {x} (staff member) or {y} (user with revoked punishment)
+    'cant_punish_admin' => 'Nemôžete potrestať správcu!',
+    'viewing_all_punishments' => 'Prezeranie všetkých trestov',
+    'no_punishments_found' => 'Neboli nájdené žiadne tresty.',
+    'view_user' => 'Zobraziť užívateľa',
+    'when' => 'Kedy',
+    'staff' => 'Admini',
+    'type' => 'Typ',
+    'recent_punishments' => 'Nedávne tresty',
+    'created' => 'Vytvorené:',
+    'staff:' => 'Admini:',
+    'reason:' => 'Dôvod:',
 
     // Users
-    'recent_registrations' => 'Recent Registrations',
-    'reset_profile_banner' => 'Reset Profile Banner'
+    'recent_registrations' => 'Nedávne registrácie',
+    'reset_profile_banner' => 'Resetovať banner profilu'
 
 );

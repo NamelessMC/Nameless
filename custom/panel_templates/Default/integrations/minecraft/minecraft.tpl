@@ -88,6 +88,13 @@
                                             </td>
                                         </tr>
                                     {/if}
+                                    {if isset($PLACEHOLDERS)}
+                                        <tr>
+                                            <td>
+                                                <a href="{$PLACEHOLDERS_LINK}">{$PLACEHOLDERS}</a>
+                                            </td>
+                                        </tr>
+                                    {/if}
                                 </table>
                             </div>
                         {/if}

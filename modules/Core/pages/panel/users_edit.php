@@ -35,27 +35,30 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 require_once(ROOT_PATH . '/core/includes/markdown/tohtml/Markdown.inc.php');
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
 
 if (isset($_GET['action'])) {
     if ($_GET['action'] == 'validate') {
-        // Validate the user
-        if ($user_query->active == 0) {
-            $queries->update('users', $user_query->id, array(
-                'active' => 1,
-                'reset_code' => ''
-            ));
+        if (Token::check()) {
+            // Validate the user
+            if ($user_query->active == 0) {
+                $queries->update('users', $user_query->id, array(
+                    'active' => 1,
+                    'reset_code' => ''
+                ));
 
-            HookHandler::executeEvent('validateUser', array(
-                'event' => 'validateUser',
-                'user_id' => $user_query->id,
-                'username' => Output::getClean($user_query->username),
-                'uuid' => Output::getClean($user_query->uuid),
-                'language' => $language
-            ));
+                HookHandler::executeEvent('validateUser', array(
+                    'event' => 'validateUser',
+                    'user_id' => $user_query->id,
+                    'username' => Output::getClean($user_query->username),
+                    'uuid' => Output::getClean($user_query->uuid),
+                    'language' => $language
+                ));
 
-            Session::flash('edit_user_success', $language->get('admin', 'user_validated_successfully'));
+                Session::flash('edit_user_success', $language->get('admin', 'user_validated_successfully'));
+            }
         }
+
     } else if ($_GET['action'] == 'update_mcname') {
         require_once(ROOT_PATH . '/core/integration/uuid.php');
         $uuid = $user_query->uuid;
@@ -221,39 +224,33 @@ if (Input::exists()) {
                         'theme_id' => $new_template
                     ));
 
-                    // Get current group ids
-                    $user_groups = array();
-                    foreach ($view_user->getGroups() as $group) {
-                        $user_groups[$group->id] = $group->id;
-                    }
-
-                    // Get groups
                     if ($view_user->data()->id != $user->data()->id || $user->hasPermission('admincp.groups.self')) {
                         if ($view_user->data()->id == 1 || (isset($_POST['groups']) && count($_POST['groups']))) {
-                            $added = array();
-                            // Any new groups?
+                            $modified = [];
+
+                            // Check for new groups to give them which they dont already have
                             foreach ($_POST['groups'] as $group) {
-                                if (!in_array($group, $user_groups)) {
-                                    $view_user->addGroup($group);
-                                    $added[] = $group;
+                                if (!in_array($group, $view_user->getAllGroupIds())) {
+                                    $view_user->addGroup($group, 0, array(true));
+                                    $modified[] = $group;
                                 }
                             }
 
-                            $removed = array();
-                            // Any groups to remove?
+                            // Check for groups they had, but werent in the $_POST groups
                             foreach ($view_user->getGroups() as $group) {
-                                if (!in_array($group->id, $_POST['groups'])) {
-                                    // be sure root user keep the root group
-                                    if ($group->id == 2 && $view_user->data()->id == 1) {
-                                        continue;
-                                    }
-
+                                $form_groups = isset($_POST['groups']) ? $_POST['groups'] : [];
+                                if (!in_array($group->id, $form_groups)) {
                                     $view_user->removeGroup($group->id);
-                                    $removed[] = $group->id;
+                                    $modified[] = $group->id;
                                 }
                             }
 
-                            Discord::updateDiscordRoles($view_user, $added, $removed, $language);
+                            // Dispatch the modified groups
+                            GroupSyncManager::getInstance()->broadcastChange(
+                                $view_user,
+                                NamelessMCGroupSyncInjector::class,
+                                $modified
+                            );
                         }
                     }
 
@@ -452,7 +449,7 @@ $discord_id = $user_query->discord_id;
 
 if ($discord_id != null && $discord_id != 010) {
     $smarty->assign(array(
-        'DISCORD_ID' => $language->get('user', 'discord_id'),
+        'DISCORD_ID' => Discord::getLanguageTerm('discord_user_id'),
         'DISCORD_ID_VALUE' => $discord_id
     ));
 }

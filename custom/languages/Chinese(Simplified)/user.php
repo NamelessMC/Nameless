@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -33,11 +33,12 @@ $language = array(
     'messaging' => '私信',
     'click_here_to_view' => '点击这里查看。',
     'moderation' => '适度',
-    'administration' => '管理',
     'alerts' => '通知',
     'delete_all' => '清空',
     'private_profile' => '私人资料 (他人无法阅览)',
     'gif_avatar' => '上传 GIF 文件作为头像',
+    'placeholders' => 'Placeholders',
+    'no_placeholders' => 'No Placeholders',
 
     // Profile settings
     'field_is_required' => '{x} 是必须要填写的。', // Don't replace {x}
@@ -118,7 +119,6 @@ $language = array(
     'password_minimum_6' => '您的密码必须至少为 6 个字符。',
     'username_maximum_20' => '您的用户名不能超过 20 个字符。',
     'mcname_maximum_20' => '您的 Minecraft 玩家名不能超过 20 个字符。',
-    'password_maximum_30' => '您的密码不能超过 30 个字符。',
     'passwords_dont_match' => '您的密码与前文不匹配。',
     'username_mcname_email_exists' => '您的用户名或电子邮箱地址已经存在于我们的数据库中。',
     'invalid_mcname' => '您的 Minecraft 玩家名是无效的。',
@@ -143,6 +143,8 @@ $language = array(
     'must_input_email' => '您必须输入一个电子邮箱地址。',
     'must_input_username' => '您必须输入一个用户名。',
     'must_input_password' => '您必须输入您的密码。',
+    'must_input_email_or_username' => '您必须输入邮箱或用户名。',
+    'email_or_username' => '邮箱或用户名',
 
     // Forgot password
     'forgot_password_instructions' => '请输入您的电子邮箱地址，以便我们向您发送有关重置密码的进一步说明。',
@@ -189,7 +191,6 @@ $language = array(
     'new_wall_post_reply_your_profile' => '{x} 已留言在您的留言板。', // Don't replace {x}
     'no_about_fields' => '该用户很懒，并没有填写个性签名。',
     'reply' => '回复',
-    'discord_username' => 'Discord 用户名',
 
     // Reports
     'invalid_report_content' => '无法创建报告。请确保您的反馈内容在 2 到 1024 个字符之间。',
@@ -238,20 +239,4 @@ $language = array(
      */
     'user_x_has_registered' => '{x} 加入了 ' . SITE_NAME . '!',
     'user_x_has_validated' => '{x} 已验证他的帐号!',
-
-    // Discord
-    'discord_link' => 'Discord 链接',
-    'linked' => '已链接',
-    'not_linked' => '未链接',
-    'discord_id' => 'Discord 用户 ID',
-    'discord_id_unlinked' => '成功取消了您的 Discord 链接。',
-    'discord_id_confirm' => '请您在 Discord 上向 {bot_username} 发送 "!verify {服务器 ID}:{token} 来确认您的 Discord 用户 ID。',
-    'pending_link' => '待定',
-    'discord_id_taken' => '此 Discord 用户 ID 已被使用。',
-    'discord_invalid_id' => '此 Discord 用户 ID 不符合要求。',
-    'discord_already_pending' => '您已经有待定验证了。',
-    'discord_database_error' => 'Nameless Link 数据库目前掉线了。请您稍后再试。',
-    'discord_communication_error' => '无法与 Discord 机器人交流。请您确保机器人正在运行并且您的机器人链接是正确的。',
-    'discord_unknown_error' => '在同步 Discord 身份组时出现了错误。请联系管理员。',
-    'discord_id_help' => '您可阅读 <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">此文章</a> 来了解如何获得您的用户 ID。'
 );

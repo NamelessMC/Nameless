@@ -56,21 +56,33 @@
       
 <div class="res right floated">
   {if isset($UNFOLLOW)}
-    <a class="ui small primary button" href="{$UNFOLLOW_URL}">{$UNFOLLOW}</a>
+    <form action="{$UNFOLLOW_URL}" method="post" style="display: inline">
+      <input type="hidden" value="{$TOKEN}" name="token" />
+      <button class="ui small primary button">{$UNFOLLOW}</button>
+    </form>
   {elseif isset($FOLLOW)}
-    <a class="ui small primary button" href="{$FOLLOW_URL}">{$FOLLOW}</a>
+    <form action="{$FOLLOW_URL}" method="post" style="display: inline">
+      <input type="hidden" value="{$TOKEN}" name="token" />
+      <button class="ui small primary button">{$FOLLOW}</button>
+    </form>
   {/if}
   {if isset($CAN_MODERATE)}
+    <form action="{$LOCK_URL}" method="post" id="lockTopic" style="display: none">
+      <input type="hidden" value="{$TOKEN}" name="token" />
+    </form>
+    <form action="{$STICK_URL}" method="post" id="stickTopic" style="display: none">
+      <input type="hidden" value="{$TOKEN}" name="token" />
+    </form>
     <div class="ui top right pointing dropdown small primary button">
       <span class="text">{$MOD_ACTIONS}</span>
       <i class="dropdown icon"></i>
       <div class="menu">
         <div class="header">{$MOD_ACTIONS}</div>
-        <a class="item" href="{$LOCK_URL}">{$LOCK}</a>
+        <a type="submit" class="item" onclick="document.getElementById('lockTopic').submit()">{$LOCK}</a>
         <a class="item" href="{$MERGE_URL}">{$MERGE}</a>
         <a class="item" data-toggle="modal" data-target="#modal-delete">{$DELETE}</a>
         <a class="item" href="{$MOVE_URL}">{$MOVE}</a>
-        <a class="item" href="{$STICK_URL}">{$STICK}</a>
+        <a type="submit" class="item" onclick="document.getElementById('stickTopic').submit()">{$STICK}</a>
       </div>
     </div>
   {/if}
@@ -353,7 +365,11 @@
     </div>
     <div class="actions">
       <a class="ui negative button">{$CANCEL}</a>
-      <a class="ui positive button" href="{$DELETE_URL}">{$DELETE}</a>
+      
+      <form action="{$DELETE_URL}" method="post" id="deleteTopic" style="display: none">
+        <input type="hidden" value="{$TOKEN}" name="token" />
+      </form>
+      <a type="submit" class="ui positive button" onclick="document.getElementById('deleteTopic').submit()">{$DELETE}</a>
     </div>
   </div>
 {/if}

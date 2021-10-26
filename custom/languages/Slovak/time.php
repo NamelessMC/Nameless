@@ -1,12 +1,12 @@
 <?php
 /*
- *  Made by Samerton
+ *  Made by RobiNN
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr10
  *
  *  License: MIT
  *
- *  EnglishUK Language - Time
+ *  Slovak Language - Time
  */
 
 $language = array(
@@ -14,16 +14,15 @@ $language = array(
      *  Time
      */
     'time' => 'time', // Placeholder, no need to translate
-    'seconds_short' => 's', // Shortened "seconds", eg "s"
-    'less_than_a_minute' => 'less than a minute ago',
-    '1_minute' => '1 minute ago',
-    '_minutes' => '{x} minutes ago',
-    'about_1_hour' => 'about 1 hour ago',
-    '_hours' => '{x} hours ago',
-    '1_day' => '1 day ago',
-    '_days' => '{x} days ago',
-    'about_1_month' => 'about 1 month ago',
-    '_months' => '{x} months ago',
-    'about_1_year' => 'about 1 year ago',
-    'over_x_years' => 'over {x} years ago'
+    'less_than_a_minute' => 'pred menej ako minútou',
+    '1_minute' => 'pred 1 minútou',
+    '_minutes' => 'pred {x} minútami',
+    'about_1_hour' => 'asi pred 1 hodinou',
+    '_hours' => 'pred {x} hodinami',
+    '1_day' => 'pred 1 dňom',
+    '_days' => 'pred {x} dňami',
+    'about_1_month' => 'asi pred 1 mesiacom',
+    '_months' => 'pred {x} mesiacmi',
+    'about_1_year' => 'asi pred 1 rokom',
+    'over_x_years' => 'pred viac ako {x} rokmi'
 );

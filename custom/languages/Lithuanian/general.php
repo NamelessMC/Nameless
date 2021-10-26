@@ -3,7 +3,7 @@
  *  Made by Samerton
  *  Translation by Locus
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr10
  *
  *  License: MIT
  *
@@ -61,14 +61,15 @@ $language = array(
     'content' => 'Turinys',
     'full_content' => 'Pilnas Turinys',
     'url' => 'URL',
-    'success' => 'Sėkmė',
+    'success' => 'Sėkmės',
     'error' => 'Klaida',
     'are_you_sure' => 'Ar jūs esate tikri?',
     'spoiler' => 'Spoileris',
     'invalid_timezone' => 'That timezone is invalid',
     'link' => 'Link',
     'unlink' => 'Unlink',
-    
+    'leaderboards' => 'Leaderboards',
+
      // Contact form
     'contact' => 'Susisiekti',
     'message' => 'Žinutė',
@@ -79,10 +80,15 @@ $language = array(
     'contact_message_sent' => 'Pranešimas sėkmingai išsiųstas.',
     'contact_message_limit' => 'Galite siųsti tik vieną pranešimą per valandą. Jūs galėsite išsiųsti kitą pranešimą po {x} minučių.', // Don't replace {x}
 
-  // Navbar
+    // Navbar
     'home' => 'Namai',
     'more' => 'Daugiau',
     'status' => 'Statusas',
+
+    /*
+     *  Footer
+     */
+    'links' => 'Links',
 
     // Homepage
     'social' => 'Socialiniai',

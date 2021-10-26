@@ -10,11 +10,11 @@
  */
 class RecentTopicsItem extends CollectionItemBase {
 
-    private $_smarty, 
-            $_language, 
-            $_topics;
+    private Smarty $_smarty;
+    private Language $_language;
+    private int $_topics;
 
-    public function __construct($smarty, $language, $cache, $topics) {
+    public function __construct(Smarty $smarty, Language $language, Cache $cache, int $topics) {
         $cache->setCache('dashboard_stats_collection');
         if ($cache->isCached('recent_topics')) {
             $from_cache = $cache->retrieve('recent_topics');
@@ -39,7 +39,7 @@ class RecentTopicsItem extends CollectionItemBase {
         $this->_topics = $topics;
     }
 
-    public function getContent() {
+    public function getContent(): string {
         $this->_smarty->assign(array(
             'ICON' => $this->_language->get('forum', 'recent_topics_statistic_icon'),
             'TITLE' => $this->_language->get('forum', 'recent_topics'),

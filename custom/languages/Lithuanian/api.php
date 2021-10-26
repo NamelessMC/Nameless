@@ -43,14 +43,6 @@ $language = array(
   'invalid_server_id' => 'Neteisingas serverio ID',
   'invalid_code' => 'Pateiktas netinkamas kodas',
   'user_already_active' => 'Your account has already been activated.',
-  'discord_integration_disabled' => 'Discord integration is disabled.',
-  'unable_to_set_discord_id' => 'Unable to set Discord ID.',
-  'unable_to_set_discord_bot_url' => 'Unable to set Discord bot URL',
-  'provide_one_discord_settings' => 'Please provide at least one of the following: "url", "guild_id"',
-  'no_pending_verification_for_token' => 'There are no verifications pending under the supplied token.',
-  'unable_to_update_discord_username' => 'Unable to update Discord username.',
-  'unable_to_update_discord_roles' => 'Unable to update Discord roles list.',
-  'unable_to_update_discord_bot_username' => 'Unable to update Discord bot username.',
 
   // Success messages
   'finish_registration_link' => 'Norėdami užpildyti registraciją, paspauskite šią nuorodą:',
@@ -61,7 +53,4 @@ $language = array(
   'username_updated' => 'Vartotojo vardas atnaujintas sėkmingai',
   'server_info_updated' => 'Serverio informacija atnaujinta sėkmingai',
   'account_validated' => 'Paskyra patvirtinta sėkmingai',
-  'discord_id_set' => 'Discord ID set successfully',
-  'discord_settings_updated' => 'Discord settings updated successfully',
-    'discord_usernames_updated' => 'Discord usernames updated successfully'
 );

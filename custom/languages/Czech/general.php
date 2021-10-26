@@ -3,7 +3,7 @@
  *  Made by Samerton
  *  Translated by Fjuro
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr10
  *
  *  License: MIT
  *
@@ -70,6 +70,7 @@ $language = array (
     'invalid_timezone' => 'Zadané časové pásmo je neplatné',
     'link' => 'Propojit',
     'unlink' => 'Odpojit',
+    'leaderboards' => 'Žebříčky',
 
     /*
      *  Contact form
@@ -89,6 +90,11 @@ $language = array (
     'home' => 'Domů',
     'more' => 'Více',
     'status' => 'Stav',
+
+    /*
+     *  Footer
+     */
+    'links' => 'Odkazy',
 
     /*
      *  Homepage

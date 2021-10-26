@@ -9,9 +9,9 @@
  *
  *
  */
-class Log {
+class Log extends Instanceable {
     
-    private static $_actions = [
+    private static array $_actions = [
         'admin' => [
             'login' => 'acp_login',
             'core' => [
@@ -174,27 +174,10 @@ class Log {
         ]
     ];
 
-    /** @var Log */
-    private static $_instance = null;
-
-    /** @var DB */
-    private $_db;
+    private DB $_db;
 
     public function __construct() {
         $this->_db = DB::getInstance();
-    }
-
-    /**
-     * Get or create a new Log instance.
-     * 
-     * @return Log Instance
-     */
-    public static function getInstance() {
-        if (!isset(self::$_instance)) {
-            self::$_instance = new Log();
-        }
-
-        return self::$_instance;
     }
 
     /**
@@ -203,7 +186,7 @@ class Log {
      * @param  string $path The path to the action.
      * @return string|array The keys
      */
-    public static function Action($path) {
+    public static function Action(string $path) {
         $path = explode('/', $path);
         $config = self::$_actions;
 
@@ -221,15 +204,14 @@ class Log {
      * 
      * @param  string $action The action being logged
      * @param  string $info Some more information about what the action is about
-     * @param  int $user The User ID who is doing the action
-     * @param  string $ip The ip of the user
+     * @param  ?int $user The User ID who is doing the action
+     * @param  ?string $ip The ip of the user. If not specified, it will try to get the IP from the currently logged in user.
      * @return bool Return true or false if inserted into the database.
      */
-    public function log($action, $info = '', $user = null, $ip = null) {
-        $userTemp = new User();
-        $ip = $userTemp->getIP();
-
+    public function log(string $action, string $info = '', ?int $user = null, string $ip = null): bool {
         if ($user == null) {
+            $userTemp = new User();
+            $ip = $userTemp->getIP();
             $user = ($userTemp->isLoggedIn() ? $userTemp->data()->id : 0);
         }
 

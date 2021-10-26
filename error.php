@@ -11,7 +11,8 @@
  *  Error page
  */
 
-// TODO: Translations in tpl
+// TODO: add debug link button, will need to add regex check to url after ajax get(),
+// if it is not valid debug link url, show an error and red X
 
 if (!defined('ERRORHANDLER')) {
     die();

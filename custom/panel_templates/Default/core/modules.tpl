@@ -35,8 +35,11 @@
                 <div class="card shadow mb-4">
                     <div class="card-body">
 
-                        <a class="btn btn-primary" style="margin-bottom: 15px;"
-                           href="{$INSTALL_MODULE_LINK}">{$INSTALL_MODULE}</a>
+                        <form style="display:inline" action="{$INSTALL_MODULE_LINK}" method="post">
+                            <input type="hidden" name="token" value="{$TOKEN}">
+                            <button type="submit" class="btn btn-primary"
+                                    style="margin-bottom: 15px;">{$INSTALL_MODULE}</button>
+                        </form>
 
                         <!-- Success and Error Alerts -->
                         {include file='includes/alerts.tpl'}
@@ -65,15 +68,19 @@
                                             <div class="float-md-right">
                                                 {if $module.enabled}
                                                     {if $module.disable_link}
-                                                        <a class="btn btn-danger btn-sm"
-                                                           href="{$module.disable_link}">{$DISABLE}</a>
+                                                        <form action="{$module.disable_link}" method="post">
+                                                            <input type="hidden" name="token" value="{$TOKEN}" />
+                                                            <input type="submit" class="btn btn-danger btn-sm" value="{$DISABLE}" />
+                                                        </form>
                                                     {else}
                                                         <a class="btn btn-warning btn-sm disabled"><i
                                                                     class="fa fa-lock"></i></a>
                                                     {/if}
                                                 {else}
-                                                    <a class="btn btn-primary btn-sm"
-                                                       href="{$module.enable_link}">{$ENABLE}</a>
+                                                    <form action="{$module.enable_link}" method="post">
+                                                        <input type="hidden" name="token" value="{$TOKEN}" />
+                                                        <input type="submit" class="btn btn-primary btn-sm" value="{$ENABLE}" />
+                                                    </form>
                                                 {/if}
                                             </div>
                                         </td>

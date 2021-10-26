@@ -1,28 +1,28 @@
 <?php
 /*
- *  Translated by ManiaNetwork (Marck200 & Osiris)
+ *  Translated by ManiaNetwork
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr10
  *
  *  License: MIT
  *
- *  Spanish/Spain Language - Language version
+ *  Spanish/Spain Language - General
  */
 
 $language = array(
     /*
      *  General terms
      */
-    'help' => 'Help',
+    'help' => 'Ayuda',
     'submit' => 'Enviar',
-    'register' => 'Registro',
-    'already_registered' => '¿Ya está registrado?',
-    'custom_fields' => 'Custom Fields',
-    'not_registered_yet' => '¿No se ha registrado aún?',
+    'register' => 'Registrarse',
+    'already_registered' => '¿Ya se ha registrado?',
+    'custom_fields' => 'Campos personalizados',
+    'not_registered_yet' => '¿Aún no se ha registrado?',
     'sign_in' => 'Iniciar sesión',
     'log_out' => 'Cerrar sesión',
     'profile' => 'Perfil',
-    'invalid_token' => 'Símbolo no válido, inténtelo de nuevo.',
+    'invalid_token' => 'Token inválido, por favor, inténtelo de nuevo.',
     'close' => 'Cerrar',
     'back' => 'Volver',
     'warning' => 'Advertencia',
@@ -31,56 +31,57 @@ $language = array(
     'edit' => 'Editar',
     'next' => 'Siguiente',
     'previous' => 'Anterior',
-    'confirm_cancel' => '¿Está seguro de que desea cancelarlo?',
+    'confirm_cancel' => '¿Está seguro de que desea cancelar?',
     'confirm_delete' => 'Confirmar la eliminación',
-    'confirm_deletion' => '¿Está seguro de que desea eliminarlo?',
+    'confirm_deletion' => '¿Está seguro de que desea eliminar esto?',
     'cancel' => 'Cancelar',
     'delete' => 'Borrar',
-    'none' => 'Ninguna',
+    'none' => 'Ninguno',
     'view' => 'Ver',
     'change' => 'Cambiar',
     'remove' => 'Eliminar',
     'info' => 'Información',
     'confirm' => 'Confirmar',
     'actions' => 'Acciones',
-    'alerts' => 'Notificaciones',
-    'view_alerts' => 'Ver notificacionees',
-    'no_alerts' => 'Sin notificaciones',
-    'x_new_alerts' => 'Tiene {x} nuevas notificaciones.', // Don't replace {x}
+    'alerts' => 'Avisos',
+    'view_alerts' => 'Ver avisos',
+    'no_alerts' => 'No hay avisos',
+    'x_new_alerts' => 'Tienes {x} nuevos avisos.', // Don't replace {x}
     'messages' => 'Mensajes',
     'view_messages' => 'Ver mensajes',
-    'no_messages' => 'No tiene mensajes',
-    'x_new_messages' => 'Tiene {x} nuevos mensajes.', // Don't replace {x}
+    'no_messages' => 'No hay mensajes',
+    'x_new_messages' => 'Tienes {x} mensajes nuevos.', // Don't replace {x}
     'loading' => 'Cargando...',
-    'report' => 'Reportar',
-    'page_loaded_in' => 'Página cargada en {x} segundos', // Don't replace {x}, time unit is seconds
-    'page_x' => 'Pagina {x}',
-    'browse' => 'Buscar',
-    'bypass' => 'Saltarse',
+    'report' => 'Informar',
+    'page_loaded_in' => 'Página cargada en {x}s', // Don't replace {x}, time unit is seconds
+    'page_x' => 'Página {x}',
+    'browse' => 'Navegar',
+    'bypass' => 'Evitar',
     'yes' => 'Sí',
     'no' => 'No',
     'content' => 'Contenido',
-    'full_content' => 'Ver todo el contenido',
-    'url' => 'Enlace',
-    'success' => 'Exito',
+    'full_content' => 'Contenido completo',
+    'url' => 'URL',
+    'success' => 'Éxito',
     'error' => 'Error',
-    'are_you_sure' => '¿Está seguro?',
+    'are_you_sure' => '¿Estás seguro?',
     'spoiler' => 'Spoiler',
-    'invalid_timezone' => 'That timezone is invalid',
-    'link' => 'Link',
-    'unlink' => 'Unlink',
-    
+    'invalid_timezone' => 'Esa zona horaria no es válida',
+    'link' => 'Enlace',
+    'unlink' => 'Desvincular',
+    'leaderboards' => 'Tablas de clasificación',
+
     /*
      *  Contact form
      */
     'contact' => 'Contacto',
     'message' => 'Mensaje',
-    'email_address' => 'Correo electrónico',
-    'contact_email_subject' => 'Nuevo formulario de contacto',
-    'contact_message_failed' => 'No se pudo enviar el mensaje. Asegúrese de haber ingresado un mensaje de entre 10 y 5000 caracteres.',
-    'contact_message_email' => 'Ese correo electrónico es inválido.',
+    'email_address' => 'Dirección de correo electrónico',
+    'contact_email_subject' => 'Nuevo envío del formulario de contacto',
+    'contact_message_failed' => 'No se puede enviar el mensaje. Por favor, asegúrate de que has introducido un mensaje de entre 10 y 5000 caracteres.',
     'contact_message_sent' => 'Mensaje enviado con éxito.',
-    'contact_message_limit' => 'Sólo puede enviar un mensaje por hora. Podrá enviar otro mensaje en {x} minutos.', // Don't replace {x}
+    'contact_message_email' => 'El correo electrónico proporcionado no es válido.',
+    'contact_message_limit' => 'Sólo puede enviar un mensaje por hora. La siguiente vez que puede enviar un mensaje es en {x} minutos.', // Don't replace {x}
 
     /*
      *  Navbar
@@ -90,15 +91,19 @@ $language = array(
     'status' => 'Estado',
 
     /*
+     *  Footer
+     */
+    'links' => 'Links',
+
+    /*
      *  Homepage
      */
     'social' => 'Social',
 
-
     /*
      *  Help dialogues
      */
-    'markdown_help' => 'Puedes redactar tu publicación utilizando Markdown. Para más información, pinche <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>aquí</a>.',
+    'markdown_help' => 'Puedes formatear tu post usando Markdown. Para más información, consulte <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>aquí</a>.',
 
     /*
      *  Server query
@@ -106,46 +111,46 @@ $language = array(
     'online' => 'En línea',
     'offline' => 'Desconectado',
     'player_count' => '{x}/{y}', // Don't replace {x} or {y}
-    'ping' => 'Conexión: {x}', // Don't replace {x}
+    'ping' => 'Ping: {x}', // Don't replace {x}
     'version' => 'Versión: {x}', // Don't replace {x}
-    'currently_1_player_online' => 'Hay <strong>1</strong> jugador conectado.',
-    'currently_x_players_online' => 'Hay actualmente <strong>{x}</strong> jugadores conectados.', // Don't replace {x}
-    'server_offline' => 'El servidor se encuentra actualmente sin conexión.',
-    'connect_with_ip_x' => 'Conéctate ahora {x}', // Don't replace {x}
+    'currently_1_player_online' => 'Actualmente hay <strong>1</strong> jugador en línea.',
+    'currently_x_players_online' => 'Actualmente hay <strong>{x}</strong> jugadores en línea.', // Don't replace {x}
+    'server_offline' => 'El servidor está actualmente desconectado.',
+    'connect_with_ip_x' => 'Conéctate ahora usando la IP {x}', // Don't replace {x}
     'click_to_copy_tooltip' => 'Haga clic para copiar',
     'ip' => 'IP',
-    'copied' => 'Dirección copiada',
-    'no_servers' => 'No hay servidores para mostrar.',
-    'bungee_instance' => 'Este servidor es una instancia de BungeeCord.',
+    'copied' => '¡Copiada!',
+    'no_servers' => '¡No hay servidores para mostrar!',
+    'bungee_instance' => 'Este servidor es una instancia de Bungee.',
     'no_players_online' => 'No hay jugadores conectados.',
     'and_x_more' => 'y {x} más', // Don't replace {x}
 
     /*
      *  Cookie notice
      */
-    'cookie_notice' => 'Este sitio web utiliza Cookies para mejorar su experiencia. Si sigues navegando, estás aceptando nuestros términos y condiciones.',
-    'cookie_agree' => 'Acepto',
+    'cookie_notice' => 'Este sitio web utiliza cookies para mejorar su experiencia de navegación. Al registrarse en nuestro sitio web o cerrar este aviso, usted acepta su uso.',
+    'cookie_agree' => 'De acuerdo',
 
     /*
      *  Widgets
      */
     'statistics' => 'Estadísticas',
     'users_registered' => 'Usuarios registrados',
-    'latest_member' => 'Último miembro',
+    'latest_member' => 'Último usuario',
     'forum_statistics' => 'Estadísticas del foro',
-    'total_threads' => 'Hilos totales',
-    'total_posts' => 'Publicaciones totales',
-    'online_staff' => 'Staff conectado',
-    'no_online_staff' => 'No hay miembros del Staff conectados.',
-    'total_online_staff' => 'Miembros del Staff conectados: {x}',
-    'online_users' => 'Usuarios conectados',
-    'no_online_users' => 'No hay usuarios conectados.',
-    'total_online_users' => 'Total de usuarios conectados: {x}',
-    'discord_widget_disabled' => 'El widget está deshabilitado para el servidor de Discord especificado. Vaya a la pestaña Widget en la configuración del servidor y asegúrese de que el widget de Discord esté habilitado y que la ID sea correcta.',
-    'online_guests' => 'Visitantes en línea',
-    'total_online' => 'Personas en línea', // this is Online Users + Online Guests
-    'no_default_server' => 'There is no default server, please select one in StaffCP - Integrations - Minecraft.',
-    'server_status' => 'Server Status',
+    'total_threads' => 'Total de temas',
+    'total_posts' => 'Total de mensajes',
+    'online_staff' => 'Personal administrativo en línea',
+    'no_online_staff' => 'No hay miembros del personal administrativo en línea.',
+    'total_online_staff' => 'Total de personal administrativo en línea: {x}',
+    'online_users' => 'Usuarios en línea',
+    'no_online_users' => 'No hay usuarios en línea.',
+    'total_online_users' => 'Total de usuarios en línea: {x}',
+    'discord_widget_disabled' => 'El widget está deshabilitado para el servidor de Discord especificado. Por favor, vaya a la pestaña "Widget" en la configuración de su servidor de Discord, y asegúrese de que el widget de Discord está habilitado y que la ID es correcta.',
+    'online_guests' => 'Invitados en línea',
+    'total_online' => 'Total en línea', // this is Online Users + Online Guests,
+    'no_default_server' => 'No hay ningún servidor por defecto, por favor selecciona uno en "Integraciones - Minecraft".',
+    'server_status' => 'Estado del servidor',
 
     /*
      *  Privacy policy
@@ -155,5 +160,5 @@ $language = array(
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'Redirigiendo...<br />Si no es redirigido automáticamente, haga click <a href="{x}" rel="nofollow noopener">aquí</a>.' // Don't replace {x} which is the redirect URL
+    'redirecting_message' => 'Redirigiendo...<br />Si no es redirigido automáticamente, por favor haga clic <a href="{x}" rel="nofollow noopener">aquí</a>.' // Don't replace {x} which is the redirect URL
 );

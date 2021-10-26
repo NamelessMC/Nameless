@@ -16,9 +16,10 @@ class Util {
      * https://en.wikipedia.org/wiki/ISO_9.
      *
      * @param string $string String to convert.
+     * 
      * @return string Converted string.
      */
-    public static function cyrillicToLatin($string) {
+    public static function cyrillicToLatin(string $string): string {
         $cyrillic = [
             'а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п',
             'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я',
@@ -39,9 +40,10 @@ class Util {
      * Recursively remove a directory.
      *
      * @param string $directory Path to directory to remove.
+     * 
      * @return bool Whether the action succeeded or not.
      */
-    public static function recursiveRemoveDirectory($directory) {
+    public static function recursiveRemoveDirectory(string $directory): bool {
         // safety precaution, only allow deleting files in "custom" directory
         if ((strpos($directory, 'custom') !== false)) {
             // alright to proceed
@@ -51,14 +53,18 @@ class Util {
 
         foreach (glob($directory . '/*') as $file) {
             if (is_dir($file)) {
-                if (!self::recursiveRemoveDirectory($file))
+                if (!self::recursiveRemoveDirectory($file)) {
                     return false;
+                }
             } else {
-                if (!unlink($file))
+                if (!unlink($file)) {
                     return false;
+                }
             }
         }
+
         rmdir($directory);
+
         return true;
     }
  
@@ -67,7 +73,7 @@ class Util {
      *
      * @return array All timezones.
      */
-    public static function listTimezones() {
+    public static function listTimezones(): array {
         // Array to contain timezones
         $timezones = array();
 
@@ -75,7 +81,7 @@ class Util {
         $offsets = array();
 
         // Get all PHP timezones
-        $all_timezones = DateTimeZone::listIdentifiers(DateTimeZone::ALL);
+        $all_timezones = DateTimeZone::listIdentifiers();
 
         // Get current UTC time to calculate offset
         $current = new DateTime('now', new DateTimeZone('UTC'));
@@ -107,13 +113,14 @@ class Util {
      * Regex pattern credit: https://daringfireball.net/2010/07/improved_regex_for_matching_urls.
      *
      * @param string $text String to convert.
+     * 
      * @return string Converted string.
      */
-    public static function urlToAnchorTag($text) {
+    public static function urlToAnchorTag(string $text): string {
         $pattern = '#(?i)\b((?:https?:(?:/{1,3}|[a-z0-9%])|[a-z0-9.\-]+[.](?:com|net|org|edu|gov|mil|aero|asia|biz|cat|coop|info|int|jobs|mobi|museum|name|post|pro|tel|travel|xxx|ac|ad|ae|af|ag|ai|al|am|an|ao|aq|ar|as|at|au|aw|ax|az|ba|bb|bd|be|bf|bg|bh|bi|bj|bm|bn|bo|br|bs|bt|bv|bw|by|bz|ca|cc|cd|cf|cg|ch|ci|ck|cl|cm|cn|co|cr|cs|cu|cv|cx|cy|cz|dd|de|dj|dk|dm|do|dz|ec|ee|eg|eh|er|es|et|eu|fi|fj|fk|fm|fo|fr|ga|gb|gd|ge|gf|gg|gh|gi|gl|gm|gn|gp|gq|gr|gs|gt|gu|gw|gy|hk|hm|hn|hr|ht|hu|id|ie|il|im|in|io|iq|ir|is|it|je|jm|jo|jp|ke|kg|kh|ki|km|kn|kp|kr|kw|ky|kz|la|lb|lc|li|lk|lr|ls|lt|lu|lv|ly|ma|mc|md|me|mg|mh|mk|ml|mm|mn|mo|mp|mq|mr|ms|mt|mu|mv|mw|mx|my|mz|na|nc|ne|nf|ng|ni|nl|no|np|nr|nu|nz|om|pa|pe|pf|pg|ph|pk|pl|pm|pn|pr|ps|pt|pw|py|qa|re|ro|rs|ru|rw|sa|sb|sc|sd|se|sg|sh|si|sj|Ja|sk|sl|sm|sn|so|sr|ss|st|su|sv|sx|sy|sz|tc|td|tf|tg|th|tj|tk|tl|tm|tn|to|tp|tr|tt|tv|tw|tz|ua|ug|uk|us|uy|uz|va|vc|ve|vg|vi|vn|vu|wf|ws|ye|yt|yu|za|zm|zw)/)(?:[^\s()<>{}\[\]]+|\([^\s()]*?\([^\s()]+\)[^\s()]*?\)|\([^\s]+?\))+(?:\([^\s()]*?\([^\s()]+\)[^\s()]*?\)|\([^\s]+?\)|[^\s`!()\[\]{};:\'".,<>?«»“”‘’])|(?:(?<!@)[a-z0-9]+(?:[.\-][a-z0-9]+)*[.](?:com|net|org|edu|gov|mil|aero|asia|biz|cat|coop|info|int|jobs|mobi|museum|name|post|pro|tel|travel|xxx|ac|ad|ae|af|ag|ai|al|am|an|ao|aq|ar|as|at|au|aw|ax|az|ba|bb|bd|be|bf|bg|bh|bi|bj|bm|bn|bo|br|bs|bt|bv|bw|by|bz|ca|cc|cd|cf|cg|ch|ci|ck|cl|cm|cn|co|cr|cs|cu|cv|cx|cy|cz|dd|de|dj|dk|dm|do|dz|ec|ee|eg|eh|er|es|et|eu|fi|fj|fk|fm|fo|fr|ga|gb|gd|ge|gf|gg|gh|gi|gl|gm|gn|gp|gq|gr|gs|gt|gu|gw|gy|hk|hm|hn|hr|ht|hu|id|ie|il|im|in|io|iq|ir|is|it|je|jm|jo|jp|ke|kg|kh|ki|km|kn|kp|kr|kw|ky|kz|la|lb|lc|li|lk|lr|ls|lt|lu|lv|ly|ma|mc|md|me|mg|mh|mk|ml|mm|mn|mo|mp|mq|mr|ms|mt|mu|mv|mw|mx|my|mz|na|nc|ne|nf|ng|ni|nl|no|np|nr|nu|nz|om|pa|pe|pf|pg|ph|pk|pl|pm|pn|pr|ps|pt|pw|py|qa|re|ro|rs|ru|rw|sa|sb|sc|sd|se|sg|sh|si|sj|Ja|sk|sl|sm|sn|so|sr|ss|st|su|sv|sx|sy|sz|tc|td|tf|tg|th|tj|tk|tl|tm|tn|to|tp|tr|tt|tv|tw|tz|ua|ug|uk|us|uy|uz|va|vc|ve|vg|vi|vn|vu|wf|ws|ye|yt|yu|za|zm|zw)\b/?(?!@)))#';
 
         return preg_replace_callback($pattern,
-            function ($matches) {
+            static function ($matches): string {
                 $url = array_shift($matches);
 
                 $text = parse_url($url, PHP_URL_HOST) . parse_url($url, PHP_URL_PATH);
@@ -136,7 +143,7 @@ class Util {
      * @param int $size Size of avatar in pixels to get URL for.
      * @return string URL to avatar.
      */
-    public static function getAvatarFromUUID($uuid, $size = 128) {
+    public static function getAvatarFromUUID(string $uuid, int $size = 128): string {
         return AvatarSource::getAvatarFromUUID($uuid, $size);
     }
 
@@ -146,21 +153,38 @@ class Util {
      *
      * @return string URL to be formatted.
      */
-    public static function getAvatarSource() {
+    public static function getAvatarSource(): string {
         return AvatarSource::getUrlToFormat();
+    }
+
+    /**
+     * Detect if the current connection is using SSL.
+     * 
+     * @return bool Whether SSL is in use or not.
+     */
+    public static function isConnectionSSL(): bool {
+        return (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https');
     }
 
     /**
      * Get the server name.
      *
      * @param bool $protocol Whether to show http(s) at front or not.
+     * 
      * @return string Compiled URL.
      */
-    public static function getSelfURL($protocol = true) {
+    public static function getSelfURL(bool $protocol = true): string {
         $hostname = Config::get('core/hostname');
-        
-        if (is_array($hostname)) {
+
+        if (!$hostname) {
             $hostname = $_SERVER['SERVER_NAME'];
+        }
+
+        // https and www checks
+        if (Util::isConnectionSSL()) {
+            $proto = 'https://';
+        } else {
+            $proto = 'http://';
         }
 
         if (strpos($hostname, 'www') === false && defined('FORCE_WWW') && FORCE_WWW) {
@@ -171,9 +195,9 @@ class Util {
 
         if ($protocol) {
             if ($_SERVER['SERVER_PORT'] == 80 || $_SERVER['SERVER_PORT'] == 443) {
-                $url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http') . "://" . $www . Output::getClean($hostname);
+                $url = $proto . $www . Output::getClean($hostname);
             } else {
-                $url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http') . "://" . $www . Output::getClean($hostname) . ":" . $_SERVER['SERVER_PORT'];
+                $url = $proto . $www . Output::getClean($hostname) . ":" . $_SERVER['SERVER_PORT'];
             }
         } else {
             $url = $www . Output::getClean($hostname);
@@ -190,9 +214,10 @@ class Util {
      * Is a URL internal or external? Accepts full URL and also just a path.
      * 
      * @param string $url URL/path to check.
+     * 
      * @return bool Whether URL is external or not.
      */
-    public static function isExternalURL($url) {
+    public static function isExternalURL(string $url): bool {
         if ($url[0] == '/' && $url[1] != '/') {
             return false;
         }
@@ -206,9 +231,10 @@ class Util {
      * URL-ify a string
      *
      * @param string $string String to URLify
+     * 
      * @return string Url-ified string. (I dont know what this means)
      */
-    public static function stringToURL($string = null) {
+    public static function stringToURL(string $string = null): string {
         if ($string) {
             $string = preg_replace("/[^A-Za-z0-9 ]/", '', $string);
             return Output::getClean(strtolower(urlencode(str_replace(' ', '-', htmlspecialchars_decode($string)))));
@@ -234,13 +260,13 @@ class Util {
      * - `html` If true, HTML tags would be handled correctly
      *
      * @param string  $text String to truncate.
-     * @param integer $length Length of returned string, including ellipsis.
+     * @param int $length Length of returned string, including ellipsis.
      * @param array $options An array of html attributes and options.
      * @return string Trimmed string.
      * @access public
      * @link http://book.cakephp.org/view/1469/Text#truncate-1625
      */
-    public static function truncate($text, $length = 750, $options = array()) {
+    public static function truncate(string $text, int $length = 750, array $options = array()): string {
         $default = array(
             'ending' => '...', 'exact' => true, 'html' => false
         );
@@ -333,9 +359,10 @@ class Util {
      * Check for Nameless updates.
      *
      * @param string $current_version Current local namelessmc version to compare.
+     * 
      * @return string JSON object with information about any updates.
      */
-    public static function updateCheck($current_version = null) {
+    public static function updateCheck(string $current_version = null): string {
         $queries = new Queries();
 
         // Check for updates
@@ -393,9 +420,9 @@ class Util {
     /**
      * Get the latest Nameless news.
      *
-     * @return string NamelessMC news.
+     * @return string NamelessMC news in JSON.
      */
-    public static function getLatestNews() {
+    public static function getLatestNews(): string {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -424,7 +451,7 @@ class Util {
      * @param string $body Request body to attach to request.
      * @return string|bool Response from remote server, false on failure.
      */
-    public static function curlGetContents($full_url, $body = null) {
+    public static function curlGetContents(string $full_url, ?string $body = null) {
         $ch = curl_init();
         
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -455,10 +482,11 @@ class Util {
      * From https://stackoverflow.com/a/53461987
      * 
      * @param string $data Data to replace.
+     * 
      * @return string Replaced string.
      */
-    public static function replaceAnchorsWithText($data) {
-        $data = preg_replace_callback('/]*href=["|\']([^"|\']*)["|\'][^>]*>([^<]*)<\/a>/i', function ($m) {
+    public static function replaceAnchorsWithText(string $data): string {
+        $data = preg_replace_callback('/]*href=["|\']([^"|\']*)["|\'][^>]*>([^<]*)<\/a>/i', static function ($m): string {
             if (strpos($m[1], self::getSelfURL()) === false)
                 return '<a href="' . $m[1] . '" rel="nofollow noopener" target="_blank">' . $m[2] . '</a>';
             else
@@ -476,7 +504,7 @@ class Util {
      * @param mixed $fallback Fallback to return if $setting is not set in DB.
      * @return mixed Setting from DB or $fallback.
      */
-    public static function getSetting(DB $db, $setting, $fallback = null) {
+    public static function getSetting(DB $db, string $setting, $fallback = null) {
         $value = $db->get('settings', array('name', '=', $setting));
         
         if ($value->count()) {
@@ -492,14 +520,18 @@ class Util {
      * @param string $path Path to scan from.
      * @param Endpoints $endpoints Instance of Endpoints class to register endpoints to.
      */
-    public static function loadEndpoints($path, $endpoints) {
+    public static function loadEndpoints(string $path, Endpoints $endpoints) {
         $rii = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS));
 
         foreach ($rii as $file) {
             if ($file->isDir()) {
                 return self::loadEndpoints($file, $endpoints);
             }
-            
+
+            if ($file->getFilename() === '.DS_Store') {
+                continue;
+            }
+
             $endpoint_path = $file->getPathName();
             require_once($endpoint_path);
 
@@ -516,8 +548,9 @@ class Util {
      * @param int $website_group_id ID of website group to search for.
      * @return string|null Name of in-game rank or null if rule is not setup.
      */
-    public static function getIngameRankName($website_group_id) {
-        $data = DB::getInstance()->get('group_sync', array('website_group_id', '=', $website_group_id));
+    public static function getIngameRankName(int $website_group_id): ?string {
+        $nameless_injector = GroupSyncManager::getInstance()->getInjectorByClass(NamelessMCGroupSyncInjector::class);
+        $data = DB::getInstance()->get('group_sync', array($nameless_injector->getColumnName(), '=', $website_group_id));
         
         if ($data->count()) {
             return $data->first()->ingame_rank_name;
@@ -530,9 +563,10 @@ class Util {
      * Get a website group's name from it's ID.
      *
      * @param int $group_id ID of group to find.
+     * 
      * @return string|null Name of group, null if doesnt exist.
      */
-    public static function getGroupNameFromId($group_id) {
+    public static function getGroupNameFromId(int $group_id): ?string {
         $data = DB::getInstance()->get('groups', array('id', '=', $group_id));
 
         if ($data->count()) {
@@ -540,5 +574,32 @@ class Util {
         }
         
         return null;
+    }
+
+    private static array $_enabled_modules = [];
+
+    /**
+     * Determine if a specific module is enabled
+     * 
+     * @param string $name Name of module to check for.
+     * 
+     * @return bool Whether this module is enabled or not.
+     */
+    public static function isModuleEnabled(string $name): bool {
+        if (in_array($name, self::$_enabled_modules)) {
+            return true;
+        }
+
+        $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
+        $cache->setCache('modulescache');
+
+        $enabled_modules = $cache->retrieve('enabled_modules');
+
+        if (in_array($name, array_column($enabled_modules, 'name'))) {
+            self::$_enabled_modules[] = $name;
+            return true;
+        }
+
+        return false;
     }
 }

@@ -64,12 +64,14 @@ class RegisterEndpoint extends EndpointBase {
 
         $uuid = ($minecraft_integration) ? Output::getClean($_POST['uuid']) : 'none';
 
-        // Registration email enabled?
-        if (Util::getSetting($api->getDb(), 'email_verification', true)) {
-            // Send email
+        if (Util::getSetting($api->getDb(), 'api_verification', false)) {
+            // Create user and send link to set password
+            $this->createUser($api, $_POST['username'], $uuid, $_POST['email'], true, null, true);
+        } else if (Util::getSetting($api->getDb(), 'email_verification', true)) {
+            // Send email to verify
             $this->sendRegistrationEmail($api, $_POST['username'], $uuid, $_POST['email']);
         } else {
-            // Register user + send link
+            // Register user + send link to verify account
             $this->createUser($api, $_POST['username'], $uuid, $_POST['email'], true);
         }
     }
@@ -84,10 +86,8 @@ class RegisterEndpoint extends EndpointBase {
      * @param string $username The username of the new user to create
      * @param string $uuid (optional) The Minecraft UUID of the new user
      * @param string $email The email of the new user
-     *
-     * @return string JSON Array
      */
-    private function sendRegistrationEmail(Nameless2API $api, $username, $uuid, $email) {
+    private function sendRegistrationEmail(Nameless2API $api, string $username, string $uuid, string $email) {
         // Generate random code
         $code = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 60);
 
@@ -163,14 +163,12 @@ class RegisterEndpoint extends EndpointBase {
         }
 
         $user = new User();
-        HookHandler::executeEvent(
-            'registerUser',
-            array(
+        HookHandler::executeEvent('registerUser', array(
                 'event' => 'registerUser',
                 'user_id' => $user_id,
                 'username' => Output::getClean($username),
                 'content' => str_replace('{x}', Output::getClean($username), $api->getLanguage()->get('user', 'user_x_has_registered')),
-                'avatar_url' => $user->getAvatar($user_id, null, 128, true),
+                'avatar_url' => $user->getAvatar(128, true),
                 'url' => Util::getSelfURL() . ltrim(URL::build('/profile/' . Output::getClean($username)), '/'),
                 'language' => $api->getLanguage()
             )
@@ -190,10 +188,8 @@ class RegisterEndpoint extends EndpointBase {
      * @param string $uuid (optional) The Minecraft UUID of the new user
      * @param string $email The email of the new user
      * @param string $code The reset token/temp password of the new user
-     *
-     * @return string JSON Array
      */
-    private function createUser(Nameless2API $api, $username, $uuid, $email, $return, $code = null) {
+    private function createUser(Nameless2API $api, string $username, string $uuid, string $email, bool $return, string $code = null, bool $api_verification = false) {
         try {
             // Get default group ID
             if (!is_file(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('default_group') . '.cache')) {
@@ -227,9 +223,7 @@ class RegisterEndpoint extends EndpointBase {
                 $code = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 60);
             }
 
-            $api->getDb()->insert(
-                'users',
-                array(
+            $api->getDb()->insert('users', array(
                     'username' => Output::getClean($username),
                     'nickname' => Output::getClean($username),
                     'uuid' => $uuid,
@@ -237,6 +231,7 @@ class RegisterEndpoint extends EndpointBase {
                     'password' => md5($code), // temp code
                     'joined' => date('U'),
                     'lastip' => 'Unknown',
+                    'active' => $api_verification === true ? 1 : 0,
                     'reset_code' => $code,
                     'last_online' => date('U')
                 )
@@ -247,24 +242,23 @@ class RegisterEndpoint extends EndpointBase {
             $user = new User($user_id);
             $user->setGroup($default_group);
 
-            HookHandler::executeEvent(
-                'registerUser',
-                array(
+            HookHandler::executeEvent('registerUser', array(
                     'event' => 'registerUser',
                     'user_id' => $user_id,
                     'username' => $user->getDisplayname(),
                     'content' => str_replace('{x}', $user->getDisplayname(), $api->getLanguage()->get('user', 'user_x_has_registered')),
-                    'avatar_url' => $user->getAvatar(null, 128, true),
+                    'avatar_url' => $user->getAvatar(128, true),
                     'url' => Util::getSelfURL() . ltrim($user->getProfileURL(), '/'),
                     'language' => $api->getLanguage()
                 )
             );
 
-            if ($return) {
+            if ($return || $api_verification) {
                 $api->returnArray(array('message' => $api->getLanguage()->get('api', 'finish_registration_link'), 'user_id' => $user_id, 'link' => rtrim(Util::getSelfURL(), '/') . URL::build('/complete_signup/', 'c=' . $code)));
             } else {
                 return array('user_id' => $user_id);
             }
+
         } catch (Exception $e) {
             $api->throwError(13, $api->getLanguage()->get('api', 'unable_to_create_account'), $e->getMessage());
         }

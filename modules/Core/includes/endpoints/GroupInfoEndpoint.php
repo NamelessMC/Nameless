@@ -45,18 +45,23 @@ class GroupInfoEndpoint extends EndpointBase {
             }
         }
 
-        $groups = $api->getDb()->query($query . $where . $order, $params)->results();
+        $groups = $api->getDb()->selectQuery($query . $where . $order, $params)->results();
 
         $groups_array = array();
         foreach ($groups as $group) {
-            $groups_array[] = array(
+            $group_array = array(
                 'id' => intval($group->id),
                 'name' => $group->name,
                 'staff' => (bool) $group->staff,
                 'order' => intval($group->order),
-                'ingame_rank_name' => Util::getIngameRankName($group->id),
-                'discord_role_id' => intval(Discord::getDiscordRoleId($api->getDb(), $group->id))
+                'ingame_rank_name' => Util::getIngameRankName($group->id)
             );
+
+            if (Util::isModuleEnabled('Discord Integration')) {
+                $group_array['discord_role_id'] = intval(Discord::getDiscordRoleId($api->getDb(), $group->id));
+            }
+
+            $groups_array[] = $group_array;
         }
 
         $api->returnArray(array('groups' => $groups_array));

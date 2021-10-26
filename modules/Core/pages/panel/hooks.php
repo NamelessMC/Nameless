@@ -121,7 +121,7 @@ if (!isset($_GET['action'])) {
 
             $template_file = 'core/hooks_new.tpl';
             break;
-            
+
         case 'edit':
             // Edit hook
             if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
@@ -213,20 +213,25 @@ if (!isset($_GET['action'])) {
             break;
 
         case 'delete':
-            // Delete Form
+            // Delete hook
             if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
                 Redirect::to(URL::build('/panel/core/hooks'));
                 die();
             }
 
-            $queries->delete('hooks', array('id', '=', $_GET['id']));
+            if (Token::check()) {
+                $queries->delete('hooks', array('id', '=', $_GET['id']));
 
-            $cache->setCache('hooks');
-            if ($cache->isCached('hooks')) {
-                $cache->erase('hooks');
+                $cache->setCache('hooks');
+                if ($cache->isCached('hooks')) {
+                    $cache->erase('hooks');
+                }
+
+                Session::flash('admin_hooks', $language->get('admin', 'hook_deleted'));
+            } else {
+                Session::flash('admin_hooks_error', $language->get('general', 'invalid_token'));
             }
 
-            Session::flash('admin_hooks', $language->get('admin', 'hook_deleted'));
             Redirect::to(URL::build('/panel/core/hooks'));
             die();
             break;
@@ -239,13 +244,13 @@ if (!isset($_GET['action'])) {
 }
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
 
 if (Session::exists('admin_hooks'))
     $success = Session::flash('admin_hooks');
 
-if (Session::exists('admin_pages_error'))
-    $errors[] = Session::flash('admin_pages_error');
+if (Session::exists('admin_hooks_error'))
+    $errors[] = Session::flash('admin_hooks_error');
 
 if (isset($success))
     $smarty->assign(array(

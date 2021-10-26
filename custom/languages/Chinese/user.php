@@ -4,7 +4,7 @@
  *  Made by Samerton
  *  Translation  by Hi_Michael
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -18,7 +18,7 @@ $language = array(
     /*
      *  Change this for the account validation message
      */
-    'validate_account_command' => 'To complete registration, please execute the command <strong>/validate {x}</strong> ingame.', // Don't replace {x}
+    'validate_account_command' => 'To complete registration, please execute the command <strong>/verify {x}</strong> ingame.', // Don't replace {x}
 
     /*
      *  User Related
@@ -36,11 +36,12 @@ $language = array(
     'messaging' => '訊息',
     'click_here_to_view' => '點擊查看.',
     'moderation' => 'Moderation',
-    'administration' => '管理者',
     'alerts' => '提醒',
     'delete_all' => '移除全部',
     'private_profile' => 'Private profile',
     'gif_avatar' => 'Upload .gif as custom avatar',
+    'placeholders' => 'Placeholders',
+    'no_placeholders' => 'No Placeholders',
 
     // Profile settings
     'field_is_required' => '需要 {x}.', // Don't replace {x}
@@ -121,7 +122,6 @@ $language = array(
     'password_minimum_6' => '密碼最低限制 6 字元.',
     'username_maximum_20' => '帳號限制最高 20 字元.',
     'mcname_maximum_20' => 'Minecraft username (遊戲名稱) 最高限制 30 字元.',
-    'password_maximum_30' => '密碼最高限制 30 字元.',
     'passwords_dont_match' => '密碼不相同.',
     'username_mcname_email_exists' => '帳號或電子郵件已存在.',
     'invalid_mcname' => 'Minecraft username 不相符 (非正版).',
@@ -146,6 +146,8 @@ $language = array(
     'must_input_email' => 'You must input an email address.',
     'must_input_username' => '你必須輸入帳號.',
     'must_input_password' => '你必須輸入密碼.',
+    'must_input_email_or_username' => 'You must input an email or username.',
+    'email_or_username' => 'Email or Username',
 
     // Forgot password
     'forgot_password_instructions' => '請輸入你的電子郵件讓我們可以在你忘記密碼時寄一封信給你重設密碼.',
@@ -241,20 +243,4 @@ $language = array(
      */
     'user_x_has_registered' => '{x} has joined ' . SITE_NAME . '!',
     'user_x_has_validated' => '{x} has validated their account!',
-
-    // Discord
-    'discord_link' => 'Discord Link',
-    'linked' => 'Linked',
-    'not_linked' => 'Not Linked',
-    'discord_id' => 'Discord User ID',
-    'discord_id_unlinked' => 'Successfully unlinked your Discord User ID.',
-    'discord_id_confirm' => 'Please send this message: "!verify {guild_id}:{token}" to {bot_username} to confirm your Discord User ID.',
-    'pending_link' => 'Pending',
-    'discord_id_taken' => 'That Discord ID has already been taken.',
-    'discord_invalid_id' => 'That Discord User ID is invalid.',
-    'discord_already_pending' => 'You already have a pending verification.',
-    'discord_database_error' => 'The Nameless Link database is currently down. Please try again later.',
-    'discord_communication_error' => 'There was an error while communicating with the Discord Bot. Please ensure the bot is running and your Bot URL is correct.',
-    'discord_unknown_error' => 'There was an unknown error while syncing Discord roles. Please contact an administrator.',
-    'discord_id_help' => 'For information on where to find Discord ID\'s, please read <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">this.</a>'
 );

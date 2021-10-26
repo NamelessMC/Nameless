@@ -10,10 +10,10 @@
  */
 class Language {
 
-    private $_activeLanguage,
-        $_activeLanguageDirectory,
-        $_activeLanguageEntries,
-        $_module;
+    private string $_activeLanguage;
+    private string $_activeLanguageDirectory;
+    private array $_activeLanguageEntries;
+    private string $_module;
 
     /**
      * Construct Language class
@@ -21,7 +21,7 @@ class Language {
      * @param string|null $module Path of language files for custom modules.
      * @param string|null $active_language The active language set in cache.
      */
-    public function __construct($module = null, $active_language = null) {
+    public function __construct(string $module = null, string $active_language = null) {
         if (!$active_language) {
             // No active language set, default to EnglishUK
             $this->_activeLanguage = 'EnglishUK';
@@ -30,7 +30,7 @@ class Language {
         }
 
         // Require file
-        if (!$module || ($module && $module == 'core')) {
+        if (!$module || $module == 'core') {
             $path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'custom', 'languages', $this->_activeLanguage));
             $this->_module = 'Core';
         } else {
@@ -71,7 +71,7 @@ class Language {
      * @param int|null $number Number of items to pass through to a plural function.
      * @return string Translated phrase.
      */
-    public function get($file, $term, $number = null) {
+    public function get(string $file, string $term, int $number = null): string {
         // Ensure the file exists + term is set
         if (!is_file($this->_activeLanguageDirectory . DIRECTORY_SEPARATOR . $file . '.php')) {
             if ($this->_activeLanguage != 'EnglishUK') {
@@ -118,7 +118,7 @@ class Language {
      * @param string $term Term which value to change.
      * @param string $value New value to set for term.
      */
-    public function set($file, $term, $value) {
+    public function set(string $file, string $term, string $value): void {
         $editing_file = ($this->_activeLanguageDirectory . DIRECTORY_SEPARATOR . $file . '.php');
         if (is_file($editing_file) && is_writable($editing_file)) {
             file_put_contents($editing_file, html_entity_decode(
@@ -134,9 +134,9 @@ class Language {
     /**
      * Return current time language.
      * 
-     * @return string Time lang for use in Timeago class.
+     * @return array Time lang for use in TimeAgo class.
      */
-    public function getTimeLanguage() {
+    public function getTimeLanguage(): array {
         $this->get('time', 'time');
         return $this->_activeLanguageEntries['time'];
     }
@@ -146,7 +146,7 @@ class Language {
      * 
      * @return string Active language name.
      */
-    public function getActiveLanguage() {
+    public function getActiveLanguage(): string {
         return $this->_activeLanguage;
     }
 
@@ -155,7 +155,7 @@ class Language {
      * 
      * @return string Path to active language files.
      */
-    public function getActiveLanguageDirectory() {
+    public function getActiveLanguageDirectory(): string {
         return $this->_activeLanguageDirectory;
     }
 }

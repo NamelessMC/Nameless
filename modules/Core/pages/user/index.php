@@ -14,7 +14,7 @@ if(!$user->isLoggedIn()){
 	Redirect::to(URL::build('/'));
 	die();
 }
- 
+
 // Always define page name for navbar
 define('PAGE', 'cc_overview');
 $page_title = $language->get('user', 'user_cp');
@@ -35,21 +35,12 @@ $smarty->assign(array(
 ));
 
 // Get graph data
-$cache->setCache('modulescache');
-$enabled_modules = $cache->retrieve('enabled_modules');
-foreach($enabled_modules as $module){
-  // Forum module enabled?
-  if($module['name'] == 'Forum'){
-	  // Enabled
-	  $forum_enabled = true;
-	  break;
-  }
-}
+$forum_enabled = Util::isModuleEnabled('Forum');
 
-if(isset($forum_enabled)){
-  $forum_query_user = DB::getInstance()->query("SELECT FROM_UNIXTIME(created, '%Y-%m-%d'), COUNT(*) FROM nl2_posts WHERE post_creator = ? AND created > ? GROUP BY FROM_UNIXTIME(created, '%Y-%m-%d')", array($user->data()->id, strtotime('-7 days')))->results();
-  $forum_query_average = DB::getInstance()->query("SELECT FROM_UNIXTIME(created, '%Y-%m-%d'), (COUNT(*) / COUNT(Distinct post_creator)) FROM nl2_posts WHERE created > ? GROUP BY FROM_UNIXTIME(created, '%Y-%m-%d')", array(strtotime('-7 days')))->results();
-  $forum_query_total = DB::getInstance()->query("SELECT FROM_UNIXTIME(created, '%Y-%m-%d'), COUNT(*) FROM nl2_posts WHERE created > ? GROUP BY FROM_UNIXTIME(created, '%Y-%m-%d')", array(strtotime('-7 days')))->results();
+if ($forum_enabled) {
+  $forum_query_user = DB::getInstance()->selectQuery("SELECT FROM_UNIXTIME(created, '%Y-%m-%d'), COUNT(*) FROM nl2_posts WHERE post_creator = ? AND created > ? GROUP BY FROM_UNIXTIME(created, '%Y-%m-%d')", array($user->data()->id, strtotime('-7 days')))->results();
+  $forum_query_average = DB::getInstance()->selectQuery("SELECT FROM_UNIXTIME(created, '%Y-%m-%d'), (COUNT(*) / COUNT(Distinct post_creator)) FROM nl2_posts WHERE created > ? GROUP BY FROM_UNIXTIME(created, '%Y-%m-%d')", array(strtotime('-7 days')))->results();
+  $forum_query_total = DB::getInstance()->selectQuery("SELECT FROM_UNIXTIME(created, '%Y-%m-%d'), COUNT(*) FROM nl2_posts WHERE created > ? GROUP BY FROM_UNIXTIME(created, '%Y-%m-%d')", array(strtotime('-7 days')))->results();
 
   $output = array();
   foreach($forum_query_user as $item){
@@ -104,7 +95,7 @@ if(isset($forum_enabled)){
   $smarty->assign('FORUM_GRAPH', $forum_language->get('forum', 'last_7_days_posts'));
 }
 
-if(isset($forum_enabled)){
+if ($forum_enabled) {
 	$template->addJSFiles(array(
 		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/moment/moment.min.js' => array(),
 		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/charts/Chart.min.js' => array()
@@ -113,9 +104,9 @@ if(isset($forum_enabled)){
 		'
 		$(document).ready(function() {
 			var ctx = $("#dataChart").get(0).getContext("2d");
-		
+
 			moment.locale(\'' . (defined('HTML_LANG') ? strtolower(HTML_LANG) : 'en'). '\');
-		
+
 			var data = {
 				labels: ' . $labels . ',
 				datasets: [
@@ -148,7 +139,7 @@ if(isset($forum_enabled)){
 					},
 				]
 			}
-		
+
 			var dataLineChart = new Chart(ctx, {
 				type: \'line\',
 				data: data,
@@ -163,7 +154,7 @@ if(isset($forum_enabled)){
 									if (Math.floor(label) === label) {
 										return label;
 									}
-		
+
 								}
 							}
 						}],
@@ -182,7 +173,7 @@ if(isset($forum_enabled)){
 }
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
 
 require(ROOT_PATH . '/core/templates/cc_navbar.php');
 

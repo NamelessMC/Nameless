@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -36,6 +36,12 @@ $topic = $queries->getWhere('topics', array('id', '=', $topic_id));
 
 if (!count($topic)) {
     Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
+    die();
+}
+
+if (!isset($_POST['token']) || !Token::check($_POST['token'])) {
+    Session::flash('failure_post', $language->get('general', 'invalid_token'));
+    Redirect::to(URL::build('/forum/topic/' . $topic_id));
     die();
 }
 

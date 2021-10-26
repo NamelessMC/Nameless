@@ -50,12 +50,12 @@ class MinecraftPing {
      *
      */
 
-    private $Socket,
-            $ServerAddress,
-            $ServerPort,
-            $Timeout;
+    private $Socket;
+    private string $ServerAddress;
+    private int $ServerPort;
+    private int $Timeout;
 
-    public function __construct($Address, $Port = 25565, $Timeout = 2, $ResolveSRV = true) {
+    public function __construct(string $Address, int $Port = 25565, int $Timeout = 2, bool $ResolveSRV = true) {
         $this->ServerAddress = $Address;
         $this->ServerPort = (int) $Port;
         $this->Timeout = (int) $Timeout;
@@ -71,7 +71,7 @@ class MinecraftPing {
         $this->Close();
     }
 
-    public function Close() {
+    public function Close(): void {
         if ($this->Socket !== null) {
             fclose($this->Socket);
 
@@ -79,7 +79,7 @@ class MinecraftPing {
         }
     }
 
-    public function Connect() {
+    public function Connect(): void {
         $connectTimeout = $this->Timeout;
         $this->Socket = @fsockopen($this->ServerAddress, $this->ServerPort, $errno, $errstr, $connectTimeout);
 
@@ -145,8 +145,6 @@ class MinecraftPing {
             } else {
                 throw new MinecraftPingException('JSON parsing failed');
             }
-
-            return FALSE;
         }
 
         return $Data;
@@ -188,7 +186,7 @@ class MinecraftPing {
         );
     }
 
-    private function ReadVarInt() {
+    private function ReadVarInt(): int {
         $i = 0;
         $j = 0;
 
@@ -215,7 +213,7 @@ class MinecraftPing {
         return $i;
     }
 
-    private function ResolveSRV() {
+    private function ResolveSRV(): void {
         if (ip2long($this->ServerAddress) !== false) {
             return;
         }

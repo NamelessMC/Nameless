@@ -60,7 +60,7 @@ if ($formatting == 'markdown') {
     $template->addJSScript(Input::createTinyEditor($language, 'reply'));
 }
 
-$timeago = new Timeago(TIMEZONE);
+$timeago = new TimeAgo(TIMEZONE);
 
 require(ROOT_PATH . '/core/includes/emojione/autoload.php'); // Emojione
 require(ROOT_PATH . '/core/includes/markdown/tohtml/Markdown.inc.php'); // Markdown to HTML
@@ -157,7 +157,7 @@ if(!isset($_GET['action'])) {
     }
 
     // Load modules + template
-    Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
+    Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
 
     require(ROOT_PATH . '/core/templates/cc_navbar.php');
 
@@ -388,7 +388,7 @@ if(!isset($_GET['action'])) {
         );
 
         // Load modules + template
-        Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
+        Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
 
         require(ROOT_PATH . '/core/templates/cc_navbar.php');
 
@@ -531,7 +531,7 @@ if(!isset($_GET['action'])) {
                 'author_profile' => $target_user->getProfileURL(),
                 'author_avatar' => $target_user->getAvatar(100),
                 'author_style' => $target_user->getGroupClass(),
-                'author_groups' => $target_user->getAllGroups('true'),
+                'author_groups' => $target_user->getAllGroupHtml(),
                 'message_date' => $timeago->inWords(date('d M Y, H:i', $results->data[$n]->created), $language->getTimeLanguage()),
                 'message_date_full' => date('d M Y, H:i', $results->data[$n]->created),
                 'content' => Output::getPurified($emojione->unicodeToImage(Output::getDecoded($results->data[$n]->content)))
@@ -561,7 +561,9 @@ if(!isset($_GET['action'])) {
             'NEW_REPLY' => $language->get('user', 'new_reply'),
             'TOKEN' => Token::get(),
             'SUBMIT' => $language->get('general', 'submit'),
-            'SUCCESS_TITLE' => $language->get('general', 'success')
+            'SUCCESS_TITLE' => $language->get('general', 'success'),
+            'YES' => $language->get('general', 'yes'),
+            'NO' => $language->get('general', 'no'),
         ));
 
         // Markdown or HTML?
@@ -578,7 +580,7 @@ if(!isset($_GET['action'])) {
             $smarty->assign('CONTENT', Output::getClean($_POST['content']));
         else $smarty->assign('CONTENT', '');
 
-        Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
+        Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
 
         require(ROOT_PATH . '/core/templates/cc_navbar.php');
 
@@ -595,7 +597,7 @@ if(!isset($_GET['action'])) {
 
     } else if ($_GET['action'] == 'leave') {
         // Try to remove the user from the conversation
-        if (!isset($_GET['message']) || !is_numeric($_GET['message'])) {
+        if (!isset($_GET['message']) || !is_numeric($_GET['message']) || !Token::check($_POST['token'])) {
             Redirect::to(URL::build('/user/messaging'));
             die();
         }

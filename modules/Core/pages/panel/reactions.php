@@ -21,12 +21,18 @@ $page_title = $language->get('user', 'reactions');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
 
 if (Session::exists('api_reactions'))
     $smarty->assign(array(
         'SUCCESS' => Session::flash('api_reactions'),
         'SUCCESS_TITLE' => $language->get('general', 'success')
+    ));
+
+if (Session::exists('api_reactions_error'))
+    $smarty->assign(array(
+        'ERRORS' => [Session::flash('api_reactions_error')],
+        'ERRORS_TITLE' => $language->get('general', 'error')
     ));
 
 if (!isset($_GET['id']) && !isset($_GET['action'])) {
@@ -176,11 +182,14 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                     die();
                 }
 
-                // Delete reaction
-                $queries->delete('reactions', array('id', '=', $_GET['reaction']));
+                if (Token::check($_POST['token'])) {
+                    // Delete reaction
+                    $queries->delete('reactions', array('id', '=', $_GET['reaction']));
+                    Session::flash('api_reactions', $language->get('admin', 'reaction_deleted_successfully'));
+
+                } else Session::flash('api_reactions_error', $language->get('general', 'invalid_token'));
 
                 // Redirect
-                Session::flash('api_reactions', $language->get('admin', 'reaction_deleted_successfully'));
                 Redirect::to(URL::build('/panel/core/reactions'));
                 die();
 

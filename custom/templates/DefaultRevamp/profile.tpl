@@ -13,9 +13,12 @@
         {/if}
         <a class="ui tiny default icon button" href="{$MESSAGE_LINK}" ><i class="envelope icon"></i></a>
         {if isset($RESET_PROFILE_BANNER)}
-          <a href="{$RESET_PROFILE_BANNER_LINK}" class="ui tiny negative icon button" data-toggle="tooltip" data-content="{$RESET_PROFILE_BANNER}">
-            <i class="picture icon"></i>
-          </a>
+          <form action="{$RESET_PROFILE_BANNER_LINK}" method="post" style="display: inline">
+            <input type="hidden" name="token" value="{$TOKEN}" />
+            <button class="ui tiny negative icon button" data-toggle="tooltip" data-content="{$RESET_PROFILE_BANNER}">
+              <i class="picture icon"></i>
+            </button>
+          </form>
         {/if}
       {/if}
     {/if}
@@ -192,16 +195,23 @@
               </div>
             </div>
           </div>
-          {if !isset($NO_ABOUT_FIELDS)}
+          {if count($ABOUT_FIELDS)}
             <div class="ui relaxed list">
               {foreach from=$ABOUT_FIELDS key=key item=field}
                 {if is_numeric($key)}
                   <div class="item">
                   <i class="middle aligned {if $field.type eq 'date'}calendar alternate{else}dot circle{/if} icon"></i>
-                    <div class="middle aligned content">
+                    <div class="middle aligned content" {if $field.tooltip} data-toggle="popup" {/if}">
                       <div class="header">{$field.title}</div>
                       <div class="description">{$field.value}</div>
                     </div>
+                    {if $field.tooltip}
+                    <div class="ui wide popup">
+                      <h4 class="ui header">{$field.title}</h4>
+                        <br />
+                        {$field.tooltip}
+                    </div>
+                    {/if}
                   </div>
                 {/if}
               {/foreach}

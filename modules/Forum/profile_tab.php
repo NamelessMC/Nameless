@@ -25,7 +25,7 @@ if (!count($latest_posts)) {
     if (!$user->isLoggedIn()) {
         $groups = array(0);
     } else {
-        $groups = $user->getAllGroups();
+        $groups = $user->getAllGroupIds();
     }
 
     // Array to assign posts to

@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -15,7 +15,7 @@ require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
 define('PAGE', 'forum');
 
 $forum = new Forum();
-$timeago = new Timeago(TIMEZONE);
+$timeago = new TimeAgo(TIMEZONE);
 $mentionsParser = new MentionsParser();
 
 require(ROOT_PATH . '/core/includes/emojione/autoload.php'); // Emojione
@@ -41,7 +41,7 @@ $tid = $tid[0];
 // Does the topic exist, and can the user view it?
 $user_groups = $user->getAllGroupIds();
 
-$list = $forum->topicExist($tid, $user_groups);
+$list = $forum->topicExist($tid);
 if (!$list) {
     require_once(ROOT_PATH . '/404.php');
     die();
@@ -94,7 +94,7 @@ if (isset($_GET['p'])) {
 
 // Is the URL pointing to a specific post?
 if (isset($_GET['pid'])) {
-    $posts = DB::getInstance()->query('SELECT * FROM nl2_posts WHERE topic_id = ? AND deleted = 0', array($tid))->results();
+    $posts = DB::getInstance()->selectQuery('SELECT * FROM nl2_posts WHERE topic_id = ? AND deleted = 0', array($tid))->results();
     if (count($posts)) {
         $i = 0;
         while ($i < count($posts)) {
@@ -120,27 +120,29 @@ if (isset($_GET['pid'])) {
 // Follow/unfollow
 if (isset($_GET['action'])) {
     if ($user->isLoggedIn()) {
-        switch ($_GET['action']) {
-            case 'follow':
-                $already_following = DB::getInstance()->query('SELECT id FROM nl2_topics_following WHERE topic_id = ? AND user_id = ?', array($tid, $user->data()->id));
-                if (!$already_following->count()) {
-                    $queries->create('topics_following', array(
-                        'topic_id' => $tid,
-                        'user_id' => $user->data()->id,
-                        'existing_alerts' => 0
-                    ));
-                    Session::flash('success_post', $forum_language->get('forum', 'now_following_topic'));
-                }
-                break;
-            case 'unfollow':
-                $delete = DB::getInstance()->createQuery('DELETE FROM nl2_topics_following WHERE topic_id = ? AND user_id = ?', array($tid, $user->data()->id));
-                Session::flash('success_post', $forum_language->get('forum', 'no_longer_following_topic'));
-                if (isset($_GET['return']) && $_GET['return'] == 'list') {
-                    Redirect::to(URL::build('/user/following_topics'));
-                    die();
-                }
-                break;
-        }
+        if (Token::check($_POST['token'])) {
+            switch ($_GET['action']) {
+                case 'follow':
+                    $already_following = DB::getInstance()->selectQuery('SELECT id FROM nl2_topics_following WHERE topic_id = ? AND user_id = ?', array($tid, $user->data()->id));
+                    if (!$already_following->count()) {
+                        $queries->create('topics_following', array(
+                            'topic_id' => $tid,
+                            'user_id' => $user->data()->id,
+                            'existing_alerts' => 0
+                        ));
+                        Session::flash('success_post', $forum_language->get('forum', 'now_following_topic'));
+                    }
+                    break;
+                case 'unfollow':
+                    $delete = DB::getInstance()->createQuery('DELETE FROM nl2_topics_following WHERE topic_id = ? AND user_id = ?', array($tid, $user->data()->id));
+                    Session::flash('success_post', $forum_language->get('forum', 'no_longer_following_topic'));
+                    if (isset($_GET['return']) && $_GET['return'] == 'list') {
+                        Redirect::to(URL::build('/user/following_topics'));
+                        die();
+                    }
+                    break;
+            }
+        } else Session::flash('failure_post', $language->get('general', 'invalid_token'));
     }
 
     Redirect::to(URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title)));
@@ -173,8 +175,7 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 // Assign author + title to Smarty variables
 // Get first post
-$first_post = $queries->orderWhere('posts', 'topic_id = ' . $tid, 'id', 'ASC LIMIT 1');
-$first_post = $first_post[0];
+$first_post = DB::getInstance()->selectQuery('SELECT * FROM nl2_posts WHERE topic_id = ? ORDER BY id ASC LIMIT 1', array($tid))->first();
 
 $topic_user = new User($topic->topic_creator);
 
@@ -199,7 +200,7 @@ if ($topic->label != 0) { // yes
 
         $label_html = $queries->getWhere('forums_labels', array('id', '=', $label->label));
         if (count($label_html)) {
-            $label_html = $label_html[0]->html;
+            $label_html = Output::getPurified($label_html[0]->html);
             $label = str_replace('{x}', Output::getClean($label->name), $label_html);
         } else $label = '';
     } else $label = '';
@@ -219,7 +220,7 @@ if ($topic->labels) {
 
             $label_html = $queries->getWhere('forums_labels', array('id', '=', $label_query->label));
             if (count($label_html)) {
-                $label_html = $label_html[0]->html;
+                $label_html = Output::getPurified($label_html[0]->html);
                 $labels[] = str_replace('{x}', Output::getClean($label_query->name), $label_html);
             }
         }
@@ -447,8 +448,8 @@ if ($user->isLoggedIn())
     $template->addJSScript('var quotedPosts = [];');
 
 // Are reactions enabled?
-$reactions_enabled = $queries->getWhere('settings', array('name', '=', 'forum_reactions'));
-if ($reactions_enabled[0]->value == '1')
+$reactions_enabled = $configuration->get('Core', 'forum_reactions');
+if ($reactions_enabled == '1')
     $reactions_enabled = true;
 else
     $reactions_enabled = false;
@@ -589,9 +590,12 @@ $replies = array();
 // Display the correct number of posts
 for ($n = 0; $n < count($results->data); $n++) {
     $post_creator = new User($results->data[$n]->post_creator);
+    if(!$post_creator->data()) {
+        continue;
+    }
 
     // Get user's group HTML formatting and their signature
-    $user_groups_html = $post_creator->getAllGroups('true');
+    $user_groups_html = $post_creator->getAllGroupHtml();
     $signature = $post_creator->getSignature();
 
     // Panel heading content
@@ -656,13 +660,21 @@ for ($n = 0; $n < count($results->data); $n++) {
     $fields = $post_creator->getProfileFields($post_creator->data()->id, true, true);
 
     // TODO: Add setting to hide/show this
-    if (Util::getSetting(DB::getInstance(), 'discord_integration', false)) {
+    if (Util::isModuleEnabled('Discord Integration') && Discord::isBotSetup()) {
         if ($post_creator->data()->discord_username != null) {
-            $fields[] = array('name' => $language->get('admin', 'discord'), 'value' => $post_creator->data()->discord_username);
+            $fields[] = array('name' => Discord::getLanguageTerm('discord'), 'value' => $post_creator->data()->discord_username);
         }
     }
 
     if ($mc_integration[0]->value == '1') $fields[] = array('name' => 'IGN', 'value' => $post_creator->getDisplayname(true));
+
+    $forum_placeholders = $post_creator->getForumPlaceholders();
+    foreach ($forum_placeholders as $forum_placeholder) {
+        $fields[] = [
+            'name' => $forum_placeholder->friendly_name,
+            'value' => $forum_placeholder->value
+        ];
+    }
 
     // Get post reactions
     $post_reactions = array();
@@ -700,7 +712,7 @@ for ($n = 0; $n < count($results->data); $n++) {
     // Purify post content
     $content = Util::replaceAnchorsWithText(Output::getDecoded($results->data[$n]->post_content));
     $content = $emojione->unicodeToImage($content);
-    $content = Output::getPurified($content);
+    $content = Output::getPurified($content, true);
 
     // Get post date
     if (is_null($results->data[$n]->created)) {
@@ -758,7 +770,7 @@ if ($user->isLoggedIn()) {
     }
 
     // Following?
-    $is_user_following = DB::getInstance()->query('SELECT id, existing_alerts FROM nl2_topics_following WHERE topic_id = ? AND user_id = ?', array($tid, $user->data()->id));
+    $is_user_following = DB::getInstance()->selectQuery('SELECT id, existing_alerts FROM nl2_topics_following WHERE topic_id = ? AND user_id = ?', array($tid, $user->data()->id));
 
     if ($is_user_following->count()) {
         $is_user_following = $is_user_following->first();
@@ -940,7 +952,7 @@ if ($user->isLoggedIn()) {
 }
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
 
 $page_load = microtime(true) - $start;
 define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));

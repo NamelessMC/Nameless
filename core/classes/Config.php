@@ -16,9 +16,8 @@ class Config {
      * 
      * @param string $path `/` seperated path of key to get from config file.
      */
-    public static function get($path = null) {
+    public static function get(string $path = null) {
         if ($path) {
-
             if (!isset($GLOBALS['config'])) {
                 throw new Exception('Config unavailable. Please refresh the page.');
             }
@@ -30,12 +29,16 @@ class Config {
             foreach ($path as $bit) {
                 if (isset($config[$bit])) {
                     $config = $config[$bit];
+                } else {
+                    $not_matched = true;
                 }
             }
 
-            return $config;
+            if (!isset($not_matched)) {
+                return $config;
+            }
         }
-        
+
         return false;
     }
 
@@ -45,14 +48,12 @@ class Config {
      * @param string $key `/` seperated path of key to set.
      * @param mixed $value Value to set under $key.
      */
-    public static function set($key, $value) {
+    public static function set(string $key, $value): bool {
         if (!file_exists(ROOT_PATH . '/core/config.php')) {
             fopen(ROOT_PATH . '/core/config.php', 'w');
         }
 
         require(ROOT_PATH . '/core/config.php');
-
-        $loadedConfig = json_decode(file_get_contents(ROOT_PATH . '/core/config.php'), true);
 
         if (!isset($conf) || !is_array($conf)) {
             $conf = [];
@@ -74,11 +75,44 @@ class Config {
     }
 
     /**
+     * Write multiple values to `core/config.php` file.
+     *
+     * @param array $values Array of key/value pairs
+     */
+    public static function setMultiple(array $values): bool {
+        if (!file_exists(ROOT_PATH . '/core/config.php')) {
+            fopen(ROOT_PATH . '/core/config.php', 'w');
+        }
+
+        require(ROOT_PATH . '/core/config.php');
+
+        if (!isset($conf) || !is_array($conf)) {
+            $conf = [];
+        }
+
+        foreach ($values as $key => $value) {
+            $path = explode('/', $key);
+
+            if (!is_array($path)) {
+                $conf[$key] = $value;
+            } else {
+                $loc = &$conf;
+                foreach($path as $step) {
+                    $loc = &$loc[$step];
+                }
+                $loc = $value;
+            }
+        }
+
+        return static::write($conf);
+    }
+
+    /**
      * Overwrite new `core/config.php` file.
      * 
      * @param array $config New config array to store.
      */
-    public static function write($config) {
+    public static function write(array $config): bool {
         $file = fopen(ROOT_PATH . '/core/config.php', 'wa+');
         fwrite($file, '<?php' . PHP_EOL . '$conf = ' . var_export($config, true) . ';' . PHP_EOL . '$CONFIG[\'installed\'] = true;');
         return fclose($file);

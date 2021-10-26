@@ -2,7 +2,7 @@
 /*
  *  Translations by Maiu and OscarWoHA
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC versjon 2.0.0-pr8
+ *  NamelessMC versjon 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -13,7 +13,7 @@ $language = array(
     /*
      *  Change this for the account validation message
      */
-    'validate_account_command' => 'For å fullføre registeringen, skriv inn kommandoen <strong>/validate {x}</strong> ingame.', // Don't replace {x}
+    'validate_account_command' => 'For å fullføre registeringen, skriv inn kommandoen <strong>/verify {x}</strong> ingame.', // Don't replace {x}
 
     /*
      *  User Related
@@ -31,11 +31,12 @@ $language = array(
     'messaging' => 'Meldinger',
     'click_here_to_view' => 'Trykk her for å se',
     'moderation' => 'Moderering',
-    'administration' => 'Administrering',
     'alerts' => 'Viktige meldinger',
     'delete_all' => 'Slett alle',
     'private_profile' => 'Private profiler',
     'gif_avatar' => 'Last opp .gif som egendefinert avatar',
+    'placeholders' => 'Placeholders',
+    'no_placeholders' => 'No Placeholders',
 
     // Profile settings
     'field_is_required' => '{x} er påkrevd.', // Don't replace {x}
@@ -115,7 +116,6 @@ $language = array(
     'password_minimum_6' => 'Ditt passord må inneholde minst 6 tegn.',
     'username_maximum_20' => 'Ditt brukernavn må inneholde maks 20 tegn.',
     'mcname_maximum_20' => 'Ditt Minecraft-brukernavn må inneholde minst 20 tegn.',
-    'password_maximum_30' => 'Ditt passord må inneholde minst 30 tegn.',
     'passwords_dont_match' => 'Passordene stemmer ikke.',
     'username_mcname_email_exists' => 'Dette brukernavnet eller denne e-postadressen eksisterer allerede.',
     'invalid_mcname' => 'Dette Minecraft-brukernavnet er ugyldig.',
@@ -140,6 +140,8 @@ $language = array(
     'must_input_email' => 'Du må skrive inn en e-postadresse',
     'must_input_username' => 'Du må skrive inn et brukernavn.',
     'must_input_password' => 'Du må skrive inn et passord.',
+    'must_input_email_or_username' => 'You must input an email or username.',
+    'email_or_username' => 'Email or Username',
 
     // Forgot password
     'forgot_password_instructions' => 'Vennligst oppgi e-postadressen din slik at vi kan sende deg en e-post med instruksjoner til hvordan du kan tilbakestille passordet ditt.',
@@ -186,7 +188,6 @@ $language = array(
     'new_wall_post_reply_your_profile' => '{x} har svart på innlegget ditt på din profil', // Don't replace {x}
     'no_about_fields' => 'Denne brukeren har ikke skrevet noe om seg selv enda.',
     'reply' => 'Svar',
-    'discord_username' => 'Discord-brukernavn',
 
     // Reports
     'invalid_report_content' => 'Kunne ikke fullføre rapporteringen. Pass på at den er mellom 2 og 1024 tegn.',
@@ -235,20 +236,4 @@ $language = array(
      */
     'user_x_has_registered' => '{x} har registert seg hos ' . SITE_NAME . '!',
     'user_x_has_validated' => '{x} har validert kontoen deres!',
-
-    // Discord
-    'discord_link' => 'Discord-lenke',
-    'linked' => 'Tilkoblet',
-    'not_linked' => 'Ikke tilkoblet',
-    'discord_id' => 'Discord-bruker-ID',
-    'discord_id_unlinked' => 'Discord-bruker-ID-en din har blitt frakoblet.',
-    'discord_id_confirm' => 'Vennligst send meldingen: "!verify {guild_id}:{token}" til {bot_username} for å bekrefte din Discord-bruker-ID.',
-    'pending_link' => 'Venter',
-    'discord_id_taken' => 'Den oppgitte Discord-bruker-ID-en er allerede koblet til en annen bruker.',
-    'discord_invalid_id' => 'Den oppgitte Discord-bruker-ID-en er ikke gyldig.',
-    'discord_already_pending' => 'Du har allerede en verifiseringsforespørsel som venter.',
-    'discord_database_error' => 'Nameless Link-databasen er nede for øyeblikket. Prøv igjen senere.',
-    'discord_communication_error' => 'Det oppstod en feil under kommuniseringen med Discord-boten. Sjekk om boten er oppe, og at bot-URL-en er korrekt.',
-    'discord_unknown_error' => 'Det oppstod en ukjent feil under synkroniseringen av Discord-rollene. Vennligst kontakt en administrator.',
-    'discord_id_help' => 'For mer informasjon om hvordan man finner Discord-bruker-ID, vennligst les <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">denne artikkelen.</a>'
 );

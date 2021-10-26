@@ -12,15 +12,17 @@
 // Uncomment to enable debugging
 //define('DEBUGGING', 1);
 
+header("X-Frame-Options: SAMEORIGIN");
+
 if ((defined('DEBUGGING') && DEBUGGING) || (isset($_SERVER['NAMELESSMC_DEBUGGING']) && $_SERVER['NAMELESSMC_DEBUGGING'])) {
     ini_set('display_startup_errors', 1);
     ini_set('display_errors', 1);
     error_reporting(-1);
 }
 
-// Ensure PHP version >= 5.4
-if (version_compare(phpversion(), '5.4', '<')) {
-    die('NamelessMC is not compatible with PHP versions older than 5.4');
+// Ensure PHP version >= 7.4
+if (version_compare(phpversion(), '7.4', '<')) {
+    die('NamelessMC is not compatible with PHP versions older than 7.4');
 }
 
 // Start page load timer
@@ -37,6 +39,11 @@ if (!ini_get('upload_tmp_dir')) {
     $tmp_dir = ini_get('upload_tmp_dir');
 }
 
+if ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) {
+    ini_set('session.cookie_secure', 'On');
+}
+
+ini_set('session.cookie_httponly', 1);
 ini_set('open_basedir', ROOT_PATH . PATH_SEPARATOR  . $tmp_dir . PATH_SEPARATOR . '/proc/stat');
 
 // Get the directory the user is trying to access

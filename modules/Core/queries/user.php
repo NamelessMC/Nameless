@@ -30,7 +30,7 @@ if (!is_numeric($_GET['id'])) {
     $profile = $target_user->getProfileURL();
     $avatar = $target_user->getAvatar();
     $style = $target_user->getGroupClass();
-    $groups = $target_user->getAllGroups(true);
+    $groups = $target_user->getAllGroupHtml();
     $id = Output::getClean($target_user->data()->id);
 }
 
@@ -45,7 +45,7 @@ $smarty->assign(array(
 ));
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
 
 $template->onPageLoad();
 

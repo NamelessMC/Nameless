@@ -18,7 +18,7 @@ class ExternalMCQuery {
      * @param int|null $port Port to query, `25565` by default.
      * @return object Query result.
      */
-    public static function query($ip, $port = 25565) {
+    public static function query(string $ip, int $port = 25565) {
         $queryUrl = 'https://api.namelessmc.com/api/server/' . $ip . '/' . $port;
 
         try {
@@ -50,7 +50,7 @@ class ExternalMCQuery {
      * 
      * @param string $ip Server's IP.
      */
-    public static function getFavicon($ip = null) {
+    public static function getFavicon(string $ip = null) {
         if($ip){
             $query_ip = explode(':', $ip);
 

@@ -3,7 +3,7 @@
  *  Made by Samerton
  *  Translation by BukkitTNT, M_Viper
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -14,7 +14,7 @@ $language = array(
     /*
      *  Change this for the account validation message
      */
-    'validate_account_command' => 'Um die Registrierung abzuschließen, führe bitte den Befehl <strong>/validate {x}</strong> ingame aus.', // Don't replace {x}
+    'validate_account_command' => 'Um die Registrierung abzuschließen, führe bitte den Befehl <strong>/verify {x}</strong> ingame aus.', // Don't replace {x}
 
     /*
      *  User Related
@@ -32,11 +32,12 @@ $language = array(
     'messaging' => 'Nachrichten',
     'click_here_to_view' => 'Klicke hier um es dir anzusehen.',
     'moderation' => 'Moderation',
-    'administration' => 'Administration',
     'alerts' => 'Benachrichtigungen',
     'delete_all' => 'Alle Löschen',
     'private_profile' => 'Privates Profil',
     'gif_avatar' => 'Laden Sie .gif als benutzerdefinierten Avatar hoch',
+    'placeholders' => 'Placeholders',
+    'no_placeholders' => 'No Placeholders',
 
     // Profile settings
     'field_is_required' => '{x} wird benötigt.', // Don't replace {x}
@@ -117,7 +118,6 @@ $language = array(
     'mcname_minimum_3' => 'Dein Minecraftname muss mindestens 3 Zeichen lang sein.',
     'mcname_maximum_20' => 'Dein Minecraftname darf nicht länger als 20 Zeichen sein..',
     'password_minimum_6' => 'Dein Passwort muss mindestens 6 Zeichen haben..',
-    'password_maximum_30' => 'Dein Passwort darf nicht länger als 30 Zeichen sein.',
     'passwords_dont_match' => 'Deine Passwörter stimmen nicht überein.',
     'username_mcname_email_exists' => 'Dein Nutzername, Minecraftname oder deine E-Mail-Adresse sind bereits registriert. Hast du schon ein Konto eingerichtet?',
     'invalid_mcname' => 'Dein Minecraft Benutzername ist ungültig.',
@@ -142,6 +142,8 @@ $language = array(
     'must_input_email' => 'Du musst eine E-Mail-Adresse eingeben.',
     'must_input_username' => 'Du musst einen Benutzernamen eingeben.',
     'must_input_password' => 'Du musst ein Passwort eingeben.',
+    'must_input_email_or_username' => 'You must input an email or username.',
+    'email_or_username' => 'Email or Username',
 
     // Forgot password
     'forgot_password_instructions' => 'Bitte erteile deine E-Mail-Adresse, damit wir dir weitere Anweisungen zum Zurücksetzen deines Passworts zusenden können.',
@@ -188,7 +190,6 @@ $language = array(
     'new_wall_post_reply_your_profile' => '{x} hat auf deinen Beitrag in deinem Profil geantwortet.', // Don't replace {x}
     'no_about_fields' => 'Dieser Benutzer hat noch keine Felder hinzugefügt.',
     'reply' => 'Antworten',
-    'discord_username' => 'Discord Username',
 
     // Reports
     'invalid_report_content' => 'Eine Meldung muss zwischen 2 & 1024 Zeichen lang sein.',
@@ -237,20 +238,4 @@ $language = array(
      */
     'user_x_has_registered' => '{x} ist beigetreten ' . SITE_NAME . '!',
     'user_x_has_validated' => '{x} hat das Konto validiert!',
-
-    // Discord
-    'discord_link' => 'Discord Link',
-    'linked' => 'Verbunden',
-    'not_linked' => 'Nicht verbunden',
-    'discord_id' => 'Discord User ID',
-    'discord_id_unlinked' => 'Die Verknüpfung Ihrer Discord-Benutzer-ID wurde erfolgreich aufgehoben.',
-    'discord_id_confirm' => 'Bitte senden Sie diese Nachricht: "!verify {guild_id}:{token}" an {bot_username} um Ihre Discord-Benutzer-ID zu bestätigen.',
-    'pending_link' => 'steht aus',
-    'discord_id_taken' => 'Diese Discord ID wurde bereits vergeben.',
-    'discord_invalid_id' => 'Diese Discord-Benutzer-ID ist ungültig.',
-    'discord_already_pending' => 'Sie haben bereits eine ausstehende Überprüfung.',
-    'discord_database_error' => 'Die Nameless Link-Datenbank ist derzeit nicht verfügbar. Bitte versuchen Sie es später noch einmal.',
-    'discord_communication_error' => 'Bei der Kommunikation mit dem Discord Bot ist ein Fehler aufgetreten. Bitte stellen Sie sicher, dass der Bot ausgeführt wird und Ihre Bot-URL korrekt ist.',
-    'discord_unknown_error' => 'Beim Synchronisieren der Discord-Rollen ist ein unbekannter Fehler aufgetreten. Bitte wenden Sie sich an einen Administrator.',
-    'discord_id_help' => 'Informationen dazu, wo Discord IDs zu finden sind, finden Sie unter <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">this.</a>'
 );

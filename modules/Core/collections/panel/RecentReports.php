@@ -11,11 +11,11 @@
 
 class RecentReportsItem extends CollectionItemBase {
 
-    private $_smarty, 
-            $_language, 
-            $_cache;
+    private Smarty $_smarty; 
+    private Language $_language;
+    private Cache $_cache;
 
-    public function __construct($smarty, $language, $cache) {
+    public function __construct(Smarty $smarty, Language $language, Cache $cache) {
         $cache->setCache('dashboard_main_items_collection');
         if ($cache->isCached('recent_reports')) {
             $from_cache = $cache->retrieve('recent_reports');
@@ -40,9 +40,9 @@ class RecentReportsItem extends CollectionItemBase {
         $this->_cache = $cache;
     }
 
-    public function getContent() {
+    public function getContent(): string {
         // Get recent reports
-        $timeago = new Timeago(TIMEZONE);
+        $timeago = new TimeAgo(TIMEZONE);
 
         $this->_cache->setCache('dashboard_main_items_collection');
 
@@ -122,7 +122,7 @@ class RecentReportsItem extends CollectionItemBase {
         return $this->_smarty->fetch('collections/dashboard_items/recent_reports.tpl');
     }
 
-    public function getWidth() {
+    public function getWidth(): float {
         return 0.33; // 1/3 width
     }
 }

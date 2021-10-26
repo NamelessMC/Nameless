@@ -172,6 +172,7 @@
                                         <select name="login_method" class="form-control" id="inputLoginMethod">
                                             <option value="email" {if $LOGIN_METHOD_VALUE eq "email" } selected{/if}>{$EMAIL}</option>
                                             <option value="username" {if $LOGIN_METHOD_VALUE eq "username" } selected{/if}>{$USERNAME}</option>
+                                            <option value="email_or_username" {if $LOGIN_METHOD_VALUE eq "email_or_username" } selected{/if}>{$EMAIL_OR_USERNAME}</option>
                                         </select>
                                     </div>
                                 </div>

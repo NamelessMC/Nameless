@@ -1,29 +1,28 @@
-<?php
+<?php 
 /*
- *  Translated by ManiaNetwork (Marck200 & Osiris)
+ *  Translated by ManiaNetwork
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr10
  *
  *  License: MIT
  *
- *  Spanish/Spain Language - Language version
+ *  Spanish/Spain Language - Time
  */
 
 $language = array(
     /*
      *  Time
      */
-    'time' => 'tiempo', // Placeholder, no need to translate
-    'seconds_short' => 'segundos', // Shortened "seconds", eg "s"
-    'less_than_a_minute' => 'Hace menos de 1 minuto',
-    '1_minute' => 'Hace 1 minuto',
-    '_minutes' => 'Hace {x} minutos',
-    'about_1_hour' => 'Hace aproximadamente 1 hora',
-    '_hours' => 'Hace {x} horas',
-    '1_day' => 'Hace 1 día',
-    '_days' => 'Hace {x} días',
-    'about_1_month' => 'Hace aproximadamente 1 mes',
-    '_months' => 'Hace {x} mes',
-    'about_1_year' => 'Hace aproximadamente 1 año',
-    'over_x_years' => 'Hace {x} años'
+    'time' => 'time', // Placeholder, no need to translate
+    'less_than_a_minute' => 'hace menos de un minuto',
+    '1_minute' => 'hace 1 minuto',
+    '_minutes' => 'hace {x} minutos',
+    'about_1_hour' => 'hace aproximadamente 1 hora',
+    '_hours' => 'hace {x} horas',
+    '1_day' => 'hace 1 día',
+    '_days' => 'hace {x} días',
+    'about_1_month' => 'hace aproximadamente 1 mes',
+    '_months' => 'hace {x} meses',
+    'about_1_year' => 'hace aproximadamente 1 año',
+    'over_x_years' => 'hace más de {x} años'
 );

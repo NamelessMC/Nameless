@@ -4,7 +4,7 @@
  *  en vertaald door Sander Lambrechts, Derkades en smessie
  *
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr10
  *
  *  License: MIT
  *
@@ -71,6 +71,7 @@ $language = array(
     'invalid_timezone' => 'Die tijdzone is ongeldig',
     'link' => 'Link',
     'unlink' => 'Unlink',
+    'leaderboards' => 'Leaderboards',
     
     /*
      *  Contact formulier
@@ -90,6 +91,11 @@ $language = array(
     'home' => 'Start',
     'more' => 'Meer',
     'status' => 'Status',
+
+    /*
+     *  Footer
+     */
+    'links' => 'Links',
 
     /*
      *  Homepagina

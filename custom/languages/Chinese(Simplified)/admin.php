@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -24,7 +24,6 @@ $language = array(
     'layout' => '排版',
     'user_management' => '用户管理',
     'admin_cp' => '管理员控制台',
-    'administration' => '管理者',
     'overview' => '总览',
     'core' => '核心',
     'integrations' => '集成',
@@ -45,6 +44,7 @@ $language = array(
     'notices' => '消息',
     'no_notices' => '无消息.',
     'email_errors_logged' => '邮件错误已被记录',
+    'upgrade_php_version' => 'Please upgrade your PHP version to at least 7.4 - the next Nameless release will no longer support the version you are using.',
 
     // Core
     'mode_toggle' => '深色 / 浅色模式',
@@ -82,7 +82,7 @@ $language = array(
     'discord_widget_theme' => 'Discord Widget 主题',
     'discord_id_length' => '请确保您的 Discord ID 长 18 位。',
     'discord_id_numeric' => '请确保您的 Discord ID 只包含数字。',
-    'discord_invite_info' => '您可点击<a target="_blank" href="https://namelessmc.com/discord-bot-invite">此处</a>来将 Nameless Link 机器人邀请至您的 Discord 服务器. 随后，您需要向机器人发送包含 <code>!apiurl</code> 命令的消息来链接您的网站。或者，您也可以<a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">自己部署机器人</a>。',
+    'discord_invite_info' => '您可点击 <a target="_blank" href="https://namelessmc.com/discord-bot-invite">此处</a> 来将 Nameless Link 机器人添加到您的 Discord 服务器中。添加完毕后，请运行指令 <code>/apiurl</code> 来将网站和机器人链接起来。 您也可以 <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">自建机器人</a>。',
     'discord_bot_must_be_setup' => '您必须配置 Discord 机器人后才能启用 Discord 集成。您可<a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">点击此处</a>了解详情。',
     'discord_bot_setup' => '机器人已配置?',
     'discord_integration_not_setup' => 'Discord 集成尚未配置',
@@ -117,6 +117,7 @@ $language = array(
     'mailer_settings_info' => '如果启用了 PHPMailer，则必须填写以下字段。 更多的填写信息请点击 <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-SMTP-with-Nameless-(e.g.-Gmail-or-Outlook)" target="_blank">NamelessMC Wiki相关页面</a>.',
     'host' => '主机 IP',
     'email_port' => '端口',
+    'email_port_invalid' => '请输入一个有效的邮箱端口。',
     'email_password_hidden' => '出于安全原因，未显示密码。',
     'send_test_email' => '发送测试邮件',
     'send_test_email_info' => '以下按钮将尝试向您的电子邮件地址 <strong>{x}</strong> 发送电子邮件. 发送电子邮件时抛出的任何错误都将显示。', // Don't replace {x}
@@ -176,6 +177,35 @@ $language = array(
     'emails_mass_message_sent_successfully' => '邮件广播发送成功。',
     'emails_mass_message_replacements' => '您可在信息中使用占位符。可用占位符: {username}（用户名）, {sitename}（网站名）',
     'emails_mass_message_loading' => '加载中... 请勿刷新此页面。这可能需要几分钟。',
+    'administrator' => '管理员',
+    'administrator_permission_info' => '拥有管理员权限的用户将会拥有所有权限。您只应授予受信任的用户此权限。',
+
+    // Placeholders
+    'placeholders' => '占位符',
+    'enable_placeholders' => '启用占位符?',
+    'updated_placeholder_settings' => '占位符设置更新成功。',
+    'placeholders_info' => '通过占位符功能，NamelessMC Spigot 插件可以向您的网站上显示关于玩家的信息，这样，玩家就可以把这些信息添加到自己的个人资料上。',
+    'placeholders_none' => '没有任何占位符。',
+    'placeholders_server_id' => '服务器 ID',
+    'placeholders_name' => '名字',
+    'placeholders_value' => '值',
+    'placeholders_last_updated' => '上次更新',
+    'placeholders_friendly_name' => '别名',
+    'placeholders_friendly_name_info' => '您可设置占位符的一个别名。显示此占位符时，别名会取代默认名字。',
+    'placeholders_show_on_profile' => '在个人资料上显示',
+    'placeholders_show_on_profile_info' => '是否在每个用户的个人资料上显示此占位符。',
+    'placeholders_show_on_forum' => '在论坛上显示',
+    'placeholders_show_on_forum_info' => '是否在每个用户的帖子上显示此占位符。',
+
+    // Placeholder leaderboards
+    'leaderboard_settings' => '排行榜设置',
+    'placeholder_leaderboard_settings' => '占位符排行榜设置',
+    'placeholder_leaderboard_info' => '通过占位符排行榜，您可以根据一个占位符来把玩家列在排行榜里',
+    'placeholder_leaderboard_enable_info' => '排行班在占位符是数字的情况下 (例如硬币，击杀数，等等) 功能最强。文字占位符排行榜的顺序无法控制。',
+    'placeholder_leaderboard_updated' => '排行榜设置更新成功',
+    'placeholder_leaderboard_enabled' => '排行榜启用',
+    'placeholder_leaderboard_title' => '排行榜标题',
+    'placeholder_leaderboard_sort' => '排行榜排序',
 
     // SEO
     'seo' => 'SEO',
@@ -501,13 +531,15 @@ $language = array(
     'please_select_logs' => '请选择你要查看的日志',
     'ip_address' => 'IP 地址',
     'template_changes' => '更改模板',
+    'email_logs' => 'Mass Emails',
+    'group_sync_logs' => 'Group Sync Changes',
     'file_changed' => '更改文件',
     'all_logs' => '所有日志',
     'action' => '操作',
     'action_info' => '操作信息',
     'groups_removed' => '删除的权限组',
     'groups_added' => '添加的权限组',
-    
+
     // Updates
     'update' => '更新',
     'current_version_x' => '当前版本: <strong>{x}</strong>', // Don't replace {x}
@@ -571,9 +603,9 @@ $language = array(
     'link_location_required' => '你的页面需要一个本地链接',
     'page_title_minimum_2' => '页面标题必须至少 2 个字符。',
     'page_url_minimum_2' => '页面路径必须至少 2 个字符。',
-    'page_title_maximum_30' => '页面标题不能超过 30 个字符。',
+    'page_title_maximum_255' => '页面标题不能超过 255 个字符。',
     'page_icon_maximum_64' => '页面图标最大不能超过 64 个字符。',
-    'page_url_maximum_20' => '页面路径不能超过 20 个字符。',
+    'page_url_maximum_255' => '页面路径不能超过 255 个字符。',
     'page_content_maximum_100000' => '页面内容不能超过 100000 个字符。',
     'page_redirect_link_maximum_512' => '页面重定向链接最大不能超过 512 个字符。',
     'confirm_delete_page' => '你确定要删除这个页面?',
@@ -712,7 +744,6 @@ $language = array(
     'announcement_icon_instructions' => '您也可以为公告添加图标，例如使用 <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a> 或 <a href="https://semantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Semantic UI</a>.',
     'header' => '头部',
     'message' => '信息',
-    'pages' => '页面',
     'text_colour' => '文字颜色',
     'background_colour' => '背景颜色',
     'closable' => '可关闭',
@@ -724,31 +755,4 @@ $language = array(
     'background_colour_required' => '背景颜色为必填项',
     'text_colour_required' => '文字颜色为必填项',
     'no_announcements' => '还没有任何公告呢!',
-
-    // Discord
-    'discord' => 'Discord',
-    'enable_discord_integration' => '启用 Discord 集成?',
-    'discord_role_id' => 'Discord 身份组 ID',
-    'discord_role_id_numeric' => 'Discord 身份组 ID 必须为数字。',
-    'discord_role_id_length' => 'Discord 身份组 ID 必须为 18 位长。',
-    'discord_settings_updated' => '已成功更新您的 Discord 设置。',
-    'discord_guild_id_required' => '请输入您的 Discord 服务器 ID:',
-    'discord_bot_url' => 'Discord 机器人链接',
-    'discord_bot_url_info' => '您的自定义 Nameless Link 机器人的链接。请您在理解此项的用途后更改。',
-    'discord_bot_url_required' => '请输入您 Nameless Link 机器人的链接。',
-    'discord_invalid_api_url' => '好像您的 API 链接变化了。请您联系服务器拥有者修改链接。',
-    'test_bot_url' => '测试机器人 URL',
-    'discord_bot_url_valid' => '您的机器人 URL 有效。',
-    'discord_cannot_interact' => 'Nameless Link 机器人无法对此用户进行操作。它的权限组可能比 Nameless Link 权限组更高。',
-
-    // Discord bot Errors
-    'discord_bot_error_badparameter' => '非法请求体。',
-    'discord_bot_error_error' => '发生了一个内部机器人错误。',
-    'discord_bot_error_invguild' => '提供的服务器 ID 错误，或此机器人不在提供的服务器中。',
-    'discord_bot_error_invuser' => '提供的用户 ID 错误，或并不在指定的服务器中。',
-    'discord_bot_error_notlinked' => '提供的服务器中的机器人没有链接到此网站。',
-    'discord_bot_error_unauthorized' => '网站 API 密钥错误。',
-    'discord_bot_error_invrole' => '提供的权限组 ID 错误。',
-    'discord_bot_error_hierarchy' => '此机器人无法修改此用户的权限组。'
-
 );

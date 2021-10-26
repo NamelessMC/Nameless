@@ -3,7 +3,7 @@
  *  Made by Samerton
  *  Translation by BukkitTNT, M_Viper
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -23,7 +23,6 @@ $language = array(
     'layout' => 'Layout',
     'user_management' => 'Benutzerverwaltung',
     'admin_cp' => 'Administration',
-    'administration' => 'Administration',
     'overview' => 'Übersicht',
     'core' => 'Core',
     'integrations' => 'Integrations',
@@ -41,11 +40,13 @@ $language = array(
     'registrations' => 'Anmeldungen',
     'topics' => 'Themen',
     'posts' => 'Posts',
-        'notices' => 'Ereignisse',
-        'no_notices' => 'Keine Ereignisse.',
-        'email_errors_logged' => 'Fehler bei der Email wurden gespeichert',
+    'notices' => 'Ereignisse',
+    'no_notices' => 'Keine Ereignisse.',
+    'email_errors_logged' => 'Fehler bei der Email wurden gespeichert',
+    'upgrade_php_version' => 'Bitte aktualisieren Sie Ihre PHP-Version auf mindestens 7.4 - die nächste Nameless-Version wird die von Ihnen verwendete Version nicht mehr unterstützen.',
 
     // Core
+    'mode_toggle' => 'Dark/Light mode',
     'settings' => 'Einstellungen',
     'general_settings' => 'Allgemeine Einstellungen',
     'sitename' => 'Name des Forum',
@@ -59,6 +60,10 @@ $language = array(
     'default_timezone' => 'Standard Zeitzone',
     'registration' => 'Registrierung',
     'enable_registration' => 'Registrierung aktivieren?',
+    'captcha_general' => 'Captcha auf der Registrierungs und Kontaktseite aktivieren?',
+    'captcha_login' => 'Captcha beim einloggen?',
+    'captcha_site_key' => 'Captcha Seiten Schlüssel',
+    'captcha_secret_key' => 'Captcha Geheimschlüssel',
     'verify_with_mcassoc' => 'Sollen sich Nutzer mit MCAssoc verifizieren?',
     'email_verification' => 'Email Verifikation aktivieren?',
     'registration_settings_updated' => 'Registration settings updated successfully.',
@@ -76,14 +81,6 @@ $language = array(
     'youtube_url' => 'Youtube URL',
     'twitter_url' => 'Twitter URL',
     'twitter_dark_theme' => 'Benutze Dunkles Twitter Theme?',
-    'discord_id' => 'Discord Server ID',
-    'discord_widget_theme' => 'Discord Widget Theme',
-    'discord_id_length' => 'Bitte stellen Sie sicher, dass Ihre Discord ID 18 Zeichen lang ist.',
-    'discord_id_numeric' => 'Bitte stellen Sie sicher, dass Ihre Discord ID numerisch ist (nur Zahlen)..',
-    'discord_invite_info' => 'Klicken Sie auf <a target="_blank" href="https://namelessmc.com/discord-bot-invite">Bot</a>. um den Nameless Link-Bot auf Ihren Discord-Server einzuladen. Senden Sie dann mit dem Befehl <code>!apiurl</code> eine DM an den Bot, um den Bot mit Ihrer Website zu verknüpfen. Alternativ können Sie den Bot <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">selbst hosten </a>.',
-    'discord_bot_must_be_setup' => 'Die Discord-Integration kann erst aktiviert werden, wenn Sie den Bot eingerichtet haben. Für Informationen klicken Sie bitte  <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">click hier</a>.',
-    'discord_bot_setup' => 'Bot Setup',
-    'discord_integration_not_setup' => 'Die Discord-Integration ist nicht eingerichtet',
     'dark' => 'Dark',
     'light' => 'Light',
     'google_plus_url' => 'Google Plus URL',
@@ -115,6 +112,7 @@ $language = array(
     'mailer_settings_info' => 'Die folgenden Felder sind erforderlich, wenn Sie PHPMailer aktiviert haben. Weitere Informationen zum Ausfüllen dieser Felder finden Sie unter <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-SMTP-with-Nameless-(e.g.-Gmail-or-Outlook)" target="_blank">NamelessMC Wiki</a>.',
     'host' => 'Host',
     'email_port' => 'Port',
+    'email_port_invalid' => 'Bitte geben Sie einen gültigen E-Mail-Port ein.',
     'email_password_hidden' => 'Das Password wird aus Sicherheitsgründen nicht angezeigt.',
     'send_test_email' => 'Sende Test Email',
     'send_test_email_info' => 'Die folgende Schaltfläche versucht, eine E-Mail an Ihre E-Mail-Adresse zu senden, <strong> {x} </strong>. Falls Irgendwelche Fehler, die beim Senden der E-Mail enstehen, werden angezeigt.', // Don't replace {x}
@@ -159,7 +157,7 @@ $language = array(
     'google_recaptcha' => 'Google ReCAPTCHA aktivieren?',
     'google_recaptcha_login' => 'Enable Google reCAPTCHA on login?',
     'captcha_type' => 'Captcha Type',
-    'recaptcha_site_key' => 'reCAPTCHA-Standortschlüssel',
+    'recaptcha_site_key' => 'reCAPTCHA-Seitenschlüssel',
     'recaptcha_secret_key' => 'reCAPTCHA Geheimschlüssel',
     'registration_disabled_message' => 'Registration Deaktiviert Nachricht',
     'enable_nicknames_on_registration' => 'Aktivierung von Nicknames für registrierte User?',
@@ -174,6 +172,35 @@ $language = array(
     'emails_mass_message_sent_successfully' => 'Erfolgreich eine Massen-E-Mail-Nachricht gesendet.',
     'emails_mass_message_replacements' => 'Sie können Variablen in Ihrer E-Mail-Nachricht verwenden. Unterstützte Variablen: {username}, {sitename}',
     'emails_mass_message_loading' => 'Laden ... Bitte laden Sie die Seite nicht neu. Das kann eine Weile dauern.',
+    'administrator' => 'Administrator',
+    'administrator_permission_info' => 'Members with this permission will have every permission. This is a dangerous permission to grant.',
+
+    // Placeholders
+    'placeholders' => 'Placeholders',
+    'enable_placeholders' => 'Enable Placeholders?',
+    'updated_placeholder_settings' => 'Updated placeholder settings successfully.',
+    'placeholders_info' => 'Placeholders allow the NamelessMC Spigot plugin to send statistics about each player to your website so they can display them on their profile and forum posts.',
+    'placeholders_none' => 'There are no placeholders.',
+    'placeholders_server_id' => 'Server ID',
+    'placeholders_name' => 'Name',
+    'placeholders_value' => 'Value',
+    'placeholders_last_updated' => 'Last Updated',
+    'placeholders_friendly_name' => 'Friendly Name',
+    'placeholders_friendly_name_info' => 'Use this to set a \'nickname\' to this placeholder. The friendly name will be used instead of the raw name.',
+    'placeholders_show_on_profile' => 'Show on Profile',
+    'placeholders_show_on_profile_info' => 'Whether to show this placeholder on each user\'s profile or not.',
+    'placeholders_show_on_forum' => 'Show on Forum',
+    'placeholders_show_on_forum_info' => 'Whether to show this placeholder on each user\'s forum posts or not.',
+
+    // Placeholder leaderboards
+    'leaderboard_settings' => 'Leaderboard Settings',
+    'placeholder_leaderboard_settings' => 'Placeholder Leaderboard Settings',
+    'placeholder_leaderboard_info' => 'Placeholder Leaderboards let you create leaderboards to display ranked players on your server according to any placeholder.',
+    'placeholder_leaderboard_enable_info' => 'Leaderboards work best with numeric placeholders (such as coins, kills, blocks mined, etc). If you enable a leaderboard on a text-based placeholder - you cannot be sure it will order it as you want.',
+    'placeholder_leaderboard_updated' => 'Updated leaderboard settings successfully',
+    'placeholder_leaderboard_enabled' => 'Leaderboard Enabled',
+    'placeholder_leaderboard_title' => 'Leaderboard Title',
+    'placeholder_leaderboard_sort' => 'Leaderboard Sort',
 
     // SEO
     'seo' => 'SEO',
@@ -354,6 +381,7 @@ $language = array(
     'activate' => 'Aktivieren',
     'warning_editing_default_template' => 'Warnung! Editiere nicht die Standard Vorlage.',
     'images' => 'Bilder',
+    'reset_favicon' => 'Favicon zurücksetzen',
     'upload_new_image' => 'Lade ein neues Bild hoch.',
     'reset_background' => 'Hintergrund zurücksetzen.',
     'install' => '<i class="fa fa-plus-circle"></i> Installieren',
@@ -372,6 +400,8 @@ $language = array(
     'background_image_x' => 'Hintergrundbild: <strong>{x}</strong>', // Don't replace {x}
     'banner_image_x' => 'Banner image: <strong>{x}</strong>', // Don't replace {x}
     'logo_image_x' => 'Logo image: <strong>{x}</strong>', // Don't replace {x}
+    'favicon_image_x' => 'Favicon image: <strong>{x}</strong>', // Don't replace {x}
+    'x_directory_not_writable' => 'The <strong>{x}</strong> directory is not writable!', // Don't replace {x}
     'background_directory_not_writable' => 'Das Verzeichnis <strong>uploads/backgrounds</strong> ist nicht beschreibbar!',
     'template_banners_directory_not_writable' => 'Das Verzeichnis <strong>uploads/template_banners</strong>ist nicht beschreibbar!',
     'logos_directory_not_writable' => 'Das Verzeichnis <strong>uploads/logos</strong> ist nicht beschreibbar!',
@@ -497,13 +527,17 @@ $language = array(
     'please_select_logs' => 'Bitte wähle die Logs aus.',
     'ip_address' => 'IP Addresse',
     'template_changes' => 'Template Editierungen',
+    'email_logs' => 'Mass Emails',
+    'group_sync_logs' => 'Group Sync Changes',
     'file_changed' => 'Datei geändert',
     'all_logs' => 'Alle Logs',
+    'email_logs' => 'Email Logs',
+    'group_sync_logs' => 'Gruppen Synchronisierungs Logs',
     'action' => 'Aktion',
     'action_info' => 'Aktion Info',
     'groups_removed' => 'Groups Removed',
     'groups_added' => 'Groups Added',
-    
+
     // Updates
     'update' => 'Update',
     'current_version_x' => 'Aktuelle Version: <strong>{x}</strong>', // Don't replaec {x}
@@ -567,9 +601,9 @@ $language = array(
     'link_location_required' => 'Ein Linkstandort ist erforderlich.',
     'page_title_minimum_2' => 'Der Seitentitel muss mindestens 2 Zeichen lang sein.',
     'page_url_minimum_2' => 'Der Seitenpfad muss mindestens 2 Zeichen lang sein.',
-    'page_title_maximum_30' => 'Der Seitentitel darf maximal 30 Zeichen lang sein.',
+    'page_title_maximum_255' => 'Der Seitentitel darf maximal 255 Zeichen lang sein.',
     'page_icon_maximum_64' => 'Das Seitensymbol darf maximal 64 Zeichen lang sein.',
-    'page_url_maximum_20' => 'Der Seitenpfad darf maximal 20 Zeichen lang sein.',
+    'page_url_maximum_255' => 'Der Seitenpfad darf maximal 255 Zeichen lang sein.',
     'page_content_maximum_100000' => 'Der Seiteninhalt darf maximal 100000 Zeichen lang sein.',
     'page_redirect_link_maximum_512' => 'Der Seitenumleitungslink darf maximal 512 Zeichen lang sein.',
     'confirm_delete_page' => 'Möchten Sie diese Seite wirklich löschen?',
@@ -609,6 +643,7 @@ $language = array(
     'group_sync_rule_created_successfully' => 'Die Gruppensynchronisierungsregel wurde erfolgreich erstellt.',
     'group_sync_rules_updated_successfully' => 'Gruppensynchronisierungsregeln wurden erfolgreich aktualisiert.',
     'group_sync_rule_deleted_successfully' => 'Die Gruppensynchronisierungsregel wurde erfolgreich gelöscht.',
+	'group_sync_plugin_not_set_up' => 'Plugin not set up',
     'existing_rules' => 'Bestehende Regeln',
     'new_rule' => 'Neue Regel',
     'api_endpoints' => 'API-Endpunkte',
@@ -698,6 +733,7 @@ $language = array(
     'announcement_info' => 'Erstellen Sie Ankündigungen, um eine Nachricht für bestimmte Gruppen auf bestimmten Seiten Ihrer Website anzuzeigen.',
     'creating_announcement' => 'Ankündigung erstellen',
     'editing_announcement' => 'Ankündigung bearbeiten',
+    'announcement_order' => 'Ankündigungs Priorität',
     'creating_announcement_success' => 'Ankündigung erfolgreich erstellt.',
     'editing_announcement_success' => 'Ankündigung erfolgreich aktualisiert.',
     'creating_announcement_failure' => 'Die Erstellung der Ankündigung ist fehlgeschlagen.',
@@ -705,7 +741,6 @@ $language = array(
     'announcement_icon_instructions' => 'Sie können hier auch jeder Ankündigung ein Symbol hinzufügen, z. B. <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>, <a href="https://semantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Semantic UI</a>.',
     'header' => 'Header',
     'message' => 'Nachricht',
-    'pages' => 'Seiten',
     'text_colour' => 'Text Farbe',
     'background_colour' => 'Hintergrund Farbe',
     'closable' => 'Schließbar',
@@ -717,31 +752,4 @@ $language = array(
     'background_colour_required' => 'Hintergrundfarbe ist erforderlich',
     'text_colour_required' => 'Textfarbe ist erforderlich ',
     'no_announcements' => 'Es wurden noch keine Ankündigungen gemacht.',
-
-    // Discord
-    'discord' => 'Discord',
-    'enable_discord_integration' => 'Discord-Integration aktivieren?',
-    'discord_role_id' => 'Discord Rollen ID',
-    'discord_role_id_numeric' => 'Die ID der Discord Rolle muss numerisch sein.',
-    'discord_role_id_length' => 'Die Discord Rollen ID muss 18 Stellen lang sein.',
-    'discord_settings_updated' => 'Ihre Discord-Einstellungen wurden erfolgreich aktualisiert.',
-    'discord_guild_id_required' => 'Bitte geben Sie Ihre Discord Server ID ein, damit die Discord-Integration funktioniert.',
-    'discord_bot_url' => 'Discord Bot URL',
-    'discord_bot_url_info' => 'Der Speicherort Ihrer benutzerdefinierten Instanz des Nameless Link-Bots. Ändern Sie diesen Wert nur, wenn Sie wissen, was Sie tun!',
-    'discord_bot_url_required' => 'Bitte geben Sie Ihre Bot-URL ein, damit die Discord-Integration funktioniert.',
-    'discord_invalid_api_url' => 'Ihre API-URL hat sich anscheinend geändert. Bitte lassen Sie den Inhaber oder einen Admin die URL mit dem Nameless Link-Bot aktualisieren.',
-    'test_bot_url' => 'Testen Sie die Bot-URL',
-    'discord_bot_url_valid' => 'Ihre Bot-URL ist gültig.',
-    'discord_cannot_interact' => 'Der Nameless Link-Bot kann in Discord nicht mit diesem Benutzer interagieren. Ist ihre Rolle höher als die Rolle des Nameless-Links?',
-
-    // Discord bot Errors
-    'discord_bot_error_badparameter' => 'Ungültiger Anfragetext.',
-    'discord_bot_error_error' => 'Ein interner Bot-Fehler ist aufgetreten.',
-    'discord_bot_error_invguild' => 'Vorausgesetzt, die Gilden-ID ist ungültig oder der Bot ist nicht darin.',
-    'discord_bot_error_invuser' => 'Die angegebene Benutzer-ID ist ungültig oder befindet sich nicht in der angegebenen Gilde.',
-    'discord_bot_error_notlinked' => 'Der Bot ist für die angegebene Gilden-ID nicht mit dieser Website verlinkt.',
-    'discord_bot_error_unauthorized' => 'Der Website-API-Schlüssel ist ungültig',
-    'discord_bot_error_invrole' => 'Die angegebene Rollen-ID ist ungültig.',
-    'discord_bot_error_hierarchy' => 'Der Bot kann die Rolle dieses Benutzers nicht bearbeiten.'
-
 );

@@ -16,7 +16,7 @@ class InfoEndpoint extends EndpointBase {
 
     public function execute(Nameless2API $api) {
         // Get version, update info and modules from database
-        $version_query = $api->getDb()->query('SELECT `name`, `value` FROM nl2_settings WHERE `name` = ? OR `name` = ? OR `name` = ? OR `name` = ?', array('nameless_version', 'version_checked', 'version_update', 'new_version'));
+        $version_query = $api->getDb()->selectQuery('SELECT `name`, `value` FROM nl2_settings WHERE `name` = ? OR `name` = ? OR `name` = ? OR `name` = ?', array('nameless_version', 'version_checked', 'version_update', 'new_version'));
         if ($version_query->count()) {
             $version_query = $version_query->results();
         }

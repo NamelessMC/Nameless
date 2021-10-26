@@ -56,7 +56,7 @@
                                                     <a class="btn btn-warning btn-sm" href="{$custom_page.edit_link}"><i
                                                                 class="fas fa-edit fa-fw"></i></a>
                                                     <button class="btn btn-danger btn-sm" type="button"
-                                                            onclick="showDeleteModal('{$custom_page.delete_link}')"><i
+                                                            onclick="showDeleteModal('{$custom_page.id}')"><i
                                                                 class="fas fa-trash fa-fw"></i></button>
                                                 </div>
                                             </td>
@@ -99,8 +99,9 @@
                     {$CONFIRM_DELETE_PAGE}
                 </div>
                 <div class="modal-footer">
+                    <input type="hidden" id="deleteId" value="">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">{$NO}</button>
-                    <a href="#" id="deleteLink" class="btn btn-primary">{$YES}</a>
+                    <button type="button" onclick="deletePage()" class="btn btn-primary">{$YES}</button>
                 </div>
             </div>
         </div>
@@ -112,10 +113,18 @@
 {include file='scripts.tpl'}
 
 <script type="text/javascript">
-  function showDeleteModal(id) {
-    $('#deleteLink').attr('href', id);
-    $('#deleteModal').modal().show();
-  }
+    function showDeleteModal(id) {
+        $('#deleteId').attr('value', id);
+        $('#deleteModal').modal().show();
+    }
+  
+    function deletePage() {
+        const id = $('#deleteId').attr('value');
+        if (id) {
+            const response = $.post("{$DELETE_LINK}", { id, action: 'delete', token: "{$TOKEN}" });
+            response.done(function() { window.location.reload(); });
+        }
+    }
 </script>
 
 </body>

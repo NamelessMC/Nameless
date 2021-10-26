@@ -31,7 +31,7 @@ $page_title = $language->get('admin', 'update');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
 
 if (isset($success))
     $smarty->assign(array(
@@ -85,6 +85,15 @@ if (!isset($update_check->error) && !isset($update_check->no_update) && isset($u
         'INSTRUCTIONS' => $language->get('admin', 'instructions'),
         'INSTRUCTIONS_VALUE' => Output::getPurified($instructions)
     ));
+}
+
+// PHP version check
+if (version_compare(phpversion(), '7.4', '<')) {
+    $smarty->assign('PHP_WARNING', $language->get('admin', 'upgrade_php_version'));
+
+    if (NAMELESS_VERSION !== '2.0.0-pr11') {
+        $smarty->assign('PREVENT_UPGRADE', true);
+    }
 }
 
 $smarty->assign(array(

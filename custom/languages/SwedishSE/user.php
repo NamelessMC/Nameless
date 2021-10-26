@@ -2,11 +2,11 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
- *  Translated by IsS127
+ *  Translated by IsS127, ItsLynix
  *  SwedishSE Language - User
  */
 
@@ -14,7 +14,7 @@ $language = array(
     /*
      *  Change this for the account validation message
      */
-    'validate_account_command' => 'To complete registration, please execute the command <strong>/validate {x}</strong> ingame.', // Don't replace {x}
+    'validate_account_command' => 'För att slutföra registreringen, vänligen kör kommandot <strong>/verify {x}</strong> i spelet.', // Don't replace {x}
 
     /*
      *  User Related
@@ -32,11 +32,12 @@ $language = array(
     'messaging' => 'Meddelande',
     'click_here_to_view' => 'Klicka här för att visa.',
     'moderation' => 'Moderation',
-    'administration' => 'Administration',
     'alerts' => 'Alerts',
     'delete_all' => 'Radera Alla',
     'private_profile' => 'Privat profil',
-    'gif_avatar' => 'Upload .gif as custom avatar',
+    'gif_avatar' => 'Ladda upp .gif som anpassad avatar',
+    'placeholders' => 'Placeholders',
+    'no_placeholders' => 'No Placeholders',
 
     // Profile settings
     'field_is_required' => '{x} krävs', // Don't replace {x}
@@ -57,20 +58,20 @@ $language = array(
     'tfa_enter_code' => 'Ange koden som visas i din autentiseringsapp:',
     'invalid_tfa' => 'Ogiltig kod, försök igen.',
     'tfa_successful' => 'Two factor authentication har upprättats. Du måste autentisera varje gång du loggar in från och med nu.',
-    'active_language' => 'Aktiv Språk',
-    'active_template' => 'Active Template',
-    'timezone' => 'Tidzon',
+    'active_language' => 'Aktivt Språk',
+    'active_template' => 'Aktiv Mall',
+    'timezone' => 'Tidszon',
     'upload_new_avatar' => 'Ladda upp en ny avatar',
-    'nickname_already_exists' => 'Your chosen nickname already exists.',
-    'change_email_address' => 'Change Email Address',
-    'email_already_exists' => 'The email address you have entered already exists.',
-    'email_changed_successfully' => 'Email address changed successfully.',
+    'nickname_already_exists' => 'Ditt valda smeknamn finns redan.',
+    'change_email_address' => 'Ändra e-postadress',
+    'email_already_exists' => 'Den e-postadress du har angett finns redan.',
+    'email_changed_successfully' => 'E-postadressen har ändrats framgångsrikt.',
     'avatar' => 'Avatar',
-    'profile_banner' => 'Profile Banner',
-    'upload_profile_banner' => 'Upload Profile Banner',
+    'profile_banner' => 'Profilbanner',
+    'upload_profile_banner' => 'Ladda upp profilbanner',
     'upload' => 'Upload',
-    'topic_updates' => 'Get emails for topics you follow',
-    'gravatar' => 'Use Gravatar as avatar',
+    'topic_updates' => 'Få e-postmeddelanden för ämnen du följer',
+    'gravatar' => 'Använd Gravatar som avatar',
 
     // Alerts
     'user_tag_info' => 'Du har blivit taggat i ett inlägg av {x}.', // Don't replace {x}
@@ -117,7 +118,6 @@ $language = array(
     'password_minimum_6' => 'Ditt lösenord måste minst innehålla 3 tecken.',
     'username_maximum_20' => 'Ditt användrarnamn får högst innehålla 20 tecken.',
     'mcname_maximum_20' => 'Ditt Minecraft användrarnamn får högst innehålla 20 tecken',
-    'password_maximum_30' => 'Ditt lösenord får högst innehålla 30 tecken.',
     'passwords_dont_match' => 'Dina lösenord matchar inte.',
     'username_mcname_email_exists' => 'Användrarnamnet eller e-postadressen finns redan.',
     'invalid_mcname' => 'Ditt Minecraft användarnamn är ogiltigt.',
@@ -130,7 +130,7 @@ $language = array(
     'verification_failed' => 'Verifiering misslyckades, vänligen försök igen.',
     'verification_success' => 'Du har validerats! Nu kan du logga in.',
     'authme_username_exists' => 'Ditt Authme konto har redan anslutits till den här webbplatsen!',
-    'uuid_already_exists' => 'Your UUID already exists, meaning this Minecraft account has already registered.',
+    'uuid_already_exists' => 'Ditt UUID finns redan, vilket betyder att detta Minecraft-konto redan har registrerats.',
 
     // Login
     'successful_login' => 'Du har loggat in.',
@@ -142,6 +142,8 @@ $language = array(
     'must_input_email' => 'Du måste ange ett e-postmeddelandet.',
     'must_input_username' => 'Du måste ange ett användarnamn.',
     'must_input_password' => 'Du måste ange ett lösenord.',
+    'must_input_email_or_username' => 'You must input an email or username.',
+    'email_or_username' => 'Email or Username',
 
     // Forgot password
     'forgot_password_instructions' => 'Var god och ange din e-postadress så att vi kan skicka dig ytterligare instruktioner om hur du återställer ditt lösenord.',
@@ -184,11 +186,10 @@ $language = array(
     'user_unblocked' => 'Användrare avblockerad.',
     'views' => 'Profil Visningar:',
     'private_profile_page' => 'Det här är en privat profil!',
-    'new_wall_post_reply' => '{x} has replied to your post on {y}\'s profile.', // Don't replace {x} or {y}
-    'new_wall_post_reply_your_profile' => '{x} has replied to your post on your profile.', // Don't replace {x}
-    'no_about_fields' => 'This user has not added any about fields yet.',
-    'reply' => 'Reply',
-    'discord_username' => 'Discord Username',
+    'new_wall_post_reply' => '{x} har svarat på ditt inlägg på {y}\'s profil.', // Don't replace {x} or {y}
+    'new_wall_post_reply_your_profile' => '{x} har svarat på ditt inlägg på din profil.', // Don't replace {x}
+    'no_about_fields' => 'Den här användaren har inte lagt till några om fält ännu.',
+    'reply' => 'Svara',
 
     // Reports
     'invalid_report_content' => 'Det gick inte att skapa en anmäla. Var god och se till att din anmälnings orsak är mellan 2 och 1024 tecken.',
@@ -199,9 +200,9 @@ $language = array(
     'no_messages' => 'Inga nya meddelanden',
     'no_messages_full' => 'Du har inga meddelanden.',
     'view_messages' => 'Visa meddelanden',
-    '1_new_message' => 'You have 1 new message',
+    '1_new_message' => 'Du har 1 nytt meddelande',
     'x_new_messages' => 'Du har {x} nya meddelanden', // Don't replace {x}
-    'new_message' => 'Ny meddelande',
+    'new_message' => 'Nytt meddelande',
     'message_title' => 'Meddelande Titel',
     'to' => 'Till',
     'separate_users_with_commas' => 'Separera användrare med kommatecken',
@@ -221,9 +222,9 @@ $language = array(
     'leave_conversation' => 'Lämna konversationen',
     'confirm_leave' => 'Är du säker på att du vill lämna den här konversationen?',
     'one_or_more_users_blocked' => 'Du kan inte skicka privata meddelanden till minst en medlem i samtalet.',
-    'messages' => 'Messages',
-    'latest_profile_posts' => 'Latest Profile Posts',
-    'no_profile_posts' => 'No profile posts.',
+    'messages' => 'Meddelanden',
+    'latest_profile_posts' => 'Senaste profil inlägg',
+    'no_profile_posts' => 'Inga profil inlägg.',
 
     /*
      *  Infractions area
@@ -235,22 +236,6 @@ $language = array(
     /*
      *  Hooks
      */
-    'user_x_has_registered' => '{x} has joined ' . SITE_NAME . '!',
-    'user_x_has_validated' => '{x} has validated their account!',
-
-    // Discord
-    'discord_link' => 'Discord Link',
-    'linked' => 'Linked',
-    'not_linked' => 'Not Linked',
-    'discord_id' => 'Discord User ID',
-    'discord_id_unlinked' => 'Successfully unlinked your Discord User ID.',
-    'discord_id_confirm' => 'Please send this message: "!verify {guild_id}:{token}" to {bot_username} to confirm your Discord User ID.',
-    'pending_link' => 'Pending',
-    'discord_id_taken' => 'That Discord ID has already been taken.',
-    'discord_invalid_id' => 'That Discord User ID is invalid.',
-    'discord_already_pending' => 'You already have a pending verification.',
-    'discord_database_error' => 'The Nameless Link database is currently down. Please try again later.',
-    'discord_communication_error' => 'There was an error while communicating with the Discord Bot. Please ensure the bot is running and your Bot URL is correct.',
-    'discord_unknown_error' => 'There was an unknown error while syncing Discord roles. Please contact an administrator.',
-    'discord_id_help' => 'For information on where to find Discord ID\'s, please read <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">this.</a>'
+    'user_x_has_registered' => '{x} gått med ' . SITE_NAME . '!',
+    'user_x_has_validated' => '{x} har verifierat deras konto!',
 );

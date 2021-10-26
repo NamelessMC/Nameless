@@ -47,7 +47,7 @@ try {
 }
 
 try {
-    $topics = DB::getInstance()->query('SELECT id, label FROM nl2_topics WHERE label IS NOT NULL')->results();
+    $topics = DB::getInstance()->selectQuery('SELECT id, label FROM nl2_topics WHERE label IS NOT NULL')->results();
     if (count($topics)) {
         foreach ($topics as $topic) {
             DB::getInstance()->createQuery('UPDATE nl2_topics SET labels = ? WHERE id = ?', array($topic->label, $topic->id));

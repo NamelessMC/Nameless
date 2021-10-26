@@ -52,7 +52,7 @@ if (isset($_GET['pid']) && isset($_GET['tid'])) {
  *  Is the post the first in the topic? If so, allow the title to be edited.
  */
 
-$post_editing = $queries->orderWhere("posts", "topic_id = " . $topic_id, "id", "ASC LIMIT 1");
+$post_editing = DB::getInstance()->selectQuery('SELECT * FROM nl2_posts WHERE topic_id = ? ORDER BY id ASC LIMIT 1', array($topic_id))->results();
 
 // Check topic exists
 if (!count($post_editing)) {
@@ -238,7 +238,7 @@ if (isset($edit_title) && isset($post_labels)) {
                 // Get label HTML
                 $label_html = $queries->getWhere('forums_labels', array('id', '=', $label->label));
                 if (!count($label_html)) continue;
-                else $label_html = str_replace('{x}', Output::getClean($label->name), $label_html[0]->html);
+                else $label_html = str_replace('{x}', Output::getClean($label->name), Output::getPurified($label_html[0]->html));
 
                 $labels[] = array(
                     'id' => $label->id,
@@ -304,7 +304,7 @@ if ($formatting == 'markdown') {
 }
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
 
 $page_load = microtime(true) - $start;
 define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));

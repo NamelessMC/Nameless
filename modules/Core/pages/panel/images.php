@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.0.0-pr10
  *
  *  License: MIT
  *
@@ -94,7 +94,7 @@ if (Input::exists()) {
 
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
 
 if (Session::exists('panel_images_success'))
     $success = Session::flash('panel_images_success');
@@ -235,15 +235,15 @@ foreach ($images as $image) {
 }
 
 if (!is_writable(ROOT_PATH . '/uploads/backgrounds')) {
-    $smarty->assign('FAVICONS_DIRECTORY_NOT_WRITABLE', str_replace('{x}', 'uploads/backgrounds', $language->get('admin', 'x_directory_not_writable')));
+    $smarty->assign('BACKGROUNDS_NOT_WRITABLE', str_replace('{x}', 'uploads/backgrounds', $language->get('admin', 'x_directory_not_writable')));
 }
 
 if (!is_writable(ROOT_PATH . '/uploads/template_banners')) {
-    $smarty->assign('FAVICONS_DIRECTORY_NOT_WRITABLE', str_replace('{x}', 'uploads/template_banners', $language->get('admin', 'x_directory_not_writable')));
+    $smarty->assign('TEMPLATE_BANNERS_DIRECTORY_NOT_WRITABLE', str_replace('{x}', 'uploads/template_banners', $language->get('admin', 'x_directory_not_writable')));
 }
 
 if (!is_writable(ROOT_PATH . '/uploads/logos')) {
-    $smarty->assign('FAVICONS_DIRECTORY_NOT_WRITABLE', str_replace('{x}', 'uploads/logos', $language->get('admin', 'x_directory_not_writable')));
+    $smarty->assign('LOGOS_DIRECTORY_NOT_WRITABLE', str_replace('{x}', 'uploads/logos', $language->get('admin', 'x_directory_not_writable')));
 }
 
 if (!is_writable(ROOT_PATH . '/uploads/favicons')) {

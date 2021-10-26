@@ -69,6 +69,7 @@ $language = array(
     'invalid_timezone' => 'That timezone is invalid',
     'link' => 'Link',
     'unlink' => 'Unlink',
+    'leaderboards' => 'Leaderboards',
     
     /*
      *  Contact form
@@ -89,6 +90,11 @@ $language = array(
     'home' => 'Home',
     'more' => 'More',
     'status' => 'Status',
+
+    /*
+     *  Footer
+     */
+    'links' => 'Links',
 
     /*
      *  Homepage

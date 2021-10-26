@@ -56,7 +56,7 @@
                                                 {if isset($UPDATE_UUID)}<a class="dropdown-item"
                                                                            href="{$UPDATE_UUID_LINK}">{$UPDATE_UUID}</a>{/if}
                                                 {if isset($VALIDATE_USER)}<a class="dropdown-item"
-                                                                             href="{$VALIDATE_USER_LINK}">{$VALIDATE_USER}</a>{/if}
+                                                                             href="#" onclick="validateUser()">{$VALIDATE_USER}</a>{/if}
                                             </div>
                                         </div>
                                         <a href="{$BACK_LINK}" class="btn btn-warning">{$BACK}</a>
@@ -215,12 +215,22 @@
     <!-- End Wrapper -->
 </div>
 
+<form style="display:none" action="{$VALIDATE_USER_LINK}" method="post" id="validateUserForm">
+    <input type="hidden" name="token" value="{$TOKEN}" />
+</form>
+
 {include file='scripts.tpl'}
 
 <script type="text/javascript">
     {if isset($DELETE_USER)}
     function showDeleteModal() {
       $('#deleteModal').modal().show();
+    }
+    {/if}
+
+    {if isset($VALIDATE_USER)}
+    function validateUser() {
+      $('#validateUserForm').submit();
     }
     {/if}
 </script>

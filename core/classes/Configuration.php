@@ -11,13 +11,11 @@
 
 class Configuration {
 
-    /** @var DB */
-    private $_db;
-    
-    /** @var Cache */
-    private $_cache;
+    private DB $_db;
 
-    public function __construct($cache){
+    private Cache $_cache;
+
+    public function __construct(Cache $cache) {
         $this->_db = DB::getInstance();
         $this->_cache = $cache;
     }
@@ -30,7 +28,7 @@ class Configuration {
      *
      * @return mixed Configuration value
      */
-    public function get($module, $setting) {
+    public function get(string $module, string $setting) {
         if ($module == null || $setting == null) {
             throw new InvalidArgumentException('Parameter is null');
         }
@@ -41,7 +39,7 @@ class Configuration {
         if ($this->_cache->isCached($setting)) {
             return $this->_cache->retrieve($setting);
         } else {
-            $data = $this->_db->query('SELECT value FROM `nl2_'. Output::getClean($module) .'settings` WHERE `name` = ?', array($setting));
+            $data = $this->_db->selectQuery('SELECT value FROM `nl2_'. Output::getClean($module) .'settings` WHERE `name` = ?', array($setting));
             if ($data->count()) {
                 $results = $data->results();
                 $this->_cache->store($setting, $results[0]->value);
@@ -59,7 +57,7 @@ class Configuration {
      *
      * @return void
      */
-    public function set($module, $setting, $value) {
+    public function set(string $module, string $setting, $value): void {
         if ($module == null || $setting == null || $value === null ) {
             throw new InvalidArgumentException('Parameter is null');
         }

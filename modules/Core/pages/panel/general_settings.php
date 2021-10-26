@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -193,8 +193,16 @@ if (Input::exists()) {
             if (Input::get('friendlyURL') == 'true') $friendly = true;
             else $friendly = false;
 
-            if (is_writable(ROOT_PATH . '/' . join(DIRECTORY_SEPARATOR, array('core', 'config.php')))) {
+            // Force HTTPS?
+            if (Input::get('forceHTTPS') == 'true') $https = true;
+            else $https = false;
 
+            // Force WWW?
+            if (Input::get('forceWWW') == 'true') $www = true;
+            else $www = false;
+
+            // Update config
+            if (is_writable(ROOT_PATH . '/' . join(DIRECTORY_SEPARATOR, array('core', 'config.php')))) {
                 // Require config
                 if (isset($path) && file_exists($path . 'core/config.php')) {
                     $loadedConfig = json_decode(file_get_contents($path . 'core/config.php'), true);
@@ -206,47 +214,12 @@ if (Input::exists()) {
                     $GLOBALS['config'] = $loadedConfig;
                 }
 
-                // Make string to input
-                Config::set('core/friendly', $friendly);
+                Config::setMultiple(array(
+                    'core/friendly' => $friendly,
+                    'core/force_https' => $https,
+                    'core/force_www' => $www
+                ));
             } else $errors = array($language->get('admin', 'config_not_writable'));
-
-            // Force HTTPS?
-            if (Input::get('forceHTTPS') == 'true')
-                $https = 'true';
-            else
-                $https = 'false';
-
-            $force_https_id = $queries->getWhere('settings', array('name', '=', 'force_https'));
-            if (count($force_https_id)) {
-                $force_https_id = $force_https_id[0]->id;
-                $queries->update('settings', $force_https_id, array(
-                    'value' => $https
-                ));
-            } else {
-                $queries->create('settings', array(
-                    'name' => 'force_https',
-                    'value' => $https
-                ));
-            }
-
-            // Force WWW?
-            if (Input::get('forceWWW') == 'true')
-                $www = 'true';
-            else
-                $www = 'false';
-
-            $force_www_id = $queries->getWhere('settings', array('name', '=', 'force_www'));
-            if (count($force_www_id)) {
-                $force_www_id = $force_www_id[0]->id;
-                $queries->update('settings', $force_www_id, array(
-                    'value' => $www
-                ));
-            } else {
-                $queries->create('settings', array(
-                    'name' => 'force_www',
-                    'value' => $www
-                ));
-            }
 
             /*
             if(!empty($_POST["allowedProxies"])) {
@@ -271,13 +244,6 @@ if (Input::exists()) {
 
             Log::getInstance()->log(Log::Action('admin/core/general'));
 
-            // Update cache
-            $cache->setCache('force_https_cache');
-            $cache->store('force_https', $https);
-
-            $cache->setCache('force_www_cache');
-            $cache->store('force_www', $www);
-
             Session::flash('general_language', $language->get('admin', 'settings_updated_successfully'));
 
             // Redirect in case URL type has changed
@@ -300,7 +266,7 @@ if (Input::exists()) {
 }
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
 
 if (Session::exists('general_language'))
     $success = Session::flash('general_language');
@@ -401,7 +367,8 @@ $smarty->assign(array(
     'LOGIN_METHOD' => $language->get('admin', 'login_method'),
     'LOGIN_METHOD_VALUE' => $method,
     'EMAIL' => $language->get('user', 'email'),
-    'USERNAME' => $language->get('user', 'username')
+    'EMAIL_OR_USERNAME' => $language->get('user', 'email_or_username'),
+    'USERNAME' => $language->get('user', 'username'),
 ));
 
 $page_load = microtime(true) - $start;

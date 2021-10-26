@@ -16,7 +16,7 @@ $page_title = $language->get('general', 'register');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
 
 // Validate code
 if(!isset($_GET['c'])){
@@ -44,8 +44,7 @@ if(!isset($_GET['c'])){
                     $validation = $validate->check($_POST, [
                         'password' => [
                             Validate::REQUIRED => true,
-                            Validate::MIN => 6,
-                            Validate::MAX => 30
+                            Validate::MIN => 6
                         ],
                         'password_again' => [
                             Validate::MATCHES => 'password'
@@ -57,8 +56,7 @@ if(!isset($_GET['c'])){
                     ])->messages([
                         'password' => [
                             Validate::REQUIRED => $language->get('user', 'password_required'),
-                            Validate::MIN => $language->get('user', 'password_minimum_6'),
-                            Validate::MAX => $language->get('user', 'password_maximum_30')
+                            Validate::MIN => $language->get('user', 'password_minimum_6')
                         ],
                         'password_again' => $language->get('user', 'passwords_dont_match'),
                         't_and_c' => $language->get('user', 'accept_terms')
@@ -82,7 +80,7 @@ if(!isset($_GET['c'])){
                             'username' => $target_user->getDisplayname(),
                             'uuid' => Output::getClean($target_user->data()->uuid),
                             'content' => str_replace('{x}', $target_user->getDisplayname(), $language->get('user', 'user_x_has_validated')),
-                            'avatar_url' => $target_user->getAvatar(null, 128, true),
+                            'avatar_url' => $target_user->getAvatar(128, true),
                             'url' => Util::getSelfURL() . ltrim($target_user->getProfileURL(), '/'),
                             'language' => $language
                         ));

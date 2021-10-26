@@ -4,7 +4,6 @@
 <head>
 
     <meta charset="{$LANG_CHARSET}">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="{$TITLE}">
 
@@ -28,6 +27,7 @@
     <br /><br />
     <div class="container">
         <div class="row">
+
             <div class="col-md-{if $DETAILED_ERROR}12{else}6 offset-md-3{/if}">
                 <div class="jumbotron">
                     <div style="text-align:{if $DETAILED_ERROR} left {else} center {/if};">

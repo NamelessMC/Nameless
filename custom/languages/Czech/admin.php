@@ -3,7 +3,7 @@
  *  Made by Samerton
  *  Translated by Fjuro
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -22,7 +22,6 @@ $language = array (
     'configuration' => 'Konfigurace',
     'layout' => 'Rozložení',
     'user_management' => 'Správce uživatelů',
-    'administration' => 'Správa',
     'overview' => 'Přehled',
     'core' => 'Jádro',
     'integrations' => 'Integrace',
@@ -42,6 +41,7 @@ $language = array (
     'notices' => 'Upozornění',
     'no_notices' => 'Žádná upozornění.',
     'email_errors_logged' => 'Byly zaznamenány chyby e-mailů',
+    'upgrade_php_version' => 'AKtualizujte prosím PHP alespoň na verzi 7.4 - další vydání Nameless již nebude podporovat verzi, kterou používáte.',
 
     // Core
     'mode_toggle' => 'Světlý / tmavý režim',
@@ -49,7 +49,7 @@ $language = array (
     'general_settings' => 'Obecná nastavení',
     'sitename' => 'Název webu',
     'default_language' => 'Výchozí jazyk',
-    'default_language_help' => 'Uživatelé si budou moct vybrat z nainstalovaných jazyků.',
+    'default_language_help' => 'Uživatelé si budou moci vybrat z nainstalovaných jazyků.',
     'install_language' => 'Nainstalovat jazyk',
     'update_user_languages' => 'Aktualizovat jazyk uživatelů',
     'update_user_languages_warning' => 'Tímto aktualizujete jazyk všech uživatelů na vašem webu, i když si už nějaký vybrali!',
@@ -105,6 +105,7 @@ $language = array (
     'mailer_settings_info' => 'Pro povolení PHPMaileru jsou vyžadována následující pole. Pro více informací, jak vyplnit tato pole, se podívejte na <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-SMTP-with-Nameless-(e.g.-Gmail-or-Outlook)" target="_blank">wiki</a>.',
     'host' => 'Hostitel',
     'email_port' => 'Port',
+    'email_port_invalid' => 'Zadejte platný e-mailový port.',
     'email_password_hidden' => 'Heslo není z bezpečnostních důvodů zobrazeno.',
     'edit_email_messages' => 'E-mailové zprávy',
     'email_language_info' => 'Nevidíte váš jazyk? Zkontrolujte, zda je v adresáři vašeho jazyka soubor \'emails.php\' a že je zapisovatelný vaším webovým serverem.',
@@ -146,11 +147,11 @@ $language = array (
     'navigation_settings_updated_successfully' => 'Nastavení navigace úspěšně aktualizována.',
     'dropdown_items' => 'Položky rozbalovací nabídky',
     'enable_page_load_timer' => 'Povolit časovač načítání stránky?',
-    'captcha_general' => 'Enable Captcha on registration and contact page?',
-    'captcha_login' => 'Enable Captcha on login page?',
+    'captcha_general' => 'Povolit Captchu na registrační a kontaktní stránce?',
+    'captcha_login' => 'Povolit Captchu na přihlašovací stránce?',
     'captcha_type' => 'Typ Captchy',
-    'captcha_site_key' => 'Captcha Site Key',
-    'captcha_secret_key' => 'Captcha Secret Key',
+    'captcha_site_key' => 'Captcha klíč webu',
+    'captcha_secret_key' => 'Captcha tajný klíč',
     'registration_disabled_message' => 'Zpráva zakázané registrace',
     'enable_nicknames_on_registration' => 'Povolit přezdívky při registraci uživatelů?',
     'validation_promote_group' => 'Skupina po ověření',
@@ -164,6 +165,35 @@ $language = array (
     'emails_mass_message_sent_successfully' => 'Hromadná zpráva úspěšně odeslána.',
     'emails_mass_message_replacements' => 'Ve vaší zprávě můžete použít proměnné. Podporované proměnné: {username}, {sitename}',
     'emails_mass_message_loading' => 'Načítání... Nenačítejte stránku znovu. Může to chvíli trvat.',
+    'administrator' => 'Administrátor',
+    'administrator_permission_info' => 'Členové s tímto oprávněním mají všechna oprávnění. Udělovat toto oprávnění je nebezpečné.',
+
+    // Placeholders
+    'placeholders' => 'Placeholdery',
+    'enable_placeholders' => 'Povolit placeholdery?',
+    'updated_placeholder_settings' => 'Nastavení placeholderů úspěšně aktualizována.',
+    'placeholders_info' => 'Placeholdery umožňují NamelessMC Spigot pluginu posílat statistiky o každém hráči na váš web, takže můžou být zobrazeny na jejich profilu a příspěvcích ve fóru.',
+    'placeholders_none' => 'Nemáte žádné placeholdery.',
+    'placeholders_server_id' => 'ID serveru',
+    'placeholders_name' => 'Název',
+    'placeholders_value' => 'Hodnota',
+    'placeholders_last_updated' => 'Naposledy aktualizováno',
+    'placeholders_friendly_name' => 'Přátelský název',
+    'placeholders_friendly_name_info' => 'Toto použijte pro nastavení \'přezdívky\' tohoto placeholderu. Přátelský název bude použit místo holého názvu.',
+    'placeholders_show_on_profile' => 'Zobrazit na profilu',
+    'placeholders_show_on_profile_info' => 'Zda zobrazit tento placeholder na profilu každého uživatele.',
+    'placeholders_show_on_forum' => 'Zobrazit na fóru',
+    'placeholders_show_on_forum_info' => 'Zda zobrazit tento placeholder na příspěvku každého uživatele.',
+
+    // Placeholder leaderboards
+    'leaderboard_settings' => 'Nastavení žebříčku',
+    'placeholder_leaderboard_settings' => 'Nastavení placeholderového žebříčku',
+    'placeholder_leaderboard_info' => 'Placeholderové žebříčky umožňují vytvářet žebříčky pro zobrazení hodnocených hráčů na vašem serveru podle jakéhokoli placeholderu.',
+    'placeholder_leaderboard_enable_info' => 'Žebříčky fungují nejlépe s číselnými placeholdery (například peníze, zabití, vytěžené bloky atd.). Pokud povolíte žebříček na textové placeholdery, nemusí být pozice řazeny správně.',
+    'placeholder_leaderboard_updated' => 'Nastavení žebříčku úspěšně aktualizována',
+    'placeholder_leaderboard_enabled' => 'Žebříček povolen',
+    'placeholder_leaderboard_title' => 'Název žebříčku',
+    'placeholder_leaderboard_sort' => 'Řazení žebříčku',
 
     // SEO
     'seo' => 'SEO',
@@ -321,7 +351,7 @@ $language = array (
     'module_disabled' => 'Doplněk zakázán.',
     'author' => 'Autor:',
     'author_x' => 'Autor: {x}', // Don't replace {x}
-    'module_outdated' => 'Zjistili jsme, že tento doplněk je určen pro verzi Nameless {x}, zatímco vy běžíte na verzi {y}', // Don't replace "{x}" or "{y}"
+    'module_outdated' => 'Zjistili jsme, že tento doplněk je určen pro verzi Nameless {x}, zatímco vy používáte verzi {y}', // Don't replace "{x}" or "{y}"
     'find_modules' => 'Najít doplňky',
     'view_all_modules' => 'Zobrazit všechny doplňky',
     'unable_to_retrieve_modules' => 'Nepodařilo se získat doplňky',
@@ -473,14 +503,13 @@ $language = array (
     'ip_address' => 'IP adresa',
     'template_changes' => 'Změna šablony',
     'email_logs' => 'Hromadné e-maily',
-    'discord_logs' => 'Změna Discord role',
     'file_changed' => 'Změna souboru',
     'all_logs' => 'Všechny protokoly',
     'action' => 'Akce',
     'action_info' => 'Informace o akci',
     'groups_removed' => 'Skupiny odebrány',
     'groups_added' => 'Skupiny přidány',
-    
+
     // Updates
     'update' => 'Aktualizovat',
     'current_version_x' => 'Současná verze: <strong>{x}</strong>', // Don't replace {x}
@@ -544,9 +573,9 @@ $language = array (
     'link_location_required' => 'Je vyžadováno umístění odkazu.',
     'page_title_minimum_2' => 'Název stránky musí obsahovat alespoň 2 znaky.',
     'page_url_minimum_2' => 'Cesta ke stránce musí obsahovat alespoň 2 znaky.',
-    'page_title_maximum_30' => 'Název stránky může obsahovat maximálně 30 znaků.',
+    'page_title_maximum_255' => 'Název stránky může obsahovat maximálně 255 znaků.',
     'page_icon_maximum_64' => 'Ikona stránky může obsahovat maximálně 64 znaků.',
-    'page_url_maximum_20' => 'Cesta ke stránce může obsahovat maximálně 20 znaků.',
+    'page_url_maximum_255' => 'Cesta ke stránce může obsahovat maximálně 255 znaků.',
     'page_content_maximum_100000' => 'Obsah stránky může obsahovat maximálně 100 000 znaků.',
     'page_redirect_link_maximum_512' => 'Odkaz přesměrování stránky může obsahovat maximálně 512 znaků.',
     'confirm_delete_page' => 'Opravdu chcete odstranit tuto stránku?',
@@ -682,7 +711,6 @@ $language = array (
     'announcement_icon_instructions' => 'Zde také můžete každému oznámení přiřadit ikonu, například pomocí <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a> nebo <a href="https://semantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Semantic UI</a>.',
     'header' => 'Záhlaví',
     'message' => 'Zpráva',
-    'pages' => 'Stránky',
     'text_colour' => 'Barva textu',
     'background_colour' => 'Barva pozadí',
     'closable' => 'Lze zavřít',
@@ -694,30 +722,4 @@ $language = array (
     'background_colour_required' => 'Je vyžadována barva pozadí',
     'text_colour_required' => 'Je vyžadována barva textu',
     'no_announcements' => 'Zatím jste nevytvořili žádná oznámení',
-
-    // Discord
-    'discord' => 'Discord',
-    'enable_discord_integration' => 'Povolit integraci Discordu?',
-    'discord_role_id' => 'ID Discord role',
-    'discord_role_id_numeric' => 'ID Discord role může obsahovat pouze čísla.',
-    'discord_role_id_length' => 'ID Discord role musí být dlouhé 18 znaků.',
-    'discord_settings_updated' => 'Nastavení Discordu úspěšně aktualizována.',
-    'discord_id' => 'ID Discord serveru',
-    'discord_widget_theme' => 'Téma Discord widgetu',
-    'discord_id_length' => 'Ujistěte se, že vaše Discord ID je dlouhé 18 znaků.',
-    'discord_id_numeric' => 'Ujistěte se, že vaše Discord ID obsahuje pouze čísla.',
-    'discord_invite_info' => 'Pro pozvání bota Nameless Link na váš Discord server klikněte <a target="_blank" href="https://namelessmc.com/discord-bot-invite">sem</a>. Poté pošlete botovi soukromou zprávu s příkazem <code>!apiurl</code> pro propojení bota s vaším webem. Můžete také <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">sami hostovat bota</a>.',
-    'discord_bot_must_be_setup' => 'Nelze povolit integraci Discordu, dokud nenastavíte bota. Pro více informací <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">klikněte sem</a>.',
-    'discord_bot_setup' => 'Bot nastaven?',
-    'discord_integration_not_setup' => 'Integrace Discordu nenastavena',
-
-    // Discord bot Errors
-    'discord_bot_error_badparameter' => 'Neplatné tělo žádosti.',
-    'discord_bot_error_error' => 'Vyskytla se interní chyba bota.',
-    'discord_bot_error_invguild' => 'Zadané ID serveru je neplatné, nebo v něm není bot.',
-    'discord_bot_error_invuser' => 'Zadané ID uživatele je neplatné, nebo uživatel není v daném serveru.',
-    'discord_bot_error_notlinked' => 'Bot není propojen s tímto webem u zadaného ID serveru.',
-    'discord_bot_error_unauthorized' => 'API klíč webu je neplatný',
-    'discord_bot_error_invrole' => 'Zadané ID role je neplatné.',
-    'discord_bot_error_hierarchy' => 'Bot nemůže upravit role tohoto uživatele.'
 );

@@ -2,7 +2,7 @@
 /*
  *  Made by alsoGAMER
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr10
  *
  *  License: MIT
  *
@@ -69,6 +69,7 @@ $language = array(
     'invalid_timezone' => 'Quel fuso orario non è valido',
     'link' => 'Link',
     'unlink' => 'Unlink',
+    'leaderboards' => 'Leaderboards',
     
     /*
      *  Contact form
@@ -89,6 +90,11 @@ $language = array(
     'home' => 'Home',
     'more' => 'Altro',
     'status' => 'Stato',
+
+    /*
+     *  Footer
+     */
+    'links' => 'Links',
 
     /*
      *  Homepage

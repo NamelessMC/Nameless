@@ -1,12 +1,12 @@
 <?php
 /*
- *  Made by Samerton
+ *  Translated by ManiaNetwork
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr10
  *
  *  License: MIT
  *
- *  SpanishES Language - Emails
+ *  Spanish/Spain Language - Emails
  */
 
 $language = array(
@@ -16,14 +16,14 @@ $language = array(
     'thanks' => 'Gracias,',
 
     // Registration Email
-    'register_subject' => 'Validar cuenta',
-    'register_message' => '¡Gracias por registrarte! Para completar su registro, haga click en el siguiente enlace:',
+    'register_subject' => 'Validación de la cuenta',
+    'register_message' => '¡Gracias por registrarte! Para completar su registro, haga clic en el siguiente enlace:',
 
     // Change Password
-    'change_password_subject' => '¿Ha olvidado su contraseña?',
-    'change_password_message' => 'Para restablecer su contraseña, haga click en el siguiente enlace. Si no lo ha solicitado usted mismo, puede eliminarlo de forma segura.',
+    'change_password_subject' => 'Olvidó su contraseña',
+    'change_password_message' => 'Para restablecer su contraseña, haga clic en el siguiente enlace. Si no lo ha solicitado usted mismo, puede eliminar este correo electrónico con toda seguridad.',
 
     // Forum Topic Replies
-    'forum_topic_reply_subject' => '{x} has replied to {y}', // Don't remove {x} or {y}
-    'forum_topic_reply_message' => '{x} has replied to a topic you follow. Content: {z}' // Don't remove {x} or {z}
+    'forum_topic_reply_subject' => '{x} ha respondido a {y}', // Don't remove {x} or {y}
+    'forum_topic_reply_message' => '{x} ha respondido a un tema que sigues. Contenido: {z}' // Don't remove {x} or {z}
 );

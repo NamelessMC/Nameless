@@ -20,7 +20,7 @@ define('PANEL_PAGE', 'reports');
 $page_title = $language->get('moderator', 'reports');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
-$timeago = new Timeago(TIMEZONE);
+$timeago = new TimeAgo(TIMEZONE);
 
 if (!isset($_GET['id'])) {
     // Get all reports
@@ -29,11 +29,11 @@ if (!isset($_GET['id'])) {
     if (!isset($_GET['view'])) {
         // Get open reports
         if (!isset($_GET['uid'])) {
-            $report_query = DB::getInstance()->query('SELECT * FROM nl2_reports WHERE status = 0 ORDER BY date_updated DESC')->results();
+            $report_query = DB::getInstance()->selectQuery('SELECT * FROM nl2_reports WHERE status = 0 ORDER BY date_updated DESC')->results();
             $url = URL::build('/panel/users/reports/', true);
             $change_view_link = URL::build('/panel/users/reports/', 'view=closed');
         } else {
-            $report_query = DB::getInstance()->query('SELECT * FROM nl2_reports WHERE status = 0 AND reported_id = ? ORDER BY date_updated DESC', array(intval($_GET['uid'])))->results();
+            $report_query = DB::getInstance()->selectQuery('SELECT * FROM nl2_reports WHERE status = 0 AND reported_id = ? ORDER BY date_updated DESC', array(intval($_GET['uid'])))->results();
             $url = URL::build('/panel/users/reports/', 'uid=' . intval(Output::getClean($_GET['uid'])) . '&');
             $change_view_link = URL::build('/panel/users/reports/', 'view=closed&uid=' . intval(Output::getClean($_GET['uid'])));
         }
@@ -45,11 +45,11 @@ if (!isset($_GET['id'])) {
     } else {
         // Get closed reports
         if (!isset($_GET['uid'])) {
-            $report_query = DB::getInstance()->query('SELECT * FROM nl2_reports WHERE status = 1 ORDER BY date_updated DESC')->results();
+            $report_query = DB::getInstance()->selectQuery('SELECT * FROM nl2_reports WHERE status = 1 ORDER BY date_updated DESC')->results();
             $url = URL::build('/panel/users/reports/', 'view=closed&');
             $change_view_link = URL::build('/panel/users/reports');
         } else {
-            $report_query = DB::getInstance()->query('SELECT * FROM nl2_reports WHERE status = 1 AND reported_id = ? ORDER BY date_updated DESC', array(intval($_GET['uid'])))->results();
+            $report_query = DB::getInstance()->selectQuery('SELECT * FROM nl2_reports WHERE status = 1 AND reported_id = ? ORDER BY date_updated DESC', array(intval($_GET['uid'])))->results();
             $url = URL::build('/panel/users/reports/', 'view=closed&uid=' . intval(Output::getClean($_GET['uid'])) . '&');
             $change_view_link = URL::build('/panel/users/reports/', 'uid=' . intval(Output::getClean($_GET['uid'])));
         }
@@ -247,7 +247,7 @@ if (!isset($_GET['id'])) {
             'REPORTS_LINK' => URL::build('/panel/users/reports'),
             'VIEWING_REPORT' => $language->get('moderator', 'viewing_report'),
             'BACK' => $language->get('general', 'back'),
-            'REPORTED_USER' => $reported_use_name,
+            'REPORTED_USER' => $reported_user_name,
             'REPORTED_USER_PROFILE' => $reported_user_profile,
             'REPORTED_USER_STYLE' => $reported_user_style,
             'REPORTED_USER_AVATAR' => $reported_user_avatar,
@@ -348,7 +348,7 @@ if (!isset($_GET['id'])) {
 }
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
 
 if (Session::exists('report_success'))
     $success = Session::flash('report_success');

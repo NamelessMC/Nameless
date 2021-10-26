@@ -13,14 +13,13 @@
 
 class Validate {
 
-    private $_message = null;
-    private $_messages = array();
-    private $_passed = false;
-    private $_to_convert = array();
-    private $_errors = array();
+    private ?string $_message = null;
+    private array $_messages = array();
+    private bool $_passed = false;
+    private array $_to_convert = array();
+    private array $_errors = array();
     
-    /** @var DB */
-    private $_db = null;
+    private DB $_db;
     
     /**
      * Ensure this field is not empty
@@ -103,9 +102,10 @@ class Validate {
      * 
      * @param array $source inputs (eg: $_POST)
      * @param array $items subset of inputs to be validated
+     * 
      * @return Validate This instance of Validate.
      */
-    public function check(array $source, array $items = array()) {
+    public function check(array $source, array $items = array()): Validate {
 
         // Loop through the items which need validating
         foreach ($items as $item => $rules) {
@@ -124,7 +124,7 @@ class Validate {
                     $this->addError([
                         'field' => $item,
                         'rule' => Validate::REQUIRED,
-                        'fallback' => "{$item} is required."
+                        'fallback' => "$item is required."
                     ]);
                     continue;
                 } 
@@ -141,7 +141,7 @@ class Validate {
                             $this->addError([
                                 'field' => $item,
                                 'rule' => Validate::MIN,
-                                'fallback' => "{$item} must be a minimum of {$rule_value} characters."
+                                'fallback' => "$item must be a minimum of $rule_value characters."
                             ]);
                         }
                         break;
@@ -151,7 +151,7 @@ class Validate {
                             $this->addError([
                                 'field' => $item,
                                 'rule' => Validate::MAX,
-                                'fallback' => "{$item} must be a maximum of {$rule_value} characters."
+                                'fallback' => "$item must be a maximum of $rule_value characters."
                             ]);
                         }
                         break;
@@ -161,7 +161,7 @@ class Validate {
                             $this->addError([
                                 'field' => $item,
                                 'rule' => Validate::MATCHES,
-                                'fallback' => "{$rule_value} must match {$item}."
+                                'fallback' => "$rule_value must match $item."
                             ]);
                         }
                         break;
@@ -182,7 +182,7 @@ class Validate {
                             $this->addError([
                                 'field' => $item,
                                 'rule' => Validate::UNIQUE,
-                                'fallback' => "The {$rule_value}.{$item} {$value} already exists!"
+                                'fallback' => "The $rule_value.$item $value already exists!"
                             ]);
                         }
                         break;
@@ -192,7 +192,7 @@ class Validate {
                             $this->addError([
                                 'field' => $item,
                                 'rule' => Validate::EMAIL,
-                                'fallback' => "{$value} is not a valid email."
+                                'fallback' => "$value is not a valid email."
                             ]);
                         }
                         break;
@@ -202,7 +202,7 @@ class Validate {
                             $this->addError([
                                 'field' => $item,
                                 'rule' => Validate::TIMEZONE,
-                                'fallback' => "The timezone {$value} is invalid."
+                                'fallback' => "The timezone $value is invalid."
                             ]);
                         }
                         break;
@@ -218,7 +218,7 @@ class Validate {
                             $this->addError([
                                 'field' => $item,
                                 'rule' => Validate::IS_ACTIVE,
-                                'fallback' => "That {$item} is inactive. Have you validated your account or requested a password reset?"
+                                'fallback' => "That $item is inactive. Have you validated your account or requested a password reset?"
                             ]);
                         }
                         break;
@@ -234,7 +234,7 @@ class Validate {
                             $this->addError([
                                 'field' => $item,
                                 'rule' => Validate::IS_BANNED,
-                                'fallback' => "The username {$value} is banned."
+                                'fallback' => "The username $value is banned."
                             ]);
                         }
                         break;
@@ -244,7 +244,7 @@ class Validate {
                             $this->addError([
                                 'field' => $item,
                                 'rule' => Validate::ALPHANUMERIC,
-                                'fallback' => "{$item} must be alphanumeric."
+                                'fallback' => "$item must be alphanumeric."
                             ]);
                         }
                         break;
@@ -254,7 +254,7 @@ class Validate {
                             $this->addError([
                                 'field' => $item,
                                 'rule' => Validate::NUMERIC,
-                                'fallback' => "{$item} must be numeric."
+                                'fallback' => "$item must be numeric."
                             ]);
                         }
                         break;
@@ -274,9 +274,10 @@ class Validate {
      * Add generic message for any failures, specific `messages()` will override this.
      * 
      * @param string $message message to show if any failures occur.
+     * 
      * @return Validate This instance of Validate.
      */
-    public function message($message) {
+    public function message(string $message): Validate {
         $this->_message = $message;
         return $this;
     }
@@ -285,9 +286,10 @@ class Validate {
      * Add custom messages to this `Validate` instance.
      * 
      * @param array $messages array of input names and strings or arrays to use as messages.
+     * 
      * @return Validate This instance of Validate.
      */
-    public function messages(array $messages) {
+    public function messages(array $messages): Validate {
         $this->_messages = $messages;
         return $this;
     }
@@ -296,9 +298,9 @@ class Validate {
      * Add an array of information to generate an error message to the $_to_convert array.
      * These errors will be translated in the `errors()` function later.
      * 
-     * @param string $error message to add to error array
+     * @param array $error message to add to error array
      */
-    private function addError(array $error) {
+    private function addError(array $error): void {
         $this->_to_convert[] = $error;
     }
 
@@ -308,9 +310,10 @@ class Validate {
      * @param string $field name of field to search for.
      * @param string $rule rule which check failed. should be from the constants defined above.
      * @param string $fallback fallback default message if custom message and generic message are not supplied.
-     * @return Validate This instance of Validate.
+     * 
+     * @return string Message for this field and rule.
      */
-    private function getMessage($field, $rule, $fallback) {
+    private function getMessage(string $field, string $rule, string $fallback): string {
 
         // No custom messages defined for this field
         if (!isset($this->_messages[$field])) {
@@ -336,9 +339,9 @@ class Validate {
      * 
      * @return array Any and all errors for this `Validate` instance.
      */
-    public function errors() {
+    public function errors(): array {
 
-        // If errors have already been translated, dont waste time redoing it
+        // If errors have already been translated, don't waste time redoing it
         if (!empty($this->_errors)) {
             return $this->_errors;
         }
@@ -358,7 +361,6 @@ class Validate {
             // If this new error is the generic message AND it has not already been added, add it
             if ($message == $this->_message && !in_array($this->_message, $this->_errors)) {
                 $this->_errors[] = $this->_message;
-                continue;
             }
         }
 
@@ -368,9 +370,9 @@ class Validate {
     /**
      * Get if this `Validate` instance passed.
      * 
-     * @return bool whether this Validate passed or not.
+     * @return bool whether this 'Validate' passed or not.
      */
-    public function passed() {
+    public function passed(): bool {
         return $this->_passed;
     }
 

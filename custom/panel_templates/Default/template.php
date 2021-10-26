@@ -5,7 +5,7 @@
  *
  *  For NamelessMC
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -16,22 +16,16 @@
 if (!class_exists('Default_Panel_Template')) {
     class Default_Panel_Template extends TemplateBase {
 
-        // Private variable to store user
-        private $_user, $_pages;
-
-        /** @var Language */
-        private $_language;
+        private Language $_language;
 
         // Constructor - set template name, version, Nameless version and author here
-        public function __construct($cache, $smarty, $language, $user, $pages) {
+        public function __construct(Smarty $smarty, Language $language) {
             $this->_language = $language;
-            $this->_user = $user;
-            $this->_pages = $pages;
 
             parent::__construct(
                 'Default',  // Template name
-                '2.0.0-pr9',  // Template version
-                '2.0.0-pr9',  // Nameless version template is made for
+                '2.0.0-pr12',  // Template version
+                '2.0.0-pr12',  // Nameless version template is made for
                 '<a href="https://coldfiredzn.com" target="_blank">Coldfire</a>'  // Author, you can use HTML here
             );
 
@@ -247,7 +241,12 @@ if (!class_exists('Default_Panel_Template')) {
 						');
 
                         $this->addJSFiles(array(
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/ckeditor.js' => array()
+                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/ckeditor.js' => array(),
+                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/toastr/toastr.min.js' => array()
+                        ));
+
+                        $this->addCSSFiles(array(
+                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/toastr/toastr.min.css' => array()
                         ));
 
                         $this->addJSScript(Input::createEditor('InputMaintenanceMessage'));
@@ -548,6 +547,14 @@ if (!class_exists('Default_Panel_Template')) {
 
                                 $this->addJSScript('$(".image-picker").imagepicker();');
                             }
+                        } else if (MINECRAFT_PAGE == 'placeholders') {
+                            $this->addJSScript('
+                            var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
+
+                            elems.forEach(function(html) {
+                              var switchery = new Switchery(html, {color: \'#23923d\', secondaryColor: \'#e56464\'});
+                            });
+                            ');
                         }
 
                         break;
@@ -661,6 +668,9 @@ if (!class_exists('Default_Panel_Template')) {
                             (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/js/jquery-ui.min.js' => array()
                         ));
 
+                        break;
+                        
+                    case 'forum_settings':
                         $this->addJSScript('
 						var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
 
@@ -676,4 +686,4 @@ if (!class_exists('Default_Panel_Template')) {
     }
 }
 
-$template = new Default_Panel_Template($cache, $smarty, $language, $user, $pages);
+$template = new Default_Panel_Template($smarty, $language);

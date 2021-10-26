@@ -2,7 +2,7 @@
 /*
  *  Made by TheSuperSkills (Edited by Ariuw and iMaykolRD_)
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -13,7 +13,7 @@ $language = array(
     /*
      *  Change this for the account validation message
      */
-    'validate_account_command' => 'Para completar la validación, ejecute el comando <strong>/validate {x}</strong> en el servidor.', // Don't replace {x}
+    'validate_account_command' => 'Para completar la validación, ejecute el comando <strong>/verify {x}</strong> en el servidor.', // Don't replace {x}
 
     /*
      *  User Related
@@ -31,11 +31,12 @@ $language = array(
     'messaging' => 'Mensajería',
     'click_here_to_view' => 'Click aquí para ver.',
     'moderation' => 'Moderación',
-    'administration' => 'Administración',
     'alerts' => 'Alertas',
     'delete_all' => 'Eliminar todos',
     'private_profile' => 'Perfil privado',
     'gif_avatar' => 'Upload .gif as custom avatar',
+    'placeholders' => 'Placeholders',
+    'no_placeholders' => 'No Placeholders',
 
     // Profile settings
     'field_is_required' => '{x} es requerido.', // Don't replace {x}
@@ -116,7 +117,6 @@ $language = array(
     'password_minimum_6' => 'Su contraseña debe tener un mínimo de 6 caracteres.',
     'username_maximum_20' => 'Su nombre de usuario debe tener un máximo de 20 caracteres.',
     'mcname_maximum_20' => 'El nombre de usuario de Minecraft debe tener un máximo de 20 caracteres..',
-    'password_maximum_30' => 'Su contraseña debe tener un máximo de 30 caracteres..',
     'passwords_dont_match' => 'Tus contraseñas no coinciden.',
     'username_mcname_email_exists' => 'Su nombre de usuario o dirección de correo electrónico ya existe.',
     'invalid_mcname' => 'Tu nombre de usuario de Minecraft no es válido.',
@@ -141,6 +141,8 @@ $language = array(
     'must_input_email' => 'Debe introducir una dirección de correo electrónico.',
     'must_input_username' => 'Debe introducir un nombre de usuario.',
     'must_input_password' => 'Debe introducir una contraseña.',
+    'must_input_email_or_username' => 'You must input an email or username.',
+    'email_or_username' => 'Email or Username',
 
     // Forgot password
     'forgot_password_instructions' => 'Por favor, introduzca su dirección de correo electrónico para que podamos enviarle más instrucciones para restablecer su contraseña..',
@@ -187,7 +189,6 @@ $language = array(
     'new_wall_post_reply_your_profile' => '{x} ha respondido a tu publicación en tu Perfil.', // Don't replace {x}
     'no_about_fields' => 'Este usuario todavía no ha agregado ningún campo sobre el.',
     'reply' => 'Responder',
-    'discord_username' => 'Discord Username',
 
     // Reports
     'invalid_report_content' => 'No se puede crear el informe. Asegúrese de que la razón de su informe es entre 2 y 1024 caracteres.',
@@ -236,20 +237,4 @@ $language = array(
      */
     'user_x_has_registered' => '{x} se ha registado ' . SITE_NAME . '!',
     'user_x_has_validated' => '{x} has validated their account!',
-
-    // Discord
-    'discord_link' => 'Discord Link',
-    'linked' => 'Linked',
-    'not_linked' => 'Not Linked',
-    'discord_id' => 'Discord User ID',
-    'discord_id_unlinked' => 'Successfully unlinked your Discord User ID.',
-    'discord_id_confirm' => 'Please send this message: "!verify {guild_id}:{token}" to {bot_username} to confirm your Discord User ID.',
-    'pending_link' => 'Pending',
-    'discord_id_taken' => 'That Discord ID has already been taken.',
-    'discord_invalid_id' => 'That Discord User ID is invalid.',
-    'discord_already_pending' => 'You already have a pending verification.',
-    'discord_database_error' => 'The Nameless Link database is currently down. Please try again later.',
-    'discord_communication_error' => 'There was an error while communicating with the Discord Bot. Please ensure the bot is running and your Bot URL is correct.',
-    'discord_unknown_error' => 'There was an unknown error while syncing Discord roles. Please contact an administrator.',
-    'discord_id_help' => 'For information on where to find Discord ID\'s, please read <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">this.</a>'
 );

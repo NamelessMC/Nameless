@@ -151,7 +151,10 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">{$NO}</button>
-                    <a href="#" id="deleteLink" class="btn btn-primary">{$YES}</a>
+                    <form action="" method="post" id="deleteLink" style="display: inline">
+                        <input type="hidden" name="token" value="{$TOKEN}" />
+                        <input type="submit" class="btn btn-primary" value="{$YES}" />
+                    </form>
                 </div>
             </div>
         </div>
@@ -164,7 +167,7 @@
 
 <script type="text/javascript">
   function showDeleteModal(link) {
-    $('#deleteLink').attr('href', link);
+    $('#deleteLink').attr('action', link);
     $('#deleteModal').modal().show();
   }
 </script>
@@ -186,9 +189,9 @@
 
         $.ajax({
           url: "{$REORDER_DRAG_URL}",
-          type: "GET",
+          type: "POST",
           data: {
-            action: "order",
+            token: "{$TOKEN}",
             {literal}servers: JSON.stringify({"servers": toSubmit}){/literal}
           },
           success: function (response) {

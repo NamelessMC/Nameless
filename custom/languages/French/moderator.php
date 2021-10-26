@@ -1,8 +1,8 @@
 <?php
 /*
- *	Made by White.
+ *	Made by White, Ikiae.
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr10
  *
  *  License: MIT
  *
@@ -10,8 +10,7 @@
  */
 
 $language = array(
-    'mod_cp' => 'Mod Panel',
-    'staff_cp' => 'Admin Panel',
+    'staff_cp' => 'Panneau d\'administration',
     'overview' => 'Vue d\'ensemble',
 
     // Spam
@@ -26,9 +25,9 @@ $language = array(
     'search_for_ip' => 'Recherche d’un nom d’utilisateur ou d’une adresse IP',
     'no_ips_with_username' => 'Aucune adresse IP n’a été trouvée pour cet utilisateur.',
     'no_accounts_with_that_ip' => 'Aucun compte pour cette adresse IP n’a été trouvé.',
-    '1_account_with_ip' => 'Trouvé 1 compte avec l’adresse IP {y}', // Don't replace "{y}"
+    '1_account_with_ip' => 'Trouvé un compte avec l’adresse IP {y}', // Don't replace "{y}"
     'count_accounts_with_ip' => 'Trouvé {x} compte avec cette adresse IP {y}', // Don't replace "{x}" or "{y}"
-    '1_ip_with_name' => 'Found 1 IP address for user {y}', // Don't replace "{y}"
+    '1_ip_with_name' => 'Trouvé une adresse IP pour l\'utilisateur {y}', // Don't replace "{y}"
     'count_ips_with_name' => 'Trouvé {x} utilisateurs avec cette adresse IP {y}', // Don't replace "{x}" or "{y}"
     'no_users_or_ips_found' => 'Pas d’utilisateurs ou d’adresses IP trouvés.',
 
@@ -51,15 +50,15 @@ $language = array(
     '1_open_report' => 'Il y a actuellement <strong>1</strong> signalement ouvert.',
     'open_reports' => 'Il y a actuellement <strong>{x}</strong> signalements ouverts.', // Don't replace {x}
     'no_open_reports' => 'Il n\'y a actuellement aucun signalement ouvert.',
-    'no_closed_reports' => 'Il n’y a actuellement aucun signalement clos.',
+    'no_closed_reports' => 'Il n’y a actuellement aucun signalement fermé.',
     'recent_reports' => 'Recent Reports',
     'reported_by' => 'Signalé par:',
-    'website' => 'Site-web',
+    'website' => 'Site web',
     'ingame' => 'En jeux',
     'x_closed_report' => '{x} a fermé ce signalement.', // Don't replace {x} (username)
     'x_reopened_report' => '{x} a rouvert ce signalement.', // Don't replace {x} (username)
     'report_reopened' => 'Signalement rouvert avec succès.',
-    'report_closed' => 'Signalement clos avec succès.',
+    'report_closed' => 'Signalement fermé avec succès.',
     'comment_created' => 'Commentaire créer avec succès.',
 
     // Punishments
@@ -74,22 +73,23 @@ $language = array(
     'viewing_user_x' => 'Voir l\'utilisateur {x}', // Don't replace {x}
     'previous_punishments' => 'Sanctions antérieures',
     'no_previous_punishments' => 'Aucune sanction antérieure',
-    'warning' => 'Warning',
+    'reset_avatar' => 'Reset Avatar',
+    'warning' => 'Alerte',
     'ip_ban' => 'IP Ban',
     'reason' => 'Raison',
     'warn_user' => 'Avertir(warn) l\'utilisateur',
-    'ban_user' => 'Ban l\'utilisateur',
-    'enter_valid_punishment_reason' => 'PVeuillez saisir une raison valable de votre sanction, entre 5 et 5000 caractères.',
+    'ban_user' => 'Bannir l\'utilisateur',
+    'enter_valid_punishment_reason' => 'Veuillez saisir une raison valable de votre sanction, entre 5 et 5000 caractères.',
     'user_punished' => 'Utilisateur sanctionné.',
     'user_punished_alert' => '{x} a sanctionné {y}', // Don't replace {x} (staff member) or {y} (user punished)
     'revoke' => 'Révoquer',
     'revoked' => 'Révoqué',
     'acknowledged' => 'Remerciements',
-    'confirm_revoke_warning' => 'Voulez-vous vraiment révoquer cet avertissement?',
-    'confirm_revoke_ban' => 'Êtes-vous sûr de vouloir révoquer cette sanction? L’utilisateur ne sera plus banni, même s’il a un bannissement plus récent!',
+    'confirm_revoke_warning' => 'Voulez-vous vraiment révoquer cet avertissement ?',
+    'confirm_revoke_ban' => 'Êtes-vous sûr de vouloir révoquer cette sanction? L’utilisateur ne sera plus banni, même s’il a un bannissement plus récent !',
     'punishment_revoked' => 'Sanction révoquée.',
     'punishment_revoked_alert' => '{x} a révoqué la sanction de {y}', // Don't replace {x} (staff member) or {y} (user with revoked punishment)
-    'cant_punish_admin' => 'Vous ne pouvez pas sanctionner un administrateur!',
+    'cant_punish_admin' => 'Vous ne pouvez pas sanctionner un administrateur !',
     'viewing_all_punishments' => 'Voir toutes les sanctions',
     'no_punishments_found' => 'Aucune sanction n\'a été trouvée.',
     'view_user' => 'Voir l\'utilisateur',

@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.0.0-pr12
  *
  *  Translator
  *  - SimplyRin( @SimplyRin_, https://www.simplyrin.net )
@@ -51,15 +51,15 @@ $language = array(
     'alerts' => 'アラート',
     'view_alerts' => 'アラートを表示',
     'no_alerts' => 'アラートなし',
-    'x_new_alerts' => '{x} 件の新しいアラートがあります。', // Don't replace {x}
+    'x_new_alerts' => '{x}件の新しいアラートがあります。', // Don't replace {x}
     'messages' => 'メッセージ',
     'view_messages' => 'メッセージを表示',
     'no_messages' => 'メッセージなし',
-    'x_new_messages' => '{x} 件の新しいメッセージがあります。', // Don't replace {x}
+    'x_new_messages' => '{x}件の新しいメッセージがあります。', // Don't replace {x}
     'loading' => 'ロード中...',
     'report' => 'レポート',
-    'page_loaded_in' => 'このページは {x} 秒で読み込まれました。', // Don't replace {x}, time unit is seconds
-    'page_x' => '{x} ページ',
+    'page_loaded_in' => 'このページは{x}秒で読み込まれました。', // Don't replace {x}, time unit is seconds
+    'page_x' => '{x}ページ',
     'browse' => 'ブラウズ',
     'bypass' => 'バイパス',
     'yes' => 'はい',
@@ -69,23 +69,24 @@ $language = array(
     'url' => 'URL',
     'success' => '成功',
     'error' => 'エラー',
-    'are_you_sure' => '【情報】',
-    'spoiler' => 'Spoiler',
+    'are_you_sure' => '本当にいいですか？',
+    'spoiler' => 'スポイラー',
     'invalid_timezone' => 'タイムゾーンが無効',
-    'link' => 'Link',
-    'unlink' => 'Unlink',
+    'link' => 'リンク',
+    'unlink' => 'リンク解除',
+    'leaderboards' => 'リーダーボード',
     
     /*
      *  Contact form
      */
     'contact' => '問い合わせ',
     'message' => 'メッセージ',
-    'email_address' => 'Email アドレス',
+    'email_address' => 'Emailアドレス',
     'contact_email_subject' => '新しい連絡先フォームの送信',
-    'contact_message_failed' => 'メッセージを送信できません。10 ~ 5000 文字のメッセージを入力してください。',
+    'contact_message_failed' => 'メッセージを送信できません。10~5000文字のメッセージを入力してください。',
     'contact_message_email' => '指定されたメールアドレスは無効です。',
     'contact_message_sent' => '正常に送信されました。',
-    'contact_message_limit' => '1 時間に 1 つのメッセージのみ送信できます。 {x} 分後に再試行してください。', // Don't replace {x}
+    'contact_message_limit' => '1時間に1つのメッセージのみ送信できます。{x}分後に再試行してください。', // Don't replace {x}
 
     /*
      *  Navbar
@@ -93,6 +94,11 @@ $language = array(
     'home' => 'ホーム',
     'more' => 'さらに',
     'status' => 'ステータス',
+
+    /*
+     *  Footer
+     */
+    'links' => 'リンク',
 
     /*
      *  Homepage
@@ -103,7 +109,7 @@ $language = array(
     /*
      *  Help dialogues
      */
-    'markdown_help' => 'Markdownを使用して投稿できます。 詳しくは <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>ここ</a> を参照してください。',
+    'markdown_help' => 'Markdownを使用して投稿できます。詳しくは<a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>ここ</a>を参照してください。',
 
     /*
      *  Server query
@@ -113,17 +119,17 @@ $language = array(
     'player_count' => '{x}/{y}', // Don't replace {x} or {y}
     'ping' => 'Ping: {x}', // Don't replace {x}
     'version' => 'バージョン: {x}', // Don't replace {x}
-    'currently_1_player_online' => '現在 <strong>1</strong> 人のプレイヤーが参加しています。',
-    'currently_x_players_online' => '現在 <strong>{x}</strong> 人のプレイヤーが参加しています。', // Don't replace {x}
+    'currently_1_player_online' => '現在<strong>1</strong>人のプレイヤーが参加しています。',
+    'currently_x_players_online' => '現在<strong>{x}</strong>人のプレイヤーが参加しています。', // Don't replace {x}
     'server_offline' => '現在サーバーはオフラインです。',
-    'connect_with_ip_x' => 'サーバーIP → {x}', // Don't replace {x}
+    'connect_with_ip_x' => 'IP {x} で今すぐ接続する', // Don't replace {x}
     'click_to_copy_tooltip' => 'クリックでコピー',
     'ip' => 'IP',
     'copied' => 'クリップボードにコピーしました。',
     'no_servers' => '表示できるサーバーがありません。',
     'bungee_instance' => 'このサーバーはBungeeCordを使用しています。',
     'no_players_online' => '現在オンラインのプレイヤーはいません。',
-    'and_x_more' => '{x} 以上', // Don't replace {x}
+    'and_x_more' => '{x}以上', // Don't replace {x}
 
     /*
      *  Cookie notice
@@ -149,7 +155,7 @@ $language = array(
     'discord_widget_disabled' => 'Discordウィジェットは、指定されたDiscordサーバーでは無効になっています。 Discordサーバー設定のウィジェットタブに移動し、Discordウィジェットが有効で、IDが正しいことを確認してください。',
     'online_guests' => 'オンラインゲスト',
     'total_online' => '累計オンライン', // this is Online Users + Online Guests
-    'no_default_server' => 'デフォルトのサーバーがありません、StaffCP - Integrations - Minecraftで選択してください。',
+    'no_default_server' => 'デフォルトのサーバーがありません、StaffCP - 統合 - Minecraftで選択してください。',
     'server_status' => 'サーバーステータス',
 
     /*

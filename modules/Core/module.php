@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -11,22 +11,22 @@
 
 class Core_Module extends Module {
 
-    /** @var Language */
-    private $_language;
+    private Language $_language;
 
-    /** @var Configuration */
-    private $_configuration;
-    
-    private static $_dashboard_graph = array(), $_notices = array(), $_user_actions = array();
+    private Configuration $_configuration;
 
-    public function __construct($language, $pages, $user, $queries, $navigation, $cache, $endpoints){
+    private static array $_dashboard_graph = array();
+    private static array $_notices = array();
+    private static array $_user_actions = array();
+
+    public function __construct(Language $language, Pages $pages, User $user, Queries $queries, Navigation $navigation, Cache $cache, Endpoints $endpoints) {
         $this->_language = $language;
         $this->_configuration = new Configuration($cache);
 
         $name = 'Core';
         $author = '<a href="https://samerton.me" target="_blank" rel="nofollow noopener">Samerton</a>';
-        $module_version = '2.0.0-pr9';
-        $nameless_version = '2.0.0-pr9';
+        $module_version = '2.0.0-pr12';
+        $nameless_version = '2.0.0-pr12';
 
         parent::__construct($this, $name, $author, $module_version, $nameless_version);
 
@@ -43,21 +43,26 @@ class Core_Module extends Module {
         $pages->add('Core', '/validate', 'pages/validate.php');
         $pages->add('Core', '/queries/admin_users', 'queries/admin_users.php');
         $pages->add('Core', '/queries/alerts', 'queries/alerts.php');
+        $pages->add('Core', '/queries/dark_light_mode', 'queries/dark_light_mode.php');
         $pages->add('Core', '/queries/pms', 'queries/pms.php');
         $pages->add('Core', '/queries/servers', 'queries/servers.php');
         $pages->add('Core', '/queries/server', 'queries/server.php');
         $pages->add('Core', '/queries/user', 'queries/user.php');
+        $pages->add('Core', '/queries/users', 'queries/users.php');
+        $pages->add('Core', '/queries/debug_link', 'queries/debug_link.php');
         $pages->add('Core', '/banner', 'pages/minecraft/banner.php');
         $pages->add('Core', '/terms', 'pages/terms.php');
         $pages->add('Core', '/privacy', 'pages/privacy.php');
         $pages->add('Core', '/forgot_password', 'pages/forgot_password.php');
         $pages->add('Core', '/complete_signup', 'pages/complete_signup.php');
         $pages->add('Core', '/status', 'pages/status.php', 'status');
+        $pages->add('Core', '/leaderboards', 'pages/leaderboards.php', 'leaderboards');
 
         $pages->add('Core', '/user', 'pages/user/index.php');
         $pages->add('Core', '/user/settings', 'pages/user/settings.php');
         $pages->add('Core', '/user/messaging', 'pages/user/messaging.php');
         $pages->add('Core', '/user/alerts', 'pages/user/alerts.php');
+        $pages->add('Core', '/user/placeholders', 'pages/user/placeholders.php');
         $pages->add('Core', '/user/acknowledge', 'pages/user/acknowledge.php');
 
         // Panel
@@ -87,13 +92,13 @@ class Core_Module extends Module {
         $pages->add('Core', '/panel/core/modules', 'pages/panel/modules.php');
         $pages->add('Core', '/panel/core/pages', 'pages/panel/pages.php');
         $pages->add('Core', '/panel/core/hooks', 'pages/panel/hooks.php');
+        $pages->add('Core', '/panel/minecraft/placeholders', 'pages/panel/placeholders.php');
         $pages->add('Core', '/panel/minecraft', 'pages/panel/minecraft.php');
         $pages->add('Core', '/panel/minecraft/authme', 'pages/panel/minecraft_authme.php');
         $pages->add('Core', '/panel/minecraft/account_verification', 'pages/panel/minecraft_account_verification.php');
         $pages->add('Core', '/panel/minecraft/servers', 'pages/panel/minecraft_servers.php');
         $pages->add('Core', '/panel/minecraft/query_errors', 'pages/panel/minecraft_query_errors.php');
         $pages->add('Core', '/panel/minecraft/banners', 'pages/panel/minecraft_server_banners.php');
-        $pages->add('Core', '/panel/discord', 'pages/panel/discord.php');
         $pages->add('Core', '/panel/security', 'pages/panel/security.php');
         $pages->add('Core', '/panel/update', 'pages/panel/update.php');
         $pages->add('Core', '/panel/upgrade', 'pages/panel/upgrade.php');
@@ -238,34 +243,31 @@ class Core_Module extends Module {
         HookHandler::registerEvent('validateUser', $language->get('admin', 'validate_hook_info'), array('user_id' => $language->get('admin', 'user_id'), 'username' => $language->get('user', 'username'), 'uuid' => $language->get('admin', 'uuid')));
         HookHandler::registerEvent('deleteUser', $language->get('admin', 'delete_hook_info'), array('user_id' => $language->get('admin', 'user_id'), 'username' => $language->get('user', 'username'), 'uuid' => $language->get('admin', 'uuid'), 'email_address' => $language->get('user', 'email_address')));
 
-        // Discord hook
-        require_once(ROOT_PATH . '/modules/Core/hooks/DiscordHook.php');
-
         // Webhooks
         $cache->setCache('hooks');
         if($cache->isCached('hooks')){
             $hook_array = $cache->retrieve('hooks');
         } else {
             $hook_array = array();
-            $hooks = $queries->tableExists('hooks');
-            if (!empty($hooks)) {
-                $hooks = $queries->getWhere('hooks', array('id', '<>', 0));
-                if (count($hooks)) {
-                    foreach ($hooks as $hook) {
-                        if ($hook->action == 2) {
-                            $action = 'DiscordHook::execute';
-                        } else {
-                            continue;
-                        }
+            if (Util::isModuleEnabled('Discord Integration')) {
+                $hooks = $queries->tableExists('hooks');
+                if (!empty($hooks)) {
+                    $hooks = $queries->getWhere('hooks', array('id', '<>', 0));
+                    if (count($hooks)) {
+                        foreach ($hooks as $hook) {
+                            if ($hook->action != 2) {
+                                continue;
+                            }
 
-                        $hook_array[] = array(
-                            'id' => $hook->id,
-                            'url' => Output::getClean($hook->url),
-                            'action' => $action,
-                            'events' => json_decode($hook->events, true)
-                        );
+                            $hook_array[] = array(
+                                'id' => $hook->id,
+                                'url' => Output::getClean($hook->url),
+                                'action' => 'DiscordHook::execute',
+                                'events' => json_decode($hook->events, true)
+                            );
+                        }
+                        $cache->store('hooks', $hook_array);
                     }
-                    $cache->store('hooks', $hook_array);
                 }
             }
         }
@@ -293,6 +295,9 @@ class Core_Module extends Module {
 
         // Autoload API Endpoints
         Util::loadEndpoints(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'modules', 'Core', 'includes', 'endpoints')), $endpoints);
+
+        GroupSyncManager::getInstance()->registerInjector(NamelessMCGroupSyncInjector::class);
+        GroupSyncManager::getInstance()->registerInjector(MinecraftGroupSyncInjector::class);
     }
 
     public function onInstall(){
@@ -311,10 +316,14 @@ class Core_Module extends Module {
         // Not necessary for Core
     }
 
-    public function onPageLoad($user, $pages, $cache, $smarty, $navs, $widgets, $template){
+    public function onPageLoad(User $user, Pages $pages, Cache $cache, Smarty $smarty, $navs, Widgets $widgets, ?TemplateBase $template){
         $language = $this->_language;
 
         // Permissions
+        PermissionHandler::registerPermissions($language->get('admin', 'administrator'), array(
+            'administrator' => $language->get('admin', 'administrator') . ' &raquo; ' . $language->get('admin', 'administrator_permission_info'),
+        ));
+
         // AdminCP
         PermissionHandler::registerPermissions($language->get('moderator', 'staff_cp'), array(
             'admincp.core' => $language->get('admin', 'core'),
@@ -334,9 +343,9 @@ class Core_Module extends Module {
             'admincp.core.terms' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'privacy_and_terms'),
             'admincp.core.hooks' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'hooks'),
             'admincp.core.announcements' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'announcements'),
+            'admincp.core.placeholders' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'placeholders'),
             'admincp.integrations' => $language->get('admin', 'integrations'),
             'admincp.minecraft' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft'),
-            'admincp.discord' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'discord'),
             'admincp.minecraft.authme' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'authme_integration'),
             'admincp.minecraft.verification' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'account_verification'),
             'admincp.minecraft.servers' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'minecraft_servers'),
@@ -416,16 +425,10 @@ class Core_Module extends Module {
             $widgets->add(new TwitterWidget($module_pages, $twitter, $theme));
         }
 
-        // Discord
-        require_once(ROOT_PATH . '/modules/Core/widgets/DiscordWidget.php');
-        $discord = $cache->retrieve('discord');
-        $module_pages = $widgets->getPages('Discord');
-        $widgets->add(new DiscordWidget($module_pages, $language, $cache, $discord));
-
         // Profile Posts
         require_once(ROOT_PATH . '/modules/Core/widgets/ProfilePostsWidget.php');
         $module_pages = $widgets->getPages('Latest Profile Posts');
-        $widgets->add(new ProfilePostsWidget($module_pages, $smarty, $language, $cache, $user, new Timeago(TIMEZONE)));
+        $widgets->add(new ProfilePostsWidget($module_pages, $smarty, $language, $cache, $user, new TimeAgo(TIMEZONE)));
 
         // Online staff
         require_once(ROOT_PATH . '/modules/Core/widgets/OnlineStaff.php');
@@ -473,7 +476,7 @@ class Core_Module extends Module {
 
         if($validate_action['action'] == 'promote') {
             require_once(ROOT_PATH . '/modules/Core/hooks/ValidateHook.php');
-            HookHandler::registerHook('validateUser', 'ValidateHook::validatePromote');
+            HookHandler::registerHook('validateUser', 'ValidateHook::execute');
             define('VALIDATED_DEFAULT', $validate_action['group']);
         }
 
@@ -555,6 +558,28 @@ class Core_Module extends Module {
 
                 $navs[0]->add('status', $language->get('general', 'status'), URL::build('/status'), 'top', null, $status_order, $icon);
             }
+        }
+
+        $leaderboard_placeholders = Placeholders::getInstance()->getLeaderboardPlaceholders();
+
+        // Only add leaderboard link if there is at least one enabled placeholder
+        if (count($leaderboard_placeholders)) {
+
+            $cache->setCache('navbar_order');
+            if (!$cache->isCached('leaderboards_order')) {
+                $leaderboards_order = 4;
+                $cache->store('leaderboards_order', 4);
+            } else {
+                $leaderboards_order = $cache->retrieve('leaderboards_order');
+            }
+
+            $cache->setCache('navbar_icons');
+            if (!$cache->isCached('leaderboards_icon'))
+                $leaderboards_icon = '';
+            else
+                $leaderboards_icon = $cache->retrieve('leaderboards_icon');
+
+            $navs[0]->add('leaderboards', $language->get('general', 'leaderboards'), URL::build('/leaderboards'), 'top', null, $leaderboards_order, $leaderboards_icon);
         }
 
         // Check page type (frontend or backend)
@@ -680,7 +705,7 @@ class Core_Module extends Module {
                 // Collection
                 $user_id = $smarty->getTemplateVars('USER_ID');
 
-                $timeago = new Timeago(TIMEZONE);
+                $timeago = new TimeAgo(TIMEZONE);
 
                 if($user_id){
                     $user_query = $queries->getWhere('users', array('id', '=', $user_id));
@@ -857,23 +882,6 @@ class Core_Module extends Module {
                 }
             }
 
-            if($user->hasPermission('admincp.groups')){
-                if(!$cache->isCached('groups_order')){
-                    $order = 3;
-                    $cache->store('groups_order', 3);
-                } else {
-                    $order = $cache->retrieve('groups_order');
-                }
-
-                if(!$cache->isCached('groups_icon')){
-                    $icon = '<i class="nav-icon fas fa-address-book"></i>';
-                    $cache->store('group_icon', $icon);
-                } else
-                    $icon = $cache->retrieve('group_icon');
-
-                $navs[2]->add('groups', $language->get('admin', 'groups'), URL::build('/panel/core/groups'), 'top', null, $order, $icon);
-            }
-
             if ($user->hasPermission('admincp.core.announcements')) {
                 if (!$cache->isCached('announcements_order')) {
                     $order = 4;
@@ -916,16 +924,6 @@ class Core_Module extends Module {
                     $icon = $cache->retrieve('minecraft_icon');
 
                 $navs[2]->addItemToDropdown('integrations', 'minecraft', $language->get('admin', 'minecraft'), URL::build('/panel/minecraft'), 'top', null, $icon, $order);
-            }
-
-            if ($user->hasPermission('admincp.discord')) {
-                if (!$cache->isCached('discord_icon')) {
-                    $icon = '<i class="nav-icon fab fa-discord"></i>';
-                    $cache->store('discord_icon', $icon);
-                } else
-                $icon = $cache->retrieve('discord_icon');
-
-                $navs[2]->addItemToDropdown('integrations', 'discord', $language->get('admin', 'discord'), URL::build('/panel/discord'), 'top', null, $icon, $order);
             }
 
             if($user->hasPermission('admincp.styles') || $user->hasPermission('admincp.sitemap') || $user->hasPermission('admincp.widgets')){
@@ -1009,7 +1007,7 @@ class Core_Module extends Module {
                 } else {
                     $order = $cache->retrieve('pages_order');
                 }
-                
+
                 if(!$cache->isCached('pages_icon')){
                     $icon = '<i class="nav-icon fas fa-file"></i>';
                     $cache->store('pages_icon', $icon);
@@ -1019,7 +1017,84 @@ class Core_Module extends Module {
                 $navs[2]->add('custom_pages', $language->get('admin', 'custom_pages'), URL::build('/panel/core/pages'), 'top', null, $order, $icon);
             }
 
-            if($user->hasPermission('admincp.security')){
+            if ($user->hasPermission('admincp.groups')){
+                if(!$cache->isCached('groups_order')){
+                    $order = 3;
+                    $cache->store('groups_order', 3);
+                } else {
+                    $order = $cache->retrieve('groups_order');
+                }
+
+                if(!$cache->isCached('groups_icon')){
+                    $icon = '<i class="nav-icon fas fa-address-book"></i>';
+                    $cache->store('group_icon', $icon);
+                } else
+                    $icon = $cache->retrieve('group_icon');
+
+                $navs[2]->add('groups', $language->get('admin', 'groups'), URL::build('/panel/core/groups'), 'top', null, $order, $icon);
+            }
+
+            if ($user->hasPermission('admincp.users')) {
+                if (!$cache->isCached('users_order')) {
+                    $order = 11;
+                    $cache->store('users_order', 11);
+                } else {
+                    $order = $cache->retrieve('users_order');
+                }
+
+                if (!$cache->isCached('users_icon')) {
+                    $icon = '<i class="nav-icon fas fa-user-circle"></i>';
+                    $cache->store('users_icon', $icon);
+                } else {
+                    $icon = $cache->retrieve('users_icon');
+                }
+
+                $navs[2]->addDropdown('users', $language->get('admin', 'user_management'), 'top', $order, $icon);
+
+                if (!$cache->isCached('user_icon')) {
+                    $icon = '<i class="nav-icon fas fa-users"></i>';
+                    $cache->store('user_icon', $icon);
+                } else {
+                    $icon = $cache->retrieve('user_icon');
+                }
+
+                $navs[2]->addItemToDropdown('users', 'users', $language->get('admin', 'users'), URL::build('/panel/users'), 'top', null, $icon, $order);
+
+                if ($user->hasPermission('modcp.ip_lookup')) {
+                    if (!$cache->isCached('ip_lookup_icon')) {
+                        $icon = '<i class="nav-icon fas fa-binoculars"></i>';
+                        $cache->store('ip_lookup_icon', $icon);
+                    } else {
+                        $icon = $cache->retrieve('ip_lookup_icon');
+                    }
+
+                    $navs[2]->addItemToDropdown('users', 'ip_lookup', $language->get('moderator', 'ip_lookup'), URL::build('/panel/users/ip_lookup'), 'top', null, $icon, $order);
+                }
+
+                if ($user->hasPermission('modcp.punishments')) {
+                    if (!$cache->isCached('punishments_icon')) {
+                        $icon = '<i class="nav-icon fas fa-gavel"></i>';
+                        $cache->store('punishments_icon', $icon);
+                    } else {
+                        $icon = $cache->retrieve('punishments_icon');
+                    }
+
+                    $navs[2]->addItemToDropdown('users', 'punishments', $language->get('moderator', 'punishments'), URL::build('/panel/users/punishments'), 'top', null, $icon, $order);
+                }
+
+                if ($user->hasPermission('modcp.reports')) {
+                    if (!$cache->isCached('reports_icon')) {
+                        $icon = '<i class="nav-icon fas fa-exclamation-triangle"></i>';
+                        $cache->store('reports_icon', $icon);
+                    } else {
+                        $icon = $cache->retrieve('reports_icon');
+                    }
+
+                    $navs[2]->addItemToDropdown('users', 'reports', $language->get('moderator', 'reports'), URL::build('/panel/users/reports'), 'top', null, $icon, $order);
+                }
+            }
+
+            if ($user->hasPermission('admincp.security')) {
                 if(!$cache->isCached('security_order')){
                     $order = 9;
                     $cache->store('security_order', 9);
@@ -1036,7 +1111,7 @@ class Core_Module extends Module {
                 $navs[2]->add('security', $language->get('admin', 'security'), URL::build('/panel/security'), 'top', null, $order, $icon);
             }
 
-            if($user->hasPermission('admincp.update')){
+            if ($user->hasPermission('admincp.update')) {
                 if(!$cache->isCached('update_order')){
                     $order = 10;
                     $cache->store('update_order', 10);
@@ -1051,61 +1126,6 @@ class Core_Module extends Module {
                     $icon = $cache->retrieve('update_icon');
 
                 $navs[2]->add('update', $language->get('admin', 'update'), URL::build('/panel/update'), 'top', null, $order, $icon);
-            }
-
-            if($user->hasPermission('admincp.users')){
-                if(!$cache->isCached('users_order')){
-                    $order = 11;
-                    $cache->store('users_order', 11);
-                } else {
-                    $order = $cache->retrieve('users_order');
-                }
-
-                if(!$cache->isCached('users_icon')){
-                    $icon = '<i class="nav-icon fas fa-user-circle"></i>';
-                    $cache->store('users_icon', $icon);
-                } else
-                    $icon = $cache->retrieve('users_icon');
-
-                $navs[2]->addDropdown('users', $language->get('admin', 'user_management'), 'top', $order, $icon);
-
-                if(!$cache->isCached('user_icon')){
-                    $icon = '<i class="nav-icon fas fa-users"></i>';
-                    $cache->store('user_icon', $icon);
-                } else
-                    $icon = $cache->retrieve('user_icon');
-
-                $navs[2]->addItemToDropdown('users', 'users', $language->get('admin', 'users'), URL::build('/panel/users'), 'top', null, $icon, $order);
-
-                if($user->hasPermission('modcp.ip_lookup')){
-                    if(!$cache->isCached('ip_lookup_icon')){
-                        $icon = '<i class="nav-icon fas fa-binoculars"></i>';
-                        $cache->store('ip_lookup_icon', $icon);
-                    } else
-                        $icon = $cache->retrieve('ip_lookup_icon');
-
-                    $navs[2]->addItemToDropdown('users', 'ip_lookup', $language->get('moderator', 'ip_lookup'), URL::build('/panel/users/ip_lookup'), 'top', null, $icon, $order);
-                }
-
-                if($user->hasPermission('modcp.punishments')){
-                    if(!$cache->isCached('punishments_icon')){
-                        $icon = '<i class="nav-icon fas fa-gavel"></i>';
-                        $cache->store('punishments_icon', $icon);
-                    } else
-                        $icon = $cache->retrieve('punishments_icon');
-
-                    $navs[2]->addItemToDropdown('users', 'punishments', $language->get('moderator', 'punishments'), URL::build('/panel/users/punishments'), 'top', null, $icon, $order);
-                }
-
-                if($user->hasPermission('modcp.reports')){
-                    if(!$cache->isCached('reports_icon')){
-                        $icon = '<i class="nav-icon fas fa-exclamation-triangle"></i>';
-                        $cache->store('reports_icon', $icon);
-                    } else
-                        $icon = $cache->retrieve('reports_icon');
-
-                    $navs[2]->addItemToDropdown('users', 'reports', $language->get('moderator', 'reports'), URL::build('/panel/users/reports'), 'top', null, $icon, $order);
-                }
             }
 
             // Notices
@@ -1157,14 +1177,14 @@ class Core_Module extends Module {
                     if(defined('MINECRAFT') && MINECRAFT){
                         $players = array();
 
-                        $version = DB::getInstance()->query('select version()')->first()->{'version()'};
+                        $version = DB::getInstance()->selectQuery('select version()')->first()->{'version()'};
 
                         if(strpos(strtolower($version), 'mariadb') !== false){
                             $version = preg_replace('#[^0-9\.]#', '', $version);
 
                             if(version_compare($version, '10.1', '>=')){
                                 try {
-                                    $players = DB::getInstance()->query('SET STATEMENT MAX_STATEMENT_TIME = 1000 FOR SELECT ROUND(AVG(players_online)) AS players, DATE(FROM_UNIXTIME(queried_at)) AS `date` FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) IN (SELECT DATE(FROM_UNIXTIME(queried_at)) AS ForDate FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) > NOW() - INTERVAL 1 WEEK GROUP BY DATE(FROM_UNIXTIME(queried_at)) ORDER BY ForDate) GROUP BY DATE(FROM_UNIXTIME(queried_at))')->results();
+                                    $players = DB::getInstance()->selectQuery('SET STATEMENT MAX_STATEMENT_TIME = 1000 FOR SELECT ROUND(AVG(players_online)) AS players, DATE(FROM_UNIXTIME(queried_at)) AS `date` FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) IN (SELECT DATE(FROM_UNIXTIME(queried_at)) AS ForDate FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) > NOW() - INTERVAL 1 WEEK GROUP BY DATE(FROM_UNIXTIME(queried_at)) ORDER BY ForDate) GROUP BY DATE(FROM_UNIXTIME(queried_at))')->results();
                                 } catch (Exception $e) {
                                     // Unable to obtain player count
                                     $player_count_error = true;
@@ -1175,14 +1195,14 @@ class Core_Module extends Module {
 
                             if(version_compare($version, '5.7.4', '>=') && version_compare($version, '5.7.8', '<')){
                                 try {
-                                    $players = DB::getInstance()->query('SELECT MAX_STATEMENT_TIME = 1000 ROUND(AVG(players_online)) AS players, DATE(FROM_UNIXTIME(queried_at)) AS `date` FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) IN (SELECT DATE(FROM_UNIXTIME(queried_at)) AS ForDate FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) > NOW() - INTERVAL 1 WEEK GROUP BY DATE(FROM_UNIXTIME(queried_at)) ORDER BY ForDate) GROUP BY DATE(FROM_UNIXTIME(queried_at))')->results();
+                                    $players = DB::getInstance()->selectQuery('SELECT MAX_STATEMENT_TIME = 1000 ROUND(AVG(players_online)) AS players, DATE(FROM_UNIXTIME(queried_at)) AS `date` FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) IN (SELECT DATE(FROM_UNIXTIME(queried_at)) AS ForDate FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) > NOW() - INTERVAL 1 WEEK GROUP BY DATE(FROM_UNIXTIME(queried_at)) ORDER BY ForDate) GROUP BY DATE(FROM_UNIXTIME(queried_at))')->results();
                                 } catch (Exception $e) {
                                     // Unable to obtain player count
                                     $player_count_error = true;
                                 }
                             } else if(version_compare($version, '5.7.8', '>=')){
                                 try {
-                                    $players = DB::getInstance()->query('SELECT MAX_EXECUTION_TIME = 1000 ROUND(AVG(players_online)) AS players, DATE(FROM_UNIXTIME(queried_at)) AS `date` FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) IN (SELECT DATE(FROM_UNIXTIME(queried_at)) AS ForDate FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) > NOW() - INTERVAL 1 WEEK GROUP BY DATE(FROM_UNIXTIME(queried_at)) ORDER BY ForDate) GROUP BY DATE(FROM_UNIXTIME(queried_at))')->results();
+                                    $players = DB::getInstance()->selectQuery('SELECT MAX_EXECUTION_TIME = 1000 ROUND(AVG(players_online)) AS players, DATE(FROM_UNIXTIME(queried_at)) AS `date` FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) IN (SELECT DATE(FROM_UNIXTIME(queried_at)) AS ForDate FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) > NOW() - INTERVAL 1 WEEK GROUP BY DATE(FROM_UNIXTIME(queried_at)) ORDER BY ForDate) GROUP BY DATE(FROM_UNIXTIME(queried_at))')->results();
                                 } catch (Exception $e) {
                                     // Unable to obtain player count
                                     $player_count_error = true;
@@ -1269,7 +1289,31 @@ class Core_Module extends Module {
         }
 
         require_once(ROOT_PATH . '/modules/Core/hooks/DeleteUserHook.php');
-        HookHandler::registerHook('deleteUser', 'DeleteUserHook::deleteUser');
+        HookHandler::registerHook('deleteUser', 'DeleteUserHook::execute');
+    }
+
+    public function getDebugInfo(): array {
+        $servers = [];
+        foreach (DB::getInstance()->get('mc_servers', ['id', '<>', 0])->results() as $server) {
+            $servers[(int) $server->id] = [
+                'id' => (int) $server->id,
+                'name' => $server->name,
+                'ip' => $server->ip,
+                'query_ip' => $server->query_ip,
+                'port' => $server->port,
+                'query_port' => $server->query_port,
+            ];
+        }
+
+        return [
+            'minecraft' => [
+                'mc_integration' => (bool) Util::getSetting(DB::getInstance(), 'mc_integration'),
+                'uuid_linking' => (bool) Util::getSetting(DB::getInstance(), 'uuid_linking'),
+                'username_sync' => (bool) Util::getSetting(DB::getInstance(), 'username_sync'),
+                'external_query' => (bool) Util::getSetting(DB::getInstance(), 'external_query'),
+                'servers' => $servers,
+            ]
+        ];
     }
 
     public static function addDataToDashboardGraph($title, $data){

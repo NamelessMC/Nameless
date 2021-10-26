@@ -31,7 +31,7 @@
         </div>
     {/if}
     <div class="ui {if count($WIDGETS_LEFT) && count($WIDGETS_RIGHT) }four wide tablet eight wide computer{elseif count($WIDGETS_LEFT) || count($WIDGETS_RIGHT)}ten wide tablet twelve wide computer{else}sixteen wide{/if} column">
-        {if count($NEWS)}
+        {if $NEWS != null && count($NEWS)}
             {foreach from=$NEWS item=item}
             <div class="ui fluid card" id="news-post">
                 <div class="content">

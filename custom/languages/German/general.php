@@ -3,7 +3,7 @@
  *  Made by Samerton
  *  Translation by BukkitTNT, M_Viper
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.0.0-pr10
  *
  *  License: MIT
  *
@@ -70,6 +70,7 @@ $language = array(
     'invalid_timezone' => 'Diese Zeitzone ist ungültig',
     'link' => 'Link',
     'unlink' => 'Verknüpfung aufheben',
+    'leaderboards' => 'Leaderboards',
 
     /*
      *  Contact form
@@ -89,6 +90,11 @@ $language = array(
     'home' => 'Startseite',
     'more' => 'Mehr',
     'status' => 'Status',
+
+    /*
+     *  Footer
+     */
+    'links' => 'Links',
 
     /*
      *  Homepage
@@ -138,7 +144,7 @@ $language = array(
     'total_posts' => 'Beiträge insgesamt',
     'online_staff' => 'Aktive Teammitglieder',
     'no_online_staff' => 'Derzeit sind keine Teammitglieder online',
-    'total_online_staff' => 'Insgesamt Online-Mitarbeiter: {x}',
+    'total_online_staff' => 'Teammitglieder online: {x}',
     'online_users' => 'Aktive User',
     'no_online_users' => 'Es sind keine User online',
     'total_online_users' => 'Total online users: {x}',

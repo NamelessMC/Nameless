@@ -4,7 +4,7 @@
  *  en vertaald door Sander Lambrechts, Derkades en smessie
  *
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -15,7 +15,7 @@ $language = array(
     /*
      *  Change this for the account validation message
      */
-    'validate_account_command' => 'Om de registratie te voltooien, run alstublieft het commando <strong>/validate {x}</strong> ingame.', // Don't replace {x}
+    'validate_account_command' => 'Om de registratie te voltooien, run alstublieft het commando <strong>/verify {x}</strong> ingame.', // Don't replace {x}
 
     /*
      *  Gebruiker gerelateerd
@@ -33,11 +33,12 @@ $language = array(
     'messaging' => 'Berichten',
     'click_here_to_view' => 'Klik om te bekijken.',
     'moderation' => 'Moderatie',
-    'administration' => 'Administratie',
     'alerts' => 'Meldingen',
     'delete_all' => 'Verwijder alle meldingen',
     'private_profile' => 'Privé profiel',
     'gif_avatar' => 'Upload .gif as custom avatar',
+    'placeholders' => 'Placeholders',
+    'no_placeholders' => 'No Placeholders',
 
     // Profiel instellingen
     'field_is_required' => '{x} is nodig.', // Verander {x} niet
@@ -59,7 +60,7 @@ $language = array(
     'invalid_tfa' => 'Verkeerde code, probeer opnieuw.',
     'tfa_successful' => 'Twee factor authenticatie succesvol ingesteld. Je moet nu elke keer een code hebben om in te kunnen loggen.',
     'active_language' => 'Actieve taal',
-    'active_template' => 'Active Template',
+    'active_template' => 'Actief sjabloon',
     'timezone' => 'Tijdzone',
     'upload_new_avatar' => 'Upload een nieuwe avatar',
     'nickname_already_exists' => 'Je gekozen nicknaam bestaat al.',
@@ -91,7 +92,7 @@ $language = array(
     'password' => 'Wachtwoord',
     'confirm_password' => 'Bevestig wachtwoord',
     'i_agree' => 'Akkoord',
-    'agree_t_and_c' => 'I have read and accept the <a href="{x}" target="_blank">Terms and Conditions</a>.',
+    'agree_t_and_c' => 'Ik heb de <a href="{x}" target="_blank">Voorwaarden</a> gelezen en accepteer deze.',
     'create_an_account' => 'Maak een account',
     'terms_and_conditions' => 'Voorwaarden',
     'validation_complete' => 'Je account is bevestigd, je kunt nu inloggen.',
@@ -118,7 +119,6 @@ $language = array(
     'password_minimum_6' => 'Je wachtwoord moet uit minimaal 6 karakters bestaan.',
     'username_maximum_20' => 'Je gebruikersnaam mag maar uit maximaal 20 karakters bestaan.',
     'mcname_maximum_20' => 'Je Minecraft gebruikersnaam mag maar uit maximaal 20 karakters bestaan.',
-    'password_maximum_30' => 'Je wachtwoord mag maar uit maximaal 30 karakters bestaan.',
     'passwords_dont_match' => 'Je wachtwoorden komen niet overeen.',
     'username_mcname_email_exists' => 'Je gebruikersnaam of email adres bestaat al.',
     'invalid_mcname' => 'Je Minecraft gebruikersnaam is ongeldig.',
@@ -143,6 +143,8 @@ $language = array(
     'must_input_email' => 'Je moet een emailadres invoeren.',
     'must_input_username' => 'Je moet een gebruikersnaam invoeren.',
     'must_input_password' => 'Je moet een wachtwoord invoeren.',
+    'must_input_email_or_username' => 'U moet een e-mail of gebruikersnaam invoeren.',
+    'email_or_username' => 'E-mail of gebruikersnaam',
 
     // Forgot password
        'forgot_password_instructions' => 'Graag je email adres invoeren zodat we verdere instructies kunnen sturen om je wachtwoord te herstellen.',
@@ -189,7 +191,6 @@ $language = array(
     'new_wall_post_reply_your_profile' => '{x} heeft gereageerd op jouw post op jouw eigen profiel.', // Don't replace {x}
     'no_about_fields' => 'Deze gebruiker heeft nog geen over-velden toegevoegd.',
     'reply' => 'Antwoord',
-    'discord_username' => 'Discord Username',
 
     // Rapporten
     'invalid_report_content' => 'Kan geen rapport maken. Zorg ervoor dat je rapport reden tussen de 2 en 1024 karakters is.',
@@ -237,21 +238,5 @@ $language = array(
      *  Hooks
      */
     'user_x_has_registered' => '{x} is lid geworden van ' . SITE_NAME . '!',
-    'user_x_has_validated' => '{x} has validated their account!',
-
-    // Discord
-    'discord_link' => 'Discord Link',
-    'linked' => 'Gekoppeld',
-    'not_linked' => 'Niet Gekoppeld',
-    'discord_id' => 'Discord Gebruikers ID',
-    'discord_id_unlinked' => 'Succesvol ontkoppeld van uw Discord Gebruikers-ID.',
-    'discord_id_confirm' => 'Please send this message: "!verify {guild_id}:{token}" to {bot_username} to confirm your Discord User ID.',
-    'pending_link' => 'Wachtende',
-    'discord_id_taken' => 'Die Discord Gebruikers-ID is al ingenomen.',
-    'discord_invalid_id' => 'Dat Discord Gebruikers-ID is ongeldig.',
-    'discord_already_pending' => 'Je hebt al een lopende verificatie.',
-    'discord_database_error' => 'De Nameless Link database is op dit moment offline. Probeer het later nog eens.',
-    'discord_communication_error' => 'Er was een fout in de communicatie met de Discord Bot. Zorg ervoor dat de bot werkt en dat uw Bot-URL correct is.',
-    'discord_unknown_error' => 'Er was een onbekende fout bij het synchroniseren van de rollen van Discord. Neem contact op met een beheerder.',
-    'discord_id_help' => 'Voor informatie over waar je de Discord ID\'s kunt vinden, lees alsjeblieft <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">dit.</a>'
+    'user_x_has_validated' => '{x} heeft hun account gevalideerd!',
 );

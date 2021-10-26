@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton | Revamped by Xemah
  *	https://github.com/NamelessMC/Nameless/
- *	NamelessMC version 2.0.0-pr9
+ *	NamelessMC version 2.0.0-pr12
  *
  *	License: MIT
  *
@@ -23,16 +23,15 @@ class DefaultRevamp_Template extends TemplateBase {
     private $_pages;
 	
 	public function __construct($cache, $smarty, $language, $user, $pages) {
-		
 		$template = array(
 			'name' => 'DefaultRevamp',
-			'version' => '2.0.0-pr9',
-			'nl_version' => "2.0.0-pr9",
+			'version' => '2.0.0-pr12',
+			'nl_version' => "2.0.0-pr12",
 			'author' => '<a href="https://xemah.com/" target="_blank">Xemah</a>',
 		);
-		
+
 		$template['path'] = (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/templates/' . $template['name'] . '/';
-		
+
 		parent::__construct($template['name'], $template['version'], $template['nl_version'], $template['author']);
 
 		$this->_settings = ROOT_PATH . '/custom/templates/DefaultRevamp/template_settings/settings.php';
@@ -59,13 +58,17 @@ class DefaultRevamp_Template extends TemplateBase {
 		$smartyDarkMode = false;
 		$smartyNavbarColour = '';
 
-        if ($cache->isCached('darkMode')) {
-            $darkMode = $cache->retrieve('darkMode');
-
-            if ($darkMode == '1') {
-                $smartyDarkMode = true;
-                define('TEMPLATE_TINY_EDITOR_STYLE', 'default-revamp');
+		if ($user->isLoggedIn()) {
+		    $darkMode = $user->data()->night_mode;
+        } else {
+            if ($cache->isCached('darkMode')) {
+                $darkMode = $cache->retrieve('darkMode');
             }
+        }
+
+        if (isset($darkMode) && $darkMode == '1') {
+            $smartyDarkMode = true;
+            define('TEMPLATE_TINY_EDITOR_STYLE', 'default-revamp');
         }
 
         if ($cache->isCached('navbarColour')) {
@@ -80,19 +83,19 @@ class DefaultRevamp_Template extends TemplateBase {
             'DEFAULT_REVAMP_DARK_MODE' => $smartyDarkMode,
             'DEFAULT_REVAMP_NAVBAR_EXTRA_CLASSES' => $smartyNavbarColour
         ));
-		
+
 		$this->_template = $template;
 		$this->_language = $language;
 		$this->_user = $user;
 		$this->_pages = $pages;
 	}
-	
+
 	public function onPageLoad() {
-		
+
 		$this->addCSSFiles(array(
-		    $this->_template['path'] . 'css/custom.css' => array()
+		    $this->_template['path'] . 'css/custom.css?v=2pr12' => array()
 		));
-	    
+
 	    $route = (isset($_GET['route']) ? rtrim($_GET['route'], '/') : '/');
 
 		$JSVariables = array(

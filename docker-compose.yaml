@@ -2,7 +2,7 @@
 
 # INSTRUCTIONS
 # Set up or update:
-# export USER_ID=$(id -u); export GROUP_ID=$(id -g); docker-compose build; docker-compose pull
+# export USER_ID=$(id -u) && export GROUP_ID=$(id -g) && docker pull namelessmc/php:dev && docker-compose build && docker-compose pull
 # sudo mkdir /opt/namelessmc
 #
 # Run:
@@ -11,7 +11,7 @@
 # Uninstall
 # docker-compose down
 # rm core/config.php
-# rm -r cache/*
+# rm -rf cache/*
 # docker image prune -af
 # sudo rm -r /opt/namelessmc
 

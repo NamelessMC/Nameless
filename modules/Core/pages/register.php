@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -69,7 +69,7 @@ if ($registration_enabled == 0) {
     );
 
     // Load modules + template
-    Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+    Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
 
     $page_load = microtime(true) - $start;
     define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
@@ -127,9 +127,7 @@ if ($minecraft == '1') {
     $uuid_linking = '0';
 }
 
-// Use captcha?
-$captcha = $queries->getWhere("settings", array("name", "=", "recaptcha"));
-$captcha = $captcha[0]->value;
+$captcha = CaptchaBase::isCaptchaEnabled();
 
 // Is email verification enabled?
 $email_verification = $queries->getWhere('settings', array('name', '=', 'email_verification'));
@@ -143,7 +141,7 @@ $api_verification = $api_verification[0]->value;
 if (Input::exists()) {
     if (Token::check()) {
         // Valid token
-        if ($captcha == 'true') {
+        if ($captcha) {
             $captcha_passed = CaptchaBase::getActiveProvider()->validateToken($_POST);
         } else {
             $captcha_passed = true;
@@ -157,9 +155,10 @@ if (Input::exists()) {
                 'password' => [
                     Validate::REQUIRED => true,
                     Validate::MIN => 6,
-                    Validate::MAX => 30
                 ],
                 'password_again' => [
+                    Validate::REQUIRED => true,
+                    Validate::MIN => 6,
                     Validate::MATCHES => 'password'
                 ],
                 'email' => [
@@ -171,9 +170,10 @@ if (Input::exists()) {
                     Validate::REQUIRED => true,
                     Validate::AGREE => true
                 ],
-                'timezone' => [
-                    Validate::TIMEZONE => true
-                ]
+                // TODO: re-enable this (#2355)
+                // 'timezone' => [
+                //     Validate::TIMEZONE => true
+                // ]
             ];
 
             // Minecraft username?
@@ -356,7 +356,9 @@ if (Input::exists()) {
                                     'last_online' => $date,
                                     'language_id' => $language_id,
                                     'active' => $active,
-                                    'timezone' => ((isset($_POST['timezone']) && $_POST['timezone']) ? Output::getClean(Input::get('timezone')) : Output::getClean(TIMEZONE))
+                                    // TODO: re-enable this (#2355)
+                                    // 'timezone' => ((isset($_POST['timezone']) && $_POST['timezone']) ? Output::getClean(Input::get('timezone')) : Output::getClean(TIMEZONE))
+                                    'timezone' => Output::getClean(TIMEZONE)
                                 )
                             );
 
@@ -364,7 +366,7 @@ if (Input::exists()) {
                             $user_id = $queries->getLastId();
 
                             $user = new User($user_id);
-                            $user->addGroup($default_group);
+                            $user->addGroup($default_group, 0, array(true));
 
                             // Custom Fields
                             if (count($profile_fields)) {
@@ -387,7 +389,7 @@ if (Input::exists()) {
                                 }
                             }
 
-                            Log::getInstance()->log(Log::Action('user/register'), "", $user_id);
+                            Log::getInstance()->log(Log::Action('user/register'), "");
 
                             if ($api_verification != '1' && $email_verification == '1') {
                                 // Send registration email
@@ -401,7 +403,7 @@ if (Input::exists()) {
                                     'username' => Output::getClean(Input::get('username')),
                                     'uuid' => $uuid,
                                     'content' => str_replace('{x}', Output::getClean(Input::get('username')), $language->get('user', 'user_x_has_registered')),
-                                    'avatar_url' => $user->getAvatar(null, 128, true),
+                                    'avatar_url' => $user->getAvatar(128, true),
                                     'url' => Util::getSelfURL() . ltrim(URL::build('/profile/' . Output::getClean(Input::get('username'))), '/'),
                                     'language' => $language
                                 ));
@@ -420,7 +422,7 @@ if (Input::exists()) {
                                     'username' => Output::getClean(Input::get('username')),
                                     'uuid' => $uuid,
                                     'content' => str_replace('{x}', Output::getClean(Input::get('username')), $language->get('user', 'user_x_has_registered')),
-                                    'avatar_url' => $user->getAvatar(null, 128, true),
+                                    'avatar_url' => $user->getAvatar(128, true),
                                     'url' => Util::getSelfURL() . ltrim(URL::build('/profile/' . Output::getClean(Input::get('username'))), '/'),
                                     'language' => $language
                                 )
@@ -480,8 +482,6 @@ if (Input::exists()) {
                             $errors[] = $language->get('user', 'username_maximum_20');
                         } else if (strpos($validation_error, 'mcname') !== false) {
                             $errors[] = $language->get('user', 'mcname_maximum_20');
-                        } else if (strpos($validation_error, 'password') !== false) {
-                            $errors[] = $language->get('user', 'password_maximum_30');
                         }
                     } else if (strpos($validation_error, 'must match') !== false) {
                         // password must match password again
@@ -569,7 +569,7 @@ $smarty->assign(
     )
 );
 
-if ($captcha === 'true') {
+if ($captcha) {
     $smarty->assign('CAPTCHA', CaptchaBase::getActiveProvider()->getHtml());
     $template->addJSFiles(array(CaptchaBase::getActiveProvider()->getJavascriptSource() => array()));
 
@@ -585,7 +585,7 @@ if ($captcha === 'true') {
 }
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
 
 $page_load = microtime(true) - $start;
 define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));

@@ -3,7 +3,7 @@
  *  Made by Samerton
  *  Translation by Locus
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -12,7 +12,7 @@
 
 $language = array(
     // Change this for the account validation message
-    'validate_account_command' => 'Norėdami užbaigti registraciją, rašykite komandą <strong>/validate {x}</strong> žaidime.', // Don't replace {x}
+    'validate_account_command' => 'Norėdami užbaigti registraciją, rašykite komandą <strong>/verify {x}</strong> žaidime.', // Don't replace {x}
 
     // User Related
     'guest' => 'Svečias',
@@ -28,11 +28,12 @@ $language = array(
     'messaging' => 'Pranešimų Rašymas',
     'click_here_to_view' => 'Spauskite čia norėdami peržiūrėti.',
     'moderation' => 'Moderavimas',
-    'administration' => 'Administracija',
     'alerts' => 'Perspėjimai',
     'delete_all' => 'Ištrinti viską',
     'private_profile' => 'Privatus Profilis',
     'gif_avatar' => 'Upload .gif as custom avatar',
+    'placeholders' => 'Placeholders',
+    'no_placeholders' => 'No Placeholders',
 
     // Profile settings
     'field_is_required' => 'Reikalingas {x}.', // Don't replace {x}
@@ -113,7 +114,6 @@ $language = array(
     'password_minimum_6' => 'Jūsų slaptažodis turi būti mažiausiai 6 simboliai.',
     'username_maximum_20' => 'Jūsų vartotojo vardas turi būti ne daugiau kaip 20 simbolių.',
     'mcname_maximum_20' => 'Jūsų Minecraft vartotojo vardas turi būti ne daugiau kaip 20 simbolių.',
-    'password_maximum_30' => 'Jūsų slaptažodis turi būti ne ilgesnis nei 30 simbolių.',
     'passwords_dont_match' => 'Jūsų slaptažodžiai nesutampa.',
     'username_mcname_email_exists' => 'Jūsų vartotojo vardas arba el. Pašto adresas jau egzistuoja.',
     'invalid_mcname' => 'Jūsų Minecraft naudotojo vardas yra negaliojantis.',
@@ -138,6 +138,8 @@ $language = array(
     'must_input_email' => 'Jūs turite įvesti el. pašto adresą.',
     'must_input_username' => 'Jūs turite įvesti vartotojo vardą.',
     'must_input_password' => 'Jūs turite įvesti slaptažodį.',
+    'must_input_email_or_username' => 'You must input an email or username.',
+    'email_or_username' => 'Email or Username',
 
   // Forgot password
   'forgot_password_instructions' => 'Įveskite savo el. pašto adresą, kad galėtume atsiųsti jums daugiau instrukcijų, kaip iš naujo nustatyti slaptažodį.',
@@ -184,7 +186,6 @@ $language = array(
     'new_wall_post_reply_your_profile' => '{x} atsakė į jūsų "postą" jūsų profilyje.', // Don't replace {x}
     'no_about_fields' => 'Šis vartotojas dar nepateikė jokių “apie” laukų.',
     'reply' => 'Atsakyti',
-    'discord_username' => 'Discord Username',
 
     // Reports
     'invalid_report_content' => 'Neįmanoma kurti ataskaitos. Patikrinkite, ar ataskaitos priežasties ilgis yra nuo 2 iki 1024 simbolių.',
@@ -229,20 +230,4 @@ $language = array(
     // Hooks
     'user_x_has_registered' => '{x} prisijungė prie ' . SITE_NAME . '!',
     'user_x_has_validated' => '{x} has validated their account!',
-
-    // Discord
-    'discord_link' => 'Discord Link',
-    'linked' => 'Linked',
-    'not_linked' => 'Not Linked',
-    'discord_id' => 'Discord User ID',
-    'discord_id_unlinked' => 'Successfully unlinked your Discord User ID.',
-    'discord_id_confirm' => 'Please send this message: "!verify {guild_id}:{token}" to {bot_username} to confirm your Discord User ID.',
-    'pending_link' => 'Pending',
-    'discord_id_taken' => 'That Discord ID has already been taken.',
-    'discord_invalid_id' => 'That Discord User ID is invalid.',
-    'discord_already_pending' => 'You already have a pending verification.',
-    'discord_database_error' => 'The Nameless Link database is currently down. Please try again later.',
-    'discord_communication_error' => 'There was an error while communicating with the Discord Bot. Please ensure the bot is running and your Bot URL is correct.',
-    'discord_unknown_error' => 'There was an unknown error while syncing Discord roles. Please contact an administrator.',
-    'discord_id_help' => 'For information on where to find Discord ID\'s, please read <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">this.</a>'
 );

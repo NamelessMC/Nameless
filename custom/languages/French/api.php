@@ -1,8 +1,8 @@
 <?php
 /*
- *  Made by White.
+ *  Made by White, Ikiae.
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr10
  *
  *  License: MIT
  *
@@ -12,48 +12,41 @@
 $language = array(
 
     // Errors
-    'api_disabled' => 'API is disabled',
-    'unknown_error' => 'Unknown error',
-    'invalid_api_key' => 'Invalid API key',
-    'invalid_language_file' => 'Invalid language file',
-    'invalid_api_method' => 'Invalid API method',
-    'no_unique_site_id' => 'No unique site ID available',
-    'unable_to_check_for_updates' => 'Unable to check for updates',
-    'invalid_post_contents' => 'Invalid POST contents',
-    'invalid_get_contents' => 'Invalid GET contents',
-    'invalid_email_address' => 'Invalid email address',
-    'invalid_username' => 'Invalid username',
-    'invalid_uuid' => 'Invalid UUID',
-    'email_already_exists' => 'Email already exists',
-    'username_already_exists' => 'Username already exists',
-    'uuid_already_exists' => 'UUID already exists',
-    'unable_to_create_account' => 'Unable to create account',
-    'unable_to_send_registration_email' => 'Unable to send registration email, please contact an admin to activate your account',
-    'unable_to_find_user' => 'Unable to find user',
-    'unable_to_find_group' => 'Unable to find group',
-    'unable_to_update_group' => 'Unable to update user\'s group',
-    'report_content_too_long' => 'The report content must be 255 characters or less',
-    'you_have_been_banned_from_website' => 'You have been banned from the website',
-    'you_have_open_report_already' => 'You already have an open report regarding this player',
-    'unable_to_create_report' => 'Unable to create report',
-    'unable_to_update_username' => 'Unable to update username',
-    'unable_to_update_server_info' => 'Unable to update server info',
-    'invalid_server_id' => 'Invalid server ID',
-    'invalid_code' => 'Invalid code provided',
-    'provide_one_discord_settings' => 'Please provide at least one of the following: "url", "guild_id"',
-    'no_pending_verification_for_token' => 'There are no verifications pending under the supplied token.',
-    'unable_to_update_discord_username' => 'Unable to update Discord username.',
-    'unable_to_update_discord_roles' => 'Unable to update Discord roles list.',
-    'unable_to_update_discord_bot_username' => 'Unable to update Discord bot username.',
+    'api_disabled' => 'L\'API est désactivée',
+    'unknown_error' => 'Erreur inconnue',
+    'invalid_api_key' => 'Clé API non valide',
+    'invalid_language_file' => 'Fichier de langue non valide',
+    'invalid_api_method' => 'Méthode API non valide',
+    'no_unique_site_id' => 'Pas d\'ID de site unique disponible',
+    'unable_to_check_for_updates' => 'Impossible de vérifier les mises à jour',
+    'invalid_post_contents' => 'Contenu POST invalide',
+    'invalid_get_contents' => 'Contenu GET invalide',
+    'invalid_email_address' => 'Adresse électronique invalide',
+    'invalid_username' => 'Nom d\'utilisateur invalide',
+    'invalid_uuid' => 'UUID invalide',
+    'email_already_exists' => 'L\'e-mail existe déjà',
+    'username_already_exists' => 'Le nom d\'utilisateur existe déjà',
+    'uuid_already_exists' => 'L\'UUID existe déjà',
+    'unable_to_create_account' => 'Impossible de créer un compte',
+    'unable_to_send_registration_email' => 'Impossible d\'envoyer l\'email d\'inscription, veuillez contacter un administrateur pour activer votre compte.',
+    'unable_to_find_user' => 'Impossible de trouver l\'utilisateur',
+    'unable_to_find_group' => 'Impossible de trouver le groupe',
+    'unable_to_update_group' => 'Impossible de mettre à jour le groupe de l\'utilisateur',
+    'report_content_too_long' => 'Le contenu du rapport ne doit pas dépasser 255 caractères',
+    'you_have_been_banned_from_website' => 'Vous avez été banni du site',
+    'you_have_open_report_already' => 'Vous avez déjà un rapport ouvert concernant ce joueur',
+    'unable_to_create_report' => 'Impossible de créer un rapport',
+    'unable_to_update_username' => 'Impossible de mettre à jour le nom d\'utilisateur',
+    'unable_to_update_server_info' => 'Impossible de mettre à jour les informations sur le serveur',
+    'invalid_server_id' => 'ID de serveur invalide',
+    'invalid_code' => 'Code invalide fourni',
 
     // Success messages
-    'finish_registration_link' => 'Please click on the following link to complete registration:',
-    'finish_registration_email' => 'Please check your emails to complete registration.',
-    'group_updated' => 'Group updated successfully',
-    'report_created' => 'Report created successfully',
-    'new_private_message_from' => 'New private message from {x}', // Don't replace {x}
-    'username_updated' => 'Username updated successfully',
-    'server_info_updated' => 'Server info updated successfully',
-    'discord_settings_updated' => 'Discord settings updated successfully',
-    'discord_usernames_updated' => 'Discord usernames updated successfully'
+    'finish_registration_link' => 'Veuillez cliquer sur le lien suivant pour compléter l\'inscription :',
+    'finish_registration_email' => 'Veuillez vérifier vos emails pour compléter l\'inscription.',
+    'group_updated' => 'Groupe mis à jour avec succès',
+    'report_created' => 'Rapport créé avec succès',
+    'new_private_message_from' => 'Nouveau message privé de {x}', // Don't replace {x}
+    'username_updated' => 'Le nom d\'utilisateur a été mis à jour avec succès',
+    'server_info_updated' => 'Les informations sur le serveur ont été mises à jour avec succès',
 );

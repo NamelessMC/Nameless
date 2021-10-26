@@ -10,12 +10,12 @@
  */
 class LatestPostsWidget extends WidgetBase {
 
-    private $_smarty, 
-            $_language, 
-            $_cache, 
-            $_user;
+    private Smarty $_smarty;
+    private Language $_language;
+    private Cache $_cache;
+    private User $_user;
 
-    public function __construct($pages = array(), $latest_posts_language, $by_language, $smarty, $cache, $user, $language){
+    public function __construct(array $pages = array(), string $latest_posts_language, string $by_language, Smarty $smarty, Cache $cache, User $user, Language $language) {
     	$this->_smarty = $smarty;
     	$this->_cache = $cache;
     	$this->_user = $user;
@@ -24,7 +24,7 @@ class LatestPostsWidget extends WidgetBase {
         parent::__construct($pages);
 
         // Get widget
-        $widget_query = DB::getInstance()->query('SELECT `location`, `order` FROM nl2_widgets WHERE `name` = ?', array('Latest Posts'))->first();
+        $widget_query = DB::getInstance()->selectQuery('SELECT `location`, `order` FROM nl2_widgets WHERE `name` = ?', array('Latest Posts'))->first();
 
         // Set widget variables
         $this->_module = 'Forum';
@@ -39,11 +39,11 @@ class LatestPostsWidget extends WidgetBase {
         ));
     }
 
-    public function initialise() {
+    public function initialise(): void {
 	    require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
 	    $forum = new Forum();
 	    $queries = new Queries();
-	    $timeago = new Timeago(TIMEZONE);
+	    $timeago = new TimeAgo(TIMEZONE);
 
 		// Get user group IDs
 		$user_groups = $this->_user->getAllGroupIds();
