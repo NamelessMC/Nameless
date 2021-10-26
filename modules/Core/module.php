@@ -239,9 +239,36 @@ class Core_Module extends Module {
         $custom_pages = null;
 
         // Hooks
-        HookHandler::registerEvent('registerUser', $language->get('admin', 'register_hook_info'), array('user_id' => $language->get('admin', 'user_id'), 'username' => $language->get('user', 'username'), 'uuid' => $language->get('admin', 'uuid'), 'avatar_url' => $language->get('user', 'avatar'), 'content' => $language->get('general', 'content'), 'url' => $language->get('user', 'profile')));
-        HookHandler::registerEvent('validateUser', $language->get('admin', 'validate_hook_info'), array('user_id' => $language->get('admin', 'user_id'), 'username' => $language->get('user', 'username'), 'uuid' => $language->get('admin', 'uuid')));
-        HookHandler::registerEvent('deleteUser', $language->get('admin', 'delete_hook_info'), array('user_id' => $language->get('admin', 'user_id'), 'username' => $language->get('user', 'username'), 'uuid' => $language->get('admin', 'uuid'), 'email_address' => $language->get('user', 'email_address')));
+        EventHandler::registerEvent('registerUser',
+            $language->get('admin', 'register_hook_info'),
+            [
+                'user_id' => $language->get('admin', 'user_id'),
+                'username' => $language->get('user', 'username'),
+                'uuid' => $language->get('admin', 'uuid'),
+                'avatar_url' => $language->get('user', 'avatar'),
+                'content' => $language->get('general', 'content'),
+                'url' => $language->get('user', 'profile')
+            ]
+        );
+
+        EventHandler::registerEvent('validateUser',
+            $language->get('admin', 'validate_hook_info'),
+            [
+                'user_id' => $language->get('admin', 'user_id'),
+                'username' => $language->get('user', 'username'),
+                'uuid' => $language->get('admin', 'uuid')
+            ]
+        );
+
+        EventHandler::registerEvent('deleteUser',
+            $language->get('admin', 'delete_hook_info'),
+            [
+                'user_id' => $language->get('admin', 'user_id'),
+                'username' => $language->get('user', 'username'),
+                'uuid' => $language->get('admin', 'uuid'),
+                'email_address' => $language->get('user', 'email_address')
+            ]
+        );
 
         // Webhooks
         $cache->setCache('hooks');
@@ -271,7 +298,7 @@ class Core_Module extends Module {
                 }
             }
         }
-        HookHandler::registerHooks($hook_array);
+        EventHandler::registerWebhooks($hook_array);
 
         // Captcha
         $captchaPublicKey = $this->_configuration->get('Core', 'recaptcha_key');
@@ -476,7 +503,7 @@ class Core_Module extends Module {
 
         if($validate_action['action'] == 'promote') {
             require_once(ROOT_PATH . '/modules/Core/hooks/ValidateHook.php');
-            HookHandler::registerHook('validateUser', 'ValidateHook::execute');
+            EventHandler::registerListener('validateUser', 'ValidateHook::execute');
             define('VALIDATED_DEFAULT', $validate_action['group']);
         }
 
@@ -1289,7 +1316,7 @@ class Core_Module extends Module {
         }
 
         require_once(ROOT_PATH . '/modules/Core/hooks/DeleteUserHook.php');
-        HookHandler::registerHook('deleteUser', 'DeleteUserHook::execute');
+        EventHandler::registerListener('deleteUser', 'DeleteUserHook::execute');
     }
 
     public function getDebugInfo(): array {

@@ -47,7 +47,7 @@ if (isset($_GET['action'])) {
                     'reset_code' => ''
                 ));
 
-                HookHandler::executeEvent('validateUser', array(
+                EventHandler::executeEvent('validateUser', array(
                     'event' => 'validateUser',
                     'user_id' => $user_query->id,
                     'username' => Output::getClean($user_query->username),
@@ -268,7 +268,7 @@ if (Input::exists()) {
             }
         } else if (Input::get('action') == 'delete') {
             if ($user_query->id > 1) {
-                HookHandler::executeEvent('deleteUser', array(
+                EventHandler::executeEvent('deleteUser', array(
                     'user_id' => $user_query->id,
                     'username' => Output::getClean($user_query->username),
                     'uuid' => Output::getClean($user_query->uuid),

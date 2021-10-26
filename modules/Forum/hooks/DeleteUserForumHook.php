@@ -4,10 +4,10 @@
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0
  *
- *  Delete user hook handler class for Forum module
+ *  Delete user event listener for Forum module
  */
 
-class DeleteUserForumHook implements Hook {
+class DeleteUserForumHook implements Listener {
 
 	public static function execute(array $params = array()): void {
 		if (isset($params['user_id']) && $params['user_id'] > 1) {

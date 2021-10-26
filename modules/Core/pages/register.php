@@ -397,7 +397,7 @@ if (Input::exists()) {
 
                             } else if ($api_verification != '1') {
                                 // Email verification disabled
-                                HookHandler::executeEvent('registerUser', array(
+                                EventHandler::executeEvent('registerUser', array(
                                     'event' => 'registerUser',
                                     'user_id' => $user_id,
                                     'username' => Output::getClean(Input::get('username')),
@@ -414,7 +414,7 @@ if (Input::exists()) {
                                 die();
                             }
 
-                            HookHandler::executeEvent(
+                            EventHandler::executeEvent(
                                 'registerUser',
                                 array(
                                     'event' => 'registerUser',

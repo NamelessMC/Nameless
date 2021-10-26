@@ -74,7 +74,7 @@ if(!isset($_GET['c'])){
                             'active' => 1
                         ));
 
-                        HookHandler::executeEvent('validateUser', array(
+                        EventHandler::executeEvent('validateUser', array(
                             'event' => 'validateUser',
                             'user_id' => $target_user->data()->id,
                             'username' => $target_user->getDisplayname(),

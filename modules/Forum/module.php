@@ -56,7 +56,20 @@ class Forum_Module extends Module {
 		$pages->add('Forum', '/forum/view_forum', 'pages/forum/redirect.php');
 
 		// Hooks
-		HookHandler::registerEvent('newTopic', $this->_forum_language->get('forum', 'new_topic_hook_info'), array('uuid' => $this->_language->get('admin', 'uuid'), 'username' => $this->_language->get('user', 'username'), 'nickname' => $this->_language->get('user', 'nickname'), 'content' => $this->_language->get('general', 'content'), 'content_full' => $this->_language->get('general', 'full_content'), 'avatar_url' => $this->_language->get('user', 'avatar'), 'title' => $this->_forum_language->get('forum', 'topic_title'), 'url' => $this->_language->get('general', 'url'), 'available_hooks' => $this->_forum_language->get('forum', 'available_hooks')));
+		EventHandler::registerEvent('newTopic',
+            $this->_forum_language->get('forum', 'new_topic_hook_info'),
+            [
+                'uuid' => $this->_language->get('admin', 'uuid'),
+                'username' => $this->_language->get('user', 'username'),
+                'nickname' => $this->_language->get('user', 'nickname'),
+                'content' => $this->_language->get('general', 'content'),
+                'content_full' => $this->_language->get('general', 'full_content'),
+                'avatar_url' => $this->_language->get('user', 'avatar'),
+                'title' => $this->_forum_language->get('forum', 'topic_title'),
+                'url' => $this->_language->get('general', 'url'),
+                'available_hooks' => $this->_forum_language->get('forum', 'available_hooks')
+            ]
+        );
 	}
 
 	public function onInstall() {
@@ -270,7 +283,7 @@ class Forum_Module extends Module {
 		}
 
 		require_once(ROOT_PATH . '/modules/Forum/hooks/DeleteUserForumHook.php');
-		HookHandler::registerHook('deleteUser', 'DeleteUserForumHook::execute');
+		EventHandler::registerListener('deleteUser', 'DeleteUserForumHook::execute');
 	}
 
     public function getDebugInfo(): array {
