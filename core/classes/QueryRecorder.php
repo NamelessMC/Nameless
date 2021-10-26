@@ -68,9 +68,7 @@ class QueryRecorder {
             $i++;
         }
 
-        if (!substr_compare($comp, ';', -strlen($comp))) {
-            $comp .= ';';
-        }
+        $comp .= ';';
 
         require_once(ROOT_PATH . '/core/includes/sqlformatter/SQLFormatter.php');
 

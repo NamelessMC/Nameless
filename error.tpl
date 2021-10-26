@@ -107,10 +107,9 @@
 
                                                     {if $frame['code'] != ''}
 
-                                                        <pre data-line="{$frame['highlight_line']}"
-                                                            data-start="{($frame['start_line'])}">
-                                                                    <code class="language-php line-numbers">{$frame['code']}</code>
-                                                                </pre>
+                                                        <pre data-line="{$frame['highlight_line']}" data-start="{($frame['start_line'])}">
+                                                            <code class="language-php line-numbers">{$frame['code']}</code>
+                                                        </pre>
 
                                                     {else}
 
@@ -126,14 +125,42 @@
                                     </div>
 
                                     <div class="tab-pane fade" id="sql">
-                                        {foreach from=$ERROR_SQL_STACK item=$stack}
+                                        <div class="tab">
+                                            {foreach from=$ERROR_SQL_STACK item=$stack}
 
-                                            <p>
-                                                {$stack['number']}: {$stack['sql_query']}
-                                                {$stack['frame']['file']}:{$stack['frame']['line']}
-                                            </p>
+                                                <button class="sql-tablinks" id="sql-button-{$stack['number']}" onclick="openSqlFrame({$stack['number']})">
+                                                    <h5>Query #{$stack['number']}</h5>
+                                                    <sub>{$stack['frame']['file']}:{$stack['frame']['line']}</sub>
+                                                </button>
 
-                                        {/foreach}
+                                            {/foreach}
+                                        </div>
+
+                                        <div class="code">
+                                            {foreach from=$ERROR_SQL_STACK item=$stack}
+
+                                                <div id="sql-frame-{$stack['number']}" class="sql-tabcontent">
+                                                    <h5>SQL query: <strong>{$stack['sql_query']}</strong></h5>
+                                                    <h5>File: <strong>{$stack['frame']['file']}</strong></h5>
+
+                                                    <hr>
+
+                                                    {if $stack['frame']['code'] != ''}
+
+                                                        <pre data-line="{$stack['frame']['highlight_line']}" data-start="{($stack['frame']['start_line'])}">
+                                                            <code class="language-php line-numbers">{$stack['frame']['code']}</code>
+                                                        </pre>
+
+                                                    {else}
+
+                                                        <pre class="text-center">Cannot read file.</pre>
+
+                                                    {/if}
+
+                                                </div>
+
+                                            {/foreach}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -187,7 +214,7 @@
 }
 
 /* Style the tab content */
-.tabcontent {
+.tabcontent, .sql-tabcontent {
     float: left;
     padding: 0px 12px;
     width: 70%;
@@ -196,10 +223,14 @@
 </style>
 
 <script>
-hideAllFrames();
-
 function hideAllFrames() {
     $('.tabcontent').each(function() {
+        $(this).css('display', 'none');
+    });
+}
+
+function hideAllSqlFrames() {
+    $('.sql-tabcontent').each(function() {
         $(this).css('display', 'none');
     });
 }
@@ -210,18 +241,34 @@ function removeAllActive() {
     });
 }
 
+function removeAllActiveSqlFrames() {
+    $('.sql-tablinks').each(function() {
+        $(this).removeClass('active');
+    });
+}
+
 $(document).ready(function() {
-    openFrame({$FRAMES|count + $SKIP_FRAMES})
+    hideAllFrames();
+    hideAllSqlFrames();
+    
+    openFrame({$FRAMES|count + $SKIP_FRAMES});
+    openSqlFrame({$ERROR_SQL_STACK|count});
 });
 
 function openFrame(id) {
-
     hideAllFrames();
-
     removeAllActive();
 
     $('#frame-' + id).css('display', 'block');
     $('#button-' + id).addClass('active');
+}
+
+function openSqlFrame(id) {
+    hideAllSqlFrames();
+    removeAllActiveSqlFrames();
+
+    $('#sql-frame-' + id).css('display', 'block');
+    $('#sql-button-' + id).addClass('active');
 }
 </script>
 

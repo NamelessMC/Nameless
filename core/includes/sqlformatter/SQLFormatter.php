@@ -1072,7 +1072,7 @@ class SQLFormatter
                 return $string;
             }
 
-            return '<pre ' . self::$pre_attributes . '>' . $string . '</pre>';
+            return '<p ' . self::$pre_attributes . '>' . $string . '</p>';
         }
     }
 
