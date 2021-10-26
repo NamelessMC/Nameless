@@ -1,39 +1,30 @@
 <?php
 /*
- *	Made by Samerton
+ *	Made by Aberdeener
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
- *  DatabaseHandler class
+ *  QueryRecorder class
  */
 
-class DatabaseHandler {
+class QueryRecorder {
 
-    private $_query_stack;
-    private $_query_stack_num = 1;
+    private array $_query_stack;
+    private int $_query_stack_num = 1;
 
-    /** @var DatabaseHandler */
-    private static $_instance;
+    private static QueryRecorder $_instance;
 
-    public static function getInstance() {
-        if (!isset(self::$_instance)) {
-            self::$_instance = new DatabaseHandler();
-        }
-
-        return self::$_instance;
+    public static function getInstance(): QueryRecorder {
+        return self::$_instance ??= new QueryRecorder();
     }
 
-    public function getMostRecentSqlQuery() {
-        return end($this->_query_stack)['sql_query'];
-    }
-
-    public function getSqlStack() {
+    public function getSqlStack(): array {
         return array_reverse($this->_query_stack);
     }
 
-    public function pushQuery($sql, $params) {
+    public function pushQuery(string $sql, array $params): void {
 
         $backtrace = $this->lastReleventBacktrace(debug_backtrace());
 
@@ -46,7 +37,7 @@ class DatabaseHandler {
         $this->_query_stack_num++;
     }
 
-    private function lastReleventBacktrace($backtrace) {
+    private function lastReleventBacktrace(array $backtrace): array {
 
         $current_file = $last_file = $backtrace[0]['file'];
         $i = 1;
@@ -59,7 +50,7 @@ class DatabaseHandler {
         return $backtrace[$i];
     }
 
-    private function compileQuery($sql, $params) {
+    private function compileQuery(string $sql, array $params): string {
         $comp = '';
 
         $split = explode(' ?', $sql);
@@ -77,9 +68,11 @@ class DatabaseHandler {
             $i++;
         }
 
-        if (!str_ends_with(';', $comp)) {
+        if (!substr_compare($comp, ';', -strlen($comp))) {
             $comp .= ';';
         }
+
+        require_once(ROOT_PATH . '/core/includes/sqlformatter/SQLFormatter.php');
 
         return SQLFormatter::highlight(trim($comp));
     }

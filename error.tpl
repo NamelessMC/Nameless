@@ -71,23 +71,19 @@
                         <div class="card">
                             <div class="card-body">
 
-
-                                <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                    <li class="nav-item" role="presentation">
-                                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Stack trace</a>
+                                <ul class="nav nav-tabs">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-toggle="tab" href="#stack">Stack trace</a>
                                     </li>
-                                    <li class="nav-item" role="presentation">
-                                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">SQL trace</a>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Request</a>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#sql">SQL trace</a>
                                     </li>
                                 </ul>
 
                                 <br />
 
-                                <div class="tab-content" id="myTabContent">
-                                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                <div class="tab-content">
+                                    <div class="tab-pane fade show active" id="stack">
 
                                         <div class="tab">
                                             {foreach from=$FRAMES item=frame}
@@ -129,8 +125,8 @@
                                     
                                     </div>
 
-                                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                        {foreach from=$ERROR_SQL_STACK item=$stack }
+                                    <div class="tab-pane fade" id="sql">
+                                        {foreach from=$ERROR_SQL_STACK item=$stack}
 
                                             <p>
                                                 {$stack['number']}: {$stack['sql_query']}
@@ -138,10 +134,6 @@
                                             </p>
 
                                         {/foreach}
-                                    </div>
-
-                                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                                        {$HEADERS|var_dump}
                                     </div>
                                 </div>
                             </div>

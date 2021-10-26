@@ -17,8 +17,7 @@ class DB_Custom {
     /** @var PDO */
     private $_pdo;
 
-    /** @var DatabaseHandler */
-    private $_database_handler;
+    private QueryRecorder $_query_recorder;
 
     private $_query,
         $_error = false,
@@ -35,7 +34,7 @@ class DB_Custom {
             die("<strong>Error:<br /></strong><div class=\"alert alert-danger\">" . $e->getMessage() . "</div>Please check your database connection settings.");
         }
 
-        $this->_database_handler = DatabaseHandler::getInstance();
+        $this->_query_recorder = QueryRecorder::getInstance();
     }
 
     public static function getInstance($host, $database, $username, $password, $port = 3306) {
@@ -56,7 +55,7 @@ class DB_Custom {
                 }
             }
 
-            $this->_database_handler->pushQuery($sql, $params);
+            $this->_query_recorder->pushQuery($sql, $params);
 
             if ($this->_query->execute()) {
                 $this->_results = $this->_query->fetchAll(PDO::FETCH_OBJ);
@@ -80,7 +79,7 @@ class DB_Custom {
                 }
             }
 
-            $this->_database_handler->pushQuery($sql, $params);
+            $this->_query_recorder->pushQuery($sql, $params);
 
             if ($this->_query->execute()) {
                 $this->_count = $this->_query->rowCount();
