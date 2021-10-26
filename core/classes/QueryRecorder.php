@@ -9,16 +9,10 @@
  *  QueryRecorder class
  */
 
-class QueryRecorder {
+class QueryRecorder extends Instanceable {
 
     private array $_query_stack;
     private int $_query_stack_num = 1;
-
-    private static QueryRecorder $_instance;
-
-    public static function getInstance(): QueryRecorder {
-        return self::$_instance ??= new QueryRecorder();
-    }
 
     public function getSqlStack(): array {
         return array_reverse($this->_query_stack);

@@ -1072,7 +1072,7 @@ class SQLFormatter
                 return $string;
             }
 
-            return '<p ' . self::$pre_attributes . '>' . $string . '</p>';
+            return '<p ' . self::$pre_attributes . '>' . $string . '</p>'; // Changed from pre -> p by Aberdeener, Oct 25th 2021.
         }
     }
 
