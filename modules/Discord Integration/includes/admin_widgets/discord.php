@@ -32,6 +32,12 @@ if ($cache->isCached('discord_widget_theme'))
 else
     $discord_theme = 'dark';
 
+if (isset($errors) && count($errors)) {
+    $smarty->assign([
+        'ERRORS' => $errors,
+    ]);
+}
+
 $smarty->assign(array(
     'DISCORD_THEME' => Discord::getLanguageTerm('discord_widget_theme'),
     'DISCORD_THEME_VALUE' => $discord_theme,
