@@ -20,10 +20,6 @@ class EventHandler {
      * @param array|null $params Array of available parameters and their descriptions.
      */
     public static function registerEvent(string $event, string $description, array $params = []): void {
-        if (!isset(self::$_events[$event])) {
-            self::$_events[$event] = [];
-        }
-
         self::$_events[$event] = [
             'description' => $description,
             'params' => $params,
