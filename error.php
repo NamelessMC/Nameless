@@ -31,13 +31,6 @@ if (defined('CONFIG_PATH')) {
     $path = '/core/assets/';
 }
 
-$boostrap = $path . 'css/bootstrap.min.css';
-$custom = $path . 'css/custom.css';
-$font_awesome = $path . 'css/font-awesome.min.css';
-$jquery = $path . 'js/jquery.min.js';
-$prism_css = $path . 'plugins/prism/prism.css';
-$prism_js = $path . 'plugins/prism/prism.js';
-
 $current_url = "http" . (($_SERVER['SERVER_PORT'] == 443) ? "s" : "") . "://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 
 $smarty = new Smarty();
@@ -50,12 +43,13 @@ $smarty->assign(array(
     'LANG_CHARSET' => defined('LANG_CHARSET') ? LANG_CHARSET : 'utf-8',
     'TITLE' => $language->get('errors', 'fatal_error') . ' - ' . SITE_NAME,
     'SITE_NAME' => SITE_NAME,
-    'BOOTSTRAP' => $boostrap,
-    'CUSTOM' => $custom,
-    'FONT_AWESOME' => $font_awesome,
-    'JQUERY' => $jquery,
-    'PRISM_CSS' => $prism_css,
-    'PRISM_JS' => $prism_js,
+    'BOOTSTRAP' => $path . 'css/bootstrap.min.css',
+    'BOOTSTRAP_JS' => $path . 'js/bootstrap.min.js',
+    'CUSTOM' => $path . 'css/custom.css',
+    'FONT_AWESOME' => $path . 'css/font-awesome.min.css',
+    'JQUERY' => $path . 'js/jquery.min.js',
+    'PRISM_CSS' => $path . 'plugins/prism/prism.css',
+    'PRISM_JS' => $path . 'plugins/prism/prism.js',
     'DETAILED_ERROR' => defined('DEBUGGING') || ($user->isLoggedIn() && $user->hasPermission('admincp.errors')),
     'FATAL_ERROR_TITLE' => $language->get('errors', 'fatal_error_title'),
     'FATAL_ERROR_MESSAGE_ADMIN' => $language->get('errors', 'fatal_error_message_admin'),
@@ -63,6 +57,7 @@ $smarty->assign(array(
     'ERROR_TYPE' => is_null($exception) ? $language->get('general', 'error') : (new ReflectionClass($exception))->getName(),
     'ERROR_STRING' => $error_string,
     'ERROR_FILE' => $error_file,
+    'ERROR_SQL_STACK' =>  QueryRecorder::getInstance()->getSqlStack(),
     'CURRENT_URL' => $current_url,
     'FRAMES' => $frames,
     'SKIP_FRAMES' => $skip_frames,

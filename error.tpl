@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="{$FONT_AWESOME}">
     <link rel="stylesheet" href="{$PRISM_CSS}">
     <script src="{$JQUERY}"></script>
+    <script src="{$BOOTSTRAP_JS}"></script>
     <script src="{$PRISM_JS}"></script>
 
 </head>
@@ -67,43 +68,99 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="jumbotron">
-                        <div style="text-align:center">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="tab">
-                                        {foreach from=$FRAMES item=frame}
+                        <div class="card">
+                            <div class="card-body">
 
-                                            <button class="tablinks" id="button-{$frame['number']}" onclick="openFrame({$frame['number']})">
-                                                <h5>Frame #{$frame['number']}</h5>
-                                                <sub>{$frame['file']}:{$frame['line']}</sub>
-                                            </button>
+                                <ul class="nav nav-tabs">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-toggle="tab" href="#stack">Stack trace</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#sql">SQL trace</a>
+                                    </li>
+                                </ul>
 
-                                        {/foreach}
+                                <br />
+
+                                <div class="tab-content">
+                                    <div class="tab-pane fade show active" id="stack">
+
+                                        <div class="tab">
+                                            {foreach from=$FRAMES item=frame}
+
+                                                <button class="tablinks" id="button-{$frame['number']}"
+                                                    onclick="openFrame({$frame['number']})">
+                                                    <h5>Frame #{$frame['number']}</h5>
+                                                    <sub>{$frame['file']}:{$frame['line']}</sub>
+                                                </button>
+
+                                            {/foreach}
+                                        </div>
+
+                                        <div class="code">
+                                            {foreach from=$FRAMES item=frame}
+
+                                                <div id="frame-{$frame['number']}" class="tabcontent">
+                                                    <h5>File: <strong>{$frame['file']}</strong></h5>
+
+                                                    <hr>
+
+                                                    {if $frame['code'] != ''}
+
+                                                        <pre data-line="{$frame['highlight_line']}" data-start="{($frame['start_line'])}">
+                                                            <code class="language-php line-numbers">{$frame['code']}</code>
+                                                        </pre>
+
+                                                    {else}
+
+                                                        <pre class="text-center">Cannot read file.</pre>
+
+                                                    {/if}
+
+                                                </div>
+
+                                            {/foreach}
+                                        </div>
+                                    
                                     </div>
 
-                                    <div class="code">
-                                        {foreach from=$FRAMES item=frame}
+                                    <div class="tab-pane fade" id="sql">
+                                        <div class="tab">
+                                            {foreach from=$ERROR_SQL_STACK item=$stack}
 
-                                            <div id="frame-{$frame['number']}" class="tabcontent">
-                                                <h5>File: <strong>{$frame['file']}</strong></h5>
+                                                <button class="sql-tablinks" id="sql-button-{$stack['number']}" onclick="openSqlFrame({$stack['number']})">
+                                                    <h5>Query #{$stack['number']}</h5>
+                                                    <sub>{$stack['frame']['file']}:{$stack['frame']['line']}</sub>
+                                                </button>
 
-                                                <hr>
+                                            {/foreach}
+                                        </div>
 
-                                                {if $frame['code'] != ''}
+                                        <div class="code">
+                                            {foreach from=$ERROR_SQL_STACK item=$stack}
 
-                                                    <pre data-line="{$frame['highlight_line']}" data-start="{($frame['start_line'])}">
-                                                        <code class="language-php line-numbers">{$frame['code']}</code>
-                                                    </pre>
+                                                <div id="sql-frame-{$stack['number']}" class="sql-tabcontent">
+                                                    <h5>SQL query: <strong>{$stack['sql_query']}</strong></h5>
+                                                    <h5>File: <strong>{$stack['frame']['file']}</strong></h5>
 
-                                                {else}
+                                                    <hr>
 
-                                                    <pre>Cannot read file.</pre>
+                                                    {if $stack['frame']['code'] != ''}
 
-                                                {/if}
+                                                        <pre data-line="{$stack['frame']['highlight_line']}" data-start="{($stack['frame']['start_line'])}">
+                                                            <code class="language-php line-numbers">{$stack['frame']['code']}</code>
+                                                        </pre>
 
-                                            </div>
+                                                    {else}
 
-                                        {/foreach}
+                                                        <pre class="text-center">Cannot read file.</pre>
+
+                                                    {/if}
+
+                                                </div>
+
+                                            {/foreach}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -157,7 +214,7 @@
 }
 
 /* Style the tab content */
-.tabcontent {
+.tabcontent, .sql-tabcontent {
     float: left;
     padding: 0px 12px;
     width: 70%;
@@ -166,10 +223,14 @@
 </style>
 
 <script>
-hideAllFrames();
-
 function hideAllFrames() {
     $('.tabcontent').each(function() {
+        $(this).css('display', 'none');
+    });
+}
+
+function hideAllSqlFrames() {
+    $('.sql-tabcontent').each(function() {
         $(this).css('display', 'none');
     });
 }
@@ -180,18 +241,34 @@ function removeAllActive() {
     });
 }
 
+function removeAllActiveSqlFrames() {
+    $('.sql-tablinks').each(function() {
+        $(this).removeClass('active');
+    });
+}
+
 $(document).ready(function() {
-    openFrame({$FRAMES|count + $SKIP_FRAMES})
+    hideAllFrames();
+    hideAllSqlFrames();
+    
+    openFrame({$FRAMES|count + $SKIP_FRAMES});
+    openSqlFrame({$ERROR_SQL_STACK|count});
 });
 
 function openFrame(id) {
-
     hideAllFrames();
-
     removeAllActive();
 
     $('#frame-' + id).css('display', 'block');
     $('#button-' + id).addClass('active');
+}
+
+function openSqlFrame(id) {
+    hideAllSqlFrames();
+    removeAllActiveSqlFrames();
+
+    $('#sql-frame-' + id).css('display', 'block');
+    $('#sql-button-' + id).addClass('active');
 }
 </script>
 

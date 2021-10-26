@@ -17,6 +17,7 @@ class DB extends Instanceable {
     private array $_results;
     private string $_prefix;
     private int $_count = 0;
+    private QueryRecorder $_query_recorder;
 
     public function __construct() {
         try {
@@ -34,6 +35,8 @@ class DB extends Instanceable {
         } catch (PDOException $e) {
             die("<strong>Error:<br /></strong><div class=\"alert alert-danger\">" . $e->getMessage() . "</div>Please check your database connection settings.");
         }
+
+        $this->_query_recorder = QueryRecorder::getInstance();
     }
 
     /**
@@ -54,7 +57,9 @@ class DB extends Instanceable {
                 }
             }
 
-            if($this->_query->execute()) {
+            $this->_query_recorder->pushQuery($sql, $params);
+
+            if ($this->_query->execute()) {
                 $this->_results = $this->_query->fetchAll($fetch_method);
                 $this->_count = $this->_query->rowCount();
             } else {
@@ -77,6 +82,8 @@ class DB extends Instanceable {
                     $x++;
                 }
             }
+
+            $this->_query_recorder->pushQuery($sql, $params);
 
             if($this->_query->execute()) {
                 $this->_count = $this->_query->rowCount();
