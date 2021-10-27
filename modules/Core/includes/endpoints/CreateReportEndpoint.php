@@ -68,7 +68,7 @@ class CreateReportEndpoint extends EndpointBase {
         try {
             $reported_user = new User($user_reported_id);
             $report = new Report();
-            $report = $report->create(array(
+            $report = $report->create([
                 'type' => $user_reported_id ? 0 : 1, // TODO: report origin (#2440)
                 'reporter_id' => $user_reporting->id,
                 'reported_id' => $user_reported_id,
@@ -80,13 +80,11 @@ class CreateReportEndpoint extends EndpointBase {
                 'updated' => date('U'),
                 'reported_mcname' => $_POST['reported_username'] ? Output::getClean($_POST['reported_username']) : $reported_user->getDisplayName(),
                 'reported_uuid' => $_POST['reported_uid'] ? Output::getClean($_POST['reported_uid']) : null
-            ));
-            HookHandler::executeEvent('createReport', array(
-                'event' => 'createReport',
+            ]);
+            EventHandler::executeEvent('createReport', array(
                 'username' => $report['reported_mcname'],
-                'content' => $api->getLanguage()->get('general', 'reported_by') . ' ' . $user_reporting->username,
+                'content' => str_replace(array('{x}', '{y}'), array($api->getLanguage()->get('general', 'reported_by'), ' '), $user_reporting->username),
                 'content_full' => $report['report_reason'],
-                //'content_full' => 'DEBUG: ' . $report['type'] . ', ' . $report['reporter_id'] . ', ' . $report['reported_id'] . ', ' . $report['date_reported'] . ', ' .$report['date_updated'] . ', ' .$report['report_reason'] . ', ' .$report['updated_by'] . ', ' .$report['reported'] . ', ' .$report['updated'] . ', ' .$report['reported_mcname'] . ', ' .$report['reported_uuid'],
                 'avatar_url' => $report['reported_id'] ? $reported_user->getAvatar() : Util::getAvatarFromUUID($report['reported_uuid']),
                 'title' => $api->getLanguage()->get('general', 'view_report'),
                 'url' => rtrim(Util::getSelfURL(), '/') . URL::build('/panel/users/reports/', 'id=' . $report['id'])
