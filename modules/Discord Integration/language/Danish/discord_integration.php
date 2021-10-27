@@ -5,7 +5,6 @@
 $language = [
 
     // Misc
-    'discord_logs' => 'Discord Role Changes',
     'discord' => 'Discord',
     'enable_discord_integration' => 'Enable Discord integration?',
     'discord_role_id' => 'Discord Role ID',
@@ -13,12 +12,14 @@ $language = [
     'discord_role_id_length' => 'Discord Role ID must be 18 digits long.',
     'discord_guild_id' => 'Discord Server ID',
     'discord_widget_theme' => 'Discord Widget Theme',
+    'discord_widget_disabled' => 'The widget is disabled for the specified Discord server. Please go to the \'Widget\' tab in your Discord server settings, and ensure the Discord widget is enabled and that the ID is correct.',
     'discord_id_length' => 'Please ensure your Discord ID is 18 characters long.',
     'discord_id_numeric' => 'Please ensure your Discord ID is numeric (Numbers only).',
     'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://namelessmc.com/discord-bot-invite">here</a>. Then, run the <code>/apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
     'discord_bot_must_be_setup' => 'Cannot enable Discord Integration until you have set up the bot. For information, please <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">click here</a>.',
     'discord_bot_setup' => 'Bot set up?',
     'discord_integration_not_setup' => 'Discord integration is not set up',
+    'discord_username' => 'Discord Username',
 
     // Discord bot Errors
     'discord_bot_error_badparameter' => 'Invalid request body.',
@@ -28,6 +29,8 @@ $language = [
     'discord_bot_error_notlinked' => 'The bot is not linked to this website for provided Guild ID.',
     'discord_bot_error_unauthorized' => 'Website API key is invalid',
     'discord_bot_error_invrole' => 'Provided Role ID is invalid.',
+    'discord_bot_error_hierarchy' => 'The bot cannot edit this user\'s roles.',
+    'discord_bot_check_logs' => 'You should check for a more specific error (if one exists) in StaffCP -> Security -> All Logs.',
     'discord_bot_error_partsuccess' => 'The bot could not edit one or more of the roles due to a Discord hierarchy misconfiguration.',
 
     // API Errors
@@ -46,7 +49,6 @@ $language = [
     'discord_usernames_updated' => 'Discord brugernavne opdateret',
 
     // User Settings
-    'discord_username' => 'Discord Brugernavn',
     'discord_link' => 'Discord Link',
     'linked' => 'Linket',
     'not_linked' => 'Ikke Linket',

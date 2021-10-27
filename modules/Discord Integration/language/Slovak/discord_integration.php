@@ -18,6 +18,7 @@ $language = [
     'discord_bot_must_be_setup' => 'Discord integráciu nie je možné povoliť, kým nenastavíte bota. Pre informáciu prosím <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">kliknite tu</a>.',
     'discord_bot_setup' => 'Bot nastavený?',
     'discord_integration_not_setup' => 'Integrácia Discordu nie je nastavená',
+    'discord_username' => 'Discord Username',
 
     // Discord bot Errors
     'discord_bot_error_badparameter' => 'Neplatný text žiadosti.',
@@ -27,8 +28,9 @@ $language = [
     'discord_bot_error_notlinked' => 'Bot nie je prepojený s týmto webovým serverom pre poskytnuté Guild ID.',
     'discord_bot_error_unauthorized' => 'API kľúč je neplatný',
     'discord_bot_error_invrole' => 'Poskytnuté ID role je neplatné.',
-    'discord_bot_error_partsuccess' => 'The bot could not edit one or more of the roles due to a Discord hierarchy misconfiguration.',
+    'discord_bot_error_hierarchy' => 'The bot cannot edit this user\'s roles.',
     'discord_bot_check_logs' => 'Mali by ste skontrolovať konkrétnejšiu chybu (ak existuje) v StaffCP -> Zabezpečenie -> Všetky záznamy.',
+    'discord_bot_error_partsuccess' => 'The bot could not edit one or more of the roles due to a Discord hierarchy misconfiguration.',
 
     // API Errors
     'discord_integration_disabled' => 'Discord integrácia je zakázaná.',
@@ -46,7 +48,6 @@ $language = [
     'discord_usernames_updated' => 'Discord užívateľské mená boli úspešne aktualizované',
 
     // User Settings
-    'discord_username' => 'Discord užívateľské meno',
     'discord_link' => 'Discord prepojenie',
     'linked' => 'Prepojené',
     'not_linked' => 'Neprepojené',

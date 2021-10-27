@@ -5,27 +5,21 @@
 $language = [
 
     // Misc
+    'discord' => 'Discord',
+    'enable_discord_integration' => 'Aktiver Discord-integrering?',
+    'discord_role_id' => 'Discord rolle-ID',
+    'discord_role_id_numeric' => 'Discord rolle-ID må være numerisk',
+    'discord_role_id_length' => 'Discord rolle-ID må inneholde 18 tegn.',
     'discord_guild_id' => 'Discord Server-ID',
     'discord_widget_theme' => 'Discord Widget-Tema',
+    'discord_widget_disabled' => 'The widget is disabled for the specified Discord server. Please go to the \'Widget\' tab in your Discord server settings, and ensure the Discord widget is enabled and that the ID is correct.',
     'discord_id_length' => 'Pass på at Discord-ID-en inneholder 18 tegn.',
     'discord_id_numeric' => 'Pass på at Discord-ID-en er numerisk (kun tall).',
     'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://namelessmc.com/discord-bot-invite">here</a>. Then, run the <code>/apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
     'discord_bot_must_be_setup' => 'Kan ikke aktivere Discord-integrering før du har satt opp boten. For informasjon, vennligst <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">klikk her</a>.',
     'discord_bot_setup' => 'Bot-oppsett',
     'discord_integration_not_setup' => 'Discord-integrering er ikke satt opp',
-    'discord' => 'Discord',
-    'enable_discord_integration' => 'Aktiver Discord-integrering?',
-    'discord_role_id' => 'Discord rolle-ID',
-    'discord_role_id_numeric' => 'Discord rolle-ID må være numerisk',
-    'discord_role_id_length' => 'Discord rolle-ID må inneholde 18 tegn.',
-    'discord_guild_id_required' => 'Vennligst oppgi Discord-serveren din sin ID, slik at Discord-integreringen fungerer.',
-    'discord_bot_url' => 'Discord Bot-URL',
-    'discord_bot_url_info' => 'Plasseringen til din egne instance av Nameless Link Bot. Endre kun hvis du vet hva du gjør!',
-    'discord_bot_url_required' => 'Vennligst oppgi Bot-URL-en for at Discord-integreringen skal fungere.',
-    'discord_invalid_api_url' => 'Ser ut som API-URL-en har blitt endret. Vennligst få servereieren til å oppdatere URLen med Nameless Link Bot.',
-    'test_bot_url' => 'Testbot-URL',
-    'discord_bot_url_valid' => 'Din Bot-URL er gyldig.',
-    'discord_cannot_interact' => 'Nameless Link-boten kan ikke samhandle med denne brukeren på Discord. Er rollen deres høyere enn Nameless Link-boten sin?',
+    'discord_username' => 'Discord Username',
 
     // Discord bot Errors
     'discord_bot_error_badparameter' => 'Ugyldig forespørseltekst',
@@ -53,7 +47,6 @@ $language = [
     'discord_usernames_updated' => 'Discord-brukernavn har blitt oppdatert',
 
     // User Settings
-    'discord_username' => 'Discord-brukernavn',
     'discord_link' => 'Discord-lenke',
     'linked' => 'Tilkoblet',
     'not_linked' => 'Ikke tilkoblet',

@@ -5,6 +5,11 @@
 $language = [
 
     // Misc
+    'discord' => 'Discord',
+    'enable_discord_integration' => 'Включить интеграцию?',
+    'discord_role_id' => 'ID роли',
+    'discord_role_id_numeric' => 'ID роли имеет только цифры.',
+    'discord_role_id_length' => 'ID роли имеет длину в 18 символов.',
     'discord_guild_id' => 'ID сервера в Discord',
     'discord_widget_theme' => 'Тема для виджета',
     'discord_id_length' => 'Убедитесь что ваш ID длинее 18 символов.',
@@ -13,19 +18,7 @@ $language = [
     'discord_bot_must_be_setup' => 'Нельзя интегрировать сайт, пока вы не подключите бота. Информация <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">здесь</a>.',
     'discord_bot_setup' => 'Бот настроен?',
     'discord_integration_not_setup' => 'Discord не настроен',
-    'discord' => 'Discord',
-    'enable_discord_integration' => 'Включить интеграцию?',
-    'discord_role_id' => 'ID роли',
-    'discord_role_id_numeric' => 'ID роли имеет только цифры.',
-    'discord_role_id_length' => 'ID роли имеет длину в 18 символов.',
-    'discord_guild_id_required' => 'Введить ID сервера в Discord.',
-    'discord_bot_url' => 'URL бота',
-    'discord_bot_url_info' => 'Расположение вашего бота... Изменяйте это значение только в том случае, если вы знаете, что делаете!',
-    'discord_bot_url_required' => 'Введите URL бота для продолжения.',
-    'discord_invalid_api_url' => 'Похоже ссылка на API изменена. Сделайте обновление ссылки в боте.',
-    'test_bot_url' => 'URL бота для теста',
-    'discord_bot_url_valid' => 'URL бота работает корректно.',
-    'discord_cannot_interact' => 'Бот не может взаимодействовать с этим пользователем. Он является администратором сервера?',
+    'discord_username' => 'Discord Username',
 
     // Discord bot Errors
     'discord_bot_error_badparameter' => 'Некорректный запрос.',
@@ -53,7 +46,6 @@ $language = [
     'discord_usernames_updated' => 'Никнеймы в Discord обновлены',
 
     // User Settings
-    'discord_username' => 'Ваш Discord',
     'discord_link' => 'Discord Link',
     'linked' => 'Linked',
     'not_linked' => 'Not Linked',

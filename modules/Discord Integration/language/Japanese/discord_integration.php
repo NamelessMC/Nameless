@@ -3,35 +3,28 @@
 /*
  *  Translator
  *  - snake( @ViaSnake, https://github.com/ViaSnake )
- * 
+ *
  *  Japanese Language
  */
 
 $language = [
 
     // Misc
+    'discord' => 'Discord',
+    'enable_discord_integration' => 'Discordの連携を有効にしますか？',
+    'discord_role_id' => 'Discord ロールID',
+    'discord_role_id_numeric' => 'Discord ロールIDは数値でなければなりません。',
+    'discord_role_id_length' => 'Discord ロールIDは18桁でなければなりません。',
     'discord_guild_id' => 'DiscordサーバーID',
     'discord_widget_theme' => 'Discord ウィジェットテーマ',
+    'discord_widget_disabled' => 'The widget is disabled for the specified Discord server. Please go to the \'Widget\' tab in your Discord server settings, and ensure the Discord widget is enabled and that the ID is correct.',
     'discord_id_length' => 'Discord IDは18文字以内にしてください。',
     'discord_id_numeric' => 'Discord IDが数字であることを確認してください(数字のみ)',
     'discord_invite_info' => 'Nameless LinkボットをDiscordサーバーに招待するには、<a target="_blank" href="https://namelessmc.com/discord-bot-invite">ここ</a>をクリックしてください。次に、<code>/apiurl</code>コマンドを実行して、ボットをあなたのウェブサイトにリンクさせます。また、<a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">自分でボットをホストすることもできます</a>。',
     'discord_bot_must_be_setup' => 'ボットを設定するまでは、Discord統合を有効にすることはできません。詳細については、<a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">ここをクリック</a>してください。',
     'discord_bot_setup' => 'ボットの設定',
     'discord_integration_not_setup' => 'Discord統合が設定されていません',
-    'discord' => 'Discord',
-    'enable_discord_integration' => 'Discordの連携を有効にしますか？',
-    'discord_role_id' => 'Discord ロールID',
-    'discord_role_id_numeric' => 'Discord ロールIDは数値でなければなりません。',
-    'discord_role_id_length' => 'Discord ロールIDは18桁でなければなりません。',
-    'discord_settings_updated' => 'Discordの設定が更新されました。',
-    'discord_guild_id_required' => 'Discordの連携を利用するには、Discord サーバーIDを入力してください。',
-    'discord_bot_url' => 'Discord ボットURL',
-    'discord_bot_url_info' => 'あなたのカスタムインスタンスが存在する場所です。あなたが何をしているか分かっている場合のみ、この値を変更してください！',
-    'discord_bot_url_required' => 'Discordの連携を利用するには、ボットのURLを入力してください。',
-    'discord_invalid_api_url' => 'APIのURLが変更されたようです。ギルドオーナーにNameless LinkボットでURLを更新してもらってください。',
-    'test_bot_url' => 'テストボットURL',
-    'discord_bot_url_valid' => 'ボットのURLは有効です。',
-    'discord_cannot_interact' => 'Nameless LinkボットはDiscordでこのユーザーと対話することはできません。彼らの役割はNameless Linkのロールよりも高い可能性があります。',
+    'discord_username' => 'Discord Username',
 
     // Discord bot Errors
     'discord_bot_error_badparameter' => '無効なリクエストボディです。',
@@ -59,7 +52,6 @@ $language = [
     'discord_usernames_updated' => 'Discordユーザー名の更新に成功',
 
     // User Settings
-    'discord_username' => 'Discord ユーザー名',
     'discord_link' => 'Discord リンク',
     'linked' => 'リンク済み',
     'not_linked' => 'リンクされていません',

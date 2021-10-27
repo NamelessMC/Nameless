@@ -18,6 +18,7 @@ $language = [
     'discord_bot_must_be_setup' => 'No se puede habilitar la integración de Discord hasta que no se haya configurado el bot. Para obtener información, por favor <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">haga clic aquí</a>.',
     'discord_bot_setup' => '¿Bot instalado?',
     'discord_integration_not_setup' => 'La integración de Discord no está configurada',
+    'discord_username' => 'Discord Username',
 
     // Discord bot Errors
     'discord_bot_error_badparameter' => 'Cuerpo de la solicitud no válido.',
@@ -27,8 +28,9 @@ $language = [
     'discord_bot_error_notlinked' => 'El bot no está vinculado a este sitio web para la ID del servidor proporcionada.',
     'discord_bot_error_unauthorized' => 'La clave API del sitio web no es válida',
     'discord_bot_error_invrole' => 'La ID del rol proporcionado no es válida.',
-    'discord_bot_error_partsuccess' => 'The bot could not edit one or more of the roles due to a Discord hierarchy misconfiguration.',
+    'discord_bot_error_hierarchy' => 'The bot cannot edit this user\'s roles.',
     'discord_bot_check_logs' => 'Debería comprobar si hay un error más específico (si existe) en "Seguridad -> Todos los registros"',
+    'discord_bot_error_partsuccess' => 'The bot could not edit one or more of the roles due to a Discord hierarchy misconfiguration.',
 
     // API Errors
     'discord_integration_disabled' => 'La integración de Discord está desactivada.',
@@ -46,7 +48,6 @@ $language = [
     'discord_usernames_updated' => 'Los nombres de usuario de Discord se han actualizado con éxito',
 
     // User Settings
-    'discord_username' => 'Nombre de usuario en Discord',
     'discord_link' => 'Discord Link',
     'linked' => 'Vinculado',
     'not_linked' => 'No vinculado',

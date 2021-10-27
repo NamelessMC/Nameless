@@ -5,6 +5,11 @@
 $language = [
 
     // Misc
+    'discord' => 'Discord',
+    'enable_discord_integration' => 'Aktivera Discord-integration?',
+    'discord_role_id' => 'Discord Roll ID',
+    'discord_role_id_numeric' => 'Discord-roll-ID måste vara numeriskt.',
+    'discord_role_id_length' => 'Discord-roll-ID måste vara 18 siffror långt.',
     'discord_guild_id' => 'Discord Server ID',
     'discord_widget_theme' => 'Discord Widget Theme',
     'discord_id_length' => 'Vänligen se till att ditt Discord ID is 18 bokstäver långt.',
@@ -13,19 +18,7 @@ $language = [
     'discord_bot_must_be_setup' => 'Kan inte aktivera Discord Integrationen tills att du har ställt in botten. För mer information, vänligen <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">klicka här</a>.',
     'discord_bot_setup' => 'Bot Setup',
     'discord_integration_not_setup' => 'Discord Integrationen är inte inställd.',
-    'discord' => 'Discord',
-    'enable_discord_integration' => 'Aktivera Discord-integration?',
-    'discord_role_id' => 'Discord Roll ID',
-    'discord_role_id_numeric' => 'Discord-roll-ID måste vara numeriskt.',
-    'discord_role_id_length' => 'Discord-roll-ID måste vara 18 siffror långt.',
-    'discord_guild_id_required' => 'Ange ditt Discord Server-ID för att Discord-integrationen ska fungera.',
-    'discord_bot_url' => 'Discord Bot URL',
-    'discord_bot_url_info' => 'Platsen som din anpassade instans av Nameless Link-botten. Ändra bara detta värde om du vet vad du gör! ',
-    'discord_bot_url_required' => 'Ange din Bot-URL för att Discord-integration ska fungera.',
-    'discord_invalid_api_url' => 'Det verkar som om din API-URL har ändrats. Få guildägaren att uppdatera webbadressen med Nameless Link-botten. ',
-    'test_bot_url' => 'Testa bot-URL',
-    'discord_bot_url_valid' => 'Din webbadress är giltig.',
-    'discord_cannot_interact' => 'Nameless Link-botten kan inte interagera med den här användaren i Discord. Är deras roll högre än Nameless Link-rollen? ',
+    'discord_username' => 'Discord Username',
 
     // Discord bot Errors
     'discord_bot_error_badparameter' => 'Ogiltig begäran.',
@@ -35,6 +28,8 @@ $language = [
     'discord_bot_error_notlinked' => 'Bot är inte länkad till den här webbplatsen för angivet guild-ID.',
     'discord_bot_error_unauthorized' => 'Webbplatsens API-nyckel är ogiltig',
     'discord_bot_error_invrole' => 'Angivet roll-ID är ogiltigt.',
+    'discord_bot_error_hierarchy' => 'The bot cannot edit this user\'s roles.',
+    'discord_bot_check_logs' => 'You should check for a more specific error (if one exists) in StaffCP -> Security -> All Logs.',
     'discord_bot_error_partsuccess' => 'The bot could not edit one or more of the roles due to a Discord hierarchy misconfiguration.',
 
     // API Errors
@@ -53,7 +48,6 @@ $language = [
     'discord_usernames_updated' => 'Discord-användarnamn uppdaterades framgångsrikt',
 
     // User Settings
-    'discord_username' => 'Discord Användarnamn',
     'discord_link' => 'Discord Link',
     'linked' => 'Länkad',
     'not_linked' => 'Inte länkad',

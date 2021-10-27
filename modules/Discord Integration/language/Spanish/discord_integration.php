@@ -5,6 +5,11 @@
 $language = [
 
     // Misc
+    'discord' => 'Discord',
+    'enable_discord_integration' => '¿Habilitar la integración de Discord?',
+    'discord_role_id' => 'ID de rol de discord',
+    'discord_role_id_numeric' => 'El ID de rol de Discord debe ser numérico.',
+    'discord_role_id_length' => 'La ID del rol de discordia debe tener 18 dígitos.',
     'discord_guild_id' => 'ID del Servidor de Discord',
     'discord_widget_theme' => 'Tema del Discord Widget',
     'discord_id_length' => 'Asegúrate de que tu ID de Discord tenga 18 caracteres.',
@@ -13,19 +18,7 @@ $language = [
     'discord_bot_must_be_setup' => 'Cannot enable Discord Integration until you have setup the bot. For information, please <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">click here</a>.',
     'discord_bot_setup' => 'Bot Setup',
     'discord_integration_not_setup' => 'Discord Integration is not setup',
-    'discord' => 'Discord',
-    'enable_discord_integration' => '¿Habilitar la integración de Discord?',
-    'discord_role_id' => 'ID de rol de discord',
-    'discord_role_id_numeric' => 'El ID de rol de Discord debe ser numérico.',
-    'discord_role_id_length' => 'La ID del rol de discordia debe tener 18 dígitos.',
-    'discord_guild_id_required' => 'Ingrese su ID de servidor Discord para que la integración de Discord funcione.',
-    'discord_bot_url' => 'URL de el bot de Discord',
-    'discord_bot_url_info' => 'La ubicación en la que se encuentra su instancia personalizada del bot Nameless Link. ¡Solo cambie este valor si sabe lo que está haciendo!',
-    'discord_bot_url_required' => 'Ingrese su URL de Bot para que la integración de Discord funcione.',
-    'discord_invalid_api_url' => 'Parece que su URL de API ha cambiado. Solicite al propietario del gremio que actualice la URL con el bot de Enlace sin nombre.',
-    'test_bot_url' => 'Probar URL del bot',
-    'discord_bot_url_valid' => 'Tu URL de bot es válida.',
-    'discord_cannot_interact' => 'El bot Nameless Link no puede interactuar con este usuario en Discord. ¿Su rol es más alto que el rol de Nameless Link?',
+    'discord_username' => 'Discord Username',
 
     // Discord bot Errors
     'discord_bot_error_badparameter' => 'Cuerpo de solicitud no válido.',
@@ -35,6 +28,8 @@ $language = [
     'discord_bot_error_notlinked' => 'El bot no está vinculado a este sitio web para la identificación del servidor proporcionada.',
     'discord_bot_error_unauthorized' => 'La clave de API del sitio web no es válida',
     'discord_bot_error_invrole' => 'El ID del role proporcionado no es válido.',
+    'discord_bot_error_hierarchy' => 'The bot cannot edit this user\'s roles.',
+    'discord_bot_check_logs' => 'You should check for a more specific error (if one exists) in StaffCP -> Security -> All Logs.',
     'discord_bot_error_partsuccess' => 'The bot could not edit one or more of the roles due to a Discord hierarchy misconfiguration.',
 
     // API Errors
@@ -53,7 +48,6 @@ $language = [
     'discord_usernames_updated' => 'Discord usernames updated successfully',
 
     // User Settings
-    'discord_username' => 'Discord Username',
     'discord_link' => 'Discord Link',
     'linked' => 'Linked',
     'not_linked' => 'Not Linked',

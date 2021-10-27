@@ -5,27 +5,21 @@
 $language = [
 
     // Misc
+    'discord' => 'Discord',
+    'enable_discord_integration' => 'Włączyć Integrację Discord?',
+    'discord_role_id' => 'ID Roli Discord',
+    'discord_role_id_numeric' => 'ID Roli musi być liczbą.',
+    'discord_role_id_length' => 'ID Roli musi mieć 18 znaków.',
     'discord_guild_id' => 'ID Serwera Discord',
     'discord_widget_theme' => 'Styl widgetu Discord',
+    'discord_widget_disabled' => 'The widget is disabled for the specified Discord server. Please go to the \'Widget\' tab in your Discord server settings, and ensure the Discord widget is enabled and that the ID is correct.',
     'discord_id_length' => 'Sprawdź czy twoje ID Serwera Discord ma 18 znaków.',
     'discord_id_numeric' => 'Sprawdź czy twoje ID Discord ma odpowiednią ilość znaków (Tylko numery).',
     'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://namelessmc.com/discord-bot-invite">here</a>. Then, run the <code>/apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
     'discord_bot_must_be_setup' => 'Nie można włączyć integracji Discord dopóki dobrze jej nie skonfigurujesz, zobacz <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">ten artykuł</a>.',
     'discord_bot_setup' => 'Konfiguracja Bota',
     'discord_integration_not_setup' => 'Integracja Discord nie jest włączona',
-    'discord' => 'Discord',
-    'enable_discord_integration' => 'Włączyć Integrację Discord?',
-    'discord_role_id' => 'ID Roli Discord',
-    'discord_role_id_numeric' => 'ID Roli musi być liczbą.',
-    'discord_role_id_length' => 'ID Roli musi mieć 18 znaków.',
-    'discord_guild_id_required' => 'Wpisz URL Serwera, aby integracja działała.',
-    'discord_bot_url' => 'URL Bota',
-    'discord_bot_url_info' => 'Położenie własnego bota. Zmień, jeśli wiesz co robisz!',
-    'discord_bot_url_required' => 'Wpisz URL Bota, aby integracja działała.',
-    'discord_invalid_api_url' => 'Wygląda na to, że twój API URL wygasł. Powiadom administratora, aby zaaktualizował URL API bota.',
-    'test_bot_url' => 'Przetestuj URL Bota',
-    'discord_bot_url_valid' => 'Adres URL Bota jest nieprawidłowy.',
-    'discord_cannot_interact' => 'Bot nie może integrować z rolami użytkowników. Sprawdź czy rola bota jest na pewno nad rolami użytkowników.',
+    'discord_username' => 'Discord Username',
 
     // Discord bot Errors
     'discord_bot_error_badparameter' => 'Invalid request body.',
@@ -35,6 +29,8 @@ $language = [
     'discord_bot_error_notlinked' => 'The bot is not linked to this website for provided Guild ID.',
     'discord_bot_error_unauthorized' => 'Website API key is invalid',
     'discord_bot_error_invrole' => 'Provided Role ID is invalid.',
+    'discord_bot_error_hierarchy' => 'The bot cannot edit this user\'s roles.',
+    'discord_bot_check_logs' => 'You should check for a more specific error (if one exists) in StaffCP -> Security -> All Logs.',
     'discord_bot_error_partsuccess' => 'The bot could not edit one or more of the roles due to a Discord hierarchy misconfiguration.',
 
     // API Errors
@@ -53,7 +49,6 @@ $language = [
     'discord_usernames_updated' => 'Discord usernames updated successfully',
 
     // User Settings
-    'discord_username' => 'Discord Username',
     'discord_link' => 'Discord Link',
     'linked' => 'Linked',
     'not_linked' => 'Not Linked',
