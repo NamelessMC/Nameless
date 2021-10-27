@@ -9,8 +9,6 @@ class ServerInfoEndpoint extends EndpointBase {
         $this->_method = 'POST';
     }
 
-    private $user_cache = [];
-
     public function execute(Nameless2API $api) {
         $api->validateParams($_POST, ['server-id', 'max-memory', 'free-memory', 'allocated-memory', 'tps']);
         if (!isset($_POST['players'])) {
@@ -64,93 +62,74 @@ class ServerInfoEndpoint extends EndpointBase {
             $api->throwError(25, $api->getLanguage()->get('api', 'unable_to_update_server_info'), $e->getMessage());
         }
 
-        // Update usernames
-        try {
-            if (Util::getSetting($api->getDb(), 'username_sync')) {
-                if (count($_POST['players'])) {
-                    foreach ($_POST['players'] as $uuid => $player) {
-                        $user = $this->getUser($uuid);
-                        if ($user->data()) {
-                            if ($player['name'] != $user->data()->username) {
-                                // Update username
-                                if (!Util::getSetting($api->getDb(), 'displaynames', false)) {
-                                    $user->update(
-                                        array(
-                                            'username' => Output::getClean($player['name']),
-                                            'nickname' => Output::getClean($player['name'])
-                                        ),
-                                        $user->data()->id
-                                    );
-                                } else {
-                                    $user->update(
-                                        array(
-                                            'username' => Output::getClean($player['name'])
-                                        ),
-                                        $user->data()->id
-                                    );
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        } catch (Exception $e) {
-            $api->throwError(25, $api->getLanguage()->get('api', 'unable_to_update_server_info'), $e->getMessage());
-        }
+        $group_sync_log = [];
 
-        // Group sync
-        $log = [];
         try {
             foreach ($_POST['players'] as $uuid => $player) {
-                $user = $this->getUser($uuid);
-                if ($user->exists()) {
-
-                    $log = GroupSyncManager::getInstance()->broadcastChange(
-                        $user, 
-                        MinecraftGroupSyncInjector::class,
-                        isset($player['groups']) ? array_map('strtolower', $player['groups']) : []
-                    );
-
-                    if (count($log)) {
-                        Log::getInstance()->log(Log::Action('mc_group_sync/role_set'), json_encode($log), $user->data()->id);
-                    }
+                $user = new User($uuid, 'uuid');
+                updateUsername($user, $player, $api);
+                $log = updateGroups($user, $player);
+                if ($log != null) {
+                    $group_sync_log[] = $log;
                 }
+                updatePlaceholders($user, $player);
             }
         } catch (Exception $e) {
             $api->throwError(25, $api->getLanguage()->get('api', 'unable_to_update_server_info'), $e->getMessage());
         }
 
-        // Placeholder api
-        try {
-            foreach ($_POST['players'] as $uuid => $player) {
-                $user = $this->getUser($uuid);
-                if ($user->data()) {
-                    $user->savePlaceholders($_POST['server-id'], $player['placeholders']);
-                }
+        $api->returnArray(array_merge(array('message' => $api->getLanguage()->get('api', 'server_info_updated')), ['log' => $group_sync_log]));
+    }
+
+    private function updateUsername(User $user, $player, Nameless2API $api) {
+        if (Util::getSetting($api->getDb(), 'username_sync')) {
+            if (!$user->data() ||
+                    $player['name'] == $user->data()->username) {
+                return;
             }
-        } catch (Exception $e) {
-            $api->throwError(25, $api->getLanguage()->get('api', 'unable_to_update_server_info'), $e->getMessage());
-        }
 
-        $api->returnArray(array_merge(array('message' => $api->getLanguage()->get('api', 'server_info_updated')), ['log' => $log]));
+            // Update username
+            if (!Util::getSetting($api->getDb(), 'displaynames', false)) {
+                $user->update(
+                    array(
+                        'username' => Output::getClean($player['name']),
+                        'nickname' => Output::getClean($player['name'])
+                    ),
+                    $user->data()->id
+                );
+            } else {
+                $user->update(
+                    array(
+                        'username' => Output::getClean($player['name'])
+                    ),
+                    $user->data()->id
+                );
+            }
+        }
     }
 
-    /**
-     * Get a user from cache (or create if not exist).
-     * 
-     * @param string $uuid Their uuid.
-     * 
-     * @return User Their user instance.
-     */
-    private function getUser($uuid) {
-        if (isset($this->user_cache[$uuid])) {
-            return $this->user_cache[$uuid];
+    private function updateGroups(User $user, $player): ?string {
+        if (!$user->exists()) {
+            return null;
         }
 
-        $user = new User($uuid, 'uuid');
+        $log = GroupSyncManager::getInstance()->broadcastChange(
+            $user,
+            MinecraftGroupSyncInjector::class,
+            isset($player['groups']) ? array_map('strtolower', $player['groups']) : []
+        );
 
-        $this->user_cache[$uuid] = $user;
+        if (count($log)) {
+            Log::getInstance()->log(Log::Action('mc_group_sync/role_set'), json_encode($log), $user->data()->id);
+        }
 
-        return $user;
+        return $log;
     }
+
+    private function updatePlaceholders(User $user, $player) {
+        if ($user->data()) {
+            $user->savePlaceholders($_POST['server-id'], $player['placeholders']);
+        }
+    }
+
 }
