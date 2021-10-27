@@ -83,7 +83,7 @@ class CreateReportEndpoint extends EndpointBase {
             ]);
             EventHandler::executeEvent('createReport', array(
                 'username' => $report['reported_mcname'],
-                'content' => str_replace(array('{x}', '{y}'), array($api->getLanguage()->get('general', 'reported_by'), ' '), $user_reporting->username),
+                'content' => str_replace('{x}', $user_reporting->username, $api->getLanguage()->get('general', 'reported_by')),
                 'content_full' => $report['report_reason'],
                 'avatar_url' => $report['reported_id'] ? $reported_user->getAvatar() : Util::getAvatarFromUUID($report['reported_uuid']),
                 'title' => $api->getLanguage()->get('general', 'view_report'),
