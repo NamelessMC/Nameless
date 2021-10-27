@@ -67,12 +67,12 @@ class ServerInfoEndpoint extends EndpointBase {
         try {
             foreach ($_POST['players'] as $uuid => $player) {
                 $user = new User($uuid, 'uuid');
-                updateUsername($user, $player, $api);
-                $log = updateGroups($user, $player);
+                $this->updateUsername($user, $player, $api);
+                $log = $this->updateGroups($user, $player);
                 if ($log != null) {
                     $group_sync_log[] = $log;
                 }
-                updatePlaceholders($user, $player);
+                $this->updatePlaceholders($user, $player);
             }
         } catch (Exception $e) {
             $api->throwError(25, $api->getLanguage()->get('api', 'unable_to_update_server_info'), $e->getMessage());
@@ -81,7 +81,7 @@ class ServerInfoEndpoint extends EndpointBase {
         $api->returnArray(array_merge(array('message' => $api->getLanguage()->get('api', 'server_info_updated')), ['log' => $group_sync_log]));
     }
 
-    private function updateUsername(User $user, $player, Nameless2API $api) {
+    private function updateUsername(User $user, array $player, Nameless2API $api) {
         if (Util::getSetting($api->getDb(), 'username_sync')) {
             if (!$user->data() ||
                     $player['name'] == $user->data()->username) {
@@ -108,7 +108,7 @@ class ServerInfoEndpoint extends EndpointBase {
         }
     }
 
-    private function updateGroups(User $user, $player): ?string {
+    private function updateGroups(User $user, array $player): ?string {
         if (!$user->exists()) {
             return null;
         }
