@@ -679,6 +679,7 @@ $language = array(
     'register_hook_info' => 'Регистрация пользователей',
     'validate_hook_info' => 'Подтверждение аккаунта',
     'delete_hook_info' => 'Удаление пользователя',
+    'report_hook_info' => 'Report creation',
 
     // Sitemap
     'unable_to_load_sitemap_file_x' => 'Не удалось загрузить файл карты сайта {x}', // Don't replace {x}

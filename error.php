@@ -11,9 +11,6 @@
  *  Error page
  */
 
-// TODO: add debug link button, will need to add regex check to url after ajax get(),
-// if it is not valid debug link url, show an error and red X
-
 if (!defined('ERRORHANDLER')) {
     die();
 }
@@ -57,6 +54,8 @@ $smarty->assign(array(
     'ERROR_TYPE' => is_null($exception) ? $language->get('general', 'error') : (new ReflectionClass($exception))->getName(),
     'ERROR_STRING' => $error_string,
     'ERROR_FILE' => $error_file,
+    'DEBUG_LINK' => $language->get('admin', 'debug_link'),
+    'DEBUG_LINK_URL' => URL::build('/queries/debug_link'),
     'ERROR_SQL_STACK' =>  QueryRecorder::getInstance()->getSqlStack(),
     'CURRENT_URL' => $current_url,
     'FRAMES' => $frames,

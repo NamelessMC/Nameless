@@ -680,6 +680,7 @@ $language = array(
     'register_hook_info' => 'Gebruikersregistratie',
     'validate_hook_info' => 'Gebruikervalidatie',
     'delete_hook_info' => 'Gebruikerverwijdering',
+    'report_hook_info' => 'Report creation',
 
     // Sitemap
     'unable_to_load_sitemap_file_x' => 'Kan geen sitemap-bestand laden {x}', // Don't replace {x}

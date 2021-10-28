@@ -66,23 +66,29 @@ class CreateReportEndpoint extends EndpointBase {
 
         // Create report
         try {
+            $reported_user = new User($user_reported_id);
             $report = new Report();
-            $report->create(
-                array(
-                    'type' => $user_reported_id ? 0 : 1, // TODO: report origin (#2440)
-                    'reporter_id' => $user_reporting->id,
-                    'reported_id' => $user_reported_id,
-                    'date_reported' => date('Y-m-d H:i:s'),
-                    'date_updated' => date('Y-m-d H:i:s'),
-                    'report_reason' => Output::getClean($_POST['content']),
-                    'updated_by' => $user_reporting->id,
-                    'reported' => date('U'),
-                    'updated' => date('U'),
-                    'reported_mcname' => $_POST['reported_username'] ? Output::getClean($_POST['reported_username']) : null,
-                    'reported_uuid' => $_POST['reported_uid'] ? Output::getClean($_POST['reported_uid']) : null
-                )
-            );
-
+            $report = $report->create([
+                'type' => $user_reported_id ? 0 : 1, // TODO: report origin (#2440)
+                'reporter_id' => $user_reporting->id,
+                'reported_id' => $user_reported_id,
+                'date_reported' => date('Y-m-d H:i:s'),
+                'date_updated' => date('Y-m-d H:i:s'),
+                'report_reason' => Output::getClean($_POST['content']),
+                'updated_by' => $user_reporting->id,
+                'reported' => date('U'),
+                'updated' => date('U'),
+                'reported_mcname' => $_POST['reported_username'] ? Output::getClean($_POST['reported_username']) : $reported_user->getDisplayName(),
+                'reported_uuid' => $_POST['reported_uid'] ? Output::getClean($_POST['reported_uid']) : null
+            ]);
+            EventHandler::executeEvent('createReport', array(
+                'username' => $report['reported_mcname'],
+                'content' => str_replace('{x}', $user_reporting->username, $api->getLanguage()->get('general', 'reported_by')),
+                'content_full' => $report['report_reason'],
+                'avatar_url' => $report['reported_id'] ? $reported_user->getAvatar() : Util::getAvatarFromUUID($report['reported_uuid']),
+                'title' => $api->getLanguage()->get('general', 'view_report'),
+                'url' => rtrim(Util::getSelfURL(), '/') . URL::build('/panel/users/reports/', 'id=' . $report['id'])
+            ));
             $api->returnArray(array('message' => $api->getLanguage()->get('api', 'report_created')));
         } catch (Exception $e) {
             $api->throwError(23, $api->getLanguage()->get('api', 'unable_to_create_report'), $e->getMessage());

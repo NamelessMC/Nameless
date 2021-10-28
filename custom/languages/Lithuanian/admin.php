@@ -678,6 +678,7 @@ $language = array(
     'register_hook_info' => 'Vartotojo registracija',
     'validate_hook_info' => 'Vartotojo patvirtinimas',
     'delete_hook_info' => 'vartotojo ištrynimas',
+    'report_hook_info' => 'Report creation',
 
     // Sitemap
     'unable_to_load_sitemap_file_x' => 'Nepavyko įkelti svetainės schemos failo {x}', // Don't replace {x}
