@@ -34,11 +34,11 @@ class Placeholders extends Instanceable {
             $data->server_id = $placeholder->server_id;
             $data->name = $placeholder->name;
             $data->safe_name = sha1($placeholder->name);
-            $data->friendly_name = isset($placeholder->friendly_name) ? $placeholder->friendly_name : $placeholder->name;
+            $data->friendly_name = $placeholder->friendly_name ?? $placeholder->name;
             $data->show_on_profile = $placeholder->show_on_profile;
             $data->show_on_forum = $placeholder->show_on_forum;
             $data->leaderboard = $placeholder->leaderboard;
-            $data->leaderboard_title = isset($placeholder->leaderboard_title) ? $placeholder->leaderboard_title : $data->friendly_name;
+            $data->leaderboard_title = $placeholder->leaderboard_title ?? $data->friendly_name;
             $data->leaderboard_sort = $sort;
             $data->leaderboard_settings_url = URL::build('/panel/minecraft/placeholders', 'leaderboard=' . $data->safe_name . '&server_id=' . $data->server_id);
             $placeholders[] = $data;

@@ -19,15 +19,9 @@ class RecentRegistrationsItem extends CollectionItemBase {
         $cache->setCache('dashboard_main_items_collection');
         if ($cache->isCached('recent_registrations')) {
             $from_cache = $cache->retrieve('recent_registrations');
-            if (isset($from_cache['order']))
-                $order = $from_cache['order'];
-            else
-                $order = 2;
+            $order = $from_cache['order'] ?? 2;
 
-            if (isset($from_cache['enabled']))
-                $enabled = $from_cache['enabled'];
-            else
-                $enabled = 1;
+            $enabled = $from_cache['enabled'] ?? 1;
         } else {
             $order = 2;
             $enabled = 1;

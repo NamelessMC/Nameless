@@ -34,8 +34,8 @@ class Alert {
                 'user_id' => $user_id,
                 'type' => $type,
                 'url' => $link,
-                'content_short' => str_replace((isset($text_short['replace']) ? $text_short['replace'] : ''), (isset($text_short['replace_with']) ? $text_short['replace_with'] : ''), $language->get($text_short['file'], $text_short['term'])),
-                'content' => str_replace((isset($text['replace']) ? $text['replace'] : ''), (isset($text['replace_with']) ? $text['replace_with'] : ''), $language->get($text['file'], $text['term'])),
+                'content_short' => str_replace(($text_short['replace'] ?? ''), ($text_short['replace_with'] ?? ''), $language->get($text_short['file'], $text_short['term'])),
+                'content' => str_replace(($text['replace'] ?? ''), ($text['replace_with'] ?? ''), $language->get($text['file'], $text['term'])),
                 'created' => date('U')
             ))) {
                 throw new Exception('There was a problem creating an alert.');

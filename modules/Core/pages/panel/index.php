@@ -39,13 +39,13 @@ if(count($dashboard_graphs)){
         foreach($dashboard_graph['datasets'] as $dskey => $dataset){
             $label = explode('/', $dataset['label']);
             $varname = $label[0];
-            $axis = 'y' . (isset($dataset['axis']) ? $dataset['axis'] : 1);
-            $axis_side = (isset($dataset['axis_side']) ? $dataset['axis_side'] : 'left');
+            $axis = 'y' . ($dataset['axis'] ?? 1);
+            $axis_side = ($dataset['axis_side'] ?? 'left');
 
             $graph['datasets'][$dskey] = array(
                 'label' => ${$varname}->get($label[1], $label[2]),
                 'axis' => $axis,
-                'colour' => (isset($dataset['colour']) ? $dataset['colour'] : '#000')
+                'colour' => ($dataset['colour'] ?? '#000')
             );
 
             $graph['axes'][$axis] = $axis_side;

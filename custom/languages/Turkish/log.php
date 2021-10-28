@@ -25,4 +25,4 @@ $language = array(
     'info_forum_merge' => 'Birleştir',
     'info_forum_react' => 'Tepki gösterdi',
 );
-?>
+

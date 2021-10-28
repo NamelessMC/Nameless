@@ -97,7 +97,7 @@ if(!isset($_GET['action'])) {
     $messages = $user->listPMs($user->data()->id);
 
     // Pagination
-    $paginator = new Paginator((isset($template_pagination) ? $template_pagination : array()));
+    $paginator = new Paginator(($template_pagination ?? array()));
     $results = $paginator->getLimited($messages, 10, $p, count($messages));
     $pagination = $paginator->generate(7, URL::build('/user/messaging/', true));
 
@@ -511,7 +511,7 @@ if(!isset($_GET['action'])) {
         $pm_replies = $queries->getWhere('private_messages_replies', array('pm_id', '=', $_GET['message']));
 
         // Pagination
-        $paginator = new Paginator((isset($template_pagination) ? $template_pagination : array()));
+        $paginator = new Paginator(($template_pagination ?? array()));
         $results = $paginator->getLimited($pm_replies, 10, $p, count($pm_replies));
         $pagination = $paginator->generate(7, URL::build('/user/messaging/', 'action=view&amp;message=' . $pm[0]->id . '&amp;'));
 

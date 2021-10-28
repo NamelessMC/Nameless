@@ -115,10 +115,7 @@ if (Input::exists()) {
             $validation_group_id = $queries->getWhere('settings', array('name', '=', 'validate_user_action'));
             $validation_action = $validation_group_id[0]->value;
             $validation_action = json_decode($validation_action, true);
-            if (isset($validation_action['action']))
-                $validation_action = $validation_action['action'];
-            else
-                $validation_action = 'promote';
+            $validation_action = $validation_action['action'] ?? 'promote';
             $validation_group_id = $validation_group_id[0]->id;
 
             $new_value = json_encode(array('action' => $validation_action, 'group' => $_POST['promote_group']));
@@ -178,10 +175,7 @@ $registration_disabled_message = $queries->getWhere('settings', array('name', '=
 $validation_group = $queries->getWhere('settings', array('name', '=', 'validate_user_action'));
 $validation_group = $validation_group[0]->value;
 $validation_group = json_decode($validation_group, true);
-if (isset($validation_group['group']))
-    $validation_group = $validation_group['group'];
-else
-    $validation_group = 1;
+$validation_group = $validation_group['group'] ?? 1;
 
 $all_captcha_options = CaptchaBase::getAllProviders();
 $captcha_options = array();

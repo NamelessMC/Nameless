@@ -19,15 +19,9 @@ class RecentPostsItem extends CollectionItemBase {
         $cache->setCache('dashboard_stats_collection');
         if ($cache->isCached('recent_posts')) {
             $from_cache = $cache->retrieve('recent_posts');
-            if (isset($from_cache['order']))
-                $order = $from_cache['order'];
-            else
-                $order = 4;
+            $order = $from_cache['order'] ?? 4;
 
-            if (isset($from_cache['enabled']))
-                $enabled = $from_cache['enabled'];
-            else
-                $enabled = 1;
+            $enabled = $from_cache['enabled'] ?? 1;
         } else {
             $order = 4;
             $enabled = 1;

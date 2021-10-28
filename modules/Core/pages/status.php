@@ -35,7 +35,7 @@ $smarty->assign(
         'STATUS' => $language->get('general', 'status'),
         'IP' => $language->get('general', 'ip'),
         'TABLE_STATUS' => $language->get('general', 'table_status'),
-        'DEFAULT_STATUS' => (isset($result) ? $result : null),
+        'DEFAULT_STATUS' => ($result ?? null),
         'SERVERS' => $servers,
         'NO_SERVERS' => $language->get('general', 'no_servers'),
         'BUNGEE' => $language->get('general', 'bungee_instance')

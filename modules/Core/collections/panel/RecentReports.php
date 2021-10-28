@@ -19,15 +19,9 @@ class RecentReportsItem extends CollectionItemBase {
         $cache->setCache('dashboard_main_items_collection');
         if ($cache->isCached('recent_reports')) {
             $from_cache = $cache->retrieve('recent_reports');
-            if (isset($from_cache['order']))
-                $order = $from_cache['order'];
-            else
-                $order = 3;
+            $order = $from_cache['order'] ?? 3;
 
-            if (isset($from_cache['enabled']))
-                $enabled = $from_cache['enabled'];
-            else
-                $enabled = 1;
+            $enabled = $from_cache['enabled'] ?? 1;
         } else {
             $order = 3;
             $enabled = 1;

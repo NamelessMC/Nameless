@@ -29,9 +29,9 @@ class LatestPostsWidget extends WidgetBase {
         // Set widget variables
         $this->_module = 'Forum';
         $this->_name = 'Latest Posts';
-        $this->_location = isset($widget_query->location) ? $widget_query->location : null;
+        $this->_location = $widget_query->location ?? null;
         $this->_description = 'Display latest posts from your forum.';
-        $this->_order = isset($widget_query->order) ? $widget_query->order : null;
+        $this->_order = $widget_query->order ?? null;
 
         $this->_smarty->assign(array(
         	'LATEST_POSTS' => $latest_posts_language,

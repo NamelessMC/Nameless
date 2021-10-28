@@ -27,7 +27,7 @@ class SetDiscordRolesEndpoint extends EndpointBase {
         $log_array = GroupSyncManager::getInstance()->broadcastChange(
             $user,
             DiscordGroupSyncInjector::class,
-            isset($_POST['roles']) ? $_POST['roles'] : []
+            $_POST['roles'] ?? []
         );
 
         if (count($log_array)) {

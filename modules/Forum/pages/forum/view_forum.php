@@ -380,7 +380,7 @@ if ($forum_query->redirect_forum == 1) {
 
         // Latest discussions
         // Pagination
-        $paginator = new Paginator((isset($template_pagination) ? $template_pagination : array()));
+        $paginator = new Paginator(($template_pagination ?? array()));
         $results = $paginator->getLimited($topics, 10, $p, count($topics));
         $pagination = $paginator->generate(7, URL::build('/forum/view/' . $fid . '-' . $forum->titleToURL($forum_query->forum_title), true));
 

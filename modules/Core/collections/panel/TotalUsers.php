@@ -18,15 +18,9 @@ class TotalUsersItem extends CollectionItemBase {
         $cache->setCache('dashboard_stats_collection');
         if ($cache->isCached('total_users')) {
             $from_cache = $cache->retrieve('total_users');
-            if (isset($from_cache['order']))
-                $order = $from_cache['order'];
-            else
-                $order = 1;
+            $order = $from_cache['order'] ?? 1;
 
-            if (isset($from_cache['enabled']))
-                $enabled = $from_cache['enabled'];
-            else
-                $enabled = 1;
+            $enabled = $from_cache['enabled'] ?? 1;
         } else {
             $order = 1;
             $enabled = 1;
