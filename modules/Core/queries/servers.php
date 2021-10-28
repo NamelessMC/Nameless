@@ -76,7 +76,7 @@ if (count($servers)) {
         $queries->create('query_results', array(
             'server_id' => $id,
             'queried_at' => date('U'),
-            'players_online' => (isset($result['player_count']) ? $result['player_count'] : 0)
+            'players_online' => ($result['player_count'] ?? 0)
         ));
     }
 

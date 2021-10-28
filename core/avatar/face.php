@@ -12,7 +12,7 @@ require('../classes/Cache.php');
 $cache = new Cache();
 
 $size = isset($_GET['s']) ? max(8, min(250, $_GET['s'])) : 48;
-$user = isset($_GET['u']) ? $_GET['u'] : '';
+$user = $_GET['u'] ?? '';
 $view = isset($_GET['v']) ? substr($_GET['v'], 0, 1) : 'f';
 $view = in_array($view, array('f', 'l', 'r', 'b')) ? $view : 'f';
 

@@ -117,10 +117,7 @@ if(!isset($_GET['metadata'])){
             } else
                 $description = null;
 
-            if(isset($_POST['keywords']))
-                $keywords = $_POST['keywords'];
-            else
-                $keywords = null;
+            $keywords = $_POST['keywords'] ?? null;
 
             if(!count($errors)){
                 if(count($page_metadata)){

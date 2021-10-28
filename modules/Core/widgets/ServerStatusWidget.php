@@ -27,9 +27,9 @@ class ServerStatusWidget extends WidgetBase {
         // Set widget variables
         $this->_module = 'Core';
         $this->_name = 'Server Status';
-        $this->_location = isset($widget_query->location) ? $widget_query->location : null;
+        $this->_location = $widget_query->location ?? null;
         $this->_description = 'Display your Minecraft server status.';
-        $this->_order = isset($widget_query->order) ? $widget_query->order : null;
+        $this->_order = $widget_query->order ?? null;
     }
 
     public function initialise() {

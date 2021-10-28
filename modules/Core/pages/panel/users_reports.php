@@ -78,7 +78,7 @@ if (!isset($_GET['id'])) {
             $p = 1;
         }
 
-        $paginator = new Paginator((isset($template_pagination) ? $template_pagination : array()));
+        $paginator = new Paginator(($template_pagination ?? array()));
         $results = $paginator->getLimited($report_query, 10, $p, count($report_query));
         $pagination = $paginator->generate(7, $url);
 

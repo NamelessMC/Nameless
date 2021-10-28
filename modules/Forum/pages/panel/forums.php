@@ -196,10 +196,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                             else $hooks = null;
 
                             if (!isset($redirect_error)) {
-                                if (isset($_POST['parent']))
-                                    $parent = $_POST['parent'];
-                                else
-                                    $parent = 0;
+                                $parent = $_POST['parent'] ?? 0;
 
                                 $queries->update('forums', $forum->id, array(
                                     'parent' => $parent,
@@ -536,10 +533,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                             $redirect_url = null;
                         }
 
-                        if (isset($_POST['parent_forum']))
-                            $parent = $_POST['parent_forum'];
-                        else
-                            $parent = 0;
+                        $parent = $_POST['parent_forum'] ?? 0;
 
                         if (isset($_POST['hooks']) && count($_POST['hooks'])) $hooks = json_encode($_POST['hooks']);
                         else $hooks = null;

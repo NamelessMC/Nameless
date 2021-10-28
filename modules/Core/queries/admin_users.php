@@ -84,7 +84,7 @@ echo json_encode(
     array(
         'draw' => isset($_GET['draw']) ? intval($_GET['draw']) : 0,
         'recordsTotal' => $total,
-        'recordsFiltered' => isset($totalFiltered) ? $totalFiltered : $total,
+        'recordsFiltered' => $totalFiltered ?? $total,
         'data' => $data
     ),
     JSON_PRETTY_PRINT

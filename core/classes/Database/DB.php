@@ -228,7 +228,7 @@ class DB extends Instanceable {
     public function first(): ?object {
         $results = $this->results();
 
-        return isset($results[0]) ? $results[0] : null;
+        return $results[0] ?? null;
     }
 
     public function error(): bool {

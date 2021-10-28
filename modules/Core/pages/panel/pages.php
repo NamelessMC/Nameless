@@ -122,8 +122,7 @@ if(!isset($_GET['action'])){
                             if(isset($_POST['target']) && $_POST['target'] == 'on') $target = 1;
                             else $target = 0;
 
-                            if(isset($_POST['redirect_link'])) $link = $_POST['redirect_link'];
-                            else $link = '';
+                            $link = $_POST['redirect_link'] ?? '';
 
                             if(isset($_POST['unsafe_html']) && $_POST['unsafe_html'] == 'on') $unsafe = 1;
                             else $unsafe = 0;
@@ -317,8 +316,7 @@ if(!isset($_GET['action'])){
                             if(isset($_POST['target']) && $_POST['target'] == 'on') $target = 1;
                             else $target = 0;
 
-                            if(isset($_POST['redirect_link'])) $link = $_POST['redirect_link'];
-                            else $link = '';
+                            $link = $_POST['redirect_link'] ?? '';
 
                             if(isset($_POST['unsafe_html']) && $_POST['unsafe_html'] == 'on') $unsafe = 1;
                             else $unsafe = 0;

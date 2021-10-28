@@ -238,7 +238,7 @@ if (Input::exists()) {
 
                             // Check for groups they had, but werent in the $_POST groups
                             foreach ($view_user->getGroups() as $group) {
-                                $form_groups = isset($_POST['groups']) ? $_POST['groups'] : [];
+                                $form_groups = $_POST['groups'] ?? [];
                                 if (!in_array($group->id, $form_groups)) {
                                     $view_user->removeGroup($group->id);
                                     $modified[] = $group->id;

@@ -25,4 +25,4 @@ $language = array(
     'info_forum_merge' => 'Połączony',
     'info_forum_react' => 'Zareagował',
 );
-?>
+

@@ -82,7 +82,7 @@ class MCQuery {
                     );
                 }
 
-                $query = ExternalMCQuery::query($query_ip[0], (isset($query_ip[1]) ? $query_ip[1] : 25565));
+                $query = ExternalMCQuery::query($query_ip[0], ($query_ip[1] ?? 25565));
 
                 if (!$query->error && isset($query->response)) {
                     $player_list = $query->response->players->list ?? array();
@@ -153,7 +153,7 @@ class MCQuery {
 
                     if (count($query_ip) <= 2) {
                         try {
-                            $ping = new MinecraftPing($query_ip[0], (isset($query_ip[1]) ? $query_ip[1] : 25565), 5);
+                            $ping = new MinecraftPing($query_ip[0], ($query_ip[1] ?? 25565), 5);
 
                             if ($server['pre'] == 1) {
                                 $query = $ping->QueryOldPre17();
@@ -172,7 +172,7 @@ class MCQuery {
                                     'date' => date('U'),
                                     'error' => $error,
                                     'ip' => $query_ip[0],
-                                    'port' => (isset($query_ip[1]) ? $query_ip[1] : 25565)
+                                    'port' => ($query_ip[1] ?? 25565)
                                 )
                             );
                         }
@@ -231,7 +231,7 @@ class MCQuery {
                     $query_ip = explode(':', $server['ip']);
 
                     if (count($query_ip) <= 2) {
-                        $query = ExternalMCQuery::query($query_ip[0], (isset($query_ip[1]) ? $query_ip[1] : 25565));
+                        $query = ExternalMCQuery::query($query_ip[0], ($query_ip[1] ?? 25565));
 
                         if (!$query->error && isset($query->response)) {
                             if ($accumulate === false) {

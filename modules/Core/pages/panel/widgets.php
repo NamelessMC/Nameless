@@ -153,7 +153,7 @@ if (!isset($_GET['action'])) {
 
                     $active_pages_string = json_encode($active_pages);
 
-                    $order = (isset($_POST['order']) ? $_POST['order'] : 10);
+                    $order = ($_POST['order'] ?? 10);
 
                     $location = Input::get('location');
                     if (!in_array($location, array('left', 'right'))) $location = 'right';

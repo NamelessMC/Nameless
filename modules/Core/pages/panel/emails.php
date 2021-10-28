@@ -309,7 +309,7 @@ if (isset($_GET['action'])) {
         'HOST' => $language->get('admin', 'host'),
         'HOST_VALUE' => (!empty($GLOBALS['email']['host']) ? Output::getClean($GLOBALS['email']['host']) : ''),
         'PORT' => $language->get('admin', 'email_port'),
-        'PORT_VALUE' => (!empty($GLOBALS['email']['port']) ? Output::getClean(isset($GLOBALS['email']['port']) ? $GLOBALS['email']['port'] : 587) : 587),
+        'PORT_VALUE' => (!empty($GLOBALS['email']['port']) ? Output::getClean($GLOBALS['email']['port'] ?? 587) : 587),
         'SUBMIT' => $language->get('general', 'submit'),
         'TOKEN' => Token::get()
     ));

@@ -302,7 +302,7 @@ $smarty->assign(array(
 	'REGISTER_URL' => URL::build('/register'),
 	'REGISTER' => $language->get('general', 'register'),
 	'ERROR_TITLE' => $language->get('general', 'error'),
-	'ERROR' => (isset($return_error) ? $return_error : array()),
+	'ERROR' => ($return_error ?? array()),
 	'NOT_REGISTERED_YET' => $language->get('general', 'not_registered_yet')
 ));
 
