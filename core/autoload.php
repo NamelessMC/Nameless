@@ -53,7 +53,6 @@ define('CLASS_FOLDERS', [
         Module::class,
         Placeholders::class,
         TemplateBase::class,
-        User::class,
     ],
     'Support' => [
         Alert::class,
@@ -79,6 +78,7 @@ define('CLASS_FOLDERS', [
         TimeAgo::class,
         Token::class,
         URL::class,
+        User::class,
         Util::class,
         Validate::class,
     ],
