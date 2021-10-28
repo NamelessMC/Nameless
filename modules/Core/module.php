@@ -424,7 +424,7 @@ class Core_Module extends Module {
         ));
 
         // Sitemap
-        $pages->registerSitemapMethod(ROOT_PATH . '/modules/Core/classes/Core_Sitemap.php', 'Core_Sitemap::generateSitemap');
+        $pages->registerSitemapMethod(ROOT_PATH . '/modules/Core/classes/Misc/Core_Sitemap.php', 'Core_Sitemap::generateSitemap');
 
         // Queries
         $queries = new Queries();
