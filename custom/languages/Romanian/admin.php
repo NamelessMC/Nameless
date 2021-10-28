@@ -683,6 +683,7 @@ $language = array(
     'register_hook_info' => 'Înregistrare cont utilizator',
     'validate_hook_info' => 'Validare cont utilizator',
     'delete_hook_info' => 'Ştergere utilizator',
+    'report_hook_info' => 'Report creation',
 
     // Sitemap
     'unable_to_load_sitemap_file_x' => 'Imposibil de încărcat fișierul hartă site {x}', // Don't replace {x}

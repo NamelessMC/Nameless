@@ -664,6 +664,7 @@ $language = array(
     'register_hook_info' => 'Registrácia užívateľa',
     'validate_hook_info' => 'Overenie užívateľa',
     'delete_hook_info' => 'Vymazanie užívateľa',
+    'report_hook_info' => 'Report creation',
 
     // Sitemap
     'unable_to_load_sitemap_file_x' => 'Sitemap súbor {x} sa nepodarilo načítať', // Don't replace {x}

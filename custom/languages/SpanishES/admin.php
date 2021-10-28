@@ -664,6 +664,7 @@ $language = array(
     'register_hook_info' => 'Registro de usuarios',
     'validate_hook_info' => 'Validación de usuarios',
     'delete_hook_info' => 'Eliminación de usuarios',
+    'report_hook_info' => 'Report creation',
 
     // Sitemap
     'unable_to_load_sitemap_file_x' => 'No se puede cargar el archivo del sitemap {x}', // Don't replace {x}
