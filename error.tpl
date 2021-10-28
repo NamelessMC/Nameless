@@ -39,6 +39,17 @@
                             <h3>(File: {$ERROR_FILE})</h3>
                             <a href="{$CURRENT_URL}">{$CURRENT_URL}</a>
 
+                            <button class="float-right btn btn-info d-flex align-items-center" id="debug_link">
+                                <span class="spinner-border spinner-border-sm mr-2" role="status" id="debug_link_loading" style="display: none;"></span>
+                                <span id="debug_link_text">{$DEBUG_LINK}</span>
+                                <span id="debug_link_success" style="display: none;">
+                                    <i class="fa fa-check"></i>
+                                </span>
+                                <span id="debug_link_error" style="display: none;">
+                                    <i class="fa fa-times-circle"></i>
+                                </span>
+                            </button>
+
                         {else}
 
                             <h2>{$FATAL_ERROR_TITLE}</h2>
@@ -270,6 +281,40 @@ function openSqlFrame(id) {
     $('#sql-frame-' + id).css('display', 'block');
     $('#sql-button-' + id).addClass('active');
 }
+
+let link_created = false;
+
+$('#debug_link').click(() => {
+    $('#debug_link').blur();
+
+    if (link_created) {
+        return;
+    }
+
+    $('#debug_link').prop('disabled', true);
+    $('#debug_link_loading').show(100);
+    $.get('{$DEBUG_LINK_URL}')
+        .done((url) => {
+            link_created = true;
+
+            $('#debug_link_loading').hide(100);
+            $('#debug_link').removeClass('btn-info');
+            $('#debug_link_text').hide();
+            $('#debug_link').prop('disabled', false);
+
+            if (!url.startsWith('https://debug.namelessmc.com/')) {
+                $('#debug_link').addClass('btn-danger');
+                $('#debug_link_error').show();
+                console.log(url);
+                alert('Could not create debug link. Check console for information.');
+            } else {
+                navigator.clipboard.writeText(url);
+                $('#debug_link').addClass('btn-success');
+                $('#debug_link_success').show();
+                alert('Copied debug link to your clipboard.');
+            }
+        });
+});
 </script>
 
 </html>
