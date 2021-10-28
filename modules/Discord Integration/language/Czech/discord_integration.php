@@ -29,7 +29,6 @@ $language = [
     'discord_bot_error_notlinked' => 'Bot není propojen s tímto webem u zadaného ID serveru.',
     'discord_bot_error_unauthorized' => 'API klíč webu je neplatný',
     'discord_bot_error_invrole' => 'Zadané ID role je neplatné.',
-    'discord_bot_error_hierarchy' => 'The bot cannot edit this user\'s roles.',
     'discord_bot_check_logs' => 'You should check for a more specific error (if one exists) in StaffCP -> Security -> All Logs.',
     'discord_bot_error_partsuccess' => 'The bot could not edit one or more of the roles due to a Discord hierarchy misconfiguration.',
 

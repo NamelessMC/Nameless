@@ -28,7 +28,6 @@ $language = [
     'discord_bot_error_notlinked' => 'El bot no está vinculado a este sitio web para la identificación del servidor proporcionada.',
     'discord_bot_error_unauthorized' => 'La clave de API del sitio web no es válida',
     'discord_bot_error_invrole' => 'El ID del role proporcionado no es válido.',
-    'discord_bot_error_hierarchy' => 'The bot cannot edit this user\'s roles.',
     'discord_bot_check_logs' => 'You should check for a more specific error (if one exists) in StaffCP -> Security -> All Logs.',
     'discord_bot_error_partsuccess' => 'The bot could not edit one or more of the roles due to a Discord hierarchy misconfiguration.',
 

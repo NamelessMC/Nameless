@@ -743,31 +743,4 @@ $language = array(
     'background_colour_required' => 'Kolor tła jest wymagany',
     'text_colour_required' => 'Kolor tekstu jest wymagany',
     'no_announcements' => 'Nie ma jeszcze żadnych ogłoszeń.',
-
-    // Discord
-    'discord' => 'Discord',
-    'enable_discord_integration' => 'Włączyć Integrację Discord?',
-    'discord_role_id' => 'ID Roli Discord',
-    'discord_role_id_numeric' => 'ID Roli musi być liczbą.',
-    'discord_role_id_length' => 'ID Roli musi mieć 18 znaków.',
-    'discord_settings_updated' => 'Twoje ustawienia Discord zostały zapisane',
-    'discord_guild_id_required' => 'Wpisz URL Serwera, aby integracja działała.',
-    'discord_bot_url' => 'URL Bota',
-    'discord_bot_url_info' => 'Położenie własnego bota. Zmień, jeśli wiesz co robisz!',
-    'discord_bot_url_required' => 'Wpisz URL Bota, aby integracja działała.',
-    'discord_invalid_api_url' => 'Wygląda na to, że twój API URL wygasł. Powiadom administratora, aby zaaktualizował URL API bota.',
-    'test_bot_url' => 'Przetestuj URL Bota',
-    'discord_bot_url_valid' => 'Adres URL Bota jest nieprawidłowy.',
-    'discord_cannot_interact' => 'Bot nie może integrować z rolami użytkowników. Sprawdź czy rola bota jest na pewno nad rolami użytkowników.',
-
-    // Discord bot Errors
-    'discord_bot_error_badparameter' => 'Nieprawidłowe informacje.',
-    'discord_bot_error_error' => 'Nastąpił wewnętrzny błąd.',
-    'discord_bot_error_invguild' => 'Podane ID serwera jest niepoprawne, lub bota nie ma na serwerze.',
-    'discord_bot_error_invuser' => 'Podane ID użytkownika jest niepoprawne, lub nie ma go na serwerze.',
-    'discord_bot_error_notlinked' => 'Bot nie jest podłączony do tej strony.',
-    'discord_bot_error_unauthorized' => 'Klucz API jest niepoprawny',
-    'discord_bot_error_invrole' => 'Podane ID roli jest niepoprawne.',
-    'discord_bot_error_hierarchy' => 'Bot nie ma uprawnień do dodawania użytkownika do ról.'
-
 );

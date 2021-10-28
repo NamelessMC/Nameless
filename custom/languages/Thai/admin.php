@@ -754,30 +754,4 @@ $language = array(
     'background_colour_required' => 'ต้องใช้สีพื้นหลัง',
     'text_colour_required' => 'ต้องระบุสีข้อความ',
     'no_announcements' => 'ยังไม่มีการประกาศใด ๆ',
-
-    // Discord
-    'discord' => 'Discord',
-    'enable_discord_integration' => 'เปิดใช้งานการรวม Discord หรือไม่',
-    'discord_role_id' => 'Discord Role ID',
-    'discord_role_id_numeric' => 'Discord Role ID ต้องเป็นตัวเลข',
-    'discord_role_id_length' => 'Discord Role ID ต้องมีความยาว 18 หลัก',
-    'discord_settings_updated' => 'อัปเดตการตั้งค่า Discord ของคุณเรียบร้อยแล้ว',
-    'discord_guild_id_required' => 'โปรดป้อน ID เซิร์ฟเวอร์ Discord ของคุณเพื่อให้ integration Discord ทำงานได้',
-    'discord_bot_url' => 'Discord Bot URL',
-    'discord_bot_url_info' => 'ตำแหน่งที่บอท Nameless Link ที่คุณกำหนดเอง เปลี่ยนค่านี้ถ้าคุณรู้ว่าคุณกำลังทำอะไร!',
-    'discord_bot_url_required' => 'โปรดป้อน URL ของ Bot เพื่อให้การรวม Discord ทำงานได้',
-    'discord_invalid_api_url' => 'ดูเหมือนว่า API URL ของคุณจะเปลี่ยนไป โปรดขอให้เจ้าของกิลด์อัปเดต URL ด้วยบอท Nameless Link',
-    'test_bot_url' => 'ทดสอบ Bot URL',
-    'discord_bot_url_valid' => 'URL Bot ของคุณถูกต้อง',
-    'discord_cannot_interact' => 'บอท Nameless Link ไม่สามารถโต้ตอบกับผู้ใช้รายนี้ใน Discord บทบาทของพวกเขาสูงกว่าบทบาท Nameless Link หรือไม่',
-
-    // Discord bot Errors
-    'discord_bot_error_badparameter' => 'เนื้อหาคำขอไม่ถูกต้อง',
-    'discord_bot_error_error' => 'เกิดข้อผิดพลาดของบอทภายใน',
-    'discord_bot_error_invguild' => 'Guild ID ที่ระบุไม่ถูกต้อง หรือไม่มีบอทอยู่ในนั้น',
-    'discord_bot_error_invuser' => 'ID ผู้ใช้ที่ระบุไม่ถูกต้อง หรือไม่ได้อยู่ในกิลด์ที่ระบุ',
-    'discord_bot_error_notlinked' => 'บอทไม่ได้เชื่อมโยงกับเว็บไซต์นี้สำหรับ ID กิลด์ที่ให้ไว้',
-    'discord_bot_error_unauthorized' => 'คีย์ API ของเว็บไซต์ไม่ถูกต้อง',
-    'discord_bot_error_invrole' => 'รหัสบทบาทที่ระบุไม่ถูกต้อง',
-    'discord_bot_error_hierarchy' => 'บอทไม่สามารถแก้ไขสิ่งนี้ได้ user\'s roles.'
 );

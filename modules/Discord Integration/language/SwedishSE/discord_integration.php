@@ -28,7 +28,6 @@ $language = [
     'discord_bot_error_notlinked' => 'Bot är inte länkad till den här webbplatsen för angivet guild-ID.',
     'discord_bot_error_unauthorized' => 'Webbplatsens API-nyckel är ogiltig',
     'discord_bot_error_invrole' => 'Angivet roll-ID är ogiltigt.',
-    'discord_bot_error_hierarchy' => 'The bot cannot edit this user\'s roles.',
     'discord_bot_check_logs' => 'You should check for a more specific error (if one exists) in StaffCP -> Security -> All Logs.',
     'discord_bot_error_partsuccess' => 'The bot could not edit one or more of the roles due to a Discord hierarchy misconfiguration.',
 

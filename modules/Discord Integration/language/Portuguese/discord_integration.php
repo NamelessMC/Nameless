@@ -29,7 +29,6 @@ $language = [
     'discord_bot_error_notlinked' => 'O bot não está vinculado a este site para fornecer a Guild ID.',
     'discord_bot_error_unauthorized' => 'A chave da API do site é inválida',
     'discord_bot_error_invrole' => 'A Role ID fornecida é inválida.',
-    'discord_bot_error_hierarchy' => 'The bot cannot edit this user\'s roles.',
     'discord_bot_check_logs' => 'You should check for a more specific error (if one exists) in StaffCP -> Security -> All Logs.',
     'discord_bot_error_partsuccess' => 'The bot could not edit one or more of the roles due to a Discord hierarchy misconfiguration.',
 

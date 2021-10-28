@@ -29,7 +29,6 @@ $language = [
     'discord_bot_error_notlinked' => '提供的服务器中的机器人没有链接到此网站。',
     'discord_bot_error_unauthorized' => '网站 API 密钥错误。',
     'discord_bot_error_invrole' => '提供的权限组 ID 错误。',
-    'discord_bot_error_hierarchy' => 'The bot cannot edit this user\'s roles.',
     'discord_bot_check_logs' => 'You should check for a more specific error (if one exists) in StaffCP -> Security -> All Logs.',
     'discord_bot_error_partsuccess' => 'The bot could not edit one or more of the roles due to a Discord hierarchy misconfiguration.',
 
