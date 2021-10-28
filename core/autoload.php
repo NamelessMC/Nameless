@@ -33,6 +33,7 @@ define('CLASS_FOLDERS', [
         Instanceable::class,
         Language::class,
         Log::class,
+        Module::class,
         Navigation::class,
         Output::class,
         Pages::class,
@@ -78,7 +79,6 @@ define('CLASS_FOLDERS', [
     'Misc' => [
         CaptchaBase::class,
         ErrorHandler::class,
-        Module::class,
         Placeholders::class,
         TemplateBase::class,
     ],
