@@ -2,7 +2,7 @@
 
 return new class extends UpgradeScript {
 
-    public function run() {
+    public function run(): void {
 
         $this->deleteFilesInPath(
             ROOT_PATH . '/core/classes',

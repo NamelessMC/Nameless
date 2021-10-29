@@ -9,8 +9,17 @@ abstract class UpgradeScript {
     protected string $db_engine;
     protected string $db_charset;
 
-    abstract public function run();
+    /**
+     * Execute this UpgradeScript
+     */
+    abstract public function run():  void;
 
+    /**
+     * Get instance of UpgradeScript for a specific NamelessMC version, null if it doesnt exist
+     *
+     * @param string $current_version Current NamelessMC version (ie: `2.0.0-pr12`, `2.0.0`)
+     * @return UpgradeScript|null Instance of UpgradeScript from file
+     */
     public static function get(string $current_version): ?UpgradeScript {
         $path = ROOT_PATH . '/core/includes/updates/' . str_replace('.', '', $current_version) . '.php';
 
@@ -27,7 +36,7 @@ abstract class UpgradeScript {
         $this->user = new User();
 
         $this->cache = new Cache(
-            array('name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/')
+            ['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']
         );
 
         $this->queries = new Queries();
@@ -92,7 +101,7 @@ abstract class UpgradeScript {
      */
     protected function deleteFile(string $path) {
         if (!is_writeable($path)) {
-            echo "$path is not writable, cannot delete file.";
+            echo "$path is not writable, cannot delete. <br />";
             return;
         }
 
@@ -127,28 +136,28 @@ abstract class UpgradeScript {
             }
 
             if ($delete_all || in_array($file->getFilename(), $files)) {
-               $this->deleteFile($file->getPath());
+                $this->deleteFile($file->getPath());
             }
         }
     }
 
     protected function setVersion(string $version) {
-        $version_number_id = $this->queries->getWhere('settings', array('name', '=', 'nameless_version'));
+        $version_number_id = $this->queries->getWhere('settings', ['name', '=', 'nameless_version']);
 
         if (!count($version_number_id)) {
-            $version_number_id = $this->queries->getWhere('settings', array('name', '=', 'version'));
+            $version_number_id = $this->queries->getWhere('settings', ['name', '=', 'version']);
         }
 
         $version_number_id = $version_number_id[0]->id;
-        $this->queries->update('settings', $version_number_id, array(
+        $this->queries->update('settings', $version_number_id, [
             'value' => $version
-        ));
+        ]);
 
-        $version_update_id = $this->queries->getWhere('settings', array('name', '=', 'version_update'));
+        $version_update_id = $this->queries->getWhere('settings', ['name', '=', 'version_update']);
         $version_update_id = $version_update_id[0]->id;
 
-        $this->queries->update('settings', $version_update_id, array(
+        $this->queries->update('settings', $version_update_id, [
             'value' => 'false'
-        ));
+        ]);
     }
 }
