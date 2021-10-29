@@ -13,5 +13,6 @@
 const URL_EXCLUDE_CHARS = [
     '?',
     '&',
-    '/'
+    '/',
+    '#',
 ];
