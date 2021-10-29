@@ -15,8 +15,8 @@ body:
     label: NamelessMC Version
     description: From StaffCP -> Overview
     options:
-      - 2.0.0-pr12
-      - <= 2.0.0-pr11
+      - 2.0.0
+      - <= 2.0.0-pr12
       - 1.0.21
       - <= 1.0.20
   validations:
