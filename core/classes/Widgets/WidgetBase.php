@@ -99,5 +99,5 @@ abstract class WidgetBase {
     /**
      * Generate this widget's $_content.
      */
-    public abstract function initialise();
+    public abstract function initialise(): void;
 }

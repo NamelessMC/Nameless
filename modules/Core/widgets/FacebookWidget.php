@@ -10,7 +10,7 @@
  */
 class FacebookWidget extends WidgetBase {
 
-    public function __construct($pages = [], $fb_url = '') {
+    public function __construct(array $pages = [], string $fb_url = '') {
         parent::__construct($pages);
 
         // Get widget

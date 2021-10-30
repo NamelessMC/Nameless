@@ -10,7 +10,7 @@
  */
 class TwitterWidget extends WidgetBase {
 
-    public function __construct($pages = [], $twitter = '', $theme = '') {
+    public function __construct(array $pages = [], string $twitter = '', string $theme = '') {
         parent::__construct($pages);
 
         // Get widget
@@ -31,7 +31,7 @@ class TwitterWidget extends WidgetBase {
         ';
     }
 
-    public function initialise() {
+    public function initialise(): void {
         // Do nothing
     }
 }

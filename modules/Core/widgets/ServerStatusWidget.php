@@ -10,11 +10,11 @@
  */
 class ServerStatusWidget extends WidgetBase {
 
-    private $_cache,
-            $_smarty,
-            $_language;
+    private Cache $_cache;
+    private Smarty $_smarty;
+    private Language $_language;
 
-    public function __construct($pages = [], $smarty, $language, $cache) {
+    public function __construct(array $pages, Smarty $smarty, Language $language, Cache $cache) {
         $this->_language = $language;
         $this->_smarty = $smarty;
         $this->_cache = $cache;
@@ -32,7 +32,7 @@ class ServerStatusWidget extends WidgetBase {
         $this->_order = $widget_query->order ?? null;
     }
 
-    public function initialise() {
+    public function initialise(): void {
         // Generate HTML code for widget
         $this->_cache->setCache('server_status_widget');
 

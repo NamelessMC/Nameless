@@ -19,6 +19,7 @@ parameters:
         - modules/Discord Integration/classes
         - modules/Forum/classes
     scanFiles:
+        - modules/Core/pages/api/v2/index.php
         - core/includes/bulletproof/bulletproof.php
         - core/includes/sitemapphp/Sitemap.php
         - core/includes/sqlformatter/SQLFormatter.php

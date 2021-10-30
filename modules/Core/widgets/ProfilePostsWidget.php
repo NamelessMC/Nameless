@@ -10,13 +10,13 @@
  */
 class ProfilePostsWidget extends WidgetBase {
 
-    private $_cache,
-            $_smarty,
-            $_language,
-            $_user,
-            $_timeago;
+    private Cache $_cache;
+    private Smarty $_smarty;
+    private Language $_language;
+    private User $_user;
+    private TimeAgo $_timeago;
 
-    public function __construct($pages = [], $smarty, $language, $cache, $user, $timeago) {
+    public function __construct(array $pages, Smarty $smarty, Language $language, Cache $cache, User $user, TimeAgo $timeago) {
         $this->_language = $language;
         $this->_smarty = $smarty;
         $this->_cache = $cache;
@@ -36,7 +36,7 @@ class ProfilePostsWidget extends WidgetBase {
         $this->_order = $widget_query->order ?? null;
     }
 
-    public function initialise() {
+    public function initialise(): void {
         // Generate HTML code for widget
         if ($this->_user->isLoggedIn()) {
             $user_id = $this->_user->data()->id;
