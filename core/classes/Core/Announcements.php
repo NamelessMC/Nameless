@@ -95,7 +95,7 @@ class Announcements {
      *
      * @return string Comma seperated list of page names.
      */
-    public function getPagesCsv(?string $pages_json = null): string {
+    public function getPagesCsv(?string $pages_json = null): ?string {
         $pages = json_decode($pages_json);
 
         if (!$pages) {
