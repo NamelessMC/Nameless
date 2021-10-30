@@ -48,7 +48,6 @@ $language = array(
     'finish_registration_email' => 'Kaydı tamamlamak için lütfen e-postalarınızı kontrol edin.',
     'group_updated' => 'Grup başarıyla güncellendi',
     'report_created' => 'Rapor başarıyla oluşturuldu',
-    'new_private_message_from' => '{x}\'dan yeni özel mesaj', // Don't replace {x}
     'username_updated' => 'Kullanıcı adı başarıyla güncellendi',
     'server_info_updated' => 'Sunucu bilgileri başarıyla güncellendi',
     'account_validated' => 'Hesap başarıyla doğrulandı',

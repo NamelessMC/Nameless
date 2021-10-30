@@ -48,7 +48,6 @@ $language = array(
     'finish_registration_email' => 'Please check your emails to complete registration.',
     'group_updated' => 'Group updated successfully',
     'report_created' => 'Report created successfully',
-    'new_private_message_from' => 'New private message from {x}', // Don't replace {x}
     'username_updated' => 'Username updated successfully',
     'server_info_updated' => 'Server info updated successfully',
     'account_validated' => 'Account validated successfully',

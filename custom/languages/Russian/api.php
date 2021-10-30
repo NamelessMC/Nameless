@@ -49,7 +49,6 @@ $language = array(
     'finish_registration_email' => 'Пожалуйста, проверьте свою электронную почту, чтобы завершить регистрацию.',
     'group_updated' => 'Группа успешно обновлена',
     'report_created' => 'Жалоба успешно создана',
-    'new_private_message_from' => 'Новое личное сообщение от {x}', // Don't replace {x}
     'username_updated' => 'Имя пользователя успешно обновлено',
     'server_info_updated' => 'Информация о сервере успешно обновлена',
     'account_validated' => 'Учетная запись успешно подтверждена',

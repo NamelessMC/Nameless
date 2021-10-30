@@ -48,7 +48,6 @@ $language = array(
     'finish_registration_email' => 'Sprawdź swoją skrzynkę email, aby ukończyć rejestrację.',
     'group_updated' => 'Grupa została zaktualizowana pomyślnie.',
     'report_created' => 'Zgłoszenie zostało stworzone pomyślnie.',
-    'new_private_message_from' => 'Nowa wiadomość od: {x}', // Don't replace {x}
     'username_updated' => 'Nazwa użytkownika została zaktualizowana pomyślnie.',
     'server_info_updated' => 'Informacje o serwerze zostały zaktualizowane pomyślnie.',
     'account_validated' => 'Konto zostało zweryfikowane pomyślnie.',

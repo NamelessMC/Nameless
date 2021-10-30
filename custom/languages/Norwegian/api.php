@@ -48,7 +48,6 @@ $language = array(
     'finish_registration_email' => 'Vennligst sjekk innboksen din for å fullføre registeringen.',
     'group_updated' => 'Gruppen har blitt oppdatert',
     'report_created' => 'Rapporten har blitt opprettet',
-    'new_private_message_from' => 'Ny privatmelding fra {x}', // Don't replace {x}
     'username_updated' => 'Brukernavnet har blitt oppdatert.',
     'server_info_updated' => 'Serverinfoen har blitt oppdatert',
     'account_validated' => 'Brukeren har blitt validert',

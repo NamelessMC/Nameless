@@ -50,7 +50,6 @@ $language = array(
     'finish_registration_email' => 'Por favor, verifique seus emails para completar o registro.',
     'group_updated' => 'Grupo atualizado com êxito',
     'report_created' => 'Relatório criado com êxito',
-    'new_private_message_from' => 'Nova mensagem privada de {x}', // Don't replace {x}
     'username_updated' => 'Nome de usuário atualizado com sucesso',
     'server_info_updated' => 'Informações do servidor atualizadas com sucesso',
     'account_validated' => 'A conta foi validada com sucesso',

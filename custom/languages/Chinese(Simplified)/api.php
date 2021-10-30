@@ -50,7 +50,6 @@ $language = array(
     'finish_registration_email' => '请检查电子邮箱地址以完成注册.',
     'group_updated' => '权限组更新成功',
     'report_created' => '反馈成功',
-    'new_private_message_from' => '来自 {x} 的私信', // Don't replace {x}
     'username_updated' => '用户名更新成功',
     'server_info_updated' => '服务器信息更新成功',
     'account_validated' => '账号校验成功',

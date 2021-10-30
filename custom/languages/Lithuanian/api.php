@@ -49,7 +49,6 @@ $language = array(
   'finish_registration_email' => 'Patikrinkite savo el. paštą, kad užbaigtumėte registraciją.',
   'group_updated' => 'Grupė sėkmingai atnaujinta',
   'report_created' => 'Ataskaita sėkmingai sukurta',
-  'new_private_message_from' => 'Nauja privati žinutė iš {x}', // Don't replace {x}
   'username_updated' => 'Vartotojo vardas atnaujintas sėkmingai',
   'server_info_updated' => 'Serverio informacija atnaujinta sėkmingai',
   'account_validated' => 'Paskyra patvirtinta sėkmingai',

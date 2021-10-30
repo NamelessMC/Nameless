@@ -50,7 +50,6 @@ $language = array(
     'finish_registration_email' => 'Verificați-vă e-mailurile pentru a finaliza înregistrarea.',
     'group_updated' => 'Grupul a fost actualizat cu succes',
     'report_created' => 'Raportul a fost creat cu succes',
-    'new_private_message_from' => 'Mesaj privat nou de la {x}', // Don't replace {x}
     'username_updated' => 'Numele de utilizator a fost actualizat cu succes',
     'server_info_updated' => 'Informațiile serverului s-au actualizat cu succes',
     'account_validated' => 'Contul a fost validat cu succes',

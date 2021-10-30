@@ -48,7 +48,6 @@ $language = array(
     'finish_registration_email' => 'Kontrollera dina e-postmeddelanden för att slutföra registreringen.',
     'group_updated' => 'Gruppen uppdaterades framgångsrikt',
     'report_created' => 'Rapport skapades framgångsrikt',
-    'new_private_message_from' => 'Nytt privat meddelande från {x}', // Don't replace {x}
     'username_updated' => 'Användarnamn uppdaterades framgångsrikt',
     'server_info_updated' => 'Serverinfo uppdaterades framgångsrikt',
     'account_validated' => 'Kontot validerades framgångsrikt',
