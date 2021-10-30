@@ -1,5 +1,4 @@
-<?php /** @noinspection ALL */
-/** @noinspection ALL */
+<?php
 require(__DIR__ . '/includes/functions.php');
 
 if (isset($_GET['do'])) {

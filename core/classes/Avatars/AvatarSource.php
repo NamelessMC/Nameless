@@ -1,5 +1,4 @@
-<?php /** @noinspection ALL */
-
+<?php
 /*
  *	Made by Aberdeener
  *
