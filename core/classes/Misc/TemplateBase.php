@@ -16,8 +16,8 @@ abstract class TemplateBase {
     protected string $_nameless_version = '';
     protected string $_author = '';
     protected string $_settings = '';
-    protected array $_css = array();
-    protected array $_js = array();
+    protected array $_css = [];
+    protected array $_js = [];
 
     public function __construct(string $name, string $version, string $nameless_version, string $author) {
         $this->_name = $name;
@@ -37,7 +37,7 @@ abstract class TemplateBase {
      * @param array $files Files to be loaded.
      */
     public function addCSSFiles(array $files): void {
-        if (is_array($files) && count($files)) {
+        if (count($files)) {
             foreach ($files as $href => $file) {
                 $this->_css[] = '
                 <link' . (isset($file['rel']) ? ' rel="' . $file['rel'] . '"' : ' rel="stylesheet"') . ' 
@@ -51,11 +51,11 @@ abstract class TemplateBase {
         }
     }
 
-        
+
     /**
      * Add internal CSS styling to this page load.
      *
-     * @param string $style Styling to add.
+     * @param string|null $style Styling to add.
      */
     public function addCSSStyle(string $style = null): void {
         if ($style) {
@@ -69,7 +69,7 @@ abstract class TemplateBase {
      * @param array $files Files to be loaded.
      */
     public function addJSFiles(array $files): void {
-        if (is_array($files) && count($files)) {
+        if (count($files)) {
             foreach ($files as $href => $file) {
                 $this->_js[] = '
                 <script type="text/javascript" 
@@ -86,7 +86,7 @@ abstract class TemplateBase {
     /**
      * Add internal JS code to this page load.
      *
-     * @param string $style Code to add.
+     * @param string|null $script
      */
     public function addJSScript(string $script = null): void {
         if ($script) {
@@ -161,18 +161,18 @@ abstract class TemplateBase {
      * Render this template with Smarty engine.
      */
     public function displayTemplate(string $template, Smarty $smarty): void {
-        $smarty->assign(array(
+        $smarty->assign([
             'TEMPLATE_CSS' => $this->getCSS(),
             'TEMPLATE_JS' => $this->getJS()
-        ));
+        ]);
         $smarty->display($template);
     }
 
     public function getTemplate(string $template, Smarty $smarty): string {
-        $smarty->assign(array(
+        $smarty->assign([
             'TEMPLATE_CSS' => $this->getCSS(),
             'TEMPLATE_JS' => $this->getJS()
-        ));
+        ]);
 
         return $smarty->fetch($template);
     }

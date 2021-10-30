@@ -11,8 +11,8 @@
 
 class Navigation {
 
-    private array $_topNavbar = array();
-    private array $_footerNav = array();
+    private array $_topNavbar = [];
+    private array $_footerNav = [];
     private bool $_panel;
 
     // Panel sidebars discard provided order for links
@@ -22,14 +22,14 @@ class Navigation {
 
     /**
      * Add a simple item to this navigation instance.
-     * 
+     *
      * @param string $name Unique name for the navbar item, if the page name equals this the item will display as active.
      * @param string $title Item title.
      * @param string $link HTML href attribute, can be link built with URL class or hyperlink.
      * @param string $location Location to add item to, either 'top' or 'footer' (defaults to 'top').
-     * @param string $target HTML target attribute (eg '_blank').
+     * @param string|null $target HTML target attribute (eg '_blank').
      * @param int Nav item order (default 10).
-     * @param string $icon Icon to prepend to nav item.
+     * @param string|null $icon Icon to prepend to nav item.
      */
     public function add(string $name, string $title, string $link, string $location = 'top', string $target = null, int $order = 10, ?string $icon = ''): void {
         if ($this->_panel && $location == 'top') {
@@ -48,22 +48,22 @@ class Navigation {
         // Add the link to the navigation
         if ($location == 'top') {
             // Add to top navbar
-            $this->_topNavbar[$name] = array(
+            $this->_topNavbar[$name] = [
                 'title' => $title,
                 'link' => $link,
                 'target' => $target,
                 'order' => $order,
                 'icon' => $icon
-            );
+            ];
         } else {
             // Add to footer navigation
-            $this->_footerNav[$name] = array(
+            $this->_footerNav[$name] = [
                 'title' => $title,
                 'link' => $link,
                 'target' => $target,
                 'order' => $order,
                 'icon' => $icon
-            );
+            ];
         }
     }
 
@@ -80,22 +80,22 @@ class Navigation {
         // Add the dropdown
         if ($location == 'top') {
             // Navbar
-            $this->_topNavbar[$name] = array(
+            $this->_topNavbar[$name] = [
                 'type' => 'dropdown',
                 'title' => $title,
-                'items' => array(),
+                'items' => [],
                 'order' => $order,
                 'icon' => $icon
-            );
+            ];
         } else {
             // Footer
-            $this->_footerNav[$name] = array(
+            $this->_footerNav[$name] = [
                 'type' => 'dropdown',
                 'title' => $title,
-                'items' => array(),
+                'items' => [],
                 'order' => $order,
                 'icon' => $icon
-            );
+            ];
         }
     }
 
@@ -107,30 +107,30 @@ class Navigation {
      * @param string $title Item title.
      * @param string $link HTML href attribute, can be link built with URL class or hyperlink.
      * @param string $location Location to add item to, either 'top' or 'footer' (defaults to 'top').
-     * @param string $target HTML target attribute (eg '_blank')
-     * @param string $icon Icon to prepend to nav item 
+     * @param string|null $target HTML target attribute (eg '_blank')
+     * @param string $icon Icon to prepend to nav item
      * @param int $order Nav item order
      */
     public function addItemToDropdown(string $dropdown, string $name, string $title, string $link, string $location = 'top', string $target = null, string $icon = '', int $order = 10): void {
         // Add the item
         if ($location == 'top' && isset($this->_topNavbar[$dropdown])) {
             // Navbar
-            $this->_topNavbar[$dropdown]['items'][$name] = array(
+            $this->_topNavbar[$dropdown]['items'][$name] = [
                 'title' => $title,
                 'link' => $link,
                 'target' => $target,
                 'icon' => $icon,
                 'order' => $order
-            );
+            ];
         } else if (isset($this->_footerNav[$dropdown])) {
             // Footer
-            $this->_footerNav[$dropdown]['items'][$name] = array(
+            $this->_footerNav[$dropdown]['items'][$name] = [
                 'title' => $title,
                 'link' => $link,
                 'target' => $target,
                 'icon' => $icon,
                 'order' => $order
-            );
+            ];
         }
     }
 
@@ -141,7 +141,7 @@ class Navigation {
      * @return array Array to pass to template
      */
     public function returnNav(string $location = 'top'): array {
-        $return = array(); // String to return
+        $return = []; // String to return
         if ($location == 'top') {
             if (count($this->_topNavbar)) {
                 foreach ($this->_topNavbar as $key => $item) {

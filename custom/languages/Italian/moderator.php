@@ -9,7 +9,7 @@
  *  Italian Language - Moderator terms
  */
 
-$language = array(
+$language = [
     'mod_cp' => 'Pannello Moderatori',
     'staff_cp' => 'Pannello Staff',
     'overview' => 'Panoramica',
@@ -106,4 +106,4 @@ $language = array(
     'recent_registrations' => 'Registrazioni recenti',
     'reset_profile_banner' => 'Reimposta banner profilo'
 
-);
+];

@@ -48,38 +48,38 @@ if (Input::exists()) {
 
             if ($validation->passed()) {
                 try {
-                    $php_mailer = $queries->getWhere('settings', array('name', '=', 'phpmailer'));
+                    $php_mailer = $queries->getWhere('settings', ['name', '=', 'phpmailer']);
                     $php_mailer = $php_mailer[0]->value;
 
-                    $contactemail = $queries->getWhere('settings', array('name', '=', 'incoming_email'));
+                    $contactemail = $queries->getWhere('settings', ['name', '=', 'incoming_email']);
                     $contactemail = $contactemail[0]->value;
 
                     if ($php_mailer == '1') {
                         // PHP Mailer
                         $html = Output::getClean(Input::get('content'));
 
-                        $email = array(
-                            'replyto' => array('email' => Output::getClean(Input::get('email')), 'name' => Output::getClean(Input::get('email'))),
-                            'to' => array('email' => Output::getClean($contactemail), 'name' => Output::getClean(SITE_NAME)),
+                        $email = [
+                            'replyto' => ['email' => Output::getClean(Input::get('email')), 'name' => Output::getClean(Input::get('email'))],
+                            'to' => ['email' => Output::getClean($contactemail), 'name' => Output::getClean(SITE_NAME)],
                             'subject' => SITE_NAME . ' - ' . $language->get('general', 'contact_email_subject'),
                             'message' => $html
-                        );
+                        ];
 
                         $sent = Email::send($email, 'mailer');
 
                         if (isset($sent['error'])) {
                             // Error, log it
-                            $queries->create('email_errors', array(
+                            $queries->create('email_errors', [
                                 'type' => 2, // 2 = contact
                                 'content' => $sent['error'],
                                 'at' => date('U'),
                                 'user_id' => ($user->isLoggedIn() ? $user->data()->id : null)
-                            ));
+                            ]);
                         }
 
                     } else {
                         // PHP mail function
-                        $siteemail = $queries->getWhere('settings', array('name', '=', 'outgoing_email'));
+                        $siteemail = $queries->getWhere('settings', ['name', '=', 'outgoing_email']);
                         $siteemail = $siteemail[0]->value;
 
                         $to = $contactemail;
@@ -94,23 +94,23 @@ if (Input::exists()) {
                             'MIME-Version: 1.0' . "\r\n" .
                             'Content-type: text/html; charset=UTF-8' . "\r\n";
 
-                        $email = array(
+                        $email = [
                             'to' => $to,
                             'subject' => $subject,
                             'message' => $message,
                             'headers' => $headers
-                        );
+                        ];
 
                         $sent = Email::send($email, 'php');
 
                         if (isset($sent['error'])) {
                             // Error, log it
-                            $queries->create('email_errors', array(
+                            $queries->create('email_errors', [
                                 'type' => 2, // 2 = contact
                                 'content' => $sent['error'],
                                 'at' => date('U'),
                                 'user_id' => ($user->isLoggedIn() ? $user->data()->id : null)
-                            ));
+                            ]);
                         }
 
                     }
@@ -141,7 +141,7 @@ if (Input::exists()) {
 // Smarty variables
 if ($captcha) {
     $smarty->assign('CAPTCHA', CaptchaBase::getActiveProvider()->getHtml());
-    $template->addJSFiles(array(CaptchaBase::getActiveProvider()->getJavascriptSource() => array()));
+    $template->addJSFiles([CaptchaBase::getActiveProvider()->getJavascriptSource() => []]);
 
     $submitScript = CaptchaBase::getActiveProvider()->getJavascriptSubmit('form-contact');
     if ($submitScript) {
@@ -166,7 +166,7 @@ if(isset($errorcontent))
 if(isset($success))
 	$smarty->assign('SUCCESS', $success);
 
-$smarty->assign(array(
+$smarty->assign([
 	'EMAIL' => $language->get('general', 'email_address'),
 	'CONTACT' => $language->get('general', 'contact'),
 	'MESSAGE' => $language->get('general', 'message'),
@@ -174,10 +174,10 @@ $smarty->assign(array(
 	'SUBMIT' => $language->get('general', 'submit'),
 	'ERROR_TITLE' => $language->get('general', 'error'),
 	'SUCCESS_TITLE' => $language->get('general', 'success')
-));
+]);
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 $page_load = microtime(true) - $start;
 define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));

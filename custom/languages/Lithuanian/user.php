@@ -10,7 +10,7 @@
  *  Lithuanian Language - Users
  */
 
-$language = array(
+$language = [
     // Change this for the account validation message
     'validate_account_command' => 'Norėdami užbaigti registraciją, rašykite komandą <strong>/verify {x}</strong> žaidime.', // Don't replace {x}
 
@@ -230,4 +230,4 @@ $language = array(
     // Hooks
     'user_x_has_registered' => '{x} prisijungė prie ' . SITE_NAME . '!',
     'user_x_has_validated' => '{x} has validated their account!',
-);
+];

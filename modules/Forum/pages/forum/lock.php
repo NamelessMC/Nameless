@@ -21,7 +21,7 @@ if ($user->isLoggedIn()) {
     }
 
     // Check topic exists and get forum ID
-    $topic = $queries->getWhere('topics', array('id', '=', $topic_id));
+    $topic = $queries->getWhere('topics', ['id', '=', $topic_id]);
 
     if (!count($topic)) {
         Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
@@ -45,9 +45,9 @@ if ($user->isLoggedIn()) {
             $locked_status = 1;
         }
 
-        $queries->update('topics', $topic_id, array(
+        $queries->update('topics', $topic_id, [
             'locked' => $locked_status
-        ));
+        ]);
         Log::getInstance()->log(Log::Action('forums/topic/lock'), ($locked_status == 1) ? $language->get('log', 'info_forums_lock') : $language->get('log', 'info_forums_unlock'));
 
         Redirect::to(URL::build('/forum/topic/' . $topic_id));

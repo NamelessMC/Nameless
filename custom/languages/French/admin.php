@@ -9,7 +9,7 @@
  *  French Language - Users
  */
 
-$language = array(
+$language = [
     /*
      *  Admin Control Panel
      */
@@ -697,4 +697,4 @@ Vous devriez configurer votre groupe par défaut pour avoir des autorisations li
     'support' => 'Support',
     'admin_dir_still_exists' => 'Attention ! Le répertoire <strong>modules/Core/pages/admin</strong> existe toujours. Veuillez supprimer ce répertoire.',
     'mod_dir_still_exists' => 'Attention ! Le répertoire <strong>modules/Core/pages/mod</strong> existe toujours. Veuillez supprimer ce répertoire.',
-);
+];

@@ -1,5 +1,5 @@
 <?php
-$language = array(
+$language = [
     //info
     'info_report' => 'Zgłoszony',
     'info_login' => 'Użytkownik się zalogował!',
@@ -24,5 +24,5 @@ $language = array(
     'info_forum_move' => 'Przeniesiony',
     'info_forum_merge' => 'Połączony',
     'info_forum_react' => 'Zareagował',
-);
+];
 

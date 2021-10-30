@@ -10,7 +10,7 @@
  *  Czech Language - General terms
  */
 
-$language = array (
+$language = [
     /*
      *  General terms
      */
@@ -54,8 +54,8 @@ $language = array (
     'x_new_messages' => 'Máte {x} nových zpráv', // Don't replace {x}
     'loading' => 'Načítání...',
     'report' => 'Nahlásit',
-    'reported_by' => 'Reported by {x}',
-    'view_report' => 'View report',
+    'reported_by' => 'Nahlášen uživatelem {x}',
+    'view_report' => 'Zobrazit nahlášení',
     'page_loaded_in' => 'Stránka se načetla za {x}s', // Don't replace {x}, time unit is seconds
     'page_x' => 'Strana {x}',
     'browse' => 'Prohlížet',
@@ -164,4 +164,4 @@ $language = array (
      *  Custom page redirect
      */
     'redirecting_message' => 'Přesměrování...<br />Pokud nebudete přesměrováni automaticky, klikněte prosím  <a href="{x}" rel="nofollow noopener">sem</a>.' // Don't replace {x} which is the redirect URL
-);
+];

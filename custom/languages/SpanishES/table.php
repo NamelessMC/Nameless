@@ -9,7 +9,7 @@
  *  Spanish/Spain Language - Table
  */
 
-$language = array(
+$language = [
     /*
      *  Tables
      */
@@ -18,4 +18,4 @@ $language = array(
     'page_x_of_y' => 'Mostrando la página _PAGE_ de _PAGES_', // Don't replace "_PAGE_" or "_PAGES_"
     'no_records' => 'No hay registros disponibles',
     'filtered' => '(filtrado de _MAX_ registros totales)' // Don't replace "_MAX_"
-);
+];

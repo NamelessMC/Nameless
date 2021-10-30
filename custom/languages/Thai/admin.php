@@ -9,7 +9,7 @@
  *  ภาษาไทย Language - Admin
  */
 
-$language = array(
+$language = [
     /*
      *  Admin Control Panel
      */
@@ -754,4 +754,4 @@ $language = array(
     'background_colour_required' => 'ต้องใช้สีพื้นหลัง',
     'text_colour_required' => 'ต้องระบุสีข้อความ',
     'no_announcements' => 'ยังไม่มีการประกาศใด ๆ',
-);
+];

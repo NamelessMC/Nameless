@@ -11,7 +11,7 @@
  *  Last Update: 01/03/2021
  */
 
-$language = array(
+$language = [
 
     // General Options
     'greeting' => 'Olá,',
@@ -28,4 +28,4 @@ $language = array(
     // Forum Topic Replies
     'forum_topic_reply_subject' => '{x} respondeu a {y}', // Don't remove {x} or {y}
     'forum_topic_reply_message' => '{x} respondeu a um tópico que você segue. Conteúdo: {z}' // Don't remove {x} or {z}
-);
+];

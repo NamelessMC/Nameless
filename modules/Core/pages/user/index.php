@@ -20,29 +20,29 @@ define('PAGE', 'cc_overview');
 $page_title = $language->get('user', 'user_cp');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-$user_details = array(
+$user_details = [
 	$language->get('user', 'username') => $user->getDisplayname(true),
 	$language->get('admin', 'group') => Output::getClean($user->getMainGroup()->name),
 	$language->get('admin', 'registered') => date('d M Y, H:i', $user->data()->joined)
-);
+];
 
 // Language values
-$smarty->assign(array(
+$smarty->assign([
 	'USER_CP' => $language->get('user', 'user_cp'),
 	'USER_DETAILS' => $language->get('user', 'user_details'),
 	'USER_DETAILS_VALUES' => $user_details,
 	'OVERVIEW' => $language->get('user', 'overview')
-));
+]);
 
 // Get graph data
 $forum_enabled = Util::isModuleEnabled('Forum');
 
 if ($forum_enabled) {
-  $forum_query_user = DB::getInstance()->selectQuery("SELECT FROM_UNIXTIME(created, '%Y-%m-%d'), COUNT(*) FROM nl2_posts WHERE post_creator = ? AND created > ? GROUP BY FROM_UNIXTIME(created, '%Y-%m-%d')", array($user->data()->id, strtotime('-7 days')))->results();
-  $forum_query_average = DB::getInstance()->selectQuery("SELECT FROM_UNIXTIME(created, '%Y-%m-%d'), (COUNT(*) / COUNT(Distinct post_creator)) FROM nl2_posts WHERE created > ? GROUP BY FROM_UNIXTIME(created, '%Y-%m-%d')", array(strtotime('-7 days')))->results();
-  $forum_query_total = DB::getInstance()->selectQuery("SELECT FROM_UNIXTIME(created, '%Y-%m-%d'), COUNT(*) FROM nl2_posts WHERE created > ? GROUP BY FROM_UNIXTIME(created, '%Y-%m-%d')", array(strtotime('-7 days')))->results();
+  $forum_query_user = DB::getInstance()->selectQuery("SELECT FROM_UNIXTIME(created, '%Y-%m-%d'), COUNT(*) FROM nl2_posts WHERE post_creator = ? AND created > ? GROUP BY FROM_UNIXTIME(created, '%Y-%m-%d')", [$user->data()->id, strtotime('-7 days')])->results();
+  $forum_query_average = DB::getInstance()->selectQuery("SELECT FROM_UNIXTIME(created, '%Y-%m-%d'), (COUNT(*) / COUNT(Distinct post_creator)) FROM nl2_posts WHERE created > ? GROUP BY FROM_UNIXTIME(created, '%Y-%m-%d')", [strtotime('-7 days')])->results();
+  $forum_query_total = DB::getInstance()->selectQuery("SELECT FROM_UNIXTIME(created, '%Y-%m-%d'), COUNT(*) FROM nl2_posts WHERE created > ? GROUP BY FROM_UNIXTIME(created, '%Y-%m-%d')", [strtotime('-7 days')])->results();
 
-  $output = array();
+  $output = [];
   foreach($forum_query_user as $item){
 	  $date = strtotime($item->{'FROM_UNIXTIME(created, \'%Y-%m-%d\')'});
 	  $output[$date]['user'] = $item->{'COUNT(*)'};
@@ -96,10 +96,10 @@ if ($forum_enabled) {
 }
 
 if ($forum_enabled) {
-	$template->addJSFiles(array(
-		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/moment/moment.min.js' => array(),
-		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/charts/Chart.min.js' => array()
-	));
+	$template->addJSFiles([
+		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/moment/moment.min.js' => [],
+		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/charts/Chart.min.js' => []
+    ]);
 	$template->addJSScript(
 		'
 		$(document).ready(function() {
@@ -173,7 +173,7 @@ if ($forum_enabled) {
 }
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 require(ROOT_PATH . '/core/templates/cc_navbar.php');
 

@@ -10,7 +10,7 @@
  *  Czech Language - Errors
  */
 
-$language = array (
+$language = [
     /*
      *  Errors
      */
@@ -32,4 +32,4 @@ $language = array (
     'fatal_error_message_admin' => 'Omlouváme se, ale při načítání stránky se něco pokazilo. Podrobnosti chyby:',
     'in_file' => 'v souboru <strong>{x}</strong>', // Don't replace {x}
     'on_line' => 'na řádku <strong>{x}</strong>' // Don't replace {x}
-);
+];

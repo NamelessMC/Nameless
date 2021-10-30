@@ -23,17 +23,17 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Handle input
 if(Input::exists()){
-    $errors = array();
+    $errors = [];
 
     if(Token::check()){
         if(isset($_POST['enable_authme'])){
             // Either enable or disable Authme integration
-            $enable_authme_id = $queries->getWhere('settings', array('name', '=', 'authme'));
+            $enable_authme_id = $queries->getWhere('settings', ['name', '=', 'authme']);
             $enable_authme_id = $enable_authme_id[0]->id;
 
-            $queries->update('settings', $enable_authme_id, array(
+            $queries->update('settings', $enable_authme_id, [
                 'value' => Input::get('enable_authme')
-            ));
+            ]);
 
         } else {
             // AuthMe config settings
@@ -57,7 +57,7 @@ if(Input::exists()){
             ])->message($language->get('admin', 'enter_authme_db_details'));
 
             if($validation->passed()){
-                $authme_db = $queries->getWhere('settings', array('name', '=', 'authme_db'));
+                $authme_db = $queries->getWhere('settings', ['name', '=', 'authme_db']);
                 $authme_db_id = $authme_db[0]->id;
                 $authme_db = json_decode($authme_db[0]->value);
 
@@ -70,7 +70,7 @@ if(Input::exists()){
                         $password = '';
                 }
 
-                $result = array(
+                $result = [
                     'address' => Output::getClean(Input::get('db_address')),
                     'port' => (isset($_POST['db_port']) && !empty($_POST['db_port']) && is_numeric($_POST['db_port'])) ? $_POST['db_port'] : 3306,
                     'db' => Output::getClean(Input::get('db_name')),
@@ -79,14 +79,14 @@ if(Input::exists()){
                     'table' => Output::getClean(Input::get('db_table')),
                     'hash' => Output::getClean(Input::get('hashing_algorithm')),
                     'sync' => Input::get('authme_sync')
-                );
+                ];
 
                 $cache->setCache('authme_cache');
                 $cache->store('authme', $result);
 
-                $queries->update('settings', $authme_db_id, array(
+                $queries->update('settings', $authme_db_id, [
                     'value' => json_encode($result)
-                ));
+                ]);
 
             } else {
                 $errors = $validation->errors();
@@ -100,31 +100,31 @@ if(Input::exists()){
 }
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 if(isset($success))
-    $smarty->assign(array(
+    $smarty->assign([
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
-    ));
+    ]);
 
 if(isset($errors) && count($errors))
-    $smarty->assign(array(
+    $smarty->assign([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
-    ));
+    ]);
 
 // Is Authme enabled?
-$authme_enabled = $queries->getWhere('settings', array('name', '=', 'authme'));
+$authme_enabled = $queries->getWhere('settings', ['name', '=', 'authme']);
 $authme_enabled = $authme_enabled[0]->value;
 
 if($authme_enabled == '1'){
     // Retrieve Authme database details
-    $authme_db = $queries->getWhere('settings', array('name', '=', 'authme_db'));
+    $authme_db = $queries->getWhere('settings', ['name', '=', 'authme_db']);
     $authme_db = json_decode($authme_db[0]->value);
 
-    $smarty->assign(array(
-        'AUTHME_DB_DETAILS' => ($authme_db ? $authme_db : array()),
+    $smarty->assign([
+        'AUTHME_DB_DETAILS' => ($authme_db ?: []),
         'AUTHME_HASH_ALGORITHM' => $language->get('admin', 'authme_hash_algorithm'),
         'AUTHME_DB_ADDRESS' => $language->get('admin', 'authme_db_address'),
         'AUTHME_DB_PORT' => $language->get('admin', 'authme_db_port'),
@@ -135,10 +135,10 @@ if($authme_enabled == '1'){
         'AUTHME_DB_TABLE' => $language->get('admin', 'authme_db_table'),
         'AUTHME_PASSWORD_SYNC' => $language->get('admin', 'authme_password_sync'),
         'AUTHME_PASSWORD_SYNC_HELP' => $language->get('admin', 'authme_password_sync_help')
-    ));
+    ]);
 }
 
-$smarty->assign(array(
+$smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'INTEGRATIONS' => $language->get('admin', 'integrations'),
@@ -152,7 +152,7 @@ $smarty->assign(array(
     'ENABLE_AUTHME_VALUE' => ($authme_enabled == '1'),
     'AUTHME' => $language->get('admin', 'authme_integration'),
     'MINECRAFT_LINK' => URL::build('/panel/minecraft')
-));
+]);
 
 $page_load = microtime(true) - $start;
 define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));

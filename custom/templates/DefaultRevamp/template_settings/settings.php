@@ -24,7 +24,7 @@ if(Input::exists()){
 		Session::flash('admin_templates', $language->get('admin', 'successfully_updated'));
 
 	} else
-		$errors = array($language->get('general', 'invalid_token'));
+		$errors = [$language->get('general', 'invalid_token')];
 }
 
 // Get values
@@ -43,75 +43,75 @@ if($cache->isCached('navbarColour')){
 	$cache->store('navbarColour', $navbarColour);
 }
 
-$nav_colours = array(
-	0 => array(
+$nav_colours = [
+	0 => [
 		'value' => 'white',
 		'name' => 'Default',
 		'selected' => ($navbarColour == 'white')
-	),
-	1 => array(
+    ],
+	1 => [
 		'value' => 'red',
 		'name' => 'Red',
 		'selected' => ($navbarColour == 'red')
-	),
-	2 => array(
+    ],
+	2 => [
 		'value' => 'orange',
 		'name' => 'Orange',
 		'selected' => ($navbarColour == 'orange')
-	),
-	3 => array(
+    ],
+	3 => [
 		'value' => 'yellow',
 		'name' => 'Yellow',
 		'selected' => ($navbarColour == 'yellow')
-	),
-	4 => array(
+    ],
+	4 => [
 		'value' => 'olive',
 		'name' => 'Olive',
 		'selected' => ($navbarColour == 'olive')
-	),
-	5 => array(
+    ],
+	5 => [
 		'value' => 'green',
 		'name' => 'Green',
 		'selected' => ($navbarColour == 'green')
-	),
-	6 => array(
+    ],
+	6 => [
 		'value' => 'teal',
 		'name' => 'Teal',
 		'selected' => ($navbarColour == 'teal')
-	),
-	7 => array(
+    ],
+	7 => [
 		'value' => 'blue',
 		'name' => 'Blue',
 		'selected' => ($navbarColour == 'blue')
-	),
-	8 => array(
+    ],
+	8 => [
 		'value' => 'violet',
 		'name' => 'Violet',
 		'selected' => ($navbarColour == 'violet')
-	),
-	9 => array(
+    ],
+	9 => [
 		'value' => 'purple',
 		'name' => 'Purple',
 		'selected' => ($navbarColour == 'purple')
-	),
-	10 => array(
+    ],
+	10 => [
 		'value' => 'pink',
 		'name' => 'Pink',
 		'selected' => ($navbarColour == 'pink')
-	),
-	11 => array(
+    ],
+	11 => [
 		'value' => 'brown',
 		'name' => 'Brown',
 		'selected' => ($navbarColour == 'brown')
-	),
-	12 => array(
+    ],
+	12 => [
 		'value' => 'grey',
 		'name' => 'Grey',
 		'selected' => ($navbarColour == 'grey')
-	),
-);
+    ],
+];
 
-$smarty->assign(array(
+$smarty->assign([
 	'SUBMIT' => $language->get('general', 'submit'),
 	'ENABLED' => $language->get('admin', 'enabled'),
 	'DISABLED' => $language->get('admin', 'disabled'),
@@ -120,4 +120,4 @@ $smarty->assign(array(
 	'NAVBAR_COLOUR' => $language->get('admin', 'navbar_colour'),
 	'NAVBAR_COLOURS' => $nav_colours,
 	'SETTINGS_TEMPLATE' => ROOT_PATH . '/custom/templates/DefaultRevamp/template_settings/settings.tpl'
-));
+]);

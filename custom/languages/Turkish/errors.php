@@ -9,7 +9,7 @@
  *  Turkish translation by xOrcun
  */
 
-$language = array(
+$language = [
     /*
      *  Errors
      */
@@ -31,4 +31,4 @@ $language = array(
     'fatal_error_message_admin' => 'Maalesef, sayfa yüklenirken bir şeyler ters gitti. Hata detayları:',
     'in_file' => '<strong>{x}</strong> dosyasında', // Don't replace {x}
     'on_line' => '<strong>{x}</strong> internet üzerinde' // Don't replace {x}
-);
+];

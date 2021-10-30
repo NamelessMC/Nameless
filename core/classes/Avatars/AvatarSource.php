@@ -12,7 +12,7 @@
 
 class AvatarSource {
 
-    protected static array $_sources = array();
+    protected static array $_sources = [];
 
     protected static AvatarSourceBase $_active_source;
 

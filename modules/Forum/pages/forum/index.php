@@ -27,11 +27,11 @@ $groups = $user->getAllGroupIds();
 $smarty->assign('BREADCRUMB_URL', URL::build('/forum'));
 $smarty->assign('BREADCRUMB_TEXT', $forum_language->get('forum', 'forum_index'));
 // Search bar
-$smarty->assign(array(
+$smarty->assign([
     'SEARCH_URL' => URL::build('/forum/search'),
     'SEARCH' => $language->get('general', 'search'),
     'TOKEN' => Token::get()
-));
+]);
 
 // Server status module
 if (isset($status_enabled->value) && $status_enabled->value == 'true') {
@@ -75,7 +75,7 @@ if ($cache->isCached('forums')) {
     // Loop through to get last poster avatars and to format a date
     if (count($forums)) {
         foreach ($forums as $key => $item) {
-            $forums[$key]['link'] = URL::build('/forum/view/' . $key . '-' . $forum->titleToURL($forums[$key]['title']));
+            $forums[$key]['link'] = URL::build('/forum/view/' . $key . '-' . $forum->titleToURL($item['title']));
             if (isset($item['subforums']) && count($item['subforums'])) {
                 foreach ($item['subforums'] as $subforum_id => $subforum) {
                     if (isset($subforum->last_post)) {
@@ -100,7 +100,7 @@ if ($cache->isCached('forums')) {
                 }
             }
         }
-    } else $forums = array();
+    } else $forums = [];
 
     $cache->store('forums', $forums, 60);
 }
@@ -113,7 +113,7 @@ $smarty->assign('SUBFORUMS', $forum_language->get('forum', 'subforums'));
 $smarty->assign('FORUM_INDEX_LINK', URL::build('/forum'));
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 $page_load = microtime(true) - $start;
 define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));

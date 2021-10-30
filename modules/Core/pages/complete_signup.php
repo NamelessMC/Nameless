@@ -16,7 +16,7 @@ $page_title = $language->get('general', 'register');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 // Validate code
 if(!isset($_GET['c'])){
@@ -26,9 +26,9 @@ if(!isset($_GET['c'])){
     require(ROOT_PATH . '/core/includes/password.php');
 
     // Ensure API is enabled
-    $is_api_enabled = $queries->getWhere('settings', array('name', '=', 'use_api'));
+    $is_api_enabled = $queries->getWhere('settings', ['name', '=', 'use_api']);
     if($is_api_enabled[0]->value != '1'){
-        $is_legacy_enabled = $queries->getWhere('settings', array('name', '=', 'use_legacy_api'));
+        $is_legacy_enabled = $queries->getWhere('settings', ['name', '=', 'use_legacy_api']);
         if($is_legacy_enabled[0]->value != '1'){
             die('Legacy API is disabled');
         }
@@ -65,16 +65,16 @@ if(!isset($_GET['c'])){
                     if($validation->passed()){
                         // Complete registration
                         // Hash password
-                        $password = password_hash(Input::get('password'), PASSWORD_BCRYPT, array("cost" => 13));
+                        $password = password_hash(Input::get('password'), PASSWORD_BCRYPT, ["cost" => 13]);
 
-                        $target_user->update(array(
+                        $target_user->update([
                             'password' => $password,
                             'reset_code' => null,
                             'last_online' => date('U'),
                             'active' => 1
-                        ));
+                        ]);
 
-                        EventHandler::executeEvent('validateUser', array(
+                        EventHandler::executeEvent('validateUser', [
                             'event' => 'validateUser',
                             'user_id' => $target_user->data()->id,
                             'username' => $target_user->getDisplayname(),
@@ -83,7 +83,7 @@ if(!isset($_GET['c'])){
                             'avatar_url' => $target_user->getAvatar(128, true),
                             'url' => Util::getSelfURL() . ltrim($target_user->getProfileURL(), '/'),
                             'language' => $language
-                        ));
+                        ]);
 
                         Session::flash('home', $language->get('user', 'validation_complete'));
                         Redirect::to(URL::build('/'));
@@ -114,7 +114,7 @@ if(isset($errors) && count($errors)){
 	$smarty->assign('ERRORS', $errors);
 }
 
-$smarty->assign(array(
+$smarty->assign([
 	'REGISTER' => $language->get('general', 'register'),
 	'PASSWORD' => $language->get('user', 'password'),
 	'CONFIRM_PASSWORD' => $language->get('user', 'confirm_password'),
@@ -122,7 +122,7 @@ $smarty->assign(array(
 	'I_AGREE' => $language->get('user', 'i_agree'),
 	'AGREE_TO_TERMS' => str_replace('{x}', URL::build('/terms'), $language->get('user', 'agree_t_and_c')),
 	'TOKEN' => Token::get()
-));
+]);
 
 $page_load = microtime(true) - $start;
 define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));

@@ -11,7 +11,7 @@
  *  Translation progress(v2-pr9) : 100%
  */
 
-$language = array(
+$language = [
     /*
      *  Time
      */
@@ -28,4 +28,4 @@ $language = array(
     '_months' => '{x} 月前',
     'about_1_year' => '大约 1 年前',
     'over_x_years' => '{x} 年之外'
-);
+];

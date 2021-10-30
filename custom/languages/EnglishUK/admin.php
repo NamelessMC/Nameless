@@ -9,7 +9,7 @@
  *  EnglishUK Language - Admin
  */
 
-$language = array(
+$language = [
     /*
      *  Admin Control Panel
      */
@@ -728,4 +728,4 @@ $language = array(
     'text_colour_required' => 'Text Colour is required',
     'no_announcements' => 'No announcements have been made yet.',
     'announcement_order' => 'Order',
-);
+];

@@ -9,7 +9,7 @@
  *  Slovak Language - Time
  */
 
-$language = array(
+$language = [
     /*
      *  Time
      */
@@ -25,4 +25,4 @@ $language = array(
     '_months' => 'pred {x} mesiacmi',
     'about_1_year' => 'asi pred 1 rokom',
     'over_x_years' => 'pred viac ako {x} rokmi'
-);
+];

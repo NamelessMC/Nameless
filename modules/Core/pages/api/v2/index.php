@@ -17,7 +17,7 @@ $page_title = 'api';
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 // Ensure API is actually enabled
 if (!Util::getSetting(DB::getInstance(), 'use_api')) {
@@ -84,7 +84,7 @@ class Nameless2API {
     /**
      * Validate provided API key to make sure it matches.
      *
-     * @param string $api_key API key to check.
+     * @param string|null $api_key API key to check.
      *
      * @return bool Whether it matches or not.
      */
@@ -94,7 +94,7 @@ class Nameless2API {
             if (!is_file(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('apicache') . '.cache')) {
                 // Not cached, cache now
                 // Retrieve from database
-                $correct_key = $this->_db->get('settings', array('name', '=', 'mc_api_key'));
+                $correct_key = $this->_db->get('settings', ['name', '=', 'mc_api_key']);
                 $correct_key = $correct_key->results();
                 $correct_key = htmlspecialchars($correct_key[0]->value);
 
@@ -125,14 +125,14 @@ class Nameless2API {
 
     public function throwError($code = null, $message = null, $meta = null) {
         if ($code && $message) {
-            die(json_encode(array('error' => true, 'code' => $code, 'message' => $message, 'meta' => $meta), JSON_PRETTY_PRINT));
+            die(json_encode(['error' => true, 'code' => $code, 'message' => $message, 'meta' => $meta], JSON_PRETTY_PRINT));
         } else {
-            die(json_encode(array('error' => true, 'code' => 0, 'message' => $this->_language->get('api', 'unknown_error'), 'meta' => $meta), JSON_PRETTY_PRINT));
+            die(json_encode(['error' => true, 'code' => 0, 'message' => $this->_language->get('api', 'unknown_error'), 'meta' => $meta], JSON_PRETTY_PRINT));
         }
     }
 
     public function returnArray($arr = null) {
-        if (!$arr) $arr = array();
+        if (!$arr) $arr = [];
 
         $arr['error'] = false;
         die(json_encode($arr, JSON_PRETTY_PRINT));
@@ -144,7 +144,7 @@ class Nameless2API {
         }
         foreach ($required_fields as $required) {
             if (!isset($input[$required]) || empty($input[$required])) {
-                $this->throwError(6, $this->_language->get('api', 'invalid_' . $type . '_contents'), array('field' => $required));
+                $this->throwError(6, $this->_language->get('api', 'invalid_' . $type . '_contents'), ['field' => $required]);
             }
         }
         return true;

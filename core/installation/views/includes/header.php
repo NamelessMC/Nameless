@@ -9,7 +9,7 @@ if (isset($_SESSION['installer_language']) && is_file('custom/languages/' . $_SE
 }
 
 $languages_folders = glob('custom' . DIRECTORY_SEPARATOR . 'languages' . DIRECTORY_SEPARATOR . '*' , GLOB_ONLYDIR);
-$languages = array();
+$languages = [];
 
 foreach ($languages_folders as $folder) {
     $folder = explode(DIRECTORY_SEPARATOR, $folder);

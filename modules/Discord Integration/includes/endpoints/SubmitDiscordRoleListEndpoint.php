@@ -15,7 +15,7 @@ class SubmitDiscordRoleListEndpoint extends EndpointBase {
     }
 
     public function execute(Nameless2API $api) {
-        $roles = array();
+        $roles = [];
 
         if ($_POST['roles'] != null) {
             $roles = $_POST['roles'];
@@ -27,6 +27,6 @@ class SubmitDiscordRoleListEndpoint extends EndpointBase {
             $api->throwError(33, Discord::getLanguageTerm('unable_to_update_discord_roles'), $e->getMessage());
         }
 
-        $api->returnArray(array('message' => Discord::getLanguageTerm('discord_settings_updated')));
+        $api->returnArray(['message' => Discord::getLanguageTerm('discord_settings_updated')]);
     }
 }

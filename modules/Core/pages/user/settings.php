@@ -47,16 +47,16 @@ if(isset($_GET['do'])){
 			// Generate secret
 			$secret = $tfa->createSecret();
 
-			$user->update(array(
+			$user->update([
 				'tfa_secret' => $secret
-			));
+            ]);
 
 			if (Session::exists('force_tfa_alert')) {
 				$errors[] = Session::get('force_tfa_alert');
 			}
 
 			// Assign Smarty variables
-			$smarty->assign(array(
+			$smarty->assign([
 				'TWO_FACTOR_AUTH' => $language->get('user', 'two_factor_auth'),
 				'TFA_SCAN_CODE_TEXT' => $language->get('user', 'tfa_scan_code'),
 				'IMG_SRC' => $tfa->getQRCodeImageAsDataUri(SITE_NAME . ':' . Output::getClean($user->data()->username), $secret),
@@ -67,15 +67,15 @@ if(isset($_GET['do'])){
 				'CANCEL' => $language->get('general', 'cancel'),
 				'CANCEL_LINK' => URL::build('/user/settings/', 'do=disable_tfa'),
 				'ERROR_TITLE' => $language->get('general', 'error')
-			));
+            ]);
 
 			if (isset($errors) && count($errors))
-				$smarty->assign(array(
+				$smarty->assign([
 					'ERRORS' => $errors
-				));
+                ]);
 
 			// Load modules + template
-			Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
+			Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 			require(ROOT_PATH . '/core/templates/cc_navbar.php');
 
@@ -96,11 +96,11 @@ if(isset($_GET['do'])){
 				if(Token::check()){
 					if(isset($_POST['tfa_code'])){
 						if($tfa->verifyCode($user->data()->tfa_secret, $_POST['tfa_code']) === true){
-							$user->update(array(
+							$user->update([
 								'tfa_complete' => 1,
 								'tfa_enabled' => 1,
 								'tfa_type' => 1
-							));
+                            ]);
 							Session::delete('force_tfa_alert');
 							Session::flash('tfa_success', $language->get('user', 'tfa_successful'));
 							Redirect::to(URL::build('/user/settings'));
@@ -118,7 +118,7 @@ if(isset($_GET['do'])){
 
 			if(isset($error)) $smarty->assign('ERROR', $error);
 
-			$smarty->assign(array(
+			$smarty->assign([
 				'TWO_FACTOR_AUTH' => $language->get('user', 'two_factor_auth'),
 				'TFA_ENTER_CODE' => $language->get('user', 'tfa_enter_code'),
 				'SUBMIT' => $language->get('general', 'submit'),
@@ -126,10 +126,10 @@ if(isset($_GET['do'])){
 				'CANCEL' => $language->get('general', 'cancel'),
 				'CANCEL_LINK' => URL::build('/user/settings/', 'do=disable_tfa'),
 				'ERROR_TITLE' => $language->get('general', 'error')
-			));
+            ]);
 
 			// Load modules + template
-			Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
+			Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 			require(ROOT_PATH . '/core/templates/cc_navbar.php');
 
@@ -148,12 +148,12 @@ if(isset($_GET['do'])){
 
 	} else if($_GET['do'] == 'disable_tfa') {
 		// Disable TFA
-		$user->update(array(
+		$user->update([
 			'tfa_enabled' => 0,
 			'tfa_type' => 0,
 			'tfa_secret' => null,
 			'tfa_complete' => 0
-		));
+        ]);
 
 		Redirect::to(URL::build('/user/settings'));
 		die();
@@ -167,41 +167,41 @@ if(isset($_GET['do'])){
 				// Validation
 				$validate = new Validate();
 
-				$to_validate = array(
-                    'signature' => array(
+				$to_validate = [
+                    'signature' => [
                         'max' => 900
-					),
-					'timezone' => array(
+                    ],
+					'timezone' => [
 						'timezone' => true,
-					)
-                );
+                    ]
+                ];
 
 				// Permission to use nickname?
                 if($user->hasPermission('usercp.nickname')){
-                    $to_validate['nickname'] = array(
+                    $to_validate['nickname'] = [
                         'required' => true,
                         'min' => 3,
                         'max' => 20
-                    );
+                    ];
 
                     $displayname = Output::getClean(Input::get('nickname'));
                 } else
                     $displayname = $user->data()->username;
 
 				// Get a list of required profile fields
-				$profile_fields = $queries->getWhere('profile_fields', array('required', '=', 1));
+				$profile_fields = $queries->getWhere('profile_fields', ['required', '=', 1]);
 
 				if (count($profile_fields)) {
 					foreach ($profile_fields as $field) {
 						if ($field->required == "1") {
-							$to_validate[$field->id] = array(
+							$to_validate[$field->id] = [
 								'required' => true,
 								'max' => (is_null($field->length) ? 1024 : $field->length)
-							);
+                            ];
 						} else {
-							$to_validate[$field->id] = array(
+							$to_validate[$field->id] = [
 								'max' => (is_null($field->length) ? 1024 : $field->length)
-							);
+                            ];
 						}
 					}
 				}
@@ -211,7 +211,7 @@ if(isset($_GET['do'])){
 				if($validation->passed()){
 				    // Check nickname is unique
                     if($user->hasPermission('usercp.nickname')) {
-                        $unique_nickname = $queries->getWhere('users', array('nickname', '=', Output::getClean(Input::get('nickname'))));
+                        $unique_nickname = $queries->getWhere('users', ['nickname', '=', Output::getClean(Input::get('nickname'))]);
                         if(count($unique_nickname)){
                             $unique_nickname = $unique_nickname[0];
                             if($unique_nickname->id != $user->data()->id){
@@ -226,12 +226,12 @@ if(isset($_GET['do'])){
                     if(!isset($nickname_error)) {
                         try {
                             // Update language, template and timezone
-                            $new_language = $queries->getWhere('languages', array('name', '=', Input::get('language')));
+                            $new_language = $queries->getWhere('languages', ['name', '=', Input::get('language')]);
 
                             if (count($new_language)) $new_language = $new_language[0]->id;
                             else $new_language = $user->data()->language_id;
 
-	                        $new_template = $queries->getWhere('templates', array('id', '=', Input::get('template')));
+	                        $new_template = $queries->getWhere('templates', ['id', '=', Input::get('template')]);
 
 	                        if (count($new_template)) $new_template = $new_template[0]->id;
 	                        else $new_template = $user->data()->theme_id;
@@ -264,7 +264,7 @@ if(isset($_GET['do'])){
                                 $signature = '';
 
                             // Private profiles enabled?
-                            $private_profiles = $queries->getWhere('settings', array('name', '=', 'private_profile'));
+                            $private_profiles = $queries->getWhere('settings', ['name', '=', 'private_profile']);
                             if($private_profiles[0]->value == 1) {
                                 if ($user->canPrivateProfile() && $_POST['privateProfile'] == 1)
                                     $privateProfile = 1;
@@ -275,7 +275,7 @@ if(isset($_GET['do'])){
 
                             $gravatar = $_POST['gravatar'] == '1' ? 1 : 0;
 
-                            $data = array(
+                            $data = [
                                 'language_id' => $new_language,
                                 'timezone' => $timezone,
                                 'signature' => $signature,
@@ -283,7 +283,7 @@ if(isset($_GET['do'])){
                                 'private_profile' => $privateProfile,
 	                            'theme_id' => $new_template,
                                 'gravatar' => $gravatar
-                            );
+                            ];
 
                             // Is forum enabled? Update topic Updates
                             if($forum_enabled) {
@@ -303,12 +303,12 @@ if(isset($_GET['do'])){
 
                                 } else {
                                     // Check field exists
-                                    $field_exists = $queries->getWhere('profile_fields', array('id', '=', $key));
+                                    $field_exists = $queries->getWhere('profile_fields', ['id', '=', $key]);
                                     if (!count($field_exists)) continue;
 
                                     // Update or create?
                                     $update = false;
-                                    $exists = $queries->getWhere('users_profile_fields', array('user_id', '=', $user->data()->id));
+                                    $exists = $queries->getWhere('users_profile_fields', ['user_id', '=', $user->data()->id]);
 
                                     if (count($exists)) {
                                         foreach ($exists as $exist) {
@@ -322,16 +322,16 @@ if(isset($_GET['do'])){
 
                                     if ($update == true) {
                                         // Update field value
-                                        $queries->update('users_profile_fields', $exist->id, array(
+                                        $queries->update('users_profile_fields', $exist->id, [
                                             'value' => Output::getClean($item) // Todo - allow HTML
-                                        ));
+                                        ]);
                                     } else {
                                         // Create new field value
-                                        $queries->create('users_profile_fields', array(
+                                        $queries->create('users_profile_fields', [
                                             'user_id' => $user->data()->id,
                                             'field_id' => $key,
                                             'value' => Output::getClean($item) // Todo - allow HTML
-                                        ));
+                                        ]);
                                     }
                                 }
                             }
@@ -365,7 +365,7 @@ if(isset($_GET['do'])){
                             $id = explode(' ', $item);
                             $id = $id[0];
 
-                            $field = $queries->getWhere('profile_fields', array('id', '=', $id));
+                            $field = $queries->getWhere('profile_fields', ['id', '=', $id]);
                             if (count($field)) {
                                 $field = $field[0];
                                 $errors[] = str_replace('{x}', Output::getClean($field->name), $language->get('user', 'field_is_required')) . '<br />';
@@ -408,13 +408,13 @@ if(isset($_GET['do'])){
 					if($user->checkCredentials($user->data()->username, $old_password, 'username')){
 
                         // Hash new password
-                        $new_password = password_hash(Input::get('new_password'), PASSWORD_BCRYPT, array("cost" => 13));
+                        $new_password = password_hash(Input::get('new_password'), PASSWORD_BCRYPT, ["cost" => 13]);
 
                         // Update password
-                        $user->update(array(
+                        $user->update([
                             'password' => $new_password,
                             'pass_method' => 'default'
-                        ));
+                        ]);
 
                         $success = $language->get('user', 'password_changed_successfully');
 
@@ -449,7 +449,7 @@ if(isset($_GET['do'])){
 
                 if($validation->passed()){
                     // Check email doesn't exist
-                    $email_query = $queries->getWhere('users', array('email', '=', $_POST['email']));
+                    $email_query = $queries->getWhere('users', ['email', '=', $_POST['email']]);
                     if(count($email_query)){
                         if($email_query[0]->id != $user->data()->id){
                             $error = $language->get('user', 'email_already_exists');
@@ -462,9 +462,9 @@ if(isset($_GET['do'])){
                         if ($user->checkCredentials($user->data()->username, $password, 'username')) {
 
                             // Update email
-                            $user->update(array(
+                            $user->update([
                                 'email' => Output::getClean($_POST['email'])
-                            ));
+                            ]);
 
                             Session::flash('settings_success', $language->get('user', 'email_changed_successfully'));
                             Redirect::to(URL::build('/user/settings'));
@@ -482,10 +482,10 @@ if(isset($_GET['do'])){
 
 				if (Input::get('unlink') == 'true') {
 
-					$user->update(array(
+					$user->update([
 						'discord_id' => null,
 						'discord_username' => null
-					));
+                    ]);
 
 					Session::flash('settings_success', Discord::getLanguageTerm('discord_id_unlinked'));
 					Redirect::to(URL::build('/user/settings'));
@@ -499,9 +499,9 @@ if(isset($_GET['do'])){
 						'user_id' => $user->data()->id,
 					]);
 
-                    $user->update(array(
+                    $user->update([
                         'discord_id' => 010
-                    ));
+                    ]);
 
                     Session::flash('settings_success', str_replace('{token}', $token, Discord::getLanguageTerm('discord_id_confirm')));
                     Redirect::to(URL::build('/user/settings'));
@@ -514,28 +514,28 @@ if(isset($_GET['do'])){
 		}
 	}
 
-	$template->addCSSFiles(array(
-		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.standalone.min.css' => array(),
-		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.css' => array(),
-		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => array(),
-		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.min.css' => array(),
-		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.sprites.css' => array(),
-		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/css/emojionearea.min.css' => array(),
-	));
+	$template->addCSSFiles([
+		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.standalone.min.css' => [],
+		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.css' => [],
+		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
+		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.min.css' => [],
+		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.sprites.css' => [],
+		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/css/emojionearea.min.css' => [],
+    ]);
 
-	$template->addJSFiles(array(
-		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js' => array()
-	));
+	$template->addJSFiles([
+		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js' => []
+    ]);
 
 	$template->addJSScript('$(\'.datepicker\').datepicker();');
 
 	$cache->setCache('post_formatting');
 	$formatting = $cache->retrieve('formatting');
 	if($formatting == 'markdown'){
-		$template->addJSFiles(array(
-			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/js/emojione.min.js' => array(),
-			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/js/emojionearea.min.js' => array()
-		));
+		$template->addJSFiles([
+			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/js/emojione.min.js' => [],
+			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/js/emojionearea.min.js' => []
+        ]);
 
 		$template->addJSScript('
             $(document).ready(function() {
@@ -546,11 +546,11 @@ if(isset($_GET['do'])){
 		');
 
 	} else {
-		$template->addJSFiles(array(
-			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => array(),
-			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => array(),
-			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => array()
-		));
+		$template->addJSFiles([
+			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
+			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
+			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
+        ]);
 
 		$template->addJSScript(Input::createTinyEditor($language, 'inputSignature'));
 	}
@@ -560,45 +560,45 @@ if(isset($_GET['do'])){
 	if(Session::exists('settings_success')) $success = Session::flash('settings_success');
 
 	// Get languages
-	$languages = array();
-	$language_query = $queries->getWhere('languages', array('id', '<>', 0));
+	$languages = [];
+	$language_query = $queries->getWhere('languages', ['id', '<>', 0]);
 
 	foreach($language_query as $item){
-		$languages[] = array(
+		$languages[] = [
 			'name' => Output::getClean($item->name),
-			'active' => (($user->data()->language_id == $item->id) ? true : false)
-		);
+			'active' => $user->data()->language_id == $item->id
+        ];
 	}
 
 	// Get templates
-	$templates = array();
+	$templates = [];
 	$templates_query = $user->getUserTemplates();
 
 	foreach($templates_query as $item){
-		$templates[] = array(
+		$templates[] = [
 			'id' => Output::getClean($item->id),
 			'active' => $item->id === $user->data()->theme_id,
 			'name' => Output::getClean($item->name)
-		);
+        ];
 	}
 
 	// Get custom fields
-	$custom_fields = $queries->getWhere('profile_fields', array('id', '<>', 0));
-	$user_custom_fields = $queries->getWhere('users_profile_fields', array('user_id', '=', $user->data()->id));
+	$custom_fields = $queries->getWhere('profile_fields', ['id', '<>', 0]);
+	$user_custom_fields = $queries->getWhere('users_profile_fields', ['user_id', '=', $user->data()->id]);
 
-	$custom_fields_template = array(
-		'nickname' => array(
+	$custom_fields_template = [
+		'nickname' => [
 			'disabled' => true
-		)
-	);
+        ]
+    ];
 
 	if($user->hasPermission('usercp.nickname')){
-		$custom_fields_template['nickname'] = array(
+		$custom_fields_template['nickname'] = [
 			'name' => $language->get('user', 'nickname'),
 			'value' => Output::getClean($user->data()->nickname),
 			'id' => 'nickname',
 			'type' => 'text'
-		);
+        ];
 	}
 
 	if(count($custom_fields)){
@@ -628,13 +628,13 @@ if(isset($_GET['do'])){
 			else if($field->type == 3)
 				$type = 'date';
 
-			$custom_fields_template[$field->name] = array(
+			$custom_fields_template[$field->name] = [
 				'name' => Output::getClean($field->name),
 				'value' => $value,
 				'id' => $field->id,
 				'type' => $type,
 				'required' => $field->required
-			);
+            ];
 		}
 	}
 
@@ -643,10 +643,10 @@ if(isset($_GET['do'])){
 	}
 
 	if (isset($errors) && count($errors))
-		$smarty->assign(array(
+		$smarty->assign([
 			'ERRORS' => $errors,
 			'ERRORS_TITLE' => $language->get('general', 'error')
-		));
+        ]);
 
 	if($user->hasPermission('usercp.signature')){
         // Get post formatting type (HTML or Markdown)
@@ -656,7 +656,7 @@ if(isset($_GET['do'])){
         if($formatting == 'markdown'){
             // Markdown
             require(ROOT_PATH . '/core/includes/markdown/tomarkdown/autoload.php');
-            $converter = new League\HTMLToMarkdown\HtmlConverter(array('strip_tags' => TRUE));
+            $converter = new League\HTMLToMarkdown\HtmlConverter(['strip_tags' => TRUE]);
 
             $signature = $converter->convert(htmlspecialchars_decode($user->data()->signature));
             $signature = Output::getPurified($signature);
@@ -667,49 +667,49 @@ if(isset($_GET['do'])){
             $signature = Output::getPurified(htmlspecialchars_decode($user->data()->signature));
         }
 
-        $smarty->assign(array(
+        $smarty->assign([
             'SIGNATURE' => $language->get('user', 'signature'),
             'SIGNATURE_VALUE' => $signature
-        ));
+        ]);
 	}
 
 	if($forum_enabled) {
-		$smarty->assign(array(
+		$smarty->assign([
 			'TOPIC_UPDATES' => $language->get('user', 'topic_updates'),
-			'TOPIC_UPDATES_ENABLED' => DB::getInstance()->get('users', array('id', '=', $user->data()->id))->first()->topic_updates
-		));
+			'TOPIC_UPDATES_ENABLED' => DB::getInstance()->get('users', ['id', '=', $user->data()->id])->first()->topic_updates
+        ]);
 	}
 
 	if($user->canPrivateProfile($user->data()->id)){
-        $smarty->assign(array(
+        $smarty->assign([
             'PRIVATE_PROFILE' => $language->get('user', 'private_profile'),
             'PRIVATE_PROFILE_ENABLED' => $user->isPrivateProfile($user->data()->id)
-        ));
+        ]);
 	}
 
     // Discord Integration
     if(Util::isModuleEnabled('Discord Integration')) {
-        $discord_linked = $user->data()->discord_id == null || $user->data()->discord_id == 010 ? false : true;
+        $discord_linked = !($user->data()->discord_id == null || $user->data()->discord_id == 010);
 
         if ($discord_linked) {
-            $smarty->assign(array(
+            $smarty->assign([
                 'UNLINK' => $language->get('general', 'unlink'),
                 'LINKED' => $language->get('user', 'linked'),
                 'DISCORD_ID_VALUE' => $user->data()->discord_id,
-            ));
+            ]);
         } else {
-            $smarty->assign(array(
+            $smarty->assign([
                 'LINK' => $language->get('general', 'link'),
                 'NOT_LINKED' => $language->get('user', 'not_linked'),
-            ));
+            ]);
             if ($user->data()->discord_id == 010) {
-                $smarty->assign(array(
+                $smarty->assign([
                     'PENDING_LINK' => $language->get('user', 'pending_link')
-                ));
+                ]);
             }
         }
 
-        $smarty->assign(array(
+        $smarty->assign([
             'DISCORD_INTEGRATION' => true,
             'DISCORD_LINK' => Discord::getLanguageTerm('discord_link'),
             'DISCORD_LINKED' => $discord_linked,
@@ -717,15 +717,15 @@ if(isset($_GET['do'])){
             'DISCORD_USERNAME_VALUE' => $user->data()->discord_username,
             'DISCORD_ID' => Discord::getLanguageTerm('discord_user_id'),
             'ID_INFO' => Discord::getLanguageTerm('discord_id_help'),
-        ));
+        ]);
     } else {
-        $smarty->assign(array(
+        $smarty->assign([
             'DISCORD_INTEGRATION' => false
-        ));
+        ]);
     }
 
 	// Language values
-	$smarty->assign(array(
+	$smarty->assign([
 		'SETTINGS' => $language->get('user', 'profile_settings'),
 		'ACTIVE_LANGUAGE' => $language->get('user', 'active_language'),
 		'LANGUAGES' => $languages,
@@ -755,15 +755,15 @@ if(isset($_GET['do'])){
 		'DISABLED' => $language->get('user', 'disabled'),
         'GRAVATAR' => $language->get('user', 'gravatar'),
         'GRAVATAR_VALUE' => $user->data()->gravatar == '1' ? '1' : '0'
-	));
+    ]);
 
 	if(defined('CUSTOM_AVATARS')) {
-      $smarty->assign(array(
+      $smarty->assign([
         'CUSTOM_AVATARS' => true,
         'CUSTOM_AVATARS_SCRIPT' => ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'core/includes/image_upload.php',
         'BROWSE' => $language->get('general', 'browse'),
         'UPLOAD_NEW_PROFILE_IMAGE' => $language->get('user', 'upload_new_avatar')
-      ));
+      ]);
 	}
 
 	if($user->data()->tfa_enabled == 1){
@@ -787,7 +787,7 @@ if(isset($_GET['do'])){
 	}
 
 	// Load modules + template
-	Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
+	Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 	require(ROOT_PATH . '/core/templates/cc_navbar.php');
 

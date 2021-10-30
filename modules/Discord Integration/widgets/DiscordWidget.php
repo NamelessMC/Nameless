@@ -14,14 +14,14 @@ class DiscordWidget extends WidgetBase {
     private Cache $_cache;
     private ?int $_guild_id;
 
-    public function __construct(array $pages = array(), Cache $cache) {
+    public function __construct(array $pages = [], Cache $cache) {
         $this->_cache = $cache;
         $this->_guild_id = Discord::getGuildId();
 
         parent::__construct($pages);
 
         // Get widget
-        $widget_query = DB::getInstance()->selectQuery('SELECT `location`, `order` FROM nl2_widgets WHERE `name` = ?', array('Discord'))->first();
+        $widget_query = DB::getInstance()->selectQuery('SELECT `location`, `order` FROM nl2_widgets WHERE `name` = ?', ['Discord'])->first();
 
         // Set widget variables
         $this->_module = 'Discord Integration';

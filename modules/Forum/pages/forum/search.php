@@ -10,7 +10,7 @@
  */
 
 require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
-if (!isset($forum) || (isset($forum) && !$forum instanceof Forum))
+if (!isset($forum) || (!$forum instanceof Forum))
     $forum = new Forum();
 
 require_once(ROOT_PATH . '/core/includes/emojione/autoload.php'); // Emojione
@@ -67,32 +67,32 @@ if (!isset($_GET['s'])) {
     $cache->setCache($search . '-' . rtrim(implode('-', $user_groups), '-'));
     if (!$cache->isCached('result')) {
         // Execute search
-        $search_topics = DB::getInstance()->selectQuery('SELECT * FROM nl2_topics WHERE topic_title LIKE ?', array('%' . $search . '%'))->results();
-        $search_posts = DB::getInstance()->selectQuery('SELECT * FROM nl2_posts WHERE post_content LIKE ?', array('%' . $search . '%'))->results();
+        $search_topics = DB::getInstance()->selectQuery('SELECT * FROM nl2_topics WHERE topic_title LIKE ?', ['%' . $search . '%'])->results();
+        $search_posts = DB::getInstance()->selectQuery('SELECT * FROM nl2_posts WHERE post_content LIKE ?', ['%' . $search . '%'])->results();
 
-        $search_results = array_merge((array)$search_topics, (array)$search_posts);
+        $search_results = array_merge($search_topics, $search_posts);
 
-        $results = array();
+        $results = [];
         foreach ($search_results as $result) {
             // Check permissions
-            $perms = $queries->getWhere('forums_permissions', array('forum_id', '=', $result->forum_id));
+            $perms = $queries->getWhere('forums_permissions', ['forum_id', '=', $result->forum_id]);
             foreach ($perms as $perm) {
                 if (in_array($perm->group_id, $user_groups) && $perm->view == 1 && $perm->view_other_topics == 1) {
                     if (isset($result->topic_id)) {
                         // Post
                         if (!isset($results[$result->id]) && $result->deleted == 0) {
                             // Get associated topic
-                            $topic = $queries->getWhere('topics', array('id', '=', $result->topic_id));
+                            $topic = $queries->getWhere('topics', ['id', '=', $result->topic_id]);
                             if (count($topic) && $topic[0]->deleted === 0) {
                                 $topic = $topic[0];
-                                $results[$result->id] = array(
+                                $results[$result->id] = [
                                     'post_id' => $result->id,
                                     'topic_id' => $topic->id,
                                     'topic_title' => $topic->topic_title,
                                     'post_author' => $result->post_creator,
                                     'post_date' => $result->post_date,
                                     'post_content' => $result->post_content
-                                );
+                                ];
 
                                 break;
                             } else
@@ -101,18 +101,18 @@ if (!isset($_GET['s'])) {
                             break;
                     } else {
                         // Topic, get associated post
-                        $post = DB::getInstance()->selectQuery('SELECT * FROM nl2_posts WHERE topic_id = ? ORDER BY post_date ASC LIMIT 1', array($result->id));
+                        $post = DB::getInstance()->selectQuery('SELECT * FROM nl2_posts WHERE topic_id = ? ORDER BY post_date ASC LIMIT 1', [$result->id]);
                         if ($post->count()) {
                             $post = $post->first();
                             if (!isset($results[$post->id]) && $post->deleted == 0) {
-                                $results[$post->id] = array(
+                                $results[$post->id] = [
                                     'post_id' => $post->id,
                                     'topic_id' => $result->id,
                                     'topic_title' => $result->topic_title,
                                     'post_author' => $post->post_creator,
                                     'post_date' => $post->post_date,
                                     'post_content' => $post->post_content
-                                );
+                                ];
 
                                 break;
                             } else
@@ -121,7 +121,6 @@ if (!isset($_GET['s'])) {
                             break;
                     }
 
-                    break;
                 }
             }
         }
@@ -146,30 +145,30 @@ else {
 }
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-$template->addCSSFiles(array(
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.css' => array(),
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => array(),
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.min.css' => array(),
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/css/emojionearea.min.css' => array()
-));
+$template->addCSSFiles([
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.css' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.min.css' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/css/emojionearea.min.css' => []
+]);
 
-$template->addJSFiles(array(
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => array(),
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => array(),
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => array()
-));
+$template->addJSFiles([
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
+]);
 
 if (isset($_GET['s'])) {
     // Show results
     if (count($results)) {
-        $paginator = new Paginator(($template_pagination ?? array()));
+        $paginator = new Paginator(($template_pagination ?? []));
         $results = $paginator->getLimited($results, 10, $p, count($results));
         $pagination = $paginator->generate(7, URL::build('/forum/search/', 's=' . $search . '&'));
 
         $smarty->assign('PAGINATION', $pagination);
 
         // Posts to display on the page
-        $posts = array();
+        $posts = [];
         // Display the correct number of posts
         $n = 0;
         while (($n < count($results->data)) && isset($results->data[$n])) {
@@ -178,7 +177,7 @@ if (isset($_GET['s'])) {
             $content = Output::getPurified($content);
 
             $post_user = new User($results->data[$n]['post_author']);
-            $posts[$n] = array(
+            $posts[$n] = [
                 'post_author' => $post_user->getDisplayname(),
                 'post_author_id' => Output::getClean($results->data[$n]['post_author']),
                 'post_author_avatar' => $post_user->getAvatar(25),
@@ -189,28 +188,28 @@ if (isset($_GET['s'])) {
                 'content' => $content,
                 'topic_title' => Output::getClean($results->data[$n]['topic_title']),
                 'post_url' => URL::build('/forum/topic/' . $results->data[$n]['topic_id'] . '-' . $forum->titleToURL($results->data[$n]['topic_title']), 'pid=' . $results->data[$n]['post_id'])
-            );
+            ];
             $n++;
         }
 
         $results = null;
 
-        $smarty->assign(array(
+        $smarty->assign([
             'RESULTS' => $posts,
             'READ_FULL_POST' => $forum_language->get('forum', 'read_full_post')
-        ));
+        ]);
     } else
         $smarty->assign('NO_RESULTS', $forum_language->get('forum', 'no_results_found'));
 
-    $smarty->assign(array(
+    $smarty->assign([
         'SEARCH_RESULTS' => $forum_language->get('forum', 'search_results'),
         'NEW_SEARCH' => $forum_language->get('forum', 'new_search'),
         'NEW_SEARCH_URL' => URL::build('/forum/search'),
         'SEARCH_TERM' => (isset($_GET['s']) ? Output::getClean($_GET['s']) : '')
-    ));
+    ]);
 
     // Load modules + template
-    Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
+    Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
     $page_load = microtime(true) - $start;
     define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
@@ -229,17 +228,17 @@ if (isset($_GET['s'])) {
     else if (Session::exists('search_error'))
         $smarty->assign('ERROR', Session::flash('search_error'));
 
-    $smarty->assign(array(
+    $smarty->assign([
         'FORUM_SEARCH' => $forum_language->get('forum', 'forum_search'),
         'FORM_ACTION' => URL::build('/forum/search'),
         'SEARCH' => $language->get('general', 'search'),
         'TOKEN' => Token::get(),
         'SUBMIT' => $language->get('general', 'submit'),
         'ERROR_TITLE' => $language->get('general', 'error')
-    ));
+    ]);
 
     // Load modules + template
-    Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
+    Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
     $page_load = microtime(true) - $start;
     define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));

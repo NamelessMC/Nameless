@@ -13,12 +13,12 @@ switch ($s) {
         // Alerts -> custom page permissions
         // Alerts
         try {
-            $old = $conn->get('nl1_alerts', array('id', '<>', 0));
+            $old = $conn->get('nl1_alerts', ['id', '<>', 0]);
             if ($old->count()) {
                 $old = $old->results();
 
                 foreach ($old as $item) {
-                    $queries->create('alerts', array(
+                    $queries->create('alerts', [
                         'id' => $item->id,
                         'user_id' => $item->user_id,
                         'type' => $item->type,
@@ -27,7 +27,7 @@ switch ($s) {
                         'content_short' => ((strlen($item->content) > 64) ? substr($item->content, 0, 64) : $item->content),
                         'created' => $item->created,
                         'read' => $item->read
-                    ));
+                    ]);
                 }
             }
         } catch (Exception $e) {
@@ -36,12 +36,12 @@ switch ($s) {
 
         // Custom pages
         try {
-            $old = $conn->get('nl1_custom_pages', array('id', '<>', 0));
+            $old = $conn->get('nl1_custom_pages', ['id', '<>', 0]);
             if ($old->count()) {
                 $old = $old->results();
 
                 foreach ($old as $item) {
-                    $queries->create('custom_pages', array(
+                    $queries->create('custom_pages', [
                         'id' => $item->id,
                         'url' => $item->url,
                         'title' => $item->title,
@@ -49,7 +49,7 @@ switch ($s) {
                         'link_location' => $item->link_location,
                         'redirect' => $item->redirect,
                         'link' => $item->link
-                    ));
+                    ]);
                 }
             }
         } catch (Exception $e) {
@@ -58,17 +58,17 @@ switch ($s) {
 
         // Custom page permissions
         try {
-            $old = $conn->get('nl1_custom_pages_permissions', array('id', '<>', 0));
+            $old = $conn->get('nl1_custom_pages_permissions', ['id', '<>', 0]);
             if ($old->count()) {
                 $old = $old->results();
 
                 foreach ($old as $item) {
-                    $queries->create('custom_pages_permissions', array(
+                    $queries->create('custom_pages_permissions', [
                         'id' => $item->id,
                         'page_id' => $item->page_id,
                         'group_id' => $item->group_id,
                         'view' => $item->view
-                    ));
+                    ]);
                 }
             }
         } catch (Exception $e) {
@@ -81,12 +81,12 @@ switch ($s) {
         // Forums -> groups
         // Forums
         try {
-            $old = $conn->get('nl1_forums', array('id', '<>', 0));
+            $old = $conn->get('nl1_forums', ['id', '<>', 0]);
             if ($old->count()) {
                 $old = $old->results();
 
                 foreach ($old as $item) {
-                    $queries->create('forums', array(
+                    $queries->create('forums', [
                         'id' => $item->id,
                         'forum_title' => $item->forum_title,
                         'forum_description' => $item->forum_description,
@@ -97,7 +97,7 @@ switch ($s) {
                         'parent' => $item->parent,
                         'forum_order' => $item->forum_order,
                         'news' => $item->news
-                    ));
+                    ]);
                 }
             }
         } catch (Exception $e) {
@@ -106,12 +106,12 @@ switch ($s) {
 
         // Forum permissions
         try {
-            $old = $conn->get('nl1_forums_permissions', array('id', '<>', 0));
+            $old = $conn->get('nl1_forums_permissions', ['id', '<>', 0]);
             if ($old->count()) {
                 $old = $old->results();
 
                 foreach ($old as $item) {
-                    $queries->create('forums_permissions', array(
+                    $queries->create('forums_permissions', [
                         'id' => $item->id,
                         'group_id' => $item->group_id,
                         'forum_id' => $item->forum_id,
@@ -119,7 +119,7 @@ switch ($s) {
                         'create_topic' => $item->create_topic,
                         'create_post' => $item->create_post,
                         'view_other_topics' => 1
-                    ));
+                    ]);
                 }
             }
         } catch (Exception $e) {
@@ -128,17 +128,17 @@ switch ($s) {
 
         // Forum topic labels
         try {
-            $old = $conn->get('nl1_forums_topic_labels', array('id', '<>', 0));
+            $old = $conn->get('nl1_forums_topic_labels', ['id', '<>', 0]);
             if ($old->count()) {
                 $old = $old->results();
 
                 foreach ($old as $item) {
-                    $queries->create('forums_topic_labels', array(
+                    $queries->create('forums_topic_labels', [
                         'id' => $item->id,
                         'fids' => $item->fids,
                         'name' => $item->name,
                         'label' => $item->label
-                    ));
+                    ]);
                 }
             }
         } catch (Exception $e) {
@@ -147,16 +147,16 @@ switch ($s) {
 
         // Friends/followers
         try {
-            $old = $conn->get('nl1_friends', array('id', '<>', 0));
+            $old = $conn->get('nl1_friends', ['id', '<>', 0]);
             if ($old->count()) {
                 $old = $old->results();
 
                 foreach ($old as $item) {
-                    $queries->create('friends', array(
+                    $queries->create('friends', [
                         'id' => $item->id,
                         'user_id' => $item->user_id,
                         'friend_id' => $item->friend_id
-                    ));
+                    ]);
                 }
             }
         } catch (Exception $e) {
@@ -165,24 +165,24 @@ switch ($s) {
 
         // Groups
         try {
-            $old = $conn->get('nl1_groups', array('id', '<>', 0));
+            $old = $conn->get('nl1_groups', ['id', '<>', 0]);
             if ($old->count()) {
                 $old = $old->results();
 
                 foreach ($old as $item) {
-                    $queries->create('groups', array(
+                    $queries->create('groups', [
                         'id' => $item->id,
                         'name' => $item->name,
                         'group_html' => $item->group_html,
                         'group_html_lg' => $item->group_html_lg,
                         'admin_cp' => (($item->staff) ? 1 : 0),
                         'default_group' => (($item->id == 1) ? 1 : 0)
-                    ));
+                    ]);
                 }
 
-                $queries->update('groups', 1, array('permissions' => '{"usercp.messaging":1,"usercp.signature":1,"usercp.nickname":1,"usercp.private_profile":1,"usercp.profile_banner":1}'));
-                $queries->update('groups', 2, array('permissions' => '{"admincp.core":1,"admincp.core.api":1,"admincp.core.seo":1,"admincp.core.general":1,"admincp.core.avatars":1,"admincp.core.fields":1,"admincp.core.debugging":1,"admincp.core.emails":1,"admincp.core.navigation":1,"admincp.core.announcements":1,"admincp.core.reactions":1,"admincp.core.registration":1,"admincp.core.social_media":1,"admincp.core.terms":1,"admincp.errors":1,"admincp.integrations":1,"admincp.discord":1,"admincp.minecraft":1,"admincp.minecraft.authme":1,"admincp.minecraft.verification":1,"admincp.minecraft.servers":1,"admincp.minecraft.query_errors":1,"admincp.minecraft.banners":1,"admincp.modules":1,"admincp.pages":1,"admincp.security":1,"admincp.security.acp_logins":1,"admincp.security.template":1,"admincp.styles":1,"admincp.styles.panel_templates":1,"admincp.styles.templates":1,"admincp.styles.templates.edit":1,"admincp.styles.images":1,"admincp.update":1,"admincp.users":1,"admincp.users.edit":1,"admincp.groups":1,"admincp.groups.self":1,"admincp.widgets":1,"modcp.ip_lookup":1,"modcp.punishments":1,"modcp.punishments.warn":1,"modcp.punishments.ban":1,"modcp.punishments.banip":1,"modcp.punishments.revoke":1,"modcp.reports":1,"modcp.profile_banner_reset":1,"usercp.messaging":1,"usercp.signature":1,"admincp.forums":1,"usercp.private_profile":1,"usercp.nickname":1,"usercp.profile_banner":1,"profile.private.bypass":1, "admincp.security.all":1,"admincp.core.hooks":1,"admincp.core.emails_mass_message":1,"usercp.gif_avatar":1}'));
-                $queries->update('groups', 3, array('permissions' => '{"modcp.ip_lookup":1,"modcp.punishments":1,"modcp.punishments.warn":1,"modcp.punishments.ban":1,"modcp.punishments.banip":1,"modcp.punishments.revoke":1,"modcp.reports":1,"admincp.users":1,"modcp.profile_banner_reset":1,"usercp.messaging":1,"usercp.signature":1,"usercp.private_profile":1,"usercp.nickname":1,"usercp.profile_banner":1,"profile.private.bypass":1}'));
+                $queries->update('groups', 1, ['permissions' => '{"usercp.messaging":1,"usercp.signature":1,"usercp.nickname":1,"usercp.private_profile":1,"usercp.profile_banner":1}']);
+                $queries->update('groups', 2, ['permissions' => '{"admincp.core":1,"admincp.core.api":1,"admincp.core.seo":1,"admincp.core.general":1,"admincp.core.avatars":1,"admincp.core.fields":1,"admincp.core.debugging":1,"admincp.core.emails":1,"admincp.core.navigation":1,"admincp.core.announcements":1,"admincp.core.reactions":1,"admincp.core.registration":1,"admincp.core.social_media":1,"admincp.core.terms":1,"admincp.errors":1,"admincp.integrations":1,"admincp.discord":1,"admincp.minecraft":1,"admincp.minecraft.authme":1,"admincp.minecraft.verification":1,"admincp.minecraft.servers":1,"admincp.minecraft.query_errors":1,"admincp.minecraft.banners":1,"admincp.modules":1,"admincp.pages":1,"admincp.security":1,"admincp.security.acp_logins":1,"admincp.security.template":1,"admincp.styles":1,"admincp.styles.panel_templates":1,"admincp.styles.templates":1,"admincp.styles.templates.edit":1,"admincp.styles.images":1,"admincp.update":1,"admincp.users":1,"admincp.users.edit":1,"admincp.groups":1,"admincp.groups.self":1,"admincp.widgets":1,"modcp.ip_lookup":1,"modcp.punishments":1,"modcp.punishments.warn":1,"modcp.punishments.ban":1,"modcp.punishments.banip":1,"modcp.punishments.revoke":1,"modcp.reports":1,"modcp.profile_banner_reset":1,"usercp.messaging":1,"usercp.signature":1,"admincp.forums":1,"usercp.private_profile":1,"usercp.nickname":1,"usercp.profile_banner":1,"profile.private.bypass":1, "admincp.security.all":1,"admincp.core.hooks":1,"admincp.core.emails_mass_message":1,"usercp.gif_avatar":1}']);
+                $queries->update('groups', 3, ['permissions' => '{"modcp.ip_lookup":1,"modcp.punishments":1,"modcp.punishments.warn":1,"modcp.punishments.ban":1,"modcp.punishments.banip":1,"modcp.punishments.revoke":1,"modcp.reports":1,"admincp.users":1,"modcp.profile_banner_reset":1,"usercp.messaging":1,"usercp.signature":1,"usercp.private_profile":1,"usercp.nickname":1,"usercp.profile_banner":1,"profile.private.bypass":1}']);
             }
         } catch (Exception $e) {
             $errors[] = 'Unable to convert groups: ' . $e->getMessage();
@@ -194,12 +194,12 @@ switch ($s) {
         // Infractions -> posts
         // Infractions
         try {
-            $old = $conn->get('nl1_infractions', array('id', '<>', 0));
+            $old = $conn->get('nl1_infractions', ['id', '<>', 0]);
             if ($old->count()) {
                 $old = $old->results();
 
                 foreach ($old as $item) {
-                    $queries->create('infractions', array(
+                    $queries->create('infractions', [
                         'id' => $item->id,
                         'type' => $item->type,
                         'punished' => $item->punished,
@@ -207,7 +207,7 @@ switch ($s) {
                         'reason' => $item->reason,
                         'infraction_date' => $item->infraction_date,
                         'acknowledged' => $item->acknowledged
-                    ));
+                    ]);
                 }
             }
         } catch (Exception $e) {
@@ -216,12 +216,12 @@ switch ($s) {
 
         // Minecraft servers
         try {
-            $old = $conn->get('nl1_mc_servers', array('id', '<>', 0));
+            $old = $conn->get('nl1_mc_servers', ['id', '<>', 0]);
             if ($old->count()) {
                 $old = $old->results();
 
                 foreach ($old as $item) {
-                    $queries->create('mc_servers', array(
+                    $queries->create('mc_servers', [
                         'id' => $item->id,
                         'ip' => $item->ip,
                         'query_ip' => $item->query_ip,
@@ -230,7 +230,7 @@ switch ($s) {
                         'display' => $item->display,
                         'pre' => $item->pre,
                         'player_list' => $item->player_list
-                    ));
+                    ]);
                 }
             }
         } catch (Exception $e) {
@@ -239,12 +239,12 @@ switch ($s) {
 
         // Posts
         try {
-            $old = $conn->get('nl1_posts', array('id', '<>', 0));
+            $old = $conn->get('nl1_posts', ['id', '<>', 0]);
             if ($old->count()) {
                 $old = $old->results();
 
                 foreach ($old as $item) {
-                    $queries->create('posts', array(
+                    $queries->create('posts', [
                         'id' => $item->id,
                         'forum_id' => $item->forum_id,
                         'topic_id' => $item->topic_id,
@@ -252,7 +252,7 @@ switch ($s) {
                         'post_content' => $item->post_content,
                         'created' => strtotime($item->post_date),
                         'deleted' => $item->deleted
-                    ));
+                    ]);
                 }
             }
         } catch (Exception $e) {
@@ -265,19 +265,19 @@ switch ($s) {
         // Private messages -> private message users
         // Private messages
         try {
-            $old = $conn->get('nl1_private_messages', array('id', '<>', 0));
+            $old = $conn->get('nl1_private_messages', ['id', '<>', 0]);
             if ($old->count()) {
                 $old = $old->results();
 
                 foreach ($old as $item) {
-                    $queries->create('private_messages', array(
+                    $queries->create('private_messages', [
                         'id' => $item->id,
                         'author_id' => $item->author_id,
                         'title' => $item->title,
                         'created' => 0, // will update later
                         'last_reply_user' => $item->author_id, // will update later
                         'last_reply_date' => $item->updated
-                    ));
+                    ]);
                 }
             }
         } catch (Exception $e) {
@@ -285,19 +285,19 @@ switch ($s) {
         }
 
         // Private message replies
-        $private_messages = array();
+        $private_messages = [];
         try {
-            $old = $conn->get('nl1_private_messages_replies', array('id', '<>', 0));
+            $old = $conn->get('nl1_private_messages_replies', ['id', '<>', 0]);
             if ($old->count()) {
                 $old = $old->results();
 
                 foreach ($old as $item) {
                     if (!isset($private_messages[$item->pm_id])) {
-                        $private_messages[$item->pm_id] = array(
+                        $private_messages[$item->pm_id] = [
                             'created' => $item->created,
                             'updated' => $item->created,
                             'last_reply_user' => $item->user_id
-                        );
+                        ];
                     } else {
                         if ($private_messages[$item->pm_id]['created'] > $item->created)
                             $private_messages[$item->pm_id]['created'] = $item->created;
@@ -308,13 +308,13 @@ switch ($s) {
                         }
                     }
 
-                    $queries->create('private_messages_replies', array(
+                    $queries->create('private_messages_replies', [
                         'id' => $item->id,
                         'pm_id' => $item->pm_id,
                         'author_id' => $item->user_id,
                         'created' => $item->created,
                         'content' => $item->content
-                    ));
+                    ]);
                 }
             }
         } catch (Exception $e) {
@@ -323,17 +323,17 @@ switch ($s) {
 
         // Private message users
         try {
-            $old = $conn->get('nl1_private_messages_users', array('id', '<>', 0));
+            $old = $conn->get('nl1_private_messages_users', ['id', '<>', 0]);
             if ($old->count()) {
                 $old = $old->results();
 
                 foreach ($old as $item) {
-                    $queries->create('private_messages_users', array(
+                    $queries->create('private_messages_users', [
                         'id' => $item->id,
                         'pm_id' => $item->pm_id,
                         'user_id' => $item->user_id,
                         'read' => $item->read
-                    ));
+                    ]);
                 }
             }
         } catch (Exception $e) {
@@ -343,10 +343,10 @@ switch ($s) {
         // Update private message columns
         foreach ($private_messages as $key => $message) {
             try {
-                $queries->update('private_messages', $key, array(
+                $queries->update('private_messages', $key, [
                     'created' => $message['created'],
                     'last_reply_user' => $message['last_reply_user']
-                ));
+                ]);
             } catch (Exception $e) {
                 $errors[] = 'Unable to convert update private message columns: ' . $e->getMessage();
             }
@@ -358,18 +358,18 @@ switch ($s) {
         // Query errors -> settings
         // Query errors
         try {
-            $old = $conn->get('nl1_query_errors', array('id', '<>', 0));
+            $old = $conn->get('nl1_query_errors', ['id', '<>', 0]);
             if ($old->count()) {
                 $old = $old->results();
 
                 foreach ($old as $item) {
-                    $queries->create('query_errors', array(
+                    $queries->create('query_errors', [
                         'id' => $item->id,
                         'date' => $item->date,
                         'error' => $item->error,
                         'ip' => $item->ip,
                         'port' => $item->port
-                    ));
+                    ]);
                 }
             }
         } catch (Exception $e) {
@@ -378,12 +378,12 @@ switch ($s) {
 
         // Reports
         try {
-            $old = $conn->get('nl1_reports', array('id', '<>', 0));
+            $old = $conn->get('nl1_reports', ['id', '<>', 0]);
             if ($old->count()) {
                 $old = $old->results();
 
                 foreach ($old as $item) {
-                    $queries->create('reports', array(
+                    $queries->create('reports', [
                         'id' => $item->id,
                         'type' => $item->type,
                         'reporter_id' => $item->reporter_id,
@@ -396,7 +396,7 @@ switch ($s) {
                         'reported_post' => $item->reported_post,
                         'reported_mcname' => $item->reported_mcname,
                         'reported_uuid' => $item->reported_uuid
-                    ));
+                    ]);
                 }
             }
         } catch (Exception $e) {
@@ -405,18 +405,18 @@ switch ($s) {
 
         // Report comments
         try {
-            $old = $conn->get('nl1_reports_comments', array('id', '<>', 0));
+            $old = $conn->get('nl1_reports_comments', ['id', '<>', 0]);
             if ($old->count()) {
                 $old = $old->results();
 
                 foreach ($old as $item) {
-                    $queries->create('reports_comments', array(
+                    $queries->create('reports_comments', [
                         'id' => $item->id,
                         'report_id' => $item->report_id,
                         'commenter_id' => $item->commenter_id,
                         'comment_date' => $item->comment_date,
                         'comment_content' => $item->comment_content
-                    ));
+                    ]);
                 }
             }
         } catch (Exception $e) {
@@ -425,19 +425,19 @@ switch ($s) {
 
         // Reputation
         try {
-            $old = $conn->get('nl1_reputation', array('id', '<>', 0));
+            $old = $conn->get('nl1_reputation', ['id', '<>', 0]);
             if ($old->count()) {
                 $old = $old->results();
 
                 foreach ($old as $item) {
-                    $queries->create('forums_reactions', array(
+                    $queries->create('forums_reactions', [
                         'id' => $item->id,
                         'post_id' => $item->post_id,
                         'user_received' => $item->user_received,
                         'user_given' => $item->user_given,
                         'reaction_id' => 1,
                         'time' => strtotime($item->time_given)
-                    ));
+                    ]);
                 }
             }
         } catch (Exception $e) {
@@ -446,16 +446,16 @@ switch ($s) {
 
         // Settings
         try {
-            $old = $conn->get('nl1_settings', array('id', '<>', 0));
+            $old = $conn->get('nl1_settings', ['id', '<>', 0]);
             if ($old->count()) {
                 $old = $old->results();
 
                 foreach ($old as $item) {
-                    $queries->create('settings', array(
+                    $queries->create('settings', [
                         'id' => $item->id,
                         'name' => $item->name,
                         'value' => $item->value
-                    ));
+                    ]);
                 }
             }
         } catch (Exception $e) {
@@ -467,12 +467,12 @@ switch ($s) {
     case 5:
         // Topics -> users
         try {
-            $old = $conn->get('nl1_topics', array('id', '<>', 0));
+            $old = $conn->get('nl1_topics', ['id', '<>', 0]);
             if ($old->count()) {
                 $old = $old->results();
 
                 foreach ($old as $item) {
-                    $queries->create('topics', array(
+                    $queries->create('topics', [
                         'id' => $item->id,
                         'forum_id' => $item->forum_id,
                         'topic_title' => $item->topic_title,
@@ -484,7 +484,7 @@ switch ($s) {
                         'locked' => $item->locked,
                         'sticky' => $item->sticky,
                         'label' => $item->label
-                    ));
+                    ]);
                 }
             }
         } catch (Exception $e) {
@@ -493,12 +493,12 @@ switch ($s) {
 
         // Users
         try {
-            $old = $conn->get('nl1_users', array('id', '<>', 0));
+            $old = $conn->get('nl1_users', ['id', '<>', 0]);
             if ($old->count()) {
                 $old = $old->results();
 
                 foreach ($old as $item) {
-                    $queries->create('users', array(
+                    $queries->create('users', [
                         'id' => $item->id,
                         'username' => $item->mcname,
                         'nickname' => $item->username,
@@ -522,12 +522,12 @@ switch ($s) {
                         'tfa_type' => $item->tfa_type,
                         'tfa_secret' => $item->tfa_secret,
                         'tfa_complete' => $item->tfa_complete
-                    ));
+                    ]);
 
-                    $queries->create('users_groups', array(
+                    $queries->create('users_groups', [
                         'user_id' => $item->id,
                         'group_id' => $item->group_id
-                    ));
+                    ]);
                 }
             }
         } catch (Exception $e) {
@@ -540,16 +540,16 @@ switch ($s) {
         // User admin session -> user profile wall replies
         // User admin sessions
         try {
-            $old = $conn->get('nl1_users_admin_session', array('id', '<>', 0));
+            $old = $conn->get('nl1_users_admin_session', ['id', '<>', 0]);
             if ($old->count()) {
                 $old = $old->results();
 
                 foreach ($old as $item) {
-                    $queries->create('users_admin_session', array(
+                    $queries->create('users_admin_session', [
                         'id' => $item->id,
                         'user_id' => $item->user_id,
                         'hash' => $item->hash
-                    ));
+                    ]);
                 }
             }
         } catch (Exception $e) {
@@ -558,16 +558,16 @@ switch ($s) {
 
         // User sessions
         try {
-            $old = $conn->get('nl1_users_session', array('id', '<>', 0));
+            $old = $conn->get('nl1_users_session', ['id', '<>', 0]);
             if ($old->count()) {
                 $old = $old->results();
 
                 foreach ($old as $item) {
-                    $queries->create('users_session', array(
+                    $queries->create('users_session', [
                         'id' => $item->id,
                         'user_id' => $item->user_id,
                         'hash' => $item->hash
-                    ));
+                    ]);
                 }
             }
         } catch (Exception $e) {
@@ -576,18 +576,18 @@ switch ($s) {
 
         // Username history
         try {
-            $old = $conn->get('nl1_users_username_history', array('id', '<>', 0));
+            $old = $conn->get('nl1_users_username_history', ['id', '<>', 0]);
             if ($old->count()) {
                 $old = $old->results();
 
                 foreach ($old as $item) {
-                    $queries->create('users_username_history', array(
+                    $queries->create('users_username_history', [
                         'id' => $item->id,
                         'user_id' => $item->user_id,
                         'changed_to' => $item->changed_to,
                         'changed_at' => $item->changed_at,
                         'original' => $item->original
-                    ));
+                    ]);
                 }
             }
         } catch (Exception $e) {
@@ -596,18 +596,18 @@ switch ($s) {
 
         // Profile wall posts
         try {
-            $old = $conn->get('nl1_user_profile_wall_posts', array('id', '<>', 0));
+            $old = $conn->get('nl1_user_profile_wall_posts', ['id', '<>', 0]);
             if ($old->count()) {
                 $old = $old->results();
 
                 foreach ($old as $item) {
-                    $queries->create('user_profile_wall_posts', array(
+                    $queries->create('user_profile_wall_posts', [
                         'id' => $item->id,
                         'user_id' => $item->user_id,
                         'author_id' => $item->author_id,
                         'time' => $item->time,
                         'content' => $item->content
-                    ));
+                    ]);
                 }
             }
         } catch (Exception $e) {
@@ -616,18 +616,18 @@ switch ($s) {
 
         // Profile wall likes
         try {
-            $old = $conn->get('nl1_user_profile_wall_posts_likes', array('id', '<>', 0));
+            $old = $conn->get('nl1_user_profile_wall_posts_likes', ['id', '<>', 0]);
             if ($old->count()) {
                 $old = $old->results();
 
                 foreach ($old as $item) {
-                    $queries->create('user_profile_wall_posts_reactions', array(
+                    $queries->create('user_profile_wall_posts_reactions', [
                         'id' => $item->id,
                         'user_id' => $item->user_id,
                         'post_id' => $item->post_id,
                         'reaction_id' => 1,
                         'time' => 0
-                    ));
+                    ]);
                 }
             }
         } catch (Exception $e) {
@@ -636,18 +636,18 @@ switch ($s) {
 
         // Profile wall replies
         try {
-            $old = $conn->get('nl1_user_profile_wall_posts_replies', array('id', '<>', 0));
+            $old = $conn->get('nl1_user_profile_wall_posts_replies', ['id', '<>', 0]);
             if ($old->count()) {
                 $old = $old->results();
 
                 foreach ($old as $item) {
-                    $queries->create('user_profile_wall_posts_replies', array(
+                    $queries->create('user_profile_wall_posts_replies', [
                         'id' => $item->id,
                         'post_id' => $item->post_id,
                         'author_id' => $item->author_id,
                         'time' => $item->time,
                         'content' => $item->content
-                    ));
+                    ]);
                 }
             }
         } catch (Exception $e) {
@@ -659,16 +659,16 @@ switch ($s) {
     case 7:
         // UUID cache
         try {
-            $old = $conn->get('nl1_uuid_cache', array('id', '<>', 0));
+            $old = $conn->get('nl1_uuid_cache', ['id', '<>', 0]);
             if ($old->count()) {
                 $old = $old->results();
 
                 foreach ($old as $item) {
-                    $queries->create('uuid_cache', array(
+                    $queries->create('uuid_cache', [
                         'id' => $item->id,
                         'mcname' => $item->mcname,
                         'uuid' => $item->uuid
-                    ));
+                    ]);
                 }
             }
         } catch (Exception $e) {
@@ -680,7 +680,7 @@ switch ($s) {
     case 8:
         // New settings/initialise cache
         // Site name
-        $sitename = $queries->getWhere('settings', array('name', '=', 'sitename'));
+        $sitename = $queries->getWhere('settings', ['name', '=', 'sitename']);
         if (!count($sitename)) {
             $cache->setCache('sitenamecache');
             $cache->store('sitename', 'NamelessMC');
@@ -690,424 +690,424 @@ switch ($s) {
         }
 
         // Languages
-        $queries->create('languages', array(
+        $queries->create('languages', [
             'name' => 'EnglishUK',
             'is_default' => 1
-        ));
-        $queries->create('languages', array(
+        ]);
+        $queries->create('languages', [
             'name' => 'Chinese',
             'is_default' => 0
-        ));
-        $queries->create('languages', array(
+        ]);
+        $queries->create('languages', [
             'name' => 'Czech',
             'is_default' => 0
-        ));
-        $queries->create('languages', array(
+        ]);
+        $queries->create('languages', [
             'name' => 'Danish',
             'is_default' => 0
-        ));
-        $queries->create('languages', array(
+        ]);
+        $queries->create('languages', [
             'name' => 'Dutch',
             'is_default' => 0
-        ));
-        $queries->create('languages', array(
+        ]);
+        $queries->create('languages', [
             'name' => 'EnglishUS',
             'is_default' => 0
-        ));
-        $queries->create('languages', array(
+        ]);
+        $queries->create('languages', [
             'name' => 'German',
             'is_default' => 0
-        ));
-        $queries->create('languages', array(
+        ]);
+        $queries->create('languages', [
             'name' => 'Greek',
             'is_default' => 0
-        ));
-        $queries->create('languages', array(
+        ]);
+        $queries->create('languages', [
             'name' => 'Japanese',
             'is_default' => 0
-        ));
-        $queries->create('languages', array(
+        ]);
+        $queries->create('languages', [
             'name' => 'Lithuanian',
             'is_default' => 0
-        ));
-        $queries->create('languages', array(
+        ]);
+        $queries->create('languages', [
             'name' => 'Norwegian',
             'is_default' => 0
-        ));
-        $queries->create('languages', array(
+        ]);
+        $queries->create('languages', [
             'name' => 'Polish',
             'is_default' => 0
-        ));
-        $queries->create('languages', array(
+        ]);
+        $queries->create('languages', [
             'name' => 'Portuguese',
             'is_default' => 0
-        ));
-        $queries->create('languages', array(
+        ]);
+        $queries->create('languages', [
             'name' => 'Romanian',
             'is_default' => 0
-        ));
-        $queries->create('languages', array(
+        ]);
+        $queries->create('languages', [
             'name' => 'Slovak',
             'is_default' => 0
-        ));
-        $queries->create('languages', array(
+        ]);
+        $queries->create('languages', [
             'name' => 'Spanish',
             'is_default' => 0
-        ));
-        $queries->create('languages', array(
+        ]);
+        $queries->create('languages', [
             'name' => 'SwedishSE',
             'is_default' => 0
-        ));
-        $queries->create('languages', array(
+        ]);
+        $queries->create('languages', [
             'name' => 'Turkish',
             'is_default' => 0
-        ));
-        $queries->create('languages', array(
+        ]);
+        $queries->create('languages', [
             'name' => 'Thai',
             'is_default' => 0
-        ));
+        ]);
         $cache->setCache('languagecache');
         $cache->store('language', 'EnglishUK');
 
         // Modules
-        $queries->create('modules', array(
+        $queries->create('modules', [
             'name' => 'Core',
             'enabled' => 1
-        ));
-        $queries->create('modules', array(
+        ]);
+        $queries->create('modules', [
             'name' => 'Forum',
             'enabled' => 1
-        ));
-        $queries->create('modules', array(
+        ]);
+        $queries->create('modules', [
             'name' => 'Discord Integration',
             'enabled' => 1
-        ));
+        ]);
         $cache->setCache('modulescache');
-        $cache->store('enabled_modules', array(
-            array('name' => 'Core', 'priority' => 1),
-            array('name' => 'Forum', 'priority' => 4),
-            array('name' => 'Discord Integration', 'priority' => 7)
-        ));
+        $cache->store('enabled_modules', [
+            ['name' => 'Core', 'priority' => 1],
+            ['name' => 'Forum', 'priority' => 4],
+            ['name' => 'Discord Integration', 'priority' => 7]
+        ]);
         $cache->store('module_core', true);
         $cache->store('module_forum', true);
 
         // Reactions
-        $queries->create('reactions', array(
+        $queries->create('reactions', [
             'name' => 'Like',
             'html' => '<i class="fas fa-thumbs-up text-success"></i>',
             'enabled' => 1,
             'type' => 2
-        ));
-        $queries->create('reactions', array(
+        ]);
+        $queries->create('reactions', [
             'name' => 'Dislike',
             'html' => '<i class="fas fa-thumbs-down text-danger"></i>',
             'enabled' => 1,
             'type' => 0
-        ));
-        $queries->create('reactions', array(
+        ]);
+        $queries->create('reactions', [
             'name' => 'Meh',
             'html' => '<i class="fas fa-meh text-warning"></i>',
             'enabled' => 1,
             'type' => 1
-        ));
+        ]);
 
         // Forum Labels
-        $queries->create('forums_labels', array(
+        $queries->create('forums_labels', [
             'name' => 'Default',
             'html' => '<span class="badge badge-default">{x}</span>'
-        ));
-        $queries->create('forums_labels', array(
+        ]);
+        $queries->create('forums_labels', [
             'name' => 'Primary',
             'html' => '<span class="badge badge-primary">{x}</span>'
-        ));
-        $queries->create('forums_labels', array(
+        ]);
+        $queries->create('forums_labels', [
             'name' => 'Success',
             'html' => '<span class="badge badge-success">{x}</span>'
-        ));
-        $queries->create('forums_labels', array(
+        ]);
+        $queries->create('forums_labels', [
             'name' => 'Info',
             'html' => '<span class="badge badge-info">{x}</span>'
-        ));
-        $queries->create('forums_labels', array(
+        ]);
+        $queries->create('forums_labels', [
             'name' => 'Warning',
             'html' => '<span class="badge badge-warning">{x}</span>'
-        ));
-        $queries->create('forums_labels', array(
+        ]);
+        $queries->create('forums_labels', [
             'name' => 'Danger',
             'html' => '<span class="badge badge-danger">{x}</span>'
-        ));
+        ]);
 
         // Settings
-        $queries->create('settings', array(
+        $queries->create('settings', [
             'name' => 'registration_enabled',
             'value' => 1
-        ));
+        ]);
 
-        $queries->create('settings', array(
+        $queries->create('settings', [
             'name' => 'recaptcha_login',
             'value' => 'false'
-        ));
+        ]);
 
-        $queries->create('settings', array(
+        $queries->create('settings', [
             'name' => 'recaptcha_type',
             'value' => 'reCaptcha'
-        ));
+        ]);
 
-        $version = $queries->getWhere('settings', array('name', '=', 'version'));
+        $version = $queries->getWhere('settings', ['name', '=', 'version']);
         if (count($version)) {
-            $queries->update('settings', $version[0]->id, array(
+            $queries->update('settings', $version[0]->id, [
                 'name' => 'nameless_version',
                 'value' => '2.0.0-pr12'
-            ));
+            ]);
         } else {
-            $queries->create('settings', array(
+            $queries->create('settings', [
                 'name' => 'nameless_version',
                 'value' => '2.0.0-pr12'
-            ));
+            ]);
         }
 
-        $version_update = $queries->getWhere('settings', array('name', '=', 'version_update'));
+        $version_update = $queries->getWhere('settings', ['name', '=', 'version_update']);
         if (count($version_update)) {
-            $queries->update('settings', $version_update[0]->id, array(
+            $queries->update('settings', $version_update[0]->id, [
                 'value' => 'false'
-            ));
+            ]);
         } else {
-            $queries->create('settings', array(
+            $queries->create('settings', [
                 'name' => 'version_update',
                 'value' => 'false'
-            ));
+            ]);
         }
 
-        $mcassoc = $queries->getWhere('settings', array('name', '=', 'use_mcassoc'));
+        $mcassoc = $queries->getWhere('settings', ['name', '=', 'use_mcassoc']);
         if (count($mcassoc)) {
-            $queries->update('settings', $mcassoc[0]->id, array(
+            $queries->update('settings', $mcassoc[0]->id, [
                 'name' => 'verify_accounts'
-            ));
+            ]);
         } else {
-            $queries->create('settings', array(
+            $queries->create('settings', [
                 'name' => 'verify_accounts',
                 'value' => 0
-            ));
+            ]);
         }
 
-        $avatar_site = $queries->getWhere('settings', array('name', '=', 'avatar_api'));
+        $avatar_site = $queries->getWhere('settings', ['name', '=', 'avatar_api']);
         if (count($avatar_site)) {
-            $queries->update('settings', $avatar_site[0]->id, array(
+            $queries->update('settings', $avatar_site[0]->id, [
                 'name' => 'avatar_site'
-            ));
+            ]);
         } else {
-            $queries->create('settings', array(
+            $queries->create('settings', [
                 'name' => 'avatar_site',
                 'value' => 'cravatar'
-            ));
+            ]);
         }
 
-        $queries->create('settings', array(
+        $queries->create('settings', [
             'name' => 'mc_integration',
             'value' => 1
-        ));
+        ]);
 
-        $queries->create('settings', array(
+        $queries->create('settings', [
             'name' => 'portal',
             'value' => 0
-        ));
+        ]);
         $cache->setCache('portal_cache');
         $cache->store('portal', 0);
 
-        $queries->create('settings', array(
+        $queries->create('settings', [
             'name' => 'forum_reactions',
             'value' => 1
-        ));
+        ]);
 
-        $queries->create('settings', array(
+        $queries->create('settings', [
             'name' => 'formatting_type',
             'value' => 'html'
-        ));
+        ]);
         $cache->setCache('post_formatting');
         $cache->store('formatting', 'html');
 
-        $error_reporting = $queries->getWhere('settings', array('name', '=', 'error_reporting'));
+        $error_reporting = $queries->getWhere('settings', ['name', '=', 'error_reporting']);
         if (count($error_reporting)) {
             $cache->setCache('error_cache');
             $cache->store('error_reporting', $error_reporting[0]->value);
         } else {
-            $queries->create('settings', array(
+            $queries->create('settings', [
                 'name' => 'error_reporting',
                 'value' => 0
-            ));
+            ]);
             $cache->setCache('error_cache');
             $cache->store('error_reporting', 0);
         }
 
-        $queries->create('settings', array(
+        $queries->create('settings', [
             'name' => 'page_loading',
             'value' => 0
-        ));
+        ]);
         $cache->setCache('page_load_cache');
         $cache->store('page_load', 0);
 
-        $use_plugin = $queries->getWhere('settings', array('name', '=', 'use_plugin'));
+        $use_plugin = $queries->getWhere('settings', ['name', '=', 'use_plugin']);
         if (count($use_plugin)) {
-            $queries->update('settings', $use_plugin[0]->id, array(
+            $queries->update('settings', $use_plugin[0]->id, [
                 'name' => 'use_api'
-            ));
+            ]);
         } else {
-            $queries->create('settings', array(
+            $queries->create('settings', [
                 'name' => 'use_api',
                 'value' => 0
-            ));
+            ]);
         }
 
-        $queries->create('settings', array(
+        $queries->create('settings', [
             'name' => 'timezone',
             'value' => 'Europe/London'
-        ));
+        ]);
         $cache->setCache('timezone_cache');
         $cache->store('timezone', 'Europe/London');
 
-        $queries->create('settings', array(
+        $queries->create('settings', [
             'name' => 'maintenance_message',
             'value' => 'This website is currently in maintenance mode.'
-        ));
+        ]);
         $cache->setCache('maintenance_cache');
-        $cache->store('maintenance', array('maintenance' => 'false', 'message' => 'This website is currently in maintenance mode.'));
+        $cache->store('maintenance', ['maintenance' => 'false', 'message' => 'This website is currently in maintenance mode.']);
 
-        $queries->create('settings', array(
+        $queries->create('settings', [
             'name' => 'authme',
             'value' => 0
-        ));
+        ]);
 
-        $queries->create('settings', array(
+        $queries->create('settings', [
             'name' => 'authme_db',
             'value' => null
-        ));
+        ]);
 
-        $queries->create('settings', array(
+        $queries->create('settings', [
             'name' => 'default_avatar_type',
             'value' => 'minecraft'
-        ));
+        ]);
 
-        $queries->create('settings', array(
+        $queries->create('settings', [
             'name' => 'custom_default_avatar',
             'value' => null
-        ));
+        ]);
 
-        $queries->create('settings', array(
+        $queries->create('settings', [
             'name' => 'private_profile',
             'value' => 1
-        ));
+        ]);
 
-        $queries->create('settings', array(
+        $queries->create('settings', [
             'name' => 'registration_disabled_message',
             'value' => null
-        ));
+        ]);
 
-        $queries->create('settings', array(
+        $queries->create('settings', [
             'name' => 'api_verification',
             'value' => '1'
-        ));
+        ]);
 
-        $queries->create('settings', array(
+        $queries->create('settings', [
             'name' => 'validate_user_action',
             'value' => '{"action":"activate"}'
-        ));
+        ]);
 
-        $queries->create('settings', array(
+        $queries->create('settings', [
             'name' => 'login_method',
             'value' => 'email'
-        ));
+        ]);
 
-        $queries->create('settings', array(
+        $queries->create('settings', [
             'name' => 'username_sync',
             'value' => '1'
-        ));
+        ]);
 
-        $queries->create('privacy_terms', array(
+        $queries->create('privacy_terms', [
             'name' => 'privacy',
             'value' => 'The following privacy policy outlines how your data is used on our website.<br /><br /><strong>Data</strong><br />Basic non-identifiable information about your user on the website is collected; the majority of which is provided during registration, such as email addresses and usernames.<br />In addition to this, IP addresses for registered users are stored within the system to aid with moderation duties. This includes spam prevention, and detecting alternative accounts.<br /><br />Accounts can be deleted by a site administrator upon request, which will remove all data relating to your user from our system.<br /><br /><strong>Cookies</strong><br />Cookies are used to store small pieces of non-identifiable information with your consent. In order to consent to the use of cookies, you must either close the cookie notice (as explained within the notice) or register on our website.<br />Data stored by cookies include any recently viewed topic IDs, along with a unique, unidentifiable hash upon logging in and selecting &quot;Remember Me&quot; to automatically log you in next time you visit.'
-        ));
+        ]);
 
-        $terms = $queries->getWhere('settings', array('name', '=', 't_and_c_site'));
+        $terms = $queries->getWhere('settings', ['name', '=', 't_and_c_site']);
         if (count($terms)) {
-            $queries->create('privacy_terms', array(
+            $queries->create('privacy_terms', [
                 'name' => 'terms',
                 'value' => $terms[0]->value
-            ));
+            ]);
         }
 
-        $queries->create('settings', array(
+        $queries->create('settings', [
             'name' => 'status_page',
             'value' => '1'
-        ));
+        ]);
 
-        $queries->create('settings', array(
+        $queries->create('settings', [
             'name' => 'discord_integration',
             'value' => 0,
-        ));
+        ]);
 
-        $queries->create('settings', array(
+        $queries->create('settings', [
             'name' => 'discord_bot_url',
             'value' => null
-        ));
+        ]);
 
-        $queries->create('settings', array(
+        $queries->create('settings', [
             'name' => 'discord_bot_username',
             'value' => null
-        ));
+        ]);
         
-        $queries->create('settings', array(
+        $queries->create('settings', [
             'name' => 'placeholders',
             'value' => '0'
-        ));
+        ]);
 
         // Templates
-        $queries->create('templates', array(
+        $queries->create('templates', [
             'name' => 'Default',
             'enabled' => 1,
             'is_default' => 0
-        ));
+        ]);
 
-        $queries->create('templates', array(
+        $queries->create('templates', [
             'name' => 'DefaultRevamp',
             'enabled' => 1,
             'is_default' => 1
-        ));
+        ]);
 
         $cache->setCache('templatecache');
         $cache->store('default', 'DefaultRevamp');
 
-        $queries->create('panel_templates', array(
+        $queries->create('panel_templates', [
             'name' => 'Default',
             'enabled' => 1,
             'is_default' => 1
-        ));
+        ]);
         $cache->store('panel_default', 'Default');
 
         // Widgets - initialise just a few default ones for now
-        $queries->create('widgets', array(
+        $queries->create('widgets', [
             'name' => 'Online Staff',
             'enabled' => 1,
             'pages' => '["index","forum"]'
-        ));
+        ]);
 
-        $queries->create('widgets', array(
+        $queries->create('widgets', [
             'name' => 'Online Users',
             'enabled' => 1,
             'pages' => '["index","forum"]'
-        ));
+        ]);
 
-        $queries->create('widgets', array(
+        $queries->create('widgets', [
             'name' => 'Statistics',
             'enabled' => 1,
             'pages' => '["index","forum"]'
-        ));
+        ]);
 
         $cache->setCache('Core-widgets');
-        $cache->store('enabled', array(
+        $cache->store('enabled', [
             'Online Staff' => 1,
             'Online Users' => 1,
             'Statistics' => 1
-        ));
+        ]);
 
         $cache->setCache('backgroundcache');
         $cache->store('banner_image', '/uploads/template_banners/homepage_bg_trimmed.jpg');

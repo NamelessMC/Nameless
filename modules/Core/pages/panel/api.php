@@ -22,7 +22,7 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 if (!isset($_GET['view'])) {
     if (Input::exists()) {
-        $errors = array();
+        $errors = [];
 
         if (Token::check()) {
             if (isset($_POST['action']) && $_POST['action'] == 'regen') {
@@ -30,16 +30,16 @@ if (!isset($_GET['view'])) {
                 // Generate new key
                 $new_api_key = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 32);
 
-                $plugin_api = $queries->getWhere('settings', array('name', '=', 'mc_api_key'));
+                $plugin_api = $queries->getWhere('settings', ['name', '=', 'mc_api_key']);
                 $plugin_api = $plugin_api[0]->id;
 
                 // Update key
                 $queries->update(
                     'settings',
                     $plugin_api,
-                    array(
+                    [
                         'value' => $new_api_key
-                    )
+                    ]
                 );
 
                 // Cache
@@ -51,14 +51,14 @@ if (!isset($_GET['view'])) {
                 die();
             }
 
-            $plugin_id = $queries->getWhere('settings', array('name', '=', 'use_api'));
+            $plugin_id = $queries->getWhere('settings', ['name', '=', 'use_api']);
             $plugin_id = $plugin_id[0]->id;
             $queries->update(
                 'settings',
                 $plugin_id,
-                array(
+                [
                     'value' => Input::get('enable_api')
-                )
+                ]
             );
 
             // Update email verification
@@ -87,7 +87,7 @@ if (!isset($_GET['view'])) {
             if ($_POST['action'] == 'create') {
                 $validation = GroupSyncManager::getInstance()->makeValidator($_POST, $language);
 
-                $errors = array();
+                $errors = [];
 
                 $external = false;
                 $fields = [];
@@ -163,7 +163,7 @@ if (!isset($_GET['view'])) {
             } else if ($_POST['action'] == 'delete') {
                 if (isset($_POST['id'])) {
                     try {
-                        $queries->delete('group_sync', array('id', '=', $_POST['id']));
+                        $queries->delete('group_sync', ['id', '=', $_POST['id']]);
                         Session::flash('api_success', $language->get('admin', 'group_sync_rule_deleted_successfully'));
                     } catch (Exception $e) {
                         // Redirect anyway
@@ -172,50 +172,50 @@ if (!isset($_GET['view'])) {
                 die();
             }
         } else {
-            $errors[] = array($language->get('general', 'invalid_token'));
+            $errors[] = [$language->get('general', 'invalid_token')];
         }
     }
 }
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 if (Session::exists('api_success')) {
     $smarty->assign(
-        array(
+        [
             'SUCCESS' => Session::flash('api_success'),
             'SUCCESS_TITLE' => $language->get('general', 'success')
-        )
+        ]
     );
 }
 
 if (isset($errors) && count($errors)) {
     $smarty->assign(
-        array(
+        [
             'ERRORS' => $errors,
             'ERRORS_TITLE' => $language->get('general', 'error')
-        )
+        ]
     );
 }
 
 if (!isset($_GET['view'])) {
     // Is the API enabled?
-    $api_enabled = $queries->getWhere('settings', array('name', '=', 'use_api'));
+    $api_enabled = $queries->getWhere('settings', ['name', '=', 'use_api']);
     if (count($api_enabled)) {
         $api_enabled = $api_enabled[0]->value;
     } else {
         $queries->create(
             'settings',
-            array(
+            [
                 'name' => 'use_api',
                 'value' => 0
-            )
+            ]
         );
         $api_enabled = '0';
     }
 
     // Get API key
-    $plugin_api = $queries->getWhere('settings', array('name', '=', 'mc_api_key'));
+    $plugin_api = $queries->getWhere('settings', ['name', '=', 'mc_api_key']);
     $plugin_api = $plugin_api[0]->value;
 
     // Is email verification enabled
@@ -228,7 +228,7 @@ if (!isset($_GET['view'])) {
     $username_sync = $configuration->get('Core', 'username_sync');
 
     $smarty->assign(
-        array(
+        [
             'PARENT_PAGE' => PARENT_PAGE,
             'DASHBOARD' => $language->get('admin', 'dashboard'),
             'CONFIGURATION' => $language->get('admin', 'configuration'),
@@ -265,7 +265,7 @@ if (!isset($_GET['view'])) {
             'GROUP_SYNC_LINK' => URL::build('/panel/core/api/', 'view=group_sync'),
             'API_ENDPOINTS' => $language->get('admin', 'api_endpoints'),
             'API_ENDPOINTS_LINK' => URL::build('/panel/core/api/', 'view=api_endpoints')
-        )
+        ]
     );
 
     $template_file = 'core/api.tpl';
@@ -274,7 +274,7 @@ if (!isset($_GET['view'])) {
     if ($_GET['view'] == 'group_sync') {
 
         $smarty->assign(
-            array(
+            [
                 'PARENT_PAGE' => PARENT_PAGE,
                 'DASHBOARD' => $language->get('admin', 'dashboard'),
                 'CONFIGURATION' => $language->get('admin', 'configuration'),
@@ -286,7 +286,7 @@ if (!isset($_GET['view'])) {
                 'BACK_LINK' => URL::build('/panel/core/api'),
                 'TOKEN' => Token::get(),
                 'SUBMIT' => $language->get('general', 'submit'),
-                'GROUP_SYNC_VALUES' => $queries->getWhere('group_sync', array('id', '<>', 0)),
+                'GROUP_SYNC_VALUES' => $queries->getWhere('group_sync', ['id', '<>', 0]),
                 'GROUP_SYNC_INJECTORS' => GroupSyncManager::getInstance()->getInjectors(),
                 'ENABLED_GROUP_SYNC_INJECTORS' => GroupSyncManager::getInstance()->getEnabledInjectors(),
                 'NAMELESS_INJECTOR_COLUMN' => GroupSyncManager::getInstance()->getInjectorByClass(NamelessMCGroupSyncInjector::class)->getColumnName(),
@@ -297,24 +297,24 @@ if (!isset($_GET['view'])) {
                 'DELETE_LINK' => URL::build('/panel/core/api/', 'view=group_sync'),
                 'NONE' => $language->get('general', 'none'),
                 'DISABLED' => $language->get('admin', 'disabled')
-            )
+            ]
         );
 
         $template_file = 'core/api_group_sync.tpl';
     } else if ($_GET['view'] == 'api_endpoints') {
 
-        $endpoints_array = array();
+        $endpoints_array = [];
         foreach ($endpoints->getAll() as $endpoint) {
-            $endpoints_array[] = array(
+            $endpoints_array[] = [
                 'route' => $endpoint->getRoute(),
                 'module' => $endpoint->getModule(),
                 'description' => $endpoint->getDescription(),
                 'method' => $endpoint->getMethod()
-            );
-        };
+            ];
+        }
 
         $smarty->assign(
-            array(
+            [
                 'PARENT_PAGE' => PARENT_PAGE,
                 'DASHBOARD' => $language->get('admin', 'dashboard'),
                 'CONFIGURATION' => $language->get('admin', 'configuration'),
@@ -327,7 +327,7 @@ if (!isset($_GET['view'])) {
                 'MODULE' => $language->get('admin', 'module'),
                 'ENDPOINTS_INFO' => $language->get('admin', 'api_endpoints_info'),
                 'ENDPOINTS_ARRAY' => $endpoints_array
-            )
+            ]
         );
 
         $template_file = 'core/api_endpoints.tpl';

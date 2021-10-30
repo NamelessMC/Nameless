@@ -21,20 +21,20 @@ $page_title = $language->get('admin', 'groups');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 if (Session::exists('admin_groups')) {
     $success = Session::flash('admin_groups');
 }
 
 if (Session::exists('admin_groups_error'))
-    $errors = array(Session::flash('admin_groups_error'));
+    $errors = [Session::flash('admin_groups_error')];
 
 if (isset($_GET['action'])) {
     if ($_GET['action'] == 'new') {
         if (Input::exists()) {
 
-            $errors = array();
+            $errors = [];
 
             if (Token::check()) {
 
@@ -65,7 +65,7 @@ if (isset($_GET['action'])) {
                             $default = 0;
 
                         // If this is the new default group, update old default group
-                        $default_group = $queries->getWhere('groups', array('default_group', '=', 1));
+                        $default_group = $queries->getWhere('groups', ['default_group', '=', 1]);
                         if (!count($default_group) && $default == 0)
                             $default = 1;
 
@@ -73,7 +73,7 @@ if (isset($_GET['action'])) {
                         if (count($last_group_order)) $last_group_order = $last_group_order[0]->order;
                         else $last_group_order = 0;
 
-                        $queries->create('groups', array(
+                        $queries->create('groups', [
                             'name' => Input::get('groupname'),
                             'group_html' => Input::get('html'),
                             'group_html_lg' => Input::get('html'),
@@ -84,15 +84,15 @@ if (isset($_GET['action'])) {
                             'default_group' => $default,
                             'order' => (Input::get('order') == 5 ? $last_group_order + 1 : Input::get('order')),
                             'force_tfa' => Input::get('tfa')
-                        ));
+                        ]);
 
                         $group_id = $queries->getLastId();
 
                         if ($default == 1) {
                             if (count($default_group) && $default_group[0]->id != $group_id) {
-                                $queries->update('groups', $default_group[0]->id, array(
+                                $queries->update('groups', $default_group[0]->id, [
                                     'default_group' => 0
-                                ));
+                                ]);
                             }
 
                             $cache->setCache('default_group');
@@ -115,7 +115,7 @@ if (isset($_GET['action'])) {
                 $errors[] = $language->get('general', 'invalid_token');
         }
 
-        $smarty->assign(array(
+        $smarty->assign([
             'CREATING_NEW_GROUP' => $language->get('admin', 'creating_group'),
             'CANCEL' => $language->get('general', 'cancel'),
             'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
@@ -132,7 +132,7 @@ if (isset($_GET['action'])) {
             'STAFF_CP' => $language->get('admin', 'can_view_staffcp'),
             'DEFAULT_GROUP' => $language->get('admin', 'default_group'),
             'FORCE_TFA' => $language->get('admin', 'force_tfa')
-        ));
+        ]);
 
         $template_file = 'core/groups_new.tpl';
     } else if ($_GET['action'] == 'edit') {
@@ -141,7 +141,7 @@ if (isset($_GET['action'])) {
             die();
         }
 
-        $group = $queries->getWhere('groups', array('id', '=', $_GET['group']));
+        $group = $queries->getWhere('groups', ['id', '=', $_GET['group']]);
         if (!count($group)) {
             Redirect::to(URL::build('/panel/core/groups'));
             die();
@@ -149,22 +149,22 @@ if (isset($_GET['action'])) {
         $group = $group[0];
 
         if ($group->id == 2 || ((in_array($group->id, $user->getAllGroupIds())) && !$user->hasPermission('admincp.groups.self'))) {
-            $smarty->assign(array(
+            $smarty->assign([
                 'OWN_GROUP' => $language->get('admin', 'cant_edit_this_group'),
                 'INFO' => $language->get('general', 'info')
-            ));
+            ]);
         } else {
-            $smarty->assign(array(
+            $smarty->assign([
                 'PERMISSIONS' => $language->get('admin', 'permissions'),
                 'PERMISSIONS_LINK' => URL::build('/panel/core/groups/', 'action=permissions&group=' . Output::getClean($group->id)),
                 'DELETE' => $language->get('general', 'delete'),
                 'DELETE_GROUP' => $language->get('admin', 'delete_group'),
                 'CONFIRM_DELETE' => str_replace('{x}', Output::getClean($group->name), $language->get('admin', 'confirm_group_deletion'))
-            ));
+            ]);
         }
 
         if (Input::exists()) {
-            $errors = array();
+            $errors = [];
             if (Token::check()) {
                 if (Input::get('action') == 'update') {
 
@@ -198,11 +198,11 @@ if (isset($_GET['action'])) {
                                 $default = 0;
 
                             // If this is the new default group, update old default group
-                            $default_group = $queries->getWhere('groups', array('default_group', '=', 1));
+                            $default_group = $queries->getWhere('groups', ['default_group', '=', 1]);
                             if (count($default_group) && $default == 1 && $default_group[0]->id != $_GET['group'])
-                                $queries->update('groups', $default_group[0]->id, array(
+                                $queries->update('groups', $default_group[0]->id, [
                                     'default_group' => 0
-                                ));
+                                ]);
                             else if (!count($default_group) && $default == 0)
                                 $default = 1;
 
@@ -212,7 +212,7 @@ if (isset($_GET['action'])) {
                                 $staff_cp = Input::get('staffcp');
                             }
 
-                            $queries->update('groups', $_GET['group'], array(
+                            $queries->update('groups', $_GET['group'], [
                                 'name' => Input::get('groupname'),
                                 'group_html' => Input::get('html'),
                                 'group_html_lg' => Input::get('html'),
@@ -223,7 +223,7 @@ if (isset($_GET['action'])) {
                                 'default_group' => $default,
                                 '`order`' => Input::get('order'),
                                 'force_tfa' => Input::get('tfa')
-                            ));
+                            ]);
 
                             $cache->setCache('groups_tfa_' . $_GET['group']);
                             $cache->store('enabled', Input::get('tfa'));
@@ -239,15 +239,15 @@ if (isset($_GET['action'])) {
                     }
                 } else if (Input::get('action') == 'delete') {
                     try {
-                        $default_group = $queries->getWhere('groups', array('default_group', '=', 1));
+                        $default_group = $queries->getWhere('groups', ['default_group', '=', 1]);
 
                         if (count($default_group)) {
                             if ($group->id == 2 || $default_group[0]->id == Input::get('id') || $group->admin_cp == 1) {
                                 // Can't delete default group/admin group
                                 Session::flash('admin_groups_error', $language->get('admin', 'unable_to_delete_group'));
                             } else {
-                                $queries->delete('groups', array('id', '=', Input::get('id')));
-                                $queries->delete('users_groups', array('group_id', '=', Input::get('id')));
+                                $queries->delete('groups', ['id', '=', Input::get('id')]);
+                                $queries->delete('users_groups', ['group_id', '=', Input::get('id')]);
                                 Session::flash('admin_groups', $language->get('admin', 'group_deleted_successfully'));
                             }
                         }
@@ -262,7 +262,7 @@ if (isset($_GET['action'])) {
                 $errors[] = $language->get('general', 'invalid_token');
         }
 
-        $smarty->assign(array(
+        $smarty->assign([
             'GROUP_ID' => Output::getClean($group->id),
             'NAME' => $language->get('admin', 'name'),
             'GROUP_HTML' => $language->get('admin', 'group_html'),
@@ -288,7 +288,7 @@ if (isset($_GET['action'])) {
             'GROUP_ORDER_VALUE' => $group->order,
             'FORCE_TFA' => $language->get('admin', 'force_tfa'),
             'FORCE_TFA_VALUE' => $group->force_tfa
-        ));
+        ]);
 
         $template_file = 'core/groups_edit.tpl';
     } else if ($_GET['action'] == 'permissions') {
@@ -297,7 +297,7 @@ if (isset($_GET['action'])) {
             die();
         }
 
-        $group = $queries->getWhere('groups', array('id', '=', $_GET['group']));
+        $group = $queries->getWhere('groups', ['id', '=', $_GET['group']]);
         if (!count($group)) {
             Redirect::to(URL::build('/panel/core/groups'));
             die();
@@ -310,12 +310,12 @@ if (isset($_GET['action'])) {
         }
 
         if (Input::exists()) {
-            $errors = array();
+            $errors = [];
 
             if (Token::check()) {
                 // Token valid
                 // Build new JSON object for permissions
-                $perms = array();
+                $perms = [];
                 if (isset($_POST['permissions']) && count($_POST['permissions'])) {
                     foreach ($_POST['permissions'] as $permission => $value) {
                         $perms[$permission] = 1;
@@ -324,7 +324,7 @@ if (isset($_GET['action'])) {
                 $perms_json = json_encode($perms);
 
                 try {
-                    $queries->update('groups', $group->id, array('permissions' => $perms_json));
+                    $queries->update('groups', $group->id, ['permissions' => $perms_json]);
 
                     Session::flash('admin_groups', $language->get('admin', 'permissions_updated_successfully'));
                     Redirect::to(URL::build('/panel/core/groups/', 'action=edit&group=' . $group->id));
@@ -336,7 +336,7 @@ if (isset($_GET['action'])) {
                 $errors[] = $language->get('general', 'invalid_token');
         }
 
-        $smarty->assign(array(
+        $smarty->assign([
             'PERMISSIONS' => $language->get('admin', 'permissions'),
             'BACK' => $language->get('general', 'back'),
             'BACK_LINK' => URL::build('/panel/core/groups/', 'action=edit&group=' . Output::getClean($group->id)),
@@ -344,7 +344,7 @@ if (isset($_GET['action'])) {
             'ALL_PERMISSIONS' => PermissionHandler::getPermissions(),
             'SELECT_ALL' => $language->get('admin', 'select_all'),
             'DESELECT_ALL' => $language->get('admin', 'deselect_all')
-        ));
+        ]);
 
         $template_file = 'core/groups_permissions.tpl';
     } else if ($_GET['action'] == 'order') {
@@ -354,9 +354,9 @@ if (isset($_GET['action'])) {
 
             $i = 1;
             foreach ($groups as $item) {
-                $queries->update('groups', $item, array(
+                $queries->update('groups', $item, [
                     '`order`' => $i
-                ));
+                ]);
                 $i++;
             }
         }
@@ -365,22 +365,22 @@ if (isset($_GET['action'])) {
 } else {
     $groups = $queries->orderAll('groups', '`order`', 'ASC');
 
-    $groups_template = array();
+    $groups_template = [];
     foreach ($groups as $group) {
-        $users = $queries->getWhere('users_groups', array('group_id', '=', $group->id));
+        $users = $queries->getWhere('users_groups', ['group_id', '=', $group->id]);
         $users = count($users);
 
-        $groups_template[] = array(
+        $groups_template[] = [
             'id' => Output::getClean($group->id),
             'order' => $group->order,
             'name' => Output::getClean($group->name),
             'edit_link' => URL::build('/panel/core/groups/', 'action=edit&group=' . Output::getClean($group->id)),
             'users' => $users,
             'staff' => $group->staff
-        );
+        ];
     }
 
-    $smarty->assign(array(
+    $smarty->assign([
         'GROUP_ID' => $language->get('admin', 'group_id'),
         'NAME' => $language->get('admin', 'name'),
         'USERS' => $language->get('admin', 'users'),
@@ -393,24 +393,24 @@ if (isset($_GET['action'])) {
         'NO' => $language->get('general', 'no'),
         'EDIT' => $language->get('general', 'edit'),
         'REORDER_DRAG_URL' => URL::build('/panel/core/groups', 'action=order')
-    ));
+    ]);
 
     $template_file = 'core/groups.tpl';
 }
 
 if (isset($success))
-    $smarty->assign(array(
+    $smarty->assign([
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
-    ));
+    ]);
 
 if (isset($errors) && count($errors))
-    $smarty->assign(array(
+    $smarty->assign([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
-    ));
+    ]);
 
-$smarty->assign(array(
+$smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'GROUPS' => $language->get('admin', 'groups'),
@@ -422,7 +422,7 @@ $smarty->assign(array(
     'FORCE_TFA_WARNING' => $language->get('admin', 'force_tfa_warning'),
     'GROUP_SYNC' => $language->get('admin', 'group_sync'),
     'GROUP_SYNC_LINK' => URL::build('/panel/core/api/', 'view=group_sync')
-));
+]);
 
 $page_load = microtime(true) - $start;
 define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));

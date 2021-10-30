@@ -9,7 +9,7 @@
  *  Danish Language - General terms
  */
 
-$language = array(
+$language = [
     'staff_cp' => 'PersonaleCP',
     'overview' => 'Oversigt',
     
@@ -105,4 +105,4 @@ $language = array(
     'recent_registrations' => 'Seneste Registreringer',
     'reset_profile_banner' => 'Nulstil Profil Banner'
 
-);
+];

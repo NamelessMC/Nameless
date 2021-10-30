@@ -23,21 +23,21 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 if (!isset($_GET['action']) && !isset($_GET['forum'])) {
     $forums = $queries->orderAll('forums', 'forum_order', 'ASC');
-    $template_array = array();
+    $template_array = [];
 
     if (count($forums)) {
         $i = 1;
         $count = count($forums);
         foreach ($forums as $item) {
             if ($item->parent > 0) {
-                $parent_forum_query = $queries->getWhere('forums', array('id', '=', $item->parent));
+                $parent_forum_query = $queries->getWhere('forums', ['id', '=', $item->parent]);
                 if (count($parent_forum_query)) {
                     $parent_forum_count = 1;
                     $parent_forum = str_replace('{x}', Output::getClean(Output::getDecoded($parent_forum_query[0]->forum_title)), $forum_language->get('forum', 'parent_forum_x'));
                     $id = $parent_forum_query[0]->parent;
 
                     while ($parent_forum_count < 100 && $id > 0) {
-                        $parent_forum_query = $queries->getWhere('forums', array('id', '=', $parent_forum_query[0]->parent));
+                        $parent_forum_query = $queries->getWhere('forums', ['id', '=', $parent_forum_query[0]->parent]);
                         $id = $parent_forum_query[0]->parent;
                         $parent_forum_count++;
                     }
@@ -48,7 +48,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
             } else
                 $parent_forum_count = 0;
 
-            $template_array[] = array(
+            $template_array[] = [
                 'edit_link' => URL::build('/panel/forums/', 'forum=' . Output::getClean($item->id)),
                 'delete_link' => URL::build('/panel/forums/', 'action=delete&fid=' . Output::getClean($item->id)),
                 'up_link' => ($i > 1 ? URL::build('/panel/forums/', 'action=order&dir=up&fid=' . Output::getClean($item->id)) : null),
@@ -58,21 +58,21 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                 'id' => Output::getClean($item->id),
                 'parent_forum' => (($item->parent > 0) ? $parent_forum : null),
                 'parent_forum_count' => $parent_forum_count
-            );
+            ];
             $i++;
         }
     }
 
-    $forum_reactions = $queries->getWhere('settings', array('name', '=', 'forum_reactions'));
+    $forum_reactions = $queries->getWhere('settings', ['name', '=', 'forum_reactions']);
     $forum_reactions = $forum_reactions[0]->value;
 
-    $smarty->assign(array(
+    $smarty->assign([
         'NEW_FORUM' => $forum_language->get('forum', 'new_forum'),
         'NEW_FORUM_LINK' => URL::build('/panel/forums/', 'action=new'),
         'FORUMS_ARRAY' => $template_array,
         'NO_FORUMS' => $forum_language->get('forum', 'no_forums'),
         'REORDER_DRAG_URL' => URL::build('/panel/forums')
-    ));
+    ]);
 
     $template_file = 'forum/forums.tpl';
 } else if (isset($_GET['action'])) {
@@ -81,7 +81,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
             if (!isset($_GET['step'])) {
                 // Step 1
                 if (Input::exists()) {
-                    $errors = array();
+                    $errors = [];
 
                     if (Token::check()) {
                         // Validate input
@@ -117,13 +117,13 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                                 if (count($last_forum_order)) $last_forum_order = $last_forum_order[0]->forum_order;
                                 else $last_forum_order = 0;
 
-                                $queries->create('forums', array(
+                                $queries->create('forums', [
                                     'forum_title' => Output::getClean(Input::get('forumname')),
                                     'forum_description' => Output::getClean($description),
                                     'forum_order' => $last_forum_order + 1,
                                     'forum_type' => Output::getClean(Input::get('forum_type')),
                                     'icon' => Output::getClean(Input::get('forum_icon'))
-                                ));
+                                ]);
 
                                 $forum_id = $queries->getLastId();
 
@@ -141,7 +141,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                     }
                 }
 
-                $smarty->assign(array(
+                $smarty->assign([
                     'FORUM_TYPE' => $forum_language->get('forum', 'forum_type'),
                     'FORUM_TYPE_FORUM' => $forum_language->get('forum', 'forum_type_forum'),
                     'FORUM_TYPE_CATEGORY' => $forum_language->get('forum', 'forum_type_category'),
@@ -151,7 +151,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                     'FORUM_DESCRIPTION_VALUE' => Output::getClean(Input::get('forumdesc')),
                     'FORUM_ICON' => $forum_language->get('forum', 'forum_icon'),
                     'FORUM_ICON_VALUE' => Output::getClean(Input::get('forum_icon'))
-                ));
+                ]);
 
                 $template_file = 'forum/forums_new_step_1.tpl';
             } else {
@@ -162,7 +162,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                 }
 
                 // Get forum from database
-                $forum = $queries->getWhere('forums', array('id', '=', $_GET['forum']));
+                $forum = $queries->getWhere('forums', ['id', '=', $_GET['forum']]);
                 if (!count($forum)) {
                     Redirect::to(URL::build('/panel/forums'));
                     die();
@@ -176,7 +176,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
 
                 // Deal with input
                 if (Input::exists()) {
-                    $errors = array();
+                    $errors = [];
 
                     if (Token::check()) {
                         try {
@@ -198,13 +198,13 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                             if (!isset($redirect_error)) {
                                 $parent = $_POST['parent'] ?? 0;
 
-                                $queries->update('forums', $forum->id, array(
+                                $queries->update('forums', $forum->id, [
                                     'parent' => $parent,
                                     'news' => Input::get('news_forum'),
                                     'redirect_forum' => $redirect,
                                     'redirect_url' => $redirect_url,
                                     'hooks' => $hooks
-                                ));
+                                ]);
 
                                 Redirect::to(URL::build('/panel/forums/', 'forum=' . $forum->id));
                                 die();
@@ -220,30 +220,30 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                 }
 
                 // Get a list of forums
-                $forums = $queries->getWhere('forums', array('id', '<>', $forum->id));
-                $template_array = array();
+                $forums = $queries->getWhere('forums', ['id', '<>', $forum->id]);
+                $template_array = [];
 
                 if (count($forums)) {
                     foreach ($forums as $item) {
-                        $template_array[] = array(
+                        $template_array[] = [
                             'id' => Output::getClean($item->id),
                             'name' => Output::getClean(Output::getDecoded($item->forum_title))
-                        );
+                        ];
                     }
                 }
                 $hooks_query = $queries->orderAll('hooks', 'id', 'ASC');
-                $hooks_array = array();
+                $hooks_array = [];
                 if (count($hooks_query)) {
                     foreach ($hooks_query as $hook) {
                         if (in_array('newTopic', json_decode($hook->events))) {
-                            $hooks_array[] = array(
+                            $hooks_array[] = [
                                 'id' => $hook->id,
                                 'name' => Output::getClean($hook->name),
-                            );
+                            ];
                         }
                     }
                 }
-                $smarty->assign(array(
+                $smarty->assign([
                     'SELECT_PARENT_FORUM' => $forum_language->get('forum', 'select_a_parent_forum'),
                     'PARENT_FORUMS' => $template_array,
                     'DISPLAY_TOPICS_AS_NEWS' => $forum_language->get('forum', 'display_topics_as_news'),
@@ -254,12 +254,12 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                     'HOOKS_ARRAY' => $hooks_array,
                     'INFO' => $language->get('general', 'info'),
                     'HOOK_SELECT_INFO' => $language->get('admin', 'hook_select_info')
-                ));
+                ]);
 
                 $template_file = 'forum/forums_new_step_2.tpl';
             }
 
-            $smarty->assign(array(
+            $smarty->assign([
                 'CREATING_FORUM' => $forum_language->get('forum', 'creating_forum'),
                 'CANCEL' => $language->get('general', 'cancel'),
                 'CANCEL_LINK' => URL::build('/panel/forums'),
@@ -267,7 +267,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                 'YES' => $language->get('general', 'yes'),
                 'NO' => $language->get('general', 'no'),
                 'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel')
-            ));
+            ]);
 
             break;
 
@@ -290,10 +290,10 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
 
                 $dir = $_GET['dir'];
 
-                $forum_id = $queries->getWhere('forums', array('id', '=', $_GET['fid']));
+                $forum_id = $queries->getWhere('forums', ['id', '=', $_GET['fid']]);
                 $forum_id = $forum_id[0]->id;
 
-                $forum_order = $queries->getWhere('forums', array('id', '=', $_GET['fid']));
+                $forum_order = $queries->getWhere('forums', ['id', '=', $_GET['fid']]);
                 $forum_order = $forum_order[0]->forum_order;
 
                 $previous_forums = $queries->orderAll('forums', 'forum_order', 'ASC');
@@ -311,15 +311,15 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
 
                     try {
                         if (isset($previous_fid) && isset($previous_f_order)) {
-                            $queries->update('forums', $forum_id, array(
+                            $queries->update('forums', $forum_id, [
                                 'forum_order' => $previous_f_order
-                            ));
-                            $queries->update('forums', $previous_fid, array(
+                            ]);
+                            $queries->update('forums', $previous_fid, [
                                 'forum_order' => $previous_f_order + 1
-                            ));
+                            ]);
                         }
                     } catch (Exception $e) {
-                        $errors = array($e->getMessage());
+                        $errors = [$e->getMessage()];
                     }
 
                     Redirect::to(URL::build('/panel/forums'));
@@ -336,15 +336,15 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                     }
                     try {
                         if (isset($previous_fid) && isset($previous_f_order)) {
-                            $queries->update('forums', $forum_id, array(
+                            $queries->update('forums', $forum_id, [
                                 'forum_order' => $previous_f_order
-                            ));
-                            $queries->update('forums', $previous_fid, array(
+                            ]);
+                            $queries->update('forums', $previous_fid, [
                                 'forum_order' => $previous_f_order - 1
-                            ));
+                            ]);
                         }
                     } catch (Exception $e) {
-                        $errors = array($e->getMessage());
+                        $errors = [$e->getMessage()];
                     }
 
                     Redirect::to(URL::build('/panel/forums'));
@@ -357,9 +357,9 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
 
                     $i = 0;
                     foreach ($forums as $item) {
-                        $queries->update('forums', $item, array(
+                        $queries->update('forums', $item, [
                             'forum_order' => $i
-                        ));
+                        ]);
 
                         $i++;
                     }
@@ -379,7 +379,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
             }
 
             // Ensure forum exists
-            $forum = $queries->getWhere('forums', array('id', '=', $_GET['fid']));
+            $forum = $queries->getWhere('forums', ['id', '=', $_GET['fid']]);
             if (!count($forum)) {
                 Redirect::to(URL::build('/panel/forums'));
                 die();
@@ -389,23 +389,23 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
             if (Input::exists()) {
                 if (Token::check()) {
                     if (Input::get('confirm') === 'true') {
-                        $forum_perms = $queries->getWhere('forums_permissions', array('forum_id', '=', $_GET['fid'])); // Get permissions to be deleted
+                        $forum_perms = $queries->getWhere('forums_permissions', ['forum_id', '=', $_GET['fid']]); // Get permissions to be deleted
                         if (Input::get('move_forum') === 'none') {
-                            $posts = $queries->getWhere('posts', array('forum_id', '=', $_GET['fid']));
-                            $topics = $queries->getWhere('topics', array('forum_id', '=', $_GET['fid']));
+                            $posts = $queries->getWhere('posts', ['forum_id', '=', $_GET['fid']]);
+                            $topics = $queries->getWhere('topics', ['forum_id', '=', $_GET['fid']]);
 
                             foreach ($posts as $post) {
-                                $queries->delete('posts', array('id', '=', $post->id));
+                                $queries->delete('posts', ['id', '=', $post->id]);
                             }
                             foreach ($topics as $topic) {
-                                $queries->delete('topics', array('id', '=', $topic->id));
+                                $queries->delete('topics', ['id', '=', $topic->id]);
                             }
 
-                            $queries->delete('forums', array('id', '=', $_GET["fid"]));
+                            $queries->delete('forums', ['id', '=', $_GET["fid"]]);
 
                             // Forum perm deletion
                             foreach ($forum_perms as $perm) {
-                                $queries->delete('forums_permissions', array('id', '=', $perm->id));
+                                $queries->delete('forums_permissions', ['id', '=', $perm->id]);
                             }
 
                             Session::flash('admin_forums', $forum_language->get('forum', 'forum_deleted_successfully'));
@@ -414,25 +414,25 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
 
                         } else {
                             $new_forum = Input::get('move_forum');
-                            $posts = $queries->getWhere('posts', array('forum_id', '=', $_GET['fid']));
-                            $topics = $queries->getWhere('topics', array('forum_id', '=', $_GET['fid']));
+                            $posts = $queries->getWhere('posts', ['forum_id', '=', $_GET['fid']]);
+                            $topics = $queries->getWhere('topics', ['forum_id', '=', $_GET['fid']]);
 
                             foreach ($posts as $post) {
-                                $queries->update('posts', $post->id, array(
+                                $queries->update('posts', $post->id, [
                                     'forum_id' => $new_forum
-                                ));
+                                ]);
                             }
                             foreach ($topics as $topic) {
-                                $queries->update('topics', $topic->id, array(
+                                $queries->update('topics', $topic->id, [
                                     'forum_id' => $new_forum
-                                ));
+                                ]);
                             }
 
-                            $queries->delete('forums', array('id', '=', $_GET["fid"]));
+                            $queries->delete('forums', ['id', '=', $_GET["fid"]]);
 
                             // Forum perm deletion
                             foreach ($forum_perms as $perm) {
-                                $queries->delete('forums_permissions', array('id', '=', $perm->id));
+                                $queries->delete('forums_permissions', ['id', '=', $perm->id]);
                             }
 
                             Session::flash('admin_forums', $forum_language->get('forum', 'forum_deleted_successfully'));
@@ -441,28 +441,28 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                         }
                     }
                 } else {
-                    $errors = array($language->get('general', 'invalid_token'));
+                    $errors = [$language->get('general', 'invalid_token')];
                 }
             }
 
             $other_forums = $queries->orderWhere('forums', 'parent > 0', 'forum_order', 'ASC');
-            $template_array = array();
+            $template_array = [];
             foreach ($other_forums as $item) {
                 if ($item->id == $forum->id)
                     continue;
 
-                $template_array[] = array(
+                $template_array[] = [
                     'id' => Output::getClean($item->id),
                     'name' => Output::getClean(Output::getDecoded($item->forum_title))
-                );
+                ];
             }
 
-            $smarty->assign(array(
+            $smarty->assign([
                 'DELETE_FORUM' => $forum_language->get('forum', 'delete_forum'),
                 'MOVE_TOPICS_AND_POSTS_TO' => $forum_language->get('forum', 'move_topics_and_posts_to'),
                 'DELETE_TOPICS_AND_POSTS' => $forum_language->get('forum', 'delete_topics_and_posts'),
                 'OTHER_FORUMS' => $template_array
-            ));
+            ]);
 
             $template_file = 'forum/forums_delete.tpl';
 
@@ -471,14 +471,13 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
         default:
             Redirect::to(URL::build('/panel/forums'));
             die();
-            break;
     }
 } else if (isset($_GET['forum'])) {
     // Editing forum
     if (!is_numeric($_GET['forum'])) {
         die();
     } else {
-        $forum = $queries->getWhere('forums', array('id', '=', $_GET['forum']));
+        $forum = $queries->getWhere('forums', ['id', '=', $_GET['forum']]);
     }
 
     if (!count($forum)) {
@@ -487,10 +486,10 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
     }
 
     $available_forums = $queries->orderWhere('forums', 'id > 0', 'forum_order', 'ASC'); // Get a list of all forums which can be chosen as a parent
-    $groups = $queries->getWhere('groups', array('id', '<>', '0')); // Get a list of all groups
+    $groups = $queries->getWhere('groups', ['id', '<>', '0']); // Get a list of all groups
 
     if (Input::exists()) {
-        $errors = array();
+        $errors = [];
 
         if (Token::check()) {
             if (Input::get('action') == 'update') {
@@ -542,7 +541,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                         else $default_labels = null;
 
                         // Update the forum
-                        $to_update = array(
+                        $to_update = [
                             'forum_title' => Output::getClean(Input::get('title')),
                             'forum_description' => Output::getClean(Input::get('description')),
                             'news' => Input::get('display'),
@@ -553,7 +552,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                             'topic_placeholder' => Input::get('topic_placeholder'),
                             'hooks' => $hooks,
                             'default_labels' => $default_labels
-                        );
+                        ];
 
                         if (!isset($redirect_error))
                             $to_update['redirect_url'] = $redirect_url;
@@ -575,7 +574,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
 
                     $forum_perm_exists = 0;
 
-                    $forum_perm_query = $queries->getWhere('forums_permissions', array('forum_id', '=', $_GET['forum']));
+                    $forum_perm_query = $queries->getWhere('forums_permissions', ['forum_id', '=', $_GET['forum']]);
                     if (count($forum_perm_query)) {
                         foreach ($forum_perm_query as $query) {
                             if ($query->group_id == 0) {
@@ -589,16 +588,16 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                     try {
                         if ($forum_perm_exists != 0) { // Permission already exists, update
                             // Update the forum
-                            $queries->update('forums_permissions', $update_id, array(
+                            $queries->update('forums_permissions', $update_id, [
                                 'view' => $view,
                                 'create_topic' => $create,
                                 'edit_topic' => $edit,
                                 'create_post' => $post,
                                 'view_other_topics' => $view_others,
                                 'moderate' => $moderate
-                            ));
+                            ]);
                         } else { // Permission doesn't exist, create
-                            $queries->create('forums_permissions', array(
+                            $queries->create('forums_permissions', [
                                 'group_id' => 0,
                                 'forum_id' => $_GET['forum'],
                                 'view' => $view,
@@ -607,7 +606,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                                 'create_post' => $post,
                                 'view_other_topics' => $view_others,
                                 'moderate' => $moderate
-                            ));
+                            ]);
                         }
                     } catch (Exception $e) {
                         $errors[] = $e->getMessage();
@@ -644,16 +643,16 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                         try {
                             if ($forum_perm_exists != 0) { // Permission already exists, update
                                 // Update the forum
-                                $queries->update('forums_permissions', $update_id, array(
+                                $queries->update('forums_permissions', $update_id, [
                                     'view' => $view,
                                     'create_topic' => $create,
                                     'edit_topic' => $edit,
                                     'create_post' => $post,
                                     'view_other_topics' => $view_others,
                                     'moderate' => $moderate
-                                ));
+                                ]);
                             } else { // Permission doesn't exist, create
-                                $queries->create('forums_permissions', array(
+                                $queries->create('forums_permissions', [
                                     'group_id' => $group->id,
                                     'forum_id' => $_GET['forum'],
                                     'view' => $view,
@@ -662,7 +661,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                                     'create_post' => $post,
                                     'view_other_topics' => $view_others,
                                     'moderate' => $moderate
-                                ));
+                                ]);
                             }
                         } catch (Exception $e) {
                             $errors[] = $e->getMessage();
@@ -682,54 +681,54 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
     }
 
     $hooks_query = $queries->orderAll('hooks', 'id', 'ASC');
-    $hooks_array = array();
+    $hooks_array = [];
     if (count($hooks_query)) {
         foreach ($hooks_query as $hook) {
             if (in_array('newTopic', json_decode($hook->events))) {
-                $hooks_array[] = array(
+                $hooks_array[] = [
                     'id' => $hook->id,
                     'name' => Output::getClean($hook->name),
-                );
+                ];
             }
         }
     }
 
     $forum_hooks = $forum[0]->hooks ?: '[]';
 
-    $template_forums_array = array();
+    $template_forums_array = [];
     if (count($available_forums)) {
         foreach ($available_forums as $item) {
             if ($item->id == $forum[0]->id) continue;
-            $template_forums_array[] = array(
+            $template_forums_array[] = [
                 'id' => $item->id,
                 'title' => Output::getClean($item->forum_title)
-            );
+            ];
         }
     }
 
     // Get all forum permissions
-    $guest_query = DB::getInstance()->selectQuery('SELECT 0 AS id, `view`, view_other_topics FROM nl2_forums_permissions WHERE group_id = 0 AND forum_id = ?', array($forum[0]->id))->results();
-    $group_query = DB::getInstance()->selectQuery('SELECT id, name, `view`, create_topic, edit_topic, create_post, view_other_topics, moderate FROM nl2_groups A LEFT JOIN (SELECT group_id, `view`, create_topic, edit_topic, create_post, view_other_topics, moderate FROM nl2_forums_permissions WHERE forum_id = ?) B ON A.id = B.group_id ORDER BY `order` ASC', array($forum[0]->id))->results();
+    $guest_query = DB::getInstance()->selectQuery('SELECT 0 AS id, `view`, view_other_topics FROM nl2_forums_permissions WHERE group_id = 0 AND forum_id = ?', [$forum[0]->id])->results();
+    $group_query = DB::getInstance()->selectQuery('SELECT id, name, `view`, create_topic, edit_topic, create_post, view_other_topics, moderate FROM nl2_groups A LEFT JOIN (SELECT group_id, `view`, create_topic, edit_topic, create_post, view_other_topics, moderate FROM nl2_forums_permissions WHERE forum_id = ?) B ON A.id = B.group_id ORDER BY `order` ASC', [$forum[0]->id])->results();
 
     // Get default labels
-    $enabled_labels = $forum[0]->default_labels ? explode(',', $forum[0]->default_labels) : array();
-    $forum_labels = $queries->getWhere('forums_topic_labels', array('id', '<>', 0));
-    $available_labels = array();
+    $enabled_labels = $forum[0]->default_labels ? explode(',', $forum[0]->default_labels) : [];
+    $forum_labels = $queries->getWhere('forums_topic_labels', ['id', '<>', 0]);
+    $available_labels = [];
     if (count($forum_labels)) {
         foreach ($forum_labels as $label) {
             $forum_ids = explode(',', $label->fids);
 
             if (in_array($forum[0]->id, $forum_ids)) {
-                $available_labels[] = array(
+                $available_labels[] = [
                     'id' => Output::getClean($label->id),
                     'name' => Output::getClean($label->name),
                     'is_enabled' => in_array($label->id, $enabled_labels)
-                );
+                ];
             }
         }
     }
 
-    $smarty->assign(array(
+    $smarty->assign([
         'CANCEL' => $language->get('general', 'cancel'),
         'CANCEL_LINK' => URL::build('/panel/forums'),
         'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
@@ -763,7 +762,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
         'HOOK_SELECT_INFO' => $language->get('admin', 'hook_select_info'),
         'FORUM_PERMISSIONS' => $forum_language->get('forum', 'forum_permissions'),
         'GUESTS' => $language->get('user', 'guests'),
-        'GUEST_PERMISSIONS' => (count($guest_query) ? $guest_query[0] : array()),
+        'GUEST_PERMISSIONS' => (count($guest_query) ? $guest_query[0] : []),
         'GROUP_PERMISSIONS' => $group_query,
         'GROUP' => $forum_language->get('forum', 'group'),
         'CAN_VIEW_FORUM' => $forum_language->get('forum', 'can_view_forum'),
@@ -777,13 +776,13 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
         'DEFAULT_LABELS' => $forum_language->get('forum', 'default_labels'),
         'DEFAULT_LABELS_INFO' => $forum_language->get('forum', 'default_labels_info'),
         'AVAILABLE_DEFAULT_LABELS' => $available_labels
-    ));
+    ]);
 
     $template_file = 'forum/forums_edit.tpl';
 }
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 if (Session::exists('admin_forums'))
     $success = Session::flash('admin_forums');
@@ -792,18 +791,18 @@ if (Session::exists('admin_forums_error'))
     $errors = [Session::flash('admin_forums_error')];
 
 if (isset($success))
-    $smarty->assign(array(
+    $smarty->assign([
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
-    ));
+    ]);
 
 if (isset($errors) && count($errors))
-    $smarty->assign(array(
+    $smarty->assign([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
-    ));
+    ]);
 
-$smarty->assign(array(
+$smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'FORUM' => $forum_language->get('forum', 'forum'),
@@ -811,7 +810,7 @@ $smarty->assign(array(
     'PAGE' => PANEL_PAGE,
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit')
-));
+]);
 
 $page_load = microtime(true) - $start;
 define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));

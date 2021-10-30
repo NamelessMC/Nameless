@@ -9,7 +9,7 @@
  *  Spanish Language - API
  */
 
-$language = array(
+$language = [
 
     // Errors
     'api_disabled' => 'API is disabled',
@@ -51,4 +51,4 @@ $language = array(
     'username_updated' => 'Nombre de usuario actualizado correctamente.',
     'server_info_updated' => 'Información del Servidor actualizada correctamnete.',
     'account_validated' => 'Cuenta verificada exitosamente',
-);
+];

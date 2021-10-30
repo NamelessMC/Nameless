@@ -14,7 +14,7 @@ if ($cache->isCached('enabled')) {
     $status_enabled = $cache->retrieve('enabled');
 
 } else {
-    $status_enabled = $queries->getWhere('settings', array('name', '=', 'status_page'));
+    $status_enabled = $queries->getWhere('settings', ['name', '=', 'status_page']);
     $status_enabled = $status_enabled[0]->value == 1 ? 1 : 0;
     $cache->store('enabled', $status_enabled);
 }
@@ -31,7 +31,7 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 $servers = $queries->orderWhere('mc_servers', 'display = 1', '`order`', 'ASC');
 
 $smarty->assign(
-    array(
+    [
         'STATUS' => $language->get('general', 'status'),
         'IP' => $language->get('general', 'ip'),
         'TABLE_STATUS' => $language->get('general', 'table_status'),
@@ -39,11 +39,11 @@ $smarty->assign(
         'SERVERS' => $servers,
         'NO_SERVERS' => $language->get('general', 'no_servers'),
         'BUNGEE' => $language->get('general', 'bungee_instance')
-    )
+    ]
 );
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 $page_load = microtime(true) - $start;
 define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));

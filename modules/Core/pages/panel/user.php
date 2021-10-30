@@ -45,40 +45,40 @@ $page_title = Output::getClean($user_query->username);
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 if (isset($success))
-    $smarty->assign(array(
+    $smarty->assign([
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
-    ));
+    ]);
 
 if (isset($errors) && count($errors))
-    $smarty->assign(array(
+    $smarty->assign([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
-    ));
+    ]);
 
-$user_language = $queries->getWhere('languages', array('id', '=', $user_query->language_id));
+$user_language = $queries->getWhere('languages', ['id', '=', $user_query->language_id]);
 $user_language = $user_language[0]->name;
 
 if ($user->hasPermission('admincp.users.edit')) {
     // Email address
-    $smarty->assign(array(
+    $smarty->assign([
         'EMAIL_ADDRESS' => Output::getClean($user_query->email),
         'EMAIL_ADDRESS_LABEL' => $language->get('user', 'email_address')
-    ));
+    ]);
 }
 
 if ($user->hasPermission('modcp.ip_lookup')) {
     // Last IP
-    $smarty->assign(array(
+    $smarty->assign([
         'LAST_IP' => Output::getClean($user_query->lastip),
         'LAST_IP_LABEL' => $language->get('admin', 'ip_address')
-    ));
+    ]);
 }
 
-$smarty->assign(array(
+$smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'PAGE' => PANEL_PAGE,
@@ -108,7 +108,7 @@ $smarty->assign(array(
     'UUID_LABEL' => $language->get('admin', 'uuid'),
     'LANGUAGE_LABEL' => $language->get('user', 'active_language'),
     'TIMEZONE_LABEL' => $language->get('user', 'timezone')
-));
+]);
 
 $page_load = microtime(true) - $start;
 define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));

@@ -20,7 +20,7 @@ if ($cache->isCached('query_interval')) {
 
 if (isset($_GET['key'])) {
     // Get key from database - check it matches
-    $key = $queries->getWhere('settings', array('name', '=', 'unique_id'));
+    $key = $queries->getWhere('settings', ['name', '=', 'unique_id']);
     if (!count($key))
         die();
 
@@ -38,7 +38,7 @@ if (isset($_GET['key'])) {
 }
 
 // Get query type
-$query_type = $queries->getWhere('settings', array('name', '=', 'external_query'));
+$query_type = $queries->getWhere('settings', ['name', '=', 'external_query']);
 if (count($query_type)) {
     if ($query_type[0]->value == '1')
         $query_type = 'external';
@@ -48,13 +48,13 @@ if (count($query_type)) {
     $query_type = 'internal';
 
 // Query
-$servers = $queries->getWhere('mc_servers', array('id', '<>', 0));
+$servers = $queries->getWhere('mc_servers', ['id', '<>', 0]);
 if (count($servers)) {
-    $results = array();
+    $results = [];
 
     foreach ($servers as $server) {
         // Get query address for server
-        $full_ip = array('ip' => $server->ip . (is_null($server->port) ? '' : ':' . $server->port), 'pre' => $server->pre, 'name' => $server->name);
+        $full_ip = ['ip' => $server->ip . (is_null($server->port) ? '' : ':' . $server->port), 'pre' => $server->pre, 'name' => $server->name];
         $result = MCQuery::singleQuery($full_ip, $query_type, $language, $queries);
 
         if ($server->parent_server > 0)
@@ -73,11 +73,11 @@ if (count($servers)) {
     // Insert into db
     foreach ($results as $id => $result) {
         // Insert into db
-        $queries->create('query_results', array(
+        $queries->create('query_results', [
             'server_id' => $id,
             'queried_at' => date('U'),
             'players_online' => ($result['player_count'] ?? 0)
-        ));
+        ]);
     }
 
     $cache->store('last_query', date('U'));

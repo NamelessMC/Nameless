@@ -10,7 +10,7 @@
  *  Translation By Douglas Teles & dasilvaj4
  *  Last Update: 24/04/2019
  */
-$language = array(
+$language = [
     /*
      *  Admin Control Panel
      */
@@ -745,4 +745,4 @@ $language = array(
     'background_colour_required' => 'A cor de fundo é necessária',
     'text_colour_required' => 'A cor do texto é obrigatória',
     'no_announcements' => 'Nenhum anúncio foi feito ainda.',
-);
+];

@@ -14,14 +14,14 @@ class Discord_Module extends Module {
 
         parent::__construct($this, $name, $author, $module_version, $nameless_version);
 
-        $bot_url = $queries->getWhere('settings', array('name', '=', 'discord_bot_url'));
+        $bot_url = $queries->getWhere('settings', ['name', '=', 'discord_bot_url']);
         $bot_url = $bot_url[0]->value;
         if ($bot_url == null) {
             $bot_url = '';
         }
         define('BOT_URL', $bot_url);
 
-        $bot_username = $queries->getWhere('settings', array('name', '=', 'discord_bot_username'));
+        $bot_username = $queries->getWhere('settings', ['name', '=', 'discord_bot_username']);
         $bot_username = $bot_username[0]->value;
         if ($bot_username == null) {
             $bot_username = '';

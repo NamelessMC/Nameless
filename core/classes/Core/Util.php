@@ -75,10 +75,10 @@ class Util {
      */
     public static function listTimezones(): array {
         // Array to contain timezones
-        $timezones = array();
+        $timezones = [];
 
         // Array to contain offsets
-        $offsets = array();
+        $offsets = [];
 
         // Get all PHP timezones
         $all_timezones = DateTimeZone::listIdentifiers();
@@ -97,10 +97,10 @@ class Util {
             $offset = 'GMT ' . intval($current->getOffset() / 3600) . ':' . str_pad(abs(intval($current->getOffset() % 3600 / 60)), 2, 0);
 
             // Prettify timezone name
-            $name = Output::getClean(str_replace(array('/', '_'), array(', ', ' '), $timezone));
+            $name = Output::getClean(str_replace(['/', '_'], [', ', ' '], $timezone));
 
             // Add to timezones array
-            $timezones[$timezone] = array('offset' => $offset, 'name' => $name, 'time' => $current->format('H:i'));
+            $timezones[$timezone] = ['offset' => $offset, 'name' => $name, 'time' => $current->format('H:i')];
         }
 
         array_multisort($offsets, $timezones);
@@ -226,12 +226,12 @@ class Util {
 
         return !(str_replace('www.', '', rtrim(Util::getSelfURL(false), '/')) == str_replace('www.', '', $parsed['host']));
     }
- 
+
     /**
      * URL-ify a string
      *
-     * @param string $string String to URLify
-     * 
+     * @param string|null $string $string String to URLify
+     *
      * @return string Url-ified string. (I dont know what this means)
      */
     public static function stringToURL(string $string = null): string {
@@ -266,10 +266,10 @@ class Util {
      * @access public
      * @link http://book.cakephp.org/view/1469/Text#truncate-1625
      */
-    public static function truncate(string $text, int $length = 750, array $options = array()): string {
-        $default = array(
+    public static function truncate(string $text, int $length = 750, array $options = []): string {
+        $default = [
             'ending' => '...', 'exact' => true, 'html' => false
-        );
+        ];
         $options = array_merge($default, $options);
         extract($options);
 
@@ -278,7 +278,7 @@ class Util {
                 return $text;
             }
             $totalLength = mb_strlen(strip_tags($ending));
-            $openTags = array();
+            $openTags = [];
             $truncate = '';
 
             preg_match_all('/(<\/?([\w+]+)[^>]*>)?([^<>]*)/', $text, $tags, PREG_SET_ORDER);
@@ -358,20 +358,21 @@ class Util {
     /**
      * Check for Nameless updates.
      *
-     * @param string $current_version Current local namelessmc version to compare.
-     * 
+     * @param string|null $current_version Current local namelessmc version to compare.
+     *
      * @return string JSON object with information about any updates.
+     * @throws Exception
      */
     public static function updateCheck(string $current_version = null): string {
         $queries = new Queries();
 
         // Check for updates
         if (!$current_version) {
-            $current_version = $queries->getWhere('settings', array('name', '=', 'nameless_version'));
+            $current_version = $queries->getWhere('settings', ['name', '=', 'nameless_version']);
             $current_version = $current_version[0]->value;
         }
 
-        $uid = $queries->getWhere('settings', array('name', '=', 'unique_id'));
+        $uid = $queries->getWhere('settings', ['name', '=', 'unique_id']);
         $uid = $uid[0]->value;
 
         $ch = curl_init();
@@ -392,10 +393,10 @@ class Util {
         curl_close($ch);
 
         if (isset($error)) {
-            return json_encode(array('error' => $error));
+            return json_encode(['error' => $error]);
         } else {
             if ($update_check == 'None') {
-                return json_encode(array('no_update' => true));
+                return json_encode(['no_update' => true]);
             } else {
                 $info = json_decode($update_check);
 
@@ -405,11 +406,11 @@ class Util {
                     else
                         $to_db = 'true';
 
-                    $update_id = $queries->getWhere('settings', array('name', '=', 'version_update'));
+                    $update_id = $queries->getWhere('settings', ['name', '=', 'version_update']);
                     $update_id = $update_id[0]->id;
-                    $queries->update('settings', $update_id, array(
+                    $queries->update('settings', $update_id, [
                         'value' => $to_db
-                    ));
+                    ]);
                 }
 
                 return $update_check;
@@ -437,7 +438,7 @@ class Util {
         curl_close($ch);
 
         if (isset($error)) {
-            return json_encode(array('error' => $error));
+            return json_encode(['error' => $error]);
         } else {
             return $news;
         }
@@ -446,9 +447,9 @@ class Util {
     /**
      * Make a GET request to a URL using cURL.
      * Failures will automatically be logged along with the error.
-     * 
+     *
      * @param string $full_url URL to send request to.
-     * @param string $body Request body to attach to request.
+     * @param string|null $body Request body to attach to request.
      * @return string|bool Response from remote server, false on failure.
      */
     public static function curlGetContents(string $full_url, ?string $body = null) {
@@ -458,7 +459,7 @@ class Util {
         curl_setopt($ch, CURLOPT_URL, $full_url);
 
         if ($body != null) {
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+            curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type:application/json']);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
         }
 
@@ -486,14 +487,12 @@ class Util {
      * @return string Replaced string.
      */
     public static function replaceAnchorsWithText(string $data): string {
-        $data = preg_replace_callback('/]*href=["|\']([^"|\']*)["|\'][^>]*>([^<]*)<\/a>/i', static function ($m): string {
+        return preg_replace_callback('/]*href=["|\']([^"|\']*)["|\'][^>]*>([^<]*)<\/a>/i', static function ($m): string {
             if (strpos($m[1], self::getSelfURL()) === false)
                 return '<a href="' . $m[1] . '" rel="nofollow noopener" target="_blank">' . $m[2] . '</a>';
             else
                 return '<a href="' . $m[1] . '" target="_blank">' . $m[2] . '</a>';
         }, $data);
-
-        return $data;
     }
     
     /**
@@ -505,7 +504,7 @@ class Util {
      * @return mixed Setting from DB or $fallback.
      */
     public static function getSetting(DB $db, string $setting, $fallback = null) {
-        $value = $db->get('settings', array('name', '=', $setting));
+        $value = $db->get('settings', ['name', '=', $setting]);
         
         if ($value->count()) {
             return $value->first()->value;
@@ -550,7 +549,7 @@ class Util {
      */
     public static function getIngameRankName(int $website_group_id): ?string {
         $nameless_injector = GroupSyncManager::getInstance()->getInjectorByClass(NamelessMCGroupSyncInjector::class);
-        $data = DB::getInstance()->get('group_sync', array($nameless_injector->getColumnName(), '=', $website_group_id));
+        $data = DB::getInstance()->get('group_sync', [$nameless_injector->getColumnName(), '=', $website_group_id]);
         
         if ($data->count()) {
             return $data->first()->ingame_rank_name;
@@ -567,7 +566,7 @@ class Util {
      * @return string|null Name of group, null if doesnt exist.
      */
     public static function getGroupNameFromId(int $group_id): ?string {
-        $data = DB::getInstance()->get('groups', array('id', '=', $group_id));
+        $data = DB::getInstance()->get('groups', ['id', '=', $group_id]);
 
         if ($data->count()) {
             return $data->first()->name;

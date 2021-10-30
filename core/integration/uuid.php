@@ -18,7 +18,7 @@ class MinecraftProfile {
      * @param string $uuid The player's UUID.
      * @param array $properties The player's properties specified on their Mojang profile.
      */
-    function __CONSTRUCT($username, $uuid, $properties = array()) {
+    function __CONSTRUCT($username, $uuid, $properties = []) {
         $this->username = $username;
         $this->uuid = $uuid;
         $this->properties = $properties;
@@ -49,7 +49,7 @@ class MinecraftProfile {
      * @return array Returns an array with keys of 'properties, usernname and uuid'.
      */
     public function getProfileAsArray() {
-        return array("username" => $this->username, "uuid" => $this->uuid, "properties" => $this->properties);
+        return ["username" => $this->username, "uuid" => $this->uuid, "properties" => $this->properties];
     }
 }
 
@@ -93,7 +93,7 @@ class ProfileUtils {
      */
     public static function getUUIDFromUsername($username, $timeout = 5) {
         if(strlen($username) > 16)
-            return array("username" => "", "uuid" => "");
+            return ["username" => "", "uuid" => ""];
         $url = 'https://api.mojang.com/users/profiles/minecraft/'.htmlspecialchars($username);
 		
 		// Use cURL instead of file_get_contents
@@ -112,8 +112,7 @@ class ProfileUtils {
         if(isset($result) && $result != null && $result != false)
         {
             $ress = json_decode($result, true);
-            $res = Array("username" =>  $ress['name'], "uuid" => $ress['id']);
-            return $res;
+            return ["username" =>  $ress['name'], "uuid" => $ress['id']];
         }
         else
             return null;

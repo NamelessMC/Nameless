@@ -9,7 +9,7 @@
  *  ภาษาไทย Language - Moderator terms
  */
 
-$language = array(
+$language = [
     'mod_cp' => 'ModCP',
     'staff_cp' => 'StaffCP',
     'overview' => 'ภาพรวม',
@@ -106,4 +106,4 @@ $language = array(
     'recent_registrations' => 'การลงทะเบียนล่าสุด',
     'reset_profile_banner' => 'รีเซ็ต banner โปรไฟล์'
 
-);
+];

@@ -36,35 +36,35 @@ if (!isset($_GET['c'])) {
                     $code = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 60);
 
                     // Send an email
-                    $php_mailer = $queries->getWhere('settings', array('name', '=', 'phpmailer'));
+                    $php_mailer = $queries->getWhere('settings', ['name', '=', 'phpmailer']);
                     $php_mailer = $php_mailer[0]->value;
                     $link = rtrim(Util::getSelfURL(), '/') . URL::build('/forgot_password/', 'c=' . $code);
 
                     if ($php_mailer == '1') {
 
                         // PHP Mailer
-                        $email = array(
-                            'to' => array('email' => Output::getClean($target_user->data()->email), 'name' => $target_user->getDisplayname()),
+                        $email = [
+                            'to' => ['email' => Output::getClean($target_user->data()->email), 'name' => $target_user->getDisplayname()],
                             'subject' => SITE_NAME . ' - ' . $language->get('emails', 'change_password_subject'),
                             'message' => str_replace('[Link]', $link, Email::formatEmail('change_password', $language))
-                        );
+                        ];
 
                         $sent = Email::send($email, 'mailer');
 
                         if (isset($sent['error'])) {
                             // Error, log it
-                            $queries->create('email_errors', array(
+                            $queries->create('email_errors', [
                                 'type' => 3, // 3 = forgot password
                                 'content' => $sent['error'],
                                 'at' => date('U'),
                                 'user_id' => $target_user->data()->id
-                            ));
+                            ]);
 
                             $error = $language->get('user', 'unable_to_send_forgot_password_email');
                         }
                     } else {
                         // PHP mail function
-                        $siteemail = $queries->getWhere('settings', array('name', '=', 'outgoing_email'));
+                        $siteemail = $queries->getWhere('settings', ['name', '=', 'outgoing_email']);
                         $siteemail = $siteemail[0]->value;
 
                         $to = $target_user->data()->email;
@@ -78,32 +78,32 @@ if (!isset($_GET['c'])) {
                             'MIME-Version: 1.0' . "\r\n" .
                             'Content-type: text/html; charset=UTF-8' . "\r\n";
 
-                        $email = array(
+                        $email = [
                             'to' => $to,
                             'subject' => $subject,
                             'message' => $message,
                             'headers' => $headers
-                        );
+                        ];
 
                         $sent = Email::send($email, 'php');
 
                         if (isset($sent['error'])) {
                             // Error, log it
-                            $queries->create('email_errors', array(
+                            $queries->create('email_errors', [
                                 'type' => 3, // 3 = forgot password
                                 'content' => $sent['error'],
                                 'at' => date('U'),
                                 'user_id' => $target_user->data()->id
-                            ));
+                            ]);
 
                             $error = $language->get('user', 'unable_to_send_forgot_password_email');
                         }
                     }
 
                     if (!isset($error)) {
-                        $target_user->update(array(
+                        $target_user->update([
                             'reset_code' => $code
-                        ));
+                        ]);
                     }
                 }
 
@@ -118,19 +118,19 @@ if (!isset($_GET['c'])) {
     else if (isset($success))
         $smarty->assign('SUCCESS', $success);
 
-    $smarty->assign(array(
+    $smarty->assign([
         'FORGOT_PASSWORD' => str_replace('?', '', $language->get('user', 'forgot_password')),
         'FORGOT_PASSWORD_INSTRUCTIONS' => $language->get('user', 'forgot_password_instructions'),
         'EMAIL_ADDRESS' => $language->get('user', 'email_address'),
         'TOKEN' => Token::get(),
         'SUBMIT' => $language->get('general', 'submit')
-    ));
+    ]);
 
     $page_load = microtime(true) - $start;
     define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
     // Load modules + template
-    Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
+    Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
     $template->onPageLoad();
 
     require(ROOT_PATH . '/core/templates/navbar.php');
@@ -171,32 +171,32 @@ if (!isset($_GET['c'])) {
 
             if ($validation->passed()) {
                 if (strcasecmp($target_user->data()->email, $_POST['email']) == 0) {
-                    $new_password = password_hash(Input::get('password'), PASSWORD_BCRYPT, array("cost" => 13));
+                    $new_password = password_hash(Input::get('password'), PASSWORD_BCRYPT, ["cost" => 13]);
                     try {
-                        $target_user->update(array(
+                        $target_user->update([
                             'password' => $new_password,
                             'reset_code' => null
-                        ));
+                        ]);
 
                         Session::flash('login_success', $language->get('user', 'forgot_password_change_successful'));
                         Redirect::to(URL::build('/login'));
                         die();
                     } catch (Exception $e) {
-                        $errors = array($e->getMessage());
+                        $errors = [$e->getMessage()];
                     }
                 } else
-                    $errors = array($language->get('user', 'incorrect_email'));
+                    $errors = [$language->get('user', 'incorrect_email')];
             } else {
                 $errors = $validation->errors();
             }
         } else
-            $errors = array($language->get('general', 'invalid_token'));
+            $errors = [$language->get('general', 'invalid_token')];
     }
 
     if (isset($errors) && count($errors))
         $smarty->assign('ERROR', $errors);
 
-    $smarty->assign(array(
+    $smarty->assign([
         'FORGOT_PASSWORD' => str_replace('?', '', $language->get('user', 'forgot_password')),
         'ENTER_NEW_PASSWORD' => $language->get('user', 'enter_new_password'),
         'EMAIL_ADDRESS' => $language->get('user', 'email_address'),
@@ -204,10 +204,10 @@ if (!isset($_GET['c'])) {
         'CONFIRM_PASSWORD' => $language->get('user', 'confirm_password'),
         'TOKEN' => Token::get(),
         'SUBMIT' => $language->get('general', 'submit')
-    ));
+    ]);
 
     // Load modules + template
-    Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
+    Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
     $page_load = microtime(true) - $start;
     define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));

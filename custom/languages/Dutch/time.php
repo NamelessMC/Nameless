@@ -11,7 +11,7 @@
  *  Nederlandse taal - Tijd
  */
 
-$language = array(
+$language = [
     /*
      *  Tijd
      */
@@ -28,4 +28,4 @@ $language = array(
     '_months' => '{x} maanden geleden',
     'about_1_year' => 'ongeveer 1 jaar geleden',
     'over_x_years' => 'meer dan {x} jaar geleden'
-);
+];

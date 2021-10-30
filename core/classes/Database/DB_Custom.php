@@ -23,7 +23,7 @@ class DB_Custom {
 
     public function __construct(string $host, string $database, string $username, string $password, int $port = 3306) {
         try {
-            $this->_pdo = new PDO('mysql:host=' . $host . ';port=' . $port . ';dbname=' . $database, $username, $password, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"));
+            $this->_pdo = new PDO('mysql:host=' . $host . ';port=' . $port . ';dbname=' . $database, $username, $password, [PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"]);
             $this->_pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->_prefix = '';
         } catch (PDOException $e) {
@@ -43,11 +43,11 @@ class DB_Custom {
     /**
      * @deprecated Use selectQuery function to select data from DB, or createQuery function to modify data in DB
      */
-    public function query(string $sql,  array $params = array(), int $fetch_method = PDO::FETCH_OBJ): DB_Custom {
+    public function query(string $sql, array $params = [], int $fetch_method = PDO::FETCH_OBJ): DB_Custom {
         return $this->selectQuery(...func_get_args());
     }
 
-    public function selectQuery(string $sql,  array $params = array(), int $fetch_method = PDO::FETCH_OBJ): DB_Custom {
+    public function selectQuery(string $sql, array $params = [], int $fetch_method = PDO::FETCH_OBJ): DB_Custom {
         $this->_error = false;
         if ($this->_query = $this->_pdo->prepare($sql)) {
             $x = 1;
@@ -71,7 +71,7 @@ class DB_Custom {
         return $this;
     }
 
-    public function createQuery(string $sql, array $params = array()): DB_Custom {
+    public function createQuery(string $sql, array $params = []): DB_Custom {
         $this->_error = false;
         if ($this->_query = $this->_pdo->prepare($sql)) {
             $x = 1;
@@ -104,9 +104,9 @@ class DB_Custom {
         return false;
     }
 
-    public function action(string $action, string $table, array $where = array()) {
+    public function action(string $action, string $table, array $where = []) {
         if (count($where) === 3) {
-            $operators = array('=', '>', '<', '>=', '<=', '<>');
+            $operators = ['=', '>', '<', '>=', '<=', '<>'];
 
             $field         = $where[0];
             $operator     = $where[1];
@@ -117,7 +117,7 @@ class DB_Custom {
             if (in_array($operator, $operators)) {
                 $sql = "{$action} FROM {$table} WHERE {$field} {$operator} ?";
 
-                if (!$this->selectQuery($sql, array($value))->error()) {
+                if (!$this->selectQuery($sql, [$value])->error()) {
                     return $this;
                 }
             }
@@ -126,9 +126,9 @@ class DB_Custom {
         return false;
     }
 
-    public function deleteAction(string $action, string $table, array $where = array()) {
+    public function deleteAction(string $action, string $table, array $where = []) {
         if (count($where) === 3) {
-            $operators = array('=', '>', '<', '>=', '<=', '<>');
+            $operators = ['=', '>', '<', '>=', '<=', '<>'];
 
             $field         = $where[0];
             $operator     = $where[1];
@@ -139,7 +139,7 @@ class DB_Custom {
             if (in_array($operator, $operators)) {
                 $sql = "{$action} FROM {$table} WHERE {$field} {$operator} ?";
 
-                if (!$this->createQuery($sql, array($value))->error()) {
+                if (!$this->createQuery($sql, [$value])->error()) {
                     return $this;
                 }
             }
@@ -167,7 +167,7 @@ class DB_Custom {
         return $this->deleteAction('DELETE', $table, $where);
     }
 
-    public function insert(string $table, array $fields = array()): bool {
+    public function insert(string $table, array $fields = []): bool {
         $keys = array_keys($fields);
         $values = '';
         $x = 1;
@@ -216,7 +216,7 @@ class DB_Custom {
         $table = $this->_prefix . $table;
         $sql = "UPDATE {$table} SET {$field} = {$field} + 1 WHERE id = ?";
 
-        if (!$this->createQuery($sql, array($id))->error()) {
+        if (!$this->createQuery($sql, [$id])->error()) {
             return true;
         }
 
@@ -227,7 +227,7 @@ class DB_Custom {
         $table = $this->_prefix . $table;
         $sql = "UPDATE {$table} SET {$field} = {$field} - 1 WHERE id = ?";
 
-        if (!$this->createQuery($sql, array($id))->error()) {
+        if (!$this->createQuery($sql, [$id])->error()) {
             return true;
         }
 

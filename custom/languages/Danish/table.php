@@ -9,7 +9,7 @@
  *  Danish Language - General terms
  */
 
-$language = array(
+$language = [
     /*
      *  Tables
      */
@@ -18,4 +18,4 @@ $language = array(
     'page_x_of_y' => 'Viser side _PAGE_ af _PAGES_', // Don't replace "_PAGE_" or "_PAGES_"
     'no_records' => 'Ingen tilgængelige opgørelser',
     'filtered' => '(filtreret fra _MAX_ samlede opgørelser)' // Don't replace "_MAX_"
-);
+];

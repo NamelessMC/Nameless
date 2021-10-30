@@ -65,7 +65,7 @@ if ($page != 'install') {
     define('FRIENDLY_URLS', Config::get('core/friendly'));
 
     // Set up cache
-    $cache = new Cache(array('name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/'));
+    $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
 
     // Force https/www?
     if (Config::get('core/force_https')) define('FORCE_SSL', true);
@@ -124,7 +124,7 @@ if ($page != 'install') {
     $configuration = new Configuration($cache);
 
     // Get the Nameless version
-    $nameless_version = $queries->getWhere('settings', array('name', '=', 'nameless_version'));
+    $nameless_version = $queries->getWhere('settings', ['name', '=', 'nameless_version']);
     $nameless_version = $nameless_version[0]->value;
     define('NAMELESS_VERSION', $nameless_version);
 
@@ -133,7 +133,7 @@ if ($page != 'install') {
     // Do they need logging in (checked remember me)?
     if (Cookie::exists(Config::get('remember/cookie_name')) && !Session::exists(Config::get('session/session_name'))) {
         $hash = Cookie::get(Config::get('remember/cookie_name'));
-        $hashCheck = DB::getInstance()->get('users_session', array('hash', '=', $hash));
+        $hashCheck = DB::getInstance()->get('users_session', ['hash', '=', $hash]);
 
         if ($hashCheck->count()) {
             $user = new User($hashCheck->first()->user_id);
@@ -202,7 +202,7 @@ if ($page != 'install') {
         }
     } else {
         // User selected language
-        $language = $queries->getWhere('languages', array('id', '=', $user->data()->language_id));
+        $language = $queries->getWhere('languages', ['id', '=', $user->data()->language_id]);
         if (!count($language)) {
             // Get default language
             $cache->setCache('languagecache');
@@ -244,7 +244,7 @@ if ($page != 'install') {
         }
     } else {
         // User selected template
-        $template = $queries->getWhere('templates', array('id', '=', $user->data()->theme_id));
+        $template = $queries->getWhere('templates', ['id', '=', $user->data()->theme_id]);
         if (!count($template)) {
             // Get default template
             $cache->setCache('templatecache');
@@ -299,7 +299,7 @@ if ($page != 'install') {
     // Smarty
     $smarty = new Smarty();
     $securityPolicy = new Smarty_Security($smarty);
-    $securityPolicy->php_modifiers = array(
+    $securityPolicy->php_modifiers = [
         'escape',
         'count',
         'key',
@@ -312,8 +312,8 @@ if ($page != 'install') {
         'implode',
         'strtolower',
         'strtoupper'
-    );
-    $securityPolicy->php_functions = array(
+    ];
+    $securityPolicy->php_functions = [
         'isset',
         'empty',
         'count',
@@ -325,12 +325,12 @@ if ($page != 'install') {
         'is_numeric',
         'file_exists',
         'array_key_exists'
-    );
-    $securityPolicy->secure_dir = array(ROOT_PATH . '/custom/templates', ROOT_PATH . '/custom/panel_templates');
+    ];
+    $securityPolicy->secure_dir = [ROOT_PATH . '/custom/templates', ROOT_PATH . '/custom/panel_templates'];
     $smarty->enableSecurity($securityPolicy);
 
     // Basic Smarty variables
-    $smarty->assign(array(
+    $smarty->assign([
         'CONFIG_PATH' => defined('CONFIG_PATH') ? CONFIG_PATH . '/' : '/',
         'OG_URL' => Output::getClean(rtrim(Util::getSelfURL(), '/') . $_SERVER['REQUEST_URI']),
         'OG_IMAGE' => Output::getClean(rtrim(Util::getSelfURL(), '/') . '/core/assets/img/site_image.png'),
@@ -338,16 +338,16 @@ if ($page != 'install') {
         'SITE_HOME' => URL::build('/'),
         'USER_INFO_URL' => URL::build('/queries/user/', 'id='),
         'GUEST' => $language->get('user', 'guest')
-    ));
+    ]);
 
     // Cookie notice
     if (!$user->isLoggedIn()) {
         // Cookie notice for guests
         if (!Cookie::exists('accept')) {
-            $smarty->assign(array(
+            $smarty->assign([
                 'COOKIE_NOTICE' => $language->get('general', 'cookie_notice'),
                 'COOKIE_AGREE' => $language->get('general', 'cookie_agree')
-            ));
+            ]);
 
             define('COOKIE_NOTICE', true);
         }
@@ -399,7 +399,7 @@ if ($page != 'install') {
     }
 
     // Minecraft integration?
-    $mc_integration = $queries->getWhere('settings', array('name', '=', 'mc_integration'));
+    $mc_integration = $queries->getWhere('settings', ['name', '=', 'mc_integration']);
     if (count($mc_integration) && $mc_integration[0]->value == '1')
         define('MINECRAFT', true);
     else
@@ -453,9 +453,9 @@ if ($page != 'install') {
     // Modules
     $cache->setCache('modulescache');
     if (!$cache->isCached('enabled_modules')) {
-        $cache->store('enabled_modules', array(
-            array('name' => 'Core', 'priority' => 1)
-        ));
+        $cache->store('enabled_modules', [
+            ['name' => 'Core', 'priority' => 1]
+        ]);
         $cache->store('module_core', true);
     }
     $enabled_modules = $cache->retrieve('enabled_modules');
@@ -468,10 +468,10 @@ if ($page != 'install') {
     }
 
     if (!isset($core_exists)) {
-        $enabled_modules[] = array(
+        $enabled_modules[] = [
             'name' => 'Core',
             'priority' => 1
-        );
+        ];
     }
 
     $pages = new Pages();
@@ -501,7 +501,7 @@ if ($page != 'install') {
         }
 
         // Is the IP address banned?
-        $ip_bans = $queries->getWhere('ip_bans', array('ip', '=', $ip));
+        $ip_bans = $queries->getWhere('ip_bans', ['ip', '=', $ip]);
         if (count($ip_bans)) {
             $user->logout();
             Session::flash('home_error', $language->get('user', 'you_have_been_banned'));
@@ -511,24 +511,24 @@ if ($page != 'install') {
 
         // Update user last IP and last online
         if (filter_var($ip, FILTER_VALIDATE_IP)) {
-            $user->update(array(
+            $user->update([
                 'last_online' => date('U'),
                 'lastip' => $ip
-            ));
+            ]);
         } else {
-            $user->update(array(
+            $user->update([
                 'last_online' => date('U')
-            ));
+            ]);
         }
 
         // Insert it into the logs
-        $user_ip_logged = $queries->getWhere('users_ips', array('ip', '=', $ip));
+        $user_ip_logged = $queries->getWhere('users_ips', ['ip', '=', $ip]);
         if (!count($user_ip_logged)) {
             // Create the entry now
-            $queries->create('users_ips', array(
+            $queries->create('users_ips', [
                 'user_id' => $user->data()->id,
                 'ip' => $ip
-            ));
+            ]);
         } else {
             if (count($user_ip_logged) > 1) {
                 foreach ($user_ip_logged as $user_ip) {
@@ -542,18 +542,18 @@ if ($page != 'install') {
 
                 if (!isset($already_logged)) {
                     // Not yet logged, do so now
-                    $queries->create('users_ips', array(
+                    $queries->create('users_ips', [
                         'user_id' => $user->data()->id,
                         'ip' => $ip
-                    ));
+                    ]);
                 }
             } else {
                 // Does the entry already belong to the current user?
                 if ($user_ip_logged[0]->user_id != $user->data()->id) {
-                    $queries->create('users_ips', array(
+                    $queries->create('users_ips', [
                         'user_id' => $user->data()->id,
                         'ip' => $ip
-                    ));
+                    ]);
                 }
             }
         }
@@ -569,7 +569,7 @@ if ($page != 'install') {
         if (isset($forced) && $forced) {
             // Do they have TFA configured?
             if (!$user->data()->tfa_enabled && rtrim($_GET['route'], '/') != '/logout') {
-                if (strpos($_SERVER[REQUEST_URI], 'do=enable_tfa') === false) {
+                if (strpos($_SERVER['REQUEST_URI'], 'do=enable_tfa') === false) {
                     Session::put('force_tfa_alert', $language->get('admin', 'force_tfa_alert'));
                     Redirect::to(URL::build('/user/settings', 'do=enable_tfa'));
                     die();
@@ -578,7 +578,7 @@ if ($page != 'install') {
         }
 
         // Basic user variables
-        $smarty->assign('LOGGED_IN_USER', array(
+        $smarty->assign('LOGGED_IN_USER', [
             'username' => $user->getDisplayname(true),
             'nickname' => $user->getDisplayname(),
             'profile' => $user->getProfileURL(),
@@ -587,26 +587,26 @@ if ($page != 'install') {
             'user_title' => Output::getClean($user->data()->user_title),
             'avatar' => $user->getAvatar(),
             'uuid' => Output::getClean($user->data()->uuid)
-        ));
+        ]);
 
         // Panel access?
         if ($user->canViewStaffCP()) {
-            $smarty->assign(array(
+            $smarty->assign([
                 'PANEL_LINK' => URL::build('/panel'),
                 'PANEL' => $language->get('moderator', 'staff_cp')
-            ));
+            ]);
         }
     } else {
         // Perform tasks for guests
         if (!$_SESSION['checked'] || $_SESSION['checked'] <= strtotime('-5 minutes')) {
-            $already_online = $queries->getWhere('online_guests', array('ip', '=', $ip));
+            $already_online = $queries->getWhere('online_guests', ['ip', '=', $ip]);
 
             $date = date('U');
 
             if (count($already_online)) {
-                $queries->update('online_guests', $already_online[0]->id, array('last_seen' => $date));
+                $queries->update('online_guests', $already_online[0]->id, ['last_seen' => $date]);
             } else {
-                $queries->create('online_guests', array('ip' => $ip, 'last_seen' => $date));
+                $queries->create('online_guests', ['ip' => $ip, 'last_seen' => $date]);
             }
 
             $_SESSION['checked'] = $date;

@@ -9,7 +9,7 @@
  *  Swedish Language - API
  */
 
-$language = array(
+$language = [
 
     // Errors
     'api_disabled' => 'API är inaktiverat',
@@ -51,4 +51,4 @@ $language = array(
     'username_updated' => 'Användarnamn uppdaterades framgångsrikt',
     'server_info_updated' => 'Serverinfo uppdaterades framgångsrikt',
     'account_validated' => 'Kontot validerades framgångsrikt',
-);
+];

@@ -11,7 +11,7 @@
  *  Translation progress(v2-pr9) : 100%
  */
 
-$language = array(
+$language = [
 
     // Errors
     'api_disabled' => 'API 已被禁用',
@@ -53,4 +53,4 @@ $language = array(
     'username_updated' => '用户名更新成功',
     'server_info_updated' => '服务器信息更新成功',
     'account_validated' => '账号校验成功',
-);
+];

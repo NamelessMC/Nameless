@@ -15,7 +15,7 @@ class LatestPostsWidget extends WidgetBase {
     private Cache $_cache;
     private User $_user;
 
-    public function __construct(array $pages = array(), string $latest_posts_language, string $by_language, Smarty $smarty, Cache $cache, User $user, Language $language) {
+    public function __construct(array $pages = [], string $latest_posts_language, string $by_language, Smarty $smarty, Cache $cache, User $user, Language $language) {
     	$this->_smarty = $smarty;
     	$this->_cache = $cache;
     	$this->_user = $user;
@@ -24,7 +24,7 @@ class LatestPostsWidget extends WidgetBase {
         parent::__construct($pages);
 
         // Get widget
-        $widget_query = DB::getInstance()->selectQuery('SELECT `location`, `order` FROM nl2_widgets WHERE `name` = ?', array('Latest Posts'))->first();
+        $widget_query = DB::getInstance()->selectQuery('SELECT `location`, `order` FROM nl2_widgets WHERE `name` = ?', ['Latest Posts'])->first();
 
         // Set widget variables
         $this->_module = 'Forum';
@@ -33,10 +33,10 @@ class LatestPostsWidget extends WidgetBase {
         $this->_description = 'Display latest posts from your forum.';
         $this->_order = $widget_query->order ?? null;
 
-        $this->_smarty->assign(array(
+        $this->_smarty->assign([
         	'LATEST_POSTS' => $latest_posts_language,
 	        'BY' => $by_language
-        ));
+        ]);
     }
 
     public function initialise(): void {
@@ -64,26 +64,26 @@ class LatestPostsWidget extends WidgetBase {
 			    $limit = 5;
 		    }
 
-		    $template_array = array();
+		    $template_array = [];
 
 		    // Generate an array to pass to template
 		    while($n < $limit){
 			    // Get the name of the forum from the ID
-			    $forum_name = $queries->getWhere('forums', array('id', '=', $discussions[$n]['forum_id']));
+			    $forum_name = $queries->getWhere('forums', ['id', '=', $discussions[$n]['forum_id']]);
 			    $forum_name = Output::getPurified(htmlspecialchars_decode($forum_name[0]->forum_title));
 
 			    // Get the number of replies
-			    $posts = $queries->getWhere('posts', array('topic_id', '=', $discussions[$n]['id']));
+			    $posts = $queries->getWhere('posts', ['topic_id', '=', $discussions[$n]['id']]);
 			    $posts = count($posts);
 
 			    // Is there a label?
 			    if($discussions[$n]['label'] != 0){ // yes
 				    // Get label
-				    $label = $queries->getWhere('forums_topic_labels', array('id', '=', $discussions[$n]['label']));
+				    $label = $queries->getWhere('forums_topic_labels', ['id', '=', $discussions[$n]['label']]);
 				    if(count($label)){
 					    $label = $label[0];
 
-					    $label_html = $queries->getWhere('forums_labels', array('id', '=', $label->label));
+					    $label_html = $queries->getWhere('forums_labels', ['id', '=', $label->label]);
 					    if(count($label_html)){
 						    $label_html = $label_html[0]->html;
 						    $label = str_replace('{x}', Output::getClean($label->name), $label_html);
@@ -96,7 +96,7 @@ class LatestPostsWidget extends WidgetBase {
 			    // Add to array
 				$topic_creator = new User($discussions[$n]['topic_creator']);
 				$last_reply_user = new User($discussions[$n]['topic_last_user']);
-			    $template_array[] = array(
+			    $template_array[] = [
 				    'topic_title' => Output::getClean($discussions[$n]['topic_title']),
 				    'topic_id' => $discussions[$n]['id'],
 				    'topic_created_rough' => $timeago->inWords(date('d M Y, H:i', $discussions[$n]['topic_date']), $this->_language->getTimeLanguage()),
@@ -123,7 +123,7 @@ class LatestPostsWidget extends WidgetBase {
 				    'author_link' => $topic_creator->getProfileURL(),
 				    'last_reply_profile_link' => $last_reply_user->getProfileURL(),
 				    'last_reply_link' => URL::build('/forum/topic/' . $discussions[$n]['id'] . '-' . $forum->titleToURL($discussions[$n]['topic_title']), 'pid=' . $discussions[$n]['last_post_id'])
-			    );
+                ];
 
 			    $n++;
 		    }

@@ -10,7 +10,7 @@
  *  German Language - API
  */
 
-$language = array(
+$language = [
 
     // Errors
     'api_disabled' => 'API ist deaktiviert',
@@ -53,4 +53,4 @@ $language = array(
     'username_updated' => 'Benutzername erfolgreich aktualisiert',
     'server_info_updated' => 'Serverinformationen erfolgreich aktualisiert',
     'account_validated' => 'Konto erfolgreich validiert',
-);
+];

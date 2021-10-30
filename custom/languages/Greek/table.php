@@ -11,7 +11,7 @@
  *  Greek Language - Table
  */
 
-$language = array(
+$language = [
     /*
      *  Tables
      */
@@ -20,4 +20,4 @@ $language = array(
     'page_x_of_y' => 'Εμφάνιση σελίδας _PAGE_ of _PAGES_', // Don't replace "_PAGE_" or "_PAGES_"
     'no_records' => 'Δεν ύπαρχουν διαθέσιμες καταγραφές',
     'filtered' => '(filtered from _MAX_ total records)' // Don't replace "_MAX_"
-);
+];

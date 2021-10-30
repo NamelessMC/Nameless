@@ -6,7 +6,7 @@ $nameless_terms = 'This website uses "Nameless" website software. The ' .
 'The website is run independently from the software creators, and any content' .
 ' is the responsibility of the website administration.';
 
-function create_step($name, $icon, $child_steps = array()) {
+function create_step($name, $icon, $child_steps = []) {
 
     global $step;
 
@@ -30,7 +30,7 @@ function create_step($name, $icon, $child_steps = array()) {
 
 }
 
-function create_field($type, $label, $name, $id, $value = '', $options = array(), $fallback = false) {
+function create_field($type, $label, $name, $id, $value = '', $options = [], $fallback = false) {
 
     if ($type == 'select') {
 

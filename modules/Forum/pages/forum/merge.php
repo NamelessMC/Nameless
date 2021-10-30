@@ -27,7 +27,7 @@ if (!isset($_GET["tid"]) || !is_numeric($_GET["tid"])) {
     die();
 } else {
     $topic_id = $_GET["tid"];
-    $forum_id = DB::getInstance()->selectQuery('SELECT forum_id FROM nl2_topics WHERE id = ?', array($topic_id))->first();
+    $forum_id = DB::getInstance()->selectQuery('SELECT forum_id FROM nl2_topics WHERE id = ?', [$topic_id])->first();
     $forum_id = $forum_id->forum_id;
 }
 
@@ -41,15 +41,15 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
                 ]
             ]);
 
-            $posts_to_move = $queries->getWhere('posts', array('topic_id', '=', $topic_id));
+            $posts_to_move = $queries->getWhere('posts', ['topic_id', '=', $topic_id]);
             if ($validation->passed()) {
 
                 foreach ($posts_to_move as $post_to_move) {
-                    $queries->update('posts', $post_to_move->id, array(
+                    $queries->update('posts', $post_to_move->id, [
                         'topic_id' => Input::get('merge')
-                    ));
+                    ]);
                 }
-                $queries->delete('topics', array('id', '=', $topic_id));
+                $queries->delete('topics', ['id', '=', $topic_id]);
                 Log::getInstance()->log(Log::Action('forums/merge'));
                 // Update latest posts in categories
                 $forum->updateForumLatestPosts();
@@ -72,10 +72,10 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
 $token = Token::get();
 
 // Get topics
-$topics = DB::getInstance()->selectQuery('SELECT * FROM nl2_topics WHERE forum_id = ? AND deleted = 0 AND id <> ? ORDER BY id ASC', array($forum_id, $topic_id))->results();
+$topics = DB::getInstance()->selectQuery('SELECT * FROM nl2_topics WHERE forum_id = ? AND deleted = 0 AND id <> ? ORDER BY id ASC', [$forum_id, $topic_id])->results();
 
 // Smarty
-$smarty->assign(array(
+$smarty->assign([
     'MERGE_TOPICS' => $forum_language->get('forum', 'merge_topics'),
     'MERGE_INSTRUCTIONS' => $forum_language->get('forum', 'merge_instructions'),
     'TOKEN' => Token::get(),
@@ -84,10 +84,10 @@ $smarty->assign(array(
     'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
     'CANCEL_LINK' => URL::build('/forum/topic/' . Output::getClean($topic_id)),
     'TOPICS' => $topics
-));
+]);
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 $page_load = microtime(true) - $start;
 define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));

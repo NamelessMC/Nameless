@@ -14,7 +14,7 @@ class Pages {
     private array $_pages;
 	private array $_active_page;
     private array $_sm_methods;
-    private array $_ajax_requests = array();
+    private array $_ajax_requests = [];
 
     private int $_id = 1;
 
@@ -28,13 +28,13 @@ class Pages {
      * @param bool $widgets Can widgets be used on the page? Default false.
      */
     public function add(string $module, string $url, string $file, string $name = '', bool $widgets = false): void {
-        $this->_pages[$url] = array(
+        $this->_pages[$url] = [
             'module' => $module,
             'file' => $file,
             'name' => $name,
             'widgets' => $widgets,
             'id' => $this->_id++
-        );
+        ];
     }
 
     /**
@@ -45,14 +45,14 @@ class Pages {
      * @param bool|null $widgets Can widgets be used on the page? Default false.
      */
     public function addCustom(string $url, string $name, bool $widgets = false) {
-        $this->_pages[$url] = array(
+        $this->_pages[$url] = [
             'module' => 'Core',
             'file' => 'custom.php',
             'name' => $name,
             'widgets' => $widgets,
             'custom' => true,
             'id' => $this->_id++
-        );
+        ];
     }
 
     /**
@@ -70,7 +70,7 @@ class Pages {
      * @return array All pages which allow widgets.
      */
     public function returnWidgetPages(): array {
-        $ret = array();
+        $ret = [];
 
         foreach ($this->_pages as $page) {
             if (!empty($page['name']) && $page['widgets'] === true) {
@@ -87,7 +87,7 @@ class Pages {
     public function registerSitemapMethod(string $file, string $method): void {
         if ($file && $method) {
             if (!isset($this->_sm_methods[$file])) {
-                $this->_sm_methods[$file] = array();
+                $this->_sm_methods[$file] = [];
             }
 
             $this->_sm_methods[$file] = $method;
@@ -106,8 +106,8 @@ class Pages {
     /**
      * Get page by ID
      *
-     * @param int $page_id ID of page to find.
-     * 
+     * @param int|null $page_id ID of page to find.
+     *
      * @return array Page information.
      */
     public function getPageById(int $page_id = null): array {
@@ -126,8 +126,8 @@ class Pages {
     /**
      * Get page by URL.
      *
-     * @param string $url URL of page to find.
-     * 
+     * @param string|null $url URL of page to find.
+     *
      * @return array Page information.
      */
     public function getPageByURL(string $url = null): array {
@@ -163,7 +163,7 @@ class Pages {
     /**
      * Add a script for Javascript to perform a GET request to.
      *
-     * @param string $script URL of js script to add.
+     * @param string|null $script URL of js script to add.
      */
     public function addAjaxScript(string $script = null): void {
         if ($script) {

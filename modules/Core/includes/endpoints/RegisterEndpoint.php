@@ -47,17 +47,17 @@ class RegisterEndpoint extends EndpointBase {
         }
 
         // Ensure user doesn't already exist
-        $username = $api->getDb()->get('users', array('username', '=', Output::getClean($_POST['username'])));
+        $username = $api->getDb()->get('users', ['username', '=', Output::getClean($_POST['username'])]);
         if (count($username->results())) {
             $api->throwError(11, $api->getLanguage()->get('api', 'username_already_exists'));
         }
 
         if ($minecraft_integration) {
-            $uuid = $api->getDb()->get('users', array('uuid', '=', Output::getClean($_POST['uuid'])));
+            $uuid = $api->getDb()->get('users', ['uuid', '=', Output::getClean($_POST['uuid'])]);
             if (count($uuid->results())) $api->throwError(12, $api->getLanguage()->get('api', 'uuid_already_exists'));
         }
 
-        $email = $api->getDb()->get('users', array('email', '=', Output::getClean($_POST['email'])));
+        $email = $api->getDb()->get('users', ['email', '=', Output::getClean($_POST['email'])]);
         if (count($email->results())) {
             $api->throwError(10, $api->getLanguage()->get('api', 'email_already_exists'));
         }
@@ -102,11 +102,11 @@ class RegisterEndpoint extends EndpointBase {
 
         if (Util::getSetting($api->getDb(), 'phpmailer')) {
             // PHP Mailer
-            $email = array(
-                'to' => array('email' => Output::getClean($email), 'name' => Output::getClean($username)),
+            $email = [
+                'to' => ['email' => Output::getClean($email), 'name' => Output::getClean($username)],
                 'subject' => SITE_NAME . ' - ' . $api->getLanguage()->get('emails', 'register_subject'),
                 'message' => str_replace('[Link]', $link, $html)
-            );
+            ];
 
             $sent = Email::send($email, 'mailer');
 
@@ -114,12 +114,12 @@ class RegisterEndpoint extends EndpointBase {
                 // Error, log it
                 $api->getDb()->insert(
                     'email_errors',
-                    array(
+                    [
                         'type' => 4, // 4 = API registration email
                         'content' => $sent['error'],
                         'at' => date('U'),
                         'user_id' => $user_id
-                    )
+                    ]
                 );
 
                 $api->throwError(14, $api->getLanguage()->get('api', 'unable_to_send_registration_email'));
@@ -137,12 +137,12 @@ class RegisterEndpoint extends EndpointBase {
             'MIME-Version: 1.0' . "\r\n" .
             'Content-type: text/html; charset=UTF-8' . "\r\n";
 
-            $email = array(
+            $email = [
                 'to' => $to,
                 'subject' => $subject,
                 'message' => str_replace('[Link]', $link, $html),
                 'headers' => $headers
-            );
+            ];
 
             $sent = Email::send($email, 'php');
 
@@ -150,12 +150,12 @@ class RegisterEndpoint extends EndpointBase {
                 // Error, log it
                 $api->getDb()->insert(
                     'email_errors',
-                    array(
+                    [
                         'type' => 4,
                         'content' => $sent['error'],
                         'at' => date('U'),
                         'user_id' => $user_id
-                    )
+                    ]
                 );
 
                 $api->throwError(14, $api->getLanguage()->get('api', 'unable_to_send_registration_email'));
@@ -163,7 +163,7 @@ class RegisterEndpoint extends EndpointBase {
         }
 
         $user = new User();
-        EventHandler::executeEvent('registerUser', array(
+        EventHandler::executeEvent('registerUser', [
                 'event' => 'registerUser',
                 'user_id' => $user_id,
                 'username' => Output::getClean($username),
@@ -171,10 +171,10 @@ class RegisterEndpoint extends EndpointBase {
                 'avatar_url' => $user->getAvatar(128, true),
                 'url' => Util::getSelfURL() . ltrim(URL::build('/profile/' . Output::getClean($username)), '/'),
                 'language' => $api->getLanguage()
-            )
+            ]
         );
 
-        $api->returnArray(array('message' => $api->getLanguage()->get('api', 'finish_registration_email')));
+        $api->returnArray(['message' => $api->getLanguage()->get('api', 'finish_registration_email')]);
     }
 
     /**
@@ -182,12 +182,16 @@ class RegisterEndpoint extends EndpointBase {
      *
      * For internal API use only
      *
-     * @see Nameless2API::register()
-     *
+     * @param Nameless2API $api
      * @param string $username The username of the new user to create
      * @param string $uuid (optional) The Minecraft UUID of the new user
      * @param string $email The email of the new user
-     * @param string $code The reset token/temp password of the new user
+     * @param bool $return
+     * @param string|null $code The reset token/temp password of the new user
+     * @param bool $api_verification
+     * @return array|void
+     * @see Nameless2API::register()
+     *
      */
     private function createUser(Nameless2API $api, string $username, string $uuid, string $email, bool $return, string $code = null, bool $api_verification = false) {
         try {
@@ -195,7 +199,7 @@ class RegisterEndpoint extends EndpointBase {
             if (!is_file(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('default_group') . '.cache')) {
                 // Not cached, cache now
                 // Retrieve from database
-                $default_group = $api->getDb()->get('groups', array('default_group', '=', 1));
+                $default_group = $api->getDb()->get('groups', ['default_group', '=', 1]);
                 if (!$default_group->count()) {
                     $default_group = 1;
                 } else {
@@ -203,13 +207,13 @@ class RegisterEndpoint extends EndpointBase {
                     $default_group = $default_group[0]->id;
                 }
 
-                $to_cache = array(
-                    'default_group' => array(
+                $to_cache = [
+                    'default_group' => [
                         'time' => date('U'),
                         'expire' => 0,
                         'data' => serialize($default_group)
-                    )
-                );
+                    ]
+                ];
 
                 // Store in cache file
                 file_put_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('default_group') . '.cache', json_encode($to_cache));
@@ -223,7 +227,7 @@ class RegisterEndpoint extends EndpointBase {
                 $code = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 60);
             }
 
-            $api->getDb()->insert('users', array(
+            $api->getDb()->insert('users', [
                     'username' => Output::getClean($username),
                     'nickname' => Output::getClean($username),
                     'uuid' => $uuid,
@@ -234,7 +238,7 @@ class RegisterEndpoint extends EndpointBase {
                     'active' => $api_verification === true ? 1 : 0,
                     'reset_code' => $code,
                     'last_online' => date('U')
-                )
+                ]
             );
 
             $user_id = $api->getDb()->lastId();
@@ -242,7 +246,7 @@ class RegisterEndpoint extends EndpointBase {
             $user = new User($user_id);
             $user->setGroup($default_group);
 
-            EventHandler::executeEvent('registerUser', array(
+            EventHandler::executeEvent('registerUser', [
                     'event' => 'registerUser',
                     'user_id' => $user_id,
                     'username' => $user->getDisplayname(),
@@ -250,13 +254,13 @@ class RegisterEndpoint extends EndpointBase {
                     'avatar_url' => $user->getAvatar(128, true),
                     'url' => Util::getSelfURL() . ltrim($user->getProfileURL(), '/'),
                     'language' => $api->getLanguage()
-                )
+                ]
             );
 
             if ($return || $api_verification) {
-                $api->returnArray(array('message' => $api->getLanguage()->get('api', 'finish_registration_link'), 'user_id' => $user_id, 'link' => rtrim(Util::getSelfURL(), '/') . URL::build('/complete_signup/', 'c=' . $code)));
+                $api->returnArray(['message' => $api->getLanguage()->get('api', 'finish_registration_link'), 'user_id' => $user_id, 'link' => rtrim(Util::getSelfURL(), '/') . URL::build('/complete_signup/', 'c=' . $code)]);
             } else {
-                return array('user_id' => $user_id);
+                return ['user_id' => $user_id];
             }
 
         } catch (Exception $e) {

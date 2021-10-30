@@ -9,7 +9,7 @@
  *  French Language - Users
  */
 
-$language = array(
+$language = [
     /*
      *  Errors
      */
@@ -31,4 +31,4 @@ $language = array(
     'fatal_error_message_admin' => 'Désolé, mais un problème est survenu lors du chargement de la page. Détails de l\'erreur :',
     'in_file' => 'dans le fichier <strong>{x}</strong>', // Don't replace {x}
     'on_line' => 'sur la ligne <strong>{x}</strong>' // Don't replace {x}
-);
+];

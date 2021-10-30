@@ -9,7 +9,7 @@
  *  Norwegian translation (norsk bokmål) - Installation
  */
 
-$language = array(
+$language = [
     /*
      *  Installation
      */
@@ -103,4 +103,4 @@ $language = array(
     'config_not_writable' => 'Konfigurasjonsfilen er ikke skrivbar.',
 
     'session_doesnt_exist' => 'Kunne ikke finne økt. Økt-lagring (Sessions Saving) er et krav for å kunne bruke Nameless. Vennligst prøv igjen, og hvis denne feilen fortsetter, ta kontakt med din webhost for hjelp.'
-);
+];

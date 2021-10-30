@@ -45,7 +45,7 @@ class Announcements {
      * @return array Array of announcements they should see on this specific page with their groups.
      */
     public function getAvailable(?string $page = null, ?string $custom_page = null, array $user_groups = [0]): array {
-        $announcements = array();
+        $announcements = [];
 
         foreach($this->getAll() as $announcement) {
 
@@ -77,7 +77,7 @@ class Announcements {
      * @return array<string> Name of all pages announcements can be on.
      */
     public function getPages(Pages $pages): array {
-        $available_pages = array();
+        $available_pages = [];
 
         foreach ($pages->returnPages() as $page) {
             if (!empty($page['name'])) {
@@ -90,9 +90,9 @@ class Announcements {
 
     /**
      * Get prettified output of the pages a specific announcement is on.
-     * 
-     * @param string $pages_json JSON array of pages to implode.
-     * 
+     *
+     * @param string|null $pages_json JSON array of pages to implode.
+     *
      * @return string Comma seperated list of page names.
      */
     public function getPagesCsv(?string $pages_json = null): string {
@@ -122,7 +122,7 @@ class Announcements {
     public function edit(int $id, array $pages, array $groups, string $text_colour, string $background_colour, string $icon, bool $closable, string $header, string $message, int $order): bool {
         $queries = new Queries();
         
-        $queries->update('custom_announcements', $id, array(
+        $queries->update('custom_announcements', $id, [
             'pages' => json_encode($pages), 
             '`groups`' => json_encode($groups), 
             'text_colour' => $text_colour, 
@@ -132,7 +132,7 @@ class Announcements {
             'header' => $header, 
             'message' => $message,
             '`order`' => $order
-        ));
+        ]);
 
         $this->resetCache();
 
@@ -155,7 +155,7 @@ class Announcements {
     public function create(array $pages, array $groups, string $text_colour, string $background_colour, string $icon, bool $closable, string $header, string $message, int $order): bool {
         $queries = new Queries();
 
-        $queries->create('custom_announcements', array(
+        $queries->create('custom_announcements', [
             'pages' => json_encode($pages), 
             'groups' => json_encode($groups), 
             'text_colour' => $text_colour, 
@@ -165,7 +165,7 @@ class Announcements {
             'header' => $header, 
             'message' => $message,
             'order' => $order
-        ));
+        ]);
 
         $this->resetCache();
 

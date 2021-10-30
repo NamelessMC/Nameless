@@ -26,10 +26,10 @@ class AddGroupsEndpoint extends EndpointBase {
             $api->throwError(17, $api->getLanguage()->get('api', 'unable_to_find_group'), 'No groups provided');
         }
 
-        $log_array = array();
+        $log_array = [];
         $added_groups = [];
         foreach ($groups as $group) {
-            $group_query = $api->getDb()->get('groups', array('id', '=', $group));
+            $group_query = $api->getDb()->get('groups', ['id', '=', $group]);
             if (!$group_query->count()) {
                 continue;
             }
@@ -47,6 +47,6 @@ class AddGroupsEndpoint extends EndpointBase {
             $added_groups
         );
 
-        $api->returnArray(array_merge(array('message' => $api->getLanguage()->get('api', 'group_updated')), $log_array));
+        $api->returnArray(array_merge(['message' => $api->getLanguage()->get('api', 'group_updated')], $log_array));
     }
 }

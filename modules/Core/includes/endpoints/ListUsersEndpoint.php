@@ -65,7 +65,7 @@ class ListUsersEndpoint extends EndpointBase {
 
         $users = $api->getDb()->selectQuery($query, $params)->results();
 
-        $users_json = array();
+        $users_json = [];
         foreach ($users as $user) {
             $user_json = [
                 'id' => intval($user->id),
@@ -82,6 +82,6 @@ class ListUsersEndpoint extends EndpointBase {
             $users_json[] = $user_json;
         }
 
-        $api->returnArray(array('users' => $users_json));
+        $api->returnArray(['users' => $users_json]);
     }
 }

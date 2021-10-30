@@ -10,7 +10,7 @@
  *  German Language - Admin
  */
 
-$language = array(
+$language = [
     /*
      *  Admin Control Panel
      */
@@ -753,4 +753,4 @@ $language = array(
     'background_colour_required' => 'Hintergrundfarbe ist erforderlich',
     'text_colour_required' => 'Textfarbe ist erforderlich ',
     'no_announcements' => 'Es wurden noch keine Ankündigungen gemacht.',
-);
+];

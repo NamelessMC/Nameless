@@ -21,7 +21,7 @@ if (!isset($_GET["tid"]) || !is_numeric($_GET["tid"])) {
     die();
 } else {
     $topic_id = $_GET["tid"];
-    $topic = $queries->getWhere('topics', array('id', '=', $topic_id));
+    $topic = $queries->getWhere('topics', ['id', '=', $topic_id]);
     if (!count($topic)) {
         Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
         die();
@@ -41,22 +41,22 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
             ]);
 
             // Ensure forum we're moving to exists
-            $forum_moving_to = $queries->getWhere('forums', array('id', '=', Input::get('forum')));
+            $forum_moving_to = $queries->getWhere('forums', ['id', '=', Input::get('forum')]);
             if (!count($forum_moving_to)) {
                 Redirect::to(URL::build('/forum'));
                 die();
             }
 
-            $posts_to_move = $queries->getWhere('posts', array('topic_id', '=', $topic_id));
+            $posts_to_move = $queries->getWhere('posts', ['topic_id', '=', $topic_id]);
             if ($validation->passed()) {
 
-                $queries->update('topics', $topic->id, array(
+                $queries->update('topics', $topic->id, [
                     'forum_id' => Input::get('forum')
-                ));
+                ]);
                 foreach ($posts_to_move as $post_to_move) {
-                    $queries->update('posts', $post_to_move->id, array(
+                    $queries->update('posts', $post_to_move->id, [
                         'forum_id' => Input::get('forum')
-                    ));
+                    ]);
                 }
 
                 //TODO: Topic name & and Forums name
@@ -85,7 +85,7 @@ require(ROOT_PATH . '/core/templates/navbar.php');
 require(ROOT_PATH . '/core/templates/footer.php');
 
 // Get a list of all forums
-$template_forums = array();
+$template_forums = [];
 
 $categories = $queries->orderWhere('forums', 'parent = 0', 'forum_order', 'ASC');
 foreach ($categories as $category) {
@@ -98,7 +98,7 @@ foreach ($categories as $category) {
     $template_forums[] = $to_add;
 
 
-    $forums = DB::getInstance()->selectQuery('SELECT * FROM nl2_forums WHERE parent = ? ORDER BY forum_order ASC', array($category->id));
+    $forums = DB::getInstance()->selectQuery('SELECT * FROM nl2_forums WHERE parent = ? ORDER BY forum_order ASC', [$category->id]);
 
     if ($forums->count()) {
         $forums = $forums->results();
@@ -126,7 +126,7 @@ foreach ($categories as $category) {
 }
 
 // Assign Smarty variables
-$smarty->assign(array(
+$smarty->assign([
     'MOVE_TOPIC' => $forum_language->get('forum', 'move_topic'),
     'MOVE_TO' => $forum_language->get('forum', 'move_topic_to'),
     'TOKEN' => Token::get(),
@@ -135,10 +135,10 @@ $smarty->assign(array(
     'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
     'CANCEL_LINK' => URL::build('/forum/topic/' . $topic->id),
     'FORUMS' => $template_forums
-));
+]);
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 $page_load = microtime(true) - $start;
 define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));

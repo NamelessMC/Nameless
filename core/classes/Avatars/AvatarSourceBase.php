@@ -23,7 +23,7 @@ abstract class AvatarSourceBase {
      * A map of `NamelessMC perspective name` => `Avatar source route`, 
      * as not all avatar sources will have the same name, and subsequentally route, for each perspective.
      */
-    protected array $_perspectives_map = array();
+    protected array $_perspectives_map = [];
 
     /**
      * Get the name of this avatar source.

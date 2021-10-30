@@ -25,7 +25,7 @@ if(defined('MINECRAFT') && MINECRAFT === true){
 
         $banner = urldecode($banner);
 
-        $server = $queries->getWhere('mc_servers', array('name', '=', $banner));
+        $server = $queries->getWhere('mc_servers', ['name', '=', $banner]);
 
         if(!count($server))
             die('Invalid server');
@@ -38,12 +38,12 @@ if(defined('MINECRAFT') && MINECRAFT === true){
         if(!is_null($server->port) && $server->port != 25565)
             $display_ip .= ':' . $server->port;
 
-        $full_ip = array('ip' => $server->ip . (is_null($server->port) ? ':' . 25565 : ':' . $server->port), 'pre' => $server->pre, 'name' => $server->name);
+        $full_ip = ['ip' => $server->ip . (is_null($server->port) ? ':' . 25565 : ':' . $server->port), 'pre' => $server->pre, 'name' => $server->name];
 
         $cache->setCache('banner_cache_' . urlencode($server->name));
         if(!$cache->isCached('image')){
             // Internal or external query?
-            $query_type = $queries->getWhere('settings', array('name', '=', 'external_query'));
+            $query_type = $queries->getWhere('settings', ['name', '=', 'external_query']);
             if (count($query_type)) {
                 if ($query_type[0]->value == '1')
                     $query_type = 'external';
@@ -55,7 +55,7 @@ if(defined('MINECRAFT') && MINECRAFT === true){
             $query = MCQuery::singleQuery($full_ip, $query_type, $language, $queries);
 
             if($query['status_value'] != 1)
-                $query['motd'] = array('§4Offline');
+                $query['motd'] = ['§4Offline'];
 
             // Do we need to query for favicon?
             if(!$cache->isCached('favicon')){

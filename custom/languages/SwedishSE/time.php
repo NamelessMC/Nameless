@@ -10,7 +10,7 @@
  *  SwedishSE Language - Time
  */
 
-$language = array(
+$language = [
     /*
      *  Time
      */
@@ -27,4 +27,4 @@ $language = array(
     '_months' => '{x} månader sen',
     'about_1_year' => 'ungefär ett år sen',
     'over_x_years' => 'över {x} år sen'
-);
+];

@@ -32,7 +32,7 @@ class CreateReportEndpoint extends EndpointBase {
         }
 
         // Ensure user reporting has website account, and has not been banned
-        $user_reporting = $api->getDb()->get('users', array('id', '=', Output::getClean($_POST['reporter'])));
+        $user_reporting = $api->getDb()->get('users', ['id', '=', Output::getClean($_POST['reporter'])]);
         if (!$user_reporting->count()) {
             $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'));
         }
@@ -43,7 +43,7 @@ class CreateReportEndpoint extends EndpointBase {
         }
 
         // See if reported user exists
-        $user_reported_id = $api->getDb()->get('users', array('id', '=', Output::getClean($_POST['reported'])));
+        $user_reported_id = $api->getDb()->get('users', ['id', '=', Output::getClean($_POST['reported'])]);
         if (!$user_reported_id->count()) {
             $user_reported_id = 0;
         } else {
@@ -55,7 +55,7 @@ class CreateReportEndpoint extends EndpointBase {
         }
 
         // Ensure user has not already reported the same player, and the report is open
-        $user_reports = $api->getDb()->get('reports', array('reporter_id', '=', $user_reporting->id))->results();
+        $user_reports = $api->getDb()->get('reports', ['reporter_id', '=', $user_reporting->id])->results();
         if (count($user_reports)) {
             foreach ($user_reports as $report) {
                 if ((($report->reported_id != 0 && $report->reported_id == $user_reported_id) || $report->reported_uuid == Output::getClean($_POST['reported_uid'])) && $report->status == 0) {
@@ -81,15 +81,15 @@ class CreateReportEndpoint extends EndpointBase {
                 'reported_mcname' => $_POST['reported_username'] ? Output::getClean($_POST['reported_username']) : $reported_user->getDisplayName(),
                 'reported_uuid' => $_POST['reported_uid'] ? Output::getClean($_POST['reported_uid']) : null
             ]);
-            EventHandler::executeEvent('createReport', array(
+            EventHandler::executeEvent('createReport', [
                 'username' => $report['reported_mcname'],
                 'content' => str_replace('{x}', $user_reporting->username, $api->getLanguage()->get('general', 'reported_by')),
                 'content_full' => $report['report_reason'],
                 'avatar_url' => $report['reported_id'] ? $reported_user->getAvatar() : Util::getAvatarFromUUID($report['reported_uuid']),
                 'title' => $api->getLanguage()->get('general', 'view_report'),
                 'url' => rtrim(Util::getSelfURL(), '/') . URL::build('/panel/users/reports/', 'id=' . $report['id'])
-            ));
-            $api->returnArray(array('message' => $api->getLanguage()->get('api', 'report_created')));
+            ]);
+            $api->returnArray(['message' => $api->getLanguage()->get('api', 'report_created')]);
         } catch (Exception $e) {
             $api->throwError(23, $api->getLanguage()->get('api', 'unable_to_create_report'), $e->getMessage());
         }

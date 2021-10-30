@@ -11,7 +11,7 @@
  *  Last Update: 01/03/2021
  */
 
-$language = array(
+$language = [
 
     // Errors
     'api_disabled' => 'A API está desativada',
@@ -53,4 +53,4 @@ $language = array(
     'username_updated' => 'Nome de usuário atualizado com sucesso',
     'server_info_updated' => 'Informações do servidor atualizadas com sucesso',
     'account_validated' => 'A conta foi validada com sucesso',
-);
+];

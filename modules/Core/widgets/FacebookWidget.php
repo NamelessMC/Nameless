@@ -10,11 +10,11 @@
  */
 class FacebookWidget extends WidgetBase {
 
-    public function __construct($pages = array(), $fb_url = '') {
+    public function __construct($pages = [], $fb_url = '') {
         parent::__construct($pages);
 
         // Get widget
-        $widget_query = DB::getInstance()->selectQuery('SELECT `location`, `order` FROM nl2_widgets WHERE `name` = ?', array('Facebook'))->first();
+        $widget_query = DB::getInstance()->selectQuery('SELECT `location`, `order` FROM nl2_widgets WHERE `name` = ?', ['Facebook'])->first();
 
         // Set widget variables
         $this->_module = 'Core';

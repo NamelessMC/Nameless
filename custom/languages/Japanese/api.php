@@ -14,7 +14,7 @@
  *  Japanese Language - API
  */
 
-$language = array(
+$language = [
 
     // Errors
     'api_disabled' => 'APIが無効',
@@ -56,4 +56,4 @@ $language = array(
     'username_updated' => 'ユーザー名が更新されました。',
     'server_info_updated' => 'サーバー情報が更新されました。',
     'account_validated' => 'アカウントの検証が完了しました。',
-);
+];

@@ -9,7 +9,7 @@
  *  EnglishUK Language - Emails
  */
 
-$language = array(
+$language = [
 
     // General Options
     'greeting' => 'Hey,',
@@ -26,4 +26,4 @@ $language = array(
     // Forum Topic Replies
     'forum_topic_reply_subject' => '{x} a répondu à {y}', // Don't remove {x} or {y}
     'forum_topic_reply_message' => '{x} a répondu à un sujet que vous suivez. Contenu : {z}' // Don't remove {x} or {z}
-);
+];

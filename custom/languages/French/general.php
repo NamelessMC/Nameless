@@ -9,7 +9,7 @@
  *  French Language - Users
  */
 
-$language = array(
+$language = [
     /*
      *  General terms
      */
@@ -160,4 +160,4 @@ $language = array(
      *  Custom page redirect
      */
     'redirecting_message' => 'Redirection... Si vous n\'êtes pas redirigé automatiquement, veuillez cliquer sur <a href="{x}" rel="nofollow noopener">ici</a>' // Don't replace {x} which is the redirect URL
-);
+];

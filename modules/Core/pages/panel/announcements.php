@@ -24,21 +24,21 @@ $queries = new Queries();
 if (!isset($_GET['action'])) {
     // View all announcements
 
-    $announcements_list = array();
+    $announcements_list = [];
     foreach ($announcements->getAll() as $announcement) {
-        $announcements_list[] = array(
+        $announcements_list[] = [
             $announcement,
             'pages' => $announcements->getPagesCsv($announcement->pages)
-        );
+        ];
     }
 
     if (count($announcements_list) >= 1) {
-        $smarty->assign(array(
+        $smarty->assign([
             'ALL_ANNOUNCEMENTS' => $announcements_list
-        ));
+        ]);
     }
 
-    $smarty->assign(array(
+    $smarty->assign([
         'NONE' => $language->get('general', 'none'),
         'NO_ANNOUNCEMENTS' => $language->get('admin', 'no_announcements'),
         'ANNOUCEMENTS_INFO' => $language->get('admin', 'announcement_info'),
@@ -48,7 +48,7 @@ if (!isset($_GET['action'])) {
         'EDIT_LINK' => URL::build('/panel/core/announcements', 'action=edit&id='),
         'DELETE_LINK' => URL::build('/panel/core/announcements', 'action=delete'),
         'REORDER_DRAG_URL' => URL::build('/panel/core/announcements')
-    ));
+    ]);
 
     $template_file = 'core/announcements.tpl';
 } else {
@@ -56,7 +56,7 @@ if (!isset($_GET['action'])) {
         case 'new':
             // Create new hook
             if (Input::exists()) {
-                $errors = array();
+                $errors = [];
                 if (Token::check()) {
                     // Validate input
                     $validate = new Validate();
@@ -85,8 +85,8 @@ if (!isset($_GET['action'])) {
                     ]);
 
                     if ($validation->passed()) {
-                        $groups = $queries->getWhere('groups', array('id', '<>', '0'));
-                        $all_groups = array();
+                        $groups = $queries->getWhere('groups', ['id', '<>', '0']);
+                        $all_groups = [];
                         if (Input::get('perm-view-0')) {
                             $all_groups[] = "0";
                         }
@@ -95,7 +95,7 @@ if (!isset($_GET['action'])) {
                                 $all_groups[] = $group->id;
                             }
                         }
-                        $pages = array();
+                        $pages = [];
                         foreach (Input::get('pages') as $page) {
                             $pages[] = $page;
                         }
@@ -103,12 +103,10 @@ if (!isset($_GET['action'])) {
                             Session::flash('announcement_error', $language->get('admin', 'creating_announcement_failure'));
                             Redirect::to(URL::build('/panel/core/announcements'));
                             die();
-                            break;
                         } else {
                             Session::flash('announcement_success', $language->get('admin', 'creating_announcement_success'));
                             Redirect::to(URL::build('/panel/core/announcements'));
                             die();
-                            break;
                         }
                     } else {
                         $errors = $validation->errors();
@@ -120,18 +118,18 @@ if (!isset($_GET['action'])) {
             }
 
             $groups = DB::getInstance()->selectQuery('SELECT * FROM nl2_groups ORDER BY `order`')->results();
-            $template_array = array();
+            $template_array = [];
             foreach ($groups as $group) {
-                $template_array[Output::getClean($group->id)] = array(
+                $template_array[Output::getClean($group->id)] = [
                     'id' => Output::getClean($group->id),
                     'name' => Output::getClean($group->name),
-                );
+                ];
             }
 
-            $smarty->assign(array(
+            $smarty->assign([
                 'ANNOUNCEMENT_TITLE' => $language->get('admin', 'creating_announcement'),
                 'GROUPS' => $template_array,
-            ));
+            ]);
 
             $template_file = 'core/announcements_form.tpl';
             break;
@@ -144,7 +142,7 @@ if (!isset($_GET['action'])) {
             }
 
             // Does the announcement exist?
-            $announcement = $queries->getWhere('custom_announcements', array('id', '=', $_GET['id']));
+            $announcement = $queries->getWhere('custom_announcements', ['id', '=', $_GET['id']]);
             if (!count($announcement)) {
                 // No, it doesn't exist
                 Redirect::to(URL::build('/panel/core/announcements'));
@@ -153,7 +151,7 @@ if (!isset($_GET['action'])) {
             $announcement = $announcement[0];
 
             if (Input::exists()) {
-                $errors = array();
+                $errors = [];
                 if (Token::check()) {
                     // Validate input
                     $validate = new Validate();
@@ -182,16 +180,16 @@ if (!isset($_GET['action'])) {
                     ]);
 
                     if ($validation->passed()) {
-                        $all_groups = array();
+                        $all_groups = [];
                         if (Input::get('perm-view-0')) {
                             $all_groups[] = "0";
                         }
-                        foreach ($queries->getWhere('groups', array('id', '<>', '0')) as $group) {
+                        foreach ($queries->getWhere('groups', ['id', '<>', '0']) as $group) {
                             if (Input::get('perm-view-' . $group->id)) {
                                 $all_groups[] = $group->id;
                             }
                         }
-                        $pages = array();
+                        $pages = [];
                         foreach (Input::get('pages') as $page) {
                             $pages[] = $page;
                         }
@@ -199,12 +197,10 @@ if (!isset($_GET['action'])) {
                             Session::flash('announcement_error', $language->get('admin', 'editing_announcement_failure'));
                             Redirect::to(URL::build('/panel/core/announcements'));
                             die();
-                            break;
                         } else {
                             Session::flash('announcement_success', $language->get('admin', 'editing_announcement_success'));
                             Redirect::to(URL::build('/panel/core/announcements'));
                             die();
-                            break;
                         }
                     } else {
                         $errors = $validation->errors();
@@ -219,22 +215,22 @@ if (!isset($_GET['action'])) {
             $announcement->pages = is_array($announcement_pages) ? $announcement_pages : [];
 
             $guest_permissions = in_array("0", json_decode($announcement->groups));
-            $groups = array();
+            $groups = [];
 
             foreach (DB::getInstance()->selectQuery('SELECT * FROM nl2_groups ORDER BY `order`')->results() as $group) {
-                $groups[$group->id] = array(
+                $groups[$group->id] = [
                     'name' => $group->name,
                     'id' => $group->id,
                     'allowed' => in_array($group->id, json_decode($announcement->groups))
-                );
+                ];
             }
 
-            $smarty->assign(array(
+            $smarty->assign([
                 'ANNOUNCEMENT_TITLE' => $language->get('admin', 'editing_announcement'),
                 'ANNOUNCEMENT' => $announcement,
                 'GROUPS' => $groups,
                 'GUEST_PERMISSIONS' => $guest_permissions,
-            ));
+            ]);
 
             $template_file = 'core/announcements_form.tpl';
             break;
@@ -244,7 +240,7 @@ if (!isset($_GET['action'])) {
             if (Input::exists()) {
                 if (Token::check(Input::get('token'))) {
                     if (isset($_POST['id'])) {
-                        $queries->delete('custom_announcements', array('id', '=', $_POST['id']));
+                        $queries->delete('custom_announcements', ['id', '=', $_POST['id']]);
 
                         $announcements->resetCache();
                         Session::flash('announcement_success', $language->get('admin', 'deleted_announcement_success'));
@@ -254,7 +250,6 @@ if (!isset($_GET['action'])) {
                 }
             }
             die();
-            break;
 
         case 'order':
             if (isset($_GET['announcements'])) {
@@ -262,9 +257,9 @@ if (!isset($_GET['action'])) {
 
                 $i = 1;
                 foreach ($announcements_list as $item) {
-                    $queries->update('custom_announcements', $item, array(
+                    $queries->update('custom_announcements', $item, [
                         '`order`' => $i
-                    ));
+                    ]);
                     $i++;
                 }
             }
@@ -274,30 +269,29 @@ if (!isset($_GET['action'])) {
         default:
             Redirect::to(URL::build('/panel/core/announcements'));
             die();
-            break;
     }
 }
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 if (Session::exists('announcement_success'))
-    $smarty->assign(array(
+    $smarty->assign([
         'SUCCESS' => Session::flash('announcement_success'),
         'SUCCESS_TITLE' => $language->get('general', 'success')
-    ));
+    ]);
 if (Session::exists('announcement_error'))
-    $smarty->assign(array(
+    $smarty->assign([
         'ERRORS' => [Session::flash('announcement_error')],
         'ERRORS_TITLE' => $language->get('general', 'error')
-    ));
+    ]);
 if (isset($errors) && count($errors))
-    $smarty->assign(array(
+    $smarty->assign([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
-    ));
+    ]);
 
-$smarty->assign(array(
+$smarty->assign([
     'PAGE' => PANEL_PAGE,
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
@@ -325,7 +319,7 @@ $smarty->assign(array(
     'NAME' => $language->get('admin', 'name'),
     'CAN_VIEW_ANNOUNCEMENT' => $language->get('admin', 'can_view_announcement'),
     'ANNOUNCEMENTS' => $language->get('admin', 'announcements'),
-));
+]);
 
 $page_load = microtime(true) - $start;
 define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));

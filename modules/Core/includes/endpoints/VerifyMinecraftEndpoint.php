@@ -31,22 +31,22 @@ class VerifyMinecraftEndpoint extends EndpointBase {
         $api->getDb()->update(
             'users',
             $user->data()->id,
-            array(
+            [
                 'reset_code' => '',
                 'active' => 1
-            )
+            ]
         );
 
         try {
-            EventHandler::executeEvent('validateUser', array(
+            EventHandler::executeEvent('validateUser', [
                 'event' => 'validateUser',
                 'user_id' => $user->data()->id,
                 'username' => Output::getClean($user->data()->username),
                 'language' => $api->getLanguage()
-            ));
+            ]);
         } catch (Exception $e) {
         }
 
-        $api->returnArray(array('message' => $api->getLanguage()->get('api', 'account_validated')));
+        $api->returnArray(['message' => $api->getLanguage()->get('api', 'account_validated')]);
     }
 }

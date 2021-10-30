@@ -34,7 +34,7 @@ $smarty = new Smarty();
 
 $smarty->setCompileDir(ROOT_PATH . '/cache/templates_c');
 
-$smarty->assign(array(
+$smarty->assign([
     'LANG' => defined('HTML_LANG') ? HTML_LANG : 'en',
     'RTL' => defined('HTML_RTL') && HTML_RTL === true ? ' dir="rtl"' : '',
     'LANG_CHARSET' => defined('LANG_CHARSET') ? LANG_CHARSET : 'utf-8',
@@ -63,6 +63,6 @@ $smarty->assign(array(
     'BACK' => $language->get('general', 'back'),
     'HOME' => $language->get('general', 'home'),
     'HOME_URL' => URL::build('/')
-));
+]);
 
 $smarty->display(ROOT_PATH . DIRECTORY_SEPARATOR . 'error.tpl');

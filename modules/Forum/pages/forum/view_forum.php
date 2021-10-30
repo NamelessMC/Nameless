@@ -43,7 +43,7 @@ if (!$list) {
 }
 
 // Get data from the database
-$forum_query = $queries->getWhere('forums', array('id', '=', $fid));
+$forum_query = $queries->getWhere('forums', ['id', '=', $fid]);
 $forum_query = $forum_query[0];
 
 // Get page
@@ -63,14 +63,14 @@ if (isset($_GET['p'])) {
     $p = 1;
 }
 
-$page_metadata = $queries->getWhere('page_descriptions', array('page', '=', '/forum/view'));
+$page_metadata = $queries->getWhere('page_descriptions', ['page', '=', '/forum/view']);
 if (count($page_metadata)) {
-    define('PAGE_DESCRIPTION', str_replace(array('{site}', '{forum_title}', '{page}', '{description}'), array(SITE_NAME, Output::getClean($forum_query->forum_title), Output::getClean($p), Output::getClean(strip_tags(Output::getDecoded($forum_query->forum_description)))), $page_metadata[0]->description));
+    define('PAGE_DESCRIPTION', str_replace(['{site}', '{forum_title}', '{page}', '{description}'], [SITE_NAME, Output::getClean($forum_query->forum_title), Output::getClean($p), Output::getClean(strip_tags(Output::getDecoded($forum_query->forum_description)))], $page_metadata[0]->description));
     define('PAGE_KEYWORDS', $page_metadata[0]->tags);
 }
 
 $page_title = $forum_language->get('forum', 'forum');
-if (isset($p)) $page_title .= ' - ' . str_replace('{x}', $p, $language->get('general', 'page_x'));
+$page_title .= ' - ' . str_replace('{x}', $p, $language->get('general', 'page_x'));
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 // Redirect forum?
@@ -80,16 +80,16 @@ if ($forum_query->redirect_forum == 1) {
         die();
     }
 
-    $smarty->assign(array(
+    $smarty->assign([
         'CONFIRM_REDIRECT' => str_replace('{x}', $forum_query->redirect_url, $forum_language->get('forum', 'forum_redirect_warning')),
         'YES' => $language->get('general', 'yes'),
         'NO' => $language->get('general', 'no'),
         'REDIRECT_URL' => Output::getClean(htmlspecialchars_decode($forum_query->redirect_url)),
         'FORUM_INDEX' => URL::build('/forum')
-    ));
+    ]);
 
     // Load modules + template
-    Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
+    Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
     $page_load = microtime(true) - $start;
     define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
@@ -112,61 +112,61 @@ if ($forum_query->redirect_forum == 1) {
         $user_id = 0;
 
     if ($forum->canViewOtherTopics($fid, $user_groups))
-        $topics = DB::getInstance()->selectQuery('SELECT * FROM nl2_topics WHERE forum_id = ? AND sticky = 0 AND deleted = 0 ORDER BY topic_reply_date DESC', array($fid))->results();
+        $topics = DB::getInstance()->selectQuery('SELECT * FROM nl2_topics WHERE forum_id = ? AND sticky = 0 AND deleted = 0 ORDER BY topic_reply_date DESC', [$fid])->results();
     else
-        $topics = DB::getInstance()->selectQuery('SELECT * FROM nl2_topics WHERE forum_id = ? AND sticky = 0 AND deleted = 0 AND topic_creator = ? ORDER BY topic_reply_date DESC', array($fid, $user_id))->results();
+        $topics = DB::getInstance()->selectQuery('SELECT * FROM nl2_topics WHERE forum_id = ? AND sticky = 0 AND deleted = 0 AND topic_creator = ? ORDER BY topic_reply_date DESC', [$fid, $user_id])->results();
 
     // Get sticky topics
-    $stickies = DB::getInstance()->selectQuery('SELECT * FROM nl2_topics WHERE forum_id = ? AND sticky = 1 AND deleted = 0 ORDER BY topic_reply_date DESC', array($fid))->results();
+    $stickies = DB::getInstance()->selectQuery('SELECT * FROM nl2_topics WHERE forum_id = ? AND sticky = 1 AND deleted = 0 ORDER BY topic_reply_date DESC', [$fid])->results();
 
     // Search bar
-    $smarty->assign(array(
+    $smarty->assign([
         'SEARCH_URL' => URL::build('/forum/search'),
         'SEARCH' => $language->get('general', 'search'),
         'TOKEN' => Token::get()
-    ));
+    ]);
 
     // Breadcrumbs and search bar - same for latest discussions view + table view
-    $parent_category = $queries->getWhere('forums', array('id', '=', $forum_query->parent));
-    $breadcrumbs = array(0 => array(
+    $parent_category = $queries->getWhere('forums', ['id', '=', $forum_query->parent]);
+    $breadcrumbs = [0 => [
         'id' => $forum_query->id,
         'forum_title' => Output::getClean($forum_query->forum_title),
         'active' => 1,
         'link' => URL::build('/forum/view/' . $forum_query->id . '-' . $forum->titleToURL($forum_query->forum_title))
-    ));
+    ]];
     if (!empty($parent_category) && $parent_category[0]->parent == 0) {
         // Category
-        $breadcrumbs[] = array(
+        $breadcrumbs[] = [
             'id' => $parent_category[0]->id,
             'forum_title' => Output::getClean($parent_category[0]->forum_title),
             'link' => URL::build('/forum/view/' . $parent_category[0]->id . '-' . $forum->titleToURL($parent_category[0]->forum_title))
-        );
+        ];
     } else if (!empty($parent_category)) {
         // Parent forum, get its category
-        $breadcrumbs[] = array(
+        $breadcrumbs[] = [
             'id' => $parent_category[0]->id,
             'forum_title' => Output::getClean($parent_category[0]->forum_title),
             'link' => URL::build('/forum/view/' . $parent_category[0]->id . '-' . $forum->titleToURL($parent_category[0]->forum_title))
-        );
+        ];
         $parent = false;
         while ($parent == false) {
-            $parent_category = $queries->getWhere('forums', array('id', '=', $parent_category[0]->parent));
-            $breadcrumbs[] = array(
+            $parent_category = $queries->getWhere('forums', ['id', '=', $parent_category[0]->parent]);
+            $breadcrumbs[] = [
                 'id' => $parent_category[0]->id,
                 'forum_title' => Output::getClean($parent_category[0]->forum_title),
                 'link' => URL::build('/forum/view/' . $parent_category[0]->id . '-' . $forum->titleToURL($parent_category[0]->forum_title))
-            );
+            ];
             if ($parent_category[0]->parent == 0) {
                 $parent = true;
             }
         }
     }
 
-    $breadcrumbs[] = array(
+    $breadcrumbs[] = [
         'id' => 'index',
         'forum_title' => $forum_language->get('forum', 'forum_index'),
         'link' => URL::build('/forum')
-    );
+    ];
 
     $smarty->assign('BREADCRUMBS', array_reverse($breadcrumbs));
 
@@ -183,9 +183,9 @@ if ($forum_query->redirect_forum == 1) {
     $smarty->assign('FORUM_INDEX_LINK', URL::build('/forum'));
 
     // Any subforums?
-    $subforums = DB::getInstance()->selectQuery('SELECT * FROM nl2_forums WHERE parent = ? ORDER BY forum_order ASC', array($forum_query->id))->results();
+    $subforums = DB::getInstance()->selectQuery('SELECT * FROM nl2_forums WHERE parent = ? ORDER BY forum_order ASC', [$forum_query->id])->results();
 
-    $subforum_array = array();
+    $subforum_array = [];
 
     if (count($subforums)) {
         // append subforums to string
@@ -193,9 +193,9 @@ if ($forum_query->redirect_forum == 1) {
             // Get number of topics
             if ($forum->forumExist($subforum->id, $user_groups)) {
                 if ($forum->canViewOtherTopics($subforum->id, $user_groups))
-                    $latest_post = DB::getInstance()->selectQuery('SELECT * FROM nl2_topics WHERE forum_id = ? AND deleted = 0 ORDER BY topic_reply_date DESC', array($subforum->id))->results();
+                    $latest_post = DB::getInstance()->selectQuery('SELECT * FROM nl2_topics WHERE forum_id = ? AND deleted = 0 ORDER BY topic_reply_date DESC', [$subforum->id])->results();
                 else
-                    $latest_post = DB::getInstance()->selectQuery('SELECT * FROM nl2_topics WHERE forum_id = ? AND deleted = 0 AND topic_creator = ? ORDER BY topic_reply_date DESC', array($subforum->id, $user_id))->results();
+                    $latest_post = DB::getInstance()->selectQuery('SELECT * FROM nl2_topics WHERE forum_id = ? AND deleted = 0 AND topic_creator = ? ORDER BY topic_reply_date DESC', [$subforum->id, $user_id])->results();
 
                 $subforum_topics = count($latest_post);
                 if (count($latest_post)) {
@@ -217,7 +217,7 @@ if ($forum_query->redirect_forum == 1) {
                     $latest_post_time = date('d M Y, H:i', $latest_post->topic_reply_date);
                     $latest_post_user_id = Output::getClean($latest_post->topic_last_user);
 
-                    $latest_post = array(
+                    $latest_post = [
                         'link' => $latest_post_link,
                         'title' => $latest_post_title,
                         'last_user_avatar' => $latest_post_avatar,
@@ -227,10 +227,10 @@ if ($forum_query->redirect_forum == 1) {
                         'timeago' => $latest_post_date_timeago,
                         'time' => $latest_post_time,
                         'last_user_id' => $latest_post_user_id
-                    );
-                } else $latest_post = array();
+                    ];
+                } else $latest_post = [];
 
-                $subforum_array[] = array(
+                $subforum_array[] = [
                     'id' => $subforum->id,
                     'title' => Output::getPurified(Output::getDecoded($subforum->forum_title)),
                     'description' => Output::getPurified(Output::getDecoded($subforum->forum_description)),
@@ -239,7 +239,7 @@ if ($forum_query->redirect_forum == 1) {
                     'latest_post' => $latest_post,
                     'icon' => Output::getPurified(Output::getDecoded($subforum->icon)),
                     'redirect' => $subforum->redirect_forum
-                );
+                ];
             }
         }
     }
@@ -287,13 +287,13 @@ if ($forum_query->redirect_forum == 1) {
         $no_topics_exist = true;
     } else {
         // Topics/sticky topics exist
-        $labels_cache = array();
+        $labels_cache = [];
 
-        $sticky_array = array();
+        $sticky_array = [];
         // Assign sticky threads to smarty variable
         foreach ($stickies as $sticky) {
             // Get number of replies to a topic
-            $replies = $queries->getWhere('posts', array('topic_id', '=', $sticky->id));
+            $replies = $queries->getWhere('posts', ['topic_id', '=', $sticky->id]);
             $replies = count($replies);
 
             // Is there a label?
@@ -302,11 +302,11 @@ if ($forum_query->redirect_forum == 1) {
                 if ($labels_cache[$sticky->label]) {
                     $label = $labels_cache[$sticky->label];
                 } else {
-                    $label = $queries->getWhere('forums_topic_labels', array('id', '=', $sticky->label));
+                    $label = $queries->getWhere('forums_topic_labels', ['id', '=', $sticky->label]);
                     if (count($label)) {
                         $label = $label[0];
 
-                        $label_html = $queries->getWhere('forums_labels', array('id', '=', $label->label));
+                        $label_html = $queries->getWhere('forums_labels', ['id', '=', $label->label]);
                         if (count($label_html)) {
                             $label_html = Output::getPurified($label_html[0]->html);
                             $label = str_replace('{x}', Output::getClean($label->name), $label_html);
@@ -319,7 +319,7 @@ if ($forum_query->redirect_forum == 1) {
                 $label = '';
             }
 
-            $labels = array();
+            $labels = [];
             if ($sticky->labels) {
                 $topic_labels = explode(',', $sticky->labels);
 
@@ -328,11 +328,11 @@ if ($forum_query->redirect_forum == 1) {
                     if ($labels_cache[$item]) {
                         $labels[] = $labels_cache[$item];
                     } else {
-                        $label_query = $queries->getWhere('forums_topic_labels', array('id', '=', $item));
+                        $label_query = $queries->getWhere('forums_topic_labels', ['id', '=', $item]);
                         if (count($label_query)) {
                             $label_query = $label_query[0];
 
-                            $label_html = $queries->getWhere('forums_labels', array('id', '=', $label_query->label));
+                            $label_html = $queries->getWhere('forums_labels', ['id', '=', $label_query->label]);
                             if (count($label_html)) {
                                 $label_html = Output::getPurified($label_html[0]->html);
                                 $label_html = str_replace('{x}', Output::getClean($label_query->name), $label_html);
@@ -348,7 +348,7 @@ if ($forum_query->redirect_forum == 1) {
             $last_reply_user = new User($sticky->topic_last_user);
 
             // Add to array
-            $sticky_array[] = array(
+            $sticky_array[] = [
                 'topic_title' => Output::getClean($sticky->topic_title),
                 'topic_id' => $sticky->id,
                 'topic_created_rough' => $timeago->inWords(date('d M Y, H:i', $sticky->topic_date), $language->getTimeLanguage()),
@@ -372,7 +372,7 @@ if ($forum_query->redirect_forum == 1) {
                 'author_link' => $topic_user->getProfileURL(),
                 'link' => URL::build('/forum/topic/' . $sticky->id . '-' . $forum->titleToURL($sticky->topic_title)),
                 'last_reply_link' => $last_reply_user->getProfileURL()
-            );
+            ];
         }
         // Clear out variables
         $stickies = null;
@@ -380,7 +380,7 @@ if ($forum_query->redirect_forum == 1) {
 
         // Latest discussions
         // Pagination
-        $paginator = new Paginator(($template_pagination ?? array()));
+        $paginator = new Paginator(($template_pagination ?? []));
         $results = $paginator->getLimited($topics, 10, $p, count($topics));
         $pagination = $paginator->generate(7, URL::build('/forum/view/' . $fid . '-' . $forum->titleToURL($forum_query->forum_title), true));
 
@@ -389,11 +389,11 @@ if ($forum_query->redirect_forum == 1) {
         else
             $smarty->assign('PAGINATION', '');
 
-        $template_array = array();
+        $template_array = [];
         // Get a list of all topics from the forum, and paginate
         for ($n = 0; $n < count($results->data); $n++) {
             // Get number of replies to a topic
-            $replies = $queries->getWhere("posts", array("topic_id", "=", $results->data[$n]->id));
+            $replies = $queries->getWhere("posts", ["topic_id", "=", $results->data[$n]->id]);
             $replies = count($replies);
 
             // Is there a label?
@@ -402,11 +402,11 @@ if ($forum_query->redirect_forum == 1) {
                 if ($labels_cache[$results->data[$n]->label]) {
                     $label = $labels_cache[$results->data[$n]->label];
                 } else {
-                    $label = $queries->getWhere('forums_topic_labels', array('id', '=', $results->data[$n]->label));
+                    $label = $queries->getWhere('forums_topic_labels', ['id', '=', $results->data[$n]->label]);
                     if (count($label)) {
                         $label = $label[0];
 
-                        $label_html = $queries->getWhere('forums_labels', array('id', '=', $label->label));
+                        $label_html = $queries->getWhere('forums_labels', ['id', '=', $label->label]);
                         if (count($label_html)) {
                             $label_html = $label_html[0]->html;
                             $label = str_replace('{x}', Output::getClean($label->name), Output::getPurified($label_html));
@@ -419,7 +419,7 @@ if ($forum_query->redirect_forum == 1) {
                 $label = '';
             }
 
-            $labels = array();
+            $labels = [];
             if ($results->data[$n]->labels) {
                 if ($labels_cache[$results->data[$n]->labels]) {
                     $labels[] = $labels_cache[$results->data[$n]->labels];
@@ -428,11 +428,11 @@ if ($forum_query->redirect_forum == 1) {
 
                     foreach ($topic_labels as $item) {
                         // Get label
-                        $label_query = $queries->getWhere('forums_topic_labels', array('id', '=', $item));
+                        $label_query = $queries->getWhere('forums_topic_labels', ['id', '=', $item]);
                         if (count($label_query)) {
                             $label_query = $label_query[0];
 
-                            $label_html = $queries->getWhere('forums_labels', array('id', '=', $label_query->label));
+                            $label_html = $queries->getWhere('forums_labels', ['id', '=', $label_query->label]);
                             if (count($label_html)) {
                                 $label_html = $label_html[0]->html;
                                 $label_html = str_replace('{x}', Output::getClean($label_query->name), Output::getPurified($label_html));
@@ -448,7 +448,7 @@ if ($forum_query->redirect_forum == 1) {
             $last_reply_user = new User($results->data[$n]->topic_last_user);
 
             // Add to array
-            $template_array[] = array(
+            $template_array[] = [
                 'topic_title' => Output::getClean($results->data[$n]->topic_title),
                 'topic_id' => $results->data[$n]->id,
                 'topic_created_rough' => $timeago->inWords(date('d M Y, H:i', $results->data[$n]->topic_date), $language->getTimeLanguage()),
@@ -472,7 +472,7 @@ if ($forum_query->redirect_forum == 1) {
                 'link' => URL::build('/forum/topic/' . $results->data[$n]->id . '-' . $forum->titleToURL($results->data[$n]->topic_title)),
                 'last_reply_link' => $last_reply_user->getProfileURL(),
                 'last_reply_user_id' => Output::getClean($results->data[$n]->topic_last_user)
-            );
+            ];
         }
 
         // Assign to Smarty variable
@@ -481,7 +481,7 @@ if ($forum_query->redirect_forum == 1) {
     }
 
     // Load modules + template
-    Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
+    Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
     $page_load = microtime(true) - $start;
     define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));

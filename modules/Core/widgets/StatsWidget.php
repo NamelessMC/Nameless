@@ -15,7 +15,7 @@ class StatsWidget extends WidgetBase {
             $_smarty,
             $_language;
 
-    public function __construct($pages = array(), $smarty, $language, $cache) {
+    public function __construct($pages = [], $smarty, $language, $cache) {
         $this->_cache = $cache;
         $this->_smarty = $smarty;
         $this->_language = $language;
@@ -23,7 +23,7 @@ class StatsWidget extends WidgetBase {
         parent::__construct($pages);
 
         // Get widget
-        $widget_query = DB::getInstance()->selectQuery('SELECT `location`, `order` FROM nl2_widgets WHERE `name` = ?', array('Statistics'))->first();
+        $widget_query = DB::getInstance()->selectQuery('SELECT `location`, `order` FROM nl2_widgets WHERE `name` = ?', ['Statistics'])->first();
 
         // Set widget variables
         $this->_module = 'Core';
@@ -51,30 +51,30 @@ class StatsWidget extends WidgetBase {
             $users_registered = count($users_query);
 
             $latest_user = new User($users_query[0]->id);
-            $latest_member = array(
+            $latest_member = [
                 'style' => $latest_user->getGroupClass(),
                 'profile' => $latest_user->getProfileURL(),
                 'avatar' => $latest_user->getAvatar(),
                 'username' => $latest_user->getDisplayname(true),
                 'nickname' => $latest_user->getDisplayname(),
                 'id' => Output::getClean($users_query[0]->id)
-            );
+            ];
 
             $users_query = null;
 
             $this->_cache->store(
                 'statistics',
-                array(
+                [
                     'users_registered' => $users_registered,
                     'latest_member' => $latest_member
-                ),
+                ],
                 120
             );
 
-        };
+        }
 
         if (!$this->_cache->isCached('online_users')) {
-            $online_users = DB::getInstance()->selectQuery('SELECT count(*) FROM nl2_users WHERE last_online > ?', array(strtotime('-5 minutes')))->first();
+            $online_users = DB::getInstance()->selectQuery('SELECT count(*) FROM nl2_users WHERE last_online > ?', [strtotime('-5 minutes')])->first();
             $online_users = $online_users->{'count(*)'};
             $this->_cache->store('online_users', $online_users, 60);
         } else {
@@ -83,7 +83,7 @@ class StatsWidget extends WidgetBase {
 
         if (!$this->_cache->isCached('online_guests')) {
             try {
-                $online_guests = DB::getInstance()->selectQuery('SELECT count(*) FROM nl2_online_guests WHERE last_seen > ?', array(strtotime('-5 minutes')))->first();
+                $online_guests = DB::getInstance()->selectQuery('SELECT count(*) FROM nl2_online_guests WHERE last_seen > ?', [strtotime('-5 minutes')])->first();
                 $online_guests = $online_guests->{'count(*)'};
                 $this->_cache->store('online_guests', $online_guests, 60);
             } catch (Exception $e) {
@@ -94,7 +94,7 @@ class StatsWidget extends WidgetBase {
             $online_guests = $this->_cache->retrieve('online_guests');
         }
 
-        $forum_module = $queries->getWhere('modules', array('name', '=', 'Forum'));
+        $forum_module = $queries->getWhere('modules', ['name', '=', 'Forum']);
         $forum_module = $forum_module[0];
 
         if ($forum_module->enabled) {
@@ -116,18 +116,18 @@ class StatsWidget extends WidgetBase {
             }
 
             $this->_smarty->assign(
-                array(
+                [
                     'FORUM_STATISTICS' => $this->_language['forum_stats'],
                     'TOTAL_THREADS' =>  $this->_language['total_threads'],
                     'TOTAL_THREADS_VALUE' => $total_topics,
                     'TOTAL_POSTS' =>  $this->_language['total_posts'],
                     'TOTAL_POSTS_VALUE' => $total_posts,
-                )
+                ]
             );
-        };
+        }
 
         $this->_smarty->assign(
-            array(
+            [
                 'STATISTICS' =>  $this->_language['statistics'],
                 'USERS_REGISTERED' =>  $this->_language['users_registered'],
                 'USERS_REGISTERED_VALUE' => $users_registered,
@@ -139,7 +139,7 @@ class StatsWidget extends WidgetBase {
                 'GUESTS_ONLINE_VALUE' => $online_guests,
                 'TOTAL_ONLINE' => $this->_language['total_online'],
                 'TOTAL_ONLINE_VALUE' => $online_guests + $online_users
-            )
+            ]
         );
 
         $this->_content = $this->_smarty->fetch('widgets/statistics.tpl');

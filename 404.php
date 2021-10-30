@@ -16,7 +16,7 @@ $page_title = '404';
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 $page_load = microtime(true) - $start;
 define(
@@ -37,14 +37,14 @@ require(ROOT_PATH . '/core/templates/footer.php');
 
 // Assign Smarty variables
 $smarty->assign(
-    array(
+    [
         '404_TITLE' => $language->get('errors', '404_title'),
         'CONTENT' => $language->get('errors', '404_content'),
         'BACK' => $language->get('errors', '404_back'),
         'HOME' => $language->get('errors', '404_home'),
-        'ERROR' => str_replace(array('{x}', '{y}'), array('<a href="' . URL::build('/contact') . '">', '</a>'), $language->get('errors', '404_error')),
+        'ERROR' => str_replace(['{x}', '{y}'], ['<a href="' . URL::build('/contact') . '">', '</a>'], $language->get('errors', '404_error')),
         'PATH' => (defined('CONFIG_PATH') ? CONFIG_PATH : '')
-    )
+    ]
 );
 
 // Display template

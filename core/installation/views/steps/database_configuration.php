@@ -52,8 +52,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 			$mysqli->close();
 
-			$conf = array(
-				'mysql' => array(
+			$conf = [
+				'mysql' => [
 					'host' => $db_address,
 					'port' => $db_port,
 					'username' => $db_username,
@@ -63,26 +63,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 					'charset' => $charset,
 					'engine' => $engine,
 					'initialise_charset' => true,
-				),
-				'remember' => array(
+                ],
+				'remember' => [
 					'cookie_name' => 'nl2',
 					'cookie_expiry' => 604800,
-				),
-				'session' => array(
+                ],
+				'session' => [
 					'session_name' => '2user',
 					'admin_name' => '2admin',
 					'token_name' => '2token',
-				),
-				'core' => array(
+                ],
+				'core' => [
 					'hostname' => $_SESSION['hostname'],
 					'path' => $_SESSION['install_path'],
 					'friendly' => $_SESSION['friendly_urls'] == 'true',
 					'force_https' => false,
 					'force_www' => false,
 					'captcha' => false,
-				),
+                ],
 				'allowedProxies' => '',
-			);
+            ];
 
 			try {
 
@@ -147,14 +147,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 							create_field('text', $language['database_username'], 'db_username', 'inputDBUsername', $default_user);
 							create_field('password', $language['database_password'], 'db_password', 'inputDBPassword', $default_pass);
 							create_field('text', $language['database_name'], 'db_name', 'inputDBName', $default_name);
-							create_field('select', $language['character_set'], 'charset', 'inputCharset', $default_charset, array(
+							create_field('select', $language['character_set'], 'charset', 'inputCharset', $default_charset, [
 								'utf8mb4' => 'Unicode (utf8mb4)',
 								'latin1' => 'Latin (latin1)',
-							));
-							create_field('select', $language['database_engine'], 'engine', 'inputEngine', $default_engine, array(
+                            ]);
+							create_field('select', $language['database_engine'], 'engine', 'inputEngine', $default_engine, [
 								'InnoDB' => 'InnoDB',
 								'MyISAM' => 'MyISAM',
-							));
+                            ]);
 						?>
 					</div>
 				</div>

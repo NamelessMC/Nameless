@@ -21,7 +21,7 @@ $page_title = $language->get('admin', 'users');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 if (Session::exists('users_session')) {
     $success = Session::flash('users_session');
@@ -29,30 +29,30 @@ if (Session::exists('users_session')) {
 
 if (isset($success)) {
     $smarty->assign(
-        array(
+        [
             'SUCCESS' => $success,
             'SUCCESS_TITLE' => $language->get('general', 'success')
-        )
+        ]
     );
 }
 
 if (isset($errors) && count($errors)) {
     $smarty->assign(
-        array(
+        [
             'ERRORS' => $errors,
             'ERRORS_TITLE' => $language->get('general', 'error')
-        )
+        ]
     );
 }
 
-$output = array();
+$output = [];
 if (!defined('PANEL_TEMPLATE_STAFF_USERS_AJAX')) {
     // Get all users
-    $users = $queries->getWhere('users', array('id', '<>', 0));
+    $users = $queries->getWhere('users', ['id', '<>', 0]);
     foreach ($users as $item) {
         $target_user = new User($item->id);
 
-        $output[] = array(
+        $output[] = [
             'id' => Output::getClean($item->id),
             'username' => $target_user->getDisplayname(true),
             'nickname' => $target_user->getDisplayname(),
@@ -64,12 +64,12 @@ if (!defined('PANEL_TEMPLATE_STAFF_USERS_AJAX')) {
             'all_groups' => $target_user->getAllGroupHtml(),
             'registered' => date('d M Y', $item->joined),
             'registered_unix' => Output::getClean($item->joined)
-        );
+        ];
     }
 }
 
 $smarty->assign(
-    array(
+    [
         'PARENT_PAGE' => PARENT_PAGE,
         'DASHBOARD' => $language->get('admin', 'dashboard'),
         'USER_MANAGEMENT' => $language->get('admin', 'user_management'),
@@ -84,7 +84,7 @@ $smarty->assign(
         'ACTIONS' => $language->get('general', 'actions'),
         'ACTIONS_LIST' => Core_Module::getUserActions(),
         'ALL_USERS' => $output
-    )
+    ]
 );
 
 $page_load = microtime(true) - $start;

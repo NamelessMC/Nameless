@@ -9,7 +9,7 @@
  *  Italian Language - Admin
  */
 
-$language = array(
+$language = [
     /*
      *  Admin Control Panel
      */
@@ -744,4 +744,4 @@ $language = array(
     'background_colour_required' => 'Il colore di sfondo è obbligatorio',
     'text_colour_required' => 'Il colore del testo è obbligatorio',
     'no_announcements' => 'No announcements have been made yet.',
-);
+];

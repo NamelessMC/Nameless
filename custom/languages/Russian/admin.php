@@ -10,7 +10,7 @@
  *  Russian Language - Admin
  */
 
-$language = array(
+$language = [
     /*
      *  Admin Control Panel
      */
@@ -742,4 +742,4 @@ $language = array(
     'background_colour_required' => 'Укажите цвет заднего фона',
     'text_colour_required' => 'Укажите цвет текста',
     'no_announcements' => 'Нету созданных объявлений.',
-);
+];

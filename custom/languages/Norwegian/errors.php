@@ -9,7 +9,7 @@
  *  Norwegian translation (norsk bokmål) - Error
  */
 
-$language = array(
+$language = [
     /*
      *  Errors
      */
@@ -31,4 +31,4 @@ $language = array(
     'fatal_error_message_admin' => 'Beklager, men det oppstod en feil. Feilmelding:',
     'in_file' => 'i filen <strong>{x}</strong>', // Don't replace {x}
     'on_line' => 'på linje <strong>{x}</strong>' // Don't replace {x}
-);
+];
