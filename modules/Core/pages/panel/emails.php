@@ -174,11 +174,6 @@ if (isset($_GET['action'])) {
                     $editing_lang->set('emails', $email[0] . '_message', Output::getClean(Input::get($email[0] . '_message')));
                 }
 
-                if (!count($errors)) {
-                    Session::flash('emails_success', $language->get('admin', 'email_settings_updated_successfully'));
-                    Redirect::to(URL::build('/panel/core/emails', 'action=edit_messages'));
-                    die();
-                }
             } else {
 
                 if (isset($_POST['enable_mailer']) && $_POST['enable_mailer'] == 1)

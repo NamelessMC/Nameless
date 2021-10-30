@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection ALL */
+/** @noinspection ALL */
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/

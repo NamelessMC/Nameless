@@ -51,11 +51,11 @@ abstract class TemplateBase {
         }
     }
 
-        
+
     /**
      * Add internal CSS styling to this page load.
      *
-     * @param string $style Styling to add.
+     * @param string|null $style Styling to add.
      */
     public function addCSSStyle(string $style = null): void {
         if ($style) {
@@ -86,7 +86,7 @@ abstract class TemplateBase {
     /**
      * Add internal JS code to this page load.
      *
-     * @param string $style Code to add.
+     * @param string|null $script
      */
     public function addJSScript(string $script = null): void {
         if ($script) {

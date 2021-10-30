@@ -22,14 +22,14 @@ class Navigation {
 
     /**
      * Add a simple item to this navigation instance.
-     * 
+     *
      * @param string $name Unique name for the navbar item, if the page name equals this the item will display as active.
      * @param string $title Item title.
      * @param string $link HTML href attribute, can be link built with URL class or hyperlink.
      * @param string $location Location to add item to, either 'top' or 'footer' (defaults to 'top').
-     * @param string $target HTML target attribute (eg '_blank').
+     * @param string|null $target HTML target attribute (eg '_blank').
      * @param int Nav item order (default 10).
-     * @param string $icon Icon to prepend to nav item.
+     * @param string|null $icon Icon to prepend to nav item.
      */
     public function add(string $name, string $title, string $link, string $location = 'top', string $target = null, int $order = 10, ?string $icon = ''): void {
         if ($this->_panel && $location == 'top') {
@@ -107,8 +107,8 @@ class Navigation {
      * @param string $title Item title.
      * @param string $link HTML href attribute, can be link built with URL class or hyperlink.
      * @param string $location Location to add item to, either 'top' or 'footer' (defaults to 'top').
-     * @param string $target HTML target attribute (eg '_blank')
-     * @param string $icon Icon to prepend to nav item 
+     * @param string|null $target HTML target attribute (eg '_blank')
+     * @param string $icon Icon to prepend to nav item
      * @param int $order Nav item order
      */
     public function addItemToDropdown(string $dropdown, string $name, string $title, string $link, string $location = 'top', string $target = null, string $icon = '', int $order = 10): void {

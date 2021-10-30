@@ -85,6 +85,6 @@ class ProfilePostsWidget extends WidgetBase {
             'LATEST_PROFILE_POSTS' => $this->_language->get('user', 'latest_profile_posts'),
             'NO_PROFILE_POSTS' => $this->_language->get('user', 'no_profile_posts')
         ]);
-        $this->_content = $this->_smarty->fetch('widgets/profile_posts.tpl');;
+        $this->_content = $this->_smarty->fetch('widgets/profile_posts.tpl');
     }
 }

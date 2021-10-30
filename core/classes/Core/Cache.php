@@ -249,6 +249,7 @@ class Cache {
     /**
      * Get the filename hash
      *
+     * @param $filename
      * @return string
      */
     private function _getHash($filename): string {

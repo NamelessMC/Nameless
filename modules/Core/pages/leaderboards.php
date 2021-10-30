@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection ALL */
 /*
  *	Made by Aberdeener
  *  https://github.com/NamelessMC/Nameless/

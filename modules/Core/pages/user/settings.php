@@ -566,7 +566,7 @@ if(isset($_GET['do'])){
 	foreach($language_query as $item){
 		$languages[] = [
 			'name' => Output::getClean($item->name),
-			'active' => (($user->data()->language_id == $item->id) ? true : false)
+			'active' => $user->data()->language_id == $item->id
         ];
 	}
 
@@ -689,7 +689,7 @@ if(isset($_GET['do'])){
 
     // Discord Integration
     if(Util::isModuleEnabled('Discord Integration')) {
-        $discord_linked = $user->data()->discord_id == null || $user->data()->discord_id == 010 ? false : true;
+        $discord_linked = !($user->data()->discord_id == null || $user->data()->discord_id == 010);
 
         if ($discord_linked) {
             $smarty->assign([

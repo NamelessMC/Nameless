@@ -456,7 +456,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                 $banners[] = [
                     'src' => ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/profile_images/' . Output::getClean($image),
                     'name' => Output::getClean($image),
-                    'active' => ($user->data()->banner == $image) ? true : false
+                    'active' => $user->data()->banner == $image
                 ];
             }
 
@@ -474,7 +474,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                     $banners[] = [
                         'src' => ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/profile_images/' . Output::getClean($user->data()->id) . '/' . Output::getClean($image),
                         'name' => Output::getClean($user->data()->id) . '/' . Output::getClean($image),
-                        'active' => ($user->data()->banner == $image) ? true : false
+                        'active' => $user->data()->banner == $image
                     ];
                 }
             }
@@ -649,7 +649,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                 'date' => date('d M Y, H:i', $results->data[$n]->time),
                 'reactions' => $reactions,
                 'replies' => $replies,
-                'self' => (($user->isLoggedIn() && $user->data()->id == $results->data[$n]->author_id) ? true : false),
+                'self' => $user->isLoggedIn() && $user->data()->id == $results->data[$n]->author_id,
                 'reactions_link' => ($user->isLoggedIn() && ($post_user[0]->id != $user->data()->id) ? URL::build('/profile/' . Output::getClean($query->username) . '/', 'action=react&amp;post=' . $results->data[$n]->id) : '#')
             ];
         }

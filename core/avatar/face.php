@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection ALL */
 /*
 Title:      Minecraft Avatar
 URL:        http://github.com/jamiebicknell/Minecraft-Avatar

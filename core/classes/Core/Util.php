@@ -226,12 +226,12 @@ class Util {
 
         return !(str_replace('www.', '', rtrim(Util::getSelfURL(false), '/')) == str_replace('www.', '', $parsed['host']));
     }
- 
+
     /**
      * URL-ify a string
      *
-     * @param string $string String to URLify
-     * 
+     * @param string|null $string $string String to URLify
+     *
      * @return string Url-ified string. (I dont know what this means)
      */
     public static function stringToURL(string $string = null): string {
@@ -358,9 +358,10 @@ class Util {
     /**
      * Check for Nameless updates.
      *
-     * @param string $current_version Current local namelessmc version to compare.
-     * 
+     * @param string|null $current_version Current local namelessmc version to compare.
+     *
      * @return string JSON object with information about any updates.
+     * @throws Exception
      */
     public static function updateCheck(string $current_version = null): string {
         $queries = new Queries();
@@ -446,9 +447,9 @@ class Util {
     /**
      * Make a GET request to a URL using cURL.
      * Failures will automatically be logged along with the error.
-     * 
+     *
      * @param string $full_url URL to send request to.
-     * @param string $body Request body to attach to request.
+     * @param string|null $body Request body to attach to request.
      * @return string|bool Response from remote server, false on failure.
      */
     public static function curlGetContents(string $full_url, ?string $body = null) {
@@ -486,14 +487,12 @@ class Util {
      * @return string Replaced string.
      */
     public static function replaceAnchorsWithText(string $data): string {
-        $data = preg_replace_callback('/]*href=["|\']([^"|\']*)["|\'][^>]*>([^<]*)<\/a>/i', static function ($m): string {
+        return preg_replace_callback('/]*href=["|\']([^"|\']*)["|\'][^>]*>([^<]*)<\/a>/i', static function ($m): string {
             if (strpos($m[1], self::getSelfURL()) === false)
                 return '<a href="' . $m[1] . '" rel="nofollow noopener" target="_blank">' . $m[2] . '</a>';
             else
                 return '<a href="' . $m[1] . '" target="_blank">' . $m[2] . '</a>';
         }, $data);
-
-        return $data;
     }
     
     /**

@@ -47,8 +47,9 @@ class ExternalMCQuery {
 
     /**
      * Get a server's favicon.
-     * 
-     * @param string $ip Server's IP.
+     *
+     * @param string|null $ip Server's IP.
+     * @return false
      */
     public static function getFavicon(string $ip = null) {
         if($ip){

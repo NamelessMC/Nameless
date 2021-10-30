@@ -79,6 +79,6 @@ class ServerStatusWidget extends WidgetBase {
                 'NO_SERVERS' => $this->_language->get('general', 'no_default_server')
             ]
         );
-        $this->_content = $this->_smarty->fetch('widgets/server_status.tpl');;
+        $this->_content = $this->_smarty->fetch('widgets/server_status.tpl');
     }
 }

@@ -78,7 +78,8 @@ class User {
      * Update a user's data in the database.
      *
      * @param array $fields Column names and values to update.
-     * @param int $id If not supplied, will use ID of logged in user.
+     * @param int|null $id If not supplied, will use ID of logged in user.
+     * @throws Exception
      */
     public function update(array $fields = [], int $id = null): void {
         if (!$id) {
@@ -105,7 +106,7 @@ class User {
      * Find a user by unique identifier (username, ID, email, etc).
      * Loads instance variables for this class.
      *
-     * @param string $value Unique identifier.
+     * @param string|null $value Unique identifier.
      * @param string $field What column to check for their unique identifier in.
      *
      * @return bool True/false on success or failure respectfully.
@@ -161,7 +162,7 @@ class User {
     /**
      * Get a user's username from their ID.
      *
-     * @param int $id Their ID.
+     * @param int|null $id Their ID.
      *
      * @return string|bool Their username, false on failure.
      */
@@ -181,7 +182,7 @@ class User {
     /**
      * Get a user's nickname from their ID.
      *
-     * @param int $id Their ID.
+     * @param int|null $id Their ID.
      *
      * @return string|bool Their nickname, false on failure.
      */
@@ -237,8 +238,8 @@ class User {
     /**
      * Log the user in.
      *
-     * @param string $username Their username (or email, depending on $method).
-     * @param string $password Their password.
+     * @param string|null $username Their username (or email, depending on $method).
+     * @param string|null $password Their password.
      * @param bool $remember Whether to keep them logged in or not.
      * @param string| $method What column to check for their details in. Can be either `username` or `email`.
      *
@@ -251,8 +252,8 @@ class User {
     /**
      * Handle StaffCP logins.
      *
-     * @param string $username Their username (or email, depending on $method).
-     * @param string $password Their password.
+     * @param string|null $username Their username (or email, depending on $method).
+     * @param string|null $password Their password.
      * @param string $method What column to check for their details in. Can be either `username` or `email`.
      *
      * @return bool True/false on success or failure respectfully.
@@ -349,7 +350,6 @@ class User {
     /**
      * Get all of a user's groups. We can return their ID only or their HTML display code.
      *
-     * @param mixed $html If not null, will use group_html column instead of ID.
      * @return array Array of all their group's IDs or HTML.
      */
     public function getAllGroupHtml(): array {
@@ -583,7 +583,8 @@ class User {
      *
      * @param int $group_id ID of group to set as main group.
      * @param int $expire Expiry in epoch time. If not supplied, group will never expire.
-     * @param array $group_data Load data from existing query.
+     * @param array|null $group_data Load data from existing query.
+     * @return false|void
      */
     public function setGroup(int $group_id, int $expire = 0, array $group_data = null) {
         if ($this->data()->id == 1) {
@@ -651,7 +652,7 @@ class User {
     /**
      * Remove a group from the user.
      *
-     * @param int $group_id ID of group to remove.
+     * @param int|null $group_id ID of group to remove.
      *
      * @return bool Returns false if they did not have this group or the admin group is being removed from root user
      */
@@ -739,7 +740,7 @@ class User {
     /**
      * Return an ID from a username.
      *
-     * @param string $username Username to get ID for.
+     * @param string|null $username Username to get ID for.
      *
      * @return int|bool ID on success, false on failure.
      */
@@ -759,7 +760,7 @@ class User {
     /**
      * Return an ID from an email.
      *
-     * @param string $email Email to get ID for.
+     * @param string|null $email Email to get ID for.
      * @return int|bool ID on success, false on failure.
      */
     public function emailToId(string $email = null) {
@@ -778,7 +779,7 @@ class User {
     /**
      * Get a list of PMs a user has access to.
      *
-     * @param int $user_id ID of user to get PMs for.
+     * @param int|null $user_id ID of user to get PMs for.
      * @return array|bool Array of PMs, false on failure.
      */
     public function listPMs(int $user_id = null) {
@@ -827,8 +828,8 @@ class User {
     /**
      * Get a specific private message, and see if the user actually has permission to view it
      *
-     * @param int $pm_id ID of PM to find.
-     * @param int $user_id ID of user to check permission for.
+     * @param int|null $pm_id ID of PM to find.
+     * @param int|null $user_id ID of user to check permission for.
      * @return array|bool Array of info about PM, false on failure.
      */
     public function getPM(int $pm_id = null, int $user_id = null) {
@@ -882,8 +883,8 @@ class User {
     /**
      * Delete a user's access to view the PM, or if they're the author, the PM itself.
      *
-     * @param int $pm_id ID of Pm to delete.
-     * @param int $user_id ID of user to use.
+     * @param int|null $pm_id ID of Pm to delete.
+     * @param int|null $user_id ID of user to use.
      * @return bool Whether the action succeeded or not.
      */
     public function deletePM(int $pm_id = null, int $user_id = null) {
@@ -958,7 +959,8 @@ class User {
      * Check the user's permission to see if they can view this staffCP page or not.
      * If they cannot, this will handle appropriate redirection.
      *
-     * @param string $permission Permission required for this page.
+     * @param string|null $permission Permission required for this page.
+     * @return bool
      */
     public function handlePanelPageLoad(string $permission = null): bool {
         // Set page user is trying to access in session, to allow for redirection post-auth

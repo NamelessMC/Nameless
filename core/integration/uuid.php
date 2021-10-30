@@ -112,8 +112,7 @@ class ProfileUtils {
         if(isset($result) && $result != null && $result != false)
         {
             $ress = json_decode($result, true);
-            $res = ["username" =>  $ress['name'], "uuid" => $ress['id']];
-            return $res;
+            return ["username" =>  $ress['name'], "uuid" => $ress['id']];
         }
         else
             return null;

@@ -1,4 +1,6 @@
-<?php
+<?php /** @noinspection ALL */
+
+/** @noinspection ALL */
 
 class Discord_Module extends Module {
     

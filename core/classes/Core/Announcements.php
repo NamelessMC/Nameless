@@ -90,9 +90,9 @@ class Announcements {
 
     /**
      * Get prettified output of the pages a specific announcement is on.
-     * 
-     * @param string $pages_json JSON array of pages to implode.
-     * 
+     *
+     * @param string|null $pages_json JSON array of pages to implode.
+     *
      * @return string Comma seperated list of page names.
      */
     public function getPagesCsv(?string $pages_json = null): string {

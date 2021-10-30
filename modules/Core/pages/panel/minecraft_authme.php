@@ -124,7 +124,7 @@ if($authme_enabled == '1'){
     $authme_db = json_decode($authme_db[0]->value);
 
     $smarty->assign([
-        'AUTHME_DB_DETAILS' => ($authme_db ? $authme_db : []),
+        'AUTHME_DB_DETAILS' => ($authme_db ?: []),
         'AUTHME_HASH_ALGORITHM' => $language->get('admin', 'authme_hash_algorithm'),
         'AUTHME_DB_ADDRESS' => $language->get('admin', 'authme_db_address'),
         'AUTHME_DB_PORT' => $language->get('admin', 'authme_db_port'),

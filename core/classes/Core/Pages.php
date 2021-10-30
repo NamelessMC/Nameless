@@ -106,8 +106,8 @@ class Pages {
     /**
      * Get page by ID
      *
-     * @param int $page_id ID of page to find.
-     * 
+     * @param int|null $page_id ID of page to find.
+     *
      * @return array Page information.
      */
     public function getPageById(int $page_id = null): array {
@@ -126,8 +126,8 @@ class Pages {
     /**
      * Get page by URL.
      *
-     * @param string $url URL of page to find.
-     * 
+     * @param string|null $url URL of page to find.
+     *
      * @return array Page information.
      */
     public function getPageByURL(string $url = null): array {
@@ -163,7 +163,7 @@ class Pages {
     /**
      * Add a script for Javascript to perform a GET request to.
      *
-     * @param string $script URL of js script to add.
+     * @param string|null $script URL of js script to add.
      */
     public function addAjaxScript(string $script = null): void {
         if ($script) {

@@ -12,11 +12,11 @@
 use SitemapPHP\Sitemap;
 
 class Forum_Sitemap {
-        
+
     /**
      * Generate sitemap for the Forum.
      *
-     * @param Sitemap $sitemap Instance of sitemap generator.
+     * @param Sitemap|null $sitemap Instance of sitemap generator.
      */
     public static function generateSitemap(Sitemap $sitemap = null): void {
         if (!$sitemap)

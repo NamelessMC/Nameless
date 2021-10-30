@@ -311,7 +311,7 @@ if (!isset($_GET['view'])) {
                 'description' => $endpoint->getDescription(),
                 'method' => $endpoint->getMethod()
             ];
-        };
+        }
 
         $smarty->assign(
             [

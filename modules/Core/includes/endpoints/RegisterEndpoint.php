@@ -182,12 +182,16 @@ class RegisterEndpoint extends EndpointBase {
      *
      * For internal API use only
      *
-     * @see Nameless2API::register()
-     *
+     * @param Nameless2API $api
      * @param string $username The username of the new user to create
      * @param string $uuid (optional) The Minecraft UUID of the new user
      * @param string $email The email of the new user
-     * @param string $code The reset token/temp password of the new user
+     * @param bool $return
+     * @param string|null $code The reset token/temp password of the new user
+     * @param bool $api_verification
+     * @return array|void
+     * @see Nameless2API::register()
+     *
      */
     private function createUser(Nameless2API $api, string $username, string $uuid, string $email, bool $return, string $code = null, bool $api_verification = false) {
         try {

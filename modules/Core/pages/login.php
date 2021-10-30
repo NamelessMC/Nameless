@@ -160,7 +160,7 @@ if (Input::exists()) {
 						$user = new User();
 
 						// Did the user check 'remember me'?
-						$remember = (Input::get('remember') == 1) ? true : false;
+						$remember = Input::get('remember') == 1;
 
 						// Is Minecraft and AuthMe integration enabled?
 						$minecraft = $queries->getWhere('settings', ['name', '=', 'mc_integration']);

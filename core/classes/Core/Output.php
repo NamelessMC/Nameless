@@ -15,8 +15,8 @@ class Output {
     /**
      * Returns a clean version of an inputted string.
      *
-     * @param string $input The string which will be cleaned
-     * 
+     * @param string|null $input The string which will be cleaned
+     *
      * @return string Cleaned version of string.
      */
     public static function getClean(?string $input): string {
@@ -25,9 +25,9 @@ class Output {
 
     /**
      * Returns a decoded version of a clean string.
-     * 
-     * @param string $input Contains the clean string which will be decoded.
-     * 
+     *
+     * @param string|null $input Contains the clean string which will be decoded.
+     *
      * @return string Decoded string.
      */
     public static function getDecoded(?string $input): string {
@@ -37,9 +37,9 @@ class Output {
     /**
      * Returns a purified version of an inputted string with HTMLPurifier.
      *
-     * @param string $input String which will be purified.
+     * @param string|null $input String which will be purified.
      * @param boolean $escape_invalid Should invalid HTML be escaped instead of fully removed?
-     * 
+     *
      * @return string Purified string.
      */
     public static function getPurified(?string $input, bool $escape_invalid = false): string {

@@ -84,7 +84,7 @@ class Nameless2API {
     /**
      * Validate provided API key to make sure it matches.
      *
-     * @param string $api_key API key to check.
+     * @param string|null $api_key API key to check.
      *
      * @return bool Whether it matches or not.
      */

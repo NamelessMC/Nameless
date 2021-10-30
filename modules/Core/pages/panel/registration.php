@@ -180,7 +180,7 @@ $validation_group = $validation_group['group'] ?? 1;
 $all_captcha_options = CaptchaBase::getAllProviders();
 $captcha_options = [];
 $active_option = $configuration->get('Core', 'recaptcha_type');
-$active_option_name = $active_option ? $active_option : '';
+$active_option_name = $active_option ?: '';
 
 foreach ($all_captcha_options as $option) {
     $captcha_options[] = [

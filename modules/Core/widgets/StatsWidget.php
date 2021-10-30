@@ -71,7 +71,7 @@ class StatsWidget extends WidgetBase {
                 120
             );
 
-        };
+        }
 
         if (!$this->_cache->isCached('online_users')) {
             $online_users = DB::getInstance()->selectQuery('SELECT count(*) FROM nl2_users WHERE last_online > ?', [strtotime('-5 minutes')])->first();
@@ -124,7 +124,7 @@ class StatsWidget extends WidgetBase {
                     'TOTAL_POSTS_VALUE' => $total_posts,
                 ]
             );
-        };
+        }
 
         $this->_smarty->assign(
             [
