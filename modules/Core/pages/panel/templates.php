@@ -191,8 +191,6 @@ if (!isset($_GET['action'])) {
             Redirect::to(URL::build('/panel/core/templates'));
             die();
 
-            break;
-
         case 'activate':
             if (Token::check()) {
                 // Activate a template
@@ -231,8 +229,6 @@ if (!isset($_GET['action'])) {
             Redirect::to(URL::build('/panel/core/templates/'));
             die();
 
-            break;
-
         case 'deactivate':
             if (Token::check()) {
                 // Deactivate a template
@@ -259,8 +255,6 @@ if (!isset($_GET['action'])) {
 
             Redirect::to(URL::build('/panel/core/templates'));
             die();
-
-            break;
 
         case 'delete':
             if (!isset($_GET['template'])) {
@@ -304,8 +298,6 @@ if (!isset($_GET['action'])) {
             Redirect::to(URL::build('/panel/core/templates'));
             die();
 
-            break;
-
         case 'make_default':
             if (Token::check()) {
                 // Make a template default
@@ -347,8 +339,6 @@ if (!isset($_GET['action'])) {
 
             Redirect::to(URL::build('/panel/core/templates/'));
             die();
-
-            break;
 
         case 'settings':
             // Editing template settings
@@ -721,7 +711,6 @@ if (!isset($_GET['action'])) {
         default:
             Redirect::to(URL::build('/panel/core/templates'));
             die();
-            break;
     }
 }
 

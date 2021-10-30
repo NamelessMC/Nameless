@@ -471,7 +471,6 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
         default:
             Redirect::to(URL::build('/panel/forums'));
             die();
-            break;
     }
 } else if (isset($_GET['forum'])) {
     // Editing forum

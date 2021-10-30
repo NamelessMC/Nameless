@@ -193,13 +193,9 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                 Redirect::to(URL::build('/panel/core/reactions'));
                 die();
 
-                break;
-
             default:
                 Redirect::to(URL::build('/panel/core/reactions'));
                 die();
-
-                break;
         }
     } else {
         // Get reaction

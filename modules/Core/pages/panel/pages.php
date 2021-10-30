@@ -552,13 +552,9 @@ if(!isset($_GET['action'])){
             }
             die();
 
-            break;
-
         default:
             Redirect::to(URL::build('/panel/core/pages'));
             die();
-
-            break;
     }
 }
 

@@ -234,12 +234,10 @@ if (!isset($_GET['action'])) {
 
             Redirect::to(URL::build('/panel/core/hooks'));
             die();
-            break;
 
         default:
             Redirect::to(URL::build('/panel/core/hooks'));
             die();
-            break;
     }
 }
 

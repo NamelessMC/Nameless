@@ -357,8 +357,6 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                 Redirect::to($profile_user->getProfileURL());
                 die();
 
-                break;
-
             case 'reset_banner':
                 if (Token::check($_POST['token'])) {
                     if ($user->hasPermission('modcp.profile_banner_reset')) {

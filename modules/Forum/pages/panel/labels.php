@@ -369,9 +369,7 @@ if(!isset($_GET['action'])){
 			Redirect::to(URL::build('/panel/forums/labels'));
 			die();
 
-			break;
-
-		case 'types':
+        case 'types':
 			// List label types
 			$labels = $queries->getWhere('forums_labels', ['id', '<>', 0]);
 			$template_array = [];
@@ -578,13 +576,10 @@ if(!isset($_GET['action'])){
 			Redirect::to(URL::build('/panel/forums/labels/', 'action=types'));
 			die();
 
-			break;
-
-		default:
+        default:
 			Redirect::to(URL::build('/panel/forums/labels'));
 			die();
-			break;
-	}
+    }
 
 }
 

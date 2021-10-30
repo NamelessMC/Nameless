@@ -187,8 +187,6 @@ if(!isset($_GET['action'])){
             Redirect::to(URL::build('/panel/core/panel_templates'));
             die();
 
-            break;
-
         case 'activate':
             if (Token::check()) {
                 // Activate a template
@@ -228,8 +226,6 @@ if(!isset($_GET['action'])){
             Redirect::to(URL::build('/panel/core/panel_templates/'));
             die();
 
-            break;
-
         case 'deactivate':
             if (Token::check()) {
                 // Deactivate a template
@@ -256,8 +252,6 @@ if(!isset($_GET['action'])){
 
             Redirect::to(URL::build('/panel/core/panel_templates'));
             die();
-
-            break;
 
         case 'delete':
             if (!isset($_GET['template'])) {
@@ -301,8 +295,6 @@ if(!isset($_GET['action'])){
             Redirect::to(URL::build('/panel/core/panel_templates'));
             die();
 
-            break;
-
         case 'make_default':
             if (Token::check()) {
                 // Make a template default
@@ -345,8 +337,6 @@ if(!isset($_GET['action'])){
             Redirect::to(URL::build('/panel/core/panel_templates/'));
             die();
 
-            break;
-
         case 'clear_cache':
             if (Token::check()) {
                 $smarty->clearAllCache();
@@ -357,12 +347,10 @@ if(!isset($_GET['action'])){
 
             Redirect::to(URL::build('/panel/core/panel_templates'));
             die();
-            break;
 
         default:
             Redirect::to(URL::build('/panel/core/panel_templates'));
             die();
-            break;
     }
 }
 

@@ -430,8 +430,6 @@ if(isset($_GET['action'])){
 
             Redirect::to(URL::build('/panel/minecraft/servers'));
             die();
-
-            break;
         case 'order':
             // Get servers
             if (isset($_POST['servers']) && Token::check($_POST['token'])) {
@@ -446,13 +444,10 @@ if(isset($_GET['action'])){
                 }
             }
             die('Complete');
-            break;
 
         default:
             Redirect::to(URL::build('/panel/minecraft/servers'));
             die();
-
-            break;
     }
 
 } else {

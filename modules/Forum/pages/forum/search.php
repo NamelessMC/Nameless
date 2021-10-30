@@ -121,7 +121,6 @@ if (!isset($_GET['s'])) {
                             break;
                     }
 
-                    break;
                 }
             }
         }

@@ -283,7 +283,6 @@ if (!isset($_GET['view'])) {
         default:
             Redirect::to(URL::build('/panel/security'));
             die();
-            break;
     }
 
     $smarty->assign([

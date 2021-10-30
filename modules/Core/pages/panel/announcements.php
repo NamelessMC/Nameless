@@ -103,12 +103,10 @@ if (!isset($_GET['action'])) {
                             Session::flash('announcement_error', $language->get('admin', 'creating_announcement_failure'));
                             Redirect::to(URL::build('/panel/core/announcements'));
                             die();
-                            break;
                         } else {
                             Session::flash('announcement_success', $language->get('admin', 'creating_announcement_success'));
                             Redirect::to(URL::build('/panel/core/announcements'));
                             die();
-                            break;
                         }
                     } else {
                         $errors = $validation->errors();
@@ -199,12 +197,10 @@ if (!isset($_GET['action'])) {
                             Session::flash('announcement_error', $language->get('admin', 'editing_announcement_failure'));
                             Redirect::to(URL::build('/panel/core/announcements'));
                             die();
-                            break;
                         } else {
                             Session::flash('announcement_success', $language->get('admin', 'editing_announcement_success'));
                             Redirect::to(URL::build('/panel/core/announcements'));
                             die();
-                            break;
                         }
                     } else {
                         $errors = $validation->errors();
@@ -254,7 +250,6 @@ if (!isset($_GET['action'])) {
                 }
             }
             die();
-            break;
 
         case 'order':
             if (isset($_GET['announcements'])) {
@@ -274,7 +269,6 @@ if (!isset($_GET['action'])) {
         default:
             Redirect::to(URL::build('/panel/core/announcements'));
             die();
-            break;
     }
 }
 
