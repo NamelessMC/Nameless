@@ -13,7 +13,7 @@ class ExternalMCQuery {
 
     /**
      * Basic server query.
-     * 
+     *
      * @param string $ip IP to query
      * @param int|null $port Port to query, `25565` by default.
      * @return object Query result.
@@ -24,7 +24,6 @@ class ExternalMCQuery {
         try {
             // cURL
             $ch = curl_init();
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
             curl_setopt($ch, CURLOPT_TIMEOUT, 5);
@@ -69,7 +68,6 @@ class ExternalMCQuery {
             try {
                 // cURL
                 $ch = curl_init();
-                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                 curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
                 curl_setopt($ch, CURLOPT_TIMEOUT, 5);

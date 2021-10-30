@@ -69,15 +69,14 @@ class ProfileUtils {
 
 		// Use cURL instead of file_get_contents
 		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0); 
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
 		curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
 		curl_setopt($ch, CURLOPT_URL, $url);
-		
+
 		// Execute
 		$ret = curl_exec($ch);
-		
+
         if(!empty($ret) && $ret != null && $ret != false) {
             $data = json_decode($ret, true);
             return new MinecraftProfile($data['name'], $data['id'], $data['properties']);
@@ -95,16 +94,15 @@ class ProfileUtils {
         if(strlen($username) > 16)
             return ["username" => "", "uuid" => ""];
         $url = 'https://api.mojang.com/users/profiles/minecraft/'.htmlspecialchars($username);
-		
+
 		// Use cURL instead of file_get_contents
 		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0); 
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
 		curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
 		curl_setopt($ch, CURLOPT_URL, $url);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		
+
 		// Execute
 		$result = curl_exec($ch);
 

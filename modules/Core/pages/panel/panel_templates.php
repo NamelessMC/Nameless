@@ -69,7 +69,6 @@ if(!isset($_GET['action'])){
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_URL, 'https://namelessmc.com/panel_templates');
 
         $all_templates_query = curl_exec($ch);

@@ -16,7 +16,7 @@ class Util {
      * https://en.wikipedia.org/wiki/ISO_9.
      *
      * @param string $string String to convert.
-     * 
+     *
      * @return string Converted string.
      */
     public static function cyrillicToLatin(string $string): string {
@@ -32,7 +32,7 @@ class Util {
             'A', 'B', 'V', 'G', 'D', 'E', 'Io', 'Zh', 'Z', 'I', 'Y', 'K', 'L', 'M', 'N', 'O', 'P',
             'R', 'S', 'T', 'U', 'F', 'H', 'Ts', 'Ch', 'Sh', 'Sht', 'A', 'I', 'Y', 'e', 'Yu', 'Ya'
         ];
-        
+
         return str_replace($cyrillic, $latin, $string);
     }
 
@@ -40,7 +40,7 @@ class Util {
      * Recursively remove a directory.
      *
      * @param string $directory Path to directory to remove.
-     * 
+     *
      * @return bool Whether the action succeeded or not.
      */
     public static function recursiveRemoveDirectory(string $directory): bool {
@@ -67,7 +67,7 @@ class Util {
 
         return true;
     }
- 
+
     /**
      * Get an array containing all timezone lists.
      *
@@ -113,7 +113,7 @@ class Util {
      * Regex pattern credit: https://daringfireball.net/2010/07/improved_regex_for_matching_urls.
      *
      * @param string $text String to convert.
-     * 
+     *
      * @return string Converted string.
      */
     public static function urlToAnchorTag(string $text): string {
@@ -132,7 +132,7 @@ class Util {
                 }
 
                 return sprintf('<a rel="nofollow noopener" target="_blank" href="%s">%s</a>', $url, $text);
-            }, 
+            },
         $text);
     }
 
@@ -159,7 +159,7 @@ class Util {
 
     /**
      * Detect if the current connection is using SSL.
-     * 
+     *
      * @return bool Whether SSL is in use or not.
      */
     public static function isConnectionSSL(): bool {
@@ -170,7 +170,7 @@ class Util {
      * Get the server name.
      *
      * @param bool $protocol Whether to show http(s) at front or not.
-     * 
+     *
      * @return string Compiled URL.
      */
     public static function getSelfURL(bool $protocol = true): string {
@@ -212,9 +212,9 @@ class Util {
 
     /**
      * Is a URL internal or external? Accepts full URL and also just a path.
-     * 
+     *
      * @param string $url URL/path to check.
-     * 
+     *
      * @return bool Whether URL is external or not.
      */
     public static function isExternalURL(string $url): bool {
@@ -377,7 +377,6 @@ class Util {
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_URL, 'https://namelessmc.com/nl_core/nl2/stats.php?uid=' . $uid . '&version=' . $current_version . '&php_version=' . urlencode(phpversion()) . '&language=' . LANGUAGE . '&docker=' . (getenv('NAMELESSMC_METRICS_DOCKER') == true));
 
         $update_check = curl_exec($ch);
@@ -426,7 +425,6 @@ class Util {
     public static function getLatestNews(): string {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_URL, 'https://namelessmc.com/news');
 
         $news = curl_exec($ch);
@@ -443,7 +441,7 @@ class Util {
             return $news;
         }
     }
-    
+
     /**
      * Make a GET request to a URL using cURL.
      * Failures will automatically be logged along with the error.
@@ -454,7 +452,7 @@ class Util {
      */
     public static function curlGetContents(string $full_url, ?string $body = null) {
         $ch = curl_init();
-        
+
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_URL, $full_url);
 
@@ -481,9 +479,9 @@ class Util {
     /**
      * Add target and rel attributes to external links only.
      * From https://stackoverflow.com/a/53461987
-     * 
+     *
      * @param string $data Data to replace.
-     * 
+     *
      * @return string Replaced string.
      */
     public static function replaceAnchorsWithText(string $data): string {
@@ -494,7 +492,7 @@ class Util {
                 return '<a href="' . $m[1] . '" target="_blank">' . $m[2] . '</a>';
         }, $data);
     }
-    
+
     /**
      * Get a setting from the database table `nl2_settings`.
      *
@@ -505,14 +503,14 @@ class Util {
      */
     public static function getSetting(DB $db, string $setting, $fallback = null) {
         $value = $db->get('settings', ['name', '=', $setting]);
-        
+
         if ($value->count()) {
             return $value->first()->value;
         }
 
         return $fallback;
     }
-    
+
     /**
      * Recursively scan, preload and register EndpointBase classes in a folder.
      *
@@ -540,7 +538,7 @@ class Util {
             $endpoints->add(new $endpoint_class_name);
         }
     }
-    
+
     /**
      * Get in-game rank name from a website group ID, uses Group Sync rules.
      *
@@ -550,19 +548,19 @@ class Util {
     public static function getIngameRankName(int $website_group_id): ?string {
         $nameless_injector = GroupSyncManager::getInstance()->getInjectorByClass(NamelessMCGroupSyncInjector::class);
         $data = DB::getInstance()->get('group_sync', [$nameless_injector->getColumnName(), '=', $website_group_id]);
-        
+
         if ($data->count()) {
             return $data->first()->ingame_rank_name;
         }
 
         return null;
     }
-    
+
     /**
      * Get a website group's name from it's ID.
      *
      * @param int $group_id ID of group to find.
-     * 
+     *
      * @return string|null Name of group, null if doesnt exist.
      */
     public static function getGroupNameFromId(int $group_id): ?string {
@@ -571,7 +569,7 @@ class Util {
         if ($data->count()) {
             return $data->first()->name;
         }
-        
+
         return null;
     }
 
@@ -579,9 +577,9 @@ class Util {
 
     /**
      * Determine if a specific module is enabled
-     * 
+     *
      * @param string $name Name of module to check for.
-     * 
+     *
      * @return bool Whether this module is enabled or not.
      */
     public static function isModuleEnabled(string $name): bool {

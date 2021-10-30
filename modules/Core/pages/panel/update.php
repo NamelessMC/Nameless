@@ -66,7 +66,6 @@ if (!isset($update_check->error) && !isset($update_check->no_update) && isset($u
     // Get instructions
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
     curl_setopt($ch, CURLOPT_URL, 'https://namelessmc.com/nl_core/nl2/instructions.php?uid=' . $uid . '&version=' . $current_version);
 
     $instructions = curl_exec($ch);
