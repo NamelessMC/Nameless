@@ -618,7 +618,7 @@ class User {
      *
      * @param int $group_id ID of group to give.
      * @param int $expire Expiry in epoch time. If not supplied, group will never expire.
-     * @param $group_data Load data from existing query.
+     * @param $group_data array Load data from existing query.
      *
      * @return bool True on success, false if they already have it.
      */

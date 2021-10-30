@@ -37,7 +37,7 @@ abstract class TemplateBase {
      * @param array $files Files to be loaded.
      */
     public function addCSSFiles(array $files): void {
-        if (is_array($files) && count($files)) {
+        if (count($files)) {
             foreach ($files as $href => $file) {
                 $this->_css[] = '
                 <link' . (isset($file['rel']) ? ' rel="' . $file['rel'] . '"' : ' rel="stylesheet"') . ' 
@@ -69,7 +69,7 @@ abstract class TemplateBase {
      * @param array $files Files to be loaded.
      */
     public function addJSFiles(array $files): void {
-        if (is_array($files) && count($files)) {
+        if (count($files)) {
             foreach ($files as $href => $file) {
                 $this->_js[] = '
                 <script type="text/javascript" 

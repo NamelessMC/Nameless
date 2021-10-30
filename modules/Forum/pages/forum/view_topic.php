@@ -367,7 +367,7 @@ if (Input::exists()) {
                                         'type' => 5, // 5 = forum topic reply
                                         'content' => $sent['error'],
                                         'at' => date('U'),
-                                        'user_id' => ($user->isLoggedIn() ? $user->data()->id : null)
+                                        'user_id' => ($user->data()->id)
                                     ]);
                                 }
                             }
@@ -395,7 +395,7 @@ if (Input::exists()) {
                                         'type' => 5, // 5 = forum topic reply
                                         'content' => $sent['error'],
                                         'at' => date('U'),
-                                        'user_id' => ($user->isLoggedIn() ? $user->data()->id : null)
+                                        'user_id' => ($user->data()->id)
                                     ]);
                                 }
                             }

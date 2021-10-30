@@ -23,7 +23,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-class MinecraftPingException extends \Exception {
+class MinecraftPingException extends Exception
+{
     // Exception thrown by MinecraftPing class
 }
 
@@ -57,8 +58,8 @@ class MinecraftPing {
 
     public function __construct(string $Address, int $Port = 25565, int $Timeout = 2, bool $ResolveSRV = true) {
         $this->ServerAddress = $Address;
-        $this->ServerPort = (int) $Port;
-        $this->Timeout = (int) $Timeout;
+        $this->ServerPort = $Port;
+        $this->Timeout = $Timeout;
 
         if ($ResolveSRV) {
             $this->ResolveSRV();

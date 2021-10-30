@@ -36,7 +36,7 @@ class Paginator {
      */
     public function getLimited(array $data, int $limit = 10, int $page = 1, int $total = 10): object {
         $this->_limit = $limit;
-        $this->_page = (int) $page;
+        $this->_page = $page;
 
         $return = [];
 

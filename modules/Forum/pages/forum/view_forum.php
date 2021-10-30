@@ -70,7 +70,7 @@ if (count($page_metadata)) {
 }
 
 $page_title = $forum_language->get('forum', 'forum');
-if (isset($p)) $page_title .= ' - ' . str_replace('{x}', $p, $language->get('general', 'page_x'));
+$page_title .= ' - ' . str_replace('{x}', $p, $language->get('general', 'page_x'));
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 // Redirect forum?

@@ -82,7 +82,7 @@ class TimeAgo {
             $key = 'less_than_a_minute';
         }
         // more than 29secs and less than 1min29secss
-        else if($timeDifference > 29 && $timeDifference <= 89) {
+        else if($timeDifference <= 89) {
             $key = '1_minute';
         }
         // between 1min30secs and 44mins29secs

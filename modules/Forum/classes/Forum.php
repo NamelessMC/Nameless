@@ -79,7 +79,7 @@ class Forum {
                                     }
                                 }
 
-                                if (isset($last_reply) && !is_null($last_reply) && count($last_reply)) {
+                                if (isset($last_reply) && count($last_reply)) {
                                     $n = 0;
                                     while (isset($last_reply[$n]) && $last_reply[$n]->deleted == 1) {
                                         $n++;

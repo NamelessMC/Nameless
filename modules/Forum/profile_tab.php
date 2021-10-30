@@ -9,7 +9,7 @@
  *  Forum module - forum profile tab
  */
 
-if (!isset($forum) || (isset($forum) && !$forum instanceof Forum)) {
+if (!isset($forum) || (!$forum instanceof Forum)) {
     require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
     $forum = new Forum();
 }

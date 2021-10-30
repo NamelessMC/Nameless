@@ -10,7 +10,7 @@
  */
 
 require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
-if (!isset($forum) || (isset($forum) && !$forum instanceof Forum))
+if (!isset($forum) || (!$forum instanceof Forum))
     $forum = new Forum();
 
 require_once(ROOT_PATH . '/core/includes/emojione/autoload.php'); // Emojione
@@ -70,7 +70,7 @@ if (!isset($_GET['s'])) {
         $search_topics = DB::getInstance()->selectQuery('SELECT * FROM nl2_topics WHERE topic_title LIKE ?', ['%' . $search . '%'])->results();
         $search_posts = DB::getInstance()->selectQuery('SELECT * FROM nl2_posts WHERE post_content LIKE ?', ['%' . $search . '%'])->results();
 
-        $search_results = array_merge((array)$search_topics, (array)$search_posts);
+        $search_results = array_merge($search_topics, $search_posts);
 
         $results = [];
         foreach ($search_results as $result) {
