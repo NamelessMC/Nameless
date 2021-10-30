@@ -10,7 +10,7 @@ if (!isset($_SESSION['database_initialized']) || $_SESSION['database_initialized
 	die();
 }
 
-$scripts = array(
+$scripts = [
 	'
 	<script>
 		$(document).ready(function() {
@@ -31,7 +31,7 @@ $scripts = array(
 		});
 	</script>
 	'
-);
+];
 ?>
 
 <div class="ui segments">

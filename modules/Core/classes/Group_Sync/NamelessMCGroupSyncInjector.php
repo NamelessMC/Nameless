@@ -28,7 +28,7 @@ class NamelessMCGroupSyncInjector implements GroupSyncInjector
     }
 
     public function getSelectionOptions(): array {
-        $groups_query = DB::getInstance()->get('groups', array('id', '<>', 0))->results();
+        $groups_query = DB::getInstance()->get('groups', ['id', '<>', 0])->results();
         $groups = [];
 
         foreach ($groups_query as $group) {

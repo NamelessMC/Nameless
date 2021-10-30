@@ -10,7 +10,7 @@
  *  Norwegian translation (norsk bokmål) - Emails
  */
 
-$language = array(
+$language = [
 
     // General Options
     'greeting' => 'Hei!',
@@ -27,4 +27,4 @@ $language = array(
     // Forum Topic Replies
     'forum_topic_reply_subject' => '{x} har svart {y}', // Don't remove {x} or {y}
     'forum_topic_reply_message' => '{x} har svart i en tråd du følger. Innhold: {z}' // Don't remove {x} or {z}
-);
+];

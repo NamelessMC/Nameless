@@ -9,7 +9,7 @@
  *  EnglishUK Language - Moderator terms
  */
 
-$language = array(
+$language = [
     'staff_cp' => 'StaffCP',
     'overview' => 'Overview',
     
@@ -105,4 +105,4 @@ $language = array(
     'recent_registrations' => 'Recent Registrations',
     'reset_profile_banner' => 'Reset Profile Banner'
 
-);
+];

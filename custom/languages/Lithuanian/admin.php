@@ -10,7 +10,7 @@
  *  Lithuanian Language - Admin
  */
 
-$language = array(
+$language = [
     // Login
     're-authenticate' => 'Prašome patvirtinkite dar kartą',
 
@@ -741,4 +741,4 @@ $language = array(
     'background_colour_required' => 'Background Colour is required',
     'text_colour_required' => 'Text Colour is required',
     'no_announcements' => 'No announcements have been made yet.',
-);
+];

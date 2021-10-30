@@ -10,7 +10,7 @@
  *  German Language - Installation
  */
 
-$language = array(
+$language = [
     /*
      *  Installation
      */
@@ -104,4 +104,4 @@ $language = array(
     'config_not_writable' => 'Die Konfigurationsdatei ist nicht beschreibbar.',
 
     'session_doesnt_exist' => 'Sitzung kann nicht erkannt werden. Das Speichern von Sitzungen ist eine Voraussetzung für die Verwendung von Nameless. Bitte versuchen Sie es erneut. Wenn das Problem weiterhin besteht, wenden Sie sich an Ihren Webhost, um Unterstützung zu erhalten.'
-);
+];

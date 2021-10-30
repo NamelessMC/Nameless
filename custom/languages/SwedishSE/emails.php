@@ -9,7 +9,7 @@
  *  SwedishSE Language - Emails
  */
 
-$language = array(
+$language = [
 
     // General Options
     'greeting' => 'Hej,',
@@ -26,4 +26,4 @@ $language = array(
     // Forum Topic Replies
     'forum_topic_reply_subject' => '{x} har svarat på {y}', // Don't remove {x} or {y}
     'forum_topic_reply_message' => '{x} har svarat på ett inlägg du följer. Innehåll: {z}' // Don't remove {x} or {z}
-);
+];

@@ -9,8 +9,8 @@
  *
  *  German Language - Forum
  */
-$language = array(
+$language = [
     //forums
     'info_forums_lock' => 'Gesperrt',
     'info_forums_unlock' => 'Entsperrt',
-);
+];

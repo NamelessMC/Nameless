@@ -14,7 +14,7 @@ $cache = new Cache();
 $size = isset($_GET['s']) ? max(8, min(250, $_GET['s'])) : 48;
 $user = $_GET['u'] ?? '';
 $view = isset($_GET['v']) ? substr($_GET['v'], 0, 1) : 'f';
-$view = in_array($view, array('f', 'l', 'r', 'b')) ? $view : 'f';
+$view = in_array($view, ['f', 'l', 'r', 'b']) ? $view : 'f';
 
 function get_skin($user, $cache) {
     
@@ -87,7 +87,7 @@ if ($skin != 'cached') {
     $im = imagecreatefromstring($skin);
     $av = imagecreatetruecolor($size, $size);
 
-    $x = array('f' => 8, 'l' => 16, 'r' => 0, 'b' => 24);
+    $x = ['f' => 8, 'l' => 16, 'r' => 0, 'b' => 24];
 
     imagecopyresized($av, $im, 0, 0, $x[$view], 8, $size, $size, 8, 8);         // Face
     imagecolortransparent($im, imagecolorat($im, 63, 0));                       // Black Hat Issue

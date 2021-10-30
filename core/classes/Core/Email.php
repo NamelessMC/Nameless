@@ -47,13 +47,13 @@ class Email {
             $error = error_get_last();
 
             if (isset($error['message'])) {
-                return array('error' => $error['message']);
+                return ['error' => $error['message']];
             } else {
-                return array('error' => 'Unknown');
+                return ['error' => 'Unknown'];
             }
         
         } catch (Exception $e) {
-            return array('error' => $e->getMessage());
+            return ['error' => $e->getMessage()];
         }
     }
 
@@ -98,13 +98,13 @@ class Email {
             $mail->Body = $email['message'];
 
             if (!$mail->send()) {
-                return array('error' => $mail->ErrorInfo);
+                return ['error' => $mail->ErrorInfo];
             }
 
             return true;
 
         } catch (Exception $e) {
-            return array('error' => $e->getMessage());
+            return ['error' => $e->getMessage()];
         }
     }
 

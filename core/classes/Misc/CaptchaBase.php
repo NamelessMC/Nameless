@@ -11,7 +11,7 @@
  */
 abstract class CaptchaBase {
     
-    protected static array $_providers = array();
+    protected static array $_providers = [];
     protected static string $_activeProvider = '';
 
     protected string $_name;
@@ -93,7 +93,7 @@ abstract class CaptchaBase {
             return false;
         }
 
-        return DB::getInstance()->selectQuery('SELECT `value` FROM nl2_settings WHERE `name` = ?', array($key))->first()->value == 'true';
+        return DB::getInstance()->selectQuery('SELECT `value` FROM nl2_settings WHERE `name` = ?', [$key])->first()->value == 'true';
     }
 
     /**

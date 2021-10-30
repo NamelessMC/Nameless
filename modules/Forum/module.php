@@ -90,9 +90,9 @@ class Forum_Module extends Module {
 
 	public function onPageLoad($user, $pages, $cache, $smarty, $navs, $widgets, $template) {
 		// AdminCP
-		PermissionHandler::registerPermissions('Forum', array(
+		PermissionHandler::registerPermissions('Forum', [
 			'admincp.forums' => $this->_language->get('moderator', 'staff_cp') . ' &raquo; ' . $this->_forum_language->get('forum', 'forum')
-		));
+        ]);
 
 		// Sitemap
 		$pages->registerSitemapMethod(ROOT_PATH . '/modules/Forum/classes/Forum_Sitemap.php', 'Forum_Sitemap::generateSitemap');
@@ -149,23 +149,23 @@ class Forum_Module extends Module {
 			// Global variables if user is logged in
 			if($user->isLoggedIn()){
 				// Basic user variables
-				$topic_count = $queries->getWhere('topics', array('topic_creator', '=', $user->data()->id));
+				$topic_count = $queries->getWhere('topics', ['topic_creator', '=', $user->data()->id]);
 				$topic_count = count($topic_count);
-				$post_count = $queries->getWhere('posts', array('post_creator', '=', $user->data()->id));
+				$post_count = $queries->getWhere('posts', ['post_creator', '=', $user->data()->id]);
 				$post_count = count($post_count);
-				$smarty->assign('LOGGED_IN_USER_FORUM', array(
+				$smarty->assign('LOGGED_IN_USER_FORUM', [
 					'topic_count' => $topic_count,
 					'post_count' => $post_count
-				));
+                ]);
 			}
 
 			if(defined('PAGE') && PAGE == 'user_query'){
 				$user_id = $smarty->getTemplateVars('USER_ID');
 
 				if($user_id){
-					$topic_count = $queries->getWhere('topics', array('topic_creator', '=', $user_id));
+					$topic_count = $queries->getWhere('topics', ['topic_creator', '=', $user_id]);
 					$smarty->assign('TOPICS', str_replace('{x}', count($topic_count), $this->_forum_language->get('forum', 'x_topics')));
-					$post_count = $queries->getWhere('posts', array('post_creator', '=', $user_id));
+					$post_count = $queries->getWhere('posts', ['post_creator', '=', $user_id]);
 					$smarty->assign('POSTS', str_replace('{x}', count($post_count), $this->_forum_language->get('forum', 'x_posts')));
 				}
 			}
@@ -219,7 +219,7 @@ class Forum_Module extends Module {
 					$output = $cache->retrieve('forum_data');
 
 				} else {
-					$output = array();
+					$output = [];
 
 					$output['datasets']['topics']['label'] = 'forum_language/forum/topics_title'; // for $forum_language->get('forum', 'topics_title');
 					$output['datasets']['topics']['colour'] = '#00931D';

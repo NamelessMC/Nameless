@@ -32,7 +32,7 @@ if (isset($_GET["tid"])) {
 }
 
 // Check topic exists and get forum ID
-$topic = $queries->getWhere('topics', array('id', '=', $topic_id));
+$topic = $queries->getWhere('topics', ['id', '=', $topic_id]);
 
 if (!count($topic)) {
     Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
@@ -57,9 +57,9 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
         $status = $forum_language->get('forum', 'topic_unstuck');
     }
 
-    $queries->update("topics", $topic_id, array(
+    $queries->update("topics", $topic_id, [
         "sticky" => $sticky
-    ));
+    ]);
 
     Log::getInstance()->log(($sticky == 1) ? Log::Action('forums/topic/stick') : Log::Action('forums/topic/unstick'), $topic[0]->topic_title);
 

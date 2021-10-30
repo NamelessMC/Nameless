@@ -22,7 +22,7 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Deal with input
 if (Input::exists()) {
-    $errors = array();
+    $errors = [];
 
     // Check token
     if (Token::check()) {
@@ -30,12 +30,12 @@ if (Input::exists()) {
         // Process input
         if (isset($_POST['enable_registration'])) {
             // Either enable or disable registration
-            $enable_registration_id = $queries->getWhere('settings', array('name', '=', 'registration_enabled'));
+            $enable_registration_id = $queries->getWhere('settings', ['name', '=', 'registration_enabled']);
             $enable_registration_id = $enable_registration_id[0]->id;
 
-            $queries->update('settings', $enable_registration_id, array(
+            $queries->update('settings', $enable_registration_id, [
                 'value' => Input::get('enable_registration')
-            ));
+            ]);
         } else {
             // Registration settings
 
@@ -49,11 +49,11 @@ if (Input::exists()) {
             } else {
                 $captcha = 'false';
             }
-            $captcha_id = $queries->getWhere('settings', array('name', '=', 'recaptcha'));
+            $captcha_id = $queries->getWhere('settings', ['name', '=', 'recaptcha']);
             $captcha_id = $captcha_id[0]->id;
-            $queries->update('settings', $captcha_id, array(
+            $queries->update('settings', $captcha_id, [
                 'value' => $captcha
-            ));
+            ]);
 
             // Login reCAPTCHA enabled?
             if (Input::get('enable_recaptcha_login') == 1) {
@@ -61,15 +61,15 @@ if (Input::exists()) {
             } else {
                 $captcha = 'false';
             }
-            $captcha_login = $queries->getWhere('settings', array('name', '=', 'recaptcha_login'));
+            $captcha_login = $queries->getWhere('settings', ['name', '=', 'recaptcha_login']);
             $captcha_login = $captcha_login[0]->id;
-            $queries->update('settings', $captcha_login, array(
+            $queries->update('settings', $captcha_login, [
                 'value' => $captcha
-            ));
+            ]);
 
             // Config value
             if (Input::get('enable_recaptcha') == 1 || Input::get('enable_recaptcha_login') == 1) {
-                if (is_writable(ROOT_PATH . '/' . join(DIRECTORY_SEPARATOR, array('core', 'config.php')))) {
+                if (is_writable(ROOT_PATH . '/' . join(DIRECTORY_SEPARATOR, ['core', 'config.php']))) {
                     // Require config
                     if (isset($path) && file_exists($path . 'core/config.php')) {
                         $loadedConfig = json_decode(file_get_contents($path . 'core/config.php'), true);
@@ -82,16 +82,16 @@ if (Input::exists()) {
                     }
 
                     Config::set('core/captcha', true);
-                } else $errors = array($language->get('admin', 'config_not_writable'));
+                } else $errors = [$language->get('admin', 'config_not_writable')];
             }
 
             // reCAPTCHA type
-            $captcha_type = $queries->getWhere('settings', array('name', '=', 'recaptcha_type'));
+            $captcha_type = $queries->getWhere('settings', ['name', '=', 'recaptcha_type']);
             if (!count($captcha_type)) {
-                $queries->create('settings', array(
+                $queries->create('settings', [
                     'name' => 'recaptcha_type',
                     'value' => Input::get('captcha_type')
-                ));
+                ]);
                 $cache->setCache('configuration');
                 $cache->store('recaptcha_type', Input::get('captcha_type'));
             } else {
@@ -105,31 +105,31 @@ if (Input::exists()) {
             $configuration->set('Core', 'recaptcha_secret', Input::get('recaptcha_secret'));
 
             // Registration disabled message
-            $registration_disabled_id = $queries->getWhere('settings', array('name', '=', 'registration_disabled_message'));
+            $registration_disabled_id = $queries->getWhere('settings', ['name', '=', 'registration_disabled_message']);
             $registration_disabled_id = $registration_disabled_id[0]->id;
-            $queries->update('settings', $registration_disabled_id, array(
+            $queries->update('settings', $registration_disabled_id, [
                 'value' => htmlspecialchars(Input::get('message'))
-            ));
+            ]);
 
             // Validation group
-            $validation_group_id = $queries->getWhere('settings', array('name', '=', 'validate_user_action'));
+            $validation_group_id = $queries->getWhere('settings', ['name', '=', 'validate_user_action']);
             $validation_action = $validation_group_id[0]->value;
             $validation_action = json_decode($validation_action, true);
             $validation_action = $validation_action['action'] ?? 'promote';
             $validation_group_id = $validation_group_id[0]->id;
 
-            $new_value = json_encode(array('action' => $validation_action, 'group' => $_POST['promote_group']));
+            $new_value = json_encode(['action' => $validation_action, 'group' => $_POST['promote_group']]);
 
             try {
-                $queries->update('settings', $validation_group_id, array(
+                $queries->update('settings', $validation_group_id, [
                     'value' => $new_value
-                ));
+                ]);
             } catch (Exception $e) {
                 $errors[] = $e->getMessage();
             }
 
             $cache->setCache('validate_action');
-            $cache->store('validate_action', array('action' => $validation_action, 'group' => $_POST['promote_group']));
+            $cache->store('validate_action', ['action' => $validation_action, 'group' => $_POST['promote_group']]);
         }
 
         if (!count($errors)) {
@@ -142,54 +142,54 @@ if (Input::exists()) {
 }
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 if (isset($success))
-    $smarty->assign(array(
+    $smarty->assign([
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
-    ));
+    ]);
 
 if (isset($errors) && count($errors))
-    $smarty->assign(array(
+    $smarty->assign([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
-    ));
+    ]);
 
 // Check if registration is enabled
-$registration_enabled = $queries->getWhere('settings', array('name', '=', 'registration_enabled'));
+$registration_enabled = $queries->getWhere('settings', ['name', '=', 'registration_enabled']);
 $registration_enabled = $registration_enabled[0]->value;
 
 // Is email verification enabled
 $emails = $configuration->get('Core', 'email_verification');
 
 // Recaptcha
-$captcha_id = $queries->getWhere('settings', array('name', '=', 'recaptcha'));
-$captcha_login = $queries->getWhere('settings', array('name', '=', 'recaptcha_login'));
-$captcha_type = $queries->getWhere('settings', array('name', '=', 'recaptcha_type'));
-$captcha_key = $queries->getWhere('settings', array('name', '=', 'recaptcha_key'));
-$captcha_secret = $queries->getWhere('settings', array('name', '=', 'recaptcha_secret'));
-$registration_disabled_message = $queries->getWhere('settings', array('name', '=', 'registration_disabled_message'));
+$captcha_id = $queries->getWhere('settings', ['name', '=', 'recaptcha']);
+$captcha_login = $queries->getWhere('settings', ['name', '=', 'recaptcha_login']);
+$captcha_type = $queries->getWhere('settings', ['name', '=', 'recaptcha_type']);
+$captcha_key = $queries->getWhere('settings', ['name', '=', 'recaptcha_key']);
+$captcha_secret = $queries->getWhere('settings', ['name', '=', 'recaptcha_secret']);
+$registration_disabled_message = $queries->getWhere('settings', ['name', '=', 'registration_disabled_message']);
 
 // Validation group
-$validation_group = $queries->getWhere('settings', array('name', '=', 'validate_user_action'));
+$validation_group = $queries->getWhere('settings', ['name', '=', 'validate_user_action']);
 $validation_group = $validation_group[0]->value;
 $validation_group = json_decode($validation_group, true);
 $validation_group = $validation_group['group'] ?? 1;
 
 $all_captcha_options = CaptchaBase::getAllProviders();
-$captcha_options = array();
+$captcha_options = [];
 $active_option = $configuration->get('Core', 'recaptcha_type');
 $active_option_name = $active_option ? $active_option : '';
 
 foreach ($all_captcha_options as $option) {
-    $captcha_options[] = array(
+    $captcha_options[] = [
         'value' => $option->getName(),
         'active' => $option->getName() == $active_option_name
-    );
+    ];
 }
 
-$smarty->assign(array(
+$smarty->assign([
     'EMAIL_VERIFICATION' => $language->get('admin', 'email_verification'),
     'EMAIL_VERIFICATION_VALUE' => $emails,
     'CAPTCHA_GENERAL' => $language->get('admin', 'captcha_general'),
@@ -207,12 +207,12 @@ $smarty->assign(array(
     'VALIDATE_PROMOTE_GROUP' => $language->get('admin', 'validation_promote_group'),
     'VALIDATE_PROMOTE_GROUP_INFO' => $language->get('admin', 'validation_promote_group_info'),
     'INFO' => $language->get('general', 'info'),
-    'GROUPS' => $queries->getWhere('groups', array('staff', '=', 0)),
+    'GROUPS' => $queries->getWhere('groups', ['staff', '=', 0]),
     'VALIDATION_GROUP' => $validation_group,
     'CAPTCHA_OPTIONS' => $captcha_options
-));
+]);
 
-$smarty->assign(array(
+$smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'CONFIGURATION' => $language->get('admin', 'configuration'),
@@ -222,7 +222,7 @@ $smarty->assign(array(
     'SUBMIT' => $language->get('general', 'submit'),
     'ENABLE_REGISTRATION' => $language->get('admin', 'enable_registration'),
     'REGISTRATION_ENABLED' => $registration_enabled
-));
+]);
 
 $page_load = microtime(true) - $start;
 define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));

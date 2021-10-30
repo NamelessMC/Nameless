@@ -17,7 +17,7 @@ class ServerInfoEndpoint extends EndpointBase {
 
         $serverId = $_POST['server-id'];
         // Ensure server exists
-        $server_query = $api->getDb()->get('mc_servers', array('id', '=', $serverId));
+        $server_query = $api->getDb()->get('mc_servers', ['id', '=', $serverId]);
 
         if (!$server_query->count()) {
             $api->throwError(27, $api->getLanguage()->get('api', 'invalid_server_id') . ' - ' . $serverId);
@@ -26,12 +26,12 @@ class ServerInfoEndpoint extends EndpointBase {
         try {
             $api->getDb()->insert(
                 'query_results',
-                array(
+                [
                     'server_id' => $_POST['server-id'],
                     'queried_at' => date('U'),
                     'players_online' => count($_POST['players']),
                     'groups' => isset($_POST['groups']) ? json_encode($_POST['groups']) : '[]'
-                )
+                ]
             );
 
             if (file_exists(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('server_query_cache') . '.cache')) {
@@ -42,18 +42,18 @@ class ServerInfoEndpoint extends EndpointBase {
                 else
                     $query_interval = 10;
 
-                $to_cache = array(
-                    'query_interval' => array(
+                $to_cache = [
+                    'query_interval' => [
                         'time' => date('U'),
                         'expire' => 0,
                         'data' => serialize($query_interval)
-                    ),
-                    'last_query' => array(
+                    ],
+                    'last_query' => [
                         'time' => date('U'),
                         'expire' => 0,
                         'data' => serialize(date('U'))
-                    )
-                );
+                    ]
+                ];
 
                 // Store in cache file
                 file_put_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('server_query_cache') . '.cache', json_encode($to_cache));
@@ -78,7 +78,7 @@ class ServerInfoEndpoint extends EndpointBase {
             $api->throwError(25, $api->getLanguage()->get('api', 'unable_to_update_server_info'), $e->getMessage());
         }
 
-        $api->returnArray(array_merge(array('message' => $api->getLanguage()->get('api', 'server_info_updated')), ['log' => $group_sync_log]));
+        $api->returnArray(array_merge(['message' => $api->getLanguage()->get('api', 'server_info_updated')], ['log' => $group_sync_log]));
     }
 
     private function updateUsername(User $user, array $player, Nameless2API $api) {
@@ -91,17 +91,17 @@ class ServerInfoEndpoint extends EndpointBase {
             // Update username
             if (!Util::getSetting($api->getDb(), 'displaynames', false)) {
                 $user->update(
-                    array(
+                    [
                         'username' => Output::getClean($player['name']),
                         'nickname' => Output::getClean($player['name'])
-                    ),
+                    ],
                     $user->data()->id
                 );
             } else {
                 $user->update(
-                    array(
+                    [
                         'username' => Output::getClean($player['name'])
-                    ),
+                    ],
                     $user->data()->id
                 );
             }

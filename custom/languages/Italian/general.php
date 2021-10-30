@@ -9,7 +9,7 @@
  *  Italian Language - General terms
  */
 
-$language = array(
+$language = [
     /*
      *  General terms
      */
@@ -165,4 +165,4 @@ $language = array(
      *  Custom page redirect
      */
     'redirecting_message' => 'Reindirizzamento in corso...<br />Se non vieni reindirizzato automaticamente, clicca <a href="{x}" rel="nofollow noopener">qui</a>.' // Don't replace {x} which is the redirect URL
-);
+];

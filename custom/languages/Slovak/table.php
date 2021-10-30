@@ -9,7 +9,7 @@
  *  Slovak Language - Table
  */
 
-$language = array(
+$language = [
     /*
      *  Tables
      */
@@ -18,4 +18,4 @@ $language = array(
     'page_x_of_y' => 'Zobrazuje sa stránka _PAGE_ z _PAGES_', // Don't replace "_PAGE_" or "_PAGES_"
     'no_records' => 'Nie sú k dispozícii žiadne záznamy',
     'filtered' => '(filtrované z _MAX_ celkových záznamov)' // Don't replace "_MAX_"
-);
+];

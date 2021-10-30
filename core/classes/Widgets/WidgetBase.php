@@ -20,7 +20,7 @@ abstract class WidgetBase {
     protected ?int $_order;
     protected ?string $_settings = null;
 
-    public function __construct(array $pages = array()) {
+    public function __construct(array $pages = []) {
         $this->_pages = $pages;
     }
 

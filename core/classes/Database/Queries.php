@@ -21,7 +21,7 @@ class Queries {
         return $data->results();
     }
 
-    public function getAll(string $table, array $where = array()): array {
+    public function getAll(string $table, array $where = []): array {
         $data = $this->_db->get($table, $where);
         return $data->results();
     }
@@ -41,13 +41,13 @@ class Queries {
         return $data->results();
     }
 
-    public function update(string $table, int $id, array $fields = array()): void {
+    public function update(string $table, int $id, array $fields = []): void {
         if (!$this->_db->update($table, $id, $fields)) {
             throw new Exception('There was a problem performing that action.');
         }
     }
 
-    public function create(string $table, array $fields = array()): void {
+    public function create(string $table, array $fields = []): void {
         if (!$this->_db->insert($table, $fields)) {
             throw new Exception('There was a problem performing that action.');
         }
@@ -92,14 +92,14 @@ class Queries {
     }
 
     public function addPermissionGroup(int $group_id, string $permission): void {
-        $permissions = $this->getWhere('groups', array('id', '=', $group_id));
+        $permissions = $this->getWhere('groups', ['id', '=', $group_id]);
         if (count($permissions)) {
             $permissions = $permissions[0]->permissions;
             $permissions = json_decode($permissions, true);
             if (is_array($permissions)) {
                 $permissions[$permission] = 1;
                 $perms_json = json_encode($permissions);
-                $this->_db->update('groups', $group_id, array('permissions' => $perms_json));
+                $this->_db->update('groups', $group_id, ['permissions' => $perms_json]);
             }
         }
     }

@@ -11,7 +11,7 @@
  *  Last Update: 16/06/2018
  */
 
-$language = array(
+$language = [
     /*
      *  Errors
      */
@@ -33,4 +33,4 @@ $language = array(
     'fatal_error_message_admin' => 'Ne pare rău, dar în timpul încărcării paginii s-a întâmplat ceva. Detalii eroare:',
     'in_file' => 'în fișierul <strong>{x}</strong>', // Don't replace {x}
     'on_line' => 'linia <strong>{x}</strong>' // Don't replace {x}
-);
+];

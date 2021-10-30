@@ -26,7 +26,7 @@ $timeago = new TimeAgo(TIMEZONE);
 
 if (Input::exists() && Input::get('action') == 'purge') {
     if (Token::check(Input::get('token'))) {
-        DB::getInstance()->createQuery('DELETE FROM nl2_topics_following WHERE user_id = ?', array($user->data()->id));
+        DB::getInstance()->createQuery('DELETE FROM nl2_topics_following WHERE user_id = ?', [$user->data()->id]);
         Session::flash('success_post', $forum_language->get('forum', 'all_topics_unfollowed'));
     }
 }
@@ -37,11 +37,11 @@ foreach ($user_groups as $group) {
     $groups .= Output::getClean($group->id) . ',';
 }
 $groups = rtrim($groups, ',') . ')';
-$topics = DB::getInstance()->selectQuery('SELECT nl2_topics.id AS id, nl2_topics.topic_title AS topic_title, nl2_topics.topic_creator AS topic_creator, nl2_topics.topic_date AS topic_date, nl2_topics.topic_last_user AS last_user, nl2_topics.topic_reply_date AS topic_reply_date, nl2_topics_following.existing_alerts AS existing_alerts FROM nl2_topics LEFT JOIN nl2_topics_following ON nl2_topics.id = nl2_topics_following.topic_id WHERE deleted = 0 AND nl2_topics.id IN (SELECT topic_id FROM nl2_topics_following WHERE user_id = ?) AND forum_id IN (SELECT forum_id FROM nl2_forums_permissions WHERE group_id IN ' . $groups . ' AND `view` = 1) ORDER BY nl2_topics.topic_reply_date DESC', array($user->data()->id))->results();
+$topics = DB::getInstance()->selectQuery('SELECT nl2_topics.id AS id, nl2_topics.topic_title AS topic_title, nl2_topics.topic_creator AS topic_creator, nl2_topics.topic_date AS topic_date, nl2_topics.topic_last_user AS last_user, nl2_topics.topic_reply_date AS topic_reply_date, nl2_topics_following.existing_alerts AS existing_alerts FROM nl2_topics LEFT JOIN nl2_topics_following ON nl2_topics.id = nl2_topics_following.topic_id WHERE deleted = 0 AND nl2_topics.id IN (SELECT topic_id FROM nl2_topics_following WHERE user_id = ?) AND forum_id IN (SELECT forum_id FROM nl2_forums_permissions WHERE group_id IN ' . $groups . ' AND `view` = 1) ORDER BY nl2_topics.topic_reply_date DESC', [$user->data()->id])->results();
 
 // Pagination
 $p = (isset($_GET['p']) && is_numeric($_GET['p'])) ? $_GET['p'] : 1;
-$paginator = new Paginator(($template_pagination ?? array()));
+$paginator = new Paginator(($template_pagination ?? []));
 $results = $paginator->getLimited($topics, 10, $p, count($topics));
 $pagination = $paginator->generate(7, URL::build('/user/following_topics/', true));
 
@@ -50,8 +50,8 @@ if (count($topics))
 else
     $smarty->assign('PAGINATION', '');
 
-$template_array = array();
-$authors = array();
+$template_array = [];
+$authors = [];
 
 for ($n = 0; $n < count($results->data); $n++) {
     $topic = $results->data[$n];
@@ -64,9 +64,9 @@ for ($n = 0; $n < count($results->data); $n++) {
         $authors[$topic->topic_last_user] = new User($topic->topic_last_user);
     }
 
-    $last_post = DB::getInstance()->selectQuery('SELECT id FROM nl2_posts WHERE deleted = 0 AND topic_id = ? ORDER BY created DESC LIMIT 1', array($topic->id))->first();
+    $last_post = DB::getInstance()->selectQuery('SELECT id FROM nl2_posts WHERE deleted = 0 AND topic_id = ? ORDER BY created DESC LIMIT 1', [$topic->id])->first();
 
-    $template_array[] = array(
+    $template_array[] = [
         'topic_title' => Output::getClean($topic->topic_title),
         'topic_date' => $timeago->inWords(date('d M Y, H:i', $topic->topic_date), $language->getTimeLanguage()),
         'topic_date_full' => date('d M Y, H:i', $topic->topic_date),
@@ -88,7 +88,7 @@ for ($n = 0; $n < count($results->data); $n++) {
         'last_post_link' => URL::build('/forum/topic/' . $topic->id . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post->id),
         'unread' => $topic->existing_alerts == 1,
         'unfollow_link' => URL::build('/forum/topic/' . $topic->id, 'action=unfollow&return=list')
-    );
+    ];
 }
 
 if (Session::exists('success_post')) {
@@ -96,7 +96,7 @@ if (Session::exists('success_post')) {
 }
 
 // Language values
-$smarty->assign(array(
+$smarty->assign([
     'USER_CP' => $language->get('user', 'user_cp'),
     'FOLLOWING_TOPICS' => $forum_language->get('forum', 'following_topics'),
     'TOPICS_LIST' => $template_array,
@@ -109,10 +109,10 @@ $smarty->assign(array(
     'NO' => $language->get('general', 'no'),
     'SUCCESS' => $language->get('general', 'success'),
     'TOKEN' => Token::get()
-));
+]);
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 require(ROOT_PATH . '/core/templates/cc_navbar.php');
 

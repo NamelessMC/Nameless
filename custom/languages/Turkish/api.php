@@ -9,7 +9,7 @@
  *  Turkish translation by xOrcun
  */
 
-$language = array(
+$language = [
 
     // Errors
     'api_disabled' => 'API is disabled',
@@ -52,4 +52,4 @@ $language = array(
     'username_updated' => 'Kullanıcı adı başarıyla güncellendi',
     'server_info_updated' => 'Sunucu bilgileri başarıyla güncellendi',
     'account_validated' => 'Hesap başarıyla doğrulandı',
-);
+];

@@ -38,10 +38,10 @@ class ExternalMCQuery {
             return $result;
 
         } catch (Exception $e) {
-            return array(
+            return [
                 'error' => true,
                 'value' => $e->getMessage()
-            );
+            ];
         }
     }
 

@@ -21,23 +21,23 @@ $page_title = $language->get('admin', 'custom_pages');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 if(!isset($_GET['action'])){
-    $custom_pages = $queries->getWhere('custom_pages', array('id', '<>', 0));
-    $template_array = array();
+    $custom_pages = $queries->getWhere('custom_pages', ['id', '<>', 0]);
+    $template_array = [];
 
     if(count($custom_pages)){
         foreach($custom_pages as $custom_page){
-            $template_array[] = array(
+            $template_array[] = [
                 'id' => Output::getClean($custom_page->id),
                 'edit_link' => URL::build('/panel/core/pages/', 'action=edit&id=' . Output::getClean($custom_page->id)),
                 'title' => Output::getClean($custom_page->title)
-            );
+            ];
         }
     }
 
-    $smarty->assign(array(
+    $smarty->assign([
         'NEW_PAGE' => $language->get('admin', 'new_page'),
         'NEW_PAGE_LINK' => URL::build('/panel/core/pages/', 'action=new'),
         'EDIT' => $language->get('general', 'edit'),
@@ -49,7 +49,7 @@ if(!isset($_GET['action'])){
         'YES' => $language->get('general', 'yes'),
         'NO' => $language->get('general', 'no'),
         'DELETE_LINK' => URL::build('/panel/core/pages', 'action=delete'),
-    ));
+    ]);
 
     $template_file = 'core/pages.tpl';
 
@@ -57,7 +57,7 @@ if(!isset($_GET['action'])){
     switch($_GET['action']){
         case 'new':
             if(Input::exists()){
-                $errors = array();
+                $errors = [];
 
                 if(Token::check()){
                     $validate = new Validate();
@@ -135,7 +135,7 @@ if(!isset($_GET['action'])){
 
                             $page_url = Output::getClean(rtrim(Input::get('page_url'), '/'));
 
-                            $queries->create('custom_pages', array(
+                            $queries->create('custom_pages', [
                                 'url' => $page_url,
                                 'title' => Output::getClean(Input::get('page_title')),
                                 'content' => Output::getClean(Input::get('content')),
@@ -146,18 +146,18 @@ if(!isset($_GET['action'])){
                                 'all_html' => ($unsafe == 1) ? 1 : 0,
                                 'sitemap' => ($sitemap == 1) ? 1 : 0,
                                 'basic' => ($basic == 1) ? 1 : 0,
-                            ));
+                            ]);
 
                             $last_id = $queries->getLastId();
 
                             // Permissions
-                            $perms = array();
+                            $perms = [];
                             if(isset($_POST['perm-view-0']) && $_POST['perm-view-0'] == 1)
                                 $perms[0] = 1;
                             else
                                 $perms[0] = 0;
 
-                            $groups = $queries->getWhere('groups', array('id', '<>', 0));
+                            $groups = $queries->getWhere('groups', ['id', '<>', 0]);
                             foreach($groups as $group){
                                 if(isset($_POST['perm-view-' . $group->id]) && $_POST['perm-view-' . $group->id] == 1)
                                     $perms[$group->id] = 1;
@@ -166,11 +166,11 @@ if(!isset($_GET['action'])){
                             }
 
                             foreach($perms as $key => $perm){
-                                $queries->create('custom_pages_permissions', array(
+                                $queries->create('custom_pages_permissions', [
                                     'page_id' => $last_id,
                                     'group_id' => $key,
                                     'view' => $perm
-                                ));
+                                ]);
                             }
 
                             Session::flash('admin_pages', $language->get('admin', 'page_created_successfully'));
@@ -189,16 +189,16 @@ if(!isset($_GET['action'])){
             }
 
             $groups = DB::getInstance()->selectQuery('SELECT * FROM nl2_groups ORDER BY `order`')->results();
-            $template_array = array();
+            $template_array = [];
             foreach($groups as $group){
-                $template_array[Output::getClean($group->id)] = array(
+                $template_array[Output::getClean($group->id)] = [
                     'id' => Output::getClean($group->id),
                     'name' => Output::getClean($group->name),
                     'html' => $group->group_html
-                );
+                ];
             }
 
-            $smarty->assign(array(
+            $smarty->assign([
                 'CANCEL' => $language->get('general', 'cancel'),
                 'CANCEL_LINK' => URL::build('/panel/core/pages'),
                 'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
@@ -230,7 +230,7 @@ if(!isset($_GET['action'])){
                 'VIEW_PAGE' => $language->get('admin', 'view_page'),
                 'GUESTS' => $language->get('user', 'guests'),
                 'GROUPS' => $template_array
-            ));
+            ]);
 
             $template_file = 'core/pages_new.tpl';
 
@@ -242,7 +242,7 @@ if(!isset($_GET['action'])){
                 Redirect::to(URL::build('/panel/core/pages'));
                 die();
             }
-            $page = $queries->getWhere('custom_pages', array('id', '=', $_GET['id']));
+            $page = $queries->getWhere('custom_pages', ['id', '=', $_GET['id']]);
             if(!count($page)){
                 Redirect::to(URL::build('/panel/core/pages'));
                 die();
@@ -251,7 +251,7 @@ if(!isset($_GET['action'])){
 
             // Handle input
             if(Input::exists()){
-                $errors = array();
+                $errors = [];
 
                 if(Token::check()){
                     $validate = new Validate();
@@ -329,7 +329,7 @@ if(!isset($_GET['action'])){
 
                             $page_url = Output::getClean(rtrim(Input::get('page_url'), '/'));
 
-                            $queries->update('custom_pages', $page->id, array(
+                            $queries->update('custom_pages', $page->id, [
                                 'url' => $page_url,
                                 'title' => Output::getClean(Input::get('page_title')),
                                 'content' => Output::getClean(Input::get('content')),
@@ -340,14 +340,14 @@ if(!isset($_GET['action'])){
                                 'all_html' => ($unsafe == 1) ? 1 : 0,
                                 'sitemap' => ($sitemap == 1) ? 1 : 0,
                                 'basic' => ($basic == 1) ? 1 : 0
-                            ));
+                            ]);
 
                             // Update all widget and announcement page arrays with the custom pages' new name
-                            $widget_query = $queries->getWhere('widgets', array('id', '<>', 0));
+                            $widget_query = $queries->getWhere('widgets', ['id', '<>', 0]);
                             if (count($widget_query)) {
                                 foreach ($widget_query as $widget_row) {
                                     $pages = json_decode($widget_row->pages, true);
-                                    $new_pages = array();
+                                    $new_pages = [];
                                     if (is_array($pages) && count($pages)) {
                                         foreach($pages as $widget_page) {
                                             if ($page->title == $widget_page) {
@@ -356,17 +356,17 @@ if(!isset($_GET['action'])){
                                                 $new_pages[] = $widget_page;
                                             }
                                         }
-                                        $queries->update('widgets', $widget_row->id, array(
+                                        $queries->update('widgets', $widget_row->id, [
                                             'pages' => json_encode($new_pages)
-                                        ));
+                                        ]);
                                     }
                                 }
                             }
-                            $announcement_query = $queries->getWhere('custom_announcements', array('id', '<>', 0));
+                            $announcement_query = $queries->getWhere('custom_announcements', ['id', '<>', 0]);
                             if (count($announcement_query)) {
                                 foreach ($announcement_query as $announcement_row) {
                                     $pages = json_decode($announcement_row->pages, true);
-                                    $new_pages = array();
+                                    $new_pages = [];
                                     if (count($pages)) {
                                         foreach ($pages as $announcement_page) {
                                             if ($page->title == $announcement_page) {
@@ -375,9 +375,9 @@ if(!isset($_GET['action'])){
                                                 $new_pages[] = $announcement_page;
                                             }
                                         }
-                                        $queries->update('custom_announcements', $announcement_row->id, array(
+                                        $queries->update('custom_announcements', $announcement_row->id, [
                                             'pages' => json_encode($new_pages)
-                                        ));
+                                        ]);
                                     }
                                 }
                             }
@@ -390,7 +390,7 @@ if(!isset($_GET['action'])){
 
                             $page_perm_exists = 0;
 
-                            $page_perm_query = $queries->getWhere('custom_pages_permissions', array('page_id', '=', $page->id));
+                            $page_perm_query = $queries->getWhere('custom_pages_permissions', ['page_id', '=', $page->id]);
                             if(count($page_perm_query)){
                                 foreach($page_perm_query as $query){
                                     if($query->group_id == 0){
@@ -404,15 +404,15 @@ if(!isset($_GET['action'])){
                             try {
                                 if($page_perm_exists != 0){ // Permission already exists, update
                                     // Update the category
-                                    $queries->update('custom_pages_permissions', $update_id, array(
+                                    $queries->update('custom_pages_permissions', $update_id, [
                                         'view' => $view
-                                    ));
+                                    ]);
                                 } else { // Permission doesn't exist, create
-                                    $queries->create('custom_pages_permissions', array(
+                                    $queries->create('custom_pages_permissions', [
                                         'group_id' => 0,
                                         'page_id' => $page->id,
                                         'view' => $view
-                                    ));
+                                    ]);
                                 }
 
                             } catch (Exception $e) {
@@ -420,7 +420,7 @@ if(!isset($_GET['action'])){
                             }
 
                             // Group category permissions
-                            $groups = $queries->getWhere('groups', array('id', '<>', 0));
+                            $groups = $queries->getWhere('groups', ['id', '<>', 0]);
                             foreach($groups as $group){
                                 $view = Input::get('perm-view-' . $group->id);
 
@@ -441,15 +441,15 @@ if(!isset($_GET['action'])){
                                 try {
                                     if($page_perm_exists != 0){ // Permission already exists, update
                                         // Update the category
-                                        $queries->update('custom_pages_permissions', $update_id, array(
+                                        $queries->update('custom_pages_permissions', $update_id, [
                                             'view' => $view
-                                        ));
+                                        ]);
                                     } else { // Permission doesn't exist, create
-                                        $queries->create('custom_pages_permissions', array(
+                                        $queries->create('custom_pages_permissions', [
                                             'group_id' => $group->id,
                                             'page_id' => $page->id,
                                             'view' => $view
-                                        ));
+                                        ]);
                                     }
 
                                 } catch (Exception $e) {
@@ -472,18 +472,18 @@ if(!isset($_GET['action'])){
                     $errors[] = $language->get('general', 'invalid_token');
             }
 
-            $group_permissions = DB::getInstance()->selectQuery('SELECT id, `name`, group_html, subquery.view AS `view` FROM nl2_groups LEFT JOIN (SELECT `view`, group_id FROM nl2_custom_pages_permissions WHERE page_id = ?) AS subquery ON nl2_groups.id = subquery.group_id ORDER BY `order`', array($page->id))->results();
-            $template_array = array();
+            $group_permissions = DB::getInstance()->selectQuery('SELECT id, `name`, group_html, subquery.view AS `view` FROM nl2_groups LEFT JOIN (SELECT `view`, group_id FROM nl2_custom_pages_permissions WHERE page_id = ?) AS subquery ON nl2_groups.id = subquery.group_id ORDER BY `order`', [$page->id])->results();
+            $template_array = [];
             foreach($group_permissions as $group){
-                $template_array[Output::getClean($group->id)] = array(
+                $template_array[Output::getClean($group->id)] = [
                     'id' => Output::getClean($group->id),
                     'name' => Output::getClean($group->name),
                     'html' => $group->group_html,
                     'view' => $group->view
-                );
+                ];
             }
 
-            $guest_permissions = DB::getInstance()->selectQuery('SELECT `view` FROM nl2_custom_pages_permissions WHERE group_id = 0 AND page_id = ?', array($page->id))->results();
+            $guest_permissions = DB::getInstance()->selectQuery('SELECT `view` FROM nl2_custom_pages_permissions WHERE group_id = 0 AND page_id = ?', [$page->id])->results();
             $guest_can_view = 0;
             if(count($guest_permissions)){
                 if($guest_permissions[0]->view == 1){
@@ -491,7 +491,7 @@ if(!isset($_GET['action'])){
                 }
             }
 
-            $smarty->assign(array(
+            $smarty->assign([
                 'CANCEL' => $language->get('general', 'cancel'),
                 'CANCEL_LINK' => URL::build('/panel/core/pages'),
                 'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
@@ -530,7 +530,7 @@ if(!isset($_GET['action'])){
                 'GUESTS' => $language->get('user', 'guests'),
                 'GROUPS' => $template_array,
                 'GUEST_PERMS' => $guest_can_view
-            ));
+            ]);
 
             $template_file = 'core/pages_edit.tpl';
 
@@ -541,8 +541,8 @@ if(!isset($_GET['action'])){
                 if (Token::check(Input::get('token'))) {
                     if(isset($_POST['id']) && is_numeric($_POST['id'])){
 
-                        $queries->delete('custom_pages', array('id', '=', $_POST['id']));
-                        $queries->delete('custom_pages_permissions', array('page_id', '=', $_POST['id']));
+                        $queries->delete('custom_pages', ['id', '=', $_POST['id']]);
+                        $queries->delete('custom_pages_permissions', ['page_id', '=', $_POST['id']]);
 
                         Session::flash('admin_pages', $language->get('admin', 'page_deleted_successfully'));
                     }
@@ -566,21 +566,21 @@ if(Session::exists('admin_pages'))
     $success = Session::flash('admin_pages');
 
 if(Session::exists('admin_pages_error'))
-    $errors = array(Session::flash('admin_pages_error'));
+    $errors = [Session::flash('admin_pages_error')];
 
 if(isset($success))
-    $smarty->assign(array(
+    $smarty->assign([
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
-    ));
+    ]);
 
 if(isset($errors) && count($errors))
-    $smarty->assign(array(
+    $smarty->assign([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
-    ));
+    ]);
 
-$smarty->assign(array(
+$smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'PAGES' => $language->get('admin', 'pages'),
@@ -588,7 +588,7 @@ $smarty->assign(array(
     'PAGE' => PANEL_PAGE,
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit')
-));
+]);
 
 $page_load = microtime(true) - $start;
 define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));

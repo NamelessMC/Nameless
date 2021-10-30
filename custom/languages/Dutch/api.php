@@ -9,7 +9,7 @@
  *  Dutch Language - API
  */
 
-$language = array(
+$language = [
 
     // Errors
     'api_disabled' => 'API is uitgeschakeld',
@@ -52,4 +52,4 @@ $language = array(
     'username_updated' => 'Gebruikersnaam succesvol bijgewerkt',
     'server_info_updated' => 'Server informatie succesvol bijgwerkt',
     'account_validated' => 'Account succesvol gevalideerd',
-);
+];

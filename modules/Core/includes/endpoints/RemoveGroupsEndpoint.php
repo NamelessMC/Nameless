@@ -39,6 +39,6 @@ class RemoveGroupsEndpoint extends EndpointBase {
             $removed_groups
         );
 
-        $api->returnArray(array('message' => $api->getLanguage()->get('api', 'group_updated')));
+        $api->returnArray(['message' => $api->getLanguage()->get('api', 'group_updated')]);
     }
 }

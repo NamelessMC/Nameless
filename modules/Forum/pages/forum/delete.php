@@ -30,7 +30,7 @@ if (!isset($_GET["tid"]) || !is_numeric($_GET["tid"])) {
 }
 
 // Check topic exists
-$topic = $queries->getWhere('topics', array('id', '=', $topic_id));
+$topic = $queries->getWhere('topics', ['id', '=', $topic_id]);
 
 if (!count($topic)) {
     Redirect::to(URL::build('/forum'));
@@ -47,19 +47,19 @@ $topic = $topic[0];
 
 if ($forum->canModerateForum($topic->forum_id, $user->getAllGroupIds())) {
 
-    $queries->update('topics', $topic_id, array(
+    $queries->update('topics', $topic_id, [
         'deleted' => 1
-    ));
+    ]);
     //TODO: TOPIC
     Log::getInstance()->log(Log::Action('forums/topic/delete'), $topic_id);
 
-    $posts = $queries->getWhere('posts', array('topic_id', '=', $topic_id));
+    $posts = $queries->getWhere('posts', ['topic_id', '=', $topic_id]);
 
     if (count($posts)) {
         foreach ($posts as $post) {
-            $queries->update('posts', $post->id, array(
+            $queries->update('posts', $post->id, [
                 'deleted' => 1
-            ));
+            ]);
         }
     }
 

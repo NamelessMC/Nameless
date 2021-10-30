@@ -10,7 +10,7 @@
  *  Lithuanian Language - API
  */
 
-$language = array(
+$language = [
 
   // Errors
   'api_disabled' => 'API is disabled',
@@ -53,4 +53,4 @@ $language = array(
   'username_updated' => 'Vartotojo vardas atnaujintas sėkmingai',
   'server_info_updated' => 'Serverio informacija atnaujinta sėkmingai',
   'account_validated' => 'Paskyra patvirtinta sėkmingai',
-);
+];

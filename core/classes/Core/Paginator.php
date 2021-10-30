@@ -16,9 +16,9 @@ class Paginator {
     private int $_total;
     private array $_class;
 
-    public function __construct(array $class = array()) {
+    public function __construct(array $class = []) {
         if (!count($class)) {
-            $this->_class = array('ul' => 'pagination d-inline-flex', 'li' => 'page-item {x}', 'a' => 'page-link');
+            $this->_class = ['ul' => 'pagination d-inline-flex', 'li' => 'page-item {x}', 'a' => 'page-link'];
         } else {
             $this->_class = $class;
         }
@@ -38,7 +38,7 @@ class Paginator {
         $this->_limit = $limit;
         $this->_page = (int) $page;
 
-        $return = array();
+        $return = [];
 
         for ($i = ($this->_page != 1 ? (($this->_page - 1) * $limit) : 0); $i < ($this->_page * $limit); $i++) {
             if (!isset($data[$i])) {

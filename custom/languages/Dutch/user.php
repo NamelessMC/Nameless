@@ -11,7 +11,7 @@
  *  Nederlandse taal - Gebruikers
  */
 
-$language = array(
+$language = [
     /*
      *  Change this for the account validation message
      */
@@ -239,4 +239,4 @@ $language = array(
      */
     'user_x_has_registered' => '{x} is lid geworden van ' . SITE_NAME . '!',
     'user_x_has_validated' => '{x} heeft hun account gevalideerd!',
-);
+];

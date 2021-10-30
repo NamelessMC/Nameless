@@ -10,7 +10,7 @@
  *  Translation by Douglas Teles & Mansffer
  *  Last Update: 01/03/2021
  */
-$language = array(
+$language = [
     /*
      *  General terms
      */
@@ -165,4 +165,4 @@ $language = array(
      *  Custom page redirect
      */
     'redirecting_message' => 'Redirecionando...<br />Se você não for redirecionado automaticamente, clique <a href="{x}" rel="nofollow noopener">aqui</a>.' // Don't replace {x} which is the redirect URL
-);
+];

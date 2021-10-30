@@ -21,7 +21,7 @@ class GetAnnouncementsEndpoint extends EndpointBase {
             $tempUser = null;
         }
 
-        $user_announcements = array();
+        $user_announcements = [];
 
         $announcements = new Announcements(
             new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/'])
@@ -36,6 +36,6 @@ class GetAnnouncementsEndpoint extends EndpointBase {
             ];
         }
 
-        $api->returnArray(array('announcements' => $user_announcements));
+        $api->returnArray(['announcements' => $user_announcements]);
     }
 }

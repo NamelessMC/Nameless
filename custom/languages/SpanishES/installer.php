@@ -9,7 +9,7 @@
  *  Spanish/Spain Language - Installation
  */
 
-$language = array(
+$language = [
     /*
      *  Installation
      */
@@ -103,4 +103,4 @@ $language = array(
     'config_not_writable' => 'El archivo de configuración no es escribible.',
 
     'session_doesnt_exist' => 'No se puede detectar la sesión. Guardar las sesiones es un requisito para utilizar Nameless. Por favor, inténtelo de nuevo y, si el problema persiste, póngase en contacto con su proveedor de servidores web para obtener ayuda.'
-);
+];

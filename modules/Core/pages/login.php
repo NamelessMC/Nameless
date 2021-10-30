@@ -26,7 +26,7 @@ if ($user->isLoggedIn()) {
 }
 
 // Get login method
-$login_method = $queries->getWhere('settings', array('name', '=', 'login_method'));
+$login_method = $queries->getWhere('settings', ['name', '=', 'login_method']);
 $login_method = $login_method[0]->value;
 
 $captcha = CaptchaBase::isCaptchaEnabled('recaptcha_login');
@@ -149,7 +149,7 @@ if (Input::exists()) {
 								}
 							}
 						} else {
-							$return_error = array($language->get('user', 'incorrect_details'));
+							$return_error = [$language->get('user', 'incorrect_details')];
 						}
 					}
 
@@ -163,10 +163,10 @@ if (Input::exists()) {
 						$remember = (Input::get('remember') == 1) ? true : false;
 
 						// Is Minecraft and AuthMe integration enabled?
-						$minecraft = $queries->getWhere('settings', array('name', '=', 'mc_integration'));
+						$minecraft = $queries->getWhere('settings', ['name', '=', 'mc_integration']);
 						$minecraft = $minecraft[0]->value;
 
-						$authme_enabled = $queries->getWhere('settings', array('name', '=', 'authme'));
+						$authme_enabled = $queries->getWhere('settings', ['name', '=', 'authme']);
 						$authme_enabled = $authme_enabled[0]->value;
 
 						$cache->setCache('authme_cache');
@@ -229,10 +229,10 @@ if (Input::exists()) {
 											else
 												$user_id = $user->nameToId($username);
 
-											$queries->update('users', $user_id, array(
+											$queries->update('users', $user_id, [
 												'password' => $password,
 												'pass_method' => $authme_db['hash']
-											));
+                                            ]);
 										}
 									}
 								}
@@ -259,21 +259,21 @@ if (Input::exists()) {
 							}
 						} else {
 							// No, output error
-							$return_error = array($language->get('user', 'incorrect_details'));
+							$return_error = [$language->get('user', 'incorrect_details')];
 						}
 					}
-				} else $return_error = array($language->get('user', 'incorrect_details'));
+				} else $return_error = [$language->get('user', 'incorrect_details')];
 			} else {
 				// Validation failed
 				$return_error = $validation->errors();
 			}
 		} else {
 			// reCAPTCHA failed
-			$return_error = array($language->get('user', 'invalid_recaptcha'));
+			$return_error = [$language->get('user', 'invalid_recaptcha')];
 		}
 	} else {
 		// Invalid token
-		$return_error = array($language->get('general', 'invalid_token'));
+		$return_error = [$language->get('general', 'invalid_token')];
 	}
 }
 
@@ -291,7 +291,7 @@ if ($login_method == 'email') {
 	}
 }
 
-$smarty->assign(array(
+$smarty->assign([
 	'USERNAME_INPUT' => ($login_method == 'email' ? Output::getClean(Input::get('email')) : Output::getClean(Input::get('username'))),
 	'PASSWORD' => $language->get('user', 'password'),
 	'REMEMBER_ME' => $language->get('user', 'remember_me'),
@@ -302,9 +302,9 @@ $smarty->assign(array(
 	'REGISTER_URL' => URL::build('/register'),
 	'REGISTER' => $language->get('general', 'register'),
 	'ERROR_TITLE' => $language->get('general', 'error'),
-	'ERROR' => ($return_error ?? array()),
+	'ERROR' => ($return_error ?? []),
 	'NOT_REGISTERED_YET' => $language->get('general', 'not_registered_yet')
-));
+]);
 
 if (isset($return_error)) {
 	$smarty->assign('SESSION_FLASH', $return_error);
@@ -317,7 +317,7 @@ if (Session::exists('login_success'))
 
 if ($captcha) {
     $smarty->assign('CAPTCHA', CaptchaBase::getActiveProvider()->getHtml());
-    $template->addJSFiles(array(CaptchaBase::getActiveProvider()->getJavascriptSource() => array()));
+    $template->addJSFiles([CaptchaBase::getActiveProvider()->getJavascriptSource() => []]);
 
     $submitScript = CaptchaBase::getActiveProvider()->getJavascriptSubmit('form-login');
     if ($submitScript) {
@@ -331,7 +331,7 @@ if ($captcha) {
 }
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 $page_load = microtime(true) - $start;
 define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));

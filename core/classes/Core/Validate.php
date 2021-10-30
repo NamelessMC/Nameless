@@ -14,10 +14,10 @@
 class Validate {
 
     private ?string $_message = null;
-    private array $_messages = array();
+    private array $_messages = [];
     private bool $_passed = false;
-    private array $_to_convert = array();
-    private array $_errors = array();
+    private array $_to_convert = [];
+    private array $_errors = [];
     
     private DB $_db;
     
@@ -105,7 +105,7 @@ class Validate {
      * 
      * @return Validate This instance of Validate.
      */
-    public function check(array $source, array $items = array()): Validate {
+    public function check(array $source, array $items = []): Validate {
 
         // Loop through the items which need validating
         foreach ($items as $item => $rules) {
@@ -177,7 +177,7 @@ class Validate {
                         break;
 
                     case Validate::UNIQUE:
-                        $check = $this->_db->get($rule_value, array($item, '=', $value));
+                        $check = $this->_db->get($rule_value, [$item, '=', $value]);
                         if ($check->count()) {
                             $this->addError([
                                 'field' => $item,
@@ -208,7 +208,7 @@ class Validate {
                         break;
 
                     case Validate::IS_ACTIVE:
-                        $check = $this->_db->get('users', array($item, '=', $value));
+                        $check = $this->_db->get('users', [$item, '=', $value]);
                         if (!$check->count()) {
                             break;
                         }
@@ -224,7 +224,7 @@ class Validate {
                         break;
 
                     case Validate::IS_BANNED: 
-                        $check = $this->_db->get('users', array($item, '=', $value));
+                        $check = $this->_db->get('users', [$item, '=', $value]);
                         if (!$check->count()) {
                             break;
                         }

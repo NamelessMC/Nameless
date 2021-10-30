@@ -11,8 +11,8 @@
 
 class Navigation {
 
-    private array $_topNavbar = array();
-    private array $_footerNav = array();
+    private array $_topNavbar = [];
+    private array $_footerNav = [];
     private bool $_panel;
 
     // Panel sidebars discard provided order for links
@@ -48,22 +48,22 @@ class Navigation {
         // Add the link to the navigation
         if ($location == 'top') {
             // Add to top navbar
-            $this->_topNavbar[$name] = array(
+            $this->_topNavbar[$name] = [
                 'title' => $title,
                 'link' => $link,
                 'target' => $target,
                 'order' => $order,
                 'icon' => $icon
-            );
+            ];
         } else {
             // Add to footer navigation
-            $this->_footerNav[$name] = array(
+            $this->_footerNav[$name] = [
                 'title' => $title,
                 'link' => $link,
                 'target' => $target,
                 'order' => $order,
                 'icon' => $icon
-            );
+            ];
         }
     }
 
@@ -80,22 +80,22 @@ class Navigation {
         // Add the dropdown
         if ($location == 'top') {
             // Navbar
-            $this->_topNavbar[$name] = array(
+            $this->_topNavbar[$name] = [
                 'type' => 'dropdown',
                 'title' => $title,
-                'items' => array(),
+                'items' => [],
                 'order' => $order,
                 'icon' => $icon
-            );
+            ];
         } else {
             // Footer
-            $this->_footerNav[$name] = array(
+            $this->_footerNav[$name] = [
                 'type' => 'dropdown',
                 'title' => $title,
-                'items' => array(),
+                'items' => [],
                 'order' => $order,
                 'icon' => $icon
-            );
+            ];
         }
     }
 
@@ -115,22 +115,22 @@ class Navigation {
         // Add the item
         if ($location == 'top' && isset($this->_topNavbar[$dropdown])) {
             // Navbar
-            $this->_topNavbar[$dropdown]['items'][$name] = array(
+            $this->_topNavbar[$dropdown]['items'][$name] = [
                 'title' => $title,
                 'link' => $link,
                 'target' => $target,
                 'icon' => $icon,
                 'order' => $order
-            );
+            ];
         } else if (isset($this->_footerNav[$dropdown])) {
             // Footer
-            $this->_footerNav[$dropdown]['items'][$name] = array(
+            $this->_footerNav[$dropdown]['items'][$name] = [
                 'title' => $title,
                 'link' => $link,
                 'target' => $target,
                 'icon' => $icon,
                 'order' => $order
-            );
+            ];
         }
     }
 
@@ -141,7 +141,7 @@ class Navigation {
      * @return array Array to pass to template
      */
     public function returnNav(string $location = 'top'): array {
-        $return = array(); // String to return
+        $return = []; // String to return
         if ($location == 'top') {
             if (count($this->_topNavbar)) {
                 foreach ($this->_topNavbar as $key => $item) {

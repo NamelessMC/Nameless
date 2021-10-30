@@ -55,7 +55,7 @@ class ServerBanner {
         $titleY = $favicon_posY + 3 * 2 + 13;
         imagettftext($canvas, 13, 0, $startX, $titleY, $white, MinecraftBanner::getFontFile(), $address);
 
-        $motd = str_replace(array('§k', '§l', '§m', '§o', '§r'), '', $motd);
+        $motd = str_replace(['§k', '§l', '§m', '§o', '§r'], '', $motd);
 
         $components = explode(MinecraftBanner::getColourChar(), $motd);
 

@@ -10,7 +10,7 @@
  *  Translation By Douglas Teles, dasilvaj4 and Mansffer
  *  Last Update: 01/03/2021
  */
-$language = array(
+$language = [
     /*
      *  Change this for the account validation message
      */
@@ -235,4 +235,4 @@ $language = array(
      */
     'user_x_has_registered' => '{x} juntou-se ' . SITE_NAME . '!',
     'user_x_has_validated' => '{x} validou sua conta!',
-);
+];

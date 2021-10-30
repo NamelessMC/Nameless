@@ -292,13 +292,13 @@ class TimeAgo {
             }
         }
 
-        return array(
+        return [
             "years" => $years,
             "months" => $months,
             "days" => $days,
             "hours" => $hours,
             "minutes" => $minutes,
             "seconds" => $seconds
-        );
+        ];
     }
 }

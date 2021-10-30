@@ -10,7 +10,7 @@
  *  German Language - Errors
  */
 
-$language = array(
+$language = [
     /*
      *  Errors
      */
@@ -32,4 +32,4 @@ $language = array(
     'fatal_error_message_admin' => 'Entschuldigung, aber beim Laden der Seite ist etwas schief gelaufen. Fehlerdetails:',
     'in_file' => 'In File <strong>{x}</strong>', // Don't replace {x}
     'on_line' => 'In Zeile <strong>{x}</strong>' // Don't replace {x}
-);
+];

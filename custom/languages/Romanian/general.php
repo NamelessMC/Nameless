@@ -11,7 +11,7 @@
  *  Last Update: 26/06/2019
  */
 
-$language = array(
+$language = [
     /*
      *  General terms
      */
@@ -166,4 +166,4 @@ $language = array(
      *  Custom page redirect
      */
     'redirecting_message' => 'În curs de redirecționare...<br />Dacă nu ești redirecționat automat, te rog <a href="{x}" rel="nofollow noopener">apasă aici</a>.' // Don't replace {x} which is the redirect URL
-);
+];

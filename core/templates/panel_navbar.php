@@ -10,7 +10,7 @@
  */
 
 // Assign to Smarty variables
-$smarty->assign(array(
+$smarty->assign([
 	'SITE_NAME' => SITE_NAME,
 	'PANEL_INDEX' => URL::build('/panel'),
 	'NAV_LINKS' => $staffcp_nav->returnNav('top'),
@@ -21,4 +21,4 @@ $smarty->assign(array(
 	'NOTICES' => Core_Module::getNotices(),
     'NO_NOTICES' => $language->get('admin', 'no_notices'),
     'MODE_TOGGLE' => $language->get('admin', 'mode_toggle')
-));
+]);

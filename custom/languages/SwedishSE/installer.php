@@ -10,7 +10,7 @@
  *  SwedishSE Language - Installer
  */
 
-$language = array(
+$language = [
     /*
      *  Installation
      */
@@ -104,4 +104,4 @@ $language = array(
     'config_not_writable' => 'Konfigurationsfilen är inte skrivbar.',
 
     'session_doesnt_exist' => 'Det gick inte att upptäcka sessionen. Sessionsbesparingar är ett krav för att använda Nameless. Försök igen, och om problemet kvarstår, kontakta din webbhotell för support.'
-);
+];

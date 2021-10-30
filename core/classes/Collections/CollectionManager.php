@@ -12,7 +12,7 @@
 class CollectionManager {
 
     /** @var Collection[] */
-    private static array $_collections = array();
+    private static array $_collections = [];
 
     public static function addItemToCollection($collection, $item) {
         if (!isset(self::$_collections[$collection])) {
@@ -23,11 +23,11 @@ class CollectionManager {
     }
 
     public static function getFullCollection($collection) {
-        return (isset(self::$_collections[$collection]) ? self::$_collections[$collection]->getAllItems() : array());
+        return (isset(self::$_collections[$collection]) ? self::$_collections[$collection]->getAllItems() : []);
     }
 
     public static function getEnabledCollection($collection) {
-        return (isset(self::$_collections[$collection]) ? self::$_collections[$collection]->getEnabledItems() : array());
+        return (isset(self::$_collections[$collection]) ? self::$_collections[$collection]->getEnabledItems() : []);
     }
 }
 
@@ -36,7 +36,7 @@ class Collection {
     private array $_items;
 
     public function __construct() {
-        $this->_items = array();
+        $this->_items = [];
     }
 
     public function addItem($item): void {
@@ -44,7 +44,7 @@ class Collection {
     }
 
     public function getEnabledItems(): array {
-        $items = array();
+        $items = [];
 
         foreach ($this->_items as $item) {
             if ($item->isEnabled()) {

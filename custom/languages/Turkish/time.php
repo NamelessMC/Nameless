@@ -9,7 +9,7 @@
  *  Turkish translation by xOrcun
  */
 
-$language = array(
+$language = [
     /*
      *  Time
      */
@@ -26,4 +26,4 @@ $language = array(
     '_months' => '{x} ay önce',
     'about_1_year' => 'yaklaşık 1 yıl önce',
     'over_x_years' => '{x} yıldan uzun bir süre önce'
-);
+];

@@ -9,7 +9,7 @@
  *  Slovak Language - Errors
  */
 
-$language = array(
+$language = [
     /*
      *  Errors
      */
@@ -31,4 +31,4 @@ $language = array(
     'fatal_error_message_admin' => 'Je nám ľúto, ale pri načítaní stránky sa niečo pokazilo. Detaily chyby:',
     'in_file' => 'v súbore <strong>{x}</strong>', // Don't replace {x}
     'on_line' => 'na riadku <strong>{x}</strong>' // Don't replace {x}
-);
+];

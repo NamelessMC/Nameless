@@ -9,7 +9,7 @@
  *  Norwegian translation (norsk bokmål) - User
  */
 
-$language = array(
+$language = [
     /*
      *  Change this for the account validation message
      */
@@ -236,4 +236,4 @@ $language = array(
      */
     'user_x_has_registered' => '{x} har registert seg hos ' . SITE_NAME . '!',
     'user_x_has_validated' => '{x} har validert kontoen deres!',
-);
+];

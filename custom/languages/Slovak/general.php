@@ -9,7 +9,7 @@
  *  Slovak Language - General terms
  */
 
-$language = array(
+$language = [
     /*
      *  General terms
      */
@@ -163,4 +163,4 @@ $language = array(
      *  Custom page redirect
      */
     'redirecting_message' => 'Presmerovanie... <br />Ak sa nepresmerujete automaticky, kliknite <a href="{x}" rel="nofollow noopener">tu</a>.' // Don't replace {x} which is the redirect URL
-);
+];

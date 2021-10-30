@@ -10,7 +10,7 @@
  *  SwedishSE Language - User
  */
 
-$language = array(
+$language = [
     /*
      *  Change this for the account validation message
      */
@@ -238,4 +238,4 @@ $language = array(
      */
     'user_x_has_registered' => '{x} gått med ' . SITE_NAME . '!',
     'user_x_has_validated' => '{x} har verifierat deras konto!',
-);
+];

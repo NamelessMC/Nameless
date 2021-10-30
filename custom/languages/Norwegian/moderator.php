@@ -9,7 +9,7 @@
  *  Norwegian translation (norsk bokmål) - Moderator
  */
 
-$language = array(
+$language = [
     'mod_cp' => 'ModCP',
     'staff_cp' => 'StaffCP',
     'overview' => 'Oppsummering',
@@ -106,4 +106,4 @@ $language = array(
     'recent_registrations' => 'Nylige registreringer',
     'reset_profile_banner' => 'Tilbakestill profilbanner'
 
-);
+];

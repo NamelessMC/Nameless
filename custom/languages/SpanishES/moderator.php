@@ -9,7 +9,7 @@
  *  Spanish/Spain Language - Moderator
  */
 
-$language = array(
+$language = [
     'staff_cp' => 'Panel de administración',
     'overview' => 'Resumen',
     
@@ -105,4 +105,4 @@ $language = array(
     'recent_registrations' => 'Registros recientes',
     'reset_profile_banner' => 'Restablecer el banner del perfil'
 
-);
+];

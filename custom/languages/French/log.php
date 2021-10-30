@@ -10,8 +10,8 @@
  *  French Language - Users
  */
 
-$language = array(
+$language = [
     //forums
     'info_forums_lock' => 'Verrouillé',
     'info_forums_unlock' => 'Déverrouillé',
-);
+];

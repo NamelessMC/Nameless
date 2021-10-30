@@ -20,21 +20,21 @@ $page_title = $language->get('admin', 'dashboard');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 $dashboard_graphs = Core_Module::getDashboardGraphs();
-$graphs = array();
+$graphs = [];
 
 if(count($dashboard_graphs)){
     $i = 0;
     foreach($dashboard_graphs as $key => $dashboard_graph){
-        $graph = array(
+        $graph = [
             'id' => $i++,
             'title' => $key,
-            'datasets' => array(),
-            'axes' => array(),
-            'keys' => array()
-        );
+            'datasets' => [],
+            'axes' => [],
+            'keys' => []
+        ];
 
         foreach($dashboard_graph['datasets'] as $dskey => $dataset){
             $label = explode('/', $dataset['label']);
@@ -42,11 +42,11 @@ if(count($dashboard_graphs)){
             $axis = 'y' . ($dataset['axis'] ?? 1);
             $axis_side = ($dataset['axis_side'] ?? 'left');
 
-            $graph['datasets'][$dskey] = array(
+            $graph['datasets'][$dskey] = [
                 'label' => ${$varname}->get($label[1], $label[2]),
                 'axis' => $axis,
                 'colour' => ($dataset['colour'] ?? '#000')
-            );
+            ];
 
             $graph['axes'][$axis] = $axis_side;
         }
@@ -78,7 +78,7 @@ if($cache->isCached('news')){
     $news_query = Util::getLatestNews();
     $news_query = json_decode($news_query);
 
-    $news = array();
+    $news = [];
 
     if(!is_null($news_query) && !isset($news_query->error) && count($news_query)){
         $timeago = new TimeAgo();
@@ -86,13 +86,13 @@ if($cache->isCached('news')){
         $i = 0;
 
         foreach($news_query as $item){
-            $news[] = array(
+            $news[] = [
                 'title' => Output::getClean($item->title),
                 'date' => Output::getClean($item->date),
                 'date_friendly' => $timeago->inWords($item->date, $language->getTimeLanguage()),
                 'author' => Output::getClean($item->author),
                 'url' => Output::getClean($item->url)
-            );
+            ];
 
             if(++$i == 5)
                 break;
@@ -109,8 +109,8 @@ else
 
 // Compatibility
 if($user->hasPermission('admincp.core.debugging')){
-    $compat_success = array();
-    $compat_errors = array();
+    $compat_success = [];
+    $compat_errors = [];
 
     if(version_compare(phpversion(), '7.4', '<')){
         $compat_errors[] = 'PHP ' . phpversion();
@@ -170,24 +170,24 @@ if($user->hasPermission('admincp.core.debugging')){
         $compat_success[] = $language->get('installer', 'template_cache_writable');
     }
 
-    $smarty->assign(array(
+    $smarty->assign([
         'SERVER_COMPATIBILITY' => $language->get('admin', 'server_compatibility'),
         'COMPAT_SUCCESS' => $compat_success,
         'COMPAT_ERRORS' => $compat_errors
-    ));
+    ]);
 }
 
 if(is_dir(ROOT_PATH . '/modules/Core/pages/admin'))
-    $smarty->assign(array(
+    $smarty->assign([
         'DIRECTORY_WARNING' => $language->get('admin', 'admin_dir_still_exists')
-    ));
+    ]);
 
 else if(is_dir(ROOT_PATH . '/modules/Core/pages/mod'))
-    $smarty->assign(array(
+    $smarty->assign([
         'DIRECTORY_WARNING' => $language->get('admin', 'mod_dir_still_exists')
-    ));
+    ]);
 
-$smarty->assign(array(
+$smarty->assign([
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'DASHBOARD_STATS' => CollectionManager::getEnabledCollection('dashboard_stats'),
     'PAGE' => PANEL_PAGE,
@@ -202,7 +202,7 @@ $smarty->assign(array(
     'SIDE_ITEMS' => CollectionManager::getEnabledCollection('dashboard_side_items'),
     // TODO: show latest git commit hash?
     'NAMELESS_VERSION' => str_replace('{x}', NAMELESS_VERSION, $language->get('admin', 'running_nameless_version'))
-));
+]);
 
 $page_load = microtime(true) - $start;
 define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));

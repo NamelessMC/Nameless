@@ -9,7 +9,7 @@
  *  ภาษาไทย Language - Time
  */
 
-$language = array(
+$language = [
     /*
      *  Time
      */
@@ -26,4 +26,4 @@ $language = array(
     '_months' => '{x} หลายเดือนก่อน',
     'about_1_year' => 'ประมาณ 1 ปีที่แล้ว',
     'over_x_years' => 'มากกว่า {x} ปีที่แล้ว'
-);
+];

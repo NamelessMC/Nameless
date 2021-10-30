@@ -14,7 +14,7 @@
  *  Japanese Language - Errors
  */
 
-$language = array(
+$language = [
     /*
      *  Errors
      */
@@ -36,4 +36,4 @@ $language = array(
     'fatal_error_message_admin' => 'ページ読み込み中に内部エラーが発生しました。エラーの詳細:',
     'in_file' => 'ファイル: <strong>{x}</strong>', // Don't replace {x}
     'on_line' => 'ライン(行): <strong>{x}</strong>' // Don't replace {x}
-);
+];

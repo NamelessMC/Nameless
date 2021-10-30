@@ -22,7 +22,7 @@ class Report {
      *
      * @param array $post Array containing fields.
      */
-    public function create(array $post = array()): array {
+    public function create(array $post = []): array {
         // Insert into database
         if (!$this->_db->insert('reports', $post)) {
             throw new Exception('There was a problem creating the report.');
@@ -46,7 +46,7 @@ class Report {
 
             if (count($moderators)) {
                 foreach ($moderators as $moderator) {
-                    Alert::create($moderator->id, 'report', array('path' => 'core', 'file' => 'moderator', 'term' => 'report_alert'), array('path' => 'core', 'file' => 'moderator', 'term' => 'report_alert'), URL::build('/panel/users/reports/', 'id=' . $id));
+                    Alert::create($moderator->id, 'report', ['path' => 'core', 'file' => 'moderator', 'term' => 'report_alert'], ['path' => 'core', 'file' => 'moderator', 'term' => 'report_alert'], URL::build('/panel/users/reports/', 'id=' . $id));
                 }
             }
         }

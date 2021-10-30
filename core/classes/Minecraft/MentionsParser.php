@@ -48,7 +48,7 @@ class MentionsParser {
 
                         // Check if user is blocked by OP
                         if (isset($author_id)) {
-                            $user_blocked = $this->_db->get('blocked_users', array('user_id', '=', $user->data()->id));
+                            $user_blocked = $this->_db->get('blocked_users', ['user_id', '=', $user->data()->id]);
                             if ($user_blocked->count()) {
                                 $user_blocked = $user_blocked->results();
 

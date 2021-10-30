@@ -9,7 +9,7 @@
  *  Chinese (Simplified) Language - Emails
  */
 
-$language = array(
+$language = [
 
     // General Options
     'greeting' => '您好,',
@@ -26,4 +26,4 @@ $language = array(
     // Forum Topic Replies
     'forum_topic_reply_subject' => '{x} 回复了 {y}', // Don't remove {x} or {y}
     'forum_topic_reply_message' => '{x} 回复了你关注的帖子。 内容: {z}' // Don't remove {x} or {z}
-);
+];

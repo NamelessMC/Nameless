@@ -16,8 +16,8 @@ abstract class TemplateBase {
     protected string $_nameless_version = '';
     protected string $_author = '';
     protected string $_settings = '';
-    protected array $_css = array();
-    protected array $_js = array();
+    protected array $_css = [];
+    protected array $_js = [];
 
     public function __construct(string $name, string $version, string $nameless_version, string $author) {
         $this->_name = $name;
@@ -161,18 +161,18 @@ abstract class TemplateBase {
      * Render this template with Smarty engine.
      */
     public function displayTemplate(string $template, Smarty $smarty): void {
-        $smarty->assign(array(
+        $smarty->assign([
             'TEMPLATE_CSS' => $this->getCSS(),
             'TEMPLATE_JS' => $this->getJS()
-        ));
+        ]);
         $smarty->display($template);
     }
 
     public function getTemplate(string $template, Smarty $smarty): string {
-        $smarty->assign(array(
+        $smarty->assign([
             'TEMPLATE_CSS' => $this->getCSS(),
             'TEMPLATE_JS' => $this->getJS()
-        ));
+        ]);
 
         return $smarty->fetch($template);
     }

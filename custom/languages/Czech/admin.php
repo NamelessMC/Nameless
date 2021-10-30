@@ -9,7 +9,7 @@
  *  Czech Language - Admin
  */
 
-$language = array (
+$language = [
     /*
      *  Admin Control Panel
      */
@@ -728,4 +728,4 @@ $language = array (
     'text_colour_required' => 'Je vyžadována barva textu',
     'no_announcements' => 'Zatím jste nevytvořili žádná oznámení',
     'announcement_order' => 'Pořadí',
-);
+];

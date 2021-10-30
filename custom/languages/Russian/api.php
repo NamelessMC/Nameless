@@ -10,7 +10,7 @@
  *  Russian Language - API
  */
 
-$language = array(
+$language = [
 
     // Errors
     'api_disabled' => 'Возможности API отключены',
@@ -53,4 +53,4 @@ $language = array(
     'username_updated' => 'Имя пользователя успешно обновлено',
     'server_info_updated' => 'Информация о сервере успешно обновлена',
     'account_validated' => 'Учетная запись успешно подтверждена',
-);
+];

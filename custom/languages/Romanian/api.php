@@ -11,7 +11,7 @@
  *  Last Update: 16/06/2018
  */
 
-$language = array(
+$language = [
 
     // Errors
     'api_disabled' => 'API is disabled',
@@ -54,4 +54,4 @@ $language = array(
     'username_updated' => 'Numele de utilizator a fost actualizat cu succes',
     'server_info_updated' => 'Informațiile serverului s-au actualizat cu succes',
     'account_validated' => 'Contul a fost validat cu succes',
-);
+];

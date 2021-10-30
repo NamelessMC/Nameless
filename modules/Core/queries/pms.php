@@ -1,8 +1,8 @@
 <?php
 if (!$user->isLoggedIn()) {
-    die(json_encode(array("value" => 0)));
+    die(json_encode(["value" => 0]));
 }
 
 $pms = Alert::getPMs($user->data()->id);
 
-echo json_encode(array("value" => count($pms), "pms" => $pms));
+echo json_encode(["value" => count($pms), "pms" => $pms]);

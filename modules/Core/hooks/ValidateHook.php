@@ -9,7 +9,7 @@
 
 class ValidateHook implements Listener {
 
-    public static function execute(array $params = array()): void {
+    public static function execute(array $params = []): void {
         if (!defined('VALIDATED_DEFAULT')) {
             define('VALIDATED_DEFAULT', 1);
         }

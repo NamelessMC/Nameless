@@ -9,8 +9,8 @@
 
 class EventHandler {
 
-    private static array $_events = array();
-    private static array $_webhooks = array();
+    private static array $_events = [];
+    private static array $_webhooks = [];
 
     /**
      * Register an event.
@@ -94,7 +94,7 @@ class EventHandler {
      * @return array List of all currently registered events.
      */
     public static function getEvents(): array {
-        $return = array();
+        $return = [];
 
         foreach (self::$_events as $name => $meta) {
             $return[$name] = $meta['description'];

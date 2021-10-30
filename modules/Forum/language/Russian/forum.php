@@ -10,7 +10,7 @@
  *  https://github.com/0niel
  */
 
-$language = array(
+$language = [
     /*
      *  Forums
      */
@@ -213,4 +213,4 @@ $language = array(
     'recent_posts_statistic_icon' => '<i class="far fa-comments"></i>',
     'topics_title' => 'Топики',
     'posts_title' => 'Посты',
-);
+];

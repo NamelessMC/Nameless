@@ -9,7 +9,7 @@
  *  Norwegian translation (norsk bokmål) - Admin
  */
 
-$language = array(
+$language = [
     /*
      *  Admin Control Panel
      */
@@ -742,4 +742,4 @@ $language = array(
     'background_colour_required' => 'En bakgrunnsfarge er påkrevd',
     'text_colour_required' => 'En tekstfarge er påkrevd',
     'no_announcements' => 'Ingen kunngjøringer har blitt opprettet enda.',
-);
+];

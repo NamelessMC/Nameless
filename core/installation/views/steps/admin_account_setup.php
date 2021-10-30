@@ -56,13 +56,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 	} else {
 		$user = new User();
-		$password = password_hash(Input::get('password'), PASSWORD_BCRYPT, array('cost' => 13));
+		$password = password_hash(Input::get('password'), PASSWORD_BCRYPT, ['cost' => 13]);
 
 		try {
 
 			$queries = new Queries();
 
-			$language = $queries->getWhere('languages', array('is_default', '=', 1));
+			$language = $queries->getWhere('languages', ['is_default', '=', 1]);
 
 			$ip = $user->getIP();
             $uuid = 'none';
@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 }
             }
 
-			$user->create(array(
+			$user->create([
 				'username' => Output::getClean(Input::get('username')),
 				'nickname' => Output::getClean(Input::get('username')),
 				'password' => $password,
@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				'last_online' => date('U'),
 				'theme_id' => 1,
 				'language_id' => $language[0]->id,
-			));
+            ]);
 			
 			$login = $user->login(Input::get('email'), Input::get('password'), true);
 			if ($login) {
@@ -101,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 			$error = $language['unable_to_login'];
 
-			$queries->delete('users', array('id', '=', 1));
+			$queries->delete('users', ['id', '=', 1]);
 
 		} catch (Exception $e) {
 			$error = $language['unable_to_create_account'] . ': ' . $e->getMessage();

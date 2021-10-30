@@ -4,7 +4,7 @@ if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
     die();
 }
 
-$server = $queries->getWhere('mc_servers', array('id', '=', $_GET['id']));
+$server = $queries->getWhere('mc_servers', ['id', '=', $_GET['id']]);
 if (!count($server)) {
     die();
 } else {
@@ -16,7 +16,7 @@ if ($cache->isCached('result')) {
     echo $cache->retrieve('result');
 } else {
     // Get query type
-    $query_type = $queries->getWhere('settings', array('name', '=', 'external_query'));
+    $query_type = $queries->getWhere('settings', ['name', '=', 'external_query']);
     if (count($query_type)) {
         if ($query_type[0]->value == '1')
             $query_type = 'external';
@@ -25,7 +25,7 @@ if ($cache->isCached('result')) {
     } else
         $query_type = 'internal';
 
-    $full_ip = array('ip' => $server->ip . (is_null($server->port) ? '' : ':' . $server->port), 'pre' => $server->pre, 'name' => $server->name);
+    $full_ip = ['ip' => $server->ip . (is_null($server->port) ? '' : ':' . $server->port), 'pre' => $server->pre, 'name' => $server->name];
 
     $result = json_encode(MCQuery::singleQuery($full_ip, $query_type, $language, $queries), JSON_PRETTY_PRINT);
     $cache->store('result', $result, 30);

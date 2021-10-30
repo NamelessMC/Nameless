@@ -11,7 +11,7 @@
  *  Nederlandse taal - Beheers termen
  */
 
-$language = array(
+$language = [
     'mod_cp' => 'Beheerders Paneel',
     'staff_cp' => 'StaffCP',
     'overview' => 'Overzicht',
@@ -108,4 +108,4 @@ $language = array(
     'recent_registrations' => 'Recente Registraties',
     'reset_profile_banner' => 'Reset Profiel Banner'
 
-);
+];

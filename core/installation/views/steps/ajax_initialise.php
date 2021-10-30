@@ -10,30 +10,30 @@ if (isset($_POST) && isset($_POST['perform']) && $_POST['perform'] == 'true') {
 
 			$redirect_url = (($_SESSION['action'] == 'install') ? '?step=site_configuration' : '?step=upgrade');
 
-			$json = array(
+			$json = [
 				'success' => $success,
 				'redirect_url' => $redirect_url,
-			);
+            ];
 
 			$_SESSION['database_initialized'] = true;
 
 		} else if ($_GET['initialise'] === 'site') {
 			require(realpath(__DIR__ . '/../includes/site_initialize.php'));
 
-			$json = array(
+			$json = [
 				'success' => true,
 				'redirect_url' => '?step=admin_account_setup',
-			);
+            ];
 
 			$_SESSION['site_initialized'] = true;
 
 		} else if ($_GET['initialise'] === 'upgrade') {
             require(realpath(__DIR__ . '/../includes/upgrade_perform.php'));
 
-			$json = array(
+			$json = [
 				'success' => true,
 				'redirect_url' => '?step=finish',
-			);
+            ];
 
 			$_SESSION['admin_setup'] = true;
 
@@ -41,10 +41,10 @@ if (isset($_POST) && isset($_POST['perform']) && $_POST['perform'] == 'true') {
 			throw new Exception('Invalid initialisation');
 		}
 	} catch (Exception $e) {
-		$json = array(
+		$json = [
 			'error' => true,
 			'message' => $e->getMessage(),
-		);
+        ];
 	}
 
 	header('Content-Type: application/json');

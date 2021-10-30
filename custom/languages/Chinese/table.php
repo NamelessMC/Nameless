@@ -13,7 +13,7 @@
  *  https://github.com/haer0248/NamelessMC-v2-Traditional-Chinese/issues
  */
 
-$language = array(
+$language = [
     /*
      *  Tables
      */
@@ -22,4 +22,4 @@ $language = array(
     'page_x_of_y' => '頁數 _PAGE_/_PAGES_', // Don't replace "_PAGE_" or "_PAGES_"
     'no_records' => '沒有已知紀錄',
     'filtered' => '(從 _MAX_ 中紀錄過濾)' // Don't replace "_MAX_"
-);
+];

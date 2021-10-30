@@ -9,7 +9,7 @@
  *  Norwegian translation (norsk bokmål) - API
  */
 
-$language = array(
+$language = [
 
     // Errors
     'api_disabled' => 'API er deaktivert',
@@ -52,4 +52,4 @@ $language = array(
     'username_updated' => 'Brukernavnet har blitt oppdatert.',
     'server_info_updated' => 'Serverinfoen har blitt oppdatert',
     'account_validated' => 'Brukeren har blitt validert',
-);
+];

@@ -19,7 +19,7 @@ if (!$user->isLoggedIn()) {
 }
 
 // Are reactions enabled?
-$reactions_enabled = $queries->getWhere('settings', array('name', '=', 'forum_reactions'));
+$reactions_enabled = $queries->getWhere('settings', ['name', '=', 'forum_reactions']);
 if ($reactions_enabled[0]->value != '1') {
     Redirect::to(URL::build('/forum'));
     die();
@@ -34,7 +34,7 @@ if (Input::exists()) {
     }
 
     // Get post information
-    $post = $queries->getWhere('posts', array('id', '=', $_POST['post']));
+    $post = $queries->getWhere('posts', ['id', '=', $_POST['post']]);
 
     if (!count($post)) {
         Redirect::to(URL::build('/forum'));
@@ -52,19 +52,19 @@ if (Input::exists()) {
 
     if (Token::check()) {
         // Check if the user has already reacted to this post
-        $user_reacted = $queries->getWhere('forums_reactions', array('post_id', '=', $post->id));
+        $user_reacted = $queries->getWhere('forums_reactions', ['post_id', '=', $post->id]);
         if (count($user_reacted)) {
             foreach ($user_reacted as $reaction) {
                 if ($reaction->user_given == $user->data()->id) {
                     if ($reaction->reaction_id == $_POST['reaction']) {
                         // Undo reaction
-                        $queries->delete('forums_reactions', array('id', '=', $reaction->id));
+                        $queries->delete('forums_reactions', ['id', '=', $reaction->id]);
                     } else {
                         // Change reaction
-                        $queries->update('forums_reactions', $reaction->id, array(
+                        $queries->update('forums_reactions', $reaction->id, [
                             'reaction_id' => $_POST['reaction'],
                             'time' => date('U')
-                        ));
+                        ]);
                     }
 
                     $changed = true;
@@ -75,13 +75,13 @@ if (Input::exists()) {
 
         if (!isset($changed)) {
             // Input new reaction
-            $queries->create('forums_reactions', array(
+            $queries->create('forums_reactions', [
                 'post_id' => $post->id,
                 'user_received' => $post->post_creator,
                 'user_given' => $user->data()->id,
                 'reaction_id' => $_POST['reaction'],
                 'time' => date('U')
-            ));
+            ]);
 
             Log::getInstance()->log(Log::Action('forums/react'), $_POST['reaction']);
         }

@@ -9,7 +9,7 @@
  *  Polish Language - Table
  */
 
-$language = array(
+$language = [
     /*
      *  Tables
      */
@@ -18,4 +18,4 @@ $language = array(
     'page_x_of_y' => 'Strona _PAGE_ z _PAGES_', // Don't replace "_PAGE_" or "_PAGES_"
     'no_records' => 'Brak dostępnych danych',
     'filtered' => '(filtrowane z _MAX_ wszystkich wyników)' // Don't replace "_MAX_"
-);
+];

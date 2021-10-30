@@ -11,7 +11,7 @@
  *  Last Update: 24/11/2018
  */
 
-$language = array(
+$language = [
     /*
      *  Forums
      */ 
@@ -215,4 +215,4 @@ $language = array(
     'recent_posts_statistic_icon' => '<i class="far fa-comments"></i>',
     'topics_title' => 'Subiecte',
     'posts_title' => 'Mesaje',
-);
+];

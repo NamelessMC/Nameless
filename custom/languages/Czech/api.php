@@ -10,7 +10,7 @@
  *  Czech Language - API
  */
 
-$language = array (
+$language = [
 
     // Errors
     'api_disabled' => 'API je zakázáno',
@@ -51,4 +51,4 @@ $language = array (
     'username_updated' => 'Uživatelské jméno úspěšně aktualizováno',
     'server_info_updated' => 'Informace o serveru úspěšně aktualizovány',
     'account_validated' => 'Účet úspěšně ověřen',
-);
+];

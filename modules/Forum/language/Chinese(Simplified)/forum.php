@@ -11,7 +11,7 @@
  *  Progress: 100%
  */
 
-$language = array(
+$language = [
     /*
      *  Forums
      */ 
@@ -215,4 +215,4 @@ $language = array(
     'recent_posts_statistic_icon' => '<i class="far fa-comments"></i>',
     'topics_title' => '话题数',
     'posts_title' => '帖子数',
-);
+];

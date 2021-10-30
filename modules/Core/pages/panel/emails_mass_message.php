@@ -22,7 +22,7 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Handle input
 if (Input::exists()) {
-    $errors = array();
+    $errors = [];
 
     if (Token::check()) {
 
@@ -42,35 +42,35 @@ if (Input::exists()) {
 
         if ($validate->passed()) {
 
-            $users = $queries->getWhere('users', array('id', '<>', 0));
+            $users = $queries->getWhere('users', ['id', '<>', 0]);
 
-            $siteemail = $queries->getWhere('settings', array('name', '=', 'outgoing_email'));
+            $siteemail = $queries->getWhere('settings', ['name', '=', 'outgoing_email']);
             $siteemail = $siteemail[0]->value;
-            $contactemail = $queries->getWhere('settings', array('name', '=', 'incoming_email'));
+            $contactemail = $queries->getWhere('settings', ['name', '=', 'incoming_email']);
             $contactemail = $contactemail[0]->value;
 
             try {
-                $php_mailer = $queries->getWhere('settings', array('name', '=', 'phpmailer'));
+                $php_mailer = $queries->getWhere('settings', ['name', '=', 'phpmailer']);
                 $php_mailer = $php_mailer[0]->value;
                 if ($php_mailer == '1') {
                     foreach ($users as $email_user) {
                         // PHP Mailer
-                        $email = array(
-                            'replyto' => array('email' => $contactemail, 'name' => Output::getClean(SITE_NAME)),
-                            'to' => array('email' => Output::getClean($email_user->email), 'name' => Output::getClean($email_user->username)),
+                        $email = [
+                            'replyto' => ['email' => $contactemail, 'name' => Output::getClean(SITE_NAME)],
+                            'to' => ['email' => Output::getClean($email_user->email), 'name' => Output::getClean($email_user->username)],
                             'subject' => Output::getClean(Input::get('subject')),
                             'message' => str_replace(['{username}', '{sitename}'], [$email_user->username, SITE_NAME], Input::get('content')),
-                        );
+                        ];
                         $sent = Email::send($email, 'mailer');
 
                         if (isset($sent['error'])) {
                             // Error, log it
-                            $queries->create('email_errors', array(
+                            $queries->create('email_errors', [
                                 'type' => 6, // 6 = mass message
                                 'content' => $sent['error'],
                                 'at' => date('U'),
                                 'user_id' => $user->data()->id
-                            ));
+                            ]);
                         }
                     }
                 } else {
@@ -82,23 +82,23 @@ if (Input::exists()) {
                             'MIME-Version: 1.0' . "\r\n" .
                             'Content-type: text/html; charset=UTF-8' . "\r\n";
 
-                        $email = array(
+                        $email = [
                             'to' => $email_user->email,
                             'subject' => Output::getClean(Input::get('subject')),
                             'message' => str_replace(['{username}', '{sitename}'], [$email_user->username, SITE_NAME], Input::get('content')),
                             'headers' => $headers
-                        );
+                        ];
 
                         $sent = Email::send($email, 'php');
 
                         if (isset($sent['error'])) {
                             // Error, log it
-                            $queries->create('email_errors', array(
+                            $queries->create('email_errors', [
                                 'type' => 6, // 6 = mass message
                                 'content' => $sent['error'],
                                 'at' => date('U'),
                                 'user_id' => $user->data()->id
-                            ));
+                            ]);
                         }
                     }
                 }
@@ -121,15 +121,15 @@ if (Input::exists()) {
         $errors[] = $language->get('general', 'invalid_token');
 }
 
-$php_mailer = $queries->getWhere('settings', array('name', '=', 'phpmailer'));
+$php_mailer = $queries->getWhere('settings', ['name', '=', 'phpmailer']);
 $php_mailer = $php_mailer[0]->value;
 
-$outgoing_email = $queries->getWhere('settings', array('name', '=', 'outgoing_email'));
+$outgoing_email = $queries->getWhere('settings', ['name', '=', 'outgoing_email']);
 $outgoing_email = $outgoing_email[0]->value;
 
 require(ROOT_PATH . '/core/email.php');
 
-$smarty->assign(array(
+$smarty->assign([
     'SENDING_MASS_MESSAGE' => $language->get('admin', 'sending_mass_message'),
     'EMAILS_MASS_MESSAGE' => $language->get('admin', 'emails_mass_message'),
     'SUBJECT' => $language->get('admin', 'email_message_subject'),
@@ -139,12 +139,12 @@ $smarty->assign(array(
     'LOADING' => $language->get('admin', 'emails_mass_message_loading'),
     'BACK' => $language->get('general', 'back'),
     'BACK_LINK' => URL::build('/panel/core/emails')
-));
+]);
 
-$template->addCSSFiles(array(
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.min.css' => array(),
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/css/emojionearea.min.css' => array(),
-));
+$template->addCSSFiles([
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.min.css' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/css/emojionearea.min.css' => [],
+]);
 
 // Get post formatting type (HTML or Markdown)
 $cache->setCache('post_formatting');
@@ -155,10 +155,10 @@ if ($formatting == 'markdown') {
     $smarty->assign('MARKDOWN', true);
     $smarty->assign('MARKDOWN_HELP', $language->get('general', 'markdown_help'));
 
-    $template->addJSFiles(array(
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/js/emojione.min.js' => array(),
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/js/emojionearea.min.js' => array()
-    ));
+    $template->addJSFiles([
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/js/emojione.min.js' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/js/emojionearea.min.js' => []
+    ]);
 
     $template->addJSScript('
       $(document).ready(function() {
@@ -168,12 +168,12 @@ if ($formatting == 'markdown') {
       });
     ');
 } else {
-    $template->addJSFiles(array(
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js' => array(),
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => array(),
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => array(),
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => array()
-    ));
+    $template->addJSFiles([
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
+    ]);
 
     $template->addJSScript(Input::createTinyEditor($language, 'reply'));
 }
@@ -181,24 +181,24 @@ if ($formatting == 'markdown') {
 $template_file = 'core/emails_mass_message.tpl';
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 if (Session::exists('emails_success'))
     $success = Session::flash('emails_success');
 
 if (isset($success))
-    $smarty->assign(array(
+    $smarty->assign([
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
-    ));
+    ]);
 
 if (isset($errors) && count($errors))
-    $smarty->assign(array(
+    $smarty->assign([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
-    ));
+    ]);
 
-$smarty->assign(array(
+$smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'CONFIGURATION' => $language->get('admin', 'configuration'),
@@ -206,7 +206,7 @@ $smarty->assign(array(
     'PAGE' => PANEL_PAGE,
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit')
-));
+]);
 
 $page_load = microtime(true) - $start;
 define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));

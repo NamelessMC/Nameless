@@ -9,7 +9,7 @@
  *  Norwegian translation (norsk bokmål) - Time
  */
 
-$language = array(
+$language = [
     /*
      *  Time
      */
@@ -26,4 +26,4 @@ $language = array(
     '_months' => '{x} måneder siden',
     'about_1_year' => 'omtrent 1 år siden',
     'over_x_years' => 'over {x} år siden'
-);
+];

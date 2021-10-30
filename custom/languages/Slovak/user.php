@@ -9,7 +9,7 @@
  *  Slovak Language - Users
  */
 
-$language = array(
+$language = [
     /*
      *  Change this for the account validation message
      */
@@ -236,4 +236,4 @@ $language = array(
      */
     'user_x_has_registered' => '{x} sa pripojil/a ' . SITE_NAME . '!',
     'user_x_has_validated' => '{x} overil/a svoj účet!',
-);
+];

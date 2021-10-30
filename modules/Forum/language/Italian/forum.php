@@ -10,7 +10,7 @@
  *  Italian Language for Forum module
  */
 
-$language = array(
+$language = [
     /*
      *  Forums
      */
@@ -212,4 +212,4 @@ $language = array(
     'recent_posts_statistic_icon' => '<i class="far fa-comments"></i>',
     'topics_title' => 'Discussioni',
     'posts_title' => 'Post',
-);
+];

@@ -94,16 +94,16 @@ class Cache {
      * @return Cache
      */
     public function store(string $key, $data, int $expiration = 0): Cache {
-        $storeData = array(
+        $storeData = [
             'time'   => time(),
             'expire' => $expiration,
             'data'   => serialize($data)
-        );
+        ];
         $dataArray = $this->_loadCache();
         if (is_array($dataArray)) {
             $dataArray[$key] = $storeData;
         } else {
-            $dataArray = array($key => $storeData);
+            $dataArray = [$key => $storeData];
         }
         $cacheData = json_encode($dataArray);
         file_put_contents($this->getCacheDir(), $cacheData);
@@ -144,7 +144,7 @@ class Cache {
      */
     public function retrieveAll(bool $meta = false): array {
         if (!$meta) {
-            $results = array();
+            $results = [];
             $cachedData = $this->_loadCache();
             if ($cachedData) {
                 foreach ($cachedData as $k => $v) {

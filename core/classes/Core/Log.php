@@ -215,12 +215,12 @@ class Log extends Instanceable {
             $user = ($userTemp->isLoggedIn() ? $userTemp->data()->id : 0);
         }
 
-        return $this->_db->insert('logs', array(
+        return $this->_db->insert('logs', [
             'time' => date('U'),
             'action' => $action,
             'user_id' => $user,
             'ip' => $ip,
             'info' => $info,
-        ));
+        ]);
     }
 }

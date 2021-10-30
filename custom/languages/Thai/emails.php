@@ -9,7 +9,7 @@
  *  ภาษาไทย Language - Emails
  */
 
-$language = array(
+$language = [
 
     // General Options
     'greeting' => 'ไง,',
@@ -26,4 +26,4 @@ $language = array(
     // Forum Topic Replies
     'forum_topic_reply_subject' => '{x} ได้ตอบกลับ {y}', // Don't remove {x} or {y}
     'forum_topic_reply_message' => '{x} ได้ตอบกลับหัวข้อที่คุณติดตาม เนื้อหา: {z}' // Don't remove {x} or {z}
-);
+];
