@@ -398,12 +398,12 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
         || (!$user->isLoggedIn() && Cookie::exists('alert-box'))
     ) {
         if (!Cookie::exists('nl-profile-' . $query->id)) {
-            $queries->increment("users", $query->id, "profile_views");
-            Cookie::put("nl-profile-" . $query->id, "true", 3600);
+            $queries->increment('users', $query->id, 'profile_views');
+            Cookie::put('nl-profile-' . $query->id, 'true', 3600);
         }
     } else if (!Session::exists('nl-profile-' . $query->id)) {
-        $queries->increment("users", $query->id, "profile_views");
-        Session::put("nl-profile-" . $query->id, "true");
+        $queries->increment('users', $query->id, 'profile_views');
+        Session::put('nl-profile-' . $query->id, 'true');
     }
 
     // Set Can view
@@ -758,7 +758,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
     // Add Profile views
     $fields['profile_views'] = [
-        'title' => $language->get("user", 'views'),
+        'title' => $language->get('user', 'views'),
         'type' => 'text',
         'value' => $query->profile_views
     ];

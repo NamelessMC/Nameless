@@ -11,7 +11,7 @@
  */
 
 // Headers
-header("Content-Type: application/json; charset=UTF-8");
+header('Content-Type: application/json; charset=UTF-8');
 
 $page_title = 'api';
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');

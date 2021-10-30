@@ -9,7 +9,7 @@
  *  404 Not Found page
  */
 
-header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found");
+header($_SERVER['SERVER_PROTOCOL']. ' 404 Not Found');
 
 define('PAGE', 404);
 $page_title = '404';

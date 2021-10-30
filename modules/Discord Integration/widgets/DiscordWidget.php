@@ -44,7 +44,7 @@ class DiscordWidget extends WidgetBase {
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
             curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-            curl_setopt($ch, CURLOPT_URL, "https://discord.com/api/guilds/" . Output::getClean($this->_guild_id) . "/widget.json");
+            curl_setopt($ch, CURLOPT_URL, 'https://discord.com/api/guilds/' . Output::getClean($this->_guild_id) . '/widget.json');
             $result = curl_exec($ch);
             $result = json_decode($result);
             curl_close($ch);

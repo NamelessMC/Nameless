@@ -16,11 +16,11 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
 $forum = new Forum();
 
-if (!isset($_GET["tid"]) || !is_numeric($_GET["tid"])) {
+if (!isset($_GET['tid']) || !is_numeric($_GET['tid'])) {
     Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
     die();
 } else {
-    $topic_id = $_GET["tid"];
+    $topic_id = $_GET['tid'];
     $topic = $queries->getWhere('topics', ['id', '=', $topic_id]);
     if (!count($topic)) {
         Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
@@ -76,7 +76,7 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
         }
     }
 } else {
-    Redirect::to(URL::build("/forum"));
+    Redirect::to(URL::build('/forum'));
     die();
 }
 

@@ -208,7 +208,7 @@ if (!isset($_GET['action'])) {
                 'ACTIVE_PAGES' => $active_pages,
                 'POSSIBLE_PAGES' => $pages->returnWidgetPages(),
                 'MODULE' => $language->get('admin', 'module'),
-                'MODULE_SEPERATOR' => "&raquo"
+                'MODULE_SEPERATOR' => '&raquo'
             ]
         );
 

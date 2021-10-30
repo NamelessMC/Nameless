@@ -333,7 +333,7 @@ class User {
      * @return string Compiled profile URL.
      */
     public function getProfileURL(): string {
-        return Output::getClean(URL::build("/profile/" . $this->data()->username));
+        return Output::getClean(URL::build('/profile/' . $this->data()->username));
     }
 
     /**
@@ -416,7 +416,7 @@ class User {
         if (defined('CUSTOM_AVATARS')) {
 
             if ($this->data()->gravatar) {
-                return "https://secure.gravatar.com/avatar/" . md5(strtolower(trim($this->data()->email))) . "?s=" . $size;
+                return 'https://secure.gravatar.com/avatar/' . md5(strtolower(trim($this->data()->email))) . '?s=' . $size;
             }
 
             if ($this->data()->has_avatar) {
@@ -427,8 +427,8 @@ class User {
                 }
 
                 foreach ($exts as $ext) {
-                    if (file_exists(ROOT_PATH . "/uploads/avatars/" . $this->data()->id . "." . $ext)) {
-                        return ($full ? rtrim(Util::getSelfURL(), '/') : '') . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . "uploads/avatars/" . $this->data()->id . "." . $ext . '?v=' . Output::getClean($this->data()->avatar_updated);
+                    if (file_exists(ROOT_PATH . '/uploads/avatars/' . $this->data()->id . '.' . $ext)) {
+                        return ($full ? rtrim(Util::getSelfURL(), '/') : '') . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/avatars/' . $this->data()->id . '.' . $ext . '?v=' . Output::getClean($this->data()->avatar_updated);
                     }
                 }
             }
@@ -447,7 +447,7 @@ class User {
         } else {
             $uuid = $this->data()->username;
             // Fallback to steve avatar if they have an invalid username
-            if (preg_match("#[^][_A-Za-z0-9]#", $uuid)) {
+            if (preg_match('#[^][_A-Za-z0-9]#', $uuid)) {
                 $uuid = 'Steve';
             }
         }
@@ -471,10 +471,10 @@ class User {
         $n = 0;
         foreach ($data as $infraction) {
             if ($infraction->acknowledged == '0') {
-                $return[$n]["id"] = $infraction->id;
-                $return[$n]["staff"] = $infraction->staff;
-                $return[$n]["reason"] = $infraction->reason;
-                $return[$n]["date"] = $infraction->infraction_date;
+                $return[$n]['id'] = $infraction->id;
+                $return[$n]['staff'] = $infraction->staff;
+                $return[$n]['reason'] = $infraction->reason;
+                $return[$n]['date'] = $infraction->infraction_date;
                 $n++;
             }
         }
@@ -1010,7 +1010,7 @@ class User {
      */
     public function getProfileFields(int $user_id, bool $public = true, bool $forum = false): array {
         if ($user_id == null) {
-            throw new InvalidArgumentException("User id is null");
+            throw new InvalidArgumentException('User id is null');
         }
 
         $data = $this->_db->get('users_profile_fields', ['user_id', '=', $user_id]);

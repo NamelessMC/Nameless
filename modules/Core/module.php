@@ -1180,7 +1180,7 @@ class Core_Module extends Module {
                     $data = $cache->retrieve('core_data');
 
                 } else {
-                    $users = $queries->orderWhere('users', 'joined > ' . strtotime("-1 week"), 'joined', 'ASC');
+                    $users = $queries->orderWhere('users', 'joined > ' . strtotime('-1 week'), 'joined', 'ASC');
 
                     // Output array
                     $data = [];
@@ -1256,7 +1256,7 @@ class Core_Module extends Module {
                     }
 
                     // Fill in missing dates, set registrations/players to 0
-                    $start = strtotime("-1 week");
+                    $start = strtotime('-1 week');
                     $start = date('d M Y', $start);
                     $start = strtotime($start);
                     $end = strtotime(date('d M Y'));

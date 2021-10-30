@@ -19,9 +19,9 @@ if (!$user->isLoggedIn()) {
 }
 
 // Ensure a topic is set via URL parameters
-if (isset($_GET["tid"])) {
-    if (is_numeric($_GET["tid"])) {
-        $topic_id = $_GET["tid"];
+if (isset($_GET['tid'])) {
+    if (is_numeric($_GET['tid'])) {
+        $topic_id = $_GET['tid'];
     } else {
         Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
         die();
@@ -57,8 +57,8 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
         $status = $forum_language->get('forum', 'topic_unstuck');
     }
 
-    $queries->update("topics", $topic_id, [
-        "sticky" => $sticky
+    $queries->update('topics', $topic_id, [
+        'sticky' => $sticky
     ]);
 
     Log::getInstance()->log(($sticky == 1) ? Log::Action('forums/topic/stick') : Log::Action('forums/topic/unstick'), $topic[0]->topic_title);

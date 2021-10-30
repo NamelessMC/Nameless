@@ -37,7 +37,7 @@ class MCQuery {
                 if (count($query_ip) != 2) {
                     return [
                         'error' => true,
-                        'value' => "split IP by : must contain exactly two components"
+                        'value' => 'split IP by : must contain exactly two components'
                     ];
                 }
                 $ping = new MinecraftPing($query_ip[0], $query_ip[1], 5);
@@ -78,7 +78,7 @@ class MCQuery {
                 if (count($query_ip) > 2) {
                     return [
                         'error' => true,
-                        'value' => "split IP by : contains more than two components"
+                        'value' => 'split IP by : contains more than two components'
                     ];
                 }
 

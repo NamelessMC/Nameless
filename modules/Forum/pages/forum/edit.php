@@ -67,7 +67,7 @@ if ($post_editing[0]->id == $post_id) {
 	 *  Get the title of the topic
 	 */
 
-    $post_title = $queries->getWhere("topics", ["id", "=", $topic_id]);
+    $post_title = $queries->getWhere('topics', ['id', '=', $topic_id]);
     $post_labels = $post_title[0]->labels ? explode(',', $post_title[0]->labels) : [];
     $post_title = Output::getClean($post_title[0]->topic_title);
 }
@@ -76,7 +76,7 @@ if ($post_editing[0]->id == $post_id) {
  *  Get the post we're editing
  */
 
-$post_editing = $queries->getWhere("posts", ["id", "=", $post_id]);
+$post_editing = $queries->getWhere('posts', ['id', '=', $post_id]);
 
 // Check post exists
 if (!count($post_editing)) {
@@ -148,7 +148,7 @@ if (Input::exists()) {
             } else $content = Output::getClean(Input::get('content'));
 
             // Update post content
-            $queries->update("posts", $post_id, [
+            $queries->update('posts', $post_id, [
                 'post_content' => $content,
                 'last_edited' => date('U')
             ]);
@@ -287,7 +287,7 @@ if ($formatting == 'markdown') {
 			pickerPosition: "bottom"
 		});
 
-		el[0].emojioneArea.setText(\'' . str_replace(["'", "&gt;", "&amp;"], ["&#39;", ">", "&"], str_replace(["\r", "\n"], ["\\r", "\\n"], $clean)) . '\');
+		el[0].emojioneArea.setText(\'' . str_replace(["'", '&gt;', '&amp;'], ['&#39;', '>', '&'], str_replace(["\r", "\n"], ["\\r", "\\n"], $clean)) . '\');
  	 });
 	');
 } else {

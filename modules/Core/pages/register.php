@@ -90,7 +90,7 @@ require(ROOT_PATH . '/core/integration/uuid.php'); // For UUID stuff
 require(ROOT_PATH . '/core/includes/password.php'); // For password hashing
 
 // Are custom usernames enabled?
-$custom_usernames = $queries->getWhere("settings", ["name", "=", "displaynames"]);
+$custom_usernames = $queries->getWhere('settings', ['name', '=', 'displaynames']);
 $custom_usernames = $custom_usernames[0]->value;
 
 if (isset($_GET['step']) && isset($_SESSION['mcassoc'])) {
@@ -284,7 +284,7 @@ if (Input::exists()) {
                             define('MCASSOC', true);
 
                             // Hash password first
-                            $password = password_hash($_POST['password'], PASSWORD_BCRYPT, ["cost" => 13]);
+                            $password = password_hash($_POST['password'], PASSWORD_BCRYPT, ['cost' => 13]);
                             $_SESSION['password'] = $password;
                             unset($_POST['password']);
 
@@ -306,18 +306,18 @@ if (Input::exists()) {
                                 // TODO: Invalid IP, do something else
                             }
 
-                            $password = password_hash(Input::get('password'), PASSWORD_BCRYPT, ["cost" => 13]);
+                            $password = password_hash(Input::get('password'), PASSWORD_BCRYPT, ['cost' => 13]);
                             // Get current unix time
                             $date = new DateTime();
                             $date = $date->getTimestamp();
 
                             if ($api_verification == '1') {
                                 // Generate shorter code for API validation
-                                $code = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 10);
+                                $code = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 10);
                                 $active = 1;
                             } else {
                                 // Generate random code for email
-                                $code = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 60);
+                                $code = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 60);
                                 $active = 0;
                             }
 
@@ -389,7 +389,7 @@ if (Input::exists()) {
                                 }
                             }
 
-                            Log::getInstance()->log(Log::Action('user/register'), "");
+                            Log::getInstance()->log(Log::Action('user/register'), '');
 
                             if ($api_verification != '1' && $email_verification == '1') {
                                 // Send registration email
@@ -465,7 +465,7 @@ if (Input::exists()) {
                         } else if (strpos($validation_error, 't_and_c') !== false) {
                             $errors[] = $language->get('user', 'accept_terms');
                         } else {
-                            $errors[] = $validation_error . ".";
+                            $errors[] = $validation_error . '.';
                         }
                     } else if (strpos($validation_error, 'minimum') !== false) {
                         // x must be a minimum of y characters long

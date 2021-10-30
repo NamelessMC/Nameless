@@ -73,19 +73,19 @@ if ($page != 'install') {
 
     if (defined('FORCE_SSL') && !Util::isConnectionSSL()) {
         if (defined('FORCE_WWW') && strpos($_SERVER['HTTP_HOST'], 'www.') === false) {
-            header('Location: https://www.' . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
+            header('Location: https://www.' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
             die();
         }
 
-        header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
+        header('Location: https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
         die();
     }
 
     if (defined('FORCE_WWW') && strpos($_SERVER['HTTP_HOST'], 'www.') === false) {
         if (!Util::isConnectionSSL()) {
-            header('Location: http://www.' . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
+            header('Location: http://www.' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
         } else {
-            header('Location: https://www.' . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
+            header('Location: https://www.' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
         }
     }
 

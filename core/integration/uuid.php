@@ -49,7 +49,7 @@ class MinecraftProfile {
      * @return array Returns an array with keys of 'properties, usernname and uuid'.
      */
     public function getProfileAsArray() {
-        return ["username" => $this->username, "uuid" => $this->uuid, "properties" => $this->properties];
+        return ['username' => $this->username, 'uuid' => $this->uuid, 'properties' => $this->properties];
     }
 }
 
@@ -62,9 +62,9 @@ class ProfileUtils {
     public static function getProfile($identifier, $timeout = 5) {
         if(strlen($identifier) <= 16){
             $identifier = ProfileUtils::getUUIDFromUsername($identifier, $timeout);
-            $url = "https://sessionserver.mojang.com/session/minecraft/profile/".$identifier['uuid'];
+            $url = 'https://sessionserver.mojang.com/session/minecraft/profile/' .$identifier['uuid'];
         } else {
-            $url = "https://sessionserver.mojang.com/session/minecraft/profile/" . $identifier;
+            $url = 'https://sessionserver.mojang.com/session/minecraft/profile/' . $identifier;
         }
 
 		// Use cURL instead of file_get_contents
@@ -92,7 +92,7 @@ class ProfileUtils {
      */
     public static function getUUIDFromUsername($username, $timeout = 5) {
         if(strlen($username) > 16)
-            return ["username" => "", "uuid" => ""];
+            return ['username' => '', 'uuid' => ''];
         $url = 'https://api.mojang.com/users/profiles/minecraft/'.htmlspecialchars($username);
 
 		// Use cURL instead of file_get_contents
@@ -110,7 +110,7 @@ class ProfileUtils {
         if(isset($result) && $result != null && $result != false)
         {
             $ress = json_decode($result, true);
-            return ["username" =>  $ress['name'], "uuid" => $ress['id']];
+            return ['username' =>  $ress['name'], 'uuid' => $ress['id']];
         }
         else
             return null;
@@ -121,10 +121,10 @@ class ProfileUtils {
     * @return string Properly formatted UUID (According to UUID v4 Standards xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx WHERE y = 8,9,A,or B and x = random digits.)
     */
     public static function formatUUID($uuid) {
-        $uid = substr($uuid, 0, 8) . "-";
-        $uid .= substr($uuid, 8, 4)."-";
-        $uid .= substr($uuid, 12, 4)."-";
-        $uid .= substr($uuid, 16, 4)."-";
+        $uid = substr($uuid, 0, 8) . '-';
+        $uid .= substr($uuid, 8, 4). '-';
+        $uid .= substr($uuid, 12, 4). '-';
+        $uid .= substr($uuid, 16, 4). '-';
         $uid .= substr($uuid, 20);
         return $uid;
     }

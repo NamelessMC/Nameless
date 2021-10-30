@@ -26,7 +26,7 @@ class DefaultRevamp_Template extends TemplateBase {
 		$template = [
 			'name' => 'DefaultRevamp',
 			'version' => '2.0.0-pr12',
-			'nl_version' => "2.0.0-pr12",
+			'nl_version' => '2.0.0-pr12',
 			'author' => '<a href="https://xemah.com/" target="_blank">Xemah</a>',
         ];
 

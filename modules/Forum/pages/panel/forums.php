@@ -401,7 +401,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                                 $queries->delete('topics', ['id', '=', $topic->id]);
                             }
 
-                            $queries->delete('forums', ['id', '=', $_GET["fid"]]);
+                            $queries->delete('forums', ['id', '=', $_GET['fid']]);
 
                             // Forum perm deletion
                             foreach ($forum_perms as $perm) {
@@ -428,7 +428,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                                 ]);
                             }
 
-                            $queries->delete('forums', ['id', '=', $_GET["fid"]]);
+                            $queries->delete('forums', ['id', '=', $_GET['fid']]);
 
                             // Forum perm deletion
                             foreach ($forum_perms as $perm) {

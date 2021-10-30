@@ -21,9 +21,9 @@ class MCAssoc {
 
     private function baseSign(string $data, string $key): string {
         if (!$key && !$this->insecureMode) {
-            throw new Exception("key must be provided");
+            throw new Exception('key must be provided');
         } else if ($this->insecureMode) {
-            $key = "insecure";
+            $key = 'insecure';
         }
 
         return hash_hmac('sha1', $data, $key, true);

@@ -22,11 +22,11 @@ define('PAGE', 'forum');
 $forum = new Forum();
 
 // Check params are set
-if (!isset($_GET["tid"]) || !is_numeric($_GET["tid"])) {
+if (!isset($_GET['tid']) || !is_numeric($_GET['tid'])) {
     Redirect::to(URL::build('/forum'));
     die();
 } else {
-    $topic_id = $_GET["tid"];
+    $topic_id = $_GET['tid'];
 }
 
 // Check topic exists

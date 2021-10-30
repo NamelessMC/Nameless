@@ -188,7 +188,7 @@ if (Input::exists()) {
 									else
 										$field = 'realname';
 
-									$stmt = $authme_conn->prepare("SELECT password FROM " . $authme_db['table'] . " WHERE " . $field . " = ?");
+									$stmt = $authme_conn->prepare('SELECT password FROM ' . $authme_db['table'] . ' WHERE ' . $field . ' = ?');
 									if ($stmt) {
 										$stmt->bind_param('s', $username);
 										$stmt->execute();

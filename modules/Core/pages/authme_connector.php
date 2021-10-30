@@ -34,7 +34,7 @@ if(Input::exists()){
             $validate = new Validate();
 
             // Are custom usernames enabled?
-            $custom_usernames = $queries->getWhere("settings", ["name", "=", "displaynames"]);
+            $custom_usernames = $queries->getWhere('settings', ['name', '=', 'displaynames']);
             $custom_usernames = $custom_usernames[0]->value;
 
             if($custom_usernames == 'true'){
@@ -114,7 +114,7 @@ if(Input::exists()){
                         if($profile && method_exists($profile, 'getProfileAsArray'))
                             $mcname_result = $profile->getProfileAsArray();
                     }
-                    if(isset($mcname_result["uuid"]) && !empty($mcname_result['uuid'])){
+                    if(isset($mcname_result['uuid']) && !empty($mcname_result['uuid'])){
                         $uuid = $mcname_result['uuid'];
                     } else {
                         $errors[] = $language->get('user', 'mcname_lookup_error');
@@ -222,7 +222,7 @@ if(Input::exists()){
                         $errors[] = $language->get('user', 'unable_to_connect_to_authme_db');
                     } else {
                         // Success, check user exists in database and validate password
-                        $stmt = $authme_conn->prepare("SELECT password, ip FROM " . $authme_db['table'] . " WHERE realname = ?");
+                        $stmt = $authme_conn->prepare('SELECT password, ip FROM ' . $authme_db['table'] . ' WHERE realname = ?');
                         if($stmt){
                             $stmt->bind_param('s', Input::get('username'));
                             $stmt->execute();
@@ -377,7 +377,7 @@ if(!isset($_GET['step'])){
 } else {
     // Step 2
     // Are custom usernames enabled?
-    $custom_usernames = $queries->getWhere("settings", ["name", "=", "displaynames"]);
+    $custom_usernames = $queries->getWhere('settings', ['name', '=', 'displaynames']);
     $custom_usernames = $custom_usernames[0]->value;
 
     if($custom_usernames == 'true') {

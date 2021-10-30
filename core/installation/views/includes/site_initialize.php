@@ -30,7 +30,7 @@ $queries->create('topics', [
 	'label' => null
 ]);
 
-$queries->create("posts", [
+$queries->create('posts', [
 	'forum_id' => 2,
 	'topic_id' => 1,
 	'post_creator' => 1,
@@ -514,7 +514,7 @@ $cache->store('page_load', 0);
 
 $queries->create('settings', [
 	'name' => 'unique_id',
-	'value' => substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 62)
+	'value' => substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 62)
 ]);
 
 $queries->create('settings', [
@@ -524,7 +524,7 @@ $queries->create('settings', [
 
 $queries->create('settings', [
 	'name' => 'mc_api_key',
-	'value' => substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 32)
+	'value' => substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 32)
 ]);
 
 $queries->create('settings', [

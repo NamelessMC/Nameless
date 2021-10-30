@@ -211,8 +211,8 @@ class Forum_Module extends Module {
 				$queries = new Queries();
 
 				// Get data for topics and posts
-				$latest_topics = $queries->orderWhere('topics', 'topic_date > ' . strtotime("-1 week"), 'topic_date', 'ASC');
-				$latest_posts = $queries->orderWhere('posts', 'post_date > "' . date('Y-m-d G:i:s', strtotime("-1 week")) . '"', 'post_date', 'ASC');
+				$latest_topics = $queries->orderWhere('topics', 'topic_date > ' . strtotime('-1 week'), 'topic_date', 'ASC');
+				$latest_posts = $queries->orderWhere('posts', 'post_date > "' . date('Y-m-d G:i:s', strtotime('-1 week')) . '"', 'post_date', 'ASC');
 
 				$cache->setCache('dashboard_graph');
 				if($cache->isCached('forum_data')){
@@ -249,7 +249,7 @@ class Forum_Module extends Module {
 					}
 
 					// Fill in missing dates, set topics/posts to 0
-					$start = strtotime("-1 week");
+					$start = strtotime('-1 week');
 					$start = date('d M Y', $start);
 					$start = strtotime($start);
 					$end = strtotime(date('d M Y'));

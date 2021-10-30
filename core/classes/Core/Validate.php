@@ -171,7 +171,7 @@ class Validate {
                             $this->addError([
                                 'field' => $item,
                                 'rule' => Validate::AGREE,
-                                'fallback' => "You must agree to our terms and conditions in order to register."
+                                'fallback' => 'You must agree to our terms and conditions in order to register.'
                             ]);
                         }
                         break;

@@ -277,7 +277,7 @@ if (Input::exists()) {
                     $content = Output::getClean($content);
                 } else $content = Output::getClean(Input::get('content'));
 
-                $queries->create("posts", [
+                $queries->create('posts', [
                     'forum_id' => $topic->forum_id,
                     'topic_id' => $tid,
                     'post_creator' => $user->data()->id,
@@ -290,16 +290,16 @@ if (Input::exists()) {
                 $last_post_id = $queries->getLastId();
                 $content = $mentionsParser->parse($user->data()->id, $content, URL::build('/forum/topic/' . $tid, 'pid=' . $last_post_id), ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag'], ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag_info', 'replace' => '{x}', 'replace_with' => Output::getClean($user->data()->nickname)]);
 
-                $queries->update("posts", $last_post_id, [
+                $queries->update('posts', $last_post_id, [
                     'post_content' => $content
                 ]);
 
-                $queries->update("forums", $topic->forum_id, [
+                $queries->update('forums', $topic->forum_id, [
                     'last_topic_posted' => $tid,
                     'last_user_posted' => $user->data()->id,
                     'last_post_date' => date('U')
                 ]);
-                $queries->update("topics", $tid, [
+                $queries->update('topics', $tid, [
                     'topic_last_user' => $user->data()->id,
                     'topic_reply_date' => date('U')
                 ]);
@@ -427,13 +427,13 @@ if ($user->isLoggedIn()) {
 // View count
 if ($user->isLoggedIn() || Cookie::exists('alert-box')) {
     if (!Cookie::exists('nl-topic-' . $tid)) {
-        $queries->increment("topics", $tid, "topic_views");
-        Cookie::put("nl-topic-" . $tid, "true", 3600);
+        $queries->increment('topics', $tid, 'topic_views');
+        Cookie::put('nl-topic-' . $tid, 'true', 3600);
     }
 } else {
     if (!Session::exists('nl-topic-' . $tid)) {
-        $queries->increment("topics", $tid, "topic_views");
-        Session::put("nl-topic-" . $tid, "true");
+        $queries->increment('topics', $tid, 'topic_views');
+        Session::put('nl-topic-' . $tid, 'true');
     }
 }
 

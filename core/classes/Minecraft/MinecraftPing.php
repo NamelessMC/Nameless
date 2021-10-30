@@ -118,7 +118,7 @@ class MinecraftPing {
 
         $Length = $this->ReadVarInt(); // string length
 
-        $Data = "";
+        $Data = '';
         do {
             if (microtime(true) - $TimeStart > $this->Timeout) {
                 throw new MinecraftPingException('Server read timed out');

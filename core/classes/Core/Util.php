@@ -124,11 +124,11 @@ class Util {
                 $url = array_shift($matches);
 
                 $text = parse_url($url, PHP_URL_HOST) . parse_url($url, PHP_URL_PATH);
-                $text = preg_replace("/^www./", "", $text);
+                $text = preg_replace('/^www./', '', $text);
 
-                $last = - (strlen(strrchr($text, "/"))) + 1;
+                $last = - (strlen(strrchr($text, '/'))) + 1;
                 if ($last < 0) {
-                    $text = substr($text, 0, $last) . "&hellip;";
+                    $text = substr($text, 0, $last) . '&hellip;';
                 }
 
                 return sprintf('<a rel="nofollow noopener" target="_blank" href="%s">%s</a>', $url, $text);
@@ -197,7 +197,7 @@ class Util {
             if ($_SERVER['SERVER_PORT'] == 80 || $_SERVER['SERVER_PORT'] == 443) {
                 $url = $proto . $www . Output::getClean($hostname);
             } else {
-                $url = $proto . $www . Output::getClean($hostname) . ":" . $_SERVER['SERVER_PORT'];
+                $url = $proto . $www . Output::getClean($hostname) . ':' . $_SERVER['SERVER_PORT'];
             }
         } else {
             $url = $www . Output::getClean($hostname);
@@ -236,7 +236,7 @@ class Util {
      */
     public static function stringToURL(string $string = null): string {
         if ($string) {
-            $string = preg_replace("/[^A-Za-z0-9 ]/", '', $string);
+            $string = preg_replace('/[^A-Za-z0-9 ]/', '', $string);
             return Output::getClean(strtolower(urlencode(str_replace(' ', '-', htmlspecialchars_decode($string)))));
         }
 
