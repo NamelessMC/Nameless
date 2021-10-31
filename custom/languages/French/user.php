@@ -9,7 +9,7 @@
  *  French Language - Users
  */
 
-$language = array(
+$language = [
     /*
      *  Change this for the account validation message
      */
@@ -243,4 +243,4 @@ $language = array(
      */
     'user_x_has_registered' => '{x} a rejoint ' . SITE_NAME . '!',
     'user_x_has_validated' => '{x} a validé son compte !',
-);
+];

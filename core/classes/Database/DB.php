@@ -33,7 +33,7 @@ class DB extends Instanceable {
             $this->_pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->_prefix = Config::get('mysql/prefix');
         } catch (PDOException $e) {
-            die("<strong>Error:<br /></strong><div class=\"alert alert-danger\">" . $e->getMessage() . "</div>Please check your database connection settings.");
+            die("<strong>Error:<br /></strong><div class=\"alert alert-danger\">" . $e->getMessage() . '</div>Please check your database connection settings.');
         }
 
         $this->_query_recorder = QueryRecorder::getInstance();
@@ -42,11 +42,11 @@ class DB extends Instanceable {
     /**
      * @deprecated Use selectQuery function to select data from DB, or createQuery function to modify data in DB
      */
-    public function query(string $sql,  array $params = array(), int $fetch_method = PDO::FETCH_OBJ): DB {
+    public function query(string $sql, array $params = [], int $fetch_method = PDO::FETCH_OBJ): DB {
         return $this->selectQuery(...func_get_args());
     }
 
-    public function selectQuery(string $sql,  array $params = array(), int $fetch_method = PDO::FETCH_OBJ): DB {
+    public function selectQuery(string $sql, array $params = [], int $fetch_method = PDO::FETCH_OBJ): DB {
         $this->_error = false;
         if($this->_query = $this->_pdo->prepare($sql)) {
             $x = 1;
@@ -72,7 +72,7 @@ class DB extends Instanceable {
         return $this;
     }
 
-    public function createQuery(string $sql, array $params = array()): DB {
+    public function createQuery(string $sql, array $params = []): DB {
         $this->_error = false;
         if($this->_query = $this->_pdo->prepare($sql)) {
             $x = 1;
@@ -107,9 +107,9 @@ class DB extends Instanceable {
         return false;
     }
 
-    public function action(string $action, string $table, array $where = array()) {
+    public function action(string $action, string $table, array $where = []) {
         if(count($where) === 3) {
-            $operators = array('=', '>', '<', '>=', '<=', '<>');
+            $operators = ['=', '>', '<', '>=', '<=', '<>'];
 
             $field 		= $where[0];
             $operator 	= $where[1];
@@ -120,7 +120,7 @@ class DB extends Instanceable {
             if(in_array($operator, $operators)) {
                 $sql = "{$action} FROM {$table} WHERE {$field} {$operator} ?";
 
-                if(!$this->selectQuery($sql, array($value))->error()) {
+                if(!$this->selectQuery($sql, [$value])->error()) {
                     return $this;
                 }
             }
@@ -129,9 +129,9 @@ class DB extends Instanceable {
         return false;
     }
 
-    public function deleteAction(string $action, string $table, array $where = array()) {
+    public function deleteAction(string $action, string $table, array $where = []) {
         if(count($where) === 3) {
-            $operators = array('=', '>', '<', '>=', '<=', '<>');
+            $operators = ['=', '>', '<', '>=', '<=', '<>'];
 
             $field 		= $where[0];
             $operator 	= $where[1];
@@ -142,7 +142,7 @@ class DB extends Instanceable {
             if(in_array($operator, $operators)) {
                 $sql = "{$action} FROM {$table} WHERE {$field} {$operator} ?";
 
-                if(!$this->createQuery($sql, array($value))->error()) {
+                if(!$this->createQuery($sql, [$value])->error()) {
                     return $this;
                 }
             }
@@ -170,7 +170,7 @@ class DB extends Instanceable {
         return $this->deleteAction('DELETE', $table, $where);
     }
 
-    public function insert(string $table, array $fields = array()): bool {
+    public function insert(string $table, array $fields = []): bool {
         $keys = array_keys($fields);
         $values = '';
         $x = 1;
@@ -211,14 +211,14 @@ class DB extends Instanceable {
         $table = $this->_prefix . $table;
         $sql = "UPDATE {$table} SET {$field} = {$field} + 1 WHERE id = ?";
 
-        return (!$this->createQuery($sql, array($id))->error());
+        return (!$this->createQuery($sql, [$id])->error());
     }
 
     public function decrement(string $table, int $id, string $field) {
         $table = $this->_prefix . $table;
         $sql = "UPDATE {$table} SET {$field} = {$field} - 1 WHERE id = ?";
 
-        return (!$this->createQuery($sql, array($id))->error());
+        return (!$this->createQuery($sql, [$id])->error());
     }
 
     public function results(): array {

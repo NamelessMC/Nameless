@@ -28,7 +28,7 @@ if (!isset($_POST['post']) || !is_numeric($_POST['post'])) {
     die();
 }
 
-$post = $queries->getWhere('posts', array('id', '=', $_POST['post']));
+$post = $queries->getWhere('posts', ['id', '=', $_POST['post']]);
 if (!count($post)) {
     // Doesn't exist
     Redirect::to(URL::build('/forum'));
@@ -55,27 +55,27 @@ if ($forum->canModerateForum($post->forum_id, $user->getAllGroupIds())) {
         }
 
         // Delete all posts from the user
-        $queries->delete('posts', array('post_creator', '=', $post->post_creator));
+        $queries->delete('posts', ['post_creator', '=', $post->post_creator]);
 
         // Delete all topics from the user
-        $queries->delete('topics', array('topic_creator', '=', $post->post_creator));
+        $queries->delete('topics', ['topic_creator', '=', $post->post_creator]);
 
         // Log user out
         $banned_user_ip = $banned_user->data()->lastip;
         $banned_user->logout();
 
         // Ban IP
-        $queries->create('ip_bans', array(
+        $queries->create('ip_bans', [
             'ip' => $banned_user_ip,
             'banned_by' => $user->data()->id,
             'banned_at' => date('U'),
             'reason' => 'Spam'
-        ));
+        ]);
 
         // Ban user
-        $queries->update('users', $post->post_creator, array(
+        $queries->update('users', $post->post_creator, [
             'isbanned' => 1
-        ));
+        ]);
 
         // Redirect
         Session::flash('spam_info', $language->get('moderator', 'user_marked_as_spam'));

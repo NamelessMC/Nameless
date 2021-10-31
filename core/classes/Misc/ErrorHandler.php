@@ -38,7 +38,7 @@ class ErrorHandler {
         // Create a log entry for viewing in staffcp
         self::logError('fatal', '[' . date('Y-m-d, H:i:s') . '] ' . $error_file . '(' . $error_line . '): ' . $error_string);
 
-        $frames = array();
+        $frames = [];
 
         // Most recent frame is not included in getTrace(), so deal with it individually
         $frames[] = self::parseFrame($exception, $error_file, $error_line);
@@ -185,7 +185,7 @@ class ErrorHandler {
 
         try {
 
-            if (!is_dir(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'cache', 'logs')))) {
+            if (!is_dir(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs']))) {
                 if (is_writable(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache')) {
                     mkdir(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . 'logs');
                     $dir_exists = true;
@@ -195,7 +195,7 @@ class ErrorHandler {
             }
 
             if ($dir_exists) {
-                file_put_contents(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'cache', 'logs', $type . '-log.log')), $contents . PHP_EOL, FILE_APPEND);
+                file_put_contents(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs', $type . '-log.log']), $contents . PHP_EOL, FILE_APPEND);
             }
 
         } catch (Exception $exception) {

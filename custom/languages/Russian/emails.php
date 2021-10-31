@@ -10,7 +10,7 @@
  *  Russian Language - Emails
  */
 
-$language = array(
+$language = [
 
     // General Options
     'greeting' => 'Привет,',
@@ -27,4 +27,4 @@ $language = array(
     // Forum Topic Replies
     'forum_topic_reply_subject' => '{x} ответил {y}', // Don't remove {x} or {y}
     'forum_topic_reply_message' => '{x} ответил вам в теме. Ответ: {z}' // Don't remove {x} or {z}
-);
+];

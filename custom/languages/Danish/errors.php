@@ -9,7 +9,7 @@
  *  Danish Language - General terms
  */
 
-$language = array(
+$language = [
     /*
      *  Errors
      */
@@ -31,4 +31,4 @@ $language = array(
     'fatal_error_message_admin' => 'Beklager, men noget gik galt under indlæsning af siden. Fejldetaljer:',
     'in_file' => 'i filen <strong>{x}</strong>', // Don't replace {x}
     'on_line' => 'på linje <strong>{x}</strong>' // Don't replace {x}
-);
+];

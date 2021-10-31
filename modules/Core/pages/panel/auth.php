@@ -34,7 +34,7 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 require(ROOT_PATH . '/core/includes/password.php'); // Require password compat library
 
 // Get login method
-$login_method = $queries->getWhere('settings', array('name', '=', 'login_method'));
+$login_method = $queries->getWhere('settings', ['name', '=', 'login_method']);
 $login_method = $login_method[0]->value;
 
 // Deal with any input
@@ -116,32 +116,32 @@ if (Input::exists()) {
 }
 
 if ($login_method == 'email') {
-    $smarty->assign(array(
+    $smarty->assign([
         'EMAIL' => $language->get('user', 'email')
-    ));
+    ]);
 } else if ($login_method == 'email_or_username') {
-    $smarty->assign(array(
+    $smarty->assign([
         'USERNAME' => $language->get('user', 'email_or_username')
-    ));
+    ]);
 } else {
-    $smarty->assign(array(
+    $smarty->assign([
         'USERNAME' => $language->get('user', 'username')
-    ));
+    ]);
 }
 
-$smarty->assign(array(
+$smarty->assign([
     'PLEASE_REAUTHENTICATE' => $language->get('admin', 're-authenticate'),
     'PASSWORD' => $language->get('user', 'password'),
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit'),
     'CANCEL' => $language->get('general', 'cancel')
-));
+]);
 
 if (Session::exists('adm_auth_error'))
     $smarty->assign('ERROR', Session::flash('adm_auth_error'));
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 $page_load = microtime(true) - $start;
 define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));

@@ -10,7 +10,7 @@
  *  German Language - API
  */
 
-$language = array(
+$language = [
 
     // Errors
     'api_disabled' => 'API ist deaktiviert',
@@ -50,8 +50,7 @@ $language = array(
     'finish_registration_email' => 'Bitte überprüfen Sie Ihre E-Mails, um die Registrierung abzuschließen.',
     'group_updated' => 'Gruppe erfolgreich aktualisiert',
     'report_created' => 'Bericht erfolgreich erstellt',
-    'new_private_message_from' => 'Neue private Nachricht von {x}', // Don't replace {x}
     'username_updated' => 'Benutzername erfolgreich aktualisiert',
     'server_info_updated' => 'Serverinformationen erfolgreich aktualisiert',
     'account_validated' => 'Konto erfolgreich validiert',
-);
+];

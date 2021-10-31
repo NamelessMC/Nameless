@@ -10,7 +10,7 @@
  *  SwedishSE Language - Errors
  */
 
-$language = array(
+$language = [
     /*
      *  Errors
      */
@@ -32,4 +32,4 @@ $language = array(
     'fatal_error_message_admin' => 'Tyvärr, men något gick fel när sidan laddades in. Detaljer om felet:',
     'in_file' => 'in file <strong>{x}</strong>', // Don't replace {x}
     'on_line' => 'on line <strong>{x}</strong>' // Don't replace {x}
-);
+];

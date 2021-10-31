@@ -9,7 +9,7 @@
  *  Slovak Language - Admin
  */
 
-$language = array(
+$language = [
     /*
      *  Admin Control Panel
      */
@@ -726,4 +726,4 @@ $language = array(
     'text_colour_required' => 'Farba textu je povinná',
     'no_announcements' => 'Zatiaľ neboli vytvorené žiadne oznámenia.',
     'announcement_order' => 'Poradie',
-);
+];

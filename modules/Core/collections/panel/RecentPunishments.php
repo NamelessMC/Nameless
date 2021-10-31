@@ -45,10 +45,10 @@ class RecentPunishmentsItem extends CollectionItemBase {
         } else {
             $queries = new Queries();
             $query = $queries->orderAll('infractions', 'infraction_date', 'DESC');
-            $data = array();
+            $data = [];
 
             if (count($query)) {
-                $users = array();
+                $users = [];
                 $i = 0;
 
                 foreach ($query as $item) {
@@ -82,7 +82,7 @@ class RecentPunishmentsItem extends CollectionItemBase {
                         }
                     }
 
-                    $data[] = array(
+                    $data[] = [
                         'url' => URL::build('/panel/users/punishments/', 'user=' . Output::getClean($punished_user->data()->id)),
                         'punished_username' => $punished_user->getDisplayname(true),
                         'punished_nickname' => $punished_user->getDisplayname(),
@@ -109,7 +109,7 @@ class RecentPunishmentsItem extends CollectionItemBase {
                         'revoked_by_uuid' => ($revoked_by_user ? Output::getClean($revoked_by_user->data()->uuid) : ''),
                         'revoked_by_profile' => ($revoked_by_user ? URL::build('/panel/user/' . Output::getClean($revoked_by_user->data()->id) . '-' . Output::getClean($revoked_by_user->data()->username)) : ''),
                         'revoked_at' => $timeago->inWords(date('Y-m-d H:i:s', $item->revoked_at), $this->_language->getTimeLanguage())
-                    );
+                    ];
 
                     if (++$i == 5)
                         break;
@@ -119,7 +119,7 @@ class RecentPunishmentsItem extends CollectionItemBase {
             $this->_cache->store('recent_punishments_data', $data, 60);
         }
 
-        $this->_smarty->assign(array(
+        $this->_smarty->assign([
             'RECENT_PUNISHMENTS' => $this->_language->get('moderator', 'recent_punishments'),
             'PUNISHMENTS' => $data,
             'NO_PUNISHMENTS' => $this->_language->get('moderator', 'no_punishments_found'),
@@ -131,7 +131,7 @@ class RecentPunishmentsItem extends CollectionItemBase {
             'REASON' => $this->_language->get('moderator', 'reason:'),
             'REVOKED' => $this->_language->get('moderator', 'revoked'),
             'VIEW' => $this->_language->get('general', 'view')
-        ));
+        ]);
 
         return $this->_smarty->fetch('collections/dashboard_items/recent_punishments.tpl');
     }

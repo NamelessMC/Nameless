@@ -2,7 +2,7 @@
 
 /**
  * @param int $user NamelessMC ID of user to view
- * @param json array $groups ID of group ids
+ * @param string json array $groups ID of group ids
  *
  * @return string JSON Array
  */
@@ -39,6 +39,6 @@ class RemoveGroupsEndpoint extends EndpointBase {
             $removed_groups
         );
 
-        $api->returnArray(array('message' => $api->getLanguage()->get('api', 'group_updated')));
+        $api->returnArray(['message' => $api->getLanguage()->get('api', 'group_updated')]);
     }
 }

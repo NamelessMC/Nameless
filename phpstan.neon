@@ -5,7 +5,7 @@ parameters:
     excludePaths:
         - core/includes/
         - cache/
-# Ignore notices which are thrown due to the procedural nature of Nameless
+    # Ignore notices which are thrown due to the procedural nature of Nameless
     ignoreErrors:
         - '#might not be defined#'
         - '#Constant#'
@@ -19,8 +19,10 @@ parameters:
         - modules/Discord Integration/classes
         - modules/Forum/classes
     scanFiles:
+        - modules/Core/pages/api/v2/index.php
         - core/includes/bulletproof/bulletproof.php
         - core/includes/sitemapphp/Sitemap.php
+        - core/includes/sqlformatter/SQLFormatter.php
     bootstrapFiles:
         - core/includes/emojione/autoload.php
         - core/includes/htmlpurifier/HTMLPurifier.standalone.php

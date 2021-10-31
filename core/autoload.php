@@ -5,7 +5,7 @@ require_once ROOT_PATH . '/core/includes/smarty/Smarty.class.php';
 
 spl_autoload_register(function ($class) {
 
-    $path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'core', 'classes', getFolder($class), $class . '.php'));
+    $path = join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'core', 'classes', getFolder($class), $class . '.php']);
 
     if (file_exists($path)) {
         require_once($path);

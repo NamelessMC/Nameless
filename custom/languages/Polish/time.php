@@ -9,7 +9,7 @@
  *  Polish Language - Time
  */
 
-$language = array(
+$language = [
     /*
      *  Time
      */
@@ -26,4 +26,4 @@ $language = array(
     '_months' => '{x} miesięcy temu',
     'about_1_year' => 'około rok temu',
     'over_x_years' => 'ponad {x} lat temu',
-);
+];

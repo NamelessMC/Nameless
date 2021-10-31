@@ -10,7 +10,7 @@
  *  SwedishSE Language - General Terms
  */
 
-$language = array(
+$language = [
     /*
      *  General terms
      */
@@ -164,4 +164,4 @@ $language = array(
      *  Custom page redirect
      */
     'redirecting_message' => 'Omdirigerar...<br />Om du inte omdirigeras automatiskt, klicka <a href="{x}" rel="nofollow noopener">här</a>.' // Don't replace {x} which is the redirect URL
-);
+];

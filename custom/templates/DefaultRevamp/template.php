@@ -23,12 +23,12 @@ class DefaultRevamp_Template extends TemplateBase {
     private $_pages;
 	
 	public function __construct($cache, $smarty, $language, $user, $pages) {
-		$template = array(
+		$template = [
 			'name' => 'DefaultRevamp',
 			'version' => '2.0.0-pr12',
-			'nl_version' => "2.0.0-pr12",
+			'nl_version' => '2.0.0-pr12',
 			'author' => '<a href="https://xemah.com/" target="_blank">Xemah</a>',
-		);
+        ];
 
 		$template['path'] = (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/templates/' . $template['name'] . '/';
 
@@ -36,18 +36,18 @@ class DefaultRevamp_Template extends TemplateBase {
 
 		$this->_settings = ROOT_PATH . '/custom/templates/DefaultRevamp/template_settings/settings.php';
 
-		$this->addCSSFiles(array(
-			$template['path'] . 'css/semantic.min.css' => array(),
-			$template['path'] . 'css/toastr.min.css' => array(),
-			'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css' => array('integrity' => 'sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==', 'crossorigin' => 'anonymous')
-		));
+		$this->addCSSFiles([
+			$template['path'] . 'css/semantic.min.css' => [],
+			$template['path'] . 'css/toastr.min.css' => [],
+			'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css' => ['integrity' => 'sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==', 'crossorigin' => 'anonymous']
+        ]);
 		
-		$this->addJSFiles(array(
-			$template['path'] . 'js/jquery.min.js' => array(),
-			$template['path'] . 'js/jquery.cookie.js' => array(),
-			$template['path'] . 'js/semantic.min.js' => array(),
-			$template['path'] . 'js/toastr.min.js' => array(),
-		));
+		$this->addJSFiles([
+			$template['path'] . 'js/jquery.min.js' => [],
+			$template['path'] . 'js/jquery.cookie.js' => [],
+			$template['path'] . 'js/semantic.min.js' => [],
+			$template['path'] . 'js/toastr.min.js' => [],
+        ]);
 		
 		$smarty->assign('TEMPLATE', $template);
 
@@ -79,10 +79,10 @@ class DefaultRevamp_Template extends TemplateBase {
             }
         }
 
-        $smarty->assign(array(
+        $smarty->assign([
             'DEFAULT_REVAMP_DARK_MODE' => $smartyDarkMode,
             'DEFAULT_REVAMP_NAVBAR_EXTRA_CLASSES' => $smartyNavbarColour
-        ));
+        ]);
 
 		$this->_template = $template;
 		$this->_language = $language;
@@ -92,13 +92,13 @@ class DefaultRevamp_Template extends TemplateBase {
 
 	public function onPageLoad() {
 
-		$this->addCSSFiles(array(
-		    $this->_template['path'] . 'css/custom.css?v=2pr12' => array()
-		));
+		$this->addCSSFiles([
+		    $this->_template['path'] . 'css/custom.css?v=2pr12' => []
+        ]);
 
 	    $route = (isset($_GET['route']) ? rtrim($_GET['route'], '/') : '/');
 
-		$JSVariables = array(
+		$JSVariables = [
 		    'siteName' => SITE_NAME,
 		    'siteURL' => URL::build('/'),
 		    'fullSiteUrl' => Util::getSelfURL() . ltrim(URL::build('/'), '/'),
@@ -122,12 +122,12 @@ class DefaultRevamp_Template extends TemplateBase {
 		    'cookie'  => (defined('COOKIE_NOTICE') ? '1' : '0'),
 		    'loadingTime' => ((defined('PAGE_LOADING') && PAGE_LOADING == 1) ? PAGE_LOAD_TIME : ''),
 		    'route' => $route
-		);
+        ];
 		
 	    if (strpos($route, '/forum/topic/') !== false || PAGE == 'profile') {
-			$this->addJSFiles(array(
-			    $this->_template['path'] . 'js/jquery-ui.min.js' => array()
-			));
+			$this->addJSFiles([
+			    $this->_template['path'] . 'js/jquery-ui.min.js' => []
+            ]);
 	    }
 
 	    $JSVars = '';
@@ -139,12 +139,12 @@ class DefaultRevamp_Template extends TemplateBase {
 		
 		$this->addJSScript($JSVars);
 		
-		$this->addJSFiles(array(
-			$this->_template['path'] . 'js/core/core.js' => array(),
-			$this->_template['path'] . 'js/core/user.js' => array(),
-			$this->_template['path'] . 'js/core/pages.js' => array(),
-			$this->_template['path'] . 'js/scripts.js' => array(),
-		));
+		$this->addJSFiles([
+			$this->_template['path'] . 'js/core/core.js' => [],
+			$this->_template['path'] . 'js/core/user.js' => [],
+			$this->_template['path'] . 'js/core/pages.js' => [],
+			$this->_template['path'] . 'js/scripts.js' => [],
+        ]);
 		
 		foreach($this->_pages->getAjaxScripts() as $script)
 		    $this->addJSScript('$.getJSON(\'' . $script . '\', function(data) {});');
@@ -152,4 +152,4 @@ class DefaultRevamp_Template extends TemplateBase {
 }
 
 $template = new DefaultRevamp_Template($cache, $smarty, $language, $user, $pages);
-$template_pagination = array('div' => 'ui mini pagination menu', 'a' => '{x}item');
+$template_pagination = ['div' => 'ui mini pagination menu', 'a' => '{x}item'];

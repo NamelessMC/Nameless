@@ -9,7 +9,7 @@
  *  Polish Language - Users
  */
 
-$language = array(
+$language = [
     /*
      *  Change this for the account validation message
      */
@@ -253,4 +253,4 @@ $language = array(
     'discord_communication_error' => 'Wystąpił bląd poczas łączenia z botem. Upewnij się, że bot jest online i adres jest poprawny.',
     'discord_unknown_error' => 'Podczas synchronizacji ról wystąpił błąd, skontaktuj się z administratorem.',
     'discord_id_help' => 'Po informacje jak zdobyć ID Discord, przeczytaj <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">to.</a>'
-);
+];

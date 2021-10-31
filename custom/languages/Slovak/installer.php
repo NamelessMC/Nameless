@@ -9,7 +9,7 @@
  *  Slovak Language - Installation
  */
 
-$language = array(
+$language = [
     /*
      *  Installation
      */
@@ -103,4 +103,4 @@ $language = array(
     'config_not_writable' => 'Do konfiguračného súboru nie je možné zapisovať.',
 
     'session_doesnt_exist' => 'Nepodarilo zistiť session. Ukladanie session je podmienkou používania Nameless. Skúste to znova a ak problém pretrváva, požiadajte o podporu svojho hostiteľa webu.'
-);
+];

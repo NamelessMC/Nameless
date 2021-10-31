@@ -10,7 +10,7 @@
  *  Russian Language - General terms
  */
 
-$language = array(
+$language = [
     /*
      *  General terms
      */
@@ -166,4 +166,4 @@ $language = array(
      *  Custom page redirect
      */
     'redirecting_message' => 'Перенаправление...<br />Если вы не перенаправлены автоматически, пожалуйста, нажмите на <a href="{x}" rel="nofollow noopener">эту кнопку</a>.' // Don't replace {x} which is the redirect URL
-);
+];

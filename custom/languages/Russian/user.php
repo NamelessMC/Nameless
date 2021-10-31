@@ -10,7 +10,7 @@
  *  Russian Language - Users
  */
 
-$language = array(
+$language = [
     /*
      *  Change this for the account validation message
      */
@@ -238,4 +238,4 @@ $language = array(
      */
     'user_x_has_registered' => '{x} присоединился к ' . SITE_NAME . '!',
     'user_x_has_validated' => '{x} потдвердил свой аккаунт!',
-);
+];

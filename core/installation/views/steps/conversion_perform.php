@@ -6,7 +6,7 @@ if (!isset($_SESSION['admin_setup']) || $_SESSION['admin_setup'] != true) {
 }
 
 $available_converters = array_filter(glob(ROOT_PATH . '/custom/converters/*'), 'is_dir');
-$converters = array();
+$converters = [];
 
 if (!empty($available_converters)) {
 	foreach ($available_converters as $converter) {
@@ -103,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 					<div class="sixteen wide mobile twelve wide tablet ten wide computer column">
 						<div class="ui form">
 							<?php
-								$converter_options = array();
+								$converter_options = [];
 								foreach ($converters as $converter) {
 									$converter_options[Output::getClean($converter)] = str_replace('_', ' ', Output::getClean($converter));
 								}

@@ -36,7 +36,7 @@ class URL {
         } else if ($force == 'non-friendly') {
             return self::buildNonFriendly($url, $params);
         } else {
-            throw new InvalidArgumentException("Invalid force string: " . $force);
+            throw new InvalidArgumentException('Invalid force string: ' . $force);
         }
     }
 

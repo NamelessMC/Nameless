@@ -9,7 +9,7 @@
  *  Spanish/Spain Language - Time
  */
 
-$language = array(
+$language = [
     /*
      *  Time
      */
@@ -25,4 +25,4 @@ $language = array(
     '_months' => 'hace {x} meses',
     'about_1_year' => 'hace aproximadamente 1 año',
     'over_x_years' => 'hace más de {x} años'
-);
+];

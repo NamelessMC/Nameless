@@ -15,9 +15,9 @@ class Core_Module extends Module {
 
     private Configuration $_configuration;
 
-    private static array $_dashboard_graph = array();
-    private static array $_notices = array();
-    private static array $_user_actions = array();
+    private static array $_dashboard_graph = [];
+    private static array $_notices = [];
+    private static array $_user_actions = [];
 
     public function __construct(Language $language, Pages $pages, User $user, Queries $queries, Navigation $navigation, Cache $cache, Endpoints $endpoints) {
         $this->_language = $language;
@@ -130,9 +130,9 @@ class Core_Module extends Module {
         $navigation->addDropdown('more_dropdown', $language->get('general', 'more'), 'top', $order, $icon);
 
         // Custom pages
-        $custom_pages = $queries->getWhere('custom_pages', array('id', '<>', 0));
+        $custom_pages = $queries->getWhere('custom_pages', ['id', '<>', 0]);
         if(count($custom_pages)){
-            $more = array();
+            $more = [];
             $cache->setCache('navbar_order');
 
             if($user->isLoggedIn()){
@@ -149,7 +149,7 @@ class Core_Module extends Module {
                     $pages->addCustom(Output::getClean($custom_page->url), Output::getClean($custom_page->title), !$custom_page->basic);
 
                     foreach($user_groups as $user_group){
-                        $custom_page_permissions = $queries->getWhere('custom_pages_permissions', array('group_id', '=', $user_group));
+                        $custom_page_permissions = $queries->getWhere('custom_pages_permissions', ['group_id', '=', $user_group]);
                         if(count($custom_page_permissions)){
                             foreach($custom_page_permissions as $permission){
                                 if($permission->page_id == $custom_page->id){
@@ -170,7 +170,7 @@ class Core_Module extends Module {
                                                 break;
                                             case 2:
                                                 // "More" dropdown
-                                                $more[] = array('id' => $custom_page->id, 'title' => Output::getClean($custom_page->title), 'url' => (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'redirect' => $redirect, 'target' => $custom_page->target, 'icon' => $custom_page->icon, 'order' => $page_order);
+                                                $more[] = ['id' => $custom_page->id, 'title' => Output::getClean($custom_page->title), 'url' => (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'redirect' => $redirect, 'target' => $custom_page->target, 'icon' => $custom_page->icon, 'order' => $page_order];
                                                 break;
                                             case 3:
                                                 // Footer
@@ -186,7 +186,7 @@ class Core_Module extends Module {
                     }
                 }
             } else {
-                $custom_page_permissions = $queries->getWhere('custom_pages_permissions', array('group_id', '=', 0));
+                $custom_page_permissions = $queries->getWhere('custom_pages_permissions', ['group_id', '=', 0]);
                 if(count($custom_page_permissions)){
                     foreach($custom_pages as $custom_page){
                         $redirect = null;
@@ -215,7 +215,7 @@ class Core_Module extends Module {
                                             break;
                                         case 2:
                                             // "More" dropdown
-                                            $more[] = array('id' => $custom_page->id, 'title' => Output::getClean($custom_page->title), 'url' => (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'redirect' => $redirect, 'target' => $custom_page->target, 'icon' => $custom_page->icon, 'order' => $page_order);
+                                            $more[] = ['id' => $custom_page->id, 'title' => Output::getClean($custom_page->title), 'url' => (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'redirect' => $redirect, 'target' => $custom_page->target, 'icon' => $custom_page->icon, 'order' => $page_order];
                                             break;
                                         case 3:
                                             // Footer
@@ -277,23 +277,23 @@ class Core_Module extends Module {
         if($cache->isCached('hooks')){
             $hook_array = $cache->retrieve('hooks');
         } else {
-            $hook_array = array();
+            $hook_array = [];
             if (Util::isModuleEnabled('Discord Integration')) {
                 $hooks = $queries->tableExists('hooks');
                 if (!empty($hooks)) {
-                    $hooks = $queries->getWhere('hooks', array('id', '<>', 0));
+                    $hooks = $queries->getWhere('hooks', ['id', '<>', 0]);
                     if (count($hooks)) {
                         foreach ($hooks as $hook) {
                             if ($hook->action != 2) {
                                 continue;
                             }
 
-                            $hook_array[] = array(
+                            $hook_array[] = [
                                 'id' => $hook->id,
                                 'url' => Output::getClean($hook->url),
                                 'action' => 'DiscordHook::execute',
                                 'events' => json_decode($hook->events, true)
-                            );
+                            ];
                         }
                         $cache->store('hooks', $hook_array);
                     }
@@ -323,7 +323,7 @@ class Core_Module extends Module {
         AvatarSource::setActiveSource(DEFAULT_AVATAR_SOURCE);
 
         // Autoload API Endpoints
-        Util::loadEndpoints(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'modules', 'Core', 'includes', 'endpoints')), $endpoints);
+        Util::loadEndpoints(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', 'Core', 'includes', 'endpoints']), $endpoints);
 
         GroupSyncManager::getInstance()->registerInjector(NamelessMCGroupSyncInjector::class);
         GroupSyncManager::getInstance()->registerInjector(MinecraftGroupSyncInjector::class);
@@ -349,12 +349,12 @@ class Core_Module extends Module {
         $language = $this->_language;
 
         // Permissions
-        PermissionHandler::registerPermissions($language->get('admin', 'administrator'), array(
+        PermissionHandler::registerPermissions($language->get('admin', 'administrator'), [
             'administrator' => $language->get('admin', 'administrator') . ' &raquo; ' . $language->get('admin', 'administrator_permission_info'),
-        ));
+        ]);
 
         // AdminCP
-        PermissionHandler::registerPermissions($language->get('moderator', 'staff_cp'), array(
+        PermissionHandler::registerPermissions($language->get('moderator', 'staff_cp'), [
             'admincp.core' => $language->get('admin', 'core'),
             'admincp.core.api' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'api'),
             'admincp.core.seo' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'seo'),
@@ -408,22 +408,22 @@ class Core_Module extends Module {
             'admincp.groups' => $language->get('admin', 'groups'),
             'admincp.groups.self' => $language->get('admin', 'groups') . ' &raquo; ' . $language->get('admin', 'can_edit_own_group'),
             'admincp.widgets' => $language->get('admin', 'widgets'),
-        ));
+        ]);
 
         // UserCP
-        PermissionHandler::registerPermissions('UserCP', array(
+        PermissionHandler::registerPermissions('UserCP', [
             'usercp.messaging' => $language->get('user', 'messaging'),
             'usercp.signature' => $language->get('user', 'profile_settings') . ' &raquo; ' . $language->get('user', 'signature'),
             'usercp.private_profile' => $language->get('user', 'profile_settings') . ' &raquo; ' . $language->get('user', 'private_profile'),
             'usercp.nickname' => $language->get('user', 'profile_settings') . ' &raquo; ' . $language->get('user', 'nickname'),
             'usercp.profile_banner' => $language->get('user', 'profile_settings') . ' &raquo; ' . $language->get('user', 'upload_profile_banner'),
             'usercp.gif_avatar' => $language->get('user', 'profile_settings') . ' &raquo; ' . $language->get('user', 'gif_avatar')
-        ));
+        ]);
 
         // Profile Page
-        PermissionHandler::registerPermissions('Profile', array(
+        PermissionHandler::registerPermissions('Profile', [
             'profile.private.bypass' => $language->get('general', 'bypass') . ' &raquo; ' . $language->get('user', 'private_profile')
-        ));
+        ]);
 
         // Sitemap
         $pages->registerSitemapMethod(ROOT_PATH . '/modules/Core/classes/Misc/Core_Sitemap.php', 'Core_Sitemap::generateSitemap');
@@ -462,12 +462,12 @@ class Core_Module extends Module {
         // Online staff
         require_once(ROOT_PATH . '/modules/Core/widgets/OnlineStaff.php');
         $module_pages = $widgets->getPages('Online Staff');
-        $widgets->add(new OnlineStaffWidget($module_pages, $smarty, array('title' => $language->get('general', 'online_staff'), 'no_online_staff' => $language->get('general', 'no_online_staff'), 'total_online_staff' => $language->get('general', 'total_online_staff')), $cache));
+        $widgets->add(new OnlineStaffWidget($module_pages, $smarty, ['title' => $language->get('general', 'online_staff'), 'no_online_staff' => $language->get('general', 'no_online_staff'), 'total_online_staff' => $language->get('general', 'total_online_staff')], $cache));
 
         // Online users
         require_once(ROOT_PATH . '/modules/Core/widgets/OnlineUsers.php');
         $module_pages = $widgets->getPages('Online Users');
-        $widgets->add(new OnlineUsersWidget($module_pages, $cache, $smarty, array('title' => $language->get('general', 'online_users'), 'no_online_users' => $language->get('general', 'no_online_users'), 'total_online_users' => $language->get('general', 'total_online_users'))));
+        $widgets->add(new OnlineUsersWidget($module_pages, $cache, $smarty, ['title' => $language->get('general', 'online_users'), 'no_online_users' => $language->get('general', 'no_online_users'), 'total_online_users' => $language->get('general', 'total_online_users')]));
 
         // Online users
         require_once(ROOT_PATH . '/modules/Core/widgets/ServerStatusWidget.php');
@@ -477,7 +477,7 @@ class Core_Module extends Module {
         // Statistics
         require_once(ROOT_PATH . '/modules/Core/widgets/StatsWidget.php');
         $module_pages = $widgets->getPages('Statistics');
-        $widgets->add(new StatsWidget($module_pages, $smarty, array(
+        $widgets->add(new StatsWidget($module_pages, $smarty, [
             'statistics' => $language->get('general', 'statistics'),
             'users_registered' => $language->get('general', 'users_registered'),
             'latest_member' => $language->get('general', 'latest_member'),
@@ -487,7 +487,7 @@ class Core_Module extends Module {
             'users_online' => $language->get('general', 'online_users'),
             'guests_online' => $language->get('general', 'online_guests'),
             'total_online' => $language->get('general', 'total_online'),
-        ), $cache));
+        ], $cache));
 
         // Validate user hook
         $cache->setCache('validate_action');
@@ -495,7 +495,7 @@ class Core_Module extends Module {
             $validate_action = $cache->retrieve('validate_action');
 
         } else {
-            $validate_action = $queries->getWhere('settings', array('name', '=', 'validate_user_action'));
+            $validate_action = $queries->getWhere('settings', ['name', '=', 'validate_user_action']);
             $validate_action = $validate_action[0]->value;
             $validate_action = json_decode($validate_action, true);
 
@@ -517,7 +517,7 @@ class Core_Module extends Module {
             $group_id = $cache->retrieve('pre_validation_default');
 
         } else {
-            $group_id = $queries->getWhere('groups', array('default_group', '=', '1'));
+            $group_id = $queries->getWhere('groups', ['default_group', '=', '1']);
             $group_id = $group_id[0]->id;
         }
 
@@ -534,20 +534,20 @@ class Core_Module extends Module {
                     $cache->store('update_check', $update_check, 3600);
                 }
 
-                $current_version = $queries->getWhere('settings', array('name', '=', 'nameless_version'));
+                $current_version = $queries->getWhere('settings', ['name', '=', 'nameless_version']);
                 $current_version = $current_version[0]->value;
 
                 $update_check = json_decode($update_check);
 
                 if(!isset($update_check->error) && !isset($update_check->no_update) && isset($update_check->new_version)){
-                    $smarty->assign(array(
+                    $smarty->assign([
                         'NEW_UPDATE' => (isset($update_check->urgent) && $update_check->urgent == 'true') ? $language->get('admin', 'new_urgent_update_available') : $language->get('admin', 'new_update_available'),
                         'NEW_UPDATE_URGENT' => (isset($update_check->urgent) && $update_check->urgent == 'true'),
                         'CURRENT_VERSION' => str_replace('{x}', Output::getClean($current_version), $language->get('admin', 'current_version_x')),
                         'NEW_VERSION' => str_replace('{x}', Output::getClean($update_check->new_version), $language->get('admin', 'new_version_x')),
                         'UPDATE' => $language->get('admin', 'update'),
                         'UPDATE_LINK' => URL::build('/panel/update')
-                    ));
+                    ]);
                 }
             }
         }
@@ -559,7 +559,7 @@ class Core_Module extends Module {
                 $status_enabled = $cache->retrieve('enabled');
 
             } else {
-                $status_enabled = $queries->getWhere('settings', array('name', '=', 'status_page'));
+                $status_enabled = $queries->getWhere('settings', ['name', '=', 'status_page']);
                 if($status_enabled[0]->value == 1)
                     $status_enabled = 1;
                 else
@@ -628,14 +628,14 @@ class Core_Module extends Module {
                         $sub_servers = $cache->retrieve('default_sub');
                     } else {
                         // Get default server from database
-                        $default = $queries->getWhere('mc_servers', array('is_default', '=', 1));
+                        $default = $queries->getWhere('mc_servers', ['is_default', '=', 1]);
                         if(count($default)){
                             // Get sub-servers of default server
-                            $sub_servers = $queries->getWhere('mc_servers', array('parent_server', '=', $default[0]->id));
+                            $sub_servers = $queries->getWhere('mc_servers', ['parent_server', '=', $default[0]->id]);
                             if(count($sub_servers))
                                 $cache->store('default_sub', $sub_servers);
                             else
-                                $cache->store('default_sub', array());
+                                $cache->store('default_sub', []);
 
                             $default = $default[0];
 
@@ -645,10 +645,10 @@ class Core_Module extends Module {
                     }
 
                     if(!is_null($default) && isset($default->ip)){
-                        $full_ip = array('ip' => $default->ip . (is_null($default->port) ? '' : ':' . $default->port), 'pre' => $default->pre, 'name' => $default->name);
+                        $full_ip = ['ip' => $default->ip . (is_null($default->port) ? '' : ':' . $default->port), 'pre' => $default->pre, 'name' => $default->name];
 
                         // Get query type
-                        $query_type = $queries->getWhere('settings', array('name', '=', 'external_query'));
+                        $query_type = $queries->getWhere('settings', ['name', '=', 'external_query']);
                         if(count($query_type)){
                             if($query_type[0]->value == '1')
                                 $query_type = 'external';
@@ -658,10 +658,10 @@ class Core_Module extends Module {
                             $query_type = 'internal';
 
                         if(isset($sub_servers) && count($sub_servers)){
-                            $servers = array($full_ip);
+                            $servers = [$full_ip];
 
                             foreach($sub_servers as $server)
-                                $servers[] = array('ip' => $server->ip . (is_null($server->port) ? '' : ':' . $server->port), 'pre' => $server->pre, 'name' => $server->name);
+                                $servers[] = ['ip' => $server->ip . (is_null($server->port) ? '' : ':' . $server->port), 'pre' => $server->pre, 'name' => $server->name];
 
                             $result = MCQuery::multiQuery($servers, $query_type, $language, true, $queries);
 
@@ -737,7 +737,7 @@ class Core_Module extends Module {
                 $timeago = new TimeAgo(TIMEZONE);
 
                 if($user_id){
-                    $user_query = $queries->getWhere('users', array('id', '=', $user_id));
+                    $user_query = $queries->getWhere('users', ['id', '=', $user_id]);
                     if(count($user_query)){
                         $user_query = $user_query[0];
                         $smarty->assign('REGISTERED', str_replace('{x}', $timeago->inWords(date('Y-m-d H:i:s', $user_query->joined), $language->getTimeLanguage()), $language->get('user', 'registered_x')));
@@ -1165,7 +1165,7 @@ class Core_Module extends Module {
                 if($cache->isCached('email_errors')){
                     $email_errors = $cache->retrieve('email_errors');
                 } else {
-                    $email_errors = $queries->getWhere('email_errors', array('id', '<>', 0));
+                    $email_errors = $queries->getWhere('email_errors', ['id', '<>', 0]);
                     $cache->store('email_errors', $email_errors, 120);
                 }
 
@@ -1180,10 +1180,10 @@ class Core_Module extends Module {
                     $data = $cache->retrieve('core_data');
 
                 } else {
-                    $users = $queries->orderWhere('users', 'joined > ' . strtotime("-1 week"), 'joined', 'ASC');
+                    $users = $queries->orderWhere('users', 'joined > ' . strtotime('-1 week'), 'joined', 'ASC');
 
                     // Output array
-                    $data = array();
+                    $data = [];
 
                     $data['datasets']['users']['label'] = 'language/admin/registrations'; // for $language->get('admin', 'registrations');
                     $data['datasets']['users']['colour'] = '#0004FF';
@@ -1204,7 +1204,7 @@ class Core_Module extends Module {
                     $users = null;
 
                     if(defined('MINECRAFT') && MINECRAFT){
-                        $players = array();
+                        $players = [];
 
                         $version = DB::getInstance()->selectQuery('select version()')->first()->{'version()'};
 
@@ -1256,7 +1256,7 @@ class Core_Module extends Module {
                     }
 
                     // Fill in missing dates, set registrations/players to 0
-                    $start = strtotime("-1 week");
+                    $start = strtotime('-1 week');
                     $start = date('d M Y', $start);
                     $start = strtotime($start);
                     $end = strtotime(date('d M Y'));
@@ -1365,7 +1365,7 @@ class Core_Module extends Module {
     }
 
     public static function addUserAction($title, $link){
-        self::$_user_actions[] = array('title' => $title, 'link' => $link);
+        self::$_user_actions[] = ['title' => $title, 'link' => $link];
     }
 
     public static function getUserActions(){

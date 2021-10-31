@@ -29,14 +29,14 @@ require(__DIR__ . '/includes/header.php');
 			<div class="five wide computer only column">
 				<div class="ui fluid vertical steps">
 					<?php
-						create_step($language['step_home'], 'home icon', array('welcome'));
-						create_step($language['step_requirements'], 'tasks icon', array('requirements_validation'));
-						create_step($language['step_general_config'], 'cog icon', array('general_configuration'));
-						create_step($language['step_database_config'], 'server icon', array('database_configuration', 'database_initialization', 'upgrade', 'upgrade_perform'));
-						create_step($language['step_site_config'], 'globe icon', array('site_configuration', 'site_initialization'));
-						create_step($language['step_admin_account'], 'user icon', array('admin_account_setup'));
-						create_step($language['step_conversion'], 'exchange icon', array('conversion'));
-						create_step($language['step_finish'], 'check icon', array('finish'));
+						create_step($language['step_home'], 'home icon', ['welcome']);
+						create_step($language['step_requirements'], 'tasks icon', ['requirements_validation']);
+						create_step($language['step_general_config'], 'cog icon', ['general_configuration']);
+						create_step($language['step_database_config'], 'server icon', ['database_configuration', 'database_initialization', 'upgrade', 'upgrade_perform']);
+						create_step($language['step_site_config'], 'globe icon', ['site_configuration', 'site_initialization']);
+						create_step($language['step_admin_account'], 'user icon', ['admin_account_setup']);
+						create_step($language['step_conversion'], 'exchange icon', ['conversion']);
+						create_step($language['step_finish'], 'check icon', ['finish']);
 					?>
 				</div>
 			</div>

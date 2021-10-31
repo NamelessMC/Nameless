@@ -9,7 +9,7 @@
  *  Spanish Language - API
  */
 
-$language = array(
+$language = [
 
     // Errors
     'api_disabled' => 'API is disabled',
@@ -48,8 +48,7 @@ $language = array(
     'finish_registration_email' => 'Chequea tu e-Mail para confirmar el registro.',
     'group_updated' => 'Grupo actualizado correctamente.',
     'report_created' => 'Reporte creado correctamente.',
-    'new_private_message_from' => 'Nuevo mensaje privado de {x}', // Don't replace {x}
     'username_updated' => 'Nombre de usuario actualizado correctamente.',
     'server_info_updated' => 'Información del Servidor actualizada correctamnete.',
     'account_validated' => 'Cuenta verificada exitosamente',
-);
+];

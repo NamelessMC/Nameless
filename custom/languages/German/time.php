@@ -10,7 +10,7 @@
  *  German Language - Time
  */
 
-$language = array(
+$language = [
     /*
      *  Time
      */
@@ -27,4 +27,4 @@ $language = array(
     '_months' => '{x} Monate her',
     'about_1_year' => 'über 1 Jahr her',
     'over_x_years' => 'über {x} Jahre her'
-);
+];

@@ -9,6 +9,6 @@
 
 interface Listener {
 
-    public static function execute(array $params = array()): void;
+    public static function execute(array $params = []): void;
 
 }

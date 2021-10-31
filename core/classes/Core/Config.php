@@ -13,8 +13,10 @@ class Config {
 
     /**
      * Get a config value from `core/config.php` file.
-     * 
-     * @param string $path `/` seperated path of key to get from config file.
+     *
+     * @param string|null $path `/` seperated path of key to get from config file.
+     * @return false|mixed
+     * @throws Exception
      */
     public static function get(string $path = null) {
         if ($path) {

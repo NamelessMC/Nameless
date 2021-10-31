@@ -14,7 +14,7 @@
  *  Japanese Language - Time
  */
 
-$language = array(
+$language = [
     /*
      *  Time
      */
@@ -31,4 +31,4 @@ $language = array(
     '_months' => '{x}ヶ月前',
     'about_1_year' => '約1年前',
     'over_x_years' => '約{x}年前'
-);
+];

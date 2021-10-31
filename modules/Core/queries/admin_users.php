@@ -10,12 +10,12 @@ $sortColumns = ['username' => 'username', 'nickname' => 'nickname', 'joined' => 
 
 $db = DB::getInstance();
 
-$total = $db->selectQuery('SELECT COUNT(*) as `total` FROM nl2_users', array())->first()->total;
+$total = $db->selectQuery('SELECT COUNT(*) as `total` FROM nl2_users', [])->first()->total;
 $query = 'SELECT nl2_users.id as id, nl2_users.username as username, nl2_users.nickname as nickname, nl2_users.joined as joined FROM nl2_users';
 $where = '';
 $order = '';
 $limit = '';
-$params = array();
+$params = [];
 
 if (isset($_GET['search']) && $_GET['search']['value'] != '') {
     $where .= ' WHERE username LIKE ? OR nickname LIKE ? OR email LIKE ?';
@@ -23,7 +23,7 @@ if (isset($_GET['search']) && $_GET['search']['value'] != '') {
 }
 
 if (isset($_GET['order']) && count($_GET['order'])) {
-    $orderBy = array();
+    $orderBy = [];
 
     for ($i = 0, $j = count($_GET['order']); $i < $j; $i++) {
         $column = intval($_GET['order'][$i]['column']);
@@ -61,8 +61,8 @@ if (strlen($where) > 0) {
 }
 
 $results = $db->selectQuery($query . $where . $order . $limit, $params)->results();
-$data = array();
-$groups = array();
+$data = [];
+$groups = [];
 
 if (count($results)) {
     foreach ($results as $result) {
@@ -73,7 +73,7 @@ if (count($results)) {
         $obj->joined = date('d M Y', $result->joined);
 
         // Get group
-        $group = DB::getInstance()->selectQuery('SELECT `name` FROM nl2_groups g JOIN nl2_users_groups ug ON g.id = ug.group_id WHERE ug.user_id = ? ORDER BY g.order ASC LIMIT 1', array($result->id));
+        $group = DB::getInstance()->selectQuery('SELECT `name` FROM nl2_groups g JOIN nl2_users_groups ug ON g.id = ug.group_id WHERE ug.user_id = ? ORDER BY g.order ASC LIMIT 1', [$result->id]);
         $obj->groupName = $group->first()->name;
 
         $data[] = $obj;
@@ -81,11 +81,11 @@ if (count($results)) {
 }
 
 echo json_encode(
-    array(
+    [
         'draw' => isset($_GET['draw']) ? intval($_GET['draw']) : 0,
         'recordsTotal' => $total,
         'recordsFiltered' => $totalFiltered ?? $total,
         'data' => $data
-    ),
+    ],
     JSON_PRETTY_PRINT
 );

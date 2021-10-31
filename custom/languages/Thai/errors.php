@@ -9,7 +9,7 @@
  *  ภาษาไทย Language - Errors
  */
 
-$language = array(
+$language = [
     /*
      *  Errors
      */
@@ -31,4 +31,4 @@ $language = array(
     'fatal_error_message_admin' => 'ขออภัย เกิดข้อผิดพลาดขณะโหลดหน้า รายละเอียดผิดพลาด:',
     'in_file' => 'in file <strong>{x}</strong>', // Don't replace {x}
     'on_line' => 'on line <strong>{x}</strong>' // Don't replace {x}
-);
+];

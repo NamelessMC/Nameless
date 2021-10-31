@@ -22,7 +22,7 @@ abstract class WidgetBase {
     protected ?bool $_requires_cookies = false;
     protected ?Smarty $_smarty = null;
 
-    public function __construct(array $pages = array(), ?bool $requires_cookies = false) {
+    public function __construct(array $pages = [], ?bool $requires_cookies = false) {
         $this->_pages = $pages;
         $this->_requires_cookies = $requires_cookies;
     }
@@ -109,5 +109,5 @@ abstract class WidgetBase {
     /**
      * Generate this widget's $_content.
      */
-    public abstract function initialise();
+    public abstract function initialise(): void;
 }

@@ -11,7 +11,7 @@
 
 abstract class Module {
     
-    private static iterable $_modules = array();
+    private static iterable $_modules = [];
 
     private string $_name;
     private string $_author;
@@ -20,7 +20,7 @@ abstract class Module {
     private array $_load_before;
     private array $_load_after;
 
-    public function __construct(Module $module, string $name, string $author, string $version, string $nameless_version, array $load_before = array(), array $load_after = array()) {
+    public function __construct(Module $module, string $name, string $author, string $version, string $nameless_version, array $load_before = [], array $load_after = []) {
         self::$_modules[] = $module;
         $this->_name = $name;
         $this->_author = $author;
@@ -121,8 +121,8 @@ abstract class Module {
     }
 
     private static function findBeforeAfter(array $modules, string $current): array {
-        $before = array($current);
-        $after = array();
+        $before = [$current];
+        $after = [];
         $found = false;
 
         foreach ($modules as $module) {
@@ -135,7 +135,7 @@ abstract class Module {
             }
         }
 
-        return array($before, $after);
+        return [$before, $after];
     }
 
     /**
@@ -144,8 +144,8 @@ abstract class Module {
      * @return array Array with module order and any failed modules.
      */
     public static function determineModuleOrder(): array {
-        $module_order = array('Core');
-        $failed = array();
+        $module_order = ['Core'];
+        $failed = [];
 
         foreach (self::getModules() as $module) {
             if ($module->getName() == 'Core') continue;
@@ -162,6 +162,6 @@ abstract class Module {
             $failed[] = $module->getName();
         }
 
-        return array('modules' => $module_order, 'failed' => $failed);
+        return ['modules' => $module_order, 'failed' => $failed];
     }
 }

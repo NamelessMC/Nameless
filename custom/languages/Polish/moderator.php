@@ -9,7 +9,7 @@
  *  Polish Language - Moderator terms
  */
 
-$language = array(
+$language = [
     'mod_cp' => 'Panel Moderatora',
     'staff_cp' => 'Panel Admina',
     'overview' => 'Przegląd',
@@ -105,4 +105,4 @@ $language = array(
     // Users
     'recent_registrations' => 'Ostatnie rejestracje',
     'reset_profile_banner' => 'Zresetuj banner profilowy'
-);
+];

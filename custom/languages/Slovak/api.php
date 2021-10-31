@@ -9,7 +9,7 @@
  *  Slovak Language - API
  */
 
-$language = array(
+$language = [
 
     // Errors
     'api_disabled' => 'API je zakázané',
@@ -50,4 +50,4 @@ $language = array(
     'username_updated' => 'Užívateľské meno bolo úspešne aktualizované',
     'server_info_updated' => 'Informácie o serveri sa úspešne aktualizovali',
     'account_validated' => 'Účet bol úspešne overený',
-);
+];

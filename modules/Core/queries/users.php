@@ -1,18 +1,18 @@
 <?php
 // Searchable user list
 if (!$user->isLoggedIn()) {
-    die(json_encode(array('error' => 'Unauthenticated')));
+    die(json_encode(['error' => 'Unauthenticated']));
 }
 
 if (!isset($_GET['search']) || strlen($_GET['search']) < 3) {
-    die(json_encode(array('error' => 'Please enter a search query of at least 3 characters')));
+    die(json_encode(['error' => 'Please enter a search query of at least 3 characters']));
 }
 
 $query = '%' . $_GET['search'] . '%';
 
-$users = DB::getInstance()->selectQuery('SELECT id, username, nickname FROM nl2_users WHERE username LIKE ? OR nickname LIKE ?', array(
+$users = DB::getInstance()->selectQuery('SELECT id, username, nickname FROM nl2_users WHERE username LIKE ? OR nickname LIKE ?', [
     $query, $query
-));
+]);
 
-echo json_encode(array('results' => $users->results()), JSON_PRETTY_PRINT);
+echo json_encode(['results' => $users->results()], JSON_PRETTY_PRINT);
 die();

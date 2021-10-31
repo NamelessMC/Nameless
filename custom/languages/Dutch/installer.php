@@ -11,7 +11,7 @@
  *  Nederlandse taal - Installatie
  */
 
-$language = array(
+$language = [
     'install' => 'Installatie',
     'pre-release' => 'pre-release',
     'installer_welcome' => 'Welkom bij NamelessMC versie 2.0 pre-release.',
@@ -102,4 +102,4 @@ $language = array(
     'config_not_writable' => 'Het configuratiebestand is niet beschrijfbaar.',
 
     'session_doesnt_exist' => 'Niet in staat om de sessie te detecteren. Sessies opslaan is een vereiste om Nameless te gebruiken. Probeer het opnieuw, en als het probleem blijft bestaan, neem dan contact op met uw webhost voor ondersteuning.'
-);
+];

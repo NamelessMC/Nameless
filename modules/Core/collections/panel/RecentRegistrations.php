@@ -45,14 +45,14 @@ class RecentRegistrationsItem extends CollectionItemBase {
         } else {
             $queries = new Queries();
             $query = $queries->orderAll('users', 'joined', 'DESC LIMIT 5');
-            $data = array();
+            $data = [];
 
             if (count($query)) {
                 $i = 0;
 
                 foreach ($query as $item) {
                     $target_user = new User($item->id);
-                    $data[] = array(
+                    $data[] = [
                         'url' => URL::build('/panel/user/' . Output::getClean($item->id) . '-' . Output::getClean($item->username)),
                         'username' => $target_user->getDisplayname(true),
                         'nickname' => $target_user->getDisplayname(),
@@ -62,7 +62,7 @@ class RecentRegistrationsItem extends CollectionItemBase {
                         'groups' => $target_user->getAllGroupHtml(),
                         'time' => $timeago->inWords(date('d M Y, H:i', $item->joined), $this->_language->getTimeLanguage()),
                         'time_full' => date('d M Y, H:i', $item->joined)
-                    );
+                    ];
 
                     if (++$i == 5)
                         break;
@@ -72,12 +72,12 @@ class RecentRegistrationsItem extends CollectionItemBase {
             $this->_cache->store('recent_registrations_data', $data, 60);
         }
 
-        $this->_smarty->assign(array(
+        $this->_smarty->assign([
             'RECENT_REGISTRATIONS' => $this->_language->get('moderator', 'recent_registrations'),
             'REGISTRATIONS' => $data,
             'REGISTERED' => $this->_language->get('user', 'registered'),
             'VIEW' => $this->_language->get('general', 'view')
-        ));
+        ]);
 
         return $this->_smarty->fetch('collections/dashboard_items/recent_registrations.tpl');
     }

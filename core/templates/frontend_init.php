@@ -51,16 +51,16 @@ else
 // User related actions
 if($user->isLoggedIn()){
 	// Warnings
-	$warnings = $queries->getWhere('infractions', array('punished', '=', $user->data()->id));
+	$warnings = $queries->getWhere('infractions', ['punished', '=', $user->data()->id]);
 	if(count($warnings)){
 		foreach($warnings as $warning){
 			if($warning->revoked == 0 && $warning->acknowledged == 0){
-				$smarty->assign(array(
+				$smarty->assign([
 					'GLOBAL_WARNING_TITLE' => $language->get('user', 'you_have_received_a_warning'),
 					'GLOBAL_WARNING_REASON' => Output::getClean($warning->reason),
 					'GLOBAL_WARNING_ACKNOWLEDGE' => $language->get('user', 'acknowledge'),
 					'GLOBAL_WARNING_ACKNOWLEDGE_LINK' => URL::build('/user/acknowledge/' . $warning->id)
-				));
+                ]);
 				break;
 			}
 		}
@@ -73,7 +73,7 @@ if($user->isLoggedIn()){
 		$default_group = $cache->retrieve('default_group');
 	} else {
 		try {
-			$default_group = $queries->getWhere('groups', array('default_group', '=', 1));
+			$default_group = $queries->getWhere('groups', ['default_group', '=', 1]);
 			$default_group = $default_group[0]->id;
 		} catch (Exception $e) {
 			$default_group = 1;
@@ -97,18 +97,18 @@ if(isset($_GET['route']) && $_GET['route'] != '/'){
 }
 
 if(!defined('PAGE_DESCRIPTION')){
-	$page_metadata = $queries->getWhere('page_descriptions', array('page', '=', $route));
+	$page_metadata = $queries->getWhere('page_descriptions', ['page', '=', $route]);
 	if(count($page_metadata)){
-		$smarty->assign(array(
+		$smarty->assign([
 			'PAGE_DESCRIPTION' => str_replace('{site}', SITE_NAME, $page_metadata[0]->description),
 			'PAGE_KEYWORDS' => $page_metadata[0]->tags
-		));
+        ]);
 	}
 } else {
-	$smarty->assign(array(
+	$smarty->assign([
 		'PAGE_DESCRIPTION' => str_replace('{site}', SITE_NAME, PAGE_DESCRIPTION),
 		'PAGE_KEYWORDS' => (defined('PAGE_KEYWORDS') ? PAGE_KEYWORDS : '')
-	));
+    ]);
 }
 
 $smarty->assign('TITLE', $page_title);
@@ -147,10 +147,10 @@ $analytics_id = $configuration->get('Core', 'ga_script');
 if ($analytics_id)
     $smarty->assign('ANALYTICS_ID', Output::getClean($analytics_id));
 
-$smarty->assign(array(
+$smarty->assign([
     'FOOTER_LINKS_TITLE' => $language->get('general', 'links'),
     'FOOTER_SOCIAL_TITLE' => $language->get('general', 'social'),
     'DARK_LIGHT_MODE' => $language->get('admin', 'mode_toggle'),
     'DARK_LIGHT_MODE_ACTION' => URL::build('/queries/dark_light_mode'),
     'DARK_LIGHT_MODE_TOKEN' => $user->isLoggedIn() ? Token::get() : null
-));
+]);

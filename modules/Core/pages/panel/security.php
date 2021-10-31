@@ -23,47 +23,47 @@ $page_title = $language->get('admin', 'security');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 if (!isset($_GET['view'])) {
-    $links = array();
+    $links = [];
 
     if ($user->hasPermission('admincp.security.acp_logins')) {
-        $links[] = array(
+        $links[] = [
             'link' => URL::build('/panel/security/', 'view=acp_logins'),
             'title' => $language->get('admin', 'acp_logins')
-        );
+        ];
     }
 
     if ($user->hasPermission('admincp.security.emails')) {
-        $links[] = array(
+        $links[] = [
             'link' => URL::build('/panel/security/', 'view=emails'),
             'title' => $language->get('admin', 'email_logs')
-        );
+        ];
     }
 
     if ($user->hasPermission('admincp.security.group_sync')) {
-        $links[] = array(
+        $links[] = [
             'link' => URL::build('/panel/security/', 'view=group_sync'),
             'title' => $language->get('admin', 'group_sync_logs')
-        );
+        ];
     }
 
     if ($user->hasPermission('admincp.security.template')) {
-        $links[] = array(
+        $links[] = [
             'link' => URL::build('/panel/security/', 'view=template_changes'),
             'title' => $language->get('admin', 'template_changes')
-        );
+        ];
     }
 
     if ($user->hasPermission('admincp.security.all')) {
-        $links[] = array(
+        $links[] = [
             'link' => URL::build('/panel/security/', 'view=all'),
             'title' => $language->get('admin', 'all_logs')
-        );
+        ];
     }
 
-    $smarty->assign(array(
+    $smarty->assign([
         'PLEASE_SELECT_LOGS' => $language->get('admin', 'please_select_logs'),
         'LINKS' => $links
-    ));
+    ]);
 
     $template_file = 'core/security.tpl';
 } else {
@@ -78,28 +78,28 @@ if (!isset($_GET['view'])) {
             $logs = $queries->orderWhere('logs', 'action = \'acp_login\'', 'time', 'DESC');
 
             $cols = 3;
-            $col_titles = array(
+            $col_titles = [
                 $language->get('user', 'username'),
                 $language->get('admin', 'ip_address'),
                 $language->get('general', 'date')
-            );
-            $rows = array();
+            ];
+            $rows = [];
 
             foreach ($logs as $log) {
                 $target_user = new User($log->user_id);
 
-                $rows[] = array(
-                    0 => array(
+                $rows[] = [
+                    0 => [
                         'content' => '<a style="' . $target_user->getGroupClass() . '" href="' . URL::build('/panel/user/' . Output::getClean($log->user_id . '-' . $target_user->getDisplayname(true))) . '">' . $target_user->getDisplayname() . '</a>'
-                    ),
-                    1 => array(
+                    ],
+                    1 => [
                         'content' => '<a href="' . URL::build('/panel/users/ip_lookup/', 'ip=' . Output::getClean($log->ip)) . '">' . Output::getClean($log->ip) . '</a>'
-                    ),
-                    2 => array(
+                    ],
+                    2 => [
                         'content' => date('d M Y, H:i', $log->time),
                         'order' => Output::getClean($log->time)
-                    )
-                );
+                    ]
+                ];
             }
 
             break;
@@ -114,32 +114,32 @@ if (!isset($_GET['view'])) {
             $logs = $queries->orderWhere('logs', 'action = \'acp_template_update\'', 'time', 'DESC');
 
             $cols = 4;
-            $col_titles = array(
+            $col_titles = [
                 $language->get('user', 'username'),
                 $language->get('admin', 'ip_address'),
                 $language->get('general', 'date'),
                 $language->get('admin', 'file_changed')
-            );
-            $rows = array();
+            ];
+            $rows = [];
 
             foreach ($logs as $log) {
                 $target_user = new User($log->user_id);
 
-                $rows[] = array(
-                    0 => array(
+                $rows[] = [
+                    0 => [
                         'content' => '<a style="' . $target_user->getGroupClass() . '" href="' . URL::build('/panel/user/' . Output::getClean($log->user_id . '-' . $target_user->getDisplayname(true))) . '">' . $target_user->getDisplayname() . '</a>'
-                    ),
-                    1 => array(
+                    ],
+                    1 => [
                         'content' => '<a href="' . URL::build('/panel/users/ip_lookup/', 'ip=' . Output::getClean($log->ip)) . '">' . Output::getClean($log->ip) . '</a>'
-                    ),
-                    2 => array(
+                    ],
+                    2 => [
                         'content' => date('d M Y, H:i', $log->time),
                         'order' => Output::getClean($log->time)
-                    ),
-                    3 => array(
+                    ],
+                    3 => [
                         'content' => Output::getClean($log->info)
-                    )
-                );
+                    ]
+                ];
             }
 
             break;
@@ -154,28 +154,28 @@ if (!isset($_GET['view'])) {
             $logs = $queries->orderWhere('logs', 'action = \'acp_email_mass_message\'', 'time', 'DESC');
 
             $cols = 3;
-            $col_titles = array(
+            $col_titles = [
                 $language->get('user', 'username'),
                 $language->get('admin', 'ip_address'),
                 $language->get('general', 'date'),
-            );
-            $rows = array();
+            ];
+            $rows = [];
 
             foreach ($logs as $log) {
                 $target_user = new User($log->user_id);
 
-                $rows[] = array(
-                    0 => array(
+                $rows[] = [
+                    0 => [
                         'content' => '<a style="' . $target_user->getGroupClass() . '" href="' . URL::build('/panel/user/' . Output::getClean($log->user_id . '-' . $target_user->getDisplayname(true))) . '">' . $target_user->getDisplayname() . '</a>'
-                    ),
-                    1 => array(
+                    ],
+                    1 => [
                         'content' => '<a href="' . URL::build('/panel/users/ip_lookup/', 'ip=' . Output::getClean($log->ip)) . '">' . Output::getClean($log->ip) . '</a>'
-                    ),
-                    2 => array(
+                    ],
+                    2 => [
                         'content' => date('d M Y, H:i', $log->time),
                         'order' => Output::getClean($log->time)
-                    ),
-                );
+                    ],
+                ];
             }
             break;
 
@@ -189,14 +189,14 @@ if (!isset($_GET['view'])) {
             $logs_set = $queries->orderWhere('logs', 'action = \'discord_role_set\' OR action = \'mc_group_sync_set\' ', 'time', 'DESC');
 
             $cols = 5;
-            $col_titles = array(
+            $col_titles = [
                 $language->get('user', 'username'),
                 $language->get('general', 'date'),
                 $language->get('admin', 'action'),
                 $language->get('admin', 'groups_removed'),
                 $language->get('admin', 'groups_added')
-            );
-            $rows = array();
+            ];
+            $rows = [];
 
             foreach ($logs_set as $log) {
                 $target_user = new User($log->user_id);
@@ -213,24 +213,24 @@ if (!isset($_GET['view'])) {
                 }
                 $added = rtrim($added, ', ');
 
-                $rows[] = array(
-                    0 => array(
+                $rows[] = [
+                    0 => [
                         'content' => '<a style="' . $target_user->getGroupClass() . '" href="' . URL::build('/panel/user/' . Output::getClean($log->user_id . '-' . $target_user->getDisplayname(true))) . '">' . $target_user->getDisplayname() . '</a>'
-                    ),
-                    1 => array(
+                    ],
+                    1 => [
                         'content' => date('d M Y, H:i', $log->time),
                         'order' => Output::getClean($log->time)
-                    ),
-                    2 => array(
+                    ],
+                    2 => [
                         'content' => Output::getClean($log->action)
-                    ),
-                    3 => array(
+                    ],
+                    3 => [
                         'content' => Output::getClean($removed)
-                    ),
-                    4 => array(
+                    ],
+                    4 => [
                         'content' => Output::getClean($added)
-                    )
-                );
+                    ]
+                ];
             }
             break;
 
@@ -246,36 +246,36 @@ if (!isset($_GET['view'])) {
             $logs = $queries->orderWhere('logs', 'id <> 0', 'time', 'DESC');
 
             $cols = 5;
-            $col_titles = array(
+            $col_titles = [
                 $language->get('user', 'username'),
                 $language->get('admin', 'ip_address'),
                 $language->get('general', 'date'),
                 $language->get('admin', 'action'),
                 $language->get('admin', 'action_info')
-            );
-            $rows = array();
+            ];
+            $rows = [];
 
             foreach ($logs as $log) {
                 $target_user = new User($log->user_id);
 
-                $rows[] = array(
-                    0 => array(
+                $rows[] = [
+                    0 => [
                         'content' => '<a style="' . $target_user->getGroupClass() . '" href="' . URL::build('/panel/user/' . Output::getClean($log->user_id . '-' . $target_user->getDisplayname(true))) . '">' . $target_user->getDisplayname() . '</a>'
-                    ),
-                    1 => array(
+                    ],
+                    1 => [
                         'content' => '<a href="' . URL::build('/panel/users/ip_lookup/', 'ip=' . Output::getClean($log->ip)) . '">' . Output::getClean($log->ip) . '</a>'
-                    ),
-                    2 => array(
+                    ],
+                    2 => [
                         'content' => date('d M Y, H:i', $log->time),
                         'order' => Output::getClean($log->time)
-                    ),
-                    3 => array(
+                    ],
+                    3 => [
                         'content' => Output::getClean($log->action)
-                    ),
-                    4 => array(
+                    ],
+                    4 => [
                         'content' => Output::getClean($log->info)
-                    )
-                );
+                    ]
+                ];
             }
 
             break;
@@ -283,44 +283,43 @@ if (!isset($_GET['view'])) {
         default:
             Redirect::to(URL::build('/panel/security'));
             die();
-            break;
     }
 
-    $smarty->assign(array(
+    $smarty->assign([
         'BACK' => $language->get('general', 'back'),
         'BACK_LINK' => URL::build('/panel/security'),
         'LOG_TITLE' => $log_title,
         'COLS' => $cols,
         'COL_TITLES' => $col_titles,
         'ROWS' => $rows
-    ));
+    ]);
 
     $template_file = 'core/security_view.tpl';
 }
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 if (isset($success))
-    $smarty->assign(array(
+    $smarty->assign([
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
-    ));
+    ]);
 
 if (isset($errors) && count($errors))
-    $smarty->assign(array(
+    $smarty->assign([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
-    ));
+    ]);
 
-$smarty->assign(array(
+$smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'SECURITY' => $language->get('admin', 'security'),
     'PAGE' => PANEL_PAGE,
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit')
-));
+]);
 
 $page_load = microtime(true) - $start;
 define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));

@@ -25,7 +25,7 @@ class UserInfoEndpoint extends EndpointBase {
         }
 
         $where = '';
-        $params = array();
+        $params = [];
 
         if (isset($_GET['id'])) {
             $where .= ' WHERE nl2_users.id = ?';
@@ -47,7 +47,7 @@ class UserInfoEndpoint extends EndpointBase {
         $user = $api->getDb()->selectQuery($query . $where, $params);
 
         if (!$user->count()) {
-            $api->returnArray(array('exists' => false));
+            $api->returnArray(['exists' => false]);
         }
 
         $user = $user->first();
@@ -63,7 +63,7 @@ class UserInfoEndpoint extends EndpointBase {
         }
 
         // Get custom profile fields
-        $custom_profile_fields = $api->getDb()->selectQuery('SELECT fields.id, fields.name, fields.type, fields.public, fields.required, fields.description, pf_values.value FROM nl2_users_profile_fields pf_values LEFT JOIN nl2_profile_fields fields ON pf_values.field_id = fields.id WHERE pf_values.user_id = ?', array($user->id));
+        $custom_profile_fields = $api->getDb()->selectQuery('SELECT fields.id, fields.name, fields.type, fields.public, fields.required, fields.description, pf_values.value FROM nl2_users_profile_fields pf_values LEFT JOIN nl2_profile_fields fields ON pf_values.field_id = fields.id WHERE pf_values.user_id = ?', [$user->id]);
 
         foreach ($custom_profile_fields->results() as $profile_field) {
             $user->profile_fields[$profile_field->id]['name'] = $profile_field->name;
@@ -75,9 +75,9 @@ class UserInfoEndpoint extends EndpointBase {
         }
 
         // Get the groups the user has
-        $groups = $api->getDb()->selectQuery('SELECT nl2_groups.* FROM nl2_users_groups INNER JOIN nl2_groups ON group_id = nl2_groups.id WHERE user_id = ? AND deleted = 0 ORDER BY `order`;', array($user->id))->results();
+        $groups = $api->getDb()->selectQuery('SELECT nl2_groups.* FROM nl2_users_groups INNER JOIN nl2_groups ON group_id = nl2_groups.id WHERE user_id = ? AND deleted = 0 ORDER BY `order`;', [$user->id])->results();
 
-        $groups_array = array();
+        $groups_array = [];
         foreach ($groups as $group) {
             $group_array = [
                 'id' => intval($group->id),

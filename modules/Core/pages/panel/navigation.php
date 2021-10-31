@@ -22,7 +22,7 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Deal with input
 if(Input::exists()){
-    $errors = array();
+    $errors = [];
 
     if(Token::check()){
         // Valid token
@@ -42,11 +42,11 @@ if(Input::exists()){
             foreach($_POST['inputIcon'] as $key => $item){
                 if(is_numeric($key)){
                     // Custom page?
-                    $custom_page = $queries->getWhere('custom_pages', array('id', '=', $key));
+                    $custom_page = $queries->getWhere('custom_pages', ['id', '=', $key]);
                     if(count($custom_page)){
-                        $queries->update('custom_pages', $key, array(
+                        $queries->update('custom_pages', $key, [
                             'icon' => $item
-                        ));
+                        ]);
                     }
                 }
                 $cache->store($key . '_icon', $item);
@@ -66,21 +66,21 @@ if(Input::exists()){
 }
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 if(Session::exists('navigation_success'))
-    $smarty->assign(array(
+    $smarty->assign([
         'SUCCESS' => Session::flash('navigation_success'),
         'SUCCESS_TITLE' => $language->get('general', 'success')
-    ));
+    ]);
 
 if(isset($errors) && count($errors))
-    $smarty->assign(array(
+    $smarty->assign([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
-    ));
+    ]);
 
-$smarty->assign(array(
+$smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'CONFIGURATION' => $language->get('admin', 'configuration'),
@@ -97,7 +97,7 @@ $smarty->assign(array(
     'DROPDOWN_ITEMS' => $language->get('admin', 'dropdown_items'),
     'DROPDOWN_NAME' => $language->get('admin', 'dropdown_name'),
     'DROPDOWN_NAME_VALUE' => $language->get('general', 'more')
-));
+]);
 
 $page_load = microtime(true) - $start;
 define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));

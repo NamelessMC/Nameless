@@ -32,13 +32,13 @@ class ServerBanner {
      * @param string $motd message of the day which should be displayed
      * @param int $players not implemented
      * @param int $max_players not implemented
-     * @param resource $favicon not implemented
-     * @param string $background Image Path or Standard Value
+     * @param null $favicon not implemented
+     * @param string|null $background Image Path or Standard Value
      * @param int $ping not implemented
-     * 
+     *
      * @return resource the rendered banner
      */
-    public static function server(string $address, string $motd = "§cOffline Server", int $players = -1, int $max_players = -1, $favicon = null, string $background = null, int $ping = 150) {
+    public static function server(string $address, string $motd = '§cOffline Server', int $players = -1, int $max_players = -1, $favicon = null, string $background = null, int $ping = 150) {
         $canvas = MinecraftBanner::getBackgroundCanvas(650, 80, $background);
 
         if ($favicon == null) {
@@ -55,7 +55,7 @@ class ServerBanner {
         $titleY = $favicon_posY + 3 * 2 + 13;
         imagettftext($canvas, 13, 0, $startX, $titleY, $white, MinecraftBanner::getFontFile(), $address);
 
-        $motd = str_replace(array('§k', '§l', '§m', '§o', '§r'), '', $motd);
+        $motd = str_replace(['§k', '§l', '§m', '§o', '§r'], '', $motd);
 
         $components = explode(MinecraftBanner::getColourChar(), $motd);
 

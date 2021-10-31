@@ -11,7 +11,7 @@
  *  Nederlandse taal - Admin
  */
 
-$language = array(
+$language = [
     /*
      *  Admin controle paneel
      */
@@ -743,4 +743,4 @@ $language = array(
     'background_colour_required' => 'Achtergrondkleur is vereist',
     'text_colour_required' => 'Tekstkleur is vereist',
     'no_announcements' => 'Er zijn nog geen aankondigingen gemaakt.',
-);
+];

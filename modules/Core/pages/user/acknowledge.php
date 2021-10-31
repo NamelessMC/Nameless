@@ -24,12 +24,12 @@ if(!isset($wid[count($wid) - 1]) || !is_numeric($wid)){
 }
 
 // Ensure warning belongs to user
-$warning = $queries->getWhere('infractions', array('id', '=', $wid));
+$warning = $queries->getWhere('infractions', ['id', '=', $wid]);
 if(count($warning)){
     if($warning[0]->acknowledged == 0 && $warning[0]->punished == $user->data()->id){
-        $queries->update('infractions', $warning[0]->id, array(
+        $queries->update('infractions', $warning[0]->id, [
             'acknowledged' => 1
-        ));
+        ]);
 
        Log::getInstance()->log(Log::Action('user/acknowledge'), $result);
     }

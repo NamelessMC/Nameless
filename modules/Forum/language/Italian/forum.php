@@ -10,7 +10,7 @@
  *  Italian Language for Forum module
  */
 
-$language = array(
+$language = [
     /*
      *  Forums
      */
@@ -43,7 +43,7 @@ $language = array(
     'post_edited_successfully' => 'Post modificato con successo.',
     'user_tag' => 'Sei stato taggato in un post.',
     'user_tag_info' => 'Sei stato taggato in un post da {x}.', // Don't replace "{x}"
-    'creating_topic_in_x' => "Creazione della discussione in {x}", // Don't replace "{x}"
+    'creating_topic_in_x' => 'Creazione della discussione in {x}', // Don't replace "{x}"
     'topic_title' => 'Titolo del topic',
     'new_reply' => 'Nuova risposta',
     're' => 'RI: ',
@@ -59,7 +59,7 @@ $language = array(
     'confirm_delete_post' => 'Sei sicuro di voler eliminare questo post?',
     'delete_topic' => 'Elimina discussione',
     'move_topic' => 'Sposta discussione',
-    'move_topic_to' => "Sposta la discussione in:",
+    'move_topic_to' => 'Sposta la discussione in:',
     'stick_topic' => 'Fissa discussione',
     'unstick_topic' => 'Togli la discussione dai fissati',
     'share' => 'Condividi',
@@ -70,10 +70,10 @@ $language = array(
     'last_edited' => 'Ultima modifica: {x}', // Don't replace "{x}"
     'quote' => 'Quota',
     'topic_locked_notice' => 'Questa discussione è bloccata, ma i tuoi permessi ti consentono di creare una risposta.',
-    'title_required' => "Devi inserire il titolo della discussione!",
+    'title_required' => 'Devi inserire il titolo della discussione!',
     'content_required' => 'Non puoi creare un post vuoto!',
-    'title_min_2' => "Il titolo della discussione deve contenere almeno 2 caratteri",
-    'title_max_64' => "Il titolo della discussione non deve contenere più di 64 caratteri",
+    'title_min_2' => 'Il titolo della discussione deve contenere almeno 2 caratteri',
+    'title_max_64' => 'Il titolo della discussione non deve contenere più di 64 caratteri',
     'content_min_2' => 'Il contenuto del tuo post deve contenere almeno 2 caratteri',
     'content_max_50000' => 'Il contenuto del tuo post non deve essere più lungo di 50000 caratteri',
     'post_already_reported' => 'Hai già segnalato questo post!',
@@ -81,10 +81,10 @@ $language = array(
     'removed_quoted_post' => 'Post rimosso dai post citati.',
     'insert_quotes' => 'Inserisci citazioni',
     'quoting_posts' => 'Inserimento citazioni..',
-    'error_quoting_posts' => "Spiacenti, si è verificato un problema durante la citazione dei post.",
+    'error_quoting_posts' => 'Spiacenti, si è verificato un problema durante la citazione dei post.',
     'error_rating_post' => 'Spiacenti, si è verificato un errore durante la valutazione del post.',
-    'topic_stuck' => "La discussione è rimasta bloccata.",
-    'topic_unstuck' => "La discussione è stato sbloccata.",
+    'topic_stuck' => 'La discussione è rimasta bloccata.',
+    'topic_unstuck' => 'La discussione è stato sbloccata.',
     'spam_wait' => 'Attendi {x} secondi prima di postare di nuovo.',
     'overview' => 'Panoramica',
     'no_label' => 'Senza etichetta',
@@ -93,7 +93,7 @@ $language = array(
     'unfollow' => 'Smetti di seguire',
     'now_following_topic' => 'Ora stai seguendo questa discussione e sarai informato di eventuali nuove risposte.',
     'no_longer_following_topic' => 'Non stai più seguendo questa discussione e non riceverai alcuna notifica di nuove risposte.',
-    'new_reply_in_topic' => "{x} ha risposto alla discussione {y}", // Don't replace {x} (username) or {y} (topic title)
+    'new_reply_in_topic' => '{x} ha risposto alla discussione {y}', // Don't replace {x} (username) or {y} (topic title)
     'started_by_x' => 'Avviato da {x}', // Don't replace {x}
     'sticky_topics' => 'Discussioni in rilievo',
 
@@ -212,4 +212,4 @@ $language = array(
     'recent_posts_statistic_icon' => '<i class="far fa-comments"></i>',
     'topics_title' => 'Discussioni',
     'posts_title' => 'Post',
-);
+];

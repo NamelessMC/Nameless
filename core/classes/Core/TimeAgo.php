@@ -30,7 +30,7 @@ THE SOFTWARE.
 function timeAgoInWords(string $timestring, string $timezone = null) {
     $timeAgo = new TimeAgo($timezone);
 
-    return $timeAgo->inWords($timestring, "now");
+    return $timeAgo->inWords($timestring, 'now');
 }
 
 /**
@@ -66,7 +66,7 @@ class TimeAgo {
         $this->timezone = $timezone;
     }
 
-    public function inWords(string $past, $time_language, $now = "now"): string {
+    public function inWords(string $past, $time_language, $now = 'now'): string {
         // sets the default timezone
         date_default_timezone_set($this->timezone);
         // finds the past in datetime
@@ -82,7 +82,7 @@ class TimeAgo {
             $key = 'less_than_a_minute';
         }
         // more than 29secs and less than 1min29secss
-        else if($timeDifference > 29 && $timeDifference <= 89) {
+        else if($timeDifference <= 89) {
             $key = '1_minute';
         }
         // between 1min30secs and 44mins29secs
@@ -227,7 +227,7 @@ class TimeAgo {
         }
     }
 
-    public function dateDifference(string $past, string $now = "now"): array {
+    public function dateDifference(string $past, string $now = 'now'): array {
         // initializes the placeholders for the different "times"
         $seconds = 0;
         $minutes = 0;
@@ -292,13 +292,13 @@ class TimeAgo {
             }
         }
 
-        return array(
-            "years" => $years,
-            "months" => $months,
-            "days" => $days,
-            "hours" => $hours,
-            "minutes" => $minutes,
-            "seconds" => $seconds
-        );
+        return [
+            'years' => $years,
+            'months' => $months,
+            'days' => $days,
+            'hours' => $hours,
+            'minutes' => $minutes,
+            'seconds' => $seconds
+        ];
     }
 }

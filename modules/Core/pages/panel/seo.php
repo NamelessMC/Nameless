@@ -23,9 +23,9 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 $timeago = new TimeAgo(TIMEZONE);
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-$errors = array();
+$errors = [];
 if (!is_dir(ROOT_PATH . '/cache/sitemaps')) {
     if (!is_writable(ROOT_PATH . '/cache')) {
         $errors[] = $language->get('admin', 'cache_not_writable');
@@ -84,13 +84,13 @@ if(!isset($_GET['metadata'])){
             } else
                 $updated = $language->get('admin', 'unknown');
 
-            $smarty->assign(array(
+            $smarty->assign([
                 'SITEMAP_LAST_GENERATED' => str_replace('{x}', $updated, $language->get('admin', 'sitemap_last_generated_x')),
                 'SITEMAP_LINK' => (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/cache/sitemaps/sitemap-index.xml',
                 'SITEMAP_FULL_LINK' => rtrim(Util::getSelfURL(), '/') . (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/cache/sitemaps/sitemap-index.xml',
                 'DOWNLOAD_SITEMAP' => $language->get('admin', 'download_sitemap'),
                 'LINK' => $language->get('admin', 'sitemap_link')
-            ));
+            ]);
 
         } else {
             $smarty->assign('SITEMAP_NOT_GENERATED', $language->get('admin', 'sitemap_not_generated_yet'));
@@ -105,7 +105,7 @@ if(!isset($_GET['metadata'])){
         die();
     }
 
-    $page_metadata = $queries->getWhere('page_descriptions', array('page', '=', $page['key']));
+    $page_metadata = $queries->getWhere('page_descriptions', ['page', '=', $page['key']]);
     if(Input::exists()){
         if(Token::check(Input::get('token'))){
             if(isset($_POST['description'])){
@@ -123,20 +123,20 @@ if(!isset($_GET['metadata'])){
                 if(count($page_metadata)){
                     $page_id = $page_metadata[0]->id;
 
-                    $queries->update('page_descriptions', $page_id, array(
+                    $queries->update('page_descriptions', $page_id, [
                         'description' => $description,
                         'tags' => $keywords
-                    ));
+                    ]);
 
                 } else {
-                    $queries->create('page_descriptions', array(
+                    $queries->create('page_descriptions', [
                         'page' => $page['key'],
                         'description' => $description,
                         'tags' => $keywords
-                    ));
+                    ]);
                 }
 
-                $page_metadata = $queries->getWhere('page_descriptions', array('page', '=', $page['key']));
+                $page_metadata = $queries->getWhere('page_descriptions', ['page', '=', $page['key']]);
 
                 $success = $language->get('admin', 'metadata_updated_successfully');
 
@@ -153,7 +153,7 @@ if(!isset($_GET['metadata'])){
         $tags = '';
     }
 
-    $smarty->assign(array(
+    $smarty->assign([
         'BACK' => $language->get('general', 'back'),
         'BACK_LINK' => URL::build('/panel/core/seo'),
         'EDITING_PAGE' => str_replace('{x}', Output::getClean($page['key']), $language->get('admin', 'editing_page_x')),
@@ -161,24 +161,24 @@ if(!isset($_GET['metadata'])){
         'DESCRIPTION_VALUE' => $description,
         'KEYWORDS' => $language->get('admin', 'keywords'),
         'KEYWORDS_VALUE' => $tags
-    ));
+    ]);
 
     $template_file = 'core/seo_metadata_edit.tpl';
 }
 
 if(isset($success))
-    $smarty->assign(array(
+    $smarty->assign([
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
-    ));
+    ]);
 
 if(isset($errors) && count($errors))
-    $smarty->assign(array(
+    $smarty->assign([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
-    ));
+    ]);
 
-$smarty->assign(array(
+$smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'CONFIGURATION' => $language->get('admin', 'configuration'),
@@ -195,7 +195,7 @@ $smarty->assign(array(
     'SUBMIT' => $language->get('general', 'submit'),
     'SITEMAP' => $language->get('admin', 'sitemap'),
     'PAGE_METADATA' => $language->get('admin', 'page_metadata'),
-));
+]);
 
 $page_load = microtime(true) - $start;
 define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));

@@ -9,7 +9,7 @@
  *  ภาษาไทย Language - Users
  */
 
-$language = array(
+$language = [
     /*
      *  Change this for the account validation message
      */
@@ -254,4 +254,4 @@ $language = array(
     'discord_communication_error' => 'เกิดข้อผิดพลาดขณะสื่อสารกับ Discord Bot โปรดตรวจสอบว่าบอทกำลังทำงานและ URL บอทของคุณถูกต้อง',
     'discord_unknown_error' => 'เกิดข้อผิดพลาดที่ไม่รู้จักขณะซิงค์บทบาท Discord โปรดติดต่อผู้ดูแลระบบ',
     'discord_id_help' => 'สำหรับข้อมูลเกี่ยวกับตำแหน่งของ Discord ID โปรดอ่าน <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">this.</a>'
-);
+];

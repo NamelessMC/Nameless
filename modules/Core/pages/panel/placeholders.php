@@ -46,7 +46,7 @@ if (isset($_GET['leaderboard'])) {
                 $sort = Input::get('leaderboard_sort');
 
                 try {
-                    DB::getInstance()->createQuery("UPDATE nl2_placeholders_settings SET leaderboard = ?, leaderboard_title = ?, leaderboard_sort = ? WHERE `name` = ? AND server_id = ?", [
+                    DB::getInstance()->createQuery('UPDATE nl2_placeholders_settings SET leaderboard = ?, leaderboard_title = ?, leaderboard_sort = ? WHERE `name` = ? AND server_id = ?', [
                         $enabled,
                         $title,
                         $sort,
@@ -70,7 +70,7 @@ if (isset($_GET['leaderboard'])) {
             }
         }
 
-        $smarty->assign(array(
+        $smarty->assign([
             'PAGE' => PANEL_PAGE,
             'PARENT_PAGE' => PARENT_PAGE,
             'DASHBOARD' => $language->get('admin', 'dashboard'),
@@ -91,7 +91,7 @@ if (isset($_GET['leaderboard'])) {
             'INTEGRATIONS' => $language->get('admin', 'integrations'),
             'MINECRAFT' => $language->get('admin', 'minecraft'),
             'MINECRAFT_LINK' => URL::build('/panel/minecraft')
-        ));
+        ]);
 
     } else {
         Redirect::to(URL::build('/panel/minecraft/placeholders'));
@@ -117,7 +117,7 @@ if (isset($_GET['leaderboard'])) {
                     $show_on_profile = Input::get('show_on_profile-' . $placeholder->name . '-server-' . $placeholder->server_id) == 'on' ? 1 : 0;
                     $show_on_forum = Input::get('show_on_forum-' . $placeholder->name . '-server-' . $placeholder->server_id) == 'on' ? 1 : 0;
 
-                    DB::getInstance()->createQuery("UPDATE nl2_placeholders_settings SET friendly_name = ?, show_on_profile = ?, show_on_forum = ? WHERE name = ? AND server_id = ?", [
+                    DB::getInstance()->createQuery('UPDATE nl2_placeholders_settings SET friendly_name = ?, show_on_profile = ?, show_on_forum = ? WHERE name = ? AND server_id = ?', [
                         $friendly_name,
                         $show_on_profile,
                         $show_on_forum,
@@ -144,7 +144,7 @@ if (isset($_GET['leaderboard'])) {
     // Retrieve placeholders value
     $placeholders_enabled = $configuration->get('Core', 'placeholders');
 
-    $smarty->assign(array(
+    $smarty->assign([
         'PAGE' => PANEL_PAGE,
         'PARENT_PAGE' => PARENT_PAGE,
         'DASHBOARD' => $language->get('admin', 'dashboard'),
@@ -171,25 +171,25 @@ if (isset($_GET['leaderboard'])) {
         'MINECRAFT_LINK' => URL::build('/panel/minecraft'),
         'ENABLE_PLACEHOLDERS' => $language->get('admin', 'enable_placeholders'),
         'ENABLE_PLACEHOLDERS_VALUE' => ($placeholders_enabled == 1),
-    ));
+    ]);
 }
 
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 if (Session::exists('placeholders_success')) {
-    $smarty->assign(array(
+    $smarty->assign([
         'SUCCESS' => Session::flash('placeholders_success'),
         'SUCCESS_TITLE' => $language->get('general', 'success')
-    ));
+    ]);
 }
 
 if (isset($errors) && count($errors)) {
-    $smarty->assign(array(
+    $smarty->assign([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
-    ));
+    ]);
 }
 
 $page_load = microtime(true) - $start;

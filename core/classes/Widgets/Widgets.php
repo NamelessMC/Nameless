@@ -14,8 +14,8 @@ class Widgets {
     private DB $_db;
     private Cache $_cache;
 
-    private array $_widgets = array();
-    private array $_enabled = array();
+    private array $_widgets = [];
+    private array $_enabled = [];
     private string $_name;
 
     public function __construct(Cache $cache, string $name = 'core') {
@@ -53,10 +53,10 @@ class Widgets {
         $this->_cache->store('enabled', $this->_enabled);
 
         // Update database
-        $widget_id = $this->_db->get('widgets', array('name', '=', $widget->getName()));
+        $widget_id = $this->_db->get('widgets', ['name', '=', $widget->getName()]);
         if ($widget_id->count()) {
             $widget_id = $widget_id->first();
-            $this->_db->update('widgets', $widget_id->id, array('enabled' => 1));
+            $this->_db->update('widgets', $widget_id->id, ['enabled' => 1]);
         }
     }
 
@@ -71,10 +71,10 @@ class Widgets {
         $this->_cache->store('enabled', $this->_enabled);
 
         // Update database
-        $widget_id = $this->_db->get('widgets', array('name', '=', $widget->getName()));
+        $widget_id = $this->_db->get('widgets', ['name', '=', $widget->getName()]);
         if ($widget_id->count()) {
             $widget_id = $widget_id->first();
-            $this->_db->update('widgets', $widget_id->id, array('enabled' => 0));
+            $this->_db->update('widgets', $widget_id->id, ['enabled' => 0]);
         }
     }
 
@@ -101,7 +101,7 @@ class Widgets {
      * @return array List of HTML to be displayed.
      */
     public function getWidgets(string $location = 'right'): array {
-        $ret = array();
+        $ret = [];
 
         $widgets = $this->getAll();
 
@@ -164,14 +164,14 @@ class Widgets {
      * @return array List of page names.
      */
     public function getPages(string $name): array {
-        $pages = $this->_db->get('widgets', array('name', '=', $name));
+        $pages = $this->_db->get('widgets', ['name', '=', $name]);
 
         if ($pages->count()) {
             $pages = $pages->first();
             return json_decode($pages->pages, true) ?? [];
         }
 
-        return array();
+        return [];
     }
 
     /**

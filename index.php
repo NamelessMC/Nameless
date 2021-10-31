@@ -10,9 +10,9 @@
  */
 
 // Uncomment to enable debugging
-//define('DEBUGGING', 1);
+define('DEBUGGING', 1);
 
-header("X-Frame-Options: SAMEORIGIN");
+header('X-Frame-Options: SAMEORIGIN');
 
 if ((defined('DEBUGGING') && DEBUGGING) || (isset($_SERVER['NAMELESSMC_DEBUGGING']) && $_SERVER['NAMELESSMC_DEBUGGING'])) {
     ini_set('display_startup_errors', 1);
@@ -48,7 +48,7 @@ ini_set('open_basedir', ROOT_PATH . PATH_SEPARATOR  . $tmp_dir . PATH_SEPARATOR 
 
 // Get the directory the user is trying to access
 $directory = $_SERVER['REQUEST_URI'];
-$directories = explode("/", $directory);
+$directories = explode('/', $directory);
 $lim = count($directories);
 
 if (isset($_GET['route']) && $_GET['route'] == '/rewrite_test') {
@@ -84,7 +84,7 @@ if (!isset($_GET['route']) || $_GET['route'] == '/') {
     if (array_key_exists($route, $modules)) {
         $pages->setActivePage($modules[$route]);
         if (!isset($modules[$route]['custom'])) {
-            $path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'modules', $modules[$route]['module'], $modules[$route]['file']));
+            $path = join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', $modules[$route]['module'], $modules[$route]['file']]);
 
             if (!file_exists($path)) {
                 require(ROOT_PATH . '/404.php');
@@ -94,7 +94,7 @@ if (!isset($_GET['route']) || $_GET['route'] == '/') {
             
             die();
         } else {
-            require(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'modules', 'Core', 'pages', 'custom.php')));
+            require(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', 'Core', 'pages', 'custom.php']));
             die();
         }
     } else {
@@ -111,7 +111,7 @@ if (!isset($_GET['route']) || $_GET['route'] == '/') {
             $new_path = rtrim($new_path, '/');
 
             if (array_key_exists($new_path, $modules)) {
-                $path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'modules', $modules[$new_path]['module'], $modules[$new_path]['file']));
+                $path = join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', $modules[$new_path]['module'], $modules[$new_path]['file']]);
 
                 if (file_exists($path)) {
                     $pages->setActivePage($modules[$new_path]);

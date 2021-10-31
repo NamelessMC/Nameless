@@ -9,7 +9,7 @@
  *  Danish Language - General terms
  */
 
-$language = array(
+$language = [
     /*
      *  Installation
      */
@@ -103,4 +103,4 @@ $language = array(
     'config_not_writable' => 'Konfigurationsfilen kan ikke skrives i.',
 
     'session_doesnt_exist' => 'Ikke i stand til at opdage session. Session gemning er et krav for at bruge Nameless. Prøv igen, og hvis problemet fortsætter, bedes du kontakte din webvært for støtte.'
-);
+];

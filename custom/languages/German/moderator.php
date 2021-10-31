@@ -10,7 +10,7 @@
  *  German Language - Moderator terms
  */
 
-$language = array(
+$language = [
     'mod_cp' => 'ModCP',
     'staff_cp' => 'StaffCP',
     'overview' => 'Überblick',
@@ -108,4 +108,4 @@ $language = array(
     'recent_registrations' => 'Aktuelle Registrierungen',
     'reset_profile_banner' => 'Profilbanner zurücksetzen'
 
-);
+];

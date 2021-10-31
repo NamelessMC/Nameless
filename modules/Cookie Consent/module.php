@@ -18,7 +18,7 @@ class CookieConsent_Module extends Module {
         $this->_language = $language;
         $this->_cookie_language = $cookie_language;
 
-        $name = 'CookieConsent';
+        $name = 'Cookie Consent';
         $author = '<a href="https://samerton.me" target="_blank" rel="nofollow noopener">Samerton</a>';
         $module_version = '2.0.0-pr12';
         $nameless_version = '2.0.0-pr12';
@@ -26,10 +26,10 @@ class CookieConsent_Module extends Module {
         parent::__construct($this, $name, $author, $module_version, $nameless_version);
 
         // Define URLs which belong to this module
-        $pages->add('CookieConsent', '/cookies', 'pages/cookies.php');
+        $pages->add('Cookie Consent', '/cookies', 'pages/cookies.php');
 
         // Panel
-        $pages->add('CookieConsent', '/panel/cookies', 'pages/panel/cookies.php');
+        $pages->add('Cookie Consent', '/panel/cookies', 'pages/panel/cookies.php');
 
         // Cookies
         define('COOKIE_CHECK', true);
@@ -61,7 +61,7 @@ class CookieConsent_Module extends Module {
         ));
 
         // Sitemap
-        $pages->registerSitemapMethod(ROOT_PATH . '/modules/CookieConsent/classes/CookieConsent_Sitemap.php', 'CookieConsent_Sitemap::generateSitemap');
+        $pages->registerSitemapMethod(ROOT_PATH . '/modules/Cookie Consent/classes/CookieConsent_Sitemap.php', 'CookieConsent_Sitemap::generateSitemap');
 
         if (defined('FRONT_END')) {
             // Add cookie page link

@@ -9,7 +9,7 @@ if (!isset($_SESSION['charset']) || !isset($_SESSION['engine'])) {
 	die();
 }
 
-$scripts = array(
+$scripts = [
 	'
 	<script>
 		$(document).ready(function() {
@@ -30,7 +30,7 @@ $scripts = array(
 		});
 	</script>
 	'
-);
+];
 ?>
 
 <div class="ui segments">

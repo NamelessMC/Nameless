@@ -21,26 +21,26 @@ $page_title = $language->get('admin', 'widgets');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 if (!isset($_GET['action'])) {
-    $template_array = array();
+    $template_array = [];
 
     // List widgets
     foreach ($widgets->getAll() as $widget) {
-        $widget_query = $queries->getWhere('widgets', array('name', '=', $widget->getName()));
+        $widget_query = $queries->getWhere('widgets', ['name', '=', $widget->getName()]);
         if (!count($widget_query)) {
             $queries->create(
                 'widgets',
-                array(
+                [
                     'name' => $widget->getName()
-                )
+                ]
             );
             $widget_query = $queries->getLastId();
         } else
             $widget_query = $widget_query[0]->id;
 
-        $template_array[] = array(
+        $template_array[] = [
             'name' => Output::getClean($widget->getName()),
             'module' => str_replace('{x}', Output::getClean($widget->getModule()), $language->get('admin', 'module_x')),
             'description' => Output::getClean($widget->getDescription()),
@@ -48,16 +48,16 @@ if (!isset($_GET['action'])) {
             'disable_link' => (($widgets->isEnabled($widget)) ? URL::build('/panel/core/widgets/', 'action=disable&w=' . Output::getClean($widget_query)) : null),
             'enable_link' => ((!$widgets->isEnabled($widget)) ? URL::build('/panel/core/widgets/', 'action=enable&w=' . Output::getClean($widget_query)) : null),
             'settings_link' => (($widgets->isEnabled($widget)) ? URL::build('/panel/core/widgets/', 'action=edit&w=' . Output::getClean($widget_query)) : null)
-        );
+        ];
     }
 
     $smarty->assign(
-        array(
+        [
             'ENABLE' => $language->get('admin', 'enable'),
             'DISABLE' => $language->get('admin', 'disable'),
             'EDIT' => $language->get('general', 'edit'),
             'WIDGETS_LIST' => $template_array
-        )
+        ]
     );
 
     $template_file = 'core/widgets.tpl';
@@ -68,7 +68,7 @@ if (!isset($_GET['action'])) {
 
         if (Token::check($_POST['token'])) {
             // Get widget name
-            $name = $queries->getWhere('widgets', array('id', '=', $_GET['w']));
+            $name = $queries->getWhere('widgets', ['id', '=', $_GET['w']]);
 
             if (count($name)) {
                 $name = Output::getClean($name[0]->name);
@@ -78,9 +78,9 @@ if (!isset($_GET['action'])) {
                     $queries->update(
                         'widgets',
                         $_GET['w'],
-                        array(
+                        [
                             'enabled' => 1
-                        )
+                        ]
                     );
 
                     $widgets->enable($widget);
@@ -101,7 +101,7 @@ if (!isset($_GET['action'])) {
 
         if (Token::check($_POST['token'])) {
             // Get widget name
-            $name = $queries->getWhere('widgets', array('id', '=', $_GET['w']));
+            $name = $queries->getWhere('widgets', ['id', '=', $_GET['w']]);
             if (count($name)) {
                 $name = Output::getClean($name[0]->name);
                 $widget = $widgets->getWidget($name);
@@ -110,9 +110,9 @@ if (!isset($_GET['action'])) {
                     $queries->update(
                         'widgets',
                         $_GET['w'],
-                        array(
+                        [
                             'enabled' => 0
-                        )
+                        ]
                     );
 
                     $widgets->disable($widget);
@@ -132,7 +132,7 @@ if (!isset($_GET['action'])) {
             die();
         }
 
-        $widget = $queries->getWhere('widgets', array('id', '=', $_GET['w']));
+        $widget = $queries->getWhere('widgets', ['id', '=', $_GET['w']]);
         if (!count($widget)) {
             Redirect::to(URL::build('/panel/core/widgets'));
             die();
@@ -149,38 +149,38 @@ if (!isset($_GET['action'])) {
                     if (isset($_POST['pages']) && count($_POST['pages']))
                         $active_pages = $_POST['pages'];
                     else
-                        $active_pages = array();
+                        $active_pages = [];
 
                     $active_pages_string = json_encode($active_pages);
 
                     $order = ($_POST['order'] ?? 10);
 
                     $location = Input::get('location');
-                    if (!in_array($location, array('left', 'right'))) $location = 'right';
+                    if (!in_array($location, ['left', 'right'])) $location = 'right';
 
-                    $queries->update('widgets', $widget->id, array('pages' => $active_pages_string, '`order`' => $order, '`location`' => $location));
+                    $queries->update('widgets', $widget->id, ['pages' => $active_pages_string, '`order`' => $order, '`location`' => $location]);
 
                     Session::flash('admin_widgets', $language->get('admin', 'widget_updated'));
                     Redirect::to(URL::build('/panel/core/widgets/', 'action=edit&w=' . $widget->id));
                     die();
                 } catch (Exception $e) {
-                    $errors = array($e->getMessage());
+                    $errors = [$e->getMessage()];
                 }
             } else {
-                $errors = array($language->get('general', 'invalid_token'));
+                $errors = [$language->get('general', 'invalid_token')];
             }
         }
 
         if (is_null($active_pages)) {
-            $active_pages = array();
+            $active_pages = [];
         }
 
         if ($widgets->getWidget($widget->name)->getSettings() != null) {
             $smarty->assign(
-                array(
+                [
                     'SETTINGS' => $language->get('admin', 'settings'),
                     'SETTINGS_LINK' => URL::build('/panel/core/widgets/', 'action=settings&w=' . $widget->id)
-                )
+                ]
             );
         }
 
@@ -190,12 +190,12 @@ if (!isset($_GET['action'])) {
         }
 
         $location = Output::getClean($widgets->getWidget($widget->name)->getLocation());
-        if (!in_array($location, array('left', 'right'))) {
+        if (!in_array($location, ['left', 'right'])) {
             $location = 'right';
         }
 
         $smarty->assign(
-            array(
+            [
                 'EDITING_WIDGET' => str_replace('{x}', Output::getClean($widget->name), $language->get('admin', 'editing_widget_x')),
                 'BACK' => $language->get('general', 'back'),
                 'BACK_LINK' => URL::build('/panel/core/widgets'),
@@ -208,8 +208,8 @@ if (!isset($_GET['action'])) {
                 'ACTIVE_PAGES' => $active_pages,
                 'POSSIBLE_PAGES' => $pages->returnWidgetPages(),
                 'MODULE' => $language->get('admin', 'module'),
-                'MODULE_SEPERATOR' => "&raquo"
-            )
+                'MODULE_SEPERATOR' => '&raquo'
+            ]
         );
 
         $template_file = 'core/widgets_edit.tpl';
@@ -220,7 +220,7 @@ if (!isset($_GET['action'])) {
             die();
         }
 
-        $widget = $queries->getWhere('widgets', array('id', '=', $_GET['w']));
+        $widget = $queries->getWhere('widgets', ['id', '=', $_GET['w']]);
         if (!count($widget)) {
             Redirect::to(URL::build('/panel/core/widgets'));
             die();
@@ -238,11 +238,11 @@ if (!isset($_GET['action'])) {
         }
 
         $smarty->assign(
-            array(
+            [
                 'EDITING_WIDGET' => str_replace('{x}', Output::getClean($widget->name), $language->get('admin', 'editing_widget_x')),
                 'BACK' => $language->get('general', 'back'),
                 'BACK_LINK' => URL::build('/panel/core/widgets/', 'action=edit&w=' . $widget->id)
-            )
+            ]
         );
 
         $template_file = 'core/widget_settings.tpl';
@@ -262,24 +262,24 @@ if (Session::exists('admin_widgets_error')) {
 
 if (isset($success)) {
     $smarty->assign(
-        array(
+        [
             'SUCCESS' => $success,
             'SUCCESS_TITLE' => $language->get('general', 'success')
-        )
+        ]
     );
 }
 
 if (isset($errors) && count($errors)) {
     $smarty->assign(
-        array(
+        [
             'ERRORS' => $errors,
             'ERRORS_TITLE' => $language->get('general', 'error')
-        )
+        ]
     );
 }
 
 $smarty->assign(
-    array(
+    [
         'PARENT_PAGE' => PARENT_PAGE,
         'DASHBOARD' => $language->get('admin', 'dashboard'),
         'LAYOUT' => $language->get('admin', 'layout'),
@@ -287,7 +287,7 @@ $smarty->assign(
         'PAGE' => PANEL_PAGE,
         'TOKEN' => Token::get(),
         'SUBMIT' => $language->get('general', 'submit')
-    )
+    ]
 );
 
 $page_load = microtime(true) - $start;

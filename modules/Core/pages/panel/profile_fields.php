@@ -21,13 +21,13 @@ $page_title = $language->get('admin', 'custom_fields');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 if (isset($_GET['action'])) {
     if ($_GET['action'] == 'new') {
         // New field
         if (Input::exists()) {
-            $errors = array();
+            $errors = [];
 
             if (Token::check()) {
                 // Validate input
@@ -61,7 +61,7 @@ if (isset($_GET['action'])) {
                         else $editable = 0;
 
                         // Insert into database
-                        $queries->create('profile_fields', array(
+                        $queries->create('profile_fields', [
                             'name' => Output::getClean(Input::get('name')),
                             'type' => Input::get('type'),
                             'public' => $public,
@@ -69,7 +69,7 @@ if (isset($_GET['action'])) {
                             'description' => Output::getClean(Input::get('description')),
                             'forum_posts' => $forum_posts,
                             'editable' => $editable
-                        ));
+                        ]);
 
                         //Log::getInstance()->log(Log::Action('admin/core/profile/new'), Output::getClean(Input::get('name')));
 
@@ -90,7 +90,7 @@ if (isset($_GET['action'])) {
             }
         }
 
-        $smarty->assign(array(
+        $smarty->assign([
             'CREATING_PROFILE_FIELD' => $language->get('admin', 'creating_profile_field'),
             'CANCEL' => $language->get('general', 'cancel'),
             'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
@@ -102,7 +102,7 @@ if (isset($_GET['action'])) {
             'SUBMIT' => $language->get('general', 'submit'),
             'FIELD_NAME' => $language->get('admin', 'field_name'),
             'TYPE' => $language->get('admin', 'type'),
-            'TYPES' => array(1 => $language->get('admin', 'text'), 2 => $language->get('admin', 'textarea'), 3 => $language->get('admin', 'date')),
+            'TYPES' => [1 => $language->get('admin', 'text'), 2 => $language->get('admin', 'textarea'), 3 => $language->get('admin', 'date')],
             'DESCRIPTION' => $language->get('admin', 'description'),
             'REQUIRED' => $language->get('admin', 'required'),
             'EDITABLE' => $language->get('admin', 'editable'),
@@ -113,7 +113,7 @@ if (isset($_GET['action'])) {
             'REQUIRED_HELP' => $language->get('admin', 'profile_field_required_help'),
             'PUBLIC_HELP' => $language->get('admin', 'profile_field_public_help'),
             'DISPLAY_FIELD_ON_FORUM_HELP' => $language->get('admin', 'profile_field_forum_help')
-        ));
+        ]);
 
         $template_file = 'core/profile_fields_create.tpl';
 
@@ -124,7 +124,7 @@ if (isset($_GET['action'])) {
         }
         $id = intval($_GET['id']);
 
-        $field = $queries->getWhere('profile_fields', array('id', '=', $id));
+        $field = $queries->getWhere('profile_fields', ['id', '=', $id]);
 
         if (!count($field)) {
             Redirect::to(URL::build('/panel/core/profile_fields'));
@@ -133,7 +133,7 @@ if (isset($_GET['action'])) {
         $field = $field[0];
 
         if (Input::exists()) {
-            $errors = array();
+            $errors = [];
 
             if (Token::check()) {
                 if (Input::get('action') == 'update') {
@@ -168,7 +168,7 @@ if (isset($_GET['action'])) {
                             else $editable = 0;
 
                             // Update database
-                            $queries->update('profile_fields', $field->id, array(
+                            $queries->update('profile_fields', $field->id, [
                                 'name' => Output::getClean(Input::get('name')),
                                 'type' => Input::get('type'),
                                 'public' => $public,
@@ -176,7 +176,7 @@ if (isset($_GET['action'])) {
                                 'description' => Output::getClean(Input::get('description')),
                                 'forum_posts' => $forum_posts,
                                 'editable' => $editable
-                            ));
+                            ]);
 
                             //Log::getInstance()->log(Log::Action('admin/core/profile/update'), Output::getClean(Input::get('name')));
 
@@ -194,7 +194,7 @@ if (isset($_GET['action'])) {
 
                 } else if (Input::get('action') == 'delete') {
                     // Delete field
-                    $queries->delete('profile_fields', array('id', '=', intval($_POST['id'])));
+                    $queries->delete('profile_fields', ['id', '=', intval($_POST['id'])]);
 
                     Session::flash('profile_field_success', $language->get('admin', 'profile_field_deleted_successfully'));
                     Redirect::to(URL::build('/panel/core/profile_fields'));
@@ -205,7 +205,7 @@ if (isset($_GET['action'])) {
             }
         }
 
-        $smarty->assign(array(
+        $smarty->assign([
             'EDITING_PROFILE_FIELD' => $language->get('admin', 'editing_profile_field'),
             'CANCEL' => $language->get('general', 'cancel'),
             'DELETE' => $language->get('general', 'delete'),
@@ -222,7 +222,7 @@ if (isset($_GET['action'])) {
             'FIELD_NAME' => $language->get('admin', 'field_name'),
             'FIELD_NAME_VALUE' => Output::getClean($field->name),
             'TYPE' => $language->get('admin', 'type'),
-            'TYPES' => array(1 => $language->get('admin', 'text'), 2 => $language->get('admin', 'textarea'), 3 => $language->get('admin', 'date')),
+            'TYPES' => [1 => $language->get('admin', 'text'), 2 => $language->get('admin', 'textarea'), 3 => $language->get('admin', 'date')],
             'TYPE_VALUE' => $field->type,
             'DESCRIPTION' => $language->get('admin', 'description'),
             'DESCRIPTION_VALUE' => Output::getPurified($field->description),
@@ -239,7 +239,7 @@ if (isset($_GET['action'])) {
             'REQUIRED_HELP' => $language->get('admin', 'profile_field_required_help'),
             'PUBLIC_HELP' => $language->get('admin', 'profile_field_public_help'),
             'DISPLAY_FIELD_ON_FORUM_HELP' => $language->get('admin', 'profile_field_forum_help')
-        ));
+        ]);
 
         $template_file = 'core/profile_fields_edit.tpl';
     } else {
@@ -247,8 +247,8 @@ if (isset($_GET['action'])) {
         die();
     }
 } else {
-    $profile_fields = $queries->getWhere('profile_fields', array('id', '<>', 0));
-    $template_fields = array();
+    $profile_fields = $queries->getWhere('profile_fields', ['id', '<>', 0]);
+    $template_fields = [];
 
     foreach ($profile_fields as $field) {
         switch ($field->type) {
@@ -265,7 +265,7 @@ if (isset($_GET['action'])) {
                 break;
         }
 
-        $template_fields[] = array(
+        $template_fields[] = [
             'edit_link' => URL::build('/panel/core/profile_fields/', 'action=edit&id=' . Output::getClean($field->id)),
             'name' => Output::getClean($field->name),
             'type' => $type,
@@ -273,10 +273,10 @@ if (isset($_GET['action'])) {
             'editable' => $field->editable,
             'public' => $field->public,
             'forum_posts' => $field->forum_posts
-        );
+        ];
     }
 
-    $smarty->assign(array(
+    $smarty->assign([
         'FIELDS' => $template_fields,
         'NO_FIELDS' => $language->get('admin', 'no_custom_fields'),
         'NEW_FIELD' => $language->get('admin', 'new_field'),
@@ -287,7 +287,7 @@ if (isset($_GET['action'])) {
         'EDITABLE' => $language->get('admin', 'editable'),
         'PUBLIC' => $language->get('admin', 'public'),
         'FORUM_POSTS' => $language->get('admin', 'forum_posts')
-    ));
+    ]);
 
     $template_file = 'core/profile_fields.tpl';
 }
@@ -296,24 +296,24 @@ if (Session::exists('profile_field_success'))
     $success = Session::flash('profile_field_success');
 
 if (isset($success))
-    $smarty->assign(array(
+    $smarty->assign([
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
-    ));
+    ]);
 
 if (isset($errors) && count($errors))
-    $smarty->assign(array(
+    $smarty->assign([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
-    ));
+    ]);
 
-$smarty->assign(array(
+$smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'CONFIGURATION' => $language->get('admin', 'configuration'),
     'PROFILE_FIELDS' => $language->get('admin', 'custom_fields'),
     'PAGE' => PANEL_PAGE
-));
+]);
 
 $page_load = microtime(true) - $start;
 define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));

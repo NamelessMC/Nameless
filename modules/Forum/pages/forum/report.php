@@ -28,7 +28,7 @@ if (!isset($_POST['post']) || !is_numeric($_POST['post'])) {
     die();
 }
 
-$post = $queries->getWhere('posts', array('id', '=', $_POST['post']));
+$post = $queries->getWhere('posts', ['id', '=', $_POST['post']]);
 if (!count($post)) {
     // Doesn't exist
     Redirect::to(URL::build('/forum'));
@@ -40,7 +40,7 @@ $post = $post[0];
 if (Token::check()) {
     // Valid token
     // Ensure user hasn't already submitted a report for this post
-    $reports = $queries->getWhere('reports', array('reported_post', '=', $_POST['post']));
+    $reports = $queries->getWhere('reports', ['reported_post', '=', $_POST['post']]);
 
     if (count($reports)) {
         foreach ($reports as $report) {
@@ -68,7 +68,7 @@ if (Token::check()) {
             $report = new Report();
 
             // Create report
-            $report->create(array(
+            $report->create([
                 'type' => 0,
                 'reporter_id' => $user->data()->id,
                 'reported_id' => $post->post_creator,
@@ -80,7 +80,7 @@ if (Token::check()) {
                 'updated_by' => $user->data()->id,
                 'reported_post' => $post->id,
                 'link' => URL::build('/forum/topic/' . Output::getClean($_POST['topic']), 'pid=' . Output::getClean($_POST['post']))
-            ));
+            ]);
             Log::getInstance()->log(Log::Action('misc/report'), $post->post_creator);
         } catch (Exception $e) {
             // Exception creating report

@@ -34,7 +34,7 @@ $smarty->assign([
     'UPDATE_SETTINGS' => $cookie_language->get('cookie', 'update_settings'),
 ]);
 
-$template->addJSScript(file_get_contents(ROOT_PATH . '/modules/CookieConsent/assets/js/configure.js'));
+$template->addJSScript(file_get_contents(ROOT_PATH . '/modules/Cookie Consent/assets/js/configure.js'));
 
 $page_load = microtime(true) - $start;
 define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));

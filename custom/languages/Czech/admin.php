@@ -1,7 +1,6 @@
 <?php
 /*
  *  Made by Samerton
- *  Translated by Fjuro
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr12
  *
@@ -10,7 +9,7 @@
  *  Czech Language - Admin
  */
 
-$language = array (
+$language = [
     /*
      *  Admin Control Panel
      */
@@ -28,7 +27,6 @@ $language = array (
     'minecraft' => 'Minecraft',
     'modules' => 'Doplňky',
     'security' => 'Zabezpečení',
-    'sitemap' => 'Sitemap',
     'styles' => 'Styly',
 
     // Overview
@@ -82,6 +80,8 @@ $language = array (
     'successfully_updated' => 'Úspěšně aktualizováno',
     'debugging_and_maintenance' => 'Ladění a údržba',
     'maintenance' => 'Údržba',
+    'debug_link' => 'Odkaz ladění',
+    'debug_link_toastr' => 'Odkaz ladění zkopírován do vaší schránky!',
     'debugging_settings_updated_successfully' => 'Nastavení ladění úspěšně aktualizována.',
     'enable_debug_mode' => 'Povolit režim ladění?',
     'force_https' => 'Vynutit https?',
@@ -156,7 +156,7 @@ $language = array (
     'enable_nicknames_on_registration' => 'Povolit přezdívky při registraci uživatelů?',
     'validation_promote_group' => 'Skupina po ověření',
     'validation_promote_group_info' => 'Toto je skupina, do které bude uživatel povýšen po ověření jeho účtu.',
-    'login_method' => 'Metoda přihlášení',
+    'login_method' => 'Způsob přihlášení',
     'privacy_and_terms' => 'Soukromí a podmínky',
     'dropdown_name' => 'Název rozbalovací nabídky',
     'editing_messages' => 'Úprava zpráv',
@@ -177,6 +177,8 @@ $language = array (
     'placeholders_server_id' => 'ID serveru',
     'placeholders_name' => 'Název',
     'placeholders_value' => 'Hodnota',
+    'placeholders_player' => 'Hráč',
+    'placeholders_score' => 'Skóre',
     'placeholders_last_updated' => 'Naposledy aktualizováno',
     'placeholders_friendly_name' => 'Přátelský název',
     'placeholders_friendly_name_info' => 'Toto použijte pro nastavení \'přezdívky\' tohoto placeholderu. Přátelský název bude použit místo holého názvu.',
@@ -199,6 +201,7 @@ $language = array (
     'seo' => 'SEO',
     'google_analytics' => 'Google Analytics',
     'google_analytics_help' => 'Přidejte na váš web Google Analytics pro sledování návštěvníků a pro statistiky. Pro použití této funkce si budete muset vytvořit účet Google Analytics. Zadejte ID měření služby Google Analytics. ID vypadá jako UA-XXXXA-X a lze jej nalézt v informacích o vašem účtu nebo ve sledovacím kódu poskytnutým Googlem.',
+    'sitemap' => 'Sitemap',
 
     // Reactions
     'icon' => 'Ikona',
@@ -503,6 +506,7 @@ $language = array (
     'ip_address' => 'IP adresa',
     'template_changes' => 'Změna šablony',
     'email_logs' => 'Hromadné e-maily',
+    'group_sync_logs' => 'Změny synchronizace skupin',
     'file_changed' => 'Změna souboru',
     'all_logs' => 'Všechny protokoly',
     'action' => 'Akce',
@@ -662,7 +666,7 @@ $language = array (
     'register_hook_info' => 'Registrace uživatele',
     'validate_hook_info' => 'Ověření uživatele',
     'delete_hook_info' => 'Odstranění uživatele',
-    'report_hook_info' => 'Report creation',
+    'report_hook_info' => 'Nahlásit tvorbu',
 
     // Sitemap
     'unable_to_load_sitemap_file_x' => 'Nepodařilo se načíst soubor Sitemap {x}', // Don't replace {x}
@@ -723,4 +727,5 @@ $language = array (
     'background_colour_required' => 'Je vyžadována barva pozadí',
     'text_colour_required' => 'Je vyžadována barva textu',
     'no_announcements' => 'Zatím jste nevytvořili žádná oznámení',
-);
+    'announcement_order' => 'Pořadí',
+];

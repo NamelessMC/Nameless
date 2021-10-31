@@ -16,7 +16,7 @@ class FacebookWidget extends WidgetBase {
         $this->_smarty = $smarty;
 
         // Get widget
-        $widget_query = DB::getInstance()->selectQuery('SELECT `location`, `order` FROM nl2_widgets WHERE `name` = ?', array('Facebook'))->first();
+        $widget_query = DB::getInstance()->selectQuery('SELECT `location`, `order` FROM nl2_widgets WHERE `name` = ?', ['Facebook'])->first();
 
         // Set widget variables
         $this->_module = 'Core';
@@ -39,7 +39,7 @@ class FacebookWidget extends WidgetBase {
             <div class="fb-page" data-href="' . $fb_url . '" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="' . $fb_url . '" class="fb-xfbml-parse-ignore"><a href="' . $fb_url . '">' . SITE_NAME . '</a></blockquote></div><br>';
     }
 
-    public function initialise() {
+    public function initialise(): void {
         // Do nothing
     }
 }

@@ -10,7 +10,7 @@
  *  SwedishSE Language - Admin
  */
 
-$language = array(
+$language = [
     /*
      *  Admin Control Panel
      */
@@ -744,4 +744,4 @@ $language = array(
     'background_colour_required' => 'Bakgrundsfärg krävs',
     'text_colour_required' => 'Textfärg krävs',
     'no_announcements' => 'Inga meddelanden har gjorts ännu.',
-);
+];

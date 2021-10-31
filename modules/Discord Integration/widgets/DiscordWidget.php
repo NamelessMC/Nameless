@@ -22,7 +22,7 @@ class DiscordWidget extends WidgetBase {
         parent::__construct($pages ?? [], true);
 
         // Get widget
-        $widget_query = DB::getInstance()->selectQuery('SELECT `location`, `order` FROM nl2_widgets WHERE `name` = ?', array('Discord'))->first();
+        $widget_query = DB::getInstance()->selectQuery('SELECT `location`, `order` FROM nl2_widgets WHERE `name` = ?', ['Discord'])->first();
 
         // Set widget variables
         $this->_module = 'Discord Integration';
@@ -42,11 +42,10 @@ class DiscordWidget extends WidgetBase {
 
         } else {
             $ch = curl_init();
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
             curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-            curl_setopt($ch, CURLOPT_URL, "https://discord.com/api/guilds/" . Output::getClean($this->_guild_id) . "/widget.json");
+            curl_setopt($ch, CURLOPT_URL, 'https://discord.com/api/guilds/' . Output::getClean($this->_guild_id) . '/widget.json');
             $result = curl_exec($ch);
             $result = json_decode($result);
             curl_close($ch);

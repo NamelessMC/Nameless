@@ -33,12 +33,12 @@ $forum_language = new Language(ROOT_PATH . '/modules/Forum/language', LANGUAGE);
  *  Temp methods for front page module, profile page tab + admin sidebar; likely to change in the future
  */
 // Front page module
-if (!isset($front_page_modules)) $front_page_modules = array();
+if (!isset($front_page_modules)) $front_page_modules = [];
 $front_page_modules[] = 'modules/Forum/front_page.php';
 
 // Profile page tab
-if (!isset($profile_tabs)) $profile_tabs = array();
-$profile_tabs['forum'] = array('title' => $forum_language->get('forum', 'forum'), 'smarty_template' => 'forum/profile_tab.tpl', 'require' => ROOT_PATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'Forum' . DIRECTORY_SEPARATOR . 'profile_tab.php');
+if (!isset($profile_tabs)) $profile_tabs = [];
+$profile_tabs['forum'] = ['title' => $forum_language->get('forum', 'forum'), 'smarty_template' => 'forum/profile_tab.tpl', 'require' => ROOT_PATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'Forum' . DIRECTORY_SEPARATOR . 'profile_tab.php'];
 
 // Following topics UserCP sidebar
 $cc_nav->add('cc_following_topics', $forum_language->get('forum', 'following_topics'), URL::build('/user/following_topics'));

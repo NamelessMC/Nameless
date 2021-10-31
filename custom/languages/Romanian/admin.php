@@ -11,7 +11,7 @@
  *  Last Update: 26/06/2019
  */
 
-$language = array(
+$language = [
     /*
      *  Admin Control Panel
      */
@@ -746,4 +746,4 @@ $language = array(
     'background_colour_required' => 'Background Colour is required',
     'text_colour_required' => 'Text Colour is required',
     'no_announcements' => 'No announcements have been made yet.',
-);
+];

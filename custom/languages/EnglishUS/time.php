@@ -9,7 +9,7 @@
  *  EnglishUS Language - Time
  */
 
-$language = array(
+$language = [
     /*
      *  Time
      */
@@ -26,4 +26,4 @@ $language = array(
     '_months' => '{x} months ago',
     'about_1_year' => 'about 1 year ago',
     'over_x_years' => 'over {x} years ago'
-);
+];

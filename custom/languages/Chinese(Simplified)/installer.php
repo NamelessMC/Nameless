@@ -11,7 +11,7 @@
  *  Translation progress(v2-pr9) : 100%
  */
 
-$language = array(
+$language = [
     /*
      *  Installation
      */
@@ -105,4 +105,4 @@ $language = array(
     'config_not_writable' => '配置文件无法写入',
 
     'session_doesnt_exist' => '无法检测会话。若想使用 Nameless，您必须启用会话。请您再试一次，若此问题始终存在，请咨询您的网页提供商。'
-);
+];

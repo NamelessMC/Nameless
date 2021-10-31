@@ -21,7 +21,7 @@ $page_title = $language->get('admin', 'privacy_and_terms');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 if (Input::exists()) {
-    $errors = array();
+    $errors = [];
 
     if (Token::check()) {
         $validate = new Validate();
@@ -41,32 +41,32 @@ if (Input::exists()) {
 
         if ($validation->passed()) {
             try {
-                $privacy_id = $queries->getWhere('privacy_terms', array('name', '=', 'privacy'));
+                $privacy_id = $queries->getWhere('privacy_terms', ['name', '=', 'privacy']);
                 if (count($privacy_id)) {
                     $privacy_id = $privacy_id[0]->id;
 
-                    $queries->update('privacy_terms', $privacy_id, array(
+                    $queries->update('privacy_terms', $privacy_id, [
                         'value' => Input::get('privacy')
-                    ));
+                    ]);
                 } else {
-                    $queries->create('privacy_terms', array(
+                    $queries->create('privacy_terms', [
                         'name' => 'privacy',
                         'value' => Input::get('privacy')
-                    ));
+                    ]);
                 }
 
-                $terms_id = $queries->getWhere('privacy_terms', array('name', '=', 'terms'));
+                $terms_id = $queries->getWhere('privacy_terms', ['name', '=', 'terms']);
                 if (count($terms_id)) {
                     $terms_id = $terms_id[0]->id;
 
-                    $queries->update('privacy_terms', $terms_id, array(
+                    $queries->update('privacy_terms', $terms_id, [
                         'value' => Input::get('terms')
-                    ));
+                    ]);
                 } else {
-                    $queries->create('privacy_terms', array(
+                    $queries->create('privacy_terms', [
                         'name' => 'terms',
                         'value' => Input::get('terms')
-                    ));
+                    ]);
                 }
 
                 $success = $language->get('admin', 'terms_updated');
@@ -81,34 +81,34 @@ if (Input::exists()) {
 }
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 if (isset($success))
-    $smarty->assign(array(
+    $smarty->assign([
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
-    ));
+    ]);
 
 if (isset($errors) && count($errors))
-    $smarty->assign(array(
+    $smarty->assign([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
-    ));
+    ]);
 
 // Get privacy policy + terms
-$site_terms = $queries->getWhere('privacy_terms', array('name', '=', 'terms'));
+$site_terms = $queries->getWhere('privacy_terms', ['name', '=', 'terms']);
 if (!count($site_terms)) {
-    $site_terms = $queries->getWhere('settings', array('name', '=', 't_and_c_site'));
+    $site_terms = $queries->getWhere('settings', ['name', '=', 't_and_c_site']);
 }
 $site_terms = $site_terms[0]->value;
 
-$site_privacy = $queries->getWhere('privacy_terms', array('name', '=', 'privacy'));
+$site_privacy = $queries->getWhere('privacy_terms', ['name', '=', 'privacy']);
 if (!count($site_privacy)) {
-    $site_privacy = $queries->getWhere('settings', array('name', '=', 'privacy_policy'));
+    $site_privacy = $queries->getWhere('settings', ['name', '=', 'privacy_policy']);
 }
 $site_privacy = $site_privacy[0]->value;
 
-$smarty->assign(array(
+$smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'CONFIGURATION' => $language->get('admin', 'configuration'),
@@ -120,7 +120,7 @@ $smarty->assign(array(
     'PRIVACY_POLICY_VALUE' => Output::getPurified($site_privacy),
     'TERMS_AND_CONDITIONS' => $language->get('user', 'terms_and_conditions'),
     'TERMS_AND_CONDITIONS_VALUE' => Output::getPurified($site_terms)
-));
+]);
 
 $page_load = microtime(true) - $start;
 define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));

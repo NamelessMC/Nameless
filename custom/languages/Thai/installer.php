@@ -9,7 +9,7 @@
  *  ภาษาไทย Language - Installation
  */
 
-$language = array(
+$language = [
     /*
      *  Installation
      */
@@ -103,4 +103,4 @@ $language = array(
     'config_not_writable' => 'ไฟล์กำหนดค่าไม่สามารถเขียนได้',
 
     'session_doesnt_exist' => 'ตรวจไม่พบเซสชัน การบันทึกเซสชันเป็นข้อกำหนดในการใช้ Nameless โปรดลองอีกครั้ง และหากปัญหายังคงอยู่ โปรดติดต่อโฮสต์เว็บของคุณเพื่อขอรับการสนับสนุน'
-);
+];

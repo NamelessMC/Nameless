@@ -9,7 +9,7 @@
  *  Slovak Language - Moderator terms
  */
 
-$language = array(
+$language = [
     'staff_cp' => 'StaffCP',
     'overview' => 'Prehľad',
 
@@ -105,4 +105,4 @@ $language = array(
     'recent_registrations' => 'Nedávne registrácie',
     'reset_profile_banner' => 'Resetovať banner profilu'
 
-);
+];

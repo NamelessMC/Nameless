@@ -18,19 +18,19 @@ if (!defined('MCASSOC') ||
 $page_title = $language->get('general', 'verify_account');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-$template->addJSFiles(array(
-	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/js/client.js' => array()
-));
+$template->addJSFiles([
+	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/js/client.js' => []
+]);
 
 // Assign post data to session variable
 if (!isset($_SESSION['mcassoc'])) {
     $_SESSION['mcassoc'] = $_POST;
 }
 
-$smarty->assign(array(
+$smarty->assign([
 	'VERIFY_ACCOUNT' => $language->get('user', 'verify_account'),
 	'VERIFY_ACCOUNT_HELP' => $language->get('user', 'verify_account_help')
-));
+]);
 
 if (!isset($_GET['step'])){
 	// Step 1 - MCAssoc
@@ -53,7 +53,7 @@ if (!isset($_GET['step'])){
 	  </center>
     ');
 
-	$template->addJSFiles(array((defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/js/client.js' => array()));
+	$template->addJSFiles([(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/js/client.js' => []]);
 	$template->addJSScript('
 	  MCAssoc.init("' . $mcassoc_site_id . '", "' . $key . '", "' . $return_link . '");
 	');
@@ -93,7 +93,7 @@ if (!isset($_GET['step'])){
 			// Get IP
 			$ip = $user->getIP();
 
-			$user->create(array(
+			$user->create([
 				'username' => htmlspecialchars($username),
 				'nickname' => htmlspecialchars($_SESSION['mcassoc']['username']),
 				'uuid' => htmlspecialchars($data->uuid),
@@ -104,7 +104,7 @@ if (!isset($_GET['step'])){
 				'active' => 1,
 				'lastip' => htmlspecialchars($ip),
 				'last_online' => date('U')
-            ));
+            ]);
 
             $new_user = new User(DB::getInstance()->lastId());
             // TODO: which group should they be set to?
@@ -129,7 +129,7 @@ if (!isset($_GET['step'])){
 }
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 $page_load = microtime(true) - $start;
 define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));

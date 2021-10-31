@@ -8,8 +8,8 @@
  *
  *  Chinese (Simplified) Language - Log
  */
-$language = array(
+$language = [
     // forums
     'info_forums_lock' => '上锁',
     'info_forums_unlock' => '解锁',
-);
+];

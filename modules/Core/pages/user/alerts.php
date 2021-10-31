@@ -27,7 +27,7 @@ if(!isset($_GET['view'])){
 		// Get alerts
 		$alerts = $queries->orderWhere('alerts', 'user_id = ' . $user->data()->id, 'created', 'DESC');
 
-		$alerts_limited = array();
+		$alerts_limited = [];
 		$n = 0;
 
 		if(count($alerts) > 30) $limit = 30;
@@ -50,7 +50,7 @@ if(!isset($_GET['view'])){
         }
 
 		// Language values
-		$smarty->assign(array(
+		$smarty->assign([
 			'USER_CP' => $language->get('user', 'user_cp'),
 			'ALERTS' => $language->get('user', 'alerts'),
 			'ALERTS_LIST' => $alerts_limited,
@@ -59,10 +59,10 @@ if(!isset($_GET['view'])){
 			'CLICK_TO_VIEW' => $language->get('user', 'click_here_to_view'),
 			'NO_ALERTS' => $language->get('user', 'no_alerts_usercp'),
             'TOKEN' => Token::get()
-		));
+        ]);
 
 		// Load modules + template
-		Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
+		Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 		require(ROOT_PATH . '/core/templates/cc_navbar.php');
 
@@ -80,7 +80,7 @@ if(!isset($_GET['view'])){
 	} else {
 		if($_GET['action'] == 'purge'){
             if (Token::check()) {
-                $queries->delete('alerts', array('user_id', '=', $user->data()->id));
+                $queries->delete('alerts', ['user_id', '=', $user->data()->id]);
             } else {
                 Session::flash('alerts_error', $language->get('general', 'invalid_token'));
             }
@@ -95,14 +95,14 @@ if(!isset($_GET['view'])){
 	if(!is_numeric($_GET['view'])) Redirect::to(URL::build('/user/alerts'));
 
 	// Check the alert belongs to the user..
-	$alert = $queries->getWhere('alerts', array('id', '=', $_GET['view']));
+	$alert = $queries->getWhere('alerts', ['id', '=', $_GET['view']]);
 
 	if(!count($alert) || $alert[0]->user_id != $user->data()->id) Redirect::to(URL::build('/user/alerts'));
 
 	if($alert[0]->read == 0){
-		$queries->update('alerts', $alert[0]->id, array(
+		$queries->update('alerts', $alert[0]->id, [
 			'`read`' => 1
-		));
+        ]);
 	}
 
 	Redirect::to($alert[0]->url);

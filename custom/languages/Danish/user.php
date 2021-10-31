@@ -9,7 +9,7 @@
  *  Danish Language - General terms
  */
 
-$language = array(
+$language = [
     /*
      *  Change this for the account validation message
      */
@@ -237,4 +237,4 @@ mappe.',
      */
     'user_x_has_registered' => '{x} har tilsluttet sig ' . SITE_NAME . '!',
     'user_x_has_validated' => '{x} har valideret deres konto!',
-);
+];

@@ -1,6 +1,6 @@
 <?php
 
-$scripts = array(
+$scripts = [
 	'
 	<script>
 		$(document).ready(function() {
@@ -21,7 +21,7 @@ $scripts = array(
 		});
 	</script>
 	'
-);
+];
 ?>
 
 <form action="" method="post">
