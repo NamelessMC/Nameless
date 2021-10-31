@@ -14,7 +14,11 @@
 
 header("X-Frame-Options: SAMEORIGIN");
 
-if ((defined('DEBUGGING') && DEBUGGING) || (isset($_SERVER['NAMELESSMC_DEBUGGING']) && $_SERVER['NAMELESSMC_DEBUGGING'])) {
+if (
+        defined('DEBUGGING') && DEBUGGING ||
+        isset($_SERVER['NAMELESSMC_DEBUGGING']) && $_SERVER['NAMELESSMC_DEBUGGING'] ||
+        getenv('NAMELESS_DEBUGGING')
+    ){
     ini_set('display_startup_errors', 1);
     ini_set('display_errors', 1);
     error_reporting(-1);
@@ -88,10 +92,10 @@ if (!isset($_GET['route']) || $_GET['route'] == '/') {
 
             if (!file_exists($path)) {
                 require(ROOT_PATH . '/404.php');
-            } else { 
+            } else {
                 require($path);
             }
-            
+
             die();
         } else {
             require(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', 'Core', 'pages', 'custom.php']));
