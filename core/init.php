@@ -73,19 +73,19 @@ if ($page != 'install') {
 
     if (defined('FORCE_SSL') && !Util::isConnectionSSL()) {
         if (defined('FORCE_WWW') && strpos($_SERVER['HTTP_HOST'], 'www.') === false) {
-            header('Location: https://www.' . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
+            header('Location: https://www.' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
             die();
         }
 
-        header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
+        header('Location: https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
         die();
     }
 
     if (defined('FORCE_WWW') && strpos($_SERVER['HTTP_HOST'], 'www.') === false) {
         if (!Util::isConnectionSSL()) {
-            header('Location: http://www.' . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
+            header('Location: http://www.' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
         } else {
-            header('Location: https://www.' . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
+            header('Location: https://www.' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
         }
     }
 
@@ -339,19 +339,6 @@ if ($page != 'install') {
         'USER_INFO_URL' => URL::build('/queries/user/', 'id='),
         'GUEST' => $language->get('user', 'guest')
     ]);
-
-    // Cookie notice
-    if (!$user->isLoggedIn()) {
-        // Cookie notice for guests
-        if (!Cookie::exists('accept')) {
-            $smarty->assign([
-                'COOKIE_NOTICE' => $language->get('general', 'cookie_notice'),
-                'COOKIE_AGREE' => $language->get('general', 'cookie_agree')
-            ]);
-
-            define('COOKIE_NOTICE', true);
-        }
-    }
 
     // Avatars
     $cache->setCache('avatar_settings_cache');

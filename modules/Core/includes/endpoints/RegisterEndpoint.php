@@ -89,7 +89,7 @@ class RegisterEndpoint extends EndpointBase {
      */
     private function sendRegistrationEmail(Nameless2API $api, string $username, string $uuid, string $email) {
         // Generate random code
-        $code = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 60);
+        $code = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 60);
 
         // Create user
         $user_id = $this->createUser($api, $username, $uuid, $email, false, $code);
@@ -224,7 +224,7 @@ class RegisterEndpoint extends EndpointBase {
             }
 
             if (!$code) {
-                $code = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 60);
+                $code = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 60);
             }
 
             $api->getDb()->insert('users', [

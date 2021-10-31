@@ -57,7 +57,7 @@ if ($forum_enabled) {
   }
 
   // Fill in missing dates
-  $graph_start = strtotime("-7 days");
+  $graph_start = strtotime('-7 days');
   $graph_start = date('d M Y', $graph_start);
   $graph_start = strtotime($graph_start);
   $end = strtotime(date('d M Y'));

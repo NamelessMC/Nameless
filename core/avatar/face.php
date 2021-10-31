@@ -105,7 +105,7 @@ if ($skin != 'cached') {
     imagedestroy($av);
 } else {
     // Output - already cached
-    $im = imagecreatefrompng("cache/" . $user  . ".png");
+    $im = imagecreatefrompng('cache/' . $user  . '.png');
     header('Content-type: image/png');
     imagepng($im);
     imagedestroy($im);

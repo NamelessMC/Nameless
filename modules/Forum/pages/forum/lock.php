@@ -13,11 +13,11 @@ require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
 $forum = new Forum();
 
 if ($user->isLoggedIn()) {
-    if (!isset($_GET["tid"]) || !is_numeric($_GET["tid"])) {
+    if (!isset($_GET['tid']) || !is_numeric($_GET['tid'])) {
         Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
         die();
     } else {
-        $topic_id = $_GET["tid"];
+        $topic_id = $_GET['tid'];
     }
 
     // Check topic exists and get forum ID
@@ -54,10 +54,10 @@ if ($user->isLoggedIn()) {
         die();
 
     } else {
-        Redirect::to(URL::build("/forum"));
+        Redirect::to(URL::build('/forum'));
         die();
     }
 } else {
-    Redirect::to(URL::build("/forum"));
+    Redirect::to(URL::build('/forum'));
     die();
 }

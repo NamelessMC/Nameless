@@ -42,7 +42,7 @@ foreach ($_POST['posts'] as $item) {
     $post = $forum->getIndividualPost($item);
 
     $content = htmlspecialchars_decode($post['content']);
-    $content = preg_replace("~<blockquote(.*?)>(.*)</blockquote>~si", "", $content);
+    $content = preg_replace('~<blockquote(.*?)>(.*)</blockquote>~si', '', $content);
 
     if ($formatting == 'markdown') {
         $content = $converter->convert($content);

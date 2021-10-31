@@ -46,7 +46,7 @@ if (isset($_GET['leaderboard'])) {
                 $sort = Input::get('leaderboard_sort');
 
                 try {
-                    DB::getInstance()->createQuery("UPDATE nl2_placeholders_settings SET leaderboard = ?, leaderboard_title = ?, leaderboard_sort = ? WHERE `name` = ? AND server_id = ?", [
+                    DB::getInstance()->createQuery('UPDATE nl2_placeholders_settings SET leaderboard = ?, leaderboard_title = ?, leaderboard_sort = ? WHERE `name` = ? AND server_id = ?', [
                         $enabled,
                         $title,
                         $sort,
@@ -117,7 +117,7 @@ if (isset($_GET['leaderboard'])) {
                     $show_on_profile = Input::get('show_on_profile-' . $placeholder->name . '-server-' . $placeholder->server_id) == 'on' ? 1 : 0;
                     $show_on_forum = Input::get('show_on_forum-' . $placeholder->name . '-server-' . $placeholder->server_id) == 'on' ? 1 : 0;
 
-                    DB::getInstance()->createQuery("UPDATE nl2_placeholders_settings SET friendly_name = ?, show_on_profile = ?, show_on_forum = ? WHERE name = ? AND server_id = ?", [
+                    DB::getInstance()->createQuery('UPDATE nl2_placeholders_settings SET friendly_name = ?, show_on_profile = ?, show_on_forum = ? WHERE name = ? AND server_id = ?', [
                         $friendly_name,
                         $show_on_profile,
                         $show_on_forum,

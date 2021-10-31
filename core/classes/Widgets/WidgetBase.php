@@ -19,9 +19,12 @@ abstract class WidgetBase {
     protected string $_module;
     protected ?int $_order;
     protected ?string $_settings = null;
+    protected ?bool $_requires_cookies = false;
+    protected ?Smarty $_smarty = null;
 
-    public function __construct(array $pages = []) {
+    public function __construct(array $pages = [], ?bool $requires_cookies = false) {
         $this->_pages = $pages;
+        $this->_requires_cookies = $requires_cookies;
     }
 
     /**
@@ -57,6 +60,13 @@ abstract class WidgetBase {
      * @return string Content/HTML of this widget.
      */
     public function display(): string {
+        if (defined('COOKIE_CHECK') && $this->_requires_cookies && !COOKIES_ALLOWED) {
+            if ($this->_smarty) {
+                return $this->_smarty->fetch('widgets/cookie_notice.tpl');
+            }
+
+            return 'This widget requires cookies';
+        }
         return $this->_content;
     }
 
@@ -99,5 +109,5 @@ abstract class WidgetBase {
     /**
      * Generate this widget's $_content.
      */
-    public abstract function initialise();
+    public abstract function initialise(): void;
 }

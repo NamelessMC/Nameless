@@ -118,7 +118,7 @@ class Cache {
      * 
      * @return mixed
      */
-    public function retrieve($key, $timestamp = false) {
+    public function retrieve(string $key, $timestamp = false) {
         $cachedData = $this->_loadCache();
         (!$timestamp) ? $type = 'data' : $type = 'time';
 

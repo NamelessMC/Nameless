@@ -82,7 +82,7 @@ class Placeholders extends Instanceable {
      * @param string $name Name of placeholder
      */
     public function registerPlaceholder(int $server_id, string $name): void {
-        $this->_db->createQuery("INSERT IGNORE INTO nl2_placeholders_settings (server_id, name) VALUES (?, ?)", [$server_id, $name]);
+        $this->_db->createQuery('INSERT IGNORE INTO nl2_placeholders_settings (server_id, name) VALUES (?, ?)', [$server_id, $name]);
     }
 
     /**

@@ -29,7 +29,7 @@ class MinecraftGroupSyncInjector implements GroupSyncInjector
 
     public function getSelectionOptions(): array {
         $groups_query = json_decode(
-            DB::getInstance()->selectQuery("SELECT `groups` FROM `nl2_query_results` ORDER BY `id` DESC LIMIT 1")->first()->groups,
+            DB::getInstance()->selectQuery('SELECT `groups` FROM `nl2_query_results` ORDER BY `id` DESC LIMIT 1')->first()->groups,
             true
         );
 

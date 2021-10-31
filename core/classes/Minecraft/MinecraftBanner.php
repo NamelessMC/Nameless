@@ -36,18 +36,18 @@ class MinecraftBanner {
         } else if (file_exists(ROOT_PATH . '/uploads/banners/' . $background)) {
             $background = imagecreatefrompng(ROOT_PATH . '/uploads/banners/' . $background);
         } else {
-            if (stristr($background, "http://") || stristr($background, "https://") || file_exists($background)) {
+            if (stristr($background, 'http://') || stristr($background, 'https://') || file_exists($background)) {
                 $info = pathinfo($background);
                 $ext = $info['extension'];
 
                 switch ($ext) {
-                    case "png":
+                    case 'png':
                         $background = imagecreatefrompng($background);
                         break;
-                    case "jpg":
+                    case 'jpg':
                         $background = imagecreatefromjpeg($background);
                         break;
-                    case "gif":
+                    case 'gif':
                         $background = imagecreatefromgif($background);
                         break;
                     default:
@@ -97,7 +97,7 @@ class MinecraftBanner {
     }
 
     public static function getColourChar(): string {
-        return "§";
+        return '§';
     }
 
     public static function getFontFile(): string {

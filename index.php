@@ -10,9 +10,9 @@
  */
 
 // Uncomment to enable debugging
-//define('DEBUGGING', 1);
+// define('DEBUGGING', 1);
 
-header("X-Frame-Options: SAMEORIGIN");
+header('X-Frame-Options: SAMEORIGIN');
 
 if (
         defined('DEBUGGING') && DEBUGGING ||
@@ -52,7 +52,7 @@ ini_set('open_basedir', ROOT_PATH . PATH_SEPARATOR  . $tmp_dir . PATH_SEPARATOR 
 
 // Get the directory the user is trying to access
 $directory = $_SERVER['REQUEST_URI'];
-$directories = explode("/", $directory);
+$directories = explode('/', $directory);
 $lim = count($directories);
 
 if (isset($_GET['route']) && $_GET['route'] == '/rewrite_test') {

@@ -38,7 +38,7 @@ if (!isset($_GET['s'])) {
 
             if ($validation->passed()) {
                 $search = str_replace(' ', '+', Output::getClean(Input::get('forum_search')));
-                $search = preg_replace("/[^a-zA-Z0-9 +]+/", "", $search); // alphanumeric only
+                $search = preg_replace('/[^a-zA-Z0-9 +]+/', '', $search); // alphanumeric only
 
                 Redirect::to(URL::build('/forum/search/', 's=' . $search . '&p=1'));
                 die();
@@ -51,7 +51,7 @@ if (!isset($_GET['s'])) {
     }
 } else {
     $search = Output::getClean(str_replace('+', ' ', $_GET['s']));
-    $search = preg_replace("/[^a-zA-Z0-9 +]+/", "", $search); // alphanumeric only
+    $search = preg_replace('/[^a-zA-Z0-9 +]+/', '', $search); // alphanumeric only
 
     if (isset($_GET['p']) && is_numeric($_GET['p']))
         $p = $_GET['p'];

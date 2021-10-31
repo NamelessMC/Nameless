@@ -193,7 +193,7 @@ if(isset($_GET['do'])){
 
 				if (count($profile_fields)) {
 					foreach ($profile_fields as $field) {
-						if ($field->required == "1") {
+						if ($field->required == '1') {
 							$to_validate[$field->id] = [
 								'required' => true,
 								'max' => (is_null($field->length) ? 1024 : $field->length)
@@ -408,7 +408,7 @@ if(isset($_GET['do'])){
 					if($user->checkCredentials($user->data()->username, $old_password, 'username')){
 
                         // Hash new password
-                        $new_password = password_hash(Input::get('new_password'), PASSWORD_BCRYPT, ["cost" => 13]);
+                        $new_password = password_hash(Input::get('new_password'), PASSWORD_BCRYPT, ['cost' => 13]);
 
                         // Update password
                         $user->update([

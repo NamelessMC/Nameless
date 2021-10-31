@@ -49,7 +49,7 @@ if(!isset($can_view)){
 }
 
 if($custom_page->redirect) {
-	header("X-Robots-Tag: noindex, nofollow", true);
+	header('X-Robots-Tag: noindex, nofollow', true);
 	header('Location: ' . Output::getClean($custom_page->link));
 
 	die(str_replace('{x}', Output::getClean($custom_page->link), $language->get('general', 'redirecting_message')));

@@ -88,7 +88,7 @@ if (!isset($_GET['action'])) {
                         $groups = $queries->getWhere('groups', ['id', '<>', '0']);
                         $all_groups = [];
                         if (Input::get('perm-view-0')) {
-                            $all_groups[] = "0";
+                            $all_groups[] = '0';
                         }
                         foreach ($groups as $group) {
                             if (Input::get('perm-view-' . $group->id)) {
@@ -182,7 +182,7 @@ if (!isset($_GET['action'])) {
                     if ($validation->passed()) {
                         $all_groups = [];
                         if (Input::get('perm-view-0')) {
-                            $all_groups[] = "0";
+                            $all_groups[] = '0';
                         }
                         foreach ($queries->getWhere('groups', ['id', '<>', '0']) as $group) {
                             if (Input::get('perm-view-' . $group->id)) {
@@ -214,7 +214,7 @@ if (!isset($_GET['action'])) {
             $announcement_pages = json_decode($announcement->pages);
             $announcement->pages = is_array($announcement_pages) ? $announcement_pages : [];
 
-            $guest_permissions = in_array("0", json_decode($announcement->groups));
+            $guest_permissions = in_array('0', json_decode($announcement->groups));
             $groups = [];
 
             foreach (DB::getInstance()->selectQuery('SELECT * FROM nl2_groups ORDER BY `order`')->results() as $group) {

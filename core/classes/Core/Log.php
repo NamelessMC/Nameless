@@ -54,7 +54,7 @@ class Log extends Instanceable {
                 'reset' => 'acp_bgimage_reset',
             ],
             'mc'=> [
-                "update" => 'acp_mc_update',
+                'update' => 'acp_mc_update',
             ],
             'authme' => [
                 'update' => 'acp_authme_update',
@@ -64,7 +64,7 @@ class Log extends Instanceable {
                 'delete' => 'acp_server_delete',
                 'add' => 'acp_server_add',
                 'default' => 'acp_server_default_update',
-                'banner' => "acp_server_banner_update",
+                'banner' => 'acp_server_banner_update',
             ],
             'module' => [
                 'install' => 'acp_module_install',

@@ -33,7 +33,7 @@ class DB extends Instanceable {
             $this->_pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->_prefix = Config::get('mysql/prefix');
         } catch (PDOException $e) {
-            die("<strong>Error:<br /></strong><div class=\"alert alert-danger\">" . $e->getMessage() . "</div>Please check your database connection settings.");
+            die("<strong>Error:<br /></strong><div class=\"alert alert-danger\">" . $e->getMessage() . '</div>Please check your database connection settings.');
         }
 
         $this->_query_recorder = QueryRecorder::getInstance();

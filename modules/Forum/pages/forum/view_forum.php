@@ -393,7 +393,7 @@ if ($forum_query->redirect_forum == 1) {
         // Get a list of all topics from the forum, and paginate
         for ($n = 0; $n < count($results->data); $n++) {
             // Get number of replies to a topic
-            $replies = $queries->getWhere("posts", ["topic_id", "=", $results->data[$n]->id]);
+            $replies = $queries->getWhere('posts', ['topic_id', '=', $results->data[$n]->id]);
             $replies = count($replies);
 
             // Is there a label?

@@ -134,7 +134,7 @@ $language = [
     // Login
     'successful_login' => 'Hai effettuato il log in con successo.',
     'incorrect_details' => 'Hai inserito dati errati.',
-    'inactive_account' => "Il tuo account è inattivo. Si prega di controllare le e-mail per un link di convalida, controlla anche la tua cartella di posta indesiderata.",
+    'inactive_account' => 'Il tuo account è inattivo. Si prega di controllare le e-mail per un link di convalida, controlla anche la tua cartella di posta indesiderata.',
     'account_banned' => "Quell'account è bannato.",
     'forgot_password' => 'Ha dimenticato la password?',
     'remember_me' => 'Ricordati di me',

@@ -261,9 +261,15 @@ if (!class_exists('Default_Panel_Template')) {
                         break;
 
                     case 'privacy_and_terms':
+                    case 'cookie_settings':
                         $this->addJSFiles([
                             (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/ckeditor.js' => []
                         ]);
+
+                        if (PANEL_PAGE === 'cookie_settings') {
+                            $this->addJSScript(Input::createEditor('InputCookies'));
+                            break;
+                        }
 
                         $this->addJSScript(Input::createEditor('InputPrivacy'));
                         $this->addJSScript(Input::createEditor('InputTerms'));

@@ -57,9 +57,11 @@ class Discord_Module extends Module {
 
         require_once(ROOT_PATH . "/modules/{$this->getName()}/widgets/DiscordWidget.php");
         $module_pages = $widgets->getPages('Discord');
-        $widgets->add(new DiscordWidget($module_pages, $cache));
+        $widgets->add(new DiscordWidget($module_pages, $cache, $smarty));
 
         if (!defined('FRONT_END')) {
+            $cache->setCache('panel_sidebar');
+
             if ($user->hasPermission('admincp.discord')) {
                 if (!$cache->isCached('discord_icon')) {
                     $icon = '<i class="nav-icon fab fa-discord"></i>';

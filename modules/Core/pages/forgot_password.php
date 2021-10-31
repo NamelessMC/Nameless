@@ -33,7 +33,7 @@ if (!isset($_GET['c'])) {
                 $target_user = new User(Input::get('email'), 'email');
                 if ($target_user->data() && $target_user->data()->active) {
                     // Generate a code
-                    $code = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 60);
+                    $code = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 60);
 
                     // Send an email
                     $php_mailer = $queries->getWhere('settings', ['name', '=', 'phpmailer']);
@@ -171,7 +171,7 @@ if (!isset($_GET['c'])) {
 
             if ($validation->passed()) {
                 if (strcasecmp($target_user->data()->email, $_POST['email']) == 0) {
-                    $new_password = password_hash(Input::get('password'), PASSWORD_BCRYPT, ["cost" => 13]);
+                    $new_password = password_hash(Input::get('password'), PASSWORD_BCRYPT, ['cost' => 13]);
                     try {
                         $target_user->update([
                             'password' => $new_password,

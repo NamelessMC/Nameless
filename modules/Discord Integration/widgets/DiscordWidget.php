@@ -14,11 +14,12 @@ class DiscordWidget extends WidgetBase {
     private Cache $_cache;
     private ?int $_guild_id;
 
-    public function __construct(array $pages = [], Cache $cache) {
+    public function __construct(array $pages, Cache $cache, Smarty $smarty) {
         $this->_cache = $cache;
         $this->_guild_id = Discord::getGuildId();
+        $this->_smarty = $smarty;
 
-        parent::__construct($pages);
+        parent::__construct($pages ?? [], true);
 
         // Get widget
         $widget_query = DB::getInstance()->selectQuery('SELECT `location`, `order` FROM nl2_widgets WHERE `name` = ?', ['Discord'])->first();
@@ -44,7 +45,7 @@ class DiscordWidget extends WidgetBase {
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
             curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-            curl_setopt($ch, CURLOPT_URL, "https://discord.com/api/guilds/" . Output::getClean($this->_guild_id) . "/widget.json");
+            curl_setopt($ch, CURLOPT_URL, 'https://discord.com/api/guilds/' . Output::getClean($this->_guild_id) . '/widget.json');
             $result = curl_exec($ch);
             $result = json_decode($result);
             curl_close($ch);

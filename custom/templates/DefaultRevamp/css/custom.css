@@ -567,6 +567,43 @@ body.pushable>.pusher {
 }
 
 /*
+ *  [ COOKIE NOTICE ]
+ */
+
+.cc-window.cc-floating {
+    padding: 1rem 1.5rem;
+    background-color: #fff !important;
+    color: rgba(0, 0, 0, .68) !important;
+    -webkit-box-shadow: 0 1px 3px 0 #bababb, 0 0 1px 1px #bababb;
+    box-shadow: 0 1px 3px 0 #bababb, 0 0 1px 1px #bababb;
+    border: none;
+    border-radius: .28571429rem;
+    cursor: default;
+    font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    line-height: 18px;
+    opacity: 1;
+    transition: .5s all ease;
+}
+
+.cc-window.cc-floating .cc-highlight .cc-btn:first-child {
+    color: rgba(0, 0, 0, .68);
+}
+
+.cc-window.cc-floating .cc-highlight .cc-btn.cc-allow {
+    -webkit-box-shadow: 0 0 0 0 rgb(34 36 38 / 15%) inset;
+    box-shadow: 0 0 0 0 rgb(34 36 38 / 15%) inset;
+    background-color: #2185d0;
+    border-color: #fff;
+    border-radius: 5px;
+    color: #fff;
+}
+
+.cc-revoke.cc-bottom.cc-right.cc-animate {
+    color: #fff;
+}
+
+/*
  *  [ SPOILER ]
  */
 
@@ -1164,6 +1201,25 @@ body.dark .ui.tabular.menu .item {
 body.dark .ui.tabular.menu .active.item {
     background-color: #282828;
     border-color: #282828;
+}
+
+body.dark .cc-window.cc-floating {
+    -webkit-box-shadow: 0 1px 3px 0 #444, 0 0 1px 1px #444;
+    box-shadow: 0 1px 3px 0 #444, 0 0 1px 1px #444;
+    background-color: #303030 !important;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    color: #fff !important;
+}
+
+body.dark .cc-window.cc-floating .cc-highlight .cc-btn:first-child,
+body.dark .cc-window.cc-floating .cc-link
+{
+    color: rgba(255, 255, 255, 0.6);
+}
+
+body.dark .cc-window.cc-floating .cc-highlight .cc-btn.cc-allow {
+    background-color: #282828;
+    border-color: transparent;
 }
 
 /*

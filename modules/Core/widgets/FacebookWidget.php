@@ -10,8 +10,10 @@
  */
 class FacebookWidget extends WidgetBase {
 
-    public function __construct($pages = [], $fb_url = '') {
-        parent::__construct($pages);
+    public function __construct(array $pages, Smarty $smarty, ?string $fb_url = '') {
+        parent::__construct($pages, true);
+
+        $this->_smarty = $smarty;
 
         // Get widget
         $widget_query = DB::getInstance()->selectQuery('SELECT `location`, `order` FROM nl2_widgets WHERE `name` = ?', ['Facebook'])->first();
@@ -37,7 +39,7 @@ class FacebookWidget extends WidgetBase {
             <div class="fb-page" data-href="' . $fb_url . '" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="' . $fb_url . '" class="fb-xfbml-parse-ignore"><a href="' . $fb_url . '">' . SITE_NAME . '</a></blockquote></div><br>';
     }
 
-    public function initialise() {
+    public function initialise(): void {
         // Do nothing
     }
 }

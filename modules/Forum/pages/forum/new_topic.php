@@ -99,7 +99,7 @@ if (Input::exists()) {
         // Check post limits
         $last_post = $queries->orderWhere('posts', 'post_creator = ' . $user->data()->id, 'post_date', 'DESC LIMIT 1');
         if (count($last_post)) {
-            if ($last_post[0]->created > strtotime("-30 seconds")) {
+            if ($last_post[0]->created > strtotime('-30 seconds')) {
                 $spam_check = true;
             }
         }
@@ -157,7 +157,7 @@ if (Input::exists()) {
                         $post_labels = $default_labels;
                     }
 
-                    $queries->create("topics", [
+                    $queries->create('topics', [
                         'forum_id' => $fid,
                         'topic_title' => Input::get('title'),
                         'topic_creator' => $user->data()->id,
@@ -177,7 +177,7 @@ if (Input::exists()) {
                         $content = Output::getClean($content);
                     } else $content = Output::getClean(Input::get('content'));
 
-                    $queries->create("posts", [
+                    $queries->create('posts', [
                         'forum_id' => $fid,
                         'topic_id' => $topic_id,
                         'post_creator' => $user->data()->id,
@@ -190,11 +190,11 @@ if (Input::exists()) {
                     $last_post_id = $queries->getLastId();
                     $content = $mentionsParser->parse($user->data()->id, $content, URL::build('/forum/topic/' . $topic_id, 'pid=' . $last_post_id), ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag'], ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag_info', 'replace' => '{x}', 'replace_with' => Output::getClean($user->data()->nickname)]);
 
-                    $queries->update("posts", $last_post_id, [
+                    $queries->update('posts', $last_post_id, [
                         'post_content' => $content
                     ]);
 
-                    $queries->update("forums", $fid, [
+                    $queries->update('forums', $fid, [
                         'last_post_date' => date('U'),
                         'last_user_posted' => $user->data()->id,
                         'last_topic_posted' => $topic_id
@@ -229,7 +229,7 @@ if (Input::exists()) {
                 $error = $validate->errors();
             }
         } else {
-            $error = [str_replace('{x}', (strtotime($last_post[0]->post_date) - strtotime("-30 seconds")), $forum_language->get('forum', 'spam_wait'))];
+            $error = [str_replace('{x}', (strtotime($last_post[0]->post_date) - strtotime('-30 seconds')), $forum_language->get('forum', 'spam_wait'))];
         }
     } else {
         $error = [$language->get('general', 'invalid_token')];

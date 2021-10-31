@@ -34,7 +34,7 @@ class MentionsParser {
      * @return string Parsed post content.
      */
     public function parse(int $author_id, string $value, string $link, array $alert_short, array $alert_full): string {
-        if (preg_match_all("/@([A-Za-z0-9\-_!.]+)/", $value, $matches)) {
+        if (preg_match_all('/@([A-Za-z0-9\-_!.]+)/', $value, $matches)) {
             $matches = $matches[1];
 
             foreach ($matches as $possible_username) {
@@ -44,7 +44,7 @@ class MentionsParser {
                     $user = new User($possible_username, 'nickname');
 
                     if ($user->data()) {
-                        $value = preg_replace("/" . preg_quote("@$possible_username", "/") . "/", "<a style=\"" . Output::getClean($user->getGroupClass()) . "\" href=\"" . $user->getProfileURL() . "\">@$possible_username</a>", $value);
+                        $value = preg_replace('/' . preg_quote("@$possible_username", '/') . '/', "<a style=\"" . Output::getClean($user->getGroupClass()) . "\" href=\"" . $user->getProfileURL() . "\">@$possible_username</a>", $value);
 
                         // Check if user is blocked by OP
                         if (isset($author_id)) {
@@ -66,7 +66,7 @@ class MentionsParser {
                     }
 
                     // chop last word off of it
-                    $new_possible_username = preg_replace("/([^A-Za-z0-9]{1}|[A-Za-z0-9]+)$/", "", $possible_username);
+                    $new_possible_username = preg_replace('/([^A-Za-z0-9]{1}|[A-Za-z0-9]+)$/', '', $possible_username);
                     if ($new_possible_username !== $possible_username) {
                         $possible_username = $new_possible_username;
                     } else {
