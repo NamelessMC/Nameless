@@ -10,8 +10,10 @@
  */
 class FacebookWidget extends WidgetBase {
 
-    public function __construct($pages = array(), $fb_url = '') {
-        parent::__construct($pages);
+    public function __construct(array $pages, Smarty $smarty, ?string $fb_url = '') {
+        parent::__construct($pages, true);
+
+        $this->_smarty = $smarty;
 
         // Get widget
         $widget_query = DB::getInstance()->selectQuery('SELECT `location`, `order` FROM nl2_widgets WHERE `name` = ?', array('Facebook'))->first();

@@ -10,8 +10,7 @@
  */
 class OnlineUsersWidget extends WidgetBase {
 
-    private $_smarty,
-            $_cache,
+    private $_cache,
             $_language;
 
     public function __construct($pages = array(), $cache, $smarty, $language) {

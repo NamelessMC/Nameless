@@ -425,7 +425,7 @@ if ($user->isLoggedIn()) {
 }
 
 // View count
-if ($user->isLoggedIn() || Cookie::exists('alert-box')) {
+if ($user->isLoggedIn() || (defined('COOKIE_CHECK') && COOKIES_ALLOWED)) {
     if (!Cookie::exists('nl-topic-' . $tid)) {
         $queries->increment("topics", $tid, "topic_views");
         Cookie::put("nl-topic-" . $tid, "true", 3600);

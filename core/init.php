@@ -340,19 +340,6 @@ if ($page != 'install') {
         'GUEST' => $language->get('user', 'guest')
     ));
 
-    // Cookie notice
-    if (!$user->isLoggedIn()) {
-        // Cookie notice for guests
-        if (!Cookie::exists('accept')) {
-            $smarty->assign(array(
-                'COOKIE_NOTICE' => $language->get('general', 'cookie_notice'),
-                'COOKIE_AGREE' => $language->get('general', 'cookie_agree')
-            ));
-
-            define('COOKIE_NOTICE', true);
-        }
-    }
-
     // Avatars
     $cache->setCache('avatar_settings_cache');
     if ($cache->isCached('custom_avatars') && $cache->retrieve('custom_avatars') == 1) {

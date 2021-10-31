@@ -10,7 +10,6 @@
  */
 class LatestPostsWidget extends WidgetBase {
 
-    private Smarty $_smarty;
     private Language $_language;
     private Cache $_cache;
     private User $_user;

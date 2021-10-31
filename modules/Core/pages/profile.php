@@ -397,7 +397,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     // Check if user is logged in and the viewer is not the owner of this profile.
     if (($user->isLoggedIn() && $user->data()->id != $query->id)
         // If no one is logged in check if they have accepted the cookies.
-        || (!$user->isLoggedIn() && Cookie::exists('alert-box'))
+        || (!$user->isLoggedIn() && (defined('COOKIE_CHECK') && COOKIES_ALLOWED))
     ) {
         if (!Cookie::exists('nl-profile-' . $query->id)) {
             $queries->increment("users", $query->id, "profile_views");

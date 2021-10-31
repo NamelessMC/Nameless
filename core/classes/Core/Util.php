@@ -169,7 +169,7 @@ class Util {
     /**
      * Get the server name.
      *
-     * @param bool $protocol Whether to show http(s) at front or not.
+     * @param ?bool $protocol Whether to show http(s) at front or not.
      * 
      * @return string Compiled URL.
      */
@@ -230,7 +230,7 @@ class Util {
     /**
      * URL-ify a string
      *
-     * @param string $string String to URLify
+     * @param ?string $string String to URLify
      * 
      * @return string Url-ified string. (I dont know what this means)
      */
@@ -358,7 +358,7 @@ class Util {
     /**
      * Check for Nameless updates.
      *
-     * @param string $current_version Current local namelessmc version to compare.
+     * @param ?string $current_version Current local NamelessMC version to compare.
      * 
      * @return string JSON object with information about any updates.
      */
@@ -442,18 +442,18 @@ class Util {
             return $news;
         }
     }
-    
+
     /**
      * Make a GET request to a URL using cURL.
      * Failures will automatically be logged along with the error.
      * 
      * @param string $full_url URL to send request to.
-     * @param string $body Request body to attach to request.
+     * @param ?string $body Request body to attach to request.
      * @return string|bool Response from remote server, false on failure.
      */
     public static function curlGetContents(string $full_url, ?string $body = null) {
         $ch = curl_init();
-        
+
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_URL, $full_url);
 
@@ -495,7 +495,7 @@ class Util {
 
         return $data;
     }
-    
+
     /**
      * Get a setting from the database table `nl2_settings`.
      *
@@ -506,14 +506,14 @@ class Util {
      */
     public static function getSetting(DB $db, string $setting, $fallback = null) {
         $value = $db->get('settings', array('name', '=', $setting));
-        
+
         if ($value->count()) {
             return $value->first()->value;
         }
 
         return $fallback;
     }
-    
+
     /**
      * Recursively scan, preload and register EndpointBase classes in a folder.
      *
@@ -541,7 +541,7 @@ class Util {
             $endpoints->add(new $endpoint_class_name);
         }
     }
-    
+
     /**
      * Get in-game rank name from a website group ID, uses Group Sync rules.
      *
@@ -551,14 +551,14 @@ class Util {
     public static function getIngameRankName(int $website_group_id): ?string {
         $nameless_injector = GroupSyncManager::getInstance()->getInjectorByClass(NamelessMCGroupSyncInjector::class);
         $data = DB::getInstance()->get('group_sync', array($nameless_injector->getColumnName(), '=', $website_group_id));
-        
+
         if ($data->count()) {
             return $data->first()->ingame_rank_name;
         }
 
         return null;
     }
-    
+
     /**
      * Get a website group's name from it's ID.
      *

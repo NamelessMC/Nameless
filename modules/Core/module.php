@@ -440,7 +440,7 @@ class Core_Module extends Module {
             // Active pages
             $module_pages = $widgets->getPages('Facebook');
 
-            $widgets->add(new FacebookWidget($module_pages, $fb_url));
+            $widgets->add(new FacebookWidget($module_pages, $smarty, $fb_url));
         }
 
         // Twitter
@@ -451,7 +451,7 @@ class Core_Module extends Module {
             $theme = $cache->retrieve('twitter_theme');
             $module_pages = $widgets->getPages('Twitter');
 
-            $widgets->add(new TwitterWidget($module_pages, $twitter, $theme));
+            $widgets->add(new TwitterWidget($module_pages, $smarty, $twitter, $theme));
         }
 
         // Profile Posts

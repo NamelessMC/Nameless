@@ -11,7 +11,6 @@
 class OnlineStaffWidget extends WidgetBase {
 
     private $_cache,
-            $_smarty,
             $_language;
 
     public function __construct($pages = array(), $smarty, $language, $cache) {

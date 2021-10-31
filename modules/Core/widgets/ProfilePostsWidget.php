@@ -11,7 +11,6 @@
 class ProfilePostsWidget extends WidgetBase {
 
     private $_cache,
-            $_smarty,
             $_language,
             $_user,
             $_timeago;
