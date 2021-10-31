@@ -1143,7 +1143,7 @@ class User {
      * @return bool Whether their profile is set to private or not.
      */
     public function isPrivateProfile(): bool {
-        return $this->_data->private_profile;
+        return $this->_data->private_profile ?? false;
     }
 
     /**
