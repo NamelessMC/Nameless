@@ -1,9 +1,9 @@
 <?php
 /*
  *  Made by Samerton
- *  Translated by Я научу тебя шить XIMI
+ *  Translated by LOyoujoLI
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr10
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -54,8 +54,8 @@ $language = [
     'x_new_messages' => 'У вас {x} новых сообщений.', // Don't replace {x}
     'loading' => 'Загрузка...',
     'report' => 'Пожаловаться',
-    'reported_by' => 'Reported by {x}',
-    'view_report' => 'View report',
+    'reported_by' => 'Жалоба от {x}',
+    'view_report' => 'Открыть жалобу',
     'page_loaded_in' => 'Скорость загрузки страницы: {x}с', // Don't replace {x}, time unit is seconds
     'page_x' => 'Страница {x}',
     'browse' => 'Обзор',
@@ -72,7 +72,7 @@ $language = [
     'invalid_timezone' => 'Часовая зона недействительна',
     'link' => 'Связать',
     'unlink' => 'Отвязать',
-    'leaderboards' => 'Leaderboards',
+    'leaderboards' => 'Список лидеров',
 
     /*
      *  Contact form
@@ -85,7 +85,6 @@ $language = [
     'contact_message_email' => 'Предоставленное электронное письмо является недействительным.',
     'contact_message_sent' => 'Сообщение успешно отправлено.',
     'contact_message_limit' => 'Вы можете отправлять только одно сообщение в час. Отправьте следующее сообщение через {x} минут.', // Don't replace {x}
-
 
     /*
      *  Navbar
@@ -104,7 +103,6 @@ $language = [
      */
     'social' => 'Социальных сети',
 
-
     /*
      *  Help dialogues
      */
@@ -121,7 +119,7 @@ $language = [
     'currently_1_player_online' => 'Сейчас <strong>1</strong> игрок онлайн.',
     'currently_x_players_online' => 'Сейчас игроков онлайн: <strong>{x}</strong>.', // Don't replace {x}
     'server_offline' => 'Сервер выключен.',
-    'connect_with_ip_x' => '', // Присоединитесь сейчас, используя IP {x}
+    'connect_with_ip_x' => 'Присоединитесь сейчас, используя IP {x}', // Don't replace {x}
     'click_to_copy_tooltip' => 'Нажмите, чтобы скопировать',
     'ip' => 'IP',
     'copied' => 'Скопировано!',
@@ -151,7 +149,6 @@ $language = [
     'online_users' => 'Пользователи онлайн',
     'no_online_users' => 'Сейчас нет пользователей онлайн.',
     'total_online_users' => 'Всего пользователей онлайн: {x}',
-    'discord_widget_disabled' => 'Виджет отключен для указанного сервера Discord. Пожалуйста, перейдите на вкладку "Виджет" в настройках вашего сервера Discord и убедитесь, что виджет Discord включен и что ID правильный.',
     'online_guests' => 'Онлайн гостей',
     'total_online' => 'Всего онлайн', // this is Online Users + Online Guests
     'no_default_server' => 'Нету сервера по умолчанию, сделать это можно в админ панели - Интеграции - Minecraft.',

@@ -1,7 +1,7 @@
 <?php
 /*
  *  Made by Samerton
- *  Translated by Я научу тебя шить XIMI & PadowYT2
+ *  Translated by LOyoujoLI & PadowYT2
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr12
  *
@@ -22,7 +22,6 @@ $language = [
     'configuration' => 'Настройки',
     'layout' => 'Макет',
     'user_management' => 'Настройки юзеров',
-    'admin_cp' => 'Админ. панель',
     'overview' => 'Overview',
     'core' => 'Главное',
     'integrations' => 'Интеграции',
@@ -80,8 +79,10 @@ $language = [
     'facebook_url' => 'Facebook URL',
     'social_media_settings_updated' => 'Настройки социальных сетей успешно обновлены.',
     'successfully_updated' => 'Успешно обновлено',
-    'debugging_and_maintenance' => 'Отладка & Поддержка',
-    'maintenance' => 'Поддержка',
+    'debugging_and_maintenance' => 'Отладка & Режим обслуживания',
+    'maintenance' => 'Отладка',
+    'debug_link' => 'Ссылка на отладочную страницу',
+    'debug_link_toastr' => 'Отладочная страница скопирована в буфер обмена!',
     'debugging_settings_updated_successfully' => 'Параметры отладки успешно обновлены.',
     'enable_debug_mode' => 'Включить режим отладки?',
     'force_https' => 'Использовать https?',
@@ -107,11 +108,6 @@ $language = [
     'email_port' => 'Порт',
     'email_port_invalid' => 'Пожалуйста, укажите правильный порт.',
     'email_password_hidden' => 'Пароль не отображается по соображениям безопасности.',
-    'send_test_email' => 'Отправить тестовое письмо',
-    'send_test_email_info' => 'Следующая кнопка попытается отправить электронное письмо на ваш адрес электронной почты, <strong>{x}</strong>. Любые ошибки, возникшие при отправке письма, будут отображены.', // Don't replace {x}
-    'send' => 'Отправить',
-    'test_email_error' => 'Ошибки тестового письма:',
-    'test_email_success' => 'Тестовое письмо успешно отправлено!',
     'edit_email_messages' => 'Email письма',
     'email_language_info' => 'Не видите на вашем языке? Убедитесь, что файл \'emails.php\' находится в папке с локализацией на вашем веб сервере.',
     'editing_language' => 'Изменить язык',
@@ -122,6 +118,11 @@ $language = [
     'email_message_options' => 'Настройка',
     'email_message_subject' => 'Кому',
     'email_message_message' => 'Сообщение',
+    'send_test_email' => 'Отправить тестовое письмо',
+    'send_test_email_info' => 'Следующая кнопка попытается отправить электронное письмо на ваш адрес электронной почты, <strong>{x}</strong>. Любые ошибки, возникшие при отправке письма, будут отображены.', // Don't replace {x}
+    'send' => 'Отправить',
+    'test_email_error' => 'Ошибки тестового письма:',
+    'test_email_success' => 'Тестовое письмо успешно отправлено!',
     'terms_error' => 'Правила и условия не должны содержать более 100 000 символов.',
     'privacy_policy_error' => 'Политика конфиденциальности не должна содержать более 100 000 символов.',
     'terms_updated' => 'Политика конфиденциальности и правила успешно обновлены.',
@@ -141,7 +142,7 @@ $language = [
     'avatar_settings_updated_successfully' => 'Настройки аватара успешно обновлены.',
     'navigation' => 'Навигация',
     'navbar_order' => 'Порядок в навигации',
-    'navbar_order_instructions' => 'You can give each item a number above 0 to order items in the navbar, with 1 being the first item and higher numbers coming after it.',
+    'navbar_order_instructions' => 'Значение 1 будет выше остальных.',
     'navbar_icon' => 'Иконки в навигации',
     'navbar_icon_instructions' => 'Вы также можете добавить значок к каждому элементу навигационной панели здесь, например, с помощью <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>, <a href="https://semantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Semantic UI</a>.',
     'navigation_settings_updated_successfully' => 'Настройки навигации успешно обновлены.',
@@ -166,34 +167,36 @@ $language = [
     'emails_mass_message_replacements' => 'Вы можете использовать различные переменные в сообщениях. Поддерживаемые переменные: {username}, {sitename}',
     'emails_mass_message_loading' => 'Загрузка... Не перезагружайте страницу. Это займёт какое-то время.',
     'administrator' => 'Администратор',
-    'administrator_permission_info' => 'Members with this permission will have every permission. This is a dangerous permission to grant.',
+    'administrator_permission_info' => 'Пользователи смогут иметь доступ ко всему на сайте. Это может ввести за собой риски при выдаче пользователям.',
 
     // Placeholders
-    'placeholders' => 'Placeholders',
-    'enable_placeholders' => 'Enable Placeholders?',
-    'updated_placeholder_settings' => 'Updated placeholder settings successfully.',
-    'placeholders_info' => 'Placeholders allow the NamelessMC Spigot plugin to send statistics about each player to your website so they can display them on their profile and forum posts.',
-    'placeholders_none' => 'There are no placeholders.',
-    'placeholders_server_id' => 'Server ID',
-    'placeholders_name' => 'Name',
-    'placeholders_value' => 'Value',
-    'placeholders_last_updated' => 'Last Updated',
-    'placeholders_friendly_name' => 'Friendly Name',
+    'placeholders' => 'Плейсхолдеры',
+    'enable_placeholders' => 'Включить поддержку плейсхолдеров?',
+    'updated_placeholder_settings' => 'Настройки плейсхолдера обновлены.',
+    'placeholders_info' => 'Плейсхолдеры позволяют плагину NamelessMC собирать и показывать различную статистику игрокам.',
+    'placeholders_none' => 'Плейсхолдеров нету.',
+    'placeholders_server_id' => 'ID сервера',
+    'placeholders_name' => 'Название',
+    'placeholders_value' => 'Значение',
+    'placeholders_player' => 'Игрок',
+    'placeholders_score' => 'Счёт',
+    'placeholders_last_updated' => 'Обновлено было',
+    'placeholders_friendly_name' => 'Дружественные названия',
     'placeholders_friendly_name_info' => 'Use this to set a \'nickname\' to this placeholder. The friendly name will be used instead of the raw name.',
-    'placeholders_show_on_profile' => 'Show on Profile',
-    'placeholders_show_on_profile_info' => 'Whether to show this placeholder on each user\'s profile or not.',
-    'placeholders_show_on_forum' => 'Show on Forum',
-    'placeholders_show_on_forum_info' => 'Whether to show this placeholder on each user\'s forum posts or not.',
+    'placeholders_show_on_profile' => 'Показывать в профиле',
+    'placeholders_show_on_profile_info' => 'Показывать это в профиле или нет.',
+    'placeholders_show_on_forum' => 'Показывать на форуме',
+    'placeholders_show_on_forum_info' => 'Показывать это на форуме или нет.',
 
     // Placeholder leaderboards
-    'leaderboard_settings' => 'Leaderboard Settings',
-    'placeholder_leaderboard_settings' => 'Placeholder Leaderboard Settings',
-    'placeholder_leaderboard_info' => 'Placeholder Leaderboards let you create leaderboards to display ranked players on your server according to any placeholder.',
-    'placeholder_leaderboard_enable_info' => 'Leaderboards work best with numeric placeholders (such as coins, kills, blocks mined, etc). If you enable a leaderboard on a text-based placeholder - you cannot be sure it will order it as you want.',
-    'placeholder_leaderboard_updated' => 'Updated leaderboard settings successfully',
-    'placeholder_leaderboard_enabled' => 'Leaderboard Enabled',
-    'placeholder_leaderboard_title' => 'Leaderboard Title',
-    'placeholder_leaderboard_sort' => 'Leaderboard Sort',
+    'leaderboard_settings' => 'Настройки таблицы лидеров',
+    'placeholder_leaderboard_settings' => 'Настройки плейсхолдера таблицы',
+    'placeholder_leaderboard_info' => 'Плейсхолдеры в таблице лидеров позволяют показывать например привилегию на сервере у игрока.',
+    'placeholder_leaderboard_enable_info' => 'Таблица работает с нумерными плейсхолдерами (баланс кошелька, кол-во убийств). Работа текстовых плейсхолдеров не гарантирована.',
+    'placeholder_leaderboard_updated' => 'Таблица сохранена',
+    'placeholder_leaderboard_enabled' => 'Таблица включена',
+    'placeholder_leaderboard_title' => 'Название таблицы',
+    'placeholder_leaderboard_sort' => 'Порядок таблицы',
 
     // SEO
     'seo' => 'SEO',
@@ -249,8 +252,6 @@ $language = [
 
     // Minecraft
     'enable_minecraft_integration' => 'Включить интеграцию с Minecraft?',
-    'mc_service_status' => 'Статус сервиса Minecraft',
-    'service_query_error' => 'Не удалось получить статус сервиса.',
     'authme_integration' => 'AuthMe интеграция',
     'authme_integration_info' => 'Когда интеграция c AuthMe включена, пользователи могут регистрироваться только в игре.',
     'enable_authme' => 'Включить интеграцию с AuthMe?',
@@ -273,6 +274,7 @@ $language = [
     'no_servers_defined' => 'Серверы еще не добавлены',
     'query_settings' => 'Настройки запроса',
     'default_server' => 'Сервер по умолчанию',
+    'average_players' => 'Среднее кол-во игроков',
     'no_default_server' => 'Нет сервера по умолчанию',
     'external_query' => 'Использовать внешние запросы?',
     'external_query_help' => 'Если запрос сервера по умолчанию не работает, включите эту опцию.',
@@ -334,8 +336,6 @@ $language = [
     'force_premium_accounts' => 'Требовать премиум аккаунт Minecraft?',
     'banner_background' => 'Фон баннера',
     'query_interval' => 'Интервал запроса (в минутах, должен быть от 5 до 60)',
-    'player_graphs' => 'График игроков',
-    'player_count_cronjob_info' => 'Вы можете настроить cron-задание для запроса ваших серверов каждые {x} минут с помощью следующей команды:',
     'status_page' => 'Включить страницу статуса серверов?',
     'minecraft_settings_updated_successfully' => 'Настройки успешно обновлены.',
     'server_id_x' => 'ID сервера: {x}', // Don't replace {x}
@@ -393,15 +393,17 @@ $language = [
     'background_image_x' => 'Изображение фона: <strong>{x}</strong>', // Don't replace {x}
     'banner_image_x' => 'Изображение баннера: <strong>{x}</strong>', // Don't replace {x}
     'logo_image_x' => 'Изображение логотипа: <strong>{x}</strong>', // Don't replace {x}
-    'background_directory_not_writable' => 'Каталог <strong>uploads/backgrounds</strong> не доступен для записи!',
-    'template_banners_directory_not_writable' => 'Каталог <strong>uploads/template_banners</strong> не доступен для записи!',
-    'logos_directory_not_writable' => 'Каталог <strong>uploads/logos</strong> не доступен для записи!',
+    'favicon_image_x' => 'Значок сайта: <strong>{x}</strong>', // Don't replace {x}
+    'x_directory_not_writable' => 'Каталог <strong>{x}</strong> не доступен для записи!', // Don't replace {x}
     'template_banner_reset_successfully' => 'Баннер успешно сброшен.',
     'template_banner_updated_successfully' => 'Баннер успешно обновлён.',
     'reset_banner' => 'Сбросить баннер',
     'logo_reset_successfully' => 'Логотип сброшен.',
     'logo_updated_successfully' => 'Логотип обновлён.',
     'reset_logo' => 'Сброс логотипа',
+    'favicon_reset_successfully' => 'Значок сайта сброшен.',
+    'favicon_updated_successfully' => 'Значок сайта обновлён.',
+    'reset_favicon' => 'Сбросить значок сайта',
     'find_templates' => 'Поиск шаблонов',
     'view_all_templates' => 'Посмотреть все шаблоны',
     'unable_to_retrieve_templates' => 'Невозможно получить шаблоны',
@@ -427,11 +429,7 @@ $language = [
     'users' => 'Пользователи',
     'groups' => 'Группы',
     'group' => 'Группа',
-    'new_user' => '<i class="fa fa-plus-circle"></i> Новый пользователь',
-    'creating_new_user' => 'Создание нового пользователя',
     'registered' => 'Зарегистрирован',
-    'user_created' => 'Пользователь успешно создан.',
-    'cant_delete_root_user' => 'Невозможно удалить корневого пользователя!',
     'cant_modify_root_user' => 'Невозможно отредактровать корневого пользователя!',
     'main_group' => 'Группа по умолчанию',
     'user_deleted' => 'Пользователь успешно удалён.',
@@ -443,8 +441,6 @@ $language = [
     'punish_user' => 'Наказать пользователя',
     'delete_user' => 'Удалить пользователя',
     'minecraft_uuid' => 'Minecraft UUID',
-    'other_actions' => 'Другие действия',
-    'disable_avatar' => 'Отключить аватар',
     'select_user_group' => 'Вы должны выбрать группу пользователя.',
     'uuid_max_32' => 'UUID должен содержать не более 32 символов.',
     'title_max_64' => 'Заголовок пользователя должен содержать не более 64 символов.',
@@ -456,15 +452,13 @@ $language = [
     'group_name_minimum' => 'Пожалуйста, убедитесь, что название вашей группы состоит как минимум из 2 символов.',
     'group_name_maximum' => 'Пожалуйста, убедитесь, что название вашей группы содержит не более 20 символов.',
     'creating_group' => 'Создание новой группы',
-    'group_html_maximum' => 'Пожалуйста, убедитесь, что HTML-код вашей группы содержит не более 1024 символов.',
     'group_html' => 'HTML Группы',
     'group_html_lg' => 'Group HTML Large',
     'group_username_colour' => 'Цвет имени пользователя группы',
-    'group_username_css' => 'Group Username CSS',
+    'group_username_css' => 'CSS код для имени',
     'group_staff' => 'Является ли эта группа группой для команды проекта?',
     'delete_group' => 'Удалить группу',
     'confirm_group_deletion' => 'Вы уверены, что хотите удалить группу {x}?', // Don't replace {x}
-    'group_not_exist' => 'Эта группа не существует.',
     'secondary_groups' => 'Второстепенные группы',
     'secondary_groups_info' => 'Пользователь получит любые дополнительные разрешения от этих групп. Ctrl+click для выбора/отмены выбора нескольких групп.',
     'unable_to_update_uuid' => 'Невозможно обновить UUID.',
@@ -492,18 +486,12 @@ $language = [
     // Permissions
     'select_all' => 'Выбрать все',
     'deselect_all' => 'Отменить выбор всего',
-    'background_image' => 'Изображение фона',
     'can_edit_own_group' => 'Можно редактировать права собственной группы',
     'permissions_updated_successfully' => 'Права успешно обновлены.',
     'cant_edit_this_group' => 'Вы не можете редактировать права собственной группы!',
 
     // General Admin language
-    'task_successful' => 'Задание выполнено успешно.',
-    'invalid_action' => 'Недопустимое действие.',
-    'enable_night_mode' => 'Включить ночной режим',
-    'disable_night_mode' => 'Выключить ночной режим',
     'view_site' => 'Просмотр сайта',
-    'signed_in_as_x' => 'Вошел в систему как {x}', // Don't replace {x}
     'warning' => 'Предупреждение',
 
     // Maintenance
@@ -518,8 +506,8 @@ $language = [
     'please_select_logs' => 'Пожалуйста, выберите логи для просмотра',
     'ip_address' => 'IP Адрес',
     'template_changes' => 'Логи изменений шаблонов',
-    'email_logs' => 'Mass Emails',
-    'group_sync_logs' => 'Group Sync Changes',
+    'email_logs' => 'Рассылка писем',
+    'group_sync_logs' => 'Изменения во время сихронизации групп',
     'file_changed' => 'Логи изменений файлов',
     'all_logs' => 'Все логи',
     'action' => 'Действие',
@@ -669,7 +657,7 @@ $language = [
     'hook_name' => 'Название хука',
     'hook_created' => 'Хук создан.',
     'hook_edited' => 'Хук обновлён',
-    'hook_select_info' => 'Only Hooks with \'New topic\' selected as an event are shown.',
+    'hook_select_info' => 'Только хуки с \'Новый топик\' показаны здесь как события.',
     'hook_url' => 'URL вебхука',
     'hook_type' => 'Тип вебхука',
     'hook_events' => 'События для отправки',
@@ -679,7 +667,7 @@ $language = [
     'register_hook_info' => 'Регистрация пользователей',
     'validate_hook_info' => 'Подтверждение аккаунта',
     'delete_hook_info' => 'Удаление пользователя',
-    'report_hook_info' => 'Report creation',
+    'report_hook_info' => 'Создание жалобы',
 
     // Sitemap
     'unable_to_load_sitemap_file_x' => 'Не удалось загрузить файл карты сайта {x}', // Don't replace {x}
@@ -704,12 +692,10 @@ $language = [
     'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'recent_users' => 'Новые пользователи',
     'recent_users_statistic_icon' => '<i class="fas fa-users"></i>',
-    'average_players' => 'Average Players',
     'nameless_news' => 'Новости NamelessMC',
     'unable_to_retrieve_nameless_news' => 'Невозможно получить последние новости',
     'confirm_leave_site' => 'Вы вот-вот покинете этот сайт! Вы уверены, что хотите перейти на <strong id="leaveSiteURL">{x}</strong>?', // don't replace {x} and make sure it has the id leaveSiteURL
     'server_compatibility' => 'Совместимость сервера',
-    'issues' => 'Проблемы',
 
     // Other
     'source' => 'Исходный код',
@@ -742,4 +728,5 @@ $language = [
     'background_colour_required' => 'Укажите цвет заднего фона',
     'text_colour_required' => 'Укажите цвет текста',
     'no_announcements' => 'Нету созданных объявлений.',
+    'announcement_order' => 'Приоритет объявления',
 ];
