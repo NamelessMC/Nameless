@@ -140,7 +140,7 @@ class MCQuery {
      *
      * @return array Array containing query result
      */
-    public static function multiQuery(array $servers, string $type = 'internal', Language $language, bool $accumulate = false, Queries $queries): array {
+    public static function multiQuery(array $servers, string $type, Language $language, bool $accumulate, Queries $queries): array {
         if (count($servers)) {
             if ($type == 'internal') {
                 // Internal query
