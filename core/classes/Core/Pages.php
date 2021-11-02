@@ -110,7 +110,7 @@ class Pages {
      *
      * @return array Page information.
      */
-    public function getPageById(int $page_id = null): array {
+    public function getPageById(int $page_id = null): ?array {
         if ($page_id) {
             foreach ($this->_pages as $key => $page) {
                 if ($page['id'] == $page_id) {
@@ -130,7 +130,7 @@ class Pages {
      *
      * @return array Page information.
      */
-    public function getPageByURL(string $url = null): array {
+    public function getPageByURL(string $url = null): ?array {
         if ($url) {
             foreach ($this->_pages as $key => $page) {
                 if ($key == $url) {
