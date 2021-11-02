@@ -82,6 +82,7 @@ define('CLASS_FOLDERS', [
         ErrorHandler::class,
         Placeholders::class,
         TemplateBase::class,
+        UpgradeScript::class,
     ],
     'Widgets' => [
         WidgetBase::class,

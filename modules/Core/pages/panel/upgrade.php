@@ -27,8 +27,10 @@ $current_version = $queries->getWhere('settings', ['name', '=', 'nameless_versio
 $current_version = $current_version[0]->value;
 
 // Perform the update
-if (is_file('core/includes/updates/' . str_replace('.', '', $current_version) . '.php'))
-    require(ROOT_PATH . '/core/includes/updates/' . str_replace('.', '', $current_version) . '.php');
+$upgradeScript = UpgradeScript::get($current_version);
+if ($upgradeScript instanceof UpgradeScript) {
+    $upgradeScript->run();
+}
 
 $cache->setCache('update_check');
 if ($cache->isCached('update_check')) {
