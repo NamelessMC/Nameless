@@ -4,12 +4,26 @@ $namelessmc_modules = [];
 $namelessmc_fe_templates = [];
 $namelessmc_panel_templates = [];
 
-$modules_query = $queries->getWhere('modules', ['id', '<>', 0]);
-foreach ($modules_query as $module_row) {
-    $module_path = join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', htmlspecialchars($module_row->name), 'init.php']);
+// Get all modules
+$modules = $queries->getWhere('modules', ['id', '<>', 0]);
+$enabled_modules = Module::getModules();
 
-    if (file_exists($module_path)) {
-        require_once($module_path);
+foreach ($modules as $item) {
+    $exists = false;
+    foreach ($enabled_modules as $enabled_item) {
+        if ($enabled_item->getName() == $item->name) {
+            $exists = true;
+            $module = $enabled_item;
+            break;
+        }
+    }
+
+    if (!$exists) {
+        if (!file_exists(ROOT_PATH . '/modules/' . $item->name . '/init.php')) {
+            continue;
+        }
+
+        require_once(ROOT_PATH . '/modules/' . $item->name . '/init.php');
     }
 
     $namelessmc_modules[$module->getName()] = [
