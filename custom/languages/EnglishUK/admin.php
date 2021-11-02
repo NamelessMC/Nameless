@@ -81,7 +81,7 @@ $language = [
     'debugging_and_maintenance' => 'Debugging & Maintenance',
     'maintenance' => 'Maintenance',
     'debug_link' => 'Debug Link',
-    'debug_link_toastr' => 'Copied debug link to your clipboard!',
+    'debug_link_toastr' => 'Copied debug link to your clipboard!<br>View the debug log <u><a href="{x}" target="_blank">here</a></u>', // Don't replace "{x}"
     'debugging_settings_updated_successfully' => 'Debugging settings updated successfully.',
     'enable_debug_mode' => 'Enable debug mode?',
     'force_https' => 'Force https?',
