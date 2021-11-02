@@ -87,7 +87,7 @@ abstract class UpgradeScript {
                 $results[] = $query();
             } catch (Exception $exception) {
                 $results[] = null;
-                echo $e->getMessage() . '<br />';
+                echo $exception->getMessage() . '<br />';
             }
         }
 
@@ -101,17 +101,14 @@ abstract class UpgradeScript {
      */
     protected function deleteFile(string $path) {
         if (!is_writeable($path)) {
-            echo "$path is not writable, cannot delete. <br />";
+            echo "'$path' is not writable, cannot delete. <br />";
             return;
         }
 
         if (is_dir($path)) {
-            $sections = explode(DIRECTORY_SEPARATOR, $path);
-
-            $this->deleteFilesInPath(
-                array_slice($sections, 0, -1),
-                end($sections)
-            );
+            if (!rmdir($path)) {
+                echo "Could not delete '$path', is it empty? <br />";
+            }
         }
 
         unlink($path);
@@ -125,19 +122,31 @@ abstract class UpgradeScript {
      * @param bool $recursive Whether to recursively delete
      */
     protected function deleteFilesInPath(string $path, array $files, bool $recursive = false) {
-        $iterator = new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS);
-        $delete_all = in_array('*', $files);
+        if (in_array('*', $files)) {
+            $files = scandir($path);
+        }
 
-        foreach ($iterator as $file) {
-            if ($file->isDir()) {
-                if ($delete_all && $recursive) {
-                    $this->deleteFilesInPath($path, [$file->getFilename()]);
+        foreach ($files as $file) {
+
+            if ($file[0] == '.') {
+                continue;
+            }
+
+            if (file_exists($newFile = join(DIRECTORY_SEPARATOR, [$path, $file]))) {
+
+                if (is_dir($newFile)) {
+                    if ($recursive) {
+                        $this->deleteFilesInPath($newFile, ['*'], true);
+                        $this->deleteFile($newFile);
+                    }
+                } else {
+                    $this->deleteFile($newFile);
                 }
+
+            } else {
+                echo "'$newFile' does not exist, cannot delete. <br />";
             }
 
-            if ($delete_all || in_array($file->getFilename(), $files)) {
-                $this->deleteFile($file->getPath());
-            }
         }
     }
 
