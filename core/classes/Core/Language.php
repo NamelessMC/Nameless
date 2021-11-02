@@ -16,18 +16,31 @@ class Language {
     private string $_module;
 
     /**
+     * Return the current active language.
+     *
+     * @return string Active language name.
+     */
+    public function getActiveLanguage(): string {
+        return $this->_activeLanguage;
+    }
+
+    /**
+     * Return the current active language directory.
+     *
+     * @return string Path to active language files.
+     */
+    public function getActiveLanguageDirectory(): string {
+        return $this->_activeLanguageDirectory;
+    }
+
+    /**
      * Construct Language class
      * 
      * @param string|null $module Path of language files for custom modules.
      * @param string|null $active_language The active language set in cache.
      */
     public function __construct(string $module = null, string $active_language = null) {
-        if (!$active_language) {
-            // No active language set, default to EnglishUK
-            $this->_activeLanguage = 'EnglishUK';
-        } else {
-            $this->_activeLanguage = $active_language;
-        }
+        $this->_activeLanguage = $active_language ?? 'EnglishUK';
 
         // Require file
         if (!$module || $module == 'core') {
@@ -72,42 +85,56 @@ class Language {
      * @return string Translated phrase.
      */
     public function get(string $file, string $term, int $number = null): string {
-        // Ensure the file exists + term is set
-        if (!is_file($this->_activeLanguageDirectory . DIRECTORY_SEPARATOR . $file . '.php')) {
-            if ($this->_activeLanguage != 'EnglishUK') {
-                if (is_file(rtrim($this->_activeLanguageDirectory, $this->_activeLanguage) . DIRECTORY_SEPARATOR . 'EnglishUK' . DIRECTORY_SEPARATOR . $file . '.php')) {
-                    if (!isset($this->_activeLanguageEntries[$file])) {
-                        require(rtrim($this->_activeLanguageDirectory, $this->_activeLanguage) . DIRECTORY_SEPARATOR . 'EnglishUK' . DIRECTORY_SEPARATOR . $file . '.php');
-                        $this->_activeLanguageEntries[$file] = $language;
-                    }
-                } else {
-                    die('Error loading language file ' . Output::getClean($file) . '.php in ' . $this->_module);
-                }
-            } else {
-                die('Error loading language file ' . Output::getClean($file) . '.php in ' . $this->_module);
-            }
-        } else {
+        // Check if the file exists for this language,
+        // if not, use the fallback EnglishUK file. If it doesnt exist, show an error.
+        if (is_file($this->_activeLanguageDirectory . DIRECTORY_SEPARATOR . $file . '.php')) {
             if (!isset($this->_activeLanguageEntries[$file])) {
                 require($this->_activeLanguageDirectory . DIRECTORY_SEPARATOR . $file . '.php');
                 $this->_activeLanguageEntries[$file] = $language;
             }
+        } else if (is_file($this->getFallbackFile($file))) {
+            require($this->getFallbackFile($file));
+            $this->_activeLanguageEntries[$file] = $language;
+        } else {
+            die('Error loading fallback language file ' . Output::getClean($file) . '.php in ' . $this->_module . ', does ' . $this->_activeLanguageDirectory . ' exist?');
         }
 
-        if (isset($this->_activeLanguageEntries[$file][$term])) {
-            // It is set, return it
-            if (is_array($this->_activeLanguageEntries[$file][$term])) {
-                if (function_exists('pluralForm') && $number != null) {
-                    return pluralForm($number, $this->_activeLanguageEntries[$file][$term]);
-                } else {
-                    return 'Plural form not set for ' . Output::getClean($term);
-                }
-            } else {
-                return $this->_activeLanguageEntries[$file][$term];
-            }
-        } else {
-            // Not set, display an error
+        // Check if this term exists in the language file
+        if (!isset($this->_activeLanguageEntries[$file][$term])) {
             return 'Term ' . Output::getClean($term) . ' not set (file: ' . $file . '.php)';
         }
+
+        // If the term is not an array, it is not plural, so we can just return the term
+        if (!is_array($this->_activeLanguageEntries[$file][$term])) {
+            return $this->_activeLanguageEntries[$file][$term];
+        }
+
+        // If the term is an array, it is plural, so we pass it to the languages pluralForm function
+        if (function_exists('pluralForm') && $number != null) {
+            return pluralForm($number, $this->_activeLanguageEntries[$file][$term]);
+        }
+
+        return 'Plural form not set for ' . Output::getClean($term);
+    }
+
+    /**
+     * Return the fallback EnglishUK language file path for a given file name.
+     *
+     * @param string $file Name of file to get fallback for
+     * @return string Path of fallback file
+     */
+    private function getFallbackFile(string $file): string {
+        return rtrim($this->_activeLanguageDirectory, $this->_activeLanguage) . DIRECTORY_SEPARATOR . 'EnglishUK' . DIRECTORY_SEPARATOR . $file . '.php';
+    }
+
+    /**
+     * Return current time language.
+     *
+     * @return array Time lang for use in TimeAgo class.
+     */
+    public function getTimeLanguage(): array {
+        $this->get('time', 'time');
+        return $this->_activeLanguageEntries['time'];
     }
 
     /**
@@ -129,33 +156,5 @@ class Language {
                 )
             ));
         }
-    }
-
-    /**
-     * Return current time language.
-     * 
-     * @return array Time lang for use in TimeAgo class.
-     */
-    public function getTimeLanguage(): array {
-        $this->get('time', 'time');
-        return $this->_activeLanguageEntries['time'];
-    }
-
-    /**
-     * Return the current active language.
-     * 
-     * @return string Active language name.
-     */
-    public function getActiveLanguage(): string {
-        return $this->_activeLanguage;
-    }
-
-    /**
-     * Return the current active language directory.
-     * 
-     * @return string Path to active language files.
-     */
-    public function getActiveLanguageDirectory(): string {
-        return $this->_activeLanguageDirectory;
     }
 }
