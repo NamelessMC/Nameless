@@ -24,7 +24,7 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp
 
 $dashboard_graphs = Core_Module::getDashboardGraphs();
 $graphs = [];
-die($language->get('admin', 'hi'));
+
 if(count($dashboard_graphs)){
     $i = 0;
     foreach($dashboard_graphs as $key => $dashboard_graph){

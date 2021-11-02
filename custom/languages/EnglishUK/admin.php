@@ -10,7 +10,6 @@
  */
 
 $language = [
-    'hi' => 'ok',
     /*
      *  Admin Control Panel
      */
