@@ -2,7 +2,6 @@
 
 abstract class UpgradeScript {
 
-    protected User $user;
     protected Cache $cache;
     protected Queries $queries;
 
@@ -33,7 +32,6 @@ abstract class UpgradeScript {
     }
 
     public function __construct() {
-        $this->user = new User();
 
         $this->cache = new Cache(
             ['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']
