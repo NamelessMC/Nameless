@@ -679,21 +679,6 @@ class User {
     }
 
     /**
-     * Removes all groups this user has.
-     */
-    public function removeGroups(): void {
-        $where = 'WHERE `user_id` = ?';
-
-        if ($this->data()->id == 1) {
-            $where .= ' AND `group_id` <> 2';
-        }
-
-        $this->_db->createQuery('DELETE FROM `nl2_users_groups` ' . $where, [$this->data()->id]);
-
-        $this->_groups = [];
-    }
-
-    /**
      * Get if this user is currently logged in or not.
      *
      * @return bool Whether they're logged in.
