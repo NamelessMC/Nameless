@@ -394,6 +394,8 @@ class Util {
         if (isset($error)) {
             return json_encode(['error' => $error]);
         } else {
+            DB::getInstance()->createQuery("UPDATE nl2_settings SET `value`= ? WHERE `name` = 'version_checked'", [ date('U') ]);
+
             if ($update_check == 'None') {
                 return json_encode(['no_update' => true]);
             } else {
