@@ -12,7 +12,7 @@ spl_autoload_register(function ($class) {
     }
 });
 
-define('CLASS_FOLDERS', [
+const CLASS_FOLDERS = [
     'Avatars' => [
         AvatarSource::class,
         AvatarSourceBase::class,
@@ -88,7 +88,7 @@ define('CLASS_FOLDERS', [
         WidgetBase::class,
         Widgets::class,
     ],
-]);
+];
 
 function getFolder(string $class): string {
     foreach (CLASS_FOLDERS as $folder => $classes) {

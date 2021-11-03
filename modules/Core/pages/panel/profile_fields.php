@@ -14,9 +14,9 @@ if(!$user->handlePanelPageLoad('admincp.core.fields')) {
     die();
 }
 
-define('PAGE', 'panel');
-define('PARENT_PAGE', 'core_configuration');
-define('PANEL_PAGE', 'custom_profile_fields');
+const PAGE = 'panel';
+const PARENT_PAGE = 'core_configuration';
+const PANEL_PAGE = 'custom_profile_fields';
 $page_title = $language->get('admin', 'custom_fields');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 

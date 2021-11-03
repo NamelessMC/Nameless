@@ -10,7 +10,7 @@
  */
 
 // Set page name variable
-define('PAGE', 'login');
+const PAGE = 'login';
 $page_title = $language->get('general', 'sign_in');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 

@@ -26,10 +26,10 @@ if (!$view_user->data()) {
 }
 $user_query = $view_user->data();
 
-define('PAGE', 'panel');
-define('PARENT_PAGE', 'users');
-define('PANEL_PAGE', 'users');
-define('EDITING_USER', true);
+const PAGE = 'panel';
+const PARENT_PAGE = 'users';
+const PANEL_PAGE = 'users';
+const EDITING_USER = true;
 $page_title = $language->get('admin', 'users');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 require_once(ROOT_PATH . '/core/includes/markdown/tohtml/Markdown.inc.php');

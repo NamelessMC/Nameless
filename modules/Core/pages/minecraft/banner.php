@@ -9,7 +9,7 @@
  *  Minecraft server banner
  */
 
-define('PAGE', 'banner');
+const PAGE = 'banner';
 
 if(!function_exists('exif_imagetype'))
 	die('exif_imagetype is required to use server banners.');

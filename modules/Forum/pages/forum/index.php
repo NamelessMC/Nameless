@@ -12,7 +12,7 @@
 require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
 
 // Always define page name
-define('PAGE', 'forum');
+const PAGE = 'forum';
 $page_title = $forum_language->get('forum', 'forum');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 

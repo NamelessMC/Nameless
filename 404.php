@@ -11,7 +11,7 @@
 
 header($_SERVER['SERVER_PROTOCOL']. ' 404 Not Found');
 
-define('PAGE', 404);
+const PAGE = 404;
 $page_title = '404';
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 

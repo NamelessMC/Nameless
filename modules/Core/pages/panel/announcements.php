@@ -14,9 +14,9 @@ if(!$user->handlePanelPageLoad('admincp.core.announcements')) {
     die();
 }
 
-define('PAGE', 'panel');
-define('PARENT_PAGE', 'announcements');
-define('PANEL_PAGE', 'announcements');
+const PAGE = 'panel';
+const PARENT_PAGE = 'announcements';
+const PANEL_PAGE = 'announcements';
 $page_title = $language->get('admin', 'announcements');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 $queries = new Queries();

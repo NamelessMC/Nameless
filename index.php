@@ -33,7 +33,7 @@ if (version_compare(phpversion(), '7.4', '<')) {
 $start = microtime(true);
 
 // Definitions
-define('PATH', '/');
+const PATH = '/';
 define('ROOT_PATH', dirname(__FILE__));
 $page = 'Home';
 

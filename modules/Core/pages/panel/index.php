@@ -14,8 +14,8 @@ if(!$user->handlePanelPageLoad()) {
     die();
 }
 
-define('PAGE', 'panel');
-define('PANEL_PAGE', 'dashboard');
+const PAGE = 'panel';
+const PANEL_PAGE = 'dashboard';
 $page_title = $language->get('admin', 'dashboard');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 

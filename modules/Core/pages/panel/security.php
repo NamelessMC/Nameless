@@ -14,9 +14,9 @@ if(!$user->handlePanelPageLoad('admincp.security')) {
     die();
 }
 
-define('PAGE', 'panel');
-define('PARENT_PAGE', 'security');
-define('PANEL_PAGE', 'security');
+const PAGE = 'panel';
+const PARENT_PAGE = 'security';
+const PANEL_PAGE = 'security';
 // Define the sort column #, as for group_sync we dont show IP (since its from MC server or Discord bot)
 define('SORT', (isset($_GET['view']) && $_GET['view'] == 'group_sync') ? 1 : 2);
 $page_title = $language->get('admin', 'security');

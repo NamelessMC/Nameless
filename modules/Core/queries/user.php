@@ -4,7 +4,7 @@ if (!isset($_GET['id'])) {
     die(json_encode(['html' => 'Error: Invalid ID']));
 }
 
-define('PAGE', 'user_query');
+const PAGE = 'user_query';
 $page_title = 'user_query';
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 

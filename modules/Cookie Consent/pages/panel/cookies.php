@@ -14,9 +14,9 @@ if(!$user->handlePanelPageLoad('admincp.cookies')) {
     die();
 }
 
-define('PAGE', 'panel');
-define('PARENT_PAGE', 'cookie_divider');
-define('PANEL_PAGE', 'cookie_settings');
+const PAGE = 'panel';
+const PARENT_PAGE = 'cookie_divider';
+const PANEL_PAGE = 'cookie_settings';
 $page_title = $cookie_language->get('cookie', 'cookies');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 

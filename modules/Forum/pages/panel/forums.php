@@ -15,9 +15,9 @@ if(!$user->handlePanelPageLoad('admincp.forums')) {
     die();
 }
 
-define('PAGE', 'panel');
-define('PARENT_PAGE', 'forum');
-define('PANEL_PAGE', 'forums');
+const PAGE = 'panel';
+const PARENT_PAGE = 'forum';
+const PANEL_PAGE = 'forums';
 $page_title = $forum_language->get('forum', 'forums');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 

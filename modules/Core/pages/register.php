@@ -17,7 +17,7 @@ if($user->isLoggedIn()){
 
 // Set page name for custom scripts
 $page = 'register';
-define('PAGE', 'register');
+const PAGE = 'register';
 $page_title = $language->get('general', 'register');
 
 // Check if Minecraft is enabled

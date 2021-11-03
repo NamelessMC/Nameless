@@ -14,9 +14,9 @@ if(!$user->handlePanelPageLoad('admincp.core.registration')) {
     die();
 }
 
-define('PAGE', 'panel');
-define('PARENT_PAGE', 'core_configuration');
-define('PANEL_PAGE', 'registration');
+const PAGE = 'panel';
+const PARENT_PAGE = 'core_configuration';
+const PANEL_PAGE = 'registration';
 $page_title = $language->get('admin', 'registration');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 

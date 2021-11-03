@@ -10,7 +10,7 @@
  */
 
 $page = 'validate';
-define('PAGE', 'validate');
+const PAGE = 'validate';
 $page_title = $language->get('general', 'register');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 

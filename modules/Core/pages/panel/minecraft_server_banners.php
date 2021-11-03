@@ -19,10 +19,10 @@ if (!function_exists('exif_imagetype')) {
     die();
 }
 
-define('PAGE', 'panel');
-define('PARENT_PAGE', 'integrations');
-define('PANEL_PAGE', 'minecraft');
-define('MINECRAFT_PAGE', 'server_banners');
+const PAGE = 'panel';
+const PARENT_PAGE = 'integrations';
+const PANEL_PAGE = 'minecraft';
+const MINECRAFT_PAGE = 'server_banners';
 $page_title = $language->get('admin', 'server_banners');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 

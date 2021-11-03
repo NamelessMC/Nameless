@@ -14,9 +14,9 @@ if(!$user->handlePanelPageLoad('modcp.reports')) {
     die();
 }
 
-define('PAGE', 'panel');
-define('PARENT_PAGE', 'users');
-define('PANEL_PAGE', 'reports');
+const PAGE = 'panel';
+const PARENT_PAGE = 'users';
+const PANEL_PAGE = 'reports';
 $page_title = $language->get('moderator', 'reports');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 

@@ -10,7 +10,7 @@
  */
 
 // Always define page name
-define('PAGE', 'terms');
+const PAGE = 'terms';
 $page_title = $language->get('user', 'terms_and_conditions');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 

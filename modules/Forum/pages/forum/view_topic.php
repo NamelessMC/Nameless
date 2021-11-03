@@ -12,7 +12,7 @@
 require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
 
 // Set the page name for the active link in navbar
-define('PAGE', 'forum');
+const PAGE = 'forum';
 
 $forum = new Forum();
 $timeago = new TimeAgo(TIMEZONE);

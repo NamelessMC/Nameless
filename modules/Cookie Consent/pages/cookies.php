@@ -10,7 +10,7 @@
  */
 
 // Always define page name
-define('PAGE', 'cookies');
+const PAGE = 'cookies';
 $page_title = $cookie_language->get('cookie', 'cookie_notice');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 

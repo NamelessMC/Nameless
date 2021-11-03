@@ -14,9 +14,9 @@ if(!$user->handlePanelPageLoad('admincp.modules')) {
     die();
 }
 
-define('PAGE', 'panel');
-define('PARENT_PAGE', 'modules');
-define('PANEL_PAGE', 'modules');
+const PAGE = 'panel';
+const PARENT_PAGE = 'modules';
+const PANEL_PAGE = 'modules';
 $page_title = $language->get('admin', 'modules');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 

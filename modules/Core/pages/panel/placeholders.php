@@ -14,10 +14,10 @@ if(!$user->handlePanelPageLoad('admincp.core.placeholders')) {
     die();
 }
 
-define('PAGE', 'panel');
-define('PARENT_PAGE', 'integrations');
-define('PANEL_PAGE', 'minecraft');
-define('MINECRAFT_PAGE', 'placeholders');
+const PAGE = 'panel';
+const PARENT_PAGE = 'integrations';
+const PANEL_PAGE = 'minecraft';
+const MINECRAFT_PAGE = 'placeholders';
 $page_title = $language->get('admin', 'placeholders');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 $queries = new Queries();

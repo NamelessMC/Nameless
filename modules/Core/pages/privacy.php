@@ -10,7 +10,7 @@
  */
 
 // Always define page name
-define('PAGE', 'privacy');
+const PAGE = 'privacy';
 $page_title = $language->get('general', 'privacy_policy');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 

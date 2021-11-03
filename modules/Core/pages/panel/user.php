@@ -38,9 +38,9 @@ $user_query = $view_user->data();
 
 $timeago = new TimeAgo(TIMEZONE);
 
-define('PAGE', 'panel');
-define('PANEL_PAGE', 'users');
-define('PARENT_PAGE', 'users');
+const PAGE = 'panel';
+const PANEL_PAGE = 'users';
+const PARENT_PAGE = 'users';
 $page_title = Output::getClean($user_query->username);
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 

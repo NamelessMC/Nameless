@@ -15,7 +15,7 @@ if (!isset($forum) || (!$forum instanceof Forum))
 
 require_once(ROOT_PATH . '/core/includes/emojione/autoload.php'); // Emojione
 
-define('PAGE', 'forum');
+const PAGE = 'forum';
 
 // Initialise
 $timeago = new TimeAgo(TIMEZONE);

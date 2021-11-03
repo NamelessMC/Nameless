@@ -16,7 +16,7 @@ if (!$user->isLoggedIn()) {
 }
 
 // Always define page name for navbar
-define('PAGE', 'cc_messaging');
+const PAGE = 'cc_messaging';
 $page_title = $language->get('user', 'user_cp');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 

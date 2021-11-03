@@ -10,7 +10,7 @@
  */
 
 // Always define page name
-define('PAGE', 'contact');
+const PAGE = 'contact';
 $page_title = $language->get('general', 'contact');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 

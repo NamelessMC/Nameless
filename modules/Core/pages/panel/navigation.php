@@ -14,9 +14,9 @@ if(!$user->handlePanelPageLoad('admincp.core.navigation')) {
     die();
 }
 
-define('PAGE', 'panel');
-define('PARENT_PAGE', 'core_configuration');
-define('PANEL_PAGE', 'navigation');
+const PAGE = 'panel';
+const PARENT_PAGE = 'core_configuration';
+const PANEL_PAGE = 'navigation';
 $page_title = $language->get('admin', 'navigation');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 

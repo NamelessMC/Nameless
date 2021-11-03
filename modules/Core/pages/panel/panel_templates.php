@@ -14,9 +14,9 @@ if(!$user->handlePanelPageLoad('admincp.styles.panel_templates')) {
     die();
 }
 
-define('PAGE', 'panel');
-define('PARENT_PAGE', 'layout');
-define('PANEL_PAGE', 'panel_templates');
+const PAGE = 'panel';
+const PARENT_PAGE = 'layout';
+const PANEL_PAGE = 'panel_templates';
 $page_title = $language->get('admin', 'panel_templates');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 

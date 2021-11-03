@@ -9,7 +9,7 @@
  *  Forgot password page
  */
 
-define('PAGE', 'forgot_password');
+const PAGE = 'forgot_password';
 
 $page_title = str_replace('?', '', $language->get('user', 'forgot_password'));
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');

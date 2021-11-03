@@ -16,9 +16,9 @@ if(!$user->handlePanelPageLoad('modcp.punishments')) {
 
 $timeago = new TimeAgo(TIMEZONE);
 
-define('PAGE', 'panel');
-define('PARENT_PAGE', 'users');
-define('PANEL_PAGE', 'punishments');
+const PAGE = 'panel';
+const PARENT_PAGE = 'users';
+const PANEL_PAGE = 'punishments';
 $page_title = $language->get('moderator', 'punishments');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 

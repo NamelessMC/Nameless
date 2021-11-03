@@ -11,7 +11,7 @@
 
 $pages = new Pages();
 
-define('PAGE', 'maintenance');
+const PAGE = 'maintenance';
 $page_title = $language->get('errors', 'maintenance_title');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 

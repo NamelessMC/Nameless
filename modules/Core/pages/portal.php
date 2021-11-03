@@ -10,7 +10,7 @@
  */
 
 // Always define page name
-define('PAGE', 'portal');
+const PAGE = 'portal';
 $page_title = $language->get('general', 'home');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 

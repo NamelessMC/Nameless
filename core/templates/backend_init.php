@@ -9,7 +9,7 @@
  *  Backend template initialisation
  */
 
-define('BACK_END', true);
+const BACK_END = true;
 
 $template_path = ROOT_PATH . '/custom/panel_templates/' . PANEL_TEMPLATE;
 $smarty->setTemplateDir($template_path);

@@ -9,7 +9,7 @@
  *  Frontend template initialisation
  */
 
-define('FRONT_END', true);
+const FRONT_END = true;
 
 // Set current page URL in session, provided it's not the login page
 if(defined('PAGE') && PAGE != 'login' && PAGE != 'register' && PAGE != 404 && PAGE != 'maintenance' && (!isset($_GET['route']) || strpos($_GET['route'], '/queries') === false)){

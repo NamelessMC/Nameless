@@ -9,7 +9,7 @@
  *  Move a topic
  */
 
-define('PAGE', 'forum');
+const PAGE = 'forum';
 $page_title = $forum_language->get('forum', 'move_topic');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
