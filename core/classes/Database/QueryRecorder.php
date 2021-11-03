@@ -68,5 +68,4 @@ class QueryRecorder extends Instanceable {
 
         return SQLFormatter::highlight(trim($comp));
     }
-
 }

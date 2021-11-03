@@ -18,6 +18,7 @@ const CLASS_FOLDERS = [
         AvatarSourceBase::class,
     ],
     'Collections' => [
+        Collection::class,
         CollectionItemBase::class,
         CollectionManager::class,
     ],

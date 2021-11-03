@@ -1,7 +1,6 @@
 <?php
 
-interface GroupSyncInjector
-{
+interface GroupSyncInjector {
 
     /**
      * Get the name of the module this injector belongs to.
@@ -101,7 +100,7 @@ interface GroupSyncInjector
      * Can do anything in here (go for a walk, call your API, write a book, etc),
      * as long as they user gets the group applied on your service!
      * 
-     * @param User Instance of affected NamelessMC user.
+     * @param User $user Instance of affected NamelessMC user.
      * @param mixed $group_id Native group ID to use for lookup on your service.
      * 
      * @return bool Whether it was successfully added or not
@@ -111,7 +110,7 @@ interface GroupSyncInjector
     /**
      * Remove this group from the user
      * 
-     * @param User Instance of affected NamelessMC user.
+     * @param User $user Instance of affected NamelessMC user.
      * @param mixed $group_id Native group ID to use for lookup on your service.
      * 
      * @return bool Whether it was successfully removed or not
