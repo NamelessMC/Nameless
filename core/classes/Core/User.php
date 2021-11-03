@@ -12,7 +12,7 @@ class User {
 
     private $_data;
     private array $_groups = [];
-    private array $_placeholders = [];
+    private array $_placeholders;
     private string $_sessionName;
     private string $_cookieName;
     private bool $_isLoggedIn = false;
@@ -140,16 +140,6 @@ class User {
                     }
 
                     $this->addGroup($default_group_id, 0, $default_group);
-                }
-
-                // Get their placeholders only if they have a valid uuid
-                if ($this->_data->uuid != null && $this->_data->uuid != 'none') {
-
-                    $placeholders = Placeholders::getInstance()->loadUserPlaceholders($this->_data->uuid);
-
-                    if (count($placeholders)) {
-                        $this->_placeholders = $placeholders;
-                    }
                 }
 
                 return true;
@@ -538,7 +528,13 @@ class User {
      * @return array Their placeholders.
      */
     public function getPlaceholders(): array {
-        return $this->_placeholders;
+        return $this->_placeholders ??= (function (): array {
+            if ($this->_data->uuid != null && $this->_data->uuid != 'none') {
+                return Placeholders::getInstance()->loadUserPlaceholders($this->_data->uuid);
+            }
+
+            return [];
+        })();
     }
 
     /**
@@ -547,7 +543,7 @@ class User {
      * @return array Profile placeholders.
      */
     public function getProfilePlaceholders(): array {
-        return array_filter($this->_placeholders, static function ($placeholder) {
+        return array_filter($this->getPlaceholders(), static function ($placeholder) {
             return $placeholder->show_on_profile;
         });
     }
@@ -558,7 +554,7 @@ class User {
      * @return array Forum placeholders.
      */
     public function getForumPlaceholders(): array {
-        return array_filter($this->_placeholders, static function ($placeholder) {
+        return array_filter($this->getPlaceholders(), static function ($placeholder) {
             return $placeholder->show_on_forum;
         });
     }
