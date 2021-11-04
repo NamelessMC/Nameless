@@ -45,9 +45,7 @@ class Util {
      */
     public static function recursiveRemoveDirectory(string $directory): bool {
         // safety precaution, only allow deleting files in "custom" directory
-        if ((strpos($directory, 'custom') !== false)) {
-            // alright to proceed
-        } else {
+        if (!strpos($directory, 'custom')) {
             return false;
         }
 
@@ -524,18 +522,17 @@ class Util {
 
         foreach ($rii as $file) {
             if ($file->isDir()) {
-                return self::loadEndpoints($file, $endpoints);
+                self::loadEndpoints($file, $endpoints);
+                return;
             }
 
             if ($file->getFilename() === '.DS_Store') {
                 continue;
             }
 
-            $endpoint_path = $file->getPathName();
-            require_once($endpoint_path);
+            require_once($file->getPathName());
 
-            $endpoint_file_name = $file->getFilename();
-            $endpoint_class_name = str_replace('.php', '', $endpoint_file_name);
+            $endpoint_class_name = str_replace('.php', '', $file->getFilename());
 
             $endpoints->add(new $endpoint_class_name);
         }
