@@ -681,11 +681,10 @@ switch ($s) {
         // New settings/initialise cache
         // Site name
         $sitename = $queries->getWhere('settings', ['name', '=', 'sitename']);
+        $cache->setCache('sitenamecache');
         if (!count($sitename)) {
-            $cache->setCache('sitenamecache');
             $cache->store('sitename', 'NamelessMC');
         } else {
-            $cache->setCache('sitenamecache');
             $cache->store('sitename', Output::getClean($sitename[0]->value));
         }
 

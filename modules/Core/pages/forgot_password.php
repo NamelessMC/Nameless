@@ -51,17 +51,6 @@ if (!isset($_GET['c'])) {
 
                         $sent = Email::send($email, 'mailer');
 
-                        if (isset($sent['error'])) {
-                            // Error, log it
-                            $queries->create('email_errors', [
-                                'type' => 3, // 3 = forgot password
-                                'content' => $sent['error'],
-                                'at' => date('U'),
-                                'user_id' => $target_user->data()->id
-                            ]);
-
-                            $error = $language->get('user', 'unable_to_send_forgot_password_email');
-                        }
                     } else {
                         // PHP mail function
                         $siteemail = $queries->getWhere('settings', ['name', '=', 'outgoing_email']);
@@ -85,19 +74,19 @@ if (!isset($_GET['c'])) {
                             'headers' => $headers
                         ];
 
-                        $sent = Email::send($email, 'php');
+                        $sent = Email::send($email);
 
-                        if (isset($sent['error'])) {
-                            // Error, log it
-                            $queries->create('email_errors', [
-                                'type' => 3, // 3 = forgot password
-                                'content' => $sent['error'],
-                                'at' => date('U'),
-                                'user_id' => $target_user->data()->id
-                            ]);
+                    }
+                    if (isset($sent['error'])) {
+                        // Error, log it
+                        $queries->create('email_errors', [
+                            'type' => 3, // 3 = forgot password
+                            'content' => $sent['error'],
+                            'at' => date('U'),
+                            'user_id' => $target_user->data()->id
+                        ]);
 
-                            $error = $language->get('user', 'unable_to_send_forgot_password_email');
-                        }
+                        $error = $language->get('user', 'unable_to_send_forgot_password_email');
                     }
 
                     if (!isset($error)) {

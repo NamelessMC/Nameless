@@ -67,12 +67,11 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
                 $forum->updateTopicLatestPosts();
 
                 Redirect::to(URL::build('/forum/topic/' . $topic_id));
-                die();
 
             } else {
                 echo 'Error processing that action. <a href="' . URL::build('/forum') . '">Forum index</a>';
-                die();
             }
+            die();
         }
     }
 } else {

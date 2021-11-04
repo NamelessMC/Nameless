@@ -36,18 +36,18 @@ if (Input::exists()) {
 
         if ($validation->passed()) {
             try {
-                $cookie_id = $queries->getWhere('privacy_terms', array('name', '=', 'cookies'));
+                $cookie_id = $queries->getWhere('privacy_terms', ['name', '=', 'cookies']);
                 if (count($cookie_id)) {
                     $cookie_id = $cookie_id[0]->id;
 
-                    $queries->update('privacy_terms', $cookie_id, array(
+                    $queries->update('privacy_terms', $cookie_id, [
                         'value' => Input::get('cookies')
-                    ));
+                    ]);
                 } else {
-                    $queries->create('privacy_terms', array(
+                    $queries->create('privacy_terms', [
                         'name' => 'cookies',
                         'value' => Input::get('cookies')
-                    ));
+                    ]);
                 }
 
                 $success = $cookie_language->get('cookie', 'cookie_notice_success');
@@ -62,24 +62,24 @@ if (Input::exists()) {
 }
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 if (isset($success))
-    $smarty->assign(array(
+    $smarty->assign([
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
-    ));
+    ]);
 
 if (isset($errors) && count($errors))
-    $smarty->assign(array(
+    $smarty->assign([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
-    ));
+    ]);
 
 // Get cookie notice
 $cookies = DB::getInstance()->selectQuery('SELECT value FROM nl2_privacy_terms WHERE `name` = ?', ['cookies'])->first()->value;
 
-$smarty->assign(array(
+$smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'COOKIES' => $cookie_language->get('cookie', 'cookies'),
@@ -88,7 +88,7 @@ $smarty->assign(array(
     'SUBMIT' => $language->get('general', 'submit'),
     'COOKIE_NOTICE' => $cookie_language->get('cookie', 'cookie_notice'),
     'COOKIE_NOTICE_VALUE' => Output::getPurified($cookies),
-));
+]);
 
 $page_load = microtime(true) - $start;
 define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));

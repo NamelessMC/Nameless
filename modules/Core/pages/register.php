@@ -177,15 +177,15 @@ if (Input::exists()) {
             ];
 
             // Minecraft username?
+            $to_validation['username'] = [
+                'required' => true,
+                'min' => 3,
+                'max' => 20,
+                'unique' => 'users'
+            ];
             if (MINECRAFT) {
                 if ($custom_usernames == 'true') {
                     // Nickname enabled
-                    $to_validation['username'] = [
-                        'required' => true,
-                        'min' => 3,
-                        'max' => 20,
-                        'unique' => 'users'
-                    ];
                     $to_validation['nickname'] = [
                         'required' => true,
                         'min' => 3,
@@ -194,34 +194,20 @@ if (Input::exists()) {
                     ];
 
                     $nickname = Output::getClean(Input::get('nickname'));
-                    $username = Output::getClean(Input::get('username'));
 
                 } else {
-                    $to_validation['username'] = [
-                        'required' => true,
-                        'min' => 3,
-                        'max' => 20,
-                        'unique' => 'users'
-                    ];
 
                     $nickname = Output::getClean(Input::get('username'));
-                    $username = Output::getClean(Input::get('username'));
 
                 }
 
             } else {
                 // Just check username
-                $to_validation['username'] = [
-                    'required' => true,
-                    'min' => 3,
-                    'max' => 20,
-                    'unique' => 'users'
-                ];
 
                 $nickname = Output::getClean(Input::get('username'));
-                $username = Output::getClean(Input::get('username'));
 
             }
+            $username = Output::getClean(Input::get('username'));
 
             // Validate custom fields
             $profile_fields = $queries->getWhere('profile_fields', ['id', '<>', 0]);
@@ -293,7 +279,6 @@ if (Input::exists()) {
                             $mcassoc->enableInsecureMode();
 
                             require(ROOT_PATH . '/core/integration/run_mcassoc.php');
-                            die();
 
                         } else {
                             // Disabled
@@ -389,7 +374,7 @@ if (Input::exists()) {
                                 }
                             }
 
-                            Log::getInstance()->log(Log::Action('user/register'), '');
+                            Log::getInstance()->log(Log::Action('user/register'));
 
                             if ($api_verification != '1' && $email_verification == '1') {
                                 // Send registration email
@@ -435,8 +420,8 @@ if (Input::exists()) {
                             }
 
                             Redirect::to(URL::build('/'));
-                            die();
                         }
+                        die();
                     } else {
                         $errors = [$uuid_error];
                     }

@@ -1000,9 +1000,9 @@ class User {
             return [];
         }
 
+        $return = [];
         if ($public == true) {
             // Return public fields only
-            $return = [];
             foreach ($data->results() as $result) {
                 $is_public = $this->_db->get('profile_fields', ['id', '=', $result->field_id]);
                 if (!$is_public->count()) continue;
@@ -1025,10 +1025,8 @@ class User {
                 }
             }
 
-            return $return;
         } else {
             // Return all fields
-            $return = [];
             foreach ($data->results() as $result) {
                 $name = $this->_db->get('profile_fields', ['id', '=', $result->field_id]);
                 if (!$name->count()) continue;
@@ -1040,8 +1038,8 @@ class User {
                 ];
             }
 
-            return $return;
         }
+        return $return;
     }
 
     /**

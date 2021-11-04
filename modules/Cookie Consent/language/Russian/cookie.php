@@ -10,7 +10,7 @@
  *  Russian Language for Cookie Consent module
  */
 
-$language = array(
+$language = [
     'cookie_notice' => 'Политика использования cookie-файлов',
     'cookie_notice_info' => 'Этот виджет использует cookie-файлы',
     'configure_cookies' => 'Настроить использование cookie-файлов',
@@ -25,4 +25,4 @@ $language = array(
     'cookies' => 'Cookies',
     'cookie_notice_error' => 'Политика об использовании cookie файлов должна содержать не более 10 000 символов.',
     'cookie_notice_success' => 'Политика обновлена.',
-);
+];

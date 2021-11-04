@@ -66,10 +66,6 @@ if ($forum->canModerateForum($topic->forum_id, $user->getAllGroupIds())) {
     // Update latest posts in forums
     $forum->updateForumLatestPosts();
 
-    Redirect::to(URL::build('/forum'));
-    die();
-
-} else {
-    Redirect::to(URL::build('/forum'));
-    die();
 }
+Redirect::to(URL::build('/forum'));
+die();

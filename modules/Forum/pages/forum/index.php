@@ -34,13 +34,7 @@ $smarty->assign([
 ]);
 
 // Server status module
-if (isset($status_enabled->value) && $status_enabled->value == 'true') {
-    // Todo
-    $smarty->assign('SERVER_STATUS', '');
-} else {
-    // Module disabled, assign empty values
-    $smarty->assign('SERVER_STATUS', '');
-}
+$smarty->assign('SERVER_STATUS', '');
 
 // Check session
 if (Session::exists('spam_info')) {

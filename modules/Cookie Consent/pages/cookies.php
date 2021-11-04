@@ -26,7 +26,7 @@ $template->addJSFiles([
 $cookie_notice = DB::getInstance()->selectQuery('SELECT value FROM nl2_privacy_terms WHERE `name` = ?', ['cookies'])->first()->value;
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 $smarty->assign([
     'COOKIE_NOTICE_HEADER' => $cookie_language->get('cookie', 'cookie_notice'),

@@ -96,11 +96,10 @@ if (!isset($_GET['route']) || $_GET['route'] == '/') {
                 require($path);
             }
 
-            die();
         } else {
             require(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', 'Core', 'pages', 'custom.php']));
-            die();
         }
+        die();
     } else {
         // Use recursion to check - might have URL parameters in path
         $path_array = explode('/', $route);

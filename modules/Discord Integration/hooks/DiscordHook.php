@@ -53,7 +53,7 @@ class DiscordHook {
         $response = json_decode($response, true);
 
         if (curl_getinfo($ch, CURLINFO_HTTP_CODE) != 204)
-            trigger_error($response['message'], E_USER_NOTICE);
+            trigger_error($response['message']);
 
         curl_close($ch);
     }

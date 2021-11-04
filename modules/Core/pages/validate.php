@@ -17,24 +17,21 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-if(!isset($_GET['c'])){
-	Redirect::to(URL::build('/'));
-	die();
-} else {
-	$user = new User($_GET['c'], 'reset_code');
-	if($user->data()){
+if(isset($_GET['c'])) {
+    $user = new User($_GET['c'], 'reset_code');
+    if ($user->data()) {
         // API verification
         $api_verification = $queries->getWhere('settings', ['name', '=', 'api_verification']);
         $api_verification = $api_verification[0]->value;
 
-        if($api_verification == '1')
+        if ($api_verification == '1')
             $reset_code = $user->data()->reset_code;
         else
             $reset_code = null;
 
-		$queries->update('users', $user->data()->id, [
-			'reset_code' => $reset_code,
-			'active' => 1
+        $queries->update('users', $user->data()->id, [
+            'reset_code' => $reset_code,
+            'active' => 1
         ]);
 
         EventHandler::executeEvent('validateUser', [
@@ -54,12 +51,10 @@ if(!isset($_GET['c'])){
             [$user->getMainGroup()->id]
         );
 
-		Session::flash('home', $language->get('user', 'validation_complete'));
-		Redirect::to(URL::build('/'));
-		die();
-	} else {
-		Session::flash('home_error', $language->get('user', 'validation_error'));
-		Redirect::to(URL::build('/'));
-		die();
-	}
+        Session::flash('home', $language->get('user', 'validation_complete'));
+    } else {
+        Session::flash('home_error', $language->get('user', 'validation_error'));
+    }
 }
+Redirect::to(URL::build('/'));
+die();

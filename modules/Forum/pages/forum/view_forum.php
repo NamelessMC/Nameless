@@ -171,13 +171,7 @@ if ($forum_query->redirect_forum == 1) {
     $smarty->assign('BREADCRUMBS', array_reverse($breadcrumbs));
 
     // Server status module
-    if (isset($status_enabled->value) && $status_enabled->value == 'true') {
-        // Todo
-        $smarty->assign('SERVER_STATUS', '');
-    } else {
-        // Module disabled, assign empty values
-        $smarty->assign('SERVER_STATUS', '');
-    }
+    $smarty->assign('SERVER_STATUS', '');
 
     // Assignments
     $smarty->assign('FORUM_INDEX_LINK', URL::build('/forum'));
@@ -208,7 +202,7 @@ if ($forum_query->redirect_forum == 1) {
 
                     $latest_post_user = new User($latest_post->topic_last_user);
                     $latest_post_link = URL::build('/forum/topic/' . $latest_post->id . '-' . $forum->titleToURL($latest_post->topic_title));
-                    $latest_post_avatar = $latest_post_user->getAvatar(128);
+                    $latest_post_avatar = $latest_post_user->getAvatar();
                     $latest_post_title = Output::getClean($latest_post->topic_title);
                     $latest_post_user_displayname = $latest_post_user->getDisplayname();
                     $latest_post_user_link = $latest_post_user->getProfileURL();
@@ -360,7 +354,7 @@ if ($forum_query->redirect_forum == 1) {
                 'views' => $sticky->topic_views,
                 'locked' => $sticky->locked,
                 'posts' => $replies,
-                'last_reply_avatar' => $last_reply_user->getAvatar(128),
+                'last_reply_avatar' => $last_reply_user->getAvatar(),
                 'last_reply_rough' => $timeago->inWords(date('d M Y, H:i', $sticky->topic_reply_date), $language->getTimeLanguage()),
                 'last_reply' => date('d M Y, H:i', $sticky->topic_reply_date),
                 'last_reply_username' => $last_reply_user->getDisplayname(),

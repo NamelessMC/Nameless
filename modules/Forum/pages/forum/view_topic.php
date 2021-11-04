@@ -106,15 +106,13 @@ if (isset($_GET['pid'])) {
         }
         if (ceil($output / 10) != $p) {
             Redirect::to(URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title), 'p=' . ceil($output / 10)) . '#post-' . $_GET['pid']);
-            die();
         } else {
             Redirect::to(URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title)) . '#post-' . $_GET['pid']);
-            die();
         }
     } else {
         require_once(ROOT_PATH . '/404.php');
-        die();
     }
+    die();
 }
 
 // Follow/unfollow
@@ -387,7 +385,7 @@ if (Input::exists()) {
                                     'headers' => $headers
                                 ];
 
-                                $sent = Email::send($email, 'php');
+                                $sent = Email::send($email);
 
                                 if (isset($sent['error'])) {
                                     // Error, log it

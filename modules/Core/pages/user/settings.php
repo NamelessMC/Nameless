@@ -75,22 +75,10 @@ if(isset($_GET['do'])){
                 ]);
 
 			// Load modules + template
-			Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-			require(ROOT_PATH . '/core/templates/cc_navbar.php');
+            // Display template
 
-			$page_load = microtime(true) - $start;
-			define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
-
-			$template->onPageLoad();
-
-			require(ROOT_PATH . '/core/templates/navbar.php');
-			require(ROOT_PATH . '/core/templates/footer.php');
-
-			// Display template
-			$template->displayTemplate('user/tfa.tpl', $smarty);
-
-		} else {
+        } else {
 			// Validate code to see if it matches the secret
 			if(Input::exists()){
 				if(Token::check()){
@@ -129,24 +117,20 @@ if(isset($_GET['do'])){
             ]);
 
 			// Load modules + template
-			Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-			require(ROOT_PATH . '/core/templates/cc_navbar.php');
+            // Display template
 
-			$page_load = microtime(true) - $start;
-			define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
+        }
+        Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
+        require(ROOT_PATH . '/core/templates/cc_navbar.php');
+        $page_load = microtime(true) - $start;
+        define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
+        $template->onPageLoad();
+        require(ROOT_PATH . '/core/templates/navbar.php');
+        require(ROOT_PATH . '/core/templates/footer.php');
+        $template->displayTemplate('user/tfa.tpl', $smarty);
 
-			$template->onPageLoad();
-
-			require(ROOT_PATH . '/core/templates/navbar.php');
-			require(ROOT_PATH . '/core/templates/footer.php');
-
-			// Display template
-			$template->displayTemplate('user/tfa.tpl', $smarty);
-
-		}
-
-	} else if($_GET['do'] == 'disable_tfa') {
+    } else if($_GET['do'] == 'disable_tfa') {
 		// Disable TFA
 		$user->update([
 			'tfa_enabled' => 0,
@@ -488,10 +472,8 @@ if(isset($_GET['do'])){
                     ]);
 
 					Session::flash('settings_success', Discord::getLanguageTerm('discord_id_unlinked'));
-					Redirect::to(URL::build('/user/settings'));
-					die();
 
-				} else {
+                } else {
 
 					$token = uniqid('', true);
 					$queries->create('discord_verifications', [
@@ -504,10 +486,10 @@ if(isset($_GET['do'])){
                     ]);
 
                     Session::flash('settings_success', str_replace('{token}', $token, Discord::getLanguageTerm('discord_id_confirm')));
-                    Redirect::to(URL::build('/user/settings'));
-                    die();
-				}
-			}
+                }
+                Redirect::to(URL::build('/user/settings'));
+                die();
+            }
 		} else {
 			// Invalid form token
 			Session::flash('settings_error', $language->get('general', 'invalid_token'));
