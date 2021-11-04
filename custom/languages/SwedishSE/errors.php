@@ -15,13 +15,13 @@ $language = [
      *  Errors
      */
     '404_title' => 'Förlåt!',
-    '404_content' => 'Vi kunnde inte hitta det där sidan.',
+    '404_content' => 'Vi kunde inte hitta den sidan.',
     '404_back' => 'Gå tillbaka',
     '404_home' => 'Hem',
-    '404_error' => 'Om du tror det här är ett fel, {x} snälla kontakta ett administratör{y}', // Don't replace {x} or {y}
+    '404_error' => 'Om du tror det här är ett fel, {x} vänligen kontakta en administratör{y}', // Don't replace {x} or {y}
     '403_title' => 'Förlåt!',
-    '403_content' => 'You do not have permission to view this page.',
-    '403_login' => 'Please log in to continue.',
+    '403_content' => 'Du har inte behörighet att visa denna sida.',
+    '403_login' => 'Vänligen logga in för att fortsätta.',
     '403_back' => 'Gå tillbaka',
     '403_home' => 'Hem',
     'maintenance_title' => 'Under Uppbyggnad.',
