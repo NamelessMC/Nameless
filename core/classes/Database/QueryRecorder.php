@@ -14,13 +14,24 @@ class QueryRecorder extends Instanceable {
     private array $_query_stack;
     private int $_query_stack_num = 1;
 
+    /**
+     * Get an array of all the SQL queries that have been executed in this request.
+     *
+     * @return array SQL queries
+     */
     public function getSqlStack(): array {
         return array_reverse($this->_query_stack);
     }
 
+    /**
+     * Add a query to the stack.
+     *
+     * @param string $sql Raw SQL query executed
+     * @param array $params Bound parameters used in the query
+     */
     public function pushQuery(string $sql, array $params): void {
 
-        $backtrace = $this->lastReleventBacktrace(debug_backtrace());
+        $backtrace = $this->lastReleventBacktrace();
 
         $this->_query_stack[] = [
             'number' => $this->_query_stack_num,
@@ -31,7 +42,14 @@ class QueryRecorder extends Instanceable {
         $this->_query_stack_num++;
     }
 
-    private function lastReleventBacktrace(array $backtrace): array {
+    /**
+     * Get the last debug_backtrace entry which is not the file that executed this query.
+     *
+     * @return array debug_backtrace entry
+     */
+    private function lastReleventBacktrace(): array {
+
+        $backtrace = debug_backtrace();
 
         $current_file = $last_file = $backtrace[0]['file'];
         $i = 1;
@@ -44,6 +62,14 @@ class QueryRecorder extends Instanceable {
         return $backtrace[$i];
     }
 
+    /**
+     * Get a compiled SQL query with bound parameters replaced with their values
+     * and syntax highlighted.
+     *
+     * @param string $sql Raw SQL query
+     * @param array $params Bound parameters
+     * @return string Compiled + syntax highlighted SQL query
+     */
     private function compileQuery(string $sql, array $params): string {
         $comp = '';
 
