@@ -401,16 +401,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                                 $queries->delete('topics', ['id', '=', $topic->id]);
                             }
 
-                            $queries->delete('forums', ['id', '=', $_GET['fid']]);
-
                             // Forum perm deletion
-                            foreach ($forum_perms as $perm) {
-                                $queries->delete('forums_permissions', ['id', '=', $perm->id]);
-                            }
-
-                            Session::flash('admin_forums', $forum_language->get('forum', 'forum_deleted_successfully'));
-                            Redirect::to(URL::build('/panel/forums'));
-                            die();
 
                         } else {
                             $new_forum = Input::get('move_forum');
@@ -428,17 +419,16 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                                 ]);
                             }
 
-                            $queries->delete('forums', ['id', '=', $_GET['fid']]);
-
                             // Forum perm deletion
-                            foreach ($forum_perms as $perm) {
-                                $queries->delete('forums_permissions', ['id', '=', $perm->id]);
-                            }
 
-                            Session::flash('admin_forums', $forum_language->get('forum', 'forum_deleted_successfully'));
-                            Redirect::to(URL::build('/panel/forums'));
-                            die();
                         }
+                        $queries->delete('forums', ['id', '=', $_GET['fid']]);
+                        foreach ($forum_perms as $perm) {
+                            $queries->delete('forums_permissions', ['id', '=', $perm->id]);
+                        }
+                        Session::flash('admin_forums', $forum_language->get('forum', 'forum_deleted_successfully'));
+                        Redirect::to(URL::build('/panel/forums'));
+                        die();
                     }
                 } else {
                     $errors = [$language->get('general', 'invalid_token')];

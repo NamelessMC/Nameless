@@ -25,21 +25,6 @@ function sendRegisterEmail(Queries $queries, Language $language, string $email_a
 
         $sent = Email::send($email, 'mailer');
 
-        if (isset($sent['error'])) {
-            // Error, log it
-            $queries->create(
-                'email_errors',
-                [
-                    'type' => 1, // 1 = registration
-                    'content' => $sent['error'],
-                    'at' => date('U'),
-                    'user_id' => $user_id
-                ]
-            );
-
-            return false;
-        }
-
     } else {
         // PHP mail function
         $siteemail = $queries->getWhere('settings', ['name', '=', 'outgoing_email']);
@@ -60,20 +45,21 @@ function sendRegisterEmail(Queries $queries, Language $language, string $email_a
 
         $sent = Email::send($email, 'php');
 
-        if (isset($sent['error'])) {
-            // Error, log it
-            $queries->create(
-                'email_errors',
-                [
-                    'type' => 1, // 1 = registration
-                    'content' => $sent['error'],
-                    'at' => date('U'),
-                    'user_id' => $user_id
-                ]
-            );
+    }
 
-            return false;
-        }
+    if (isset($sent['error'])) {
+        // Error, log it
+        $queries->create(
+            'email_errors',
+            [
+                'type' => 1, // 1 = registration
+                'content' => $sent['error'],
+                'at' => date('U'),
+                'user_id' => $user_id
+            ]
+        );
+
+        return false;
     }
 
     return true;

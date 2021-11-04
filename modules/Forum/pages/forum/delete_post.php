@@ -81,12 +81,11 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
             $forum->updateTopicLatestPosts();
 
             Redirect::to($redirect);
-            die();
 
         } else {
             Redirect::to(URL::build('/forum/topic/' . Input::get('tid')));
-            die();
         }
+        die();
     } else {
         echo 'No post selected';
         die();

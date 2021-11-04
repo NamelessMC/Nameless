@@ -26,9 +26,9 @@ class MCQuery {
         }
 
         try {
+            $query_ip = explode(':', $ip['ip']);
             if ($type == 'internal') {
                 // Internal query
-                $query_ip = explode(':', $ip['ip']);
 
                 if (count($query_ip) == 1 || (strlen($query_ip[1]) == 2 && empty($query_ip[1]))) {
                     $query_ip[1] = 25565;
@@ -73,7 +73,6 @@ class MCQuery {
                 }
             } else {
                 // External query
-                $query_ip = explode(':', $ip['ip']);
 
                 if (count($query_ip) > 2) {
                     return [
@@ -142,11 +141,11 @@ class MCQuery {
      */
     public static function multiQuery(array $servers, string $type, Language $language, bool $accumulate, Queries $queries): array {
         if (count($servers)) {
+            $to_return = [];
+            $total_count = 0;
+            $status = 0;
             if ($type == 'internal') {
                 // Internal query
-                $to_return = [];
-                $total_count = 0;
-                $status = 0;
 
                 foreach ($servers as $server) {
                     $query_ip = explode(':', $server['ip']);
@@ -210,22 +209,8 @@ class MCQuery {
                     $ping->close();
                 }
 
-                if ($accumulate === true) {
-                    $to_return = [
-                        'status_value' => $status,
-                        'status' => (($status == 1) ? $language->get('general', 'online') : $language->get('general', 'offline')),
-                        'status_full' => (($status == 1) ? str_replace('{x}', $total_count, $language->get('general', 'currently_x_players_online')) : $language->get('general', 'server_offline')),
-                        'total_players' => $total_count,
-                        'player_count' => $total_count
-                    ];
-                }
-
-                return $to_return;
             } else {
                 // External query
-                $to_return = [];
-                $total_count = 0;
-                $status = 0;
 
                 foreach ($servers as $server) {
                     $query_ip = explode(':', $server['ip']);
@@ -262,18 +247,17 @@ class MCQuery {
                     }
                 }
 
-                if ($accumulate === true) {
-                    $to_return = [
-                        'status_value' => $status,
-                        'status' => (($status == 1) ? $language->get('general', 'online') : $language->get('general', 'offline')),
-                        'status_full' => (($status == 1) ? str_replace('{x}', $total_count, $language->get('general', 'currently_x_players_online')) : $language->get('general', 'server_offline')),
-                        'total_players' => $total_count,
-                        'player_count' => $total_count
-                    ];
-                }
-
-                return $to_return;
             }
+            if ($accumulate === true) {
+                $to_return = [
+                    'status_value' => $status,
+                    'status' => (($status == 1) ? $language->get('general', 'online') : $language->get('general', 'offline')),
+                    'status_full' => (($status == 1) ? str_replace('{x}', $total_count, $language->get('general', 'currently_x_players_online')) : $language->get('general', 'server_offline')),
+                    'total_players' => $total_count,
+                    'player_count' => $total_count
+                ];
+            }
+            return $to_return;
         }
         return false;
     }

@@ -106,11 +106,10 @@ if (isset($_GET['pid'])) {
         }
         if (ceil($output / 10) != $p) {
             Redirect::to(URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title), 'p=' . ceil($output / 10)) . '#post-' . $_GET['pid']);
-            die();
         } else {
             Redirect::to(URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title)) . '#post-' . $_GET['pid']);
-            die();
         }
+        die();
     } else {
         require_once(ROOT_PATH . '/404.php');
         die();

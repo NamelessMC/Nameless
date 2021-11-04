@@ -87,13 +87,9 @@ if (Input::exists()) {
         }
 
         // Redirect
-        Redirect::to(URL::build('/forum/topic/' . $topic_id, 'pid=' . $post->id));
-        die();
-    } else {
-        // Invalid token
-        Redirect::to(URL::build('/forum/topic/' . $topic_id, 'pid=' . $post->id));
-        die();
     }
+    Redirect::to(URL::build('/forum/topic/' . $topic_id, 'pid=' . $post->id));
+    die();
 } else {
     Redirect::to(URL::build('/forum'));
     die();

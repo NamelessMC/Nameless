@@ -101,13 +101,11 @@ if (!isset($_GET['action'])) {
                         }
                         if (!$announcements->create($pages, $all_groups, Output::getClean(Input::get('text_colour')), Output::getClean(Input::get('background_colour')), Output::getClean(Input::get('icon')), Output::getClean(Input::get('closable')), Output::getClean(Input::get('header')), Output::getClean(Input::get('message')), Output::getClean(Input::get('order')))) {
                             Session::flash('announcement_error', $language->get('admin', 'creating_announcement_failure'));
-                            Redirect::to(URL::build('/panel/core/announcements'));
-                            die();
                         } else {
                             Session::flash('announcement_success', $language->get('admin', 'creating_announcement_success'));
-                            Redirect::to(URL::build('/panel/core/announcements'));
-                            die();
                         }
+                        Redirect::to(URL::build('/panel/core/announcements'));
+                        die();
                     } else {
                         $errors = $validation->errors();
                     }
@@ -195,13 +193,11 @@ if (!isset($_GET['action'])) {
                         }
                         if (!$announcements->edit($announcement->id, $pages, $all_groups, Output::getClean(Input::get('text_colour')), Output::getClean(Input::get('background_colour')), Output::getClean(Input::get('icon')), Output::getClean(Input::get('closable')), Output::getClean(Input::get('header')), Output::getClean(Input::get('message')), Output::getClean(Input::get('order')))) {
                             Session::flash('announcement_error', $language->get('admin', 'editing_announcement_failure'));
-                            Redirect::to(URL::build('/panel/core/announcements'));
-                            die();
                         } else {
                             Session::flash('announcement_success', $language->get('admin', 'editing_announcement_success'));
-                            Redirect::to(URL::build('/panel/core/announcements'));
-                            die();
                         }
+                        Redirect::to(URL::build('/panel/core/announcements'));
+                        die();
                     } else {
                         $errors = $validation->errors();
                     }

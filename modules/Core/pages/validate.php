@@ -55,11 +55,9 @@ if(!isset($_GET['c'])){
         );
 
 		Session::flash('home', $language->get('user', 'validation_complete'));
-		Redirect::to(URL::build('/'));
-		die();
-	} else {
+    } else {
 		Session::flash('home_error', $language->get('user', 'validation_error'));
-		Redirect::to(URL::build('/'));
-		die();
-	}
+    }
+    Redirect::to(URL::build('/'));
+    die();
 }

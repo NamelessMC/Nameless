@@ -171,13 +171,7 @@ if ($forum_query->redirect_forum == 1) {
     $smarty->assign('BREADCRUMBS', array_reverse($breadcrumbs));
 
     // Server status module
-    if (isset($status_enabled->value) && $status_enabled->value == 'true') {
-        // Todo
-        $smarty->assign('SERVER_STATUS', '');
-    } else {
-        // Module disabled, assign empty values
-        $smarty->assign('SERVER_STATUS', '');
-    }
+    $smarty->assign('SERVER_STATUS', '');
 
     // Assignments
     $smarty->assign('FORUM_INDEX_LINK', URL::build('/forum'));

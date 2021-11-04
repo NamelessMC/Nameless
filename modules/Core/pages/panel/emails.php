@@ -60,9 +60,6 @@ if (isset($_GET['action'])) {
 
                 $sent = Email::send($email, 'mailer');
 
-                if (isset($sent['error']))
-                    // Error
-                    $errors[] = $sent['error'];
             } else {
                 // PHP mail function
                 $siteemail = $queries->getWhere('settings', ['name', '=', 'outgoing_email']);
@@ -88,10 +85,10 @@ if (isset($_GET['action'])) {
 
                 $sent = Email::send($email, 'php');
 
-                if (isset($sent['error']))
-                    // Error
-                    $errors[] = $sent['error'];
             }
+            if (isset($sent['error']))
+                // Error
+                $errors[] = $sent['error'];
 
             if (!count($errors))
                 $success = $language->get('admin', 'test_email_success');

@@ -67,16 +67,6 @@ if (Input::exists()) {
 
                         $sent = Email::send($email, 'mailer');
 
-                        if (isset($sent['error'])) {
-                            // Error, log it
-                            $queries->create('email_errors', [
-                                'type' => 2, // 2 = contact
-                                'content' => $sent['error'],
-                                'at' => date('U'),
-                                'user_id' => ($user->isLoggedIn() ? $user->data()->id : null)
-                            ]);
-                        }
-
                     } else {
                         // PHP mail function
                         $siteemail = $queries->getWhere('settings', ['name', '=', 'outgoing_email']);
@@ -103,16 +93,15 @@ if (Input::exists()) {
 
                         $sent = Email::send($email, 'php');
 
-                        if (isset($sent['error'])) {
-                            // Error, log it
-                            $queries->create('email_errors', [
-                                'type' => 2, // 2 = contact
-                                'content' => $sent['error'],
-                                'at' => date('U'),
-                                'user_id' => ($user->isLoggedIn() ? $user->data()->id : null)
-                            ]);
-                        }
-
+                    }
+                    if (isset($sent['error'])) {
+                        // Error, log it
+                        $queries->create('email_errors', [
+                            'type' => 2, // 2 = contact
+                            'content' => $sent['error'],
+                            'at' => date('U'),
+                            'user_id' => ($user->isLoggedIn() ? $user->data()->id : null)
+                        ]);
                     }
                 } catch (Exception $e) {
                     // Error
