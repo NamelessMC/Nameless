@@ -23,7 +23,7 @@ $language = [
     'sign_in' => 'Logga In',
     'log_out' => 'Logga Ut',
     'profile' => 'Profil',
-    'invalid_token' => 'Ogiltigt token, försök igen.',
+    'invalid_token' => 'Ogiltig token, försök igen.',
     'close' => 'Stäng',
     'back' => 'Tillbaka',
     'warning' => 'Varning',
@@ -31,7 +31,7 @@ $language = [
     'search' => 'Sök',
     'edit' => 'Redigera',
     'next' => 'Nästa',
-    'previous' => 'Previous',
+    'previous' => 'Föregående',
     'confirm_cancel' => 'Är du säker att du vill avsluta?',
     'confirm_delete' => 'Bekräfta radering',
     'confirm_deletion' => 'Är du säker att du vill radera detta?',
@@ -54,8 +54,8 @@ $language = [
     'x_new_messages' => 'Du har {x} nya meddelanden.', // Don't replace {x}
     'loading' => 'Laddar...',
     'report' => 'Anmäl',
-    'reported_by' => 'Reported by {x}',
-    'view_report' => 'View report',
+    'reported_by' => 'Rapporterad av {x}',
+    'view_report' => 'Visa rapport',
     'page_loaded_in' => 'Sida laddad på {x}s', // Don't replace {x}, time unit is seconds
     'page_x' => 'Sida {x}',
     'browse' => 'Bläddra',
@@ -72,7 +72,7 @@ $language = [
     'invalid_timezone' => 'Ogiltig tidszon',
     'link' => 'Länka',
     'unlink' => 'Avlänka',
-    'leaderboards' => 'Leaderboards',
+    'leaderboards' => 'Topplista',
     
     /*
      *  Contact form
@@ -81,10 +81,10 @@ $language = [
     'message' => 'Meddelande',
     'email_address' => 'Email Address',
     'contact_email_subject' => 'Ny kontaktformulär inlämning.',
-    'contact_message_failed' => 'Det gick inte att skicka meddelandet. Vänligen Unable to send message. Please se till att du har skrivit ett meddelande mellan 10 och 5000 tecken långt.',
+    'contact_message_failed' => 'Det gick inte att skicka meddelandet. Vänligen se till att du har skrivit ett meddelande som är mellan 10 och 5000 tecken långt.',
     'contact_message_email' => 'Det angivna meddelandet är ogiltigt.',
-    'contact_message_sent' => 'Meddelande sänt med framgång!',
-    'contact_message_limit' => 'Du kan bara skicka ett meddelande per timme. Du kan sedan skicka ett meddelande om {x} minuter.', // Don't replace {x}
+    'contact_message_sent' => 'Meddelandet skickades!',
+    'contact_message_limit' => 'Du kan bara skicka ett meddelande per timme. Du kan skicka ett meddelande om {x} minuter.', // Don't replace {x}
 
     /*
      *  Navbar
@@ -96,12 +96,12 @@ $language = [
     /*
      *  Footer
      */
-    'links' => 'Links',
+    'links' => 'Länkar',
 
     /*
      *  Homepage
      */
-    'social' => 'Social',
+    'social' => 'Socialt',
 
     /*
      *  Help dialogues
