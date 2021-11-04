@@ -381,7 +381,7 @@ if (Input::exists()) {
                                 }
                             }
 
-                            Log::getInstance()->log(Log::Action('user/register'), '');
+                            Log::getInstance()->log(Log::Action('user/register'));
 
                             if ($api_verification != '1' && $email_verification == '1') {
                                 // Send registration email

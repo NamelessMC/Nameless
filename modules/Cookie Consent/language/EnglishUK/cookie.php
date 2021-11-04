@@ -9,7 +9,7 @@
  *  EnglishUK Language for Cookie Consent module
  */
 
-$language = array(
+$language = [
     'cookie_notice' => 'Cookie Notice',
     'cookie_notice_info' => 'This widget requires cookies',
     'configure_cookies' => 'Configure Cookies',
@@ -24,4 +24,4 @@ $language = array(
     'cookies' => 'Cookies',
     'cookie_notice_error' => 'Please enter a cookie notice of at most 10,000 characters.',
     'cookie_notice_success' => 'Cookie notice updated successfully.',
-);
+];

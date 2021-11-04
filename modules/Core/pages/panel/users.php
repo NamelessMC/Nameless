@@ -56,7 +56,7 @@ if (!defined('PANEL_TEMPLATE_STAFF_USERS_AJAX')) {
             'id' => Output::getClean($item->id),
             'username' => $target_user->getDisplayname(true),
             'nickname' => $target_user->getDisplayname(),
-            'avatar' => $target_user->getAvatar(128),
+            'avatar' => $target_user->getAvatar(),
             'style' => $target_user->getGroupClass(),
             'profile' => $target_user->getProfileURL(),
             'panel_profile' => URL::build('/panel/user/' . Output::getClean($item->id . '-' . $item->username)),

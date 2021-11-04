@@ -17,7 +17,7 @@ if ($cache->isCached('news')) {
     $forum = new Forum();
     $timeago = new TimeAgo(TIMEZONE);
 
-    $latest_news = $forum->getLatestNews(5); // Get latest 5 items
+    $latest_news = $forum->getLatestNews(); // Get latest 5 items
 
     $news = [];
 

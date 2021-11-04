@@ -273,10 +273,10 @@ $queries->create('modules', [
     'enabled' => 1
 ]);
 
-$queries->create('modules', array(
+$queries->create('modules', [
     'name' => 'Cookie Consent',
     'enabled' => 1
-));
+]);
 
 $cache->setCache('modulescache');
 $cache->store('enabled_modules', [

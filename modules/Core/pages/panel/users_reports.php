@@ -94,13 +94,13 @@ if (!isset($_GET['id'])) {
                 $user_reported = $target_user->getDisplayname();
                 $user_profile = URL::build('/panel/user/' . Output::getClean($report->reported_id . '-' . $target_user->data()->username));
                 $user_style = $target_user->getGroupClass();
-                $user_avatar = $target_user->getAvatar(128);
+                $user_avatar = $target_user->getAvatar();
             } else {
                 // Ingame report
                 $user_reported = Output::getClean($report->reported_mcname);
                 $user_profile = URL::build('/panel/user/' . Output::getClean($report->reported_id . '-' . $report->reported_mcname));
                 $user_style = '';
-                $user_avatar = Util::getAvatarFromUUID($report->reported_uuid, 128);
+                $user_avatar = Util::getAvatarFromUUID($report->reported_uuid);
             }
 
             $updated_by_user = new User($report->updated_by);
@@ -117,7 +117,7 @@ if (!isset($_GET['id'])) {
                 'updated_by' => $updated_by_user->getDisplayname(),
                 'updated_by_profile' => URL::build('/panel/user/' . Output::getClean($report->updated_by . '-' . $updated_by_user->data()->username)),
                 'updated_by_style' => $updated_by_user->getGroupClass(),
-                'updated_by_avatar' => $updated_by_user->getAvatar(128),
+                'updated_by_avatar' => $updated_by_user->getAvatar(),
                 'updated_at' => ($report->updated ? $timeago->inWords(date('Y-m-d H:i:s', $report->updated), $language->getTimeLanguage()) : $timeago->inWords($report->date_updated, $language->getTimeLanguage())),
                 'updated_at_full' => ($report->updated ? date('d M Y, H:i', $report->updated) : date('d M Y, H:i', strtotime($report->date_updated))),
                 'comments' => $comments
@@ -223,11 +223,11 @@ if (!isset($_GET['id'])) {
             if ($reported_user->data()) {
                 $reported_user_profile = URL::build('/panel/user/' . Output::getClean($reported_user->data()->id . '-' . $reported_user->data()->username));
                 $reported_user_style = $reported_user->getGroupClass();
-                $reported_user_avatar = $reported_user->getAvatar(128);
+                $reported_user_avatar = $reported_user->getAvatar();
             } else {
                 $reported_user_profile = '#';
                 $reported_user_style = '';
-                $reported_user_avatar = Util::getAvatarFromUUID(Output::getClean($report->reported_uuid), 128);
+                $reported_user_avatar = Util::getAvatarFromUUID(Output::getClean($report->reported_uuid));
             }
 
             $reported_user_name = Output::getClean($report->reported_mcname);

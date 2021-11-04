@@ -43,7 +43,7 @@ function sendRegisterEmail(Queries $queries, Language $language, string $email_a
             'headers' => $headers
         ];
 
-        $sent = Email::send($email, 'php');
+        $sent = Email::send($email);
 
     }
 

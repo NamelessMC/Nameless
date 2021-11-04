@@ -91,7 +91,7 @@ if (Input::exists()) {
                             'headers' => $headers
                         ];
 
-                        $sent = Email::send($email, 'php');
+                        $sent = Email::send($email);
 
                     }
                     if (isset($sent['error'])) {
