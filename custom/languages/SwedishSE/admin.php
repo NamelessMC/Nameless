@@ -89,14 +89,14 @@ $language = [
     'enable_debug_mode' => 'Aktivera debug-läge?',
     'force_https' => 'Tvinga https?',
     'force_https_help' => 'Om aktiverad, kommer alla förfrågningar till din webbplats att omdirigeras till https. Du måste ha ett giltigt SSL-certifikat aktivt för att detta ska fungera korrekt.',
-    'force_www' => 'Force www?',
+    'force_www' => 'Tvinga www?',
     'contact_email_address' => 'Kontakt E-postadress',
     'emails' => 'E-poster',
     'email_errors' => 'E-postfel',
     'registration_email' => 'Registrering E-post',
     'contact_email' => 'Kontakt E-post',
     'forgot_password_email' => 'Glömt lösenord E-post',
-    'unknown' => 'OKänd',
+    'unknown' => 'Okänd',
     'delete_email_error' => 'Radera fel',
     'confirm_email_error_deletion' => 'Är du säker på att du vill radera detta fel?',
     'viewing_email_error' => 'Visar fel',
@@ -108,7 +108,7 @@ $language = [
     'mailer_settings_info' => 'The following fields are required if you have enabled PHPMailer. For more information on how to fill out these fields, check out <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-SMTP-with-Nameless-(e.g.-Gmail-or-Outlook)" target="_blank">the wiki</a>.',
     'host' => 'Host',
     'email_port' => 'Port',
-    'email_port_invalid' => 'Please insert a valid email port.',
+    'email_port_invalid' => 'Vänligen ange en giltig email port.',
     'email_password_hidden' => 'Lösenordet visas inte av säkerhetsskäl.',
     'send_test_email' => 'Skicka Test E-post',
     'send_test_email_info' => 'Följande knapp kommer att försöka skicka ett mail till din e-postadress, <strong> {x} </strong>. Eventuella fel när du skickar e-postmeddelandet visas.', // Don't replace {x}
@@ -116,15 +116,15 @@ $language = [
     'test_email_error' => 'Test e-post fel:',
     'test_email_success' => 'Test e-post skickat framgångsrikt!',
     'edit_email_messages' => 'E-Post Meddelanden',
-    'email_language_info' => 'Ser inte ditt språk? Se till att \'emails.php\' finns i din språk mapp och att den är skrivbar av din webserver.',
+    'email_language_info' => 'Ser du inte ditt språk? Se till att \'emails.php\' finns i din språk mapp och att den är skrivbar av din webserver.',
     'editing_language' => 'Redigerar Språk',
     'email_preview_popup' => 'Förhandsgranskning',
     'email_preview_popup_message' => 'Klicka här för att se en förhandsgranskning av E-post meddelandet.',
-    'email_message_greeting' => 'Greeting',
-    'email_message_thanks' => 'Thanks',
-    'email_message_options' => 'Options',
-    'email_message_subject' => 'Subject',
-    'email_message_message' => 'Message',
+    'email_message_greeting' => 'Hälsning',
+    'email_message_thanks' => 'Tack',
+    'email_message_options' => 'Inställningar',
+    'email_message_subject' => 'Ämne',
+    'email_message_message' => 'Meddelande',
     'terms_error' => 'Vänligen se till att dina villkor inte är längre än 100000 tecken.',
     'privacy_policy_error' => 'Ange en sekretesspolicy som inte ska vara längre än 100000 tecken.',
     'terms_updated' => 'Villkoren uppdateras framgångsrikt.',
@@ -133,7 +133,7 @@ $language = [
     'default_avatar' => 'Standard avatar',
     'custom_avatar' => 'Egen avatar',
     'minecraft_avatar' => 'Minecraft avatar',
-    'minecraft_avatar_source' => 'Minecraft avatar source',
+    'minecraft_avatar_source' => 'Minecraft avatar källa',
     'built_in_avatars' => 'Inbyggd avatar tjänst',
     'minecraft_avatar_perspective' => 'Minecraft avatar perspektiv',
     'face' => 'Ansikte',
@@ -145,10 +145,10 @@ $language = [
     'navigation' => 'Navigering',
     'navbar_order' => 'Navbar Ordning',
     'navbar_order_instructions' => 'Du kan ge varje föremål ett nummer över 0 för att ordna föremålet i navbaren, där 1 är det första föremålet och högre nummer som kommer efter det.',
-    'navbar_icon' => 'Navbar Icon',
-    'navbar_icon_instructions' => 'You can also add an icon to each navbar item here, for example using <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>, <a href="https://semantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Semantic UI</a>.',
-    'navigation_settings_updated_successfully' => 'Navigation settings updated successfully.',
-    'dropdown_items' => 'Dropdown Items',
+    'navbar_icon' => 'Navbar Ikon',
+    'navbar_icon_instructions' => 'YDu kan också lägga till en ikon till varje navbar objekt här, till exempel med hjälp av <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>, <a href="https://semantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Semantic UI</a>.',
+    'navigation_settings_updated_successfully' => 'Navigations inställningarna har uppdaterats.',
+    'dropdown_items' => 'Dropdown-Objekt',
     'enable_page_load_timer' => 'Aktivera sidladdningstimer?',
     'captcha_general' => 'Aktivera Captcha på registrering och kontaktsida?',
     'captcha_login' => 'Aktivera Captcha på inloggningssidan?',
@@ -168,12 +168,12 @@ $language = [
     'emails_mass_message_sent_successfully' => 'Skickade ett massmeddelande.',
     'emails_mass_message_replacements' => 'Du kan använda variabler i ditt e-postmeddelande. Variabler som stöds: {username}, {sitename}',
     'emails_mass_message_loading' => 'Laddar ... Ladda inte om sidan. Det här kan ta ett tag.',
-    'administrator' => 'Administrator',
-    'administrator_permission_info' => 'Members with this permission will have every permission. This is a dangerous permission to grant.',
+    'administrator' => 'Administratör',
+    'administrator_permission_info' => 'Medlemmar med denna behörighet kommer att ha alla behörigheter. Detta är en farlig behörighet att ge.',
 
     // Placeholders
     'placeholders' => 'Placeholders',
-    'enable_placeholders' => 'Enable Placeholders?',
+    'enable_placeholders' => 'Aktivera Placeholders?',
     'updated_placeholder_settings' => 'Uppdaterade placeholder inställningar.',
     'placeholders_info' => 'Placeholders tillåter pluggen NamelessMC Spigot att skicka statistik om varje spelare till din webbplats så att de kan visa dem på sin profil och i foruminlägg.',
     'placeholders_none' => 'Det finns inga placeholders.',
@@ -200,7 +200,7 @@ $language = [
 
     // SEO
     'seo' => 'SEO',
-    'google_analytics' => 'Google Analys',
+    'google_analytics' => 'Google Analytics',
     'google_analytics_help' => 'Lägg till Google Analytics på din webbplats för att spåra besökare och statistik. Du måste skapa ett Google Analytics-konto för att kunna använda den här funktionen. Ange ditt Google Analytics-webbegendom-ID. ID: n ser ut som UA-XXXXA-X och du hittar det i din kontoinformation eller i spårningskoden från Google.',
 
     // Reactions
@@ -232,7 +232,7 @@ $language = [
     'public' => 'Publik',
     'forum_posts' => 'Visa på forum',
     'text' => 'Text',
-    'textarea' => 'Text area',
+    'textarea' => 'Text fält',
     'date' => 'Datum',
     'creating_profile_field' => 'Skapar profil fält',
     'editing_profile_field' => 'Redigerar profil fält',
@@ -251,8 +251,8 @@ $language = [
 
     // Minecraft
     'enable_minecraft_integration' => 'Aktivera Minecraft Integration?',
-    'mc_service_status' => 'Minecraft Service Status',
-    'service_query_error' => 'Det går inte att hämta status på servicen.',
+    'mc_service_status' => 'Minecraft Tjänst Status',
+    'service_query_error' => 'Det går inte att hämta status på tjänsten.',
     'authme_integration' => 'AuthMe Integration',
     'authme_integration_info' => 'När AuthMe integration är aktiverad, kan användrarna bara registrera sig i servern.',
     'enable_authme' => 'Aktivera AuthMe integration?',
@@ -525,11 +525,11 @@ $language = [
     'email_logs' => 'Mass Emails',
     'group_sync_logs' => 'Group Sync Changes',
     'file_changed' => 'Fil ändrad',
-    'all_logs' => 'All Logs',
+    'all_logs' => 'Alla Loggar',
     'action' => 'Action',
     'action_info' => 'Action Info',
-    'groups_removed' => 'Groups Removed',
-    'groups_added' => 'Groups Added',
+    'groups_removed' => 'Grupper borttagna',
+    'groups_added' => 'Grupper Tillagda',
 
     // Updates
     'update' => 'Uppdatera',
@@ -544,7 +544,7 @@ $language = [
     'instructions' => 'Instruktioner',
     'download' => 'Ladda ner',
     'install_confirm' => 'Var god och se till att du har laddat ner paketet och laddat upp filerna inuti först!',
-    'check_again' => 'Check again',
+    'check_again' => 'Kolla igen',
 
     // Widgets
     'widgets' => 'Widgetar',
@@ -555,12 +555,12 @@ $language = [
     'module_x' => 'Module: {x}', // Don't replace {x}
     'widget_order' => 'Widget Order',
     'widget_location' => 'Widget Location',
-    'left' => 'Left',
-    'right' => 'Right',
+    'left' => 'Vänster',
+    'right' => 'Höger',
 
     // Online users widget
-    'include_staff_in_user_widget' => 'Include staff members in user widget?',
-    'show_nickname_instead_of_username' => 'Show user\'s nickname instead of username?',
+    'include_staff_in_user_widget' => 'Inkludera personal medlemmar i medlems-widget?',
+    'show_nickname_instead_of_username' => 'Visa användare\s smeknamn istället för användarnamn?',
 
     // Custom Pages
     'pages' => 'Sidor',
@@ -579,12 +579,12 @@ $language = [
     'page_content' => 'Sido Innehåll',
     'page_redirect' => 'Sido Omdirigera?',
     'page_redirect_to' => 'Omdirigerings Länk (med föregående http://)',
-    'page_target' => 'Open page in a new tab?',
+    'page_target' => 'Öppna sida i ny flik?',
     'unsafe_html' => 'Tillåt osäker HTML?',
     'unsafe_html_warning' => 'Aktivering av det här alternativet innebär att alla HTML kan användas på sidan, inklusive potentiellt farlig JavaScript. Aktivera bara detta om du är säker på att din HTML är säker.',
-    'include_in_sitemap' => 'Include in sitemap?',
-    'sitemap_link' => 'Sitemap link:',
-    'basic_page' => 'Basic page?',
+    'include_in_sitemap' => 'Inkludera i sitemap?',
+    'sitemap_link' => 'Sitemap länk:',
+    'basic_page' => 'Basic sida?',
     'page_permissions' => 'Sido Behörigheter',
     'view_page' => 'Visa Sida?',
     'editing_page_x' => 'Redigerar Sidan {x}', // Don't replace {x}
@@ -613,20 +613,20 @@ $language = [
     'confirm_api_regen' => 'Är du säker på att du vill regenerera din API nyckel?',
     'api_key' => 'API Key',
     'api_url' => 'API URL',
-    'copy' => 'Copy',
+    'copy' => 'Kopiera',
     'api_key_regenerated' => 'API-nyckeln har regenererats framgångsrikt.',
     'api_registration_email' => 'API Registrerings Email',
     'show_registration_link' => 'Visa registreringslänk',
-    'registration_link' => 'Registration Link',
+    'registration_link' => 'Registreringslänk',
     'link_to_complete_registration' => 'Länk till fullständig registrering: {x}', // Don't replace {x}
     'api_verification' => 'Aktivera API-verifiering?',
     'api_verification_info' => 'Om det är aktiverat kan konton endast verifieras via API: et, till exempel ingame med det officiella Nameless-tillägget. <strong> Det här alternativet åsidosätter verifiering av e-post och konton aktiveras automatiskt! </strong> <br /> Du bör ställa in din standardgrupp så att den har begränsade behörigheter och uppdatera sedan postvalideringsgruppen i StaffCP -> Kärna -> fliken Registrering till hela medlemsgruppen med normala behörigheter. ',
     'enable_username_sync' => 'Aktivera synkronisering av användarnamn?',
     'enable_username_sync_info' => 'Om det är aktiverat kommer webbplatsens användarnamn att uppdateras så att de matchar ingames användarnamn.',
     'api_settings_updated_successfully' => 'API-inställningar har uppdaterats.',
-    'group_sync' => 'Group Sync',
+    'group_sync' => 'Grupp synk',
     'group_sync_info' => 'Du kan konfigurera API: et för att automatiskt uppdatera en användares webbplatsgrupp när deras integrationsgrupp ändras. Ange helt enkelt integrationsgruppens namn / ID och webbplatsgruppen som den ska synkroniseras med nedan. ',
-    'ingame_group' => 'Ingame Group Name',
+    'ingame_group' => 'Ingame Grupp Namn',
     'website_group' => 'Webbplatsgrupp',
     'set_as_primary_group' => 'Ställa in som primär grupp?',
     'set_as_primary_group_info' => 'Om det är aktiverat kommer användarens primära webbplatsgrupp att uppdateras. Om den är avaktiverad kommer ingångsgruppen att läggas till i användarens sekundära grupper. ',
@@ -641,14 +641,14 @@ $language = [
     'new_rule' => 'Ny regel',
     'api_endpoints' => 'API-slutpunkter',
     'api_endpoints_info' => 'API-slutpunkter tillåter moduler att skapa sätt för externa applikationer (som Minecraft och Discord) att interagera med din NamelessMC-webbplats.',
-    'route' => 'Route',
+    'route' => 'Rutt',
 
     // File uploads
     'drag_files_here' => 'Dra filer här för att ladda upp.',
     'invalid_file_type' => 'Ogiltig filtyp!',
     'file_too_big' => 'Filen är för stor! Din fil var {{filesize}} och max kan man ha {{maxFilesize}}', // Don't replace {{filesize}} or {{maxFilesize}}
-    'allowed_proxies' => 'Allowed Proxies',
-    'allowed_proxies_info' => 'Line separated list of allowed proxy IPs.',
+    'allowed_proxies' => 'Tillåtna Proxyn',
+    'allowed_proxies_info' => 'Linje separerad lista av proxy IP-adresser.',
 
     // Error logs
     'error_logs' => 'Felloggar',
@@ -662,9 +662,9 @@ $language = [
 
     // Hooks
 'hooks' => 'Webhooks',
-    'hooks_info' => 'Webbhooks gör att externa tjänster kan meddelas när vissa händelser inträffar. När de angivna händelserna inträffar. ',
+    'hooks_info' => 'Webhooks gör att externa tjänster kan meddelas när vissa händelser inträffar. När de angivna händelserna inträffar. ',
     'no_hooks_yet' => 'Det finns inga webbhooks än.',
-    'new_hook' => 'New Hook',
+    'new_hook' => 'Ny hook',
     'creation_new_hook' => 'Skapa ny webbhook',
     'editing_hook' => 'Redigerar Webhook',
     'hook_deleted' => 'Kroken har tagits bort.',
@@ -681,7 +681,7 @@ $language = [
     'register_hook_info' => 'Användarregistrering',
     'validate_hook_info' => 'Användarvalidering',
     'delete_hook_info' => 'Radering av användare',
-    'report_hook_info' => 'Report creation',
+    'report_hook_info' => 'Rapportera skapelse',
 
     // Sitemap
     'impossible_to_load_sitemap_file_x' => 'Det går inte att läsa in webbplatskartfilen {x}', // Don't replace {x}
@@ -707,14 +707,14 @@ $language = [
     'recent_users' => 'Nya användare',
     'recent_users_statistic_icon' => '<i class = "fas fa-users"> </i>',
     'average_players' => 'Genomsnittliga spelare',
-    'nameless_news' => 'NamelessMC News',
+    'nameless_news' => 'NamelessMC Nyheter',
     'impossible_to_retrieve_nameless_news' => 'Det går inte att hämta de senaste nyheterna',
     'confirm_leave_site' => 'Du är på väg att lämna den här webbplatsen! Är du säker på att du vill besöka <strong id="leaveSiteURL"> {x} </strong>? ', // don't replace {x} and make sure it has the id leaveSiteURL
     'server_compatibility' => 'Serverkompatibilitet',
-    'issues' => 'Issues',
+    'issues' => 'Problem',
 
     // Other
-    'source' => 'Source',
+    'source' => 'Källa',
     'support' => 'Support',
     'admin_dir_still_exists' => 'Varning! Katalogen <strong> moduler / Core / pages / admin </strong> finns fortfarande. Ta bort denna katalog. ',
     'mod_dir_still_exists' => 'Varning! Katalogen <strong> moduler / Core / pages / mod </strong> finns fortfarande. Ta bort denna katalog. ',
