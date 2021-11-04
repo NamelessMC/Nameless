@@ -9,6 +9,10 @@
  *  Spanish Language - Emails
  */
 
+/**
+ * Translated by TheSuperSkills (Edited by Ariuw, iMaykolRD_ and zJerino)
+ */
+
 $language = [
 
     // General Options
@@ -16,14 +20,14 @@ $language = [
     'thanks' => 'Gracias,',
 
     // Registration Email
-    'register_subject' => 'Validar cuenta',
-    'register_message' => '¡Gracias por registrarte! Para completar su registro, haga click en el siguiente enlace:',
+    'register_subject' => 'Validación de la cuenta',
+    'register_message' => '¡Gracias por registrarte! Para completar su registro, haga clic en el siguiente enlace:',
 
     // Change Password
-    'change_password_subject' => '¿Se te olvidó tu contraseña?',
-    'change_password_message' => 'Para restablecer su contraseña, haga click en el siguiente enlace. Si no lo ha solicitado usted mismo, puede eliminarlo de forma segura.',
+    'change_password_subject' => '¿Olvido su contraseña?',
+    'change_password_message' => 'Para restablecer su contraseña, haga clic en el siguiente enlace. Si no lo ha solicitado usted mismo, puede eliminar este correo electrónico con toda seguridad.',
 
     // Forum Topic Replies
     'forum_topic_reply_subject' => '{x} ha respondido a {y}', // Don't remove {x} or {y}
-    'forum_topic_reply_message' => '{x} ha respondido a un tema que sigues. Contenido: {z}' // Don't remove {x} or {z}
+    'forum_topic_reply_message' => '{x} ha respondido a un tema que sigue. Contenido: {z}' // Don't remove {x} or {z}
 ];
