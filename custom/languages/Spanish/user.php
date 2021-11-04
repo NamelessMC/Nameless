@@ -69,8 +69,8 @@ $language = [
     'profile_banner' => 'Banner del Perfil',
     'upload_profile_banner' => 'Subir Banner del Perfil',
     'upload' => 'Subir',
-    'topic_updates' => 'Get emails for topics you follow',
-    'gravatar' => 'Use Gravatar as avatar',
+    'topic_updates' => 'Recibe correos electrónicos de los temas que sigues',
+    'gravatar' => 'Utilizar Gravatar como avatar',
 
     // Alerts
     'user_tag_info' => 'Has sido etiquetado en un post por {x}.', // Don't replace {x}
@@ -90,7 +90,7 @@ $language = [
     'password' => 'Contraseña',
     'confirm_password' => 'Confirmar contraseña',
     'i_agree' => 'Estoy de acuerdo',
-    'agree_t_and_c' => 'I have read and accept the <a href="{x}" target="_blank">Terms and Conditions</a>.',
+    'agree_t_and_c' => 'He leído y acepto los <a href="{x}" target="_blank">Términos y condiciones</a>.',
     'create_an_account' => 'Crea una cuenta',
     'terms_and_conditions' => 'Términos y Condiciones',
     'validation_complete' => 'Su cuenta ha sido validada, ahora puede iniciar sesión.',
@@ -141,8 +141,8 @@ $language = [
     'must_input_email' => 'Debe introducir una dirección de correo electrónico.',
     'must_input_username' => 'Debe introducir un nombre de usuario.',
     'must_input_password' => 'Debe introducir una contraseña.',
-    'must_input_email_or_username' => 'You must input an email or username.',
-    'email_or_username' => 'Email or Username',
+    'must_input_email_or_username' => 'Debe introducir un correo electrónico o un nombre de usuario.',
+    'email_or_username' => 'Correo electrónico o nombre de usuario',
 
     // Forgot password
     'forgot_password_instructions' => 'Por favor, introduzca su dirección de correo electrónico para que podamos enviarle más instrucciones para restablecer su contraseña..',
@@ -222,8 +222,8 @@ $language = [
     'confirm_leave' => '¿Seguro que quieres dejar esta conversación?',
     'one_or_more_users_blocked' => 'No puede enviar mensajes privados a al menos un miembro de la conversación.',
     'messages' => 'Mensajes',
-    'latest_profile_posts' => 'Latest Profile Posts',
-    'no_profile_posts' => 'No profile posts.',
+    'latest_profile_posts' => 'Últimas publicaciones en perfiles',
+    'no_profile_posts' => 'No hay mensajes de perfil.',
 
     /*
      *  Infractions area
