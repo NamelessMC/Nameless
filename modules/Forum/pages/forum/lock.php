@@ -55,8 +55,7 @@ if ($user->isLoggedIn()) {
     } else {
         Redirect::to(URL::build('/forum'));
     }
-    die();
 } else {
     Redirect::to(URL::build('/forum'));
-    die();
 }
+die();

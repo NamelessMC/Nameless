@@ -86,8 +86,7 @@ class TimeAgo {
             $key = '1_minute';
         }
         // between 1min30secs and 44mins29secs
-        else if($timeDifference > 89 &&
-            $timeDifference <= (($this->secondsPerMinute * 44) + 29)
+        else if($timeDifference <= (($this->secondsPerMinute * 44) + 29)
         ) {
             $replace = floor($timeDifference / $this->secondsPerMinute);
             $key = '_minutes';

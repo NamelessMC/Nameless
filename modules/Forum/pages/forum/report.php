@@ -94,11 +94,9 @@ if (Token::check()) {
         // Invalid report content
         Session::flash('failure_post', $language->get('user', 'invalid_report_content'));
     }
-    Redirect::to(URL::build('/forum/topic/' . Output::getClean($_POST['topic'])));
-    die();
 } else {
     // Invalid token
     Session::flash('failure_post', $language->get('general', 'invalid_token'));
-    Redirect::to(URL::build('/forum/topic/' . Output::getClean($_POST['topic'])));
-    die();
 }
+Redirect::to(URL::build('/forum/topic/' . Output::getClean($_POST['topic'])));
+die();

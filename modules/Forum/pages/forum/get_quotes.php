@@ -22,7 +22,7 @@ const PAGE = 'forum';
 $forum = new Forum();
 
 // Get the post data
-if (!isset($_POST) || empty($_POST)) {
+if (empty($_POST)) {
     die(json_encode(['error' => 'No post data']));
 }
 

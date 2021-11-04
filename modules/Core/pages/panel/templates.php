@@ -359,7 +359,7 @@ if (!isset($_GET['action'])) {
 
             require_once(ROOT_PATH . DIRECTORY_SEPARATOR . 'custom' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . str_replace(['../', '/', '..'], '', $template_query->name) . DIRECTORY_SEPARATOR . 'template.php');
 
-            if ($template && $template instanceof TemplateBase) {
+            if ($template instanceof TemplateBase) {
                 if ($template->getSettings()) {
                     require_once($template->getSettings());
 

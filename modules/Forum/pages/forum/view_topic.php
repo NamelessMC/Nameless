@@ -109,11 +109,10 @@ if (isset($_GET['pid'])) {
         } else {
             Redirect::to(URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title)) . '#post-' . $_GET['pid']);
         }
-        die();
     } else {
         require_once(ROOT_PATH . '/404.php');
-        die();
     }
+    die();
 }
 
 // Follow/unfollow

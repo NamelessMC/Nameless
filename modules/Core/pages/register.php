@@ -177,13 +177,13 @@ if (Input::exists()) {
             ];
 
             // Minecraft username?
+            $to_validation['username'] = [
+                'required' => true,
+                'min' => 3,
+                'max' => 20,
+                'unique' => 'users'
+            ];
             if (MINECRAFT) {
-                $to_validation['username'] = [
-                    'required' => true,
-                    'min' => 3,
-                    'max' => 20,
-                    'unique' => 'users'
-                ];
                 if ($custom_usernames == 'true') {
                     // Nickname enabled
                     $to_validation['nickname'] = [
@@ -200,21 +200,14 @@ if (Input::exists()) {
                     $nickname = Output::getClean(Input::get('username'));
 
                 }
-                $username = Output::getClean(Input::get('username'));
 
             } else {
                 // Just check username
-                $to_validation['username'] = [
-                    'required' => true,
-                    'min' => 3,
-                    'max' => 20,
-                    'unique' => 'users'
-                ];
 
                 $nickname = Output::getClean(Input::get('username'));
-                $username = Output::getClean(Input::get('username'));
 
             }
+            $username = Output::getClean(Input::get('username'));
 
             // Validate custom fields
             $profile_fields = $queries->getWhere('profile_fields', ['id', '<>', 0]);

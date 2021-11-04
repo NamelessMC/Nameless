@@ -84,9 +84,8 @@ if ($forum->canModerateForum($post->forum_id, $user->getAllGroupIds())) {
         // Invalid token
         Redirect::to(URL::build('/forum/topic/' . $post->topic_id, 'pid=' . $post->id));
     }
-    die();
 } else {
     // Can't moderate forum
     Redirect::to(URL::build('/forum'));
-    die();
 }
+die();
