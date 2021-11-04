@@ -25,6 +25,6 @@ Unfortunately it's only possible to view contributors for the default branch. Fo
 - Romanian: [BaxAndrei](https://github.com/baxandrei)
 - Slovak: [RobiNN1](https://github.com/RobiNN1)
 - Spanish: [Ariuw](https://github.com/Ariuw), [iMaykolRD_](https://namelessmc.com/profile/iMaykolRD_/), TheSuperSkills, [zJerino](https://namelessmc.com/profile/zJerino/)
-- Swedish: [IsS127](https://github.com/IsS127)
+- Swedish: [IsS127](https://github.com/IsS127), [ItsLynix](https://github.com/ItsLynix)
 - Turkish: xOrcun
 - French: [WhiteSkyAngel](https://github.com/WhiteSkyAngel)
