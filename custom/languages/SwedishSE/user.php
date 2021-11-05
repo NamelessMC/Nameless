@@ -37,18 +37,18 @@ $language = [
     'private_profile' => 'Privat profil',
     'gif_avatar' => 'Ladda upp .gif som anpassad avatar',
     'placeholders' => 'Placeholders',
-    'no_placeholders' => 'No Placeholders',
+    'no_placeholders' => 'Inga Placeholders',
 
     // Profile settings
     'field_is_required' => '{x} krävs', // Don't replace {x}
     'settings_updated_successfully' => 'Inställningarna uppdateras!',
     'password_changed_successfully' => 'Lösenordet har ändrats!',
     'change_password' => 'Byt Lösenord',
-    'current_password' => 'Nurvarande Lösenord',
+    'current_password' => 'Nuvarande Lösenord',
     'new_password' => 'Ny Lösenord',
     'confirm_new_password' => 'Bekräfta ditt nya lösenord',
-    'incorrect_password' => 'Ditt lösenord är fel!',
-    'two_factor_auth' => 'Two Factor Authentication',
+    'incorrect_password' => 'Felaktigt lösenord!',
+    'two_factor_auth' => 'Tvåfaktorsautentisering',
     'enabled' => 'Aktiverat',
     'disabled' => 'Inaktiverat',
     'enable' => 'Aktivera',
@@ -57,7 +57,7 @@ $language = [
     'tfa_code' => 'Om din enhet inte har en kamera eller om du inte kan skanna QR-koden, ange följande kod:',
     'tfa_enter_code' => 'Ange koden som visas i din autentiseringsapp:',
     'invalid_tfa' => 'Ogiltig kod, försök igen.',
-    'tfa_successful' => 'Two factor authentication har upprättats. Du måste autentisera varje gång du loggar in från och med nu.',
+    'tfa_successful' => 'Tvåfaktorsautentisering har aktiverats. Du måste autentisera varje gång du loggar in från och med nu.',
     'active_language' => 'Aktivt Språk',
     'active_template' => 'Aktiv Mall',
     'timezone' => 'Tidszon',
@@ -69,15 +69,15 @@ $language = [
     'avatar' => 'Avatar',
     'profile_banner' => 'Profilbanner',
     'upload_profile_banner' => 'Ladda upp profilbanner',
-    'upload' => 'Upload',
+    'upload' => 'Ladda upp',
     'topic_updates' => 'Få e-postmeddelanden för ämnen du följer',
     'gravatar' => 'Använd Gravatar som avatar',
 
     // Alerts
-    'user_tag_info' => 'Du har blivit taggat i ett inlägg av {x}.', // Don't replace {x}
+    'user_tag_info' => 'Du har blivit taggad i ett inlägg av {x}.', // Don't replace {x}
     'no_alerts' => 'Inga nya alerter.',
     'view_alerts' => 'Visa alerter',
-    '1_new_alert' => 'You have 1 new alert',
+    '1_new_alert' => 'Du har 1 ny alert',
     'x_new_alerts' => 'Du har {x} nya alerter', // Don't replace {x}
     'no_alerts_usercp' => 'Du har inga nya alerter.',
 
@@ -91,11 +91,11 @@ $language = [
     'password' => 'Lösenord',
     'confirm_password' => 'Bekräfta Lösenord',
     'i_agree' => 'Jag accepterar.',
-    'agree_t_and_c' => 'I have read and accept the <a href="{x}" target="_blank">Terms and Conditions</a>.',
+    'agree_t_and_c' => 'Jag har läst och accepterar <a href="{x}" target="_blank">Villkor</a>.',
     'create_an_account' => 'Skapa ett konto',
     'terms_and_conditions' => 'Användar Villkor',
     'validation_complete' => 'Ditt konto har validerats, du kan nu logga in.',
-    'validation_error' => 'Det fanns ett okänt fel medans vi validerade ditt konto, var god kontakta en webbplats administratör.',
+    'validation_error' => 'Ett okänt fell uppstod under valideringen av ditt konto, var god kontakta en webbplats administratör.',
     'signature' => 'Signatur',
     'signature_max_900' => 'Din signatur måste vara högst 900 tecken.',
 
@@ -103,7 +103,7 @@ $language = [
     'connect_with_authme' => 'Anslut ditt konto med AuthMe',
     'authme_help' => 'Vänligen, Skriv in din AuthMe konto uppgifter. Om du inte redan har ett konto inloggat, gå med i servern nu och följ instruktionerna.',
     'unable_to_connect_to_authme_db' => 'Det gick inte att ansluta till AuthMe databasen. Om det här felet forstätter, kontakta en administratör.',
-    'authme_account_linked' => 'Kontot har länktat!',
+    'authme_account_linked' => 'Kontot har länktats!',
     'authme_email_help_1' => 'Slutligen, ange en e-postadress',
     'authme_email_help_2' => 'Slutligen, ange en e-postadress och ange ett smeknamn',
 
@@ -136,21 +136,21 @@ $language = [
     'successful_login' => 'Du har loggat in.',
     'incorrect_details' => 'Du har angivit felaktiga uppgifter.',
     'inactive_account' => 'Ditt konto är inaktivt. Vänligen kolla dina e-postmeddelanden för en valideringslänk. Om du inte hittar det, så kan du kolla i din skräppostmapp.',
-    'account_banned' => 'Det kontot är bannad.',
+    'account_banned' => 'Det kontot är bannlyst.',
     'forgot_password' => 'Glömt ditt lösenord?',
     'remember_me' => 'Kom ihåg mig',
     'must_input_email' => 'Du måste ange ett e-postmeddelandet.',
     'must_input_username' => 'Du måste ange ett användarnamn.',
     'must_input_password' => 'Du måste ange ett lösenord.',
-    'must_input_email_or_username' => 'You must input an email or username.',
-    'email_or_username' => 'Email or Username',
+    'must_input_email_or_username' => 'Du måste ange en email eller användarnamn.',
+    'email_or_username' => 'Email eller Användarnamn',
 
     // Forgot password
     'forgot_password_instructions' => 'Var god och ange din e-postadress så att vi kan skicka dig ytterligare instruktioner om hur du återställer ditt lösenord.',
     'forgot_password_email_sent' => 'Om ett konto med e-postadressen finns, har ett e-postmeddelande skickats med ytterligare instruktioner. Om du inte hittar det, så kan du kolla din skräppostmapp.',
     'unable_to_send_forgot_password_email' => 'Det gick inte att skicka glömt lösenords e-post. Vänligen kontakta en administratör.',
     'enter_new_password' => 'Vänligen bekräfta din e-postadress och ange ett nytt lösenord nedan.',
-    'incorrect_email' => 'Den e-postadresseb du har angett matchar inte förfrågan.',
+    'incorrect_email' => 'Den e-postadress du har angett matchar inte förfrågan.',
     'forgot_password_change_successful' => 'Ditt lösenord har ändrats! Nu kan du logga in.',
 
     // Profile pages
@@ -162,8 +162,8 @@ $language = [
     'invalid_wall_post' => 'Var god och se till att ditt inlägg är mellan 1 och 10000 tecken.',
     '1_reaction' => '1 reaktion',
     'x_reactions' => '{x} reaktioner', // Don't replace {x}
-    '1_like' => '1 like',
-    'x_likes' => '{x} likes', // Don't replace {x}
+    '1_like' => '1 gillar',
+    'x_likes' => '{x} gillar', // Don't replace {x}
     '1_reply' => '1 svar',
     'x_replies' => '{x} svar', // Don't replace {x}
     'no_replies_yet' => 'Inga svar än',
@@ -177,13 +177,13 @@ $language = [
     'last_seen' => 'Senast Inloggad:',
     'last_seen_x' => 'Senast Inloggad: {x}', // Don't replace {x}
     'new_wall_post' => '{x} har skrivit på din profil.',
-    'couldnt_find_that_user' => 'Kunde inte hitta det där användraren.',
-    'block_user' => 'Blockera Användrare',
-    'unblock_user' => 'Avblockera Användrare',
+    'couldnt_find_that_user' => 'Kunde inte hitta den användaren.',
+    'block_user' => 'Blockera Användare',
+    'unblock_user' => 'Avblockera Användare',
     'confirm_block_user' => 'Är du säker på att du vill blockera den här användaren? De kommer inte att kunna skicka privata meddelanden eller tagga dig i inlägger.',
     'confirm_unblock_user' => 'Är du säker på att du vill avblockera den här användaren? De kommer att kunna skicka privata meddelanden och tagga dig i inlägger.',
-    'user_blocked' => 'Användrare blockerad.',
-    'user_unblocked' => 'Användrare avblockerad.',
+    'user_blocked' => 'Användare blockerad.',
+    'user_unblocked' => 'Användare avblockerad.',
     'views' => 'Profil Visningar:',
     'private_profile_page' => 'Det här är en privat profil!',
     'new_wall_post_reply' => '{x} har svarat på ditt inlägg på {y}\'s profil.', // Don't replace {x} or {y}
@@ -205,7 +205,7 @@ $language = [
     'new_message' => 'Nytt meddelande',
     'message_title' => 'Meddelande Titel',
     'to' => 'Till',
-    'separate_users_with_commas' => 'Separera användrare med kommatecken',
+    'separate_users_with_commas' => 'Separera användare med kommatecken',
     'title_required' => 'Var god och ange en titel',
     'content_required' => 'Var god och ange något innehåll',
     'users_to_required' => 'Vänligen ange vissa meddelandemottagare',
@@ -229,13 +229,13 @@ $language = [
     /*
      *  Infractions area
      */
-    'you_have_been_banned' => 'Du är bannad!',
+    'you_have_been_banned' => 'Du är bannlyst!',
     'you_have_received_a_warning' => 'Du har fått en varning!',
-    'acknowledge' => 'Erkänna',
+    'acknowledge' => 'Erkänn',
 
     /*
      *  Hooks
      */
     'user_x_has_registered' => '{x} gått med ' . SITE_NAME . '!',
-    'user_x_has_validated' => '{x} har verifierat deras konto!',
+    'user_x_has_validated' => '{x} har verifierat sitt konto!',
 ];
