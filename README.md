@@ -37,9 +37,9 @@ The following list is a brief summary of the features available in v2 pre-releas
 <img src="https://user-images.githubusercontent.com/26070412/137838954-c0f26ae0-d5f9-429e-89ed-db22441a2057.png" alt="Support" width="700">
 
 Support can be found in one of the following places:
-- [Discord<img src="https://discordapp.com/api/guilds/246705793066467328/widget.png?style=shield">](https://discord.gg/nameless)
-- [Official support forum](https://namelessmc.com/forum)
-- [SpigotMC](https://www.spigotmc.org/threads/nameless-minecraft-website-software.34810/)
+* [Discord<img src="https://discordapp.com/api/guilds/246705793066467328/widget.png?style=shield">](https://discord.gg/nameless)
+* [Official support forum](https://namelessmc.com/forum)
+* [SpigotMC](https://www.spigotmc.org/threads/nameless-minecraft-website-software.34810/)
 
 Feature requests and bugs can be posted on the [GitHub Issues](https://github.com/NamelessMC/Nameless/issues) tab.
 
@@ -50,6 +50,6 @@ For Minecraft integration, you can install the Nameless Plugin in your Spigot se
 NamelessMC translations are kindly provided by the community. Currently available translations can be found [here](https://github.com/NamelessMC/Nameless/tree/v2/custom/languages) and [here](https://translate.namelessmc.com). Please note, not all translations may be up to date.
 
 ## Special Thanks
-* All [NamelessMC Translation contributors](https://github.com/NamelessMC/Nameless/CONTRIBUTORS.md)
-- All NamelessMC [contributors](https://github.com/NamelessMC/Nameless/graphs/contributors).
-- [JetBrains](https://www.jetbrains.com/), whose products are used to develop the NamelessMC project.
+* All [NamelessMC Translation contributors](https://github.com/NamelessMC/Nameless/CONTRIBUTORS.md).
+* All NamelessMC [contributors](https://github.com/NamelessMC/Nameless/graphs/contributors).
+* [JetBrains](https://www.jetbrains.com/), whose products are used to develop the NamelessMC project.
