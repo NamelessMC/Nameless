@@ -16,13 +16,13 @@ if (!$user->isLoggedIn()) {
 require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
 
 // Always define page name
-define('PAGE', 'forum');
+const PAGE = 'forum';
 
 // Initialise
 $forum = new Forum();
 
 // Get the post data
-if (!isset($_POST) || empty($_POST)) {
+if (empty($_POST)) {
     die(json_encode(['error' => 'No post data']));
 }
 

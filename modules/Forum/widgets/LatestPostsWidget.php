@@ -14,7 +14,7 @@ class LatestPostsWidget extends WidgetBase {
     private Cache $_cache;
     private User $_user;
 
-    public function __construct(array $pages = [], string $latest_posts_language, string $by_language, Smarty $smarty, Cache $cache, User $user, Language $language) {
+    public function __construct(array $pages, string $latest_posts_language, string $by_language, Smarty $smarty, Cache $cache, User $user, Language $language) {
     	$this->_smarty = $smarty;
     	$this->_cache = $cache;
     	$this->_user = $user;

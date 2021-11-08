@@ -14,9 +14,9 @@ if(!$user->handlePanelPageLoad('admincp.core.social_media')) {
     die();
 }
 
-define('PAGE', 'panel');
-define('PARENT_PAGE', 'core_configuration');
-define('PANEL_PAGE', 'social_media');
+const PAGE = 'panel';
+const PARENT_PAGE = 'core_configuration';
+const PANEL_PAGE = 'social_media';
 $page_title = $language->get('admin', 'social_media');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 

@@ -17,7 +17,7 @@ if (!$user->isLoggedIn()) {
 require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
 
 // Always define page name
-define('PAGE', 'forum');
+const PAGE = 'forum';
 
 // Initialise
 $forum = new Forum();
@@ -90,17 +90,13 @@ if (Token::check()) {
         }
 
         Session::flash('success_post', $language->get('user', 'report_created'));
-        Redirect::to(URL::build('/forum/topic/' . Output::getClean($_POST['topic'])));
-        die();
     } else {
         // Invalid report content
         Session::flash('failure_post', $language->get('user', 'invalid_report_content'));
-        Redirect::to(URL::build('/forum/topic/' . Output::getClean($_POST['topic'])));
-        die();
     }
 } else {
     // Invalid token
     Session::flash('failure_post', $language->get('general', 'invalid_token'));
-    Redirect::to(URL::build('/forum/topic/' . Output::getClean($_POST['topic'])));
-    die();
 }
+Redirect::to(URL::build('/forum/topic/' . Output::getClean($_POST['topic'])));
+die();

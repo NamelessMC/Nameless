@@ -14,9 +14,9 @@ if(!$user->handlePanelPageLoad('admincp.core.emails_mass_message')) {
     die();
 }
 
-define('PAGE', 'panel');
-define('PARENT_PAGE', 'core_configuration');
-define('PANEL_PAGE', 'emails');
+const PAGE = 'panel';
+const PARENT_PAGE = 'core_configuration';
+const PANEL_PAGE = 'emails';
 $page_title = $language->get('admin', 'emails_mass_message');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
@@ -89,7 +89,7 @@ if (Input::exists()) {
                             'headers' => $headers
                         ];
 
-                        $sent = Email::send($email, 'php');
+                        $sent = Email::send($email);
 
                         if (isset($sent['error'])) {
                             // Error, log it

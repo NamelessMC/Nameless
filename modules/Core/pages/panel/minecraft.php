@@ -14,9 +14,9 @@ if(!$user->handlePanelPageLoad('admincp.minecraft')) {
     die();
 }
 
-define('PAGE', 'panel');
-define('PARENT_PAGE', 'integrations');
-define('PANEL_PAGE', 'minecraft');
+const PAGE = 'panel';
+const PARENT_PAGE = 'integrations';
+const PANEL_PAGE = 'minecraft';
 $page_title = $language->get('admin', 'minecraft');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 

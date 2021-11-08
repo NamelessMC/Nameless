@@ -56,9 +56,9 @@ class CookieConsent_Module extends Module {
         $language = $this->_language;
 
         // AdminCP
-        PermissionHandler::registerPermissions($language->get('moderator', 'staff_cp'), array(
+        PermissionHandler::registerPermissions($language->get('moderator', 'staff_cp'), [
             'admincp.cookies' => $language->get('admin', 'cookies')
-        ));
+        ]);
 
         // Sitemap
         $pages->registerSitemapMethod(ROOT_PATH . '/modules/Cookie Consent/classes/CookieConsent_Sitemap.php', 'CookieConsent_Sitemap::generateSitemap');
@@ -97,13 +97,13 @@ class CookieConsent_Module extends Module {
                 );
             }
 
-            $smarty->assign(array(
+            $smarty->assign([
                 'COOKIE_URL' => $cookie_url,
                 'COOKIE_NOTICE_HEADER' => $this->_cookie_language->get('cookie', 'cookie_notice'),
                 'COOKIE_NOTICE_BODY' => $this->_cookie_language->get('cookie', 'cookie_notice_info'),
                 'COOKIE_NOTICE_CONFIGURE' => $this->_cookie_language->get('cookie', 'configure_cookies'),
                 'COOKIE_DECISION_MADE' => !!Cookie::get('cookieconsent_status'),
-            ));
+            ]);
 
             $navs[0]->add('cookies', $this->_cookie_language->get('cookie', 'cookie_notice'), $cookie_url, 'footer');
         }

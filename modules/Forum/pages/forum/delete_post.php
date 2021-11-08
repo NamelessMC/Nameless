@@ -17,7 +17,7 @@ if (!$user->isLoggedIn()) {
 require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
 
 // Always define page name
-define('PAGE', 'forum');
+const PAGE = 'forum';
 
 $forum = new Forum();
 
@@ -81,16 +81,14 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
             $forum->updateTopicLatestPosts();
 
             Redirect::to($redirect);
-            die();
 
         } else {
             Redirect::to(URL::build('/forum/topic/' . Input::get('tid')));
-            die();
         }
     } else {
         echo 'No post selected';
-        die();
     }
+    die();
 } else {
     Redirect::to(URL::build('/forum'));
     die();

@@ -24,9 +24,9 @@ if (isset($_GET['recheck'])) {
     die();
 }
 
-define('PAGE', 'panel');
-define('PARENT_PAGE', 'update');
-define('PANEL_PAGE', 'update');
+const PAGE = 'panel';
+const PARENT_PAGE = 'update';
+const PANEL_PAGE = 'update';
 $page_title = $language->get('admin', 'update');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 

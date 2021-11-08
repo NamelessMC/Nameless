@@ -14,9 +14,9 @@ if(!$user->handlePanelPageLoad('admincp.core.hooks')) {
     die();
 }
 
-define('PAGE', 'panel');
-define('PARENT_PAGE', 'core_configuration');
-define('PANEL_PAGE', 'hooks');
+const PAGE = 'panel';
+const PARENT_PAGE = 'core_configuration';
+const PANEL_PAGE = 'hooks';
 $page_title = $language->get('admin', 'hooks');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 

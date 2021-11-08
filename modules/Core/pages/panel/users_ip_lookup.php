@@ -14,9 +14,9 @@ if(!$user->handlePanelPageLoad('modcp.ip_lookup')) {
     die();
 }
 
-define('PAGE', 'panel');
-define('PARENT_PAGE', 'users');
-define('PANEL_PAGE', 'ip_lookup');
+const PAGE = 'panel';
+const PARENT_PAGE = 'users';
+const PANEL_PAGE = 'ip_lookup';
 $page_title = $language->get('moderator', 'ip_lookup');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 

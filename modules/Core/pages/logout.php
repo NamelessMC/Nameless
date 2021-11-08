@@ -15,7 +15,5 @@ if ($user->isLoggedIn()) {
 	$user->logout();
 
 	Session::flash('home', $language->get('user', 'successfully_logged_out'));
-	Redirect::to(URL::build('/'));
-} else {
-	Redirect::to(URL::build('/'));
 }
+Redirect::to(URL::build('/'));

@@ -26,10 +26,10 @@ if (!$view_user->data()) {
 }
 $user_query = $view_user->data();
 
-define('PAGE', 'panel');
-define('PARENT_PAGE', 'users');
-define('PANEL_PAGE', 'users');
-define('EDITING_USER', true);
+const PAGE = 'panel';
+const PARENT_PAGE = 'users';
+const PANEL_PAGE = 'users';
+const EDITING_USER = true;
 $page_title = $language->get('admin', 'users');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 require_once(ROOT_PATH . '/core/includes/markdown/tohtml/Markdown.inc.php');
@@ -182,10 +182,8 @@ if (Input::exists()) {
 
                     if ($formatting == 'markdown') {
                         $signature = Michelf\Markdown::defaultTransform($signature);
-                        $signature = Output::getClean($signature);
-                    } else {
-                        $signature = Output::getClean($signature);
                     }
+                    $signature = Output::getClean($signature);
 
                     $private_profile_active = $queries->getWhere('settings', ['name', '=', 'private_profile']);
                     $private_profile_active = $private_profile_active[0]->value == 1;
@@ -205,11 +203,10 @@ if (Input::exists()) {
                     $displaynames = $queries->getWhere('settings', ['name', '=', 'displaynames']);
                     $displaynames = $displaynames[0]->value;
 
+                    $username = Input::get('username');
                     if ($displaynames == 'true') {
-                        $username = Input::get('username');
                         $nickname = Input::get('nickname');
                     } else {
-                        $username = Input::get('username');
                         $nickname = Input::get('username');
                     }
 

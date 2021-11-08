@@ -15,7 +15,7 @@ $language = [
      *  Tables
      */
     'display_records_per_page' => 'Visa _MENU_ uppgifter per sida', // Don't replace "_MENU_"
-    'nothing_found' => 'Inga resultat hittat',
+    'nothing_found' => 'Inga resultat hittades',
     'page_x_of_y' => 'Visar sida _PAGE_ av _PAGES_', // Don't replace "_PAGE_" or "_PAGES_"
     'no_records' => 'Inga uppgifter tillgängliga',
     'filtered' => '(filtreras från _MAX_ totala uppgifter)' // Don't replace "_MAX_"

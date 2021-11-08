@@ -1,9 +1,9 @@
 <?php
 /*
  *  Made by Samerton
- *  Translated by Я научу тебя шить XIMI
+ *  Translated by LOyoujoLI
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *

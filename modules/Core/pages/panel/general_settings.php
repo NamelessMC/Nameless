@@ -14,9 +14,9 @@ if(!$user->handlePanelPageLoad('admincp.core.general')) {
     die();
 }
 
-define('PAGE', 'panel');
-define('PARENT_PAGE', 'core_configuration');
-define('PANEL_PAGE', 'general_settings');
+const PAGE = 'panel';
+const PARENT_PAGE = 'core_configuration';
+const PANEL_PAGE = 'general_settings';
 $page_title = $language->get('admin', 'general_settings');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 

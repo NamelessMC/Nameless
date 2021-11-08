@@ -14,9 +14,9 @@ if(!$user->handlePanelPageLoad('admincp.widgets')) {
     die();
 }
 
-define('PAGE', 'panel');
-define('PARENT_PAGE', 'layout');
-define('PANEL_PAGE', 'widgets');
+const PAGE = 'panel';
+const PARENT_PAGE = 'layout';
+const PANEL_PAGE = 'widgets';
 $page_title = $language->get('admin', 'widgets');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 

@@ -204,6 +204,12 @@ option:checked {
     overflow-y: auto;
 }
 
+.sidebar.toggled {
+    overflow-x: hidden;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+
 .sidebar::-webkit-scrollbar-track {
     background: transparent;
 }

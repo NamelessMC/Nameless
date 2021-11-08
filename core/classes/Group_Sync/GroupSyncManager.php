@@ -1,7 +1,7 @@
 <?php
 
-final class GroupSyncManager extends Instanceable
-{
+final class GroupSyncManager extends Instanceable {
+
     /** @var GroupSyncInjector[] */
     private iterable $_injectors = [];
     /** @var GroupSyncInjector[] */

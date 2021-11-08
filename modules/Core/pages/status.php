@@ -24,7 +24,7 @@ if (!defined('MINECRAFT') || MINECRAFT !== true || $status_enabled != 1) {
     die();
 }
 
-define('PAGE', 'status');
+const PAGE = 'status';
 $page_title = $language->get('general', 'status');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 

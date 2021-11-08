@@ -1,8 +1,8 @@
-<?php
+<?php 
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -13,7 +13,7 @@
 $language = [
     /*
      *  Forums
-     */
+     */ 
     'forum' => 'Форум',
     'forums' => 'Форумы',
     'forum_index' => 'Главная',
@@ -96,11 +96,11 @@ $language = [
     'new_reply_in_topic' => '{x} ответил(а) в топике {y}', // Don't replace {x} (username) or {y} (topic title)
     'started_by_x' => 'Автор топика: {x}', // Don't replace {x}
     'sticky_topics' => 'Закреплённые топики',
-
+    
     // Homepage
     'latest_announcements' => 'Последние новости',
     'read_full_post' => 'Читать...',
-
+    
     // Admin tab
     'labels' => 'Метки',
     'new_forum' => '<i class="fa fa-plus-circle"></i> Создать форум',
@@ -184,7 +184,7 @@ $language = [
     'new_search' => 'Новый поиск',
     'invalid_search_query' => 'Пожалуйста, введите поисковый запрос длиной от 3 до 128 символов.',
     'no_results_found' => 'Никаких результатов не найдено.',
-
+    
     // Profile tab
     'user_no_posts' => 'Этот пользователь еще не сделал ни одного сообщения на форуме.',
     'latest_posts' => 'Последние сообщения',

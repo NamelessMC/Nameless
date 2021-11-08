@@ -213,6 +213,7 @@ if (!class_exists('Default_Panel_Template')) {
                     case 'emails':
                     case 'reactions':
                     case 'social_media':
+                    case 'forum_settings':
                     case 'widgets':
                         $this->addJSScript('
 						var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
@@ -675,17 +676,7 @@ if (!class_exists('Default_Panel_Template')) {
                         ]);
 
                         break;
-                        
-                    case 'forum_settings':
-                        $this->addJSScript('
-						var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
 
-						elems.forEach(function(html) {
-						  var switchery = new Switchery(html, {color: \'#23923d\', secondaryColor: \'#e56464\'});
-						});
-						');
-
-                        break;
                 }
             }
         }

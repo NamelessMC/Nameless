@@ -46,6 +46,7 @@ services:
             NAMELESS_SITE_OUTGOING_EMAIL: admin@localhost
             NAMELESS_ADMIN_USERNAME: developer
             NAMELESS_ADMIN_EMAIL: admin@namelessmc.com
+            NAMELESS_DEBUGGING: 'enabled'
 
     db:
         image: mariadb

@@ -14,9 +14,9 @@ if(!$user->handlePanelPageLoad('admincp.styles.templates')) {
     die();
 }
 
-define('PAGE', 'panel');
-define('PARENT_PAGE', 'layout');
-define('PANEL_PAGE', 'template');
+const PAGE = 'panel';
+const PARENT_PAGE = 'layout';
+const PANEL_PAGE = 'template';
 $page_title = $language->get('admin', 'templates');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
@@ -359,7 +359,7 @@ if (!isset($_GET['action'])) {
 
             require_once(ROOT_PATH . DIRECTORY_SEPARATOR . 'custom' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . str_replace(['../', '/', '..'], '', $template_query->name) . DIRECTORY_SEPARATOR . 'template.php');
 
-            if ($template && $template instanceof TemplateBase) {
+            if ($template instanceof TemplateBase) {
                 if ($template->getSettings()) {
                     require_once($template->getSettings());
 

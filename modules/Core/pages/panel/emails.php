@@ -14,9 +14,9 @@ if(!$user->handlePanelPageLoad('admincp.core.emails')) {
     die();
 }
 
-define('PAGE', 'panel');
-define('PARENT_PAGE', 'core_configuration');
-define('PANEL_PAGE', 'emails');
+const PAGE = 'panel';
+const PARENT_PAGE = 'core_configuration';
+const PANEL_PAGE = 'emails';
 $page_title = $language->get('admin', 'emails');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
@@ -60,9 +60,6 @@ if (isset($_GET['action'])) {
 
                 $sent = Email::send($email, 'mailer');
 
-                if (isset($sent['error']))
-                    // Error
-                    $errors[] = $sent['error'];
             } else {
                 // PHP mail function
                 $siteemail = $queries->getWhere('settings', ['name', '=', 'outgoing_email']);
@@ -86,12 +83,12 @@ if (isset($_GET['action'])) {
                     'headers' => $headers
                 ];
 
-                $sent = Email::send($email, 'php');
+                $sent = Email::send($email);
 
-                if (isset($sent['error']))
-                    // Error
-                    $errors[] = $sent['error'];
             }
+            if (isset($sent['error']))
+                // Error
+                $errors[] = $sent['error'];
 
             if (!count($errors))
                 $success = $language->get('admin', 'test_email_success');

@@ -47,18 +47,18 @@ $language = [
     'discord_usernames_updated' => 'Discord-användarnamn uppdaterades framgångsrikt',
 
     // User Settings
-    'discord_link' => 'Discord Link',
+    'discord_link' => 'Discord Länk',
     'linked' => 'Länkad',
     'not_linked' => 'Inte länkad',
     'discord_id' => 'Discord User ID',
     'discord_id_unlinked' => 'Du har tagit bort länken till ditt Discord-användar-ID.',
-    'discord_id_confirm' => 'Please run the command "/verify {token}" in Discord to finish linking your Discord account.',
+    'discord_id_confirm' => 'Vänligen kör "/verify {token}" kommandot på Discord för att slutföra länkningen till ditt Discord-konto.',
     'pending_link' => 'Väntar',
     'discord_id_taken' => 'Det Discord-ID har redan tagits.',
     'discord_invalid_id' => 'Discord-användar-ID är ogiltigt.',
     'discord_already_pending' => 'Du har redan en väntande verifiering.',
     'discord_database_error' => 'Nameless Link-databasen är för närvarande nere. Vänligen försök igen senare.',
-    'discord_communication_error' => 'Det uppstod ett fel när du kommunicerade med Discord Bot. Se till att bot körs och att din webbadress är korrekt. ',
+    'discord_communication_error' => 'Det uppstod ett fel när du kommunicerade med Discord Botten. Se till att botten körs och att din webbadress är korrekt. ',
     'discord_unknown_error' => 'Det uppstod ett okänt fel vid synkronisering av Discord-roller. Vänligen kontakta en administratör. ',
     'discord_id_help' => 'För information om var du hittar Discord ID\'s, vänligen läs <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">detta.</a>'
 ];

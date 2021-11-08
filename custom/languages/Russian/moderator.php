@@ -1,9 +1,9 @@
 <?php
 /*
  *  Made by Samerton
- *  Translated by Я научу тебя шить XIMI
+ *  Translated by LOyoujoLI
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -11,17 +11,16 @@
  */
 
 $language = [
-    'mod_cp' => 'Панель модератора',
     'staff_cp' => 'Админ панель',
     'overview' => 'Обзор',
-
+    
     // Spam
     'spam' => 'Спам',
     'mark_as_spam' => 'Пометить как спам',
     'confirm_spam' => '<p>Вы уверены, что хотите пометить это как спам?</p><p>Пользователь будет заблокирован по IP-адресу, и весь его контент будет удален.</p>',
     'user_marked_as_spam' => 'Пользователь успешно помечен как спам.',
     'cant_ban_admin' => 'Вы не можете заблокировать администратора!',
-
+    
     // IP Lookup
     'ip_lookup' => 'Просмотр IP',
     'search_for_ip' => 'Поиск имени пользователя или IP-адреса',
@@ -32,7 +31,7 @@ $language = [
     '1_ip_with_name' => 'Найден 1 IP-адрес у пользователя {y}', // Don't replace "{y}"
     'count_ips_with_name' => 'Найдено {x} IP-адресов у пользователя {y}', // Don't replace "{x}" or "{y}"
     'no_users_or_ips_found' => 'Ни пользователей, ни IP-адресов не найдено.',
-
+    
     // Reports
     'reports' => 'Жалобы',
     'report_alert' => 'Поступила новая жалоба',
@@ -62,7 +61,7 @@ $language = [
     'report_reopened' => 'Жалоба успешно переоткрыта.',
     'report_closed' => 'Жалоба успешно закрыта.',
     'comment_created' => 'Комментарий успешно оставлен.',
-
+    
     // Punishments
     'punishments' => 'Наказания',
     'view_punishments' => 'Просмотр наказаний',
@@ -75,7 +74,7 @@ $language = [
     'viewing_user_x' => 'Просмотр пользователя {x}', // Don't replace {x}
     'previous_punishments' => 'Предыдущие наказания',
     'no_previous_punishments' => 'Никаких наказаний не найдено',
-    'reset_avatar' => 'Reset Avatar',
+    'reset_avatar' => 'Сбросить аватарку',
     'warning' => 'Предупреждение',
     'ip_ban' => 'IP Бан',
     'reason' => 'Причина',

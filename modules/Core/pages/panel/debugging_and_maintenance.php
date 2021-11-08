@@ -14,9 +14,9 @@ if(!$user->handlePanelPageLoad('admincp.core.debugging')) {
     die();
 }
 
-define('PAGE', 'panel');
-define('PARENT_PAGE', 'core_configuration');
-define('PANEL_PAGE', 'debugging_and_maintenance');
+const PAGE = 'panel';
+const PARENT_PAGE = 'core_configuration';
+const PANEL_PAGE = 'debugging_and_maintenance';
 $page_title = $language->get('admin', 'debugging_and_maintenance');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 

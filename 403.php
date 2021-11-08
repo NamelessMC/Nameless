@@ -11,7 +11,7 @@
 
 header($_SERVER['SERVER_PROTOCOL']. ' 403 Forbidden');
 
-define('PAGE', 403);
+const PAGE = 403;
 $page_title = '403';
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 

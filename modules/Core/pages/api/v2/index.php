@@ -139,7 +139,7 @@ class Nameless2API {
     }
 
     public function validateParams(array $input, array $required_fields, string $type = 'post'): bool {
-        if (!isset($input) || empty($input)) {
+        if (empty($input)) {
             $this->throwError(6, $this->_language->get('api', 'invalid_' . $type . '_contents'));
         }
         foreach ($required_fields as $required) {

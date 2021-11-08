@@ -10,7 +10,7 @@
  */
 
 // Always define page name
-define('PAGE', 'profile');
+const PAGE = 'profile';
 
 $timeago = new TimeAgo(TIMEZONE);
 

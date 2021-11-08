@@ -14,7 +14,11 @@
 
 header('X-Frame-Options: SAMEORIGIN');
 
-if ((defined('DEBUGGING') && DEBUGGING) || (isset($_SERVER['NAMELESSMC_DEBUGGING']) && $_SERVER['NAMELESSMC_DEBUGGING'])) {
+if (
+        defined('DEBUGGING') && DEBUGGING ||
+        isset($_SERVER['NAMELESSMC_DEBUGGING']) && $_SERVER['NAMELESSMC_DEBUGGING'] ||
+        getenv('NAMELESS_DEBUGGING')
+    ){
     ini_set('display_startup_errors', 1);
     ini_set('display_errors', 1);
     error_reporting(-1);
@@ -29,7 +33,7 @@ if (version_compare(phpversion(), '7.4', '<')) {
 $start = microtime(true);
 
 // Definitions
-define('PATH', '/');
+const PATH = '/';
 define('ROOT_PATH', dirname(__FILE__));
 $page = 'Home';
 
@@ -88,15 +92,14 @@ if (!isset($_GET['route']) || $_GET['route'] == '/') {
 
             if (!file_exists($path)) {
                 require(ROOT_PATH . '/404.php');
-            } else { 
+            } else {
                 require($path);
             }
-            
-            die();
+
         } else {
             require(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', 'Core', 'pages', 'custom.php']));
-            die();
         }
+        die();
     } else {
         // Use recursion to check - might have URL parameters in path
         $path_array = explode('/', $route);

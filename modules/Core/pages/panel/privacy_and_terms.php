@@ -14,9 +14,9 @@ if(!$user->handlePanelPageLoad('admincp.core.terms')) {
     die();
 }
 
-define('PAGE', 'panel');
-define('PARENT_PAGE', 'core_configuration');
-define('PANEL_PAGE', 'privacy_and_terms');
+const PAGE = 'panel';
+const PARENT_PAGE = 'core_configuration';
+const PANEL_PAGE = 'privacy_and_terms';
 $page_title = $language->get('admin', 'privacy_and_terms');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 

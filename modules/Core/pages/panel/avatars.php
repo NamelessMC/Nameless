@@ -14,9 +14,9 @@ if(!$user->handlePanelPageLoad('admincp.core.avatars')) {
     die();
 }
 
-define('PAGE', 'panel');
-define('PARENT_PAGE', 'core_configuration');
-define('PANEL_PAGE', 'avatars');
+const PAGE = 'panel';
+const PARENT_PAGE = 'core_configuration';
+const PANEL_PAGE = 'avatars';
 $page_title = $language->get('admin', 'avatars');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 

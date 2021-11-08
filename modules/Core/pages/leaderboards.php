@@ -16,14 +16,13 @@ if (!count($leaderboard_placeholders)) {
     die();
 }
 
-define('PAGE', 'leaderboards');
+const PAGE = 'leaderboards';
 $page_title = $language->get('general', 'leaderboards');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 $leaderboard_placeholders_data = [];
 $leaderboard_users = [];
 
-require_once(ROOT_PATH . '/core/classes/TimeAgo.php');
 $timeago = new TimeAgo(TIMEZONE);
 
 foreach ($leaderboard_placeholders as $leaderboard_placeholder) {

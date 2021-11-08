@@ -14,10 +14,10 @@ if(!$user->handlePanelPageLoad('admincp.minecraft.verification')) {
     die();
 }
 
-define('PAGE', 'panel');
-define('PARENT_PAGE', 'integrations');
-define('PANEL_PAGE', 'minecraft');
-define('MINECRAFT_PAGE', 'verification');
+const PAGE = 'panel';
+const PARENT_PAGE = 'integrations';
+const PANEL_PAGE = 'minecraft';
+const MINECRAFT_PAGE = 'verification';
 $page_title = $language->get('admin', 'account_verification');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 

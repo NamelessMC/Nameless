@@ -14,9 +14,9 @@ if(!$user->handlePanelPageLoad('admincp.groups')) {
     die();
 }
 
-define('PAGE', 'panel');
-define('PARENT_PAGE', 'groups');
-define('PANEL_PAGE', 'groups');
+const PAGE = 'panel';
+const PARENT_PAGE = 'groups';
+const PANEL_PAGE = 'groups';
 $page_title = $language->get('admin', 'groups');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 

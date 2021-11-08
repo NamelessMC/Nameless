@@ -10,7 +10,7 @@
  */
 
 $page = 'complete_signup';
-define('PAGE', 'complete_signup');
+const PAGE = 'complete_signup';
 $page_title = $language->get('general', 'register');
 
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');

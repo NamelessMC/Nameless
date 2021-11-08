@@ -4,12 +4,26 @@ $namelessmc_modules = [];
 $namelessmc_fe_templates = [];
 $namelessmc_panel_templates = [];
 
-$modules_query = $queries->getWhere('modules', ['id', '<>', 0]);
-foreach ($modules_query as $module_row) {
-    $module_path = join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', htmlspecialchars($module_row->name), 'init.php']);
+// Get all modules
+$modules = $queries->getWhere('modules', ['id', '<>', 0]);
+$enabled_modules = Module::getModules();
 
-    if (file_exists($module_path)) {
-        require_once($module_path);
+foreach ($modules as $item) {
+    $exists = false;
+    foreach ($enabled_modules as $enabled_item) {
+        if ($enabled_item->getName() == $item->name) {
+            $exists = true;
+            $module = $enabled_item;
+            break;
+        }
+    }
+
+    if (!$exists) {
+        if (!file_exists(ROOT_PATH . '/modules/' . $item->name . '/init.php')) {
+            continue;
+        }
+
+        require_once(ROOT_PATH . '/modules/' . $item->name . '/init.php');
     }
 
     $namelessmc_modules[$module->getName()] = [
@@ -82,6 +96,23 @@ foreach (DB::getInstance()->get('group_sync', ['id', '<>', 0])->results() as $ru
     $group_sync['rules'][(int) $rule->id] = $rules;
 }
 
+$groups = [];
+foreach ($queries->getWhere('groups', ['id', '<>', 0]) as $group) {
+    $groups[(int) $group->id] = [
+        'id' => (int) $group->id,
+        'name' => $group->name,
+        'group_html' => $group->group_html,
+        'group_html_lg' => $group->group_html_lg,
+        'admin_cp' => (bool) $group->admin_cp,
+        'staff' => (bool) $group->staff,
+        'permissions' => json_decode($group->permissions, true) ?? [],
+        'default_group' => (bool) $group->default_group,
+        'order' => (int) $group->order,
+        'force_tfa' => (bool) $group->force_tfa,
+        'deleted' => (bool) $group->deleted,
+    ];
+}
+
 
 $data = [
     'debug_version' => 1,
@@ -103,6 +134,7 @@ $data = [
             'captcha_contact' => (bool) Util::getSetting(DB::getInstance(), 'recaptcha'),
             'group_sync' => $group_sync,
         ],
+        'groups' => $groups,
         'config' => [
             'core' => array_filter($GLOBALS['config']['core'], static fn (string $key) => $key != 'hostname', ARRAY_FILTER_USE_KEY),
             'allowedProxies' => $GLOBALS['config']['allowedProxies']

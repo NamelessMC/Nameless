@@ -16,7 +16,7 @@ if (!$user->isLoggedIn()) {
 }
 
 // Always define page name for navbar
-define('PAGE', 'cc_following_topics');
+const PAGE = 'cc_following_topics';
 $page_title = $forum_language->get('forum', 'following_topics');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
@@ -73,13 +73,13 @@ for ($n = 0; $n < count($results->data); $n++) {
         'topic_author_id' => Output::getClean($authors[$topic->topic_creator]->data()->id),
         'topic_author_nickname' => $authors[$topic->topic_creator]->getDisplayname(),
         'topic_author_username' => $authors[$topic->topic_creator]->getDisplayname(true),
-        'topic_author_avatar' => $authors[$topic->topic_creator]->getAvatar(128),
+        'topic_author_avatar' => $authors[$topic->topic_creator]->getAvatar(),
         'topic_author_style' => $authors[$topic->topic_creator]->getGroupClass(),
         'topic_author_link' => URL::build('/profile/' . Output::getClean($authors[$topic->topic_creator]->getDisplayname(true))),
         'reply_author_id' => Output::getClean($authors[$topic->topic_last_user]->data()->id),
         'reply_author_nickname' => $authors[$topic->topic_last_user]->getDisplayname(),
         'reply_author_username' => $authors[$topic->topic_last_user]->getDisplayname(true),
-        'reply_author_avatar' => $authors[$topic->topic_last_user]->getAvatar(128),
+        'reply_author_avatar' => $authors[$topic->topic_last_user]->getAvatar(),
         'reply_author_style' => $authors[$topic->topic_last_user]->getGroupClass(),
         'reply_author_link' => URL::build('/profile/' . Output::getClean($authors[$topic->topic_last_user]->getDisplayname(true))),
         'reply_date' => $timeago->inWords(date('d M Y, H:i', $topic->topic_reply_date), $language->getTimeLanguage()),

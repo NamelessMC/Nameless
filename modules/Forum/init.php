@@ -24,7 +24,7 @@ if (!$module_installed) {
     }
 }
 
-define('FORUM', true);
+const FORUM = true;
 
 // Initialise forum language
 $forum_language = new Language(ROOT_PATH . '/modules/Forum/language', LANGUAGE);

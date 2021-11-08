@@ -14,9 +14,9 @@ if(!$user->handlePanelPageLoad('admincp.core.reactions')) {
     die();
 }
 
-define('PAGE', 'panel');
-define('PARENT_PAGE', 'core_configuration');
-define('PANEL_PAGE', 'reactions');
+const PAGE = 'panel';
+const PARENT_PAGE = 'core_configuration';
+const PANEL_PAGE = 'reactions';
 $page_title = $language->get('user', 'reactions');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 

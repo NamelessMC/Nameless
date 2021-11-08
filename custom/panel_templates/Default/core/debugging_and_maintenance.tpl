@@ -127,7 +127,7 @@ $('#debug_link').click(() => {
             toastr.options.progressBar = true;
             toastr.options.closeButton = true;
             toastr.options.positionClass = 'toast-bottom-left';
-            toastr.info('{$TOASTR_COPIED}');
+            toastr.info('{$TOASTR_COPIED}'.replaceAll({literal}'{x}'{/literal}, url));
         });
 });
 </script>

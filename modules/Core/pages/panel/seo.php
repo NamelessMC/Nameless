@@ -14,9 +14,9 @@ if(!$user->handlePanelPageLoad('admincp.core.seo')) {
     die();
 }
 
-define('PAGE', 'panel');
-define('PARENT_PAGE', 'core_configuration');
-define('PANEL_PAGE', 'seo');
+const PAGE = 'panel';
+const PARENT_PAGE = 'core_configuration';
+const PANEL_PAGE = 'seo';
 $page_title = $language->get('admin', 'seo');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 

@@ -14,9 +14,9 @@ if(!$user->handlePanelPageLoad('admincp.discord')) {
     die();
 }
 
-define('PAGE', 'panel');
-define('PARENT_PAGE', 'integrations');
-define('PANEL_PAGE', 'discord');
+const PAGE = 'panel';
+const PARENT_PAGE = 'integrations';
+const PANEL_PAGE = 'discord';
 $page_title = Discord::getLanguageTerm('discord');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 

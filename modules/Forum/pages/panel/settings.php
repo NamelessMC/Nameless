@@ -15,9 +15,9 @@ if(!$user->handlePanelPageLoad('admincp.forums')) {
     die();
 }
 
-define('PAGE', 'panel');
-define('PARENT_PAGE', 'forum');
-define('PANEL_PAGE', 'forum_settings');
+const PAGE = 'panel';
+const PARENT_PAGE = 'forum';
+const PANEL_PAGE = 'forum_settings';
 $page_title = $forum_language->get('forum', 'forums');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
@@ -49,14 +49,12 @@ if (Input::exists()) {
         $configuration->set('Core', 'forum_reactions', $use_reactions);
 
         Session::flash('admin_forums_settings', $forum_language->get('forum', 'settings_updated_successfully'));
-        Redirect::to(URL::build('/panel/forums/settings'));
-        die();
     } else {
         // Invalid token
         Session::flash('admin_forums_settings', $language->get('general', 'invalid_token'));
-        Redirect::to(URL::build('/panel/forums/settings'));
-        die();
     }
+    Redirect::to(URL::build('/panel/forums/settings'));
+    die();
 }
 
 // Retrieve Link Location from cache

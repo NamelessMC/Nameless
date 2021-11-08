@@ -14,9 +14,9 @@ if(!$user->handlePanelPageLoad('admincp.core.emails')) {
     die();
 }
 
-define('PAGE', 'panel');
-define('PARENT_PAGE', 'core_configuration');
-define('PANEL_PAGE', 'emails');
+const PAGE = 'panel';
+const PARENT_PAGE = 'core_configuration';
+const PANEL_PAGE = 'emails';
 $page_title = $language->get('admin', 'email_errors');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 

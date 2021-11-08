@@ -26,8 +26,8 @@ if ($user->isLoggedIn()) {
     die();
 }
 
-define('PAGE', 'panel');
-define('PANEL_PAGE', 'auth');
+const PAGE = 'panel';
+const PANEL_PAGE = 'auth';
 $page_title = $language->get('admin', 're-authenticate');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 

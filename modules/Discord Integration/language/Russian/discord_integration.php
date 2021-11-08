@@ -12,13 +12,14 @@ $language = [
     'discord_role_id_length' => 'ID роли имеет длину в 18 символов.',
     'discord_guild_id' => 'ID сервера в Discord',
     'discord_widget_theme' => 'Тема для виджета',
+    'discord_widget_disabled' => 'Поддержка виджетов отключена на данном Discord сервере. Перейдите в раздел \'Виджет\' в настройках вашего сервера и активируйте его.',
     'discord_id_length' => 'Убедитесь что ваш ID длинее 18 символов.',
     'discord_id_numeric' => 'Убедитесь что ваш ID состоит из цифр.',
-    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://namelessmc.com/discord-bot-invite">here</a>. Then, run the <code>/apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
+    'discord_invite_info' => 'Чтобы пригласить бота Nameless Link на ваш Discord сервер, нажмите <a target="_blank" href="https://namelessmc.com/discord-bot-invite">сюда</a>. Затем, следуйте инструкции которую вы получите после подключения бота. Как вариант, вы можете разместить <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">свою версию бота</a>.',
     'discord_bot_must_be_setup' => 'Нельзя интегрировать сайт, пока вы не подключите бота. Информация <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">здесь</a>.',
     'discord_bot_setup' => 'Бот настроен?',
     'discord_integration_not_setup' => 'Discord не настроен',
-    'discord_username' => 'Discord Username',
+    'discord_username' => 'Имя в Discord',
 
     // Discord bot Errors
     'discord_bot_error_badparameter' => 'Некорректный запрос.',
@@ -28,6 +29,7 @@ $language = [
     'discord_bot_error_notlinked' => 'The bot is not linked to this website for provided Guild ID.',
     'discord_bot_error_unauthorized' => 'API ключ сайта некорректный',
     'discord_bot_error_invrole' => 'ID роли некорректный.',
+    'discord_bot_check_logs' => 'You should check for a more specific error (if one exists) in StaffCP -> Security -> All Logs.',
     'discord_bot_error_partsuccess' => 'The bot could not edit one or more of the roles due to a Discord hierarchy misconfiguration.',
 
     // API Errors
@@ -46,18 +48,18 @@ $language = [
     'discord_usernames_updated' => 'Никнеймы в Discord обновлены',
 
     // User Settings
-    'discord_link' => 'Discord Link',
-    'linked' => 'Linked',
-    'not_linked' => 'Not Linked',
-    'discord_id' => 'Discord User ID',
-    'discord_id_unlinked' => 'Successfully unlinked your Discord User ID.',
-    'discord_id_confirm' => 'Please run the command "/verify {token}" in Discord to finish linking your Discord account.',
-    'pending_link' => 'Pending',
-    'discord_id_taken' => 'That Discord ID has already been taken.',
-    'discord_invalid_id' => 'That Discord User ID is invalid.',
-    'discord_already_pending' => 'You already have a pending verification.',
-    'discord_database_error' => 'The Nameless Link database is currently down. Please try again later.',
-    'discord_communication_error' => 'There was an error while communicating with the Discord Bot. Please ensure the bot is running and your Bot URL is correct.',
-    'discord_unknown_error' => 'There was an unknown error while syncing Discord roles. Please contact an administrator.',
-    'discord_id_help' => 'For information on where to find Discord ID\'s, please read <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">this.</a>'
+    'discord_link' => 'Привязка к Discord',
+    'linked' => 'Привязан',
+    'not_linked' => 'Не привязан',
+    'discord_user_id' => 'Discord ID',
+    'discord_id_unlinked' => 'Вы отвязали свой профиль в Discord.',
+    'discord_id_confirm' => 'Введите команду "/verify {token}" в Discord для завершения привязки.',
+    'pending_link' => 'В процессе привязки',
+    'discord_id_taken' => 'Этот User ID в Discord уже занят.',
+    'discord_invalid_id' => 'Этот User ID не был найден в Discord.',
+    'discord_already_pending' => 'Вы уже в процессе привязки аккаунта.',
+    'discord_database_error' => 'База бота Nameless Link не работает в данный момент. Попробуйте в другой раз.',
+    'discord_communication_error' => 'Произошла ошибка во время связи с Discord. Убедитесь что бот активен и URL страница бота корректна.',
+    'discord_unknown_error' => 'Произошла ошибка во время сихронизации привилегий на сервере. Свяжитесь с администрацией.',
+    'discord_id_help' => 'Чтобы найти ваш ID сервера в Discord, прочитайте это <a href="https://support.discord.com/hc/ru/articles/206346498-%D0%93%D0%B4%D0%B5-%D0%BC%D0%BD%D0%B5-%D0%BD%D0%B0%D0%B9%D1%82%D0%B8-ID-%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8F-%D1%81%D0%B5%D1%80%D0%B2%D0%B5%D1%80%D0%B0-%D1%81%D0%BE%D0%BE%D0%B1%D1%89%D0%B5%D0%BD%D0%B8%D1%8F-" target="_blank">руководство.</a>'
 ];

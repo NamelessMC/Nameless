@@ -12,7 +12,7 @@
 require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
 
 // Always define page name
-define('PAGE', 'forum');
+const PAGE = 'forum';
 $page_title = $forum_language->get('forum', 'forum');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
@@ -34,13 +34,7 @@ $smarty->assign([
 ]);
 
 // Server status module
-if (isset($status_enabled->value) && $status_enabled->value == 'true') {
-    // Todo
-    $smarty->assign('SERVER_STATUS', '');
-} else {
-    // Module disabled, assign empty values
-    $smarty->assign('SERVER_STATUS', '');
-}
+$smarty->assign('SERVER_STATUS', '');
 
 // Check session
 if (Session::exists('spam_info')) {

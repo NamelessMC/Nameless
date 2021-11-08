@@ -15,7 +15,6 @@ $language = [
      *  Time
      */
     'time' => 'time', // Placeholder, no need to translate
-    'seconds_short' => 'сек.', // Shortened "seconds", eg "s"
     'less_than_a_minute' => 'меньше минуты назад',
     '1_minute' => '1 минуту назад',
     '_minutes' => ['{x} минуту назад','{x} минуты назад','{x} минут назад'],
