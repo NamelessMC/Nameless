@@ -16,10 +16,12 @@ class UpdateDiscordBotSettingsEndpoint extends EndpointBase {
 
     public function execute(Nameless2API $api) {
         if (isset($_POST['url'])) {
-            try {
-                $api->getDb()->createQuery('UPDATE nl2_settings SET `value` = ? WHERE `name` = ?', [$_POST['url'], 'discord_bot_url']);
-            } catch (Exception $e) {
-                $api->throwError(30, Discord::getLanguageTerm('unable_to_set_discord_bot_url'), $e->getMessage());
+            if ($_POST['url'] != null) {
+                try {
+                    $api->getDb()->createQuery('UPDATE nl2_settings SET `value` = ? WHERE `name` = ?', [$_POST['url'], 'discord_bot_url']);
+                } catch (Exception $e) {
+                    $api->throwError(30, Discord::getLanguageTerm('unable_to_set_discord_bot_url'), $e->getMessage());
+                }
             }
         }
 
