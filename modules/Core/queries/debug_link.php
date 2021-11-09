@@ -160,6 +160,6 @@ $data = [
     ],
 ];
 
-$result = Util::curlGetContents('https://paste.rkslot.nl/documents', json_encode($data, JSON_PRETTY_PRINT));
+$result = Util::curlGetContents('https://bytebin.rkslot.nl/post', json_encode($data, JSON_PRETTY_PRINT));
 
 die('https://debug.namelessmc.com/' . json_decode($result, true)['key']);
