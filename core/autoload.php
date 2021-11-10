@@ -31,6 +31,7 @@ const CLASS_FOLDERS = [
         Cookie::class,
         Email::class,
         Hash::class,
+        HttpClient::class,
         Input::class,
         Instanceable::class,
         Language::class,

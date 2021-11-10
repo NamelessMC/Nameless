@@ -26,7 +26,7 @@ class Discord {
     ];
 
     public static function discordBotRequest(string $url = '/status', ?string $body = null) {
-        $response = Util::curlGetContents(BOT_URL . $url, $body);
+        $response = HttpClient::post(BOT_URL . $url, $body);
 
         if (in_array($response, self::$_valid_responses)) {
             return $response;

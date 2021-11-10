@@ -145,7 +145,7 @@ $data = [
             'panel' => $namelessmc_panel_templates,
         ],
     ],
-    'enviroment' => [
+    'environment' => [
         'php_version' => phpversion(),
         'php_modules' => get_loaded_extensions(),
         'host_os' => php_uname('s'),
@@ -160,6 +160,6 @@ $data = [
     ],
 ];
 
-$result = Util::curlGetContents('https://bytebin.rkslot.nl/post', json_encode($data, JSON_PRETTY_PRINT));
+$result = HttpClient::post('https://bytebin.rkslot.nl/post', json_encode($data, JSON_PRETTY_PRINT));
 
 die('https://debug.namelessmc.com/' . json_decode($result, true)['key']);
