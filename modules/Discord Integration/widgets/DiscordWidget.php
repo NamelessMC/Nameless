@@ -41,14 +41,7 @@ class DiscordWidget extends WidgetBase {
             $result = $this->_cache->retrieve('discord_widget_check');
 
         } else {
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
-            curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-            curl_setopt($ch, CURLOPT_URL, 'https://discord.com/api/guilds/' . Output::getClean($this->_guild_id) . '/widget.json');
-            $result = curl_exec($ch);
-            $result = json_decode($result);
-            curl_close($ch);
+            $result = json_decode(HttpClient::get('https://discord.com/api/guilds/' . Output::getClean($this->_guild_id) . '/widget.json'));
 
             // Cache for 60 seconds
             $this->_cache->store('discord_widget_check', $result, 60);

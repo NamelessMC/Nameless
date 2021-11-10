@@ -22,19 +22,11 @@ class ExternalMCQuery {
         $queryUrl = 'https://api.namelessmc.com/api/server/' . $ip . '/' . $port;
 
         try {
-            // cURL
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
-            curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-            curl_setopt($ch, CURLOPT_URL, $queryUrl);
 
-            $result = curl_exec($ch);
-            $result = json_decode($result);
-
-            curl_close($ch);
-
-            return $result;
+            return json_decode(HttpClient::get($queryUrl, [
+                CURLOPT_CONNECTTIMEOUT => 0,
+                CURLOPT_TIMEOUT => 5
+            ]));
 
         } catch (Exception $e) {
             return [

@@ -9,11 +9,12 @@ class HttpClient {
      * @param string $url URL to send request to.
      * @return string|bool Response from remote server, false on failure.
      */
-    public static function get(string $url) {
+    public static function get(string $url, array $options = []) {
         $ch = curl_init();
 
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt_array($ch, $options);
 
         $contents = curl_exec($ch);
 
@@ -41,6 +42,7 @@ class HttpClient {
     public static function post(string $url, string $data) {
         $ch = curl_init();
 
+        curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
