@@ -83,6 +83,7 @@ foreach (GroupSyncManager::getInstance()->getInjectors() as $injector) {
     ];
 }
 
+$group_sync['rules'] = [];
 foreach (DB::getInstance()->get('group_sync', ['id', '<>', 0])->results() as $rule) {
     $rules = [];
     foreach (get_object_vars($rule) as $column => $value) {

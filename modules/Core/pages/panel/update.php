@@ -63,22 +63,16 @@ if (!isset($update_check->error) && !isset($update_check->no_update) && isset($u
     $current_version = $queries->getWhere('settings', ['name', '=', 'nameless_version']);
     $current_version = $current_version[0]->value;
 
-    // Get instructions
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_URL, 'https://namelessmc.com/nl_core/nl2/instructions.php?uid=' . $uid . '&version=' . $current_version);
+    $instructions = HttpClient::get('https://namelessmc.com/nl_core/nl2/instructions.php?uid=' . $uid . '&version=' . $current_version);
 
-    $instructions = curl_exec($ch);
-
-    if (curl_error($ch)) {
-        $instructions = curl_error($ch);
+    if ($instructions->hasError()) {
+        $instructions = $instructions->getError();
     } else {
+        $instructions = $instructions->data();
         if ($instructions == 'Failed') {
             $instructions = 'Unknown error';
         }
     }
-
-    curl_close($ch);
 
     $smarty->assign([
         'INSTRUCTIONS' => $language->get('admin', 'instructions'),

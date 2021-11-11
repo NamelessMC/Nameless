@@ -68,23 +68,17 @@ if(!isset($_GET['action'])){
     } else {
         $all_modules = [];
 
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_URL, 'https://namelessmc.com/resources_modules');
+        $all_modules_query = HttpClient::get('https://namelessmc.com/resources_modules');
 
-        $all_modules_query = curl_exec($ch);
-
-        if(curl_error($ch)){
-            $all_modules_error = curl_error($ch);
+        if ($all_modules_query->hasError()) {
+            $all_modules_error = $all_modules_query->getError();
         }
 
-        curl_close($ch);
-
-        if(isset($all_modules_error)){
+        if (isset($all_modules_error)) {
             $smarty->assign('WEBSITE_MODULES_ERROR', $all_modules_error);
 
         } else {
-            $all_modules_query = json_decode($all_modules_query);
+            $all_modules_query = json_decode($all_modules_query->data());
             $timeago = new TimeAgo(TIMEZONE);
 
             foreach($all_modules_query as $item){

@@ -2,14 +2,38 @@
 
 class HttpClient {
 
+    private $ch;
+    private $data;
+
+    private function __construct($ch, $data) {
+        $this->ch = $ch;
+        $this->data = $data;
+    }
+
+    public function hasError() : bool {
+        return $this->data === false && $this->getError() !== '';
+    }
+
+    public function getError(): string {
+        return curl_error($this->ch);
+    }
+
+    public function getStatus(): int {
+        return curl_getinfo($this->ch, CURLINFO_RESPONSE_CODE);
+    }
+
+    public function data(): string {
+        return $this->data;
+    }
+
     /**
      * Make a GET request to a URL.
      * Failures will automatically be logged along with the error.
      *
      * @param string $url URL to send request to.
-     * @return string|bool Response from remote server, false on failure.
+     * @return HttpClient New HttpClient instance.
      */
-    public static function get(string $url, array $options = []) {
+    public static function get(string $url, array $options = []): HttpClient {
         $ch = curl_init();
 
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -21,14 +45,11 @@ class HttpClient {
         // Make an error log if a curl error occurred
         if ($contents === false) {
             Log::getInstance()->log(Log::Action('misc/curl_error'), curl_error($ch));
-            curl_close($ch);
-
-            return false;
         }
 
         curl_close($ch);
 
-        return $contents;
+        return new HttpClient($ch, $contents);
     }
 
     /**
@@ -37,9 +58,9 @@ class HttpClient {
      *
      * @param string $url URL to send request to.
      * @param string $data JSON request body to attach to request.
-     * @return string|bool Response from remote server, false on failure.
+     * @return HttpClient New HttpClient instance.
      */
-    public static function post(string $url, string $data) {
+    public static function post(string $url, string $data): HttpClient {
         $ch = curl_init();
 
         curl_setopt($ch, CURLOPT_POST, 1);
@@ -55,14 +76,11 @@ class HttpClient {
         // Make an error log if a curl error occurred
         if ($contents === false) {
             Log::getInstance()->log(Log::Action('misc/curl_error'), curl_error($ch));
-            curl_close($ch);
-
-            return false;
         }
 
         curl_close($ch);
 
-        return $contents;
+        return new HttpClient($ch, $contents);
     }
 
 }

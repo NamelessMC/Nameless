@@ -373,21 +373,16 @@ class Util {
         $uid = $queries->getWhere('settings', ['name', '=', 'unique_id']);
         $uid = $uid[0]->value;
 
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_URL, 'https://namelessmc.com/nl_core/nl2/stats.php?uid=' . $uid . '&version=' . $current_version . '&php_version=' . urlencode(phpversion()) . '&language=' . LANGUAGE . '&docker=' . (getenv('NAMELESSMC_METRICS_DOCKER') == true));
+        $update_check = HttpClient::get('https://namelessmc.com/nl_core/nl2/stats.php?uid=' . $uid . '&version=' . $current_version . '&php_version=' . urlencode(phpversion()) . '&language=' . LANGUAGE . '&docker=' . (getenv('NAMELESSMC_METRICS_DOCKER') == true));
 
-        $update_check = curl_exec($ch);
-
-        if (curl_error($ch)) {
-            $error = curl_error($ch);
+        if ($update_check->hasError()) {
+            $error = $update_check->getError();
         } else {
+            $update_check = $update_check->data();
             if ($update_check == 'Failed') {
                 $error = 'Unknown error';
             }
         }
-
-        curl_close($ch);
 
         if (isset($error)) {
             return json_encode(['error' => $error]);
@@ -423,22 +418,16 @@ class Util {
      * @return string NamelessMC news in JSON.
      */
     public static function getLatestNews(): string {
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_URL, 'https://namelessmc.com/news');
+        $news = HttpClient::get('https://namelessmc.com/news');
 
-        $news = curl_exec($ch);
-
-        if (curl_error($ch)) {
-            $error = curl_error($ch);
+        if ($news->hasError()) {
+            $error = $news->getError();
         }
-
-        curl_close($ch);
 
         if (isset($error)) {
             return json_encode(['error' => $error]);
         } else {
-            return $news;
+            return $news->data();
         }
     }
 
@@ -454,10 +443,10 @@ class Util {
      */
     public static function curlGetContents(string $full_url, ?string $body = null) {
         if ($body == null) {
-            return HttpClient::get($full_url);
+            return HttpClient::get($full_url)->data();
         }
 
-        return HttpClient::post($full_url, $body);
+        return HttpClient::post($full_url, $body)->data();
     }
 
     /**

@@ -76,22 +76,16 @@ if (!isset($_GET['action'])) {
     } else {
         $all_templates = [];
 
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_URL, 'https://namelessmc.com/frontend_templates');
+        $all_templates_query = HttpClient::get('https://namelessmc.com/frontend_templates');
 
-        $all_templates_query = curl_exec($ch);
-
-        if (curl_error($ch)) {
-            $all_templates_error = curl_error($ch);
+        if ($all_templates_query->hasError()) {
+            $all_templates_error = $all_templates_query->getError();
         }
-
-        curl_close($ch);
 
         if (isset($all_templates_error)) {
             $smarty->assign('WEBSITE_TEMPLATES_ERROR', $all_templates_error);
         } else {
-            $all_templates_query = json_decode($all_templates_query);
+            $all_templates_query = json_decode($all_templates_query->data());
             $timeago = new TimeAgo(TIMEZONE);
 
             foreach ($all_templates_query as $item) {

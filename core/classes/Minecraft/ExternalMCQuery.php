@@ -26,7 +26,7 @@ class ExternalMCQuery {
             return json_decode(HttpClient::get($queryUrl, [
                 CURLOPT_CONNECTTIMEOUT => 0,
                 CURLOPT_TIMEOUT => 5
-            ]));
+            ])->data());
 
         } catch (Exception $e) {
             return [
@@ -40,9 +40,9 @@ class ExternalMCQuery {
      * Get a server's favicon.
      *
      * @param string|null $ip Server's IP.
-     * @return false
+     * @return bool
      */
-    public static function getFavicon(string $ip = null) {
+    public static function getFavicon(string $ip = null): bool{
         if($ip){
             $query_ip = explode(':', $ip);
 
@@ -58,20 +58,14 @@ class ExternalMCQuery {
             $queryUrl = 'https://api.namelessmc.com/api/server/' . $ip . '/' . $port;
 
             try {
-                // cURL
-                $ch = curl_init();
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
-                curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-                curl_setopt($ch, CURLOPT_URL, $queryUrl);
+                $result = json_decode(HttpClient::get($queryUrl, [
+                    CURLOPT_CONNECTTIMEOUT => 0,
+                    CURLOPT_TIMEOUT => 5
+                ])->data());
 
-                $result = curl_exec($ch);
-                $result = json_decode($result);
-
-                curl_close($ch);
-
-                if(!$result->error && $result->response->description->favicon)
+                if (!$result->error && $result->response->description->favicon) {
                     return $result->response->description->favicon;
+                }
 
             } catch (Exception $e) {
             }

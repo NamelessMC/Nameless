@@ -44,7 +44,7 @@ class ServerStatusWidget extends WidgetBase {
             $server = $server[0];
 
             if ($server != null) {
-                $server_array = json_decode(HttpClient::get(rtrim(Util::getSelfURL(), '/') . URL::build('/queries/server/', 'id=' . $server->id)), true);
+                $server_array = json_decode(HttpClient::get(rtrim(Util::getSelfURL(), '/') . URL::build('/queries/server/', 'id=' . $server->id))->data(), true);
 
                 foreach ($server_array as $key => $value) {
                     // we have to NOT escape the player list or the formatted player list. luckily these are the only arrays

@@ -41,7 +41,7 @@ class DiscordWidget extends WidgetBase {
             $result = $this->_cache->retrieve('discord_widget_check');
 
         } else {
-            $result = json_decode(HttpClient::get('https://discord.com/api/guilds/' . Output::getClean($this->_guild_id) . '/widget.json'));
+            $result = json_decode(HttpClient::get('https://discord.com/api/guilds/' . Output::getClean($this->_guild_id) . '/widget.json')->data());
 
             // Cache for 60 seconds
             $this->_cache->store('discord_widget_check', $result, 60);

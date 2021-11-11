@@ -48,13 +48,8 @@ function get_skin($user, $cache) {
     $output .= 'Ne9AAAAAElFTkSuQmCC';
     $output = base64_decode($output);
     if ($user != '') {
-        $ch = curl_init('https://sessionserver.mojang.com/session/minecraft/profile/' . $user);
 
-        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        $result = curl_exec($ch);
-
-        $json = json_decode($result);
+        $json = json_decode(HttpClient::get('https://sessionserver.mojang.com/session/minecraft/profile/' . $user)->data());
 
         if (isset($json->properties[0]->value)) {
             $texture = base64_decode($json->properties[0]->value);
@@ -62,15 +57,9 @@ function get_skin($user, $cache) {
             $json_texture = json_decode($texture);
 
             if (isset($json_texture->textures->SKIN->url)) {
-                $ch = curl_init($json_texture->textures->SKIN->url);
-
-                curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                $output = curl_exec($ch);
+                $output = HttpClient::get($json_texture->textures->SKIN->url)->data();
             }
         }
-
-        curl_close($ch);
     }
 
     // Cache image

@@ -67,20 +67,12 @@ class ProfileUtils {
             $url = 'https://sessionserver.mojang.com/session/minecraft/profile/' . $identifier;
         }
 
-		// Use cURL instead of file_get_contents
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
-		curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
-		curl_setopt($ch, CURLOPT_URL, $url);
+        $ret = HttpClient::get($url);
 
-		// Execute
-		$ret = curl_exec($ch);
-
-        if(!empty($ret) && $ret != null && $ret != false) {
-            $data = json_decode($ret, true);
+        if (!$ret->hasError()) {
+            $data = json_decode($ret->data(), true);
             return new MinecraftProfile($data['name'], $data['id'], $data['properties']);
-        }else {
+        } else {
             return null;
         }
     }
@@ -95,32 +87,22 @@ class ProfileUtils {
             return ['username' => '', 'uuid' => ''];
         $url = 'https://api.mojang.com/users/profiles/minecraft/'.htmlspecialchars($username);
 
-		// Use cURL instead of file_get_contents
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
-		curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
-		curl_setopt($ch, CURLOPT_URL, $url);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-		// Execute
-		$result = curl_exec($ch);
+        $result = HttpClient::get($url);
 
         // Verification
-        if(isset($result) && $result != null && $result != false)
-        {
-            $ress = json_decode($result, true);
+        if (!$result->hasError()) {
+            $ress = json_decode($result->data(), true);
             return ['username' =>  $ress['name'], 'uuid' => $ress['id']];
-        }
-        else
+        } else {
             return null;
+        }
     }
 
     /**
     * @param $uuid string UUID to format
     * @return string Properly formatted UUID (According to UUID v4 Standards xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx WHERE y = 8,9,A,or B and x = random digits.)
     */
-    public static function formatUUID($uuid) {
+    public static function formatUUID($uuid): string {
         $uid = substr($uuid, 0, 8) . '-';
         $uid .= substr($uuid, 8, 4). '-';
         $uid .= substr($uuid, 12, 4). '-';

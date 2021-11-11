@@ -41,19 +41,13 @@ class DiscordHook {
 
         $json = json_encode($return, JSON_UNESCAPED_SLASHES);
 
-        $ch = curl_init();
+        $httpClient = HttpClient::post($params['webhook'], $json);
 
-        curl_setopt($ch, CURLOPT_URL, $params['webhook']);
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
+        $response = json_decode($httpClient->data(), true);
 
-        $response = curl_exec($ch);
-        $response = json_decode($response, true);
-
-        if (curl_getinfo($ch, CURLINFO_HTTP_CODE) != 204)
+        if ($httpClient->getStatus() != 204) {
             trigger_error($response['message']);
+        }
 
         curl_close($ch);
     }
