@@ -10,20 +10,40 @@ class HttpClient {
         $this->data = $data;
     }
 
-    public function hasError() : bool {
-        return $this->data === false && $this->getError() !== '';
+    /**
+     * Get the response body
+     *
+     * @return string The response body
+     */
+    public function data(): string {
+        return $this->data;
     }
 
-    public function getError(): string {
-        return curl_error($this->ch);
-    }
-
+    /**
+     * Get the response HTTP status code
+     *
+     * @return int The response code
+     */
     public function getStatus(): int {
         return curl_getinfo($this->ch, CURLINFO_RESPONSE_CODE);
     }
 
-    public function data(): string {
-        return $this->data;
+    /**
+     * Check if the response has an error
+     *
+     * @return bool Whether the response has an error or not
+     */
+    public function hasError() : bool {
+        return $this->data === false && $this->getError() !== '';
+    }
+
+    /**
+     * Get the error message
+     *
+     * @return string The error message
+     */
+    public function getError(): string {
+        return curl_error($this->ch);
     }
 
     /**
