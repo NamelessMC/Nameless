@@ -1,6 +1,6 @@
 <?php
 /*
- *  Made by Slovak
+ *  Made by RobiNN
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr12
  *
@@ -140,8 +140,8 @@ $language = [
     'must_input_email' => 'Musíte zadať emailovú adresu.',
     'must_input_username' => 'Musíte zadať užívateľské meno.',
     'must_input_password' => 'Musíte zadať heslo.',
-    'must_input_email_or_username' => 'You must input an email or username.',
-    'email_or_username' => 'Email or Username',
+    'must_input_email_or_username' => 'Musíte zadať email alebo používateľské meno.',
+    'email_or_username' => 'E-mail alebo používateľské meno',
 
     // Forgot password
     'forgot_password_instructions' => 'Zadajte svoju emailovú adresu, aby sme vám mohli poslať ďalšie pokyny týkajúce sa obnovenia hesla.',
