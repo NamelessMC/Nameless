@@ -2,7 +2,7 @@
 /*
  *  Made by RobiNN
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr10
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -63,7 +63,7 @@ $language = [
     'input_maximum' => 'Uistite sa, že vaše užívateľské meno má najviac 20 znakov a vaša emailová adresa a heslo majú maximálne 64 znakov.',
     'email_invalid' => 'Váš email je neplatný.',
     'passwords_must_match' => 'Vaše heslá sa nezhodujú.',
-    'creating_admin_account' => 'Vytvárnie admin účtu',
+    'creating_admin_account' => 'Vytváranie admin účtu',
     'enter_admin_details' => 'Zadajte podrobnosti pre admin účet.',
     'username' => 'Užívateľské meno',
     'email_address' => 'Emailová adresa',
