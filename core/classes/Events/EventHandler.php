@@ -14,7 +14,7 @@ class EventHandler {
 
     /**
      * Register an event.
-     * 
+     *
      * @param string $event Name of event to add.
      * @param string $description Human readable description.
      * @param array|null $params Array of available parameters and their descriptions.
@@ -29,7 +29,7 @@ class EventHandler {
 
     /**
      * Register hooks.
-     * 
+     *
      * @param array $webhooks Array of webhooks to register
      */
     public static function registerWebhooks(array $webhooks): void {
@@ -38,7 +38,7 @@ class EventHandler {
 
     /**
      * Register an event listener for a module.
-     * 
+     *
      * @param string $event Event name to hook into (must be registered with `registerEvent()`).
      * @param string $listener Listener function name to execute.
      */
@@ -52,7 +52,7 @@ class EventHandler {
 
     /**
      * Execute an event.
-     * 
+     *
      * @param string $event Event name to call.
      * @param array $params Params to pass to the event's function.
      */
@@ -90,7 +90,7 @@ class EventHandler {
 
     /**
      * Get a list of events.
-     * 
+     *
      * @return array List of all currently registered events.
      */
     public static function getEvents(): array {
@@ -102,7 +102,7 @@ class EventHandler {
 
         return $return;
     }
-    
+
     /**
      * Get data about an event.
      * Not used internally, currently for WebSend.
@@ -112,7 +112,7 @@ class EventHandler {
      */
     public static function getEvent(string $event): array {
         if (!isset(self::$_events[$event])) {
-            throw new Exception('Invalid event name');
+            throw new InvalidArgumentException('Invalid event name');
         }
 
         return self::$_events[$event];
