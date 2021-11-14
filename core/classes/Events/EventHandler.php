@@ -102,4 +102,19 @@ class EventHandler {
 
         return $return;
     }
+    
+    /**
+     * Get data about an event.
+     * Not used internally, currently for WebSend.
+     *
+     * @param string $event Name of event to get data for.
+     * @returns array Event data.
+     */
+    public static function getEvent(string $event): array {
+        if (!isset(self::$_events[$event])) {
+            throw new Exception('Invalid event name');
+        }
+
+        return self::$_events[$event];
+    }
 }
