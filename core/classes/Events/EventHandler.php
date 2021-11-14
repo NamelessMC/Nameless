@@ -102,4 +102,17 @@ class EventHandler {
 
         return $return;
     }
+    
+    /**
+     * Get an event its data.
+     *
+     * @returns array Event data.
+     */
+    public static function getEvent(string $event): array {
+        if (!isset(self::$_events[$event])) {
+            return [];
+        }
+
+        return self::$_events[$event];
+    }
 }
