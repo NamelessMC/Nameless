@@ -110,7 +110,7 @@ class EventHandler {
      */
     public static function getEvent(string $event): array {
         if (!isset(self::$_events[$event])) {
-            throw new Exception("Invalid event name")
+            throw new Exception('Invalid event name');
         }
 
         return self::$_events[$event];
