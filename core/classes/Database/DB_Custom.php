@@ -47,7 +47,7 @@ class DB_Custom {
         return $this->selectQuery(...func_get_args());
     }
 
-    public function selectQuery(string $sql, array $params = [], int $fetch_method = PDO::FETCH_OBJ): DB_Custom {
+    public function selectQuery(string $sql, array $params = []): DB_Custom {
         $this->_error = false;
         if ($this->_query = $this->_pdo->prepare($sql)) {
             $x = 1;

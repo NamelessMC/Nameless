@@ -439,9 +439,9 @@ class Util {
      *
      * @param string $full_url URL to send request to.
      * @param string|null $body Request body to attach to request.
-     * @return string|bool Response from remote server, false on failure.
+     * @return string Response from remote server, false on failure.
      */
-    public static function curlGetContents(string $full_url, ?string $body = null) {
+    public static function curlGetContents(string $full_url, ?string $body = null): string {
         if ($body == null) {
             return HttpClient::get($full_url)->data();
         }

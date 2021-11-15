@@ -66,7 +66,7 @@ class MentionsParser {
                     }
 
                     // chop last word off of it
-                    $new_possible_username = preg_replace('/([^A-Za-z0-9]{1}|[A-Za-z0-9]+)$/', '', $possible_username);
+                    $new_possible_username = preg_replace('/([^A-Za-z0-9]|[A-Za-z0-9]+)$/', '', $possible_username);
                     if ($new_possible_username !== $possible_username) {
                         $possible_username = $new_possible_username;
                     } else {

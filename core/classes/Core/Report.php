@@ -51,7 +51,6 @@ class Report {
             }
         }
 
-
         $post['id'] = $id;
         return $post;
 

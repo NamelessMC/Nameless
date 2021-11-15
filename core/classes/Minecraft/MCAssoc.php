@@ -2,14 +2,12 @@
 
 class MCAssoc {
 
-//    private string $siteId;
     private string $sharedSecret;
     private string $instanceSecret;
     private int $timestampLeeway;
     private bool $insecureMode = false;
 
     public function __construct($siteId, $sharedSecret, $instanceSecret, $timestampLeeway = 300) {
-//        $this->siteId = $siteId;
         $this->sharedSecret = hex2bin($sharedSecret);
         $this->instanceSecret = $instanceSecret;
         $this->timestampLeeway = $timestampLeeway;

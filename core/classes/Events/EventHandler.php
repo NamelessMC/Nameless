@@ -20,6 +20,11 @@ class EventHandler {
      * @param array|null $params Array of available parameters and their descriptions.
      */
     public static function registerEvent(string $event, string $description, array $params = []): void {
+        // dont register if the event already exists
+        if (isset(self::$_events[$event])) {
+            return;
+        }
+
         self::$_events[$event] = [
             'description' => $description,
             'params' => $params,

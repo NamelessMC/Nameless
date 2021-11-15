@@ -46,6 +46,8 @@ class Configuration {
                 return $results[0]->value;
             }
         }
+
+        return null;
     }
 
     /**

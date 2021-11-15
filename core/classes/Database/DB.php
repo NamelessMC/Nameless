@@ -214,7 +214,7 @@ class DB extends Instanceable {
         return (!$this->createQuery($sql, [$id])->error());
     }
 
-    public function decrement(string $table, int $id, string $field) {
+    public function decrement(string $table, int $id, string $field): bool {
         $table = $this->_prefix . $table;
         $sql = "UPDATE {$table} SET {$field} = {$field} - 1 WHERE id = ?";
 
@@ -255,13 +255,9 @@ class DB extends Instanceable {
 
     public function orderAll(string $table, string $order, string $sort) {
         $table = $this->_prefix . $table;
-        if (isset($sort)) {
-            $sql = "SELECT * FROM {$table} ORDER BY {$order} {$sort}";
-        } else {
-            $sql = "SELECT * FROM {$table} ORDER BY {$order}";
-        }
+        $sql = "SELECT * FROM {$table} ORDER BY {$order} {$sort}";
 
-        if(!$this->selectQuery($sql)->error()) {
+        if (!$this->selectQuery($sql)->error()) {
             return $this;
         }
 
@@ -270,13 +266,9 @@ class DB extends Instanceable {
 
     public function orderWhere(string $table, string $where, string $order, string $sort) {
         $table = $this->_prefix . $table;
-        if (isset($sort)) {
-            $sql = "SELECT * FROM {$table} WHERE {$where} ORDER BY {$order} {$sort}";
-        } else {
-            $sql = "SELECT * FROM {$table} WHERE {$where} ORDER BY {$order}";
-        }
+        $sql = "SELECT * FROM {$table} WHERE {$where} ORDER BY {$order} {$sort}";
 
-        if(!$this->selectQuery($sql)->error()) {
+        if (!$this->selectQuery($sql)->error()) {
             return $this;
         }
 

@@ -109,7 +109,7 @@ abstract class CaptchaBase {
      * 
      * @return string|null HTML to display
      */
-    public abstract function getHtml();
+    public abstract function getHtml(): ?string;
 
     /**
      * Get JavaScript source URL
@@ -123,5 +123,5 @@ abstract class CaptchaBase {
      * @param string $id ID attribute of form
      * @return string|null JS for submit function
      */
-    public abstract function getJavascriptSubmit(string $id);
+    public abstract function getJavascriptSubmit(string $id): ?string;
 }
