@@ -20,7 +20,7 @@ class EventHandler {
      * @param array|null $params Array of available parameters and their descriptions.
      */
     public static function registerEvent(string $event, string $description, array $params = []): void {
-        // dont register if the event already exists
+        // Don't register if the event already exists
         if (isset(self::$_events[$event])) {
             return;
         }
@@ -49,7 +49,8 @@ class EventHandler {
      */
     public static function registerListener(string $event, string $listener):  void {
         if (!isset(self::$_events[$event])) {
-            self::registerEvent($event, $event); // Silently create event if it doesnt exist, maybe throw exception instead?
+            // Silently create event if it doesnt exist, maybe throw exception instead?
+            self::registerEvent($event, $event);
         }
 
         self::$_events[$event]['listeners'][] = $listener;
@@ -117,7 +118,7 @@ class EventHandler {
      */
     public static function getEvent(string $event): array {
         if (!isset(self::$_events[$event])) {
-            throw new InvalidArgumentException('Invalid event name');
+            throw new InvalidArgumentException("Invalid event name: $event");
         }
 
         return self::$_events[$event];
