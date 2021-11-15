@@ -27,8 +27,7 @@ THE SOFTWARE.
  */
 
 
-function timeAgoInWords(string $timestring, string $timezone = null): string
-{
+function timeAgoInWords(string $timestring, string $timezone = null): string {
     $timeAgo = new TimeAgo($timezone);
 
     return $timeAgo->inWords($timestring, 'now');

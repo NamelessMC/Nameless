@@ -18,7 +18,7 @@ class MinecraftProfile {
      * @param string $uuid The player's UUID.
      * @param array $properties The player's properties specified on their Mojang profile.
      */
-    function __CONSTRUCT(string $username, string $uuid, array $properties = []) {
+    function __construct(string $username, string $uuid, array $properties = []) {
         $this->username = $username;
         $this->uuid = $uuid;
         $this->properties = $properties;
@@ -27,32 +27,28 @@ class MinecraftProfile {
     /**
      * @return string The player's username.
      */
-    public function getUsername(): string
-    {
+    public function getUsername(): string{
         return $this->username;
     }
 
     /**
      * @return string The player's UUID.
      */
-    public function getUUID(): string
-    {
+    public function getUUID(): string {
         return $this->uuid;
     }
 
     /**
      * @return array The player's properties listed on their mojang profile.
      */
-    public function getProperties(): array
-    {
+    public function getProperties(): array {
         return $this->properties;
     }
 
     /**
      * @return array Returns an array with keys of 'properties, usernname and uuid'.
      */
-    public function getProfileAsArray(): array
-    {
+    public function getProfileAsArray(): array {
         return ['username' => $this->username, 'uuid' => $this->uuid, 'properties' => $this->properties];
     }
 }
