@@ -22,7 +22,7 @@ class CollectionManager {
         self::$_collections[$collection]->addItem($item);
     }
 
-    public static function getFullCollection( $collection): array {
+    public static function getFullCollection($collection): array {
         return isset(self::$_collections[$collection])
                 ? self::$_collections[$collection]->getAllItems()
                 : [];
