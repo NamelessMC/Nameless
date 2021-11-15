@@ -9,7 +9,7 @@
  *  Spanish Language for Cookie Consent module
  */
 
-$language = array(
+$language = [
     'cookie_notice' => 'Aviso sobre las cookies',
     'cookie_notice_info' => 'Este widget necesita cookies',
     'configure_cookies' => 'Configuración de las cookies',
@@ -24,4 +24,4 @@ $language = array(
     'cookies' => 'Cookies',
     'cookie_notice_error' => 'Por favor, introduzca un aviso de cookies de un maximo de 10.000 caracteres.',
     'cookie_notice_success' => 'Aviso de cookies fue actualizado con éxito.',
-);
+];

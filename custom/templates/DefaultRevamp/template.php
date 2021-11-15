@@ -11,16 +11,16 @@
 
 class DefaultRevamp_Template extends TemplateBase {
 
-    private $_template;
+    private array $_template;
 
     /** @var Language */
-    private $_language;
+    private Language $_language;
 
     /** @var User */
-    private $_user;
+    private User $_user;
 
     /** @var Pages */
-    private $_pages;
+    private Pages $_pages;
 
     public function __construct($cache, $smarty, $language, $user, $pages) {
         $template = [

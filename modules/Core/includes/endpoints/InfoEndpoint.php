@@ -47,12 +47,13 @@ class InfoEndpoint extends EndpointBase {
             if ($version_update == 'false') {
                 if ($version_checked < strtotime('-1 hour')) {
                     // Check for update now
-                    $update_check = HttpClient::get('https://namelessmc.com/nl_core/nl2/stats.php?uid=' . $site_id . '&version=' . $current_version)->data();
+                    $update_check = HttpClient::get('https://namelessmc.com/nl_core/nl2/stats.php?uid=' . $site_id . '&version=' . $current_version);
 
-                    if ($update_check === false || $update_check == 'Failed') {
+                    if ($update_check->hasError() || $update_check->data() == 'Failed') {
                         $api->throwError(5, $api->getLanguage()->get('api', 'unable_to_check_for_updates'));
                     }
 
+                    $update_check = $update_check->data();
                     if ($update_check == 'None') {
                         $ret['version_update'] = ['update' => false];
                     } else {

@@ -1352,7 +1352,8 @@ class Core_Module extends Module {
             self::$_dashboard_graph[$title] = $data;
     }
 
-    public static function getDashboardGraphs(){
+    public static function getDashboardGraphs(): array
+    {
         return self::$_dashboard_graph;
     }
 
@@ -1360,7 +1361,8 @@ class Core_Module extends Module {
         self::$_notices[$url] = $text;
     }
 
-    public static function getNotices(){
+    public static function getNotices(): array
+    {
         return self::$_notices;
     }
 
@@ -1368,7 +1370,8 @@ class Core_Module extends Module {
         self::$_user_actions[] = ['title' => $title, 'link' => $link];
     }
 
-    public static function getUserActions(){
+    public static function getUserActions(): array
+    {
         $return = self::$_user_actions;
 
         uasort($return, function($a, $b){

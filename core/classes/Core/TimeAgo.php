@@ -27,7 +27,8 @@ THE SOFTWARE.
  */
 
 
-function timeAgoInWords(string $timestring, string $timezone = null) {
+function timeAgoInWords(string $timestring, string $timezone = null): string
+{
     $timeAgo = new TimeAgo($timezone);
 
     return $timeAgo->inWords($timestring, 'now');
@@ -255,6 +256,7 @@ class TimeAgo {
                     $years = floor($timeDifference / $this->secondsPerYear);
                     // saves the amount of seconds left
                     $timeDifference = $timeDifference-($years * $this->secondsPerYear);
+                    break;
 
                 // finds the number of months
                 case ($timeDifference >= $this->secondsPerMonth && $timeDifference <= ($this->secondsPerYear-1)):
@@ -262,6 +264,7 @@ class TimeAgo {
                     $months = floor($timeDifference / $this->secondsPerMonth);
                     // saves the amount of seconds left
                     $timeDifference = $timeDifference-($months * $this->secondsPerMonth);
+                    break;
 
                 // finds the number of days
                 case ($timeDifference >= $this->secondsPerDay && $timeDifference <= ($this->secondsPerYear-1)):
@@ -269,6 +272,7 @@ class TimeAgo {
                     $days = floor($timeDifference / $this->secondsPerDay);
                     // saves the amount of seconds left
                     $timeDifference = $timeDifference-($days * $this->secondsPerDay);
+                    break;
 
                 // finds the number of hours
                 case ($timeDifference >= $this->secondsPerHour && $timeDifference <= ($this->secondsPerDay-1)):
@@ -276,6 +280,7 @@ class TimeAgo {
                     $hours = floor($timeDifference / $this->secondsPerHour);
                     // saves the amount of seconds left
                     $timeDifference = $timeDifference-($hours * $this->secondsPerHour);
+                    break;
 
                 // finds the number of minutes
                 case ($timeDifference >= $this->secondsPerMinute && $timeDifference <= ($this->secondsPerHour-1)):
@@ -283,6 +288,7 @@ class TimeAgo {
                     $minutes = floor($timeDifference / $this->secondsPerMinute);
                     // saves the amount of seconds left
                     $timeDifference = $timeDifference-($minutes * $this->secondsPerMinute);
+                    break;
 
                 // finds the number of seconds
                 case ($timeDifference <= ($this->secondsPerMinute-1)):

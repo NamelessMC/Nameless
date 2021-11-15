@@ -161,6 +161,6 @@ $data = [
     ],
 ];
 
-$result = HttpClient::post('https://bytebin.rkslot.nl/post', json_encode($data, JSON_PRETTY_PRINT));
+$result = HttpClient::post('https://bytebin.rkslot.nl/post', json_encode($data, JSON_PRETTY_PRINT))->data();
 
 die('https://debug.namelessmc.com/' . json_decode($result, true)['key']);

@@ -2,7 +2,7 @@
 
 class Discord_Module extends Module {
     
-    private $_language;
+    private Language $_language;
 
     public function __construct(Language $language, Pages $pages, Queries $queries, Endpoints $endpoints) {
         $this->_language = $language;

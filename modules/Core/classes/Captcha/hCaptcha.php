@@ -29,7 +29,7 @@ class hCaptcha extends CaptchaBase {
         $url = 'https://hcaptcha.com/siteverify';
         $post_data = 'secret=' . $this->getPrivateKey() . '&response=' . $token;
 
-        $result = json_decode(HttpClient::post($url, $post_data), true);
+        $result = json_decode(HttpClient::post($url, $post_data)->data(), true);
 
         return $result['success'] == 'true';
     }
@@ -42,7 +42,7 @@ class hCaptcha extends CaptchaBase {
         return 'https://hcaptcha.com/1/api.js';
     }
 
-    public function getJavascriptSubmit(string $id) {
+    public function getJavascriptSubmit(string $id): ?string {
         return null;
     }
 }

@@ -481,7 +481,7 @@ if(isset($_GET['action'])){
                             'is_default' => 0
                         ]);
 
-                    if(!count($current_default) || count($current_default) && $current_default[0]->id != $new_default)
+                    if(!count($current_default) || $current_default[0]->id != $new_default)
                         $queries->update('mc_servers', $new_default, [
                             'is_default' => 1
                         ]);

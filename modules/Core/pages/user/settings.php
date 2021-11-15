@@ -662,10 +662,10 @@ if(isset($_GET['do'])){
         ]);
 	}
 
-	if($user->canPrivateProfile($user->data()->id)){
+	if($user->canPrivateProfile()){
         $smarty->assign([
             'PRIVATE_PROFILE' => $language->get('user', 'private_profile'),
-            'PRIVATE_PROFILE_ENABLED' => $user->isPrivateProfile($user->data()->id)
+            'PRIVATE_PROFILE_ENABLED' => $user->isPrivateProfile()
         ]);
 	}
 

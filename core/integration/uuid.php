@@ -9,16 +9,16 @@
  */
 
 class MinecraftProfile {
-    private $username;
-    private $uuid;
-    private $properties;
+    private string $username;
+    private string $uuid;
+    private array $properties;
 
     /**
      * @param string $username The player's username.
      * @param string $uuid The player's UUID.
      * @param array $properties The player's properties specified on their Mojang profile.
      */
-    function __CONSTRUCT($username, $uuid, $properties = []) {
+    function __CONSTRUCT(string $username, string $uuid, array $properties = []) {
         $this->username = $username;
         $this->uuid = $uuid;
         $this->properties = $properties;
@@ -27,28 +27,32 @@ class MinecraftProfile {
     /**
      * @return string The player's username.
      */
-    public function getUsername() {
+    public function getUsername(): string
+    {
         return $this->username;
     }
 
     /**
      * @return string The player's UUID.
      */
-    public function getUUID() {
+    public function getUUID(): string
+    {
         return $this->uuid;
     }
 
     /**
      * @return array The player's properties listed on their mojang profile.
      */
-    public function getProperties() {
+    public function getProperties(): array
+    {
         return $this->properties;
     }
 
     /**
      * @return array Returns an array with keys of 'properties, usernname and uuid'.
      */
-    public function getProfileAsArray() {
+    public function getProfileAsArray(): array
+    {
         return ['username' => $this->username, 'uuid' => $this->uuid, 'properties' => $this->properties];
     }
 }
@@ -56,12 +60,11 @@ class MinecraftProfile {
 class ProfileUtils {
     /**
      * @param string $identifier Either the player's Username or UUID.
-     * @param int $timeout The length in seconds of the http request timeout.
      * @return MinecraftProfile|null Returns null if fetching of profile failed. Else returns completed user profile.
      */
-    public static function getProfile($identifier, $timeout = 5) {
+    public static function getProfile(string $identifier): ?MinecraftProfile {
         if(strlen($identifier) <= 16){
-            $identifier = ProfileUtils::getUUIDFromUsername($identifier, $timeout);
+            $identifier = ProfileUtils::getUUIDFromUsername($identifier);
             $url = 'https://sessionserver.mojang.com/session/minecraft/profile/' .$identifier['uuid'];
         } else {
             $url = 'https://sessionserver.mojang.com/session/minecraft/profile/' . $identifier;
@@ -78,11 +81,10 @@ class ProfileUtils {
     }
 
     /**
-     * @param int $timeout http timeout in seconds
      * @param $username string Minecraft username.
      * @return array (Key => Value) "username" => Minecraft username (properly capitalized) "uuid" => Minecraft UUID
      */
-    public static function getUUIDFromUsername($username, $timeout = 5) {
+    public static function getUUIDFromUsername(string $username): ?array {
         if(strlen($username) > 16)
             return ['username' => '', 'uuid' => ''];
         $url = 'https://api.mojang.com/users/profiles/minecraft/'.htmlspecialchars($username);
@@ -99,10 +101,10 @@ class ProfileUtils {
     }
 
     /**
-    * @param $uuid string UUID to format
+    * @param string $uuid UUID to format
     * @return string Properly formatted UUID (According to UUID v4 Standards xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx WHERE y = 8,9,A,or B and x = random digits.)
     */
-    public static function formatUUID($uuid): string {
+    public static function formatUUID(string $uuid): string {
         $uid = substr($uuid, 0, 8) . '-';
         $uid .= substr($uuid, 8, 4). '-';
         $uid .= substr($uuid, 12, 4). '-';

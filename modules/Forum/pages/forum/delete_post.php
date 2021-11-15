@@ -88,8 +88,7 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
     } else {
         echo 'No post selected';
     }
-    die();
 } else {
     Redirect::to(URL::build('/forum'));
-    die();
 }
+die();

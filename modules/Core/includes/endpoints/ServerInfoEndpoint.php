@@ -108,7 +108,8 @@ class ServerInfoEndpoint extends EndpointBase {
         }
     }
 
-    private function updateGroups(User $user, array $player): ?string {
+    private function updateGroups(User $user, array $player): array
+    {
         if (!$user->exists()) {
             return null;
         }

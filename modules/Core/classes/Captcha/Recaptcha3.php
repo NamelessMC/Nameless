@@ -29,12 +29,12 @@ class Recaptcha3 extends CaptchaBase {
         $url = 'https://www.google.com/recaptcha/api/siteverify';
         $post_data = 'secret=' . $this->getPrivateKey() . '&response=' . $token;
 
-        $result = json_decode(HttpClient::post($url, $post_data), true);
+        $result = json_decode(HttpClient::post($url, $post_data)->data(), true);
 
         return $result['success'] == 'true';
     }
 
-    public function getHtml() {
+    public function getHtml(): ?string {
         return null;
     }
 

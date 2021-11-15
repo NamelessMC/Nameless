@@ -121,7 +121,8 @@ class Forum {
 
     // Returns an array of the latest 50 discussions a user can access
     // Params: $groups (array) - user groups
-    public function getLatestDiscussions(array $groups = [0], int $user_id = null) {
+    public function getLatestDiscussions(array $groups = [0], int $user_id = null): array
+    {
         if (!$user_id) {
             $user_id = 0;
         }

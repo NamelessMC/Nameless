@@ -29,7 +29,7 @@ class Recaptcha2 extends CaptchaBase {
         $url = 'https://www.google.com/recaptcha/api/siteverify';
         $post_data = 'secret=' . $this->getPrivateKey() . '&response=' . $token;
 
-        $result = json_decode(HttpClient::post($url, $post_data), true);
+        $result = json_decode(HttpClient::post($url, $post_data)->data(), true);
 
         return $result['success'] == 'true';
     }
@@ -42,7 +42,7 @@ class Recaptcha2 extends CaptchaBase {
         return 'https://www.google.com/recaptcha/api.js';
     }
 
-    public function getJavascriptSubmit(string $id) {
+    public function getJavascriptSubmit(string $id): ?string {
         return null;
     }
 }
