@@ -13,15 +13,23 @@ class EventHandler {
     private static array $_webhooks = [];
 
     /**
-     * Register an event.
+     * Register an event. This must be called in the module's constructor.
      *
      * @param string $event Name of event to add.
      * @param string $description Human readable description.
      * @param array|null $params Array of available parameters and their descriptions.
      */
     public static function registerEvent(string $event, string $description, array $params = []): void {
-        // Don't register if the event already exists
+        // Don't re-register if the event already exists, just update the params and description.
+        // This is to "fix" when registerListener is called for an event that has not been registered yet.
         if (isset(self::$_events[$event])) {
+            self::$_events[$event]['description'] = $description;
+
+            self::$_events[$event]['params'] = array_merge(
+                self::$_events[$event]['params'],
+                $params
+            );
+
             return;
         }
 
@@ -43,6 +51,7 @@ class EventHandler {
 
     /**
      * Register an event listener for a module.
+     * This must be called in the module's constructor.
      *
      * @param string $event Event name to hook into (must be registered with `registerEvent()`).
      * @param string $listener Listener function name to execute.
