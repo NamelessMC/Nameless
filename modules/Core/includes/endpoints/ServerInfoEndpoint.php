@@ -69,7 +69,7 @@ class ServerInfoEndpoint extends EndpointBase {
                 $user = new User($uuid, 'uuid');
                 $this->updateUsername($user, $player, $api);
                 $log = $this->updateGroups($user, $player);
-                if ($log != null) {
+                if (count($log)) {
                     $group_sync_log[] = $log;
                 }
                 $this->updatePlaceholders($user, $player);
@@ -111,7 +111,7 @@ class ServerInfoEndpoint extends EndpointBase {
     private function updateGroups(User $user, array $player): array
     {
         if (!$user->exists()) {
-            return null;
+            return [];
         }
 
         $log = GroupSyncManager::getInstance()->broadcastChange(
