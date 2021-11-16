@@ -82,6 +82,12 @@ class QueryRecorder extends Instanceable {
                 continue;
             }
 
+            if (!isset($params[$i])) {
+                $comp .= $section;
+                $i++;
+                continue;
+            }
+
             $param = $params[$i];
 
             $comp .= "$section '$param'";
