@@ -585,7 +585,7 @@ if ($page != 'install') {
         }
     } else {
         // Perform tasks for guests
-        if (!$_SESSION['checked'] || $_SESSION['checked'] <= strtotime('-5 minutes')) {
+        if (!$_SESSION['checked'] || (isset($_SESSION['checked']) && $_SESSION['checked'] <= strtotime('-5 minutes'))) {
             $already_online = $queries->getWhere('online_guests', ['ip', '=', $ip]);
 
             $date = date('U');
