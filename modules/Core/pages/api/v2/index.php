@@ -64,13 +64,13 @@ class Nameless2API {
             // API key specified
             $this->_endpoints = $endpoints;
 
-            $request = explode('/', $route);
+            $route = explode('/', $route);
             $this->_db = DB::getInstance();
-            $request = $request[count($request) - 1];
+            $route = $route[count($route) - 1];
 
             $_POST = json_decode(file_get_contents('php://input'), true);
 
-            if ($this->_endpoints->handle($request, $this) == false) {
+            if ($this->_endpoints->handle($route, $_SERVER['REQUEST_METHOD'], $this) == false) {
                 $this->throwError(3, $this->_language->get('api', 'invalid_api_method'), 'If you are seeing this while in a browser, this does not mean your API is not functioning!');
             }
 

@@ -38,13 +38,17 @@ class Endpoints {
     /**
      * Find an endpoint which matches this request and `execute()` it.
      * 
-     * @param string $request Route to find endpoint for.
+     * @param string $route Route to find endpoint for.
+     * @param string $method HTTP method to find endpoint for.
      * @param Nameless2API $api Instance of api instance to provide the endpoint.
      * @return bool True when endpoint is found and executed, false if not.
      */
-    public function handle(string $request, Nameless2API $api): bool {
+    public function handle(string $route, string $method, Nameless2API $api): bool {
         foreach ($this->getAll() as $endpoint) {
-            if ($endpoint->getRoute() == $request) {
+            if (
+                $endpoint->getRoute() == $route
+                && $endpoint->getMethod() == $method
+            ) {
                 $endpoint->execute($api);
                 return true;
             }
