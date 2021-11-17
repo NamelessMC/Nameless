@@ -17,8 +17,10 @@ class CookieConsent {
         $button_text_colour = '#f1d600';
         $border_colour = '#f1d600';
 
-        if ($options['position']
-            && array_search($options['position'], ['top', 'top_static', 'bottom-left', 'bottom-right'])) {
+        if (
+            isset($options['position'])
+            && array_search($options['position'], ['top', 'top_static', 'bottom-left', 'bottom-right'])
+        ) {
             if ($options['position'] == 'top_static') {
                 $script_options['position'] = 'bottom-right';
             } else {
@@ -26,7 +28,7 @@ class CookieConsent {
             }
         }
 
-        if ($options['colours']) {
+        if (isset($options['colours'])) {
             if ($options['colours']['background']) {
                 $background_colour = Output::getClean($options['colours']['background']);
             }
@@ -44,11 +46,16 @@ class CookieConsent {
             }
         }
 
-        if ($options['theme'] && array_search($options['theme'], ['classic', 'edgeless'])) {
+        if (
+            isset($options['theme'])
+            && array_search($options['theme'], ['classic', 'edgeless'])
+        ) {
             $script_options['theme'] = $options['theme'];
         }
 
-        if ($options['type'] && array_search($options['type'], ['opt-out', 'opt-in'])) {
+        if (isset($options['type'])
+            && array_search($options['type'], ['opt-out', 'opt-in'])
+        ) {
             $script_options['type'] = $options['type'];
         }
 

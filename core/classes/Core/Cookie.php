@@ -27,7 +27,7 @@ class Cookie {
      * @param string $name Name of cookie to return value of
      */
     public static function get(string $name) {
-        return $_COOKIE[$name];
+        return $_COOKIE[$name] ?? '';
     }
 
     /**
