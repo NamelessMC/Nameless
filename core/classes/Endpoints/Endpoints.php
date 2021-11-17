@@ -30,8 +30,10 @@ class Endpoints {
      * @param EndpointBase $endpoint Instance of endpoint class to register.
      */
     public function add(EndpointBase $endpoint): void {
-        if (!isset($this->_endpoints[$endpoint->getRoute()])) {
-            $this->_endpoints[$endpoint->getRoute()] = $endpoint;
+        $key = $endpoint->getRoute() . '-' . $endpoint->getMethod();
+
+        if (!isset($this->_endpoints[$key])) {
+            $this->_endpoints[$key] = $endpoint;
         }
     }
 
