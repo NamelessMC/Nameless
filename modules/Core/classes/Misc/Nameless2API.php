@@ -4,7 +4,6 @@ class Nameless2API {
 
     private DB $_db;
     private Language $_language;
-    private Endpoints $_endpoints;
 
     public function getDb(): DB {
         return $this->_db;
@@ -34,23 +33,22 @@ class Nameless2API {
                 $this->throwError(1, $this->_language->get('api', 'invalid_api_key'));
             }
 
-            // API key specified
-            $this->_endpoints = $endpoints;
-
             $route = explode('/', $route);
-            $this->_db = DB::getInstance();
-            $route = $route[count($route) - 1];
+            $route = array_slice($route, 4);
+            $route = implode('/', $route);
 
             $_POST = json_decode(file_get_contents('php://input'), true);
 
-            $this->_endpoints->handle($route, $_SERVER['REQUEST_METHOD'], $this);
+            $endpoints->handle(
+                $route,
+                $_SERVER['REQUEST_METHOD'],
+                $this
+            );
 
         } catch (Exception $e) {
             $this->throwError(0, $this->_language->get('api', 'unknown_error'), $e->getMessage());
         }
     }
-
-    // Internal functions
 
     /**
      * Validate provided API key to make sure it matches.

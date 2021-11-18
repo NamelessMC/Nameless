@@ -45,16 +45,29 @@ class Endpoints {
      * @param Nameless2API $api Instance of api instance to provide the endpoint.
      */
     public function handle(string $route, string $method, Nameless2API $api) {
+
+        $available_methods = [];
+        $matched_endpoint = null;
+
         foreach ($this->getAll() as $endpoint) {
             if ($endpoint->getRoute() == $route) {
-                if ($endpoint->getMethod() != $method) {
-                    $api->throwError(3, $api->getLanguage()->get('api', 'invalid_api_method'), "The $route endpoint only accepts {$endpoint->getMethod()}, $method was used.");
+
+                // Save that we actually found an endpoint
+                $matched_endpoint = $endpoint;
+                // Save the methods that are available for this endpoint
+                $available_methods[] = $endpoint->getMethod();
+
+                if ($endpoint->getMethod() == $method) {
+                    $endpoint->execute($api);
                     return;
                 }
 
-                $endpoint->execute($api);
-                return;
             }
+        }
+
+        if ($matched_endpoint !== null) {
+            $api->throwError(3, $api->getLanguage()->get('api', 'invalid_api_method'), "The $route endpoint only accepts " . join(', ', $available_methods) . ", $method was used.");
+            return;
         }
 
         $api->throwError(3, $api->getLanguage()->get('api', 'invalid_api_method'), 'If you are seeing this while in a browser, this does not mean your API is not functioning!');
