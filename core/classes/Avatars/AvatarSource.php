@@ -36,8 +36,8 @@ class AvatarSource {
      */
     public static function getUrlToFormat(): string {
         // Default to Cravatar
-        if (!self::getActiveSource()) {
-            require_once(ROOT_PATH . '/modules/Core/classes/CravatarAvatarSource.php');
+        if (!isset(self::$_active_source)) {
+            require_once(ROOT_PATH . '/modules/Core/classes/Avatars/CravatarAvatarSource.php');
             return (new CravatarAvatarSource())->getUrlToFormat(self::getDefaultPerspective());
         }
 
