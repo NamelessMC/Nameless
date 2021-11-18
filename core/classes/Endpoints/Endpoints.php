@@ -43,19 +43,20 @@ class Endpoints {
      * @param string $route Route to find endpoint for.
      * @param string $method HTTP method to find endpoint for.
      * @param Nameless2API $api Instance of api instance to provide the endpoint.
-     * @return bool True when endpoint is found and executed, false if not.
      */
-    public function handle(string $route, string $method, Nameless2API $api): bool {
+    public function handle(string $route, string $method, Nameless2API $api) {
         foreach ($this->getAll() as $endpoint) {
-            if (
-                $endpoint->getRoute() == $route
-                && $endpoint->getMethod() == $method
-            ) {
+            if ($endpoint->getRoute() == $route) {
+                if ($endpoint->getMethod() != $method) {
+                    $api->throwError(3, $api->getLanguage()->get('api', 'invalid_api_method'), "The $route endpoint only accepts {$endpoint->getMethod()}, $method was used.");
+                    return;
+                }
+
                 $endpoint->execute($api);
-                return true;
+                return;
             }
         }
 
-        return false;
+        $api->throwError(3, $api->getLanguage()->get('api', 'invalid_api_method'), 'If you are seeing this while in a browser, this does not mean your API is not functioning!');
     }
 }

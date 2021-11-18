@@ -43,9 +43,7 @@ class Nameless2API {
 
             $_POST = json_decode(file_get_contents('php://input'), true);
 
-            if ($this->_endpoints->handle($route, $_SERVER['REQUEST_METHOD'], $this) == false) {
-                $this->throwError(3, $this->_language->get('api', 'invalid_api_method'), 'If you are seeing this while in a browser, this does not mean your API is not functioning!');
-            }
+            $this->_endpoints->handle($route, $_SERVER['REQUEST_METHOD'], $this);
 
         } catch (Exception $e) {
             $this->throwError(0, $this->_language->get('api', 'unknown_error'), $e->getMessage());
