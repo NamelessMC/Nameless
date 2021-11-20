@@ -1,4 +1,4 @@
-# About
+# NamelessMC - v2 pre-release 13
 ![NamelessMC Banner](https://i.imgur.com/gt8uezk.png)
 NamelessMC is a free, easy to use & powerful website software for your Minecraft server, which includes a large range of features.
 
