@@ -25,7 +25,7 @@ class DB extends Instanceable {
             if(Config::get('mysql/initialise_charset')) {
                 $charset = Config::get('mysql/charset');
                 if (!$charset) $charset = 'utf8mb4';
-                
+
                 $charset = 'charset=' . $charset;
             }
 
@@ -52,7 +52,11 @@ class DB extends Instanceable {
             $x = 1;
             if(count($params)) {
                 foreach($params as $param) {
-                    $this->_query->bindValue($x, $param);
+                    if (is_int($param)) {
+                        $this->_query->bindValue($x, $param, PDO::PARAM_INT);
+                    } else {
+                        $this->_query->bindValue($x, $param, PDO::PARAM_STR);
+                    }
                     $x++;
                 }
             }
