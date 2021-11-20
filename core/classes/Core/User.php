@@ -618,7 +618,7 @@ class User {
      *
      * @return bool True on success, false if they already have it.
      */
-    public function addGroup(int $group_id, int $expire = 0, object $group_data = null): bool {
+    public function addGroup(int $group_id, int $expire = 0, array $group_data = null): bool {
         if (array_key_exists($group_id, $this->_groups)) {
             return false;
         }
@@ -633,7 +633,7 @@ class User {
             ]
         );
 
-        if($group_data == null) {
+        if ($group_data == null) {
             $group_data = $this->_db->get('groups', ['id', '=', $group_id]);
             if ($group_data->count()) {
                 $this->_groups[$group_id] = $group_data->first();
