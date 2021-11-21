@@ -54,9 +54,9 @@ class EventHandler {
      * This must be called in the module's constructor.
      *
      * @param string $event Event name to hook into (must be registered with `registerEvent()`).
-     * @param string $listener Listener function name to execute.
+     * @param callable $listener Listener function name to execute.
      */
-    public static function registerListener(string $event, string $listener):  void {
+    public static function registerListener(string $event, callable $listener):  void {
         if (!isset(self::$_events[$event])) {
             // Silently create event if it doesnt exist, maybe throw exception instead?
             self::registerEvent($event, $event);

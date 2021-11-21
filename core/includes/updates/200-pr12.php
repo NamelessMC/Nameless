@@ -39,6 +39,13 @@ try {
     // Continue
 }
 
+// delete old "version" row
+try {
+    DB::getInstance()->createQuery('DELETE FROM nl2_settings WHERE `name` = ?', ['version']);
+} catch (Exception $e) {
+    // Continue
+}
+
 // Update version number
 /*$version_number_id = $queries->getWhere('settings', array('name', '=', 'nameless_version'));
 
