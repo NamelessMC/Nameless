@@ -116,7 +116,13 @@ $('#debug_link').click(() => {
     $.get('{$DEBUG_LINK_URL}')
         .done((url) => {
             link_created = true;
-            navigator.clipboard.writeText(url);
+
+            if (navigator.clipboard !== undefined) {
+                navigator.clipboard.writeText(url);
+            } else {
+                alert(url);
+            }
+
             $('#debug_link_loading').hide(100);
             $('#debug_link').removeClass('btn-info');
             $('#debug_link').addClass('btn-success');
