@@ -92,7 +92,9 @@ class Nameless2API {
         return $user;
     }
 
-    public function throwError($code = null, $message = null, $meta = null) {
+    public function throwError($code = null, $message = null, $meta = null, int $status = 400) {
+        http_response_code($status);
+
         if ($code && $message) {
             die(json_encode(['error' => true, 'code' => $code, 'message' => $message, 'meta' => $meta], JSON_PRETTY_PRINT));
         } else {
@@ -100,10 +102,15 @@ class Nameless2API {
         }
     }
 
-    public function returnArray($arr = null) {
-        if (!$arr) $arr = [];
+    public function returnArray($arr = null, int $status = 200) {
+        if (!$arr) {
+            $arr = [];
+        }
 
         $arr['error'] = false;
+
+        http_response_code($status);
+
         die(json_encode($arr, JSON_PRETTY_PRINT));
     }
 

@@ -89,7 +89,7 @@ class CreateReportEndpoint extends EndpointBase {
                 'title' => $api->getLanguage()->get('general', 'view_report'),
                 'url' => rtrim(Util::getSelfURL(), '/') . URL::build('/panel/users/reports/', 'id=' . $report['id'])
             ]);
-            $api->returnArray(['message' => $api->getLanguage()->get('api', 'report_created')]);
+            $api->returnArray(['message' => $api->getLanguage()->get('api', 'report_created')], 201);
         } catch (Exception $e) {
             $api->throwError(23, $api->getLanguage()->get('api', 'unable_to_create_report'), $e->getMessage());
         }
