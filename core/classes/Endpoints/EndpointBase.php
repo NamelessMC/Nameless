@@ -60,12 +60,4 @@ abstract class EndpointBase {
      */
     public abstract function execute(Nameless2API $api);
 
-    /**
-     * Set the response HTTP status code.
-     *
-     * @param int $code HTTP status code to return.
-     */
-    protected function setStatus(int $code) {
-        http_response_code($code);
-    }
 }
