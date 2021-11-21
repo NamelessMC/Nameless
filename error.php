@@ -54,6 +54,7 @@ $smarty->assign([
     'ERROR_TYPE' => is_null($exception) ? $language->get('general', 'error') : (new ReflectionClass($exception))->getName(),
     'ERROR_STRING' => $error_string,
     'ERROR_FILE' => $error_file,
+    'CAN_GENERATE_DEBUG' => $user->hasPermission('admincp.core.debugging'),
     'DEBUG_LINK' => $language->get('admin', 'debug_link'),
     'DEBUG_LINK_URL' => URL::build('/queries/debug_link'),
     'ERROR_SQL_STACK' =>  QueryRecorder::getInstance()->getSqlStack(),
