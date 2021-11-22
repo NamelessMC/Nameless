@@ -103,6 +103,27 @@ foreach (DB::getInstance()->get('group_sync', ['id', '<>', 0])->results() as $ru
     $group_sync['rules'][(int) $rule->id] = $rules;
 }
 
+$webhooks = [];
+foreach (DB::getInstance()->selectQuery('SELECT * FROM nl2_hooks')->results() as $webhook) {
+    $webhooks[$webhook->id] = [
+        'id' => (int) $webhook->id,
+        'name' => $webhook->name,
+        'action' => (int) $webhook->action,
+        'url' => $webhook->url,
+        'events' => json_decode($webhook->events),
+    ];
+}
+
+$forum_hooks = [];
+foreach (DB::getInstance()->selectQuery('SELECT `id`, `forum_title`, `hooks` FROM nl2_forums WHERE `hooks` IS NOT NULL')->results() as $forum) {
+    $forum_hooks[] = [
+        'forum_id' => (int) $forum->id,
+        'title' => $forum->forum_title,
+        'hooks' => array_map(static fn ($hook) => (int) $hook, json_decode($forum->hooks)),
+    ];
+}
+
+
 $groups = [];
 foreach ($queries->getWhere('groups', ['id', '<>', 0]) as $group) {
     $groups[(int) $group->id] = [
@@ -140,10 +161,21 @@ $data = [
             'captcha_login' => (bool) Util::getSetting(DB::getInstance(), 'recaptcha_login'),
             'captcha_contact' => (bool) Util::getSetting(DB::getInstance(), 'recaptcha'),
             'group_sync' => $group_sync,
+            'webhooks' => [
+                'actions' => [
+                    2 => 'Discord',
+                ],
+                'hooks' => $webhooks,
+                'forum_hooks' => $forum_hooks,
+            ],
         ],
         'groups' => $groups,
         'config' => [
-            'core' => array_filter($GLOBALS['config']['core'], static fn (string $key) => $key != 'hostname', ARRAY_FILTER_USE_KEY),
+            'core' => array_filter(
+                $GLOBALS['config']['core'],
+                static fn (string $key) => $key != 'hostname',
+                ARRAY_FILTER_USE_KEY
+            ),
             'allowedProxies' => $GLOBALS['config']['allowedProxies']
         ],
         'modules' => $namelessmc_modules,
@@ -155,7 +187,7 @@ $data = [
     'environment' => [
         'php_version' => phpversion(),
         'php_modules' => get_loaded_extensions(),
-        'host_os' => php_uname('s'),
+        'host_os' => PHP_OS,
         'host_kernel_version' => php_uname('r'),
         'official_docker_image' => getenv('NAMELESSMC_METRICS_DOCKER') == true,
         'disk_total_space' => disk_total_space('./'),
