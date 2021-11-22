@@ -1,7 +1,7 @@
 <?php
 
 // Can user generate the debug link?
-if(!$user->handlePanelPageLoad('admincp.core.debugging')) {
+if(!$user->hasPermission('admincp.core.debugging')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }
