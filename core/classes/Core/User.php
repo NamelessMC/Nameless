@@ -618,7 +618,7 @@ class User {
      *
      * @return bool True on success, false if they already have it.
      */
-    public function addGroup(int $group_id, int $expire = 0, array $group_data = null): bool {
+    public function addGroup(int $group_id, int $expire = 0, $group_data = null): bool {
         if (array_key_exists($group_id, $this->_groups)) {
             return false;
         }
