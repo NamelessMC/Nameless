@@ -104,12 +104,11 @@ foreach (DB::getInstance()->get('group_sync', ['id', '<>', 0])->results() as $ru
 }
 
 $webhooks = [];
-foreach (DB::getInstance()->selectQuery('SELECT * FROM nl2_hooks')->results() as $webhook) {
+foreach (DB::getInstance()->selectQuery('SELECT `id`, `name`, `action`, `events` FROM nl2_hooks')->results() as $webhook) {
     $webhooks[$webhook->id] = [
         'id' => (int) $webhook->id,
         'name' => $webhook->name,
         'action' => (int) $webhook->action,
-        'url' => $webhook->url,
         'events' => json_decode($webhook->events),
     ];
 }
