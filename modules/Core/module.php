@@ -270,7 +270,19 @@ class Core_Module extends Module {
             ]
         );
 
-        EventHandler::registerEvent('createReport', $language->get('admin', 'report_hook_info'));
+        EventHandler::registerEvent('createReport',
+            $language->get('admin', 'report_hook_info')
+        );
+
+        EventHandler::registerEvent('createAnnouncement',
+            $language->get('admin', 'announcement_hook_info'),
+            [
+                'announcement_id' => $language->get('admin', 'announcement_id'),
+                'created_by' => $language->get('admin', 'user_id'),
+                'header' => $language->get('admin', 'header'),
+                'message' => $language->get('admin', 'message'),
+            ]
+        );
 
         // Webhooks
         $cache->setCache('hooks');

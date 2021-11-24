@@ -141,7 +141,8 @@ class Announcements {
 
     /**
      * Create an announcement.
-     * 
+     *
+     * @param User $user User who is creating the announcement.
      * @param array<string> $pages Array of page names this announcement should be on.
      * @param array<int> $groups Array of group IDs this announcement should be visible to.
      * @param string $text_colour Hex code of text colour to use.
@@ -152,7 +153,7 @@ class Announcements {
      * @param string $message Main text to show in announcement.
      * @param int $order Order of this announcement to use for sorting.
      */
-    public function create(array $pages, array $groups, string $text_colour, string $background_colour, string $icon, bool $closable, string $header, string $message, int $order): bool {
+    public function create(User $user, array $pages, array $groups, string $text_colour, string $background_colour, string $icon, bool $closable, string $header, string $message, int $order): bool {
         $queries = new Queries();
 
         $queries->create('custom_announcements', [
@@ -168,6 +169,13 @@ class Announcements {
         ]);
 
         $this->resetCache();
+
+        EventHandler::executeEvent('createAnnouncement', [
+            'announcement_id' => $queries->getLastId(),
+            'created_by' => $user->data()->id,
+            'header' => $header,
+            'message' => $message,
+        ]);
 
         return true;
     }

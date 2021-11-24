@@ -728,4 +728,5 @@ $language = [
     'text_colour_required' => 'Text Colour is required',
     'no_announcements' => 'No announcements have been made yet.',
     'announcement_order' => 'Order',
+    'announcement_hook_info' => 'Announcement creation',
 ];
