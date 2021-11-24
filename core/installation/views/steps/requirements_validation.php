@@ -26,7 +26,7 @@ unset($_SESSION['requirements_validated']);
 					validate_requirement('PHP MBString', extension_loaded('mbstring'));
 					validate_requirement('PHP GD', extension_loaded('gd'));
 					validate_requirement('PHP cURL', function_exists('curl_version'));
-					validate_requirement('PHP exif_imagetype', function_exists('exif_imagetype'));
+					validate_requirement('PHP Exif', function_exists('exif_imagetype'));
 					validate_requirement('PHP JSON', function_exists('json_decode'));
 				?>
 			</div>

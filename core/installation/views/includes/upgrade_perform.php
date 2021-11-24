@@ -852,12 +852,14 @@ switch ($s) {
             'value' => 'reCaptcha'
         ]);
 
+        // convert from "version" to "nameless_version"
         $version = $queries->getWhere('settings', ['name', '=', 'version']);
         if (count($version)) {
             $queries->update('settings', $version[0]->id, [
                 'name' => 'nameless_version',
                 'value' => '2.0.0-pr12'
             ]);
+            $queries->delete('settings', ['name', '=', 'version']);
         } else {
             $queries->create('settings', [
                 'name' => 'nameless_version',

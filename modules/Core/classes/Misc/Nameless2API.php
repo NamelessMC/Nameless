@@ -4,7 +4,6 @@ class Nameless2API {
 
     private DB $_db;
     private Language $_language;
-    private Endpoints $_endpoints;
 
     public function getDb(): DB {
         return $this->_db;
@@ -34,25 +33,22 @@ class Nameless2API {
                 $this->throwError(1, $this->_language->get('api', 'invalid_api_key'));
             }
 
-            // API key specified
-            $this->_endpoints = $endpoints;
-
             $route = explode('/', $route);
-            $this->_db = DB::getInstance();
-            $route = $route[count($route) - 1];
+            $route = array_slice($route, 4);
+            $route = implode('/', $route);
 
             $_POST = json_decode(file_get_contents('php://input'), true);
 
-            if ($this->_endpoints->handle($route, $_SERVER['REQUEST_METHOD'], $this) == false) {
-                $this->throwError(3, $this->_language->get('api', 'invalid_api_method'), 'If you are seeing this while in a browser, this does not mean your API is not functioning!');
-            }
+            $endpoints->handle(
+                $route,
+                $_SERVER['REQUEST_METHOD'],
+                $this
+            );
 
         } catch (Exception $e) {
             $this->throwError(0, $this->_language->get('api', 'unknown_error'), $e->getMessage());
         }
     }
-
-    // Internal functions
 
     /**
      * Validate provided API key to make sure it matches.
@@ -96,7 +92,9 @@ class Nameless2API {
         return $user;
     }
 
-    public function throwError($code = null, $message = null, $meta = null) {
+    public function throwError($code = null, $message = null, $meta = null, int $status = 400) {
+        http_response_code($status);
+
         if ($code && $message) {
             die(json_encode(['error' => true, 'code' => $code, 'message' => $message, 'meta' => $meta], JSON_PRETTY_PRINT));
         } else {
@@ -104,10 +102,15 @@ class Nameless2API {
         }
     }
 
-    public function returnArray($arr = null) {
-        if (!$arr) $arr = [];
+    public function returnArray($arr = null, int $status = 200) {
+        if (!$arr) {
+            $arr = [];
+        }
 
         $arr['error'] = false;
+
+        http_response_code($status);
+
         die(json_encode($arr, JSON_PRETTY_PRINT));
     }
 

@@ -105,7 +105,7 @@ class MinecraftPing {
 
         $Data = Pack('c', StrLen($Data)) . $Data; // prepend length of packet ID + data
 
-        fwrite( $this->Socket, $Data . "\x01\x00" ); // handshake followed by status ping
+        fwrite($this->Socket, $Data . "\x01\x00" ); // handshake followed by status ping
 
         $Length = $this->ReadVarInt(); // full packet length
 

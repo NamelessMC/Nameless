@@ -14,11 +14,14 @@
 
 header('X-Frame-Options: SAMEORIGIN');
 
-if (
-        defined('DEBUGGING') && DEBUGGING ||
+if (!defined('DEBUGGING') && (
         isset($_SERVER['NAMELESSMC_DEBUGGING']) && $_SERVER['NAMELESSMC_DEBUGGING'] ||
         getenv('NAMELESS_DEBUGGING')
-    ){
+    )) {
+    define('DEBUGGING', 1);
+}
+
+if (defined('DEBUGGING') && DEBUGGING){
     ini_set('display_startup_errors', 1);
     ini_set('display_errors', 1);
     error_reporting(-1);

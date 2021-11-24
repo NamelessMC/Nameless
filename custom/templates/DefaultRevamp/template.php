@@ -101,7 +101,7 @@ class DefaultRevamp_Template extends TemplateBase {
             'siteURL' => URL::build('/'),
             'fullSiteUrl' => Util::getSelfURL() . ltrim(URL::build('/'), '/'),
             'page' => PAGE,
-            'avatarSource' => Util::getAvatarSource(),
+            'avatarSource' => AvatarSource::getUrlToFormat(),
             'copied' => $this->_language->get('general', 'copied'),
             'cookieNotice' => $this->_language->get('general', 'cookie_notice'),
             'noMessages' => $this->_language->get('user', 'no_messages'),

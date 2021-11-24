@@ -2,18 +2,22 @@
 
 # INSTRUCTIONS
 # Set up or update:
-# export USER_ID=$(id -u) && export GROUP_ID=$(id -g) && docker pull namelessmc/php:dev && docker-compose build && docker-compose pull
+# docker-compose pull
 # sudo mkdir /opt/namelessmc
 #
 # Run:
 # export USER_ID=$(id -u); export GROUP_ID=$(id -g); docker-compose up
 #
+# Reset:
+# docker-compose down
+# rm -rf core/config.php cache/*
+# sudo rm -r /opt/namelessmc; sudo mkdir /opt/namelessmc
+#
 # Uninstall
 # docker-compose down
-# rm core/config.php
-# rm -rf cache/*
-# docker image prune -af
+# rm -rf core/config.php cache/*
 # sudo rm -r /opt/namelessmc
+# docker image prune -af
 
 version: '3.2'
 
@@ -22,18 +26,22 @@ services:
     web:
         image: namelessmc/nginx:dev
         ports: ['80:80']
-        volumes: ['./:/data']
+        volumes:
+            - type: bind
+              source: .
+              target: /data
         depends_on: [php]
         environment:
             PHP_FPM: php:9000
+            WWW_DATA_UID: ${USER_ID}
+            WWW_DATA_GID: ${GROUP_ID}
 
     php:
-        build:
-            context: .
-            args:
-                USER_ID: ${USER_ID}
-                GROUP_ID: ${GROUP_ID}
-        volumes: ['./:/data']
+        image: namelessmc/php:dev
+        volumes:
+            - type: bind
+              source: .
+              target: /data
         environment:
             NAMELESS_HOSTNAME: localhost
             NAMELESS_DATABASE_ADDRESS: db
@@ -47,6 +55,8 @@ services:
             NAMELESS_ADMIN_USERNAME: developer
             NAMELESS_ADMIN_EMAIL: admin@namelessmc.com
             NAMELESS_DEBUGGING: 'enabled'
+            WWW_DATA_UID: ${USER_ID}
+            WWW_DATA_GID: ${GROUP_ID}
 
     db:
         image: mariadb
@@ -61,7 +71,7 @@ services:
             MYSQL_DATABASE: nameless
 
     phpmyadmin:
-        image: phpmyadmin/phpmyadmin
+        image: phpmyadmin
         ports: ['8080:80']
         depends_on: [db]
         environment:

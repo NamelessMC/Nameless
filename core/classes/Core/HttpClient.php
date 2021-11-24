@@ -46,6 +46,10 @@ class HttpClient {
         return curl_error($this->ch);
     }
 
+    public function __destruct() {
+        curl_close($this->ch);
+    }
+
     /**
      * Make a GET request to a URL.
      * Failures will automatically be logged along with the error.
@@ -54,11 +58,12 @@ class HttpClient {
      * @return HttpClient New HttpClient instance.
      */
     public static function get(string $url, array $options = []): HttpClient {
-        $ch = curl_init();
+        $ch = curl_init($url);
 
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt_array($ch, $options);
+        curl_setopt_array($ch, [
+            CURLOPT_RETURNTRANSFER => true,
+            ...$options
+        ]);
 
         $contents = curl_exec($ch);
 
@@ -66,8 +71,6 @@ class HttpClient {
         if ($contents === false) {
             Log::getInstance()->log(Log::Action('misc/curl_error'), curl_error($ch));
         }
-
-        curl_close($ch);
 
         return new HttpClient($ch, $contents);
     }
@@ -81,15 +84,16 @@ class HttpClient {
      * @return HttpClient New HttpClient instance.
      */
     public static function post(string $url, string $data): HttpClient {
-        $ch = curl_init();
+        $ch = curl_init($url);
 
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, [
-            'Content-Type:application/json'
+        curl_setopt_array($ch, [
+            CURLOPT_POST => true,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_POSTFIELDS => $data,
+            CURLOPT_HTTPHEADER => [
+                'Content-Type:application/json'
+            ],
         ]);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
 
         $contents = curl_exec($ch);
 
@@ -97,8 +101,6 @@ class HttpClient {
         if ($contents === false) {
             Log::getInstance()->log(Log::Action('misc/curl_error'), curl_error($ch));
         }
-
-        curl_close($ch);
 
         return new HttpClient($ch, $contents);
     }

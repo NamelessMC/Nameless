@@ -149,6 +149,8 @@ class Util {
      * Get avatar source with UUID as `{x}` and size as `{y}`.
      * Used for avatar preview in online players list.
      *
+     * @deprecated Use `AvatarSource::getUrlToFormat()`
+     *
      * @return string URL to be formatted.
      */
     public static function getAvatarSource(): string {

@@ -51,7 +51,7 @@ Please find installation instructions on [our wiki](https://docs.namelessmc.com/
 <img src="https://user-images.githubusercontent.com/26070412/137838954-c0f26ae0-d5f9-429e-89ed-db22441a2057.png" alt="Support" width="700">
 
 Support can be found in one of the following places:
-- Discord [<img src="https://discordapp.com/api/guilds/246705793066467328/widget.png?style=shield">](https://discord.gg/nameless)
+- [Discord <img src="https://discordapp.com/api/guilds/246705793066467328/widget.png?style=shield">](https://discord.gg/nameless)
 - [Official support forum](https://namelessmc.com/forum)
 - [SpigotMC](https://www.spigotmc.org/threads/nameless-minecraft-website-software.34810/)
 

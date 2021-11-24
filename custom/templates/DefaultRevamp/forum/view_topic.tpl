@@ -101,6 +101,10 @@
   <div class="ui tiny warning message">
     {$TOPIC_LOCKED_NOTICE}
   </div>
+{elseif isset($TOPIC_LOCKED)}
+  <div class="ui tiny warning message">
+    {$TOPIC_LOCKED}
+  </div>
 {/if}
 
 {foreach from=$REPLIES item=reply}
