@@ -805,6 +805,8 @@ if ($user->isLoggedIn() && $can_reply) {
             'SUBMIT' => $language->get('general', 'submit')
         ]);
     }
+} else if ($topic->locked == 1) {
+    $smarty->assign('TOPIC_LOCKED', $forum_language->get('forum', 'topic_locked'));
 }
 
 // Assign Smarty language variables
