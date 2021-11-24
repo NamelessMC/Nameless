@@ -44,7 +44,7 @@ $language = [
     'notices' => 'Ereignisse',
     'no_notices' => 'Keine Ereignisse.',
     'email_errors_logged' => 'Fehler bei der Email wurden gespeichert',
-    'upgrade_php_version' => 'Please upgrade your PHP version to at least 7.4 - the next Nameless release will no longer support the version you are using.',
+    'upgrade_php_version' => 'Bitte aktualisiere deine PHP-Version auf mindestens 7.4 - die nächste Nameless-Version wird die von dir verwendete Version nicht mehr unterstützen.',
 
     // Core
     'settings' => 'Einstellungen',
@@ -108,7 +108,7 @@ $language = [
     'mailer_settings_info' => 'Die folgenden Felder sind erforderlich, wenn Du PHPMailer aktiviert hast. Weitere Informationen zum Ausfüllen dieser Felder findest Du unter <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-SMTP-with-Nameless-(e.g.-Gmail-or-Outlook)" target="_blank">NamelessMC Wiki</a>.',
     'host' => 'Host',
     'email_port' => 'Port',
-    'email_port_invalid' => 'Please insert a valid email port.',
+    'email_port_invalid' => 'Bitte gebe einen gültigen E-Mail Port ein.',
     'email_password_hidden' => 'Das Password wird aus Sicherheitsgründen nicht angezeigt.',
     'send_test_email' => 'Sende Test Email',
     'send_test_email_info' => 'Die folgende Schaltfläche versucht, eine E-Mail an Deine E-Mail-Adresse zu senden, <strong> {x} </strong>. Falls Irgendwelche Fehler, die beim Senden der E-Mail enstehen, werden angezeigt.', // Don't replace {x}
@@ -151,7 +151,7 @@ $language = [
     'dropdown_items' => 'Dropdown Items',
     'enable_page_load_timer' => 'Seitenlade-Timer aktivieren?',
     'google_recaptcha' => 'Google ReCAPTCHA aktivieren?',
-    'google_recaptcha_login' => 'Enable Google reCAPTCHA on login?',
+    'google_recaptcha_login' => 'Google reCAPTCHA bei der Anmeldung aktivieren?',
     'captcha_type' => 'Captcha Type',
     'recaptcha_site_key' => 'reCAPTCHA-Standortschlüssel',
     'recaptcha_secret_key' => 'reCAPTCHA Geheimschlüssel',
@@ -169,7 +169,7 @@ $language = [
     'emails_mass_message_replacements' => 'Du kannst Variablen in Deiner E-Mail-Nachricht verwenden. Unterstützte Variablen: {username}, {sitename}',
     'emails_mass_message_loading' => 'Laden ... Bitte lade die Seite nicht neu. Das kann eine Weile dauern.',
     'administrator' => 'Administrator',
-    'administrator_permission_info' => 'Members with this permission will have every permission. This is a dangerous permission to grant.',
+    'administrator_permission_info' => 'Mitglieder mit dieser Berechtigung haben alle Berechtigungen. Es ist gefährlich diese Berechtigung zu setzen.',
 
     // Placeholders
     'placeholders' => 'Placeholders',
@@ -185,18 +185,18 @@ $language = [
     'placeholders_friendly_name_info' => 'Use this to set a \'nickname\' to this placeholder. The friendly name will be used instead of the raw name.',
     'placeholders_show_on_profile' => 'Show on Profile',
     'placeholders_show_on_profile_info' => 'Whether to show this placeholder on each user\'s profile or not.',
-    'placeholders_show_on_forum' => 'Show on Forum',
+    'placeholders_show_on_forum' => 'Im Forum anzeigen',
     'placeholders_show_on_forum_info' => 'Whether to show this placeholder on each user\'s forum posts or not.',
 
     // Placeholder leaderboards
-    'leaderboard_settings' => 'Leaderboard Settings',
-    'placeholder_leaderboard_settings' => 'Placeholder Leaderboard Settings',
-    'placeholder_leaderboard_info' => 'Placeholder Leaderboards let you create leaderboards to display ranked players on your server according to any placeholder.',
-    'placeholder_leaderboard_enable_info' => 'Leaderboards work best with numeric placeholders (such as coins, kills, blocks mined, etc). If you enable a leaderboard on a text-based placeholder - you cannot be sure it will order it as you want.',
-    'placeholder_leaderboard_updated' => 'Updated leaderboard settings successfully',
-    'placeholder_leaderboard_enabled' => 'Leaderboard Enabled',
-    'placeholder_leaderboard_title' => 'Leaderboard Title',
-    'placeholder_leaderboard_sort' => 'Leaderboard Sort',
+    'leaderboard_settings' => 'Leaderboard Einstellungen',
+    'placeholder_leaderboard_settings' => 'Platzhalter-Ranglisten-Einstellungen',
+    'placeholder_leaderboard_info' => 'Mit Platzhalter-Ranglisten können Sie Ranglisten erstellen, um die Spieler auf Ihrem Server nach einem beliebigen Platzhalter zu sortieren',
+    'placeholder_leaderboard_enable_info' => 'Ranglisten funktionieren am besten mit numerischen Platzhaltern (wie Münzen, Kills, abgebaute Blöcke usw.). Wenn du ein Leaderboard für einen textbasierten Platzhalter aktivierst, könntest du nicht sicher sein, dass es so angeordnet wird, wie du es wünschst.',
+    'placeholder_leaderboard_updated' => 'Einstellungen des Leaderboards erfolgreich aktualisiert',
+    'placeholder_leaderboard_enabled' => 'Leaderboard aktiviert',
+    'placeholder_leaderboard_title' => 'Leaderboard Titel',
+    'placeholder_leaderboard_sort' => 'Leaderboard sortierung',
 
     // SEO
     'seo' => 'SEO',
@@ -355,8 +355,8 @@ $language = [
     'disable' => 'Deaktivieren',
     'module_enabled' => 'Modul aktiviert.',
     'module_disabled' => 'Modul deaktiviert.',
-    'author' => 'Author:',
-    'author_x' => 'Author: {x}', // Don't replace {x}
+    'author' => 'Autor:',
+    'author_x' => 'Autor: {x}', // Don't replace {x}
     'module_outdated' => 'Wir haben festgestellt, dass dieses Modul für die Nameless Version {x}, vorgesehen ist, aber Du führst die Nameless Version {y} aus', // Don't replace "{x}" or "{y}"
     'find_modules' => 'Entdecke Module',
     'view_all_modules' => 'Zeige alle Module',
@@ -526,8 +526,8 @@ $language = [
     'all_logs' => 'Alle Logs',
     'action' => 'Aktion',
     'action_info' => 'Aktion Info',
-    'groups_removed' => 'Groups Removed',
-    'groups_added' => 'Groups Added',
+    'groups_removed' => 'Gruppen entfernt',
+    'groups_added' => 'Gruppen hinzugefügt',
 
     // Updates
     'update' => 'Update',
@@ -677,7 +677,7 @@ $language = [
     'invalid_hook_url' => 'Ungültige Webhook-URL',
     'invalid_hook_name' => 'Ungültiger Webhook-Name',
     'invalid_hook_events' => 'Du musst mindestens 1 Ereignis auswählen',
-    'register_hook_info' => 'Benutzer Anmledung',
+    'register_hook_info' => 'Benutzer Registrierung',
     'validate_hook_info' => 'Benutzer Verifizierung',
     'delete_hook_info' => 'Benutzer Löschung',
 

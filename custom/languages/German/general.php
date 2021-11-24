@@ -53,9 +53,9 @@ $language = [
     'no_messages' => 'Keine Nachrichten',
     'x_new_messages' => 'Du hast {x} neue Nachrichten', // Don't replace {x}
     'loading' => 'Lädt...',
-    'report' => 'Melden',
-    'reported_by' => 'Reported by {x}',
-    'view_report' => 'View report',
+    'report' => 'Report',
+    'reported_by' => 'Reportet von {x}',
+    'view_report' => 'Report ansehen',
     'page_loaded_in' => 'Seite wurde in {x} Sekunden geladen.', // Don't replace {x}, time unit is seconds
     'page_x' => 'Seite {x}',
     'browse' => 'Blättern',
@@ -127,7 +127,7 @@ $language = [
     'no_servers' => 'Es sind keine Server verfügbar!',
     'bungee_instance' => 'Der Server ist eine Bungeecord Instanz',
     'no_players_online' => 'Es sind keine Spieler Online.',
-    'and_x_more' => 'and {x} more', // Don't replace {x}
+    'and_x_more' => 'und {x} mehr', // Don't replace {x}
 
     /*
      *  Cookie notice
@@ -151,7 +151,7 @@ $language = [
     'no_online_users' => 'Es sind keine User online',
     'total_online_users' => 'Total online users: {x}',
     'discord_widget_disabled' => 'Das Widget ist für den angegebenen Discord-Server deaktiviert. Bitte gehen Sie auf die Registerkarte \"Widget\" in Ihren Discord-Server-Einstellungen und stellen Sie sicher, dass das Discord-Widget aktiviert ist und dass die ID korrekt ist.',
-    'online_guests' => 'Online Gäste',
+    'online_guests' => 'Gäste online:',
     'total_online' => 'Insgesamt online', // this is Online Users + Online Guests
     'no_default_server' => 'Es gibt keinen Standardserver, bitte wählen Sie einen aus StaffCP - Integrations - Minecraft.',
     'server_status' => 'Server Status',
