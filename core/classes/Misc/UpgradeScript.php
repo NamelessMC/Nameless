@@ -32,7 +32,6 @@ abstract class UpgradeScript {
     }
 
     public function __construct() {
-
         $this->cache = new Cache(
             ['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']
         );
@@ -89,7 +88,7 @@ abstract class UpgradeScript {
             }
         }
 
-        return [...$results];
+        return $results;
     }
 
     /**
