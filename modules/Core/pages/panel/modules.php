@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.0.0-pr13
  *
  *  License: MIT
  *
@@ -174,13 +174,13 @@ if(!isset($_GET['action'])){
                     ];
                 }
 
-                // Store
-                $cache->store('enabled_modules', $modules);
-
-                // OK to enable
-                $module->onEnable();
-
                 if (!in_array($module->getName(), $order['failed'])) {
+                    // OK to enable
+                    $module->onEnable();
+                    
+                    // Store
+                    $cache->store('enabled_modules', $modules);
+                    
                     $queries->update('modules', $_GET['m'], [
                         'enabled' => 1
                     ]);
