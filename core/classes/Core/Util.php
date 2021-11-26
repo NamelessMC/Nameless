@@ -517,7 +517,7 @@ class Util {
      * Get in-game rank name from a website group ID, uses Group Sync rules.
      *
      * @param int $website_group_id ID of website group to search for.
-     * @return string|null Name of in-game rank or null if rule is not setup.
+     * @return string|null Name of in-game rank or null if rule is not set up.
      */
     public static function getIngameRankName(int $website_group_id): ?string {
         $nameless_injector = GroupSyncManager::getInstance()->getInjectorByClass(NamelessMCGroupSyncInjector::class);
