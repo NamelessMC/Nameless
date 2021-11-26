@@ -104,7 +104,7 @@ class EventHandler {
                     }
 
                     if ($callbackParam->getType() != null) {
-                        $eventParamType = get_debug_type($params[$callbackParam->getName()]);
+                        $eventParamType = self::getType($params[$callbackParam->getName()]);
 
                         if ($callbackParam->getType()->getName() != $eventParamType) {
                             throw new InvalidArgumentException(
@@ -170,5 +170,30 @@ class EventHandler {
         }
 
         return self::$_events[$event];
+    }
+
+    /**
+     * Get the debug type of a variable.
+     *
+     * @param $object
+     * @return string The name of the type of the object - same as get_debug_type().
+     */
+    private static function getType($object): string {
+        switch (gettype($object)) {
+            case 'boolean':
+                return 'bool';
+            case 'integer':
+                return 'int';
+            case 'double':
+                return 'float';
+            case 'string':
+                return 'string';
+            case 'array':
+                return 'array';
+            case 'object':
+                return 'object';
+            default:
+                return 'unknown';
+        }
     }
 }
