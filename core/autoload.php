@@ -64,7 +64,6 @@ const CLASS_FOLDERS = [
     ],
     'Events' => [
         EventHandler::class,
-        Listener::class,
     ],
     'Group_Sync' => [
         GroupSyncInjector::class,

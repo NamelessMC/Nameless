@@ -7,7 +7,7 @@
  *  Delete user event listener for Forum module
  */
 
-class DeleteUserForumHook implements Listener {
+class DeleteUserForumHook {
 
 	public static function execute(array $params = []): void {
 		if (isset($params['user_id']) && $params['user_id'] > 1) {

@@ -7,8 +7,8 @@
  *  Delete user event listener for Core module
  */
 
-class DeleteUserHook implements Listener {
-    
+class DeleteUserHook {
+
     public static function execute(array $params = []): void {
         if (isset($params['user_id']) && $params['user_id'] > 1) {
             $queries = new Queries();
