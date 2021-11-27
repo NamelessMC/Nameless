@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr12
+ *  NamelessMC version 2.0.0-pr13
  *
  *  License: MIT
  *
@@ -215,6 +215,9 @@ if (isset($_GET['user'])) {
                                         $users = $users->results();
 
                                         foreach ($users as $item) {
+                                            if($user->data()->id == $item->id)
+                                                continue;
+                                            
                                             // Send alert
                                             Alert::create($item->id, 'punishment', ['path' => 'core', 'file' => 'moderator', 'term' => 'user_punished_alert', 'replace' => ['{x}', '{y}'], 'replace_with' => [Output::getClean($user->data()->nickname), Output::getClean($query->nickname)]], ['path' => 'core', 'file' => 'moderator', 'term' => 'user_punished_alert', 'replace' => ['{x}', '{y}'], 'replace_with' => [Output::getClean($user->data()->nickname), Output::getClean($query->nickname)]], URL::build('/panel/users/punishments/', 'user=' . Output::getClean($query->id)));
                                         }
