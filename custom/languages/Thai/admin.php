@@ -754,4 +754,6 @@ $language = [
     'background_colour_required' => 'ต้องใช้สีพื้นหลัง',
     'text_colour_required' => 'ต้องระบุสีข้อความ',
     'no_announcements' => 'ยังไม่มีการประกาศใด ๆ',
+    'announcement_order' => 'Order',
+    'announcement_hook_info' => 'Announcement creation',
 ];

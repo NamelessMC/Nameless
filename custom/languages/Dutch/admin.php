@@ -743,4 +743,6 @@ $language = [
     'background_colour_required' => 'Achtergrondkleur is vereist',
     'text_colour_required' => 'Tekstkleur is vereist',
     'no_announcements' => 'Er zijn nog geen aankondigingen gemaakt.',
+    'announcement_order' => 'Order',
+    'announcement_hook_info' => 'Announcement creation',
 ];

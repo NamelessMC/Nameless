@@ -691,6 +691,8 @@ Vous devriez configurer votre groupe par défaut pour avoir des autorisations li
     'background_colour_required' => 'La couleur de fond est requise',
     'text_colour_required' => 'La couleur du texte est requise',
     'no_announcements' => 'Aucune annonce n\'a encore été faite.',
+    'announcement_order' => 'Order',
+    'announcement_hook_info' => 'Announcement creation',
 
     // Other
     'source' => 'Source',

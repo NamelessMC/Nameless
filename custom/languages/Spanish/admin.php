@@ -749,4 +749,6 @@ $language = [
     'background_colour_required' => 'El color de fondo es necesario',
     'text_colour_required' => 'El color del texto es necesario',
     'no_announcements' => 'Todavía no se ha hecho ningún anuncio.',
+    'announcement_order' => 'Order',
+    'announcement_hook_info' => 'Announcement creation',
 ];

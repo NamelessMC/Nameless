@@ -749,4 +749,6 @@ $language = [
     'background_colour_required' => '背景色は必須です。',
     'text_colour_required' => 'テキスト色は必須です。',
     'no_announcements' => 'まだお知らせはありません。',
+    'announcement_order' => 'Order',
+    'announcement_hook_info' => 'Announcement creation',
 ];

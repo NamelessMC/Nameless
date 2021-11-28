@@ -744,4 +744,6 @@ $language = [
     'background_colour_required' => 'Bakgrundsfärg krävs',
     'text_colour_required' => 'Textfärg krävs',
     'no_announcements' => 'Inga meddelanden har gjorts ännu.',
+    'announcement_order' => 'Order',
+    'announcement_hook_info' => 'Announcement creation',
 ];

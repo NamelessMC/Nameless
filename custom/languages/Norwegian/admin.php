@@ -742,4 +742,6 @@ $language = [
     'background_colour_required' => 'En bakgrunnsfarge er påkrevd',
     'text_colour_required' => 'En tekstfarge er påkrevd',
     'no_announcements' => 'Ingen kunngjøringer har blitt opprettet enda.',
+    'announcement_order' => 'Order',
+    'announcement_hook_info' => 'Announcement creation',
 ];

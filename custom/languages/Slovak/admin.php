@@ -728,4 +728,6 @@ $language = [
     'text_colour_required' => 'Farba textu je povinná',
     'no_announcements' => 'Zatiaľ neboli vytvorené žiadne oznámenia.',
     'announcement_order' => 'Poradie',
+    'announcement_order' => 'Order',
+    'announcement_hook_info' => 'Announcement creation',
 ];
