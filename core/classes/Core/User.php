@@ -867,7 +867,7 @@ class User {
      * @return bool Whether they can view it or not.
      */
     public function canViewStaffCP(): bool {
-        if (count($this->_groups)) {
+        if (isset($this->_groups) && count($this->_groups)) {
             foreach ($this->_groups as $group) {
                 if ($group->admin_cp == 1) {
                     return true;
