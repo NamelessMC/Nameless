@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr13
  *
  *  License: MIT
  *
@@ -45,7 +45,6 @@ class Output {
     public static function getPurified(?string $input, bool $escape_invalid = false): string {
         // Require HTMLPurifier
         if (!isset(self::$_purifier)) {
-            require_once(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'core', 'includes', 'htmlpurifier', 'HTMLPurifier.standalone.php']));
 
             $purifierConfig = HTMLPurifier_Config::createDefault();
 
