@@ -15,8 +15,6 @@ $page = 'image_upload';
 require('../core/init.php');
 
 if ($user->isLoggedIn()) {
-    // Require Bulletproof
-    require('../core/includes/bulletproof/bulletproof.php');
 
     if (!is_dir(ROOT_PATH . '/uploads/images')) {
         mkdir(ROOT_PATH . '/uploads/images');

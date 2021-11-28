@@ -62,7 +62,6 @@ if ($formatting == 'markdown') {
 
 $timeago = new TimeAgo(TIMEZONE);
 
-require(ROOT_PATH . '/core/includes/emojione/autoload.php'); // Emojione
 require(ROOT_PATH . '/core/includes/markdown/tohtml/Markdown.inc.php'); // Markdown to HTML
 $emojione = new Emojione\Client(new Emojione\Ruleset());
 

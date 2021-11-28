@@ -13,8 +13,6 @@ require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
 if (!isset($forum) || (!$forum instanceof Forum))
     $forum = new Forum();
 
-require_once(ROOT_PATH . '/core/includes/emojione/autoload.php'); // Emojione
-
 const PAGE = 'forum';
 
 // Initialise

@@ -5,6 +5,7 @@ parameters:
     excludePaths:
         - core/includes/
         - cache/
+        - vendor/
     # Ignore notices which are thrown due to the procedural nature of Nameless
     ignoreErrors:
         - '#might not be defined#'

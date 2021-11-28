@@ -9,6 +9,8 @@
  *  Initialisation file
  */
 
+require_once ROOT_PATH . '/vendor/autoload.php';
+
 require_once ROOT_PATH . '/core/autoload.php';
 
 // Nameless error handling
