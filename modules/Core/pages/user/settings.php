@@ -22,7 +22,6 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 require(ROOT_PATH . '/core/includes/password.php'); // For password hashing
 require(ROOT_PATH . '/core/includes/phpass.php'); // phpass for Wordpress auth
-require(ROOT_PATH . '/core/includes/markdown/tohtml/Markdown.inc.php'); // Markdown to HTML
 $emojione = new Emojione\Client(new Emojione\Ruleset());
 
 // Forum enabled?
@@ -238,7 +237,7 @@ if(isset($_GET['do'])){
                                 $formatting = $cache->retrieve('formatting');
 
                                 if ($formatting == 'markdown') {
-                                    $signature = Michelf\Markdown::defaultTransform(Input::get('signature'));
+                                    $signature = \Michelf\Markdown::defaultTransform(Input::get('signature'));
                                     $signature = Output::getClean($signature);
                                 } else $signature = Output::getClean(Input::get('signature'));
                             } else

@@ -22,7 +22,5 @@ parameters:
     scanFiles:
         - modules/Core/pages/api/v2/index.php
     bootstrapFiles:
-        - core/includes/markdown/tohtml/Markdown.inc.php
-        - core/includes/markdown/tohtml/MarkdownExtra.inc.php
         - core/includes/markdown/tomarkdown/autoload.php
         - core/includes/phpass.php
