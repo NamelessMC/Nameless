@@ -96,6 +96,6 @@ class QueryRecorder extends Instanceable {
 
         $comp .= ';';
 
-        return SQLFormatter::highlight(trim($comp));
+        return SqlFormatter::highlight(trim($comp));
     }
 }
