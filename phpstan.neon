@@ -9,7 +9,6 @@ parameters:
     # Ignore notices which are thrown due to the procedural nature of Nameless
     ignoreErrors:
         - '#might not be defined#'
-        - '#Constant#'
         - '#in isset\(\) always exists and is not nullable#'
         - '#Undefined variable:#'
         - '#in isset\(\) is never defined.#'
@@ -21,10 +20,8 @@ parameters:
         - modules/Forum/classes
     scanFiles:
         - modules/Core/pages/api/v2/index.php
-        - core/includes/sitemapphp/Sitemap.php
     bootstrapFiles:
         - core/includes/markdown/tohtml/Markdown.inc.php
         - core/includes/markdown/tohtml/MarkdownExtra.inc.php
         - core/includes/markdown/tomarkdown/autoload.php
-        - core/includes/smarty/bootstrap.php
         - core/includes/phpass.php

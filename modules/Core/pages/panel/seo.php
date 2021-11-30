@@ -40,7 +40,7 @@ if(!isset($_GET['metadata'])){
     if(Input::exists()){
         if(Token::check(Input::get('token'))){
             if(Input::get('type') == 'sitemap') {
-                require_once(ROOT_PATH . '/core/includes/sitemapphp/Sitemap.php');
+
                 $sitemap = new SitemapPHP\Sitemap(rtrim(Util::getSelfURL(), '/'));
                 $sitemap->setPath(ROOT_PATH . '/cache/sitemaps/');
 
