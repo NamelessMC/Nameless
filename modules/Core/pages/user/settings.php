@@ -31,8 +31,6 @@ $forum_enabled = Util::isModuleEnabled('Forum');
 // Two factor auth?
 if(isset($_GET['do'])){
 	if($_GET['do'] == 'enable_tfa'){
-		// Enable TFA
-		require(ROOT_PATH . '/core/includes/tfa/autoload.php');
 
 		// Ensure TFA is currently disabled
 		if($user->data()->tfa_enabled == 1){

@@ -17,7 +17,6 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 // Requirements
 require(ROOT_PATH . '/core/includes/password.php'); // For password hashing
 require(ROOT_PATH . '/core/includes/phpass.php'); // phpass for Wordpress auth
-require(ROOT_PATH . '/core/includes/tfa/autoload.php'); // Two Factor Auth
 
 // Ensure user isn't already logged in
 if ($user->isLoggedIn()) {
