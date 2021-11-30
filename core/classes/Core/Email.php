@@ -65,11 +65,10 @@ class Email {
      * @return array|bool
      */
     private static function sendMailer(array $email) {
-        require_once(ROOT_PATH . '/core/includes/phpmailer/PHPMailerAutoload.php');
         require(ROOT_PATH . '/core/email.php');
 
         // Initialise PHPMailer
-        $mail = new PHPMailer(true);
+        $mail = new PHPMailer\PHPMailer\PHPMailer(true);
 
         try {
             $mail->IsSMTP();
@@ -103,7 +102,7 @@ class Email {
 
             return true;
 
-        } catch (Exception $e) {
+        } catch (Exception | \PHPMailer\PHPMailer\Exception $e) {
             return ['error' => $e->getMessage()];
         }
     }
