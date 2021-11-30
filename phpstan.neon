@@ -3,12 +3,13 @@ parameters:
     paths:
         - ./
     excludePaths:
-        - core/includes/
+        - core/includes/markdown/
         - cache/
         - vendor/
     # Ignore notices which are thrown due to the procedural nature of Nameless
     ignoreErrors:
         - '#might not be defined#'
+        - '#Constant#'
         - '#in isset\(\) always exists and is not nullable#'
         - '#Undefined variable:#'
         - '#in isset\(\) is never defined.#'
