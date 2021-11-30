@@ -3,7 +3,6 @@ parameters:
     paths:
         - ./
     excludePaths:
-        - core/includes/markdown/
         - cache/
         - vendor/
     # Ignore notices which are thrown due to the procedural nature of Nameless
@@ -22,5 +21,4 @@ parameters:
     scanFiles:
         - modules/Core/pages/api/v2/index.php
     bootstrapFiles:
-        - core/includes/markdown/tomarkdown/autoload.php
         - core/includes/phpass.php

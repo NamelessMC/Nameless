@@ -268,7 +268,6 @@ if ($formatting == 'markdown') {
     $smarty->assign('MARKDOWN', true);
     $smarty->assign('MARKDOWN_HELP', $language->get('general', 'markdown_help'));
 
-    require(ROOT_PATH . '/core/includes/markdown/tomarkdown/autoload.php');
     $converter = new League\HTMLToMarkdown\HtmlConverter(['strip_tags' => true]);
 
     $clean = $converter->convert(Output::getDecoded($post_editing[0]->post_content));

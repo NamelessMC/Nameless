@@ -633,7 +633,6 @@ if(isset($_GET['do'])){
 
         if($formatting == 'markdown'){
             // Markdown
-            require(ROOT_PATH . '/core/includes/markdown/tomarkdown/autoload.php');
             $converter = new League\HTMLToMarkdown\HtmlConverter(['strip_tags' => TRUE]);
 
             $signature = $converter->convert(htmlspecialchars_decode($user->data()->signature));

@@ -384,7 +384,6 @@ $cache->setCache('post_formatting');
 $formatting = $cache->retrieve('formatting');
 
 if ($formatting == 'markdown') {
-    require(ROOT_PATH . '/core/includes/markdown/tomarkdown/autoload.php');
     $converter = new League\HTMLToMarkdown\HtmlConverter(['strip_tags' => true]);
 
     $signature = $converter->convert(Output::getDecoded($user_query->signature));
