@@ -57,7 +57,6 @@ if (isset($_GET['user'])) {
                     $errors = [$e->getMessage()];
                 }
             } else if ($infraction->type == 3) {
-                // Unban IP
                 try {
                     $queries->update('users', $query->id, [
                         'isbanned' => 0,
@@ -179,13 +178,13 @@ if (isset($_GET['user'])) {
                                     }
                                     
                                     // Fire userBanned event 
-                                    EventHandler::executeEvent('userBanned',
-                                    [
+                                    EventHandler::executeEvent('userBanned', [
                                         'punished_id' => $query->id,
                                         'punisher_id' => $user->data()->id,
-                                        'reason' => $_POST['reason'],
+                                        'reason' => Output::getClean($_POST['reason']),
                                         'ip_ban' => $type == 3,
                                     ]);
+
                                 } else if ($type == 4) {
                                     // Need to delete any other avatars
                                     $diff_str = implode(',', ['jpg', 'png', 'jpeg', 'gif']);
