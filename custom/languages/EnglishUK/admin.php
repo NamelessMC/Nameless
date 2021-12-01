@@ -46,6 +46,10 @@ $language = [
     'settings' => 'Settings',
     'general_settings' => 'General Settings',
     'sitename' => 'Site Name',
+    'punished_id' => 'Punished User ID',
+    'punisher_id' => 'Punisher User ID',
+    'reason' => 'Ban Reason',
+    'ip_ban' => 'IP ban?',
     'default_language' => 'Default Language',
     'default_language_help' => 'Users will be able to choose from any installed languages.',
     'install_language' => 'Install Language',
@@ -667,6 +671,7 @@ $language = [
     'validate_hook_info' => 'User validation',
     'delete_hook_info' => 'User deletion',
     'report_hook_info' => 'Report creation',
+    'ban_hook_info' => 'User ban',
 
     // Sitemap
     'unable_to_load_sitemap_file_x' => 'Unable to load sitemap file {x}', // Don't replace {x}

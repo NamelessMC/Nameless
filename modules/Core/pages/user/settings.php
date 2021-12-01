@@ -670,18 +670,18 @@ if(isset($_GET['do'])){
 
         if ($discord_linked) {
             $smarty->assign([
-                'UNLINK' => $language->get('general', 'unlink'),
-                'LINKED' => $language->get('user', 'linked'),
+                'UNLINK' => Discord::getLanguageTerm('unlink'),
+                'LINKED' => Discord::getLanguageTerm('linked'),
                 'DISCORD_ID_VALUE' => $user->data()->discord_id,
             ]);
         } else {
             $smarty->assign([
-                'LINK' => $language->get('general', 'link'),
-                'NOT_LINKED' => $language->get('user', 'not_linked'),
+                'GET_LINK_CODE' => Discord::getLanguageTerm('get_link_code'),
+                'NOT_LINKED' => Discord::getLanguageTerm('not_linked'),
             ]);
             if ($user->data()->discord_id == 010) {
                 $smarty->assign([
-                    'PENDING_LINK' => $language->get('user', 'pending_link')
+                    'PENDING_LINK' => Discord::getLanguageTerm('pending_link'),
                 ]);
             }
         }

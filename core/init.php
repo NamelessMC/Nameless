@@ -64,7 +64,7 @@ if ($page != 'install') {
      */
 
     // Friendly URLs?
-    define('FRIENDLY_URLS', Config::get('core/friendly'));
+    define('FRIENDLY_URLS', Config::get('core/friendly') == 'true');
 
     // Set up cache
     $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
