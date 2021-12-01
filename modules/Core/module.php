@@ -283,6 +283,16 @@ class Core_Module extends Module {
                 'message' => $language->get('admin', 'message'),
             ]
         );
+        
+        EventHandler::registerEvent('userBanned',
+            $language->get('admin', 'ban_hook_info'),
+            [
+                'punished_id' => $language->get('admin', 'punished_id'),
+                'punisher_id' => $language->get('admin', 'punisher_id'),
+                'reason' => $language->get('admin', 'reason'),
+                'ip_ban' => $language->get('admin', 'ip_ban'),
+            ]
+        );
 
         // Webhooks
         $cache->setCache('hooks');
