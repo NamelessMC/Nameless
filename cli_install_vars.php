@@ -28,4 +28,5 @@ $vars = [
         'uuid' => 'none',
     ],
     'language' => 'EnglishUK',
+    'sitename' => 'NamelessMC',
 ];

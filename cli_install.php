@@ -104,7 +104,8 @@ print('✍️  Creating new database...' . PHP_EOL);
 DB_Custom::getInstance($vars['mysql']['host'], $vars['mysql']['db'], $vars['mysql']['username'], $vars['mysql']['password'], $vars['mysql']['port'])->createQuery('CREATE DATABASE `' . $conf['mysql']['db'] . '`');
 
 print('✍️  Creating tables...' . PHP_EOL);
-(new Queries())->dbInitialise();
+$queries = new Queries();
+$queries->dbInitialise();
 
 Session::put('default_language', $vars['language']);
 
@@ -117,6 +118,10 @@ $nameless_terms = 'This website uses "Nameless" website software. The ' .
 
 print('✍️  Inserting default data to database...' . PHP_EOL);
 require './core/installation/views/includes/site_initialize.php';
+$queries->create('settings', [
+    'name' => 'sitename',
+    'value' => Output::getClean($vars['sitename']),
+]);
 
 print('✍️  Creating admin account...' . PHP_EOL);
 $user = new User();
