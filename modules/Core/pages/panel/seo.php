@@ -41,20 +41,18 @@ if(!isset($_GET['metadata'])){
         if(Token::check(Input::get('token'))){
             if(Input::get('type') == 'sitemap') {
 
-                $sitemap = new SitemapPHP\Sitemap(rtrim(Util::getSelfURL(), '/'));
+                $sitemap = new \SitemapPHP\Sitemap(rtrim(Util::getSelfURL(), '/'));
                 $sitemap->setPath(ROOT_PATH . '/cache/sitemaps/');
 
                 $methods = $pages->getSitemapMethods();
-                if(count($methods)){
-                    foreach($methods as $file => $method){
-                        if(file_exists($file)){
-                            require_once($file);
-
-                            call_user_func($method, $sitemap, $cache);
-
-                        } else
-                            $errors[] = str_replace('{x}', Output::getClean($file), $language->get('admin', 'unable_to_load_sitemap_file_x'));
+                foreach ($methods as $file => $method) {
+                    if (!file_exists($file)) {
+                        $errors[] = str_replace('{x}', Output::getClean($file), $language->get('admin', 'unable_to_load_sitemap_file_x'));
+                        continue;
                     }
+
+                    require_once($file);
+                    $method($sitemap, $cache);
                 }
 
                 $sitemap->createSitemapIndex(rtrim(Util::getSelfURL(), '/') . (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/cache/sitemaps/');
@@ -63,7 +61,7 @@ if(!isset($_GET['metadata'])){
                 $cache->store('updated', date('d M Y, H:i'));
 
                 $success = $language->get('admin', 'sitemap_generated');
-            } else if(Input::get('type') == 'google_analytics') {
+            } else if (Input::get('type') == 'google_analytics') {
                 $configuration->set('Core', 'ga_script', Input::get('analyticsid'));
 
                 $success = $language->get('admin', 'settings_updated_successfully');
