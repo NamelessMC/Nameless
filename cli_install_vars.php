@@ -20,6 +20,10 @@ $vars = [
         'hostname' => 'localhost',
         'path' => '',
         'friendly' => 'false',
+        'language' => 'EnglishUK',
+        'sitename' => 'NamelessMC',
+        'incoming_email' => '',
+        'outgoing_email' => '',
     ],
     'admin_account' => [
         'username' => 'admin',
@@ -27,6 +31,4 @@ $vars = [
         'email' => 'contact@example.com',
         'uuid' => 'none',
     ],
-    'language' => 'EnglishUK',
-    'sitename' => 'NamelessMC',
 ];

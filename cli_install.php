@@ -107,7 +107,7 @@ print('✍️  Creating tables...' . PHP_EOL);
 $queries = new Queries();
 $queries->dbInitialise();
 
-Session::put('default_language', $vars['language']);
+Session::put('default_language', $vars['core']['language']);
 
 $nameless_terms = 'This website uses "Nameless" website software. The ' .
     '"Nameless" software creators will not be held responsible for any content ' .
@@ -120,7 +120,15 @@ print('✍️  Inserting default data to database...' . PHP_EOL);
 require './core/installation/views/includes/site_initialize.php';
 $queries->create('settings', [
     'name' => 'sitename',
-    'value' => Output::getClean($vars['sitename']),
+    'value' => Output::getClean($vars['core']['sitename']),
+]);
+$queries->create('settings', [
+    'name' => 'incoming_email',
+    'value' => Output::getClean($vars['core']['incoming_email']),
+]);
+$queries->create('settings', [
+    'name' => 'outgoing_email',
+    'value' => Output::getClean($vars['core']['outgoing_email']),
 ]);
 
 print('✍️  Creating admin account...' . PHP_EOL);
