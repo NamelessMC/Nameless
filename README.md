@@ -72,7 +72,7 @@ Translation credits can be found within CONTRIBUTORS.md
 ## Contributing
 We welcome all contributions of code and translations. Please feel free to fork the repository on GitHub and create any pull requests.
 - We generally keep a todo list in the Milestones tab of the the Issues page.
-- We use Composer to manage dependencies. Before you can install the dependencies, you need to install Composer on your local computer. Installation instructions are [here](https://getcomposer.org/doc/00-intro.md#installation-linux-unix-macos).
+- We use Composer to manage dependencies. Before you can install the dependencies, you need to install Composer on your local computer. Installation instructions are [here](https://getcomposer.org/doc/00-intro.md).
 - To install the Composer packages we depend on, run the following command in the root directory of the NamelessMC repository:
     ```
     composer install
