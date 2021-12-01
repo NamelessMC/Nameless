@@ -190,8 +190,7 @@ if (Input::exists()) {
             $cache->store('formatting', Output::getClean(Input::get('formatting')));
 
             // Friendly URLs
-            if (Input::get('friendlyURL') == 'true') $friendly = true;
-            else $friendly = false;
+            $friendly = Input::get('friendlyURL') == 'true';
 
             // Force HTTPS?
             if (Input::get('forceHTTPS') == 'true') $https = true;
@@ -248,7 +247,7 @@ if (Input::exists()) {
 
             // Redirect in case URL type has changed
             if (!isset($errors)) {
-                if ($friendly == 'true') {
+                if ($friendly === true) {
                     $redirect = URL::build('/panel/core/general_settings', '', 'friendly');
                 } else {
                     $redirect = URL::build('/panel/core/general_settings', '', 'non-friendly');
