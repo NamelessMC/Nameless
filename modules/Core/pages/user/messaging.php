@@ -532,7 +532,7 @@ if(!isset($_GET['action'])) {
                 'author_groups' => $target_user->getAllGroupHtml(),
                 'message_date' => $timeago->inWords(date('d M Y, H:i', $results->data[$n]->created), $language->getTimeLanguage()),
                 'message_date_full' => date('d M Y, H:i', $results->data[$n]->created),
-                'content' => Output::getPurified($emojione->unicodeToImage(Output::getDecoded($results->data[$n]->content)))
+                'content' => Output::getPurified($emojione->toImage(Output::getDecoded($results->data[$n]->content)))
             ];
         }
 
