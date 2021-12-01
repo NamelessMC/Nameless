@@ -14,6 +14,7 @@ class Output {
 
     /**
      * Returns a clean version of an inputted string.
+     * Will remove HTML, convert HTML entities, and strip slashes.
      *
      * @param string|null $input The string which will be cleaned
      *
@@ -36,6 +37,7 @@ class Output {
 
     /**
      * Returns a purified version of an inputted string with HTMLPurifier.
+     * Will not remove any HTML tags.
      *
      * @param string|null $input String which will be purified.
      * @param boolean $escape_invalid Should invalid HTML be escaped instead of fully removed?
