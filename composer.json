@@ -12,8 +12,10 @@
         "phpmailer/phpmailer": "^6.5",
         "evert/sitemap-php": "^1.2",
         "robthree/twofactorauth": "^1.8",
-        "phpstan/phpstan": "^1.2",
         "michelf/php-markdown": "^1.9",
         "nickcernis/html-to-markdown": "^5.0"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^1.2"
     }
 }

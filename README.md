@@ -75,7 +75,7 @@ We welcome all contributions of code and translations. Please feel free to fork 
 - We use Composer to manage dependencies. Before you can install the dependencies, you need to install Composer on your local computer. Installation instructions are [here](https://getcomposer.org/doc/00-intro.md).
 - To install the Composer packages we depend on, run the following command in the root directory of the NamelessMC repository:
     ```
-    composer install
+    composer install --dev
     ```
   - This could take up to about a minute depending on your internet connection.
 
