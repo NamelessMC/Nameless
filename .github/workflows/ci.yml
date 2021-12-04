@@ -12,9 +12,9 @@ jobs:
         uses: shivammathur/setup-php@2.16.0
         with:
           php-version: '7.4'
-          extensions: exif
 
-      - uses: php-actions/composer@v5
+      - name: Install dependencies
+        run: composer update --no-interaction --no-suggest --no-progress
 
-      - name: PHPStan Static Analysis
-        uses: php-actions/phpstan@v3
+      - name: Execute tests
+        run: vendor/bin/phpunit
