@@ -7,8 +7,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
       - name: Setup PHP Action
         uses: shivammathur/setup-php@2.16.0
+        with:
+          php-version: '7.4'
+          extensions: exif
 
       - uses: php-actions/composer@v5
 
