@@ -14,9 +14,11 @@ parameters:
         - '#in isset\(\) is never defined.#'
         - '#Unsafe usage of new static\(\).#'
         - '#Call to an undefined method ReflectionType::getName\(\).#'
+        - '#Call to an undefined method ReflectionType::isBuiltin\(\).#'
         - '#Constructor of class MCAssoc has an unused parameter \$siteId.#'
         - '#Cannot access property#'
         - '#Access to an undefined property#'
+        - '#Variable $color_code in empty\(\) always exists and is not falsy.#'
     # Autoload classes
     scanDirectories:
         - core/classes
