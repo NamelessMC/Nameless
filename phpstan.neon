@@ -14,7 +14,7 @@ parameters:
         - '#in isset\(\) is never defined.#'
         - '#Unsafe usage of new static\(\).#'
         - '#Call to an undefined method ReflectionType::getName\(\).#'
-        - '#Constructor of class MCAssoc has an unused parameter $siteId.#'
+        - '#Constructor of class MCAssoc has an unused parameter \$siteId.#'
     # Autoload classes
     scanDirectories:
         - core/classes
