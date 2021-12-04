@@ -18,7 +18,7 @@ parameters:
         - '#Constructor of class MCAssoc has an unused parameter \$siteId.#'
         - '#Cannot access property#'
         - '#Access to an undefined property#'
-        - '#Variable $color_code in empty\(\) always exists and is not falsy.#'
+        - '#Variable \$color_code in empty\(\) always exists and is not falsy.#'
     # Autoload classes
     scanDirectories:
         - core/classes
