@@ -1,6 +1,6 @@
 name: CI
 
-on: [push]
+on: [ push, pull_request ]
 
 jobs:
   phpstan:
@@ -8,7 +8,7 @@ jobs:
     strategy:
         matrix:
             operating-system: [ 'ubuntu-latest', 'windows-latest', 'macos-latest' ]
-            php-versions: [ '7.3', '7.4', '8.0', '8.1' ]
+            php-versions: [ '7.4', '8.0' ]
     steps:
       - uses: actions/checkout@v2
 
@@ -22,3 +22,4 @@ jobs:
 
       - name: Execute tests
         run: vendor/bin/phpstan
+  # todo: tests
