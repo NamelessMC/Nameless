@@ -5,10 +5,10 @@ on: [push]
 jobs:
   phpstan:
     runs-on: ${{ matrix.operating-system }}
-      strategy:
+    strategy:
         matrix:
-          operating-system: [ 'ubuntu-latest', 'windows-latest', 'macos-latest' ]
-          php-versions: [ '7.3', '7.4', '8.0', '8.1' ]
+            operating-system: [ 'ubuntu-latest', 'windows-latest', 'macos-latest' ]
+            php-versions: [ '7.3', '7.4', '8.0', '8.1' ]
     steps:
       - uses: actions/checkout@v2
 
