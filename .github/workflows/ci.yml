@@ -4,14 +4,18 @@ on: [push]
 
 jobs:
   phpstan:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.operating-system }}
+      strategy:
+        matrix:
+          operating-system: [ 'ubuntu-latest', 'windows-latest', 'macos-latest' ]
+          php-versions: [ '7.3', '7.4', '8.0', '8.1' ]
     steps:
       - uses: actions/checkout@v2
 
       - name: Setup PHP Action
         uses: shivammathur/setup-php@2.16.0
         with:
-          php-version: '7.4'
+          php-version: ${{ matrix.php-versions }}
 
       - name: Install dependencies
         run: composer update --no-interaction --no-suggest --no-progress
