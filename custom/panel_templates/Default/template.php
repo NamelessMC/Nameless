@@ -44,8 +44,13 @@ if (!class_exists('Default_Panel_Template')) {
                 (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/js/sb-admin-2.js' => [],
                 (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/switchery/switchery.min.js' => []
             ]);
+			
+			$this->addJSScript('
+				var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
 
-            $this->addJSScript('
+				elems.forEach(function(html) {
+					var switchery = new Switchery(html, {color: \'#23923d\', secondaryColor: \'#e56464\'});
+				});
 
 				// Dark and light theme switch
 				var currentPanelTheme = localStorage.getItem("nmc_panel_theme");
@@ -167,15 +172,6 @@ if (!class_exists('Default_Panel_Template')) {
                         $this->addJSFiles([
                             (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/toastr/toastr.min.js' => []
                         ]);
-
-                        $this->addJSScript('
-						var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
-
-						elems.forEach(function(html) {
-						  var switchery = new Switchery(html, {color: \'#23923d\', secondaryColor: \'#e56464\'});
-						});
-						');
-
                         break;
 
                     case 'avatars':
@@ -190,11 +186,6 @@ if (!class_exists('Default_Panel_Template')) {
                         ]);
 
                         $this->addJSScript('
-						var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
-
-						elems.forEach(function(html) {
-						  var switchery = new Switchery(html, {color: \'#23923d\', secondaryColor: \'#e56464\'});
-						});
 
 						// Dropzone options
 						Dropzone.options.upload_avatar_dropzone = {
@@ -205,22 +196,6 @@ if (!class_exists('Default_Panel_Template')) {
 						};
 
 						$(".image-picker").imagepicker();
-						');
-
-                        break;
-
-                    case 'custom_profile_fields':
-                    case 'emails':
-                    case 'reactions':
-                    case 'social_media':
-                    case 'forum_settings':
-                    case 'widgets':
-                        $this->addJSScript('
-						var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
-
-						elems.forEach(function(html) {
-						  var switchery = new Switchery(html, {color: \'#23923d\', secondaryColor: \'#e56464\'});
-						});
 						');
 
                         break;
@@ -251,13 +226,6 @@ if (!class_exists('Default_Panel_Template')) {
                         ]);
 
                         $this->addJSScript(Input::createEditor('InputMaintenanceMessage'));
-                        $this->addJSScript('
-						var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
-
-						elems.forEach(function(html) {
-						  var switchery = new Switchery(html, {color: \'#23923d\', secondaryColor: \'#e56464\'});
-						});
-						');
 
                         break;
 
@@ -284,12 +252,6 @@ if (!class_exists('Default_Panel_Template')) {
                         $this->addJSScript(Input::createEditor('InputRegistrationDisabledMessage'));
 
                         $this->addJSScript('
-						var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
-
-						elems.forEach(function(html) {
-						  var switchery = new Switchery(html, {color: \'#23923d\', secondaryColor: \'#e56464\'});
-						});
-
 						/*
 						 *  Submit form on clicking enable/disable registration
 						 */
@@ -313,14 +275,6 @@ if (!class_exists('Default_Panel_Template')) {
                             (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/js/jquery-ui.min.js' => []
                         ]);
 
-                        $this->addJSScript('
-						var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
-
-						elems.forEach(function(html) {
-						  var switchery = new Switchery(html, {color: \'#23923d\', secondaryColor: \'#e56464\'});
-						});
-						');
-
                         break;
 
                     case 'template':
@@ -338,17 +292,6 @@ if (!class_exists('Default_Panel_Template')) {
                             ]);
                         }
 
-                        if (isset($_GET['action']) && $_GET['action'] == 'permissions') {
-
-                            $this->addJSScript('
-							var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
-
-							elems.forEach(function(html) {
-							  var switchery = new Switchery(html, {color: \'#23923d\', secondaryColor: \'#e56464\'});
-							});
-							');
-                        }
-
                         break;
 
                     case 'custom_pages':
@@ -358,13 +301,6 @@ if (!class_exists('Default_Panel_Template')) {
                             ]);
 
                             $this->addJSScript(Input::createEditor('inputContent', true));
-                            $this->addJSScript('
-							var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
-
-							elems.forEach(function(html) {
-							  var switchery = new Switchery(html, {color: \'#23923d\', secondaryColor: \'#e56464\'});
-							});
-							');
                         }
                         break;
 
@@ -456,12 +392,6 @@ if (!class_exists('Default_Panel_Template')) {
                         if (!defined('MINECRAFT_PAGE')) {
 
                             $this->addJSScript('
-							var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
-
-							elems.forEach(function(html) {
-							  var switchery = new Switchery(html, {color: \'#23923d\', secondaryColor: \'#e56464\'});
-							});
-
 							if($(\'.js-check-change\').length) {
 						        var changeCheckbox = document.querySelector(\'.js-check-change\');
 
@@ -474,11 +404,6 @@ if (!class_exists('Default_Panel_Template')) {
                         } else if (MINECRAFT_PAGE == 'authme') {
 
                             $this->addJSScript('
-							var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
-
-							elems.forEach(function(html) {
-							  var switchery = new Switchery(html, {color: \'#23923d\', secondaryColor: \'#e56464\'});
-							});
 
 							if($(\'.js-check-change\').length) {
 						        var changeCheckbox = document.querySelector(\'.js-check-change\');
@@ -492,12 +417,6 @@ if (!class_exists('Default_Panel_Template')) {
                         } else if (MINECRAFT_PAGE == 'verification') {
 
                             $this->addJSScript('
-							var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
-
-							elems.forEach(function(html) {
-							  var switchery = new Switchery(html, {color: \'#23923d\', secondaryColor: \'#e56464\'});
-							});
-
 							if($(\'.js-check-change\').length) {
 						        var changeCheckbox = document.querySelector(\'.js-check-change\');
 
@@ -511,14 +430,6 @@ if (!class_exists('Default_Panel_Template')) {
                             $this->addJSFiles([
                                 (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/js/jquery-ui.min.js' => []
                             ]);
-
-                            $this->addJSScript('
-							var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
-
-							elems.forEach(function(html) {
-							  var switchery = new Switchery(html, {color: \'#23923d\', secondaryColor: \'#e56464\'});
-							});
-							');
 
                         } else if (MINECRAFT_PAGE == 'query_errors') {
                             $this->addCSSStyle('
@@ -554,28 +465,10 @@ if (!class_exists('Default_Panel_Template')) {
 
                                 $this->addJSScript('$(".image-picker").imagepicker();');
                             }
-                        } else if (MINECRAFT_PAGE == 'placeholders') {
-                            $this->addJSScript('
-                            var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
-
-                            elems.forEach(function(html) {
-                              var switchery = new Switchery(html, {color: \'#23923d\', secondaryColor: \'#e56464\'});
-                            });
-                            ');
                         }
 
                         break;
 
-                    case 'hooks':
-                    case 'discord':
-                        $this->addJSScript('
-							var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
-
-							elems.forEach(function(html) {
-							  var switchery = new Switchery(html, {color: \'#23923d\', secondaryColor: \'#e56464\'});
-							});
-							');
-                        break;
                     case 'security':
                         if (isset($_GET['view'])) {
                             $this->addCSSFiles([
@@ -674,14 +567,6 @@ if (!class_exists('Default_Panel_Template')) {
                         $this->addJSFiles([
                             (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/js/jquery-ui.min.js' => []
                         ]);
-
-                        $this->addJSScript('
-						var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
-
-						elems.forEach(function(html) {
-						  var switchery = new Switchery(html, {color: \'#23923d\', secondaryColor: \'#e56464\'});
-						});
-						');
 
                         break;
 
