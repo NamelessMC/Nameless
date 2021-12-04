@@ -19,7 +19,7 @@ class DiscordWidget extends WidgetBase {
         $this->_guild_id = Discord::getGuildId();
         $this->_smarty = $smarty;
 
-        parent::__construct($pages ?? [], true);
+        parent::__construct($pages, true);
 
         // Get widget
         $widget_query = DB::getInstance()->selectQuery('SELECT `location`, `order` FROM nl2_widgets WHERE `name` = ?', ['Discord'])->first();

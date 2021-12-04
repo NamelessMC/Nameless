@@ -15,7 +15,7 @@ class ExternalMCQuery {
      * Basic server query.
      *
      * @param string $ip IP to query
-     * @param int|null $port Port to query, `25565` by default.
+     * @param int $port Port to query, `25565` by default.
      * @return object Query result.
      */
     public static function query(string $ip, int $port = 25565) {

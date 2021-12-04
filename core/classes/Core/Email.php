@@ -15,7 +15,7 @@ class Email {
      * Send an email.
      * 
      * @param array $email Array containing all necessary email information to send as per the sendPHP and sendMailer functions.
-     * @param string|null $method Email sending method to use (`php` or `mailer`). Uses `php` if not provided. 
+     * @param string $method Email sending method to use (`php` or `mailer`). Uses `php` if not provided.
      */
     public static function send(array $email, string $method = 'php') {
         if ($method == 'php') {

@@ -169,7 +169,7 @@ class Util {
     /**
      * Get the server name.
      *
-     * @param ?bool $protocol Whether to show http(s) at front or not.
+     * @param bool $protocol Whether to show http(s) at front or not.
      *
      * @return string Compiled URL.
      */

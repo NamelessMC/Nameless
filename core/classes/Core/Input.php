@@ -13,7 +13,7 @@ class Input {
     /**
      * Check that specified input type exists.
      * 
-     * @param string|null $type Check for either POST or GET submission (optional, defaults to POST)
+     * @param string $type Check for either POST or GET submission (optional, defaults to POST)
      * @return bool Whether it exists or not.
      */
     public static function exists(string $type = 'post'): bool {
@@ -50,7 +50,7 @@ class Input {
      * Displays a new CKEditor field
      * 
      * @param string $name Name of input field ID
-     * @param bool|null $admin Whether to add admin options or not - default false
+     * @param boolean $admin Whether to add admin options or not - default false
      * @return string Editor javascript code. 
      */
     public static function createEditor(string $name, bool $admin = false): string {

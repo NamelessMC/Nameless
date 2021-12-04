@@ -77,7 +77,7 @@ class ProfileUtils {
     }
 
     /**
-     * @param $username string Minecraft username.
+     * @param string $username Minecraft username.
      * @return array (Key => Value) "username" => Minecraft username (properly capitalized) "uuid" => Minecraft UUID
      */
     public static function getUUIDFromUsername(string $username): ?array {

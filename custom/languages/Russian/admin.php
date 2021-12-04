@@ -729,6 +729,5 @@ $language = [
     'text_colour_required' => 'Укажите цвет текста',
     'no_announcements' => 'Нету созданных объявлений.',
     'announcement_order' => 'Приоритет объявления',
-    'announcement_order' => 'Order',
     'announcement_hook_info' => 'Announcement creation',
 ];
