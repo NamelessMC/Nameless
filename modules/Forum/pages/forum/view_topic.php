@@ -152,7 +152,7 @@ $forum_parent = $queries->getWhere('forums', ['id', '=', $topic->forum_id]);
 $page_metadata = $queries->getWhere('page_descriptions', ['page', '=', '/forum/topic']);
 if (count($page_metadata)) {
     $first_post = $queries->orderWhere('posts', 'topic_id = ' . $topic->id, 'created', 'ASC LIMIT 1');
-    $first_post = strip_tags(str_ireplace(['<br />', '<br>', '<br/>', '&nbsp;'], ["\n", "\n", "\n", ' '], Output::getDecoded($first_post[0]->post_content)));
+    $first_post = htmlentities(strip_tags(str_ireplace(['<br />', '<br>', '<br/>', '&nbsp;'], ["\n", "\n", "\n", ' '], Output::getDecoded($first_post[0]->post_content))), ENT_QUOTES, 'UTF-8', false);
 
     define('PAGE_DESCRIPTION', str_replace(['{site}', '{title}', '{author}', '{forum_title}', '{page}', '{post}'], [SITE_NAME, Output::getClean($topic->topic_title), Output::getClean($user->idToName($topic->topic_creator)), Output::getClean($forum_parent[0]->forum_title), Output::getClean($p), substr($first_post, 0, 160) . '...'], $page_metadata[0]->description));
     define('PAGE_KEYWORDS', $page_metadata[0]->tags);
@@ -161,7 +161,7 @@ if (count($page_metadata)) {
 
     if (count($page_metadata)) {
         $first_post = $queries->orderWhere('posts', 'topic_id = ' . $topic->id, 'created', 'ASC LIMIT 1');
-        $first_post = strip_tags(str_ireplace(['<br />', '<br>', '<br/>', '&nbsp;'], ["\n", "\n", "\n", ' '], Output::getDecoded($first_post[0]->post_content)));
+        $first_post = htmlentities(strip_tags(str_ireplace(['<br />', '<br>', '<br/>', '&nbsp;'], ["\n", "\n", "\n", ' '], Output::getDecoded($first_post[0]->post_content))), ENT_QUOTES, 'UTF-8', false);
 
         define('PAGE_DESCRIPTION', str_replace(['{site}', '{title}', '{author}', '{forum_title}', '{page}', '{post}'], [SITE_NAME, Output::getClean($topic->topic_title), Output::getClean($user->idToName($topic->topic_creator)), Output::getClean($forum_parent[0]->forum_title), Output::getClean($p), substr($first_post, 0, 160) . '...'], $page_metadata[0]->description));
         define('PAGE_KEYWORDS', $page_metadata[0]->tags);
