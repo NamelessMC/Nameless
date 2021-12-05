@@ -57,7 +57,7 @@ abstract class AvatarSourceBase {
      * 
      * @param string $uuid UUID of avatar to get.
      * @param string $perspective Perspective to render avatar with.
-     * @param int|null $size Size in pixels to render avatar at. Default 128
+     * @param int $size Size in pixels to render avatar at. Default 128
      * 
      * @return string Compiled URL of avatar image.
      */

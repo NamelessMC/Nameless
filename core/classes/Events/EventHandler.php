@@ -17,7 +17,7 @@ class EventHandler {
      *
      * @param string $event Name of event to add.
      * @param string $description Human readable description.
-     * @param array|null $params Array of available parameters and their descriptions.
+     * @param array $params Array of available parameters and their descriptions.
      */
     public static function registerEvent(string $event, string $description, array $params = []): void {
         // Don't re-register if the event already exists, just update the params and description.
@@ -175,7 +175,7 @@ class EventHandler {
     /**
      * Get the debug type of a variable.
      *
-     * @param $object
+     * @param mixed $object
      * @return string The name of the type of the object - same as get_debug_type().
      */
     private static function getType($object): string {

@@ -231,7 +231,7 @@ class User {
      * @param string|null $username Their username (or email, depending on $method).
      * @param string|null $password Their password.
      * @param bool $remember Whether to keep them logged in or not.
-     * @param string| $method What column to check for their details in. Can be either `username` or `email`.
+     * @param string $method What column to check for their details in. Can be either `username` or `email`.
      *
      * @return bool True/false on success or failure respectfully.
      */
@@ -306,7 +306,7 @@ class User {
     /**
      * Get user's display name.
      *
-     * @param bool|null $username If true, will use their username. If false, will use their nickname.
+     * @param bool $username If true, will use their username. If false, will use their nickname.
      * @return string Their display name.
      */
     public function getDisplayName(bool $username = false): string {
@@ -926,7 +926,7 @@ class User {
      * Get profile fields for specified user
      *
      * @param int $user_id User to retrieve fields for.
-     * @param bool| $public Whether to only return public fields or not (default `true`).
+     * @param bool $public Whether to only return public fields or not (default `true`).
      * @param bool $forum Whether to only return fields which display on forum posts, only if $public is true (default `false`).
      *
      * @return array Array of profile fields.

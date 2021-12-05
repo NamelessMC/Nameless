@@ -5,13 +5,21 @@ parameters:
     excludePaths:
         - cache/
         - vendor/
-    # Ignore notices which are thrown due to the procedural nature of Nameless
+    # Ignore notices which are thrown due how nameless is written
     ignoreErrors:
         - '#might not be defined#'
         - '#Constant#'
         - '#in isset\(\) always exists and is not nullable#'
         - '#Undefined variable:#'
         - '#in isset\(\) is never defined.#'
+        - '#Unsafe usage of new static\(\).#'
+        - '#Call to an undefined method ReflectionType::getName\(\).#'
+        - '#Call to an undefined method ReflectionType::isBuiltin\(\).#'
+        - '#Constructor of class MCAssoc has an unused parameter \$siteId.#'
+        - '#Cannot access property#'
+        - '#Access to an undefined property#'
+        - '#Variable \$color_code in empty\(\) always exists and is not falsy.#'
+    reportUnmatchedIgnoredErrors: false
     # Autoload classes
     scanDirectories:
         - core/classes

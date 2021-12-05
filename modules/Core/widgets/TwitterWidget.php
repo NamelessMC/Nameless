@@ -11,7 +11,7 @@
 class TwitterWidget extends WidgetBase {
 
     public function __construct(array $pages, Smarty $smarty, ?string $twitter = '', ?string $theme = '') {
-        parent::__construct($pages ?? [], true);
+        parent::__construct($pages, true);
 
         $this->_smarty = $smarty;
 

@@ -46,7 +46,7 @@ class Cache {
     /**
      * Default constructor
      *
-     * @param string|array [optional] $config
+     * @param string|array $config (optional)
      * @return void
      */
     public function __construct($config = null) {
@@ -89,7 +89,7 @@ class Cache {
      *
      * @param string $key
      * @param mixed $data
-     * @param integer [optional] $expiration
+     * @param integer $expiration (optional)
      * 
      * @return Cache
      */
@@ -114,11 +114,11 @@ class Cache {
      * Retrieve cached data by its key
      *
      * @param string $key
-     * @param bool [optional] $timestamp
+     * @param bool $timestamp (optional)
      * 
      * @return mixed
      */
-    public function retrieve(string $key, $timestamp = false) {
+    public function retrieve(string $key, bool $timestamp = false) {
         $cachedData = $this->_loadCache();
         (!$timestamp) ? $type = 'data' : $type = 'time';
 
@@ -139,7 +139,7 @@ class Cache {
     /**
      * Retrieve all cached data
      *
-     * @param boolean [optional] $meta
+     * @param boolean $meta (optional)
      * @return array
      */
     public function retrieveAll(bool $meta = false): array {
@@ -249,7 +249,7 @@ class Cache {
     /**
      * Get the filename hash
      *
-     * @param $filename
+     * @param string $filename
      * @return string
      */
     private function _getHash($filename): string {
