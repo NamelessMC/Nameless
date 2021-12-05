@@ -13,7 +13,7 @@ class Pages {
 
     private array $_pages;
 	private array $_active_page;
-    private array $_sm_methods;
+    private array $_sm_methods = [];
     private array $_ajax_requests = [];
 
     private int $_id = 1;

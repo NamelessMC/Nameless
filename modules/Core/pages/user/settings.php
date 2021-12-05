@@ -22,8 +22,6 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 require(ROOT_PATH . '/core/includes/password.php'); // For password hashing
 require(ROOT_PATH . '/core/includes/phpass.php'); // phpass for Wordpress auth
-require(ROOT_PATH . '/core/includes/emojione/autoload.php'); // Emojione
-require(ROOT_PATH . '/core/includes/markdown/tohtml/Markdown.inc.php'); // Markdown to HTML
 $emojione = new Emojione\Client(new Emojione\Ruleset());
 
 // Forum enabled?
@@ -32,8 +30,6 @@ $forum_enabled = Util::isModuleEnabled('Forum');
 // Two factor auth?
 if(isset($_GET['do'])){
 	if($_GET['do'] == 'enable_tfa'){
-		// Enable TFA
-		require(ROOT_PATH . '/core/includes/tfa/autoload.php');
 
 		// Ensure TFA is currently disabled
 		if($user->data()->tfa_enabled == 1){
@@ -241,7 +237,7 @@ if(isset($_GET['do'])){
                                 $formatting = $cache->retrieve('formatting');
 
                                 if ($formatting == 'markdown') {
-                                    $signature = Michelf\Markdown::defaultTransform(Input::get('signature'));
+                                    $signature = \Michelf\Markdown::defaultTransform(Input::get('signature'));
                                     $signature = Output::getClean($signature);
                                 } else $signature = Output::getClean(Input::get('signature'));
                             } else
@@ -637,7 +633,6 @@ if(isset($_GET['do'])){
 
         if($formatting == 'markdown'){
             // Markdown
-            require(ROOT_PATH . '/core/includes/markdown/tomarkdown/autoload.php');
             $converter = new League\HTMLToMarkdown\HtmlConverter(['strip_tags' => TRUE]);
 
             $signature = $converter->convert(htmlspecialchars_decode($user->data()->signature));

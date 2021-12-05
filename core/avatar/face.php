@@ -8,7 +8,9 @@ Twitter:    @jamiebicknell
 Modified by Samerton for NamelessMC
 */
 
-require('../classes/Cache.php');
+require '../classes/Core/Cache.php';
+require '../classes/Core/HttpClient.php';
+
 $cache = new Cache();
 
 $size = isset($_GET['s']) ? max(8, min(250, $_GET['s'])) : 48;

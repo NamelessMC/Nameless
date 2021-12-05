@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr13
  *
  *  License: MIT
  *
@@ -14,6 +14,7 @@ class Output {
 
     /**
      * Returns a clean version of an inputted string.
+     * Will remove HTML, convert HTML entities, and strip slashes.
      *
      * @param string|null $input The string which will be cleaned
      *
@@ -36,6 +37,7 @@ class Output {
 
     /**
      * Returns a purified version of an inputted string with HTMLPurifier.
+     * Will not remove any HTML tags.
      *
      * @param string|null $input String which will be purified.
      * @param boolean $escape_invalid Should invalid HTML be escaped instead of fully removed?
@@ -45,7 +47,6 @@ class Output {
     public static function getPurified(?string $input, bool $escape_invalid = false): string {
         // Require HTMLPurifier
         if (!isset(self::$_purifier)) {
-            require_once(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'core', 'includes', 'htmlpurifier', 'HTMLPurifier.standalone.php']));
 
             $purifierConfig = HTMLPurifier_Config::createDefault();
 

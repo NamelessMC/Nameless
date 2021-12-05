@@ -32,7 +32,6 @@ const PANEL_PAGE = 'users';
 const EDITING_USER = true;
 $page_title = $language->get('admin', 'users');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
-require_once(ROOT_PATH . '/core/includes/markdown/tohtml/Markdown.inc.php');
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
@@ -181,7 +180,7 @@ if (Input::exists()) {
                     $formatting = $cache->retrieve('formatting');
 
                     if ($formatting == 'markdown') {
-                        $signature = Michelf\Markdown::defaultTransform($signature);
+                        $signature = \Michelf\Markdown::defaultTransform($signature);
                     }
                     $signature = Output::getClean($signature);
 
@@ -385,7 +384,6 @@ $cache->setCache('post_formatting');
 $formatting = $cache->retrieve('formatting');
 
 if ($formatting == 'markdown') {
-    require(ROOT_PATH . '/core/includes/markdown/tomarkdown/autoload.php');
     $converter = new League\HTMLToMarkdown\HtmlConverter(['strip_tags' => true]);
 
     $signature = $converter->convert(Output::getDecoded($user_query->signature));

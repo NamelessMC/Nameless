@@ -96,6 +96,7 @@ file_put_contents(
 $GLOBALS['config'] = $conf;
 
 print('♻️  Registering autoloader...' . PHP_EOL);
+require './vendor/autoload.php';
 require './core/autoload.php';
 
 print('🗑️  Deleting old database...' . PHP_EOL);

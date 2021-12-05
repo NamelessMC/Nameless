@@ -38,22 +38,21 @@ class Email {
      */
     private static function sendPHP(array $email) {
         try {
-            $mail = mail($email['to'], $email['subject'], $email['message'], $email['headers']);
 
-            if ($mail) {
+            if (mail($email['to'], $email['subject'], $email['message'], $email['headers'])) {
                 return true;
             }
-            
+
             $error = error_get_last();
 
-            if (isset($error['message'])) {
-                return ['error' => $error['message']];
-            } else {
-                return ['error' => 'Unknown'];
-            }
-        
+            return [
+                'error' => $error['message'] ?? 'Unknown error'
+            ];
+
         } catch (Exception $e) {
-            return ['error' => $e->getMessage()];
+            return [
+                'error' => $e->getMessage()
+            ];
         }
     }
 
@@ -65,16 +64,20 @@ class Email {
      * @return array|bool
      */
     private static function sendMailer(array $email) {
-        require_once(ROOT_PATH . '/core/includes/phpmailer/PHPMailerAutoload.php');
         require(ROOT_PATH . '/core/email.php');
 
         // Initialise PHPMailer
-        $mail = new PHPMailer(true);
+        $mail = new \PHPMailer\PHPMailer\PHPMailer(true);
 
         try {
+            // init
             $mail->IsSMTP();
             $mail->SMTPDebug = 0;
             $mail->Debugoutput = 'html';
+            $mail->CharSet = 'UTF-8';
+            $mail->Encoding = 'base64';
+
+            // login to their smtp account
             $mail->Host = $GLOBALS['email']['host'];
             $mail->Port = $GLOBALS['email']['port'];
             $mail->SMTPSecure = $GLOBALS['email']['secure'];
@@ -82,29 +85,33 @@ class Email {
             $mail->Username = $GLOBALS['email']['username'];
             $mail->Password = $GLOBALS['email']['password'];
 
+            // set from email ("outgoing email" seting)
+            $mail->setFrom($GLOBALS['email']['email'], $GLOBALS['email']['name']);
+
+            // add a "to" address
+            $mail->addAddress($email['to']['email'], $email['to']['name']);
+
+            // add a "reply-to" address if applicable
             if (isset($email['replyto'])) {
                 $mail->AddReplyTo($email['replyto']['email'], $email['replyto']['name']);
             }
 
-            $mail->CharSet = 'UTF-8';
-            $mail->Encoding = 'base64';
-            $mail->setFrom($GLOBALS['email']['email'], $GLOBALS['email']['name']);
-            $mail->From = $GLOBALS['email']['email'];
-            $mail->FromName = $GLOBALS['email']['name'];
-            $mail->addAddress($email['to']['email'], $email['to']['name']);
+            // set subject + html message content
             $mail->Subject = $email['subject'];
-            $mail->IsHTML();
             $mail->msgHTML($email['message']);
-            $mail->Body = $email['message'];
 
-            if (!$mail->send()) {
-                return ['error' => $mail->ErrorInfo];
+            if ($mail->send()) {
+                return true;
             }
 
-            return true;
+            return [
+                'error' => $mail->ErrorInfo
+            ];
 
         } catch (Exception $e) {
-            return ['error' => $e->getMessage()];
+            return [
+                'error' => $e->getMessage()
+            ];
         }
     }
 
@@ -116,8 +123,19 @@ class Email {
      */
     public static function formatEmail(string $email, Language $viewing_language): string {
         return str_replace(
-            ['[Sitename]', '[Greeting]', '[Message]', '[Thanks]'],
-            [SITE_NAME, $viewing_language->get('emails', 'greeting'), $viewing_language->get('emails', $email . '_message'), $viewing_language->get('emails', 'thanks')],
+            // TODO: let modules add their own placeholders here? :o
+            [
+                '[Sitename]',
+                '[Greeting]',
+                '[Message]',
+                '[Thanks]',
+            ],
+            [
+                SITE_NAME,
+                $viewing_language->get('emails', 'greeting'),
+                $viewing_language->get('emails', $email . '_message'),
+                $viewing_language->get('emails', 'thanks'),
+            ],
             file_get_contents(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', TEMPLATE, 'email', $email . '.html']))
         );
     }

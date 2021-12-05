@@ -32,7 +32,6 @@ $formatting = $cache->retrieve('formatting');
 
 if ($formatting == 'markdown') {
     // Markdown
-    require(ROOT_PATH . '/core/includes/markdown/tomarkdown/autoload.php');
     $converter = new League\HTMLToMarkdown\HtmlConverter(['strip_tags' => true]);
 }
 

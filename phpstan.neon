@@ -20,3 +20,5 @@ parameters:
         - modules/Forum/classes
     scanFiles:
         - modules/Core/pages/api/v2/index.php
+    bootstrapFiles:
+        - core/includes/phpass.php

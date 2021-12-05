@@ -33,8 +33,6 @@ require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
 $forum = new Forum();
 $mentionsParser = new MentionsParser();
 
-require(ROOT_PATH . '/core/includes/markdown/tohtml/Markdown.inc.php'); // Markdown to HTML
-
 if (isset($_GET['pid']) && isset($_GET['tid'])) {
     if (is_numeric($_GET['pid']) && is_numeric($_GET['tid'])) {
         $post_id = $_GET['pid'];
@@ -143,7 +141,7 @@ if (Input::exists()) {
             $formatting = $cache->retrieve('formatting');
 
             if ($formatting == 'markdown') {
-                $content = Michelf\Markdown::defaultTransform(Input::get('content'));
+                $content = \Michelf\Markdown::defaultTransform(Input::get('content'));
                 $content = Output::getClean($content);
             } else $content = Output::getClean(Input::get('content'));
 
@@ -270,7 +268,6 @@ if ($formatting == 'markdown') {
     $smarty->assign('MARKDOWN', true);
     $smarty->assign('MARKDOWN_HELP', $language->get('general', 'markdown_help'));
 
-    require(ROOT_PATH . '/core/includes/markdown/tomarkdown/autoload.php');
     $converter = new League\HTMLToMarkdown\HtmlConverter(['strip_tags' => true]);
 
     $clean = $converter->convert(Output::getDecoded($post_editing[0]->post_content));

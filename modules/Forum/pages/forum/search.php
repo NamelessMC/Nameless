@@ -13,8 +13,6 @@ require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
 if (!isset($forum) || (!$forum instanceof Forum))
     $forum = new Forum();
 
-require_once(ROOT_PATH . '/core/includes/emojione/autoload.php'); // Emojione
-
 const PAGE = 'forum';
 
 // Initialise
@@ -173,7 +171,7 @@ if (isset($_GET['s'])) {
         $n = 0;
         while (($n < count($results->data)) && isset($results->data[$n])) {
             $content = htmlspecialchars_decode($results->data[$n]['post_content']);
-            $content = $emojione->unicodeToImage($content);
+            $content = $emojione->toImage($content);
             $content = Output::getPurified($content);
 
             $post_user = new User($results->data[$n]['post_author']);

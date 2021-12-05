@@ -62,8 +62,6 @@ if ($formatting == 'markdown') {
 
 $timeago = new TimeAgo(TIMEZONE);
 
-require(ROOT_PATH . '/core/includes/emojione/autoload.php'); // Emojione
-require(ROOT_PATH . '/core/includes/markdown/tohtml/Markdown.inc.php'); // Markdown to HTML
 $emojione = new Emojione\Client(new Emojione\Ruleset());
 
 $smarty->assign(
@@ -279,7 +277,7 @@ if(!isset($_GET['action'])) {
                             $formatting = $cache->retrieve('formatting');
 
                             if ($formatting == 'markdown'){
-                                $content = Michelf\Markdown::defaultTransform(Input::get('content'));
+                                $content = \Michelf\Markdown::defaultTransform(Input::get('content'));
                                 $content = Output::getClean($content);
                             } else {
                                 $content = Output::getClean(Input::get('content'));
@@ -445,7 +443,7 @@ if(!isset($_GET['action'])) {
                     $formatting = $cache->retrieve('formatting');
 
                     if ($formatting == 'markdown') {
-                        $content = Michelf\Markdown::defaultTransform(Input::get('content'));
+                        $content = \Michelf\Markdown::defaultTransform(Input::get('content'));
                         $content = Output::getClean($content);
                     } else {
                         $content = Output::getClean(Input::get('content'));
@@ -534,7 +532,7 @@ if(!isset($_GET['action'])) {
                 'author_groups' => $target_user->getAllGroupHtml(),
                 'message_date' => $timeago->inWords(date('d M Y, H:i', $results->data[$n]->created), $language->getTimeLanguage()),
                 'message_date_full' => date('d M Y, H:i', $results->data[$n]->created),
-                'content' => Output::getPurified($emojione->unicodeToImage(Output::getDecoded($results->data[$n]->content)))
+                'content' => Output::getPurified($emojione->toImage(Output::getDecoded($results->data[$n]->content)))
             ];
         }
 

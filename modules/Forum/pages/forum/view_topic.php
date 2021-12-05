@@ -18,8 +18,6 @@ $forum = new Forum();
 $timeago = new TimeAgo(TIMEZONE);
 $mentionsParser = new MentionsParser();
 
-require(ROOT_PATH . '/core/includes/emojione/autoload.php'); // Emojione
-require(ROOT_PATH . '/core/includes/markdown/tohtml/Markdown.inc.php'); // Markdown to HTML
 $emojione = new Emojione\Client(new Emojione\Ruleset());
 
 // Get topic ID
@@ -271,7 +269,7 @@ if (Input::exists()) {
                 $formatting = $cache->retrieve('formatting');
 
                 if ($formatting == 'markdown') {
-                    $content = Michelf\Markdown::defaultTransform(Input::get('content'));
+                    $content = \Michelf\Markdown::defaultTransform(Input::get('content'));
                     $content = Output::getClean($content);
                 } else $content = Output::getClean(Input::get('content'));
 
@@ -709,7 +707,7 @@ for ($n = 0; $n < count($results->data); $n++) {
 
     // Purify post content
     $content = Util::replaceAnchorsWithText(Output::getDecoded($results->data[$n]->post_content));
-    $content = $emojione->unicodeToImage($content);
+    $content = $emojione->toImage($content);
     $content = Output::getPurified($content, true);
 
     // Get post date
