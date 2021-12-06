@@ -47,15 +47,13 @@ class MentionsParser {
                         $value = preg_replace('/' . preg_quote("@$possible_username", '/') . '/', "<a style=\"" . Output::getClean($user->getGroupClass()) . "\" href=\"" . $user->getProfileURL() . "\">@$possible_username</a>", $value);
 
                         // Check if user is blocked by OP
-                        if (isset($author_id)) {
-                            $user_blocked = $this->_db->get('blocked_users', ['user_id', '=', $user->data()->id]);
-                            if ($user_blocked->count()) {
-                                $user_blocked = $user_blocked->results();
+                        $user_blocked = $this->_db->get('blocked_users', ['user_id', '=', $user->data()->id]);
+                        if ($user_blocked->count()) {
+                            $user_blocked = $user_blocked->results();
 
-                                foreach ($user_blocked as $item) {
-                                    if ($item->user_blocked_id == $author_id) {
-                                        break 2;
-                                    }
+                            foreach ($user_blocked as $item) {
+                                if ($item->user_blocked_id == $author_id) {
+                                    break 2;
                                 }
                             }
                         }

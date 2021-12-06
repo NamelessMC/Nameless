@@ -70,17 +70,13 @@ class ServerBanner {
             $color_code = $component[0];
             $colors = MinecraftBanner::getColours();
 
-            //default to white
-            $text = $component;
-            if (!empty($color_code)) {
-                //try to find the color rgb to the colro code
-                if (isset($colors[$color_code])) {
-                    $color_rgb = $colors[$color_code];
-                    $last_color = $color_rgb;
-                }
-
-                $text = substr($component, 1);
+            //try to find the color rgb to the colro code
+            if (isset($colors[$color_code])) {
+                $color_rgb = $colors[$color_code];
+                $last_color = $color_rgb;
             }
+
+            $text = substr($component, 1);
 
             $color = imagecolorallocate($canvas, $last_color[0], $last_color[1], $last_color[2]);
             $lines = explode("\n", $text);

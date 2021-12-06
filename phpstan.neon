@@ -7,18 +7,19 @@ parameters:
         - vendor/
     # Ignore notices which are thrown due how nameless is written
     ignoreErrors:
+        # prodecural programming :^)
         - '#might not be defined#'
         - '#Constant#'
-        - '#in isset\(\) always exists and is not nullable#'
         - '#Undefined variable:#'
+        # when we require() files
         - '#in isset\(\) is never defined.#'
+        # `Instanceable` classes
         - '#Unsafe usage of new static\(\).#'
+        # $queries->getWhere()->{$property}
+        - '#Access to an undefined property#'
+        # because php is dumb
         - '#Call to an undefined method ReflectionType::getName\(\).#'
         - '#Call to an undefined method ReflectionType::isBuiltin\(\).#'
-        - '#Constructor of class MCAssoc has an unused parameter \$siteId.#'
-        - '#Cannot access property#'
-        - '#Access to an undefined property#'
-        - '#Variable \$color_code in empty\(\) always exists and is not falsy.#'
     reportUnmatchedIgnoredErrors: false
     # Autoload classes
     scanDirectories:

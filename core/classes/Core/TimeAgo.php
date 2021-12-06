@@ -204,9 +204,6 @@ class TimeAgo {
             $key = 'over_x_years';
         }
 
-        if(!isset($key))
-            return '';
-
         if(is_array($time_language[$key])){
             if(function_exists('pluralForm')){
                 if(isset($replace)){

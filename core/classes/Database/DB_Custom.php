@@ -268,11 +268,7 @@ class DB_Custom {
 
     public function orderAll(string $table, string $order, string $sort) {
         $table = $this->_prefix . $table;
-        if (isset($sort)) {
-            $sql = "SELECT * FROM {$table} ORDER BY {$order} {$sort}";
-        } else {
-            $sql = "SELECT * FROM {$table} ORDER BY {$order}";
-        }
+        $sql = "SELECT * FROM {$table} ORDER BY {$order} {$sort}";
 
         if (!$this->selectQuery($sql)->error()) {
             return $this;
@@ -283,11 +279,7 @@ class DB_Custom {
 
     public function orderWhere(string $table, string $where, string $order, string $sort) {
         $table = $this->_prefix . $table;
-        if (isset($sort)) {
-            $sql = "SELECT * FROM {$table} WHERE {$where} ORDER BY {$order} {$sort}";
-        } else {
-            $sql = "SELECT * FROM {$table} WHERE {$where} ORDER BY {$order}";
-        }
+        $sql = "SELECT * FROM {$table} WHERE {$where} ORDER BY {$order} {$sort}";
 
         if (!$this->selectQuery($sql)->error()) {
             return $this;

@@ -1,5 +1,5 @@
 <?php
-if (isset($_POST) && isset($_POST['perform']) && $_POST['perform'] == 'true') {
+if (isset($_POST['perform']) && $_POST['perform'] == 'true') {
 	try {
 		if ($_GET['initialise'] === 'db') {
 			$charset = $_SESSION['charset'];

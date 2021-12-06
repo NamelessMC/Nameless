@@ -562,16 +562,16 @@ class User {
     /**
      * Get this user's main group (with highest order).
      *
-     * @return object|bool The group
+     * @return object|null The group
      */
-    public function getMainGroup() {
+    public function getMainGroup(): ?object {
         if (count($this->_groups)) {
             foreach ($this->_groups as $group) {
                 return $group;
             }
         }
 
-        return false;
+        return null;
     }
 
     /**

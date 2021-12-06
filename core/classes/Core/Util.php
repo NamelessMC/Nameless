@@ -329,20 +329,18 @@ class Util {
         }
         if (!$exact) {
             $spacepos = mb_strrpos($truncate, ' ');
-            if (isset($spacepos)) {
-                if ($html) {
-                    $bits = mb_substr($truncate, $spacepos);
-                    preg_match_all('/<\/([a-z]+)>/', $bits, $droppedTags, PREG_SET_ORDER);
-                    if (!empty($droppedTags)) {
-                        foreach ($droppedTags as $closingTag) {
-                            if (!in_array($closingTag[1], $openTags)) {
-                                array_unshift($openTags, $closingTag[1]);
-                            }
+            if ($html) {
+                $bits = mb_substr($truncate, $spacepos);
+                preg_match_all('/<\/([a-z]+)>/', $bits, $droppedTags, PREG_SET_ORDER);
+                if (!empty($droppedTags)) {
+                    foreach ($droppedTags as $closingTag) {
+                        if (!in_array($closingTag[1], $openTags)) {
+                            array_unshift($openTags, $closingTag[1]);
                         }
                     }
                 }
-                $truncate = mb_substr($truncate, 0, $spacepos);
             }
+            $truncate = mb_substr($truncate, 0, $spacepos);
         }
         $truncate .= $ending;
 
