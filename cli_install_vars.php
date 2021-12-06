@@ -22,8 +22,8 @@ $vars = [
         'friendly' => 'false',
         'language' => 'EnglishUK',
         'sitename' => 'NamelessMC',
-        'incoming_email' => '',
-        'outgoing_email' => '',
+        'incoming_email' => 'contact@example.com',
+        'outgoing_email' => 'contact@example.com',
     ],
     'admin_account' => [
         'username' => 'admin',

@@ -11,7 +11,7 @@ if (php_sapi_name() != 'cli') {
 
 if (!isset($argv[1]) || isset($argv[1]) && $argv[1] !== '--iSwearIKnowWhatImDoing') {
     print("You don't know what you're doing." . PHP_EOL);
-    exit(0);
+    exit(1);
 }
 
 print(PHP_EOL);
@@ -25,7 +25,7 @@ if (isset($argv[2]) && $argv[2] == '--reinstall') {
 if (!$reinstall && file_exists('./core/config.php')) {
     print('⚠️  NamelessMC is already installed! ' . PHP_EOL);
     print('🧨 If you want to reinstall, run this script with the --reinstall flag.' . PHP_EOL);
-    exit(0);
+    exit(1);
 }
 
 $start = microtime(true);
@@ -161,3 +161,4 @@ print(PHP_EOL . '🔑 Admin username: ' . Output::getClean($vars['admin_account'
 print(PHP_EOL . '🔑 Admin email: ' . Output::getClean($vars['admin_account']['email']));
 print(PHP_EOL . '🔑 Admin password: ' . Output::getClean($vars['admin_account']['password']));
 print(PHP_EOL);
+exit(0);

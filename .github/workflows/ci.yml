@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Setup PHP Action
+      - name: Setup PHP
         uses: shivammathur/setup-php@2.16.0
         with:
           php-version: ${{ matrix.php-versions }}
@@ -20,6 +20,5 @@ jobs:
       - name: Install dependencies
         run: composer update --no-interaction --no-suggest --no-progress
 
-      - name: Execute tests
+      - name: Execute PHPStan
         run: vendor/bin/phpstan
-  # todo: tests
