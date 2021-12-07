@@ -7,6 +7,6 @@
 .DS_Store
 .valet-env.php
 /vendor/
-/core/email.php
 /custom/panel_templates/Noir
 /uploads/avatars/defaults
+/core/email.php
