@@ -13,7 +13,7 @@ class Log extends Instanceable {
 
     private static array $_actions = [
         'admin' => [
-            'login' => 'acp_login',
+            'login' => 'Admin Panel Login',
             'core' => [
                 'general' => 'acp_core_update',
                 'avatar' => 'acp_avatar_update',
@@ -107,16 +107,16 @@ class Log extends Instanceable {
             ],
         ],
         'user' => [
-            'login' => 'user_login',
-            'logout' => 'user_logout',
-            'register' => 'user_register',
+            'login' => 'User Logged In',
+            'logout' => 'User Logged Out',
+            'register' => 'User Registred',
             'acknowledge' => 'user_acknowledge',
             'ucp' => [
                 'update' => 'ucp_update',
             ],
             'tfa' => [
                 'key' => [
-                    'sent' => 'tfa_key_sent',
+                    'sent' => 'TFA Key Sent',
                 ],
             ],
         ],
