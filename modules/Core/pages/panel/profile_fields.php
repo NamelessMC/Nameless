@@ -182,7 +182,7 @@ if (isset($_GET['action'])) {
 
                             // Redirect
                             Session::flash('profile_field_success', $language->get('admin', 'profile_field_updated_successfully'));
-                            Redirect::to(URL::build('/panel/core/profile_fields'));
+                            Redirect::to(URL::build('/panel/core/profile_fields/', 'action=edit&id=' . Output::getClean($field->id)));
                             die();
                         } catch (Exception $e) {
                             $errors[] = $e->getMessage();
