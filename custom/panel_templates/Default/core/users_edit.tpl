@@ -157,11 +157,11 @@
                                 <p><strong>{$MAIN_GROUP_INFO}: </strong>{$MAIN_GROUP->name} {if isset($CANT_EDIT_GROUP)}
                                         <i>({$CANT_EDIT_GROUP})</i>
                                     {/if}</p>
-                                <select class="form-control" name="groups[]" id="inputGroups" multiple>
+                                    <select multiple="multiple" size="10" name="groups[]" id="inputGroups">
                                     {foreach from=$ALL_GROUPS item=item}
-                                        <option value="{$item->id}"{if in_array($item->id, $GROUPS_VALUE)} selected{/if}>{$item->name|escape}</option>
+                                        <option value="{$item->id}" {if in_array($item->id, $GROUPS_VALUE)} selected{/if}>{$item->name|escape}</option>
                                     {/foreach}
-                                </select>
+                                    </select>
                             </div>
                             <input type="hidden" name="token" value="{$TOKEN}">
                             <input type="hidden" name="action" value="update">
@@ -234,7 +234,18 @@
     }
     {/if}
 </script>
-
+<script>
+var UserGroups = $('select[name="groups[]"]').bootstrapDualListbox({
+  nonSelectedListLabel: '<span class="text-success">Available Groups</span>',
+  selectedListLabel: '<span class="text-info">User Group</span>',
+  moveOnSelect: true,
+  showFilterInputs: false,
+  infoText: false,
+  moveAllLabel: 'Move all',
+  removeAllLabel: 'Remove all',
+  removeAllLabel: 'false'
+});
+</script>
 </body>
 
 </html>
