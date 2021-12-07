@@ -10,7 +10,7 @@
  *
  */
 class Log extends Instanceable {
-    
+
     private static array $_actions = [
         'admin' => [
             'login' => 'acp_login',
@@ -18,9 +18,9 @@ class Log extends Instanceable {
                 'general' => 'acp_core_update',
                 'avatar' => 'acp_avatar_update',
                 'profile' => [
-                    'add' => 'acp_core_profile_add',
-                    'delete' => 'acp_core_profile_delete',
-                    'update' => 'acp_core_profile_update',
+                    'add' => 'Custom Profile Field Added',
+                    'delete' => 'Custom Profile Field Delete',
+                    'update' => 'Custom Profile Field Update',
                 ],
                 'maintenance' => [
                     'enable' => 'acp_maintenance_enable',
