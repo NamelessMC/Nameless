@@ -9,7 +9,7 @@
  *  Panel templates page
  */
 
-if(!$user->handlePanelPageLoad('admincp.styles.templates')) {
+if (!$user->handlePanelPageLoad('admincp.styles.templates')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }

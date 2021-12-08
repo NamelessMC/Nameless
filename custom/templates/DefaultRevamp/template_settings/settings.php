@@ -9,15 +9,15 @@
  *  DefaultRevamp template settings
  */
 
-if(Input::exists()){
-	if(Token::check()){
+if (Input::exists()) {
+	if (Token::check()) {
 		$cache->setCache('template_settings');
 
-		if(isset($_POST['darkMode'])){
+		if (isset($_POST['darkMode'])) {
 			$cache->store('darkMode', $_POST['darkMode']);
 		}
 
-		if(isset($_POST['navbarColour'])){
+		if (isset($_POST['navbarColour'])) {
 			$cache->store('navbarColour', $_POST['navbarColour']);
 		}
 
@@ -29,14 +29,14 @@ if(Input::exists()){
 
 // Get values
 $cache->setCache('template_settings');
-if($cache->isCached('darkMode')){
+if ($cache->isCached('darkMode')) {
     $darkMode = $cache->retrieve('darkMode');
 } else {
     $darkMode = '0';
 	$cache->store('darkMode', $darkMode);
 }
 
-if($cache->isCached('navbarColour')){
+if ($cache->isCached('navbarColour')) {
 	$navbarColour = $cache->retrieve('navbarColour');
 } else {
     $navbarColour = 'white';

@@ -21,7 +21,7 @@ if (!defined('DEBUGGING') && (
     define('DEBUGGING', 1);
 }
 
-if (defined('DEBUGGING') && DEBUGGING){
+if (defined('DEBUGGING') && DEBUGGING) {
     ini_set('display_startup_errors', 1);
     ini_set('display_errors', 1);
     error_reporting(-1);
@@ -110,7 +110,7 @@ if (!isset($_GET['route']) || $_GET['route'] == '/') {
         for ($i = count($path_array) - 2; $i > 0; $i--) {
 
             $new_path = '/';
-            for($n = 1; $n <= $i; $n++){
+            for($n = 1; $n <= $i; $n++) {
                 $new_path .= $path_array[$n] . '/';
             }
 

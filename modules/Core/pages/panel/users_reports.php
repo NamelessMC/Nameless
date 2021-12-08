@@ -9,7 +9,7 @@
  *  Panel reports page
  */
 
-if(!$user->handlePanelPageLoad('modcp.reports')) {
+if (!$user->handlePanelPageLoad('modcp.reports')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }

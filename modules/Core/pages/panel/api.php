@@ -9,7 +9,7 @@
  *  Panel API page
  */
 
-if(!$user->handlePanelPageLoad('admincp.core.api')) {
+if (!$user->handlePanelPageLoad('admincp.core.api')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }

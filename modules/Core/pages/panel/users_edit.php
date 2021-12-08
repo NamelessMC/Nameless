@@ -9,7 +9,7 @@
  *  Panel users page
  */
 
-if(!$user->handlePanelPageLoad('admincp.users.edit')) {
+if (!$user->handlePanelPageLoad('admincp.users.edit')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }

@@ -410,7 +410,7 @@ if ($page != 'install') {
 
     // Placeholders enabled?
     $placeholders_enabled = $configuration->get('Core', 'placeholders');
-    if($placeholders_enabled == 1) {
+    if ($placeholders_enabled == 1) {
         $cc_nav->add('cc_placeholders', $language->get('user', 'placeholders'), URL::build('/user/placeholders'));
     }
 

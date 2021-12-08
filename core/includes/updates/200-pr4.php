@@ -2,47 +2,47 @@
 // 2.0.0 pr-4 to 2.0.0 pr-5 updater
 try {
 	$db_engine = Config::get('mysql/engine');
-} catch(Exception $e){
+} catch(Exception $e) {
 	// unable to retrieve from config
 	echo $e->getMessage() . '<br />';
 }
-if(!$db_engine || ($db_engine != 'MyISAM' && $db_engine != 'InnoDB'))
+if (!$db_engine || ($db_engine != 'MyISAM' && $db_engine != 'InnoDB'))
 	$db_engine = 'InnoDB';
 
 try {
 	$db_charset = Config::get('mysql/charset');
-} catch(Exception $e){
+} catch(Exception $e) {
 	// unable to retrieve from config
 	echo $e->getMessage() . '<br />';
 }
-if(!$db_charset || ($db_charset != 'utf8mb4' && $db_charset != 'latin1'))
+if (!$db_charset || ($db_charset != 'utf8mb4' && $db_charset != 'latin1'))
 	$db_charset = 'latin1';
 
 // New tables
 try {
 	$queries->createTable("topics_following", "`id` int(11) NOT NULL AUTO_INCREMENT, `topic_id` int(11) NOT NULL, `user_id` int(11) NOT NULL, `existing_alerts` tinyint(1) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)", "ENGINE=$db_engine DEFAULT CHARSET=$db_charset");
-} catch(Exception $e){
+} catch(Exception $e) {
 	// unable to create table
 	echo $e->getMessage() . '<br />';
 }
 
 try {
 	$queries->createTable("page_descriptions", " `id` int(11) NOT NULL AUTO_INCREMENT, `page` varchar(64) NOT NULL, `description` varchar(500) DEFAULT NULL, `tags` text, PRIMARY KEY (`id`)", "ENGINE=$db_engine DEFAULT CHARSET=$db_charset");
-} catch(Exception $e){
+} catch(Exception $e) {
 	// unable to create table
 	echo $e->getMessage() . '<br />';
 }
 
 try {
 	$queries->createTable("privacy_terms", " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(8) NOT NULL, `value` mediumtext NOT NULL, PRIMARY KEY (`id`)", "ENGINE=$db_engine DEFAULT CHARSET=$db_charset");
-} catch(Exception $e){
+} catch(Exception $e) {
 	// unable to create table
 	echo $e->getMessage() . '<br />';
 }
 
 try {
 	$queries->createTable("group_sync", " `id` int(11) NOT NULL AUTO_INCREMENT, `ingame_rank_name` varchar(64) NOT NULL, `website_group_id` int(11) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=$db_engine DEFAULT CHARSET=$db_charset");
-} catch(Exception $e){
+} catch(Exception $e) {
 	// unable to create table
 	echo $e->getMessage() . '<br />';
 }
@@ -50,70 +50,70 @@ try {
 // New columns
 try {
 	$queries->alterTable('profile_fields', 'editable', "tinyint(1) NOT NULL DEFAULT '1'");
-} catch(Exception $e){
+} catch(Exception $e) {
 	// unable to update table
 	echo $e->getMessage() . '<br />';
 }
 
 try {
 	$queries->alterTable('forums', 'icon', "varchar(256) DEFAULT NULL");
-} catch(Exception $e){
+} catch(Exception $e) {
 	// unable to update table
 	echo $e->getMessage() . '<br />';
 }
 
 try {
 	$queries->alterTable('custom_pages', 'sitemap', "tinyint(1) NOT NULL DEFAULT '0'");
-} catch(Exception $e){
+} catch(Exception $e) {
 	// unable to update table
 	echo $e->getMessage() . '<br />';
 }
 
 try {
 	$queries->alterTable('widgets', '`order`', "int(11) NOT NULL DEFAULT '10'");
-} catch(Exception $e){
+} catch(Exception $e) {
 	// unable to update table
 	echo $e->getMessage() . '<br />';
 }
 
 try {
 	$queries->alterTable('groups', '`order`', "int(11) NOT NULL DEFAULT '1'");
-} catch(Exception $e){
+} catch(Exception $e) {
 	// unable to update table
 	echo $e->getMessage() . '<br />';
 }
 
 try {
 	$queries->alterTable('infractions', 'created', "int(11) DEFAULT NULL");
-} catch(Exception $e){
+} catch(Exception $e) {
 	// unable to update table
 	echo $e->getMessage() . '<br />';
 }
 
 try {
 	$queries->alterTable('reports', 'reported', "int(11) DEFAULT NULL");
-} catch(Exception $e){
+} catch(Exception $e) {
 	// unable to update table
 	echo $e->getMessage() . '<br />';
 }
 
 try {
 	$queries->alterTable('reports', 'updated', "int(11) DEFAULT NULL");
-} catch(Exception $e){
+} catch(Exception $e) {
 	// unable to update table
 	echo $e->getMessage() . '<br />';
 }
 
 try {
 	$queries->alterTable('reports_comments', 'date', "int(11) DEFAULT NULL");
-} catch(Exception $e){
+} catch(Exception $e) {
 	// unable to update table
 	echo $e->getMessage() . '<br />';
 }
 
 try {
 	DB::getInstance()->createQuery('ALTER TABLE nl2_alerts MODIFY content_short VARCHAR(128) NOT NULL', array());
-} catch(Exception $e){
+} catch(Exception $e) {
 	// unable to update table
 	echo $e->getMessage() . '<br />';
 }
@@ -122,8 +122,8 @@ try {
 $cache->setCache('modulescache');
 $enabled_modules = $cache->retrieve('enabled_modules');
 
-foreach($enabled_modules as $module){
-	if($module['name'] == 'Forum'){
+foreach ($enabled_modules as $module) {
+	if ($module['name'] == 'Forum') {
 		$forum_exists = true;
 		break;
 	}
@@ -136,7 +136,7 @@ $enabled_modules = array(
 	)
 );
 
-if(isset($forum_exists))
+if (isset($forum_exists))
 	$enabled_modules[] = array(
 		'name' => 'Forum',
 		'priority' => 4
@@ -148,8 +148,8 @@ $cache->store('module_forum', true);
 
 $modules = $queries->getWhere('modules', array('enabled', '=', 1));
 
-foreach($modules as $item){
-	if($item->name != 'Core' && $item->name != 'Forum'){
+foreach ($modules as $item) {
+	if ($item->name != 'Core' && $item->name != 'Forum') {
 		$queries->update('modules', $item->id, array('enabled' => 0));
 	}
 }
@@ -158,7 +158,7 @@ $cache->setCache('templatecache');
 $cache->store('default', 'Default');
 
 $default_template = $queries->getWhere('templates', array('is_default', '=', 1));
-if($default_template[0]->name != 'Default'){
+if ($default_template[0]->name != 'Default') {
 	$queries->update('templates', $default_template[0]->id, array(
 		'is_default' => 0
 	));
@@ -169,8 +169,8 @@ if($default_template[0]->name != 'Default'){
 }
 
 $enabled_templates = $queries->getWhere('templates', array('enabled', '=', 1));
-foreach($enabled_templates as $template){
-	if($template->name != 'Default'){
+foreach ($enabled_templates as $template) {
+	if ($template->name != 'Default') {
 		$queries->update('templates', $template->id, array(
 			'enabled' => 0
 		));
@@ -192,7 +192,7 @@ $queries->update('groups', 2, array(
 $version_number_id = $queries->getWhere('settings', array('name', '=', 'nameless_version'));
 $version_number_id = $version_number_id[0]->id;
 
-if(count($version_number_id)){
+if (count($version_number_id)) {
 	$queries->update('settings', $version_number_id, array(
 		'value' => '2.0.0-pr5'
 	));

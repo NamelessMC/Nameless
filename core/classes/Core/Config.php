@@ -67,7 +67,7 @@ class Config {
             $conf[$key] = $value;
         } else {
             $loc = &$conf;
-            foreach($path as $step) {
+            foreach ($path as $step) {
                 $loc = &$loc[$step];
             }
             $loc = $value;
@@ -99,7 +99,7 @@ class Config {
                 $conf[$key] = $value;
             } else {
                 $loc = &$conf;
-                foreach($path as $step) {
+                foreach ($path as $step) {
                     $loc = &$loc[$step];
                 }
                 $loc = $value;

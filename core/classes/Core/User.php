@@ -599,7 +599,7 @@ class User {
         );
 
         $this->_groups = [];
-        if($group_data == null) {
+        if ($group_data == null) {
             $group_data = $this->_db->get('groups', ['id', '=', $group_id]);
             if ($group_data->count()) {
                 $this->_groups[$group_id] = $group_data->first();

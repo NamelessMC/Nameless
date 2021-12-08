@@ -586,7 +586,7 @@ $replies = [];
 // Display the correct number of posts
 for ($n = 0; $n < count($results->data); $n++) {
     $post_creator = new User($results->data[$n]->post_creator);
-    if(!$post_creator->data()) {
+    if (!$post_creator->data()) {
         continue;
     }
 
@@ -865,16 +865,16 @@ if ($user->isLoggedIn()) {
 
     $template->addJSScript('
 	$(document).ready(function() {
-		if(typeof $.cookie(\'' .  $tid . '-quoted\') === \'undefined\'){
+		if (typeof $.cookie(\'' .  $tid . '-quoted\') === \'undefined\') {
 			$("#quoteButton").hide();
 		}
 	});
 
 	// Add post to quoted posts array
-	function quote(post){
+	function quote(post) {
 		var index = quotedPosts.indexOf(post);
 
-		if(index > -1){
+		if (index > -1) {
 			quotedPosts.splice(index, 1);
 
 			toastr.options.onclick = function () {};
@@ -893,7 +893,7 @@ if ($user->isLoggedIn()) {
 			toastr.info(\'' . $forum_language->get('forum', 'quoted_post') . '\');
 		}
 
-		if(quotedPosts.length == 0){
+		if (quotedPosts.length == 0) {
 			// Delete cookie
 			$.removeCookie(\'' . $tid . '-quoted\');
 
@@ -909,7 +909,7 @@ if ($user->isLoggedIn()) {
 	}
 
 	// Insert quoted posts to editor
-	function insertQuotes(){
+	function insertQuotes() {
 		var postData = {
 			"posts": JSON.parse($.cookie(\'' .  $tid . '-quoted\')),
 			"topic": ' . $tid . '
@@ -926,9 +926,9 @@ if ($user->isLoggedIn()) {
 			  url: "' . URL::build('/forum/get_quotes') . '",
 			  data: postData,
 			  dataType: "json",
-			  success: function(resultData){
-				  for(var item in resultData){
-					  if(resultData.hasOwnProperty(item)){
+			  success: function(resultData) {
+				  for(var item in resultData) {
+					  if (resultData.hasOwnProperty(item)) {
 					  ' . $js . '
 					  }
 				  }
@@ -937,7 +937,7 @@ if ($user->isLoggedIn()) {
 				  $.removeCookie(\'' . $tid . '-quoted\');
 				  $("#quoteButton").hide();
 			  },
-			  error: function(data){
+			  error: function(data) {
 				  toastr.options.onclick = function () {};
 				  toastr.options.progressBar = true;
 				  toastr.options.closeButton = true;

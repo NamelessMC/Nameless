@@ -9,7 +9,7 @@
  *  Panel punishments page
  */
 
-if(!$user->handlePanelPageLoad('modcp.punishments')) {
+if (!$user->handlePanelPageLoad('modcp.punishments')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }
@@ -223,7 +223,7 @@ if (isset($_GET['user'])) {
                                         $users = $users->results();
 
                                         foreach ($users as $item) {
-                                            if($user->data()->id == $item->id)
+                                            if ($user->data()->id == $item->id)
                                                 continue;
                                             
                                             // Send alert

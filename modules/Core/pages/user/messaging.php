@@ -78,7 +78,7 @@ if (isset($_GET['p'])) {
     } else {
         if ($_GET['p'] == 1) {
             // Avoid bug in pagination class
-            if(isset($_GET['message']))
+            if (isset($_GET['message']))
                 Redirect::to(URL::build('/user/messaging/', 'action=view&message=' . Output::getClean($_GET['message'])));
             else
                 Redirect::to(URL::build('/user/messaging'));
@@ -90,7 +90,7 @@ if (isset($_GET['p'])) {
     $p = 1;
 }
 
-if(!isset($_GET['action'])) {
+if (!isset($_GET['action'])) {
     // Get private messages
     $messages = $user->listPMs($user->data()->id);
 
@@ -276,7 +276,7 @@ if(!isset($_GET['action'])) {
                             $cache->setCache('post_formatting');
                             $formatting = $cache->retrieve('formatting');
 
-                            if ($formatting == 'markdown'){
+                            if ($formatting == 'markdown') {
                                 $content = \Michelf\Markdown::defaultTransform(Input::get('content'));
                                 $content = Output::getClean($content);
                             } else {
@@ -539,7 +539,7 @@ if(!isset($_GET['action'])) {
         // Get participants list
         $participants = '';
 
-        foreach ($pm[1] as $item){
+        foreach ($pm[1] as $item) {
             $participants .= '<a href="' . URL::build('/profile/' . Output::getClean($user->idToName($item))) . '">' . Output::getClean($user->idToNickname($item)) . '</a>, ';
         }
         $participants = rtrim($participants, ', ');
@@ -568,13 +568,13 @@ if(!isset($_GET['action'])) {
         $cache->setCache('post_formatting');
         $formatting = $cache->retrieve('formatting');
 
-        if($formatting == 'markdown'){
+        if ($formatting == 'markdown') {
             // Markdown
             $smarty->assign('MARKDOWN', true);
             $smarty->assign('MARKDOWN_HELP', $language->get('general', 'markdown_help'));
         }
 
-        if(isset($_POST['content']))
+        if (isset($_POST['content']))
             $smarty->assign('CONTENT', Output::getClean($_POST['content']));
         else $smarty->assign('CONTENT', '');
 

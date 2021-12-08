@@ -12,16 +12,16 @@
 const FRONT_END = true;
 
 // Set current page URL in session, provided it's not the login page
-if(defined('PAGE') && PAGE != 'login' && PAGE != 'register' && PAGE != 404 && PAGE != 'maintenance' && (!isset($_GET['route']) || strpos($_GET['route'], '/queries') === false)){
-	if(FRIENDLY_URLS === true){
+if (defined('PAGE') && PAGE != 'login' && PAGE != 'register' && PAGE != 404 && PAGE != 'maintenance' && (!isset($_GET['route']) || strpos($_GET['route'], '/queries') === false)) {
+	if (FRIENDLY_URLS === true) {
 		$split = explode('?', $_SERVER['REQUEST_URI']);
 
-		if(count($split) > 1)
+		if (count($split) > 1)
 			$_SESSION['last_page'] = URL::build($split[0], $split[1]);
 		else
 			$_SESSION['last_page'] = URL::build($split[0]);
 
-		if(defined('CONFIG_PATH'))
+		if (defined('CONFIG_PATH'))
 			$_SESSION['last_page'] = substr($_SESSION['last_page'], strlen(CONFIG_PATH));
 
 	} else
@@ -43,18 +43,18 @@ $template_path = ROOT_PATH . '/custom/templates/' . TEMPLATE;
 $smarty->setTemplateDir($template_path);
 $smarty->setCompileDir(ROOT_PATH . '/cache/templates_c');
 
-if(file_exists(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/template.php'))
+if (file_exists(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/template.php'))
 	require(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/template.php');
 else
 	require(ROOT_PATH . '/custom/templates/DefaultRevamp/template.php');
 
 // User related actions
-if($user->isLoggedIn()){
+if ($user->isLoggedIn()) {
 	// Warnings
 	$warnings = $queries->getWhere('infractions', ['punished', '=', $user->data()->id]);
-	if(count($warnings)){
-		foreach($warnings as $warning){
-			if($warning->revoked == 0 && $warning->acknowledged == 0){
+	if (count($warnings)) {
+		foreach ($warnings as $warning) {
+			if ($warning->revoked == 0 && $warning->acknowledged == 0) {
 				$smarty->assign([
 					'GLOBAL_WARNING_TITLE' => $language->get('user', 'you_have_received_a_warning'),
 					'GLOBAL_WARNING_REASON' => Output::getClean($warning->reason),
@@ -69,7 +69,7 @@ if($user->isLoggedIn()){
 	// Does the account need verifying?
 	// Get default group ID
 	$cache->setCache('default_group');
-	if($cache->isCached('default_group')) {
+	if ($cache->isCached('default_group')) {
 		$default_group = $cache->retrieve('default_group');
 	} else {
 		try {
@@ -83,22 +83,22 @@ if($user->isLoggedIn()){
 	}
     
     $api_verification = $configuration->get('Core', 'api_verification');
-	if($api_verification == 1 && in_array($default_group, $user->getAllGroupIds()) && ($user->data()->reset_code)) {
+	if ($api_verification == 1 && in_array($default_group, $user->getAllGroupIds()) && ($user->data()->reset_code)) {
 		// User needs to validate account
 		$smarty->assign('MUST_VALIDATE_ACCOUNT', str_replace('{x}', Output::getClean($user->data()->reset_code), $language->get('user', 'validate_account_command')));
 	}
 }
 
 // Page metadata
-if(isset($_GET['route']) && $_GET['route'] != '/'){
+if (isset($_GET['route']) && $_GET['route'] != '/') {
 	$route = rtrim($_GET['route'], '/');
 } else {
 	$route = '/';
 }
 
-if(!defined('PAGE_DESCRIPTION')){
+if (!defined('PAGE_DESCRIPTION')) {
 	$page_metadata = $queries->getWhere('page_descriptions', ['page', '=', $route]);
-	if(count($page_metadata)){
+	if (count($page_metadata)) {
 		$smarty->assign([
 			'PAGE_DESCRIPTION' => str_replace('{site}', SITE_NAME, $page_metadata[0]->description),
 			'PAGE_KEYWORDS' => $page_metadata[0]->tags
@@ -117,7 +117,7 @@ $smarty->assign('TITLE', $page_title);
 $cache->setCache('backgroundcache');
 $background_image = $cache->retrieve('background_image');
 
-if(!empty($background_image)){
+if (!empty($background_image)) {
 	$template->addCSSStyle('
 			body {
 				background-image: url(\'' . Output::getClean($background_image) . '\');
@@ -130,17 +130,17 @@ if(!empty($background_image)){
 
 $banner_image = $cache->retrieve('banner_image');
 
-if(!empty($banner_image))
+if (!empty($banner_image))
 	$smarty->assign('BANNER_IMAGE', Output::getClean($banner_image));
 
 $logo_image = $cache->retrieve('logo_image');
 
-if(!empty($logo_image))
+if (!empty($logo_image))
     $smarty->assign('LOGO_IMAGE', Output::getClean($logo_image));
 
 $favicon_image = $cache->retrieve('favicon_image');
 
-if(!empty($favicon_image))
+if (!empty($favicon_image))
     $smarty->assign('FAVICON', Output::getClean($favicon_image));
 
 $analytics_id = $configuration->get('Core', 'ga_script');

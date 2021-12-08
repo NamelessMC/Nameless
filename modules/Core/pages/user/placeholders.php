@@ -10,14 +10,14 @@
  */
 
 // Must be logged in
-if(!$user->isLoggedIn()){
+if (!$user->isLoggedIn()) {
 	Redirect::to(URL::build('/'));
 	die();
 }
 
 // Placeholders enabled?
 $placeholders_enabled = $configuration->get('Core', 'placeholders');
-if($placeholders_enabled != 1) {
+if ($placeholders_enabled != 1) {
     require_once(ROOT_PATH . '/404.php');
     die();
 }

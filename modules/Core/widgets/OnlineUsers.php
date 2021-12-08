@@ -35,25 +35,25 @@ class OnlineUsersWidget extends WidgetBase {
     public function initialise(): void {
         $this->_cache->setCache('online_members');
 
-        if($this->_cache->isCached('users')){
+        if ($this->_cache->isCached('users')) {
             $online = $this->_cache->retrieve('users');
             $use_nickname_show = $this->_cache->retrieve('show_nickname_instead');
         }
         else {
-            if($this->_cache->isCached('include_staff_in_users'))
+            if ($this->_cache->isCached('include_staff_in_users'))
                 $include_staff = $this->_cache->retrieve('include_staff_in_users');
             else {
                 $include_staff = 0;
                 $this->_cache->store('include_staff_in_users', 0);
             }
-            if($this->_cache->isCached('show_nickname_instead'))
+            if ($this->_cache->isCached('show_nickname_instead'))
                 $use_nickname_show = $this->_cache->retrieve('show_nickname_instead');
             else {
                 $use_nickname_show = 0;
                 $this->_cache->store('show_nickname_instead', 0);
             }
 
-            if($include_staff){
+            if ($include_staff) {
                 $online = DB::getInstance()->selectQuery('SELECT id FROM nl2_users WHERE last_online > ?', [strtotime('-5 minutes')])->results();
             } else {
                 $online = DB::getInstance()->selectQuery('SELECT U.id FROM nl2_users AS U JOIN nl2_users_groups AS UG ON (U.id = UG.user_id) JOIN nl2_groups AS G ON (UG.group_id = G.id) WHERE G.order = (SELECT min(iG.`order`) FROM nl2_users_groups AS iUG JOIN nl2_groups AS iG ON (iUG.group_id = iG.id) WHERE iUG.user_id = U.id GROUP BY iUG.user_id ORDER BY NULL) AND U.last_online > ' . strtotime('-5 minutes') . ' AND G.staff = 0', [])->results();
@@ -63,10 +63,10 @@ class OnlineUsersWidget extends WidgetBase {
         }
 
         // Generate HTML code for widget
-        if(count($online)){
+        if (count($online)) {
             $users = [];
 
-            foreach($online as $item) {
+            foreach ($online as $item) {
                 $online_user = new User($item->id);
                 $users[] = [
                     'profile' => $online_user->getProfileURL(),

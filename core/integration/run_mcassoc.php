@@ -32,14 +32,14 @@ $smarty->assign([
 	'VERIFY_ACCOUNT_HELP' => $language->get('user', 'verify_account_help')
 ]);
 
-if (!isset($_GET['step'])){
+if (!isset($_GET['step'])) {
 	// Step 1 - MCAssoc
 	if ($custom_usernames == 'true') {
-		if(isset($_SESSION['mcassoc']['mcname'])) {
+		if (isset($_SESSION['mcassoc']['mcname'])) {
 			$username = $_SESSION['mcassoc']['mcname'];
 		}
 	} else {
-		if(isset($_SESSION['mcassoc']['username'])) {
+		if (isset($_SESSION['mcassoc']['username'])) {
 			$username = $_SESSION['mcassoc']['username'];
 		}
 	}
@@ -58,19 +58,19 @@ if (!isset($_GET['step'])){
 	  MCAssoc.init("' . $mcassoc_site_id . '", "' . $key . '", "' . $return_link . '");
 	');
 
-} else if($_GET['step'] == 2) {
+} else if ($_GET['step'] == 2) {
 	// Final step - verify data matches form
-	if($custom_usernames == 'true'){
-		if(isset($_SESSION['mcassoc']['mcname'])){
+	if ($custom_usernames == 'true') {
+		if (isset($_SESSION['mcassoc']['mcname'])) {
 			$username = $_SESSION['mcassoc']['mcname'];
 		}
 	} else {
-		if(isset($_SESSION['mcassoc']['username'])){
+		if (isset($_SESSION['mcassoc']['username'])) {
 			$username = $_SESSION['mcassoc']['username'];
 		}
 	}
 
-	if(!isset($username)) die('Session expired, please try again.');
+	if (!isset($username)) die('Session expired, please try again.');
 
 	$smarty->assign('STEP', 2);
 

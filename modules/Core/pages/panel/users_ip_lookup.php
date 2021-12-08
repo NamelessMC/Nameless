@@ -9,7 +9,7 @@
  *  Panel IP lookup page
  */
 
-if(!$user->handlePanelPageLoad('modcp.ip_lookup')) {
+if (!$user->handlePanelPageLoad('modcp.ip_lookup')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }

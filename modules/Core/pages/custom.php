@@ -11,7 +11,7 @@
 
 // Get page info from URL
 $custom_page = $queries->getWhere('custom_pages', ['url', '=', rtrim($route, '/')]);
-if(!count($custom_page)){
+if (!count($custom_page)) {
     require(ROOT_PATH . '/404.php');
     die();
 } else
@@ -19,12 +19,12 @@ if(!count($custom_page)){
 
 // Check permissions
 $perms = $queries->getWhere('custom_pages_permissions', ['page_id', '=', $custom_page->id]);
-if($user->isLoggedIn()){
+if ($user->isLoggedIn()) {
     $groups = $user->getAllGroupHtml();
-    foreach($groups as $group){
-        foreach($perms as $perm){
-            if($perm->group_id == $group){
-                if($perm->view == 1){
+    foreach ($groups as $group) {
+        foreach ($perms as $perm) {
+            if ($perm->group_id == $group) {
+                if ($perm->view == 1) {
                     $can_view = 1;
                     break 2;
                 } else
@@ -33,9 +33,9 @@ if($user->isLoggedIn()){
         }
     }
 } else {
-    foreach($perms as $perm){
-        if($perm->group_id == 0){
-            if($perm->view == 1)
+    foreach ($perms as $perm) {
+        if ($perm->group_id == 0) {
+            if ($perm->view == 1)
                 $can_view = 1;
 
             break;
@@ -43,12 +43,12 @@ if($user->isLoggedIn()){
     }
 }
 
-if(!isset($can_view)){
+if (!isset($can_view)) {
     require(ROOT_PATH . '/403.php');
     die();
 }
 
-if($custom_page->redirect) {
+if ($custom_page->redirect) {
 	header('X-Robots-Tag: noindex, nofollow');
 	header('Location: ' . Output::getClean($custom_page->link));
 

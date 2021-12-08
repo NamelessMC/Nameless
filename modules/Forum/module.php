@@ -99,7 +99,7 @@ class Forum_Module extends Module {
 
 		// Add link to navbar
         $cache->setCache('nav_location');
-        if(!$cache->isCached('forum_location')){
+        if (!$cache->isCached('forum_location')) {
             $link_location = 1;
             $cache->store('forum_location', 1);
         } else {
@@ -107,7 +107,7 @@ class Forum_Module extends Module {
         }
         
 		$cache->setCache('navbar_order');
-		if(!$cache->isCached('forum_order')){
+		if (!$cache->isCached('forum_order')) {
 			$forum_order = 2;
 			$cache->store('forum_order', 2);
 		} else {
@@ -115,12 +115,12 @@ class Forum_Module extends Module {
 		}
 
 		$cache->setCache('navbar_icons');
-		if(!$cache->isCached('forum_icon'))
+		if (!$cache->isCached('forum_icon'))
 			$icon = '';
 		else
 			$icon = $cache->retrieve('forum_icon');
 
-        switch($link_location){
+        switch($link_location) {
             case 1:
                 // Navbar
                 $navs[0]->add('forum', $this->_forum_language->get('forum', 'forum'), URL::build('/forum'), 'top', null, $forum_order, $icon);
@@ -143,11 +143,11 @@ class Forum_Module extends Module {
 		$widgets->add(new LatestPostsWidget($module_pages, $this->_forum_language->get('forum', 'latest_posts'), $this->_forum_language->get('forum', 'by'), $smarty, $cache, $user, $this->_language));
 
 		// Front end or back end?
-		if(defined('FRONT_END')){
+		if (defined('FRONT_END')) {
 			$queries = new Queries();
 
 			// Global variables if user is logged in
-			if($user->isLoggedIn()){
+			if ($user->isLoggedIn()) {
 				// Basic user variables
 				$topic_count = $queries->getWhere('topics', ['topic_creator', '=', $user->data()->id]);
 				$topic_count = count($topic_count);
@@ -159,10 +159,10 @@ class Forum_Module extends Module {
                 ]);
 			}
 
-			if(defined('PAGE') && PAGE == 'user_query'){
+			if (defined('PAGE') && PAGE == 'user_query') {
 				$user_id = $smarty->getTemplateVars('USER_ID');
 
-				if($user_id){
+				if ($user_id) {
 					$topic_count = $queries->getWhere('topics', ['topic_creator', '=', $user_id]);
 					$smarty->assign('TOPICS', str_replace('{x}', count($topic_count), $this->_forum_language->get('forum', 'x_topics')));
 					$post_count = $queries->getWhere('posts', ['post_creator', '=', $user_id]);
@@ -170,17 +170,17 @@ class Forum_Module extends Module {
 				}
 			}
 
-		} else if(defined('BACK_END')){
-			if($user->hasPermission('admincp.forums')){
+		} else if (defined('BACK_END')) {
+			if ($user->hasPermission('admincp.forums')) {
 				$cache->setCache('panel_sidebar');
-				if(!$cache->isCached('forum_order')){
+				if (!$cache->isCached('forum_order')) {
 					$order = 12;
 					$cache->store('forum_order', 12);
 				} else {
 					$order = $cache->retrieve('forum_order');
 				}
                 
-				if(!$cache->isCached('forum_settings_icon')){
+				if (!$cache->isCached('forum_settings_icon')) {
 					$icon = '<i class="nav-icon fas fa-cogs"></i>';
 					$cache->store('forum_settings_icon', $icon);
 				} else
@@ -189,7 +189,7 @@ class Forum_Module extends Module {
                 $navs[2]->add('forum_divider', mb_strtoupper($this->_forum_language->get('forum', 'forum'), 'UTF-8'), 'divider', 'top', null, $order, '');
                 $navs[2]->add('forum_settings', $this->_language->get('admin', 'settings'), URL::build('/panel/forums/settings'), 'top', null, $order + 0.1, $icon);
                 
-				if(!$cache->isCached('forum_icon')){
+				if (!$cache->isCached('forum_icon')) {
 					$icon = '<i class="nav-icon fas fa-comments"></i>';
 					$cache->store('forum_icon', $icon);
 				} else
@@ -197,7 +197,7 @@ class Forum_Module extends Module {
 
 				$navs[2]->add('forums', $this->_forum_language->get('forum', 'forums'), URL::build('/panel/forums'), 'top', null, $order + 0.2, $icon);
 
-				if(!$cache->isCached('forum_label_icon')){
+				if (!$cache->isCached('forum_label_icon')) {
 					$icon = '<i class="nav-icon fas fa-tags"></i>';
 					$cache->store('forum_label_icon', $icon);
 				} else
@@ -206,7 +206,7 @@ class Forum_Module extends Module {
 				$navs[2]->add('forum_labels', $this->_forum_language->get('forum', 'labels'), URL::build('/panel/forums/labels'), 'top', null, $order + 0.3, $icon);
 			}
 
-			if(defined('PANEL_PAGE') && PANEL_PAGE == 'dashboard'){
+			if (defined('PANEL_PAGE') && PANEL_PAGE == 'dashboard') {
 				// Dashboard graph
 				$queries = new Queries();
 
@@ -215,7 +215,7 @@ class Forum_Module extends Module {
 				$latest_posts = $queries->orderWhere('posts', 'post_date > "' . date('Y-m-d G:i:s', strtotime('-1 week')) . '"', 'post_date', 'ASC');
 
 				$cache->setCache('dashboard_graph');
-				if($cache->isCached('forum_data')){
+				if ($cache->isCached('forum_data')) {
 					$output = $cache->retrieve('forum_data');
 
 				} else {
@@ -226,22 +226,22 @@ class Forum_Module extends Module {
 					$output['datasets']['posts']['label'] = 'forum_language/forum/posts_title'; // for $forum_language->get('forum', 'posts_title');
 					$output['datasets']['posts']['colour'] = '#ffde0a';
 
-					foreach($latest_topics as $topic){
+					foreach ($latest_topics as $topic) {
 						$date = date('d M Y', $topic->topic_date);
 						$date = '_' . strtotime($date);
 
-						if(isset($output[$date]['topics'])){
+						if (isset($output[$date]['topics'])) {
 							$output[$date]['topics'] = $output[$date]['topics'] + 1;
 						} else {
 							$output[$date]['topics'] = 1;
 						}
 					}
 
-					foreach($latest_posts as $post){
+					foreach ($latest_posts as $post) {
 						$date = date('d M Y', strtotime($post->post_date));
 						$date = '_' . strtotime($date);
 
-						if(isset($output[$date]['posts'])){
+						if (isset($output[$date]['posts'])) {
 							$output[$date]['posts'] = $output[$date]['posts'] + 1;
 						} else {
 							$output[$date]['posts'] = 1;
@@ -253,11 +253,11 @@ class Forum_Module extends Module {
 					$start = date('d M Y', $start);
 					$start = strtotime($start);
 					$end = strtotime(date('d M Y'));
-					while($start <= $end){
-						if(!isset($output['_' . $start]['topics']))
+					while($start <= $end) {
+						if (!isset($output['_' . $start]['topics']))
 							$output['_' . $start]['topics'] = 0;
 
-						if(!isset($output['_' . $start]['posts']))
+						if (!isset($output['_' . $start]['posts']))
 							$output['_' . $start]['posts'] = 0;
 
 						$start = strtotime('+1 day', $start);

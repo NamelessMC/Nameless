@@ -10,7 +10,7 @@
  */
 
 // Ensure user isn't already logged in
-if($user->isLoggedIn()){
+if ($user->isLoggedIn()) {
     Redirect::to(URL::build('/'));
     die();
 }

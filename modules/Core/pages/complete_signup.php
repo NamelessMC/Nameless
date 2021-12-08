@@ -19,7 +19,7 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 // Validate code
-if(!isset($_GET['c'])){
+if (!isset($_GET['c'])) {
     Redirect::to(URL::build('/'));
     die();
 } else {
@@ -27,18 +27,18 @@ if(!isset($_GET['c'])){
 
     // Ensure API is enabled
     $is_api_enabled = $queries->getWhere('settings', ['name', '=', 'use_api']);
-    if($is_api_enabled[0]->value != '1'){
+    if ($is_api_enabled[0]->value != '1') {
         $is_legacy_enabled = $queries->getWhere('settings', ['name', '=', 'use_legacy_api']);
-        if($is_legacy_enabled[0]->value != '1'){
+        if ($is_legacy_enabled[0]->value != '1') {
             die('Legacy API is disabled');
         }
     }
 
-    if(!$user->isLoggedIn()){
+    if (!$user->isLoggedIn()) {
 		$target_user = new User($_GET['c'], 'reset_code');
         if ($target_user->data()) {
-            if(Input::exists()){
-                if(Token::check()){
+            if (Input::exists()) {
+                if (Token::check()) {
                     // Validate input
                     $validate = new Validate();
                     $validation = $validate->check($_POST, [
@@ -62,7 +62,7 @@ if(!isset($_GET['c'])){
                         't_and_c' => $language->get('user', 'accept_terms')
                     ]);
 
-                    if($validation->passed()){
+                    if ($validation->passed()) {
                         // Complete registration
                         // Hash password
                         $password = password_hash(Input::get('password'), PASSWORD_BCRYPT, ['cost' => 13]);
@@ -110,7 +110,7 @@ if(!isset($_GET['c'])){
 }
 
 // Smarty variables
-if(isset($errors) && count($errors)){
+if (isset($errors) && count($errors)) {
 	$smarty->assign('ERRORS', $errors);
 }
 

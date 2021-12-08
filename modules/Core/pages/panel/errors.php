@@ -9,7 +9,7 @@
  *  Panel debugging + errors page
  */
 
-if(!$user->handlePanelPageLoad('admincp.errors')) {
+if (!$user->handlePanelPageLoad('admincp.errors')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }

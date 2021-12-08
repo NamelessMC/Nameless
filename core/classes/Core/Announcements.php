@@ -47,7 +47,7 @@ class Announcements {
     public function getAvailable(?string $page = null, ?string $custom_page = null, array $user_groups = [0]): array {
         $announcements = [];
 
-        foreach($this->getAll() as $announcement) {
+        foreach ($this->getAll() as $announcement) {
 
             if (Cookie::exists('announcement-' . $announcement->id)) {
                 continue;
@@ -57,7 +57,7 @@ class Announcements {
             $groups = json_decode($announcement->groups, true);
 
             if (in_array($page, $pages) || $page == 'api' || in_array($custom_page, $pages)) {
-                foreach($user_groups as $group) {
+                foreach ($user_groups as $group) {
                     if (in_array($group, $groups)) {
                         $announcements[] = $announcement;
                         break;

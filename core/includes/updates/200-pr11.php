@@ -42,7 +42,7 @@ try {
 // Add placeholder enabled setting to settings table, Auto enable if placeholders contain data
 try {
     $placeholders_exist = $queries->getWhere('settings', array('name', '=', 'placeholders'));
-    if(!count($placeholders_exist)) {
+    if (!count($placeholders_exist)) {
         $placeholders = $queries->getWhere('placeholders_settings', array('id', '<>', '0'));
 
         $queries->create('settings', array(

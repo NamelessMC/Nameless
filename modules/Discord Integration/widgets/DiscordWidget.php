@@ -56,7 +56,7 @@ class DiscordWidget extends WidgetBase {
             // No, it isn't: display the widget
             // Check cache for theme
             $theme = 'dark';
-            if($this->_cache->isCached('discord_widget_theme'))
+            if ($this->_cache->isCached('discord_widget_theme'))
                 $theme = $this->_cache->retrieve('discord_widget_theme');
 
             $this->_content = '<iframe src="https://discord.com/widget?id=' . Output::getClean($this->_guild_id) . '&theme=' . Output::getClean($theme) . '" width="100%" height="500" allowtransparency="true" frameborder="0"></iframe><br />';

@@ -35,7 +35,7 @@ class AddGroupsEndpoint extends EndpointBase {
             }
             $group_query = $group_query->first();
 
-            if($user->addGroup($group, 0, $group_query)) {
+            if ($user->addGroup($group, 0, $group_query)) {
                 $added_groups[] = $group;
                 $log_array['added'][] = $group_query->name;
             }

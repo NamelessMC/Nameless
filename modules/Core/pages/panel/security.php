@@ -9,7 +9,7 @@
  *  Panel security page
  */
 
-if(!$user->handlePanelPageLoad('admincp.security')) {
+if (!$user->handlePanelPageLoad('admincp.security')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }

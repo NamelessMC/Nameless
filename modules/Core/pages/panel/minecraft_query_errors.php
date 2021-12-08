@@ -9,7 +9,7 @@
  *  Panel Minecraft query errors page
  */
 
-if(!$user->handlePanelPageLoad('admincp.minecraft.query_errors')) {
+if (!$user->handlePanelPageLoad('admincp.minecraft.query_errors')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }
@@ -21,8 +21,8 @@ const MINECRAFT_PAGE = 'query_errors';
 $page_title = $language->get('admin', 'query_errors');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
-if(!isset($_GET['id'])){
-    if(isset($_GET['action']) && $_GET['action'] == 'purge'){
+if (!isset($_GET['id'])) {
+    if (isset($_GET['action']) && $_GET['action'] == 'purge') {
         $queries->delete('query_errors', ['id', '<>', 0]);
         Session::flash('panel_query_errors_success', $language->get('admin', 'query_errors_purged_successfully'));
         Redirect::to(URL::build('/panel/minecraft/query_errors'));
@@ -30,10 +30,10 @@ if(!isset($_GET['id'])){
     }
 
     $query_errors = $queries->orderWhere('query_errors', 'id <> 0', 'DATE', 'DESC');
-    if(count($query_errors)){
+    if (count($query_errors)) {
         // Get page
-        if(isset($_GET['p'])){
-            if(!is_numeric($_GET['p'])){
+        if (isset($_GET['p'])) {
+            if (!is_numeric($_GET['p'])) {
                 Redirect::to(URL::build('/panel/minecraft/query_errors'));
                 die();
             } else
@@ -50,7 +50,7 @@ if(!isset($_GET['id'])){
 
         $template_array = [];
 
-        foreach($results->data as $result){
+        foreach ($results->data as $result) {
             $template_array[] = [
                 'ip' => Output::getClean($result->ip),
                 'port' => Output::getClean($result->port),
@@ -74,19 +74,19 @@ if(!isset($_GET['id'])){
 
 } else {
     // View an error
-    if(!is_numeric($_GET['id'])){
+    if (!is_numeric($_GET['id'])) {
         Redirect::to(URL::build('/panel/minecraft/query_errors'));
         die();
     }
 
     $query_error = $queries->getWhere('query_errors', ['id', '=', $_GET['id']]);
-    if(!count($query_error)){
+    if (!count($query_error)) {
         Redirect::to(URL::build('/panel/minecraft/query_errors'));
         die();
     }
     $query_error = $query_error[0];
 
-    if($_GET['action'] == 'delete'){
+    if ($_GET['action'] == 'delete') {
         $queries->delete('query_errors', ['id', '=', $_GET['id']]);
         Session::flash('panel_query_errors_success', $language->get('admin', 'query_error_deleted_successfully'));
         Redirect::to(URL::build('/panel/minecraft/query_errors'));
@@ -119,16 +119,16 @@ if(!isset($_GET['id'])){
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-if(Session::exists('panel_query_errors_success'))
+if (Session::exists('panel_query_errors_success'))
     $success = Session::flash('panel_query_errors_success');
 
-if(isset($success))
+if (isset($success))
     $smarty->assign([
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ]);
 
-if(isset($errors) && count($errors))
+if (isset($errors) && count($errors))
     $smarty->assign([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')

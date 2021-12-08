@@ -9,7 +9,7 @@
  *  Email Mass Message page
  */
 
-if(!$user->handlePanelPageLoad('admincp.core.emails_mass_message')) {
+if (!$user->handlePanelPageLoad('admincp.core.emails_mass_message')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }

@@ -10,7 +10,7 @@
  */
 
 // Must be logged in
-if(!$user->isLoggedIn()){
+if (!$user->isLoggedIn()) {
 	Redirect::to(URL::build('/'));
 	die();
 }
@@ -43,15 +43,15 @@ if ($forum_enabled) {
   $forum_query_total = DB::getInstance()->selectQuery("SELECT FROM_UNIXTIME(created, '%Y-%m-%d'), COUNT(*) FROM nl2_posts WHERE created > ? GROUP BY FROM_UNIXTIME(created, '%Y-%m-%d')", [strtotime('-7 days')])->results();
 
   $output = [];
-  foreach($forum_query_user as $item){
+  foreach ($forum_query_user as $item) {
 	  $date = strtotime($item->{'FROM_UNIXTIME(created, \'%Y-%m-%d\')'});
 	  $output[$date]['user'] = $item->{'COUNT(*)'};
   }
-  foreach($forum_query_average as $item){
+  foreach ($forum_query_average as $item) {
 	  $date = strtotime($item->{'FROM_UNIXTIME(created, \'%Y-%m-%d\')'});
 	  $output[$date]['average'] = $item->{'(COUNT(*) / COUNT(Distinct post_creator))'};
 }
-  foreach($forum_query_total as $item){
+  foreach ($forum_query_total as $item) {
 	  $date = strtotime($item->{'FROM_UNIXTIME(created, \'%Y-%m-%d\')'});
 	  $output[$date]['total'] = $item->{'COUNT(*)'};
   }
@@ -61,14 +61,14 @@ if ($forum_enabled) {
   $graph_start = date('d M Y', $graph_start);
   $graph_start = strtotime($graph_start);
   $end = strtotime(date('d M Y'));
-  while($graph_start <= $end){
-	  if(!isset($output[$graph_start]['user']))
+  while($graph_start <= $end) {
+	  if (!isset($output[$graph_start]['user']))
 		  $output[$graph_start]['user'] = 0;
 
-	  if(!isset($output[$graph_start]['average']))
+	  if (!isset($output[$graph_start]['average']))
 		  $output[$graph_start]['average'] = 0;
 
-	  if(!isset($output[$graph_start]['total']))
+	  if (!isset($output[$graph_start]['total']))
 		  $output[$graph_start]['total'] = 0;
 
 	  $graph_start = $graph_start + 86400;
@@ -81,7 +81,7 @@ if ($forum_enabled) {
   $user_data = '';
   $average_data = '';
   $total_data = '';
-  foreach($output as $date => $item){
+  foreach ($output as $date => $item) {
 	  $labels .= '"' . date('Y-m-d', $date) . '", ';
 	  $user_data .= $item['user'] . ', ';
 	  $average_data .= $item['average'] . ', ';

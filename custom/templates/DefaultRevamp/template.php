@@ -144,7 +144,7 @@ class DefaultRevamp_Template extends TemplateBase {
             $this->_template['path'] . 'js/scripts.js' => [],
         ]);
 
-        foreach($this->_pages->getAjaxScripts() as $script) {
+        foreach ($this->_pages->getAjaxScripts() as $script) {
             $this->addJSScript('$.getJSON(\'' . $script . '\', function(data) {});');
         }
     }

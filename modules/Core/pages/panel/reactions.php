@@ -9,7 +9,7 @@
  *  Panel reactions page
  */
 
-if(!$user->handlePanelPageLoad('admincp.core.reactions')) {
+if (!$user->handlePanelPageLoad('admincp.core.reactions')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }

@@ -9,7 +9,7 @@
  *  Panel social media page
  */
 
-if(!$user->handlePanelPageLoad('admincp.core.social_media')) {
+if (!$user->handlePanelPageLoad('admincp.core.social_media')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }

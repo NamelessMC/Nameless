@@ -48,7 +48,7 @@ class MinecraftBanner {
                         $background = imagecreatefromjpeg($background);
                         break;
                     case 'gif':
-                        $background = imagecreatefromgif($background);
+                        $background = imagecreatefromgif ($background);
                         break;
                     default:
                         $background = imagecreatefrompng(ROOT_PATH . '/uploads/banners/texture.png');

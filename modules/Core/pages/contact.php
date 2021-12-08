@@ -143,16 +143,16 @@ if ($captcha) {
     }
 }
 
-if(isset($errors))
+if (isset($errors))
 	$smarty->assign('ERRORS', $errors);
 
-if(isset($erroremail))
+if (isset($erroremail))
 	$smarty->assign('ERROR_EMAIL', $erroremail);
 
-if(isset($errorcontent))
+if (isset($errorcontent))
 	$smarty->assign('ERROR_CONTENT', $errorcontent);
 
-if(isset($success))
+if (isset($success))
 	$smarty->assign('SUCCESS', $success);
 
 $smarty->assign([

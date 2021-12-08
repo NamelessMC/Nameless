@@ -9,7 +9,7 @@
  *  Panel user page
  */
 
-if(!$user->handlePanelPageLoad()) {
+if (!$user->handlePanelPageLoad()) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }

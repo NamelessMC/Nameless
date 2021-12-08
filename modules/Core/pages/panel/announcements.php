@@ -9,7 +9,7 @@
  *  Panel announcements page
  */
 
-if(!$user->handlePanelPageLoad('admincp.core.announcements')) {
+if (!$user->handlePanelPageLoad('admincp.core.announcements')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }

@@ -9,7 +9,7 @@
  *  Panel Minecraft account verification page
  */
 
-if(!$user->handlePanelPageLoad('admincp.minecraft.verification')) {
+if (!$user->handlePanelPageLoad('admincp.minecraft.verification')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }
@@ -22,14 +22,14 @@ $page_title = $language->get('admin', 'account_verification');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Handle input
-if(Input::exists()){
+if (Input::exists()) {
     $errors = [];
-    if(Token::check()){
-        if(!isset($_POST['premium'])){
+    if (Token::check()) {
+        if (!isset($_POST['premium'])) {
             $use_mcassoc = $queries->getWhere('settings', ['name', '=', 'verify_accounts']);
             $use_mcassoc = $use_mcassoc[0]->id;
 
-            if(isset($_POST['use_mcassoc']) && $_POST['use_mcassoc'] == 'on'){
+            if (isset($_POST['use_mcassoc']) && $_POST['use_mcassoc'] == 'on') {
 
                 $validate = new Validate();
                 $validation = $validate->check($_POST, [
@@ -44,7 +44,7 @@ if(Input::exists()){
                     ]
                 ])->message($language->get('admin', 'mcassoc_error'));
 
-                if($validation->passed()){
+                if ($validation->passed()) {
                     // Update settings
                     $mcassoc_key = $queries->getWhere('settings', ['name', '=', 'mcassoc_key']);
                     $mcassoc_key = $mcassoc_key[0]->id;
@@ -71,7 +71,7 @@ if(Input::exists()){
             $uuid_linking = $queries->getWhere('settings', ['name', '=', 'uuid_linking']);
             $uuid_linking = $uuid_linking[0]->id;
 
-            if(isset($_POST['enable_premium_accounts']) && $_POST['enable_premium_accounts'] == 1)
+            if (isset($_POST['enable_premium_accounts']) && $_POST['enable_premium_accounts'] == 1)
                 $use_premium = 1;
             else
                 $use_premium = 0;
@@ -86,13 +86,13 @@ if(Input::exists()){
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-if(isset($success))
+if (isset($success))
     $smarty->assign([
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ]);
 
-if(isset($errors) && count($errors))
+if (isset($errors) && count($errors))
     $smarty->assign([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
@@ -102,7 +102,7 @@ if(isset($errors) && count($errors))
 $uuid_linking = $queries->getWhere('settings', ['name', '=', 'uuid_linking']);
 $uuid_linking = $uuid_linking[0]->value;
 
-if($uuid_linking == '1'){
+if ($uuid_linking == '1') {
     // Get mcassoc settings
     $use_mcassoc = $queries->getWhere('settings', ['name', '=', 'verify_accounts']);
     $use_mcassoc = $use_mcassoc[0]->value;

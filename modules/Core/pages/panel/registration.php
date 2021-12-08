@@ -9,7 +9,7 @@
  *  Panel registration page
  */
 
-if(!$user->handlePanelPageLoad('admincp.core.registration')) {
+if (!$user->handlePanelPageLoad('admincp.core.registration')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }

@@ -9,7 +9,7 @@
  *  Panel widgets page
  */
 
-if(!$user->handlePanelPageLoad('admincp.widgets')) {
+if (!$user->handlePanelPageLoad('admincp.widgets')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }

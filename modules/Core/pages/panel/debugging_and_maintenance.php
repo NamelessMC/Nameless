@@ -9,7 +9,7 @@
  *  Panel debugging + maintenance page
  */
 
-if(!$user->handlePanelPageLoad('admincp.core.debugging')) {
+if (!$user->handlePanelPageLoad('admincp.core.debugging')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }

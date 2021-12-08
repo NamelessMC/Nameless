@@ -9,7 +9,7 @@
  *  Panel API page
  */
 
-if(!$user->handlePanelPageLoad('admincp.core.emails')) {
+if (!$user->handlePanelPageLoad('admincp.core.emails')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }

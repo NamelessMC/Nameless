@@ -9,7 +9,7 @@
  *  Panel groups page
  */
 
-if(!$user->handlePanelPageLoad('admincp.groups')) {
+if (!$user->handlePanelPageLoad('admincp.groups')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }

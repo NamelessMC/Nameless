@@ -9,7 +9,7 @@
  *  Panel update page
  */
 
-if(!$user->handlePanelPageLoad('admincp.update')) {
+if (!$user->handlePanelPageLoad('admincp.update')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }

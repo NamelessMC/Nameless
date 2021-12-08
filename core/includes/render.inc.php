@@ -87,7 +87,7 @@
     <li class="page-item number active"><a class="page-link" data-pagenumber="<?php echo $current; ?>" href="#"><?php echo $current; ?></a></li>
 <?php
 			// Prevent displaying any extra crumbs
-			if($current != $max){
+			if ($current != $max) {
 				// generate/render trailing crumbs
 				for ($x = 0; $x < $trailing; ++$x) {
 

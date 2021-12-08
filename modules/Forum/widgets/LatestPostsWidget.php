@@ -48,7 +48,7 @@ class LatestPostsWidget extends WidgetBase {
 		$user_groups = $this->_user->getAllGroupIds();
 
 	    $this->_cache->setCache('forum_discussions_' . rtrim(implode('-', $user_groups), '-'));
-	    if($this->_cache->isCached('discussions')){
+	    if ($this->_cache->isCached('discussions')) {
 		    $template_array = $this->_cache->retrieve('discussions');
 
 	    } else {
@@ -57,7 +57,7 @@ class LatestPostsWidget extends WidgetBase {
 
 		    $n = 0;
 		    // Calculate the number of discussions to display (5 max)
-		    if(count($discussions) <= 5){
+		    if (count($discussions) <= 5) {
 			    $limit = count($discussions);
 		    } else {
 			    $limit = 5;
@@ -66,7 +66,7 @@ class LatestPostsWidget extends WidgetBase {
 		    $template_array = [];
 
 		    // Generate an array to pass to template
-		    while($n < $limit){
+		    while($n < $limit) {
 			    // Get the name of the forum from the ID
 			    $forum_name = $queries->getWhere('forums', ['id', '=', $discussions[$n]['forum_id']]);
 			    $forum_name = Output::getPurified(htmlspecialchars_decode($forum_name[0]->forum_title));
@@ -76,14 +76,14 @@ class LatestPostsWidget extends WidgetBase {
 			    $posts = count($posts);
 
 			    // Is there a label?
-			    if($discussions[$n]['label'] != 0){ // yes
+			    if ($discussions[$n]['label'] != 0) { // yes
 				    // Get label
 				    $label = $queries->getWhere('forums_topic_labels', ['id', '=', $discussions[$n]['label']]);
-				    if(count($label)){
+				    if (count($label)) {
 					    $label = $label[0];
 
 					    $label_html = $queries->getWhere('forums_labels', ['id', '=', $label->label]);
-					    if(count($label_html)){
+					    if (count($label_html)) {
 						    $label_html = $label_html[0]->html;
 						    $label = str_replace('{x}', Output::getClean($label->name), $label_html);
 					    } else $label = '';

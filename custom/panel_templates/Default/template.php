@@ -78,7 +78,7 @@ if (!class_exists('Default_Panel_Template')) {
 					};
 
 					var elems = Array.prototype.slice.call(document.querySelectorAll(\'.dark-switch\'));
-					elems.forEach(function(html) {
+					elems.foreach (function(html) {
 						var switchery = new Switchery(html, {color: \'rgb(226 226 229)\', secondaryColor: \'#333333\'});
 					});
 				}
@@ -108,10 +108,10 @@ if (!class_exists('Default_Panel_Template')) {
 				}
 
 				// Some popover stuff
-				$(document).ready(function(){
+				$(document).ready(function() {
 					$(\'[data-toggle="tooltip"]\').tooltip();
 				});
-				$(document).ready(function(){
+				$(document).ready(function() {
 					$(\'[data-toggle="popover"]\').popover({trigger:\'manual\',html:true}).on("mouseenter", function() {
 					  var _this = this;
 					  $(this).popover("show");
@@ -171,7 +171,7 @@ if (!class_exists('Default_Panel_Template')) {
                         $this->addJSScript('
 						var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
 
-						elems.forEach(function(html) {
+						elems.foreach (function(html) {
 						  var switchery = new Switchery(html, {color: \'#23923d\', secondaryColor: \'#e56464\'});
 						});
 						');
@@ -192,7 +192,7 @@ if (!class_exists('Default_Panel_Template')) {
                         $this->addJSScript('
 						var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
 
-						elems.forEach(function(html) {
+						elems.foreach (function(html) {
 						  var switchery = new Switchery(html, {color: \'#23923d\', secondaryColor: \'#e56464\'});
 						});
 
@@ -218,7 +218,7 @@ if (!class_exists('Default_Panel_Template')) {
                         $this->addJSScript('
 						var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
 
-						elems.forEach(function(html) {
+						elems.foreach (function(html) {
 						  var switchery = new Switchery(html, {color: \'#23923d\', secondaryColor: \'#e56464\'});
 						});
 						');
@@ -254,7 +254,7 @@ if (!class_exists('Default_Panel_Template')) {
                         $this->addJSScript('
 						var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
 
-						elems.forEach(function(html) {
+						elems.foreach (function(html) {
 						  var switchery = new Switchery(html, {color: \'#23923d\', secondaryColor: \'#e56464\'});
 						});
 						');
@@ -286,7 +286,7 @@ if (!class_exists('Default_Panel_Template')) {
                         $this->addJSScript('
 						var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
 
-						elems.forEach(function(html) {
+						elems.foreach (function(html) {
 						  var switchery = new Switchery(html, {color: \'#23923d\', secondaryColor: \'#e56464\'});
 						});
 
@@ -316,7 +316,7 @@ if (!class_exists('Default_Panel_Template')) {
                         $this->addJSScript('
 						var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
 
-						elems.forEach(function(html) {
+						elems.foreach (function(html) {
 						  var switchery = new Switchery(html, {color: \'#23923d\', secondaryColor: \'#e56464\'});
 						});
 						');
@@ -343,7 +343,7 @@ if (!class_exists('Default_Panel_Template')) {
                             $this->addJSScript('
 							var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
 
-							elems.forEach(function(html) {
+							elems.foreach (function(html) {
 							  var switchery = new Switchery(html, {color: \'#23923d\', secondaryColor: \'#e56464\'});
 							});
 							');
@@ -361,7 +361,7 @@ if (!class_exists('Default_Panel_Template')) {
                             $this->addJSScript('
 							var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
 
-							elems.forEach(function(html) {
+							elems.foreach (function(html) {
 							  var switchery = new Switchery(html, {color: \'#23923d\', secondaryColor: \'#e56464\'});
 							});
 							');
@@ -443,7 +443,7 @@ if (!class_exists('Default_Panel_Template')) {
 									}
 								});
 
-								$(\'.dataTables-users tbody\').on(\'click\', \'tr\', function(){
+								$(\'.dataTables-users tbody\').on(\'click\', \'tr\', function() {
 									window.location.href = "' . URL::build('/panel/user/') . '" + usersTable.row(this).data().id;
 								});
 							});
@@ -458,11 +458,11 @@ if (!class_exists('Default_Panel_Template')) {
                             $this->addJSScript('
 							var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
 
-							elems.forEach(function(html) {
+							elems.foreach (function(html) {
 							  var switchery = new Switchery(html, {color: \'#23923d\', secondaryColor: \'#e56464\'});
 							});
 
-							if($(\'.js-check-change\').length) {
+							if ($(\'.js-check-change\').length) {
 						        var changeCheckbox = document.querySelector(\'.js-check-change\');
 
 						        changeCheckbox.onchange = function () {
@@ -476,11 +476,11 @@ if (!class_exists('Default_Panel_Template')) {
                             $this->addJSScript('
 							var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
 
-							elems.forEach(function(html) {
+							elems.foreach (function(html) {
 							  var switchery = new Switchery(html, {color: \'#23923d\', secondaryColor: \'#e56464\'});
 							});
 
-							if($(\'.js-check-change\').length) {
+							if ($(\'.js-check-change\').length) {
 						        var changeCheckbox = document.querySelector(\'.js-check-change\');
 
 						        changeCheckbox.onchange = function () {
@@ -494,11 +494,11 @@ if (!class_exists('Default_Panel_Template')) {
                             $this->addJSScript('
 							var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
 
-							elems.forEach(function(html) {
+							elems.foreach (function(html) {
 							  var switchery = new Switchery(html, {color: \'#23923d\', secondaryColor: \'#e56464\'});
 							});
 
-							if($(\'.js-check-change\').length) {
+							if ($(\'.js-check-change\').length) {
 						        var changeCheckbox = document.querySelector(\'.js-check-change\');
 
 						        changeCheckbox.onchange = function () {
@@ -515,7 +515,7 @@ if (!class_exists('Default_Panel_Template')) {
                             $this->addJSScript('
 							var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
 
-							elems.forEach(function(html) {
+							elems.foreach (function(html) {
 							  var switchery = new Switchery(html, {color: \'#23923d\', secondaryColor: \'#e56464\'});
 							});
 							');
@@ -558,7 +558,7 @@ if (!class_exists('Default_Panel_Template')) {
                             $this->addJSScript('
                             var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
 
-                            elems.forEach(function(html) {
+                            elems.foreach (function(html) {
                               var switchery = new Switchery(html, {color: \'#23923d\', secondaryColor: \'#e56464\'});
                             });
                             ');
@@ -571,7 +571,7 @@ if (!class_exists('Default_Panel_Template')) {
                         $this->addJSScript('
 							var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
 
-							elems.forEach(function(html) {
+							elems.foreach (function(html) {
 							  var switchery = new Switchery(html, {color: \'#23923d\', secondaryColor: \'#e56464\'});
 							});
 							');
@@ -633,7 +633,7 @@ if (!class_exists('Default_Panel_Template')) {
 					            console.log(file);
 					            console.log(response);
 					        },
-					        success: function(file, response){
+					        success: function(file, response) {
 					            console.log("ACCEPTED");
 					            console.log(file);
 					            console.log(response);
@@ -650,7 +650,7 @@ if (!class_exists('Default_Panel_Template')) {
 					            console.log(file);
 					            console.log(response);
 					        },
-					        success: function(file, response){
+					        success: function(file, response) {
 					            console.log("ACCEPTED");
 					            console.log(file);
 					            console.log(response);
@@ -678,7 +678,7 @@ if (!class_exists('Default_Panel_Template')) {
                         $this->addJSScript('
 						var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
 
-						elems.forEach(function(html) {
+						elems.foreach (function(html) {
 						  var switchery = new Switchery(html, {color: \'#23923d\', secondaryColor: \'#e56464\'});
 						});
 						');

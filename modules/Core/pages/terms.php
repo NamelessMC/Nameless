@@ -24,7 +24,7 @@ $template->addJSFiles([
 
 // Retrieve terms from database
 $site_terms = $queries->getWhere('privacy_terms', ['name', '=', 'terms']);
-if(!count($site_terms)){
+if (!count($site_terms)) {
 	$site_terms = $queries->getWhere('settings', ['name', '=', 't_and_c_site']);
 }
 $site_terms = Output::getPurified($site_terms[0]->value);

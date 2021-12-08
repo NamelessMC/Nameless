@@ -43,13 +43,13 @@ class ExternalMCQuery {
      * @return bool
      */
     public static function getFavicon(string $ip = null): bool{
-        if($ip){
+        if ($ip) {
             $query_ip = explode(':', $ip);
 
-            if(count($query_ip) == 2){
+            if (count($query_ip) == 2) {
                 $ip = $query_ip[0];
                 $port = $query_ip[1];
-            } else if(count($query_ip) == 1) {
+            } else if (count($query_ip) == 1) {
                 $ip = $query_ip[0];
                 $port = $query_ip[1];
             } else

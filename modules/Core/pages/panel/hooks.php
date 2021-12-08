@@ -9,7 +9,7 @@
  *  Panel hooks page
  */
 
-if(!$user->handlePanelPageLoad('admincp.core.hooks')) {
+if (!$user->handlePanelPageLoad('admincp.core.hooks')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }

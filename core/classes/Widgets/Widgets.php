@@ -105,7 +105,7 @@ class Widgets {
 
         $widgets = $this->getAll();
 
-        foreach($widgets as $item) {
+        foreach ($widgets as $item) {
             if (array_key_exists($item->getName(), $this->_enabled)
                 && $item->getLocation() == $location
                 && is_array($item->getPages())

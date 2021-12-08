@@ -21,12 +21,12 @@ $captcha = CaptchaBase::isCaptchaEnabled();
 
 // Deal with any input
 $errors = [];
-if(Input::exists()){
-    if(Token::check()){
+if (Input::exists()) {
+    if (Token::check()) {
         // Valid token
-        if(isset($_GET['step']) && $_GET['step'] == 2){
+        if (isset($_GET['step']) && $_GET['step'] == 2) {
             // Step 2
-            if(!isset($_SESSION['authme'])){
+            if (!isset($_SESSION['authme'])) {
                 Redirect::to(URL::build('/register'));
                 die();
             }
@@ -37,7 +37,7 @@ if(Input::exists()){
             $custom_usernames = $queries->getWhere('settings', ['name', '=', 'displaynames']);
             $custom_usernames = $custom_usernames[0]->value;
 
-            if($custom_usernames == 'true'){
+            if ($custom_usernames == 'true') {
                 $validation = $validate->check($_POST, [
                     'nickname' => [
                         Validate::REQUIRED => true,
@@ -78,7 +78,7 @@ if(Input::exists()){
                 ]
             ]);
 
-            if($validation->passed()){
+            if ($validation->passed()) {
                 // Get Authme hashing method
                 $cache->setCache('authme_cache');
                 $authme_hash = $cache->retrieve('authme');
@@ -90,16 +90,16 @@ if(Input::exists()){
                 // Get default language ID before creating user
                 $language_id = $queries->getWhere('languages', ['name', '=', LANGUAGE]);
 
-                if(count($language_id)) $language_id = $language_id[0]->id;
+                if (count($language_id)) $language_id = $language_id[0]->id;
                 else $language_id = 1; // fallback to EnglishUK
 
                 $ip = $user->getIP();
-                if(filter_var($ip, FILTER_VALIDATE_IP)){
+                if (filter_var($ip, FILTER_VALIDATE_IP)) {
                     // Valid IP
                 } else
                     $ip = $_SESSION['authme']['ip'];
 
-                if($custom_usernames == 'true')
+                if ($custom_usernames == 'true')
                     $nickname = Output::getClean(Input::get('nickname'));
                 else
                     $nickname = $_SESSION['authme']['user'];
@@ -107,14 +107,14 @@ if(Input::exists()){
                 $mcname = $_SESSION['authme']['user'];
 
                 // UUID
-                if($uuid_linking == '1'){
+                if ($uuid_linking == '1') {
                     require(ROOT_PATH . '/core/integration/uuid.php'); // For UUID stuff
-                    if(!isset($mcname_result)){
+                    if (!isset($mcname_result)) {
                         $profile = ProfileUtils::getProfile(str_replace(' ', '%20', $mcname));
-                        if($profile && method_exists($profile, 'getProfileAsArray'))
+                        if ($profile && method_exists($profile, 'getProfileAsArray'))
                             $mcname_result = $profile->getProfileAsArray();
                     }
-                    if(isset($mcname_result['uuid']) && !empty($mcname_result['uuid'])){
+                    if (isset($mcname_result['uuid']) && !empty($mcname_result['uuid'])) {
                         $uuid = $mcname_result['uuid'];
                     } else {
                         $errors[] = $language->get('user', 'mcname_lookup_error');
@@ -182,7 +182,7 @@ if(Input::exists()){
                 $captcha_passed = true;
             }
 
-            if($captcha_passed){
+            if ($captcha_passed) {
                 // Valid recaptcha
                 $validate = new Validate();
                 $validation = $validate->check($_POST, [
@@ -208,7 +208,7 @@ if(Input::exists()){
                     't_and_c' => $language->get('user', 'accept_terms')
                 ]);
 
-                if($validation->passed()){
+                if ($validation->passed()) {
                     // Try connecting to AuthMe
                     $cache->setCache('authme_cache');
                     $authme_db = $cache->retrieve('authme');
@@ -216,36 +216,36 @@ if(Input::exists()){
                     // Try to connect to the database
                     $authme_conn = new mysqli($authme_db['address'], $authme_db['user'], $authme_db['pass'], $authme_db['db'], $authme_db['port']);
 
-                    if($authme_conn->connect_errno){
+                    if ($authme_conn->connect_errno) {
                         // Connection error
                         $errors[] = $authme_conn->connect_errno . ' - ' . $authme_conn->connect_error;
                         $errors[] = $language->get('user', 'unable_to_connect_to_authme_db');
                     } else {
                         // Success, check user exists in database and validate password
                         $stmt = $authme_conn->prepare('SELECT password, ip FROM ' . $authme_db['table'] . ' WHERE realname = ?');
-                        if($stmt){
+                        if ($stmt) {
                             $stmt->bind_param('s', Input::get('username'));
                             $stmt->execute();
                             $stmt->bind_result($password, $ip);
 
-                            while($stmt->fetch()){
+                            while($stmt->fetch()) {
                                 // Retrieve result
                             }
 
                             $stmt->free_result();
                             $stmt->close();
 
-                            if(is_null($password)){
+                            if (is_null($password)) {
                                 $errors[] = $language->get('user', 'incorrect_details');
                             } else {
                                 // Validate inputted password against actual password
                                 $valid = false;
 
-                                switch($authme_db['hash']){
+                                switch($authme_db['hash']) {
                                     case 'bcrypt':
                                         require(ROOT_PATH . '/core/includes/password.php');
 
-                                        if(password_verify($_POST['password'], $password)){
+                                        if (password_verify($_POST['password'], $password)) {
                                             $valid = true;
                                             $_SESSION['authme'] = [
                                                 'user' => Output::getClean(Input::get('username')),
@@ -257,7 +257,7 @@ if(Input::exists()){
                                         break;
 
                                     case 'sha1':
-                                        if(sha1($_POST['password']) == $password){
+                                        if (sha1($_POST['password']) == $password) {
                                             $valid = true;
                                             $_SESSION['authme'] = [
                                                 'user' => Output::getClean(Input::get('username')),
@@ -272,7 +272,7 @@ if(Input::exists()){
                                         $exploded = explode('$', $password);
                                         $salt = $exploded[2];
 
-                                        if($salt . hash('sha256', hash('sha256', $_POST['password']) . $salt) == $salt . $exploded[3]){
+                                        if ($salt . hash('sha256', hash('sha256', $_POST['password']) . $salt) == $salt . $exploded[3]) {
                                             $valid = true;
                                             $_SESSION['authme'] = [
                                                 'user' => Output::getClean(Input::get('username')),
@@ -292,7 +292,7 @@ if(Input::exists()){
 
                                         $hashed = hash_pbkdf2('sha256', $_POST['password'], $salt, $iterations, 64, true);
 
-                                        if($hashed == hex2bin($pass)){
+                                        if ($hashed == hex2bin($pass)) {
                                             $valid = true;
                                             $_SESSION['authme'] = [
                                                 'user' => Output::getClean(Input::get('username')),
@@ -304,7 +304,7 @@ if(Input::exists()){
                                         break;
                                 }
 
-                                if($valid === true){
+                                if ($valid === true) {
                                     // Passwords match
                                     // Continue to step 2
                                     Redirect::to(URL::build('/register', 'step=2'));
@@ -339,12 +339,12 @@ if(Input::exists()){
     }
 }
 
-if(count($errors))
+if (count($errors))
     $smarty->assign('ERRORS', $errors);
 
 $smarty->assign('ERROR', $language->get('general', 'error'));
 
-if(!isset($_GET['step'])){
+if (!isset($_GET['step'])) {
     // Smarty
     $smarty->assign([
         'CONNECT_WITH_AUTHME' => $language->get('user', 'connect_with_authme'),
@@ -358,7 +358,7 @@ if(!isset($_GET['step'])){
     ]);
 
     // Recaptcha
-    if($captcha){
+    if ($captcha) {
         $smarty->assign('CAPTCHA', CaptchaBase::getActiveProvider()->getHtml());
         $template->addJSFiles([CaptchaBase::getActiveProvider()->getJavascriptSource() => []]);
 
@@ -380,7 +380,7 @@ if(!isset($_GET['step'])){
     $custom_usernames = $queries->getWhere('settings', ['name', '=', 'displaynames']);
     $custom_usernames = $custom_usernames[0]->value;
 
-    if($custom_usernames == 'true') {
+    if ($custom_usernames == 'true') {
         $info = $language->get('user', 'authme_email_help_2');
         $smarty->assign('NICKNAME', $language->get('user', 'username'));
     } else

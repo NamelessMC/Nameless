@@ -9,7 +9,7 @@
  *  Panel profile fields page
  */
 
-if(!$user->handlePanelPageLoad('admincp.core.fields')) {
+if (!$user->handlePanelPageLoad('admincp.core.fields')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }

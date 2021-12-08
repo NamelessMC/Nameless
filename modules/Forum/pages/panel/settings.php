@@ -10,7 +10,7 @@
  */
 
 // Can the user view the panel?
-if(!$user->handlePanelPageLoad('admincp.forums')) {
+if (!$user->handlePanelPageLoad('admincp.forums')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }
@@ -24,8 +24,8 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 if (Input::exists()) {
     if (Token::check()) {
 		// Update link location
-        if(isset($_POST['link_location'])){
-            switch($_POST['link_location']){
+        if (isset($_POST['link_location'])) {
+            switch($_POST['link_location']) {
                 case 1:
                 case 2:
                 case 3:

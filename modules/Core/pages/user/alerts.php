@@ -10,7 +10,7 @@
  */
 
 // Must be logged in
-if(!$user->isLoggedIn()){
+if (!$user->isLoggedIn()) {
 	Redirect::to(URL::build('/'));
 	die();
 }
@@ -22,18 +22,18 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 $timeago = new TimeAgo(TIMEZONE);
 
-if(!isset($_GET['view'])){
-	if(!isset($_GET['action'])){
+if (!isset($_GET['view'])) {
+	if (!isset($_GET['action'])) {
 		// Get alerts
 		$alerts = $queries->orderWhere('alerts', 'user_id = ' . $user->data()->id, 'created', 'DESC');
 
 		$alerts_limited = [];
 		$n = 0;
 
-		if(count($alerts) > 30) $limit = 30;
+		if (count($alerts) > 30) $limit = 30;
 		else $limit = count($alerts);
 
-		while($n < $limit){
+		while($n < $limit) {
 			// Only display 30 alerts
 			// Get date
 			$alerts[$n]->date = date('d M Y, H:i', $alerts[$n]->created);
@@ -78,7 +78,7 @@ if(!isset($_GET['view'])){
 		$template->displayTemplate('user/alerts.tpl', $smarty);
 
 	} else {
-		if($_GET['action'] == 'purge'){
+		if ($_GET['action'] == 'purge') {
             if (Token::check()) {
                 $queries->delete('alerts', ['user_id', '=', $user->data()->id]);
             } else {
@@ -92,14 +92,14 @@ if(!isset($_GET['view'])){
 
 } else {
 	// Redirect to alert, mark as read
-	if(!is_numeric($_GET['view'])) Redirect::to(URL::build('/user/alerts'));
+	if (!is_numeric($_GET['view'])) Redirect::to(URL::build('/user/alerts'));
 
 	// Check the alert belongs to the user..
 	$alert = $queries->getWhere('alerts', ['id', '=', $_GET['view']]);
 
-	if(!count($alert) || $alert[0]->user_id != $user->data()->id) Redirect::to(URL::build('/user/alerts'));
+	if (!count($alert) || $alert[0]->user_id != $user->data()->id) Redirect::to(URL::build('/user/alerts'));
 
-	if($alert[0]->read == 0){
+	if ($alert[0]->read == 0) {
 		$queries->update('alerts', $alert[0]->id, [
 			'`read`' => 1
         ]);

@@ -9,7 +9,7 @@
  *  Panel cookies page
  */
 
-if(!$user->handlePanelPageLoad('admincp.cookies')) {
+if (!$user->handlePanelPageLoad('admincp.cookies')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }

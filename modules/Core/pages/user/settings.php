@@ -10,7 +10,7 @@
  */
 
 // Must be logged in
-if(!$user->isLoggedIn()){
+if (!$user->isLoggedIn()) {
 	Redirect::to(URL::build('/'));
 	die();
 }
@@ -28,18 +28,18 @@ $emojione = new Emojione\Client(new Emojione\Ruleset());
 $forum_enabled = Util::isModuleEnabled('Forum');
 
 // Two factor auth?
-if(isset($_GET['do'])){
-	if($_GET['do'] == 'enable_tfa'){
+if (isset($_GET['do'])) {
+	if ($_GET['do'] == 'enable_tfa') {
 
 		// Ensure TFA is currently disabled
-		if($user->data()->tfa_enabled == 1){
+		if ($user->data()->tfa_enabled == 1) {
 			Redirect::to(URL::build('/user/settings'));
 			die();
 		}
 
         $tfa = new \RobThree\Auth\TwoFactorAuth(SITE_NAME);
 
-		if(!isset($_GET['s'])){
+		if (!isset($_GET['s'])) {
 			// Generate secret
 			$secret = $tfa->createSecret();
 
@@ -76,10 +76,10 @@ if(isset($_GET['do'])){
 
         } else {
 			// Validate code to see if it matches the secret
-			if(Input::exists()){
-				if(Token::check()){
-					if(isset($_POST['tfa_code'])){
-						if($tfa->verifyCode($user->data()->tfa_secret, $_POST['tfa_code']) === true){
+			if (Input::exists()) {
+				if (Token::check()) {
+					if (isset($_POST['tfa_code'])) {
+						if ($tfa->verifyCode($user->data()->tfa_secret, $_POST['tfa_code']) === true) {
 							$user->update([
 								'tfa_complete' => 1,
 								'tfa_enabled' => 1,
@@ -100,7 +100,7 @@ if(isset($_GET['do'])){
 				}
 			}
 
-			if(isset($error)) $smarty->assign('ERROR', $error);
+			if (isset($error)) $smarty->assign('ERROR', $error);
 
 			$smarty->assign([
 				'TWO_FACTOR_AUTH' => $language->get('user', 'two_factor_auth'),
@@ -126,7 +126,7 @@ if(isset($_GET['do'])){
         require(ROOT_PATH . '/core/templates/footer.php');
         $template->displayTemplate('user/tfa.tpl', $smarty);
 
-    } else if($_GET['do'] == 'disable_tfa') {
+    } else if ($_GET['do'] == 'disable_tfa') {
 		// Disable TFA
 		$user->update([
 			'tfa_enabled' => 0,
@@ -141,9 +141,9 @@ if(isset($_GET['do'])){
 
 } else {
 	// Handle input
-	if(Input::exists()){
-		if(Token::check()){
-			if(Input::get('action') == 'settings'){
+	if (Input::exists()) {
+		if (Token::check()) {
+			if (Input::get('action') == 'settings') {
 				// Validation
 				$validate = new Validate();
 
@@ -157,7 +157,7 @@ if(isset($_GET['do'])){
                 ];
 
 				// Permission to use nickname?
-                if($user->hasPermission('usercp.nickname')){
+                if ($user->hasPermission('usercp.nickname')) {
                     $to_validate['nickname'] = [
                         'required' => true,
                         'min' => 3,
@@ -188,13 +188,13 @@ if(isset($_GET['do'])){
 
 				$validation = $validate->check($_POST, $to_validate);
 
-				if($validation->passed()){
+				if ($validation->passed()) {
 				    // Check nickname is unique
-                    if($user->hasPermission('usercp.nickname')) {
+                    if ($user->hasPermission('usercp.nickname')) {
                         $unique_nickname = $queries->getWhere('users', ['nickname', '=', Output::getClean(Input::get('nickname'))]);
-                        if(count($unique_nickname)){
+                        if (count($unique_nickname)) {
                             $unique_nickname = $unique_nickname[0];
-                            if($unique_nickname->id != $user->data()->id){
+                            if ($unique_nickname->id != $user->data()->id) {
                                 // Not unique
                                 $nickname_error = true;
                                 $error = $language->get('user', 'nickname_already_exists');
@@ -203,7 +203,7 @@ if(isset($_GET['do'])){
                     }
 
 					// Update profile fields
-                    if(!isset($nickname_error)) {
+                    if (!isset($nickname_error)) {
                         try {
                             // Update language, template and timezone
                             $new_language = $queries->getWhere('languages', ['name', '=', Input::get('language')]);
@@ -219,14 +219,14 @@ if(isset($_GET['do'])){
 	                        // Check permissions
 	                        $available_templates = $user->getUserTemplates();
 
-	                        foreach($available_templates as $available_template){
-	                        	if($available_template->id == $new_template){
+	                        foreach ($available_templates as $available_template) {
+	                        	if ($available_template->id == $new_template) {
 	                        		$can_update = true;
 	                        		break;
 		                        }
 	                        }
 
-	                        if(!isset($can_update)){
+	                        if (!isset($can_update)) {
 	                        	$new_template = $user->data()->theme_id;
 	                        }
 
@@ -245,7 +245,7 @@ if(isset($_GET['do'])){
 
                             // Private profiles enabled?
                             $private_profiles = $queries->getWhere('settings', ['name', '=', 'private_profile']);
-                            if($private_profiles[0]->value == 1) {
+                            if ($private_profiles[0]->value == 1) {
                                 if ($user->canPrivateProfile() && $_POST['privateProfile'] == 1)
                                     $privateProfile = 1;
                                 else
@@ -266,7 +266,7 @@ if(isset($_GET['do'])){
                             ];
 
                             // Is forum enabled? Update topic Updates
-                            if($forum_enabled) {
+                            if ($forum_enabled) {
                                 $topicUpdates = Output::getClean(Input::get('topicUpdates'));
 
                                 $data['topic_updates'] = $topicUpdates;
@@ -327,15 +327,15 @@ if(isset($_GET['do'])){
 
 				} else {
 					// Validation errors
-					foreach($validation->errors() as $item){
-					    if(strpos($item, 'signature') !== false){
+					foreach ($validation->errors() as $item) {
+					    if (strpos($item, 'signature') !== false) {
 					        $errors[] = $language->get('user', 'signature_max_900') . '<br />';
-                        } else if(strpos($item, 'nickname') !== false){
-					        if(strpos($item, 'required') !== false){
+                        } else if (strpos($item, 'nickname') !== false) {
+					        if (strpos($item, 'required') !== false) {
 					            $errors[] = $language->get('user', 'username_required') . '<br />';
-                            } else if(strpos($item, 'min')  !== false){
+                            } else if (strpos($item, 'min')  !== false) {
                                 $errors[] = $language->get('user', 'username_minimum_3') . '<br />';
-                            } else if(strpos($item, 'max') !== false){
+                            } else if (strpos($item, 'max') !== false) {
                                 $errors[] = $language->get('user', 'username_maximum_20') . '<br />';
 							}
 						} else if (strpos($item, 'timezone') !== false) {
@@ -353,7 +353,7 @@ if(isset($_GET['do'])){
                         }
 					}
 				}
-			} else if(Input::get('action') == 'password'){
+			} else if (Input::get('action') == 'password') {
 				// Change password
 				$validate = new Validate();
 
@@ -381,11 +381,11 @@ if(isset($_GET['do'])){
                     ]
                 ]);
 
-				if($validation->passed()){
+				if ($validation->passed()) {
 					// Update password
 					// Check old password matches
 					$old_password = Input::get('old_password');
-					if($user->checkCredentials($user->data()->username, $old_password, 'username')){
+					if ($user->checkCredentials($user->data()->username, $old_password, 'username')) {
 
                         // Hash new password
                         $new_password = password_hash(Input::get('new_password'), PASSWORD_BCRYPT, ['cost' => 13]);
@@ -405,7 +405,7 @@ if(isset($_GET['do'])){
 				} else {
 					$errors = $validation->errors();
 				}
-			} else if(Input::get('action') == 'email'){
+			} else if (Input::get('action') == 'email') {
                 // Change password
                 $validate = new Validate();
 
@@ -427,16 +427,16 @@ if(isset($_GET['do'])){
                     ]
                 ]);
 
-                if($validation->passed()){
+                if ($validation->passed()) {
                     // Check email doesn't exist
                     $email_query = $queries->getWhere('users', ['email', '=', $_POST['email']]);
-                    if(count($email_query)){
-                        if($email_query[0]->id != $user->data()->id){
+                    if (count($email_query)) {
+                        if ($email_query[0]->id != $user->data()->id) {
                             $error = $language->get('user', 'email_already_exists');
                         }
                     }
 
-                    if(!isset($error)) {
+                    if (!isset($error)) {
                         // Check password matches
                         $password = Input::get('password');
                         if ($user->checkCredentials($user->data()->username, $password, 'username')) {
@@ -458,7 +458,7 @@ if(isset($_GET['do'])){
                 } else {
                     $errors = $validation->errors();
                 }
-            } else if(Input::get('action') == 'discord'){
+            } else if (Input::get('action') == 'discord') {
 
 				if (Input::get('unlink') == 'true') {
 
@@ -509,7 +509,7 @@ if(isset($_GET['do'])){
 
 	$cache->setCache('post_formatting');
 	$formatting = $cache->retrieve('formatting');
-	if($formatting == 'markdown'){
+	if ($formatting == 'markdown') {
 		$template->addJSFiles([
 			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/js/emojione.min.js' => [],
 			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/js/emojionearea.min.js' => []
@@ -534,14 +534,14 @@ if(isset($_GET['do'])){
 	}
 
 	// Error/success message?
-	if(Session::exists('settings_error')) $error = Session::flash('settings_error');
-	if(Session::exists('settings_success')) $success = Session::flash('settings_success');
+	if (Session::exists('settings_error')) $error = Session::flash('settings_error');
+	if (Session::exists('settings_success')) $success = Session::flash('settings_success');
 
 	// Get languages
 	$languages = [];
 	$language_query = $queries->getWhere('languages', ['id', '<>', 0]);
 
-	foreach($language_query as $item){
+	foreach ($language_query as $item) {
 		$languages[] = [
 			'name' => Output::getClean($item->name),
 			'active' => $user->data()->language_id == $item->id
@@ -552,7 +552,7 @@ if(isset($_GET['do'])){
 	$templates = [];
 	$templates_query = $user->getUserTemplates();
 
-	foreach($templates_query as $item){
+	foreach ($templates_query as $item) {
 		$templates[] = [
 			'id' => Output::getClean($item->id),
 			'active' => $item->id === $user->data()->theme_id,
@@ -570,7 +570,7 @@ if(isset($_GET['do'])){
         ]
     ];
 
-	if($user->hasPermission('usercp.nickname')){
+	if ($user->hasPermission('usercp.nickname')) {
 		$custom_fields_template['nickname'] = [
 			'name' => $language->get('user', 'nickname'),
 			'value' => Output::getClean($user->data()->nickname),
@@ -579,17 +579,17 @@ if(isset($_GET['do'])){
         ];
 	}
 
-	if(count($custom_fields)){
-		foreach($custom_fields as $field){
+	if (count($custom_fields)) {
+		foreach ($custom_fields as $field) {
 			// Check if its editable if not, next
-			if($field->editable == false){
+			if ($field->editable == false) {
 				continue;
 			}
 			// Get field value for user
 			$value = '';
-			if(count($user_custom_fields)){
-				foreach($user_custom_fields as $key => $item){
-					if($item->field_id == $field->id){
+			if (count($user_custom_fields)) {
+				foreach ($user_custom_fields as $key => $item) {
+					if ($item->field_id == $field->id) {
 						// TODO: support HTML fields
 						$value = Output::getClean($item->value);
 						unset($user_custom_fields[$key]);
@@ -599,11 +599,11 @@ if(isset($_GET['do'])){
 			}
 
 			// Get custom field type
-			if($field->type == 1)
+			if ($field->type == 1)
 				$type = 'text';
-			else if($field->type == 2)
+			else if ($field->type == 2)
 				$type = 'textarea';
-			else if($field->type == 3)
+			else if ($field->type == 3)
 				$type = 'date';
 
 			$custom_fields_template[$field->name] = [
@@ -616,7 +616,7 @@ if(isset($_GET['do'])){
 		}
 	}
 
-	if(Session::exists('tfa_success')){
+	if (Session::exists('tfa_success')) {
 		$success = Session::flash('tfa_success');
 	}
 
@@ -626,12 +626,12 @@ if(isset($_GET['do'])){
 			'ERRORS_TITLE' => $language->get('general', 'error')
         ]);
 
-	if($user->hasPermission('usercp.signature')){
+	if ($user->hasPermission('usercp.signature')) {
         // Get post formatting type (HTML or Markdown)
         $cache->setCache('post_formatting');
         $formatting = $cache->retrieve('formatting');
 
-        if($formatting == 'markdown'){
+        if ($formatting == 'markdown') {
             // Markdown
             $converter = new League\HTMLToMarkdown\HtmlConverter(['strip_tags' => TRUE]);
 
@@ -650,14 +650,14 @@ if(isset($_GET['do'])){
         ]);
 	}
 
-	if($forum_enabled) {
+	if ($forum_enabled) {
 		$smarty->assign([
 			'TOPIC_UPDATES' => $language->get('user', 'topic_updates'),
 			'TOPIC_UPDATES_ENABLED' => DB::getInstance()->get('users', ['id', '=', $user->data()->id])->first()->topic_updates
         ]);
 	}
 
-	if($user->canPrivateProfile()){
+	if ($user->canPrivateProfile()) {
         $smarty->assign([
             'PRIVATE_PROFILE' => $language->get('user', 'private_profile'),
             'PRIVATE_PROFILE_ENABLED' => $user->isPrivateProfile()
@@ -665,7 +665,7 @@ if(isset($_GET['do'])){
 	}
 
     // Discord Integration
-    if(Util::isModuleEnabled('Discord Integration')) {
+    if (Util::isModuleEnabled('Discord Integration')) {
         $discord_linked = !($user->data()->discord_id == null || $user->data()->discord_id == 010);
 
         if ($discord_linked) {
@@ -734,7 +734,7 @@ if(isset($_GET['do'])){
         'GRAVATAR_VALUE' => $user->data()->gravatar == '1' ? '1' : '0'
     ]);
 
-	if(defined('CUSTOM_AVATARS')) {
+	if (defined('CUSTOM_AVATARS')) {
       $smarty->assign([
         'CUSTOM_AVATARS' => true,
         'CUSTOM_AVATARS_SCRIPT' => ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'core/includes/image_upload.php',
@@ -743,10 +743,10 @@ if(isset($_GET['do'])){
       ]);
 	}
 
-	if($user->data()->tfa_enabled == 1){
+	if ($user->data()->tfa_enabled == 1) {
 		$smarty->assign('DISABLE', $language->get('user', 'disable'));
-		foreach($user->getGroups() as $group) {
-			if($group->force_tfa) {
+		foreach ($user->getGroups() as $group) {
+			if ($group->force_tfa) {
 				$forced = true;
 				break;
 			}

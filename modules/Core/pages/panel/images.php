@@ -9,7 +9,7 @@
  *  Panel images page
  */
 
-if(!$user->handlePanelPageLoad('admincp.styles.images')) {
+if (!$user->handlePanelPageLoad('admincp.styles.images')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }

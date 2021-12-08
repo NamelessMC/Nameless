@@ -9,7 +9,7 @@
  *  Panel custom pages page
  */
 
-if(!$user->handlePanelPageLoad('admincp.pages')) {
+if (!$user->handlePanelPageLoad('admincp.pages')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }
@@ -23,12 +23,12 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-if(!isset($_GET['action'])){
+if (!isset($_GET['action'])) {
     $custom_pages = $queries->getWhere('custom_pages', ['id', '<>', 0]);
     $template_array = [];
 
-    if(count($custom_pages)){
-        foreach($custom_pages as $custom_page){
+    if (count($custom_pages)) {
+        foreach ($custom_pages as $custom_page) {
             $template_array[] = [
                 'id' => Output::getClean($custom_page->id),
                 'edit_link' => URL::build('/panel/core/pages/', 'action=edit&id=' . Output::getClean($custom_page->id)),
@@ -54,12 +54,12 @@ if(!isset($_GET['action'])){
     $template_file = 'core/pages.tpl';
 
 } else {
-    switch($_GET['action']){
+    switch($_GET['action']) {
         case 'new':
-            if(Input::exists()){
+            if (Input::exists()) {
                 $errors = [];
 
-                if(Token::check()){
+                if (Token::check()) {
                     $validate = new Validate();
                     $validation = $validate->check($_POST, [
                         'page_title' => [
@@ -99,11 +99,11 @@ if(!isset($_GET['action'])){
                         'redirect_link' => $language->get('admin', 'page_redirect_link_maximum_512')
                     ]);
 
-                    if($validation->passed()){
+                    if ($validation->passed()) {
                         try {
                             // Get link location
-                            if(isset($_POST['link_location'])){
-                                switch($_POST['link_location']){
+                            if (isset($_POST['link_location'])) {
+                                switch($_POST['link_location']) {
                                     case 1:
                                     case 2:
                                     case 3:
@@ -116,21 +116,21 @@ if(!isset($_GET['action'])){
                             } else
                                 $location = 1;
 
-                            if(isset($_POST['redirect_page']) && $_POST['redirect_page'] == 'on') $redirect = 1;
+                            if (isset($_POST['redirect_page']) && $_POST['redirect_page'] == 'on') $redirect = 1;
                             else $redirect = 0;
 
-                            if(isset($_POST['target']) && $_POST['target'] == 'on') $target = 1;
+                            if (isset($_POST['target']) && $_POST['target'] == 'on') $target = 1;
                             else $target = 0;
 
                             $link = $_POST['redirect_link'] ?? '';
 
-                            if(isset($_POST['unsafe_html']) && $_POST['unsafe_html'] == 'on') $unsafe = 1;
+                            if (isset($_POST['unsafe_html']) && $_POST['unsafe_html'] == 'on') $unsafe = 1;
                             else $unsafe = 0;
 
-                            if(isset($_POST['sitemap']) && $_POST['sitemap'] == 'on') $sitemap = 1;
+                            if (isset($_POST['sitemap']) && $_POST['sitemap'] == 'on') $sitemap = 1;
                             else $sitemap = 0;
 
-                            if(isset($_POST['basic']) && $_POST['basic'] == 'on') $basic = 1;
+                            if (isset($_POST['basic']) && $_POST['basic'] == 'on') $basic = 1;
                             else $basic = 0;
 
                             $page_url = Output::getClean(rtrim(Input::get('page_url'), '/'));
@@ -152,20 +152,20 @@ if(!isset($_GET['action'])){
 
                             // Permissions
                             $perms = [];
-                            if(isset($_POST['perm-view-0']) && $_POST['perm-view-0'] == 1)
+                            if (isset($_POST['perm-view-0']) && $_POST['perm-view-0'] == 1)
                                 $perms[0] = 1;
                             else
                                 $perms[0] = 0;
 
                             $groups = $queries->getWhere('groups', ['id', '<>', 0]);
-                            foreach($groups as $group){
-                                if(isset($_POST['perm-view-' . $group->id]) && $_POST['perm-view-' . $group->id] == 1)
+                            foreach ($groups as $group) {
+                                if (isset($_POST['perm-view-' . $group->id]) && $_POST['perm-view-' . $group->id] == 1)
                                     $perms[$group->id] = 1;
                                 else
                                     $perms[$group->id] = 0;
                             }
 
-                            foreach($perms as $key => $perm){
+                            foreach ($perms as $key => $perm) {
                                 $queries->create('custom_pages_permissions', [
                                     'page_id' => $last_id,
                                     'group_id' => $key,
@@ -190,7 +190,7 @@ if(!isset($_GET['action'])){
 
             $groups = DB::getInstance()->selectQuery('SELECT * FROM nl2_groups ORDER BY `order`')->results();
             $template_array = [];
-            foreach($groups as $group){
+            foreach ($groups as $group) {
                 $template_array[Output::getClean($group->id)] = [
                     'id' => Output::getClean($group->id),
                     'name' => Output::getClean($group->name),
@@ -238,22 +238,22 @@ if(!isset($_GET['action'])){
 
         case 'edit':
             // Get page
-            if(!isset($_GET['id']) || !is_numeric($_GET['id'])){
+            if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
                 Redirect::to(URL::build('/panel/core/pages'));
                 die();
             }
             $page = $queries->getWhere('custom_pages', ['id', '=', $_GET['id']]);
-            if(!count($page)){
+            if (!count($page)) {
                 Redirect::to(URL::build('/panel/core/pages'));
                 die();
             }
             $page = $page[0];
 
             // Handle input
-            if(Input::exists()){
+            if (Input::exists()) {
                 $errors = [];
 
-                if(Token::check()){
+                if (Token::check()) {
                     $validate = new Validate();
                     $validation = $validate->check($_POST, [
                         'page_title' => [
@@ -293,11 +293,11 @@ if(!isset($_GET['action'])){
                         'redirect_link' => $language->get('admin', 'page_redirect_link_maximum_512')
                     ]);
 
-                    if($validation->passed()){
+                    if ($validation->passed()) {
                         try {
                             // Get link location
-                            if(isset($_POST['link_location'])){
-                                switch($_POST['link_location']){
+                            if (isset($_POST['link_location'])) {
+                                switch($_POST['link_location']) {
                                     case 1:
                                     case 2:
                                     case 3:
@@ -310,21 +310,21 @@ if(!isset($_GET['action'])){
                             } else
                                 $location = 1;
 
-                            if(isset($_POST['redirect_page']) && $_POST['redirect_page'] == 'on') $redirect = 1;
+                            if (isset($_POST['redirect_page']) && $_POST['redirect_page'] == 'on') $redirect = 1;
                             else $redirect = 0;
 
-                            if(isset($_POST['target']) && $_POST['target'] == 'on') $target = 1;
+                            if (isset($_POST['target']) && $_POST['target'] == 'on') $target = 1;
                             else $target = 0;
 
                             $link = $_POST['redirect_link'] ?? '';
 
-                            if(isset($_POST['unsafe_html']) && $_POST['unsafe_html'] == 'on') $unsafe = 1;
+                            if (isset($_POST['unsafe_html']) && $_POST['unsafe_html'] == 'on') $unsafe = 1;
                             else $unsafe = 0;
 
-                            if(isset($_POST['sitemap']) && $_POST['sitemap'] == 'on') $sitemap = 1;
+                            if (isset($_POST['sitemap']) && $_POST['sitemap'] == 'on') $sitemap = 1;
                             else $sitemap = 0;
 
-                            if(isset($_POST['basic']) && $_POST['basic'] == 'on') $basic = 1;
+                            if (isset($_POST['basic']) && $_POST['basic'] == 'on') $basic = 1;
                             else $basic = 0;
 
                             $page_url = Output::getClean(rtrim(Input::get('page_url'), '/'));
@@ -349,7 +349,7 @@ if(!isset($_GET['action'])){
                                     $pages = json_decode($widget_row->pages, true);
                                     $new_pages = [];
                                     if (is_array($pages) && count($pages)) {
-                                        foreach($pages as $widget_page) {
+                                        foreach ($pages as $widget_page) {
                                             if ($page->title == $widget_page) {
                                                 $new_pages[] = Output::getClean(Input::get('page_title'));
                                             } else {
@@ -386,14 +386,14 @@ if(!isset($_GET['action'])){
                             // Guest first
                             $view = Input::get('perm-view-0');
 
-                            if(!($view)) $view = 0;
+                            if (!($view)) $view = 0;
 
                             $page_perm_exists = 0;
 
                             $page_perm_query = $queries->getWhere('custom_pages_permissions', ['page_id', '=', $page->id]);
-                            if(count($page_perm_query)){
-                                foreach($page_perm_query as $query){
-                                    if($query->group_id == 0){
+                            if (count($page_perm_query)) {
+                                foreach ($page_perm_query as $query) {
+                                    if ($query->group_id == 0) {
                                         $page_perm_exists = 1;
                                         $update_id = $query->id;
                                         break;
@@ -402,7 +402,7 @@ if(!isset($_GET['action'])){
                             }
 
                             try {
-                                if($page_perm_exists != 0){ // Permission already exists, update
+                                if ($page_perm_exists != 0) { // Permission already exists, update
                                     // Update the category
                                     $queries->update('custom_pages_permissions', $update_id, [
                                         'view' => $view
@@ -421,16 +421,16 @@ if(!isset($_GET['action'])){
 
                             // Group category permissions
                             $groups = $queries->getWhere('groups', ['id', '<>', 0]);
-                            foreach($groups as $group){
+                            foreach ($groups as $group) {
                                 $view = Input::get('perm-view-' . $group->id);
 
-                                if(!($view)) $view = 0;
+                                if (!($view)) $view = 0;
 
                                 $page_perm_exists = 0;
 
-                                if(count($page_perm_query)){
-                                    foreach($page_perm_query as $query){
-                                        if($query->group_id == $group->id){
+                                if (count($page_perm_query)) {
+                                    foreach ($page_perm_query as $query) {
+                                        if ($query->group_id == $group->id) {
                                             $page_perm_exists = 1;
                                             $update_id = $query->id;
                                             break;
@@ -439,7 +439,7 @@ if(!isset($_GET['action'])){
                                 }
 
                                 try {
-                                    if($page_perm_exists != 0){ // Permission already exists, update
+                                    if ($page_perm_exists != 0) { // Permission already exists, update
                                         // Update the category
                                         $queries->update('custom_pages_permissions', $update_id, [
                                             'view' => $view
@@ -474,7 +474,7 @@ if(!isset($_GET['action'])){
 
             $group_permissions = DB::getInstance()->selectQuery('SELECT id, `name`, group_html, subquery.view AS `view` FROM nl2_groups LEFT JOIN (SELECT `view`, group_id FROM nl2_custom_pages_permissions WHERE page_id = ?) AS subquery ON nl2_groups.id = subquery.group_id ORDER BY `order`', [$page->id])->results();
             $template_array = [];
-            foreach($group_permissions as $group){
+            foreach ($group_permissions as $group) {
                 $template_array[Output::getClean($group->id)] = [
                     'id' => Output::getClean($group->id),
                     'name' => Output::getClean($group->name),
@@ -485,8 +485,8 @@ if(!isset($_GET['action'])){
 
             $guest_permissions = DB::getInstance()->selectQuery('SELECT `view` FROM nl2_custom_pages_permissions WHERE group_id = 0 AND page_id = ?', [$page->id])->results();
             $guest_can_view = 0;
-            if(count($guest_permissions)){
-                if($guest_permissions[0]->view == 1){
+            if (count($guest_permissions)) {
+                if ($guest_permissions[0]->view == 1) {
                     $guest_can_view = 1;
                 }
             }
@@ -539,7 +539,7 @@ if(!isset($_GET['action'])){
         case 'delete':
             if (Input::exists()) {
                 if (Token::check(Input::get('token'))) {
-                    if(isset($_POST['id']) && is_numeric($_POST['id'])){
+                    if (isset($_POST['id']) && is_numeric($_POST['id'])) {
 
                         $queries->delete('custom_pages', ['id', '=', $_POST['id']]);
                         $queries->delete('custom_pages_permissions', ['page_id', '=', $_POST['id']]);
@@ -558,19 +558,19 @@ if(!isset($_GET['action'])){
     }
 }
 
-if(Session::exists('admin_pages'))
+if (Session::exists('admin_pages'))
     $success = Session::flash('admin_pages');
 
-if(Session::exists('admin_pages_error'))
+if (Session::exists('admin_pages_error'))
     $errors = [Session::flash('admin_pages_error')];
 
-if(isset($success))
+if (isset($success))
     $smarty->assign([
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ]);
 
-if(isset($errors) && count($errors))
+if (isset($errors) && count($errors))
     $smarty->assign([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')

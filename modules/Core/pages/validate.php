@@ -17,7 +17,7 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-if(isset($_GET['c'])) {
+if (isset($_GET['c'])) {
     $user = new User($_GET['c'], 'reset_code');
     if ($user->data()) {
         // API verification

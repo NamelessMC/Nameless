@@ -9,7 +9,7 @@
  *  Panel general settings page
  */
 
-if(!$user->handlePanelPageLoad('admincp.core.general')) {
+if (!$user->handlePanelPageLoad('admincp.core.general')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }
@@ -221,7 +221,7 @@ if (Input::exists()) {
             } else $errors = [$language->get('admin', 'config_not_writable')];
 
             /*
-            if(!empty($_POST["allowedProxies"])) {
+            if (!empty($_POST["allowedProxies"])) {
                 $allowedProxies = $_POST["allowedProxies"];
                 $allowedProxies = str_replace("\r", "", $allowedProxies);
                 $allowedProxies = preg_replace('/\s+/', ' ', $allowedProxies);

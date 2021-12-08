@@ -59,7 +59,7 @@ class ProfileUtils {
      * @return MinecraftProfile|null Returns null if fetching of profile failed. Else returns completed user profile.
      */
     public static function getProfile(string $identifier): ?MinecraftProfile {
-        if(strlen($identifier) <= 16){
+        if (strlen($identifier) <= 16) {
             $identifier = ProfileUtils::getUUIDFromUsername($identifier);
             $url = 'https://sessionserver.mojang.com/session/minecraft/profile/' .$identifier['uuid'];
         } else {
@@ -81,7 +81,7 @@ class ProfileUtils {
      * @return array (Key => Value) "username" => Minecraft username (properly capitalized) "uuid" => Minecraft UUID
      */
     public static function getUUIDFromUsername(string $username): ?array {
-        if(strlen($username) > 16)
+        if (strlen($username) > 16)
             return ['username' => '', 'uuid' => ''];
         $url = 'https://api.mojang.com/users/profiles/minecraft/'.htmlspecialchars($username);
 

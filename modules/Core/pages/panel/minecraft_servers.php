@@ -9,7 +9,7 @@
  *  Panel Minecraft servers page
  */
 
-if(!$user->handlePanelPageLoad('admincp.minecraft.servers')) {
+if (!$user->handlePanelPageLoad('admincp.minecraft.servers')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }
@@ -21,14 +21,14 @@ const MINECRAFT_PAGE = 'servers';
 $page_title = $language->get('admin', 'minecraft_servers');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
-if(isset($_GET['action'])){
-    switch($_GET['action']){
+if (isset($_GET['action'])) {
+    switch($_GET['action']) {
         case 'new':
             // Handle input
-            if(Input::exists()){
+            if (Input::exists()) {
                 $errors = [];
 
-                if(Token::check()){
+                if (Token::check()) {
                     // Validate input
                     $validate = new Validate();
                     $validation = $validate->check($_POST, [
@@ -71,57 +71,57 @@ if(isset($_GET['action'])){
                         'query_port' => $language->get('admin', 'query_port_maximum')
                     ]);
 
-                    if($validation->passed()){
+                    if ($validation->passed()) {
                         // Handle input
                         try {
                             // BungeeCord selected?
-                            if(isset($_POST['bungee_instance']) && $_POST['bungee_instance'] == 1)
+                            if (isset($_POST['bungee_instance']) && $_POST['bungee_instance'] == 1)
                                 $bungee = 1;
                             else
                                 $bungee = 0;
 
                             // Pre 1.7?
-                            if(isset($_POST['pre_17']) && $_POST['pre_17'] == 1)
+                            if (isset($_POST['pre_17']) && $_POST['pre_17'] == 1)
                                 $pre = 1;
                             else
                                 $pre = 0;
 
                             // Status enabled?
-                            if(isset($_POST['status_query_enabled']) && $_POST['status_query_enabled'] == 1)
+                            if (isset($_POST['status_query_enabled']) && $_POST['status_query_enabled'] == 1)
                                 $status = 1;
                             else
                                 $status = 0;
 
                             // Show IP enabled?
-                            if(isset($_POST['show_ip_enabled']) && $_POST['show_ip_enabled'] == 1)
+                            if (isset($_POST['show_ip_enabled']) && $_POST['show_ip_enabled'] == 1)
                                 $show_ip = 1;
                             else
                                 $show_ip = 0;
 
                             // Player list enabled?
-                            if(isset($_POST['query_enabled']) && $_POST['query_enabled'] == 1)
+                            if (isset($_POST['query_enabled']) && $_POST['query_enabled'] == 1)
                                 $query = 1;
                             else
                                 $query = 0;
 
                             // Parent server
-                            if($_POST['parent_server'] == 'none')
+                            if ($_POST['parent_server'] == 'none')
                                 $parent = 0;
                             else
                                 $parent = $_POST['parent_server'];
 
                             // Validate server port
-                            if(is_numeric(Input::get('server_port')))
+                            if (is_numeric(Input::get('server_port')))
                                 $port = Input::get('server_port');
                             else {
-                                if(!isset($_POST['server_port']) || empty($_POST['server_port']))
+                                if (!isset($_POST['server_port']) || empty($_POST['server_port']))
                                     $port = null;
                                 else
                                     $port = 25565;
                             }
 
                             // Validate server query port
-                            if(is_numeric(Input::get('query_port')))
+                            if (is_numeric(Input::get('query_port')))
                                 $query_port = Input::get('query_port');
                             else
                                 $query_port = 25565;
@@ -168,7 +168,7 @@ if(isset($_GET['action'])){
             $external_query = $queries->getWhere('settings', ['name', '=', 'external_query']);
             $external_query = $external_query[0]->value;
 
-            if($external_query == 1){
+            if ($external_query == 1) {
                 $smarty->assign('SERVER_QUERY_INFORMATION', $language->get('admin', 'server_query_information'));
             }
 
@@ -216,21 +216,21 @@ if(isset($_GET['action'])){
 
         case 'edit':
             // Get server
-            if(!isset($_GET['id']) || !is_numeric($_GET['id'])){
+            if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
                 Redirect::to(URL::build('/panel/minecraft/servers'));
                 die();
             }
 
             $server_editing = $queries->getWhere('mc_servers', ['id', '=', $_GET['id']]);
-            if(!count($server_editing)){
+            if (!count($server_editing)) {
                 Redirect::to(URL::build('/panel/minecraft/servers'));
                 die();
             }
             $server_editing = $server_editing[0];
 
             // Handle input
-            if(Input::exists()){
-                if(Token::check()){
+            if (Input::exists()) {
+                if (Token::check()) {
                     // Validate input
                     $validate = new Validate();
                     $validation = $validate->check($_POST, [
@@ -273,57 +273,57 @@ if(isset($_GET['action'])){
                         'query_port' => $language->get('admin', 'query_port_maximum')
                     ]);
 
-                    if($validation->passed()){
+                    if ($validation->passed()) {
                         // Handle input
                         try {
                             // BungeeCord selected?
-                            if(isset($_POST['bungee_instance']) && $_POST['bungee_instance'] == 1)
+                            if (isset($_POST['bungee_instance']) && $_POST['bungee_instance'] == 1)
                                 $bungee = 1;
                             else
                                 $bungee = 0;
 
                             // Pre 1.7?
-                            if(isset($_POST['pre_17']) && $_POST['pre_17'] == 1)
+                            if (isset($_POST['pre_17']) && $_POST['pre_17'] == 1)
                                 $pre = 1;
                             else
                                 $pre = 0;
 
                             // Status enabled?
-                            if(isset($_POST['status_query_enabled']) && $_POST['status_query_enabled'] == 1)
+                            if (isset($_POST['status_query_enabled']) && $_POST['status_query_enabled'] == 1)
                                 $status = 1;
                             else
                                 $status = 0;
 
                             // Show IP enabled?
-                            if(isset($_POST['show_ip_enabled']) && $_POST['show_ip_enabled'] == 1)
+                            if (isset($_POST['show_ip_enabled']) && $_POST['show_ip_enabled'] == 1)
                                 $show_ip = 1;
                             else
                                 $show_ip = 0;
 
                             // Player list enabled?
-                            if(isset($_POST['query_enabled']) && $_POST['query_enabled'] == 1)
+                            if (isset($_POST['query_enabled']) && $_POST['query_enabled'] == 1)
                                 $query = 1;
                             else
                                 $query = 0;
 
                             // Parent server
-                            if($_POST['parent_server'] == 'none')
+                            if ($_POST['parent_server'] == 'none')
                                 $parent = 0;
                             else
                                 $parent = $_POST['parent_server'];
 
                             // Validate server port
-                            if(is_numeric(Input::get('server_port')))
+                            if (is_numeric(Input::get('server_port')))
                                 $port = Input::get('server_port');
                             else {
-                                if(!isset($_POST['server_port']) || empty($_POST['server_port']))
+                                if (!isset($_POST['server_port']) || empty($_POST['server_port']))
                                     $port = null;
                                 else
                                     $port = 25565;
                             }
 
                             // Validate server query port
-                            if(is_numeric(Input::get('query_port')))
+                            if (is_numeric(Input::get('query_port')))
                                 $query_port = Input::get('query_port');
                             else
                                 $query_port = 25565;
@@ -365,7 +365,7 @@ if(isset($_GET['action'])){
             $external_query = $queries->getWhere('settings', ['name', '=', 'external_query']);
             $external_query = $external_query[0]->value;
 
-            if($external_query == 1){
+            if ($external_query == 1) {
                 $smarty->assign('SERVER_QUERY_INFORMATION', $language->get('admin', 'server_query_information'));
             }
 
@@ -452,21 +452,21 @@ if(isset($_GET['action'])){
 
 } else {
     // Handle input
-    if(Input::exists()){
+    if (Input::exists()) {
         $errors = [];
 
-        if(Token::check()){
-            if(isset($_POST['default_server']) && is_numeric($_POST['default_server']))
+        if (Token::check()) {
+            if (isset($_POST['default_server']) && is_numeric($_POST['default_server']))
                 $new_default = $_POST['default_server'];
             else
                 $new_default = 0;
 
-            if(isset($_POST['external_query']) && $_POST['external_query'] == 1)
+            if (isset($_POST['external_query']) && $_POST['external_query'] == 1)
                 $external = 1;
             else
                 $external = 0;
 
-            if(isset($_POST['status_page']) && $_POST['status_page'] == 1)
+            if (isset($_POST['status_page']) && $_POST['status_page'] == 1)
                 $status = 1;
             else
                 $status = 0;
@@ -474,14 +474,14 @@ if(isset($_GET['action'])){
             // Update database and cache
             try {
                 // Default server
-                if($new_default > 0) {
+                if ($new_default > 0) {
                     $current_default = $queries->getWhere('mc_servers', ['is_default', '=', 1]);
-                    if(count($current_default) && $current_default[0]->id != $new_default)
+                    if (count($current_default) && $current_default[0]->id != $new_default)
                         $queries->update('mc_servers', $current_default[0]->id, [
                             'is_default' => 0
                         ]);
 
-                    if(!count($current_default) || $current_default[0]->id != $new_default)
+                    if (!count($current_default) || $current_default[0]->id != $new_default)
                         $queries->update('mc_servers', $new_default, [
                             'is_default' => 1
                         ]);
@@ -514,7 +514,7 @@ if(isset($_GET['action'])){
                 $cache->store('enabled', $status);
 
                 // Query interval
-                if(isset($_POST['interval']) && is_numeric($_POST['interval']) && $_POST['interval'] <= 60 && $_POST['interval'] >= 5){
+                if (isset($_POST['interval']) && is_numeric($_POST['interval']) && $_POST['interval'] <= 60 && $_POST['interval'] >= 5) {
                     $cache->setCache('server_query_cache');
                     $cache->store('query_interval', $_POST['interval']);
                 }
@@ -535,10 +535,10 @@ if(isset($_GET['action'])){
     $default = 0;
     $template_array = [];
 
-    if(count($servers)){
+    if (count($servers)) {
 
-        foreach($servers as $server){
-            if($server->is_default == 1)
+        foreach ($servers as $server) {
+            if ($server->is_default == 1)
                 $default = $server->id;
 
             $template_array[] = [
@@ -563,9 +563,9 @@ if(isset($_GET['action'])){
 
     // Query interval
     $cache->setCache('server_query_cache');
-    if($cache->isCached('query_interval')){
+    if ($cache->isCached('query_interval')) {
         $query_interval = $cache->retrieve('query_interval');
-        if(is_numeric($query_interval) && $query_interval <= 60 && $query_interval >= 5){
+        if (is_numeric($query_interval) && $query_interval <= 60 && $query_interval >= 5) {
             // Interval ok
         } else {
             // Default to 10
@@ -612,19 +612,19 @@ if(isset($_GET['action'])){
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-if(Session::exists('admin_mc_servers_success'))
+if (Session::exists('admin_mc_servers_success'))
     $success = Session::flash('admin_mc_servers_success');
 
-if(Session::exists('admin_mc_servers_error'))
+if (Session::exists('admin_mc_servers_error'))
     $errors = [Session::flash('admin_mc_servers_error')];
 
-if(isset($success))
+if (isset($success))
     $smarty->assign([
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ]);
 
-if(isset($errors) && count($errors))
+if (isset($errors) && count($errors))
     $smarty->assign([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')

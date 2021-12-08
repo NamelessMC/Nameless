@@ -9,7 +9,7 @@
  *  Panel seo page
  */
 
-if(!$user->handlePanelPageLoad('admincp.core.seo')) {
+if (!$user->handlePanelPageLoad('admincp.core.seo')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }
@@ -35,11 +35,11 @@ if (!is_dir(ROOT_PATH . '/cache/sitemaps')) {
     }
 }
 
-if(!isset($_GET['metadata'])){
+if (!isset($_GET['metadata'])) {
     // Deal with input
-    if(Input::exists()){
-        if(Token::check(Input::get('token'))){
-            if(Input::get('type') == 'sitemap') {
+    if (Input::exists()) {
+        if (Token::check(Input::get('token'))) {
+            if (Input::get('type') == 'sitemap') {
 
                 $sitemap = new \SitemapPHP\Sitemap(rtrim(Util::getSelfURL(), '/'));
                 $sitemap->setPath(ROOT_PATH . '/cache/sitemaps/');
@@ -76,7 +76,7 @@ if(!isset($_GET['metadata'])){
     } else {
         if (file_exists(ROOT_PATH . '/cache/sitemaps/sitemap-index.xml')) {
             $cache->setCache('sitemap_cache');
-            if($cache->isCached('updated')){
+            if ($cache->isCached('updated')) {
                 $updated = $cache->retrieve('updated');
                 $updated = $timeago->inWords($updated, $language->getTimeLanguage());
             } else
@@ -98,16 +98,16 @@ if(!isset($_GET['metadata'])){
     $template_file = 'core/seo.tpl';
 } else {
     $page = $pages->getPageById($_GET['metadata']);
-    if(is_null($page)){
+    if (is_null($page)) {
         Redirect::to(URL::build('/panel/core/seo'));
         die();
     }
 
     $page_metadata = $queries->getWhere('page_descriptions', ['page', '=', $page['key']]);
-    if(Input::exists()){
-        if(Token::check(Input::get('token'))){
-            if(isset($_POST['description'])){
-                if(strlen($_POST['description']) > 500){
+    if (Input::exists()) {
+        if (Token::check(Input::get('token'))) {
+            if (isset($_POST['description'])) {
+                if (strlen($_POST['description']) > 500) {
                     $errors[] = $language->get('admin', 'description_max_500');
                 } else {
                     $description = $_POST['description'];
@@ -117,8 +117,8 @@ if(!isset($_GET['metadata'])){
 
             $keywords = $_POST['keywords'] ?? null;
 
-            if(!count($errors)){
-                if(count($page_metadata)){
+            if (!count($errors)) {
+                if (count($page_metadata)) {
                     $page_id = $page_metadata[0]->id;
 
                     $queries->update('page_descriptions', $page_id, [
@@ -143,7 +143,7 @@ if(!isset($_GET['metadata'])){
             $errors[] = $language->get('general', 'invalid_token');
     }
 
-    if(count($page_metadata)){
+    if (count($page_metadata)) {
         $description = Output::getClean($page_metadata[0]->description);
         $tags = Output::getClean($page_metadata[0]->tags);
     } else {
@@ -164,13 +164,13 @@ if(!isset($_GET['metadata'])){
     $template_file = 'core/seo_metadata_edit.tpl';
 }
 
-if(isset($success))
+if (isset($success))
     $smarty->assign([
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ]);
 
-if(count($errors))
+if (count($errors))
     $smarty->assign([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')

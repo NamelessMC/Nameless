@@ -586,7 +586,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                     /*
                     $reaction_name = $queries->getWhere('reactions', array('id', '=', $reaction->reaction_id));
 
-                    if(!count($reaction_name) || $reaction_name[0]->enabled == 0) continue;
+                    if (!count($reaction_name) || $reaction_name[0]->enabled == 0) continue;
                     $reaction_html = $reaction_name[0]->html;
                     $reaction_name = Output::getClean($reaction_name[0]->name);
                     */

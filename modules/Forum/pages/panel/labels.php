@@ -10,7 +10,7 @@
  */
 
 // Can the user view the panel?
-if(!$user->handlePanelPageLoad('admincp.forums')) {
+if (!$user->handlePanelPageLoad('admincp.forums')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }
@@ -21,23 +21,23 @@ const PANEL_PAGE = 'forum_labels';
 $page_title = $forum_language->get('forum', 'labels');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
-if(!isset($_GET['action'])){
+if (!isset($_GET['action'])) {
 	// Topic labels
 	$topic_labels = $queries->getWhere('forums_topic_labels', ['id', '<>', 0]);
 	$template_array = [];
 
-	if(count($topic_labels)){
-		foreach($topic_labels as $topic_label){
+	if (count($topic_labels)) {
+		foreach ($topic_labels as $topic_label) {
 			$label_type = $queries->getWhere('forums_labels', ['id', '=', $topic_label->label]);
-			if(!count($label_type)) $label_type = 0;
+			if (!count($label_type)) $label_type = 0;
 			else $label_type = $label_type[0];
 
 			// List of forums label is enabled in
 			$enabled_forums = explode(',', $topic_label->fids);
 			$forums_string = '';
-			foreach($enabled_forums as $item){
+			foreach ($enabled_forums as $item) {
 				$forum_name = $queries->getWhere('forums', ['id', '=', $item]);
-				if(count($forum_name)) $forums_string .= Output::getClean($forum_name[0]->forum_title) . ', '; else $forums_string .= $forum_language->get('forum', 'no_forums');
+				if (count($forum_name)) $forums_string .= Output::getClean($forum_name[0]->forum_title) . ', '; else $forums_string .= $forum_language->get('forum', 'no_forums');
 			}
 			$forums_string = rtrim($forums_string, ', ');
 
@@ -68,12 +68,12 @@ if(!isset($_GET['action'])){
 	$template_file = 'forum/labels.tpl';
 
 } else {
-	switch($_GET['action']){
+	switch($_GET['action']) {
 		case 'new':
 			// Deal with input
-			if(Input::exists()){
+			if (Input::exists()) {
 				// Check token
-				if(Token::check()){
+				if (Token::check()) {
 					// Valid token
 					// Validate input
 					$validate = new Validate();
@@ -89,12 +89,12 @@ if(!isset($_GET['action'])){
                         ]
                     ])->message($forum_language->get('forum', 'label_creation_error'));
 
-					if($validation->passed()){
+					if ($validation->passed()) {
 						// Create string containing selected forum IDs
 						$forum_string = '';
-						if(isset($_POST['label_forums']) && count($_POST['label_forums'])){
+						if (isset($_POST['label_forums']) && count($_POST['label_forums'])) {
 							// Turn array of inputted forums into string of forums
-							foreach($_POST['label_forums'] as $item){
+							foreach ($_POST['label_forums'] as $item) {
 								$forum_string .= $item . ',';
 							}
 						}
@@ -102,8 +102,8 @@ if(!isset($_GET['action'])){
 						$forum_string = rtrim($forum_string, ',');
 
 						$group_string = '';
-						if(isset($_POST['label_groups']) && count($_POST['label_groups'])){
-							foreach($_POST['label_groups'] as $item){
+						if (isset($_POST['label_groups']) && count($_POST['label_groups'])) {
+							foreach ($_POST['label_groups'] as $item) {
 								$group_string .= $item . ',';
 							}
 						}
@@ -140,8 +140,8 @@ if(!isset($_GET['action'])){
 			$labels = $queries->getWhere('forums_labels', ['id', '<>', 0]);
 			$template_array = [];
 
-			if(count($labels)){
-				foreach($labels as $label){
+			if (count($labels)) {
+				foreach ($labels as $label) {
 					$template_array[] = [
 						'id' => Output::getClean($label->id),
 						'name' => str_replace('{x}', Output::getClean($label->name), Output::getPurified(Output::getDecoded($label->html)))
@@ -153,8 +153,8 @@ if(!isset($_GET['action'])){
 			$forum_list = $queries->orderWhere('forums', 'parent <> 0', 'forum_order', 'ASC');
 			$template_forums = [];
 
-			if(count($forum_list)){
-				foreach($forum_list as $item){
+			if (count($forum_list)) {
+				foreach ($forum_list as $item) {
 					$template_forums[] = [
 						'id' => Output::getClean($item->id),
 						'name' => Output::getClean(Output::getDecoded($item->forum_title))
@@ -166,8 +166,8 @@ if(!isset($_GET['action'])){
 			$group_list = $queries->getWhere('groups', ['id', '<>', 0]);
 			$template_groups = [];
 
-			if(count($group_list)){
-				foreach($group_list as $item){
+			if (count($group_list)) {
+				foreach ($group_list as $item) {
 					$template_groups[] = [
 						'id' => Output::getClean($item->id),
 						'name' => Output::getClean(Output::getDecoded($item->name))
@@ -199,7 +199,7 @@ if(!isset($_GET['action'])){
 
 		case 'edit':
 			// Editing a label
-			if(!isset($_GET['lid']) || !is_numeric($_GET['lid'])){
+			if (!isset($_GET['lid']) || !is_numeric($_GET['lid'])) {
 				// Check the label ID is valid
 				Redirect::to(URL::build('/panel/forums/labels'));
 				die();
@@ -207,7 +207,7 @@ if(!isset($_GET['action'])){
 
 			// Does the label exist?
 			$label = $queries->getWhere('forums_topic_labels', ['id', '=', $_GET['lid']]);
-			if(!count($label)){
+			if (!count($label)) {
 				// No, it doesn't exist
 				Redirect::to(URL::build('/panel/forums/labels'));
 				die();
@@ -216,9 +216,9 @@ if(!isset($_GET['action'])){
 			}
 
 			// Deal with input
-			if(Input::exists()){
+			if (Input::exists()) {
 				// Check token
-				if(Token::check()){
+				if (Token::check()) {
 					// Valid token
 					// Validate input
 					$validate = new Validate();
@@ -234,11 +234,11 @@ if(!isset($_GET['action'])){
                         ]
                     ])->message($forum_language->get('forum', 'label_creation_error'));
 
-					if($validation->passed()){
+					if ($validation->passed()) {
 						// Create string containing selected forum IDs
 						$forum_string = '';
-						if(isset($_POST['label_forums']) && count($_POST['label_forums'])){
-							foreach($_POST['label_forums'] as $item){
+						if (isset($_POST['label_forums']) && count($_POST['label_forums'])) {
+							foreach ($_POST['label_forums'] as $item) {
 								// Turn array of inputted forums into string of forums
 								$forum_string .= $item . ',';
 							}
@@ -247,8 +247,8 @@ if(!isset($_GET['action'])){
 						$forum_string = rtrim($forum_string, ',');
 
 						$group_string = '';
-						if(isset($_POST['label_groups']) && count($_POST['label_groups'])){
-							foreach($_POST['label_groups'] as $item){
+						if (isset($_POST['label_groups']) && count($_POST['label_groups'])) {
+							foreach ($_POST['label_groups'] as $item) {
 								$group_string .= $item . ',';
 							}
 						}
@@ -285,8 +285,8 @@ if(!isset($_GET['action'])){
 			$labels = $queries->getWhere('forums_labels', ['id', '<>', 0]);
 			$template_array = [];
 
-			if(count($labels)){
-				foreach($labels as $item){
+			if (count($labels)) {
+				foreach ($labels as $item) {
 					$template_array[] = [
 						'id' => Output::getClean($item->id),
 						'name' => str_replace('{x}', Output::getClean($item->name), Output::getPurified(Output::getDecoded($item->html))),
@@ -302,8 +302,8 @@ if(!isset($_GET['action'])){
 			// Get a list of forums in which the label is enabled
 			$enabled_forums = explode(',', $label->fids);
 
-			if(count($forum_list)){
-				foreach($forum_list as $item){
+			if (count($forum_list)) {
+				foreach ($forum_list as $item) {
 					$template_forums[] = [
 						'id' => Output::getClean($item->id),
 						'name' => Output::getClean(Output::getDecoded($item->forum_title)),
@@ -319,8 +319,8 @@ if(!isset($_GET['action'])){
 			// Get a list of groups which have access to the label
 			$groups = explode(',', $label->gids);
 
-			if(count($group_list)){
-				foreach($group_list as $item){
+			if (count($group_list)) {
+				foreach ($group_list as $item) {
 					$template_groups[] = [
 						'id' => Output::getClean($item->id),
 						'name' => Output::getClean(Output::getDecoded($item->name)),
@@ -353,7 +353,7 @@ if(!isset($_GET['action'])){
 
 		case 'delete':
 			// Label deletion
-			if(!isset($_GET['lid']) || !is_numeric($_GET['lid'])){
+			if (!isset($_GET['lid']) || !is_numeric($_GET['lid'])) {
 				// Check the label ID is valid
 				Redirect::to(URL::build('/panel/forums/labels'));
 				die();
@@ -374,8 +374,8 @@ if(!isset($_GET['action'])){
 			$labels = $queries->getWhere('forums_labels', ['id', '<>', 0]);
 			$template_array = [];
 
-			if(count($labels)){
-				foreach($labels as $label){
+			if (count($labels)) {
+				foreach ($labels as $label) {
 					$template_array[] = [
 						'name' => str_replace('{x}', Output::getClean(Output::getDecoded($label->name)), Output::getPurified(Output::getDecoded($label->html))),
 						'edit_link' => URL::build('/panel/forums/labels/', 'action=edit_type&lid=' . Output::getClean($label->id)),
@@ -406,9 +406,9 @@ if(!isset($_GET['action'])){
 		case 'new_type':
 			// Creating a label type
 			// Deal with input
-			if(Input::exists()){
+			if (Input::exists()) {
 				// Check token
-				if(Token::check()){
+				if (Token::check()) {
 					// Valid token
 					// Validate input
 					$validate = new Validate();
@@ -426,7 +426,7 @@ if(!isset($_GET['action'])){
                         ]
                     ])->message($forum_language->get('forum', 'label_type_creation_error'));
 
-					if($validation->passed()){
+					if ($validation->passed()) {
 						try {
 							$queries->create('forums_labels', [
 								'name' => Output::getClean(Input::get('label_name')),
@@ -476,14 +476,14 @@ if(!isset($_GET['action'])){
 
 		case 'edit_type':
 			// Editing a label type
-			if(!isset($_GET['lid']) || !is_numeric($_GET['lid'])){
+			if (!isset($_GET['lid']) || !is_numeric($_GET['lid'])) {
 				Redirect::to(URL::build('/panel/forums/labels/', 'action=types'));
 				die();
 			}
 
 			// Does the label exist?
 			$label = $queries->getWhere('forums_labels', ['id', '=', $_GET['lid']]);
-			if(!count($label)){
+			if (!count($label)) {
 				// No, it doesn't exist
 				Redirect::to(URL::build('/panel/forums/labels/', 'action=types'));
 				die();
@@ -492,9 +492,9 @@ if(!isset($_GET['action'])){
 			}
 
 			// Deal with input
-			if(Input::exists()){
+			if (Input::exists()) {
 				// Check token
-				if(Token::check()){
+				if (Token::check()) {
 					// Valid token
 					// Validate input
 					$validate = new Validate();
@@ -512,7 +512,7 @@ if(!isset($_GET['action'])){
                         ]
                     ])->message($forum_language->get('forum', 'label_type_creation_error'));
 
-					if($validation->passed()){
+					if ($validation->passed()) {
 						try {
 							$queries->update('forums_labels', $label->id, [
 								'name' => Output::getClean(Input::get('label_name')),
@@ -560,7 +560,7 @@ if(!isset($_GET['action'])){
 
 		case 'delete_type':
 			// Label deletion
-			if(!isset($_GET['lid']) || !is_numeric($_GET['lid'])){
+			if (!isset($_GET['lid']) || !is_numeric($_GET['lid'])) {
 				// Check the label ID is valid
 				Redirect::to(URL::build('/panel/forums/labels/', 'action=types'));
 				die();
@@ -586,19 +586,19 @@ if(!isset($_GET['action'])){
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-if(Session::exists('forum_labels'))
+if (Session::exists('forum_labels'))
 	$success = Session::flash('forum_labels');
 
-if(Session::exists('forum_labels_error'))
+if (Session::exists('forum_labels_error'))
 	$errors = [Session::flash('forum_labels_error')];
 
-if(isset($success))
+if (isset($success))
 	$smarty->assign([
 		'SUCCESS' => $success,
 		'SUCCESS_TITLE' => $language->get('general', 'success')
     ]);
 
-if(isset($errors) && count($errors))
+if (isset($errors) && count($errors))
 	$smarty->assign([
 		'ERRORS' => $errors,
 		'ERRORS_TITLE' => $language->get('general', 'error')
