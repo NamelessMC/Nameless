@@ -471,9 +471,10 @@ if (!class_exists('Default_Panel_Template')) {
 						    }
 							');
 
-                        } else if (MINECRAFT_PAGE == 'authme') {
+                        } else {
+                            if (MINECRAFT_PAGE == 'authme') {
 
-                            $this->addJSScript('
+                                $this->addJSScript('
 							var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
 
 							elems.foreach (function(html) {
@@ -489,9 +490,10 @@ if (!class_exists('Default_Panel_Template')) {
 						    }
 							');
 
-                        } else if (MINECRAFT_PAGE == 'verification') {
+                            } else {
+                                if (MINECRAFT_PAGE == 'verification') {
 
-                            $this->addJSScript('
+                                    $this->addJSScript('
 							var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
 
 							elems.foreach (function(html) {
@@ -507,12 +509,13 @@ if (!class_exists('Default_Panel_Template')) {
 						    }
 							');
 
-                        } else if (MINECRAFT_PAGE == 'servers') {
-                            $this->addJSFiles([
-                                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/js/jquery-ui.min.js' => []
-                            ]);
+                                } else {
+                                    if (MINECRAFT_PAGE == 'servers') {
+                                        $this->addJSFiles([
+                                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/js/jquery-ui.min.js' => []
+                                        ]);
 
-                            $this->addJSScript('
+                                        $this->addJSScript('
 							var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
 
 							elems.foreach (function(html) {
@@ -520,8 +523,9 @@ if (!class_exists('Default_Panel_Template')) {
 							});
 							');
 
-                        } else if (MINECRAFT_PAGE == 'query_errors') {
-                            $this->addCSSStyle('
+                                    } else {
+                                        if (MINECRAFT_PAGE == 'query_errors') {
+                                            $this->addCSSStyle('
 							.error_log {
 		                        width: 100%;
 		                        height: 50px;
@@ -536,32 +540,40 @@ if (!class_exists('Default_Panel_Template')) {
 		                    }
 							');
 
-                        } else if (MINECRAFT_PAGE == 'server_banners') {
-                            if (isset($_GET['edit'])) {
-                                $this->addCSSFiles([
-                                    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/image-picker/image-picker.css' => []
-                                ]);
+                                        } else {
+                                            if (MINECRAFT_PAGE == 'server_banners') {
+                                                if (isset($_GET['edit'])) {
+                                                    $this->addCSSFiles([
+                                                        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/image-picker/image-picker.css' => []
+                                                    ]);
 
-                                $this->addCSSStyle('
+                                                    $this->addCSSStyle('
 							    .thumbnails li img{
 							        width: 200px;
 							    }
 								');
 
-                                $this->addJSFiles([
-                                    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/image-picker/image-picker.min.js' => []
-                                ]);
+                                                    $this->addJSFiles([
+                                                        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/image-picker/image-picker.min.js' => []
+                                                    ]);
 
-                                $this->addJSScript('$(".image-picker").imagepicker();');
-                            }
-                        } else if (MINECRAFT_PAGE == 'placeholders') {
-                            $this->addJSScript('
+                                                    $this->addJSScript('$(".image-picker").imagepicker();');
+                                                }
+                                            } else {
+                                                if (MINECRAFT_PAGE == 'placeholders') {
+                                                    $this->addJSScript('
                             var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
 
                             elems.foreach (function(html) {
                               var switchery = new Switchery(html, {color: \'#23923d\', secondaryColor: \'#e56464\'});
                             });
                             ');
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         }
 
                         break;

@@ -42,14 +42,16 @@ if (isset($_GET['do'])) {
         }
 
         Session::flash('general_language', $language->get('admin', 'installed_languages'));
-    } else if ($_GET['do'] == 'updateLanguages') {
-        $active_language = $queries->getWhere('languages', ['is_default', '=', 1]);
-        if (count($active_language)) {
-            DB::getInstance()->createQuery('UPDATE nl2_users SET language_id = ?', [$active_language[0]->id]);
-            $language = new Language('core', $active_language[0]->name);
-        }
+    } else {
+        if ($_GET['do'] == 'updateLanguages') {
+            $active_language = $queries->getWhere('languages', ['is_default', '=', 1]);
+            if (count($active_language)) {
+                DB::getInstance()->createQuery('UPDATE nl2_users SET language_id = ?', [$active_language[0]->id]);
+                $language = new Language('core', $active_language[0]->name);
+            }
 
-        Session::flash('general_language', $language->get('admin', 'updated_user_languages'));
+            Session::flash('general_language', $language->get('admin', 'updated_user_languages'));
+        }
     }
 
     Redirect::to(URL::build('/panel/core/general_settings'));
@@ -146,7 +148,9 @@ if (Input::exists()) {
 
             if ($_POST['homepage'] == 'portal') {
                 $use_portal = 1;
-            } else $use_portal = 0;
+            } else {
+                $use_portal = 0;
+            }
 
             $queries->update('settings', $portal_id, [
                 'value' => $use_portal
@@ -160,10 +164,11 @@ if (Input::exists()) {
             $private_profile_id = $queries->getWhere('settings', ['name', '=', 'private_profile']);
             $private_profile_id = $private_profile_id[0]->id;
 
-            if ($_POST['privateProfile'])
+            if ($_POST['privateProfile']) {
                 $private_profile = 1;
-            else
+            } else {
                 $private_profile = 0;
+            }
 
             $queries->update('settings', $private_profile_id, [
                 'value' => $private_profile
@@ -193,12 +198,18 @@ if (Input::exists()) {
             $friendly = Input::get('friendlyURL') == 'true';
 
             // Force HTTPS?
-            if (Input::get('forceHTTPS') == 'true') $https = true;
-            else $https = false;
+            if (Input::get('forceHTTPS') == 'true') {
+                $https = true;
+            } else {
+                $https = false;
+            }
 
             // Force WWW?
-            if (Input::get('forceWWW') == 'true') $www = true;
-            else $www = false;
+            if (Input::get('forceWWW') == 'true') {
+                $www = true;
+            } else {
+                $www = false;
+            }
 
             // Update config
             if (is_writable(ROOT_PATH . '/' . join(DIRECTORY_SEPARATOR, ['core', 'config.php']))) {
@@ -218,7 +229,9 @@ if (Input::exists()) {
                     'core/force_https' => $https,
                     'core/force_www' => $www
                 ]);
-            } else $errors = [$language->get('admin', 'config_not_writable')];
+            } else {
+                $errors = [$language->get('admin', 'config_not_writable')];
+            }
 
             /*
             if (!empty($_POST["allowedProxies"])) {
@@ -267,8 +280,9 @@ if (Input::exists()) {
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-if (Session::exists('general_language'))
+if (Session::exists('general_language')) {
     $success = Session::flash('general_language');
+}
 
 if (isset($success)) {
     $smarty->assign([
@@ -293,8 +307,9 @@ $count = count($languages);
 
 for ($i = 0; $i < $count; $i++) {
     $language_path = join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'languages', $languages[$i]->name, 'version.php']);
-    if (!file_exists($language_path))
+    if (!file_exists($language_path)) {
         unset($languages[$i]);
+    }
 }
 
 $timezone = $queries->getWhere('settings', ['name', '=', 'timezone']);

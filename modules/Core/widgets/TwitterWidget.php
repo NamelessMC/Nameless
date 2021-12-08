@@ -1,4 +1,5 @@
 <?php
+
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
@@ -8,6 +9,7 @@
  *
  *  Twitter Widget
  */
+
 class TwitterWidget extends WidgetBase {
 
     public function __construct(array $pages, Smarty $smarty, ?string $twitter = '', ?string $theme = '') {

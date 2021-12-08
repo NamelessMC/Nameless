@@ -1,4 +1,5 @@
 <?php
+
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
@@ -8,6 +9,7 @@
  *
  *  Output class
  */
+
 class Output {
 
     private static HTMLPurifier $_purifier;

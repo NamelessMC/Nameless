@@ -18,50 +18,50 @@ $social_media_icons = [];
 // Facebook
 $social_media = $cache->retrieve('facebook');
 if ($social_media) {
-	$social_media_icons[] = [
-		'short' => 'fb',
-		'long' => 'facebook',
-		'link' => Output::getClean($social_media),
-		'text' => 'Facebook'
+    $social_media_icons[] = [
+        'short' => 'fb',
+        'long' => 'facebook',
+        'link' => Output::getClean($social_media),
+        'text' => 'Facebook'
     ];
 }
 
 // Twitter
 $social_media = $cache->retrieve('twitter');
 if ($social_media) {
-	$social_media_icons[] = [
-		'short' => 'tw',
-		'long' => 'twitter',
-		'link' => Output::getClean($social_media),
-		'text' => 'Twitter'
+    $social_media_icons[] = [
+        'short' => 'tw',
+        'long' => 'twitter',
+        'link' => Output::getClean($social_media),
+        'text' => 'Twitter'
     ];
 }
 
 // Youtube
 $social_media = $cache->retrieve('youtube');
 if ($social_media) {
-	$social_media_icons[] = [
-		'short' => 'gp',
-		'long' => 'youtube',
-		'link' => Output::getClean($social_media),
-		'text' => 'YouTube'
+    $social_media_icons[] = [
+        'short' => 'gp',
+        'long' => 'youtube',
+        'link' => Output::getClean($social_media),
+        'text' => 'YouTube'
     ];
 }
 
 // Always add contact link
 $social_media_icons[] = [
-	'short' => 'em',
-	'long' => 'envelope',
-	'link' => URL::build('/contact'),
-	'text' => $language->get('general', 'contact')
+    'short' => 'em',
+    'long' => 'envelope',
+    'link' => URL::build('/contact'),
+    'text' => $language->get('general', 'contact')
 ];
 
 // Smarty template
 // Assign to Smarty variables
 $smarty->assign([
-	'SOCIAL_MEDIA_ICONS' => $social_media_icons, 
-	'PAGE_LOAD_TIME' => isset($page_loading) && $page_loading == '1',
-	'FOOTER_NAVIGATION' => $navigation->returnNav('footer')
+    'SOCIAL_MEDIA_ICONS' => $social_media_icons,
+    'PAGE_LOAD_TIME' => isset($page_loading) && $page_loading == '1',
+    'FOOTER_NAVIGATION' => $navigation->returnNav('footer')
 ]);
 
 // Terms

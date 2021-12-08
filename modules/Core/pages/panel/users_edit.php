@@ -58,52 +58,58 @@ if (isset($_GET['action'])) {
             }
         }
 
-    } else if ($_GET['action'] == 'update_mcname') {
-        require_once(ROOT_PATH . '/core/integration/uuid.php');
-        $uuid = $user_query->uuid;
+    } else {
+        if ($_GET['action'] == 'update_mcname') {
+            require_once(ROOT_PATH . '/core/integration/uuid.php');
+            $uuid = $user_query->uuid;
 
-        $profile = ProfileUtils::getProfile($uuid);
+            $profile = ProfileUtils::getProfile($uuid);
 
-        if ($profile) {
-            $result = $profile->getUsername();
+            if ($profile) {
+                $result = $profile->getUsername();
 
-            if (!empty($result)) {
-                if ($user_query->username == $user_query->nickname) {
-                    $queries->update('users', $user_query->id, [
-                        'username' => Output::getClean($result),
-                        'nickname' => Output::getClean($result)
-                    ]);
-                } else {
-                    $queries->update('users', $user_query->id, [
-                        'username' => Output::getClean($result)
-                    ]);
+                if (!empty($result)) {
+                    if ($user_query->username == $user_query->nickname) {
+                        $queries->update('users', $user_query->id, [
+                            'username' => Output::getClean($result),
+                            'nickname' => Output::getClean($result)
+                        ]);
+                    } else {
+                        $queries->update('users', $user_query->id, [
+                            'username' => Output::getClean($result)
+                        ]);
+                    }
+
+                    Session::flash('edit_user_success', $language->get('admin', 'user_updated_successfully'));
                 }
-
-                Session::flash('edit_user_success', $language->get('admin', 'user_updated_successfully'));
             }
-        }
-    } else if ($_GET['action'] == 'update_uuid') {
-        require_once(ROOT_PATH . '/core/integration/uuid.php');
-
-        $profile = ProfileUtils::getProfile($user_query->username);
-
-        if (!empty($profile)) {
-            $result = $profile->getProfileAsArray();
-
-            if (isset($result['uuid']) && !empty($result['uuid'])) {
-                $queries->update('users', $user_query->id, [
-                    'uuid' => Output::getClean($result['uuid'])
-                ]);
-
-                Session::flash('edit_user_success', $language->get('admin', 'user_updated_successfully'));
-            }
-        }
-    } else if ($_GET['action'] == 'resend_email' && $user_query->active == 0) {
-        require_once(ROOT_PATH . '/modules/Core/includes/emails/register.php');
-        if (sendRegisterEmail($queries, $language, $user_query->email, $user_query->username, $user_query->id, $user_query->reset_code)) {
-            Session::flash('edit_user_success', $language->get('admin', 'email_resent_successfully'));
         } else {
-            Session::flash('edit_user_errors', $language->get('admin', 'email_resend_failed'));
+            if ($_GET['action'] == 'update_uuid') {
+                require_once(ROOT_PATH . '/core/integration/uuid.php');
+
+                $profile = ProfileUtils::getProfile($user_query->username);
+
+                if (!empty($profile)) {
+                    $result = $profile->getProfileAsArray();
+
+                    if (isset($result['uuid']) && !empty($result['uuid'])) {
+                        $queries->update('users', $user_query->id, [
+                            'uuid' => Output::getClean($result['uuid'])
+                        ]);
+
+                        Session::flash('edit_user_success', $language->get('admin', 'user_updated_successfully'));
+                    }
+                }
+            } else {
+                if ($_GET['action'] == 'resend_email' && $user_query->active == 0) {
+                    require_once(ROOT_PATH . '/modules/Core/includes/emails/register.php');
+                    if (sendRegisterEmail($queries, $language, $user_query->email, $user_query->username, $user_query->id, $user_query->reset_code)) {
+                        Session::flash('edit_user_success', $language->get('admin', 'email_resent_successfully'));
+                    } else {
+                        Session::flash('edit_user_errors', $language->get('admin', 'email_resend_failed'));
+                    }
+                }
+            }
         }
     }
 
@@ -195,8 +201,11 @@ if (Input::exists()) {
                     // Template
                     $new_template = $queries->getWhere('templates', ['id', '=', Input::get('template')]);
 
-                    if (count($new_template)) $new_template = $new_template[0]->id;
-                    else $new_template = $user_query->theme_id;
+                    if (count($new_template)) {
+                        $new_template = $new_template[0]->id;
+                    } else {
+                        $new_template = $user_query->theme_id;
+                    }
 
                     // Nicknames?
                     $displaynames = $queries->getWhere('settings', ['name', '=', 'displaynames']);
@@ -262,45 +271,53 @@ if (Input::exists()) {
                     $errors[] = $language->get('admin', 'select_user_group');
                 }
             }
-        } else if (Input::get('action') == 'delete') {
-            if ($user_query->id > 1) {
-                EventHandler::executeEvent('deleteUser', [
-                    'user_id' => $user_query->id,
-                    'username' => Output::getClean($user_query->username),
-                    'uuid' => Output::getClean($user_query->uuid),
-                    'email_address' => Output::getClean($user_query->email)
-                ]);
+        } else {
+            if (Input::get('action') == 'delete') {
+                if ($user_query->id > 1) {
+                    EventHandler::executeEvent('deleteUser', [
+                        'user_id' => $user_query->id,
+                        'username' => Output::getClean($user_query->username),
+                        'uuid' => Output::getClean($user_query->uuid),
+                        'email_address' => Output::getClean($user_query->email)
+                    ]);
 
-                Session::flash('users_session', $language->get('admin', 'user_deleted'));
+                    Session::flash('users_session', $language->get('admin', 'user_deleted'));
+                }
+
+                Redirect::to(URL::build('/panel/users'));
+                die();
             }
-
-            Redirect::to(URL::build('/panel/users'));
-            die();
         }
-    } else
+    } else {
         $errors[] = $language->get('general', 'invalid_token');
+    }
 }
 
-if (Session::exists('edit_user_success'))
+if (Session::exists('edit_user_success')) {
     $success = Session::flash('edit_user_success');
+}
 
-if (Session::exists('edit_user_errors'))
+if (Session::exists('edit_user_errors')) {
     $errors = Session::flash('edit_user_errors');
+}
 
-if (Session::exists('edit_user_warnings'))
+if (Session::exists('edit_user_warnings')) {
     $warnings = Session::flash('edit_user_warnings');
+}
 
-if (isset($success))
+if (isset($success)) {
     $smarty->assign([
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ]);
+}
 
-if (isset($errors) && count($errors))
+if (isset($errors) && count($errors)) {
     $smarty->assign([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
     ]);
+}
 
 if (isset($warnings) && count($warnings)) {
     $smarty->assign([

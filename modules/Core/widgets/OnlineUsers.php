@@ -1,4 +1,5 @@
 <?php
+
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
@@ -8,6 +9,7 @@
  *
  *  Online users widget
  */
+
 class OnlineUsersWidget extends WidgetBase {
 
     private Cache $_cache;
@@ -38,17 +40,16 @@ class OnlineUsersWidget extends WidgetBase {
         if ($this->_cache->isCached('users')) {
             $online = $this->_cache->retrieve('users');
             $use_nickname_show = $this->_cache->retrieve('show_nickname_instead');
-        }
-        else {
-            if ($this->_cache->isCached('include_staff_in_users'))
+        } else {
+            if ($this->_cache->isCached('include_staff_in_users')) {
                 $include_staff = $this->_cache->retrieve('include_staff_in_users');
-            else {
+            } else {
                 $include_staff = 0;
                 $this->_cache->store('include_staff_in_users', 0);
             }
-            if ($this->_cache->isCached('show_nickname_instead'))
+            if ($this->_cache->isCached('show_nickname_instead')) {
                 $use_nickname_show = $this->_cache->retrieve('show_nickname_instead');
-            else {
+            } else {
                 $use_nickname_show = 0;
                 $this->_cache->store('show_nickname_instead', 0);
             }
@@ -87,12 +88,13 @@ class OnlineUsersWidget extends WidgetBase {
                 'TOTAL_ONLINE_USERS' => str_replace('{x}', count($users), $this->_language['total_online_users'])
             ]);
 
-        } else
+        } else {
             $this->_smarty->assign([
                 'ONLINE_USERS' => $this->_language['title'],
                 'NO_USERS_ONLINE' => $this->_language['no_online_users'],
                 'TOTAL_ONLINE_USERS' => str_replace('{x}', 0, $this->_language['total_online_users'])
             ]);
+        }
 
         $this->_content = $this->_smarty->fetch('widgets/online_users.tpl');
     }

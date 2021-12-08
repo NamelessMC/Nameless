@@ -77,7 +77,7 @@ $language = [
     'link' => 'リンク',
     'unlink' => 'リンク解除',
     'leaderboards' => 'リーダーボード',
-    
+
     /*
      *  Contact form
      */

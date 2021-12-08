@@ -64,10 +64,11 @@ if (Input::exists()) {
                 if (isset($_POST['db_password'])) {
                     $password = $_POST['db_password'];
                 } else {
-                    if (isset($authme_db->password) && !empty($authme_db->password))
+                    if (isset($authme_db->password) && !empty($authme_db->password)) {
                         $password = $authme_db->password;
-                    else
+                    } else {
                         $password = '';
+                    }
                 }
 
                 $result = [
@@ -102,17 +103,19 @@ if (Input::exists()) {
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-if (isset($success))
+if (isset($success)) {
     $smarty->assign([
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ]);
+}
 
-if (isset($errors) && count($errors))
+if (isset($errors) && count($errors)) {
     $smarty->assign([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
     ]);
+}
 
 // Is Authme enabled?
 $authme_enabled = $queries->getWhere('settings', ['name', '=', 'authme']);

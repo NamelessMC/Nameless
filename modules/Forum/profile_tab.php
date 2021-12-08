@@ -32,7 +32,9 @@ if (!count($latest_posts)) {
     $posts = [];
 
     foreach ($latest_posts as $latest_post) {
-        if ($n == 5) break;
+        if ($n == 5) {
+            break;
+        }
 
         // Is the post somewhere the user can view?
         $permission = false;
@@ -46,14 +48,20 @@ if (!count($latest_posts)) {
             }
         }
 
-        if ($permission != true) continue;
+        if ($permission != true) {
+            continue;
+        }
 
         // Check the post isn't deleted
-        if ($latest_post->deleted == 1) continue;
+        if ($latest_post->deleted == 1) {
+            continue;
+        }
 
         // Get topic title
         $topic_title = $queries->getWhere('topics', ['id', '=', $latest_post->topic_id]);
-        if (!count($topic_title)) continue;
+        if (!count($topic_title)) {
+            continue;
+        }
         $topic_title = htmlspecialchars($topic_title[0]->topic_title);
 
         if (is_null($latest_post->created)) {

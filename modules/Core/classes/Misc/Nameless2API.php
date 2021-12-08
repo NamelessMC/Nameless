@@ -5,14 +5,6 @@ class Nameless2API {
     private DB $_db;
     private Language $_language;
 
-    public function getDb(): DB {
-        return $this->_db;
-    }
-
-    public function getLanguage(): Language {
-        return $this->_language;
-    }
-
     public function __construct(string $route, Language $api_language, Endpoints $endpoints) {
         try {
             $this->_db = DB::getInstance();
@@ -82,6 +74,20 @@ class Nameless2API {
         return false;
     }
 
+    public function throwError($code = null, $message = null, $meta = null, int $status = 400) {
+        http_response_code($status);
+
+        if ($code && $message) {
+            die(json_encode(['error' => true, 'code' => $code, 'message' => $message, 'meta' => $meta], JSON_PRETTY_PRINT));
+        } else {
+            die(json_encode(['error' => true, 'code' => 0, 'message' => $this->_language->get('api', 'unknown_error'), 'meta' => $meta], JSON_PRETTY_PRINT));
+        }
+    }
+
+    public function getDb(): DB {
+        return $this->_db;
+    }
+
     public function getUser(string $column, string $value): User {
         $user = new User(Output::getClean($value), Output::getClean($column));
 
@@ -92,14 +98,8 @@ class Nameless2API {
         return $user;
     }
 
-    public function throwError($code = null, $message = null, $meta = null, int $status = 400) {
-        http_response_code($status);
-
-        if ($code && $message) {
-            die(json_encode(['error' => true, 'code' => $code, 'message' => $message, 'meta' => $meta], JSON_PRETTY_PRINT));
-        } else {
-            die(json_encode(['error' => true, 'code' => 0, 'message' => $this->_language->get('api', 'unknown_error'), 'meta' => $meta], JSON_PRETTY_PRINT));
-        }
+    public function getLanguage(): Language {
+        return $this->_language;
     }
 
     public function returnArray($arr = null, int $status = 200) {

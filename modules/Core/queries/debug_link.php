@@ -52,8 +52,8 @@ foreach ($templates_query as $fe_template) {
 
     $namelessmc_fe_templates[$fe_template->name] = [
         'name' => $fe_template->name,
-        'enabled' => (bool) $fe_template->enabled,
-        'is_default' => (bool) $fe_template->is_default,
+        'enabled' => (bool)$fe_template->enabled,
+        'is_default' => (bool)$fe_template->is_default,
         'author' => $template->getAuthor(),
         'template_version' => $template->getVersion(),
         'namelessmc_version' => $template->getNamelessVersion(),
@@ -71,8 +71,8 @@ foreach ($panel_templates_query as $panel_template) {
 
     $namelessmc_panel_templates[$panel_template->name] = [
         'name' => $panel_template->name,
-        'enabled' => (bool) $panel_template->enabled,
-        'is_default' => (bool) $panel_template->is_default,
+        'enabled' => (bool)$panel_template->enabled,
+        'is_default' => (bool)$panel_template->is_default,
         'author' => $template->getAuthor(),
         'template_version' => $template->getVersion(),
         'namelessmc_version' => $template->getNamelessVersion(),
@@ -94,21 +94,21 @@ foreach (DB::getInstance()->get('group_sync', ['id', '<>', 0])->results() as $ru
     $rules = [];
     foreach (get_object_vars($rule) as $column => $value) {
         if ($column == 'id') {
-            $rules[$column] = (int) $value;
+            $rules[$column] = (int)$value;
         } else {
             $rules[$column] = $value;
         }
     }
 
-    $group_sync['rules'][(int) $rule->id] = $rules;
+    $group_sync['rules'][(int)$rule->id] = $rules;
 }
 
 $webhooks = [];
 foreach (DB::getInstance()->selectQuery('SELECT `id`, `name`, `action`, `events` FROM nl2_hooks')->results() as $webhook) {
     $webhooks[$webhook->id] = [
-        'id' => (int) $webhook->id,
+        'id' => (int)$webhook->id,
         'name' => $webhook->name,
-        'action' => (int) $webhook->action,
+        'action' => (int)$webhook->action,
         'events' => json_decode($webhook->events),
     ];
 }
@@ -116,27 +116,27 @@ foreach (DB::getInstance()->selectQuery('SELECT `id`, `name`, `action`, `events`
 $forum_hooks = [];
 foreach (DB::getInstance()->selectQuery('SELECT `id`, `forum_title`, `hooks` FROM nl2_forums WHERE `hooks` IS NOT NULL')->results() as $forum) {
     $forum_hooks[] = [
-        'forum_id' => (int) $forum->id,
+        'forum_id' => (int)$forum->id,
         'title' => $forum->forum_title,
-        'hooks' => array_map(static fn ($hook) => (int) $hook, json_decode($forum->hooks)),
+        'hooks' => array_map(static fn($hook) => (int)$hook, json_decode($forum->hooks)),
     ];
 }
 
 
 $groups = [];
 foreach ($queries->getWhere('groups', ['id', '<>', 0]) as $group) {
-    $groups[(int) $group->id] = [
-        'id' => (int) $group->id,
+    $groups[(int)$group->id] = [
+        'id' => (int)$group->id,
         'name' => $group->name,
         'group_html' => $group->group_html,
         'group_html_lg' => $group->group_html_lg,
-        'admin_cp' => (bool) $group->admin_cp,
-        'staff' => (bool) $group->staff,
+        'admin_cp' => (bool)$group->admin_cp,
+        'staff' => (bool)$group->staff,
         'permissions' => json_decode($group->permissions, true) ?? [],
-        'default_group' => (bool) $group->default_group,
-        'order' => (int) $group->order,
-        'force_tfa' => (bool) $group->force_tfa,
-        'deleted' => (bool) $group->deleted,
+        'default_group' => (bool)$group->default_group,
+        'order' => (int)$group->order,
+        'force_tfa' => (bool)$group->force_tfa,
+        'deleted' => (bool)$group->deleted,
     ];
 }
 
@@ -149,16 +149,16 @@ $data = [
     'namelessmc' => [
         'version' => Util::getSetting(DB::getInstance(), 'nameless_version'),
         'update_available' => Util::getSetting(DB::getInstance(), 'version_update') == 'false' ? false : true,
-        'update_checked' => (int) Util::getSetting(DB::getInstance(), 'version_checked'),
+        'update_checked' => (int)Util::getSetting(DB::getInstance(), 'version_checked'),
         'settings' => [
-            'phpmailer' => (bool) Util::getSetting(DB::getInstance(), 'phpmailer'),
-            'api_enabled' => (bool) Util::getSetting(DB::getInstance(), 'use_api'),
-            'email_verification' => (bool) Util::getSetting(DB::getInstance(), 'email_verification'),
-            'api_verification' => (bool) Util::getSetting(DB::getInstance(), 'api_verification'),
+            'phpmailer' => (bool)Util::getSetting(DB::getInstance(), 'phpmailer'),
+            'api_enabled' => (bool)Util::getSetting(DB::getInstance(), 'use_api'),
+            'email_verification' => (bool)Util::getSetting(DB::getInstance(), 'email_verification'),
+            'api_verification' => (bool)Util::getSetting(DB::getInstance(), 'api_verification'),
             'login_method' => Util::getSetting(DB::getInstance(), 'login_method'),
             'captcha_type' => Util::getSetting(DB::getInstance(), 'recaptcha_type'),
-            'captcha_login' => (bool) Util::getSetting(DB::getInstance(), 'recaptcha_login'),
-            'captcha_contact' => (bool) Util::getSetting(DB::getInstance(), 'recaptcha'),
+            'captcha_login' => (bool)Util::getSetting(DB::getInstance(), 'recaptcha_login'),
+            'captcha_contact' => (bool)Util::getSetting(DB::getInstance(), 'recaptcha'),
             'group_sync' => $group_sync,
             'webhooks' => [
                 'actions' => [
@@ -172,7 +172,7 @@ $data = [
         'config' => [
             'core' => array_filter(
                 $GLOBALS['config']['core'],
-                static fn (string $key) => $key != 'hostname',
+                static fn(string $key) => $key != 'hostname',
                 ARRAY_FILTER_USE_KEY
             ),
             'allowedProxies' => $GLOBALS['config']['allowedProxies']

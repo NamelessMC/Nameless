@@ -50,7 +50,7 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
 
                     Log::getInstance()->log(Log::Action('forums/post/delete'), Input::get('tid'));
                     $opening_post = 1;
-                        
+
                     $redirect = URL::build('/forum'); // Create a redirect string
                 } else {
                     $redirect = URL::build('/forum/topic/' . Input::get('tid'));

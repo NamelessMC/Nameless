@@ -143,7 +143,9 @@ if (Input::exists()) {
             if ($formatting == 'markdown') {
                 $content = \Michelf\Markdown::defaultTransform(Input::get('content'));
                 $content = Output::getClean($content);
-            } else $content = Output::getClean(Input::get('content'));
+            } else {
+                $content = Output::getClean(Input::get('content'));
+            }
 
             // Update post content
             $queries->update('posts', $post_id, [
@@ -171,7 +173,9 @@ if (Input::exists()) {
                                 }
                             }
 
-                            if ($hasperm) $post_labels[] = $label[0]->id;
+                            if ($hasperm) {
+                                $post_labels[] = $label[0]->id;
+                            }
                         }
                     }
                 }
@@ -199,11 +203,12 @@ if (Input::exists()) {
     }
 }
 
-if (isset($errors))
+if (isset($errors)) {
     $smarty->assign([
         'ERROR_TITLE' => $language->get('general', 'error'),
         'ERRORS' => $errors
     ]);
+}
 
 $smarty->assign('EDITING_POST', $forum_language->get('forum', 'edit_post'));
 
@@ -227,16 +232,22 @@ if (isset($edit_title) && isset($post_labels)) {
                 $perms = false;
 
                 foreach ($user_groups as $group) {
-                    if (in_array($group, $lgroups))
+                    if (in_array($group, $lgroups)) {
                         $perms = true;
+                    }
                 }
 
-                if ($perms == false) continue;
+                if ($perms == false) {
+                    continue;
+                }
 
                 // Get label HTML
                 $label_html = $queries->getWhere('forums_labels', ['id', '=', $label->label]);
-                if (!count($label_html)) continue;
-                else $label_html = str_replace('{x}', Output::getClean($label->name), Output::getPurified($label_html[0]->html));
+                if (!count($label_html)) {
+                    continue;
+                } else {
+                    $label_html = str_replace('{x}', Output::getClean($label->name), Output::getPurified($label_html[0]->html));
+                }
 
                 $labels[] = [
                     'id' => $label->id,

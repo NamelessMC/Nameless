@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @param string $url New Discord bot URL
  * @param string $id New Discord Guild/server ID
@@ -31,7 +32,7 @@ class UpdateDiscordBotSettingsEndpoint extends EndpointBase {
             try {
                 $api->getDb()->createQuery('UPDATE nl2_settings SET `value` = ? WHERE `name` = ?', [$_POST['guild_id'], 'discord']);
             } catch (Exception $e) {
-                $api->throwError(33, Discord::getLanguageTerm('unable_to_set_discord_id'),  $e->getMessage());
+                $api->throwError(33, Discord::getLanguageTerm('unable_to_set_discord_id'), $e->getMessage());
             }
         }
 

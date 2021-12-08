@@ -12,7 +12,7 @@ namespace {
     if (!defined('PASSWORD_BCRYPT')) {
         /**
          * PHPUnit Process isolation caches constants, but not function declarations.
-         * So we need to check if the constants are defined separately from 
+         * So we need to check if the constants are defined separately from
          * the functions to enable supporting process isolation in userland
          * code.
          */
@@ -27,8 +27,8 @@ namespace {
          * Hash the password using the specified algorithm
          *
          * @param string $password The password to hash
-         * @param int    $algo     The algorithm to use (Defined by PASSWORD_* constants)
-         * @param array  $options  The options for the algorithm to use
+         * @param int $algo The algorithm to use (Defined by PASSWORD_* constants)
+         * @param array $options The options for the algorithm to use
          *
          * @return string|false The hashed password, or false on error.
          */
@@ -38,7 +38,7 @@ namespace {
                 return null;
             }
             if (is_null($password) || is_int($password)) {
-                $password = (string) $password;
+                $password = (string)$password;
             }
             if (!is_string($password)) {
                 trigger_error("password_hash(): Password must be a string", E_USER_WARNING);
@@ -79,11 +79,11 @@ namespace {
                     case 'integer':
                     case 'double':
                     case 'string':
-                        $salt = (string) $options['salt'];
+                        $salt = (string)$options['salt'];
                         break;
                     case 'object':
                         if (method_exists($options['salt'], '__tostring')) {
-                            $salt = (string) $options['salt'];
+                            $salt = (string)$options['salt'];
                             break;
                         }
                     case 'array':
@@ -95,7 +95,7 @@ namespace {
                 if (PasswordCompat\binary\_strlen($salt) < $required_salt_len) {
                     trigger_error(sprintf("password_hash(): Provided salt is too short: %d expecting %d", PasswordCompat\binary\_strlen($salt), $required_salt_len), E_USER_WARNING);
                     return null;
-                } elseif (0 == preg_match('#^[a-zA-Z0-9./]+$#D', $salt)) {
+                } else if (0 == preg_match('#^[a-zA-Z0-9./]+$#D', $salt)) {
                     $salt_req_encoding = true;
                 }
             } else {
@@ -197,9 +197,9 @@ namespace {
          *
          * If the answer is true, after validating the password using password_verify, rehash it.
          *
-         * @param string $hash    The hash to test
-         * @param int    $algo    The algorithm used for new password hashes
-         * @param array  $options The options array passed to password_hash
+         * @param string $hash The hash to test
+         * @param int $algo The algorithm used for new password hashes
+         * @param array $options The options array passed to password_hash
          *
          * @return boolean True if the password needs to be rehashed.
          */
@@ -223,7 +223,7 @@ namespace {
          * Verify a password against a hash using a timing attack resistant approach
          *
          * @param string $password The password to verify
-         * @param string $hash     The hash to verify against
+         * @param string $hash The hash to verify against
          *
          * @return boolean If the password matches the hash
          */
@@ -261,8 +261,8 @@ namespace PasswordCompat\binary {
          *
          * @param string $binary_string The input string
          *
-         * @internal
          * @return int The number of bytes
+         * @internal
          */
         function _strlen($binary_string) {
             if (function_exists('mb_strlen')) {
@@ -274,14 +274,14 @@ namespace PasswordCompat\binary {
         /**
          * Get a substring based on byte limits
          *
+         * @param string $binary_string The input string
+         * @param int $start
+         * @param int $length
+         *
+         * @return string The substring
+         * @internal
          * @see _strlen()
          *
-         * @param string $binary_string The input string
-         * @param int    $start
-         * @param int    $length
-         *
-         * @internal
-         * @return string The substring
          */
         function _substr($binary_string, $start, $length) {
             if (function_exists('mb_substr')) {
@@ -296,7 +296,7 @@ namespace PasswordCompat\binary {
          * @return boolean the check result
          */
         function check() {
-            static $pass = NULL;
+            static $pass = null;
 
             if (is_null($pass)) {
                 if (function_exists('crypt')) {

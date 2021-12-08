@@ -1,4 +1,5 @@
 <?php
+
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
@@ -8,6 +9,7 @@
  *
  *  Report class
  */
+
 class Report {
 
     private DB $_db;
@@ -37,7 +39,7 @@ class Report {
             $groups = '(';
             foreach ($moderator_groups as $group) {
                 if (is_numeric($group->id)) {
-                    $groups .= ((int) $group->id) . ',';
+                    $groups .= ((int)$group->id) . ',';
                 }
             }
             $groups = rtrim($groups, ',') . ')';

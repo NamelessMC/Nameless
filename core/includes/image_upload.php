@@ -56,7 +56,7 @@ if (Input::exists()) {
             case 'logo':
                 $image->setLocation(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'uploads', 'logos')));
                 break;
-                
+
             case 'favicon':
                 $image->setLocation(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'uploads', 'favicons')));
                 break;
@@ -122,17 +122,19 @@ if (Input::exists()) {
 
                         Redirect::to(URL::build('/user/settings'));
                         die();
-                    } else if (Input::get('type') == 'profile_banner') {
-                        $user->update(
-                            array(
-                                'banner' => Output::getClean($user->data()->id . '/' . $upload->getName() . '.' . $upload->getMime())
-                            )
-                        );
-
-                        Redirect::to(URL::build('/profile/' . Output::getClean($user->data()->username)));
-                        die();
                     } else {
-                        die('OK');
+                        if (Input::get('type') == 'profile_banner') {
+                            $user->update(
+                                array(
+                                    'banner' => Output::getClean($user->data()->id . '/' . $upload->getName() . '.' . $upload->getMime())
+                                )
+                            );
+
+                            Redirect::to(URL::build('/profile/' . Output::getClean($user->data()->username)));
+                            die();
+                        } else {
+                            die('OK');
+                        }
                     }
                 } else {
                     http_response_code(400);

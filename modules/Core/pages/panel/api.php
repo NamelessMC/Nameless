@@ -112,64 +112,70 @@ if (!isset($_GET['view'])) {
 
                 if (!$external) {
                     $errors[] = $language->get('admin', 'at_least_one_external');
-                } else if ($validation->passed()) {
-
-                    $queries->create('group_sync', $fields);
-                    Session::flash('api_success', $language->get('admin', 'group_sync_rule_created_successfully'));
-
                 } else {
-                    $errors = $validation->errors();
-                }
-            } else if ($_POST['action'] == 'update') {
+                    if ($validation->passed()) {
 
-                $namelessmc_injector = GroupSyncManager::getInstance()->getInjectorByClass(NamelessMCGroupSyncInjector::class);
+                        $queries->create('group_sync', $fields);
+                        Session::flash('api_success', $language->get('admin', 'group_sync_rule_created_successfully'));
 
-                foreach ($_POST['existing'] as $group_sync_id => $values) {
-                    $errors = [];
-
-                    $validator = GroupSyncManager::getInstance()->makeValidator($values, $language);
-
-                    if (!$validator->passed()) {
-                        $errors = $validator->errors();
                     } else {
-                        $external = false;
-                        foreach ($values as $column => $group) {
-                            if (
-                                $group
-                                && $group !== 0
-                                && $column != $namelessmc_injector->getColumnName()
-                            ) {
-                                $external = true;
+                        $errors = $validation->errors();
+                    }
+                }
+            } else {
+                if ($_POST['action'] == 'update') {
+
+                    $namelessmc_injector = GroupSyncManager::getInstance()->getInjectorByClass(NamelessMCGroupSyncInjector::class);
+
+                    foreach ($_POST['existing'] as $group_sync_id => $values) {
+                        $errors = [];
+
+                        $validator = GroupSyncManager::getInstance()->makeValidator($values, $language);
+
+                        if (!$validator->passed()) {
+                            $errors = $validator->errors();
+                        } else {
+                            $external = false;
+                            foreach ($values as $column => $group) {
+                                if (
+                                    $group
+                                    && $group !== 0
+                                    && $column != $namelessmc_injector->getColumnName()
+                                ) {
+                                    $external = true;
+                                }
+                            }
+
+                            if (!$external) {
+                                $errors[] = $language->get('admin', 'at_least_one_external');
                             }
                         }
 
-                        if (!$external) {
-                            $errors[] = $language->get('admin', 'at_least_one_external');
+                        if (!count($errors)) {
+                            try {
+                                $queries->update('group_sync', $group_sync_id, $values);
+                            } catch (Exception $e) {
+                                $errors[] = $e->getMessage();
+                            }
                         }
                     }
 
                     if (!count($errors)) {
-                        try {
-                            $queries->update('group_sync', $group_sync_id, $values);
-                        } catch (Exception $e) {
-                            $errors[] = $e->getMessage();
+                        Session::flash('api_success', $language->get('admin', 'group_sync_rules_updated_successfully'));
+                    }
+                } else {
+                    if ($_POST['action'] == 'delete') {
+                        if (isset($_POST['id'])) {
+                            try {
+                                $queries->delete('group_sync', ['id', '=', $_POST['id']]);
+                                Session::flash('api_success', $language->get('admin', 'group_sync_rule_deleted_successfully'));
+                            } catch (Exception $e) {
+                                // Redirect anyway
+                            }
                         }
+                        die();
                     }
                 }
-
-                if (!count($errors)) {
-                    Session::flash('api_success', $language->get('admin', 'group_sync_rules_updated_successfully'));
-                }
-            } else if ($_POST['action'] == 'delete') {
-                if (isset($_POST['id'])) {
-                    try {
-                        $queries->delete('group_sync', ['id', '=', $_POST['id']]);
-                        Session::flash('api_success', $language->get('admin', 'group_sync_rule_deleted_successfully'));
-                    } catch (Exception $e) {
-                        // Redirect anyway
-                    }
-                }
-                die();
             }
         } else {
             $errors[] = [$language->get('general', 'invalid_token')];
@@ -301,36 +307,38 @@ if (!isset($_GET['view'])) {
         );
 
         $template_file = 'core/api_group_sync.tpl';
-    } else if ($_GET['view'] == 'api_endpoints') {
+    } else {
+        if ($_GET['view'] == 'api_endpoints') {
 
-        $endpoints_array = [];
-        foreach ($endpoints->getAll() as $endpoint) {
-            $endpoints_array[] = [
-                'route' => $endpoint->getRoute(),
-                'module' => $endpoint->getModule(),
-                'description' => $endpoint->getDescription(),
-                'method' => $endpoint->getMethod()
-            ];
+            $endpoints_array = [];
+            foreach ($endpoints->getAll() as $endpoint) {
+                $endpoints_array[] = [
+                    'route' => $endpoint->getRoute(),
+                    'module' => $endpoint->getModule(),
+                    'description' => $endpoint->getDescription(),
+                    'method' => $endpoint->getMethod()
+                ];
+            }
+
+            $smarty->assign(
+                [
+                    'PARENT_PAGE' => PARENT_PAGE,
+                    'DASHBOARD' => $language->get('admin', 'dashboard'),
+                    'CONFIGURATION' => $language->get('admin', 'configuration'),
+                    'API_ENDPOINTS' => $language->get('admin', 'api_endpoints'),
+                    'PAGE' => PANEL_PAGE,
+                    'BACK' => $language->get('general', 'back'),
+                    'BACK_LINK' => URL::build('/panel/core/api'),
+                    'ROUTE' => $language->get('admin', 'route'),
+                    'DESCRIPTION' => $language->get('admin', 'description'),
+                    'MODULE' => $language->get('admin', 'module'),
+                    'ENDPOINTS_INFO' => $language->get('admin', 'api_endpoints_info'),
+                    'ENDPOINTS_ARRAY' => $endpoints_array
+                ]
+            );
+
+            $template_file = 'core/api_endpoints.tpl';
         }
-
-        $smarty->assign(
-            [
-                'PARENT_PAGE' => PARENT_PAGE,
-                'DASHBOARD' => $language->get('admin', 'dashboard'),
-                'CONFIGURATION' => $language->get('admin', 'configuration'),
-                'API_ENDPOINTS' => $language->get('admin', 'api_endpoints'),
-                'PAGE' => PANEL_PAGE,
-                'BACK' => $language->get('general', 'back'),
-                'BACK_LINK' => URL::build('/panel/core/api'),
-                'ROUTE' => $language->get('admin', 'route'),
-                'DESCRIPTION' => $language->get('admin', 'description'),
-                'MODULE' => $language->get('admin', 'module'),
-                'ENDPOINTS_INFO' => $language->get('admin', 'api_endpoints_info'),
-                'ENDPOINTS_ARRAY' => $endpoints_array
-            ]
-        );
-
-        $template_file = 'core/api_endpoints.tpl';
     }
 }
 

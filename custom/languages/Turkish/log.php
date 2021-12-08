@@ -12,7 +12,7 @@ $language = [
 
     //forums
     'info_forums_delete_post' => 'Silinmiş mesaj',
-    'info_forums_delete_topic' =>'Silinmiş konu',
+    'info_forums_delete_topic' => 'Silinmiş konu',
     'info_forums_edit_post' => 'Düzenlenmiş mesaj',
     'info_forums_lock' => 'Kilitle',
     'info_forums_unlock' => 'Kiliti kaldır',

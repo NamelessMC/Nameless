@@ -202,7 +202,7 @@ $language = [
     'google_analytics' => 'Analityka Google',
     'google_analytics_help' => 'Dodaj analitykę, aby zbierać dane o użytkownikach. Musisz posiadać konto google analityka, aby używać tej funkcji. Wpisz kod analityczny strony. ID wygląda tak UA-XXXXA-X i możesz znaleść go w ustawieniach konta.',
 
-  // Reactions
+    // Reactions
     'icon' => 'Ikona',
     'type' => 'Typ',
     'positive' => 'Pozytywny',

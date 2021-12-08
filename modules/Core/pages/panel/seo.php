@@ -61,10 +61,12 @@ if (!isset($_GET['metadata'])) {
                 $cache->store('updated', date('d M Y, H:i'));
 
                 $success = $language->get('admin', 'sitemap_generated');
-            } else if (Input::get('type') == 'google_analytics') {
-                $configuration->set('Core', 'ga_script', Input::get('analyticsid'));
+            } else {
+                if (Input::get('type') == 'google_analytics') {
+                    $configuration->set('Core', 'ga_script', Input::get('analyticsid'));
 
-                $success = $language->get('admin', 'settings_updated_successfully');
+                    $success = $language->get('admin', 'settings_updated_successfully');
+                }
             }
         } else {
             $errors[] = $language->get('general', 'invalid_token');
@@ -79,8 +81,9 @@ if (!isset($_GET['metadata'])) {
             if ($cache->isCached('updated')) {
                 $updated = $cache->retrieve('updated');
                 $updated = $timeago->inWords($updated, $language->getTimeLanguage());
-            } else
+            } else {
                 $updated = $language->get('admin', 'unknown');
+            }
 
             $smarty->assign([
                 'SITEMAP_LAST_GENERATED' => str_replace('{x}', $updated, $language->get('admin', 'sitemap_last_generated_x')),
@@ -112,8 +115,9 @@ if (!isset($_GET['metadata'])) {
                 } else {
                     $description = $_POST['description'];
                 }
-            } else
+            } else {
                 $description = null;
+            }
 
             $keywords = $_POST['keywords'] ?? null;
 
@@ -139,8 +143,9 @@ if (!isset($_GET['metadata'])) {
                 $success = $language->get('admin', 'metadata_updated_successfully');
 
             }
-        } else
+        } else {
             $errors[] = $language->get('general', 'invalid_token');
+        }
     }
 
     if (count($page_metadata)) {
@@ -164,17 +169,19 @@ if (!isset($_GET['metadata'])) {
     $template_file = 'core/seo_metadata_edit.tpl';
 }
 
-if (isset($success))
+if (isset($success)) {
     $smarty->assign([
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ]);
+}
 
-if (count($errors))
+if (count($errors)) {
     $smarty->assign([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
     ]);
+}
 
 $smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,

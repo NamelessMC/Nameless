@@ -234,7 +234,7 @@ if (!isset($_GET['view'])) {
             }
             break;
 
-            // TODO: Forums section - get all records which action starts with "forum_"
+        // TODO: Forums section - get all records which action starts with "forum_"
 
         case 'all':
             if (!$user->hasPermission('admincp.security.all')) {
@@ -300,17 +300,19 @@ if (!isset($_GET['view'])) {
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-if (isset($success))
+if (isset($success)) {
     $smarty->assign([
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ]);
+}
 
-if (isset($errors) && count($errors))
+if (isset($errors) && count($errors)) {
     $smarty->assign([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
     ]);
+}
 
 $smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,

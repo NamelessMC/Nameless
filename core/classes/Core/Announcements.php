@@ -1,4 +1,5 @@
 <?php
+
 /*
  *	Made by Samerton
  *  Announcements by Aberdeener
@@ -9,39 +10,23 @@
  *
  *  Announcements class
  */
+
 class Announcements {
-    
+
     private Cache $_cache;
-    
+
     public function __construct(Cache $cache) {
         $this->_cache = $cache;
-    }
-    
-    /**
-     * Get all announcements for listing in StaffCP.
-     * 
-     * @return array All announcements.
-     */
-    public function getAll(): array {
-        $this->_cache->setCache('custom_announcements');
-
-        if ($this->_cache->isCached('custom_announcements')) {
-            return $this->_cache->retrieve('custom_announcements');
-        }
-
-        $this->_cache->store('custom_announcements', DB::getInstance()->selectQuery('SELECT * FROM nl2_custom_announcements ORDER BY `order`')->results());
-
-        return $this->_cache->retrieve('custom_announcements');
     }
 
     /**
      * Get all announcements matching the param filters.
      * If they have a cookie set for an announcement, it will be skipped.
-     * 
+     *
      * @param string|null $page Name of the page they're viewing.
      * @param string|null $custom_page Title of custom page they're viewing.
      * @param array $user_groups All this user's groups.
-     * 
+     *
      * @return array Array of announcements they should see on this specific page with their groups.
      */
     public function getAvailable(?string $page = null, ?string $custom_page = null, array $user_groups = [0]): array {
@@ -70,10 +55,27 @@ class Announcements {
     }
 
     /**
+     * Get all announcements for listing in StaffCP.
+     *
+     * @return array All announcements.
+     */
+    public function getAll(): array {
+        $this->_cache->setCache('custom_announcements');
+
+        if ($this->_cache->isCached('custom_announcements')) {
+            return $this->_cache->retrieve('custom_announcements');
+        }
+
+        $this->_cache->store('custom_announcements', DB::getInstance()->selectQuery('SELECT * FROM nl2_custom_announcements ORDER BY `order`')->results());
+
+        return $this->_cache->retrieve('custom_announcements');
+    }
+
+    /**
      * Get all pages which can have announcements on them (they will have a 'name' attribute).
-     * 
+     *
      * @param Pages $pages Instance of Pages class.
-     * 
+     *
      * @return array<string> Name of all pages announcements can be on.
      */
     public function getPages(Pages $pages): array {
@@ -107,7 +109,7 @@ class Announcements {
 
     /**
      * Edit an existing announcement.
-     * 
+     *
      * @param int $id ID of announcement to edit.
      * @param array<string> $pages Array of page names this announcement should be on.
      * @param array<int> $groups Array of group IDs this announcement should be visible to.
@@ -121,15 +123,15 @@ class Announcements {
      */
     public function edit(int $id, array $pages, array $groups, string $text_colour, string $background_colour, string $icon, bool $closable, string $header, string $message, int $order): bool {
         $queries = new Queries();
-        
+
         $queries->update('custom_announcements', $id, [
-            'pages' => json_encode($pages), 
-            '`groups`' => json_encode($groups), 
-            'text_colour' => $text_colour, 
-            'background_colour' => $background_colour, 
-            'icon' => $icon, 
-            'closable' => $closable ? 1 : 0, 
-            'header' => $header, 
+            'pages' => json_encode($pages),
+            '`groups`' => json_encode($groups),
+            'text_colour' => $text_colour,
+            'background_colour' => $background_colour,
+            'icon' => $icon,
+            'closable' => $closable ? 1 : 0,
+            'header' => $header,
             'message' => $message,
             '`order`' => $order
         ]);
@@ -137,6 +139,20 @@ class Announcements {
         $this->resetCache();
 
         return true;
+    }
+
+    /**
+     * Erase and regenerate announcement cache file.
+     * Used when creating or editing announcements.
+     */
+    public function resetCache(): void {
+        $this->_cache->setCache('custom_announcements');
+
+        if ($this->_cache->isCached('custom_announcements')) {
+            $this->_cache->erase('custom_announcements');
+        }
+
+        $this->_cache->store('custom_announcements', $this->getAll());
     }
 
     /**
@@ -157,13 +173,13 @@ class Announcements {
         $queries = new Queries();
 
         $queries->create('custom_announcements', [
-            'pages' => json_encode($pages), 
-            'groups' => json_encode($groups), 
-            'text_colour' => $text_colour, 
-            'background_colour' => $background_colour, 
-            'icon' => $icon, 
-            'closable' => $closable ? 1 : 0, 
-            'header' => $header, 
+            'pages' => json_encode($pages),
+            'groups' => json_encode($groups),
+            'text_colour' => $text_colour,
+            'background_colour' => $background_colour,
+            'icon' => $icon,
+            'closable' => $closable ? 1 : 0,
+            'header' => $header,
             'message' => $message,
             'order' => $order
         ]);
@@ -178,19 +194,5 @@ class Announcements {
         ]);
 
         return true;
-    }
-
-    /**
-     * Erase and regenerate announcement cache file.
-     * Used when creating or editing announcements.
-     */
-    public function resetCache(): void {
-        $this->_cache->setCache('custom_announcements');
-
-        if ($this->_cache->isCached('custom_announcements')) {
-            $this->_cache->erase('custom_announcements');
-        }
-
-        $this->_cache->store('custom_announcements', $this->getAll());
     }
 }

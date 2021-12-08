@@ -35,7 +35,7 @@ if (!isset($_GET['c'])) {
     }
 
     if (!$user->isLoggedIn()) {
-		$target_user = new User($_GET['c'], 'reset_code');
+        $target_user = new User($_GET['c'], 'reset_code');
         if ($target_user->data()) {
             if (Input::exists()) {
                 if (Token::check()) {
@@ -111,17 +111,17 @@ if (!isset($_GET['c'])) {
 
 // Smarty variables
 if (isset($errors) && count($errors)) {
-	$smarty->assign('ERRORS', $errors);
+    $smarty->assign('ERRORS', $errors);
 }
 
 $smarty->assign([
-	'REGISTER' => $language->get('general', 'register'),
-	'PASSWORD' => $language->get('user', 'password'),
-	'CONFIRM_PASSWORD' => $language->get('user', 'confirm_password'),
-	'SUBMIT' => $language->get('general', 'submit'),
-	'I_AGREE' => $language->get('user', 'i_agree'),
-	'AGREE_TO_TERMS' => str_replace('{x}', URL::build('/terms'), $language->get('user', 'agree_t_and_c')),
-	'TOKEN' => Token::get()
+    'REGISTER' => $language->get('general', 'register'),
+    'PASSWORD' => $language->get('user', 'password'),
+    'CONFIRM_PASSWORD' => $language->get('user', 'confirm_password'),
+    'SUBMIT' => $language->get('general', 'submit'),
+    'I_AGREE' => $language->get('user', 'i_agree'),
+    'AGREE_TO_TERMS' => str_replace('{x}', URL::build('/terms'), $language->get('user', 'agree_t_and_c')),
+    'TOKEN' => Token::get()
 ]);
 
 $page_load = microtime(true) - $start;

@@ -10,7 +10,7 @@
  */
 
 abstract class Module {
-    
+
     private static iterable $_modules = [];
 
     private string $_name;
@@ -37,46 +37,8 @@ abstract class Module {
     }
 
     /**
-     * Set the name of this module.
-     * 
-     * @param string $name New name.
-     */
-    protected final function setName(string $name): void {
-        $this->_name = $name;
-    }
-
-    /**
-     * Set version of this module.
-     * 
-     * @param string $version Version to set.
-     */
-    protected final function setVersion(string $version): void {
-        $this->_version = $version;
-    }
-
-    /**
-     * Set NamelessMC version of this module.
-     * 
-     * @param string $nameless_version NamelessMC version to set.
-     */
-    protected final function setNamelessVersion(string $nameless_version): void {
-        $this->_nameless_version = $nameless_version;
-    }
-
-    protected final function setAuthor(string $author): void {
-        $this->_author = $author;
-    }
-
-    abstract function onInstall();
-    abstract function onUninstall(); // TODO: Implement
-    abstract function onEnable();
-    abstract function onDisable();
-    abstract function onPageLoad(User $user, Pages $pages, Cache $cache, Smarty $smarty, iterable $navs, Widgets $widgets, ?TemplateBase $template);
-    abstract function getDebugInfo(): array;
-
-    /**
      * Call `onPageLoad()` function for all registered modules.
-     * 
+     *
      * @param User $user User viewing the page.
      * @param Pages $pages Instance of pages class.
      * @param Cache $cache Instance of cache to pass.
@@ -96,51 +58,11 @@ abstract class Module {
         return self::$_modules;
     }
 
-    public function getName(): string {
-        return $this->_name;
-    }
-
-    public function getAuthor(): string {
-        return $this->_author;
-    }
-
-    public function getVersion(): string {
-        return $this->_version;
-    }
-
-    public function getNamelessVersion(): string {
-        return $this->_nameless_version;
-    }
-
-    public function getLoadBefore(): array {
-        return $this->_load_before;
-    }
-
-    public function getLoadAfter(): array {
-        return $this->_load_after;
-    }
-
-    private static function findBeforeAfter(array $modules, string $current): array {
-        $before = [$current];
-        $after = [];
-        $found = false;
-
-        foreach ($modules as $module) {
-            if ($found) {
-                $after[] = $module;
-            } else if ($module == $current) {
-                $found = true;
-            } else {
-                $before[] = $module;
-            }
-        }
-
-        return [$before, $after];
-    }
+    abstract function onPageLoad(User $user, Pages $pages, Cache $cache, Smarty $smarty, iterable $navs, Widgets $widgets, ?TemplateBase $template);
 
     /**
      * Determine loading arrangement of modules.
-     * 
+     *
      * @return array Array with module order and any failed modules.
      */
     public static function determineModuleOrder(): array {
@@ -148,7 +70,9 @@ abstract class Module {
         $failed = [];
 
         foreach (self::getModules() as $module) {
-            if ($module->getName() == 'Core') continue;
+            if ($module->getName() == 'Core') {
+                continue;
+            }
 
             for ($n = 0; $n < count($module_order); $n++) {
                 $before_after = self::findBeforeAfter($module_order, $module_order[$n]);
@@ -163,5 +87,90 @@ abstract class Module {
         }
 
         return ['modules' => $module_order, 'failed' => $failed];
+    }
+
+    public function getName(): string {
+        return $this->_name;
+    }
+
+    /**
+     * Set the name of this module.
+     *
+     * @param string $name New name.
+     */
+    protected final function setName(string $name): void {
+        $this->_name = $name;
+    } // TODO: Implement
+
+    private static function findBeforeAfter(array $modules, string $current): array {
+        $before = [$current];
+        $after = [];
+        $found = false;
+
+        foreach ($modules as $module) {
+            if ($found) {
+                $after[] = $module;
+            } else {
+                if ($module == $current) {
+                    $found = true;
+                } else {
+                    $before[] = $module;
+                }
+            }
+        }
+
+        return [$before, $after];
+    }
+
+    public function getLoadAfter(): array {
+        return $this->_load_after;
+    }
+
+    public function getLoadBefore(): array {
+        return $this->_load_before;
+    }
+
+    abstract function onInstall();
+
+    abstract function onUninstall();
+
+    abstract function onEnable();
+
+    abstract function onDisable();
+
+    abstract function getDebugInfo(): array;
+
+    public function getAuthor(): string {
+        return $this->_author;
+    }
+
+    protected final function setAuthor(string $author): void {
+        $this->_author = $author;
+    }
+
+    public function getVersion(): string {
+        return $this->_version;
+    }
+
+    /**
+     * Set version of this module.
+     *
+     * @param string $version Version to set.
+     */
+    protected final function setVersion(string $version): void {
+        $this->_version = $version;
+    }
+
+    public function getNamelessVersion(): string {
+        return $this->_nameless_version;
+    }
+
+    /**
+     * Set NamelessMC version of this module.
+     *
+     * @param string $nameless_version NamelessMC version to set.
+     */
+    protected final function setNamelessVersion(string $nameless_version): void {
+        $this->_nameless_version = $nameless_version;
     }
 }

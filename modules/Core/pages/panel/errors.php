@@ -30,11 +30,12 @@ if (isset($_GET['log']) && isset($_GET['do']) && $_GET['do'] == 'purge') {
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-if (Session::exists('error_log_success'))
+if (Session::exists('error_log_success')) {
     $smarty->assign([
         'SUCCESS' => Session::flash('error_log_success'),
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ]);
+}
 
 if (isset($_GET['log'])) {
     switch ($_GET['log']) {
@@ -112,7 +113,8 @@ $template->onPageLoad();
 require(ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
-if (!isset($_GET['log']))
+if (!isset($_GET['log'])) {
     $template->displayTemplate('core/errors.tpl', $smarty);
-else
+} else {
     $template->displayTemplate('core/errors_view.tpl', $smarty);
+}

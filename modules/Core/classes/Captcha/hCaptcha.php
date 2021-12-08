@@ -1,4 +1,5 @@
 <?php
+
 /*
  *	Made by Samerton
  *
@@ -9,6 +10,7 @@
  *
  *  hCaptcha class
  */
+
 class hCaptcha extends CaptchaBase {
 
     /**

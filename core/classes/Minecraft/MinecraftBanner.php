@@ -31,30 +31,32 @@ class MinecraftBanner {
         $texture_size = 32;
 
         $canvas = imagecreatetruecolor($width, $height);
-        if ($background == NULL) {
+        if ($background == null) {
             $background = imagecreatefrompng(ROOT_PATH . '/uploads/banners/texture.png');
-        } else if (file_exists(ROOT_PATH . '/uploads/banners/' . $background)) {
-            $background = imagecreatefrompng(ROOT_PATH . '/uploads/banners/' . $background);
         } else {
-            if (stristr($background, 'http://') || stristr($background, 'https://') || file_exists($background)) {
-                $info = pathinfo($background);
-                $ext = $info['extension'];
-
-                switch ($ext) {
-                    case 'png':
-                        $background = imagecreatefrompng($background);
-                        break;
-                    case 'jpg':
-                        $background = imagecreatefromjpeg($background);
-                        break;
-                    case 'gif':
-                        $background = imagecreatefromgif ($background);
-                        break;
-                    default:
-                        $background = imagecreatefrompng(ROOT_PATH . '/uploads/banners/texture.png');
-                }
+            if (file_exists(ROOT_PATH . '/uploads/banners/' . $background)) {
+                $background = imagecreatefrompng(ROOT_PATH . '/uploads/banners/' . $background);
             } else {
-                $background = imagecreatefrompng(ROOT_PATH . '/uploads/banners/texture.png');
+                if (stristr($background, 'http://') || stristr($background, 'https://') || file_exists($background)) {
+                    $info = pathinfo($background);
+                    $ext = $info['extension'];
+
+                    switch ($ext) {
+                        case 'png':
+                            $background = imagecreatefrompng($background);
+                            break;
+                        case 'jpg':
+                            $background = imagecreatefromjpeg($background);
+                            break;
+                        case 'gif':
+                            $background = imagecreatefromgif($background);
+                            break;
+                        default:
+                            $background = imagecreatefrompng(ROOT_PATH . '/uploads/banners/texture.png');
+                    }
+                } else {
+                    $background = imagecreatefrompng(ROOT_PATH . '/uploads/banners/texture.png');
+                }
             }
         }
 
@@ -63,9 +65,7 @@ class MinecraftBanner {
                 for ($xPos = 0; $xPos <= ($width / $texture_size); $xPos++) {
                     $startX = $xPos * $texture_size;
                     $startY = $yPos * $texture_size;
-                    imagecopyresampled($canvas, $background, $startX, $startY, 0, 0
-                            , $texture_size, $texture_size
-                            , $texture_size, $texture_size);
+                    imagecopyresampled($canvas, $background, $startX, $startY, 0, 0, $texture_size, $texture_size, $texture_size, $texture_size);
                 }
             }
         } else {

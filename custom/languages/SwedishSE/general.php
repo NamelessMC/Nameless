@@ -73,7 +73,7 @@ $language = [
     'link' => 'Länka',
     'unlink' => 'Avlänka',
     'leaderboards' => 'Topplista',
-    
+
     /*
      *  Contact form
      */

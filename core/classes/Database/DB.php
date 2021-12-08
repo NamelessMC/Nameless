@@ -24,12 +24,14 @@ class DB extends Instanceable {
             $charset = '';
             if (Config::get('mysql/initialise_charset')) {
                 $charset = Config::get('mysql/charset');
-                if (!$charset) $charset = 'utf8mb4';
+                if (!$charset) {
+                    $charset = 'utf8mb4';
+                }
 
                 $charset = 'charset=' . $charset;
             }
 
-            $this->_pdo = new PDO('mysql:host=' . Config::get('mysql/host') . ';port=' . Config::get('mysql/port') . ';dbname=' . Config::get('mysql/db') . ';'.$charset, Config::get('mysql/username'), Config::get('mysql/password'));
+            $this->_pdo = new PDO('mysql:host=' . Config::get('mysql/host') . ';port=' . Config::get('mysql/port') . ';dbname=' . Config::get('mysql/db') . ';' . $charset, Config::get('mysql/username'), Config::get('mysql/password'));
             $this->_pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->_prefix = Config::get('mysql/prefix');
         } catch (PDOException $e) {
@@ -76,6 +78,21 @@ class DB extends Instanceable {
         return $this;
     }
 
+    public function createTable(string $name, string $table_data, string $other) {
+        $name = $this->_prefix . $name;
+        $sql = "CREATE TABLE `{$name}` ({$table_data}) {$other}";
+
+        if (!$this->createQuery($sql)->error()) {
+            return $this;
+        }
+
+        return false;
+    }
+
+    public function error(): bool {
+        return $this->_error;
+    }
+
     public function createQuery(string $sql, array $params = []): DB {
         $this->_error = false;
         if ($this->_query = $this->_pdo->prepare($sql)) {
@@ -100,24 +117,17 @@ class DB extends Instanceable {
         return $this;
     }
 
-    public function createTable(string $name, string $table_data, string $other) {
-        $name = $this->_prefix . $name;
-        $sql = "CREATE TABLE `{$name}` ({$table_data}) {$other}";
-
-        if (!$this->createQuery($sql)->error()) {
-            return $this;
-        }
-
-        return false;
+    public function get(string $table, array $where) {
+        return $this->action('SELECT *', $table, $where);
     }
 
     public function action(string $action, string $table, array $where = []) {
         if (count($where) === 3) {
             $operators = ['=', '>', '<', '>=', '<=', '<>'];
 
-            $field 		= $where[0];
-            $operator 	= $where[1];
-            $value 		= $where[2];
+            $field = $where[0];
+            $operator = $where[1];
+            $value = $where[2];
 
             $table = $this->_prefix . $table;
 
@@ -133,32 +143,6 @@ class DB extends Instanceable {
         return false;
     }
 
-    public function deleteAction(string $action, string $table, array $where = []) {
-        if (count($where) === 3) {
-            $operators = ['=', '>', '<', '>=', '<=', '<>'];
-
-            $field 		= $where[0];
-            $operator 	= $where[1];
-            $value 		= $where[2];
-
-            $table = $this->_prefix . $table;
-
-            if (in_array($operator, $operators)) {
-                $sql = "{$action} FROM {$table} WHERE {$field} {$operator} ?";
-
-                if (!$this->createQuery($sql, [$value])->error()) {
-                    return $this;
-                }
-            }
-        }
-
-        return false;
-    }
-
-    public function get(string $table, array $where) {
-        return $this->action('SELECT *', $table, $where);
-    }
-
     public function like(string $table, string $column, string $like) {
         $table = $this->_prefix . $table;
         $sql = "SELECT * FROM {$table} WHERE {$column} LIKE '{$like}'";
@@ -172,6 +156,28 @@ class DB extends Instanceable {
 
     public function delete(string $table, array $where) {
         return $this->deleteAction('DELETE', $table, $where);
+    }
+
+    public function deleteAction(string $action, string $table, array $where = []) {
+        if (count($where) === 3) {
+            $operators = ['=', '>', '<', '>=', '<=', '<>'];
+
+            $field = $where[0];
+            $operator = $where[1];
+            $value = $where[2];
+
+            $table = $this->_prefix . $table;
+
+            if (in_array($operator, $operators)) {
+                $sql = "{$action} FROM {$table} WHERE {$field} {$operator} ?";
+
+                if (!$this->createQuery($sql, [$value])->error()) {
+                    return $this;
+                }
+            }
+        }
+
+        return false;
     }
 
     public function insert(string $table, array $fields = []): bool {
@@ -225,18 +231,14 @@ class DB extends Instanceable {
         return (!$this->createQuery($sql, [$id])->error());
     }
 
-    public function results(): array {
-        return $this->_results;
-    }
-
     public function first(): ?object {
         $results = $this->results();
 
         return $results[0] ?? null;
     }
 
-    public function error(): bool {
-        return $this->_error;
+    public function results(): array {
+        return $this->_results;
     }
 
     public function count(): int {

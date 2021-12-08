@@ -36,10 +36,11 @@ if (!isset($_GET['id'])) {
             if (!is_numeric($_GET['p'])) {
                 Redirect::to(URL::build('/panel/minecraft/query_errors'));
                 die();
-            } else
+            } else {
                 $p = $_GET['p'];
+            }
 
-        } else{
+        } else {
             $p = 1;
         }
 
@@ -119,20 +120,23 @@ if (!isset($_GET['id'])) {
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-if (Session::exists('panel_query_errors_success'))
+if (Session::exists('panel_query_errors_success')) {
     $success = Session::flash('panel_query_errors_success');
+}
 
-if (isset($success))
+if (isset($success)) {
     $smarty->assign([
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ]);
+}
 
-if (isset($errors) && count($errors))
+if (isset($errors) && count($errors)) {
     $smarty->assign([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
     ]);
+}
 
 $smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,

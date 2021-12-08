@@ -76,24 +76,27 @@ if (Input::exists()) {
         } else {
             $errors = $validation->errors();
         }
-    } else
+    } else {
         $errors[] = $language->get('general', 'invalid_token');
+    }
 }
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-if (isset($success))
+if (isset($success)) {
     $smarty->assign([
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ]);
+}
 
-if (isset($errors) && count($errors))
+if (isset($errors) && count($errors)) {
     $smarty->assign([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
     ]);
+}
 
 // Get privacy policy + terms
 $site_terms = $queries->getWhere('privacy_terms', ['name', '=', 'terms']);

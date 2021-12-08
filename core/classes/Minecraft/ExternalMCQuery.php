@@ -42,18 +42,21 @@ class ExternalMCQuery {
      * @param string|null $ip Server's IP.
      * @return bool
      */
-    public static function getFavicon(string $ip = null): bool{
+    public static function getFavicon(string $ip = null): bool {
         if ($ip) {
             $query_ip = explode(':', $ip);
 
             if (count($query_ip) == 2) {
                 $ip = $query_ip[0];
                 $port = $query_ip[1];
-            } else if (count($query_ip) == 1) {
-                $ip = $query_ip[0];
-                $port = $query_ip[1];
-            } else
-                return false;
+            } else {
+                if (count($query_ip) == 1) {
+                    $ip = $query_ip[0];
+                    $port = $query_ip[1];
+                } else {
+                    return false;
+                }
+            }
 
             $queryUrl = 'https://api.namelessmc.com/api/server/' . $ip . '/' . $port;
 

@@ -19,7 +19,7 @@ $view = isset($_GET['v']) ? substr($_GET['v'], 0, 1) : 'f';
 $view = in_array($view, ['f', 'l', 'r', 'b']) ? $view : 'f';
 
 function get_skin($user, $cache) {
-    
+
     // Check cache
     $cache->setCache('avatarCache_' . $user);
     if ($cache->isCached($user)) {
@@ -96,7 +96,7 @@ if ($skin != 'cached') {
     imagedestroy($av);
 } else {
     // Output - already cached
-    $im = imagecreatefrompng('cache/' . $user  . '.png');
+    $im = imagecreatefrompng('cache/' . $user . '.png');
     header('Content-type: image/png');
     imagepng($im);
     imagedestroy($im);

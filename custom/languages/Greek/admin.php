@@ -235,7 +235,7 @@ $language = [
     'textarea' => 'Περιοχή κειμένου',
     'date' => 'Ημερομηνία',
     'creating_profile_field' => 'Δημιουργία προφίλ Πεδίο',
-      'editing_profile_field' => 'Επεξεργασία Προφίλ πεδίο',
+    'editing_profile_field' => 'Επεξεργασία Προφίλ πεδίο',
     'field_name' => 'Ονομα πεδίου',
     'profile_field_required_help' => 'Τα υποχρεωτικά πεδία πρέπει να συμπληρωθούν από το χρήστη, και θα εμφανίζονται κατά την εγγραφή.',
     'profile_field_public_help' => 'Δημόσια πεδία θα εμφανίζονται σε όλους τους χρήστες, αν αυτό είναι απενεργοποιημένο μόνο οι διαμεσολαβητές να δουν τις τιμές.',
@@ -663,7 +663,7 @@ $language = [
     // Hooks
     'hooks' => 'Webhooks',
     'hooks_info' => 'Webhooks allow external services to be notified when certain events happen. When the specified events happen.',
-  'no_hooks_yet' => 'There are no webhooks yet.',
+    'no_hooks_yet' => 'There are no webhooks yet.',
     'new_hook' => 'New Hook',
     'creating_new_hook' => 'Creating New Webhook',
     'editing_hook' => 'Editing Webhook',

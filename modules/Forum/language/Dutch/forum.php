@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *  Gemaakt door Samerton
  *  en vertaald door Sander Lambrechts
@@ -14,7 +14,7 @@
 $language = [
     /*
      *  Forums
-     */ 
+     */
     'forum' => 'Forum',
     'forums' => 'Forums',
     'forum_index' => 'Start',
@@ -97,11 +97,11 @@ $language = [
     'new_reply_in_topic' => '{x} has replied to topic {y}', // Don't replace {x} (username) or {y} (topic title)
     'started_by_x' => 'Started by {x}', // Don't replace {x}
     'sticky_topics' => 'Sticky Topics',
-    
+
     // Homepagina
     'latest_announcements' => 'Laatste aankondigingen',
     'read_full_post' => 'Lees volledig bericht',
-    
+
     // Admin tab
     'labels' => 'Labels',
     'new_forum' => '<i class="fa fa-plus-circle"></i> Nieuw Forum',
@@ -184,7 +184,7 @@ $language = [
     'new_search' => 'New Search',
     'invalid_search_query' => 'Please enter a search query between 3 and 128 characters long.',
     'no_results_found' => 'No results found.',
-    
+
     // Profiel tab
     'user_no_posts' => 'Deze gebruiker heeft nog geen berichten geplaatst op het forum .',
     'latest_posts' => 'Laatste berichten',

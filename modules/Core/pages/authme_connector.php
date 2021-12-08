@@ -90,19 +90,24 @@ if (Input::exists()) {
                 // Get default language ID before creating user
                 $language_id = $queries->getWhere('languages', ['name', '=', LANGUAGE]);
 
-                if (count($language_id)) $language_id = $language_id[0]->id;
-                else $language_id = 1; // fallback to EnglishUK
+                if (count($language_id)) {
+                    $language_id = $language_id[0]->id;
+                } else {
+                    $language_id = 1;
+                } // fallback to EnglishUK
 
                 $ip = $user->getIP();
                 if (filter_var($ip, FILTER_VALIDATE_IP)) {
                     // Valid IP
-                } else
+                } else {
                     $ip = $_SESSION['authme']['ip'];
+                }
 
-                if ($custom_usernames == 'true')
+                if ($custom_usernames == 'true') {
                     $nickname = Output::getClean(Input::get('nickname'));
-                else
+                } else {
                     $nickname = $_SESSION['authme']['user'];
+                }
 
                 $mcname = $_SESSION['authme']['user'];
 
@@ -111,8 +116,9 @@ if (Input::exists()) {
                     require(ROOT_PATH . '/core/integration/uuid.php'); // For UUID stuff
                     if (!isset($mcname_result)) {
                         $profile = ProfileUtils::getProfile(str_replace(' ', '%20', $mcname));
-                        if ($profile && method_exists($profile, 'getProfileAsArray'))
+                        if ($profile && method_exists($profile, 'getProfileAsArray')) {
                             $mcname_result = $profile->getProfileAsArray();
+                        }
                     }
                     if (isset($mcname_result['uuid']) && !empty($mcname_result['uuid'])) {
                         $uuid = $mcname_result['uuid'];
@@ -228,7 +234,7 @@ if (Input::exists()) {
                             $stmt->execute();
                             $stmt->bind_result($password, $ip);
 
-                            while($stmt->fetch()) {
+                            while ($stmt->fetch()) {
                                 // Retrieve result
                             }
 
@@ -241,7 +247,7 @@ if (Input::exists()) {
                                 // Validate inputted password against actual password
                                 $valid = false;
 
-                                switch($authme_db['hash']) {
+                                switch ($authme_db['hash']) {
                                     case 'bcrypt':
                                         require(ROOT_PATH . '/core/includes/password.php');
 
@@ -339,8 +345,9 @@ if (Input::exists()) {
     }
 }
 
-if (count($errors))
+if (count($errors)) {
     $smarty->assign('ERRORS', $errors);
+}
 
 $smarty->assign('ERROR', $language->get('general', 'error'));
 
@@ -383,8 +390,9 @@ if (!isset($_GET['step'])) {
     if ($custom_usernames == 'true') {
         $info = $language->get('user', 'authme_email_help_2');
         $smarty->assign('NICKNAME', $language->get('user', 'username'));
-    } else
+    } else {
         $info = $language->get('user', 'authme_email_help_1');
+    }
 
     $smarty->assign([
         'CONNECT_WITH_AUTHME' => $language->get('user', 'connect_with_authme'),

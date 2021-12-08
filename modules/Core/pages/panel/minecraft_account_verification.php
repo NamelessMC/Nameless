@@ -71,32 +71,36 @@ if (Input::exists()) {
             $uuid_linking = $queries->getWhere('settings', ['name', '=', 'uuid_linking']);
             $uuid_linking = $uuid_linking[0]->id;
 
-            if (isset($_POST['enable_premium_accounts']) && $_POST['enable_premium_accounts'] == 1)
+            if (isset($_POST['enable_premium_accounts']) && $_POST['enable_premium_accounts'] == 1) {
                 $use_premium = 1;
-            else
+            } else {
                 $use_premium = 0;
+            }
 
             $queries->update('settings', $uuid_linking, ['value' => $use_premium]);
         }
 
-    } else
+    } else {
         $errors[] = $language->get('general', 'invalid_token');
+    }
 }
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-if (isset($success))
+if (isset($success)) {
     $smarty->assign([
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ]);
+}
 
-if (isset($errors) && count($errors))
+if (isset($errors) && count($errors)) {
     $smarty->assign([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
     ]);
+}
 
 // Get UUID linking settings
 $uuid_linking = $queries->getWhere('settings', ['name', '=', 'uuid_linking']);

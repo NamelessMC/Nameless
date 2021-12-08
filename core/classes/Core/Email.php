@@ -13,27 +13,27 @@ class Email {
 
     /**
      * Send an email.
-     * 
+     *
      * @param array $email Array containing all necessary email information to send as per the sendPHP and sendMailer functions.
      * @param string $method Email sending method to use (`php` or `mailer`). Uses `php` if not provided.
      */
     public static function send(array $email, string $method = 'php') {
         if ($method == 'php') {
             return self::sendPHP($email);
-        } 
-        else if ($method == 'mailer') {
-            return self::sendMailer($email);
-        }
-        else {
-            return false;
+        } else {
+            if ($method == 'mailer') {
+                return self::sendMailer($email);
+            } else {
+                return false;
+            }
         }
     }
 
     /**
      * Send an email using PHP's sendmail() function.
-     * 
+     *
      * @param array $email Array containing `to`, `subject`, `message` and `headers` values.
-     * 
+     *
      * @return array|bool
      */
     private static function sendPHP(array $email) {
@@ -58,9 +58,9 @@ class Email {
 
     /**
      * Send an email using the PHPMailer library.
-     * 
+     *
      * @param array $email array of email to send.
-     * 
+     *
      * @return array|bool
      */
     private static function sendMailer(array $email) {
@@ -117,13 +117,13 @@ class Email {
 
     /**
      * Format an email template and replace placeholders.
-     * 
+     *
      * @param string $email Name of email to format.
      * @param Language $viewing_language Instance of Language class to use for translations.
      */
     public static function formatEmail(string $email, Language $viewing_language): string {
         return str_replace(
-            // TODO: let modules add their own placeholders here? :o
+        // TODO: let modules add their own placeholders here? :o
             [
                 '[Sitename]',
                 '[Greeting]',

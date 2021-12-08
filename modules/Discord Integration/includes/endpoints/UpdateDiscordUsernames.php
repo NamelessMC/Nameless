@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @param string $user JSON Array of user ID -> Discord username to update
  *

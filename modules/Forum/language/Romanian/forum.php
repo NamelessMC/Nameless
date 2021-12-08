@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
@@ -14,7 +14,7 @@
 $language = [
     /*
      *  Forums
-     */ 
+     */
     'forum' => 'Forum',
     'forums' => 'Forumuri',
     'forum_index' => 'Forum',
@@ -97,11 +97,11 @@ $language = [
     'new_reply_in_topic' => '{x} a răspuns la subiectul {y}', // Don't replace {x} (username) or {y} (topic title)
     'started_by_x' => 'Started by {x}', // Don't replace {x}
     'sticky_topics' => 'Sticky Topics',
-    
+
     // Homepage
     'latest_announcements' => 'Cele mai recente noutăti',
     'read_full_post' => 'Subiect complet',
-    
+
     // Admin tab
     'labels' => 'Etichete',
     'new_forum' => '<i class="fa fa-plus-circle"></i> Forum nou',

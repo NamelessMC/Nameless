@@ -96,16 +96,26 @@ class ServerBanner {
 
         if ($ping < 0) {
             $image = imagecreatefrompng(ROOT_PATH . '/core/assets/img/ping/-1.png');
-        } else if ($ping > 0 && $ping <= 150) {
-            $image = imagecreatefrompng(ROOT_PATH . '/core/assets/img/ping/5.png');
-        } else if ($ping <= 300) {
-            $image = imagecreatefrompng(ROOT_PATH . '/core/assets/img/ping/4.png');
-        } else if ($ping <= 400) {
-            $image = imagecreatefrompng(ROOT_PATH . '/core/assets/img/ping/3.png');
-        } else if ($ping <= 400) {
-            $image = imagecreatefrompng(ROOT_PATH . '/core/assets/img/ping/2.png');
-        } else if ($ping > 400) {
-            $image = imagecreatefrompng(ROOT_PATH . '/core/assets/img/ping/1.png');
+        } else {
+            if ($ping > 0 && $ping <= 150) {
+                $image = imagecreatefrompng(ROOT_PATH . '/core/assets/img/ping/5.png');
+            } else {
+                if ($ping <= 300) {
+                    $image = imagecreatefrompng(ROOT_PATH . '/core/assets/img/ping/4.png');
+                } else {
+                    if ($ping <= 400) {
+                        $image = imagecreatefrompng(ROOT_PATH . '/core/assets/img/ping/3.png');
+                    } else {
+                        if ($ping <= 400) {
+                            $image = imagecreatefrompng(ROOT_PATH . '/core/assets/img/ping/2.png');
+                        } else {
+                            if ($ping > 400) {
+                                $image = imagecreatefrompng(ROOT_PATH . '/core/assets/img/ping/1.png');
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         $ping_posX = 650 - 36 - 3;

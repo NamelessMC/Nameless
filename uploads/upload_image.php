@@ -52,8 +52,9 @@ if ($user->isLoggedIn()) {
             ]);
         }
     }
-} else
+} else {
     echo json_encode([
         'uploaded' => '0',
         'error' => ['You are not logged in']
     ]);
+}

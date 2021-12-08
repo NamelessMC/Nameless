@@ -31,7 +31,7 @@ if (count($warning)) {
             'acknowledged' => 1
         ]);
 
-       Log::getInstance()->log(Log::Action('user/acknowledge'), $result);
+        Log::getInstance()->log(Log::Action('user/acknowledge'), $result);
     }
 }
 

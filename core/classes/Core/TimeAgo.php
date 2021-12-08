@@ -47,14 +47,14 @@ function timeAgoInWords(string $timestring, string $timezone = null): string {
  * @site http://github.com/jimmiw/php-time-ago
  */
 class TimeAgo {
-    
+
     // defines the number of seconds per "unit"
-    private int $secondsPerMinute = 60;
-    private int $secondsPerHour = 3600;
-    private int $secondsPerDay = 86400;
-    private int $secondsPerMonth = 2592000;
-    private int $secondsPerYear = 31104000;
-    private string $timezone;
+    private int $_secondsPerMinute = 60;
+    private int $_secondsPerHour = 3600;
+    private int $_secondsPerDay = 86400;
+    private int $_secondsPerMonth = 2592000;
+    private int $_secondsPerYear = 31104000;
+    private string $_timezone;
 
     public function __construct(string $timezone = null) {
         // if the $timezone is null, we take 'Europe/London' as the default
@@ -63,12 +63,12 @@ class TimeAgo {
             $timezone = 'Europe/London';
         }
 
-        $this->timezone = $timezone;
+        $this->_timezone = $timezone;
     }
 
     public function inWords(string $past, $time_language, $now = 'now'): string {
         // sets the default timezone
-        date_default_timezone_set($this->timezone);
+        date_default_timezone_set($this->_timezone);
         // finds the past in datetime
         $past = strtotime($past);
         // finds the current datetime
@@ -80,128 +80,136 @@ class TimeAgo {
         // less than 29secs
         if ($timeDifference <= 29) {
             $key = 'less_than_a_minute';
-        }
-        // more than 29secs and less than 1min29secss
-        else if ($timeDifference <= 89) {
-            $key = '1_minute';
-        }
-        // between 1min30secs and 44mins29secs
-        else if ($timeDifference <= (($this->secondsPerMinute * 44) + 29)
-        ) {
-            $replace = floor($timeDifference / $this->secondsPerMinute);
-            $key = '_minutes';
-        }
-        // between 44mins30secs and 1hour29mins29secs
-        else if (
-            $timeDifference > (($this->secondsPerMinute * 44) + 29)
-            &&
-            $timeDifference < (($this->secondsPerMinute * 89) + 29)
-        ) {
-            $key = 'about_1_hour';
-        }
-        // between 1hour29mins30secs and 23hours59mins29secs
-        else if (
-            $timeDifference > (
-                ($this->secondsPerMinute * 89) +
-                29
-            )
-            &&
-            $timeDifference <= (
-                ($this->secondsPerHour * 23) +
-                ($this->secondsPerMinute * 59) +
-                29
-            )
-        ) {
-            $replace = floor($timeDifference / $this->secondsPerHour);
-            if ($replace == 1) {
-                $key = 'about_1_hour';
-                unset($replace);
-            } else
-                $key = '_hours';
-        }
-        // between 23hours59mins30secs and 47hours59mins29secs
-        else if (
-            $timeDifference > (
-                ($this->secondsPerHour * 23) +
-                ($this->secondsPerMinute * 59) +
-                29
-            )
-            &&
-            $timeDifference <= (
-                ($this->secondsPerHour * 47) +
-                ($this->secondsPerMinute * 59) +
-                29
-            )
-        ) {
-            $key = '1_day';
-        }
-        // between 47hours59mins30secs and 29days23hours59mins29secs
-        else if (
-            $timeDifference > (
-                ($this->secondsPerHour * 47) +
-                ($this->secondsPerMinute * 59) +
-                29
-            )
-            &&
-            $timeDifference <= (
-                ($this->secondsPerDay * 29) +
-                ($this->secondsPerHour * 23) +
-                ($this->secondsPerMinute * 59) +
-                29
-            )
-        ) {
-            $replace = floor($timeDifference / $this->secondsPerDay);
-            $key = '_days';
-        }
-        // between 29days23hours59mins30secs and 59days23hours59mins29secs
-        else if (
-            $timeDifference > (
-                ($this->secondsPerDay * 29) +
-                ($this->secondsPerHour * 23) +
-                ($this->secondsPerMinute * 59) +
-                29
-            )
-            &&
-            $timeDifference <= (
-                ($this->secondsPerDay * 59) +
-                ($this->secondsPerHour * 23) +
-                ($this->secondsPerMinute * 59) +
-                29
-            )
-        ) {
-            $key = 'about_1_month';
-        }
-        // between 59days23hours59mins30secs and 1year (minus 1sec)
-        else if (
-            $timeDifference > (
-                ($this->secondsPerDay * 59) +
-                ($this->secondsPerHour * 23) +
-                ($this->secondsPerMinute * 59) +
-                29
-            )
-            &&
-            $timeDifference < $this->secondsPerYear
-        ) {
-            $replace = round($timeDifference / $this->secondsPerMonth);
-            // if months is 1, then set it to 2, because we are "past" 1 month
-            if ($replace == 1) {
-                $replace = 2;
-            }
+        } else {
+            // more than 29secs and less than 1min29secss
+            if ($timeDifference <= 89) {
+                $key = '1_minute';
+            } else {
+                // between 1min30secs and 44mins29secs
+                if ($timeDifference <= (($this->_secondsPerMinute * 44) + 29)) {
+                    $replace = floor($timeDifference / $this->_secondsPerMinute);
+                    $key = '_minutes';
+                } else {
+                    // between 44mins30secs and 1hour29mins29secs
+                    if (
+                        $timeDifference > (($this->_secondsPerMinute * 44) + 29)
+                        &&
+                        $timeDifference < (($this->_secondsPerMinute * 89) + 29)
+                    ) {
+                        $key = 'about_1_hour';
+                    } else {
+                        // between 1hour29mins30secs and 23hours59mins29secs
+                        if (
+                            $timeDifference > (
+                                ($this->_secondsPerMinute * 89) +
+                                29
+                            )
+                            &&
+                            $timeDifference <= (
+                                ($this->_secondsPerHour * 23) +
+                                ($this->_secondsPerMinute * 59) +
+                                29
+                            )
+                        ) {
+                            $replace = floor($timeDifference / $this->_secondsPerHour);
+                            if ($replace == 1) {
+                                $key = 'about_1_hour';
+                                unset($replace);
+                            } else {
+                                $key = '_hours';
+                            }
+                        } else {
+                            // between 23hours59mins30secs and 47hours59mins29secs
+                            if (
+                                $timeDifference > (
+                                    ($this->_secondsPerHour * 23) +
+                                    ($this->_secondsPerMinute * 59) +
+                                    29
+                                )
+                                &&
+                                $timeDifference <= (
+                                    ($this->_secondsPerHour * 47) +
+                                    ($this->_secondsPerMinute * 59) +
+                                    29
+                                )
+                            ) {
+                                $key = '1_day';
+                            } else {
+                                // between 47hours59mins30secs and 29days23hours59mins29secs
+                                if (
+                                    $timeDifference > (
+                                        ($this->_secondsPerHour * 47) +
+                                        ($this->_secondsPerMinute * 59) +
+                                        29
+                                    )
+                                    &&
+                                    $timeDifference <= (
+                                        ($this->_secondsPerDay * 29) +
+                                        ($this->_secondsPerHour * 23) +
+                                        ($this->_secondsPerMinute * 59) +
+                                        29
+                                    )
+                                ) {
+                                    $replace = floor($timeDifference / $this->_secondsPerDay);
+                                    $key = '_days';
+                                } else {
+                                    // between 29days23hours59mins30secs and 59days23hours59mins29secs
+                                    if (
+                                        $timeDifference > (
+                                            ($this->_secondsPerDay * 29) +
+                                            ($this->_secondsPerHour * 23) +
+                                            ($this->_secondsPerMinute * 59) +
+                                            29
+                                        )
+                                        &&
+                                        $timeDifference <= (
+                                            ($this->_secondsPerDay * 59) +
+                                            ($this->_secondsPerHour * 23) +
+                                            ($this->_secondsPerMinute * 59) +
+                                            29
+                                        )
+                                    ) {
+                                        $key = 'about_1_month';
+                                    } else {
+                                        // between 59days23hours59mins30secs and 1year (minus 1sec)
+                                        if (
+                                            $timeDifference > (
+                                                ($this->_secondsPerDay * 59) +
+                                                ($this->_secondsPerHour * 23) +
+                                                ($this->_secondsPerMinute * 59) +
+                                                29
+                                            )
+                                            &&
+                                            $timeDifference < $this->_secondsPerYear
+                                        ) {
+                                            $replace = round($timeDifference / $this->_secondsPerMonth);
+                                            // if months is 1, then set it to 2, because we are "past" 1 month
+                                            if ($replace == 1) {
+                                                $replace = 2;
+                                            }
 
-            $key = '_months';
-        }
-        // between 1year and 2years (minus 1sec)
-        else if (
-            $timeDifference >= $this->secondsPerYear
-            &&
-            $timeDifference < ($this->secondsPerYear * 2)
-        ) {
-            $key = 'about_1_year';
-        }
-        // 2years or more
-        else {
-            $replace = floor($timeDifference / $this->secondsPerYear);
-            $key = 'over_x_years';
+                                            $key = '_months';
+                                        } else {
+                                            // between 1year and 2years (minus 1sec)
+                                            if (
+                                                $timeDifference >= $this->_secondsPerYear
+                                                &&
+                                                $timeDifference < ($this->_secondsPerYear * 2)
+                                            ) {
+                                                $key = 'about_1_year';
+                                            } else {
+                                                // 2years or more
+                                                $replace = floor($timeDifference / $this->_secondsPerYear);
+                                                $key = 'over_x_years';
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         if (is_array($time_language[$key])) {
@@ -233,7 +241,7 @@ class TimeAgo {
         $years = 0;
 
         // sets the default timezone
-        date_default_timezone_set($this->timezone);
+        date_default_timezone_set($this->_timezone);
 
         // finds the past in datetime
         $past = strtotime($past);
@@ -245,49 +253,49 @@ class TimeAgo {
 
         // starts determining the time difference
         if ($timeDifference >= 0) {
-            switch($timeDifference) {
+            switch ($timeDifference) {
                 // finds the number of years
-                case ($timeDifference >= $this->secondsPerYear):
+                case ($timeDifference >= $this->_secondsPerYear):
                     // uses floor to remove decimals
-                    $years = floor($timeDifference / $this->secondsPerYear);
+                    $years = floor($timeDifference / $this->_secondsPerYear);
                     // saves the amount of seconds left
-                    $timeDifference = $timeDifference-($years * $this->secondsPerYear);
+                    $timeDifference = $timeDifference - ($years * $this->_secondsPerYear);
                     break;
 
                 // finds the number of months
-                case ($timeDifference >= $this->secondsPerMonth && $timeDifference <= ($this->secondsPerYear-1)):
+                case ($timeDifference >= $this->_secondsPerMonth && $timeDifference <= ($this->_secondsPerYear - 1)):
                     // uses floor to remove decimals
-                    $months = floor($timeDifference / $this->secondsPerMonth);
+                    $months = floor($timeDifference / $this->_secondsPerMonth);
                     // saves the amount of seconds left
-                    $timeDifference = $timeDifference-($months * $this->secondsPerMonth);
+                    $timeDifference = $timeDifference - ($months * $this->_secondsPerMonth);
                     break;
 
                 // finds the number of days
-                case ($timeDifference >= $this->secondsPerDay && $timeDifference <= ($this->secondsPerYear-1)):
+                case ($timeDifference >= $this->_secondsPerDay && $timeDifference <= ($this->_secondsPerYear - 1)):
                     // uses floor to remove decimals
-                    $days = floor($timeDifference / $this->secondsPerDay);
+                    $days = floor($timeDifference / $this->_secondsPerDay);
                     // saves the amount of seconds left
-                    $timeDifference = $timeDifference-($days * $this->secondsPerDay);
+                    $timeDifference = $timeDifference - ($days * $this->_secondsPerDay);
                     break;
 
                 // finds the number of hours
-                case ($timeDifference >= $this->secondsPerHour && $timeDifference <= ($this->secondsPerDay-1)):
+                case ($timeDifference >= $this->_secondsPerHour && $timeDifference <= ($this->_secondsPerDay - 1)):
                     // uses floor to remove decimals
-                    $hours = floor($timeDifference / $this->secondsPerHour);
+                    $hours = floor($timeDifference / $this->_secondsPerHour);
                     // saves the amount of seconds left
-                    $timeDifference = $timeDifference-($hours * $this->secondsPerHour);
+                    $timeDifference = $timeDifference - ($hours * $this->_secondsPerHour);
                     break;
 
                 // finds the number of minutes
-                case ($timeDifference >= $this->secondsPerMinute && $timeDifference <= ($this->secondsPerHour-1)):
+                case ($timeDifference >= $this->_secondsPerMinute && $timeDifference <= ($this->_secondsPerHour - 1)):
                     // uses floor to remove decimals
-                    $minutes = floor($timeDifference / $this->secondsPerMinute);
+                    $minutes = floor($timeDifference / $this->_secondsPerMinute);
                     // saves the amount of seconds left
-                    $timeDifference = $timeDifference-($minutes * $this->secondsPerMinute);
+                    $timeDifference = $timeDifference - ($minutes * $this->_secondsPerMinute);
                     break;
 
                 // finds the number of seconds
-                case ($timeDifference <= ($this->secondsPerMinute-1)):
+                case ($timeDifference <= ($this->_secondsPerMinute - 1)):
                     // seconds is just what there is in the timeDifference variable
                     $seconds = $timeDifference;
             }

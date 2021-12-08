@@ -1,4 +1,5 @@
 <?php
+
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
@@ -8,17 +9,13 @@
  *
  *  Queries class
  */
+
 class Queries {
 
     private DB $_db;
 
     public function __construct() {
         $this->_db = DB::getInstance();
-    }
-
-    public function getWhere(string $table, array $where): array {
-        $data = $this->_db->get($table, $where);
-        return $data->results();
     }
 
     public function getAll(string $table, array $where = []): array {
@@ -102,6 +99,11 @@ class Queries {
                 $this->_db->update('groups', $group_id, ['permissions' => $perms_json]);
             }
         }
+    }
+
+    public function getWhere(string $table, array $where): array {
+        $data = $this->_db->get($table, $where);
+        return $data->results();
     }
 
     public function dbInitialise(string $charset = 'latin1', string $engine = 'InnoDB') {

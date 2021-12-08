@@ -24,13 +24,13 @@ class CollectionManager {
 
     public static function getFullCollection($collection): array {
         return isset(self::$_collections[$collection])
-                ? self::$_collections[$collection]->getAllItems()
-                : [];
+            ? self::$_collections[$collection]->getAllItems()
+            : [];
     }
 
     public static function getEnabledCollection($collection): array {
         return isset(self::$_collections[$collection])
-                ? self::$_collections[$collection]->getEnabledItems()
-                : [];
+            ? self::$_collections[$collection]->getEnabledItems()
+            : [];
     }
 }

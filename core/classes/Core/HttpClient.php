@@ -2,52 +2,12 @@
 
 class HttpClient {
 
-    private $ch;
-    private $data;
+    private $_ch;
+    private $_data;
 
     private function __construct($ch, $data) {
-        $this->ch = $ch;
-        $this->data = $data;
-    }
-
-    /**
-     * Get the response body
-     *
-     * @return string The response body
-     */
-    public function data(): string {
-        return $this->data;
-    }
-
-    /**
-     * Get the response HTTP status code
-     *
-     * @return int The response code
-     */
-    public function getStatus(): int {
-        return curl_getinfo($this->ch, CURLINFO_RESPONSE_CODE);
-    }
-
-    /**
-     * Check if the response has an error
-     *
-     * @return bool Whether the response has an error or not
-     */
-    public function hasError() : bool {
-        return $this->data === false && $this->getError() !== '';
-    }
-
-    /**
-     * Get the error message
-     *
-     * @return string The error message
-     */
-    public function getError(): string {
-        return curl_error($this->ch);
-    }
-
-    public function __destruct() {
-        curl_close($this->ch);
+        $this->_ch = $ch;
+        $this->_data = $data;
     }
 
     /**
@@ -60,7 +20,7 @@ class HttpClient {
     public static function get(string $url, array $options = []): HttpClient {
         $ch = curl_init($url);
 
-        curl_setopt($ch,CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt_array($ch, $options);
 
         $contents = curl_exec($ch);
@@ -101,6 +61,46 @@ class HttpClient {
         }
 
         return new HttpClient($ch, $contents);
+    }
+
+    /**
+     * Get the response body
+     *
+     * @return string The response body
+     */
+    public function data(): string {
+        return $this->_data;
+    }
+
+    /**
+     * Get the response HTTP status code
+     *
+     * @return int The response code
+     */
+    public function getStatus(): int {
+        return curl_getinfo($this->_ch, CURLINFO_RESPONSE_CODE);
+    }
+
+    /**
+     * Check if the response has an error
+     *
+     * @return bool Whether the response has an error or not
+     */
+    public function hasError(): bool {
+        return $this->_data === false && $this->getError() !== '';
+    }
+
+    /**
+     * Get the error message
+     *
+     * @return string The error message
+     */
+    public function getError(): string {
+        return curl_error($this->_ch);
+    }
+
+    public function __destruct() {
+        curl_close($this->_ch);
     }
 
 }

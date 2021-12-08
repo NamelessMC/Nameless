@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *  Made by Samerton
  *  Translated by Ethxrnity and Fjuro
@@ -13,7 +13,7 @@
 $language = [
     /*
      *  Forums
-     */ 
+     */
     'forum' => 'Fórum',
     'forums' => 'Fóra',
     'forum_index' => 'Domov',
@@ -96,11 +96,11 @@ $language = [
     'new_reply_in_topic' => 'Uživatel {x} odpověděl na téma {y}', // Don't replace {x} (username) or {y} (topic title)
     'started_by_x' => 'Téma založil {x}', // Don't replace {x}
     'sticky_topics' => 'Připnutá témata',
-    
+
     // Homepage
     'latest_announcements' => 'Poslední oznámení',
     'read_full_post' => 'Přečtěte si celý příspěvek',
-    
+
     // Admin tab
     'labels' => 'Štítky',
     'new_forum' => '<i class="fa fa-plus-circle"></i> Nové fórum',
@@ -118,7 +118,7 @@ $language = [
     'label_type_html_help' => 'HTML musí obsahovat {x} jako zástupný symbol pro název štítku',
     'label' => 'Štítek',
     'label_forums' => 'Štítky fóra',
-  'label_groups' => 'Skupiny štítků',
+    'label_groups' => 'Skupiny štítků',
     'no_forums' => 'Žádná fóra',
     'no_labels_defined' => 'Dosud nebyly definovány žádné štítky.',
     'no_label_types_defined' => 'Dosud nebyly definovány žádné typy štítků.',
@@ -184,7 +184,7 @@ $language = [
     'new_search' => 'Nové hledání',
     'invalid_search_query' => 'Zadejte vyhledávací dotaz mezi 3 a 128 znaky.',
     'no_results_found' => 'Nebyly nalezeny žádné výsledky.',
-    
+
     // Profile tab
     'user_no_posts' => 'Tento uživatel dosud nevytvořil žádné příspěvky ve fóru.',
     'latest_posts' => 'Nejnovější příspěvky',

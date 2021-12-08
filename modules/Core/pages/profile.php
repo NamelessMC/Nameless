@@ -28,8 +28,9 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     }
 
     $page_title = $language->get('user', 'profile') . ' - ' . Output::getClean($md_profile);
-} else
+} else {
     $page_title = $language->get('user', 'profile');
+}
 
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
@@ -69,239 +70,242 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     if (Input::exists() && $user->isLoggedIn()) {
         if (isset($_POST['action'])) {
             switch ($_POST['action']) {
-            case 'banner':
-                if ($user->data()->username == $profile) {
-                    if (Token::check()) {
-                        // Update banner
-                        if (isset($_POST['banner'])) {
-                            // Check image specified actually exists
-                            if (is_file(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'profile_images', $_POST['banner']]))) {
-                                // Exists
-                                // Is it an image file?
-                                if (in_array(pathinfo(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'profile_images', $_POST['banner']]), PATHINFO_EXTENSION), ['gif', 'png', 'jpg', 'jpeg'])) {
-                                    // Yes, update settings
-                                    $user->update(
-                                        [
-                                            'banner' => Output::getClean($_POST['banner'])
-                                        ]
-                                    );
+                case 'banner':
+                    if ($user->data()->username == $profile) {
+                        if (Token::check()) {
+                            // Update banner
+                            if (isset($_POST['banner'])) {
+                                // Check image specified actually exists
+                                if (is_file(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'profile_images', $_POST['banner']]))) {
+                                    // Exists
+                                    // Is it an image file?
+                                    if (in_array(pathinfo(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'profile_images', $_POST['banner']]), PATHINFO_EXTENSION), ['gif', 'png', 'jpg', 'jpeg'])) {
+                                        // Yes, update settings
+                                        $user->update(
+                                            [
+                                                'banner' => Output::getClean($_POST['banner'])
+                                            ]
+                                        );
 
-                                    // Requery to update banner
-                                    $user = new User();
-                                    $profile_user = new User($profile, 'username');
-                                    $query = $profile_user->data();
+                                        // Requery to update banner
+                                        $user = new User();
+                                        $profile_user = new User($profile, 'username');
+                                        $query = $profile_user->data();
+                                    }
                                 }
                             }
                         }
                     }
-                }
-                break;
+                    break;
 
-            case 'new_post':
-                if (Token::check()) {
-                    // Valid token
-                    $validate = new Validate();
+                case 'new_post':
+                    if (Token::check()) {
+                        // Valid token
+                        $validate = new Validate();
 
-                    $validation = $validate->check($_POST, [
-                        'post' => [
-                            Validate::REQUIRED => true,
-                            Validate::MIN => 1,
-                            Validate::MAX => 10000
-                        ]
-                    ])->message($language->get('user', 'invalid_wall_post'));
-
-                    if ($validation->passed()) {
-                        // Validation successful
-                        // Input into database
-                        $queries->create(
-                            'user_profile_wall_posts',
-                            [
-                                'user_id' => $query->id,
-                                'author_id' => $user->data()->id,
-                                'time' => date('U'),
-                                'content' => Output::getClean(Input::get('post'))
+                        $validation = $validate->check($_POST, [
+                            'post' => [
+                                Validate::REQUIRED => true,
+                                Validate::MIN => 1,
+                                Validate::MAX => 10000
                             ]
-                        );
+                        ])->message($language->get('user', 'invalid_wall_post'));
 
-                        if ($query->id !== $user->data()->id) {
-                            // Alert user
-                            Alert::create($query->id, 'profile_post', ['path' => 'core', 'file' => 'user', 'term' => 'new_wall_post', 'replace' => '{x}', 'replace_with' => $user->getDisplayname()], ['path' => 'core', 'file' => 'user', 'term' => 'new_wall_post', 'replace' => '{x}', 'replace_with' => $user->getDisplayname()], URL::build('/profile/' . $profile_user->getDisplayname(true) . '/#post-' . $queries->getLastId()));
-                        }
+                        if ($validation->passed()) {
+                            // Validation successful
+                            // Input into database
+                            $queries->create(
+                                'user_profile_wall_posts',
+                                [
+                                    'user_id' => $query->id,
+                                    'author_id' => $user->data()->id,
+                                    'time' => date('U'),
+                                    'content' => Output::getClean(Input::get('post'))
+                                ]
+                            );
 
-                        $cache->setCache('profile_posts_widget');
-                        $cache->eraseAll();
+                            if ($query->id !== $user->data()->id) {
+                                // Alert user
+                                Alert::create($query->id, 'profile_post', ['path' => 'core', 'file' => 'user', 'term' => 'new_wall_post', 'replace' => '{x}', 'replace_with' => $user->getDisplayname()], ['path' => 'core', 'file' => 'user', 'term' => 'new_wall_post', 'replace' => '{x}', 'replace_with' => $user->getDisplayname()], URL::build('/profile/' . $profile_user->getDisplayname(true) . '/#post-' . $queries->getLastId()));
+                            }
 
-                        // Redirect to clear input
-                        Redirect::to($profile_user->getProfileURL());
-                        die();
-                    } else {
-                        // Validation failed
-                        $error = $validation->errors();
-                    }
-                } else {
-                    $error = $language->get('general', 'invalid_token');
-                }
-                break;
+                            $cache->setCache('profile_posts_widget');
+                            $cache->eraseAll();
 
-            case 'reply':
-                if (Token::check()) {
-                    // Valid token
-                    $validate = new Validate();
-
-                    $validation = $validate->check($_POST, [
-                        'reply' => [
-                            Validate::REQUIRED => true,
-                            Validate::MIN => 1,
-                            Validate::MAX => 10000
-                        ],
-                        'post' => [
-                            Validate::REQUIRED => true
-                        ]
-                    ])->message($language->get('user', 'invalid_wall_post'));
-
-                    if ($validation->passed()) {
-                        // Validation successful
-
-                        // Ensure post exists
-                        $post = $queries->getWhere('user_profile_wall_posts', ['id', '=', $_POST['post']]);
-                        if (!count($post)) {
+                            // Redirect to clear input
                             Redirect::to($profile_user->getProfileURL());
                             die();
+                        } else {
+                            // Validation failed
+                            $error = $validation->errors();
                         }
-
-                        // Input into database
-                        $queries->create(
-                            'user_profile_wall_posts_replies',
-                            [
-                                'post_id' => $_POST['post'],
-                                'author_id' => $user->data()->id,
-                                'time' => date('U'),
-                                'content' => Output::getClean(Input::get('reply'))
-                            ]
-                        );
-
-                        if ($post[0]->author_id != $query->id && $query->id != $user->data()->id) {
-                            Alert::create($query->id, 'profile_post', ['path' => 'core', 'file' => 'user', 'term' => 'new_wall_post', 'replace' => '{x}', 'replace_with' => $user->getDisplayname()], ['path' => 'core', 'file' => 'user', 'term' => 'new_wall_post', 'replace' => '{x}', 'replace_with' => $user->getDisplayname()], URL::build('/profile/' . $profile_user->getDisplayname(true) . '/#post-' . $_POST['post']));
-                        } else if ($post[0]->author_id != $user->data()->id) {
-                            // Alert post author
-                            if ($post[0]->author_id == $query->id) {
-                                Alert::create($query->id, 'profile_post_reply', ['path' => 'core', 'file' => 'user', 'term' => 'new_wall_post_reply_your_profile', 'replace' => '{x}', 'replace_with' => $user->getDisplayname()], ['path' => 'core', 'file' => 'user', 'term' => 'new_wall_post_reply_your_profile', 'replace' => '{x}', 'replace_with' => $user->getDisplayname], URL::build('/profile/' . $profile_user->getDisplayname(true) . '/#post-' . $_POST['post']));
-                            } else {
-                                Alert::create($post[0]->author_id, 'profile_post_reply', ['path' => 'core', 'file' => 'user', 'term' => 'new_wall_post_reply', 'replace' => ['{x}', '{y}'], 'replace_with' => [$user->getDisplayname(), $profile_user->getDisplayname()]], ['path' => 'core', 'file' => 'user', 'term' => 'new_wall_post_reply', 'replace' => ['{x}', '{y}'], 'replace_with' => [$user->getDisplayname(), $profile_user->getDisplayname()]], URL::build('/profile/' . $profile_user->getDisplayname(true) . '/#post-' . $_POST['post']));
-                            }
-                        }
-
-                        // Redirect to clear input
-                        Redirect::to($profile_user->getProfileURL());
-                        die();
                     } else {
-                        // Validation failed
-                        $error = $validation->errors();
+                        $error = $language->get('general', 'invalid_token');
                     }
-                } else {
-                    $error = $language->get('general', 'invalid_token');
-                }
-                break;
+                    break;
 
-            case 'block':
-                if (Token::check()) {
-                    if ($user->isBlocked($user->data()->id, $query->id)) {
-                        // Unblock
-                        $blocked_id = $queries->getWhere('blocked_users', ['user_id', '=', $user->data()->id]);
-                        if (count($blocked_id)) {
-                            foreach ($blocked_id as $id) {
-                                if ($id->user_blocked_id == $query->id) {
-                                    $blocked_id = $id->id;
-                                    break;
+                case 'reply':
+                    if (Token::check()) {
+                        // Valid token
+                        $validate = new Validate();
+
+                        $validation = $validate->check($_POST, [
+                            'reply' => [
+                                Validate::REQUIRED => true,
+                                Validate::MIN => 1,
+                                Validate::MAX => 10000
+                            ],
+                            'post' => [
+                                Validate::REQUIRED => true
+                            ]
+                        ])->message($language->get('user', 'invalid_wall_post'));
+
+                        if ($validation->passed()) {
+                            // Validation successful
+
+                            // Ensure post exists
+                            $post = $queries->getWhere('user_profile_wall_posts', ['id', '=', $_POST['post']]);
+                            if (!count($post)) {
+                                Redirect::to($profile_user->getProfileURL());
+                                die();
+                            }
+
+                            // Input into database
+                            $queries->create(
+                                'user_profile_wall_posts_replies',
+                                [
+                                    'post_id' => $_POST['post'],
+                                    'author_id' => $user->data()->id,
+                                    'time' => date('U'),
+                                    'content' => Output::getClean(Input::get('reply'))
+                                ]
+                            );
+
+                            if ($post[0]->author_id != $query->id && $query->id != $user->data()->id) {
+                                Alert::create($query->id, 'profile_post', ['path' => 'core', 'file' => 'user', 'term' => 'new_wall_post', 'replace' => '{x}', 'replace_with' => $user->getDisplayname()], ['path' => 'core', 'file' => 'user', 'term' => 'new_wall_post', 'replace' => '{x}', 'replace_with' => $user->getDisplayname()], URL::build('/profile/' . $profile_user->getDisplayname(true) . '/#post-' . $_POST['post']));
+                            } else {
+                                if ($post[0]->author_id != $user->data()->id) {
+                                    // Alert post author
+                                    if ($post[0]->author_id == $query->id) {
+                                        Alert::create($query->id, 'profile_post_reply', ['path' => 'core', 'file' => 'user', 'term' => 'new_wall_post_reply_your_profile', 'replace' => '{x}', 'replace_with' => $user->getDisplayname()], ['path' => 'core', 'file' => 'user', 'term' => 'new_wall_post_reply_your_profile', 'replace' => '{x}', 'replace_with' => $user->getDisplayname], URL::build('/profile/' . $profile_user->getDisplayname(true) . '/#post-' . $_POST['post']));
+                                    } else {
+                                        Alert::create($post[0]->author_id, 'profile_post_reply', ['path' => 'core', 'file' => 'user', 'term' => 'new_wall_post_reply', 'replace' => ['{x}', '{y}'], 'replace_with' => [$user->getDisplayname(), $profile_user->getDisplayname()]], ['path' => 'core', 'file' => 'user', 'term' => 'new_wall_post_reply', 'replace' => ['{x}', '{y}'], 'replace_with' => [$user->getDisplayname(), $profile_user->getDisplayname()]], URL::build('/profile/' . $profile_user->getDisplayname(true) . '/#post-' . $_POST['post']));
+                                    }
                                 }
                             }
 
-                            if (is_numeric($blocked_id)) {
-                                $queries->delete('blocked_users', ['id', '=', $blocked_id]);
-                                $success = $language->get('user', 'user_unblocked');
+                            // Redirect to clear input
+                            Redirect::to($profile_user->getProfileURL());
+                            die();
+                        } else {
+                            // Validation failed
+                            $error = $validation->errors();
+                        }
+                    } else {
+                        $error = $language->get('general', 'invalid_token');
+                    }
+                    break;
+
+                case 'block':
+                    if (Token::check()) {
+                        if ($user->isBlocked($user->data()->id, $query->id)) {
+                            // Unblock
+                            $blocked_id = $queries->getWhere('blocked_users', ['user_id', '=', $user->data()->id]);
+                            if (count($blocked_id)) {
+                                foreach ($blocked_id as $id) {
+                                    if ($id->user_blocked_id == $query->id) {
+                                        $blocked_id = $id->id;
+                                        break;
+                                    }
+                                }
+
+                                if (is_numeric($blocked_id)) {
+                                    $queries->delete('blocked_users', ['id', '=', $blocked_id]);
+                                    $success = $language->get('user', 'user_unblocked');
+                                }
+                            }
+                        } else {
+                            // Block
+                            $queries->create('blocked_users', [
+                                'user_id' => $user->data()->id,
+                                'user_blocked_id' => $query->id
+                            ]);
+                            $success = $language->get('user', 'user_blocked');
+                        }
+                    } else {
+                        $error = $language->get('general', 'invalid_token');
+                    }
+                    break;
+
+                case 'edit':
+                    // Ensure user is mod or owner of post
+                    if (Token::check()) {
+                        if (isset($_POST['post_id']) && is_numeric($_POST['post_id'])) {
+                            $post = $queries->getWhere('user_profile_wall_posts', ['id', '=', $_POST['post_id']]);
+                            if (count($post)) {
+                                $post = $post[0];
+                                if ($user->canViewStaffCP() || $post->author_id == $user->data()->id) {
+                                    if (isset($_POST['content']) && strlen($_POST['content']) < 10000 && strlen($_POST['content']) >= 1) {
+                                        try {
+                                            $queries->update('user_profile_wall_posts', $_POST['post_id'], [
+                                                'content' => Output::getClean($_POST['content'])
+                                            ]);
+                                        } catch (Exception $e) {
+                                            $error = $e->getMessage();
+                                        }
+                                    } else {
+                                        $error = $language->get('user', 'invalid_wall_post');
+                                    }
+                                }
                             }
                         }
                     } else {
-                        // Block
-                        $queries->create('blocked_users', [
-                            'user_id' => $user->data()->id,
-                            'user_blocked_id' => $query->id
-                        ]);
-                        $success = $language->get('user', 'user_blocked');
+                        $error = $language->get('general', 'invalid_token');
                     }
-                } else {
-                    $error = $language->get('general', 'invalid_token');
-                }
-                break;
+                    break;
 
-            case 'edit':
-                // Ensure user is mod or owner of post
-                if (Token::check()) {
-                    if (isset($_POST['post_id']) && is_numeric($_POST['post_id'])) {
-                        $post = $queries->getWhere('user_profile_wall_posts', ['id', '=', $_POST['post_id']]);
-                        if (count($post)) {
-                            $post = $post[0];
-                            if ($user->canViewStaffCP() || $post->author_id == $user->data()->id) {
-                                if (isset($_POST['content']) && strlen($_POST['content']) < 10000 && strlen($_POST['content']) >= 1) {
+                case 'delete':
+                    // Ensure user is mod or owner of post
+                    if (Token::check()) {
+                        if (isset($_POST['post_id']) && is_numeric($_POST['post_id'])) {
+                            $post = $queries->getWhere('user_profile_wall_posts', ['id', '=', $_POST['post_id']]);
+                            if (count($post)) {
+                                $post = $post[0];
+                                if ($user->canViewStaffCP() || $post->author_id == $user->data()->id) {
                                     try {
-                                        $queries->update('user_profile_wall_posts', $_POST['post_id'], [
-                                            'content' => Output::getClean($_POST['content'])
-                                        ]);
+                                        $queries->delete('user_profile_wall_posts', ['id', '=', $_POST['post_id']]);
+                                        $queries->delete('user_profile_wall_posts_replies', ['post_id', '=', $_POST['post_id']]);
                                     } catch (Exception $e) {
                                         $error = $e->getMessage();
                                     }
-                                } else
-                                    $error = $language->get('user', 'invalid_wall_post');
-                            }
-                        }
-                    }
-                } else {
-                    $error = $language->get('general', 'invalid_token');
-                }
-                break;
-
-            case 'delete':
-                // Ensure user is mod or owner of post
-                if (Token::check()) {
-                    if (isset($_POST['post_id']) && is_numeric($_POST['post_id'])) {
-                        $post = $queries->getWhere('user_profile_wall_posts', ['id', '=', $_POST['post_id']]);
-                        if (count($post)) {
-                            $post = $post[0];
-                            if ($user->canViewStaffCP() || $post->author_id == $user->data()->id) {
-                                try {
-                                    $queries->delete('user_profile_wall_posts', ['id', '=', $_POST['post_id']]);
-                                    $queries->delete('user_profile_wall_posts_replies', ['post_id', '=', $_POST['post_id']]);
-                                } catch (Exception $e) {
-                                    $error = $e->getMessage();
                                 }
                             }
                         }
+                    } else {
+                        $error = $language->get('general', 'invalid_token');
                     }
-                } else {
-                    $error = $language->get('general', 'invalid_token');
-                }
-                break;
+                    break;
 
-            case 'deleteReply':
-                // Ensure user is mod or owner of reply
-                if (Token::check()) {
-                    if (isset($_POST['post_id']) && is_numeric($_POST['post_id'])) {
-                        $post = $queries->getWhere('user_profile_wall_posts_replies', ['id', '=', $_POST['post_id']]);
-                        if (count($post)) {
-                            $post = $post[0];
-                            if ($user->canViewStaffCP() || $post->author_id == $user->data()->id) {
-                                try {
-                                    $queries->delete('user_profile_wall_posts_replies', ['id', '=', $_POST['post_id']]);
-                                } catch (Exception $e) {
-                                    $error = $e->getMessage();
+                case 'deleteReply':
+                    // Ensure user is mod or owner of reply
+                    if (Token::check()) {
+                        if (isset($_POST['post_id']) && is_numeric($_POST['post_id'])) {
+                            $post = $queries->getWhere('user_profile_wall_posts_replies', ['id', '=', $_POST['post_id']]);
+                            if (count($post)) {
+                                $post = $post[0];
+                                if ($user->canViewStaffCP() || $post->author_id == $user->data()->id) {
+                                    try {
+                                        $queries->delete('user_profile_wall_posts_replies', ['id', '=', $_POST['post_id']]);
+                                    } catch (Exception $e) {
+                                        $error = $e->getMessage();
+                                    }
                                 }
                             }
                         }
+                    } else {
+                        $error = $language->get('general', 'invalid_token');
                     }
-                } else {
-                    $error = $language->get('general', 'invalid_token');
-                }
-                break;
+                    break;
             }
         }
     }
@@ -367,7 +371,9 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                     Redirect::to($profile_user->getProfileURL());
                     die();
 
-                } else $error = $language->get('general', 'invalid_token');
+                } else {
+                    $error = $language->get('general', 'invalid_token');
+                }
 
                 break;
         }
@@ -400,9 +406,11 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
             $queries->increment('users', $query->id, 'profile_views');
             Cookie::put('nl-profile-' . $query->id, 'true', 3600);
         }
-    } else if (!Session::exists('nl-profile-' . $query->id)) {
-        $queries->increment('users', $query->id, 'profile_views');
-        Session::put('nl-profile-' . $query->id, 'true');
+    } else {
+        if (!Session::exists('nl-profile-' . $query->id)) {
+            $queries->increment('users', $query->id, 'profile_views');
+            Session::put('nl-profile-' . $query->id, 'true');
+        }
     }
 
     // Set Can view
@@ -567,7 +575,9 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
         for ($n = 0; $n < count($results->data); $n++) {
             $post_user = $queries->getWhere('users', ['id', '=', $results->data[$n]->author_id]);
 
-            if (!count($post_user)) continue;
+            if (!count($post_user)) {
+                continue;
+            }
 
             // Get reactions/replies
             $reactions = [];
@@ -575,10 +585,11 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
             $reactions_query = $queries->getWhere('user_profile_wall_posts_reactions', ['post_id', '=', $results->data[$n]->id]);
             if (count($reactions_query)) {
-                if (count($reactions_query) == 1)
+                if (count($reactions_query) == 1) {
                     $reactions['count'] = $language->get('user', '1_like');
-                else
+                } else {
                     $reactions['count'] = str_replace('{x}', count($reactions_query), $language->get('user', 'x_likes'));
+                }
 
                 foreach ($reactions_query as $reaction) {
                     // Get reaction name and icon
@@ -603,15 +614,18 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                         //'reaction_html' => $reaction_html
                     ];
                 }
-            } else $reactions['count'] = str_replace('{x}', 0, $language->get('user', 'x_likes'));
+            } else {
+                $reactions['count'] = str_replace('{x}', 0, $language->get('user', 'x_likes'));
+            }
             $reactions_query = null;
 
             $replies_query = $queries->orderWhere('user_profile_wall_posts_replies', 'post_id = ' . $results->data[$n]->id, 'time', 'ASC');
             if (count($replies_query)) {
-                if (count($replies_query) == 1)
+                if (count($replies_query) == 1) {
                     $replies['count'] = $language->get('user', '1_reply');
-                else
+                } else {
                     $replies['count'] = str_replace('{x}', count($replies_query), $language->get('user', 'x_replies'));
+                }
 
                 foreach ($replies_query as $reply) {
                     $target_user = new User($reply->author_id);
@@ -629,7 +643,9 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                         'id' => $reply->id
                     ];
                 }
-            } else $replies['count'] = str_replace('{x}', 0, $language->get('user', 'x_replies'));
+            } else {
+                $replies['count'] = str_replace('{x}', 0, $language->get('user', 'x_replies'));
+            }
             $replies_query = null;
 
             $target_user = new User($post_user[0]->id);
@@ -685,15 +701,15 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
             // Get field type
             switch ($profile_field->type) {
-            case 1:
-                $type = 'text';
-                break;
-            case 2:
-                $type = 'textarea';
-                break;
-            case 3:
-                $type = 'date';
-                break;
+                case 1:
+                    $type = 'text';
+                    break;
+                case 2:
+                    $type = 'textarea';
+                    break;
+                case 3:
+                    $type = 'date';
+                    break;
             }
 
             $fields[] = [
@@ -779,10 +795,10 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     $smarty->assign('TABS', $tabs);
 
     if (isset($directories[1]) &&
-            !empty($directories[1]) &&
-            !isset($_GET['error']) &&
-            $user->isLoggedIn() &&
-            $user->data()->username == $profile) {
+        !empty($directories[1]) &&
+        !isset($_GET['error']) &&
+        $user->isLoggedIn() &&
+        $user->data()->username == $profile) {
         // Script for banner selector
         $template->addJSFiles(
             [
@@ -807,30 +823,32 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
     // Display template
     $template->displayTemplate('profile.tpl', $smarty);
-} else if (isset($_GET['error'])) {
-    // User not exist
-    $smarty->assign([
-        'BACK' => $language->get('general', 'back'),
-        'HOME' => $language->get('general', 'home'),
-        'NOT_FOUND' => $language->get('user', 'couldnt_find_that_user')
-    ]);
-    // Load modules + template
-    Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
+} else {
+    if (isset($_GET['error'])) {
+        // User not exist
+        $smarty->assign([
+            'BACK' => $language->get('general', 'back'),
+            'HOME' => $language->get('general', 'home'),
+            'NOT_FOUND' => $language->get('user', 'couldnt_find_that_user')
+        ]);
+        // Load modules + template
+        Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-    $page_load = microtime(true) - $start;
-    define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
+        $page_load = microtime(true) - $start;
+        define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
-    $template->onPageLoad();
+        $template->onPageLoad();
 
-    $smarty->assign('WIDGETS_LEFT', $widgets->getWidgets('left'));
-    $smarty->assign('WIDGETS_RIGHT', $widgets->getWidgets('right'));
+        $smarty->assign('WIDGETS_LEFT', $widgets->getWidgets('left'));
+        $smarty->assign('WIDGETS_RIGHT', $widgets->getWidgets('right'));
 
-    require(ROOT_PATH . '/core/templates/navbar.php');
-    require(ROOT_PATH . '/core/templates/footer.php');
+        require(ROOT_PATH . '/core/templates/navbar.php');
+        require(ROOT_PATH . '/core/templates/footer.php');
 
-    // Display template
-    $template->displayTemplate('user_not_exist.tpl', $smarty);
+        // Display template
+        $template->displayTemplate('user_not_exist.tpl', $smarty);
 
-    // Search for user
-    // TODO
+        // Search for user
+        // TODO
+    }
 }

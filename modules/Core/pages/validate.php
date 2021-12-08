@@ -24,10 +24,11 @@ if (isset($_GET['c'])) {
         $api_verification = $queries->getWhere('settings', ['name', '=', 'api_verification']);
         $api_verification = $api_verification[0]->value;
 
-        if ($api_verification == '1')
+        if ($api_verification == '1') {
             $reset_code = $user->data()->reset_code;
-        else
+        } else {
             $reset_code = null;
+        }
 
         $queries->update('users', $user->data()->id, [
             'reset_code' => $reset_code,

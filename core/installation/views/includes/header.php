@@ -8,7 +8,7 @@ if (isset($_SESSION['installer_language']) && is_file('custom/languages/' . $_SE
     $installer_language = 'EnglishUK';
 }
 
-$languages_folders = glob('custom' . DIRECTORY_SEPARATOR . 'languages' . DIRECTORY_SEPARATOR . '*' , GLOB_ONLYDIR);
+$languages_folders = glob('custom' . DIRECTORY_SEPARATOR . 'languages' . DIRECTORY_SEPARATOR . '*', GLOB_ONLYDIR);
 $languages = [];
 
 foreach ($languages_folders as $folder) {
@@ -70,12 +70,12 @@ foreach ($languages_folders as $folder) {
             margin-right: -0.5rem;
         }
 
-        .ui.grid>.column:not(.row) {
+        .ui.grid > .column:not(.row) {
             padding-top: 0.5rem;
             padding-bottom: 0.5rem;
         }
 
-        .ui.grid>.column:not(.row), .ui.grid>.row>.column {
+        .ui.grid > .column:not(.row), .ui.grid > .row > .column {
             padding-left: 0.5rem;
             padding-right: 0.5rem;
         }
@@ -94,18 +94,18 @@ foreach ($languages_folders as $folder) {
 
 <body>
 
-    <div class="wrapper">
+<div class="wrapper">
 
-        <div class="ui inverted vertical masthead very padded segment">
-            <div class="ui center aligned text container">
-                <h2 class="ui inverted icon header">
-                    <img class="ui image" src="core/assets/img/namelessmc_logo_small.png">
-                    <div class="content">
-                        NamelessMC Installer
-                        <div class="sub header">
-                            <?php echo $subheader; ?>
-                        </div>
+    <div class="ui inverted vertical masthead very padded segment">
+        <div class="ui center aligned text container">
+            <h2 class="ui inverted icon header">
+                <img class="ui image" src="core/assets/img/namelessmc_logo_small.png">
+                <div class="content">
+                    NamelessMC Installer
+                    <div class="sub header">
+                        <?php echo $subheader; ?>
                     </div>
-                </h2>
-            </div>
+                </div>
+            </h2>
         </div>
+    </div>

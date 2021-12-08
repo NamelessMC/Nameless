@@ -25,7 +25,6 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
  * Modified by Samerton for NamelessMC
  * https://github.com/NamelessMC/Nameless
  */
-
 class Cache {
 
     /**
@@ -53,19 +52,32 @@ class Cache {
         if (isset($config)) {
             if (is_string($config)) {
                 $this->setCache($config);
-            } else if (is_array($config)) {
-                $this->setCache($config['name']);
-                $this->setCachePath($config['path']);
-                $this->setExtension($config['extension']);
+            } else {
+                if (is_array($config)) {
+                    $this->setCache($config['name']);
+                    $this->setCachePath($config['path']);
+                    $this->setExtension($config['extension']);
+                }
             }
         }
+    }
+
+    /**
+     * Cache name Setter
+     *
+     * @param string $name
+     * @return Cache
+     */
+    public function setCache(string $name): Cache {
+        $this->_cachename = $name;
+        return $this;
     }
 
     /**
      * Check whether data accociated with a key
      *
      * @param string $key
-     * 
+     *
      * @return bool
      */
     public function isCached(string $key): bool {
@@ -85,19 +97,139 @@ class Cache {
     }
 
     /**
+     * Load appointed cache
+     *
+     * @return mixed
+     */
+    private function _loadCache() {
+        if (file_exists($this->getCacheDir())) {
+            $file = file_get_contents($this->getCacheDir());
+            return json_decode($file, true);
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Get the cache directory path
+     *
+     * @return string
+     */
+    public function getCacheDir(): string {
+        if ($this->_checkCacheDir()) {
+            $filename = $this->getCache();
+            $filename = preg_replace('/[^0-9a-z\.\_\-]/i', '', strtolower($filename));
+            return $this->getCachePath() . $this->_getHash($filename) . $this->getExtension();
+        }
+
+        return '';
+    }
+
+    /**
+     * Check if a writable cache directory exists and if not create a new one
+     *
+     * @return boolean
+     */
+    private function _checkCacheDir(): bool {
+        if (!is_dir($this->getCachePath()) && !mkdir($this->getCachePath(), 0775, true)) {
+            throw new Exception('Unable to create cache directory ' . $this->getCachePath());
+        } else if (!is_readable($this->getCachePath()) || !is_writable($this->getCachePath())) {
+            if (!chmod($this->getCachePath(), 0775)) {
+                throw new Exception('Your <b>' . $this->getCachePath() . '</b> directory must be readable and writeable. Check your file permissions.');
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Cache path Getter
+     *
+     * @return string
+     */
+    public function getCachePath(): string {
+        return $this->_cachepath;
+    }
+
+    /**
+     * Cache path Setter
+     *
+     * @param string $path
+     * @return Cache
+     */
+    public function setCachePath(string $path): Cache {
+        $this->_cachepath = $path;
+        return $this;
+    }
+
+    /**
+     * Cache name Getter
+     *
+     * @return string
+     */
+    public function getCache(): string {
+        return $this->_cachename;
+    }
+
+    /**
+     * Get the filename hash
+     *
+     * @param string $filename
+     * @return string
+     */
+    private function _getHash($filename): string {
+        return sha1($filename);
+    }
+
+    /**
+     * Cache file extension Getter
+     *
+     * @return string
+     */
+    public function getExtension(): string {
+        return $this->_extension;
+    }
+
+    /**
+     * Cache file extension Setter
+     *
+     * @param string $ext
+     * @return Cache
+     */
+    public function setExtension(string $ext): Cache {
+        $this->_extension = $ext;
+        return $this;
+    }
+
+    /**
+     * Check whether a timestamp is still in the duration
+     *
+     * @param int $timestamp
+     * @param int $expiration
+     * @return bool
+     */
+    private function _checkExpired(int $timestamp, int $expiration): bool {
+        $result = false;
+        if ($expiration !== 0) {
+            $timeDiff = time() - $timestamp;
+            ($timeDiff > $expiration) ? $result = true : $result = false;
+        }
+        return $result;
+    }
+
+    /**
      * Store data in the cache
      *
      * @param string $key
      * @param mixed $data
      * @param integer $expiration (optional)
-     * 
+     *
      * @return Cache
      */
     public function store(string $key, $data, int $expiration = 0): Cache {
         $storeData = [
-            'time'   => time(),
+            'time' => time(),
             'expire' => $expiration,
-            'data'   => serialize($data)
+            'data' => serialize($data)
         ];
         $dataArray = $this->_loadCache();
         if (is_array($dataArray)) {
@@ -115,7 +247,7 @@ class Cache {
      *
      * @param string $key
      * @param bool $timestamp (optional)
-     * 
+     *
      * @return mixed
      */
     public function retrieve(string $key, bool $timestamp = false) {
@@ -161,7 +293,7 @@ class Cache {
      * Erase cached entry by its key
      *
      * @param string $key
-     * 
+     *
      * @return Cache
      */
     public function erase(string $key): Cache {
@@ -215,136 +347,5 @@ class Cache {
             fclose($cacheFile);
         }
         return $this;
-    }
-
-    /**
-     * Load appointed cache
-     *
-     * @return mixed
-     */
-    private function _loadCache() {
-        if (file_exists($this->getCacheDir())) {
-            $file = file_get_contents($this->getCacheDir());
-            return json_decode($file, true);
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * Get the cache directory path
-     *
-     * @return string
-     */
-    public function getCacheDir(): string {
-        if ($this->_checkCacheDir()) {
-            $filename = $this->getCache();
-            $filename = preg_replace('/[^0-9a-z\.\_\-]/i', '', strtolower($filename));
-            return $this->getCachePath() . $this->_getHash($filename) . $this->getExtension();
-        }
-
-        return '';
-    }
-
-    /**
-     * Get the filename hash
-     *
-     * @param string $filename
-     * @return string
-     */
-    private function _getHash($filename): string {
-        return sha1($filename);
-    }
-
-    /**
-     * Check whether a timestamp is still in the duration
-     *
-     * @param int $timestamp
-     * @param int $expiration
-     * @return bool
-     */
-    private function _checkExpired(int $timestamp, int $expiration): bool {
-        $result = false;
-        if ($expiration !== 0) {
-            $timeDiff = time() - $timestamp;
-            ($timeDiff > $expiration) ? $result = true : $result = false;
-        }
-        return $result;
-    }
-
-    /**
-     * Check if a writable cache directory exists and if not create a new one
-     *
-     * @return boolean
-     */
-    private function _checkCacheDir(): bool {
-        if (!is_dir($this->getCachePath()) && !mkdir($this->getCachePath(), 0775, true)) {
-            throw new Exception('Unable to create cache directory ' . $this->getCachePath());
-        } elseif (!is_readable($this->getCachePath()) || !is_writable($this->getCachePath())) {
-            if (!chmod($this->getCachePath(), 0775)) {
-                throw new Exception('Your <b>' . $this->getCachePath() . '</b> directory must be readable and writeable. Check your file permissions.');
-            }
-        }
-        return true;
-    }
-
-    /**
-     * Cache path Setter
-     *
-     * @param string $path
-     * @return Cache
-     */
-    public function setCachePath(string $path): Cache {
-        $this->_cachepath = $path;
-        return $this;
-    }
-
-    /**
-     * Cache path Getter
-     *
-     * @return string
-     */
-    public function getCachePath(): string {
-        return $this->_cachepath;
-    }
-
-    /**
-     * Cache name Setter
-     *
-     * @param string $name
-     * @return Cache
-     */
-    public function setCache(string $name): Cache {
-        $this->_cachename = $name;
-        return $this;
-    }
-
-    /**
-     * Cache name Getter
-     *
-     * @return string
-     */
-    public function getCache(): string {
-        return $this->_cachename;
-    }
-
-    /**
-     * Cache file extension Setter
-     *
-     * @param string $ext
-     * @return Cache
-     */
-    public function setExtension(string $ext): Cache {
-        $this->_extension = $ext;
-        return $this;
-    }
-
-    /**
-     * Cache file extension Getter
-     *
-     * @return string
-     */
-    public function getExtension(): string {
-        return $this->_extension;
     }
 }

@@ -11,13 +11,11 @@
 
 class Core_Module extends Module {
 
-    private Language $_language;
-
-    private Configuration $_configuration;
-
     private static array $_dashboard_graph = [];
     private static array $_notices = [];
     private static array $_user_actions = [];
+    private Language $_language;
+    private Configuration $_configuration;
 
     public function __construct(Language $language, Pages $pages, User $user, Queries $queries, Navigation $navigation, Cache $cache, Endpoints $endpoints) {
         $this->_language = $language;
@@ -118,14 +116,16 @@ class Core_Module extends Module {
         $cache->setCache('navbar_icons');
         if ($cache->isCached('more_dropdown_icon')) {
             $icon = $cache->retrieve('more_dropdown_icon');
-        } else
+        } else {
             $icon = '';
+        }
 
         $cache->setCache('navbar_order');
         if ($cache->isCached('more_dropdown_order')) {
             $order = $cache->retrieve('more_dropdown_order');
-        } else
+        } else {
             $order = 2500;
+        }
 
         $navigation->addDropdown('more_dropdown', $language->get('general', 'more'), 'top', $order, $icon);
 
@@ -143,8 +143,9 @@ class Core_Module extends Module {
                     $redirect = null;
 
                     // Get redirect URL if enabled
-                    if ($custom_page->redirect == 1)
+                    if ($custom_page->redirect == 1) {
                         $redirect = Output::getClean($custom_page->link);
+                    }
 
                     $pages->addCustom(Output::getClean($custom_page->url), Output::getClean($custom_page->title), !$custom_page->basic);
 
@@ -163,7 +164,7 @@ class Core_Module extends Module {
                                             $page_order = $cache->retrieve($custom_page->id . '_order');
                                         }
 
-                                        switch($custom_page->link_location) {
+                                        switch ($custom_page->link_location) {
                                             case 1:
                                                 // Navbar
                                                 $navigation->add($custom_page->id, Output::getClean($custom_page->title), (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'top', $custom_page->target ? '_blank' : null, $page_order, $custom_page->icon);
@@ -178,8 +179,9 @@ class Core_Module extends Module {
                                                 break;
                                         }
                                         break 2;
-                                    } else
+                                    } else {
                                         break;
+                                    }
                                 }
                             }
                         }
@@ -191,8 +193,9 @@ class Core_Module extends Module {
                     foreach ($custom_pages as $custom_page) {
                         $redirect = null;
 
-                        if ($custom_page->redirect == 1)
+                        if ($custom_page->redirect == 1) {
                             $redirect = Output::getClean($custom_page->link);
+                        }
 
                         $pages->addCustom(Output::getClean($custom_page->url), Output::getClean($custom_page->title), !$custom_page->basic);
 
@@ -208,7 +211,7 @@ class Core_Module extends Module {
                                         $page_order = $cache->retrieve($custom_page->id . '_order');
                                     }
 
-                                    switch($custom_page->link_location) {
+                                    switch ($custom_page->link_location) {
                                         case 1:
                                             // Navbar
                                             $navigation->add($custom_page->id, Output::getClean($custom_page->title), (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'top', $custom_page->target ? '_blank' : null, $page_order, $custom_page->icon);
@@ -232,8 +235,9 @@ class Core_Module extends Module {
             $custom_page_permissions = null;
 
             if (count($more)) {
-                foreach ($more as $item)
+                foreach ($more as $item) {
                     $navigation->addItemToDropdown('more_dropdown', $item['id'], $item['title'], $item['url'], 'top', ($item['target']) ? '_blank' : null, $item['icon'], $item['order']);
+                }
             }
         }
         $custom_pages = null;
@@ -283,7 +287,7 @@ class Core_Module extends Module {
                 'message' => $language->get('admin', 'message'),
             ]
         );
-        
+
         EventHandler::registerEvent('userBanned',
             $language->get('admin', 'ban_hook_info'),
             [
@@ -349,6 +353,24 @@ class Core_Module extends Module {
 
         GroupSyncManager::getInstance()->registerInjector(NamelessMCGroupSyncInjector::class);
         GroupSyncManager::getInstance()->registerInjector(MinecraftGroupSyncInjector::class);
+    }
+
+    public static function getDashboardGraphs(): array {
+        return self::$_dashboard_graph;
+    }
+
+    public static function getNotices(): array {
+        return self::$_notices;
+    }
+
+    public static function getUserActions(): array {
+        $return = self::$_user_actions;
+
+        uasort($return, function ($a, $b) {
+            return $a['title'] > $b['title'];
+        });
+
+        return $return;
     }
 
     public function onInstall() {
@@ -582,10 +604,11 @@ class Core_Module extends Module {
 
             } else {
                 $status_enabled = $queries->getWhere('settings', ['name', '=', 'status_page']);
-                if ($status_enabled[0]->value == 1)
+                if ($status_enabled[0]->value == 1) {
                     $status_enabled = 1;
-                else
+                } else {
                     $status_enabled = 0;
+                }
 
                 $cache->store('enabled', $status_enabled);
 
@@ -597,15 +620,16 @@ class Core_Module extends Module {
                 if (!$cache->isCached('status_order')) {
                     $status_order = 3;
                     $cache->store('status_order', 3);
-                } else{
+                } else {
                     $status_order = $cache->retrieve('status_order');
                 }
 
                 $cache->setCache('navbar_icons');
-                if (!$cache->isCached('status_icon'))
+                if (!$cache->isCached('status_icon')) {
                     $icon = '';
-                else
+                } else {
                     $icon = $cache->retrieve('status_icon');
+                }
 
                 $navs[0]->add('status', $language->get('general', 'status'), URL::build('/status'), 'top', null, $status_order, $icon);
             }
@@ -625,10 +649,11 @@ class Core_Module extends Module {
             }
 
             $cache->setCache('navbar_icons');
-            if (!$cache->isCached('leaderboards_icon'))
+            if (!$cache->isCached('leaderboards_icon')) {
                 $leaderboards_icon = '';
-            else
+            } else {
                 $leaderboards_icon = $cache->retrieve('leaderboards_icon');
+            }
 
             $navs[0]->add('leaderboards', $language->get('general', 'leaderboards'), URL::build('/leaderboards'), 'top', null, $leaderboards_order, $leaderboards_icon);
         }
@@ -654,16 +679,18 @@ class Core_Module extends Module {
                         if (count($default)) {
                             // Get sub-servers of default server
                             $sub_servers = $queries->getWhere('mc_servers', ['parent_server', '=', $default[0]->id]);
-                            if (count($sub_servers))
+                            if (count($sub_servers)) {
                                 $cache->store('default_sub', $sub_servers);
-                            else
+                            } else {
                                 $cache->store('default_sub', []);
+                            }
 
                             $default = $default[0];
 
                             $cache->store('default', $default, 60);
-                        } else
+                        } else {
                             $cache->store('default', null, 60);
+                        }
                     }
 
                     if (!is_null($default) && isset($default->ip)) {
@@ -672,18 +699,21 @@ class Core_Module extends Module {
                         // Get query type
                         $query_type = $queries->getWhere('settings', ['name', '=', 'external_query']);
                         if (count($query_type)) {
-                            if ($query_type[0]->value == '1')
+                            if ($query_type[0]->value == '1') {
                                 $query_type = 'external';
-                            else
+                            } else {
                                 $query_type = 'internal';
-                        } else
+                            }
+                        } else {
                             $query_type = 'internal';
+                        }
 
                         if (isset($sub_servers) && count($sub_servers)) {
                             $servers = [$full_ip];
 
-                            foreach ($sub_servers as $server)
+                            foreach ($sub_servers as $server) {
                                 $servers[] = ['ip' => $server->ip . (is_null($server->port) ? '' : ':' . $server->port), 'pre' => $server->pre, 'name' => $server->name];
+                            }
 
                             $result = MCQuery::multiQuery($servers, $query_type, $language, true, $queries);
 
@@ -735,8 +765,9 @@ class Core_Module extends Module {
 
                 $smarty->assign('MINECRAFT', true);
 
-                if (isset($result))
+                if (isset($result)) {
                     $smarty->assign('SERVER_QUERY', $result);
+                }
 
                 if (!is_null($default) && isset($default->ip)) {
                     $smarty->assign('CONNECT_WITH', str_replace('{x}', '<span id="ip">' . Output::getClean($default->ip . ($default->port && $default->port != 25565 ? ':' . $default->port : '')) . '</span>', $language->get('general', 'connect_with_ip_x')));
@@ -780,8 +811,9 @@ class Core_Module extends Module {
             if (!$cache->isCached('dashboard_icon')) {
                 $icon = '<i class="nav-icon fas fa-home"></i>';
                 $cache->store('dashboard_icon', $icon);
-            } else
+            } else {
                 $icon = $cache->retrieve('dashboard_icon');
+            }
 
             $navs[2]->add('core_divider', mb_strtoupper($language->get('admin', 'core')), 'divider', 'top', null, $order, '');
             $navs[2]->add('dashboard', $language->get('admin', 'dashboard'), URL::build('/panel'), 'top', null, $order, $icon);
@@ -797,8 +829,9 @@ class Core_Module extends Module {
                 if (!$cache->isCached('configuration_icon')) {
                     $icon = '<i class="nav-icon fas fa-wrench"></i>';
                     $cache->store('configuration_icon', $icon);
-                } else
+                } else {
                     $icon = $cache->retrieve('configuration_icon');
+                }
 
                 $navs[2]->addDropdown('core_configuration', $language->get('admin', 'configuration'), 'top', $order, $icon);
 
@@ -806,8 +839,9 @@ class Core_Module extends Module {
                     if (!$cache->isCached('general_settings_icon')) {
                         $icon = '<i class="nav-icon fas fa-cogs"></i>';
                         $cache->store('general_settings_icon', $icon);
-                    } else
+                    } else {
                         $icon = $cache->retrieve('general_settings_icon');
+                    }
 
                     $navs[2]->addItemToDropdown('core_configuration', 'general_settings', $language->get('admin', 'general_settings'), URL::build('/panel/core/general_settings'), 'top', null, $icon, $order);
                 }
@@ -816,8 +850,9 @@ class Core_Module extends Module {
                     if (!$cache->isCached('api_icon')) {
                         $icon = '<i class="nav-icon fas fa-code"></i>';
                         $cache->store('api_icon', $icon);
-                    } else
+                    } else {
                         $icon = $cache->retrieve('api_icon');
+                    }
 
                     $navs[2]->addItemToDropdown('core_configuration', 'api', $language->get('admin', 'api'), URL::build('/panel/core/api'), 'top', null, $icon, $order);
                 }
@@ -826,8 +861,9 @@ class Core_Module extends Module {
                     if (!$cache->isCached('seo_icon')) {
                         $icon = '<i class="nav-icon fas fa-globe"></i>';
                         $cache->store('seo_icon', $icon);
-                    } else
+                    } else {
                         $icon = $cache->retrieve('seo_icon');
+                    }
 
                     $navs[2]->addItemToDropdown('core_configuration', 'seo', $language->get('admin', 'seo'), URL::build('/panel/core/seo'), 'top', null, $icon, $order);
                 }
@@ -836,8 +872,9 @@ class Core_Module extends Module {
                     if (!$cache->isCached('avatars_icon')) {
                         $icon = '<i class="nav-icon fas fa-image"></i>';
                         $cache->store('avatars_icon', $icon);
-                    } else
+                    } else {
                         $icon = $cache->retrieve('avatars_icon');
+                    }
 
                     $navs[2]->addItemToDropdown('core_configuration', 'avatars', $language->get('admin', 'avatars'), URL::build('/panel/core/avatars'), 'top', null, $icon, $order);
                 }
@@ -846,8 +883,9 @@ class Core_Module extends Module {
                     if (!$cache->isCached('custom_profile_fields_icon')) {
                         $icon = '<i class="nav-icon fas fa-id-card"></i>';
                         $cache->store('custom_profile_fields_icon', $icon);
-                    } else
+                    } else {
                         $icon = $cache->retrieve('custom_profile_fields_icon');
+                    }
 
                     $navs[2]->addItemToDropdown('core_configuration', 'custom_profile_fields', $language->get('admin', 'custom_fields'), URL::build('/panel/core/profile_fields'), 'top', null, $icon, $order);
                 }
@@ -856,8 +894,9 @@ class Core_Module extends Module {
                     if (!$cache->isCached('debugging_icon')) {
                         $icon = '<i class="nav-icon fas fa-tachometer-alt"></i>';
                         $cache->store('debugging_icon', $icon);
-                    } else
+                    } else {
                         $icon = $cache->retrieve('debugging_icon');
+                    }
 
                     $navs[2]->addItemToDropdown('core_configuration', 'debugging_and_maintenance', $language->get('admin', 'maintenance'), URL::build('/panel/core/debugging_and_maintenance'), 'top', null, $icon, $order);
                 }
@@ -866,8 +905,9 @@ class Core_Module extends Module {
                     if (!$cache->isCached('email_icon')) {
                         $icon = '<i class="nav-icon fas fa-envelope"></i>';
                         $cache->store('email_icon', $icon);
-                    } else
+                    } else {
                         $icon = $cache->retrieve('email_icon');
+                    }
 
                     $navs[2]->addItemToDropdown('core_configuration', 'emails', $language->get('admin', 'emails'), URL::build('/panel/core/emails'), 'top', null, $icon, $order);
                 }
@@ -876,8 +916,9 @@ class Core_Module extends Module {
                     if (!$cache->isCached('navigation_icon')) {
                         $icon = '<i class="nav-icon fas fa-bars"></i>';
                         $cache->store('navigation_icon', $icon);
-                    } else
+                    } else {
                         $icon = $cache->retrieve('navigation_icon');
+                    }
 
                     $navs[2]->addItemToDropdown('core_configuration', 'navigation', $language->get('admin', 'navigation'), URL::build('/panel/core/navigation'), 'top', null, $icon, $order);
                 }
@@ -886,8 +927,9 @@ class Core_Module extends Module {
                     if (!$cache->isCached('privacy_and_terms_icon')) {
                         $icon = '<i class="nav-icon fas fa-file-alt"></i>';
                         $cache->store('privacy_and_terms_icon', $icon);
-                    } else
+                    } else {
                         $icon = $cache->retrieve('privacy_and_terms_icon');
+                    }
 
                     $navs[2]->addItemToDropdown('core_configuration', 'privacy_and_terms', $language->get('admin', 'privacy_and_terms'), URL::build('/panel/core/privacy_and_terms'), 'top', null, $icon, $order);
                 }
@@ -896,8 +938,9 @@ class Core_Module extends Module {
                     if (!$cache->isCached('reactions_icon')) {
                         $icon = '<i class="nav-icon fas fa-smile"></i>';
                         $cache->store('reactions_icon', $icon);
-                    } else
+                    } else {
                         $icon = $cache->retrieve('reactions_icon');
+                    }
 
                     $navs[2]->addItemToDropdown('core_configuration', 'reactions', $language->get('user', 'reactions'), URL::build('/panel/core/reactions'), 'top', null, $icon, $order);
                 }
@@ -906,8 +949,9 @@ class Core_Module extends Module {
                     if (!$cache->isCached('registration_icon')) {
                         $icon = '<i class="nav-icon fas fa-user-plus"></i>';
                         $cache->store('registration_icon', $icon);
-                    } else
+                    } else {
                         $icon = $cache->retrieve('registration_icon');
+                    }
 
                     $navs[2]->addItemToDropdown('core_configuration', 'registration', $language->get('admin', 'registration'), URL::build('/panel/core/registration'), 'top', null, $icon, $order);
                 }
@@ -916,8 +960,9 @@ class Core_Module extends Module {
                     if (!$cache->isCached('social_media_icon')) {
                         $icon = '<i class="nav-icon fas fa-users"></i>';
                         $cache->store('social_media_icon', $icon);
-                    } else
+                    } else {
                         $icon = $cache->retrieve('social_media_icon');
+                    }
 
                     $navs[2]->addItemToDropdown('core_configuration', 'social_media', $language->get('admin', 'social_media'), URL::build('/panel/core/social_media'), 'top', null, $icon, $order);
                 }
@@ -926,8 +971,9 @@ class Core_Module extends Module {
                     if (!$cache->isCached('hooks_icon')) {
                         $icon = '<i class="nav-icon fas fa-link"></i>';
                         $cache->store('hooks_icon', $icon);
-                    } else
+                    } else {
                         $icon = $cache->retrieve('hooks_icon');
+                    }
 
                     $navs[2]->addItemToDropdown('core_configuration', 'hooks', $language->get('admin', 'hooks'), URL::build('/panel/core/hooks'), 'top', null, $icon, $order);
                 }
@@ -944,8 +990,9 @@ class Core_Module extends Module {
                 if (!$cache->isCached('announcements_icon')) {
                     $icon = '<i class="nav-icon fas fa-bullhorn"></i>';
                     $cache->store('announcements_icon', $icon);
-                } else
-                $icon = $cache->retrieve('announcements_icon');
+                } else {
+                    $icon = $cache->retrieve('announcements_icon');
+                }
 
                 $navs[2]->add('announcements', $language->get('admin', 'announcements'), URL::build('/panel/core/announcements'), 'top', null, $order, $icon);
             }
@@ -961,8 +1008,9 @@ class Core_Module extends Module {
                 if (!$cache->isCached('integrations_icon')) {
                     $icon = '<i class="nav-icon fas fa-plug"></i>';
                     $cache->store('integrations_icon', $icon);
-                } else
+                } else {
                     $icon = $cache->retrieve('integrations_icon');
+                }
 
                 $navs[2]->addDropdown('integrations', $language->get('admin', 'integrations'), 'top', $order, $icon);
             }
@@ -971,8 +1019,9 @@ class Core_Module extends Module {
                 if (!$cache->isCached('minecraft_icon')) {
                     $icon = '<i class="nav-icon fas fa-cubes"></i>';
                     $cache->store('minecraft_icon', $icon);
-                } else
+                } else {
                     $icon = $cache->retrieve('minecraft_icon');
+                }
 
                 $navs[2]->addItemToDropdown('integrations', 'minecraft', $language->get('admin', 'minecraft'), URL::build('/panel/minecraft'), 'top', null, $icon, $order);
             }
@@ -988,8 +1037,9 @@ class Core_Module extends Module {
                 if (!$cache->isCached('layout_icon')) {
                     $icon = '<i class="nav-icon fas fa-object-group"></i>';
                     $cache->store('layout_icon', $icon);
-                } else
+                } else {
                     $icon = $cache->retrieve('layout_icon');
+                }
 
                 $navs[2]->addDropdown('layout', $language->get('admin', 'layout'), 'top', $order, $icon);
 
@@ -997,8 +1047,9 @@ class Core_Module extends Module {
                     if (!$cache->isCached('images_icon')) {
                         $icon = '<i class="nav-icon fas fa-images"></i>';
                         $cache->store('images_icon', $icon);
-                    } else
+                    } else {
                         $icon = $cache->retrieve('images_icon');
+                    }
 
                     $navs[2]->addItemToDropdown('layout', 'images', $language->get('admin', 'images'), URL::build('/panel/core/images'), 'top', null, $icon, $order);
                 }
@@ -1007,8 +1058,9 @@ class Core_Module extends Module {
                     if (!$cache->isCached('panel_templates_icon')) {
                         $icon = '<i class="nav-icon fas fa-tachometer-alt"></i>';
                         $cache->store('panel_templates_icon', $icon);
-                    } else
+                    } else {
                         $icon = $cache->retrieve('panel_templates_icon');
+                    }
 
                     $navs[2]->addItemToDropdown('layout', 'panel_templates', $language->get('admin', 'panel_templates'), URL::build('/panel/core/panel_templates'), 'top', null, $icon, $order);
                 }
@@ -1017,8 +1069,9 @@ class Core_Module extends Module {
                     if (!$cache->isCached('templates_icon')) {
                         $icon = '<i class="nav-icon fas fa-paint-brush"></i>';
                         $cache->store('templates_icon', $icon);
-                    } else
+                    } else {
                         $icon = $cache->retrieve('templates_icon');
+                    }
 
                     $navs[2]->addItemToDropdown('layout', 'template', $language->get('admin', 'templates'), URL::build('/panel/core/templates'), 'top', null, $icon, $order);
                 }
@@ -1027,8 +1080,9 @@ class Core_Module extends Module {
                     if (!$cache->isCached('widgets_icon')) {
                         $icon = '<i class="nav-icon fas fa-th"></i>';
                         $cache->store('widgets_icon', $icon);
-                    } else
+                    } else {
                         $icon = $cache->retrieve('widgets_icon');
+                    }
 
                     $navs[2]->addItemToDropdown('layout', 'widgets', $language->get('admin', 'widgets'), URL::build('/panel/core/widgets'), 'top', null, $icon, $order);
                 }
@@ -1045,8 +1099,9 @@ class Core_Module extends Module {
                 if (!$cache->isCached('modules_icon')) {
                     $icon = '<i class="nav-icon fas fa-puzzle-piece"></i>';
                     $cache->store('modules_icon', $icon);
-                } else
+                } else {
                     $icon = $cache->retrieve('modules_icon');
+                }
 
                 $navs[2]->add('modules', $language->get('admin', 'modules'), URL::build('/panel/core/modules'), 'top', null, $order, $icon);
             }
@@ -1062,8 +1117,9 @@ class Core_Module extends Module {
                 if (!$cache->isCached('pages_icon')) {
                     $icon = '<i class="nav-icon fas fa-file"></i>';
                     $cache->store('pages_icon', $icon);
-                } else
+                } else {
                     $icon = $cache->retrieve('pages_icon');
+                }
 
                 $navs[2]->add('custom_pages', $language->get('admin', 'custom_pages'), URL::build('/panel/core/pages'), 'top', null, $order, $icon);
             }
@@ -1079,8 +1135,9 @@ class Core_Module extends Module {
                 if (!$cache->isCached('groups_icon')) {
                     $icon = '<i class="nav-icon fas fa-address-book"></i>';
                     $cache->store('group_icon', $icon);
-                } else
+                } else {
                     $icon = $cache->retrieve('group_icon');
+                }
 
                 $navs[2]->add('groups', $language->get('admin', 'groups'), URL::build('/panel/core/groups'), 'top', null, $order, $icon);
             }
@@ -1156,8 +1213,9 @@ class Core_Module extends Module {
                 if (!$cache->isCached('security_icon')) {
                     $icon = '<i class="nav-icon fas fa-lock"></i>';
                     $cache->store('security_icon', $icon);
-                } else
+                } else {
                     $icon = $cache->retrieve('security_icon');
+                }
 
                 $navs[2]->add('security', $language->get('admin', 'security'), URL::build('/panel/security'), 'top', null, $order, $icon);
             }
@@ -1173,8 +1231,9 @@ class Core_Module extends Module {
                 if (!$cache->isCached('update_icon')) {
                     $icon = '<i class="nav-icon fas fa-download"></i>';
                     $cache->store('update_icon', $icon);
-                } else
+                } else {
                     $icon = $cache->retrieve('update_icon');
+                }
 
                 $navs[2]->add('update', $language->get('admin', 'update'), URL::build('/panel/update'), 'top', null, $order, $icon);
             }
@@ -1191,8 +1250,9 @@ class Core_Module extends Module {
                     $cache->store('email_errors', $email_errors, 120);
                 }
 
-                if (count($email_errors))
+                if (count($email_errors)) {
                     self::addNotice(URL::build('/panel/core/emails/errors'), $language->get('admin', 'email_errors_logged'));
+                }
             }
 
             if (defined('PANEL_PAGE') && PANEL_PAGE == 'dashboard') {
@@ -1251,15 +1311,18 @@ class Core_Module extends Module {
                                     // Unable to obtain player count
                                     $player_count_error = true;
                                 }
-                            } else if (version_compare($version, '5.7.8', '>=')) {
-                                try {
-                                    $players = DB::getInstance()->selectQuery('SELECT MAX_EXECUTION_TIME = 1000 ROUND(AVG(players_online)) AS players, DATE(FROM_UNIXTIME(queried_at)) AS `date` FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) IN (SELECT DATE(FROM_UNIXTIME(queried_at)) AS ForDate FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) > NOW() - INTERVAL 1 WEEK GROUP BY DATE(FROM_UNIXTIME(queried_at)) ORDER BY ForDate) GROUP BY DATE(FROM_UNIXTIME(queried_at))')->results();
-                                } catch (Exception $e) {
-                                    // Unable to obtain player count
+                            } else {
+                                if (version_compare($version, '5.7.8', '>=')) {
+                                    try {
+                                        $players = DB::getInstance()->selectQuery('SELECT MAX_EXECUTION_TIME = 1000 ROUND(AVG(players_online)) AS players, DATE(FROM_UNIXTIME(queried_at)) AS `date` FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) IN (SELECT DATE(FROM_UNIXTIME(queried_at)) AS ForDate FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) > NOW() - INTERVAL 1 WEEK GROUP BY DATE(FROM_UNIXTIME(queried_at)) ORDER BY ForDate) GROUP BY DATE(FROM_UNIXTIME(queried_at))')->results();
+                                    } catch (Exception $e) {
+                                        // Unable to obtain player count
+                                        $player_count_error = true;
+                                    }
+                                } else {
                                     $player_count_error = true;
                                 }
-                            } else
-                                $player_count_error = true;
+                            }
                         }
 
                         if (!isset($player_count_error)) {
@@ -1282,12 +1345,14 @@ class Core_Module extends Module {
                     $start = date('d M Y', $start);
                     $start = strtotime($start);
                     $end = strtotime(date('d M Y'));
-                    while($start <= $end) {
-                        if (!isset($data['_' . $start]['users']))
+                    while ($start <= $end) {
+                        if (!isset($data['_' . $start]['users'])) {
                             $data['_' . $start]['users'] = 0;
+                        }
 
-                        if (!isset($player_count_error) && defined('MINECRAFT') && MINECRAFT && !isset($data['_' . $start]['players']))
+                        if (!isset($player_count_error) && defined('MINECRAFT') && MINECRAFT && !isset($data['_' . $start]['players'])) {
                             $data['_' . $start]['players'] = 0;
+                        }
 
                         $start = strtotime('+1 day', $start);
                     }
@@ -1324,30 +1389,50 @@ class Core_Module extends Module {
                 }
             }
 
-            if ($user->hasPermission('admincp.users.edit'))
+            if ($user->hasPermission('admincp.users.edit')) {
                 self::addUserAction($language->get('general', 'edit'), URL::build('/panel/users/edit/', 'id={id}'));
+            }
 
-            if ($user->hasPermission('modcp.ip_lookup'))
+            if ($user->hasPermission('modcp.ip_lookup')) {
                 self::addUserAction($language->get('moderator', 'ip_lookup'), URL::build('/panel/users/ip_lookup/', 'uid={id}'));
+            }
 
-            if ($user->hasPermission('modcp.punishments'))
+            if ($user->hasPermission('modcp.punishments')) {
                 self::addUserAction($language->get('moderator', 'punish'), URL::build('/panel/users/punishments/', 'user={id}'));
+            }
 
             self::addUserAction($language->get('user', 'profile'), URL::build('/profile/{username}'));
 
-            if ($user->hasPermission('modcp.reports'))
+            if ($user->hasPermission('modcp.reports')) {
                 self::addUserAction($language->get('moderator', 'reports'), URL::build('/panel/users/reports/', 'uid={id}'));
+            }
         }
 
         require_once(ROOT_PATH . '/modules/Core/hooks/DeleteUserHook.php');
         EventHandler::registerListener('deleteUser', 'DeleteUserHook::execute');
     }
 
+    public static function addNotice($url, $text) {
+        self::$_notices[$url] = $text;
+    }
+
+    public static function addDataToDashboardGraph($title, $data) {
+        if (isset(self::$_dashboard_graph[$title])) {
+            self::$_dashboard_graph[$title] = array_merge_recursive(self::$_dashboard_graph[$title], $data);
+        } else {
+            self::$_dashboard_graph[$title] = $data;
+        }
+    }
+
+    public static function addUserAction($title, $link) {
+        self::$_user_actions[] = ['title' => $title, 'link' => $link];
+    }
+
     public function getDebugInfo(): array {
         $servers = [];
         foreach (DB::getInstance()->get('mc_servers', ['id', '<>', 0])->results() as $server) {
-            $servers[(int) $server->id] = [
-                'id' => (int) $server->id,
+            $servers[(int)$server->id] = [
+                'id' => (int)$server->id,
                 'name' => $server->name,
                 'ip' => $server->ip,
                 'query_ip' => $server->query_ip,
@@ -1358,45 +1443,12 @@ class Core_Module extends Module {
 
         return [
             'minecraft' => [
-                'mc_integration' => (bool) Util::getSetting(DB::getInstance(), 'mc_integration'),
-                'uuid_linking' => (bool) Util::getSetting(DB::getInstance(), 'uuid_linking'),
-                'username_sync' => (bool) Util::getSetting(DB::getInstance(), 'username_sync'),
-                'external_query' => (bool) Util::getSetting(DB::getInstance(), 'external_query'),
+                'mc_integration' => (bool)Util::getSetting(DB::getInstance(), 'mc_integration'),
+                'uuid_linking' => (bool)Util::getSetting(DB::getInstance(), 'uuid_linking'),
+                'username_sync' => (bool)Util::getSetting(DB::getInstance(), 'username_sync'),
+                'external_query' => (bool)Util::getSetting(DB::getInstance(), 'external_query'),
                 'servers' => $servers,
             ]
         ];
-    }
-
-    public static function addDataToDashboardGraph($title, $data) {
-        if (isset(self::$_dashboard_graph[$title]))
-            self::$_dashboard_graph[$title] = array_merge_recursive(self::$_dashboard_graph[$title], $data);
-        else
-            self::$_dashboard_graph[$title] = $data;
-    }
-
-    public static function getDashboardGraphs(): array {
-        return self::$_dashboard_graph;
-    }
-
-    public static function addNotice($url, $text) {
-        self::$_notices[$url] = $text;
-    }
-
-    public static function getNotices(): array {
-        return self::$_notices;
-    }
-
-    public static function addUserAction($title, $link) {
-        self::$_user_actions[] = ['title' => $title, 'link' => $link];
-    }
-
-    public static function getUserActions(): array {
-        $return = self::$_user_actions;
-
-        uasort($return, function($a, $b) {
-            return $a['title'] > $b['title'];
-        });
-
-        return $return;
     }
 }

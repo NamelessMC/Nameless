@@ -11,8 +11,8 @@
 
 // Must be logged in
 if (!$user->isLoggedIn()) {
-	Redirect::to(URL::build('/'));
-	die();
+    Redirect::to(URL::build('/'));
+    die();
 }
 
 // Placeholders enabled?

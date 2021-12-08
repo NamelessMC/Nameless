@@ -34,9 +34,9 @@ if (!isset($_GET['action'])) {
     foreach ($templates as $item) {
         $template_path = join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'panel_templates', htmlspecialchars($item->name), 'template.php']);
 
-        if (file_exists($template_path))
+        if (file_exists($template_path)) {
             require($template_path);
-        else {
+        } else {
             $queries->delete('panel_templates', ['id', '=', $item->id]);
             continue;
         }
@@ -153,7 +153,7 @@ if (!isset($_GET['action'])) {
             if (Token::check()) {
                 // Install new template
                 // Scan template directory for new templates
-                $directories = glob(ROOT_PATH . DIRECTORY_SEPARATOR . 'custom' . DIRECTORY_SEPARATOR . 'panel_templates' . DIRECTORY_SEPARATOR . '*' , GLOB_ONLYDIR);
+                $directories = glob(ROOT_PATH . DIRECTORY_SEPARATOR . 'custom' . DIRECTORY_SEPARATOR . 'panel_templates' . DIRECTORY_SEPARATOR . '*', GLOB_ONLYDIR);
                 foreach ($directories as $directory) {
                     $folders = explode(DIRECTORY_SEPARATOR, $directory);
 
@@ -271,10 +271,11 @@ if (!isset($_GET['action'])) {
                         die();
                     }
 
-                    if (!Util::recursiveRemoveDirectory(ROOT_PATH . '/custom/panel_templates/' . $item))
+                    if (!Util::recursiveRemoveDirectory(ROOT_PATH . '/custom/panel_templates/' . $item)) {
                         Session::flash('admin_templates_error', $language->get('admin', 'unable_to_delete_template'));
-                    else
+                    } else {
                         Session::flash('admin_templates', $language->get('admin', 'template_deleted_successfully'));
+                    }
 
                     // Delete from database
                     $queries->delete('templates', ['name', '=', $item]);
@@ -350,23 +351,27 @@ if (!isset($_GET['action'])) {
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-if (Session::exists('admin_templates'))
+if (Session::exists('admin_templates')) {
     $success = Session::flash('admin_templates');
+}
 
-if (Session::exists('admin_templates_error'))
+if (Session::exists('admin_templates_error')) {
     $errors = [Session::flash('admin_templates_error')];
+}
 
-if (isset($success))
+if (isset($success)) {
     $smarty->assign([
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ]);
+}
 
-if (isset($errors) && count($errors))
+if (isset($errors) && count($errors)) {
     $smarty->assign([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
     ]);
+}
 
 $smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,

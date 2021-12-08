@@ -54,7 +54,7 @@ if (!isset($_GET['action'])) {
     $template_file = 'core/pages.tpl';
 
 } else {
-    switch($_GET['action']) {
+    switch ($_GET['action']) {
         case 'new':
             if (Input::exists()) {
                 $errors = [];
@@ -103,7 +103,7 @@ if (!isset($_GET['action'])) {
                         try {
                             // Get link location
                             if (isset($_POST['link_location'])) {
-                                switch($_POST['link_location']) {
+                                switch ($_POST['link_location']) {
                                     case 1:
                                     case 2:
                                     case 3:
@@ -113,25 +113,41 @@ if (!isset($_GET['action'])) {
                                     default:
                                         $location = 1;
                                 }
-                            } else
+                            } else {
                                 $location = 1;
+                            }
 
-                            if (isset($_POST['redirect_page']) && $_POST['redirect_page'] == 'on') $redirect = 1;
-                            else $redirect = 0;
+                            if (isset($_POST['redirect_page']) && $_POST['redirect_page'] == 'on') {
+                                $redirect = 1;
+                            } else {
+                                $redirect = 0;
+                            }
 
-                            if (isset($_POST['target']) && $_POST['target'] == 'on') $target = 1;
-                            else $target = 0;
+                            if (isset($_POST['target']) && $_POST['target'] == 'on') {
+                                $target = 1;
+                            } else {
+                                $target = 0;
+                            }
 
                             $link = $_POST['redirect_link'] ?? '';
 
-                            if (isset($_POST['unsafe_html']) && $_POST['unsafe_html'] == 'on') $unsafe = 1;
-                            else $unsafe = 0;
+                            if (isset($_POST['unsafe_html']) && $_POST['unsafe_html'] == 'on') {
+                                $unsafe = 1;
+                            } else {
+                                $unsafe = 0;
+                            }
 
-                            if (isset($_POST['sitemap']) && $_POST['sitemap'] == 'on') $sitemap = 1;
-                            else $sitemap = 0;
+                            if (isset($_POST['sitemap']) && $_POST['sitemap'] == 'on') {
+                                $sitemap = 1;
+                            } else {
+                                $sitemap = 0;
+                            }
 
-                            if (isset($_POST['basic']) && $_POST['basic'] == 'on') $basic = 1;
-                            else $basic = 0;
+                            if (isset($_POST['basic']) && $_POST['basic'] == 'on') {
+                                $basic = 1;
+                            } else {
+                                $basic = 0;
+                            }
 
                             $page_url = Output::getClean(rtrim(Input::get('page_url'), '/'));
 
@@ -152,17 +168,19 @@ if (!isset($_GET['action'])) {
 
                             // Permissions
                             $perms = [];
-                            if (isset($_POST['perm-view-0']) && $_POST['perm-view-0'] == 1)
+                            if (isset($_POST['perm-view-0']) && $_POST['perm-view-0'] == 1) {
                                 $perms[0] = 1;
-                            else
+                            } else {
                                 $perms[0] = 0;
+                            }
 
                             $groups = $queries->getWhere('groups', ['id', '<>', 0]);
                             foreach ($groups as $group) {
-                                if (isset($_POST['perm-view-' . $group->id]) && $_POST['perm-view-' . $group->id] == 1)
+                                if (isset($_POST['perm-view-' . $group->id]) && $_POST['perm-view-' . $group->id] == 1) {
                                     $perms[$group->id] = 1;
-                                else
+                                } else {
                                     $perms[$group->id] = 0;
+                                }
                             }
 
                             foreach ($perms as $key => $perm) {
@@ -184,8 +202,9 @@ if (!isset($_GET['action'])) {
                     } else {
                         $errors = $validation->errors();
                     }
-                } else
+                } else {
                     $errors[] = $language->get('general', 'invalid_token');
+                }
             }
 
             $groups = DB::getInstance()->selectQuery('SELECT * FROM nl2_groups ORDER BY `order`')->results();
@@ -297,7 +316,7 @@ if (!isset($_GET['action'])) {
                         try {
                             // Get link location
                             if (isset($_POST['link_location'])) {
-                                switch($_POST['link_location']) {
+                                switch ($_POST['link_location']) {
                                     case 1:
                                     case 2:
                                     case 3:
@@ -307,25 +326,41 @@ if (!isset($_GET['action'])) {
                                     default:
                                         $location = 1;
                                 }
-                            } else
+                            } else {
                                 $location = 1;
+                            }
 
-                            if (isset($_POST['redirect_page']) && $_POST['redirect_page'] == 'on') $redirect = 1;
-                            else $redirect = 0;
+                            if (isset($_POST['redirect_page']) && $_POST['redirect_page'] == 'on') {
+                                $redirect = 1;
+                            } else {
+                                $redirect = 0;
+                            }
 
-                            if (isset($_POST['target']) && $_POST['target'] == 'on') $target = 1;
-                            else $target = 0;
+                            if (isset($_POST['target']) && $_POST['target'] == 'on') {
+                                $target = 1;
+                            } else {
+                                $target = 0;
+                            }
 
                             $link = $_POST['redirect_link'] ?? '';
 
-                            if (isset($_POST['unsafe_html']) && $_POST['unsafe_html'] == 'on') $unsafe = 1;
-                            else $unsafe = 0;
+                            if (isset($_POST['unsafe_html']) && $_POST['unsafe_html'] == 'on') {
+                                $unsafe = 1;
+                            } else {
+                                $unsafe = 0;
+                            }
 
-                            if (isset($_POST['sitemap']) && $_POST['sitemap'] == 'on') $sitemap = 1;
-                            else $sitemap = 0;
+                            if (isset($_POST['sitemap']) && $_POST['sitemap'] == 'on') {
+                                $sitemap = 1;
+                            } else {
+                                $sitemap = 0;
+                            }
 
-                            if (isset($_POST['basic']) && $_POST['basic'] == 'on') $basic = 1;
-                            else $basic = 0;
+                            if (isset($_POST['basic']) && $_POST['basic'] == 'on') {
+                                $basic = 1;
+                            } else {
+                                $basic = 0;
+                            }
 
                             $page_url = Output::getClean(rtrim(Input::get('page_url'), '/'));
 
@@ -386,7 +421,9 @@ if (!isset($_GET['action'])) {
                             // Guest first
                             $view = Input::get('perm-view-0');
 
-                            if (!($view)) $view = 0;
+                            if (!($view)) {
+                                $view = 0;
+                            }
 
                             $page_perm_exists = 0;
 
@@ -424,7 +461,9 @@ if (!isset($_GET['action'])) {
                             foreach ($groups as $group) {
                                 $view = Input::get('perm-view-' . $group->id);
 
-                                if (!($view)) $view = 0;
+                                if (!($view)) {
+                                    $view = 0;
+                                }
 
                                 $page_perm_exists = 0;
 
@@ -468,8 +507,9 @@ if (!isset($_GET['action'])) {
                     } else {
                         $errors = $validation->errors();
                     }
-                } else
+                } else {
                     $errors[] = $language->get('general', 'invalid_token');
+                }
             }
 
             $group_permissions = DB::getInstance()->selectQuery('SELECT id, `name`, group_html, subquery.view AS `view` FROM nl2_groups LEFT JOIN (SELECT `view`, group_id FROM nl2_custom_pages_permissions WHERE page_id = ?) AS subquery ON nl2_groups.id = subquery.group_id ORDER BY `order`', [$page->id])->results();
@@ -558,23 +598,27 @@ if (!isset($_GET['action'])) {
     }
 }
 
-if (Session::exists('admin_pages'))
+if (Session::exists('admin_pages')) {
     $success = Session::flash('admin_pages');
+}
 
-if (Session::exists('admin_pages_error'))
+if (Session::exists('admin_pages_error')) {
     $errors = [Session::flash('admin_pages_error')];
+}
 
-if (isset($success))
+if (isset($success)) {
     $smarty->assign([
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ]);
+}
 
-if (isset($errors) && count($errors))
+if (isset($errors) && count($errors)) {
     $smarty->assign([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
     ]);
+}
 
 $smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,

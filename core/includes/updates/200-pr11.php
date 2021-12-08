@@ -6,8 +6,9 @@ try {
     // unable to retrieve from config
     echo $e->getMessage() . '<br />';
 }
-if (!$db_engine || ($db_engine != 'MyISAM' && $db_engine != 'InnoDB'))
+if (!$db_engine || ($db_engine != 'MyISAM' && $db_engine != 'InnoDB')) {
     $db_engine = 'InnoDB';
+}
 
 try {
     $db_charset = Config::get('mysql/charset');
@@ -15,8 +16,9 @@ try {
     // unable to retrieve from config
     echo $e->getMessage() . '<br />';
 }
-if (!$db_charset || ($db_charset != 'utf8mb4' && $db_charset != 'latin1'))
+if (!$db_charset || ($db_charset != 'utf8mb4' && $db_charset != 'latin1')) {
     $db_charset = 'latin1';
+}
 
 // Change empty values to null
 try {

@@ -85,7 +85,9 @@ class Forum {
                                         $n++;
                                     }
 
-                                    if (!isset($last_reply[$n])) continue;
+                                    if (!isset($last_reply[$n])) {
+                                        continue;
+                                    }
 
                                     // Title
                                     $last_topic = $this->_db->get('topics', ['id', '=', $last_reply[$n]->topic_id])->results();
@@ -100,8 +102,9 @@ class Forum {
                                 if (count($subforums)) {
                                     foreach ($subforums as $subforum) {
                                         if ($this->forumExist($subforum->id, $groups)) {
-                                            if (!isset($return[$forum->id]['subforums'][$item->id]->subforums))
+                                            if (!isset($return[$forum->id]['subforums'][$item->id]->subforums)) {
                                                 $return[$forum->id]['subforums'][$item->id]->subforums = [];
+                                            }
                                             $return[$forum->id]['subforums'][$item->id]->subforums[$subforum->id] = new stdClass();
                                             $return[$forum->id]['subforums'][$item->id]->subforums[$subforum->id]->title = Output::getClean($subforum->forum_title);
                                             $return[$forum->id]['subforums'][$item->id]->subforums[$subforum->id]->link = URL::build('/forum/view/' . $subforum->id . '-' . $this->titleToURL($subforum->forum_title));
@@ -121,8 +124,70 @@ class Forum {
 
     // Returns an array of the latest 50 discussions a user can access
     // Params: $groups (array) - user groups
-    public function getLatestDiscussions(array $groups = [0], int $user_id = null): array
-    {
+
+    public function forumExist(int $forum_id, array $groups = [0]): bool {
+        // Does the forum exist?
+        $exists = $this->_db->get('forums', ['id', '=', $forum_id])->results();
+        if (count($exists)) {
+            return $this->hasPermission($forum_id, 'view', $groups);
+        }
+
+        return false;
+    }
+
+    // Returns true/false, depending on whether the specified forum exists and whether the user can view it
+    // Params: $forum_id (integer) - forum id to check, $groups (array) - user groups
+
+    private function hasPermission(int $forum_id, string $required_permission, array $groups): bool {
+        $permissions = $this->_db->get('forums_permissions', ['forum_id', '=', $forum_id])->results();
+        foreach ($permissions as $permission) {
+            if (in_array($permission->group_id, $groups)) {
+                if ($permission->{$required_permission} == 1) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    // Returns true/false, depending on whether the specified topic exists
+    // Params: $topic_id (integer) - topic id to check
+
+    public function titleToURL(string $topic = null): string {
+        if ($topic) {
+            $topic = str_replace(URL_EXCLUDE_CHARS, '', Util::cyrillicToLatin($topic));
+            return Output::getClean(strtolower(urlencode(str_replace(' ', '-', htmlspecialchars_decode($topic)))));
+        }
+
+        return '';
+    }
+
+    // Returns true/false depending on whether the current user can view a forum
+    // Params: $forum_id (integer) - forum id to check, $groups (array) - user groups
+
+    public function canViewOtherTopics(int $forum_id, array $groups = [0]): bool {
+        // Does the forum exist?
+        $exists = $this->_db->get('forums', ['id', '=', $forum_id])->results();
+        if (count($exists)) {
+            // Can the user view other topics?
+            $access = $this->_db->get('forums_permissions', ['forum_id', '=', $forum_id])->results();
+
+            foreach ($access as $item) {
+                if (in_array($item->group_id, $groups)) {
+                    if ($item->view_other_topics == 1) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+    // Returns true/false, depending on whether the user's group can create a topic in a specified forum
+    // Params: $forum_id (integer) - forum id to check, $groups (array) - user groups
+
+    public function getLatestDiscussions(array $groups = [0], int $user_id = null): array {
         if (!$user_id) {
             $user_id = 0;
         }
@@ -135,8 +200,9 @@ class Forum {
             $own_topics_forums = [];
         }
 
-        if (!count($all_topics_forums) && !count($own_topics_forums))
+        if (!count($all_topics_forums) && !count($own_topics_forums)) {
             return [];
+        }
 
         $all_topics_forums_string = '(';
         foreach ($all_topics_forums as $forum) {
@@ -171,62 +237,39 @@ class Forum {
         return $query;
     }
 
-    // Returns true/false, depending on whether the specified forum exists and whether the user can view it
+    // Returns true/false, depending on whether the user's group can create a reply to a topic in a specified forum
     // Params: $forum_id (integer) - forum id to check, $groups (array) - user groups
-    public function forumExist(int $forum_id, array $groups = [0]): bool {
-        // Does the forum exist?
-        $exists = $this->_db->get('forums', ['id', '=', $forum_id])->results();
-        if (count($exists)) {
-            return $this->hasPermission($forum_id, 'view', $groups);
-        }
 
-        return false;
-    }
-
-    // Returns true/false, depending on whether the specified topic exists
-    // Params: $topic_id (integer) - topic id to check
     public function topicExist(int $topic_id): bool {
         // Does the topic exist?
         $exists = $this->_db->get('topics', ['id', '=', $topic_id])->results();
         return count($exists) > 0;
     }
 
-    // Returns true/false depending on whether the current user can view a forum
-    // Params: $forum_id (integer) - forum id to check, $groups (array) - user groups
     public function canViewForum(int $forum_id, array $groups = [0]): bool {
         return $this->hasPermission($forum_id, 'view', $groups);
 
     }
 
-    // Returns true/false, depending on whether the user's group can create a topic in a specified forum
-    // Params: $forum_id (integer) - forum id to check, $groups (array) - user groups
     public function canPostTopic(int $forum_id, array $groups = [0]): bool {
         return $this->hasPermission($forum_id, 'create_topic', $groups);
     }
 
-    // Returns true/false, depending on whether the user's group can create a reply to a topic in a specified forum
-    // Params: $forum_id (integer) - forum id to check, $groups (array) - user groups
+    // Updates the latest post column in all forums. Used when a reply/topic is deleted
+
     public function canPostReply(int $forum_id, array $groups = [0]): bool {
         return $this->hasPermission($forum_id, 'create_post', $groups);
     }
+
+    // Updates the latest post column in all topics
 
     public function canEditTopic(int $forum_id, array $groups = [0]): bool {
         return $this->hasPermission($forum_id, 'edit_topic', $groups);
     }
 
-    private function hasPermission(int $forum_id, string $required_permission, array $groups): bool {
-        $permissions = $this->_db->get('forums_permissions', ['forum_id', '=', $forum_id])->results();
-        foreach ($permissions as $permission) {
-            if (in_array($permission->group_id, $groups)) {
-                if ($permission->{$required_permission} == 1) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
+    // Returns a string containing the title of a specified forum
+    // Params: $forum_id (integer) - forum id to check
 
-    // Updates the latest post column in all forums. Used when a reply/topic is deleted
     public function updateForumLatestPosts(): bool {
         $forums = $this->_db->get('forums', ['id', '<>', 0])->results();
         $latest_posts = [];
@@ -242,13 +285,16 @@ class Forum {
                             // Ensure topic isn't deleted
                             $topic_query = $this->_db->get('topics', ['id', '=', $latest_post->topic_id])->results();
 
-                            if (empty($topic_query)) continue;
+                            if (empty($topic_query)) {
+                                continue;
+                            }
 
                             $latest_posts[$n]['forum_id'] = $item->id;
-                            if ($latest_post->created)
+                            if ($latest_post->created) {
                                 $latest_posts[$n]['date'] = $latest_post->created;
-                            else
+                            } else {
                                 $latest_posts[$n]['date'] = strtotime($latest_post->post_date);
+                            }
                             $latest_posts[$n]['author'] = $latest_post->post_creator;
                             $latest_posts[$n]['topic_id'] = $latest_post->topic_id;
 
@@ -285,7 +331,9 @@ class Forum {
         return true;
     }
 
-    // Updates the latest post column in all topics
+    // Returns an array containing information about a specified post
+    // Params: $post_id (integer) - post id to check
+
     public function updateTopicLatestPosts(): bool {
         $topics = $this->_db->get('topics', ['id', '<>', 0])->results();
         $latest_posts = [];
@@ -299,10 +347,11 @@ class Forum {
                     if ($latest_post->deleted != 1) {
                         $latest_posts[$n]['topic_id'] = $topic->id;
 
-                        if ($latest_post->created != null)
+                        if ($latest_post->created != null) {
                             $latest_posts[$n]['date'] = $latest_post->created;
-                        else
+                        } else {
                             $latest_posts[$n]['date'] = strtotime($latest_post->post_date);
+                        }
 
                         $latest_posts[$n]['author'] = $latest_post->post_creator;
 
@@ -326,15 +375,17 @@ class Forum {
         return true;
     }
 
-    // Returns a string containing the title of a specified forum
-    // Params: $forum_id (integer) - forum id to check
+    // Returns an array of the latest news items
+    // Params: $number (integer) - number to return (max 10)
+
     public function getForumTitle(int $forum_id): string {
         $data = $this->_db->get('forums', ['id', '=', $forum_id])->results();
         return $data[0]->forum_title;
     }
 
-    // Returns an array containing information about a specified post
-    // Params: $post_id (integer) - post id to check
+    // Can the user moderate the specified forum?
+    // Params:  $forum_id (integer) - forum ID to check
+
     public function getIndividualPost(int $post_id) {
         $data = $this->_db->get('posts', ['id', '=', $post_id])->results();
         if (count($data)) {
@@ -349,8 +400,9 @@ class Forum {
         return false;
     }
 
-    // Returns an array of the latest news items
-    // Params: $number (integer) - number to return (max 10)
+    // Returns all posts in topic
+    // Params: $tid (integer) - topic ID to retrieve post from
+
     public function getLatestNews(int $number = 5): array {
         $return = []; // Array to return containing news
         $labels_cache = []; // Array to contain labels
@@ -387,8 +439,12 @@ class Forum {
                                 if ($label_html->count()) {
                                     $label_html = $label_html->first()->html;
                                     $label = str_replace('{x}', Output::getClean($label->name), Output::getPurified($label_html));
-                                } else $label = '';
-                            } else $label = '';
+                                } else {
+                                    $label = '';
+                                }
+                            } else {
+                                $label = '';
+                            }
 
                             $labels_cache[$label_id] = $label;
                             $labels[] = $label;
@@ -419,11 +475,12 @@ class Forum {
         return array_slice($return, 0, $number, true);
     }
 
-    // Can the user moderate the specified forum?
-    // Params:  $forum_id (integer) - forum ID to check
-    //			$groups (array) - user groups
+    // Transform a topic title to URL-ify it
+
     public function canModerateForum(int $forum_id = null, array $groups = [0]): bool {
-        if (in_array(0, $groups) || !$forum_id) return false;
+        if (in_array(0, $groups) || !$forum_id) {
+            return false;
+        }
 
         $permissions = $this->_db->get('forums_permissions', ['forum_id', '=', $forum_id])->results();
 
@@ -439,8 +496,9 @@ class Forum {
         return false;
     }
 
-    // Returns all posts in topic
-    // Params: $tid (integer) - topic ID to retrieve post from
+    // Can the user view other topics in a forum?
+    // Params: $forum_id - forum ID (int), $groups (array) - user groups
+
     public function getPosts(int $tid = null) {
         if ($tid) {
             // Get posts from database
@@ -451,7 +509,9 @@ class Forum {
 
                 // Remove deleted posts
                 foreach ($posts as $key => $post) {
-                    if ($post->deleted == 1) unset($posts[$key]);
+                    if ($post->deleted == 1) {
+                        unset($posts[$key]);
+                    }
                 }
 
                 return array_values($posts);
@@ -460,39 +520,9 @@ class Forum {
         return false;
     }
 
-    // Transform a topic title to URL-ify it
-    public function titleToURL(string $topic = null): string {
-        if ($topic) {
-            $topic = str_replace(URL_EXCLUDE_CHARS, '', Util::cyrillicToLatin($topic));
-            return Output::getClean(strtolower(urlencode(str_replace(' ', '-', htmlspecialchars_decode($topic)))));
-        }
-
-        return '';
-    }
-
-    // Can the user view other topics in a forum?
-    // Params: $forum_id - forum ID (int), $groups (array) - user groups
-    public function canViewOtherTopics(int $forum_id,  array $groups = [0]): bool {
-        // Does the forum exist?
-        $exists = $this->_db->get('forums', ['id', '=', $forum_id])->results();
-        if (count($exists)) {
-            // Can the user view other topics?
-            $access = $this->_db->get('forums_permissions', ['forum_id', '=', $forum_id])->results();
-
-            foreach ($access as $item) {
-                if (in_array($item->group_id, $groups)) {
-                    if ($item->view_other_topics == 1) {
-                        return true;
-                    }
-                }
-            }
-        }
-
-        return false;
-    }
-
     // Get any subforums at any level for a forum
     // Params: $forum_id - forum ID (int), $groups (array) - user groups
+
     public function getAnySubforums(int $forum_id, array $groups = [0], int $depth = 0): array {
         if ($depth == 10) {
             return [];

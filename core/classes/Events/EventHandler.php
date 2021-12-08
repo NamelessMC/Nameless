@@ -13,6 +13,35 @@ class EventHandler {
     private static array $_webhooks = [];
 
     /**
+     * Register hooks.
+     *
+     * @param array $webhooks Array of webhooks to register
+     */
+    public static function registerWebhooks(array $webhooks): void {
+        self::$_webhooks = $webhooks;
+    }
+
+    /**
+     * Register an event listener for a module.
+     * This must be called in the module's constructor.
+     *
+     * @param string $event Event name to hook into (must be registered with `registerEvent()`).
+     * @param callable $callback Listener callback to execute.
+     * @param bool $advanced When true, the callback will be given specific parameters as per its method declaration, otherwise it will be given the raw $params array.
+     */
+    public static function registerListener(string $event, callable $callback, bool $advanced = false): void {
+        if (!isset(self::$_events[$event])) {
+            // Silently create event if it doesnt exist, maybe throw exception instead?
+            self::registerEvent($event, $event);
+        }
+
+        self::$_events[$event]['listeners'][] = [
+            'callback' => $callback,
+            'advanced' => $advanced,
+        ];
+    }
+
+    /**
      * Register an event. This must be called in the module's constructor.
      *
      * @param string $event Name of event to add.
@@ -37,35 +66,6 @@ class EventHandler {
             'description' => $description,
             'params' => $params,
             'listeners' => [],
-        ];
-    }
-
-    /**
-     * Register hooks.
-     *
-     * @param array $webhooks Array of webhooks to register
-     */
-    public static function registerWebhooks(array $webhooks): void {
-        self::$_webhooks = $webhooks;
-    }
-
-    /**
-     * Register an event listener for a module.
-     * This must be called in the module's constructor.
-     *
-     * @param string $event Event name to hook into (must be registered with `registerEvent()`).
-     * @param callable $callback Listener callback to execute.
-     * @param bool $advanced When true, the callback will be given specific parameters as per its method declaration, otherwise it will be given the raw $params array.
-     */
-    public static function registerListener(string $event, callable $callback, bool $advanced = false):  void {
-        if (!isset(self::$_events[$event])) {
-            // Silently create event if it doesnt exist, maybe throw exception instead?
-            self::registerEvent($event, $event);
-        }
-
-        self::$_events[$event]['listeners'][] = [
-            'callback' => $callback,
-            'advanced' => $advanced,
         ];
     }
 
@@ -143,6 +143,31 @@ class EventHandler {
     }
 
     /**
+     * Get the debug type of a variable.
+     *
+     * @param mixed $object
+     * @return string The name of the type of the object - same as get_debug_type().
+     */
+    private static function getType($object): string {
+        switch (gettype($object)) {
+            case 'boolean':
+                return 'bool';
+            case 'integer':
+                return 'int';
+            case 'double':
+                return 'float';
+            case 'string':
+                return 'string';
+            case 'array':
+                return 'array';
+            case 'object':
+                return 'object';
+            default:
+                return 'unknown';
+        }
+    }
+
+    /**
      * Get a list of events.
      *
      * @return array List of all currently registered events.
@@ -170,30 +195,5 @@ class EventHandler {
         }
 
         return self::$_events[$event];
-    }
-
-    /**
-     * Get the debug type of a variable.
-     *
-     * @param mixed $object
-     * @return string The name of the type of the object - same as get_debug_type().
-     */
-    private static function getType($object): string {
-        switch (gettype($object)) {
-            case 'boolean':
-                return 'bool';
-            case 'integer':
-                return 'int';
-            case 'double':
-                return 'float';
-            case 'string':
-                return 'string';
-            case 'array':
-                return 'array';
-            case 'object':
-                return 'object';
-            default:
-                return 'unknown';
-        }
     }
 }

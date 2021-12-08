@@ -60,8 +60,10 @@ class DefaultRevamp_Template extends TemplateBase {
 
         if ($user->isLoggedIn()) {
             $darkMode = $user->data()->night_mode;
-        } else if ($cache->isCached('darkMode')) {
-            $darkMode = $cache->retrieve('darkMode');
+        } else {
+            if ($cache->isCached('darkMode')) {
+                $darkMode = $cache->retrieve('darkMode');
+            }
         }
 
         if (isset($darkMode) && $darkMode == '1') {
@@ -117,7 +119,7 @@ class DefaultRevamp_Template extends TemplateBase {
             'confirmDelete' => $this->_language->get('general', 'confirm_deletion'),
             'debugging' => ((defined('DEBUGGING') && DEBUGGING == 1) ? '1' : '0'),
             'loggedIn' => ($this->_user->isLoggedIn() ? '1' : '0'),
-            'cookie'  => (defined('COOKIE_NOTICE') ? '1' : '0'),
+            'cookie' => (defined('COOKIE_NOTICE') ? '1' : '0'),
             'loadingTime' => ((defined('PAGE_LOADING') && PAGE_LOADING == 1) ? PAGE_LOAD_TIME : ''),
             'route' => $route
         ];

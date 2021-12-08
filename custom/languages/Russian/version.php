@@ -1,5 +1,4 @@
-
-<?php 
+<?php
 /*
  *  Made by Samerton
  *  Translated by Oniel

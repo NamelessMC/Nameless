@@ -122,15 +122,17 @@ class Navigation {
                 'icon' => $icon,
                 'order' => $order
             ];
-        } else if (isset($this->_footerNav[$dropdown])) {
-            // Footer
-            $this->_footerNav[$dropdown]['items'][$name] = [
-                'title' => $title,
-                'link' => $link,
-                'target' => $target,
-                'icon' => $icon,
-                'order' => $order
-            ];
+        } else {
+            if (isset($this->_footerNav[$dropdown])) {
+                // Footer
+                $this->_footerNav[$dropdown]['items'][$name] = [
+                    'title' => $title,
+                    'link' => $link,
+                    'target' => $target,
+                    'icon' => $icon,
+                    'order' => $order
+                ];
+            }
         }
     }
 
@@ -158,8 +160,10 @@ class Navigation {
                                 function ($a, $b) {
                                     if ($a['order'] > $b['order']) {
                                         return 1;
-                                    } else if ($a['order'] < $b['order']) {
-                                        return -1;
+                                    } else {
+                                        if ($a['order'] < $b['order']) {
+                                            return -1;
+                                        }
                                     }
                                     return 0;
                                 }
@@ -185,8 +189,10 @@ class Navigation {
                             function ($a, $b) {
                                 if ($a['order'] > $b['order']) {
                                     return 1;
-                                } else if ($a['order'] < $b['order']) {
-                                    return -1;
+                                } else {
+                                    if ($a['order'] < $b['order']) {
+                                        return -1;
+                                    }
                                 }
                                 return 0;
                             }
@@ -200,8 +206,10 @@ class Navigation {
             $result = 0;
             if ($a['order'] > $b['order']) {
                 $result = 1;
-            } else if ($a['order'] < $b['order']) {
-                $result = -1;
+            } else {
+                if ($a['order'] < $b['order']) {
+                    $result = -1;
+                }
             }
             return $result;
         });

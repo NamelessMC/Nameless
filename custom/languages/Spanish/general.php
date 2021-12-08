@@ -17,7 +17,7 @@ $language = [
     'submit' => 'Enviar',
     'register' => 'Registro',
     'already_registered' => 'Ya te encuentras registrado?',
-  'custom_fields' => 'Campos Personalizados',
+    'custom_fields' => 'Campos Personalizados',
     'not_registered_yet' => 'No estas registrado?',
     'sign_in' => 'Iniciar sesión',
     'log_out' => 'Cerrar sesión',
@@ -72,7 +72,7 @@ $language = [
     'link' => 'Link',
     'unlink' => 'Unlink',
     'leaderboards' => 'Leaderboards',
-    
+
     /*
      *  Contact form
      */

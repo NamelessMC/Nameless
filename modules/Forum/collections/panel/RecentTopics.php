@@ -1,4 +1,5 @@
 <?php
+
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
@@ -8,6 +9,7 @@
  *
  *  Recent topics dashboard collection item
  */
+
 class RecentTopicsItem extends CollectionItemBase {
 
     private Smarty $_smarty;

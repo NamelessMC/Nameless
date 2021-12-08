@@ -29,7 +29,7 @@ class GetAnnouncementsEndpoint extends EndpointBase {
 
         foreach ($announcements->getAvailable('api', null, $tempUser != null ? $tempUser->getAllGroupIds(false) : [0]) as $announcement) {
             $user_announcements[] = [
-                'id' => (int) $announcement->id,
+                'id' => (int)$announcement->id,
                 'header' => Output::getClean($announcement->header),
                 'message' => Output::getPurified($announcement->message),
                 'pages' => json_decode($announcement->pages),

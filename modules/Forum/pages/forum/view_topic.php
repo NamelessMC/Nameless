@@ -60,10 +60,11 @@ if (!$list) {
     die();
 }
 
-if ($user->isLoggedIn())
+if ($user->isLoggedIn()) {
     $user_id = $user->data()->id;
-else
+} else {
     $user_id = 0;
+}
 
 if ($topic->topic_creator != $user_id && !$forum->canViewOtherTopics($topic->forum_id, $user_groups)) {
     // Only allow viewing stickied topics
@@ -138,7 +139,9 @@ if (isset($_GET['action'])) {
                     }
                     break;
             }
-        } else Session::flash('failure_post', $language->get('general', 'invalid_token'));
+        } else {
+            Session::flash('failure_post', $language->get('general', 'invalid_token'));
+        }
     }
 
     Redirect::to(URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title)));
@@ -198,8 +201,12 @@ if ($topic->label != 0) { // yes
         if (count($label_html)) {
             $label_html = Output::getPurified($label_html[0]->html);
             $label = str_replace('{x}', Output::getClean($label->name), $label_html);
-        } else $label = '';
-    } else $label = '';
+        } else {
+            $label = '';
+        }
+    } else {
+        $label = '';
+    }
 } else { // no
     $label = '';
 }
@@ -271,7 +278,9 @@ if (Input::exists()) {
                 if ($formatting == 'markdown') {
                     $content = \Michelf\Markdown::defaultTransform(Input::get('content'));
                     $content = Output::getClean($content);
-                } else $content = Output::getClean(Input::get('content'));
+                } else {
+                    $content = Output::getClean(Input::get('content'));
+                }
 
                 $queries->create('posts', [
                     'forum_id' => $topic->forum_id,
@@ -319,7 +328,9 @@ if (Input::exists()) {
                                 ]);
                             }
                             $user_info = $queries->getWhere('users', ['id', '=', $user_following->user_id]);
-                            if ($user_info[0]->topic_updates) array_push($users_following_info, ['email' => $user_info[0]->email, 'username' => $user_info[0]->username]);
+                            if ($user_info[0]->topic_updates) {
+                                array_push($users_following_info, ['email' => $user_info[0]->email, 'username' => $user_info[0]->username]);
+                            }
                         }
                     }
                     $path = join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', TEMPLATE, 'email', 'forum_topic_reply.html']);
@@ -440,15 +451,17 @@ $template->addCSSFiles([
     (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/css/emojionearea.min.css' => []
 ]);
 
-if ($user->isLoggedIn())
+if ($user->isLoggedIn()) {
     $template->addJSScript('var quotedPosts = [];');
+}
 
 // Are reactions enabled?
 $reactions_enabled = $configuration->get('Core', 'forum_reactions');
-if ($reactions_enabled == '1')
+if ($reactions_enabled == '1') {
     $reactions_enabled = true;
-else
+} else {
     $reactions_enabled = false;
+}
 
 // Assign Smarty variables to pass to template
 $parent_category = $queries->getWhere('forums', ['id', '=', $forum_parent[0]->parent]);
@@ -473,23 +486,25 @@ if (!empty($parent_category) && $parent_category[0]->parent == 0) {
         'forum_title' => Output::getClean($parent_category[0]->forum_title),
         'link' => URL::build('/forum/view/' . $parent_category[0]->id . '-' . $forum->titleToURL($parent_category[0]->forum_title))
     ];
-} else if (!empty($parent_category)) {
-    // Parent forum, get its category
-    $breadcrumbs[] = [
-        'id' => $parent_category[0]->id,
-        'forum_title' => Output::getClean($parent_category[0]->forum_title),
-        'link' => URL::build('/forum/view/' . $parent_category[0]->id . '-' . $forum->titleToURL($parent_category[0]->forum_title))
-    ];
-    $parent = false;
-    while ($parent == false) {
-        $parent_category = $queries->getWhere('forums', ['id', '=', $parent_category[0]->parent]);
+} else {
+    if (!empty($parent_category)) {
+        // Parent forum, get its category
         $breadcrumbs[] = [
             'id' => $parent_category[0]->id,
             'forum_title' => Output::getClean($parent_category[0]->forum_title),
             'link' => URL::build('/forum/view/' . $parent_category[0]->id . '-' . $forum->titleToURL($parent_category[0]->forum_title))
         ];
-        if ($parent_category[0]->parent == 0) {
-            $parent = true;
+        $parent = false;
+        while ($parent == false) {
+            $parent_category = $queries->getWhere('forums', ['id', '=', $parent_category[0]->parent]);
+            $breadcrumbs[] = [
+                'id' => $parent_category[0]->id,
+                'forum_title' => Output::getClean($parent_category[0]->forum_title),
+                'link' => URL::build('/forum/view/' . $parent_category[0]->id . '-' . $forum->titleToURL($parent_category[0]->forum_title))
+            ];
+            if ($parent_category[0]->parent == 0) {
+                $parent = true;
+            }
         }
     }
 }
@@ -536,8 +551,9 @@ if ($user->isLoggedIn() && $can_reply) {
     }
 }
 
-if ($topic->locked == 1)
+if ($topic->locked == 1) {
     $smarty->assign('LOCKED', true);
+}
 
 // Is the user a moderator?
 if ($user->isLoggedIn() && $forum->canModerateForum($forum_parent[0]->id, $user_groups)) {
@@ -597,8 +613,11 @@ for ($n = 0; $n < count($results->data); $n++) {
     // Panel heading content
     $url = URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $results->data[$n]->id);
 
-    if ($n != 0) $heading = $forum_language->get('forum', 're') . Output::getClean($topic->topic_title);
-    else $heading = Output::getClean($topic->topic_title);
+    if ($n != 0) {
+        $heading = $forum_language->get('forum', 're') . Output::getClean($topic->topic_title);
+    } else {
+        $heading = Output::getClean($topic->topic_title);
+    }
 
     // Which buttons do we need to display?
     $buttons = [];
@@ -613,12 +632,14 @@ for ($n = 0; $n < count($results->data); $n++) {
                 'URL' => URL::build('/forum/edit/', 'pid=' . $results->data[$n]->id . '&amp;tid=' . $tid),
                 'TEXT' => $forum_language->get('forum', 'edit')
             ];
-        } else if ($user->data()->id == $results->data[$n]->post_creator && $forum->canEditTopic($forum_parent[0]->id, $user_groups)) {
-            if ($topic->locked != 1) { // Can't edit if topic is locked
-                $buttons['edit'] = [
-                    'URL' => URL::build('/forum/edit/', 'pid=' . $results->data[$n]->id . '&amp;tid=' . $tid),
-                    'TEXT' => $forum_language->get('forum', 'edit')
-                ];
+        } else {
+            if ($user->data()->id == $results->data[$n]->post_creator && $forum->canEditTopic($forum_parent[0]->id, $user_groups)) {
+                if ($topic->locked != 1) { // Can't edit if topic is locked
+                    $buttons['edit'] = [
+                        'URL' => URL::build('/forum/edit/', 'pid=' . $results->data[$n]->id . '&amp;tid=' . $tid),
+                        'TEXT' => $forum_language->get('forum', 'edit')
+                    ];
+                }
             }
         }
 
@@ -662,7 +683,9 @@ for ($n = 0; $n < count($results->data); $n++) {
         }
     }
 
-    if ($mc_integration[0]->value == '1') $fields[] = ['name' => 'IGN', 'value' => $post_creator->getDisplayname(true)];
+    if ($mc_integration[0]->value == '1') {
+        $fields[] = ['name' => 'IGN', 'value' => $post_creator->getDisplayname(true)];
+    }
 
     $forum_placeholders = $post_creator->getForumPlaceholders();
     foreach ($forum_placeholders as $forum_placeholder) {
@@ -687,8 +710,13 @@ for ($n = 0; $n < count($results->data); $n++) {
                     $post_reactions[$item->reaction_id]['html'] = $reaction[0]->html;
                     $post_reactions[$item->reaction_id]['name'] = $reaction[0]->name;
 
-                    if ($reaction[0]->type == 2) $total_karma++;
-                    else if ($reaction[0]->type == 0) $total_karma--;
+                    if ($reaction[0]->type == 2) {
+                        $total_karma++;
+                    } else {
+                        if ($reaction[0]->type == 0) {
+                            $total_karma--;
+                        }
+                    }
                 } else {
                     $post_reactions[$item->reaction_id]['count']++;
                 }
@@ -759,7 +787,9 @@ if ($user->isLoggedIn()) {
     // Reactions
     if ($reactions_enabled) {
         $reactions = $queries->getWhere('reactions', ['enabled', '=', 1]);
-        if (!count($reactions)) $reactions = [];
+        if (!count($reactions)) {
+            $reactions = [];
+        }
 
         $smarty->assign('REACTIONS', $reactions);
         $smarty->assign('REACTIONS_URL', URL::build('/forum/reactions'));
@@ -803,8 +833,10 @@ if ($user->isLoggedIn() && $can_reply) {
             'SUBMIT' => $language->get('general', 'submit')
         ]);
     }
-} else if ($topic->locked == 1) {
-    $smarty->assign('TOPIC_LOCKED', $forum_language->get('forum', 'topic_locked'));
+} else {
+    if ($topic->locked == 1) {
+        $smarty->assign('TOPIC_LOCKED', $forum_language->get('forum', 'topic_locked'));
+    }
 }
 
 // Assign Smarty language variables
@@ -812,7 +844,7 @@ $smarty->assign([
     'POSTS' => $forum_language->get('forum', 'posts'),
     'BY' => ucfirst($forum_language->get('forum', 'by')),
     'CANCEL' => $language->get('general', 'cancel'),
-    'USER_ID' => (($user->isLoggedIn()) ? $user->data()->id  : 0),
+    'USER_ID' => (($user->isLoggedIn()) ? $user->data()->id : 0),
     'INSERT_QUOTES' => $forum_language->get('forum', 'insert_quotes'),
     'FORUM_TITLE' => Output::getClean($forum_parent[0]->forum_title),
     'STARTED_BY' => $forum_language->get('forum', 'started_by_x'),
@@ -847,8 +879,9 @@ if ($formatting == 'markdown') {
         (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
     ]);
 
-    if ($user->isLoggedIn())
+    if ($user->isLoggedIn()) {
         $template->addJSScript(Input::createTinyEditor($language, 'quickreply'));
+    }
 }
 
 if ($user->isLoggedIn()) {
@@ -865,7 +898,7 @@ if ($user->isLoggedIn()) {
 
     $template->addJSScript('
 	$(document).ready(function() {
-		if (typeof $.cookie(\'' .  $tid . '-quoted\') === \'undefined\') {
+		if (typeof $.cookie(\'' . $tid . '-quoted\') === \'undefined\') {
 			$("#quoteButton").hide();
 		}
 	});
@@ -881,7 +914,7 @@ if ($user->isLoggedIn()) {
 			toastr.options.progressBar = true;
 			toastr.options.closeButton = true;
 			toastr.options.positionClass = \'toast-bottom-left\';
-			toastr.info(\'' .  $forum_language->get('forum', 'removed_quoted_post') . '\');
+			toastr.info(\'' . $forum_language->get('forum', 'removed_quoted_post') . '\');
 		}
 		else {
 			quotedPosts.push(post);
@@ -911,7 +944,7 @@ if ($user->isLoggedIn()) {
 	// Insert quoted posts to editor
 	function insertQuotes() {
 		var postData = {
-			"posts": JSON.parse($.cookie(\'' .  $tid . '-quoted\')),
+			"posts": JSON.parse($.cookie(\'' . $tid . '-quoted\')),
 			"topic": ' . $tid . '
 		};
 

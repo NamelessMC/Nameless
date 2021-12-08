@@ -66,8 +66,8 @@ if (!isset($_GET['server']) && !isset($_GET['edit'])) {
             'BACK' => $language->get('general', 'back'),
             'BACK_LINK' => URL::build('/panel/minecraft/banners'),
             'SERVER_NAME' => Output::getClean($server->name),
-            'BANNER_URL' => Util::getSelfURL() . ltrim(rtrim(URL::build('/banner/'. urlencode($server->name) . '.png'), '/'), '/'),
-            'BANNER_PATH' => rtrim(URL::build('/banner/'. urlencode($server->name) . '.png'), '/')
+            'BANNER_URL' => Util::getSelfURL() . ltrim(rtrim(URL::build('/banner/' . urlencode($server->name) . '.png'), '/'), '/'),
+            'BANNER_PATH' => rtrim(URL::build('/banner/' . urlencode($server->name) . '.png'), '/')
         ]);
 
         $template_file = 'integrations/minecraft/minecraft_server_banners_view.tpl';
@@ -147,17 +147,19 @@ if (!isset($_GET['server']) && !isset($_GET['edit'])) {
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-if (isset($success))
+if (isset($success)) {
     $smarty->assign([
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ]);
+}
 
-if (isset($errors) && count($errors))
+if (isset($errors) && count($errors)) {
     $smarty->assign([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
     ]);
+}
 
 $smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,

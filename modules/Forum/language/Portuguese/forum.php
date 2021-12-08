@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
@@ -14,7 +14,7 @@
 $language = [
     /*
      *  Forums
-     */ 
+     */
     'forum' => 'Fórum',
     'forums' => 'Fóruns',
     'forum_index' => 'Início',
@@ -97,11 +97,11 @@ $language = [
     'new_reply_in_topic' => '{x} respondeu ao tópico {y}', // Não altere o valor: {x} (username) ou {y} (topic title)
     'started_by_x' => 'Iniciado por {x}', // Não altere o valor: {x}
     'sticky_topics' => 'Tópicos fixos',
-    
+
     // Página principal
     'latest_announcements' => 'Últimos anúncios',
     'read_full_post' => 'Ler postagem completa',
-    
+
     // Administração
     'labels' => 'Rótulos',
     'new_forum' => '<i class="fa fa-plus-circle"></i> Novo fórum',
@@ -185,7 +185,7 @@ $language = [
     'new_search' => 'Nova pesquisa',
     'invalid_search_query' => 'Por favor insira uma consulta de pesquisa entre 3 e 128 caracteres.',
     'no_results_found' => 'Nenhum resultado encontrado.',
-    
+
     // Perfil
     'user_no_posts' => 'Este usuário ainda não fez nenhum post no fórum.',
     'latest_posts' => 'Últimas postagens',

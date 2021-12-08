@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *  Translations by Svevende & Maiu
  *  https://github.com/NamelessMC/Nameless/
@@ -12,7 +12,7 @@
 $language = [
     /*
      *  Forums
-     */ 
+     */
     'forum' => 'Forum',
     'forums' => 'Forum',
     'forum_index' => 'Hjem',
@@ -95,11 +95,11 @@ $language = [
     'new_reply_in_topic' => '{x} har svart på tråden {y}', // Don't replace {x} (username) or {y} (topic title)
     'started_by_x' => 'Startet av {x}', // Don't replace {x}
     'sticky_topics' => 'Festede tråder',
-    
+
     // Homepage
     'latest_announcements' => 'Siste kunngjøring',
     'read_full_post' => 'Les hele tråden',
-    
+
     // Admin tab
     'labels' => 'Etiketter',
     'new_forum' => '<i class="fa fa-plus-circle"></i> Nytt forum',
@@ -183,7 +183,7 @@ $language = [
     'new_search' => 'Nytt søk',
     'invalid_search_query' => 'Søk på nytt.',
     'no_results_found' => 'Ingen resultater funnet.',
-    
+
     // Profile tab
     'user_no_posts' => 'Denne brukeren har ingen innlegg enda.',
     'latest_posts' => 'Siste innlegg',

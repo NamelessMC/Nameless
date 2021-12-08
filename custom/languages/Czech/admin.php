@@ -546,7 +546,7 @@ $language = [
     'show_nickname_instead_of_username' => 'Zobrazit přezdívku uživatele namísto jeho uživatelského jména?',
 
     // Custom Pages
-	'pages' => 'Stránky',
+    'pages' => 'Stránky',
     'custom_pages' => 'Vlastní stránky',
     'new_page' => '<i class="fa fa-plus-circle"></i> Nová stránka',
     'no_custom_pages' => 'Nebyly vytvořeny žádné stránky.',

@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *  Made by Samerton & Translated by Codiaz
  *  https://github.com/NamelessMC/Nameless/
@@ -12,14 +12,14 @@
 $language = [
     'staff_cp' => 'PersonaleCP',
     'overview' => 'Oversigt',
-    
+
     // Spam
     'spam' => 'Spam',
     'mark_as_spam' => 'Markér som spam',
     'confirm_spam' => '<p>Er du sikker på, at du vil markere denne bruger som spam?</p><p>Brugeren vil blive IP bandlyst, og alt deres indhold vil blive fjernet.</p>',
     'user_marked_as_spam' => 'Bruger markeret som spam.',
     'cant_ban_admin' => 'Du kan ikke udelukke en administrator!',
-    
+
     // IP Lookup
     'ip_lookup' => 'IP Opslag',
     'search_for_ip' => 'Søg efter brugernavn eller IP-adresse',
@@ -30,7 +30,7 @@ $language = [
     '1_ip_with_name' => 'Fandt 1 IP-adresse for bruger {y}', // Don't replace "{y}"
     'count_ips_with_name' => 'Fandt {x} IP-adresser for bruger {y}', // Don't replace "{x}" or "{y}"
     'no_users_or_ips_found' => 'Ingen brugere eller IP-adresser fundet.',
-    
+
     // Reports
     'reports' => 'Rapporter',
     'report_alert' => 'Ny rapport indsendt',
@@ -60,7 +60,7 @@ $language = [
     'report_reopened' => 'Rapport genåbnet.',
     'report_closed' => 'Rapport lukket.',
     'comment_created' => 'Kommentar oprettet.',
-    
+
     // Punishments
     'punishments' => 'Straffe',
     'view_punishments' => 'Se Straffe',

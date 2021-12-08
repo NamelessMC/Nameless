@@ -56,8 +56,9 @@ if (count($dashboard_graphs)) {
         foreach ($dashboard_graph as $date => $values) {
             $date = intval(str_replace('_', '', $date));
 
-            if (!array_key_exists($date, $graph['keys']))
+            if (!array_key_exists($date, $graph['keys'])) {
                 $graph['keys'][$date] = date('Y-m-d', $date);
+            }
 
             foreach ($values as $valuekey => $value) {
                 $graph['datasets'][$valuekey]['data'][date('Y-m-d', $date)] = $value;
@@ -94,18 +95,20 @@ if ($cache->isCached('news')) {
                 'url' => Output::getClean($item->url)
             ];
 
-            if (++$i == 5)
+            if (++$i == 5) {
                 break;
+            }
         }
     }
 
     $cache->store('news', $news, 3600);
 }
 
-if (!count($news))
+if (!count($news)) {
     $smarty->assign('NO_NEWS', $language->get('admin', 'unable_to_retrieve_nameless_news'));
-else
+} else {
     $smarty->assign('NEWS', $news);
+}
 
 // Compatibility
 if ($user->hasPermission('admincp.core.debugging')) {
@@ -177,15 +180,17 @@ if ($user->hasPermission('admincp.core.debugging')) {
     ]);
 }
 
-if (is_dir(ROOT_PATH . '/modules/Core/pages/admin'))
+if (is_dir(ROOT_PATH . '/modules/Core/pages/admin')) {
     $smarty->assign([
         'DIRECTORY_WARNING' => $language->get('admin', 'admin_dir_still_exists')
     ]);
-
-else if (is_dir(ROOT_PATH . '/modules/Core/pages/mod'))
-    $smarty->assign([
-        'DIRECTORY_WARNING' => $language->get('admin', 'mod_dir_still_exists')
-    ]);
+} else {
+    if (is_dir(ROOT_PATH . '/modules/Core/pages/mod')) {
+        $smarty->assign([
+            'DIRECTORY_WARNING' => $language->get('admin', 'mod_dir_still_exists')
+        ]);
+    }
+}
 
 $smarty->assign([
     'DASHBOARD' => $language->get('admin', 'dashboard'),

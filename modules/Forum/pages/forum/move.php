@@ -88,7 +88,9 @@ $template_forums = [];
 
 $categories = $queries->orderWhere('forums', 'parent = 0', 'forum_order', 'ASC');
 foreach ($categories as $category) {
-    if (!$forum->forumExist($category->id, $user->getAllGroupIds())) continue;
+    if (!$forum->forumExist($category->id, $user->getAllGroupIds())) {
+        continue;
+    }
 
     $to_add = new stdClass();
     $to_add->id = Output::getClean($category->id);
@@ -102,7 +104,9 @@ foreach ($categories as $category) {
     if ($forums->count()) {
         $forums = $forums->results();
         foreach ($forums as $item) {
-            if (!$forum->forumExist($item->id, $user->getAllGroupIds())) continue;
+            if (!$forum->forumExist($item->id, $user->getAllGroupIds())) {
+                continue;
+            }
 
             if ($item->id !== $forum_id) {
                 $to_add = new stdClass();

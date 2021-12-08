@@ -22,7 +22,7 @@ $page_title = $language->get('admin', 'minecraft_servers');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 if (isset($_GET['action'])) {
-    switch($_GET['action']) {
+    switch ($_GET['action']) {
         case 'new':
             // Handle input
             if (Input::exists()) {
@@ -75,60 +75,71 @@ if (isset($_GET['action'])) {
                         // Handle input
                         try {
                             // BungeeCord selected?
-                            if (isset($_POST['bungee_instance']) && $_POST['bungee_instance'] == 1)
+                            if (isset($_POST['bungee_instance']) && $_POST['bungee_instance'] == 1) {
                                 $bungee = 1;
-                            else
+                            } else {
                                 $bungee = 0;
+                            }
 
                             // Pre 1.7?
-                            if (isset($_POST['pre_17']) && $_POST['pre_17'] == 1)
+                            if (isset($_POST['pre_17']) && $_POST['pre_17'] == 1) {
                                 $pre = 1;
-                            else
+                            } else {
                                 $pre = 0;
+                            }
 
                             // Status enabled?
-                            if (isset($_POST['status_query_enabled']) && $_POST['status_query_enabled'] == 1)
+                            if (isset($_POST['status_query_enabled']) && $_POST['status_query_enabled'] == 1) {
                                 $status = 1;
-                            else
+                            } else {
                                 $status = 0;
+                            }
 
                             // Show IP enabled?
-                            if (isset($_POST['show_ip_enabled']) && $_POST['show_ip_enabled'] == 1)
+                            if (isset($_POST['show_ip_enabled']) && $_POST['show_ip_enabled'] == 1) {
                                 $show_ip = 1;
-                            else
+                            } else {
                                 $show_ip = 0;
+                            }
 
                             // Player list enabled?
-                            if (isset($_POST['query_enabled']) && $_POST['query_enabled'] == 1)
+                            if (isset($_POST['query_enabled']) && $_POST['query_enabled'] == 1) {
                                 $query = 1;
-                            else
+                            } else {
                                 $query = 0;
+                            }
 
                             // Parent server
-                            if ($_POST['parent_server'] == 'none')
+                            if ($_POST['parent_server'] == 'none') {
                                 $parent = 0;
-                            else
+                            } else {
                                 $parent = $_POST['parent_server'];
+                            }
 
                             // Validate server port
-                            if (is_numeric(Input::get('server_port')))
+                            if (is_numeric(Input::get('server_port'))) {
                                 $port = Input::get('server_port');
-                            else {
-                                if (!isset($_POST['server_port']) || empty($_POST['server_port']))
+                            } else {
+                                if (!isset($_POST['server_port']) || empty($_POST['server_port'])) {
                                     $port = null;
-                                else
+                                } else {
                                     $port = 25565;
+                                }
                             }
 
                             // Validate server query port
-                            if (is_numeric(Input::get('query_port')))
+                            if (is_numeric(Input::get('query_port'))) {
                                 $query_port = Input::get('query_port');
-                            else
+                            } else {
                                 $query_port = 25565;
+                            }
 
                             $last_server_order = DB::getInstance()->selectQuery('SELECT `order` FROM nl2_mc_servers ORDER BY `order` DESC LIMIT 1')->results();
-                            if (count($last_server_order)) $last_server_order = $last_server_order[0]->order;
-                            else $last_server_order = 0;
+                            if (count($last_server_order)) {
+                                $last_server_order = $last_server_order[0]->order;
+                            } else {
+                                $last_server_order = 0;
+                            }
 
                             $queries->create('mc_servers', [
                                 'ip' => Output::getClean(Input::get('server_address')),
@@ -157,9 +168,9 @@ if (isset($_GET['action'])) {
                         $errors = $validation->errors();
                     }
 
-                } else
-                    // Invalid token
+                } else {
                     $errors[] = $language->get('general', 'invalid_token');
+                }
             }
 
             $available_parent_servers = $queries->getWhere('mc_servers', ['parent_server', '=', 0]);
@@ -277,56 +288,64 @@ if (isset($_GET['action'])) {
                         // Handle input
                         try {
                             // BungeeCord selected?
-                            if (isset($_POST['bungee_instance']) && $_POST['bungee_instance'] == 1)
+                            if (isset($_POST['bungee_instance']) && $_POST['bungee_instance'] == 1) {
                                 $bungee = 1;
-                            else
+                            } else {
                                 $bungee = 0;
+                            }
 
                             // Pre 1.7?
-                            if (isset($_POST['pre_17']) && $_POST['pre_17'] == 1)
+                            if (isset($_POST['pre_17']) && $_POST['pre_17'] == 1) {
                                 $pre = 1;
-                            else
+                            } else {
                                 $pre = 0;
+                            }
 
                             // Status enabled?
-                            if (isset($_POST['status_query_enabled']) && $_POST['status_query_enabled'] == 1)
+                            if (isset($_POST['status_query_enabled']) && $_POST['status_query_enabled'] == 1) {
                                 $status = 1;
-                            else
+                            } else {
                                 $status = 0;
+                            }
 
                             // Show IP enabled?
-                            if (isset($_POST['show_ip_enabled']) && $_POST['show_ip_enabled'] == 1)
+                            if (isset($_POST['show_ip_enabled']) && $_POST['show_ip_enabled'] == 1) {
                                 $show_ip = 1;
-                            else
+                            } else {
                                 $show_ip = 0;
+                            }
 
                             // Player list enabled?
-                            if (isset($_POST['query_enabled']) && $_POST['query_enabled'] == 1)
+                            if (isset($_POST['query_enabled']) && $_POST['query_enabled'] == 1) {
                                 $query = 1;
-                            else
+                            } else {
                                 $query = 0;
+                            }
 
                             // Parent server
-                            if ($_POST['parent_server'] == 'none')
+                            if ($_POST['parent_server'] == 'none') {
                                 $parent = 0;
-                            else
+                            } else {
                                 $parent = $_POST['parent_server'];
+                            }
 
                             // Validate server port
-                            if (is_numeric(Input::get('server_port')))
+                            if (is_numeric(Input::get('server_port'))) {
                                 $port = Input::get('server_port');
-                            else {
-                                if (!isset($_POST['server_port']) || empty($_POST['server_port']))
+                            } else {
+                                if (!isset($_POST['server_port']) || empty($_POST['server_port'])) {
                                     $port = null;
-                                else
+                                } else {
                                     $port = 25565;
+                                }
                             }
 
                             // Validate server query port
-                            if (is_numeric(Input::get('query_port')))
+                            if (is_numeric(Input::get('query_port'))) {
                                 $query_port = Input::get('query_port');
-                            else
+                            } else {
                                 $query_port = 25565;
+                            }
 
                             $queries->update('mc_servers', $server_editing->id, [
                                 'ip' => Output::getClean(Input::get('server_address')),
@@ -354,9 +373,9 @@ if (isset($_GET['action'])) {
                         $errors = $validation->errors();
                     }
 
-                } else
-                    // Invalid token
+                } else {
                     $errors = [$language->get('general', 'invalid_token')];
+                }
             }
 
             $available_parent_servers = $queries->getWhere('mc_servers', ['parent_server', '=', 0]);
@@ -426,7 +445,9 @@ if (isset($_GET['action'])) {
                     Session::flash('admin_mc_servers_success', $language->get('admin', 'server_deleted'));
                 }
 
-            } else Session::flash('admin_mc_servers_error', $language->get('general', 'invalid_token'));
+            } else {
+                Session::flash('admin_mc_servers_error', $language->get('general', 'invalid_token'));
+            }
 
             Redirect::to(URL::build('/panel/minecraft/servers'));
             die();
@@ -456,35 +477,40 @@ if (isset($_GET['action'])) {
         $errors = [];
 
         if (Token::check()) {
-            if (isset($_POST['default_server']) && is_numeric($_POST['default_server']))
+            if (isset($_POST['default_server']) && is_numeric($_POST['default_server'])) {
                 $new_default = $_POST['default_server'];
-            else
+            } else {
                 $new_default = 0;
+            }
 
-            if (isset($_POST['external_query']) && $_POST['external_query'] == 1)
+            if (isset($_POST['external_query']) && $_POST['external_query'] == 1) {
                 $external = 1;
-            else
+            } else {
                 $external = 0;
+            }
 
-            if (isset($_POST['status_page']) && $_POST['status_page'] == 1)
+            if (isset($_POST['status_page']) && $_POST['status_page'] == 1) {
                 $status = 1;
-            else
+            } else {
                 $status = 0;
+            }
 
             // Update database and cache
             try {
                 // Default server
                 if ($new_default > 0) {
                     $current_default = $queries->getWhere('mc_servers', ['is_default', '=', 1]);
-                    if (count($current_default) && $current_default[0]->id != $new_default)
+                    if (count($current_default) && $current_default[0]->id != $new_default) {
                         $queries->update('mc_servers', $current_default[0]->id, [
                             'is_default' => 0
                         ]);
+                    }
 
-                    if (!count($current_default) || $current_default[0]->id != $new_default)
+                    if (!count($current_default) || $current_default[0]->id != $new_default) {
                         $queries->update('mc_servers', $new_default, [
                             'is_default' => 1
                         ]);
+                    }
                 }
 
                 // External query
@@ -526,8 +552,9 @@ if (isset($_GET['action'])) {
                 $errors[] = $e->getMessage();
             }
 
-        } else
+        } else {
             $errors[] = $language->get('general', 'invalid_token');
+        }
     }
 
     // List servers
@@ -538,8 +565,9 @@ if (isset($_GET['action'])) {
     if (count($servers)) {
 
         foreach ($servers as $server) {
-            if ($server->is_default == 1)
+            if ($server->is_default == 1) {
                 $default = $server->id;
+            }
 
             $template_array[] = [
                 'name' => Output::getClean($server->name),
@@ -551,8 +579,9 @@ if (isset($_GET['action'])) {
             ];
         }
 
-    } else
+    } else {
         $smarty->assign('NO_SERVERS', $language->get('admin', 'no_servers_defined'));
+    }
 
     // Query options
     $external_query = $queries->getWhere('settings', ['name', '=', 'external_query']);
@@ -612,23 +641,27 @@ if (isset($_GET['action'])) {
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-if (Session::exists('admin_mc_servers_success'))
+if (Session::exists('admin_mc_servers_success')) {
     $success = Session::flash('admin_mc_servers_success');
+}
 
-if (Session::exists('admin_mc_servers_error'))
+if (Session::exists('admin_mc_servers_error')) {
     $errors = [Session::flash('admin_mc_servers_error')];
+}
 
-if (isset($success))
+if (isset($success)) {
     $smarty->assign([
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ]);
+}
 
-if (isset($errors) && count($errors))
+if (isset($errors) && count($errors)) {
     $smarty->assign([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
     ]);
+}
 
 $smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,

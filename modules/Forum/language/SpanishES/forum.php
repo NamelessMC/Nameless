@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *  Translated by ManiaNetwork
  *  https://github.com/NamelessMC/Nameless/
@@ -12,7 +12,7 @@
 $language = [
     /*
      *  Forums
-     */ 
+     */
     'forum' => 'Foro',
     'forums' => 'Foros',
     'forum_index' => 'Inicio',
@@ -95,11 +95,11 @@ $language = [
     'new_reply_in_topic' => '{x} ha respondido al tema {y}', // Don't replace {x} (username) or {y} (topic title)
     'started_by_x' => 'Iniciado por {x}', // Don't replace {x}
     'sticky_topics' => 'Temas anclados',
-    
+
     // Homepage
     'latest_announcements' => 'Últimos anuncios',
     'read_full_post' => 'Leer el tema completo',
-    
+
     // Admin tab
     'labels' => 'Etiquetas',
     'new_forum' => '<i class="fa fa-plus-circle"></i> Nuevo foro',
@@ -183,7 +183,7 @@ $language = [
     'new_search' => 'Nueva búsqueda',
     'invalid_search_query' => 'Por favor, introduzca una consulta de búsqueda de entre 3 y 128 caracteres.',
     'no_results_found' => 'No se han encontrado resultados.',
-    
+
     // Profile tab
     'user_no_posts' => 'Este usuario aún no ha hecho ningún comentario en el foro.',
     'latest_posts' => 'Últimas publicaciones',

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Mentions parser
  * By: fetch404
@@ -22,16 +23,16 @@ class MentionsParser {
 
     /**
      * Parse the given HTML to include @username tags.
-     * 
+     *
      * @param int $author_id User ID of post creator.
      * @param string $value Post content.
      * @param string $link Link back to post.
      * @param array $alert_short Short alert info.
      * @param array $alert_full Full alert info.
      *
+     * @return string Parsed post content.
      * @throws Exception If alert is not created (see `Alert::create()`).
      *
-     * @return string Parsed post content.
      */
     public function parse(int $author_id, string $value, string $link, array $alert_short, array $alert_full): string {
         if (preg_match_all('/@([A-Za-z0-9\-_!.]+)/', $value, $matches)) {

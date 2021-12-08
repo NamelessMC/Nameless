@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
@@ -14,7 +14,7 @@
 $language = [
     /*
      *  Forums
-     */ 
+     */
     'forum' => 'Forum',
     'forums' => 'Forumer',
     'forum_index' => 'Hem',
@@ -97,11 +97,11 @@ $language = [
     'new_reply_in_topic' => '{x} har svarat på ämnet {y}', // Don't replace {x} (username) or {y} (topic title)
     'started_by_x' => 'Startades av {x}', // Don't replace{x}
     'sticky_topics' => 'Sticky ämnen',
-    
+
     // Homepage
     'latest_announcements' => 'Senaste meddelanden',
     'read_full_post' => 'Läs hela inlägget',
-    
+
     // Admin tab
     'labels' => 'Etiketter',
     'new_forum' => '<i class="fa fa-plus-circle"></i> Nytt forum',
@@ -185,7 +185,7 @@ $language = [
     'new_search' => 'Ny sökning',
     'invalid_search_query' => 'Ange en sökfråga mellan 3 och 128 tecken lång.',
     'no_results_found' => 'Inga resultat hittades.',
-    
+
     // Profile tab
     'user_no_posts' => 'Den här användaren har inte gjort några foruminlägg ännu.',
     'latest_posts' => 'Senaste inlägg',

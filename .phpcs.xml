@@ -57,4 +57,20 @@
         <exclude name="Generic.WhiteSpace.DisallowTabIndent.TabsUsed"/>
     </rule>
 
+    <rule ref="Zend.NamingConventions.ValidVariableName.StringVarNotCamelCaps">
+        <exclude name="Zend.NamingConventions.ValidVariableName.StringVarNotCamelCaps"/>
+    </rule>
+
+    <rule ref="Zend.NamingConventions.ValidVariableName.ContainsNumbers">
+        <exclude name="Zend.NamingConventions.ValidVariableName.ContainsNumbers"/>
+    </rule>
+
+    <rule ref="Zend.NamingConventions.ValidVariableName.MemberVarContainsNumbers">
+        <exclude name="Zend.NamingConventions.ValidVariableName.MemberVarContainsNumbers"/>
+    </rule>
+
+    <rule ref="Squiz.Functions.GlobalFunction.Found">
+        <exclude name="Squiz.Functions.GlobalFunction.Found"/>
+    </rule>
+
 </ruleset>

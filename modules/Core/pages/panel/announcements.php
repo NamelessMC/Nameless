@@ -271,21 +271,24 @@ if (!isset($_GET['action'])) {
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-if (Session::exists('announcement_success'))
+if (Session::exists('announcement_success')) {
     $smarty->assign([
         'SUCCESS' => Session::flash('announcement_success'),
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ]);
-if (Session::exists('announcement_error'))
+}
+if (Session::exists('announcement_error')) {
     $smarty->assign([
         'ERRORS' => [Session::flash('announcement_error')],
         'ERRORS_TITLE' => $language->get('general', 'error')
     ]);
-if (isset($errors) && count($errors))
+}
+if (isset($errors) && count($errors)) {
     $smarty->assign([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
     ]);
+}
 
 $smarty->assign([
     'PAGE' => PANEL_PAGE,
