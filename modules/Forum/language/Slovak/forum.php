@@ -207,7 +207,9 @@ $language = [
 
     // Panel statistics
     'recent_topics' => 'Najnovšie témy',
+    'recent_topics_statistic_icon' => '<i class="fas fa-comment"></i>',
     'recent_posts' => 'Najnovšie príspevky',
+    'recent_posts_statistic_icon' => '<i class="far fa-comments"></i>',
     'topics_title' => 'Témy',
     'posts_title' => 'Príspevky',
 ];

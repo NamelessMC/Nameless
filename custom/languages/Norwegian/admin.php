@@ -701,7 +701,9 @@ $language = [
 
     // Dashboard
     'total_users' => 'Alle brukere',
+    'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'recent_users' => 'Ny bruker',
+    'recent_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'average_players' => 'Gjennomsnittlige spillere',
     'nameless_news' => 'NamelessMC-nyheter',
     'unable_to_retrieve_nameless_news' => 'Kunne ikke laste inn nyeste nytt',

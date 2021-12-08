@@ -708,7 +708,9 @@ $language = [
 
     // Dashboard
     'total_users' => 'Total de usuarios',
+    'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'recent_users' => 'Nuevos usuarios',
+    'recent_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'average_players' => 'Jugadores promedio',
     'nameless_news' => 'Noticias de NamelessMC',
     'unable_to_retrieve_nameless_news' => 'No se pudieron obterner las últimas noticias',

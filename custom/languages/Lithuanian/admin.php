@@ -700,7 +700,9 @@ $language = [
 
     // Dashboard
     'total_users' => 'Visi Vartotojai',
+    'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'recent_users' => 'Nauji Vartotojai',
+    'recent_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'average_players' => 'Vidutiniai žaidėjai',
     'nameless_news' => 'NamelessMC Naujienos',
     'unable_to_retrieve_nameless_news' => 'Nepavyko gauti naujausių naujienų.',

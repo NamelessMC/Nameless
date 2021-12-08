@@ -207,7 +207,9 @@ $language = [
 
     // Panel statistics
     'recent_topics' => 'Discussioni recenti',
+    'recent_topics_statistic_icon' => '<i class="fas fa-comment"></i>',
     'recent_posts' => 'Post recenti',
+    'recent_posts_statistic_icon' => '<i class="far fa-comments"></i>',
     'topics_title' => 'Discussioni',
     'posts_title' => 'Post',
 ];

@@ -689,7 +689,9 @@ $language = [
 
     // Dashboard
     'total_users' => 'Всего пользователей',
+    'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'recent_users' => 'Новые пользователи',
+    'recent_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'nameless_news' => 'Новости NamelessMC',
     'unable_to_retrieve_nameless_news' => 'Невозможно получить последние новости',
     'confirm_leave_site' => 'Вы вот-вот покинете этот сайт! Вы уверены, что хотите перейти на <strong id="leaveSiteURL">{x}</strong>?', // don't replace {x} and make sure it has the id leaveSiteURL

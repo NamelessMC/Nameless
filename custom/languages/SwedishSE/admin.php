@@ -703,7 +703,9 @@ $language = [
 
     // Dashboard
     'total_users' => 'Totalt antal användare',
+    'total_users_statistic_icon' => '<i class = "fas fa-användare"> </i>',
     'recent_users' => 'Nya användare',
+    'recent_users_statistic_icon' => '<i class = "fas fa-users"> </i>',
     'average_players' => 'Genomsnittliga spelare',
     'nameless_news' => 'NamelessMC Nyheter',
     'impossible_to_retrieve_nameless_news' => 'Det går inte att hämta de senaste nyheterna',

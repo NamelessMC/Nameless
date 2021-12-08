@@ -38,6 +38,7 @@ class RecentUsersItem extends CollectionItemBase {
         $users_query = $queries->getWhere('users', ['joined', '>', strtotime('7 days ago')]);
 
         $this->_smarty->assign([
+            'ICON' => $this->_language->get('admin', 'recent_users_statistic_icon'),
             'TITLE' => $this->_language->get('admin', 'recent_users'),
             'VALUE' => count($users_query)
         ]);

@@ -701,7 +701,9 @@ $language = [
 
     // Dashboard
     'total_users' => 'Gesamtbenutzer',
+    'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'recent_users' => 'Neue Benutzer',
+    'recent_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'recent_topics' => 'Test',
     'average_players' => 'Durchschnittliche Spieler',
     'nameless_news' => 'NamelessMC Neuigkeiten',

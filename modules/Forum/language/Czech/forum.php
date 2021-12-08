@@ -207,7 +207,9 @@ $language = [
     'available_hooks' => 'Dostupné webhooky',
     // Panel statistics
     'recent_topics' => 'Poslední témata',
+    'recent_topics_statistic_icon' => '<i class="fas fa-comment"></i>',
     'recent_posts' => 'Poslední příspěvky',
+    'recent_posts_statistic_icon' => '<i class="far fa-comments"></i>',
     'topics_title' => 'Témata',
     'posts_title' => 'Příspěvky',
 ];
