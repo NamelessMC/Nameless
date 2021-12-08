@@ -209,9 +209,7 @@ $language = [
 
     // Painel de estatisticas
     'recent_topics' => 'Tópicos recentes',
-    'recent_topics_statistic_icon' => '<i class="fas fa-comment"></i>',
     'recent_posts' => 'Postagens recentes',
-    'recent_posts_statistic_icon' => '<i class="far fa-comments"></i>',
     'topics_title' => 'Tópicos',
     'posts_title' => 'Postagens',
 ];

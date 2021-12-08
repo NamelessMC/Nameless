@@ -206,9 +206,7 @@ $language = [
 
     // Panel statistics
     'recent_topics' => 'Son Konular',
-    'recent_topics_statistic_icon' => '<i class="fas fa-comment"></i>',
     'recent_posts' => 'Yakın Zamanda Gönderilenler',
-    'recent_posts_statistic_icon' => '<i class="far fa-comments"></i>',
     'topics_title' => 'Konular',
     'posts_title' => 'Mesajlar',
 ];

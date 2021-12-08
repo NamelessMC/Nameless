@@ -154,9 +154,6 @@ if (!class_exists('Default_Panel_Template')) {
                             (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/moment/moment.min.js' => [],
                             (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/charts/Chart.min.js' => []
                         ]);
-                        $this->addJSScript('
-						$(".stats-card i").addClass("fa-2x text-gray-300");
-						');
                         break;
 
                     case 'api':
