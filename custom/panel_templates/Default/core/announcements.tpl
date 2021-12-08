@@ -42,8 +42,7 @@
                                     <span class="float-md-right"><a href="{$NEW_LINK}" class="btn btn-primary"><i class="fas fa-plus-circle"></i> {$NEW}</a></span>
                                 </div>
                             </div>
-                            {if isset($ALL_ANNOUNCEMENTS)}
-                            <hr />{else}<br />{/if}
+                            <hr />
 
                             <!-- Success and Error Alerts -->
                             {include file='includes/alerts.tpl'}

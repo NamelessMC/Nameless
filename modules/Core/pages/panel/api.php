@@ -279,6 +279,15 @@ if (!isset($_GET['view'])) {
 
     if ($_GET['view'] == 'group_sync') {
 
+        $group_sync_values = [];
+        foreach ($queries->getWhere('group_sync', ['id', '<>', 0]) as $rule) {
+            $rule_values = [];
+            foreach (get_class_vars($rule) as $column => $value) {
+                $rule_values[$column] = $value;
+            }
+            $group_sync_values[] = $rule_values;
+        }
+
         $smarty->assign(
             [
                 'PARENT_PAGE' => PARENT_PAGE,
@@ -292,7 +301,7 @@ if (!isset($_GET['view'])) {
                 'BACK_LINK' => URL::build('/panel/core/api'),
                 'TOKEN' => Token::get(),
                 'SUBMIT' => $language->get('general', 'submit'),
-                'GROUP_SYNC_VALUES' => $queries->getWhere('group_sync', ['id', '<>', 0]),
+                'GROUP_SYNC_VALUES' => $group_sync_values,
                 'GROUP_SYNC_INJECTORS' => GroupSyncManager::getInstance()->getInjectors(),
                 'ENABLED_GROUP_SYNC_INJECTORS' => GroupSyncManager::getInstance()->getEnabledInjectors(),
                 'NAMELESS_INJECTOR_COLUMN' => GroupSyncManager::getInstance()->getInjectorByClass(NamelessMCGroupSyncInjector::class)->getColumnName(),

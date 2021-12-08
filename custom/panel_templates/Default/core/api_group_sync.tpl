@@ -61,10 +61,10 @@
                                                 <div class="col-md">
                                                     <label for="input_{$column_name}">{$injector->getName()}</label>
                                                     {if in_array($injector, $ENABLED_GROUP_SYNC_INJECTORS)}
-                                                        <select name="existing[{$group_sync->id}][{$column_name}]" class="form-control" id="input_{$column_name}">
-                                                        <option value="0" {if {$group_sync->$column_name} eq null} selected {/if}>{$NONE} ({$DISABLED})</option>
+                                                        <select name="existing[{$group_sync['id']}][{$column_name}]" class="form-control" id="input_{$column_name}">
+                                                        <option value="0" {if {$group_sync[$column_name]} eq null} selected {/if}>{$NONE} ({$DISABLED})</option>
                                                             {foreach from=$injector->getSelectionOptions() item=group}
-                                                                <option value="{$group.id}" {if $group_sync->$column_name eq $group.id} selected {/if}>{$group.name}</option>
+                                                                <option value="{$group.id}" {if $group_sync[$column_name] eq $group.id} selected {/if}>{$group.name}</option>
                                                             {/foreach}
                                                         </select>
                                                     {else}
@@ -76,7 +76,7 @@
 
                                             <div class="col-md-1">
                                                 <div style="height:32px"></div>
-                                                <button type="button" onclick="deleteGroupSync('{$group_sync->id}')" class="btn btn-danger">{$DELETE}</button>
+                                                <button type="button" onclick="deleteGroupSync('{$group_sync['id']}')" class="btn btn-danger">{$DELETE}</button>
                                             </div>
                                         </div>
                                     </div>

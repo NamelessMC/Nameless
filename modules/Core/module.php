@@ -236,7 +236,7 @@ class Core_Module extends Module {
 
             if (count($more)) {
                 foreach ($more as $item) {
-                    $navigation->addItemToDropdown('more_dropdown', $item['id'], $item['title'], $item['url'], 'top', ($item['target']) ? '_blank' : null, $item['icon'], $item['order']);
+                    $navigation->addItemToDropdown('more_dropdown', $item['id'], $item['title'], $item['url'], 'top', ($item['target']) ? '_blank' : null, $item['icon'] ?? '', $item['order']);
                 }
             }
         }
