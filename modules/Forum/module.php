@@ -73,11 +73,11 @@ class Forum_Module extends Module {
 	}
 
 	public function onInstall() {
-		// Not necessary for Forum
+        // No actions necessary
 	}
 
 	public function onUninstall() {
-
+        // No actions necessary
 	}
 
 	public function onEnable() {
