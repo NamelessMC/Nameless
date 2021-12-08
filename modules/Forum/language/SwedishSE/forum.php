@@ -209,9 +209,7 @@ $language = [
 
     // Panel statistics
     'recent_topics' => 'Senaste ämnen',
-    'recent_topics_statistic_icon' => '<i class="fas fa-comment"></i>',
     'recent_posts' => 'Senaste inlägg',
-    'recent_posts_statistic_icon' => '<i class="far fa-comments"></i>',
     'topics_title' => 'Ämnen',
     'posts_title' => 'Inlägg',
 ];

@@ -713,9 +713,7 @@ $language = [
 
     // Dashboard
     'total_users' => 'ผู้ใช้ทั้งหมด',
-    'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'recent_users' => 'ผู้ใช้ใหม่',
-    'recent_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'average_players' => 'ผู้เล่นเฉลี่ย',
     'nameless_news' => 'NamelessMC News',
     'unable_to_retrieve_nameless_news' => 'ไม่สามารถเรียกข้อมูลข่าวสารล่าสุด',
