@@ -43,16 +43,16 @@ if(isset($_GET['do'])){
 			// Generate secret
 			$secret = $tfa->createSecret();
 
-			$user->update([
+$user->update([
 				'tfa_secret' => $secret
-            ]);
+]);
 
 			if (Session::exists('force_tfa_alert')) {
 				$errors[] = Session::get('force_tfa_alert');
 			}
 
 			// Assign Smarty variables
-			$smarty->assign([
+$smarty->assign([
 				'TWO_FACTOR_AUTH' => $language->get('user', 'two_factor_auth'),
 				'TFA_SCAN_CODE_TEXT' => $language->get('user', 'tfa_scan_code'),
 				'IMG_SRC' => $tfa->getQRCodeImageAsDataUri(SITE_NAME . ':' . Output::getClean($user->data()->username), $secret),
@@ -63,28 +63,28 @@ if(isset($_GET['do'])){
 				'CANCEL' => $language->get('general', 'cancel'),
 				'CANCEL_LINK' => URL::build('/user/settings/', 'do=disable_tfa'),
 				'ERROR_TITLE' => $language->get('general', 'error')
-            ]);
+]);
 
 			if (isset($errors) && count($errors))
 				$smarty->assign([
-					'ERRORS' => $errors
-                ]);
+        'ERRORS' => $errors
+    ]);
 
 			// Load modules + template
 
             // Display template
 
-        } else {
+  } else {
 			// Validate code to see if it matches the secret
 			if(Input::exists()){
 				if(Token::check()){
 					if(isset($_POST['tfa_code'])){
 						if($tfa->verifyCode($user->data()->tfa_secret, $_POST['tfa_code']) === true){
-							$user->update([
+    $user->update([
 								'tfa_complete' => 1,
 								'tfa_enabled' => 1,
 								'tfa_type' => 1
-                            ]);
+    ]);
 							Session::delete('force_tfa_alert');
 							Session::flash('tfa_success', $language->get('user', 'tfa_successful'));
 							Redirect::to(URL::build('/user/settings'));
@@ -102,7 +102,7 @@ if(isset($_GET['do'])){
 
 			if(isset($error)) $smarty->assign('ERROR', $error);
 
-			$smarty->assign([
+$smarty->assign([
 				'TWO_FACTOR_AUTH' => $language->get('user', 'two_factor_auth'),
 				'TFA_ENTER_CODE' => $language->get('user', 'tfa_enter_code'),
 				'SUBMIT' => $language->get('general', 'submit'),
@@ -110,13 +110,13 @@ if(isset($_GET['do'])){
 				'CANCEL' => $language->get('general', 'cancel'),
 				'CANCEL_LINK' => URL::build('/user/settings/', 'do=disable_tfa'),
 				'ERROR_TITLE' => $language->get('general', 'error')
-            ]);
+]);
 
 			// Load modules + template
 
             // Display template
 
-        }
+  }
         Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
         require(ROOT_PATH . '/core/templates/cc_navbar.php');
         $page_load = microtime(true) - $start;
@@ -126,18 +126,18 @@ if(isset($_GET['do'])){
         require(ROOT_PATH . '/core/templates/footer.php');
         $template->displayTemplate('user/tfa.tpl', $smarty);
 
-    } else if($_GET['do'] == 'disable_tfa') {
+ } else if($_GET['do'] == 'disable_tfa') {
 		// Disable TFA
-		$user->update([
-			'tfa_enabled' => 0,
-			'tfa_type' => 0,
-			'tfa_secret' => null,
-			'tfa_complete' => 0
-        ]);
+$user->update([
+    'tfa_enabled' => 0,
+    'tfa_type' => 0,
+    'tfa_secret' => null,
+    'tfa_complete' => 0
+]);
 
 		Redirect::to(URL::build('/user/settings'));
 		die();
-	}
+ }
 
 } else {
 	// Handle input
@@ -330,17 +330,17 @@ if(isset($_GET['do'])){
 					foreach($validation->errors() as $item){
 					    if(strpos($item, 'signature') !== false){
 					        $errors[] = $language->get('user', 'signature_max_900') . '<br />';
-                        } else if(strpos($item, 'nickname') !== false){
+         } else if(strpos($item, 'nickname') !== false){
 					        if(strpos($item, 'required') !== false){
 					            $errors[] = $language->get('user', 'username_required') . '<br />';
-                            } else if(strpos($item, 'min')  !== false){
+             } else if(strpos($item, 'min')  !== false){
                                 $errors[] = $language->get('user', 'username_minimum_3') . '<br />';
-                            } else if(strpos($item, 'max') !== false){
+             } else if(strpos($item, 'max') !== false){
                                 $errors[] = $language->get('user', 'username_maximum_20') . '<br />';
-							}
-						} else if (strpos($item, 'timezone') !== false) {
+             }
+         } else if (strpos($item, 'timezone') !== false) {
 							$errors[] = $language->get('general', 'invalid_timezone') . '<br />';
-						} else {
+         } else {
                             // Get field name
                             $id = explode(' ', $item);
                             $id = $id[0];
@@ -350,7 +350,7 @@ if(isset($_GET['do'])){
                                 $field = $field[0];
                                 $errors[] = str_replace('{x}', Output::getClean($field->name), $language->get('user', 'field_is_required')) . '<br />';
                             }
-                        }
+         }
 					}
 				}
 			} else if(Input::get('action') == 'password'){
@@ -358,18 +358,18 @@ if(isset($_GET['do'])){
 				$validate = new Validate();
 
 				$validation = $validate->check($_POST, [
-					'old_password' => [
-						Validate::REQUIRED => true
+        'old_password' => [
+        Validate::REQUIRED => true
                     ],
-					'new_password' => [
-						Validate::REQUIRED => true,
-						Validate::MIN => 6
+        'new_password' => [
+        Validate::REQUIRED => true,
+        Validate::MIN => 6
                     ],
-					'new_password_again' => [
+        'new_password_again' => [
                         Validate::REQUIRED => true,
-						Validate::MATCHES => 'new_password'
+        Validate::MATCHES => 'new_password'
                     ]
-                ])->messages([
+    ])->messages([
                     'old_password' => $language->get('user', 'password_required') . '<br />',
                     'new_password' => [
                         Validate::REQUIRED => $language->get('user', 'password_required') . '<br />',
@@ -379,7 +379,7 @@ if(isset($_GET['do'])){
                         Validate::REQUIRED => $language->get('user', 'password_required') . '<br />',
                         Validate::MATCHES => $language->get('user', 'passwords_dont_match') . '<br />'
                     ]
-                ]);
+    ]);
 
 				if($validation->passed()){
 					// Update password
@@ -415,7 +415,7 @@ if(isset($_GET['do'])){
                     ],
                     'email' => [
                         Validate::REQUIRED => true,
-						Validate::EMAIL => true,
+                    Validate::EMAIL => true,
                     ]
                 ])->messages([
                     'password' => [
@@ -458,64 +458,64 @@ if(isset($_GET['do'])){
                 } else {
                     $errors = $validation->errors();
                 }
-            } else if(Input::get('action') == 'discord'){
+   } else if(Input::get('action') == 'discord'){
 
 				if (Input::get('unlink') == 'true') {
 
-					$user->update([
-						'discord_id' => null,
-						'discord_username' => null
-                    ]);
+    $user->update([
+        'discord_id' => null,
+        'discord_username' => null
+    ]);
 
 					Session::flash('settings_success', Discord::getLanguageTerm('discord_id_unlinked'));
 
-                } else {
+    } else {
 
 					$token = uniqid('', true);
-					$queries->create('discord_verifications', [
-						'token' => $token,
-						'user_id' => $user->data()->id,
-					]);
+    $queries->create('discord_verifications', [
+        'token' => $token,
+        'user_id' => $user->data()->id,
+    ]);
 
                     $user->update([
                         'discord_id' => 010
                     ]);
 
                     Session::flash('settings_success', str_replace('{token}', $token, Discord::getLanguageTerm('discord_id_confirm')));
-                }
+    }
                 Redirect::to(URL::build('/user/settings'));
                 die();
-            }
+   }
 		} else {
 			// Invalid form token
 			Session::flash('settings_error', $language->get('general', 'invalid_token'));
 		}
 	}
 
-	$template->addCSSFiles([
-		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.standalone.min.css' => [],
-		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.css' => [],
-		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
-		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.min.css' => [],
-		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.sprites.css' => [],
-		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/css/emojionearea.min.css' => [],
-    ]);
+$template->addCSSFiles([
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.standalone.min.css' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.css' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.min.css' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.sprites.css' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/css/emojionearea.min.css' => [],
+]);
 
-	$template->addJSFiles([
-		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js' => []
-    ]);
+$template->addJSFiles([
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js' => []
+]);
 
 	$template->addJSScript('$(\'.datepicker\').datepicker();');
 
 	$cache->setCache('post_formatting');
 	$formatting = $cache->retrieve('formatting');
 	if($formatting == 'markdown'){
-		$template->addJSFiles([
-			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/js/emojione.min.js' => [],
-			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/js/emojionearea.min.js' => []
-        ]);
+$template->addJSFiles([
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/js/emojione.min.js' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/js/emojionearea.min.js' => []
+]);
 
-		$template->addJSScript('
+$template->addJSScript('
             $(document).ready(function() {
                 var el = $("#inputSignature").emojioneArea({
                     pickerPosition: "bottom"
@@ -524,11 +524,11 @@ if(isset($_GET['do'])){
 		');
 
 	} else {
-		$template->addJSFiles([
-			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
-			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
-			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
-        ]);
+$template->addJSFiles([
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
+]);
 
 		$template->addJSScript(Input::createTinyEditor($language, 'inputSignature'));
 	}
@@ -621,10 +621,10 @@ if(isset($_GET['do'])){
 	}
 
 	if (isset($errors) && count($errors))
-		$smarty->assign([
-			'ERRORS' => $errors,
-			'ERRORS_TITLE' => $language->get('general', 'error')
-        ]);
+$smarty->assign([
+    'ERRORS' => $errors,
+    'ERRORS_TITLE' => $language->get('general', 'error')
+]);
 
 	if($user->hasPermission('usercp.signature')){
         // Get post formatting type (HTML or Markdown)
@@ -651,10 +651,10 @@ if(isset($_GET['do'])){
 	}
 
 	if($forum_enabled) {
-		$smarty->assign([
-			'TOPIC_UPDATES' => $language->get('user', 'topic_updates'),
-			'TOPIC_UPDATES_ENABLED' => DB::getInstance()->get('users', ['id', '=', $user->data()->id])->first()->topic_updates
-        ]);
+$smarty->assign([
+    'TOPIC_UPDATES' => $language->get('user', 'topic_updates'),
+    'TOPIC_UPDATES_ENABLED' => DB::getInstance()->get('users', ['id', '=', $user->data()->id])->first()->topic_updates
+]);
 	}
 
 	if($user->canPrivateProfile()){
@@ -702,45 +702,45 @@ if(isset($_GET['do'])){
     }
 
 	// Language values
-	$smarty->assign([
-		'SETTINGS' => $language->get('user', 'profile_settings'),
-		'ACTIVE_LANGUAGE' => $language->get('user', 'active_language'),
-		'LANGUAGES' => $languages,
-		'ACTIVE_TEMPLATE' => $language->get('user', 'active_template'),
-		'TEMPLATES' => $templates,
-		'PROFILE_FIELDS' => $custom_fields_template,
-		'SUBMIT' => $language->get('general', 'submit'),
-		'TOKEN' => Token::get(),
-		'ERROR' => ($error ?? false),
-		'SUCCESS' => ($success ?? false),
-		'CHANGE_PASSWORD' => $language->get('user', 'change_password'),
-		'CURRENT_PASSWORD' => $language->get('user', 'current_password'),
-		'NEW_PASSWORD' => $language->get('user', 'new_password'),
-		'CONFIRM_NEW_PASSWORD' => $language->get('user', 'confirm_new_password'),
-		'TWO_FACTOR_AUTH' => $language->get('user', 'two_factor_auth'),
-		'TIMEZONE' => $language->get('user', 'timezone'),
-		'TIMEZONES' => Util::listTimezones(),
-		'SELECTED_TIMEZONE' => $user->data()->timezone,
+$smarty->assign([
+    'SETTINGS' => $language->get('user', 'profile_settings'),
+    'ACTIVE_LANGUAGE' => $language->get('user', 'active_language'),
+    'LANGUAGES' => $languages,
+    'ACTIVE_TEMPLATE' => $language->get('user', 'active_template'),
+    'TEMPLATES' => $templates,
+    'PROFILE_FIELDS' => $custom_fields_template,
+    'SUBMIT' => $language->get('general', 'submit'),
+    'TOKEN' => Token::get(),
+    'ERROR' => ($error ?? false),
+    'SUCCESS' => ($success ?? false),
+    'CHANGE_PASSWORD' => $language->get('user', 'change_password'),
+    'CURRENT_PASSWORD' => $language->get('user', 'current_password'),
+    'NEW_PASSWORD' => $language->get('user', 'new_password'),
+    'CONFIRM_NEW_PASSWORD' => $language->get('user', 'confirm_new_password'),
+    'TWO_FACTOR_AUTH' => $language->get('user', 'two_factor_auth'),
+    'TIMEZONE' => $language->get('user', 'timezone'),
+    'TIMEZONES' => Util::listTimezones(),
+    'SELECTED_TIMEZONE' => $user->data()->timezone,
         'CURRENT_EMAIL' => Output::getClean($user->data()->email),
         'CHANGE_EMAIL_ADDRESS' => $language->get('user', 'change_email_address'),
         'EMAIL_ADDRESS' => $language->get('user', 'email_address'),
-		'SUCCESS_TITLE' => $language->get('general', 'success'),
-		'ERROR_TITLE' => $language->get('general', 'error'),
-		'HELP' => $language->get('general', 'help'),
-		'INFO' => $language->get('general', 'info'),
-		'ENABLED' => $language->get('user', 'enabled'),
-		'DISABLED' => $language->get('user', 'disabled'),
+    'SUCCESS_TITLE' => $language->get('general', 'success'),
+    'ERROR_TITLE' => $language->get('general', 'error'),
+    'HELP' => $language->get('general', 'help'),
+    'INFO' => $language->get('general', 'info'),
+    'ENABLED' => $language->get('user', 'enabled'),
+    'DISABLED' => $language->get('user', 'disabled'),
         'GRAVATAR' => $language->get('user', 'gravatar'),
         'GRAVATAR_VALUE' => $user->data()->gravatar == '1' ? '1' : '0'
-    ]);
+]);
 
 	if(defined('CUSTOM_AVATARS')) {
-      $smarty->assign([
+    $smarty->assign([
         'CUSTOM_AVATARS' => true,
         'CUSTOM_AVATARS_SCRIPT' => ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'core/includes/image_upload.php',
         'BROWSE' => $language->get('general', 'browse'),
         'UPLOAD_NEW_PROFILE_IMAGE' => $language->get('user', 'upload_new_avatar')
-      ]);
+    ]);
 	}
 
 	if($user->data()->tfa_enabled == 1){

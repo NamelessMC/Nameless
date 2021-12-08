@@ -60,7 +60,7 @@ class HttpClient {
     public static function get(string $url, array $options = []): HttpClient {
         $ch = curl_init($url);
 
-        curl_setopt($ch,CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt_array($ch, $options);
 
         $contents = curl_exec($ch);

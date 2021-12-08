@@ -59,9 +59,9 @@ $social_media_icons[] = [
 // Smarty template
 // Assign to Smarty variables
 $smarty->assign([
-	'SOCIAL_MEDIA_ICONS' => $social_media_icons, 
-	'PAGE_LOAD_TIME' => isset($page_loading) && $page_loading == '1',
-	'FOOTER_NAVIGATION' => $navigation->returnNav('footer')
+    'SOCIAL_MEDIA_ICONS' => $social_media_icons, 
+    'PAGE_LOAD_TIME' => isset($page_loading) && $page_loading == '1',
+    'FOOTER_NAVIGATION' => $navigation->returnNav('footer')
 ]);
 
 // Terms

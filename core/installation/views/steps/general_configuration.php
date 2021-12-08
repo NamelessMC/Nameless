@@ -19,30 +19,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	<div class="ui segments">
 		<div class="ui secondary segment">
 			<h4 class="ui header">
-				<?php echo $language['general_configuration']; ?>
-			</h4>
-		</div>
-		<div class="ui segment">
-			<div class="ui centered grid">
-				<div class="sixteen wide mobile twelve wide tablet ten wide computer column">
-					<div class="ui form">
-						<div <?php if (getenv('NAMELESS_HOSTNAME_HIDE') !== false) echo 'style="display: none"' ?>>
-							<?php create_field('text', $language['host'], 'hostname', 'inputHostname', getenv('NAMELESS_HOSTNAME') ?: Output::getClean($_SERVER['SERVER_NAME'])); ?>
-							<p><?php echo $language['host_help']; ?></p>
-							<div class="ui divider"></div>
-						</div>
-
-						<div <?php if (getenv('NAMELESS_PATH_HIDE') !== false) echo 'style="display: none"' ?>>
-							<?php create_field('text', $language['nameless_path'], 'install_path', 'inputPath', getenv('NAMELESS_PATH') ?: Output::getClean($install_path)); ?>
-							<p><?php echo $language['nameless_path_info']; ?></p>
-							<div class="ui divider"></div>
-						</div>
-
-						<div <?php if (getenv('NAMELESS_FRIENDLY_URLS_HIDE') !== false) echo 'style="display: none"' ?>>
-							<?php create_field('select', $language['friendly_urls'], 'friendly', 'inputFriendly', getenv('NAMELESS_FRIENDLY_URLS') ?: 'false', [
-								'true' => $language['enabled'],
-								'false' => $language['disabled'],
-                            ]); ?>
+				<?php echo $language['general_configuration'];                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     <div <?php if (getenv('NAMELESS_HOSTNAME_HIDE') !== false) echo 'style="display: none"' ?>                                <?php create_field('text', $language['host'], 'hostname', 'inputHostname', getenv('NAMELESS_HOSTNAME') ?: Output::getClean($_SERVER['SERVER_NAME']));                                 <p><?php echo $language['host_help']; ?>                                                                                    <div <?php if (getenv('NAMELESS_PATH_HIDE') !== false) echo 'style="display: none"' ?>                                <?php create_field('text', $language['nameless_path'], 'install_path', 'inputPath', getenv('NAMELESS_PATH') ?: Output::getClean($install_path));                                 <p><?php echo $language['nameless_path_info']; ?>                                                                                    <div <?php if (getenv('NAMELESS_FRIENDLY_URLS_HIDE') !== false) echo 'style="display: none"' ?>                                <?php create_field('select', $language['friendly_urls'], 'friendly', 'inputFriendly', getenv('NAMELESS_FRIENDLY_URLS') ?: 'false', [
+                                                                                                                                                                                                                                                                    'true' => $language['enabled'],
+                                                                                                                                                                                                                                                                    'false' => $language['disabled'],
+    ]); ?>
 							<p><?php echo $language['friendly_urls_info']; ?></p>
 						</div>
 					</div>

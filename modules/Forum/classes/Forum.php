@@ -421,7 +421,7 @@ class Forum {
 
     // Can the user moderate the specified forum?
     // Params:  $forum_id (integer) - forum ID to check
-    //			$groups (array) - user groups
+    //            $groups (array) - user groups
     public function canModerateForum(int $forum_id = null, array $groups = [0]): bool {
         if (in_array(0, $groups) || !$forum_id) return false;
 

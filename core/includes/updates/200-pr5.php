@@ -40,11 +40,11 @@ try {
 }
 
 try {
-	$queries->create('panel_templates', array(
-		'name' => 'Default',
-		'enabled' => 1,
-		'is_default' => 1
-	));
+$queries->create('panel_templates', array(
+    'name' => 'Default',
+    'enabled' => 1,
+    'is_default' => 1
+));
 } catch(Exception $e){
 	echo $e->getMessage() . '<br />';
 }
@@ -69,25 +69,25 @@ $existing_admin_permissions['modcp.profile_banner_reset'] = 1;
 $existing_admin_permissions['usercp.profile_banner'] = 1;
 
 try {
-	$queries->update('groups', 1, array(
-		'permissions' => json_encode($existing_user_permissions)
-	));
+$queries->update('groups', 1, array(
+    'permissions' => json_encode($existing_user_permissions)
+));
 } catch(Exception $e){
 	echo $e->getMessage() . '<br />';
 }
 
 try {
-	$queries->update('groups', 2, array(
-		'permissions' => json_encode($existing_admin_permissions)
-	));
+$queries->update('groups', 2, array(
+    'permissions' => json_encode($existing_admin_permissions)
+));
 } catch(Exception $e){
 	echo $e->getMessage() . '<br />';
 }
 
 try {
-	$queries->update('groups', 3, array(
-		'permissions' => json_encode($existing_mod_permissions)
-	));
+$queries->update('groups', 3, array(
+    'permissions' => json_encode($existing_mod_permissions)
+));
 } catch(Exception $e){
 	echo $e->getMessage() . '<br />';
 }
@@ -97,11 +97,11 @@ try {
 	$revamp_template_exists = $queries->getWhere('templates', array('name', '=', 'DefaultRevamp'));
 
 	if(!count($revamp_template_exists)){
-		$queries->create('templates', array(
-			'name' => 'DefaultRevamp',
-			'enabled' => 0,
-			'is_default' => 0
-		));
+$queries->create('templates', array(
+    'name' => 'DefaultRevamp',
+    'enabled' => 0,
+    'is_default' => 0
+));
 	}
 } catch(Exception $e){
 	echo $e->getMessage() . '<br />';
@@ -112,21 +112,21 @@ $version_number_id = $queries->getWhere('settings', array('name', '=', 'nameless
 $version_number_id = $version_number_id[0]->id;
 
 if(count($version_number_id)){
-	$queries->update('settings', $version_number_id, array(
-		'value' => '2.0.0-pr6'
-	));
+$queries->update('settings', $version_number_id, array(
+    'value' => '2.0.0-pr6'
+));
 } else {
 	$version_number_id = $queries->getWhere('settings', array('name', '=', 'version'));
 	$version_number_id = $version_number_id[0]->id;
 
-	$queries->update('settings', $version_number_id, array(
-		'value' => '2.0.0-pr6'
-	));
+$queries->update('settings', $version_number_id, array(
+    'value' => '2.0.0-pr6'
+));
 }
 
 $version_update_id = $queries->getWhere('settings', array('name', '=', 'version_update'));
 $version_update_id = $version_update_id[0]->id;
 
 $queries->update('settings', $version_update_id, array(
-	'value' => 'false'
+    'value' => 'false'
 ));

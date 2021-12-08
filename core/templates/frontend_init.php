@@ -56,11 +56,11 @@ if($user->isLoggedIn()){
 		foreach($warnings as $warning){
 			if($warning->revoked == 0 && $warning->acknowledged == 0){
 				$smarty->assign([
-					'GLOBAL_WARNING_TITLE' => $language->get('user', 'you_have_received_a_warning'),
-					'GLOBAL_WARNING_REASON' => Output::getClean($warning->reason),
-					'GLOBAL_WARNING_ACKNOWLEDGE' => $language->get('user', 'acknowledge'),
-					'GLOBAL_WARNING_ACKNOWLEDGE_LINK' => URL::build('/user/acknowledge/' . $warning->id)
-                ]);
+        'GLOBAL_WARNING_TITLE' => $language->get('user', 'you_have_received_a_warning'),
+        'GLOBAL_WARNING_REASON' => Output::getClean($warning->reason),
+        'GLOBAL_WARNING_ACKNOWLEDGE' => $language->get('user', 'acknowledge'),
+        'GLOBAL_WARNING_ACKNOWLEDGE_LINK' => URL::build('/user/acknowledge/' . $warning->id)
+    ]);
 				break;
 			}
 		}
@@ -99,16 +99,16 @@ if(isset($_GET['route']) && $_GET['route'] != '/'){
 if(!defined('PAGE_DESCRIPTION')){
 	$page_metadata = $queries->getWhere('page_descriptions', ['page', '=', $route]);
 	if(count($page_metadata)){
-		$smarty->assign([
-			'PAGE_DESCRIPTION' => str_replace('{site}', SITE_NAME, $page_metadata[0]->description),
-			'PAGE_KEYWORDS' => $page_metadata[0]->tags
-        ]);
+$smarty->assign([
+    'PAGE_DESCRIPTION' => str_replace('{site}', SITE_NAME, $page_metadata[0]->description),
+    'PAGE_KEYWORDS' => $page_metadata[0]->tags
+]);
 	}
 } else {
-	$smarty->assign([
-		'PAGE_DESCRIPTION' => str_replace('{site}', SITE_NAME, PAGE_DESCRIPTION),
-		'PAGE_KEYWORDS' => (defined('PAGE_KEYWORDS') ? PAGE_KEYWORDS : '')
-    ]);
+$smarty->assign([
+    'PAGE_DESCRIPTION' => str_replace('{site}', SITE_NAME, PAGE_DESCRIPTION),
+    'PAGE_KEYWORDS' => (defined('PAGE_KEYWORDS') ? PAGE_KEYWORDS : '')
+]);
 }
 
 $smarty->assign('TITLE', $page_title);
@@ -118,7 +118,7 @@ $cache->setCache('backgroundcache');
 $background_image = $cache->retrieve('background_image');
 
 if(!empty($background_image)){
-	$template->addCSSStyle('
+$template->addCSSStyle('
 			body {
 				background-image: url(\'' . Output::getClean($background_image) . '\');
 				background-repeat: no-repeat;

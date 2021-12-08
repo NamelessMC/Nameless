@@ -22,3 +22,15 @@ jobs:
 
       - name: Execute PHPStan
         run: vendor/bin/phpstan
+
+  code-style:
+    runs-on: ${{ matrix.operating-system }}
+    strategy:
+      matrix:
+        operating-system: [ 'ubuntu-latest' ]
+        php-versions: [ '7.4', '8.0' ]
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: PHP Code Style (phpcs)
+        uses: chindit/actions-phpcs@master

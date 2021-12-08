@@ -59,7 +59,7 @@ class ServerStatusWidget extends WidgetBase {
 
                 $this->_cache->store('server_status', $server_array, 120);
             }
-       }
+        }
 
         if (count($server_array) >= 1) {
             $this->_smarty->assign(
@@ -68,7 +68,7 @@ class ServerStatusWidget extends WidgetBase {
                     'ONLINE' => $this->_language->get('general', 'online'),
                     'OFFLINE' => $this->_language->get('general', 'offline'),
                     'IP' => $this->_language->get('general', 'ip'),
-                    'VERSION' => isset($server_array['version']) ? str_replace('{x}', '<strong>' . $server_array['version'] . '</strong>' , $this->_language->get('general', 'version')) : null
+                    'VERSION' => isset($server_array['version']) ? str_replace('{x}', '<strong>' . $server_array['version'] . '</strong>', $this->_language->get('general', 'version')) : null
                 ]
             );
         }

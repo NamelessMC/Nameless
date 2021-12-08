@@ -19,7 +19,7 @@ $page_title = $language->get('general', 'verify_account');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 $template->addJSFiles([
-	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/js/client.js' => []
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/js/client.js' => []
 ]);
 
 // Assign post data to session variable
@@ -28,8 +28,8 @@ if (!isset($_SESSION['mcassoc'])) {
 }
 
 $smarty->assign([
-	'VERIFY_ACCOUNT' => $language->get('user', 'verify_account'),
-	'VERIFY_ACCOUNT_HELP' => $language->get('user', 'verify_account_help')
+    'VERIFY_ACCOUNT' => $language->get('user', 'verify_account'),
+    'VERIFY_ACCOUNT_HELP' => $language->get('user', 'verify_account_help')
 ]);
 
 if (!isset($_GET['step'])){
@@ -47,14 +47,14 @@ if (!isset($_GET['step'])){
 	$return_link = Output::getClean(rtrim(Util::getSelfURL(), '/')) . URL::build('/register/', 'step=2');
 	$key = $mcassoc->generateKey($username);
 
-	$smarty->assign('MCASSOC', '
+$smarty->assign('MCASSOC', '
 	  <center>
 	    <iframe id="mcassoc" width="100%" height="400" frameBorder="0" seamless scrolling="no"></iframe>
 	  </center>
     ');
 
 	$template->addJSFiles([(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/js/client.js' => []]);
-	$template->addJSScript('
+$template->addJSScript('
 	  MCAssoc.init("' . $mcassoc_site_id . '", "' . $key . '", "' . $return_link . '");
 	');
 
@@ -93,7 +93,7 @@ if (!isset($_GET['step'])){
 			// Get IP
 			$ip = $user->getIP();
 
-			$user->create([
+$user->create([
 				'username' => htmlspecialchars($username),
 				'nickname' => htmlspecialchars($_SESSION['mcassoc']['username']),
 				'uuid' => htmlspecialchars($data->uuid),
@@ -104,7 +104,7 @@ if (!isset($_GET['step'])){
 				'active' => 1,
 				'lastip' => htmlspecialchars($ip),
 				'last_online' => date('U')
-            ]);
+]);
 
             $new_user = new User(DB::getInstance()->lastId());
             // TODO: which group should they be set to?

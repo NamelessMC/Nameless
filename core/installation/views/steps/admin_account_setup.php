@@ -15,28 +15,28 @@ require_once(ROOT_PATH . '/core/integration/uuid.php');
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 	$validate = new Validate();
-	$validation = $validate->check($_POST, [
-		'username' => [
+$validation = $validate->check($_POST, [
+    'username' => [
             Validate::REQUIRED => true,
-			Validate::MIN => 3,
-			Validate::MAX => 20,
+    Validate::MIN => 3,
+    Validate::MAX => 20,
         ],
-		'email' => [
+    'email' => [
             Validate::REQUIRED => true,
             Validate::MIN => 4,
             Validate::MAX => 64,
             Validate::EMAIL => true,
         ],
-		'password' => [
+    'password' => [
             Validate::REQUIRED => true,
             Validate::MIN => 6,
             Validate::MAX => 30,
         ],
-		'password_again' => [
+    'password_again' => [
             Validate::REQUIRED => true,
             Validate::MATCHES => 'password',
         ],
-    ]);
+]);
 
 	if (!$validation->passed()) {
 
@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 }
             }
 
-			$user->create([
+$user->create([
 				'username' => Output::getClean(Input::get('username')),
 				'nickname' => Output::getClean(Input::get('username')),
 				'password' => $password,
@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				'last_online' => date('U'),
 				'theme_id' => 1,
 				'language_id' => $language[0]->id,
-            ]);
+]);
 			
 			$login = $user->login(Input::get('email'), Input::get('password'), true);
 			if ($login) {

@@ -72,7 +72,7 @@ if (Input::exists()) {
                         Validate::REQUIRED => true
                     ]
                 ];
-            } else {
+   } else {
                 $to_validate = [
                     'username' => [
                         Validate::REQUIRED => true,
@@ -83,9 +83,9 @@ if (Input::exists()) {
                         Validate::REQUIRED => true
                     ]
                 ];
-            }
+   }
 
-			$validation = $validate->check($_POST, $to_validate)->messages([
+$validation = $validate->check($_POST, $to_validate)->messages([
                 'email' => [
                     Validate::REQUIRED => $language->get('user', 'must_input_email'),
                     Validate::IS_BANNED => $language->get('user', 'account_banned'),
@@ -97,24 +97,24 @@ if (Input::exists()) {
                     Validate::IS_ACTIVE => $language->get('user', 'inactive_account')
                 ],
                 'password' => $language->get('user', 'must_input_password')
-            ]);
+]);
 
 			// Check if validation passed
 			if ($validation->passed()) {
 				if ($login_method == 'email') {
 					$username = Input::get('email');
                     $method_field = 'email';
-                } else if ($login_method == 'email_or_username') {
+    } else if ($login_method == 'email_or_username') {
                     $username = Input::get('username');
                     if (strpos(Input::get('username'), '@') !== false) {
                         $method_field = 'email';
                     } else {
                         $method_field = 'username';
                     }
-				} else {
+    } else {
 					$username = Input::get('username');
                     $method_field = 'username';
-                }
+    }
 
 				$user_query = new User($username, $method_field);
 				if ($user_query->data()) {
@@ -207,7 +207,7 @@ if (Input::exists()) {
 
 												$password = $salt . '$' . $exploded[3];
 
-												break;
+               break;
 
 											case 'pbkdf2':
 												$exploded = explode('$', $password);
@@ -218,7 +218,7 @@ if (Input::exists()) {
 
 												$password = $iterations . '$' . $salt . '$' . $pass;
 
-												break;
+               break;
 										}
 
 										// Update password
@@ -228,10 +228,10 @@ if (Input::exists()) {
 											else
 												$user_id = $user->nameToId($username);
 
-											$queries->update('users', $user_id, [
+        $queries->update('users', $user_id, [
 												'password' => $password,
 												'pass_method' => $authme_db['hash']
-                                            ]);
+        ]);
 										}
 									}
 								}
@@ -250,15 +250,15 @@ if (Input::exists()) {
 							// Redirect to a certain page?
 							if (isset($_SESSION['last_page']) && substr($_SESSION['last_page'], -1) != '=') {
 								Redirect::to($_SESSION['last_page']);
-                            } else {
+       } else {
 								Session::flash('home', $language->get('user', 'successful_login'));
 								Redirect::to(URL::build('/'));
-                            }
+       }
                             die();
-                        } else {
+      } else {
 							// No, output error
 							$return_error = [$language->get('user', 'incorrect_details')];
-						}
+      }
 					}
 				} else $return_error = [$language->get('user', 'incorrect_details')];
 			} else {
@@ -290,18 +290,18 @@ if ($login_method == 'email') {
 }
 
 $smarty->assign([
-	'USERNAME_INPUT' => ($login_method == 'email' ? Output::getClean(Input::get('email')) : Output::getClean(Input::get('username'))),
-	'PASSWORD' => $language->get('user', 'password'),
-	'REMEMBER_ME' => $language->get('user', 'remember_me'),
-	'FORGOT_PASSWORD_URL' => URL::build('/forgot_password'),
-	'FORGOT_PASSWORD' => $language->get('user', 'forgot_password'),
-	'FORM_TOKEN' => Token::get(),
-	'SIGN_IN' => $language->get('general', 'sign_in'),
-	'REGISTER_URL' => URL::build('/register'),
-	'REGISTER' => $language->get('general', 'register'),
-	'ERROR_TITLE' => $language->get('general', 'error'),
-	'ERROR' => ($return_error ?? []),
-	'NOT_REGISTERED_YET' => $language->get('general', 'not_registered_yet')
+    'USERNAME_INPUT' => ($login_method == 'email' ? Output::getClean(Input::get('email')) : Output::getClean(Input::get('username'))),
+    'PASSWORD' => $language->get('user', 'password'),
+    'REMEMBER_ME' => $language->get('user', 'remember_me'),
+    'FORGOT_PASSWORD_URL' => URL::build('/forgot_password'),
+    'FORGOT_PASSWORD' => $language->get('user', 'forgot_password'),
+    'FORM_TOKEN' => Token::get(),
+    'SIGN_IN' => $language->get('general', 'sign_in'),
+    'REGISTER_URL' => URL::build('/register'),
+    'REGISTER' => $language->get('general', 'register'),
+    'ERROR_TITLE' => $language->get('general', 'error'),
+    'ERROR' => ($return_error ?? []),
+    'NOT_REGISTERED_YET' => $language->get('general', 'not_registered_yet')
 ]);
 
 if (isset($return_error)) {

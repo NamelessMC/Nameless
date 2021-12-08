@@ -33,7 +33,7 @@ if (isset($_GET['action'])) {
                 // Validate input
                 $validate = new Validate();
 
-                 $validation = $validate->check($_POST, [
+                $validation = $validate->check($_POST, [
                     'name' => [
                         Validate::REQUIRED => true,
                         Validate::MIN => 2,

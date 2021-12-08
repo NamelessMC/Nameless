@@ -13,26 +13,26 @@ if (!isset($_SESSION['database_initialized']) || $_SESSION['database_initialized
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 	$validate = new Validate();
-	$validation = $validate->check($_POST, [
-		'sitename' => [
+$validation = $validate->check($_POST, [
+    'sitename' => [
             Validate::REQUIRED => true,
             Validate::MIN => 1,
             Validate::MAX => 32,
         ],
-		'incoming' => [
+    'incoming' => [
             Validate::REQUIRED => true,
             Validate::MIN => 4,
             Validate::MAX => 64,
         ],
-		'outgoing' => [
+    'outgoing' => [
             Validate::REQUIRED => true,
             Validate::MIN => 4,
-			Validate::MAX => 64,
+    Validate::MAX => 64,
         ],
-		'language' => [
+    'language' => [
             Validate::REQUIRED => true,
-		]
-    ]);
+    ]
+]);
 
 	if (!$validation->passed()) {
 
@@ -43,24 +43,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		try {
 
 			$queries = new Queries();
-			$queries->create('settings', [
+$queries->create('settings', [
 				'name' => 'sitename',
 				'value' => Output::getClean(Input::get('sitename'))
-            ]);
+]);
 
 			$cache = new Cache();
 			$cache->setCache('sitenamecache');
 			$cache->store('sitename', Output::getClean(Input::get('sitename')));
 
-			$queries->create('settings', [
+$queries->create('settings', [
 				'name' => 'incoming_email',
 				'value' => Output::getClean(Input::get('incoming'))
-            ]);
+]);
 
-			$queries->create('settings', [
+$queries->create('settings', [
 				'name' => 'outgoing_email',
 				'value' => Output::getClean(Input::get('outgoing'))
-            ]);
+]);
 
 			$_SESSION['default_language'] = Output::getClean(Input::get('language'));
 

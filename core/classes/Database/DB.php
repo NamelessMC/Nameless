@@ -115,9 +115,9 @@ class DB extends Instanceable {
         if(count($where) === 3) {
             $operators = ['=', '>', '<', '>=', '<=', '<>'];
 
-            $field 		= $where[0];
-            $operator 	= $where[1];
-            $value 		= $where[2];
+            $field         = $where[0];
+            $operator     = $where[1];
+            $value         = $where[2];
 
             $table = $this->_prefix . $table;
 
@@ -137,9 +137,9 @@ class DB extends Instanceable {
         if(count($where) === 3) {
             $operators = ['=', '>', '<', '>=', '<=', '<>'];
 
-            $field 		= $where[0];
-            $operator 	= $where[1];
-            $value 		= $where[2];
+            $field         = $where[0];
+            $operator     = $where[1];
+            $value         = $where[2];
 
             $table = $this->_prefix . $table;
 

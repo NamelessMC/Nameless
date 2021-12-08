@@ -50,16 +50,16 @@ if(!isset($_GET['view'])){
         }
 
 		// Language values
-		$smarty->assign([
-			'USER_CP' => $language->get('user', 'user_cp'),
-			'ALERTS' => $language->get('user', 'alerts'),
-			'ALERTS_LIST' => $alerts_limited,
-			'DELETE_ALL' => $language->get('user', 'delete_all'),
-			'DELETE_ALL_LINK' => URL::build('/user/alerts/', 'action=purge'),
-			'CLICK_TO_VIEW' => $language->get('user', 'click_here_to_view'),
-			'NO_ALERTS' => $language->get('user', 'no_alerts_usercp'),
+$smarty->assign([
+    'USER_CP' => $language->get('user', 'user_cp'),
+    'ALERTS' => $language->get('user', 'alerts'),
+    'ALERTS_LIST' => $alerts_limited,
+    'DELETE_ALL' => $language->get('user', 'delete_all'),
+    'DELETE_ALL_LINK' => URL::build('/user/alerts/', 'action=purge'),
+    'CLICK_TO_VIEW' => $language->get('user', 'click_here_to_view'),
+    'NO_ALERTS' => $language->get('user', 'no_alerts_usercp'),
             'TOKEN' => Token::get()
-        ]);
+]);
 
 		// Load modules + template
 		Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
@@ -100,9 +100,9 @@ if(!isset($_GET['view'])){
 	if(!count($alert) || $alert[0]->user_id != $user->data()->id) Redirect::to(URL::build('/user/alerts'));
 
 	if($alert[0]->read == 0){
-		$queries->update('alerts', $alert[0]->id, [
-			'`read`' => 1
-        ]);
+$queries->update('alerts', $alert[0]->id, [
+    '`read`' => 1
+]);
 	}
 
 	Redirect::to($alert[0]->url);

@@ -31,7 +31,7 @@ if (Input::exists()) {
                 case 3:
                 case 4:
                     $location = $_POST['link_location'];
-                break;
+                    break;
                 default:
                     $location = 1;
             }
@@ -87,12 +87,12 @@ $smarty->assign([
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'FORUM' => $forum_language->get('forum', 'forum'),
     'SETTINGS' => $language->get('admin', 'settings'),
-	'LINK_LOCATION' => $language->get('admin', 'page_link_location'),
-	'LINK_LOCATION_VALUE' => $link_location,
-	'LINK_NAVBAR' => $language->get('admin', 'page_link_navbar'),
-	'LINK_MORE' => $language->get('admin', 'page_link_more'),
-	'LINK_FOOTER' => $language->get('admin', 'page_link_footer'),
-	'LINK_NONE' => $language->get('admin', 'page_link_none'),
+    'LINK_LOCATION' => $language->get('admin', 'page_link_location'),
+    'LINK_LOCATION_VALUE' => $link_location,
+    'LINK_NAVBAR' => $language->get('admin', 'page_link_navbar'),
+    'LINK_MORE' => $language->get('admin', 'page_link_more'),
+    'LINK_FOOTER' => $language->get('admin', 'page_link_footer'),
+    'LINK_NONE' => $language->get('admin', 'page_link_none'),
     'USE_REACTIONS' => $forum_language->get('forum', 'use_reactions'),
     'USE_REACTIONS_VALUE' => ($use_reactions == 1),
     'PAGE' => PANEL_PAGE,

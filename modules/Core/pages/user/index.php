@@ -28,10 +28,10 @@ $user_details = [
 
 // Language values
 $smarty->assign([
-	'USER_CP' => $language->get('user', 'user_cp'),
-	'USER_DETAILS' => $language->get('user', 'user_details'),
-	'USER_DETAILS_VALUES' => $user_details,
-	'OVERVIEW' => $language->get('user', 'overview')
+    'USER_CP' => $language->get('user', 'user_cp'),
+    'USER_DETAILS' => $language->get('user', 'user_details'),
+    'USER_DETAILS_VALUES' => $user_details,
+    'OVERVIEW' => $language->get('user', 'overview')
 ]);
 
 // Get graph data
@@ -50,7 +50,7 @@ if ($forum_enabled) {
   foreach($forum_query_average as $item){
 	  $date = strtotime($item->{'FROM_UNIXTIME(created, \'%Y-%m-%d\')'});
 	  $output[$date]['average'] = $item->{'(COUNT(*) / COUNT(Distinct post_creator))'};
-}
+  }
   foreach($forum_query_total as $item){
 	  $date = strtotime($item->{'FROM_UNIXTIME(created, \'%Y-%m-%d\')'});
 	  $output[$date]['total'] = $item->{'COUNT(*)'};
@@ -96,12 +96,12 @@ if ($forum_enabled) {
 }
 
 if ($forum_enabled) {
-	$template->addJSFiles([
-		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/moment/moment.min.js' => [],
-		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/charts/Chart.min.js' => []
-    ]);
-	$template->addJSScript(
-		'
+$template->addJSFiles([
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/moment/moment.min.js' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/charts/Chart.min.js' => []
+]);
+$template->addJSScript(
+    '
 		$(document).ready(function() {
 			var ctx = $("#dataChart").get(0).getContext("2d");
 
@@ -169,7 +169,7 @@ if ($forum_enabled) {
 			});
 		});
 		'
-	);
+);
 }
 
 // Load modules + template
