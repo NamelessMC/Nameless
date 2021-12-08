@@ -704,9 +704,7 @@ $language = [
 
     // Dashboard
     'total_users' => 'Toplam Kullanıcılar',
-    'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'recent_users' => 'Yeni Kullanıcılar',
-    'recent_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'average_players' => 'Ortalama kullanıcılar',
     'nameless_news' => 'NamelessMC Haberleri',
     'unable_to_retrieve_nameless_news' => 'Unable to retrieve the latest news',

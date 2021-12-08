@@ -688,9 +688,7 @@ $language = [
 
     // Dashboard
     'total_users' => 'Celkom užívateľov',
-    'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'recent_users' => 'Noví užívatelia',
-    'recent_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'nameless_news' => 'NamelessMC novinky',
     'unable_to_retrieve_nameless_news' => 'Nie je možné načítať najnovšie novinky',
     'confirm_leave_site' => 'Chystáte sa opustiť túto stránku! Naozaj chcete navštíviť <strong id="leaveSiteURL">{x}</strong>?', // don't replace {x} and make sure it has the id leaveSiteURL

@@ -714,9 +714,7 @@ $language = [
 
     // Dashboard
     'total_users' => '总用户量',
-    'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'recent_users' => '在线用户量',
-    'recent_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'recent_topics' => '话题量',
     'recent_posts' => '帖子数',
     'average_players' => '普通玩家',

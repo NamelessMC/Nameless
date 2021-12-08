@@ -708,9 +708,7 @@ $language = [
 
     //ダッシュボード
     'total_users' => '合計ユーザー',
-    'total_users_statistic_icon' => '<i class="fas fa-users"> </i>',
     'recent_users' => '新規ユーザー',
-    'recent_users_statistic_icon' => '<i class="fas fa-users"> </i>',
     'average_players' => '平均ユーザー',
     'nameless_news' => 'NamelessMC ニュース',
     'unable_to_retrieve_nameless_news' => '最新のニュースを取得できませんでした。',
