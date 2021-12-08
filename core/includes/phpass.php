@@ -92,7 +92,7 @@ class PasswordHash {
     {
         $output = '$P$';
         $output .= $this->itoa64[min($this->iteration_count_log2 +
-        ((PHP_VERSION >= '5') ? 5 : 3), 30)];
+            ((PHP_VERSION >= '5') ? 5 : 3), 30)];
         $output .= $this->encode64($input, 6);
 
         return $output;
@@ -225,7 +225,7 @@ class PasswordHash {
             $random = $this->get_random_bytes(6);
         $hash =
             $this->crypt_private($password,
-            $this->gensalt_private($random));
+                $this->gensalt_private($random));
         if (strlen($hash) == 34)
             return $hash;
 
@@ -245,4 +245,4 @@ class PasswordHash {
     }
 }
 
-
+?>

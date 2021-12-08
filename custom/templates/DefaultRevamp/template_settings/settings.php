@@ -112,12 +112,12 @@ $nav_colours = [
 ];
 
 $smarty->assign([
-    'SUBMIT' => $language->get('general', 'submit'),
-    'ENABLED' => $language->get('admin', 'enabled'),
-    'DISABLED' => $language->get('admin', 'disabled'),
-    'DARK_MODE' => $language->get('admin', 'dark_mode'),
-    'DARK_MODE_VALUE' => $darkMode,
-    'NAVBAR_COLOUR' => $language->get('admin', 'navbar_colour'),
-    'NAVBAR_COLOURS' => $nav_colours,
-    'SETTINGS_TEMPLATE' => ROOT_PATH . '/custom/templates/DefaultRevamp/template_settings/settings.tpl'
+	'SUBMIT' => $language->get('general', 'submit'),
+	'ENABLED' => $language->get('admin', 'enabled'),
+	'DISABLED' => $language->get('admin', 'disabled'),
+	'DARK_MODE' => $language->get('admin', 'dark_mode'),
+	'DARK_MODE_VALUE' => $darkMode,
+	'NAVBAR_COLOUR' => $language->get('admin', 'navbar_colour'),
+	'NAVBAR_COLOURS' => $nav_colours,
+	'SETTINGS_TEMPLATE' => ROOT_PATH . '/custom/templates/DefaultRevamp/template_settings/settings.tpl'
 ]);

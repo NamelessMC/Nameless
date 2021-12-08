@@ -63,9 +63,9 @@ class MinecraftBanner {
                 for ($xPos = 0; $xPos <= ($width / $texture_size); $xPos++) {
                     $startX = $xPos * $texture_size;
                     $startY = $yPos * $texture_size;
-                    imagecopyresampled($canvas, $background, $startX, $startY, 0, 0,
-                        $texture_size, $texture_size,
-                    $texture_size, $texture_size);
+                    imagecopyresampled($canvas, $background, $startX, $startY, 0, 0
+                            , $texture_size, $texture_size
+                            , $texture_size, $texture_size);
                 }
             }
         } else {

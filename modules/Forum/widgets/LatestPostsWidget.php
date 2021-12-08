@@ -33,8 +33,8 @@ class LatestPostsWidget extends WidgetBase {
         $this->_order = $widget_query->order ?? null;
 
         $this->_smarty->assign([
-            'LATEST_POSTS' => $latest_posts_language,
-            'BY' => $by_language
+        	'LATEST_POSTS' => $latest_posts_language,
+	        'BY' => $by_language
         ]);
     }
 

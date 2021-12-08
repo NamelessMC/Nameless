@@ -15,11 +15,11 @@ $page_title = $language->get('general', 'privacy_policy');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 $template->addCSSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css' => []
+	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css' => []
 ]);
 
 $template->addJSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js' => []
+	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js' => []
 ]);
 
 // Retrieve privacy policy from database
@@ -30,8 +30,8 @@ if (!count($policy)) {
 $policy = Output::getPurified($policy[0]->value);
 
 $smarty->assign([
-    'PRIVACY_POLICY' => $language->get('general', 'privacy_policy'),
-    'POLICY' => $policy
+	'PRIVACY_POLICY' => $language->get('general', 'privacy_policy'),
+	'POLICY' => $policy
 ]);
 
 // Load modules + template

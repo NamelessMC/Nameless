@@ -95,11 +95,11 @@
 					$params = $get;
 					$params[$key] = ($current + $x + 1);
 					$href = ($target) . '?' . http_build_query($params);
-    $href = preg_replace(
-        array('/=$/', '/=&/'),
-        array('', '&'),
-        $href
-    );
+					$href = preg_replace(
+						array('/=$/', '/=&/'),
+						array('', '&'),
+						$href
+					);
 ?>
     <li class="page-item number"><a class="page-link" data-pagenumber="<?php echo ($current + $x + 1); ?>" href="<?php echo $href; ?>"><?php echo ($current + $x + 1); ?></a></li>
 <?php

@@ -153,7 +153,7 @@ if(!isset($_GET['action'])){
             if (Token::check()) {
                 // Install new template
                 // Scan template directory for new templates
-                $directories = glob(ROOT_PATH . DIRECTORY_SEPARATOR . 'custom' . DIRECTORY_SEPARATOR . 'panel_templates' . DIRECTORY_SEPARATOR . '*', GLOB_ONLYDIR);
+                $directories = glob(ROOT_PATH . DIRECTORY_SEPARATOR . 'custom' . DIRECTORY_SEPARATOR . 'panel_templates' . DIRECTORY_SEPARATOR . '*' , GLOB_ONLYDIR);
                 foreach($directories as $directory){
                     $folders = explode(DIRECTORY_SEPARATOR, $directory);
 

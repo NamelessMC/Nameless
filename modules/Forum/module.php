@@ -56,9 +56,9 @@ class Forum_Module extends Module {
 		$pages->add('Forum', '/forum/view_forum', 'pages/forum/redirect.php');
 
 		// Hooks
-EventHandler::registerEvent('newTopic',
-    $this->_forum_language->get('forum', 'new_topic_hook_info'),
-    [
+		EventHandler::registerEvent('newTopic',
+            $this->_forum_language->get('forum', 'new_topic_hook_info'),
+            [
                 'uuid' => $this->_language->get('admin', 'uuid'),
                 'username' => $this->_language->get('user', 'username'),
                 'nickname' => $this->_language->get('user', 'nickname'),
@@ -69,7 +69,7 @@ EventHandler::registerEvent('newTopic',
                 'url' => $this->_language->get('general', 'url'),
                 'available_hooks' => $this->_forum_language->get('forum', 'available_hooks')
             ]
-);
+        );
 	}
 
 	public function onInstall() {
@@ -90,9 +90,9 @@ EventHandler::registerEvent('newTopic',
 
 	public function onPageLoad($user, $pages, $cache, $smarty, $navs, $widgets, $template) {
 		// AdminCP
-PermissionHandler::registerPermissions('Forum', [
-    'admincp.forums' => $this->_language->get('moderator', 'staff_cp') . ' &raquo; ' . $this->_forum_language->get('forum', 'forum')
-]);
+		PermissionHandler::registerPermissions('Forum', [
+			'admincp.forums' => $this->_language->get('moderator', 'staff_cp') . ' &raquo; ' . $this->_forum_language->get('forum', 'forum')
+        ]);
 
 		// Sitemap
 		$pages->registerSitemapMethod(ROOT_PATH . '/modules/Forum/classes/Forum_Sitemap.php', 'Forum_Sitemap::generateSitemap');
@@ -124,15 +124,15 @@ PermissionHandler::registerPermissions('Forum', [
             case 1:
                 // Navbar
                 $navs[0]->add('forum', $this->_forum_language->get('forum', 'forum'), URL::build('/forum'), 'top', null, $forum_order, $icon);
-                break;
+            break;
             case 2:
                 // "More" dropdown
                 $navs[0]->addItemToDropdown('more_dropdown', 'forum', $this->_forum_language->get('forum', 'forum'), URL::build('/forum'), 'top', null, $icon, $forum_order);
-                break;
+            break;
             case 3:
                 // Footer
                 $navs[0]->add('forum', $this->_forum_language->get('forum', 'forum'), URL::build('/forum'), 'footer', null, $forum_order, $icon);
-                break;
+            break;
         }
 
 		// Widgets
@@ -154,9 +154,9 @@ PermissionHandler::registerPermissions('Forum', [
 				$post_count = $queries->getWhere('posts', ['post_creator', '=', $user->data()->id]);
 				$post_count = count($post_count);
 				$smarty->assign('LOGGED_IN_USER_FORUM', [
-        'topic_count' => $topic_count,
-        'post_count' => $post_count
-    ]);
+					'topic_count' => $topic_count,
+					'post_count' => $post_count
+                ]);
 			}
 
 			if(defined('PAGE') && PAGE == 'user_query'){

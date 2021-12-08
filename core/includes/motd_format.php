@@ -110,4 +110,4 @@ function MC_parseMotdColors($motd)
     }
     return $coloredMotd;
 }
-
+?>

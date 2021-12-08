@@ -156,13 +156,13 @@ if(isset($success))
 	$smarty->assign('SUCCESS', $success);
 
 $smarty->assign([
-    'EMAIL' => $language->get('general', 'email_address'),
-    'CONTACT' => $language->get('general', 'contact'),
-    'MESSAGE' => $language->get('general', 'message'),
-    'TOKEN' => Token::get(),
-    'SUBMIT' => $language->get('general', 'submit'),
-    'ERROR_TITLE' => $language->get('general', 'error'),
-    'SUCCESS_TITLE' => $language->get('general', 'success')
+	'EMAIL' => $language->get('general', 'email_address'),
+	'CONTACT' => $language->get('general', 'contact'),
+	'MESSAGE' => $language->get('general', 'message'),
+	'TOKEN' => Token::get(),
+	'SUBMIT' => $language->get('general', 'submit'),
+	'ERROR_TITLE' => $language->get('general', 'error'),
+	'SUCCESS_TITLE' => $language->get('general', 'success')
 ]);
 
 // Load modules + template

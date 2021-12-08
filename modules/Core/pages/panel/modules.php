@@ -264,7 +264,7 @@ if(!isset($_GET['action'])){
     } else if($_GET['action'] == 'install'){
         if (Token::check()) {
             // Install any new modules
-            $directories = glob(ROOT_PATH . '/modules/*', GLOB_ONLYDIR);
+            $directories = glob(ROOT_PATH . '/modules/*' , GLOB_ONLYDIR);
 
             define('MODULE_INSTALL', true);
 

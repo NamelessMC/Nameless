@@ -48,7 +48,7 @@ class ProfilePostsWidget extends WidgetBase {
         $posts_array = [];
         if ($this->_cache->isCached('profile_posts_' . $user_id)) {
              $posts_array = $this->_cache->retrieve('profile_posts_' . $user_id);
-        } else {
+         } else {
             $posts = DB::getInstance()->selectQuery('SELECT * FROM nl2_user_profile_wall_posts ORDER BY time DESC LIMIT 5')->results();
             foreach ($posts as $post) {
                 $post_author = new User($post->author_id);

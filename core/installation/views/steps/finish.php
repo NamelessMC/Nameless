@@ -58,4 +58,4 @@ try {
 		</div>
 	</div>
 
-<?php } 
+<?php } ?>

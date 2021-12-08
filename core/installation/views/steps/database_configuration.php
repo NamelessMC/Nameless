@@ -13,7 +13,7 @@ if (!isset($_SESSION['hostname']) || !isset($_SESSION['install_path']) || !isset
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 	$validate = new Validate();
-$validation = $validate->check($_POST, [
+	$validation = $validate->check($_POST, [
         'db_address' => [
             Validate::REQUIRED => true,
         ],
@@ -26,7 +26,7 @@ $validation = $validate->check($_POST, [
         'db_name' => [
             Validate::REQUIRED => true,
         ],
-]);
+    ]);
 
 	if (!$validation->passed()) {
 
@@ -147,14 +147,14 @@ $validation = $validate->check($_POST, [
 							create_field('text', $language['database_username'], 'db_username', 'inputDBUsername', $default_user);
 							create_field('password', $language['database_password'], 'db_password', 'inputDBPassword', $default_pass);
 							create_field('text', $language['database_name'], 'db_name', 'inputDBName', $default_name);
-    create_field('select', $language['character_set'], 'charset', 'inputCharset', $default_charset, [
+							create_field('select', $language['character_set'], 'charset', 'inputCharset', $default_charset, [
 								'utf8mb4' => 'Unicode (utf8mb4)',
 								'latin1' => 'Latin (latin1)',
-    ]);
-    create_field('select', $language['database_engine'], 'engine', 'inputEngine', $default_engine, [
+                            ]);
+							create_field('select', $language['database_engine'], 'engine', 'inputEngine', $default_engine, [
 								'InnoDB' => 'InnoDB',
 								'MyISAM' => 'MyISAM',
-    ]);
+                            ]);
 						?>
 					</div>
 				</div>

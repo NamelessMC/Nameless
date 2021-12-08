@@ -22,11 +22,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	if (!empty($converters)) {
 
 		$validate = new Validate();
-$validation = $validate->check($_POST, [
+		$validation = $validate->check($_POST, [
             'db_address' => [
                 Validate::REQUIRED => true,
             ],
-    'db_port' => [
+			'db_port' => [
                 Validate::REQUIRED => true,
             ],
             'db_username' => [
@@ -35,7 +35,7 @@ $validation = $validate->check($_POST, [
             'db_name' => [
                 Validate::REQUIRED => true,
             ],
-]);
+        ]);
 
 		if (!$validation->passed()) {
 
