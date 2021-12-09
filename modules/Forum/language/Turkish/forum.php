@@ -143,6 +143,7 @@ $language = [
     'can_view_forum' => 'Forumu görüntüleyebilir mi?',
     'can_view_other_topics' => 'Diğer kullanıcıların konularını görüntüleyebilir mi?',
     'can_create_topic' => 'Konu oluşturabilir mi?',
+    'can_edit_topic' => 'Yapabilmek Düzenle konular?',
     'can_post_reply' => 'Yanıt oluşturabilir mi?',
     'can_moderate_forum' => 'Forumu yönetebilir mi?',
     'display_topics_as_news' => 'Konular ön sayfada haber olarak gösterilsin mi?',
