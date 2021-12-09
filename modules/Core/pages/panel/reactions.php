@@ -9,7 +9,7 @@
  *  Panel reactions page
  */
 
-if(!$user->handlePanelPageLoad('admincp.core.reactions')) {
+if (!$user->handlePanelPageLoad('admincp.core.reactions')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }
@@ -23,17 +23,19 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-if (Session::exists('api_reactions'))
+if (Session::exists('api_reactions')) {
     $smarty->assign([
         'SUCCESS' => Session::flash('api_reactions'),
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ]);
+}
 
-if (Session::exists('api_reactions_error'))
+if (Session::exists('api_reactions_error')) {
     $smarty->assign([
         'ERRORS' => [Session::flash('api_reactions_error')],
         'ERRORS_TITLE' => $language->get('general', 'error')
     ]);
+}
 
 if (!isset($_GET['id']) && !isset($_GET['action'])) {
     // Get all reactions
@@ -116,8 +118,11 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
 
                         if ($validation->passed()) {
                             // Check enabled status
-                            if (isset($_POST['enabled']) && $_POST['enabled'] == 'on') $enabled = 1;
-                            else $enabled = 0;
+                            if (isset($_POST['enabled']) && $_POST['enabled'] == 'on') {
+                                $enabled = 1;
+                            } else {
+                                $enabled = 0;
+                            }
 
                             switch (Input::get('type')) {
                                 case 1:
@@ -187,7 +192,9 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                     $queries->delete('reactions', ['id', '=', $_GET['reaction']]);
                     Session::flash('api_reactions', $language->get('admin', 'reaction_deleted_successfully'));
 
-                } else Session::flash('api_reactions_error', $language->get('general', 'invalid_token'));
+                } else {
+                    Session::flash('api_reactions_error', $language->get('general', 'invalid_token'));
+                }
 
                 // Redirect
                 Redirect::to(URL::build('/panel/core/reactions'));
@@ -204,7 +211,9 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
             // Reaction doesn't exist
             Redirect::to(URL::build('/panel/core/reactions'));
             die();
-        } else $reaction = $reaction[0];
+        } else {
+            $reaction = $reaction[0];
+        }
 
         // Deal with input
         if (Input::exists()) {
@@ -241,8 +250,11 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
 
                 if ($validation->passed()) {
                     // Check enabled status
-                    if (isset($_POST['enabled']) && $_POST['enabled'] == 'on') $enabled = 1;
-                    else $enabled = 0;
+                    if (isset($_POST['enabled']) && $_POST['enabled'] == 'on') {
+                        $enabled = 1;
+                    } else {
+                        $enabled = 0;
+                    }
 
                     switch (Input::get('type')) {
                         case 1:
@@ -305,11 +317,12 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
     }
 }
 
-if (isset($errors) && count($errors))
+if (isset($errors) && count($errors)) {
     $smarty->assign([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
     ]);
+}
 
 $smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,

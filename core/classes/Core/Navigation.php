@@ -28,7 +28,7 @@ class Navigation {
      * @param string $link HTML href attribute, can be link built with URL class or hyperlink.
      * @param string $location Location to add item to, either 'top' or 'footer' (defaults to 'top').
      * @param string|null $target HTML target attribute (eg '_blank').
-     * @param int Nav item order (default 10).
+     * @param int $order Nav item order (default 10).
      * @param string|null $icon Icon to prepend to nav item.
      */
     public function add(string $name, string $title, string $link, string $location = 'top', string $target = null, int $order = 10, ?string $icon = ''): void {
@@ -122,22 +122,24 @@ class Navigation {
                 'icon' => $icon,
                 'order' => $order
             ];
-        } else if (isset($this->_footerNav[$dropdown])) {
-            // Footer
-            $this->_footerNav[$dropdown]['items'][$name] = [
-                'title' => $title,
-                'link' => $link,
-                'target' => $target,
-                'icon' => $icon,
-                'order' => $order
-            ];
+        } else {
+            if (isset($this->_footerNav[$dropdown])) {
+                // Footer
+                $this->_footerNav[$dropdown]['items'][$name] = [
+                    'title' => $title,
+                    'link' => $link,
+                    'target' => $target,
+                    'icon' => $icon,
+                    'order' => $order
+                ];
+            }
         }
     }
 
     /**
      * Return top navigation.
      *
-     * @param string|null $location Either 'top' or 'footer' (defaults to 'top').
+     * @param string $location Either 'top' or 'footer' (defaults to 'top').
      * @return array Array to pass to template
      */
     public function returnNav(string $location = 'top'): array {
@@ -158,8 +160,10 @@ class Navigation {
                                 function ($a, $b) {
                                     if ($a['order'] > $b['order']) {
                                         return 1;
-                                    } else if ($a['order'] < $b['order']) {
-                                        return -1;
+                                    } else {
+                                        if ($a['order'] < $b['order']) {
+                                            return -1;
+                                        }
                                     }
                                     return 0;
                                 }
@@ -185,8 +189,10 @@ class Navigation {
                             function ($a, $b) {
                                 if ($a['order'] > $b['order']) {
                                     return 1;
-                                } else if ($a['order'] < $b['order']) {
-                                    return -1;
+                                } else {
+                                    if ($a['order'] < $b['order']) {
+                                        return -1;
+                                    }
                                 }
                                 return 0;
                             }
@@ -200,8 +206,10 @@ class Navigation {
             $result = 0;
             if ($a['order'] > $b['order']) {
                 $result = 1;
-            } else if ($a['order'] < $b['order']) {
-                $result = -1;
+            } else {
+                if ($a['order'] < $b['order']) {
+                    $result = -1;
+                }
             }
             return $result;
         });

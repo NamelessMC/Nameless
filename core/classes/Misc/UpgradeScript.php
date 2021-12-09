@@ -2,42 +2,18 @@
 
 abstract class UpgradeScript {
 
-    protected Cache $cache;
-    protected Queries $queries;
+    protected Cache $_cache;
+    protected Queries $_queries;
 
-    protected string $db_engine;
-    protected string $db_charset;
-
-    /**
-     * Execute this UpgradeScript
-     */
-    abstract public function run():  void;
-
-    /**
-     * Get instance of UpgradeScript for a specific NamelessMC version, null if it doesnt exist
-     *
-     * @param string $current_version Current NamelessMC version (ie: `2.0.0-pr12`, `2.0.0`)
-     * @return UpgradeScript|null Instance of UpgradeScript from file
-     */
-    public static function get(string $current_version): ?UpgradeScript {
-        $path = ROOT_PATH . '/core/includes/updates/' . str_replace('.', '', $current_version) . '.php';
-
-        if (!file_exists($path)) {
-            return null;
-        }
-
-        return (static function () use ($path) {
-            return require $path;
-        })();
-    }
+    protected string $_db_engine;
+    protected string $_db_charset;
 
     public function __construct() {
-
-        $this->cache = new Cache(
+        $this->_cache = new Cache(
             ['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']
         );
 
-        $this->queries = new Queries();
+        $this->_queries = new Queries();
 
         try {
             $db_engine = Config::get('mysql/engine');
@@ -57,9 +33,32 @@ abstract class UpgradeScript {
             $db_charset = 'latin1';
         }
 
-        $this->db_engine = $db_engine;
-        $this->db_charset = $db_charset;
+        $this->_db_engine = $db_engine;
+        $this->_db_charset = $db_charset;
     }
+
+    /**
+     * Get instance of UpgradeScript for a specific NamelessMC version, null if it doesnt exist
+     *
+     * @param string $current_version Current NamelessMC version (ie: `2.0.0-pr12`, `2.0.0`)
+     * @return UpgradeScript|null Instance of UpgradeScript from file
+     */
+    public static function get(string $current_version): ?UpgradeScript {
+        $path = ROOT_PATH . '/core/includes/updates/' . str_replace('.', '', $current_version) . '.php';
+
+        if (!file_exists($path)) {
+            return null;
+        }
+
+        return (static function () use ($path) {
+            return require $path;
+        })();
+    }
+
+    /**
+     * Execute this UpgradeScript
+     */
+    abstract public function run(): void;
 
     /**
      * Run a single database query
@@ -89,27 +88,7 @@ abstract class UpgradeScript {
             }
         }
 
-        return [...$results];
-    }
-
-    /**
-     * Delete a single folder or file
-     *
-     * @param string $path Path to folder or file to delete
-     */
-    protected function deleteFile(string $path) {
-        if (!is_writeable($path)) {
-            echo "'$path' is not writable, cannot delete. <br />";
-            return;
-        }
-
-        if (is_dir($path)) {
-            if (!rmdir($path)) {
-                echo "Could not delete '$path', is it empty? <br />";
-            }
-        }
-
-        unlink($path);
+        return $results;
     }
 
     /**
@@ -148,17 +127,37 @@ abstract class UpgradeScript {
         }
     }
 
+    /**
+     * Delete a single folder or file
+     *
+     * @param string $path Path to folder or file to delete
+     */
+    protected function deleteFile(string $path) {
+        if (!is_writeable($path)) {
+            echo "'$path' is not writable, cannot delete. <br />";
+            return;
+        }
+
+        if (is_dir($path)) {
+            if (!rmdir($path)) {
+                echo "Could not delete '$path', is it empty? <br />";
+            }
+        }
+
+        unlink($path);
+    }
+
     protected function setVersion(string $version) {
-        $version_number_id = $this->queries->getWhere('settings', ['name', '=', 'nameless_version']);
+        $version_number_id = $this->_queries->getWhere('settings', ['name', '=', 'nameless_version']);
         $version_number_id = $version_number_id[0]->id;
-        $this->queries->update('settings', $version_number_id, [
+        $this->_queries->update('settings', $version_number_id, [
             'value' => $version
         ]);
 
-        $version_update_id = $this->queries->getWhere('settings', ['name', '=', 'version_update']);
+        $version_update_id = $this->_queries->getWhere('settings', ['name', '=', 'version_update']);
         $version_update_id = $version_update_id[0]->id;
 
-        $this->queries->update('settings', $version_update_id, [
+        $this->_queries->update('settings', $version_update_id, [
             'value' => 'false'
         ]);
     }

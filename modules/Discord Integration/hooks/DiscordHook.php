@@ -32,7 +32,7 @@ class DiscordHook {
             $return['username'] = $params['username'] . ' | ' . SITE_NAME;
             $return['avatar_url'] = $params['avatar_url'];
             $return['embeds'] = [[
-                'description' =>  $content,
+                'description' => $content,
                 'title' => $params['title'],
                 'url' => $params['url'],
                 'footer' => ['text' => $params['content']]

@@ -299,12 +299,13 @@ switch ($s) {
                             'last_reply_user' => $item->user_id
                         ];
                     } else {
-                        if ($private_messages[$item->pm_id]['created'] > $item->created)
+                        if ($private_messages[$item->pm_id]['created'] > $item->created) {
                             $private_messages[$item->pm_id]['created'] = $item->created;
-
-                        else if ($private_messages[$item->pm_id]['updated'] < $item->created) {
-                            $private_messages[$item->pm_id]['updated'] = $item->created;
-                            $private_messages[$item->pm_id]['last_reply_user'] = $item->user_id;
+                        } else {
+                            if ($private_messages[$item->pm_id]['updated'] < $item->created) {
+                                $private_messages[$item->pm_id]['updated'] = $item->created;
+                                $private_messages[$item->pm_id]['last_reply_user'] = $item->user_id;
+                            }
                         }
                     }
 
@@ -1060,7 +1061,7 @@ switch ($s) {
             'name' => 'discord_bot_username',
             'value' => null
         ]);
-        
+
         $queries->create('settings', [
             'name' => 'placeholders',
             'value' => '0'

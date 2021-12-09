@@ -616,7 +616,7 @@ $language = [
     'group_sync_rule_created_successfully' => 'The group sync rule has been created successfully.',
     'group_sync_rules_updated_successfully' => 'Group sync rules have been updated successfully.',
     'group_sync_rule_deleted_successfully' => 'The group sync rule has been deleted successfully.',
-	'group_sync_plugin_not_set_up' => 'Plugin not set up',
+    'group_sync_plugin_not_set_up' => 'Plugin not set up',
     'existing_rules' => 'Existing Rules',
     'new_rule' => 'New Rule',
     'api_endpoints' => 'API Endpoints',
@@ -684,9 +684,7 @@ $language = [
 
     // Dashboard
     'total_users' => 'Total Users',
-    'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'recent_users' => 'New Users',
-    'recent_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'nameless_news' => 'NamelessMC News',
     'unable_to_retrieve_nameless_news' => 'Unable to retrieve the latest news',
     'confirm_leave_site' => 'You are about to leave this site! Are you sure you want to visit <strong id="leaveSiteURL">{x}</strong>?', // don't replace {x} and make sure it has the id leaveSiteURL
@@ -723,4 +721,6 @@ $language = [
     'background_colour_required' => 'Background Colour is required',
     'text_colour_required' => 'Text Colour is required',
     'no_announcements' => 'No announcements have been made yet.',
+    'announcement_order' => 'Order',
+    'announcement_hook_info' => 'Announcement creation',
 ];

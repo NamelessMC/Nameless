@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
@@ -12,14 +12,14 @@
 $language = [
     'staff_cp' => 'StaffCP',
     'overview' => 'Overview',
-    
+
     // Spam
     'spam' => 'Spam',
     'mark_as_spam' => 'Mark as Spam',
     'confirm_spam' => '<p>Are you sure you want to mark this user as spam?</p><p>The user will be IP banned, and all their content will be removed.</p>',
     'user_marked_as_spam' => 'User marked as spam successfully.',
     'cant_ban_admin' => 'You can\'t ban an administrator!',
-    
+
     // IP Lookup
     'ip_lookup' => 'IP Lookup',
     'search_for_ip' => 'Search for a username or IP address',
@@ -30,7 +30,7 @@ $language = [
     '1_ip_with_name' => 'Found 1 IP address for user {y}', // Don't replace "{y}"
     'count_ips_with_name' => 'Found {x} IP addresses for user {y}', // Don't replace "{x}" or "{y}"
     'no_users_or_ips_found' => 'No users or IP addresses found.',
-    
+
     // Reports
     'reports' => 'Reports',
     'report_alert' => 'New report submitted',
@@ -60,7 +60,7 @@ $language = [
     'report_reopened' => 'Report reopened successfully.',
     'report_closed' => 'Report closed successfully.',
     'comment_created' => 'Comment created successfully.',
-    
+
     // Punishments
     'punishments' => 'Punishments',
     'view_punishments' => 'View Punishments',

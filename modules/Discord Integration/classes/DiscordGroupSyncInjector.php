@@ -1,7 +1,6 @@
 <?php
 
-class DiscordGroupSyncInjector implements GroupSyncInjector
-{
+class DiscordGroupSyncInjector implements GroupSyncInjector {
 
     public function getModule(): string {
         return 'Discord Integration';

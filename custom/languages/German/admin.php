@@ -634,7 +634,7 @@ $language = [
     'group_sync_rule_created_successfully' => 'Die Gruppensynchronisierungsregel wurde erfolgreich erstellt.',
     'group_sync_rules_updated_successfully' => 'Gruppensynchronisierungsregeln wurden erfolgreich aktualisiert.',
     'group_sync_rule_deleted_successfully' => 'Die Gruppensynchronisierungsregel wurde erfolgreich gelöscht.',
-	'group_sync_plugin_not_set_up' => 'Plugin not set up',
+    'group_sync_plugin_not_set_up' => 'Plugin not set up',
     'existing_rules' => 'Bestehende Regeln',
     'new_rule' => 'Neue Regel',
     'api_endpoints' => 'API-Endpunkte',
@@ -701,9 +701,7 @@ $language = [
 
     // Dashboard
     'total_users' => 'Gesamtbenutzer',
-    'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'recent_users' => 'Neue Benutzer',
-    'recent_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'recent_topics' => 'Test',
     'average_players' => 'Durchschnittliche Spieler',
     'nameless_news' => 'NamelessMC Neuigkeiten',
@@ -732,7 +730,6 @@ $language = [
     'announcement_icon_instructions' => 'Du kannst hier auch jeder Ankündigung ein Symbol hinzufügen, z. B. <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>, <a href="https://semantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Semantic UI</a>.',
     'header' => 'Header',
     'message' => 'Nachricht',
-    'pages' => 'Seiten',
     'text_colour' => 'Text Farbe',
     'background_colour' => 'Hintergrund Farbe',
     'closable' => 'Schließbar',
@@ -744,4 +741,6 @@ $language = [
     'background_colour_required' => 'Hintergrundfarbe ist erforderlich',
     'text_colour_required' => 'Textfarbe ist erforderlich ',
     'no_announcements' => 'Es wurden noch keine Ankündigungen gemacht.',
+    'announcement_order' => 'Order',
+    'announcement_hook_info' => 'Announcement creation',
 ];

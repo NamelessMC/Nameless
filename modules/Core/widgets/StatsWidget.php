@@ -117,9 +117,9 @@ class StatsWidget extends WidgetBase {
             $this->_smarty->assign(
                 [
                     'FORUM_STATISTICS' => $this->_language['forum_stats'],
-                    'TOTAL_THREADS' =>  $this->_language['total_threads'],
+                    'TOTAL_THREADS' => $this->_language['total_threads'],
                     'TOTAL_THREADS_VALUE' => $total_topics,
-                    'TOTAL_POSTS' =>  $this->_language['total_posts'],
+                    'TOTAL_POSTS' => $this->_language['total_posts'],
                     'TOTAL_POSTS_VALUE' => $total_posts,
                 ]
             );
@@ -127,10 +127,10 @@ class StatsWidget extends WidgetBase {
 
         $this->_smarty->assign(
             [
-                'STATISTICS' =>  $this->_language['statistics'],
-                'USERS_REGISTERED' =>  $this->_language['users_registered'],
+                'STATISTICS' => $this->_language['statistics'],
+                'USERS_REGISTERED' => $this->_language['users_registered'],
                 'USERS_REGISTERED_VALUE' => $users_registered,
-                'LATEST_MEMBER' =>  $this->_language['latest_member'],
+                'LATEST_MEMBER' => $this->_language['latest_member'],
                 'LATEST_MEMBER_VALUE' => $latest_member,
                 'USERS_ONLINE' => $this->_language['users_online'],
                 'USERS_ONLINE_VALUE' => $online_users,

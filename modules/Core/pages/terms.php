@@ -15,17 +15,17 @@ $page_title = $language->get('user', 'terms_and_conditions');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 $template->addCSSFiles([
-	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css' => []
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css' => []
 ]);
 
 $template->addJSFiles([
-	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js' => []
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js' => []
 ]);
 
 // Retrieve terms from database
 $site_terms = $queries->getWhere('privacy_terms', ['name', '=', 'terms']);
-if(!count($site_terms)){
-	$site_terms = $queries->getWhere('settings', ['name', '=', 't_and_c_site']);
+if (!count($site_terms)) {
+    $site_terms = $queries->getWhere('settings', ['name', '=', 't_and_c_site']);
 }
 $site_terms = Output::getPurified($site_terms[0]->value);
 
@@ -33,9 +33,9 @@ $nameless_terms = $queries->getWhere('settings', ['name', '=', 't_and_c']);
 $nameless_terms = Output::getPurified($nameless_terms[0]->value);
 
 $smarty->assign([
-	'TERMS' => $language->get('user', 'terms_and_conditions'),
-	'SITE_TERMS' => $site_terms,
-	'NAMELESS_TERMS' => $nameless_terms
+    'TERMS' => $language->get('user', 'terms_and_conditions'),
+    'SITE_TERMS' => $site_terms,
+    'NAMELESS_TERMS' => $nameless_terms
 ]);
 
 // Load modules + template

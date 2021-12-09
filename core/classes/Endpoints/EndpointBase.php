@@ -16,7 +16,7 @@ abstract class EndpointBase {
     protected string $_module;
     protected string $_description;
     protected string $_method;
-    
+
     /**
      * Get route of this Endpoint.
      *
@@ -55,7 +55,7 @@ abstract class EndpointBase {
 
     /**
      * Execute this Endpoint.
-     * 
+     *
      * @param Nameless2API $api Instance of API class to use.
      */
     public abstract function execute(Nameless2API $api);

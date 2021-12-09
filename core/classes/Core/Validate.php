@@ -13,73 +13,60 @@
 
 class Validate {
 
+    /**
+     * Ensure this field is not empty
+     */
+    const REQUIRED = 'required';
+    /**
+     * Define minimum characters
+     */
+    const MIN = 'min';
+    /**
+     * Define max characters
+     */
+    const MAX = 'max';
+    /**
+     * Ensure provided value matches another
+     */
+    const MATCHES = 'matches';
+    /**
+     * Check the user has agreed to the terms and conditions
+     */
+    const AGREE = 'agree';
+    /**
+     * Check the value has not already been inputted in the database
+     */
+    const UNIQUE = 'unique';
+    /**
+     * Check if email is valid
+     */
+    const EMAIL = 'email';
+    /**
+     * Check that timezone is valid
+     */
+    const TIMEZONE = 'timezone';
+    /**
+     * Check that the specified user account is set as active (ie validated)
+     */
+    const IS_ACTIVE = 'isactive';
+    /**
+     * Check that the specified user account is not banned
+     */
+    const IS_BANNED = 'isbanned';
+    /**
+     * Check that the value is alphanumeric
+     */
+    const ALPHANUMERIC = 'alphanumeric';
+    /**
+     * Check that the value is numeric
+     */
+    const NUMERIC = 'numeric';
     private ?string $_message = null;
     private array $_messages = [];
     private bool $_passed = false;
     private array $_to_convert = [];
     private array $_errors = [];
-    
     private DB $_db;
-    
-    /**
-     * Ensure this field is not empty
-     */
-    const REQUIRED = 'required';
-
-    /**
-     * Define minimum characters
-     */
-    const MIN = 'min';
-
-    /**
-     * Define max characters
-     */
-    const MAX = 'max';
-
-    /**
-     * Ensure provided value matches another
-     */
-    const MATCHES = 'matches';
-
-    /**
-     * Check the user has agreed to the terms and conditions
-     */
-    const AGREE = 'agree';
-
-    /**
-     * Check the value has not already been inputted in the database
-     */
-    const UNIQUE = 'unique';
-
-    /**
-     * Check if email is valid
-     */
-    const EMAIL = 'email';
-
-    /**
-     * Check that timezone is valid
-     */
-    const TIMEZONE = 'timezone';
-
-    /**
-     * Check that the specified user account is set as active (ie validated)
-     */
-    const IS_ACTIVE = 'isactive';
-
-    /**
-     * Check that the specified user account is not banned
-     */
-    const IS_BANNED = 'isbanned';
-
-    /**
-     * Check that the value is alphanumeric
-     */
-    const ALPHANUMERIC = 'alphanumeric';
-    
-    /**
-     * Check that the value is numeric
-     */
-    const NUMERIC = 'numeric';
 
     /**
      * Create new `Validate` instance
@@ -99,10 +86,10 @@ class Validate {
 
     /**
      * Validate an array of inputs.
-     * 
+     *
      * @param array $source inputs (eg: $_POST)
      * @param array $items subset of inputs to be validated
-     * 
+     *
      * @return Validate This instance of Validate.
      */
     public function check(array $source, array $items = []): Validate {
@@ -127,8 +114,8 @@ class Validate {
                         'fallback' => "$item is required."
                     ]);
                     continue;
-                } 
-                
+                }
+
                 if (empty($value)) {
                     continue;
                 }
@@ -223,7 +210,7 @@ class Validate {
                         }
                         break;
 
-                    case Validate::IS_BANNED: 
+                    case Validate::IS_BANNED:
                         $check = $this->_db->get('users', [$item, '=', $value]);
                         if (!$check->count()) {
                             break;
@@ -271,10 +258,20 @@ class Validate {
     }
 
     /**
+     * Add an array of information to generate an error message to the $_to_convert array.
+     * These errors will be translated in the `errors()` function later.
+     *
+     * @param array $error message to add to error array
+     */
+    private function addError(array $error): void {
+        $this->_to_convert[] = $error;
+    }
+
+    /**
      * Add generic message for any failures, specific `messages()` will override this.
-     * 
+     *
      * @param string $message message to show if any failures occur.
-     * 
+     *
      * @return Validate This instance of Validate.
      */
     public function message(string $message): Validate {
@@ -284,9 +281,9 @@ class Validate {
 
     /**
      * Add custom messages to this `Validate` instance.
-     * 
+     *
      * @param array $messages array of input names and strings or arrays to use as messages.
-     * 
+     *
      * @return Validate This instance of Validate.
      */
     public function messages(array $messages): Validate {
@@ -295,22 +292,45 @@ class Validate {
     }
 
     /**
-     * Add an array of information to generate an error message to the $_to_convert array.
-     * These errors will be translated in the `errors()` function later.
-     * 
-     * @param array $error message to add to error array
+     * Translate temp error information to their specific or generic or fallback messages and return.
+     *
+     * @return array Any and all errors for this `Validate` instance.
      */
-    private function addError(array $error): void {
-        $this->_to_convert[] = $error;
+    public function errors(): array {
+
+        // If errors have already been translated, don't waste time redoing it
+        if (!empty($this->_errors)) {
+            return $this->_errors;
+        }
+
+        // Loop all errors to convert and get their custom messages
+        foreach ($this->_to_convert as $error) {
+
+            $message = $this->getMessage($error['field'], $error['rule'], $error['fallback']);
+
+            // If there is no generic `message()` set or the translated message is not equal to generic message
+            // we can continue without worrying about duplications
+            if ($this->_message == null || $message != $this->_message && !in_array($message, $this->_errors)) {
+                $this->_errors[] = $message;
+                continue;
+            }
+
+            // If this new error is the generic message AND it has not already been added, add it
+            if ($message == $this->_message && !in_array($this->_message, $this->_errors)) {
+                $this->_errors[] = $this->_message;
+            }
+        }
+
+        return $this->_errors;
     }
 
     /**
      * Get message for provided field, returning fallback message unless generic message is supplied.
-     * 
+     *
      * @param string $field name of field to search for.
      * @param string $rule rule which check failed. should be from the constants defined above.
      * @param string $fallback fallback default message if custom message and generic message are not supplied.
-     * 
+     *
      * @return string Message for this field and rule.
      */
     private function getMessage(string $field, string $rule, string $fallback): string {
@@ -335,41 +355,8 @@ class Validate {
     }
 
     /**
-     * Translate temp error information to their specific or generic or fallback messages and return.
-     * 
-     * @return array Any and all errors for this `Validate` instance.
-     */
-    public function errors(): array {
-
-        // If errors have already been translated, don't waste time redoing it
-        if (!empty($this->_errors)) {
-            return $this->_errors;
-        }
-
-        // Loop all errors to convert and get their custom messages
-        foreach ($this->_to_convert as $error) {
-
-            $message = $this->getMessage($error['field'], $error['rule'], $error['fallback']);
-
-            // If there is no generic `message()` set or the translated message is not equal to generic message
-            // we can continue without worrying about duplications
-            if ($this->_message == null || $message != $this->_message && !in_array($message, $this->_errors)) {
-                $this->_errors[] = $message;
-                continue;
-            }
-        
-            // If this new error is the generic message AND it has not already been added, add it
-            if ($message == $this->_message && !in_array($this->_message, $this->_errors)) {
-                $this->_errors[] = $this->_message;
-            }
-        }
-
-        return $this->_errors;
-    }
-
-    /**
      * Get if this `Validate` instance passed.
-     * 
+     *
      * @return bool whether this 'Validate' passed or not.
      */
     public function passed(): bool {

@@ -708,9 +708,7 @@ $language = [
 
     // Dashboard
     'total_users' => 'Total de usuarios',
-    'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'recent_users' => 'Nuevos usuarios',
-    'recent_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'average_players' => 'Jugadores promedio',
     'nameless_news' => 'Noticias de NamelessMC',
     'unable_to_retrieve_nameless_news' => 'No se pudieron obterner las últimas noticias',
@@ -749,4 +747,6 @@ $language = [
     'background_colour_required' => 'El color de fondo es necesario',
     'text_colour_required' => 'El color del texto es necesario',
     'no_announcements' => 'Todavía no se ha hecho ningún anuncio.',
+    'announcement_order' => 'Order',
+    'announcement_hook_info' => 'Announcement creation',
 ];

@@ -235,7 +235,7 @@ $language = [
     'textarea' => 'Περιοχή κειμένου',
     'date' => 'Ημερομηνία',
     'creating_profile_field' => 'Δημιουργία προφίλ Πεδίο',
-      'editing_profile_field' => 'Επεξεργασία Προφίλ πεδίο',
+    'editing_profile_field' => 'Επεξεργασία Προφίλ πεδίο',
     'field_name' => 'Ονομα πεδίου',
     'profile_field_required_help' => 'Τα υποχρεωτικά πεδία πρέπει να συμπληρωθούν από το χρήστη, και θα εμφανίζονται κατά την εγγραφή.',
     'profile_field_public_help' => 'Δημόσια πεδία θα εμφανίζονται σε όλους τους χρήστες, αν αυτό είναι απενεργοποιημένο μόνο οι διαμεσολαβητές να δουν τις τιμές.',
@@ -663,7 +663,7 @@ $language = [
     // Hooks
     'hooks' => 'Webhooks',
     'hooks_info' => 'Webhooks allow external services to be notified when certain events happen. When the specified events happen.',
-  'no_hooks_yet' => 'There are no webhooks yet.',
+    'no_hooks_yet' => 'There are no webhooks yet.',
     'new_hook' => 'New Hook',
     'creating_new_hook' => 'Creating New Webhook',
     'editing_hook' => 'Editing Webhook',
@@ -704,9 +704,7 @@ $language = [
 
     // Dashboard
     'total_users' => 'Total Users',
-    'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'recent_users' => 'New Users',
-    'recent_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'average_players' => 'Average Players',
     'nameless_news' => 'NamelessMC News',
     'unable_to_retrieve_nameless_news' => 'Unable to retrieve the latest news',
@@ -745,4 +743,6 @@ $language = [
     'background_colour_required' => 'Background Colour is required',
     'text_colour_required' => 'Text Colour is required',
     'no_announcements' => 'No announcements have been made yet.',
+    'announcement_order' => 'Order',
+    'announcement_hook_info' => 'Announcement creation',
 ];

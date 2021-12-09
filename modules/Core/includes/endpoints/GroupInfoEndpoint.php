@@ -32,16 +32,18 @@ class GroupInfoEndpoint extends EndpointBase {
                 $where .= 'OR id = ?';
                 $params = [$_GET['id']];
             }
-        } else if (isset($_GET['name'])) {
-            $where .= ' WHERE name = null ';
-            if (is_array($_GET['name'])) {
-                foreach ($_GET['name'] as $value) {
-                    $where .= 'OR name = ? ';
-                    $params[] = $value;
+        } else {
+            if (isset($_GET['name'])) {
+                $where .= ' WHERE name = null ';
+                if (is_array($_GET['name'])) {
+                    foreach ($_GET['name'] as $value) {
+                        $where .= 'OR name = ? ';
+                        $params[] = $value;
+                    }
+                } else {
+                    $where .= 'OR name = ?';
+                    $params = [$_GET['name']];
                 }
-            } else {
-                $where .= 'OR name = ?';
-                $params = [$_GET['name']];
             }
         }
 
@@ -52,7 +54,7 @@ class GroupInfoEndpoint extends EndpointBase {
             $group_array = [
                 'id' => intval($group->id),
                 'name' => $group->name,
-                'staff' => (bool) $group->staff,
+                'staff' => (bool)$group->staff,
                 'order' => intval($group->order),
                 'ingame_rank_name' => Util::getIngameRankName($group->id)
             ];

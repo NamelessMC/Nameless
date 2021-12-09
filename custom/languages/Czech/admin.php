@@ -546,7 +546,7 @@ $language = [
     'show_nickname_instead_of_username' => 'Zobrazit přezdívku uživatele namísto jeho uživatelského jména?',
 
     // Custom Pages
-	'pages' => 'Stránky',
+    'pages' => 'Stránky',
     'custom_pages' => 'Vlastní stránky',
     'new_page' => '<i class="fa fa-plus-circle"></i> Nová stránka',
     'no_custom_pages' => 'Nebyly vytvořeny žádné stránky.',
@@ -688,9 +688,7 @@ $language = [
 
     // Dashboard
     'total_users' => 'Celkový počet uživatelů',
-    'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'recent_users' => 'Noví uživatelé',
-    'recent_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'nameless_news' => 'NamelessMC novinky',
     'unable_to_retrieve_nameless_news' => 'Nepodařilo se získat novinky',
     'confirm_leave_site' => 'Chystáte se opustit tento web! Opravdu chcete navštívit <strong id="leaveSiteURL">{x}</strong>?', // Don't replace {x} and make sure it has the id leaveSiteURL
@@ -727,5 +725,6 @@ $language = [
     'background_colour_required' => 'Je vyžadována barva pozadí',
     'text_colour_required' => 'Je vyžadována barva textu',
     'no_announcements' => 'Zatím jste nevytvořili žádná oznámení',
-    'announcement_order' => 'Pořadí',
+    'announcement_order' => 'Order',
+    'announcement_hook_info' => 'Announcement creation',
 ];

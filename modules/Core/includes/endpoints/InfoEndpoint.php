@@ -31,12 +31,16 @@ class InfoEndpoint extends EndpointBase {
             if ($item->name == 'nameless_version') {
                 $ret[$item->name] = $item->value;
                 $current_version = $item->value;
-            } else if ($item->name == 'version_update') {
-                $version_update = $item->value;
-            } else if ($item->name == 'version_checked') {
-                $version_checked = (int) $item->value;
             } else {
-                $new_version = $item->value;
+                if ($item->name == 'version_update') {
+                    $version_update = $item->value;
+                } else {
+                    if ($item->name == 'version_checked') {
+                        $version_checked = (int)$item->value;
+                    } else {
+                        $new_version = $item->value;
+                    }
+                }
             }
         }
 

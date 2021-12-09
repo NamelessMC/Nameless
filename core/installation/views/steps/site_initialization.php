@@ -1,17 +1,17 @@
 <?php
 
 if (isset($_SESSION['site_initialized']) && $_SESSION['site_initialized'] == true) {
-	Redirect::to('?step=admin_account_setup');
-	die();
+    Redirect::to('?step=admin_account_setup');
+    die();
 }
 
 if (!isset($_SESSION['database_initialized']) || $_SESSION['database_initialized'] != true) {
-	Redirect::to('?step=database_configuration');
-	die();
+    Redirect::to('?step=database_configuration');
+    die();
 }
 
 $scripts = [
-	'
+    '
 	<script>
 		$(document).ready(function() {
 			$.post("?step=ajax_initialise&initialise=site", {perform: "true"}, function(response) {
@@ -35,20 +35,20 @@ $scripts = [
 ?>
 
 <div class="ui segments">
-	<div class="ui secondary segment">
-		<h4 class="ui header">
-			<?php echo $language['configuration']; ?>
-		</h4>
-	</div>
-	<div class="ui segment">
+    <div class="ui secondary segment">
+        <h4 class="ui header">
+            <?php echo $language['configuration']; ?>
+        </h4>
+    </div>
+    <div class="ui segment">
 		<span id="info">
 			<i class="blue circular notched circle loading icon"></i>
 			<?php echo $language['initialising_database_and_cache']; ?>
 		</span>
-	</div>
-	<div class="ui right aligned secondary segment">
-		<a href="#" class="ui small primary disabled button" id="continue-button">
-			<?php echo $language['continue']; ?>
-		</a>
-	</div>
+    </div>
+    <div class="ui right aligned secondary segment">
+        <a href="#" class="ui small primary disabled button" id="continue-button">
+            <?php echo $language['continue']; ?>
+        </a>
+    </div>
 </div>

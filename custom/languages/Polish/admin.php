@@ -202,7 +202,7 @@ $language = [
     'google_analytics' => 'Analityka Google',
     'google_analytics_help' => 'Dodaj analitykę, aby zbierać dane o użytkownikach. Musisz posiadać konto google analityka, aby używać tej funkcji. Wpisz kod analityczny strony. ID wygląda tak UA-XXXXA-X i możesz znaleść go w ustawieniach konta.',
 
-  // Reactions
+    // Reactions
     'icon' => 'Ikona',
     'type' => 'Typ',
     'positive' => 'Pozytywny',
@@ -702,9 +702,7 @@ $language = [
 
     // Dashboard
     'total_users' => 'Wszyscy użytkownicy',
-    'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'recent_users' => 'Nowi użytkownicy',
-    'recent_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'average_players' => 'Średnia liczba graczy',
     'nameless_news' => 'Newsy NamelessMC',
     'unable_to_retrieve_nameless_news' => 'Podczas pobierania newsów NamelessMC wystąpił błąd',
@@ -743,4 +741,6 @@ $language = [
     'background_colour_required' => 'Kolor tła jest wymagany',
     'text_colour_required' => 'Kolor tekstu jest wymagany',
     'no_announcements' => 'Nie ma jeszcze żadnych ogłoszeń.',
+    'announcement_order' => 'Order',
+    'announcement_hook_info' => 'Announcement creation',
 ];

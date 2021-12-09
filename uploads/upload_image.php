@@ -15,14 +15,12 @@ $page = 'image_upload';
 require('../core/init.php');
 
 if ($user->isLoggedIn()) {
-    // Require Bulletproof
-    require('../core/includes/bulletproof/bulletproof.php');
 
     if (!is_dir(ROOT_PATH . '/uploads/images')) {
         mkdir(ROOT_PATH . '/uploads/images');
     }
 
-    $image = new BulletProof\Image($_FILES);
+    $image = new \Bulletproof\Image($_FILES);
 
     $image->setSize(1000, 2 * 1048576)
         ->setMime(['jpeg', 'png', 'gif'])
@@ -54,8 +52,9 @@ if ($user->isLoggedIn()) {
             ]);
         }
     }
-} else
+} else {
     echo json_encode([
         'uploaded' => '0',
         'error' => ['You are not logged in']
     ]);
+}

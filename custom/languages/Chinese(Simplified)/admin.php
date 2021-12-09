@@ -714,9 +714,7 @@ $language = [
 
     // Dashboard
     'total_users' => '总用户量',
-    'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'recent_users' => '在线用户量',
-    'recent_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'recent_topics' => '话题量',
     'recent_posts' => '帖子数',
     'average_players' => '普通玩家',
@@ -756,4 +754,6 @@ $language = [
     'background_colour_required' => '背景颜色为必填项',
     'text_colour_required' => '文字颜色为必填项',
     'no_announcements' => '还没有任何公告呢!',
+    'announcement_order' => 'Order',
+    'announcement_hook_info' => 'Announcement creation',
 ];

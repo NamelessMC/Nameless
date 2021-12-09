@@ -23,13 +23,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-function MC_str_split( $string )
-{
+function MC_str_split($string) {
     return preg_split('/(?<!^)(?!$)/u', $string);
 }
 
-function MC_parseMotdColors($motd)
-{
+function MC_parseMotdColors($motd) {
     $inColorSequence = false;
     $openSpan = false;
     $coloredMotd = '';
@@ -38,58 +36,58 @@ function MC_parseMotdColors($motd)
             // find color and insert span
             // edit: ` used for explode in banner generator
             switch ($character) {
-            case '0':
-                $color = '`#000000';
-                break;
-            case '1':
-                $color = '`#0000aa';
-                break;
-            case '2':
-                $color = '`#00aa00';
-                break;
-            case '3':
-                $color = '`#00aaaa';
-                break;
-            case '4':
-                $color = '`#aa0000';
-                break;
-            case '5':
-                $color = '`#aa00aa';
-                break;
-            case '6':
-                $color = '`#ffaa00';
-                break;
-            case '7':
-                $color = '`#aaaaaa';
-                break;
-            case '8':
-                $color = '`#555555';
-                break;
-            case '9':
-                $color = '`#5555ff';
-                break;
-            case 'a':
-                $color = '`#55ff55';
-                break;
-            case 'b':
-                $color = '`#55ffff';
-                break;
-            case 'c':
-                $color = '`#ff5555';
-                break;
-            case 'd':
-                $color = '`#ff55ff';
-                break;
-            case 'e':
-                $color = '`#ffff55';
-                break;
-            case 'f':
-            case 'r':
-                $color = '`#ffffff';
-                break;
-            default:
-                $color = false;
-                break;
+                case '0':
+                    $color = '`#000000';
+                    break;
+                case '1':
+                    $color = '`#0000aa';
+                    break;
+                case '2':
+                    $color = '`#00aa00';
+                    break;
+                case '3':
+                    $color = '`#00aaaa';
+                    break;
+                case '4':
+                    $color = '`#aa0000';
+                    break;
+                case '5':
+                    $color = '`#aa00aa';
+                    break;
+                case '6':
+                    $color = '`#ffaa00';
+                    break;
+                case '7':
+                    $color = '`#aaaaaa';
+                    break;
+                case '8':
+                    $color = '`#555555';
+                    break;
+                case '9':
+                    $color = '`#5555ff';
+                    break;
+                case 'a':
+                    $color = '`#55ff55';
+                    break;
+                case 'b':
+                    $color = '`#55ffff';
+                    break;
+                case 'c':
+                    $color = '`#ff5555';
+                    break;
+                case 'd':
+                    $color = '`#ff55ff';
+                    break;
+                case 'e':
+                    $color = '`#ffff55';
+                    break;
+                case 'f':
+                case 'r':
+                    $color = '`#ffffff';
+                    break;
+                default:
+                    $color = false;
+                    break;
             }
             if ($color) {
                 if ($openSpan) {
@@ -99,7 +97,7 @@ function MC_parseMotdColors($motd)
                 $openSpan = true;
             }
             $inColorSequence = false;
-        } elseif ($character== '§') {
+        } else if ($character == '§') {
             $inColorSequence = true;
         } else {
             $coloredMotd .= $character;
@@ -110,4 +108,3 @@ function MC_parseMotdColors($motd)
     }
     return $coloredMotd;
 }
-?>

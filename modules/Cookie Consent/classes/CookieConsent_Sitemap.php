@@ -19,8 +19,9 @@ class CookieConsent_Sitemap {
      * @param ?Sitemap $sitemap Instance of sitemap generator.
      */
     public static function generateSitemap(Sitemap $sitemap = null): void {
-        if (!$sitemap)
+        if (!$sitemap) {
             return;
+        }
 
         $sitemap->addItem(URL::build('/cookies'), 0.9);
     }

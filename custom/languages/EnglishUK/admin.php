@@ -46,6 +46,10 @@ $language = [
     'settings' => 'Settings',
     'general_settings' => 'General Settings',
     'sitename' => 'Site Name',
+    'punished_id' => 'Punished User ID',
+    'punisher_id' => 'Punisher User ID',
+    'reason' => 'Ban Reason',
+    'ip_ban' => 'IP ban?',
     'default_language' => 'Default Language',
     'default_language_help' => 'Users will be able to choose from any installed languages.',
     'install_language' => 'Install Language',
@@ -667,6 +671,7 @@ $language = [
     'validate_hook_info' => 'User validation',
     'delete_hook_info' => 'User deletion',
     'report_hook_info' => 'Report creation',
+    'ban_hook_info' => 'User ban',
 
     // Sitemap
     'unable_to_load_sitemap_file_x' => 'Unable to load sitemap file {x}', // Don't replace {x}
@@ -688,9 +693,7 @@ $language = [
 
     // Dashboard
     'total_users' => 'Total Users',
-    'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'recent_users' => 'New Users',
-    'recent_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'nameless_news' => 'NamelessMC News',
     'unable_to_retrieve_nameless_news' => 'Unable to retrieve the latest news',
     'confirm_leave_site' => 'You are about to leave this site! Are you sure you want to visit <strong id="leaveSiteURL">{x}</strong>?', // don't replace {x} and make sure it has the id leaveSiteURL
@@ -728,4 +731,5 @@ $language = [
     'text_colour_required' => 'Text Colour is required',
     'no_announcements' => 'No announcements have been made yet.',
     'announcement_order' => 'Order',
+    'announcement_hook_info' => 'Announcement creation',
 ];

@@ -657,9 +657,7 @@ Vous devriez configurer votre groupe par défaut pour avoir des autorisations li
 
     // Dashboard
     'total_users' => 'Nombre total d’utilisateurs',
-    'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'recent_users' => 'Nouveaux utilisateurs',
-    'recent_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'average_players' => 'Joueurs moyens',
     'nameless_news' => 'Nouvelles NamelessMC',
     'unable_to_retrieve_nameless_news' => 'Impossible de récupérer les dernières nouvelles',
@@ -691,6 +689,8 @@ Vous devriez configurer votre groupe par défaut pour avoir des autorisations li
     'background_colour_required' => 'La couleur de fond est requise',
     'text_colour_required' => 'La couleur du texte est requise',
     'no_announcements' => 'Aucune annonce n\'a encore été faite.',
+    'announcement_order' => 'Order',
+    'announcement_hook_info' => 'Announcement creation',
 
     // Other
     'source' => 'Source',

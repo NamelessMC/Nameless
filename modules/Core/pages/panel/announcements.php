@@ -9,7 +9,7 @@
  *  Panel announcements page
  */
 
-if(!$user->handlePanelPageLoad('admincp.core.announcements')) {
+if (!$user->handlePanelPageLoad('admincp.core.announcements')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }
@@ -99,7 +99,7 @@ if (!isset($_GET['action'])) {
                         foreach (Input::get('pages') as $page) {
                             $pages[] = $page;
                         }
-                        if (!$announcements->create($pages, $all_groups, Output::getClean(Input::get('text_colour')), Output::getClean(Input::get('background_colour')), Output::getClean(Input::get('icon')), Output::getClean(Input::get('closable')), Output::getClean(Input::get('header')), Output::getClean(Input::get('message')), Output::getClean(Input::get('order')))) {
+                        if (!$announcements->create($user, $pages, $all_groups, Output::getClean(Input::get('text_colour')), Output::getClean(Input::get('background_colour')), Output::getClean(Input::get('icon')), Output::getClean(Input::get('closable')), Output::getClean(Input::get('header')), Output::getClean(Input::get('message')), Output::getClean(Input::get('order')))) {
                             Session::flash('announcement_error', $language->get('admin', 'creating_announcement_failure'));
                         } else {
                             Session::flash('announcement_success', $language->get('admin', 'creating_announcement_success'));
@@ -271,21 +271,24 @@ if (!isset($_GET['action'])) {
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-if (Session::exists('announcement_success'))
+if (Session::exists('announcement_success')) {
     $smarty->assign([
         'SUCCESS' => Session::flash('announcement_success'),
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ]);
-if (Session::exists('announcement_error'))
+}
+if (Session::exists('announcement_error')) {
     $smarty->assign([
         'ERRORS' => [Session::flash('announcement_error')],
         'ERRORS_TITLE' => $language->get('general', 'error')
     ]);
-if (isset($errors) && count($errors))
+}
+if (isset($errors) && count($errors)) {
     $smarty->assign([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
     ]);
+}
 
 $smarty->assign([
     'PAGE' => PANEL_PAGE,

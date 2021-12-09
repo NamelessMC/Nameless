@@ -96,8 +96,6 @@ class QueryRecorder extends Instanceable {
 
         $comp .= ';';
 
-        require_once(ROOT_PATH . '/core/includes/sqlformatter/SQLFormatter.php');
-
-        return SQLFormatter::highlight(trim($comp));
+        return SqlFormatter::highlight(trim($comp));
     }
 }

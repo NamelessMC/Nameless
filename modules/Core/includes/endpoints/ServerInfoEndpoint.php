@@ -37,10 +37,11 @@ class ServerInfoEndpoint extends EndpointBase {
             if (file_exists(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('server_query_cache') . '.cache')) {
                 $query_cache = file_get_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('server_query_cache') . '.cache');
                 $query_cache = json_decode($query_cache);
-                if (isset($query_cache->query_interval))
+                if (isset($query_cache->query_interval)) {
                     $query_interval = unserialize($query_cache->query_interval->data);
-                else
+                } else {
                     $query_interval = 10;
+                }
 
                 $to_cache = [
                     'query_interval' => [
@@ -84,7 +85,7 @@ class ServerInfoEndpoint extends EndpointBase {
     private function updateUsername(User $user, array $player, Nameless2API $api) {
         if (Util::getSetting($api->getDb(), 'username_sync')) {
             if (!$user->data() ||
-                    $player['name'] == $user->data()->username) {
+                $player['name'] == $user->data()->username) {
                 return;
             }
 
@@ -108,8 +109,7 @@ class ServerInfoEndpoint extends EndpointBase {
         }
     }
 
-    private function updateGroups(User $user, array $player): array
-    {
+    private function updateGroups(User $user, array $player): array {
         if (!$user->exists()) {
             return [];
         }

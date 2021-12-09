@@ -1,4 +1,5 @@
 <?php
+
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
@@ -8,6 +9,7 @@
  *
  *  Facebook Widget
  */
+
 class FacebookWidget extends WidgetBase {
 
     public function __construct(array $pages, Smarty $smarty, ?string $fb_url = '') {

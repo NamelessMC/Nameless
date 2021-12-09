@@ -24,14 +24,12 @@ require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
 $forum = new Forum();
 $mentionsParser = new MentionsParser();
 
-require(ROOT_PATH . '/core/includes/markdown/tohtml/Markdown.inc.php'); // Markdown to HTML
-
 if (!isset($_GET['fid']) || !is_numeric($_GET['fid'])) {
     Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
     die();
 }
 
-$fid = (int) $_GET['fid'];
+$fid = (int)$_GET['fid'];
 
 // Get user group ID
 $user_groups = $user->getAllGroupIds();
@@ -76,13 +74,17 @@ if (count($forum_labels)) {
                 }
             }
 
-            if (!$hasperm)
+            if (!$hasperm) {
                 continue;
+            }
 
             // Get label HTML
             $label_html = $queries->getWhere('forums_labels', ['id', '=', $label->label]);
-            if (!count($label_html)) continue;
-            else $label_html = str_replace('{x}', Output::getClean($label->name), Output::getPurified($label_html[0]->html));
+            if (!count($label_html)) {
+                continue;
+            } else {
+                $label_html = str_replace('{x}', Output::getClean($label->name), Output::getPurified($label_html[0]->html));
+            }
 
             $labels[] = [
                 'id' => $label->id,
@@ -150,11 +152,15 @@ if (Input::exists()) {
                                     }
                                 }
 
-                                if ($hasperm) $post_labels[] = $label[0]->id;
+                                if ($hasperm) {
+                                    $post_labels[] = $label[0]->id;
+                                }
                             }
                         }
-                    } else if (count($default_labels)) {
-                        $post_labels = $default_labels;
+                    } else {
+                        if (count($default_labels)) {
+                            $post_labels = $default_labels;
+                        }
                     }
 
                     $queries->create('topics', [
@@ -173,9 +179,11 @@ if (Input::exists()) {
                     $formatting = $cache->retrieve('formatting');
 
                     if ($formatting == 'markdown') {
-                        $content = Michelf\Markdown::defaultTransform(Input::get('content'));
+                        $content = \Michelf\Markdown::defaultTransform(Input::get('content'));
                         $content = Output::getClean($content);
-                    } else $content = Output::getClean(Input::get('content'));
+                    } else {
+                        $content = Output::getClean(Input::get('content'));
+                    }
 
                     $queries->create('posts', [
                         'forum_id' => $fid,

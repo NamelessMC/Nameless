@@ -2,14 +2,14 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr12
+ *  NamelessMC version 2.0.0-pr13
  *
  *  License: MIT
  *
  *  Panel punishments page
  */
 
-if(!$user->handlePanelPageLoad('modcp.punishments')) {
+if (!$user->handlePanelPageLoad('modcp.punishments')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }
@@ -56,18 +56,19 @@ if (isset($_GET['user'])) {
                     // Error
                     $errors = [$e->getMessage()];
                 }
-            } else if ($infraction->type == 3) {
-                // Unban IP
-                try {
-                    $queries->update('users', $query->id, [
-                        'isbanned' => 0,
-                        'active' => 1
-                    ]);
+            } else {
+                if ($infraction->type == 3) {
+                    try {
+                        $queries->update('users', $query->id, [
+                            'isbanned' => 0,
+                            'active' => 1
+                        ]);
 
-                    $queries->delete('ip_bans', ['ip', '=', $query->lastip]);
-                } catch (Exception $e) {
-                    // Error
-                    $errors = [$e->getMessage()];
+                        $queries->delete('ip_bans', ['ip', '=', $query->lastip]);
+                    } catch (Exception $e) {
+                        // Error
+                        $errors = [$e->getMessage()];
+                    }
                 }
             }
 
@@ -177,22 +178,33 @@ if (isset($_GET['user'])) {
                                             'reason' => $_POST['reason']
                                         ]);
                                     }
-                                } else if ($type == 4) {
-                                    // Need to delete any other avatars
-                                    $diff_str = implode(',', ['jpg', 'png', 'jpeg', 'gif']);
 
-                                    $to_remove = glob(ROOT_PATH . '/uploads/avatars/' . $query->id . '.{' . $diff_str . '}', GLOB_BRACE);
-
-                                    if ($to_remove) {
-                                        foreach ($to_remove as $item) {
-                                            unlink($item);
-                                        }
-                                    }
-
-                                    $queries->update('users', $query->id, [
-                                        'has_avatar' => 0,
-                                        'avatar_updated' => date('U')
+                                    // Fire userBanned event 
+                                    EventHandler::executeEvent('userBanned', [
+                                        'punished_id' => $query->id,
+                                        'punisher_id' => $user->data()->id,
+                                        'reason' => Output::getClean($_POST['reason']),
+                                        'ip_ban' => $type == 3,
                                     ]);
+
+                                } else {
+                                    if ($type == 4) {
+                                        // Need to delete any other avatars
+                                        $diff_str = implode(',', ['jpg', 'png', 'jpeg', 'gif']);
+
+                                        $to_remove = glob(ROOT_PATH . '/uploads/avatars/' . $query->id . '.{' . $diff_str . '}', GLOB_BRACE);
+
+                                        if ($to_remove) {
+                                            foreach ($to_remove as $item) {
+                                                unlink($item);
+                                            }
+                                        }
+
+                                        $queries->update('users', $query->id, [
+                                            'has_avatar' => 0,
+                                            'avatar_updated' => date('U')
+                                        ]);
+                                    }
                                 }
 
                                 // Send alerts
@@ -203,7 +215,7 @@ if (isset($_GET['user'])) {
                                     $groups = '(';
                                     foreach ($groups_query as $group) {
                                         if (is_numeric($group->id)) {
-                                            $groups .= ((int) $group->id) . ',';
+                                            $groups .= ((int)$group->id) . ',';
                                         }
                                     }
                                     $groups = rtrim($groups, ',') . ')';
@@ -215,23 +227,31 @@ if (isset($_GET['user'])) {
                                         $users = $users->results();
 
                                         foreach ($users as $item) {
+                                            if ($user->data()->id == $item->id) {
+                                                continue;
+                                            }
+
                                             // Send alert
                                             Alert::create($item->id, 'punishment', ['path' => 'core', 'file' => 'moderator', 'term' => 'user_punished_alert', 'replace' => ['{x}', '{y}'], 'replace_with' => [Output::getClean($user->data()->nickname), Output::getClean($query->nickname)]], ['path' => 'core', 'file' => 'moderator', 'term' => 'user_punished_alert', 'replace' => ['{x}', '{y}'], 'replace_with' => [Output::getClean($user->data()->nickname), Output::getClean($query->nickname)]], URL::build('/panel/users/punishments/', 'user=' . Output::getClean($query->id)));
                                         }
                                     }
                                 }
-                            } else
+                            } else {
                                 $errors[] = $language->get('moderator', 'cant_punish_admin');
-                        } else
+                            }
+                        } else {
                             $errors[] = $language->get('moderator', 'cant_punish_admin');
+                        }
                     } catch (Exception $e) {
                         $errors[] = $e->getMessage();
                     }
-                } else
+                } else {
                     $errors[] = $language->get('moderator', 'enter_valid_punishment_reason');
+                }
             }
-        } else
+        } else {
             $errors[] = $language->get('general', 'invalid_token');
+        }
     }
 
     // Get any previous punishments
@@ -277,20 +297,25 @@ if (isset($_GET['user'])) {
         }
     }
 
-    if ($user->hasPermission('modcp.punishments.reset_avatar'))
+    if ($user->hasPermission('modcp.punishments.reset_avatar')) {
         $smarty->assign('RESET_AVATAR', $language->get('moderator', 'reset_avatar'));
+    }
 
-    if ($user->hasPermission('modcp.punishments.warn'))
+    if ($user->hasPermission('modcp.punishments.warn')) {
         $smarty->assign('WARN', $language->get('moderator', 'warn'));
+    }
 
-    if ($user->hasPermission('modcp.punishments.ban'))
+    if ($user->hasPermission('modcp.punishments.ban')) {
         $smarty->assign('BAN', $language->get('moderator', 'ban'));
+    }
 
-    if ($user->hasPermission('modcp.punishments.banip'))
+    if ($user->hasPermission('modcp.punishments.banip')) {
         $smarty->assign('BAN_IP', $language->get('moderator', 'ban_ip'));
+    }
 
-    if ($user->hasPermission('modcp.punishments.revoke'))
+    if ($user->hasPermission('modcp.punishments.revoke')) {
         $smarty->assign('REVOKE_PERMISSION', true);
+    }
 
     $smarty->assign([
         'HAS_AVATAR' => $query->has_avatar,
@@ -426,20 +451,23 @@ if (isset($_GET['user'])) {
     $template_file = 'core/users_punishments.tpl';
 }
 
-if (Session::exists('user_punishment_success'))
+if (Session::exists('user_punishment_success')) {
     $success = Session::flash('user_punishment_success');
+}
 
-if (isset($success))
+if (isset($success)) {
     $smarty->assign([
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ]);
+}
 
-if (isset($errors) && count($errors))
+if (isset($errors) && count($errors)) {
     $smarty->assign([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
     ]);
+}
 
 $smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * No params
  *
@@ -25,8 +26,8 @@ class ListUsersEndpoint extends EndpointBase {
         }
 
         $operator = isset($_GET['operator']) && $_GET['operator'] == 'OR'
-                        ? ' OR'
-                        : ' AND';
+            ? ' OR'
+            : ' AND';
 
         if (isset($_GET['group_id'])) {
             $query .= ' INNER JOIN nl2_users_groups ug ON u.id = ug.user_id WHERE ug.group_id = ?';
@@ -71,8 +72,8 @@ class ListUsersEndpoint extends EndpointBase {
                 'id' => intval($user->id),
                 'username' => $user->username,
                 'uuid' => $user->uuid,
-                'banned' => (bool) $user->banned,
-                'verified' => (bool) $user->active,
+                'banned' => (bool)$user->banned,
+                'verified' => (bool)$user->active,
             ];
 
             if ($discord_enabled) {

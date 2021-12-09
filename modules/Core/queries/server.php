@@ -18,12 +18,14 @@ if ($cache->isCached('result')) {
     // Get query type
     $query_type = $queries->getWhere('settings', ['name', '=', 'external_query']);
     if (count($query_type)) {
-        if ($query_type[0]->value == '1')
+        if ($query_type[0]->value == '1') {
             $query_type = 'external';
-        else
+        } else {
             $query_type = 'internal';
-    } else
+        }
+    } else {
         $query_type = 'internal';
+    }
 
     $full_ip = ['ip' => $server->ip . (is_null($server->port) ? '' : ':' . $server->port), 'pre' => $server->pre, 'name' => $server->name];
 

@@ -713,9 +713,7 @@ $language = [
 
     // Dashboard
     'total_users' => 'ผู้ใช้ทั้งหมด',
-    'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'recent_users' => 'ผู้ใช้ใหม่',
-    'recent_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'average_players' => 'ผู้เล่นเฉลี่ย',
     'nameless_news' => 'NamelessMC News',
     'unable_to_retrieve_nameless_news' => 'ไม่สามารถเรียกข้อมูลข่าวสารล่าสุด',
@@ -754,4 +752,6 @@ $language = [
     'background_colour_required' => 'ต้องใช้สีพื้นหลัง',
     'text_colour_required' => 'ต้องระบุสีข้อความ',
     'no_announcements' => 'ยังไม่มีการประกาศใด ๆ',
+    'announcement_order' => 'Order',
+    'announcement_hook_info' => 'Announcement creation',
 ];

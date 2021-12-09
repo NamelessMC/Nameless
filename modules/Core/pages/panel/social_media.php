@@ -9,7 +9,7 @@
  *  Panel social media page
  */
 
-if(!$user->handlePanelPageLoad('admincp.core.social_media')) {
+if (!$user->handlePanelPageLoad('admincp.core.social_media')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }
@@ -52,8 +52,11 @@ if (Input::exists()) {
         $twitter_dark_theme = $queries->getWhere('settings', ['name', '=', 'twitter_style']);
         $twitter_dark_theme = $twitter_dark_theme[0]->id;
 
-        if (isset($_POST['twitter_dark_theme']) && $_POST['twitter_dark_theme'] == 1) $theme = 'dark';
-        else $theme = 'light';
+        if (isset($_POST['twitter_dark_theme']) && $_POST['twitter_dark_theme'] == 1) {
+            $theme = 'dark';
+        } else {
+            $theme = 'light';
+        }
 
         $queries->update('settings', $twitter_dark_theme, [
             'value' => $theme
@@ -80,17 +83,19 @@ if (Input::exists()) {
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-if (isset($success))
+if (isset($success)) {
     $smarty->assign([
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ]);
+}
 
-if (isset($errors) && count($errors))
+if (isset($errors) && count($errors)) {
     $smarty->assign([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
     ]);
+}
 
 // Get values from database
 $youtube_url = $queries->getWhere('settings', ['name', '=', 'youtube_url']);

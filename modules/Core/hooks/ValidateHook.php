@@ -7,7 +7,7 @@
  *  Validate user event listener handler class
  */
 
-class ValidateHook implements Listener {
+class ValidateHook {
 
     public static function execute(array $params = []): void {
         if (!defined('VALIDATED_DEFAULT')) {

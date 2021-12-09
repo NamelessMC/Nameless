@@ -9,7 +9,7 @@
  *  Panel Discord page
  */
 
-if(!$user->handlePanelPageLoad('admincp.discord')) {
+if (!$user->handlePanelPageLoad('admincp.discord')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }
@@ -90,23 +90,26 @@ if (Input::exists()) {
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-if (isset($success))
+if (isset($success)) {
     $smarty->assign([
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ]);
+}
 
-if (isset($errors) && count($errors))
+if (isset($errors) && count($errors)) {
     $smarty->assign([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
     ]);
+}
 
-if (Session::exists('discord_error'))
+if (Session::exists('discord_error')) {
     $smarty->assign([
         'ERRORS' => [Session::flash('discord_error')],
         'ERRORS_TITLE' => $language->get('general', 'error')
     ]);
+}
 
 $smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,

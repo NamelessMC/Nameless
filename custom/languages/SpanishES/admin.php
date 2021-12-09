@@ -686,9 +686,7 @@ $language = [
 
     // Dashboard
     'total_users' => 'Total de usuarios',
-    'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'recent_users' => 'Nuevos usuarios',
-    'recent_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'nameless_news' => 'Noticias de NamelessMC',
     'unable_to_retrieve_nameless_news' => 'No se pueden recuperar las últimas noticias',
     'confirm_leave_site' => '¡Está a punto de abandonar este sitio! ¿Estás seguro de que quieres visitar <strong id="leaveSiteURL">{x}</strong>?', // don't replace {x} and make sure it has the id leaveSiteURL
@@ -726,4 +724,5 @@ $language = [
     'text_colour_required' => 'El color del texto es necesario',
     'no_announcements' => 'Todavía no se ha hecho ningún anuncio.',
     'announcement_order' => 'Orden',
+    'announcement_hook_info' => 'Announcement creation',
 ];
