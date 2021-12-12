@@ -1,14 +1,35 @@
-# The following are EXAMPLE location blocks for an NGINX config, with support for Nameless v2's friendly URLs
-# You will need to modify your own NGINX config location blocks accordingly
+# The following is an example server block for an NGINX config. This supports NamelessMC v2 friendly URLs.
+# You will need to modify this for your own server
 # This example config will NOT work as-is.
-# With thanks to @Pugabyte, @Zethrus and KentuckyFriedData
+# With thanks to @Pugabyte, @Zethrus, @Supercrafter100 and KentuckyFriedData
 
-location / {
-    try_files $uri $uri/ /index.php?route=$uri&$args;
+server {
+    listen 80;
+    server_name example.com;
+
+    # Replace /var/www/html with your website root
+    root /var/www/html; 
+    index index.php index.html index.htm;
+
+    location / {
+        try_files $uri $uri/ /index.php?route=$uri&$args;
+    }
+
+    location ~ \.(tpl|cache)$ {
+        return 403;
+    }
+
+    # Pass the PHP scripts to FastCGIJ server
+
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        # Replace php7.4-fpm.sock with your version of it
+        fastcgi_pass unix:/run/php/php7.4-fpm.sock;
+    }
+
+    location ~ /\.ht {
+        deny all;
+    }
+
+    add_header X-Frame-Options "SAMEORIGIN";
 }
-
-location ~ \.(tpl|cache)$ {
-    return 403;
-}
-
-add_header X-Frame-Options "SAMEORIGIN";
