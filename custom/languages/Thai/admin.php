@@ -28,7 +28,6 @@ $language = [
     'minecraft' => 'Minecraft',
     'modules' => 'โมดูล',
     'security' => 'ความปลอดภัย',
-    'sitemap' => 'แผนผังเว็บไซต์',
     'styles' => 'สไตล์',
     'users_and_groups' => 'ผู้ใช้และกลุ่ม',
 
@@ -211,6 +210,8 @@ $language = [
     'seo' => 'SEO',
     'google_analytics' => 'Google Analytics',
     'google_analytics_help' => 'เพิ่ม Google Analytics ลงในเว็บไซต์ของคุณเพื่อติดตามผู้เข้าชมและสถิติ คุณจะต้องสร้างบัญชี Google Analytics เพื่อใช้ฟังก์ชันนี้ ป้อนรหัสพร็อพเพอร์ตี้เว็บของ Google Analytics รหัสดูเหมือน UA-XXXXA-X และคุณสามารถค้นหาได้ในข้อมูลบัญชีของคุณหรือในรหัสติดตามที่ Google ให้ไว้',
+    'sitemap' => 'แผนผังเว็บไซต์',
+    'seo_settings_updated_successfully' => 'SEO settings updated successfully.',
 
     // Reactions
     'icon' => 'ไอคอน',

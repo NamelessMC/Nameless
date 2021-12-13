@@ -29,7 +29,6 @@ $language = [
     'minecraft' => 'Minecraft',
     'modules' => 'Moduler',
     'security' => 'Säkerhet',
-    'sitemap' => 'Sitemap',
     'styles' => 'Stiler',
     'users_and_groups' => 'Användare och Grupper',
 
@@ -202,6 +201,8 @@ $language = [
     'seo' => 'SEO',
     'google_analytics' => 'Google Analytics',
     'google_analytics_help' => 'Lägg till Google Analytics på din webbplats för att spåra besökare och statistik. Du måste skapa ett Google Analytics-konto för att kunna använda den här funktionen. Ange ditt Google Analytics-webbegendom-ID. ID: n ser ut som UA-XXXXA-X och du hittar det i din kontoinformation eller i spårningskoden från Google.',
+    'sitemap' => 'Sitemap',
+    'seo_settings_updated_successfully' => 'SEO settings updated successfully.',
 
     // Reactions
     'icon' => 'Ikon',

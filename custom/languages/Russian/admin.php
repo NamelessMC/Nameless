@@ -203,6 +203,7 @@ $language = [
     'google_analytics' => 'Google Аналитика',
     'google_analytics_help' => 'Отслеживайте статистику посетителей благодаря решению от Google. Для начала <a href="https://analytics.google.com/analytics/web/" target="_blank" rel="noopener nofollow">создайте аккаунт</a> в системе Google Аналитики. Затем, введите ID вашего сайта. (Выглядит примерно так: UA-XXXXA-X)',
     'sitemap' => 'Карта сайта',
+    'seo_settings_updated_successfully' => 'SEO settings updated successfully.',
 
     // Reactions
     'icon' => 'Иконка',
