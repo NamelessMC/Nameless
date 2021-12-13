@@ -121,10 +121,10 @@
                   <div class="sub header">{$reply.user_title}</div>
                 {/if}
               </h3>
-              {foreach from=$reply.user_groups item=group}
-                {$group}<br />
-              {/foreach}
             </center>
+              {foreach from=$reply.user_groups item=group}
+                {$group}
+              {/foreach}
             <div class="ui list">
               <div class="ui divider"></div>
               <div class="item">
