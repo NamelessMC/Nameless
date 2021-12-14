@@ -5,7 +5,7 @@
                 <span>{'Y'|date} &copy; <a href="https://namelessmc.com/" target="_blank">NamelessMC</a></span>
             </div>
             <div class="col-sm-2 text-center mb-0">
-                <span class="font-size-sa text-info">{$PAGE_LOAD_TIME}</span>
+                <span class="font-size-sa">{$PAGE_LOAD_TIME}</span>
             </div>
             <div class="col-sm-5 mb-0">
                 <div class="float-right">

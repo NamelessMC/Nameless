@@ -354,9 +354,9 @@ footer.sticky-footer {
 }
 
 .text-discord {
-    color: #7289da !important;
+    color:#7289da !important;
 }
 
 .text-github {
-    color: #c9510c !important;
+    color:rgba(0, 0, 0) !important;
 }
