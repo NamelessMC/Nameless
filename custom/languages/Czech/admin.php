@@ -202,6 +202,7 @@ $language = [
     'google_analytics' => 'Google Analytics',
     'google_analytics_help' => 'Přidejte na váš web Google Analytics pro sledování návštěvníků a pro statistiky. Pro použití této funkce si budete muset vytvořit účet Google Analytics. Zadejte ID měření služby Google Analytics. ID vypadá jako UA-XXXXA-X a lze jej nalézt v informacích o vašem účtu nebo ve sledovacím kódu poskytnutým Googlem.',
     'sitemap' => 'Sitemap',
+    'seo_settings_updated_successfully' => 'SEO settings updated successfully.',
 
     // Reactions
     'icon' => 'Ikona',

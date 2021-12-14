@@ -28,7 +28,6 @@ $language = [
     'minecraft' => 'Minecraft',
     'modules' => 'Moduły',
     'security' => 'Bezpieczeństwo',
-    'sitemap' => 'Mapa strony',
     'styles' => 'Style',
     'users_and_groups' => 'Użytkownicy i Grupy',
 
@@ -201,6 +200,8 @@ $language = [
     'seo' => 'SEO',
     'google_analytics' => 'Analityka Google',
     'google_analytics_help' => 'Dodaj analitykę, aby zbierać dane o użytkownikach. Musisz posiadać konto google analityka, aby używać tej funkcji. Wpisz kod analityczny strony. ID wygląda tak UA-XXXXA-X i możesz znaleść go w ustawieniach konta.',
+    'sitemap' => 'Mapa strony',
+    'seo_settings_updated_successfully' => 'SEO settings updated successfully.',
 
     // Reactions
     'icon' => 'Ikona',

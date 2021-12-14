@@ -30,7 +30,6 @@ $language = [
     'minecraft' => 'Minecraft',
     'modules' => '模块',
     'security' => '安全',
-    'sitemap' => '站点地图',
     'styles' => '风格',
     'users_and_groups' => '账号与权限组',
 
@@ -211,6 +210,8 @@ $language = [
     'seo' => 'SEO',
     'google_analytics' => 'Google Analytics (分析)',
     'google_analytics_help' => '您可在网站上添加 Google Analytics (分析) 以了解各项统计数据。您必须先创建一个 Google Analytics (分析) 帐号。请输入您的 Google Analytics Web Property ID。 此 ID 格式为 UA-XXXXA-X，您可在您的帐号信息中找到此 ID。',
+    'sitemap' => '站点地图',
+    'seo_settings_updated_successfully' => 'SEO settings updated successfully.',
 
     // Reactions
     'icon' => '图标',

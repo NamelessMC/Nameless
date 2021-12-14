@@ -28,7 +28,6 @@ $language = [
     'minecraft' => 'Minecraft',
     'modules' => 'Modules',
     'security' => 'Securité',
-    'sitemap' => 'Plan du site',
     'styles' => 'Styles',
     'users_and_groups' => 'Utilisateurs et groupes',
 
@@ -183,6 +182,8 @@ $language = [
     'seo' => 'SEO',
     'google_analytics' => 'Google Analytics',
     'google_analytics_help' => 'Ajoutez Google Analytics à votre site Web pour suivre les visiteurs et les statistiques. Vous devrez créer un compte Google Analytics pour utiliser cette fonctionnalité. Saisissez votre ID de propriété Web Google Analytics. L\'ID ressemble à UA-XXXXA-X et vous pouvez le trouver dans les informations de votre compte ou dans le code de suivi fourni par Google.',
+    'sitemap' => 'Plan du site',
+    'seo_settings_updated_successfully' => 'SEO settings updated successfully.',
 
     // Reactions
     'icon' => 'Icône',

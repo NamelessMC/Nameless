@@ -30,7 +30,6 @@ $language = [
     'minecraft' => 'Minecraft',
     'modules' => 'Modules',
     'security' => 'Beveiliging',
-    'sitemap' => 'Sitemap',
     'styles' => 'Stijlen',
     'users_and_groups' => 'Gebruikers en groepen',
 
@@ -203,6 +202,8 @@ $language = [
     'seo' => 'SEO',
     'google_analytics' => 'Google Analytics',
     'google_analytics_help' => 'Voeg Google Analytics toe aan uw website om bezoekers en statistieken bij te houden. U moet een Google Analytics-account aanmaken om deze functionaliteit te kunnen gebruiken. Voer uw Google Analytics Web Property ID in. De ID ziet eruit als UA-XXXXA-X en is te vinden in uw accountgegevens of in de trackingcode van Google.',
+    'sitemap' => 'Sitemap',
+    'seo_settings_updated_successfully' => 'SEO settings updated successfully.',
 
     // Reacties
     'icon' => 'Icoon',

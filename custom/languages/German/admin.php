@@ -30,7 +30,6 @@ $language = [
     'minecraft' => 'Minecraft',
     'modules' => 'Modul',
     'security' => 'Sicherheit',
-    'sitemap' => 'Sitemap',
     'styles' => 'Styles',
     'users_and_groups' => 'Benutzer und Gruppen',
 
@@ -202,6 +201,8 @@ $language = [
     'seo' => 'SEO',
     'google_analytics' => 'Google Analytics',
     'google_analytics_help' => 'Füge Deiner Website Google Analytics hinzu, um Besucher und Statistiken zu verfolgen. Du musst ein Google Analytics-Konto erstellen, um diese Funktion nutzen zu können. Gebe Deine Google Analytics-Web-Property-ID ein. Die ID sieht aus wie UA-XXXXA-X und ist in Ihren Kontoinformationen oder im von Google bereitgestellten Tracking-Code enthalten.',
+    'sitemap' => 'Sitemap',
+    'seo_settings_updated_successfully' => 'SEO Einstellungen wurden gespeichert',
 
     // Reactions
     'icon' => 'Icon',
