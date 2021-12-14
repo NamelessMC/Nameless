@@ -344,3 +344,19 @@ i,
 .profile-user-img {
     max-width: 50%;
 }
+
+footer.sticky-footer {
+    padding: 1rem 0;
+}
+
+.font-size-sa{
+    font-size: small;
+}
+
+.text-discord {
+    color: #7289da !important;
+}
+
+.text-github {
+    color: #c9510c !important;
+}
