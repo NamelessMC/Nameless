@@ -181,6 +181,10 @@ option:checked {
     background-color: var(--dark-color-4) !important; /* IE Fallback */
 }
 
+.dark .text-github {
+    color:rgba(255, 255, 255) !important;
+}
+
 /* --------------- Scrollbar --------------- */
 
 ::-webkit-scrollbar {
