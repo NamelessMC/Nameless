@@ -443,7 +443,7 @@ $template->addCSSFiles([
 ]);
 
 if ($user->isLoggedIn())
-    $template->addJSScript('var _forumQuotedPosts = [];');
+    $template->addJSScript('var quotedPosts = [];');
 
 // Are reactions enabled?
 $reactions_enabled = $configuration->get('Core', 'forum_reactions');
@@ -574,7 +574,7 @@ $smarty->assign([
 ]);
 
 // Pagination
-$paginator = new Paginator(($template_pagination ?? []), isset($template_pagination_left) ? $template_pagination_left : '', isset($template_pagination_right) ? $template_pagination_right : '');
+$paginator = new Paginator(($template_pagination ?? []));
 $results = $paginator->getLimited($posts, 10, $p, count($posts));
 $pagination = $paginator->generate(7, URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title), true));
 
@@ -830,6 +830,18 @@ if ($formatting == 'markdown') {
     // Markdown
     $smarty->assign('MARKDOWN', true);
     $smarty->assign('MARKDOWN_HELP', $language->get('general', 'markdown_help'));
+
+    $template->addJSFiles([
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/js/emojionearea.min.js' => []
+    ]);
+
+    $template->addJSScript('
+	  $(document).ready(function() {
+		var el = $("#markdown").emojioneArea({
+			pickerPosition: "bottom"
+		});
+	  });
+	');
 } else {
     $template->addJSFiles([
         (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
@@ -843,86 +855,99 @@ if ($formatting == 'markdown') {
 
 if ($user->isLoggedIn()) {
     if ($formatting == 'markdown') {
-        $insertQuoteScript = '
+        $js = '
 		var el = $("#markdown").emojioneArea();
-		    el[0].emojioneArea.setText($(\'#markdown\').val() + "\n> [" + json[i].author_nickname + "](" + json[i].link + ")\n");
+		el[0].emojioneArea.setText($(\'#markdown\').val() + "\n> [" + resultData[item].author_nickname + "](" + resultData[item].link + ")\n");
 		';
     } else {
-        $insertQuoteScript = '
-		tinymce.editors[0].execCommand(\'mceInsertContent\', false, \'<blockquote class="blockquote"><a href="\' + json[i].link + \'">\' + json[i].author_nickname + \':</a><br />\' + json[i].content + \'</blockquote><br />\');
+        $js = '
+		tinymce.editors[0].execCommand(\'mceInsertContent\', false, \'<blockquote class="blockquote"><a href="\' + resultData[item].link + \'">\' + resultData[item].author_nickname + \':</a><br />\' + resultData[item].content + \'</blockquote><br />\');
 		';
     }
 
     $template->addJSScript('
-    var quoteBtn = document.getElementById("quoteButton");
-    var cachedStyle = { value: quoteButton.style.display };
-    
-    document.addEventListener("DOMContentLoaded", function() {        
-        console.log(document.cookie)
-        if (!document.cookie.match(/\d-quoted=(.*)/gi)[0] === "' .  $tid . '-quoted=") {
-            quoteBtn.style.display = "none";
-        }
-        console.log("you made it to here")
-    });
-    
-    function _forumCreateToast (info) {
-        toastr.options.onclick = function () {};
+	$(document).ready(function() {
+		if(typeof $.cookie(\'' .  $tid . '-quoted\') === \'undefined\'){
+			$("#quoteButton").hide();
+		}
+	});
+
+	// Add post to quoted posts array
+	function quote(post){
+		var index = quotedPosts.indexOf(post);
+
+		if(index > -1){
+			quotedPosts.splice(index, 1);
+
+			toastr.options.onclick = function () {};
+			toastr.options.progressBar = true;
+			toastr.options.closeButton = true;
+			toastr.options.positionClass = \'toast-bottom-left\';
+			toastr.info(\'' .  $forum_language->get('forum', 'removed_quoted_post') . '\');
+		}
+		else {
+			quotedPosts.push(post);
+
+			toastr.options.onclick = function () {};
+			toastr.options.progressBar = true;
+			toastr.options.closeButton = true;
+			toastr.options.positionClass = \'toast-bottom-left\';
+			toastr.info(\'' . $forum_language->get('forum', 'quoted_post') . '\');
+		}
+
+		if(quotedPosts.length == 0){
+			// Delete cookie
+			$.removeCookie(\'' . $tid . '-quoted\');
+
+			// Hide insert quote button
+			$("#quoteButton").hide();
+		} else {
+			// Create cookie
+			$.cookie(\'' . $tid . '-quoted\', JSON.stringify(quotedPosts));
+
+			// Show insert quote button
+			$("#quoteButton").show();
+		}
+	}
+
+	// Insert quoted posts to editor
+	function insertQuotes(){
+		var postData = {
+			"posts": JSON.parse($.cookie(\'' .  $tid . '-quoted\')),
+			"topic": ' . $tid . '
+		};
+
+		toastr.options.onclick = function () {};
 		toastr.options.progressBar = true;
 		toastr.options.closeButton = true;
-		toastr.options.positionClass = "toast-bottom-left";
-	    toastr.info(info);
-    };
-    
-    // add quoted posts to the array
-    function quote (post) {
-        var index = _forumQuotedPosts.indexOf(post);
-        
-        if (index > -1) {
-            _forumQuotedPosts.splice(index, 1);
-            
-            _forumCreateToast("' .  $forum_language->get('forum', 'removed_quoted_post') . '");
-        } else {
-            _forumQuotedPosts.push(post);
-            
-            _forumCreateToast("' . $forum_language->get('forum', 'quoted_post') . '");
-        }
-        
-        if (_forumQuotedPosts.length === 0) {
-            document.cookie = document.cookie.split(/\d-quoted=.*/gi).join``;
-            quoteBtn.style.display = "none";
-        } else {
-            document.cookie = "' . $tid . '-quoted=" + JSON.stringify(_forumQuotedPosts) + ";"
-            quoteBtn.style.display = cachedStyle.value;
-        }
-    }
-    
-    function insertQuotes () {
-        _forumCreateToast("' . $forum_language->get('forum', 'quoting_posts') . '");
-        
-        var posts = JSON.parse(document.cookie.split(/\d-quoted=(.*)/gi)[1]);
-        
-        var fd = new FormData();
-        fd.append("topic", ' . $tid . ');
-        for (let i = 0; i < posts.length; i++) {
-            fd.append("posts[]", posts[i]);
-        }
-        
-        fetch("/forum/get_quotes/", {
-            method: "POST",
-            body: fd,
-        }).then(function (res) {
-            res.json().then(function (json) {
-                for (let i = 0; i < json.length; i++) {
-                    ' . $insertQuoteScript . '
-                }
-                
-                document.cookie = document.cookie = "' . $tid . '-quoted=;";
-                quoteBtn.style.display = "none";
-            });
-        }).catch(function (err) {
-            _forumCreateToast("' . $forum_language->get('forum', 'error_quoting_posts') . '");
-        });
-    }
+		toastr.options.positionClass = \'toast-bottom-left\';
+		toastr.info(\'' . $forum_language->get('forum', 'quoting_posts') . '\');
+
+		var getQuotes = $.ajax({
+			  type: "POST",
+			  url: "' . URL::build('/forum/get_quotes') . '",
+			  data: postData,
+			  dataType: "json",
+			  success: function(resultData){
+				  for(var item in resultData){
+					  if(resultData.hasOwnProperty(item)){
+					  ' . $js . '
+					  }
+				  }
+
+				  // Remove cookie containing quoted posts, and hide quote button
+				  $.removeCookie(\'' . $tid . '-quoted\');
+				  $("#quoteButton").hide();
+			  },
+			  error: function(data){
+				  toastr.options.onclick = function () {};
+				  toastr.options.progressBar = true;
+				  toastr.options.closeButton = true;
+				  toastr.options.positionClass = \'toast-bottom-left\';
+				  toastr.error(\'' . $forum_language->get('forum', 'error_quoting_posts') . '\');
+			  }
+		});
+	}
 	');
 }
 
