@@ -18,24 +18,15 @@ class Paginator {
     private string $_leftContent;
     private string $_rightContent;
 
-    public function __construct(array $class = [], $leftContent, $rightContent) {
+    public function __construct(array $class = [], $leftContent = "&laquo;", $rightContent = "&raquo;") {
         if (!count($class)) {
             $this->_class = ['ul' => 'pagination d-inline-flex', 'li' => 'page-item {x}', 'a' => 'page-link'];
         } else {
             $this->_class = $class;
         }
 
-        if (empty($leftContent)) {
-            $this->_leftContent = "&laquo;";
-        } else {
-            $this->_leftContent = $leftContent;
-        }
-
-        if (empty($rightContent)) {
-            $this->_rightContent = '&raquo;';
-        } else {
-            $this->_rightContent = $rightContent;
-        }
+        $this->_leftContent = $leftContent;
+        $this->_rightContent = $rightContent;
     }
 
     /**
