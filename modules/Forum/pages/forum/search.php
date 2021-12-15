@@ -161,7 +161,7 @@ $template->addJSFiles([
 if (isset($_GET['s'])) {
     // Show results
     if (count($results)) {
-        $paginator = new Paginator(($template_pagination ?? []));
+        $paginator = new Paginator(($template_pagination ?? []), isset($template_pagination_left) ? $template_pagination_left : '', isset($template_pagination_right) ? $template_pagination_right : '');
         $results = $paginator->getLimited($results, 10, $p, count($results));
         $pagination = $paginator->generate(7, URL::build('/forum/search/', 's=' . $search . '&'));
 

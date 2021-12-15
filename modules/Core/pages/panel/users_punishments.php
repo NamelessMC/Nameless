@@ -357,7 +357,7 @@ if (isset($_GET['user'])) {
             $p = 1;
         }
 
-        $paginator = new Paginator(($template_pagination ?? []));
+        $paginator = new Paginator(($template_pagination ?? []), isset($template_pagination_left) ? $template_pagination_left : '', isset($template_pagination_right) ? $template_pagination_right : '');
         $results = $paginator->getLimited($punishments, 10, $p, count($punishments));
         $pagination = $paginator->generate(7, URL::build('/panel/users/punishments/', true));
 

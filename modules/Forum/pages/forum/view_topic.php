@@ -574,7 +574,7 @@ $smarty->assign([
 ]);
 
 // Pagination
-$paginator = new Paginator(($template_pagination ?? []));
+$paginator = new Paginator(($template_pagination ?? []), isset($template_pagination_left) ? $template_pagination_left : '', isset($template_pagination_right) ? $template_pagination_right : '');
 $results = $paginator->getLimited($posts, 10, $p, count($posts));
 $pagination = $paginator->generate(7, URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title), true));
 
@@ -830,18 +830,6 @@ if ($formatting == 'markdown') {
     // Markdown
     $smarty->assign('MARKDOWN', true);
     $smarty->assign('MARKDOWN_HELP', $language->get('general', 'markdown_help'));
-
-    $template->addJSFiles([
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/js/emojionearea.min.js' => []
-    ]);
-
-    $template->addJSScript('
-	  $(document).ready(function() {
-		var el = $("#markdown").emojioneArea({
-			pickerPosition: "bottom"
-		});
-	  });
-	');
 } else {
     $template->addJSFiles([
         (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
@@ -878,12 +866,12 @@ if ($user->isLoggedIn()) {
     });
     
     function _forumCreateToast (info) {
-            toastr.options.onclick = function () {};
-			toastr.options.progressBar = true;
-			toastr.options.closeButton = true;
-			toastr.options.positionClass = "toast-bottom-left";
-			toastr.info(info);
-        };
+        toastr.options.onclick = function () {};
+		toastr.options.progressBar = true;
+		toastr.options.closeButton = true;
+		toastr.options.positionClass = "toast-bottom-left";
+	    toastr.info(info);
+    };
     
     // add quoted posts to the array
     function quote (post) {
