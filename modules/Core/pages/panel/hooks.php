@@ -9,7 +9,7 @@
  *  Panel hooks page
  */
 
-if(!$user->handlePanelPageLoad('admincp.core.hooks')) {
+if (!$user->handlePanelPageLoad('admincp.core.hooks')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }
@@ -244,23 +244,27 @@ if (!isset($_GET['action'])) {
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-if (Session::exists('admin_hooks'))
+if (Session::exists('admin_hooks')) {
     $success = Session::flash('admin_hooks');
+}
 
-if (Session::exists('admin_hooks_error'))
+if (Session::exists('admin_hooks_error')) {
     $errors[] = Session::flash('admin_hooks_error');
+}
 
-if (isset($success))
+if (isset($success)) {
     $smarty->assign([
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ]);
+}
 
-if (isset($errors) && count($errors))
+if (isset($errors) && count($errors)) {
     $smarty->assign([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
     ]);
+}
 
 $smarty->assign([
     'NO_HOOKS' => $language->get('admin', 'no_hooks_yet'),

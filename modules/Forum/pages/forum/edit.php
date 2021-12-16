@@ -33,8 +33,6 @@ require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
 $forum = new Forum();
 $mentionsParser = new MentionsParser();
 
-require(ROOT_PATH . '/core/includes/markdown/tohtml/Markdown.inc.php'); // Markdown to HTML
-
 if (isset($_GET['pid']) && isset($_GET['tid'])) {
     if (is_numeric($_GET['pid']) && is_numeric($_GET['tid'])) {
         $post_id = $_GET['pid'];
@@ -143,9 +141,11 @@ if (Input::exists()) {
             $formatting = $cache->retrieve('formatting');
 
             if ($formatting == 'markdown') {
-                $content = Michelf\Markdown::defaultTransform(Input::get('content'));
+                $content = \Michelf\Markdown::defaultTransform(Input::get('content'));
                 $content = Output::getClean($content);
-            } else $content = Output::getClean(Input::get('content'));
+            } else {
+                $content = Output::getClean(Input::get('content'));
+            }
 
             // Update post content
             $queries->update('posts', $post_id, [
@@ -173,7 +173,9 @@ if (Input::exists()) {
                                 }
                             }
 
-                            if ($hasperm) $post_labels[] = $label[0]->id;
+                            if ($hasperm) {
+                                $post_labels[] = $label[0]->id;
+                            }
                         }
                     }
                 }
@@ -201,11 +203,12 @@ if (Input::exists()) {
     }
 }
 
-if (isset($errors))
+if (isset($errors)) {
     $smarty->assign([
         'ERROR_TITLE' => $language->get('general', 'error'),
         'ERRORS' => $errors
     ]);
+}
 
 $smarty->assign('EDITING_POST', $forum_language->get('forum', 'edit_post'));
 
@@ -229,16 +232,22 @@ if (isset($edit_title) && isset($post_labels)) {
                 $perms = false;
 
                 foreach ($user_groups as $group) {
-                    if (in_array($group, $lgroups))
+                    if (in_array($group, $lgroups)) {
                         $perms = true;
+                    }
                 }
 
-                if ($perms == false) continue;
+                if ($perms == false) {
+                    continue;
+                }
 
                 // Get label HTML
                 $label_html = $queries->getWhere('forums_labels', ['id', '=', $label->label]);
-                if (!count($label_html)) continue;
-                else $label_html = str_replace('{x}', Output::getClean($label->name), Output::getPurified($label_html[0]->html));
+                if (!count($label_html)) {
+                    continue;
+                } else {
+                    $label_html = str_replace('{x}', Output::getClean($label->name), Output::getPurified($label_html[0]->html));
+                }
 
                 $labels[] = [
                     'id' => $label->id,
@@ -270,7 +279,6 @@ if ($formatting == 'markdown') {
     $smarty->assign('MARKDOWN', true);
     $smarty->assign('MARKDOWN_HELP', $language->get('general', 'markdown_help'));
 
-    require(ROOT_PATH . '/core/includes/markdown/tomarkdown/autoload.php');
     $converter = new League\HTMLToMarkdown\HtmlConverter(['strip_tags' => true]);
 
     $clean = $converter->convert(Output::getDecoded($post_editing[0]->post_content));

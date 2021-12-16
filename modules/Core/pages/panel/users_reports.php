@@ -9,7 +9,7 @@
  *  Panel reports page
  */
 
-if(!$user->handlePanelPageLoad('modcp.reports')) {
+if (!$user->handlePanelPageLoad('modcp.reports')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }
@@ -311,38 +311,40 @@ if (!isset($_GET['id'])) {
 
             Redirect::to(URL::build('/panel/users/reports'));
             die();
-        } else if ($_GET['action'] == 'open') {
-            // Reopen report
-            if (is_numeric($_GET['id'])) {
-                // Get report
-                $report = $queries->getWhere('reports', ['id', '=', $_GET['id']]);
-                if (count($report)) {
-                    $queries->update('reports', $report[0]->id, [
-                        'status' => 0,
-                        'date_updated' => date('Y-m-d H:i:s'),
-                        'updated' => date('U'),
-                        'updated_by' => $user->data()->id
-                    ]);
+        } else {
+            if ($_GET['action'] == 'open') {
+                // Reopen report
+                if (is_numeric($_GET['id'])) {
+                    // Get report
+                    $report = $queries->getWhere('reports', ['id', '=', $_GET['id']]);
+                    if (count($report)) {
+                        $queries->update('reports', $report[0]->id, [
+                            'status' => 0,
+                            'date_updated' => date('Y-m-d H:i:s'),
+                            'updated' => date('U'),
+                            'updated_by' => $user->data()->id
+                        ]);
 
-                    $queries->create('reports_comments', [
-                        'report_id' => $report[0]->id,
-                        'commenter_id' => $user->data()->id,
-                        'comment_date' => date('Y-m-d H:i:s'),
-                        'date' => date('U'),
-                        'comment_content' => str_replace('{x}', Output::getClean($user->data()->username), $language->get('moderator', 'x_reopened_report'))
-                    ]);
+                        $queries->create('reports_comments', [
+                            'report_id' => $report[0]->id,
+                            'commenter_id' => $user->data()->id,
+                            'comment_date' => date('Y-m-d H:i:s'),
+                            'date' => date('U'),
+                            'comment_content' => str_replace('{x}', Output::getClean($user->data()->username), $language->get('moderator', 'x_reopened_report'))
+                        ]);
+                    }
+
+                    Session::flash('report_success', $language->get('moderator', 'report_reopened'));
+                    Redirect::to(URL::build('/panel/users/reports/', 'id=' . Output::getClean($report[0]->id)));
+                    die();
                 }
 
-                Session::flash('report_success', $language->get('moderator', 'report_reopened'));
-                Redirect::to(URL::build('/panel/users/reports/', 'id=' . Output::getClean($report[0]->id)));
+                Redirect::to(URL::build('/panel/users/reports'));
+                die();
+            } else {
+                Redirect::to(URL::build('/panel/users/reports'));
                 die();
             }
-
-            Redirect::to(URL::build('/panel/users/reports'));
-            die();
-        } else {
-            Redirect::to(URL::build('/panel/users/reports'));
-            die();
         }
     }
 }
@@ -350,20 +352,23 @@ if (!isset($_GET['id'])) {
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-if (Session::exists('report_success'))
+if (Session::exists('report_success')) {
     $success = Session::flash('report_success');
+}
 
-if (isset($success))
+if (isset($success)) {
     $smarty->assign([
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ]);
+}
 
-if (isset($errors) && count($errors))
+if (isset($errors) && count($errors)) {
     $smarty->assign([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
     ]);
+}
 
 $smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,

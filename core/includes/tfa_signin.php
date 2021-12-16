@@ -12,8 +12,10 @@
 // Two Factor Auth signin
 if (isset($_POST['username'])) {
     $_SESSION['username'] = $_POST['username'];
-} else if (isset($_POST['email'])) {
-    $_SESSION['email'] = $_POST['email'];
+} else {
+    if (isset($_POST['email'])) {
+        $_SESSION['email'] = $_POST['email'];
+    }
 }
 
 $_SESSION['password'] = $_POST['password'];

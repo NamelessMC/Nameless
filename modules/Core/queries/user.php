@@ -21,8 +21,6 @@ if (!is_numeric($_GET['id'])) {
     $target_user = new User($_GET['id']);
     if (!$target_user->data()) {
         die(json_encode(['html' => 'User not found']));
-    } else {
-        $user_query = $user_query[0];
     }
 
     $username = $target_user->getDisplayname(true);

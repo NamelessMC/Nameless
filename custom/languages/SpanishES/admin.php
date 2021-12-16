@@ -27,7 +27,6 @@ $language = [
     'minecraft' => 'Minecraft',
     'modules' => 'Módulos',
     'security' => 'Seguridad',
-    'sitemap' => 'Sitemap',
     'styles' => 'Estilos',
 
     // Overview
@@ -200,6 +199,8 @@ $language = [
     'seo' => 'SEO',
     'google_analytics' => 'Google Analytics',
     'google_analytics_help' => 'Añade Google Analytics a tu sitio web para hacer un seguimiento de los visitantes y las estadísticas. Deberá crear una cuenta de Google Analytics para utilizar esta función. Introduzca su ID de propiedad web de Google Analytics. El ID se parece a UA-XXXXA-X y puede encontrarlo en la información de su cuenta o en el código de seguimiento proporcionado por Google.',
+    'sitemap' => 'Sitemap',
+    'seo_settings_updated_successfully' => 'SEO settings updated successfully.',
 
     // Reactions
     'icon' => 'Icono',
@@ -686,9 +687,7 @@ $language = [
 
     // Dashboard
     'total_users' => 'Total de usuarios',
-    'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'recent_users' => 'Nuevos usuarios',
-    'recent_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'nameless_news' => 'Noticias de NamelessMC',
     'unable_to_retrieve_nameless_news' => 'No se pueden recuperar las últimas noticias',
     'confirm_leave_site' => '¡Está a punto de abandonar este sitio! ¿Estás seguro de que quieres visitar <strong id="leaveSiteURL">{x}</strong>?', // don't replace {x} and make sure it has the id leaveSiteURL
@@ -726,4 +725,5 @@ $language = [
     'text_colour_required' => 'El color del texto es necesario',
     'no_announcements' => 'Todavía no se ha hecho ningún anuncio.',
     'announcement_order' => 'Orden',
+    'announcement_hook_info' => 'Announcement creation',
 ];

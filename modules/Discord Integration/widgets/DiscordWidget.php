@@ -1,4 +1,5 @@
 <?php
+
 /*
  *	Made by Partydragen
  *  Updated by BrightSkyz
@@ -9,6 +10,7 @@
  *
  *  Discord Widget
  */
+
 class DiscordWidget extends WidgetBase {
 
     private Cache $_cache;
@@ -19,7 +21,7 @@ class DiscordWidget extends WidgetBase {
         $this->_guild_id = Discord::getGuildId();
         $this->_smarty = $smarty;
 
-        parent::__construct($pages ?? [], true);
+        parent::__construct($pages, true);
 
         // Get widget
         $widget_query = DB::getInstance()->selectQuery('SELECT `location`, `order` FROM nl2_widgets WHERE `name` = ?', ['Discord'])->first();
@@ -56,8 +58,9 @@ class DiscordWidget extends WidgetBase {
             // No, it isn't: display the widget
             // Check cache for theme
             $theme = 'dark';
-            if($this->_cache->isCached('discord_widget_theme'))
+            if ($this->_cache->isCached('discord_widget_theme')) {
                 $theme = $this->_cache->retrieve('discord_widget_theme');
+            }
 
             $this->_content = '<iframe src="https://discord.com/widget?id=' . Output::getClean($this->_guild_id) . '&theme=' . Output::getClean($theme) . '" width="100%" height="500" allowtransparency="true" frameborder="0"></iframe><br />';
 

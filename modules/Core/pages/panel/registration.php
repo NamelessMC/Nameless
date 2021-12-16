@@ -9,7 +9,7 @@
  *  Panel registration page
  */
 
-if(!$user->handlePanelPageLoad('admincp.core.registration')) {
+if (!$user->handlePanelPageLoad('admincp.core.registration')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }
@@ -82,7 +82,9 @@ if (Input::exists()) {
                     }
 
                     Config::set('core/captcha', true);
-                } else $errors = [$language->get('admin', 'config_not_writable')];
+                } else {
+                    $errors = [$language->get('admin', 'config_not_writable')];
+                }
             }
 
             // reCAPTCHA type
@@ -144,17 +146,19 @@ if (Input::exists()) {
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-if (isset($success))
+if (isset($success)) {
     $smarty->assign([
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ]);
+}
 
-if (isset($errors) && count($errors))
+if (isset($errors) && count($errors)) {
     $smarty->assign([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
     ]);
+}
 
 // Check if registration is enabled
 $registration_enabled = $queries->getWhere('settings', ['name', '=', 'registration_enabled']);

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @param string $token The token of the user to update
  * @param int $discord_id The user's Discord user ID to set

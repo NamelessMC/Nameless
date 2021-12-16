@@ -72,7 +72,7 @@ $language = [
     'link' => 'Koble til',
     'unlink' => 'Koble fra',
     'leaderboards' => 'Leaderboards',
-    
+
     /*
      *  Contact form
      */

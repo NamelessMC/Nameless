@@ -9,7 +9,7 @@
  *  Panel Minecraft Authme page
  */
 
-if(!$user->handlePanelPageLoad('admincp.minecraft.authme')) {
+if (!$user->handlePanelPageLoad('admincp.minecraft.authme')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }
@@ -22,11 +22,11 @@ $page_title = $language->get('admin', 'authme_integration');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Handle input
-if(Input::exists()){
+if (Input::exists()) {
     $errors = [];
 
-    if(Token::check()){
-        if(isset($_POST['enable_authme'])){
+    if (Token::check()) {
+        if (isset($_POST['enable_authme'])) {
             // Either enable or disable Authme integration
             $enable_authme_id = $queries->getWhere('settings', ['name', '=', 'authme']);
             $enable_authme_id = $enable_authme_id[0]->id;
@@ -56,18 +56,19 @@ if(Input::exists()){
                 ]
             ])->message($language->get('admin', 'enter_authme_db_details'));
 
-            if($validation->passed()){
+            if ($validation->passed()) {
                 $authme_db = $queries->getWhere('settings', ['name', '=', 'authme_db']);
                 $authme_db_id = $authme_db[0]->id;
                 $authme_db = json_decode($authme_db[0]->value);
 
-                if(isset($_POST['db_password'])){
+                if (isset($_POST['db_password'])) {
                     $password = $_POST['db_password'];
                 } else {
-                    if(isset($authme_db->password) && !empty($authme_db->password))
+                    if (isset($authme_db->password) && !empty($authme_db->password)) {
                         $password = $authme_db->password;
-                    else
+                    } else {
                         $password = '';
+                    }
                 }
 
                 $result = [
@@ -102,23 +103,25 @@ if(Input::exists()){
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-if(isset($success))
+if (isset($success)) {
     $smarty->assign([
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ]);
+}
 
-if(isset($errors) && count($errors))
+if (isset($errors) && count($errors)) {
     $smarty->assign([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
     ]);
+}
 
 // Is Authme enabled?
 $authme_enabled = $queries->getWhere('settings', ['name', '=', 'authme']);
 $authme_enabled = $authme_enabled[0]->value;
 
-if($authme_enabled == '1'){
+if ($authme_enabled == '1') {
     // Retrieve Authme database details
     $authme_db = $queries->getWhere('settings', ['name', '=', 'authme_db']);
     $authme_db = json_decode($authme_db[0]->value);

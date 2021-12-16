@@ -203,6 +203,7 @@ $language = [
     'google_analytics' => 'Google Аналитика',
     'google_analytics_help' => 'Отслеживайте статистику посетителей благодаря решению от Google. Для начала <a href="https://analytics.google.com/analytics/web/" target="_blank" rel="noopener nofollow">создайте аккаунт</a> в системе Google Аналитики. Затем, введите ID вашего сайта. (Выглядит примерно так: UA-XXXXA-X)',
     'sitemap' => 'Карта сайта',
+    'seo_settings_updated_successfully' => 'SEO settings updated successfully.',
 
     // Reactions
     'icon' => 'Иконка',
@@ -689,9 +690,7 @@ $language = [
 
     // Dashboard
     'total_users' => 'Всего пользователей',
-    'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'recent_users' => 'Новые пользователи',
-    'recent_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'nameless_news' => 'Новости NamelessMC',
     'unable_to_retrieve_nameless_news' => 'Невозможно получить последние новости',
     'confirm_leave_site' => 'Вы вот-вот покинете этот сайт! Вы уверены, что хотите перейти на <strong id="leaveSiteURL">{x}</strong>?', // don't replace {x} and make sure it has the id leaveSiteURL
@@ -729,4 +728,5 @@ $language = [
     'text_colour_required' => 'Укажите цвет текста',
     'no_announcements' => 'Нету созданных объявлений.',
     'announcement_order' => 'Приоритет объявления',
+    'announcement_hook_info' => 'Announcement creation',
 ];

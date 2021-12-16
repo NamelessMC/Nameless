@@ -16,17 +16,8 @@ class Endpoints {
     private iterable $_endpoints = [];
 
     /**
-     * Get all registered Endpoints
-     * 
-     * @return EndpointBase[] All endpoints.
-     */
-    public function getAll(): iterable {
-        return $this->_endpoints;
-    }
-
-    /**
      * Register an endpoint if it's route is not already taken.
-     * 
+     *
      * @param EndpointBase $endpoint Instance of endpoint class to register.
      */
     public function add(EndpointBase $endpoint): void {
@@ -39,7 +30,7 @@ class Endpoints {
 
     /**
      * Find an endpoint which matches this request and `execute()` it.
-     * 
+     *
      * @param string $route Route to find endpoint for.
      * @param string $method HTTP method to find endpoint for.
      * @param Nameless2API $api Instance of api instance to provide the endpoint.
@@ -71,5 +62,14 @@ class Endpoints {
         }
 
         $api->throwError(3, $api->getLanguage()->get('api', 'invalid_api_method'), 'If you are seeing this while in a browser, this does not mean your API is not functioning!', 404);
+    }
+
+    /**
+     * Get all registered Endpoints
+     *
+     * @return EndpointBase[] All endpoints.
+     */
+    public function getAll(): iterable {
+        return $this->_endpoints;
     }
 }

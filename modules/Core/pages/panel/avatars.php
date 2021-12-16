@@ -9,7 +9,7 @@
  *  Panel avatars page
  */
 
-if(!$user->handlePanelPageLoad('admincp.core.avatars')) {
+if (!$user->handlePanelPageLoad('admincp.core.avatars')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }
@@ -25,10 +25,11 @@ if (Input::exists()) {
     if (Token::check()) {
         if (isset($_POST['avatar_source'])) {
             // Custom avatars?
-            if (isset($_POST['custom_avatars']) && $_POST['custom_avatars'] == 1)
+            if (isset($_POST['custom_avatars']) && $_POST['custom_avatars'] == 1) {
                 $custom_avatars = 1;
-            else
+            } else {
                 $custom_avatars = 0;
+            }
 
             try {
                 $custom_avatars_id = $queries->getWhere('settings', ['name', '=', 'user_avatars']);
@@ -55,17 +56,19 @@ if (Input::exists()) {
             } catch (Exception $e) {
                 $errors = [$e->getMessage()];
             }
-        } else if (isset($_POST['avatar'])) {
-            // Selecting a new default avatar
-            try {
-                $default_avatar = $queries->getWhere('settings', ['name', '=', 'custom_default_avatar']);
-                $default_avatar = $default_avatar[0]->id;
-                $queries->update('settings', $default_avatar, ['value' => Input::get('avatar')]);
+        } else {
+            if (isset($_POST['avatar'])) {
+                // Selecting a new default avatar
+                try {
+                    $default_avatar = $queries->getWhere('settings', ['name', '=', 'custom_default_avatar']);
+                    $default_avatar = $default_avatar[0]->id;
+                    $queries->update('settings', $default_avatar, ['value' => Input::get('avatar')]);
 
-                $cache->setCache('avatar_settings_cache');
-                $cache->store('default_avatar_image', Input::get('avatar'));
-            } catch (Exception $e) {
-                $errors = [$e->getMessage()];
+                    $cache->setCache('avatar_settings_cache');
+                    $cache->store('default_avatar_image', Input::get('avatar'));
+                } catch (Exception $e) {
+                    $errors = [$e->getMessage()];
+                }
             }
         }
 
@@ -74,18 +77,20 @@ if (Input::exists()) {
         Session::flash('avatar_success', $language->get('admin', 'avatar_settings_updated_successfully'));
         Redirect::to(URL::build('/panel/core/avatars'));
 
-    } else
+    } else {
         $errors = [$language->get('general', 'invalid_token')];
+    }
 }
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-if (isset($success))
+if (isset($success)) {
     $smarty->assign([
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ]);
+}
 
 if (Session::exists('avatar_success')) {
     $smarty->assign([
@@ -94,11 +99,12 @@ if (Session::exists('avatar_success')) {
     ]);
 }
 
-if (isset($errors) && count($errors))
+if (isset($errors) && count($errors)) {
     $smarty->assign([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
     ]);
+}
 
 // Get setting values
 $custom_avatars = $queries->getWhere('settings', ['name', '=', 'user_avatars']);

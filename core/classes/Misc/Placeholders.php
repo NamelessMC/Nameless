@@ -49,7 +49,7 @@ class Placeholders extends Instanceable {
 
     /**
      * Get all registered placeholders.
-     * 
+     *
      * @return array All placeholders.
      */
     public function getAllPlaceholders(): array {
@@ -57,28 +57,10 @@ class Placeholders extends Instanceable {
     }
 
     /**
-     * Get placeholder data by server id and  name of placeholder.
-     * 
-     * @param int $server_id Server ID to get this placeholder from, if it exists across multiple.
-     * @param string $placeholder_name Name of placeholder - must be hashed with sha1.
-     * 
-     * @return object|null This placeholder's data, null if not exist.
-     */
-    public function getPlaceholder(int $server_id, string $placeholder_name): ?object {
-        foreach ($this->_all_placeholders as $placeholder) {
-            if ($placeholder->server_id == $server_id && $placeholder->safe_name == $placeholder_name) {
-                return $placeholder;
-            }
-        }
-
-        return null;
-    }
-
-    /**
      * Create a new row in nl2_placeholders_settings if a row with the "server_id" of $server_id and "name" of $name does not exist (this lets the same placeholder name be used across multiple NamelessMC plugin servers).
-     * 
+     *
      * @param int $server_id ID of the server this placeholder resides on
-     * 
+     *
      * @param string $name Name of placeholder
      */
     public function registerPlaceholder(int $server_id, string $name): void {
@@ -87,9 +69,9 @@ class Placeholders extends Instanceable {
 
     /**
      * Load placeholders for a specific user.
-     * 
+     *
      * @param string $uuid Their valid Minecraft uuid to use for lookup.
-     * 
+     *
      * @return array Their placeholders.
      */
     public function loadUserPlaceholders(string $uuid): array {
@@ -123,7 +105,7 @@ class Placeholders extends Instanceable {
 
     /**
      * Get all placeholders which are set to have leaderboards.
-     * 
+     *
      * @return array Array of placeholders which have leaderboard enabled.
      */
     public function getLeaderboardPlaceholders(): array {
@@ -134,10 +116,10 @@ class Placeholders extends Instanceable {
 
     /**
      * Get leaderboard data for a specific leaderboard.
-     * 
+     *
      * @param int $server_id Server ID to get this placeholder from.
      * @param string $placeholder_name Unique name of placeholder to get data for.
-     * 
+     *
      * @return array Array of leaderboard data.
      */
     public function getLeaderboardData(int $server_id, string $placeholder_name): array {
@@ -152,5 +134,23 @@ class Placeholders extends Instanceable {
         }
 
         return $leaderboard_data->results();
+    }
+
+    /**
+     * Get placeholder data by server id and  name of placeholder.
+     *
+     * @param int $server_id Server ID to get this placeholder from, if it exists across multiple.
+     * @param string $placeholder_name Name of placeholder - must be hashed with sha1.
+     *
+     * @return object|null This placeholder's data, null if not exist.
+     */
+    public function getPlaceholder(int $server_id, string $placeholder_name): ?object {
+        foreach ($this->_all_placeholders as $placeholder) {
+            if ($placeholder->server_id == $server_id && $placeholder->safe_name == $placeholder_name) {
+                return $placeholder;
+            }
+        }
+
+        return null;
     }
 }

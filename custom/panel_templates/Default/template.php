@@ -154,9 +154,6 @@ if (!class_exists('Default_Panel_Template')) {
                             (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/moment/moment.min.js' => [],
                             (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/charts/Chart.min.js' => []
                         ]);
-                        $this->addJSScript('
-						$(".stats-card i").addClass("fa-2x text-gray-300");
-						');
                         break;
 
                     case 'api':
@@ -674,6 +671,14 @@ if (!class_exists('Default_Panel_Template')) {
                         $this->addJSFiles([
                             (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/js/jquery-ui.min.js' => []
                         ]);
+
+                        $this->addJSScript('
+						var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
+
+						elems.forEach(function(html) {
+						  var switchery = new Switchery(html, {color: \'#23923d\', secondaryColor: \'#e56464\'});
+						});
+						');
 
                         break;
 

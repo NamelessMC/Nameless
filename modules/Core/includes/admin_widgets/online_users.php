@@ -14,14 +14,16 @@ $cache->setCache('online_members');
 
 if (Input::exists()) {
     if (Token::check()) {
-        if (isset($_POST['staff']) && $_POST['staff'] == 1)
+        if (isset($_POST['staff']) && $_POST['staff'] == 1) {
             $cache->store('include_staff_in_users', 1);
-        else
+        } else {
             $cache->store('include_staff_in_users', 0);
-        if (isset($_POST['nickname']) && $_POST['nickname'] == 1)
+        }
+        if (isset($_POST['nickname']) && $_POST['nickname'] == 1) {
             $cache->store('show_nickname_instead', 1);
-        else
+        } else {
             $cache->store('show_nickname_instead', 0);
+        }
 
         $success = $language->get('admin', 'widget_updated');
     } else {

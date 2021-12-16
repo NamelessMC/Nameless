@@ -45,10 +45,11 @@ $paginator = new Paginator(($template_pagination ?? []), isset($template_paginat
 $results = $paginator->getLimited($topics, 10, $p, count($topics));
 $pagination = $paginator->generate(7, URL::build('/user/following_topics/', true));
 
-if (count($topics))
+if (count($topics)) {
     $smarty->assign('PAGINATION', $pagination);
-else
+} else {
     $smarty->assign('PAGINATION', '');
+}
 
 $template_array = [];
 $authors = [];

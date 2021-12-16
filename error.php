@@ -57,7 +57,7 @@ $smarty->assign([
     'CAN_GENERATE_DEBUG' => $user->hasPermission('admincp.core.debugging'),
     'DEBUG_LINK' => $language->get('admin', 'debug_link'),
     'DEBUG_LINK_URL' => URL::build('/queries/debug_link'),
-    'ERROR_SQL_STACK' =>  QueryRecorder::getInstance()->getSqlStack(),
+    'ERROR_SQL_STACK' => QueryRecorder::getInstance()->getSqlStack(),
     'CURRENT_URL' => $current_url,
     'FRAMES' => $frames,
     'SKIP_FRAMES' => $skip_frames,

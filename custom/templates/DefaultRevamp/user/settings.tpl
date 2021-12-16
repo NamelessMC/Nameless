@@ -180,7 +180,7 @@
               <input type="hidden" name="unlink" value="true">
               <input type="submit" value="{$UNLINK}" class="ui red button">
             {else}
-              <input type="submit" value="{$LINK}" class="ui primary button">
+              <input type="submit" value="{$GET_LINK_CODE}" class="ui primary button">
             {/if}
           </form>
         </div>

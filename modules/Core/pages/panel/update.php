@@ -9,7 +9,7 @@
  *  Panel update page
  */
 
-if(!$user->handlePanelPageLoad('admincp.update')) {
+if (!$user->handlePanelPageLoad('admincp.update')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }
@@ -33,17 +33,19 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-if (isset($success))
+if (isset($success)) {
     $smarty->assign([
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ]);
+}
 
-if (isset($errors) && count($errors))
+if (isset($errors) && count($errors)) {
     $smarty->assign([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
     ]);
+}
 
 $cache->setCache('update_check');
 if ($cache->isCached('update_check')) {

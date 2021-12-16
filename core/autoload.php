@@ -1,7 +1,6 @@
 <?php
 
 require_once ROOT_PATH . '/core/includes/constants/autoload.php';
-require_once ROOT_PATH . '/core/includes/smarty/Smarty.class.php';
 
 spl_autoload_register(function ($class) {
 
@@ -64,7 +63,6 @@ const CLASS_FOLDERS = [
     ],
     'Events' => [
         EventHandler::class,
-        Listener::class,
     ],
     'Group_Sync' => [
         GroupSyncInjector::class,

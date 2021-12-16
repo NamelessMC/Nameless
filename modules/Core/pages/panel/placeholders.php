@@ -9,7 +9,7 @@
  *  Panel placeholders page
  */
 
-if(!$user->handlePanelPageLoad('admincp.core.placeholders')) {
+if (!$user->handlePanelPageLoad('admincp.core.placeholders')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }
@@ -104,8 +104,11 @@ if (isset($_GET['leaderboard'])) {
 
         if (Token::check()) {
             // Update placeholders value
-            if (isset($_POST['placeholders_enabled']) && $_POST['placeholders_enabled'] == 'on') $placeholders_enabled = 1;
-            else $placeholders_enabled = 0;
+            if (isset($_POST['placeholders_enabled']) && $_POST['placeholders_enabled'] == 'on') {
+                $placeholders_enabled = 1;
+            } else {
+                $placeholders_enabled = 0;
+            }
 
             $configuration->set('Core', 'placeholders', $placeholders_enabled);
 

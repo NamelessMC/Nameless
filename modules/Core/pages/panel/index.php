@@ -9,7 +9,7 @@
  *  Panel index page
  */
 
-if(!$user->handlePanelPageLoad()) {
+if (!$user->handlePanelPageLoad()) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }
@@ -25,9 +25,9 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp
 $dashboard_graphs = Core_Module::getDashboardGraphs();
 $graphs = [];
 
-if(count($dashboard_graphs)){
+if (count($dashboard_graphs)) {
     $i = 0;
-    foreach($dashboard_graphs as $key => $dashboard_graph){
+    foreach ($dashboard_graphs as $key => $dashboard_graph) {
         $graph = [
             'id' => $i++,
             'title' => $key,
@@ -36,7 +36,7 @@ if(count($dashboard_graphs)){
             'keys' => []
         ];
 
-        foreach($dashboard_graph['datasets'] as $dskey => $dataset){
+        foreach ($dashboard_graph['datasets'] as $dskey => $dataset) {
             $label = explode('/', $dataset['label']);
             $varname = $label[0];
             $axis = 'y' . ($dataset['axis'] ?? 1);
@@ -53,13 +53,14 @@ if(count($dashboard_graphs)){
 
         unset($dashboard_graph['datasets']);
 
-        foreach($dashboard_graph as $date => $values){
+        foreach ($dashboard_graph as $date => $values) {
             $date = intval(str_replace('_', '', $date));
 
-            if(!array_key_exists($date, $graph['keys']))
+            if (!array_key_exists($date, $graph['keys'])) {
                 $graph['keys'][$date] = date('Y-m-d', $date);
+            }
 
-            foreach($values as $valuekey => $value){
+            foreach ($values as $valuekey => $value) {
                 $graph['datasets'][$valuekey]['data'][date('Y-m-d', $date)] = $value;
             }
         }
@@ -71,7 +72,7 @@ if(count($dashboard_graphs)){
 $dashboard_graphs = null;
 
 $cache->setCache('nameless_news');
-if($cache->isCached('news')){
+if ($cache->isCached('news')) {
     $news = $cache->retrieve('news');
 
 } else {
@@ -80,12 +81,12 @@ if($cache->isCached('news')){
 
     $news = [];
 
-    if(!is_null($news_query) && !isset($news_query->error) && count($news_query)){
+    if (!is_null($news_query) && !isset($news_query->error) && count($news_query)) {
         $timeago = new TimeAgo();
 
         $i = 0;
 
-        foreach($news_query as $item){
+        foreach ($news_query as $item) {
             $news[] = [
                 'title' => Output::getClean($item->title),
                 'date' => Output::getClean($item->date),
@@ -94,77 +95,79 @@ if($cache->isCached('news')){
                 'url' => Output::getClean($item->url)
             ];
 
-            if(++$i == 5)
+            if (++$i == 5) {
                 break;
+            }
         }
     }
 
     $cache->store('news', $news, 3600);
 }
 
-if(!count($news))
+if (!count($news)) {
     $smarty->assign('NO_NEWS', $language->get('admin', 'unable_to_retrieve_nameless_news'));
-else
+} else {
     $smarty->assign('NEWS', $news);
+}
 
 // Compatibility
-if($user->hasPermission('admincp.core.debugging')){
+if ($user->hasPermission('admincp.core.debugging')) {
     $compat_success = [];
     $compat_errors = [];
 
-    if(version_compare(phpversion(), '7.4', '<')){
+    if (version_compare(phpversion(), '7.4', '<')) {
         $compat_errors[] = 'PHP ' . phpversion();
     } else {
         $compat_success[] = 'PHP ' . phpversion();
     }
-    if(!extension_loaded('gd')){
+    if (!extension_loaded('gd')) {
         $compat_errors[] = 'PHP GD';
     } else {
         $compat_success[] = 'PHP GD ' . phpversion('gd');
     }
-    if(!extension_loaded('mbstring')){
+    if (!extension_loaded('mbstring')) {
         $compat_errors[] = 'PHP mbstring';
     } else {
         $compat_success[] = 'PHP mbstring ' . phpversion('mbstring');
     }
-    if(!extension_loaded('PDO')){
+    if (!extension_loaded('PDO')) {
         $compat_errors[] = 'PHP PDO';
     } else {
         $compat_success[] = 'PHP PDO ' . phpversion('PDO');
     }
-    if(!function_exists('curl_version')){
+    if (!function_exists('curl_version')) {
         $compat_errors[] = 'PHP cURL';
     } else {
         $compat_success[] = 'PHP cURL ' . phpversion('curl');
     }
-    if(!extension_loaded('xml')){
+    if (!extension_loaded('xml')) {
         $compat_errors[] = 'PHP XML';
     } else {
         $compat_success[] = 'PHP XML ' . phpversion('xml');
     }
-    if(!function_exists('exif_imagetype')){
+    if (!function_exists('exif_imagetype')) {
         $compat_errors[] = 'PHP EXIF';
     } else {
         $compat_success[] = 'PHP EXIF ' . phpversion('exif');
     }
-    if(!extension_loaded('mysql') && !extension_loaded('mysqlnd')){
+    if (!extension_loaded('mysql') && !extension_loaded('mysqlnd')) {
         $compat_errors[] = 'PHP MySQL';
     } else {
         $compat_success[] = 'PHP MySQL ' . (extension_loaded('mysql') ? phpversion('mysql') : substr(phpversion('mysqlnd'), 0, strpos(phpversion('mysqlnd'), ' - ')));
     }
 
     // Permissions
-    if(!is_writable(ROOT_PATH . '/core/config.php')){
+    if (!is_writable(ROOT_PATH . '/core/config.php')) {
         $compat_errors[] = $language->get('installer', 'config_writable');
     } else {
         $compat_success[] = $language->get('installer', 'config_writable');
     }
-    if(!is_writable(ROOT_PATH . '/cache')){
+    if (!is_writable(ROOT_PATH . '/cache')) {
         $compat_errors[] = $language->get('installer', 'cache_writable');
     } else {
         $compat_success[] = $language->get('installer', 'cache_writable');
     }
-    if(!is_writable(ROOT_PATH . '/cache/templates_c')){
+    if (!is_writable(ROOT_PATH . '/cache/templates_c')) {
         $compat_errors[] = $language->get('installer', 'template_cache_writable');
     } else {
         $compat_success[] = $language->get('installer', 'template_cache_writable');
@@ -177,15 +180,17 @@ if($user->hasPermission('admincp.core.debugging')){
     ]);
 }
 
-if(is_dir(ROOT_PATH . '/modules/Core/pages/admin'))
+if (is_dir(ROOT_PATH . '/modules/Core/pages/admin')) {
     $smarty->assign([
         'DIRECTORY_WARNING' => $language->get('admin', 'admin_dir_still_exists')
     ]);
-
-else if(is_dir(ROOT_PATH . '/modules/Core/pages/mod'))
-    $smarty->assign([
-        'DIRECTORY_WARNING' => $language->get('admin', 'mod_dir_still_exists')
-    ]);
+} else {
+    if (is_dir(ROOT_PATH . '/modules/Core/pages/mod')) {
+        $smarty->assign([
+            'DIRECTORY_WARNING' => $language->get('admin', 'mod_dir_still_exists')
+        ]);
+    }
+}
 
 $smarty->assign([
     'DASHBOARD' => $language->get('admin', 'dashboard'),

@@ -13,11 +13,40 @@ class EventHandler {
     private static array $_webhooks = [];
 
     /**
+     * Register hooks.
+     *
+     * @param array $webhooks Array of webhooks to register
+     */
+    public static function registerWebhooks(array $webhooks): void {
+        self::$_webhooks = $webhooks;
+    }
+
+    /**
+     * Register an event listener for a module.
+     * This must be called in the module's constructor.
+     *
+     * @param string $event Event name to hook into (must be registered with `registerEvent()`).
+     * @param callable $callback Listener callback to execute.
+     * @param bool $advanced When true, the callback will be given specific parameters as per its method declaration, otherwise it will be given the raw $params array.
+     */
+    public static function registerListener(string $event, callable $callback, bool $advanced = false): void {
+        if (!isset(self::$_events[$event])) {
+            // Silently create event if it doesnt exist, maybe throw exception instead?
+            self::registerEvent($event, $event);
+        }
+
+        self::$_events[$event]['listeners'][] = [
+            'callback' => $callback,
+            'advanced' => $advanced,
+        ];
+    }
+
+    /**
      * Register an event. This must be called in the module's constructor.
      *
      * @param string $event Name of event to add.
      * @param string $description Human readable description.
-     * @param array|null $params Array of available parameters and their descriptions.
+     * @param array $params Array of available parameters and their descriptions.
      */
     public static function registerEvent(string $event, string $description, array $params = []): void {
         // Don't re-register if the event already exists, just update the params and description.
@@ -41,31 +70,6 @@ class EventHandler {
     }
 
     /**
-     * Register hooks.
-     *
-     * @param array $webhooks Array of webhooks to register
-     */
-    public static function registerWebhooks(array $webhooks): void {
-        self::$_webhooks = $webhooks;
-    }
-
-    /**
-     * Register an event listener for a module.
-     * This must be called in the module's constructor.
-     *
-     * @param string $event Event name to hook into (must be registered with `registerEvent()`).
-     * @param callable $listener Listener function name to execute.
-     */
-    public static function registerListener(string $event, callable $listener):  void {
-        if (!isset(self::$_events[$event])) {
-            // Silently create event if it doesnt exist, maybe throw exception instead?
-            self::registerEvent($event, $event);
-        }
-
-        self::$_events[$event]['listeners'][] = $listener;
-    }
-
-    /**
      * Execute an event.
      *
      * @param string $event Event name to call.
@@ -83,7 +87,42 @@ class EventHandler {
         // Execute module listeners
         if (isset(self::$_events[$event]['listeners'])) {
             foreach (self::$_events[$event]['listeners'] as $listener) {
-                call_user_func($listener, $params);
+                $callback = $listener['callback'];
+
+                if ($listener['advanced'] === false) {
+                    $callback($params);
+                    continue;
+                }
+
+                $toPass = [];
+
+                foreach ((new ReflectionMethod($callback))->getParameters() as $callbackParam) {
+                    if (!isset($params[$callbackParam->getName()])) {
+                        throw new InvalidArgumentException(
+                            "Callable parameter: {$callbackParam->getName()}, is not set in event params (event: $event)"
+                        );
+                    }
+
+                    if ($callbackParam->getType() != null) {
+                        $eventParamType = self::getType($params[$callbackParam->getName()]);
+
+                        if ($callbackParam->getType()->getName() != $eventParamType) {
+                            throw new InvalidArgumentException(
+                                "{$callbackParam->getName()} expected to be {$callbackParam->getType()->getName()}, but found: $eventParamType"
+                            );
+                        }
+
+                        if (!$callbackParam->getType()->isBuiltin()) {
+                            throw new InvalidArgumentException(
+                                "Callable parameter must be a built-in type, parameter {$callbackParam->getName()} expects: {$callbackParam->getType()->getName()}"
+                            );
+                        }
+                    }
+
+                    $toPass[] = $params[$callbackParam->getName()];
+                }
+
+                $callback(...$toPass);
             }
         }
 
@@ -100,6 +139,31 @@ class EventHandler {
                     call_user_func($webhook['action'], $params);
                 }
             }
+        }
+    }
+
+    /**
+     * Get the debug type of a variable.
+     *
+     * @param mixed $object
+     * @return string The name of the type of the object - same as get_debug_type().
+     */
+    private static function getType($object): string {
+        switch (gettype($object)) {
+            case 'boolean':
+                return 'bool';
+            case 'integer':
+                return 'int';
+            case 'double':
+                return 'float';
+            case 'string':
+                return 'string';
+            case 'array':
+                return 'array';
+            case 'object':
+                return 'object';
+            default:
+                return 'unknown';
         }
     }
 

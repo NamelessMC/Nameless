@@ -21,12 +21,14 @@ if ($cache->isCached('query_interval')) {
 if (isset($_GET['key'])) {
     // Get key from database - check it matches
     $key = $queries->getWhere('settings', ['name', '=', 'unique_id']);
-    if (!count($key))
+    if (!count($key)) {
         die();
+    }
 
     $key = $key[0];
-    if ($_GET['key'] != $key->value)
+    if ($_GET['key'] != $key->value) {
         die();
+    }
 } else {
     if ($cache->isCached('last_query')) {
         $last_query = $cache->retrieve('last_query');
@@ -40,12 +42,14 @@ if (isset($_GET['key'])) {
 // Get query type
 $query_type = $queries->getWhere('settings', ['name', '=', 'external_query']);
 if (count($query_type)) {
-    if ($query_type[0]->value == '1')
+    if ($query_type[0]->value == '1') {
         $query_type = 'external';
-    else
+    } else {
         $query_type = 'internal';
-} else
+    }
+} else {
     $query_type = 'internal';
+}
 
 // Query
 $servers = $queries->getWhere('mc_servers', ['id', '<>', 0]);
@@ -57,8 +61,9 @@ if (count($servers)) {
         $full_ip = ['ip' => $server->ip . (is_null($server->port) ? '' : ':' . $server->port), 'pre' => $server->pre, 'name' => $server->name];
         $result = MCQuery::singleQuery($full_ip, $query_type, $language, $queries);
 
-        if ($server->parent_server > 0)
+        if ($server->parent_server > 0) {
             $result['parent_server'] = $server->parent_server;
+        }
 
         $results[$server->id] = $result;
     }

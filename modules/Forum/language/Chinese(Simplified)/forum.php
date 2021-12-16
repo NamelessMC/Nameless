@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
@@ -14,7 +14,7 @@
 $language = [
     /*
      *  Forums
-     */ 
+     */
     'forum' => '论坛',
     'forums' => '论坛',
     'forum_index' => '论坛主页',
@@ -29,7 +29,7 @@ $language = [
     'x_posts' => '帖子数 {x}', // Don't replace {x}
     'x_topics' => '话题数 {x} ', // Don't replace {x}
     'registered_x' => '注册于: {x}', // Don't replace {x}
-    
+
     'by' => '发起者',
     'in' => '于',
     'last_reply' => '最后一次回复于',
@@ -98,11 +98,11 @@ $language = [
     'new_reply_in_topic' => '{x} 回复了主题 {y}', // Don't replace {x} (username) or {y} (topic title)
     'started_by_x' => '由 {x} 创建', // Don't replace {x}
     'sticky_topics' => '展示中的主题',
-    
+
     // Homepage
     'latest_announcements' => '最近的公告',
     'read_full_post' => '阅读全文',
-    
+
     // Admin tab
     'labels' => '标签',
     'new_forum' => '<i class="fa fa-plus-circle"></i> 新论坛',
@@ -186,7 +186,7 @@ $language = [
     'new_search' => '新的搜索',
     'invalid_search_query' => '请输入一个在 3 和 128 个字符长度之间的关键词。',
     'no_results_found' => '没有找到任何结果。',
-    
+
     // Profile tab
     'user_no_posts' => '这个用户没有发过任何帖子。',
     'latest_posts' => '最近的帖子',
@@ -210,9 +210,7 @@ $language = [
 
     // Panel statistics
     'recent_topics' => '当前话题数',
-    'recent_topics_statistic_icon' => '<i class="fas fa-comment"></i>',
     'recent_posts' => '当前帖子数',
-    'recent_posts_statistic_icon' => '<i class="far fa-comments"></i>',
     'topics_title' => '话题数',
     'posts_title' => '帖子数',
 ];

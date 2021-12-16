@@ -9,7 +9,7 @@
  *  Email Mass Message page
  */
 
-if(!$user->handlePanelPageLoad('admincp.core.emails_mass_message')) {
+if (!$user->handlePanelPageLoad('admincp.core.emails_mass_message')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }
@@ -117,8 +117,9 @@ if (Input::exists()) {
         } else {
             $errors = $validate->errors();
         }
-    } else
+    } else {
         $errors[] = $language->get('general', 'invalid_token');
+    }
 }
 
 $php_mailer = $queries->getWhere('settings', ['name', '=', 'phpmailer']);
@@ -183,20 +184,23 @@ $template_file = 'core/emails_mass_message.tpl';
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-if (Session::exists('emails_success'))
+if (Session::exists('emails_success')) {
     $success = Session::flash('emails_success');
+}
 
-if (isset($success))
+if (isset($success)) {
     $smarty->assign([
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ]);
+}
 
-if (isset($errors) && count($errors))
+if (isset($errors) && count($errors)) {
     $smarty->assign([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
     ]);
+}
 
 $smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,

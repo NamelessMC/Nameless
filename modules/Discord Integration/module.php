@@ -1,7 +1,7 @@
 <?php
 
 class Discord_Module extends Module {
-    
+
     private Language $_language;
 
     public function __construct(Language $language, Pages $pages, Queries $queries, Endpoints $endpoints) {
@@ -49,8 +49,7 @@ class Discord_Module extends Module {
     public function onEnable() {
     }
 
-    public function onPageLoad(User $user, Pages $pages, Cache $cache, Smarty $smarty, $navs, Widgets $widgets, ?TemplateBase $template)
-    {
+    public function onPageLoad(User $user, Pages $pages, Cache $cache, Smarty $smarty, $navs, Widgets $widgets, ?TemplateBase $template) {
         PermissionHandler::registerPermissions($this->getName(), [
             'admincp.discord' => $this->_language->get('admin', 'integrations') . ' &raquo; ' . Discord::getLanguageTerm('discord'),
         ]);

@@ -20,25 +20,26 @@
     <link rel="stylesheet" href="core/assets/css/font-awesome.min.css">
 
     <style>
-    html {
-        overflow-y: scroll;
-    }
-    body {
-        background-color: #eceeef;
-    }
+        html {
+            overflow-y: scroll;
+        }
+
+        body {
+            background-color: #eceeef;
+        }
     </style>
 </head>
 
 <body>
-    <div style="text-align: center">
-        <br /><br /><br />
+<div style="text-align: center">
+    <br/><br/><br/>
 
-        <h1>NamelessMC v2 <sup><span style="font-size: small;">pre-release</span></sup></h1>
+    <h1>NamelessMC v2 <sup><span style="font-size: small;">pre-release</span></sup></h1>
 
-        <hr />
+    <hr/>
 
-        <div class="row">
-            <div class="col-md-6 offset-md-3">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
             <?php
             if (isset($_GET['route']) && $_GET['route'] == '/rewrite_test') {
                 echo '<div class="alert alert-success">Rewrite enabled!</div>';
@@ -47,8 +48,8 @@
                 echo '<div class="alert alert-danger">Rewrite disabled!</div>';
             }
             ?>
-            </div>
         </div>
     </div>
+</div>
 </body>
 </html>

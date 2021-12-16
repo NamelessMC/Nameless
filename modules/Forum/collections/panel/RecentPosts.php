@@ -36,7 +36,6 @@ class RecentPostsItem extends CollectionItemBase {
 
     public function getContent(): string {
         $this->_smarty->assign([
-            'ICON' => $this->_language->get('forum', 'recent_posts_statistic_icon'),
             'TITLE' => $this->_language->get('forum', 'recent_posts'),
             'VALUE' => $this->_posts
         ]);

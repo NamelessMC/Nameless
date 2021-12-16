@@ -17,17 +17,18 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-if(isset($_GET['c'])) {
+if (isset($_GET['c'])) {
     $user = new User($_GET['c'], 'reset_code');
     if ($user->data()) {
         // API verification
         $api_verification = $queries->getWhere('settings', ['name', '=', 'api_verification']);
         $api_verification = $api_verification[0]->value;
 
-        if ($api_verification == '1')
+        if ($api_verification == '1') {
             $reset_code = $user->data()->reset_code;
-        else
+        } else {
             $reset_code = null;
+        }
 
         $queries->update('users', $user->data()->id, [
             'reset_code' => $reset_code,

@@ -33,7 +33,6 @@ $language = [
     'minecraft' => 'Minecraft',
     'modules' => 'モジュール',
     'security' => 'セキュリティ',
-    'sitemap' => 'サイトマップ',
     'styles' => 'スタイル',
     'users_and_groups' => 'ユーザー・グループ',
 
@@ -206,6 +205,8 @@ $language = [
     'seo' => 'SEO',
     'google_analytics' => 'Google Analytics',
     'google_analytics_help' => 'ウェブサイトにGoogle Analyticsを追加して、訪問者や統計情報を追跡します。この機能を利用するには、Google Analyticsのアカウントを作成する必要があります。Google AnalyticsのWeb Property IDを入力します。IDはUA-XXXXA-Xのような形式をしており、アカウント情報やGoogleが提供するトラッキングコードに記載されています。',
+    'sitemap' => 'サイトマップ',
+    'seo_settings_updated_successfully' => 'SEO settings updated successfully.',
 
     // Reactions
     'icon' => 'アイコン',
@@ -708,9 +709,7 @@ $language = [
 
     //ダッシュボード
     'total_users' => '合計ユーザー',
-    'total_users_statistic_icon' => '<i class="fas fa-users"> </i>',
     'recent_users' => '新規ユーザー',
-    'recent_users_statistic_icon' => '<i class="fas fa-users"> </i>',
     'average_players' => '平均ユーザー',
     'nameless_news' => 'NamelessMC ニュース',
     'unable_to_retrieve_nameless_news' => '最新のニュースを取得できませんでした。',
@@ -749,4 +748,6 @@ $language = [
     'background_colour_required' => '背景色は必須です。',
     'text_colour_required' => 'テキスト色は必須です。',
     'no_announcements' => 'まだお知らせはありません。',
+    'announcement_order' => 'Order',
+    'announcement_hook_info' => 'Announcement creation',
 ];

@@ -34,7 +34,7 @@ $language = [
     'running_php_version' => 'PHP verzia <strong>{x}</strong>', // Don't replace "{x}"
     'statistics' => 'Štatistiky',
     'registrations' => 'Registrácie',
-    'topics' => 'Vlákna',
+    'topics' => 'Témy',
     'posts' => 'Príspevky',
     'notices' => 'Upozornenia',
     'no_notices' => 'Žiadne upozornenia.',
@@ -202,6 +202,7 @@ $language = [
     'google_analytics' => 'Google Analytics',
     'google_analytics_help' => 'Pridajte si na svoj web Google Analytics a sledujte návštevníkov a štatistiky. Ak chcete používať túto funkciu, budete si musieť vytvoriť účet Google Analytics. Zadajte svoje ID webového vlastníctva v Google Analytics. ID vyzerá ako UA-XXXXA-X a nájdete ho v informáciách o vašom účte alebo v kóde sledovania poskytnutom Googlom.',
     'sitemap' => 'Sitemap',
+    'seo_settings_updated_successfully' => 'SEO settings updated successfully.',
 
     // Reactions
     'icon' => 'Ikonka',
@@ -688,9 +689,7 @@ $language = [
 
     // Dashboard
     'total_users' => 'Celkom užívateľov',
-    'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'recent_users' => 'Noví užívatelia',
-    'recent_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'nameless_news' => 'NamelessMC novinky',
     'unable_to_retrieve_nameless_news' => 'Nie je možné načítať najnovšie novinky',
     'confirm_leave_site' => 'Chystáte sa opustiť túto stránku! Naozaj chcete navštíviť <strong id="leaveSiteURL">{x}</strong>?', // don't replace {x} and make sure it has the id leaveSiteURL
@@ -728,4 +727,5 @@ $language = [
     'text_colour_required' => 'Farba textu je povinná',
     'no_announcements' => 'Zatiaľ neboli vytvorené žiadne oznámenia.',
     'announcement_order' => 'Poradie',
+    'announcement_hook_info' => 'Vytvorenie oznámenia',
 ];

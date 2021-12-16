@@ -28,7 +28,6 @@ $language = [
     'minecraft' => 'Minecraft',
     'modules' => 'Modüller',
     'security' => 'Güvenlik',
-    'sitemap' => 'Sitemap',
     'styles' => 'Stil',
     'users_and_groups' => 'Kullanıcılar ve Gruplar',
 
@@ -201,6 +200,8 @@ $language = [
     'seo' => 'SEO',
     'google_analytics' => 'Google Analytics',
     'google_analytics_help' => 'Add Google Analytics to your website to track visitors and statistics. You will need to create a Google Analytics account to use this functionality. Enter your Google Analytics Web Property ID. The ID looks like UA-XXXXA-X and you can find it in your account information or in the tracking code provided by Google.',
+    'sitemap' => 'Sitemap',
+    'seo_settings_updated_successfully' => 'SEO settings updated successfully.',
 
     // Reactions
     'icon' => 'Icon',
@@ -704,9 +705,7 @@ $language = [
 
     // Dashboard
     'total_users' => 'Toplam Kullanıcılar',
-    'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'recent_users' => 'Yeni Kullanıcılar',
-    'recent_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'average_players' => 'Ortalama kullanıcılar',
     'nameless_news' => 'NamelessMC Haberleri',
     'unable_to_retrieve_nameless_news' => 'Unable to retrieve the latest news',
@@ -745,4 +744,6 @@ $language = [
     'background_colour_required' => 'Background Colour is required',
     'text_colour_required' => 'Text Colour is required',
     'no_announcements' => 'No announcements have been made yet.',
+    'announcement_order' => 'Order',
+    'announcement_hook_info' => 'Announcement creation',
 ];

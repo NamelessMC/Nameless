@@ -11,7 +11,7 @@
  */
 
 $language = [
-  // Errors
+    // Errors
     '404_title' => 'Atsiprašome!',
     '404_content' => 'Nepavyko rasti šio puslapio.',
     '404_back' => 'Atgal',

@@ -33,10 +33,12 @@ class URL {
 
         if ($force == 'friendly') {
             return self::buildFriendly($url, $params);
-        } else if ($force == 'non-friendly') {
-            return self::buildNonFriendly($url, $params);
         } else {
-            throw new InvalidArgumentException('Invalid force string: ' . $force);
+            if ($force == 'non-friendly') {
+                return self::buildNonFriendly($url, $params);
+            } else {
+                throw new InvalidArgumentException('Invalid force string: ' . $force);
+            }
         }
     }
 

@@ -30,7 +30,6 @@ $language = [
     'minecraft' => 'Minecraft',
     'modules' => 'Modules',
     'security' => 'Beveiliging',
-    'sitemap' => 'Sitemap',
     'styles' => 'Stijlen',
     'users_and_groups' => 'Gebruikers en groepen',
 
@@ -203,6 +202,8 @@ $language = [
     'seo' => 'SEO',
     'google_analytics' => 'Google Analytics',
     'google_analytics_help' => 'Voeg Google Analytics toe aan uw website om bezoekers en statistieken bij te houden. U moet een Google Analytics-account aanmaken om deze functionaliteit te kunnen gebruiken. Voer uw Google Analytics Web Property ID in. De ID ziet eruit als UA-XXXXA-X en is te vinden in uw accountgegevens of in de trackingcode van Google.',
+    'sitemap' => 'Sitemap',
+    'seo_settings_updated_successfully' => 'SEO settings updated successfully.',
 
     // Reacties
     'icon' => 'Icoon',
@@ -245,7 +246,7 @@ $language = [
     'display_field_on_forum' => 'Veld laten zien in het forum?',
     'profile_field_forum_help' => 'Als dit aan staat, wordt het veld weergegeven bij de gebruiker naast de forum berichten.',
     'profile_field_editable_help' => 'Indien ingeschakeld, hebben gebruikers toestemming om het veld in hun profielinstellingen te bewerken.',
-     'no_custom_fields' => 'Er zijn nog geen aangepaste velden.',
+    'no_custom_fields' => 'Er zijn nog geen aangepaste velden.',
     'profile_field_updated_successfully' => 'Het profielveld is met succes bijgewerkt.',
     'profile_field_created_successfully' => 'Het profielveld is met succes aangemaakt.',
     'profile_field_deleted_successfully' => 'Het profielveld is met succes verwijderd.',
@@ -544,7 +545,7 @@ $language = [
     'install_confirm' => 'Zorg ervoor dat je het bestand hebt gedownload en de bestanden hebt geupload voordat je verder gaat!',
     'check_again' => 'Controleer opnieuw',
 
-     // Widgets
+    // Widgets
     'widgets' => 'Widgets',
     'widget_enabled' => 'Widget ingeschakeld.',
     'widget_disabled' => 'Widget uitgeschakeld.',
@@ -634,7 +635,7 @@ $language = [
     'group_sync_rule_created_successfully' => 'De groep synchronisatie regel is succesvol aangemaakt.',
     'group_sync_rules_updated_successfully' => 'Groep synchronisatie regels zijn succesvol bijgewerkt.',
     'group_sync_rule_deleted_successfully' => 'De groep synchronisatie regel is succesvol verwijderd.',
-	'group_sync_plugin_not_set_up' => 'Plugin niet ingesteld',
+    'group_sync_plugin_not_set_up' => 'Plugin niet ingesteld',
     'existing_rules' => 'Bestaande Regels',
     'new_rule' => 'Nieuwe Regel',
     'api_endpoints' => 'API Eindpunten',
@@ -702,9 +703,7 @@ $language = [
 
     // Dashboard
     'total_users' => 'Totaal Aantal Gebruikers',
-    'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'recent_users' => 'Nieuwe Gebruikers',
-    'recent_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'average_players' => 'Gemiddelde Spelers',
     'nameless_news' => 'NamelessMC Nieuws',
     'unable_to_retrieve_nameless_news' => 'Niet in staat om het laatste nieuws op te halen',
@@ -743,4 +742,6 @@ $language = [
     'background_colour_required' => 'Achtergrondkleur is vereist',
     'text_colour_required' => 'Tekstkleur is vereist',
     'no_announcements' => 'Er zijn nog geen aankondigingen gemaakt.',
+    'announcement_order' => 'Order',
+    'announcement_hook_info' => 'Announcement creation',
 ];

@@ -27,10 +27,11 @@ if (Input::exists()) {
     }
 }
 
-if ($cache->isCached('discord_widget_theme'))
+if ($cache->isCached('discord_widget_theme')) {
     $discord_theme = $cache->retrieve('discord_widget_theme');
-else
+} else {
     $discord_theme = 'dark';
+}
 
 if (isset($errors) && count($errors)) {
     $smarty->assign([
