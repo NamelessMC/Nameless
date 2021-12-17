@@ -15,13 +15,18 @@ class Paginator {
     private int $_page;
     private int $_total;
     private array $_class;
+    private string $_leftContent;
+    private string $_rightContent;
 
-    public function __construct(array $class = []) {
+    public function __construct(array $class = [], $leftContent = "&laquo;", $rightContent = "&raquo;") {
         if (!count($class)) {
             $this->_class = ['ul' => 'pagination d-inline-flex', 'li' => 'page-item {x}', 'a' => 'page-link'];
         } else {
             $this->_class = $class;
         }
+
+        $this->_leftContent = $leftContent;
+        $this->_rightContent = $rightContent;
     }
 
     /**
@@ -83,17 +88,14 @@ class Paginator {
         if (empty($this->_class['ul'])) {
             $class = str_replace('{x}', ($this->_page == 1 ? ' disabled ' : ''), ($this->_class['a']));
 
-            $html .= '<a class="' . $class . '" href="' . (($this->_page == 1) ? '#' : $href . 'p=' . ($this->_page - 1)) . '">&laquo;</a>';
+            $html .= '<a class="' . $class . '" href="' . (($this->_page == 1) ? '#' : $href . 'p=' . ($this->_page - 1)) . '">' . $this->_leftContent . '</a>';
         } else {
             $class = str_replace('{x}', ($this->_page == 1) ? ' disabled' : '', $this->_class['li']);
 
             $html .= '<li class="' . $class . '"><a class="' . str_replace('{x}', ($this->_page == 1 ? ' disabled ' : ''), $this->_class['a']) . '" href="';
-            if ($this->_page == 1) {
-                $html .= '#';
-            } else {
-                $html .= $href . 'p=' . ($this->_page - 1);
-            }
-            $html .= '">&laquo;</a></li>';
+            if ($this->_page == 1) $html .= '#';
+            else $html .= $href . 'p=' . ($this->_page - 1);
+            $html .= '">' . $this->_leftContent . '</a></li>';
         }
 
         if ($start > 1) {
@@ -127,15 +129,12 @@ class Paginator {
         }
 
         if (empty($this->_class['ul'])) {
-            $html .= '<a class="' . str_replace('{x}', ($this->_page == $last) ? ' disabled ' : '', $this->_class['a']) . '" href="' . (($this->_page == $last) ? '#' : $href . 'p=' . ($this->_page + 1)) . '">&raquo;</a>';
+            $html .= '<a class="' . str_replace('{x}', ($this->_page == $last) ? ' disabled ' : '', $this->_class['a']) . '" href="' . (($this->_page == $last) ? '#' : $href . 'p=' . ($this->_page + 1)) . '">' . $this->_rightContent . '</a>';
         } else {
             $html .= '<li class="' . str_replace('{x}', ($this->_page == $last) ? ' disabled ' : '', $this->_class['li']) . '"><a class="' . str_replace('{x}', ($this->_page == $last) ? ' disabled ' : '', $this->_class['a']) . '" href="';
-            if ($this->_page == $last) {
-                $html .= '#';
-            } else {
-                $html .= $href . 'p=' . ($this->_page + 1);
-            }
-            $html .= '">&raquo;</a></li>';
+            if ($this->_page == $last) $html .= '#';
+            else $html .= $href . 'p=' . ($this->_page + 1);
+            $html .= '">' . $this->_rightContent . '</a></li>';
         }
 
         if (isset($this->_class['div']) && !empty($this->_class['div'])) {
