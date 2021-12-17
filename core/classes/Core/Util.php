@@ -11,6 +11,8 @@
 
 class Util {
 
+    private static array $_enabled_modules = [];
+
     /**
      * Convert Cyrillic to Latin letters.
      * https://en.wikipedia.org/wiki/ISO_9.
@@ -124,14 +126,15 @@ class Util {
                 $text = parse_url($url, PHP_URL_HOST) . parse_url($url, PHP_URL_PATH);
                 $text = preg_replace('/^www./', '', $text);
 
-                $last = - (strlen(strrchr($text, '/'))) + 1;
+                $last = -(strlen(strrchr($text, '/'))) + 1;
                 if ($last < 0) {
                     $text = substr($text, 0, $last) . '&hellip;';
                 }
 
                 return sprintf('<a rel="nofollow noopener" target="_blank" href="%s">%s</a>', $url, $text);
             },
-        $text);
+            $text
+        );
     }
 
     /**
@@ -149,27 +152,35 @@ class Util {
      * Get avatar source with UUID as `{x}` and size as `{y}`.
      * Used for avatar preview in online players list.
      *
+     * @return string URL to be formatted.
      * @deprecated Use `AvatarSource::getUrlToFormat()`
      *
-     * @return string URL to be formatted.
      */
     public static function getAvatarSource(): string {
         return AvatarSource::getUrlToFormat();
     }
 
     /**
-     * Detect if the current connection is using SSL.
+     * Is a URL internal or external? Accepts full URL and also just a path.
      *
-     * @return bool Whether SSL is in use or not.
+     * @param string $url URL/path to check.
+     *
+     * @return bool Whether URL is external or not.
      */
-    public static function isConnectionSSL(): bool {
-        return (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https');
+    public static function isExternalURL(string $url): bool {
+        if ($url[0] == '/' && $url[1] != '/') {
+            return false;
+        }
+
+        $parsed = parse_url($url);
+
+        return !(str_replace('www.', '', rtrim(Util::getSelfURL(false), '/')) == str_replace('www.', '', $parsed['host']));
     }
 
     /**
      * Get the server name.
      *
-     * @param ?bool $protocol Whether to show http(s) at front or not.
+     * @param bool $protocol Whether to show http(s) at front or not.
      *
      * @return string Compiled URL.
      */
@@ -211,21 +222,18 @@ class Util {
     }
 
     /**
-     * Is a URL internal or external? Accepts full URL and also just a path.
+     * Detect if the current connection is using SSL.
      *
-     * @param string $url URL/path to check.
-     *
-     * @return bool Whether URL is external or not.
+     * @return bool Whether SSL is in use or not.
      */
-    public static function isExternalURL(string $url): bool {
-        if ($url[0] == '/' && $url[1] != '/') {
-            return false;
-        }
-
-        $parsed = parse_url($url);
-
-        return !(str_replace('www.', '', rtrim(Util::getSelfURL(false), '/')) == str_replace('www.', '', $parsed['host']));
+    public static function isConnectionSSL(): bool {
+        return (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https');
     }
+
+    /*
+     *  The truncate function is taken from CakePHP, license MIT
+     *  https://github.com/cakephp/cakephp/blob/master/LICENSE
+     */
 
     /**
      * URL-ify a string
@@ -243,10 +251,6 @@ class Util {
         return '';
     }
 
-    /*
-     *  The truncate function is taken from CakePHP, license MIT
-     *  https://github.com/cakephp/cakephp/blob/master/LICENSE
-     */
     /**
      * Truncates text.
      *
@@ -259,7 +263,7 @@ class Util {
      * - `exact` If false, $text will not be cut mid-word
      * - `html` If true, HTML tags would be handled correctly
      *
-     * @param string  $text String to truncate.
+     * @param string $text String to truncate.
      * @param int $length Length of returned string, including ellipsis.
      * @param array $options An array of html attributes and options.
      * @return string Trimmed string.
@@ -286,10 +290,12 @@ class Util {
                 if (!preg_match('/img|br|input|hr|area|base|basefont|col|frame|isindex|link|meta|param/s', $tag[2])) {
                     if (preg_match('/<[\w]+[^>]*>/s', $tag[0])) {
                         array_unshift($openTags, $tag[2]);
-                    } else if (preg_match('/<\/([\w]+)[^>]*>/s', $tag[0], $closeTag)) {
-                        $pos = array_search($closeTag[1], $openTags);
-                        if ($pos !== false) {
-                            array_splice($openTags, $pos, 1);
+                    } else {
+                        if (preg_match('/<\/([\w]+)[^>]*>/s', $tag[0], $closeTag)) {
+                            $pos = array_search($closeTag[1], $openTags);
+                            if ($pos !== false) {
+                                array_splice($openTags, $pos, 1);
+                            }
                         }
                     }
                 }
@@ -329,20 +335,18 @@ class Util {
         }
         if (!$exact) {
             $spacepos = mb_strrpos($truncate, ' ');
-            if (isset($spacepos)) {
-                if ($html) {
-                    $bits = mb_substr($truncate, $spacepos);
-                    preg_match_all('/<\/([a-z]+)>/', $bits, $droppedTags, PREG_SET_ORDER);
-                    if (!empty($droppedTags)) {
-                        foreach ($droppedTags as $closingTag) {
-                            if (!in_array($closingTag[1], $openTags)) {
-                                array_unshift($openTags, $closingTag[1]);
-                            }
+            if ($html) {
+                $bits = mb_substr($truncate, $spacepos);
+                preg_match_all('/<\/([a-z]+)>/', $bits, $droppedTags, PREG_SET_ORDER);
+                if (!empty($droppedTags)) {
+                    foreach ($droppedTags as $closingTag) {
+                        if (!in_array($closingTag[1], $openTags)) {
+                            array_unshift($openTags, $closingTag[1]);
                         }
                     }
                 }
-                $truncate = mb_substr($truncate, 0, $spacepos);
             }
+            $truncate = mb_substr($truncate, 0, $spacepos);
         }
         $truncate .= $ending;
 
@@ -389,7 +393,7 @@ class Util {
         if (isset($error)) {
             return json_encode(['error' => $error]);
         } else {
-            DB::getInstance()->createQuery("UPDATE nl2_settings SET `value`= ? WHERE `name` = 'version_checked'", [ date('U') ]);
+            DB::getInstance()->createQuery("UPDATE nl2_settings SET `value`= ? WHERE `name` = 'version_checked'", [date('U')]);
 
             if ($update_check == 'None') {
                 return json_encode(['no_update' => true]);
@@ -397,10 +401,11 @@ class Util {
                 $info = json_decode($update_check);
 
                 if (!isset($info->error) && !isset($info->no_update) && isset($info->new_version)) {
-                    if (isset($info->urgent) && $info->urgent == 'true')
+                    if (isset($info->urgent) && $info->urgent == 'true') {
                         $to_db = 'urgent';
-                    else
+                    } else {
                         $to_db = 'true';
+                    }
 
                     $update_id = $queries->getWhere('settings', ['name', '=', 'version_update']);
                     $update_id = $update_id[0]->id;
@@ -437,11 +442,11 @@ class Util {
      * Make a GET request to a URL using cURL.
      * Failures will automatically be logged along with the error.
      *
-     * @deprecated Please use HttpClient class instead.
-     *
      * @param string $full_url URL to send request to.
      * @param string|null $body Request body to attach to request.
      * @return string Response from remote server, false on failure.
+     * @deprecated Please use HttpClient class instead.
+     *
      */
     public static function curlGetContents(string $full_url, ?string $body = null): string {
         if ($body == null) {
@@ -461,10 +466,11 @@ class Util {
      */
     public static function replaceAnchorsWithText(string $data): string {
         return preg_replace_callback('/]*href=["|\']([^"|\']*)["|\'][^>]*>([^<]*)<\/a>/i', static function ($m): string {
-            if (strpos($m[1], self::getSelfURL()) === false)
+            if (strpos($m[1], self::getSelfURL()) === false) {
                 return '<a href="' . $m[1] . '" rel="nofollow noopener" target="_blank">' . $m[2] . '</a>';
-            else
+            } else {
                 return '<a href="' . $m[1] . '" target="_blank">' . $m[2] . '</a>';
+            }
         }, $data);
     }
 
@@ -517,7 +523,7 @@ class Util {
      * Get in-game rank name from a website group ID, uses Group Sync rules.
      *
      * @param int $website_group_id ID of website group to search for.
-     * @return string|null Name of in-game rank or null if rule is not setup.
+     * @return string|null Name of in-game rank or null if rule is not set up.
      */
     public static function getIngameRankName(int $website_group_id): ?string {
         $nameless_injector = GroupSyncManager::getInstance()->getInjectorByClass(NamelessMCGroupSyncInjector::class);
@@ -546,8 +552,6 @@ class Util {
 
         return null;
     }
-
-    private static array $_enabled_modules = [];
 
     /**
      * Determine if a specific module is enabled

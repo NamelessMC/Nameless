@@ -26,9 +26,9 @@ if (!isset($_GET['c'])) {
     // Enter email address form
     if (Input::exists()) {
         if (Token::check()) {
-            if (!isset($_POST['email']) || empty($_POST['email']))
+            if (!isset($_POST['email']) || empty($_POST['email'])) {
                 $error = $language->get('user', 'email_required');
-            else {
+            } else {
                 // Check to see if the email exists
                 $target_user = new User(Input::get('email'), 'email');
                 if ($target_user->data() && $target_user->data()->active) {
@@ -98,14 +98,18 @@ if (!isset($_GET['c'])) {
 
                 $success = $language->get('user', 'forgot_password_email_sent');
             }
-        } else
+        } else {
             $error = $language->get('general', 'invalid_token');
+        }
     }
 
-    if (isset($error))
+    if (isset($error)) {
         $smarty->assign('ERROR', $error);
-    else if (isset($success))
-        $smarty->assign('SUCCESS', $success);
+    } else {
+        if (isset($success)) {
+            $smarty->assign('SUCCESS', $success);
+        }
+    }
 
     $smarty->assign([
         'FORGOT_PASSWORD' => str_replace('?', '', $language->get('user', 'forgot_password')),
@@ -173,17 +177,20 @@ if (!isset($_GET['c'])) {
                     } catch (Exception $e) {
                         $errors = [$e->getMessage()];
                     }
-                } else
+                } else {
                     $errors = [$language->get('user', 'incorrect_email')];
+                }
             } else {
                 $errors = $validation->errors();
             }
-        } else
+        } else {
             $errors = [$language->get('general', 'invalid_token')];
+        }
     }
 
-    if (isset($errors) && count($errors))
+    if (isset($errors) && count($errors)) {
         $smarty->assign('ERROR', $errors);
+    }
 
     $smarty->assign([
         'FORGOT_PASSWORD' => str_replace('?', '', $language->get('user', 'forgot_password')),

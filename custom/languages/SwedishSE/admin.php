@@ -29,7 +29,6 @@ $language = [
     'minecraft' => 'Minecraft',
     'modules' => 'Moduler',
     'security' => 'Säkerhet',
-    'sitemap' => 'Sitemap',
     'styles' => 'Stiler',
     'users_and_groups' => 'Användare och Grupper',
 
@@ -202,6 +201,8 @@ $language = [
     'seo' => 'SEO',
     'google_analytics' => 'Google Analytics',
     'google_analytics_help' => 'Lägg till Google Analytics på din webbplats för att spåra besökare och statistik. Du måste skapa ett Google Analytics-konto för att kunna använda den här funktionen. Ange ditt Google Analytics-webbegendom-ID. ID: n ser ut som UA-XXXXA-X och du hittar det i din kontoinformation eller i spårningskoden från Google.',
+    'sitemap' => 'Sitemap',
+    'seo_settings_updated_successfully' => 'SEO settings updated successfully.',
 
     // Reactions
     'icon' => 'Ikon',
@@ -392,7 +393,7 @@ $language = [
     'confirm_delete_template' => 'Är du säker på att du vill radera den här mallen?',
     'delete' => 'Radera',
     'template_deleted_successfully' => 'Mallen har tagits bort!',
-'background_image_x' => 'Bakgrundsbild: <strong> {x} </strong>', // Byt inte ut {x}
+    'background_image_x' => 'Bakgrundsbild: <strong> {x} </strong>', // Byt inte ut {x}
     'banner_image_x' => 'Bannerbild: <strong> {x} </strong>', // Byt inte ut {x}
     'logo_image_x' => 'Logotypbild: <strong> {x} </strong>', // Byt inte ut {x}
     'favicon_image_x' => 'Favicon-bild: <strong> {x} </strong>', // Byt inte ut {x}
@@ -472,7 +473,7 @@ $language = [
     'secondary_groups' => 'Sekundära grupper',
     'secondary_groups_info' => 'Användaren får ytterligare behörigheter från dessa grupper. Ctrl + klicka för att välja / avmarkera flera grupper.',
     'unable_to_update_uuid' => 'Kan inte uppdatera UUID.',
-'default_group' => 'Är gruppen standardgruppen (för nya användare)?',
+    'default_group' => 'Är gruppen standardgruppen (för nya användare)?',
     'user_id' => 'Användar-ID',
     'uuid' => 'UUID',
     'group_order' => 'Grupporder',
@@ -661,7 +662,7 @@ $language = [
     'log_purged_successfully' => 'Loggen har rensats framgångsrikt.',
 
     // Hooks
-'hooks' => 'Webhooks',
+    'hooks' => 'Webhooks',
     'hooks_info' => 'Webhooks gör att externa tjänster kan meddelas när vissa händelser inträffar. När de angivna händelserna inträffar. ',
     'no_hooks_yet' => 'Det finns inga webbhooks än.',
     'new_hook' => 'Ny hook',
@@ -703,9 +704,7 @@ $language = [
 
     // Dashboard
     'total_users' => 'Totalt antal användare',
-    'total_users_statistic_icon' => '<i class = "fas fa-användare"> </i>',
     'recent_users' => 'Nya användare',
-    'recent_users_statistic_icon' => '<i class = "fas fa-users"> </i>',
     'average_players' => 'Genomsnittliga spelare',
     'nameless_news' => 'NamelessMC Nyheter',
     'impossible_to_retrieve_nameless_news' => 'Det går inte att hämta de senaste nyheterna',
@@ -744,4 +743,6 @@ $language = [
     'background_colour_required' => 'Bakgrundsfärg krävs',
     'text_colour_required' => 'Textfärg krävs',
     'no_announcements' => 'Inga meddelanden har gjorts ännu.',
+    'announcement_order' => 'Order',
+    'announcement_hook_info' => 'Announcement creation',
 ];

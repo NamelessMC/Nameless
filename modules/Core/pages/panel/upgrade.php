@@ -9,7 +9,7 @@
  *  Panel update execute page
  */
 
-$queries =  new Queries();
+$queries = new Queries();
 
 // Ensure an update is needed
 $update_needed = $queries->getWhere('settings', ['name', '=', 'version_update']);

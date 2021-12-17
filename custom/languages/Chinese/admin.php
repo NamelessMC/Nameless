@@ -32,7 +32,6 @@ $language = [
     'minecraft' => 'Minecraft',
     'modules' => '模組',
     'security' => '安全',
-    'sitemap' => 'Sitemap',
     'styles' => '樣式',
     'users_and_groups' => '使用者與群組',
 
@@ -87,7 +86,7 @@ $language = [
     'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://namelessmc.com/discord-bot-invite">here</a>. Then, run the <code>/apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
     'discord_bot_must_be_setup' => 'Cannot enable Discord Integration until you have setup the bot. For information, please <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">click here</a>.',
     'discord_bot_setup' => 'Bot Setup',
-    'discord_integration_not_setup' => 'Discord Integration is not setup',
+    'discord_integration_not_setup' => 'Discord Integration is not set up',
     'dark' => 'Dark',
     'light' => 'Light',
     'google_plus_url' => 'Google+ URL',
@@ -213,6 +212,8 @@ $language = [
     'seo' => 'SEO',
     'google_analytics' => 'Google Analytics',
     'google_analytics_help' => 'Add Google Analytics to your website to track visitors and statistics. You will need to create a Google Analytics account to use this functionality. Enter your Google Analytics Web Property ID. The ID looks like UA-XXXXA-X and you can find it in your account information or in the tracking code provided by Google.',
+    'sitemap' => 'Sitemap',
+    'seo_settings_updated_successfully' => 'SEO settings updated successfully.',
 
     // Reactions
     'icon' => '圖標',
@@ -715,9 +716,7 @@ $language = [
 
     // Dashboard
     'total_users' => 'Total Users',
-    'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'recent_users' => 'New Users',
-    'recent_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'average_players' => 'Average Players',
     'nameless_news' => 'NamelessMC News',
     'unable_to_retrieve_nameless_news' => 'Unable to retrieve the latest news',
@@ -756,4 +755,6 @@ $language = [
     'background_colour_required' => 'Background Colour is required',
     'text_colour_required' => 'Text Colour is required',
     'no_announcements' => 'No announcements have been made yet.',
+    'announcement_order' => 'Order',
+    'announcement_hook_info' => 'Announcement creation',
 ];

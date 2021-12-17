@@ -30,7 +30,6 @@ $language = [
     'minecraft' => 'Minecraft',
     'modules' => '模块',
     'security' => '安全',
-    'sitemap' => '站点地图',
     'styles' => '风格',
     'users_and_groups' => '账号与权限组',
 
@@ -211,6 +210,8 @@ $language = [
     'seo' => 'SEO',
     'google_analytics' => 'Google Analytics (分析)',
     'google_analytics_help' => '您可在网站上添加 Google Analytics (分析) 以了解各项统计数据。您必须先创建一个 Google Analytics (分析) 帐号。请输入您的 Google Analytics Web Property ID。 此 ID 格式为 UA-XXXXA-X，您可在您的帐号信息中找到此 ID。',
+    'sitemap' => '站点地图',
+    'seo_settings_updated_successfully' => 'SEO settings updated successfully.',
 
     // Reactions
     'icon' => '图标',
@@ -714,9 +715,7 @@ $language = [
 
     // Dashboard
     'total_users' => '总用户量',
-    'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'recent_users' => '在线用户量',
-    'recent_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'recent_topics' => '话题量',
     'recent_posts' => '帖子数',
     'average_players' => '普通玩家',
@@ -756,4 +755,6 @@ $language = [
     'background_colour_required' => '背景颜色为必填项',
     'text_colour_required' => '文字颜色为必填项',
     'no_announcements' => '还没有任何公告呢!',
+    'announcement_order' => 'Order',
+    'announcement_hook_info' => 'Announcement creation',
 ];

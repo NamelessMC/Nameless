@@ -12,8 +12,8 @@
 class Pages {
 
     private array $_pages;
-	private array $_active_page;
-    private array $_sm_methods;
+    private array $_active_page;
+    private array $_sm_methods = [];
     private array $_ajax_requests = [];
 
     private int $_id = 1;
@@ -42,7 +42,7 @@ class Pages {
      *
      * @param string $url URL string.
      * @param string $name Name of page.
-     * @param bool|null $widgets Can widgets be used on the page? Default false.
+     * @param bool $widgets Can widgets be used on the page? Default false.
      */
     public function addCustom(string $url, string $name, bool $widgets = false) {
         $this->_pages[$url] = [
@@ -57,7 +57,7 @@ class Pages {
 
     /**
      * Get array of all pages.
-     * 
+     *
      * @return array All pages.
      */
     public function returnPages(): array {
@@ -66,7 +66,7 @@ class Pages {
 
     /**
      * Return pages which allow widgets.
-     * 
+     *
      * @return array All pages which allow widgets.
      */
     public function returnWidgetPages(): array {
@@ -96,7 +96,7 @@ class Pages {
 
     /**
      * Get registered sitemap methods.
-     * 
+     *
      * @return array Array of sitemap methods.
      */
     public function getSitemapMethods(): array {
@@ -134,7 +134,7 @@ class Pages {
         if ($url) {
             foreach ($this->_pages as $key => $page) {
                 if ($key == $url) {
-					$page['key'] = $key;
+                    $page['key'] = $key;
                     return $page;
                 }
             }
@@ -144,21 +144,21 @@ class Pages {
     }
 
     /**
-     * Set the page the user currently viewing.
-     */
-	public function setActivePage(array $page):  void {
-		$this->_active_page = $page;
-	}
-
-    /**
      * Get the page details the user currently viewing.
      * Not used internally.
      *
      * @return array Details of current page.
      */
-	public function getActivePage(): array {
-		return $this->_active_page;
-	}
+    public function getActivePage(): array {
+        return $this->_active_page;
+    }
+
+    /**
+     * Set the page the user currently viewing.
+     */
+    public function setActivePage(array $page): void {
+        $this->_active_page = $page;
+    }
 
     /**
      * Add a script for Javascript to perform a GET request to.

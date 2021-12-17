@@ -1,4 +1,5 @@
 <?php
+
 /*
  *	Made by Aberdeener
  *  https://github.com/NamelessMC/Nameless/
@@ -8,6 +9,7 @@
  *
  *  Profile Posts Widget
  */
+
 class ProfilePostsWidget extends WidgetBase {
 
     private Cache $_cache;
@@ -47,16 +49,24 @@ class ProfilePostsWidget extends WidgetBase {
 
         $posts_array = [];
         if ($this->_cache->isCached('profile_posts_' . $user_id)) {
-             $posts_array = $this->_cache->retrieve('profile_posts_' . $user_id);
-         } else {
+            $posts_array = $this->_cache->retrieve('profile_posts_' . $user_id);
+        } else {
             $posts = DB::getInstance()->selectQuery('SELECT * FROM nl2_user_profile_wall_posts ORDER BY time DESC LIMIT 5')->results();
             foreach ($posts as $post) {
                 $post_author = new User($post->author_id);
 
                 if ($this->_user->isLoggedIn()) {
-                    if ($this->_user->isBlocked($post->author_id, $this->_user->data()->id)) continue;
-                    if ($post_author->isPrivateProfile() && !$this->_user->hasPermission('profile.private.bypass')) continue;
-                } else if ($post_author->isPrivateProfile()) continue;
+                    if ($this->_user->isBlocked($post->author_id, $this->_user->data()->id)) {
+                        continue;
+                    }
+                    if ($post_author->isPrivateProfile() && !$this->_user->hasPermission('profile.private.bypass')) {
+                        continue;
+                    }
+                } else {
+                    if ($post_author->isPrivateProfile()) {
+                        continue;
+                    }
+                }
 
                 $post_user = new User($post->user_id);
                 $link = rtrim($post_user->getProfileURL(), '/');

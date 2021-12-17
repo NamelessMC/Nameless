@@ -127,17 +127,51 @@ class MCQuery {
     }
 
     /**
-     * Query multiple servers
-
-     * @param array $servers    Servers
-     * @param string $type       Type of query to use (internal or external)
-     * @param Language $language   Query language object
-     * @param bool $accumulate Whether to return as one accumulated result or not
-     * @param Queries $queries    Queries instance to pass through for error logging
+     * Formats a list of players into something useful for the frontend.
      *
-     * @throws Exception if not able to query the server
+     * @param array $player_list Unformatted array of players in format 'id' => string (UUID), 'name' => string (username)
+     * @return array Array of formatted players
+     **/
+    private static function formatPlayerList(array $player_list): array {
+        $formatted = [];
+
+        foreach ($player_list as $player) {
+            $player = (array)$player;
+            $user = new User($player['id'], 'uuid');
+            if (!$user->data()) {
+                $user = new User($player['name'], 'username');
+            }
+
+            if (!$user->data()) {
+                $avatar = Util::getAvatarFromUUID($player['id']);
+                $profile = '#';
+            } else {
+                $avatar = $user->getAvatar();
+                $profile = $user->getProfileURL();
+            }
+
+            $formatted[] = [
+                'username' => Output::getClean($player['name']),
+                'uuid' => Output::getClean($player['id']),
+                'avatar' => $avatar,
+                'profile' => $profile
+            ];
+        }
+
+        return $formatted;
+    }
+
+    /**
+     * Query multiple servers
+     * @param array $servers Servers
+     * @param string $type Type of query to use (internal or external)
+     * @param Language $language Query language object
+     * @param bool $accumulate Whether to return as one accumulated result or not
+     * @param Queries $queries Queries instance to pass through for error logging
      *
      * @return array Array containing query result
+     * @throws Exception if not able to query the server
+     *
      */
     public static function multiQuery(array $servers, string $type, Language $language, bool $accumulate, Queries $queries): array {
         if (count($servers)) {
@@ -260,40 +294,5 @@ class MCQuery {
             return $to_return;
         }
         return false;
-    }
-
-    /**
-     * Formats a list of players into something useful for the frontend.
-     *
-     * @param array $player_list Unformatted array of players in format 'id' => string (UUID), 'name' => string (username)
-     * @return array Array of formatted players
-     **/
-    private static function formatPlayerList(array $player_list): array {
-        $formatted = [];
-
-        foreach ($player_list as $player) {
-            $player = (array)$player;
-            $user = new User($player['id'], 'uuid');
-            if (!$user->data()) {
-                $user = new User($player['name'], 'username');
-            }
-
-            if (!$user->data()) {
-                $avatar = Util::getAvatarFromUUID($player['id']);
-                $profile = '#';
-            } else {
-                $avatar = $user->getAvatar();
-                $profile = $user->getProfileURL();
-            }
-
-            $formatted[] = [
-                'username' => Output::getClean($player['name']),
-                'uuid' => Output::getClean($player['id']),
-                'avatar' => $avatar,
-                'profile' => $profile
-            ];
-        }
-
-        return $formatted;
     }
 }

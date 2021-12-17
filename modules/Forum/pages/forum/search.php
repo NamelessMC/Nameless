@@ -10,10 +10,9 @@
  */
 
 require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
-if (!isset($forum) || (!$forum instanceof Forum))
+if (!isset($forum) || (!$forum instanceof Forum)) {
     $forum = new Forum();
-
-require_once(ROOT_PATH . '/core/includes/emojione/autoload.php'); // Emojione
+}
 
 const PAGE = 'forum';
 
@@ -53,10 +52,11 @@ if (!isset($_GET['s'])) {
     $search = Output::getClean(str_replace('+', ' ', $_GET['s']));
     $search = preg_replace('/[^a-zA-Z0-9 +]+/', '', $search); // alphanumeric only
 
-    if (isset($_GET['p']) && is_numeric($_GET['p']))
+    if (isset($_GET['p']) && is_numeric($_GET['p'])) {
         $p = $_GET['p'];
-    else
+    } else {
         $p = 1;
+    }
 
     if (isset($_SESSION['last_forum_search']) && $_SESSION['last_forum_search_query'] != $_GET['s'] && $_SESSION['last_forum_search'] > strtotime('-1 minute')) {
         Session::flash('search_error', str_replace('{x}', (60 - (date('U') - $_SESSION['last_forum_search'])), $forum_language->get('forum', 'search_again_in_x_seconds')));
@@ -95,10 +95,12 @@ if (!isset($_GET['s'])) {
                                 ];
 
                                 break;
-                            } else
+                            } else {
                                 break;
-                        } else
+                            }
+                        } else {
                             break;
+                        }
                     } else {
                         // Topic, get associated post
                         $post = DB::getInstance()->selectQuery('SELECT * FROM nl2_posts WHERE topic_id = ? ORDER BY post_date ASC LIMIT 1', [$result->id]);
@@ -115,10 +117,12 @@ if (!isset($_GET['s'])) {
                                 ];
 
                                 break;
-                            } else
+                            } else {
                                 break;
-                        } else
+                            }
+                        } else {
                             break;
+                        }
                     }
 
                 }
@@ -132,15 +136,16 @@ if (!isset($_GET['s'])) {
             $_SESSION['last_forum_search'] = date('U');
             $_SESSION['last_forum_search_query'] = $_GET['s'];
         }
-    } else
+    } else {
         $results = $cache->retrieve('result');
+    }
 
     $input = true;
 }
 
-if (!isset($_GET['s']))
+if (!isset($_GET['s'])) {
     $page_title = $forum_language->get('forum', 'forum_search');
-else {
+} else {
     $page_title = $forum_language->get('forum', 'forum_search') . ' - ' . Output::getClean(substr($search, 0, 20)) . ' - ' . str_replace('{x}', $p, $language->get('general', 'page_x'));
 }
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
@@ -173,7 +178,7 @@ if (isset($_GET['s'])) {
         $n = 0;
         while (($n < count($results->data)) && isset($results->data[$n])) {
             $content = htmlspecialchars_decode($results->data[$n]['post_content']);
-            $content = $emojione->unicodeToImage($content);
+            $content = $emojione->toImage($content);
             $content = Output::getPurified($content);
 
             $post_user = new User($results->data[$n]['post_author']);
@@ -198,8 +203,9 @@ if (isset($_GET['s'])) {
             'RESULTS' => $posts,
             'READ_FULL_POST' => $forum_language->get('forum', 'read_full_post')
         ]);
-    } else
+    } else {
         $smarty->assign('NO_RESULTS', $forum_language->get('forum', 'no_results_found'));
+    }
 
     $smarty->assign([
         'SEARCH_RESULTS' => $forum_language->get('forum', 'search_results'),
@@ -223,10 +229,13 @@ if (isset($_GET['s'])) {
     $template->displayTemplate('forum/search_results.tpl', $smarty);
 } else {
     // Search bar
-    if (isset($error))
+    if (isset($error)) {
         $smarty->assign('ERROR', $error);
-    else if (Session::exists('search_error'))
-        $smarty->assign('ERROR', Session::flash('search_error'));
+    } else {
+        if (Session::exists('search_error')) {
+            $smarty->assign('ERROR', Session::flash('search_error'));
+        }
+    }
 
     $smarty->assign([
         'FORUM_SEARCH' => $forum_language->get('forum', 'forum_search'),

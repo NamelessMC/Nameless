@@ -73,7 +73,7 @@ if ($user->isLoggedIn()) {
         'pms' => [
             'title' => $language->get('user', 'messages'),
             'icon' => '<i class="fas fa-envelope icon"></i>',
-            'link' =>  URL::build('/user/messaging'),
+            'link' => URL::build('/user/messaging'),
             'meta' => $language->get('user', 'view_messages'),
             'target' => '',
             'items' => [
@@ -87,7 +87,7 @@ if ($user->isLoggedIn()) {
         'alerts' => [
             'title' => $language->get('user', 'alerts'),
             'icon' => '<i class="fas fa-flag icon"></i>',
-            'link' =>  URL::build('/user/alerts'),
+            'link' => URL::build('/user/alerts'),
             'meta' => $language->get('user', 'view_alerts'),
             'target' => '',
             'items' => [

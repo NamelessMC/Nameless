@@ -59,7 +59,7 @@ $language = [
     'view_report' => 'View report',
     'page_loaded_in' => 'Pagina geladen in {x}s', // Verander "{x}" niet, tijdseenheid is seconden
     'page_x' => 'Pagina {x}',
-       'browse' => 'Doorzoek',
+    'browse' => 'Doorzoek',
     'bypass' => 'Omzeilen',
     'yes' => 'Ja',
     'no' => 'Nee',
@@ -74,7 +74,7 @@ $language = [
     'link' => 'Link',
     'unlink' => 'Unlink',
     'leaderboards' => 'Leaderboards',
-    
+
     /*
      *  Contact formulier
      */

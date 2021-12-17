@@ -89,12 +89,15 @@ if ($cache->isCached('forums')) {
                         }
                     }
 
-                    if ($forums[$key]['subforums'][$subforum_id]->redirect_forum == 1 && Util::isExternalURL($forums[$key]['subforums'][$subforum_id]->redirect_url))
+                    if ($forums[$key]['subforums'][$subforum_id]->redirect_forum == 1 && Util::isExternalURL($forums[$key]['subforums'][$subforum_id]->redirect_url)) {
                         $forums[$key]['subforums'][$subforum_id]->redirect_confirm = str_replace('{x}', $forums[$key]['subforums'][$subforum_id]->redirect_to, $forum_language->get('forum', 'forum_redirect_warning'));
+                    }
                 }
             }
         }
-    } else $forums = [];
+    } else {
+        $forums = [];
+    }
 
     $cache->store('forums', $forums, 60);
 }

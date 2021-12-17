@@ -11,7 +11,7 @@
 
 class RecentReportsItem extends CollectionItemBase {
 
-    private Smarty $_smarty; 
+    private Smarty $_smarty;
     private Language $_language;
     private Cache $_cache;
 
@@ -56,8 +56,9 @@ class RecentReportsItem extends CollectionItemBase {
                         $reporter_user = $users[$item->reporter_id];
                     } else {
                         $reporter_user = new User($item->reporter_id);
-                        if (!$reporter_user->data())
+                        if (!$reporter_user->data()) {
                             continue;
+                        }
                         $users[$item->reporter_id] = $reporter_user;
                     }
 
@@ -65,8 +66,9 @@ class RecentReportsItem extends CollectionItemBase {
                         $reported_user = $users[$item->reported_id];
                     } else {
                         $reported_user = new User($item->reported_id);
-                        if (!$reported_user->data())
+                        if (!$reported_user->data()) {
                             continue;
+                        }
                         $users[$item->reported_id] = $reported_user;
                     }
 
@@ -93,8 +95,9 @@ class RecentReportsItem extends CollectionItemBase {
                         'ig_reported_uuid' => ($item->reported_uuid ? Output::getClean($item->reported_uuid) : '')
                     ];
 
-                    if (++$i == 5)
+                    if (++$i == 5) {
                         break;
+                    }
                 }
             }
 

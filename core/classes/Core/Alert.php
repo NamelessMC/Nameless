@@ -1,4 +1,5 @@
 <?php
+
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
@@ -8,17 +9,18 @@
  *
  *  Alert class
  */
+
 class Alert {
 
     /**
      * Creates an alert for the specified user.
-     * 
+     *
      * @param int $user_id Contains the ID of the user who we are creating the alert for.
      * @param string $type Contains the alert type, eg 'tag' for user tagging.
      * @param array $text_short Contains the alert text in short form for the dropdown.
      * @param array $text Contains full information about the alert.
      * @param string $link Contains link to view the alert, defaults to #
-     * 
+     *
      * @throws Exception if unable to create alert
      */
     public static function create(int $user_id, string $type, array $text_short, array $text, string $link = '#'): void {
@@ -45,10 +47,10 @@ class Alert {
 
     /**
      * Get user alerts.
-     * 
+     *
      * @param int $user_id Contains the ID of the user who we are getting alerts for.
      * @param bool $all Do we want to get all alerts (including read), or not; defaults to false).
-     * 
+     *
      * @return array All their alerts.
      */
     public static function getAlerts(int $user_id, bool $all = false): array {
@@ -63,10 +65,10 @@ class Alert {
 
     /**
      * Get user unread messages.
-     * 
+     *
      * @param int $user_id Contains the ID of the user who we are getting messages for.
      * @param bool $all Do we want to get all alerts (including read), or not; defaults to false)
-     * 
+     *
      * @return array All their messages matching the $all filter.
      */
     public static function getPMs(int $user_id, bool $all = false): array {
@@ -80,8 +82,11 @@ class Alert {
                 // Get actual PM information
                 $pm_full = $db->get('private_messages', ['id', '=', $pm->pm_id])->results();
 
-                if (!count($pm_full)) continue;
-                else $pm_full = $pm_full[0];
+                if (!count($pm_full)) {
+                    continue;
+                } else {
+                    $pm_full = $pm_full[0];
+                }
 
                 $pms[] = [
                     'id' => $pm_full->id,
@@ -103,8 +108,11 @@ class Alert {
             if ($pm->read == 0) {
                 $pm_full = $db->get('private_messages', ['id', '=', $pm->pm_id])->results();
 
-                if (!count($pm_full)) continue;
-                else $pm_full = $pm_full[0];
+                if (!count($pm_full)) {
+                    continue;
+                } else {
+                    $pm_full = $pm_full[0];
+                }
 
                 $unread[] = [
                     'id' => $pm_full->id,
@@ -116,7 +124,7 @@ class Alert {
                 ];
             }
         }
-        
+
         return $unread;
     }
 }

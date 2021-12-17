@@ -27,7 +27,6 @@ $language = [
     'minecraft' => 'Minecraft',
     'modules' => 'Modules',
     'security' => 'Security',
-    'sitemap' => 'Sitemap',
     'styles' => 'Styles',
 
     // Overview
@@ -201,6 +200,8 @@ $language = [
     'seo' => 'SEO',
     'google_analytics' => 'Google Analytics',
     'google_analytics_help' => 'Add Google Analytics to your website to track visitors and statistics. You will need to create a Google Analytics account to use this functionality. Enter your Google Analytics Web Property ID. The ID looks like UA-XXXXA-X and you can find it in your account information or in the tracking code provided by Google.',
+    'sitemap' => 'Sitemap',
+    'seo_settings_updated_successfully' => 'SEO settings updated successfully.',
 
     // Reactions
     'icon' => 'Icon',
@@ -703,9 +704,7 @@ $language = [
 
     // Dashboard
     'total_users' => 'Total Users',
-    'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'recent_users' => 'New Users',
-    'recent_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'average_players' => 'Average Players',
     'nameless_news' => 'NamelessMC News',
     'unable_to_retrieve_nameless_news' => 'Unable to retrieve the latest news',
@@ -744,4 +743,6 @@ $language = [
     'background_colour_required' => 'Background Color is required',
     'text_colour_required' => 'Text Color is required',
     'no_announcements' => 'No announcements have been made yet.',
+    'announcement_order' => 'Order',
+    'announcement_hook_info' => 'Announcement creation',
 ];

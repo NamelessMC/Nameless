@@ -1,4 +1,5 @@
 <?php
+
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
@@ -8,6 +9,7 @@
  *
  *  Recent topics dashboard collection item
  */
+
 class RecentTopicsItem extends CollectionItemBase {
 
     private Smarty $_smarty;
@@ -35,7 +37,6 @@ class RecentTopicsItem extends CollectionItemBase {
 
     public function getContent(): string {
         $this->_smarty->assign([
-            'ICON' => $this->_language->get('forum', 'recent_topics_statistic_icon'),
             'TITLE' => $this->_language->get('forum', 'recent_topics'),
             'VALUE' => $this->_topics
         ]);

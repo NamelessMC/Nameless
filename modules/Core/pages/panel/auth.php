@@ -73,16 +73,18 @@ if (Input::exists()) {
             if ($login_method == 'email') {
                 $username = Input::get('email');
                 $method_field = 'email';
-            } else if ($login_method == 'email_or_username') {
-                $username = Input::get('username');
-                if (strpos(Input::get('username'), '@') !== false) {
-                    $method_field = 'email';
+            } else {
+                if ($login_method == 'email_or_username') {
+                    $username = Input::get('username');
+                    if (strpos(Input::get('username'), '@') !== false) {
+                        $method_field = 'email';
+                    } else {
+                        $method_field = 'username';
+                    }
                 } else {
+                    $username = Input::get('username');
                     $method_field = 'username';
                 }
-            } else {
-                $username = Input::get('username');
-                $method_field = 'username';
             }
 
             $user = new User();
@@ -119,14 +121,16 @@ if ($login_method == 'email') {
     $smarty->assign([
         'EMAIL' => $language->get('user', 'email')
     ]);
-} else if ($login_method == 'email_or_username') {
-    $smarty->assign([
-        'USERNAME' => $language->get('user', 'email_or_username')
-    ]);
 } else {
-    $smarty->assign([
-        'USERNAME' => $language->get('user', 'username')
-    ]);
+    if ($login_method == 'email_or_username') {
+        $smarty->assign([
+            'USERNAME' => $language->get('user', 'email_or_username')
+        ]);
+    } else {
+        $smarty->assign([
+            'USERNAME' => $language->get('user', 'username')
+        ]);
+    }
 }
 
 $smarty->assign([
@@ -137,8 +141,9 @@ $smarty->assign([
     'CANCEL' => $language->get('general', 'cancel')
 ]);
 
-if (Session::exists('adm_auth_error'))
+if (Session::exists('adm_auth_error')) {
     $smarty->assign('ERROR', Session::flash('adm_auth_error'));
+}
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);

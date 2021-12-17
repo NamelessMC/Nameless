@@ -1,4 +1,5 @@
 <?php
+
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
@@ -8,6 +9,7 @@
  *
  *  Language class
  */
+
 class Language {
 
     private string $_activeLanguage;
@@ -16,26 +18,8 @@ class Language {
     private string $_module;
 
     /**
-     * Return the current active language.
-     *
-     * @return string Active language name.
-     */
-    public function getActiveLanguage(): string {
-        return $this->_activeLanguage;
-    }
-
-    /**
-     * Return the current active language directory.
-     *
-     * @return string Path to active language files.
-     */
-    public function getActiveLanguageDirectory(): string {
-        return $this->_activeLanguageDirectory;
-    }
-
-    /**
      * Construct Language class
-     * 
+     *
      * @param string|null $module Path of language files for custom modules.
      * @param string|null $active_language The active language set in cache.
      */
@@ -77,8 +61,36 @@ class Language {
     }
 
     /**
+     * Return the current active language.
+     *
+     * @return string Active language name.
+     */
+    public function getActiveLanguage(): string {
+        return $this->_activeLanguage;
+    }
+
+    /**
+     * Return the current active language directory.
+     *
+     * @return string Path to active language files.
+     */
+    public function getActiveLanguageDirectory(): string {
+        return $this->_activeLanguageDirectory;
+    }
+
+    /**
+     * Return current time language.
+     *
+     * @return array Time lang for use in TimeAgo class.
+     */
+    public function getTimeLanguage(): array {
+        $this->get('time', 'time');
+        return $this->_activeLanguageEntries['time'];
+    }
+
+    /**
      * Return a term in the currently active language
-     * 
+     *
      * @param string $file Name of file to look in, without file extension.
      * @param string $term The term to translate.
      * @param int|null $number Number of items to pass through to a plural function.
@@ -92,11 +104,13 @@ class Language {
                 require($this->_activeLanguageDirectory . DIRECTORY_SEPARATOR . $file . '.php');
                 $this->_activeLanguageEntries[$file] = $language;
             }
-        } else if (is_file($this->getFallbackFile($file))) {
-            require($this->getFallbackFile($file));
-            $this->_activeLanguageEntries[$file] = $language;
         } else {
-            die('Error loading fallback language file ' . Output::getClean($file) . '.php in ' . $this->_module . ', does ' . $this->_activeLanguageDirectory . ' exist?');
+            if (is_file($this->getFallbackFile($file))) {
+                require($this->getFallbackFile($file));
+                $this->_activeLanguageEntries[$file] = $language;
+            } else {
+                die('Error loading fallback language file ' . Output::getClean($file) . '.php in ' . $this->_module . ', does ' . $this->_activeLanguageDirectory . ' exist?');
+            }
         }
 
         // Check if this term exists in the language file
@@ -128,19 +142,9 @@ class Language {
     }
 
     /**
-     * Return current time language.
-     *
-     * @return array Time lang for use in TimeAgo class.
-     */
-    public function getTimeLanguage(): array {
-        $this->get('time', 'time');
-        return $this->_activeLanguageEntries['time'];
-    }
-
-    /**
      * Set a term in specific file.
      * Used for email message editing.
-     * 
+     *
      * @param string $file Name of file without extension to edit.
      * @param string $term Term which value to change.
      * @param string $value New value to set for term.

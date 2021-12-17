@@ -64,8 +64,9 @@ class RecentRegistrationsItem extends CollectionItemBase {
                         'time_full' => date('d M Y, H:i', $item->joined)
                     ];
 
-                    if (++$i == 5)
+                    if (++$i == 5) {
                         break;
+                    }
                 }
             }
 

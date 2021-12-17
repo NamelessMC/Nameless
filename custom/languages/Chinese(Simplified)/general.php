@@ -74,7 +74,7 @@ $language = [
     'link' => '链接',
     'unlink' => '解除链接',
     'leaderboards' => '排行榜',
-    
+
     /*
      *  Contact form
      */

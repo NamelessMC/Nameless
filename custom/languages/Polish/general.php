@@ -72,7 +72,7 @@ $language = [
     'link' => 'Podłącz',
     'unlink' => 'Odłącz',
     'leaderboards' => 'Ranking',
-    
+
     /*
      *  Contact form
      */

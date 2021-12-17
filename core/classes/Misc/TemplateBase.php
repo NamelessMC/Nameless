@@ -10,7 +10,7 @@
  */
 
 abstract class TemplateBase {
-    
+
     protected string $_name = '';
     protected string $_version = '';
     protected string $_nameless_version = '';
@@ -25,7 +25,7 @@ abstract class TemplateBase {
         $this->_nameless_version = $nameless_version;
         $this->_author = $author;
     }
-    
+
     /**
      * Handle page loading.
      */
@@ -46,7 +46,7 @@ abstract class TemplateBase {
                     (isset($file['crossorigin']) ? ' crossorigin="' . $file['crossorigin'] . '"' : '') .
                     (isset($file['as']) ? ' as="' . $file['as'] . '"' : '') .
                     (isset($file['onload']) ? ' onload="' . $file['onload'] . '"' : '') .
-                '>';
+                    '>';
             }
         }
     }
@@ -78,7 +78,7 @@ abstract class TemplateBase {
                     (isset($file['crossorigin']) ? 'crossorigin="' . $file['crossorigin'] . '"' : '') .
                     ((isset($file['defer']) && $file['defer']) ? ' defer' : '') .
                     ((isset($file['async']) && $file['async']) ? ' async' : '') .
-                '></script>';
+                    '></script>';
             }
         }
     }
@@ -92,24 +92,6 @@ abstract class TemplateBase {
         if ($script) {
             $this->_js[] = '<script type="text/javascript">' . $script . '</script>';
         }
-    }
-
-    /**
-     * Get all internal CSS styles.
-     *
-     * @return array Array of strings of CSS.
-     */
-    public function getCSS(): array {
-        return $this->_css;
-    }
-
-    /**
-     * Get all internal JS code.
-     *
-     * @return array Array of strings of JS.
-     */
-    public function getJS(): array {
-        return $this->_js;
     }
 
     /**
@@ -166,6 +148,24 @@ abstract class TemplateBase {
             'TEMPLATE_JS' => $this->getJS()
         ]);
         $smarty->display($template);
+    }
+
+    /**
+     * Get all internal CSS styles.
+     *
+     * @return array Array of strings of CSS.
+     */
+    public function getCSS(): array {
+        return $this->_css;
+    }
+
+    /**
+     * Get all internal JS code.
+     *
+     * @return array Array of strings of JS.
+     */
+    public function getJS(): array {
+        return $this->_js;
     }
 
     public function getTemplate(string $template, Smarty $smarty): string {

@@ -9,7 +9,7 @@
  *  403 Forbidden page
  */
 
-header($_SERVER['SERVER_PROTOCOL']. ' 403 Forbidden');
+header($_SERVER['SERVER_PROTOCOL'] . ' 403 Forbidden');
 
 const PAGE = 403;
 $page_title = '403';

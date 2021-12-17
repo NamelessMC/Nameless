@@ -48,7 +48,9 @@ body {
 .dark .dropdown-item:hover {
     background-color: var(--dark-color-6);
 }
-
+.dark .sidebar {
+    background-image: linear-gradient( 180deg,var(--dark-color-4) 10%,var(--dark-color-4) 100%) !important;
+}
 .dark .sidebar .nav-item .collapse .collapse-inner .collapse-item:hover,
 .dark .sidebar .nav-item .collapsing .collapse-inner .collapse-item:hover,
 .dark .sidebar .nav-item .collapse .collapse-inner .active,
@@ -125,7 +127,7 @@ option:checked {
 
 .dark .card-header,
 .dark .popover-header {
-    background-color: var(--dark-color-6);
+    background-color: var(--dark-color-6) !important;
     border: none;
 }
 

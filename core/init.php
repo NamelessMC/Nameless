@@ -9,6 +9,8 @@
  *  Initialisation file
  */
 
+require_once ROOT_PATH . '/vendor/autoload.php';
+
 require_once ROOT_PATH . '/core/autoload.php';
 
 // Nameless error handling
@@ -45,8 +47,10 @@ require(ROOT_PATH . '/core/config.php');
 
 if (isset($conf) && is_array($conf)) {
     $GLOBALS['config'] = $conf;
-} else if (!isset($GLOBALS['config'])) {
-    $page = 'install';
+} else {
+    if (!isset($GLOBALS['config'])) {
+        $page = 'install';
+    }
 }
 
 // If we're accessing the upgrade script don't initialise further
@@ -62,14 +66,18 @@ if ($page != 'install') {
      */
 
     // Friendly URLs?
-    define('FRIENDLY_URLS', Config::get('core/friendly'));
+    define('FRIENDLY_URLS', Config::get('core/friendly') == 'true');
 
     // Set up cache
     $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
 
     // Force https/www?
-    if (Config::get('core/force_https')) define('FORCE_SSL', true);
-    if (Config::get('core/force_www')) define('FORCE_WWW', true);
+    if (Config::get('core/force_https')) {
+        define('FORCE_SSL', true);
+    }
+    if (Config::get('core/force_www')) {
+        define('FORCE_WWW', true);
+    }
 
     if (defined('FORCE_SSL') && !Util::isConnectionSSL()) {
         if (defined('FORCE_WWW') && strpos($_SERVER['HTTP_HOST'], 'www.') === false) {
@@ -348,22 +356,26 @@ if ($page != 'install') {
 
     if ($cache->isCached('default_avatar_type')) {
         define('DEFAULT_AVATAR_TYPE', $cache->retrieve('default_avatar_type'));
-        if (DEFAULT_AVATAR_TYPE == 'custom' && $cache->isCached('default_avatar_image'))
+        if (DEFAULT_AVATAR_TYPE == 'custom' && $cache->isCached('default_avatar_image')) {
             define('DEFAULT_AVATAR_IMAGE', $cache->retrieve('default_avatar_image'));
-        else
+        } else {
             define('DEFAULT_AVATAR_IMAGE', '');
-    } else
+        }
+    } else {
         define('DEFAULT_AVATAR_TYPE', 'minecraft');
+    }
 
-    if ($cache->isCached('avatar_source'))
+    if ($cache->isCached('avatar_source')) {
         define('DEFAULT_AVATAR_SOURCE', $cache->retrieve('avatar_source'));
-    else
+    } else {
         define('DEFAULT_AVATAR_SOURCE', 'cravatar');
+    }
 
-    if ($cache->isCached('avatar_perspective'))
+    if ($cache->isCached('avatar_perspective')) {
         define('DEFAULT_AVATAR_PERSPECTIVE', $cache->retrieve('avatar_perspective'));
-    else
+    } else {
         define('DEFAULT_AVATAR_PERSPECTIVE', 'face');
+    }
 
     // Widgets
     $widgets = new Widgets($cache);
@@ -390,14 +402,15 @@ if ($page != 'install') {
 
     // Minecraft integration?
     $mc_integration = $queries->getWhere('settings', ['name', '=', 'mc_integration']);
-    if (count($mc_integration) && $mc_integration[0]->value == '1')
+    if (count($mc_integration) && $mc_integration[0]->value == '1') {
         define('MINECRAFT', true);
-    else
+    } else {
         define('MINECRAFT', false);
+    }
 
     // Navbar links
-    $navigation  = new Navigation();
-    $cc_nav      = new Navigation();
+    $navigation = new Navigation();
+    $cc_nav = new Navigation();
     $staffcp_nav = new Navigation(true); // $staffcp_nav = panel nav
 
     // Add links to cc_nav
@@ -408,7 +421,7 @@ if ($page != 'install') {
 
     // Placeholders enabled?
     $placeholders_enabled = $configuration->get('Core', 'placeholders');
-    if($placeholders_enabled == 1) {
+    if ($placeholders_enabled == 1) {
         $cc_nav->add('cc_placeholders', $language->get('user', 'placeholders'), URL::build('/user/placeholders'));
     }
 
@@ -424,10 +437,11 @@ if ($page != 'install') {
     }
 
     $cache->setCache('navbar_icons');
-    if ($cache->isCached('index_icon'))
+    if ($cache->isCached('index_icon')) {
         $home_icon = $cache->retrieve('index_icon');
-    else
+    } else {
         $home_icon = '';
+    }
 
     $navigation->add('index', $language->get('general', 'home'), URL::build('/'), 'top', null, $home_order, $home_icon);
 

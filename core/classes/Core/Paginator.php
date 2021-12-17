@@ -36,7 +36,7 @@ class Paginator {
      * @param int $limit
      * @param int $page
      * @param int $total
-     * 
+     *
      * @return object
      */
     public function getLimited(array $data, int $limit = 10, int $page = 1, int $total = 10): object {
@@ -64,13 +64,13 @@ class Paginator {
         return $result;
     }
 
-        
+
     /**
      * Generate HTML for data to be presented with.
      *
      * @param int $links Number of links to be shown on each page.
      * @param string $href URL prefix to use when next page is clicked.
-     * 
+     *
      * @return string Generated HTML to display in template.
      */
     public function generate(int $links, string $href = '?'): string {
@@ -79,10 +79,11 @@ class Paginator {
         $start = (($this->_page - $links) > 0) ? $this->_page - $links : 1;
         $end = (($this->_page + $links) < $last) ? $this->_page + $links : $last;
 
-        if (isset($this->_class['div']) && !empty($this->_class['div']))
+        if (isset($this->_class['div']) && !empty($this->_class['div'])) {
             $html = '<div class="' . $this->_class['div'] . '">';
-        else
+        } else {
             $html = '<ul class="' . $this->_class['ul'] . '">';
+        }
 
         if (empty($this->_class['ul'])) {
             $class = str_replace('{x}', ($this->_page == 1 ? ' disabled ' : ''), ($this->_class['a']));
@@ -144,7 +145,7 @@ class Paginator {
 
         return $html;
     }
-    
+
     /**
      * Set values of instance variables, alternative function (as they are set in getLimited()).
      * Not used internally.

@@ -95,13 +95,13 @@ $language = [
     'signature' => 'Parašas',
     'signature_max_900' => 'Jūsų parašas turi būti ne daugiau kaip 900 simbolių.',
 
-  // Registration - AuthMe
-  'connect_with_authme' => 'Prijunkite savo paskyra su AuthMe',
-  'authme_help' => 'Įveskite savo žaidimo AuthMe paskyros duomenis. Jei dar neturite paskyros, prisijunkite prie serverio dabar ir vykdykite pateiktas instrukcijas.',
-  'unable_to_connect_to_authme_db' => 'Nepavyko prisijungti prie AuthMe duomenų bazės. Jei ši klaida išlieka, susisiekite su svetainės administratoriumi.',
-  'authme_account_linked' => 'Paskyra sėkmingai susieta.',
-  'authme_email_help_1' => 'Galiausiai, prašome įvesti savo el. Pašto adresą.',
-  'authme_email_help_2' => 'Galiausiai, prašome įvesti savo el. Pašto adresą, taip pat pasirinkti savo paskyros pavadinimą.',
+    // Registration - AuthMe
+    'connect_with_authme' => 'Prijunkite savo paskyra su AuthMe',
+    'authme_help' => 'Įveskite savo žaidimo AuthMe paskyros duomenis. Jei dar neturite paskyros, prisijunkite prie serverio dabar ir vykdykite pateiktas instrukcijas.',
+    'unable_to_connect_to_authme_db' => 'Nepavyko prisijungti prie AuthMe duomenų bazės. Jei ši klaida išlieka, susisiekite su svetainės administratoriumi.',
+    'authme_account_linked' => 'Paskyra sėkmingai susieta.',
+    'authme_email_help_1' => 'Galiausiai, prašome įvesti savo el. Pašto adresą.',
+    'authme_email_help_2' => 'Galiausiai, prašome įvesti savo el. Pašto adresą, taip pat pasirinkti savo paskyros pavadinimą.',
 
     // Registration errors
     'username_required' => 'Vartotojo vardas yra privalomas.',
@@ -141,13 +141,13 @@ $language = [
     'must_input_email_or_username' => 'You must input an email or username.',
     'email_or_username' => 'Email or Username',
 
-  // Forgot password
-  'forgot_password_instructions' => 'Įveskite savo el. pašto adresą, kad galėtume atsiųsti jums daugiau instrukcijų, kaip iš naujo nustatyti slaptažodį.',
-  'forgot_password_email_sent' => 'Jei paskyra su tuo el. pašto adresu jau egzistuoja, bus išsiųstas el. laiškas su papildomomis instrukcijomis. Jei negalėsite jo rasti, pabandykite patikrinti šlamšto aplanką.',
-  'unable_to_send_forgot_password_email' => 'Nepavyko išsiųsti pamiršto slaptažodžio el. laišku. Susisiekite su administratoriumi.',
-  'enter_new_password' => 'Patvirtinkite savo el. pašto adresą ir žemiau įveskite naują slaptažodį.',
-  'incorrect_email' => 'Įvestas el. pašto adresas neatitinka prašymo.',
-  'forgot_password_change_successful' => 'Jūsų slaptažodis sėkmingai pakeistas. Dabar galite prisijungti.',
+    // Forgot password
+    'forgot_password_instructions' => 'Įveskite savo el. pašto adresą, kad galėtume atsiųsti jums daugiau instrukcijų, kaip iš naujo nustatyti slaptažodį.',
+    'forgot_password_email_sent' => 'Jei paskyra su tuo el. pašto adresu jau egzistuoja, bus išsiųstas el. laiškas su papildomomis instrukcijomis. Jei negalėsite jo rasti, pabandykite patikrinti šlamšto aplanką.',
+    'unable_to_send_forgot_password_email' => 'Nepavyko išsiųsti pamiršto slaptažodžio el. laišku. Susisiekite su administratoriumi.',
+    'enter_new_password' => 'Patvirtinkite savo el. pašto adresą ir žemiau įveskite naują slaptažodį.',
+    'incorrect_email' => 'Įvestas el. pašto adresas neatitinka prašymo.',
+    'forgot_password_change_successful' => 'Jūsų slaptažodis sėkmingai pakeistas. Dabar galite prisijungti.',
 
     // Profile pages
     'profile' => 'Profilis',

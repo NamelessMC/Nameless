@@ -46,6 +46,10 @@ $language = [
     'settings' => 'Settings',
     'general_settings' => 'General Settings',
     'sitename' => 'Site Name',
+    'punished_id' => 'Punished User ID',
+    'punisher_id' => 'Punisher User ID',
+    'reason' => 'Ban Reason',
+    'ip_ban' => 'IP ban?',
     'default_language' => 'Default Language',
     'default_language_help' => 'Users will be able to choose from any installed languages.',
     'install_language' => 'Install Language',
@@ -202,6 +206,7 @@ $language = [
     'google_analytics' => 'Google Analytics',
     'google_analytics_help' => 'Add Google Analytics to your website to track visitors and statistics. You will need to create a Google Analytics account to use this functionality. Enter your Google Analytics Web Property ID. The ID looks like UA-XXXXA-X and you can find it in your account information or in the tracking code provided by Google.',
     'sitemap' => 'Sitemap',
+    'seo_settings_updated_successfully' => 'SEO settings updated successfully.',
 
     // Reactions
     'icon' => 'Icon',
@@ -667,6 +672,7 @@ $language = [
     'validate_hook_info' => 'User validation',
     'delete_hook_info' => 'User deletion',
     'report_hook_info' => 'Report creation',
+    'ban_hook_info' => 'User ban',
 
     // Sitemap
     'unable_to_load_sitemap_file_x' => 'Unable to load sitemap file {x}', // Don't replace {x}
@@ -688,9 +694,7 @@ $language = [
 
     // Dashboard
     'total_users' => 'Total Users',
-    'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'recent_users' => 'New Users',
-    'recent_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'nameless_news' => 'NamelessMC News',
     'unable_to_retrieve_nameless_news' => 'Unable to retrieve the latest news',
     'confirm_leave_site' => 'You are about to leave this site! Are you sure you want to visit <strong id="leaveSiteURL">{x}</strong>?', // don't replace {x} and make sure it has the id leaveSiteURL

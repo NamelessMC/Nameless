@@ -37,7 +37,12 @@
                     <div class="card-body">
 
                         <a href="{$NEW_PAGE_LINK}" class="btn btn-primary">{$NEW_PAGE}</a>
-                        <hr />
+                        {if count($CUSTOM_PAGE_LIST)}
+                            <br />
+                            <br />
+                        {else}
+                            <hr />
+                        {/if}
 
                         <!-- Success and Error Alerts -->
                         {include file='includes/alerts.tpl'}

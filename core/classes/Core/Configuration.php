@@ -23,7 +23,7 @@ class Configuration {
     /**
      * Get configuration value
      *
-     * @param string $module  Module name
+     * @param string $module Module name
      * @param string $setting Setting name
      *
      * @return mixed Configuration value
@@ -39,7 +39,7 @@ class Configuration {
         if ($this->_cache->isCached($setting)) {
             return $this->_cache->retrieve($setting);
         } else {
-            $data = $this->_db->selectQuery('SELECT value FROM `nl2_'. Output::getClean($module) .'settings` WHERE `name` = ?', [$setting]);
+            $data = $this->_db->selectQuery('SELECT value FROM `nl2_' . Output::getClean($module) . 'settings` WHERE `name` = ?', [$setting]);
             if ($data->count()) {
                 $results = $data->results();
                 $this->_cache->store($setting, $results[0]->value);
@@ -53,21 +53,21 @@ class Configuration {
     /**
      * Set configuration value
      *
-     * @param string $module  Module name
+     * @param string $module Module name
      * @param string $setting Setting name
-     * @param mixed  $value   New value
+     * @param mixed $value New value
      *
      * @return void
      */
     public function set(string $module, string $setting, $value): void {
-        if ($module == null || $setting == null || $value === null ) {
+        if ($module == null || $setting == null || $value === null) {
             throw new InvalidArgumentException('Parameter is null');
         }
 
         $module = ($module == 'Core' ? '' : $module . '_');
 
         $this->_db->createQuery(
-            'UPDATE `nl2_'. Output::getClean($module) .'settings` SET `value` = ? WHERE `name` = ?',
+            'UPDATE `nl2_' . Output::getClean($module) . 'settings` SET `value` = ? WHERE `name` = ?',
             [
                 $value,
                 $setting

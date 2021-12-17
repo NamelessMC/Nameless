@@ -32,7 +32,6 @@ $language = [
     'minecraft' => 'Minecraft',
     'modules' => 'Módulos',
     'security' => 'Seguridad',
-    'sitemap' => 'Mapa del sitio',
     'styles' => 'Estilos',
 
     // Overview
@@ -206,6 +205,8 @@ $language = [
     'seo' => 'SEO',
     'google_analytics' => 'Google Analytics',
     'google_analytics_help' => 'Añade Google Analytics a tu sitio web para hacer un seguimiento de los visitantes y las estadísticas. Deberá crear una cuenta de Google Analytics para utilizar esta función. Introduzca su ID de propiedad web de Google Analytics. El ID se parece a UA-XXXXA-X y puede encontrarlo en la información de su cuenta o en el código de seguimiento proporcionado por Google.',
+    'sitemap' => 'Mapa del sitio',
+    'seo_settings_updated_successfully' => 'SEO settings updated successfully.',
 
     // Reactions
     'icon' => 'Icono',
@@ -708,9 +709,7 @@ $language = [
 
     // Dashboard
     'total_users' => 'Total de usuarios',
-    'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'recent_users' => 'Nuevos usuarios',
-    'recent_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'average_players' => 'Jugadores promedio',
     'nameless_news' => 'Noticias de NamelessMC',
     'unable_to_retrieve_nameless_news' => 'No se pudieron obterner las últimas noticias',
@@ -749,4 +748,6 @@ $language = [
     'background_colour_required' => 'El color de fondo es necesario',
     'text_colour_required' => 'El color del texto es necesario',
     'no_announcements' => 'Todavía no se ha hecho ningún anuncio.',
+    'announcement_order' => 'Order',
+    'announcement_hook_info' => 'Announcement creation',
 ];

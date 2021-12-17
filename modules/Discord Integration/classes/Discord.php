@@ -1,4 +1,5 @@
 <?php
+
 /*
  *	Made by Aberdeener
  *  https://github.com/NamelessMC/Nameless/
@@ -8,6 +9,7 @@
  *
  *  Discord Integration module helper class
  */
+
 class Discord {
 
     private static bool $_is_bot_setup;
@@ -24,29 +26,6 @@ class Discord {
         'unauthorized',
         'invrole',
     ];
-
-    public static function discordBotRequest(string $url = '/status', ?string $body = null) {
-        $response = HttpClient::post(BOT_URL . $url, $body)->data();
-
-        if (in_array($response, self::$_valid_responses)) {
-            return $response;
-        }
-
-        // Log unknown error from bot
-        Log::getInstance()->log(Log::Action('discord/role_set'), $response);
-        return false;
-    }
-
-    public static function getDiscordRoleId(DB $db, int $nameless_group_id) {
-        $nameless_injector = GroupSyncManager::getInstance()->getInjectorByClass(NamelessMCGroupSyncInjector::class);
-
-        $discord_role_id = $db->get('group_sync', [$nameless_injector->getColumnName(), '=', $nameless_group_id]);
-        if ($discord_role_id->count()) {
-            return $discord_role_id->first()->discord_role_id;
-        }
-
-        return null;
-    }
 
     public static function updateDiscordRoles(User $user_query, array $added, array $removed): bool {
         if (!self::isBotSetup()) {
@@ -86,35 +65,12 @@ class Discord {
         return false;
     }
 
-    public static function saveRoles($roles): void {
-        $roles = [json_encode($roles)];
-        file_put_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('discord_roles') . '.cache', $roles);
-    }
-
-    public static function getRoles(): array {
-        if (file_exists(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('discord_roles') . '.cache')) {
-            return json_decode(file_get_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('discord_roles') . '.cache'), true);
-        }
-        
-        return [];
-    }
-
-    private static function parseErrors($result): array {
-        if ($result === false) {
-            // This happens when the url is invalid OR the bot is unreachable (down, firewall, etc)
-            // OR they have `allow_url_fopen` disabled in php.ini OR the bot returned a new error (they should always check logs)
-            return [
-                Discord::getLanguageTerm('discord_communication_error'),
-                Discord::getLanguageTerm('discord_bot_check_logs'),
-            ];
+    public static function isBotSetup(): bool {
+        if (!isset(self::$_is_bot_setup)) {
+            self::$_is_bot_setup = Util::getSetting(DB::getInstance(), 'discord_integration');
         }
 
-        if (in_array($result, self::$_valid_responses)) {
-            return [Discord::getLanguageTerm('discord_bot_error_' . $result)];
-        }
-
-        // This should never happen
-        return [Discord::getLanguageTerm('discord_unknown_error')];
+        return self::$_is_bot_setup;
     }
 
     private static function assembleGroupArray(array $groups, string $action): array {
@@ -135,7 +91,18 @@ class Discord {
 
         return $return;
     }
-    
+
+    public static function getDiscordRoleId(DB $db, int $nameless_group_id) {
+        $nameless_injector = GroupSyncManager::getInstance()->getInjectorByClass(NamelessMCGroupSyncInjector::class);
+
+        $discord_role_id = $db->get('group_sync', [$nameless_injector->getColumnName(), '=', $nameless_group_id]);
+        if ($discord_role_id->count()) {
+            return $discord_role_id->first()->discord_role_id;
+        }
+
+        return null;
+    }
+
     private static function assembleJson(int $user_id, array $added_arr, array $removed_arr): string {
         // TODO cache or define() website api key and discord guild id
         return json_encode([
@@ -146,14 +113,6 @@ class Discord {
         ]);
     }
 
-    public static function isBotSetup(): bool {
-        if (!isset(self::$_is_bot_setup)) {
-            self::$_is_bot_setup = Util::getSetting(DB::getInstance(), 'discord_integration');
-        }
-
-        return self::$_is_bot_setup;
-    }
-
     public static function getGuildId(): ?int {
         if (!isset(self::$_guild_id)) {
             self::$_guild_id = Util::getSetting(DB::getInstance(), 'discord');
@@ -162,11 +121,54 @@ class Discord {
         return self::$_guild_id;
     }
 
+    public static function discordBotRequest(string $url = '/status', ?string $body = null) {
+        $response = HttpClient::post(BOT_URL . $url, $body)->data();
+
+        if (in_array($response, self::$_valid_responses)) {
+            return $response;
+        }
+
+        // Log unknown error from bot
+        Log::getInstance()->log(Log::Action('discord/role_set'), $response);
+        return false;
+    }
+
     public static function getLanguageTerm(string $term): string {
         if (!isset(self::$_discord_integration_language)) {
             self::$_discord_integration_language = new Language(ROOT_PATH . '/modules/Discord Integration/language', LANGUAGE);
         }
 
         return self::$_discord_integration_language->get('discord_integration', $term);
+    }
+
+    private static function parseErrors($result): array {
+        if ($result === false) {
+            // This happens when the url is invalid OR the bot is unreachable (down, firewall, etc)
+            // OR they have `allow_url_fopen` disabled in php.ini OR the bot returned a new error (they should always check logs)
+            return [
+                Discord::getLanguageTerm('discord_communication_error'),
+                Discord::getLanguageTerm('discord_bot_check_logs'),
+            ];
+        }
+
+        if (in_array($result, self::$_valid_responses)) {
+            return [Discord::getLanguageTerm('discord_bot_error_' . $result)];
+        }
+
+        // This should never happen
+        return [Discord::getLanguageTerm('discord_unknown_error')];
+    }
+
+    public static function saveRoles($roles): void {
+        $roles = [json_encode($roles)];
+        file_put_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('discord_roles') . '.cache', $roles);
+    }
+
+    public static function getRoles(): array {
+        if (file_exists(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('discord_roles') . '.cache')) {
+            return json_decode(file_get_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('discord_roles') . '.cache'), true);
+        }
+
+        return [];
     }
 }

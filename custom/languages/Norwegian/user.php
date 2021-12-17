@@ -101,8 +101,8 @@ $language = [
     // Registration - Authme
     'connect_with_authme' => 'Koble til brukeren din med AuthMe.',
     'authme_help' => 'Vennligst skriv inn ditt ingame AuthMe-brukers påloggingsinformasjon. Hvis du ikke har en bruker ingame, logg inn på serveren og følg instruksjonene.',
-       'unable_to_connect_to_authme_db' => 'En feil oppstod under tilkoblingen til AuthMe-databasen. Hvis denne feilen gjentar seg, vennligst kontakt en administrator.',
-       'authme_account_linked' => 'Bruker suksessfullt tilkoblet.',
+    'unable_to_connect_to_authme_db' => 'En feil oppstod under tilkoblingen til AuthMe-databasen. Hvis denne feilen gjentar seg, vennligst kontakt en administrator.',
+    'authme_account_linked' => 'Bruker suksessfullt tilkoblet.',
     'authme_email_help_1' => 'Til slutt, vennligst skriv inn din e-postadresse.',
     'authme_email_help_2' => 'Til slutt, vennligst skriv inn din e-postadresse, og velg et nytt brukernavn til din bruker.',
     // Registration errors

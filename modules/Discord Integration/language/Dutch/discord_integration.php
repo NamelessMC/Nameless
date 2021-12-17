@@ -18,7 +18,7 @@ $language = [
     'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://namelessmc.com/discord-bot-invite">here</a>. Then, run the <code>/apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
     'discord_bot_must_be_setup' => 'Cannot enable Discord Integration until you have setup the bot. For information, please <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">click here</a>.',
     'discord_bot_setup' => 'Bot Setup',
-    'discord_integration_not_setup' => 'Discord Integration is not setup',
+    'discord_integration_not_setup' => 'Discord Integration is not set up',
     'discord_username' => 'Discord Username',
 
     // Discord bot Errors

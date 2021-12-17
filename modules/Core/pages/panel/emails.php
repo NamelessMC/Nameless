@@ -9,7 +9,7 @@
  *  Email management page
  */
 
-if(!$user->handlePanelPageLoad('admincp.core.emails')) {
+if (!$user->handlePanelPageLoad('admincp.core.emails')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }
@@ -21,8 +21,9 @@ $page_title = $language->get('admin', 'emails');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Since emails are sent in the user's language, they need to be able to pick which language's messages to edit
-if (Session::exists('editing_language')) $lang_name = Session::get('editing_language');
-else {
+if (Session::exists('editing_language')) {
+    $lang_name = Session::get('editing_language');
+} else {
     $default_lang = $queries->getWhere('languages', ['is_default', '=', 1]);
     $default_lang = $default_lang[0]->name;
     $lang_name = $default_lang;
@@ -86,12 +87,13 @@ if (isset($_GET['action'])) {
                 $sent = Email::send($email);
 
             }
-            if (isset($sent['error']))
-                // Error
+            if (isset($sent['error'])) {
                 $errors[] = $sent['error'];
+            }
 
-            if (!count($errors))
+            if (!count($errors)) {
                 $success = $language->get('admin', 'test_email_success');
+            }
         } else {
             $smarty->assign([
                 'SEND_TEST_EMAIL_INFO' => str_replace('{x}', Output::getClean($user->data()->email), $language->get('admin', 'send_test_email_info')),
@@ -102,53 +104,59 @@ if (isset($_GET['action'])) {
         }
 
         $template_file = 'core/emails_test.tpl';
-    } else if ($_GET['action'] == 'edit_messages') {
+    } else {
+        if ($_GET['action'] == 'edit_messages') {
 
-        $available_languages = [];
+            $available_languages = [];
 
-        $languages = $queries->getWhere('languages', ['id', '<>', 0]);
-        foreach ($languages as $language_db) {
-            $lang = new Language(null, $language_db->name);
-            $lang_file = ($lang->getActiveLanguageDirectory() . DIRECTORY_SEPARATOR . 'emails.php');
-            if (file_exists($lang_file) && is_writable($lang_file)) array_push($available_languages, $language_db);
+            $languages = $queries->getWhere('languages', ['id', '<>', 0]);
+            foreach ($languages as $language_db) {
+                $lang = new Language(null, $language_db->name);
+                $lang_file = ($lang->getActiveLanguageDirectory() . DIRECTORY_SEPARATOR . 'emails.php');
+                if (file_exists($lang_file) && is_writable($lang_file)) {
+                    array_push($available_languages, $language_db);
+                }
+            }
+
+            $smarty->assign([
+                'BACK' => $language->get('general', 'back'),
+                'BACK_LINK' => URL::build('/panel/core/emails'),
+                'EMAILS_MESSAGES' => $language->get('admin', 'edit_email_messages'),
+                'EDITING_MESSAGES' => $language->get('admin', 'editing_messages'),
+                'OPTIONS' => $language->get('admin', 'email_message_options'),
+                'SELECT_LANGUAGE' => $language->get('admin', 'editing_language'),
+                'EDITING_LANGUAGE' => $editing_language->getActiveLanguage(),
+                'LANGUAGES' => $available_languages,
+                'INFO' => $language->get('general', 'info'),
+                'LANGUAGE_INFO' => $language->get('admin', 'email_language_info'),
+                'GREETING' => $language->get('admin', 'email_message_greeting'),
+                'GREETING_VALUE' => $editing_language->get('emails', 'greeting'),
+                'THANKS' => $language->get('admin', 'email_message_thanks'),
+                'THANKS_VALUE' => $editing_language->get('emails', 'thanks'),
+                'EMAILS_LIST' => $emails,
+                'SUBJECT' => $language->get('admin', 'email_message_subject'),
+                'MESSAGE' => $language->get('admin', 'email_message_message'),
+                'PREVIEW' => $language->get('admin', 'email_preview_popup'),
+                'PREVIEW_INFO' => $language->get('admin', 'email_preview_popup_message'),
+                'SUBMIT' => $language->get('general', 'submit'),
+                'TOKEN' => Token::get()
+            ]);
+
+            $template_file = 'core/emails_edit_messages.tpl';
+        } else {
+            if ($_GET['action'] == 'preview') {
+
+                $viewing_language = new Language(null, Session::get('editing_language'));
+
+                $smarty->assign([
+                    'USER_NAME' => $user->data()->username,
+                    'SUBJECT' => $viewing_language->get('emails', $_GET['email'] . '_subject'),
+                    'MESSAGE' => Email::formatEmail($_GET['email'], $viewing_language)
+                ]);
+
+                $template_file = 'core/emails_edit_messages_preview.tpl';
+            }
         }
-
-        $smarty->assign([
-            'BACK' => $language->get('general', 'back'),
-            'BACK_LINK' => URL::build('/panel/core/emails'),
-            'EMAILS_MESSAGES' => $language->get('admin', 'edit_email_messages'),
-            'EDITING_MESSAGES' => $language->get('admin', 'editing_messages'),
-            'OPTIONS' => $language->get('admin', 'email_message_options'),
-            'SELECT_LANGUAGE' => $language->get('admin', 'editing_language'),
-            'EDITING_LANGUAGE' => $editing_language->getActiveLanguage(),
-            'LANGUAGES' => $available_languages,
-            'INFO' => $language->get('general', 'info'),
-            'LANGUAGE_INFO' => $language->get('admin', 'email_language_info'),
-            'GREETING' => $language->get('admin', 'email_message_greeting'),
-            'GREETING_VALUE' => $editing_language->get('emails', 'greeting'),
-            'THANKS' => $language->get('admin', 'email_message_thanks'),
-            'THANKS_VALUE' => $editing_language->get('emails', 'thanks'),
-            'EMAILS_LIST' => $emails,
-            'SUBJECT' => $language->get('admin', 'email_message_subject'),
-            'MESSAGE' => $language->get('admin', 'email_message_message'),
-            'PREVIEW' => $language->get('admin', 'email_preview_popup'),
-            'PREVIEW_INFO' => $language->get('admin', 'email_preview_popup_message'),
-            'SUBMIT' => $language->get('general', 'submit'),
-            'TOKEN' => Token::get()
-        ]);
-
-        $template_file = 'core/emails_edit_messages.tpl';
-    } else if ($_GET['action'] == 'preview') {
-
-        $viewing_language =  new Language(null, Session::get('editing_language'));
-
-        $smarty->assign([
-            'USER_NAME' => $user->data()->username,
-            'SUBJECT' => $viewing_language->get('emails', $_GET['email'] . '_subject'),
-            'MESSAGE' => Email::formatEmail($_GET['email'], $viewing_language)
-        ]);
-
-        $template_file = 'core/emails_edit_messages_preview.tpl';
     }
 } else {
     // Handle input
@@ -173,10 +181,11 @@ if (isset($_GET['action'])) {
 
             } else {
 
-                if (isset($_POST['enable_mailer']) && $_POST['enable_mailer'] == 1)
+                if (isset($_POST['enable_mailer']) && $_POST['enable_mailer'] == 1) {
                     $mailer = '1';
-                else
+                } else {
                     $mailer = '0';
+                }
 
                 $php_mailer = $queries->getWhere('settings', ['name', '=', 'phpmailer']);
                 $php_mailer = $php_mailer[0]->id;
@@ -235,7 +244,7 @@ if (isset($_GET['action'])) {
                                 '    \'username\' => \'' . (!empty($_POST['username']) ? addslashes($_POST['username']) : '') . '\',' . PHP_EOL .
                                 '    \'password\' => \'' . (!empty($_POST['password']) ? addslashes($_POST['password']) : '') . '\',' . PHP_EOL .
                                 '    \'name\' => \'' . (!empty($_POST['name']) ? addslashes($_POST['name']) : '') . '\',' . PHP_EOL .
-                                '    \'host\' => \'' .  (!empty($_POST['host']) ? addslashes($_POST['host']) : '') . '\',' . PHP_EOL .
+                                '    \'host\' => \'' . (!empty($_POST['host']) ? addslashes($_POST['host']) : '') . '\',' . PHP_EOL .
                                 '    \'port\' => \'' . (!empty($_POST['port']) ? $_POST['port'] : 587) . ',' . PHP_EOL .
                                 '    \'secure\' => \'tls\',' . PHP_EOL .
                                 '    \'smtp_auth\' => true' . PHP_EOL .
@@ -256,8 +265,9 @@ if (isset($_GET['action'])) {
                     }
                 }
             }
-        } else
+        } else {
             $errors[] = $language->get('general', 'invalid_token');
+        }
     }
 
     $php_mailer = $queries->getWhere('settings', ['name', '=', 'phpmailer']);
@@ -312,20 +322,23 @@ if (isset($_GET['action'])) {
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-if (Session::exists('emails_success'))
+if (Session::exists('emails_success')) {
     $success = Session::flash('emails_success');
+}
 
-if (isset($success))
+if (isset($success)) {
     $smarty->assign([
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ]);
+}
 
-if (isset($errors) && count($errors))
+if (isset($errors) && count($errors)) {
     $smarty->assign([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
     ]);
+}
 
 $smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,

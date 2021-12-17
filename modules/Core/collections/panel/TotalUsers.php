@@ -38,7 +38,6 @@ class TotalUsersItem extends CollectionItemBase {
         $users_query = $queries->getWhere('users', ['id', '<>', 0]);
 
         $this->_smarty->assign([
-            'ICON' => $this->_language->get('admin', 'total_users_statistic_icon'),
             'TITLE' => $this->_language->get('admin', 'total_users'),
             'VALUE' => count($users_query)
         ]);

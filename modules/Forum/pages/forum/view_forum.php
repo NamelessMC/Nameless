@@ -54,7 +54,7 @@ if (isset($_GET['p'])) {
     } else {
         if ($_GET['p'] == 1) {
             // Avoid bug in pagination class
-            Redirect::to(URL::build('/forum/view/' . $fid . '-' .  $forum->titleToURL($forum_query->forum_title)));
+            Redirect::to(URL::build('/forum/view/' . $fid . '-' . $forum->titleToURL($forum_query->forum_title)));
             die();
         }
         $p = $_GET['p'];
@@ -106,15 +106,17 @@ if ($forum_query->redirect_forum == 1) {
     $template->displayTemplate('forum/view_forum_confirm_redirect.tpl', $smarty);
 } else {
     // Get all topics
-    if ($user->isLoggedIn())
+    if ($user->isLoggedIn()) {
         $user_id = $user->data()->id;
-    else
+    } else {
         $user_id = 0;
+    }
 
-    if ($forum->canViewOtherTopics($fid, $user_groups))
+    if ($forum->canViewOtherTopics($fid, $user_groups)) {
         $topics = DB::getInstance()->selectQuery('SELECT * FROM nl2_topics WHERE forum_id = ? AND sticky = 0 AND deleted = 0 ORDER BY topic_reply_date DESC', [$fid])->results();
-    else
+    } else {
         $topics = DB::getInstance()->selectQuery('SELECT * FROM nl2_topics WHERE forum_id = ? AND sticky = 0 AND deleted = 0 AND topic_creator = ? ORDER BY topic_reply_date DESC', [$fid, $user_id])->results();
+    }
 
     // Get sticky topics
     $stickies = DB::getInstance()->selectQuery('SELECT * FROM nl2_topics WHERE forum_id = ? AND sticky = 1 AND deleted = 0 ORDER BY topic_reply_date DESC', [$fid])->results();
@@ -141,23 +143,25 @@ if ($forum_query->redirect_forum == 1) {
             'forum_title' => Output::getClean($parent_category[0]->forum_title),
             'link' => URL::build('/forum/view/' . $parent_category[0]->id . '-' . $forum->titleToURL($parent_category[0]->forum_title))
         ];
-    } else if (!empty($parent_category)) {
-        // Parent forum, get its category
-        $breadcrumbs[] = [
-            'id' => $parent_category[0]->id,
-            'forum_title' => Output::getClean($parent_category[0]->forum_title),
-            'link' => URL::build('/forum/view/' . $parent_category[0]->id . '-' . $forum->titleToURL($parent_category[0]->forum_title))
-        ];
-        $parent = false;
-        while ($parent == false) {
-            $parent_category = $queries->getWhere('forums', ['id', '=', $parent_category[0]->parent]);
+    } else {
+        if (!empty($parent_category)) {
+            // Parent forum, get its category
             $breadcrumbs[] = [
                 'id' => $parent_category[0]->id,
                 'forum_title' => Output::getClean($parent_category[0]->forum_title),
                 'link' => URL::build('/forum/view/' . $parent_category[0]->id . '-' . $forum->titleToURL($parent_category[0]->forum_title))
             ];
-            if ($parent_category[0]->parent == 0) {
-                $parent = true;
+            $parent = false;
+            while ($parent == false) {
+                $parent_category = $queries->getWhere('forums', ['id', '=', $parent_category[0]->parent]);
+                $breadcrumbs[] = [
+                    'id' => $parent_category[0]->id,
+                    'forum_title' => Output::getClean($parent_category[0]->forum_title),
+                    'link' => URL::build('/forum/view/' . $parent_category[0]->id . '-' . $forum->titleToURL($parent_category[0]->forum_title))
+                ];
+                if ($parent_category[0]->parent == 0) {
+                    $parent = true;
+                }
             }
         }
     }
@@ -186,10 +190,11 @@ if ($forum_query->redirect_forum == 1) {
         foreach ($subforums as $subforum) {
             // Get number of topics
             if ($forum->forumExist($subforum->id, $user_groups)) {
-                if ($forum->canViewOtherTopics($subforum->id, $user_groups))
+                if ($forum->canViewOtherTopics($subforum->id, $user_groups)) {
                     $latest_post = DB::getInstance()->selectQuery('SELECT * FROM nl2_topics WHERE forum_id = ? AND deleted = 0 ORDER BY topic_reply_date DESC', [$subforum->id])->results();
-                else
+                } else {
                     $latest_post = DB::getInstance()->selectQuery('SELECT * FROM nl2_topics WHERE forum_id = ? AND deleted = 0 AND topic_creator = ? ORDER BY topic_reply_date DESC', [$subforum->id, $user_id])->results();
+                }
 
                 $subforum_topics = count($latest_post);
                 if (count($latest_post)) {
@@ -222,7 +227,9 @@ if ($forum_query->redirect_forum == 1) {
                         'time' => $latest_post_time,
                         'last_user_id' => $latest_post_user_id
                     ];
-                } else $latest_post = [];
+                } else {
+                    $latest_post = [];
+                }
 
                 $subforum_array[] = [
                     'id' => $subforum->id,
@@ -304,8 +311,12 @@ if ($forum_query->redirect_forum == 1) {
                         if (count($label_html)) {
                             $label_html = Output::getPurified($label_html[0]->html);
                             $label = str_replace('{x}', Output::getClean($label->name), $label_html);
-                        } else $label = '';
-                    } else $label = '';
+                        } else {
+                            $label = '';
+                        }
+                    } else {
+                        $label = '';
+                    }
 
                     $labels_cache[$sticky->label] = $label;
                 }
@@ -378,10 +389,11 @@ if ($forum_query->redirect_forum == 1) {
         $results = $paginator->getLimited($topics, 10, $p, count($topics));
         $pagination = $paginator->generate(7, URL::build('/forum/view/' . $fid . '-' . $forum->titleToURL($forum_query->forum_title), true));
 
-        if (count($topics))
+        if (count($topics)) {
             $smarty->assign('PAGINATION', $pagination);
-        else
+        } else {
             $smarty->assign('PAGINATION', '');
+        }
 
         $template_array = [];
         // Get a list of all topics from the forum, and paginate
@@ -404,8 +416,12 @@ if ($forum_query->redirect_forum == 1) {
                         if (count($label_html)) {
                             $label_html = $label_html[0]->html;
                             $label = str_replace('{x}', Output::getClean($label->name), Output::getPurified($label_html));
-                        } else $label = '';
-                    } else $label = '';
+                        } else {
+                            $label = '';
+                        }
+                    } else {
+                        $label = '';
+                    }
 
                     $labels_cache[$results->data[$n]->label] = $label;
                 }
@@ -489,8 +505,9 @@ if ($forum_query->redirect_forum == 1) {
     require(ROOT_PATH . '/core/templates/footer.php');
 
     // Display template
-    if (isset($no_topics_exist))
+    if (isset($no_topics_exist)) {
         $template->displayTemplate('forum/view_forum_no_discussions.tpl', $smarty);
-    else
+    } else {
         $template->displayTemplate('forum/view_forum.tpl', $smarty);
+    }
 }

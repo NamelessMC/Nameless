@@ -27,7 +27,6 @@ $language = [
     'minecraft' => 'Minecraft',
     'modules' => 'Moduler',
     'security' => 'Sikkerhet',
-    'sitemap' => 'Sitemap',
     'styles' => 'Stiler',
     'users_and_groups' => 'Brukere og grupper',
 
@@ -200,6 +199,8 @@ $language = [
     'seo' => 'SEO',
     'google_analytics' => 'Google Analytics',
     'google_analytics_help' => 'Legg til Google Analytics til din nettside for å spore besøkende og statistikker. Du vil måtte opprette en Google Analytics-konto for å bruke denne funksjonen. Skriv inn din Google Analytics Web Property ID. ID-en ser ut som UA-XXXXA-X og du finner den i din brukerinformasjon eller i sporingskoden fra Google.',
+    'sitemap' => 'Sitemap',
+    'seo_settings_updated_successfully' => 'SEO settings updated successfully.',
 
     // Reactions
     'icon' => 'Ikon',
@@ -253,7 +254,7 @@ $language = [
     'service_query_error' => 'Kunne ikke hente tjenestestatus',
     'authme_integration' => 'AuthMe-integrasjon',
     'authme_integration_info' => 'Hvis AuthMe-integrasjonen er aktivert, vil brukere kun kunne registrere seg inne på serveren.',
-       'enable_authme' => 'Aktiver AuthMe-integrasjon',
+    'enable_authme' => 'Aktiver AuthMe-integrasjon',
     'authme_db_address' => 'IP-adresse for AuthMe (MySQL)',
     'authme_db_port' => 'Port for AuthMe (MySQL)',
     'authme_db_name' => 'Databasenavn for AuthMe (MySQL)',
@@ -701,9 +702,7 @@ $language = [
 
     // Dashboard
     'total_users' => 'Alle brukere',
-    'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'recent_users' => 'Ny bruker',
-    'recent_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'average_players' => 'Gjennomsnittlige spillere',
     'nameless_news' => 'NamelessMC-nyheter',
     'unable_to_retrieve_nameless_news' => 'Kunne ikke laste inn nyeste nytt',
@@ -742,4 +741,6 @@ $language = [
     'background_colour_required' => 'En bakgrunnsfarge er påkrevd',
     'text_colour_required' => 'En tekstfarge er påkrevd',
     'no_announcements' => 'Ingen kunngjøringer har blitt opprettet enda.',
+    'announcement_order' => 'Order',
+    'announcement_hook_info' => 'Announcement creation',
 ];

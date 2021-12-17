@@ -62,8 +62,6 @@ if ($formatting == 'markdown') {
 
 $timeago = new TimeAgo(TIMEZONE);
 
-require(ROOT_PATH . '/core/includes/emojione/autoload.php'); // Emojione
-require(ROOT_PATH . '/core/includes/markdown/tohtml/Markdown.inc.php'); // Markdown to HTML
 $emojione = new Emojione\Client(new Emojione\Ruleset());
 
 $smarty->assign(
@@ -80,10 +78,11 @@ if (isset($_GET['p'])) {
     } else {
         if ($_GET['p'] == 1) {
             // Avoid bug in pagination class
-            if(isset($_GET['message']))
+            if (isset($_GET['message'])) {
                 Redirect::to(URL::build('/user/messaging/', 'action=view&message=' . Output::getClean($_GET['message'])));
-            else
+            } else {
                 Redirect::to(URL::build('/user/messaging'));
+            }
             die();
         }
         $p = $_GET['p'];
@@ -92,12 +91,12 @@ if (isset($_GET['p'])) {
     $p = 1;
 }
 
-if(!isset($_GET['action'])) {
+if (!isset($_GET['action'])) {
     // Get private messages
     $messages = $user->listPMs($user->data()->id);
 
     // Pagination
-    $paginator = new Paginator(($template_pagination ?? []), $template_pagination_left ?? '', $template_pagination_right ?? '');
+    $paginator = new Paginator(($template_pagination ?? []), isset($template_pagination_left) ? $template_pagination_left : '', isset($template_pagination_right) ? $template_pagination_right : '');
     $results = $paginator->getLimited($messages, 10, $p, count($messages));
     $pagination = $paginator->generate(7, URL::build('/user/messaging/', true));
 
@@ -175,8 +174,8 @@ if(!isset($_GET['action'])) {
 } else {
     if ($_GET['action'] == 'new') {
         if (!$user->hasPermission('usercp.messaging')) {
-          Redirect::to(URL::build('/user/messaging'));
-          die();
+            Redirect::to(URL::build('/user/messaging'));
+            die();
         }
         // New PM
         if (Input::exists()) {
@@ -250,87 +249,89 @@ if(!isset($_GET['action'])) {
                     if (isset($blocked)) {
                         $error = $language->get('user', 'one_or_more_users_blocked');
 
-                    } else if (!count($users)) {
-                        $error = $language->get('user', 'cant_send_to_self');
-
                     } else {
-                        // Ensure people haven't been added twice
-                        $users = array_unique($users);
-
-                        if (!isset($max_users)) {
-
-                            // Input the content
-                            $queries->create(
-                                'private_messages',
-                                [
-                                    'author_id' => $user->data()->id,
-                                    'title' => Output::getClean(Input::get('title')),
-                                    'created' => date('U'),
-                                    'last_reply_user' => $user->data()->id,
-                                    'last_reply_date' => date('U')
-                                ]
-                            );
-
-                            // Get the PM ID
-                            $last_id = $queries->getLastId();
-
-                            // Parse markdown
-                            $cache->setCache('post_formatting');
-                            $formatting = $cache->retrieve('formatting');
-
-                            if ($formatting == 'markdown'){
-                                $content = Michelf\Markdown::defaultTransform(Input::get('content'));
-                                $content = Output::getClean($content);
-                            } else {
-                                $content = Output::getClean(Input::get('content'));
-                            }
-
-                            // Insert post content into database
-                            $queries->create(
-                                'private_messages_replies',
-                                [
-                                    'pm_id' => $last_id,
-                                    'author_id' => $user->data()->id,
-                                    'created' => date('U'),
-                                    'content' => $content
-                                ]
-                            );
-
-                            // Add users to conversation
-                            foreach ($users as $item) {
-                                // Get ID
-                                $user_id = $user->nameToId($item);
-
-                                if ($user_id) {
-                                    // Not the author
-                                    $queries->create(
-                                        'private_messages_users',
-                                        [
-                                            'pm_id' => $last_id,
-                                            'user_id' => $user_id
-                                        ]
-                                    );
-                                }
-                            }
-
-                            // Add the author to the list of users
-                            $queries->create(
-                                'private_messages_users',
-                                [
-                                    'pm_id' => $last_id,
-                                    'user_id' => $user->data()->id,
-                                    'read' => 1
-                                ]
-                            );
-
-                            // Sent successfully
-                            Session::flash('user_messaging_success', $language->get('user', 'message_sent_successfully'));
-                            Redirect::to(URL::build('/user/messaging'));
-                            die();
+                        if (!count($users)) {
+                            $error = $language->get('user', 'cant_send_to_self');
 
                         } else {
-                            // Over 10 users added
-                            $error = $language->get('user', 'max_pm_10_users');
+                            // Ensure people haven't been added twice
+                            $users = array_unique($users);
+
+                            if (!isset($max_users)) {
+
+                                // Input the content
+                                $queries->create(
+                                    'private_messages',
+                                    [
+                                        'author_id' => $user->data()->id,
+                                        'title' => Output::getClean(Input::get('title')),
+                                        'created' => date('U'),
+                                        'last_reply_user' => $user->data()->id,
+                                        'last_reply_date' => date('U')
+                                    ]
+                                );
+
+                                // Get the PM ID
+                                $last_id = $queries->getLastId();
+
+                                // Parse markdown
+                                $cache->setCache('post_formatting');
+                                $formatting = $cache->retrieve('formatting');
+
+                                if ($formatting == 'markdown') {
+                                    $content = \Michelf\Markdown::defaultTransform(Input::get('content'));
+                                    $content = Output::getClean($content);
+                                } else {
+                                    $content = Output::getClean(Input::get('content'));
+                                }
+
+                                // Insert post content into database
+                                $queries->create(
+                                    'private_messages_replies',
+                                    [
+                                        'pm_id' => $last_id,
+                                        'author_id' => $user->data()->id,
+                                        'created' => date('U'),
+                                        'content' => $content
+                                    ]
+                                );
+
+                                // Add users to conversation
+                                foreach ($users as $item) {
+                                    // Get ID
+                                    $user_id = $user->nameToId($item);
+
+                                    if ($user_id) {
+                                        // Not the author
+                                        $queries->create(
+                                            'private_messages_users',
+                                            [
+                                                'pm_id' => $last_id,
+                                                'user_id' => $user_id
+                                            ]
+                                        );
+                                    }
+                                }
+
+                                // Add the author to the list of users
+                                $queries->create(
+                                    'private_messages_users',
+                                    [
+                                        'pm_id' => $last_id,
+                                        'user_id' => $user->data()->id,
+                                        'read' => 1
+                                    ]
+                                );
+
+                                // Sent successfully
+                                Session::flash('user_messaging_success', $language->get('user', 'message_sent_successfully'));
+                                Redirect::to(URL::build('/user/messaging'));
+                                die();
+
+                            } else {
+                                // Over 10 users added
+                                $error = $language->get('user', 'max_pm_10_users');
+                            }
                         }
                     }
                 } else {
@@ -403,103 +404,105 @@ if(!isset($_GET['action'])) {
         // Display template
         $template->displayTemplate('user/new_message.tpl', $smarty);
 
-    } else if ($_GET['action'] == 'view') {
-        // Ensure message is specified
-        if (!isset($_GET['message']) || !is_numeric($_GET['message'])) {
-            Redirect::to(URL::build('/user/messaging'));
-            die();
-        }
+    } else {
+        if ($_GET['action'] == 'view') {
+            // Ensure message is specified
+            if (!isset($_GET['message']) || !is_numeric($_GET['message'])) {
+                Redirect::to(URL::build('/user/messaging'));
+                die();
+            }
 
-        // Ensure message exists
-        $pm = $user->getPM($_GET['message'], $user->data()->id); // Get the PM - this also handles setting it as "read"
+            // Ensure message exists
+            $pm = $user->getPM($_GET['message'], $user->data()->id); // Get the PM - this also handles setting it as "read"
 
-        if (!$pm) { // Either PM doesn't exist, or the user doesn't have permission to view it
-            Redirect::to(URL::build('/user/messaging'));
-            die();
-        }
+            if (!$pm) { // Either PM doesn't exist, or the user doesn't have permission to view it
+                Redirect::to(URL::build('/user/messaging'));
+                die();
+            }
 
-        // Deal with input
-        if (Input::exists()) {
-            // Check token
-            if (Token::check()) {
-                // Valid token
-                // Validate input
-                $validate = new Validate();
-                $validation = $validate->check($_POST, [
-                    'content' => [
-                        Validate::REQUIRED => true,
-                        Validate::MIN => 2,
-                        Validate::MAX => 20480
-                    ]
-                ])->messages([
-                    'content' => [
-                        Validate::REQUIRED => $language->get('user', 'content_required'),
-                        Validate::MIN => $language->get('user', 'content_min_2'),
-                        Validate::MAX => $language->get('user', 'content_max_20480')
-                    ]
-                ]);
-
-                if ($validation->passed()) {
-                    // Parse markdown
-                    $cache->setCache('post_formatting');
-                    $formatting = $cache->retrieve('formatting');
-
-                    if ($formatting == 'markdown') {
-                        $content = Michelf\Markdown::defaultTransform(Input::get('content'));
-                        $content = Output::getClean($content);
-                    } else {
-                        $content = Output::getClean(Input::get('content'));
-                    }
-
-                    // Insert post content into database
-                    $queries->create(
-                        'private_messages_replies',
-                        [
-                            'pm_id' => $pm[0]->id,
-                            'author_id' => $user->data()->id,
-                            'created' => date('U'),
-                            'content' => $content
+            // Deal with input
+            if (Input::exists()) {
+                // Check token
+                if (Token::check()) {
+                    // Valid token
+                    // Validate input
+                    $validate = new Validate();
+                    $validation = $validate->check($_POST, [
+                        'content' => [
+                            Validate::REQUIRED => true,
+                            Validate::MIN => 2,
+                            Validate::MAX => 20480
                         ]
-                    );
-
-                    // Update last reply PM information
-                    $queries->update(
-                        'private_messages',
-                        $pm[0]->id,
-                        [
-                            'last_reply_user' => $user->data()->id,
-                            'last_reply_date' => date('U')
+                    ])->messages([
+                        'content' => [
+                            Validate::REQUIRED => $language->get('user', 'content_required'),
+                            Validate::MIN => $language->get('user', 'content_min_2'),
+                            Validate::MAX => $language->get('user', 'content_max_20480')
                         ]
-                    );
+                    ]);
 
-                    // Update PM as unread for all users
-                    $users = $queries->getWhere('private_messages_users', ['pm_id', '=', $pm[0]->id]);
+                    if ($validation->passed()) {
+                        // Parse markdown
+                        $cache->setCache('post_formatting');
+                        $formatting = $cache->retrieve('formatting');
 
-                    foreach ($users as $item) {
-                        if ($item->user_id != $user->data()->id) {
-                            $queries->update(
-                                'private_messages_users',
-                                $item->id,
-                                [
-                                    '`read`' => 0
-                                ]
-                            );
+                        if ($formatting == 'markdown') {
+                            $content = \Michelf\Markdown::defaultTransform(Input::get('content'));
+                            $content = Output::getClean($content);
+                        } else {
+                            $content = Output::getClean(Input::get('content'));
                         }
-                    }
 
-                    // Display success message
-                    $smarty->assign('MESSAGE_SENT', $language->get('user', 'message_sent_successfully'));
-                    unset($_POST['content']);
+                        // Insert post content into database
+                        $queries->create(
+                            'private_messages_replies',
+                            [
+                                'pm_id' => $pm[0]->id,
+                                'author_id' => $user->data()->id,
+                                'created' => date('U'),
+                                'content' => $content
+                            ]
+                        );
+
+                        // Update last reply PM information
+                        $queries->update(
+                            'private_messages',
+                            $pm[0]->id,
+                            [
+                                'last_reply_user' => $user->data()->id,
+                                'last_reply_date' => date('U')
+                            ]
+                        );
+
+                        // Update PM as unread for all users
+                        $users = $queries->getWhere('private_messages_users', ['pm_id', '=', $pm[0]->id]);
+
+                        foreach ($users as $item) {
+                            if ($item->user_id != $user->data()->id) {
+                                $queries->update(
+                                    'private_messages_users',
+                                    $item->id,
+                                    [
+                                        '`read`' => 0
+                                    ]
+                                );
+                            }
+                        }
+
+                        // Display success message
+                        $smarty->assign('MESSAGE_SENT', $language->get('user', 'message_sent_successfully'));
+                        unset($_POST['content']);
+
+                    } else {
+                        // Errors
+                        $errors = $validation->errors();
+                        $error = implode('<br />', $errors);
+                    }
 
                 } else {
-                    // Errors
-                    $errors = $validation->errors();
-                    $error = implode('<br />', $errors);
+                    // Invalid token
+                    $error = $language->get('general', 'invalid_token');
                 }
-
-            } else {
-                // Invalid token
-                $error = $language->get('general', 'invalid_token');
             }
         }
 
@@ -511,7 +514,7 @@ if(!isset($_GET['action'])) {
         $pm_replies = $queries->getWhere('private_messages_replies', ['pm_id', '=', $_GET['message']]);
 
         // Pagination
-        $paginator = new Paginator(($template_pagination ?? []), $template_pagination_left ?? '', $template_pagination_right ?? '');
+        $paginator = new Paginator(($template_pagination ?? []), isset($template_pagination_left) ? $template_pagination_left : '', isset($template_pagination_right) ? $template_pagination_right : '');
         $results = $paginator->getLimited($pm_replies, 10, $p, count($pm_replies));
         $pagination = $paginator->generate(7, URL::build('/user/messaging/', 'action=view&amp;message=' . $pm[0]->id . '&amp;'));
 
@@ -538,85 +541,123 @@ if(!isset($_GET['action'])) {
             ];
         }
 
-        // Get participants list
-        $participants = '';
+            if (isset($error)) {
+                $smarty->assign('ERROR', $error);
+            }
 
-        foreach ($pm[1] as $item){
-            $participants .= '<a href="' . URL::build('/profile/' . Output::getClean($user->idToName($item))) . '">' . Output::getClean($user->idToNickname($item)) . '</a>, ';
-        }
-        $participants = rtrim($participants, ', ');
+            // Get all PM replies
+            $pm_replies = $queries->getWhere('private_messages_replies', ['pm_id', '=', $_GET['message']]);
 
-        // Smarty variables
-        $smarty->assign([
-            'MESSAGE_TITLE' => Output::getClean($pm[0]->title),
-            'BACK' => $language->get('general', 'back'),
-            'BACK_LINK' => URL::build('/user/messaging'),
-            'LEAVE_CONVERSATION' => $language->get('user', 'leave_conversation'),
-            'CONFIRM_LEAVE' => $language->get('user', 'confirm_leave'),
-            'LEAVE_CONVERSATION_LINK' => URL::build('/user/messaging/', 'action=leave&amp;message=' . $pm[0]->id),
-            'PAGINATION' => $pagination,
-            'PARTICIPANTS_TEXT' => $language->get('user', 'participants'),
-            'PARTICIPANTS' => $participants,
-            'MESSAGES' => $template_array,
-            'NEW_REPLY' => $language->get('user', 'new_reply'),
-            'TOKEN' => Token::get(),
-            'SUBMIT' => $language->get('general', 'submit'),
-            'SUCCESS_TITLE' => $language->get('general', 'success'),
-            'YES' => $language->get('general', 'yes'),
-            'NO' => $language->get('general', 'no'),
-        ]);
+            // Pagination
+            $paginator = new Paginator(($template_pagination ?? []));
+            $results = $paginator->getLimited($pm_replies, 10, $p, count($pm_replies));
+            $pagination = $paginator->generate(7, URL::build('/user/messaging/', 'action=view&amp;message=' . $pm[0]->id . '&amp;'));
 
-        // Markdown or HTML?
-        $cache->setCache('post_formatting');
-        $formatting = $cache->retrieve('formatting');
+            $smarty->assign('PAGINATION', $pagination);
 
-        if($formatting == 'markdown'){
-            // Markdown
-            $smarty->assign('MARKDOWN', true);
-            $smarty->assign('MARKDOWN_HELP', $language->get('general', 'markdown_help'));
-        }
+            // Array to pass to template
+            $template_array = [];
 
-        if (isset($_POST['content'])) {
-            $smarty->assign('CONTENT', Output::getClean($_POST['content']));
+            // Display the correct number of messages
+            for ($n = 0; $n < count($results->data); $n++) {
+                $target_user = new User($results->data[$n]->author_id);
+
+                $template_array[] = [
+                    'id' => $results->data[$n]->id,
+                    'author_id' => $results->data[$n]->author_id,
+                    'author_username' => $target_user->getDisplayname(),
+                    'author_profile' => $target_user->getProfileURL(),
+                    'author_avatar' => $target_user->getAvatar(100),
+                    'author_style' => $target_user->getGroupClass(),
+                    'author_groups' => $target_user->getAllGroupHtml(),
+                    'message_date' => $timeago->inWords(date('d M Y, H:i', $results->data[$n]->created), $language->getTimeLanguage()),
+                    'message_date_full' => date('d M Y, H:i', $results->data[$n]->created),
+                    'content' => Output::getPurified($emojione->toImage(Output::getDecoded($results->data[$n]->content)))
+                ];
+            }
+
+            // Get participants list
+            $participants = '';
+
+            foreach ($pm[1] as $item) {
+                $participants .= '<a href="' . URL::build('/profile/' . Output::getClean($user->idToName($item))) . '">' . Output::getClean($user->idToNickname($item)) . '</a>, ';
+            }
+            $participants = rtrim($participants, ', ');
+
+            // Smarty variables
+            $smarty->assign([
+                'MESSAGE_TITLE' => Output::getClean($pm[0]->title),
+                'BACK' => $language->get('general', 'back'),
+                'BACK_LINK' => URL::build('/user/messaging'),
+                'LEAVE_CONVERSATION' => $language->get('user', 'leave_conversation'),
+                'CONFIRM_LEAVE' => $language->get('user', 'confirm_leave'),
+                'LEAVE_CONVERSATION_LINK' => URL::build('/user/messaging/', 'action=leave&amp;message=' . $pm[0]->id),
+                'PAGINATION' => $pagination,
+                'PARTICIPANTS_TEXT' => $language->get('user', 'participants'),
+                'PARTICIPANTS' => $participants,
+                'MESSAGES' => $template_array,
+                'NEW_REPLY' => $language->get('user', 'new_reply'),
+                'TOKEN' => Token::get(),
+                'SUBMIT' => $language->get('general', 'submit'),
+                'SUCCESS_TITLE' => $language->get('general', 'success'),
+                'YES' => $language->get('general', 'yes'),
+                'NO' => $language->get('general', 'no'),
+            ]);
+
+            // Markdown or HTML?
+            $cache->setCache('post_formatting');
+            $formatting = $cache->retrieve('formatting');
+
+            if ($formatting == 'markdown') {
+                // Markdown
+                $smarty->assign('MARKDOWN', true);
+                $smarty->assign('MARKDOWN_HELP', $language->get('general', 'markdown_help'));
+            }
+
+            if (isset($_POST['content'])) {
+                $smarty->assign('CONTENT', Output::getClean($_POST['content']));
+            } else {
+                $smarty->assign('CONTENT', '');
+            }
+
+            Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
+
+            require(ROOT_PATH . '/core/templates/cc_navbar.php');
+
+            $page_load = microtime(true) - $start;
+            define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
+
+            $template->onPageLoad();
+
+            require(ROOT_PATH . '/core/templates/navbar.php');
+            require(ROOT_PATH . '/core/templates/footer.php');
+
+            // Display template
+            $template->displayTemplate('user/view_message.tpl', $smarty);
+
         } else {
-            $smarty->assign('CONTENT', '');
-        }
-
-        Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
-
-        require(ROOT_PATH . '/core/templates/cc_navbar.php');
-
-        $page_load = microtime(true) - $start;
-        define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
-
-        $template->onPageLoad();
-
-        require(ROOT_PATH . '/core/templates/navbar.php');
-        require(ROOT_PATH . '/core/templates/footer.php');
-
-        // Display template
-        $template->displayTemplate('user/view_message.tpl', $smarty);
-
-    } else if ($_GET['action'] == 'leave') {
-        // Try to remove the user from the conversation
-        if (!isset($_GET['message']) || !is_numeric($_GET['message']) || !Token::check($_POST['token'])) {
-            Redirect::to(URL::build('/user/messaging'));
-            die();
-        }
-
-        $message = $queries->getWhere('private_messages_users', ['pm_id', '=', $_GET['message']]);
-
-        if (count($message)) {
-            foreach ($message as $item) {
-                if ($item->user_id == $user->data()->id) {
-                    $queries->delete('private_messages_users', ['id', '=', $item->id]);
-                    break;
+            if ($_GET['action'] == 'leave') {
+                // Try to remove the user from the conversation
+                if (!isset($_GET['message']) || !is_numeric($_GET['message']) || !Token::check($_POST['token'])) {
+                    Redirect::to(URL::build('/user/messaging'));
+                    die();
                 }
+
+                $message = $queries->getWhere('private_messages_users', ['pm_id', '=', $_GET['message']]);
+
+                if (count($message)) {
+                    foreach ($message as $item) {
+                        if ($item->user_id == $user->data()->id) {
+                            $queries->delete('private_messages_users', ['id', '=', $item->id]);
+                            break;
+                        }
+                    }
+                }
+
+                // Done, redirect
+                Redirect::to(URL::build('/user/messaging'));
+                die();
             }
         }
-
-        // Done, redirect
-        Redirect::to(URL::build('/user/messaging'));
-        die();
     }
 }

@@ -72,7 +72,7 @@ $language = [
     'link' => 'ลิงค์',
     'unlink' => 'ยกเลิกการลิงก์',
     'leaderboards' => 'กระดานผู้นำ',
-    
+
     /*
      *  Contact form
      */

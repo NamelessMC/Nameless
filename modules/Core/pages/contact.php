@@ -18,113 +18,113 @@ $captcha = CaptchaBase::isCaptchaEnabled();
 
 // Handle input
 if (Input::exists()) {
-  if (Token::check()) {
-    // Check last contact message sending time
-    if (!isset($_SESSION['last_contact_sent']) || (isset($_SESSION['last_contact_sent']) && $_SESSION['last_contact_sent'] < strtotime('-1 hour'))) {
-        if ($captcha) {
-            $captcha_passed = CaptchaBase::getActiveProvider()->validateToken($_POST);
-        } else {
-            $captcha_passed = true;
-        }
-
-        if ($captcha_passed) {
-            // Validate input
-            $validate = new Validate();
-            $validation = $validate->check($_POST, [
-                'content' => [
-                    Validate::REQUIRED => true,
-                    Validate::MIN => 10,
-                    Validate::MAX => 5000
-                ],
-                'email' => [
-                    Validate::REQUIRED => true,
-                    Validate::MIN => 4,
-                    Validate::MAX => 64,
-                ]
-            ])->messages([
-                'content' => $language->get('general', 'contact_message_failed'),
-                'email' => $language->get('general', 'contact_message_email')
-            ]);
-
-            if ($validation->passed()) {
-                try {
-                    $php_mailer = $queries->getWhere('settings', ['name', '=', 'phpmailer']);
-                    $php_mailer = $php_mailer[0]->value;
-
-                    $contactemail = $queries->getWhere('settings', ['name', '=', 'incoming_email']);
-                    $contactemail = $contactemail[0]->value;
-
-                    if ($php_mailer == '1') {
-                        // PHP Mailer
-                        $html = Output::getClean(Input::get('content'));
-
-                        $email = [
-                            'replyto' => ['email' => Output::getClean(Input::get('email')), 'name' => Output::getClean(Input::get('email'))],
-                            'to' => ['email' => Output::getClean($contactemail), 'name' => Output::getClean(SITE_NAME)],
-                            'subject' => SITE_NAME . ' - ' . $language->get('general', 'contact_email_subject'),
-                            'message' => $html
-                        ];
-
-                        $sent = Email::send($email, 'mailer');
-
-                    } else {
-                        // PHP mail function
-                        $siteemail = $queries->getWhere('settings', ['name', '=', 'outgoing_email']);
-                        $siteemail = $siteemail[0]->value;
-
-                        $to = $contactemail;
-                        $subject = SITE_NAME . ' - ' . $language->get('general', 'contact_email_subject');
-
-                        $message = Output::getClean(Input::get('content'));
-                        $fromemail = Output::getClean(Input::get('email'));
-
-                        $headers = 'From: ' . $siteemail . "\r\n" .
-                            'Reply-To: ' . $fromemail . "\r\n" .
-                            'X-Mailer: PHP/' . phpversion() . "\r\n" .
-                            'MIME-Version: 1.0' . "\r\n" .
-                            'Content-type: text/html; charset=UTF-8' . "\r\n";
-
-                        $email = [
-                            'to' => $to,
-                            'subject' => $subject,
-                            'message' => $message,
-                            'headers' => $headers
-                        ];
-
-                        $sent = Email::send($email);
-
-                    }
-                    if (isset($sent['error'])) {
-                        // Error, log it
-                        $queries->create('email_errors', [
-                            'type' => 2, // 2 = contact
-                            'content' => $sent['error'],
-                            'at' => date('U'),
-                            'user_id' => ($user->isLoggedIn() ? $user->data()->id : null)
-                        ]);
-                    }
-                } catch (Exception $e) {
-                    // Error
-                    $error = $e->getMessage();
-                }
-
-                $_SESSION['last_contact_sent'] = date('U');
-                $success = $language->get('general', 'contact_message_sent');
+    if (Token::check()) {
+        // Check last contact message sending time
+        if (!isset($_SESSION['last_contact_sent']) || (isset($_SESSION['last_contact_sent']) && $_SESSION['last_contact_sent'] < strtotime('-1 hour'))) {
+            if ($captcha) {
+                $captcha_passed = CaptchaBase::getActiveProvider()->validateToken($_POST);
             } else {
-                $errors = $validation->errors();
+                $captcha_passed = true;
             }
 
-        } else
-            // Invalid recaptcha
-        $errors = $language->get('user', 'invalid_recaptcha');
+            if ($captcha_passed) {
+                // Validate input
+                $validate = new Validate();
+                $validation = $validate->check($_POST, [
+                    'content' => [
+                        Validate::REQUIRED => true,
+                        Validate::MIN => 10,
+                        Validate::MAX => 5000
+                    ],
+                    'email' => [
+                        Validate::REQUIRED => true,
+                        Validate::MIN => 4,
+                        Validate::MAX => 64,
+                    ]
+                ])->messages([
+                    'content' => $language->get('general', 'contact_message_failed'),
+                    'email' => $language->get('general', 'contact_message_email')
+                ]);
+
+                if ($validation->passed()) {
+                    try {
+                        $php_mailer = $queries->getWhere('settings', ['name', '=', 'phpmailer']);
+                        $php_mailer = $php_mailer[0]->value;
+
+                        $contactemail = $queries->getWhere('settings', ['name', '=', 'incoming_email']);
+                        $contactemail = $contactemail[0]->value;
+
+                        if ($php_mailer == '1') {
+                            // PHP Mailer
+                            $html = Output::getClean(Input::get('content'));
+
+                            $email = [
+                                'replyto' => ['email' => Output::getClean(Input::get('email')), 'name' => Output::getClean(Input::get('email'))],
+                                'to' => ['email' => Output::getClean($contactemail), 'name' => Output::getClean(SITE_NAME)],
+                                'subject' => SITE_NAME . ' - ' . $language->get('general', 'contact_email_subject'),
+                                'message' => $html
+                            ];
+
+                            $sent = Email::send($email, 'mailer');
+
+                        } else {
+                            // PHP mail function
+                            $siteemail = $queries->getWhere('settings', ['name', '=', 'outgoing_email']);
+                            $siteemail = $siteemail[0]->value;
+
+                            $to = $contactemail;
+                            $subject = SITE_NAME . ' - ' . $language->get('general', 'contact_email_subject');
+
+                            $message = Output::getClean(Input::get('content'));
+                            $fromemail = Output::getClean(Input::get('email'));
+
+                            $headers = 'From: ' . $siteemail . "\r\n" .
+                                'Reply-To: ' . $fromemail . "\r\n" .
+                                'X-Mailer: PHP/' . phpversion() . "\r\n" .
+                                'MIME-Version: 1.0' . "\r\n" .
+                                'Content-type: text/html; charset=UTF-8' . "\r\n";
+
+                            $email = [
+                                'to' => $to,
+                                'subject' => $subject,
+                                'message' => $message,
+                                'headers' => $headers
+                            ];
+
+                            $sent = Email::send($email);
+
+                        }
+                        if (isset($sent['error'])) {
+                            // Error, log it
+                            $queries->create('email_errors', [
+                                'type' => 2, // 2 = contact
+                                'content' => $sent['error'],
+                                'at' => date('U'),
+                                'user_id' => ($user->isLoggedIn() ? $user->data()->id : null)
+                            ]);
+                        }
+                    } catch (Exception $e) {
+                        // Error
+                        $error = $e->getMessage();
+                    }
+
+                    $_SESSION['last_contact_sent'] = date('U');
+                    $success = $language->get('general', 'contact_message_sent');
+                } else {
+                    $errors = $validation->errors();
+                }
+
+            } else {
+                $errors = $language->get('user', 'invalid_recaptcha');
+            }
+        } else {
+            // TODO: This seems to never go down
+            $errors = str_replace('{x}', round((date('U') - strtotime('- 1 hour')) / 60), $language->get('general', 'contact_message_limit'));
+        }
     } else {
-        // TODO: This seems to never go down
-      $errors = str_replace('{x}', round((date('U') - strtotime('- 1 hour')) / 60), $language->get('general', 'contact_message_limit'));
+        // Invalid token
+        $errors = $language->get('general', 'invalid_token');
     }
-  } else {
-    // Invalid token
-    $errors = $language->get('general', 'invalid_token');
-  }
 }
 
 // Smarty variables
@@ -143,26 +143,30 @@ if ($captcha) {
     }
 }
 
-if(isset($errors))
-	$smarty->assign('ERRORS', $errors);
+if (isset($errors)) {
+    $smarty->assign('ERRORS', $errors);
+}
 
-if(isset($erroremail))
-	$smarty->assign('ERROR_EMAIL', $erroremail);
+if (isset($erroremail)) {
+    $smarty->assign('ERROR_EMAIL', $erroremail);
+}
 
-if(isset($errorcontent))
-	$smarty->assign('ERROR_CONTENT', $errorcontent);
+if (isset($errorcontent)) {
+    $smarty->assign('ERROR_CONTENT', $errorcontent);
+}
 
-if(isset($success))
-	$smarty->assign('SUCCESS', $success);
+if (isset($success)) {
+    $smarty->assign('SUCCESS', $success);
+}
 
 $smarty->assign([
-	'EMAIL' => $language->get('general', 'email_address'),
-	'CONTACT' => $language->get('general', 'contact'),
-	'MESSAGE' => $language->get('general', 'message'),
-	'TOKEN' => Token::get(),
-	'SUBMIT' => $language->get('general', 'submit'),
-	'ERROR_TITLE' => $language->get('general', 'error'),
-	'SUCCESS_TITLE' => $language->get('general', 'success')
+    'EMAIL' => $language->get('general', 'email_address'),
+    'CONTACT' => $language->get('general', 'contact'),
+    'MESSAGE' => $language->get('general', 'message'),
+    'TOKEN' => Token::get(),
+    'SUBMIT' => $language->get('general', 'submit'),
+    'ERROR_TITLE' => $language->get('general', 'error'),
+    'SUCCESS_TITLE' => $language->get('general', 'success')
 ]);
 
 // Load modules + template

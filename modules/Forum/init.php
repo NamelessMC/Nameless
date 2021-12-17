@@ -33,11 +33,15 @@ $forum_language = new Language(ROOT_PATH . '/modules/Forum/language', LANGUAGE);
  *  Temp methods for front page module, profile page tab + admin sidebar; likely to change in the future
  */
 // Front page module
-if (!isset($front_page_modules)) $front_page_modules = [];
+if (!isset($front_page_modules)) {
+    $front_page_modules = [];
+}
 $front_page_modules[] = 'modules/Forum/front_page.php';
 
 // Profile page tab
-if (!isset($profile_tabs)) $profile_tabs = [];
+if (!isset($profile_tabs)) {
+    $profile_tabs = [];
+}
 $profile_tabs['forum'] = ['title' => $forum_language->get('forum', 'forum'), 'smarty_template' => 'forum/profile_tab.tpl', 'require' => ROOT_PATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'Forum' . DIRECTORY_SEPARATOR . 'profile_tab.php'];
 
 // Following topics UserCP sidebar
