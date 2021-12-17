@@ -97,7 +97,7 @@ if(!isset($_GET['action'])) {
     $messages = $user->listPMs($user->data()->id);
 
     // Pagination
-    $paginator = new Paginator(($template_pagination ?? []), isset($template_pagination_left) ? $template_pagination_left : '', isset($template_pagination_right) ? $template_pagination_right : '');
+    $paginator = new Paginator(($template_pagination ?? []), $template_pagination_left ?? '', $template_pagination_right ?? '');
     $results = $paginator->getLimited($messages, 10, $p, count($messages));
     $pagination = $paginator->generate(7, URL::build('/user/messaging/', true));
 
@@ -511,7 +511,7 @@ if(!isset($_GET['action'])) {
         $pm_replies = $queries->getWhere('private_messages_replies', ['pm_id', '=', $_GET['message']]);
 
         // Pagination
-        $paginator = new Paginator(($template_pagination ?? []), isset($template_pagination_left) ? $template_pagination_left : '', isset($template_pagination_right) ? $template_pagination_right : '');
+        $paginator = new Paginator(($template_pagination ?? []), $template_pagination_left ?? '', $template_pagination_right ?? '');
         $results = $paginator->getLimited($pm_replies, 10, $p, count($pm_replies));
         $pagination = $paginator->generate(7, URL::build('/user/messaging/', 'action=view&amp;message=' . $pm[0]->id . '&amp;'));
 
@@ -576,9 +576,11 @@ if(!isset($_GET['action'])) {
             $smarty->assign('MARKDOWN_HELP', $language->get('general', 'markdown_help'));
         }
 
-        if(isset($_POST['content']))
+        if (isset($_POST['content'])) {
             $smarty->assign('CONTENT', Output::getClean($_POST['content']));
-        else $smarty->assign('CONTENT', '');
+        } else {
+            $smarty->assign('CONTENT', '');
+        }
 
         Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
