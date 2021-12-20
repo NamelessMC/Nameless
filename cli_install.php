@@ -24,6 +24,11 @@ if (isset($argv[2]) && $argv[2] == '--reinstall') {
     print('🧨 Reinstall mode enabled! ' . PHP_EOL . PHP_EOL);
 }
 
+if (!file_exists('./vendor/autoload.php')) {
+    print('⚠️  You need to run "composer install" first!' . PHP_EOL);
+    exit(1);
+}
+
 if (!$reinstall && file_exists('./core/config.php')) {
     print('⚠️  NamelessMC is already installed! ' . PHP_EOL);
     print('🧨 If you want to reinstall, run this script with the --reinstall flag.' . PHP_EOL);
