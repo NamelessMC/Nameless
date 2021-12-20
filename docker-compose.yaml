@@ -10,8 +10,8 @@
 #
 # Reset:
 # docker-compose down
-# rm -rf core/config.php cache/*
-# sudo rm -r /opt/namelessmc; sudo mkdir /opt/namelessmc
+# sudo rm -rf core/config.php cache/*
+# sudo rm -r /opt/namelessmc/*
 #
 # Uninstall
 # docker-compose down
@@ -52,9 +52,11 @@ services:
             NAMELESS_SITE_NAME: 'Development'
             NAMELESS_SITE_CONTACT_EMAIL: admin@localhost
             NAMELESS_SITE_OUTGOING_EMAIL: admin@localhost
-            NAMELESS_ADMIN_USERNAME: developer
+            NAMELESS_ADMIN_USERNAME: admin
             NAMELESS_ADMIN_EMAIL: admin@namelessmc.com
+            NAMELESS_ADMIN_PASSWORD: password
             NAMELESS_DEBUGGING: 'enabled'
+            NAMELESS_AUTO_INSTALL: 'yes please auto install my namelessmc'
             WWW_DATA_UID: ${USER_ID}
             WWW_DATA_GID: ${GROUP_ID}
 
