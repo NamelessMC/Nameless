@@ -5,13 +5,22 @@
  * this script was made with the primary goal of making the install process automatic for hosting providers + our API test suite.
  */
 
-// TODO: Print nice message if a required environment variable is not set
+function getEnvVar(string $name, bool $required = false) {
+    $value = getenv($name);
+
+    if ($value === false && $required) {
+        print("⚠️  Required enviroment variable '$name' is not set!" . PHP_EOL);
+        exit(1);
+    }
+
+    return $value ?: '';
+}
 
 if (php_sapi_name() != 'cli') {
     die('This script must be run from the command line.');
 }
 
-if (!isset($argv[1]) || isset($argv[1]) && $argv[1] !== '--iSwearIKnowWhatImDoing') {
+if (!isset($argv[1]) || $argv[1] !== '--iSwearIKnowWhatImDoing') {
     print("You don't know what you're doing." . PHP_EOL);
     exit(1);
 }
@@ -67,14 +76,14 @@ define('ROOT_PATH', dirname(__FILE__));
 print('✍️  Creating new config.php file...' . PHP_EOL);
 $conf = [
     'mysql' => [
-        'host' => getenv('NAMELESS_DATABASE_ADDRESS') ?: '127.0.0.1',
-        'port' => getenv('NAMELESS_DATABASE_PORT') ?: '3306',
-        'username' => getenv('NAMELESS_DATABASE_USERNAME') ?: 'root',
-        'password' => getenv('NAMELESS_DATABASE_PASSWORD') ?: '',
-        'db' => getenv('NAMELESS_DATABASE_NAME') ?: 'nameless',
+        'host' => getEnvVar('NAMELESS_DATABASE_ADDRESS') ?: '127.0.0.1',
+        'port' => getEnvVar('NAMELESS_DATABASE_PORT') ?: '3306',
+        'username' => getEnvVar('NAMELESS_DATABASE_USERNAME') ?: 'root',
+        'password' => getEnvVar('NAMELESS_DATABASE_PASSWORD') ?: '',
+        'db' => getEnvVar('NAMELESS_DATABASE_NAME') ?: 'nameless',
         'prefix' => 'nl2_',
-        'charset' => getenv('NAMELESS_DATABASE_CHARSET') ?: 'utf8mb4',
-        'engine' => getenv('NAMELESS_DATABASE_ENGINE') ?: 'InnoDB',
+        'charset' => getEnvVar('NAMELESS_DATABASE_CHARSET') ?: 'utf8mb4',
+        'engine' => getEnvVar('NAMELESS_DATABASE_ENGINE') ?: 'InnoDB',
         'initialise_charset' => true,
     ],
     'remember' => [
@@ -87,9 +96,9 @@ $conf = [
         'token_name' => '2token',
     ],
     'core' => [
-        'hostname' => getenv('NAMELESS_HOSTNAME') ?: 'localhost',
-        'path' => getenv('NAMELESS_PATH') ?: '',
-        'friendly' => getenv('NAMELESS_FRIENDLY_URLS') ?: false,
+        'hostname' => getEnvVar('NAMELESS_HOSTNAME') ?: 'localhost',
+        'path' => getEnvVar('NAMELESS_PATH') ?: '',
+        'friendly' => getEnvVar('NAMELESS_FRIENDLY_URLS') ?: false,
         'force_https' => false,
         'force_www' => false,
         'captcha' => false,
@@ -118,7 +127,7 @@ print('✍️  Creating tables...' . PHP_EOL);
 $queries = new Queries();
 $queries->dbInitialise();
 
-Session::put('default_language', getenv('NAMELESS_DEFAULT_LANGUAGE') ?: 'EnglishUK');
+Session::put('default_language', getEnvVar('NAMELESS_DEFAULT_LANGUAGE') ?: 'EnglishUK');
 
 $nameless_terms = 'This website uses "Nameless" website software. The ' .
     '"Nameless" software creators will not be held responsible for any content ' .
@@ -131,27 +140,27 @@ print('✍️  Inserting default data to database...' . PHP_EOL);
 require './core/installation/views/includes/site_initialize.php';
 $queries->create('settings', [
     'name' => 'sitename',
-    'value' => Output::getClean(getenv('NAMELESS_SITE_NAME') ?: ''),
+    'value' => Output::getClean(getEnvVar('NAMELESS_SITE_NAME', true)),
 ]);
 $queries->create('settings', [
     'name' => 'incoming_email',
-    'value' => Output::getClean(getenv('NAMELESS_SITE_CONTACT_EMAIL') ?: ''),
+    'value' => Output::getClean(getEnvVar('NAMELESS_SITE_CONTACT_EMAIL', true)),
 ]);
 $queries->create('settings', [
     'name' => 'outgoing_email',
-    'value' => Output::getClean(getenv('NAMELESS_SITE_OUTGOING_EMAIL') ?: ''),
+    'value' => Output::getClean(getEnvVar('NAMELESS_SITE_OUTGOING_EMAIL', true)),
 ]);
 
 print('✍️  Creating admin account...' . PHP_EOL);
 $user = new User();
 $user->create([
-    'username' => Output::getClean(getenv('NAMELESS_ADMIN_USERNAME') ?: 'admin'),
-    'nickname' => Output::getClean(getenv('NAMELESS_ADMIN_USERNAME') ?: 'admin'),
-    'password' => password_hash(getenv('NAMELESS_ADMIN_PASSWORD') ?: 'password', PASSWORD_BCRYPT, ['cost' => 13]),
+    'username' => Output::getClean(getEnvVar('NAMELESS_ADMIN_USERNAME') ?: 'admin'),
+    'nickname' => Output::getClean(getEnvVar('NAMELESS_ADMIN_USERNAME') ?: 'admin'),
+    'password' => password_hash(getEnvVar('NAMELESS_ADMIN_PASSWORD') ?: 'password', PASSWORD_BCRYPT, ['cost' => 13]),
     'pass_method' => 'default',
     'uuid' => '', // TODO Get UUID from mojang
     'joined' => date('U'),
-    'email' => Output::getClean(getenv('NAMELESS_ADMIN_EMAIL')),
+    'email' => Output::getClean(getEnvVar('NAMELESS_ADMIN_EMAIL', true)),
     'lastip' => '127.0.0.1',
     'active' => 1,
     'last_online' => date('U'),
@@ -167,8 +176,8 @@ DB::getInstance()->createQuery('INSERT INTO `nl2_users_groups` (`user_id`, `grou
 
 print(PHP_EOL . '✅ Installation complete! (Took ' . round(microtime(true) - $start, 2) . ' seconds)' . PHP_EOL);
 print(PHP_EOL . '🖥  URL: http://' . $conf['core']['hostname'] . $conf['core']['path']);
-print(PHP_EOL . '🔑 Admin username: ' . Output::getClean(getenv('NAMELESS_ADMIN_USERNAME') ?: 'admin'));
-print(PHP_EOL . '🔑 Admin email: ' . Output::getClean(getenv('NAMELESS_ADMIN_EMAIL')));
-print(PHP_EOL . '🔑 Admin password: ' . Output::getClean(getenv('NAMELESS_ADMIN_PASSWORD') ?: 'password'));
+print(PHP_EOL . '🔑 Admin username: ' . Output::getClean(getEnvVar('NAMELESS_ADMIN_USERNAME') ?: 'admin'));
+print(PHP_EOL . '🔑 Admin email: ' . Output::getClean(getEnvVar('NAMELESS_ADMIN_EMAIL', true)));
+print(PHP_EOL . '🔑 Admin password: ' . Output::getClean(getEnvVar('NAMELESS_ADMIN_PASSWORD') ?: 'password'));
 print(PHP_EOL);
 exit(0);
