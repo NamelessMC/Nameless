@@ -30,7 +30,7 @@ class VerifyDiscordEndpoint extends EndpointBase {
         $id = $verification->first()->user_id;
 
         // Ensure the user exists
-        $api->getUser('id', $id);
+        $user = $api->getUser('id', $id);
 
         try {
             $api->getDb()->update('users', $id, ['discord_id' => $discord_id]);
@@ -39,6 +39,9 @@ class VerifyDiscordEndpoint extends EndpointBase {
         } catch (Exception $e) {
             $api->throwError(29, Discord::getLanguageTerm('unable_to_set_discord_id'), $e->getMessage());
         }
+
+        // attempt to update their Discord roles
+        Discord::updateDiscordRoles($user, $user->getAllGroupIds(false), []);
 
         $api->returnArray(['message' => Discord::getLanguageTerm('discord_id_set')]);
     }
