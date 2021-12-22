@@ -188,7 +188,14 @@ if (isset($_GET['user'])) {
                                     ]);
 
                                 } else {
-                                    if ($type == 4) {
+                                    if ($type == 2) {
+                                        // Fire userWarned event
+                                        EventHandler::executeEvent('userWarned', [
+                                            'punished_id' => $query->id,
+                                            'punisher_id' => $user->data()->id,
+                                            'reason' => Output::getClean($_POST['reason']),
+                                        ]);
+                                    } else if ($type == 4) {
                                         // Need to delete any other avatars
                                         $diff_str = implode(',', ['jpg', 'png', 'jpeg', 'gif']);
 

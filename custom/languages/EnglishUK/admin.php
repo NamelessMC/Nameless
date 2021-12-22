@@ -672,7 +672,8 @@ $language = [
     'validate_hook_info' => 'User validation',
     'delete_hook_info' => 'User deletion',
     'report_hook_info' => 'Report creation',
-    'ban_hook_info' => 'User ban',
+    'ban_hook_info' => 'User banned',
+    'warn_hook_info' => 'User warned',
 
     // Sitemap
     'unable_to_load_sitemap_file_x' => 'Unable to load sitemap file {x}', // Don't replace {x}
