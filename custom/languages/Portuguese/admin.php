@@ -10,7 +10,7 @@
  *  Translation By Douglas Teles & dasilvaj4
  *  Last Update: 24/04/2019
  */
-$language = array(
+$language = [
     /*
      *  Admin Control Panel
      */
@@ -29,7 +29,6 @@ $language = array(
     'minecraft' => 'Minecraft',
     'modules' => 'Módulos',
     'security' => 'Segurança',
-    'sitemap' => 'Sitemap',
     'styles' => 'Estilos',
     'users_and_groups' => 'Usuários & Grupos',
 
@@ -100,7 +99,7 @@ $language = array(
     'delete_email_error' => 'Erro de exclusão',
     'confirm_email_error_deletion' => 'Tem certeza de que deseja excluir esse erro?',
     'viewing_email_error' => 'Visualizando o erro',
-    'unable_to_write_email_config' => 'Não é possível escrever no arquivo <strong>core/email.php</core>. Por favor, verifique as permissões de arquivo.',
+    'unable_to_write_email_config' => 'Não é possível escrever no arquivo <strong>core/email.php</strong>. Por favor, verifique as permissões de arquivo.',
     'enable_mailer' => 'Ativar o PHPMailer?',
     'enable_mailer_help' => 'Habilite isso se os emails não estiverem sendo enviados por padrão. O uso de PHPMailer exige que você tenha um serviço capaz de enviar emails, como o Gmail ou um provedor SMTP.',
     'outgoing_email' => 'Endereço de email de envio',
@@ -202,6 +201,8 @@ $language = array(
     'seo' => 'SEO',
     'google_analytics' => 'Google Analytics',
     'google_analytics_help' => 'Adicione o Google Analytics ao seu site para rastrear visitantes e estatísticas. Você precisará criar uma conta do Google Analytics para usar esta funcionalidade. Insira seu ID de propriedade da web do Google Analytics. O ID se parece com UA-XXXXA-X e você pode encontrá-lo nas informações da sua conta ou no código de rastreamento fornecido pelo Google.',
+    'sitemap' => 'Sitemap',
+    'seo_settings_updated_successfully' => 'SEO settings updated successfully.',
 
     // Reactions
     'icon' => 'Ícone',
@@ -704,9 +705,7 @@ $language = array(
 
     // Dashboard
     'total_users' => 'Total de Usuários',
-    'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'recent_users' => 'Novo Usuário',
-    'recent_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'average_players' => 'Média de Jogadores',
     'nameless_news' => 'Notícias do NamelessMC',
     'unable_to_retrieve_nameless_news' => 'Não foi possível recuperar as últimas notícias',
@@ -745,4 +744,6 @@ $language = array(
     'background_colour_required' => 'A cor de fundo é necessária',
     'text_colour_required' => 'A cor do texto é obrigatória',
     'no_announcements' => 'Nenhum anúncio foi feito ainda.',
-);
+    'announcement_order' => 'Order',
+    'announcement_hook_info' => 'Announcement creation',
+];

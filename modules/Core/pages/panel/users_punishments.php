@@ -2,28 +2,28 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr12
+ *  NamelessMC version 2.0.0-pr13
  *
  *  License: MIT
  *
  *  Panel punishments page
  */
 
-if(!$user->handlePanelPageLoad('modcp.punishments')) {
+if (!$user->handlePanelPageLoad('modcp.punishments')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }
 
 $timeago = new TimeAgo(TIMEZONE);
 
-define('PAGE', 'panel');
-define('PARENT_PAGE', 'users');
-define('PANEL_PAGE', 'punishments');
+const PAGE = 'panel';
+const PARENT_PAGE = 'users';
+const PANEL_PAGE = 'punishments';
 $page_title = $language->get('moderator', 'punishments');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 if (isset($_GET['user'])) {
     // Viewing a certain user
@@ -36,8 +36,8 @@ if (isset($_GET['user'])) {
 
     if (isset($_GET['do']) && $_GET['do'] == 'revoke' && isset($_GET['id']) && is_numeric($_GET['id'])) {
         if (Token::checK()) {
-            $infraction = $queries->getWhere('infractions', array('id', '=', $_GET['id']));
-            if (!$user->hasPermission('modcp.punishments.revoke') || !count($infraction) || (count($infraction) && $infraction[0]->punished != $query->id)) {
+            $infraction = $queries->getWhere('infractions', ['id', '=', $_GET['id']]);
+            if (!$user->hasPermission('modcp.punishments.revoke') || !count($infraction) || ($infraction[0]->punished != $query->id)) {
                 Redirect::to(URL::build('/panel/users/punishments/', 'user=' . $query->id));
                 die();
             }
@@ -48,45 +48,46 @@ if (isset($_GET['user'])) {
             if ($infraction->type == 1) {
                 // Unban user
                 try {
-                    $queries->update('users', $query->id, array(
+                    $queries->update('users', $query->id, [
                         'isbanned' => 0,
                         'active' => 1
-                    ));
+                    ]);
                 } catch (Exception $e) {
                     // Error
-                    $errors = array($e->getMessage());
+                    $errors = [$e->getMessage()];
                 }
-            } else if ($infraction->type == 3) {
-                // Unban IP
-                try {
-                    $queries->update('users', $query->id, array(
-                        'isbanned' => 0,
-                        'active' => 1
-                    ));
+            } else {
+                if ($infraction->type == 3) {
+                    try {
+                        $queries->update('users', $query->id, [
+                            'isbanned' => 0,
+                            'active' => 1
+                        ]);
 
-                    $queries->delete('ip_bans', array('ip', '=', $query->lastip));
-                } catch (Exception $e) {
-                    // Error
-                    $errors = array($e->getMessage());
+                        $queries->delete('ip_bans', ['ip', '=', $query->lastip]);
+                    } catch (Exception $e) {
+                        // Error
+                        $errors = [$e->getMessage()];
+                    }
                 }
             }
 
             try {
-                $queries->update('infractions', $infraction->id, array(
+                $queries->update('infractions', $infraction->id, [
                     'acknowledged' => 1,
                     'revoked' => 1,
                     'revoked_by' => $user->data()->id,
                     'revoked_at' => date('U')
-                ));
+                ]);
             } catch (Exception $e) {
                 // Error
-                $errors = array($e->getMessage());
+                $errors = [$e->getMessage()];
             }
 
             Session::flash('user_punishment_success', $language->get('moderator', 'punishment_revoked'));
 
         } else {
-            $errors = array($language->get('general', 'invalid_token'));
+            $errors = [$language->get('general', 'invalid_token')];
         }
 
         Redirect::to(URL::build('/panel/users/punishments/', 'user=' . $query->id));
@@ -94,7 +95,7 @@ if (isset($_GET['user'])) {
     }
 
     if (Input::exists()) {
-        $errors = array();
+        $errors = [];
 
         if (Token::check()) {
             if (isset($_POST['type'])) {
@@ -146,8 +147,8 @@ if (isset($_GET['user'])) {
                         // Ensure user is not admin
                         if (!$is_admin) {
                             // Prevent ip banning if target ip match the user ip
-                            if ($type != 3 || $type == 3 && $user->data()->lastip != $banned_user->data()->lastip) {
-                                $queries->create('infractions', array(
+                            if ($type != 3 || $user->data()->lastip != $banned_user->data()->lastip) {
+                                $queries->create('infractions', [
                                     'type' => $type,
                                     'punished' => $query->id,
                                     'staff' => $user->data()->id,
@@ -155,44 +156,62 @@ if (isset($_GET['user'])) {
                                     'infraction_date' => date('Y-m-d H:i:s'),
                                     'created' => date('U'),
                                     'acknowledged' => (($type == 2) ? 0 : 1)
-                                ));
+                                ]);
 
                                 if ($type == 1 || $type == 3) {
                                     // Ban the user
-                                    $queries->update('users', $query->id, array(
+                                    $queries->update('users', $query->id, [
                                         'isbanned' => 1,
                                         'active' => 0
-                                    ));
+                                    ]);
 
                                     $banned_user_ip = $banned_user->data()->lastip;
 
-                                    $queries->delete('users_session', array('user_id', '=', $query->id));
+                                    $queries->delete('users_session', ['user_id', '=', $query->id]);
 
                                     if ($type == 3) {
                                         // Ban IP
-                                        $queries->create('ip_bans', array(
+                                        $queries->create('ip_bans', [
                                             'ip' => $banned_user_ip,
                                             'banned_by' => $user->data()->id,
                                             'banned_at' => date('U'),
                                             'reason' => $_POST['reason']
-                                        ));
+                                        ]);
                                     }
-                                } else if ($type == 4) {
-                                    // Need to delete any other avatars
-                                    $diff_str = implode(',', array('jpg', 'png', 'jpeg', 'gif'));
 
-                                    $to_remove = glob(ROOT_PATH . '/uploads/avatars/' . $query->id . '.{' . $diff_str . '}', GLOB_BRACE);
+                                    // Fire userBanned event 
+                                    EventHandler::executeEvent('userBanned', [
+                                        'punished_id' => $query->id,
+                                        'punisher_id' => $user->data()->id,
+                                        'reason' => Output::getClean($_POST['reason']),
+                                        'ip_ban' => $type == 3,
+                                    ]);
 
-                                    if ($to_remove) {
-                                        foreach ($to_remove as $item) {
-                                            unlink($item);
+                                } else {
+                                    if ($type == 2) {
+                                        // Fire userWarned event
+                                        EventHandler::executeEvent('userWarned', [
+                                            'punished_id' => $query->id,
+                                            'punisher_id' => $user->data()->id,
+                                            'reason' => Output::getClean($_POST['reason']),
+                                        ]);
+                                    } else if ($type == 4) {
+                                        // Need to delete any other avatars
+                                        $diff_str = implode(',', ['jpg', 'png', 'jpeg', 'gif']);
+
+                                        $to_remove = glob(ROOT_PATH . '/uploads/avatars/' . $query->id . '.{' . $diff_str . '}', GLOB_BRACE);
+
+                                        if ($to_remove) {
+                                            foreach ($to_remove as $item) {
+                                                unlink($item);
+                                            }
                                         }
-                                    }
 
-                                    $queries->update('users', $query->id, array(
-                                        'has_avatar' => 0,
-                                        'avatar_updated' => date('U')
-                                    ));
+                                        $queries->update('users', $query->id, [
+                                            'has_avatar' => 0,
+                                            'avatar_updated' => date('U')
+                                        ]);
+                                    }
                                 }
 
                                 // Send alerts
@@ -203,7 +222,7 @@ if (isset($_GET['user'])) {
                                     $groups = '(';
                                     foreach ($groups_query as $group) {
                                         if (is_numeric($group->id)) {
-                                            $groups .= ((int) $group->id) . ',';
+                                            $groups .= ((int)$group->id) . ',';
                                         }
                                     }
                                     $groups = rtrim($groups, ',') . ')';
@@ -215,28 +234,36 @@ if (isset($_GET['user'])) {
                                         $users = $users->results();
 
                                         foreach ($users as $item) {
+                                            if ($user->data()->id == $item->id) {
+                                                continue;
+                                            }
+
                                             // Send alert
-                                            Alert::create($item->id, 'punishment', array('path' => 'core', 'file' => 'moderator', 'term' => 'user_punished_alert', 'replace' => array('{x}', '{y}'), 'replace_with' => array(Output::getClean($user->data()->nickname), Output::getClean($query->nickname))), array('path' => 'core', 'file' => 'moderator', 'term' => 'user_punished_alert', 'replace' => array('{x}', '{y}'), 'replace_with' => array(Output::getClean($user->data()->nickname), Output::getClean($query->nickname))), URL::build('/panel/users/punishments/', 'user=' . Output::getClean($query->id)));
+                                            Alert::create($item->id, 'punishment', ['path' => 'core', 'file' => 'moderator', 'term' => 'user_punished_alert', 'replace' => ['{x}', '{y}'], 'replace_with' => [Output::getClean($user->data()->nickname), Output::getClean($query->nickname)]], ['path' => 'core', 'file' => 'moderator', 'term' => 'user_punished_alert', 'replace' => ['{x}', '{y}'], 'replace_with' => [Output::getClean($user->data()->nickname), Output::getClean($query->nickname)]], URL::build('/panel/users/punishments/', 'user=' . Output::getClean($query->id)));
                                         }
                                     }
                                 }
-                            } else
+                            } else {
                                 $errors[] = $language->get('moderator', 'cant_punish_admin');
-                        } else
+                            }
+                        } else {
                             $errors[] = $language->get('moderator', 'cant_punish_admin');
+                        }
                     } catch (Exception $e) {
                         $errors[] = $e->getMessage();
                     }
-                } else
+                } else {
                     $errors[] = $language->get('moderator', 'enter_valid_punishment_reason');
+                }
             }
-        } else
+        } else {
             $errors[] = $language->get('general', 'invalid_token');
+        }
     }
 
     // Get any previous punishments
     $previous_punishments = $queries->orderWhere('infractions', 'punished = ' . $query->id, 'created', 'DESC');
-    $previous_punishments_array = array();
+    $previous_punishments_array = [];
     if (count($previous_punishments)) {
         foreach ($previous_punishments as $punishment) {
             switch ($punishment->type) {
@@ -259,7 +286,7 @@ if (isset($_GET['user'])) {
             }
 
             $issued_by_user = new User($punishment->staff);
-            $previous_punishments_array[] = array(
+            $previous_punishments_array[] = [
                 'type' => $type,
                 'type_numeric' => $punishment->type,
                 'revoked' => $punishment->revoked,
@@ -268,31 +295,36 @@ if (isset($_GET['user'])) {
                 'issued_by_nickname' => $issued_by_user->getDisplayname(),
                 'issued_by_profile' => URL::build('/panel/user/' . Output::getClean($punishment->staff . '-' . $issued_by_user->data()->username)),
                 'issued_by_style' => $issued_by_user->getGroupClass(),
-                'issued_by_avatar' => $issued_by_user->getAvatar(128),
+                'issued_by_avatar' => $issued_by_user->getAvatar(),
                 'date_full' => ($punishment->created ? date('d M Y, H:i', $punishment->created) : date('d M Y, H:i', strtotime($punishment->infraction_date))),
                 'date_friendly' => ($punishment->created ? $timeago->inWords(date('Y-m-d H:i:s', $punishment->created), $language->getTimeLanguage()) : $timeago->inWords($punishment->infraction_date, $language->getTimeLanguage())),
                 'revoke_link' => (($user->hasPermission('modcp.punishments.revoke') && $punishment->type != 4) ? URL::build('/panel/users/punishments/', 'user=' . $query->id . '&do=revoke&id=' . $punishment->id) : 'none'),
                 'confirm_revoke_punishment' => (($punishment->type == 2) ? $language->get('moderator', 'confirm_revoke_warning') : $language->get('moderator', 'confirm_revoke_ban'))
-            );
+            ];
         }
     }
 
-    if ($user->hasPermission('modcp.punishments.reset_avatar'))
+    if ($user->hasPermission('modcp.punishments.reset_avatar')) {
         $smarty->assign('RESET_AVATAR', $language->get('moderator', 'reset_avatar'));
+    }
 
-    if ($user->hasPermission('modcp.punishments.warn'))
+    if ($user->hasPermission('modcp.punishments.warn')) {
         $smarty->assign('WARN', $language->get('moderator', 'warn'));
+    }
 
-    if ($user->hasPermission('modcp.punishments.ban'))
+    if ($user->hasPermission('modcp.punishments.ban')) {
         $smarty->assign('BAN', $language->get('moderator', 'ban'));
+    }
 
-    if ($user->hasPermission('modcp.punishments.banip'))
+    if ($user->hasPermission('modcp.punishments.banip')) {
         $smarty->assign('BAN_IP', $language->get('moderator', 'ban_ip'));
+    }
 
-    if ($user->hasPermission('modcp.punishments.revoke'))
+    if ($user->hasPermission('modcp.punishments.revoke')) {
         $smarty->assign('REVOKE_PERMISSION', true);
+    }
 
-    $smarty->assign(array(
+    $smarty->assign([
         'HAS_AVATAR' => $query->has_avatar,
         'BACK_LINK' => URL::build('/panel/users/punishments'),
         'BACK' => $language->get('general', 'back'),
@@ -310,17 +342,17 @@ if (isset($_GET['user'])) {
         'USERNAME' => $view_user->getDisplayname(true),
         'NICKNAME' => $view_user->getDisplayname(),
         'USER_STYLE' => $view_user->getGroupClass(),
-        'AVATAR' => $view_user->getAvatar(128),
+        'AVATAR' => $view_user->getAvatar(),
         'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
         'YES' => $language->get('general', 'yes'),
         'NO' => $language->get('general', 'no')
-    ));
+    ]);
 
     $template_file = 'core/users_punishments_user.tpl';
 } else {
     if (Input::exists() && isset($_POST['username'])) {
         if (Token::check()) {
-            $check = DB::getInstance()->selectQuery('SELECT id FROM nl2_users WHERE username = ? OR nickname = ?', array($_POST['username'], $_POST['username']));
+            $check = DB::getInstance()->selectQuery('SELECT id FROM nl2_users WHERE username = ? OR nickname = ?', [$_POST['username'], $_POST['username']]);
 
             if ($check->count()) {
                 $check = $check->first();
@@ -328,10 +360,10 @@ if (isset($_GET['user'])) {
                 Redirect::to(URL::build('/panel/users/punishments/', 'user=' . Output::getClean($check->id)));
                 die();
             } else {
-                $errors = array($language->get('user', 'couldnt_find_that_user'));
+                $errors = [$language->get('user', 'couldnt_find_that_user')];
             }
         } else {
-            $errors = array($language->get('general', 'invalid_token'));
+            $errors = [$language->get('general', 'invalid_token')];
         }
     }
 
@@ -357,11 +389,11 @@ if (isset($_GET['user'])) {
             $p = 1;
         }
 
-        $paginator = new Paginator(($template_pagination ?? array()));
+        $paginator = new Paginator(($template_pagination ?? []), $template_pagination_left ?? '', $template_pagination_right ?? '');
         $results = $paginator->getLimited($punishments, 10, $p, count($punishments));
         $pagination = $paginator->generate(7, URL::build('/panel/users/punishments/', true));
 
-        $smarty_results = array();
+        $smarty_results = [];
         foreach ($results->data as $result) {
             switch ($result->type) {
                 case 1:
@@ -381,17 +413,17 @@ if (isset($_GET['user'])) {
             $target_user = new User($result->punished);
             $staff_user = new User($result->staff);
 
-            $smarty_results[] = array(
+            $smarty_results[] = [
                 'username' => $target_user->getDisplayname(true),
                 'nickname' => $target_user->getDisplayname(),
                 'profile' => URL::build('/panel/user/' . Output::getClean($result->punished . '-' . $target_user->data()->username)),
                 'style' => $target_user->getGroupClass(),
-                'avatar' => $target_user->getAvatar(128),
+                'avatar' => $target_user->getAvatar(),
                 'staff_username' => $staff_user->getDisplayname(true),
                 'staff_nickname' => $staff_user->getDisplayname(),
                 'staff_profile' => URL::build('/panel/user/' . Output::getClean($result->staff . '-' . $staff_user->data()->username)),
                 'staff_style' => $staff_user->getGroupClass(),
-                'staff_avatar' => $staff_user->getAvatar(128),
+                'staff_avatar' => $staff_user->getAvatar(),
                 'type' => $type,
                 'type_numeric' => $result->type,
                 'revoked' => $result->revoked,
@@ -399,10 +431,10 @@ if (isset($_GET['user'])) {
                 'time_full' => ($result->created ? date('d M Y, H:i', $result->created) : date('d M Y, H:i', strtotime($result->infraction_date))),
                 'time' => ($result->created ? $timeago->inWords(date('Y-m-d H:i:s', $result->created), $language->getTimeLanguage()) : $timeago->inWords($result->infraction_date, $language->getTimeLanguage())),
                 'link' => URL::build('/panel/users/punishments/', 'user=' . $result->punished)
-            );
+            ];
         }
 
-        $smarty->assign(array(
+        $smarty->assign([
             'PAGINATION' => $pagination,
             'STAFF' => $language->get('moderator', 'staff'),
             'ACTIONS' => $language->get('moderator', 'actions'),
@@ -412,36 +444,39 @@ if (isset($_GET['user'])) {
             'RESULTS' => $smarty_results,
             'ACKNOWLEDGED' => $language->get('moderator', 'acknowledged'),
             'REVOKED' => $language->get('moderator', 'revoked')
-        ));
+        ]);
     } else {
         $smarty->assign('NO_PUNISHMENTS', $language->get('moderator', 'no_punishments_found'));
     }
 
-    $smarty->assign(array(
+    $smarty->assign([
         'USERNAME' => $language->get('user', 'username'),
         'SEARCH' => $language->get('general', 'search'),
         'CANCEL' => $language->get('general', 'cancel')
-    ));
+    ]);
 
     $template_file = 'core/users_punishments.tpl';
 }
 
-if (Session::exists('user_punishment_success'))
+if (Session::exists('user_punishment_success')) {
     $success = Session::flash('user_punishment_success');
+}
 
-if (isset($success))
-    $smarty->assign(array(
+if (isset($success)) {
+    $smarty->assign([
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
-    ));
+    ]);
+}
 
-if (isset($errors) && count($errors))
-    $smarty->assign(array(
+if (isset($errors) && count($errors)) {
+    $smarty->assign([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
-    ));
+    ]);
+}
 
-$smarty->assign(array(
+$smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'USER_MANAGEMENT' => $language->get('admin', 'user_management'),
@@ -449,7 +484,7 @@ $smarty->assign(array(
     'PAGE' => PANEL_PAGE,
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit')
-));
+]);
 
 $page_load = microtime(true) - $start;
 define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));

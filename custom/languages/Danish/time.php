@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *  Made by Samerton & Translated by Codiaz
  *  https://github.com/NamelessMC/Nameless/
@@ -9,7 +9,7 @@
  *  Danish Language - General terms
  */
 
-$language = array(
+$language = [
     /*
      *  Time
      */
@@ -25,4 +25,4 @@ $language = array(
     '_months' => '{x} måneder siden',
     'about_1_year' => 'omkring 1 år siden',
     'over_x_years' => 'over {x} år siden'
-);
+];

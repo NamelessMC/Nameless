@@ -9,7 +9,7 @@
  *  ภาษาไทย Language - Table
  */
 
-$language = array(
+$language = [
     /*
      *  Tables
      */
@@ -18,4 +18,4 @@ $language = array(
     'page_x_of_y' => 'กำลังแสดงหน้า _PAGE_ จาก _PAGES_', // Don't replace "_PAGE_" or "_PAGES_"
     'no_records' => 'ไม่มีบันทึก',
     'filtered' => '(กรองจากระเบียนทั้งหมด _MAX_ รายการ)' // Don't replace "_MAX_"
-);
+];

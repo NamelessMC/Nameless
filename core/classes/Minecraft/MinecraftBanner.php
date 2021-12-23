@@ -31,30 +31,32 @@ class MinecraftBanner {
         $texture_size = 32;
 
         $canvas = imagecreatetruecolor($width, $height);
-        if ($background == NULL) {
+        if ($background == null) {
             $background = imagecreatefrompng(ROOT_PATH . '/uploads/banners/texture.png');
-        } else if (file_exists(ROOT_PATH . '/uploads/banners/' . $background)) {
-            $background = imagecreatefrompng(ROOT_PATH . '/uploads/banners/' . $background);
         } else {
-            if (stristr($background, "http://") || stristr($background, "https://") || file_exists($background)) {
-                $info = pathinfo($background);
-                $ext = $info['extension'];
-
-                switch ($ext) {
-                    case "png":
-                        $background = imagecreatefrompng($background);
-                        break;
-                    case "jpg":
-                        $background = imagecreatefromjpeg($background);
-                        break;
-                    case "gif":
-                        $background = imagecreatefromgif($background);
-                        break;
-                    default:
-                        $background = imagecreatefrompng(ROOT_PATH . '/uploads/banners/texture.png');
-                }
+            if (file_exists(ROOT_PATH . '/uploads/banners/' . $background)) {
+                $background = imagecreatefrompng(ROOT_PATH . '/uploads/banners/' . $background);
             } else {
-                $background = imagecreatefrompng(ROOT_PATH . '/uploads/banners/texture.png');
+                if (stristr($background, 'http://') || stristr($background, 'https://') || file_exists($background)) {
+                    $info = pathinfo($background);
+                    $ext = $info['extension'];
+
+                    switch ($ext) {
+                        case 'png':
+                            $background = imagecreatefrompng($background);
+                            break;
+                        case 'jpg':
+                            $background = imagecreatefromjpeg($background);
+                            break;
+                        case 'gif':
+                            $background = imagecreatefromgif($background);
+                            break;
+                        default:
+                            $background = imagecreatefrompng(ROOT_PATH . '/uploads/banners/texture.png');
+                    }
+                } else {
+                    $background = imagecreatefrompng(ROOT_PATH . '/uploads/banners/texture.png');
+                }
             }
         }
 
@@ -63,9 +65,7 @@ class MinecraftBanner {
                 for ($xPos = 0; $xPos <= ($width / $texture_size); $xPos++) {
                     $startX = $xPos * $texture_size;
                     $startY = $yPos * $texture_size;
-                    imagecopyresampled($canvas, $background, $startX, $startY, 0, 0
-                            , $texture_size, $texture_size
-                            , $texture_size, $texture_size);
+                    imagecopyresampled($canvas, $background, $startX, $startY, 0, 0, $texture_size, $texture_size, $texture_size, $texture_size);
                 }
             }
         } else {
@@ -76,28 +76,28 @@ class MinecraftBanner {
     }
 
     public static function getColours(): array {
-        return array(
-            '0' => array(0, 0, 0), //Black
-            '1' => array(0, 0, 170), //Dark Blue
-            '2' => array(0, 170, 0), //Dark Green
-            '3' => array(0, 170, 170), //Dark Aqua
-            '4' => array(170, 0, 0), //Dark Red
-            '5' => array(170, 0, 170), //Dark Purple
-            '6' => array(255, 170, 0), //Gold
-            '7' => array(170, 170, 170), //Gray
-            '8' => array(85, 85, 85), //Dark Gray
-            '9' => array(85, 85, 255), //Blue
-            'a' => array(85, 255, 85), //Green
-            'b' => array(85, 255, 255), //Aqua
-            'c' => array(255, 85, 85), //Red
-            'd' => array(255, 85, 85), //Light Purple
-            'e' => array(255, 255, 85), //Yellow
-            'f' => array(255, 255, 255), //White
-        );
+        return [
+            '0' => [0, 0, 0], //Black
+            '1' => [0, 0, 170], //Dark Blue
+            '2' => [0, 170, 0], //Dark Green
+            '3' => [0, 170, 170], //Dark Aqua
+            '4' => [170, 0, 0], //Dark Red
+            '5' => [170, 0, 170], //Dark Purple
+            '6' => [255, 170, 0], //Gold
+            '7' => [170, 170, 170], //Gray
+            '8' => [85, 85, 85], //Dark Gray
+            '9' => [85, 85, 255], //Blue
+            'a' => [85, 255, 85], //Green
+            'b' => [85, 255, 255], //Aqua
+            'c' => [255, 85, 85], //Red
+            'd' => [255, 85, 85], //Light Purple
+            'e' => [255, 255, 85], //Yellow
+            'f' => [255, 255, 255], //White
+        ];
     }
 
     public static function getColourChar(): string {
-        return "§";
+        return '§';
     }
 
     public static function getFontFile(): string {

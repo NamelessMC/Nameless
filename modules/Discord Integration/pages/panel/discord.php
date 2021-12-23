@@ -9,19 +9,19 @@
  *  Panel Discord page
  */
 
-if(!$user->handlePanelPageLoad('admincp.discord')) {
+if (!$user->handlePanelPageLoad('admincp.discord')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }
 
-define('PAGE', 'panel');
-define('PARENT_PAGE', 'integrations');
-define('PANEL_PAGE', 'discord');
+const PAGE = 'panel';
+const PARENT_PAGE = 'integrations';
+const PANEL_PAGE = 'discord';
 $page_title = Discord::getLanguageTerm('discord');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 if (Input::exists()) {
-    $errors = array();
+    $errors = [];
 
     if (Token::check()) {
         if (isset($_POST['discord_guild_id'])) {
@@ -43,12 +43,12 @@ if (Input::exists()) {
 
             if ($validation->passed()) {
 
-                $discord_id = $queries->getWhere('settings', array('name', '=', 'discord'));
+                $discord_id = $queries->getWhere('settings', ['name', '=', 'discord']);
                 $discord_id = $discord_id[0]->id;
 
-                $queries->update('settings', $discord_id, array(
+                $queries->update('settings', $discord_id, [
                     'value' => Output::getClean(Input::get('discord_guild_id'))
-                ));
+                ]);
 
                 $success = Discord::getLanguageTerm('discord_settings_updated');
 
@@ -58,23 +58,23 @@ if (Input::exists()) {
         } else {
             // Valid token
             // Either enable or disable Discord integration
-            $enable_discord_id = $queries->getWhere('settings', array('name', '=', 'discord_integration'));
+            $enable_discord_id = $queries->getWhere('settings', ['name', '=', 'discord_integration']);
             $enable_discord_id = $enable_discord_id[0]->id;
             if ($_POST['enable_discord'] == '1') {
                 if (BOT_URL == '' || BOT_USERNAME == '' || Discord::getGuildId() == '') {
                     $errors[] = Discord::getLanguageTerm('discord_bot_must_be_setup');
-                    $queries->update('settings', $enable_discord_id, array(
+                    $queries->update('settings', $enable_discord_id, [
                         'value' => 0
-                    ));
+                    ]);
                 } else {
-                    $queries->update('settings', $enable_discord_id, array(
+                    $queries->update('settings', $enable_discord_id, [
                         'value' => 1
-                    ));
+                    ]);
                 }
             } else {
-                $queries->update('settings', $enable_discord_id, array(
+                $queries->update('settings', $enable_discord_id, [
                     'value' => 0
-                ));
+                ]);
             }
         }
 
@@ -83,32 +83,35 @@ if (Input::exists()) {
         }
     } else {
         // Invalid token
-        $errors[] = array($language->get('general', 'invalid_token'));
+        $errors[] = [$language->get('general', 'invalid_token')];
     }
 }
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-if (isset($success))
-    $smarty->assign(array(
+if (isset($success)) {
+    $smarty->assign([
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
-    ));
+    ]);
+}
 
-if (isset($errors) && count($errors))
-    $smarty->assign(array(
+if (isset($errors) && count($errors)) {
+    $smarty->assign([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
-    ));
+    ]);
+}
 
-if (Session::exists('discord_error'))
-    $smarty->assign(array(
-        'ERRORS' => array(Session::flash('discord_error')),
+if (Session::exists('discord_error')) {
+    $smarty->assign([
+        'ERRORS' => [Session::flash('discord_error')],
         'ERRORS_TITLE' => $language->get('general', 'error')
-    ));
+    ]);
+}
 
-$smarty->assign(array(
+$smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'INTEGRATIONS' => $language->get('admin', 'integrations'),
@@ -128,7 +131,7 @@ $smarty->assign(array(
     'DISCORD_GUILD_ID' => Discord::getLanguageTerm('discord_guild_id'),
     'DISCORD_GUILD_ID_VALUE' => Discord::getGuildId(),
     'ID_INFO' => Discord::getLanguageTerm('discord_id_help'),
-));
+]);
 
 $page_load = microtime(true) - $start;
 define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));

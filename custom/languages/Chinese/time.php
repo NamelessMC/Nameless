@@ -1,19 +1,19 @@
 <?php
- /*
- *  Made by Samerton
- *  Translation  by Hi_Michael
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
- *
- *  License: MIT
- *
- *  Chinese Language - Time
- *  Translation progress : 100%
- *  翻譯有誤請使用GitHun回報issues
- *  https://github.com/haer0248/NamelessMC-v2-Traditional-Chinese/issues
- */
+/*
+*  Made by Samerton
+*  Translation  by Hi_Michael
+*  https://github.com/NamelessMC/Nameless/
+*  NamelessMC version 2.0.0-pr8
+*
+*  License: MIT
+*
+*  Chinese Language - Time
+*  Translation progress : 100%
+*  翻譯有誤請使用GitHun回報issues
+*  https://github.com/haer0248/NamelessMC-v2-Traditional-Chinese/issues
+*/
 
-$language = array(
+$language = [
     /*
      *  Time
      */
@@ -30,4 +30,4 @@ $language = array(
     '_months' => '{x} 個月以前',
     'about_1_year' => '大約 1 年以前',
     'over_x_years' => '超過 {x} 年'
-);
+];

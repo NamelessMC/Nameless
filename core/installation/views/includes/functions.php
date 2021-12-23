@@ -1,12 +1,12 @@
 <?php
 $nameless_terms = 'This website uses "Nameless" website software. The ' .
-'"Nameless" software creators will not be held responsible for any content ' .
-'that may be experienced whilst browsing this site, nor are they responsible ' .
-'for any loss of data which may come about, for example a hacking attempt. ' .
-'The website is run independently from the software creators, and any content' .
-' is the responsibility of the website administration.';
+    '"Nameless" software creators will not be held responsible for any content ' .
+    'that may be experienced whilst browsing this site, nor are they responsible ' .
+    'for any loss of data which may come about, for example a hacking attempt. ' .
+    'The website is run independently from the software creators, and any content' .
+    ' is the responsibility of the website administration.';
 
-function create_step($name, $icon, $child_steps = array()) {
+function create_step($name, $icon, $child_steps = []) {
 
     global $step;
 
@@ -15,8 +15,10 @@ function create_step($name, $icon, $child_steps = array()) {
         if (in_array('welcome', $child_steps)) {
             $active = 'active ';
         }
-    } else if (in_array($step, $child_steps)) {
-        $active = 'active ';
+    } else {
+        if (in_array($step, $child_steps)) {
+            $active = 'active ';
+        }
     }
 
     echo "
@@ -30,7 +32,7 @@ function create_step($name, $icon, $child_steps = array()) {
 
 }
 
-function create_field($type, $label, $name, $id, $value = '', $options = array(), $fallback = false) {
+function create_field($type, $label, $name, $id, $value = '', $options = [], $fallback = false) {
 
     if ($type == 'select') {
 

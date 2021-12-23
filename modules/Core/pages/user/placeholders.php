@@ -10,27 +10,26 @@
  */
 
 // Must be logged in
-if(!$user->isLoggedIn()){
-	Redirect::to(URL::build('/'));
-	die();
+if (!$user->isLoggedIn()) {
+    Redirect::to(URL::build('/'));
+    die();
 }
 
 // Placeholders enabled?
 $placeholders_enabled = $configuration->get('Core', 'placeholders');
-if($placeholders_enabled != 1) {
+if ($placeholders_enabled != 1) {
     require_once(ROOT_PATH . '/404.php');
     die();
 }
 
 // Always define page name for navbar
-define('PAGE', 'cc_placeholders');
+const PAGE = 'cc_placeholders';
 $page_title = $language->get('user', 'user_cp');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-require_once(ROOT_PATH . '/core/classes/TimeAgo.php');
 $timeago = new TimeAgo(TIMEZONE);
 
-$placeholders_list = array();
+$placeholders_list = [];
 
 foreach ($user->getPlaceholders() as $placeholder) {
     $placeholders_list[] = [
@@ -43,7 +42,7 @@ foreach ($user->getPlaceholders() as $placeholder) {
     ];
 }
 
-$smarty->assign(array(
+$smarty->assign([
     'USER_CP' => $language->get('user', 'user_cp'),
     'NO_PLACEHOLDERS' => $language->get('user', 'no_placeholders'),
     'PLACEHOLDERS' => $language->get('user', 'placeholders'),
@@ -54,10 +53,10 @@ $smarty->assign(array(
     'LAST_UPDATED' => $language->get('admin', 'placeholders_last_updated'),
     'SHOW_ON_PROFILE' => $language->get('admin', 'placeholders_show_on_profile'),
     'SHOW_ON_FORUM' => $language->get('admin', 'placeholders_show_on_forum')
-));
+]);
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 require(ROOT_PATH . '/core/templates/cc_navbar.php');
 

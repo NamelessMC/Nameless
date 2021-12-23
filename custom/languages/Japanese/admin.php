@@ -14,7 +14,7 @@
  *  Japanese Language - Admin
  */
 
-$language = array(
+$language = [
     /*
      *  Admin Control Panel
      */
@@ -33,7 +33,6 @@ $language = array(
     'minecraft' => 'Minecraft',
     'modules' => 'モジュール',
     'security' => 'セキュリティ',
-    'sitemap' => 'サイトマップ',
     'styles' => 'スタイル',
     'users_and_groups' => 'ユーザー・グループ',
 
@@ -104,7 +103,7 @@ $language = array(
     'delete_email_error' => 'エラー削除',
     'confirm_email_error_deletion' => '選択中のエラーを削除してもよろしいですか？',
     'viewing_email_error' => 'エラー表示',
-    'unable_to_write_email_config' => '<strong>core/email.php</core>ファイルに書き込みできません。ファイルアクセス権限を確認して下さい。',
+    'unable_to_write_email_config' => '<strong>core/email.php</strong>ファイルに書き込みできません。ファイルアクセス権限を確認して下さい。',
     'enable_mailer' => 'PHPMailerを有効にしますか？',
     'enable_mailer_help' => 'php.iniで電子メール設定が完了していない場合こちらを使用できます。PHPMailerを使用するには、GmailやSMTPプロバイダなどの電子メールを送信できるプロバイダーサービスが必要です。',
     'outgoing_email' => '送信メールアドレス',
@@ -206,6 +205,8 @@ $language = array(
     'seo' => 'SEO',
     'google_analytics' => 'Google Analytics',
     'google_analytics_help' => 'ウェブサイトにGoogle Analyticsを追加して、訪問者や統計情報を追跡します。この機能を利用するには、Google Analyticsのアカウントを作成する必要があります。Google AnalyticsのWeb Property IDを入力します。IDはUA-XXXXA-Xのような形式をしており、アカウント情報やGoogleが提供するトラッキングコードに記載されています。',
+    'sitemap' => 'サイトマップ',
+    'seo_settings_updated_successfully' => 'SEO settings updated successfully.',
 
     // Reactions
     'icon' => 'アイコン',
@@ -708,9 +709,7 @@ $language = array(
 
     //ダッシュボード
     'total_users' => '合計ユーザー',
-    'total_users_statistic_icon' => '<i class="fas fa-users"> </i>',
     'recent_users' => '新規ユーザー',
-    'recent_users_statistic_icon' => '<i class="fas fa-users"> </i>',
     'average_players' => '平均ユーザー',
     'nameless_news' => 'NamelessMC ニュース',
     'unable_to_retrieve_nameless_news' => '最新のニュースを取得できませんでした。',
@@ -749,4 +748,6 @@ $language = array(
     'background_colour_required' => '背景色は必須です。',
     'text_colour_required' => 'テキスト色は必須です。',
     'no_announcements' => 'まだお知らせはありません。',
-);
+    'announcement_order' => 'Order',
+    'announcement_hook_info' => 'Announcement creation',
+];

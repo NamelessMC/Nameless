@@ -1,23 +1,23 @@
 <?php
 
 require_once ROOT_PATH . '/core/includes/constants/autoload.php';
-require_once ROOT_PATH . '/core/includes/smarty/Smarty.class.php';
 
 spl_autoload_register(function ($class) {
 
-    $path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'core', 'classes', getFolder($class), $class . '.php'));
+    $path = join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'core', 'classes', getFolder($class), $class . '.php']);
 
     if (file_exists($path)) {
         require_once($path);
     }
 });
 
-define('CLASS_FOLDERS', [
+const CLASS_FOLDERS = [
     'Avatars' => [
         AvatarSource::class,
         AvatarSourceBase::class,
     ],
     'Collections' => [
+        Collection::class,
         CollectionItemBase::class,
         CollectionManager::class,
     ],
@@ -30,6 +30,7 @@ define('CLASS_FOLDERS', [
         Cookie::class,
         Email::class,
         Hash::class,
+        HttpClient::class,
         Input::class,
         Instanceable::class,
         Language::class,
@@ -62,7 +63,6 @@ define('CLASS_FOLDERS', [
     ],
     'Events' => [
         EventHandler::class,
-        Listener::class,
     ],
     'Group_Sync' => [
         GroupSyncInjector::class,
@@ -82,12 +82,13 @@ define('CLASS_FOLDERS', [
         ErrorHandler::class,
         Placeholders::class,
         TemplateBase::class,
+        UpgradeScript::class,
     ],
     'Widgets' => [
         WidgetBase::class,
         Widgets::class,
     ],
-]);
+];
 
 function getFolder(string $class): string {
     foreach (CLASS_FOLDERS as $folder => $classes) {

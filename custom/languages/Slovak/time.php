@@ -2,14 +2,14 @@
 /*
  *  Made by RobiNN
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr10
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
  *  Slovak Language - Time
  */
 
-$language = array(
+$language = [
     /*
      *  Time
      */
@@ -25,4 +25,4 @@ $language = array(
     '_months' => 'pred {x} mesiacmi',
     'about_1_year' => 'asi pred 1 rokom',
     'over_x_years' => 'pred viac ako {x} rokmi'
-);
+];

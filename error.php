@@ -28,13 +28,13 @@ if (defined('CONFIG_PATH')) {
     $path = '/core/assets/';
 }
 
-$current_url = "http" . (($_SERVER['SERVER_PORT'] == 443) ? "s" : "") . "://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+$current_url = 'http' . (($_SERVER['SERVER_PORT'] == 443) ? 's' : '') . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 
 $smarty = new Smarty();
 
 $smarty->setCompileDir(ROOT_PATH . '/cache/templates_c');
 
-$smarty->assign(array(
+$smarty->assign([
     'LANG' => defined('HTML_LANG') ? HTML_LANG : 'en',
     'RTL' => defined('HTML_RTL') && HTML_RTL === true ? ' dir="rtl"' : '',
     'LANG_CHARSET' => defined('LANG_CHARSET') ? LANG_CHARSET : 'utf-8',
@@ -54,15 +54,16 @@ $smarty->assign(array(
     'ERROR_TYPE' => is_null($exception) ? $language->get('general', 'error') : (new ReflectionClass($exception))->getName(),
     'ERROR_STRING' => $error_string,
     'ERROR_FILE' => $error_file,
+    'CAN_GENERATE_DEBUG' => $user->hasPermission('admincp.core.debugging'),
     'DEBUG_LINK' => $language->get('admin', 'debug_link'),
     'DEBUG_LINK_URL' => URL::build('/queries/debug_link'),
-    'ERROR_SQL_STACK' =>  QueryRecorder::getInstance()->getSqlStack(),
+    'ERROR_SQL_STACK' => QueryRecorder::getInstance()->getSqlStack(),
     'CURRENT_URL' => $current_url,
     'FRAMES' => $frames,
     'SKIP_FRAMES' => $skip_frames,
     'BACK' => $language->get('general', 'back'),
     'HOME' => $language->get('general', 'home'),
     'HOME_URL' => URL::build('/')
-));
+]);
 
 $smarty->display(ROOT_PATH . DIRECTORY_SEPARATOR . 'error.tpl');

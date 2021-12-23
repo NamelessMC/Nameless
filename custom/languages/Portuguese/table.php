@@ -10,7 +10,7 @@
  *  Translation By Douglas Teles & dasilvaj4
  *  Last Update: 11/04/2018
  */
-$language = array(
+$language = [
     /*
      *  Tables
      */
@@ -19,4 +19,4 @@ $language = array(
     'page_x_of_y' => 'Exibindo página _PAGE_ de _PAGES_', // Don't replace "_PAGE_" or "_PAGES_"
     'no_records' => 'Nenhum registro disponível',
     'filtered' => '(filtrado de _MAX_ registros totais)' // Don't replace "_MAX_"
-);
+];

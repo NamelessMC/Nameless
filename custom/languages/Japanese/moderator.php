@@ -14,7 +14,7 @@
  *  Japanese Language - Moderator terms
  */
 
-$language = array(
+$language = [
     'mod_cp' => 'ModCP',
     'staff_cp' => 'StaffCP',
     'overview' => '概要',
@@ -111,4 +111,4 @@ $language = array(
     'recent_registrations' => '最近の登録',
     'reset_profile_banner' => 'プロフィールバナーをリセット'
 
-);
+];

@@ -7,4 +7,4 @@
 **/.DS_STORE
 .DS_Store
 .valet-env.php
-phpstan.phar
+/vendor/

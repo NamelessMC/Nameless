@@ -10,11 +10,18 @@
  */
 
 // Uncomment to enable debugging
-//define('DEBUGGING', 1);
+// define('DEBUGGING', 1);
 
-header("X-Frame-Options: SAMEORIGIN");
+header('X-Frame-Options: SAMEORIGIN');
 
-if ((defined('DEBUGGING') && DEBUGGING) || (isset($_SERVER['NAMELESSMC_DEBUGGING']) && $_SERVER['NAMELESSMC_DEBUGGING'])) {
+if (!defined('DEBUGGING') && (
+        isset($_SERVER['NAMELESSMC_DEBUGGING']) && $_SERVER['NAMELESSMC_DEBUGGING'] ||
+        getenv('NAMELESS_DEBUGGING')
+    )) {
+    define('DEBUGGING', 1);
+}
+
+if (defined('DEBUGGING') && DEBUGGING) {
     ini_set('display_startup_errors', 1);
     ini_set('display_errors', 1);
     error_reporting(-1);
@@ -29,7 +36,7 @@ if (version_compare(phpversion(), '7.4', '<')) {
 $start = microtime(true);
 
 // Definitions
-define('PATH', '/');
+const PATH = '/';
 define('ROOT_PATH', dirname(__FILE__));
 $page = 'Home';
 
@@ -44,11 +51,11 @@ if ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (isset($_SERVER
 }
 
 ini_set('session.cookie_httponly', 1);
-ini_set('open_basedir', ROOT_PATH . PATH_SEPARATOR  . $tmp_dir . PATH_SEPARATOR . '/proc/stat');
+ini_set('open_basedir', ROOT_PATH . PATH_SEPARATOR . $tmp_dir . PATH_SEPARATOR . '/proc/stat');
 
 // Get the directory the user is trying to access
 $directory = $_SERVER['REQUEST_URI'];
-$directories = explode("/", $directory);
+$directories = explode('/', $directory);
 $lim = count($directories);
 
 if (isset($_GET['route']) && $_GET['route'] == '/rewrite_test') {
@@ -84,19 +91,18 @@ if (!isset($_GET['route']) || $_GET['route'] == '/') {
     if (array_key_exists($route, $modules)) {
         $pages->setActivePage($modules[$route]);
         if (!isset($modules[$route]['custom'])) {
-            $path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'modules', $modules[$route]['module'], $modules[$route]['file']));
+            $path = join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', $modules[$route]['module'], $modules[$route]['file']]);
 
             if (!file_exists($path)) {
                 require(ROOT_PATH . '/404.php');
-            } else { 
+            } else {
                 require($path);
             }
-            
-            die();
+
         } else {
-            require(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'modules', 'Core', 'pages', 'custom.php')));
-            die();
+            require(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', 'Core', 'pages', 'custom.php']));
         }
+        die();
     } else {
         // Use recursion to check - might have URL parameters in path
         $path_array = explode('/', $route);
@@ -104,14 +110,14 @@ if (!isset($_GET['route']) || $_GET['route'] == '/') {
         for ($i = count($path_array) - 2; $i > 0; $i--) {
 
             $new_path = '/';
-            for($n = 1; $n <= $i; $n++){
+            for ($n = 1; $n <= $i; $n++) {
                 $new_path .= $path_array[$n] . '/';
             }
 
             $new_path = rtrim($new_path, '/');
 
             if (array_key_exists($new_path, $modules)) {
-                $path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'modules', $modules[$new_path]['module'], $modules[$new_path]['file']));
+                $path = join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', $modules[$new_path]['module'], $modules[$new_path]['file']]);
 
                 if (file_exists($path)) {
                     $pages->setActivePage($modules[$new_path]);

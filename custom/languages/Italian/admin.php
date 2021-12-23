@@ -9,7 +9,7 @@
  *  Italian Language - Admin
  */
 
-$language = array(
+$language = [
     /*
      *  Admin Control Panel
      */
@@ -28,7 +28,6 @@ $language = array(
     'minecraft' => 'Minecraft',
     'modules' => 'Moduli',
     'security' => 'Sicurezza',
-    'sitemap' => 'Sitemap',
     'styles' => 'Stili',
     'users_and_groups' => 'Utenti e Gruppi',
 
@@ -99,7 +98,7 @@ $language = array(
     'delete_email_error' => "Errore durante l'eliminazione",
     'confirm_email_error_deletion' => 'Sei sicuro di voler eliminare questo errore?',
     'viewing_email_error' => 'Errore di visualizzazione',
-    'unable_to_write_email_config' => 'Il file <strong>core/email.php</core> non è scrivibile. Per favore controlla i permessi sul file.',
+    'unable_to_write_email_config' => 'Il file <strong>core/email.php</strong> non è scrivibile. Per favore controlla i permessi sul file.',
     'enable_mailer' => 'Abilitare PHPMailer?',
     'enable_mailer_help' => "Abilitalo se le email non vengono inviate di default. L'uso di PHPMailer richiede che tu abbia un servizio capace di inviare email, come Gmail o un provider SMTP.",
     'outgoing_email' => 'Indirizzo email in uscita',
@@ -201,6 +200,8 @@ $language = array(
     'seo' => 'SEO',
     'google_analytics' => 'Google Analytics',
     'google_analytics_help' => 'Add Google Analytics to your website to track visitors and statistics. You will need to create a Google Analytics account to use this functionality. Enter your Google Analytics Web Property ID. The ID looks like UA-XXXXA-X and you can find it in your account information or in the tracking code provided by Google.',
+    'sitemap' => 'Sitemap',
+    'seo_settings_updated_successfully' => 'SEO settings updated successfully.',
 
     // Reactions
     'icon' => 'Icona',
@@ -315,7 +316,7 @@ $language = array(
     'server_deleted' => 'Server eliminato con successo',
     'unable_to_delete_server' => 'Impossibile eliminare il server.',
     'leave_port_empty_for_srv' => 'Puoi lasciare la porta vuota se è 25565 o se il tuo dominio utilizza un record SRV',
-    'viewing_query_error' => "Visualizzazione degli errori della query",
+    'viewing_query_error' => 'Visualizzazione degli errori della query',
     'confirm_query_error_deletion' => 'Sei sicuro di voler eliminare questo errore query?',
     'no_query_errors' => 'Nessun errore query registrato.',
     'new_banner' => '<i class="fa fa-plus-circle"></i> Nuovo Banner',
@@ -441,7 +442,7 @@ $language = array(
     'confirm_user_deletion' => "Sei sicuro di voler eliminare l'utente <strong>{x}</strong>?", // Don't replace {x}
     'validate_user' => "Convalidare l'utente",
     'update_uuid' => 'Aggiorna UUID',
-    'update_mc_name' => "Aggiorna il nome utente di Minecraft",
+    'update_mc_name' => 'Aggiorna il nome utente di Minecraft',
     'reset_password' => 'Reimposta la password',
     'punish_user' => 'Punisci utente',
     'delete_user' => 'Elimina utente',
@@ -703,9 +704,7 @@ $language = array(
 
     // Dashboard
     'total_users' => 'Utenti Totali',
-    'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'recent_users' => 'Nuovi Utenti',
-    'recent_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'average_players' => 'Giocatori Medi',
     'nameless_news' => 'Notizie NamelessMC',
     'unable_to_retrieve_nameless_news' => 'Impossibile recuperare le ultime notizie',
@@ -724,8 +723,8 @@ $language = array(
     'announcements' => 'Annunci',
     'new_announcement' => 'Nuovo annuncio',
     'announcement_info' => 'Crea annunci per mostrare un messaggio a gruppi specifici su pagine specifiche del tuo sito web.',
-    'creating_announcement' => "Crea annuncio",
-    'editing_announcement' => "Modifica annuncio",
+    'creating_announcement' => 'Crea annuncio',
+    'editing_announcement' => 'Modifica annuncio',
     'creating_announcement_success' => 'Annuncio creato con successo.',
     'editing_announcement_success' => 'Annuncio aggiornato con successo.',
     'creating_announcement_failure' => "Creazione dell'annuncio non riuscita.",
@@ -744,4 +743,6 @@ $language = array(
     'background_colour_required' => 'Il colore di sfondo è obbligatorio',
     'text_colour_required' => 'Il colore del testo è obbligatorio',
     'no_announcements' => 'No announcements have been made yet.',
-);
+    'announcement_order' => 'Order',
+    'announcement_hook_info' => 'Announcement creation',
+];

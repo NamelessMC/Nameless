@@ -9,7 +9,7 @@
  *  Panel users page
  */
 
-if(!$user->handlePanelPageLoad('admincp.users.edit')) {
+if (!$user->handlePanelPageLoad('admincp.users.edit')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }
@@ -26,85 +26,90 @@ if (!$view_user->data()) {
 }
 $user_query = $view_user->data();
 
-define('PAGE', 'panel');
-define('PARENT_PAGE', 'users');
-define('PANEL_PAGE', 'users');
-define('EDITING_USER', true);
+const PAGE = 'panel';
+const PARENT_PAGE = 'users';
+const PANEL_PAGE = 'users';
+const EDITING_USER = true;
 $page_title = $language->get('admin', 'users');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
-require_once(ROOT_PATH . '/core/includes/markdown/tohtml/Markdown.inc.php');
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 if (isset($_GET['action'])) {
     if ($_GET['action'] == 'validate') {
         if (Token::check()) {
             // Validate the user
             if ($user_query->active == 0) {
-                $queries->update('users', $user_query->id, array(
+                $queries->update('users', $user_query->id, [
                     'active' => 1,
                     'reset_code' => ''
-                ));
+                ]);
 
-                EventHandler::executeEvent('validateUser', array(
+                EventHandler::executeEvent('validateUser', [
                     'event' => 'validateUser',
                     'user_id' => $user_query->id,
                     'username' => Output::getClean($user_query->username),
                     'uuid' => Output::getClean($user_query->uuid),
                     'language' => $language
-                ));
+                ]);
 
                 Session::flash('edit_user_success', $language->get('admin', 'user_validated_successfully'));
             }
         }
 
-    } else if ($_GET['action'] == 'update_mcname') {
-        require_once(ROOT_PATH . '/core/integration/uuid.php');
-        $uuid = $user_query->uuid;
+    } else {
+        if ($_GET['action'] == 'update_mcname') {
+            require_once(ROOT_PATH . '/core/integration/uuid.php');
+            $uuid = $user_query->uuid;
 
-        $profile = ProfileUtils::getProfile($uuid);
+            $profile = ProfileUtils::getProfile($uuid);
 
-        if ($profile) {
-            $result = $profile->getUsername();
+            if ($profile) {
+                $result = $profile->getUsername();
 
-            if (!empty($result)) {
-                if ($user_query->username == $user_query->nickname) {
-                    $queries->update('users', $user_query->id, array(
-                        'username' => Output::getClean($result),
-                        'nickname' => Output::getClean($result)
-                    ));
-                } else {
-                    $queries->update('users', $user_query->id, array(
-                        'username' => Output::getClean($result)
-                    ));
+                if (!empty($result)) {
+                    if ($user_query->username == $user_query->nickname) {
+                        $queries->update('users', $user_query->id, [
+                            'username' => Output::getClean($result),
+                            'nickname' => Output::getClean($result)
+                        ]);
+                    } else {
+                        $queries->update('users', $user_query->id, [
+                            'username' => Output::getClean($result)
+                        ]);
+                    }
+
+                    Session::flash('edit_user_success', $language->get('admin', 'user_updated_successfully'));
                 }
-
-                Session::flash('edit_user_success', $language->get('admin', 'user_updated_successfully'));
             }
-        }
-    } else if ($_GET['action'] == 'update_uuid') {
-        require_once(ROOT_PATH . '/core/integration/uuid.php');
-
-        $profile = ProfileUtils::getProfile($user_query->username);
-
-        if (!empty($profile)) {
-            $result = $profile->getProfileAsArray();
-
-            if (isset($result['uuid']) && !empty($result['uuid'])) {
-                $queries->update('users', $user_query->id, array(
-                    'uuid' => Output::getClean($result['uuid'])
-                ));
-
-                Session::flash('edit_user_success', $language->get('admin', 'user_updated_successfully'));
-            }
-        }
-    } else if ($_GET['action'] == 'resend_email' && $user_query->active == 0) {
-        require_once(ROOT_PATH . '/modules/Core/includes/emails/register.php');
-        if (sendRegisterEmail($queries, $language, $user_query->email, $user_query->username, $user_query->id, $user_query->reset_code)) {
-            Session::flash('edit_user_success', $language->get('admin', 'email_resent_successfully'));
         } else {
-            Session::flash('edit_user_errors', $language->get('admin', 'email_resend_failed'));
+            if ($_GET['action'] == 'update_uuid') {
+                require_once(ROOT_PATH . '/core/integration/uuid.php');
+
+                $profile = ProfileUtils::getProfile($user_query->username);
+
+                if (!empty($profile)) {
+                    $result = $profile->getProfileAsArray();
+
+                    if (isset($result['uuid']) && !empty($result['uuid'])) {
+                        $queries->update('users', $user_query->id, [
+                            'uuid' => Output::getClean($result['uuid'])
+                        ]);
+
+                        Session::flash('edit_user_success', $language->get('admin', 'user_updated_successfully'));
+                    }
+                }
+            } else {
+                if ($_GET['action'] == 'resend_email' && $user_query->active == 0) {
+                    require_once(ROOT_PATH . '/modules/Core/includes/emails/register.php');
+                    if (sendRegisterEmail($queries, $language, $user_query->email, $user_query->username, $user_query->id, $user_query->reset_code)) {
+                        Session::flash('edit_user_success', $language->get('admin', 'email_resent_successfully'));
+                    } else {
+                        Session::flash('edit_user_errors', $language->get('admin', 'email_resend_failed'));
+                    }
+                }
+            }
         }
     }
 
@@ -113,7 +118,7 @@ if (isset($_GET['action'])) {
 }
 
 if (Input::exists()) {
-    $errors = array();
+    $errors = [];
 
     if (Token::check()) {
         if (Input::get('action') === 'update') {
@@ -181,13 +186,11 @@ if (Input::exists()) {
                     $formatting = $cache->retrieve('formatting');
 
                     if ($formatting == 'markdown') {
-                        $signature = Michelf\Markdown::defaultTransform($signature);
-                        $signature = Output::getClean($signature);
-                    } else {
-                        $signature = Output::getClean($signature);
+                        $signature = \Michelf\Markdown::defaultTransform($signature);
                     }
+                    $signature = Output::getClean($signature);
 
-                    $private_profile_active = $queries->getWhere('settings', array('name', '=', 'private_profile'));
+                    $private_profile_active = $queries->getWhere('settings', ['name', '=', 'private_profile']);
                     $private_profile_active = $private_profile_active[0]->value == 1;
                     $private_profile = 0;
 
@@ -196,24 +199,26 @@ if (Input::exists()) {
                     }
 
                     // Template
-                    $new_template = $queries->getWhere('templates', array('id', '=', Input::get('template')));
+                    $new_template = $queries->getWhere('templates', ['id', '=', Input::get('template')]);
 
-                    if (count($new_template)) $new_template = $new_template[0]->id;
-                    else $new_template = $user_query->theme_id;
+                    if (count($new_template)) {
+                        $new_template = $new_template[0]->id;
+                    } else {
+                        $new_template = $user_query->theme_id;
+                    }
 
                     // Nicknames?
-                    $displaynames = $queries->getWhere('settings', array('name', '=', 'displaynames'));
+                    $displaynames = $queries->getWhere('settings', ['name', '=', 'displaynames']);
                     $displaynames = $displaynames[0]->value;
 
+                    $username = Input::get('username');
                     if ($displaynames == 'true') {
-                        $username = Input::get('username');
                         $nickname = Input::get('nickname');
                     } else {
-                        $username = Input::get('username');
                         $nickname = Input::get('username');
                     }
 
-                    $queries->update('users', $user_query->id, array(
+                    $queries->update('users', $user_query->id, [
                         'nickname' => Output::getClean($nickname),
                         'email' => Output::getClean(Input::get('email')),
                         'username' => Output::getClean($username),
@@ -222,7 +227,7 @@ if (Input::exists()) {
                         'signature' => $signature,
                         'private_profile' => $private_profile,
                         'theme_id' => $new_template
-                    ));
+                    ]);
 
                     if ($view_user->data()->id != $user->data()->id || $user->hasPermission('admincp.groups.self')) {
                         if ($view_user->data()->id == 1 || (isset($_POST['groups']) && count($_POST['groups']))) {
@@ -231,7 +236,7 @@ if (Input::exists()) {
                             // Check for new groups to give them which they dont already have
                             foreach ($_POST['groups'] as $group) {
                                 if (!in_array($group, $view_user->getAllGroupIds())) {
-                                    $view_user->addGroup($group, 0, array(true));
+                                    $view_user->addGroup($group, 0, [true]);
                                     $modified[] = $group;
                                 }
                             }
@@ -266,111 +271,119 @@ if (Input::exists()) {
                     $errors[] = $language->get('admin', 'select_user_group');
                 }
             }
-        } else if (Input::get('action') == 'delete') {
-            if ($user_query->id > 1) {
-                EventHandler::executeEvent('deleteUser', array(
-                    'user_id' => $user_query->id,
-                    'username' => Output::getClean($user_query->username),
-                    'uuid' => Output::getClean($user_query->uuid),
-                    'email_address' => Output::getClean($user_query->email)
-                ));
+        } else {
+            if (Input::get('action') == 'delete') {
+                if ($user_query->id > 1) {
+                    EventHandler::executeEvent('deleteUser', [
+                        'user_id' => $user_query->id,
+                        'username' => Output::getClean($user_query->username),
+                        'uuid' => Output::getClean($user_query->uuid),
+                        'email_address' => Output::getClean($user_query->email)
+                    ]);
 
-                Session::flash('users_session', $language->get('admin', 'user_deleted'));
+                    Session::flash('users_session', $language->get('admin', 'user_deleted'));
+                }
+
+                Redirect::to(URL::build('/panel/users'));
+                die();
             }
-
-            Redirect::to(URL::build('/panel/users'));
-            die();
         }
-    } else
+    } else {
         $errors[] = $language->get('general', 'invalid_token');
+    }
 }
 
-if (Session::exists('edit_user_success'))
+if (Session::exists('edit_user_success')) {
     $success = Session::flash('edit_user_success');
+}
 
-if (Session::exists('edit_user_errors'))
+if (Session::exists('edit_user_errors')) {
     $errors = Session::flash('edit_user_errors');
+}
 
-if (Session::exists('edit_user_warnings'))
+if (Session::exists('edit_user_warnings')) {
     $warnings = Session::flash('edit_user_warnings');
+}
 
-if (isset($success))
-    $smarty->assign(array(
+if (isset($success)) {
+    $smarty->assign([
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
-    ));
+    ]);
+}
 
-if (isset($errors) && count($errors))
-    $smarty->assign(array(
+if (isset($errors) && count($errors)) {
+    $smarty->assign([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
-    ));
+    ]);
+}
 
 if (isset($warnings) && count($warnings)) {
-    $smarty->assign(array(
+    $smarty->assign([
         'WARNINGS' => $warnings,
         'WARNINGS_TITLE' => $language->get('admin', 'warning')
-    ));
+    ]);
 }
 
 if ($user_query->active == 0) {
-    $smarty->assign(array(
+    $smarty->assign([
         'VALIDATE_USER' => $language->get('admin', 'validate_user'),
         'VALIDATE_USER_LINK' => URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->id) . '&action=validate'),
         'RESEND_ACTIVATION_EMAIL' => $language->get('admin', 'resend_activation_email'),
         'RESEND_ACTIVATION_EMAIL_LINK' => URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->id) . '&action=resend_email')
-    ));
+    ]);
 }
 
 if (defined('MINECRAFT') && MINECRAFT === true) {
-    $smarty->assign(array(
+    $smarty->assign([
         'UPDATE_MINECRAFT_USERNAME' => $language->get('admin', 'update_mc_name'),
         'UPDATE_MINECRAFT_USERNAME_LINK' => URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->id) . '&action=update_mcname'),
         'UPDATE_UUID' => $language->get('admin', 'update_uuid'),
         'UPDATE_UUID_LINK' => URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->id) . '&action=update_uuid')
-    ));
+    ]);
 }
 
 if ($user_query->id != 1 && !$view_user->canViewStaffCP()) {
-    $smarty->assign(array(
+    $smarty->assign([
         'DELETE_USER' => $language->get('admin', 'delete_user'),
         'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
         'CONFIRM_DELETE_USER' => str_replace('{x}', Output::getClean($user_query->nickname), $language->get('admin', 'confirm_user_deletion')),
         'YES' => $language->get('general', 'yes'),
         'NO' => $language->get('general', 'no')
-    ));
+    ]);
 }
 
 $limit_groups = false;
 if ($user_query->id == 1 || ($user_query->id == $user->data()->id && !$user->hasPermission('admincp.groups.self'))) {
-    $smarty->assign(array(
+    $smarty->assign([
         'CANT_EDIT_GROUP' => $language->get('admin', 'cant_modify_root_user')
-    ));
+    ]);
     $limit_groups = true;
 }
 
-$displaynames = $queries->getWhere('settings', array('name', '=', 'displaynames'));
+$displaynames = $queries->getWhere('settings', ['name', '=', 'displaynames']);
 $displaynames = $displaynames[0]->value;
 
-$uuid_linking = $queries->getWhere('settings', array('name', '=', 'uuid_linking'));
+$uuid_linking = $queries->getWhere('settings', ['name', '=', 'uuid_linking']);
 $uuid_linking = $uuid_linking[0]->value;
 
-$private_profile = $queries->getWhere('settings', array('name', '=', 'private_profile'));
+$private_profile = $queries->getWhere('settings', ['name', '=', 'private_profile']);
 $private_profile = $private_profile[0]->value;
 
-$templates = array();
-$templates_query = $queries->getWhere('templates', array('id', '<>', 0));
+$templates = [];
+$templates_query = $queries->getWhere('templates', ['id', '<>', 0]);
 
 foreach ($templates_query as $item) {
-    $templates[] = array(
+    $templates[] = [
         'id' => Output::getClean($item->id),
         'name' => Output::getClean($item->name),
         'active' => $item->id === $user_query->theme_id
-    );
+    ];
 }
 
 $groups = $queries->orderAll('groups', '`order`', 'ASC');
-$filtered_groups = array();
+$filtered_groups = [];
 foreach ($groups as $group) {
     // Only show groups whose ID is not their main group and whose order is HIGHER than their main group. A main group simply means this $user's group with LOWEST order
     // TODO: Probably can make this into the mysql query
@@ -388,8 +401,7 @@ $cache->setCache('post_formatting');
 $formatting = $cache->retrieve('formatting');
 
 if ($formatting == 'markdown') {
-    require(ROOT_PATH . '/core/includes/markdown/tomarkdown/autoload.php');
-    $converter = new League\HTMLToMarkdown\HtmlConverter(array('strip_tags' => true));
+    $converter = new League\HTMLToMarkdown\HtmlConverter(['strip_tags' => true]);
 
     $signature = $converter->convert(Output::getDecoded($user_query->signature));
     $signature = Output::getPurified($signature);
@@ -397,12 +409,12 @@ if ($formatting == 'markdown') {
     $signature = Output::getPurified(Output::getDecoded($user_query->signature));
 }
 
-$user_groups = array();
+$user_groups = [];
 foreach ($view_user->getGroups() as $group) {
     $user_groups[$group->id] = $group->id;
 }
 
-$smarty->assign(array(
+$smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'USER_MANAGEMENT' => $language->get('admin', 'user_management'),
@@ -443,24 +455,24 @@ $smarty->assign(array(
     'INFO' => $language->get('general', 'info'),
     'ACTIVE_TEMPLATE' => $language->get('user', 'active_template'),
     'TEMPLATES' => $templates
-));
+]);
 
 $discord_id = $user_query->discord_id;
 
 if ($discord_id != null && $discord_id != 010) {
-    $smarty->assign(array(
+    $smarty->assign([
         'DISCORD_ID' => Discord::getLanguageTerm('discord_user_id'),
         'DISCORD_ID_VALUE' => $discord_id
-    ));
+    ]);
 }
 
 $cache->setCache('post_formatting');
 $formatting = $cache->retrieve('formatting');
 if ($formatting == 'markdown') {
-    $template->addJSFiles(array(
-        (defined('CONFIG_PATH' ? CONFIG_PATH : '')) . '/core/assets/plugins/emoji/js/emojione.min.js' => array(),
-        (defined('CONFIG_PATH' ? CONFIG_PATH : '')) . '/core/assets/plugins/emojionearea/js/emojionearea.min.js' => array()
-    ));
+    $template->addJSFiles([
+        (defined('CONFIG_PATH' ? CONFIG_PATH : '')) . '/core/assets/plugins/emoji/js/emojione.min.js' => [],
+        (defined('CONFIG_PATH' ? CONFIG_PATH : '')) . '/core/assets/plugins/emojionearea/js/emojionearea.min.js' => []
+    ]);
 
     $template->addJSScript('
             $(document).ready(function() {
@@ -470,22 +482,22 @@ if ($formatting == 'markdown') {
             });
         ');
 } else {
-    $template->addJSFiles(array(
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/js/emojione.min.js' => array(),
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/ckeditor.js' => array(),
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/ckeditor.js' => array(),
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/emojione/dialogs/emojione.json' => array()
-    ));
+    $template->addJSFiles([
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/js/emojione.min.js' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/ckeditor.js' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/ckeditor.js' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/emojione/dialogs/emojione.json' => []
+    ]);
 
     $template->addJSScript(Input::createEditor('InputSignature'));
 }
 
-$template->addCSSFiles(array(
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css' => array(),
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.min.css' => array(),
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.sprites.css' => array(),
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/css/emojionearea.min.css' => array(),
-));
+$template->addCSSFiles([
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.min.css' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.sprites.css' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/css/emojionearea.min.css' => [],
+]);
 
 $page_load = microtime(true) - $start;
 define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));

@@ -9,7 +9,7 @@
  *  EnglishUK Language - Admin
  */
 
-$language = array(
+$language = [
     /*
      *  Admin Control Panel
      */
@@ -46,6 +46,10 @@ $language = array(
     'settings' => 'Settings',
     'general_settings' => 'General Settings',
     'sitename' => 'Site Name',
+    'punished_id' => 'Punished User ID',
+    'punisher_id' => 'Punisher User ID',
+    'reason' => 'Ban Reason',
+    'ip_ban' => 'IP ban?',
     'default_language' => 'Default Language',
     'default_language_help' => 'Users will be able to choose from any installed languages.',
     'install_language' => 'Install Language',
@@ -81,7 +85,7 @@ $language = array(
     'debugging_and_maintenance' => 'Debugging & Maintenance',
     'maintenance' => 'Maintenance',
     'debug_link' => 'Debug Link',
-    'debug_link_toastr' => 'Copied debug link to your clipboard!',
+    'debug_link_toastr' => 'Copied debug link to your clipboard!<br>View the debug log <u><a href="{x}" target="_blank">here</a></u>', // Don't replace "{x}"
     'debugging_settings_updated_successfully' => 'Debugging settings updated successfully.',
     'enable_debug_mode' => 'Enable debug mode?',
     'force_https' => 'Force https?',
@@ -97,7 +101,7 @@ $language = array(
     'delete_email_error' => 'Delete error',
     'confirm_email_error_deletion' => 'Are you sure you want to delete this error?',
     'viewing_email_error' => 'Viewing error',
-    'unable_to_write_email_config' => 'Unable to write to file <strong>core/email.php</core>. Please check file permissions.',
+    'unable_to_write_email_config' => 'Unable to write to file <strong>core/email.php</strong>. Please check file permissions.',
     'enable_mailer' => 'Enable PHPMailer?',
     'enable_mailer_help' => 'Enable this if emails aren\'t being sent by default. The use of PHPMailer requires you to have a service capable of sending emails, such as Gmail or an SMTP provider.',
     'outgoing_email' => 'Outgoing Email Address',
@@ -202,6 +206,7 @@ $language = array(
     'google_analytics' => 'Google Analytics',
     'google_analytics_help' => 'Add Google Analytics to your website to track visitors and statistics. You will need to create a Google Analytics account to use this functionality. Enter your Google Analytics Web Property ID. The ID looks like UA-XXXXA-X and you can find it in your account information or in the tracking code provided by Google.',
     'sitemap' => 'Sitemap',
+    'seo_settings_updated_successfully' => 'SEO settings updated successfully.',
 
     // Reactions
     'icon' => 'Icon',
@@ -667,6 +672,8 @@ $language = array(
     'validate_hook_info' => 'User validation',
     'delete_hook_info' => 'User deletion',
     'report_hook_info' => 'Report creation',
+    'ban_hook_info' => 'User banned',
+    'warn_hook_info' => 'User warned',
 
     // Sitemap
     'unable_to_load_sitemap_file_x' => 'Unable to load sitemap file {x}', // Don't replace {x}
@@ -688,9 +695,7 @@ $language = array(
 
     // Dashboard
     'total_users' => 'Total Users',
-    'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'recent_users' => 'New Users',
-    'recent_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'nameless_news' => 'NamelessMC News',
     'unable_to_retrieve_nameless_news' => 'Unable to retrieve the latest news',
     'confirm_leave_site' => 'You are about to leave this site! Are you sure you want to visit <strong id="leaveSiteURL">{x}</strong>?', // don't replace {x} and make sure it has the id leaveSiteURL
@@ -728,4 +733,5 @@ $language = array(
     'text_colour_required' => 'Text Colour is required',
     'no_announcements' => 'No announcements have been made yet.',
     'announcement_order' => 'Order',
-);
+    'announcement_hook_info' => 'Announcement creation',
+];

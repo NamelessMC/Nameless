@@ -2,14 +2,14 @@
 /*
  *  Made by RobiNN
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr10
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
  *  Slovak Language - Emails
  */
 
-$language = array(
+$language = [
 
     // General Options
     'greeting' => 'Ahoj,',
@@ -26,4 +26,4 @@ $language = array(
     // Forum Topic Replies
     'forum_topic_reply_subject' => '{x} odpovedal/a na {y}', // Don't remove {x} or {y}
     'forum_topic_reply_message' => '{x} odpovedal/a na tému, ktorú sledujete. Obsah: {z}' // Don't remove {x} or {z}
-);
+];

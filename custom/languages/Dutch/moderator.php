@@ -11,7 +11,7 @@
  *  Nederlandse taal - Beheers termen
  */
 
-$language = array(
+$language = [
     'mod_cp' => 'Beheerders Paneel',
     'staff_cp' => 'StaffCP',
     'overview' => 'Overzicht',
@@ -94,10 +94,10 @@ $language = array(
     'punishment_revoked_alert' => '{x} heeft een straf ingetrokken van {y}', // Verander {x} (staff member) of {y} (user punished) niet
     'cant_punish_admin' => 'Je kan geen administrator straffen!',
     'viewing_all_punishments' => 'Alle straffen aan het bekijken',
-       'no_punishments_found' => 'Geen straffen gevonden.',
+    'no_punishments_found' => 'Geen straffen gevonden.',
     'view_user' => 'Bekijk gebruiker',
-       'when' => 'Wanneer',
-       'staff' => 'Staff',
+    'when' => 'Wanneer',
+    'staff' => 'Staff',
     'type' => 'Type',
     'recent_punishments' => 'Recente Straffen',
     'created' => 'Gemaakt op:',
@@ -108,4 +108,4 @@ $language = array(
     'recent_registrations' => 'Recente Registraties',
     'reset_profile_banner' => 'Reset Profiel Banner'
 
-);
+];

@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *  Made by Samerton
  *  Translated by Aviortheking
@@ -10,10 +10,10 @@
  *  French Language for Forum module
  */
 
-$language = array(
+$language = [
     /*
      *  Forums
-     */ 
+     */
     'forum' => 'Forum',
     'forums' => 'Forums',
     'forum_index' => 'Accueil',
@@ -96,11 +96,11 @@ $language = array(
     'new_reply_in_topic' => '{x} has replied to topic {y}', // Don't replace {x} (username) or {y} (topic title)
     'started_by_x' => 'Started by {x}', // Don't replace {x}
     'sticky_topics' => 'Sticky Topics',
-    
+
     // Homepage
     'latest_announcements' => 'Dernières annonces',
     'read_full_post' => 'Lire en entier',
-    
+
     // Admin tab
     'labels' => 'Étiquettes',
     'new_forum' => '<i class="fa fa-plus-circle"></i> Nouveau forum',
@@ -120,7 +120,7 @@ $language = array(
     'label_forums' => 'Étiquette du forum',
     'label_groups' => 'Label Groups',
     'no_forums' => 'Aucun forum',
-    'no_labels_defined' => 'Aucune étiquettes n\'ont été définie.', 
+    'no_labels_defined' => 'Aucune étiquettes n\'ont été définie.',
     'no_label_types_defined' => 'Aucun type d\'étiquette n\'ont été définie.',
     'label_edit_success' => 'Étiquette modifié.',
     'label_type_edit_success' => 'Tpye d\'étiquette modifié.',
@@ -131,7 +131,7 @@ $language = array(
     'creating_forum' => 'Création d\'un nouveau forum',
     'forum_name' => 'Nom du forum',
     'forum_description' => 'Description du forum',
-    
+
     'delete_forum' => 'Suprimmer le forum',
     'move_topics_and_posts_to' => 'Déplacer les sujets et les messages vers',
     'delete_topics_and_posts' => 'Suprimmer les sujets et les messages',
@@ -185,7 +185,7 @@ $language = array(
     'new_search' => 'New Search',
     'invalid_search_query' => 'Please enter a search query between 3 and 128 characters long.',
     'no_results_found' => 'No results found.',
-    
+
     // Profile tab
     'user_no_posts' => 'Cet utilisateur n\'a fait aucun posts.',
     'latest_posts' => 'Derniers Posts',
@@ -208,9 +208,7 @@ $language = array(
     'available_hooks' => 'Available Hooks',
     // Panel statistics
     'recent_topics' => 'Recent Topics',
-    'recent_topics_statistic_icon' => '<i class="fas fa-comment"></i>',
     'recent_posts' => 'Recent Posts',
-    'recent_posts_statistic_icon' => '<i class="far fa-comments"></i>',
     'topics_title' => 'Topics',
     'posts_title' => 'Posts',
-);
+];

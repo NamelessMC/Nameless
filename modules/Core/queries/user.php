@@ -1,10 +1,10 @@
 <?php
 // Check user ID is specified
 if (!isset($_GET['id'])) {
-    die(json_encode(array('html' => 'Error: Invalid ID')));
+    die(json_encode(['html' => 'Error: Invalid ID']));
 }
 
-define('PAGE', 'user_query');
+const PAGE = 'user_query';
 $page_title = 'user_query';
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
@@ -13,16 +13,14 @@ if (!is_numeric($_GET['id'])) {
     $username = Output::getClean($_GET['id']);
     $nickname = $username;
     $profile = URL::build('/profile/' . $username);
-    $avatar = (isset($_GET['uuid']) ? Util::getAvatarFromUUID(Output::getClean($_GET['uuid']), 128) : Util::getAvatarFromUUID($username, 128));
+    $avatar = (isset($_GET['uuid']) ? Util::getAvatarFromUUID(Output::getClean($_GET['uuid'])) : Util::getAvatarFromUUID($username));
     $style = '';
-    $groups = array();
+    $groups = [];
     $id = 0;
 } else {
     $target_user = new User($_GET['id']);
     if (!$target_user->data()) {
-        die(json_encode(array('html' => 'User not found')));
-    } else {
-        $user_query = $user_query[0];
+        die(json_encode(['html' => 'User not found']));
     }
 
     $username = $target_user->getDisplayname(true);
@@ -34,7 +32,7 @@ if (!is_numeric($_GET['id'])) {
     $id = Output::getClean($target_user->data()->id);
 }
 
-$smarty->assign(array(
+$smarty->assign([
     'PROFILE' => $profile,
     'USERNAME' => $username,
     'NICKNAME' => $nickname,
@@ -42,14 +40,14 @@ $smarty->assign(array(
     'STYLE' => $style,
     'GROUPS' => $groups,
     'USER_ID' => $id
-));
+]);
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 $template->onPageLoad();
 
-echo json_encode(array(
+echo json_encode([
     'id' => $id,
     'profile' => $profile,
     'username' => $username,
@@ -58,4 +56,4 @@ echo json_encode(array(
     'style' => $style,
     'groups' => $groups,
     'html' => $template->getTemplate('user_popover.tpl', $smarty)
-), JSON_PRETTY_PRINT);
+], JSON_PRETTY_PRINT);

@@ -10,102 +10,105 @@
  */
 
 // Must be logged in
-if(!$user->isLoggedIn()){
-	Redirect::to(URL::build('/'));
-	die();
+if (!$user->isLoggedIn()) {
+    Redirect::to(URL::build('/'));
+    die();
 }
 
 // Always define page name for navbar
-define('PAGE', 'cc_overview');
+const PAGE = 'cc_overview';
 $page_title = $language->get('user', 'user_cp');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-$user_details = array(
-	$language->get('user', 'username') => $user->getDisplayname(true),
-	$language->get('admin', 'group') => Output::getClean($user->getMainGroup()->name),
-	$language->get('admin', 'registered') => date('d M Y, H:i', $user->data()->joined)
-);
+$user_details = [
+    $language->get('user', 'username') => $user->getDisplayname(true),
+    $language->get('admin', 'group') => Output::getClean($user->getMainGroup()->name),
+    $language->get('admin', 'registered') => date('d M Y, H:i', $user->data()->joined)
+];
 
 // Language values
-$smarty->assign(array(
-	'USER_CP' => $language->get('user', 'user_cp'),
-	'USER_DETAILS' => $language->get('user', 'user_details'),
-	'USER_DETAILS_VALUES' => $user_details,
-	'OVERVIEW' => $language->get('user', 'overview')
-));
+$smarty->assign([
+    'USER_CP' => $language->get('user', 'user_cp'),
+    'USER_DETAILS' => $language->get('user', 'user_details'),
+    'USER_DETAILS_VALUES' => $user_details,
+    'OVERVIEW' => $language->get('user', 'overview')
+]);
 
 // Get graph data
 $forum_enabled = Util::isModuleEnabled('Forum');
 
 if ($forum_enabled) {
-  $forum_query_user = DB::getInstance()->selectQuery("SELECT FROM_UNIXTIME(created, '%Y-%m-%d'), COUNT(*) FROM nl2_posts WHERE post_creator = ? AND created > ? GROUP BY FROM_UNIXTIME(created, '%Y-%m-%d')", array($user->data()->id, strtotime('-7 days')))->results();
-  $forum_query_average = DB::getInstance()->selectQuery("SELECT FROM_UNIXTIME(created, '%Y-%m-%d'), (COUNT(*) / COUNT(Distinct post_creator)) FROM nl2_posts WHERE created > ? GROUP BY FROM_UNIXTIME(created, '%Y-%m-%d')", array(strtotime('-7 days')))->results();
-  $forum_query_total = DB::getInstance()->selectQuery("SELECT FROM_UNIXTIME(created, '%Y-%m-%d'), COUNT(*) FROM nl2_posts WHERE created > ? GROUP BY FROM_UNIXTIME(created, '%Y-%m-%d')", array(strtotime('-7 days')))->results();
+    $forum_query_user = DB::getInstance()->selectQuery("SELECT FROM_UNIXTIME(created, '%Y-%m-%d'), COUNT(*) FROM nl2_posts WHERE post_creator = ? AND created > ? GROUP BY FROM_UNIXTIME(created, '%Y-%m-%d')", [$user->data()->id, strtotime('-7 days')])->results();
+    $forum_query_average = DB::getInstance()->selectQuery("SELECT FROM_UNIXTIME(created, '%Y-%m-%d'), (COUNT(*) / COUNT(Distinct post_creator)) FROM nl2_posts WHERE created > ? GROUP BY FROM_UNIXTIME(created, '%Y-%m-%d')", [strtotime('-7 days')])->results();
+    $forum_query_total = DB::getInstance()->selectQuery("SELECT FROM_UNIXTIME(created, '%Y-%m-%d'), COUNT(*) FROM nl2_posts WHERE created > ? GROUP BY FROM_UNIXTIME(created, '%Y-%m-%d')", [strtotime('-7 days')])->results();
 
-  $output = array();
-  foreach($forum_query_user as $item){
-	  $date = strtotime($item->{'FROM_UNIXTIME(created, \'%Y-%m-%d\')'});
-	  $output[$date]['user'] = $item->{'COUNT(*)'};
-  }
-  foreach($forum_query_average as $item){
-	  $date = strtotime($item->{'FROM_UNIXTIME(created, \'%Y-%m-%d\')'});
-	  $output[$date]['average'] = $item->{'(COUNT(*) / COUNT(Distinct post_creator))'};
-}
-  foreach($forum_query_total as $item){
-	  $date = strtotime($item->{'FROM_UNIXTIME(created, \'%Y-%m-%d\')'});
-	  $output[$date]['total'] = $item->{'COUNT(*)'};
-  }
+    $output = [];
+    foreach ($forum_query_user as $item) {
+        $date = strtotime($item->{'FROM_UNIXTIME(created, \'%Y-%m-%d\')'});
+        $output[$date]['user'] = $item->{'COUNT(*)'};
+    }
+    foreach ($forum_query_average as $item) {
+        $date = strtotime($item->{'FROM_UNIXTIME(created, \'%Y-%m-%d\')'});
+        $output[$date]['average'] = $item->{'(COUNT(*) / COUNT(Distinct post_creator))'};
+    }
+    foreach ($forum_query_total as $item) {
+        $date = strtotime($item->{'FROM_UNIXTIME(created, \'%Y-%m-%d\')'});
+        $output[$date]['total'] = $item->{'COUNT(*)'};
+    }
 
-  // Fill in missing dates
-  $graph_start = strtotime("-7 days");
-  $graph_start = date('d M Y', $graph_start);
-  $graph_start = strtotime($graph_start);
-  $end = strtotime(date('d M Y'));
-  while($graph_start <= $end){
-	  if(!isset($output[$graph_start]['user']))
-		  $output[$graph_start]['user'] = 0;
+    // Fill in missing dates
+    $graph_start = strtotime('-7 days');
+    $graph_start = date('d M Y', $graph_start);
+    $graph_start = strtotime($graph_start);
+    $end = strtotime(date('d M Y'));
+    while ($graph_start <= $end) {
+        if (!isset($output[$graph_start]['user'])) {
+            $output[$graph_start]['user'] = 0;
+        }
 
-	  if(!isset($output[$graph_start]['average']))
-		  $output[$graph_start]['average'] = 0;
+        if (!isset($output[$graph_start]['average'])) {
+            $output[$graph_start]['average'] = 0;
+        }
 
-	  if(!isset($output[$graph_start]['total']))
-		  $output[$graph_start]['total'] = 0;
+        if (!isset($output[$graph_start]['total'])) {
+            $output[$graph_start]['total'] = 0;
+        }
 
-	  $graph_start = $graph_start + 86400;
-  }
+        $graph_start = $graph_start + 86400;
+    }
 
-  ksort($output);
+    ksort($output);
 
-  // Turn into string for graph
-  $labels = '';
-  $user_data = '';
-  $average_data = '';
-  $total_data = '';
-  foreach($output as $date => $item){
-	  $labels .= '"' . date('Y-m-d', $date) . '", ';
-	  $user_data .= $item['user'] . ', ';
-	  $average_data .= $item['average'] . ', ';
-	  $total_data .= $item['total'] . ', ';
-  }
-  $labels = '[' . rtrim($labels, ', ') . ']';
-  $user_data = '[' . rtrim($user_data, ', ') . ']';
-  $average_data = '[' . rtrim($average_data, ', ') . ']';
-  $total_data = '[' . rtrim($total_data, ', ') . ']';
+    // Turn into string for graph
+    $labels = '';
+    $user_data = '';
+    $average_data = '';
+    $total_data = '';
+    foreach ($output as $date => $item) {
+        $labels .= '"' . date('Y-m-d', $date) . '", ';
+        $user_data .= $item['user'] . ', ';
+        $average_data .= $item['average'] . ', ';
+        $total_data .= $item['total'] . ', ';
+    }
+    $labels = '[' . rtrim($labels, ', ') . ']';
+    $user_data = '[' . rtrim($user_data, ', ') . ']';
+    $average_data = '[' . rtrim($average_data, ', ') . ']';
+    $total_data = '[' . rtrim($total_data, ', ') . ']';
 
-  $smarty->assign('FORUM_GRAPH', $forum_language->get('forum', 'last_7_days_posts'));
+    $smarty->assign('FORUM_GRAPH', $forum_language->get('forum', 'last_7_days_posts'));
 }
 
 if ($forum_enabled) {
-	$template->addJSFiles(array(
-		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/moment/moment.min.js' => array(),
-		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/charts/Chart.min.js' => array()
-	));
-	$template->addJSScript(
-		'
+    $template->addJSFiles([
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/moment/moment.min.js' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/charts/Chart.min.js' => []
+    ]);
+    $template->addJSScript(
+        '
 		$(document).ready(function() {
 			var ctx = $("#dataChart").get(0).getContext("2d");
 
-			moment.locale(\'' . (defined('HTML_LANG') ? strtolower(HTML_LANG) : 'en'). '\');
+			moment.locale(\'' . (defined('HTML_LANG') ? strtolower(HTML_LANG) : 'en') . '\');
 
 			var data = {
 				labels: ' . $labels . ',
@@ -169,11 +172,11 @@ if ($forum_enabled) {
 			});
 		});
 		'
-	);
+    );
 }
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 require(ROOT_PATH . '/core/templates/cc_navbar.php');
 

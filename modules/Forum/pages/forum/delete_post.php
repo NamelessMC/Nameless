@@ -17,7 +17,7 @@ if (!$user->isLoggedIn()) {
 require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
 
 // Always define page name
-define('PAGE', 'forum');
+const PAGE = 'forum';
 
 $forum = new Forum();
 
@@ -28,7 +28,7 @@ if (!isset($_GET['pid']) || !is_numeric($_GET['pid'])) {
 }
 
 // Get post and forum ID
-$post = $queries->getWhere('posts', array('id', '=', $_GET['pid']));
+$post = $queries->getWhere('posts', ['id', '=', $_GET['pid']]);
 if (!count($post)) {
     Redirect::to(URL::build('/forum'));
     die();
@@ -44,13 +44,13 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
                 // Is it the OP?
                 if (isset($_POST['number']) && Input::get('number') == 10) {
 
-                    $queries->update('topics', Input::get('tid'), array(
+                    $queries->update('topics', Input::get('tid'), [
                         'deleted' => 1
-                    ));
+                    ]);
 
                     Log::getInstance()->log(Log::Action('forums/post/delete'), Input::get('tid'));
                     $opening_post = 1;
-                        
+
                     $redirect = URL::build('/forum'); // Create a redirect string
                 } else {
                     $redirect = URL::build('/forum/topic/' . Input::get('tid'));
@@ -59,18 +59,18 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
                 $redirect = URL::build('/forum/search/', 'p=1&s=' . htmlspecialchars($_POST['search_string']));
             }
 
-            $queries->update('posts', Input::get('pid'), array(
+            $queries->update('posts', Input::get('pid'), [
                 'deleted' => 1
-            ));
+            ]);
 
             if (isset($opening_post)) {
-                $posts = $queries->getWhere('posts', array('topic_id', '=', $_POST['tid']));
+                $posts = $queries->getWhere('posts', ['topic_id', '=', $_POST['tid']]);
 
                 if (count($posts)) {
                     foreach ($posts as $post) {
-                        $queries->update('posts', $post->id, array(
+                        $queries->update('posts', $post->id, [
                             'deleted' => 1
-                        ));
+                        ]);
                         Log::getInstance()->log(Log::Action('forums/post/delete'), $post->id);
                     }
                 }
@@ -81,17 +81,14 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
             $forum->updateTopicLatestPosts();
 
             Redirect::to($redirect);
-            die();
 
         } else {
             Redirect::to(URL::build('/forum/topic/' . Input::get('tid')));
-            die();
         }
     } else {
         echo 'No post selected';
-        die();
     }
 } else {
     Redirect::to(URL::build('/forum'));
-    die();
 }
+die();

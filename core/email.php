@@ -1,5 +1,5 @@
 <?php
-$GLOBALS['email'] = array(
+$GLOBALS['email'] = [
     'email' => '',
     'username' => '',
     'password' => '',
@@ -8,4 +8,4 @@ $GLOBALS['email'] = array(
     'port' => 587,
     'secure' => 'tls',
     'smtp_auth' => true,
-);
+];

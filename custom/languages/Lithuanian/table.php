@@ -10,11 +10,11 @@
  *  Lithuanian Language - Table
  */
 
-$language = array(
+$language = [
     // Tables
     'display_records_per_page' => 'Parodyti _MENU_ įrašus per puslapį', // Don't replace "_MENU_"
     'nothing_found' => 'Nieko nerasta',
     'page_x_of_y' => 'Rodomas puslapis _PAGE_ iš _PAGES_', // Don't replace "_PAGE_" or "_PAGES_"
     'no_records' => 'Nėra įrašų',
     'filtered' => '(filtruotas iš _MAX_ viso įrašų)' // Don't replace "_MAX_"
-);
+];

@@ -16,14 +16,13 @@ if (!count($leaderboard_placeholders)) {
     die();
 }
 
-define('PAGE', 'leaderboards');
+const PAGE = 'leaderboards';
 $page_title = $language->get('general', 'leaderboards');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 $leaderboard_placeholders_data = [];
 $leaderboard_users = [];
 
-require_once(ROOT_PATH . '/core/classes/TimeAgo.php');
 $timeago = new TimeAgo(TIMEZONE);
 
 foreach ($leaderboard_placeholders as $leaderboard_placeholder) {
@@ -55,14 +54,14 @@ foreach ($leaderboard_placeholders as $leaderboard_placeholder) {
     }
 }
 
-$smarty->assign(array(
+$smarty->assign([
     'PLAYER' => $language->get('admin', 'placeholders_player'),
     'SCORE' => $language->get('admin', 'placeholders_score'),
     'LAST_UPDATED' => $language->get('admin', 'placeholders_last_updated'),
     'LEADERBOARDS' => $language->get('general', 'leaderboards'),
     'LEADERBOARD_PLACEHOLDERS' => $leaderboard_placeholders,
     'LEADERBOARD_PLACEHOLDERS_DATA' => $leaderboard_placeholders_data
-));
+]);
 
 $template->addJSScript('
     window.onLoad = showTable(null, null, true);
@@ -97,7 +96,7 @@ $template->addJSScript('
 ');
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 $page_load = microtime(true) - $start;
 define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));

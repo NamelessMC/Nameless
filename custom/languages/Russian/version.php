@@ -1,8 +1,7 @@
-
-<?php 
+<?php
 /*
  *  Made by Samerton
- *  Translated by Oniel, Я научу тебя шить XIMI
+ *  Translated by Oniel
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr12
  *

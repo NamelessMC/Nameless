@@ -14,7 +14,7 @@
  *  Japanese Language - Installation
  */
 
-$language = array(
+$language = [
     /*
      *  Installation
      */
@@ -108,4 +108,4 @@ $language = array(
     'config_not_writable' => '設定ファイルが書き込み可能ではありません。',
 
     'session_doesnt_exist' => 'セッションの検出ができません。セッションの保存は、Namelessを使用するための必須条件です。もう一度お試しください。問題が解決しない場合は、ウェブホストにお問い合わせください。'
-);
+];

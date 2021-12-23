@@ -9,7 +9,7 @@
  *  Spanish Language - Moderator terms
  */
 
-$language = array(
+$language = [
     'mod_cp' => 'Panel de Moderación',
     'staff_cp' => 'Panel Administrativo',
     'overview' => 'Visión General',
@@ -106,4 +106,4 @@ $language = array(
     'recent_registrations' => 'Registros Recientes',
     'reset_profile_banner' => 'Reiniciar Banner del Perfil'
 
-);
+];

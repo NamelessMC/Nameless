@@ -9,7 +9,7 @@
  *  Italian Language - Moderator terms
  */
 
-$language = array(
+$language = [
     'mod_cp' => 'Pannello Moderatori',
     'staff_cp' => 'Pannello Staff',
     'overview' => 'Panoramica',
@@ -73,7 +73,7 @@ $language = array(
     'ban_ip' => 'Banna IP',
     'viewing_user_x' => "Visualizzazione dell'utente {x}", // Don't replace {x}
     'previous_punishments' => 'Punizioni precedenti',
-    'no_previous_punishments' => "Nessuna punizione precedente",
+    'no_previous_punishments' => 'Nessuna punizione precedente',
     'reset_avatar' => 'Reset Avatar',
     'warning' => 'Avvertimenti',
     'ip_ban' => 'IP Bannato',
@@ -106,4 +106,4 @@ $language = array(
     'recent_registrations' => 'Registrazioni recenti',
     'reset_profile_banner' => 'Reimposta banner profilo'
 
-);
+];

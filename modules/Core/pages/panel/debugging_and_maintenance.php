@@ -9,20 +9,20 @@
  *  Panel debugging + maintenance page
  */
 
-if(!$user->handlePanelPageLoad('admincp.core.debugging')) {
+if (!$user->handlePanelPageLoad('admincp.core.debugging')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }
 
-define('PAGE', 'panel');
-define('PARENT_PAGE', 'core_configuration');
-define('PANEL_PAGE', 'debugging_and_maintenance');
+const PAGE = 'panel';
+const PARENT_PAGE = 'core_configuration';
+const PANEL_PAGE = 'debugging_and_maintenance';
 $page_title = $language->get('admin', 'debugging_and_maintenance');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Input
 if (Input::exists()) {
-    $errors = array();
+    $errors = [];
 
     if (Token::check()) {
         // Valid token
@@ -43,53 +43,62 @@ if (Input::exists()) {
                 $enabled = 0;
             }
 
-            $debug_id = $queries->getWhere('settings', array('name', '=', 'error_reporting'));
+            $debug_id = $queries->getWhere('settings', ['name', '=', 'error_reporting']);
             $debug_id = $debug_id[0]->id;
-            $queries->update('settings', $debug_id, array(
+            $queries->update('settings', $debug_id, [
                 'value' => $enabled
-            ));
+            ]);
 
             // Cache
             $cache->setCache('error_cache');
             $cache->store('error_reporting', $enabled);
 
             // Is maintenance enabled or not?
-            if (isset($_POST['enable_maintenance']) && $_POST['enable_maintenance'] == 1) $enabled = 'true';
-            else $enabled = 'false';
+            if (isset($_POST['enable_maintenance']) && $_POST['enable_maintenance'] == 1) {
+                $enabled = 'true';
+            } else {
+                $enabled = 'false';
+            }
 
-            $maintenance_id = $queries->getWhere('settings', array('name', '=', 'maintenance'));
+            $maintenance_id = $queries->getWhere('settings', ['name', '=', 'maintenance']);
             $maintenance_id = $maintenance_id[0]->id;
-            $queries->update('settings', $maintenance_id, array(
+            $queries->update('settings', $maintenance_id, [
                 'value' => $enabled
-            ));
+            ]);
 
-            if (isset($_POST['message']) && !empty($_POST['message'])) $message = Input::get('message');
-            else $message = 'Maintenance mode is enabled.';
+            if (isset($_POST['message']) && !empty($_POST['message'])) {
+                $message = Input::get('message');
+            } else {
+                $message = 'Maintenance mode is enabled.';
+            }
 
-            $maintenance_id = $queries->getWhere('settings', array('name', '=', 'maintenance_message'));
+            $maintenance_id = $queries->getWhere('settings', ['name', '=', 'maintenance_message']);
             $maintenance_id = $maintenance_id[0]->id;
-            $queries->update('settings', $maintenance_id, array(
+            $queries->update('settings', $maintenance_id, [
                 'value' => Output::getClean($message)
-            ));
+            ]);
 
             //Log::getInstance()->log(Log::Action('admin/core/maintenance/update'));
 
             // Cache
             $cache->setCache('maintenance_cache');
-            $cache->store('maintenance', array(
+            $cache->store('maintenance', [
                 'maintenance' => $enabled,
                 'message' => Output::getClean($message)
-            ));
+            ]);
 
             // Page load timer
-            if (isset($_POST['enable_page_load_timer']) && $_POST['enable_page_load_timer'] == 1) $enabled = 1;
-            else $enabled = 0;
+            if (isset($_POST['enable_page_load_timer']) && $_POST['enable_page_load_timer'] == 1) {
+                $enabled = 1;
+            } else {
+                $enabled = 0;
+            }
 
-            $load_id = $queries->getWhere('settings', array('name', '=', 'page_loading'));
+            $load_id = $queries->getWhere('settings', ['name', '=', 'page_loading']);
             $load_id = $load_id[0]->id;
-            $queries->update('settings', $load_id, array(
+            $queries->update('settings', $load_id, [
                 'value' => $enabled
-            ));
+            ]);
 
             // Cache
             $cache->setCache('page_load_cache');
@@ -109,37 +118,40 @@ if (Input::exists()) {
 }
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-if (Session::exists('debugging_success'))
-    $smarty->assign(array(
+if (Session::exists('debugging_success')) {
+    $smarty->assign([
         'SUCCESS' => Session::flash('debugging_success'),
         'SUCCESS_TITLE' => $language->get('general', 'success')
-    ));
+    ]);
+}
 
-if (isset($errors) && count($errors))
-    $smarty->assign(array(
+if (isset($errors) && count($errors)) {
+    $smarty->assign([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
-    ));
+    ]);
+}
 
 $cache->setCache('maintenance_cache');
 $maintenance = $cache->retrieve('maintenance');
 
 $cache->setCache('page_load_cache');
-if ($cache->isCached('page_load'))
+if ($cache->isCached('page_load')) {
     $page_loading = $cache->retrieve('page_load');
-else
+} else {
     $page_loading = 0;
-
-if ($user->hasPermission('admincp.errors')) {
-    $smarty->assign(array(
-        'ERROR_LOGS' => $language->get('admin', 'error_logs'),
-        'ERROR_LOGS_LINK' => URL::build('/panel/core/errors')
-    ));
 }
 
-$smarty->assign(array(
+if ($user->hasPermission('admincp.errors')) {
+    $smarty->assign([
+        'ERROR_LOGS' => $language->get('admin', 'error_logs'),
+        'ERROR_LOGS_LINK' => URL::build('/panel/core/errors')
+    ]);
+}
+
+$smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'CONFIGURATION' => $language->get('admin', 'configuration'),
@@ -158,7 +170,7 @@ $smarty->assign(array(
     'DEBUG_LINK' => $language->get('admin', 'debug_link'),
     'DEBUG_LINK_URL' => URL::build('/queries/debug_link'),
     'TOASTR_COPIED' => $language->get('admin', 'debug_link_toastr'),
-));
+]);
 
 $page_load = microtime(true) - $start;
 define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));

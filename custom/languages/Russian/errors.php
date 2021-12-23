@@ -1,16 +1,16 @@
 <?php
 /*
  *  Made by Samerton
- *  Translated by Я научу тебя шить XIMI
+ *  Translated by LOyoujoLI
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
  *  Russian Language - Errors
  */
 
-$language = array(
+$language = [
     /*
      *  Errors
      */
@@ -32,4 +32,4 @@ $language = array(
     'fatal_error_message_admin' => 'Простите, но что-то пошло не так при загрузке страницы. Сведения об ошибке:',
     'in_file' => 'в файле <strong>{x}</strong>', // Don't replace {x}
     'on_line' => 'на строке <strong>{x}</strong>' // Don't replace {x}
-);
+];

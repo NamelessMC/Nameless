@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Made by Timothy Gibbons
  * For Samerton
@@ -9,8 +10,9 @@
  *
  *
  */
+
 class Log extends Instanceable {
-    
+
     private static array $_actions = [
         'admin' => [
             'login' => 'acp_login',
@@ -53,8 +55,8 @@ class Log extends Instanceable {
                 'submit' => 'acp_bgimage_submit',
                 'reset' => 'acp_bgimage_reset',
             ],
-            'mc'=> [
-                "update" => 'acp_mc_update',
+            'mc' => [
+                'update' => 'acp_mc_update',
             ],
             'authme' => [
                 'update' => 'acp_authme_update',
@@ -64,7 +66,7 @@ class Log extends Instanceable {
                 'delete' => 'acp_server_delete',
                 'add' => 'acp_server_add',
                 'default' => 'acp_server_default_update',
-                'banner' => "acp_server_banner_update",
+                'banner' => 'acp_server_banner_update',
             ],
             'module' => [
                 'install' => 'acp_module_install',
@@ -77,7 +79,7 @@ class Log extends Instanceable {
                 'delete' => 'acp_pages_delete',
             ],
             'template' => [
-                'update'=> 'acp_template_update',
+                'update' => 'acp_template_update',
                 'install' => 'acp_template_install',
                 'default' => 'acp_template_default_change',
                 'activate' => 'acp_template_activate',
@@ -182,8 +184,8 @@ class Log extends Instanceable {
 
     /**
      * Get an action from the Action array.
-     * 
-     * @param  string $path The path to the action.
+     *
+     * @param string $path The path to the action.
      * @return string|array The keys
      */
     public static function Action(string $path) {
@@ -201,9 +203,9 @@ class Log extends Instanceable {
 
     /**
      * Logs an action.
-     * 
-     * @param  string $action The action being logged
-     * @param  string $info Some more information about what the action is about
+     *
+     * @param string $action The action being logged
+     * @param string $info Some more information about what the action is about
      * @param  ?int $user The User ID who is doing the action
      * @param  ?string $ip The ip of the user. If not specified, it will try to get the IP from the currently logged in user.
      * @return bool Return true or false if inserted into the database.
@@ -215,12 +217,12 @@ class Log extends Instanceable {
             $user = ($userTemp->isLoggedIn() ? $userTemp->data()->id : 0);
         }
 
-        return $this->_db->insert('logs', array(
+        return $this->_db->insert('logs', [
             'time' => date('U'),
             'action' => $action,
             'user_id' => $user,
             'ip' => $ip,
             'info' => $info,
-        ));
+        ]);
     }
 }

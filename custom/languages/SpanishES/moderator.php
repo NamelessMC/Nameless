@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *  Translated by ManiaNetwork
  *  https://github.com/NamelessMC/Nameless/
@@ -9,17 +9,17 @@
  *  Spanish/Spain Language - Moderator
  */
 
-$language = array(
+$language = [
     'staff_cp' => 'Panel de administración',
     'overview' => 'Resumen',
-    
+
     // Spam
     'spam' => 'Spam',
     'mark_as_spam' => 'Marcar como spam',
     'confirm_spam' => '<p>¿Estás seguro de que quieres marcar a este usuario como spam?</p> <p>El usuario será baneado por IP, y todo su contenido será eliminado.</p>',
     'user_marked_as_spam' => 'Usuario marcado como spam con éxito.',
     'cant_ban_admin' => '¡No se puede expulsar a un administrador!',
-    
+
     // IP Lookup
     'ip_lookup' => 'Búsqueda de IP',
     'search_for_ip' => 'Buscar un nombre de usuario o una dirección IP',
@@ -30,7 +30,7 @@ $language = array(
     '1_ip_with_name' => 'Se ha encontrado 1 dirección IP para el usuario {y}', // Don't replace "{y}"
     'count_ips_with_name' => 'Se han encontrado {x} direcciones IP para el usuario {y}', // Don't replace "{x}" or "{y}"
     'no_users_or_ips_found' => 'No se han encontrado usuarios ni direcciones IP.',
-    
+
     // Reports
     'reports' => 'Informes',
     'report_alert' => 'Nuevo informe presentado',
@@ -60,7 +60,7 @@ $language = array(
     'report_reopened' => 'Informe reabierto con éxito.',
     'report_closed' => 'Informe cerrado con éxito.',
     'comment_created' => 'Comentario creado con éxito.',
-    
+
     // Punishments
     'punishments' => 'Sanciones',
     'view_punishments' => 'Ver las sanciones',
@@ -105,4 +105,4 @@ $language = array(
     'recent_registrations' => 'Registros recientes',
     'reset_profile_banner' => 'Restablecer el banner del perfil'
 
-);
+];

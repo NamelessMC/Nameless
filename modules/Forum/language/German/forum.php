@@ -10,14 +10,14 @@
  */
 
 /*
- *  Translation by BukkitTNT
+ *  Translation by BukkitTNT & Justman10000
  *
  *  http://BukkitTNT.de
  *  http://twitter.com/BukkitTNT
  *
  */
 
-$language = array(
+$language = [
     /*
      *  Forums
      */
@@ -32,9 +32,9 @@ $language = array(
     'topics' => 'Themen',
     'views' => 'Aufrufe',
     'posts' => 'Beiträge',
-    'x_posts' => '{x} posts', // Don't replace {x}
-    'x_topics' => '{x} topics', // Don't replace {x}
-    'registered_x' => 'Joined: {x}', // Don't replace {x}
+    'x_posts' => '{x} Beiträge', // Don't replace {x}
+    'x_topics' => '{x} Themen', // Don't replace {x}
+    'registered_x' => 'Beigetreten am: {x}', // Don't replace {x}
     'by' => 'von',
     'in' => 'in',
     'last_reply' => 'Letzte Antwort',
@@ -50,7 +50,7 @@ $language = array(
     'post_edited_successfully' => 'Beitrag erfolgreich editiert.',
     'user_tag' => 'Du wurdest in einem Beitrag erwähnt.',
     'user_tag_info' => 'Du wurdest in einem Beitrag von {x} erwähnt.', // Don't replace "{x}"
-    'creating_topic_in_x' => 'Erstelle in Thema in {x}', // Don't replace "{x}"
+    'creating_topic_in_x' => 'Erstelle Thema in {x}', // Don't replace "{x}"
     'topic_title' => 'Titel des Themas',
     'new_reply' => 'Neue Antwort',
     're' => 'RE: ',
@@ -72,9 +72,9 @@ $language = array(
     'share' => 'Teilen',
     'share_twitter' => 'Auf Twitter teilen',
     'share_facebook' => 'Aut Facebook teilen',
-    'edit' => 'Editieren',
-    'edit_post' => 'Beitrag editieren',
-    'last_edited' => 'Letzte änderung: {x}', // Don't replace "{x}"
+    'edit' => 'Bearbeiten',
+    'edit_post' => 'Beitrag bearbeiten',
+    'last_edited' => 'Letzte Änderung: {x}', // Don't replace "{x}"
     'quote' => 'Zitat',
     'topic_locked_notice' => 'Dieses Thema ist geschlossen, du bist trotzdem dazu berechtigt Beiträge erstellen.',
     'title_required' => 'Gib bitte einen Titel an.',
@@ -86,23 +86,23 @@ $language = array(
     'post_already_reported' => 'Du hast diesen Beitrag bereits gemeldet!',
     'quoted_post' => 'Beitrag wurde als Zitat zur Antwort hinzugefügt.',
     'removed_quoted_post' => 'Beitrag wurde aus den Zitaten der Antwort entfernt.',
-    'insert_quotes' => 'Insert Quotes',
+    'insert_quotes' => 'Zitate einfügen',
     'quoting_posts' => 'Füge Zitat ein...',
-    'error_quoting_posts' => 'Beim einfügen des Zitats ist etwas fehlgeschlagen!',
-    'error_rating_post' => 'Entschuldige du kannst diesen Beitrag nicht bewerten.',
+    'error_quoting_posts' => 'Beim Einfügen des Zitats ist etwas fehlgeschlagen!',
+    'error_rating_post' => 'Entschuldige, du kannst diesen Beitrag nicht bewerten.',
     'topic_stuck' => 'Thema wurde angeheftet.',
     'topic_unstuck' => 'Thema wurde abgeheftet.',
     'spam_wait' => 'Bitte warte {x} Sekunden bis du wieder Beiträge erstellen kannst.',
     'overview' => 'Überblick',
     'no_label' => 'Kein Label',
     'forum_redirect_warning' => 'Notice: you are about to leave this site! Are you sure you want to proceed to {x}?',
-    'follow' => 'Follow',
-    'unfollow' => 'Unfollow',
-    'now_following_topic' => 'You are now following this topic, and will be notified of any new replies.',
-    'no_longer_following_topic' => 'You are no longer following this topic, and will not be notified of any new replies.',
-    'new_reply_in_topic' => '{x} has replied to topic {y}', // Don't replace {x} (username) or {y} (topic title)
-    'started_by_x' => 'Started by {x}', // Don't replace {x}
-    'sticky_topics' => 'Sticky Topics',
+    'follow' => 'Folgen',
+    'unfollow' => 'Entfolgen',
+    'now_following_topic' => 'Du folgst diesem Thema jetzt und wirst über neue Antworten informiert.',
+    'no_longer_following_topic' => 'Du folgst diesem Thema nicht mehr und wirst nicht über neue Antworten informiert.',
+    'new_reply_in_topic' => '{x} hat auf das Thema {y} geantwortet', // Don't replace {x} (username) or {y} (topic title)
+    'started_by_x' => 'Gestartet von {x}', // Don't replace {x}
+    'sticky_topics' => 'Angeheftete Themen',
 
     // Homepage
     'latest_announcements' => 'Neueste Ankündigungen',
@@ -114,20 +114,20 @@ $language = array(
     'new_label' => '<i class="fa fa-plus-circle"></i> Neues Label',
     'new_label_type' => '<i class="fa fa-plus-circle"></i> New Label Type',
     'label_types' => 'Label Types',
-    'creating_label' => 'Erstelle neues Label',
-    'creating_label_type' => 'Creating new label type',
-    'editing_label' => 'Editiere Label',
-    'editing_label_type' => 'Editing label type',
+    'creating_label' => 'Neues Label erstellen',
+    'creating_label_type' => 'Neuen Labeltyp erstellen',
+    'editing_label' => 'Label bearbeiten',
+    'editing_label_type' => 'Labeltyp bearbeiten',
     'label_name' => 'Label Name',
     'label_type' => 'Label Typ',
     'label_type_name' => 'Label Type Name',
     'label_type_html' => 'Label Type HTML',
-    'label_type_html_help' => 'The HTML must include {x} as a placeholder for the label name',
+    'label_type_html_help' => 'Der HTML-Code muss {x} als Platzhalter für den Labelnamen enthalten',
     'label' => 'Label',
     'label_forums' => 'Label Foren',
-    'label_groups' => 'Label Groups',
+    'label_groups' => 'Label Gruppen',
     'no_forums' => 'Keine Foren',
-    'no_labels_defined' => 'Es wurde bis her keine Labels definiert.',
+    'no_labels_defined' => 'Es wurden bisher keine Labels definiert.',
     'no_label_types_defined' => 'Es wurden bisher keine Label-Typen definiert.',
     'label_edit_success' => 'Label erfolgreich editiert.',
     'label_type_edit_success' => 'Label-Typ erfolgreich editiert.',
@@ -144,14 +144,14 @@ $language = array(
     'forum_permissions' => 'Forum Berechtigungen',
     'select_a_parent_forum' => 'Wähle ein übergeordnetes Forum',
     'parent_forum' => 'Übergeordnetes Forum',
-    'parent_forum_x' => 'Parent Forum: {x}', // Don't replace {x}
+    'parent_forum_x' => 'Übergeordnetes Forum: {x}', // Don't replace {x}
     'has_no_parent' => 'Kein übergeordnetes Forum',
     'guests' => 'Gäste',
     'group' => 'Gruppe',
     'can_view_forum' => 'Kann dieses Forum gesehen werden?',
     'can_view_other_topics' => 'Können Nutzer andere Themen sehen?',
     'can_create_topic' => 'Können Themen erstellt werden?',
-    'can_edit_topic' => 'Can edit their topics?',
+    'can_edit_topic' => 'Können ihre Themen bearbeiten?',
     'can_post_reply' => 'Können Antworten erstellt werden?',
     'can_moderate_forum' => 'Kann das Forum moderiert werden?',
     'display_topics_as_news' => 'Sollen Themen auf der Startseite angezeigt werden?',
@@ -170,53 +170,52 @@ $language = array(
     'forum_type_category' => 'Kategorie',
     'invalid_action' => 'Ungültige Aktion',
     'use_reactions' => '"Reaktionen" Funktion verwenden?',
-    'redirect_forum' => 'Redirect forum?',
-    'redirect_url' => 'Redirect URL',
-    'invalid_redirect_url' => 'You have enabled the forum redirect, but you have not entered a valid URL between 1 and 512 characters.',
+    'redirect_forum' => 'Forum umleiten?',
+    'redirect_url' => 'Weiterleitungs URL',
+    'invalid_redirect_url' => 'Du hast die Forenumleitung aktiviert, aber keine gültige URL zwischen 1 und 512 Zeichen eingegeben.',
     'forum_icon' => 'Forum Icon',
-    'forum_icon_maximum' => 'The forum icon must be a maximum of 256 characters.',
-    'settings_updated_successfully' => 'Settings updated successfully.',
-    'forum_updated_successfully' => 'Forum updated successfully.',
-    'forum_deleted_successfully' => 'Forum deleted successfully.',
-    'label_deleted_successfully' => 'Label deleted successfully.',
+    'forum_icon_maximum' => 'Das Foren-Icon darf maximal 256 Zeichen lang sein.',
+    'settings_updated_successfully' => 'Einstellungen erfolgreich aktualisiert.',
+    'forum_updated_successfully' => 'Forum erfolgreich aktualisiert.',
+    'forum_deleted_successfully' => 'Forum erfolgreich gelöscht.',
+    'label_deleted_successfully' => 'Label erfolgreich gelöscht.',
     'label_type_deleted_successfully' => 'Label type deleted successfully.',
     'topic_placeholder' => 'Topic placeholder',
     'default_labels' => 'Default Labels',
     'default_labels_info' => 'These will be assigned to a new topic in the forum unless overridden during topic creation. Ctrl+Click to select multiple',
 
     // Search
-    'forum_search' => 'Forum Search',
-    'search_again_in_x_seconds' => 'Please wait {x} seconds before searching again.',
-    'search_results' => 'Search Results',
-    'new_search' => 'New Search',
-    'invalid_search_query' => 'Please enter a search query between 3 and 128 characters long.',
-    'no_results_found' => 'No results found.',
+    'forum_search' => 'Foren-Suche',
+    'search_again_in_x_seconds' => 'Bitte warte {x} Sekunden, bevor du erneut suchst.',
+    'search_results' => 'Suchergebnisse',
+    'new_search' => 'Neue Suche',
+    'invalid_search_query' => 'Bitte gebe eine Suchanfrage zwischen 3 und 128 Zeichen ein.',
+    'no_results_found' => 'Keine Ergebnisse gefunden.',
 
     // Profile tab
     'user_no_posts' => 'Dieser Benutzer hat noch keine Foren-Beiträge erstellt.',
     'latest_posts' => 'Neueste Beiträge',
 
     // UserCP
-    'last_7_days_posts' => 'Forum posts (last 7 days)',
-    'your_posts' => 'Your post count',
-    'average_posts' => 'Average user post count',
-    'total_posts' => 'Total post count',
-    'following_topics' => 'Followed Topics',
-    'unfollow_all_topics' => 'Unfollow All Topics',
-    'confirm_unfollow_all_topics' => 'Are you sure you want to unfollow all topics?',
-    'all_topics_unfollowed' => 'All topics have been unfollowed.',
-    'not_following_any_topics' => 'You are not following any topics.',
+    'last_7_days_posts' => 'Forenbeiträge (letzte 7 Tage)',
+    'your_posts' => 'Deine Beitragsanzahl',
+    'average_posts' => 'Durchschnittliche Anzahl von Benutzerbeiträgen',
+    'total_posts' => 'Insgesamte Beitragsanzahl',
+    'following_topics' => 'Folgende Themen',
+    'unfollow_all_topics' => 'Alle Themen nicht mehr verfolgen',
+    'confirm_unfollow_all_topics' => 'Möchtest Du wirklich allen Themen nicht mehr folgen?',
+    'all_topics_unfollowed' => 'Alle Themen werden nicht mehr verfolgt.',
+    'not_following_any_topics' => 'Du verfolgst keine Themen.',
 
     // Hooks
-    'new_topic_hook_info' => 'New topic',
-    'new_topic_text' => 'Topic created in {x} by {y}', // Don't replace {x} (forum name), optional variable {y} (topic author)
+    'new_topic_hook_info' => 'Neues Thema',
+    'new_topic_text' => 'Thema in {x} von {y} erstellt', // Don't replace {x} (forum name), optional variable {y} (topic author)
     'include_in_hook' => 'Include new topics from this forum in webhooks?',
-    'available_hooks' => 'Available Hooks',
+    'available_hooks' => 'Verfügbare Haken',
+
     // Panel statistics
-    'recent_topics' => 'Recent Topics',
-    'recent_topics_statistic_icon' => '<i class="far fa-comment"></i>',
-    'recent_posts' => 'Recent Posts',
-    'recent_posts_statistic_icon' => '<i class="fas fa-comments"></i>',
-    'topics_title' => 'Topics',
-    'posts_title' => 'Posts',
-);
+    'recent_topics' => 'Kürzliche Themen',
+    'recent_posts' => 'Kürzliche Beiträge',
+    'topics_title' => 'Themen',
+    'posts_title' => 'Beiträge',
+];

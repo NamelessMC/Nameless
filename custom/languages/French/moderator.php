@@ -9,7 +9,7 @@
  *  French Language - Users
  */
 
-$language = array(
+$language = [
     'staff_cp' => 'Panneau d\'administration',
     'overview' => 'Vue d\'ensemble',
 
@@ -105,4 +105,4 @@ $language = array(
     'recent_registrations' => 'Enregistrements récents',
     'reset_profile_banner' => 'Réinitialiser la bannière du profil'
 
-);
+];

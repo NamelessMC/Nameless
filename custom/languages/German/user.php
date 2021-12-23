@@ -10,7 +10,7 @@
  *  German Language - Users
  */
 
-$language = array(
+$language = [
     /*
      *  Change this for the account validation message
      */
@@ -142,8 +142,8 @@ $language = array(
     'must_input_email' => 'Du musst eine E-Mail-Adresse eingeben.',
     'must_input_username' => 'Du musst einen Benutzernamen eingeben.',
     'must_input_password' => 'Du musst ein Passwort eingeben.',
-    'must_input_email_or_username' => 'You must input an email or username.',
-    'email_or_username' => 'Email or Username',
+    'must_input_email_or_username' => 'Du musst eine E-Mail oder einen Benutzernamen eingeben',
+    'email_or_username' => 'Email oder Username',
 
     // Forgot password
     'forgot_password_instructions' => 'Bitte erteile deine E-Mail-Adresse, damit wir dir weitere Anweisungen zum Zurücksetzen deines Passworts zusenden können.',
@@ -238,4 +238,4 @@ $language = array(
      */
     'user_x_has_registered' => '{x} ist beigetreten ' . SITE_NAME . '!',
     'user_x_has_validated' => '{x} hat das Konto validiert!',
-);
+];

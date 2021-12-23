@@ -1,4 +1,5 @@
 <?php
+
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
@@ -8,13 +9,16 @@
  *
  *  Twitter Widget
  */
+
 class TwitterWidget extends WidgetBase {
 
-    public function __construct($pages = array(), $twitter = '', $theme = '') {
-        parent::__construct($pages);
+    public function __construct(array $pages, Smarty $smarty, ?string $twitter = '', ?string $theme = '') {
+        parent::__construct($pages, true);
+
+        $this->_smarty = $smarty;
 
         // Get widget
-        $widget_query = DB::getInstance()->selectQuery('SELECT `location`, `order` FROM nl2_widgets WHERE `name` = ?', array('Twitter'))->first();
+        $widget_query = DB::getInstance()->selectQuery('SELECT `location`, `order` FROM nl2_widgets WHERE `name` = ?', ['Twitter'])->first();
 
         // Set widget variables
         $this->_module = 'Core';
@@ -31,7 +35,7 @@ class TwitterWidget extends WidgetBase {
         ';
     }
 
-    public function initialise() {
+    public function initialise(): void {
         // Do nothing
     }
 }

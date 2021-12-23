@@ -1,17 +1,16 @@
 <?php
 /*
  *  Made by Samerton
- *  Translated by Я научу тебя шить XIMI
+ *  Translated by LOyoujoLI
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
  *  Russian Language - Moderator terms
  */
 
-$language = array(
-    'mod_cp' => 'Панель модератора',
+$language = [
     'staff_cp' => 'Админ панель',
     'overview' => 'Обзор',
 
@@ -75,7 +74,7 @@ $language = array(
     'viewing_user_x' => 'Просмотр пользователя {x}', // Don't replace {x}
     'previous_punishments' => 'Предыдущие наказания',
     'no_previous_punishments' => 'Никаких наказаний не найдено',
-    'reset_avatar' => 'Reset Avatar',
+    'reset_avatar' => 'Сбросить аватарку',
     'warning' => 'Предупреждение',
     'ip_ban' => 'IP Бан',
     'reason' => 'Причина',
@@ -107,4 +106,4 @@ $language = array(
     'recent_registrations' => 'Последние регистрации',
     'reset_profile_banner' => 'Сбросить баннер профиля'
 
-);
+];

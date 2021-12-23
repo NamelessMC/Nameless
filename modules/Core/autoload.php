@@ -15,4 +15,6 @@ require_once(ROOT_PATH . '/modules/Core/classes/Captcha/Recaptcha3.php');
 require_once(ROOT_PATH . '/modules/Core/classes/Group_Sync/NamelessMCGroupSyncInjector.php');
 require_once(ROOT_PATH . '/modules/Core/classes/Group_Sync/MinecraftGroupSyncInjector.php');
 
+require_once(ROOT_PATH . '/modules/Core/classes/Misc/Nameless2API.php');
+
 require_once(ROOT_PATH . '/modules/Core/module.php');

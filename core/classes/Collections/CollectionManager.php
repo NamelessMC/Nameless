@@ -12,9 +12,9 @@
 class CollectionManager {
 
     /** @var Collection[] */
-    private static array $_collections = array();
+    private static array $_collections = [];
 
-    public static function addItemToCollection($collection, $item) {
+    public static function addItemToCollection($collection, $item): void {
         if (!isset(self::$_collections[$collection])) {
             self::$_collections[$collection] = new Collection();
         }
@@ -22,49 +22,15 @@ class CollectionManager {
         self::$_collections[$collection]->addItem($item);
     }
 
-    public static function getFullCollection($collection) {
-        return (isset(self::$_collections[$collection]) ? self::$_collections[$collection]->getAllItems() : array());
+    public static function getFullCollection($collection): array {
+        return isset(self::$_collections[$collection])
+            ? self::$_collections[$collection]->getAllItems()
+            : [];
     }
 
-    public static function getEnabledCollection($collection) {
-        return (isset(self::$_collections[$collection]) ? self::$_collections[$collection]->getEnabledItems() : array());
-    }
-}
-
-class Collection {
-
-    private array $_items;
-
-    public function __construct() {
-        $this->_items = array();
-    }
-
-    public function addItem($item): void {
-        $this->_items[] = $item;
-    }
-
-    public function getEnabledItems(): array {
-        $items = array();
-
-        foreach ($this->_items as $item) {
-            if ($item->isEnabled()) {
-                $items[] = $item;
-            }
-        }
-
-        uasort($items, static function ($a, $b) {
-            return $a->getOrder() - $b->getOrder();
-        });
-
-        return $items;
-    }
-
-    public function getAllItems(): array {
-        $items = $this->_items;
-        uasort($items, static function ($a, $b) {
-            return $a->getOrder() - $b->getOrder();
-        });
-        
-        return $items;
+    public static function getEnabledCollection($collection): array {
+        return isset(self::$_collections[$collection])
+            ? self::$_collections[$collection]->getEnabledItems()
+            : [];
     }
 }

@@ -2,46 +2,45 @@
 
 class MCAssoc {
 
-//    private string $siteId;
-    private string $sharedSecret;
-    private string $instanceSecret;
-    private int $timestampLeeway;
-    private bool $insecureMode = false;
+    private string $_siteId;
+    private string $_sharedSecret;
+    private string $_instanceSecret;
+    private int $_timestampLeeway;
+    private bool $_insecureMode = false;
 
     public function __construct($siteId, $sharedSecret, $instanceSecret, $timestampLeeway = 300) {
-//        $this->siteId = $siteId;
-        $this->sharedSecret = hex2bin($sharedSecret);
-        $this->instanceSecret = $instanceSecret;
-        $this->timestampLeeway = $timestampLeeway;
+        $this->_siteId = $siteId;
+        $this->_sharedSecret = hex2bin($sharedSecret);
+        $this->_instanceSecret = $instanceSecret;
+        $this->_timestampLeeway = $timestampLeeway;
     }
 
     public function enableInsecureMode(): void {
-        $this->insecureMode = true;
+        $this->_insecureMode = true;
     }
 
-    private function baseSign(string $data, string $key): string {
-        if (!$key && !$this->insecureMode) {
-            throw new Exception("key must be provided");
-        } else if ($this->insecureMode) {
-            $key = "insecure";
-        }
-
-        return hash_hmac('sha1', $data, $key, true);
+    public function generateKey(string $data): string {
+        return $this->sign($data, $this->_instanceSecret);
     }
 
     private function sign(string $data, string $key): string {
         return base64_encode($data . $this->baseSign($data, $key));
     }
 
-    private static function constantCompare(string $str1, string $str2): bool {
-        if (strlen($str1) != strlen($str2))
-            return false;
-
-        $res = 0;
-        for ($i = 0; $i < strlen($str1); $i++) {
-            $res |= ord($str1[$i]) ^ ord($str2[$i]);
+    private function baseSign(string $data, string $key): string {
+        if (!$key && !$this->_insecureMode) {
+            throw new Exception('key must be provided');
+        } else {
+            if ($this->_insecureMode) {
+                $key = 'insecure';
+            }
         }
-        return ($res == 0);
+
+        return hash_hmac('sha1', $data, $key, true);
+    }
+
+    public function unwrapKey(string $input): string {
+        return $this->verify($input, $this->_instanceSecret);
     }
 
     private function verify(string $input, string $key): string {
@@ -56,8 +55,9 @@ class MCAssoc {
 
         $data = substr($signed_data, 0, -20);
 
-        if ($this->insecureMode)
+        if ($this->_insecureMode) {
             return $data;
+        }
 
         $signature = substr($signed_data, -20);
         $my_signature = $this->baseSign($data, $key);
@@ -68,12 +68,16 @@ class MCAssoc {
         return $data;
     }
 
-    public function generateKey(string $data): string {
-        return $this->sign($data, $this->instanceSecret);
-    }
+    private static function constantCompare(string $str1, string $str2): bool {
+        if (strlen($str1) != strlen($str2)) {
+            return false;
+        }
 
-    public function unwrapKey(string $input): string {
-        return $this->verify($input, $this->instanceSecret);
+        $res = 0;
+        for ($i = 0; $i < strlen($str1); $i++) {
+            $res |= ord($str1[$i]) ^ ord($str2[$i]);
+        }
+        return ($res == 0);
     }
 
     public function unwrapData(string $input, int $time = null) {
@@ -81,14 +85,14 @@ class MCAssoc {
             $time = time();
         }
 
-        $data = $this->verify($input, $this->sharedSecret);
+        $data = $this->verify($input, $this->_sharedSecret);
         $rdata = json_decode($data);
         if ($rdata === null) {
             throw new Exception('json data invalid');
         }
 
-        $mintime = $time - $this->timestampLeeway;
-        $maxtime = $time + $this->timestampLeeway;
+        $mintime = $time - $this->_timestampLeeway;
+        $maxtime = $time + $this->_timestampLeeway;
         if (!(($mintime < $rdata->now) && ($rdata->now < $maxtime))) {
             throw new Exception('timestamp stale');
         }

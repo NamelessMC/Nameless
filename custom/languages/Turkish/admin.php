@@ -9,7 +9,7 @@
  *  Turkish translation by xOrcun
  */
 
-$language = array(
+$language = [
     /*
      *  Admin Control Panel
      */
@@ -28,7 +28,6 @@ $language = array(
     'minecraft' => 'Minecraft',
     'modules' => 'Modüller',
     'security' => 'Güvenlik',
-    'sitemap' => 'Sitemap',
     'styles' => 'Stil',
     'users_and_groups' => 'Kullanıcılar ve Gruplar',
 
@@ -99,7 +98,7 @@ $language = array(
     'delete_email_error' => 'Silme hatası',
     'confirm_email_error_deletion' => 'Bu hatayı silmek istediğinizden emin misiniz?',
     'viewing_email_error' => 'Görüntüleme hatası',
-    'unable_to_write_email_config' => '<strong>core/email.php</core> dosyasına yazılamıyor. Lütfen dosya izinlerini kontrol edin.',
+    'unable_to_write_email_config' => '<strong>core/email.php</strong> dosyasına yazılamıyor. Lütfen dosya izinlerini kontrol edin.',
     'enable_mailer' => 'PHPMailer etkinleştirilsin mi?',
     'enable_mailer_help' => 'Varsayılan olarak e-postalar gönderilmiyorsa bunu etkinleştirin. PHPMailer kullanımı için Gmail veya SMTP sağlayıcısı gibi e-posta gönderebilecek bir hizmetinizin olması gerekir.',
     'outgoing_email' => 'Giden E-posta Adresi',
@@ -201,6 +200,8 @@ $language = array(
     'seo' => 'SEO',
     'google_analytics' => 'Google Analytics',
     'google_analytics_help' => 'Add Google Analytics to your website to track visitors and statistics. You will need to create a Google Analytics account to use this functionality. Enter your Google Analytics Web Property ID. The ID looks like UA-XXXXA-X and you can find it in your account information or in the tracking code provided by Google.',
+    'sitemap' => 'Sitemap',
+    'seo_settings_updated_successfully' => 'SEO settings updated successfully.',
 
     // Reactions
     'icon' => 'Icon',
@@ -704,9 +705,7 @@ $language = array(
 
     // Dashboard
     'total_users' => 'Toplam Kullanıcılar',
-    'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'recent_users' => 'Yeni Kullanıcılar',
-    'recent_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'average_players' => 'Ortalama kullanıcılar',
     'nameless_news' => 'NamelessMC Haberleri',
     'unable_to_retrieve_nameless_news' => 'Unable to retrieve the latest news',
@@ -745,4 +744,6 @@ $language = array(
     'background_colour_required' => 'Background Colour is required',
     'text_colour_required' => 'Text Colour is required',
     'no_announcements' => 'No announcements have been made yet.',
-);
+    'announcement_order' => 'Order',
+    'announcement_hook_info' => 'Announcement creation',
+];

@@ -10,7 +10,7 @@
  *  Czech Language - Installation
  */
 
-$language = array (
+$language = [
     /*
      *  Installation
      */
@@ -104,4 +104,4 @@ $language = array (
     'config_not_writable' => 'Konfigurační soubor není zapisovatelný.',
 
     'session_doesnt_exist' => 'Nepodařilo se detekovat relaci. Pro správnou funkci Nameless je potřeba funkce ukládání relací. Zkuste to prosím znovu. Pokud chyba přetrvává, kontaktujte podporu vašeho webhostingu.'
-);
+];

@@ -34,6 +34,6 @@ class SetDiscordRolesEndpoint extends EndpointBase {
             Log::getInstance()->log(Log::Action('discord/role_set'), json_encode($log_array), $user->data()->id);
         }
 
-        $api->returnArray(array_merge(array('message' => Discord::getLanguageTerm('group_updated')), $log_array));
+        $api->returnArray(array_merge(['message' => Discord::getLanguageTerm('group_updated')], $log_array));
     }
 }

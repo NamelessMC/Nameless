@@ -11,7 +11,7 @@
  *  Nederlandse taal - Algemene termen
  */
 
-$language = array(
+$language = [
     /*
      *  Algemene termen
      */
@@ -59,7 +59,7 @@ $language = array(
     'view_report' => 'View report',
     'page_loaded_in' => 'Pagina geladen in {x}s', // Verander "{x}" niet, tijdseenheid is seconden
     'page_x' => 'Pagina {x}',
-       'browse' => 'Doorzoek',
+    'browse' => 'Doorzoek',
     'bypass' => 'Omzeilen',
     'yes' => 'Ja',
     'no' => 'Nee',
@@ -74,7 +74,7 @@ $language = array(
     'link' => 'Link',
     'unlink' => 'Unlink',
     'leaderboards' => 'Leaderboards',
-    
+
     /*
      *  Contact formulier
      */
@@ -166,4 +166,4 @@ $language = array(
      *  Custom page redirect
      */
     'redirecting_message' => 'Doorsturen...<br />Als u niet automatisch wordt doorgestuurd, klik dan <a href="{x}" rel="nofollow noopener">hier</a>.' // Don't replace {x} which is the redirect URL
-);
+];

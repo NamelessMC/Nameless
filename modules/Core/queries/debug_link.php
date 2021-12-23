@@ -1,15 +1,35 @@
 <?php
 
+// Can user generate the debug link?
+if (!$user->hasPermission('admincp.core.debugging')) {
+    require_once(ROOT_PATH . '/403.php');
+    die();
+}
+
 $namelessmc_modules = [];
 $namelessmc_fe_templates = [];
 $namelessmc_panel_templates = [];
 
-$modules_query = $queries->getWhere('modules', ['id', '<>', 0]);
-foreach ($modules_query as $module_row) {
-    $module_path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'modules', htmlspecialchars($module_row->name), 'init.php'));
+// Get all modules
+$modules = $queries->getWhere('modules', ['id', '<>', 0]);
+$enabled_modules = Module::getModules();
 
-    if (file_exists($module_path)) {
-        require_once($module_path);
+foreach ($modules as $item) {
+    $exists = false;
+    foreach ($enabled_modules as $enabled_item) {
+        if ($enabled_item->getName() == $item->name) {
+            $exists = true;
+            $module = $enabled_item;
+            break;
+        }
+    }
+
+    if (!$exists) {
+        if (!file_exists(ROOT_PATH . '/modules/' . $item->name . '/init.php')) {
+            continue;
+        }
+
+        require_once(ROOT_PATH . '/modules/' . $item->name . '/init.php');
     }
 
     $namelessmc_modules[$module->getName()] = [
@@ -24,7 +44,7 @@ foreach ($modules_query as $module_row) {
 
 $templates_query = $queries->getWhere('templates', ['id', '<>', 0]);
 foreach ($templates_query as $fe_template) {
-    $template_path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'custom', 'templates', htmlspecialchars($fe_template->name), 'template.php'));
+    $template_path = join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', htmlspecialchars($fe_template->name), 'template.php']);
 
     if (file_exists($template_path)) {
         require_once($template_path);
@@ -32,8 +52,8 @@ foreach ($templates_query as $fe_template) {
 
     $namelessmc_fe_templates[$fe_template->name] = [
         'name' => $fe_template->name,
-        'enabled' => (bool) $fe_template->enabled,
-        'is_default' => (bool) $fe_template->is_default,
+        'enabled' => (bool)$fe_template->enabled,
+        'is_default' => (bool)$fe_template->is_default,
         'author' => $template->getAuthor(),
         'template_version' => $template->getVersion(),
         'namelessmc_version' => $template->getNamelessVersion(),
@@ -43,7 +63,7 @@ foreach ($templates_query as $fe_template) {
 $panel_templates_query = $queries->getWhere('panel_templates', ['id', '<>', 0]);
 foreach ($panel_templates_query as $panel_template) {
 
-    $template_path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'custom', 'panel_templates', htmlspecialchars($panel_template->name), 'template.php'));
+    $template_path = join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'panel_templates', htmlspecialchars($panel_template->name), 'template.php']);
 
     if (file_exists($template_path)) {
         require_once($template_path);
@@ -51,8 +71,8 @@ foreach ($panel_templates_query as $panel_template) {
 
     $namelessmc_panel_templates[$panel_template->name] = [
         'name' => $panel_template->name,
-        'enabled' => (bool) $panel_template->enabled,
-        'is_default' => (bool) $panel_template->is_default,
+        'enabled' => (bool)$panel_template->enabled,
+        'is_default' => (bool)$panel_template->is_default,
         'author' => $template->getAuthor(),
         'template_version' => $template->getVersion(),
         'namelessmc_version' => $template->getNamelessVersion(),
@@ -69,17 +89,55 @@ foreach (GroupSyncManager::getInstance()->getInjectors() as $injector) {
     ];
 }
 
+$group_sync['rules'] = [];
 foreach (DB::getInstance()->get('group_sync', ['id', '<>', 0])->results() as $rule) {
     $rules = [];
     foreach (get_object_vars($rule) as $column => $value) {
         if ($column == 'id') {
-            $rules[$column] = (int) $value;
+            $rules[$column] = (int)$value;
         } else {
             $rules[$column] = $value;
         }
     }
 
-    $group_sync['rules'][(int) $rule->id] = $rules;
+    $group_sync['rules'][(int)$rule->id] = $rules;
+}
+
+$webhooks = [];
+foreach (DB::getInstance()->selectQuery('SELECT `id`, `name`, `action`, `events` FROM nl2_hooks')->results() as $webhook) {
+    $webhooks[$webhook->id] = [
+        'id' => (int)$webhook->id,
+        'name' => $webhook->name,
+        'action' => (int)$webhook->action,
+        'events' => json_decode($webhook->events),
+    ];
+}
+
+$forum_hooks = [];
+foreach (DB::getInstance()->selectQuery('SELECT `id`, `forum_title`, `hooks` FROM nl2_forums WHERE `hooks` IS NOT NULL')->results() as $forum) {
+    $forum_hooks[] = [
+        'forum_id' => (int)$forum->id,
+        'title' => $forum->forum_title,
+        'hooks' => array_map(static fn($hook) => (int)$hook, json_decode($forum->hooks)),
+    ];
+}
+
+
+$groups = [];
+foreach ($queries->getWhere('groups', ['id', '<>', 0]) as $group) {
+    $groups[(int)$group->id] = [
+        'id' => (int)$group->id,
+        'name' => $group->name,
+        'group_html' => $group->group_html,
+        'group_html_lg' => $group->group_html_lg,
+        'admin_cp' => (bool)$group->admin_cp,
+        'staff' => (bool)$group->staff,
+        'permissions' => json_decode($group->permissions, true) ?? [],
+        'default_group' => (bool)$group->default_group,
+        'order' => (int)$group->order,
+        'force_tfa' => (bool)$group->force_tfa,
+        'deleted' => (bool)$group->deleted,
+    ];
 }
 
 
@@ -91,20 +149,32 @@ $data = [
     'namelessmc' => [
         'version' => Util::getSetting(DB::getInstance(), 'nameless_version'),
         'update_available' => Util::getSetting(DB::getInstance(), 'version_update') == 'false' ? false : true,
-        'update_checked' => (int) Util::getSetting(DB::getInstance(), 'version_checked'),
+        'update_checked' => (int)Util::getSetting(DB::getInstance(), 'version_checked'),
         'settings' => [
-            'phpmailer' => (bool) Util::getSetting(DB::getInstance(), 'phpmailer'),
-            'api_enabled' => (bool) Util::getSetting(DB::getInstance(), 'use_api'),
-            'email_verification' => (bool) Util::getSetting(DB::getInstance(), 'email_verification'),
-            'api_verification' => (bool) Util::getSetting(DB::getInstance(), 'api_verification'),
+            'phpmailer' => (bool)Util::getSetting(DB::getInstance(), 'phpmailer'),
+            'api_enabled' => (bool)Util::getSetting(DB::getInstance(), 'use_api'),
+            'email_verification' => (bool)Util::getSetting(DB::getInstance(), 'email_verification'),
+            'api_verification' => (bool)Util::getSetting(DB::getInstance(), 'api_verification'),
             'login_method' => Util::getSetting(DB::getInstance(), 'login_method'),
             'captcha_type' => Util::getSetting(DB::getInstance(), 'recaptcha_type'),
-            'captcha_login' => (bool) Util::getSetting(DB::getInstance(), 'recaptcha_login'),
-            'captcha_contact' => (bool) Util::getSetting(DB::getInstance(), 'recaptcha'),
+            'captcha_login' => (bool)Util::getSetting(DB::getInstance(), 'recaptcha_login'),
+            'captcha_contact' => (bool)Util::getSetting(DB::getInstance(), 'recaptcha'),
             'group_sync' => $group_sync,
+            'webhooks' => [
+                'actions' => [
+                    2 => 'Discord',
+                ],
+                'hooks' => $webhooks,
+                'forum_hooks' => $forum_hooks,
+            ],
         ],
+        'groups' => $groups,
         'config' => [
-            'core' => array_filter($GLOBALS['config']['core'], static fn (string $key) => $key != 'hostname', ARRAY_FILTER_USE_KEY),
+            'core' => array_filter(
+                $GLOBALS['config']['core'],
+                static fn(string $key) => $key != 'hostname',
+                ARRAY_FILTER_USE_KEY
+            ),
             'allowedProxies' => $GLOBALS['config']['allowedProxies']
         ],
         'modules' => $namelessmc_modules,
@@ -113,10 +183,10 @@ $data = [
             'panel' => $namelessmc_panel_templates,
         ],
     ],
-    'enviroment' => [
+    'environment' => [
         'php_version' => phpversion(),
         'php_modules' => get_loaded_extensions(),
-        'host_os' => php_uname('s'),
+        'host_os' => PHP_OS,
         'host_kernel_version' => php_uname('r'),
         'official_docker_image' => getenv('NAMELESSMC_METRICS_DOCKER') == true,
         'disk_total_space' => disk_total_space('./'),
@@ -128,6 +198,6 @@ $data = [
     ],
 ];
 
-$result = Util::curlGetContents('https://paste.rkslot.nl/documents', json_encode($data, JSON_PRETTY_PRINT));
+$result = HttpClient::post('https://bytebin.rkslot.nl/post', json_encode($data, JSON_PRETTY_PRINT))->data();
 
 die('https://debug.namelessmc.com/' . json_decode($result, true)['key']);

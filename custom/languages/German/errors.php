@@ -10,7 +10,7 @@
  *  German Language - Errors
  */
 
-$language = array(
+$language = [
     /*
      *  Errors
      */
@@ -20,8 +20,8 @@ $language = array(
     '404_home' => 'Startseite',
     '404_error' => 'Wenn du glaubst das dies ein Fehler ist, {x}Kontaktieren einen Administrator {y}',
     '403_title' => 'Entschuldige!',
-    '403_content' => 'You do not have permission to view this page.',
-    '403_login' => 'Please log in to continue.',
+    '403_content' => 'Du hast keine Berechtigung diese Seite zu sehen.',
+    '403_login' => 'Bitte logge dich ein, um fortzufahren.',
     '403_back' => 'Zurück',
     '403_home' => 'Startseite',
     'maintenance_title' => 'Wartungsmodus.',
@@ -32,4 +32,4 @@ $language = array(
     'fatal_error_message_admin' => 'Entschuldigung, aber beim Laden der Seite ist etwas schief gelaufen. Fehlerdetails:',
     'in_file' => 'In File <strong>{x}</strong>', // Don't replace {x}
     'on_line' => 'In Zeile <strong>{x}</strong>' // Don't replace {x}
-);
+];

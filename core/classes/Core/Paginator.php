@@ -15,13 +15,18 @@ class Paginator {
     private int $_page;
     private int $_total;
     private array $_class;
+    private string $_leftContent;
+    private string $_rightContent;
 
-    public function __construct(array $class = array()) {
+    public function __construct(array $class = [], $leftContent = "&laquo;", $rightContent = "&raquo;") {
         if (!count($class)) {
-            $this->_class = array('ul' => 'pagination d-inline-flex', 'li' => 'page-item {x}', 'a' => 'page-link');
+            $this->_class = ['ul' => 'pagination d-inline-flex', 'li' => 'page-item {x}', 'a' => 'page-link'];
         } else {
             $this->_class = $class;
         }
+
+        $this->_leftContent = $leftContent;
+        $this->_rightContent = $rightContent;
     }
 
     /**
@@ -31,14 +36,14 @@ class Paginator {
      * @param int $limit
      * @param int $page
      * @param int $total
-     * 
+     *
      * @return object
      */
     public function getLimited(array $data, int $limit = 10, int $page = 1, int $total = 10): object {
         $this->_limit = $limit;
-        $this->_page = (int) $page;
+        $this->_page = $page;
 
-        $return = array();
+        $return = [];
 
         for ($i = ($this->_page != 1 ? (($this->_page - 1) * $limit) : 0); $i < ($this->_page * $limit); $i++) {
             if (!isset($data[$i])) {
@@ -59,13 +64,13 @@ class Paginator {
         return $result;
     }
 
-        
+
     /**
      * Generate HTML for data to be presented with.
      *
      * @param int $links Number of links to be shown on each page.
      * @param string $href URL prefix to use when next page is clicked.
-     * 
+     *
      * @return string Generated HTML to display in template.
      */
     public function generate(int $links, string $href = '?'): string {
@@ -74,22 +79,23 @@ class Paginator {
         $start = (($this->_page - $links) > 0) ? $this->_page - $links : 1;
         $end = (($this->_page + $links) < $last) ? $this->_page + $links : $last;
 
-        if (isset($this->_class['div']) && !empty($this->_class['div']))
+        if (isset($this->_class['div']) && !empty($this->_class['div'])) {
             $html = '<div class="' . $this->_class['div'] . '">';
-        else
+        } else {
             $html = '<ul class="' . $this->_class['ul'] . '">';
+        }
 
         if (empty($this->_class['ul'])) {
             $class = str_replace('{x}', ($this->_page == 1 ? ' disabled ' : ''), ($this->_class['a']));
 
-            $html .= '<a class="' . $class . '" href="' . (($this->_page == 1) ? '#' : $href . 'p=' . ($this->_page - 1)) . '">&laquo;</a>';
+            $html .= '<a class="' . $class . '" href="' . (($this->_page == 1) ? '#' : $href . 'p=' . ($this->_page - 1)) . '">' . $this->_leftContent . '</a>';
         } else {
             $class = str_replace('{x}', ($this->_page == 1) ? ' disabled' : '', $this->_class['li']);
 
             $html .= '<li class="' . $class . '"><a class="' . str_replace('{x}', ($this->_page == 1 ? ' disabled ' : ''), $this->_class['a']) . '" href="';
             if ($this->_page == 1) $html .= '#';
             else $html .= $href . 'p=' . ($this->_page - 1);
-            $html .= '">&laquo;</a></li>';
+            $html .= '">' . $this->_leftContent . '</a></li>';
         }
 
         if ($start > 1) {
@@ -123,12 +129,12 @@ class Paginator {
         }
 
         if (empty($this->_class['ul'])) {
-            $html .= '<a class="' . str_replace('{x}', ($this->_page == $last) ? ' disabled ' : '', $this->_class['a']) . '" href="' . (($this->_page == $last) ? '#' : $href . 'p=' . ($this->_page + 1)) . '">&raquo;</a>';
+            $html .= '<a class="' . str_replace('{x}', ($this->_page == $last) ? ' disabled ' : '', $this->_class['a']) . '" href="' . (($this->_page == $last) ? '#' : $href . 'p=' . ($this->_page + 1)) . '">' . $this->_rightContent . '</a>';
         } else {
             $html .= '<li class="' . str_replace('{x}', ($this->_page == $last) ? ' disabled ' : '', $this->_class['li']) . '"><a class="' . str_replace('{x}', ($this->_page == $last) ? ' disabled ' : '', $this->_class['a']) . '" href="';
             if ($this->_page == $last) $html .= '#';
             else $html .= $href . 'p=' . ($this->_page + 1);
-            $html .= '">&raquo;</a></li>';
+            $html .= '">' . $this->_rightContent . '</a></li>';
         }
 
         if (isset($this->_class['div']) && !empty($this->_class['div'])) {
@@ -139,7 +145,7 @@ class Paginator {
 
         return $html;
     }
-    
+
     /**
      * Set values of instance variables, alternative function (as they are set in getLimited()).
      * Not used internally.

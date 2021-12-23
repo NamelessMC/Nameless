@@ -101,6 +101,10 @@
   <div class="ui tiny warning message">
     {$TOPIC_LOCKED_NOTICE}
   </div>
+{elseif isset($TOPIC_LOCKED)}
+  <div class="ui tiny warning message">
+    {$TOPIC_LOCKED}
+  </div>
 {/if}
 
 {foreach from=$REPLIES item=reply}
@@ -117,10 +121,10 @@
                   <div class="sub header">{$reply.user_title}</div>
                 {/if}
               </h3>
-              {foreach from=$reply.user_groups item=group}
-                {$group}<br />
-              {/foreach}
             </center>
+              {foreach from=$reply.user_groups item=group}
+                {$group}
+              {/foreach}
             <div class="ui list">
               <div class="ui divider"></div>
               <div class="item">

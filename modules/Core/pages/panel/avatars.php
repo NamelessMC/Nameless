@@ -9,14 +9,14 @@
  *  Panel avatars page
  */
 
-if(!$user->handlePanelPageLoad('admincp.core.avatars')) {
+if (!$user->handlePanelPageLoad('admincp.core.avatars')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }
 
-define('PAGE', 'panel');
-define('PARENT_PAGE', 'core_configuration');
-define('PANEL_PAGE', 'avatars');
+const PAGE = 'panel';
+const PARENT_PAGE = 'core_configuration';
+const PANEL_PAGE = 'avatars';
 $page_title = $language->get('admin', 'avatars');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
@@ -25,27 +25,28 @@ if (Input::exists()) {
     if (Token::check()) {
         if (isset($_POST['avatar_source'])) {
             // Custom avatars?
-            if (isset($_POST['custom_avatars']) && $_POST['custom_avatars'] == 1)
+            if (isset($_POST['custom_avatars']) && $_POST['custom_avatars'] == 1) {
                 $custom_avatars = 1;
-            else
+            } else {
                 $custom_avatars = 0;
+            }
 
             try {
-                $custom_avatars_id = $queries->getWhere('settings', array('name', '=', 'user_avatars'));
+                $custom_avatars_id = $queries->getWhere('settings', ['name', '=', 'user_avatars']);
                 $custom_avatars_id = $custom_avatars_id[0]->id;
-                $queries->update('settings', $custom_avatars_id, array('value' => $custom_avatars));
+                $queries->update('settings', $custom_avatars_id, ['value' => $custom_avatars]);
 
-                $default_avatar_type = $queries->getWhere('settings', array('name', '=', 'default_avatar_type'));
+                $default_avatar_type = $queries->getWhere('settings', ['name', '=', 'default_avatar_type']);
                 $default_avatar_type = $default_avatar_type[0]->id;
-                $queries->update('settings', $default_avatar_type, array('value' => Input::get('default_avatar')));
+                $queries->update('settings', $default_avatar_type, ['value' => Input::get('default_avatar')]);
 
-                $mc_avatar_source = $queries->getWhere('settings', array('name', '=', 'avatar_site'));
+                $mc_avatar_source = $queries->getWhere('settings', ['name', '=', 'avatar_site']);
                 $mc_avatar_source = $mc_avatar_source[0]->id;
-                $queries->update('settings', $mc_avatar_source, array('value' => Input::get('avatar_source')));
+                $queries->update('settings', $mc_avatar_source, ['value' => Input::get('avatar_source')]);
 
-                $mc_avatar_perspective = $queries->getWhere('settings', array('name', '=', 'avatar_type'));
+                $mc_avatar_perspective = $queries->getWhere('settings', ['name', '=', 'avatar_type']);
                 $mc_avatar_perspective = $mc_avatar_perspective[0]->id;
-                $queries->update('settings', $mc_avatar_perspective, array('value' => Input::get('avatar_perspective')));
+                $queries->update('settings', $mc_avatar_perspective, ['value' => Input::get('avatar_perspective')]);
 
                 $cache->setCache('avatar_settings_cache');
                 $cache->store('custom_avatars', $custom_avatars);
@@ -53,19 +54,21 @@ if (Input::exists()) {
                 $cache->store('avatar_source', Input::get('avatar_source'));
                 $cache->store('avatar_perspective', Input::get('avatar_perspective'));
             } catch (Exception $e) {
-                $errors = array($e->getMessage());
+                $errors = [$e->getMessage()];
             }
-        } else if (isset($_POST['avatar'])) {
-            // Selecting a new default avatar
-            try {
-                $default_avatar = $queries->getWhere('settings', array('name', '=', 'custom_default_avatar'));
-                $default_avatar = $default_avatar[0]->id;
-                $queries->update('settings', $default_avatar, array('value' => Input::get('avatar')));
+        } else {
+            if (isset($_POST['avatar'])) {
+                // Selecting a new default avatar
+                try {
+                    $default_avatar = $queries->getWhere('settings', ['name', '=', 'custom_default_avatar']);
+                    $default_avatar = $default_avatar[0]->id;
+                    $queries->update('settings', $default_avatar, ['value' => Input::get('avatar')]);
 
-                $cache->setCache('avatar_settings_cache');
-                $cache->store('default_avatar_image', Input::get('avatar'));
-            } catch (Exception $e) {
-                $errors = array($e->getMessage());
+                    $cache->setCache('avatar_settings_cache');
+                    $cache->store('default_avatar_image', Input::get('avatar'));
+                } catch (Exception $e) {
+                    $errors = [$e->getMessage()];
+                }
             }
         }
 
@@ -74,54 +77,57 @@ if (Input::exists()) {
         Session::flash('avatar_success', $language->get('admin', 'avatar_settings_updated_successfully'));
         Redirect::to(URL::build('/panel/core/avatars'));
 
-    } else
-        $errors = array($language->get('general', 'invalid_token'));
+    } else {
+        $errors = [$language->get('general', 'invalid_token')];
+    }
 }
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-if (isset($success))
-    $smarty->assign(array(
+if (isset($success)) {
+    $smarty->assign([
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
-    ));
-
-if (Session::exists('avatar_success')) {
-    $smarty->assign(array(
-        'SUCCESS' => Session::flash('avatar_success'),
-        'SUCCESS_TITLE' => $language->get('general', 'success')
-    ));
+    ]);
 }
 
-if (isset($errors) && count($errors))
-    $smarty->assign(array(
+if (Session::exists('avatar_success')) {
+    $smarty->assign([
+        'SUCCESS' => Session::flash('avatar_success'),
+        'SUCCESS_TITLE' => $language->get('general', 'success')
+    ]);
+}
+
+if (isset($errors) && count($errors)) {
+    $smarty->assign([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
-    ));
+    ]);
+}
 
 // Get setting values
-$custom_avatars = $queries->getWhere('settings', array('name', '=', 'user_avatars'));
+$custom_avatars = $queries->getWhere('settings', ['name', '=', 'user_avatars']);
 $custom_avatars = $custom_avatars[0]->value;
 
-$default_avatar_type = $queries->getWhere('settings', array('name', '=', 'default_avatar_type'));
+$default_avatar_type = $queries->getWhere('settings', ['name', '=', 'default_avatar_type']);
 $default_avatar_type = $default_avatar_type[0]->value;
 
-$mc_avatar_source = $queries->getWhere('settings', array('name', '=', 'avatar_site'));
+$mc_avatar_source = $queries->getWhere('settings', ['name', '=', 'avatar_site']);
 $mc_avatar_source = $mc_avatar_source[0]->value;
 
-$mc_avatar_perspective = $queries->getWhere('settings', array('name', '=', 'avatar_type'));
+$mc_avatar_perspective = $queries->getWhere('settings', ['name', '=', 'avatar_type']);
 $mc_avatar_perspective = $mc_avatar_perspective[0]->value;
 
-$default_avatar_image = $queries->getWhere('settings', array('name', '=', 'custom_default_avatar'));
+$default_avatar_image = $queries->getWhere('settings', ['name', '=', 'custom_default_avatar']);
 $default_avatar_image = $default_avatar_image[0]->value;
 
-$image_path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'uploads', 'avatars', 'defaults'));
+$image_path = join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'avatars', 'defaults']);
 $images = scandir($image_path);
-$template_images = array();
+$template_images = [];
 
 // Only display jpeg, png, jpg, gif
-$allowed_exts = array('gif', 'png', 'jpg', 'jpeg');
+$allowed_exts = ['gif', 'png', 'jpg', 'jpeg'];
 
 if (count($images)) {
     foreach ($images as $image) {
@@ -134,7 +140,7 @@ if (count($images)) {
     }
 }
 
-$smarty->assign(array(
+$smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'CONFIGURATION' => $language->get('admin', 'configuration'),
@@ -165,7 +171,7 @@ $smarty->assign(array(
     'UPLOAD_FORM_ACTION' => (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/includes/image_upload.php',
     'DRAG_FILES_HERE' => $language->get('admin', 'drag_files_here'),
     'CLOSE' => $language->get('general', 'close')
-));
+]);
 
 $page_load = microtime(true) - $start;
 define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));

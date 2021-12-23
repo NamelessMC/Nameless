@@ -35,13 +35,12 @@ class RecentUsersItem extends CollectionItemBase {
     public function getContent(): string {
         // Get the number of recent users
         $queries = new Queries();
-        $users_query = $queries->getWhere('users', array('joined', '>', strtotime('7 days ago')));
+        $users_query = $queries->getWhere('users', ['joined', '>', strtotime('7 days ago')]);
 
-        $this->_smarty->assign(array(
-            'ICON' => $this->_language->get('admin', 'recent_users_statistic_icon'),
+        $this->_smarty->assign([
             'TITLE' => $this->_language->get('admin', 'recent_users'),
             'VALUE' => count($users_query)
-        ));
+        ]);
 
         return $this->_smarty->fetch('collections/dashboard_stats/recent_users.tpl');
     }

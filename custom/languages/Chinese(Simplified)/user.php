@@ -11,7 +11,7 @@
  *  Translation progress(v2-pr9) : 100%
  */
 
-$language = array(
+$language = [
     /*
      *  Change this for the account validation message
      */
@@ -239,4 +239,4 @@ $language = array(
      */
     'user_x_has_registered' => '{x} 加入了 ' . SITE_NAME . '!',
     'user_x_has_validated' => '{x} 已验证他的帐号!',
-);
+];

@@ -1,7 +1,7 @@
 <?php
 
-$scripts = array(
-	'
+$scripts = [
+    '
 	<script>
 		$(document).ready(function() {
 			$.post("?step=ajax_initialise&initialise=upgrade", {perform: "true"}, function(response) {
@@ -21,26 +21,26 @@ $scripts = array(
 		});
 	</script>
 	'
-);
+];
 ?>
 
 <form action="" method="post">
-	<div class="ui segments">
-		<div class="ui secondary segment">
-			<h4 class="ui header">
-				<?php echo $language['upgrade']; ?>
-			</h4>
-		</div>
-		<div class="ui segment">
+    <div class="ui segments">
+        <div class="ui secondary segment">
+            <h4 class="ui header">
+                <?php echo $language['upgrade']; ?>
+            </h4>
+        </div>
+        <div class="ui segment">
 			<span id="info">
 				<i class="blue circular notched circle loading icon"></i>
 				<?php echo $language['installer_upgrading_database']; ?>
 			</span>
-		</div>
-		<div class="ui right aligned secondary segment">
-			<a href="#" class="ui primary disabled button" id="continue-button">
-				<?php echo $language['continue']; ?>
-			</a>
-		</div>
-	</div>
+        </div>
+        <div class="ui right aligned secondary segment">
+            <a href="#" class="ui primary disabled button" id="continue-button">
+                <?php echo $language['continue']; ?>
+            </a>
+        </div>
+    </div>
 </form>

@@ -10,8 +10,8 @@
  *  Lithuanian Language - Errors
  */
 
-$language = array(
-  // Errors
+$language = [
+    // Errors
     '404_title' => 'Atsiprašome!',
     '404_content' => 'Nepavyko rasti šio puslapio.',
     '404_back' => 'Atgal',
@@ -30,4 +30,4 @@ $language = array(
     'fatal_error_message_admin' => 'Atsiprašome, pakrovimo metu įvyko klaida. Klaidos detalės:',
     'in_file' => 'faile <strong>{x}</strong>', // Don't replace {x}
     'on_line' => 'linijoi <strong>{x}</strong>' // Don't replace {x}
-);
+];

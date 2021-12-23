@@ -1,22 +1,21 @@
 <?php
 /*
  *  Made by Samerton
- *  Translated by Я научу тебя шить XIMI
+ *  Translated by LOyoujoLI
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
  *  Russian Language - API
  */
 
-$language = array(
+$language = [
 
     // Errors
     'api_disabled' => 'Возможности API отключены',
     'unknown_error' => 'Неизвестная ошибка',
     'invalid_api_key' => 'Недействительный API ключ',
-    'invalid_language_file' => 'Недействительный языковой файл',
     'invalid_api_method' => 'Недействительный метод API',
     'no_unique_site_id' => 'Уникальный идентификатор сайта отсутствует',
     'unable_to_check_for_updates' => 'Невозможно проверить наличие обновлений',
@@ -34,10 +33,10 @@ $language = array(
     'unable_to_find_group' => 'Не удалось найти группу',
     'unable_to_update_group' => 'Невозможно обновить группу пользователей',
     'report_content_too_long' => 'Жалоба должна содержать не более 255 символов',
-    'cannot_report_yourself' => 'Вы не можете пожаловаться на самого себя.',
     'you_have_been_banned_from_website' => 'Вы были забанены на сайте',
     'you_have_open_report_already' => 'У вас уже есть открытая жалоба на этого игрока',
     'unable_to_create_report' => 'Не удалось создать жалобу',
+    'cannot_report_yourself' => 'Вы не можете пожаловаться на самого себя.',
     'unable_to_update_username' => 'Не удалось обновить имя пользователя',
     'unable_to_update_server_info' => 'Не удалось обновить информацию о сервере',
     'invalid_server_id' => 'Неверный ID сервера',
@@ -49,8 +48,7 @@ $language = array(
     'finish_registration_email' => 'Пожалуйста, проверьте свою электронную почту, чтобы завершить регистрацию.',
     'group_updated' => 'Группа успешно обновлена',
     'report_created' => 'Жалоба успешно создана',
-    'new_private_message_from' => 'Новое личное сообщение от {x}', // Don't replace {x}
     'username_updated' => 'Имя пользователя успешно обновлено',
     'server_info_updated' => 'Информация о сервере успешно обновлена',
     'account_validated' => 'Учетная запись успешно подтверждена',
-);
+];

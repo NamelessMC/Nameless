@@ -12,8 +12,8 @@
  *  Japanese Language - Log
  */
 
-$language = array(
+$language = [
     //forums
     'info_forums_lock' => 'ロック',
     'info_forums_unlock' => 'ロック解除',
-);
+];

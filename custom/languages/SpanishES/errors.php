@@ -9,7 +9,7 @@
  *  Spanish/Spain Language - Errors
  */
 
-$language = array(
+$language = [
     /*
      *  Errors
      */
@@ -31,4 +31,4 @@ $language = array(
     'fatal_error_message_admin' => 'Lo sentimos, pero algo ha ido mal al cargar la página. Detalles del error:',
     'in_file' => 'en el archivo <strong>{x}</strong>', // Don't replace {x}
     'on_line' => 'en la línea <strong>{x}</strong>' // Don't replace {x}
-);
+];

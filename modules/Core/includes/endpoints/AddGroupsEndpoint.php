@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @param int $user NamelessMC ID of user to view
- * @param string array $groups ID of group ids
+ * @param int $user NamelessMC ID of user to add groups to
+ * @param array $groups ID of group ids
  *
  * @return string JSON Array
  */
@@ -26,16 +26,16 @@ class AddGroupsEndpoint extends EndpointBase {
             $api->throwError(17, $api->getLanguage()->get('api', 'unable_to_find_group'), 'No groups provided');
         }
 
-        $log_array = array();
+        $log_array = [];
         $added_groups = [];
         foreach ($groups as $group) {
-            $group_query = $api->getDb()->get('groups', array('id', '=', $group));
+            $group_query = $api->getDb()->get('groups', ['id', '=', $group]);
             if (!$group_query->count()) {
                 continue;
             }
             $group_query = $group_query->first();
 
-            if($user->addGroup($group, 0, $group_query)) {
+            if ($user->addGroup($group, 0, $group_query)) {
                 $added_groups[] = $group;
                 $log_array['added'][] = $group_query->name;
             }
@@ -47,6 +47,6 @@ class AddGroupsEndpoint extends EndpointBase {
             $added_groups
         );
 
-        $api->returnArray(array_merge(array('message' => $api->getLanguage()->get('api', 'group_updated')), $log_array));
+        $api->returnArray(array_merge(['message' => $api->getLanguage()->get('api', 'group_updated')], $log_array));
     }
 }

@@ -10,12 +10,10 @@
  */
 
 if ($user->isLoggedIn()) {
-	Log::getInstance()->log(Log::Action('user/logout'));
-	$user->admLogout();
-	$user->logout();
+    Log::getInstance()->log(Log::Action('user/logout'));
+    $user->admLogout();
+    $user->logout();
 
-	Session::flash('home', $language->get('user', 'successfully_logged_out'));
-	Redirect::to(URL::build('/'));
-} else {
-	Redirect::to(URL::build('/'));
+    Session::flash('home', $language->get('user', 'successfully_logged_out'));
 }
+Redirect::to(URL::build('/'));

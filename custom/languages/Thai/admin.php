@@ -9,7 +9,7 @@
  *  ภาษาไทย Language - Admin
  */
 
-$language = array(
+$language = [
     /*
      *  Admin Control Panel
      */
@@ -28,7 +28,6 @@ $language = array(
     'minecraft' => 'Minecraft',
     'modules' => 'โมดูล',
     'security' => 'ความปลอดภัย',
-    'sitemap' => 'แผนผังเว็บไซต์',
     'styles' => 'สไตล์',
     'users_and_groups' => 'ผู้ใช้และกลุ่ม',
 
@@ -107,7 +106,7 @@ $language = array(
     'delete_email_error' => 'เกิดข้อผิดพลาดในการลบ',
     'confirm_email_error_deletion' => 'คุณแน่ใจหรือไม่ว่าคุณต้องการลบข้อผิดพลาดนี้',
     'viewing_email_error' => 'ข้อผิดพลาดในการดู',
-    'unable_to_write_email_config' => 'ไม่สามารถเขียนไปยังไฟล์ <strong>core/email.php</core>. กรุณาตรวจสอบสิทธิ์ของแฟ้ม',
+    'unable_to_write_email_config' => 'ไม่สามารถเขียนไปยังไฟล์ <strong>core/email.php</strong>. กรุณาตรวจสอบสิทธิ์ของแฟ้ม',
     'enable_mailer' => 'เปิดใช้งาน PHPMailer หรือไม่',
     'enable_mailer_help' => 'เปิดใช้งานสิ่งนี้หากอีเมลไม่ได้ถูกส่งตามค่าเริ่มต้น การใช้ PHPMailer กําหนดให้คุณต้องมีบริการที่สามารถส่งอีเมลเช่น Gmail หรือผู้ให้บริการ SMTP',
     'outgoing_email' => 'ที่อยู่อีเมลส่งออก',
@@ -211,6 +210,8 @@ $language = array(
     'seo' => 'SEO',
     'google_analytics' => 'Google Analytics',
     'google_analytics_help' => 'เพิ่ม Google Analytics ลงในเว็บไซต์ของคุณเพื่อติดตามผู้เข้าชมและสถิติ คุณจะต้องสร้างบัญชี Google Analytics เพื่อใช้ฟังก์ชันนี้ ป้อนรหัสพร็อพเพอร์ตี้เว็บของ Google Analytics รหัสดูเหมือน UA-XXXXA-X และคุณสามารถค้นหาได้ในข้อมูลบัญชีของคุณหรือในรหัสติดตามที่ Google ให้ไว้',
+    'sitemap' => 'แผนผังเว็บไซต์',
+    'seo_settings_updated_successfully' => 'SEO settings updated successfully.',
 
     // Reactions
     'icon' => 'ไอคอน',
@@ -713,9 +714,7 @@ $language = array(
 
     // Dashboard
     'total_users' => 'ผู้ใช้ทั้งหมด',
-    'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'recent_users' => 'ผู้ใช้ใหม่',
-    'recent_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'average_players' => 'ผู้เล่นเฉลี่ย',
     'nameless_news' => 'NamelessMC News',
     'unable_to_retrieve_nameless_news' => 'ไม่สามารถเรียกข้อมูลข่าวสารล่าสุด',
@@ -754,4 +753,6 @@ $language = array(
     'background_colour_required' => 'ต้องใช้สีพื้นหลัง',
     'text_colour_required' => 'ต้องระบุสีข้อความ',
     'no_announcements' => 'ยังไม่มีการประกาศใด ๆ',
-);
+    'announcement_order' => 'Order',
+    'announcement_hook_info' => 'Announcement creation',
+];

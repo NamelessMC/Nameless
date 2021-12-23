@@ -13,7 +13,7 @@ class PermissionHandler {
 
     /**
      *  Register a permission for display in the StaffCP.
-     * 
+     *
      * @param string $section Permission section to add permission to.
      * @param array $permissions List of unique permissions to register.
      */
@@ -33,7 +33,7 @@ class PermissionHandler {
 
     /**
      *  Get all registered permissions.
-     *  
+     *
      * @return array Permission array.
      */
     public static function getPermissions(): array {

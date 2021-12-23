@@ -11,7 +11,7 @@
  *  Translation progress(v2-pr9) : 100%
  */
 
-$language = array(
+$language = [
     /*
      *  Admin Control Panel
      */
@@ -30,7 +30,6 @@ $language = array(
     'minecraft' => 'Minecraft',
     'modules' => '模块',
     'security' => '安全',
-    'sitemap' => '站点地图',
     'styles' => '风格',
     'users_and_groups' => '账号与权限组',
 
@@ -44,7 +43,7 @@ $language = array(
     'notices' => '消息',
     'no_notices' => '无消息.',
     'email_errors_logged' => '邮件错误已被记录',
-    'upgrade_php_version' => 'Please upgrade your PHP version to at least 7.4 - the next Nameless release will no longer support the version you are using.',
+    'upgrade_php_version' => '请将 PHP 更新到 7.4 或以上版本 - NamelessMC 的下一个版本将不再支持您使用的 PHP 版本。',
 
     // Core
     'mode_toggle' => '深色 / 浅色模式',
@@ -92,10 +91,10 @@ $language = array(
     'facebook_url' => 'Facebook 链接 (URL)',
     'social_media_settings_updated' => '社交媒体配置已更新成功。',
     'successfully_updated' => '更新成功',
-    'debugging_and_maintenance' => 'Debugging & 维护模式',
+    'debugging_and_maintenance' => '调试 & 维护模式',
     'maintenance' => '维护模式',
-    'debugging_settings_updated_successfully' => 'Debugging 设置已更新成功。',
-    'enable_debug_mode' => '是否启用 debug 模式?',
+    'debugging_settings_updated_successfully' => '调试设置已更新成功。',
+    'enable_debug_mode' => '是否启用调试模式?',
     'force_https' => '是否强制使用 https?',
     'force_https_help' => '如果启用，对您网站的所有请求都将重定向到 https。您必须具有有效的有效 SSL 证书，此功能才能正常工作。',
     'force_www' => '是否强制使用 www?',
@@ -109,7 +108,7 @@ $language = array(
     'delete_email_error' => '删除时遇到了错误',
     'confirm_email_error_deletion' => '您确定要删除此错误吗?',
     'viewing_email_error' => '预览出错',
-    'unable_to_write_email_config' => '无法去写入 <strong>core/email.php</core>。请检查文件权限。',
+    'unable_to_write_email_config' => '无法去写入 <strong>core/email.php</strong>。请检查文件权限。',
     'enable_mailer' => '是否启用 PHPMailer?',
     'enable_mailer_help' => '如果默认情况下无法发送电子邮件，请启用此功能。使用 PHPMailer 要求您具有能够发送电子邮件的服务，例如 Gmail 或 SMTP 提供程序。',
     'outgoing_email' => '发件箱地址',
@@ -209,8 +208,10 @@ $language = array(
 
     // SEO
     'seo' => 'SEO',
-    'google_analytics' => 'Google 分析',
-    'google_analytics_help' => '您可在网站上添加 Google 分析以了解各项统计数据。您必须先创建一个 Google 分析帐号。请输入您的 Google 分析 Web Property ID。 此 ID 格式为 UA-XXXXA-X，您可在您的帐号信息中找到此 ID。',
+    'google_analytics' => 'Google Analytics (分析)',
+    'google_analytics_help' => '您可在网站上添加 Google Analytics (分析) 以了解各项统计数据。您必须先创建一个 Google Analytics (分析) 帐号。请输入您的 Google Analytics Web Property ID。 此 ID 格式为 UA-XXXXA-X，您可在您的帐号信息中找到此 ID。',
+    'sitemap' => '站点地图',
+    'seo_settings_updated_successfully' => 'SEO settings updated successfully.',
 
     // Reactions
     'icon' => '图标',
@@ -248,7 +249,7 @@ $language = array(
     'field_name' => '资料字段名称',
     'profile_field_required_help' => '用户必须填写必填字段，它们将在注册期间显示。',
     'profile_field_public_help' => '公共字段将显示给所有用户，如果禁用了此属性，则只有主人可以查看该值。',
-    'profile_field_error' => '请输入的空间名（长2-16个字符）',
+    'profile_field_error' => '请输入的空间名 (长 2 - 16 个字符)',
     'description' => '描述',
     'display_field_on_forum' => '是否在论坛允许他人访问您的空间?',
     'profile_field_forum_help' => '如果启用，则该字段将显示在论坛帖子旁边的用户栏那。',
@@ -293,7 +294,7 @@ $language = array(
     'server_address_help' => '这是用于连接服务器的IP地址或域名，不允许包含端口。',
     'server_port' => '服务器端口',
     'parent_server' => '父服务器',
-    'parent_server_help' => '父服务器通常是服务器连接到的Bungee实例（如果有）。',
+    'parent_server_help' => '父服务器通常是服务器连接到的 BungeeCord 实例（如果有）。',
     'no_parent_server' => '无父服务器',
     'bungee_instance' => '是否启用 BungeeCord 实例?',
     'bungee_instance_help' => '如果服务器是 BungeeCord 代理服，请开启这个配置',
@@ -344,7 +345,7 @@ $language = array(
     'updated_mcassoc_successfully' => 'MCAssoc 配置更新成功。',
     'force_premium_accounts' => '是否强制使用 Minecraft 高级帐户?',
     'banner_background' => '条幅背景',
-    'query_interval' => '查询间隔（以分钟为单位，必须在 5 到 60 之间）',
+    'query_interval' => '查询间隔 (以分钟为单位，必须在 5 到 60 之间)',
     'player_graphs' => '玩家图表',
     'player_count_cronjob_info' => '你可以设置一个定时工作以 {x} 分钟为频率来查询服务器,通过以下命令:',
     'status_page' => '是否启用状态页面?',
@@ -531,8 +532,8 @@ $language = array(
     'please_select_logs' => '请选择你要查看的日志',
     'ip_address' => 'IP 地址',
     'template_changes' => '更改模板',
-    'email_logs' => 'Mass Emails',
-    'group_sync_logs' => 'Group Sync Changes',
+    'email_logs' => '邮件广播',
+    'group_sync_logs' => '权限组同步变更',
     'file_changed' => '更改文件',
     'all_logs' => '所有日志',
     'action' => '操作',
@@ -714,9 +715,7 @@ $language = array(
 
     // Dashboard
     'total_users' => '总用户量',
-    'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'recent_users' => '在线用户量',
-    'recent_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'recent_topics' => '话题量',
     'recent_posts' => '帖子数',
     'average_players' => '普通玩家',
@@ -756,4 +755,6 @@ $language = array(
     'background_colour_required' => '背景颜色为必填项',
     'text_colour_required' => '文字颜色为必填项',
     'no_announcements' => '还没有任何公告呢!',
-);
+    'announcement_order' => 'Order',
+    'announcement_hook_info' => 'Announcement creation',
+];

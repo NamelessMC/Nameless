@@ -13,7 +13,7 @@
  *  https://github.com/haer0248/NamelessMC-v2-Traditional-Chinese/issues
  */
 
-$language = array(
+$language = [
     /*
      *  Installation
      */
@@ -107,4 +107,4 @@ $language = array(
     'config_not_writable' => 'The config file is not writable.',
 
     'session_doesnt_exist' => 'Unable to detect session. Sessions saving are a requirement to use Nameless. Please try again after clearing cookies in your web browser, and if the issue persists, please contact your web host for support.'
-);
+];

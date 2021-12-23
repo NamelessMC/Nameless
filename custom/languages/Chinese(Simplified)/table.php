@@ -11,7 +11,7 @@
  *  Translation progress(v2-pr9) : 100%
  */
 
-$language = array(
+$language = [
     /*
      *  Tables
      */
@@ -20,4 +20,4 @@ $language = array(
     'page_x_of_y' => '显示页 _PAGE_ / _PAGES_', // Don't replace "_PAGE_" or "_PAGES_"
     'no_records' => '无可用记录',
     'filtered' => '(从 _MAX_ 个总记录中过滤)' // Don't replace "_MAX_"
-);
+];

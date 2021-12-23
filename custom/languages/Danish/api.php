@@ -9,7 +9,7 @@
  *  Danish Language - General terms
  */
 
-$language = array(
+$language = [
 
     // Errors
     'api_disabled' => 'API er deaktiveret',
@@ -51,4 +51,4 @@ $language = array(
     'username_updated' => 'Brugernavn opdateret',
     'server_info_updated' => 'Server info opdateret',
     'account_validated' => 'Konto valideret',
-);
+];

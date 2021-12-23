@@ -3,15 +3,24 @@ parameters:
     paths:
         - ./
     excludePaths:
-        - core/includes/
         - cache/
-# Ignore notices which are thrown due to the procedural nature of Nameless
+        - vendor/
+    # Ignore notices which are thrown due how nameless is written
     ignoreErrors:
+        # prodecural programming :^)
         - '#might not be defined#'
         - '#Constant#'
-        - '#in isset\(\) always exists and is not nullable#'
         - '#Undefined variable:#'
+        # when we require() files
         - '#in isset\(\) is never defined.#'
+        # `Instanceable` classes
+        - '#Unsafe usage of new static\(\).#'
+        # $queries->getWhere()->{$property}
+        - '#Access to an undefined property#'
+        # because php is dumb
+        - '#Call to an undefined method ReflectionType::getName\(\).#'
+        - '#Call to an undefined method ReflectionType::isBuiltin\(\).#'
+    reportUnmatchedIgnoredErrors: false
     # Autoload classes
     scanDirectories:
         - core/classes
@@ -19,15 +28,6 @@ parameters:
         - modules/Discord Integration/classes
         - modules/Forum/classes
     scanFiles:
-        - core/includes/bulletproof/bulletproof.php
-        - core/includes/sitemapphp/Sitemap.php
+        - modules/Core/pages/api/v2/index.php
     bootstrapFiles:
-        - core/includes/emojione/autoload.php
-        - core/includes/htmlpurifier/HTMLPurifier.standalone.php
-        - core/includes/markdown/tohtml/Markdown.inc.php
-        - core/includes/markdown/tohtml/MarkdownExtra.inc.php
-        - core/includes/markdown/tomarkdown/autoload.php
-        - core/includes/phpmailer/PHPMailerAutoload.php
-        - core/includes/smarty/bootstrap.php
-        - core/includes/tfa/autoload.php
         - core/includes/phpass.php

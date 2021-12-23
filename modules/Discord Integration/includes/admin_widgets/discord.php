@@ -23,14 +23,15 @@ if (Input::exists()) {
         $success = $language->get('admin', 'widget_updated');
 
     } else {
-        $errors = array($language->get('general', 'invalid_token'));
+        $errors = [$language->get('general', 'invalid_token')];
     }
 }
 
-if ($cache->isCached('discord_widget_theme'))
+if ($cache->isCached('discord_widget_theme')) {
     $discord_theme = $cache->retrieve('discord_widget_theme');
-else
+} else {
     $discord_theme = 'dark';
+}
 
 if (isset($errors) && count($errors)) {
     $smarty->assign([
@@ -38,10 +39,10 @@ if (isset($errors) && count($errors)) {
     ]);
 }
 
-$smarty->assign(array(
+$smarty->assign([
     'DISCORD_THEME' => Discord::getLanguageTerm('discord_widget_theme'),
     'DISCORD_THEME_VALUE' => $discord_theme,
     'SETTINGS_TEMPLATE' => 'discord_integration/widgets/discord.tpl',
     'DARK' => $language->get('admin', 'dark'),
     'LIGHT' => $language->get('admin', 'light')
-));
+]);

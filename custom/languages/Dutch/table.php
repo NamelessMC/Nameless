@@ -11,7 +11,7 @@
  *  Nederlandse taal - Lijst
  */
 
-$language = array(
+$language = [
     /*
      *  Lijsten
      */
@@ -20,4 +20,4 @@ $language = array(
     'page_x_of_y' => 'Pagina _PAGE_ van de _PAGES_', // Verander "_PAGE_" of "_PAGES_ niet"
     'no_records' => 'Geen gegevens beschikbaar',
     'filtered' => '(gefilterd van de _MAX_ totale gegevens)' // Verander "_MAX_ niet"
-);
+];

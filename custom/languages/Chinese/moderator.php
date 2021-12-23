@@ -1,19 +1,19 @@
 <?php
- /*
- *  Made by Samerton
- *  Translation  by Hi_Michael
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
- *
- *  License: MIT
- *
- *  Chinese Language - Moderator terms
- *  Translation progress : 100%
- *  翻譯有誤請使用GitHun回報issues
- *  https://github.com/haer0248/NamelessMC-v2-Traditional-Chinese/issues
- */
+/*
+*  Made by Samerton
+*  Translation  by Hi_Michael
+*  https://github.com/NamelessMC/Nameless/
+*  NamelessMC version 2.0.0-pr8
+*
+*  License: MIT
+*
+*  Chinese Language - Moderator terms
+*  Translation progress : 100%
+*  翻譯有誤請使用GitHun回報issues
+*  https://github.com/haer0248/NamelessMC-v2-Traditional-Chinese/issues
+*/
 
-$language = array(
+$language = [
     'mod_cp' => '控制者後台',
     'staff_cp' => 'StaffCP',
     'overview' => '總覽',
@@ -110,4 +110,4 @@ $language = array(
     'recent_registrations' => 'Recent Registrations',
     'reset_profile_banner' => 'Reset Profile Banner'
 
-);
+];

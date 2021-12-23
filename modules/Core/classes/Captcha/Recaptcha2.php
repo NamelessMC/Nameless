@@ -1,4 +1,5 @@
 <?php
+
 /*
  *	Made by Samerton
  *
@@ -9,13 +10,14 @@
  *
  *  Recaptcha2 class
  */
+
 class Recaptcha2 extends CaptchaBase {
 
     /**
      * Recaptcha2 constructor
-     * 
-     * @param string $privateKey
-     * @param string $publicKey
+     *
+     * @param string|null $privateKey
+     * @param string|null $publicKey
      */
     public function __construct(?string $privateKey, ?string $publicKey) {
         $this->_name = 'Recaptcha2';
@@ -29,15 +31,7 @@ class Recaptcha2 extends CaptchaBase {
         $url = 'https://www.google.com/recaptcha/api/siteverify';
         $post_data = 'secret=' . $this->getPrivateKey() . '&response=' . $token;
 
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-
-        $result = curl_exec($ch);
-
-        $result = json_decode($result, true);
+        $result = json_decode(HttpClient::post($url, $post_data)->data(), true);
 
         return $result['success'] == 'true';
     }
@@ -50,7 +44,7 @@ class Recaptcha2 extends CaptchaBase {
         return 'https://www.google.com/recaptcha/api.js';
     }
 
-    public function getJavascriptSubmit(string $id) {
+    public function getJavascriptSubmit(string $id): ?string {
         return null;
     }
 }

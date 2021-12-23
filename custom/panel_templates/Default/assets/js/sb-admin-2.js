@@ -5,6 +5,10 @@
  * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-sb-admin-2/blob/master/LICENSE)
  */
 
+$('[data-toggle="tooltip"]').tooltip({
+    trigger : 'hover'
+})
+
 !(function(s) {
     "use strict";
     s(window).resize(function() {

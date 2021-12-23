@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  *  Made by Samerton
  *  Translate By Hi_Michael
@@ -13,10 +13,10 @@
  *  https://github.com/haer0248/NamelessMC-v2-Traditional-Chinese/issues
  */
 
-$language = array(
+$language = [
     /*
      *  Forums
-     */ 
+     */
     'forum' => '論壇',
     'forums' => '論壇',
     'forum_index' => '首頁',
@@ -99,11 +99,11 @@ $language = array(
     'new_reply_in_topic' => '{x} has replied to topic {y}', // Don't replace {x} (username) or {y} (topic title)
     'started_by_x' => 'Started by {x}', // Don't replace {x}
     'sticky_topics' => 'Sticky Topics',
-    
+
     // Homepage
     'latest_announcements' => '最新公告',
     'read_full_post' => '閱讀全部',
-    
+
     // Admin tab
     'labels' => '標籤',
     'new_forum' => '<i class="fa fa-plus-circle"></i> 新論壇',
@@ -187,7 +187,7 @@ $language = array(
     'new_search' => '新搜尋',
     'invalid_search_query' => '搜尋限制 3~128 字元.',
     'no_results_found' => '找不到資料.',
-    
+
     // Profile tab
     'user_no_posts' => '使用者尚未在論壇發布貼文.',
     'latest_posts' => '最新文章',
@@ -216,4 +216,4 @@ $language = array(
     'recent_posts_statistic_icon' => '<i class="far fa-comments"></i>',
     'topics_title' => 'Topics',
     'posts_title' => 'Posts',
-);
+];

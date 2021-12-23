@@ -9,7 +9,7 @@
  *  Italian Language - API
  */
 
-$language = array(
+$language = [
 
     // Errors
     'api_disabled' => 'API is disabled',
@@ -30,14 +30,14 @@ $language = array(
     'unable_to_create_account' => "Impossibile creare l'account",
     'unable_to_send_registration_email' => "Impossibile inviare la mail di registrazione, per favore contatta un'admin per attivare il tuo account",
     'unable_to_find_user' => "Impossibile trovare l'utente",
-    'unable_to_find_group' => "Impossibile trovare il gruppo",
+    'unable_to_find_group' => 'Impossibile trovare il gruppo',
     'unable_to_update_group' => "Impossibile aggiornare il gruppo dell'utente",
     'report_content_too_long' => 'Il contenuto della segnalazione deve essere di 255 caratteri o meno',
     'cannot_report_yourself' => 'Non puoi segnalare te stesso.',
     'you_have_been_banned_from_website' => 'Sei stato bannato dal sito',
     'you_have_open_report_already' => 'Hai già una segnalazione aperta su questo giocatore',
     'unable_to_create_report' => 'Impossibile creare la segnalazione',
-    'unable_to_update_username' => "Impossibile aggiornare il nome utente",
+    'unable_to_update_username' => 'Impossibile aggiornare il nome utente',
     'unable_to_update_server_info' => 'Impossibile aggiornare le info del server',
     'invalid_server_id' => 'ID del server non valido',
     'invalid_code' => 'Il codice fornito non è valido',
@@ -48,8 +48,7 @@ $language = array(
     'finish_registration_email' => 'Controlla la tua email per completare la registrazione.',
     'group_updated' => 'Gruppo aggiornato con successo',
     'report_created' => 'Segnalazione creata con successo',
-    'new_private_message_from' => 'Nuovo messaggio privato da {x}', // Don't replace {x}
     'username_updated' => 'Username aggiornato con successo',
     'server_info_updated' => 'Info del server aggiornate con successo',
     'account_validated' => 'Account validato con successo',
-);
+];

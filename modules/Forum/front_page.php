@@ -17,14 +17,14 @@ if ($cache->isCached('news')) {
     $forum = new Forum();
     $timeago = new TimeAgo(TIMEZONE);
 
-    $latest_news = $forum->getLatestNews(5); // Get latest 5 items
+    $latest_news = $forum->getLatestNews(); // Get latest 5 items
 
-    $news = array();
+    $news = [];
 
     foreach ($latest_news as $item) {
         $post_user = new User($item['author']);
 
-        $news[] = array(
+        $news[] = [
             'id' => $item['topic_id'],
             'url' => URL::build('/forum/topic/' . $item['topic_id'] . '-' . $forum->titleToURL($item['topic_title'])),
             'date' => date('d M Y, H:i', strtotime($item['topic_date'])),
@@ -43,7 +43,7 @@ if ($cache->isCached('news')) {
             'content' => Output::getPurified($item['content']),
             'label' => $item['label'],
             'labels' => $item['labels']
-        );
+        ];
     }
 
     $cache->store('news', $news, 60);

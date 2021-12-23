@@ -14,7 +14,7 @@
  *  Japanese Language - Users
  */
 
-$language = array(
+$language = [
     /*
      *  Change this for the account validation message
      */
@@ -242,4 +242,4 @@ $language = array(
      */
     'user_x_has_registered' => '{x}が' . SITE_NAME . 'に登録しました。',
     'user_x_has_validated' => '{x}がアカウントを認証しました！',
-);
+];

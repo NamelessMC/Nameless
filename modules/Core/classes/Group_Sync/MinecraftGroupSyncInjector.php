@@ -1,7 +1,6 @@
 <?php
 
-class MinecraftGroupSyncInjector implements GroupSyncInjector
-{
+class MinecraftGroupSyncInjector implements GroupSyncInjector {
 
     public function getModule(): string {
         return 'Core';
@@ -23,13 +22,9 @@ class MinecraftGroupSyncInjector implements GroupSyncInjector
         return count($this->getSelectionOptions()) > 0;
     }
 
-    public function getNotEnabledMessage(Language $language): string {
-        return $language->get('admin', 'group_sync_plugin_not_set_up');
-    }
-
     public function getSelectionOptions(): array {
         $groups_query = json_decode(
-            DB::getInstance()->selectQuery("SELECT `groups` FROM `nl2_query_results` ORDER BY `id` DESC LIMIT 1")->first()->groups,
+            DB::getInstance()->selectQuery('SELECT `groups` FROM `nl2_query_results` ORDER BY `id` DESC LIMIT 1')->first()->groups,
             true
         );
 
@@ -47,6 +42,10 @@ class MinecraftGroupSyncInjector implements GroupSyncInjector
         }
 
         return $groups;
+    }
+
+    public function getNotEnabledMessage(Language $language): string {
+        return $language->get('admin', 'group_sync_plugin_not_set_up');
     }
 
     public function getValidationRules(): array {

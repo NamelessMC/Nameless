@@ -12,9 +12,9 @@
 class Pages {
 
     private array $_pages;
-	private array $_active_page;
-    private array $_sm_methods;
-    private array $_ajax_requests = array();
+    private array $_active_page;
+    private array $_sm_methods = [];
+    private array $_ajax_requests = [];
 
     private int $_id = 1;
 
@@ -28,13 +28,13 @@ class Pages {
      * @param bool $widgets Can widgets be used on the page? Default false.
      */
     public function add(string $module, string $url, string $file, string $name = '', bool $widgets = false): void {
-        $this->_pages[$url] = array(
+        $this->_pages[$url] = [
             'module' => $module,
             'file' => $file,
             'name' => $name,
             'widgets' => $widgets,
             'id' => $this->_id++
-        );
+        ];
     }
 
     /**
@@ -42,22 +42,22 @@ class Pages {
      *
      * @param string $url URL string.
      * @param string $name Name of page.
-     * @param bool|null $widgets Can widgets be used on the page? Default false.
+     * @param bool $widgets Can widgets be used on the page? Default false.
      */
     public function addCustom(string $url, string $name, bool $widgets = false) {
-        $this->_pages[$url] = array(
+        $this->_pages[$url] = [
             'module' => 'Core',
             'file' => 'custom.php',
             'name' => $name,
             'widgets' => $widgets,
             'custom' => true,
             'id' => $this->_id++
-        );
+        ];
     }
 
     /**
      * Get array of all pages.
-     * 
+     *
      * @return array All pages.
      */
     public function returnPages(): array {
@@ -66,11 +66,11 @@ class Pages {
 
     /**
      * Return pages which allow widgets.
-     * 
+     *
      * @return array All pages which allow widgets.
      */
     public function returnWidgetPages(): array {
-        $ret = array();
+        $ret = [];
 
         foreach ($this->_pages as $page) {
             if (!empty($page['name']) && $page['widgets'] === true) {
@@ -87,7 +87,7 @@ class Pages {
     public function registerSitemapMethod(string $file, string $method): void {
         if ($file && $method) {
             if (!isset($this->_sm_methods[$file])) {
-                $this->_sm_methods[$file] = array();
+                $this->_sm_methods[$file] = [];
             }
 
             $this->_sm_methods[$file] = $method;
@@ -96,7 +96,7 @@ class Pages {
 
     /**
      * Get registered sitemap methods.
-     * 
+     *
      * @return array Array of sitemap methods.
      */
     public function getSitemapMethods(): array {
@@ -106,11 +106,11 @@ class Pages {
     /**
      * Get page by ID
      *
-     * @param int $page_id ID of page to find.
-     * 
+     * @param int|null $page_id ID of page to find.
+     *
      * @return array Page information.
      */
-    public function getPageById(int $page_id = null): array {
+    public function getPageById(int $page_id = null): ?array {
         if ($page_id) {
             foreach ($this->_pages as $key => $page) {
                 if ($page['id'] == $page_id) {
@@ -126,15 +126,15 @@ class Pages {
     /**
      * Get page by URL.
      *
-     * @param string $url URL of page to find.
-     * 
+     * @param string|null $url URL of page to find.
+     *
      * @return array Page information.
      */
-    public function getPageByURL(string $url = null): array {
+    public function getPageByURL(string $url = null): ?array {
         if ($url) {
             foreach ($this->_pages as $key => $page) {
                 if ($key == $url) {
-					$page['key'] = $key;
+                    $page['key'] = $key;
                     return $page;
                 }
             }
@@ -144,26 +144,26 @@ class Pages {
     }
 
     /**
-     * Set the page the user currently viewing.
-     */
-	public function setActivePage(array $page):  void {
-		$this->_active_page = $page;
-	}
-
-    /**
      * Get the page details the user currently viewing.
      * Not used internally.
      *
      * @return array Details of current page.
      */
-	public function getActivePage(): array {
-		return $this->_active_page;
-	}
+    public function getActivePage(): array {
+        return $this->_active_page;
+    }
+
+    /**
+     * Set the page the user currently viewing.
+     */
+    public function setActivePage(array $page): void {
+        $this->_active_page = $page;
+    }
 
     /**
      * Add a script for Javascript to perform a GET request to.
      *
-     * @param string $script URL of js script to add.
+     * @param string|null $script URL of js script to add.
      */
     public function addAjaxScript(string $script = null): void {
         if ($script) {

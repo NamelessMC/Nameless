@@ -10,7 +10,7 @@
  *  Lithuanian Language - Moderator terms
  */
 
-$language = array(
+$language = [
     // General
     'mod_cp' => 'ModCP',
     'staff_cp' => 'StaffCP',
@@ -107,4 +107,4 @@ $language = array(
     // Users
     'recent_registrations' => 'Naujausios Registracijos',
     'reset_profile_banner' => 'Reset Profile Banner'
-);
+];

@@ -9,7 +9,7 @@
  *  French Language - Users
  */
 
-$language = array(
+$language = [
     /*
      *  Admin Control Panel
      */
@@ -28,7 +28,6 @@ $language = array(
     'minecraft' => 'Minecraft',
     'modules' => 'Modules',
     'security' => 'Securité',
-    'sitemap' => 'Plan du site',
     'styles' => 'Styles',
     'users_and_groups' => 'Utilisateurs et groupes',
 
@@ -99,7 +98,7 @@ $language = array(
     'delete_email_error' => 'Erreur suppression',
     'confirm_email_error_deletion' => 'Êtes-vous sûr de vouloir supprimer cette erreur ?',
     'viewing_email_error' => 'Voir l\'erreur',
-    'unable_to_write_email_config' => 'Impossible d\'écrire sur le fichier <strong>core/email.php</core>. Veuillez vérifier les permissions du fichier.',
+    'unable_to_write_email_config' => 'Impossible d\'écrire sur le fichier <strong>core/email.php</strong>. Veuillez vérifier les permissions du fichier.',
     'enable_mailer' => 'Activer PHPMailer ?',
     'enable_mailer_help' => 'Activez ceci si les e-mails ne sont pas envoyés par défaut. L’utilisation de PHPMailer nécessite que vous ayez un service capable d’envoyer des courriels, comme Gmail ou un fournisseur SMTP.',
     'outgoing_email' => 'Adresse mail de sortie',
@@ -183,6 +182,8 @@ $language = array(
     'seo' => 'SEO',
     'google_analytics' => 'Google Analytics',
     'google_analytics_help' => 'Ajoutez Google Analytics à votre site Web pour suivre les visiteurs et les statistiques. Vous devrez créer un compte Google Analytics pour utiliser cette fonctionnalité. Saisissez votre ID de propriété Web Google Analytics. L\'ID ressemble à UA-XXXXA-X et vous pouvez le trouver dans les informations de votre compte ou dans le code de suivi fourni par Google.',
+    'sitemap' => 'Plan du site',
+    'seo_settings_updated_successfully' => 'SEO settings updated successfully.',
 
     // Reactions
     'icon' => 'Icône',
@@ -657,9 +658,7 @@ Vous devriez configurer votre groupe par défaut pour avoir des autorisations li
 
     // Dashboard
     'total_users' => 'Nombre total d’utilisateurs',
-    'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'recent_users' => 'Nouveaux utilisateurs',
-    'recent_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'average_players' => 'Joueurs moyens',
     'nameless_news' => 'Nouvelles NamelessMC',
     'unable_to_retrieve_nameless_news' => 'Impossible de récupérer les dernières nouvelles',
@@ -691,10 +690,12 @@ Vous devriez configurer votre groupe par défaut pour avoir des autorisations li
     'background_colour_required' => 'La couleur de fond est requise',
     'text_colour_required' => 'La couleur du texte est requise',
     'no_announcements' => 'Aucune annonce n\'a encore été faite.',
+    'announcement_order' => 'Order',
+    'announcement_hook_info' => 'Announcement creation',
 
     // Other
     'source' => 'Source',
     'support' => 'Support',
     'admin_dir_still_exists' => 'Attention ! Le répertoire <strong>modules/Core/pages/admin</strong> existe toujours. Veuillez supprimer ce répertoire.',
     'mod_dir_still_exists' => 'Attention ! Le répertoire <strong>modules/Core/pages/mod</strong> existe toujours. Veuillez supprimer ce répertoire.',
-);
+];

@@ -15,20 +15,21 @@ class GetAnnouncementsEndpoint extends EndpointBase {
     }
 
     public function execute(Nameless2API $api) {
-        if (isset($_GET['id']) && is_numeric($_GET['id'])) {
-            $tempUser = $api->getUser('id', $_GET['id']);
+        if (isset($_GET['user_id']) && is_numeric($_GET['user_id'])) {
+            $tempUser = $api->getUser('id', $_GET['user_id']);
         } else {
             $tempUser = null;
         }
 
-        $user_announcements = array();
+        $user_announcements = [];
 
         $announcements = new Announcements(
             new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/'])
         );
 
         foreach ($announcements->getAvailable('api', null, $tempUser != null ? $tempUser->getAllGroupIds(false) : [0]) as $announcement) {
-            $user_announcements[(int) $announcement->id] = [
+            $user_announcements[] = [
+                'id' => (int)$announcement->id,
                 'header' => Output::getClean($announcement->header),
                 'message' => Output::getPurified($announcement->message),
                 'pages' => json_decode($announcement->pages),
@@ -36,6 +37,6 @@ class GetAnnouncementsEndpoint extends EndpointBase {
             ];
         }
 
-        $api->returnArray(array('announcements' => $user_announcements));
+        $api->returnArray(['announcements' => $user_announcements]);
     }
 }

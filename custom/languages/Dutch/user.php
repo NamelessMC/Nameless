@@ -11,7 +11,7 @@
  *  Nederlandse taal - Gebruikers
  */
 
-$language = array(
+$language = [
     /*
      *  Change this for the account validation message
      */
@@ -147,12 +147,12 @@ $language = array(
     'email_or_username' => 'E-mail of gebruikersnaam',
 
     // Forgot password
-       'forgot_password_instructions' => 'Graag je email adres invoeren zodat we verdere instructies kunnen sturen om je wachtwoord te herstellen.',
-       'forgot_password_email_sent' => 'Als een account met dit email adres bestaat, is er een email verstuurt met daarin verdere instructies. Als je hem niet kan vinden, bekijk dan ook de spam/junk/ongewenste map.',
-       'unable_to_send_forgot_password_email' => 'Kon vergeten wachtwoord email niet verzenden. Graag contact opnemen met een administrator.',
-       'enter_new_password' => 'Graag je email bevestigen en een nieuw wachtwoord invoeren.',
-       'incorrect_email' => 'Het email adres dat is ingevoerd komt niet overeen met het verzoek.',
-       'forgot_password_change_successful' => 'Je wachtwoord is succesvol veranderd. Je kan nu inloggen.',
+    'forgot_password_instructions' => 'Graag je email adres invoeren zodat we verdere instructies kunnen sturen om je wachtwoord te herstellen.',
+    'forgot_password_email_sent' => 'Als een account met dit email adres bestaat, is er een email verstuurt met daarin verdere instructies. Als je hem niet kan vinden, bekijk dan ook de spam/junk/ongewenste map.',
+    'unable_to_send_forgot_password_email' => 'Kon vergeten wachtwoord email niet verzenden. Graag contact opnemen met een administrator.',
+    'enter_new_password' => 'Graag je email bevestigen en een nieuw wachtwoord invoeren.',
+    'incorrect_email' => 'Het email adres dat is ingevoerd komt niet overeen met het verzoek.',
+    'forgot_password_change_successful' => 'Je wachtwoord is succesvol veranderd. Je kan nu inloggen.',
 
     // Profiel paginas
     'profile' => 'Profiel',
@@ -239,4 +239,4 @@ $language = array(
      */
     'user_x_has_registered' => '{x} is lid geworden van ' . SITE_NAME . '!',
     'user_x_has_validated' => '{x} heeft hun account gevalideerd!',
-);
+];

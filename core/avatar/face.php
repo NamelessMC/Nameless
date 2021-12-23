@@ -8,16 +8,18 @@ Twitter:    @jamiebicknell
 Modified by Samerton for NamelessMC
 */
 
-require('../classes/Cache.php');
+require '../classes/Core/Cache.php';
+require '../classes/Core/HttpClient.php';
+
 $cache = new Cache();
 
 $size = isset($_GET['s']) ? max(8, min(250, $_GET['s'])) : 48;
 $user = $_GET['u'] ?? '';
 $view = isset($_GET['v']) ? substr($_GET['v'], 0, 1) : 'f';
-$view = in_array($view, array('f', 'l', 'r', 'b')) ? $view : 'f';
+$view = in_array($view, ['f', 'l', 'r', 'b']) ? $view : 'f';
 
 function get_skin($user, $cache) {
-    
+
     // Check cache
     $cache->setCache('avatarCache_' . $user);
     if ($cache->isCached($user)) {
@@ -48,13 +50,8 @@ function get_skin($user, $cache) {
     $output .= 'Ne9AAAAAElFTkSuQmCC';
     $output = base64_decode($output);
     if ($user != '') {
-        $ch = curl_init('https://sessionserver.mojang.com/session/minecraft/profile/' . $user);
 
-        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        $result = curl_exec($ch);
-
-        $json = json_decode($result);
+        $json = json_decode(HttpClient::get('https://sessionserver.mojang.com/session/minecraft/profile/' . $user)->data());
 
         if (isset($json->properties[0]->value)) {
             $texture = base64_decode($json->properties[0]->value);
@@ -62,15 +59,9 @@ function get_skin($user, $cache) {
             $json_texture = json_decode($texture);
 
             if (isset($json_texture->textures->SKIN->url)) {
-                $ch = curl_init($json_texture->textures->SKIN->url);
-
-                curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                $output = curl_exec($ch);
+                $output = HttpClient::get($json_texture->textures->SKIN->url)->data();
             }
         }
-
-        curl_close($ch);
     }
 
     // Cache image
@@ -87,7 +78,7 @@ if ($skin != 'cached') {
     $im = imagecreatefromstring($skin);
     $av = imagecreatetruecolor($size, $size);
 
-    $x = array('f' => 8, 'l' => 16, 'r' => 0, 'b' => 24);
+    $x = ['f' => 8, 'l' => 16, 'r' => 0, 'b' => 24];
 
     imagecopyresized($av, $im, 0, 0, $x[$view], 8, $size, $size, 8, 8);         // Face
     imagecolortransparent($im, imagecolorat($im, 63, 0));                       // Black Hat Issue
@@ -105,7 +96,7 @@ if ($skin != 'cached') {
     imagedestroy($av);
 } else {
     // Output - already cached
-    $im = imagecreatefrompng("cache/" . $user  . ".png");
+    $im = imagecreatefrompng('cache/' . $user . '.png');
     header('Content-type: image/png');
     imagepng($im);
     imagedestroy($im);

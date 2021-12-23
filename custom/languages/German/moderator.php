@@ -10,7 +10,7 @@
  *  German Language - Moderator terms
  */
 
-$language = array(
+$language = [
     'mod_cp' => 'ModCP',
     'staff_cp' => 'StaffCP',
     'overview' => 'Überblick',
@@ -76,7 +76,6 @@ $language = array(
     'viewing_user_x' => '{x} Benutzer anzeigen', // Don't replace {x}
     'previous_punishments' => 'Vorherige Bestrafungen',
     'no_previous_punishments' => 'Keine vorherigen bestrafungen',
-    'reset_avatar' => 'Reset Avatar',
     'warning' => 'Verwarnung',
     'ip_ban' => 'IP Ban',
     'reason' => 'Grund',
@@ -108,4 +107,4 @@ $language = array(
     'recent_registrations' => 'Aktuelle Registrierungen',
     'reset_profile_banner' => 'Profilbanner zurücksetzen'
 
-);
+];

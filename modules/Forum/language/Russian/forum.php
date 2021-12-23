@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -10,7 +10,7 @@
  *  https://github.com/0niel
  */
 
-$language = array(
+$language = [
     /*
      *  Forums
      */
@@ -208,9 +208,7 @@ $language = array(
 
     // Panel statistics
     'recent_topics' => 'Последние топики',
-    'recent_topics_statistic_icon' => '<i class="fas fa-comment"></i>',
     'recent_posts' => 'Последние посты',
-    'recent_posts_statistic_icon' => '<i class="far fa-comments"></i>',
     'topics_title' => 'Топики',
     'posts_title' => 'Посты',
-);
+];

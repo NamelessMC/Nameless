@@ -9,53 +9,45 @@
 
 class DiscordHook {
 
-    public static function execute(array $params = array()): void {
+    public static function execute(array $params = []): void {
         // Ensure hook is compatible
-        $return = array();
+        $return = [];
         if ($params['event'] == 'registerUser') {
             $return['username'] = SITE_NAME;
             $return['content'] = '';
-            $return['embeds'] = array(array(
-                'author' => array(
+            $return['embeds'] = [[
+                'author' => [
                     'name' => Output::getClean($params['username']),
                     'url' => $params['url'],
                     'icon_url' => $params['avatar_url']
-                ),
+                ],
                 'description' => str_replace('{x}', Output::getClean($params['username']), $params['language']->get('user', 'user_x_has_registered'))
-            ));
+            ]];
         } else {
-            $content = html_entity_decode(str_replace(array('&nbsp;', '&bull;'), array(' ', ''), $params['content_full']));
+            $content = html_entity_decode(str_replace(['&nbsp;', '&bull;'], [' ', ''], $params['content_full']));
             if (mb_strlen($content) > 512) {
                 $content = mb_substr($content, 0, 512) . '...';
             }
 
             $return['username'] = $params['username'] . ' | ' . SITE_NAME;
             $return['avatar_url'] = $params['avatar_url'];
-            $return['embeds'] = array(array(
-                'description' =>  $content,
+            $return['embeds'] = [[
+                'description' => $content,
                 'title' => $params['title'],
                 'url' => $params['url'],
-                'footer' => array('text' => $params['content'])
-            ));
+                'footer' => ['text' => $params['content']]
+            ]];
         }
 
         $json = json_encode($return, JSON_UNESCAPED_SLASHES);
 
-        $ch = curl_init();
+        $httpClient = HttpClient::post($params['webhook'], $json);
 
-        curl_setopt($ch, CURLOPT_URL, $params['webhook']);
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
+        $response = json_decode($httpClient->data(), true);
 
-        $response = curl_exec($ch);
-        $response = json_decode($response, true);
-
-        if (curl_getinfo($ch, CURLINFO_HTTP_CODE) != 204)
-            trigger_error($response['message'], E_USER_NOTICE);
+        if ($httpClient->getStatus() != 204) {
+            trigger_error($response['message']);
+        }
 
         curl_close($ch);
     }

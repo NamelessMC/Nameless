@@ -1,4 +1,5 @@
 <?php
+
 /*
  *	Made by Partydragen
  *  Updated by BrightSkyz
@@ -9,19 +10,21 @@
  *
  *  Discord Widget
  */
+
 class DiscordWidget extends WidgetBase {
 
     private Cache $_cache;
     private ?int $_guild_id;
 
-    public function __construct(array $pages = array(), Cache $cache) {
+    public function __construct(array $pages, Cache $cache, Smarty $smarty) {
         $this->_cache = $cache;
         $this->_guild_id = Discord::getGuildId();
+        $this->_smarty = $smarty;
 
-        parent::__construct($pages);
+        parent::__construct($pages, true);
 
         // Get widget
-        $widget_query = DB::getInstance()->selectQuery('SELECT `location`, `order` FROM nl2_widgets WHERE `name` = ?', array('Discord'))->first();
+        $widget_query = DB::getInstance()->selectQuery('SELECT `location`, `order` FROM nl2_widgets WHERE `name` = ?', ['Discord'])->first();
 
         // Set widget variables
         $this->_module = 'Discord Integration';
@@ -40,15 +43,7 @@ class DiscordWidget extends WidgetBase {
             $result = $this->_cache->retrieve('discord_widget_check');
 
         } else {
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
-            curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-            curl_setopt($ch, CURLOPT_URL, "https://discord.com/api/guilds/" . Output::getClean($this->_guild_id) . "/widget.json");
-            $result = curl_exec($ch);
-            $result = json_decode($result);
-            curl_close($ch);
+            $result = json_decode(HttpClient::get('https://discord.com/api/guilds/' . Output::getClean($this->_guild_id) . '/widget.json')->data());
 
             // Cache for 60 seconds
             $this->_cache->store('discord_widget_check', $result, 60);
@@ -63,8 +58,9 @@ class DiscordWidget extends WidgetBase {
             // No, it isn't: display the widget
             // Check cache for theme
             $theme = 'dark';
-            if($this->_cache->isCached('discord_widget_theme'))
+            if ($this->_cache->isCached('discord_widget_theme')) {
                 $theme = $this->_cache->retrieve('discord_widget_theme');
+            }
 
             $this->_content = '<iframe src="https://discord.com/widget?id=' . Output::getClean($this->_guild_id) . '&theme=' . Output::getClean($theme) . '" width="100%" height="500" allowtransparency="true" frameborder="0"></iframe><br />';
 

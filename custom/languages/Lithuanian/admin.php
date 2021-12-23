@@ -10,7 +10,7 @@
  *  Lithuanian Language - Admin
  */
 
-$language = array(
+$language = [
     // Login
     're-authenticate' => 'Prašome patvirtinkite dar kartą',
 
@@ -25,7 +25,6 @@ $language = array(
     'minecraft' => 'Minecraft',
     'modules' => 'Moduliai',
     'security' => 'Apsauga',
-    'sitemap' => 'Svetainės Schema',
     'styles' => 'Stiliai',
     'users_and_groups' => 'Vartotojai ir Grupės',
 
@@ -96,7 +95,7 @@ $language = array(
     'delete_email_error' => 'Ištrinti klaidą',
     'confirm_email_error_deletion' => 'Ar tikrai norite ištrinti šią klaidą?',
     'viewing_email_error' => 'Klaidos peržiūra',
-    'unable_to_write_email_config' => 'Nepavyko įrašyti į failą <strong>core/email.php</core>. Patikrinkite failų leidimus.',
+    'unable_to_write_email_config' => 'Nepavyko įrašyti į failą <strong>core/email.php</strong>. Patikrinkite failų leidimus.',
     'enable_mailer' => 'Įjungti PHPMailer?',
     'enable_mailer_help' => 'Įjunkite tai, jei el. Laiškai nebus siunčiami pagal numatytuosius nustatymus. Naudojant PHPMailer reikia turėti paslaugą, galinčią siųsti el. Laiškus, pvz., "Gmail" ar SMTP teikėją.',
     'outgoing_email' => 'Išeinamas el. pašto adresas',
@@ -198,6 +197,8 @@ $language = array(
     'seo' => 'SEO',
     'google_analytics' => 'Google Analytics',
     'google_analytics_help' => 'Add Google Analytics to your website to track visitors and statistics. You will need to create a Google Analytics account to use this functionality. Enter your Google Analytics Web Property ID. The ID looks like UA-XXXXA-X and you can find it in your account information or in the tracking code provided by Google.',
+    'sitemap' => 'Svetainės Schema',
+    'seo_settings_updated_successfully' => 'SEO settings updated successfully.',
 
     // Reactions
     'icon' => 'Piktograma',
@@ -700,9 +701,7 @@ $language = array(
 
     // Dashboard
     'total_users' => 'Visi Vartotojai',
-    'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'recent_users' => 'Nauji Vartotojai',
-    'recent_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'average_players' => 'Vidutiniai žaidėjai',
     'nameless_news' => 'NamelessMC Naujienos',
     'unable_to_retrieve_nameless_news' => 'Nepavyko gauti naujausių naujienų.',
@@ -741,4 +740,6 @@ $language = array(
     'background_colour_required' => 'Background Colour is required',
     'text_colour_required' => 'Text Colour is required',
     'no_announcements' => 'No announcements have been made yet.',
-);
+    'announcement_order' => 'Order',
+    'announcement_hook_info' => 'Announcement creation',
+];

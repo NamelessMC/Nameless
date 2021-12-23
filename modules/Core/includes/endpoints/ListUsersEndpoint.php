@@ -1,4 +1,5 @@
 <?php
+
 /**
  * No params
  *
@@ -25,8 +26,8 @@ class ListUsersEndpoint extends EndpointBase {
         }
 
         $operator = isset($_GET['operator']) && $_GET['operator'] == 'OR'
-                        ? ' OR'
-                        : ' AND';
+            ? ' OR'
+            : ' AND';
 
         if (isset($_GET['group_id'])) {
             $query .= ' INNER JOIN nl2_users_groups ug ON u.id = ug.user_id WHERE ug.group_id = ?';
@@ -65,14 +66,14 @@ class ListUsersEndpoint extends EndpointBase {
 
         $users = $api->getDb()->selectQuery($query, $params)->results();
 
-        $users_json = array();
+        $users_json = [];
         foreach ($users as $user) {
             $user_json = [
                 'id' => intval($user->id),
                 'username' => $user->username,
                 'uuid' => $user->uuid,
-                'banned' => (bool) $user->banned,
-                'verified' => (bool) $user->active,
+                'banned' => (bool)$user->banned,
+                'verified' => (bool)$user->active,
             ];
 
             if ($discord_enabled) {
@@ -82,6 +83,6 @@ class ListUsersEndpoint extends EndpointBase {
             $users_json[] = $user_json;
         }
 
-        $api->returnArray(array('users' => $users_json));
+        $api->returnArray(['users' => $users_json]);
     }
 }

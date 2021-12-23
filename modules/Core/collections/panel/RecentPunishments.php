@@ -45,10 +45,10 @@ class RecentPunishmentsItem extends CollectionItemBase {
         } else {
             $queries = new Queries();
             $query = $queries->orderAll('infractions', 'infraction_date', 'DESC');
-            $data = array();
+            $data = [];
 
             if (count($query)) {
-                $users = array();
+                $users = [];
                 $i = 0;
 
                 foreach ($query as $item) {
@@ -56,8 +56,9 @@ class RecentPunishmentsItem extends CollectionItemBase {
                         $punished_user = $users[$item->punished];
                     } else {
                         $punished_user = new User($item->punished);
-                        if (!$punished_user->data())
+                        if (!$punished_user->data()) {
                             continue;
+                        }
                         $users[$item->punished] = $punished_user;
                     }
 
@@ -65,8 +66,9 @@ class RecentPunishmentsItem extends CollectionItemBase {
                         $staff_user = $users[$item->staff];
                     } else {
                         $staff_user = new User($item->staff);
-                        if (!$staff_user->data())
+                        if (!$staff_user->data()) {
                             continue;
+                        }
                         $users[$item->staff] = $staff_user;
                     }
 
@@ -76,13 +78,14 @@ class RecentPunishmentsItem extends CollectionItemBase {
                             $revoked_by_user = $users[$item->revoked_by_user];
                         } else {
                             $revoked_by_user = new User($item->revoked_by);
-                            if (!$revoked_by_user->data())
+                            if (!$revoked_by_user->data()) {
                                 continue;
+                            }
                             $users[$item->revoked_by] = $revoked_by_user;
                         }
                     }
 
-                    $data[] = array(
+                    $data[] = [
                         'url' => URL::build('/panel/users/punishments/', 'user=' . Output::getClean($punished_user->data()->id)),
                         'punished_username' => $punished_user->getDisplayname(true),
                         'punished_nickname' => $punished_user->getDisplayname(),
@@ -109,17 +112,18 @@ class RecentPunishmentsItem extends CollectionItemBase {
                         'revoked_by_uuid' => ($revoked_by_user ? Output::getClean($revoked_by_user->data()->uuid) : ''),
                         'revoked_by_profile' => ($revoked_by_user ? URL::build('/panel/user/' . Output::getClean($revoked_by_user->data()->id) . '-' . Output::getClean($revoked_by_user->data()->username)) : ''),
                         'revoked_at' => $timeago->inWords(date('Y-m-d H:i:s', $item->revoked_at), $this->_language->getTimeLanguage())
-                    );
+                    ];
 
-                    if (++$i == 5)
+                    if (++$i == 5) {
                         break;
+                    }
                 }
             }
 
             $this->_cache->store('recent_punishments_data', $data, 60);
         }
 
-        $this->_smarty->assign(array(
+        $this->_smarty->assign([
             'RECENT_PUNISHMENTS' => $this->_language->get('moderator', 'recent_punishments'),
             'PUNISHMENTS' => $data,
             'NO_PUNISHMENTS' => $this->_language->get('moderator', 'no_punishments_found'),
@@ -131,7 +135,7 @@ class RecentPunishmentsItem extends CollectionItemBase {
             'REASON' => $this->_language->get('moderator', 'reason:'),
             'REVOKED' => $this->_language->get('moderator', 'revoked'),
             'VIEW' => $this->_language->get('general', 'view')
-        ));
+        ]);
 
         return $this->_smarty->fetch('collections/dashboard_items/recent_punishments.tpl');
     }

@@ -35,13 +35,12 @@ class TotalUsersItem extends CollectionItemBase {
     public function getContent(): string {
         // Get the number of total users
         $queries = new Queries();
-        $users_query = $queries->getWhere('users', array('id', '<>', 0));
+        $users_query = $queries->getWhere('users', ['id', '<>', 0]);
 
-        $this->_smarty->assign(array(
-            'ICON' => $this->_language->get('admin', 'total_users_statistic_icon'),
+        $this->_smarty->assign([
             'TITLE' => $this->_language->get('admin', 'total_users'),
             'VALUE' => count($users_query)
-        ));
+        ]);
 
         return $this->_smarty->fetch('collections/dashboard_stats/total_users.tpl');
     }

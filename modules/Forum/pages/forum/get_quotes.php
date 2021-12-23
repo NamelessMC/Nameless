@@ -10,20 +10,20 @@
  */
 
 if (!$user->isLoggedIn()) {
-    die(json_encode(array('error' => 'Not logged in')));
+    die(json_encode(['error' => 'Not logged in']));
 }
 
 require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
 
 // Always define page name
-define('PAGE', 'forum');
+const PAGE = 'forum';
 
 // Initialise
 $forum = new Forum();
 
 // Get the post data
-if (!isset($_POST) || empty($_POST)) {
-    die(json_encode(array('error' => 'No post data')));
+if (empty($_POST)) {
+    die(json_encode(['error' => 'No post data']));
 }
 
 // Markdown?
@@ -32,17 +32,16 @@ $formatting = $cache->retrieve('formatting');
 
 if ($formatting == 'markdown') {
     // Markdown
-    require(ROOT_PATH . '/core/includes/markdown/tomarkdown/autoload.php');
-    $converter = new League\HTMLToMarkdown\HtmlConverter(array('strip_tags' => true));
+    $converter = new League\HTMLToMarkdown\HtmlConverter(['strip_tags' => true]);
 }
 
-$posts = array();
+$posts = [];
 
 foreach ($_POST['posts'] as $item) {
     $post = $forum->getIndividualPost($item);
 
     $content = htmlspecialchars_decode($post['content']);
-    $content = preg_replace("~<blockquote(.*?)>(.*)</blockquote>~si", "", $content);
+    $content = preg_replace('~<blockquote(.*?)>(.*)</blockquote>~si', '', $content);
 
     if ($formatting == 'markdown') {
         $content = $converter->convert($content);
@@ -50,12 +49,12 @@ foreach ($_POST['posts'] as $item) {
 
     if ($post['topic_id'] == $_POST['topic']) {
         $post_author = new User($post['creator']);
-        $posts[] = array(
+        $posts[] = [
             'content' => Output::getPurified($content),
             'author_username' => $post_author->getDisplayname(),
             'author_nickname' => $post_author->getDisplayname(true),
             'link' => URL::build('/forum/topic/' . $post['topic_id'], 'pid=' . htmlspecialchars($item))
-        );
+        ];
     }
 }
 

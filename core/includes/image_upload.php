@@ -19,9 +19,6 @@ $directories = explode('/', $directory);
 
 require(ROOT_PATH . '/core/init.php');
 
-// Require Bulletproof
-require(ROOT_PATH . '/core/includes/bulletproof/bulletproof.php');
-
 if (!$user->isLoggedIn()) {
     die();
 }
@@ -42,7 +39,7 @@ if (Input::exists()) {
     // Check token
     if (Token::check()) {
         // Token valid
-        $image = new BulletProof\Image($_FILES);
+        $image = new \Bulletproof\Image($_FILES);
         $image->setSize(1, 2097152); // between 1b and 2mb
         $image->setDimension(2000, 2000); // 2k x 2k pixel maximum
         $image->setMime($image_extensions);
@@ -59,7 +56,7 @@ if (Input::exists()) {
             case 'logo':
                 $image->setLocation(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'uploads', 'logos')));
                 break;
-                
+
             case 'favicon':
                 $image->setLocation(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'uploads', 'favicons')));
                 break;
@@ -125,17 +122,19 @@ if (Input::exists()) {
 
                         Redirect::to(URL::build('/user/settings'));
                         die();
-                    } else if (Input::get('type') == 'profile_banner') {
-                        $user->update(
-                            array(
-                                'banner' => Output::getClean($user->data()->id . '/' . $upload->getName() . '.' . $upload->getMime())
-                            )
-                        );
-
-                        Redirect::to(URL::build('/profile/' . Output::getClean($user->data()->username)));
-                        die();
                     } else {
-                        die('OK');
+                        if (Input::get('type') == 'profile_banner') {
+                            $user->update(
+                                array(
+                                    'banner' => Output::getClean($user->data()->id . '/' . $upload->getName() . '.' . $upload->getMime())
+                                )
+                            );
+
+                            Redirect::to(URL::build('/profile/' . Output::getClean($user->data()->username)));
+                            die();
+                        } else {
+                            die('OK');
+                        }
                     }
                 } else {
                     http_response_code(400);

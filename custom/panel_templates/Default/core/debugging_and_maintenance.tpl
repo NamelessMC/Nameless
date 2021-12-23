@@ -116,7 +116,13 @@ $('#debug_link').click(() => {
     $.get('{$DEBUG_LINK_URL}')
         .done((url) => {
             link_created = true;
-            navigator.clipboard.writeText(url);
+
+            if (navigator.clipboard !== undefined) {
+                navigator.clipboard.writeText(url);
+            } else {
+                alert(url);
+            }
+
             $('#debug_link_loading').hide(100);
             $('#debug_link').removeClass('btn-info');
             $('#debug_link').addClass('btn-success');
@@ -127,7 +133,7 @@ $('#debug_link').click(() => {
             toastr.options.progressBar = true;
             toastr.options.closeButton = true;
             toastr.options.positionClass = 'toast-bottom-left';
-            toastr.info('{$TOASTR_COPIED}');
+            toastr.info('{$TOASTR_COPIED}'.replaceAll({literal}'{x}'{/literal}, url));
         });
 });
 </script>

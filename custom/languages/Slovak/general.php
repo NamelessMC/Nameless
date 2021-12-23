@@ -2,14 +2,14 @@
 /*
  *  Made by RobiNN
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr10
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
  *  Slovak Language - General terms
  */
 
-$language = array(
+$language = [
     /*
      *  General terms
      */
@@ -53,8 +53,8 @@ $language = array(
     'x_new_messages' => 'Máte {x} nových správ.', // Don't replace {x}
     'loading' => 'Načítavanie...',
     'report' => 'Nahlásiť',
-    'reported_by' => 'Reported by {x}',
-    'view_report' => 'View report',
+    'reported_by' => 'Nahlásene od {x}',
+    'view_report' => 'Zobraziť nahlásenie',
     'page_loaded_in' => 'Stránka bola načítaná za {x}s', // Don't replace {x}, time unit is seconds
     'page_x' => 'Stránka {x}',
     'browse' => 'Prehliadať',
@@ -95,7 +95,7 @@ $language = array(
     /*
      *  Footer
      */
-    'links' => 'Links',
+    'links' => 'Odkazy',
 
     /*
      *  Homepage
@@ -148,7 +148,6 @@ $language = array(
     'online_users' => 'Online užívatelia',
     'no_online_users' => 'Nie sú žiadni užívatelia online.',
     'total_online_users' => 'Celkom online užívateľov: {x}',
-    'discord_widget_disabled' => 'Pre zadaný Discord server je widget zakázaný. Prejdite na kartu \'Widget\' v nastaveniach Discord servera a uistite sa, že je povolený Discord widget a či je správne ID.',
     'online_guests' => 'Online hostia',
     'total_online' => 'Celkom online', // this is Online Users + Online Guests,
     'no_default_server' => 'Neexistuje žiadny predvolený server, vyberte ho v StaffCP - Integrácie - Minecraft.',
@@ -163,4 +162,4 @@ $language = array(
      *  Custom page redirect
      */
     'redirecting_message' => 'Presmerovanie... <br />Ak sa nepresmerujete automaticky, kliknite <a href="{x}" rel="nofollow noopener">tu</a>.' // Don't replace {x} which is the redirect URL
-);
+];

@@ -1,7 +1,7 @@
 <?php
 
-final class GroupSyncManager extends Instanceable
-{
+final class GroupSyncManager extends Instanceable {
+
     /** @var GroupSyncInjector[] */
     private iterable $_injectors = [];
     /** @var GroupSyncInjector[] */
@@ -9,10 +9,10 @@ final class GroupSyncManager extends Instanceable
 
     /**
      * Register a new GroupSyncInjector class.
-     * 
+     *
      * Ensures the provided class name is a valid GroupSyncInjector instance,
      * and that the column name of the new injector has not been taken.
-     * 
+     *
      * @param string $class Class name of new injector
      */
     public function registerInjector(string $class): void {
@@ -37,9 +37,24 @@ final class GroupSyncManager extends Instanceable
     }
 
     /**
+     * Get the column name from all injectors, not just enabled ones.
+     *
+     * @return string[] All column names
+     */
+    public function getColumnNames(): array {
+        $form_names = [];
+
+        foreach ($this->_injectors as $injector) {
+            $form_names[] = $injector->getColumnName();
+        }
+
+        return $form_names;
+    }
+
+    /**
      * Add a new column to the `nl2_group_sync` table for this injector
      * to use.
-     * 
+     *
      * @param string $column_name Unique column name to use.
      * @param string $column_type Valid MySQL column type to assign the new column.
      */
@@ -52,7 +67,7 @@ final class GroupSyncManager extends Instanceable
 
     /**
      * Get all the registered injectors.
-     * 
+     *
      * @return GroupSyncInjector[] Registered injectors
      */
     public function getInjectors(): iterable {
@@ -60,15 +75,46 @@ final class GroupSyncManager extends Instanceable
     }
 
     /**
+     * Create a new `Validate` instance and add the injector defined
+     * rules and messages to it.
+     *
+     * @param array $source Input array to validate, often `$_POST`
+     * @param Language $language Language to use for error messages
+     *
+     * @return Validate New `Validate` instance
+     */
+    public function makeValidator(array $source, Language $language): Validate {
+        return (new Validate)
+            ->check($source, $this->compileValidatorRules())
+            ->messages($this->compileValidatorMessages($language));
+    }
+
+    /**
+     * Get an array of column name => validation rule array for each
+     * of the enabled injectors.
+     *
+     * @return array<string, array<string, mixed>> Array of each enabled injectors array of rules
+     */
+    private function compileValidatorRules(): array {
+        $rules = [];
+
+        foreach ($this->getEnabledInjectors() as $injector) {
+            $rules[$injector->getColumnName()] = $injector->getValidationRules();
+        }
+
+        return $rules;
+    }
+
+    /**
      * Get all injectors which should be enabled.
-     * 
+     *
      * Injectors will only considered be enabled if:
      * - Their parent module is enabled.
      * - The `shouldEnable()` method in the injector returns true.
-     * 
+     *
      * Keeps a cache for the duration of the request incase
      * any `shouldEnable()` method is intensive to execute.
-     * 
+     *
      * @return GroupSyncInjector[] Enabled injectors
      */
     public function getEnabledInjectors(): iterable {
@@ -89,55 +135,9 @@ final class GroupSyncManager extends Instanceable
     }
 
     /**
-     * Get the column name from all injectors, not just enabled ones.
-     * 
-     * @return string[] All column names
-     */
-    public function getColumnNames(): array {
-        $form_names = [];
-
-        foreach ($this->_injectors as $injector) {
-            $form_names[] = $injector->getColumnName();
-        }
-
-        return $form_names;
-    }
-
-    /**
-     * Create a new `Validate` instance and add the injector defined 
-     * rules and messages to it.
-     * 
-     * @param array $source Input array to validate, often `$_POST`
-     * @param Language $language Language to use for error messages
-     * 
-     * @return Validate New `Validate` instance
-     */
-    public function makeValidator(array $source, Language $language): Validate {
-        return (new Validate)
-            ->check($source, $this->compileValidatorRules())
-            ->messages($this->compileValidatorMessages($language));
-    }
-
-    /**
-     * Get an array of column name => validation rule array for each
-     * of the enabled injectors.
-     * 
-     * @return array<string, array<string, mixed>> Array of each enabled injectors array of rules
-     */
-    private function compileValidatorRules(): array {
-        $rules = [];
-
-        foreach ($this->getEnabledInjectors() as $injector) {
-            $rules[$injector->getColumnName()] = $injector->getValidationRules();
-        }
-
-        return $rules;
-    }
-
-    /**
      * Get an array of column name => validation rule => validation messages array for each
      * of the enabled injectors.
-     * 
+     *
      * @return array<string, array<string, string>>
      */
     private function compileValidatorMessages(Language $language): array {
@@ -153,12 +153,12 @@ final class GroupSyncManager extends Instanceable
     /**
      * Execute respective `addGroup()` or `removeGroup()` function on each of the injectors
      * synced to the changed group.
-     * 
+     *
      * @param User $user NamelessMC user to apply changes to
      * @param string $sending_injector_class Class name of injector broadcasting this change
-     * @param array $group_ids Array of Group IDs native to the sending injector 
-     * which were added/removed to the user 
-     * 
+     * @param array $group_ids Array of Group IDs native to the sending injector
+     * which were added/removed to the user
+     *
      * @return array Array of logs of changed groups
      */
     public function broadcastChange(User $user, string $sending_injector_class, array $group_ids): array {
@@ -239,9 +239,9 @@ final class GroupSyncManager extends Instanceable
 
     /**
      * Get an enabled `GroupSyncInjector` from it's class name, if it exists.
-     * 
+     *
      * @param string $class Class name to get injector from
-     * 
+     *
      * @return GroupSyncInjector|null Instance of injector, null if it doesnt exist
      * or isnt enabled
      */

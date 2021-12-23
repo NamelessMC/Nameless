@@ -16,7 +16,7 @@ class InfoEndpoint extends EndpointBase {
 
     public function execute(Nameless2API $api) {
         // Get version, update info and modules from database
-        $version_query = $api->getDb()->selectQuery('SELECT `name`, `value` FROM nl2_settings WHERE `name` = ? OR `name` = ? OR `name` = ? OR `name` = ?', array('nameless_version', 'version_checked', 'version_update', 'new_version'));
+        $version_query = $api->getDb()->selectQuery('SELECT `name`, `value` FROM nl2_settings WHERE `name` = ? OR `name` = ? OR `name` = ? OR `name` = ?', ['nameless_version', 'version_checked', 'version_update', 'new_version']);
         if ($version_query->count()) {
             $version_query = $version_query->results();
         }
@@ -26,17 +26,21 @@ class InfoEndpoint extends EndpointBase {
             $api->throwError(4, $api->getLanguage()->get('api', 'no_unique_site_id'));
         }
 
-        $ret = array();
+        $ret = [];
         foreach ($version_query as $item) {
             if ($item->name == 'nameless_version') {
                 $ret[$item->name] = $item->value;
                 $current_version = $item->value;
-            } else if ($item->name == 'version_update') {
-                $version_update = $item->value;
-            } else if ($item->name == 'version_checked') {
-                $version_checked = (int) $item->value;
             } else {
-                $new_version = $item->value;
+                if ($item->name == 'version_update') {
+                    $version_update = $item->value;
+                } else {
+                    if ($item->name == 'version_checked') {
+                        $version_checked = (int)$item->value;
+                    } else {
+                        $new_version = $item->value;
+                    }
+                }
             }
         }
 
@@ -47,25 +51,15 @@ class InfoEndpoint extends EndpointBase {
             if ($version_update == 'false') {
                 if ($version_checked < strtotime('-1 hour')) {
                     // Check for update now
-                    $ch = curl_init();
-                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-                    curl_setopt($ch, CURLOPT_URL, 'https://namelessmc.com/nl_core/nl2/stats.php?uid=' . $site_id . '&version=' . $current_version);
+                    $update_check = HttpClient::get('https://namelessmc.com/nl_core/nl2/stats.php?uid=' . $site_id . '&version=' . $current_version);
 
-                    $update_check = curl_exec($ch);
-
-                    if (curl_error($ch)) {
-                        $api->throwError(15, curl_error($ch));
-                    } else {
-                        if ($update_check == 'Failed') {
-                            $api->throwError(5, $api->getLanguage()->get('api', 'unable_to_check_for_updates'));
-                        }
+                    if ($update_check->hasError() || $update_check->data() == 'Failed') {
+                        $api->throwError(5, $api->getLanguage()->get('api', 'unable_to_check_for_updates'));
                     }
 
-                    curl_close($ch);
-
+                    $update_check = $update_check->data();
                     if ($update_check == 'None') {
-                        $ret['version_update'] = array('update' => false);
+                        $ret['version_update'] = ['update' => false];
                     } else {
                         $update_check = json_decode($update_check);
 
@@ -76,19 +70,19 @@ class InfoEndpoint extends EndpointBase {
                         }
 
                         // Update database values to say we need a version update
-                        $api->getDb()->createQuery('UPDATE nl2_settings SET `value`=\'' . $update_needed . '\' WHERE `name` = \'version_update\'', array());
-                        $api->getDb()->createQuery('UPDATE nl2_settings SET `value`= ' . date('U') . ' WHERE `name` = \'version_checked\'', array());
-                        $api->getDb()->createQuery('UPDATE nl2_settings SET `value`= ? WHERE `name` = \'new_version\'', array($update_check->new_version));
+                        $api->getDb()->createQuery("UPDATE nl2_settings SET `value` = ? WHERE `name` = 'version_update'", [$update_needed]);
+                        $api->getDb()->createQuery("UPDATE nl2_settings SET `value` = ? WHERE `name` = 'version_checked'", [date('U')]);
+                        $api->getDb()->createQuery("UPDATE nl2_settings set `value` = ? WHERE `name` = 'new_version'", [$update_check->new_version]);
 
-                        $ret['version_update'] = array('update' => true, 'version' => $update_check->new_version, 'urgent' => ($update_needed == 'urgent'));
+                        $ret['version_update'] = ['update' => true, 'version' => $update_check->new_version, 'urgent' => ($update_needed == 'urgent')];
                     }
                 }
             } else {
-                $ret['version_update'] = array('update' => true, 'version' => (isset($new_version) ? Output::getClean($new_version) : 'unknown'), 'urgent' => ($version_update == 'urgent'));
+                $ret['version_update'] = ['update' => true, 'version' => (isset($new_version) ? Output::getClean($new_version) : 'unknown'), 'urgent' => ($version_update == 'urgent')];
             }
         }
-        $modules_query = $api->getDb()->get('modules', array('enabled', '=', 1));
-        $ret_modules = array();
+        $modules_query = $api->getDb()->get('modules', ['enabled', '=', 1]);
+        $ret_modules = [];
         if ($modules_query->count()) {
             $modules_query = $modules_query->results();
             foreach ($modules_query as $module) {

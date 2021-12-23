@@ -14,7 +14,7 @@
  *  Japanese Language - API
  */
 
-$language = array(
+$language = [
 
     // Errors
     'api_disabled' => 'APIが無効',
@@ -53,8 +53,7 @@ $language = array(
     'finish_registration_email' => '登録を完了するにはメールを確認して処理を完了してください。',
     'group_updated' => 'グループを正常に更新しました。',
     'report_created' => 'レポートが正常に送信されました。',
-    'new_private_message_from' => '{x}から新しいプライベートメッセージが届いています。', // Don't replace {x}
     'username_updated' => 'ユーザー名が更新されました。',
     'server_info_updated' => 'サーバー情報が更新されました。',
     'account_validated' => 'アカウントの検証が完了しました。',
-);
+];

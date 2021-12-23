@@ -7,8 +7,6 @@
 
 <div class="ui padded segment" id="terms">
   {$SITE_TERMS}
-  <div class="ui divider"></div>
-  {$NAMELESS_TERMS}
 </div>
 
 {include file='footer.tpl'}

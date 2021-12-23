@@ -9,37 +9,39 @@
  *  Panel reactions page
  */
 
-if(!$user->handlePanelPageLoad('admincp.core.reactions')) {
+if (!$user->handlePanelPageLoad('admincp.core.reactions')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }
 
-define('PAGE', 'panel');
-define('PARENT_PAGE', 'core_configuration');
-define('PANEL_PAGE', 'reactions');
+const PAGE = 'panel';
+const PARENT_PAGE = 'core_configuration';
+const PANEL_PAGE = 'reactions';
 $page_title = $language->get('user', 'reactions');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $staffcp_nav), $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-if (Session::exists('api_reactions'))
-    $smarty->assign(array(
+if (Session::exists('api_reactions')) {
+    $smarty->assign([
         'SUCCESS' => Session::flash('api_reactions'),
         'SUCCESS_TITLE' => $language->get('general', 'success')
-    ));
+    ]);
+}
 
-if (Session::exists('api_reactions_error'))
-    $smarty->assign(array(
+if (Session::exists('api_reactions_error')) {
+    $smarty->assign([
         'ERRORS' => [Session::flash('api_reactions_error')],
         'ERRORS_TITLE' => $language->get('general', 'error')
-    ));
+    ]);
+}
 
 if (!isset($_GET['id']) && !isset($_GET['action'])) {
     // Get all reactions
-    $reactions = $queries->getWhere('reactions', array('id', '<>', 0));
+    $reactions = $queries->getWhere('reactions', ['id', '<>', 0]);
 
-    $template_reactions = array();
+    $template_reactions = [];
     if (count($reactions)) {
         foreach ($reactions as $reaction) {
             switch ($reaction->type) {
@@ -56,18 +58,18 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                     break;
             }
 
-            $template_reactions[] = array(
+            $template_reactions[] = [
                 'edit_link' => URL::build('/panel/core/reactions/', 'id=' . Output::getClean($reaction->id)),
                 'name' => Output::getClean($reaction->name),
                 'html' => $reaction->html,
                 'type_id' => $reaction->type,
                 'type' => $type,
                 'enabled' => $reaction->enabled
-            );
+            ];
         }
     }
 
-    $smarty->assign(array(
+    $smarty->assign([
         'NEW_REACTION' => $language->get('admin', 'new_reaction'),
         'NEW_REACTION_LINK' => URL::build('/panel/core/reactions/', 'action=new'),
         'NAME' => $language->get('admin', 'name'),
@@ -76,7 +78,7 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
         'ENABLED' => $language->get('admin', 'enabled'),
         'REACTIONS_LIST' => $template_reactions,
         'NO_REACTIONS' => $language->get('admin', 'no_reactions')
-    ));
+    ]);
 
     $template_file = 'core/reactions.tpl';
 } else {
@@ -84,7 +86,7 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
         switch ($_GET['action']) {
             case 'new':
                 if (Input::exists()) {
-                    $errors = array();
+                    $errors = [];
                     if (Token::check()) {
                         // Validate input
                         $validate = new Validate();
@@ -116,8 +118,11 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
 
                         if ($validation->passed()) {
                             // Check enabled status
-                            if (isset($_POST['enabled']) && $_POST['enabled'] == 'on') $enabled = 1;
-                            else $enabled = 0;
+                            if (isset($_POST['enabled']) && $_POST['enabled'] == 'on') {
+                                $enabled = 1;
+                            } else {
+                                $enabled = 0;
+                            }
 
                             switch (Input::get('type')) {
                                 case 1:
@@ -132,12 +137,12 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                             }
 
                             // Update database
-                            $queries->create('reactions', array(
+                            $queries->create('reactions', [
                                 'name' => Output::getClean(Input::get('name')),
                                 'html' => Output::getPurified(htmlspecialchars_decode(Input::get('html'))),
                                 'type' => $type,
                                 'enabled' => $enabled
-                            ));
+                            ]);
 
                             Session::flash('api_reactions', $language->get('admin', 'reaction_created_successfully'));
                             Redirect::to(URL::build('/panel/core/reactions'));
@@ -152,7 +157,7 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                     }
                 }
 
-                $smarty->assign(array(
+                $smarty->assign([
                     'CANCEL' => $language->get('general', 'cancel'),
                     'CANCEL_LINK' => URL::build('/panel/core/reactions'),
                     'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
@@ -169,7 +174,7 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                     'NEGATIVE' => $language->get('admin', 'negative'),
                     'NEUTRAL' => $language->get('admin', 'neutral'),
                     'ENABLED' => $language->get('admin', 'enabled')
-                ));
+                ]);
 
                 $template_file = 'core/reactions_new.tpl';
 
@@ -184,35 +189,35 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
 
                 if (Token::check($_POST['token'])) {
                     // Delete reaction
-                    $queries->delete('reactions', array('id', '=', $_GET['reaction']));
+                    $queries->delete('reactions', ['id', '=', $_GET['reaction']]);
                     Session::flash('api_reactions', $language->get('admin', 'reaction_deleted_successfully'));
 
-                } else Session::flash('api_reactions_error', $language->get('general', 'invalid_token'));
+                } else {
+                    Session::flash('api_reactions_error', $language->get('general', 'invalid_token'));
+                }
 
                 // Redirect
                 Redirect::to(URL::build('/panel/core/reactions'));
                 die();
 
-                break;
-
             default:
                 Redirect::to(URL::build('/panel/core/reactions'));
                 die();
-
-                break;
         }
     } else {
         // Get reaction
-        $reaction = $queries->getWhere('reactions', array('id', '=', $_GET['id']));
+        $reaction = $queries->getWhere('reactions', ['id', '=', $_GET['id']]);
         if (!count($reaction)) {
             // Reaction doesn't exist
             Redirect::to(URL::build('/panel/core/reactions'));
             die();
-        } else $reaction = $reaction[0];
+        } else {
+            $reaction = $reaction[0];
+        }
 
         // Deal with input
         if (Input::exists()) {
-            $errors = array();
+            $errors = [];
 
             if (Token::check()) {
                 // Validate input
@@ -245,8 +250,11 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
 
                 if ($validation->passed()) {
                     // Check enabled status
-                    if (isset($_POST['enabled']) && $_POST['enabled'] == 'on') $enabled = 1;
-                    else $enabled = 0;
+                    if (isset($_POST['enabled']) && $_POST['enabled'] == 'on') {
+                        $enabled = 1;
+                    } else {
+                        $enabled = 0;
+                    }
 
                     switch (Input::get('type')) {
                         case 1:
@@ -261,12 +269,12 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                     }
 
                     // Update database
-                    $queries->update('reactions', $_GET['id'], array(
+                    $queries->update('reactions', $_GET['id'], [
                         'name' => Output::getClean(Input::get('name')),
                         'html' => Output::getPurified(Output::getDecoded(Input::get('html'))),
                         'type' => $type,
                         'enabled' => $enabled
-                    ));
+                    ]);
 
                     Session::flash('api_reactions', $language->get('admin', 'reaction_edited_successfully'));
                     Redirect::to(URL::build('/panel/core/reactions'));
@@ -281,7 +289,7 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
             }
         }
 
-        $smarty->assign(array(
+        $smarty->assign([
             'CANCEL' => $language->get('general', 'cancel'),
             'CANCEL_LINK' => URL::build('/panel/core/reactions'),
             'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
@@ -303,19 +311,20 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
             'TYPE_VALUE' => $reaction->type,
             'ENABLED' => $language->get('admin', 'enabled'),
             'ENABLED_VALUE' => $reaction->enabled
-        ));
+        ]);
 
         $template_file = 'core/reactions_edit.tpl';
     }
 }
 
-if (isset($errors) && count($errors))
-    $smarty->assign(array(
+if (isset($errors) && count($errors)) {
+    $smarty->assign([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
-    ));
+    ]);
+}
 
-$smarty->assign(array(
+$smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'CONFIGURATION' => $language->get('admin', 'configuration'),
@@ -323,7 +332,7 @@ $smarty->assign(array(
     'PAGE' => PANEL_PAGE,
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit')
-));
+]);
 
 $page_load = microtime(true) - $start;
 define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));

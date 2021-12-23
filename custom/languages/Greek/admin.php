@@ -11,7 +11,7 @@
  *  Greek Language - Admin
  */
 
-$language = array(
+$language = [
     /*
      *  Admin Control Panel
      */
@@ -29,7 +29,6 @@ $language = array(
     'minecraft' => 'Minecraft',
     'modules' => 'Modules',
     'security' => 'Ασφάλεια',
-    'sitemap' => 'Sitemap',
     'styles' => 'Styles',
     'users_and_groups' => 'Χρήστες και Ομάδες',
 
@@ -100,7 +99,7 @@ $language = array(
     'delete_email_error' => 'Delete error',
     'confirm_email_error_deletion' => 'Are you sure you want to delete this error?',
     'viewing_email_error' => 'Viewing error',
-    'unable_to_write_email_config' => 'Unable to write to file <strong>core/email.php</core>. Please check file permissions.',
+    'unable_to_write_email_config' => 'Unable to write to file <strong>core/email.php</strong>. Please check file permissions.',
     'enable_mailer' => 'Enable PHPMailer?',
     'enable_mailer_help' => 'Enable this if emails aren\'t being sent by default. The use of PHPMailer requires you to have a service capable of sending emails, such as Gmail or an SMTP provider.',
     'outgoing_email' => 'Outgoing Email Address',
@@ -202,6 +201,8 @@ $language = array(
     'seo' => 'SEO',
     'google_analytics' => 'Google Analytics',
     'google_analytics_help' => 'Add Google Analytics to your website to track visitors and statistics. You will need to create a Google Analytics account to use this functionality. Enter your Google Analytics Web Property ID. The ID looks like UA-XXXXA-X and you can find it in your account information or in the tracking code provided by Google.',
+    'sitemap' => 'Sitemap',
+    'seo_settings_updated_successfully' => 'SEO settings updated successfully.',
 
     // Reactions
     'icon' => 'Icon',
@@ -235,7 +236,7 @@ $language = array(
     'textarea' => 'Περιοχή κειμένου',
     'date' => 'Ημερομηνία',
     'creating_profile_field' => 'Δημιουργία προφίλ Πεδίο',
-      'editing_profile_field' => 'Επεξεργασία Προφίλ πεδίο',
+    'editing_profile_field' => 'Επεξεργασία Προφίλ πεδίο',
     'field_name' => 'Ονομα πεδίου',
     'profile_field_required_help' => 'Τα υποχρεωτικά πεδία πρέπει να συμπληρωθούν από το χρήστη, και θα εμφανίζονται κατά την εγγραφή.',
     'profile_field_public_help' => 'Δημόσια πεδία θα εμφανίζονται σε όλους τους χρήστες, αν αυτό είναι απενεργοποιημένο μόνο οι διαμεσολαβητές να δουν τις τιμές.',
@@ -663,7 +664,7 @@ $language = array(
     // Hooks
     'hooks' => 'Webhooks',
     'hooks_info' => 'Webhooks allow external services to be notified when certain events happen. When the specified events happen.',
-  'no_hooks_yet' => 'There are no webhooks yet.',
+    'no_hooks_yet' => 'There are no webhooks yet.',
     'new_hook' => 'New Hook',
     'creating_new_hook' => 'Creating New Webhook',
     'editing_hook' => 'Editing Webhook',
@@ -704,9 +705,7 @@ $language = array(
 
     // Dashboard
     'total_users' => 'Total Users',
-    'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'recent_users' => 'New Users',
-    'recent_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'average_players' => 'Average Players',
     'nameless_news' => 'NamelessMC News',
     'unable_to_retrieve_nameless_news' => 'Unable to retrieve the latest news',
@@ -745,4 +744,6 @@ $language = array(
     'background_colour_required' => 'Background Colour is required',
     'text_colour_required' => 'Text Colour is required',
     'no_announcements' => 'No announcements have been made yet.',
-);
+    'announcement_order' => 'Order',
+    'announcement_hook_info' => 'Announcement creation',
+];

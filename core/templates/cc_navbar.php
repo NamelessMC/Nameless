@@ -9,6 +9,6 @@
  *  UserCP navbar generation
  */
 
-$smarty->assign(array(
-	'CC_NAV_LINKS' => $cc_nav->returnNav('top')
-));
+$smarty->assign([
+    'CC_NAV_LINKS' => $cc_nav->returnNav('top')
+]);

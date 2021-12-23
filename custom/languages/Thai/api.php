@@ -9,7 +9,7 @@
  *  ภาษาไทย Language - API
  */
 
-$language = array(
+$language = [
 
     // Errors
     'api_disabled' => 'API ถูกปิดใช้งาน',
@@ -56,11 +56,10 @@ $language = array(
     'finish_registration_email' => 'โปรดตรวจสอบอีเมลของคุณเพื่อลงทะเบียนให้เสร็จสิ้น',
     'group_updated' => 'อัพเดทกลุ่มเรียบร้อยแล้ว',
     'report_created' => 'สร้างรายงานเรียบร้อยแล้ว',
-    'new_private_message_from' => 'ข้อความส่วนตัวใหม่จาก {x}', // Don't replace {x}
     'username_updated' => 'อัพเดทชื่อผู้ใช้เรียบร้อยแล้ว',
     'server_info_updated' => 'อัปเดตข้อมูลเซิร์ฟเวอร์เรียบร้อยแล้ว',
     'account_validated' => 'ตรวจสอบบัญชีเรียบร้อยแล้ว',
     'discord_id_set' => 'ตั้ง Discord ID สำเร็จ',
     'discord_settings_updated' => 'อัปเดตการตั้งค่า Discord เรียบร้อยแล้ว',
     'discord_usernames_updated' => 'อัปเดตชื่อผู้ใช้ Discord สำเร็จแล้ว'
-);
+];

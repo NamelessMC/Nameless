@@ -9,7 +9,7 @@
  *  Polish Language - Admin
  */
 
-$language = array(
+$language = [
     /*
      *  Admin Control Panel
      */
@@ -28,7 +28,6 @@ $language = array(
     'minecraft' => 'Minecraft',
     'modules' => 'Moduły',
     'security' => 'Bezpieczeństwo',
-    'sitemap' => 'Mapa strony',
     'styles' => 'Style',
     'users_and_groups' => 'Użytkownicy i Grupy',
 
@@ -99,7 +98,7 @@ $language = array(
     'delete_email_error' => 'Usuń błąd',
     'confirm_email_error_deletion' => 'Jesteś pewien że chcesz usunąć ten błąd?',
     'viewing_email_error' => 'Błąd email',
-    'unable_to_write_email_config' => 'Nie można zapisać pliku <strong>core/email.php</core>. Sprawdź uprawnienia plików.',
+    'unable_to_write_email_config' => 'Nie można zapisać pliku <strong>core/email.php</strong>. Sprawdź uprawnienia plików.',
     'enable_mailer' => 'Użyć PHPMailera?',
     'enable_mailer_help' => 'Włącz tą funkcję jeśli emaile nie są wysyłane przy domyślnej konfiguracji. Korzystanie z PHPMailer wymaga posiadania usługi umożliwiającej wysyłanie wiadomości e-mail, takich jak Gmail lub dostawca SMTP.',
     'outgoing_email' => 'Email do wysyłania wiadomości',
@@ -201,8 +200,10 @@ $language = array(
     'seo' => 'SEO',
     'google_analytics' => 'Analityka Google',
     'google_analytics_help' => 'Dodaj analitykę, aby zbierać dane o użytkownikach. Musisz posiadać konto google analityka, aby używać tej funkcji. Wpisz kod analityczny strony. ID wygląda tak UA-XXXXA-X i możesz znaleść go w ustawieniach konta.',
+    'sitemap' => 'Mapa strony',
+    'seo_settings_updated_successfully' => 'SEO settings updated successfully.',
 
-  // Reactions
+    // Reactions
     'icon' => 'Ikona',
     'type' => 'Typ',
     'positive' => 'Pozytywny',
@@ -702,9 +703,7 @@ $language = array(
 
     // Dashboard
     'total_users' => 'Wszyscy użytkownicy',
-    'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'recent_users' => 'Nowi użytkownicy',
-    'recent_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'average_players' => 'Średnia liczba graczy',
     'nameless_news' => 'Newsy NamelessMC',
     'unable_to_retrieve_nameless_news' => 'Podczas pobierania newsów NamelessMC wystąpił błąd',
@@ -743,4 +742,6 @@ $language = array(
     'background_colour_required' => 'Kolor tła jest wymagany',
     'text_colour_required' => 'Kolor tekstu jest wymagany',
     'no_announcements' => 'Nie ma jeszcze żadnych ogłoszeń.',
-);
+    'announcement_order' => 'Order',
+    'announcement_hook_info' => 'Announcement creation',
+];

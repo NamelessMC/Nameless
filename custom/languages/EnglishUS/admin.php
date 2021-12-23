@@ -9,7 +9,7 @@
  *  EnglishUS Language - Admin
  */
 
-$language = array(
+$language = [
     /*
      *  Admin Control Panel
      */
@@ -27,7 +27,6 @@ $language = array(
     'minecraft' => 'Minecraft',
     'modules' => 'Modules',
     'security' => 'Security',
-    'sitemap' => 'Sitemap',
     'styles' => 'Styles',
 
     // Overview
@@ -97,7 +96,7 @@ $language = array(
     'delete_email_error' => 'Delete error',
     'confirm_email_error_deletion' => 'Are you sure you want to delete this error?',
     'viewing_email_error' => 'Viewing error',
-    'unable_to_write_email_config' => 'Unable to write to file <strong>core/email.php</core>. Please check file permissions.',
+    'unable_to_write_email_config' => 'Unable to write to file <strong>core/email.php</strong>. Please check file permissions.',
     'enable_mailer' => 'Enable PHPMailer?',
     'enable_mailer_help' => 'Enable this if emails aren\'t being sent by default. The use of PHPMailer requires you to have a service capable of sending emails, such as Gmail or an SMTP provider.',
     'outgoing_email' => 'Outgoing Email Address',
@@ -201,6 +200,8 @@ $language = array(
     'seo' => 'SEO',
     'google_analytics' => 'Google Analytics',
     'google_analytics_help' => 'Add Google Analytics to your website to track visitors and statistics. You will need to create a Google Analytics account to use this functionality. Enter your Google Analytics Web Property ID. The ID looks like UA-XXXXA-X and you can find it in your account information or in the tracking code provided by Google.',
+    'sitemap' => 'Sitemap',
+    'seo_settings_updated_successfully' => 'SEO settings updated successfully.',
 
     // Reactions
     'icon' => 'Icon',
@@ -703,9 +704,7 @@ $language = array(
 
     // Dashboard
     'total_users' => 'Total Users',
-    'total_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'recent_users' => 'New Users',
-    'recent_users_statistic_icon' => '<i class="fas fa-users"></i>',
     'average_players' => 'Average Players',
     'nameless_news' => 'NamelessMC News',
     'unable_to_retrieve_nameless_news' => 'Unable to retrieve the latest news',
@@ -744,4 +743,6 @@ $language = array(
     'background_colour_required' => 'Background Color is required',
     'text_colour_required' => 'Text Color is required',
     'no_announcements' => 'No announcements have been made yet.',
-);
+    'announcement_order' => 'Order',
+    'announcement_hook_info' => 'Announcement creation',
+];

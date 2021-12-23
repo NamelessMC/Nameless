@@ -9,7 +9,7 @@
  *  EnglishUS Language - General terms
  */
 
-$language = array(
+$language = [
     /*
      *  General terms
      */
@@ -72,7 +72,7 @@ $language = array(
     'link' => 'Link',
     'unlink' => 'Unlink',
     'leaderboards' => 'Leaderboards',
-    
+
     /*
      *  Contact form
      */
@@ -165,4 +165,4 @@ $language = array(
      *  Custom page redirect
      */
     'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{x}" rel="nofollow noopener">here</a>.' // Don't replace {x} which is the redirect URL
-);
+];

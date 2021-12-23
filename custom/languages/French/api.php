@@ -9,7 +9,7 @@
  *  French Language - Users
  */
 
-$language = array(
+$language = [
 
     // Errors
     'api_disabled' => 'L\'API est désactivée',
@@ -46,7 +46,6 @@ $language = array(
     'finish_registration_email' => 'Veuillez vérifier vos emails pour compléter l\'inscription.',
     'group_updated' => 'Groupe mis à jour avec succès',
     'report_created' => 'Rapport créé avec succès',
-    'new_private_message_from' => 'Nouveau message privé de {x}', // Don't replace {x}
     'username_updated' => 'Le nom d\'utilisateur a été mis à jour avec succès',
     'server_info_updated' => 'Les informations sur le serveur ont été mises à jour avec succès',
-);
+];
