@@ -23,7 +23,7 @@ The following list is a brief summary of the features available in v2 pre-releas
     * Display PlaceholderAPI placeholders on website user profiles or in leaderboards
 * 🗨️ Discord integration
   * Webhook: receive updates for new members, forum posts, resources, etc.
-  * [Nameless-Link Discord bot](https://github.com/NamelessMC/Nameless-Link/wiki/Setup)
+  * [Nameless-Link Discord bot](https://docs.namelessmc.com/link/2.0/setup)
     * Link Discord accounts with NamelessMC accounts
     * Synchronize Discord roles with NamelessMC groups (bidirectional)
 * ⚙️ [API](https://github.com/NamelessMC/Nameless/wiki/v2-API) - Write your own integrations or use one of ours (see above)

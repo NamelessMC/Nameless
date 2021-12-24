@@ -102,7 +102,7 @@ $language = [
     'enable_mailer_help' => 'Túto možnosť povoľte, ak sa emaily predvolene neposielajú. Používanie PHPMaileru vyžaduje, aby ste mali službu schopnú odosielať emaily, napríklad Gmail alebo SMTP poskytovateľ.',
     'outgoing_email' => 'Odchádzajúca emailová adresa',
     'outgoing_email_info' => 'Toto je emailová adresa, z akej NamelessMC posiela emaily.',
-    'mailer_settings_info' => 'Nasledujúce polia sú povinné, ak ste povolili PHPMailer. Ďalšie informácie o tom, ako vyplniť tieto polia, nájdete na <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-SMTP-with-Nameless-(e.g.-Gmail-or-Outlook)" target="_blank">wiki</a>.',
+    'mailer_settings_info' => 'Nasledujúce polia sú povinné, ak ste povolili PHPMailer. Ďalšie informácie o tom, ako vyplniť tieto polia, nájdete na <a href="https://docs.namelessmc.com/setup/2.0/smtp" target="_blank">wiki</a>.',
     'host' => 'Host',
     'email_port' => 'Port',
     'email_port_invalid' => 'Zadajte platný port emailu.',
