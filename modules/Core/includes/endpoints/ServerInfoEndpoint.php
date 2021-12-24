@@ -114,6 +114,10 @@ class ServerInfoEndpoint extends EndpointBase {
             return [];
         }
 
+        if (!$user->isValidated()) {
+            return [];
+        }
+
         $log = GroupSyncManager::getInstance()->broadcastChange(
             $user,
             MinecraftGroupSyncInjector::class,
