@@ -481,7 +481,7 @@ class User {
             if ($this->data()->has_avatar) {
                 $exts = ['png', 'jpg', 'jpeg'];
 
-                if ($this->hasPermission('usercp.gif_avatar')) {
+                if ($this->hasPermission('usercp.gif_avatar', false)) {
                     $exts[] = 'gif';
                 }
 
@@ -518,12 +518,18 @@ class User {
      * Does the user have a given permission in any of their groups?
      *
      * @param string $permission Permission node to check recursively for.
+     * @param bool $login_check Whether to check if this user instance is logged in or not, "false" for avatar permission checking.
      *
      * @return bool Whether they inherit this permission or not.
      */
-    public function hasPermission(string $permission): bool {
+    public function hasPermission(string $permission, bool $login_check = true): bool {
         $groups = $this->_groups;
-        if ($this->isLoggedIn() && $groups) {
+
+        if (!$groups) {
+            return false;
+        }
+
+        if (!$login_check || $this->isLoggedIn()) {
             foreach ($groups as $group) {
                 $permissions = json_decode($group->permissions, true);
 
