@@ -63,6 +63,9 @@ if (isset($_GET['route']) && $_GET['route'] == '/rewrite_test') {
 // Start initialising the page
 require(ROOT_PATH . '/core/init.php');
 
+DebugBarHelper::getInstance()->getDebugBar()['time']->stopMeasure('initializing');
+DebugBarHelper::getInstance()->getDebugBar()['time']->startMeasure('rendering');
+
 if (!isset($GLOBALS['config']['core']) && is_file(ROOT_PATH . '/install.php')) {
     Redirect::to('install.php');
 }
