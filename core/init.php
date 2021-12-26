@@ -53,9 +53,11 @@ if (isset($conf) && is_array($conf)) {
     }
 }
 
+$smarty = new Smarty();
+
 if (defined('DEBUGGING') && DEBUGGING && Composer\InstalledVersions::isInstalled('maximebf/debugbar')) {
     define('PHPDEBUGBAR', true);
-    DebugBarHelper::getInstance()->enable();
+    DebugBarHelper::getInstance()->enable($smarty);
 }
 
 // If we're accessing the upgrade script don't initialise further
@@ -310,7 +312,6 @@ if ($page != 'install') {
     }
 
     // Smarty
-    $smarty = new Smarty();
     $securityPolicy = new Smarty_Security($smarty);
     $securityPolicy->php_modifiers = [
         'escape',

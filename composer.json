@@ -17,6 +17,7 @@
     },
     "require-dev": {
         "phpstan/phpstan": "^1.2",
-        "maximebf/debugbar": "^1.17"
+        "maximebf/debugbar": "^1.17",
+        "junker/debugbar-smarty": "^0.1.0"
     }
 }

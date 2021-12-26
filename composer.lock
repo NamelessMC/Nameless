@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dc862b608dda12164de381408cb617f9",
+    "content-hash": "2f14fef76bb5505933e5075c6797cc1b",
     "packages": [
         {
             "name": "emojione/emojione",
@@ -617,6 +617,49 @@
         }
     ],
     "packages-dev": [
+        {
+            "name": "junker/debugbar-smarty",
+            "version": "0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Junker/php-debugbar-smarty.git",
+                "reference": "cf43c79e25770884cf22036ee461b8585588cd19"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Junker/php-debugbar-smarty/zipball/cf43c79e25770884cf22036ee461b8585588cd19",
+                "reference": "cf43c79e25770884cf22036ee461b8585588cd19",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Junker": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dmitry Kosenkov",
+                    "email": "dk-junker@ya.ru"
+                }
+            ],
+            "description": "Smarty Collector for PHP DebugBar",
+            "keywords": [
+                "PHP debugbar",
+                "collector",
+                "debugbar",
+                "smarty"
+            ],
+            "support": {
+                "issues": "https://github.com/Junker/php-debugbar-smarty/issues",
+                "source": "https://github.com/Junker/php-debugbar-smarty/tree/0.1.0"
+            },
+            "time": "2021-02-10T07:02:47+00:00"
+        },
         {
             "name": "maximebf/debugbar",
             "version": "v1.17.3",
