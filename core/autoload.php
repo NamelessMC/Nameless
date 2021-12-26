@@ -79,6 +79,7 @@ const CLASS_FOLDERS = [
     ],
     'Misc' => [
         CaptchaBase::class,
+        DebugBarHelper::class,
         ErrorHandler::class,
         Placeholders::class,
         TemplateBase::class,

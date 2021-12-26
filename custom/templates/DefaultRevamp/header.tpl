@@ -52,6 +52,10 @@
 		</script>
 	  {/literal}
     {/if}
+
+    {if isset($DEBUGBAR_JS)}
+      {$DEBUGBAR_JS}
+    {/if}
   </head>
 
   <body{if $DEFAULT_REVAMP_DARK_MODE} class="dark"{/if} id="page-{if is_numeric($smarty.const.PAGE)}{$TITLE}{else}{$smarty.const.PAGE}{/if}">

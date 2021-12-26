@@ -14,10 +14,7 @@
 
 header('X-Frame-Options: SAMEORIGIN');
 
-if (!defined('DEBUGGING') && (
-        isset($_SERVER['NAMELESSMC_DEBUGGING']) && $_SERVER['NAMELESSMC_DEBUGGING'] ||
-        getenv('NAMELESS_DEBUGGING')
-    )) {
+if (!defined('DEBUGGING') || getenv('NAMELESS_DEBUGGING')) {
     define('DEBUGGING', 1);
 }
 

@@ -53,6 +53,11 @@ if (isset($conf) && is_array($conf)) {
     }
 }
 
+if (defined('DEBUGGING') && DEBUGGING && Composer\InstalledVersions::isInstalled('maximebf/debugbar')) {
+    define('PHPDEBUGBAR', true);
+    DebugBarHelper::getInstance()->enable();
+}
+
 // If we're accessing the upgrade script don't initialise further
 if (isset($_GET['route']) && rtrim($_GET['route'], '/') == '/panel/upgrade') {
     $pages = new Pages();
