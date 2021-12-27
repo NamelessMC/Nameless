@@ -46,6 +46,7 @@ $language = [
     'upgrade_php_version' => 'Bitte aktualisiere deine PHP-Version auf mindestens 7.4 - die nächste Nameless-Version wird die von dir verwendete Version nicht mehr unterstützen.',
 
     // Core
+    'mode_toggle' => 'Dunkler/Heller Modus',
     'settings' => 'Einstellungen',
     'general_settings' => 'Allgemeine Einstellungen',
     'sitename' => 'Name des Forum',
