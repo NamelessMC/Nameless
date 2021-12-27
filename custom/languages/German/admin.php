@@ -532,8 +532,8 @@ $language = [
     'all_logs' => 'Alle Logs',
     'action' => 'Aktion',
     'action_info' => 'Aktion Info',
-    'groups_removed' => 'Groups Removed',
-    'groups_added' => 'Groups Added',
+    'groups_removed' => 'Gruppen entfernt',
+    'groups_added' => 'Gruppen hinzugefügt',
 
     // Updates
     'update' => 'Update',
