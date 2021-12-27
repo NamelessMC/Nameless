@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2f14fef76bb5505933e5075c6797cc1b",
+    "content-hash": "0272326d02d142c1218ebb951a114585",
     "packages": [
         {
             "name": "emojione/emojione",
@@ -619,16 +619,16 @@
     "packages-dev": [
         {
             "name": "junker/debugbar-smarty",
-            "version": "0.1.0",
+            "version": "0.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Junker/php-debugbar-smarty.git",
-                "reference": "cf43c79e25770884cf22036ee461b8585588cd19"
+                "reference": "a7e4669633d4c9338b5cd598e1044560a92f75fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Junker/php-debugbar-smarty/zipball/cf43c79e25770884cf22036ee461b8585588cd19",
-                "reference": "cf43c79e25770884cf22036ee461b8585588cd19",
+                "url": "https://api.github.com/repos/Junker/php-debugbar-smarty/zipball/a7e4669633d4c9338b5cd598e1044560a92f75fc",
+                "reference": "a7e4669633d4c9338b5cd598e1044560a92f75fc",
                 "shasum": ""
             },
             "type": "library",
@@ -656,9 +656,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Junker/php-debugbar-smarty/issues",
-                "source": "https://github.com/Junker/php-debugbar-smarty/tree/0.1.0"
+                "source": "https://github.com/Junker/php-debugbar-smarty/tree/0.2.1"
             },
-            "time": "2021-02-10T07:02:47+00:00"
+            "time": "2021-12-27T10:20:51+00:00"
         },
         {
             "name": "maximebf/debugbar",
