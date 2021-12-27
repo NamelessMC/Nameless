@@ -35,7 +35,7 @@ $language = [
 
     // Reports
     'reports' => 'Meldungen',
-    'report_alert' => 'Es wurde ein neuer Meldung erstellt.',
+    'report_alert' => 'Es wurde eine neue Meldung erstellt.',
     'user_reported' => 'Benutzer wurde gemeldet.',
     'comments' => 'Kommentare',
     'updated_by' => 'Geändert von',
