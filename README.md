@@ -71,6 +71,9 @@ To discuss changes with fellow translators, visit the [NamelessMC Translators](h
 #### Translation credits
 Translation credits can be found within CONTRIBUTORS.md
 
+## Automatic Managment
+[UltimateNamlessMaster](https://github.com/Justman10000/UltimateNamelessMaster) was created for the automatic management of NamelessMC
+
 ## Contributing
 We welcome all contributions of code and translations. Please feel free to fork the repository on GitHub and create any pull requests.
 - We generally keep a todo list in the Milestones tab of the the Issues page.
