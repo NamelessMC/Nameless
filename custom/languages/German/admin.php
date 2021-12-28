@@ -19,14 +19,14 @@ $language = [
 
     // Sidebar
     'dashboard' => 'Dashboard',
-    'configuration' => 'Configuration',
+    'configuration' => 'Konfiguration',
     'layout' => 'Layout',
     'user_management' => 'Benutzerverwaltung',
     'admin_cp' => 'Administration',
     'administration' => 'Administration',
     'overview' => 'Übersicht',
     'core' => 'Core',
-    'integrations' => 'Integrations',
+    'integrations' => 'Integrationen',
     'minecraft' => 'Minecraft',
     'modules' => 'Modul',
     'security' => 'Sicherheit',
