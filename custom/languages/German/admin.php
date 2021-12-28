@@ -19,7 +19,7 @@ $language = [
 
     // Sidebar
     'dashboard' => 'Dashboard',
-    'configuration' => 'Configuration',
+    'configuration' => 'Konfiguration',
     'layout' => 'Layout',
     'user_management' => 'Benutzerverwaltung',
     'admin_cp' => 'Administration',
