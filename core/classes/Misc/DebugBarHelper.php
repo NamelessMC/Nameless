@@ -16,7 +16,7 @@ class DebugBarHelper extends Instanceable {
         $debugbar = new StandardDebugBar();
 
         $pdoCollector = new PDOCollector(DB::getInstance()->getPDO());
-        $pdoCollector->setRenderSqlWithParams(true, '``');
+        $pdoCollector->setRenderSqlWithParams(true, '`');
         $debugbar->addCollector($pdoCollector);
 
         $smartyCollector = new SmartyCollector($smarty);

@@ -150,7 +150,6 @@ class RegisterEndpoint extends EndpointBase {
             $user->setGroup($default_group);
 
             EventHandler::executeEvent('registerUser', [
-                    'event' => 'registerUser',
                     'user_id' => $user_id,
                     'username' => $user->getDisplayname(),
                     'content' => str_replace('{x}', $user->getDisplayname(), $api->getLanguage()->get('user', 'user_x_has_registered')),
@@ -207,9 +206,7 @@ class RegisterEndpoint extends EndpointBase {
 
             if (isset($sent['error'])) {
                 // Error, log it
-                $api->getDb()->insert(
-                    'email_errors',
-                    [
+                $api->getDb()->insert('email_errors', [
                         'type' => 4, // 4 = API registration email
                         'content' => $sent['error'],
                         'at' => date('U'),
@@ -243,9 +240,7 @@ class RegisterEndpoint extends EndpointBase {
 
             if (isset($sent['error'])) {
                 // Error, log it
-                $api->getDb()->insert(
-                    'email_errors',
-                    [
+                $api->getDb()->insert('email_errors', [
                         'type' => 4,
                         'content' => $sent['error'],
                         'at' => date('U'),
@@ -259,7 +254,6 @@ class RegisterEndpoint extends EndpointBase {
 
         $user = new User();
         EventHandler::executeEvent('registerUser', [
-                'event' => 'registerUser',
                 'user_id' => $user_id,
                 'username' => Output::getClean($username),
                 'content' => str_replace('{x}', Output::getClean($username), $api->getLanguage()->get('user', 'user_x_has_registered')),

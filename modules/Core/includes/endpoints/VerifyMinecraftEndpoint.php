@@ -39,7 +39,6 @@ class VerifyMinecraftEndpoint extends EndpointBase {
 
         try {
             EventHandler::executeEvent('validateUser', [
-                'event' => 'validateUser',
                 'user_id' => $user->data()->id,
                 'username' => Output::getClean($user->data()->username),
                 'language' => $api->getLanguage()
