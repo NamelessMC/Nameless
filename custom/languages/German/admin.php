@@ -637,6 +637,7 @@ $language = [
     'set_as_primary_group_info' => 'Wenn aktiviert, wird die primäre Website-Gruppe des Benutzers aktualisiert. Wenn deaktiviert, wird dieselbe Gruppe zu den sekundären Gruppen der Website des Benutzers hinzugefügt.',
     'ingame_group_maximum' => 'Bitte stelle sicher, dass Dein Gruppenname maximal 64 Zeichen lang ist.',
     'select_website_group' => 'Bitte wähle eine Website-Gruppe.',
+    'at_least_one_external' => 'Bitte gebe mindestens eine externe Gruppe ein (Minecraft oder Discord)',
     'ingame_group_already_exists' => 'Für diese Ingame-Gruppe wurde bereits eine Rang-Synchronisierungsregel erstellt.',
     'group_sync_rule_created_successfully' => 'Die Gruppensynchronisierungsregel wurde erfolgreich erstellt.',
     'group_sync_rules_updated_successfully' => 'Gruppensynchronisierungsregeln wurden erfolgreich aktualisiert.',
