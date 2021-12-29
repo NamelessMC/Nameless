@@ -64,6 +64,6 @@ NamelessMC translations are kindly provided by the community.
 Currently available translations can be found [here](https://github.com/NamelessMC/Nameless/tree/v2/custom/languages). Please note, not all translations may be up to date.
 
 ## Special Thanks
-* All [NamelessMC Translation contributors](https://github.com/NamelessMC/Nameless/CONTRIBUTORS.md).
 * All [NamelessMC contributors](https://github.com/NamelessMC/Nameless/graphs/contributors).
+* All [NamelessMC Translation contributors](https://github.com/NamelessMC/Nameless/CONTRIBUTORS.md).
 * [JetBrains](https://www.jetbrains.com/), whose products are used to develop the NamelessMC project.
