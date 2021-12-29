@@ -72,7 +72,6 @@ $language = [
     'ban' => 'Ban',
     'warn' => 'Verwarnung',
     'ban_ip' => 'IP Bannen',
-    'reset_avatar' => 'Avatar Zurücksetzen',
     'viewing_user_x' => '{x} Benutzer anzeigen', // Don't replace {x}
     'previous_punishments' => 'Vorherige Bestrafungen',
     'no_previous_punishments' => 'Keine vorherigen Bestrafungen',
