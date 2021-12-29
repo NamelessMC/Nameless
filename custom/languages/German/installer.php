@@ -39,7 +39,7 @@ $language = [
     'nameless_path' => 'Installation Path',
     'nameless_path_info' => 'Dies ist der Pfad, in dem Nameless relativ zu Ihrer Domain installiert ist. Wenn Nameless beispielsweise unter example.com/forum installiert ist, muss dies <strong>Forum</strong> sein. Lassen Sie das Feld leer, wenn sich Nameless nicht in einem Unterordner befindet.',
     'friendly_urls' => 'Freundliche URLs',
-    'friendly_urls_info' => 'Freundliche URLs verbessern die Lesbarkeit von URLs in Ihrem Browser. <br />Als Beispiel: <br /><code>example.com/index.php?route=/forum</code><br />wird zu:<br /><code>example.com/forum</code><br /><div class="ui inverted orange segment"><i class="exclamation circle icon"></i><strong>Wichtig!</strong><br />Ihr Server muss korrekt konfiguriert sein, damit dies funktioniert. Sie können sehen, ob Sie diese Option aktivieren können, indem Sie hier auf <a href="./rewrite_test" target="_blank" style="color:#2185D0">klicken</a>.</div>',
+    'friendly_urls_info' => 'Freundliche URLs verbessern die Lesbarkeit von URLs in Ihrem Browser. <br />Zum Beispiel: <br /><code>example.com/index.php?route=/forum</code><br />wird zu:<br /><code>example.com/forum</code><br /><div class="ui inverted orange segment"><i class="exclamation circle icon"></i><strong>Wichtig!</strong><br />Ihr Server muss korrekt konfiguriert sein, damit dies funktioniert. Sie können sehen, ob Sie diese Option aktivieren können, indem Sie hier auf <a href="./rewrite_test" target="_blank" style="color:#2185D0">klicken</a>.</div>',
     'enabled' => 'Aktiviert',
     'disabled' => 'Deaktiviert',
     'character_set' => 'Zeichensatz',
