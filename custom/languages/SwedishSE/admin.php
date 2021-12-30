@@ -104,7 +104,7 @@ $language = [
     'enable_mailer_help' => 'Aktivera det här om e-postmeddelanden inte skickas som standard. Användningen av PHPMailer kräver att du har en tjänst som kan skicka e-postmeddelanden, till exempel Gmail eller en SMTP-leverantör.',
     'outgoing_email' => 'Utgående E-postadress',
     'outgoing_email_info' => 'Detta är den e-postadress som NamelessMC ska använda för att skicka e-post från.',
-    'mailer_settings_info' => 'The following fields are required if you have enabled PHPMailer. For more information on how to fill out these fields, check out <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-SMTP-with-Nameless-(e.g.-Gmail-or-Outlook)" target="_blank">the wiki</a>.',
+    'mailer_settings_info' => 'The following fields are required if you have enabled PHPMailer. For more information on how to fill out these fields, check out <a href="https://docs.namelessmc.com/setup/2.0/smtp" target="_blank">the wiki</a>.',
     'host' => 'Host',
     'email_port' => 'Port',
     'email_port_invalid' => 'Vänligen ange en giltig email port.',

@@ -103,7 +103,7 @@ $language = [
     'enable_mailer_help' => 'Activez ceci si les e-mails ne sont pas envoyés par défaut. L’utilisation de PHPMailer nécessite que vous ayez un service capable d’envoyer des courriels, comme Gmail ou un fournisseur SMTP.',
     'outgoing_email' => 'Adresse mail de sortie',
     'outgoing_email_info' => 'Il s\'agit de l\'adresse électronique que NamelessMC utilisera pour envoyer des courriers électroniques.',
-    'mailer_settings_info' => 'Les champs suivants sont requis si vous avez activé PHPMailer. Pour plus d’informations sur la façon de remplir ces champs, consultez <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-SMTP-with-Nameless-(e.g.-Gmail-or-Outlook)" target="_blank">le wiki</a>.',
+    'mailer_settings_info' => 'Les champs suivants sont requis si vous avez activé PHPMailer. Pour plus d’informations sur la façon de remplir ces champs, consultez <a href="https://docs.namelessmc.com/setup/2.0/smtp" target="_blank">le wiki</a>.',
     'host' => 'Hôte',
     'email_port' => 'Port',
     'email_port_invalid' => 'Please insert a valid email port.',

@@ -108,7 +108,7 @@ $language = [
     'enable_mailer_help' => 'php.iniで電子メール設定が完了していない場合こちらを使用できます。PHPMailerを使用するには、GmailやSMTPプロバイダなどの電子メールを送信できるプロバイダーサービスが必要です。',
     'outgoing_email' => '送信メールアドレス',
     'outgoing_email_info' => 'NamelessMCが電子メールの送信に使用する電子メールアドレスです。',
-    'mailer_settings_info' => 'PHPMailerを有効にした場合、以下のフィールドに必要事項を記入する必要があります。以下のフィールドに記入する方法については <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-SMTP-with-Nameless-(e.g.-Gmail-or-Outlook)" target="_blank">Wiki</a>を確認して下さい。',
+    'mailer_settings_info' => 'PHPMailerを有効にした場合、以下のフィールドに必要事項を記入する必要があります。以下のフィールドに記入する方法については <a href="https://docs.namelessmc.com/setup/2.0/smtp" target="_blank">Wiki</a>を確認して下さい。',
     'host' => 'ホスト',
     'email_port' => 'ポート',
     'email_port_invalid' => 'Please insert a valid email port.',

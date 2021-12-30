@@ -1,6 +1,6 @@
 <?php
 
-// Chinese (Traditional)
+// EnglishUK
 
 $language = [
 
@@ -11,14 +11,14 @@ $language = [
     'discord_role_id_numeric' => 'Discord Role ID must be numeric.',
     'discord_role_id_length' => 'Discord Role ID must be 18 digits long.',
     'discord_guild_id' => 'Discord Server ID',
-    'discord_widget_theme' => 'Discord Widget Theme',
+    'discord_widget_theme' => 'ธีมวิดเจ็ต Discord',
     'discord_widget_disabled' => 'The widget is disabled for the specified Discord server. Please go to the \'Widget\' tab in your Discord server settings, and ensure the Discord widget is enabled and that the ID is correct.',
-    'discord_id_length' => 'Please ensure your Discord ID is 18 characters long.',
-    'discord_id_numeric' => 'Please ensure your Discord ID is numeric (Numbers only).',
-    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://namelessmc.com/discord-bot-invite">here</a>. Then, run the <code>/apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
-    'discord_bot_must_be_setup' => 'Cannot enable Discord Integration until you have set up the bot. For information, please <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">click here</a>.',
-    'discord_bot_setup' => 'Bot set up?',
-    'discord_integration_not_setup' => 'Discord integration is not set up',
+    'discord_id_length' => 'โปรดตรวจสอบให้แน่ใจว่า ID Discord ของคุณมีความยาว 18 ตัวอักษร',
+    'discord_id_numeric' => 'โปรดตรวจสอบให้แน่ใจว่า ID Discord ของคุณเป็นตัวเลข (เฉพาะตัวเลข)',
+    'discord_invite_info' => 'เมื่อต้องการเชิญบอทลิงก์นิรนามไปยังเซิร์ฟเวอร์ Discord ของคุณ ให้คลิก <a target="_blank" href="https://namelessmc.com/discord-bot-invite">here</a>. จากนั้นรันคำสั่ง <code>/apiurl</code> เพื่อเชื่อมโยงบอทกับเว็บไซต์ของคุณ หรือคุณสามารถใช้ <a target="_blank" href="https://docs.namelessmc.com/link/2.0/installation">host the bot yourself</a>.',
+    'discord_bot_must_be_setup' => 'ไม่สามารถเปิดใช้งานการรวม Discord กันจนกว่าคุณจะตั้งค่าบอท สําหรับข้อมูลเพิ่มเติมโปรด <a href="https://docs.namelessmc.com/link/2.0/setup" target="_blank">click here</a>.',
+    'discord_bot_setup' => 'เซ็ตค่าบอทหรือไม่',
+    'discord_integration_not_setup' => 'ไม่ได้ตั้งค่าการรวม Discord',
     'discord_username' => 'Discord Username',
 
     // Discord bot Errors

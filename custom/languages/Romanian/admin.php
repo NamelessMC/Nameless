@@ -108,7 +108,7 @@ $language = [
     'enable_mailer_help' => 'Activați această opțiune dacă e-mailurile nu sunt trimise în mod implicit. Utilizarea programului PHPMailer necesită un serviciu care să poată trimite e-mailuri, cum ar fi Gmail sau un furnizor SMTP.',
     'outgoing_email' => 'Adresa e-mail afisata la iesire',
     'outgoing_email_info' => 'Aceasta este adresa de e-mail pe care NumelessMC o va utiliza pentru a trimite e-mailuri si care se va afișa utilizatorilor.',
-    'mailer_settings_info' => 'Următoarele câmpuri sunt necesare dacă ați activat PHPMailer. Pentru mai multe informații despre completarea acestor câmpuri, consultați <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-SMTP-with-Nameless-(e.g.-Gmail-or-Outlook)" target="_blank">wiki-ul</a>.',
+    'mailer_settings_info' => 'Următoarele câmpuri sunt necesare dacă ați activat PHPMailer. Pentru mai multe informații despre completarea acestor câmpuri, consultați <a href="https://docs.namelessmc.com/setup/2.0/smtp" target="_blank">wiki-ul</a>.',
     'host' => 'Gazdă',
     'email_port' => 'Port',
     'email_port_invalid' => 'Please insert a valid email port.',

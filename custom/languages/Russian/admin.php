@@ -103,7 +103,7 @@ $language = [
     'enable_mailer_help' => 'Включите эту функцию, если электронные письма не отправляются по умолчанию. Использование PHPMailer требует наличия службы, способной отправлять электронные письма, например Gmail или SMTP-провайдера.',
     'outgoing_email' => 'Электронная Почта Отправки',
     'outgoing_email_info' => 'Это адрес электронной почты, с которого NamelessMC будет отправлять электронные письма.',
-    'mailer_settings_info' => 'Следующие поля обязательны для заполнения, если вы включили PHPMailer. Для получения дополнительной информации о том, как заполнить эти поля, ознакомьтесь с <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-SMTP-with-Nameless-(e.g.-Gmail-or-Outlook)" target="_blank">Wiki</a>.',
+    'mailer_settings_info' => 'Следующие поля обязательны для заполнения, если вы включили PHPMailer. Для получения дополнительной информации о том, как заполнить эти поля, ознакомьтесь с <a href="https://docs.namelessmc.com/setup/2.0/smtp" target="_blank">Wiki</a>.',
     'host' => 'Хост',
     'email_port' => 'Порт',
     'email_port_invalid' => 'Пожалуйста, укажите правильный порт.',
