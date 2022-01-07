@@ -55,7 +55,7 @@ if (isset($conf) && is_array($conf)) {
 
 $smarty = new Smarty();
 
-if (defined('DEBUGGING') && DEBUGGING && Composer\InstalledVersions::isInstalled('maximebf/debugbar')) {
+if ((defined('DEBUGGING') && DEBUGGING) && Composer\InstalledVersions::isInstalled('maximebf/debugbar')) {
     define('PHPDEBUGBAR', true);
     DebugBarHelper::getInstance()->enable($smarty);
 }

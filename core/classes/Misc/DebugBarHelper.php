@@ -1,7 +1,10 @@
 <?php
 
+use DebugBar\DataCollector\ConfigCollector;
+use DebugBar\DataCollector\ExceptionsCollector;
+use DebugBar\DataCollector\MessagesCollector;
+use DebugBar\DataCollector\RequestDataCollector;
 use DebugBar\DebugBar;
-use DebugBar\StandardDebugBar;
 use DebugBar\DataCollector\PDO\PDOCollector;
 use Junker\DebugBar\Bridge\SmartyCollector;
 
@@ -13,7 +16,22 @@ class DebugBarHelper extends Instanceable {
      * Enable the PHPDebugBar + add the PDO Collector
      */
     public function enable(Smarty $smarty) {
-        $debugbar = new StandardDebugBar();
+        $debugbar = new DebugBar();
+
+        $messagesCollector = new MessagesCollector();
+        $debugbar->addCollector($messagesCollector);
+
+        $exceptionCollector = new ExceptionsCollector();
+        $debugbar->addCollector($exceptionCollector);
+
+        $requestCollector = new RequestDataCollector();
+        $debugbar->addCollector($requestCollector);
+
+        $configCollector = new ConfigCollector();
+        $configCollector->setData(array_filter($GLOBALS['config'], static function ($key) {
+            return $key !== 'mysql' && $key !== 'allowedProxies';
+        }, ARRAY_FILTER_USE_KEY));
+        $debugbar->addCollector($configCollector);
 
         $pdoCollector = new PDOCollector(DB::getInstance()->getPDO());
         $pdoCollector->setRenderSqlWithParams(true, '`');
@@ -21,8 +39,6 @@ class DebugBarHelper extends Instanceable {
 
         $smartyCollector = new SmartyCollector($smarty);
         $debugbar->addCollector($smartyCollector);
-
-        $debugbar['time']->startMeasure('initializing');
 
         $this->_debugBar = $debugbar;
     }
