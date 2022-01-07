@@ -14,6 +14,10 @@
 
 header('X-Frame-Options: SAMEORIGIN');
 
+if ((!defined('DEBUGGING') || !DEBUGGING) && getenv('NAMELESS_DEBUGGING')) {
+    define('DEBUGGING', 1);
+}
+
 if (defined('DEBUGGING') && DEBUGGING) {
     ini_set('display_startup_errors', 1);
     ini_set('display_errors', 1);
