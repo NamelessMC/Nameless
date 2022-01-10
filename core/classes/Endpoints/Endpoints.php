@@ -43,6 +43,13 @@ class Endpoints {
         foreach ($this->getAll() as $endpoint) {
             if ($endpoint->getRoute() == $route || in_array($route, $endpoint->getRouteAliases())) {
 
+                if (in_array($route, $endpoint->getRouteAliases())) {
+                    Log::getInstance()->log(
+                        Log::Action('api/route_alias_used'),
+                        str_replace(['{x}', '{y}'], [$route, $endpoint->getRoute()], $api->getLanguage()->get('api', 'route_alias_used'))
+                    );
+                }
+
                 // Save that we actually found an endpoint
                 $matched_endpoint = $endpoint;
                 // Save the methods that are available for this endpoint

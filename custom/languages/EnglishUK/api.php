@@ -16,6 +16,7 @@ $language = [
     'unknown_error' => 'Unknown error',
     'invalid_api_key' => 'Invalid API key',
     'invalid_api_method' => 'Invalid API method',
+    'route_alias_used' => 'An application used the deprecated /{x} route alias in the API, it should update to use the /{y} route.', // Don't replace {x} or {y}
     'no_unique_site_id' => 'No unique site ID available',
     'unable_to_check_for_updates' => 'Unable to check for updates',
     'invalid_post_contents' => 'Invalid POST contents',

@@ -17,6 +17,7 @@ $language = [
     'invalid_api_key' => 'Ogiltig API-nyckel',
     'invalid_language_file' => 'Ogiltig språkfil',
     'invalid_api_method' => 'Ogiltig API-metod',
+    'route_alias_used' => 'An application used the deprecated /{x} route alias in the API, it should update to use the /{y} route.', // Don't replace {x} or {y}
     'no_unique_site_id' => 'Inget unikt webbplats-ID tillgängligt',
     'unable_to_check_for_updates' => 'Det går inte att söka efter uppdateringar',
     'invalid_post_contents' => 'Ogiltigt POST-innehåll',
