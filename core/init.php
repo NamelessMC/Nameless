@@ -53,13 +53,6 @@ if (isset($conf) && is_array($conf)) {
     }
 }
 
-$smarty = new Smarty();
-
-if ((defined('DEBUGGING') && DEBUGGING) && Composer\InstalledVersions::isInstalled('maximebf/debugbar')) {
-    define('PHPDEBUGBAR', true);
-    DebugBarHelper::getInstance()->enable($smarty);
-}
-
 // If we're accessing the upgrade script don't initialise further
 if (isset($_GET['route']) && rtrim($_GET['route'], '/') == '/panel/upgrade') {
     $pages = new Pages();
@@ -133,6 +126,13 @@ if ($page != 'install') {
             error_reporting(0);
             ini_set('display_errors', 0);
         }
+    }
+
+    $smarty = new Smarty();
+
+    if ((defined('DEBUGGING') && DEBUGGING) && Composer\InstalledVersions::isInstalled('maximebf/debugbar')) {
+        define('PHPDEBUGBAR', true);
+        DebugBarHelper::getInstance()->enable($smarty);
     }
 
     // Configurations
