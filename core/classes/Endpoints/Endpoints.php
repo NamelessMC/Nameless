@@ -41,7 +41,7 @@ class Endpoints {
         $matched_endpoint = null;
 
         foreach ($this->getAll() as $endpoint) {
-            if ($endpoint->getRoute() == $route) {
+            if ($endpoint->getRoute() == $route || in_array($route, $endpoint->getRouteAliases())) {
 
                 // Save that we actually found an endpoint
                 $matched_endpoint = $endpoint;

@@ -9,7 +9,8 @@
 class UpdateUsernameEndpoint extends EndpointBase {
 
     public function __construct() {
-        $this->_route = 'updateUsername';
+        $this->_route = 'user/update-username';
+        $this->_route_aliases = ['updateUsername'];
         $this->_module = 'Core';
         $this->_description = 'Update a users NamelessMC username to a new username';
         $this->_method = 'POST';

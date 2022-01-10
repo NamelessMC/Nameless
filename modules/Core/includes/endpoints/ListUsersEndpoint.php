@@ -8,7 +8,8 @@
 class ListUsersEndpoint extends EndpointBase {
 
     public function __construct() {
-        $this->_route = 'listUsers';
+        $this->_route = 'users';
+        $this->_route_aliases = ['listUsers'];
         $this->_module = 'Core';
         $this->_description = 'List all users on the NamelessMC site';
         $this->_method = 'GET';

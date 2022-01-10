@@ -9,7 +9,8 @@
 class VerifyDiscordEndpoint extends EndpointBase {
 
     public function __construct() {
-        $this->_route = 'verifyDiscord';
+        $this->_route = 'discord/verify';
+        $this->_route_aliases = ['verifyDiscord'];
         $this->_module = 'Discord Integration';
         $this->_description = 'Verify and link a NamelessMC user\'s Discord account using their validation token';
         $this->_method = 'POST';

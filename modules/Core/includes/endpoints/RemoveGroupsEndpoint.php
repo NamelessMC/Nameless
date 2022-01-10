@@ -9,7 +9,8 @@
 class RemoveGroupsEndpoint extends EndpointBase {
 
     public function __construct() {
-        $this->_route = 'removeGroups';
+        $this->_route = 'user/groups/remove';
+        $this->_route_aliases = ['removeGroups'];
         $this->_module = 'Core';
         $this->_description = 'Remove groups from user';
         $this->_method = 'POST';
