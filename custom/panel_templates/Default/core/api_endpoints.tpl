@@ -48,7 +48,7 @@
 
                             {if count($ENDPOINTS_ARRAY)}
                                 <div class="table-responsive">
-                                    <table class="table table-borderless table-striped">
+                                    <table class="table table-borderless table-striped dataTables-endpoints">
                                         <thead>
                                             <tr>
                                                 <th>{$ROUTE}</th>
