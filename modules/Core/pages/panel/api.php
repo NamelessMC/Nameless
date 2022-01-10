@@ -324,6 +324,7 @@ if (!isset($_GET['view'])) {
             foreach ($endpoints->getAll() as $endpoint) {
                 $endpoints_array[] = [
                     'route' => $endpoint->getRoute(),
+                    'aliases' => $endpoint->getRouteAliases(),
                     'module' => $endpoint->getModule(),
                     'description' => $endpoint->getDescription(),
                     'method' => $endpoint->getMethod()
