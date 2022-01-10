@@ -639,7 +639,7 @@ $language = [
     'existing_rules' => 'Istniejące zasady',
     'new_rule' => 'Nowa zasada',
     'api_endpoints' => 'Punkty API',
-    'api_endpoints_info' => 'Punkty API pomagają modułom w podłączaniu z różnymi usługami (np. Minecraft lub Discord), aby móc integrować z NamelessMC.',
+    'api_endpoints_info' => 'Punkty API pomagają modułom w podłączaniu z różnymi usługami (np. Minecraft lub Discord), aby móc integrować z NamelessMC. <a href="https://docs.namelessmc.com/en/api-documentation" target="_blank">Check out the API documentation here</a>',
     'route' => 'Trasa',
 
     // File uploads

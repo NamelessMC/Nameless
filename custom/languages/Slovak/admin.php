@@ -629,7 +629,7 @@ $language = [
     'existing_rules' => 'Existujúce pravidlá',
     'new_rule' => 'Nové pravidlo',
     'api_endpoints' => 'API koncové body',
-    'api_endpoints_info' => 'API Endpoints umožňujú modulom vytvárať spôsoby, ako môžu externé aplikácie (napríklad Minecraft a Discord) interagovať s vašou NamelessMC webstránkou.',
+    'api_endpoints_info' => 'API Endpoints umožňujú modulom vytvárať spôsoby, ako môžu externé aplikácie (napríklad Minecraft a Discord) interagovať s vašou NamelessMC webstránkou. <a href="https://docs.namelessmc.com/en/api-documentation" target="_blank">Check out the API documentation here</a>',
     'route' => 'Cesta',
 
     // File uploads
