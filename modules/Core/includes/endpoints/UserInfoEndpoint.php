@@ -31,19 +31,19 @@ class UserInfoEndpoint extends EndpointBase {
 
         if (isset($_GET['id'])) {
             $where .= ' WHERE nl2_users.id = ?';
-            array_push($params, $_GET['id']);
+            $params[] = $_GET['id'];
         } else {
             if (isset($_GET['username'])) {
                 $where .= ' WHERE nl2_users.username = ?';
-                array_push($params, $_GET['username']);
+                $params[] = $_GET['username'];
             } else {
                 if (isset($_GET['uuid'])) {
                     $where .= ' WHERE nl2_users.uuid = ?';
-                    array_push($params, str_replace('-', '', $_GET['uuid']));
+                    $params[] = str_replace('-', '', $_GET['uuid']);
                 } else {
                     if ($discord_enabled && isset($_GET['discord_id'])) {
                         $where .= ' WHERE nl2_users.discord_id = ?';
-                        array_push($params, $_GET['discord_id']);
+                        $params[] = $_GET['discord_id'];
                     } else {
                         $api->throwError(6, $api->getLanguage()->get('api', 'invalid_get_contents'));
                     }

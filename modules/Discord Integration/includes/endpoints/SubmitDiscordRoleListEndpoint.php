@@ -25,7 +25,7 @@ class SubmitDiscordRoleListEndpoint extends EndpointBase {
         try {
             Discord::saveRoles($roles);
         } catch (Exception $e) {
-            $api->throwError(33, Discord::getLanguageTerm('unable_to_update_discord_roles'), $e->getMessage());
+            $api->throwError(33, Discord::getLanguageTerm('unable_to_update_discord_roles'), $e->getMessage(), 500);
         }
 
         $api->returnArray(['message' => Discord::getLanguageTerm('discord_settings_updated')]);
