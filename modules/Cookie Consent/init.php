@@ -9,7 +9,7 @@
  *  Cookie Consent initialisation file
  */
 
-require_once ROOT_PATH . '/modules/Cookie Consent/autoload.php';
+require_once ROOT_PATH . '/modules/Cookie Consent/module.php';
 
 $cookie_language = new Language(ROOT_PATH . '/modules/Cookie Consent/language', LANGUAGE);
 

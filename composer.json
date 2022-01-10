@@ -19,5 +19,13 @@
         "phpstan/phpstan": "^1.2",
         "maximebf/debugbar": "^1.17",
         "junker/debugbar-smarty": "^0.2"
+    },
+    "autoload": {
+        "classmap": [
+            "core/classes",
+            "modules/Cookie Consent/classes",
+            "modules/Core/classes",
+            "modules/Discord Integration/classes"
+        ]
     }
 }
