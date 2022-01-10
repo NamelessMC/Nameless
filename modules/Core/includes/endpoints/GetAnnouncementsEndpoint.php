@@ -8,7 +8,8 @@
 class GetAnnouncementsEndpoint extends EndpointBase {
 
     public function __construct() {
-        $this->_route = 'getAnnouncements';
+        $this->_route = 'user/announcements';
+        $this->_route_aliases = ['getAnnouncements'];
         $this->_module = 'Core';
         $this->_description = 'Return latest available announcements for the supplied user';
         $this->_method = 'GET';

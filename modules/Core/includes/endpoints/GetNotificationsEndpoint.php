@@ -11,7 +11,8 @@
 class GetNotificationsEndpoint extends EndpointBase {
 
     public function __construct() {
-        $this->_route = 'getNotifications';
+        $this->_route = 'user/notifications';
+        $this->_route_aliases = ['getNotifications'];
         $this->_module = 'Core';
         $this->_description = 'Get notifications for a user';
         $this->_method = 'GET';

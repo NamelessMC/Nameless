@@ -57,6 +57,7 @@ $language = [
     // User Settings
     'discord_link' => 'Discord prepojenie',
     'linked' => 'Prepojené',
+    'get_link_code' => 'Získať kód odkazu',
     'not_linked' => 'Neprepojené',
     'discord_user_id' => 'ID Discord používateľa',
     'discord_id_unlinked' => 'Vaše Discord ID bolo úspešne odpojené.',

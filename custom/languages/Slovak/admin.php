@@ -14,7 +14,7 @@ $language = [
      *  Admin Control Panel
      */
     // Login
-    're-authenticate' => 'Prosím znova sa autentifikujte',
+    're-authenticate' => 'Prosím, znova sa prihláste',
 
     // Sidebar
     'dashboard' => 'Dashboard',
@@ -46,6 +46,10 @@ $language = [
     'settings' => 'Nastavenia',
     'general_settings' => 'Všeobecné nastavenia',
     'sitename' => 'Názov stránky',
+    'punished_id' => 'ID postretaného používateľa',
+    'punisher_id' => 'ID trestajúceho používateľa',
+    'reason' => 'Dôvod banu',
+    'ip_ban' => 'IP ban?',
     'default_language' => 'Hlavný jazyk',
     'default_language_help' => 'Užívatelia si budú môcť vybrať z ľubovoľných nainštalovaných jazykov.',
     'install_language' => 'Inštalovať jazyk',
@@ -202,7 +206,7 @@ $language = [
     'google_analytics' => 'Google Analytics',
     'google_analytics_help' => 'Pridajte si na svoj web Google Analytics a sledujte návštevníkov a štatistiky. Ak chcete používať túto funkciu, budete si musieť vytvoriť účet Google Analytics. Zadajte svoje ID webového vlastníctva v Google Analytics. ID vyzerá ako UA-XXXXA-X a nájdete ho v informáciách o vašom účte alebo v kóde sledovania poskytnutom Googlom.',
     'sitemap' => 'Sitemap',
-    'seo_settings_updated_successfully' => 'SEO settings updated successfully.',
+    'seo_settings_updated_successfully' => 'Nastavenia SEO sa úspešne aktualizovali.',
 
     // Reactions
     'icon' => 'Ikonka',
@@ -625,7 +629,7 @@ $language = [
     'existing_rules' => 'Existujúce pravidlá',
     'new_rule' => 'Nové pravidlo',
     'api_endpoints' => 'API koncové body',
-    'api_endpoints_info' => 'API Endpoints umožňujú modulom vytvárať spôsoby, ako môžu externé aplikácie (napríklad Minecraft a Discord) interagovať s vašou NamelessMC webstránkou.',
+    'api_endpoints_info' => 'API Endpoints umožňujú modulom vytvárať spôsoby, ako môžu externé aplikácie (napríklad Minecraft a Discord) interagovať s vašou NamelessMC webstránkou. <a href="https://docs.namelessmc.com/en/api-documentation" target="_blank">Check out the API documentation here</a>',
     'route' => 'Cesta',
 
     // File uploads
@@ -668,6 +672,8 @@ $language = [
     'validate_hook_info' => 'Overenie užívateľa',
     'delete_hook_info' => 'Vymazanie užívateľa',
     'report_hook_info' => 'Nahlásiť tvorbu',
+    'ban_hook_info' => 'Používateľ bol zabanovaný',
+    'warn_hook_info' => 'Používateľ bol varovaný',
 
     // Sitemap
     'unable_to_load_sitemap_file_x' => 'Sitemap súbor {x} sa nepodarilo načítať', // Don't replace {x}

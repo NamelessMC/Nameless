@@ -10,7 +10,8 @@
 class RegisterEndpoint extends EndpointBase {
 
     public function __construct() {
-        $this->_route = 'register';
+        $this->_route = 'user/register';
+        $this->_route_aliases = ['register'];
         $this->_module = 'Core';
         $this->_description = 'Register a new user, and send email verification if needed.';
         $this->_method = 'POST';

@@ -3,7 +3,8 @@
 class ServerInfoEndpoint extends EndpointBase {
 
     public function __construct() {
-        $this->_route = 'serverInfo';
+        $this->_route = 'minecraft/server-info';
+        $this->_route_aliases = ['serverInfo'];
         $this->_module = 'Core';
         $this->_description = 'Update the Minecraft server information NamelessMC tracks';
         $this->_method = 'POST';

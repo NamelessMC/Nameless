@@ -14,7 +14,7 @@
 
 header('X-Frame-Options: SAMEORIGIN');
 
-if (!defined('DEBUGGING') || getenv('NAMELESS_DEBUGGING')) {
+if ((!defined('DEBUGGING') || !DEBUGGING) && getenv('NAMELESS_DEBUGGING')) {
     define('DEBUGGING', 1);
 }
 
@@ -62,9 +62,6 @@ if (isset($_GET['route']) && $_GET['route'] == '/rewrite_test') {
 
 // Start initialising the page
 require(ROOT_PATH . '/core/init.php');
-
-DebugBarHelper::getInstance()->getDebugBar()['time']->stopMeasure('initializing');
-DebugBarHelper::getInstance()->getDebugBar()['time']->startMeasure('rendering');
 
 if (!isset($GLOBALS['config']['core']) && is_file(ROOT_PATH . '/install.php')) {
     Redirect::to('install.php');

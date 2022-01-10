@@ -9,7 +9,8 @@
 class GroupInfoEndpoint extends EndpointBase {
 
     public function __construct() {
-        $this->_route = 'groupInfo';
+        $this->_route = 'groups';
+        $this->_route_aliases = ['groupInfo'];
         $this->_module = 'Core';
         $this->_description = 'Lists groups and provides group information';
         $this->_method = 'GET';

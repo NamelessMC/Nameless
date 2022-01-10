@@ -12,7 +12,8 @@
 class CreateReportEndpoint extends EndpointBase {
 
     public function __construct() {
-        $this->_route = 'createReport';
+        $this->_route = 'report/create';
+        $this->_route_aliases = ['createReport'];
         $this->_module = 'Core';
         $this->_description = 'Create a report';
         $this->_method = 'POST';

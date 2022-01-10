@@ -641,7 +641,7 @@ $language = [
     'existing_rules' => 'Befintliga regler',
     'new_rule' => 'Ny regel',
     'api_endpoints' => 'API-slutpunkter',
-    'api_endpoints_info' => 'API-slutpunkter tillåter moduler att skapa sätt för externa applikationer (som Minecraft och Discord) att interagera med din NamelessMC-webbplats.',
+    'api_endpoints_info' => 'API-slutpunkter tillåter moduler att skapa sätt för externa applikationer (som Minecraft och Discord) att interagera med din NamelessMC-webbplats. <a href="https://docs.namelessmc.com/en/api-documentation" target="_blank">Check out the API documentation here</a>',
     'route' => 'Rutt',
 
     // File uploads

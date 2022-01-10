@@ -10,7 +10,8 @@
 class UserInfoEndpoint extends EndpointBase {
 
     public function __construct() {
-        $this->_route = 'userInfo';
+        $this->_route = 'user/info';
+        $this->_route_aliases = ['userInfo'];
         $this->_module = 'Core';
         $this->_description = 'Get information about a NamelessMC user';
         $this->_method = 'GET';

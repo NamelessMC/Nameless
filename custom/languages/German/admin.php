@@ -646,7 +646,7 @@ $language = [
     'existing_rules' => 'Bestehende Regeln',
     'new_rule' => 'Neue Regel',
     'api_endpoints' => 'API-Endpunkte',
-    'api_endpoints_info' => 'Mit API-Endpunkten können Module Möglichkeiten für externe Anwendungen (wie Minecraft und Discord) erstellen, um mit Deiner NamelessMC-Website zu interagieren.',
+    'api_endpoints_info' => 'Mit API-Endpunkten können Module Möglichkeiten für externe Anwendungen (wie Minecraft und Discord) erstellen, um mit Deiner NamelessMC-Website zu interagieren. <a href="https://docs.namelessmc.com/en/api-documentation" target="_blank">Check out the API documentation here</a>',
     'route' => 'Route',
 
     // File uploads

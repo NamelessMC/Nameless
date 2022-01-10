@@ -9,7 +9,8 @@
 class AddGroupsEndpoint extends EndpointBase {
 
     public function __construct() {
-        $this->_route = 'addGroups';
+        $this->_route = 'user/groups/add';
+        $this->_route_aliases = ['addGroups'];
         $this->_module = 'Core';
         $this->_description = 'Add groups to user';
         $this->_method = 'POST';
