@@ -550,16 +550,16 @@
         },
         {
             "name": "smarty/smarty",
-            "version": "v4.0.0",
+            "version": "v4.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/smarty-php/smarty.git",
-                "reference": "baebd59bb4da9fca89da382811b38c8313949c49"
+                "reference": "6f4f06db7ebbad6ae7bc98027d9385e60a016906"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/smarty-php/smarty/zipball/baebd59bb4da9fca89da382811b38c8313949c49",
-                "reference": "baebd59bb4da9fca89da382811b38c8313949c49",
+                "url": "https://api.github.com/repos/smarty-php/smarty/zipball/6f4f06db7ebbad6ae7bc98027d9385e60a016906",
+                "reference": "6f4f06db7ebbad6ae7bc98027d9385e60a016906",
                 "shasum": ""
             },
             "require": {
@@ -603,16 +603,16 @@
                 }
             ],
             "description": "Smarty - the compiling PHP template engine",
-            "homepage": "https://www.smarty.net",
+            "homepage": "https://smarty-php.github.io/smarty/",
             "keywords": [
                 "templating"
             ],
             "support": {
-                "forum": "https://www.smarty.net/forums/",
+                "forum": "https://github.com/smarty-php/smarty/discussions",
                 "issues": "https://github.com/smarty-php/smarty/issues",
-                "source": "https://github.com/smarty-php/smarty/tree/v4.0.0"
+                "source": "https://github.com/smarty-php/smarty/tree/v4.0.2"
             },
-            "time": "2021-11-25T21:18:25+00:00"
+            "time": "2022-01-09T23:09:08+00:00"
         }
     ],
     "packages-dev": [
