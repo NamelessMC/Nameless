@@ -639,7 +639,7 @@ $language = [
     'existing_rules' => 'Bestaande Regels',
     'new_rule' => 'Nieuwe Regel',
     'api_endpoints' => 'API Eindpunten',
-    'api_endpoints_info' => 'API Eindpunten staan Modules toe om manieren te creëren voor externe applicaties (zoals Minecraft en Discord) om te communiceren met uw NamelessMC website. <a href="https://docs.namelessmc.com/en/api-documentation" target="_blank">Check out the API documentation here</a>',
+    'api_endpoints_info' => 'API Eindpunten staan Modules toe om manieren te creëren voor externe applicaties (zoals Minecraft en Discord) om te communiceren met uw NamelessMC website. <a href="https://docs.namelessmc.com/development/2.0/api" target="_blank">Check out the API documentation here</a>',
     'route' => 'Route',
 
     // Bestand uploads

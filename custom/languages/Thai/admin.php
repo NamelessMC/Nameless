@@ -642,7 +642,7 @@ $language = [
     'existing_rules' => 'กฎที่มีอยู่',
     'new_rule' => 'กฎใหม่',
     'api_endpoints' => 'ปลายทาง API',
-    'api_endpoints_info' => 'ตำแหน่งข้อมูล API อนุญาตให้โมดูลสร้างวิธีการสำหรับแอปพลิเคชันภายนอก (เช่น Minecraft และ Discord) เพื่อโต้ตอบกับเว็บไซต์ NamelessMC ของคุณ <a href="https://docs.namelessmc.com/en/api-documentation" target="_blank">Check out the API documentation here</a>',
+    'api_endpoints_info' => 'ตำแหน่งข้อมูล API อนุญาตให้โมดูลสร้างวิธีการสำหรับแอปพลิเคชันภายนอก (เช่น Minecraft และ Discord) เพื่อโต้ตอบกับเว็บไซต์ NamelessMC ของคุณ <a href="https://docs.namelessmc.com/development/2.0/api" target="_blank">Check out the API documentation here</a>',
     'route' => 'เส้นทาง',
 
     // File uploads

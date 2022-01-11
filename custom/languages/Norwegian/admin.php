@@ -638,7 +638,7 @@ $language = [
     'existing_rules' => 'Eksisterende modifikasjoner',
     'new_rule' => 'Ny modifikasjon',
     'api_endpoints' => 'API-endepunkter',
-    'api_endpoints_info' => 'API-endepunkter gir moduler muligheten til å la eksterne programmer (som Minecraft og Discord) kommunisere med NamelessMC-nettsiden din. <a href="https://docs.namelessmc.com/en/api-documentation" target="_blank">Check out the API documentation here</a>',
+    'api_endpoints_info' => 'API-endepunkter gir moduler muligheten til å la eksterne programmer (som Minecraft og Discord) kommunisere med NamelessMC-nettsiden din. <a href="https://docs.namelessmc.com/development/2.0/api" target="_blank">Check out the API documentation here</a>',
     'route' => 'Dirigering',
 
     // File uploads

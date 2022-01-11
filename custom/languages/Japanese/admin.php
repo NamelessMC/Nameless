@@ -645,7 +645,7 @@ $language = [
     'existing_rules' => '既存のルール',
     'new_rule' => '新しいルール',
     'api_endpoints' => 'API エンドポイント',
-    'api_endpoints_info' => 'APIエンドポイントは、モジュールが外部アプリケーション(MinecraftやDiscordなど)とNamelessMCのウェブサイトが対話するための方法を作成することを可能にします。 <a href="https://docs.namelessmc.com/en/api-documentation" target="_blank">Check out the API documentation here</a>',
+    'api_endpoints_info' => 'APIエンドポイントは、モジュールが外部アプリケーション(MinecraftやDiscordなど)とNamelessMCのウェブサイトが対話するための方法を作成することを可能にします。 <a href="https://docs.namelessmc.com/development/2.0/api" target="_blank">Check out the API documentation here</a>',
     'route' => 'ルート',
 
     // File uploads

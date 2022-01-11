@@ -626,7 +626,7 @@ $language = [
     'existing_rules' => 'Действующие правила',
     'new_rule' => 'Создать правило',
     'api_endpoints' => 'API комманды',
-    'api_endpoints_info' => 'Эти команды позволяют модулям создавать пути для взаимодействия(Например сайта с игрой) с вашим сайтом. <a href="https://docs.namelessmc.com/en/api-documentation" target="_blank">Check out the API documentation here</a>',
+    'api_endpoints_info' => 'Эти команды позволяют модулям создавать пути для взаимодействия(Например сайта с игрой) с вашим сайтом. <a href="https://docs.namelessmc.com/development/2.0/api" target="_blank">Check out the API documentation here</a>',
     'route' => 'Путь',
 
     // File uploads
