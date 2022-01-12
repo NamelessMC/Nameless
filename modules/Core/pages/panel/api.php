@@ -343,8 +343,12 @@ if (!isset($_GET['view'])) {
                     'ROUTE' => $language->get('admin', 'route'),
                     'DESCRIPTION' => $language->get('admin', 'description'),
                     'MODULE' => $language->get('admin', 'module'),
+                    'METHOD' => $language->get('admin', 'method'),
                     'ENDPOINTS_INFO' => $language->get('admin', 'api_endpoints_info'),
-                    'ENDPOINTS_ARRAY' => $endpoints_array
+                    'ENDPOINTS_ARRAY' => $endpoints_array,
+                    'TYPE' => $language->get('admin', 'type'),
+                    'TRANSFORMERS' => $language->get('admin', 'transformers'),
+                    'TRANSFORMERS_ARRAY' => Endpoints::getAllTransformers(),
                 ]
             );
 
