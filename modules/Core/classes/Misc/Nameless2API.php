@@ -66,9 +66,7 @@ class Nameless2API {
                 $correct_key = file_get_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('apicache') . '.cache');
             }
 
-            if ($api_key == $correct_key) {
-                return true;
-            }
+            return hash_equals($api_key, $correct_key);
         }
 
         return false;
