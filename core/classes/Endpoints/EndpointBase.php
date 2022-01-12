@@ -10,7 +10,7 @@
  *  EndpointsBase class
  */
 
-abstract class EndpointBase {
+class EndpointBase {
 
     protected string $_route;
     protected array $_route_aliases = [];
@@ -62,12 +62,4 @@ abstract class EndpointBase {
     public function getMethod(): string {
         return $this->_method;
     }
-
-    /**
-     * Execute this Endpoint.
-     *
-     * @param Nameless2API $api Instance of API class to use.
-     */
-    public abstract function execute(Nameless2API $api);
-
 }
