@@ -82,7 +82,7 @@ class Endpoints {
                     $endpoint->execute(
                         $api,
                         ...array_map(function ($type, $value) use ($api) {
-                            return $this::convertValue($api, $type, $value);
+                            return $this::transform($api, $type, $value);
                         }, array_keys($vars), $vars)
                     );
                     return;
@@ -184,7 +184,7 @@ class Endpoints {
      * @param string $type The type to use.
      * @param string $value The value to convert.
      */
-    private static function convertValue(Nameless2API $api, string $type, string $value) {
+    private static function transform(Nameless2API $api, string $type, string $value) {
         if (array_key_exists($type, self::$_transformers)) {
             return self::$_transformers[$type]['transformer']($api, $value);
         }
