@@ -17,30 +17,26 @@ trait MatchesRoutes {
         $route_parts = explode('/', $route);
         $route_vars = [];
 
-        $i = 0;
         // first, find any variables (e.g. {user}) in the endpoint's route
         // we save them to an array with their index, so we can reference them later
-        foreach ($endpoint_parts as $part) {
+        foreach ($endpoint_parts as $i => $part) {
             if ($this->isVariable($part)) {
                 $endpoint_vars[$i] = $this->stripVariable($part);
             }
-            $i++;
         }
 
         if (count($endpoint_parts) !== count($route_parts)) {
             return false;
         }
 
-        $i = 0;
         // now we go over the route and, if each piece is a variable (according to its index), add it to the returned variable array
         // otherwise, if it's not supposed to be a variable, we check if it matches the endpoint's respective route fragment and exit if it doesn't
-        foreach ($route_parts as $part) {
+        foreach ($route_parts as $i => $part) {
             if (array_key_exists($i, $endpoint_vars)) {
                 $route_vars[$endpoint_vars[$i]] = $part;
             } else if ($endpoint_parts[$i] !== $part) {
                 return false;
             }
-            $i++;
         }
 
         return $route_vars;

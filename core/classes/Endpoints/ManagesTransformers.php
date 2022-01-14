@@ -29,18 +29,19 @@ trait ManagesTransformers {
         }
 
         $reflection = new ReflectionFunction($transformer);
-        if ($reflection->getNumberOfParameters() !== 2) {
+        $reflectionParams = $reflection->getParameters();
+        if (count($reflectionParams) !== 2) {
             throw new InvalidArgumentException('Endpoint variable transformer must take 2 arguments (Nameless2API and the raw variable).');
         }
 
         // if they've provided a typehint for the first argument, make sure it's taking Nameless2API
-        $param = $reflection->getParameters()[0];
+        $param = $reflectionParams[0];
         if ($param->getType() instanceof ReflectionNamedType && $param->getType()->getName() !== Nameless2API::class) {
             throw new InvalidArgumentException('Endpoint variable transformer must take Nameless2API as the first argument.');
         }
 
         // check that the second argument is a string
-        $param = $reflection->getParameters()[1];
+        $param = $reflectionParams[1];
         if ($param->getType() instanceof ReflectionNamedType && $param->getType()->getName() !== 'string') {
             throw new InvalidArgumentException('Endpoint variable transformer must take a string as the second argument.');
         }
