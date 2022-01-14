@@ -22,7 +22,7 @@ trait MatchesRoutes {
         // we save them to an array with their index, so we can reference them later
         foreach ($endpoint_parts as $part) {
             if ($this->isVariable($part)) {
-                $endpoint_vars[$i] = substr($part, 1, -1);
+                $endpoint_vars[$i] = $this->stripVariable($part);
             }
             $i++;
         }
@@ -47,6 +47,10 @@ trait MatchesRoutes {
     }
 
     private function isVariable(string $type) : bool {
-        return strpos($type, '{') === 0 && substr($type, -1) === '}';
+        return str_starts_with($type, '{') && str_ends_with($type, '}');
+    }
+
+    private function stripVariable(string $type) : string {
+        return substr($type, 1, -1);
     }
 }

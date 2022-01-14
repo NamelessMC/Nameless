@@ -363,13 +363,16 @@ class Core_Module extends Module {
         GroupSyncManager::getInstance()->registerInjector(NamelessMCGroupSyncInjector::class);
         GroupSyncManager::getInstance()->registerInjector(MinecraftGroupSyncInjector::class);
 
-        Endpoints::registerTransformer('user', 'Core', static function (Nameless2API $api, string $value) {
-            $user = new User($value);
-            if (!$user->exists()) {
-                $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'), $value);
-                die();
+        Endpoints::registerTransformer('user', 'Core', static function (Nameless2API $api, string $value): User {
+            $columns = ['id', 'username', 'uuid'];
+            foreach ($columns as $column) {
+                $user = new User($value, $column);
+                if ($user->exists()) {
+                    return $user;
+                }
             }
-            return $user;
+            $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'), $value);
+            die();
         });
     }
 
