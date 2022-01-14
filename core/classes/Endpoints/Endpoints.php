@@ -69,7 +69,7 @@ class Endpoints {
                     }
 
                     if (!$endpoint->isAuthorised($api)) {
-                        $api->throwError(401, 'NOT_AUTHORISED', null, 403);
+                        $api->throwError(401, 'NOT_AUTHORISED', $endpoint->getAuthType(), 403);
                     }
 
                     $endpoint->execute(
