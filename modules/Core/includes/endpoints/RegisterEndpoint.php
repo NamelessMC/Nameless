@@ -7,11 +7,10 @@
  *
  * @return string JSON Array
  */
-class RegisterEndpoint extends EndpointBase {
+class RegisterEndpoint extends KeyAuthEndpoint {
 
     public function __construct() {
-        $this->_route = 'user/register';
-        $this->_route_aliases = ['register'];
+        $this->_route = 'users/register';
         $this->_module = 'Core';
         $this->_description = 'Register a new user, and send email verification if needed.';
         $this->_method = 'POST';

@@ -6,21 +6,17 @@
  *
  * @return string JSON Array
  */
-class UpdateUsernameEndpoint extends EndpointBase {
+class UpdateUsernameEndpoint extends KeyAuthEndpoint {
 
     public function __construct() {
-        $this->_route = 'user/update-username';
-        $this->_route_aliases = ['updateUsername'];
+        $this->_route = 'users/{user}/update-username';
         $this->_module = 'Core';
         $this->_description = 'Update a users NamelessMC username to a new username';
         $this->_method = 'POST';
     }
 
-    public function execute(Nameless2API $api) {
-        $api->validateParams($_POST, ['id', 'username']);
-
-        // Ensure user exists
-        $user = $api->getUser('id', $_POST['id']);
+    public function execute(Nameless2API $api, User $user) {
+        $api->validateParams($_POST, ['username']);
 
         $fields = ['username' => Output::getClean($_POST['username'])];
 

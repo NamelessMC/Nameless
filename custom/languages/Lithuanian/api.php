@@ -18,7 +18,6 @@ $language = [
     'invalid_api_key' => 'Netinkamas API raktas',
     'invalid_language_file' => 'Netinkamas kalbos failas',
     'invalid_api_method' => 'Netinkamas API metodas',
-    'route_alias_used' => 'An application used the deprecated /{x} route alias in the API, it should update to use the /{y} route.', // Don't replace {x} or {y}
     'no_unique_site_id' => 'Nėra unikalaus svetainės ID',
     'unable_to_check_for_updates' => 'Nepavyko patikrinti, ar yra atnaujinimų',
     'invalid_post_contents' => 'Neteisingas POST turinys',

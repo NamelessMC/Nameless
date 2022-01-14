@@ -17,7 +17,6 @@ $language = [
     'unknown_error' => 'Neznámá chyba',
     'invalid_api_key' => 'Neplatný klíč API',
     'invalid_api_method' => 'Neplatná metoda API',
-    'route_alias_used' => 'An application used the deprecated /{x} route alias in the API, it should update to use the /{y} route.', // Don't replace {x} or {y}
     'no_unique_site_id' => 'Není dostupné unikátní ID webu',
     'unable_to_check_for_updates' => 'Nepodařilo se zkontrolovat aktualizace',
     'invalid_post_contents' => 'Neplatný obsah POST',

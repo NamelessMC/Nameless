@@ -6,21 +6,17 @@
  *
  * @return string JSON Array
  */
-class RemoveGroupsEndpoint extends EndpointBase {
+class RemoveGroupsEndpoint extends KeyAuthEndpoint {
 
     public function __construct() {
-        $this->_route = 'user/groups/remove';
-        $this->_route_aliases = ['removeGroups'];
+        $this->_route = 'users/{user}/groups/remove';
         $this->_module = 'Core';
         $this->_description = 'Remove groups from user';
         $this->_method = 'POST';
     }
 
-    public function execute(Nameless2API $api) {
-        $api->validateParams($_POST, ['user', 'groups']);
-
-        // Ensure user exists
-        $user = $api->getUser('id', $_POST['user']);
+    public function execute(Nameless2API $api, User $user) {
+        $api->validateParams($_POST, ['groups']);
 
         $groups = $_POST['groups'];
         if (!count($groups)) {

@@ -9,11 +9,10 @@
  *
  * @return string JSON Array
  */
-class CreateReportEndpoint extends EndpointBase {
+class CreateReportEndpoint extends KeyAuthEndpoint {
 
     public function __construct() {
         $this->_route = 'report/create';
-        $this->_route_aliases = ['createReport'];
         $this->_module = 'Core';
         $this->_description = 'Create a report';
         $this->_method = 'POST';

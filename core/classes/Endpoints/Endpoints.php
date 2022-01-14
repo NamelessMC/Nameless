@@ -63,7 +63,7 @@ class Endpoints {
         $matched_endpoint = null;
 
         foreach ($this->getAll() as $endpoint) {
-            if (($vars = $this->matchRoute($endpoint, $route, $api)) !== false) {
+            if (($vars = $this->matchRoute($endpoint, $route)) !== false) {
                 // Save that we actually found an endpoint
                 $matched_endpoint = $endpoint;
                 // Save the methods that are available for this endpoint
@@ -77,6 +77,10 @@ class Endpoints {
                     $reflection = new ReflectionMethod($endpoint, 'execute');
                     if ($reflection->getNumberOfParameters() !== (count($vars) + 1)) {
                         throw new InvalidArgumentException("Endpoint's 'execute()' method must take " . (count($vars) + 1) . " arguments.");
+                    }
+
+                    if (!$endpoint->isAuthorised($api)) {
+                        $api->throwError(401, 'NOT_AUTHORISED', null, 403);
                     }
 
                     $endpoint->execute(
@@ -104,24 +108,18 @@ class Endpoints {
      *
      * @param EndpointBase $endpoint Endpoint to attempt to match.
      * @param string $route Route to match.
-     * @param Nameless2API $api Instance of API instance to provide the endpoint.
      * @return array|false Array of variables to pass to the endpoint, or false if the route does not match.
      */
-    private function matchRoute(EndpointBase $endpoint, string $route, Nameless2API $api) {
-        if (in_array($route, $endpoint->getRouteAliases(), true)) {
-            $error = str_replace(['{x}', '{y}'], [$route, $endpoint->getRoute()], $api->getLanguage()->get('api', 'route_alias_used'));
-
-            Log::getInstance()->log(Log::Action('api/route_alias_used'), $error);
-
-            $api->throwError(3, $api->getLanguage()->get('api', 'route_alias_used'), $error);
-            die();
-        }
-
+    private function matchRoute(EndpointBase $endpoint, string $route) {
         $endpoint_parts = explode('/', $endpoint->getRoute());
         $endpoint_vars = [];
 
         $route_parts = explode('/', $route);
         $route_vars = [];
+
+        if (count($endpoint_parts) !== count($route_parts)) {
+            return false;
+        }
 
         $i = 0;
         // first, find any variables (e.g. {user}) in the endpoint's route
@@ -157,7 +155,7 @@ class Endpoints {
      */
     public static function registerTransformer(string $type, string $module, Closure $transformer): void {
         if (isset(self::$_transformers[$type])) {
-            throw new InvalidArgumentException("A transformer with for the type '$type' has already been registered.");
+            throw new InvalidArgumentException("A transformer with for the type '$type' has already been registered by the '" . self::$_transformers[$type]['module'] . "' module.");
         }
 
         $reflection = new ReflectionFunction($transformer);
@@ -169,6 +167,12 @@ class Endpoints {
         $param = $reflection->getParameters()[0];
         if ($param->getType() instanceof ReflectionNamedType && $param->getType()->getName() !== Nameless2API::class) {
             throw new InvalidArgumentException('Endpoint variable transformer must take Nameless2API as the first argument.');
+        }
+
+        // check that the second argument is a string
+        $param = $reflection->getParameters()[1];
+        if ($param->getType() instanceof ReflectionNamedType && $param->getType()->getName() !== 'string') {
+            throw new InvalidArgumentException('Endpoint variable transformer must take a string as the second argument.');
         }
 
         self::$_transformers[$type] = [

@@ -17,7 +17,6 @@ $language = [
     'invalid_api_key' => 'Geçersiz API anahtarı',
     'invalid_language_file' => 'Geçersiz dil dosyası',
     'invalid_api_method' => 'Geçersiz API yöntemi',
-    'route_alias_used' => 'An application used the deprecated /{x} route alias in the API, it should update to use the /{y} route.', // Don't replace {x} or {y}
     'no_unique_site_id' => 'Benzersiz site kimliği yok',
     'unable_to_check_for_updates' => 'Güncellemeleri kontrol edemiyorum',
     'invalid_post_contents' => 'Geçersiz POST içeriği',

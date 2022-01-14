@@ -55,13 +55,14 @@
                                                 <th>{$DESCRIPTION}</th>
                                                 <th>{$MODULE}</th>
                                                 <th>{$METHOD}</th>
+                                                <th>Auth Type</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                         {foreach from=$ENDPOINTS_ARRAY item=endpoint}
                                             <tr>
                                                 <td>
-                                                    <div title="{$endpoint.aliases|implode:', '}"><code>/{$endpoint.route}</code></div>
+                                                    <div><code>/{$endpoint.route}</code></div>
                                                 </td>
                                                 <td>
                                                     <div>{$endpoint.description}</div>
@@ -71,6 +72,9 @@
                                                 </td>
                                                 <td>
                                                     <div><kbd>{$endpoint.method}</kbd></div>
+                                                </td>
+                                                <td>
+                                                    <div>{$endpoint.auth_type}</div>
                                                 </td>
                                             </tr>
                                         {/foreach}

@@ -16,7 +16,6 @@ $language = [
     'unknown_error' => 'Ukendt fejl',
     'invalid_api_key' => 'Ugyldig API-nøgle',
     'invalid_api_method' => 'Ugyldig API-metode',
-    'route_alias_used' => 'An application used the deprecated /{x} route alias in the API, it should update to use the /{y} route.', // Don't replace {x} or {y}
     'no_unique_site_id' => 'Intet unikt side ID tilgængeligt',
     'unable_to_check_for_updates' => 'Kan ikke søge efter opdateringer',
     'invalid_post_contents' => 'Ugyldigt POST indhold',

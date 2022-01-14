@@ -7,11 +7,10 @@
  *
  * @return string JSON Array
  */
-class UserInfoEndpoint extends EndpointBase {
+class UserInfoEndpoint extends KeyAuthEndpoint {
 
     public function __construct() {
-        $this->_route = 'user/info';
-        $this->_route_aliases = ['userInfo'];
+        $this->_route = 'users/info';
         $this->_module = 'Core';
         $this->_description = 'Get information about a NamelessMC user';
         $this->_method = 'GET';

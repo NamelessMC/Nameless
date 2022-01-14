@@ -17,7 +17,6 @@ $language = [
     'invalid_api_key' => 'Niepoprawny klucz API',
     'invalid_language_file' => 'Niepoprawny plik językowy',
     'invalid_api_method' => 'Nieznana metoda API',
-    'route_alias_used' => 'An application used the deprecated /{x} route alias in the API, it should update to use the /{y} route.', // Don't replace {x} or {y}
     'no_unique_site_id' => 'Brak dostępnego unikalnego ID witryny',
     'unable_to_check_for_updates' => 'Nie można sprawdzić czy są dostępne aktualizacje',
     'invalid_post_contents' => 'Nieporawna treść POST',

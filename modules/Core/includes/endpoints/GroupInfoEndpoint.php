@@ -6,11 +6,10 @@
  *
  * @return string JSON Array
  */
-class GroupInfoEndpoint extends EndpointBase {
+class GroupInfoEndpoint extends KeyAuthEndpoint {
 
     public function __construct() {
         $this->_route = 'groups';
-        $this->_route_aliases = ['groupInfo'];
         $this->_module = 'Core';
         $this->_description = 'Lists groups and provides group information';
         $this->_method = 'GET';
