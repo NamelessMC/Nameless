@@ -366,7 +366,7 @@ class Core_Module extends Module {
         Endpoints::registerTransformer('user', 'Core', static function (Nameless2API $api, string $value) {
             $user = new User($value);
             if (!$user->exists()) {
-                $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'));
+                $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'), $value);
                 die();
             }
             return $user;
