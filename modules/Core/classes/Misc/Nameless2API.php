@@ -10,35 +10,8 @@ class Nameless2API {
             $this->_db = DB::getInstance();
             $this->_language = $api_language;
 
-            $explode = explode('/', $route);
-            $using_header = false;
-
-            // attempt to get api key from the url
-            for ($i = count($explode) - 1; $i >= 0; $i--) {
-                if (strlen($explode[$i]) == 32) {
-                    if ($this->validateKey($explode[$i])) {
-                        $api_key = $explode[$i];
-                        break;
-                    }
-                }
-            }
-
-            // if there is no api key in the url, attempt to get it from the X-API-KEY header
-            if (!isset($api_key)) {
-                if (isset($_SERVER['HTTP_X_API_KEY'])) {
-                    if ($this->validateKey($_SERVER['HTTP_X_API_KEY'])) {
-                        $api_key = $_SERVER['HTTP_X_API_KEY'];
-                        $using_header = true;
-                    }
-                }
-            }
-
-            if (!isset($api_key)) {
-                $this->throwError(1, $this->_language->get('api', 'invalid_api_key'));
-            }
-
             $route = explode('/', $route);
-            $route = array_slice($route, $using_header ? 3 : 4);
+            $route = array_slice($route, 3);
             $route = implode('/', $route);
 
             $_POST = json_decode(file_get_contents('php://input'), true);
@@ -52,32 +25,6 @@ class Nameless2API {
         } catch (Exception $e) {
             $this->throwError(0, $this->_language->get('api', 'unknown_error'), $e->getMessage());
         }
-    }
-
-    /**
-     * Validate provided API key to make sure it matches.
-     *
-     * @param string $api_key API key to check.
-     *
-     * @return bool Whether it matches or not.
-     */
-    private function validateKey(string $api_key): bool {
-        // Check cached key
-        if (!is_file(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('apicache') . '.cache')) {
-            // Not cached, cache now
-            // Retrieve from database
-            $correct_key = $this->_db->get('settings', ['name', '=', 'mc_api_key']);
-            $correct_key = $correct_key->results();
-            $correct_key = htmlspecialchars($correct_key[0]->value);
-
-            // Store in cache file
-            file_put_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('apicache') . '.cache', $correct_key);
-
-        } else {
-            $correct_key = file_get_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('apicache') . '.cache');
-        }
-
-        return hash_equals($api_key, $correct_key);
     }
 
     public function throwError($code = null, $message = null, $meta = null, int $status = 400) {

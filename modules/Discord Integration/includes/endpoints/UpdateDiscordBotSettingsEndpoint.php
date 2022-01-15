@@ -6,11 +6,10 @@
  *
  * @return string JSON Array
  */
-class UpdateDiscordBotSettingsEndpoint extends EndpointBase {
+class UpdateDiscordBotSettingsEndpoint extends KeyAuthEndpoint {
 
     public function __construct() {
         $this->_route = 'discord/update-bot-settings';
-        $this->_route_aliases = ['updateDiscordBotSettings'];
         $this->_module = 'Discord Integration';
         $this->_description = 'Updates the Discord Bot URL and/or Guild ID setting';
         $this->_method = 'POST';

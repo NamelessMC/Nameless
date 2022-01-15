@@ -5,30 +5,23 @@
  *
  * @return string JSON Array of latest announcements
  */
-class GetAnnouncementsEndpoint extends EndpointBase {
+class GetAnnouncementsEndpoint extends KeyAuthEndpoint {
 
     public function __construct() {
-        $this->_route = 'user/announcements';
-        $this->_route_aliases = ['getAnnouncements'];
+        $this->_route = 'users/{user}/announcements';
         $this->_module = 'Core';
         $this->_description = 'Return latest available announcements for the supplied user';
         $this->_method = 'GET';
     }
 
-    public function execute(Nameless2API $api) {
-        if (isset($_GET['user_id']) && is_numeric($_GET['user_id'])) {
-            $tempUser = $api->getUser('id', $_GET['user_id']);
-        } else {
-            $tempUser = null;
-        }
-
+    public function execute(Nameless2API $api, User $user): void {
         $user_announcements = [];
 
         $announcements = new Announcements(
             new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/'])
         );
 
-        foreach ($announcements->getAvailable('api', null, $tempUser != null ? $tempUser->getAllGroupIds(false) : [0]) as $announcement) {
+        foreach ($announcements->getAvailable('api', null, $user->getAllGroupIds(false)) as $announcement) {
             $user_announcements[] = [
                 'id' => (int) $announcement->id,
                 'header' => Output::getClean($announcement->header),

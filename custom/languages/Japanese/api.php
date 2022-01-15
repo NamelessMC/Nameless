@@ -22,7 +22,6 @@ $language = [
     'invalid_api_key' => '無効なAPIキー',
     'invalid_language_file' => '言語ファイルが無効です。',
     'invalid_api_method' => 'APIメソッドが無効です。',
-    'route_alias_used' => 'An application used the deprecated /{x} route alias in the API, it should update to use the /{y} route.', // Don't replace {x} or {y}
     'no_unique_site_id' => 'サイトIDはありません。',
     'unable_to_check_for_updates' => '更新を確認できません。',
     'invalid_post_contents' => '無効なPOSTコンテンツ',

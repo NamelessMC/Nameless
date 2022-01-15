@@ -7,17 +7,16 @@
  *
  * @return string JSON Array
  */
-class UserInfoEndpoint extends EndpointBase {
+class UserInfoEndpoint extends KeyAuthEndpoint {
 
     public function __construct() {
-        $this->_route = 'user/info';
-        $this->_route_aliases = ['userInfo'];
+        $this->_route = 'users/{user}';
         $this->_module = 'Core';
         $this->_description = 'Get information about a NamelessMC user';
         $this->_method = 'GET';
     }
 
-    public function execute(Nameless2API $api) {
+    public function execute(Nameless2API $api, User $user) {
         $discord_enabled = Util::isModuleEnabled('Discord Integration');
 
         if ($discord_enabled) {
@@ -26,39 +25,10 @@ class UserInfoEndpoint extends EndpointBase {
             $query = 'SELECT nl2_users.id, nl2_users.username, nl2_users.language_id, nl2_languages.name as `language`, nl2_users.nickname as displayname, nl2_users.uuid, nl2_users.joined as registered_timestamp, nl2_users.last_online as last_online_timestamp, nl2_users.isbanned as banned, nl2_users.active as validated, nl2_users.user_title as user_title FROM nl2_users LEFT JOIN nl2_languages ON nl2_users.language_id = nl2_languages.id';
         }
 
-        $where = '';
-        $params = [];
-
-        if (isset($_GET['id'])) {
-            $where .= ' WHERE nl2_users.id = ?';
-            $params[] = $_GET['id'];
-        } else {
-            if (isset($_GET['username'])) {
-                $where .= ' WHERE nl2_users.username = ?';
-                $params[] = $_GET['username'];
-            } else {
-                if (isset($_GET['uuid'])) {
-                    $where .= ' WHERE nl2_users.uuid = ?';
-                    $params[] = str_replace('-', '', $_GET['uuid']);
-                } else {
-                    if ($discord_enabled && isset($_GET['discord_id'])) {
-                        $where .= ' WHERE nl2_users.discord_id = ?';
-                        $params[] = $_GET['discord_id'];
-                    } else {
-                        $api->throwError(6, $api->getLanguage()->get('api', 'invalid_get_contents'));
-                    }
-                }
-            }
-        }
-
         // Ensure the user exists
-        $user = $api->getDb()->selectQuery($query . $where, $params);
+        $results = $api->getDb()->selectQuery($query . ' WHERE nl2_users.id = ?', [(int) $user->data()->id]);
 
-        if (!$user->count()) {
-            $api->returnArray(['exists' => false]);
-        }
-
-        $user = $user->first();
+        $user = $results->first();
         $user->exists = true;
         $user->id = intval($user->id);
         $user->language_id = intval($user->language_id);

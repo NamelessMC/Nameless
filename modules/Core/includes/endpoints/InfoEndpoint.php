@@ -5,7 +5,7 @@
  *
  * @return string JSON Array of NamelessMC information
  */
-class InfoEndpoint extends EndpointBase {
+class InfoEndpoint extends KeyAuthEndpoint {
 
     public function __construct() {
         $this->_route = 'info';

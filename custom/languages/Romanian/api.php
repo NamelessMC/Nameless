@@ -19,7 +19,6 @@ $language = [
     'invalid_api_key' => 'Cheie API invalidă',
     'invalid_language_file' => 'Fișier lingvistic invalid',
     'invalid_api_method' => 'Metoda API invalidă',
-    'route_alias_used' => 'An application used the deprecated /{x} route alias in the API, it should update to use the /{y} route.', // Don't replace {x} or {y}
     'no_unique_site_id' => 'Nu este disponibil un cod de identificare unic pentru site',
     'unable_to_check_for_updates' => 'Imposibil de verificat pentru actualizări',
     'invalid_post_contents' => 'Conținutul POST este invalid',

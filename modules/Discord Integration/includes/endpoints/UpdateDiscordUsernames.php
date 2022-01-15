@@ -5,11 +5,10 @@
  *
  * @return string JSON Array
  */
-class UpdateDiscordUsernames extends EndpointBase {
+class UpdateDiscordUsernames extends KeyAuthEndpoint {
 
     public function __construct() {
         $this->_route = 'discord/update-usernames';
-        $this->_route_aliases = ['updateDiscordUsernames'];
         $this->_module = 'Discord Integration';
         $this->_description = 'Bulk update many user\'s Discord usernames to display on their settings page.';
         $this->_method = 'POST';
