@@ -6,12 +6,12 @@
 # sudo mkdir /opt/namelessmc
 #
 # Run:
-# export USER_ID=$(id -u); export GROUP_ID=$(id -g); docker-compose up
+# docker-compose up
 #
 # Reset:
 # docker-compose down
 # rm -rf core/config.php cache/*
-# sudo rm -r /opt/namelessmc; sudo mkdir /opt/namelessmc
+# sudo rm -r /opt/namelessmc/*
 #
 # Uninstall
 # docker-compose down
@@ -30,11 +30,10 @@ services:
             - type: bind
               source: .
               target: /data
+        user: '1000' # set this to your user id!
         depends_on: [php]
         environment:
             PHP_FPM: php:9000
-            WWW_DATA_UID: ${USER_ID}
-            WWW_DATA_GID: ${GROUP_ID}
 
     php:
         image: namelessmc/php:dev
@@ -42,6 +41,7 @@ services:
             - type: bind
               source: .
               target: /data
+        user: '1000' # set this to your user id!
         environment:
             NAMELESS_HOSTNAME: localhost
             NAMELESS_DATABASE_ADDRESS: db
@@ -52,11 +52,11 @@ services:
             NAMELESS_SITE_NAME: 'Development'
             NAMELESS_SITE_CONTACT_EMAIL: admin@localhost
             NAMELESS_SITE_OUTGOING_EMAIL: admin@localhost
-            NAMELESS_ADMIN_USERNAME: developer
+            NAMELESS_ADMIN_USERNAME: admin
             NAMELESS_ADMIN_EMAIL: admin@namelessmc.com
+            NAMELESS_ADMIN_PASSWORD: password
             NAMELESS_DEBUGGING: 'enabled'
-            WWW_DATA_UID: ${USER_ID}
-            WWW_DATA_GID: ${GROUP_ID}
+            NAMELESS_AUTO_INSTALL: 'yes please auto install my namelessmc'
 
     db:
         image: mariadb

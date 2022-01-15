@@ -20,13 +20,13 @@ class Email {
     public static function send(array $email, string $method = 'php') {
         if ($method == 'php') {
             return self::sendPHP($email);
-        } else {
-            if ($method == 'mailer') {
-                return self::sendMailer($email);
-            } else {
-                return false;
-            }
         }
+
+        if ($method == 'mailer') {
+            return self::sendMailer($email);
+        }
+
+        return false;
     }
 
     /**

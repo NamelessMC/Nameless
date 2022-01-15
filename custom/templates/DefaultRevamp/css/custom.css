@@ -783,7 +783,7 @@ body.pushable>.pusher {
     margin: 0 .14285714em;
     background-color: #e8e8e8;
     background-image: none;
-    padding: .5833em .833em;
+    padding: 0.3em .3em;
     color: rgba(0, 0, 0, .6);
     text-transform: none;
     font-size: .85714286rem;

@@ -75,7 +75,6 @@ if (!isset($_GET['c'])) {
                         ]);
 
                         EventHandler::executeEvent('validateUser', [
-                            'event' => 'validateUser',
                             'user_id' => $target_user->data()->id,
                             'username' => $target_user->getDisplayname(),
                             'uuid' => Output::getClean($target_user->data()->uuid),

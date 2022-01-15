@@ -285,10 +285,8 @@ if (Input::exists()) {
                             $user = new User();
 
                             $ip = $user->getIP();
-                            if (filter_var($ip, FILTER_VALIDATE_IP)) {
-                                // Valid IP
-                            } else {
-                                // TODO: Invalid IP, do something else
+                            if (!filter_var($ip, FILTER_VALIDATE_IP)) {
+                                // TODO: Invalid IP, do something
                             }
 
                             $password = password_hash(Input::get('password'), PASSWORD_BCRYPT, ['cost' => 13]);
@@ -384,7 +382,6 @@ if (Input::exists()) {
                                 if ($api_verification != '1') {
                                     // Email verification disabled
                                     EventHandler::executeEvent('registerUser', [
-                                        'event' => 'registerUser',
                                         'user_id' => $user_id,
                                         'username' => Output::getClean(Input::get('username')),
                                         'uuid' => $uuid,
@@ -401,10 +398,7 @@ if (Input::exists()) {
                                 }
                             }
 
-                            EventHandler::executeEvent(
-                                'registerUser',
-                                [
-                                    'event' => 'registerUser',
+                            EventHandler::executeEvent('registerUser', [
                                     'user_id' => $user_id,
                                     'username' => Output::getClean(Input::get('username')),
                                     'uuid' => $uuid,

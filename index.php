@@ -14,10 +14,7 @@
 
 header('X-Frame-Options: SAMEORIGIN');
 
-if (!defined('DEBUGGING') && (
-        isset($_SERVER['NAMELESSMC_DEBUGGING']) && $_SERVER['NAMELESSMC_DEBUGGING'] ||
-        getenv('NAMELESS_DEBUGGING')
-    )) {
+if ((!defined('DEBUGGING') || !DEBUGGING) && getenv('NAMELESS_DEBUGGING')) {
     define('DEBUGGING', 1);
 }
 
@@ -73,7 +70,7 @@ if (!isset($GLOBALS['config']['core']) && is_file(ROOT_PATH . '/install.php')) {
 // Get page to load from URL
 if (!isset($_GET['route']) || $_GET['route'] == '/') {
 
-    if (count($directories) > 1 && (!isset($_GET['route']) || (isset($_GET['route']) && $_GET['route'] != '/'))) {
+    if (count($directories) > 1 && (!isset($_GET['route']) || ($_GET['route'] != '/'))) {
         require(ROOT_PATH . '/404.php');
     } else {
         // Homepage

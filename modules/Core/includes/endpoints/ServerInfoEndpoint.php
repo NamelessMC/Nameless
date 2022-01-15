@@ -3,7 +3,8 @@
 class ServerInfoEndpoint extends EndpointBase {
 
     public function __construct() {
-        $this->_route = 'serverInfo';
+        $this->_route = 'minecraft/server-info';
+        $this->_route_aliases = ['serverInfo'];
         $this->_module = 'Core';
         $this->_description = 'Update the Minecraft server information NamelessMC tracks';
         $this->_method = 'POST';
@@ -60,7 +61,7 @@ class ServerInfoEndpoint extends EndpointBase {
                 file_put_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('server_query_cache') . '.cache', json_encode($to_cache));
             }
         } catch (Exception $e) {
-            $api->throwError(25, $api->getLanguage()->get('api', 'unable_to_update_server_info'), $e->getMessage());
+            $api->throwError(25, $api->getLanguage()->get('api', 'unable_to_update_server_info'), $e->getMessage(), 500);
         }
 
         $group_sync_log = [];
@@ -76,7 +77,7 @@ class ServerInfoEndpoint extends EndpointBase {
                 $this->updatePlaceholders($user, $player);
             }
         } catch (Exception $e) {
-            $api->throwError(25, $api->getLanguage()->get('api', 'unable_to_update_server_info'), $e->getMessage());
+            $api->throwError(25, $api->getLanguage()->get('api', 'unable_to_update_server_info'), $e->getMessage(), 500);
         }
 
         $api->returnArray(array_merge(['message' => $api->getLanguage()->get('api', 'server_info_updated')], ['log' => $group_sync_log]));
@@ -91,16 +92,14 @@ class ServerInfoEndpoint extends EndpointBase {
 
             // Update username
             if (!Util::getSetting($api->getDb(), 'displaynames', false)) {
-                $user->update(
-                    [
+                $user->update([
                         'username' => Output::getClean($player['name']),
                         'nickname' => Output::getClean($player['name'])
                     ],
                     $user->data()->id
                 );
             } else {
-                $user->update(
-                    [
+                $user->update([
                         'username' => Output::getClean($player['name'])
                     ],
                     $user->data()->id
@@ -111,6 +110,10 @@ class ServerInfoEndpoint extends EndpointBase {
 
     private function updateGroups(User $user, array $player): array {
         if (!$user->exists()) {
+            return [];
+        }
+
+        if (!$user->isValidated()) {
             return [];
         }
 

@@ -214,7 +214,6 @@ if (Input::exists()) {
                     $available_hooks = $queries->getWhere('forums', ['id', '=', $fid]);
                     $available_hooks = json_decode($available_hooks[0]->hooks);
                     EventHandler::executeEvent('newTopic', [
-                        'event' => 'newTopic',
                         'uuid' => Output::getClean($user->data()->uuid),
                         'username' => $user->getDisplayname(true),
                         'nickname' => $user->getDisplayname(),

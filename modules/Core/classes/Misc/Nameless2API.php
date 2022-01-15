@@ -45,33 +45,27 @@ class Nameless2API {
     /**
      * Validate provided API key to make sure it matches.
      *
-     * @param string|null $api_key API key to check.
+     * @param string $api_key API key to check.
      *
      * @return bool Whether it matches or not.
      */
-    private function validateKey(string $api_key = null): bool {
-        if ($api_key) {
-            // Check cached key
-            if (!is_file(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('apicache') . '.cache')) {
-                // Not cached, cache now
-                // Retrieve from database
-                $correct_key = $this->_db->get('settings', ['name', '=', 'mc_api_key']);
-                $correct_key = $correct_key->results();
-                $correct_key = htmlspecialchars($correct_key[0]->value);
+    private function validateKey(string $api_key): bool {
+        // Check cached key
+        if (!is_file(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('apicache') . '.cache')) {
+            // Not cached, cache now
+            // Retrieve from database
+            $correct_key = $this->_db->get('settings', ['name', '=', 'mc_api_key']);
+            $correct_key = $correct_key->results();
+            $correct_key = htmlspecialchars($correct_key[0]->value);
 
-                // Store in cache file
-                file_put_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('apicache') . '.cache', $correct_key);
+            // Store in cache file
+            file_put_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('apicache') . '.cache', $correct_key);
 
-            } else {
-                $correct_key = file_get_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('apicache') . '.cache');
-            }
-
-            if ($api_key == $correct_key) {
-                return true;
-            }
+        } else {
+            $correct_key = file_get_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('apicache') . '.cache');
         }
 
-        return false;
+        return hash_equals($api_key, $correct_key);
     }
 
     public function throwError($code = null, $message = null, $meta = null, int $status = 400) {

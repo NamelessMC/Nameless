@@ -9,7 +9,8 @@
 class VerifyDiscordEndpoint extends EndpointBase {
 
     public function __construct() {
-        $this->_route = 'verifyDiscord';
+        $this->_route = 'discord/verify';
+        $this->_route_aliases = ['verifyDiscord'];
         $this->_module = 'Discord Integration';
         $this->_description = 'Verify and link a NamelessMC user\'s Discord account using their validation token';
         $this->_method = 'POST';
@@ -30,15 +31,18 @@ class VerifyDiscordEndpoint extends EndpointBase {
         $id = $verification->first()->user_id;
 
         // Ensure the user exists
-        $api->getUser('id', $id);
+        $user = $api->getUser('id', $id);
 
         try {
             $api->getDb()->update('users', $id, ['discord_id' => $discord_id]);
             $api->getDb()->update('users', $id, ['discord_username' => $discord_username]);
             $api->getDb()->delete('discord_verifications', ['user_id', '=', $id]);
         } catch (Exception $e) {
-            $api->throwError(29, Discord::getLanguageTerm('unable_to_set_discord_id'), $e->getMessage());
+            $api->throwError(29, Discord::getLanguageTerm('unable_to_set_discord_id'), $e->getMessage(), 500);
         }
+
+        // attempt to update their Discord roles
+        Discord::updateDiscordRoles($user, $user->getAllGroupIds(false), []);
 
         $api->returnArray(['message' => Discord::getLanguageTerm('discord_id_set')]);
     }

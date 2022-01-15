@@ -128,6 +128,13 @@ if ($page != 'install') {
         }
     }
 
+    $smarty = new Smarty();
+
+    if ((defined('DEBUGGING') && DEBUGGING) && Composer\InstalledVersions::isInstalled('maximebf/debugbar')) {
+        define('PHPDEBUGBAR', true);
+        DebugBarHelper::getInstance()->enable($smarty);
+    }
+
     // Configurations
     $configuration = new Configuration($cache);
 
@@ -305,7 +312,6 @@ if ($page != 'install') {
     }
 
     // Smarty
-    $smarty = new Smarty();
     $securityPolicy = new Smarty_Security($smarty);
     $securityPolicy->php_modifiers = [
         'escape',

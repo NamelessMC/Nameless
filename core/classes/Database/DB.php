@@ -41,6 +41,10 @@ class DB extends Instanceable {
         $this->_query_recorder = QueryRecorder::getInstance();
     }
 
+    public function getPDO(): PDO {
+        return $this->_pdo;
+    }
+
     /**
      * @deprecated Use selectQuery function to select data from DB, or createQuery function to modify data in DB
      */

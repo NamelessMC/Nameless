@@ -9,7 +9,8 @@
 class VerifyMinecraftEndpoint extends EndpointBase {
 
     public function __construct() {
-        $this->_route = 'verifyMinecraft';
+        $this->_route = 'minecraft/verify';
+        $this->_route_aliases = ['verifyMinecraft'];
         $this->_module = 'Core';
         $this->_description = 'Validate/Activate a NamelessMC account by confirming their reset code';
         $this->_method = 'POST';
@@ -39,7 +40,6 @@ class VerifyMinecraftEndpoint extends EndpointBase {
 
         try {
             EventHandler::executeEvent('validateUser', [
-                'event' => 'validateUser',
                 'user_id' => $user->data()->id,
                 'username' => Output::getClean($user->data()->username),
                 'language' => $api->getLanguage()

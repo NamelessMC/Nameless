@@ -1,5 +1,4 @@
 {include file='header.tpl'}
-
     <div class="ui container" id="error-403">
       <div class="ui segment">
         <h2 class="ui header">{$403_TITLE}</h2>
@@ -17,6 +16,5 @@
         </div>
       </div>
     </div>
-  
   </body>
 </html>

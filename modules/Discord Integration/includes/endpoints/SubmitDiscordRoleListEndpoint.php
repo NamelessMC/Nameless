@@ -8,7 +8,8 @@
 class SubmitDiscordRoleListEndpoint extends EndpointBase {
 
     public function __construct() {
-        $this->_route = 'submitDiscordRoleList';
+        $this->_route = 'discord/submit-role-list';
+        $this->_route_aliases = ['submitDiscordRoleList'];
         $this->_module = 'Discord Integration';
         $this->_description = 'Update NamelessMC\'s list of your Discord guild\'s roles.';
         $this->_method = 'POST';
@@ -24,7 +25,7 @@ class SubmitDiscordRoleListEndpoint extends EndpointBase {
         try {
             Discord::saveRoles($roles);
         } catch (Exception $e) {
-            $api->throwError(33, Discord::getLanguageTerm('unable_to_update_discord_roles'), $e->getMessage());
+            $api->throwError(33, Discord::getLanguageTerm('unable_to_update_discord_roles'), $e->getMessage(), 500);
         }
 
         $api->returnArray(['message' => Discord::getLanguageTerm('discord_settings_updated')]);

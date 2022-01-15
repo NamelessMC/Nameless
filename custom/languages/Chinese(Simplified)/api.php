@@ -19,6 +19,7 @@ $language = [
     'invalid_api_key' => '无效 API 密钥',
     'invalid_language_file' => '语言文件无效',
     'invalid_api_method' => 'API 路径无效',
+    'route_alias_used' => 'An application used the deprecated /{x} route alias in the API, it should update to use the /{y} route.', // Don't replace {x} or {y}
     'no_unique_site_id' => '无唯一站点名称可用',
     'unable_to_check_for_updates' => '未能检测更新',
     'invalid_post_contents' => '帖子内容无效',

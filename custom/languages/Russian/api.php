@@ -17,6 +17,7 @@ $language = [
     'unknown_error' => 'Неизвестная ошибка',
     'invalid_api_key' => 'Недействительный API ключ',
     'invalid_api_method' => 'Недействительный метод API',
+    'route_alias_used' => 'An application used the deprecated /{x} route alias in the API, it should update to use the /{y} route.', // Don't replace {x} or {y}
     'no_unique_site_id' => 'Уникальный идентификатор сайта отсутствует',
     'unable_to_check_for_updates' => 'Невозможно проверить наличие обновлений',
     'invalid_post_contents' => 'Недопустимое содержимое POST-запроса',

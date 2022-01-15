@@ -12,7 +12,8 @@
 class CreateReportEndpoint extends EndpointBase {
 
     public function __construct() {
-        $this->_route = 'createReport';
+        $this->_route = 'report/create';
+        $this->_route_aliases = ['createReport'];
         $this->_module = 'Core';
         $this->_description = 'Create a report';
         $this->_method = 'POST';
@@ -91,7 +92,7 @@ class CreateReportEndpoint extends EndpointBase {
             ]);
             $api->returnArray(['message' => $api->getLanguage()->get('api', 'report_created')], 201);
         } catch (Exception $e) {
-            $api->throwError(23, $api->getLanguage()->get('api', 'unable_to_create_report'), $e->getMessage());
+            $api->throwError(23, $api->getLanguage()->get('api', 'unable_to_create_report'), $e->getMessage(), 500);
         }
     }
 }

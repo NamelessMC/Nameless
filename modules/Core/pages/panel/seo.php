@@ -65,7 +65,7 @@ if (!isset($_GET['metadata'])) {
                 if (Input::get('type') == 'google_analytics') {
                     $configuration->set('Core', 'ga_script', Input::get('analyticsid'));
 
-                    $success = $language->get('admin', 'settings_updated_successfully');
+                    $success = $language->get('admin', 'seo_settings_updated_successfully');
                 }
             }
         } else {

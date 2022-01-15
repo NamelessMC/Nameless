@@ -9,7 +9,8 @@
 class UpdateDiscordBotSettingsEndpoint extends EndpointBase {
 
     public function __construct() {
-        $this->_route = 'updateDiscordBotSettings';
+        $this->_route = 'discord/update-bot-settings';
+        $this->_route_aliases = ['updateDiscordBotSettings'];
         $this->_module = 'Discord Integration';
         $this->_description = 'Updates the Discord Bot URL and/or Guild ID setting';
         $this->_method = 'POST';
@@ -24,7 +25,7 @@ class UpdateDiscordBotSettingsEndpoint extends EndpointBase {
             try {
                 $api->getDb()->createQuery('UPDATE nl2_settings SET `value` = ? WHERE `name` = ?', [$_POST['url'], 'discord_bot_url']);
             } catch (Exception $e) {
-                $api->throwError(30, Discord::getLanguageTerm('unable_to_set_discord_bot_url'), $e->getMessage());
+                $api->throwError(30, Discord::getLanguageTerm('unable_to_set_discord_bot_url'), $e->getMessage(), 500);
             }
         }
 
@@ -32,7 +33,7 @@ class UpdateDiscordBotSettingsEndpoint extends EndpointBase {
             try {
                 $api->getDb()->createQuery('UPDATE nl2_settings SET `value` = ? WHERE `name` = ?', [$_POST['guild_id'], 'discord']);
             } catch (Exception $e) {
-                $api->throwError(33, Discord::getLanguageTerm('unable_to_set_discord_id'), $e->getMessage());
+                $api->throwError(33, Discord::getLanguageTerm('unable_to_set_discord_id'), $e->getMessage(), 500);
             }
         }
 
@@ -40,7 +41,7 @@ class UpdateDiscordBotSettingsEndpoint extends EndpointBase {
             try {
                 $api->getDb()->createQuery('UPDATE nl2_settings SET `value` = ? WHERE `name` = ?', [$_POST['bot_username'], 'discord_bot_username']);
             } catch (Exception $e) {
-                $api->throwError(33, Discord::getLanguageTerm('unable_to_set_discord_bot_username'), $e->getMessage());
+                $api->throwError(33, Discord::getLanguageTerm('unable_to_set_discord_bot_username'), $e->getMessage(), 500);
             }
         }
 

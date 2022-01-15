@@ -13,6 +13,7 @@
 abstract class EndpointBase {
 
     protected string $_route;
+    protected array $_route_aliases = [];
     protected string $_module;
     protected string $_description;
     protected string $_method;
@@ -24,6 +25,15 @@ abstract class EndpointBase {
      */
     public function getRoute(): string {
         return $this->_route;
+    }
+
+    /**
+     * Get route aliases of this Endpoint - for backwards compatibility.
+     *
+     * @return array Endpoint's route aliases.
+     */
+    public function getRouteAliases(): array {
+        return $this->_route_aliases;
     }
 
     /**

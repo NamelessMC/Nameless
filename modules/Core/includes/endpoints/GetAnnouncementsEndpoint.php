@@ -8,7 +8,8 @@
 class GetAnnouncementsEndpoint extends EndpointBase {
 
     public function __construct() {
-        $this->_route = 'getAnnouncements';
+        $this->_route = 'user/announcements';
+        $this->_route_aliases = ['getAnnouncements'];
         $this->_module = 'Core';
         $this->_description = 'Return latest available announcements for the supplied user';
         $this->_method = 'GET';
@@ -29,7 +30,7 @@ class GetAnnouncementsEndpoint extends EndpointBase {
 
         foreach ($announcements->getAvailable('api', null, $tempUser != null ? $tempUser->getAllGroupIds(false) : [0]) as $announcement) {
             $user_announcements[] = [
-                'id' => (int)$announcement->id,
+                'id' => (int) $announcement->id,
                 'header' => Output::getClean($announcement->header),
                 'message' => Output::getPurified($announcement->message),
                 'pages' => json_decode($announcement->pages),

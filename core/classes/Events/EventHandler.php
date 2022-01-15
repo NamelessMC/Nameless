@@ -22,26 +22,6 @@ class EventHandler {
     }
 
     /**
-     * Register an event listener for a module.
-     * This must be called in the module's constructor.
-     *
-     * @param string $event Event name to hook into (must be registered with `registerEvent()`).
-     * @param callable $callback Listener callback to execute.
-     * @param bool $advanced When true, the callback will be given specific parameters as per its method declaration, otherwise it will be given the raw $params array.
-     */
-    public static function registerListener(string $event, callable $callback, bool $advanced = false): void {
-        if (!isset(self::$_events[$event])) {
-            // Silently create event if it doesnt exist, maybe throw exception instead?
-            self::registerEvent($event, $event);
-        }
-
-        self::$_events[$event]['listeners'][] = [
-            'callback' => $callback,
-            'advanced' => $advanced,
-        ];
-    }
-
-    /**
      * Register an event. This must be called in the module's constructor.
      *
      * @param string $event Name of event to add.
@@ -66,6 +46,26 @@ class EventHandler {
             'description' => $description,
             'params' => $params,
             'listeners' => [],
+        ];
+    }
+
+    /**
+     * Register an event listener for a module.
+     * This must be called in the module's constructor.
+     *
+     * @param string $event Event name to hook into (must be registered with `registerEvent()`).
+     * @param callable $callback Listener callback to execute.
+     * @param bool $advanced When true, the callback will be given specific parameters as per its method declaration, otherwise it will be given the raw $params array.
+     */
+    public static function registerListener(string $event, callable $callback, bool $advanced = false): void {
+        if (!isset(self::$_events[$event])) {
+            // Silently create event if it doesnt exist, maybe throw exception instead?
+            self::registerEvent($event, $event);
+        }
+
+        self::$_events[$event]['listeners'][] = [
+            'callback' => $callback,
+            'advanced' => $advanced,
         ];
     }
 

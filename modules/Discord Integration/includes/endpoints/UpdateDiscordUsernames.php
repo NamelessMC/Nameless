@@ -8,7 +8,8 @@
 class UpdateDiscordUsernames extends EndpointBase {
 
     public function __construct() {
-        $this->_route = 'updateDiscordUsernames';
+        $this->_route = 'discord/update-usernames';
+        $this->_route_aliases = ['updateDiscordUsernames'];
         $this->_module = 'Discord Integration';
         $this->_description = 'Bulk update many user\'s Discord usernames to display on their settings page.';
         $this->_method = 'POST';
@@ -23,7 +24,7 @@ class UpdateDiscordUsernames extends EndpointBase {
             try {
                 $api->getDb()->update('users', $user->data()->id, ['discord_username' => $discord_username]);
             } catch (Exception $e) {
-                $api->throwError(24, Discord::getLanguageTerm('unable_to_update_discord_username'), $e->getMessage());
+                $api->throwError(24, Discord::getLanguageTerm('unable_to_update_discord_username'), $e->getMessage(), 500);
             }
         }
 

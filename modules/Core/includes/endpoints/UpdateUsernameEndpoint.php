@@ -9,7 +9,8 @@
 class UpdateUsernameEndpoint extends EndpointBase {
 
     public function __construct() {
-        $this->_route = 'updateUsername';
+        $this->_route = 'user/update-username';
+        $this->_route_aliases = ['updateUsername'];
         $this->_module = 'Core';
         $this->_description = 'Update a users NamelessMC username to a new username';
         $this->_method = 'POST';
@@ -30,7 +31,7 @@ class UpdateUsernameEndpoint extends EndpointBase {
         try {
             $api->getDb()->update('users', $user->data()->id, $fields);
         } catch (Exception $e) {
-            $api->throwError(24, $api->getLanguage()->get('api', 'unable_to_update_username'));
+            $api->throwError(24, $api->getLanguage()->get('api', 'unable_to_update_username'), 500);
         }
 
         $api->returnArray(['message' => $api->getLanguage()->get('api', 'username_updated')]);

@@ -158,19 +158,42 @@ if (!class_exists('Default_Panel_Template')) {
 
                     case 'api':
                         $this->addCSSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/toastr/toastr.min.css' => []
+                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/toastr/toastr.min.css' => [],
+                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/css/dataTables.bootstrap4.min.css' => []
                         ]);
 
                         $this->addJSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/toastr/toastr.min.js' => []
+                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/toastr/toastr.min.js' => [],
+                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/dataTables/jquery.dataTables.min.js' => [],
+                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/js/dataTables.bootstrap4.min.js' => []
                         ]);
 
                         $this->addJSScript('
-						var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
+                            var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
+    
+                            elems.forEach(function(html) {
+                              var switchery = new Switchery(html, {color: \'#23923d\', secondaryColor: \'#e56464\'});
+                            });
+						');
 
-						elems.forEach(function(html) {
-						  var switchery = new Switchery(html, {color: \'#23923d\', secondaryColor: \'#e56464\'});
-						});
+                        $this->addJSScript('
+							$(document).ready(function() {
+								var apiEndpointsTable = $(\'.dataTables-endpoints\').DataTable({
+									pageLength: 50,
+									language: {
+										"lengthMenu": "' . $this->_language->get('table', 'display_records_per_page') . '",
+										"zeroRecords": "' . $this->_language->get('table', 'nothing_found') . '",
+										"info": "' . $this->_language->get('table', 'page_x_of_y') . '",
+										"infoEmpty": "' . $this->_language->get('table', 'no_records') . '",
+										"infoFiltered": "' . $this->_language->get('table', 'filtered') . '",
+										"search": "' . $this->_language->get('general', 'search') . '",
+										"paginate": {
+										    "next": "' . $this->_language->get('general', 'next') . '",
+										    "previous": "' . $this->_language->get('general', 'previous') . '"
+										}
+									}
+								});
+							});
 						');
 
                         break;

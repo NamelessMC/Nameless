@@ -188,7 +188,14 @@ if (isset($_GET['user'])) {
                                     ]);
 
                                 } else {
-                                    if ($type == 4) {
+                                    if ($type == 2) {
+                                        // Fire userWarned event
+                                        EventHandler::executeEvent('userWarned', [
+                                            'punished_id' => $query->id,
+                                            'punisher_id' => $user->data()->id,
+                                            'reason' => Output::getClean($_POST['reason']),
+                                        ]);
+                                    } else if ($type == 4) {
                                         // Need to delete any other avatars
                                         $diff_str = implode(',', ['jpg', 'png', 'jpeg', 'gif']);
 
@@ -382,7 +389,7 @@ if (isset($_GET['user'])) {
             $p = 1;
         }
 
-        $paginator = new Paginator(($template_pagination ?? []));
+        $paginator = new Paginator(($template_pagination ?? []), $template_pagination_left ?? '', $template_pagination_right ?? '');
         $results = $paginator->getLimited($punishments, 10, $p, count($punishments));
         $pagination = $paginator->generate(7, URL::build('/panel/users/punishments/', true));
 

@@ -298,6 +298,15 @@ class Core_Module extends Module {
             ]
         );
 
+        EventHandler::registerEvent('userWarned',
+            $language->get('admin', 'warning_hook_info'),
+            [
+                'punished_id' => $language->get('admin', 'punished_id'),
+                'punisher_id' => $language->get('admin', 'punisher_id'),
+                'reason' => $language->get('admin', 'reason'),
+            ]
+        );
+
         // Webhooks
         $cache->setCache('hooks');
         if ($cache->isCached('hooks')) {

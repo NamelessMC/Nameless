@@ -3,7 +3,8 @@
 class BanUserEndpoint extends EndpointBase {
 
     public function __construct() {
-        $this->_route = 'banUser';
+        $this->_route = 'user/ban';
+        $this->_route_aliases = ['banUser'];
         $this->_module = 'Core';
         $this->_description = 'Ban a NamelessMC user by their NamelessMC ID';
         $this->_method = 'POST';

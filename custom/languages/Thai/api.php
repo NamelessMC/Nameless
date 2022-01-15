@@ -17,6 +17,7 @@ $language = [
     'invalid_api_key' => 'คีย์ API ไม่ถูกต้อง',
     'invalid_language_file' => 'ไฟล์ภาษาไม่ถูกต้อง',
     'invalid_api_method' => 'Invalid API method',
+    'route_alias_used' => 'An application used the deprecated /{x} route alias in the API, it should update to use the /{y} route.', // Don't replace {x} or {y}
     'no_unique_site_id' => 'ไม่มีรหัสไซต์ที่ไม่ซ้ำกัน',
     'unable_to_check_for_updates' => 'ไม่สามารถตรวจสอบการอัปเดตได้',
     'invalid_post_contents' => 'เนื้อหา POST ไม่ถูกต้อง',
