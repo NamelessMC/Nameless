@@ -28,9 +28,7 @@ THE SOFTWARE.
 
 
 function timeAgoInWords(string $timestring, string $timezone = null): string {
-    $timeAgo = new TimeAgo($timezone);
-
-    return $timeAgo->inWords($timestring, 'now');
+    return (new TimeAgo($timezone))->inWords($timestring, 'now');
 }
 
 /**
@@ -216,18 +214,18 @@ class TimeAgo {
             if (function_exists('pluralForm')) {
                 if (isset($replace)) {
                     return str_replace('{x}', $replace, pluralForm($replace, $time_language[$key]));
-                } else {
-                    return 'Plural specified but replace not set for ' . Output::getClean($key);
                 }
+
+                return 'Plural specified but replace not set for ' . Output::getClean($key);
             } else {
                 return 'Plural form function not defined';
             }
         } else {
             if (isset($replace)) {
                 return str_replace('{x}', $replace, $time_language[$key]);
-            } else {
-                return $time_language[$key];
             }
+
+            return $time_language[$key];
         }
     }
 
@@ -259,7 +257,7 @@ class TimeAgo {
                     // uses floor to remove decimals
                     $years = floor($timeDifference / $this->_secondsPerYear);
                     // saves the amount of seconds left
-                    $timeDifference = $timeDifference - ($years * $this->_secondsPerYear);
+                    $timeDifference -= ($years * $this->_secondsPerYear);
                     break;
 
                 // finds the number of months
@@ -267,7 +265,7 @@ class TimeAgo {
                     // uses floor to remove decimals
                     $months = floor($timeDifference / $this->_secondsPerMonth);
                     // saves the amount of seconds left
-                    $timeDifference = $timeDifference - ($months * $this->_secondsPerMonth);
+                    $timeDifference -= ($months * $this->_secondsPerMonth);
                     break;
 
                 // finds the number of days
@@ -275,7 +273,7 @@ class TimeAgo {
                     // uses floor to remove decimals
                     $days = floor($timeDifference / $this->_secondsPerDay);
                     // saves the amount of seconds left
-                    $timeDifference = $timeDifference - ($days * $this->_secondsPerDay);
+                    $timeDifference -= ($days * $this->_secondsPerDay);
                     break;
 
                 // finds the number of hours
@@ -283,7 +281,7 @@ class TimeAgo {
                     // uses floor to remove decimals
                     $hours = floor($timeDifference / $this->_secondsPerHour);
                     // saves the amount of seconds left
-                    $timeDifference = $timeDifference - ($hours * $this->_secondsPerHour);
+                    $timeDifference -= ($hours * $this->_secondsPerHour);
                     break;
 
                 // finds the number of minutes
@@ -291,7 +289,7 @@ class TimeAgo {
                     // uses floor to remove decimals
                     $minutes = floor($timeDifference / $this->_secondsPerMinute);
                     // saves the amount of seconds left
-                    $timeDifference = $timeDifference - ($minutes * $this->_secondsPerMinute);
+                    $timeDifference -= ($minutes * $this->_secondsPerMinute);
                     break;
 
                 // finds the number of seconds

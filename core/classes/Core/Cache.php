@@ -87,9 +87,9 @@ class Cache {
                 $entry = $cachedData[$key];
                 if ($entry && $this->_checkExpired($entry['time'], $entry['expire'])) {
                     return false;
-                } else {
-                    return isset($cachedData[$key]['data']);
                 }
+
+                return isset($cachedData[$key]['data']);
             }
         }
 
@@ -105,9 +105,9 @@ class Cache {
         if (file_exists($this->getCacheDir())) {
             $file = file_get_contents($this->getCacheDir());
             return json_decode($file, true);
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     /**
@@ -132,10 +132,12 @@ class Cache {
      */
     private function _checkCacheDir(): bool {
         if (!is_dir($this->getCachePath()) && !mkdir($this->getCachePath(), 0775, true)) {
-            throw new Exception('Unable to create cache directory ' . $this->getCachePath());
-        } else if (!is_readable($this->getCachePath()) || !is_writable($this->getCachePath())) {
+            throw new RuntimeException('Unable to create cache directory ' . $this->getCachePath());
+        }
+
+        if (!is_readable($this->getCachePath()) || !is_writable($this->getCachePath())) {
             if (!chmod($this->getCachePath(), 0775)) {
-                throw new Exception('Your <b>' . $this->getCachePath() . '</b> directory must be readable and writeable. Check your file permissions.');
+                throw new RuntimeException('Your <b>' . $this->getCachePath() . '</b> directory must be readable and writeable. Check your file permissions.');
             }
         }
         return true;
@@ -284,9 +286,9 @@ class Cache {
                 }
             }
             return $results;
-        } else {
-            return $this->_loadCache();
         }
+
+        return $this->_loadCache();
     }
 
     /**
@@ -304,7 +306,7 @@ class Cache {
                 $cacheData = json_encode($cacheData);
                 file_put_contents($this->getCacheDir(), $cacheData);
             } else {
-                throw new Exception("Error: erase() - Key '$key' not found.");
+                throw new RuntimeException("Error: erase() - Key '$key' not found.");
             }
         }
         return $this;

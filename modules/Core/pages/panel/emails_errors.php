@@ -29,103 +29,103 @@ if (isset($_GET['do'])) {
         Session::flash('emails_errors_success', $language->get('admin', 'email_errors_purged_successfully'));
         Redirect::to(URL::build('/panel/core/emails/errors'));
         die();
-    } else {
-        if ($_GET['do'] == 'delete' && isset($_GET['id']) && is_numeric($_GET['id'])) {
+    }
 
-            $queries->delete('email_errors', ['id', '=', $_GET['id']]);
+    if ($_GET['do'] == 'delete' && isset($_GET['id']) && is_numeric($_GET['id'])) {
 
-            Session::flash('emails_errors_success', $language->get('admin', 'error_deleted_successfully'));
+        $queries->delete('email_errors', ['id', '=', $_GET['id']]);
+
+        Session::flash('emails_errors_success', $language->get('admin', 'error_deleted_successfully'));
+        Redirect::to(URL::build('/panel/core/emails/errors'));
+        die();
+    }
+
+    if ($_GET['do'] == 'view' && isset($_GET['id']) && is_numeric($_GET['id'])) {
+        // Check the error exists
+        $error = $queries->getWhere('email_errors', ['id', '=', $_GET['id']]);
+        if (!count($error)) {
             Redirect::to(URL::build('/panel/core/emails/errors'));
             die();
+        }
+        $error = $error[0];
+
+        switch ($error->type) {
+            case 1:
+                $type = $language->get('admin', 'registration_email');
+                break;
+            case 2:
+                $type = $language->get('admin', 'contact_email');
+                break;
+            case 3:
+                $type = $language->get('admin', 'forgot_password_email');
+                break;
+            case 4:
+                $type = $language->get('admin', 'api_registration_email');
+                break;
+            case 5:
+                $type = $language->get('admin', 'forum_topic_reply_email');
+                break;
+            case 6:
+                $type = $language->get('admin', 'emails_mass_message');
+                break;
+            default:
+                $type = $language->get('admin', 'unknown');
+                break;
+        }
+
+        $smarty->assign([
+            'BACK_LINK' => URL::build('/panel/core/emails/errors'),
+            'VIEWING_ERROR' => $language->get('admin', 'viewing_email_error'),
+            'USERNAME' => $language->get('user', 'username'),
+            'USERNAME_VALUE' => Output::getClean($user->idToName($error->user_id)),
+            'DATE' => $language->get('general', 'date'),
+            'DATE_VALUE' => date('d M Y, H:i', $error->at),
+            'TYPE' => $language->get('admin', 'type'),
+            'TYPE_ID' => $error->type,
+            'TYPE_VALUE' => $type,
+            'CONTENT' => $language->get('admin', 'content'),
+            'CONTENT_VALUE' => Output::getPurified($error->content),
+            'ACTIONS' => $language->get('general', 'actions'),
+            'DELETE_ERROR' => $language->get('admin', 'delete_email_error'),
+            'DELETE_ERROR_LINK' => URL::build('/panel/core/emails/errors/', 'do=delete&amp;id=' . $error->id),
+            'CONFIRM_DELETE_ERROR' => $language->get('admin', 'confirm_email_error_deletion'),
+            'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
+            'YES' => $language->get('general', 'yes'),
+            'NO' => $language->get('general', 'no'),
+            'CLOSE' => $language->get('general', 'close')
+        ]);
+
+        if ($error->type == 1) {
+            $user_validated = $queries->getWhere('users', ['id', '=', $error->user_id]);
+            if (count($user_validated)) {
+                $user_validated = $user_validated[0];
+                if ($user_validated->active == 0) {
+                    $smarty->assign([
+                        'VALIDATE_USER_LINK' => URL::build('/panel/users/edit/', 'id=' . $error->user_id . '&amp;action=validate'),
+                        'VALIDATE_USER_TEXT' => $language->get('admin', 'validate_user')
+                    ]);
+                }
+            }
         } else {
-            if ($_GET['do'] == 'view' && isset($_GET['id']) && is_numeric($_GET['id'])) {
-                // Check the error exists
-                $error = $queries->getWhere('email_errors', ['id', '=', $_GET['id']]);
-                if (!count($error)) {
-                    Redirect::to(URL::build('/panel/core/emails/errors'));
-                    die();
-                }
-                $error = $error[0];
-
-                switch ($error->type) {
-                    case 1:
-                        $type = $language->get('admin', 'registration_email');
-                        break;
-                    case 2:
-                        $type = $language->get('admin', 'contact_email');
-                        break;
-                    case 3:
-                        $type = $language->get('admin', 'forgot_password_email');
-                        break;
-                    case 4:
-                        $type = $language->get('admin', 'api_registration_email');
-                        break;
-                    case 5:
-                        $type = $language->get('admin', 'forum_topic_reply_email');
-                        break;
-                    case 6:
-                        $type = $language->get('admin', 'emails_mass_message');
-                        break;
-                    default:
-                        $type = $language->get('admin', 'unknown');
-                        break;
-                }
-
-                $smarty->assign([
-                    'BACK_LINK' => URL::build('/panel/core/emails/errors'),
-                    'VIEWING_ERROR' => $language->get('admin', 'viewing_email_error'),
-                    'USERNAME' => $language->get('user', 'username'),
-                    'USERNAME_VALUE' => Output::getClean($user->idToName($error->user_id)),
-                    'DATE' => $language->get('general', 'date'),
-                    'DATE_VALUE' => date('d M Y, H:i', $error->at),
-                    'TYPE' => $language->get('admin', 'type'),
-                    'TYPE_ID' => $error->type,
-                    'TYPE_VALUE' => $type,
-                    'CONTENT' => $language->get('admin', 'content'),
-                    'CONTENT_VALUE' => Output::getPurified($error->content),
-                    'ACTIONS' => $language->get('general', 'actions'),
-                    'DELETE_ERROR' => $language->get('admin', 'delete_email_error'),
-                    'DELETE_ERROR_LINK' => URL::build('/panel/core/emails/errors/', 'do=delete&amp;id=' . $error->id),
-                    'CONFIRM_DELETE_ERROR' => $language->get('admin', 'confirm_email_error_deletion'),
-                    'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
-                    'YES' => $language->get('general', 'yes'),
-                    'NO' => $language->get('general', 'no'),
-                    'CLOSE' => $language->get('general', 'close')
-                ]);
-
-                if ($error->type == 1) {
-                    $user_validated = $queries->getWhere('users', ['id', '=', $error->user_id]);
-                    if (count($user_validated)) {
-                        $user_validated = $user_validated[0];
-                        if ($user_validated->active == 0) {
-                            $smarty->assign([
-                                'VALIDATE_USER_LINK' => URL::build('/panel/users/edit/', 'id=' . $error->user_id . '&amp;action=validate'),
-                                'VALIDATE_USER_TEXT' => $language->get('admin', 'validate_user')
-                            ]);
-                        }
-                    }
-                } else {
-                    if ($error->type == 4) {
-                        $user_error = $queries->getWhere('users', ['id', '=', $error->user_id]);
-                        if (count($user_error)) {
-                            $user_error = $user_error[0];
-                            if ($user_error->active == 0 && !is_null($user_error->reset_code)) {
-                                $smarty->assign([
-                                    'REGISTRATION_LINK' => $language->get('admin', 'registration_link'),
-                                    'SHOW_REGISTRATION_LINK' => $language->get('admin', 'show_registration_link'),
-                                    'REGISTRATION_LINK_VALUE' => rtrim(Util::getSelfURL(), '/') . URL::build('/complete_signup/', 'c=' . Output::getClean($user_error->reset_code))
-                                ]);
-                            }
-                        }
+            if ($error->type == 4) {
+                $user_error = $queries->getWhere('users', ['id', '=', $error->user_id]);
+                if (count($user_error)) {
+                    $user_error = $user_error[0];
+                    if ($user_error->active == 0 && !is_null($user_error->reset_code)) {
+                        $smarty->assign([
+                            'REGISTRATION_LINK' => $language->get('admin', 'registration_link'),
+                            'SHOW_REGISTRATION_LINK' => $language->get('admin', 'show_registration_link'),
+                            'REGISTRATION_LINK_VALUE' => rtrim(Util::getSelfURL(), '/') . URL::build('/complete_signup/', 'c=' . Output::getClean($user_error->reset_code))
+                        ]);
                     }
                 }
-
-                $template_file = 'core/emails_errors_view.tpl';
-            } else {
-                Redirect::to(URL::build('/panel/core/emails/errors'));
-                die();
             }
         }
+
+        $template_file = 'core/emails_errors_view.tpl';
+    } else {
+        Redirect::to(URL::build('/panel/core/emails/errors'));
+        die();
     }
 } else {
     // Display all errors
@@ -136,14 +136,14 @@ if (isset($_GET['do'])) {
         if (!is_numeric($_GET['p'])) {
             Redirect::to(URL::build('/panel/core/emails/errors'));
             die();
-        } else {
-            if ($_GET['p'] == 1) {
-                // Avoid bug in pagination class
-                Redirect::to(URL::build('/panel/core/emails/errors'));
-                die();
-            }
-            $p = $_GET['p'];
         }
+
+        if ($_GET['p'] == 1) {
+            // Avoid bug in pagination class
+            Redirect::to(URL::build('/panel/core/emails/errors'));
+            die();
+        }
+        $p = $_GET['p'];
     } else {
         $p = 1;
     }
@@ -165,8 +165,8 @@ if (isset($_GET['do'])) {
     if (count($email_errors)) {
         $template_errors = [];
 
-        for ($n = 0; $n < count($results->data); $n++) {
-            switch ($results->data[$n]->type) {
+        foreach ($results->data as $nValue) {
+            switch ($nValue->type) {
                 case 1:
                     $type = $language->get('admin', 'registration_email');
                     break;
@@ -192,10 +192,10 @@ if (isset($_GET['do'])) {
 
             $template_errors[] = [
                 'type' => $type,
-                'date' => date('d M Y, H:i', $results->data[$n]->at),
-                'user' => Output::getClean($user->idToName($results->data[$n]->user_id)),
-                'view_link' => URL::build('/panel/core/emails/errors/', 'do=view&id=' . $results->data[$n]->id),
-                'id' => $results->data[$n]->id
+                'date' => date('d M Y, H:i', $nValue->at),
+                'user' => Output::getClean($user->idToName($nValue->user_id)),
+                'view_link' => URL::build('/panel/core/emails/errors/', 'do=view&id=' . $nValue->id),
+                'id' => $nValue->id
             ];
         }
 

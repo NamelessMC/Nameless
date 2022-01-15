@@ -15,7 +15,7 @@ class UpdateUsernameEndpoint extends KeyAuthEndpoint {
         $this->_method = 'POST';
     }
 
-    public function execute(Nameless2API $api, User $user) {
+    public function execute(Nameless2API $api, User $user): void {
         $api->validateParams($_POST, ['username']);
 
         $fields = ['username' => Output::getClean($_POST['username'])];

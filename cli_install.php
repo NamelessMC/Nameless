@@ -16,7 +16,7 @@ function getEnvVar(string $name, bool $required = false) {
     return $value ?: '';
 }
 
-if (php_sapi_name() != 'cli') {
+if (PHP_SAPI != 'cli') {
     die('This script must be run from the command line.');
 }
 
@@ -71,7 +71,7 @@ if ($reinstall) {
     }
 }
 
-define('ROOT_PATH', dirname(__FILE__));
+define('ROOT_PATH', __DIR__);
 
 print('✍️  Creating new config.php file...' . PHP_EOL);
 $conf = [

@@ -54,7 +54,7 @@ if (count($dashboard_graphs)) {
         unset($dashboard_graph['datasets']);
 
         foreach ($dashboard_graph as $date => $values) {
-            $date = intval(str_replace('_', '', $date));
+            $date = (int)str_replace('_', '', $date);
 
             if (!array_key_exists($date, $graph['keys'])) {
                 $graph['keys'][$date] = date('Y-m-d', $date);
@@ -115,10 +115,10 @@ if ($user->hasPermission('admincp.core.debugging')) {
     $compat_success = [];
     $compat_errors = [];
 
-    if (version_compare(phpversion(), '7.4', '<')) {
-        $compat_errors[] = 'PHP ' . phpversion();
+    if (version_compare(PHP_VERSION, '7.4', '<')) {
+        $compat_errors[] = 'PHP ' . PHP_VERSION;
     } else {
-        $compat_success[] = 'PHP ' . phpversion();
+        $compat_success[] = 'PHP ' . PHP_VERSION;
     }
     if (!extension_loaded('gd')) {
         $compat_errors[] = 'PHP GD';

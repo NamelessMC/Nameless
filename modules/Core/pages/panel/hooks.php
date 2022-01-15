@@ -96,9 +96,9 @@ if (!isset($_GET['action'])) {
                             Session::flash('admin_hooks', $language->get('admin', 'hook_created'));
                             Redirect::to(URL::build('/panel/core/hooks'));
                             die();
-                        } else {
-                            $errors[] = $language->get('admin', 'invalid_hook_events');
                         }
+
+                        $errors[] = $language->get('admin', 'invalid_hook_events');
                     } else {
                         $errors = $validation->errors();
                     }
@@ -182,9 +182,9 @@ if (!isset($_GET['action'])) {
                             Session::flash('admin_hooks', $language->get('admin', 'hook_edited'));
                             Redirect::to(URL::build('/panel/core/hooks'));
                             die();
-                        } else {
-                            $errors[] = $language->get('admin', 'invalid_hook_events');
                         }
+
+                        $errors[] = $language->get('admin', 'invalid_hook_events');
                     } else {
                         $errors = $validation->errors();
                     }

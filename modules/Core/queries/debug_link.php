@@ -44,7 +44,7 @@ foreach ($modules as $item) {
 
 $templates_query = $queries->getWhere('templates', ['id', '<>', 0]);
 foreach ($templates_query as $fe_template) {
-    $template_path = join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', htmlspecialchars($fe_template->name), 'template.php']);
+    $template_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', htmlspecialchars($fe_template->name), 'template.php']);
 
     if (file_exists($template_path)) {
         require_once($template_path);
@@ -63,7 +63,7 @@ foreach ($templates_query as $fe_template) {
 $panel_templates_query = $queries->getWhere('panel_templates', ['id', '<>', 0]);
 foreach ($panel_templates_query as $panel_template) {
 
-    $template_path = join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'panel_templates', htmlspecialchars($panel_template->name), 'template.php']);
+    $template_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'panel_templates', htmlspecialchars($panel_template->name), 'template.php']);
 
     if (file_exists($template_path)) {
         require_once($template_path);
@@ -148,7 +148,7 @@ $data = [
     'generated_by_uuid' => $user->data()->uuid ?? '',
     'namelessmc' => [
         'version' => Util::getSetting(DB::getInstance(), 'nameless_version'),
-        'update_available' => Util::getSetting(DB::getInstance(), 'version_update') == 'false' ? false : true,
+        'update_available' => Util::getSetting(DB::getInstance(), 'version_update') != 'false',
         'update_checked' => (int)Util::getSetting(DB::getInstance(), 'version_checked'),
         'settings' => [
             'phpmailer' => (bool)Util::getSetting(DB::getInstance(), 'phpmailer'),
@@ -184,7 +184,7 @@ $data = [
         ],
     ],
     'environment' => [
-        'php_version' => phpversion(),
+        'php_version' => PHP_VERSION,
         'php_modules' => get_loaded_extensions(),
         'host_os' => PHP_OS,
         'host_kernel_version' => php_uname('r'),

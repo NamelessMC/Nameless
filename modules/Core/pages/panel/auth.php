@@ -105,9 +105,9 @@ if (Input::exists()) {
                 }
 
                 die();
-            } else {
-                Session::flash('adm_auth_error', $language->get('user', 'incorrect_details'));
             }
+
+            Session::flash('adm_auth_error', $language->get('user', 'incorrect_details'));
         } else {
             Session::flash('adm_auth_error', $language->get('user', 'incorrect_details'));
         }

@@ -17,7 +17,7 @@ class GetNotificationsEndpoint extends KeyAuthEndpoint {
         $this->_method = 'GET';
     }
 
-    public function execute(Nameless2API $api, User $user) {
+    public function execute(Nameless2API $api, User $user): void {
         $return = ['notifications' => []];
 
         // Get unread alerts

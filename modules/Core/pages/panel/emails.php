@@ -73,7 +73,7 @@ if (isset($_GET['action'])) {
 
                 $headers = 'From: ' . $siteemail . "\r\n" .
                     'Reply-To: ' . $siteemail . "\r\n" .
-                    'X-Mailer: PHP/' . phpversion() . "\r\n" .
+                    'X-Mailer: PHP/' . PHP_VERSION . "\r\n" .
                     'MIME-Version: 1.0' . "\r\n" .
                     'Content-type: text/html; charset=UTF-8' . "\r\n";
 
@@ -114,7 +114,7 @@ if (isset($_GET['action'])) {
                 $lang = new Language(null, $language_db->name);
                 $lang_file = ($lang->getActiveLanguageDirectory() . DIRECTORY_SEPARATOR . 'emails.php');
                 if (file_exists($lang_file) && is_writable($lang_file)) {
-                    array_push($available_languages, $language_db);
+                    $available_languages[] = $language_db;
                 }
             }
 

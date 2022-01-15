@@ -76,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $uuid = 'none';
 
             $profile = ProfileUtils::getProfile(Output::getClean(Input::get('username')));
-            if (!empty($profile)) {
+            if ($profile !== null) {
                 $result = $profile->getProfileAsArray();
                 if (isset($result['uuid']) && !empty($result['uuid'])) {
                     $uuid = Output::getClean($result['uuid']);

@@ -38,13 +38,13 @@ class Configuration {
         $this->_cache->setCache($module . 'configuration');
         if ($this->_cache->isCached($setting)) {
             return $this->_cache->retrieve($setting);
-        } else {
-            $data = $this->_db->selectQuery('SELECT value FROM `nl2_' . Output::getClean($module) . 'settings` WHERE `name` = ?', [$setting]);
-            if ($data->count()) {
-                $results = $data->results();
-                $this->_cache->store($setting, $results[0]->value);
-                return $results[0]->value;
-            }
+        }
+
+        $data = $this->_db->selectQuery('SELECT value FROM `nl2_' . Output::getClean($module) . 'settings` WHERE `name` = ?', [$setting]);
+        if ($data->count()) {
+            $results = $data->results();
+            $this->_cache->store($setting, $results[0]->value);
+            return $results[0]->value;
         }
 
         return null;

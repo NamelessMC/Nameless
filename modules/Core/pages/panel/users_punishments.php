@@ -34,7 +34,7 @@ if (isset($_GET['user'])) {
     }
     $query = $view_user->data();
 
-    if (isset($_GET['do']) && $_GET['do'] == 'revoke' && isset($_GET['id']) && is_numeric($_GET['id'])) {
+    if (isset($_GET['do'], $_GET['id']) && $_GET['do'] == 'revoke' && is_numeric($_GET['id'])) {
         if (Token::checK()) {
             $infraction = $queries->getWhere('infractions', ['id', '=', $_GET['id']]);
             if (!$user->hasPermission('modcp.punishments.revoke') || !count($infraction) || ($infraction[0]->punished != $query->id)) {
@@ -179,7 +179,7 @@ if (isset($_GET['user'])) {
                                         ]);
                                     }
 
-                                    // Fire userBanned event 
+                                    // Fire userBanned event
                                     EventHandler::executeEvent('userBanned', [
                                         'punished_id' => $query->id,
                                         'punisher_id' => $user->data()->id,
@@ -359,9 +359,9 @@ if (isset($_GET['user'])) {
 
                 Redirect::to(URL::build('/panel/users/punishments/', 'user=' . Output::getClean($check->id)));
                 die();
-            } else {
-                $errors = [$language->get('user', 'couldnt_find_that_user')];
             }
+
+            $errors = [$language->get('user', 'couldnt_find_that_user')];
         } else {
             $errors = [$language->get('general', 'invalid_token')];
         }
@@ -377,14 +377,14 @@ if (isset($_GET['user'])) {
             if (!is_numeric($_GET['p'])) {
                 Redirect::to(URL::build('/panel/users/punishments'));
                 die();
-            } else {
-                if ($_GET['p'] == 1) {
-                    // Avoid bug in pagination class
-                    Redirect::to(URL::build('/panel/users/punishments'));
-                    die();
-                }
-                $p = $_GET['p'];
             }
+
+            if ($_GET['p'] == 1) {
+                // Avoid bug in pagination class
+                Redirect::to(URL::build('/panel/users/punishments'));
+                die();
+            }
+            $p = $_GET['p'];
         } else {
             $p = 1;
         }

@@ -79,14 +79,14 @@ if (isset($_GET['p'])) {
     if (!is_numeric($_GET['p'])) {
         Redirect::to(URL::build('/forum'));
         die();
-    } else {
-        if ($_GET['p'] <= 1) {
-            // Avoid bug in pagination class
-            Redirect::to(URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title)));
-            die();
-        }
-        $p = $_GET['p'];
     }
+
+    if ($_GET['p'] <= 1) {
+        // Avoid bug in pagination class
+        Redirect::to(URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title)));
+        die();
+    }
+    $p = $_GET['p'];
 } else {
     $p = 1;
 }
@@ -329,11 +329,11 @@ if (Input::exists()) {
                             }
                             $user_info = $queries->getWhere('users', ['id', '=', $user_following->user_id]);
                             if ($user_info[0]->topic_updates) {
-                                array_push($users_following_info, ['email' => $user_info[0]->email, 'username' => $user_info[0]->username]);
+                                $users_following_info[] = ['email' => $user_info[0]->email, 'username' => $user_info[0]->username];
                             }
                         }
                     }
-                    $path = join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', TEMPLATE, 'email', 'forum_topic_reply.html']);
+                    $path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', TEMPLATE, 'email', 'forum_topic_reply.html']);
                     $html = file_get_contents($path);
 
                     // TODO: Add placeholder support for Email::formatEmail()
@@ -383,7 +383,7 @@ if (Input::exists()) {
                                 // PHP mail function
                                 $headers = 'From: ' . $siteemail . "\r\n" .
                                     'Reply-To: ' . $contactemail . "\r\n" .
-                                    'X-Mailer: PHP/' . phpversion() . "\r\n" .
+                                    'X-Mailer: PHP/' . PHP_VERSION . "\r\n" .
                                     'MIME-Version: 1.0' . "\r\n" .
                                     'Content-type: text/html; charset=UTF-8' . "\r\n";
 
@@ -600,8 +600,8 @@ $mc_integration = $queries->getWhere('settings', ['name', '=', 'mc_integration']
 // Replies
 $replies = [];
 // Display the correct number of posts
-for ($n = 0; $n < count($results->data); $n++) {
-    $post_creator = new User($results->data[$n]->post_creator);
+foreach ($results->data as $n => $nValue) {
+    $post_creator = new User($nValue->post_creator);
     if (!$post_creator->data()) {
         continue;
     }
@@ -611,7 +611,7 @@ for ($n = 0; $n < count($results->data); $n++) {
     $signature = $post_creator->getSignature();
 
     // Panel heading content
-    $url = URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $results->data[$n]->id);
+    $url = URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $nValue->id);
 
     if ($n != 0) {
         $heading = $forum_language->get('forum', 're') . Output::getClean($topic->topic_title);
@@ -629,14 +629,14 @@ for ($n = 0; $n < count($results->data); $n++) {
         // Edit button
         if ($forum->canModerateForum($forum_parent[0]->id, $user_groups)) {
             $buttons['edit'] = [
-                'URL' => URL::build('/forum/edit/', 'pid=' . $results->data[$n]->id . '&amp;tid=' . $tid),
+                'URL' => URL::build('/forum/edit/', 'pid=' . $nValue->id . '&amp;tid=' . $tid),
                 'TEXT' => $forum_language->get('forum', 'edit')
             ];
         } else {
-            if ($user->data()->id == $results->data[$n]->post_creator && $forum->canEditTopic($forum_parent[0]->id, $user_groups)) {
+            if ($user->data()->id == $nValue->post_creator && $forum->canEditTopic($forum_parent[0]->id, $user_groups)) {
                 if ($topic->locked != 1) { // Can't edit if topic is locked
                     $buttons['edit'] = [
-                        'URL' => URL::build('/forum/edit/', 'pid=' . $results->data[$n]->id . '&amp;tid=' . $tid),
+                        'URL' => URL::build('/forum/edit/', 'pid=' . $nValue->id . '&amp;tid=' . $tid),
                         'TEXT' => $forum_language->get('forum', 'edit')
                     ];
                 }
@@ -646,7 +646,7 @@ for ($n = 0; $n < count($results->data); $n++) {
         // Delete button
         if ($forum->canModerateForum($forum_parent[0]->id, $user_groups)) {
             $buttons['delete'] = [
-                'URL' => URL::build('/forum/delete_post/', 'pid=' . $results->data[$n]->id . '&amp;tid=' . $tid),
+                'URL' => URL::build('/forum/delete_post/', 'pid=' . $nValue->id . '&amp;tid=' . $tid),
                 'TEXT' => $language->get('general', 'delete'),
                 'NUMBER' => $p . $n
             ];
@@ -699,7 +699,7 @@ for ($n = 0; $n < count($results->data); $n++) {
     $post_reactions = [];
     $total_karma = 0;
     if ($reactions_enabled) {
-        $post_reactions_query = $queries->getWhere('forums_reactions', ['post_id', '=', $results->data[$n]->id]);
+        $post_reactions_query = $queries->getWhere('forums_reactions', ['post_id', '=', $nValue->id]);
 
         if (count($post_reactions_query)) {
             foreach ($post_reactions_query as $item) {
@@ -734,23 +734,23 @@ for ($n = 0; $n < count($results->data); $n++) {
     }
 
     // Purify post content
-    $content = Util::replaceAnchorsWithText(Output::getDecoded($results->data[$n]->post_content));
+    $content = Util::replaceAnchorsWithText(Output::getDecoded($nValue->post_content));
     $content = $emojione->toImage($content);
     $content = Output::getPurified($content, true);
 
     // Get post date
-    if (is_null($results->data[$n]->created)) {
-        $post_date_rough = $timeago->inWords($results->data[$n]->post_date, $language->getTimeLanguage());
-        $post_date = date('d M Y, H:i', strtotime($results->data[$n]->post_date));
+    if (is_null($nValue->created)) {
+        $post_date_rough = $timeago->inWords($nValue->post_date, $language->getTimeLanguage());
+        $post_date = date('d M Y, H:i', strtotime($nValue->post_date));
     } else {
-        $post_date_rough = $timeago->inWords(date('d M Y, H:i', $results->data[$n]->created), $language->getTimeLanguage());
-        $post_date = date('d M Y, H:i', $results->data[$n]->created);
+        $post_date_rough = $timeago->inWords(date('d M Y, H:i', $nValue->created), $language->getTimeLanguage());
+        $post_date = date('d M Y, H:i', $nValue->created);
     }
 
     $replies[] = [
         'url' => $url,
         'heading' => $heading,
-        'id' => $results->data[$n]->id,
+        'id' => $nValue->id,
         'user_id' => $post_creator->data()->id,
         'avatar' => $post_creator->getAvatar(500),
         'uuid' => Output::getClean($post_creator->data()->uuid),
@@ -763,8 +763,8 @@ for ($n = 0; $n < count($results->data); $n++) {
         'profile' => $post_creator->getProfileURL(),
         'user_style' => $post_creator->getGroupClass(),
         'user_groups' => $user_groups_html,
-        'user_posts_count' => str_replace('{x}', count($queries->getWhere('posts', ['post_creator', '=', $results->data[$n]->post_creator])), $forum_language->get('forum', 'x_posts')),
-        'user_topics_count' => str_replace('{x}', count($queries->getWhere('topics', ['topic_creator', '=', $results->data[$n]->post_creator])), $forum_language->get('forum', 'x_topics')),
+        'user_posts_count' => str_replace('{x}', count($queries->getWhere('posts', ['post_creator', '=', $nValue->post_creator])), $forum_language->get('forum', 'x_posts')),
+        'user_topics_count' => str_replace('{x}', count($queries->getWhere('topics', ['topic_creator', '=', $nValue->post_creator])), $forum_language->get('forum', 'x_topics')),
         'user_registered' => str_replace('{x}', $timeago->inWords(date('Y-m-d H:i:s', $post_creator->data()->joined), $language->getTimeLanguage()), $forum_language->get('forum', 'registered_x')),
         'user_registered_full' => date('d M Y', $post_creator->data()->joined),
         'user_reputation' => $post_creator->data()->reputation,
@@ -774,8 +774,8 @@ for ($n = 0; $n < count($results->data); $n++) {
         'content' => $content,
         'signature' => Output::getPurified(htmlspecialchars_decode($signature)),
         'fields' => (empty($fields) ? [] : $fields),
-        'edited' => (is_null($results->data[$n]->last_edited) ? null : str_replace('{x}', $timeago->inWords(date('Y-m-d H:i:s', $results->data[$n]->last_edited), $language->getTimeLanguage()), $forum_language->get('forum', 'last_edited'))),
-        'edited_full' => (is_null($results->data[$n]->last_edited) ? null : date('d M Y, H:i', $results->data[$n]->last_edited)),
+        'edited' => (is_null($nValue->last_edited) ? null : str_replace('{x}', $timeago->inWords(date('Y-m-d H:i:s', $nValue->last_edited), $language->getTimeLanguage()), $forum_language->get('forum', 'last_edited'))),
+        'edited_full' => (is_null($nValue->last_edited) ? null : date('d M Y, H:i', $nValue->last_edited)),
         'post_reactions' => $post_reactions,
         'karma' => $total_karma
     ];

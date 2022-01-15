@@ -92,7 +92,7 @@ class MinecraftPing {
         $this->_Socket = @fsockopen($this->_ServerAddress, $this->_ServerPort, $errno, $errstr, $connectTimeout);
 
         if (!$this->_Socket) {
-            throw new Exception("Failed to connect or create a socket: $errno ($errstr)");
+            throw new RuntimeException("Failed to connect or create a socket: $errno ($errstr)");
         }
 
         // Set Read/Write timeout
@@ -161,9 +161,9 @@ class MinecraftPing {
         if (JSON_Last_Error() !== JSON_ERROR_NONE) {
             if (Function_Exists('json_last_error_msg')) {
                 throw new MinecraftPingException(JSON_Last_Error_Msg());
-            } else {
-                throw new MinecraftPingException('JSON parsing failed');
             }
+
+            throw new MinecraftPingException('JSON parsing failed');
         }
 
         return $Data;

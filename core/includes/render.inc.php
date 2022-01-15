@@ -5,7 +5,9 @@ $pages = ((int)ceil($total / $rpp));
 // if it's an invalid page request
 if ($current < 1) {
     return;
-} else if ($current > $pages) {
+}
+
+if ($current > $pages) {
     return;
 }
 
@@ -31,7 +33,7 @@ if ($pages > 1 || $alwaysShowPagination === true) {
             );
             if ($current == 1) {
                 $href = '#';
-                array_push($classes, 'disabled');
+                $classes[] = 'disabled';
             }
             ?>
             <li class="page-item <?php echo implode(' ', $classes); ?>"><a class="page-link"
@@ -132,7 +134,7 @@ if ($pages > 1 || $alwaysShowPagination === true) {
             );
             if ($current == $pages) {
                 $href = '#';
-                array_push($classes, 'disabled');
+                $classes[] = 'disabled';
             }
             ?>
             <li class="page-item <?php echo implode(' ', $classes); ?>"><a class="page-link"

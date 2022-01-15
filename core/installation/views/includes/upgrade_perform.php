@@ -1119,11 +1119,7 @@ switch ($s) {
         $cache->setCache('backgroundcache');
         $cache->store('banner_image', '/uploads/template_banners/homepage_bg_trimmed.jpg');
 
-        unset($_SESSION['db_address']);
-        unset($_SESSION['db_port']);
-        unset($_SESSION['db_username']);
-        unset($_SESSION['db_password']);
-        unset($_SESSION['db_name']);
+        unset($_SESSION['db_address'], $_SESSION['db_port'], $_SESSION['db_username'], $_SESSION['db_password'], $_SESSION['db_name']);
 
         break;
 

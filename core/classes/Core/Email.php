@@ -9,6 +9,8 @@
 *  Email class
 */
 
+use PHPMailer\PHPMailer\PHPMailer;
+
 class Email {
 
     /**
@@ -67,7 +69,7 @@ class Email {
         require(ROOT_PATH . '/core/email.php');
 
         // Initialise PHPMailer
-        $mail = new \PHPMailer\PHPMailer\PHPMailer(true);
+        $mail = new PHPMailer(true);
 
         try {
             // init
@@ -136,7 +138,7 @@ class Email {
                 $viewing_language->get('emails', $email . '_message'),
                 $viewing_language->get('emails', 'thanks'),
             ],
-            file_get_contents(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', TEMPLATE, 'email', $email . '.html']))
+            file_get_contents(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', TEMPLATE, 'email', $email . '.html']))
         );
     }
 }

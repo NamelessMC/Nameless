@@ -14,7 +14,7 @@ class ListUsersEndpoint extends KeyAuthEndpoint {
         $this->_method = 'GET';
     }
 
-    public function execute(Nameless2API $api) {
+    public function execute(Nameless2API $api): void {
         $params = [];
 
         $discord_enabled = Util::isModuleEnabled('Discord Integration');
@@ -69,7 +69,7 @@ class ListUsersEndpoint extends KeyAuthEndpoint {
         $users_json = [];
         foreach ($users as $user) {
             $user_json = [
-                'id' => intval($user->id),
+                'id' => (int)$user->id,
                 'username' => $user->username,
                 'uuid' => $user->uuid,
                 'banned' => (bool)$user->banned,
@@ -77,7 +77,7 @@ class ListUsersEndpoint extends KeyAuthEndpoint {
             ];
 
             if ($discord_enabled) {
-                $user_json['discord_id'] = intval($user->discord_id);
+                $user_json['discord_id'] = (int)$user->discord_id;
             }
 
             $users_json[] = $user_json;

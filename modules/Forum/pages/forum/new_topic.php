@@ -82,9 +82,9 @@ if (count($forum_labels)) {
             $label_html = $queries->getWhere('forums_labels', ['id', '=', $label->label]);
             if (!count($label_html)) {
                 continue;
-            } else {
-                $label_html = str_replace('{x}', Output::getClean($label->name), Output::getPurified($label_html[0]->html));
             }
+
+            $label_html = str_replace('{x}', Output::getClean($label->name), Output::getPurified($label_html[0]->html));
 
             $labels[] = [
                 'id' => $label->id,
