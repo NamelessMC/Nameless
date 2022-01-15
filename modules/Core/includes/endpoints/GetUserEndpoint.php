@@ -12,8 +12,7 @@ class GetUserEndpoint extends EndpointBase {
         $this->_method = 'GET';
     }
 
-    public function execute(Nameless2API $api, User $user): void
-    {
+    public function execute(Nameless2API $api, User $user): void {
         die(json_encode($user->data()));
     }
 

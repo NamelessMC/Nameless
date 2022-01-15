@@ -18,8 +18,7 @@ class CreateReportEndpoint extends KeyAuthEndpoint {
         $this->_method = 'POST';
     }
 
-    public function execute(Nameless2API $api): void
-    {
+    public function execute(Nameless2API $api): void {
         $api->validateParams($_POST, ['reporter', 'content']);
 
         // Ensure either reported OR reported_username AND reported_uid are provided

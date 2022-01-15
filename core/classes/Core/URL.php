@@ -27,7 +27,7 @@ class URL {
                 return self::buildFriendly($url, $params);
             }
 
-// Friendly URLs are disabled, we need to change it
+            // Friendly URLs are disabled, we need to change it
             return self::buildNonFriendly($url, $params);
         }
 

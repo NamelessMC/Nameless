@@ -15,8 +15,7 @@ class RemoveGroupsEndpoint extends KeyAuthEndpoint {
         $this->_method = 'POST';
     }
 
-    public function execute(Nameless2API $api, User $user): void
-    {
+    public function execute(Nameless2API $api, User $user): void {
         $api->validateParams($_POST, ['groups']);
 
         $groups = $_POST['groups'];

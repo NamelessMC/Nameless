@@ -1329,17 +1329,15 @@ class Core_Module extends Module {
                                     // Unable to obtain player count
                                     $player_count_error = true;
                                 }
-                            } else {
-                                if (version_compare($version, '5.7.8', '>=')) {
-                                    try {
-                                        $players = DB::getInstance()->selectQuery('SELECT MAX_EXECUTION_TIME = 1000 ROUND(AVG(players_online)) AS players, DATE(FROM_UNIXTIME(queried_at)) AS `date` FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) IN (SELECT DATE(FROM_UNIXTIME(queried_at)) AS ForDate FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) > NOW() - INTERVAL 1 WEEK GROUP BY DATE(FROM_UNIXTIME(queried_at)) ORDER BY ForDate) GROUP BY DATE(FROM_UNIXTIME(queried_at))')->results();
-                                    } catch (Exception $e) {
-                                        // Unable to obtain player count
-                                        $player_count_error = true;
-                                    }
-                                } else {
+                            } else if (version_compare($version, '5.7.8', '>=')) {
+                                try {
+                                    $players = DB::getInstance()->selectQuery('SELECT MAX_EXECUTION_TIME = 1000 ROUND(AVG(players_online)) AS players, DATE(FROM_UNIXTIME(queried_at)) AS `date` FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) IN (SELECT DATE(FROM_UNIXTIME(queried_at)) AS ForDate FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) > NOW() - INTERVAL 1 WEEK GROUP BY DATE(FROM_UNIXTIME(queried_at)) ORDER BY ForDate) GROUP BY DATE(FROM_UNIXTIME(queried_at))')->results();
+                                } catch (Exception $e) {
+                                    // Unable to obtain player count
                                     $player_count_error = true;
                                 }
+                            } else {
+                                $player_count_error = true;
                             }
                         }
 

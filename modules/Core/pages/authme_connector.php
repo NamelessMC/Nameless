@@ -318,7 +318,7 @@ if (Input::exists()) {
 
                                 }
 
-// Passwords don't match
+                                // Passwords don't match
                                 $errors[] = $language->get('user', 'incorrect_details');
 
                             }

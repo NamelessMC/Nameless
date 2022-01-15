@@ -27,15 +27,20 @@ class Nameless2API {
         }
     }
 
-    public function throwError($code = null, $message = null, $meta = null, int $status = 400): void
-    {
+    public function throwError($code = null, $message = null, $meta = null, int $status = 400): void {
         http_response_code($status);
 
         if ($code && $message) {
-            die(json_encode(['error' => true, 'code' => $code, 'message' => $message, 'meta' => $meta], JSON_PRETTY_PRINT));
+            die(json_encode(
+                ['error' => true, 'code' => $code, 'message' => $message, 'meta' => $meta],
+                JSON_PRETTY_PRINT
+            ));
         }
 
-        die(json_encode(['error' => true, 'code' => 0, 'message' => $this->_language->get('api', 'unknown_error'), 'meta' => $meta], JSON_PRETTY_PRINT));
+        die(json_encode(
+            ['error' => true, 'code' => 0, 'message' => $this->_language->get('api', 'unknown_error'), 'meta' => $meta],
+            JSON_PRETTY_PRINT
+        ));
     }
 
     public function getDb(): DB {
@@ -56,8 +61,7 @@ class Nameless2API {
         return $this->_language;
     }
 
-    public function returnArray($arr = null, int $status = 200): void
-    {
+    public function returnArray($arr = null, int $status = 200): void {
         if (!$arr) {
             $arr = [];
         }

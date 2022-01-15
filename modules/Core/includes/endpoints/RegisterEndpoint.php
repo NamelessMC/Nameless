@@ -16,8 +16,7 @@ class RegisterEndpoint extends KeyAuthEndpoint {
         $this->_method = 'POST';
     }
 
-    public function execute(Nameless2API $api): void
-    {
+    public function execute(Nameless2API $api): void {
         $params = ['username', 'email'];
 
         $minecraft_integration = Util::getSetting($api->getDb(), 'mc_integration');

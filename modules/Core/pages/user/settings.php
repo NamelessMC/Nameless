@@ -481,7 +481,7 @@ if (isset($_GET['do'])) {
 
                                 }
 
-// Invalid password
+                                // Invalid password
                                 Session::flash('settings_error', $language->get('user', 'incorrect_password'));
                             }
                         } else {

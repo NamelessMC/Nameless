@@ -9,8 +9,7 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
         $this->_method = 'POST';
     }
 
-    public function execute(Nameless2API $api): void
-    {
+    public function execute(Nameless2API $api): void {
         $api->validateParams($_POST, ['server-id', 'max-memory', 'free-memory', 'allocated-memory', 'tps']);
         if (!isset($_POST['players'])) {
             $api->throwError(6, $api->getLanguage()->get('api', 'invalid_post_contents'), 'players');

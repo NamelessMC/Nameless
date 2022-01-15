@@ -105,15 +105,10 @@ if (Input::exists()) {
                     $username = Input::get('email');
                     $method_field = 'email';
                 } else {
-                    if ($login_method == 'email_or_username') {
-                        $username = Input::get('username');
-                        if (strpos(Input::get('username'), '@') !== false) {
-                            $method_field = 'email';
-                        } else {
-                            $method_field = 'username';
-                        }
+                    $username = Input::get('username');
+                    if (($login_method == 'email_or_username') && strpos(Input::get('username'), '@') !== false) {
+                        $method_field = 'email';
                     } else {
-                        $username = Input::get('username');
                         $method_field = 'username';
                     }
                 }
@@ -261,7 +256,7 @@ if (Input::exists()) {
                             die();
                         }
 
-// No, output error
+                        // No, output error
                         $return_error = [$language->get('user', 'incorrect_details')];
                     }
                 } else {
@@ -285,16 +280,12 @@ if (Input::exists()) {
 // Generate content
 if ($login_method == 'email') {
     $smarty->assign('EMAIL', $language->get('user', 'email'));
+} else if ($login_method == 'email_or_username') {
+    $smarty->assign('USERNAME', $language->get('user', 'email_or_username'));
+} else if (MINECRAFT) {
+    $smarty->assign('USERNAME', $language->get('user', 'minecraft_username'));
 } else {
-    if ($login_method == 'email_or_username') {
-        $smarty->assign('USERNAME', $language->get('user', 'email_or_username'));
-    } else {
-        if (MINECRAFT) {
-            $smarty->assign('USERNAME', $language->get('user', 'minecraft_username'));
-        } else {
-            $smarty->assign('USERNAME', $language->get('user', 'username'));
-        }
-    }
+    $smarty->assign('USERNAME', $language->get('user', 'username'));
 }
 
 $smarty->assign([

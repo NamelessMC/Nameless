@@ -44,8 +44,7 @@ class Pages {
      * @param string $name Name of page.
      * @param bool $widgets Can widgets be used on the page? Default false.
      */
-    public function addCustom(string $url, string $name, bool $widgets = false): void
-    {
+    public function addCustom(string $url, string $name, bool $widgets = false): void {
         $this->_pages[$url] = [
             'module' => 'Core',
             'file' => 'custom.php',

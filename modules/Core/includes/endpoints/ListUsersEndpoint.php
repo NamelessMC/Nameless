@@ -14,8 +14,7 @@ class ListUsersEndpoint extends KeyAuthEndpoint {
         $this->_method = 'GET';
     }
 
-    public function execute(Nameless2API $api): void
-    {
+    public function execute(Nameless2API $api): void {
         $params = [];
 
         $discord_enabled = Util::isModuleEnabled('Discord Integration');

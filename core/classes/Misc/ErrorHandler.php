@@ -67,8 +67,7 @@ class ErrorHandler {
      * @param string|null $error_file Path to most recent frame's file. Used when $exception is null.
      * @param int|null $error_line Line in $error_file which caused Exception. Used when $exception is null.
      */
-    public static function catchException(?Throwable $exception, ?string $error_string = null, ?string $error_file = null, ?int $error_line = null): void
-    {
+    public static function catchException(?Throwable $exception, ?string $error_string = null, ?string $error_file = null, ?int $error_line = null): void {
 
         // Define variables based on if a Throwable was caught by the compiler, or if this was called manually
         $error_string = is_null($exception) ? $error_string : $exception->getMessage();

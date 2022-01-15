@@ -17,8 +17,7 @@ class Redirect {
      *
      * @param string $location Path or URL to redirect to
      */
-    public static function to(string $location): void
-    {
+    public static function to(string $location): void {
         // Javascript redirect
         // Tag attribute data-cfasync="false" fixes Cloudflare caching issues (credit @computerwizjared)
         echo '<script data-cfasync="false">window.location.replace("' . str_replace('&amp;', '&', htmlspecialchars($location)) . '");</script>';

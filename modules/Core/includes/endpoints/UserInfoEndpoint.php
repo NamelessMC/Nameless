@@ -16,8 +16,7 @@ class UserInfoEndpoint extends KeyAuthEndpoint {
         $this->_method = 'GET';
     }
 
-    public function execute(Nameless2API $api, User $user): void
-    {
+    public function execute(Nameless2API $api, User $user): void {
         $discord_enabled = Util::isModuleEnabled('Discord Integration');
 
         if ($discord_enabled) {

@@ -102,7 +102,7 @@ if (!isset($_GET['route']) || $_GET['route'] == '/') {
         die();
     }
 
-// Use recursion to check - might have URL parameters in path
+    // Use recursion to check - might have URL parameters in path
     $path_array = explode('/', $route);
 
     for ($i = count($path_array) - 2; $i > 0; $i--) {

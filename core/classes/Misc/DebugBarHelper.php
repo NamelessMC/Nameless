@@ -16,8 +16,7 @@ class DebugBarHelper extends Instanceable {
     /**
      * Enable the PHPDebugBar + add the PDO Collector
      */
-    public function enable(Smarty $smarty): void
-    {
+    public function enable(Smarty $smarty): void {
         $debugbar = new DebugBar();
 
         $debugbar->addCollector(new TimeDataCollector());

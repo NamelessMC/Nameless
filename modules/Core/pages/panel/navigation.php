@@ -61,7 +61,7 @@ if (Input::exists()) {
         die();
     }
 
-// Invalid token
+    // Invalid token
     $errors[] = $language->get('general', 'invalid_token');
 }
 

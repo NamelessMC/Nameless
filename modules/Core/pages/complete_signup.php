@@ -91,7 +91,7 @@ if (!$user->isLoggedIn()) {
 
                 }
 
-// Errors
+                // Errors
                 $errors = $validation->errors();
 
             } else {

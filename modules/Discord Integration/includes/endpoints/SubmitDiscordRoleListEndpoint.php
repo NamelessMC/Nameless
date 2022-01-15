@@ -14,8 +14,7 @@ class SubmitDiscordRoleListEndpoint extends KeyAuthEndpoint {
         $this->_method = 'POST';
     }
 
-    public function execute(Nameless2API $api): void
-    {
+    public function execute(Nameless2API $api): void {
         $roles = [];
 
         if ($_POST['roles'] != null) {

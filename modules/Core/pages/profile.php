@@ -137,7 +137,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                             die();
                         }
 
-// Validation failed
+                        // Validation failed
                         $error = $validation->errors();
                     } else {
                         $error = $language->get('general', 'invalid_token');
@@ -199,7 +199,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                             die();
                         }
 
-// Validation failed
+                        // Validation failed
                         $error = $validation->errors();
                     } else {
                         $error = $language->get('general', 'invalid_token');

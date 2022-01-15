@@ -149,7 +149,7 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                             die();
                         }
 
-// Validation error
+                        // Validation error
                         $errors = $validation->errors();
                     } else {
                         // Invalid token
@@ -281,7 +281,7 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                     die();
                 }
 
-// Validation error
+                // Validation error
                 $errors = $validation->errors();
             } else {
                 // Invalid token
