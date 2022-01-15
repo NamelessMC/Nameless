@@ -47,7 +47,8 @@ abstract class Module {
      * @param Widgets $widgets Instance of widget class to pass.
      * @param TemplateBase $template Template to pass.
      */
-    public static function loadPage(User $user, Pages $pages, Cache $cache, Smarty $smarty, iterable $navs, Widgets $widgets, TemplateBase $template) {
+    public static function loadPage(User $user, Pages $pages, Cache $cache, Smarty $smarty, iterable $navs, Widgets $widgets, TemplateBase $template): void
+    {
         foreach (self::getModules() as $module) {
             $module->onPageLoad($user, $pages, $cache, $smarty, $navs, $widgets, $template);
         }
@@ -58,7 +59,7 @@ abstract class Module {
         return self::$_modules;
     }
 
-    abstract function onPageLoad(User $user, Pages $pages, Cache $cache, Smarty $smarty, iterable $navs, Widgets $widgets, ?TemplateBase $template);
+    abstract public function onPageLoad(User $user, Pages $pages, Cache $cache, Smarty $smarty, iterable $navs, Widgets $widgets, ?TemplateBase $template);
 
     /**
      * Determine loading arrangement of modules.
@@ -74,8 +75,8 @@ abstract class Module {
                 continue;
             }
 
-            for ($n = 0; $n < count($module_order); $n++) {
-                $before_after = self::findBeforeAfter($module_order, $module_order[$n]);
+            foreach ($module_order as $n => $nValue) {
+                $before_after = self::findBeforeAfter($module_order, $nValue);
 
                 if (!array_diff($module->getLoadAfter(), $before_after[0]) && !array_diff($module->getLoadBefore(), $before_after[1])) {
                     array_splice($module_order, $n + 1, 0, $module->getName());
@@ -98,7 +99,7 @@ abstract class Module {
      *
      * @param string $name New name.
      */
-    protected final function setName(string $name): void {
+    final protected function setName(string $name): void {
         $this->_name = $name;
     } // TODO: Implement
 
@@ -130,21 +131,21 @@ abstract class Module {
         return $this->_load_before;
     }
 
-    abstract function onInstall();
+    abstract public function onInstall();
 
-    abstract function onUninstall();
+    abstract public function onUninstall();
 
-    abstract function onEnable();
+    abstract public function onEnable();
 
-    abstract function onDisable();
+    abstract public function onDisable();
 
-    abstract function getDebugInfo(): array;
+    abstract public function getDebugInfo(): array;
 
     public function getAuthor(): string {
         return $this->_author;
     }
 
-    protected final function setAuthor(string $author): void {
+    final protected function setAuthor(string $author): void {
         $this->_author = $author;
     }
 
@@ -157,7 +158,7 @@ abstract class Module {
      *
      * @param string $version Version to set.
      */
-    protected final function setVersion(string $version): void {
+    final protected function setVersion(string $version): void {
         $this->_version = $version;
     }
 
@@ -170,7 +171,7 @@ abstract class Module {
      *
      * @param string $nameless_version NamelessMC version to set.
      */
-    protected final function setNamelessVersion(string $nameless_version): void {
+    final protected function setNamelessVersion(string $nameless_version): void {
         $this->_nameless_version = $nameless_version;
     }
 }

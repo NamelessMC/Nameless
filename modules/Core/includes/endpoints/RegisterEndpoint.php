@@ -16,7 +16,8 @@ class RegisterEndpoint extends KeyAuthEndpoint {
         $this->_method = 'POST';
     }
 
-    public function execute(Nameless2API $api) {
+    public function execute(Nameless2API $api): void
+    {
         $params = ['username', 'email'];
 
         $minecraft_integration = Util::getSetting($api->getDb(), 'mc_integration');
@@ -181,7 +182,8 @@ class RegisterEndpoint extends KeyAuthEndpoint {
      * @see Nameless2API::register()
      *
      */
-    private function sendRegistrationEmail(Nameless2API $api, string $username, string $uuid, string $email) {
+    private function sendRegistrationEmail(Nameless2API $api, string $username, string $uuid, string $email): void
+    {
         // Generate random code
         $code = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 60);
 
@@ -225,7 +227,7 @@ class RegisterEndpoint extends KeyAuthEndpoint {
 
             $headers = 'From: ' . $siteemail . "\r\n" .
                 'Reply-To: ' . $siteemail . "\r\n" .
-                'X-Mailer: PHP/' . phpversion() . "\r\n" .
+                'X-Mailer: PHP/' . PHP_VERSION . "\r\n" .
                 'MIME-Version: 1.0' . "\r\n" .
                 'Content-type: text/html; charset=UTF-8' . "\r\n";
 

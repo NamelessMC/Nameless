@@ -7,9 +7,9 @@ if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
 $server = $queries->getWhere('mc_servers', ['id', '=', $_GET['id']]);
 if (!count($server)) {
     die();
-} else {
-    $server = $server[0];
 }
+
+$server = $server[0];
 
 $cache->setCache('server_' . $server->id);
 if ($cache->isCached('result')) {

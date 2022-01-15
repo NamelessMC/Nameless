@@ -19,58 +19,54 @@ class Queries {
     }
 
     public function getAll(string $table, array $where = []): array {
-        $data = $this->_db->get($table, $where);
-        return $data->results();
+        return $this->_db->get($table, $where)->results();
     }
 
     public function orderAll(string $table, string $order, string $sort = null): array {
-        $data = $this->_db->orderAll($table, $order, $sort);
-        return $data->results();
+        return $this->_db->orderAll($table, $order, $sort)->results();
     }
 
     public function orderWhere(string $table, string $where, string $order, string $sort = null): array {
-        $data = $this->_db->orderWhere($table, $where, $order, $sort);
-        return $data->results();
+        return $this->_db->orderWhere($table, $where, $order, $sort)->results();
     }
 
     public function getLike(string $table, string $where, string $like): array {
-        $data = $this->_db->like($table, $where, $like);
-        return $data->results();
+        return $this->_db->like($table, $where, $like)->results();
     }
 
     public function update(string $table, int $id, array $fields = []): void {
         if (!$this->_db->update($table, $id, $fields)) {
-            throw new Exception('There was a problem performing that action.');
+            throw new RuntimeException('There was a problem performing that action.');
         }
     }
 
     public function create(string $table, array $fields = []): void {
         if (!$this->_db->insert($table, $fields)) {
-            throw new Exception('There was a problem performing that action.');
+            throw new RuntimeException('There was a problem performing that action.');
         }
     }
 
     public function delete(string $table, array $where): void {
         if (!$this->_db->delete($table, $where)) {
-            throw new Exception('There was a problem performing that action.');
+            throw new RuntimeException('There was a problem performing that action.');
         }
     }
 
     public function increment(string $table, int $id, string $field): void {
         if (!$this->_db->increment($table, $id, $field)) {
-            throw new Exception('There was a problem performing that action.');
+            throw new RuntimeException('There was a problem performing that action.');
         }
     }
 
     public function decrement(string $table, int $id, string $field): void {
         if (!$this->_db->decrement($table, $id, $field)) {
-            throw new Exception('There was a problem performing that action.');
+            throw new RuntimeException('There was a problem performing that action.');
         }
     }
 
     public function createTable(string $table, string $columns, string $other): void {
         if (!$this->_db->createTable($table, $columns, $other)) {
-            throw new Exception('There was a problem performing that action.');
+            throw new RuntimeException('There was a problem performing that action.');
         }
     }
 
@@ -80,7 +76,7 @@ class Queries {
 
     public function alterTable(string $table, string $column, string $attributes): void {
         if (!$this->_db->alterTable($table, $column, $attributes)) {
-            throw new Exception('There was a problem performing that action.');
+            throw new RuntimeException('There was a problem performing that action.');
         }
     }
 
@@ -102,8 +98,7 @@ class Queries {
     }
 
     public function getWhere(string $table, array $where): array {
-        $data = $this->_db->get($table, $where);
-        return $data->results();
+        return $this->_db->get($table, $where)->results();
     }
 
     public function dbInitialise(string $charset = 'latin1', string $engine = 'InnoDB') {

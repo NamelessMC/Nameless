@@ -90,9 +90,9 @@ if (isset($_GET['do'])) {
                             Session::flash('tfa_success', $language->get('user', 'tfa_successful'));
                             Redirect::to(URL::build('/user/settings'));
                             die();
-                        } else {
-                            $error = $language->get('user', 'invalid_tfa');
                         }
+
+                        $error = $language->get('user', 'invalid_tfa');
                     } else {
                         $error = $language->get('user', 'invalid_tfa');
                     }
@@ -479,10 +479,10 @@ if (isset($_GET['do'])) {
                                     Redirect::to(URL::build('/user/settings'));
                                     die();
 
-                                } else {
-                                    // Invalid password
-                                    Session::flash('settings_error', $language->get('user', 'incorrect_password'));
                                 }
+
+// Invalid password
+                                Session::flash('settings_error', $language->get('user', 'incorrect_password'));
                             }
                         } else {
                             $errors = $validation->errors();

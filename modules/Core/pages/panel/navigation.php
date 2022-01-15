@@ -59,10 +59,10 @@ if (Input::exists()) {
         Session::flash('navigation_success', $language->get('admin', 'navigation_settings_updated_successfully'));
         Redirect::to(URL::build('/panel/core/navigation'));
         die();
-    } else {
-        // Invalid token
-        $errors[] = $language->get('general', 'invalid_token');
     }
+
+// Invalid token
+    $errors[] = $language->get('general', 'invalid_token');
 }
 
 // Load modules + template

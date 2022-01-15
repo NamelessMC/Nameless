@@ -15,7 +15,7 @@ $cache = new Cache();
 
 $size = isset($_GET['s']) ? max(8, min(250, $_GET['s'])) : 48;
 $user = $_GET['u'] ?? '';
-$view = isset($_GET['v']) ? substr($_GET['v'], 0, 1) : 'f';
+$view = isset($_GET['v']) ? $_GET['v'][0] : 'f';
 $view = in_array($view, ['f', 'l', 'r', 'b']) ? $view : 'f';
 
 function get_skin($user, $cache) {

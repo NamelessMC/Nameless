@@ -75,18 +75,18 @@ if (isset($_GET['p'])) {
     if (!is_numeric($_GET['p'])) {
         Redirect::to(URL::build('/user/messaging'));
         die();
-    } else {
-        if ($_GET['p'] == 1) {
-            // Avoid bug in pagination class
-            if (isset($_GET['message'])) {
-                Redirect::to(URL::build('/user/messaging/', 'action=view&message=' . Output::getClean($_GET['message'])));
-            } else {
-                Redirect::to(URL::build('/user/messaging'));
-            }
-            die();
-        }
-        $p = $_GET['p'];
     }
+
+    if ($_GET['p'] == 1) {
+        // Avoid bug in pagination class
+        if (isset($_GET['message'])) {
+            Redirect::to(URL::build('/user/messaging/', 'action=view&message=' . Output::getClean($_GET['message'])));
+        } else {
+            Redirect::to(URL::build('/user/messaging'));
+        }
+        die();
+    }
+    $p = $_GET['p'];
 } else {
     $p = 1;
 }
@@ -106,28 +106,28 @@ if (!isset($_GET['action'])) {
     $template_array = [];
 
     // Display the correct number of messages
-    for ($n = 0; $n < count($results->data); $n++) {
+    foreach ($results->data as $nValue) {
         // Get participants list
         $participants = '';
 
-        foreach ($results->data[$n]['users'] as $item) {
+        foreach ($nValue['users'] as $item) {
             $participants .= '<a href="' . URL::build('/profile/' . Output::getClean($user->idToName($item))) . '">' . Output::getClean($user->idToNickname($item)) . '</a>, ';
         }
         $participants = rtrim($participants, ', ');
 
-        $target_user = new User($results->data[$n]['user_updated']);
+        $target_user = new User($nValue['user_updated']);
         $template_array[] = [
-            'id' => $results->data[$n]['id'],
-            'title' => Output::getClean($results->data[$n]['title']),
+            'id' => $nValue['id'],
+            'title' => Output::getClean($nValue['title']),
             'participants' => $participants,
-            'link' => URL::build('/user/messaging/', 'action=view&amp;message=' . $results->data[$n]['id']),
-            'last_message_user_id' => Output::getClean($results->data[$n]['user_updated']),
+            'link' => URL::build('/user/messaging/', 'action=view&amp;message=' . $nValue['id']),
+            'last_message_user_id' => Output::getClean($nValue['user_updated']),
             'last_message_user' => $target_user->getDisplayname(),
             'last_message_user_profile' => $target_user->getProfileURL(),
             'last_message_user_avatar' => $target_user->getAvatar(30),
             'last_message_user_style' => $target_user->getGroupClass(),
-            'last_message_date' => $timeago->inWords(date('d M Y, H:i', $results->data[$n]['updated']), $language->getTimeLanguage()),
-            'last_message_date_full' => date('d M Y, H:i', $results->data[$n]['updated'])
+            'last_message_date' => $timeago->inWords(date('d M Y, H:i', $nValue['updated']), $language->getTimeLanguage()),
+            'last_message_date_full' => date('d M Y, H:i', $nValue['updated'])
         ];
     }
 
@@ -328,10 +328,10 @@ if (!isset($_GET['action'])) {
                                 Redirect::to(URL::build('/user/messaging'));
                                 die();
 
-                            } else {
-                                // Over 10 users added
-                                $error = $language->get('user', 'max_pm_10_users');
                             }
+
+// Over 10 users added
+                            $error = $language->get('user', 'max_pm_10_users');
                         }
                     }
                 } else {
@@ -522,20 +522,20 @@ if (!isset($_GET['action'])) {
         $template_array = [];
 
         // Display the correct number of messages
-        for ($n = 0; $n < count($results->data); $n++) {
-            $target_user = new User($results->data[$n]->author_id);
+        foreach ($results->data as $nValue) {
+            $target_user = new User($nValue->author_id);
 
             $template_array[] = [
-                'id' => $results->data[$n]->id,
-                'author_id' => $results->data[$n]->author_id,
+                'id' => $nValue->id,
+                'author_id' => $nValue->author_id,
                 'author_username' => $target_user->getDisplayname(),
                 'author_profile' => $target_user->getProfileURL(),
                 'author_avatar' => $target_user->getAvatar(100),
                 'author_style' => $target_user->getGroupClass(),
                 'author_groups' => $target_user->getAllGroupHtml(),
-                'message_date' => $timeago->inWords(date('d M Y, H:i', $results->data[$n]->created), $language->getTimeLanguage()),
-                'message_date_full' => date('d M Y, H:i', $results->data[$n]->created),
-                'content' => Output::getPurified($emojione->unicodeToImage(Output::getDecoded($results->data[$n]->content)))
+                'message_date' => $timeago->inWords(date('d M Y, H:i', $nValue->created), $language->getTimeLanguage()),
+                'message_date_full' => date('d M Y, H:i', $nValue->created),
+                'content' => Output::getPurified($emojione->unicodeToImage(Output::getDecoded($nValue->content)))
             ];
         }
 
@@ -557,20 +557,20 @@ if (!isset($_GET['action'])) {
         $template_array = [];
 
         // Display the correct number of messages
-        for ($n = 0; $n < count($results->data); $n++) {
-            $target_user = new User($results->data[$n]->author_id);
+        foreach ($results->data as $nValue) {
+            $target_user = new User($nValue->author_id);
 
             $template_array[] = [
-                'id' => $results->data[$n]->id,
-                'author_id' => $results->data[$n]->author_id,
+                'id' => $nValue->id,
+                'author_id' => $nValue->author_id,
                 'author_username' => $target_user->getDisplayname(),
                 'author_profile' => $target_user->getProfileURL(),
                 'author_avatar' => $target_user->getAvatar(100),
                 'author_style' => $target_user->getGroupClass(),
                 'author_groups' => $target_user->getAllGroupHtml(),
-                'message_date' => $timeago->inWords(date('d M Y, H:i', $results->data[$n]->created), $language->getTimeLanguage()),
-                'message_date_full' => date('d M Y, H:i', $results->data[$n]->created),
-                'content' => Output::getPurified($emojione->toImage(Output::getDecoded($results->data[$n]->content)))
+                'message_date' => $timeago->inWords(date('d M Y, H:i', $nValue->created), $language->getTimeLanguage()),
+                'message_date_full' => date('d M Y, H:i', $nValue->created),
+                'content' => Output::getPurified($emojione->toImage(Output::getDecoded($nValue->content)))
             ];
         }
 

@@ -14,7 +14,8 @@ class InfoEndpoint extends KeyAuthEndpoint {
         $this->_method = 'GET';
     }
 
-    public function execute(Nameless2API $api) {
+    public function execute(Nameless2API $api): void
+    {
         // Get version, update info and modules from database
         $version_query = $api->getDb()->selectQuery('SELECT `name`, `value` FROM nl2_settings WHERE `name` = ? OR `name` = ? OR `name` = ? OR `name` = ?', ['nameless_version', 'version_checked', 'version_update', 'new_version']);
         if ($version_query->count()) {
@@ -44,7 +45,7 @@ class InfoEndpoint extends KeyAuthEndpoint {
             }
         }
 
-        if (isset($version_checked) && isset($version_update) && isset($current_version)) {
+        if (isset($version_checked, $version_update) && isset($current_version)) {
             if ($version_update != 'false') {
                 $ret['version_update'] = [
                     'update' => true,

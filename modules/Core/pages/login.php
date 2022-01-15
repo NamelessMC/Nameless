@@ -56,9 +56,7 @@ if (Input::exists()) {
                 $_POST['remember'] = $_SESSION['remember'];
                 $_POST['password'] = $_SESSION['password'];
 
-                unset($_SESSION['remember']);
-                unset($_SESSION['password']);
-                unset($_SESSION['tfa']);
+                unset($_SESSION['remember'], $_SESSION['password'], $_SESSION['tfa']);
             }
 
             // Initialise validation
@@ -261,10 +259,10 @@ if (Input::exists()) {
                                 Redirect::to(URL::build('/'));
                             }
                             die();
-                        } else {
-                            // No, output error
-                            $return_error = [$language->get('user', 'incorrect_details')];
                         }
+
+// No, output error
+                        $return_error = [$language->get('user', 'incorrect_details')];
                     }
                 } else {
                     $return_error = [$language->get('user', 'incorrect_details')];

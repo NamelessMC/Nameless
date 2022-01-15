@@ -24,10 +24,10 @@ class Session {
             $session = self::get($name);
             self::delete($name);
             return $session;
-        } else {
-            // The session doesn't exist, set it as a variable now so it can be "flashed" in the future
-            self::put($name, $string);
         }
+
+// The session doesn't exist, set it as a variable now so it can be "flashed" in the future
+        self::put($name, $string);
     }
 
     /**

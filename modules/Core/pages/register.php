@@ -31,7 +31,7 @@ if ($minecraft == '1') {
 
     if ($authme_enabled == '1') {
         // Authme connector
-        require(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', 'Core', 'pages', 'authme_connector.php']));
+        require(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', 'Core', 'pages', 'authme_connector.php']));
         die();
     }
 }
@@ -93,7 +93,7 @@ require(ROOT_PATH . '/core/includes/password.php'); // For password hashing
 $custom_usernames = $queries->getWhere('settings', ['name', '=', 'displaynames']);
 $custom_usernames = $custom_usernames[0]->value;
 
-if (isset($_GET['step']) && isset($_SESSION['mcassoc'])) {
+if (isset($_GET['step'], $_SESSION['mcassoc'])) {
     // Get site details for MCAssoc
     $mcassoc_site_id = SITE_NAME;
 
@@ -232,7 +232,7 @@ if (Input::exists()) {
 
                     $mcname_result = $profile ? $profile->getProfileAsArray() : [];
 
-                    if (isset($mcname_result['username']) && !empty($mcname_result['username']) && isset($mcname_result['uuid']) && !empty($mcname_result['uuid'])) {
+                    if (isset($mcname_result['username'], $mcname_result['uuid']) && !empty($mcname_result['username']) && !empty($mcname_result['uuid'])) {
                         // Valid
                         $uuid = Output::getClean($mcname_result['uuid']);
 
@@ -418,9 +418,9 @@ if (Input::exists()) {
                             Redirect::to(URL::build('/'));
                         }
                         die();
-                    } else {
-                        $errors = [$uuid_error];
                     }
+
+                    $errors = [$uuid_error];
 
                 } else {
                     // Invalid Minecraft name

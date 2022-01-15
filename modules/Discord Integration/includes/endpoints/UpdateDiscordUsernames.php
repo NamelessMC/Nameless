@@ -14,7 +14,8 @@ class UpdateDiscordUsernames extends KeyAuthEndpoint {
         $this->_method = 'POST';
     }
 
-    public function execute(Nameless2API $api) {
+    public function execute(Nameless2API $api): void
+    {
         $api->validateParams($_POST, ['users']);
 
         foreach ($_POST['users'] as $row) {

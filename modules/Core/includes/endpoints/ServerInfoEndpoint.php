@@ -9,7 +9,8 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
         $this->_method = 'POST';
     }
 
-    public function execute(Nameless2API $api) {
+    public function execute(Nameless2API $api): void
+    {
         $api->validateParams($_POST, ['server-id', 'max-memory', 'free-memory', 'allocated-memory', 'tps']);
         if (!isset($_POST['players'])) {
             $api->throwError(6, $api->getLanguage()->get('api', 'invalid_post_contents'), 'players');
@@ -82,7 +83,8 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
         $api->returnArray(array_merge(['message' => $api->getLanguage()->get('api', 'server_info_updated')], ['log' => $group_sync_log]));
     }
 
-    private function updateUsername(User $user, array $player, Nameless2API $api) {
+    private function updateUsername(User $user, array $player, Nameless2API $api): void
+    {
         if (Util::getSetting($api->getDb(), 'username_sync')) {
             if (!$user->data() ||
                 $player['name'] == $user->data()->username) {
@@ -129,7 +131,8 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
         return $log;
     }
 
-    private function updatePlaceholders(User $user, $player) {
+    private function updatePlaceholders(User $user, $player): void
+    {
         if ($user->data()) {
             $user->savePlaceholders($_POST['server-id'], $player['placeholders']);
         }

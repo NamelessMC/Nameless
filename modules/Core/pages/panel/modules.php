@@ -215,103 +215,103 @@ if (!isset($_GET['action'])) {
         Redirect::to(URL::build('/panel/core/modules'));
         die();
 
-    } else {
-        if ($_GET['action'] == 'disable') {
-            // Disable a module
-            if (!isset($_GET['m']) || !is_numeric($_GET['m']) || $_GET['m'] == 1) {
-                die('Invalid module!');
+    }
+
+    if ($_GET['action'] == 'disable') {
+        // Disable a module
+        if (!isset($_GET['m']) || !is_numeric($_GET['m']) || $_GET['m'] == 1) {
+            die('Invalid module!');
+        }
+
+        if (Token::check($_POST['token'])) {
+            // Get module name
+            $name = $queries->getWhere('modules', ['id', '=', $_GET['m']]);
+            $name = Output::getClean($name[0]->name);
+
+            foreach (Module::getModules() as $item) {
+                if (in_array($name, $item->getLoadAfter())) {
+                    // Unable to disable module
+                    Session::flash('admin_modules_error', str_replace('{x}', Output::getClean($item->getName()), $language->get('admin', 'unable_to_disable_module')));
+                    Redirect::to(URL::build('/panel/core/modules'));
+                    die();
+                }
             }
 
-            if (Token::check($_POST['token'])) {
-                // Get module name
-                $name = $queries->getWhere('modules', ['id', '=', $_GET['m']]);
-                $name = Output::getClean($name[0]->name);
+            $queries->update('modules', $_GET['m'], [
+                'enabled' => 0
+            ]);
 
-                foreach (Module::getModules() as $item) {
-                    if (in_array($name, $item->getLoadAfter())) {
-                        // Unable to disable module
-                        Session::flash('admin_modules_error', str_replace('{x}', Output::getClean($item->getName()), $language->get('admin', 'unable_to_disable_module')));
-                        Redirect::to(URL::build('/panel/core/modules'));
-                        die();
-                    }
+            // Cache
+            $cache->setCache('modulescache');
+            $modules = [];
+
+            $order = Module::determineModuleOrder();
+
+            foreach ($order['modules'] as $key => $item) {
+                if ($item != $name) {
+                    $modules[] = [
+                        'name' => $item,
+                        'priority' => $key
+                    ];
                 }
-
-                $queries->update('modules', $_GET['m'], [
-                    'enabled' => 0
-                ]);
-
-                // Cache
-                $cache->setCache('modulescache');
-                $modules = [];
-
-                $order = Module::determineModuleOrder();
-
-                foreach ($order['modules'] as $key => $item) {
-                    if ($item != $name) {
-                        $modules[] = [
-                            'name' => $item,
-                            'priority' => $key
-                        ];
-                    }
-                }
-
-                // Store
-                $cache->store('enabled_modules', $modules);
-
-                if (file_exists(ROOT_PATH . '/modules/' . $name . '/init.php')) {
-                    require_once(ROOT_PATH . '/modules/' . $name . '/init.php');
-                    $module->onDisable();
-                }
-
-                Session::flash('admin_modules', $language->get('admin', 'module_disabled'));
-
-            } else {
-                Session::flash('admin_modules_error', $language->get('general', 'invalid_token'));
             }
 
-            Redirect::to(URL::build('/panel/core/modules'));
-            die();
+            // Store
+            $cache->store('enabled_modules', $modules);
+
+            if (file_exists(ROOT_PATH . '/modules/' . $name . '/init.php')) {
+                require_once(ROOT_PATH . '/modules/' . $name . '/init.php');
+                $module->onDisable();
+            }
+
+            Session::flash('admin_modules', $language->get('admin', 'module_disabled'));
 
         } else {
-            if ($_GET['action'] == 'install') {
-                if (Token::check()) {
-                    // Install any new modules
-                    $directories = glob(ROOT_PATH . '/modules/*', GLOB_ONLYDIR);
+            Session::flash('admin_modules_error', $language->get('general', 'invalid_token'));
+        }
 
-                    define('MODULE_INSTALL', true);
+        Redirect::to(URL::build('/panel/core/modules'));
+        die();
 
-                    foreach ($directories as $directory) {
-                        $folders = explode('/', $directory);
+    }
 
-                        if (file_exists(ROOT_PATH . '/modules/' . $folders[count($folders) - 1] . '/init.php')) {
-                            // Is it already in the database?
-                            $exists = $queries->getWhere('modules', ['name', '=', Output::getClean($folders[count($folders) - 1])]);
+    if ($_GET['action'] == 'install') {
+        if (Token::check()) {
+            // Install any new modules
+            $directories = glob(ROOT_PATH . '/modules/*', GLOB_ONLYDIR);
 
-                            if (!count($exists)) {
-                                $module = null;
+            define('MODULE_INSTALL', true);
 
-                                // No, add it now
-                                require_once(ROOT_PATH . '/modules/' . $folders[count($folders) - 1] . '/init.php');
+            foreach ($directories as $directory) {
+                $folders = explode('/', $directory);
 
-                                if ($module instanceof Module) {
-                                    $queries->create('modules', [
-                                        'name' => Output::getClean($folders[count($folders) - 1])
-                                    ]);
-                                    $module->onInstall();
-                                }
-                            }
+                if (file_exists(ROOT_PATH . '/modules/' . $folders[count($folders) - 1] . '/init.php')) {
+                    // Is it already in the database?
+                    $exists = $queries->getWhere('modules', ['name', '=', Output::getClean($folders[count($folders) - 1])]);
+
+                    if (!count($exists)) {
+                        $module = null;
+
+                        // No, add it now
+                        require_once(ROOT_PATH . '/modules/' . $folders[count($folders) - 1] . '/init.php');
+
+                        if ($module instanceof Module) {
+                            $queries->create('modules', [
+                                'name' => Output::getClean($folders[count($folders) - 1])
+                            ]);
+                            $module->onInstall();
                         }
                     }
-
-                    Session::flash('admin_modules', $language->get('admin', 'modules_installed_successfully'));
-                } else {
-                    Session::flash('admin_modules_error', $language->get('general', 'invalid_token'));
                 }
-
-                Redirect::to(URL::build('/panel/core/modules'));
-                die();
             }
+
+            Session::flash('admin_modules', $language->get('admin', 'modules_installed_successfully'));
+        } else {
+            Session::flash('admin_modules_error', $language->get('general', 'invalid_token'));
         }
+
+        Redirect::to(URL::build('/panel/core/modules'));
+        die();
     }
 }
 

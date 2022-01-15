@@ -18,7 +18,8 @@ class CreateReportEndpoint extends KeyAuthEndpoint {
         $this->_method = 'POST';
     }
 
-    public function execute(Nameless2API $api) {
+    public function execute(Nameless2API $api): void
+    {
         $api->validateParams($_POST, ['reporter', 'content']);
 
         // Ensure either reported OR reported_username AND reported_uid are provided
@@ -58,7 +59,7 @@ class CreateReportEndpoint extends KeyAuthEndpoint {
         $user_reports = $api->getDb()->get('reports', ['reporter_id', '=', $user_reporting->id])->results();
         if (count($user_reports)) {
             foreach ($user_reports as $report) {
-                if ((($report->reported_id != 0 && $report->reported_id == $user_reported_id) || $report->reported_uuid == Output::getClean($_POST['reported_uid'])) && $report->status == 0) {
+                if ($report->status == 0 && (($report->reported_id != 0 && $report->reported_id == $user_reported_id) || $report->reported_uuid == Output::getClean($_POST['reported_uid']))) {
                     $api->throwError(22, $api->getLanguage()->get('api', 'you_have_open_report_already'));
                 }
             }

@@ -76,10 +76,10 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                             // Update banner
                             if (isset($_POST['banner'])) {
                                 // Check image specified actually exists
-                                if (is_file(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'profile_images', $_POST['banner']]))) {
+                                if (is_file(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'profile_images', $_POST['banner']]))) {
                                     // Exists
                                     // Is it an image file?
-                                    if (in_array(pathinfo(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'profile_images', $_POST['banner']]), PATHINFO_EXTENSION), ['gif', 'png', 'jpg', 'jpeg'])) {
+                                    if (in_array(pathinfo(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'profile_images', $_POST['banner']]), PATHINFO_EXTENSION), ['gif', 'png', 'jpg', 'jpeg'])) {
                                         // Yes, update settings
                                         $user->update(
                                             [
@@ -135,10 +135,10 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                             // Redirect to clear input
                             Redirect::to($profile_user->getProfileURL());
                             die();
-                        } else {
-                            // Validation failed
-                            $error = $validation->errors();
                         }
+
+// Validation failed
+                        $error = $validation->errors();
                     } else {
                         $error = $language->get('general', 'invalid_token');
                     }
@@ -197,10 +197,10 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                             // Redirect to clear input
                             Redirect::to($profile_user->getProfileURL());
                             die();
-                        } else {
-                            // Validation failed
-                            $error = $validation->errors();
                         }
+
+// Validation failed
+                        $error = $validation->errors();
                     } else {
                         $error = $language->get('general', 'invalid_token');
                     }
@@ -371,9 +371,9 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                     Redirect::to($profile_user->getProfileURL());
                     die();
 
-                } else {
-                    $error = $language->get('general', 'invalid_token');
                 }
+
+                $error = $language->get('general', 'invalid_token');
 
                 break;
         }
@@ -384,14 +384,14 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
         if (!is_numeric($_GET['p'])) {
             Redirect::to($profile_user->getProfileURL());
             die();
-        } else {
-            if ($_GET['p'] == 1) {
-                // Avoid bug in pagination class
-                Redirect::to($profile_user->getProfileURL());
-                die();
-            }
-            $p = $_GET['p'];
         }
+
+        if ($_GET['p'] == 1) {
+            // Avoid bug in pagination class
+            Redirect::to($profile_user->getProfileURL());
+            die();
+        }
+        $p = $_GET['p'];
     } else {
         $p = 1;
     }
@@ -446,7 +446,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
             // Custom profile banners
             $banners = [];
 
-            $image_path = join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'profile_images']);
+            $image_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'profile_images']);
             $images = scandir($image_path);
 
             // Only display jpeg, png, jpg, gif
@@ -465,7 +465,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                 ];
             }
 
-            $image_path = join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'profile_images', $user->data()->id]);
+            $image_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'profile_images', $user->data()->id]);
 
             if (is_dir($image_path)) {
                 $images = scandir($image_path);
@@ -572,8 +572,8 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
         $smarty->assign('PAGINATION', $pagination);
 
         // Display the correct number of posts
-        for ($n = 0; $n < count($results->data); $n++) {
-            $post_user = $queries->getWhere('users', ['id', '=', $results->data[$n]->author_id]);
+        foreach ($results->data as $nValue) {
+            $post_user = $queries->getWhere('users', ['id', '=', $nValue->author_id]);
 
             if (!count($post_user)) {
                 continue;
@@ -583,7 +583,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
             $reactions = [];
             $replies = [];
 
-            $reactions_query = $queries->getWhere('user_profile_wall_posts_reactions', ['post_id', '=', $results->data[$n]->id]);
+            $reactions_query = $queries->getWhere('user_profile_wall_posts_reactions', ['post_id', '=', $nValue->id]);
             if (count($reactions_query)) {
                 if (count($reactions_query) == 1) {
                     $reactions['count'] = $language->get('user', '1_like');
@@ -619,7 +619,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
             }
             $reactions_query = null;
 
-            $replies_query = $queries->orderWhere('user_profile_wall_posts_replies', 'post_id = ' . $results->data[$n]->id, 'time', 'ASC');
+            $replies_query = $queries->orderWhere('user_profile_wall_posts_replies', 'post_id = ' . $nValue->id, 'time', 'ASC');
             if (count($replies_query)) {
                 if (count($replies_query) == 1) {
                     $replies['count'] = $language->get('user', '1_reply');
@@ -650,20 +650,20 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
             $target_user = new User($post_user[0]->id);
             $wall_posts[] = [
-                'id' => $results->data[$n]->id,
+                'id' => $nValue->id,
                 'user_id' => Output::getClean($post_user[0]->id),
                 'username' => $target_user->getDisplayname(true),
                 'nickname' => $target_user->getDisplayname(),
                 'profile' => $target_user->getProfileURL(),
                 'user_style' => $target_user->getGroupClass(),
                 'avatar' => $target_user->getAvatar(500),
-                'content' => Output::getPurified(htmlspecialchars_decode($results->data[$n]->content)),
-                'date_rough' => $timeago->inWords(date('d M Y, H:i', $results->data[$n]->time), $language->getTimeLanguage()),
-                'date' => date('d M Y, H:i', $results->data[$n]->time),
+                'content' => Output::getPurified(htmlspecialchars_decode($nValue->content)),
+                'date_rough' => $timeago->inWords(date('d M Y, H:i', $nValue->time), $language->getTimeLanguage()),
+                'date' => date('d M Y, H:i', $nValue->time),
                 'reactions' => $reactions,
                 'replies' => $replies,
-                'self' => $user->isLoggedIn() && $user->data()->id == $results->data[$n]->author_id,
-                'reactions_link' => ($user->isLoggedIn() && ($post_user[0]->id != $user->data()->id) ? URL::build('/profile/' . Output::getClean($query->username) . '/', 'action=react&amp;post=' . $results->data[$n]->id) : '#')
+                'self' => $user->isLoggedIn() && $user->data()->id == $nValue->author_id,
+                'reactions_link' => ($user->isLoggedIn() && ($post_user[0]->id != $user->data()->id) ? URL::build('/profile/' . Output::getClean($query->username) . '/', 'action=react&amp;post=' . $nValue->id) : '#')
             ];
         }
     } else {
@@ -691,9 +691,9 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
             $profile_field = $queries->getWhere('profile_fields', ['id', '=', $field->field_id]);
             if (!count($profile_field)) {
                 continue;
-            } else {
-                $profile_field = $profile_field[0];
             }
+
+            $profile_field = $profile_field[0];
 
             if ($profile_field->public == 0 || !$field->value) {
                 continue;

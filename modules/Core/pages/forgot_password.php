@@ -63,7 +63,7 @@ if (!isset($_GET['c'])) {
 
                         $headers = 'From: ' . $siteemail . "\r\n" .
                             'Reply-To: ' . $siteemail . "\r\n" .
-                            'X-Mailer: PHP/' . phpversion() . "\r\n" .
+                            'X-Mailer: PHP/' . PHP_VERSION . "\r\n" .
                             'MIME-Version: 1.0' . "\r\n" .
                             'Content-type: text/html; charset=UTF-8' . "\r\n";
 

@@ -19,7 +19,7 @@ if (isset($_POST['perform']) && $_POST['perform'] == 'true') {
 
         } else {
             if ($_GET['initialise'] === 'site') {
-                require(realpath(__DIR__ . '/../includes/site_initialize.php'));
+                require(dirname(__DIR__) . '/includes/site_initialize.php');
 
                 $json = [
                     'success' => true,
@@ -28,20 +28,18 @@ if (isset($_POST['perform']) && $_POST['perform'] == 'true') {
 
                 $_SESSION['site_initialized'] = true;
 
+            } else if ($_GET['initialise'] === 'upgrade') {
+                require(dirname(__DIR__) . '/includes/upgrade_perform.php');
+
+                $json = [
+                    'success' => true,
+                    'redirect_url' => '?step=finish',
+                ];
+
+                $_SESSION['admin_setup'] = true;
+
             } else {
-                if ($_GET['initialise'] === 'upgrade') {
-                    require(realpath(__DIR__ . '/../includes/upgrade_perform.php'));
-
-                    $json = [
-                        'success' => true,
-                        'redirect_url' => '?step=finish',
-                    ];
-
-                    $_SESSION['admin_setup'] = true;
-
-                } else {
-                    throw new Exception('Invalid initialisation');
-                }
+                throw new RuntimeException('Invalid initialisation');
             }
         }
     } catch (Exception $e) {

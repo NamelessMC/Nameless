@@ -20,11 +20,11 @@ final class GroupSyncManager extends Instanceable {
         $injector = new $class();
 
         if (!($injector instanceof GroupSyncInjector)) {
-            throw new Exception("Class: {$class} is not an instanceof " . GroupSyncInjector::class);
+            throw new RuntimeException("Class: {$class} is not an instanceof " . GroupSyncInjector::class);
         }
 
         if (in_array($injector->getColumnName(), $this->getColumnNames())) {
-            throw new Exception("GroupSyncInjector column name {$injector->getColumnName()} already taken, {$class} tried to use it as well.");
+            throw new RuntimeException("GroupSyncInjector column name {$injector->getColumnName()} already taken, {$class} tried to use it as well.");
         }
 
         // TODO: do in onInstall / onEnable
@@ -224,7 +224,7 @@ final class GroupSyncManager extends Instanceable {
                         }
                     }
 
-                    // Attempt to remove this group if it doesnt have multiple rules, or if the group ids 
+                    // Attempt to remove this group if it doesnt have multiple rules, or if the group ids
                     // list sent to broadcastChange() was empty - NOT both
                     if ($injector->removeGroup($user, $injector_group_id)) {
                         $modified[$injector_column][] = $injector_group_id;

@@ -63,7 +63,7 @@ class Forum {
                                 $return[$forum->id]['subforums'][$item->id]->posts = $posts;
 
                                 // Can the user view other topics
-                                if ($this->canViewOtherTopics($item->id, $groups) || $item->last_user_posted == $user_id) {
+                                if ($item->last_user_posted == $user_id || $this->canViewOtherTopics($item->id, $groups)) {
                                     if ($item->last_topic_posted) {
                                         // Last reply
                                         $last_reply = $this->_db->orderWhere('posts', 'topic_id = ' . $item->last_topic_posted, 'created', 'DESC')->results();
@@ -468,7 +468,7 @@ class Forum {
         }
 
         // Order the discussions by date - most recent first
-        usort($return, function ($a, $b) {
+        usort($return, static function ($a, $b) {
             return strtotime($b['topic_date']) - strtotime($a['topic_date']);
         });
 
@@ -478,7 +478,7 @@ class Forum {
     // Transform a topic title to URL-ify it
 
     public function canModerateForum(int $forum_id = null, array $groups = [0]): bool {
-        if (in_array(0, $groups) || !$forum_id) {
+        if (!$forum_id || in_array(0, $groups)) {
             return false;
         }
 

@@ -157,13 +157,13 @@ class Navigation {
                         if (count($return[$key]['items'])) {
                             uasort(
                                 $return[$key]['items'],
-                                function ($a, $b) {
+                                static function ($a, $b) {
                                     if ($a['order'] > $b['order']) {
                                         return 1;
-                                    } else {
-                                        if ($a['order'] < $b['order']) {
-                                            return -1;
-                                        }
+                                    }
+
+                                    if ($a['order'] < $b['order']) {
+                                        return -1;
                                     }
                                     return 0;
                                 }
@@ -186,13 +186,13 @@ class Navigation {
                     if (isset($return[$key]['items']) && count($return[$key]['items'])) {
                         uasort(
                             $return[$key]['items'],
-                            function ($a, $b) {
+                            static function ($a, $b) {
                                 if ($a['order'] > $b['order']) {
                                     return 1;
-                                } else {
-                                    if ($a['order'] < $b['order']) {
-                                        return -1;
-                                    }
+                                }
+
+                                if ($a['order'] < $b['order']) {
+                                    return -1;
                                 }
                                 return 0;
                             }
@@ -202,7 +202,7 @@ class Navigation {
             }
         }
 
-        uasort($return, function ($a, $b) {
+        uasort($return, static function ($a, $b) {
             $result = 0;
             if ($a['order'] > $b['order']) {
                 $result = 1;

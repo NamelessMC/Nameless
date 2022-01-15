@@ -88,7 +88,7 @@ if (isset($_GET['action'])) {
 
                 $profile = ProfileUtils::getProfile($user_query->username);
 
-                if (!empty($profile)) {
+                if ($profile !== null) {
                     $result = $profile->getProfileAsArray();
 
                     if (isset($result['uuid']) && !empty($result['uuid'])) {

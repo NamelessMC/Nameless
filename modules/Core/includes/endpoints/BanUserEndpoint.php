@@ -9,7 +9,8 @@ class BanUserEndpoint extends KeyAuthEndpoint {
         $this->_method = 'POST';
     }
 
-    public function execute(Nameless2API $api, User $user) {
+    public function execute(Nameless2API $api, User $user): void
+    {
         $user->update([
             'isbanned' => 1,
         ]);

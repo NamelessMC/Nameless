@@ -54,8 +54,8 @@ if (count($topics)) {
 $template_array = [];
 $authors = [];
 
-for ($n = 0; $n < count($results->data); $n++) {
-    $topic = $results->data[$n];
+foreach ($results->data as $nValue) {
+    $topic = $nValue;
 
     // Topic author/last poster
     if (!array_key_exists($topic->topic_creator, $authors)) {

@@ -32,7 +32,7 @@ if (!isset($_GET['action'])) {
     $templates_template = [];
 
     foreach ($templates as $item) {
-        $template_path = join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'panel_templates', htmlspecialchars($item->name), 'template.php']);
+        $template_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'panel_templates', htmlspecialchars($item->name), 'template.php']);
 
         if (file_exists($template_path)) {
             require($template_path);
@@ -298,10 +298,10 @@ if (!isset($_GET['action'])) {
                     // Doesn't exist
                     Redirect::to(URL::build('/panel/core/panel_templates/'));
                     die();
-                } else {
-                    $new_default_template = $new_default[0]->name;
-                    $new_default = $new_default[0]->id;
                 }
+
+                $new_default_template = $new_default[0]->name;
+                $new_default = $new_default[0]->id;
 
                 // Get current default template
                 $current_default = $queries->getWhere('panel_templates', ['is_default', '=', 1]);

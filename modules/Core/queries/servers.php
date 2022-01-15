@@ -70,7 +70,7 @@ if (count($servers)) {
 
     // Parent servers
     foreach ($results as $id => $result) {
-        if (isset($result['parent_server']) && isset($results[$result['parent_server']])) {
+        if (isset($result['parent_server'], $results[$result['parent_server']])) {
             $results[$result['parent_server']]['player_count'] += $result['player_count'];
         }
     }

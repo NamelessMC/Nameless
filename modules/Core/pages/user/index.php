@@ -74,7 +74,7 @@ if ($forum_enabled) {
             $output[$graph_start]['total'] = 0;
         }
 
-        $graph_start = $graph_start + 86400;
+        $graph_start += 86400;
     }
 
     ksort($output);

@@ -91,7 +91,7 @@ abstract class AvatarSourceBase {
      *
      * @return string URL with placeholders to format.
      */
-    abstract function getUrlToFormat(string $perspective): string;
+    abstract public function getUrlToFormat(string $perspective): string;
 
     /**
      * Translate NamelessMC perspective name to the relative name for this avatar source.

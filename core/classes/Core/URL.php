@@ -25,21 +25,21 @@ class URL {
             if ((defined('FRIENDLY_URLS') && FRIENDLY_URLS == true) || (!defined('FRIENDLY_URLS') && Config::get('core/friendly') == true)) {
                 // Friendly URLs are enabled
                 return self::buildFriendly($url, $params);
-            } else {
-                // Friendly URLs are disabled, we need to change it
-                return self::buildNonFriendly($url, $params);
             }
+
+// Friendly URLs are disabled, we need to change it
+            return self::buildNonFriendly($url, $params);
         }
 
         if ($force == 'friendly') {
             return self::buildFriendly($url, $params);
-        } else {
-            if ($force == 'non-friendly') {
-                return self::buildNonFriendly($url, $params);
-            } else {
-                throw new InvalidArgumentException('Invalid force string: ' . $force);
-            }
         }
+
+        if ($force == 'non-friendly') {
+            return self::buildNonFriendly($url, $params);
+        }
+
+        throw new InvalidArgumentException('Invalid force string: ' . $force);
     }
 
     /**
@@ -78,8 +78,8 @@ class URL {
             }
 
             return (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/index.php?route=' . $url . ((substr($url, -1) == '/') ? '' : '/') . '&' . $params;
-        } else {
-            return (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/index.php?route=' . $url . ((substr($url, -1) == '/') ? '' : '/');
         }
+
+        return (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/index.php?route=' . $url . ((substr($url, -1) == '/') ? '' : '/');
     }
 }

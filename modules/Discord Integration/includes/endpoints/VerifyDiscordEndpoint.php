@@ -15,7 +15,8 @@ class VerifyDiscordEndpoint extends KeyAuthEndpoint {
         $this->_method = 'POST';
     }
 
-    public function execute(Nameless2API $api) {
+    public function execute(Nameless2API $api): void
+    {
         $api->validateParams($_POST, ['token', 'discord_id', 'discord_username']);
 
         $token = Output::getClean($_POST['token']);

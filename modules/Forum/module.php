@@ -236,7 +236,7 @@ class Forum_Module extends Module {
                             $date = '_' . strtotime($date);
 
                             if (isset($output[$date]['topics'])) {
-                                $output[$date]['topics'] = $output[$date]['topics'] + 1;
+                                $output[$date]['topics'] += 1;
                             } else {
                                 $output[$date]['topics'] = 1;
                             }
@@ -247,7 +247,7 @@ class Forum_Module extends Module {
                             $date = '_' . strtotime($date);
 
                             if (isset($output[$date]['posts'])) {
-                                $output[$date]['posts'] = $output[$date]['posts'] + 1;
+                                $output[$date]['posts'] += 1;
                             } else {
                                 $output[$date]['posts'] = 1;
                             }

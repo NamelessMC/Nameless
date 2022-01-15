@@ -161,10 +161,10 @@ class User {
     public function getIP(): string {
         if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
             return $_SERVER['HTTP_CLIENT_IP'];
-        } else {
-            if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-                return $_SERVER['HTTP_X_FORWARDED_FOR'];
-            }
+        }
+
+        if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            return $_SERVER['HTTP_X_FORWARDED_FOR'];
         }
 
         return $_SERVER['REMOTE_ADDR'];
@@ -183,7 +183,7 @@ class User {
         }
 
         if (!$this->_db->update('users', $id, $fields)) {
-            throw new Exception('There was a problem updating your details.');
+            throw new RuntimeException('There was a problem updating your details.');
         }
     }
 
@@ -194,7 +194,7 @@ class User {
      */
     public function create(array $fields = []): void {
         if (!$this->_db->insert('users', $fields)) {
-            throw new Exception('There was a problem creating an account.');
+            throw new RuntimeException('There was a problem creating an account.');
         }
     }
 
@@ -314,9 +314,7 @@ class User {
             switch ($this->data()->pass_method) {
                 case 'wordpress':
                     // phpass
-                    $phpass = new PasswordHash(8, false);
-
-                    return ($phpass->checkPassword($password, $this->data()->password));
+                    return ((new PasswordHash(8, false))->checkPassword($password, $this->data()->password));
 
                 case 'sha256':
                     $exploded = explode('$', $this->data()->password);
@@ -824,7 +822,7 @@ class User {
             // Order the PMs by date updated - most recent first
             usort(
                 $return,
-                function ($a, $b) {
+                static function ($a, $b) {
                     return $b['updated'] - $a['updated'];
                 }
             );
@@ -930,11 +928,7 @@ class User {
             die();
         }
 
-        if ($permission != null && !$this->hasPermission($permission)) {
-            return false;
-        }
-
-        return true;
+        return !($permission != null && !$this->hasPermission($permission));
     }
 
     /**
@@ -990,9 +984,9 @@ class User {
                 $is_public = $this->_db->get('profile_fields', ['id', '=', $result->field_id]);
                 if (!$is_public->count()) {
                     continue;
-                } else {
-                    $is_public = $is_public->results();
                 }
+
+                $is_public = $is_public->results();
 
                 if ($is_public[0]->public == 1) {
                     if ($forum == true) {
@@ -1017,9 +1011,9 @@ class User {
                 $name = $this->_db->get('profile_fields', ['id', '=', $result->field_id]);
                 if (!$name->count()) {
                     continue;
-                } else {
-                    $name = $name->results();
                 }
+
+                $name = $name->results();
 
                 $return[] = [
                     'name' => Output::getClean($name[0]->name),
