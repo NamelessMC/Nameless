@@ -54,7 +54,7 @@
                                                 <th>{$ROUTE}</th>
                                                 <th>{$DESCRIPTION}</th>
                                                 <th>{$MODULE}</th>
-                                                <th>Method</th>
+                                                <th>{$METHOD}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -71,6 +71,39 @@
                                                 </td>
                                                 <td>
                                                     <div><kbd>{$endpoint.method}</kbd></div>
+                                                </td>
+                                            </tr>
+                                        {/foreach}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <hr />
+                            {/if}
+
+                        </div>
+                    </div>
+
+                    <div class="card shadow mb-4">
+                        <div class="card-body">
+                            <h5>{$TRANSFORMERS}</h5>
+
+                            {if count($TRANSFORMERS_ARRAY)}
+                                <div class="table-responsive">
+                                    <table class="table table-borderless table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>{$TYPE}</th>
+                                                <th>{$MODULE}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        {foreach from=$TRANSFORMERS_ARRAY key=type item=transformer}
+                                            <tr>
+                                                <td>
+                                                    <div><code>{literal}{{/literal}{$type}{literal}}{/literal}</code></div>
+                                                </td>
+                                                <td>
+                                                    <div>{$transformer.module}</div>
                                                 </td>
                                             </tr>
                                         {/foreach}
