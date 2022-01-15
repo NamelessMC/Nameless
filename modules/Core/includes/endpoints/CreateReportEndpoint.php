@@ -12,7 +12,7 @@
 class CreateReportEndpoint extends KeyAuthEndpoint {
 
     public function __construct() {
-        $this->_route = 'report/create';
+        $this->_route = 'reports/create';
         $this->_module = 'Core';
         $this->_description = 'Create a report';
         $this->_method = 'POST';
