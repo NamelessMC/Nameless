@@ -336,7 +336,6 @@ if (Input::exists()) {
                     $path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', TEMPLATE, 'email', 'forum_topic_reply.html']);
                     $html = file_get_contents($path);
 
-                    // TODO: Add placeholder support for Email::formatEmail()
                     $message = str_replace(
                         ['[Sitename]', '[TopicReply]', '[Greeting]', '[Message]', '[Link]', '[Thanks]'],
                         [
