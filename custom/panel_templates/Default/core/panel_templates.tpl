@@ -144,6 +144,8 @@
                                                 <strong>{$item.name}</strong> <small>{$item.latest_version}</small>
                                                 <br />
                                                 <small>{$item.author_x}</small>
+                                                <br />
+                                                <small>{$item.updated_x}</small>
                                             </td>
                                             <td>
                                                 <div class="star-rating view">
