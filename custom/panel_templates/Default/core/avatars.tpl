@@ -50,7 +50,9 @@
                                 <label for="inputDefaultAvatar">{$DEFAULT_AVATAR}</label>
                                 <select class="form-control" name="default_avatar" id="inputDefaultAvatar">
                                     <option value="minecraft" {if $DEFAULT_AVATAR_VALUE eq "minecraft" } selected{/if}>{$MINECRAFT_AVATAR}</option>
-                                    <option value="custom" {if $DEFAULT_AVATAR_VALUE eq "custom" } selected{/if}>{$CUSTOM_AVATAR}</option>
+                                    {if $CUSTOM_AVATARS_VALUE eq 1}
+                                        <option value="custom" {if $DEFAULT_AVATAR_VALUE eq "custom" } selected{/if} >{$CUSTOM_AVATAR}</option>
+                                    {/if}
                                 </select>
                             </div>
                             <div class="form-group">
