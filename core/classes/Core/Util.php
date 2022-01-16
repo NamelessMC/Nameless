@@ -362,22 +362,15 @@ class Util {
     /**
      * Check for Nameless updates.
      *
-     * @param string|null $current_version Current local namelessmc version to compare.
-     *
      * @return string JSON object with information about any updates.
      * @throws Exception
      */
-    public static function updateCheck(string $current_version = null): string {
+    public static function updateCheck(): string {
         $queries = new Queries();
 
         // Check for updates
-        if (!$current_version) {
-            $current_version = $queries->getWhere('settings', ['name', '=', 'nameless_version']);
-            $current_version = $current_version[0]->value;
-        }
-
-        $uid = $queries->getWhere('settings', ['name', '=', 'unique_id']);
-        $uid = $uid[0]->value;
+        $current_version = self::getSetting(DB::getInstance(), 'nameless_version');
+        $uid = self::getSetting(DB::getInstance(), 'unique_id');
 
         $update_check = HttpClient::get('https://namelessmc.com/nl_core/nl2/stats.php?uid=' . $uid . '&version=' . $current_version . '&php_version=' . urlencode(PHP_VERSION) . '&language=' . LANGUAGE . '&docker=' . (getenv('NAMELESSMC_METRICS_DOCKER') == true));
 
