@@ -36,51 +36,18 @@ if (!isset($_GET['c'])) {
                     $code = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 60);
 
                     // Send an email
-                    $php_mailer = $queries->getWhere('settings', ['name', '=', 'phpmailer']);
-                    $php_mailer = $php_mailer[0]->value;
                     $link = rtrim(Util::getSelfURL(), '/') . URL::build('/forgot_password/', 'c=' . $code);
 
-                    if ($php_mailer == '1') {
+                    $sent = Email::send(
+                        ['email' => Output::getClean($target_user->data()->email), 'name' => $target_user->getDisplayname()],
+                        SITE_NAME . ' - ' . $language->get('emails', 'change_password_subject'),
+                        str_replace('[Link]', $link, Email::formatEmail('change_password', $language))
+                    );
 
-                        // PHP Mailer
-                        $email = [
-                            'to' => ['email' => Output::getClean($target_user->data()->email), 'name' => $target_user->getDisplayname()],
-                            'subject' => SITE_NAME . ' - ' . $language->get('emails', 'change_password_subject'),
-                            'message' => str_replace('[Link]', $link, Email::formatEmail('change_password', $language))
-                        ];
-
-                        $sent = Email::send($email, 'mailer');
-
-                    } else {
-                        // PHP mail function
-                        $siteemail = $queries->getWhere('settings', ['name', '=', 'outgoing_email']);
-                        $siteemail = $siteemail[0]->value;
-
-                        $to = $target_user->data()->email;
-                        $subject = SITE_NAME . ' - ' . $language->get('emails', 'change_password_subject');
-
-                        $message = str_replace('[Link]', $link, Email::formatEmail('change_password', $language));
-
-                        $headers = 'From: ' . $siteemail . "\r\n" .
-                            'Reply-To: ' . $siteemail . "\r\n" .
-                            'X-Mailer: PHP/' . PHP_VERSION . "\r\n" .
-                            'MIME-Version: 1.0' . "\r\n" .
-                            'Content-type: text/html; charset=UTF-8' . "\r\n";
-
-                        $email = [
-                            'to' => $to,
-                            'subject' => $subject,
-                            'message' => $message,
-                            'headers' => $headers
-                        ];
-
-                        $sent = Email::send($email);
-
-                    }
                     if (isset($sent['error'])) {
                         // Error, log it
                         $queries->create('email_errors', [
-                            'type' => 3, // 3 = forgot password
+                            'type' => Email::FORGOT_PASSWORD,
                             'content' => $sent['error'],
                             'at' => date('U'),
                             'user_id' => $target_user->data()->id

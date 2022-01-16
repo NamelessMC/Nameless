@@ -350,66 +350,26 @@ if (Input::exists()) {
                         $html
                     );
                     $subject = SITE_NAME . ' - ' . str_replace(['{x}', '{y}'], [$user->data()->username, $topic->topic_title], $language->get('emails', 'forum_topic_reply_subject'));
-                    $siteemail = $queries->getWhere('settings', ['name', '=', 'outgoing_email']);
-                    $siteemail = $siteemail[0]->value;
                     $contactemail = $queries->getWhere('settings', ['name', '=', 'incoming_email']);
                     $contactemail = $contactemail[0]->value;
-                    try {
-                        $php_mailer = $queries->getWhere('settings', ['name', '=', 'phpmailer']);
-                        $php_mailer = $php_mailer[0]->value;
-                        if ($php_mailer == '1') {
-                            foreach ($users_following_info as $user_info) {
-                                // PHP Mailer
-                                $email = [
-                                    'replyto' => ['email' => $contactemail, 'name' => Output::getClean(SITE_NAME)],
-                                    'to' => ['email' => Output::getClean($user_info['email']), 'name' => Output::getClean($user_info['username'])],
-                                    'subject' => $subject,
-                                    'message' => $message
-                                ];
-                                $sent = Email::send($email, 'mailer');
 
-                                if (isset($sent['error'])) {
-                                    // Error, log it
-                                    $queries->create('email_errors', [
-                                        'type' => 5, // 5 = forum topic reply
-                                        'content' => $sent['error'],
-                                        'at' => date('U'),
-                                        'user_id' => ($user->data()->id)
-                                    ]);
-                                }
-                            }
-                        } else {
-                            foreach ($users_following_info as $user_info) {
-                                // PHP mail function
-                                $headers = 'From: ' . $siteemail . "\r\n" .
-                                    'Reply-To: ' . $contactemail . "\r\n" .
-                                    'X-Mailer: PHP/' . PHP_VERSION . "\r\n" .
-                                    'MIME-Version: 1.0' . "\r\n" .
-                                    'Content-type: text/html; charset=UTF-8' . "\r\n";
+                    foreach ($users_following_info as $user_info) {
+                        $sent = Email::send(
+                            ['email' => Output::getClean($user_info['email']), 'name' => Output::getClean($user_info['username'])],
+                            $subject,
+                            $message,
+                            ['email' => $contactemail, 'name' => Output::getClean(SITE_NAME)]
+                        );
 
-                                $email = [
-                                    'to' => $user_info['email'],
-                                    'subject' => $subject,
-                                    'message' => $message,
-                                    'headers' => $headers
-                                ];
-
-                                $sent = Email::send($email);
-
-                                if (isset($sent['error'])) {
-                                    // Error, log it
-                                    $queries->create('email_errors', [
-                                        'type' => 5, // 5 = forum topic reply
-                                        'content' => $sent['error'],
-                                        'at' => date('U'),
-                                        'user_id' => ($user->data()->id)
-                                    ]);
-                                }
-                            }
+                        if (isset($sent['error'])) {
+                            // Error, log it
+                            $queries->create('email_errors', [
+                                'type' => Email::FORUM_TOPIC_REPLY,
+                                'content' => $sent['error'],
+                                'at' => date('U'),
+                                'user_id' => ($user->data()->id)
+                            ]);
                         }
-                    } catch (Exception $e) {
-                        // Error
-                        $error = $e->getMessage();
                     }
                 }
                 Session::flash('success_post', $forum_language->get('forum', 'post_successful'));

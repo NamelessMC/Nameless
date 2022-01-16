@@ -50,22 +50,22 @@ if (isset($_GET['do'])) {
         $error = $error[0];
 
         switch ($error->type) {
-            case 1:
+            case Email::REGISTRATION:
                 $type = $language->get('admin', 'registration_email');
                 break;
-            case 2:
+            case Email::CONTACT:
                 $type = $language->get('admin', 'contact_email');
                 break;
-            case 3:
+            case Email::FORGOT_PASSWORD:
                 $type = $language->get('admin', 'forgot_password_email');
                 break;
-            case 4:
+            case Email::API_REGISTRATION:
                 $type = $language->get('admin', 'api_registration_email');
                 break;
-            case 5:
+            case Email::FORUM_TOPIC_REPLY:
                 $type = $language->get('admin', 'forum_topic_reply_email');
                 break;
-            case 6:
+            case Email::MASS_MESSAGE:
                 $type = $language->get('admin', 'emails_mass_message');
                 break;
             default:
@@ -167,22 +167,22 @@ if (isset($_GET['do'])) {
 
         foreach ($results->data as $nValue) {
             switch ($nValue->type) {
-                case 1:
+                case Email::REGISTRATION:
                     $type = $language->get('admin', 'registration_email');
                     break;
-                case 2:
+                case Email::CONTACT:
                     $type = $language->get('admin', 'contact_email');
                     break;
-                case 3:
+                case Email::FORGOT_PASSWORD:
                     $type = $language->get('admin', 'forgot_password_email');
                     break;
-                case 4:
+                case Email::API_REGISTRATION:
                     $type = $language->get('admin', 'api_registration_email');
                     break;
-                case 5:
+                case Email::FORUM_TOPIC_REPLY:
                     $type = $language->get('admin', 'forum_topic_reply_email');
                     break;
-                case 6:
+                case Email::MASS_MESSAGE:
                     $type = $language->get('admin', 'emails_mass_message');
                     break;
                 default:

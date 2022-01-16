@@ -181,8 +181,7 @@ class RegisterEndpoint extends KeyAuthEndpoint {
      * @see Nameless2API::register()
      *
      */
-    private function sendRegistrationEmail(Nameless2API $api, string $username, string $uuid, string $email): void
-    {
+    private function sendRegistrationEmail(Nameless2API $api, string $username, string $uuid, string $email): void {
         // Generate random code
         $code = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 60);
 
@@ -193,64 +192,23 @@ class RegisterEndpoint extends KeyAuthEndpoint {
         // Get link + template
         $link = Util::getSelfURL() . ltrim(URL::build('/complete_signup/', 'c=' . $code), '/');
 
-        $html = Email::formatEmail('register', $api->getLanguage());
+        $sent = Email::send(
+            ['email' => Output::getClean($email), 'name' => Output::getClean($username)],
+            SITE_NAME . ' - ' . $api->getLanguage()->get('emails', 'register_subject'),
+            str_replace('[Link]', $link, Email::formatEmail('register', $api->getLanguage()))
+        );
 
-        if (Util::getSetting($api->getDb(), 'phpmailer')) {
-            // PHP Mailer
-            $email = [
-                'to' => ['email' => Output::getClean($email), 'name' => Output::getClean($username)],
-                'subject' => SITE_NAME . ' - ' . $api->getLanguage()->get('emails', 'register_subject'),
-                'message' => str_replace('[Link]', $link, $html)
-            ];
+        if (isset($sent['error'])) {
+            // Error, log it
+            $api->getDb()->insert('email_errors', [
+                    'type' => Email::API_REGISTRATION,
+                    'content' => $sent['error'],
+                    'at' => date('U'),
+                    'user_id' => $user_id
+                ]
+            );
 
-            $sent = Email::send($email, 'mailer');
-
-            if (isset($sent['error'])) {
-                // Error, log it
-                $api->getDb()->insert('email_errors', [
-                        'type' => 4, // 4 = API registration email
-                        'content' => $sent['error'],
-                        'at' => date('U'),
-                        'user_id' => $user_id
-                    ]
-                );
-
-                $api->throwError(14, $api->getLanguage()->get('api', 'unable_to_send_registration_email'));
-            }
-        } else {
-            // PHP mail function
-            $siteemail = Util::getSetting($api->getDb(), 'site_email');
-
-            $to = $email;
-            $subject = SITE_NAME . ' - ' . $api->getLanguage()->get('emails', 'register_subject');
-
-            $headers = 'From: ' . $siteemail . "\r\n" .
-                'Reply-To: ' . $siteemail . "\r\n" .
-                'X-Mailer: PHP/' . PHP_VERSION . "\r\n" .
-                'MIME-Version: 1.0' . "\r\n" .
-                'Content-type: text/html; charset=UTF-8' . "\r\n";
-
-            $email = [
-                'to' => $to,
-                'subject' => $subject,
-                'message' => str_replace('[Link]', $link, $html),
-                'headers' => $headers
-            ];
-
-            $sent = Email::send($email);
-
-            if (isset($sent['error'])) {
-                // Error, log it
-                $api->getDb()->insert('email_errors', [
-                        'type' => 4,
-                        'content' => $sent['error'],
-                        'at' => date('U'),
-                        'user_id' => $user_id
-                    ]
-                );
-
-                $api->throwError(14, $api->getLanguage()->get('api', 'unable_to_send_registration_email'));
-            }
+            $api->throwError(14, $api->getLanguage()->get('api', 'unable_to_send_registration_email'));
         }
 
         $user = new User();

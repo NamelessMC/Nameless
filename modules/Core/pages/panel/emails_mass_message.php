@@ -44,76 +44,31 @@ if (Input::exists()) {
 
             $users = $queries->getWhere('users', ['id', '<>', 0]);
 
-            $siteemail = $queries->getWhere('settings', ['name', '=', 'outgoing_email']);
-            $siteemail = $siteemail[0]->value;
             $contactemail = $queries->getWhere('settings', ['name', '=', 'incoming_email']);
             $contactemail = $contactemail[0]->value;
 
-            try {
-                $php_mailer = $queries->getWhere('settings', ['name', '=', 'phpmailer']);
-                $php_mailer = $php_mailer[0]->value;
-                if ($php_mailer == '1') {
-                    foreach ($users as $email_user) {
-                        // PHP Mailer
-                        $email = [
-                            'replyto' => ['email' => $contactemail, 'name' => Output::getClean(SITE_NAME)],
-                            'to' => ['email' => Output::getClean($email_user->email), 'name' => Output::getClean($email_user->username)],
-                            'subject' => Output::getClean(Input::get('subject')),
-                            'message' => str_replace(['{username}', '{sitename}'], [$email_user->username, SITE_NAME], Input::get('content')),
-                        ];
-                        $sent = Email::send($email, 'mailer');
+            foreach ($users as $email_user) {
+                // PHP Mailer
+                $sent = Email::send(
+                    ['email' => Output::getClean($email_user->email), 'name' => Output::getClean($email_user->username)],
+                    Output::getClean(Input::get('subject')),
+                    str_replace(['{username}', '{sitename}'], [$email_user->username, SITE_NAME], Input::get('content')),
+                    ['email' => $contactemail, 'name' => Output::getClean(SITE_NAME)]
+                );
 
-                        if (isset($sent['error'])) {
-                            // Error, log it
-                            $queries->create('email_errors', [
-                                'type' => 6, // 6 = mass message
-                                'content' => $sent['error'],
-                                'at' => date('U'),
-                                'user_id' => $user->data()->id
-                            ]);
-                        }
-                    }
-                } else {
-                    foreach ($users as $email_user) {
-                        // PHP mail function
-                        $headers = 'From: ' . $siteemail . "\r\n" .
-                            'Reply-To: ' . $contactemail . "\r\n" .
-                            'X-Mailer: PHP/' . PHP_VERSION . "\r\n" .
-                            'MIME-Version: 1.0' . "\r\n" .
-                            'Content-type: text/html; charset=UTF-8' . "\r\n";
-
-                        $email = [
-                            'to' => $email_user->email,
-                            'subject' => Output::getClean(Input::get('subject')),
-                            'message' => str_replace(['{username}', '{sitename}'], [$email_user->username, SITE_NAME], Input::get('content')),
-                            'headers' => $headers
-                        ];
-
-                        $sent = Email::send($email);
-
-                        if (isset($sent['error'])) {
-                            // Error, log it
-                            $queries->create('email_errors', [
-                                'type' => 6, // 6 = mass message
-                                'content' => $sent['error'],
-                                'at' => date('U'),
-                                'user_id' => $user->data()->id
-                            ]);
-                        }
-                    }
+                if (isset($sent['error'])) {
+                    // Error, log it
+                    $queries->create('email_errors', [
+                        'type' => Email::MASS_MESSAGE,
+                        'content' => $sent['error'],
+                        'at' => date('U'),
+                        'user_id' => $user->data()->id
+                    ]);
                 }
-            } catch (Exception $e) {
-                // Error
-                $errors[] = $e->getMessage();
             }
 
             Log::getInstance()->log(Log::Action('admin/core/email/mass_message'));
 
-            if (!count($errors)) {
-                Session::flash('emails_success', $language->get('admin', 'emails_mass_message_sent_successfully'));
-                Redirect::to(URL::build('/panel/core/emails'));
-                die();
-            }
         } else {
             $errors = $validate->errors();
         }
