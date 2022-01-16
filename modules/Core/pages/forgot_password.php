@@ -45,7 +45,6 @@ if (!isset($_GET['c'])) {
                     );
 
                     if (isset($sent['error'])) {
-                        // Error, log it
                         $queries->create('email_errors', [
                             'type' => Email::FORGOT_PASSWORD,
                             'content' => $sent['error'],

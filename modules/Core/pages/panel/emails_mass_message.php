@@ -48,7 +48,6 @@ if (Input::exists()) {
             $contactemail = $contactemail[0]->value;
 
             foreach ($users as $email_user) {
-                // PHP Mailer
                 $sent = Email::send(
                     ['email' => Output::getClean($email_user->email), 'name' => Output::getClean($email_user->username)],
                     Output::getClean(Input::get('subject')),
@@ -57,7 +56,6 @@ if (Input::exists()) {
                 );
 
                 if (isset($sent['error'])) {
-                    // Error, log it
                     $queries->create('email_errors', [
                         'type' => Email::MASS_MESSAGE,
                         'content' => $sent['error'],

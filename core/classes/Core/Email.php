@@ -22,6 +22,11 @@ class Email {
     public const MASS_MESSAGE = 6;
 
     /**
+     * @var array Placeholders for email templates
+     */
+    private static array $_message_placeholders;
+
+    /**
      * Send an email.
      *
      * @param array $recipient Array containing `'email'` and `'name'` strings for the recipient of the email.
@@ -136,26 +141,36 @@ class Email {
     }
 
     /**
+     * Add a custom placeholder/variable for email messages.
+     * @param string $key The key to use for the placeholder, should be enclosed in square brackets.
+     * @param string $value The value to replace the placeholder with.
+     */
+    public static function addPlaceholder(string $key, string $value): void {
+        self::$_message_placeholders[$key] = $value;
+    }
+
+    /**
      * Format an email template and replace placeholders.
      *
      * @param string $email Name of email to format.
      * @param Language $viewing_language Instance of Language class to use for translations.
+     *
+     * @return string Formatted email.
      */
     public static function formatEmail(string $email, Language $viewing_language): string {
         return str_replace(
-        // TODO: let modules add their own placeholders here? :o
-            [
+            array_merge([
                 '[Sitename]',
                 '[Greeting]',
                 '[Message]',
                 '[Thanks]',
-            ],
-            [
+            ], array_keys(self::$_message_placeholders)),
+            array_merge([
                 SITE_NAME,
                 $viewing_language->get('emails', 'greeting'),
                 $viewing_language->get('emails', $email . '_message'),
                 $viewing_language->get('emails', 'thanks'),
-            ],
+            ], array_values(self::$_message_placeholders)),
             file_get_contents(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', TEMPLATE, 'email', $email . '.html']))
         );
     }

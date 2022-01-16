@@ -19,7 +19,6 @@ function sendRegisterEmail(Queries $queries, Language $language, string $email_a
     );
 
     if (isset($sent['error'])) {
-        // Error, log it
         $queries->create('email_errors', [
             'type' => Email::REGISTRATION,
             'content' => $sent['error'],

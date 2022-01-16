@@ -55,7 +55,6 @@ if (Input::exists()) {
                     );
 
                     if (isset($sent['error'])) {
-                        // Error, log it
                         $queries->create('email_errors', [
                             'type' => Email::CONTACT,
                             'content' => $sent['error'],

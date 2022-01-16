@@ -199,7 +199,6 @@ class RegisterEndpoint extends KeyAuthEndpoint {
         );
 
         if (isset($sent['error'])) {
-            // Error, log it
             $api->getDb()->insert('email_errors', [
                     'type' => Email::API_REGISTRATION,
                     'content' => $sent['error'],
