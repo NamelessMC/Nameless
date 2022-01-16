@@ -57,19 +57,15 @@ class Email {
      * @return array|bool
      */
     private static function sendPHP(array $email) {
-        if (!array_key_exists('headers', $email)) {
-            $outgoing_email = Util::getSetting(DB::getInstance(), 'outgoing_email');
-            $incoming_email = Util::getSetting(DB::getInstance(), 'incoming_email');
+        $outgoing_email = Util::getSetting(DB::getInstance(), 'outgoing_email');
+        $incoming_email = Util::getSetting(DB::getInstance(), 'incoming_email');
 
-            $email['headers'] = [
-                'From' => $outgoing_email,
-                'Reply-To' => $incoming_email,
-                'MIME-Version' => '1.0',
-                'Content-type' => 'text/html; charset=UTF-8'
-            ];
-        }
-
-        if (mail($email['to']['email'], $email['subject'], $email['message'], $email['headers'])) {
+        if (mail($email['to']['email'], $email['subject'], $email['message'], [
+            'From' => $outgoing_email,
+            'Reply-To' => $incoming_email,
+            'MIME-Version' => '1.0',
+            'Content-type' => 'text/html; charset=UTF-8'
+        ])) {
             return true;
         }
 
