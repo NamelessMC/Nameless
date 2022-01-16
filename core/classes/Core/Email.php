@@ -66,7 +66,7 @@ class Email {
         $incoming_email = Util::getSetting(DB::getInstance(), 'incoming_email');
 
         if (mail($email['to']['email'], $email['subject'], $email['message'], [
-            'From' => $outgoing_email,
+            'From' => SITE_NAME . ' ' . '<' . $outgoing_email . '>',
             'Reply-To' => $incoming_email,
             'MIME-Version' => '1.0',
             'Content-type' => 'text/html; charset=UTF-8'
@@ -142,6 +142,8 @@ class Email {
 
     /**
      * Add a custom placeholder/variable for email messages.
+     * Not used internally, but can be used by other modules.
+     *
      * @param string $key The key to use for the placeholder, should be enclosed in square brackets.
      * @param string $value The value to replace the placeholder with.
      */

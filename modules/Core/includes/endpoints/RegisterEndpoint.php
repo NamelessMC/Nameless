@@ -204,8 +204,7 @@ class RegisterEndpoint extends KeyAuthEndpoint {
                     'content' => $sent['error'],
                     'at' => date('U'),
                     'user_id' => $user_id
-                ]
-            );
+            ]);
 
             $api->throwError(14, $api->getLanguage()->get('api', 'unable_to_send_registration_email'));
         }
@@ -218,8 +217,7 @@ class RegisterEndpoint extends KeyAuthEndpoint {
                 'avatar_url' => $user->getAvatar(128, true),
                 'url' => Util::getSelfURL() . ltrim(URL::build('/profile/' . Output::getClean($username)), '/'),
                 'language' => $api->getLanguage()
-            ]
-        );
+        ]);
 
         $api->returnArray(['message' => $api->getLanguage()->get('api', 'finish_registration_email')]);
     }
