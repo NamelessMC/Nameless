@@ -27,7 +27,7 @@ class UpdateUsernameEndpoint extends KeyAuthEndpoint {
         try {
             $api->getDb()->update('users', $user->data()->id, $fields);
         } catch (Exception $e) {
-            $api->throwError(24, $api->getLanguage()->get('api', 'unable_to_update_username'), 500);
+            $api->throwError(24, $api->getLanguage()->get('api', 'unable_to_update_username'), null, 500);
         }
 
         $api->returnArray(['message' => $api->getLanguage()->get('api', 'username_updated')]);
