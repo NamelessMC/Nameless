@@ -197,14 +197,13 @@ if (isset($_GET['user'])) {
                                         ]);
                                     } else if ($type == 4) {
                                         // Need to delete any other avatars
-                                        $diff_str = implode(',', ['jpg', 'png', 'jpeg', 'gif']);
+                                        $to_remove = [];
+                                        foreach (['jpg', 'jpeg', 'png', 'gif'] as $extension) {
+                                            $to_remove += glob(ROOT_PATH . '/uploads/avatars/' . $query->id . '.' . $extension);
+                                        }
 
-                                        $to_remove = glob(ROOT_PATH . '/uploads/avatars/' . $query->id . '.{' . $diff_str . '}', GLOB_BRACE);
-
-                                        if ($to_remove) {
-                                            foreach ($to_remove as $item) {
-                                                unlink($item);
-                                            }
+                                        foreach ($to_remove as $item) {
+                                            unlink($item);
                                         }
 
                                         $queries->update('users', $query->id, [
