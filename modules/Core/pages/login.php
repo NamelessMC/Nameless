@@ -27,19 +27,21 @@ if ($user->isLoggedIn()) {
 if (isset($_GET['provider'], $_GET['code'])) {
 
     if ($_GET['provider'] === 'discord' || $_GET['provider'] === 'google') {
-        $provider = OAuth::getInstance()->getProviderInstance($_GET['provider'], OAuth::PAGE_LOGIN);
+        $provider_name = $_GET['provider'];
+        $provider = OAuth::getInstance()->getProviderInstance($provider_name, OAuth::PAGE_LOGIN);
         $token = $provider->getAccessToken('authorization_code', [
             'code' => $_GET['code']
         ]);
         $oauth_user = $provider->getResourceOwner($token)->toArray();
 
-        if (!OAuth::getInstance()->userExistsByProviderId($_GET['provider'], $oauth_user['id'])) {
+        $provider_id = $oauth_user[OAuth::getInstance()->getIdName($provider_name)];
+        if (!OAuth::getInstance()->userExistsByProviderId($provider_name, $provider_id)) {
             Session::flash('oauth_error', 'No user exists with that provider ID');
             Redirect::to(URL::build('/register'));
             die();
         }
 
-        $oauth_existing_user = OAuth::getInstance()->getUserIdFromProviderId($_GET['provider'], $oauth_user['id']);
+        $oauth_existing_user = OAuth::getInstance()->getUserIdFromProviderId($provider_name, $provider_id);
 
         $user = new User();
         $login = $user->login($oauth_existing_user, '', true, 'oauth');

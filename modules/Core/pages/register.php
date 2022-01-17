@@ -43,13 +43,14 @@ $oauth_flow = false;
 if (isset($_GET['provider'], $_GET['code'])) {
 
     if ($_GET['provider'] === 'discord' || $_GET['provider'] === 'google') {
-        $provider = OAuth::getInstance()->getProviderInstance($_GET['provider'], OAuth::PAGE_REGISTER);
+        $provider_name = $_GET['provider'];
+        $provider = OAuth::getInstance()->getProviderInstance($provider_name, OAuth::PAGE_REGISTER);
         $token = $provider->getAccessToken('authorization_code', [
             'code' => $_GET['code']
         ]);
         $oauth_user = $provider->getResourceOwner($token)->toArray();
 
-        if (OAuth::getInstance()->userExistsByProviderId($_GET['provider'], $oauth_user['id'])) {
+        if (OAuth::getInstance()->userExistsByProviderId($provider_name, $oauth_user[OAuth::getInstance()->getIdName($provider_name)])) {
             Session::flash('oauth_error', 'User already exists with that provider ID');
             Redirect::to(URL::build('/login'));
             die();
@@ -57,7 +58,7 @@ if (isset($_GET['provider'], $_GET['code'])) {
 
         $oauth_flow = true;
 
-        Session::put('register_oauth_provider', $_GET['provider']);
+        Session::put('register_oauth_provider', $provider_name);
         Session::put('register_oauth_user', json_encode($oauth_user));
 
         $smarty->assign([
@@ -405,7 +406,7 @@ if (Input::exists()) {
                                 $oauth_provider = Session::get('register_oauth_provider');
                                 $oauth_user = json_decode(Session::get('register_oauth_user'), true);
 
-                                OAuth::getInstance()->saveUserProvider($user_id, $oauth_provider, $oauth_user['id']);
+                                OAuth::getInstance()->saveUserProvider($user_id, $oauth_provider, $oauth_user[OAuth::getInstance()->getIdName($oauth_provider)]);
                                 $user->update(['discord_id' => $oauth_user['id']]);
 
                                 Session::delete('register_oauth_provider');

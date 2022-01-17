@@ -37,7 +37,10 @@ class OAuth extends Instanceable {
                 $instance = $this->getProviderInstance($provider, $page);
 
                 $providers[$provider] = $instance->getAuthorizationUrl([
-                    'scope' => ['identify', 'email'],
+                    'scope' => [
+                        $provider === self::DISCORD ? 'identify' : 'openid',
+                        'email'
+                    ],
                 ]);
             }
         }
@@ -81,6 +84,17 @@ class OAuth extends Instanceable {
         [$client_id, $client_secret] = $this->getCredentials($provider);
 
         return $client_id !== '' && $client_secret !== '';
+    }
+
+    public function getIdName(string $provider): string {
+        switch ($provider) {
+            case self::DISCORD:
+                return 'id';
+            case self::GOOGLE:
+                return 'sub';
+            default:
+                throw new RuntimeException('Unknown provider');
+        }
     }
 
     public function getCredentials(string $provider): array {
