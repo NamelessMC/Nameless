@@ -407,7 +407,12 @@ if (Input::exists()) {
                                 $oauth_user = json_decode(Session::get('register_oauth_user'), true);
 
                                 OAuth::getInstance()->saveUserProvider($user_id, $oauth_provider, $oauth_user[OAuth::getInstance()->getIdName($oauth_provider)]);
-                                $user->update(['discord_id' => $oauth_user['id']]);
+
+                                if ($oauth_provider === OAuth::DISCORD) {
+                                    $user->update([
+                                        'discord_id' => $oauth_user['id']
+                                    ]);
+                                }
 
                                 Session::delete('register_oauth_provider');
                                 Session::delete('register_oauth_user');
