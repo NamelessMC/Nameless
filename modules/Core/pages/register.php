@@ -39,36 +39,6 @@ if ($minecraft == '1') {
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 require_once(ROOT_PATH . '/modules/Core/includes/emails/register.php');
 
-$oauth_flow = false;
-if (isset($_GET['provider'], $_GET['code'])) {
-
-    if ($_GET['provider'] === 'discord' || $_GET['provider'] === 'google') {
-        $provider_name = $_GET['provider'];
-        $provider = OAuth::getInstance()->getProviderInstance($provider_name, OAuth::PAGE_REGISTER);
-        $token = $provider->getAccessToken('authorization_code', [
-            'code' => $_GET['code']
-        ]);
-        $oauth_user = $provider->getResourceOwner($token)->toArray();
-
-        if (OAuth::getInstance()->userExistsByProviderId($provider_name, $oauth_user[OAuth::getInstance()->getIdName($provider_name)])) {
-            Session::flash('oauth_error', 'User already exists with that provider ID');
-            Redirect::to(URL::build('/login'));
-            die();
-        }
-
-        $oauth_flow = true;
-
-        Session::put('register_oauth_provider', $provider_name);
-        Session::put('register_oauth_user', json_encode($oauth_user));
-
-        $smarty->assign([
-            'REGISTERING_OAUTH' => true,
-            'REGISTER_URL' => URL::build('/register'),
-            'EMAIL_VALUE' => $oauth_user['email'],
-        ]);
-    }
-}
-
 // Check if registration is enabled
 $registration_enabled = $queries->getWhere('settings', ['name', '=', 'registration_enabled']);
 $registration_enabled = $registration_enabled[0]->value;
@@ -113,6 +83,37 @@ if ($registration_enabled == 0) {
     $template->displayTemplate('registration_disabled.tpl', $smarty);
 
     die();
+}
+
+$oauth_flow = false;
+if (isset($_GET['provider'], $_GET['code'])) {
+
+    if ($_GET['provider'] === OAuth::DISCORD || $_GET['provider'] === OAuth::GOOGLE) {
+        $provider_name = $_GET['provider'];
+        $provider = OAuth::getInstance()->getProviderInstance($provider_name, OAuth::PAGE_REGISTER);
+        $token = $provider->getAccessToken('authorization_code', [
+            'code' => $_GET['code']
+        ]);
+        $oauth_user = $provider->getResourceOwner($token)->toArray();
+
+        if (OAuth::getInstance()->userExistsByProviderId($provider_name, $oauth_user[OAuth::getInstance()->getIdName($provider_name)])) {
+            Session::flash('oauth_error', 'User already exists with that provider ID');
+            Redirect::to(URL::build('/login'));
+            die();
+        }
+        // TODO: Check if NAmelessMC user exists with email already
+
+        $oauth_flow = true;
+
+        Session::put('register_oauth_provider', $provider_name);
+        Session::put('register_oauth_user', json_encode($oauth_user));
+
+        $smarty->assign([
+            'REGISTERING_OAUTH' => true,
+            'REGISTER_URL' => URL::build('/register'),
+            'EMAIL_VALUE' => $oauth_user['email'],
+        ]);
+    }
 }
 
 // Registration page
@@ -406,7 +407,11 @@ if (Input::exists()) {
                                 $oauth_provider = Session::get('register_oauth_provider');
                                 $oauth_user = json_decode(Session::get('register_oauth_user'), true);
 
-                                OAuth::getInstance()->saveUserProvider($user_id, $oauth_provider, $oauth_user[OAuth::getInstance()->getIdName($oauth_provider)]);
+                                OAuth::getInstance()->saveUserProvider(
+                                    $user_id,
+                                    $oauth_provider,
+                                    $oauth_user[OAuth::getInstance()->getIdName($oauth_provider)]
+                                );
 
                                 if ($oauth_provider === OAuth::DISCORD) {
                                     $user->update([
@@ -557,7 +562,9 @@ if (Input::exists()) {
     }
 }
 
-if (isset($errors)) {
+if (Session::exists('oauth_error')) {
+    $smarty->assign('REGISTRATION_ERROR', Session::flash('oauth_error'));
+} else if (isset($errors)) {
     $smarty->assign('REGISTRATION_ERROR', $errors);
 }
 

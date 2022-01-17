@@ -26,7 +26,7 @@ if ($user->isLoggedIn()) {
 
 if (isset($_GET['provider'], $_GET['code'])) {
 
-    if ($_GET['provider'] === 'discord' || $_GET['provider'] === 'google') {
+    if ($_GET['provider'] === OAuth::DISCORD || $_GET['provider'] === OAuth::GOOGLE) {
         $provider_name = $_GET['provider'];
         $provider = OAuth::getInstance()->getProviderInstance($provider_name, OAuth::PAGE_LOGIN);
         $token = $provider->getAccessToken('authorization_code', [
@@ -344,7 +344,9 @@ $smarty->assign([
     'OAUTH_PROVIDERS' => OAuth::getInstance()->getProvidersAvailable('login'),
 ]);
 
-if (isset($return_error)) {
+if (Session::exists('oauth_error')) {
+    $smarty->assign('ERROR', Session::flash('oauth_error'));
+} else if (isset($return_error)) {
     $smarty->assign('SESSION_FLASH', $return_error);
 } else {
     $smarty->assign('SESSION_FLASH', '');
