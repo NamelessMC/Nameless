@@ -23,7 +23,10 @@
   <div class="ui stackable grid">
     <div class="ui centered row">
       <div class="ui sixteen wide tablet ten wide computer column">
-        <form class="ui form" action="" method="post" id="form-register">
+        <form class="ui form" action="{if $REGISTERING_OAUTH}{$REGISTER_URL}{/if}" method="post" id="form-register">
+          {if $REGISTERING_OAUTH}
+            <input type="hidden" name="oauth" value="{$REGISTER_PROVIDER}">
+          {/if}
           {if isset($NICKNAMES)}
             <div class="field">
               <label>{$NICKNAME}</label>
@@ -50,7 +53,7 @@
           {/if}
           <div class="field">
             <label>{$EMAIL}</label>
-            <input type="email" name="email" id="email" value="{$EMAIL_VALUE}" placeholder="{$EMAIL}" tabindex="3">
+            <input type="email" name="email" id="email" value="{$EMAIL_VALUE}" {if $REGISTERING_OAUTH}readonly{/if} placeholder="{$EMAIL}" tabindex="3">
           </div>
           <div class="field">
             <label>{$PASSWORD}</label>
@@ -89,6 +92,13 @@
           <input id="timezone" type="hidden" name="timezone" value=''>
           <input type="submit" class="ui primary button" value="{$REGISTER}" tabindex="8">
         </form>
+        {if !$REGISTERING_OAUTH && $OAUTH_AVAILABLE}
+          <div class="ui horizontal divider">OR</div>
+          {foreach $OAUTH_PROVIDERS as $provider => $url}
+            <a href="{$url}" class="ui fluid button">{$provider}</a>
+          {/foreach}
+        {/if}
+
         <div class="ui horizontal divider">{$ALREADY_REGISTERED}</div>
         <div class="ui center aligned">
           <a class="ui large positive button" href="{$LOGIN_URL}">{$LOG_IN}</a>

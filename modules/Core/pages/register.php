@@ -39,6 +39,35 @@ if ($minecraft == '1') {
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 require_once(ROOT_PATH . '/modules/Core/includes/emails/register.php');
 
+$oauth_flow = false;
+if (isset($_GET['provider'], $_GET['code'])) {
+
+    if ($_GET['provider'] === 'discord' || $_GET['provider'] === 'google') {
+        $provider = OAuth::getInstance()->getProviderInstance($_GET['provider'], 'register');
+        $token = $provider->getAccessToken('authorization_code', [
+            'code' => $_GET['code']
+        ]);
+        $oauth_user = $provider->getResourceOwner($token)->toArray();
+
+        if (OAuth::getInstance()->userExistsByProviderId($_GET['provider'], $oauth_user['id'])) {
+            Session::flash('oauth_error', 'User already exists with that provider ID');
+            Redirect::to(URL::build('/login'));
+            die();
+        }
+
+        $oauth_flow = true;
+
+        Session::put('register_oauth_provider', $_GET['provider']);
+        Session::put('register_oauth_user', json_encode($oauth_user));
+
+        $smarty->assign([
+            'REGISTERING_OAUTH' => true,
+            'REGISTER_URL' => URL::build('/register'),
+            'EMAIL_VALUE' => $oauth_user['email'],
+        ]);
+    }
+}
+
 // Check if registration is enabled
 $registration_enabled = $queries->getWhere('settings', ['name', '=', 'registration_enabled']);
 $registration_enabled = $registration_enabled[0]->value;
@@ -372,7 +401,28 @@ if (Input::exists()) {
                                 }
                             }
 
+                            if (Session::exists('register_oauth_provider')) {
+                                $oauth_provider = Session::get('register_oauth_provider');
+                                $oauth_user = json_decode(Session::get('register_oauth_user'), true);
+
+                                OAuth::getInstance()->saveUserProvider($user_id, $oauth_provider, $oauth_user['id']);
+                                $user->update(['discord_id' => $oauth_user['id']]);
+
+                                Session::delete('register_oauth_provider');
+                                Session::delete('register_oauth_user');
+                            }
+
                             Log::getInstance()->log(Log::Action('user/register'));
+
+                            EventHandler::executeEvent('registerUser', [
+                                'user_id' => $user_id,
+                                'username' => Output::getClean(Input::get('username')),
+                                'uuid' => $uuid,
+                                'content' => str_replace('{x}', Output::getClean(Input::get('username')), $language->get('user', 'user_x_has_registered')),
+                                'avatar_url' => $user->getAvatar(128, true),
+                                'url' => Util::getSelfURL() . ltrim(URL::build('/profile/' . Output::getClean(Input::get('username'))), '/'),
+                                'language' => $language
+                            ]);
 
                             if ($api_verification != '1' && $email_verification == '1') {
                                 // Send registration email
@@ -380,34 +430,12 @@ if (Input::exists()) {
 
                             } else {
                                 if ($api_verification != '1') {
-                                    // Email verification disabled
-                                    EventHandler::executeEvent('registerUser', [
-                                        'user_id' => $user_id,
-                                        'username' => Output::getClean(Input::get('username')),
-                                        'uuid' => $uuid,
-                                        'content' => str_replace('{x}', Output::getClean(Input::get('username')), $language->get('user', 'user_x_has_registered')),
-                                        'avatar_url' => $user->getAvatar(128, true),
-                                        'url' => Util::getSelfURL() . ltrim(URL::build('/profile/' . Output::getClean(Input::get('username'))), '/'),
-                                        'language' => $language
-                                    ]);
-
                                     // Redirect straight to verification link
                                     $url = URL::build('/validate/', 'c=' . $code);
                                     Redirect::to($url);
                                     die();
                                 }
                             }
-
-                            EventHandler::executeEvent('registerUser', [
-                                    'user_id' => $user_id,
-                                    'username' => Output::getClean(Input::get('username')),
-                                    'uuid' => $uuid,
-                                    'content' => str_replace('{x}', Output::getClean(Input::get('username')), $language->get('user', 'user_x_has_registered')),
-                                    'avatar_url' => $user->getAvatar(128, true),
-                                    'url' => Util::getSelfURL() . ltrim(URL::build('/profile/' . Output::getClean(Input::get('username'))), '/'),
-                                    'language' => $language
-                                ]
-                            );
 
                             if ($api_verification != '1') {
                                 Session::flash('home', $language->get('user', 'registration_check_email'));
@@ -554,29 +582,34 @@ if (count($profile_fields)) {
     }
 }
 // Assign Smarty variables
-$smarty->assign(
-    [
-        'USERNAME' => $language->get('user', 'username'),
-        'NICKNAME' => ($custom_usernames == 'false' && !MINECRAFT) ? $language->get('user', 'username') : $language->get('user', 'nickname'),
-        'NICKNAME_VALUE' => ((isset($_POST['nickname']) && $_POST['nickname']) ? Output::getClean(Input::get('nickname')) : ''),
-        'USERNAME_VALUE' => ((isset($_POST['username']) && $_POST['username']) ? Output::getClean(Input::get('username')) : ''),
-        'MINECRAFT_USERNAME' => $language->get('user', 'minecraft_username'),
-        'EMAIL' => $language->get('user', 'email_address'),
+if (!$oauth_flow) {
+    $smarty->assign([
         'EMAIL_VALUE' => ((isset($_POST['email']) && $_POST['email']) ? Output::getClean(Input::get('email')) : ''),
-        'PASSWORD' => $language->get('user', 'password'),
-        'CONFIRM_PASSWORD' => $language->get('user', 'confirm_password'),
-        'I_AGREE' => $language->get('user', 'i_agree'),
-        'AGREE_TO_TERMS' => str_replace('{x}', URL::build('/terms'), $language->get('user', 'agree_t_and_c')),
-        'REGISTER' => $language->get('general', 'register'),
-        'LOG_IN' => $language->get('general', 'sign_in'),
-        'LOGIN_URL' => URL::build('/login'),
-        'TOKEN' => Token::get(),
-        'CREATE_AN_ACCOUNT' => $language->get('user', 'create_an_account'),
-        'ALREADY_REGISTERED' => $language->get('general', 'already_registered'),
-        'ERROR_TITLE' => $language->get('general', 'error'),
-        'CUSTOM_FIELDS' => $custom_fields
-    ]
-);
+        'OAUTH_AVAILABLE' => OAuth::getInstance()->isAvailable(),
+        'OAUTH_PROVIDERS' => OAuth::getInstance()->getProvidersAvailable('register'),
+    ]);
+}
+
+$smarty->assign([
+    'USERNAME' => $language->get('user', 'username'),
+    'NICKNAME' => ($custom_usernames == 'false' && !MINECRAFT) ? $language->get('user', 'username') : $language->get('user', 'nickname'),
+    'NICKNAME_VALUE' => ((isset($_POST['nickname']) && $_POST['nickname']) ? Output::getClean(Input::get('nickname')) : ''),
+    'USERNAME_VALUE' => ((isset($_POST['username']) && $_POST['username']) ? Output::getClean(Input::get('username')) : ''),
+    'MINECRAFT_USERNAME' => $language->get('user', 'minecraft_username'),
+    'EMAIL' => $language->get('user', 'email_address'),
+    'PASSWORD' => $language->get('user', 'password'),
+    'CONFIRM_PASSWORD' => $language->get('user', 'confirm_password'),
+    'I_AGREE' => $language->get('user', 'i_agree'),
+    'AGREE_TO_TERMS' => str_replace('{x}', URL::build('/terms'), $language->get('user', 'agree_t_and_c')),
+    'REGISTER' => $language->get('general', 'register'),
+    'LOG_IN' => $language->get('general', 'sign_in'),
+    'LOGIN_URL' => URL::build('/login'),
+    'TOKEN' => Token::get(),
+    'CREATE_AN_ACCOUNT' => $language->get('user', 'create_an_account'),
+    'ALREADY_REGISTERED' => $language->get('general', 'already_registered'),
+    'ERROR_TITLE' => $language->get('general', 'error'),
+    'CUSTOM_FIELDS' => $custom_fields,
+]);
 
 if ($captcha) {
     $smarty->assign('CAPTCHA', CaptchaBase::getActiveProvider()->getHtml());
