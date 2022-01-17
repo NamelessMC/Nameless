@@ -36,7 +36,7 @@ class OAuth extends Instanceable {
     }
 
     /**
-     * Get an array of provider names and their instances.
+     * Get an array of provider names and their URLs.
      *
      * @param string $page Either "login" or "register" for generating the callback URL
      * @return array Array of provider names and their instances
@@ -47,12 +47,15 @@ class OAuth extends Instanceable {
             if ($this->isSetup($provider_name)) {
                 $provider = $this->getProviderInstance($provider_name, $page);
 
-                $providers[$provider_name] = $provider->getAuthorizationUrl([
-                    'scope' => [
-                        $provider_name === self::DISCORD ? 'identify' : 'openid',
-                        'email'
-                    ],
-                ]);
+                $providers[ucfirst($provider_name)] = [
+                    'url' => $provider->getAuthorizationUrl([
+                        'scope' => [
+                            $provider_name === self::DISCORD ? 'identify' : 'openid',
+                            'email'
+                        ],
+                    ]),
+                    'icon' => $this->getIcon($provider_name),
+                ];
             }
         }
         return $providers;
@@ -136,6 +139,23 @@ class OAuth extends Instanceable {
                 return 'id';
             case self::GOOGLE:
                 return 'sub';
+            default:
+                throw new RuntimeException('Unknown provider');
+        }
+    }
+
+    /**
+     * Get the FontAwesome icon for a specific provider.
+     *
+     * @param string $provider The provider name
+     * @return string The FontAwesome icon for the provider
+     */
+    public function getIcon(string $provider): string {
+        switch ($provider) {
+            case self::DISCORD:
+                return 'fab fa-discord';
+            case self::GOOGLE:
+                return 'fab fa-google';
             default:
                 throw new RuntimeException('Unknown provider');
         }

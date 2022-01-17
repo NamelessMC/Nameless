@@ -57,9 +57,14 @@
         {if $OAUTH_AVAILABLE}
           <div class="ui horizontal divider">OR</div>
             <div class="ui equal width grid">
-              {foreach $OAUTH_PROVIDERS as $provider => $url}
+              {foreach $OAUTH_PROVIDERS as $name => $meta}
                 <div class="column">
-                  <a href="{$url}" class="ui fluid button left floated">{$provider}</a>
+                  <a href="{$meta.url}" class="ui fluid button left floated">
+                    {if $meta.icon}
+                      <i class="{$meta.icon} fa-lg"></i>
+                    {/if}
+                    {$name}
+                  </a>
                 </div>
               {/foreach}
             </div>
