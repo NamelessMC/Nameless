@@ -56,9 +56,13 @@
         </form>
         {if $OAUTH_AVAILABLE}
           <div class="ui horizontal divider">OR</div>
-          {foreach $OAUTH_PROVIDERS as $provider => $url}
-            <a href="{$url}" class="ui fluid button">{$provider}</a>
-          {/foreach}
+            <div class="ui equal width grid">
+              {foreach $OAUTH_PROVIDERS as $provider => $url}
+                <div class="column">
+                  <a href="{$url}" class="ui fluid button left floated">{$provider}</a>
+                </div>
+              {/foreach}
+            </div>
         {/if}
         <div class="ui horizontal divider">{$NOT_REGISTERED_YET}</div>
         <div class="ui center aligned">

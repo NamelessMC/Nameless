@@ -92,11 +92,15 @@
           <input id="timezone" type="hidden" name="timezone" value=''>
           <input type="submit" class="ui primary button" value="{$REGISTER}" tabindex="8">
         </form>
-        {if !$REGISTERING_OAUTH && $OAUTH_AVAILABLE}
+        {if $OAUTH_AVAILABLE}
           <div class="ui horizontal divider">OR</div>
-          {foreach $OAUTH_PROVIDERS as $provider => $url}
-            <a href="{$url}" class="ui fluid button">{$provider}</a>
-          {/foreach}
+          <div class="ui equal width grid">
+            {foreach $OAUTH_PROVIDERS as $provider => $url}
+              <div class="column">
+                <a href="{$url}" class="ui fluid button left floated">{$provider}</a>
+              </div>
+            {/foreach}
+          </div>
         {/if}
 
         <div class="ui horizontal divider">{$ALREADY_REGISTERED}</div>
