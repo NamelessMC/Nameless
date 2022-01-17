@@ -12,8 +12,8 @@ class OAuth extends Instanceable {
     public const PAGE_REGISTER = 'register';
     public const PAGE_LOGIN = 'login';
 
-    private DiscordProvider $discordProvider;
-    private GoogleProvider $googleProvider;
+    private DiscordProvider $_discord_provider;
+    private GoogleProvider $_google_provider;
 
     private DB $_db;
 
@@ -55,10 +55,10 @@ class OAuth extends Instanceable {
 
         switch ($provider) {
             case self::DISCORD:
-                return $this->discordProvider ??= new DiscordProvider($options);
+                return $this->_discord_provider ??= new DiscordProvider($options);
 
             case self::GOOGLE:
-                return $this->googleProvider ??= new GoogleProvider($options);
+                return $this->_google_provider ??= new GoogleProvider($options);
 
             default:
                 throw new RuntimeException('Unknown provider');
