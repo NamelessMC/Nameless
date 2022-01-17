@@ -9,6 +9,9 @@ class OAuth extends Instanceable {
     public const DISCORD = 'discord';
     public const GOOGLE = 'google';
 
+    public const PAGE_REGISTER = 'register';
+    public const PAGE_LOGIN = 'login';
+
     private DiscordProvider $discordProvider;
     private GoogleProvider $googleProvider;
 
@@ -97,6 +100,10 @@ class OAuth extends Instanceable {
 
     public function userExistsByProviderId(string $provider, string $provider_id): bool {
         return $this->db()->selectQuery('SELECT user_id FROM nl2_oauth_users WHERE provider = ? AND provider_id = ?', [$provider, $provider_id])->count() > 0;
+    }
+
+    public function getUserIdFromProviderId(string $provider, string $provider_id): int {
+        return $this->db()->selectQuery('SELECT user_id FROM nl2_oauth_users WHERE provider = ? AND provider_id = ?', [$provider, $provider_id])->first()->user_id;
     }
 
     public function saveUserProvider($user_id, $provider, $provider_id): void {

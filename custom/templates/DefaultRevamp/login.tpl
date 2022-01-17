@@ -54,6 +54,12 @@
           <input type="submit" class="ui primary button" value="{$SIGN_IN}" tabindex="5">
           <a class="ui negative button right floated" href="{$FORGOT_PASSWORD_URL}">{$FORGOT_PASSWORD}</a>
         </form>
+        {if $OAUTH_AVAILABLE}
+          <div class="ui horizontal divider">OR</div>
+          {foreach $OAUTH_PROVIDERS as $provider => $url}
+            <a href="{$url}" class="ui fluid button">{$provider}</a>
+          {/foreach}
+        {/if}
         <div class="ui horizontal divider">{$NOT_REGISTERED_YET}</div>
         <div class="ui center aligned">
           <a class="ui large positive button" href="{$REGISTER_URL}">{$REGISTER}</a>

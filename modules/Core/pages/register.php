@@ -43,7 +43,7 @@ $oauth_flow = false;
 if (isset($_GET['provider'], $_GET['code'])) {
 
     if ($_GET['provider'] === 'discord' || $_GET['provider'] === 'google') {
-        $provider = OAuth::getInstance()->getProviderInstance($_GET['provider'], 'register');
+        $provider = OAuth::getInstance()->getProviderInstance($_GET['provider'], OAuth::PAGE_REGISTER);
         $token = $provider->getAccessToken('authorization_code', [
             'code' => $_GET['code']
         ]);

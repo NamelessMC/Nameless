@@ -24,6 +24,43 @@ if ($user->isLoggedIn()) {
     die();
 }
 
+if (isset($_GET['provider'], $_GET['code'])) {
+
+    if ($_GET['provider'] === 'discord' || $_GET['provider'] === 'google') {
+        $provider = OAuth::getInstance()->getProviderInstance($_GET['provider'], OAuth::PAGE_LOGIN);
+        $token = $provider->getAccessToken('authorization_code', [
+            'code' => $_GET['code']
+        ]);
+        $oauth_user = $provider->getResourceOwner($token)->toArray();
+
+        if (!OAuth::getInstance()->userExistsByProviderId($_GET['provider'], $oauth_user['id'])) {
+            Session::flash('oauth_error', 'No user exists with that provider ID');
+            Redirect::to(URL::build('/register'));
+            die();
+        }
+
+        $oauth_existing_user = OAuth::getInstance()->getUserIdFromProviderId($_GET['provider'], $oauth_user['id']);
+
+        $user = new User();
+        $login = $user->login($oauth_existing_user, '', true, 'oauth');
+
+        // Successful login?
+        if ($login) {
+            // Yes
+            Log::getInstance()->log(Log::Action('user/login'));
+
+            // Redirect to a certain page?
+            if (isset($_SESSION['last_page']) && substr($_SESSION['last_page'], -1) != '=') {
+                Redirect::to($_SESSION['last_page']);
+            } else {
+                Session::flash('home', $language->get('user', 'successful_login'));
+                Redirect::to(URL::build('/'));
+            }
+            die();
+        }
+    }
+}
+
 // Get login method
 $login_method = $queries->getWhere('settings', ['name', '=', 'login_method']);
 $login_method = $login_method[0]->value;
@@ -300,7 +337,9 @@ $smarty->assign([
     'REGISTER' => $language->get('general', 'register'),
     'ERROR_TITLE' => $language->get('general', 'error'),
     'ERROR' => ($return_error ?? []),
-    'NOT_REGISTERED_YET' => $language->get('general', 'not_registered_yet')
+    'NOT_REGISTERED_YET' => $language->get('general', 'not_registered_yet'),
+    'OAUTH_AVAILABLE' => OAuth::getInstance()->isAvailable(),
+    'OAUTH_PROVIDERS' => OAuth::getInstance()->getProvidersAvailable('login'),
 ]);
 
 if (isset($return_error)) {

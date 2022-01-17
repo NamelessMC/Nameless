@@ -304,12 +304,17 @@ class User {
      *
      * @param string $username Username (or email) to check.
      * @param string $password Password entered by user.
-     * @param string $method Column to search for user with. Can be `email` or `username`.
+     * @param string $method Column to search for user with. Can be `email` or `username` or `oauth`. If it is `oauth`, then the request will be granted.
      *
      * @return bool True if correct, false otherwise.
      */
     public function checkCredentials(string $username, string $password, string $method = 'email'): bool {
-        $user = $this->find($username, $method);
+        $user = $this->find($username, $method == 'oauth' ? 'id' : $method);
+
+        if ($method == 'oauth') {
+            return true;
+        }
+
         if ($user) {
             switch ($this->data()->pass_method) {
                 case 'wordpress':
