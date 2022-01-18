@@ -85,37 +85,6 @@ if ($registration_enabled == 0) {
     die();
 }
 
-$oauth_flow = false;
-if (isset($_GET['provider'], $_GET['code'])) {
-
-    if ($_GET['provider'] === OAuth::DISCORD || $_GET['provider'] === OAuth::GOOGLE) {
-        $provider_name = $_GET['provider'];
-        $provider = OAuth::getInstance()->getProviderInstance($provider_name, OAuth::PAGE_REGISTER);
-        $token = $provider->getAccessToken('authorization_code', [
-            'code' => $_GET['code']
-        ]);
-        $oauth_user = $provider->getResourceOwner($token)->toArray();
-
-        if (OAuth::getInstance()->userExistsByProviderId($provider_name, $oauth_user[OAuth::getInstance()->getIdName($provider_name)])) {
-            Session::flash('oauth_error', 'User already exists with that provider ID');
-            Redirect::to(URL::build('/login'));
-            die();
-        }
-        // TODO: Check if NAmelessMC user exists with email already
-
-        $oauth_flow = true;
-
-        Session::put('register_oauth_provider', $provider_name);
-        Session::put('register_oauth_user', json_encode($oauth_user));
-
-        $smarty->assign([
-            'REGISTERING_OAUTH' => true,
-            'REGISTER_URL' => URL::build('/register'),
-            'EMAIL_VALUE' => $oauth_user['email'],
-        ]);
-    }
-}
-
 // Registration page
 require(ROOT_PATH . '/core/integration/uuid.php'); // For UUID stuff
 require(ROOT_PATH . '/core/includes/password.php'); // For password hashing
@@ -403,26 +372,6 @@ if (Input::exists()) {
                                 }
                             }
 
-                            if (Session::exists('register_oauth_provider')) {
-                                $oauth_provider = Session::get('register_oauth_provider');
-                                $oauth_user = json_decode(Session::get('register_oauth_user'), true);
-
-                                OAuth::getInstance()->saveUserProvider(
-                                    $user_id,
-                                    $oauth_provider,
-                                    $oauth_user[OAuth::getInstance()->getIdName($oauth_provider)]
-                                );
-
-                                if ($oauth_provider === OAuth::DISCORD) {
-                                    $user->update([
-                                        'discord_id' => $oauth_user['id']
-                                    ]);
-                                }
-
-                                Session::delete('register_oauth_provider');
-                                Session::delete('register_oauth_user');
-                            }
-
                             Log::getInstance()->log(Log::Action('user/register'));
 
                             EventHandler::executeEvent('registerUser', [
@@ -562,9 +511,7 @@ if (Input::exists()) {
     }
 }
 
-if (Session::exists('oauth_error')) {
-    $smarty->assign('REGISTRATION_ERROR', Session::flash('oauth_error'));
-} else if (isset($errors)) {
+if (isset($errors)) {
     $smarty->assign('REGISTRATION_ERROR', $errors);
 }
 
@@ -595,14 +542,6 @@ if (count($profile_fields)) {
     }
 }
 // Assign Smarty variables
-if (!$oauth_flow) {
-    $smarty->assign([
-        'EMAIL_VALUE' => ((isset($_POST['email']) && $_POST['email']) ? Output::getClean(Input::get('email')) : ''),
-        'OAUTH_AVAILABLE' => OAuth::getInstance()->isAvailable(),
-        'OAUTH_PROVIDERS' => OAuth::getInstance()->getProvidersAvailable('register'),
-    ]);
-}
-
 $smarty->assign([
     'USERNAME' => $language->get('user', 'username'),
     'NICKNAME' => ($custom_usernames == 'false' && !MINECRAFT) ? $language->get('user', 'username') : $language->get('user', 'nickname'),
@@ -610,6 +549,7 @@ $smarty->assign([
     'USERNAME_VALUE' => ((isset($_POST['username']) && $_POST['username']) ? Output::getClean(Input::get('username')) : ''),
     'MINECRAFT_USERNAME' => $language->get('user', 'minecraft_username'),
     'EMAIL' => $language->get('user', 'email_address'),
+    'EMAIL_VALUE' => ((isset($_POST['email']) && $_POST['email']) ? Output::getClean(Input::get('email')) : ''),
     'PASSWORD' => $language->get('user', 'password'),
     'CONFIRM_PASSWORD' => $language->get('user', 'confirm_password'),
     'I_AGREE' => $language->get('user', 'i_agree'),

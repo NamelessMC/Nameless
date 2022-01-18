@@ -9,7 +9,7 @@ class OAuth extends Instanceable {
     public const DISCORD = 'discord';
     public const GOOGLE = 'google';
 
-    public const PAGE_REGISTER = 'register';
+    public const PAGE_LINK = 'link';
     public const PAGE_LOGIN = 'login';
 
     private DiscordProvider $_discord_provider;
@@ -47,7 +47,7 @@ class OAuth extends Instanceable {
             if ($this->isSetup($provider_name)) {
                 $provider = $this->getProviderInstance($provider_name, $page);
 
-                $providers[ucfirst($provider_name)] = [
+                $providers[$provider_name] = [
                     'url' => $provider->getAuthorizationUrl([
                         'scope' => [
                             $provider_name === self::DISCORD ? 'identify' : 'openid',
@@ -70,7 +70,9 @@ class OAuth extends Instanceable {
      */
     public function getProviderInstance(string $provider, string $page): AbstractProvider {
         [$clientId, $clientSecret] = $this->getCredentials($provider);
-        $url = rtrim(Util::getSelfURL(), '/') . URL::build("/$page/oauth", "provider=$provider");
+        // Login: http(s)://example.com/index.php?route=/login/oauth/&provider=<provider>
+        // Link: http(s)://example.com/index.php?route=/user/oauth/&provider=<provider>
+        $url = rtrim(Util::getSelfURL(), '/') . URL::build($page === self::PAGE_LINK ? '/user/oauth' : '/login/oauth', "provider=$provider", 'non-friendly');
         $options = [
             'clientId' => $clientId,
             'clientSecret' => $clientSecret,
@@ -220,5 +222,25 @@ class OAuth extends Instanceable {
      */
     public function saveUserProvider(string $user_id, string $provider, string $provider_id): void {
         $this->db()->createQuery("INSERT INTO nl2_oauth_users (user_id, provider, provider_id) VALUES (?, ?, ?)", [$user_id, $provider, $provider_id]);
+    }
+
+    /**
+     * Get an array of provider names and provider user IDs for a specific user
+     *
+     * @param int $user_id The NamelessMC user ID
+     * @return array The array
+     */
+    public function getAllProvidersForUser(int $user_id): array {
+        return $this->db()->selectQuery('SELECT * FROM nl2_oauth_users WHERE user_id = ?', [$user_id])->results();
+    }
+
+    /**
+     * Delete a user's provider data.
+     *
+     * @param int $user_id The provider name
+     * @param string $provider The provider user ID
+     */
+    public function unlinkProviderForUser(int $user_id, string $provider): void {
+        $this->db()->createQuery("DELETE FROM nl2_oauth_users WHERE user_id = ? AND provider = ?", [$user_id, $provider]);
     }
 }

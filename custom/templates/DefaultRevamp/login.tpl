@@ -63,7 +63,7 @@
                     {if $meta.icon}
                       <i class="{$meta.icon} fa-lg"></i>
                     {/if}
-                    {$name}
+                    {$name|ucfirst}
                   </a>
                 </div>
               {/foreach}

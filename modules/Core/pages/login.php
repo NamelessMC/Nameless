@@ -37,18 +37,15 @@ if (isset($_GET['provider'], $_GET['code'])) {
         $provider_id = $oauth_user[OAuth::getInstance()->getIdName($provider_name)];
         if (!OAuth::getInstance()->userExistsByProviderId($provider_name, $provider_id)) {
             Session::flash('oauth_error', 'No user exists with that provider ID');
-            Redirect::to(URL::build('/register'));
+            Redirect::to(URL::build('/login'));
             die();
         }
 
         $oauth_existing_user = OAuth::getInstance()->getUserIdFromProviderId($provider_name, $provider_id);
 
         $user = new User();
-        $login = $user->login($oauth_existing_user, '', true, 'oauth');
 
-        // Successful login?
-        if ($login) {
-            // Yes
+        if ($user->login($oauth_existing_user, '', true, 'oauth')) {
             Log::getInstance()->log(Log::Action('user/login'));
 
             // Redirect to a certain page?

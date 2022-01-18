@@ -23,10 +23,7 @@
   <div class="ui stackable grid">
     <div class="ui centered row">
       <div class="ui sixteen wide tablet ten wide computer column">
-        <form class="ui form" action="{if $REGISTERING_OAUTH}{$REGISTER_URL}{/if}" method="post" id="form-register">
-          {if $REGISTERING_OAUTH}
-            <input type="hidden" name="oauth" value="{$REGISTER_PROVIDER}">
-          {/if}
+        <form class="ui form" action="" method="post" id="form-register">
           {if isset($NICKNAMES)}
             <div class="field">
               <label>{$NICKNAME}</label>
@@ -53,7 +50,7 @@
           {/if}
           <div class="field">
             <label>{$EMAIL}</label>
-            <input type="email" name="email" id="email" value="{$EMAIL_VALUE}" {if $REGISTERING_OAUTH}readonly{/if} placeholder="{$EMAIL}" tabindex="3">
+            <input type="email" name="email" id="email" value="{$EMAIL_VALUE}" placeholder="{$EMAIL}" tabindex="3">
           </div>
           <div class="field">
             <label>{$PASSWORD}</label>
@@ -65,16 +62,16 @@
           </div>
           {if count($CUSTOM_FIELDS)}
             {foreach $CUSTOM_FIELDS as $field}
-                <div class="field">
+              <div class="field">
                 <label>{$field.name}</label>
-                    {if $field.type eq 1}
-                    <input type="text" name="{$field.name}" id="{$field.name}" value="{$field.value}" placeholder="{$field.name}" tabindex="5">
-                    {elseif $field.type eq 2}
-                    <textarea name="{$field.name}" id="{$field.name}" placeholder="{$field.description}" tabindex="5"></textarea>
-                    {elseif $field.type eq 3}
-                    <input type="date" name="{$field.name}" id="{$field.name}" value="{$field.value}" tabindex="5">
-                    {/if}
-                </div>
+                {if $field.type eq 1}
+                  <input type="text" name="{$field.name}" id="{$field.name}" value="{$field.value}" placeholder="{$field.name}" tabindex="5">
+                {elseif $field.type eq 2}
+                  <textarea name="{$field.name}" id="{$field.name}" placeholder="{$field.description}" tabindex="5"></textarea>
+                {elseif $field.type eq 3}
+                  <input type="date" name="{$field.name}" id="{$field.name}" value="{$field.value}" tabindex="5">
+                {/if}
+              </div>
             {/foreach}
           {/if}
           {if $CAPTCHA}
@@ -92,21 +89,6 @@
           <input id="timezone" type="hidden" name="timezone" value=''>
           <input type="submit" class="ui primary button" value="{$REGISTER}" tabindex="8">
         </form>
-        {if $OAUTH_AVAILABLE}
-          <div class="ui horizontal divider">OR</div>
-          <div class="ui equal width grid">
-            {foreach $OAUTH_PROVIDERS as $name => $meta}
-              <div class="column">
-                <a href="{$meta.url}" class="ui fluid button left floated">
-                  {if $meta.icon}
-                    <i class="{$meta.icon} fa-lg"></i>
-                  {/if}
-                  {$name}
-                </a>
-              </div>
-            {/foreach}
-          </div>
-        {/if}
         <div class="ui horizontal divider">{$ALREADY_REGISTERED}</div>
         <div class="ui center aligned">
           <a class="ui large positive button" href="{$LOGIN_URL}">{$LOG_IN}</a>
