@@ -50,8 +50,8 @@ class DB_Custom {
     public function selectQuery(string $sql, array $params = []): DB_Custom {
         $this->_error = false;
         if ($this->_query = $this->_pdo->prepare($sql)) {
-            for ($x = 1; $x <= count($params); $x++) {
-                $this->_query->bindValue($x, $params[$x - 1], is_int($param) ? PDO::PARAM_INT : PDO::PARAM_STR);
+            for ($x = 0; $x < count($params); $x++) {
+                $this->_query->bindValue($x + 1, $params[$x], is_int($param) ? PDO::PARAM_INT : PDO::PARAM_STR);
             }
 
             $this->_query_recorder->pushQuery($sql, $params);
