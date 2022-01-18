@@ -710,7 +710,7 @@ $language = [
     // Dashboard
     'total_users' => 'Gesamtbenutzer',
     'recent_users' => 'Neue Benutzer',
-    'recent_topics' => 'Test',
+    'recent_topics' => 'Aktuelle Themen',
     'average_players' => 'Durchschnittliche Spieler',
     'nameless_news' => 'NamelessMC Neuigkeiten',
     'unable_to_retrieve_nameless_news' => 'Die neuesten Nachrichten konnten nicht abgerufen werden',
