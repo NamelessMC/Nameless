@@ -19,7 +19,7 @@ class MinecraftProfile {
      * @param string $uuid The player's UUID.
      * @param array $properties The player's properties specified on their Mojang profile.
      */
-    function __construct(string $username, string $uuid, array $properties = []) {
+    public function __construct(string $username, string $uuid, array $properties = []) {
         $this->_username = $username;
         $this->_uuid = $uuid;
         $this->_properties = $properties;
@@ -65,7 +65,7 @@ class ProfileUtils {
      */
     public static function getProfile(string $identifier): ?MinecraftProfile {
         if (strlen($identifier) <= 16) {
-            $identifier = ProfileUtils::getUUIDFromUsername($identifier);
+            $identifier = self::getUUIDFromUsername($identifier);
             $url = 'https://sessionserver.mojang.com/session/minecraft/profile/' . $identifier['uuid'];
         } else {
             $url = 'https://sessionserver.mojang.com/session/minecraft/profile/' . $identifier;
@@ -76,9 +76,9 @@ class ProfileUtils {
         if (!$ret->hasError()) {
             $data = json_decode($ret->data(), true);
             return new MinecraftProfile($data['name'], $data['id'], $data['properties']);
-        } else {
-            return null;
         }
+
+        return null;
     }
 
     /**
@@ -97,9 +97,9 @@ class ProfileUtils {
         if (!$result->hasError()) {
             $ress = json_decode($result->data(), true);
             return ['username' => $ress['name'], 'uuid' => $ress['id']];
-        } else {
-            return null;
         }
+
+        return null;
     }
 
     /**

@@ -5,7 +5,7 @@ if (isset($_SESSION['database_initialized']) && $_SESSION['database_initialized'
     die();
 }
 
-if (!isset($_SESSION['hostname']) || !isset($_SESSION['install_path']) || !isset($_SESSION['friendly_urls'])) {
+if (!isset($_SESSION['hostname'], $_SESSION['install_path']) || !isset($_SESSION['friendly_urls'])) {
     Redirect::to('?step=general_configuration');
     die();
 }

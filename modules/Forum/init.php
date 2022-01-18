@@ -19,9 +19,9 @@ if (!$module_installed) {
     $exists = $queries->tableExists('forums');
     if (empty($exists)) {
         die('Run the installer first!');
-    } else {
-        $cache->store('module_forum', true);
     }
+
+    $cache->store('module_forum', true);
 }
 
 const FORUM = true;

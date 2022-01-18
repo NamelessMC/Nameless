@@ -41,7 +41,7 @@ $topics = DB::getInstance()->selectQuery('SELECT nl2_topics.id AS id, nl2_topics
 
 // Pagination
 $p = (isset($_GET['p']) && is_numeric($_GET['p'])) ? $_GET['p'] : 1;
-$paginator = new Paginator(($template_pagination ?? []));
+$paginator = new Paginator(($template_pagination ?? []), $template_pagination_left ?? '', $template_pagination_right ?? '');
 $results = $paginator->getLimited($topics, 10, $p, count($topics));
 $pagination = $paginator->generate(7, URL::build('/user/following_topics/', true));
 
@@ -54,8 +54,8 @@ if (count($topics)) {
 $template_array = [];
 $authors = [];
 
-for ($n = 0; $n < count($results->data); $n++) {
-    $topic = $results->data[$n];
+foreach ($results->data as $nValue) {
+    $topic = $nValue;
 
     // Topic author/last poster
     if (!array_key_exists($topic->topic_creator, $authors)) {

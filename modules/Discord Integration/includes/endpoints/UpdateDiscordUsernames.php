@@ -5,16 +5,16 @@
  *
  * @return string JSON Array
  */
-class UpdateDiscordUsernames extends EndpointBase {
+class UpdateDiscordUsernames extends KeyAuthEndpoint {
 
     public function __construct() {
-        $this->_route = 'updateDiscordUsernames';
+        $this->_route = 'discord/update-usernames';
         $this->_module = 'Discord Integration';
         $this->_description = 'Bulk update many user\'s Discord usernames to display on their settings page.';
         $this->_method = 'POST';
     }
 
-    public function execute(Nameless2API $api) {
+    public function execute(Nameless2API $api): void {
         $api->validateParams($_POST, ['users']);
 
         foreach ($_POST['users'] as $row) {
@@ -23,7 +23,7 @@ class UpdateDiscordUsernames extends EndpointBase {
             try {
                 $api->getDb()->update('users', $user->data()->id, ['discord_username' => $discord_username]);
             } catch (Exception $e) {
-                $api->throwError(24, Discord::getLanguageTerm('unable_to_update_discord_username'), $e->getMessage());
+                $api->throwError(24, Discord::getLanguageTerm('unable_to_update_discord_username'), $e->getMessage(), 500);
             }
         }
 

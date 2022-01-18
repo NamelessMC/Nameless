@@ -13,9 +13,19 @@
         "evert/sitemap-php": "^1.2",
         "robthree/twofactorauth": "^1.8",
         "michelf/php-markdown": "^1.9",
-        "nickcernis/html-to-markdown": "^5.0"
+        "league/html-to-markdown": "^5.0"
     },
     "require-dev": {
-        "phpstan/phpstan": "^1.2"
+        "phpstan/phpstan": "^1.4",
+        "maximebf/debugbar": "^1.17",
+        "junker/debugbar-smarty": "^0.2"
+    },
+    "autoload": {
+        "classmap": [
+            "core/classes",
+            "modules/Cookie Consent/classes",
+            "modules/Core/classes",
+            "modules/Discord Integration/classes"
+        ]
     }
 }

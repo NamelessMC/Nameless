@@ -9,16 +9,16 @@
  *
  * @return string JSON Array
  */
-class CreateReportEndpoint extends EndpointBase {
+class CreateReportEndpoint extends KeyAuthEndpoint {
 
     public function __construct() {
-        $this->_route = 'createReport';
+        $this->_route = 'reports/create';
         $this->_module = 'Core';
         $this->_description = 'Create a report';
         $this->_method = 'POST';
     }
 
-    public function execute(Nameless2API $api) {
+    public function execute(Nameless2API $api): void {
         $api->validateParams($_POST, ['reporter', 'content']);
 
         // Ensure either reported OR reported_username AND reported_uid are provided
@@ -58,7 +58,7 @@ class CreateReportEndpoint extends EndpointBase {
         $user_reports = $api->getDb()->get('reports', ['reporter_id', '=', $user_reporting->id])->results();
         if (count($user_reports)) {
             foreach ($user_reports as $report) {
-                if ((($report->reported_id != 0 && $report->reported_id == $user_reported_id) || $report->reported_uuid == Output::getClean($_POST['reported_uid'])) && $report->status == 0) {
+                if ($report->status == 0 && (($report->reported_id != 0 && $report->reported_id == $user_reported_id) || $report->reported_uuid == Output::getClean($_POST['reported_uid']))) {
                     $api->throwError(22, $api->getLanguage()->get('api', 'you_have_open_report_already'));
                 }
             }
@@ -91,7 +91,7 @@ class CreateReportEndpoint extends EndpointBase {
             ]);
             $api->returnArray(['message' => $api->getLanguage()->get('api', 'report_created')], 201);
         } catch (Exception $e) {
-            $api->throwError(23, $api->getLanguage()->get('api', 'unable_to_create_report'), $e->getMessage());
+            $api->throwError(23, $api->getLanguage()->get('api', 'unable_to_create_report'), $e->getMessage(), 500);
         }
     }
 }

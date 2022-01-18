@@ -24,7 +24,7 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 if (isset($_GET['uid'])) {
-    $user_id = intval($_GET['uid']);
+    $user_id = (int)$_GET['uid'];
 
     $user_query = $queries->getWhere('users', ['id', '=', $user_id]);
     if (!count($user_query)) {

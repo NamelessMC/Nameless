@@ -47,7 +47,6 @@ if (isset($_GET['action'])) {
                 ]);
 
                 EventHandler::executeEvent('validateUser', [
-                    'event' => 'validateUser',
                     'user_id' => $user_query->id,
                     'username' => Output::getClean($user_query->username),
                     'uuid' => Output::getClean($user_query->uuid),
@@ -89,7 +88,7 @@ if (isset($_GET['action'])) {
 
                 $profile = ProfileUtils::getProfile($user_query->username);
 
-                if (!empty($profile)) {
+                if ($profile !== null) {
                     $result = $profile->getProfileAsArray();
 
                     if (isset($result['uuid']) && !empty($result['uuid'])) {

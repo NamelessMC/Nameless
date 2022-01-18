@@ -181,6 +181,10 @@ option:checked {
     background-color: var(--dark-color-4) !important; /* IE Fallback */
 }
 
+.dark .text-github {
+    color:rgba(255, 255, 255) !important;
+}
+
 /* --------------- Scrollbar --------------- */
 
 ::-webkit-scrollbar {
@@ -343,4 +347,20 @@ i,
 
 .profile-user-img {
     max-width: 50%;
+}
+
+footer.sticky-footer {
+    padding: 1.4rem 0;
+}
+
+.font-size-sa{
+    font-size: small;
+}
+
+.text-discord {
+    color:#7289da !important;
+}
+
+.text-github {
+    color:rgba(0, 0, 0) !important;
 }

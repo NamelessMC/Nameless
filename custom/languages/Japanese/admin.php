@@ -33,7 +33,6 @@ $language = [
     'minecraft' => 'Minecraft',
     'modules' => 'モジュール',
     'security' => 'セキュリティ',
-    'sitemap' => 'サイトマップ',
     'styles' => 'スタイル',
     'users_and_groups' => 'ユーザー・グループ',
 
@@ -206,6 +205,8 @@ $language = [
     'seo' => 'SEO',
     'google_analytics' => 'Google Analytics',
     'google_analytics_help' => 'ウェブサイトにGoogle Analyticsを追加して、訪問者や統計情報を追跡します。この機能を利用するには、Google Analyticsのアカウントを作成する必要があります。Google AnalyticsのWeb Property IDを入力します。IDはUA-XXXXA-Xのような形式をしており、アカウント情報やGoogleが提供するトラッキングコードに記載されています。',
+    'sitemap' => 'サイトマップ',
+    'seo_settings_updated_successfully' => 'SEO settings updated successfully.',
 
     // Reactions
     'icon' => 'アイコン',
@@ -644,7 +645,7 @@ $language = [
     'existing_rules' => '既存のルール',
     'new_rule' => '新しいルール',
     'api_endpoints' => 'API エンドポイント',
-    'api_endpoints_info' => 'APIエンドポイントは、モジュールが外部アプリケーション(MinecraftやDiscordなど)とNamelessMCのウェブサイトが対話するための方法を作成することを可能にします。',
+    'api_endpoints_info' => 'APIエンドポイントは、モジュールが外部アプリケーション(MinecraftやDiscordなど)とNamelessMCのウェブサイトが対話するための方法を作成することを可能にします。 <a href="https://docs.namelessmc.com/en/api-documentation" target="_blank">Check out the API documentation here</a>',
     'route' => 'ルート',
 
     // File uploads

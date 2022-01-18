@@ -122,7 +122,7 @@ $mc_avatar_perspective = $mc_avatar_perspective[0]->value;
 $default_avatar_image = $queries->getWhere('settings', ['name', '=', 'custom_default_avatar']);
 $default_avatar_image = $default_avatar_image[0]->value;
 
-$image_path = join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'avatars', 'defaults']);
+$image_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'avatars', 'defaults']);
 $images = scandir($image_path);
 $template_images = [];
 

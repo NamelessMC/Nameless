@@ -18,7 +18,7 @@ class AvatarSource {
 
     /**
      * Main usage of this class.
-     * Uses active avatar source to get the URL of their avatar.
+     * Uses active avatar source to get the URL of their Minecraft avatar.
      *
      * @param string $uuid UUID of avatar to get.
      * @param int $size Size in pixels to render avatar at. Default 128

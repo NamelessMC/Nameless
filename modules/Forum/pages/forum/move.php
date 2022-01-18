@@ -19,16 +19,16 @@ $forum = new Forum();
 if (!isset($_GET['tid']) || !is_numeric($_GET['tid'])) {
     Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
     die();
-} else {
-    $topic_id = $_GET['tid'];
-    $topic = $queries->getWhere('topics', ['id', '=', $topic_id]);
-    if (!count($topic)) {
-        Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
-        die();
-    }
-    $forum_id = $topic[0]->forum_id;
-    $topic = $topic[0];
 }
+
+$topic_id = $_GET['tid'];
+$topic = $queries->getWhere('topics', ['id', '=', $topic_id]);
+if (!count($topic)) {
+    Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
+    die();
+}
+$forum_id = $topic[0]->forum_id;
+$topic = $topic[0];
 
 if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
     if (Input::exists()) {

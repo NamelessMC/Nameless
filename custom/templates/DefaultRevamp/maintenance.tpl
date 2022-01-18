@@ -1,5 +1,4 @@
 {include file='header.tpl'}
-
     <div class="ui container" id="maintenance">
       <div class="ui segment">
         <h2 class="ui header">{$MAINTENANCE_TITLE}</h2>
@@ -14,6 +13,5 @@
         {/if}
       </div>
     </div>
-  
   </body>
 </html>

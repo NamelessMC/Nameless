@@ -29,7 +29,7 @@ abstract class TemplateBase {
     /**
      * Handle page loading.
      */
-    public abstract function onPageLoad();
+    abstract public function onPageLoad();
 
     /**
      * Add list of CSS files to be loaded on each page load.
@@ -147,6 +147,15 @@ abstract class TemplateBase {
             'TEMPLATE_CSS' => $this->getCSS(),
             'TEMPLATE_JS' => $this->getJS()
         ]);
+
+        if (defined('PHPDEBUGBAR') && PHPDEBUGBAR) {
+            $debugBar = DebugBarHelper::getInstance()->getDebugBar()->getJavascriptRenderer();
+            $smarty->assign([
+                'DEBUGBAR_JS' => $debugBar->renderHead(),
+                'DEBUGBAR_HTML' => $debugBar->render()
+            ]);
+        }
+
         $smarty->display($template);
     }
 

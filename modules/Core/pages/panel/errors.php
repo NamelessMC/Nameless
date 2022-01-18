@@ -20,8 +20,8 @@ const PANEL_PAGE = 'debugging_and_maintenance';
 $page_title = $language->get('admin', 'error_logs');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
-if (isset($_GET['log']) && isset($_GET['do']) && $_GET['do'] == 'purge') {
-    file_put_contents(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs', $_GET['log'] . '-log.log']), '');
+if (isset($_GET['log'], $_GET['do']) && $_GET['do'] == 'purge') {
+    file_put_contents(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs', $_GET['log'] . '-log.log']), '');
     Session::flash('error_log_success', $language->get('admin', 'log_purged_successfully'));
     Redirect::to(URL::build('/panel/core/errors'));
     die();
@@ -64,8 +64,8 @@ if (isset($_GET['log'])) {
             break;
     }
 
-    if (file_exists(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs', $_GET['log'] . '-log.log']))) {
-        $smarty->assign('LOG', nl2br(Output::getClean(file_get_contents(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs', $type . '-log.log'])))));
+    if (file_exists(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs', $_GET['log'] . '-log.log']))) {
+        $smarty->assign('LOG', nl2br(Output::getClean(file_get_contents(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs', $type . '-log.log'])))));
     } else {
         $smarty->assign('NO_LOG_FOUND', $language->get('admin', 'log_file_not_found'));
     }

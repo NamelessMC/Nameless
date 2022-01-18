@@ -212,7 +212,7 @@ if (Input::exists()) {
             }
 
             // Update config
-            if (is_writable(ROOT_PATH . '/' . join(DIRECTORY_SEPARATOR, ['core', 'config.php']))) {
+            if (is_writable(ROOT_PATH . '/' . implode(DIRECTORY_SEPARATOR, ['core', 'config.php']))) {
                 // Require config
                 if (isset($path) && file_exists($path . 'core/config.php')) {
                     $loadedConfig = json_decode(file_get_contents($path . 'core/config.php'), true);
@@ -306,7 +306,7 @@ $languages = $queries->getWhere('languages', ['id', '<>', 0]);
 $count = count($languages);
 
 for ($i = 0; $i < $count; $i++) {
-    $language_path = join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'languages', $languages[$i]->name, 'version.php']);
+    $language_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'languages', $languages[$i]->name, 'version.php']);
     if (!file_exists($language_path)) {
         unset($languages[$i]);
     }

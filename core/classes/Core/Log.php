@@ -165,7 +165,7 @@ class Log extends Instanceable {
             'curl_error' => 'curl_error'
         ],
         'api' => [
-            //TODO API STUFF
+            // TODO
         ],
         'discord' => [
             'role_set' => 'discord_role_set',

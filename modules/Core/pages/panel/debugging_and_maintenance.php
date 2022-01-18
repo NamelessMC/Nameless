@@ -108,9 +108,9 @@ if (Input::exists()) {
             Session::flash('debugging_success', $language->get('admin', 'debugging_settings_updated_successfully'));
             Redirect::to(URL::build('/panel/core/debugging_and_maintenance'));
             die();
-        } else {
-            $errors = $validation->errors();
         }
+
+        $errors = $validation->errors();
     } else {
         // Invalid token
         $errors[] = $language->get('general', 'invalid_token');

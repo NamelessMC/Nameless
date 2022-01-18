@@ -37,7 +37,7 @@ class MinecraftBanner {
             if (file_exists(ROOT_PATH . '/uploads/banners/' . $background)) {
                 $background = imagecreatefrompng(ROOT_PATH . '/uploads/banners/' . $background);
             } else {
-                if (stristr($background, 'http://') || stristr($background, 'https://') || file_exists($background)) {
+                if (stripos($background, 'http://') !== false || stripos($background, 'https://') !== false || file_exists($background)) {
                     $info = pathinfo($background);
                     $ext = $info['extension'];
 

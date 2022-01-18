@@ -221,8 +221,8 @@ if (!isset($_GET['view'])) {
     }
 
     // Get API key
-    $plugin_api = $queries->getWhere('settings', ['name', '=', 'mc_api_key']);
-    $plugin_api = $plugin_api[0]->value;
+    $api_key = $queries->getWhere('settings', ['name', '=', 'mc_api_key']);
+    $api_key = $api_key[0]->value;
 
     // Is email verification enabled
     $emails = $configuration->get('Core', 'email_verification');
@@ -245,7 +245,7 @@ if (!isset($_GET['view'])) {
             'ENABLE_API' => $language->get('admin', 'enable_api'),
             'API_ENABLED' => $api_enabled,
             'API_KEY' => $language->get('admin', 'api_key'),
-            'API_KEY_VALUE' => Output::getClean($plugin_api),
+            'API_KEY_VALUE' => Output::getClean($api_key),
             'API_KEY_REGEN_URL' => URL::build('/panel/core/api/', 'action=api_regen'),
             'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
             'CONFIRM_API_REGEN' => $language->get('admin', 'confirm_api_regen'),
@@ -253,7 +253,7 @@ if (!isset($_GET['view'])) {
             'NO' => $language->get('general', 'no'),
             'CHANGE' => $language->get('general', 'change'),
             'API_URL' => $language->get('admin', 'api_url'),
-            'API_URL_VALUE' => rtrim(Util::getSelfURL(), '/') . rtrim(URL::build('/api/v2/' . Output::getClean($plugin_api), '', 'non-friendly'), '/'),
+            'API_URL_VALUE' => rtrim(Util::getSelfURL(), '/') . rtrim(URL::build('/api/v2/', '', 'non-friendly'), '/'),
             'ENABLE_API_FOR_URL' => $language->get('api', 'api_disabled'),
             'COPY' => $language->get('admin', 'copy'),
             'EMAIL_VERIFICATION' => $language->get('admin', 'email_verification'),
@@ -320,12 +320,14 @@ if (!isset($_GET['view'])) {
         if ($_GET['view'] == 'api_endpoints') {
 
             $endpoints_array = [];
+            // TODO: sort nicely
             foreach ($endpoints->getAll() as $endpoint) {
                 $endpoints_array[] = [
                     'route' => $endpoint->getRoute(),
                     'module' => $endpoint->getModule(),
                     'description' => $endpoint->getDescription(),
-                    'method' => $endpoint->getMethod()
+                    'method' => $endpoint->getMethod(),
+                    'auth_type' => $endpoint->getAuthType(),
                 ];
             }
 
@@ -341,8 +343,12 @@ if (!isset($_GET['view'])) {
                     'ROUTE' => $language->get('admin', 'route'),
                     'DESCRIPTION' => $language->get('admin', 'description'),
                     'MODULE' => $language->get('admin', 'module'),
+                    'METHOD' => $language->get('admin', 'method'),
                     'ENDPOINTS_INFO' => $language->get('admin', 'api_endpoints_info'),
-                    'ENDPOINTS_ARRAY' => $endpoints_array
+                    'ENDPOINTS_ARRAY' => $endpoints_array,
+                    'TYPE' => $language->get('admin', 'type'),
+                    'TRANSFORMERS' => $language->get('admin', 'transformers'),
+                    'TRANSFORMERS_ARRAY' => Endpoints::getAllTransformers(),
                 ]
             );
 

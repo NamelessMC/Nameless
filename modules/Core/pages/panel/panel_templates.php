@@ -32,7 +32,7 @@ if (!isset($_GET['action'])) {
     $templates_template = [];
 
     foreach ($templates as $item) {
-        $template_path = join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'panel_templates', htmlspecialchars($item->name), 'template.php']);
+        $template_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'panel_templates', htmlspecialchars($item->name), 'template.php']);
 
         if (file_exists($template_path)) {
             require($template_path);
@@ -87,11 +87,7 @@ if (!isset($_GET['action'])) {
                     'description_short' => Util::truncate(Output::getPurified($item->description)),
                     'author' => Output::getClean($item->author),
                     'author_x' => str_replace('{x}', Output::getClean($item->author), $language->get('admin', 'author_x')),
-                    'contributors' => Output::getClean($item->contributors),
-                    'created' => $timeago->inWords(date('d M Y, H:i', $item->created), $language->getTimeLanguage()),
-                    'created_full' => date('d M Y, H:i', $item->created),
-                    'updated' => $timeago->inWords(date('d M Y, H:i', $item->updated), $language->getTimeLanguage()),
-                    'updated_full' => date('d M Y, H:i', $item->updated),
+                    'updated_x' => str_replace('{x}', date('d M Y, H:i', $item->updated), $language->get('admin', 'updated_x')),
                     'url' => Output::getClean($item->url),
                     'latest_version' => Output::getClean($item->latest_version),
                     'rating' => Output::getClean($item->rating),
@@ -298,10 +294,10 @@ if (!isset($_GET['action'])) {
                     // Doesn't exist
                     Redirect::to(URL::build('/panel/core/panel_templates/'));
                     die();
-                } else {
-                    $new_default_template = $new_default[0]->name;
-                    $new_default = $new_default[0]->id;
                 }
+
+                $new_default_template = $new_default[0]->name;
+                $new_default = $new_default[0]->id;
 
                 // Get current default template
                 $current_default = $queries->getWhere('panel_templates', ['is_default', '=', 1]);

@@ -35,7 +35,7 @@ class Token {
      */
     public static function generate(): void {
         // Generate random token using md5
-        Session::put(Config::get('session/token_name'), md5(uniqid()));
+        Session::put(Config::get('session/token_name'), md5(uniqid('', true)));
     }
 
     /**

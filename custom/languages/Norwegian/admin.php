@@ -27,7 +27,6 @@ $language = [
     'minecraft' => 'Minecraft',
     'modules' => 'Moduler',
     'security' => 'Sikkerhet',
-    'sitemap' => 'Sitemap',
     'styles' => 'Stiler',
     'users_and_groups' => 'Brukere og grupper',
 
@@ -200,6 +199,8 @@ $language = [
     'seo' => 'SEO',
     'google_analytics' => 'Google Analytics',
     'google_analytics_help' => 'Legg til Google Analytics til din nettside for å spore besøkende og statistikker. Du vil måtte opprette en Google Analytics-konto for å bruke denne funksjonen. Skriv inn din Google Analytics Web Property ID. ID-en ser ut som UA-XXXXA-X og du finner den i din brukerinformasjon eller i sporingskoden fra Google.',
+    'sitemap' => 'Sitemap',
+    'seo_settings_updated_successfully' => 'SEO settings updated successfully.',
 
     // Reactions
     'icon' => 'Ikon',
@@ -637,7 +638,7 @@ $language = [
     'existing_rules' => 'Eksisterende modifikasjoner',
     'new_rule' => 'Ny modifikasjon',
     'api_endpoints' => 'API-endepunkter',
-    'api_endpoints_info' => 'API-endepunkter gir moduler muligheten til å la eksterne programmer (som Minecraft og Discord) kommunisere med NamelessMC-nettsiden din.',
+    'api_endpoints_info' => 'API-endepunkter gir moduler muligheten til å la eksterne programmer (som Minecraft og Discord) kommunisere med NamelessMC-nettsiden din. <a href="https://docs.namelessmc.com/en/api-documentation" target="_blank">Check out the API documentation here</a>',
     'route' => 'Dirigering',
 
     // File uploads

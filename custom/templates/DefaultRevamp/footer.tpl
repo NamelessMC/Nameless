@@ -1,6 +1,6 @@
     </div>
   </div>
-  
+
   <div class="ui inverted vertical footer segment" id="footer">
     <div class="ui container">
       <div class="ui stackable inverted divided equal height stackable grid">
@@ -93,6 +93,9 @@
   {/if}
 
 {if !isset($EXCLUDE_END_BODY)}
+  {if isset($DEBUGBAR_HTML)}
+    {$DEBUGBAR_HTML}
+  {/if}
   </body>
 
   </html>

@@ -14,10 +14,7 @@
 
 header('X-Frame-Options: SAMEORIGIN');
 
-if (!defined('DEBUGGING') && (
-        isset($_SERVER['NAMELESSMC_DEBUGGING']) && $_SERVER['NAMELESSMC_DEBUGGING'] ||
-        getenv('NAMELESS_DEBUGGING')
-    )) {
+if ((!defined('DEBUGGING') || !DEBUGGING) && getenv('NAMELESS_DEBUGGING')) {
     define('DEBUGGING', 1);
 }
 
@@ -28,7 +25,7 @@ if (defined('DEBUGGING') && DEBUGGING) {
 }
 
 // Ensure PHP version >= 7.4
-if (version_compare(phpversion(), '7.4', '<')) {
+if (PHP_VERSION_ID < 70400) {
     die('NamelessMC is not compatible with PHP versions older than 7.4');
 }
 
@@ -37,7 +34,7 @@ $start = microtime(true);
 
 // Definitions
 const PATH = '/';
-define('ROOT_PATH', dirname(__FILE__));
+define('ROOT_PATH', __DIR__);
 $page = 'Home';
 
 if (!ini_get('upload_tmp_dir')) {
@@ -73,7 +70,7 @@ if (!isset($GLOBALS['config']['core']) && is_file(ROOT_PATH . '/install.php')) {
 // Get page to load from URL
 if (!isset($_GET['route']) || $_GET['route'] == '/') {
 
-    if (count($directories) > 1 && (!isset($_GET['route']) || (isset($_GET['route']) && $_GET['route'] != '/'))) {
+    if (count($directories) > 1 && (!isset($_GET['route']) || ($_GET['route'] != '/'))) {
         require(ROOT_PATH . '/404.php');
     } else {
         // Homepage
@@ -91,7 +88,7 @@ if (!isset($_GET['route']) || $_GET['route'] == '/') {
     if (array_key_exists($route, $modules)) {
         $pages->setActivePage($modules[$route]);
         if (!isset($modules[$route]['custom'])) {
-            $path = join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', $modules[$route]['module'], $modules[$route]['file']]);
+            $path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', $modules[$route]['module'], $modules[$route]['file']]);
 
             if (!file_exists($path)) {
                 require(ROOT_PATH . '/404.php');
@@ -100,35 +97,35 @@ if (!isset($_GET['route']) || $_GET['route'] == '/') {
             }
 
         } else {
-            require(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', 'Core', 'pages', 'custom.php']));
+            require(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', 'Core', 'pages', 'custom.php']));
         }
         die();
-    } else {
-        // Use recursion to check - might have URL parameters in path
-        $path_array = explode('/', $route);
+    }
 
-        for ($i = count($path_array) - 2; $i > 0; $i--) {
+    // Use recursion to check - might have URL parameters in path
+    $path_array = explode('/', $route);
 
-            $new_path = '/';
-            for ($n = 1; $n <= $i; $n++) {
-                $new_path .= $path_array[$n] . '/';
-            }
+    for ($i = count($path_array) - 2; $i > 0; $i--) {
 
-            $new_path = rtrim($new_path, '/');
-
-            if (array_key_exists($new_path, $modules)) {
-                $path = join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', $modules[$new_path]['module'], $modules[$new_path]['file']]);
-
-                if (file_exists($path)) {
-                    $pages->setActivePage($modules[$new_path]);
-                    require($path);
-                    die();
-                }
-            }
-
+        $new_path = '/';
+        for ($n = 1; $n <= $i; $n++) {
+            $new_path .= $path_array[$n] . '/';
         }
 
-        // 404
-        require(ROOT_PATH . '/404.php');
+        $new_path = rtrim($new_path, '/');
+
+        if (array_key_exists($new_path, $modules)) {
+            $path = join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', $modules[$new_path]['module'], $modules[$new_path]['file']]);
+
+            if (file_exists($path)) {
+                $pages->setActivePage($modules[$new_path]);
+                require($path);
+                die();
+            }
+        }
+
     }
+
+    // 404
+    require(ROOT_PATH . '/404.php');
 }

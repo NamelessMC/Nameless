@@ -28,7 +28,7 @@ class Language {
 
         // Require file
         if (!$module || $module == 'core') {
-            $path = join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'languages', $this->_activeLanguage]);
+            $path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'languages', $this->_activeLanguage]);
             $this->_module = 'Core';
         } else {
             $path = str_replace('/', DIRECTORY_SEPARATOR, $module) . DIRECTORY_SEPARATOR . $this->_activeLanguage;

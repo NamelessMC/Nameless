@@ -179,9 +179,9 @@ class Core_Module extends Module {
                                                 break;
                                         }
                                         break 2;
-                                    } else {
-                                        break;
                                     }
+
+                                    break;
                                 }
                             }
                         }
@@ -298,6 +298,15 @@ class Core_Module extends Module {
             ]
         );
 
+        EventHandler::registerEvent('userWarned',
+            $language->get('admin', 'warning_hook_info'),
+            [
+                'punished_id' => $language->get('admin', 'punished_id'),
+                'punisher_id' => $language->get('admin', 'punisher_id'),
+                'reason' => $language->get('admin', 'reason'),
+            ]
+        );
+
         // Webhooks
         $cache->setCache('hooks');
         if ($cache->isCached('hooks')) {
@@ -349,10 +358,19 @@ class Core_Module extends Module {
         AvatarSource::setActiveSource(DEFAULT_AVATAR_SOURCE);
 
         // Autoload API Endpoints
-        Util::loadEndpoints(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', 'Core', 'includes', 'endpoints']), $endpoints);
+        Util::loadEndpoints(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', 'Core', 'includes', 'endpoints']), $endpoints);
 
         GroupSyncManager::getInstance()->registerInjector(NamelessMCGroupSyncInjector::class);
         GroupSyncManager::getInstance()->registerInjector(MinecraftGroupSyncInjector::class);
+
+        Endpoints::registerTransformer('user', 'Core', static function (Nameless2API $api, string $value): User {
+            $user = new User($value);
+            if ($user->exists()) {
+                return $user;
+            }
+            $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'), $value);
+            die();
+        });
     }
 
     public static function getDashboardGraphs(): array {
@@ -366,7 +384,7 @@ class Core_Module extends Module {
     public static function getUserActions(): array {
         $return = self::$_user_actions;
 
-        uasort($return, function ($a, $b) {
+        uasort($return, static function ($a, $b) {
             return $a['title'] > $b['title'];
         });
 
@@ -1277,7 +1295,7 @@ class Core_Module extends Module {
                         $date = '_' . strtotime($date);
 
                         if (isset($data[$date]['users'])) {
-                            $data[$date]['users'] = $data[$date]['users'] + 1;
+                            $data[$date]['users'] += 1;
                         } else {
                             $data[$date]['users'] = 1;
                         }
@@ -1290,7 +1308,7 @@ class Core_Module extends Module {
 
                         $version = DB::getInstance()->selectQuery('select version()')->first()->{'version()'};
 
-                        if (strpos(strtolower($version), 'mariadb') !== false) {
+                        if (stripos($version, 'mariadb') !== false) {
                             $version = preg_replace('#[^0-9\.]#', '', $version);
 
                             if (version_compare($version, '10.1', '>=')) {
@@ -1311,17 +1329,15 @@ class Core_Module extends Module {
                                     // Unable to obtain player count
                                     $player_count_error = true;
                                 }
-                            } else {
-                                if (version_compare($version, '5.7.8', '>=')) {
-                                    try {
-                                        $players = DB::getInstance()->selectQuery('SELECT MAX_EXECUTION_TIME = 1000 ROUND(AVG(players_online)) AS players, DATE(FROM_UNIXTIME(queried_at)) AS `date` FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) IN (SELECT DATE(FROM_UNIXTIME(queried_at)) AS ForDate FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) > NOW() - INTERVAL 1 WEEK GROUP BY DATE(FROM_UNIXTIME(queried_at)) ORDER BY ForDate) GROUP BY DATE(FROM_UNIXTIME(queried_at))')->results();
-                                    } catch (Exception $e) {
-                                        // Unable to obtain player count
-                                        $player_count_error = true;
-                                    }
-                                } else {
+                            } else if (version_compare($version, '5.7.8', '>=')) {
+                                try {
+                                    $players = DB::getInstance()->selectQuery('SELECT MAX_EXECUTION_TIME = 1000 ROUND(AVG(players_online)) AS players, DATE(FROM_UNIXTIME(queried_at)) AS `date` FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) IN (SELECT DATE(FROM_UNIXTIME(queried_at)) AS ForDate FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) > NOW() - INTERVAL 1 WEEK GROUP BY DATE(FROM_UNIXTIME(queried_at)) ORDER BY ForDate) GROUP BY DATE(FROM_UNIXTIME(queried_at))')->results();
+                                } catch (Exception $e) {
+                                    // Unable to obtain player count
                                     $player_count_error = true;
                                 }
+                            } else {
+                                $player_count_error = true;
                             }
                         }
 
@@ -1412,11 +1428,13 @@ class Core_Module extends Module {
         EventHandler::registerListener('deleteUser', 'DeleteUserHook::execute');
     }
 
-    public static function addNotice($url, $text) {
+    public static function addNotice($url, $text): void
+    {
         self::$_notices[$url] = $text;
     }
 
-    public static function addDataToDashboardGraph($title, $data) {
+    public static function addDataToDashboardGraph($title, $data): void
+    {
         if (isset(self::$_dashboard_graph[$title])) {
             self::$_dashboard_graph[$title] = array_merge_recursive(self::$_dashboard_graph[$title], $data);
         } else {
@@ -1424,7 +1442,8 @@ class Core_Module extends Module {
         }
     }
 
-    public static function addUserAction($title, $link) {
+    public static function addUserAction($title, $link): void
+    {
         self::$_user_actions[] = ['title' => $title, 'link' => $link];
     }
 

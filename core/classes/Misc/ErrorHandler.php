@@ -16,7 +16,7 @@ class ErrorHandler {
      * Defined for easy changing.
      * This constant indicates how many LOC from each frame's PHP file to show before and after the highlighted line
      */
-    const LINE_BUFFER = 20;
+    private const LINE_BUFFER = 20;
 
     /**
      * Catch an error. If it is a fatal error, pass execution to catchException(), otherwise make a log entry.
@@ -67,12 +67,17 @@ class ErrorHandler {
      * @param string|null $error_file Path to most recent frame's file. Used when $exception is null.
      * @param int|null $error_line Line in $error_file which caused Exception. Used when $exception is null.
      */
-    public static function catchException(?Throwable $exception, ?string $error_string = null, ?string $error_file = null, ?int $error_line = null) {
+    public static function catchException(?Throwable $exception, ?string $error_string = null, ?string $error_file = null, ?int $error_line = null): void {
 
         // Define variables based on if a Throwable was caught by the compiler, or if this was called manually
         $error_string = is_null($exception) ? $error_string : $exception->getMessage();
         $error_file = is_null($exception) ? $error_file : $exception->getFile();
-        $error_line = is_null($exception) ? intval($error_line) : $exception->getLine();
+        $error_line = is_null($exception) ? (int)$error_line : $exception->getLine();
+
+        // If this is an API request, print the error in plaintext and dont render the whole error trace page
+        if (strpos($_REQUEST['route'], '/api/v2/') !== false) {
+            die($error_string . ' in ' . $error_file . ' on line ' . $error_line . PHP_EOL . $exception->getTraceAsString());
+        }
 
         // Create a log entry for viewing in staffcp
         self::logError('fatal', '[' . date('Y-m-d, H:i:s') . '] ' . $error_file . '(' . $error_line . '): ' . $error_string);
@@ -93,7 +98,7 @@ class ErrorHandler {
 
                 // Check if previous frame had same file and line number (ie: DB->selectQuery() reports same file and line twice in a row)
                 if (end($frames)['file'] == $frame['file'] && end($frames)['line'] == $frame['line']) {
-                    $skip_frames += 1;
+                    ++$skip_frames;
                     continue;
                 }
 
@@ -119,7 +124,7 @@ class ErrorHandler {
 
         try {
 
-            if (!is_dir(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs']))) {
+            if (!is_dir(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs']))) {
                 if (is_writable(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache')) {
                     mkdir(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . 'logs');
                     $dir_exists = true;
@@ -129,7 +134,7 @@ class ErrorHandler {
             }
 
             if ($dir_exists) {
-                file_put_contents(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs', $type . '-log.log']), $contents . PHP_EOL, FILE_APPEND);
+                file_put_contents(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs', $type . '-log.log']), $contents . PHP_EOL, FILE_APPEND);
             }
 
         } catch (Exception $exception) {

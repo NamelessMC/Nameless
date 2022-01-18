@@ -33,9 +33,9 @@ if (!isset($_GET['id'])) {
             $url = URL::build('/panel/users/reports/', true);
             $change_view_link = URL::build('/panel/users/reports/', 'view=closed');
         } else {
-            $report_query = DB::getInstance()->selectQuery('SELECT * FROM nl2_reports WHERE status = 0 AND reported_id = ? ORDER BY date_updated DESC', [intval($_GET['uid'])])->results();
-            $url = URL::build('/panel/users/reports/', 'uid=' . intval(Output::getClean($_GET['uid'])) . '&');
-            $change_view_link = URL::build('/panel/users/reports/', 'view=closed&uid=' . intval(Output::getClean($_GET['uid'])));
+            $report_query = DB::getInstance()->selectQuery('SELECT * FROM nl2_reports WHERE status = 0 AND reported_id = ? ORDER BY date_updated DESC', [(int)$_GET['uid']])->results();
+            $url = URL::build('/panel/users/reports/', 'uid=' . (int)Output::getClean($_GET['uid']) . '&');
+            $change_view_link = URL::build('/panel/users/reports/', 'view=closed&uid=' . (int)Output::getClean($_GET['uid']));
         }
 
         $smarty->assign([
@@ -49,9 +49,9 @@ if (!isset($_GET['id'])) {
             $url = URL::build('/panel/users/reports/', 'view=closed&');
             $change_view_link = URL::build('/panel/users/reports');
         } else {
-            $report_query = DB::getInstance()->selectQuery('SELECT * FROM nl2_reports WHERE status = 1 AND reported_id = ? ORDER BY date_updated DESC', [intval($_GET['uid'])])->results();
-            $url = URL::build('/panel/users/reports/', 'view=closed&uid=' . intval(Output::getClean($_GET['uid'])) . '&');
-            $change_view_link = URL::build('/panel/users/reports/', 'uid=' . intval(Output::getClean($_GET['uid'])));
+            $report_query = DB::getInstance()->selectQuery('SELECT * FROM nl2_reports WHERE status = 1 AND reported_id = ? ORDER BY date_updated DESC', [(int)$_GET['uid']])->results();
+            $url = URL::build('/panel/users/reports/', 'view=closed&uid=' . (int)Output::getClean($_GET['uid']) . '&');
+            $change_view_link = URL::build('/panel/users/reports/', 'uid=' . (int)Output::getClean($_GET['uid']));
         }
 
         $smarty->assign([
@@ -66,19 +66,19 @@ if (!isset($_GET['id'])) {
             if (!is_numeric($_GET['p'])) {
                 Redirect::to($url);
                 die();
-            } else {
-                if ($_GET['p'] == 1) {
-                    // Avoid bug in pagination class
-                    Redirect::to($url);
-                    die();
-                }
-                $p = $_GET['p'];
             }
+
+            if ($_GET['p'] == 1) {
+                // Avoid bug in pagination class
+                Redirect::to($url);
+                die();
+            }
+            $p = $_GET['p'];
         } else {
             $p = 1;
         }
 
-        $paginator = new Paginator(($template_pagination ?? []));
+        $paginator = new Paginator(($template_pagination ?? []), $template_pagination_left ?? '', $template_pagination_right ?? '');
         $results = $paginator->getLimited($report_query, 10, $p, count($report_query));
         $pagination = $paginator->generate(7, $url);
 
@@ -134,7 +134,7 @@ if (!isset($_GET['id'])) {
     }
 
     if (isset($_GET['uid'])) {
-        $smarty->assign('VIEWING_USER', Output::getClean($user->idToNickname(intval($_GET['uid']))));
+        $smarty->assign('VIEWING_USER', Output::getClean($user->idToNickname((int)$_GET['uid'])));
     }
 
     // Smarty variables
@@ -311,41 +311,41 @@ if (!isset($_GET['id'])) {
 
             Redirect::to(URL::build('/panel/users/reports'));
             die();
-        } else {
-            if ($_GET['action'] == 'open') {
-                // Reopen report
-                if (is_numeric($_GET['id'])) {
-                    // Get report
-                    $report = $queries->getWhere('reports', ['id', '=', $_GET['id']]);
-                    if (count($report)) {
-                        $queries->update('reports', $report[0]->id, [
-                            'status' => 0,
-                            'date_updated' => date('Y-m-d H:i:s'),
-                            'updated' => date('U'),
-                            'updated_by' => $user->data()->id
-                        ]);
+        }
 
-                        $queries->create('reports_comments', [
-                            'report_id' => $report[0]->id,
-                            'commenter_id' => $user->data()->id,
-                            'comment_date' => date('Y-m-d H:i:s'),
-                            'date' => date('U'),
-                            'comment_content' => str_replace('{x}', Output::getClean($user->data()->username), $language->get('moderator', 'x_reopened_report'))
-                        ]);
-                    }
+        if ($_GET['action'] == 'open') {
+            // Reopen report
+            if (is_numeric($_GET['id'])) {
+                // Get report
+                $report = $queries->getWhere('reports', ['id', '=', $_GET['id']]);
+                if (count($report)) {
+                    $queries->update('reports', $report[0]->id, [
+                        'status' => 0,
+                        'date_updated' => date('Y-m-d H:i:s'),
+                        'updated' => date('U'),
+                        'updated_by' => $user->data()->id
+                    ]);
 
-                    Session::flash('report_success', $language->get('moderator', 'report_reopened'));
-                    Redirect::to(URL::build('/panel/users/reports/', 'id=' . Output::getClean($report[0]->id)));
-                    die();
+                    $queries->create('reports_comments', [
+                        'report_id' => $report[0]->id,
+                        'commenter_id' => $user->data()->id,
+                        'comment_date' => date('Y-m-d H:i:s'),
+                        'date' => date('U'),
+                        'comment_content' => str_replace('{x}', Output::getClean($user->data()->username), $language->get('moderator', 'x_reopened_report'))
+                    ]);
                 }
 
-                Redirect::to(URL::build('/panel/users/reports'));
-                die();
-            } else {
-                Redirect::to(URL::build('/panel/users/reports'));
+                Session::flash('report_success', $language->get('moderator', 'report_reopened'));
+                Redirect::to(URL::build('/panel/users/reports/', 'id=' . Output::getClean($report[0]->id)));
                 die();
             }
+
+            Redirect::to(URL::build('/panel/users/reports'));
+            die();
         }
+
+        Redirect::to(URL::build('/panel/users/reports'));
+        die();
     }
 }
 

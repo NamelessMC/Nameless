@@ -32,7 +32,6 @@ $language = [
     'minecraft' => 'Minecraft',
     'modules' => 'Módulos',
     'security' => 'Seguridad',
-    'sitemap' => 'Mapa del sitio',
     'styles' => 'Estilos',
 
     // Overview
@@ -206,6 +205,8 @@ $language = [
     'seo' => 'SEO',
     'google_analytics' => 'Google Analytics',
     'google_analytics_help' => 'Añade Google Analytics a tu sitio web para hacer un seguimiento de los visitantes y las estadísticas. Deberá crear una cuenta de Google Analytics para utilizar esta función. Introduzca su ID de propiedad web de Google Analytics. El ID se parece a UA-XXXXA-X y puede encontrarlo en la información de su cuenta o en el código de seguimiento proporcionado por Google.',
+    'sitemap' => 'Mapa del sitio',
+    'seo_settings_updated_successfully' => 'SEO settings updated successfully.',
 
     // Reactions
     'icon' => 'Icono',
@@ -644,7 +645,7 @@ $language = [
     'existing_rules' => 'Reglas ya existentes',
     'new_rule' => 'Nueva regla',
     'api_endpoints' => 'Puntos finales de la API',
-    'api_endpoints_info' => 'Los puntos finales de la API permiten a los módulos crear formas para que las aplicaciones externas (como Minecraft y Discord) interactúen con su sitio web NamelessMC.',
+    'api_endpoints_info' => 'Los puntos finales de la API permiten a los módulos crear formas para que las aplicaciones externas (como Minecraft y Discord) interactúen con su sitio web NamelessMC. <a href="https://docs.namelessmc.com/en/api-documentation" target="_blank">Check out the API documentation here</a>',
     'route' => 'Ruta',
 
     // File uploads

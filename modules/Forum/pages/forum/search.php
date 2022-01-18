@@ -41,9 +41,9 @@ if (!isset($_GET['s'])) {
 
                 Redirect::to(URL::build('/forum/search/', 's=' . $search . '&p=1'));
                 die();
-            } else {
-                $error = $forum_language->get('forum', 'invalid_search_query');
             }
+
+            $error = $forum_language->get('forum', 'invalid_search_query');
         } else {
             $error = $language->get('general', 'invalid_token');
         }
@@ -95,9 +95,9 @@ if (!isset($_GET['s'])) {
                                 ];
 
                                 break;
-                            } else {
-                                break;
                             }
+
+                            break;
                         } else {
                             break;
                         }
@@ -117,9 +117,9 @@ if (!isset($_GET['s'])) {
                                 ];
 
                                 break;
-                            } else {
-                                break;
                             }
+
+                            break;
                         } else {
                             break;
                         }
@@ -166,7 +166,7 @@ $template->addJSFiles([
 if (isset($_GET['s'])) {
     // Show results
     if (count($results)) {
-        $paginator = new Paginator(($template_pagination ?? []));
+        $paginator = new Paginator(($template_pagination ?? []), $template_pagination_left ?? '', $template_pagination_right ?? '');
         $results = $paginator->getLimited($results, 10, $p, count($results));
         $pagination = $paginator->generate(7, URL::build('/forum/search/', 's=' . $search . '&'));
 

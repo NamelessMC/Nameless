@@ -94,7 +94,7 @@ class Util {
             $offsets[] = $current->getOffset();
 
             // Format timezone offset
-            $offset = 'GMT ' . intval($current->getOffset() / 3600) . ':' . str_pad(abs(intval($current->getOffset() % 3600 / 60)), 2, 0);
+            $offset = 'GMT ' . (int)($current->getOffset() / 3600) . ':' . str_pad(abs((int)($current->getOffset() % 3600 / 60)), 2, 0);
 
             // Prettify timezone name
             $name = Output::getClean(str_replace(['/', '_'], [', ', ' '], $timezone));
@@ -174,7 +174,7 @@ class Util {
 
         $parsed = parse_url($url);
 
-        return !(str_replace('www.', '', rtrim(Util::getSelfURL(false), '/')) == str_replace('www.', '', $parsed['host']));
+        return !(str_replace('www.', '', rtrim(self::getSelfURL(false), '/')) == str_replace('www.', '', $parsed['host']));
     }
 
     /**
@@ -192,7 +192,7 @@ class Util {
         }
 
         // https and www checks
-        if (Util::isConnectionSSL()) {
+        if (self::isConnectionSSL()) {
             $proto = 'https://';
         } else {
             $proto = 'http://';
@@ -318,10 +318,10 @@ class Util {
 
                     $truncate .= mb_substr($tag[3], 0, $left + $entitiesLength);
                     break;
-                } else {
-                    $truncate .= $tag[3];
-                    $totalLength += $contentLength;
                 }
+
+                $truncate .= $tag[3];
+                $totalLength += $contentLength;
                 if ($totalLength >= $length) {
                     break;
                 }
@@ -329,9 +329,9 @@ class Util {
         } else {
             if (mb_strlen($text) <= $length) {
                 return $text;
-            } else {
-                $truncate = mb_substr($text, 0, $length - mb_strlen($ending));
             }
+
+            $truncate = mb_substr($text, 0, $length - mb_strlen($ending));
         }
         if (!$exact) {
             $spacepos = mb_strrpos($truncate, ' ');
@@ -362,24 +362,17 @@ class Util {
     /**
      * Check for Nameless updates.
      *
-     * @param string|null $current_version Current local namelessmc version to compare.
-     *
      * @return string JSON object with information about any updates.
      * @throws Exception
      */
-    public static function updateCheck(string $current_version = null): string {
+    public static function updateCheck(): string {
         $queries = new Queries();
 
         // Check for updates
-        if (!$current_version) {
-            $current_version = $queries->getWhere('settings', ['name', '=', 'nameless_version']);
-            $current_version = $current_version[0]->value;
-        }
+        $current_version = self::getSetting(DB::getInstance(), 'nameless_version');
+        $uid = self::getSetting(DB::getInstance(), 'unique_id');
 
-        $uid = $queries->getWhere('settings', ['name', '=', 'unique_id']);
-        $uid = $uid[0]->value;
-
-        $update_check = HttpClient::get('https://namelessmc.com/nl_core/nl2/stats.php?uid=' . $uid . '&version=' . $current_version . '&php_version=' . urlencode(phpversion()) . '&language=' . LANGUAGE . '&docker=' . (getenv('NAMELESSMC_METRICS_DOCKER') == true));
+        $update_check = HttpClient::get('https://namelessmc.com/nl_core/nl2/stats.php?uid=' . $uid . '&version=' . $current_version . '&php_version=' . urlencode(PHP_VERSION) . '&language=' . LANGUAGE . '&docker=' . (getenv('NAMELESSMC_METRICS_DOCKER') == true));
 
         if ($update_check->hasError()) {
             $error = $update_check->getError();
@@ -392,31 +385,31 @@ class Util {
 
         if (isset($error)) {
             return json_encode(['error' => $error]);
-        } else {
-            DB::getInstance()->createQuery("UPDATE nl2_settings SET `value`= ? WHERE `name` = 'version_checked'", [date('U')]);
-
-            if ($update_check == 'None') {
-                return json_encode(['no_update' => true]);
-            } else {
-                $info = json_decode($update_check);
-
-                if (!isset($info->error) && !isset($info->no_update) && isset($info->new_version)) {
-                    if (isset($info->urgent) && $info->urgent == 'true') {
-                        $to_db = 'urgent';
-                    } else {
-                        $to_db = 'true';
-                    }
-
-                    $update_id = $queries->getWhere('settings', ['name', '=', 'version_update']);
-                    $update_id = $update_id[0]->id;
-                    $queries->update('settings', $update_id, [
-                        'value' => $to_db
-                    ]);
-                }
-
-                return $update_check;
-            }
         }
+
+        DB::getInstance()->createQuery("UPDATE nl2_settings SET `value`= ? WHERE `name` = 'version_checked'", [date('U')]);
+
+        if ($update_check == 'None') {
+            return json_encode(['no_update' => true]);
+        }
+
+        $info = json_decode($update_check);
+
+        if (!isset($info->error) && !isset($info->no_update) && isset($info->new_version)) {
+            if (isset($info->urgent) && $info->urgent == 'true') {
+                $to_db = 'urgent';
+            } else {
+                $to_db = 'true';
+            }
+
+            $update_id = $queries->getWhere('settings', ['name', '=', 'version_update']);
+            $update_id = $update_id[0]->id;
+            $queries->update('settings', $update_id, [
+                'value' => $to_db
+            ]);
+        }
+
+        return $update_check;
     }
 
     /**
@@ -433,9 +426,9 @@ class Util {
 
         if (isset($error)) {
             return json_encode(['error' => $error]);
-        } else {
-            return $news->data();
         }
+
+        return $news->data();
     }
 
     /**
@@ -468,9 +461,9 @@ class Util {
         return preg_replace_callback('/]*href=["|\']([^"|\']*)["|\'][^>]*>([^<]*)<\/a>/i', static function ($m): string {
             if (strpos($m[1], self::getSelfURL()) === false) {
                 return '<a href="' . $m[1] . '" rel="nofollow noopener" target="_blank">' . $m[2] . '</a>';
-            } else {
-                return '<a href="' . $m[1] . '" target="_blank">' . $m[2] . '</a>';
             }
+
+            return '<a href="' . $m[1] . '" target="_blank">' . $m[2] . '</a>';
         }, $data);
     }
 
@@ -498,7 +491,7 @@ class Util {
      * @param string $path Path to scan from.
      * @param Endpoints $endpoints Instance of Endpoints class to register endpoints to.
      */
-    public static function loadEndpoints(string $path, Endpoints $endpoints) {
+    public static function loadEndpoints(string $path, Endpoints $endpoints): void {
         $rii = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS));
 
         foreach ($rii as $file) {

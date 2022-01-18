@@ -6,16 +6,16 @@
  *
  * @return string JSON Array
  */
-class SetDiscordRolesEndpoint extends EndpointBase {
+class SetDiscordRolesEndpoint extends KeyAuthEndpoint {
 
     public function __construct() {
-        $this->_route = 'setDiscordRoles';
+        $this->_route = 'discord/set-roles';
         $this->_module = 'Discord Integration';
         $this->_description = 'Set a NamelessMC user\'s according to the supplied Discord Role ID list';
         $this->_method = 'POST';
     }
 
-    public function execute(Nameless2API $api) {
+    public function execute(Nameless2API $api): void {
         $api->validateParams($_POST, ['user']);
 
         if (!Discord::isBotSetup()) {

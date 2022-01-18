@@ -40,7 +40,7 @@ class Alert {
                 'content' => str_replace(($text['replace'] ?? ''), ($text['replace_with'] ?? ''), $language->get($text['file'], $text['term'])),
                 'created' => date('U')
             ])) {
-                throw new Exception('There was a problem creating an alert.');
+                throw new RuntimeException('There was a problem creating an alert.');
             }
         }
     }
@@ -84,9 +84,9 @@ class Alert {
 
                 if (!count($pm_full)) {
                     continue;
-                } else {
-                    $pm_full = $pm_full[0];
                 }
+
+                $pm_full = $pm_full[0];
 
                 $pms[] = [
                     'id' => $pm_full->id,
@@ -110,9 +110,9 @@ class Alert {
 
                 if (!count($pm_full)) {
                     continue;
-                } else {
-                    $pm_full = $pm_full[0];
                 }
+
+                $pm_full = $pm_full[0];
 
                 $unread[] = [
                     'id' => $pm_full->id,
