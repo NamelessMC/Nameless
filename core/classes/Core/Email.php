@@ -24,7 +24,7 @@ class Email {
     /**
      * @var array Placeholders for email templates
      */
-    private static array $_message_placeholders;
+    private static array $_message_placeholders = [];
 
     /**
      * Send an email.
