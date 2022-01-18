@@ -6,7 +6,7 @@ class CraftheadAvatarSource extends AvatarSourceBase {
         $this->_name = 'Crafthead';
         $this->_base_url = 'https://crafthead.net/';
         $this->_perspectives_map = [
-            'face' => 'avatar',
+            'face' => 'helm',
             'head' => 'cube'
         ];
     }
