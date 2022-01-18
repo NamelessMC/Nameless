@@ -121,7 +121,7 @@
                             <div class="card shadow mb-4">
                                 <div class="card-body">
                                     <div class="form-group text-center">
-                                        <label for="enable-discord"><i class="fab fa-discord fa-2x"></i> Discord</label>
+                                        <label for="enable-discord"><i class="fab fa-discord fa-2x align-middle"></i> Discord</label>
                                         <input name="enable-discord" id="enable-discord" type="checkbox" class="js-switch" {if $DISCORD_OAUTH_ENABLED && $DISCORD_OAUTH_SETUP} checked{/if} />
                                     </div>
 
@@ -141,7 +141,7 @@
                             <div class="card shadow mb-4">
                                 <div class="card-body">
                                     <div class="form-group text-center">
-                                        <label for="enable-google"><i class="fab fa-google fa-2x"></i> Google</label>
+                                        <label for="enable-google"><i class="fab fa-google fa-2x align-middle"></i> Google</label>
                                         <input name="enable-google" id="enable-google" type="checkbox" class="js-switch" {if $GOOGLE_OAUTH_ENABLED && $GOOGLE_OAUTH_SETUP} checked{/if} />
                                     </div>
 

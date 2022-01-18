@@ -9,6 +9,11 @@ class OAuth extends Instanceable {
     public const DISCORD = 'discord';
     public const GOOGLE = 'google';
 
+    private const PROVIDERS = [
+        self::DISCORD,
+        self::GOOGLE,
+    ];
+
     public const PAGE_LINK = 'link';
     public const PAGE_LOGIN = 'login';
 
@@ -22,12 +27,12 @@ class OAuth extends Instanceable {
     }
 
     /**
-     * Determine if OAuth is available if at least one provider is enabled.
+     * Determine if OAuth is available if at least one provider is setup.
      *
-     * @return bool If any provider is enabled
+     * @return bool If any provider is setup
      */
     public function isAvailable(): bool {
-        foreach ([self::DISCORD, self::GOOGLE] as $provider) {
+        foreach (self::PROVIDERS as $provider) {
             if ($this->isSetup($provider)) {
                 return true;
             }
@@ -36,28 +41,31 @@ class OAuth extends Instanceable {
     }
 
     /**
-     * Get an array of provider names and their URLs.
+     * Get an array of provider names and their URL & icon.
      *
      * @param string $page Either "login" or "register" for generating the callback URL
      * @return array Array of provider names and their instances
      */
     public function getProvidersAvailable(string $page): array {
         $providers = [];
-        foreach ([self::DISCORD, self::GOOGLE] as $provider_name) {
-            if ($this->isSetup($provider_name)) {
-                $provider = $this->getProviderInstance($provider_name, $page);
-
-                $providers[$provider_name] = [
-                    'url' => $provider->getAuthorizationUrl([
-                        'scope' => [
-                            $provider_name === self::DISCORD ? 'identify' : 'openid',
-                            'email'
-                        ],
-                    ]),
-                    'icon' => $this->getIcon($provider_name),
-                ];
+        foreach (self::PROVIDERS as $provider_name) {
+            if (!$this->isSetup($provider_name)) {
+                continue;
             }
+
+            $provider = $this->getProviderInstance($provider_name, $page);
+
+            $providers[$provider_name] = [
+                'url' => $provider->getAuthorizationUrl([
+                    'scope' => [
+                        $provider_name === self::DISCORD ? 'identify' : 'openid',
+                        'email' // we don't use this for anything yet
+                    ],
+                ]),
+                'icon' => $this->getIcon($provider_name),
+            ];
         }
+
         return $providers;
     }
 
@@ -87,7 +95,7 @@ class OAuth extends Instanceable {
                 return $this->_google_provider ??= new GoogleProvider($options);
 
             default:
-                throw new RuntimeException('Unknown provider');
+                throw new RuntimeException("Unknown provider: $provider");
         }
     }
 
@@ -142,7 +150,7 @@ class OAuth extends Instanceable {
             case self::GOOGLE:
                 return 'sub';
             default:
-                throw new RuntimeException('Unknown provider');
+                throw new RuntimeException("Unknown provider: $provider");
         }
     }
 
@@ -159,7 +167,7 @@ class OAuth extends Instanceable {
             case self::GOOGLE:
                 return 'fab fa-google';
             default:
-                throw new RuntimeException('Unknown provider');
+                throw new RuntimeException("Unknown provider: $provider");
         }
     }
 
@@ -186,7 +194,7 @@ class OAuth extends Instanceable {
      */
     public function setCredentials(string $provider, string $client_id, string $client_secret): void {
         $this->db()->createQuery(
-            "UPDATE nl2_oauth SET client_id = ?, client_secret = ? WHERE provider = ?",
+            'UPDATE nl2_oauth SET client_id = ?, client_secret = ? WHERE provider = ?',
             [$client_id, $client_secret, $provider]
         );
     }
@@ -199,7 +207,10 @@ class OAuth extends Instanceable {
      * @return bool Whether the user is already linked to the provider
      */
     public function userExistsByProviderId(string $provider, string $provider_id): bool {
-        return $this->db()->selectQuery('SELECT user_id FROM nl2_oauth_users WHERE provider = ? AND provider_id = ?', [$provider, $provider_id])->count() > 0;
+        return $this->db()->selectQuery(
+            'SELECT user_id FROM nl2_oauth_users WHERE provider = ? AND provider_id = ?',
+            [$provider, $provider_id]
+        )->count() > 0;
     }
 
     /**
@@ -210,7 +221,10 @@ class OAuth extends Instanceable {
      * @return int The NamelessMC user ID of the user linked to the provider
      */
     public function getUserIdFromProviderId(string $provider, string $provider_id): int {
-        return $this->db()->selectQuery('SELECT user_id FROM nl2_oauth_users WHERE provider = ? AND provider_id = ?', [$provider, $provider_id])->first()->user_id;
+        return $this->db()->selectQuery(
+            'SELECT user_id FROM nl2_oauth_users WHERE provider = ? AND provider_id = ?',
+            [$provider, $provider_id]
+        )->first()->user_id;
     }
 
     /**
@@ -221,7 +235,10 @@ class OAuth extends Instanceable {
      * @param string $provider_id  The provider user ID
      */
     public function saveUserProvider(string $user_id, string $provider, string $provider_id): void {
-        $this->db()->createQuery("INSERT INTO nl2_oauth_users (user_id, provider, provider_id) VALUES (?, ?, ?)", [$user_id, $provider, $provider_id]);
+        $this->db()->createQuery(
+            'INSERT INTO nl2_oauth_users (user_id, provider, provider_id) VALUES (?, ?, ?)',
+            [$user_id, $provider, $provider_id]
+        );
     }
 
     /**
@@ -231,7 +248,10 @@ class OAuth extends Instanceable {
      * @return array The array
      */
     public function getAllProvidersForUser(int $user_id): array {
-        return $this->db()->selectQuery('SELECT * FROM nl2_oauth_users WHERE user_id = ?', [$user_id])->results();
+        return $this->db()->selectQuery(
+            'SELECT * FROM nl2_oauth_users WHERE user_id = ?',
+            [$user_id]
+        )->results();
     }
 
     /**
@@ -241,6 +261,9 @@ class OAuth extends Instanceable {
      * @param string $provider The provider user ID
      */
     public function unlinkProviderForUser(int $user_id, string $provider): void {
-        $this->db()->createQuery("DELETE FROM nl2_oauth_users WHERE user_id = ? AND provider = ?", [$user_id, $provider]);
+        $this->db()->createQuery(
+            'DELETE FROM nl2_oauth_users WHERE user_id = ? AND provider = ?',
+            [$user_id, $provider]
+        );
     }
 }

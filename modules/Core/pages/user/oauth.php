@@ -33,12 +33,10 @@ if (isset($_GET['provider'], $_GET['code'])) {
         $oauth_user_provider_id = $oauth_user[OAuth::getInstance()->getIdName($provider_name)];
 
         if (OAuth::getInstance()->userExistsByProviderId($provider_name, $oauth_user_provider_id)) {
-            Session::flash('oauth_error', 'User already exists with that provider ID');
-            Redirect::to(URL::build('/login'));
+            Session::flash('oauth_error', "Another NamelessMC user is already linked to that $provider_name account.");
+            Redirect::to(URL::build('/user/oauth'));
             die();
         }
-
-        // TODO: Check if NamelessMC user exists with email already
 
         OAuth::getInstance()->saveUserProvider(
             $user->data()->id,
@@ -55,7 +53,7 @@ if (isset($_GET['provider'], $_GET['code'])) {
 
     if (Input::get('action') === 'unlink') {
         OAuth::getInstance()->unlinkProviderForUser($user->data()->id, $provider_name);
-        Session::flash('user_oauth', $language->get('user', 'oauth_unlinked'));
+        Session::flash('oauth_success', $language->get('user', 'oauth_unlinked'));
     }
 }
 
