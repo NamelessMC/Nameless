@@ -13,7 +13,7 @@ $language = [
     /*
      *  Change this for the account validation message
      */
-    'validate_account_command' => 'To complete registration, please execute the command <strong>/verify {x}</strong> ingame.', // Don't replace {x}
+    'validate_account_command' => 'To complete registration, please execute the command {{command}} ingame.',
 
     /*
      *  User Related
@@ -23,7 +23,6 @@ $language = [
 
     // UserCP
     'user_cp' => 'Account',
-    'user_cp_icon' => '<i class="fa fa-cogs" aria-hidden="true"></i> <span class="mobile_only">Account</span>',
     'overview' => 'Overview',
     'user_details' => 'User Details',
     'profile_settings' => 'Profile Settings',
@@ -38,7 +37,7 @@ $language = [
     'no_placeholders' => 'No Placeholders',
 
     // Profile settings
-    'field_is_required' => '{x} is required.', // Don't replace {x}
+    'field_is_required' => '{{field}} is required.',
     'settings_updated_successfully' => 'Settings updated successfully.',
     'password_changed_successfully' => 'Password changed successfully.',
     'change_password' => 'Change Password',
@@ -72,11 +71,11 @@ $language = [
     'gravatar' => 'Use Gravatar as avatar',
 
     // Alerts
-    'user_tag_info' => 'You have been tagged in a post by {x}.', // Don't replace {x}
+    'user_tag_info' => 'You have been tagged in a post by {{author}}.', // Don't replace {x}
     'no_alerts' => 'No new alerts',
     'view_alerts' => 'View alerts',
-    '1_new_alert' => 'You have 1 new alert',
-    'x_new_alerts' => 'You have {x} new alerts', // Don't replace {x}
+    '1_new_alert' => 'You have {{count}} new alert',
+    'x_new_alerts' => 'You have {{count}} new alerts', // Don't replace {x}
     'no_alerts_usercp' => 'You do not have any alerts.',
 
     // Registration
@@ -89,7 +88,7 @@ $language = [
     'password' => 'Password',
     'confirm_password' => 'Confirm Password',
     'i_agree' => 'I Agree',
-    'agree_t_and_c' => 'I have read and accept the <a href="{x}" target="_blank">Terms and Conditions</a>.',
+    'agree_t_and_c' => 'I have read and accept the {{termsAndConditions}}.',
     'create_an_account' => 'Create an Account',
     'terms_and_conditions' => 'Terms and Conditions',
     'validation_complete' => 'Your account has been validated, you can now log in.',
@@ -156,14 +155,14 @@ $language = [
     'follow' => 'Follow',
     'no_wall_posts' => 'There are no wall posts here yet.',
     'change_banner' => 'Change Banner',
-    'post_on_wall' => 'Post on {x}\'s wall', // Don't replace {x}
+    'post_on_wall' => 'Post on {{user}}\'s wall', // Don't replace {x}
     'invalid_wall_post' => 'Please ensure your post is between 1 and 10000 characters.',
-    '1_reaction' => '1 reaction',
-    'x_reactions' => '{x} reactions', // Don't replace {x}
-    '1_like' => '1 like',
-    'x_likes' => '{x} likes', // Don't replace {x}
-    '1_reply' => '1 reply',
-    'x_replies' => '{x} replies', // Don't replace {x}
+    '1_reaction' => '{{count}} reaction',
+    'x_reactions' => '{{count}} reactions', // Don't replace {x}
+    '1_like' => '{{count}} like',
+    'x_likes' => '{{count}} likes', // Don't replace {x}
+    '1_reply' => '{{count}} reply',
+    'x_replies' => '{{count}} replies', // Don't replace {x}
     'no_replies_yet' => 'No replies yet',
     'feed' => 'Feed',
     'about' => 'About',
@@ -171,10 +170,10 @@ $language = [
     'replies' => 'Replies',
     'new_reply' => 'New Reply',
     'registered' => 'Registered:',
-    'registered_x' => 'Registered: {x}',
+    'registered_x' => 'Registered: {{registeredAt}}',
     'last_seen' => 'Last Seen:',
-    'last_seen_x' => 'Last Seen: {x}', // Don't replace {x}
-    'new_wall_post' => '{x} has posted on your profile.',
+    'last_seen_x' => 'Last Seen: {{lastSeenAt}}', // Don't replace {x}
+    'new_wall_post' => '{{author}} has posted on your profile.',
     'couldnt_find_that_user' => 'Couldn\'t find that user.',
     'block_user' => 'Block User',
     'unblock_user' => 'Unblock User',
@@ -184,8 +183,8 @@ $language = [
     'user_unblocked' => 'User unblocked.',
     'views' => 'Profile Views:',
     'private_profile_page' => 'This is a private profile!',
-    'new_wall_post_reply' => '{x} has replied to your post on {y}\'s profile.', // Don't replace {x} or {y}
-    'new_wall_post_reply_your_profile' => '{x} has replied to your post on your profile.', // Don't replace {x}
+    'new_wall_post_reply' => '{{author}} has replied to your post on {{user}}\'s profile.', // Don't replace {x} or {y}
+    'new_wall_post_reply_your_profile' => '{{author}} has replied to your post on your profile.', // Don't replace {x}
     'no_about_fields' => 'This user has not added any about fields yet.',
     'reply' => 'Reply',
 
@@ -198,8 +197,8 @@ $language = [
     'no_messages' => 'No new messages',
     'no_messages_full' => 'You do not have any messages.',
     'view_messages' => 'View messages',
-    '1_new_message' => 'You have 1 new message',
-    'x_new_messages' => 'You have {x} new messages', // Don't replace {x}
+    '1_new_message' => 'You have {{count}} new message',
+    'x_new_messages' => 'You have {{count}} new messages', // Don't replace {x}
     'new_message' => 'New Message',
     'message_title' => 'Message Title',
     'to' => 'To',
@@ -234,6 +233,6 @@ $language = [
     /*
      *  Hooks
      */
-    'user_x_has_registered' => '{x} has joined ' . SITE_NAME . '!',
-    'user_x_has_validated' => '{x} has validated their account!',
+    'user_x_has_registered' => '{{user}} has joined {{siteName}}!',
+    'user_x_has_validated' => '{{user}} has validated their account!',
 ];

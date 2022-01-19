@@ -46,17 +46,17 @@ $language = [
     'alerts' => 'Alerts',
     'view_alerts' => 'View alerts',
     'no_alerts' => 'No alerts',
-    'x_new_alerts' => 'You have {x} new alerts.', // Don't replace {x}
+    'x_new_alerts' => 'You have {{count}} new alerts.', // Don't replace {x}
     'messages' => 'Messages',
     'view_messages' => 'View messages',
     'no_messages' => 'No messages',
-    'x_new_messages' => 'You have {x} new messages.', // Don't replace {x}
+    'x_new_messages' => 'You have {{count}} new messages.', // Don't replace {x}
     'loading' => 'Loading...',
     'report' => 'Report',
-    'reported_by' => 'Reported by {x}',
+    'reported_by' => 'Reported by {{author}}',
     'view_report' => 'View report',
-    'page_loaded_in' => 'Page loaded in {x}s', // Don't replace {x}, time unit is seconds
-    'page_x' => 'Page {x}',
+    'page_loaded_in' => 'Page loaded in {{time}}s', // Don't replace {x}, time unit is seconds
+    'page_x' => 'Page {{page}}',
     'browse' => 'Browse',
     'bypass' => 'Bypass',
     'yes' => 'Yes',
@@ -80,10 +80,10 @@ $language = [
     'message' => 'Message',
     'email_address' => 'Email Address',
     'contact_email_subject' => 'New contact form submission',
-    'contact_message_failed' => 'Unable to send message. Please ensure you have entered a message between 10 and 5000 characters long.',
+    'contact_message_failed' => 'Unable to send message. Please ensure you have entered a message between {{min}} and {{max}} characters long.',
     'contact_message_sent' => 'Message sent successfully.',
     'contact_message_email' => 'The provided email is invalid.',
-    'contact_message_limit' => 'You can only send one message per hour. You can next send a message in {x} minutes.', // Don't replace {x}
+    'contact_message_limit' => 'You can only send one message per hour. You can next send a message in {{time}} minutes.', // Don't replace {x}
 
     /*
      *  Navbar
@@ -105,27 +105,27 @@ $language = [
     /*
      *  Help dialogues
      */
-    'markdown_help' => 'You can format your post using Markdown. For more information, see <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>here</a>.',
+    'markdown_help' => 'You can format your post using Markdown.',
 
     /*
      *  Server query
      */
     'online' => 'Online',
     'offline' => 'Offline',
-    'player_count' => '{x}/{y}', // Don't replace {x} or {y}
-    'ping' => 'Ping: {x}', // Don't replace {x}
-    'version' => 'Version: {x}', // Don't replace {x}
-    'currently_1_player_online' => 'There is currently <strong>1</strong> player online.',
-    'currently_x_players_online' => 'There are currently <strong>{x}</strong> players online.', // Don't replace {x}
+    'player_count' => '{{onlinePlayers}}/{{totalPlayers}}', // Don't replace {x} or {y}
+    'ping' => 'Ping: {{ping}}', // Don't replace {x}
+    'version' => 'Version: {{version}}', // Don't replace {x}
+    'currently_1_player_online' => 'There is currently {{count}} player online.',
+    'currently_x_players_online' => 'There are currently {{count}} players online.', // Don't replace {x}
     'server_offline' => 'The server is currently offline.',
-    'connect_with_ip_x' => 'Connect now using the IP {x}', // Don't replace {x}
+    'connect_with_ip_x' => 'Connect now using the IP {{address}}', // Don't replace {x}
     'click_to_copy_tooltip' => 'Click to copy',
     'ip' => 'IP',
     'copied' => 'Copied!',
     'no_servers' => 'There are no servers to display!',
     'bungee_instance' => 'This server is a Bungee instance.',
     'no_players_online' => 'There are no players online.',
-    'and_x_more' => 'and {x} more', // Don't replace {x}
+    'and_x_more' => 'and {{count}} more', // Don't replace {x}
 
     /*
      *  Cookie notice
@@ -144,13 +144,13 @@ $language = [
     'total_posts' => 'Total Posts',
     'online_staff' => 'Online Staff',
     'no_online_staff' => 'There are no staff members online.',
-    'total_online_staff' => 'Total online staff: {x}',
+    'total_online_staff' => 'Total online staff: {{count}}',
     'online_users' => 'Online Users',
     'no_online_users' => 'There are no users online.',
-    'total_online_users' => 'Total online users: {x}',
+    'total_online_users' => 'Total online users: {{count}}',
     'online_guests' => 'Online Guests',
     'total_online' => 'Total Online', // this is Online Users + Online Guests,
-    'no_default_server' => 'There is no default server, please select one in StaffCP - Integrations - Minecraft.',
+    'no_default_server' => 'There is no default server, please select one in the StaffCP -> Integrations -> Minecraft tab.',
     'server_status' => 'Server Status',
 
     /*
@@ -161,5 +161,5 @@ $language = [
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{x}" rel="nofollow noopener">here</a>.' // Don't replace {x} which is the redirect URL
+    'redirecting_message' => 'Redirecting...\nIf you are not redirected automatically, please click here: {{link}}.' // Don't replace {x} which is the redirect URL
 ];
