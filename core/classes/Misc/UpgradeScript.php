@@ -98,7 +98,7 @@ abstract class UpgradeScript {
      * @param array $files Name of folders/files in `$path` to delete. Use `*` for all folders/files
      * @param bool $recursive Whether to recursively delete
      */
-    protected function deleteFilesInPath(string $path, array $files, bool $recursive = false) {
+    protected function deleteFilesInPath(string $path, array $files, bool $recursive = false): void {
         if (in_array('*', $files)) {
             $files = scandir($path);
         }
@@ -109,7 +109,7 @@ abstract class UpgradeScript {
                 continue;
             }
 
-            if (file_exists($newFile = join(DIRECTORY_SEPARATOR, [$path, $file]))) {
+            if (file_exists($newFile = implode(DIRECTORY_SEPARATOR, [$path, $file]))) {
 
                 if (is_dir($newFile)) {
                     if ($recursive) {
@@ -132,8 +132,8 @@ abstract class UpgradeScript {
      *
      * @param string $path Path to folder or file to delete
      */
-    protected function deleteFile(string $path) {
-        if (!is_writeable($path)) {
+    protected function deleteFile(string $path): void {
+        if (!is_writable($path)) {
             echo "'$path' is not writable, cannot delete. <br />";
             return;
         }
@@ -147,7 +147,7 @@ abstract class UpgradeScript {
         unlink($path);
     }
 
-    protected function setVersion(string $version) {
+    protected function setVersion(string $version): void {
         $version_number_id = $this->_queries->getWhere('settings', ['name', '=', 'nameless_version']);
         $version_number_id = $version_number_id[0]->id;
         $this->_queries->update('settings', $version_number_id, [

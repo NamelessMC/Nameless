@@ -64,13 +64,13 @@ class MCQuery {
                         'motd' => $query['description']['text'] ?? '',
                         'version' => $query['version']['name']
                     ];
-                } else {
-                    return [
-                        'status_value' => 0,
-                        'status' => $language->get('general', 'offline'),
-                        'server_offline' => $language->get('general', 'server_offline')
-                    ];
                 }
+
+                return [
+                    'status_value' => 0,
+                    'status' => $language->get('general', 'offline'),
+                    'server_offline' => $language->get('general', 'server_offline')
+                ];
             } else {
                 // External query
 
@@ -92,17 +92,17 @@ class MCQuery {
                         'player_count' => Output::getClean($query->response->players->online),
                         'player_count_max' => Output::getClean($query->response->players->max),
                         'player_list' => $player_list,
-                        'format_player_list' => self::formatPlayerList((array)$player_list),
+                        'format_player_list' => self::formatPlayerList($player_list),
                         'x_players_online' => str_replace('{x}', Output::getClean($query->response->players->online), $language->get('general', 'currently_x_players_online')),
                         'motd' => $query->response->description->text
                     ];
-                } else {
-                    return [
-                        'status_value' => 0,
-                        'status' => $language->get('general', 'offline'),
-                        'server_offline' => $language->get('general', 'server_offline')
-                    ];
                 }
+
+                return [
+                    'status_value' => 0,
+                    'status' => $language->get('general', 'offline'),
+                    'server_offline' => $language->get('general', 'server_offline')
+                ];
             }
         } catch (Exception $e) {
             $error = $e->getMessage();

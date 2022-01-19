@@ -51,14 +51,14 @@ if (isset($_GET['p'])) {
     if (!is_numeric($_GET['p'])) {
         Redirect::to(URL::build('/forum'));
         die();
-    } else {
-        if ($_GET['p'] == 1) {
-            // Avoid bug in pagination class
-            Redirect::to(URL::build('/forum/view/' . $fid . '-' . $forum->titleToURL($forum_query->forum_title)));
-            die();
-        }
-        $p = $_GET['p'];
     }
+
+    if ($_GET['p'] == 1) {
+        // Avoid bug in pagination class
+        Redirect::to(URL::build('/forum/view/' . $fid . '-' . $forum->titleToURL($forum_query->forum_title)));
+        die();
+    }
+    $p = $_GET['p'];
 } else {
     $p = 1;
 }
@@ -397,18 +397,18 @@ if ($forum_query->redirect_forum == 1) {
 
         $template_array = [];
         // Get a list of all topics from the forum, and paginate
-        for ($n = 0; $n < count($results->data); $n++) {
+        foreach ($results->data as $nValue) {
             // Get number of replies to a topic
-            $replies = $queries->getWhere('posts', ['topic_id', '=', $results->data[$n]->id]);
+            $replies = $queries->getWhere('posts', ['topic_id', '=', $nValue->id]);
             $replies = count($replies);
 
             // Is there a label?
-            if ($results->data[$n]->label != 0) { // yes
+            if ($nValue->label != 0) { // yes
                 // Get label
-                if ($labels_cache[$results->data[$n]->label]) {
-                    $label = $labels_cache[$results->data[$n]->label];
+                if ($labels_cache[$nValue->label]) {
+                    $label = $labels_cache[$nValue->label];
                 } else {
-                    $label = $queries->getWhere('forums_topic_labels', ['id', '=', $results->data[$n]->label]);
+                    $label = $queries->getWhere('forums_topic_labels', ['id', '=', $nValue->label]);
                     if (count($label)) {
                         $label = $label[0];
 
@@ -423,18 +423,18 @@ if ($forum_query->redirect_forum == 1) {
                         $label = '';
                     }
 
-                    $labels_cache[$results->data[$n]->label] = $label;
+                    $labels_cache[$nValue->label] = $label;
                 }
             } else { // no
                 $label = '';
             }
 
             $labels = [];
-            if ($results->data[$n]->labels) {
-                if ($labels_cache[$results->data[$n]->labels]) {
-                    $labels[] = $labels_cache[$results->data[$n]->labels];
+            if ($nValue->labels) {
+                if ($labels_cache[$nValue->labels]) {
+                    $labels[] = $labels_cache[$nValue->labels];
                 } else {
-                    $topic_labels = explode(',', $results->data[$n]->labels);
+                    $topic_labels = explode(',', $nValue->labels);
 
                     foreach ($topic_labels as $item) {
                         // Get label
@@ -454,34 +454,34 @@ if ($forum_query->redirect_forum == 1) {
                 }
             }
 
-            $topic_user = new User($results->data[$n]->topic_creator);
-            $last_reply_user = new User($results->data[$n]->topic_last_user);
+            $topic_user = new User($nValue->topic_creator);
+            $last_reply_user = new User($nValue->topic_last_user);
 
             // Add to array
             $template_array[] = [
-                'topic_title' => Output::getClean($results->data[$n]->topic_title),
-                'topic_id' => $results->data[$n]->id,
-                'topic_created_rough' => $timeago->inWords(date('d M Y, H:i', $results->data[$n]->topic_date), $language->getTimeLanguage()),
-                'topic_created' => date('d M Y, H:i', $results->data[$n]->topic_date),
+                'topic_title' => Output::getClean($nValue->topic_title),
+                'topic_id' => $nValue->id,
+                'topic_created_rough' => $timeago->inWords(date('d M Y, H:i', $nValue->topic_date), $language->getTimeLanguage()),
+                'topic_created' => date('d M Y, H:i', $nValue->topic_date),
                 'topic_created_username' => $topic_user->getDisplayname(),
                 'topic_created_mcname' => $topic_user->getDisplayname(true),
                 'topic_created_style' => $topic_user->getGroupClass(),
-                'topic_created_user_id' => Output::getClean($results->data[$n]->topic_creator),
-                'locked' => $results->data[$n]->locked,
-                'views' => $results->data[$n]->topic_views,
+                'topic_created_user_id' => Output::getClean($nValue->topic_creator),
+                'locked' => $nValue->locked,
+                'views' => $nValue->topic_views,
                 'posts' => $replies,
                 'last_reply_avatar' => $last_reply_user->getAvatar(),
-                'last_reply_rough' => $timeago->inWords(date('d M Y, H:i', $results->data[$n]->topic_reply_date), $language->getTimeLanguage()),
-                'last_reply' => date('d M Y, H:i', $results->data[$n]->topic_reply_date),
+                'last_reply_rough' => $timeago->inWords(date('d M Y, H:i', $nValue->topic_reply_date), $language->getTimeLanguage()),
+                'last_reply' => date('d M Y, H:i', $nValue->topic_reply_date),
                 'last_reply_username' => $last_reply_user->getDisplayname(),
                 'last_reply_mcname' => $last_reply_user->getDisplayname(true),
                 'last_reply_style' => $last_reply_user->getGroupClass(),
                 'label' => $label,
                 'labels' => $labels,
                 'author_link' => $topic_user->getProfileURL(),
-                'link' => URL::build('/forum/topic/' . $results->data[$n]->id . '-' . $forum->titleToURL($results->data[$n]->topic_title)),
+                'link' => URL::build('/forum/topic/' . $nValue->id . '-' . $forum->titleToURL($nValue->topic_title)),
                 'last_reply_link' => $last_reply_user->getProfileURL(),
-                'last_reply_user_id' => Output::getClean($results->data[$n]->topic_last_user)
+                'last_reply_user_id' => Output::getClean($nValue->topic_last_user)
             ];
         }
 

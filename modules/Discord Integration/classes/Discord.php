@@ -52,7 +52,7 @@ class Discord {
         }
 
         if ($result == 'partsuccess') {
-            Log::getInstance()->log(Log::Action('discord/role_set'), Discord::getLanguageTerm('discord_bot_error_partsuccess'));
+            Log::getInstance()->log(Log::Action('discord/role_set'), self::getLanguageTerm('discord_bot_error_partsuccess'));
             return true;
         }
 
@@ -146,17 +146,17 @@ class Discord {
             // This happens when the url is invalid OR the bot is unreachable (down, firewall, etc)
             // OR they have `allow_url_fopen` disabled in php.ini OR the bot returned a new error (they should always check logs)
             return [
-                Discord::getLanguageTerm('discord_communication_error'),
-                Discord::getLanguageTerm('discord_bot_check_logs'),
+                self::getLanguageTerm('discord_communication_error'),
+                self::getLanguageTerm('discord_bot_check_logs'),
             ];
         }
 
         if (in_array($result, self::$_valid_responses)) {
-            return [Discord::getLanguageTerm('discord_bot_error_' . $result)];
+            return [self::getLanguageTerm('discord_bot_error_' . $result)];
         }
 
         // This should never happen
-        return [Discord::getLanguageTerm('discord_unknown_error')];
+        return [self::getLanguageTerm('discord_unknown_error')];
     }
 
     public static function saveRoles($roles): void {

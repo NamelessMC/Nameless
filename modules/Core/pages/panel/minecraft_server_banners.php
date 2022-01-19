@@ -109,7 +109,7 @@ if (!isset($_GET['server']) && !isset($_GET['edit'])) {
 
         $server = $server[0];
 
-        $image_path = join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'banners']);
+        $image_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'banners']);
         $images = scandir($image_path);
         $template_images = [];
 

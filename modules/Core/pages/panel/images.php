@@ -30,33 +30,33 @@ if (isset($_GET['action'])) {
         Redirect::to(URL::build('/panel/core/images'));
         die();
 
-    } else {
-        if ($_GET['action'] == 'reset_banner') {
-            $cache->setCache('backgroundcache');
-            $cache->store('banner_image', '');
+    }
 
-            Session::flash('panel_images_success', $language->get('admin', 'template_banner_reset_successfully'));
-            Redirect::to(URL::build('/panel/core/images'));
-            die();
-        } else {
-            if ($_GET['action'] == 'reset_logo') {
-                $cache->setCache('backgroundcache');
-                $cache->store('logo_image', '');
+    if ($_GET['action'] == 'reset_banner') {
+        $cache->setCache('backgroundcache');
+        $cache->store('banner_image', '');
 
-                Session::flash('panel_images_success', $language->get('admin', 'logo_reset_successfully'));
-                Redirect::to(URL::build('/panel/core/images'));
-                die();
-            } else {
-                if ($_GET['action'] == 'reset_favicon') {
-                    $cache->setCache('backgroundcache');
-                    $cache->store('favicon_image', '');
+        Session::flash('panel_images_success', $language->get('admin', 'template_banner_reset_successfully'));
+        Redirect::to(URL::build('/panel/core/images'));
+        die();
+    }
 
-                    Session::flash('panel_images_success', $language->get('admin', 'favicon_reset_successfully'));
-                    Redirect::to(URL::build('/panel/core/images'));
-                    die();
-                }
-            }
-        }
+    if ($_GET['action'] == 'reset_logo') {
+        $cache->setCache('backgroundcache');
+        $cache->store('logo_image', '');
+
+        Session::flash('panel_images_success', $language->get('admin', 'logo_reset_successfully'));
+        Redirect::to(URL::build('/panel/core/images'));
+        die();
+    }
+
+    if ($_GET['action'] == 'reset_favicon') {
+        $cache->setCache('backgroundcache');
+        $cache->store('favicon_image', '');
+
+        Session::flash('panel_images_success', $language->get('admin', 'favicon_reset_successfully'));
+        Redirect::to(URL::build('/panel/core/images'));
+        die();
     }
 }
 
@@ -98,10 +98,10 @@ if (Input::exists()) {
         Redirect::to(URL::build('/panel/core/images'));
         die();
 
-    } else {
-        // Invalid token
-        $errors = [$language->get('general', 'invalid_token')];
     }
+
+// Invalid token
+    $errors = [$language->get('general', 'invalid_token')];
 }
 
 
@@ -167,7 +167,7 @@ if ($favicon_image == '') {
     $favicon_img = Output::getClean($favicon_image);
 }
 
-$image_path = join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'backgrounds']);
+$image_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'backgrounds']);
 $images = scandir($image_path);
 $template_images = [];
 
@@ -189,7 +189,7 @@ foreach ($images as $image) {
     $n++;
 }
 
-$image_path = join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'template_banners']);
+$image_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'template_banners']);
 $images = scandir($image_path);
 $template_banner_images = [];
 
@@ -209,7 +209,7 @@ foreach ($images as $image) {
     $n++;
 }
 
-$image_path = join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'logos']);
+$image_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'logos']);
 $images = scandir($image_path);
 $logo_images = [];
 
@@ -229,7 +229,7 @@ foreach ($images as $image) {
     $n++;
 }
 
-$image_path = join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'favicons']);
+$image_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'favicons']);
 $images = scandir($image_path);
 $favicon_images = [];
 

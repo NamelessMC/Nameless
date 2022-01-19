@@ -23,7 +23,6 @@
   <div class="ui stackable grid">
     <div class="ui centered row">
       <div class="ui sixteen wide tablet ten wide computer column">
-      
         <div class="ui success icon message">
           <i class="check icon"></i>
           <div class="content">
@@ -31,7 +30,6 @@
             {$AUTHME_INFO}
           </div>
         </div>
-      
         <form class="ui form" action="" method="post" id="form-authme-email">
           <div class="field">
             <label for="inputEmail">{$EMAIL}</label>
@@ -44,7 +42,6 @@
               <input type="text" id="inputNickname" name="nickname" placeholder="{$NICKNAME}">
             </div>
           {/if}
-
           <div class="field">
             <input type="hidden" name="token" value="{$TOKEN}">
             <input type="submit" class="ui primary button" value="{$SUBMIT}">

@@ -13,9 +13,7 @@ try {
         file_put_contents('core/config.php', PHP_EOL . '$CONFIG[\'installed\'] = true;', FILE_APPEND);
     }
 
-    unset($_SESSION['admin_setup']);
-    unset($_SESSION['database_initialized']);
-    unset($_SESSION['site_initialized']);
+    unset($_SESSION['admin_setup'], $_SESSION['database_initialized'], $_SESSION['site_initialized']);
 
 } catch (Exception $e) {
 

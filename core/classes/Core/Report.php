@@ -27,7 +27,7 @@ class Report {
     public function create(array $post = []): array {
         // Insert into database
         if (!$this->_db->insert('reports', $post)) {
-            throw new Exception('There was a problem creating the report.');
+            throw new RuntimeException('There was a problem creating the report.');
         }
 
         $id = $this->_db->lastId();

@@ -359,6 +359,7 @@ $language = [
     'module_disabled' => 'Module disabled.',
     'author' => 'Author:',
     'author_x' => 'Author: {x}', // Don't replace {x}
+    'updated_x' => 'Updated at: {x}', // Don't replace {x}
     'module_outdated' => 'We have detected that this module is intended for Nameless version {x}, but you are running Nameless version {y}', // Don't replace "{x}" or "{y}"
     'find_modules' => 'Find Modules',
     'view_all_modules' => 'View all modules',
@@ -631,6 +632,8 @@ $language = [
     'api_endpoints' => 'API Endpoints',
     'api_endpoints_info' => 'API Endpoints allow Modules to create ways for external applications (such as Minecraft and Discord) to interact with your NamelessMC website. <a href="https://docs.namelessmc.com/development/2.0/api" target="_blank">Check out the API documentation here</a>',
     'route' => 'Route',
+    'method' => 'Method',
+    'transformers' => 'Transformers',
 
     // File uploads
     'drag_files_here' => 'Drag files here to upload.',
@@ -673,7 +676,7 @@ $language = [
     'delete_hook_info' => 'User deletion',
     'report_hook_info' => 'Report creation',
     'ban_hook_info' => 'User banned',
-    'warn_hook_info' => 'User warned',
+    'warning_hook_info' => 'User warned',
 
     // Sitemap
     'unable_to_load_sitemap_file_x' => 'Unable to load sitemap file {x}', // Don't replace {x}

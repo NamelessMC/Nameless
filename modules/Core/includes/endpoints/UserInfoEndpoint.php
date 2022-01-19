@@ -7,17 +7,16 @@
  *
  * @return string JSON Array
  */
-class UserInfoEndpoint extends EndpointBase {
+class UserInfoEndpoint extends KeyAuthEndpoint {
 
     public function __construct() {
-        $this->_route = 'user/info';
-        $this->_route_aliases = ['userInfo'];
+        $this->_route = 'users/{user}';
         $this->_module = 'Core';
         $this->_description = 'Get information about a NamelessMC user';
         $this->_method = 'GET';
     }
 
-    public function execute(Nameless2API $api) {
+    public function execute(Nameless2API $api, User $user): void {
         $discord_enabled = Util::isModuleEnabled('Discord Integration');
 
         if ($discord_enabled) {
@@ -26,48 +25,19 @@ class UserInfoEndpoint extends EndpointBase {
             $query = 'SELECT nl2_users.id, nl2_users.username, nl2_users.language_id, nl2_languages.name as `language`, nl2_users.nickname as displayname, nl2_users.uuid, nl2_users.joined as registered_timestamp, nl2_users.last_online as last_online_timestamp, nl2_users.isbanned as banned, nl2_users.active as validated, nl2_users.user_title as user_title FROM nl2_users LEFT JOIN nl2_languages ON nl2_users.language_id = nl2_languages.id';
         }
 
-        $where = '';
-        $params = [];
-
-        if (isset($_GET['id'])) {
-            $where .= ' WHERE nl2_users.id = ?';
-            array_push($params, $_GET['id']);
-        } else {
-            if (isset($_GET['username'])) {
-                $where .= ' WHERE nl2_users.username = ?';
-                array_push($params, $_GET['username']);
-            } else {
-                if (isset($_GET['uuid'])) {
-                    $where .= ' WHERE nl2_users.uuid = ?';
-                    array_push($params, str_replace('-', '', $_GET['uuid']));
-                } else {
-                    if ($discord_enabled && isset($_GET['discord_id'])) {
-                        $where .= ' WHERE nl2_users.discord_id = ?';
-                        array_push($params, $_GET['discord_id']);
-                    } else {
-                        $api->throwError(6, $api->getLanguage()->get('api', 'invalid_get_contents'));
-                    }
-                }
-            }
-        }
-
         // Ensure the user exists
-        $user = $api->getDb()->selectQuery($query . $where, $params);
+        $results = $api->getDb()->selectQuery($query . ' WHERE nl2_users.id = ?', [(int) $user->data()->id]);
 
-        if (!$user->count()) {
-            $api->returnArray(['exists' => false]);
-        }
-
-        $user = $user->first();
+        $user = $results->first();
         $user->exists = true;
-        $user->id = intval($user->id);
-        $user->language_id = intval($user->language_id);
-        $user->registered_timestamp = intval($user->registered_timestamp);
-        $user->last_online_timestamp = intval($user->last_online_timestamp);
+        $user->id = (int)$user->id;
+        $user->language_id = (int)$user->language_id;
+        $user->registered_timestamp = (int)$user->registered_timestamp;
+        $user->last_online_timestamp = (int)$user->last_online_timestamp;
         $user->banned = (bool)$user->banned;
         $user->validated = (bool)$user->validated;
         if ($discord_enabled && $user->discord_id != null) {
-            $user->discord_id = intval($user->discord_id);
+            $user->discord_id = (int)$user->discord_id;
         }
 
         // Get custom profile fields
@@ -75,7 +45,7 @@ class UserInfoEndpoint extends EndpointBase {
 
         foreach ($custom_profile_fields->results() as $profile_field) {
             $user->profile_fields[$profile_field->id]['name'] = $profile_field->name;
-            $user->profile_fields[$profile_field->id]['type'] = intval($profile_field->type);
+            $user->profile_fields[$profile_field->id]['type'] = (int)$profile_field->type;
             $user->profile_fields[$profile_field->id]['public'] = (bool)$profile_field->public;
             $user->profile_fields[$profile_field->id]['required'] = (bool)$profile_field->required;
             $user->profile_fields[$profile_field->id]['description'] = $profile_field->description;
@@ -88,15 +58,15 @@ class UserInfoEndpoint extends EndpointBase {
         $groups_array = [];
         foreach ($groups as $group) {
             $group_array = [
-                'id' => intval($group->id),
+                'id' => (int)$group->id,
                 'name' => $group->name,
                 'staff' => (bool)$group->staff,
-                'order' => intval($group->order),
+                'order' => (int)$group->order,
                 'ingame_rank_name' => Util::getIngameRankName($group->id),
             ];
 
             if ($discord_enabled) {
-                $group_array['discord_role_id'] = intval(Discord::getDiscordRoleId($api->getDb(), $group->id));
+                $group_array['discord_role_id'] = (int)Discord::getDiscordRoleId($api->getDb(), $group->id);
             }
 
             $groups_array[] = $group_array;

@@ -53,13 +53,6 @@ if (isset($conf) && is_array($conf)) {
     }
 }
 
-$smarty = new Smarty();
-
-if ((defined('DEBUGGING') && DEBUGGING) && Composer\InstalledVersions::isInstalled('maximebf/debugbar')) {
-    define('PHPDEBUGBAR', true);
-    DebugBarHelper::getInstance()->enable($smarty);
-}
-
 // If we're accessing the upgrade script don't initialise further
 if (isset($_GET['route']) && rtrim($_GET['route'], '/') == '/panel/upgrade') {
     $pages = new Pages();
@@ -135,6 +128,13 @@ if ($page != 'install') {
         }
     }
 
+    $smarty = new Smarty();
+
+    if ((defined('DEBUGGING') && DEBUGGING) && Composer\InstalledVersions::isInstalled('maximebf/debugbar')) {
+        define('PHPDEBUGBAR', true);
+        DebugBarHelper::getInstance()->enable($smarty);
+    }
+
     // Configurations
     $configuration = new Configuration($cache);
 
@@ -169,7 +169,7 @@ if ($page != 'install') {
         if (!empty($config_path)) {
             $config_path = explode('/', Config::get('core/path'));
 
-            for ($i = 0; $i < count($config_path); $i++) {
+            for ($i = 0, $iMax = count($config_path); $i < $iMax; $i++) {
                 unset($directories[$i]);
             }
 
@@ -394,7 +394,7 @@ if ($page != 'install') {
         // Admins only beyond this point
         if (!$user->isLoggedIn() || !$user->canViewStaffCP()) {
             // Maintenance mode
-            if (isset($_GET['route']) && (rtrim($_GET['route'], '/') == '/login' || rtrim($_GET['route'], '/') == '/forgot_password' || substr($_GET['route'], 0, 5) == '/api/')) {
+            if (isset($_GET['route']) && (rtrim($_GET['route'], '/') == '/login' || rtrim($_GET['route'], '/') == '/forgot_password' || strpos($_GET['route'], '/api/') === 0)) {
                 // Can continue as normal
             } else {
                 require(ROOT_PATH . '/maintenance.php');
@@ -484,7 +484,7 @@ if ($page != 'install') {
     $pages = new Pages();
 
     // Sort by priority
-    usort($enabled_modules, function ($a, $b) {
+    usort($enabled_modules, static function ($a, $b) {
         return $a['priority'] - $b['priority'];
     });
 

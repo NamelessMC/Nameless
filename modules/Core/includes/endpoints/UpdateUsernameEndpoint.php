@@ -6,32 +6,28 @@
  *
  * @return string JSON Array
  */
-class UpdateUsernameEndpoint extends EndpointBase {
+class UpdateUsernameEndpoint extends KeyAuthEndpoint {
 
     public function __construct() {
-        $this->_route = 'user/update-username';
-        $this->_route_aliases = ['updateUsername'];
+        $this->_route = 'users/{user}/update-username';
         $this->_module = 'Core';
         $this->_description = 'Update a users NamelessMC username to a new username';
         $this->_method = 'POST';
     }
 
-    public function execute(Nameless2API $api) {
-        $api->validateParams($_POST, ['id', 'username']);
-
-        // Ensure user exists
-        $user = $api->getUser('id', $_POST['id']);
+    public function execute(Nameless2API $api, User $user): void {
+        $api->validateParams($_POST, ['username']);
 
         $fields = ['username' => Output::getClean($_POST['username'])];
 
-        if (!Util::getSetting($api->getDb(), 'displaynames')) {
+        if (Util::getSetting($api->getDb(), 'displaynames') == 'false') {
             $fields['nickname'] = Output::getClean($_POST['username']);
         }
 
         try {
             $api->getDb()->update('users', $user->data()->id, $fields);
         } catch (Exception $e) {
-            $api->throwError(24, $api->getLanguage()->get('api', 'unable_to_update_username'));
+            $api->throwError(24, $api->getLanguage()->get('api', 'unable_to_update_username'), null, 500);
         }
 
         $api->returnArray(['message' => $api->getLanguage()->get('api', 'username_updated')]);

@@ -46,7 +46,7 @@ $language = [
     'settings' => 'Nastavenia',
     'general_settings' => 'Všeobecné nastavenia',
     'sitename' => 'Názov stránky',
-    'punished_id' => 'ID postretaného používateľa',
+    'punished_id' => 'ID potrestaného používateľa',
     'punisher_id' => 'ID trestajúceho používateľa',
     'reason' => 'Dôvod banu',
     'ip_ban' => 'IP ban?',
@@ -629,7 +629,7 @@ $language = [
     'existing_rules' => 'Existujúce pravidlá',
     'new_rule' => 'Nové pravidlo',
     'api_endpoints' => 'API koncové body',
-    'api_endpoints_info' => 'API Endpoints umožňujú modulom vytvárať spôsoby, ako môžu externé aplikácie (napríklad Minecraft a Discord) interagovať s vašou NamelessMC webstránkou. <a href="https://docs.namelessmc.com/development/2.0/api" target="_blank">Check out the API documentation here</a>',
+    'api_endpoints_info' => 'API Endpoints umožňujú modulom vytvárať spôsoby, ako môžu externé aplikácie (napríklad Minecraft a Discord) interagovať s vašou NamelessMC webstránkou. <a href="https://docs.namelessmc.com/development/2.0/api" target="_blank">Pozrite si tu API dokumentáciu API</a>',
     'route' => 'Cesta',
 
     // File uploads
@@ -673,7 +673,7 @@ $language = [
     'delete_hook_info' => 'Vymazanie užívateľa',
     'report_hook_info' => 'Nahlásiť tvorbu',
     'ban_hook_info' => 'Používateľ bol zabanovaný',
-    'warn_hook_info' => 'Používateľ bol varovaný',
+    'warning_hook_info' => 'Používateľ bol varovaný',
 
     // Sitemap
     'unable_to_load_sitemap_file_x' => 'Sitemap súbor {x} sa nepodarilo načítať', // Don't replace {x}

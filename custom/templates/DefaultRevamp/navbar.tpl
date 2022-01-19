@@ -115,7 +115,6 @@
         </div>
       </div>
     </div>
-    
   <div class="ui container">
 
     {if isset($NEW_UPDATE)}

@@ -6,17 +6,16 @@
  *
  * @return string JSON Array
  */
-class GroupInfoEndpoint extends EndpointBase {
+class GroupInfoEndpoint extends KeyAuthEndpoint {
 
     public function __construct() {
         $this->_route = 'groups';
-        $this->_route_aliases = ['groupInfo'];
         $this->_module = 'Core';
         $this->_description = 'Lists groups and provides group information';
         $this->_method = 'GET';
     }
 
-    public function execute(Nameless2API $api) {
+    public function execute(Nameless2API $api): void {
         $query = 'SELECT id, name, staff, `order` FROM nl2_groups';
         $where = '';
         $order = ' ORDER BY `order`';
@@ -53,15 +52,15 @@ class GroupInfoEndpoint extends EndpointBase {
         $groups_array = [];
         foreach ($groups as $group) {
             $group_array = [
-                'id' => intval($group->id),
+                'id' => (int)$group->id,
                 'name' => $group->name,
                 'staff' => (bool)$group->staff,
-                'order' => intval($group->order),
+                'order' => (int)$group->order,
                 'ingame_rank_name' => Util::getIngameRankName($group->id)
             ];
 
             if (Util::isModuleEnabled('Discord Integration')) {
-                $group_array['discord_role_id'] = intval(Discord::getDiscordRoleId($api->getDb(), $group->id));
+                $group_array['discord_role_id'] = (int)Discord::getDiscordRoleId($api->getDb(), $group->id);
             }
 
             $groups_array[] = $group_array;

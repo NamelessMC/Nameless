@@ -25,9 +25,9 @@ $forum = new Forum();
 if (!isset($_GET['tid']) || !is_numeric($_GET['tid'])) {
     Redirect::to(URL::build('/forum'));
     die();
-} else {
-    $topic_id = $_GET['tid'];
 }
+
+$topic_id = $_GET['tid'];
 
 // Check topic exists
 $topic = $queries->getWhere('topics', ['id', '=', $topic_id]);

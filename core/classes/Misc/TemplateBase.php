@@ -29,7 +29,7 @@ abstract class TemplateBase {
     /**
      * Handle page loading.
      */
-    public abstract function onPageLoad();
+    abstract public function onPageLoad();
 
     /**
      * Add list of CSS files to be loaded on each page load.

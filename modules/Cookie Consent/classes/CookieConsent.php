@@ -19,7 +19,7 @@ class CookieConsent {
 
         if (
             isset($options['position'])
-            && array_search($options['position'], ['top', 'top_static', 'bottom-left', 'bottom-right'])
+            && in_array($options['position'], ['top', 'top_static', 'bottom-left', 'bottom-right'])
         ) {
             if ($options['position'] == 'top_static') {
                 $script_options['position'] = 'bottom-right';
@@ -48,13 +48,13 @@ class CookieConsent {
 
         if (
             isset($options['theme'])
-            && array_search($options['theme'], ['classic', 'edgeless'])
+            && in_array($options['theme'], ['classic', 'edgeless'])
         ) {
             $script_options['theme'] = $options['theme'];
         }
 
         if (isset($options['type'])
-            && array_search($options['type'], ['opt-out', 'opt-in'])
+            && in_array($options['type'], ['opt-out', 'opt-in'])
         ) {
             $script_options['type'] = $options['type'];
         }
@@ -77,7 +77,7 @@ class CookieConsent {
 
         return str_replace(
             '//"{x}"',
-            substr($json, 1, strlen($json) - 2),
+            substr($json, 1, -1),
             file_get_contents(ROOT_PATH . '/modules/Cookie Consent/assets/js/template.js')
         );
     }

@@ -8,28 +8,20 @@
  * @see Alert
  *
  */
-class GetNotificationsEndpoint extends EndpointBase {
+class GetNotificationsEndpoint extends KeyAuthEndpoint {
 
     public function __construct() {
-        $this->_route = 'user/notifications';
-        $this->_route_aliases = ['getNotifications'];
+        $this->_route = 'users/{user}/notifications';
         $this->_module = 'Core';
         $this->_description = 'Get notifications for a user';
         $this->_method = 'GET';
     }
 
-    public function execute(Nameless2API $api) {
-        // Ensure the user exists
-        if (isset($_GET['user']) && is_numeric($_GET['user'])) {
-            $user = $api->getUser('id', $_GET['user'])->data()->id;
-        } else {
-            $api->throwError(6, $api->getLanguage()->get('api', 'invalid_get_contents'));
-        }
-
+    public function execute(Nameless2API $api, User $user): void {
         $return = ['notifications' => []];
 
         // Get unread alerts
-        $alerts = $api->getDb()->selectQuery('SELECT id, type, url, content_short FROM nl2_alerts WHERE user_id = ? AND `read` = 0', [$user]);
+        $alerts = $api->getDb()->selectQuery('SELECT id, type, url, content_short FROM nl2_alerts WHERE user_id = ? AND `read` = 0', [$user->data()->id]);
         if ($alerts->count()) {
             foreach ($alerts->results() as $result) {
                 $return['notifications'][] = [
@@ -42,7 +34,7 @@ class GetNotificationsEndpoint extends EndpointBase {
         }
 
         // Get unread messages
-        $messages = $api->getDb()->selectQuery('SELECT nl2_private_messages.id, nl2_private_messages.title FROM nl2_private_messages WHERE nl2_private_messages.id IN (SELECT nl2_private_messages_users.pm_id as id FROM nl2_private_messages_users WHERE user_id = ? AND `read` = 0)', [$user]);
+        $messages = $api->getDb()->selectQuery('SELECT nl2_private_messages.id, nl2_private_messages.title FROM nl2_private_messages WHERE nl2_private_messages.id IN (SELECT nl2_private_messages_users.pm_id as id FROM nl2_private_messages_users WHERE user_id = ? AND `read` = 0)', [$user->data()->id]);
         if ($messages->count()) {
             foreach ($messages->results() as $result) {
                 $return['notifications'][] = [

@@ -6,17 +6,16 @@
  *
  * @return string JSON Array
  */
-class VerifyDiscordEndpoint extends EndpointBase {
+class VerifyDiscordEndpoint extends KeyAuthEndpoint {
 
     public function __construct() {
         $this->_route = 'discord/verify';
-        $this->_route_aliases = ['verifyDiscord'];
         $this->_module = 'Discord Integration';
         $this->_description = 'Verify and link a NamelessMC user\'s Discord account using their validation token';
         $this->_method = 'POST';
     }
 
-    public function execute(Nameless2API $api) {
+    public function execute(Nameless2API $api): void {
         $api->validateParams($_POST, ['token', 'discord_id', 'discord_username']);
 
         $token = Output::getClean($_POST['token']);
@@ -38,7 +37,7 @@ class VerifyDiscordEndpoint extends EndpointBase {
             $api->getDb()->update('users', $id, ['discord_username' => $discord_username]);
             $api->getDb()->delete('discord_verifications', ['user_id', '=', $id]);
         } catch (Exception $e) {
-            $api->throwError(29, Discord::getLanguageTerm('unable_to_set_discord_id'), $e->getMessage());
+            $api->throwError(29, Discord::getLanguageTerm('unable_to_set_discord_id'), $e->getMessage(), 500);
         }
 
         // attempt to update their Discord roles

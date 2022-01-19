@@ -21,7 +21,7 @@ class Config {
     public static function get(string $path = null) {
         if ($path) {
             if (!isset($GLOBALS['config'])) {
-                throw new Exception('Config unavailable. Please refresh the page.');
+                throw new RuntimeException('Config unavailable. Please refresh the page.');
             }
 
             $config = $GLOBALS['config'];

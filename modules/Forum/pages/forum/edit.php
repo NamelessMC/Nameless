@@ -33,14 +33,9 @@ require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
 $forum = new Forum();
 $mentionsParser = new MentionsParser();
 
-if (isset($_GET['pid']) && isset($_GET['tid'])) {
-    if (is_numeric($_GET['pid']) && is_numeric($_GET['tid'])) {
-        $post_id = $_GET['pid'];
-        $topic_id = $_GET['tid'];
-    } else {
-        Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
-        die();
-    }
+if (isset($_GET['pid'], $_GET['tid']) && is_numeric($_GET['pid']) && is_numeric($_GET['tid'])) {
+    $post_id = $_GET['pid'];
+    $topic_id = $_GET['tid'];
 } else {
     Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
     die();
@@ -193,10 +188,10 @@ if (Input::exists()) {
             Redirect::to(URL::build('/forum/topic/' . $topic_id, 'pid=' . $post_id));
             die();
 
-        } else {
-            // Error handling
-            $errors = $validation->errors();
         }
+
+// Error handling
+        $errors = $validation->errors();
     } else {
         // Bad token
         $errors = [$language->get('general', 'invalid_token')];
@@ -212,7 +207,7 @@ if (isset($errors)) {
 
 $smarty->assign('EDITING_POST', $forum_language->get('forum', 'edit_post'));
 
-if (isset($edit_title) && isset($post_labels)) {
+if (isset($edit_title, $post_labels)) {
     $smarty->assign('EDITING_TOPIC', true);
 
     $smarty->assign('TOPIC_TITLE', $post_title);
@@ -245,9 +240,9 @@ if (isset($edit_title) && isset($post_labels)) {
                 $label_html = $queries->getWhere('forums_labels', ['id', '=', $label->label]);
                 if (!count($label_html)) {
                     continue;
-                } else {
-                    $label_html = str_replace('{x}', Output::getClean($label->name), Output::getPurified($label_html[0]->html));
                 }
+
+                $label_html = str_replace('{x}', Output::getClean($label->name), Output::getPurified($label_html[0]->html));
 
                 $labels[] = [
                     'id' => $label->id,

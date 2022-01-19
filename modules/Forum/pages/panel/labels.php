@@ -218,9 +218,9 @@ if (!isset($_GET['action'])) {
                 // No, it doesn't exist
                 Redirect::to(URL::build('/panel/forums/labels'));
                 die();
-            } else {
-                $label = $label[0];
             }
+
+            $label = $label[0];
 
             // Deal with input
             if (Input::exists()) {
@@ -496,9 +496,9 @@ if (!isset($_GET['action'])) {
                 // No, it doesn't exist
                 Redirect::to(URL::build('/panel/forums/labels/', 'action=types'));
                 die();
-            } else {
-                $label = $label[0];
             }
+
+            $label = $label[0];
 
             // Deal with input
             if (Input::exists()) {

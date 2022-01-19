@@ -26,7 +26,7 @@ if (isset($_GET['order']) && count($_GET['order'])) {
     $orderBy = [];
 
     for ($i = 0, $j = count($_GET['order']); $i < $j; $i++) {
-        $column = intval($_GET['order'][$i]['column']);
+        $column = (int)$_GET['order'][$i]['column'];
         $requestColumn = $_GET['columns'][$column];
 
         $column = array_search($requestColumn['data'], $sortColumns);
@@ -50,7 +50,7 @@ if (isset($_GET['order']) && count($_GET['order'])) {
 }
 
 if (isset($_GET['start']) && $_GET['length'] != -1) {
-    $limit .= ' LIMIT ' . intval($_GET['start']) . ', ' . intval($_GET['length']);
+    $limit .= ' LIMIT ' . (int)$_GET['start'] . ', ' . (int)$_GET['length'];
 } else {
     // default 10
     $limit .= ' LIMIT 10';
@@ -82,7 +82,7 @@ if (count($results)) {
 
 echo json_encode(
     [
-        'draw' => isset($_GET['draw']) ? intval($_GET['draw']) : 0,
+        'draw' => isset($_GET['draw']) ? (int)$_GET['draw'] : 0,
         'recordsTotal' => $total,
         'recordsFiltered' => $totalFiltered ?? $total,
         'data' => $data

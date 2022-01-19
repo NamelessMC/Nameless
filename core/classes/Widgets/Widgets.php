@@ -128,7 +128,7 @@ class Widgets {
     public function getAll(): iterable {
         $widgets = $this->_widgets;
 
-        uasort($widgets, function ($a, $b) {
+        uasort($widgets, static function ($a, $b) {
             return $a->getOrder() - $b->getOrder();
         });
 

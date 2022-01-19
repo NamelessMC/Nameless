@@ -23,7 +23,7 @@ class NamelessMCGroupSyncInjector implements GroupSyncInjector {
     }
 
     public function getNotEnabledMessage(Language $language): string {
-        throw new Exception(self::class . ' should always be enabled.');
+        throw new RuntimeException(self::class . ' should always be enabled.');
     }
 
     public function getSelectionOptions(): array {

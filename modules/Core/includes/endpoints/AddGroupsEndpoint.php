@@ -6,22 +6,16 @@
  *
  * @return string JSON Array
  */
-class AddGroupsEndpoint extends EndpointBase {
+class AddGroupsEndpoint extends KeyAuthEndpoint {
 
     public function __construct() {
-        $this->_route = 'user/groups/add';
-        $this->_route_aliases = ['addGroups'];
+        $this->_route = 'users/{user}/groups/add';
         $this->_module = 'Core';
         $this->_description = 'Add groups to user';
         $this->_method = 'POST';
     }
 
-    public function execute(Nameless2API $api) {
-        $api->validateParams($_POST, ['user', 'groups']);
-
-        // Ensure user exists
-        $user = $api->getUser('id', $_POST['user']);
-
+    public function execute(Nameless2API $api, User $user): void {
         $groups = $_POST['groups'];
         if ($groups == null || !count($groups)) {
             $api->throwError(17, $api->getLanguage()->get('api', 'unable_to_find_group'), 'No groups provided');

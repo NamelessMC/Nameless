@@ -316,10 +316,10 @@ if (Input::exists()) {
                                     Redirect::to(URL::build('/register', 'step=2'));
                                     die();
 
-                                } else {
-                                    // Passwords don't match
-                                    $errors[] = $language->get('user', 'incorrect_details');
                                 }
+
+                                // Passwords don't match
+                                $errors[] = $language->get('user', 'incorrect_details');
 
                             }
 

@@ -16,9 +16,9 @@ if ($user->isLoggedIn()) {
     if (!isset($_GET['tid']) || !is_numeric($_GET['tid'])) {
         Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
         die();
-    } else {
-        $topic_id = $_GET['tid'];
     }
+
+    $topic_id = $_GET['tid'];
 
     // Check topic exists and get forum ID
     $topic = $queries->getWhere('topics', ['id', '=', $topic_id]);

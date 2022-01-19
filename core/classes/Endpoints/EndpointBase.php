@@ -10,10 +10,9 @@
  *  EndpointsBase class
  */
 
-abstract class EndpointBase {
+class EndpointBase {
 
     protected string $_route;
-    protected array $_route_aliases = [];
     protected string $_module;
     protected string $_description;
     protected string $_method;
@@ -23,17 +22,8 @@ abstract class EndpointBase {
      *
      * @return string Endpoint's route.
      */
-    public function getRoute(): string {
+    final public function getRoute(): string {
         return $this->_route;
-    }
-
-    /**
-     * Get route aliases of this Endpoint - for backwards compatibility.
-     *
-     * @return array Endpoint's route aliases.
-     */
-    public function getRouteAliases(): array {
-        return $this->_route_aliases;
     }
 
     /**
@@ -41,7 +31,7 @@ abstract class EndpointBase {
      *
      * @return string Endpoint's modules name.
      */
-    public function getModule(): string {
+    final public function getModule(): string {
         return $this->_module;
     }
 
@@ -50,7 +40,7 @@ abstract class EndpointBase {
      *
      * @return string Endpoint's description.
      */
-    public function getDescription(): string {
+    final public function getDescription(): string {
         return $this->_description;
     }
 
@@ -59,15 +49,41 @@ abstract class EndpointBase {
      *
      * @return string Endpoint's method.
      */
-    public function getMethod(): string {
+    final public function getMethod(): string {
         return $this->_method;
     }
 
     /**
-     * Execute this Endpoint.
+     * Get the authentication type of this Endpoint.
+     * Determined by seeing what class it extends.
+     * Used to display in the API Endpoints StaffCP page.
      *
-     * @param Nameless2API $api Instance of API class to use.
+     * @return string The auth type.
      */
-    public abstract function execute(Nameless2API $api);
+    final public function getAuthType(): string {
+        switch (get_parent_class($this)) {
+            case CustomAuthEndpoint::class:
+                return 'Custom';
+            case KeyAuthEndpoint::class:
+                return 'API Key';
+            case NoAuthEndpoint::class:
+                return 'None';
+            default:
+                return 'Unknown';
+        }
+    }
 
+    /**
+     * Determine if this request is authorized to use this Endpoint.
+     * Implementations:
+     * - NoAuthEndpoint to return true
+     * - KeyAuthEndpoint to return true if the API key in header is valid
+     * - CustomAuthEndpoint by being implemented on each Endpoint class via the abstract `authorise()` method.
+     *
+     * @param Nameless2API $api
+     * @return bool
+     */
+    public function isAuthorised(Nameless2API $api): bool {
+        return false;
+    }
 }

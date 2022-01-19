@@ -7,17 +7,16 @@
  *
  * @return string JSON Array
  */
-class RegisterEndpoint extends EndpointBase {
+class RegisterEndpoint extends KeyAuthEndpoint {
 
     public function __construct() {
-        $this->_route = 'user/register';
-        $this->_route_aliases = ['register'];
+        $this->_route = 'users/register';
         $this->_module = 'Core';
         $this->_description = 'Register a new user, and send email verification if needed.';
         $this->_method = 'POST';
     }
 
-    public function execute(Nameless2API $api) {
+    public function execute(Nameless2API $api): void {
         $params = ['username', 'email'];
 
         $minecraft_integration = Util::getSetting($api->getDb(), 'mc_integration');
@@ -182,7 +181,7 @@ class RegisterEndpoint extends EndpointBase {
      * @see Nameless2API::register()
      *
      */
-    private function sendRegistrationEmail(Nameless2API $api, string $username, string $uuid, string $email) {
+    private function sendRegistrationEmail(Nameless2API $api, string $username, string $uuid, string $email): void {
         // Generate random code
         $code = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 60);
 
@@ -193,64 +192,21 @@ class RegisterEndpoint extends EndpointBase {
         // Get link + template
         $link = Util::getSelfURL() . ltrim(URL::build('/complete_signup/', 'c=' . $code), '/');
 
-        $html = Email::formatEmail('register', $api->getLanguage());
+        $sent = Email::send(
+            ['email' => Output::getClean($email), 'name' => Output::getClean($username)],
+            SITE_NAME . ' - ' . $api->getLanguage()->get('emails', 'register_subject'),
+            str_replace('[Link]', $link, Email::formatEmail('register', $api->getLanguage()))
+        );
 
-        if (Util::getSetting($api->getDb(), 'phpmailer')) {
-            // PHP Mailer
-            $email = [
-                'to' => ['email' => Output::getClean($email), 'name' => Output::getClean($username)],
-                'subject' => SITE_NAME . ' - ' . $api->getLanguage()->get('emails', 'register_subject'),
-                'message' => str_replace('[Link]', $link, $html)
-            ];
+        if (isset($sent['error'])) {
+            $api->getDb()->insert('email_errors', [
+                    'type' => Email::API_REGISTRATION,
+                    'content' => $sent['error'],
+                    'at' => date('U'),
+                    'user_id' => $user_id
+            ]);
 
-            $sent = Email::send($email, 'mailer');
-
-            if (isset($sent['error'])) {
-                // Error, log it
-                $api->getDb()->insert('email_errors', [
-                        'type' => 4, // 4 = API registration email
-                        'content' => $sent['error'],
-                        'at' => date('U'),
-                        'user_id' => $user_id
-                    ]
-                );
-
-                $api->throwError(14, $api->getLanguage()->get('api', 'unable_to_send_registration_email'));
-            }
-        } else {
-            // PHP mail function
-            $siteemail = Util::getSetting($api->getDb(), 'site_email');
-
-            $to = $email;
-            $subject = SITE_NAME . ' - ' . $api->getLanguage()->get('emails', 'register_subject');
-
-            $headers = 'From: ' . $siteemail . "\r\n" .
-                'Reply-To: ' . $siteemail . "\r\n" .
-                'X-Mailer: PHP/' . phpversion() . "\r\n" .
-                'MIME-Version: 1.0' . "\r\n" .
-                'Content-type: text/html; charset=UTF-8' . "\r\n";
-
-            $email = [
-                'to' => $to,
-                'subject' => $subject,
-                'message' => str_replace('[Link]', $link, $html),
-                'headers' => $headers
-            ];
-
-            $sent = Email::send($email);
-
-            if (isset($sent['error'])) {
-                // Error, log it
-                $api->getDb()->insert('email_errors', [
-                        'type' => 4,
-                        'content' => $sent['error'],
-                        'at' => date('U'),
-                        'user_id' => $user_id
-                    ]
-                );
-
-                $api->throwError(14, $api->getLanguage()->get('api', 'unable_to_send_registration_email'));
-            }
+            $api->throwError(14, $api->getLanguage()->get('api', 'unable_to_send_registration_email'));
         }
 
         $user = new User();
@@ -261,8 +217,7 @@ class RegisterEndpoint extends EndpointBase {
                 'avatar_url' => $user->getAvatar(128, true),
                 'url' => Util::getSelfURL() . ltrim(URL::build('/profile/' . Output::getClean($username)), '/'),
                 'language' => $api->getLanguage()
-            ]
-        );
+        ]);
 
         $api->returnArray(['message' => $api->getLanguage()->get('api', 'finish_registration_email')]);
     }

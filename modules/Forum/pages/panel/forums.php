@@ -171,9 +171,9 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                     if (!count($forum)) {
                         Redirect::to(URL::build('/panel/forums'));
                         die();
-                    } else {
-                        $forum = $forum[0];
                     }
+
+                    $forum = $forum[0];
 
                     // Forums only
                     if ($forum->forum_type == 'category') {
@@ -218,9 +218,9 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
 
                                     Redirect::to(URL::build('/panel/forums/', 'forum=' . $forum->id));
                                     die();
-                                } else {
-                                    $errors[] = $forum_language->get('forum', 'invalid_redirect_url');
                                 }
+
+                                $errors[] = $forum_language->get('forum', 'invalid_redirect_url');
                             } catch (Exception $e) {
                                 $errors[] = $e->getMessage();
                             }
@@ -320,7 +320,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                         }
 
                         try {
-                            if (isset($previous_fid) && isset($previous_f_order)) {
+                            if (isset($previous_fid, $previous_f_order)) {
                                 $queries->update('forums', $forum_id, [
                                     'forum_order' => $previous_f_order
                                 ]);
@@ -334,33 +334,33 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
 
                         Redirect::to(URL::build('/panel/forums'));
                         die();
-                    } else {
-                        if ($dir == 'down') {
-                            $n = 0;
-                            foreach ($previous_forums as $previous_forum) {
-                                if ($previous_forum->id == $_GET['fid']) {
-                                    $previous_fid = $previous_forums[$n + 1]->id;
-                                    $previous_f_order = $previous_forums[$n + 1]->forum_order;
-                                    break;
-                                }
-                                $n++;
-                            }
-                            try {
-                                if (isset($previous_fid) && isset($previous_f_order)) {
-                                    $queries->update('forums', $forum_id, [
-                                        'forum_order' => $previous_f_order
-                                    ]);
-                                    $queries->update('forums', $previous_fid, [
-                                        'forum_order' => $previous_f_order - 1
-                                    ]);
-                                }
-                            } catch (Exception $e) {
-                                $errors = [$e->getMessage()];
-                            }
+                    }
 
-                            Redirect::to(URL::build('/panel/forums'));
-                            die();
+                    if ($dir == 'down') {
+                        $n = 0;
+                        foreach ($previous_forums as $previous_forum) {
+                            if ($previous_forum->id == $_GET['fid']) {
+                                $previous_fid = $previous_forums[$n + 1]->id;
+                                $previous_f_order = $previous_forums[$n + 1]->forum_order;
+                                break;
+                            }
+                            $n++;
                         }
+                        try {
+                            if (isset($previous_fid, $previous_f_order)) {
+                                $queries->update('forums', $forum_id, [
+                                    'forum_order' => $previous_f_order
+                                ]);
+                                $queries->update('forums', $previous_fid, [
+                                    'forum_order' => $previous_f_order - 1
+                                ]);
+                            }
+                        } catch (Exception $e) {
+                            $errors = [$e->getMessage()];
+                        }
+
+                        Redirect::to(URL::build('/panel/forums'));
+                        die();
                     }
                 } else {
                     if ($_GET['dir'] == 'drag') {
@@ -379,10 +379,10 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                         }
 
                         die('Complete');
-                    } else {
-                        echo $forum_language->get('forum', 'invalid_action') . ' - <a href="' . URL::build('/panel/forums') . '">' . $language->get('general', 'back') . '</a>';
-                        die();
                     }
+
+                    echo $forum_language->get('forum', 'invalid_action') . ' - <a href="' . URL::build('/panel/forums') . '">' . $language->get('general', 'back') . '</a>';
+                    die();
                 }
                 break;
 
@@ -482,9 +482,9 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
             // Editing forum
             if (!is_numeric($_GET['forum'])) {
                 die();
-            } else {
-                $forum = $queries->getWhere('forums', ['id', '=', $_GET['forum']]);
             }
+
+            $forum = $queries->getWhere('forums', ['id', '=', $_GET['forum']]);
 
             if (!count($forum)) {
                 Redirect::to(URL::build('/panel/forums'));
@@ -698,9 +698,9 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                             Session::flash('admin_forums', $forum_language->get('forum', 'forum_updated_successfully'));
                             Redirect::to(URL::build('/panel/forums'));
                             die();
-                        } else {
-                            $errors = $validation->errors();
                         }
+
+                        $errors = $validation->errors();
                     }
                 } else {
                     $errors[] = $language->get('general', 'invalid_token');

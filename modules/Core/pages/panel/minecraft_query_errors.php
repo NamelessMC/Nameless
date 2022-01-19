@@ -36,9 +36,9 @@ if (!isset($_GET['id'])) {
             if (!is_numeric($_GET['p'])) {
                 Redirect::to(URL::build('/panel/minecraft/query_errors'));
                 die();
-            } else {
-                $p = $_GET['p'];
             }
+
+            $p = $_GET['p'];
 
         } else {
             $p = 1;

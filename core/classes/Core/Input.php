@@ -41,10 +41,10 @@ class Input {
     public static function get(string $item) {
         if (isset($_POST[$item])) {
             return $_POST[$item];
-        } else {
-            if (isset($_GET[$item])) {
-                return $_GET[$item];
-            }
+        }
+
+        if (isset($_GET[$item])) {
+            return $_GET[$item];
         }
 
         return '';

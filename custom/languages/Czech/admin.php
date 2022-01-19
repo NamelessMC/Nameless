@@ -202,7 +202,7 @@ $language = [
     'google_analytics' => 'Google Analytics',
     'google_analytics_help' => 'Přidejte na váš web Google Analytics pro sledování návštěvníků a pro statistiky. Pro použití této funkce si budete muset vytvořit účet Google Analytics. Zadejte ID měření služby Google Analytics. ID vypadá jako UA-XXXXA-X a lze jej nalézt v informacích o vašem účtu nebo ve sledovacím kódu poskytnutým Googlem.',
     'sitemap' => 'Sitemap',
-    'seo_settings_updated_successfully' => 'SEO settings updated successfully.',
+    'seo_settings_updated_successfully' => 'Nastavení SEO úspěšně aktualizována.',
 
     // Reactions
     'icon' => 'Ikona',
@@ -369,7 +369,7 @@ $language = [
     'panel_templates' => 'Šablony panelu',
     'view_all_panel_templates' => 'Zobrazit všechny šablony panelu',
     'template_outdated' => 'Zjistili jsme, že tato šablona je učena pro verzi Nameless {x}, zatímco vy běžíte na verzi {y}', // Don't replace "{x}" or "{y}"
-    'template_not_supported' => 'Od verze NamelessMC 2.0.0-pr8 není podporována šablona Default. Pro správnou funkčnost webu prosím použijte podporovanou šablonu.',
+    'template_not_supported' => 'Od verze NamelessMC 2.0.0-pr8 již není podporována šablona Default. Pro správnou funkčnost webu prosím použijte podporovanou šablonu.',
     'active' => 'Aktivní',
     'deactivate' => 'Zakázat',
     'activate' => 'Povolit',
@@ -566,7 +566,7 @@ $language = [
     'page_target' => 'Otevřít stránku v nové kartě?',
     'unsafe_html' => 'Povolit nebezpečné HTML?',
     'unsafe_html_warning' => 'Povolením této možnosti lze na stránce použít jakékoli HTML, včetně potenciálně nebezpečného JavaScriptu. Tuto možnost povolte pouze pokud jste si jistí, že je vaše HTML bezpečné.',
-    'include_in_sitemap' => 'Zahrnout do souboru Sitemap?',
+    'include_in_sitemap' => 'Zahrnout do Sitemap?',
     'sitemap_link' => 'Odkaz na Sitemap:',
     'basic_page' => 'Základní stránka?',
     'page_permissions' => 'Oprávnění stránky',
@@ -726,6 +726,6 @@ $language = [
     'background_colour_required' => 'Je vyžadována barva pozadí',
     'text_colour_required' => 'Je vyžadována barva textu',
     'no_announcements' => 'Zatím jste nevytvořili žádná oznámení',
-    'announcement_order' => 'Order',
-    'announcement_hook_info' => 'Announcement creation',
+    'announcement_order' => 'Pořadí',
+    'announcement_hook_info' => 'Tvorba oznámení',
 ];
