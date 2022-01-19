@@ -36,27 +36,25 @@ if (isset($_GET['provider'], $_GET['code'])) {
 
         $provider_id = $oauth_user[OAuth::getInstance()->getIdName($provider_name)];
         if (!OAuth::getInstance()->userExistsByProviderId($provider_name, $provider_id)) {
-            Session::flash('oauth_error', 'No user exists with that provider ID');
+            Session::flash('oauth_error', 'No user found with that ' . ucfirst($provider_name) . ' account.');
             Redirect::to(URL::build('/login'));
             die();
         }
 
-        $oauth_existing_user = OAuth::getInstance()->getUserIdFromProviderId($provider_name, $provider_id);
-
-        $user = new User();
-
-        if ($user->login($oauth_existing_user, '', true, 'oauth')) {
+        if ((new User())->login(
+            OAuth::getInstance()->getUserIdFromProviderId($provider_name, $provider_id),
+            '',
+            true,
+            'oauth')
+        ) {
             Log::getInstance()->log(Log::Action('user/login'));
 
-            // Redirect to a certain page?
-            if (isset($_SESSION['last_page']) && substr($_SESSION['last_page'], -1) != '=') {
-                Redirect::to($_SESSION['last_page']);
-            } else {
-                Session::flash('home', $language->get('user', 'successful_login'));
-                Redirect::to(URL::build('/'));
-            }
+            Session::flash('home', "You have logged in with your " . ucfirst($provider_name) . " account.");
+            Redirect::to(URL::build('/'));
             die();
         }
+    } else {
+        throw new RuntimeException("Invalid provider {$_GET['provider']}");
     }
 }
 

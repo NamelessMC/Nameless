@@ -33,7 +33,7 @@ if (isset($_GET['provider'], $_GET['code'])) {
         $oauth_user_provider_id = $oauth_user[OAuth::getInstance()->getIdName($provider_name)];
 
         if (OAuth::getInstance()->userExistsByProviderId($provider_name, $oauth_user_provider_id)) {
-            Session::flash('oauth_error', "Another NamelessMC user is already linked to that $provider_name account.");
+            Session::flash('oauth_error', 'Another NamelessMC user is already linked to that ' . ucfirst($provider_name) . ' account.');
             Redirect::to(URL::build('/user/oauth'));
             die();
         }
@@ -67,8 +67,15 @@ foreach ($user_providers as $user_provider) {
 
 if (Session::exists('oauth_success')) {
     $smarty->assign([
-        'SUCCESS' => 'Success',
+        'SUCCESS' => $language->get('general', 'success'),
         'SUCCESS_MESSAGE' => Session::flash('oauth_success'),
+    ]);
+}
+
+if (Session::exists('oauth_error')) {
+    $smarty->assign([
+        'ERROR' => $language->get('general', 'error'),
+        'ERROR_MESSAGE' => Session::flash('oauth_error'),
     ]);
 }
 

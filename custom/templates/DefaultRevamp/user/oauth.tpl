@@ -24,6 +24,15 @@
                         </div>
                     </div>
                 {/if}
+                {if isset($ERROR_MESSAGE)}
+                    <div class="ui negative icon message">
+                        <i class="check icon"></i>
+                        <div class="content">
+                            <div class="header">{$ERROR}</div>
+                            {$ERROR_MESSAGE}
+                        </div>
+                    </div>
+                {/if}
                 <div class="ui middle aligned relaxed selection list">
                     {nocache}
                         <table class="ui striped table">

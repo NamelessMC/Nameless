@@ -78,7 +78,7 @@
                                             {/if}
                                         </td>
 
-                                        <td>
+                                        <td class="text-right">
                                             {if isset($USER_OAUTH_PROVIDERS[$provider_name])}
                                                 <button class="btn btn-danger" onclick="showDeleteModal('{$provider_name}')">Unlink</button>
                                             {else}
