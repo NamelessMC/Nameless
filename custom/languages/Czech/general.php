@@ -10,10 +10,11 @@
  *  Czech Language - General terms
  */
 
-$language = [
+$language = array (
     /*
      *  General terms
      */
+    'quick_action' => 'Akce',
     'help' => 'Podpora',
     'submit' => 'Potvrdit',
     'register' => 'Zaregistrovat se',
@@ -54,8 +55,6 @@ $language = [
     'x_new_messages' => 'Máte {x} nových zpráv', // Don't replace {x}
     'loading' => 'Načítání...',
     'report' => 'Nahlásit',
-    'reported_by' => 'Nahlášen uživatelem {x}',
-    'view_report' => 'Zobrazit nahlášení',
     'page_loaded_in' => 'Stránka se načetla za {x}s', // Don't replace {x}, time unit is seconds
     'page_x' => 'Strana {x}',
     'browse' => 'Prohlížet',
@@ -72,7 +71,7 @@ $language = [
     'invalid_timezone' => 'Zadané časové pásmo je neplatné',
     'link' => 'Propojit',
     'unlink' => 'Odpojit',
-    'leaderboards' => 'Žebříčky',
+    'leaderboards' => 'Leaderboards',
 
     /*
      *  Contact form
@@ -96,7 +95,7 @@ $language = [
     /*
      *  Footer
      */
-    'links' => 'Odkazy',
+    'links' => 'Links',
 
     /*
      *  Homepage
@@ -164,4 +163,4 @@ $language = [
      *  Custom page redirect
      */
     'redirecting_message' => 'Přesměrování...<br />Pokud nebudete přesměrováni automaticky, klikněte prosím  <a href="{x}" rel="nofollow noopener">sem</a>.' // Don't replace {x} which is the redirect URL
-];
+);

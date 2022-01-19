@@ -6,27 +6,28 @@ if (!$user->isLoggedIn() || !$user->hasPermission('admincp.users')) {
     die(json_encode('Unauthenticated'));
 }
 
-$sortColumns = ['username' => 'username', 'nickname' => 'nickname', 'joined' => 'joined'];
+$sortColumns = ['username' => 'username', 'nickname' => 'nickname', 'joined' => 'joined', 'quick_action' => 'quick_action'];
 
 $db = DB::getInstance();
 
-$total = $db->selectQuery('SELECT COUNT(*) as `total` FROM nl2_users', [])->first()->total;
-$query = 'SELECT nl2_users.id as id, nl2_users.username as username, nl2_users.nickname as nickname, nl2_users.joined as joined FROM nl2_users';
+$total = $db->query('SELECT COUNT(*) as `total` FROM nl2_users', array())->first()->total;
+$query = 'SELECT nl2_users.id as id, nl2_users.username as username, nl2_users.nickname as nickname, nl2_users.joined as joined, nl2_users.quick_action as quick_action FROM nl2_users';
 $where = '';
 $order = '';
 $limit = '';
-$params = [];
+$params = array();
 
 if (isset($_GET['search']) && $_GET['search']['value'] != '') {
     $where .= ' WHERE username LIKE ? OR nickname LIKE ? OR email LIKE ?';
     array_push($params, '%' . $_GET['search']['value'] . '%', '%' . $_GET['search']['value'] . '%', '%' . $_GET['search']['value'] . '%');
 }
 
+
 if (isset($_GET['order']) && count($_GET['order'])) {
-    $orderBy = [];
+    $orderBy = array();
 
     for ($i = 0, $j = count($_GET['order']); $i < $j; $i++) {
-        $column = (int)$_GET['order'][$i]['column'];
+        $column = intval($_GET['order'][$i]['column']);
         $requestColumn = $_GET['columns'][$column];
 
         $column = array_search($requestColumn['data'], $sortColumns);
@@ -50,19 +51,20 @@ if (isset($_GET['order']) && count($_GET['order'])) {
 }
 
 if (isset($_GET['start']) && $_GET['length'] != -1) {
-    $limit .= ' LIMIT ' . (int)$_GET['start'] . ', ' . (int)$_GET['length'];
+    $limit .= ' LIMIT ' . intval($_GET['start']) . ', ' . intval($_GET['length']);
 } else {
     // default 10
     $limit .= ' LIMIT 10';
 }
 
 if (strlen($where) > 0) {
-    $totalFiltered = $db->selectQuery('SELECT COUNT(*) as `total` FROM nl2_users' . $where, $params)->first()->total;
+    $totalFiltered = $db->query('SELECT COUNT(*) as `total` FROM nl2_users' . $where, $params)->first()->total;
 }
 
-$results = $db->selectQuery($query . $where . $order . $limit, $params)->results();
-$data = [];
-$groups = [];
+$results = $db->query($query . $where . $order . $limit, $params)->results();
+$data = array();
+$groups = array();
+$quick_action = array();
 
 if (count($results)) {
     foreach ($results as $result) {
@@ -73,19 +75,27 @@ if (count($results)) {
         $obj->joined = date('d M Y', $result->joined);
 
         // Get group
-        $group = DB::getInstance()->selectQuery('SELECT `name` FROM nl2_groups g JOIN nl2_users_groups ug ON g.id = ug.group_id WHERE ug.user_id = ? ORDER BY g.order ASC LIMIT 1', [$result->id]);
+        $group = DB::getInstance()->query('SELECT `name` FROM nl2_groups g JOIN nl2_users_groups ug ON g.id = ug.group_id WHERE ug.user_id = ? ORDER BY g.order ASC LIMIT 1', array($result->id));
         $obj->groupName = $group->first()->name;
 
+        $obj->quick_action = array('
+        <a href="'.URL::build('/panel/user/' . Output::getClean($result->id)) .'" class="badge badge-info"> <i class="fas fa-info"> </i> 
+        </a><a href="edit/?id='. $result->id .'" class="badge badge-warning"> <i class="fas fa-pencil-alt"> </i> </a>
+        <a href="edit/?id='. $result->id .'" onclick="ShowDeleteModal()" class="badge badge-danger"> <i class="fas fa-times-circle"></i> </a>
+        ');
+
+        //get Data
         $data[] = $obj;
     }
 }
 
+
 echo json_encode(
-    [
-        'draw' => isset($_GET['draw']) ? (int)$_GET['draw'] : 0,
+    array(
+        'draw' => isset($_GET['draw']) ? intval($_GET['draw']) : 0,
         'recordsTotal' => $total,
-        'recordsFiltered' => $totalFiltered ?? $total,
-        'data' => $data
-    ],
+        'recordsFiltered' => isset($totalFiltered) ? $totalFiltered : $total,
+        'data' => $data,
+    ),
     JSON_PRETTY_PRINT
 );

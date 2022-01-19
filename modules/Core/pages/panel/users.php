@@ -9,19 +9,19 @@
  *  Panel users page
  */
 
-if (!$user->handlePanelPageLoad('admincp.users')) {
+if(!$user->handlePanelPageLoad('admincp.users')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }
 
-const PAGE = 'panel';
-const PARENT_PAGE = 'users';
-const PANEL_PAGE = 'users';
+define('PAGE', 'panel');
+define('PARENT_PAGE', 'users');
+define('PANEL_PAGE', 'users');
 $page_title = $language->get('admin', 'users');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
 
 if (Session::exists('users_session')) {
     $success = Session::flash('users_session');
@@ -29,47 +29,51 @@ if (Session::exists('users_session')) {
 
 if (isset($success)) {
     $smarty->assign(
-        [
+        array(
             'SUCCESS' => $success,
             'SUCCESS_TITLE' => $language->get('general', 'success')
-        ]
+        )
     );
 }
 
 if (isset($errors) && count($errors)) {
     $smarty->assign(
-        [
+        array(
             'ERRORS' => $errors,
             'ERRORS_TITLE' => $language->get('general', 'error')
-        ]
+        )
     );
 }
 
-$output = [];
+
+
+
+$output = array();
 if (!defined('PANEL_TEMPLATE_STAFF_USERS_AJAX')) {
     // Get all users
-    $users = $queries->getWhere('users', ['id', '<>', 0]);
+    $users = $queries->getWhere('users', array('id', '<>', 0));
     foreach ($users as $item) {
         $target_user = new User($item->id);
 
-        $output[] = [
+        $output[] = array(
             'id' => Output::getClean($item->id),
             'username' => $target_user->getDisplayname(true),
             'nickname' => $target_user->getDisplayname(),
-            'avatar' => $target_user->getAvatar(),
+            'avatar' => $target_user->getAvatar(128),
             'style' => $target_user->getGroupClass(),
             'profile' => $target_user->getProfileURL(),
             'panel_profile' => URL::build('/panel/user/' . Output::getClean($item->id . '-' . $item->username)),
             'primary_group' => Output::getClean($target_user->getMainGroup()->name),
-            'all_groups' => $target_user->getAllGroupHtml(),
+            'all_groups' => $target_user->getAllGroups(true),
             'registered' => date('d M Y', $item->joined),
+            'quick_action' => Output::getClean($item->quick_action),
             'registered_unix' => Output::getClean($item->joined)
-        ];
+        );
     }
 }
 
 $smarty->assign(
-    [
+    array(
         'PARENT_PAGE' => PARENT_PAGE,
         'DASHBOARD' => $language->get('admin', 'dashboard'),
         'USER_MANAGEMENT' => $language->get('admin', 'user_management'),
@@ -81,10 +85,11 @@ $smarty->assign(
         'GROUP' => $language->get('admin', 'group'),
         'GROUPS' => $language->get('admin', 'groups'),
         'REGISTERED' => $language->get('admin', 'registered'),
+        'QUICK_ACTION' => $language->get('general', 'quick_action'),
         'ACTIONS' => $language->get('general', 'actions'),
         'ACTIONS_LIST' => Core_Module::getUserActions(),
         'ALL_USERS' => $output
-    ]
+    )
 );
 
 $page_load = microtime(true) - $start;
