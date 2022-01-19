@@ -577,4 +577,13 @@ class Util {
 
         return false;
     }
+
+    /**
+     * Get the current Nameless version
+     *
+     * @return string Current Nameless version
+     */
+    public static function getCurrentNamelessVersion(): string {
+        return DB::getInstance()->selectQuery('SELECT `value` FROM nl2_settings WHERE `name` = ?', ['nameless_version'])->first()->value;
+    }
 }
