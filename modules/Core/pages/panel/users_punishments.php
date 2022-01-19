@@ -34,7 +34,7 @@ if (isset($_GET['user'])) {
     }
     $query = $view_user->data();
 
-    if (isset($_GET['do']) && $_GET['do'] == 'revoke' && isset($_GET['id']) && is_numeric($_GET['id'])) {
+    if (isset($_GET['do'], $_GET['id']) && $_GET['do'] == 'revoke' && is_numeric($_GET['id'])) {
         if (Token::checK()) {
             $infraction = $queries->getWhere('infractions', ['id', '=', $_GET['id']]);
             if (!$user->hasPermission('modcp.punishments.revoke') || !count($infraction) || ($infraction[0]->punished != $query->id)) {
@@ -179,7 +179,7 @@ if (isset($_GET['user'])) {
                                         ]);
                                     }
 
-                                    // Fire userBanned event 
+                                    // Fire userBanned event
                                     EventHandler::executeEvent('userBanned', [
                                         'punished_id' => $query->id,
                                         'punisher_id' => $user->data()->id,
@@ -197,14 +197,13 @@ if (isset($_GET['user'])) {
                                         ]);
                                     } else if ($type == 4) {
                                         // Need to delete any other avatars
-                                        $diff_str = implode(',', ['jpg', 'png', 'jpeg', 'gif']);
+                                        $to_remove = [];
+                                        foreach (['jpg', 'jpeg', 'png', 'gif'] as $extension) {
+                                            $to_remove += glob(ROOT_PATH . '/uploads/avatars/' . $query->id . '.' . $extension);
+                                        }
 
-                                        $to_remove = glob(ROOT_PATH . '/uploads/avatars/' . $query->id . '.{' . $diff_str . '}', GLOB_BRACE);
-
-                                        if ($to_remove) {
-                                            foreach ($to_remove as $item) {
-                                                unlink($item);
-                                            }
+                                        foreach ($to_remove as $item) {
+                                            unlink($item);
                                         }
 
                                         $queries->update('users', $query->id, [
@@ -359,9 +358,9 @@ if (isset($_GET['user'])) {
 
                 Redirect::to(URL::build('/panel/users/punishments/', 'user=' . Output::getClean($check->id)));
                 die();
-            } else {
-                $errors = [$language->get('user', 'couldnt_find_that_user')];
             }
+
+            $errors = [$language->get('user', 'couldnt_find_that_user')];
         } else {
             $errors = [$language->get('general', 'invalid_token')];
         }
@@ -377,14 +376,14 @@ if (isset($_GET['user'])) {
             if (!is_numeric($_GET['p'])) {
                 Redirect::to(URL::build('/panel/users/punishments'));
                 die();
-            } else {
-                if ($_GET['p'] == 1) {
-                    // Avoid bug in pagination class
-                    Redirect::to(URL::build('/panel/users/punishments'));
-                    die();
-                }
-                $p = $_GET['p'];
             }
+
+            if ($_GET['p'] == 1) {
+                // Avoid bug in pagination class
+                Redirect::to(URL::build('/panel/users/punishments'));
+                die();
+            }
+            $p = $_GET['p'];
         } else {
             $p = 1;
         }

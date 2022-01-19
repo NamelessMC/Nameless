@@ -9,24 +9,49 @@
 *  Email class
 */
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+
 class Email {
+
+    public const REGISTRATION = 1;
+    public const CONTACT = 2;
+    public const FORGOT_PASSWORD = 3;
+    public const API_REGISTRATION = 4;
+    public const FORUM_TOPIC_REPLY = 5;
+    public const MASS_MESSAGE = 6;
+
+    /**
+     * @var array Placeholders for email templates
+     */
+    private static array $_message_placeholders = [];
 
     /**
      * Send an email.
      *
-     * @param array $email Array containing all necessary email information to send as per the sendPHP and sendMailer functions.
-     * @param string $method Email sending method to use (`php` or `mailer`). Uses `php` if not provided.
+     * @param array $recipient Array containing `'email'` and `'name'` strings for the recipient of the email.
+     * @param string $subject Subject of the email.
+     * @param string $message Message of the email.
+     * @param ?array $reply_to Array containing `'email'` and `'name'` strings for the reply-to address.
+     *
+     * @return bool|array Returns true if email sent, otherwise returns an array containing the error.
      */
-    public static function send(array $email, string $method = 'php') {
-        if ($method == 'php') {
-            return self::sendPHP($email);
+    public static function send(array $recipient, string $subject, string $message, ?array $reply_to = null) {
+        $email = [
+            'to' => $recipient,
+            'subject' => $subject,
+            'message' => $message,
+        ];
+
+        if ($reply_to !== null) {
+            $email['replyto'] = $reply_to;
         }
 
-        if ($method == 'mailer') {
+        if (Util::getSetting(DB::getInstance(), 'phpmailer') == '1') {
             return self::sendMailer($email);
         }
 
-        return false;
+        return self::sendPHP($email);
     }
 
     /**
@@ -37,23 +62,23 @@ class Email {
      * @return array|bool
      */
     private static function sendPHP(array $email) {
-        try {
+        $outgoing_email = Util::getSetting(DB::getInstance(), 'outgoing_email');
+        $incoming_email = Util::getSetting(DB::getInstance(), 'incoming_email');
 
-            if (mail($email['to'], $email['subject'], $email['message'], $email['headers'])) {
-                return true;
-            }
-
-            $error = error_get_last();
-
-            return [
-                'error' => $error['message'] ?? 'Unknown error'
-            ];
-
-        } catch (Exception $e) {
-            return [
-                'error' => $e->getMessage()
-            ];
+        if (mail($email['to']['email'], $email['subject'], $email['message'], [
+            'From' => SITE_NAME . ' ' . '<' . $outgoing_email . '>',
+            'Reply-To' => $incoming_email,
+            'MIME-Version' => '1.0',
+            'Content-type' => 'text/html; charset=UTF-8'
+        ])) {
+            return true;
         }
+
+        $error = error_get_last();
+
+        return [
+            'error' => $error['message'] ?? 'Unknown error'
+        ];
     }
 
     /**
@@ -67,12 +92,12 @@ class Email {
         require(ROOT_PATH . '/core/email.php');
 
         // Initialise PHPMailer
-        $mail = new \PHPMailer\PHPMailer\PHPMailer(true);
+        $mail = new PHPMailer(true);
 
         try {
             // init
             $mail->IsSMTP();
-            $mail->SMTPDebug = 0;
+            $mail->SMTPDebug = SMTP::DEBUG_OFF;
             $mail->Debugoutput = 'html';
             $mail->CharSet = 'UTF-8';
             $mail->Encoding = 'base64';
@@ -116,27 +141,39 @@ class Email {
     }
 
     /**
+     * Add a custom placeholder/variable for email messages.
+     * Not used internally, but can be used by other modules.
+     *
+     * @param string $key The key to use for the placeholder, should be enclosed in square brackets.
+     * @param string $value The value to replace the placeholder with.
+     */
+    public static function addPlaceholder(string $key, string $value): void {
+        self::$_message_placeholders[$key] = $value;
+    }
+
+    /**
      * Format an email template and replace placeholders.
      *
      * @param string $email Name of email to format.
      * @param Language $viewing_language Instance of Language class to use for translations.
+     *
+     * @return string Formatted email.
      */
     public static function formatEmail(string $email, Language $viewing_language): string {
         return str_replace(
-        // TODO: let modules add their own placeholders here? :o
-            [
+            array_merge([
                 '[Sitename]',
                 '[Greeting]',
                 '[Message]',
                 '[Thanks]',
-            ],
-            [
+            ], array_keys(self::$_message_placeholders)),
+            array_merge([
                 SITE_NAME,
                 $viewing_language->get('emails', 'greeting'),
                 $viewing_language->get('emails', $email . '_message'),
                 $viewing_language->get('emails', 'thanks'),
-            ],
-            file_get_contents(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', TEMPLATE, 'email', $email . '.html']))
+            ], array_values(self::$_message_placeholders)),
+            file_get_contents(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', TEMPLATE, 'email', $email . '.html']))
         );
     }
 }

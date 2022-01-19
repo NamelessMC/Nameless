@@ -38,11 +38,11 @@ if (!isset($_GET['action'])) {
         if (in_array($item->name, $loaded_templates)) {
             $queries->delete('templates', ['id', '=', $item->id]);
             continue;
-        } else {
-            $loaded_templates[] = $item->name;
         }
 
-        $template_path = join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', htmlspecialchars($item->name), 'template.php']);
+        $loaded_templates[] = $item->name;
+
+        $template_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', htmlspecialchars($item->name), 'template.php']);
 
         if (file_exists($template_path)) {
             require($template_path);
@@ -97,11 +97,7 @@ if (!isset($_GET['action'])) {
                     'description_short' => Util::truncate(Output::getPurified($item->description)),
                     'author' => Output::getClean($item->author),
                     'author_x' => str_replace('{x}', Output::getClean($item->author), $language->get('admin', 'author_x')),
-                    'contributors' => Output::getClean($item->contributors),
-                    'created' => $timeago->inWords(date('d M Y, H:i', $item->created), $language->getTimeLanguage()),
-                    'created_full' => date('d M Y, H:i', $item->created),
-                    'updated' => $timeago->inWords(date('d M Y, H:i', $item->updated), $language->getTimeLanguage()),
-                    'updated_full' => date('d M Y, H:i', $item->updated),
+                    'updated_x' => str_replace('{x}', date('d M Y, H:i', $item->updated), $language->get('admin', 'updated_x')),
                     'url' => Output::getClean($item->url),
                     'latest_version' => Output::getClean($item->latest_version),
                     'rating' => Output::getClean($item->rating),
@@ -303,10 +299,10 @@ if (!isset($_GET['action'])) {
                     // Doesn't exist
                     Redirect::to(URL::build('/panel/core/templates/'));
                     die();
-                } else {
-                    $new_default_template = $new_default[0]->name;
-                    $new_default = $new_default[0]->id;
                 }
+
+                $new_default_template = $new_default[0]->name;
+                $new_default = $new_default[0]->id;
 
                 // Get current default template
                 $current_default = $queries->getWhere('templates', ['is_default', '=', 1]);
@@ -529,7 +525,7 @@ if (!isset($_GET['action'])) {
             if (!isset($_GET['file']) && !isset($_GET['dir'])) {
                 // Get all files
                 // Build path to template folder
-                $template_path = join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', htmlspecialchars($template_query->name)]);
+                $template_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', htmlspecialchars($template_query->name)]);
                 $files = scandir($template_path);
 
                 $template_files = [];
@@ -566,15 +562,15 @@ if (!isset($_GET['action'])) {
             } else {
                 if (isset($_GET['dir']) && !isset($_GET['file'])) {
                     // List files in dir
-                    $realdir = realpath(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', htmlspecialchars($template_query->name), htmlspecialchars($_GET['dir'])]));
+                    $realdir = realpath(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', htmlspecialchars($template_query->name), htmlspecialchars($_GET['dir'])]));
                     $dir = ltrim(explode('custom' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . $template_query->name, $realdir)[1], '/');
 
-                    if (!is_dir(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', htmlspecialchars($template_query->name), $dir]))) {
+                    if (!is_dir(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', htmlspecialchars($template_query->name), $dir]))) {
                         Redirect::to(URL::build('/panel/core/templates'));
                         die();
                     }
 
-                    $template_path = join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', htmlspecialchars($template_query->name), $dir]);
+                    $template_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', htmlspecialchars($template_query->name), $dir]);
                     $files = scandir($template_path);
 
                     $template_files = [];
@@ -620,20 +616,20 @@ if (!isset($_GET['action'])) {
                     $template_file = 'core/templates_list_files.tpl';
                 } else {
                     if (isset($_GET['file'])) {
-                        $file = basename(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', htmlspecialchars($template_query->name), htmlspecialchars($_GET['file'])]));
+                        $file = basename(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', htmlspecialchars($template_query->name), htmlspecialchars($_GET['file'])]));
 
                         if (isset($_GET['dir'])) {
-                            $realdir = realpath(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', htmlspecialchars($template_query->name), htmlspecialchars($_GET['dir'])]));
+                            $realdir = realpath(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', htmlspecialchars($template_query->name), htmlspecialchars($_GET['dir'])]));
                             $dir = ltrim(explode('custom' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . $template_query->name, $realdir)[1], '/');
 
-                            if (!is_dir(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', htmlspecialchars($template_query->name), $dir]))) {
+                            if (!is_dir(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', htmlspecialchars($template_query->name), $dir]))) {
                                 Redirect::to(URL::build('/panel/core/templates'));
                                 die();
                             }
 
-                            $file_path = join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', htmlspecialchars($template_query->name), $dir, $file]);
+                            $file_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', htmlspecialchars($template_query->name), $dir, $file]);
                         } else {
-                            $file_path = join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', htmlspecialchars($template_query->name), $file]);
+                            $file_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', htmlspecialchars($template_query->name), $file]);
                         }
 
                         if (!file_exists($file_path) || !(pathinfo($file, PATHINFO_EXTENSION) == 'tpl' || pathinfo($file, PATHINFO_EXTENSION) == 'css' || pathinfo($file, PATHINFO_EXTENSION) == 'js' || pathinfo($file, PATHINFO_EXTENSION) == 'conf')) {
@@ -680,10 +676,10 @@ if (!isset($_GET['action'])) {
                                         Redirect::to(URL::build('/panel/core/templates/', 'action=edit&template=' . $_GET['template'] . '&file=' . Output::getClean($_GET['file'])));
                                     }
                                     die();
-                                } else {
-                                    // No write permission
-                                    $errors = [$language->get('admin', 'cant_write_to_template')];
                                 }
+
+// No write permission
+                                $errors = [$language->get('admin', 'cant_write_to_template')];
                             } else {
                                 // Invalid token
                                 $errors = [$language->get('general', 'invalid_token')];

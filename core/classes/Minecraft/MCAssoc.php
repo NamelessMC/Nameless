@@ -29,11 +29,11 @@ class MCAssoc {
 
     private function baseSign(string $data, string $key): string {
         if (!$key && !$this->_insecureMode) {
-            throw new Exception('key must be provided');
-        } else {
-            if ($this->_insecureMode) {
-                $key = 'insecure';
-            }
+            throw new RuntimeException('key must be provided');
+        }
+
+        if ($this->_insecureMode) {
+            $key = 'insecure';
         }
 
         return hash_hmac('sha1', $data, $key, true);
@@ -46,11 +46,11 @@ class MCAssoc {
     private function verify(string $input, string $key): string {
         $signed_data = base64_decode($input, true);
         if ($signed_data === false) {
-            throw new Exception('bad base64 data');
+            throw new RuntimeException('bad base64 data');
         }
 
         if (strlen($signed_data) <= 20) {
-            throw new Exception('signed data too short to have signature');
+            throw new RuntimeException('signed data too short to have signature');
         }
 
         $data = substr($signed_data, 0, -20);
@@ -62,8 +62,8 @@ class MCAssoc {
         $signature = substr($signed_data, -20);
         $my_signature = $this->baseSign($data, $key);
 
-        if (!$this->constantCompare($my_signature, $signature)) {
-            throw new Exception('signature invalid');
+        if (!self::constantCompare($my_signature, $signature)) {
+            throw new RuntimeException('signature invalid');
         }
         return $data;
     }
@@ -74,7 +74,7 @@ class MCAssoc {
         }
 
         $res = 0;
-        for ($i = 0; $i < strlen($str1); $i++) {
+        for ($i = 0, $iMax = strlen($str1); $i < $iMax; $i++) {
             $res |= ord($str1[$i]) ^ ord($str2[$i]);
         }
         return ($res == 0);
@@ -88,13 +88,13 @@ class MCAssoc {
         $data = $this->verify($input, $this->_sharedSecret);
         $rdata = json_decode($data);
         if ($rdata === null) {
-            throw new Exception('json data invalid');
+            throw new RuntimeException('json data invalid');
         }
 
         $mintime = $time - $this->_timestampLeeway;
         $maxtime = $time + $this->_timestampLeeway;
         if (!(($mintime < $rdata->now) && ($rdata->now < $maxtime))) {
-            throw new Exception('timestamp stale');
+            throw new RuntimeException('timestamp stale');
         }
 
         return $rdata;

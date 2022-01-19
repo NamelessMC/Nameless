@@ -69,7 +69,7 @@ if (Input::exists()) {
 
             // Config value
             if (Input::get('enable_recaptcha') == 1 || Input::get('enable_recaptcha_login') == 1) {
-                if (is_writable(ROOT_PATH . '/' . join(DIRECTORY_SEPARATOR, ['core', 'config.php']))) {
+                if (is_writable(ROOT_PATH . '/' . implode(DIRECTORY_SEPARATOR, ['core', 'config.php']))) {
                     // Require config
                     if (isset($path) && file_exists($path . 'core/config.php')) {
                         $loadedConfig = json_decode(file_get_contents($path . 'core/config.php'), true);

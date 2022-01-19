@@ -28,7 +28,7 @@ if ($reactions_enabled[0]->value != '1') {
 // Deal with input
 if (Input::exists()) {
     // Validate form input
-    if (!isset($_POST['post']) || !is_numeric($_POST['post']) || !isset($_POST['reaction']) || !is_numeric($_POST['reaction'])) {
+    if (!isset($_POST['post'], $_POST['reaction']) || !is_numeric($_POST['post']) || !is_numeric($_POST['reaction'])) {
         Redirect::to(URL::build('/forum'));
         die();
     }

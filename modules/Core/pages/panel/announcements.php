@@ -106,9 +106,9 @@ if (!isset($_GET['action'])) {
                         }
                         Redirect::to(URL::build('/panel/core/announcements'));
                         die();
-                    } else {
-                        $errors = $validation->errors();
                     }
+
+                    $errors = $validation->errors();
                 } else {
                     // Invalid token
                     $errors[] = $language->get('general', 'invalid_token');
@@ -198,9 +198,9 @@ if (!isset($_GET['action'])) {
                         }
                         Redirect::to(URL::build('/panel/core/announcements'));
                         die();
-                    } else {
-                        $errors = $validation->errors();
                     }
+
+                    $errors = $validation->errors();
                 } else {
                     // Invalid token
                     $errors[] = $language->get('general', 'invalid_token');

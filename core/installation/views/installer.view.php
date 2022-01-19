@@ -7,14 +7,14 @@ if (isset($_GET['do'])) {
     Redirect::to('?step=requirements_validation');
     die();
 
-} else {
-    if (isset($_GET['step'])) {
-        $step = strtolower($_GET['step']);
-        if (!file_exists(__DIR__ . '/steps/' . $step . '.php')) {
-            $error = 'Unknown step.';
-        }
+}
 
+if (isset($_GET['step'])) {
+    $step = strtolower($_GET['step']);
+    if (!file_exists(__DIR__ . '/steps/' . $step . '.php')) {
+        $error = 'Unknown step.';
     }
+
 }
 
 if (isset($step) && $step == 'ajax_initialise') {

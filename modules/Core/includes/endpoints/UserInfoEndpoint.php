@@ -16,7 +16,7 @@ class UserInfoEndpoint extends KeyAuthEndpoint {
         $this->_method = 'GET';
     }
 
-    public function execute(Nameless2API $api, User $user) {
+    public function execute(Nameless2API $api, User $user): void {
         $discord_enabled = Util::isModuleEnabled('Discord Integration');
 
         if ($discord_enabled) {
@@ -30,14 +30,14 @@ class UserInfoEndpoint extends KeyAuthEndpoint {
 
         $user = $results->first();
         $user->exists = true;
-        $user->id = intval($user->id);
-        $user->language_id = intval($user->language_id);
-        $user->registered_timestamp = intval($user->registered_timestamp);
-        $user->last_online_timestamp = intval($user->last_online_timestamp);
+        $user->id = (int)$user->id;
+        $user->language_id = (int)$user->language_id;
+        $user->registered_timestamp = (int)$user->registered_timestamp;
+        $user->last_online_timestamp = (int)$user->last_online_timestamp;
         $user->banned = (bool)$user->banned;
         $user->validated = (bool)$user->validated;
         if ($discord_enabled && $user->discord_id != null) {
-            $user->discord_id = intval($user->discord_id);
+            $user->discord_id = (int)$user->discord_id;
         }
 
         // Get custom profile fields
@@ -45,7 +45,7 @@ class UserInfoEndpoint extends KeyAuthEndpoint {
 
         foreach ($custom_profile_fields->results() as $profile_field) {
             $user->profile_fields[$profile_field->id]['name'] = $profile_field->name;
-            $user->profile_fields[$profile_field->id]['type'] = intval($profile_field->type);
+            $user->profile_fields[$profile_field->id]['type'] = (int)$profile_field->type;
             $user->profile_fields[$profile_field->id]['public'] = (bool)$profile_field->public;
             $user->profile_fields[$profile_field->id]['required'] = (bool)$profile_field->required;
             $user->profile_fields[$profile_field->id]['description'] = $profile_field->description;
@@ -58,15 +58,15 @@ class UserInfoEndpoint extends KeyAuthEndpoint {
         $groups_array = [];
         foreach ($groups as $group) {
             $group_array = [
-                'id' => intval($group->id),
+                'id' => (int)$group->id,
                 'name' => $group->name,
                 'staff' => (bool)$group->staff,
-                'order' => intval($group->order),
+                'order' => (int)$group->order,
                 'ingame_rank_name' => Util::getIngameRankName($group->id),
             ];
 
             if ($discord_enabled) {
-                $group_array['discord_role_id'] = intval(Discord::getDiscordRoleId($api->getDb(), $group->id));
+                $group_array['discord_role_id'] = (int)Discord::getDiscordRoleId($api->getDb(), $group->id);
             }
 
             $groups_array[] = $group_array;

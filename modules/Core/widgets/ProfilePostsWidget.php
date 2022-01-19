@@ -62,10 +62,8 @@ class ProfilePostsWidget extends WidgetBase {
                     if ($post_author->isPrivateProfile() && !$this->_user->hasPermission('profile.private.bypass')) {
                         continue;
                     }
-                } else {
-                    if ($post_author->isPrivateProfile()) {
-                        continue;
-                    }
+                } else if ($post_author->isPrivateProfile()) {
+                    continue;
                 }
 
                 $post_user = new User($post->user_id);

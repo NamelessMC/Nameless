@@ -15,19 +15,19 @@ class UpdateUsernameEndpoint extends KeyAuthEndpoint {
         $this->_method = 'POST';
     }
 
-    public function execute(Nameless2API $api, User $user) {
+    public function execute(Nameless2API $api, User $user): void {
         $api->validateParams($_POST, ['username']);
 
         $fields = ['username' => Output::getClean($_POST['username'])];
 
-        if (!Util::getSetting($api->getDb(), 'displaynames')) {
+        if (Util::getSetting($api->getDb(), 'displaynames') == 'false') {
             $fields['nickname'] = Output::getClean($_POST['username']);
         }
 
         try {
             $api->getDb()->update('users', $user->data()->id, $fields);
         } catch (Exception $e) {
-            $api->throwError(24, $api->getLanguage()->get('api', 'unable_to_update_username'), 500);
+            $api->throwError(24, $api->getLanguage()->get('api', 'unable_to_update_username'), null, 500);
         }
 
         $api->returnArray(['message' => $api->getLanguage()->get('api', 'username_updated')]);

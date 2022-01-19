@@ -15,7 +15,7 @@ class AddGroupsEndpoint extends KeyAuthEndpoint {
         $this->_method = 'POST';
     }
 
-    public function execute(Nameless2API $api, User $user) {
+    public function execute(Nameless2API $api, User $user): void {
         $groups = $_POST['groups'];
         if ($groups == null || !count($groups)) {
             $api->throwError(17, $api->getLanguage()->get('api', 'unable_to_find_group'), 'No groups provided');

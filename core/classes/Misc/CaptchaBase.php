@@ -104,26 +104,26 @@ abstract class CaptchaBase {
      *
      * @return boolean Whether the token was valid or not
      */
-    public abstract function validateToken(array $post): bool;
+    abstract public function validateToken(array $post): bool;
 
     /**
      * Get form input HTML to display
      *
      * @return string|null HTML to display
      */
-    public abstract function getHtml(): ?string;
+    abstract public function getHtml(): ?string;
 
     /**
      * Get JavaScript source URL
      *
      * @return string JS source URL
      */
-    public abstract function getJavascriptSource(): string;
+    abstract public function getJavascriptSource(): string;
 
     /**
      * Get JavaScript on submit function
      * @param string $id ID attribute of form
      * @return string|null JS for submit function
      */
-    public abstract function getJavascriptSubmit(string $id): ?string;
+    abstract public function getJavascriptSubmit(string $id): ?string;
 }

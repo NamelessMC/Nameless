@@ -15,7 +15,7 @@ class VerifyMinecraftEndpoint extends KeyAuthEndpoint {
         $this->_method = 'POST';
     }
 
-    public function execute(Nameless2API $api) {
+    public function execute(Nameless2API $api): void {
         $api->validateParams($_POST, ['user', 'code']);
 
         $user = $api->getUser('id', $_POST['user']);
@@ -28,14 +28,10 @@ class VerifyMinecraftEndpoint extends KeyAuthEndpoint {
             $api->throwError(28, $api->getLanguage()->get('api', 'invalid_code'));
         }
 
-        $api->getDb()->update(
-            'users',
-            $user->data()->id,
-            [
-                'reset_code' => '',
-                'active' => 1
-            ]
-        );
+        $user->update([
+            'active' => 1,
+            'reset_code' => ''
+        ]);
 
         try {
             EventHandler::executeEvent('validateUser', [

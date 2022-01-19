@@ -147,10 +147,10 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                             Session::flash('api_reactions', $language->get('admin', 'reaction_created_successfully'));
                             Redirect::to(URL::build('/panel/core/reactions'));
                             die();
-                        } else {
-                            // Validation error
-                            $errors = $validation->errors();
                         }
+
+                        // Validation error
+                        $errors = $validation->errors();
                     } else {
                         // Invalid token
                         $errors[] = $language->get('general', 'token');
@@ -211,9 +211,9 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
             // Reaction doesn't exist
             Redirect::to(URL::build('/panel/core/reactions'));
             die();
-        } else {
-            $reaction = $reaction[0];
         }
+
+        $reaction = $reaction[0];
 
         // Deal with input
         if (Input::exists()) {
@@ -279,10 +279,10 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                     Session::flash('api_reactions', $language->get('admin', 'reaction_edited_successfully'));
                     Redirect::to(URL::build('/panel/core/reactions'));
                     die();
-                } else {
-                    // Validation error
-                    $errors = $validation->errors();
                 }
+
+                // Validation error
+                $errors = $validation->errors();
             } else {
                 // Invalid token
                 $errors[] = $language->get('general', 'invalid_token');

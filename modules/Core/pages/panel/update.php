@@ -83,7 +83,7 @@ if (!isset($update_check->error) && !isset($update_check->no_update) && isset($u
 }
 
 // PHP version check
-if (version_compare(phpversion(), '7.4', '<')) {
+if (PHP_VERSION_ID < 70400) {
     $smarty->assign('PHP_WARNING', $language->get('admin', 'upgrade_php_version'));
 
     if (NAMELESS_VERSION !== '2.0.0-pr11') {

@@ -27,5 +27,5 @@ abstract class CollectionItemBase {
         return $this->_enabled;
     }
 
-    public abstract function getContent(): string;
+    abstract public function getContent(): string;
 }

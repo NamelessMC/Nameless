@@ -15,7 +15,7 @@ class UpdateDiscordBotSettingsEndpoint extends KeyAuthEndpoint {
         $this->_method = 'POST';
     }
 
-    public function execute(Nameless2API $api) {
+    public function execute(Nameless2API $api): void {
         if (isset($_POST['url'])) {
             if ($_POST['url'] == null) {
                 $api->throwError(30, Discord::getLanguageTerm('unable_to_set_discord_bot_url'), '$_POST[\'url\'] is null.');

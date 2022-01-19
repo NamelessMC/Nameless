@@ -41,7 +41,7 @@ class MentionsParser {
             foreach ($matches as $possible_username) {
                 $user = null;
 
-                while ((strlen($possible_username) > 0) && !$user) {
+                while (($possible_username != '') && !$user) {
                     $user = new User($possible_username, 'nickname');
 
                     if ($user->data()) {

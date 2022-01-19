@@ -102,7 +102,7 @@ class CookieConsent_Module extends Module {
                 'COOKIE_NOTICE_HEADER' => $this->_cookie_language->get('cookie', 'cookie_notice'),
                 'COOKIE_NOTICE_BODY' => $this->_cookie_language->get('cookie', 'cookie_notice_info'),
                 'COOKIE_NOTICE_CONFIGURE' => $this->_cookie_language->get('cookie', 'configure_cookies'),
-                'COOKIE_DECISION_MADE' => !!Cookie::get('cookieconsent_status'),
+                'COOKIE_DECISION_MADE' => (bool)Cookie::get('cookieconsent_status'),
             ]);
 
             $navs[0]->add('cookies', $this->_cookie_language->get('cookie', 'cookie_notice'), $cookie_url, 'footer');

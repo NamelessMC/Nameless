@@ -47,46 +47,12 @@ if (isset($_GET['action'])) {
         if (isset($_GET['do']) && $_GET['do'] == 'send') {
             $errors = [];
 
-            $php_mailer = $queries->getWhere('settings', ['name', '=', 'phpmailer']);
-            $php_mailer = $php_mailer[0]->value;
+            $sent = Email::send(
+                ['email' => Output::getClean($user->data()->email), 'name' => Output::getClean($user->data()->nickname)],
+                SITE_NAME . ' - Test Email',
+                SITE_NAME . ' - Test email successful!'
+            );
 
-            if ($php_mailer == '1') {
-
-                // PHP Mailer
-                $email = [
-                    'to' => ['email' => Output::getClean($user->data()->email), 'name' => Output::getClean($user->data()->nickname)],
-                    'subject' => SITE_NAME . ' - Test Email',
-                    'message' => SITE_NAME . ' - Test email successful!',
-                ];
-
-                $sent = Email::send($email, 'mailer');
-
-            } else {
-                // PHP mail function
-                $siteemail = $queries->getWhere('settings', ['name', '=', 'outgoing_email']);
-                $siteemail = $siteemail[0]->value;
-
-                $to = $user->data()->email;
-                $subject = SITE_NAME . ' - Test Email';
-
-                $message = SITE_NAME . ' - Test email successful!';
-
-                $headers = 'From: ' . $siteemail . "\r\n" .
-                    'Reply-To: ' . $siteemail . "\r\n" .
-                    'X-Mailer: PHP/' . phpversion() . "\r\n" .
-                    'MIME-Version: 1.0' . "\r\n" .
-                    'Content-type: text/html; charset=UTF-8' . "\r\n";
-
-                $email = [
-                    'to' => $to,
-                    'subject' => $subject,
-                    'message' => $message,
-                    'headers' => $headers
-                ];
-
-                $sent = Email::send($email);
-
-            }
             if (isset($sent['error'])) {
                 $errors[] = $sent['error'];
             }
@@ -114,7 +80,7 @@ if (isset($_GET['action'])) {
                 $lang = new Language(null, $language_db->name);
                 $lang_file = ($lang->getActiveLanguageDirectory() . DIRECTORY_SEPARATOR . 'emails.php');
                 if (file_exists($lang_file) && is_writable($lang_file)) {
-                    array_push($available_languages, $language_db);
+                    $available_languages[] = $language_db;
                 }
             }
 
