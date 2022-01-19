@@ -13,7 +13,7 @@
         <div class="ui ten wide tablet twelve wide computer column">
             <div class="ui segment">
                 <h3 class="ui header">
-                    OAuth
+                    {$OAUTH}
                 </h3>
                 {if isset($SUCCESS_MESSAGE)}
                     <div class="ui success icon message">

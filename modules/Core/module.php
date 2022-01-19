@@ -1413,7 +1413,7 @@ class Core_Module extends Module {
             }
 
             if ($user->hasPermission('admincp.users.edit')) {
-                self::addUserAction($language->get('general', 'oauth'), URL::build('/panel/users/oauth/', 'id={id}'));
+                self::addUserAction($language->get('admin', 'oauth'), URL::build('/panel/users/oauth/', 'id={id}'));
             }
 
             if ($user->hasPermission('modcp.ip_lookup')) {

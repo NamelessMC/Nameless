@@ -223,7 +223,8 @@ $smarty->assign([
     'INFO' => $language->get('general', 'info'),
     'GROUPS' => $queries->getWhere('groups', ['staff', '=', 0]),
     'VALIDATION_GROUP' => $validation_group,
-    'CAPTCHA_OPTIONS' => $captcha_options
+    'CAPTCHA_OPTIONS' => $captcha_options,
+    'OAUTH' => $language->get('admin', 'oauth'),
 ]);
 
 [$discord_client_id, $discord_client_secret] = OAuth::getInstance()->getCredentials(OAuth::DISCORD);

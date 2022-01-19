@@ -87,6 +87,7 @@ $smarty->assign([
     'USER_CP' => $language->get('user', 'user_cp'),
     'OAUTH_PROVIDERS' => $providers,
     'USER_OAUTH_PROVIDERS' => $user_providers_template,
+    'OAUTH' => $language->get('admin', 'oauth'),
 ]);
 
 // Load modules + template

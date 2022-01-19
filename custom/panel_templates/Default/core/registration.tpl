@@ -114,7 +114,7 @@
                     </div>
                 </div>
 
-                <h5>OAuth Login</h5>
+                <h5>{$OAUTH}</h5>
                 <form action="" method="post">
                     <div class="row">
                         <div class="col">

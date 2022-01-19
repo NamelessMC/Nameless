@@ -737,4 +737,7 @@ $language = [
     'no_announcements' => 'No announcements have been made yet.',
     'announcement_order' => 'Order',
     'announcement_hook_info' => 'Announcement creation',
+
+    // OAuth
+    'oauth' => 'OAuth',
 ];
