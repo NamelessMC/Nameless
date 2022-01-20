@@ -6,7 +6,7 @@ if (!$user->isLoggedIn() || !$user->hasPermission('admincp.users')) {
     die(json_encode('Unauthenticated'));
 }
 
-$sortColumns = ['username' => 'username', 'nickname' => 'nickname', 'joined' => 'joined', 'quick_action' => 'quick_action'];
+$sortColumns = ['username' => 'username', 'nickname' => 'nickname', 'joined' => 'joined'];
 
 $db = DB::getInstance();
 
@@ -83,6 +83,8 @@ if (count($results)) {
         </a><a href="edit/?id='. $result->id .'" class="badge badge-warning"> <i class="fas fa-pencil-alt"> </i> </a>
         <a href="edit/?id='. $result->id .'" onclick="ShowDeleteModal()" class="badge badge-danger"> <i class="fas fa-times-circle"></i> </a>
         ');
+
+        // I trying make a another .tpl but i rlly miss understand.
 
         //get Data
         $data[] = $obj;

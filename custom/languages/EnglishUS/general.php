@@ -13,6 +13,7 @@ $language = [
     /*
      *  General terms
      */
+    'quick_action' => 'Actions',
     'help' => 'Help',
     'submit' => 'Submit',
     'register' => 'Register',

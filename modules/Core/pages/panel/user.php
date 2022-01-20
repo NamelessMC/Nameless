@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
@@ -104,6 +104,7 @@ $smarty->assign([
     'DETAILS' => $language->get('admin', 'details'),
     'LINKS' => Core_Module::getUserActions(),
     'USER_ID' => $user_query->id,
+    'QUICK_ACTION' => $language->get('general', 'quick_action'),
     'USERNAME_LABEL' => $language->get('user', 'username'),
     'NICKNAME_LABEL' => $language->get('user', 'nickname'),
     'USER_TITLE_LABEL' => $language->get('admin', 'title'),

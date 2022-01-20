@@ -47,6 +47,7 @@
                                     <th>{$USER}</th>
                                     <th>{$GROUP}</th>
                                     <th>{$REGISTERED}</th>
+                                    <th>{$QUICK_ACTION}</th>
                                 </tr>
                                 </thead>
                             </table>
