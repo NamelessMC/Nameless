@@ -43,10 +43,8 @@ if (isset($_GET['provider'], $_GET['code'])) {
 
         if ((new User())->login(
             OAuth::getInstance()->getUserIdFromProviderId($provider_name, $provider_id),
-            '',
-            true,
-            'oauth')
-        ) {
+            '', true, 'oauth'
+        )) {
             Log::getInstance()->log(Log::Action('user/login'));
             Session::flash('home', "You have logged in with your " . ucfirst($provider_name) . " account.");
 
