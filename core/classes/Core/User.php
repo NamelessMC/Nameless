@@ -476,7 +476,7 @@ class User {
             if ($this->data()->has_avatar) {
                 $exts = ['png', 'jpg', 'jpeg'];
 
-                if ($this->hasPermission('usercp.gif_avatar', false)) {
+                if ($this->hasPermission('usercp.gif_avatar')) {
                     $exts[] = 'gif';
                 }
 
