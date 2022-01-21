@@ -55,7 +55,6 @@ if (isset($_GET['provider'], $_GET['code'])) {
                 die();
             }
 
-            Session::flash('home', $language->get('user', 'successful_login'));
             Redirect::to(URL::build('/'));
             die();
         }
