@@ -48,8 +48,14 @@ if (isset($_GET['provider'], $_GET['code'])) {
             'oauth')
         ) {
             Log::getInstance()->log(Log::Action('user/login'));
-
             Session::flash('home', "You have logged in with your " . ucfirst($provider_name) . " account.");
+
+            if (isset($_SESSION['last_page']) && substr($_SESSION['last_page'], -1) != '=') {
+                Redirect::to($_SESSION['last_page']);
+                die();
+            }
+
+            Session::flash('home', $language->get('user', 'successful_login'));
             Redirect::to(URL::build('/'));
             die();
         }
