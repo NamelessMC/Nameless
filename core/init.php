@@ -202,6 +202,8 @@ if ($page != 'install') {
 
     date_default_timezone_set(TIMEZONE);
 
+    require_once(ROOT_PATH . '/custom/languages/languages.php');
+
     // Language
     if (!$user->isLoggedIn() || !($user->data()->language_id)) {
         // Default language for guests
@@ -209,7 +211,7 @@ if ($page != 'install') {
         $language = $cache->retrieve('language');
 
         if (!$language) {
-            define('LANGUAGE', 'EnglishUK');
+            define('LANGUAGE', 'en_UK');
             $language = new Language();
         } else {
             define('LANGUAGE', $language);
