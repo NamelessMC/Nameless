@@ -17,7 +17,7 @@ class Language {
     private string $_activeLanguage;
     private string $_activeLanguageFile;
     private array $_activeLanguageEntries;
-    private string $_module;
+    private string $_module; // TODO: needed?
 
     /**
      * Construct Language class
@@ -32,7 +32,7 @@ class Language {
             throw new Exception('Languages not initialised');
         }
 
-        $this->_activeLanguage = $active_language ?? 'en_UK';
+        $this->_activeLanguage = $active_language ?? LANGUAGE ?? 'en_UK';
 
         // Require file
         if (!$module || $module == 'core') {
