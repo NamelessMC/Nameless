@@ -48,17 +48,17 @@ $language = [
     'alerts' => 'Meldingen',
     'view_alerts' => 'Bekijk meldingen',
     'no_alerts' => 'Geen meldingen',
-    'x_new_alerts' => 'Je hebt {x} nieuwe meldingen.', // Verander "{x}" niet
+    'x_new_alerts' => 'Je hebt {{count}} nieuwe meldingen.',
     'messages' => 'Berichten',
     'view_messages' => 'Bekijk berichten',
     'no_messages' => 'Geen berichten',
-    'x_new_messages' => 'Je hebt {x} nieuwe berichten.', // Verander "{x}" niet
+    'x_new_messages' => 'Je hebt {{count}} nieuwe berichten.',
     'loading' => 'Laden...',
     'report' => 'Rapport',
-    'reported_by' => 'Reported by {x}',
+    'reported_by' => 'Reported by {{author}}',
     'view_report' => 'View report',
-    'page_loaded_in' => 'Pagina geladen in {x}s', // Verander "{x}" niet, tijdseenheid is seconden
-    'page_x' => 'Pagina {x}',
+    'page_loaded_in' => 'Pagina geladen in {{time}}s',
+    'page_x' => 'Pagina {{page}}',
     'browse' => 'Doorzoek',
     'bypass' => 'Omzeilen',
     'yes' => 'Ja',
@@ -82,10 +82,10 @@ $language = [
     'message' => 'Bericht',
     'email_address' => 'E-mailadres',
     'contact_email_subject' => 'Nieuw contactformulier indiening',
-    'contact_message_failed' => 'Kan bericht niet verzenden. Zorg ervoor dat je bericht tussen de 10 en 5000 karakters lang is.',
+    'contact_message_failed' => 'Kan bericht niet verzenden. Zorg ervoor dat je bericht tussen de {{min}} en {{max}} karakters lang is.',
     'contact_message_email' => 'Het opgegeven e-mailadres is ongeldig.',
     'contact_message_sent' => 'Bericht succesvol verzonden.',
-    'contact_message_limit' => 'Je kan maar 1 bericht per uur versturen. Je kan pas weer over {x} minuten een nieuw bericht versturen.', // Vervang {x} niet
+    'contact_message_limit' => 'Je kan maar 1 bericht per uur versturen. Je kan pas weer over {{time}} minuten een nieuw bericht versturen.',
 
     /*
      *  Navigatiebalk
@@ -108,27 +108,27 @@ $language = [
     /*
      *  Hulp dialogen
      */
-    'markdown_help' => 'Je kan gebruik maken van Markdown bij je berichten en forum. Voor meer informatie, klik <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>hier</a>.',
+    'markdown_help' => 'Je kan gebruik maken van Markdown bij je berichten en forum.',
 
     /*
      *  Server query
      */
     'online' => 'Online',
     'offline' => 'Offline',
-    'player_count' => '{x}/{y}', // Verander "{x}" of "{y}" niet
-    'ping' => 'Ping: {x}', // Verander "{x}" niet
-    'version' => 'Versie: {x}', // Verander "{x}" niet
-    'currently_1_player_online' => 'Er is momenteel <strong>1</strong> speler online.',
-    'currently_x_players_online' => 'Er zijn momenteel <strong>{x}</strong> spelers online.', // Verander "{x}" niet
+    'player_count' => '{{onlinePlayers}}/{{totalPlayers}}',
+    'ping' => 'Ping: {{ping}}',
+    'version' => 'Versie: {{version}}',
+    'currently_1_player_online' => 'Er is momenteel {{count}} speler online.',
+    'currently_x_players_online' => 'Er zijn momenteel {{count}} spelers online.',
     'server_offline' => 'De server is nu offline.',
-    'connect_with_ip_x' => 'Verbind met dit IP adres: {x}', // Verander "{x}" niet
+    'connect_with_ip_x' => 'Verbind met dit IP adres: {{address}}',
     'click_to_copy_tooltip' => 'Klik om te kopiëren',
     'ip' => 'IP',
     'copied' => 'Gekopieerd!',
     'no_servers' => 'Er zijn geen servers om weer te geven!',
     'bungee_instance' => 'Deze server is een Bungee instantie.',
     'no_players_online' => 'Er zijn geen spelers online.',
-    'and_x_more' => 'en {x} meer', // Don't replace {x}
+    'and_x_more' => 'en {{count}} meer',
 
     /*
      *  Cookie notice
@@ -147,10 +147,10 @@ $language = [
     'total_posts' => 'Totale Posts',
     'online_staff' => 'Online Personeel',
     'no_online_staff' => 'Er zijn geen personeelsleden online.',
-    'total_online_staff' => 'Total online personeel: {x}',
+    'total_online_staff' => 'Total online personeel: {{count}}',
     'online_users' => 'Online Gebruikers',
     'no_online_users' => 'Er zijn geen gebruikes online.',
-    'total_online_users' => 'Totaal online gebruikers: {x}',
+    'total_online_users' => 'Totaal online gebruikers: {{count}}',
     'discord_widget_disabled' => 'De widget is uitgeschakeld voor de opgegeven Discord server. Ga naar het tabblad \'Widget\' in uw Discord server instellingen, en zorg ervoor dat de Discord widget is ingeschakeld en dat de ID correct is.',
     'online_guests' => 'Online Gasten',
     'total_online' => 'Totaal Online', // this is Online Users + Online Guests
@@ -165,5 +165,5 @@ $language = [
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'Doorsturen...<br />Als u niet automatisch wordt doorgestuurd, klik dan <a href="{x}" rel="nofollow noopener">hier</a>.' // Don't replace {x} which is the redirect URL
+    'redirecting_message' => 'Doorsturen...\nAls u niet automatisch wordt doorgestuurd, klik dan hier: {{link}}.'
 ];

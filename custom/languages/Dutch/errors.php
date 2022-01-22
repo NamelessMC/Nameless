@@ -19,7 +19,7 @@ $language = [
     '404_content' => 'We konden de pagina die je zocht niet vinden.',
     '404_back' => 'Terug?',
     '404_home' => 'Start',
-    '404_error' => 'Als je denkt dat dit een error is, {x} neem dan contact op met een beheerder van de website {y}', // Verander "{x}" of "{y}" niet
+    '404_error' => 'Als je denkt dat dit een error is, {{linkStart}}neem dan contact op met een beheerder van de website{{linkEnd}}', // Verander "{x}" of "{y}" niet
     '403_title' => 'Het spijt ons!',
     '403_content' => 'Je hebt geen toestemming om deze pagina te bekijken.',
     '403_login' => 'Log in om door te gaan.',
@@ -31,6 +31,6 @@ $language = [
     'fatal_error_title' => 'Het spijt ons!',
     'fatal_error_message_user' => 'Sorry, maar er is iets misgegaan tijdens het laden van de pagina. Neem contact op met een admin.',
     'fatal_error_message_admin' => 'Sorry, maar er is iets misgegaan tijdens het laden van de pagina. Error gegevens:',
-    'in_file' => 'in bestand <strong>{x}</strong>', // Don't replace {x}
-    'on_line' => 'op regel <strong>{x}</strong>' // Don't replace {x}
+    'in_file' => 'in bestand {{file}}', // Don't replace {x}
+    'on_line' => 'op regel {{line}}' // Don't replace {x}
 ];

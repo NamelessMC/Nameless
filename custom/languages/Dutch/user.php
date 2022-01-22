@@ -15,7 +15,7 @@ $language = [
     /*
      *  Change this for the account validation message
      */
-    'validate_account_command' => 'Om de registratie te voltooien, run alstublieft het commando <strong>/verify {x}</strong> ingame.', // Don't replace {x}
+    'validate_account_command' => 'Om de registratie te voltooien, run alstublieft het commando {{command}} ingame.',
 
     /*
      *  Gebruiker gerelateerd
@@ -25,7 +25,6 @@ $language = [
 
     // Gebruikers paneel
     'user_cp' => 'Gebruikers Paneel',
-    'user_cp_icon' => '<i class="fa fa-cogs" aria-hidden="true"></i>',
     'overview' => 'Overzicht',
     'user_details' => 'Gebruikers informatie',
     'profile_settings' => 'Profiel Instellingen',
@@ -41,7 +40,7 @@ $language = [
     'no_placeholders' => 'No Placeholders',
 
     // Profiel instellingen
-    'field_is_required' => '{x} is nodig.', // Verander {x} niet
+    'field_is_required' => '{{field}} is nodig.',
     'settings_updated_successfully' => 'Instellingen succesvol bijgewerkt.',
     'password_changed_successfully' => 'Wachtwoord succesvol veranderd.',
     'change_password' => 'Verander wachtwoord',
@@ -75,11 +74,11 @@ $language = [
     'gravatar' => 'Use Gravatar as avatar',
 
     // Meldingen
-    'user_tag_info' => 'Je bent genoemd in een bericht door {x}.', // Verander {x} niet
+    'user_tag_info' => 'Je bent genoemd in een bericht door {{author}}.',
     'no_alerts' => 'Geen meldingen',
     'view_alerts' => 'Bekijk meldingen',
-    '1_new_alert' => 'U heeft 1 nieuwe melding',
-    'x_new_alerts' => 'Je hebt {x} nieuwe meldingen', // Verander {x} niet
+    '1_new_alert' => 'U heeft {{count}} nieuwe melding',
+    'x_new_alerts' => 'Je hebt {{count}} nieuwe meldingen',
     'no_alerts_usercp' => 'Je hebt geen meldingen.',
 
     // Registratie
@@ -92,7 +91,7 @@ $language = [
     'password' => 'Wachtwoord',
     'confirm_password' => 'Bevestig wachtwoord',
     'i_agree' => 'Akkoord',
-    'agree_t_and_c' => 'Ik heb de <a href="{x}" target="_blank">Voorwaarden</a> gelezen en accepteer deze.',
+    'agree_t_and_c' => 'Ik heb de {{termsAndConditions}} gelezen en accepteer deze.',
     'create_an_account' => 'Maak een account',
     'terms_and_conditions' => 'Voorwaarden',
     'validation_complete' => 'Je account is bevestigd, je kunt nu inloggen.',
@@ -159,14 +158,14 @@ $language = [
     'follow' => 'Volg',
     'no_wall_posts' => 'Er zijn nog geen berichten hier.',
     'change_banner' => 'Verander vlag',
-    'post_on_wall' => 'Zet een bericht op {x}\'s muur', // Verander {x} niet
-    'invalid_wall_post' => 'Zorg ervoor dat je bericht uit 1 tot en met 10000 karakters bestaat.',
-    '1_reaction' => '1 reactie',
-    'x_reactions' => '{x} reacties', // Verander {x} niet
-    '1_like' => '1 vind ik leuk',
-    'x_likes' => '{x} vinden dit leuk', // Verander {x} niet
-    '1_reply' => '1 antwoord',
-    'x_replies' => '{x} antwoorden', // Verander {x} niet
+    'post_on_wall' => 'Zet een bericht op {{user}}\'s muur',
+    'invalid_wall_post' => 'Zorg ervoor dat je bericht uit {{min}} tot en met {{max}} karakters bestaat.',
+    '1_reaction' => '{{count} reactie',
+    'x_reactions' => '{{count}} reacties',
+    '1_like' => '{{count}} vind ik leuk',
+    'x_likes' => '{{count}} vinden dit leuk',
+    '1_reply' => '{{count}} antwoord',
+    'x_replies' => '{{count}} antwoorden',
     'no_replies_yet' => 'Nog geen antwoorden',
     'feed' => 'Berichten muur',
     'about' => 'Over',
@@ -174,10 +173,10 @@ $language = [
     'replies' => 'Antwoorden',
     'new_reply' => 'Nieuw antwoord',
     'registered' => 'Geregistreerd sinds:',
-    'registered_x' => 'Geregistreerd sinds: {x}',
+    'registered_x' => 'Geregistreerd sinds: {{registeredAt}}',
     'last_seen' => 'Laatst gezien:',
-    'last_seen_x' => 'Laatst gezien: {x}', // Don't replace {x}
-    'new_wall_post' => '{x} heeft een bericht geplaatst op je profiel.',
+    'last_seen_x' => 'Laatst gezien: {{lastSeenAt}}',
+    'new_wall_post' => '{{author}} heeft een bericht geplaatst op je profiel.',
     'couldnt_find_that_user' => 'Kan gebruiker niet vinden.',
     'block_user' => 'Blokkeer gebruiker',
     'unblock_user' => 'Deblokkeer gebruiker',
@@ -187,8 +186,8 @@ $language = [
     'user_unblocked' => 'Gebruiker gedeblokkeerd.',
     'views' => 'Profiel weergaven:',
     'private_profile_page' => 'Dit profiel is privé!',
-    'new_wall_post_reply' => '{x} heeft gereageerd op jouw post op {y}\'s profiel.', // Don't replace {x} or {y}
-    'new_wall_post_reply_your_profile' => '{x} heeft gereageerd op jouw post op jouw eigen profiel.', // Don't replace {x}
+    'new_wall_post_reply' => '{{author}} heeft gereageerd op jouw post op {{user}}\'s profiel.',
+    'new_wall_post_reply_your_profile' => '{{author}} heeft gereageerd op jouw post op jouw eigen profiel.',
     'no_about_fields' => 'Deze gebruiker heeft nog geen over-velden toegevoegd.',
     'reply' => 'Antwoord',
 
@@ -201,8 +200,8 @@ $language = [
     'no_messages' => 'Geen nieuwe berichten',
     'no_messages_full' => 'Je hebt geen berichten.',
     'view_messages' => 'Bekijk berichten',
-    '1_new_message' => 'Je hebt 1 nieuw bericht',
-    'x_new_messages' => 'Je hebt {x} nieuwe berichten', // Verander {x} niet
+    '1_new_message' => 'Je hebt {{count}} nieuw bericht',
+    'x_new_messages' => 'Je hebt {{count}} nieuwe berichten',
     'new_message' => 'Nieuw bericht',
     'message_title' => 'Titel van bericht',
     'to' => 'Naar',
@@ -237,6 +236,6 @@ $language = [
     /*
      *  Hooks
      */
-    'user_x_has_registered' => '{x} is lid geworden van ' . SITE_NAME . '!',
-    'user_x_has_validated' => '{x} heeft hun account gevalideerd!',
+    'user_x_has_registered' => '{{user}} is lid geworden van {{siteName}}!',
+    'user_x_has_validated' => '{{user}} heeft hun account gevalideerd!',
 ];

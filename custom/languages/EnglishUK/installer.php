@@ -40,7 +40,7 @@ $language = [
     'friendly_urls' => 'Friendly URLs',
     'friendly_urls_info_line_1' => 'Friendly URLs will improve the readability of URLs in your browser.',
     'friendly_urls_info_line_2' => 'For example, example.com/index.php?route=/forum would become example.com/forum',
-    'friendly_urls_info_line_3' => 'Your server must be configured correctly for this to work. You can see whether you can enable this option by clicking {{here}}',
+    'friendly_urls_info_line_3' => 'Your server must be configured correctly for this to work. You can see whether you can enable this option by clicking {{linkStart}}here{{linkEnd}}.',
     'enabled' => 'Enabled',
     'disabled' => 'Disabled',
     'character_set' => 'Character Set',

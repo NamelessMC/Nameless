@@ -24,6 +24,6 @@ $language = [
     'change_password_message' => 'Om je wachtwoord te herstellen, klik op de volgende link. Als je dit niet hebt aangevraagd, kan je deze email negeren.',
 
     // Forum Topic Replies
-    'forum_topic_reply_subject' => '{x} heeft gereageerd op {y}', // Don't remove {x} or {y}
-    'forum_topic_reply_message' => '{x} heeft gereageerd op een topic die jij volgt. Inhoud: {z}' // Don't remove {x} or {z}
+    'forum_topic_reply_subject' => '{{author}} heeft gereageerd op {{user}}', // Don't remove {x} or {y}
+    'forum_topic_reply_message' => '{{author}} heeft gereageerd op een topic die jij volgt. Inhoud: {{content}}' // Don't remove {x} or {z}
 ];

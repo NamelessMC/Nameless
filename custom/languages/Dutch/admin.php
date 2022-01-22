@@ -34,8 +34,8 @@ $language = [
     'users_and_groups' => 'Gebruikers en groepen',
 
     // Overzicht
-    'running_nameless_version' => 'Website versie: <strong>{x}</strong>', // Verander "{x}" niet
-    'running_php_version' => 'PHP versie: <strong>{x}</strong>', // Verander "{x}" niet
+    'running_nameless_version' => 'Website versie: {{version}}',
+    'running_php_version' => 'PHP versie: {{version}}',
     'statistics' => 'Statistieken',
     'registrations' => 'Registraties',
     'topics' => 'Onderwerpen',
@@ -71,7 +71,7 @@ $language = [
     'missing_contact_address' => 'Gelieve een contact e-mailadres in te vullen dat tussen de 3 en 255 tekens lang is.',
     'use_friendly_urls' => 'Vriendelijke URLs',
     'use_friendly_urls_help' => 'BELANGRIJK: Je webserver/webhosting moet geconfigureerd zijn om gebruik te maken van mod_rewrite en .htaccess vooraleer dit werkt.',
-    'config_not_writable' => 'Uw <strong>core/config.php</strong> bestand is niet schrijfbaar. Controleer de permissies.',
+    'config_not_writable' => 'Uw core/config.php bestand is niet schrijfbaar. Controleer de permissies.',
     'settings_updated_successfully' => 'Algemene instellingen succesvol bijgewerkt.',
     'social_media' => 'Sociale Media',
     'youtube_url' => 'Youtube URL',
@@ -100,18 +100,18 @@ $language = [
     'delete_email_error' => 'Fout verwijderen',
     'confirm_email_error_deletion' => 'Weet je zeker dat je deze fout wilt verwijderen?',
     'viewing_email_error' => 'Fout aan het bekijken',
-    'unable_to_write_email_config' => 'Kon niet naar het bestand <strong>core/email.php</strong> schrijven. Graag de bestandsrechten bekijken.',
+    'unable_to_write_email_config' => 'Kon niet naar het bestand core/email.php schrijven. Graag de bestandsrechten bekijken.',
     'enable_mailer' => 'PHPMailer inschakelen?',
     'enable_mailer_help' => 'Zet dit aan als de emails standaard niet worden verzonden. Als je gebruik wilt maken van PHPMailer heb je een email dienst nodig waarmee je emails kan verzenden, zoals Gmail of een SMTP provider (Outlook/Hotmail).',
     'outgoing_email' => 'Uitgaand E-mailadres',
     'outgoing_email_info' => 'Dit is het e-mailadres waarmee NamelessMC e-mails gaat verzenden.',
-    'mailer_settings_info' => 'De volgende velden zijn nodig als je PHPMailer aan hebt gezet. Voor meer informatie hoe je deze velden moet invullen, bekijk dan <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-SMTP-with-Nameless-(e.g.-Gmail-or-Outlook)" target="_blank">de wiki</a>.',
+    'mailer_settings_info' => 'De volgende velden zijn nodig als je PHPMailer aan hebt gezet.',
     'host' => 'Host',
     'email_port' => 'Poort',
     'email_port_invalid' => 'Please insert a valid email port.',
     'email_password_hidden' => 'Het wachtwoord wordt om veiligheidsredenen niet getoond.',
     'send_test_email' => 'Verzend test email',
-    'send_test_email_info' => 'Deze knop zorgt ervoor dat er een email naar het email addres, <strong>{x}</strong> wordt verzonden. Eventuele fouten tijdens het versturen van die e-mail, worden weergegeven.', // Verander {x} niet
+    'send_test_email_info' => 'Deze knop zorgt ervoor dat er een email naar het email addres, {{email}} wordt verzonden. Eventuele fouten tijdens het versturen van die e-mail, worden weergegeven.',
     'send' => 'Verzend',
     'edit_email_messages' => 'E-mail Berichten',
     'email_language_info' => 'Zie je je taal niet? Zorg ervoor dat \'emails.php\' in je language directory staat en dat het schrijfbaar is voor je webserver.',
@@ -146,7 +146,7 @@ $language = [
     'navbar_order' => 'Navbar ordening',
     'navbar_order_instructions' => 'Je kan elk item een nummer boven de 0 geven om items te ordenen in de navbar, met 1 de eerste en hogere nummers erna.',
     'navbar_icon' => 'Navbar Icoon',
-    'navbar_icon_instructions' => 'U kunt hier ook een pictogram aan elk item op de navigatiebalk toevoegen, bijvoorbeeld met behulp van <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>, <a href="https://semantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Semantic UI</a>.',
+    'navbar_icon_instructions' => 'U kunt hier ook een pictogram aan elk item op de navigatiebalk toevoegen, bijvoorbeeld met behulp van Font Awesome, Semantic UI.',
     'navigation_settings_updated_successfully' => 'Navigatie-instellingen succesvol bijgewerkt.',
     'dropdown_items' => 'Dropdown Items',
     'enable_page_load_timer' => 'Pagina laad timer inschakelen?',
@@ -213,7 +213,7 @@ $language = [
     'negative' => 'Negatief',
     'editing_reaction' => 'Reactie veranderen',
     'html' => 'HTML',
-    'new_reaction' => '<i class="fa fa-plus-circle"></i> Nieuwe reactie',
+    'new_reaction' => 'Nieuwe reactie',
     'creating_reaction' => 'Reactie maken',
     'no_reactions' => 'Er zijn nog geen reacties.',
     'reaction_created_successfully' => 'Reactie succesvol geplaatst.',
@@ -228,7 +228,7 @@ $language = [
 
     // Profielvelden
     'custom_fields' => 'Profielvelden',
-    'new_field' => '<i class="fa fa-plus-circle"></i> Nieuw veld',
+    'new_field' => 'Nieuw veld',
     'required' => 'Verplicht',
     'editable' => 'Aanpasbaar',
     'public' => 'Openbaar',
@@ -273,7 +273,7 @@ $language = [
     'account_verification' => 'Minecraft Account Verificatie',
     'server_banners' => 'Server Banners',
     'query_errors' => 'Query Fouten',
-    'add_server' => '<i class="fa fa-plus-circle"></i> Server toevoegen',
+    'add_server' => 'Server toevoegen',
     'no_servers_defined' => 'Er zijn geen servers gedefinieerd',
     'query_settings' => 'Query instellingen',
     'default_server' => 'Standaard server',
@@ -290,7 +290,7 @@ $language = [
     'no_parent_server' => 'Geen hoofd server',
     'bungee_instance' => 'BungeeCord Server?',
     'bungee_instance_help' => 'Zet dit aan als de server een BungeeCord server is.',
-    'server_query_information' => 'Om een lijst met spelers te laten zien, <strong>moet</strong> je server de optie \'enable-query\' aanzetten in de server\'s <strong>server.properties</strong> bestand',
+    'server_query_information' => 'Om een lijst met spelers te laten zien, moet je server de optie \'enable-query\' aanzetten in de server\'s server.properties bestand',
     'enable_status_query' => 'Status query aanzetten?',
     'status_query_help' => 'Als dit aanstaat, zal er op de status pagina staan of de server online is.',
     'show_ip_on_status_page' => 'IP weergeven op de statuspagina?',
@@ -321,7 +321,7 @@ $language = [
     'viewing_query_error' => 'Query fout aan het bekijken',
     'confirm_query_error_deletion' => 'Weet je zeker dat je deze query fout wilt verwijderen?',
     'no_query_errors' => 'Geen query fouten vastgesteld.',
-    'new_banner' => '<i class="fa fa-plus-circle"></i> Nieuwe banner',
+    'new_banner' => 'Nieuwe banner',
     'purge_errors' => 'Verwijder fouten',
     'confirm_purge_errors' => 'Weet je zeker dat je alle fouten wilt verwijderen?',
     'email_errors_purged_successfully' => 'E-mailfouten zijn met succes verwijderd.',
@@ -329,20 +329,19 @@ $language = [
     'no_email_errors' => 'Geen e-mailfouten geregistreerd.',
     'email_settings_updated_successfully' => 'De e-mailinstellingen zijn met succes bijgewerkt.',
     'content' => 'Inhoud',
-    'mcassoc_help' => 'mcassoc is een externe dienst die gebruikt kan worden om te controleren of gebruikers het Minecraft account hebben gekocht waarmee zij zich hebben geregistreerd. Om deze functie te gebruiken, dien je je aan te melden voor een "shared key". Je kan deze krijgen op de <a href="https://mcassoc.lukegb.com/" target="_blank">mcassoc website</a>.',
+    'mcassoc_help' => 'mcassoc is een externe dienst die gebruikt kan worden om te controleren of gebruikers het Minecraft account hebben gekocht waarmee zij zich hebben geregistreerd. Om deze functie te gebruiken, dien je je aan te melden voor een "shared key". Je kan deze krijgen op de mcassoc website: {{url}}.',
     'mcassoc_key' => 'mcassoc Shared Key',
     'mcassoc_instance' => 'mcassoc Instance Key',
-    'mcassoc_instance_help' => '<a href="#" onclick="generateInstance();">Klik om een "instance key" te genereren</a>',
+    'mcassoc_instance_help' => 'Klik om een "instance key" te genereren',
     'mcassoc_error' => 'Zorg ervoor dat je je "shared key" correct hebt ingevuld, en dat je een "instance key" correct hebt gegenereerd.',
     'updated_mcassoc_successfully' => 'mcassoc instellingen succesvol bijgewerkt.',
     'force_premium_accounts' => 'Forceer betaalde Minecraft accounts?',
     'banner_background' => 'Banner achtergrond',
     'query_interval' => 'Query interval (in minuten, moet tussen de 5 en 60)',
     'player_graphs' => 'Speler grafieken',
-    'player_count_cronjob_info' => 'Je kan een cron job instellen om je servers op tevragen elke {x} minuten met de volgende commando:',
     'status_page' => 'Statuspagina inschakelen?',
     'minecraft_settings_updated_successfully' => 'Instellingen succesvol bijgewerkt.',
-    'server_id_x' => 'Server ID: {x}', // Don't replace {x}
+    'server_id_x' => 'Server ID: {{serverId}}',
     'server_information' => 'Server Informatie',
     'query_information' => 'Query Informatie',
     'query_errors_purged_successfully' => 'Fouten in de zoekopdracht zijn met succes verwijderd.',
@@ -358,21 +357,21 @@ $language = [
     'module_enabled' => 'Module ingeschakeld.',
     'module_disabled' => 'Module uitgeschakeld.',
     'author' => 'Auteur:',
-    'author_x' => 'Auteur: {x}', // Don't replace {x}
-    'module_outdated' => 'We hebben gedetecteerd dat deze module bedoeld is voor Nameless versie {x}, maar u gebruikt Nameless versie {y}', // Don't replace "{x}" or "{y}"
+    'author_x' => 'Auteur: {{author}}',
+    'module_outdated' => 'We hebben gedetecteerd dat deze module bedoeld is voor Nameless versie {{intendedVersion}}, maar u gebruikt Nameless versie {{actualVersion}}',
     'find_modules' => 'Vind Modules',
     'view_all_modules' => 'Bekijk alle modules',
     'unable_to_retrieve_modules' => 'Niet in staat om modules op te halen',
     'module' => 'Module',
     'unable_to_enable_module' => 'Kan incompatibele module niet inschakelen.',
-    'unable_to_enable_module_dependencies' => 'Module kan niet geactiveerd worden omdat deze afhankelijk is van module {x}, die niet geactiveerd is.', // Don't replace {x}
-    'unable_to_disable_module' => 'Module kan niet uitgeschakeld worden - module {x} is hiervan afhankelijk.', // Don't replace {x}
+    'unable_to_enable_module_dependencies' => 'Module kan niet geactiveerd worden omdat deze afhankelijk is van module {{module}}, die niet geactiveerd is.',
+    'unable_to_disable_module' => 'Module kan niet uitgeschakeld worden - module {{module}} is hiervan afhankelijk.',
 
     // Stijlen
     'templates' => 'Sjablonen',
     'panel_templates' => 'Paneel Sjablonen',
     'view_all_panel_templates' => 'Alle paneelsjablonen bekijken',
-    'template_outdated' => 'We hebben ontdekt dat dit sjabloon voor versie {x} is, maar je gebruikt versie {y}', // Verander "{x}" of "{y}" niet
+    'template_outdated' => 'We hebben ontdekt dat dit sjabloon voor versie {{intendedVersion}} is, maar je gebruikt versie {{actualVersion}}',
     'template_not_supported' => 'Vanaf NamelessMC 2.0.0-pr8 wordt het standaardsjabloon niet meer ondersteund. Voor de beste ervaring, gelieve een ondersteund sjabloon te gebruiken.',
     'active' => 'Actief',
     'deactivate' => 'Deactiveer',
@@ -381,24 +380,24 @@ $language = [
     'images' => 'Afbeeldingen',
     'upload_new_image' => 'Upload nieuwe afbeelding',
     'reset_background' => 'Herstel achtergrond naar standaard',
-    'install' => '<i class="fa fa-plus-circle"></i> Installeren',
+    'install' => 'Installeren',
     'template_updated' => 'Sjabloon succesvol bijgewerkt.',
     'default' => 'Standaard',
     'make_default' => 'Standaard maken',
-    'default_template_set' => 'Standaard sjabloon verzet naar {x} succesvol.', // Verander "{x}" niet
+    'default_template_set' => 'Standaard sjabloon verzet naar {{template}} succesvol.',
     'template_deactivated' => 'Sjabloon gedeactiveerd.',
     'template_activated' => 'Sjabloon geactiveerd.',
     'permissions' => 'Toestemmingen',
-    'setting_perms_for_x' => 'Instellen van toestemmingen voor sjabloon {x}', // Verander "{x}" niet
+    'setting_perms_for_x' => 'Instellen van toestemmingen voor sjabloon {{template}}',
     'templates_installed_successfully' => 'Elk nieuw sjabloon is geinstalleerd .',
     'confirm_delete_template' => 'Weet je zeker dat je dit sjabloon wilt verwijderen?',
     'delete' => 'Verwijder',
     'template_deleted_successfully' => 'Sjabloon succesvol verwijderd.',
-    'background_image_x' => 'Achtergrondafbeelding: <strong>{x}</strong>', // Don't replace {x}
-    'banner_image_x' => 'Banner afbeelding: <strong>{x}</strong>', // Don't replace {x}
-    'logo_image_x' => 'Logo afbeelding: <strong>{x}</strong>', // Don't replace {x}
-    'favicon_image_x' => 'Favicon afbeelding: <strong>{x}</strong>', // Don't replace {x}
-    'x_directory_not_writable' => 'De <strong>{x}</strong> folder is niet beschrijfbaar!', // Don't replace {x}
+    'background_image_x' => 'Achtergrondafbeelding: {{imageName}}',
+    'banner_image_x' => 'Banner afbeelding: {{imageName}}',
+    'logo_image_x' => 'Logo afbeelding: {{imageName}}',
+    'favicon_image_x' => 'Favicon afbeelding: {{imageName}}',
+    'x_directory_not_writable' => 'De {{directory}} folder is niet beschrijfbaar!',
     'template_banner_reset_successfully' => 'Banner is met succes gereset.',
     'template_banner_updated_successfully' => 'Banner is met succes aangepast.',
     'reset_banner' => 'Reset Banner',
@@ -413,11 +412,11 @@ $language = [
     'unable_to_retrieve_templates' => 'Kan sjablonen niet ophalen',
     'template' => 'Sjabloon',
     'stats' => 'Statistieken',
-    'downloads_x' => 'Downloads: {x}',
-    'views_x' => 'Weergaven: {x}',
-    'rating_x' => 'Beoordeling: {x}',
-    'editing_template_x' => 'Sjabloon {x} bewerken', // Don't replace {x}
-    'editing_template_file_in_template' => 'Bestand {x} bewerken in sjabloon {y}', // Don't replace {x} or {y}
+    'downloads_x' => 'Downloads: {{downloads}}',
+    'views_x' => 'Weergaven: {{views}}',
+    'rating_x' => 'Beoordeling: {{rating}}',
+    'editing_template_x' => 'Sjabloon {{template}} bewerken',
+    'editing_template_file_in_template' => 'Bestand {{file}} bewerken in sjabloon {{template}}',
     'cant_write_to_template' => 'Ik kan niet naar het sjabloonbestand schrijven! Controleer de bestandsrechten.',
     'unable_to_delete_template' => 'Sjabloon kan niet volledig worden verwijderd. Controleer de bestandsrechten.',
     'background_reset_successfully' => 'Achtergrond verwijderd.',
@@ -433,7 +432,7 @@ $language = [
     'users' => 'Gebruikers',
     'groups' => 'Groepen',
     'group' => 'Groep',
-    'new_user' => '<i class="fa fa-plus-circle"></i> Nieuwe gebruiker',
+    'new_user' => 'Nieuwe gebruiker',
     'creating_new_user' => 'Maak een nieuwe gebruiker',
     'registered' => 'Aangemeld',
     'user_created' => 'Gebruiker succesvol aangemaakt.',
@@ -441,7 +440,7 @@ $language = [
     'cant_modify_root_user' => 'Kan de hoofdgroep van deze gebruiker niet veranderen!',
     'main_group' => 'Hoofdgroep',
     'user_deleted' => 'Gebruiker succesvol verwijderd.',
-    'confirm_user_deletion' => 'Weet je zeker dat je <strong>{x}</strong> wilt verwijderen?', // Verander "{x}" niet
+    'confirm_user_deletion' => 'Weet je zeker dat je {{user}} wilt verwijderen?',
     'validate_user' => 'Valideer gebruiker',
     'update_uuid' => 'UUID bijwerken',
     'update_mc_name' => 'Minecraft naam bijwerken',
@@ -457,7 +456,7 @@ $language = [
     'group_id' => 'Groep ID',
     'name' => 'Naam groep',
     'title' => 'Gebruikers titel',
-    'new_group' => '<i class="fa fa-plus-circle"></i> Nieuwe groep',
+    'new_group' => 'Nieuwe groep',
     'group_name_required' => 'Graag een groepsnaam invoeren.',
     'group_name_minimum' => 'Zorg ervoor dat de groepsnaam minimaal uit 2 karakters bestaat.',
     'group_name_maximum' => 'Zorg ervoor dat de groepsnaam maximaal uit 20 karakters bestaat.',
@@ -469,7 +468,7 @@ $language = [
     'group_username_css' => 'Group Username CSS',
     'group_staff' => 'Is de groep voor personeel?',
     'delete_group' => 'Verwijder groep',
-    'confirm_group_deletion' => 'Weet je zeker dat je de groep {x} wilt verwijderen?', // Verander "{x}" niet
+    'confirm_group_deletion' => 'Weet je zeker dat je de groep {{group}} wilt verwijderen?',
     'group_not_exist' => 'Die groep bestaat niet.',
     'secondary_groups' => 'Bijkomende groepen',
     'secondary_groups_info' => 'De gebruiker zal de bijkomende toestemmingen van deze groepen ook krijgen',
@@ -486,7 +485,7 @@ $language = [
     'user' => 'Gebruiker',
     'user_validated_successfully' => 'Gebruiker gevalideerd met succes.',
     'user_updated_successfully' => 'Gebruiker succesvol bijgewerkt.',
-    'editing_user_x' => 'Gebruiker {x} bewerken', // Don't replace {x}
+    'editing_user_x' => 'Gebruiker {{user}} bewerken',
     'details' => 'Details',
     'force_tfa' => 'Twee Factor authenticatie forceren voor groepsleden?',
     'force_tfa_warning' => 'Zorg ervoor dat u weet wat dit doet, anders riskeert u zichzelf en alle groepsleden buiten te sluiten.',
@@ -506,7 +505,6 @@ $language = [
     'enable_night_mode' => 'Zet nachtmodus aan',
     'disable_night_mode' => 'Zet nachtmodus uit',
     'view_site' => 'Terug naar de website',
-    'signed_in_as_x' => 'Ingelogd als {x}', // Verander "{x}" niet
     'warning' => 'Waarschuwing',
 
     // Onderhoud
@@ -532,8 +530,8 @@ $language = [
 
     // Updates
     'update' => 'Bijwerken',
-    'current_version_x' => 'Huidige versie: <strong>{x}</strong>', // Verander "{x}" niet
-    'new_version_x' => 'Nieuwe versie: <strong>{x}</strong>', // Verander "{x}" niet
+    'current_version_x' => 'Huidige versie: {{version}}',
+    'new_version_x' => 'Nieuwe versie: {{version}}',
     'new_update_available' => 'Er is een nieuwe versie beschikbaar',
     'new_urgent_update_available' => 'Er is een nieuwe dringende update beschikbaar. Gelieve zo snel mogelijk te updaten!',
     'up_to_date' => 'Deze website draait al de nieuwste versie!',
@@ -550,8 +548,8 @@ $language = [
     'widget_enabled' => 'Widget ingeschakeld.',
     'widget_disabled' => 'Widget uitgeschakeld.',
     'widget_updated' => 'Widget aangepast.',
-    'editing_widget_x' => 'Widget {x} bewerken', // Don't replace {x}
-    'module_x' => 'Module: {x}', // Don't replace {x}
+    'editing_widget_x' => 'Widget {{widget}} bewerken',
+    'module_x' => 'Module: {{module}}',
     'widget_order' => 'Widget Volgorde',
     'widget_location' => 'Widget Locatie',
     'left' => 'Links',
@@ -564,7 +562,7 @@ $language = [
     // aangepaste pagina's
     'pages' => 'Pagina\'s',
     'custom_pages' => 'Pagina\'s',
-    'new_page' => '<i class="fa fa-plus-circle"></i> Nieuwe pagina',
+    'new_page' => 'Nieuwe pagina',
     'no_custom_pages' => 'Er zijn nog geen paginas gemaakt.',
     'creating_new_page' => 'Pagina aan het maken',
     'page_title' => 'Pagina titel',
@@ -586,7 +584,7 @@ $language = [
     'basic_page' => 'Basic page?',
     'page_permissions' => 'Pagina toestemmingen',
     'view_page' => 'Pagina bekijken?',
-    'editing_page_x' => 'Pagina {x} aan het bewerken', // Verander {x} niet
+    'editing_page_x' => 'Pagina {{page}} aan het bewerken',
     'unable_to_create_page' => 'Kon pagina niet maken:',
     'page_title_required' => 'Een pagina titel is nodig.',
     'page_url_required' => 'Een pagina pad is nodig.',
@@ -606,7 +604,7 @@ $language = [
     // API
     'api' => 'API',
     'enable_api' => 'API aanzetten?',
-    'api_info' => 'De API staat toe dat plugins en andere services mogen communiceren met je website, zoals de <a href="https://plugin.namelessmc.com" target="_blank" >officiële Nameless plugin</a>.',
+    'api_info' => 'De API staat toe dat plugins en andere services mogen communiceren met je website, zoals de officiële Nameless plugin.',
     'enable_legacy_api' => 'Legacy API aanzetten?',
     'legacy_api_info' => 'De legacy API staat toe dat plugins die de verouderde versie (1) API gebruiken werken met uw huidige versie (2).',
     'confirm_api_regen' => 'Weet je zeker dat jij jouw API key wilt vernieuwen?',
@@ -617,9 +615,9 @@ $language = [
     'api_registration_email' => 'API Registratie Email',
     'show_registration_link' => 'Toon registratie link',
     'registration_link' => 'Registratie Link',
-    'link_to_complete_registration' => 'Link voor het voltooien van de registratie: {x}', // Don't replace {x}
+    'link_to_complete_registration' => 'Link voor het voltooien van de registratie: {{link}}',
     'api_verification' => 'Activeer API verificatie?',
-    'api_verification_info' => 'Indien ingeschakeld, kunnen accounts alleen worden geverifieerd via de API, bijvoorbeeld via de officiële Nameless plugin. <strong>Deze optie overschrijft e-mailverificatie en accounts worden automatisch geactiveerd!</strong><br />Je moet je standaard groep instellen om beperkte permissies te hebben, en vervolgens de post-validatie groep in de StaffCP -> Configuration -> Registratie tabblad naar de volledige groep leden met normale permissies bijwerken.',
+    'api_verification_info' => 'Indien ingeschakeld, kunnen accounts alleen worden geverifieerd via de API, bijvoorbeeld via de officiële Nameless plugin. Deze optie overschrijft e-mailverificatie en accounts worden automatisch geactiveerd!\nJe moet je standaard groep instellen om beperkte permissies te hebben, en vervolgens de post-validatie groep in de StaffCP -> Configuration -> Registratie tabblad naar de volledige groep leden met normale permissies bijwerken.',
     'enable_username_sync' => 'Gebruikersnaam synchroniseren?',
     'enable_username_sync_info' => 'Indien ingeschakeld, zullen de gebruikersnamen van de website worden aangepast aan de ingame gebruikersnamen.',
     'api_settings_updated_successfully' => 'API-instellingen succesvol bijgewerkt.',
@@ -639,7 +637,7 @@ $language = [
     'existing_rules' => 'Bestaande Regels',
     'new_rule' => 'Nieuwe Regel',
     'api_endpoints' => 'API Eindpunten',
-    'api_endpoints_info' => 'API Eindpunten staan Modules toe om manieren te creëren voor externe applicaties (zoals Minecraft en Discord) om te communiceren met uw NamelessMC website. <a href="https://docs.namelessmc.com/en/api-documentation" target="_blank">Check out the API documentation here</a>',
+    'api_endpoints_info' => 'API Eindpunten staan Modules toe om manieren te creëren voor externe applicaties (zoals Minecraft en Discord) om te communiceren met uw NamelessMC website.',
     'route' => 'Route',
 
     // Bestand uploads
@@ -684,18 +682,18 @@ $language = [
     'report_hook_info' => 'Report creation',
 
     // Sitemap
-    'unable_to_load_sitemap_file_x' => 'Kan geen sitemap-bestand laden {x}', // Don't replace {x}
+    'unable_to_load_sitemap_file_x' => 'Kan geen sitemap-bestand laden {{file}}',
     'sitemap_generated' => 'Sitemap succesvol gegenereerd',
-    'sitemap_not_writable' => 'De <strong>cache/sitemaps</strong> map is niet beschrijfbaar.',
-    'cache_not_writable' => 'De <strong>cache</strong> map is niet beschrijfbaar.',
+    'sitemap_not_writable' => 'De cache/sitemaps map is niet beschrijfbaar.',
+    'cache_not_writable' => 'De cache map is niet beschrijfbaar.',
     'generate_sitemap' => 'Genereer Sitemap',
     'download_sitemap' => 'Download Sitemap',
     'sitemap_not_generated_yet' => 'Een sitemap is nog niet gegenereerd!',
-    'sitemap_last_generated_x' => 'De sitemap is als laatste gegenereerd {x}', // Don't replace {x}
+    'sitemap_last_generated_x' => 'De sitemap is als laatste gegenereerd {{generatedAt}}',
 
     // Page metadata
     'page_metadata' => 'Pagina Metagegevens',
-    'metadata_page_x' => 'Metagegevens aan het bekijken voor pagina {x}', // Don't replace {x}
+    'metadata_page_x' => 'Metagegevens aan het bekijken voor pagina {{page}}',
     'keywords' => 'Sleutelwoorden',
     'description_max_500' => 'De beschrijving mag maximaal 500 karakters bevatten.',
     'page' => 'Pagina',
@@ -707,15 +705,15 @@ $language = [
     'average_players' => 'Gemiddelde Spelers',
     'nameless_news' => 'NamelessMC Nieuws',
     'unable_to_retrieve_nameless_news' => 'Niet in staat om het laatste nieuws op te halen',
-    'confirm_leave_site' => 'U staat op het punt deze site te verlaten! Weet u zeker dat u <strong id="leaveSiteURL">{x}</strong> wilt bezoeken?', // don't replace {x} and make sure it has the id leaveSiteURL
+    'confirm_leave_site' => 'U staat op het punt deze site te verlaten! Weet u zeker dat u {{link}} wilt bezoeken?',
     'server_compatibility' => 'Server Compatibiliteit',
     'issues' => 'Problemen',
 
     // Other
     'source' => 'Bron',
     'support' => 'Ondersteuning',
-    'admin_dir_still_exists' => 'Waarschuwing! De map <strong>modules/Core/pages/admin</strong> bestaat nog steeds. Gelieve deze te verwijderen.',
-    'mod_dir_still_exists' => 'Waarschuwing! De map <strong>modules/Core/pages/mod</strong> bestaat nog steeds. Gelieve deze te verwijderen.',
+    'admin_dir_still_exists' => 'Waarschuwing! De map {{directory}} bestaat nog steeds. Gelieve deze te verwijderen.',
+    'mod_dir_still_exists' => 'Waarschuwing! De map {{directory}} bestaat nog steeds. Gelieve deze te verwijderen.',
     'forum_topic_reply_email' => 'Forum Topic Reactie',
 
     // Announcements
@@ -728,7 +726,7 @@ $language = [
     'editing_announcement_success' => 'Aankondiging bijgewerkt.',
     'creating_announcement_failure' => 'Aankondiging maken mislukt.',
     'editing_announcement_failure' => 'Aankondiging bijwerken mislukt.',
-    'announcement_icon_instructions' => 'Je kunt een icoon toevoegen aan elke aankondiging, bijvoorbeeld met behulp van <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>, <a href="https://semantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Semantic UI</a>.',
+    'announcement_icon_instructions' => 'Je kunt een icoon toevoegen aan elke aankondiging, bijvoorbeeld met behulp van Font Awesome, Semantic UI.',
     'header' => 'Koptekst',
     'message' => 'Bericht',
     'text_colour' => 'Tekstkleur',
