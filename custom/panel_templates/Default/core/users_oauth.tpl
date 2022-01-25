@@ -55,8 +55,8 @@
                             <table class="table table-borderless table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Name</th>
-                                        <th>Identifier</th>
+                                        <th>{$NAME}</th>
+                                        <th>{$IDENTIFIER}</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -80,9 +80,9 @@
 
                                         <td class="text-right">
                                             {if isset($USER_OAUTH_PROVIDERS[$provider_name])}
-                                                <button class="btn btn-danger" onclick="showDeleteModal('{$provider_name}')">Unlink</button>
+                                                <button class="btn btn-danger" onclick="showDeleteModal('{$provider_name}')">{$UNLINK}</button>
                                             {else}
-                                                <button class="btn btn-danger disabled" disabled>Unlink</button>
+                                                <button class="btn btn-danger disabled" disabled>{$UNLINK}</button>
                                             {/if}
                                         </td>
                                     </tr>

@@ -36,7 +36,7 @@ if (isset($_GET['provider'], $_GET['code'])) {
 
         $provider_id = $oauth_user[OAuth::getInstance()->getIdName($provider_name)];
         if (!OAuth::getInstance()->userExistsByProviderId($provider_name, $provider_id)) {
-            Session::flash('oauth_error', 'No user found with that ' . ucfirst($provider_name) . ' account.');
+            Session::flash('oauth_error', str_replace('{x}', ucfirst($provider_name), $language->get('user', 'no_user_found_with_provider')));
             Redirect::to(URL::build('/login'));
             die();
         }
@@ -46,7 +46,7 @@ if (isset($_GET['provider'], $_GET['code'])) {
             '', true, 'oauth'
         )) {
             Log::getInstance()->log(Log::Action('user/login'));
-            Session::flash('home', "You have logged in with your " . ucfirst($provider_name) . " account.");
+            Session::flash('home', str_replace('{x}', ucfirst($provider_name), $language->get('user', 'oauth_login_success')));
 
             if (isset($_SESSION['last_page']) && substr($_SESSION['last_page'], -1) != '=') {
                 Redirect::to($_SESSION['last_page']);

@@ -81,6 +81,9 @@ $smarty->assign([
     'DELETE_LINK' => URL::build('/panel/users/oauth/', 'action=delete'),
     'OAUTH_PROVIDERS' => $oauth_providers,
     'USER_OAUTH_PROVIDERS' => $user_providers_template,
+    'UNLINK' => $language->get('admin', 'unlink'),
+    'NAME' => $language->get('admin', 'name'),
+    'IDENTIFIER' => $language->get('admin', 'identifier'),
 ]);
 
 // Load modules + template
