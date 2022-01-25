@@ -22,8 +22,8 @@ class OAuth extends Instanceable {
 
     private DB $_db;
 
-    private function db(): DB {
-        return $this->_db ??= DB::getInstance();
+    public function __construct() {
+        $this->_db = DB::getInstance();
     }
 
     /**
@@ -106,7 +106,7 @@ class OAuth extends Instanceable {
      * @return bool If the provider is enabled
      */
     public function isEnabled(string $provider): bool {
-        return $this->db()->get('oauth', ['provider', '=', $provider])->first()->enabled == '1';
+        return $this->_db->get('oauth', ['provider', '=', $provider])->first()->enabled == '1';
     }
 
     /**
@@ -116,7 +116,7 @@ class OAuth extends Instanceable {
      * @param int $enabled Whether to enable or disable the provider
      */
     public function setEnabled(string $provider, int $enabled): void {
-        $this->db()->createQuery("UPDATE nl2_oauth SET enabled = ? WHERE provider = ?", [$enabled, $provider]);
+        $this->_db->createQuery("UPDATE nl2_oauth SET enabled = ? WHERE provider = ?", [$enabled, $provider]);
     }
 
     /**
@@ -178,7 +178,7 @@ class OAuth extends Instanceable {
      * @return array The configured credentials for this provider
      */
     public function getCredentials(string $provider): array {
-        $data = $this->db()->get('oauth', ['provider', '=', $provider])->first();
+        $data = $this->_db->get('oauth', ['provider', '=', $provider])->first();
         return [
             $data->client_id,
             $data->client_secret,
@@ -193,7 +193,7 @@ class OAuth extends Instanceable {
      * @param string $client_secret The new client secret
      */
     public function setCredentials(string $provider, string $client_id, string $client_secret): void {
-        $this->db()->createQuery(
+        $this->_db->createQuery(
             'INSERT INTO nl2_oauth (provider, client_id, client_secret) VALUES(?, ?, ?) ON DUPLICATE KEY UPDATE client_id=?, client_secret=?',
             [$provider, $client_id, $client_secret, $client_id, $client_secret]
         );
@@ -207,7 +207,7 @@ class OAuth extends Instanceable {
      * @return bool Whether the user is already linked to the provider
      */
     public function userExistsByProviderId(string $provider, string $provider_id): bool {
-        return $this->db()->selectQuery(
+        return $this->_db->selectQuery(
             'SELECT user_id FROM nl2_oauth_users WHERE provider = ? AND provider_id = ?',
             [$provider, $provider_id]
         )->count() > 0;
@@ -221,7 +221,7 @@ class OAuth extends Instanceable {
      * @return int The NamelessMC user ID of the user linked to the provider
      */
     public function getUserIdFromProviderId(string $provider, string $provider_id): int {
-        return $this->db()->selectQuery(
+        return $this->_db->selectQuery(
             'SELECT user_id FROM nl2_oauth_users WHERE provider = ? AND provider_id = ?',
             [$provider, $provider_id]
         )->first()->user_id;
@@ -235,7 +235,7 @@ class OAuth extends Instanceable {
      * @param string $provider_id  The provider user ID
      */
     public function saveUserProvider(string $user_id, string $provider, string $provider_id): void {
-        $this->db()->createQuery(
+        $this->_db->createQuery(
             'INSERT INTO nl2_oauth_users (user_id, provider, provider_id) VALUES (?, ?, ?)',
             [$user_id, $provider, $provider_id]
         );
@@ -248,7 +248,7 @@ class OAuth extends Instanceable {
      * @return array The array
      */
     public function getAllProvidersForUser(int $user_id): array {
-        return $this->db()->selectQuery(
+        return $this->_db->selectQuery(
             'SELECT * FROM nl2_oauth_users WHERE user_id = ?',
             [$user_id]
         )->results();
@@ -261,7 +261,7 @@ class OAuth extends Instanceable {
      * @param string $provider The provider user ID
      */
     public function unlinkProviderForUser(int $user_id, string $provider): void {
-        $this->db()->createQuery(
+        $this->_db->createQuery(
             'DELETE FROM nl2_oauth_users WHERE user_id = ? AND provider = ?',
             [$user_id, $provider]
         );
