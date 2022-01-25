@@ -115,6 +115,13 @@
                 </div>
 
                 <h5>{$OAUTH}</h5>
+                <div class="card shadow border-left-primary">
+                    <div class="card-body">
+                        <h5><i class="icon fa fa-info-circle"></i> {$INFO}</h5>
+                        {$OAUTH_INFO}
+                    </div>
+                </div>
+                <br />
                 <form action="" method="post">
                     <div class="row">
                         <div class="col">

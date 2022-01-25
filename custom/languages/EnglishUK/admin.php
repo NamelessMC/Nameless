@@ -740,6 +740,7 @@ $language = [
 
     // OAuth
     'oauth' => 'OAuth',
+    'oauth_info' => 'Configure OAuth providers to allow users to login with their social network accounts. <a href="https://docs.namelessmc.com/en/oauth" target="_blank">Check out our documentation for help.</a>',
     'unlink' => 'Unlink',
     'identifier' => 'Identifier',
     'unlink_account_confirm' => 'Are you sure you want to forcibly unlink this provider from this user?',
