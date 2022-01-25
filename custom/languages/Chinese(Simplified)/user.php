@@ -37,8 +37,8 @@ $language = [
     'delete_all' => '清空',
     'private_profile' => '私人资料 (他人无法阅览)',
     'gif_avatar' => '上传 GIF 文件作为头像',
-    'placeholders' => 'Placeholders',
-    'no_placeholders' => 'No Placeholders',
+    'placeholders' => '占位符',
+    'no_placeholders' => '无占位符',
 
     // Profile settings
     'field_is_required' => '{x} 是必须要填写的。', // Don't replace {x}

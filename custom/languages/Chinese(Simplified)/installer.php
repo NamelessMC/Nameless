@@ -56,7 +56,7 @@ $language = [
     'site_name' => '网站名称',
     'contact_email' => '联系邮箱',
     'outgoing_email' => '发件箱',
-    'language' => 'Language',
+    'language' => '语言',
     'initialising_database_and_cache' => '初始化数据库和缓存，请稍候...',
     'unable_to_login' => '无法登录。',
     'unable_to_create_account' => '无法创建新用户',
@@ -95,7 +95,7 @@ $language = [
     'step_database_config' => '数据库配置',
     'step_site_config' => '站点配置',
     'step_admin_account' => '管理员账户',
-    'step_conversion' => 'Conversion',
+    'step_conversion' => '转换',
     'step_finish' => '完成',
 
     'general_configuration' => '基本配置',
