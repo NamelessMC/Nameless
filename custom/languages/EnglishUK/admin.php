@@ -740,4 +740,6 @@ $language = [
 
     // OAuth
     'oauth' => 'OAuth',
+    'unlink_account_confirm' => 'Are you sure you want to forcibly unlink this provider from this user?',
+    'unlink_account_success' => 'Successfully unlinked their account from {x}.', // Don't replace {x}
 ];

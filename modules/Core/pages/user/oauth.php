@@ -33,7 +33,7 @@ if (isset($_GET['provider'], $_GET['code'])) {
         $oauth_user_provider_id = $oauth_user[OAuth::getInstance()->getIdName($provider_name)];
 
         if (OAuth::getInstance()->userExistsByProviderId($provider_name, $oauth_user_provider_id)) {
-            Session::flash('oauth_error', 'Another NamelessMC user is already linked to that ' . ucfirst($provider_name) . ' account.');
+            Session::flash('oauth_error', str_replace('{x}', ucfirst($provider_name), $language->get('user', 'oauth_already_linked')));
             Redirect::to(URL::build('/user/oauth'));
             die();
         }
@@ -44,7 +44,7 @@ if (isset($_GET['provider'], $_GET['code'])) {
             $oauth_user_provider_id
         );
 
-        Session::flash('oauth_success', 'Successfully linked your account with ' . ucfirst($provider_name) . '!');
+        Session::flash('oauth_success', str_replace('{x}', ucfirst($provider_name), $language->get('user', 'oauth_link_success')));
         Redirect::to(URL::build('/user/oauth'));
         die();
     }

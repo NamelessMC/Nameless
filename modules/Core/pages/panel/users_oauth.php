@@ -28,7 +28,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'delete') {
 
                 OAuth::getInstance()->unlinkProviderForUser($_POST['user_id'], $_POST['provider_name']);
 
-                Session::flash('oauth_success', 'Successfully unlinked their account from ' . ucfirst($_POST['provider_name']) . '.');
+                Session::flash('oauth_success', str_replace('{x}', ucfirst($_POST['provider_name']), $language->get('admin', 'unlink_account_success')));
             }
         }
         die();
@@ -75,7 +75,7 @@ $smarty->assign([
     'BACK_LINK' => URL::build('/panel/users'),
     'BACK' => $language->get('general', 'back'),
     'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
-    'ARE_YOU_SURE_MESSAGE' => 'Are you sure you want to forcibly unlink this provider from this user?',
+    'ARE_YOU_SURE_MESSAGE' => $language->get('admin', 'unlink_account_confirm'),
     'YES' => $language->get('general', 'yes'),
     'NO' => $language->get('general', 'no'),
     'DELETE_LINK' => URL::build('/panel/users/oauth/', 'action=delete'),
