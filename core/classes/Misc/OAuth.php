@@ -194,8 +194,8 @@ class OAuth extends Instanceable {
      */
     public function setCredentials(string $provider, string $client_id, string $client_secret): void {
         $this->db()->createQuery(
-            'UPDATE nl2_oauth SET client_id = ?, client_secret = ? WHERE provider = ?',
-            [$client_id, $client_secret, $provider]
+            'INSERT INTO nl2_oauth (provider, client_id, client_secret) VALUES(?, ?, ?) ON DUPLICATE KEY UPDATE client_id=?, client_secret=?',
+            [$provider, $client_id, $client_secret, $client_id, $client_secret]
         );
     }
 
