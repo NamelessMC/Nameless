@@ -49,11 +49,16 @@ if (isset($_GET['provider'], $_GET['code'])) {
         die();
     }
 } else if (Input::exists()) {
-    $provider_name = Input::get('provider');
+    if (Token::check()) {
+        $provider_name = Input::get('provider');
 
-    if (Input::get('action') === 'unlink') {
-        OAuth::getInstance()->unlinkProviderForUser($user->data()->id, $provider_name);
-        Session::flash('oauth_success', $language->get('user', 'oauth_unlinked'));
+        if (Input::get('action') === 'unlink') {
+            OAuth::getInstance()->unlinkProviderForUser($user->data()->id, $provider_name);
+            Session::flash('oauth_success', $language->get('user', 'oauth_unlinked'));
+        }
+    } else {
+        // Invalid token
+        Session::flash('oauth_error', $language->get('general', 'invalid_token'));
     }
 }
 
