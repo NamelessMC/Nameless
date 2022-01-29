@@ -20,22 +20,6 @@ $page = 'register';
 const PAGE = 'register';
 $page_title = $language->get('general', 'register');
 
-// Check if Minecraft is enabled
-$minecraft = $queries->getWhere('settings', ['name', '=', 'mc_integration']);
-$minecraft = $minecraft[0]->value;
-
-if ($minecraft == '1') {
-    // Check if AuthMe is enabled
-    $authme_enabled = $queries->getWhere('settings', ['name', '=', 'authme']);
-    $authme_enabled = $authme_enabled[0]->value;
-
-    if ($authme_enabled == '1') {
-        // Authme connector
-        require(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', 'Core', 'pages', 'authme_connector.php']));
-        die();
-    }
-}
-
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 require_once(ROOT_PATH . '/modules/Core/includes/emails/register.php');
 
@@ -83,6 +67,22 @@ if ($registration_enabled == 0) {
     $template->displayTemplate('registration_disabled.tpl', $smarty);
 
     die();
+}
+
+// Check if Minecraft is enabled
+$minecraft = $queries->getWhere('settings', ['name', '=', 'mc_integration']);
+$minecraft = $minecraft[0]->value;
+
+if ($minecraft == '1') {
+    // Check if AuthMe is enabled
+    $authme_enabled = $queries->getWhere('settings', ['name', '=', 'authme']);
+    $authme_enabled = $authme_enabled[0]->value;
+
+    if ($authme_enabled == '1') {
+        // Authme connector
+        require(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', 'Core', 'pages', 'authme_connector.php']));
+        die();
+    }
 }
 
 // Registration page
