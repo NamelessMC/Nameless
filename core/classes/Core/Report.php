@@ -22,11 +22,14 @@ class Report {
     /**
      * Create a report.
      *
-     * @param array $post Array containing fields.
+     * @param Language $language Language to use for messages.
+     * @param User $user_reporting User making the report.
+     * @param User $reported_user User being reported.
+     * @param array $data Array containing report data.
      */
-    public function create(array $post = []): array {
+    public function create(Language $language, User $user_reporting, User $reported_user, array $data): array {
         // Insert into database
-        if (!$this->_db->insert('reports', $post)) {
+        if (!$this->_db->insert('reports', $data)) {
             throw new RuntimeException('There was a problem creating the report.');
         }
 
@@ -53,8 +56,17 @@ class Report {
             }
         }
 
-        $post['id'] = $id;
-        return $post;
+        EventHandler::executeEvent('createReport', [
+            'username' => $data['reported_mcname'],
+            'content' => str_replace('{x}', $user_reporting->username, $language->get('general', 'reported_by')),
+            'content_full' => $data['report_reason'],
+            'avatar_url' => $data['reported_id'] ? $reported_user->getAvatar() : Util::getAvatarFromUUID($data['reported_uuid']),
+            'title' => $language->get('general', 'view_report'),
+            'url' => rtrim(Util::getSelfURL(), '/') . URL::build('/panel/users/reports/', 'id=' . $id)
+        ]);
+
+        $data['id'] = $id;
+        return $data;
 
     }
 }
