@@ -113,7 +113,7 @@ class HttpClient {
      * Get the response body as a decoded JSON object
      *
      * @param bool $assoc Whether to decode the JSON as a PHP array if true or PHP object.
-     * @return array|object The response body
+     * @return mixed The response body
      */
     public function json(bool $assoc = false) {
         return json_decode($this->_contents, $assoc);
