@@ -27,7 +27,7 @@ class Report {
      * @param User $reported_user User being reported.
      * @param array $data Array containing report data.
      */
-    public function create(Language $language, User $user_reporting, User $reported_user, array $data): array {
+    public function create(Language $language, User $user_reporting, User $reported_user, array $data) {
         // Insert into database
         if (!$this->_db->insert('reports', $data)) {
             throw new RuntimeException('There was a problem creating the report.');
@@ -64,9 +64,5 @@ class Report {
             'title' => $language->get('general', 'view_report'),
             'url' => rtrim(Util::getSelfURL(), '/') . URL::build('/panel/users/reports/', 'id=' . $id)
         ]);
-
-        $data['id'] = $id;
-        return $data;
-
     }
 }
