@@ -14,9 +14,6 @@ class OAuth extends Instanceable {
         self::GOOGLE,
     ];
 
-    public const PAGE_LINK = 'link';
-    public const PAGE_LOGIN = 'login';
-
     private DiscordProvider $_discord_provider;
     private GoogleProvider $_google_provider;
 
@@ -43,17 +40,16 @@ class OAuth extends Instanceable {
     /**
      * Get an array of provider names and their URL & icon.
      *
-     * @param string $page Either "login" or "register" for generating the callback URL
      * @return array Array of provider names and their instances
      */
-    public function getProvidersAvailable(string $page): array {
+    public function getProvidersAvailable(): array {
         $providers = [];
         foreach (self::PROVIDERS as $provider_name) {
             if (!$this->isSetup($provider_name)) {
                 continue;
             }
 
-            $provider = $this->getProviderInstance($provider_name, $page);
+            $provider = $this->getProviderInstance($provider_name);
 
             $providers[$provider_name] = [
                 'url' => $provider->getAuthorizationUrl([
@@ -73,14 +69,11 @@ class OAuth extends Instanceable {
      * Get or create an instance of a specific provider.
      *
      * @param string $provider The provider name
-     * @param string $page Either "login" or "register" for generating the callback URL
      * @return AbstractProvider The provider instance
      */
-    public function getProviderInstance(string $provider, string $page): AbstractProvider {
+    public function getProviderInstance(string $provider): AbstractProvider {
         [$clientId, $clientSecret] = $this->getCredentials($provider);
-        // Login: http(s)://example.com/index.php?route=/login/oauth/&provider=<provider>
-        // Link: http(s)://example.com/index.php?route=/user/oauth/&provider=<provider>
-        $url = rtrim(Util::getSelfURL(), '/') . URL::build($page === self::PAGE_LINK ? '/user/oauth' : '/login/oauth', "provider=$provider", 'non-friendly');
+        $url = rtrim(Util::getSelfURL(), '/') . URL::build('/oauth', "provider=$provider", 'non-friendly');
         $options = [
             'clientId' => $clientId,
             'clientSecret' => $clientSecret,

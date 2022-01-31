@@ -21,34 +21,7 @@ const PAGE = 'cc_oauth';
 $page_title = $language->get('user', 'user_cp');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-if (isset($_GET['provider'], $_GET['code'])) {
-
-    if ($_GET['provider'] === OAuth::DISCORD || $_GET['provider'] === OAuth::GOOGLE) {
-        $provider_name = $_GET['provider'];
-        $provider = OAuth::getInstance()->getProviderInstance($provider_name, OAuth::PAGE_LINK);
-        $token = $provider->getAccessToken('authorization_code', [
-            'code' => $_GET['code']
-        ]);
-        $oauth_user = $provider->getResourceOwner($token)->toArray();
-        $oauth_user_provider_id = $oauth_user[OAuth::getInstance()->getIdName($provider_name)];
-
-        if (OAuth::getInstance()->userExistsByProviderId($provider_name, $oauth_user_provider_id)) {
-            Session::flash('oauth_error', str_replace('{x}', ucfirst($provider_name), $language->get('user', 'oauth_already_linked')));
-            Redirect::to(URL::build('/user/oauth'));
-            die();
-        }
-
-        OAuth::getInstance()->saveUserProvider(
-            $user->data()->id,
-            $provider_name,
-            $oauth_user_provider_id
-        );
-
-        Session::flash('oauth_success', str_replace('{x}', ucfirst($provider_name), $language->get('user', 'oauth_link_success')));
-        Redirect::to(URL::build('/user/oauth'));
-        die();
-    }
-} else if (Input::exists()) {
+if (Input::exists()) {
     if (Token::check()) {
         $provider_name = Input::get('provider');
 
@@ -62,7 +35,9 @@ if (isset($_GET['provider'], $_GET['code'])) {
     }
 }
 
-$providers = OAuth::getInstance()->getProvidersAvailable(OAuth::PAGE_LINK);
+Session::put('oauth_method', 'link');
+
+$providers = OAuth::getInstance()->getProvidersAvailable();
 $user_providers = OAuth::getInstance()->getAllProvidersForUser($user->data()->id);
 
 $user_providers_template = [];

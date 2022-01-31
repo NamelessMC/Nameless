@@ -47,7 +47,7 @@ if (!$view_user->data()) {
 }
 $user_query = $view_user->data();
 
-$oauth_providers = OAuth::getInstance()->getProvidersAvailable('');
+$oauth_providers = OAuth::getInstance()->getProvidersAvailable();
 $user_oauth_providers = OAuth::getInstance()->getAllProvidersForUser($user_query->id);
 
 $user_providers_template = [];

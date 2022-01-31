@@ -24,43 +24,6 @@ if ($user->isLoggedIn()) {
     die();
 }
 
-if (isset($_GET['provider'], $_GET['code'])) {
-
-    if ($_GET['provider'] === OAuth::DISCORD || $_GET['provider'] === OAuth::GOOGLE) {
-        $provider_name = $_GET['provider'];
-        $provider = OAuth::getInstance()->getProviderInstance($provider_name, OAuth::PAGE_LOGIN);
-        $token = $provider->getAccessToken('authorization_code', [
-            'code' => $_GET['code']
-        ]);
-        $oauth_user = $provider->getResourceOwner($token)->toArray();
-
-        $provider_id = $oauth_user[OAuth::getInstance()->getIdName($provider_name)];
-        if (!OAuth::getInstance()->userExistsByProviderId($provider_name, $provider_id)) {
-            Session::flash('oauth_error', str_replace('{x}', ucfirst($provider_name), $language->get('user', 'no_user_found_with_provider')));
-            Redirect::to(URL::build('/login'));
-            die();
-        }
-
-        if ((new User())->login(
-            OAuth::getInstance()->getUserIdFromProviderId($provider_name, $provider_id),
-            '', true, 'oauth'
-        )) {
-            Log::getInstance()->log(Log::Action('user/login'));
-            Session::flash('home', str_replace('{x}', ucfirst($provider_name), $language->get('user', 'oauth_login_success')));
-
-            if (isset($_SESSION['last_page']) && substr($_SESSION['last_page'], -1) != '=') {
-                Redirect::to($_SESSION['last_page']);
-                die();
-            }
-
-            Redirect::to(URL::build('/'));
-            die();
-        }
-    } else {
-        throw new RuntimeException("Invalid provider {$_GET['provider']}");
-    }
-}
-
 // Get login method
 $login_method = $queries->getWhere('settings', ['name', '=', 'login_method']);
 $login_method = $login_method[0]->value;
@@ -313,6 +276,9 @@ if (Input::exists()) {
     }
 }
 
+// OAuth session meta
+Session::put('oauth_method', 'login');
+
 // Sign in template
 // Generate content
 if ($login_method == 'email') {
@@ -339,7 +305,7 @@ $smarty->assign([
     'ERROR' => ($return_error ?? []),
     'NOT_REGISTERED_YET' => $language->get('general', 'not_registered_yet'),
     'OAUTH_AVAILABLE' => OAuth::getInstance()->isAvailable(),
-    'OAUTH_PROVIDERS' => OAuth::getInstance()->getProvidersAvailable('login'),
+    'OAUTH_PROVIDERS' => OAuth::getInstance()->getProvidersAvailable(),
 ]);
 
 if (Session::exists('oauth_error')) {

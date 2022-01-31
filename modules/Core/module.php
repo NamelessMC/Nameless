@@ -56,6 +56,7 @@ class Core_Module extends Module {
         $pages->add('Core', '/complete_signup', 'pages/complete_signup.php');
         $pages->add('Core', '/status', 'pages/status.php', 'status');
         $pages->add('Core', '/leaderboards', 'pages/leaderboards.php', 'leaderboards');
+        $pages->add('Core', '/oauth', 'pages/oauth.php');
 
         $pages->add('Core', '/user', 'pages/user/index.php');
         $pages->add('Core', '/user/settings', 'pages/user/settings.php');
