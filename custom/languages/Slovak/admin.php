@@ -673,7 +673,7 @@ $language = [
     'delete_hook_info' => 'Vymazanie užívateľa',
     'report_hook_info' => 'Nahlásiť tvorbu',
     'ban_hook_info' => 'Používateľ bol zabanovaný',
-    'warn_hook_info' => 'Používateľ bol varovaný',
+    'warning_hook_info' => 'Používateľ bol varovaný',
 
     // Sitemap
     'unable_to_load_sitemap_file_x' => 'Sitemap súbor {x} sa nepodarilo načítať', // Don't replace {x}

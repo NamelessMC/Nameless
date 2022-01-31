@@ -103,14 +103,14 @@ if (Input::exists()) {
                     if (Input::get('type') == 'avatar') {
                         // Need to delete any other avatars
                         $diff = array_diff($delete_extensions, array(strtolower($upload->getMime())));
-                        $diff_str = rtrim(implode(',', $diff), ',');
 
-                        $to_remove = glob(ROOT_PATH . '/uploads/avatars/' . $user->data()->id . '.{' . $diff_str . '}', GLOB_BRACE);
+                        $to_remove = [];
+                        foreach ($diff as $extension) {
+                            $to_remove += glob(ROOT_PATH . '/uploads/avatars/' . $user->data()->id . '.' . $extension);
+                        }
 
-                        if ($to_remove) {
-                            foreach ($to_remove as $item) {
-                                unlink($item);
-                            }
+                        foreach ($to_remove as $item) {
+                            unlink($item);
                         }
 
                         $user->update(

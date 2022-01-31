@@ -79,7 +79,7 @@ if (!isset($_GET['action'])) {
             $smarty->assign('WEBSITE_MODULES_ERROR', $all_modules_error);
 
         } else {
-            $all_modules_query = json_decode($all_modules_query->data());
+            $all_modules_query = json_decode($all_modules_query->contents());
             $timeago = new TimeAgo(TIMEZONE);
 
             foreach ($all_modules_query as $item) {

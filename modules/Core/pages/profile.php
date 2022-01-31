@@ -745,6 +745,10 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
             'value' => Output::getClean($query->username),
             'image' => 'https://crafatar.com/renders/body/' . $query->uuid . '?overlay'
         ];
+        
+        $smarty->assign([
+            'UUID' => $profile_user->data()->uuid
+        ]);
     }
 
     $profile_placeholders = $profile_user->getProfilePlaceholders();

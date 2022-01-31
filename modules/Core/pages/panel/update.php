@@ -70,7 +70,7 @@ if (!isset($update_check->error) && !isset($update_check->no_update) && isset($u
     if ($instructions->hasError()) {
         $instructions = $instructions->getError();
     } else {
-        $instructions = $instructions->data();
+        $instructions = $instructions->contents();
         if ($instructions == 'Failed') {
             $instructions = 'Unknown error';
         }

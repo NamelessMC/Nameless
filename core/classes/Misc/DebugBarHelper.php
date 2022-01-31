@@ -11,7 +11,7 @@ use Junker\DebugBar\Bridge\SmartyCollector;
 
 class DebugBarHelper extends Instanceable {
 
-    private DebugBar $_debugBar;
+    private ?DebugBar $_debugBar = null;
 
     /**
      * Enable the PHPDebugBar + add the PDO Collector
@@ -39,7 +39,7 @@ class DebugBarHelper extends Instanceable {
         $this->_debugBar = $debugbar;
     }
 
-    public function getDebugBar(): DebugBar {
+    public function getDebugBar(): ?DebugBar {
         return $this->_debugBar;
     }
 

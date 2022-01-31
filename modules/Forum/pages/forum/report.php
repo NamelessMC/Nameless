@@ -65,10 +65,8 @@ if (Token::check()) {
 
     if ($validation->passed()) {
         try {
-            $report = new Report();
-
             // Create report
-            $report->create([
+            (new Report())->create($language, $user, new User($post->post_creator), [
                 'type' => 0,
                 'reporter_id' => $user->data()->id,
                 'reported_id' => $post->post_creator,

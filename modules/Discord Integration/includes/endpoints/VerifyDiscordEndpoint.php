@@ -41,7 +41,7 @@ class VerifyDiscordEndpoint extends KeyAuthEndpoint {
         }
 
         // attempt to update their Discord roles
-        Discord::updateDiscordRoles($user, $user->getAllGroupIds(false), []);
+        Discord::updateDiscordRoles($user, $user->getAllGroupIds(), []);
 
         $api->returnArray(['message' => Discord::getLanguageTerm('discord_id_set')]);
     }

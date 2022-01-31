@@ -122,7 +122,7 @@ class Discord {
     }
 
     public static function discordBotRequest(string $url = '/status', ?string $body = null) {
-        $response = HttpClient::post(BOT_URL . $url, $body)->data();
+        $response = HttpClient::post(BOT_URL . $url, $body)->contents();
 
         if (in_array($response, self::$_valid_responses)) {
             return $response;

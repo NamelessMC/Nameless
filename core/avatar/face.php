@@ -8,8 +8,7 @@ Twitter:    @jamiebicknell
 Modified by Samerton for NamelessMC
 */
 
-require '../classes/Core/Cache.php';
-require '../classes/Core/HttpClient.php';
+require '../../vendor/autoload.php';
 
 $cache = new Cache();
 
@@ -51,7 +50,7 @@ function get_skin($user, $cache) {
     $output = base64_decode($output);
     if ($user != '') {
 
-        $json = json_decode(HttpClient::get('https://sessionserver.mojang.com/session/minecraft/profile/' . $user)->data());
+        $json = HttpClient::get('https://sessionserver.mojang.com/session/minecraft/profile/' . $user)->json();
 
         if (isset($json->properties[0]->value)) {
             $texture = base64_decode($json->properties[0]->value);
@@ -59,7 +58,7 @@ function get_skin($user, $cache) {
             $json_texture = json_decode($texture);
 
             if (isset($json_texture->textures->SKIN->url)) {
-                $output = HttpClient::get($json_texture->textures->SKIN->url)->data();
+                $output = HttpClient::get($json_texture->textures->SKIN->url)->contents();
             }
         }
     }

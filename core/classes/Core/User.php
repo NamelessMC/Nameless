@@ -3,7 +3,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr12
+ *  NamelessMC version 2.0.0-pr13
  *
  *  User class
  */
@@ -403,15 +403,11 @@ class User {
     /**
      * Get all of a user's groups id.
      *
-     * @param bool $login_check If true, will first check if this user is logged in or not. Set to "false" for API usage.
-     *
      * @return array Array of all their group IDs.
      */
-    public function getAllGroupIds(bool $login_check = true): array {
-        if ($login_check) {
-            if (!$this->isLoggedIn()) {
-                return [0];
-            }
+    public function getAllGroupIds(): array {
+        if (!$this->exists()) {
+            return [0];
         }
 
         $groups = [];
@@ -485,7 +481,7 @@ class User {
             if ($this->data()->has_avatar) {
                 $exts = ['png', 'jpg', 'jpeg'];
 
-                if ($this->hasPermission('usercp.gif_avatar', false)) {
+                if ($this->hasPermission('usercp.gif_avatar')) {
                     $exts[] = 'gif';
                 }
 
@@ -520,28 +516,25 @@ class User {
      * Does the user have a given permission in any of their groups?
      *
      * @param string $permission Permission node to check recursively for.
-     * @param bool $login_check Whether to check if this user instance is logged in or not, "false" for avatar permission checking.
      *
      * @return bool Whether they inherit this permission or not.
      */
-    public function hasPermission(string $permission, bool $login_check = true): bool {
+    public function hasPermission(string $permission): bool {
         $groups = $this->_groups;
 
-        if (!$groups) {
+        if (!$this->exists() || !$groups) {
             return false;
         }
 
-        if (!$login_check || $this->isLoggedIn()) {
-            foreach ($groups as $group) {
-                $permissions = json_decode($group->permissions, true);
+        foreach ($groups as $group) {
+            $permissions = json_decode($group->permissions, true);
 
-                if (isset($permissions['administrator']) && $permissions['administrator'] == 1) {
-                    return true;
-                }
+            if (isset($permissions['administrator']) && $permissions['administrator'] == 1) {
+                return true;
+            }
 
-                if (isset($permissions[$permission]) && $permissions[$permission] == 1) {
-                    return true;
-                }
+            if (isset($permissions[$permission]) && $permissions[$permission] == 1) {
+                return true;
             }
         }
 

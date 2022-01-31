@@ -71,10 +71,10 @@ class ProfileUtils {
             $url = 'https://sessionserver.mojang.com/session/minecraft/profile/' . $identifier;
         }
 
-        $ret = HttpClient::get($url);
+        $client = HttpClient::get($url);
 
-        if (!$ret->hasError()) {
-            $data = json_decode($ret->data(), true);
+        if (!$client->hasError()) {
+            $data = $client->json(true);
             return new MinecraftProfile($data['name'], $data['id'], $data['properties']);
         }
 
@@ -95,7 +95,7 @@ class ProfileUtils {
 
         // Verification
         if (!$result->hasError()) {
-            $ress = json_decode($result->data(), true);
+            $ress = json_decode($result->contents(), true);
             return ['username' => $ress['name'], 'uuid' => $ress['id']];
         }
 
