@@ -16,24 +16,10 @@ class ExternalMCQuery {
      *
      * @param string $ip IP to query
      * @param int $port Port to query, `25565` by default.
-     * @return object Query result.
+     * @return array Query result.
      */
-    public static function query(string $ip, int $port = 25565) {
-        $queryUrl = 'https://api.namelessmc.com/api/server/' . $ip . '/' . $port;
-
-        try {
-
-            return json_decode(HttpClient::get($queryUrl, [
-                CURLOPT_CONNECTTIMEOUT => 0,
-                CURLOPT_TIMEOUT => 5
-            ])->data());
-
-        } catch (Exception $e) {
-            return [
-                'error' => true,
-                'value' => $e->getMessage()
-            ];
-        }
+    public static function query(string $ip, int $port = 25565): array {
+        return HttpClient::get('https://api.namelessmc.com/api/server/' . $ip . '/' . $port)->json();
     }
 
     /**
@@ -58,19 +44,10 @@ class ExternalMCQuery {
                 }
             }
 
-            $queryUrl = 'https://api.namelessmc.com/api/server/' . $ip . '/' . $port;
+            $result = HttpClient::get('https://api.namelessmc.com/api/server/' . $ip . '/' . $port)->json();
 
-            try {
-                $result = json_decode(HttpClient::get($queryUrl, [
-                    CURLOPT_CONNECTTIMEOUT => 0,
-                    CURLOPT_TIMEOUT => 5
-                ])->data());
-
-                if (!$result->error && $result->response->description->favicon) {
-                    return $result->response->description->favicon;
-                }
-
-            } catch (Exception $e) {
+            if (!$result->error && $result->response->description->favicon) {
+                return $result->response->description->favicon;
             }
         }
         return false;

@@ -377,7 +377,7 @@ class Util {
         if ($update_check->hasError()) {
             $error = $update_check->getError();
         } else {
-            $update_check = $update_check->data();
+            $update_check = $update_check->contents();
             if ($update_check == 'Failed') {
                 $error = 'Unknown error';
             }
@@ -428,25 +428,7 @@ class Util {
             return json_encode(['error' => $error]);
         }
 
-        return $news->data();
-    }
-
-    /**
-     * Make a GET request to a URL using cURL.
-     * Failures will automatically be logged along with the error.
-     *
-     * @param string $full_url URL to send request to.
-     * @param string|null $body Request body to attach to request.
-     * @return string Response from remote server, false on failure.
-     * @deprecated Please use HttpClient class instead.
-     *
-     */
-    public static function curlGetContents(string $full_url, ?string $body = null): string {
-        if ($body == null) {
-            return HttpClient::get($full_url)->data();
-        }
-
-        return HttpClient::post($full_url, $body)->data();
+        return $news->contents();
     }
 
     /**
