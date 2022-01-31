@@ -15,7 +15,7 @@
         "michelf/php-markdown": "^1.9",
         "league/html-to-markdown": "^5.0",
         "wohali/oauth2-discord-new": "^1.1",
-        "league/oauth2-google": "^4.0"
+        "league/oauth2-google": "^4.0",
         "guzzlehttp/guzzle": "^7.0",
         "hannesvdvreken/guzzle-debugbar": "^3.0"
     },
