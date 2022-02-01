@@ -137,6 +137,8 @@ $email_verification = $email_verification[0]->value;
 $api_verification = $queries->getWhere('settings', ['name', '=', 'api_verification']);
 $api_verification = $api_verification[0]->value;
 
+Session::put('oauth_method', 'register');
+
 // Deal with any input
 if (Input::exists()) {
     if (Token::check()) {
@@ -351,6 +353,16 @@ if (Input::exists()) {
                             $user = new User($user_id);
                             $user->addGroup($default_group, 0, [true]);
 
+                            if (Session::exists('oauth_register_data')) {
+                                $data = json_decode(Session::get('oauth_register_data'), true);
+                                OAuth::getInstance()->saveUserProvider(
+                                    $user_id,
+                                    $data['provider'],
+                                    $data['id'],
+                                );
+                                Session::delete('oauth_register_data');
+                            }
+
                             // Custom Fields
                             if (count($profile_fields)) {
                                 foreach ($profile_fields as $field) {
@@ -513,6 +525,8 @@ if (Input::exists()) {
 
 if (isset($errors)) {
     $smarty->assign('REGISTRATION_ERROR', $errors);
+} else if (Session::exists('oauth_error')) {
+    $smarty->assign('REGISTRATION_ERROR', Session::flash('oauth_error'));
 }
 
 // Are custom usernames enabled?
@@ -541,6 +555,22 @@ if (count($profile_fields)) {
         ];
     }
 }
+
+$email_value = ((isset($_POST['email']) && $_POST['email']) ? Output::getClean(Input::get('email')) : '');
+if (Session::exists('oauth_register_data')) {
+    $email_value = json_decode(Session::get('oauth_register_data'), true)['email'];
+}
+
+$oauth_flow = Session::exists('oauth_register_data');
+if ($oauth_flow) {
+    $data = json_decode(Session::get('oauth_register_data'), true);
+    $smarty->assign('OAUTH_MESSAGE_CONTINUE', str_replace(
+        '{x}',
+        ucfirst($data['provider']),
+        $language->get('general', 'oauth_message_continue')
+    ));
+}
+
 // Assign Smarty variables
 $smarty->assign([
     'USERNAME' => $language->get('user', 'username'),
@@ -549,7 +579,7 @@ $smarty->assign([
     'USERNAME_VALUE' => ((isset($_POST['username']) && $_POST['username']) ? Output::getClean(Input::get('username')) : ''),
     'MINECRAFT_USERNAME' => $language->get('user', 'minecraft_username'),
     'EMAIL' => $language->get('user', 'email_address'),
-    'EMAIL_VALUE' => ((isset($_POST['email']) && $_POST['email']) ? Output::getClean(Input::get('email')) : ''),
+    'EMAIL_VALUE' => $email_value,
     'PASSWORD' => $language->get('user', 'password'),
     'CONFIRM_PASSWORD' => $language->get('user', 'confirm_password'),
     'I_AGREE' => $language->get('user', 'i_agree'),
@@ -562,6 +592,9 @@ $smarty->assign([
     'ALREADY_REGISTERED' => $language->get('general', 'already_registered'),
     'ERROR_TITLE' => $language->get('general', 'error'),
     'CUSTOM_FIELDS' => $custom_fields,
+    'OAUTH_FLOW' => $oauth_flow,
+    'OAUTH_AVAILABLE' => OAuth::getInstance()->isAvailable(),
+    'OAUTH_PROVIDERS' => OAuth::getInstance()->getProvidersAvailable(),
 ]);
 
 if ($captcha) {

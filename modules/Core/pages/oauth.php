@@ -18,6 +18,24 @@ $token = $provider->getAccessToken('authorization_code', [
 $oauth_user = $provider->getResourceOwner($token)->toArray();
 $provider_id = $oauth_user[OAuth::getInstance()->getIdName($provider_name)];
 
+// register
+if (Session::get('oauth_method') === 'register') {
+    if (OAuth::getInstance()->userExistsByProviderId($provider_name, $provider_id)) {
+        Session::flash('oauth_error', str_replace('{x}', ucfirst($provider_name), $language->get('user', 'oauth_already_linked')));
+        Redirect::to(URL::build('/register'));
+        die();
+    }
+
+    Session::put('oauth_register_data', json_encode([
+        'provider' => $provider_name,
+        'id' => $provider_id,
+        'email' => $oauth_user['email'],
+    ]));
+
+    Redirect::to(URL::build('/register'));
+    die();
+}
+
 // login
 if (Session::get('oauth_method') === 'login') {
     if (!OAuth::getInstance()->userExistsByProviderId($provider_name, $provider_id)) {

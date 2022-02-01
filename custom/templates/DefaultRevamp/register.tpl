@@ -3,6 +3,9 @@
 
 <h2 class="ui header">
   {$CREATE_AN_ACCOUNT}
+  {if $OAUTH_FLOW}
+    <div class="sub header">{$OAUTH_MESSAGE_CONTINUE}</div>
+  {/if}
 </h2>
 
 {if isset($REGISTRATION_ERROR)}
@@ -89,10 +92,27 @@
           <input id="timezone" type="hidden" name="timezone" value=''>
           <input type="submit" class="ui primary button" value="{$REGISTER}" tabindex="8">
         </form>
-        <div class="ui horizontal divider">{$ALREADY_REGISTERED}</div>
-        <div class="ui center aligned">
-          <a class="ui large positive button" href="{$LOGIN_URL}">{$LOG_IN}</a>
-        </div>
+        {if $OAUTH_AVAILABLE and !$OAUTH_FLOW}
+          <div class="ui horizontal divider">OR</div>
+          <div class="ui equal width grid">
+            {foreach $OAUTH_PROVIDERS as $name => $meta}
+              <div class="column">
+                <a href="{$meta.url}" class="ui fluid button left floated">
+                  {if $meta.icon}
+                    <i class="{$meta.icon} fa-lg"></i>
+                  {/if}
+                  {$name|ucfirst}
+                </a>
+              </div>
+            {/foreach}
+          </div>
+        {/if}
+        {if !$OAUTH_FLOW}
+          <div class="ui horizontal divider">{$ALREADY_REGISTERED}</div>
+          <div class="ui center aligned">
+            <a class="ui large positive button" href="{$LOGIN_URL}">{$LOG_IN}</a>
+          </div>
+        {/if}
       </div>
     </div>
   </div>
