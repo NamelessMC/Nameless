@@ -48,7 +48,5 @@ class DiscordHook {
         if ($httpClient->getStatus() != 204) {
             trigger_error($response['message']);
         }
-
-        curl_close($ch);
     }
 }
