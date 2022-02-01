@@ -45,6 +45,14 @@ foreach ($user_providers as $user_provider) {
     $user_providers_template[$user_provider->provider] = $user_provider;
 }
 
+$oauth_messsages = [];
+foreach ($providers as $name => $data) {
+    $oauth_messsages[$name] = [
+        'unlink_confirm' => str_replace('{x}', ucfirst($name), $language->get('user', 'oauth_unlink_confirm')),
+        'link_confirm' => str_replace('{x}', ucfirst($name), $language->get('user', 'oauth_link_confirm')),
+    ];
+}
+
 if (Session::exists('oauth_success')) {
     $smarty->assign([
         'SUCCESS' => $language->get('general', 'success'),
@@ -68,6 +76,9 @@ $smarty->assign([
     'OAUTH_PROVIDERS' => $providers,
     'USER_OAUTH_PROVIDERS' => $user_providers_template,
     'OAUTH' => $language->get('admin', 'oauth'),
+    'LINK' => $language->get('general', 'link'),
+    'UNLINK' => $language->get('general', 'unlink'),
+    'OAUTH_MESSAGES' => $oauth_messsages,
 ]);
 
 // Load modules + template

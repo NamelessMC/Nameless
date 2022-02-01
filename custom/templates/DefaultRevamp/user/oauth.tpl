@@ -57,9 +57,9 @@
                                                 </div>
                                                 <div class="two wide column right aligned">
                                                     {if isset($USER_OAUTH_PROVIDERS[$provider_name])}
-                                                        <a class="ui mini red button" href="#" data-toggle="modal" data-target="#modal-unlink-{$provider_name}">Unlink</a>
+                                                        <a class="ui mini red button" href="#" data-toggle="modal" data-target="#modal-unlink-{$provider_name}">{$UNLINK}</a>
                                                     {else}
-                                                        <a class="ui mini green button" href="#" data-toggle="modal" data-target="#modal-link-{$provider_name}">Link</a>
+                                                        <a class="ui mini green button" href="#" data-toggle="modal" data-target="#modal-link-{$provider_name}">{$LINK}</a>
                                                     {/if}
                                                 </div>
                                             </div>
@@ -79,11 +79,10 @@
 {foreach $OAUTH_PROVIDERS as $provider_name => $provider_data}
     <div class="ui small modal" id="modal-unlink-{$provider_name}">
         <div class="header">
-            Unlink {$provider_name|ucfirst}
+            {$UNLINK} {$provider_name|ucfirst}
         </div>
         <div class="content">
-            Are you sure you want to unlink your account from {$provider_name|ucfirst}?
-            You will not be able to login with this account anymore.
+            {$OAUTH_MESSAGES[$provider_name]['unlink_confirm']}
         </div>
         <div class="actions">
             <a class="ui negative button">{$NO}</a>
@@ -98,10 +97,10 @@
 
     <div class="ui small modal" id="modal-link-{$provider_name}">
         <div class="header">
-            Link {$provider_name|ucfirst}
+            {$LINK} {$provider_name|ucfirst}
         </div>
         <div class="content">
-            You will be taken to the {$provider_name|ucfirst} website to link your account.
+            {$OAUTH_MESSAGES[$provider_name]['link_confirm']}
         </div>
         <div class="actions">
             <a class="ui negative button">{$NO}</a>
