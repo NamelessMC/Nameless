@@ -38,6 +38,7 @@ class Core_Module extends Module {
         $pages->add('Core', '/logout', 'pages/logout.php');
         $pages->add('Core', '/profile', 'pages/profile.php', 'profile', true);
         $pages->add('Core', '/register', 'pages/register.php');
+        $pages->add('Core', '/register/oauth', 'pages/register.php');
         $pages->add('Core', '/validate', 'pages/validate.php');
         $pages->add('Core', '/queries/admin_users', 'queries/admin_users.php');
         $pages->add('Core', '/queries/alerts', 'queries/alerts.php');
@@ -55,11 +56,13 @@ class Core_Module extends Module {
         $pages->add('Core', '/complete_signup', 'pages/complete_signup.php');
         $pages->add('Core', '/status', 'pages/status.php', 'status');
         $pages->add('Core', '/leaderboards', 'pages/leaderboards.php', 'leaderboards');
+        $pages->add('Core', '/oauth', 'pages/oauth.php');
 
         $pages->add('Core', '/user', 'pages/user/index.php');
         $pages->add('Core', '/user/settings', 'pages/user/settings.php');
         $pages->add('Core', '/user/messaging', 'pages/user/messaging.php');
         $pages->add('Core', '/user/alerts', 'pages/user/alerts.php');
+        $pages->add('Core', '/user/oauth', 'pages/user/oauth.php');
         $pages->add('Core', '/user/placeholders', 'pages/user/placeholders.php');
         $pages->add('Core', '/user/acknowledge', 'pages/user/acknowledge.php');
 
@@ -102,6 +105,7 @@ class Core_Module extends Module {
         $pages->add('Core', '/panel/upgrade', 'pages/panel/upgrade.php');
         $pages->add('Core', '/panel/users', 'pages/panel/users.php');
         $pages->add('Core', '/panel/users/edit', 'pages/panel/users_edit.php');
+        $pages->add('Core', '/panel/users/oauth', 'pages/panel/users_oauth.php');
         $pages->add('Core', '/panel/users/ip_lookup', 'pages/panel/users_ip_lookup.php');
         $pages->add('Core', '/panel/users/punishments', 'pages/panel/users_punishments.php');
         $pages->add('Core', '/panel/users/reports', 'pages/panel/users_reports.php');
@@ -1407,6 +1411,10 @@ class Core_Module extends Module {
 
             if ($user->hasPermission('admincp.users.edit')) {
                 self::addUserAction($language->get('general', 'edit'), URL::build('/panel/users/edit/', 'id={id}'));
+            }
+
+            if ($user->hasPermission('admincp.users.edit')) {
+                self::addUserAction($language->get('admin', 'oauth'), URL::build('/panel/users/oauth/', 'id={id}'));
             }
 
             if ($user->hasPermission('modcp.ip_lookup')) {
