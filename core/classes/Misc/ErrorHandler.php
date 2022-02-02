@@ -74,13 +74,13 @@ class ErrorHandler {
         $error_file = is_null($exception) ? $error_file : $exception->getFile();
         $error_line = is_null($exception) ? (int)$error_line : $exception->getLine();
 
+        // Create a log entry for viewing in staffcp
+        self::logError('fatal', '[' . date('Y-m-d, H:i:s') . '] ' . $error_file . '(' . $error_line . '): ' . $error_string);
+
         // If this is an API request, print the error in plaintext and dont render the whole error trace page
         if (strpos($_REQUEST['route'], '/api/v2/') !== false) {
             die($error_string . ' in ' . $error_file . ' on line ' . $error_line . PHP_EOL . $exception->getTraceAsString());
         }
-
-        // Create a log entry for viewing in staffcp
-        self::logError('fatal', '[' . date('Y-m-d, H:i:s') . '] ' . $error_file . '(' . $error_line . '): ' . $error_string);
 
         $frames = [];
 

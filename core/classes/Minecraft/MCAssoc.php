@@ -2,14 +2,13 @@
 
 class MCAssoc {
 
-    private string $_siteId;
     private string $_sharedSecret;
     private string $_instanceSecret;
     private int $_timestampLeeway;
     private bool $_insecureMode = false;
 
+    /** @phpstan-ignore-next-line */
     public function __construct($siteId, $sharedSecret, $instanceSecret, $timestampLeeway = 300) {
-        $this->_siteId = $siteId;
         $this->_sharedSecret = hex2bin($sharedSecret);
         $this->_instanceSecret = $instanceSecret;
         $this->_timestampLeeway = $timestampLeeway;

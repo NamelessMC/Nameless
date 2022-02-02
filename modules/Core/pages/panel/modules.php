@@ -79,7 +79,7 @@ if (!isset($_GET['action'])) {
             $smarty->assign('WEBSITE_MODULES_ERROR', $all_modules_error);
 
         } else {
-            $all_modules_query = json_decode($all_modules_query->data());
+            $all_modules_query = json_decode($all_modules_query->contents());
             $timeago = new TimeAgo(TIMEZONE);
 
             foreach ($all_modules_query as $item) {
@@ -159,6 +159,7 @@ if (!isset($_GET['action'])) {
 
             require_once(ROOT_PATH . '/modules/' . $name . '/init.php');
 
+            /** @phpstan-ignore-next-line */
             if ($module instanceof Module) {
                 // Cache
                 $cache->setCache('modulescache');
@@ -282,15 +283,14 @@ if (!isset($_GET['action'])) {
                 $folders = explode('/', $directory);
 
                 if (file_exists(ROOT_PATH . '/modules/' . $folders[count($folders) - 1] . '/init.php')) {
-                    // Is it already in the database?
                     $exists = $queries->getWhere('modules', ['name', '=', Output::getClean($folders[count($folders) - 1])]);
 
                     if (!count($exists)) {
                         $module = null;
 
-                        // No, add it now
                         require_once(ROOT_PATH . '/modules/' . $folders[count($folders) - 1] . '/init.php');
 
+                        /** @phpstan-ignore-next-line */
                         if ($module instanceof Module) {
                             $queries->create('modules', [
                                 'name' => Output::getClean($folders[count($folders) - 1])

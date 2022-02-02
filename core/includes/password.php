@@ -26,11 +26,11 @@ namespace {
         /**
          * Hash the password using the specified algorithm
          *
-         * @param string $password The password to hash
-         * @param int $algo The algorithm to use (Defined by PASSWORD_* constants)
+         * @param mixed $password The password to hash
+         * @param mixed $algo The algorithm to use (Defined by PASSWORD_* constants)
          * @param array $options The options for the algorithm to use
          *
-         * @return string|false The hashed password, or false on error.
+         * @return null|string|false The hashed password, or false on error.
          */
         function password_hash($password, $algo, array $options = array()) {
             if (!function_exists('crypt')) {
@@ -116,24 +116,22 @@ namespace {
                     }
                 }
                 if (!$buffer_valid && @is_readable('/dev/urandom')) {
-                    $file = fopen('/dev/urandom', 'r');
+                    $file = fopen('/dev/urandom', 'rb');
                     $read = PasswordCompat\binary\_strlen($buffer);
                     while ($read < $raw_salt_len) {
                         $buffer .= fread($file, $raw_salt_len - $read);
                         $read = PasswordCompat\binary\_strlen($buffer);
                     }
                     fclose($file);
-                    if ($read >= $raw_salt_len) {
-                        $buffer_valid = true;
-                    }
+                    $buffer_valid = true;
                 }
                 if (!$buffer_valid || PasswordCompat\binary\_strlen($buffer) < $raw_salt_len) {
                     $buffer_length = PasswordCompat\binary\_strlen($buffer);
                     for ($i = 0; $i < $raw_salt_len; $i++) {
                         if ($i < $buffer_length) {
-                            $buffer[$i] = $buffer[$i] ^ chr(mt_rand(0, 255));
+                            $buffer[$i] = $buffer[$i] ^ chr(random_int(0, 255));
                         } else {
-                            $buffer .= chr(mt_rand(0, 255));
+                            $buffer .= chr(random_int(0, 255));
                         }
                     }
                 }
@@ -179,7 +177,7 @@ namespace {
          *
          * @return array The array of information about the hash.
          */
-        function password_get_info($hash) {
+        function password_get_info($hash): array {
             $return = array(
                 'algo' => 0,
                 'algoName' => 'unknown',
@@ -199,24 +197,22 @@ namespace {
          *
          * If the answer is true, after validating the password using password_verify, rehash it.
          *
-         * @param string $hash The hash to test
-         * @param int $algo The algorithm used for new password hashes
+         * @param mixed $hash The hash to test
+         * @param mixed $algo The algorithm used for new password hashes
          * @param array $options The options array passed to password_hash
          *
          * @return boolean True if the password needs to be rehashed.
          */
-        function password_needs_rehash($hash, $algo, array $options = array()) {
+        function password_needs_rehash($hash, $algo, array $options = array()): bool {
             $info = password_get_info($hash);
             if ($info['algo'] != $algo) {
                 return true;
             }
-            switch ($algo) {
-                case PASSWORD_BCRYPT:
-                    $cost = isset($options['cost']) ? $options['cost'] : PASSWORD_BCRYPT_DEFAULT_COST;
-                    if ($cost != $info['options']['cost']) {
-                        return true;
-                    }
-                    break;
+            if ($algo == PASSWORD_BCRYPT) {
+                $cost = $options['cost'] ?? PASSWORD_BCRYPT_DEFAULT_COST;
+                if ($cost != $info['options']['cost']) {
+                    return true;
+                }
             }
             return false;
         }
@@ -224,12 +220,12 @@ namespace {
         /**
          * Verify a password against a hash using a timing attack resistant approach
          *
-         * @param string $password The password to verify
-         * @param string $hash The hash to verify against
+         * @param mixed $password The password to verify
+         * @param mixed $hash The hash to verify against
          *
          * @return boolean If the password matches the hash
          */
-        function password_verify($password, $hash) {
+        function password_verify($password, $hash): bool {
             if (!function_exists('crypt')) {
                 trigger_error("Crypt must be loaded for password_verify to function", E_USER_WARNING);
                 return false;
@@ -266,7 +262,7 @@ namespace PasswordCompat\binary {
          * @return int The number of bytes
          * @internal
          */
-        function _strlen($binary_string) {
+        function _strlen(string $binary_string): int {
             if (function_exists('mb_strlen')) {
                 return mb_strlen($binary_string, '8bit');
             }
@@ -285,7 +281,7 @@ namespace PasswordCompat\binary {
          * @see _strlen()
          *
          */
-        function _substr($binary_string, $start, $length) {
+        function _substr(string $binary_string, int $start, int $length): string {
             if (function_exists('mb_substr')) {
                 return mb_substr($binary_string, $start, $length, '8bit');
             }
@@ -297,7 +293,7 @@ namespace PasswordCompat\binary {
          *
          * @return boolean the check result
          */
-        function check() {
+        function check(): ?bool {
             static $pass = null;
 
             if (is_null($pass)) {

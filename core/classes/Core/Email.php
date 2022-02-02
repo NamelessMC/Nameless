@@ -101,6 +101,7 @@ class Email {
             $mail->Debugoutput = 'html';
             $mail->CharSet = 'UTF-8';
             $mail->Encoding = 'base64';
+            $mail->Timeout = 15;
 
             // login to their smtp account
             $mail->Host = $GLOBALS['email']['host'];

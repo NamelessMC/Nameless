@@ -31,7 +31,7 @@ class hCaptcha extends CaptchaBase {
         $url = 'https://hcaptcha.com/siteverify';
         $post_data = 'secret=' . $this->getPrivateKey() . '&response=' . $token;
 
-        $result = json_decode(HttpClient::post($url, $post_data)->data(), true);
+        $result = HttpClient::post($url, $post_data)->json(true);
 
         return $result['success'] == 'true';
     }

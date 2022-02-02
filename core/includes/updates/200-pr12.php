@@ -50,6 +50,31 @@ try {
     // Continue
 }
 
+try {
+    DB::getInstance()->createQuery("CREATE TABLE `nl2_oauth` (
+                                          `provider` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+                                          `enabled` tinyint(1) NOT NULL DEFAULT '0',
+                                          `client_id` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+                                          `client_secret` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+                                          PRIMARY KEY (`provider`),
+                                          UNIQUE KEY `id` (`provider`)
+                                        ) ENGINE=$en_engine DEFAULT CHARSET=$ch_charset");
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+
+try {
+    DB::getInstance()->createQuery("CREATE TABLE `nl2_oauth_users` (
+                                          `user_id` int NOT NULL,
+                                          `provider` varchar(256) NOT NULL,
+                                          `provider_id` varchar(256) NOT NULL,
+                                          PRIMARY KEY (`user_id`,`provider`,`provider_id`),
+                                          UNIQUE KEY `user_id` (`user_id`,`provider`,`provider_id`)
+                                        ) ENGINE=$en_engine DEFAULT CHARSET=$ch_charset");
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+
 // Update version number
 /*$version_number_id = $queries->getWhere('settings', array('name', '=', 'nameless_version'));
 

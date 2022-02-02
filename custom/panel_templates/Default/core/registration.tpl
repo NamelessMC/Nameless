@@ -114,6 +114,65 @@
                     </div>
                 </div>
 
+                <h5>{$OAUTH}</h5>
+                <div class="card shadow border-left-primary">
+                    <div class="card-body">
+                        <h5><i class="icon fa fa-info-circle"></i> {$INFO}</h5>
+                        {$OAUTH_INFO}
+                    </div>
+                </div>
+                <br />
+                <form action="" method="post">
+                    <div class="row">
+                        <div class="col">
+                            <div class="card shadow mb-4">
+                                <div class="card-body">
+                                    <div class="form-group text-center">
+                                        <label for="enable-discord"><i class="fab fa-discord fa-2x align-middle"></i> Discord</label>
+                                        <input name="enable-discord" id="enable-discord" type="checkbox" class="js-switch" {if $DISCORD_OAUTH_ENABLED && $DISCORD_OAUTH_SETUP} checked{/if} />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="client-id-discord">Client ID</label>
+                                        <input type="text" name="client-id-discord" class="form-control" id="client-id-discord" placeholder="{$CLIENT_ID}" value="{$DISCORD_CLIENT_ID}">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="client-secret-discord">Client Secret</label>
+                                        <input type="password" name="client-secret-discord" class="form-control" id="client-secret-discord" placeholder="{$CLIENT_SECRET}" value="{$DISCORD_CLIENT_SECRET}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card shadow mb-4">
+                                <div class="card-body">
+                                    <div class="form-group text-center">
+                                        <label for="enable-google"><i class="fab fa-google fa-2x align-middle"></i> Google</label>
+                                        <input name="enable-google" id="enable-google" type="checkbox" class="js-switch" {if $GOOGLE_OAUTH_ENABLED && $GOOGLE_OAUTH_SETUP} checked{/if} />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="client-id-google">Client ID</label>
+                                        <input type="text" name="client-id-google" class="form-control" id="client-id-google" placeholder="{$CLIENT_ID}" value="{$GOOGLE_CLIENT_ID}">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="client-secret-google">Client Secret</label>
+                                        <input type="password" name="client-secret-google" class="form-control" id="client-secret-google" placeholder="{$CLIENT_SECRET}" value="{$GOOGLE_CLIENT_SECRET}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="hidden" name="action" value="oauth">
+                        <input type="hidden" name="token" value="{$TOKEN}">
+                        <input type="submit" class="btn btn-primary" value="{$SUBMIT}">
+                    </div>
+                </form>
+
                 <!-- Spacing -->
                 <div style="height:1rem;"></div>
 

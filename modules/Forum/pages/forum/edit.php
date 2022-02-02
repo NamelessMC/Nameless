@@ -154,7 +154,7 @@ if (Input::exists()) {
                 // Update title and labels
                 $post_labels = [];
 
-                if (isset($_POST['topic_label']) && !empty($_POST['topic_label']) && is_array($_POST['topic_label']) && count($_POST['topic_label'])) {
+                if (isset($_POST['topic_label']) && !empty($_POST['topic_label']) && is_array($_POST['topic_label'])) {
                     foreach ($_POST['topic_label'] as $topic_label) {
                         $label = $queries->getWhere('forums_topic_labels', ['id', '=', $topic_label]);
                         if (count($label)) {

@@ -101,7 +101,7 @@ if (!isset($_GET['view'])) {
                     }
 
                     if ($_POST[$injector->getColumnName()]) {
-                        if ($_POST[$injector->getColumnName()] === 0) {
+                        if ($_POST[$injector->getColumnName()] == 0) {
                             continue;
                         }
 
