@@ -13,12 +13,17 @@
         "evert/sitemap-php": "^1.2",
         "robthree/twofactorauth": "^1.8",
         "michelf/php-markdown": "^1.9",
-        "league/html-to-markdown": "^5.0"
+        "league/html-to-markdown": "^5.0",
+        "wohali/oauth2-discord-new": "^1.1",
+        "league/oauth2-google": "^4.0",
+        "guzzlehttp/guzzle": "^7.0",
+        "xpaw/php-minecraft-query": "^4.0"
     },
     "require-dev": {
         "phpstan/phpstan": "^1.4",
         "maximebf/debugbar": "^1.17",
-        "junker/debugbar-smarty": "^0.2"
+        "junker/debugbar-smarty": "^0.2",
+        "hannesvdvreken/guzzle-debugbar": "^3.0"
     },
     "autoload": {
         "classmap": [

@@ -32,12 +32,8 @@ class CreateReportEndpoint extends KeyAuthEndpoint {
         }
 
         // Ensure user reporting has website account, and has not been banned
-        $user_reporting = $api->getDb()->get('users', ['id', '=', Output::getClean($_POST['reporter'])]);
-        if (!$user_reporting->count()) {
-            $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'));
-        }
+        $user_reporting = $api->getUser('id', Output::getClean($_POST['reporter']));
 
-        $user_reporting = $user_reporting->first();
         if ($user_reporting->isbanned) {
             $api->throwError(21, $api->getLanguage()->get('api', 'you_have_been_banned_from_website'));
         }
@@ -66,9 +62,7 @@ class CreateReportEndpoint extends KeyAuthEndpoint {
 
         // Create report
         try {
-            $reported_user = new User($user_reported_id);
-            $report = new Report();
-            $report = $report->create([
+            (new Report())->create($api->getLanguage(), $user_reporting, new User($user_reported_id), [
                 'type' => $user_reported_id ? 0 : 1, // TODO: report origin (#2440)
                 'reporter_id' => $user_reporting->id,
                 'reported_id' => $user_reported_id,
@@ -80,14 +74,6 @@ class CreateReportEndpoint extends KeyAuthEndpoint {
                 'updated' => date('U'),
                 'reported_mcname' => $_POST['reported_username'] ? Output::getClean($_POST['reported_username']) : $reported_user->getDisplayName(),
                 'reported_uuid' => $_POST['reported_uid'] ? Output::getClean($_POST['reported_uid']) : null
-            ]);
-            EventHandler::executeEvent('createReport', [
-                'username' => $report['reported_mcname'],
-                'content' => str_replace('{x}', $user_reporting->username, $api->getLanguage()->get('general', 'reported_by')),
-                'content_full' => $report['report_reason'],
-                'avatar_url' => $report['reported_id'] ? $reported_user->getAvatar() : Util::getAvatarFromUUID($report['reported_uuid']),
-                'title' => $api->getLanguage()->get('general', 'view_report'),
-                'url' => rtrim(Util::getSelfURL(), '/') . URL::build('/panel/users/reports/', 'id=' . $report['id'])
             ]);
             $api->returnArray(['message' => $api->getLanguage()->get('api', 'report_created')], 201);
         } catch (Exception $e) {

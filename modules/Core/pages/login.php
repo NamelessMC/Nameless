@@ -276,6 +276,9 @@ if (Input::exists()) {
     }
 }
 
+// OAuth session meta
+Session::put('oauth_method', 'login');
+
 // Sign in template
 // Generate content
 if ($login_method == 'email') {
@@ -300,10 +303,14 @@ $smarty->assign([
     'REGISTER' => $language->get('general', 'register'),
     'ERROR_TITLE' => $language->get('general', 'error'),
     'ERROR' => ($return_error ?? []),
-    'NOT_REGISTERED_YET' => $language->get('general', 'not_registered_yet')
+    'NOT_REGISTERED_YET' => $language->get('general', 'not_registered_yet'),
+    'OAUTH_AVAILABLE' => OAuth::getInstance()->isAvailable(),
+    'OAUTH_PROVIDERS' => OAuth::getInstance()->getProvidersAvailable(),
 ]);
 
-if (isset($return_error)) {
+if (Session::exists('oauth_error')) {
+    $smarty->assign('ERROR', Session::flash('oauth_error'));
+} else if (isset($return_error)) {
     $smarty->assign('SESSION_FLASH', $return_error);
 } else {
     $smarty->assign('SESSION_FLASH', '');

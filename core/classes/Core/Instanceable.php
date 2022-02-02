@@ -13,6 +13,7 @@ class Instanceable {
      * @return static
      */
     final public static function getInstance() {
+        /** @phpstan-ignore-next-line  */
         return self::$_instances[static::class] ??= new static();
     }
 

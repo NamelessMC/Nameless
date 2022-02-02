@@ -291,7 +291,7 @@ $language = [
     'adding_server' => '添加服务器中',
     'server_name' => '服务器名称',
     'server_address' => '服务器地址',
-    'server_address_help' => '这是用于连接服务器的IP地址或域名，不允许包含端口。',
+    'server_address_help' => '这是用于连接服务器的 IP 地址或域名，不允许包含端口。',
     'server_port' => '服务器端口',
     'parent_server' => '父服务器',
     'parent_server_help' => '父服务器通常是服务器连接到的 BungeeCord 实例（如果有）。',
@@ -683,7 +683,7 @@ $language = [
     'hook_name' => 'Webhook 名称',
     'hook_created' => 'Hook 已被成功创建。',
     'hook_edited' => 'Hook 已被成功编辑。',
-    'hook_select_info' => '只有被选择的 \'New topic\'(新话题) 的 Hook 被当作事件来展示。',
+    'hook_select_info' => '只有被选择的 \'New topic\' (新话题) 的 Hook 被当作事件来展示。',
     'hook_url' => 'Webhook 链接 (URL)',
     'hook_type' => 'Webhook 种类 (Type)',
     'hook_events' => '可触发该 Webhook 的事件',
@@ -693,7 +693,7 @@ $language = [
     'register_hook_info' => '用户注册',
     'validate_hook_info' => '用户验证',
     'delete_hook_info' => '用户删除',
-    'report_hook_info' => 'Report creation',
+    'report_hook_info' => '举报创建',
 
     // Sitemap
     'unable_to_load_sitemap_file_x' => '无法加载站点地图文件 {x}', // Don't replace {x}
@@ -755,6 +755,6 @@ $language = [
     'background_colour_required' => '背景颜色为必填项',
     'text_colour_required' => '文字颜色为必填项',
     'no_announcements' => '还没有任何公告呢!',
-    'announcement_order' => 'Order',
-    'announcement_hook_info' => 'Announcement creation',
+    'announcement_order' => '顺序',
+    'announcement_hook_info' => '公告创建',
 ];

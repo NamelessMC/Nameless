@@ -21,7 +21,7 @@ class GetAnnouncementsEndpoint extends KeyAuthEndpoint {
             new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/'])
         );
 
-        foreach ($announcements->getAvailable('api', null, $user->getAllGroupIds(false)) as $announcement) {
+        foreach ($announcements->getAvailable('api', null, $user->getAllGroupIds()) as $announcement) {
             $user_announcements[] = [
                 'id' => (int) $announcement->id,
                 'header' => Output::getClean($announcement->header),

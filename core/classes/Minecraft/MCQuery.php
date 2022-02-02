@@ -9,6 +9,8 @@
  *  Minecraft server query class
  */
 
+use xPaw\MinecraftPing;
+
 class MCQuery {
 
     /**
@@ -29,7 +31,6 @@ class MCQuery {
             $query_ip = explode(':', $ip['ip']);
             if ($type == 'internal') {
                 // Internal query
-
                 if (count($query_ip) == 1 || (strlen($query_ip[1]) == 2 && empty($query_ip[1]))) {
                     $query_ip[1] = 25565;
                 }
@@ -71,53 +72,49 @@ class MCQuery {
                     'status' => $language->get('general', 'offline'),
                     'server_offline' => $language->get('general', 'server_offline')
                 ];
-            } else {
-                // External query
+            }
 
-                if (count($query_ip) > 2) {
-                    return [
-                        'error' => true,
-                        'value' => 'split IP by : contains more than two components'
-                    ];
-                }
-
-                $query = ExternalMCQuery::query($query_ip[0], ($query_ip[1] ?? 25565));
-
-                if (!$query->error && isset($query->response)) {
-                    $player_list = $query->response->players->list ?? [];
-
-                    return [
-                        'status_value' => 1,
-                        'status' => $language->get('general', 'online'),
-                        'player_count' => Output::getClean($query->response->players->online),
-                        'player_count_max' => Output::getClean($query->response->players->max),
-                        'player_list' => $player_list,
-                        'format_player_list' => self::formatPlayerList($player_list),
-                        'x_players_online' => str_replace('{x}', Output::getClean($query->response->players->online), $language->get('general', 'currently_x_players_online')),
-                        'motd' => $query->response->description->text
-                    ];
-                }
-
+            // External query
+            if (count($query_ip) > 2) {
                 return [
-                    'status_value' => 0,
-                    'status' => $language->get('general', 'offline'),
-                    'server_offline' => $language->get('general', 'server_offline')
+                    'error' => true,
+                    'value' => 'split IP by : contains more than two components'
                 ];
             }
+
+            $query = ExternalMCQuery::query($query_ip[0], ($query_ip[1] ?? 25565));
+
+            if (!$query->error && isset($query->response)) {
+                $player_list = $query->response->players->list ?? [];
+
+                return [
+                    'status_value' => 1,
+                    'status' => $language->get('general', 'online'),
+                    'player_count' => Output::getClean($query->response->players->online),
+                    'player_count_max' => Output::getClean($query->response->players->max),
+                    'player_list' => $player_list,
+                    'format_player_list' => self::formatPlayerList($player_list),
+                    'x_players_online' => str_replace('{x}', Output::getClean($query->response->players->online), $language->get('general', 'currently_x_players_online')),
+                    'motd' => $query->response->description->text
+                ];
+            }
+
+            return [
+                'status_value' => 0,
+                'status' => $language->get('general', 'offline'),
+                'server_offline' => $language->get('general', 'server_offline')
+            ];
         } catch (Exception $e) {
             $error = $e->getMessage();
 
             $query_ip = explode(':', $ip['ip']);
 
-            $queries->create(
-                'query_errors',
-                [
+            $queries->create('query_errors', [
                     'date' => date('U'),
                     'error' => $error,
                     'ip' => $query_ip[0],
                     'port' => $query_ip[1] ?? 25565
-                ]
-            );
+            ]);
 
             return [
                 'error' => true,
@@ -245,7 +242,6 @@ class MCQuery {
 
             } else {
                 // External query
-
                 foreach ($servers as $server) {
                     $query_ip = explode(':', $server['ip']);
 
@@ -280,8 +276,8 @@ class MCQuery {
                         }
                     }
                 }
-
             }
+
             if ($accumulate === true) {
                 $to_return = [
                     'status_value' => $status,
@@ -293,6 +289,7 @@ class MCQuery {
             }
             return $to_return;
         }
-        return false;
+
+        return [];
     }
 }

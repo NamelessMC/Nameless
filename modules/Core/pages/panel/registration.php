@@ -39,99 +39,109 @@ if (Input::exists()) {
         } else {
             // Registration settings
 
-            // Email verification
-            $verification = isset($_POST['verification']) && $_POST['verification'] == 'on' ? 1 : 0;
-            $configuration->set('Core', 'email_verification', $verification);
+            if (Input::get('action') == 'oauth') {
 
-            // reCAPTCHA enabled?
-            if (Input::get('enable_recaptcha') == 1) {
-                $captcha = 'true';
+                OAuth::getInstance()->setEnabled('discord', Input::get('enable-discord') == 'on' ? 1 : 0);
+                OAuth::getInstance()->setCredentials('discord', Input::get('client-id-discord'), Input::get('client-secret-discord'));
+
+                OAuth::getInstance()->setEnabled('google', Input::get('enable-google') == 'on' ? 1 : 0);
+                OAuth::getInstance()->setCredentials('google', Input::get('client-id-google'), Input::get('client-secret-google'));
+
             } else {
-                $captcha = 'false';
-            }
-            $captcha_id = $queries->getWhere('settings', ['name', '=', 'recaptcha']);
-            $captcha_id = $captcha_id[0]->id;
-            $queries->update('settings', $captcha_id, [
-                'value' => $captcha
-            ]);
+                // Email verification
+                $verification = isset($_POST['verification']) && $_POST['verification'] == 'on' ? 1 : 0;
+                $configuration->set('Core', 'email_verification', $verification);
 
-            // Login reCAPTCHA enabled?
-            if (Input::get('enable_recaptcha_login') == 1) {
-                $captcha = 'true';
-            } else {
-                $captcha = 'false';
-            }
-            $captcha_login = $queries->getWhere('settings', ['name', '=', 'recaptcha_login']);
-            $captcha_login = $captcha_login[0]->id;
-            $queries->update('settings', $captcha_login, [
-                'value' => $captcha
-            ]);
-
-            // Config value
-            if (Input::get('enable_recaptcha') == 1 || Input::get('enable_recaptcha_login') == 1) {
-                if (is_writable(ROOT_PATH . '/' . implode(DIRECTORY_SEPARATOR, ['core', 'config.php']))) {
-                    // Require config
-                    if (isset($path) && file_exists($path . 'core/config.php')) {
-                        $loadedConfig = json_decode(file_get_contents($path . 'core/config.php'), true);
-                    } else {
-                        $loadedConfig = json_decode(file_get_contents(ROOT_PATH . '/core/config.php'), true);
-                    }
-
-                    if (is_array($loadedConfig)) {
-                        $GLOBALS['config'] = $loadedConfig;
-                    }
-
-                    Config::set('core/captcha', true);
+                // reCAPTCHA enabled?
+                if (Input::get('enable_recaptcha') == 1) {
+                    $captcha = 'true';
                 } else {
-                    $errors = [$language->get('admin', 'config_not_writable')];
+                    $captcha = 'false';
                 }
-            }
-
-            // reCAPTCHA type
-            $captcha_type = $queries->getWhere('settings', ['name', '=', 'recaptcha_type']);
-            if (!count($captcha_type)) {
-                $queries->create('settings', [
-                    'name' => 'recaptcha_type',
-                    'value' => Input::get('captcha_type')
+                $captcha_id = $queries->getWhere('settings', ['name', '=', 'recaptcha']);
+                $captcha_id = $captcha_id[0]->id;
+                $queries->update('settings', $captcha_id, [
+                    'value' => $captcha
                 ]);
-                $cache->setCache('configuration');
-                $cache->store('recaptcha_type', Input::get('captcha_type'));
-            } else {
-                $configuration->set('Core', 'recaptcha_type', Input::get('captcha_type'));
-            }
 
-            // reCAPTCHA key
-            $configuration->set('Core', 'recaptcha_key', Input::get('recaptcha'));
-
-            // reCAPTCHA secret key
-            $configuration->set('Core', 'recaptcha_secret', Input::get('recaptcha_secret'));
-
-            // Registration disabled message
-            $registration_disabled_id = $queries->getWhere('settings', ['name', '=', 'registration_disabled_message']);
-            $registration_disabled_id = $registration_disabled_id[0]->id;
-            $queries->update('settings', $registration_disabled_id, [
-                'value' => htmlspecialchars(Input::get('message'))
-            ]);
-
-            // Validation group
-            $validation_group_id = $queries->getWhere('settings', ['name', '=', 'validate_user_action']);
-            $validation_action = $validation_group_id[0]->value;
-            $validation_action = json_decode($validation_action, true);
-            $validation_action = $validation_action['action'] ?? 'promote';
-            $validation_group_id = $validation_group_id[0]->id;
-
-            $new_value = json_encode(['action' => $validation_action, 'group' => $_POST['promote_group']]);
-
-            try {
-                $queries->update('settings', $validation_group_id, [
-                    'value' => $new_value
+                // Login reCAPTCHA enabled?
+                if (Input::get('enable_recaptcha_login') == 1) {
+                    $captcha = 'true';
+                } else {
+                    $captcha = 'false';
+                }
+                $captcha_login = $queries->getWhere('settings', ['name', '=', 'recaptcha_login']);
+                $captcha_login = $captcha_login[0]->id;
+                $queries->update('settings', $captcha_login, [
+                    'value' => $captcha
                 ]);
-            } catch (Exception $e) {
-                $errors[] = $e->getMessage();
-            }
 
-            $cache->setCache('validate_action');
-            $cache->store('validate_action', ['action' => $validation_action, 'group' => $_POST['promote_group']]);
+                // Config value
+                if (Input::get('enable_recaptcha') == 1 || Input::get('enable_recaptcha_login') == 1) {
+                    if (is_writable(ROOT_PATH . '/' . implode(DIRECTORY_SEPARATOR, ['core', 'config.php']))) {
+                        // Require config
+                        if (isset($path) && file_exists($path . 'core/config.php')) {
+                            $loadedConfig = json_decode(file_get_contents($path . 'core/config.php'), true);
+                        } else {
+                            $loadedConfig = json_decode(file_get_contents(ROOT_PATH . '/core/config.php'), true);
+                        }
+
+                        if (is_array($loadedConfig)) {
+                            $GLOBALS['config'] = $loadedConfig;
+                        }
+
+                        Config::set('core/captcha', true);
+                    } else {
+                        $errors = [$language->get('admin', 'config_not_writable')];
+                    }
+                }
+
+                // reCAPTCHA type
+                $captcha_type = $queries->getWhere('settings', ['name', '=', 'recaptcha_type']);
+                if (!count($captcha_type)) {
+                    $queries->create('settings', [
+                        'name' => 'recaptcha_type',
+                        'value' => Input::get('captcha_type')
+                    ]);
+                    $cache->setCache('configuration');
+                    $cache->store('recaptcha_type', Input::get('captcha_type'));
+                } else {
+                    $configuration->set('Core', 'recaptcha_type', Input::get('captcha_type'));
+                }
+
+                // reCAPTCHA key
+                $configuration->set('Core', 'recaptcha_key', Input::get('recaptcha'));
+
+                // reCAPTCHA secret key
+                $configuration->set('Core', 'recaptcha_secret', Input::get('recaptcha_secret'));
+
+                // Registration disabled message
+                $registration_disabled_id = $queries->getWhere('settings', ['name', '=', 'registration_disabled_message']);
+                $registration_disabled_id = $registration_disabled_id[0]->id;
+                $queries->update('settings', $registration_disabled_id, [
+                    'value' => htmlspecialchars(Input::get('message'))
+                ]);
+
+                // Validation group
+                $validation_group_id = $queries->getWhere('settings', ['name', '=', 'validate_user_action']);
+                $validation_action = $validation_group_id[0]->value;
+                $validation_action = json_decode($validation_action, true);
+                $validation_action = $validation_action['action'] ?? 'promote';
+                $validation_group_id = $validation_group_id[0]->id;
+
+                $new_value = json_encode(['action' => $validation_action, 'group' => $_POST['promote_group']]);
+
+                try {
+                    $queries->update('settings', $validation_group_id, [
+                        'value' => $new_value
+                    ]);
+                } catch (Exception $e) {
+                    $errors[] = $e->getMessage();
+                }
+
+                $cache->setCache('validate_action');
+                $cache->store('validate_action', ['action' => $validation_action, 'group' => $_POST['promote_group']]);
+            }
         }
 
         if (!count($errors)) {
@@ -213,7 +223,26 @@ $smarty->assign([
     'INFO' => $language->get('general', 'info'),
     'GROUPS' => $queries->getWhere('groups', ['staff', '=', 0]),
     'VALIDATION_GROUP' => $validation_group,
-    'CAPTCHA_OPTIONS' => $captcha_options
+    'CAPTCHA_OPTIONS' => $captcha_options,
+    'OAUTH' => $language->get('admin', 'oauth'),
+    'OAUTH_INFO' => $language->get('admin', 'oauth_info'),
+]);
+
+[$discord_client_id, $discord_client_secret] = OAuth::getInstance()->getCredentials(OAuth::DISCORD);
+[$google_client_id, $google_client_secret] = OAuth::getInstance()->getCredentials(OAuth::GOOGLE);
+
+$smarty->assign([
+    'DISCORD_OAUTH_ENABLED' => OAuth::getInstance()->isEnabled(OAuth::DISCORD),
+    'GOOGLE_OAUTH_ENABLED' => OAuth::getInstance()->isEnabled(OAuth::GOOGLE),
+
+    'DISCORD_OAUTH_SETUP' => OAuth::getInstance()->isSetup(OAuth::DISCORD),
+    'GOOGLE_OAUTH_SETUP' => OAuth::getInstance()->isSetup(OAuth::GOOGLE),
+
+    'DISCORD_CLIENT_ID' => $discord_client_id,
+    'DISCORD_CLIENT_SECRET' => $discord_client_secret,
+
+    'GOOGLE_CLIENT_ID' => $google_client_id,
+    'GOOGLE_CLIENT_SECRET' => $google_client_secret,
 ]);
 
 $smarty->assign([

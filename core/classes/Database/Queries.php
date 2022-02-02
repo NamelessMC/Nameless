@@ -70,7 +70,12 @@ class Queries {
         }
     }
 
-    public function getLastId(): int {
+    /**
+     * Get the last inserted ID
+     *
+     * @return string|false
+     */
+    public function getLastId() {
         return $this->_db->lastId();
     }
 
@@ -131,6 +136,8 @@ class Queries {
         $this->_db->createTable('logs', ' `id` int(11) NOT NULL AUTO_INCREMENT, `time` int(11) NOT NULL, `action` mediumtext NOT NULL, `ip` varchar(128) NOT NULL, `user_id` int(11) NOT NULL, `info` mediumtext, PRIMARY KEY (`id`)', "ENGINE=$engine DEFAULT CHARSET=$charset");
         $this->_db->createTable('mc_servers', " `id` int(11) NOT NULL AUTO_INCREMENT, `ip` varchar(64) NOT NULL, `query_ip` varchar(64) NOT NULL, `name` varchar(20) NOT NULL, `is_default` tinyint(1) NOT NULL DEFAULT '0', `display` tinyint(1) NOT NULL DEFAULT '1', `pre` tinyint(1) NOT NULL DEFAULT '0', `player_list` tinyint(1) NOT NULL DEFAULT '1', `parent_server` int(11) NOT NULL DEFAULT '0', `bungee` tinyint(1) NOT NULL DEFAULT '0', `port` int(11) DEFAULT NULL, `query_port` int(11) DEFAULT '25565', `banner_background` varchar(32) NOT NULL DEFAULT 'background.png', `show_ip` tinyint(1) NOT NULL DEFAULT '1', `order` int(11) NOT NULL DEFAULT '1', PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
         $this->_db->createTable('modules', " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(64) NOT NULL, `enabled` tinyint(1) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
+        $this->_db->createTable('oauth', " `provider` varchar(256) NOT NULL, `enabled` tinyint(1) NOT NULL DEFAULT '0', `client_id` varchar(256) DEFAULT NULL, `client_secret` varchar(256) DEFAULT NULL, PRIMARY KEY (`provider`), UNIQUE KEY `id` (`provider`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
+        $this->_db->createTable('oauth_users', ' `user_id` int(11) NOT NULL, `provider` varchar(256) NOT NULL, `provider_id` varchar(256) NOT NULL, PRIMARY KEY (`user_id`,`provider`,`provider_id`), UNIQUE KEY `user_id` (`user_id`,`provider`,`provider_id`)', "ENGINE=$engine DEFAULT CHARSET=$charset");
         $this->_db->createTable('online_guests', ' `id` int(11) NOT NULL AUTO_INCREMENT, `ip` varchar(128) NOT NULL, `last_seen` int(11) NOT NULL, PRIMARY KEY (`id`)', "ENGINE=$engine DEFAULT CHARSET=$charset");
         $this->_db->createTable('page_descriptions', ' `id` int(11) NOT NULL AUTO_INCREMENT, `page` varchar(64) NOT NULL, `description` varchar(500) DEFAULT NULL, `tags` text, PRIMARY KEY (`id`)', "ENGINE=$engine DEFAULT CHARSET=$charset");
         $this->_db->createTable('panel_templates', " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(64) NOT NULL, `enabled` tinyint(1) NOT NULL DEFAULT '0', `is_default` tinyint(1) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
