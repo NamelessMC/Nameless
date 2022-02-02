@@ -52,7 +52,7 @@ class URL {
      */
     private static function buildFriendly(string $url, string $params): string {
         // Check for params
-        if ($params != '')  {
+        if ($params != '') {
             $params = '?' . $params;
         }
 
