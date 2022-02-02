@@ -70,7 +70,12 @@ class Queries {
         }
     }
 
-    public function getLastId(): int {
+    /**
+     * Get the last inserted ID
+     *
+     * @return string|false
+     */
+    public function getLastId() {
         return $this->_db->lastId();
     }
 

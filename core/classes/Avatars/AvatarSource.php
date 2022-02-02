@@ -134,7 +134,7 @@ class AvatarSource {
      * Get key value array of all registered sources and their available perspectives.
      * Used for autoupdating dropdown selector in staffcp.
      *
-     * @return array<string, string> Array of source => [] perspectives.
+     * @return array<string, array<string>> Array of source => [] perspectives.
      */
     public static function getAllPerspectives(): array {
         $perspectives = [];

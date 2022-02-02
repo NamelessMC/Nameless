@@ -248,7 +248,12 @@ class DB_Custom {
         return $this->_count;
     }
 
-    public function lastId(): int {
+    /**
+     * Get the last inserted ID
+     *
+     * @return string|false ID of the last inserted row or false on failure
+     */
+    public function lastId() {
         return $this->_pdo->lastInsertId();
     }
 

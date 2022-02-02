@@ -159,6 +159,7 @@ if (!isset($_GET['action'])) {
                         $template = null;
                         require_once(ROOT_PATH . DIRECTORY_SEPARATOR . 'custom' . DIRECTORY_SEPARATOR . 'panel_templates' . DIRECTORY_SEPARATOR . str_replace(['../', '/', '..'], '', $folders[count($folders) - 1]) . DIRECTORY_SEPARATOR . 'template.php');
 
+                        /** @phpstan-ignore-next-line */
                         if ($template instanceof TemplateBase) {
                             // No, add it now
                             $queries->create('panel_templates', [
@@ -194,6 +195,7 @@ if (!isset($_GET['action'])) {
 
                     require(ROOT_PATH . DIRECTORY_SEPARATOR . 'custom' . DIRECTORY_SEPARATOR . 'panel_templates' . DIRECTORY_SEPARATOR . $name . DIRECTORY_SEPARATOR . 'template.php');
 
+                    /** @phpstan-ignore-next-line */
                     if ($template instanceof TemplateBase) {
                         // Activate the template
                         $queries->update('panel_templates', $id, [

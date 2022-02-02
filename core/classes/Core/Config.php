@@ -57,6 +57,7 @@ class Config {
 
         require(ROOT_PATH . '/core/config.php');
 
+        /** @phpstan-ignore-next-line  */
         if (!isset($conf) || !is_array($conf)) {
             $conf = [];
         }
@@ -99,6 +100,7 @@ class Config {
 
         require(ROOT_PATH . '/core/config.php');
 
+        /** @phpstan-ignore-next-line  */
         if (!isset($conf) || !is_array($conf)) {
             $conf = [];
         }

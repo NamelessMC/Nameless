@@ -52,11 +52,7 @@ class URL {
      */
     private static function buildFriendly(string $url, string $params): string {
         // Check for params
-        if ($params != '' || $params === true) {
-            if ($params === true) {
-                $params = '';
-            }
-
+        if ($params != '')  {
             $params = '?' . $params;
         }
 
@@ -72,11 +68,7 @@ class URL {
      * @return string Assembled URL.
      */
     private static function buildNonFriendly(string $url, string $params): string {
-        if ($params != '' || $params === true) {
-            if ($params === true) {
-                $params = '';
-            }
-
+        if ($params != '') {
             return (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/index.php?route=' . $url . ((substr($url, -1) == '/') ? '' : '/') . '&' . $params;
         }
 

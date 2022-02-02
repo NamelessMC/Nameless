@@ -159,6 +159,7 @@ if (!isset($_GET['action'])) {
 
             require_once(ROOT_PATH . '/modules/' . $name . '/init.php');
 
+            /** @phpstan-ignore-next-line */
             if ($module instanceof Module) {
                 // Cache
                 $cache->setCache('modulescache');
@@ -282,15 +283,14 @@ if (!isset($_GET['action'])) {
                 $folders = explode('/', $directory);
 
                 if (file_exists(ROOT_PATH . '/modules/' . $folders[count($folders) - 1] . '/init.php')) {
-                    // Is it already in the database?
                     $exists = $queries->getWhere('modules', ['name', '=', Output::getClean($folders[count($folders) - 1])]);
 
                     if (!count($exists)) {
                         $module = null;
 
-                        // No, add it now
                         require_once(ROOT_PATH . '/modules/' . $folders[count($folders) - 1] . '/init.php');
 
+                        /** @phpstan-ignore-next-line */
                         if ($module instanceof Module) {
                             $queries->create('modules', [
                                 'name' => Output::getClean($folders[count($folders) - 1])

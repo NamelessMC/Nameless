@@ -425,7 +425,7 @@ class Forum {
                 // Get label
                 $label_ids = explode(',', $item->labels);
 
-                if (count($label_ids)) {
+                if ($label_ids !== false) {
                     foreach ($label_ids as $label_id) {
                         if (isset($labels_cache[$label_id])) {
                             $labels[] = $labels_cache[$label_id];
