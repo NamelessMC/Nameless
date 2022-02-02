@@ -9,6 +9,8 @@
  *  Minecraft server query class
  */
 
+use xPaw\MinecraftPing;
+
 class MCQuery {
 
     /**

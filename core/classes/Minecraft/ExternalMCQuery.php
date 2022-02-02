@@ -32,17 +32,12 @@ class ExternalMCQuery {
         if ($ip) {
             $query_ip = explode(':', $ip);
 
-            if (count($query_ip) == 2) {
-                $ip = $query_ip[0];
-                $port = $query_ip[1];
-            } else {
-                if (count($query_ip) == 1) {
-                    $ip = $query_ip[0];
-                    $port = $query_ip[1];
-                } else {
-                    return false;
-                }
+            if (count($query_ip) !== 2 && count($query_ip) !== 1) {
+                return false;
             }
+
+            $ip = $query_ip[0];
+            $port = $query_ip[1] ?? 25565;
 
             $result = HttpClient::get('https://api.namelessmc.com/api/server/' . $ip . '/' . $port)->json();
 

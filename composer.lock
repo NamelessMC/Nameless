@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e102656ec3f3cf4476977df3275a97d6",
+    "content-hash": "d54957e4f8f96df831bea83ae0a1789b",
     "packages": [
         {
             "name": "emojione/emojione",
@@ -1947,6 +1947,48 @@
                 "source": "https://github.com/wohali/oauth2-discord-new/tree/master"
             },
             "time": "2020-06-12T07:27:09+00:00"
+        },
+        {
+            "name": "xpaw/php-minecraft-query",
+            "version": "4.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/xPaw/PHP-Minecraft-Query.git",
+                "reference": "c7257e7c3d18c14cd476910f1516f93f405f54ee"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/xPaw/PHP-Minecraft-Query/zipball/c7257e7c3d18c14cd476910f1516f93f405f54ee",
+                "reference": "c7257e7c3d18c14cd476910f1516f93f405f54ee",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "xPaw\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "PHP library to query Minecraft servers",
+            "keywords": [
+                "minecraft"
+            ],
+            "support": {
+                "source": "https://github.com/xPaw/PHP-Minecraft-Query/tree/4.0.1"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/xPaw",
+                    "type": "github"
+                }
+            ],
+            "time": "2021-06-18T13:18:40+00:00"
         }
     ],
     "packages-dev": [
