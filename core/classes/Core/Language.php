@@ -46,16 +46,14 @@ class Language {
         if (is_file($path . DIRECTORY_SEPARATOR . 'version.php')) {
             require($path . DIRECTORY_SEPARATOR . 'version.php');
 
-            if (isset($language_html)) {
-                if (!defined('HTML_LANG')) {
-                    define('HTML_LANG', $language_html);
-                }
+            /** @phpstan-ignore-next-line  */
+            if (isset($language_html) && !defined('HTML_LANG')) {
+                define('HTML_LANG', $language_html);
             }
 
-            if (isset($language_rtl)) {
-                if (!defined('HTML_RTL')) {
-                    define('HTML_RTL', $language_rtl);
-                }
+            /** @phpstan-ignore-next-line  */
+            if (isset($language_rtl) && !defined('HTML_RTL')) {
+                define('HTML_RTL', $language_rtl);
             }
         }
     }

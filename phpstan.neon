@@ -11,23 +11,9 @@ parameters:
         - '#might not be defined#'
         - '#Constant#'
         - '#Undefined variable:#'
-        # when we require() files
-        - '#in isset\(\) is never defined.#'
-        # `Instanceable` classes
-        - '#Unsafe usage of new static\(\).#'
         # $queries->getWhere()->{$property}
         - '#Access to an undefined property#'
         # because php is dumb
         - '#Call to an undefined method ReflectionType::getName\(\).#'
         - '#Call to an undefined method ReflectionType::isBuiltin\(\).#'
     reportUnmatchedIgnoredErrors: false
-    # Autoload classes
-    scanDirectories:
-        - core/classes
-        - modules/Core/classes
-        - modules/Discord Integration/classes
-        - modules/Forum/classes
-    scanFiles:
-        - modules/Core/pages/api/v2/index.php
-    bootstrapFiles:
-        - core/includes/phpass.php
