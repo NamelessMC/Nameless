@@ -65,7 +65,7 @@ if (defined('MINECRAFT') && MINECRAFT === true) {
             }
 
             // Do we need to query for favicon?
-            //if (!$cache->isCached('favicon')) {
+            if (!$cache->isCached('favicon')) {
                 $favicon = imagecreatefromstring(base64_decode(ltrim(ExternalMCQuery::getFavicon($full_ip['ip']), 'data:image/png;base64')));
 
                 imageAlphaBlending($favicon, true);
@@ -75,9 +75,9 @@ if (defined('MINECRAFT') && MINECRAFT === true) {
                 imagepng($favicon, ROOT_PATH . '/cache/server_fav_' . urlencode($server->name) . '.png');
 
                 $cache->store('favicon', 'true', 3600);
-//            } else {
-//                $favicon = imagecreatefrompng(ROOT_PATH . '/cache/server_fav_' . urlencode($server->name) . '.png');
-//            }
+            } else {
+                $favicon = imagecreatefrompng(ROOT_PATH . '/cache/server_fav_' . urlencode($server->name) . '.png');
+            }
 
             // Font
             $font = ROOT_PATH . '/core/assets/fonts/minecraft.ttf';
