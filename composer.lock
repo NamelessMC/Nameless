@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "43ef3c26063458085b888d133b267f23",
+    "content-hash": "fe31b4e3578e9374c5c6954587c489f9",
     "packages": [
         {
             "name": "emojione/emojione",
@@ -2105,7 +2105,9 @@
     "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
+    "platform": {
+        "php": ">=7.4"
+    },
     "platform-dev": [],
     "plugin-api-version": "2.2.0"
 }

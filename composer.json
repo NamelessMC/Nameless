@@ -4,6 +4,7 @@
     "type": "project",
     "license": "MIT",
     "require": {
+        "php": ">=7.4",
         "jdorn/sql-formatter": "^1.2",
         "smarty/smarty": "^4.0",
         "ezyang/htmlpurifier": "^4.13",
