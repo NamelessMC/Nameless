@@ -14,7 +14,7 @@ The following list is a brief summary of the features available in v2 pre-releas
 - 👥 Social logins: allow your users to register/login with services such as Discord and Google.
 - 🎮 Minecraft integration
   - Account verification using mcassoc or in-game the plugin
-  - [In-game plugin](https://www.spigotmc.org/resources/nameless-plugin-for-v2.59032)
+  - [In-game plugin](https://plugin.namelessmc.com)
     - Require in-game verification for NamelessMC accounts
     - Allow registering for accounts in-game
     - Synchronize Vault ranks with NamelessMC groups (unidirectional, game -> website)
