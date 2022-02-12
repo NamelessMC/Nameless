@@ -734,7 +734,12 @@ class Core_Module extends Module {
                             $servers = [$full_ip];
 
                             foreach ($sub_servers as $server) {
-                                $servers[] = ['ip' => $server->ip . (is_null($server->port) ? '' : ':' . $server->port), 'pre' => $server->pre, 'name' => $server->name];
+                                $servers[] = [
+                                    'ip' => $server->ip . (is_null($server->port) ? '' : ':' . $server->port),
+                                    'pre' => $server->pre,
+                                    'name' => $server->name,
+                                    'bedrock' => $server->bedrock
+                                ];
                             }
 
                             $result = MCQuery::multiQuery($servers, $query_type, $language, true, $queries);
@@ -754,11 +759,10 @@ class Core_Module extends Module {
                                 $result['status'] = $language->get('general', 'offline');
                                 $result['status_full'] = $language->get('general', 'server_offline');
                                 $result['server_offline'] = $language->get('general', 'server_offline');
-
                             }
 
                         } else {
-                            $result = MCQuery::singleQuery($full_ip, $query_type, $language, $queries);
+                            $result = MCQuery::singleQuery($full_ip, $query_type, $default->bedrock, $language, $queries);
 
                             if (isset($result['status_value']) && $result['status_value'] == 1) {
                                 $result['status'] = $language->get('general', 'online');
