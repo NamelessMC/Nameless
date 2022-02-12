@@ -100,7 +100,7 @@ class MCQuery {
                 ];
             }
 
-            $query = ExternalMCQuery::query($query_ip[0], ($query_ip[1] ?? 25565));
+            $query = ExternalMCQuery::query($query_ip[0], ($query_ip[1] ?? ($bedrock ? 19132 : 25565)), $bedrock);
 
             if (!$query->error && isset($query->response)) {
                 $player_list = $query->response->players->list ?? [];
@@ -280,7 +280,7 @@ class MCQuery {
                     $query_ip = explode(':', $server['ip']);
 
                     if (count($query_ip) <= 2) {
-                        $query = ExternalMCQuery::query($query_ip[0], ($query_ip[1] ?? ($server['bedrock'] ? 19132 : 25565)));
+                        $query = ExternalMCQuery::query($query_ip[0], ($query_ip[1] ?? ($server['bedrock'] ? 19132 : 25565)), $server['bedrock']);
 
                         if (!$query->error && isset($query->response)) {
                             if ($accumulate === false) {
