@@ -111,6 +111,17 @@
                             </div>
 
                             <div class="form-group">
+                                <label for="inputBedrock">{$BEDROCK}</label> <span
+                                        class="badge badge-info"><i class="fa fa-question-circle" data-container="body"
+                                                                    data-toggle="popover" data-placement="top"
+                                                                    title="{$INFO}"
+                                                                    data-content="{$BEDROCK_INFO}"></i></span>
+                                <input type="hidden" name="bedrock" value="0">
+                                <input id="inputBedrock" name="bedrock" type="checkbox" class="js-switch"
+                                       value="1" {if $BEDROCK_VALUE} checked{/if} />
+                            </div>
+
+                            <div class="form-group">
                                 <label for="inputPre17">{$PRE_17}</label>
                                 <input type="hidden" name="pre_17" value="0">
                                 <input id="inputPre17" name="pre_17" type="checkbox" class="js-switch"
