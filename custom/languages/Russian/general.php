@@ -1,7 +1,7 @@
 <?php
 /*
  *  Made by Samerton
- *  Translated by LOyoujoLI
+ *  Translated by LOyoujoLI & PadowYT2
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr12
  *
@@ -162,5 +162,10 @@ $language = [
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'Перенаправление...<br />Если вы не перенаправлены автоматически, пожалуйста, нажмите на <a href="{x}" rel="nofollow noopener">эту кнопку</a>.' // Don't replace {x} which is the redirect URL
+    'redirecting_message' => 'Перенаправление...<br />Если вы не перенаправлены автоматически, пожалуйста, нажмите на <a href="{x}" rel="nofollow noopener">эту кнопку</a>.', // Don't replace {x} which is the redirect URL
+
+    /*
+     * OAuth
+     */
+    'oauth_message_continue' => 'Продолжить регистрироваться с {x}', // Don't replace {x}
 ];

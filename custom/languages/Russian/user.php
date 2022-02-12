@@ -1,7 +1,7 @@
 <?php
 /*
  *  Made by Samerton
- *  Translated by LOyoujoLI
+ *  Translated by LOyoujoLI & PadowYT2
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr12
  *
@@ -237,4 +237,13 @@ $language = [
      */
     'user_x_has_registered' => '{x} присоединился к ' . SITE_NAME . '!',
     'user_x_has_validated' => '{x} потдвердил свой аккаунт!',
+
+    // OAuth
+    'oauth_unlinked' => 'Ваш аккаунт был успешно отвязан от того провайдера.',
+    'oauth_already_linked' => 'Другой NamelessMC пользователь уже привязал к {x} аккаунту.', // Don't replace {x}
+    'oauth_link_success' => 'Ваш аккаунт был успешно связан с {x}!', // Don't replace {x}
+    'no_user_found_with_provider' => 'Нет пользователей с таким {x} аккаунтом.', // Don't replace {x}
+    'oauth_login_success' => 'Вы успешно зашли в ваш {x} аккаунт.', // Don't replace {x}
+    'oauth_link_confirm' => 'Вы будете перенаправлены на сайт {x}, что бы связать ваш аккаунт', // Don't replace {x}
+    'oauth_unlink_confirm' => 'Вы уверены что хотите отвязать ваш аккаунт от {x}.<br>Вы не сможете зайти в этот аккаунт больше.', // Don't replace {x}
 ];
