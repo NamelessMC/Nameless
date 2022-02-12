@@ -58,7 +58,7 @@ if (defined('MINECRAFT') && MINECRAFT === true) {
                 $query_type = 'internal';
             }
 
-            $query = MCQuery::singleQuery($full_ip, $query_type, $language, $queries);
+            $query = MCQuery::singleQuery($full_ip, $query_type, $server->bedrock, $language, $queries);
 
             if ($query['status_value'] != 1) {
                 $query['motd'] = ['§4Offline'];
