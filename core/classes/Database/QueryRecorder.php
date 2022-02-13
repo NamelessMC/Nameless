@@ -1,14 +1,12 @@
 <?php
-/*
- *	Made by Aberdeener
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr12
+/**
+ * QueryRecorder class
  *
- *  License: MIT
- *
- *  QueryRecorder class
+ * @package NamelessMC\Database
+ * @author Aberdeener
+ * @version 2.0.0-pr13
+ * @license MIT
  */
-
 class QueryRecorder extends Instanceable {
 
     private array $_query_stack;

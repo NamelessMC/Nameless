@@ -1,15 +1,12 @@
 <?php
-/*
- *	Made by Aberdeener
+/**
+ * Placeholders class
  *
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr12
- *
- *  License: MIT
- *
- *  Plceholders class
+ * @package NamelessMC\Misc
+ * @author Aberdeener
+ * @version 2.0.0-pr12
+ * @license MIT
  */
-
 class Placeholders extends Instanceable {
 
     private DB $_db;

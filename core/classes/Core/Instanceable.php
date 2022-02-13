@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * Instanceable class
+ *
+ * @package NamelessMC\Core
+ * @author Aberdeener
+ * @version 2.0.0-pr13
+ * @license MIT
+ */
 class Instanceable {
 
     /**

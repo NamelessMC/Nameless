@@ -24,7 +24,15 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-
+/**
+ * MinecraftBanner class
+ *
+ * @package NamelessMC\Minecraft
+ * @author games647
+ * @version 2.0.0-pr8
+ * @license MIT
+ * @site https://github.com/games647/Minecraft-Banner-Generator
+ */
 class ServerBanner {
     /**
      *

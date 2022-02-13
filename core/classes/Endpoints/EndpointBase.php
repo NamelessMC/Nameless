@@ -1,15 +1,12 @@
 <?php
-/*
- *	Made by Aberdeener
+/**
+ * EndpointBase class
  *
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
- *
- *  License: MIT
- *
- *  EndpointsBase class
+ * @package NamelessMC\Endpoints
+ * @author Aberdeener
+ * @version 2.0.0-pr13
+ * @license MIT
  */
-
 class EndpointBase {
 
     protected string $_route;

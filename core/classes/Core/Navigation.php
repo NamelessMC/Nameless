@@ -1,14 +1,12 @@
 <?php
-/*
- *	Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+/**
+ * Navigation class
  *
- *  License: MIT
- *
- *  Navigation class
+ * @package NamelessMC\Core
+ * @author Samerton
+ * @version 2.0.0-pr9
+ * @license MIT
  */
-
 class Navigation {
 
     private array $_topNavbar = [];

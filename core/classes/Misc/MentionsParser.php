@@ -1,14 +1,12 @@
 <?php
-
 /**
- * Mentions parser
- * By: fetch404
- * Date: 7/1/2015
- * License: MIT
+ * ErrorHandler class
  *
- * Modified by Samerton for NamelessMC
- * https://github.com/NamelessMC/Nameless/
- * NamelessMC version 2.0.0-pr9
+ * @package NamelessMC\Misc
+ * @author Samerton
+ * @author fetch404
+ * @version 2.0.0-pr9
+ * @license MIT
  */
 class MentionsParser {
 

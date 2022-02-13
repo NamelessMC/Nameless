@@ -1,5 +1,12 @@
 <?php
-
+/**
+ * GroupSyncInjector interface
+ *
+ * @package NamelessMC\Group_Sync
+ * @author Aberdeener
+ * @version 2.0.0-pr13
+ * @license MIT
+ */
 interface GroupSyncInjector {
 
     /**

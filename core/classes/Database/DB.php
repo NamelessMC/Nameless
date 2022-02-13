@@ -1,14 +1,12 @@
 <?php
-/*
- *	Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr10
+/**
+ * DB class
  *
- *  License: MIT
- *
- *  Database class
+ * @package NamelessMC\Database
+ * @author Samerton
+ * @version 2.0.0-pr13
+ * @license MIT
  */
-
 class DB extends Instanceable {
 
     private PDO $_pdo;

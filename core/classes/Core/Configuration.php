@@ -1,14 +1,12 @@
 <?php
-/*
- *	Made by Partydragen
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+/**
+ * Configuration class
  *
- *  License: MIT
- *
- *  Configuration class
+ * @package NamelessMC\Core
+ * @author Partydragen
+ * @version 2.0.0-pr8
+ * @license MIT
  */
-
 class Configuration {
 
     private DB $_db;

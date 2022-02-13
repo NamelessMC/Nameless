@@ -1,14 +1,12 @@
 <?php
-/*
- *	Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+/**
+ * Cookie class
  *
- *  License: MIT
- *
- *  Cookie class
+ * @package NamelessMC\Core
+ * @author Samerton
+ * @version 2.0.0-pr10
+ * @license MIT
  */
-
 class Cookie {
 
     /**

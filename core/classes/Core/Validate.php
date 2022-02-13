@@ -1,16 +1,13 @@
 <?php
-/*
- *	Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr10
+/**
+ * Validate class
  *
- *  License: MIT
- *
- *  Validate class
- *
- * 	TODO: Regex, Check IP Ban, "isvalid" MC username check
+ * @package NamelessMC\Core
+ * @author Samerton
+ * @author Aberdeener
+ * @version 2.0.0-pr10
+ * @license MIT
  */
-
 class Validate {
 
     /**

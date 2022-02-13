@@ -1,12 +1,13 @@
 <?php
-/*
- *	Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0
+/**
+ * EventHandler class
  *
- *  Event handler class
+ * @package NamelessMC\Events
+ * @author Samerton
+ * @author Aberdeener
+ * @version 2.0.0-pr13
+ * @license MIT
  */
-
 class EventHandler {
 
     private static array $_events = [];

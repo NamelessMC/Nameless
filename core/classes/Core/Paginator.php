@@ -1,14 +1,12 @@
 <?php
-/*
- *	Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+/**
+ * Paginator class
  *
- *  License: MIT
- *
- *  Paginator class
+ * @package NamelessMC\Core
+ * @author Samerton
+ * @version 2.0.0-pr8
+ * @license MIT
  */
-
 class Paginator {
 
     private int $_limit;

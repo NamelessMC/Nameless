@@ -1,15 +1,12 @@
 <?php
-
-/*
- *	Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+/**
+ * Language class
  *
- *  License: MIT
- *
- *  Language class
+ * @package NamelessMC\Core
+ * @author Samerton
+ * @version 2.0.0-pr11
+ * @license MIT
  */
-
 class Language {
 
     private string $_activeLanguage;

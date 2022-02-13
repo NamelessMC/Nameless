@@ -1,5 +1,12 @@
 <?php
-
+/**
+ * GroupSyncManager class
+ *
+ * @package NamelessMC\Group_Sync
+ * @author Aberdeener
+ * @version 2.0.0-pr13
+ * @license MIT
+ */
 final class GroupSyncManager extends Instanceable {
 
     /** @var GroupSyncInjector[] */

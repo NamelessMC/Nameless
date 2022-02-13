@@ -1,5 +1,12 @@
 <?php
-
+/**
+ * KeyAuthEndpoint class
+ *
+ * @package NamelessMC\Endpoints
+ * @author Aberdeener
+ * @version 2.0.0-pr13
+ * @license MIT
+ */
 class KeyAuthEndpoint extends EndpointBase {
 
     final public function isAuthorised(Nameless2API $api): bool {

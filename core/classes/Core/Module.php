@@ -1,14 +1,12 @@
 <?php
-/*
- *	Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+/**
+ * Module base class
  *
- *  License: MIT
- *
- *  Modules class
+ * @package NamelessMC\Core
+ * @author Samerton
+ * @version 2.0.0-pr13
+ * @license MIT
  */
-
 abstract class Module {
 
     private static iterable $_modules = [];

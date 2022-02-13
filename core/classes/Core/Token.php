@@ -1,14 +1,12 @@
 <?php
-/*
- *	Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+/**
+ * Token class
  *
- *  License: MIT
- *
- *  Token class
+ * @package NamelessMC\Core
+ * @author Samerton
+ * @version 2.0.0-pr8
+ * @license MIT
  */
-
 class Token {
 
     /**

@@ -1,15 +1,13 @@
 <?php
-/*
- *	Made by Samerton
- *  Additions by Aberdeener
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+/**
+ * ErrorHandler class
  *
- *  License: MIT
- *
- *  Error handler class
+ * @package NamelessMC\Misc
+ * @author Samerton
+ * @author Aberdeener
+ * @version 2.0.0-pr9
+ * @license MIT
  */
-
 class ErrorHandler {
 
     /**

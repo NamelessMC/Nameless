@@ -1,17 +1,16 @@
 <?php
-/*
- *	Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
- *
- *  License: MIT
- *
- *  Minecraft server query class
- */
 
 use xPaw\MinecraftPing;
 use xPaw\MinecraftQuery;
 
+/**
+ * Minecraft server query class
+ *
+ * @package NamelessMC\Minecraft
+ * @author Samerton
+ * @version 2.0.0-pr8
+ * @license MIT
+ */
 class MCQuery {
 
     /**

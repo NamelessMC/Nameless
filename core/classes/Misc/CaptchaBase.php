@@ -1,16 +1,12 @@
 <?php
-
-/*
- *	Made by Samerton
+/**
+ * CaptchaBase class
  *
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr10
- *
- *  License: MIT
- *
- *  CaptchaBase class
+ * @package NamelessMC\Misc
+ * @author Samerton
+ * @version 2.0.0-pr10
+ * @license MIT
  */
-
 abstract class CaptchaBase {
 
     protected static array $_providers = [];

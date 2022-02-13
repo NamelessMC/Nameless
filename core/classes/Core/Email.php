@@ -1,17 +1,17 @@
 <?php
-/*
-*	Made by Samerton
-*  https://github.com/NamelessMC/Nameless/
-*  NamelessMC version 2.0.0-pr8
-*
-*  License: MIT
-*
-*  Email class
-*/
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 
+/**
+ * Email class
+ *
+ * @package NamelessMC\Core
+ * @author Samerton
+ * @author Aberdeener
+ * @version 2.0.0-pr13
+ * @license MIT
+ */
 class Email {
 
     public const REGISTRATION = 1;

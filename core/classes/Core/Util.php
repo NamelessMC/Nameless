@@ -1,14 +1,12 @@
 <?php
-/*
- *	Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+/**
+ * Util class
  *
- *  License: MIT
- *
- *  Util class
+ * @package NamelessMC\Core
+ * @author Samerton
+ * @version 2.0.0-pr12
+ * @license MIT
  */
-
 class Util {
 
     private static array $_enabled_modules = [];

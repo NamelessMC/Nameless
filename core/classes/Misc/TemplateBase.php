@@ -1,14 +1,12 @@
 <?php
-/*
- *	Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+/**
+ * Base Template class
  *
- *  License: MIT
- *
- *  Base template class
+ * @package NamelessMC\Misc
+ * @author Samerton
+ * @version 2.0.0-pr8
+ * @license MIT
  */
-
 abstract class TemplateBase {
 
     protected string $_name = '';

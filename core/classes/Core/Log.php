@@ -1,16 +1,12 @@
 <?php
-
-/*
- * Made by Timothy Gibbons
- * For Samerton
- * https://github.com/NamelessMC/Nameless/
- * NamelessMC version 2.0.0-dev
+/**
+ * Log class
  *
- * License: MIT
- *
- *
+ * @package NamelessMC\Core
+ * @author Timothy Gibbons
+ * @version 2.0.0-pr13
+ * @license MIT
  */
-
 class Log extends Instanceable {
 
     private static array $_actions = [

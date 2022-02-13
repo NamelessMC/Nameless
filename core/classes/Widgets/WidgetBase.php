@@ -1,14 +1,12 @@
 <?php
-/*
- *	Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+/**
+ * Base Widget class
  *
- *  License: MIT
- *
- *  Widget Base class
+ * @package NamelessMC\Misc
+ * @author Samerton
+ * @version 2.0.0-pr8
+ * @license MIT
  */
-
 abstract class WidgetBase {
 
     protected string $_name;

@@ -1,14 +1,12 @@
 <?php
-/*
- *	Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+/**
+ * DB_Custom class
  *
- *  License: MIT
- *
- *  Custom database class
+ * @package NamelessMC\Database
+ * @author Samerton
+ * @version 2.0.0-pr8
+ * @license MIT
  */
-
 class DB_Custom {
 
     private static DB_Custom $_instance;

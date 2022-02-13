@@ -1,13 +1,12 @@
 <?php
-
-/*
- *	Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+/**
+ * User class
  *
- *  User class
+ * @package NamelessMC\Core
+ * @author Samerton
+ * @version 2.0.0-pr13
+ * @license MIT
  */
-
 class User {
 
     private DB $_db;
