@@ -51,8 +51,6 @@ $language = [
     'punisher_id' => 'ID наказателя',	
     'reason' => 'Причина Бана',	
     'ip_ban' => 'IP бан?',	
-    'default_language' => 'Основной язык',	
-    'default_language_help' => 'Пользователи смогут выбирать любые установленные языки.',
     'default_language' => 'Язык по Умолчанию',
     'default_language_help' => 'Пользователи смогут выбрать любой установленный язык.',
     'install_language' => 'Установить Язык',
@@ -635,6 +633,8 @@ $language = [
     'api_endpoints' => 'API комманды',
     'api_endpoints_info' => 'Эти команды позволяют модулям создавать пути для взаимодействия(Например сайта с игрой) с вашим сайтом. <a href="https://docs.namelessmc.com/en/api-documentation" target="_blank">Check out the API documentation here</a>',
     'route' => 'Путь',
+    'method' => 'Метод',
+    'transformers' => 'Трансформеры',
 
     // File uploads
     'drag_files_here' => 'Перетащите файлы сюда для загрузки.',
