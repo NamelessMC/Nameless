@@ -5,7 +5,7 @@ COPY . /source
 RUN mkdir /target && \
     phpdoc -d /source/core/classes \
         -d /source/modules/Core/classes \
-        -d "/source/modules/Discord\ Integration/classes" \
+        -d "/source/modules/Discord Integration/classes" \
         -d "/source/modules/Cookie Consent/classes" \
         -d /source/modules/Forum/classes -t /target -i /vendor
 
