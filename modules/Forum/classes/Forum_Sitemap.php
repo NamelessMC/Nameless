@@ -1,16 +1,15 @@
 <?php
-/*
- *	Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
- *
- *  License: MIT
- *
- *  Forum module Sitemap method
- */
 
 use SitemapPHP\Sitemap;
 
+/**
+ * Forum_Sitemap class
+ *
+ * @package Modules\Forum
+ * @author Samerton
+ * @version 2.0.0-pr8
+ * @license MIT
+ */
 class Forum_Sitemap {
 
     /**

@@ -1,15 +1,12 @@
 <?php
-
-/*
- *	Made by Aberdeener
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr12
+/**
+ * Discord class
  *
- *  License: MIT
- *
- *  Discord Integration module helper class
+ * @package Modules\Discord Integration
+ * @author Aberdeener
+ * @version 2.0.0-pr13
+ * @license MIT
  */
-
 class Discord {
 
     private static bool $_is_bot_setup;

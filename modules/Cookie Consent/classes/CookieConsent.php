@@ -1,15 +1,14 @@
 <?php
-/*
- *	Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr12
+/**
+ * CookieConsent class
  *
- *  License: MIT
- *
- *  CookieConsent module class
+ * @package Modules\Cookie Consent
+ * @author Samerton
+ * @version 2.0.0-pr13
+ * @license MIT
  */
-
 class CookieConsent {
+
     public static function generateScript(array $options): string {
         $script_options = [];
         $background_colour = '#000';

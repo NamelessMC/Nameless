@@ -1,16 +1,12 @@
 <?php
-
-/*
- *	Made by Samerton
+/**
+ * Recaptcha3 class
  *
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr10
- *
- *  License: MIT
- *
- *  Recaptcha3 class
+ * @package Modules\Core\Captcha
+ * @author Samerton
+ * @version 2.0.0-pr10
+ * @license MIT
  */
-
 class Recaptcha3 extends CaptchaBase {
 
     /**

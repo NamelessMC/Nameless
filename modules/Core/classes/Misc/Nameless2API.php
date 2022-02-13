@@ -1,5 +1,13 @@
 <?php
-
+/**
+ * Nameless2API class
+ *
+ * @package Modules\Core\Misc
+ * @author Samerton
+ * @author Aberdeener
+ * @version 2.0.0-pr13
+ * @license MIT
+ */
 class Nameless2API {
 
     private DB $_db;
