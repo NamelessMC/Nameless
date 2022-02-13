@@ -47,10 +47,10 @@ $language = [
     'settings' => 'Настройки',
     'general_settings' => 'Общие Настройки',
     'sitename' => 'Название Сайта',
-    'punished_id' => 'ID наказанного',	
-    'punisher_id' => 'ID наказателя',	
-    'reason' => 'Причина Бана',	
-    'ip_ban' => 'IP бан?',	
+    'punished_id' => 'ID наказанного',
+    'punisher_id' => 'ID наказателя',
+    'reason' => 'Причина Бана',
+    'ip_ban' => 'IP бан?',
     'default_language' => 'Язык по Умолчанию',
     'default_language_help' => 'Пользователи смогут выбрать любой установленный язык.',
     'install_language' => 'Установить Язык',
@@ -676,7 +676,7 @@ $language = [
     'validate_hook_info' => 'Пользователь подтверждён',
     'delete_hook_info' => 'Пользователь удалён',
     'report_hook_info' => 'Создание жалобы',
-    'ban_hook_info' => 'Пользователь забанен',	
+    'ban_hook_info' => 'Пользователь забанен',
     'warning_hook_info' => 'Пользователь предупреждён',
 
     // Sitemap
