@@ -13,6 +13,7 @@ The following list is a brief summary of the features available in v2 pre-releas
 - 📃 Custom pages: create your own HTML pages and even restrict access to them depending on group.
 - 👥 Social logins: allow your users to register/login with services such as Discord and Google.
 - 🎮 Minecraft integration
+  - Display your Java edition or Bedrock servers statuses
   - Account verification using mcassoc or in-game the plugin
   - [In-game plugin](https://plugin.namelessmc.com)
     - Require in-game verification for NamelessMC accounts

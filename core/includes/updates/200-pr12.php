@@ -75,6 +75,13 @@ try {
     echo $e->getMessage() . '<br />';
 }
 
+// Add bedrock to nl2_mc_servers table
+try {
+    DB::getInstance()->createQuery('ALTER TABLE `nl2_mc_servers` ADD `bedrock` tinyint(1) NOT NULL DEFAULT \'0\'');
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+
 // Update version number
 /*$version_number_id = $queries->getWhere('settings', array('name', '=', 'nameless_version'));
 

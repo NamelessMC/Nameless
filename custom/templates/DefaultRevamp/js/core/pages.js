@@ -6,6 +6,7 @@ if (page !== '') {
 			$(".server").each(function() {
 				let serverID = $(this).data("id");
 				let serverBungee = $(this).data("bungee");
+				let serverBedrock = $(this).data("bedrock");
 				let serverPlayerList = $(this).data("players");
 				let serverElem = '#server' + serverID + '[data-id=' + serverID + ']';
 
@@ -19,6 +20,8 @@ if (page !== '') {
 						content = data.player_count + "/" + data.player_count_max;
 						if (serverBungee === 1) {
 							players = bungeeInstance;
+						} else if (serverBedrock === 1) {
+							players = '';
 						} else {
 							if (serverPlayerList === 1) {
 								if (data.player_list.length > 0) {
