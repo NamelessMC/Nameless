@@ -1,6 +1,6 @@
 <?php
 /**
- * Widgets class
+ * Widget management class
  *
  * @package NamelessMC\Misc
  * @author Samerton

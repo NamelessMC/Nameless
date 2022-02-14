@@ -1,8 +1,9 @@
 <?php
 /**
- * QueryRecorder class
+ * Records PDO queries to display on exception page.
  *
  * @package NamelessMC\Database
+ * @see ErrorHandler
  * @author Aberdeener
  * @version 2.0.0-pr13
  * @license MIT

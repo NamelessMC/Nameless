@@ -10,7 +10,7 @@ use DebugBar\DataCollector\PDO\PDOCollector;
 use Junker\DebugBar\Bridge\SmartyCollector;
 
 /**
- * DebugBarHelper class
+ * Class to help integrate the PHPDebugBar with NamelessMC.
  *
  * @package NamelessMC\Misc
  * @author Aberdeener

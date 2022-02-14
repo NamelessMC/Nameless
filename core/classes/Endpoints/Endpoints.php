@@ -1,6 +1,6 @@
 <?php
 /**
- * Endpoints class
+ * Endpoint management class.
  *
  * @package NamelessMC\Endpoints
  * @author Aberdeener

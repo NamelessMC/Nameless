@@ -16,31 +16,27 @@ class MinecraftBanner {
         $canvas = imagecreatetruecolor($width, $height);
         if ($background == null) {
             $background = imagecreatefrompng(ROOT_PATH . '/uploads/banners/texture.png');
-        } else {
-            if (file_exists(ROOT_PATH . '/uploads/banners/' . $background)) {
-                $background = imagecreatefrompng(ROOT_PATH . '/uploads/banners/' . $background);
-            } else {
-                if (stripos($background, 'http://') !== false || stripos($background, 'https://') !== false || file_exists($background)) {
-                    $info = pathinfo($background);
-                    $ext = $info['extension'];
+        } else if (file_exists(ROOT_PATH . '/uploads/banners/' . $background)) {
+            $background = imagecreatefrompng(ROOT_PATH . '/uploads/banners/' . $background);
+        } else if (stripos($background, 'http://') !== false || stripos($background, 'https://') !== false || file_exists($background)) {
+            $info = pathinfo($background);
+            $ext = $info['extension'];
 
-                    switch ($ext) {
-                        case 'png':
-                            $background = imagecreatefrompng($background);
-                            break;
-                        case 'jpg':
-                            $background = imagecreatefromjpeg($background);
-                            break;
-                        case 'gif':
-                            $background = imagecreatefromgif($background);
-                            break;
-                        default:
-                            $background = imagecreatefrompng(ROOT_PATH . '/uploads/banners/texture.png');
-                    }
-                } else {
+            switch ($ext) {
+                case 'png':
+                    $background = imagecreatefrompng($background);
+                    break;
+                case 'jpg':
+                    $background = imagecreatefromjpeg($background);
+                    break;
+                case 'gif':
+                    $background = imagecreatefromgif($background);
+                    break;
+                default:
                     $background = imagecreatefrompng(ROOT_PATH . '/uploads/banners/texture.png');
-                }
             }
+        } else {
+            $background = imagecreatefrompng(ROOT_PATH . '/uploads/banners/texture.png');
         }
 
         if (imagesx($background) == $texture_size) {

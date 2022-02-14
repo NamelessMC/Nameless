@@ -1,6 +1,6 @@
 <?php
 /**
- * EndpointBase class
+ * Base class endpoints need to extend.
  *
  * @package NamelessMC\Endpoints
  * @author Aberdeener
@@ -77,7 +77,7 @@ class EndpointBase {
      * - KeyAuthEndpoint to return true if the API key in header is valid
      * - CustomAuthEndpoint by being implemented on each Endpoint class via the abstract `authorise()` method.
      *
-     * @param Nameless2API $api
+     * @param Nameless2API $api Instance of Nameless2API.
      * @return bool
      */
     public function isAuthorised(Nameless2API $api): bool {

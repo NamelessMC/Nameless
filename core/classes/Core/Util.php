@@ -1,10 +1,12 @@
 <?php
 /**
- * Util class
+ * Contains misc utility methods.
  *
  * @package NamelessMC\Core
  * @author Samerton
- * @version 2.0.0-pr12
+ * @author Aberdeener
+ * @author Partydragen
+ * @version 2.0.0-pr13
  * @license MIT
  */
 class Util {
@@ -361,7 +363,6 @@ class Util {
      * Check for Nameless updates.
      *
      * @return string JSON object with information about any updates.
-     * @throws Exception
      */
     public static function updateCheck(): string {
         $queries = new Queries();
@@ -419,11 +420,9 @@ class Util {
         $news = HttpClient::get('https://namelessmc.com/news');
 
         if ($news->hasError()) {
-            $error = $news->getError();
-        }
-
-        if (isset($error)) {
-            return json_encode(['error' => $error]);
+            return json_encode([
+                'error' => $news->getError()
+            ]);
         }
 
         return $news->contents();
@@ -434,7 +433,6 @@ class Util {
      * From https://stackoverflow.com/a/53461987
      *
      * @param string $data Data to replace.
-     *
      * @return string Replaced string.
      */
     public static function replaceAnchorsWithText(string $data): string {
@@ -467,6 +465,8 @@ class Util {
 
     /**
      * Recursively scan, preload and register EndpointBase classes in a folder.
+     *
+     * @see EndpointBase
      *
      * @param string $path Path to scan from.
      * @param Endpoints $endpoints Instance of Endpoints class to register endpoints to.
@@ -513,7 +513,6 @@ class Util {
      * Get a website group's name from it's ID.
      *
      * @param int $group_id ID of group to find.
-     *
      * @return string|null Name of group, null if doesnt exist.
      */
     public static function getGroupNameFromId(int $group_id): ?string {
@@ -530,7 +529,6 @@ class Util {
      * Determine if a specific module is enabled
      *
      * @param string $name Name of module to check for.
-     *
      * @return bool Whether this module is enabled or not.
      */
     public static function isModuleEnabled(string $name): bool {
@@ -552,11 +550,11 @@ class Util {
     }
 
     /**
-     * Get the current Nameless version
+     * Get the current NamelessMC version.
      *
      * @return string Current Nameless version
      */
     public static function getCurrentNamelessVersion(): string {
-        return DB::getInstance()->selectQuery('SELECT `value` FROM nl2_settings WHERE `name` = ?', ['nameless_version'])->first()->value;
+        return self::getSetting(DB::getInstance(), 'nameless_version');
     }
 }

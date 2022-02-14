@@ -1,6 +1,6 @@
 <?php
 /**
- * Session class
+ * Provides access to get/set/delete session data.
  *
  * @package NamelessMC\Core
  * @author Samerton
@@ -10,7 +10,9 @@
 class Session {
 
     /**
-     * Flash a session variable on the screen.
+     * "Flash" a session variable.
+     * The first time this is called, the variable is set, the second time it is retrieved + removed from session.
+     * Often used for temp success/error messages.
      *
      * @param string $name Contains the session variable name to flash on screen.
      * @param string $string Contains the message to flash on the screen (optional).
@@ -24,8 +26,9 @@ class Session {
             return $session;
         }
 
-        // The session doesn't exist, set it as a variable now so it can be "flashed" in the future
+        // The session doesn't exist, set it as a variable now, so it can be "flashed" in the future
         self::put($name, $string);
+        return null;
     }
 
     /**

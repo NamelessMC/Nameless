@@ -1,6 +1,6 @@
 <?php
 /**
- * CustomAuthEndpoint class
+ * Allows an endpoint to specify its own authorisation method.
  *
  * @package NamelessMC\Endpoints
  * @author Aberdeener

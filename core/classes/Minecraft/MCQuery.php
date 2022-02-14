@@ -4,7 +4,7 @@ use xPaw\MinecraftPing;
 use xPaw\MinecraftQuery;
 
 /**
- * Minecraft server query class
+ * Abstraction over xPaw\MinecraftQuery & xPaw\MinecraftPing to make them fit with our needs.
  *
  * @package NamelessMC\Minecraft
  * @author Samerton

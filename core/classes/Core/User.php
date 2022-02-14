@@ -1,9 +1,11 @@
 <?php
 /**
- * User class
+ * Represents a user, logged in or not.
  *
  * @package NamelessMC\Core
  * @author Samerton
+ * @author Partydragen
+ * @author Aberdeener
  * @version 2.0.0-pr13
  * @license MIT
  */
@@ -11,13 +13,44 @@ class User {
 
     private DB $_db;
 
+    /**
+     * @var mixed The user's data. Basically just the row from `nl2_users` where the user ID is the key.
+     */
     private $_data;
+
+    /**
+     * @var array The user's groups.
+     */
     private array $_groups = [];
+
+    /**
+     * @var array The user's placeholders.
+     */
     private array $_placeholders;
+
+    /**
+     * @var string The session name configuration value for remembering the user.
+     */
     private string $_sessionName;
+
+    /**
+     * @var string The cookie name configuration value.
+     */
     private string $_cookieName;
+
+    /**
+     * @var bool Whether this user is logged in or not.
+     */
     private bool $_isLoggedIn = false;
+
+    /**
+     * @var string The session name configuration value for remembering the admin user.
+     */
     private string $_admSessionName;
+
+    /**
+     * @var bool Whether this user is logged in as an admin or not.
+     */
     private bool $_isAdmLoggedIn = false;
 
     public function __construct(string $user = null, string $field = 'id') {
@@ -310,7 +343,7 @@ class User {
     public function checkCredentials(string $username, string $password, string $method = 'email'): bool {
         $user = $this->find($username, $method == 'oauth' ? 'id' : $method);
 
-        if ($method == 'oauth') {
+        if ($method === 'oauth') {
             return true;
         }
 
@@ -512,7 +545,7 @@ class User {
     }
 
     /**
-     * Does the user have a given permission in any of their groups?
+     * Does the user have a specific permission in any of their groups?
      *
      * @param string $permission Permission node to check recursively for.
      *
@@ -521,7 +554,7 @@ class User {
     public function hasPermission(string $permission): bool {
         $groups = $this->_groups;
 
-        if (!$this->exists() || !$groups) {
+        if (!$groups || !$this->exists()) {
             return false;
         }
 
@@ -542,7 +575,7 @@ class User {
 
     /**
      * If the user has infractions, list them all. Or else return false.
-     * Not used internally.
+     * @deprecated  Not used internally.
      *
      * @return array|bool Array of infractions if they have one or more, else false.
      */
@@ -591,7 +624,7 @@ class User {
     }
 
     /**
-     * Get the currently logged in user's groups.
+     * Get the currently logged-in user's groups.
      *
      * @return array Their groups.
      */

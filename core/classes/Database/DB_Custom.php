@@ -1,8 +1,10 @@
 <?php
 /**
- * DB_Custom class
+ * Similar to DB class, but supports entering custom database credentials.
+ * Used during installation.
  *
  * @package NamelessMC\Database
+ * @see DB
  * @author Samerton
  * @version 2.0.0-pr8
  * @license MIT

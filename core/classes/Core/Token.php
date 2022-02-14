@@ -1,6 +1,6 @@
 <?php
 /**
- * Token class
+ * Validates and generates CSRF tokens.
  *
  * @package NamelessMC\Core
  * @author Samerton
@@ -22,7 +22,7 @@ class Token {
             return Session::get($tokenName);
         }
 
-        // Otherwise generate a new one
+        // Otherwise, generate a new one
         self::generate();
 
         return self::get();

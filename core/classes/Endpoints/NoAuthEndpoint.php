@@ -1,6 +1,6 @@
 <?php
 /**
- * NoAuthEndpoint class
+ * Allows an endpoint to not require any authorisation.
  *
  * @package NamelessMC\Endpoints
  * @author Aberdeener

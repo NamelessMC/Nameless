@@ -1,6 +1,6 @@
 <?php
 /**
- * Announcements class
+ * Announcement management class for creating and getting announcements.
  *
  * @package NamelessMC\Misc
  * @author Aberdeener

@@ -1,6 +1,6 @@
 <?php
 /**
- * MCAssoc class
+ * MCAssoc utility class
  *
  * @package NamelessMC\Minecraft
  * @author Samerton

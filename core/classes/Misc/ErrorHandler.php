@@ -1,6 +1,6 @@
 <?php
 /**
- * ErrorHandler class
+ * Handles rendering the exception page as well as logging errors.
  *
  * @package NamelessMC\Misc
  * @author Samerton

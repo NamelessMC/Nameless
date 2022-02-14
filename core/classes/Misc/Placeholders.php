@@ -1,6 +1,6 @@
 <?php
 /**
- * Placeholders class
+ * Manages registering and retrieving PAPI placeholders.
  *
  * @package NamelessMC\Misc
  * @author Aberdeener

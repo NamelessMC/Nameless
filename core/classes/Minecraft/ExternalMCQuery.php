@@ -1,6 +1,6 @@
 <?php
 /**
- * ExternalMCQuery class
+ * Queries Minecraft servers using the external querying API.
  *
  * @package NamelessMC\Minecraft
  * @author Samerton

@@ -1,6 +1,6 @@
 <?php
 /**
- * Base Template class
+ * Base class templates should extend to add functionality.
  *
  * @package NamelessMC\Misc
  * @author Samerton
@@ -9,12 +9,39 @@
  */
 abstract class TemplateBase {
 
+    /**
+     * @var string The template name
+     */
     protected string $_name = '';
+
+    /**
+     * @var string The template version
+     */
     protected string $_version = '';
+
+    /**
+     * @var string The NamelessMC version this template supports.
+     */
     protected string $_nameless_version = '';
+
+    /**
+     * @var string The template author name (supports HTML)
+     */
     protected string $_author = '';
+
+    /**
+     * @var string The template settings URL.
+     */
     protected string $_settings = '';
+
+    /**
+     * @var array Array of CSS scripts to add to the template.
+     */
     protected array $_css = [];
+
+    /**
+     * @var array Array of JS scripts to add to the template.
+     */
     protected array $_js = [];
 
     public function __construct(string $name, string $version, string $nameless_version, string $author) {

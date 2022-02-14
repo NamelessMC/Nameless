@@ -1,6 +1,6 @@
 <?php
 /**
- * DB class
+ * Main database handling class
  *
  * @package NamelessMC\Database
  * @author Samerton

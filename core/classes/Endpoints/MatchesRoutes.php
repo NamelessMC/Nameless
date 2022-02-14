@@ -1,6 +1,6 @@
 <?php
 /**
- * MatchesRoutes trait
+ * Contains methods for matching API requests with endpoint routes.
  *
  * @package NamelessMC\Endpoints
  * @author Aberdeener

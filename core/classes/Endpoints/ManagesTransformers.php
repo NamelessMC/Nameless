@@ -1,6 +1,6 @@
 <?php
 /**
- * ManagesTransformers trait
+ * Contains methods to register + apply API route binding transformers.
  *
  * @package NamelessMC\Endpoints
  * @author Aberdeener

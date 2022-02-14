@@ -1,6 +1,6 @@
 <?php
 /**
- * Report class
+ * Report creation class
  *
  * @package NamelessMC\Misc
  * @author Samerton
@@ -11,7 +11,6 @@ class Report {
 
     private DB $_db;
 
-    // Construct Report class
     public function __construct() {
         $this->_db = DB::getInstance();
     }
@@ -24,7 +23,7 @@ class Report {
      * @param User $reported_user User being reported.
      * @param array $data Array containing report data.
      */
-    public function create(Language $language, User $user_reporting, User $reported_user, array $data) {
+    public function create(Language $language, User $user_reporting, User $reported_user, array $data): void {
         // Insert into database
         if (!$this->_db->insert('reports', $data)) {
             throw new RuntimeException('There was a problem creating the report.');

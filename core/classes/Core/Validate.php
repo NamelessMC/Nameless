@@ -1,6 +1,7 @@
 <?php
 /**
- * Validate class
+ * Validates an array of data.
+ * Often used for POST requests.
  *
  * @package NamelessMC\Core
  * @author Samerton
@@ -11,59 +12,72 @@
 class Validate {
 
     /**
-     * Ensure this field is not empty
+     * @var string Ensure this field is not empty
      */
     public const REQUIRED = 'required';
+
     /**
-     * Define minimum characters
+     * @var string Define minimum number of characters
      */
     public const MIN = 'min';
+
     /**
-     * Define max characters
+     * @var string Define max number of characters
      */
     public const MAX = 'max';
+
     /**
-     * Ensure provided value matches another
+     * @var string Ensure provided value matches another
      */
     public const MATCHES = 'matches';
+
     /**
-     * Check the user has agreed to the terms and conditions
+     * @var string Check the user has agreed to the terms and conditions
      */
     public const AGREE = 'agree';
+
     /**
-     * Check the value has not already been inputted in the database
+     * @var string Check the value has not already been inputted in the database
      */
     public const UNIQUE = 'unique';
+
     /**
-     * Check if email is valid
+     * @var string Check if email is valid
      */
     public const EMAIL = 'email';
+
     /**
-     * Check that timezone is valid
+     * @var string Check that timezone is valid
      */
     public const TIMEZONE = 'timezone';
+
     /**
-     * Check that the specified user account is set as active (ie validated)
+     * @var string Check that the specified user account is set as active (ie validated)
      */
     public const IS_ACTIVE = 'isactive';
+
     /**
-     * Check that the specified user account is not banned
+     * @var string Check that the specified user account is not banned
      */
     public const IS_BANNED = 'isbanned';
+
     /**
-     * Check that the value is alphanumeric
+     * @var string Check that the value is alphanumeric
      */
     public const ALPHANUMERIC = 'alphanumeric';
+
     /**
-     * Check that the value is numeric
+     * @var string Check that the value is numeric
      */
     public const NUMERIC = 'numeric';
+
+    private DB $_db;
+
     private ?string $_message = null;
     private array $_messages = [];
     private bool $_passed = false;
     private array $_to_convert = [];
     private array $_errors = [];
-    private DB $_db;
 
     /**
      * Create new `Validate` instance

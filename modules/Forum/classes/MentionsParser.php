@@ -1,6 +1,6 @@
 <?php
 /**
- * ErrorHandler class
+ * Handles parsing username mentions in forum posts.
  *
  * @package NamelessMC\Misc
  * @author Samerton

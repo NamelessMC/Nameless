@@ -1,6 +1,6 @@
 <?php
 /**
- * PermissionHandler class
+ * Allows modules to define permissions.
  *
  * @package NamelessMC\Core
  * @author Samerton
@@ -9,6 +9,9 @@
  */
 class PermissionHandler {
 
+    /**
+     * @var array<string, array<string, string>> All registered permissions.
+     */
     private static array $_permissions;
 
     /**
@@ -17,24 +20,18 @@ class PermissionHandler {
      * @param string $section Permission section to add permission to.
      * @param array $permissions List of unique permissions to register.
      */
-    public static function registerPermissions(string $section, array $permissions): bool {
-        if (!is_array($permissions)) {
-            return false;
-        }
-
+    public static function registerPermissions(string $section, array $permissions): void {
         foreach ($permissions as $permission => $title) {
             if (!isset(self::$_permissions[$section][$permission])) {
                 self::$_permissions[$section][$permission] = $title;
             }
         }
-
-        return true;
     }
 
     /**
-     *  Get all registered permissions.
+     * Get all registered permissions.
      *
-     * @return array Permission array.
+     * @return array<string, array<string, string>> Permission array.
      */
     public static function getPermissions(): array {
         return self::$_permissions;

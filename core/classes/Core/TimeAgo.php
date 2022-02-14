@@ -5,14 +5,10 @@ function timeAgoInWords(string $timestring, string $timezone = null): string {
 }
 
 /**
- * TimeAgo class
- *
- * This class can help you find out just how much time has passed between
- * two dates.
+ * This class can help you find out just how much time has passed between two dates.
  * It has two functions you can call:
- * inWords() which gives you the "time ago in words" between two dates.
- * dateDifference() which returns an array of years,months,days,hours,minutes and
- * seconds between the two dates.
+ * - `inWords()` which gives you the "time ago in words" between two dates.
+ * - `dateDifference()` which returns an array of years, months, days, hours, minutes and seconds between the two dates.
  *
  * @package NamelessMC\Core
  * @author jimmiw

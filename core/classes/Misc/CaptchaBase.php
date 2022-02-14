@@ -1,6 +1,6 @@
 <?php
 /**
- * CaptchaBase class
+ * Base class Captcha providers should extend.
  *
  * @package NamelessMC\Misc
  * @author Samerton
@@ -18,6 +18,7 @@ abstract class CaptchaBase {
 
     /**
      * Register a provider
+     *
      * @param CaptchaBase $provider Provider instance to register
      */
     public static function addProvider(CaptchaBase $provider): void {
@@ -53,11 +54,9 @@ abstract class CaptchaBase {
 
     /**
      * Is captcha enabled for a given key?
+     *
      * @param string $key Key to lookup in db, defaults to simply recaptcha (for register, contact pages etc)
-     *
      * @return bool Whether captcha is enabled or not
-     *
-     * @throws Exception If unable to query database
      */
     public static function isCaptchaEnabled(string $key = 'recaptcha'): bool {
         if (!Config::get('core/captcha')) {
@@ -96,8 +95,8 @@ abstract class CaptchaBase {
 
     /**
      * Validate a Captcha token
-     * @param array $post Post body to validate
      *
+     * @param array $post Post body to validate
      * @return bool Whether the token was valid or not
      */
     abstract public function validateToken(array $post): bool;
@@ -118,6 +117,7 @@ abstract class CaptchaBase {
 
     /**
      * Get JavaScript on submit function
+     *
      * @param string $id ID attribute of form
      * @return string|null JS for submit function
      */
