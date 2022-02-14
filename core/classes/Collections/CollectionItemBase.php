@@ -1,8 +1,9 @@
 <?php
 /**
- * Base Collection Item class
+ * Represents a single item within a Collection.
  *
  * @package NamelessMC\Collections
+ * @see Collection
  * @author Samerton
  * @version 2.0.0-pr8
  * @license MIT

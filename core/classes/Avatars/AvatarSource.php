@@ -1,6 +1,6 @@
 <?php
 /**
- * AvatarSource class
+ * Manages avatar sources and provides static methods for fetching avatars.
  *
  * @package NamelessMC\Avatars
  * @author Aberdeener

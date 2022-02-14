@@ -1,6 +1,6 @@
 <?php
 /**
- * Log class
+ * Log handling class
  *
  * @package NamelessMC\Core
  * @author Timothy Gibbons
@@ -9,6 +9,9 @@
  */
 class Log extends Instanceable {
 
+    /**
+     * @var array Mapping of log Actions to their language key
+     */
     private static array $_actions = [
         'admin' => [
             'login' => 'acp_login',
@@ -202,8 +205,8 @@ class Log extends Instanceable {
      *
      * @param string $action The action being logged
      * @param string $info Some more information about what the action is about
-     * @param  ?int $user The User ID who is doing the action
-     * @param  ?string $ip The ip of the user. If not specified, it will try to get the IP from the currently logged in user.
+     * @param ?int $user The User ID who is doing the action
+     * @param ?string $ip The ip of the user. If not specified, it will try to get the IP from the currently logged in user.
      * @return bool Return true or false if inserted into the database.
      */
     public function log(string $action, string $info = '', ?int $user = null, string $ip = null): bool {

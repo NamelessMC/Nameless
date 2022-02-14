@@ -62,13 +62,11 @@ class Paginator {
         return $result;
     }
 
-
     /**
      * Generate HTML for data to be presented with.
      *
      * @param int $links Number of links to be shown on each page.
      * @param string $href URL prefix to use when next page is clicked.
-     *
      * @return string Generated HTML to display in template.
      */
     public function generate(int $links, string $href = '?'): string {
@@ -91,8 +89,11 @@ class Paginator {
             $class = str_replace('{x}', ($this->_page == 1) ? ' disabled' : '', $this->_class['li']);
 
             $html .= '<li class="' . $class . '"><a class="' . str_replace('{x}', ($this->_page == 1 ? ' disabled ' : ''), $this->_class['a']) . '" href="';
-            if ($this->_page == 1) $html .= '#';
-            else $html .= $href . 'p=' . ($this->_page - 1);
+            if ($this->_page == 1) {
+                $html .= '#';
+            } else {
+                $html .= $href . 'p=' . ($this->_page - 1);
+            }
             $html .= '">' . $this->_leftContent . '</a></li>';
         }
 
@@ -130,8 +131,11 @@ class Paginator {
             $html .= '<a class="' . str_replace('{x}', ($this->_page == $last) ? ' disabled ' : '', $this->_class['a']) . '" href="' . (($this->_page == $last) ? '#' : $href . 'p=' . ($this->_page + 1)) . '">' . $this->_rightContent . '</a>';
         } else {
             $html .= '<li class="' . str_replace('{x}', ($this->_page == $last) ? ' disabled ' : '', $this->_class['li']) . '"><a class="' . str_replace('{x}', ($this->_page == $last) ? ' disabled ' : '', $this->_class['a']) . '" href="';
-            if ($this->_page == $last) $html .= '#';
-            else $html .= $href . 'p=' . ($this->_page + 1);
+            if ($this->_page == $last) {
+                $html .= '#';
+            } else {
+                $html .= $href . 'p=' . ($this->_page + 1);
+            }
             $html .= '">' . $this->_rightContent . '</a></li>';
         }
 
@@ -146,7 +150,7 @@ class Paginator {
 
     /**
      * Set values of instance variables, alternative function (as they are set in getLimited()).
-     * Not used internally.
+     * @deprecated Not used internally.
      *
      * @param int $total
      * @param int $limit

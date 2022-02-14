@@ -55,7 +55,7 @@ abstract class CaptchaBase {
      * Is captcha enabled for a given key?
      * @param string $key Key to lookup in db, defaults to simply recaptcha (for register, contact pages etc)
      *
-     * @return boolean Whether captcha is enabled or not
+     * @return bool Whether captcha is enabled or not
      *
      * @throws Exception If unable to query database
      */
@@ -98,7 +98,7 @@ abstract class CaptchaBase {
      * Validate a Captcha token
      * @param array $post Post body to validate
      *
-     * @return boolean Whether the token was valid or not
+     * @return bool Whether the token was valid or not
      */
     abstract public function validateToken(array $post): bool;
 

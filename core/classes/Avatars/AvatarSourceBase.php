@@ -1,6 +1,6 @@
 <?php
 /**
- * AvatarSourceBase class
+ * Abstract class for modules create custom avatar sources.
  *
  * @package NamelessMC\Avatars
  * @author Aberdeener

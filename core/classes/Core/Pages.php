@@ -1,6 +1,6 @@
 <?php
 /**
- * Pages class
+ * Contains data about all the registered pages in the application.
  *
  * @package NamelessMC\Core
  * @author Samerton
@@ -9,11 +9,29 @@
  */
 class Pages {
 
+    /**
+     * @var array Array of all the registered pages.
+     */
     private array $_pages;
+
+    /**
+     * @var array Array of data about the active page.
+     */
     private array $_active_page;
+
+    /**
+     * @var array<string, string> Array of sitemap files and methods.
+     */
     private array $_sm_methods = [];
+
+    /**
+     * @var array Array of URLs to call with ajax.
+     */
     private array $_ajax_requests = [];
 
+    /**
+     * @var int ID of last created page.
+     */
     private int $_id = 1;
 
     /**
@@ -81,15 +99,10 @@ class Pages {
 
     /**
      * Register a method for sitemap generation.
+     * @see \SitemapPHP\Sitemap
      */
     public function registerSitemapMethod(string $file, string $method): void {
-        if ($file && $method) {
-            if (!isset($this->_sm_methods[$file])) {
-                $this->_sm_methods[$file] = [];
-            }
-
-            $this->_sm_methods[$file] = $method;
-        }
+        $this->_sm_methods[$file] = $method;
     }
 
     /**
@@ -104,17 +117,14 @@ class Pages {
     /**
      * Get page by ID
      *
-     * @param int|null $page_id ID of page to find.
-     *
+     * @param int $page_id ID of page to find.
      * @return array Page information.
      */
-    public function getPageById(int $page_id = null): ?array {
-        if ($page_id) {
-            foreach ($this->_pages as $key => $page) {
-                if ($page['id'] == $page_id) {
-                    $page['key'] = $key;
-                    return $page;
-                }
+    public function getPageById(int $page_id): ?array {
+        foreach ($this->_pages as $key => $page) {
+            if ($page['id'] == $page_id) {
+                $page['key'] = $key;
+                return $page;
             }
         }
 
@@ -124,17 +134,14 @@ class Pages {
     /**
      * Get page by URL.
      *
-     * @param string|null $url URL of page to find.
-     *
+     * @param string $url URL of page to find.
      * @return array Page information.
      */
-    public function getPageByURL(string $url = null): ?array {
-        if ($url) {
-            foreach ($this->_pages as $key => $page) {
-                if ($key == $url) {
-                    $page['key'] = $key;
-                    return $page;
-                }
+    public function getPageByURL(string $url): ?array {
+        foreach ($this->_pages as $key => $page) {
+            if ($key == $url) {
+                $page['key'] = $key;
+                return $page;
             }
         }
 
@@ -143,7 +150,7 @@ class Pages {
 
     /**
      * Get the page details the user currently viewing.
-     * Not used internally.
+     * @deprecated  Not used internally.
      *
      * @return array Details of current page.
      */
@@ -161,12 +168,10 @@ class Pages {
     /**
      * Add a script for Javascript to perform a GET request to.
      *
-     * @param string|null $script URL of js script to add.
+     * @param string $script URL of js script to add.
      */
-    public function addAjaxScript(string $script = null): void {
-        if ($script) {
-            $this->_ajax_requests[] = $script;
-        }
+    public function addAjaxScript(string $script): void {
+        $this->_ajax_requests[] = $script;
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 /**
- * Cache class
+ * Handles caching for NamelessMC.
  *
  * @package NamelessMC\Core
  * @author Christian Metz
@@ -25,7 +25,7 @@ class Cache {
     private string $_extension = '.cache';
 
     /**
-     * Default constructor
+     * Create a new Cache instance
      *
      * @param string|array $config (optional)
      * @return void
@@ -34,12 +34,10 @@ class Cache {
         if (isset($config)) {
             if (is_string($config)) {
                 $this->setCache($config);
-            } else {
-                if (is_array($config)) {
-                    $this->setCache($config['name']);
-                    $this->setCachePath($config['path']);
-                    $this->setExtension($config['extension']);
-                }
+            } else if (is_array($config)) {
+                $this->setCache($config['name']);
+                $this->setCachePath($config['path']);
+                $this->setExtension($config['extension']);
             }
         }
     }
@@ -47,7 +45,7 @@ class Cache {
     /**
      * Cache name Setter
      *
-     * @param string $name
+     * @param string $name Name of cache file to use
      * @return Cache
      */
     public function setCache(string $name): Cache {
@@ -56,10 +54,9 @@ class Cache {
     }
 
     /**
-     * Check whether data accociated with a key
+     * Check whether data is accociated with a key
      *
-     * @param string $key
-     *
+     * @param string $key The key to check
      * @return bool
      */
     public function isCached(string $key): bool {
@@ -110,7 +107,7 @@ class Cache {
     /**
      * Check if a writable cache directory exists and if not create a new one
      *
-     * @return boolean
+     * @return bool
      */
     private function _checkCacheDir(): bool {
         if (!is_dir($this->getCachePath()) && !mkdir($this->getCachePath(), 0775, true)) {
@@ -128,7 +125,7 @@ class Cache {
     /**
      * Cache path Getter
      *
-     * @return string
+     * @return string The path to the cache file folder
      */
     public function getCachePath(): string {
         return $this->_cachepath;
@@ -148,7 +145,7 @@ class Cache {
     /**
      * Cache name Getter
      *
-     * @return string
+     * @return string Cache name
      */
     public function getCache(): string {
         return $this->_cachename;
@@ -158,16 +155,16 @@ class Cache {
      * Get the filename hash
      *
      * @param string $filename
-     * @return string
+     * @return string The hashed filename
      */
-    private function _getHash($filename): string {
+    private function _getHash(string $filename): string {
         return sha1($filename);
     }
 
     /**
      * Cache file extension Getter
      *
-     * @return string
+     * @return string Cache file extension
      */
     public function getExtension(): string {
         return $this->_extension;
@@ -176,7 +173,7 @@ class Cache {
     /**
      * Cache file extension Setter
      *
-     * @param string $ext
+     * @param string $ext Extension to use
      * @return Cache
      */
     public function setExtension(string $ext): Cache {
@@ -187,15 +184,15 @@ class Cache {
     /**
      * Check whether a timestamp is still in the duration
      *
-     * @param int $timestamp
-     * @param int $expiration
-     * @return bool
+     * @param int $timestamp Timestamp to check
+     * @param int $expiration Duration to check
+     * @return bool True if still in duration
      */
     private function _checkExpired(int $timestamp, int $expiration): bool {
         $result = false;
         if ($expiration !== 0) {
             $timeDiff = time() - $timestamp;
-            ($timeDiff > $expiration) ? $result = true : $result = false;
+            $result = $timeDiff > $expiration;
         }
         return $result;
     }
@@ -203,9 +200,9 @@ class Cache {
     /**
      * Store data in the cache
      *
-     * @param string $key
-     * @param mixed $data
-     * @param integer $expiration (optional)
+     * @param string $key Key to store data under
+     * @param mixed $data Data to store
+     * @param int $expiration Expiration time in seconds
      *
      * @return Cache
      */
@@ -229,14 +226,14 @@ class Cache {
     /**
      * Retrieve cached data by its key
      *
-     * @param string $key
-     * @param bool $timestamp (optional)
+     * @param string $key The key to retrieve
+     * @param bool $timestamp Whether to check if the cache is expired
      *
-     * @return mixed
+     * @return mixed The cached data or null if not found/expired
      */
     public function retrieve(string $key, bool $timestamp = false) {
         $cachedData = $this->_loadCache();
-        (!$timestamp) ? $type = 'data' : $type = 'time';
+        $type = $timestamp ? 'time' : 'data';
 
         if (!isset($cachedData[$key][$type])) {
             return null;
@@ -255,29 +252,28 @@ class Cache {
     /**
      * Retrieve all cached data
      *
-     * @param boolean $meta (optional)
-     * @return array
+     * @param bool $meta (optional)
+     * @return array The cached data
      */
     public function retrieveAll(bool $meta = false): array {
-        if (!$meta) {
-            $results = [];
-            $cachedData = $this->_loadCache();
-            if ($cachedData) {
-                foreach ($cachedData as $k => $v) {
-                    $results[$k] = unserialize($v['data']);
-                }
-            }
-            return $results;
+        if ($meta) {
+            return $this->_loadCache();
         }
 
-        return $this->_loadCache();
+        $results = [];
+        $cachedData = $this->_loadCache();
+        if ($cachedData) {
+            foreach ($cachedData as $k => $v) {
+                $results[$k] = unserialize($v['data']);
+            }
+        }
+        return $results;
     }
 
     /**
      * Erase cached entry by its key
      *
-     * @param string $key
-     *
+     * @param string $key The key to erase
      * @return Cache
      */
     public function erase(string $key): Cache {
@@ -297,7 +293,7 @@ class Cache {
     /**
      * Erase all expired entries
      *
-     * @return int
+     * @return int Number of entries erased
      */
     public function eraseExpired(): int {
         $cacheData = $this->_loadCache();
@@ -327,7 +323,7 @@ class Cache {
     public function eraseAll(): Cache {
         $cacheDir = $this->getCacheDir();
         if (file_exists($cacheDir)) {
-            $cacheFile = fopen($cacheDir, 'w');
+            $cacheFile = fopen($cacheDir, 'wb');
             fclose($cacheFile);
         }
         return $this;

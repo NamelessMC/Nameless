@@ -1,6 +1,6 @@
 <?php
 /**
- * Configuration class
+ * Allows easy read/write to configuration values for a module stored in the database.
  *
  * @package NamelessMC\Core
  * @author Partydragen
@@ -19,12 +19,12 @@ class Configuration {
     }
 
     /**
-     * Get configuration value
+     * Get a configuration value
      *
      * @param string $module Module name
      * @param string $setting Setting name
      *
-     * @return mixed Configuration value
+     * @return mixed The configuration value
      */
     public function get(string $module, string $setting) {
         if ($module == null || $setting == null) {
@@ -54,8 +54,6 @@ class Configuration {
      * @param string $module Module name
      * @param string $setting Setting name
      * @param mixed $value New value
-     *
-     * @return void
      */
     public function set(string $module, string $setting, $value): void {
         if ($module == null || $setting == null || $value === null) {
@@ -64,13 +62,10 @@ class Configuration {
 
         $module = ($module == 'Core' ? '' : $module . '_');
 
-        $this->_db->createQuery(
-            'UPDATE `nl2_' . Output::getClean($module) . 'settings` SET `value` = ? WHERE `name` = ?',
-            [
-                $value,
-                $setting
-            ]
-        );
+        $this->_db->createQuery('UPDATE `nl2_' . Output::getClean($module) . 'settings` SET `value` = ? WHERE `name` = ?', [
+            $value,
+            $setting,
+        ]);
 
         $this->_cache->setCache($module . 'configuration');
         $this->_cache->store($setting, $value);

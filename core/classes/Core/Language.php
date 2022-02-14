@@ -1,6 +1,6 @@
 <?php
 /**
- * Language class
+ * Provides utilities for retrieving/handling language strings.
  *
  * @package NamelessMC\Core
  * @author Samerton
@@ -9,9 +9,24 @@
  */
 class Language {
 
+    /**
+     * @var string Name of the language currently being used.
+     */
     private string $_activeLanguage;
+
+    /**
+     * @var string Path to the language files for current language.
+     */
     private string $_activeLanguageDirectory;
+
+    /**
+     * @var array<string, array<string, string>> Array of language file names to language file entries.
+     */
     private array $_activeLanguageEntries;
+
+    /**
+     * @var string Name of module currently using this instance.
+     */
     private string $_module;
 
     /**
@@ -99,13 +114,11 @@ class Language {
                 require($this->_activeLanguageDirectory . DIRECTORY_SEPARATOR . $file . '.php');
                 $this->_activeLanguageEntries[$file] = $language;
             }
+        } else if (is_file($this->getFallbackFile($file))) {
+            require($this->getFallbackFile($file));
+            $this->_activeLanguageEntries[$file] = $language;
         } else {
-            if (is_file($this->getFallbackFile($file))) {
-                require($this->getFallbackFile($file));
-                $this->_activeLanguageEntries[$file] = $language;
-            } else {
-                die('Error loading fallback language file ' . Output::getClean($file) . '.php in ' . $this->_module . ', does ' . $this->_activeLanguageDirectory . ' exist?');
-            }
+            die('Error loading fallback language file ' . Output::getClean($file) . '.php in ' . $this->_module . ', does ' . $this->_activeLanguageDirectory . ' exist?');
         }
 
         // Check if this term exists in the language file

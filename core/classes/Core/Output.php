@@ -1,6 +1,6 @@
 <?php
 /**
- * Output class
+ * Provides static methods for cleansing user input before storing in the database.
  *
  * @package NamelessMC\Core
  * @author Samerton
@@ -9,6 +9,9 @@
  */
 class Output {
 
+    /**
+     * @var HTMLPurifier Static purifier instance.
+     */
     private static HTMLPurifier $_purifier;
 
     /**
@@ -16,7 +19,6 @@ class Output {
      * Will remove HTML, convert HTML entities, and strip slashes.
      *
      * @param string|null $input The string which will be cleaned
-     *
      * @return string Cleaned version of string.
      */
     public static function getClean(?string $input): string {
@@ -27,7 +29,6 @@ class Output {
      * Returns a decoded version of a clean string.
      *
      * @param string|null $input Contains the clean string which will be decoded.
-     *
      * @return string Decoded string.
      */
     public static function getDecoded(?string $input): string {
@@ -39,12 +40,11 @@ class Output {
      * Will not remove any HTML tags.
      *
      * @param string|null $input String which will be purified.
-     * @param boolean $escape_invalid Should invalid HTML be escaped instead of fully removed?
+     * @param bool $escape_invalid Should invalid HTML be escaped instead of fully removed?
      *
      * @return string Purified string.
      */
     public static function getPurified(?string $input, bool $escape_invalid = false): string {
-        // Require HTMLPurifier
         if (!isset(self::$_purifier)) {
 
             $purifierConfig = HTMLPurifier_Config::createDefault();

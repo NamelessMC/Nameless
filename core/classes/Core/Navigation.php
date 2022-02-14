@@ -1,6 +1,6 @@
 <?php
 /**
- * Navigation class
+ * Repesents a single navigation menu.
  *
  * @package NamelessMC\Core
  * @author Samerton
@@ -9,11 +9,21 @@
  */
 class Navigation {
 
+    /**
+     * @var array Top navigation items.
+     */
     private array $_topNavbar = [];
+
+    /**
+     * @var array Footer navigation items.
+     */
     private array $_footerNav = [];
+
+    /**
+     * @var bool Whether this nav bar is for StaffCP.
+     */
     private bool $_panel;
 
-    // Panel sidebars discard provided order for links
     public function __construct(bool $panel = false) {
         $this->_panel = $panel;
     }
@@ -29,7 +39,15 @@ class Navigation {
      * @param int $order Nav item order (default 10).
      * @param string|null $icon Icon to prepend to nav item.
      */
-    public function add(string $name, string $title, string $link, string $location = 'top', string $target = null, int $order = 10, ?string $icon = ''): void {
+    public function add(
+        string $name,
+        string $title,
+        string $link,
+        string $location = 'top',
+        string $target = null,
+        int $order = 10,
+        ?string $icon = ''
+    ): void {
         if ($this->_panel && $location == 'top') {
             // Discard order
             // TODO: only a temporary solution to the link conflict issue in the StaffCP
@@ -44,7 +62,7 @@ class Navigation {
         }
 
         // Add the link to the navigation
-        if ($location == 'top') {
+        if ($location === 'top') {
             // Add to top navbar
             $this->_topNavbar[$name] = [
                 'title' => $title,
@@ -120,17 +138,15 @@ class Navigation {
                 'icon' => $icon,
                 'order' => $order
             ];
-        } else {
-            if (isset($this->_footerNav[$dropdown])) {
-                // Footer
-                $this->_footerNav[$dropdown]['items'][$name] = [
-                    'title' => $title,
-                    'link' => $link,
-                    'target' => $target,
-                    'icon' => $icon,
-                    'order' => $order
-                ];
-            }
+        } else if (isset($this->_footerNav[$dropdown])) {
+            // Footer
+            $this->_footerNav[$dropdown]['items'][$name] = [
+                'title' => $title,
+                'link' => $link,
+                'target' => $target,
+                'icon' => $icon,
+                'order' => $order
+            ];
         }
     }
 
@@ -172,30 +188,28 @@ class Navigation {
                     }
                 }
             }
-        } else {
-            if (count($this->_footerNav)) {
-                foreach ($this->_footerNav as $key => $item) {
-                    $return[$key] = $item;
-                    if (defined('PAGE') && PAGE == $key) {
-                        $return[$key]['active'] = true;
-                    }
+        } else if (count($this->_footerNav)) {
+            foreach ($this->_footerNav as $key => $item) {
+                $return[$key] = $item;
+                if (defined('PAGE') && PAGE == $key) {
+                    $return[$key]['active'] = true;
+                }
 
-                    // Sort dropdown
-                    if (isset($return[$key]['items']) && count($return[$key]['items'])) {
-                        uasort(
-                            $return[$key]['items'],
-                            static function ($a, $b) {
-                                if ($a['order'] > $b['order']) {
-                                    return 1;
-                                }
-
-                                if ($a['order'] < $b['order']) {
-                                    return -1;
-                                }
-                                return 0;
+                // Sort dropdown
+                if (isset($return[$key]['items']) && count($return[$key]['items'])) {
+                    uasort(
+                        $return[$key]['items'],
+                        static function ($a, $b) {
+                            if ($a['order'] > $b['order']) {
+                                return 1;
                             }
-                        );
-                    }
+
+                            if ($a['order'] < $b['order']) {
+                                return -1;
+                            }
+                            return 0;
+                        }
+                    );
                 }
             }
         }
@@ -204,10 +218,8 @@ class Navigation {
             $result = 0;
             if ($a['order'] > $b['order']) {
                 $result = 1;
-            } else {
-                if ($a['order'] < $b['order']) {
-                    $result = -1;
-                }
+            } else if ($a['order'] < $b['order']) {
+                $result = -1;
             }
             return $result;
         });

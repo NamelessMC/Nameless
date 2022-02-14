@@ -9,6 +9,7 @@
  */
 class Collection {
 
+    /** @var CollectionItemBase[] */
     private array $_items;
 
     public function __construct() {

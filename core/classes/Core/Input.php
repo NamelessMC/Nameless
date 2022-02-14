@@ -52,7 +52,7 @@ class Input {
      * Displays a new CKEditor field
      *
      * @param string $name Name of input field ID
-     * @param boolean $admin Whether to add admin options or not - default false
+     * @param bool $admin Whether to add admin options or not - default false
      * @return string Editor javascript code.
      */
     public static function createEditor(string $name, bool $admin = false): string {

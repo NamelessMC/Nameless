@@ -1,6 +1,6 @@
 <?php
 /**
- * Config class
+ * Provides static methods to get and set configuration values from the `core/config.php` file.
  *
  * @package NamelessMC\Core
  * @author Samerton
@@ -13,8 +13,9 @@ class Config {
      * Get a config value from `core/config.php` file.
      *
      * @param string|null $path `/` seperated path of key to get from config file.
-     * @return false|mixed
-     * @throws Exception
+     * @return false|mixed Returns false if key doesn't exist, otherwise returns the value.
+     *
+     * @throws RuntimeException If the config file is not found.
      */
     public static function get(string $path = null) {
         if ($path) {
@@ -50,7 +51,7 @@ class Config {
      */
     public static function set(string $key, $value): bool {
         if (!file_exists(ROOT_PATH . '/core/config.php')) {
-            fopen(ROOT_PATH . '/core/config.php', 'w');
+            fopen(ROOT_PATH . '/core/config.php', 'wb');
         }
 
         require(ROOT_PATH . '/core/config.php');
@@ -81,7 +82,7 @@ class Config {
      * @param array $config New config array to store.
      */
     public static function write(array $config): bool {
-        $file = fopen(ROOT_PATH . '/core/config.php', 'wa+');
+        $file = fopen(ROOT_PATH . '/core/config.php', 'wab+');
         fwrite($file, '<?php' . PHP_EOL . '$conf = ' . var_export($config, true) . ';' . PHP_EOL . '$CONFIG[\'installed\'] = true;');
         return fclose($file);
     }
@@ -93,7 +94,7 @@ class Config {
      */
     public static function setMultiple(array $values): bool {
         if (!file_exists(ROOT_PATH . '/core/config.php')) {
-            fopen(ROOT_PATH . '/core/config.php', 'w');
+            fopen(ROOT_PATH . '/core/config.php', 'wb');
         }
 
         require(ROOT_PATH . '/core/config.php');
