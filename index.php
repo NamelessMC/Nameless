@@ -34,7 +34,7 @@ $start = microtime(true);
 
 // Definitions
 const PATH = '/';
-define('ROOT_PATH', __DIR__);
+const ROOT_PATH = __DIR__;
 $page = 'Home';
 
 if (!ini_get('upload_tmp_dir')) {
@@ -69,39 +69,34 @@ if (!isset($GLOBALS['config']['core']) && is_file(ROOT_PATH . '/install.php')) {
 
 // Get page to load from URL
 if (!isset($_GET['route']) || $_GET['route'] == '/') {
-
-    if (count($directories) > 1 && (!isset($_GET['route']) || ($_GET['route'] != '/'))) {
+    if (((!isset($_GET['route']) || ($_GET['route'] != '/')) && count($directories) > 1)) {
         require(ROOT_PATH . '/404.php');
     } else {
         // Homepage
         $pages->setActivePage($pages->getPageByURL('/'));
         require(ROOT_PATH . '/modules/Core/pages/index.php');
     }
+    die();
+}
 
-} else {
-    $route = rtrim(strtok($_GET['route'], '?'), '/');
+$route = rtrim(strtok($_GET['route'], '?'), '/');
 
-    // Check modules
-    $modules = $pages->returnPages();
+$all_pages = $pages->returnPages();
 
-    // Include the page
-    if (array_key_exists($route, $modules)) {
-        $pages->setActivePage($modules[$route]);
-        if (!isset($modules[$route]['custom'])) {
-            $path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', $modules[$route]['module'], $modules[$route]['file']]);
-
-            if (!file_exists($path)) {
-                require(ROOT_PATH . '/404.php');
-            } else {
-                require($path);
-            }
-
-        } else {
-            require(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', 'Core', 'pages', 'custom.php']));
-        }
+if (array_key_exists($route, $all_pages)) {
+    $pages->setActivePage($all_pages[$route]);
+    if (isset($all_pages[$route]['custom'])) {
+        require(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', 'Core', 'pages', 'custom.php']));
         die();
     }
 
+    $path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', $all_pages[$route]['module'], $all_pages[$route]['file']]);
+
+    if (file_exists($path)) {
+        require($path);
+        die();
+    }
+} else {
     // Use recursion to check - might have URL parameters in path
     $path_array = explode('/', $route);
 
@@ -114,18 +109,16 @@ if (!isset($_GET['route']) || $_GET['route'] == '/') {
 
         $new_path = rtrim($new_path, '/');
 
-        if (array_key_exists($new_path, $modules)) {
-            $path = join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', $modules[$new_path]['module'], $modules[$new_path]['file']]);
+        if (array_key_exists($new_path, $all_pages)) {
+            $path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', $all_pages[$new_path]['module'], $all_pages[$new_path]['file']]);
 
             if (file_exists($path)) {
-                $pages->setActivePage($modules[$new_path]);
+                $pages->setActivePage($all_pages[$new_path]);
                 require($path);
                 die();
             }
         }
-
     }
-
-    // 404
-    require(ROOT_PATH . '/404.php');
 }
+
+require(ROOT_PATH . '/404.php');
