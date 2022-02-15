@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d13b307547c4e56e2eca139e17a0d441",
+    "content-hash": "9d6d37f802b8439cde5e9beb6ec61a17",
     "packages": [
         {
             "name": "emojione/emojione",
@@ -153,6 +153,60 @@
                 "source": "https://github.com/ezyang/htmlpurifier/tree/v4.14.0"
             },
             "time": "2021-12-25T01:21:49+00:00"
+        },
+        {
+            "name": "games647/minecraft-banner-generator",
+            "version": "0.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/games647/Minecraft-Banner-Generator.git",
+                "reference": "a6fbcbf6d2b1c4d2d7616900f74b5046276e2dba"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/games647/Minecraft-Banner-Generator/zipball/a6fbcbf6d2b1c4d2d7616900f74b5046276e2dba",
+                "reference": "a6fbcbf6d2b1c4d2d7616900f74b5046276e2dba",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6"
+            },
+            "require-dev": {
+                "funnyitselmo/minecraftserverstatus": "^1.0",
+                "games647/minecraft-skin-renderer": "^0.2.1",
+                "phpunit/phpunit": "5.3.2",
+                "phpunit/phpunit-mock-objects": "3.1",
+                "xpaw/php-minecraft-query": "^1.0"
+            },
+            "suggest": {
+                "funnyitselmo/minecraftserverstatus": "An alternative to xpaw's project",
+                "games647/minecraft-skin-renderer": "Allows you to render minecraft skin heads and complete skins for player banners",
+                "xpaw/php-minecraft-query": "Allows you to query data from minecraft servers like: motd, online players, max players, favicon, ping"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "MinecraftBanner\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Customizable banner generator for servers and player",
+            "homepage": "https://github.com/games647/Minecraft-Banner-Generator/",
+            "keywords": [
+                "banner",
+                "minecraft",
+                "online",
+                "player",
+                "server"
+            ],
+            "support": {
+                "issues": "https://github.com/games647/Minecraft-Banner-Generator/issues",
+                "source": "https://github.com/games647/Minecraft-Banner-Generator"
+            },
+            "time": "2016-05-25T19:44:52+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",

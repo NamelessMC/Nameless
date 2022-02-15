@@ -24,10 +24,6 @@ class MCQuery {
      * @return array Array containing query result.
      */
     public static function singleQuery(array $ip, string $type, bool $bedrock, Language $language, Queries $queries): array {
-        if ($ip == null) {
-            throw new InvalidArgumentException("\$ip is null");
-        }
-
         try {
             $query_ip = explode(':', $ip['ip']);
             if ($type == 'internal') {
@@ -65,7 +61,8 @@ class MCQuery {
                             'player_list' => $player_list,
                             'format_player_list' => self::formatPlayerList($player_list),
                             'x_players_online' => str_replace('{x}', Output::getClean($query['players']['online']), $language->get('general', 'currently_x_players_online')),
-                            'motd' => $query['description']['text'] ?? '',
+                            // TODO: support new motd format w/ hex colour codes (convert hex to closest MC colour?)
+                            'motd' => $query['description']['text'] ?: implode(array_column($query['description']['extra'], 'text')),
                             'version' => $query['version']['name']
                         ];
                     }
@@ -112,7 +109,8 @@ class MCQuery {
                     'player_list' => $player_list,
                     'format_player_list' => self::formatPlayerList($player_list),
                     'x_players_online' => str_replace('{x}', Output::getClean($query->response->players->online), $language->get('general', 'currently_x_players_online')),
-                    'motd' => $query->response->description->text
+                    // TODO: external query does not return bedrock MOTD at all
+                    'motd' => $query->response->description->text ?: implode(array_column($query->response->description->extra, 'text')),
                 ];
             }
 
@@ -157,7 +155,7 @@ class MCQuery {
             }
 
             if (!$user->data()) {
-                $avatar = Util::getAvatarFromUUID($player['id']);
+                $avatar = AvatarSource::getAvatarFromUUID($player['id']);
                 $profile = '#';
             } else {
                 $avatar = $user->getAvatar();
