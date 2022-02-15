@@ -567,7 +567,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
         // Pagination
         $paginator = new Paginator(($template_pagination ?? []), $template_pagination_left ?? '', $template_pagination_right ?? '');
         $results = $paginator->getLimited($wall_posts_query, 10, $p, count($wall_posts_query));
-        $pagination = $paginator->generate(7, URL::build('/profile/' . Output::getClean($query->username) . '/', true));
+        $pagination = $paginator->generate(7, URL::build('/profile/' . Output::getClean($query->username) . '/'));
 
         $smarty->assign('PAGINATION', $pagination);
 
@@ -745,7 +745,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
             'value' => Output::getClean($query->username),
             'image' => 'https://crafatar.com/renders/body/' . $query->uuid . '?overlay'
         ];
-        
+
         $smarty->assign([
             'UUID' => $profile_user->data()->uuid
         ]);

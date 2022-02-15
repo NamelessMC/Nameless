@@ -94,6 +94,8 @@ class Paginator {
      * @return string Generated HTML to display in template.
      */
     public function generate(int $links, string $href = '?'): string {
+        $href .= '&';
+
         $last = ceil($this->_total / $this->_limit);
 
         $start = (($this->_page - $links) > 0) ? $this->_page - $links : 1;

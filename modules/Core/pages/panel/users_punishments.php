@@ -390,7 +390,7 @@ if (isset($_GET['user'])) {
 
         $paginator = new Paginator(($template_pagination ?? []), $template_pagination_left ?? '', $template_pagination_right ?? '');
         $results = $paginator->getLimited($punishments, 10, $p, count($punishments));
-        $pagination = $paginator->generate(7, URL::build('/panel/users/punishments/', true));
+        $pagination = $paginator->generate(7, URL::build('/panel/users/punishments/'));
 
         $smarty_results = [];
         foreach ($results->data as $result) {

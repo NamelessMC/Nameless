@@ -47,7 +47,7 @@ if (!isset($_GET['id'])) {
         // Pagination
         $paginator = new Paginator();
         $results = $paginator->getLimited($query_errors, 10, $p, count($query_errors));
-        $pagination = $paginator->generate(7, URL::build('/panel/minecraft/query_errors/', true));
+        $pagination = $paginator->generate(7, URL::build('/panel/minecraft/query_errors/'));
 
         $template_array = [];
 

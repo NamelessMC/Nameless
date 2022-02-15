@@ -43,7 +43,7 @@ $topics = DB::getInstance()->selectQuery('SELECT nl2_topics.id AS id, nl2_topics
 $p = (isset($_GET['p']) && is_numeric($_GET['p'])) ? $_GET['p'] : 1;
 $paginator = new Paginator(($template_pagination ?? []), $template_pagination_left ?? '', $template_pagination_right ?? '');
 $results = $paginator->getLimited($topics, 10, $p, count($topics));
-$pagination = $paginator->generate(7, URL::build('/user/following_topics/', true));
+$pagination = $paginator->generate(7, URL::build('/user/following_topics/'));
 
 if (count($topics)) {
     $smarty->assign('PAGINATION', $pagination);

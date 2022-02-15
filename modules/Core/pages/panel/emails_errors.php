@@ -152,7 +152,7 @@ if (isset($_GET['do'])) {
     $paginator = new Paginator();
 
     $results = $paginator->getLimited($email_errors, 10, $p, count($email_errors));
-    $pagination = $paginator->generate(7, URL::build('/panel/core/emails/errors', true));
+    $pagination = $paginator->generate(7, URL::build('/panel/core/emails/errors'));
 
     $smarty->assign([
         'BACK_LINK' => URL::build('/panel/core/emails'),

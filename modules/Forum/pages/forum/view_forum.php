@@ -387,7 +387,7 @@ if ($forum_query->redirect_forum == 1) {
         // Pagination
         $paginator = new Paginator(($template_pagination ?? []), $template_pagination_left ?? '', $template_pagination_right ?? '');
         $results = $paginator->getLimited($topics, 10, $p, count($topics));
-        $pagination = $paginator->generate(7, URL::build('/forum/view/' . $fid . '-' . $forum->titleToURL($forum_query->forum_title), true));
+        $pagination = $paginator->generate(7, URL::build('/forum/view/' . $fid . '-' . $forum->titleToURL($forum_query->forum_title)));
 
         if (count($topics)) {
             $smarty->assign('PAGINATION', $pagination);

@@ -548,7 +548,7 @@ $smarty->assign([
 // Pagination
 $paginator = new Paginator(($template_pagination ?? []));
 $results = $paginator->getLimited($posts, 10, $p, count($posts));
-$pagination = $paginator->generate(7, URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title), true));
+$pagination = $paginator->generate(7, URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title)));
 
 $smarty->assign('PAGINATION', $pagination);
 
