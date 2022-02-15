@@ -1,6 +1,6 @@
 <?php
 /**
- * Core_Sitemap class
+ * Core module sitemap class.
  *
  * @package Modules\Core\Misc
  * @author Samerton
@@ -11,10 +11,7 @@ use SitemapPHP\Sitemap;
 
 class Core_Sitemap {
 
-    public static function generateSitemap(Sitemap $sitemap = null): void {
-        if (!$sitemap) {
-            return;
-        }
+    public static function generateSitemap(Sitemap $sitemap): void {
 
         // Core pages
         $sitemap->addItem(URL::build('/'), 1.0);

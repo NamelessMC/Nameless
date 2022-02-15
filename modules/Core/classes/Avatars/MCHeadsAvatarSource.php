@@ -1,6 +1,6 @@
 <?php
 /**
- * MCHeadsAvatarSource class
+ * MCHeads avatar source class
  *
  * @package Modules\Core\Avatars
  * @author Aberdeener

@@ -1,6 +1,6 @@
 <?php
 /**
- * DiscordGroupSyncInjector class
+ * Discord group sync injector implementation.
  *
  * @package Modules\Discord Integration
  * @author Aberdeener

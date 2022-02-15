@@ -9,12 +9,6 @@
  */
 class hCaptcha extends CaptchaBase {
 
-    /**
-     * hCaptcha constructor
-     *
-     * @param string|null $privateKey
-     * @param string|null $publicKey
-     */
     public function __construct(?string $privateKey, ?string $publicKey) {
         $this->_name = 'hCaptcha';
         $this->_privateKey = $privateKey;

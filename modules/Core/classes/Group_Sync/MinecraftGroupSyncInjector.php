@@ -1,6 +1,6 @@
 <?php
 /**
- * MinecraftGroupSyncInjector class
+ * Minecraft group sync injector implementation.
  *
  * @package Modules\Core\Group_Sync
  * @author Aberdeener

@@ -1,6 +1,6 @@
 <?php
 /**
- * VisageAvatarSource class
+ * Visage avatar source class
  *
  * @package Modules\Core\Avatars
  * @author Aberdeener

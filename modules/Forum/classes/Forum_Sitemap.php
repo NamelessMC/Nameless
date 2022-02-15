@@ -3,7 +3,7 @@
 use SitemapPHP\Sitemap;
 
 /**
- * Forum_Sitemap class
+ * Forum sitemap class
  *
  * @package Modules\Forum
  * @author Samerton
@@ -15,12 +15,9 @@ class Forum_Sitemap {
     /**
      * Generate sitemap for the Forum.
      *
-     * @param Sitemap|null $sitemap Instance of sitemap generator.
+     * @param Sitemap $sitemap Instance of sitemap generator.
      */
-    public static function generateSitemap(Sitemap $sitemap = null): void {
-        if (!$sitemap) {
-            return;
-        }
+    public static function generateSitemap(Sitemap $sitemap): void {
 
         // Forum
         $sitemap->addItem(URL::build('/forum'), 0.9);

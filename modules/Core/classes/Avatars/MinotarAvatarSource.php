@@ -1,6 +1,6 @@
 <?php
 /**
- * MinotarAvatarSource class
+ * Minotar avatar source class
  *
  * @package Modules\Core\Avatars
  * @author Aberdeener

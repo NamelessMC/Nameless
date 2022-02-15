@@ -1,6 +1,6 @@
 <?php
 /**
- * NamelessMCGroupSyncInjector class
+ * NamelessMC group sync injector implementation.
  *
  * @package Modules\Core\Group_Sync
  * @author Aberdeener

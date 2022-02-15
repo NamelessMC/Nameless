@@ -1,6 +1,6 @@
 <?php
 /**
- * CookieConsent class
+ * CookieConsent module main class
  *
  * @package Modules\Cookie Consent
  * @author Samerton
@@ -9,6 +9,12 @@
  */
 class CookieConsent {
 
+    /**
+     * Generates the cookie consent JavaScript script.
+     *
+     * @param array $options Array of options
+     * @return string Cookie consent JavaScript
+     */
     public static function generateScript(array $options): string {
         $script_options = [];
         $background_colour = '#000';

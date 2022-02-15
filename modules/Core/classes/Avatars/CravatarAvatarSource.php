@@ -1,6 +1,6 @@
 <?php
 /**
- * CravatarAvatarSource class
+ * Cravatar avatar source class
  *
  * @package Modules\Core\Avatars
  * @author Aberdeener

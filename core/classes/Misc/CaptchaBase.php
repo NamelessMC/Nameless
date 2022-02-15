@@ -9,11 +9,29 @@
  */
 abstract class CaptchaBase {
 
+    /**
+     * @var array All registered captcha providers.
+     */
     protected static array $_providers = [];
+
+    /**
+     * @var string The name of the active captcha provider.
+     */
     protected static string $_activeProvider = '';
 
+    /**
+     * @var string Name of this captcha provider.
+     */
     protected string $_name;
+
+    /**
+     * @var string|null This captcha providers public key.
+     */
     protected ?string $_publicKey;
+
+    /**
+     * @var string|null This captcha providers private key.
+     */
     protected ?string $_privateKey;
 
     /**

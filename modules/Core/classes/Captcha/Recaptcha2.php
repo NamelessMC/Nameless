@@ -9,12 +9,6 @@
  */
 class Recaptcha2 extends CaptchaBase {
 
-    /**
-     * Recaptcha2 constructor
-     *
-     * @param string|null $privateKey
-     * @param string|null $publicKey
-     */
     public function __construct(?string $privateKey, ?string $publicKey) {
         $this->_name = 'Recaptcha2';
         $this->_privateKey = $privateKey;
