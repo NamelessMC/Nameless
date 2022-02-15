@@ -1,19 +1,20 @@
 <?php
-/*
- *	Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0
+/**
+ * Handles registering and triggering events.
  *
- *  Event handler class
+ * @package NamelessMC\Events
+ * @author Samerton
+ * @author Aberdeener
+ * @version 2.0.0-pr13
+ * @license MIT
  */
-
 class EventHandler {
 
     private static array $_events = [];
     private static array $_webhooks = [];
 
     /**
-     * Register hooks.
+     * Register webhooks.
      *
      * @param array $webhooks Array of webhooks to register
      */
@@ -22,7 +23,8 @@ class EventHandler {
     }
 
     /**
-     * Register an event. This must be called in the module's constructor.
+     * Register an event.
+     * This must be called in the module's constructor.
      *
      * @param string $event Name of event to add.
      * @param string $description Human readable description.
@@ -59,7 +61,7 @@ class EventHandler {
      */
     public static function registerListener(string $event, callable $callback, bool $advanced = false): void {
         if (!isset(self::$_events[$event])) {
-            // Silently create event if it doesnt exist, maybe throw exception instead?
+            // Silently create event if it doesn't exist, maybe throw exception instead?
             self::registerEvent($event, $event);
         }
 
@@ -104,7 +106,7 @@ class EventHandler {
                     }
 
                     if ($callbackParam->getType() != null) {
-                        $eventParamType = self::getType($params[$callbackParam->getName()]);
+                        $eventParamType = get_debug_type($params[$callbackParam->getName()]);
 
                         if ($callbackParam->getType()->getName() != $eventParamType) {
                             throw new InvalidArgumentException(
@@ -139,31 +141,6 @@ class EventHandler {
                     call_user_func($webhook['action'], $params);
                 }
             }
-        }
-    }
-
-    /**
-     * Get the debug type of a variable.
-     *
-     * @param mixed $object
-     * @return string The name of the type of the object - same as get_debug_type().
-     */
-    private static function getType($object): string {
-        switch (gettype($object)) {
-            case 'boolean':
-                return 'bool';
-            case 'integer':
-                return 'int';
-            case 'double':
-                return 'float';
-            case 'string':
-                return 'string';
-            case 'array':
-                return 'array';
-            case 'object':
-                return 'object';
-            default:
-                return 'unknown';
         }
     }
 

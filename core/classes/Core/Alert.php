@@ -1,15 +1,12 @@
 <?php
-
-/*
- *	Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+/**
+ * Provides access to create & get alerts for a user, as well as their PMs.
  *
- *  License: MIT
- *
- *  Alert class
+ * @package NamelessMC\Core
+ * @author Samerton
+ * @version 2.0.0-pr8
+ * @license MIT
  */
-
 class Alert {
 
     /**
@@ -19,30 +16,28 @@ class Alert {
      * @param string $type Contains the alert type, eg 'tag' for user tagging.
      * @param array $text_short Contains the alert text in short form for the dropdown.
      * @param array $text Contains full information about the alert.
-     * @param string $link Contains link to view the alert, defaults to #
-     *
-     * @throws Exception if unable to create alert
+     * @param string $link Contains link to view the alert, defaults to #.
      */
     public static function create(int $user_id, string $type, array $text_short, array $text, string $link = '#'): void {
         $db = DB::getInstance();
 
         $language = $db->selectQuery('SELECT nl2_languages.name AS `name` FROM nl2_users LEFT JOIN nl2_languages ON nl2_languages.id = nl2_users.language_id WHERE nl2_users.id = ?', [$user_id]);
 
-        if ($language->count()) {
-            $language_name = $language->first()->name;
-            $language = new Language($text_short['path'], $language_name);
-
-            if (!$db->insert('alerts', [
-                'user_id' => $user_id,
-                'type' => $type,
-                'url' => $link,
-                'content_short' => str_replace(($text_short['replace'] ?? ''), ($text_short['replace_with'] ?? ''), $language->get($text_short['file'], $text_short['term'])),
-                'content' => str_replace(($text['replace'] ?? ''), ($text['replace_with'] ?? ''), $language->get($text['file'], $text['term'])),
-                'created' => date('U')
-            ])) {
-                throw new RuntimeException('There was a problem creating an alert.');
-            }
+        if (!$language->count()) {
+            return;
         }
+
+        $language_name = $language->first()->name;
+        $language = new Language($text_short['path'], $language_name);
+
+        $db->insert('alerts', [
+            'user_id' => $user_id,
+            'type' => $type,
+            'url' => $link,
+            'content_short' => str_replace(($text_short['replace'] ?? ''), ($text_short['replace_with'] ?? ''), $language->get($text_short['file'], $text_short['term'])),
+            'content' => str_replace(($text['replace'] ?? ''), ($text['replace_with'] ?? ''), $language->get($text['file'], $text['term'])),
+            'created' => date('U')
+        ]);
     }
 
     /**
@@ -64,10 +59,10 @@ class Alert {
     }
 
     /**
-     * Get user unread messages.
+     * Get a users unread messages.
      *
-     * @param int $user_id Contains the ID of the user who we are getting messages for.
-     * @param bool $all Do we want to get all alerts (including read), or not; defaults to false)
+     * @param int $user_id The ID of the user who we are getting messages for.
+     * @param bool $all Get all alerts (including read), or not. Defaults to false.
      *
      * @return array All their messages matching the $all filter.
      */

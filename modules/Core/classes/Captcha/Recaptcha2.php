@@ -1,24 +1,14 @@
 <?php
-
-/*
- *	Made by Samerton
+/**
+ * Recaptcha2 class
  *
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr10
- *
- *  License: MIT
- *
- *  Recaptcha2 class
+ * @package Modules\Core\Captcha
+ * @author Samerton
+ * @version 2.0.0-pr10
+ * @license MIT
  */
-
 class Recaptcha2 extends CaptchaBase {
 
-    /**
-     * Recaptcha2 constructor
-     *
-     * @param string|null $privateKey
-     * @param string|null $publicKey
-     */
     public function __construct(?string $privateKey, ?string $publicKey) {
         $this->_name = 'Recaptcha2';
         $this->_privateKey = $privateKey;

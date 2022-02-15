@@ -1,21 +1,43 @@
 <?php
-/*
- *	Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+/**
+ * Helps paginate data to an HTML table easily.
  *
- *  License: MIT
- *
- *  Paginator class
+ * @package NamelessMC\Core
+ * @author Samerton
+ * @author graphiteisaac
+ * @version 2.0.0-pr13
+ * @license MIT
  */
-
 class Paginator {
 
+    /**
+     * @var int The number of items per page.
+     */
     private int $_limit;
+
+    /**
+     * @var int The current page.
+     */
     private int $_page;
+
+    /**
+     * @var int The total number of items.
+     */
     private int $_total;
+
+    /**
+     * @var array<string, string> The classes to use for `ul`, `li` and `a` HTML element styling.
+     */
     private array $_class;
+
+    /**
+     * @var string The element to use for the left arrow.
+     */
     private string $_leftContent;
+
+    /**
+     * @var string The element to use for the right arrow.
+     */
     private string $_rightContent;
 
     public function __construct(array $class = [], $leftContent = "&laquo;", $rightContent = "&raquo;") {
@@ -33,9 +55,9 @@ class Paginator {
      * Generate object of provided data
      *
      * @param array $data Data to paginate.
-     * @param int $limit
-     * @param int $page
-     * @param int $total
+     * @param int $limit Number of items per page.
+     * @param int $page Current page.
+     * @param int $total Total number of items.
      *
      * @return object
      */
@@ -64,13 +86,11 @@ class Paginator {
         return $result;
     }
 
-
     /**
      * Generate HTML for data to be presented with.
      *
      * @param int $links Number of links to be shown on each page.
      * @param string $href URL prefix to use when next page is clicked.
-     *
      * @return string Generated HTML to display in template.
      */
     public function generate(int $links, string $href = '?'): string {
@@ -93,8 +113,11 @@ class Paginator {
             $class = str_replace('{x}', ($this->_page == 1) ? ' disabled' : '', $this->_class['li']);
 
             $html .= '<li class="' . $class . '"><a class="' . str_replace('{x}', ($this->_page == 1 ? ' disabled ' : ''), $this->_class['a']) . '" href="';
-            if ($this->_page == 1) $html .= '#';
-            else $html .= $href . 'p=' . ($this->_page - 1);
+            if ($this->_page == 1) {
+                $html .= '#';
+            } else {
+                $html .= $href . 'p=' . ($this->_page - 1);
+            }
             $html .= '">' . $this->_leftContent . '</a></li>';
         }
 
@@ -132,8 +155,11 @@ class Paginator {
             $html .= '<a class="' . str_replace('{x}', ($this->_page == $last) ? ' disabled ' : '', $this->_class['a']) . '" href="' . (($this->_page == $last) ? '#' : $href . 'p=' . ($this->_page + 1)) . '">' . $this->_rightContent . '</a>';
         } else {
             $html .= '<li class="' . str_replace('{x}', ($this->_page == $last) ? ' disabled ' : '', $this->_class['li']) . '"><a class="' . str_replace('{x}', ($this->_page == $last) ? ' disabled ' : '', $this->_class['a']) . '" href="';
-            if ($this->_page == $last) $html .= '#';
-            else $html .= $href . 'p=' . ($this->_page + 1);
+            if ($this->_page == $last) {
+                $html .= '#';
+            } else {
+                $html .= $href . 'p=' . ($this->_page + 1);
+            }
             $html .= '">' . $this->_rightContent . '</a></li>';
         }
 
@@ -148,7 +174,7 @@ class Paginator {
 
     /**
      * Set values of instance variables, alternative function (as they are set in getLimited()).
-     * Not used internally.
+     * @deprecated Not used internally.
      *
      * @param int $total
      * @param int $limit

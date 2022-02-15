@@ -1,5 +1,12 @@
 <?php
-
+/**
+ * Used for abstracting common tasks done during upgrades.
+ *
+ * @package NamelessMC\Misc
+ * @author Aberdeener
+ * @version 2.0.0-pr13
+ * @license MIT
+ */
 abstract class UpgradeScript {
 
     protected Cache $_cache;
@@ -38,7 +45,7 @@ abstract class UpgradeScript {
     }
 
     /**
-     * Get instance of UpgradeScript for a specific NamelessMC version, null if it doesnt exist
+     * Get instance of UpgradeScript for a specific NamelessMC version, null if it doesn't exist
      *
      * @param string $current_version Current NamelessMC version (ie: `2.0.0-pr12`, `2.0.0`)
      * @return UpgradeScript|null Instance of UpgradeScript from file
@@ -138,10 +145,8 @@ abstract class UpgradeScript {
             return;
         }
 
-        if (is_dir($path)) {
-            if (!rmdir($path)) {
-                echo "Could not delete '$path', is it empty? <br />";
-            }
+        if (is_dir($path) && !rmdir($path)) {
+            echo "Could not delete '$path', is it empty? <br />";
         }
 
         unlink($path);

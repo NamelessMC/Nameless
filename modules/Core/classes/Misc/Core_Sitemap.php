@@ -1,22 +1,17 @@
 <?php
-/*
- *	Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+/**
+ * Core module sitemap class.
  *
- *  License: MIT
- *
- *  Core module Sitemap method
+ * @package Modules\Core\Misc
+ * @author Samerton
+ * @version 2.0.0-pr8
+ * @license MIT
  */
-
 use SitemapPHP\Sitemap;
 
 class Core_Sitemap {
 
-    public static function generateSitemap(Sitemap $sitemap = null): void {
-        if (!$sitemap) {
-            return;
-        }
+    public static function generateSitemap(Sitemap $sitemap): void {
 
         // Core pages
         $sitemap->addItem(URL::build('/'), 1.0);

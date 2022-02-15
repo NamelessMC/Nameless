@@ -1,16 +1,12 @@
 <?php
-
-/*
- *	Made by Samerton
- *  Announcements by Aberdeener
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr12
+/**
+ * Announcement management class for creating and getting announcements.
  *
- *  License: MIT
- *
- *  Announcements class
+ * @package NamelessMC\Misc
+ * @author Aberdeener
+ * @version 2.0.0-pr12
+ * @license MIT
  */
-
 class Announcements {
 
     private Cache $_cache;

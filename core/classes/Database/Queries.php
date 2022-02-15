@@ -1,15 +1,12 @@
 <?php
-
-/*
- *	Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr12
+/**
+ * Provides simpler abstractions over common database queries.
  *
- *  License: MIT
- *
- *  Queries class
+ * @package NamelessMC\Database
+ * @author Samerton
+ * @version 2.0.0-pr13
+ * @license MIT
  */
-
 class Queries {
 
     private DB $_db;
@@ -106,6 +103,13 @@ class Queries {
         return $this->_db->get($table, $where)->results();
     }
 
+    /**
+     * Initialise the database on a fresh install.
+     *
+     * @param string $charset The charset to use
+     * @param string $engine The engine to use
+     * @return bool|string
+     */
     public function dbInitialise(string $charset = 'latin1', string $engine = 'InnoDB') {
         $data = $this->_db->showTables('settings');
 

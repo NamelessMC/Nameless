@@ -1,5 +1,12 @@
 <?php
-
+/**
+ * Manages registration of GroupSyncInjectors as well as broadcasting group changes to them.
+ *
+ * @package NamelessMC\Group_Sync
+ * @author Aberdeener
+ * @version 2.0.0-pr13
+ * @license MIT
+ */
 final class GroupSyncManager extends Instanceable {
 
     /** @var GroupSyncInjector[] */
@@ -156,8 +163,7 @@ final class GroupSyncManager extends Instanceable {
      *
      * @param User $user NamelessMC user to apply changes to
      * @param string $sending_injector_class Class name of injector broadcasting this change
-     * @param array $group_ids Array of Group IDs native to the sending injector
-     * which were added/removed to the user
+     * @param array $group_ids Array of Group IDs native to the sending injector which were added/removed to the user
      *
      * @return array Array of logs of changed groups
      */

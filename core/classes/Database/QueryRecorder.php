@@ -1,14 +1,13 @@
 <?php
-/*
- *	Made by Aberdeener
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr12
+/**
+ * Records PDO queries to display on exception page.
  *
- *  License: MIT
- *
- *  QueryRecorder class
+ * @package NamelessMC\Database
+ * @see ErrorHandler
+ * @author Aberdeener
+ * @version 2.0.0-pr13
+ * @license MIT
  */
-
 class QueryRecorder extends Instanceable {
 
     private array $_query_stack;

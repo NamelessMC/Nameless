@@ -7,6 +7,16 @@ use GuzzleHttp\Profiling\Middleware as ProfilingMiddleware;
 use GuzzleHttp\Profiling\Debugbar\Profiler;
 use Psr\Http\Message\ResponseInterface;
 
+/**
+ * Provides simple methods to make GET & POST HTTP requests.
+ * Wrapper around GuzzleHttp\Client.
+ *
+ * @see GuzzleHttp\Client
+ * @package NamelessMC\Core
+ * @author Aberdeener
+ * @version 2.0.0-pr13
+ * @license MIT
+ */
 class HttpClient {
 
     private ResponseInterface $_response;

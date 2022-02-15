@@ -4,6 +4,14 @@ use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\Google as GoogleProvider;
 use Wohali\OAuth2\Client\Provider\Discord as DiscordProvider;
 
+/**
+ * OAuth utility class.
+ *
+ * @package NamelessMC\Misc
+ * @author Aberdeener
+ * @version 2.0.0-pr13
+ * @license MIT
+ */
 class OAuth extends Instanceable {
 
     public const DISCORD = 'discord';
@@ -55,7 +63,7 @@ class OAuth extends Instanceable {
                 'url' => $provider->getAuthorizationUrl([
                     'scope' => [
                         $provider_name === self::DISCORD ? 'identify' : 'openid',
-                        'email' // we don't use this for anything yet
+                        'email',
                     ],
                 ]),
                 'icon' => $this->getIcon($provider_name),

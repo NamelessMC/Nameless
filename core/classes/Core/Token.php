@@ -1,14 +1,12 @@
 <?php
-/*
- *	Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+/**
+ * Validates and generates CSRF tokens.
  *
- *  License: MIT
- *
- *  Token class
+ * @package NamelessMC\Core
+ * @author Samerton
+ * @version 2.0.0-pr8
+ * @license MIT
  */
-
 class Token {
 
     /**
@@ -24,7 +22,7 @@ class Token {
             return Session::get($tokenName);
         }
 
-        // Otherwise generate a new one
+        // Otherwise, generate a new one
         self::generate();
 
         return self::get();

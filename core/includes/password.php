@@ -201,7 +201,7 @@ namespace {
          * @param mixed $algo The algorithm used for new password hashes
          * @param array $options The options array passed to password_hash
          *
-         * @return boolean True if the password needs to be rehashed.
+         * @return bool True if the password needs to be rehashed.
          */
         function password_needs_rehash($hash, $algo, array $options = array()): bool {
             $info = password_get_info($hash);
@@ -223,7 +223,7 @@ namespace {
          * @param mixed $password The password to verify
          * @param mixed $hash The hash to verify against
          *
-         * @return boolean If the password matches the hash
+         * @return bool If the password matches the hash
          */
         function password_verify($password, $hash): bool {
             if (!function_exists('crypt')) {
@@ -291,7 +291,7 @@ namespace PasswordCompat\binary {
         /**
          * Check if current PHP version is compatible with the library
          *
-         * @return boolean the check result
+         * @return bool the check result
          */
         function check(): ?bool {
             static $pass = null;
