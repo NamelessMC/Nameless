@@ -104,5 +104,4 @@ $language = [
     // Users
     'recent_registrations' => 'Recent Registrations',
     'reset_profile_banner' => 'Reset Profile Banner'
-
 ];

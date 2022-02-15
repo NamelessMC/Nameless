@@ -21,7 +21,7 @@ $custom_page = $custom_page[0];
 // Check permissions
 $perms = $queries->getWhere('custom_pages_permissions', ['page_id', '=', $custom_page->id]);
 if ($user->isLoggedIn()) {
-    $groups = $user->getAllGroupHtml();
+    $groups = $user->getAllGroupIds();
     foreach ($groups as $group) {
         foreach ($perms as $perm) {
             if ($perm->group_id == $group) {

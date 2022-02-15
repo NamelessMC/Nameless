@@ -105,5 +105,4 @@ $language = [
     // Users
     'recent_registrations' => 'Последние регистрации',
     'reset_profile_banner' => 'Сбросить баннер профиля'
-
 ];
