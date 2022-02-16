@@ -47,7 +47,7 @@ if (defined('MINECRAFT') && MINECRAFT === true) {
         ];
 
         $cache->setCache('banner_cache_' . urlencode($server->name));
-        //if (!$cache->isCached('image')) {
+        if (!$cache->isCached('image')) {
             // Internal or external query?
             $query_type = $queries->getWhere('settings', ['name', '=', 'external_query']);
             if (count($query_type)) {
@@ -98,11 +98,11 @@ if (defined('MINECRAFT') && MINECRAFT === true) {
 
             // Cache for 2 minutes
             $cache->store('image', 'true', 120);
-//        } else {
-//            header('Content-Type: image/png');
-//            $im = imagecreatefrompng(ROOT_PATH . '/cache/server_' . urlencode($server->name) . '.png');
-//            imagepng($im);
-//            imagedestroy($im);
-//        }
+        } else {
+            header('Content-Type: image/png');
+            $im = imagecreatefrompng(ROOT_PATH . '/cache/server_' . urlencode($server->name) . '.png');
+            imagepng($im);
+            imagedestroy($im);
+        }
     }
 }
