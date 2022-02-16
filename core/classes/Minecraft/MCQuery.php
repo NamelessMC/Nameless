@@ -13,6 +13,27 @@ use xPaw\MinecraftQuery;
  */
 class MCQuery {
 
+    private const COLOUR_CHAR = '§';
+
+    private const COLOURS = [
+        'AA0000' => '4',
+        'FF5555' => 'c',
+        'FFAA00' => '6',
+        'FFFF55' => 'e',
+        '00AA00' => '2',
+        '55FF55' => 'a',
+        '55FFFF' => 'b',
+        '00AAAA' => '3',
+        '0000AA' => '1',
+        '5555FF' => '9',
+        'FF55FF' => 'd',
+        'AA00AA' => '5',
+        'FFFFFF' => 'f',
+        'AAAAAA' => '7',
+        '555555' => '8',
+        '000000' => '0',
+    ];
+
     /**
      * Query a single server
      *
@@ -61,8 +82,10 @@ class MCQuery {
                             'player_list' => $player_list,
                             'format_player_list' => self::formatPlayerList($player_list),
                             'x_players_online' => str_replace('{x}', Output::getClean($query['players']['online']), $language->get('general', 'currently_x_players_online')),
-                            // TODO: support new motd format w/ hex colour codes (convert hex to closest MC colour?)
-                            'motd' => $query['description']['text'] ?: implode(array_column($query['description']['extra'], 'text')),
+                            'motd' => self::getMotd(
+                                $query['description']['text'],
+                                $query['description']['extra']
+                            ),
                             'version' => $query['version']['name']
                         ];
                     }
@@ -110,7 +133,10 @@ class MCQuery {
                     'format_player_list' => self::formatPlayerList($player_list),
                     'x_players_online' => str_replace('{x}', Output::getClean($query->response->players->online), $language->get('general', 'currently_x_players_online')),
                     // TODO: external query does not return bedrock MOTD at all
-                    'motd' => $query->response->description->text ?: implode(array_column($query->response->description->extra, 'text')),
+                    'motd' => self::getMotd(
+                        json_decode(json_encode($query->response->description->text), true) ?? '',
+                        json_decode(json_encode($query->response->description->extra), true) ?? []
+                    ),
                 ];
             }
 
@@ -191,8 +217,6 @@ class MCQuery {
             $total_count = 0;
             $status = 0;
             if ($type == 'internal') {
-                // Internal query
-
                 foreach ($servers as $server) {
                     $query_ip = explode(':', $server['ip']);
                     if (count($query_ip) <= 2) {
@@ -320,5 +344,86 @@ class MCQuery {
         }
 
         return [];
+    }
+
+    /**
+     * Convert a Minecraft MOTD to its legacy colour codes
+     *
+     * @param string $text Legacy MOTD single-line text
+     * @param array $modern_format Array of modern MOTD format strings
+     * @return string MOTD as legacy MC colours
+     */
+    private static function getMotd(string $text, array $modern_format): string {
+        if ($text !== '') {
+            return $text;
+        }
+
+        // some servers (originrealms) return a weird MOTD
+        if (count($modern_format) === 1 && is_array($modern_format[0])) {
+            $modern_format = $modern_format[0]['extra'];
+        }
+        // and sometimes it's doubly nested...
+        if (count($modern_format) === 1 && is_array($modern_format[0])) {
+            $modern_format = $modern_format[0]['extra'];
+        }
+
+        $motd = '';
+        foreach ($modern_format as $word) {
+            $motd .= self::COLOUR_CHAR . 'r';
+            if (isset($word['color'])) {
+                $motd .= self::getColor($word['color']);
+            }
+
+            if (isset($word['bold']) && $word['bold'] === true) {
+                $motd .= self::COLOUR_CHAR . 'l';
+            }
+
+            $motd .= trim($word['text'], ' ');
+        }
+
+        return trim($motd);
+    }
+
+    /**
+     * Find the closest MC colour to a given hex colour
+     *
+     * @param string $rgb RGB colour code
+     * @return string The closest Minecraft colour code to the given RGB value
+     */
+    private static function getColor(string $rgb): string {
+        if (strpos($rgb, '#') === 0) {
+            $rgb = substr($rgb, 1);
+        }
+
+        $smallestDiff = null;
+        $closestColor = "";
+        foreach (self::COLOURS as $hex => $char) {
+            $diff = self::colorDiff($hex, $rgb);
+            if ($smallestDiff === null || $diff < $smallestDiff) {
+                $smallestDiff = $diff;
+                $closestColor = $char;
+            }
+        }
+
+        return self::COLOUR_CHAR . $closestColor;
+    }
+
+    /**
+     * Find the numerical difference between two RGB colours
+     *
+     * @param mixed $rgb1 RGB colour code
+     * @param mixed $rgb2 RGB colour code
+     * @return int The difference between two RGB colours
+     */
+    private static function colorDiff($rgb1, $rgb2): int {
+        $red1 = hexdec(substr($rgb1, 0, 2));
+        $green1 = hexdec(substr($rgb1, 2, 2));
+        $blue1 = hexdec(substr($rgb1, 4, 2));
+
+        $red2 = hexdec(substr($rgb2, 0, 2));
+        $green2 = hexdec(substr($rgb2, 2, 2));
+        $blue2 = hexdec(substr($rgb2, 4, 2));
+
+        return abs($red1 - $red2) + abs($green1 - $green2) + abs($blue1 - $blue2);
     }
 }

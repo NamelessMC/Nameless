@@ -35,8 +35,6 @@ if (defined('MINECRAFT') && MINECRAFT === true) {
 
         $server = $server[0];
 
-        require(ROOT_PATH . '/core/includes/motd_format.php');
-
         $display_ip = $server->ip;
         if (!is_null($server->port) && $server->port != 25565) {
             $display_ip .= ':' . $server->port;
@@ -49,7 +47,7 @@ if (defined('MINECRAFT') && MINECRAFT === true) {
         ];
 
         $cache->setCache('banner_cache_' . urlencode($server->name));
-        if (!$cache->isCached('image')) {
+        //if (!$cache->isCached('image')) {
             // Internal or external query?
             $query_type = $queries->getWhere('settings', ['name', '=', 'external_query']);
             if (count($query_type)) {
@@ -87,7 +85,7 @@ if (defined('MINECRAFT') && MINECRAFT === true) {
             if ($query['status_value'] === 1) {
                 $image = MinecraftBanner\ServerBanner::server($display_ip, $query['motd'], $query['player_count'], $query['player_count_max'], $favicon, $background, 5);
             } else {
-                $image = MinecraftBanner\ServerBanner::server($display_ip, '§4Offline', '?', '?', $favicon, $background, -1);
+                $image = MinecraftBanner\ServerBanner::server($display_ip, '§4Offline Server', '?', '?', $favicon, $background, -1);
             }
 
             header('Content-type: image/png');
@@ -100,11 +98,11 @@ if (defined('MINECRAFT') && MINECRAFT === true) {
 
             // Cache for 2 minutes
             $cache->store('image', 'true', 120);
-        } else {
-            header('Content-Type: image/png');
-            $im = imagecreatefrompng(ROOT_PATH . '/cache/server_' . urlencode($server->name) . '.png');
-            imagepng($im);
-            imagedestroy($im);
-        }
+//        } else {
+//            header('Content-Type: image/png');
+//            $im = imagecreatefrompng(ROOT_PATH . '/cache/server_' . urlencode($server->name) . '.png');
+//            imagepng($im);
+//            imagedestroy($im);
+//        }
     }
 }
