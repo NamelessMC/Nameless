@@ -15,7 +15,6 @@ use PHPMailer\PHPMailer\SMTP;
 class Email {
 
     public const REGISTRATION = 1;
-    public const CONTACT = 2;
     public const FORGOT_PASSWORD = 3;
     public const API_REGISTRATION = 4;
     public const FORUM_TOPIC_REPLY = 5;
