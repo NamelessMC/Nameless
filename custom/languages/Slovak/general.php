@@ -74,18 +74,6 @@ $language = [
     'leaderboards' => 'Výsledkové tabuľky',
 
     /*
-     *  Contact form
-     */
-    'contact' => 'Kontakt',
-    'message' => 'Správa',
-    'email_address' => 'Emailová adresa',
-    'contact_email_subject' => 'Nové odoslanie kontaktného formulára',
-    'contact_message_failed' => 'Správu sa nepodarilo odoslať. Uistite sa, že ste zadali správu s dĺžkou 10 až 5 000 znakov.',
-    'contact_message_sent' => 'Správa bola úspešne odoslaná.',
-    'contact_message_email' => 'Zadaný email je neplatný.',
-    'contact_message_limit' => 'Za hodinu môžete odoslať iba jednu správu. Nasledujúcu správu môžete odoslať o {x} minút.', // Don't replace {x}
-
-    /*
      *  Navbar
      */
     'home' => 'Domov',

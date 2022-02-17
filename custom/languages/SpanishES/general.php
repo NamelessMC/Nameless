@@ -74,18 +74,6 @@ $language = [
     'leaderboards' => 'Tablas de clasificación',
 
     /*
-     *  Contact form
-     */
-    'contact' => 'Contacto',
-    'message' => 'Mensaje',
-    'email_address' => 'Dirección de correo electrónico',
-    'contact_email_subject' => 'Nuevo envío del formulario de contacto',
-    'contact_message_failed' => 'No se puede enviar el mensaje. Por favor, asegúrate de que has introducido un mensaje de entre 10 y 5000 caracteres.',
-    'contact_message_sent' => 'Mensaje enviado con éxito.',
-    'contact_message_email' => 'El correo electrónico proporcionado no es válido.',
-    'contact_message_limit' => 'Sólo puede enviar un mensaje por hora. La siguiente vez que puede enviar un mensaje es en {x} minutos.', // Don't replace {x}
-
-    /*
      *  Navbar
      */
     'home' => 'Inicio',

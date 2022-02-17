@@ -74,19 +74,6 @@ $language = [
     'leaderboards' => 'Leaderboards',
 
     /*
-     *  Contact form
-     */
-    'contact' => 'Contact',
-    'message' => 'Message',
-    'email_address' => 'Email Address',
-    'contact_email_subject' => 'New contact form submission',
-    'contact_message_failed' => 'Unable to send message. Please ensure you have entered a message between 10 and 5000 characters long.',
-    'contact_message_email' => 'The provided email is invalid.',
-    'contact_message_sent' => 'Message sent successfully.',
-    'contact_message_limit' => 'You can only send one message per hour. You can next send a message in {x} minutes.', // Don't replace {x}
-
-
-    /*
      *  Navbar
      */
     'home' => 'Home',

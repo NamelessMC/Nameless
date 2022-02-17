@@ -72,18 +72,6 @@ $language = [
     'leaderboards' => 'Leaderboards',
 
     /*
-     *  Contact form
-     */
-    'contact' => 'İletişim',
-    'message' => 'Mesaj',
-    'email_address' => 'E-posta adresiniz',
-    'contact_email_subject' => 'Yeni iletişim formu gönderme',
-    'contact_message_failed' => 'Mesaj gönderilemedi. Lütfen 10 ila 5000 karakter uzunluğunda bir mesaj girdiğinizden emin olun.',
-    'contact_message_sent' => 'Mesaj başarıyla gönderildi!.',
-    'contact_message_email' => 'Sağlanan e-posta geçersiz.',
-    'contact_message_limit' => 'Saatte yalnızca bir mesaj gönderebilirsiniz. {X} dakika içinde bir mesaj gönderebilirsiniz.', // Don't replace {x}
-
-    /*
      *  Navbar
      */
     'home' => 'Ana Sayfa',

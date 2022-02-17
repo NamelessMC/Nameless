@@ -76,18 +76,6 @@ $language = [
     'leaderboards' => 'Leaderboards',
 
     /*
-     *  Contact form
-     */
-    'contact' => 'Contact',
-    'message' => 'Mesaj',
-    'email_address' => 'Adresa de e-mail',
-    'contact_email_subject' => 'Un nou mesaj prin intermediul formularului de contact',
-    'contact_message_failed' => 'Mesaj imposibil de trimis. Asigurați-vă că ați introdus un mesaj între 10 și 5000 de caractere.',
-    'contact_message_email' => 'Adresa de email oferită nu este validă.',
-    'contact_message_sent' => 'Mesaj trimis cu succes.',
-    'contact_message_limit' => 'Puteți trimite doar un mesaj pe oră. Aveți posibilitatea să trimiteți un nou mesaj în {x} minute.', // Don't replace {x}
-
-    /*
      *  Navbar
      */
     'home' => 'Acasă',

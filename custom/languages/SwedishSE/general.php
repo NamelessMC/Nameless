@@ -75,18 +75,6 @@ $language = [
     'leaderboards' => 'Topplista',
 
     /*
-     *  Contact form
-     */
-    'contact' => 'Kontakt',
-    'message' => 'Meddelande',
-    'email_address' => 'Email Address',
-    'contact_email_subject' => 'Ny kontaktformulär inlämning.',
-    'contact_message_failed' => 'Det gick inte att skicka meddelandet. Vänligen se till att du har skrivit ett meddelande som är mellan 10 och 5000 tecken långt.',
-    'contact_message_email' => 'Det angivna meddelandet är ogiltigt.',
-    'contact_message_sent' => 'Meddelandet skickades!',
-    'contact_message_limit' => 'Du kan bara skicka ett meddelande per timme. Du kan skicka ett meddelande om {x} minuter.', // Don't replace {x}
-
-    /*
      *  Navbar
      */
     'home' => 'Hem',

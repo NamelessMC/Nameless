@@ -76,18 +76,6 @@ $language = [
     'leaderboards' => 'Leaderboards',
 
     /*
-     *  Contact formulier
-     */
-    'contact' => 'Contact',
-    'message' => 'Bericht',
-    'email_address' => 'E-mailadres',
-    'contact_email_subject' => 'Nieuw contactformulier indiening',
-    'contact_message_failed' => 'Kan bericht niet verzenden. Zorg ervoor dat je bericht tussen de 10 en 5000 karakters lang is.',
-    'contact_message_email' => 'Het opgegeven e-mailadres is ongeldig.',
-    'contact_message_sent' => 'Bericht succesvol verzonden.',
-    'contact_message_limit' => 'Je kan maar 1 bericht per uur versturen. Je kan pas weer over {x} minuten een nieuw bericht versturen.', // Vervang {x} niet
-
-    /*
      *  Navigatiebalk
      */
     'home' => 'Start',
