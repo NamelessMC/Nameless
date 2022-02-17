@@ -61,7 +61,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
     $profile_user = new User($profile, 'username');
     if (!$profile_user->data()) {
-        Redirect::to(URL::build('/profile/?error=not_exist'));
+        Redirect::to(URL::build('/profile/&error=not_exist'));
         die();
     }
     $query = $profile_user->data();
