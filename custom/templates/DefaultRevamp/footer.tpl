@@ -4,7 +4,7 @@
   <div class="ui inverted vertical footer segment" id="footer">
     <div class="ui container">
       <div class="ui stackable inverted divided equal height stackable grid">
-        <div class="six wide column">
+        <div class="{if $SOCIAL_MEDIA_ICONS|count > 0}six{else}eight{/if} wide column">
           <h4 class="ui inverted header">{$SITE_NAME}</h4>
           <div class="ui inverted link list">
             <span class="item">&copy; {$SITE_NAME} {'Y'|date}</span>
@@ -17,7 +17,7 @@
             {/if}
           </div>
         </div>
-        <div class="five wide column">
+        <div class="{if $SOCIAL_MEDIA_ICONS|count > 0}five{else}eight{/if} wide column">
           <h4 class="ui inverted header">{$FOOTER_LINKS_TITLE}</h4>
           <div class="ui inverted link list">
             {foreach from=$FOOTER_NAVIGATION key=name item=item}
@@ -39,6 +39,7 @@
             <a class="item" href="{$PRIVACY_LINK}">{$PRIVACY_TEXT}</a>
           </div>
         </div>
+        {if $SOCIAL_MEDIA_ICONS|count > 0}
         <div class="five wide column">
           <h4 class="ui inverted header">{$FOOTER_SOCIAL_TITLE}</h4>
           <div class="ui inverted link list">
@@ -47,6 +48,7 @@
             {/foreach}
           </div>
         </div>
+        {/if}
       </div>
     </div>
   </div>

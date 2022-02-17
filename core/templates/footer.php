@@ -48,14 +48,6 @@ if ($social_media) {
     ];
 }
 
-// Always add contact link
-$social_media_icons[] = [
-    'short' => 'em',
-    'long' => 'envelope',
-    'link' => URL::build('/contact'),
-    'text' => $language->get('general', 'contact')
-];
-
 // Smarty template
 // Assign to Smarty variables
 $smarty->assign([
