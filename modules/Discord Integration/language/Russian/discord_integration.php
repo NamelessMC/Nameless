@@ -24,19 +24,19 @@ $language = [
     // Discord bot Errors
     'discord_bot_error_badparameter' => 'Некорректный запрос.',
     'discord_bot_error_error' => 'У бота произошла ошибка.',
-    'discord_bot_error_invguild' => 'Provided Guild ID is invalid, or the bot is not in it.',
-    'discord_bot_error_invuser' => 'Provided User ID is invalid, or is not in specified Guild.',
-    'discord_bot_error_notlinked' => 'The bot is not linked to this website for provided Guild ID.',
+    'discord_bot_error_invguild' => 'Предоставленный ID сервера не найден.',
+    'discord_bot_error_invuser' => 'Предоставленный User ID не найден.',
+    'discord_bot_error_notlinked' => 'Бот не подключён.',
     'discord_bot_error_unauthorized' => 'API ключ сайта некорректный',
     'discord_bot_error_invrole' => 'ID роли некорректный.',
-    'discord_bot_check_logs' => 'You should check for a more specific error (if one exists) in StaffCP -> Security -> All Logs.',
-    'discord_bot_error_partsuccess' => 'The bot could not edit one or more of the roles due to a Discord hierarchy misconfiguration.',
+    'discord_bot_check_logs' => 'Проверьте журнал в: Панель управления -> Безопасность -> Все логи.',
+    'discord_bot_error_partsuccess' => 'Бот не может работать так как сервер настроен некорректно.',
 
     // API Errors
     'discord_integration_disabled' => 'Интеграция с Discord отключена.',
     'unable_to_set_discord_id' => 'Не удалось установить Discord ID.',
     'unable_to_set_discord_bot_url' => 'Не удалось установить URL бота в Discord',
-    'provide_one_discord_settings' => 'Please provide at least one of the following: "url", "guild_id"',
+    'provide_one_discord_settings' => 'Пожалуйста, предоставьте: "url" или "guild_id"',
     'no_pending_verification_for_token' => 'По предоставленному токену нет ожидающих проверки регистрации.',
     'unable_to_update_discord_username' => 'Не удалось обновить никнеймы в Discord.',
     'unable_to_update_discord_roles' => 'Не удалось обновить роли в Discord.',
@@ -50,6 +50,7 @@ $language = [
     // User Settings
     'discord_link' => 'Привязка к Discord',
     'linked' => 'Привязан',
+    'get_link_code' => 'Получить код',
     'not_linked' => 'Не привязан',
     'discord_user_id' => 'Discord ID',
     'discord_id_unlinked' => 'Вы отвязали свой профиль в Discord.',

@@ -22,7 +22,7 @@ $language = [
     'configuration' => 'Настройки',
     'layout' => 'Макет',
     'user_management' => 'Настройки юзеров',
-    'overview' => 'Overview',
+    'overview' => 'Обзор',
     'core' => 'Главное',
     'integrations' => 'Интеграции',
     'minecraft' => 'Майнкрафт',
@@ -86,7 +86,7 @@ $language = [
     'debugging_and_maintenance' => 'Отладка & Режим обслуживания',
     'maintenance' => 'Отладка',
     'debug_link' => 'Ссылка на отладочную страницу',
-    'debug_link_toastr' => 'Отладочная страница скопирована в буфер обмена!',
+    'debug_link_toastr' => 'Отладочная страница скопирована в буфер обмена!<br>Открыть журнал можете <u><a href="{x}" target="_blank">здесь</a></u>', // Don't replace "{x}"
     'debugging_settings_updated_successfully' => 'Параметры отладки успешно обновлены.',
     'enable_debug_mode' => 'Включить режим отладки?',
     'force_https' => 'Использовать https?',
@@ -293,6 +293,8 @@ $language = [
     'no_parent_server' => 'Нет родительского сервера',
     'bungee_instance' => 'Экземпляр BungeeCord?',
     'bungee_instance_help' => 'Выберите этот параметр, если сервер является экземпляром BungeeCord.',
+    'bedrock' => 'Бедрок версия?',
+    'bedrock_help' => 'Включите это, если ваш сервер для бедрок версии игры.',
     'server_query_information' => 'Чтобы отобразить список онлайн-игроков на вашем веб-сайте, ваш сервер <strong>должен</strong> иметь опцию \'enable-query\', включенную в файле <strong>server.properties</strong>',
     'enable_status_query' => 'Включить запрос статуса сервера?',
     'status_query_help' => 'Если этот параметр включен, то на странице серверов этот сервер будет отображаться как находящийся в онлайн или в оффлайн.',
@@ -737,7 +739,7 @@ $language = [
     'text_colour_required' => 'Укажите цвет текста',
     'no_announcements' => 'Нету созданных объявлений.',
     'announcement_order' => 'Приоритет объявления',
-    'announcement_hook_info' => 'Announcement creation',
+    'announcement_hook_info' => 'Создание объявления',
 
     // OAuth
     'oauth' => 'OAuth',
