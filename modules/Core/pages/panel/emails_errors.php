@@ -53,9 +53,6 @@ if (isset($_GET['do'])) {
             case Email::REGISTRATION:
                 $type = $language->get('admin', 'registration_email');
                 break;
-            case Email::CONTACT:
-                $type = $language->get('admin', 'contact_email');
-                break;
             case Email::FORGOT_PASSWORD:
                 $type = $language->get('admin', 'forgot_password_email');
                 break;
@@ -169,9 +166,6 @@ if (isset($_GET['do'])) {
             switch ($nValue->type) {
                 case Email::REGISTRATION:
                     $type = $language->get('admin', 'registration_email');
-                    break;
-                case Email::CONTACT:
-                    $type = $language->get('admin', 'contact_email');
                     break;
                 case Email::FORGOT_PASSWORD:
                     $type = $language->get('admin', 'forgot_password_email');

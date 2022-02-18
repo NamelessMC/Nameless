@@ -74,19 +74,6 @@ $language = [
     'leaderboards' => 'Leaderboards',
 
     /*
-     *  Contact form
-     */
-    'contact' => 'Contattaci',
-    'message' => 'Messaggio',
-    'email_address' => 'Indirizzo Email',
-    'contact_email_subject' => 'Nuova richiesta di modulo di contatto',
-    'contact_message_failed' => 'Impossibile inviare il messaggio. Assicurati di aver inserito un messaggio tra 10 e 5000 caratteri.',
-    'contact_message_email' => "L'email fornita non è valida.",
-    'contact_message_sent' => 'Messaggio inviato con successo.',
-    'contact_message_limit' => "È possibile inviare solo un messaggio all'ora. Puoi inviare un messaggio tra {x} minuti.", // Don't replace {x}
-
-
-    /*
      *  Navbar
      */
     'home' => 'Home',

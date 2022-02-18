@@ -79,18 +79,6 @@ $language = [
     'leaderboards' => 'リーダーボード',
 
     /*
-     *  Contact form
-     */
-    'contact' => '問い合わせ',
-    'message' => 'メッセージ',
-    'email_address' => 'Emailアドレス',
-    'contact_email_subject' => '新しい連絡先フォームの送信',
-    'contact_message_failed' => 'メッセージを送信できません。10~5000文字のメッセージを入力してください。',
-    'contact_message_email' => '指定されたメールアドレスは無効です。',
-    'contact_message_sent' => '正常に送信されました。',
-    'contact_message_limit' => '1時間に1つのメッセージのみ送信できます。{x}分後に再試行してください。', // Don't replace {x}
-
-    /*
      *  Navbar
      */
     'home' => 'ホーム',

@@ -72,16 +72,6 @@ $language = [
     'unlink' => 'Unlink',
     'leaderboards' => 'Leaderboards',
 
-    // Contact form
-    'contact' => 'Susisiekti',
-    'message' => 'Žinutė',
-    'email_address' => 'El. pašto adresas',
-    'contact_email_subject' => 'Naujas kontaktinės formos pateikimas.',
-    'contact_message_failed' => 'Nepavyko išsiųsti pranešimo. Įsitikinkite, kad įvedėte pranešimą nuo 10 iki 5000 simbolių.',
-    'contact_message_email' => 'Pateiktas el. pašto adresas yra neteisingas.',
-    'contact_message_sent' => 'Pranešimas sėkmingai išsiųstas.',
-    'contact_message_limit' => 'Galite siųsti tik vieną pranešimą per valandą. Jūs galėsite išsiųsti kitą pranešimą po {x} minučių.', // Don't replace {x}
-
     // Navbar
     'home' => 'Namai',
     'more' => 'Daugiau',

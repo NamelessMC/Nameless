@@ -75,18 +75,6 @@ $language = [
     'leaderboards' => 'Žebříčky',
 
     /*
-     *  Contact form
-     */
-    'contact' => 'Kontakt',
-    'message' => 'Zpráva',
-    'email_address' => 'E-mailová adresa',
-    'contact_email_subject' => 'Nové vyplnění kontaktního formuláře',
-    'contact_message_failed' => 'Nepodařilo se odeslat zpráv. Ujistěte se, že zadaná zpráva má mezi 10 a 5000 znaky.',
-    'contact_message_sent' => 'Zpráva úspěšně odeslána.',
-    'contact_message_email' => 'Zadaný e-mail je neplatný.',
-    'contact_message_limit' => 'Můžete odeslat pouze jednu zprávu za hodinu. Další zprávu budete moct odeslat za {x} minut.', // Don't replace {x}
-
-    /*
      *  Navbar
      */
     'home' => 'Domů',

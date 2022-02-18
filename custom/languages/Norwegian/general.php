@@ -74,18 +74,6 @@ $language = [
     'leaderboards' => 'Leaderboards',
 
     /*
-     *  Contact form
-     */
-    'contact' => 'Kontakt',
-    'message' => 'Melding',
-    'email_address' => 'E-postadresse',
-    'contact_email_subject' => 'Ny kontaktskjema',
-    'contact_message_failed' => 'Kunne ikke sende melding. Pass på at meldingen er mellom 10 og 5000 tegn lang',
-    'contact_message_email' => 'E-posten er ugyldig.',
-    'contact_message_sent' => 'Meldingen har blitt sendt!',
-    'contact_message_limit' => 'Du kan kun sende èn melding hver time. Du kan sende en ny melding om {x} minutter.', // Don't replace {x}
-
-    /*
      *  Navbar
      */
     'home' => 'Hjem',

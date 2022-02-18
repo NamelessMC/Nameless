@@ -31,7 +31,6 @@ class Core_Module extends Module {
         // Define URLs which belong to this module
         $pages->add('Core', '/', 'pages/index.php');
         $pages->add('Core', '/api/v2', 'pages/api/v2/index.php');
-        $pages->add('Core', '/contact', 'pages/contact.php');
         $pages->add('Core', '/home', 'pages/home.php', 'index', true);
 
         $pages->add('Core', '/login', 'pages/login.php');
