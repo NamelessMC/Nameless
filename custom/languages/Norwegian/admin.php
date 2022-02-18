@@ -490,6 +490,7 @@ $language = [
     'resend_activation_email' => 'Send aktiverings-e-post på nytt.',
     'email_resent_successfully' => 'E-post har blitt sendt på nytt.',
     'email_resend_failed' => 'E-post kunne ikke sendes på nytt, vennligst sjekk dine e-postinnstillinger.',
+    'no_item_selected' => 'No items selected',
 
     // Permissions
     'select_all' => 'Velg alle',

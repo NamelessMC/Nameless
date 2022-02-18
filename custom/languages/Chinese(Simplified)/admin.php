@@ -502,6 +502,7 @@ $language = [
     'resend_activation_email' => '重新发送激活邮件',
     'email_resent_successfully' => '邮件已重新发送。',
     'email_resend_failed' => '邮件发送失败，请检查邮件设置。',
+    'no_item_selected' => 'No items selected',
 
     // Permissions
     'select_all' => '全选',

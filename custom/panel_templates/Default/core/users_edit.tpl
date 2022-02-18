@@ -231,7 +231,7 @@
     {/if}
 
     $(document).ready(() => {
-        $('#inputGroups').select2({ placeholder: "Nothing selected" });
+        $('#inputGroups').select2({ placeholder: "{$NO_ITEM_SELECTED}" });
     })
 </script>
 

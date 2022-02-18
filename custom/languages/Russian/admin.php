@@ -490,6 +490,7 @@ $language = [
     'resend_activation_email' => 'Отправить письмо с активацией',
     'email_resent_successfully' => 'Письмо отправлено.',
     'email_resend_failed' => 'Письмо не отправлено, проверьте настройки почтового сервера.',
+    'no_item_selected' => 'No items selected',
 
     // Permissions
     'select_all' => 'Выбрать все',

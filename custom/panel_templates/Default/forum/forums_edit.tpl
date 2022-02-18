@@ -369,8 +369,8 @@
       e.stopPropagation();
     });
 
-    $("#InputHooks").select2({ placeholder: "Nothing selected" });
-    $("#InputDefaultLabels").select2({ placeholder: "Nothing selected" });
+    $("#InputHooks").select2({ placeholder: "{$NO_ITEM_SELECTED}" });
+    $("#InputDefaultLabels").select2({ placeholder: "{$NO_ITEM_SELECTED}" });
   });
 </script>
 

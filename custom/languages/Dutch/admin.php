@@ -491,6 +491,7 @@ $language = [
     'force_tfa' => 'Twee Factor authenticatie forceren voor groepsleden?',
     'force_tfa_warning' => 'Zorg ervoor dat u weet wat dit doet, anders riskeert u zichzelf en alle groepsleden buiten te sluiten.',
     'force_tfa_alert' => 'Uw groep vereist dat u de Two Factor Authenticatie ingeschakeld hebt.',
+    'no_item_selected' => 'Geen item geselecteerd.',
 
     // Permissies
     'select_all' => 'Selecteer Allemaal',
