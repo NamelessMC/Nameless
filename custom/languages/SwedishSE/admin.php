@@ -493,6 +493,7 @@ $language = [
     'resend_activation_email' => 'Skicka aktiverings-e-post igen',
     'email_resent_successfully' => 'E-postmeddelandet skickades igen.',
     'email_resend_failed' => 'Det gick inte att skicka e-post igen, kontrollera dina e-postinställningar.',
+    'no_item_selected' => 'No items selected',
 
     // Permissions
     'select_all' => 'Välj alla',

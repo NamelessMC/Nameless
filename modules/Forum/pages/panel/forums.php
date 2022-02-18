@@ -844,7 +844,8 @@ $smarty->assign([
     'FORUMS' => $forum_language->get('forum', 'forums'),
     'PAGE' => PANEL_PAGE,
     'TOKEN' => Token::get(),
-    'SUBMIT' => $language->get('general', 'submit')
+    'SUBMIT' => $language->get('general', 'submit'),
+    'NO_ITEM_SELECTED' => $language->get('admin', 'no_item_selected'),
 ]);
 
 $page_load = microtime(true) - $start;

@@ -492,6 +492,7 @@ $language = [
     'resend_activation_email' => 'Resend Activation Email',
     'email_resent_successfully' => 'Email resent successfully.',
     'email_resend_failed' => 'Email resend failed, please check your email settings.',
+    'no_item_selected' => 'No items selected',
 
     // Permissions
     'select_all' => 'Hepsini seç',

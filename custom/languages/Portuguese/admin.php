@@ -493,6 +493,7 @@ $language = [
     'resend_activation_email' => 'Reenviar Email de Ativação',
     'email_resent_successfully' => 'Email reenviado com sucesso.',
     'email_resend_failed' => 'O reenvio do email falhou, verifique as configurações do seu email.',
+    'no_item_selected' => 'No items selected',
 
     // Permissions
     'select_all' => 'Selecionar Todos',

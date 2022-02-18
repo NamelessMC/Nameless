@@ -486,6 +486,7 @@ $language = [
     'resend_activation_email' => 'Znova odoslať aktivačný email',
     'email_resent_successfully' => 'Email bol znova odoslaný.',
     'email_resend_failed' => 'Opätovné odoslanie emailu zlyhalo. Skontrolujte svoje nastavenia emailu.',
+    'no_item_selected' => 'No items selected',
 
     // Permissions
     'select_all' => 'Vybrať všetko',

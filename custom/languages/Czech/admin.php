@@ -482,6 +482,7 @@ $language = [
     'resend_activation_email' => 'Znovu odeslat aktivační e-mail',
     'email_resent_successfully' => 'E-mail byl úspěšně znovu odeslán.',
     'email_resend_failed' => 'Odeslání e-mailu se nezdařilo, zkontrolujte vaše nastavení e-mailů.',
+    'no_item_selected' => 'No items selected',
 
     // Users & groups
     'select_all' => 'Vybrat vše',
