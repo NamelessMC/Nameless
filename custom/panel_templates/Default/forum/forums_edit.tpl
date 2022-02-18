@@ -368,6 +368,9 @@
     }).children().click(function (e) {
       e.stopPropagation();
     });
+
+    $("#InputHooks").select2({ placeholder: "Nothing selected" });
+    $("#InputDefaultLabels").select2({ placeholder: "Nothing selected" });
   });
 </script>
 

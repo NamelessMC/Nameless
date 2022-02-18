@@ -139,6 +139,10 @@
   function showCancelModal() {
     $('#cancelModal').modal().show();
   }
+
+  $(document).ready(() => {
+      $("#InputHooks").select2({ placeholder: "Nothing selected" });
+  })
 </script>
 
 </body>
