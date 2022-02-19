@@ -60,9 +60,11 @@ class CreateReportEndpoint extends KeyAuthEndpoint {
             }
         }
 
+        $reported_user = new User($user_reported_id);
+
         // Create report
         try {
-            (new Report())->create($api->getLanguage(), $user_reporting, new User($user_reported_id), [
+            (new Report())->create($api->getLanguage(), $user_reporting, $reported_user, [
                 'type' => $user_reported_id ? 0 : 1, // TODO: report origin (#2440)
                 'reporter_id' => $user_reporting->id,
                 'reported_id' => $user_reported_id,
