@@ -64,6 +64,7 @@ class Core_Module extends Module {
         $pages->add('Core', '/user/oauth', 'pages/user/oauth.php');
         $pages->add('Core', '/user/placeholders', 'pages/user/placeholders.php');
         $pages->add('Core', '/user/acknowledge', 'pages/user/acknowledge.php');
+        $pages->add('Core', '/user/connections', 'pages/user/connections.php');
 
         // Panel
         $pages->add('Core', '/panel', 'pages/panel/index.php');
@@ -374,6 +375,10 @@ class Core_Module extends Module {
             $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'), $value);
             die();
         });
+        
+        // Minecraft Integration
+        require_once(ROOT_PATH . "/modules/{$this->getName()}/classes/Integrations/MinecraftIntegration.php");
+        Integrations::getInstance()->registerIntegration(new MinecraftIntegration($language));
     }
 
     public static function getDashboardGraphs(): array {

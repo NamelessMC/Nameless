@@ -70,6 +70,9 @@ class DeleteUserHook {
             
             // Oauth
             $queries->delete('oauth_users', ['user_id', '=', $params['user_id']]);
+            
+            // User Integrations
+            $queries->delete('users_integrations', ['user_id', '=', $params['user_id']]);
         }
     }
 }

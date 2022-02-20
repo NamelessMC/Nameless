@@ -22,6 +22,11 @@ class User {
      * @var array The user's groups.
      */
     private array $_groups = [];
+    
+    /**
+     * @var array The user's placeholders.
+     */
+    private array $_integrations;
 
     /**
      * @var array The user's placeholders.
@@ -624,12 +629,35 @@ class User {
     }
 
     /**
-     * Get the currently logged-in user's groups.
+     * Get the user's groups.
      *
      * @return array Their groups.
      */
     public function getGroups(): array {
         return $this->_groups;
+    }
+
+    /**
+     * Get the user's integrations.
+     *
+     * @return array Their integrations.
+     */
+    public function getConnectedIntegrations(): array {
+        return $this->_integrations ??= (function (): array {
+            $integrations = $this->_db->selectQuery('SELECT * FROM nl2_users_integrations WHERE user_id = ?;', [$this->_data->id]);
+            if ($integrations->count()) {
+                $integrations = $integrations->results();
+                
+                $integrations_list = [];
+                foreach ($integrations as $item) {
+                    $integrations_list[$item->integration_id] = $item;
+                }
+                
+                return $integrations_list;
+            }
+            
+            return [];
+        })();
     }
 
     /**

@@ -352,6 +352,15 @@ if (Input::exists()) {
 
                             $user = new User($user_id);
                             $user->addGroup($default_group, 0, [true]);
+                            
+                            // Minecraft Integration
+                            if ($minecraft == 1) {
+                                $integration = Integrations::getInstance()->getIntegration('Minecraft');
+                                if($integration != null) {
+                                    $integrationUser = new IntegrationUser($integration);
+                                    $integrationUser->linkIntegration($user, $uuid, $username, false);
+                                }
+                            }
 
                             if (Session::exists('oauth_register_data')) {
                                 $data = json_decode(Session::get('oauth_register_data'), true);
