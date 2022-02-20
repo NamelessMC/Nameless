@@ -33,53 +33,50 @@ class CreateReportEndpoint extends KeyAuthEndpoint {
 
         // Ensure user reporting has website account, and has not been banned
         $user_reporting = $api->getUser('id', Output::getClean($_POST['reporter']));
+        $user_reporting_data = $user_reporting->data();
 
-        if ($user_reporting->isbanned) {
+        if ($user_reporting_data->isbanned) {
             $api->throwError(21, $api->getLanguage()->get('api', 'you_have_been_banned_from_website'));
         }
 
         // See if reported user exists
-        $user_reported_id = $api->getDb()->get('users', ['id', '=', Output::getClean($_POST['reported'])]);
+        $user_reported_id = $api->getDb()->get('users', ['id', '=', (int)$_POST['reported']]);
         if (!$user_reported_id->count()) {
             $user_reported_id = 0;
         } else {
             $user_reported_id = $user_reported_id->first()->id;
         }
 
-        if ($user_reporting->id == $user_reported_id) {
+        $reported_user = new User($user_reported_id);
+
+        if ($user_reporting_data->id == $user_reported_id) {
             $api->throwError(26, $api->getLanguage()->get('api', 'cannot_report_yourself'));
         }
 
         // Ensure user has not already reported the same player, and the report is open
-        $user_reports = $api->getDb()->get('reports', ['reporter_id', '=', $user_reporting->id])->results();
-        if (count($user_reports)) {
-            foreach ($user_reports as $report) {
-                if ($report->status == 0 && (($report->reported_id != 0 && $report->reported_id == $user_reported_id) || $report->reported_uuid == Output::getClean($_POST['reported_uid']))) {
-                    $api->throwError(22, $api->getLanguage()->get('api', 'you_have_open_report_already'));
-                }
+        $user_reports = $api->getDb()->get('reports', ['reporter_id', '=', $user_reporting_data->id])->results();
+        foreach ($user_reports as $report) {
+            if ($report->status == 1) {
+                continue;
+            }
+            if ((
+                $report->reported_id != 0 && $report->reported_id == $user_reported_id)
+                || (isset($_POST['reported_uid']) && $report->reported_uuid == Output::getClean($_POST['reported_uid']))
+            ) {
+                $api->throwError(22, $api->getLanguage()->get('api', 'you_have_open_report_already'));
             }
         }
 
-        $reported_user = new User($user_reported_id);
+        Report::create($api->getLanguage(), $user_reporting, $reported_user, [
+            'type' => Report::ORIGIN_API,
+            'reporter_id' => $user_reporting_data->id,
+            'reported_id' => $user_reported_id,
+            'report_reason' => Output::getClean($_POST['content']),
+            'updated_by' => $user_reporting_data->id,
+            'reported_mcname' => $_POST['reported_username'] ? Output::getClean($_POST['reported_username']) : $reported_user->getDisplayName(),
+            'reported_uuid' => $_POST['reported_uid'] ? Output::getClean($_POST['reported_uid']) : $reported_user->data()->uuid,
+        ]);
 
-        // Create report
-        try {
-            (new Report())->create($api->getLanguage(), $user_reporting, $reported_user, [
-                'type' => $user_reported_id ? 0 : 1, // TODO: report origin (#2440)
-                'reporter_id' => $user_reporting->id,
-                'reported_id' => $user_reported_id,
-                'date_reported' => date('Y-m-d H:i:s'),
-                'date_updated' => date('Y-m-d H:i:s'),
-                'report_reason' => Output::getClean($_POST['content']),
-                'updated_by' => $user_reporting->id,
-                'reported' => date('U'),
-                'updated' => date('U'),
-                'reported_mcname' => $_POST['reported_username'] ? Output::getClean($_POST['reported_username']) : $reported_user->getDisplayName(),
-                'reported_uuid' => $_POST['reported_uid'] ? Output::getClean($_POST['reported_uid']) : null
-            ]);
-            $api->returnArray(['message' => $api->getLanguage()->get('api', 'report_created')], 201);
-        } catch (Exception $e) {
-            $api->throwError(23, $api->getLanguage()->get('api', 'unable_to_create_report'), $e->getMessage(), 500);
-        }
+        $api->returnArray(['message' => $api->getLanguage()->get('api', 'report_created')], 201);
     }
 }

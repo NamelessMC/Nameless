@@ -64,29 +64,17 @@ if (Token::check()) {
     ]);
 
     if ($validation->passed()) {
-        try {
-            // Create report
-            (new Report())->create($language, $user, new User($post->post_creator), [
-                'type' => 0,
-                'reporter_id' => $user->data()->id,
-                'reported_id' => $post->post_creator,
-                'date_reported' => date('Y-m-d H:i:s'),
-                'date_updated' => date('Y-m-d H:i:s'),
-                'reported' => date('U'),
-                'updated' => date('U'),
-                'report_reason' => Output::getClean($_POST['reason']),
-                'updated_by' => $user->data()->id,
-                'reported_post' => $post->id,
-                'link' => URL::build('/forum/topic/' . Output::getClean($_POST['topic']), 'pid=' . Output::getClean($_POST['post']))
-            ]);
-            Log::getInstance()->log(Log::Action('misc/report'), $post->post_creator);
-        } catch (Exception $e) {
-            // Exception creating report
-            Session::flash('failure_post', $e->getMessage());
-            Redirect::to(URL::build('/forum/topic/' . Output::getClean($_POST['topic'])));
-            die();
-        }
+        Report::create($language, $user, new User($post->post_creator), [
+            'type' => Report::ORIGIN_WEBSITE,
+            'reporter_id' => $user->data()->id,
+            'reported_id' => $post->post_creator,
+            'report_reason' => Output::getClean($_POST['reason']),
+            'updated_by' => $user->data()->id,
+            'reported_post' => $post->id,
+            'link' => URL::build('/forum/topic/' . Output::getClean($_POST['topic']), 'pid=' . Output::getClean($_POST['post']))
+        ]);
 
+        Log::getInstance()->log(Log::Action('misc/report'), $post->post_creator);
         Session::flash('success_post', $language->get('user', 'report_created'));
     } else {
         // Invalid report content

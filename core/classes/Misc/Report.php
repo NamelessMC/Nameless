@@ -9,11 +9,8 @@
  */
 class Report {
 
-    private DB $_db;
-
-    public function __construct() {
-        $this->_db = DB::getInstance();
-    }
+    public const ORIGIN_WEBSITE = 0;
+    public const ORIGIN_API = 1;
 
     /**
      * Create a report.
@@ -23,13 +20,17 @@ class Report {
      * @param User $reported_user User being reported.
      * @param array $data Array containing report data.
      */
-    public function create(Language $language, User $user_reporting, User $reported_user, array $data): void {
-        // Insert into database
-        if (!$this->_db->insert('reports', $data)) {
-            throw new RuntimeException('There was a problem creating the report.');
-        }
+    public static function create(Language $language, User $user_reporting, User $reported_user, array $data): void {
+        $db = DB::getInstance();
 
-        $id = $this->_db->lastId();
+        $db->insert('reports', array_merge($data, [
+            'date_reported' => date('Y-m-d H:i:s'),
+            'date_updated' => date('Y-m-d H:i:s'),
+            'reported' => date('U'),
+            'updated' => date('U'),
+        ]));
+
+        $id = $db->lastId();
 
         // Alert moderators
         $moderator_groups = DB::getInstance()->selectQuery('SELECT id FROM nl2_groups WHERE permissions LIKE \'%"modcp.reports":1%\'')->results();
@@ -56,7 +57,7 @@ class Report {
             'username' => $data['reported_mcname'],
             'content' => str_replace('{x}', $user_reporting->username, $language->get('general', 'reported_by')),
             'content_full' => $data['report_reason'],
-            'avatar_url' => $data['reported_id'] ? $reported_user->getAvatar() : Util::getAvatarFromUUID($data['reported_uuid']),
+            'avatar_url' => $data['reported_id'] == 0 ? null : ($data['reported_uuid'] !== null ? Util::getAvatarFromUUID($data['reported_uuid']) : $reported_user->getAvatar()),
             'title' => $language->get('general', 'view_report'),
             'url' => rtrim(Util::getSelfURL(), '/') . URL::build('/panel/users/reports/', 'id=' . $id)
         ]);
