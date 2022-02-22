@@ -282,7 +282,7 @@ if (!isset($_GET['view'])) {
         $group_sync_values = [];
         foreach ($queries->getWhere('group_sync', ['id', '<>', 0]) as $rule) {
             $rule_values = [];
-            foreach (get_class_vars($rule) as $column => $value) {
+            foreach (get_object_vars($rule) as $column => $value) {
                 $rule_values[$column] = $value;
             }
             $group_sync_values[] = $rule_values;
