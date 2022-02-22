@@ -27,9 +27,15 @@ class MinecraftIntegration extends IntegrationBase {
         $queries = new Queries();
         $username = $user->data()->username;
         
+        // Ensure username doesn't already exist
+        $integrationUser = new IntegrationUser($this, $username, 'username');
+        if ($integrationUser->exists()) {
+            Session::flash('connections_error', $this->_language->get('user', 'username_mcname_email_exists'));
+            return;
+        }
+        
         $uuid_linking = $queries->getWhere('settings', ['name', '=', 'uuid_linking']);
         $uuid_linking = $uuid_linking[0]->value;
-        
         if ($uuid_linking == 1) {
             // Perform validation on Minecraft name
             $profile = ProfileUtils::getProfile(str_replace(' ', '%20', $username));
@@ -40,21 +46,10 @@ class MinecraftIntegration extends IntegrationBase {
                 // Valid
                 $uuid = Output::getClean($mcname_result['uuid']);
 
-                // Ensure UUID is unique
-                $uuid_query = $queries->getWhere('users', ['uuid', '=', $uuid]);
-                if (count($uuid_query)) {
-                    $uuid_error = $this->_language->get('user', 'uuid_already_exists');
-                }
-                
+                // Ensure identifier doesn't already exist
                 $integrationUser = new IntegrationUser($this, $uuid, 'identifier');
-                if($integrationUser->exists()) {
+                if ($integrationUser->exists()) {
                     Session::flash('connections_error', $this->_language->get('user', 'uuid_already_exists'));
-                    return;
-                }
-                
-                $integrationUser = new IntegrationUser($this, $username, 'username');
-                if($integrationUser->exists()) {
-                    Session::flash('connections_error', $this->_language->get('user', 'username_mcname_email_exists'));
                     return;
                 }
 
@@ -65,12 +60,6 @@ class MinecraftIntegration extends IntegrationBase {
             }
         } else {
             $uuid = '';
-            
-            $integrationUser = new IntegrationUser($this, $username, 'username');
-            if($integrationUser->exists()) {
-                Session::flash('connections_error', $this->_language->get('user', 'username_mcname_email_exists'));
-                return;
-            }
         }
         
         $code = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 10);

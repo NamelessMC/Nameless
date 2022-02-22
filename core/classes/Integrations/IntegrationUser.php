@@ -69,7 +69,7 @@ class IntegrationUser {
      * @throws Exception
      */
     public function update(array $fields = []): void {
-        if (!$this->_db->update('users_integrations', $id, $fields)) {
+        if (!$this->_db->update('users_integrations', $this->data()->id, $fields)) {
             throw new RuntimeException('There was a problem updating integration user.');
         }
     }
@@ -82,8 +82,6 @@ class IntegrationUser {
      * @param string $username The username of the integration account
      * @param bool $verified Verified the ownership of the integration account
      * @param string|null $code (optional) The verification code to verify the ownership
-     *
-     * @return bool
      */
     public function linkIntegration(User $user, string $identifier, string $username, bool $verified = false, string $code = null): void {
         $this->_db->createQuery(
@@ -101,8 +99,6 @@ class IntegrationUser {
 
     /**
      * Delete integration user data.
-     *
-     * @return bool
      */
     public function unlinkIntegration(): void {
         $this->_db->createQuery(

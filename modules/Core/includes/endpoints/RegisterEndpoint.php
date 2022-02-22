@@ -53,8 +53,17 @@ class RegisterEndpoint extends KeyAuthEndpoint {
         }
 
         if ($minecraft_integration) {
-            $uuid = $api->getDb()->get('users', ['uuid', '=', Output::getClean($_POST['uuid'])]);
-            if (count($uuid->results())) {
+            $integration = Integrations::getInstance()->getIntegration('Minecraft');
+
+            // Ensure username doesn't already exist
+            $integrationUser = new IntegrationUser($integration, $_POST['username'], 'username');
+            if ($integrationUser->exists()) {
+                $api->throwError(11, $api->getLanguage()->get('api', 'username_already_exists'));
+            }
+
+            // Ensure identifier doesn't already exist
+            $integrationUser = new IntegrationUser($integration, $_POST['uuid'], 'identifier');
+            if ($integrationUser->exists()) {
                 $api->throwError(12, $api->getLanguage()->get('api', 'uuid_already_exists'));
             }
         }
@@ -147,6 +156,13 @@ class RegisterEndpoint extends KeyAuthEndpoint {
 
             $user = new User($user_id);
             $user->setGroup($default_group);
+
+            // Minecraft Integration
+            if ($uuid != 'none') {
+                $integration = Integrations::getInstance()->getIntegration('Minecraft');
+                $integrationUser = new IntegrationUser($integration);
+                $integrationUser->linkIntegration($user, $uuid, Output::getClean($username), true);
+            }
 
             EventHandler::executeEvent('registerUser', [
                     'user_id' => $user_id,

@@ -228,25 +228,35 @@ if (Input::exists()) {
             $validation = $validate->check($_POST, $to_validation); // Execute validation
 
             if ($validation->passed()) {
-                if (MINECRAFT && $uuid_linking == 1) {
-                    // Perform validation on Minecraft name
-                    $profile = ProfileUtils::getProfile(str_replace(' ', '%20', $username));
+                if (MINECRAFT) {
+                    $integration = Integrations::getInstance()->getIntegration('Minecraft');
 
-                    $mcname_result = $profile ? $profile->getProfileAsArray() : [];
+                    // Ensure username doesn't already exist
+                    $integrationUser = new IntegrationUser($integration, $username, 'username');
+                    if ($integrationUser->exists()) {
+                        $uuid_error = $language->get('user', 'mcname_already_exists');
+                    }
 
-                    if (isset($mcname_result['username'], $mcname_result['uuid']) && !empty($mcname_result['username']) && !empty($mcname_result['uuid'])) {
-                        // Valid
-                        $uuid = Output::getClean($mcname_result['uuid']);
+                    if ($uuid_linking == 1) {
+                        // Perform validation on Minecraft name
+                        $profile = ProfileUtils::getProfile(str_replace(' ', '%20', $username));
 
-                        // Ensure UUID is unique
-                        $uuid_query = $queries->getWhere('users', ['uuid', '=', $uuid]);
-                        if (count($uuid_query)) {
-                            $uuid_error = $language->get('user', 'uuid_already_exists');
+                        $mcname_result = $profile ? $profile->getProfileAsArray() : [];
+
+                        if (isset($mcname_result['username'], $mcname_result['uuid']) && !empty($mcname_result['username']) && !empty($mcname_result['uuid'])) {
+                            // Valid
+                            $uuid = Output::getClean($mcname_result['uuid']);
+
+                            // Ensure identifier doesn't already exist
+                            $integrationUser = new IntegrationUser($integration, $uuid, 'identifier');
+                            if ($integrationUser->exists()) {
+                                $uuid_error = $language->get('user', 'uuid_already_exists');
+                            }
+
+                        } else {
+                            // Invalid
+                            $invalid_mcname = true;
                         }
-
-                    } else {
-                        // Invalid
-                        $invalid_mcname = true;
                     }
                 }
 
@@ -356,9 +366,9 @@ if (Input::exists()) {
                             // Minecraft Integration
                             if ($minecraft == 1) {
                                 $integration = Integrations::getInstance()->getIntegration('Minecraft');
-                                if($integration != null) {
+                                if ($integration != null) {
                                     $integrationUser = new IntegrationUser($integration);
-                                    $integrationUser->linkIntegration($user, $uuid, $username, false);
+                                    $integrationUser->linkIntegration($user, $uuid, $username, false, $code);
                                 }
                             }
 

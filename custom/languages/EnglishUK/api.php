@@ -41,6 +41,7 @@ $language = [
     'invalid_server_id' => 'Invalid server ID',
     'invalid_code' => 'Invalid code provided',
     'user_already_active' => 'Your account has already been activated.',
+    'invalid_integration' => 'Invalid integration',
 
     // Success messages
     'finish_registration_link' => 'Please click on the following link to complete registration:',
