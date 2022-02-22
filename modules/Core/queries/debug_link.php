@@ -140,6 +140,7 @@ foreach ($queries->getWhere('groups', ['id', '<>', 0]) as $group) {
     ];
 }
 
+$namelessmc_version = trim(Util::getSetting(DB::getInstance(), 'nameless_version'));
 
 $data = [
     'debug_version' => 1,
@@ -147,7 +148,7 @@ $data = [
     'generated_by_name' => $user->data()->username,
     'generated_by_uuid' => $user->data()->uuid ?? '',
     'namelessmc' => [
-        'version' => Util::getSetting(DB::getInstance(), 'nameless_version'),
+        'version' => $namelessmc_version,
         'update_available' => Util::getSetting(DB::getInstance(), 'version_update') != 'false',
         'update_checked' => (int)Util::getSetting(DB::getInstance(), 'version_checked'),
         'settings' => [
@@ -198,6 +199,11 @@ $data = [
     ],
 ];
 
-$result = HttpClient::post('https://bytebin.rkslot.nl/post', json_encode($data, JSON_PRETTY_PRINT))->json(true);
+$result = HttpClient::post('https://bytebin.rkslot.nl/post', json_encode($data, JSON_PRETTY_PRINT), [
+    'headers' => [
+        'Content-Type' => 'application/json',
+        'User-Agent' => 'NamelessMC/' . $namelessmc_version,
+    ],
+])->json(true);
 
 die('https://debug.namelessmc.com/' . $result['key']);
