@@ -18,7 +18,7 @@ if (!$user->isLoggedIn()) {
 $wid = explode('/', $route);
 $wid = $wid[count($wid) - 1];
 
-if (!isset($wid[count($wid) - 1]) || !is_numeric($wid)) {
+if (!is_numeric($wid)) {
     Redirect::to(URL::build('/'));
     die();
 }
