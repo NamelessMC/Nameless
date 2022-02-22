@@ -158,7 +158,7 @@ $data = [
             'api_verification' => (bool)Util::getSetting(DB::getInstance(), 'api_verification'),
             'login_method' => Util::getSetting(DB::getInstance(), 'login_method'),
             'captcha_type' => Util::getSetting(DB::getInstance(), 'recaptcha_type'),
-            'captcha_login' => (bool)Util::getSetting(DB::getInstance(), 'recaptcha_login'),
+            'captcha_login' => Util::getSetting(DB::getInstance(), 'recaptcha_login') === 'false' ? false : true, // dont ask
             'group_sync' => $group_sync,
             'webhooks' => [
                 'actions' => [
