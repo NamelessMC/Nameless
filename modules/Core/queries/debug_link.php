@@ -159,7 +159,6 @@ $data = [
             'login_method' => Util::getSetting(DB::getInstance(), 'login_method'),
             'captcha_type' => Util::getSetting(DB::getInstance(), 'recaptcha_type'),
             'captcha_login' => (bool)Util::getSetting(DB::getInstance(), 'recaptcha_login'),
-            'captcha_contact' => (bool)Util::getSetting(DB::getInstance(), 'recaptcha'),
             'group_sync' => $group_sync,
             'webhooks' => [
                 'actions' => [
