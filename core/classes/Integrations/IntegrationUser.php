@@ -81,12 +81,12 @@ class IntegrationUser {
      * Save a new user linked to a specific integration.
      *
      * @param User $user The user to link
-     * @param string $identifier The id of the integration account
-     * @param string $username The username of the integration account
+     * @param string|null $identifier The id of the integration account
+     * @param string|null $username The username of the integration account
      * @param bool $verified Verified the ownership of the integration account
      * @param string|null $code (optional) The verification code to verify the ownership
      */
-    public function linkIntegration(User $user, string $identifier, string $username, bool $verified = false, string $code = null): void {
+    public function linkIntegration(User $user, ?string $identifier, ?string $username, bool $verified = false, string $code = null): void {
         $this->_db->createQuery(
             'INSERT INTO nl2_users_integrations (user_id, integration_id, identifier, username, verified, date, code) VALUES (?, ?, ?, ?, ?, ?, ?)', [
                 $user->data()->id,

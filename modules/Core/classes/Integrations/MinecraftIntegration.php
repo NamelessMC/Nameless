@@ -99,4 +99,7 @@ class MinecraftIntegration extends IntegrationBase {
         
         Session::flash('connections_success', str_replace('{x}', Output::getClean($this->_name), $this->_language->get('user', 'integration_unlinked')));
     }
+
+    public function onSuccessfulVerification(IntegrationUser $integrationUser) {
+    }
 }

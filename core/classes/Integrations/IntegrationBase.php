@@ -69,4 +69,5 @@ abstract class IntegrationBase {
     abstract public function onLinkRequest(User $user);
     abstract public function onVerifyRequest(User $user);
     abstract public function onUnlinkRequest(User $user);
+    abstract public function onSuccessfulVerification(IntegrationUser $integrationUser);
 }

@@ -649,7 +649,7 @@ class User {
             $integrations_query = $this->_db->selectQuery('SELECT nl2_users_integrations.*, nl2_integrations.name as integration_name FROM nl2_users_integrations LEFT JOIN nl2_integrations ON integration_id=nl2_integrations.id WHERE user_id = ?;', [$this->_data->id]);
             if ($integrations_query->count()) {
                 $integrations_query = $integrations_query->results();
-                
+
                 $integrations_list = [];
                 foreach ($integrations_query as $item) {
                     $integration = $integrations->getIntegration($item->integration_name);
@@ -668,17 +668,15 @@ class User {
     }
     
     /**
-     * Get the user's integrations.
+     * Get the user's integration.
      *
      * @param string $integrationName Integration name 
      *
      * @return IntegrationUser|null Their integration user  if connected otherwise null.
      */
     public function getIntegration(string $integrationName): ?IntegrationUser {
-        foreach ($this->getIntegrations() as $integrationUser) {
-            if (array_key_exists($integrationName, $this->getIntegrations())) {
-                return $integrationUser;
-            }
+        if (array_key_exists($integrationName, $this->getIntegrations())) {
+            return $this->getIntegrations()[$integrationName];
         }
         
         return null;
