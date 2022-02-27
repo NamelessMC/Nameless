@@ -109,7 +109,13 @@ if (Input::exists()) {
                     $nickname = $_SESSION['authme']['user'];
                 }
 
-                $mcname = $_SESSION['authme']['user'];
+                $mcname = Output::getClean($_SESSION['authme']['user']);
+                
+                // Ensure username doesn't already exist
+                $integrationUser = new IntegrationUser($integration, $mcname, 'username');
+                if ($integrationUser->exists()) {
+                    $errors[] = $language->get('user', 'mcname_already_exists');
+                }
 
                 // UUID
                 if ($uuid_linking == '1') {
@@ -122,6 +128,12 @@ if (Input::exists()) {
                     }
                     if (isset($mcname_result['uuid']) && !empty($mcname_result['uuid'])) {
                         $uuid = $mcname_result['uuid'];
+                        
+                        // Ensure identifier doesn't already exist
+                        $integrationUser = new IntegrationUser($integration, $uuid, 'identifier');
+                        if ($integrationUser->exists()) {
+                            $errors[] = $language->get('user', 'uuid_already_exists');
+                        }
                     } else {
                         $errors[] = $language->get('user', 'mcname_lookup_error');
                         $uuid = 'none';
@@ -130,49 +142,58 @@ if (Input::exists()) {
                     $uuid = 'none';
                 }
 
-                try {
-                    // Get default group ID
-                    $cache->setCache('default_group');
-                    if ($cache->isCached('default_group')) {
-                        $default_group = $cache->retrieve('default_group');
-                    } else {
-                        $default_group = $queries->getWhere('groups', ['default_group', '=', 1]);
-                        if (!count($default_group)) {
-                            $default_group = 1;
+                if (count($errors)) {
+                    try {
+                        // Get default group ID
+                        $cache->setCache('default_group');
+                        if ($cache->isCached('default_group')) {
+                            $default_group = $cache->retrieve('default_group');
                         } else {
-                            $default_group = $default_group[0]->id;
+                            $default_group = $queries->getWhere('groups', ['default_group', '=', 1]);
+                            if (!count($default_group)) {
+                                $default_group = 1;
+                            } else {
+                                $default_group = $default_group[0]->id;
+                            }
+
+                            $cache->store('default_group', $default_group);
                         }
 
-                        $cache->store('default_group', $default_group);
+                        $user->create([
+                            'username' => $mcname,
+                            'nickname' => $nickname,
+                            'password' => $_SESSION['authme']['pass'],
+                            'pass_method' => $authme_hash['hash'],
+                            'uuid' => $uuid,
+                            'joined' => date('U'),
+                            'email' => Output::getClean(Input::get('email')),
+                            'lastip' => $ip,
+                            'active' => 1,
+                            'last_online' => date('U')
+                        ]);
+
+                        // Get user ID
+                        $user_id = $queries->getLastId();
+
+                        $user = new User($user_id);
+                        $user->addGroup($default_group);
+                        
+                        // Link the minecraft integration
+                        $integration = Integrations::getInstance()->getIntegration('Minecraft');
+                        if ($integration != null) {
+                            $integrationUser = new IntegrationUser($integration);
+                            $integrationUser->linkIntegration($user, $uuid, $username, true);
+                        }
+
+                        unset($_SESSION['authme']);
+
+                        Session::flash('home', $language->get('user', 'validation_complete'));
+                        Redirect::to(URL::build('/'));
+                        die();
+
+                    } catch (Exception $e) {
+                        $errors[] = $e->getMessage();
                     }
-
-                    $user->create([
-                        'username' => $_SESSION['authme']['user'],
-                        'nickname' => $nickname,
-                        'password' => $_SESSION['authme']['pass'],
-                        'pass_method' => $authme_hash['hash'],
-                        'uuid' => $uuid,
-                        'joined' => date('U'),
-                        'email' => Output::getClean(Input::get('email')),
-                        'lastip' => $ip,
-                        'active' => 1,
-                        'last_online' => date('U')
-                    ]);
-
-                    // Get user ID
-                    $user_id = $queries->getLastId();
-
-                    $user = new User($user_id);
-                    $user->addGroup($default_group);
-
-                    unset($_SESSION['authme']);
-
-                    Session::flash('home', $language->get('user', 'validation_complete'));
-                    Redirect::to(URL::build('/'));
-                    die();
-
-                } catch (Exception $e) {
-                    $errors[] = $e->getMessage();
                 }
 
             } else {

@@ -234,10 +234,10 @@ if (Input::exists()) {
                     // Ensure username doesn't already exist
                     $integrationUser = new IntegrationUser($integration, $username, 'username');
                     if ($integrationUser->exists()) {
-                        $uuid_error = $language->get('user', 'mcname_already_exists');
+                        $integration_error = str_replace('{x}', $integration->getName(), $language->get('user', 'integration_username_already_linked'));
                     }
 
-                    if ($uuid_linking == 1) {
+                    if ($uuid_linking == 1 && !isset($integration_error)) {
                         // Perform validation on Minecraft name
                         $profile = ProfileUtils::getProfile(str_replace(' ', '%20', $username));
 
@@ -250,7 +250,7 @@ if (Input::exists()) {
                             // Ensure identifier doesn't already exist
                             $integrationUser = new IntegrationUser($integration, $uuid, 'identifier');
                             if ($integrationUser->exists()) {
-                                $uuid_error = $language->get('user', 'uuid_already_exists');
+                                $integration_error = str_replace('{x}', $integration->getName(), $language->get('user', 'integration_identifier_already_linked'));
                             }
 
                         } else {
@@ -266,7 +266,7 @@ if (Input::exists()) {
                         $uuid = '';
                     }
 
-                    if (!isset($uuid_error)) {
+                    if (!isset($integration_error)) {
                         // Minecraft user account association
                         if (isset($account_verification) && $account_verification == '1') {
                             // MCAssoc enabled
@@ -362,7 +362,7 @@ if (Input::exists()) {
 
                             $user = new User($user_id);
                             $user->addGroup($default_group, 0, [true]);
-                            
+
                             // Minecraft Integration
                             if ($minecraft == 1) {
                                 $integration = Integrations::getInstance()->getIntegration('Minecraft');
@@ -439,7 +439,7 @@ if (Input::exists()) {
                         die();
                     }
 
-                    $errors = [$uuid_error];
+                    $errors = [$integration_error];
 
                 } else {
                     // Invalid Minecraft name

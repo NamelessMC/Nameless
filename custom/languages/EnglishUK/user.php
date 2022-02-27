@@ -248,7 +248,10 @@ $language = [
     'oauth_link_confirm' => 'You will be taken to the {x} website to link your account.', // Don't replace {x}
     'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {x}.<br>You will not be able to login with this account anymore.', // Don't replace {x
     
-    // Connections
-    'connection_linked' => 'Successfully linked your {x} account.', // Don't replace {x}
-    'connection_unlinked' => 'Successfully unlinked your {x} account.', // Don't replace {x}
+    // Integrations
+    'integration_linked' => 'Successfully linked your {x} account.', // Don't replace {x}
+    'integration_unlinked' => 'Successfully unlinked your {x} account.', // Don't replace {x}
+    'integration_verify_unconfigurated' => 'Administration has not configurated a way to verify your {x} account.', // Don't replace {x}
+    'integration_identifier_already_linked' => '{x} identifier is already linked to another user.',
+    'integration_username_already_linked' => '{x} username is already linked to another user.',
 ];

@@ -26,16 +26,29 @@ if (Input::exists()) {
             // Link Integration
             $integration = Integrations::getInstance()->getIntegration(Input::get('integration'));
             if ($integration != null) {
-                $integration->onLink($user);
+                $integration->onLinkRequest($user);
             }
 
+            Redirect::to(URL::build('/user/connections'));
+            die();
         } else if (Input::get('action') === 'unlink') {
             // Unlink Integration
             $integration = Integrations::getInstance()->getIntegration(Input::get('integration'));
             if ($integration != null) {
-                $integration->onUnlink($user);
+                $integration->onUnlinkRequest($user);
             }
 
+            Redirect::to(URL::build('/user/connections'));
+            die();
+        } else if (Input::get('action') === 'verify') {
+            // Verify Integration
+            $integration = Integrations::getInstance()->getIntegration(Input::get('integration'));
+            if ($integration != null) {
+                $integration->onVerifyRequest($user);
+            }
+
+            Redirect::to(URL::build('/user/connections'));
+            die();
         }
     } else {
         // Invalid token
@@ -43,18 +56,18 @@ if (Input::exists()) {
     }
 }
 
-$connected_integrations = $user->getConnectedIntegrations();
 $integrations_list = [];
 foreach (Integrations::getInstance()->getAll() as $integration) {
     $connected = false;
     $username = null;
     $verified = null;
-    if (array_key_exists($integration->data()->id, $connected_integrations)) {
-        $integration_data = $connected_integrations[$integration->data()->id];
-        
+
+    // Check if user is linked to this integration
+    $integrationUser = $user->getIntegration($integration->getName());
+    if ($integrationUser != null) {
         $connected = true;
-        $username = Output::getClean($integration_data->username);
-        $verified = Output::getClean($integration_data->verified);
+        $username = Output::getClean($integrationUser->data()->username);
+        $verified = Output::getClean($integrationUser->isVerified());
     }
     
     $integrations_list[] = [

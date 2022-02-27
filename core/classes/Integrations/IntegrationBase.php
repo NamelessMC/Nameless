@@ -66,6 +66,7 @@ abstract class IntegrationBase {
         return $this->_data;
     }
 
-    abstract public function onLink(User $user);
-    abstract public function onUnlink(User $user);
+    abstract public function onLinkRequest(User $user);
+    abstract public function onVerifyRequest(User $user);
+    abstract public function onUnlinkRequest(User $user);
 }

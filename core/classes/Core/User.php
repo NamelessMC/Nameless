@@ -24,7 +24,7 @@ class User {
     private array $_groups = [];
     
     /**
-     * @var array The user's placeholders.
+     * @var array The user's integrations.
      */
     private array $_integrations;
 
@@ -642,15 +642,22 @@ class User {
      *
      * @return array Their integrations.
      */
-    public function getConnectedIntegrations(): array {
+    public function getIntegrations(): array {
         return $this->_integrations ??= (function (): array {
-            $integrations = $this->_db->selectQuery('SELECT * FROM nl2_users_integrations WHERE user_id = ?;', [$this->_data->id]);
-            if ($integrations->count()) {
-                $integrations = $integrations->results();
+            $integrations = Integrations::getInstance();
+            
+            $integrations_query = $this->_db->selectQuery('SELECT nl2_users_integrations.*, nl2_integrations.name as integration_name FROM nl2_users_integrations LEFT JOIN nl2_integrations ON integration_id=nl2_integrations.id WHERE user_id = ?;', [$this->_data->id]);
+            if ($integrations_query->count()) {
+                $integrations_query = $integrations_query->results();
                 
                 $integrations_list = [];
-                foreach ($integrations as $item) {
-                    $integrations_list[$item->integration_id] = $item;
+                foreach ($integrations_query as $item) {
+                    $integration = $integrations->getIntegration($item->integration_name);
+                    if ($integration != null) {
+                        $integrationUser = new IntegrationUser($integration, $this->_data->id, 'user_id');
+                        
+                        $integrations_list[$item->integration_name] = $integrationUser;
+                    }
                 }
                 
                 return $integrations_list;
@@ -658,6 +665,23 @@ class User {
             
             return [];
         })();
+    }
+    
+    /**
+     * Get the user's integrations.
+     *
+     * @param string $integrationName Integration name 
+     *
+     * @return IntegrationUser|null Their integration user  if connected otherwise null.
+     */
+    public function getIntegration(string $integrationName): ?IntegrationUser {
+        foreach ($this->getIntegrations() as $integrationUser) {
+            if (array_key_exists($integrationName, $this->getIntegrations())) {
+                return $integrationUser;
+            }
+        }
+        
+        return null;
     }
 
     /**

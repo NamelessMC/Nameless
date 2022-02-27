@@ -21,19 +21,19 @@ class MinecraftIntegration extends IntegrationBase {
         parent::__construct();
     }
 
-    public function onLink(User $user) {
+    public function onLinkRequest(User $user) {
         require(ROOT_PATH . '/core/integration/uuid.php'); // For UUID stuff
-        
+
         $queries = new Queries();
         $username = $user->data()->username;
-        
+
         // Ensure username doesn't already exist
         $integrationUser = new IntegrationUser($this, $username, 'username');
         if ($integrationUser->exists()) {
-            Session::flash('connections_error', $this->_language->get('user', 'username_mcname_email_exists'));
+            Session::flash('connections_error', str_replace('{x}', $this->getName(), $this->_language->get('user', 'integration_username_already_linked')));
             return;
         }
-        
+
         $uuid_linking = $queries->getWhere('settings', ['name', '=', 'uuid_linking']);
         $uuid_linking = $uuid_linking[0]->value;
         if ($uuid_linking == 1) {
@@ -49,7 +49,7 @@ class MinecraftIntegration extends IntegrationBase {
                 // Ensure identifier doesn't already exist
                 $integrationUser = new IntegrationUser($this, $uuid, 'identifier');
                 if ($integrationUser->exists()) {
-                    Session::flash('connections_error', $this->_language->get('user', 'uuid_already_exists'));
+                    Session::flash('connections_error', str_replace('{x}', $this->getName(), $this->_language->get('user', 'integration_identifier_already_linked')));
                     return;
                 }
 
@@ -61,25 +61,42 @@ class MinecraftIntegration extends IntegrationBase {
         } else {
             $uuid = '';
         }
-        
+
         $code = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 10);
-        
+
         $integrationUser = new IntegrationUser($this);
         $integrationUser->linkIntegration($user, $uuid, $username, false, $code);
+
+        // API verification
+        $api_verification = $queries->getWhere('settings', ['name', '=', 'api_verification']);
+        $api_verification = $api_verification[0]->value;
+
+        if ($api_verification == '1') {
+            Session::flash('connections_success', str_replace('{x}', Output::getClean($code), $this->_language->get('user', 'validate_account_command')));
+        } else {
+            Session::flash('connections_success', str_replace('{x}', Output::getClean($this->getName()), $this->_language->get('user', 'integration_linked')));
+        }
+    }
+
+    public function onVerifyRequest(User $user) {
+        $queries = new Queries();
+        $integrationUser = new IntegrationUser($this, $user->data()->id, 'user_id');
         
         // API verification
         $api_verification = $queries->getWhere('settings', ['name', '=', 'api_verification']);
         $api_verification = $api_verification[0]->value;
         
         if ($api_verification == '1') {
-            Session::flash('connections_success', str_replace('{x}', Output::getClean($code), $this->_language->get('user', 'validate_account_command')));
+            Session::flash('connections_success', str_replace('{x}', Output::getClean($integrationUser->data()->code), $this->_language->get('user', 'validate_account_command')));
+        } else {
+            Session::flash('connections_error', str_replace('{x}', Output::getClean($this->_name), $this->_language->get('user', 'integration_verify_unconfigurated')));
         }
     }
 
-    public function onUnlink(User $user) {
+    public function onUnlinkRequest(User $user) {
         $integrationUser = new IntegrationUser($this, $user->data()->id, 'user_id');
         $integrationUser->unlinkIntegration();
         
-        Session::flash('connections_success', str_replace('{x}', Output::getClean($this->_name), $this->_language->get('user', 'connection_unlinked')));
+        Session::flash('connections_success', str_replace('{x}', Output::getClean($this->_name), $this->_language->get('user', 'integration_unlinked')));
     }
 }

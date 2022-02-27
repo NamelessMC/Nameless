@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr13
  *
  *  License: MIT
  *
@@ -114,6 +114,10 @@ if (!isset($_GET['step'])) {
                 // VALIDATED_DEFAULT
                 // PRE_VALIDATED_DEFAULT
                 $new_user->setGroup(1);
+
+                $integration = Integrations::getInstance()->getIntegration('Minecraft');
+                $integrationUser = new IntegrationUser($integration);
+                $integrationUser->linkIntegration($new_user, $uuid, $username, true);
 
                 unset($_SESSION['mcassoc']);
 

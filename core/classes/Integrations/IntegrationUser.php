@@ -12,6 +12,7 @@ class IntegrationUser {
 
     private DB $_db;
     private $_data;
+    private User $_user;
     private IntegrationBase $_integration;
 
     public function __construct(IntegrationBase $integration, string $value = null, string $field = 'id') {
@@ -32,7 +33,9 @@ class IntegrationUser {
      * @return User NamelessMC User that belong to this integration user
      */
     public function getUser(): User {
-        return new User($this->data()->user_id);
+        return $this->_user ??= (function (): User {
+            return new User($this->data()->user_id);
+        })();
     }
 
     /**
