@@ -69,24 +69,18 @@ require(__DIR__ . '/includes/header.php');
                                 </a>
                             </div>
                         </div>
-                    <?php } else {
-                        if (isset($error)) { ?>
-                            <div class="ui red message">
-                                <?php echo $error; ?>
-                            </div>
-                            <?php
+                    <?php } else if (isset($error)) { ?>
+                        <div class="ui red message">
+                            <?php echo $error; ?>
+                        </div>
+                    <?php } else if (!isset($_SESSION['action'])) { ?>
+                        <div class="ui red message">
+                            <?php echo $language['session_doesnt_exist']; ?>
+                        </div>
+                    <?php
                         } else {
-                            if (!isset($_SESSION['action'])) {
-                                ?>
-                                <div class="ui red message">
-                                    <?php echo $language['session_doesnt_exist']; ?>
-                                </div>
-                                <?php
-                            } else {
-                                require(__DIR__ . '/steps/' . $step . '.php');
-                            }
+                            require(__DIR__ . '/steps/' . $step . '.php');
                         }
-                    }
                     ?>
                 </div>
             </div>
