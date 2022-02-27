@@ -43,22 +43,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         foreach ($validation->errors() as $item) {
             if (strpos($item, 'is required') !== false) {
                 $error = $language['input_required'];
-            } else {
-                if (strpos($item, 'minimum') !== false) {
-                    $error = $language['input_minimum'];
-                } else {
-                    if (strpos($item, 'maximum') !== false) {
-                        $error = $language['input_maximum'];
-                    } else {
-                        if (strpos($item, 'must match') !== false) {
-                            $error = $language['passwords_must_match'];
-                        } else {
-                            if (strpos($item, 'not a valid email') !== false) {
-                                $error = $language['email_invalid'];
-                            }
-                        }
-                    }
-                }
+            } else if (strpos($item, 'minimum') !== false) {
+                $error = $language['input_minimum'];
+            } else if (strpos($item, 'maximum') !== false) {
+                $error = $language['input_maximum'];
+            } else if (strpos($item, 'must match') !== false) {
+                $error = $language['passwords_must_match'];
+            } else if (strpos($item, 'not a valid email') !== false) {
+                $error = $language['email_invalid'];
             }
         }
 
