@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr12
+ *  NamelessMC version 2.0.0-pr13
  *
  *  License: MIT
  *
@@ -634,15 +634,13 @@ foreach ($results->data as $n => $nValue) {
     // Profile fields
     $fields = $post_creator->getProfileFields($post_creator->data()->id, true, true);
 
-    // TODO: Add setting to hide/show this
-    if (Util::isModuleEnabled('Discord Integration') && Discord::isBotSetup()) {
-        if ($post_creator->data()->discord_username != null) {
-            $fields[] = ['name' => Discord::getLanguageTerm('discord'), 'value' => $post_creator->data()->discord_username];
+    foreach ($post_creator->getIntegrations() as $key => $integrationUser) {
+        if ($integrationUser->data()->username != null && $integrationUser->data()->show_publicly) {
+            $fields[] = [
+                'name' => Output::getClean($key),
+                'value' => Output::getClean($integrationUser->data()->username)
+            ];
         }
-    }
-
-    if ($mc_integration[0]->value == '1') {
-        $fields[] = ['name' => 'IGN', 'value' => $post_creator->getDisplayname(true)];
     }
 
     $forum_placeholders = $post_creator->getForumPlaceholders();
