@@ -33,8 +33,7 @@
             "core/classes",
             "modules/Cookie Consent/classes",
             "modules/Core/classes",
-            "modules/Discord Integration/classes",
-            "modules/Forum/classes/MentionsParser.php"
+            "modules/Discord Integration/classes"
         ]
     }
 }
