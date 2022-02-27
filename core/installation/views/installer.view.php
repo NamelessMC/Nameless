@@ -78,9 +78,9 @@ require(__DIR__ . '/includes/header.php');
                             <?php echo $language['session_doesnt_exist']; ?>
                         </div>
                     <?php
-                        } else {
-                            require(__DIR__ . '/steps/' . $step . '.php');
-                        }
+                    } else {
+                        require(__DIR__ . '/steps/' . $step . '.php');
+                    }
                     ?>
                 </div>
             </div>
