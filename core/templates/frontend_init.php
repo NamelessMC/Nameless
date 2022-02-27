@@ -84,9 +84,12 @@ if ($user->isLoggedIn()) {
     }
 
     $api_verification = $configuration->get('Core', 'api_verification');
-    if ($api_verification == 1 && in_array($default_group, $user->getAllGroupIds()) && ($user->data()->reset_code)) {
-        // User needs to validate account
-        $smarty->assign('MUST_VALIDATE_ACCOUNT', str_replace('{x}', Output::getClean($user->data()->reset_code), $language->get('user', 'validate_account_command')));
+    if ($api_verification == 1) {
+        $integrationUser = $user->getIntegration('Minecraft');
+        if ($integrationUser != null && !$integrationUser->isVerified()) {
+            // User needs to validate account
+            $smarty->assign('MUST_VALIDATE_ACCOUNT', str_replace('{x}', Output::getClean($integrationUser->data()->code), $language->get('user', 'validate_account_command')));
+        }
     }
 }
 
