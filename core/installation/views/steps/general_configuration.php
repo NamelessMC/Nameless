@@ -5,15 +5,25 @@ if (!isset($_SESSION['requirements_validated']) || $_SESSION['requirements_valid
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $_SESSION['hostname'] = $_POST['hostname'] ?? $_SERVER['SERVER_NAME'];
-    $_SESSION['install_path'] = $_POST['install_path'] ?? '';
-    $_SESSION['friendly_urls'] = $_POST['friendly'] ?? false;
+    if (str_starts_with($_POST['hostname'], 'http://') || str_starts_with($_POST['hostname'], 'https://')) {
+        $error = $language['hostname_error'];
+    } else {
+        $_SESSION['hostname'] = $_POST['hostname'] ?? $_SERVER['SERVER_NAME'];
+        $_SESSION['install_path'] = $_POST['install_path'] ?? '';
+        $_SESSION['friendly_urls'] = $_POST['friendly'] ?? false;
 
-    Redirect::to('?step=database_configuration');
-    die();
+        Redirect::to('?step=database_configuration');
+        die();
+    }
 
 }
 ?>
+
+<?php if (isset($error)) { ?>
+    <div class="ui error message">
+        <?php echo $error; ?>
+    </div>
+<?php } ?>
 
 <form action="" method="post">
     <div class="ui segments">
