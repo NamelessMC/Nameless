@@ -89,6 +89,13 @@ try {
     // Continue
 }
 
+// add unique constraint to modules table
+try {
+    DB::getInstance()->createQuery('ALTER TABLE nl2_modules ADD UNIQUE (`name`)');
+} catch (Exception $e) {
+    // Continue
+}
+
 // Update version number
 /*$version_number_id = $queries->getWhere('settings', array('name', '=', 'nameless_version'));
 
