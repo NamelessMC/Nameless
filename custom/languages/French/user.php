@@ -91,7 +91,7 @@ $language = [
     'i_agree' => 'Je suis d’accord',
     'agree_t_and_c' => 'I have read and accept the <a href="{x}" target="_blank">Terms and Conditions</a>.',
     'create_an_account' => 'Créer un compte',
-    'terms_and_conditions' => 'Termes and Conditions',
+    'terms_and_conditions' => 'Termes et Conditions',
     'validation_complete' => 'Votre compte a été validé, vous pouvez maintenant vous connecter.',
     'validation_error' => 'Une erreur inconnue est survenue lors de la validation de votre compte, veuillez contacter un administrateur du site.',
     'signature' => 'Signature',
