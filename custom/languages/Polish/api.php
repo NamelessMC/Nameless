@@ -12,7 +12,7 @@
 $language = [
 
     // Errors
-    'api_disabled' => 'API is disabled',
+    'api_disabled' => 'API jest wyłączone',
     'unknown_error' => 'Nieznany błąd',
     'invalid_api_key' => 'Niepoprawny klucz API',
     'invalid_language_file' => 'Niepoprawny plik językowy',
