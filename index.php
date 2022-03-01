@@ -24,9 +24,16 @@ if (defined('DEBUGGING') && DEBUGGING) {
     error_reporting(-1);
 }
 
-// Ensure PHP version >= 7.4
+// STOP 
+// If we have PHP version >= 7.4 - stop the app
+// Or when we have debug mode enabled - continue
 if (PHP_VERSION_ID < 70400) {
-    die('NamelessMC is not compatible with PHP versions older than 7.4');
+    if (!defined('DEBUGGING') && !DEBUGGING) {
+        die('NamelessMC is not compatible with PHP versions older than 7.4 (or enable debug mode)');
+    } else {
+        // Define old version
+        define("OLDVERSION", 1);
+    }
 }
 
 // Start page load timer
