@@ -29,7 +29,11 @@
 
                     <!-- Update Notification -->
                     {include file='includes/update.tpl'}
-
+                    {if defined('OLDVERSION')}
+                    <div class="alert alert-warning">
+                        You using old version of php. For security issues, update it now.
+                    </div>
+                    {/if}
                     {if isset($DIRECTORY_WARNING)}
                     <div class="alert alert-warning">
                         {$DIRECTORY_WARNING}
