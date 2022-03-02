@@ -157,7 +157,7 @@ class HttpClient {
             return '$this->_response is null';
         }
 
-        return 'Unknown error';
+        return '';
     }
 
 }
