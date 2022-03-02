@@ -19,13 +19,11 @@ use Psr\Http\Message\ResponseInterface;
  */
 class HttpClient {
 
-    private ResponseInterface $_response;
-    private string $_contents;
+    private ?ResponseInterface $_response;
     private string $_error;
 
-    private function __construct(ResponseInterface $response, string $contents, string $error) {
+    private function __construct(?ResponseInterface $response, string $error) {
         $this->_response = $response;
-        $this->_contents = $contents;
         $this->_error = $error;
     }
 
@@ -54,7 +52,6 @@ class HttpClient {
 
         return new HttpClient(
             $response,
-            $response->getBody()->getContents(),
             $error
         );
     }
@@ -87,7 +84,6 @@ class HttpClient {
 
         return new HttpClient(
             $response,
-            $response->getBody()->getContents(),
             $error
         );
     }
@@ -116,7 +112,7 @@ class HttpClient {
      * @return string The response body
      */
     public function contents(): string {
-        return $this->_contents;
+        return $this->_response->getBody()->getContents();
     }
 
     /**
@@ -126,7 +122,7 @@ class HttpClient {
      * @return mixed The response body
      */
     public function json(bool $assoc = false) {
-        return json_decode($this->_contents, $assoc);
+        return json_decode($this->_response->getBody()->getContents(), $assoc);
     }
 
     /**
@@ -153,7 +149,15 @@ class HttpClient {
      * @return string The error message
      */
     public function getError(): string {
-        return $this->_error;
+        if ($this->_error !== '') {
+            return $this->_error;
+        }
+
+        if ($this->_response === null) {
+            return '$this->_response is null';
+        }
+
+        return 'Unknown error';
     }
 
 }
