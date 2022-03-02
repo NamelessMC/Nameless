@@ -293,7 +293,7 @@ namespace PasswordCompat\binary {
          *
          * @return bool the check result
          */
-        function check(): ?bool {
+        function check(): bool {
             static $pass = null;
 
             if (is_null($pass)) {
