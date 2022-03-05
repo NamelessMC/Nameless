@@ -69,7 +69,6 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
         'YES' => $language->get('general', 'yes'),
         'NO' => $language->get('general', 'no'),
         'UNLINK' => $language->get('admin', 'unlink'),
-        'INTEGRATION' => $language->get('admin', 'integration'),
         'BACK_LINK' => URL::build('/panel/user/' . Output::getClean($view_user->data()->id . '-' . $view_user->data()->username)),
         'UNLINK_LINK' => URL::build('/panel/users/integrations/', 'id=' . $view_user->data()->id . '&action=unlink&integration='),
     ]);
@@ -141,7 +140,9 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
             ]);
 
             $template_file = 'core/users_integrations_form.tpl';
-        break;
+
+            break;
+
         case 'edit':
             // Edit integration user details
             $integrationUser = $view_user->getIntegration($_GET['integration']);
@@ -191,7 +192,9 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
             ]);
 
             $template_file = 'core/users_integrations_form.tpl';
-        break;
+
+            break;
+
         case 'unlink':
             // Unlink user from integration
             if (Input::exists()) {
@@ -208,8 +211,8 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
             }
 
             Redirect::to(URL::build('/panel/users/integrations/', 'id=' . $view_user->data()->id));
-             die();
-        break;
+            die();
+
         default:
             Redirect::to(URL::build('/panel/users/integrations/', 'id=' . $view_user->data()->id));
             die();
