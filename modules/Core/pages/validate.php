@@ -19,7 +19,7 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp
 
 if (isset($_GET['c'])) {
     $user = new User($_GET['c'], 'reset_code');
-    if ($user->data()) {
+    if ($user->exists()) {
         // API verification
         $api_verification = $queries->getWhere('settings', ['name', '=', 'api_verification']);
         $api_verification = $api_verification[0]->value;

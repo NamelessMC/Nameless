@@ -31,7 +31,7 @@ if (!isset($_GET['c'])) {
             } else {
                 // Check to see if the email exists
                 $target_user = new User(Input::get('email'), 'email');
-                if ($target_user->data() && $target_user->data()->active) {
+                if ($target_user->exists() && $target_user->data()->active) {
                     // Generate a code
                     $code = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 60);
 
@@ -100,7 +100,7 @@ if (!isset($_GET['c'])) {
 } else {
     // Check code exists
     $target_user = new User($_GET['c'], 'reset_code');
-    if (!$target_user->data()) {
+    if (!$target_user->exists()) {
         Redirect::to('/forgot_password');
         die();
     }

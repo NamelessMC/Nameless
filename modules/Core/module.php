@@ -317,24 +317,21 @@ class Core_Module extends Module {
         } else {
             $hook_array = [];
             if (Util::isModuleEnabled('Discord Integration')) {
-                $hooks = $queries->tableExists('hooks');
-                if (!empty($hooks)) {
-                    $hooks = $queries->getWhere('hooks', ['id', '<>', 0]);
-                    if (count($hooks)) {
-                        foreach ($hooks as $hook) {
-                            if ($hook->action != 2) {
-                                continue;
-                            }
-
-                            $hook_array[] = [
-                                'id' => $hook->id,
-                                'url' => Output::getClean($hook->url),
-                                'action' => 'DiscordHook::execute',
-                                'events' => json_decode($hook->events, true)
-                            ];
+                $hooks = $queries->getWhere('hooks', ['id', '<>', 0]);
+                if (count($hooks)) {
+                    foreach ($hooks as $hook) {
+                        if ($hook->action != 2) {
+                            continue;
                         }
-                        $cache->store('hooks', $hook_array);
+
+                        $hook_array[] = [
+                            'id' => $hook->id,
+                            'url' => Output::getClean($hook->url),
+                            'action' => 'DiscordHook::execute',
+                            'events' => json_decode($hook->events, true)
+                        ];
                     }
+                    $cache->store('hooks', $hook_array);
                 }
             }
         }

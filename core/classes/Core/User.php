@@ -14,9 +14,14 @@ class User {
     private DB $_db;
 
     /**
-     * @var mixed The user's data. Basically just the row from `nl2_users` where the user ID is the key.
+     * @var UserData The user's data.
      */
-    private $_data;
+    private UserData $_data;
+
+    /**
+     * @var ?object The user's data. Basically just the row from `nl2_users` where the user ID is the key.
+     */
+    private ?object $_raw_data;
 
     /**
      * @var array The user's groups.
@@ -91,7 +96,8 @@ class User {
             $data = $this->_db->get('users', [$field, '=', $value]);
 
             if ($data->count()) {
-                $this->_data = $data->first();
+                $this->_raw_data = $data->first();
+                $this->_data = new UserData($this->_raw_data);
 
                 // Get user groups
                 $groups_query = $this->_db->selectQuery('SELECT nl2_groups.* FROM nl2_users_groups INNER JOIN nl2_groups ON group_id = nl2_groups.id WHERE user_id = ? AND deleted = 0 ORDER BY `order`;', [$this->_data->id]);
@@ -163,9 +169,9 @@ class User {
     /**
      * Get the currently logged in user's data.
      *
-     * @return object This user's data.
+     * @return UserData This user's data.
      */
-    public function data(): ?object {
+    public function data(): UserData {
         return $this->_data;
     }
 
@@ -328,7 +334,7 @@ class User {
      * @return bool Whether the user exists (has data) or not.
      */
     public function exists(): bool {
-        return (!empty($this->_data));
+        return (!empty($this->_raw_data));
     }
 
     /**

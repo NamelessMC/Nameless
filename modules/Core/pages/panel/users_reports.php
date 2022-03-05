@@ -224,7 +224,7 @@ if (!isset($_GET['id'])) {
 
         if (!$report->reported_id) {
             $reported_user = new User($report->reported_uuid, 'uuid');
-            if ($reported_user->data()) {
+            if ($reported_user->exists()) {
                 $reported_user_profile = URL::build('/panel/user/' . Output::getClean($reported_user->data()->id . '-' . $reported_user->data()->username));
                 $reported_user_style = $reported_user->getGroupClass();
                 $reported_user_avatar = $reported_user->getAvatar();

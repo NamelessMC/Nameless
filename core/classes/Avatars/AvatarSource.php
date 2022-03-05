@@ -32,7 +32,11 @@ class AvatarSource {
      * @return AvatarSourceBase The active source.
      */
     public static function getActiveSource(): AvatarSourceBase {
-        return self::$_active_source;
+         if (self::$_active_source == null) {
+            self::setActiveSource('crafatar');
+         }
+
+         return self::$_active_source;
     }
 
     /**

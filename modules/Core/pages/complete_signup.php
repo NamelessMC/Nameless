@@ -37,7 +37,7 @@ if ($is_api_enabled[0]->value != '1') {
 
 if (!$user->isLoggedIn()) {
     $target_user = new User($_GET['c'], 'reset_code');
-    if ($target_user->data()) {
+    if ($target_user->exists()) {
         if (Input::exists()) {
             if (Token::check()) {
                 // Validate input

@@ -82,7 +82,7 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
     private function updateUsername(User $user, array $player, Nameless2API $api): void
     {
         if (Util::getSetting($api->getDb(), 'username_sync')) {
-            if (!$user->data() ||
+            if (!$user->exists() ||
                 $player['name'] == $user->data()->username) {
                 return;
             }
@@ -129,7 +129,7 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
 
     private function updatePlaceholders(User $user, $player): void
     {
-        if ($user->data()) {
+        if ($user->exists()) {
             $user->savePlaceholders($_POST['server-id'], $player['placeholders']);
         }
     }

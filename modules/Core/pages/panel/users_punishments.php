@@ -28,7 +28,7 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp
 if (isset($_GET['user'])) {
     // Viewing a certain user
     $view_user = new User($_GET['user']);
-    if (!$view_user->data()) {
+    if (!$view_user->exists()) {
         Redirect::to(URL::build('/panel/users/punishments'));
         die();
     }

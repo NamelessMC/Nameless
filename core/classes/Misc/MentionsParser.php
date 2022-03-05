@@ -39,7 +39,7 @@ class MentionsParser {
                 while (($possible_username != '') && !$user) {
                     $user = new User($possible_username, 'nickname');
 
-                    if ($user->data()) {
+                    if ($user->exists()) {
                         $value = preg_replace('/' . preg_quote("@$possible_username", '/') . '/', "<a style=\"" . Output::getClean($user->getGroupClass()) . "\" href=\"" . $user->getProfileURL() . "\">@$possible_username</a>", $value);
 
                         // Check if user is blocked by OP
