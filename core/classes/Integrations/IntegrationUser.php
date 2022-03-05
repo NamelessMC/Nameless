@@ -19,12 +19,21 @@ class IntegrationUser {
         $this->_db = DB::getInstance();
         $this->_integration = $integration;
 
-        if (!$user) {
+        if ($value) {
             $data = $this->_db->selectQuery('SELECT * FROM nl2_users_integrations WHERE ' . $field . ' = ? AND integration_id = ?;', [$value, $integration->data()->id]);
             if ($data->count()) {
                 $this->_data = $data->first();
             }
         }
+    }
+
+    /**
+     * Get the integration
+     *
+     * @return IntegrationBase Integration type for this user
+     */
+    public function getIntegration(): IntegrationBase {
+        return $this->_integration;
     }
 
     /**

@@ -748,4 +748,16 @@ $language = [
     'identifier' => 'Identifier',
     'unlink_account_confirm' => 'Are you sure you want to forcibly unlink this provider from this user?',
     'unlink_account_success' => 'Successfully unlinked their account from {x}.', // Don't replace {x}
+    
+    // Integrations
+    'integration' => 'Integration',
+    'viewing_integrations_for_x' => 'Viewing user integrations for {user}', // Don't replace {user}
+    'editing_integration_for_x' => 'Editing {integration} integration for {user}', // Don't replace {integration} and {user}
+    'linking_integration_for_x' => 'Linking {integration} integration for {user}', // Don't replace {integration} and {user}
+    'not_linked' => 'Not linked',
+    'verified' => 'Verified',
+    'manual_linking' => 'Manual Linking',
+    'username_and_identifier_required' => 'Username and identifier is required',
+    'link_account_success' => 'Successfully linked their {x} account.', // Don't replace {x}
+    'user_integration_updated_successfully' => 'User integration updated successfully.',
 ];

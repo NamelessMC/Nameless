@@ -49,6 +49,15 @@ abstract class IntegrationBase {
     }
     
     /**
+     * Get the icon of this integration.
+     *
+     * @return string Icon of integration.
+     */
+    public function getIcon(): string {
+        return $this->_icon;
+    }
+    
+    /**
      * Get the display order of this integration.
      *
      * @return int Display order of integration.

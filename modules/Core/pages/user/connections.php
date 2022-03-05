@@ -72,6 +72,7 @@ foreach (Integrations::getInstance()->getAll() as $integration) {
     
     $integrations_list[] = [
         'name' => Output::getClean($integration->getName()),
+        'icon' => Output::getClean($integration->geticon()),
         'connected' => $connected,
         'username' => $username,
         'verified' => $verified

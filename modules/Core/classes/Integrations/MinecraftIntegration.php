@@ -16,6 +16,7 @@ class MinecraftIntegration extends IntegrationBase {
 
     public function __construct(Language $language) {
         $this->_name = 'Minecraft';
+        $this->_icon = 'fas fa-cubes';
         $this->_language = $language;
 
         parent::__construct();

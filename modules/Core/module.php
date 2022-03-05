@@ -105,6 +105,7 @@ class Core_Module extends Module {
         $pages->add('Core', '/panel/upgrade', 'pages/panel/upgrade.php');
         $pages->add('Core', '/panel/users', 'pages/panel/users.php');
         $pages->add('Core', '/panel/users/edit', 'pages/panel/users_edit.php');
+        $pages->add('Core', '/panel/users/integrations', 'pages/panel/users_integrations.php');
         $pages->add('Core', '/panel/users/oauth', 'pages/panel/users_oauth.php');
         $pages->add('Core', '/panel/users/ip_lookup', 'pages/panel/users_ip_lookup.php');
         $pages->add('Core', '/panel/users/punishments', 'pages/panel/users_punishments.php');
@@ -1419,6 +1420,10 @@ class Core_Module extends Module {
 
             if ($user->hasPermission('admincp.users.edit')) {
                 self::addUserAction($language->get('general', 'edit'), URL::build('/panel/users/edit/', 'id={id}'));
+            }
+            
+            if ($user->hasPermission('admincp.users.edit')) {
+                self::addUserAction($language->get('admin', 'integrations'), URL::build('/panel/users/integrations/', 'id={id}'));
             }
 
             if ($user->hasPermission('admincp.users.edit')) {

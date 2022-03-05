@@ -7,7 +7,7 @@
  *
  *  License: MIT
  *
- *  Minecraft Integration
+ *  Discord Integration
  */
 
 class DiscordIntegration extends IntegrationBase {
@@ -16,6 +16,7 @@ class DiscordIntegration extends IntegrationBase {
 
     public function __construct(Language $language) {
         $this->_name = 'Discord';
+        $this->_icon = 'fab fa-discord';
         $this->_language = $language;
 
         parent::__construct();
