@@ -534,7 +534,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     $smarty->assign([
         'NICKNAME' => $profile_user->getDisplayname(true),
         'USERNAME' => $profile_user->getDisplayname(),
-        'GROUPS' => (isset($query) ? $profile_user->getAllGroupHtml() : [Output::getPurified($group)]),
+        'GROUPS' => (($user->exists()) ? $profile_user->getAllGroupHtml() : [Output::getPurified($group)]),
         'USERNAME_COLOUR' => $profile_user->getGroupClass(),
         'USER_TITLE' => Output::getClean($query->user_title),
         'FOLLOW' => $language->get('user', 'follow'),
