@@ -27,7 +27,9 @@
         "phpstan/phpstan": "^1.4",
         "maximebf/debugbar": "^1.17",
         "junker/debugbar-smarty": "^0.2",
-        "hannesvdvreken/guzzle-debugbar": "^3.0"
+        "hannesvdvreken/guzzle-debugbar": "^3.0",
+        "phpstan/phpstan-deprecation-rules": "^1.0",
+        "phpstan/extension-installer": "^1.1"
     },
     "autoload": {
         "classmap": [
@@ -36,5 +38,10 @@
             "modules/Core/classes",
             "modules/Discord Integration/classes"
         ]
+    },
+    "config": {
+        "allow-plugins": {
+            "phpstan/extension-installer": true
+        }
     }
 }
