@@ -54,15 +54,13 @@ class Nameless2API {
         http_response_code($status);
 
         if ($code && $message) {
-            die(json_encode(
-                ['error' => true, 'code' => $code, 'message' => $message, 'meta' => $meta],
-                JSON_PRETTY_PRINT
+            die(self::encodeJson(
+                ['error' => true, 'code' => $code, 'message' => $message, 'meta' => $meta]
             ));
         }
 
-        die(json_encode(
-            ['error' => true, 'code' => 0, 'message' => $this->_language->get('api', 'unknown_error'), 'meta' => $meta],
-            JSON_PRETTY_PRINT
+        die(self::encodeJson(
+            ['error' => true, 'code' => 0, 'message' => $this->_language->get('api', 'unknown_error'), 'meta' => $meta]
         ));
     }
 
@@ -112,7 +110,7 @@ class Nameless2API {
 
         http_response_code($status);
 
-        die(json_encode($arr, JSON_PRETTY_PRINT));
+        die(self::encodeJson($arr));
     }
 
     /**
@@ -134,4 +132,18 @@ class Nameless2API {
         }
         return true;
     }
+
+    /**
+     * Encode a value as json, with pretty printing enabled if DEBUGGING is defined.
+     * @param mixed $value Object to encode
+     * @return string|false JSON encoded string on success or false on failure.
+     */
+    private static function encodeJson(mixed $value): string|false {
+        if (defined('DEBUGGING')) {
+            return json_encode($value, JSON_PRETTY_PRINT);
+        } else {
+            return json_encode($value);
+        }
+    }
+
 }
