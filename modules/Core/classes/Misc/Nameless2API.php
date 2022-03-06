@@ -138,7 +138,7 @@ class Nameless2API {
      * @param mixed $value Object to encode
      * @return string|false JSON encoded string on success or false on failure.
      */
-    private static function encodeJson(mixed $value) {
+    private static function encodeJson($value) {
         if (defined('DEBUGGING')) {
             return json_encode($value, JSON_PRETTY_PRINT);
         } else {
