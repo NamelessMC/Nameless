@@ -65,10 +65,10 @@ if (!count($latest_posts)) {
         $topic_title = htmlspecialchars($topic_title[0]->topic_title);
 
         if (is_null($latest_post->created)) {
-            $date_friendly = $timeago->inWords($latest_post->post_date, $language->getTimeLanguage());
+            $date_friendly = $timeago->inWords($latest_post->post_date, $language);
             $date_full = date('d M Y, H:i', strtotime($latest_post->post_date));
         } else {
-            $date_friendly = $timeago->inWords(date('d M Y, H:i', $latest_post->created), $language->getTimeLanguage());
+            $date_friendly = $timeago->inWords(date('d M Y, H:i', $latest_post->created), $language);
             $date_full = date('d M Y, H:i', $latest_post->created);
         }
 

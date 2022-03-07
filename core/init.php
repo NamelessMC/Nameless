@@ -226,7 +226,7 @@ if ($page != 'install') {
             $language = $cache->retrieve('language');
 
             if (!$language) {
-                define('LANGUAGE', 'EnglishUK');
+                define('LANGUAGE', 'en_UK');
                 $language = new Language();
             } else {
                 define('LANGUAGE', $language);

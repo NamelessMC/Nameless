@@ -99,7 +99,7 @@ $smarty->assign([
     'REGISTERED' => $language->get('user', 'registered'),
     'REGISTERED_VALUE' => date('d M Y', $user_query->joined),
     'LAST_SEEN' => $language->get('user', 'last_seen'),
-    'LAST_SEEN_SHORT_VALUE' => $timeago->inWords(date('d M Y, H:i', $user_query->last_online), $language->getTimeLanguage()),
+    'LAST_SEEN_SHORT_VALUE' => $timeago->inWords(date('d M Y, H:i', $user_query->last_online), $language),
     'LAST_SEEN_FULL_VALUE' => date('d M Y, H:i', $user_query->last_online),
     'DETAILS' => $language->get('admin', 'details'),
     'LINKS' => Core_Module::getUserActions(),

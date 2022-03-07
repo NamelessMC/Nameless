@@ -90,7 +90,7 @@ if ($cache->isCached('news')) {
             $news[] = [
                 'title' => Output::getClean($item->title),
                 'date' => Output::getClean($item->date),
-                'date_friendly' => $timeago->inWords($item->date, $language->getTimeLanguage()),
+                'date_friendly' => $timeago->inWords($item->date, $language),
                 'author' => Output::getClean($item->author),
                 'url' => Output::getClean($item->url)
             ];

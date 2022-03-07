@@ -524,14 +524,14 @@ class Core_Module extends Module {
         // Online staff
         require_once(ROOT_PATH . '/modules/Core/widgets/OnlineStaff.php');
         $module_pages = $widgets->getPages('Online Staff');
-        $widgets->add(new OnlineStaffWidget($module_pages, $smarty, ['title' => $language->get('general', 'online_staff'), 'no_online_staff' => $language->get('general', 'no_online_staff'), 'total_online_staff' => $language->get('general', 'total_online_staff')], $cache));
+        $widgets->add(new OnlineStaffWidget($module_pages, $smarty, $language, $cache));
 
         // Online users
         require_once(ROOT_PATH . '/modules/Core/widgets/OnlineUsers.php');
         $module_pages = $widgets->getPages('Online Users');
-        $widgets->add(new OnlineUsersWidget($module_pages, $cache, $smarty, ['title' => $language->get('general', 'online_users'), 'no_online_users' => $language->get('general', 'no_online_users'), 'total_online_users' => $language->get('general', 'total_online_users')]));
+        $widgets->add(new OnlineUsersWidget($module_pages, $smarty, $language, $cache));
 
-        // Online users
+        // Server status
         require_once(ROOT_PATH . '/modules/Core/widgets/ServerStatusWidget.php');
         $module_pages = $widgets->getPages('Server Status');
         $widgets->add(new ServerStatusWidget($module_pages, $smarty, $language, $cache));
@@ -811,7 +811,7 @@ class Core_Module extends Module {
                     $user_query = $queries->getWhere('users', ['id', '=', $user_id]);
                     if (count($user_query)) {
                         $user_query = $user_query[0];
-                        $smarty->assign('REGISTERED', str_replace('{x}', $timeago->inWords(date('Y-m-d H:i:s', $user_query->joined), $language->getTimeLanguage()), $language->get('user', 'registered_x')));
+                        $smarty->assign('REGISTERED', str_replace('{x}', $timeago->inWords(date('Y-m-d H:i:s', $user_query->joined), $language), $language->get('user', 'registered_x')));
                     }
                 }
             }

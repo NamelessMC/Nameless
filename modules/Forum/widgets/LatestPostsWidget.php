@@ -104,7 +104,7 @@ class LatestPostsWidget extends WidgetBase {
                 $template_array[] = [
                     'topic_title' => Output::getClean($discussions[$n]['topic_title']),
                     'topic_id' => $discussions[$n]['id'],
-                    'topic_created_rough' => $timeago->inWords(date('d M Y, H:i', $discussions[$n]['topic_date']), $this->_language->getTimeLanguage()),
+                    'topic_created_rough' => $timeago->inWords(date('d M Y, H:i', $discussions[$n]['topic_date']), $this->_language),
                     'topic_created' => date('d M Y, H:i', $discussions[$n]['topic_date']),
                     'topic_created_username' => $topic_creator->getDisplayname(),
                     'topic_created_mcname' => $topic_creator->getDisplayname(true),
@@ -116,7 +116,7 @@ class LatestPostsWidget extends WidgetBase {
                     'views' => $discussions[$n]['topic_views'],
                     'posts' => $posts,
                     'last_reply_avatar' => $last_reply_user->getAvatar(64),
-                    'last_reply_rough' => $timeago->inWords(date('d M Y, H:i', $discussions[$n]['topic_reply_date']), $this->_language->getTimeLanguage()),
+                    'last_reply_rough' => $timeago->inWords(date('d M Y, H:i', $discussions[$n]['topic_reply_date']), $this->_language),
                     'last_reply' => date('d M Y, H:i', $discussions[$n]['topic_reply_date']),
                     'last_reply_username' => $last_reply_user->getDisplayname(),
                     'last_reply_mcname' => $last_reply_user->getDisplayname(true),

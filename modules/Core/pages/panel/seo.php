@@ -80,7 +80,7 @@ if (!isset($_GET['metadata'])) {
             $cache->setCache('sitemap_cache');
             if ($cache->isCached('updated')) {
                 $updated = $cache->retrieve('updated');
-                $updated = $timeago->inWords($updated, $language->getTimeLanguage());
+                $updated = $timeago->inWords($updated, $language);
             } else {
                 $updated = $language->get('admin', 'unknown');
             }

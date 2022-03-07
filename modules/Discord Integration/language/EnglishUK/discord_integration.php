@@ -15,8 +15,8 @@ $language = [
     'discord_widget_disabled' => 'The widget is disabled for the specified Discord server. Please go to the \'Widget\' tab in your Discord server settings, and ensure the Discord widget is enabled and that the ID is correct.',
     'discord_id_length' => 'Please ensure your Discord ID is 18 characters long.',
     'discord_id_numeric' => 'Please ensure your Discord ID is numeric (Numbers only).',
-    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://namelessmc.com/discord-bot-invite">here</a>. Then, run the <code>/apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
-    'discord_bot_must_be_setup' => 'Cannot enable Discord Integration until you have set up the bot. For information, please <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">click here</a>.',
+    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click {{inviteLinkStart}}here{{inviteLinkEnd}}. Then, run the {{command}} command to link the bot with your website. Alternatively, you can {{selfHostLinkStart}}host the bot yourself{{selfHostLinkEnd}}.',
+    'discord_bot_must_be_setup' => 'Cannot enable Discord Integration until you have set up the bot. For information, please click {{linkStart}}here{{linkEnd}}.',
     'discord_bot_setup' => 'Bot set up?',
     'discord_integration_not_setup' => 'Discord integration is not set up',
     'discord_username' => 'Discord Username',
@@ -62,5 +62,5 @@ $language = [
     'discord_database_error' => 'The Nameless Link database is currently down. Please try again later.',
     'discord_communication_error' => 'There was an error while communicating with the Discord Bot. Please ensure the bot is running and your Bot URL is correct.',
     'discord_unknown_error' => 'There was an unknown error while syncing Discord roles. Please contact an administrator.',
-    'discord_id_help' => 'For information on where to find Discord ID\'s, please read <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">this.</a>',
+    'discord_id_help' => 'For information on where to find Discord ID\'s, please read {{linkStart}}this.{{linkEnd}}',
 ];

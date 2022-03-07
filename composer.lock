@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4f7106c94ecd714c311d268e504e7d00",
+    "content-hash": "26c993bbfc3cacb1c4c224144f717cb3",
     "packages": [
         {
             "name": "emojione/emojione",
@@ -550,16 +550,16 @@
         },
         {
             "name": "samerton/i18next",
-            "version": "0.1.2",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/samerton/i18next-php.git",
-                "reference": "78a38dd1fbb67c60750b7536e6b84fb75c70ed0a"
+                "reference": "4bfab8849a6511e3687a2db28212693b8c51eac2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/samerton/i18next-php/zipball/78a38dd1fbb67c60750b7536e6b84fb75c70ed0a",
-                "reference": "78a38dd1fbb67c60750b7536e6b84fb75c70ed0a",
+                "url": "https://api.github.com/repos/samerton/i18next-php/zipball/4bfab8849a6511e3687a2db28212693b8c51eac2",
+                "reference": "4bfab8849a6511e3687a2db28212693b8c51eac2",
                 "shasum": ""
             },
             "require": {
@@ -591,9 +591,9 @@
                 "i18next"
             ],
             "support": {
-                "source": "https://github.com/samerton/i18next-php/tree/v0.1.2"
+                "source": "https://github.com/samerton/i18next-php/tree/v1.0.1"
             },
-            "time": "2022-01-22T21:24:19+00:00"
+            "time": "2022-01-22T22:56:28+00:00"
         },
         {
             "name": "smarty/smarty",

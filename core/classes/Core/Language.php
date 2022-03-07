@@ -16,8 +16,8 @@ class Language {
 
     private string $_activeLanguage;
     private string $_activeLanguageFile;
-    private array $_activeLanguageEntries;
     private string $_module; // TODO: needed?
+    private i18next $_i18n;
 
     /**
      * Construct Language class
@@ -63,7 +63,7 @@ class Language {
             define('HTML_RTL', (LANGUAGES[$this->_activeLanguage] && LANGUAGES[$this->_activeLanguage]['rtl']) ?? false);
         }
 
-        i18next::init($this->_activeLanguage, $this->_activeLanguageFile, 'en_UK');
+        $this->_i18n = new i18next($this->_activeLanguage, $this->_activeLanguageFile, 'en_UK');
     }
 
     /**
@@ -76,25 +76,19 @@ class Language {
     }
 
     /**
-     * Return current time language.
-     *
-     * @return array Time lang for use in TimeAgo class.
-     */
-    public function getTimeLanguage(): array {
-        $this->get('time', 'time');
-        return $this->_activeLanguageEntries['time'];
-    }
-
-    /**
      * Return a term in the currently active language
      *
      * @param string $key Section key.
-     * @param string $term The term to translate.
-     * @param array $variables Any variables to pass through to the translation.
+     * @param ?string $term The term to translate.
+     * @param ?array $variables Any variables to pass through to the translation.
      * @return string Translated phrase.
      */
-    public function get(string $key, string $term, array $variables = []): string {
-        return i18next::getTranslation($key . $term, $variables);
+    public function get(string $key, ?string $term, ?array $variables = []): string {
+        if ($term) {
+            $key = $key . '/' . $term;
+        }
+
+        return $this->_i18n->getTranslation($key, $variables);
     }
 
     /**
@@ -108,7 +102,7 @@ class Language {
      * @param string $value New value to set for term.
      */
     public function set(string $file, string $term, string $value): void {
-        $editing_file = ($this->_activeLanguageDirectory . DIRECTORY_SEPARATOR . $file . '.php');
+        $editing_file = ($this->_activeLanguageDirectory . DIRECTORY_SEPARATOR . $file . '.php'); // TODO _activeLanguageDirectory does not exist
         if (is_file($editing_file) && is_writable($editing_file)) {
             file_put_contents($editing_file, html_entity_decode(
                 str_replace(

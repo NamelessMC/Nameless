@@ -13,9 +13,9 @@
 class OnlineUsersWidget extends WidgetBase {
 
     private Cache $_cache;
-    private array $_language;
+    private Language $_language;
 
-    public function __construct(array $pages, Cache $cache, Smarty $smarty, array $language) {
+    public function __construct(array $pages, Smarty $smarty, Language $language, Cache $cache) {
         $this->_smarty = $smarty;
         $this->_cache = $cache;
         $this->_language = $language;
@@ -83,16 +83,16 @@ class OnlineUsersWidget extends WidgetBase {
 
             $this->_smarty->assign([
                 'SHOW_NICKNAME_INSTEAD' => $use_nickname_show,
-                'ONLINE_USERS' => $this->_language['title'],
+                'ONLINE_USERS' => $this->_language->get('general', 'online_users'),
                 'ONLINE_USERS_LIST' => $users,
-                'TOTAL_ONLINE_USERS' => str_replace('{x}', count($users), $this->_language['total_online_users'])
+                'TOTAL_ONLINE_USERS' => $this->_language->get('general', 'total_online_users', ['count' => count($users)]),
             ]);
 
         } else {
             $this->_smarty->assign([
-                'ONLINE_USERS' => $this->_language['title'],
-                'NO_USERS_ONLINE' => $this->_language['no_online_users'],
-                'TOTAL_ONLINE_USERS' => str_replace('{x}', 0, $this->_language['total_online_users'])
+                'ONLINE_USERS' => $this->_language->get('general', 'online_users'),
+                'NO_USERS_ONLINE' => $this->_language->get('general', 'no_online_users'),
+                'TOTAL_ONLINE_USERS' => $this->_language->get('general', 'total_online_users', ['count' => 0]),
             ]);
         }
 

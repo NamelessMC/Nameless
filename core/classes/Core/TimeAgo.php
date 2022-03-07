@@ -64,7 +64,7 @@ class TimeAgo {
         $this->_timezone = $timezone;
     }
 
-    public function inWords(string $past, $time_language, $now = 'now'): string {
+    public function inWords(string $past, Language $language, $now = 'now'): string {
         // sets the default timezone
         date_default_timezone_set($this->_timezone);
         // finds the past in datetime
@@ -210,10 +210,12 @@ class TimeAgo {
             }
         }
 
-        if (is_array($time_language[$key])) {
+        $term = $language->get('time', $key);
+
+        if (count($exploded = explode('|', $term)) > 1) {
             if (function_exists('pluralForm')) {
                 if (isset($replace)) {
-                    return str_replace('{x}', $replace, pluralForm($replace, $time_language[$key]));
+                    return str_replace('{{count}}', $replace, pluralForm($replace, $exploded));
                 }
 
                 return 'Plural specified but replace not set for ' . Output::getClean($key);
@@ -222,10 +224,10 @@ class TimeAgo {
             }
         } else {
             if (isset($replace)) {
-                return str_replace('{x}', $replace, $time_language[$key]);
+                return $language->get('time', $key, ['count' => $replace]);
             }
 
-            return $time_language[$key];
+            return $term;
         }
     }
 
