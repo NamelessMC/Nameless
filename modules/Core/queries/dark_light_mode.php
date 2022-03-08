@@ -10,8 +10,6 @@ if (!Token::check()) {
     die(json_encode(['error' => 'Invalid token']));
 }
 
-$user->update([
-    'night_mode' => $user->data()->night_mode == '1' ? '0' : '1'
-]);
+$user->data()->night_mode = !$user->data()->night_mode;
 
 die(json_encode(['success' => true]));

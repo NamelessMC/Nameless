@@ -10,9 +10,7 @@ class BanUserEndpoint extends KeyAuthEndpoint {
     }
 
     public function execute(Nameless2API $api, User $user): void {
-        $user->update([
-            'isbanned' => 1,
-        ]);
+        $user->data()->is_banned = true;
 
         DB::getInstance()->delete('users_session', [
             'user_id', '=', $user->data()->id

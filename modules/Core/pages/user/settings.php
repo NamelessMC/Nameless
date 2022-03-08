@@ -43,9 +43,7 @@ if (isset($_GET['do'])) {
             // Generate secret
             $secret = $tfa->createSecret();
 
-            $user->update([
-                'tfa_secret' => $secret
-            ]);
+            $user->data()->tfa_secret = $secret;
 
             if (Session::exists('force_tfa_alert')) {
                 $errors[] = Session::get('force_tfa_alert');
@@ -471,9 +469,7 @@ if (isset($_GET['do'])) {
                                 if ($user->checkCredentials($user->data()->username, $password, 'username')) {
 
                                     // Update email
-                                    $user->update([
-                                        'email' => Output::getClean($_POST['email'])
-                                    ]);
+                                    $user->data()->email = Output::getClean($_POST['email']);
 
                                     Session::flash('settings_success', $language->get('user', 'email_changed_successfully'));
                                     Redirect::to(URL::build('/user/settings'));
@@ -507,9 +503,7 @@ if (isset($_GET['do'])) {
                                     'user_id' => $user->data()->id,
                                 ]);
 
-                                $user->update([
-                                    'discord_id' => 010
-                                ]);
+                                $user->data()->discord_id = 010;
 
                                 Session::flash('settings_success', str_replace('{token}', $token, Discord::getLanguageTerm('discord_id_confirm')));
                             }

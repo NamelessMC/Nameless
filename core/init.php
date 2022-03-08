@@ -524,9 +524,7 @@ if ($page != 'install') {
                 'lastip' => $ip
             ]);
         } else {
-            $user->update([
-                'last_online' => date('U')
-            ]);
+            $user->data()->last_online = date('U');
         }
 
         // Insert it into the logs

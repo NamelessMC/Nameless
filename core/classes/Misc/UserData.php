@@ -2,6 +2,7 @@
 
 class UserData {
 
+    private User $user;
     public int $id;
     public string $username;
     public string $nickname;
@@ -52,7 +53,10 @@ class UserData {
     public ?int $discord_id;
     public ?string $discord_username;
 
-    public function __construct(?object $data) {
+    public function __construct(User $user) {
+        $data = $user->_raw_data;
+
+        $this->user = $user;
         $this->id = $data->id;
         $this->username = $data->username;
         $this->nickname = $data->nickname;
@@ -92,6 +96,31 @@ class UserData {
         $this->avatar_updated = $data->avatar_updated;
         $this->discord_id = $data->discord_id;
         $this->discord_username = $data->discord_username;
+    }
+
+    public function __set(string $name, $value) {
+        $conversion_table = [
+            'is_banned' => 'isbanned',
+            'is_active' => 'active',
+            'template_id' => 'theme_id',
+            'last_ip' => 'lastip',
+        ];
+
+        $name = $conversion_table[$name] ?? $name;
+
+        if (!property_exists($this, $name)) {
+            throw new InvalidArgumentException("Property '$name' does not exist on UserData");
+        }
+
+        if (get_debug_type($value) !== get_debug_type($this->{$name})) {
+            throw new InvalidArgumentException("Property '$name' is of type " . get_debug_type($this->{$name}) . " but was given a value of type " . get_debug_type($value));
+        }
+
+        $this->user->update([
+            $name => $value
+        ], $this->id);
+
+        $this->{$name} = $value;
     }
 
 }

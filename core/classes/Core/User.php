@@ -21,7 +21,7 @@ class User {
     /**
      * @var ?object The user's data. Basically just the row from `nl2_users` where the user ID is the key.
      */
-    private ?object $_raw_data;
+    public ?object $_raw_data;
 
     /**
      * @var array The user's groups.
@@ -97,7 +97,7 @@ class User {
 
             if ($data->count()) {
                 $this->_raw_data = $data->first();
-                $this->_data = new UserData($this->_raw_data);
+                $this->_data = new UserData($this, $this->_raw_data);
 
                 // Get user groups
                 $groups_query = $this->_db->selectQuery('SELECT nl2_groups.* FROM nl2_users_groups INNER JOIN nl2_groups ON group_id = nl2_groups.id WHERE user_id = ? AND deleted = 0 ORDER BY `order`;', [$this->_data->id]);

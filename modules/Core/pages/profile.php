@@ -81,11 +81,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                                     // Is it an image file?
                                     if (in_array(pathinfo(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'profile_images', $_POST['banner']]), PATHINFO_EXTENSION), ['gif', 'png', 'jpg', 'jpeg'])) {
                                         // Yes, update settings
-                                        $user->update(
-                                            [
-                                                'banner' => Output::getClean($_POST['banner'])
-                                            ]
-                                        );
+                                        $user->data()->banner = Output::getClean($_POST['banner']);
 
                                         // Requery to update banner
                                         $user = new User();

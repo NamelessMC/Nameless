@@ -113,23 +113,17 @@ if (Input::exists()) {
                             unlink($item);
                         }
 
-                        $user->update(
-                            array(
-                                'has_avatar' => 1,
-                                'avatar_updated' => date('U')
-                            )
-                        );
+                        $user->update([
+                            'has_avatar' => 1,
+                            'avatar_updated' => date('U')
+                        ]);
 
                         Redirect::to(URL::build('/user/settings'));
                         die();
                     }
 
                     if (Input::get('type') == 'profile_banner') {
-                        $user->update(
-                            array(
-                                'banner' => Output::getClean($user->data()->id . '/' . $upload->getName() . '.' . $upload->getMime())
-                            )
-                        );
+                        $user->data()->banner = Output::getClean($user->data()->id . '/' . $upload->getName() . '.' . $upload->getMime());
 
                         Redirect::to(URL::build('/profile/' . Output::getClean($user->data()->username)));
                         die();
