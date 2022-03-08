@@ -1,12 +1,10 @@
 <?php
 if (isset($_SESSION['admin_setup']) && $_SESSION['admin_setup'] == true) {
     Redirect::to('?step=conversion');
-    die();
 }
 
 if (!isset($_SESSION['site_initialized']) || $_SESSION['site_initialized'] != true) {
     Redirect::to('?step=site_configuration');
-    die();
 }
 
 require(ROOT_PATH . '/core/includes/password.php');
@@ -97,7 +95,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $user->addGroup(2);
 
                 Redirect::to('?step=conversion');
-                die();
             }
 
             $queries->delete('users', ['id', '=', 1]);

@@ -133,7 +133,6 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                                     $forum_id = $queries->getLastId();
 
                                     Redirect::to(URL::build('/panel/forums/', 'action=new&step=2&forum=' . $forum_id));
-                                    die();
                                 } catch (Exception $e) {
                                     $errors[] = $e->getMessage();
                                 }
@@ -163,14 +162,12 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                     // Parent category, for type forum only
                     if (!isset($_GET['forum']) || !is_numeric($_GET['forum'])) {
                         Redirect::to(URL::build('/panel/forums'));
-                        die();
                     }
 
                     // Get forum from database
                     $forum = $queries->getWhere('forums', ['id', '=', $_GET['forum']]);
                     if (!count($forum)) {
                         Redirect::to(URL::build('/panel/forums'));
-                        die();
                     }
 
                     $forum = $forum[0];
@@ -178,7 +175,6 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                     // Forums only
                     if ($forum->forum_type == 'category') {
                         Redirect::to(URL::build('/panel/forums/', 'forum=' . $forum->id));
-                        die();
                     }
 
                     // Deal with input
@@ -217,7 +213,6 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                                     ]);
 
                                     Redirect::to(URL::build('/panel/forums/', 'forum=' . $forum->id));
-                                    die();
                                 }
 
                                 $errors[] = $forum_language->get('forum', 'invalid_redirect_url');
@@ -295,7 +290,6 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                     if (!Token::check($_POST['token'])) {
                         Session::flash('admin_forums_error', $language->get('general', 'invalid_token'));
                         Redirect::to('/panel/forums');
-                        die();
                     }
 
                     $dir = $_GET['dir'];
@@ -333,7 +327,6 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                         }
 
                         Redirect::to(URL::build('/panel/forums'));
-                        die();
                     }
 
                     if ($dir == 'down') {
@@ -360,7 +353,6 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                         }
 
                         Redirect::to(URL::build('/panel/forums'));
-                        die();
                     }
                 } else {
                     if ($_GET['dir'] == 'drag') {
@@ -389,14 +381,12 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
             case 'delete':
                 if (!isset($_GET['fid']) || !is_numeric($_GET['fid'])) {
                     Redirect::to(URL::build('/panel/forums'));
-                    die();
                 }
 
                 // Ensure forum exists
                 $forum = $queries->getWhere('forums', ['id', '=', $_GET['fid']]);
                 if (!count($forum)) {
                     Redirect::to(URL::build('/panel/forums'));
-                    die();
                 }
                 $forum = $forum[0];
 
@@ -442,7 +432,6 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                             }
                             Session::flash('admin_forums', $forum_language->get('forum', 'forum_deleted_successfully'));
                             Redirect::to(URL::build('/panel/forums'));
-                            die();
                         }
                     } else {
                         $errors = [$language->get('general', 'invalid_token')];
@@ -475,7 +464,6 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
 
             default:
                 Redirect::to(URL::build('/panel/forums'));
-                die();
         }
     } else {
         if (isset($_GET['forum'])) {
@@ -488,7 +476,6 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
 
             if (!count($forum)) {
                 Redirect::to(URL::build('/panel/forums'));
-                die();
             }
 
             $available_forums = $queries->orderWhere('forums', 'id > 0', 'forum_order', 'ASC'); // Get a list of all forums which can be chosen as a parent
@@ -697,7 +684,6 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
 
                             Session::flash('admin_forums', $forum_language->get('forum', 'forum_updated_successfully'));
                             Redirect::to(URL::build('/panel/forums'));
-                            die();
                         }
 
                         $errors = $validation->errors();

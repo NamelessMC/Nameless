@@ -13,17 +13,14 @@ if ($user->isLoggedIn()) {
     if (!$user->canViewStaffCP()) {
         // No
         Redirect::to(URL::build('/'));
-        die();
     }
     if ($user->isAdmLoggedIn()) {
         // Already authenticated
         Redirect::to(URL::build('/panel'));
-        die();
     }
 } else {
     // Not logged in
     Redirect::to(URL::build('/login'));
-    die();
 }
 
 const PAGE = 'panel';
@@ -103,8 +100,6 @@ if (Input::exists()) {
                 } else {
                     Redirect::to(URL::build('/panel'));
                 }
-
-                die();
             }
 
             Session::flash('adm_auth_error', $language->get('user', 'incorrect_details'));

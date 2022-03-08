@@ -28,8 +28,6 @@ if (isset($_GET['action'])) {
 
         Session::flash('panel_images_success', $language->get('admin', 'background_reset_successfully'));
         Redirect::to(URL::build('/panel/core/images'));
-        die();
-
     }
 
     if ($_GET['action'] == 'reset_banner') {
@@ -38,7 +36,6 @@ if (isset($_GET['action'])) {
 
         Session::flash('panel_images_success', $language->get('admin', 'template_banner_reset_successfully'));
         Redirect::to(URL::build('/panel/core/images'));
-        die();
     }
 
     if ($_GET['action'] == 'reset_logo') {
@@ -47,7 +44,6 @@ if (isset($_GET['action'])) {
 
         Session::flash('panel_images_success', $language->get('admin', 'logo_reset_successfully'));
         Redirect::to(URL::build('/panel/core/images'));
-        die();
     }
 
     if ($_GET['action'] == 'reset_favicon') {
@@ -56,7 +52,6 @@ if (isset($_GET['action'])) {
 
         Session::flash('panel_images_success', $language->get('admin', 'favicon_reset_successfully'));
         Redirect::to(URL::build('/panel/core/images'));
-        die();
     }
 }
 
@@ -96,11 +91,9 @@ if (Input::exists()) {
         }
 
         Redirect::to(URL::build('/panel/core/images'));
-        die();
-
     }
 
-// Invalid token
+    // Invalid token
     $errors = [$language->get('general', 'invalid_token')];
 }
 

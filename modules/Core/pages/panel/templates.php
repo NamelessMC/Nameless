@@ -181,7 +181,6 @@ if (!isset($_GET['action'])) {
             }
 
             Redirect::to(URL::build('/panel/core/templates'));
-            die();
 
         case 'activate':
             if (Token::check()) {
@@ -191,7 +190,6 @@ if (!isset($_GET['action'])) {
                 if (!count($template)) {
                     // Doesn't exist
                     Redirect::to(URL::build('/panel/core/templates/'));
-                    die();
                 }
                 $name = str_replace(['../', '/', '..'], '', $template[0]->name);
 
@@ -219,7 +217,6 @@ if (!isset($_GET['action'])) {
             }
 
             Redirect::to(URL::build('/panel/core/templates/'));
-            die();
 
         case 'deactivate':
             if (Token::check()) {
@@ -229,7 +226,6 @@ if (!isset($_GET['action'])) {
                 if (!count($template)) {
                     // Doesn't exist
                     Redirect::to(URL::build('/panel/core/templates/'));
-                    die();
                 }
 
                 $template = $template[0]->id;
@@ -246,12 +242,10 @@ if (!isset($_GET['action'])) {
             }
 
             Redirect::to(URL::build('/panel/core/templates'));
-            die();
 
         case 'delete':
             if (!isset($_GET['template'])) {
                 Redirect::to('/panel/core/templates');
-                die();
             }
 
             if (Token::check()) {
@@ -264,13 +258,11 @@ if (!isset($_GET['action'])) {
                         $template = $template[0];
                         if ($template->name == 'DefaultRevamp' || $template->id == 1 || $template->enabled == 1 || $template->is_default == 1) {
                             Redirect::to(URL::build('/panel/core/templates'));
-                            die();
                         }
 
                         $item = $template->name;
                     } else {
                         Redirect::to(URL::build('/panel/core/templates'));
-                        die();
                     }
 
                     if (!Util::recursiveRemoveDirectory(ROOT_PATH . '/custom/templates/' . $item)) {
@@ -289,7 +281,6 @@ if (!isset($_GET['action'])) {
             }
 
             Redirect::to(URL::build('/panel/core/templates'));
-            die();
 
         case 'make_default':
             if (Token::check()) {
@@ -299,7 +290,6 @@ if (!isset($_GET['action'])) {
                 if (!count($new_default)) {
                     // Doesn't exist
                     Redirect::to(URL::build('/panel/core/templates/'));
-                    die();
                 }
 
                 $new_default_template = $new_default[0]->name;
@@ -331,13 +321,11 @@ if (!isset($_GET['action'])) {
             }
 
             Redirect::to(URL::build('/panel/core/templates/'));
-            die();
 
         case 'settings':
             // Editing template settings
             if (!$user->hasPermission('admincp.styles.templates.edit')) {
                 Redirect::to(URL::build('/panel/core/templates'));
-                die();
             }
 
             $current_template = $template;
@@ -348,7 +336,6 @@ if (!isset($_GET['action'])) {
                 $template_query = $template_query[0];
             } else {
                 Redirect::to(URL::build('/panel/core/templates'));
-                die();
             }
 
             require_once(ROOT_PATH . DIRECTORY_SEPARATOR . 'custom' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . str_replace(['../', '/', '..'], '', $template_query->name) . DIRECTORY_SEPARATOR . 'template.php');
@@ -368,11 +355,9 @@ if (!isset($_GET['action'])) {
                     $template_file = 'core/template_settings.tpl';
                 } else {
                     Redirect::to(URL::build('/panel/core/templates'));
-                    die();
                 }
             } else {
                 Redirect::to(URL::build('/panel/core/templates'));
-                die();
             }
 
             $template = $current_template;
@@ -383,7 +368,6 @@ if (!isset($_GET['action'])) {
             // Template permissions
             if (!$user->hasPermission('admincp.groups')) {
                 Redirect::to(URL::build('/panel/core/templates'));
-                die();
             }
 
             // Get the template
@@ -392,7 +376,6 @@ if (!isset($_GET['action'])) {
                 $template_query = $template_query[0];
             } else {
                 Redirect::to(URL::build('/panel/core/templates'));
-                die();
             }
 
             // Get groups
@@ -508,7 +491,6 @@ if (!isset($_GET['action'])) {
             // Editing template
             if (!$user->hasPermission('admincp.styles.templates.edit')) {
                 Redirect::to(URL::build('/panel/core/templates'));
-                die();
             }
             // Get the template
             $template_query = $queries->getWhere('templates', ['id', '=', $_GET['template']]);
@@ -516,7 +498,6 @@ if (!isset($_GET['action'])) {
                 $template_query = $template_query[0];
             } else {
                 Redirect::to(URL::build('/panel/core/templates'));
-                die();
             }
 
             if ($_GET['template'] == 1) {
@@ -568,7 +549,6 @@ if (!isset($_GET['action'])) {
 
                     if (!is_dir(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', htmlspecialchars($template_query->name), $dir]))) {
                         Redirect::to(URL::build('/panel/core/templates'));
-                        die();
                     }
 
                     $template_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', htmlspecialchars($template_query->name), $dir]);
@@ -625,7 +605,6 @@ if (!isset($_GET['action'])) {
 
                             if (!is_dir(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', htmlspecialchars($template_query->name), $dir]))) {
                                 Redirect::to(URL::build('/panel/core/templates'));
-                                die();
                             }
 
                             $file_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', htmlspecialchars($template_query->name), $dir, $file]);
@@ -635,7 +614,6 @@ if (!isset($_GET['action'])) {
 
                         if (!file_exists($file_path) || !(pathinfo($file, PATHINFO_EXTENSION) == 'tpl' || pathinfo($file, PATHINFO_EXTENSION) == 'css' || pathinfo($file, PATHINFO_EXTENSION) == 'js' || pathinfo($file, PATHINFO_EXTENSION) == 'conf')) {
                             Redirect::to(URL::build('/panel/core/templates'));
-                            die();
                         }
 
                         if (pathinfo($file, PATHINFO_EXTENSION) == 'tpl') {
@@ -676,7 +654,6 @@ if (!isset($_GET['action'])) {
                                     } else {
                                         Redirect::to(URL::build('/panel/core/templates/', 'action=edit&template=' . $_GET['template'] . '&file=' . Output::getClean($_GET['file'])));
                                     }
-                                    die();
                                 }
 
 // No write permission
@@ -724,7 +701,6 @@ if (!isset($_GET['action'])) {
 
         default:
             Redirect::to(URL::build('/panel/core/templates'));
-            die();
     }
 }
 

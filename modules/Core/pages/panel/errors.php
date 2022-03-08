@@ -24,7 +24,6 @@ if (isset($_GET['log'], $_GET['do']) && $_GET['do'] == 'purge') {
     file_put_contents(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs', $_GET['log'] . '-log.log']), '');
     Session::flash('error_log_success', $language->get('admin', 'log_purged_successfully'));
     Redirect::to(URL::build('/panel/core/errors'));
-    die();
 }
 
 // Load modules + template

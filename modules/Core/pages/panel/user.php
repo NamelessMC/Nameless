@@ -19,20 +19,17 @@ $uid = $uid[count($uid) - 1];
 
 if (!strlen($uid)) {
     Redirect::to(URL::build('/panel'));
-    die();
 }
 
 $uid = explode('-', $uid);
 if (!is_numeric($uid[0])) {
     Redirect::to(URL::build('/panel'));
-    die();
 }
 $uid = $uid[0];
 
 $view_user = new User($uid);
 if (!$view_user->data()) {
     Redirect::to(URL::build('/panel'));
-    die();
 }
 $user_query = $view_user->data();
 

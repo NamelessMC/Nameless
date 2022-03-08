@@ -5,8 +5,6 @@ if (isset($_GET['do'])) {
     $_SESSION['action'] = ($_GET['do'] == 'upgrade' ? 'upgrade' : 'install');
 
     Redirect::to('?step=requirements_validation');
-    die();
-
 }
 
 if (isset($_GET['step'])) {

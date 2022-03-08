@@ -2,12 +2,10 @@
 
 if (isset($_SESSION['database_initialized']) && $_SESSION['database_initialized'] == true) {
     Redirect::to('?step=site_configuration');
-    die();
 }
 
 if (!isset($_SESSION['hostname'], $_SESSION['install_path']) || !isset($_SESSION['friendly_urls'])) {
     Redirect::to('?step=general_configuration');
-    die();
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -99,8 +97,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $_SESSION['engine'] = $engine;
 
                     Redirect::to('?step=database_initialization');
-                    die();
-
                 }
 
             } catch (Exception $e) {

@@ -144,7 +144,6 @@ if (!isset($_GET['action'])) {
             $name = $queries->getWhere('modules', ['id', '=', $_GET['m']]);
             if (!count($name)) {
                 Redirect::to(URL::build('/panel/modules'));
-                die();
             }
 
             $name = Output::getClean($name[0]->name);
@@ -152,7 +151,6 @@ if (!isset($_GET['action'])) {
             // Ensure module is valid
             if (!file_exists(ROOT_PATH . '/modules/' . $name . '/init.php')) {
                 Redirect::to(URL::build('/panel/modules'));
-                die();
             }
 
             $module = null;
@@ -195,7 +193,6 @@ if (!isset($_GET['action'])) {
                         if (!in_array($item, $enabled_modules)) {
                             Session::flash('admin_modules_error', str_replace('{x}', Output::getClean($item), $language->get('admin', 'unable_to_enable_module_dependencies')));
                             Redirect::to(URL::build('/panel/core/modules'));
-                            die();
                         }
                     }
                     Session::flash('admin_modules_error', $language->get('admin', 'unable_to_enable_module'));
@@ -210,8 +207,6 @@ if (!isset($_GET['action'])) {
         }
 
         Redirect::to(URL::build('/panel/core/modules'));
-        die();
-
     }
 
     if ($_GET['action'] == 'disable') {
@@ -230,7 +225,6 @@ if (!isset($_GET['action'])) {
                     // Unable to disable module
                     Session::flash('admin_modules_error', str_replace('{x}', Output::getClean($item->getName()), $language->get('admin', 'unable_to_disable_module')));
                     Redirect::to(URL::build('/panel/core/modules'));
-                    die();
                 }
             }
 
@@ -268,8 +262,6 @@ if (!isset($_GET['action'])) {
         }
 
         Redirect::to(URL::build('/panel/core/modules'));
-        die();
-
     }
 
     if ($_GET['action'] == 'install') {
@@ -307,7 +299,6 @@ if (!isset($_GET['action'])) {
         }
 
         Redirect::to(URL::build('/panel/core/modules'));
-        die();
     }
 }
 

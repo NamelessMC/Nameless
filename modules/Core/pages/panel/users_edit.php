@@ -16,13 +16,11 @@ if (!$user->handlePanelPageLoad('admincp.users.edit')) {
 
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
     Redirect::to(URL::build('/panel/users'));
-    die();
 }
 
 $view_user = new User($_GET['id']);
 if (!$view_user->data()) {
     Redirect::to(URL::build('/panel/users'));
-    die();
 }
 $user_query = $view_user->data();
 
@@ -113,7 +111,6 @@ if (isset($_GET['action'])) {
     }
 
     Redirect::to(URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->id)));
-    die();
 }
 
 if (Input::exists()) {
@@ -260,7 +257,6 @@ if (Input::exists()) {
 
                     Session::flash('edit_user_success', $language->get('admin', 'user_updated_successfully'));
                     Redirect::to(URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->id)));
-                    die();
                 } catch (Exception $e) {
                     $errors[] = $e->getMessage();
                 }
@@ -284,7 +280,6 @@ if (Input::exists()) {
                 }
 
                 Redirect::to(URL::build('/panel/users'));
-                die();
             }
         }
     } else {

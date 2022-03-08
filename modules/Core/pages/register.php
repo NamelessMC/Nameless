@@ -12,7 +12,6 @@
 // Ensure user isn't already logged in
 if ($user->isLoggedIn()) {
     Redirect::to(URL::build('/'));
-    die();
 }
 
 // Set page name for custom scripts
@@ -405,7 +404,6 @@ if (Input::exists()) {
                                     // Redirect straight to verification link
                                     $url = URL::build('/validate/', 'c=' . $code);
                                     Redirect::to($url);
-                                    die();
                                 }
                             }
 

@@ -107,7 +107,6 @@ if (Input::exists()) {
             // Reload to update debugging
             Session::flash('debugging_success', $language->get('admin', 'debugging_settings_updated_successfully'));
             Redirect::to(URL::build('/panel/core/debugging_and_maintenance'));
-            die();
         }
 
         $errors = $validation->errors();

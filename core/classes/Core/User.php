@@ -944,17 +944,14 @@ class User {
 
         if (!$this->isLoggedIn()) {
             Redirect::to(URL::build('/login'));
-            die();
         }
 
         if (!$this->canViewStaffCP()) {
             Redirect::to(URL::build('/'));
-            die();
         }
 
         if (!$this->isAdmLoggedIn()) {
             Redirect::to(URL::build('/panel/auth'));
-            die();
         }
 
         return !($permission != null && !$this->hasPermission($permission));

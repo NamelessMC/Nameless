@@ -11,7 +11,6 @@
 
 if (!$user->isLoggedIn()) {
     Redirect::to(URL::build('/forum'));
-    die();
 }
 
 require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
@@ -25,14 +24,12 @@ $forum = new Forum();
 // Get the post
 if (!isset($_POST['post']) || !is_numeric($_POST['post'])) {
     Redirect::to(URL::build('/forum'));
-    die();
 }
 
 $post = $queries->getWhere('posts', ['id', '=', $_POST['post']]);
 if (!count($post)) {
     // Doesn't exist
     Redirect::to(URL::build('/forum'));
-    die();
 }
 $post = $post[0];
 
@@ -51,7 +48,6 @@ if ($forum->canModerateForum($post->forum_id, $user->getAllGroupIds())) {
         if ($is_admin) {
             Session::flash('failure_post', $language->get('moderator', 'cant_ban_admin'));
             Redirect::to(URL::build('/forum/topic/' . $post->topic_id, 'pid=' . $post->id));
-            die();
         }
 
         // Delete all posts from the user
@@ -88,4 +84,3 @@ if ($forum->canModerateForum($post->forum_id, $user->getAllGroupIds())) {
     // Can't moderate forum
     Redirect::to(URL::build('/forum'));
 }
-die();

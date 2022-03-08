@@ -11,7 +11,6 @@
 
 if (!$user->isLoggedIn()) {
     Redirect::to(URL::build('/forum'));
-    die();
 }
 
 require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
@@ -25,14 +24,12 @@ $forum = new Forum();
 // Get the post
 if (!isset($_POST['post']) || !is_numeric($_POST['post'])) {
     Redirect::to(URL::build('/forum'));
-    die();
 }
 
 $post = $queries->getWhere('posts', ['id', '=', $_POST['post']]);
 if (!count($post)) {
     // Doesn't exist
     Redirect::to(URL::build('/forum'));
-    die();
 }
 $post = $post[0];
 
@@ -48,7 +45,6 @@ if (Token::check()) {
                 // User already has an open report
                 Session::flash('failure_post', $forum_language->get('forum', 'post_already_reported'));
                 Redirect::to(URL::build('/forum/topic/' . Output::getClean($_POST['topic'])));
-                die();
             }
         }
     }
@@ -85,4 +81,3 @@ if (Token::check()) {
     Session::flash('failure_post', $language->get('general', 'invalid_token'));
 }
 Redirect::to(URL::build('/forum/topic/' . Output::getClean($_POST['topic'])));
-die();

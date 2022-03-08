@@ -1,7 +1,6 @@
 <?php
 if (!isset($_SESSION['requirements_validated']) || $_SESSION['requirements_validated'] != true) {
     Redirect::to('?step=requirements_validation');
-    die();
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -13,7 +12,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION['friendly_urls'] = $_POST['friendly'] ?? false;
 
         Redirect::to('?step=database_configuration');
-        die();
     }
 
 }

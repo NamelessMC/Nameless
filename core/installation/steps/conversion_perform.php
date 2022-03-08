@@ -2,7 +2,6 @@
 
 if (!isset($_SESSION['admin_setup']) || $_SESSION['admin_setup'] != true) {
     Redirect::to('?step=admin_account_setup');
-    die();
 }
 
 $available_converters = array_filter(glob(ROOT_PATH . '/custom/converters/*'), 'is_dir');
@@ -69,7 +68,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                     if (!isset($error)) {
                         Redirect::to('?step=finish');
-                        die();
                     }
 
                 }

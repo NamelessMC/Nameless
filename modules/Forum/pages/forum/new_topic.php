@@ -17,7 +17,6 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 // User must be logged in to proceed
 if (!$user->isLoggedIn()) {
     Redirect::to(URL::build('/forum'));
-    die();
 }
 
 require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
@@ -26,7 +25,6 @@ $mentionsParser = new MentionsParser();
 
 if (!isset($_GET['fid']) || !is_numeric($_GET['fid'])) {
     Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
-    die();
 }
 
 $fid = (int)$_GET['fid'];
@@ -38,14 +36,12 @@ $user_groups = $user->getAllGroupIds();
 $list = $forum->forumExist($fid, $user_groups);
 if (!$list) {
     Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
-    die();
 }
 
 // Can the user post a topic in this forum?
 $can_reply = $forum->canPostTopic($fid, $user_groups);
 if (!$can_reply) {
     Redirect::to(URL::build('/forum/view/' . $fid));
-    die();
 }
 
 $current_forum = DB::getInstance()->selectQuery('SELECT * FROM nl2_forums WHERE id = ?', [$fid])->first();
@@ -228,7 +224,6 @@ if (Input::exists()) {
                     Session::flash('success_post', $forum_language->get('forum', 'post_successful'));
 
                     Redirect::to(URL::build('/forum/topic/' . $topic_id . '-' . $forum->titleToURL(Input::get('title'))));
-                    die();
                 } catch (Exception $e) {
                     die($e->getMessage());
                 }

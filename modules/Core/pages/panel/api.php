@@ -48,7 +48,6 @@ if (!isset($_GET['view'])) {
                 // Redirect
                 Session::flash('api_success', $language->get('admin', 'api_key_regenerated'));
                 Redirect::to(URL::build('/panel/core/api'));
-                die();
             }
 
             $plugin_id = $queries->getWhere('settings', ['name', '=', 'use_api']);

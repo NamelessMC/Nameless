@@ -78,13 +78,11 @@ if ($topic->topic_creator != $user_id && !$forum->canViewOtherTopics($topic->for
 if (isset($_GET['p'])) {
     if (!is_numeric($_GET['p'])) {
         Redirect::to(URL::build('/forum'));
-        die();
     }
 
     if ($_GET['p'] <= 1) {
         // Avoid bug in pagination class
         Redirect::to(URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title)));
-        die();
     }
     $p = $_GET['p'];
 } else {
@@ -135,7 +133,6 @@ if (isset($_GET['action'])) {
                     Session::flash('success_post', $forum_language->get('forum', 'no_longer_following_topic'));
                     if (isset($_GET['return']) && $_GET['return'] == 'list') {
                         Redirect::to(URL::build('/user/following_topics'));
-                        die();
                     }
                     break;
             }
@@ -145,7 +142,6 @@ if (isset($_GET['action'])) {
     }
 
     Redirect::to(URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title)));
-    die();
 }
 
 $forum_parent = $queries->getWhere('forums', ['id', '=', $topic->forum_id]);
@@ -251,7 +247,6 @@ if ($user->isLoggedIn()) {
 if (Input::exists()) {
     if (!$user->isLoggedIn() || !$can_reply) {
         Redirect::to(URL::build('/forum'));
-        die();
     }
     if (Token::check()) {
         $validate = new Validate();
@@ -372,7 +367,6 @@ if (Input::exists()) {
                 }
                 Session::flash('success_post', $forum_language->get('forum', 'post_successful'));
                 Redirect::to(URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id));
-                die();
             } catch (Exception $e) {
                 die($e->getMessage());
             }

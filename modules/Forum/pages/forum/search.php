@@ -40,7 +40,6 @@ if (!isset($_GET['s'])) {
                 $search = preg_replace('/[^a-zA-Z0-9 +]+/', '', $search); // alphanumeric only
 
                 Redirect::to(URL::build('/forum/search/', 's=' . $search . '&p=1'));
-                die();
             }
 
             $error = $forum_language->get('forum', 'invalid_search_query');
@@ -61,7 +60,6 @@ if (!isset($_GET['s'])) {
     if (isset($_SESSION['last_forum_search']) && $_SESSION['last_forum_search_query'] != $_GET['s'] && $_SESSION['last_forum_search'] > strtotime('-1 minute')) {
         Session::flash('search_error', str_replace('{x}', (60 - (date('U') - $_SESSION['last_forum_search'])), $forum_language->get('forum', 'search_again_in_x_seconds')));
         Redirect::to(URL::build('/forum/search'));
-        die();
     }
 
     $cache->setCache($search . '-' . rtrim(implode('-', $user_groups), '-'));

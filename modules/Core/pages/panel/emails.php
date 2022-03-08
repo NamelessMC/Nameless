@@ -227,7 +227,6 @@ if (isset($_GET['action'])) {
                         // Redirect to refresh config values
                         Session::flash('emails_success', $language->get('admin', 'email_settings_updated_successfully'));
                         Redirect::to(URL::build('/panel/core/emails'));
-                        die();
                     }
                 }
             }

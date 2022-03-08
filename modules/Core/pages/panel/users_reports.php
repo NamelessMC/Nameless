@@ -65,13 +65,11 @@ if (!isset($_GET['id'])) {
         if (isset($_GET['p'])) {
             if (!is_numeric($_GET['p'])) {
                 Redirect::to($url);
-                die();
             }
 
             if ($_GET['p'] == 1) {
                 // Avoid bug in pagination class
                 Redirect::to($url);
-                die();
             }
             $p = $_GET['p'];
         } else {
@@ -158,7 +156,6 @@ if (!isset($_GET['id'])) {
         $report = $queries->getWhere('reports', ['id', '=', $_GET['id']]);
         if (!count($report)) {
             Redirect::to(URL::build('/panel/users/reports'));
-            die();
         }
         $report = $report[0];
 
@@ -313,11 +310,9 @@ if (!isset($_GET['id'])) {
 
                 Session::flash('report_success', $language->get('moderator', 'report_closed'));
                 Redirect::to(URL::build('/panel/users/reports/', 'id=' . Output::getClean($report[0]->id)));
-                die();
             }
 
             Redirect::to(URL::build('/panel/users/reports'));
-            die();
         }
 
         if ($_GET['action'] == 'open') {
@@ -344,15 +339,12 @@ if (!isset($_GET['id'])) {
 
                 Session::flash('report_success', $language->get('moderator', 'report_reopened'));
                 Redirect::to(URL::build('/panel/users/reports/', 'id=' . Output::getClean($report[0]->id)));
-                die();
             }
 
             Redirect::to(URL::build('/panel/users/reports'));
-            die();
         }
 
         Redirect::to(URL::build('/panel/users/reports'));
-        die();
     }
 }
 

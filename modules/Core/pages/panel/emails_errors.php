@@ -28,7 +28,6 @@ if (isset($_GET['do'])) {
 
         Session::flash('emails_errors_success', $language->get('admin', 'email_errors_purged_successfully'));
         Redirect::to(URL::build('/panel/core/emails/errors'));
-        die();
     }
 
     if ($_GET['do'] == 'delete' && isset($_GET['id']) && is_numeric($_GET['id'])) {
@@ -37,7 +36,6 @@ if (isset($_GET['do'])) {
 
         Session::flash('emails_errors_success', $language->get('admin', 'error_deleted_successfully'));
         Redirect::to(URL::build('/panel/core/emails/errors'));
-        die();
     }
 
     if ($_GET['do'] == 'view' && isset($_GET['id']) && is_numeric($_GET['id'])) {
@@ -45,7 +43,6 @@ if (isset($_GET['do'])) {
         $error = $queries->getWhere('email_errors', ['id', '=', $_GET['id']]);
         if (!count($error)) {
             Redirect::to(URL::build('/panel/core/emails/errors'));
-            die();
         }
         $error = $error[0];
 
@@ -122,7 +119,6 @@ if (isset($_GET['do'])) {
         $template_file = 'core/emails_errors_view.tpl';
     } else {
         Redirect::to(URL::build('/panel/core/emails/errors'));
-        die();
     }
 } else {
     // Display all errors
@@ -132,13 +128,11 @@ if (isset($_GET['do'])) {
     if (isset($_GET['p'])) {
         if (!is_numeric($_GET['p'])) {
             Redirect::to(URL::build('/panel/core/emails/errors'));
-            die();
         }
 
         if ($_GET['p'] == 1) {
             // Avoid bug in pagination class
             Redirect::to(URL::build('/panel/core/emails/errors'));
-            die();
         }
         $p = $_GET['p'];
     } else {
