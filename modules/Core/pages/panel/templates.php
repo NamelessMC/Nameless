@@ -612,24 +612,22 @@ if (!isset($_GET['action'])) {
                             $file_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', htmlspecialchars($template_query->name), $file]);
                         }
 
-                        if (!file_exists($file_path) || !(pathinfo($file, PATHINFO_EXTENSION) == 'tpl' || pathinfo($file, PATHINFO_EXTENSION) == 'css' || pathinfo($file, PATHINFO_EXTENSION) == 'js' || pathinfo($file, PATHINFO_EXTENSION) == 'conf')) {
-                            Redirect::to(URL::build('/panel/core/templates'));
+                        $file_type = null;
+                        if (file_exists($file_path)) {
+                            $raw_type = pathinfo($file, PATHINFO_EXTENSION);
+                            $type_map = [
+                                'tpl' => 'smarty',
+                                'css' => 'css',
+                                'js' => 'javascript',
+                                'conf' => 'properties'
+                            ];
+                            if (array_key_exists($raw_type, $type_map)) {
+                                $file_type = $type_map[$raw_type];
+                            }
                         }
 
-                        if (pathinfo($file, PATHINFO_EXTENSION) == 'tpl') {
-                            $file_type = 'smarty';
-                        } else {
-                            if (pathinfo($file, PATHINFO_EXTENSION) == 'css') {
-                                $file_type = 'css';
-                            } else {
-                                if (pathinfo($file, PATHINFO_EXTENSION) == 'js') {
-                                    $file_type = 'javascript';
-                                } else {
-                                    if (pathinfo($file, PATHINFO_EXTENSION) == 'conf') {
-                                        $file_type = 'properties';
-                                    }
-                                }
-                            }
+                        if ($file_type == null) {
+                            Redirect::to(URL::build('/panel/core/templates'));
                         }
 
                         // Deal with input
