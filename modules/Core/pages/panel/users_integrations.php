@@ -23,13 +23,11 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
     Redirect::to(URL::build('/panel/users'));
-    die();
 }
 
 $view_user = new User($_GET['id']);
 if (!$view_user->exists()) {
     Redirect::to(URL::build('/panel/users'));
-    die();
 }
 
 if (!isset($_GET['action']) || !isset($_GET['integration'])) {
@@ -45,7 +43,7 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
 
     $user_integrations_list = [];
     foreach ($view_user->getIntegrations() as $key => $integrationUser) {
-        if ($integrationUser->data()->username == null && $integrationUser->data()->identifier == null) { 
+        if ($integrationUser->data()->username == null && $integrationUser->data()->identifier == null) {
             continue;
         }
 
@@ -81,13 +79,11 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
             $integration = Integrations::getInstance()->getIntegration($_GET['integration']);
             if ($integration == null) {
                 Redirect::to(URL::build('/panel/users/integrations/', 'id=' . $view_user->data()->id));
-                die();
             }
 
             $integrationUser = $view_user->getIntegration($_GET['integration']);
             if ($integrationUser != null && $integrationUser->data()->username != null && $integrationUser->data()->identifier != null) {
                 Redirect::to(URL::build('/panel/users/integrations/', 'id=' . $view_user->data()->id));
-                die();
             }
 
             if (Input::exists()) {
@@ -108,7 +104,7 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
                         if ($integrationUser == null) {
                             // Register new integration user
                             $code = uniqid('', true);
-                            
+
                             $integrationUser = new IntegrationUser($integration);
                             $integrationUser->linkIntegration($view_user, Output::getClean(Input::get('identifier')), Output::getClean(Input::get('username')), (bool) Output::getClean(Input::get('verified')), $code);
                         } else {
@@ -122,7 +118,6 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
 
                         Session::flash('integrations_success', str_replace('{x}', Output::getClean($integrationUser->getIntegration()->getName()), $language->get('admin', 'link_account_success')));
                         Redirect::to(URL::build('/panel/users/integrations/', 'id=' . $view_user->data()->id));
-                        die();
                     } else {
                         $errors[] = $language->get('admin', 'username_and_identifier_required');
                     }
@@ -148,7 +143,6 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
             $integrationUser = $view_user->getIntegration($_GET['integration']);
             if ($integrationUser == null) {
                 Redirect::to(URL::build('/panel/users/integrations/', 'id=' . $view_user->data()->id));
-                die();
             }
 
             if (Input::exists()) {
@@ -174,7 +168,6 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
 
                         Session::flash('integrations_success', $language->get('admin', 'user_integration_updated_successfully'));
                         Redirect::to(URL::build('/panel/users/integrations/', 'id=' . $view_user->data()->id));
-                        die();
                     } else {
                         $errors[] = $language->get('admin', 'username_and_identifier_required');
                     }
@@ -211,11 +204,9 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
             }
 
             Redirect::to(URL::build('/panel/users/integrations/', 'id=' . $view_user->data()->id));
-            die();
 
         default:
             Redirect::to(URL::build('/panel/users/integrations/', 'id=' . $view_user->data()->id));
-            die();
     }
 }
 

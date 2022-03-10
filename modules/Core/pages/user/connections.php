@@ -12,7 +12,6 @@
 // Must be logged in
 if (!$user->isLoggedIn()) {
     Redirect::to(URL::build('/'));
-    die();
 }
 
 // Always define page name for navbar
@@ -27,7 +26,6 @@ if (Input::exists()) {
         $integration = Integrations::getInstance()->getIntegration(Input::get('integration'));
         if ($integration == null) {
             Redirect::to(URL::build('/user/connections'));
-            die();
         }
 
         if (Input::get('action') === 'link') {
@@ -47,7 +45,6 @@ if (Input::exists()) {
         // Reload page if there is no errors, Else show errors
         if (!$integration->getErrors()) {
             Redirect::to(URL::build('/user/connections'));
-            die();
         } else {
             $errors = $integration->getErrors();
         }
@@ -70,7 +67,7 @@ foreach (Integrations::getInstance()->getAll() as $integration) {
         $username = Output::getClean($integrationUser->data()->username);
         $verified = Output::getClean($integrationUser->isVerified());
     }
-    
+
     $integrations_list[] = [
         'name' => Output::getClean($integration->getName()),
         'icon' => Output::getClean($integration->geticon()),
@@ -91,7 +88,7 @@ $smarty->assign([
 if (Session::exists('connections_success')) {
     $success = Session::flash('connections_success');
 }
-    
+
 if (Session::exists('connections_error')) {
     $errors = [Session::flash('connections_error')];
 }

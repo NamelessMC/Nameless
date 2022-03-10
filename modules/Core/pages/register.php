@@ -408,7 +408,6 @@ if (Input::exists()) {
                             // Redirect straight to verification link
                             $url = URL::build('/validate/', 'c=' . $code);
                             Redirect::to($url);
-                            die();
                         }
 
                         if ($api_verification != '1') {
