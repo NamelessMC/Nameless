@@ -122,7 +122,7 @@ class HttpClient {
      * @return mixed The response body
      */
     public function json(bool $assoc = false) {
-        return json_decode($this->_response->getBody()->getContents(), $assoc);
+        return json_decode($this->contents(), $assoc);
     }
 
     /**
