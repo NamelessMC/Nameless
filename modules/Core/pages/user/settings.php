@@ -19,8 +19,6 @@ const PAGE = 'cc_settings';
 $page_title = $language->get('user', 'user_cp');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-require(ROOT_PATH . '/core/includes/password.php'); // For password hashing
-require(ROOT_PATH . '/core/includes/phpass.php'); // phpass for Wordpress auth
 $emojione = new Emojione\Client(new Emojione\Ruleset());
 
 // Forum enabled?

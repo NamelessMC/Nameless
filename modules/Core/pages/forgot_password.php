@@ -19,8 +19,6 @@ if ($user->isLoggedIn()) {
     Redirect::to(URL::build('/'));
 }
 
-require(ROOT_PATH . '/core/includes/password.php'); // For password hashing
-
 if (!isset($_GET['c'])) {
     // Enter email address form
     if (Input::exists()) {

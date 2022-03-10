@@ -21,7 +21,9 @@
         "guzzlehttp/guzzle": "^7.0",
         "xpaw/php-minecraft-query": "^4.0",
         "games647/minecraft-banner-generator": "^0.4.1",
-        "symfony/polyfill-php80": "^v1.24.0"
+        "symfony/polyfill-php80": "^v1.24.0",
+        "ozh/phpass": "^1.4",
+        "ircmaxell/password-compat": "^1.0"
     },
     "require-dev": {
         "phpstan/phpstan": "^1.4",

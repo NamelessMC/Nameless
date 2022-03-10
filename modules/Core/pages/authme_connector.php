@@ -247,8 +247,6 @@ if (Input::exists()) {
 
                                 switch ($authme_db['hash']) {
                                     case 'bcrypt':
-                                        require(ROOT_PATH . '/core/includes/password.php');
-
                                         if (password_verify($_POST['password'], $password)) {
                                             $valid = true;
                                             $_SESSION['authme'] = [

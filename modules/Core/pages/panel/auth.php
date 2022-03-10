@@ -28,8 +28,6 @@ const PANEL_PAGE = 'auth';
 $page_title = $language->get('admin', 're-authenticate');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
-require(ROOT_PATH . '/core/includes/password.php'); // Require password compat library
-
 // Get login method
 $login_method = $queries->getWhere('settings', ['name', '=', 'login_method']);
 $login_method = $login_method[0]->value;

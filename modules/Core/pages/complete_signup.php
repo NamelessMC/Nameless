@@ -23,8 +23,6 @@ if (!isset($_GET['c'])) {
     Redirect::to(URL::build('/'));
 }
 
-require(ROOT_PATH . '/core/includes/password.php');
-
 // Ensure API is enabled
 $is_api_enabled = $queries->getWhere('settings', ['name', '=', 'use_api']);
 if ($is_api_enabled[0]->value != '1') {

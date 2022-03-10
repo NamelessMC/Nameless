@@ -86,7 +86,6 @@ if ($minecraft == '1') {
 
 // Registration page
 require(ROOT_PATH . '/core/integration/uuid.php'); // For UUID stuff
-require(ROOT_PATH . '/core/includes/password.php'); // For password hashing
 
 // Are custom usernames enabled?
 $custom_usernames = $queries->getWhere('settings', ['name', '=', 'displaynames']);
