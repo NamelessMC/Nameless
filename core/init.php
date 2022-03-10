@@ -506,7 +506,6 @@ if ($page != 'install') {
             $user->logout();
             Session::flash('home_error', $language->get('user', 'you_have_been_banned'));
             Redirect::to(URL::build('/'));
-            die();
         }
 
         // Is the IP address banned?
@@ -515,7 +514,6 @@ if ($page != 'install') {
             $user->logout();
             Session::flash('home_error', $language->get('user', 'you_have_been_banned'));
             Redirect::to(URL::build('/'));
-            die();
         }
 
         // Update user last IP and last online
@@ -581,7 +579,6 @@ if ($page != 'install') {
                 if (strpos($_SERVER['REQUEST_URI'], 'do=enable_tfa') === false) {
                     Session::put('force_tfa_alert', $language->get('admin', 'force_tfa_alert'));
                     Redirect::to(URL::build('/user/settings', 'do=enable_tfa'));
-                    die();
                 }
             }
         }

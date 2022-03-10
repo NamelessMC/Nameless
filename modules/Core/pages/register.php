@@ -12,7 +12,6 @@
 // Ensure user isn't already logged in
 if ($user->isLoggedIn()) {
     Redirect::to(URL::build('/'));
-    die();
 }
 
 // Set page name for custom scripts
@@ -87,7 +86,6 @@ if ($minecraft == '1') {
 
 // Registration page
 require(ROOT_PATH . '/core/integration/uuid.php'); // For UUID stuff
-require(ROOT_PATH . '/core/includes/password.php'); // For password hashing
 
 // Are custom usernames enabled?
 $custom_usernames = $queries->getWhere('settings', ['name', '=', 'displaynames']);
@@ -406,14 +404,11 @@ if (Input::exists()) {
                         if ($api_verification != '1' && $email_verification == '1') {
                             // Send registration email
                             sendRegisterEmail($queries, $language, Output::getClean(Input::get('email')), $username, $user_id, $code);
-
-                        } else {
-                            if ($api_verification != '1') {
-                                // Redirect straight to verification link
-                                $url = URL::build('/validate/', 'c=' . $code);
-                                Redirect::to($url);
-                                die();
-                            }
+                        } else if ($api_verification != '1') {
+                            // Redirect straight to verification link
+                            $url = URL::build('/validate/', 'c=' . $code);
+                            Redirect::to($url);
+                            die();
                         }
 
                         if ($api_verification != '1') {

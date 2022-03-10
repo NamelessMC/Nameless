@@ -25,7 +25,6 @@ $template->addCSSFiles([
 // User must be logged in to proceed
 if (!$user->isLoggedIn()) {
     Redirect::to(URL::build('/forum'));
-    die();
 }
 
 // Initialise
@@ -38,7 +37,6 @@ if (isset($_GET['pid'], $_GET['tid']) && is_numeric($_GET['pid']) && is_numeric(
     $topic_id = $_GET['tid'];
 } else {
     Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
-    die();
 }
 
 /*
@@ -50,7 +48,6 @@ $post_editing = DB::getInstance()->selectQuery('SELECT * FROM nl2_posts WHERE to
 // Check topic exists
 if (!count($post_editing)) {
     Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
-    die();
 }
 
 if ($post_editing[0]->id == $post_id) {
@@ -74,7 +71,6 @@ $post_editing = $queries->getWhere('posts', ['id', '=', $post_id]);
 // Check post exists
 if (!count($post_editing)) {
     Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
-    die();
 }
 
 $forum_id = $post_editing[0]->forum_id;
@@ -85,12 +81,10 @@ $user_groups = $user->getAllGroupIds();
 // Check permissions before proceeding
 if ($user->data()->id === $post_editing[0]->post_creator && !$forum->canEditTopic($forum_id, $user_groups) && !$forum->canModerateForum($forum_id, $user_groups)) {
     Redirect::to(URL::build('/forum/topic/' . $post_id));
-    die();
 }
 
 if ($user->data()->id !== $post_editing[0]->post_creator && !($forum->canModerateForum($forum_id, $user_groups))) {
     Redirect::to(URL::build('/forum/topic/' . $post_id));
-    die();
 }
 
 // Deal with input
@@ -186,11 +180,9 @@ if (Input::exists()) {
             // Display success message and redirect
             Session::flash('success_post', $forum_language->get('forum', 'post_edited_successfully'));
             Redirect::to(URL::build('/forum/topic/' . $topic_id, 'pid=' . $post_id));
-            die();
-
         }
 
-// Error handling
+        // Error handling
         $errors = $validation->errors();
     } else {
         // Bad token

@@ -5,8 +5,6 @@ if (isset($_GET['do'])) {
     $_SESSION['action'] = ($_GET['do'] == 'upgrade' ? 'upgrade' : 'install');
 
     Redirect::to('?step=requirements_validation');
-    die();
-
 }
 
 if (isset($_GET['step'])) {
@@ -69,23 +67,17 @@ require(__DIR__ . '/includes/header.php');
                                 </a>
                             </div>
                         </div>
-                    <?php } else {
-                        if (isset($error)) { ?>
-                            <div class="ui red message">
-                                <?php echo $error; ?>
-                            </div>
-                            <?php
-                        } else {
-                            if (!isset($_SESSION['action'])) {
-                                ?>
-                                <div class="ui red message">
-                                    <?php echo $language['session_doesnt_exist']; ?>
-                                </div>
-                                <?php
-                            } else {
-                                require(__DIR__ . '/steps/' . $step . '.php');
-                            }
-                        }
+                    <?php } else if (isset($error)) { ?>
+                        <div class="ui red message">
+                            <?php echo $error; ?>
+                        </div>
+                    <?php } else if (!isset($_SESSION['action'])) { ?>
+                        <div class="ui red message">
+                            <?php echo $language['session_doesnt_exist']; ?>
+                        </div>
+                    <?php
+                    } else {
+                        require(__DIR__ . '/steps/' . $step . '.php');
                     }
                     ?>
                 </div>

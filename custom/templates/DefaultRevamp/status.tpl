@@ -10,7 +10,7 @@
 {if count($SERVERS)}
   <div class="ui centered three stackable cards" id="servers">
     {foreach from=$SERVERS item=server}
-      <div class="ui fluid card center aligned server" id="server{$server->id|escape}" data-id="{$server->id|escape}" data-bungee="{$server->bungee|escape}" data-bedrock="{$server->bedrock|escape}" data-players="{$server->player_list|escape}">
+      <div class="ui fluid card center aligned server" style="height: 100%;" id="server{$server->id|escape}" data-id="{$server->id|escape}" data-bungee="{$server->bungee|escape}" data-bedrock="{$server->bedrock|escape}" data-players="{$server->player_list|escape}">
         <div class="content">
           <div class="header">
             {if $server->show_ip}<div class="ui top right attached label" data-toggle="popup" data-html="<span id='copy{$server->id|escape}'>{$server->query_ip|escape:'html'}{if $server->port && $server->port != 25565}:{$server->port|escape:'html'}{/if}</span>" onclick="copy('#copy{$server->id|escape}')">{$IP}</div>{/if}

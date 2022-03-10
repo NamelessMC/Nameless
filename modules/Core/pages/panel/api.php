@@ -48,7 +48,6 @@ if (!isset($_GET['view'])) {
                 // Redirect
                 Session::flash('api_success', $language->get('admin', 'api_key_regenerated'));
                 Redirect::to(URL::build('/panel/core/api'));
-                die();
             }
 
             $plugin_id = $queries->getWhere('settings', ['name', '=', 'use_api']);
@@ -282,7 +281,7 @@ if (!isset($_GET['view'])) {
         $group_sync_values = [];
         foreach ($queries->getWhere('group_sync', ['id', '<>', 0]) as $rule) {
             $rule_values = [];
-            foreach (get_class_vars($rule) as $column => $value) {
+            foreach (get_object_vars($rule) as $column => $value) {
                 $rule_values[$column] = $value;
             }
             $group_sync_values[] = $rule_values;

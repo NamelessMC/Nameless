@@ -120,6 +120,22 @@ abstract class CaptchaBase {
     abstract public function validateToken(array $post): bool;
 
     /**
+     * Validate if the private key is valid
+     *
+     * @param string $secret The secret key to validate
+     * @return bool Whether the private key is valid or not
+     */
+    abstract public function validateSecret(string $secret) : bool;
+
+    /**
+     * Validate if the public key is valid or not
+     *
+     * @param string $key The public key to validate
+     * @return bool Whether the public key is valid or not
+     */
+    abstract public function validateKey(string $key) : bool;
+
+    /**
      * Get form input HTML to display
      *
      * @return string|null HTML to display

@@ -62,7 +62,6 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     $profile_user = new User($profile, 'username');
     if (!$profile_user->data()) {
         Redirect::to(URL::build('/profile/&error=not_exist'));
-        die();
     }
     $query = $profile_user->data();
 
@@ -134,7 +133,6 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
                             // Redirect to clear input
                             Redirect::to($profile_user->getProfileURL());
-                            die();
                         }
 
                         // Validation failed
@@ -167,7 +165,6 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                             $post = $queries->getWhere('user_profile_wall_posts', ['id', '=', $_POST['post']]);
                             if (!count($post)) {
                                 Redirect::to($profile_user->getProfileURL());
-                                die();
                             }
 
                             // Input into database
@@ -196,7 +193,6 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
                             // Redirect to clear input
                             Redirect::to($profile_user->getProfileURL());
-                            die();
                         }
 
                         // Validation failed
@@ -316,20 +312,17 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                 if (!isset($_GET['post']) || !is_numeric($_GET['post'])) {
                     // Post ID required
                     Redirect::to($profile_user->getProfileURL());
-                    die();
                 }
 
                 // Does the post exist?
                 $post = $queries->getWhere('user_profile_wall_posts', ['id', '=', $_GET['post']]);
                 if (!count($post)) {
                     Redirect::to($profile_user->getProfileURL());
-                    die();
                 }
 
                 // Can't like our own post
                 if ($post[0]->author_id == $user->data()->id) {
                     Redirect::to($profile_user->getProfileURL());
-                    die();
                 }
 
                 // Liking or unliking?
@@ -358,7 +351,6 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
                 // Redirect
                 Redirect::to($profile_user->getProfileURL());
-                die();
 
             case 'reset_banner':
                 if (Token::check($_POST['token'])) {
@@ -369,8 +361,6 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                     }
 
                     Redirect::to($profile_user->getProfileURL());
-                    die();
-
                 }
 
                 $error = $language->get('general', 'invalid_token');
@@ -383,13 +373,11 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     if (isset($_GET['p'])) {
         if (!is_numeric($_GET['p'])) {
             Redirect::to($profile_user->getProfileURL());
-            die();
         }
 
         if ($_GET['p'] == 1) {
             // Avoid bug in pagination class
             Redirect::to($profile_user->getProfileURL());
-            die();
         }
         $p = $_GET['p'];
     } else {

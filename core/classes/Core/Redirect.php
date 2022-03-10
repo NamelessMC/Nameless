@@ -14,6 +14,7 @@ class Redirect {
      * Redirect the user to the specified location.
      *
      * @param string $location Path or URL to redirect to
+     * @return never
      */
     public static function to(string $location): void {
         // `attribute data-cfasync="false"` fixes Cloudflare caching issues

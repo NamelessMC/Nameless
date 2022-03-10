@@ -14,14 +14,9 @@ const PAGE = 'login';
 $page_title = $language->get('general', 'sign_in');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-// Requirements
-require(ROOT_PATH . '/core/includes/password.php'); // For password hashing
-require(ROOT_PATH . '/core/includes/phpass.php'); // phpass for Wordpress auth
-
 // Ensure user isn't already logged in
 if ($user->isLoggedIn()) {
     Redirect::to(URL::build('/'));
-    die();
 }
 
 // Get login method
@@ -253,7 +248,6 @@ if (Input::exists()) {
                                 Session::flash('home', $language->get('user', 'successful_login'));
                                 Redirect::to(URL::build('/'));
                             }
-                            die();
                         }
 
                         // No, output error

@@ -88,7 +88,6 @@ if (isset($_GET['action'])) {
                         // Redirect
                         Session::flash('profile_field_success', $language->get('admin', 'profile_field_created_successfully'));
                         Redirect::to(URL::build('/panel/core/profile_fields'));
-                        die();
                     } catch (Exception $e) {
                         $errors[] = $e->getMessage();
                     }
@@ -133,7 +132,6 @@ if (isset($_GET['action'])) {
         if ($_GET['action'] == 'edit') {
             if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
                 Redirect::to(URL::build('/panel/core/groups'));
-                die();
             }
             $id = (int)$_GET['id'];
 
@@ -141,7 +139,6 @@ if (isset($_GET['action'])) {
 
             if (!count($field)) {
                 Redirect::to(URL::build('/panel/core/profile_fields'));
-                die();
             }
             $field = $field[0];
 
@@ -208,7 +205,6 @@ if (isset($_GET['action'])) {
                                 // Redirect
                                 Session::flash('profile_field_success', $language->get('admin', 'profile_field_updated_successfully'));
                                 Redirect::to(URL::build('/panel/core/profile_fields/', 'action=edit&id=' . Output::getClean($field->id)));
-                                die();
                             } catch (Exception $e) {
                                 $errors[] = $e->getMessage();
                             }
@@ -224,7 +220,6 @@ if (isset($_GET['action'])) {
 
                             Session::flash('profile_field_success', $language->get('admin', 'profile_field_deleted_successfully'));
                             Redirect::to(URL::build('/panel/core/profile_fields'));
-                            die();
                         }
                     }
                 } else {
@@ -271,7 +266,6 @@ if (isset($_GET['action'])) {
             $template_file = 'core/profile_fields_edit.tpl';
         } else {
             Redirect::to(URL::build('/panel/core/profile_fields'));
-            die();
         }
     }
 } else {

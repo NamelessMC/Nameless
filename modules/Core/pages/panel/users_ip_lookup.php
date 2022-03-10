@@ -29,7 +29,6 @@ if (isset($_GET['uid'])) {
     $user_query = $queries->getWhere('users', ['id', '=', $user_id]);
     if (!count($user_query)) {
         Redirect::to(URL::build('/panel/users'));
-        die();
     }
     $user_query = $user_query[0];
 
@@ -122,7 +121,6 @@ if (isset($_GET['uid'])) {
 
                 if (count($query)) {
                     Redirect::to(URL::build('/panel/users/ip_lookup/', 'uid=' . Output::getClean($query[0]->id)));
-                    die();
                 }
 
                 // Try searching IPs
@@ -130,7 +128,6 @@ if (isset($_GET['uid'])) {
 
                 if (count($query)) {
                     Redirect::to(URL::build('/panel/users/ip_lookup/', 'ip=' . Output::getClean(Input::get('search'))));
-                    die();
                 }
 
                 $errors = [$language->get('moderator', 'no_users_or_ips_found')];

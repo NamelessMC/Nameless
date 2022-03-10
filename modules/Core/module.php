@@ -1478,6 +1478,7 @@ class Core_Module extends Module {
                 'query_ip' => $server->query_ip,
                 'port' => $server->port,
                 'query_port' => $server->query_port,
+                'bedrock' => (bool)$server->bedrock,
             ];
         }
 

@@ -136,7 +136,7 @@ class Input {
           menubar: false,
           convert_urls: false,
           plugins: \'autolink,codesample,directionality,emoticons,hr,image,link,lists,spoiler\',
-          toolbar: \'undo redo | bold italic underline strikethrough fontsizeselect forecolor backcolor ltr rtl | alignleft aligncenter alignright alignjustify | codesample emoticons hr image link numlist bullist | spoiler-add spoiler-remove\',
+          toolbar: \'undo redo | bold italic underline strikethrough formatselect forecolor backcolor ltr rtl | alignleft aligncenter alignright alignjustify | codesample emoticons hr image link numlist bullist | spoiler-add spoiler-remove\',
           spoiler_caption: \'' . $language->get('general', 'spoiler') . '\',
           default_link_target: \'_blank\',
           skin: "' . (defined('TEMPLATE_TINY_EDITOR_STYLE') ? TEMPLATE_TINY_EDITOR_STYLE : 'oxide') . '"

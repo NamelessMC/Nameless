@@ -11,7 +11,6 @@
 
 if (!$user->isLoggedIn()) {
     Redirect::to(URL::build('/forum'));
-    die();
 }
 
 require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
@@ -24,14 +23,12 @@ $forum = new Forum();
 // Check params are set
 if (!isset($_GET['pid']) || !is_numeric($_GET['pid'])) {
     Redirect::to(URL::build('/forum'));
-    die();
 }
 
 // Get post and forum ID
 $post = $queries->getWhere('posts', ['id', '=', $_GET['pid']]);
 if (!count($post)) {
     Redirect::to(URL::build('/forum'));
-    die();
 }
 $post = $post[0];
 

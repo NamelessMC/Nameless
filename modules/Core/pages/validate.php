@@ -57,4 +57,3 @@ if (isset($_GET['c'])) {
     }
 }
 Redirect::to(URL::build('/'));
-die();

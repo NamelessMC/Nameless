@@ -23,7 +23,6 @@ if (Session::get('oauth_method') === 'register') {
     if (OAuth::getInstance()->userExistsByProviderId($provider_name, $provider_id)) {
         Session::flash('oauth_error', str_replace('{x}', ucfirst($provider_name), $language->get('user', 'oauth_already_linked')));
         Redirect::to(URL::build('/register'));
-        die();
     }
 
     Session::put('oauth_register_data', json_encode([
@@ -33,7 +32,6 @@ if (Session::get('oauth_method') === 'register') {
     ]));
 
     Redirect::to(URL::build('/register'));
-    die();
 }
 
 // login
@@ -41,7 +39,6 @@ if (Session::get('oauth_method') === 'login') {
     if (!OAuth::getInstance()->userExistsByProviderId($provider_name, $provider_id)) {
         Session::flash('oauth_error', str_replace('{x}', ucfirst($provider_name), $language->get('user', 'no_user_found_with_provider')));
         Redirect::to(URL::build('/login'));
-        die();
     }
 
     if ((new User())->login(
@@ -54,11 +51,9 @@ if (Session::get('oauth_method') === 'login') {
 
         if (isset($_SESSION['last_page']) && substr($_SESSION['last_page'], -1) != '=') {
             Redirect::to($_SESSION['last_page']);
-            die();
         }
 
         Redirect::to(URL::build('/'));
-        die();
     }
 
     throw new RuntimeException('Failed to login user with OAuth');
@@ -69,7 +64,6 @@ if (Session::get('oauth_method') === 'link') {
     if (OAuth::getInstance()->userExistsByProviderId($provider_name, $provider_id)) {
         Session::flash('oauth_error', str_replace('{x}', ucfirst($provider_name), $language->get('user', 'oauth_already_linked')));
         Redirect::to(URL::build('/user/oauth'));
-        die();
     }
 
     OAuth::getInstance()->saveUserProvider(
@@ -82,5 +76,4 @@ if (Session::get('oauth_method') === 'link') {
     Session::delete('oauth_method');
 
     Redirect::to(URL::build('/user/oauth'));
-    die();
 }

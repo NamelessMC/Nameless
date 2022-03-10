@@ -19,11 +19,26 @@ class hCaptcha extends CaptchaBase {
         $token = $post['h-captcha-response'];
 
         $url = 'https://hcaptcha.com/siteverify';
-        $post_data = 'secret=' . $this->getPrivateKey() . '&response=' . $token;
 
-        $result = HttpClient::post($url, $post_data)->json(true);
+        $result = HttpClient::post($url, [
+            'secret' => $this->getPrivateKey(),
+            'response' => $token,
+        ])->json(true);
 
         return $result['success'] == 'true';
+    }
+
+    public function validateSecret(string $_secret) : bool {
+        return true; // Haven't found a way to verify this
+    }
+
+    public function validateKey(string $key) : bool {
+        $url = 'https://api.hcaptcha.com/checksiteconfig?sitekey=' . $key;
+        $client = HttpClient::get($url);
+        if ($client->hasError()) {
+            return false;
+        }
+        return $client->json(true)['pass'] == true;
     }
 
     public function getHtml(): string {

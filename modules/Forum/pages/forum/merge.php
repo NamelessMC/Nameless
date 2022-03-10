@@ -19,12 +19,10 @@ $forum = new Forum();
 // User must be logged in to proceed
 if (!$user->isLoggedIn()) {
     Redirect::to('/forum');
-    die();
 }
 
 if (!isset($_GET['tid']) || !is_numeric($_GET['tid'])) {
     Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
-    die();
 }
 
 $topic_id = $_GET['tid'];
@@ -65,7 +63,6 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
     }
 } else {
     Redirect::to(URL::build('/forum'));
-    die();
 }
 
 $token = Token::get();

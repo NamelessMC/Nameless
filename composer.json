@@ -20,7 +20,9 @@
         "league/oauth2-google": "^4.0",
         "guzzlehttp/guzzle": "^7.0",
         "xpaw/php-minecraft-query": "^4.0",
-        "games647/minecraft-banner-generator": "^0.4.1"
+        "games647/minecraft-banner-generator": "^0.4.1",
+        "symfony/polyfill-php80": "^v1.24.0",
+        "ircmaxell/password-compat": "^1.0"
     },
     "require-dev": {
         "phpstan/phpstan": "^1.4",
@@ -33,8 +35,7 @@
             "core/classes",
             "modules/Cookie Consent/classes",
             "modules/Core/classes",
-            "modules/Discord Integration/classes",
-            "modules/Forum/classes/MentionsParser.php"
+            "modules/Discord Integration/classes"
         ]
     }
 }

@@ -28,7 +28,6 @@ if (Input::exists()) {
             // Step 2
             if (!isset($_SESSION['authme'])) {
                 Redirect::to(URL::build('/register'));
-                die();
             }
 
             $validate = new Validate();
@@ -106,15 +105,15 @@ if (Input::exists()) {
                 }
 
                 $mcname = Output::getClean($_SESSION['authme']['user']);
-                
+
                 $integration = Integrations::getInstance()->getIntegration('Minecraft');
-                
+
                 // Ensure username doesn't already exist
                 $integrationUser = new IntegrationUser($integration, $mcname, 'username');
                 if ($integrationUser->exists()) {
                     $integration->addError(str_replace('{x}', $integration->getName(), $language->get('user', 'integration_username_already_linked')));
                 }
-                
+
                 $result = $integration->getUuidByUsername($mcname);
                 if (!count($integration->getErrors())) {
                     $uuid = $result['uuid'];
@@ -147,10 +146,11 @@ if (Input::exists()) {
                         }
 
                         $user->create([
-                            'username' => $mcname,
+                            'username' => $_SESSION['authme']['user'],
                             'nickname' => $nickname,
                             'password' => $_SESSION['authme']['pass'],
                             'pass_method' => $authme_hash['hash'],
+                            'uuid' => $uuid,
                             'joined' => date('U'),
                             'email' => Output::getClean(Input::get('email')),
                             'lastip' => $ip,
@@ -163,7 +163,7 @@ if (Input::exists()) {
 
                         $user = new User($user_id);
                         $user->addGroup($default_group);
-                        
+
                         // Link the minecraft integration
                         if ($integration != null) {
                             $integrationUser = new IntegrationUser($integration);
@@ -174,13 +174,10 @@ if (Input::exists()) {
 
                         Session::flash('home', $language->get('user', 'validation_complete'));
                         Redirect::to(URL::build('/'));
-                        die();
-
                     } catch (Exception $e) {
                         $errors[] = $e->getMessage();
                     }
                 }
-
             } else {
                 // Validation errors
                 $errors = $validation->errors();
@@ -255,8 +252,6 @@ if (Input::exists()) {
 
                                 switch ($authme_db['hash']) {
                                     case 'bcrypt':
-                                        require(ROOT_PATH . '/core/includes/password.php');
-
                                         if (password_verify($_POST['password'], $password)) {
                                             $valid = true;
                                             $_SESSION['authme'] = [
@@ -320,8 +315,6 @@ if (Input::exists()) {
                                     // Passwords match
                                     // Continue to step 2
                                     Redirect::to(URL::build('/register', 'step=2'));
-                                    die();
-
                                 }
 
                                 // Passwords don't match

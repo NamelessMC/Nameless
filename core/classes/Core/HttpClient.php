@@ -19,13 +19,11 @@ use Psr\Http\Message\ResponseInterface;
  */
 class HttpClient {
 
-    private ResponseInterface $_response;
-    private string $_contents;
+    private ?ResponseInterface $_response;
     private string $_error;
 
-    private function __construct(ResponseInterface $response, string $contents, string $error) {
+    private function __construct(?ResponseInterface $response, string $error) {
         $this->_response = $response;
-        $this->_contents = $contents;
         $this->_error = $error;
     }
 
@@ -54,7 +52,6 @@ class HttpClient {
 
         return new HttpClient(
             $response,
-            $response->getBody()->getContents(),
             $error
         );
     }
@@ -64,11 +61,11 @@ class HttpClient {
      * Failures will automatically be logged along with the error.
      *
      * @param string $url URL to send request to.
-     * @param string $data JSON request body to attach to request.
+     * @param mixed $data JSON request body to attach to request, or array of key value pairs if form-urlencoded.
      * @param array $options Options to set with the GuzzleClient.
      * @return HttpClient New HttpClient instance.
      */
-    public static function post(string $url, string $data, array $options = []): HttpClient {
+    public static function post(string $url, $data, array $options = []): HttpClient {
         $guzzleClient = new Client(array_merge([
             'timeout' => 5.0,
             'handler' => self::createHandler(),
@@ -78,7 +75,8 @@ class HttpClient {
 
         try {
             $response = $guzzleClient->post($url, [
-                'body' => $data,
+                // if the data is an array, we assume they want to send it as form-urlencoded, otherwise it's json
+                is_array($data) ? 'form_params' : 'body' => $data,
             ]);
         } catch (GuzzleException $exception) {
             $error = $exception->getMessage();
@@ -87,7 +85,6 @@ class HttpClient {
 
         return new HttpClient(
             $response,
-            $response->getBody()->getContents(),
             $error
         );
     }
@@ -116,7 +113,7 @@ class HttpClient {
      * @return string The response body
      */
     public function contents(): string {
-        return $this->_contents;
+        return $this->_response->getBody()->getContents();
     }
 
     /**
@@ -126,7 +123,7 @@ class HttpClient {
      * @return mixed The response body
      */
     public function json(bool $assoc = false) {
-        return json_decode($this->_contents, $assoc);
+        return json_decode($this->contents(), $assoc);
     }
 
     /**
@@ -153,7 +150,15 @@ class HttpClient {
      * @return string The error message
      */
     public function getError(): string {
-        return $this->_error;
+        if ($this->_error !== '') {
+            return $this->_error;
+        }
+
+        if ($this->_response === null) {
+            return '$this->_response is null';
+        }
+
+        return '';
     }
 
 }

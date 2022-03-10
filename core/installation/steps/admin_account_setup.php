@@ -1,19 +1,19 @@
 <?php
 if (isset($_SESSION['admin_setup']) && $_SESSION['admin_setup'] == true) {
     Redirect::to('?step=conversion');
-    die();
 }
 
 if (!isset($_SESSION['site_initialized']) || $_SESSION['site_initialized'] != true) {
     Redirect::to('?step=site_configuration');
-    die();
 }
 
-require(ROOT_PATH . '/core/includes/password.php');
 require_once(ROOT_PATH . '/core/integration/uuid.php');
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+function display_error(string $message) {
+    echo "div class=\"ui error message\">$message</div>";
+}
 
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $validate = new Validate();
     $validation = $validate->check($_POST, [
         'username' => [
@@ -39,26 +39,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     ]);
 
     if (!$validation->passed()) {
-
         foreach ($validation->errors() as $item) {
             if (strpos($item, 'is required') !== false) {
-                $error = $language['input_required'];
-            } else {
-                if (strpos($item, 'minimum') !== false) {
-                    $error = $language['input_minimum'];
-                } else {
-                    if (strpos($item, 'maximum') !== false) {
-                        $error = $language['input_maximum'];
-                    } else {
-                        if (strpos($item, 'must match') !== false) {
-                            $error = $language['passwords_must_match'];
-                        } else {
-                            if (strpos($item, 'not a valid email') !== false) {
-                                $error = $language['email_invalid'];
-                            }
-                        }
-                    }
-                }
+                display_error($language['input_required']);
+            } else if (strpos($item, 'minimum') !== false) {
+                display_error($language['input_minimum']);
+            } else if (strpos($item, 'maximum') !== false) {
+                display_error($language['input_maximum']);
+            } else if (strpos($item, 'must match') !== false) {
+                display_error($language['passwords_must_match']);
+            } else if (strpos($item, 'not a valid email') !== false) {
+                display_error($language['email_invalid']);
             }
         }
 
@@ -67,7 +58,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $password = password_hash(Input::get('password'), PASSWORD_BCRYPT, ['cost' => 13]);
 
         try {
-
             $queries = new Queries();
 
             $language = $queries->getWhere('languages', ['is_default', '=', 1]);
@@ -104,25 +94,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $user->addGroup(2);
 
                 Redirect::to('?step=conversion');
-                die();
             }
 
-            $error = $language['unable_to_login'];
-
             $queries->delete('users', ['id', '=', 1]);
-
+            display_error($language['unable_to_login']);
         } catch (Exception $e) {
-            $error = $language['unable_to_create_account'] . ': ' . $e->getMessage();
+            display_error($language['unable_to_create_account'] . ': ' . $e->getMessage());
         }
     }
 }
-
-if (isset($error)) {
-    ?>
-    <div class="ui error message">
-        <?php echo $error; ?>
-    </div>
-<?php } ?>
+?>
 
 <form action="" method="post" id="form-user">
     <div class="ui segments">

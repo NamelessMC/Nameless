@@ -105,7 +105,6 @@ if (!isset($_GET['action'])) {
                             Session::flash('announcement_success', $language->get('admin', 'creating_announcement_success'));
                         }
                         Redirect::to(URL::build('/panel/core/announcements'));
-                        die();
                     }
 
                     $errors = $validation->errors();
@@ -136,7 +135,6 @@ if (!isset($_GET['action'])) {
             if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
                 // Check the announcement ID is valid
                 Redirect::to(URL::build('/panel/core/announcements'));
-                die();
             }
 
             // Does the announcement exist?
@@ -144,7 +142,6 @@ if (!isset($_GET['action'])) {
             if (!count($announcement)) {
                 // No, it doesn't exist
                 Redirect::to(URL::build('/panel/core/announcements'));
-                die();
             }
             $announcement = $announcement[0];
 
@@ -197,7 +194,6 @@ if (!isset($_GET['action'])) {
                             Session::flash('announcement_success', $language->get('admin', 'editing_announcement_success'));
                         }
                         Redirect::to(URL::build('/panel/core/announcements'));
-                        die();
                     }
 
                     $errors = $validation->errors();
@@ -264,7 +260,6 @@ if (!isset($_GET['action'])) {
 
         default:
             Redirect::to(URL::build('/panel/core/announcements'));
-            die();
     }
 }
 

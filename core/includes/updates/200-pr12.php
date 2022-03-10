@@ -82,6 +82,20 @@ try {
     echo $e->getMessage() . '<br />';
 }
 
+// Increase length of name column
+try {
+    DB::getInstance()->createQuery('ALTER TABLE nl2_mc_servers MODIFY `name` VARCHAR(128) NOT NULL');
+} catch (Exception $e) {
+    // Continue
+}
+
+// add unique constraint to modules table
+try {
+    DB::getInstance()->createQuery('ALTER TABLE nl2_modules ADD UNIQUE (`name`)');
+} catch (Exception $e) {
+    // Continue
+}
+
 // Update version number
 /*$version_number_id = $queries->getWhere('settings', array('name', '=', 'nameless_version'));
 

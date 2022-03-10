@@ -12,7 +12,6 @@
 // Must be logged in
 if (!$user->isLoggedIn()) {
     Redirect::to(URL::build('/'));
-    die();
 }
 
 // Always define page name for navbar
@@ -74,7 +73,6 @@ $smarty->assign(
 if (isset($_GET['p'])) {
     if (!is_numeric($_GET['p'])) {
         Redirect::to(URL::build('/user/messaging'));
-        die();
     }
 
     if ($_GET['p'] == 1) {
@@ -84,7 +82,6 @@ if (isset($_GET['p'])) {
         } else {
             Redirect::to(URL::build('/user/messaging'));
         }
-        die();
     }
     $p = $_GET['p'];
 } else {
@@ -175,7 +172,6 @@ if (!isset($_GET['action'])) {
     if ($_GET['action'] == 'new') {
         if (!$user->hasPermission('usercp.messaging')) {
             Redirect::to(URL::build('/user/messaging'));
-            die();
         }
         // New PM
         if (Input::exists()) {
@@ -326,11 +322,9 @@ if (!isset($_GET['action'])) {
                                 // Sent successfully
                                 Session::flash('user_messaging_success', $language->get('user', 'message_sent_successfully'));
                                 Redirect::to(URL::build('/user/messaging'));
-                                die();
-
                             }
 
-// Over 10 users added
+                            // Over 10 users added
                             $error = $language->get('user', 'max_pm_10_users');
                         }
                     }
@@ -408,7 +402,6 @@ if (!isset($_GET['action'])) {
         // Ensure message is specified
         if (!isset($_GET['message']) || !is_numeric($_GET['message'])) {
             Redirect::to(URL::build('/user/messaging'));
-            die();
         }
 
         // Ensure message exists
@@ -416,7 +409,6 @@ if (!isset($_GET['action'])) {
 
         if (!$pm) { // Either PM doesn't exist, or the user doesn't have permission to view it
             Redirect::to(URL::build('/user/messaging'));
-            die();
         }
 
         // Deal with input
@@ -637,7 +629,6 @@ if (!isset($_GET['action'])) {
         // Try to remove the user from the conversation
         if (!isset($_GET['message']) || !is_numeric($_GET['message']) || !Token::check($_POST['token'])) {
             Redirect::to(URL::build('/user/messaging'));
-            die();
         }
 
         $message = $queries->getWhere('private_messages_users', ['pm_id', '=', $_GET['message']]);
@@ -653,6 +644,5 @@ if (!isset($_GET['action'])) {
 
         // Done, redirect
         Redirect::to(URL::build('/user/messaging'));
-        die();
     }
 }

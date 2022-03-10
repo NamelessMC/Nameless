@@ -12,7 +12,6 @@
 // Must be logged in
 if (!$user->isLoggedIn()) {
     Redirect::to(URL::build('/'));
-    die();
 }
 
 // Always define page name for navbar
@@ -20,8 +19,6 @@ const PAGE = 'cc_settings';
 $page_title = $language->get('user', 'user_cp');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-require(ROOT_PATH . '/core/includes/password.php'); // For password hashing
-require(ROOT_PATH . '/core/includes/phpass.php'); // phpass for Wordpress auth
 $emojione = new Emojione\Client(new Emojione\Ruleset());
 
 // Forum enabled?
@@ -34,7 +31,6 @@ if (isset($_GET['do'])) {
         // Ensure TFA is currently disabled
         if ($user->data()->tfa_enabled == 1) {
             Redirect::to(URL::build('/user/settings'));
-            die();
         }
 
         $tfa = new \RobThree\Auth\TwoFactorAuth(SITE_NAME);
@@ -89,7 +85,6 @@ if (isset($_GET['do'])) {
                             Session::delete('force_tfa_alert');
                             Session::flash('tfa_success', $language->get('user', 'tfa_successful'));
                             Redirect::to(URL::build('/user/settings'));
-                            die();
                         }
 
                         $error = $language->get('user', 'invalid_tfa');
@@ -140,7 +135,6 @@ if (isset($_GET['do'])) {
             ]);
 
             Redirect::to(URL::build('/user/settings'));
-            die();
         }
     }
 
@@ -337,7 +331,6 @@ if (isset($_GET['do'])) {
 
                             Session::flash('settings_success', $language->get('user', 'settings_updated_successfully'));
                             Redirect::to(URL::build('/user/settings'));
-                            die();
 
                         } catch (Exception $e) {
                             Session::flash('settings_error', $e->getMessage());
@@ -380,115 +373,134 @@ if (isset($_GET['do'])) {
                         }
                     }
                 }
-            } else {
-                if (Input::get('action') == 'password') {
-                    // Change password
-                    $validate = new Validate();
+            } else if (Input::get('action') == 'password') {
+                // Change password
+                $validate = new Validate();
 
-                    $validation = $validate->check($_POST, [
-                        'old_password' => [
-                            Validate::REQUIRED => true
-                        ],
-                        'new_password' => [
-                            Validate::REQUIRED => true,
-                            Validate::MIN => 6
-                        ],
-                        'new_password_again' => [
-                            Validate::REQUIRED => true,
-                            Validate::MATCHES => 'new_password'
-                        ]
-                    ])->messages([
-                        'old_password' => $language->get('user', 'password_required') . '<br />',
-                        'new_password' => [
-                            Validate::REQUIRED => $language->get('user', 'password_required') . '<br />',
-                            Validate::MIN => $language->get('user', 'password_minimum_6') . '<br />'
-                        ],
-                        'new_password_again' => [
-                            Validate::REQUIRED => $language->get('user', 'password_required') . '<br />',
-                            Validate::MATCHES => $language->get('user', 'passwords_dont_match') . '<br />'
-                        ]
-                    ]);
+                $validation = $validate->check($_POST, [
+                    'old_password' => [
+                        Validate::REQUIRED => true
+                    ],
+                    'new_password' => [
+                        Validate::REQUIRED => true,
+                        Validate::MIN => 6
+                    ],
+                    'new_password_again' => [
+                        Validate::REQUIRED => true,
+                        Validate::MATCHES => 'new_password'
+                    ]
+                ])->messages([
+                    'old_password' => $language->get('user', 'password_required') . '<br />',
+                    'new_password' => [
+                        Validate::REQUIRED => $language->get('user', 'password_required') . '<br />',
+                        Validate::MIN => $language->get('user', 'password_minimum_6') . '<br />'
+                    ],
+                    'new_password_again' => [
+                        Validate::REQUIRED => $language->get('user', 'password_required') . '<br />',
+                        Validate::MATCHES => $language->get('user', 'passwords_dont_match') . '<br />'
+                    ]
+                ]);
 
-                    if ($validation->passed()) {
+                if ($validation->passed()) {
+                    // Update password
+                    // Check old password matches
+                    $old_password = Input::get('old_password');
+                    if ($user->checkCredentials($user->data()->username, $old_password, 'username')) {
+
+                        // Hash new password
+                        $new_password = password_hash(Input::get('new_password'), PASSWORD_BCRYPT, ['cost' => 13]);
+
                         // Update password
-                        // Check old password matches
-                        $old_password = Input::get('old_password');
-                        if ($user->checkCredentials($user->data()->username, $old_password, 'username')) {
-
-                            // Hash new password
-                            $new_password = password_hash(Input::get('new_password'), PASSWORD_BCRYPT, ['cost' => 13]);
-
-                            // Update password
-                            $user->update([
-                                'password' => $new_password,
-                                'pass_method' => 'default'
-                            ]);
-
-                            $success = $language->get('user', 'password_changed_successfully');
-
-                        } else {
-                            // Invalid current password
-                            Session::flash('settings_error', $language->get('user', 'incorrect_password'));
-                        }
-                    } else {
-                        $errors = $validation->errors();
-                    }
-                } else {
-                    if (Input::get('action') == 'email') {
-                        // Change password
-                        $validate = new Validate();
-
-                        $validation = $validate->check($_POST, [
-                            'password' => [
-                                Validate::REQUIRED => true
-                            ],
-                            'email' => [
-                                Validate::REQUIRED => true,
-                                Validate::EMAIL => true,
-                            ]
-                        ])->messages([
-                            'password' => [
-                                Validate::REQUIRED => $language->get('user', 'password_required') . '<br />'
-                            ],
-                            'email' => [
-                                Validate::REQUIRED => $language->get('user', 'email_required') . '<br />',
-                                Validate::EMAIL => $language->get('general', 'contact_message_email') . '<br />'
-                            ]
+                        $user->update([
+                            'password' => $new_password,
+                            'pass_method' => 'default'
                         ]);
 
-                        if ($validation->passed()) {
-                            // Check email doesn't exist
-                            $email_query = $queries->getWhere('users', ['email', '=', $_POST['email']]);
-                            if (count($email_query)) {
-                                if ($email_query[0]->id != $user->data()->id) {
-                                    $error = $language->get('user', 'email_already_exists');
-                                }
-                            }
+                        $success = $language->get('user', 'password_changed_successfully');
 
-                            if (!isset($error)) {
-                                // Check password matches
-                                $password = Input::get('password');
-                                if ($user->checkCredentials($user->data()->username, $password, 'username')) {
+                    } else {
+                        // Invalid current password
+                        Session::flash('settings_error', $language->get('user', 'incorrect_password'));
+                    }
+                } else {
+                    $errors = $validation->errors();
+                }
+            } else if (Input::get('action') == 'email') {
+                // Change password
+                $validate = new Validate();
 
-                                    // Update email
-                                    $user->update([
-                                        'email' => Output::getClean($_POST['email'])
-                                    ]);
+                $validation = $validate->check($_POST, [
+                    'password' => [
+                        Validate::REQUIRED => true
+                    ],
+                    'email' => [
+                        Validate::REQUIRED => true,
+                        Validate::EMAIL => true,
+                    ]
+                ])->messages([
+                    'password' => [
+                        Validate::REQUIRED => $language->get('user', 'password_required') . '<br />'
+                    ],
+                    'email' => [
+                        Validate::REQUIRED => $language->get('user', 'email_required') . '<br />',
+                        Validate::EMAIL => $language->get('general', 'contact_message_email') . '<br />'
+                    ]
+                ]);
 
-                                    Session::flash('settings_success', $language->get('user', 'email_changed_successfully'));
-                                    Redirect::to(URL::build('/user/settings'));
-                                    die();
-
-                                }
-
-                                // Invalid password
-                                Session::flash('settings_error', $language->get('user', 'incorrect_password'));
-                            }
-                        } else {
-                            $errors = $validation->errors();
+                if ($validation->passed()) {
+                    // Check email doesn't exist
+                    $email_query = $queries->getWhere('users', ['email', '=', $_POST['email']]);
+                    if (count($email_query)) {
+                        if ($email_query[0]->id != $user->data()->id) {
+                            $error = $language->get('user', 'email_already_exists');
                         }
                     }
+
+                    if (!isset($error)) {
+                        // Check password matches
+                        $password = Input::get('password');
+                        if ($user->checkCredentials($user->data()->username, $password, 'username')) {
+
+                            // Update email
+                            $user->update([
+                                'email' => Output::getClean($_POST['email'])
+                            ]);
+
+                            Session::flash('settings_success', $language->get('user', 'email_changed_successfully'));
+                            Redirect::to(URL::build('/user/settings'));
+                        }
+
+                        // Invalid password
+                        Session::flash('settings_error', $language->get('user', 'incorrect_password'));
+                    }
+                } else {
+                    $errors = $validation->errors();
                 }
+            } else if (Input::get('action') == 'discord') {
+                if (Input::get('unlink') == 'true') {
+
+                    $user->update([
+                        'discord_id' => null,
+                        'discord_username' => null
+                    ]);
+
+                    Session::flash('settings_success', Discord::getLanguageTerm('discord_id_unlinked'));
+
+                } else {
+
+                    $token = uniqid('', true);
+                    $queries->create('discord_verifications', [
+                        'token' => $token,
+                        'user_id' => $user->data()->id,
+                    ]);
+
+                    $user->update([
+                        'discord_id' => 010
+                    ]);
+
+                    Session::flash('settings_success', str_replace('{token}', $token, Discord::getLanguageTerm('discord_id_confirm')));
+                }
+                Redirect::to(URL::build('/user/settings'));
             }
         } else {
             // Invalid form token

@@ -50,13 +50,11 @@ $forum_query = $forum_query[0];
 if (isset($_GET['p'])) {
     if (!is_numeric($_GET['p'])) {
         Redirect::to(URL::build('/forum'));
-        die();
     }
 
     if ($_GET['p'] == 1) {
         // Avoid bug in pagination class
         Redirect::to(URL::build('/forum/view/' . $fid . '-' . $forum->titleToURL($forum_query->forum_title)));
-        die();
     }
     $p = $_GET['p'];
 } else {
@@ -77,7 +75,6 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 if ($forum_query->redirect_forum == 1) {
     if (!Util::isExternalURL($forum_query->redirect_url)) {
         Redirect::to(Output::getClean(Output::getDecoded($forum_query->redirect_url)));
-        die();
     }
 
     $smarty->assign([

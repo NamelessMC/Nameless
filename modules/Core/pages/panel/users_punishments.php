@@ -30,7 +30,6 @@ if (isset($_GET['user'])) {
     $view_user = new User($_GET['user']);
     if (!$view_user->data()) {
         Redirect::to(URL::build('/panel/users/punishments'));
-        die();
     }
     $query = $view_user->data();
 
@@ -39,7 +38,6 @@ if (isset($_GET['user'])) {
             $infraction = $queries->getWhere('infractions', ['id', '=', $_GET['id']]);
             if (!$user->hasPermission('modcp.punishments.revoke') || !count($infraction) || ($infraction[0]->punished != $query->id)) {
                 Redirect::to(URL::build('/panel/users/punishments/', 'user=' . $query->id));
-                die();
             }
             $infraction = $infraction[0];
 
@@ -91,7 +89,6 @@ if (isset($_GET['user'])) {
         }
 
         Redirect::to(URL::build('/panel/users/punishments/', 'user=' . $query->id));
-        die();
     }
 
     if (Input::exists()) {
@@ -104,7 +101,6 @@ if (isset($_GET['user'])) {
                         // Reset Avatar
                         if (!$user->hasPermission('modcp.punishments.reset_avatar')) {
                             Redirect::to(URL::build('/panel/users/punishments'));
-                            die();
                         }
                         $type = 4;
                         break;
@@ -113,7 +109,6 @@ if (isset($_GET['user'])) {
                         // Ban
                         if (!$user->hasPermission('modcp.punishments.ban')) {
                             Redirect::to(URL::build('/panel/users/punishments'));
-                            die();
                         }
                         $type = 1;
                         break;
@@ -122,7 +117,6 @@ if (isset($_GET['user'])) {
                         // Ban IP
                         if (!$user->hasPermission('modcp.punishments.banip')) {
                             Redirect::to(URL::build('/panel/users/punishments'));
-                            die();
                         }
                         $type = 3;
                         break;
@@ -131,7 +125,6 @@ if (isset($_GET['user'])) {
                         // Warn
                         if (!$user->hasPermission('modcp.punishments.warn')) {
                             Redirect::to(URL::build('/panel/users/punishments'));
-                            die();
                         }
                         $type = 2;
                         break;
@@ -158,44 +151,46 @@ if (isset($_GET['user'])) {
                                     'acknowledged' => (($type == 2) ? 0 : 1)
                                 ]);
 
-                                if ($type == 1 || $type == 3) {
-                                    // Ban the user
-                                    $queries->update('users', $query->id, [
-                                        'isbanned' => 1,
-                                        'active' => 0
-                                    ]);
-
-                                    $banned_user_ip = $banned_user->data()->lastip;
-
-                                    $queries->delete('users_session', ['user_id', '=', $query->id]);
-
-                                    if ($type == 3) {
-                                        // Ban IP
-                                        $queries->create('ip_bans', [
-                                            'ip' => $banned_user_ip,
-                                            'banned_by' => $user->data()->id,
-                                            'banned_at' => date('U'),
-                                            'reason' => $_POST['reason']
+                                switch($type) {
+                                    case 1:
+                                    case 3:
+                                        // Ban the user
+                                        $queries->update('users', $query->id, [
+                                            'isbanned' => 1,
+                                            'active' => 0
                                         ]);
-                                    }
 
-                                    // Fire userBanned event
-                                    EventHandler::executeEvent('userBanned', [
-                                        'punished_id' => $query->id,
-                                        'punisher_id' => $user->data()->id,
-                                        'reason' => Output::getClean($_POST['reason']),
-                                        'ip_ban' => $type == 3,
-                                    ]);
+                                        $banned_user_ip = $banned_user->data()->lastip;
 
-                                } else {
-                                    if ($type == 2) {
+                                        $queries->delete('users_session', ['user_id', '=', $query->id]);
+
+                                        if ($type == 3) {
+                                            // Ban IP
+                                            $queries->create('ip_bans', [
+                                                'ip' => $banned_user_ip,
+                                                'banned_by' => $user->data()->id,
+                                                'banned_at' => date('U'),
+                                                'reason' => $_POST['reason']
+                                            ]);
+                                        }
+
+                                        // Fire userBanned event
+                                        EventHandler::executeEvent('userBanned', [
+                                            'punished_id' => $query->id,
+                                            'punisher_id' => $user->data()->id,
+                                            'reason' => Output::getClean($_POST['reason']),
+                                            'ip_ban' => $type == 3,
+                                        ]);
+                                        break;
+                                    case 2:
                                         // Fire userWarned event
                                         EventHandler::executeEvent('userWarned', [
                                             'punished_id' => $query->id,
                                             'punisher_id' => $user->data()->id,
                                             'reason' => Output::getClean($_POST['reason']),
                                         ]);
-                                    } else if ($type == 4) {
+                                        break;
+                                    case 4:
                                         // Need to delete any other avatars
                                         $to_remove = [];
                                         foreach (['jpg', 'jpeg', 'png', 'gif'] as $extension) {
@@ -210,7 +205,9 @@ if (isset($_GET['user'])) {
                                             'has_avatar' => 0,
                                             'avatar_updated' => date('U')
                                         ]);
-                                    }
+                                        break;
+                                    default:
+                                        throw new InvalidArgumentException("Unexpected type $type");
                                 }
 
                                 // Send alerts
@@ -357,7 +354,6 @@ if (isset($_GET['user'])) {
                 $check = $check->first();
 
                 Redirect::to(URL::build('/panel/users/punishments/', 'user=' . Output::getClean($check->id)));
-                die();
             }
 
             $errors = [$language->get('user', 'couldnt_find_that_user')];
@@ -375,13 +371,11 @@ if (isset($_GET['user'])) {
         if (isset($_GET['p'])) {
             if (!is_numeric($_GET['p'])) {
                 Redirect::to(URL::build('/panel/users/punishments'));
-                die();
             }
 
             if ($_GET['p'] == 1) {
                 // Avoid bug in pagination class
                 Redirect::to(URL::build('/panel/users/punishments'));
-                die();
             }
             $p = $_GET['p'];
         } else {

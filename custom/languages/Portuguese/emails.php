@@ -2,13 +2,13 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
  *  Portuguese Language - Emails
-*  Translation by ?? & Mansffer
- *  Last Update: 01/03/2021
+ *  Translation by Mansffer.
+ *  Last Update: 22/02/2022
  */
 
 $language = [
@@ -26,6 +26,6 @@ $language = [
     'change_password_message' => 'Para resetar sua senha, clique no seguinte link. Se você desconhece essa requisição, você pode excluir com segurança este email.',
 
     // Forum Topic Replies
-    'forum_topic_reply_subject' => '{x} respondeu a {y}', // Don't remove {x} or {y}
-    'forum_topic_reply_message' => '{x} respondeu a um tópico que você segue. Conteúdo: {z}' // Don't remove {x} or {z}
+    'forum_topic_reply_subject' => '{x} respondeu a {y}', // Não remova "{x}" ou "{y} desta mensagem."
+    'forum_topic_reply_message' => '{x} respondeu a um tópico que você segue. Conteúdo: {z}' // Não remova "{x}" ou "{z} desta mensagem."
 ];

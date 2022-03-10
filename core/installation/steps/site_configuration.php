@@ -2,12 +2,10 @@
 
 if (isset($_SESSION['site_initialized']) && $_SESSION['site_initialized'] == true) {
     Redirect::to('?step=admin_account_setup');
-    die();
 }
 
 if (!isset($_SESSION['database_initialized']) || $_SESSION['database_initialized'] != true) {
     Redirect::to('?step=database_configuration');
-    die();
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -65,9 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['default_language'] = Output::getClean(Input::get('language'));
 
             Redirect::to('?step=site_initialization');
-            die();
         } catch (Exception $e) {
-
             $error = $e->getMessage();
         }
     }

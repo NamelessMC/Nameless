@@ -2,7 +2,6 @@
 
 if (!isset($_SESSION['admin_setup']) || $_SESSION['admin_setup'] != true) {
     Redirect::to('?step=admin_account_setup');
-    die();
 }
 
 try {

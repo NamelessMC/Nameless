@@ -166,7 +166,6 @@ if (isset($_GET['action'])) {
 
                             Session::flash('admin_mc_servers_success', $language->get('admin', 'server_created'));
                             Redirect::to(URL::build('/panel/minecraft/servers'));
-                            die();
 
                         } catch (Exception $e) {
                             $errors = [$e->getMessage()];
@@ -239,13 +238,11 @@ if (isset($_GET['action'])) {
             // Get server
             if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
                 Redirect::to(URL::build('/panel/minecraft/servers'));
-                die();
             }
 
             $server_editing = $queries->getWhere('mc_servers', ['id', '=', $_GET['id']]);
             if (!count($server_editing)) {
                 Redirect::to(URL::build('/panel/minecraft/servers'));
-                die();
             }
             $server_editing = $server_editing[0];
 
@@ -381,7 +378,6 @@ if (isset($_GET['action'])) {
 
                             Session::flash('admin_mc_servers_success', $language->get('admin', 'server_updated'));
                             Redirect::to(URL::build('/panel/minecraft/servers/', 'action=edit&id=' . Output::getClean($server_editing->id)));
-                            die();
 
                         } catch (Exception $e) {
                             $errors = [$e->getMessage()];
@@ -471,7 +467,6 @@ if (isset($_GET['action'])) {
             }
 
             Redirect::to(URL::build('/panel/minecraft/servers'));
-            die();
         case 'order':
             // Get servers
             if (isset($_POST['servers']) && Token::check($_POST['token'])) {
@@ -489,7 +484,6 @@ if (isset($_GET['action'])) {
 
         default:
             Redirect::to(URL::build('/panel/minecraft/servers'));
-            die();
     }
 
 } else {

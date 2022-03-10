@@ -110,7 +110,6 @@ if (isset($_GET['action'])) {
 
                         Session::flash('admin_groups', $language->get('admin', 'group_created_successfully'));
                         Redirect::to(URL::build('/panel/core/groups'));
-                        die();
                     } catch (Exception $e) {
                         $errors[] = $e->getMessage();
                     }
@@ -146,13 +145,11 @@ if (isset($_GET['action'])) {
         if ($_GET['action'] == 'edit') {
             if (!isset($_GET['group']) || !is_numeric($_GET['group'])) {
                 Redirect::to(URL::build('/panel/core/groups'));
-                die();
             }
 
             $group = $queries->getWhere('groups', ['id', '=', $_GET['group']]);
             if (!count($group)) {
                 Redirect::to(URL::build('/panel/core/groups'));
-                die();
             }
             $group = $group[0];
 
@@ -242,7 +239,6 @@ if (isset($_GET['action'])) {
 
                                 Session::flash('admin_groups', $language->get('admin', 'group_updated_successfully'));
                                 Redirect::to(URL::build('/panel/core/groups/', 'action=edit&group=' . Output::getClean($_GET['group'])));
-                                die();
                             } catch (Exception $e) {
                                 $errors[] = $e->getMessage();
                             }
@@ -266,7 +262,6 @@ if (isset($_GET['action'])) {
                                 }
 
                                 Redirect::to(URL::build('/panel/core/groups'));
-                                die();
                             } catch (Exception $e) {
                                 $errors[] = $e->getMessage();
                             }
@@ -310,19 +305,16 @@ if (isset($_GET['action'])) {
             if ($_GET['action'] == 'permissions') {
                 if (!isset($_GET['group']) || !is_numeric($_GET['group'])) {
                     Redirect::to(URL::build('/panel/core/groups'));
-                    die();
                 }
 
                 $group = $queries->getWhere('groups', ['id', '=', $_GET['group']]);
                 if (!count($group)) {
                     Redirect::to(URL::build('/panel/core/groups'));
-                    die();
                 }
                 $group = $group[0];
 
                 if ($group->id == 2 || ((in_array($group->id, $user->getAllGroupIds())) && !$user->hasPermission('admincp.groups.self'))) {
                     Redirect::to(URL::build('/panel/core/groups'));
-                    die();
                 }
 
                 if (Input::exists()) {
@@ -344,7 +336,6 @@ if (isset($_GET['action'])) {
 
                             Session::flash('admin_groups', $language->get('admin', 'permissions_updated_successfully'));
                             Redirect::to(URL::build('/panel/core/groups/', 'action=edit&group=' . $group->id));
-                            die();
                         } catch (Exception $e) {
                             $errors[] = $e->getMessage();
                         }
