@@ -13,7 +13,7 @@ class Instanceable {
     /**
      * Stores instances of classes with their class name as key.
      *
-     * @var array<string, static>
+     * @var array<class-string, static>
      */
     private static array $_instances = [];
 

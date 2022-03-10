@@ -20,7 +20,7 @@ final class GroupSyncManager extends Instanceable {
      * Ensures the provided class name is a valid GroupSyncInjector instance,
      * and that the column name of the new injector has not been taken.
      *
-     * @param string $class Class name of new injector
+     * @param class-string $class Class name of new injector
      */
     public function registerInjector(string $class): void {
         /** @var GroupSyncInjector */
