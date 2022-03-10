@@ -78,18 +78,6 @@ $language = [
     'leaderboards' => 'Leaderboards',
 
     /*
-     *  Contact form
-     */
-    'contact' => '聯絡',
-    'message' => '訊息',
-    'email_address' => '電子郵件位置',
-    'contact_email_subject' => '新的聯絡訊息已送達',
-    'contact_message_failed' => '無法傳送訊息，請檢查你是否有在 10~5000 字元以內.',
-    'contact_message_sent' => '訊息傳送成功.',
-    'contact_message_email' => 'The provided email is invalid.',
-    'contact_message_limit' => '你一小時可以提交一次. 請在 {x} 分鐘後重試.', // Don't replace {x}
-
-    /*
      *  Navbar
      */
     'home' => '首頁',

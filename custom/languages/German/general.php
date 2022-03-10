@@ -75,18 +75,6 @@ $language = [
     'leaderboards' => 'Leaderboards',
 
     /*
-     *  Contact form
-     */
-    'contact' => 'Kontakt',
-    'message' => 'Nachricht',
-    'email_address' => 'Email Address',
-    'contact_email_subject' => 'Neue Kontaktformulareinreichung',
-    'contact_message_failed' => 'Nachricht konnte nicht gesendet werden. Bitte stellen Sie sicher, dass Sie eine Nachricht zwischen 10 und 5000 Zeichen lang eingegeben haben.',
-    'contact_message_email' => 'Die angegebene E-Mail ist ungültig.',
-    'contact_message_sent' => 'Nachricht erfolgreich gesendet.',
-    'contact_message_limit' => 'Sie können nur eine Nachricht pro Stunde senden. Sie können als nächstes eine Nachricht in {x} Minuten senden.', // Don't replace {x}
-
-    /*
      *  Navbar
      */
     'home' => 'Startseite',

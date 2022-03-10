@@ -21,7 +21,6 @@ if (isset($_GET['recheck'])) {
     }
 
     Redirect::to(URL::build('/panel/update'));
-    die();
 }
 
 const PAGE = 'panel';

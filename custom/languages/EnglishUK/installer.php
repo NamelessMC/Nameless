@@ -51,6 +51,7 @@ $language = [
     'configuration' => 'Configuration',
     'configuration_info' => 'Please input basic information about your site. These values can be changed later on through the admin panel.',
     'configuration_error' => 'Please input a valid site name between 1 and 32 characters long, and valid email addresses between 4 and 64 characters long.',
+    'hostname_error' => 'Please enter a valid hostname without http:// or https://',
     'site_name' => 'Site Name',
     'contact_email' => 'Contact Email',
     'outgoing_email' => 'Outgoing Email',

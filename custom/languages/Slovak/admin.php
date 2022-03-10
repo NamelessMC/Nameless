@@ -151,7 +151,7 @@ $language = [
     'navigation_settings_updated_successfully' => 'Nastavenia navigácie sa úspešne aktualizovali.',
     'dropdown_items' => 'Dropdown položky',
     'enable_page_load_timer' => 'Povoliť časovač načítania stránky?',
-    'captcha_general' => 'Povoliť Captcha na registračnej a kontaktnej stránke?',
+    'captcha_general' => 'Povoliť Captcha na registračnej stránke?',
     'captcha_login' => 'Povoliť Captcha na prihlasovacej stránke?',
     'captcha_type' => 'Typ Captcha',
     'captcha_site_key' => 'Captcha Site Key',
@@ -486,6 +486,7 @@ $language = [
     'resend_activation_email' => 'Znova odoslať aktivačný email',
     'email_resent_successfully' => 'Email bol znova odoslaný.',
     'email_resend_failed' => 'Opätovné odoslanie emailu zlyhalo. Skontrolujte svoje nastavenia emailu.',
+    'no_item_selected' => 'No items selected',
 
     // Permissions
     'select_all' => 'Vybrať všetko',

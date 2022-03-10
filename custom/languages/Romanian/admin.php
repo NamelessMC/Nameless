@@ -153,7 +153,7 @@ $language = [
     'navigation_settings_updated_successfully' => 'Setările de navigare au fost actualizate cu succes.',
     'dropdown_items' => 'Elemente meniu dropdown',
     'enable_page_load_timer' => 'Activați cronometrarea încărcării paginii?',
-    'captcha_general' => 'Enable Captcha on registration and contact page?',
+    'captcha_general' => 'Enable Captcha on registration page?',
     'captcha_login' => 'Enable Captcha on login page?',
     'captcha_type' => 'Captcha Type',
     'captcha_site_key' => 'Captcha Site Key',
@@ -494,6 +494,7 @@ $language = [
     'resend_activation_email' => 'Resend Activation Email',
     'email_resent_successfully' => 'Email resent successfully.',
     'email_resend_failed' => 'Email resend failed, please check your email settings.',
+    'no_item_selected' => 'No items selected',
 
     // Permissions
     'select_all' => 'Selectează tot',

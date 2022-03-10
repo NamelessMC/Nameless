@@ -52,9 +52,9 @@ for ($i = 0; $i < 4; $i++) {
             'group_id' => $i,
             'forum_id' => $n,
             'view' => 1,
-            'create_topic' => (($i == 0 || $i == 4) ? 0 : 1),
-            'edit_topic' => (($i == 0 || $i == 4) ? 0 : 1),
-            'create_post' => (($i == 0 || $i == 4) ? 0 : 1),
+            'create_topic' => ($i == 0 ? 0 : 1),
+            'edit_topic' => ($i == 0 ? 0 : 1),
+            'create_post' => ($i == 0 ? 0 : 1),
             'view_other_topics' => 1,
             'moderate' => (($i == 2 || $i == 3) ? 1 : 0)
         ]);

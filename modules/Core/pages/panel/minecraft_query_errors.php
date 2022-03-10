@@ -26,7 +26,6 @@ if (!isset($_GET['id'])) {
         $queries->delete('query_errors', ['id', '<>', 0]);
         Session::flash('panel_query_errors_success', $language->get('admin', 'query_errors_purged_successfully'));
         Redirect::to(URL::build('/panel/minecraft/query_errors'));
-        die();
     }
 
     $query_errors = $queries->orderWhere('query_errors', 'id <> 0', 'DATE', 'DESC');
@@ -35,7 +34,6 @@ if (!isset($_GET['id'])) {
         if (isset($_GET['p'])) {
             if (!is_numeric($_GET['p'])) {
                 Redirect::to(URL::build('/panel/minecraft/query_errors'));
-                die();
             }
 
             $p = $_GET['p'];
@@ -47,7 +45,7 @@ if (!isset($_GET['id'])) {
         // Pagination
         $paginator = new Paginator();
         $results = $paginator->getLimited($query_errors, 10, $p, count($query_errors));
-        $pagination = $paginator->generate(7, URL::build('/panel/minecraft/query_errors/', true));
+        $pagination = $paginator->generate(7, URL::build('/panel/minecraft/query_errors/'));
 
         $template_array = [];
 
@@ -77,13 +75,11 @@ if (!isset($_GET['id'])) {
     // View an error
     if (!is_numeric($_GET['id'])) {
         Redirect::to(URL::build('/panel/minecraft/query_errors'));
-        die();
     }
 
     $query_error = $queries->getWhere('query_errors', ['id', '=', $_GET['id']]);
     if (!count($query_error)) {
         Redirect::to(URL::build('/panel/minecraft/query_errors'));
-        die();
     }
     $query_error = $query_error[0];
 
@@ -91,7 +87,6 @@ if (!isset($_GET['id'])) {
         $queries->delete('query_errors', ['id', '=', $_GET['id']]);
         Session::flash('panel_query_errors_success', $language->get('admin', 'query_error_deleted_successfully'));
         Redirect::to(URL::build('/panel/minecraft/query_errors'));
-        die();
     }
 
     $smarty->assign([

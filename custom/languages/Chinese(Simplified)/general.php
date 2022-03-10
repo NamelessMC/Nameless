@@ -75,18 +75,6 @@ $language = [
     'unlink' => '解除链接',
     'leaderboards' => '排行榜',
 
-    /*
-     *  Contact form
-     */
-    'contact' => '联系我们',
-    'message' => '消息',
-    'email_address' => '请输入您的电子邮箱地址',
-    'contact_email_subject' => '提交新的联系方式',
-    'contact_message_failed' => '无法发送消息。请确保您输入的消息长度在 10 到 5000 个字符之间。',
-    'contact_message_email' => '提交的电子邮箱地址不可用。',
-    'contact_message_sent' => '消息发送成功。',
-    'contact_message_limit' => '您每小时只能发送一条消息。距您可再次发送还有 {x} 分钟。', // Don't replace {x}
-
 
     /*
      *  Navbar

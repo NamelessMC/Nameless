@@ -28,7 +28,6 @@ if (Input::exists()) {
             // Step 2
             if (!isset($_SESSION['authme'])) {
                 Redirect::to(URL::build('/register'));
-                die();
             }
 
             $validate = new Validate();
@@ -169,7 +168,6 @@ if (Input::exists()) {
 
                     Session::flash('home', $language->get('user', 'validation_complete'));
                     Redirect::to(URL::build('/'));
-                    die();
 
                 } catch (Exception $e) {
                     $errors[] = $e->getMessage();
@@ -249,8 +247,6 @@ if (Input::exists()) {
 
                                 switch ($authme_db['hash']) {
                                     case 'bcrypt':
-                                        require(ROOT_PATH . '/core/includes/password.php');
-
                                         if (password_verify($_POST['password'], $password)) {
                                             $valid = true;
                                             $_SESSION['authme'] = [
@@ -314,8 +310,6 @@ if (Input::exists()) {
                                     // Passwords match
                                     // Continue to step 2
                                     Redirect::to(URL::build('/register', 'step=2'));
-                                    die();
-
                                 }
 
                                 // Passwords don't match

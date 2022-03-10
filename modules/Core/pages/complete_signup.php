@@ -21,10 +21,7 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp
 // Validate code
 if (!isset($_GET['c'])) {
     Redirect::to(URL::build('/'));
-    die();
 }
-
-require(ROOT_PATH . '/core/includes/password.php');
 
 // Ensure API is enabled
 $is_api_enabled = $queries->getWhere('settings', ['name', '=', 'use_api']);
@@ -87,8 +84,6 @@ if (!$user->isLoggedIn()) {
 
                     Session::flash('home', $language->get('user', 'validation_complete'));
                     Redirect::to(URL::build('/'));
-                    die();
-
                 }
 
                 // Errors
@@ -101,11 +96,9 @@ if (!$user->isLoggedIn()) {
     } else {
         Session::flash('home', $language->get('user', 'validation_error'));
         Redirect::to(URL::build('/'));
-        die();
     }
 } else {
     Redirect::to(URL::build('/'));
-    die();
 }
 
 // Smarty variables

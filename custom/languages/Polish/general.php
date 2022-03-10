@@ -74,18 +74,6 @@ $language = [
     'leaderboards' => 'Ranking',
 
     /*
-     *  Contact form
-     */
-    'contact' => 'Kontakt',
-    'message' => 'Wiadomość',
-    'email_address' => 'Adres email',
-    'contact_email_subject' => 'Nowe zgłoszenie formularza kontaktowego',
-    'contact_message_failed' => 'Nie można wysłać wiadomości. Upewnij się że twoja wiadomość ma od 10 do 5000 znaków długości.',
-    'contact_message_email' => 'Podany adres email jest nieprawidłowy.',
-    'contact_message_sent' => 'Wiadomość została wysłana.',
-    'contact_message_limit' => 'Możesz wysłać tylko jedną wiadomość na godzinę. Następną wiadomość możesz wysłać za {x} minut.', // Don't replace {x}
-
-    /*
      *  Navbar
      */
     'home' => 'Strona główna',

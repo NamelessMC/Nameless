@@ -1,14 +1,12 @@
 <?php
-
 /**
- * Mentions parser
- * By: fetch404
- * Date: 7/1/2015
- * License: MIT
+ * Handles parsing username mentions in forum posts.
  *
- * Modified by Samerton for NamelessMC
- * https://github.com/NamelessMC/Nameless/
- * NamelessMC version 2.0.0-pr9
+ * @package NamelessMC\Misc
+ * @author Samerton
+ * @author fetch404
+ * @version 2.0.0-pr9
+ * @license MIT
  */
 class MentionsParser {
 
@@ -29,10 +27,7 @@ class MentionsParser {
      * @param string $link Link back to post.
      * @param array $alert_short Short alert info.
      * @param array $alert_full Full alert info.
-     *
      * @return string Parsed post content.
-     * @throws Exception If alert is not created (see `Alert::create()`).
-     *
      */
     public function parse(int $author_id, string $value, string $link, array $alert_short, array $alert_full): string {
         if (preg_match_all('/@([A-Za-z0-9\-_!.]+)/', $value, $matches)) {

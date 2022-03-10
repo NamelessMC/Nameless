@@ -147,7 +147,7 @@ $language = [
     'navigation_settings_updated_successfully' => 'Navigasjonsinnstillingene har blitt oppdatert.',
     'dropdown_items' => 'Rullegardinmeny',
     'enable_page_load_timer' => 'Aktiver timer som viser nedlastingstiden til nettsiden?',
-    'captcha_general' => 'Enable Captcha on registration and contact page?',
+    'captcha_general' => 'Enable Captcha on registration page?',
     'captcha_login' => 'Enable Captcha on login page?',
     'captcha_type' => 'Captcha-type',
     'captcha_site_key' => 'Captcha Site Key',
@@ -490,6 +490,7 @@ $language = [
     'resend_activation_email' => 'Send aktiverings-e-post på nytt.',
     'email_resent_successfully' => 'E-post har blitt sendt på nytt.',
     'email_resend_failed' => 'E-post kunne ikke sendes på nytt, vennligst sjekk dine e-postinnstillinger.',
+    'no_item_selected' => 'No items selected',
 
     // Permissions
     'select_all' => 'Velg alle',

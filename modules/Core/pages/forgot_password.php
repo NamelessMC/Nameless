@@ -17,10 +17,7 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 // Ensure user is not logged in
 if ($user->isLoggedIn()) {
     Redirect::to(URL::build('/'));
-    die();
 }
-
-require(ROOT_PATH . '/core/includes/password.php'); // For password hashing
 
 if (!isset($_GET['c'])) {
     // Enter email address form
@@ -102,7 +99,6 @@ if (!isset($_GET['c'])) {
     $target_user = new User($_GET['c'], 'reset_code');
     if (!$target_user->data()) {
         Redirect::to('/forgot_password');
-        die();
     }
 
     if (Input::exists()) {
@@ -139,7 +135,6 @@ if (!isset($_GET['c'])) {
 
                         Session::flash('login_success', $language->get('user', 'forgot_password_change_successful'));
                         Redirect::to(URL::build('/login'));
-                        die();
                     } catch (Exception $e) {
                         $errors = [$e->getMessage()];
                     }

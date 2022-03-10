@@ -95,7 +95,6 @@ if (!isset($_GET['action'])) {
 
                             Session::flash('admin_hooks', $language->get('admin', 'hook_created'));
                             Redirect::to(URL::build('/panel/core/hooks'));
-                            die();
                         }
 
                         $errors[] = $language->get('admin', 'invalid_hook_events');
@@ -127,7 +126,6 @@ if (!isset($_GET['action'])) {
             if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
                 // Check the hook ID is valid
                 Redirect::to(URL::build('/panel/forms'));
-                die();
             }
 
             // Does the hook exist?
@@ -135,7 +133,6 @@ if (!isset($_GET['action'])) {
             if (!count($hook)) {
                 // No, it doesn't exist
                 Redirect::to(URL::build('/panel/core/hooks'));
-                die();
             }
             $hook = $hook[0];
 
@@ -181,7 +178,6 @@ if (!isset($_GET['action'])) {
                             }
                             Session::flash('admin_hooks', $language->get('admin', 'hook_edited'));
                             Redirect::to(URL::build('/panel/core/hooks'));
-                            die();
                         }
 
                         $errors[] = $language->get('admin', 'invalid_hook_events');
@@ -216,7 +212,6 @@ if (!isset($_GET['action'])) {
             // Delete hook
             if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
                 Redirect::to(URL::build('/panel/core/hooks'));
-                die();
             }
 
             if (Token::check()) {
@@ -233,11 +228,9 @@ if (!isset($_GET['action'])) {
             }
 
             Redirect::to(URL::build('/panel/core/hooks'));
-            die();
 
         default:
             Redirect::to(URL::build('/panel/core/hooks'));
-            die();
     }
 }
 

@@ -1,14 +1,12 @@
 <?php
-/*
- *	Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+/**
+ * Widget management class
  *
- *  License: MIT
- *
- *  Widget class
+ * @package NamelessMC\Misc
+ * @author Samerton
+ * @version 2.0.0-pr8
+ * @license MIT
  */
-
 class Widgets {
 
     private DB $_db;

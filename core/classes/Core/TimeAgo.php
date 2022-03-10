@@ -1,47 +1,20 @@
 <?php
-/*
-MIT LICENSE
-Copyright © 2014 Jimmi Westerberg (http://westsworld.dk)
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the “Software”), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-*/
-
-/*
- *  Modified by Samerton for NamelessMC (https://github.com/NamelessMC/Nameless)
- */
-
 
 function timeAgoInWords(string $timestring, string $timezone = null): string {
     return (new TimeAgo($timezone))->inWords($timestring, 'now');
 }
 
 /**
- * This class can help you find out just how much time has passed between
- * two dates.
- *
+ * This class can help you find out just how much time has passed between two dates.
  * It has two functions you can call:
- * inWords() which gives you the "time ago in words" between two dates.
- * dateDifference() which returns an array of years,months,days,hours,minutes and
- * seconds between the two dates.
+ * - `inWords()` which gives you the "time ago in words" between two dates.
+ * - `dateDifference()` which returns an array of years, months, days, hours, minutes and seconds between the two dates.
  *
+ * @package NamelessMC\Core
  * @author jimmiw
- * @since 0.2.0 (2010/05/05)
+ * @author Samerton
+ * @version 2.0.0-pr8
+ * @license MIT
  * @site http://github.com/jimmiw/php-time-ago
  */
 class TimeAgo {

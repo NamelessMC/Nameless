@@ -502,6 +502,7 @@ $language = [
     'resend_activation_email' => 'อีเมล์ยืนยันการสมัคร',
     'email_resent_successfully' => 'ส่งอีเมลเรียบร้อยแล้ว',
     'email_resend_failed' => 'การส่งอีเมลซ้ำล้มเหลว โปรดตรวจสอบการตั้งค่าอีเมลของคุณ',
+    'no_item_selected' => 'No items selected',
 
     // Permissions
     'select_all' => 'เลือกทั้งหมด',

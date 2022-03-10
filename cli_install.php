@@ -137,7 +137,7 @@ $nameless_terms = 'This website uses "Nameless" website software. The ' .
     ' is the responsibility of the website administration.';
 
 print('✍️  Inserting default data to database...' . PHP_EOL);
-require './core/installation/views/includes/site_initialize.php';
+require './core/installation/includes/site_initialize.php';
 $queries->create('settings', [
     'name' => 'sitename',
     'value' => Output::getClean(getEnvVar('NAMELESS_SITE_NAME', true)),

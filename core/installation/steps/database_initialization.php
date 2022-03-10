@@ -1,12 +1,10 @@
 <?php
 if (isset($_SESSION['database_initialized']) && $_SESSION['database_initialized'] == true) {
     Redirect::to('?step=site_configuration');
-    die();
 }
 
 if (!isset($_SESSION['charset'], $_SESSION['engine'])) {
     Redirect::to('?step=database_configuration');
-    die();
 }
 
 $scripts = [

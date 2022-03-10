@@ -85,7 +85,7 @@ $language = [
     'user_punished_alert' => '{x} наказал пользователя {y}', // Don't replace {x} (staff member) or {y} (user punished)
     'revoke' => 'Отменить',
     'revoked' => 'Отменено',
-    'acknowledged' => 'Acknowledged',
+    'acknowledged' => 'Утверждено',
     'confirm_revoke_warning' => 'Вы уверены, что хотите отменить это предупреждение?',
     'confirm_revoke_ban' => 'Вы уверены, что хотите снять бан? У пользователя будет снята блокировка, даже если у него есть более поздний бан!',
     'punishment_revoked' => 'Наказание отменено.',
@@ -105,5 +105,4 @@ $language = [
     // Users
     'recent_registrations' => 'Последние регистрации',
     'reset_profile_banner' => 'Сбросить баннер профиля'
-
 ];

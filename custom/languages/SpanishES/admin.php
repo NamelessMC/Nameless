@@ -145,7 +145,7 @@ $language = [
     'navigation_settings_updated_successfully' => 'La configuración de la navegación se ha actualizado correctamente.',
     'dropdown_items' => 'Elementos desplegables',
     'enable_page_load_timer' => '¿Activar el temporizador de carga de la página?',
-    'captcha_general' => '¿Activar Captcha en la página de registro y contacto?',
+    'captcha_general' => '¿Activar Captcha en la página de registro?',
     'captcha_login' => '¿Activar Captcha en la página de inicio de sesión?',
     'captcha_type' => 'Tipo de Captcha',
     'captcha_site_key' => 'Clave del sitio del Captcha',
@@ -480,6 +480,7 @@ $language = [
     'resend_activation_email' => 'Reenviar el correo de activación',
     'email_resent_successfully' => 'Correo electrónico reenviado con éxito.',
     'email_resend_failed' => 'El reenvío del correo electrónico ha fallado, por favor, compruebe la configuración de su correo electrónico.',
+    'no_item_selected' => 'No items selected',
 
     // Permissions
     'select_all' => 'Seleccionar todo',

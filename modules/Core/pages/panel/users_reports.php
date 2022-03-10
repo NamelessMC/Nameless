@@ -65,13 +65,11 @@ if (!isset($_GET['id'])) {
         if (isset($_GET['p'])) {
             if (!is_numeric($_GET['p'])) {
                 Redirect::to($url);
-                die();
             }
 
             if ($_GET['p'] == 1) {
                 // Avoid bug in pagination class
                 Redirect::to($url);
-                die();
             }
             $p = $_GET['p'];
         } else {
@@ -89,24 +87,25 @@ if (!isset($_GET['id'])) {
 
             $target_user = new User($report->reported_id);
 
-            if ($report->type == 0) {
+            if ($report->type == Report::ORIGIN_WEBSITE) {
                 // Site report
                 $user_reported = $target_user->getDisplayname();
                 $user_profile = URL::build('/panel/user/' . Output::getClean($report->reported_id . '-' . $target_user->data()->username));
                 $user_style = $target_user->getGroupClass();
                 $user_avatar = $target_user->getAvatar();
             } else {
-                // Ingame report
+                // API report
                 $user_reported = Output::getClean($report->reported_mcname);
                 $user_profile = URL::build('/panel/user/' . Output::getClean($report->reported_id . '-' . $report->reported_mcname));
                 $user_style = '';
-                $user_avatar = Util::getAvatarFromUUID($report->reported_uuid);
+                $user_avatar = $report->reported_id == 0 ? null : Util::getAvatarFromUUID($report->reported_uuid);
             }
 
             $updated_by_user = new User($report->updated_by);
 
             $reports[] = [
                 'id' => $report->id,
+                'type' => $report->type,
                 'user_reported' => $user_reported,
                 'user_profile' => $user_profile,
                 'user_reported_style' => $user_style,
@@ -144,7 +143,10 @@ if (!isset($_GET['id'])) {
         'USER_REPORTED' => $language->get('moderator', 'user_reported'),
         'COMMENTS' => $language->get('moderator', 'comments'),
         'UPDATED_BY' => $language->get('moderator', 'updated_by'),
-        'ACTIONS' => $language->get('moderator', 'actions')
+        'ACTIONS' => $language->get('moderator', 'actions'),
+        'ORIGIN' => $language->get('general', 'report_origin'),
+        'WEBSITE' => $language->get('general', 'origin_website'),
+        'API' => $language->get('general', 'origin_api'),
     ]);
 
     $template_file = 'core/users_reports.tpl';
@@ -154,7 +156,6 @@ if (!isset($_GET['id'])) {
         $report = $queries->getWhere('reports', ['id', '=', $_GET['id']]);
         if (!count($report)) {
             Redirect::to(URL::build('/panel/users/reports'));
-            die();
         }
         $report = $report[0];
 
@@ -264,7 +265,10 @@ if (!isset($_GET['id'])) {
             'COMMENTS_TEXT' => $language->get('moderator', 'comments'),
             'NO_COMMENTS' => $language->get('moderator', 'no_comments'),
             'NEW_COMMENT' => $language->get('moderator', 'new_comment'),
-            'TYPE' => $report->type
+            'TYPE' => $report->type,
+            'ORIGIN' => $language->get('general', 'report_origin'),
+            'WEBSITE' => $language->get('general', 'origin_website'),
+            'API' => $language->get('general', 'origin_api'),
         ]);
 
         // Close/reopen link
@@ -306,11 +310,9 @@ if (!isset($_GET['id'])) {
 
                 Session::flash('report_success', $language->get('moderator', 'report_closed'));
                 Redirect::to(URL::build('/panel/users/reports/', 'id=' . Output::getClean($report[0]->id)));
-                die();
             }
 
             Redirect::to(URL::build('/panel/users/reports'));
-            die();
         }
 
         if ($_GET['action'] == 'open') {
@@ -337,15 +339,12 @@ if (!isset($_GET['id'])) {
 
                 Session::flash('report_success', $language->get('moderator', 'report_reopened'));
                 Redirect::to(URL::build('/panel/users/reports/', 'id=' . Output::getClean($report[0]->id)));
-                die();
             }
 
             Redirect::to(URL::build('/panel/users/reports'));
-            die();
         }
 
         Redirect::to(URL::build('/panel/users/reports'));
-        die();
     }
 }
 

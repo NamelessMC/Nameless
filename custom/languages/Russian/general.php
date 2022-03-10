@@ -1,7 +1,7 @@
 <?php
 /*
  *  Made by Samerton
- *  Translated by LOyoujoLI
+ *  Translated by LOyoujoLI & PadowYT2
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr12
  *
@@ -73,18 +73,6 @@ $language = [
     'link' => 'Связать',
     'unlink' => 'Отвязать',
     'leaderboards' => 'Список лидеров',
-
-    /*
-     *  Contact form
-     */
-    'contact' => 'Обратная связь',
-    'message' => 'Сообщение',
-    'email_address' => 'Email-адрес',
-    'contact_email_subject' => 'Отправить контактную информацию',
-    'contact_message_failed' => 'Не удалось отправить сообщение. Пожалуйста, убедитесь, что вы ввели сообщение длиной от 10 до 5000 символов.',
-    'contact_message_email' => 'Предоставленное электронное письмо является недействительным.',
-    'contact_message_sent' => 'Сообщение успешно отправлено.',
-    'contact_message_limit' => 'Вы можете отправлять только одно сообщение в час. Отправьте следующее сообщение через {x} минут.', // Don't replace {x}
 
     /*
      *  Navbar
@@ -162,5 +150,10 @@ $language = [
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'Перенаправление...<br />Если вы не перенаправлены автоматически, пожалуйста, нажмите на <a href="{x}" rel="nofollow noopener">эту кнопку</a>.' // Don't replace {x} which is the redirect URL
+    'redirecting_message' => 'Перенаправление...<br />Если вы не перенаправлены автоматически, пожалуйста, нажмите на <a href="{x}" rel="nofollow noopener">эту кнопку</a>.', // Don't replace {x} which is the redirect URL
+
+    /*
+     * OAuth
+     */
+    'oauth_message_continue' => 'Продолжить регистрироваться с {x}', // Don't replace {x}
 ];

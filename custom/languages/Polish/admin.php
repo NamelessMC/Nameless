@@ -491,6 +491,7 @@ $language = [
     'resend_activation_email' => 'Wyślij Maila Ponownie',
     'email_resent_successfully' => 'Wysłano maila ponownie.',
     'email_resend_failed' => 'Wysyłanie maila nie udało się, sprawdź swoje ustawienia.',
+    'no_item_selected' => 'No items selected',
 
     // Permissions
     'select_all' => 'Zaznacz wszystko',

@@ -37,13 +37,11 @@ if (isset($_GET['action']) && $_GET['action'] === 'delete') {
 
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
     Redirect::to(URL::build('/panel/users'));
-    die();
 }
 
 $view_user = new User($_GET['id']);
 if (!$view_user->data()) {
     Redirect::to(URL::build('/panel/users'));
-    die();
 }
 $user_query = $view_user->data();
 

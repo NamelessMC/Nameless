@@ -27,9 +27,13 @@ if ($cache->isCached('result')) {
         $query_type = 'internal';
     }
 
-    $full_ip = ['ip' => $server->ip . (is_null($server->port) ? '' : ':' . $server->port), 'pre' => $server->pre, 'name' => $server->name];
+    $full_ip = [
+        'ip' => $server->ip . (is_null($server->port) ? '' : ':' . $server->port),
+        'pre' => $server->pre,
+        'name' => $server->name
+    ];
 
-    $result = json_encode(MCQuery::singleQuery($full_ip, $query_type, $language, $queries), JSON_PRETTY_PRINT);
+    $result = json_encode(MCQuery::singleQuery($full_ip, $query_type, $server->bedrock, $language, $queries), JSON_PRETTY_PRINT);
     $cache->store('result', $result, 30);
     echo $result;
 }

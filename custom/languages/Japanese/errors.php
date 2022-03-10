@@ -22,7 +22,7 @@ $language = [
     '404_content' => '=指定したページは存在しません=',
     '404_back' => '戻る',
     '404_home' => 'ホーム',
-    '404_error' => 'URLを確認後再試行してみてください。<br>正常に指定されている場合、削除されている可能性があります。<br>詳しくは管理者{x}に連絡してください{y}', // Don't replace {x} or {y}
+    '404_error' => 'URLを確認後再試行してみてください。<br>正常に指定されている場合、削除されている可能性があります。<br>詳しくは管理者に連絡してください', // Don't replace {x} or {y}
     '403_title' => '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>',
     '403_content' => 'このページの閲覧は許可されていません。',
     '403_login' => '続けるにはログインしてください。',

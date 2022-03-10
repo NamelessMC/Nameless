@@ -1,15 +1,20 @@
 <?php
-/*
- *	Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr12
+/**
+ * CookieConsent module main class
  *
- *  License: MIT
- *
- *  CookieConsent module class
+ * @package Modules\Cookie Consent
+ * @author Samerton
+ * @version 2.0.0-pr13
+ * @license MIT
  */
-
 class CookieConsent {
+
+    /**
+     * Generates the cookie consent JavaScript script.
+     *
+     * @param array $options Array of options
+     * @return string Cookie consent JavaScript
+     */
     public static function generateScript(array $options): string {
         $script_options = [];
         $background_colour = '#000';

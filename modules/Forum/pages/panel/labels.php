@@ -127,7 +127,6 @@ if (!isset($_GET['action'])) {
 
                             Session::flash('forum_labels', $forum_language->get('forum', 'label_creation_success'));
                             Redirect::to(URL::build('/panel/forums/labels'));
-                            die();
                         } catch (Exception $e) {
                             $errors = [$e->getMessage()];
                         }
@@ -209,7 +208,6 @@ if (!isset($_GET['action'])) {
             if (!isset($_GET['lid']) || !is_numeric($_GET['lid'])) {
                 // Check the label ID is valid
                 Redirect::to(URL::build('/panel/forums/labels'));
-                die();
             }
 
             // Does the label exist?
@@ -217,7 +215,6 @@ if (!isset($_GET['action'])) {
             if (!count($label)) {
                 // No, it doesn't exist
                 Redirect::to(URL::build('/panel/forums/labels'));
-                die();
             }
 
             $label = $label[0];
@@ -272,7 +269,6 @@ if (!isset($_GET['action'])) {
 
                             Session::flash('forum_labels', $forum_language->get('forum', 'label_edit_success'));
                             Redirect::to(URL::build('/panel/forums/labels', 'action=edit&lid=' . Output::getClean($label->id)));
-                            die();
                         } catch (Exception $e) {
                             $errors = [$e->getMessage()];
                         }
@@ -363,7 +359,6 @@ if (!isset($_GET['action'])) {
             if (!isset($_GET['lid']) || !is_numeric($_GET['lid'])) {
                 // Check the label ID is valid
                 Redirect::to(URL::build('/panel/forums/labels'));
-                die();
             }
 
             if (Token::check($_POST['token'])) {
@@ -376,7 +371,6 @@ if (!isset($_GET['action'])) {
             }
 
             Redirect::to(URL::build('/panel/forums/labels'));
-            die();
 
         case 'types':
             // List label types
@@ -444,7 +438,6 @@ if (!isset($_GET['action'])) {
 
                             Session::flash('forum_labels', $forum_language->get('forum', 'label_type_creation_success'));
                             Redirect::to(URL::build('/panel/forums/labels/', 'action=types'));
-                            die();
 
                         } catch (Exception $e) {
                             $errors = [$e->getMessage()];
@@ -487,7 +480,6 @@ if (!isset($_GET['action'])) {
             // Editing a label type
             if (!isset($_GET['lid']) || !is_numeric($_GET['lid'])) {
                 Redirect::to(URL::build('/panel/forums/labels/', 'action=types'));
-                die();
             }
 
             // Does the label exist?
@@ -495,7 +487,6 @@ if (!isset($_GET['action'])) {
             if (!count($label)) {
                 // No, it doesn't exist
                 Redirect::to(URL::build('/panel/forums/labels/', 'action=types'));
-                die();
             }
 
             $label = $label[0];
@@ -530,7 +521,6 @@ if (!isset($_GET['action'])) {
 
                             Session::flash('forum_labels', $forum_language->get('forum', 'label_type_edit_success'));
                             Redirect::to(URL::build('/panel/forums/labels/', 'action=edit_type&lid=' . Output::getClean($label->id)));
-                            die();
                         } catch (Exception $e) {
                             $errors = [$e->getMessage()];
                         }
@@ -572,7 +562,6 @@ if (!isset($_GET['action'])) {
             if (!isset($_GET['lid']) || !is_numeric($_GET['lid'])) {
                 // Check the label ID is valid
                 Redirect::to(URL::build('/panel/forums/labels/', 'action=types'));
-                die();
             }
 
             if (Token::check($_POST['token'])) {
@@ -585,11 +574,9 @@ if (!isset($_GET['action'])) {
             }
 
             Redirect::to(URL::build('/panel/forums/labels/', 'action=types'));
-            die();
 
         default:
             Redirect::to(URL::build('/panel/forums/labels'));
-            die();
     }
 
 }

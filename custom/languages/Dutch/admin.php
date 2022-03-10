@@ -150,7 +150,7 @@ $language = [
     'navigation_settings_updated_successfully' => 'Navigatie-instellingen succesvol bijgewerkt.',
     'dropdown_items' => 'Dropdown Items',
     'enable_page_load_timer' => 'Pagina laad timer inschakelen?',
-    'captcha_general' => 'Captcha inschakelen op registratie- en contactpagina?',
+    'captcha_general' => 'Captcha inschakelen op registratiepagina?',
     'captcha_login' => 'Captcha op inlogpagina inschakelen?',
     'captcha_type' => 'Captcha Type',
     'captcha_site_key' => 'Captcha Site Key',
@@ -491,6 +491,7 @@ $language = [
     'force_tfa' => 'Twee Factor authenticatie forceren voor groepsleden?',
     'force_tfa_warning' => 'Zorg ervoor dat u weet wat dit doet, anders riskeert u zichzelf en alle groepsleden buiten te sluiten.',
     'force_tfa_alert' => 'Uw groep vereist dat u de Two Factor Authenticatie ingeschakeld hebt.',
+    'no_item_selected' => 'Geen item geselecteerd.',
 
     // Permissies
     'select_all' => 'Selecteer Allemaal',

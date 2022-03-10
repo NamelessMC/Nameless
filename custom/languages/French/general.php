@@ -71,19 +71,6 @@ $language = [
     'leaderboards' => 'Leaderboards',
 
     /*
-     *  Contact form
-     */
-    'contact' => 'Contact',
-    'message' => 'Message',
-    'email_address' => 'Adresse mail',
-    'contact_email_subject' => 'Nouvelle présentation du formulaire de contact',
-    'contact_message_failed' => 'Impossible d\'envoyer un message. Veuillez vous assurer que vous avez entré un message de 10 à 5000 caractères.',
-    'contact_message_email' => 'L’email fourni est invalide.',
-    'contact_message_sent' => 'Message envoyé avec succès.',
-    'contact_message_limit' => 'Vous ne pouvez envoyer qu’un message par heure. Vous pourrez ensuite envoyer un message dans {x} minutes.', // Don't replace {x}
-
-
-    /*
      *  Navbar
      */
     'home' => 'Accueil',

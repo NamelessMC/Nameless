@@ -1,27 +1,42 @@
 <?php
-
-/*
- *	Made by Samerton
+/**
+ * Base class Captcha providers should extend.
  *
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr10
- *
- *  License: MIT
- *
- *  CaptchaBase class
+ * @package NamelessMC\Misc
+ * @author Samerton
+ * @version 2.0.0-pr10
+ * @license MIT
  */
-
 abstract class CaptchaBase {
 
+    /**
+     * @var array All registered captcha providers.
+     */
     protected static array $_providers = [];
+
+    /**
+     * @var string The name of the active captcha provider.
+     */
     protected static string $_activeProvider = '';
 
+    /**
+     * @var string Name of this captcha provider.
+     */
     protected string $_name;
+
+    /**
+     * @var string|null This captcha providers public key.
+     */
     protected ?string $_publicKey;
+
+    /**
+     * @var string|null This captcha providers private key.
+     */
     protected ?string $_privateKey;
 
     /**
      * Register a provider
+     *
      * @param CaptchaBase $provider Provider instance to register
      */
     public static function addProvider(CaptchaBase $provider): void {
@@ -57,11 +72,9 @@ abstract class CaptchaBase {
 
     /**
      * Is captcha enabled for a given key?
+     *
      * @param string $key Key to lookup in db, defaults to simply recaptcha (for register, contact pages etc)
-     *
-     * @return boolean Whether captcha is enabled or not
-     *
-     * @throws Exception If unable to query database
+     * @return bool Whether captcha is enabled or not
      */
     public static function isCaptchaEnabled(string $key = 'recaptcha'): bool {
         if (!Config::get('core/captcha')) {
@@ -100,11 +113,27 @@ abstract class CaptchaBase {
 
     /**
      * Validate a Captcha token
-     * @param array $post Post body to validate
      *
-     * @return boolean Whether the token was valid or not
+     * @param array $post Post body to validate
+     * @return bool Whether the token was valid or not
      */
     abstract public function validateToken(array $post): bool;
+
+    /**
+     * Validate if the private key is valid
+     *
+     * @param string $secret The secret key to validate
+     * @return bool Whether the private key is valid or not
+     */
+    abstract public function validateSecret(string $secret) : bool;
+
+    /**
+     * Validate if the public key is valid or not
+     *
+     * @param string $key The public key to validate
+     * @return bool Whether the public key is valid or not
+     */
+    abstract public function validateKey(string $key) : bool;
 
     /**
      * Get form input HTML to display
@@ -122,6 +151,7 @@ abstract class CaptchaBase {
 
     /**
      * Get JavaScript on submit function
+     *
      * @param string $id ID attribute of form
      * @return string|null JS for submit function
      */

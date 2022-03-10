@@ -160,7 +160,7 @@ $language = [
     'navigation_settings_updated_successfully' => 'Navigation settings updated successfully.',
     'dropdown_items' => 'Dropdown Items',
     'enable_page_load_timer' => '啟用畫面讀取計時?',
-    'captcha_general' => 'Enable Captcha on registration and contact page?',
+    'captcha_general' => 'Enable Captcha on registration page?',
     'captcha_login' => 'Enable Captcha on login page?',
     'captcha_type' => 'Captcha Type',
     'captcha_site_key' => 'Captcha Site Key',
@@ -504,6 +504,7 @@ $language = [
     'resend_activation_email' => 'Resend Activation Email',
     'email_resent_successfully' => 'Email resent successfully.',
     'email_resend_failed' => 'Email resend failed, please check your email settings.',
+    'no_item_selected' => 'No items selected',
 
     // Permissions
     'select_all' => 'Select All',

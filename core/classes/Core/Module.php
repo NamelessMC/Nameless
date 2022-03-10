@@ -1,16 +1,17 @@
 <?php
-/*
- *	Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+/**
+ * Module base class as well as management class.
  *
- *  License: MIT
- *
- *  Modules class
+ * @package NamelessMC\Core
+ * @author Samerton
+ * @version 2.0.0-pr13
+ * @license MIT
  */
-
 abstract class Module {
 
+    /**
+     * @var Module[] Array of all modules
+     */
     private static iterable $_modules = [];
 
     private string $_name;
@@ -20,7 +21,15 @@ abstract class Module {
     private array $_load_before;
     private array $_load_after;
 
-    public function __construct(Module $module, string $name, string $author, string $version, string $nameless_version, array $load_before = [], array $load_after = []) {
+    public function __construct(
+        Module $module,
+        string $name,
+        string $author,
+        string $version,
+        string $nameless_version,
+        array $load_before = [],
+        array $load_after = []
+    ) {
         self::$_modules[] = $module;
         $this->_name = $name;
         $this->_author = $author;
@@ -28,7 +37,7 @@ abstract class Module {
         $this->_nameless_version = $nameless_version;
 
         // All modules should load after core
-        if ($name != 'Core') {
+        if ($name !== 'Core') {
             $load_after[] = 'Core';
         }
 
@@ -58,6 +67,18 @@ abstract class Module {
         return self::$_modules;
     }
 
+    /**
+     * Handle page loading for this module.
+     * Often used to register permissions, sitemaps, widgets, etc.
+     *
+     * @param User $user User viewing the page.
+     * @param Pages $pages Instance of pages class.
+     * @param Cache $cache Instance of cache to pass.
+     * @param Smarty $smarty Instance of smarty to pass.
+     * @param Navigation[] $navs Array of loaded navigation menus.
+     * @param Widgets $widgets Instance of widget class to pass.
+     * @param TemplateBase|null $template Active template to render.
+     */
     abstract public function onPageLoad(User $user, Pages $pages, Cache $cache, Smarty $smarty, iterable $navs, Widgets $widgets, ?TemplateBase $template);
 
     /**
@@ -93,15 +114,6 @@ abstract class Module {
         return $this->_name;
     }
 
-    /**
-     * Set the name of this module.
-     *
-     * @param string $name New name.
-     */
-    final protected function setName(string $name): void {
-        $this->_name = $name;
-    } // TODO: Implement
-
     private static function findBeforeAfter(array $modules, string $current): array {
         $before = [$current];
         $after = [];
@@ -122,10 +134,20 @@ abstract class Module {
         return [$before, $after];
     }
 
+    /**
+     * Get the names of modules that this module should load after.
+     *
+     * @return array Array of module names that this module should load after.
+     */
     public function getLoadAfter(): array {
         return $this->_load_after;
     }
 
+    /**
+     * Get the names of modules that this module should load before.
+     *
+     * @return array Array of module names that this module should load before.
+     */
     public function getLoadBefore(): array {
         return $this->_load_before;
     }
@@ -138,39 +160,37 @@ abstract class Module {
 
     abstract public function onDisable();
 
+    /**
+     * Get debug information to display on the external debug link page.
+     *
+     * @return array Debug information for this module.
+     */
     abstract public function getDebugInfo(): array;
 
+    /**
+     * Get this module's author.
+     *
+     * @return string The author of this module.
+     */
     public function getAuthor(): string {
         return $this->_author;
     }
 
-    final protected function setAuthor(string $author): void {
-        $this->_author = $author;
-    }
-
+    /**
+     * Get this module's version.
+     *
+     * @return string The version of this module.
+     */
     public function getVersion(): string {
         return $this->_version;
     }
 
     /**
-     * Set version of this module.
+     * Get this module's supported NamelessMC version.
      *
-     * @param string $version Version to set.
+     * @return string The supported NamelessMC version of this module.
      */
-    final protected function setVersion(string $version): void {
-        $this->_version = $version;
-    }
-
     public function getNamelessVersion(): string {
         return $this->_nameless_version;
-    }
-
-    /**
-     * Set NamelessMC version of this module.
-     *
-     * @param string $nameless_version NamelessMC version to set.
-     */
-    final protected function setNamelessVersion(string $nameless_version): void {
-        $this->_nameless_version = $nameless_version;
     }
 }

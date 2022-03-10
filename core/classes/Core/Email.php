@@ -1,28 +1,27 @@
 <?php
-/*
-*	Made by Samerton
-*  https://github.com/NamelessMC/Nameless/
-*  NamelessMC version 2.0.0-pr8
-*
-*  License: MIT
-*
-*  Email class
-*/
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 
+/**
+ * Handles sending emails and registering email placeholders.
+ *
+ * @package NamelessMC\Core
+ * @author Samerton
+ * @author Aberdeener
+ * @version 2.0.0-pr13
+ * @license MIT
+ */
 class Email {
 
     public const REGISTRATION = 1;
-    public const CONTACT = 2;
     public const FORGOT_PASSWORD = 3;
     public const API_REGISTRATION = 4;
     public const FORUM_TOPIC_REPLY = 5;
     public const MASS_MESSAGE = 6;
 
     /**
-     * @var array Placeholders for email templates
+     * @var array<string, string> Placeholders for email templates
      */
     private static array $_message_placeholders = [];
 
@@ -32,8 +31,7 @@ class Email {
      * @param array $recipient Array containing `'email'` and `'name'` strings for the recipient of the email.
      * @param string $subject Subject of the email.
      * @param string $message Message of the email.
-     * @param ?array $reply_to Array containing `'email'` and `'name'` strings for the reply-to address.
-     *
+     * @param ?array $reply_to Optional array containing `'email'` and `'name'` strings for the reply-to address.
      * @return bool|array Returns true if email sent, otherwise returns an array containing the error.
      */
     public static function send(array $recipient, string $subject, string $message, ?array $reply_to = null) {
@@ -55,11 +53,10 @@ class Email {
     }
 
     /**
-     * Send an email using PHP's sendmail() function.
+     * Send an email using PHP's `mail()` function.
      *
      * @param array $email Array containing `to`, `subject`, `message` and `headers` values.
-     *
-     * @return array|bool
+     * @return array|bool Returns true if email sent, otherwise returns an array containing the error.
      */
     private static function sendPHP(array $email) {
         $outgoing_email = Util::getSetting(DB::getInstance(), 'outgoing_email');
@@ -74,19 +71,18 @@ class Email {
             return true;
         }
 
-        $error = error_get_last();
-
         return [
-            'error' => $error['message'] ?? 'Unknown error'
+            'error' => error_get_last()['message'] ?? 'Unknown error'
         ];
     }
 
     /**
      * Send an email using the PHPMailer library.
      *
-     * @param array $email array of email to send.
+     * @see PHPMailer
      *
-     * @return array|bool
+     * @param array $email Array of email data to send.
+     * @return array|bool Returns true if email sent, otherwise returns an array containing the error.
      */
     private static function sendMailer(array $email) {
         require(ROOT_PATH . '/core/email.php');
@@ -157,7 +153,6 @@ class Email {
      *
      * @param string $email Name of email to format.
      * @param Language $viewing_language Instance of Language class to use for translations.
-     *
      * @return string Formatted email.
      */
     public static function formatEmail(string $email, Language $viewing_language): string {

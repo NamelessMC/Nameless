@@ -1,27 +1,23 @@
 <?php
-/*
- *	Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
- *
- *  License: MIT
- *
- *  Forum module Sitemap method
- */
 
 use SitemapPHP\Sitemap;
 
+/**
+ * Forum sitemap class
+ *
+ * @package Modules\Forum
+ * @author Samerton
+ * @version 2.0.0-pr8
+ * @license MIT
+ */
 class Forum_Sitemap {
 
     /**
      * Generate sitemap for the Forum.
      *
-     * @param Sitemap|null $sitemap Instance of sitemap generator.
+     * @param Sitemap $sitemap Instance of sitemap generator.
      */
-    public static function generateSitemap(Sitemap $sitemap = null): void {
-        if (!$sitemap) {
-            return;
-        }
+    public static function generateSitemap(Sitemap $sitemap): void {
 
         // Forum
         $sitemap->addItem(URL::build('/forum'), 0.9);

@@ -22,7 +22,7 @@ $language = [
     'configuration' => 'Настройки',
     'layout' => 'Макет',
     'user_management' => 'Настройки юзеров',
-    'overview' => 'Overview',
+    'overview' => 'Обзор',
     'core' => 'Главное',
     'integrations' => 'Интеграции',
     'minecraft' => 'Майнкрафт',
@@ -47,6 +47,10 @@ $language = [
     'settings' => 'Настройки',
     'general_settings' => 'Общие Настройки',
     'sitename' => 'Название Сайта',
+    'punished_id' => 'ID наказанного',
+    'punisher_id' => 'ID наказателя',
+    'reason' => 'Причина Бана',
+    'ip_ban' => 'IP бан?',
     'default_language' => 'Язык по Умолчанию',
     'default_language_help' => 'Пользователи смогут выбрать любой установленный язык.',
     'install_language' => 'Установить Язык',
@@ -82,7 +86,7 @@ $language = [
     'debugging_and_maintenance' => 'Отладка & Режим обслуживания',
     'maintenance' => 'Отладка',
     'debug_link' => 'Ссылка на отладочную страницу',
-    'debug_link_toastr' => 'Отладочная страница скопирована в буфер обмена!',
+    'debug_link_toastr' => 'Отладочная страница скопирована в буфер обмена!<br>Открыть журнал можете <u><a href="{x}" target="_blank">здесь</a></u>', // Don't replace "{x}"
     'debugging_settings_updated_successfully' => 'Параметры отладки успешно обновлены.',
     'enable_debug_mode' => 'Включить режим отладки?',
     'force_https' => 'Использовать https?',
@@ -203,7 +207,7 @@ $language = [
     'google_analytics' => 'Google Аналитика',
     'google_analytics_help' => 'Отслеживайте статистику посетителей благодаря решению от Google. Для начала <a href="https://analytics.google.com/analytics/web/" target="_blank" rel="noopener nofollow">создайте аккаунт</a> в системе Google Аналитики. Затем, введите ID вашего сайта. (Выглядит примерно так: UA-XXXXA-X)',
     'sitemap' => 'Карта сайта',
-    'seo_settings_updated_successfully' => 'SEO settings updated successfully.',
+    'seo_settings_updated_successfully' => 'SEO настройки обновлены успешно.',
 
     // Reactions
     'icon' => 'Иконка',
@@ -289,6 +293,8 @@ $language = [
     'no_parent_server' => 'Нет родительского сервера',
     'bungee_instance' => 'Экземпляр BungeeCord?',
     'bungee_instance_help' => 'Выберите этот параметр, если сервер является экземпляром BungeeCord.',
+    'bedrock' => 'Бедрок версия?',
+    'bedrock_help' => 'Включите это, если ваш сервер для бедрок версии игры.',
     'server_query_information' => 'Чтобы отобразить список онлайн-игроков на вашем веб-сайте, ваш сервер <strong>должен</strong> иметь опцию \'enable-query\', включенную в файле <strong>server.properties</strong>',
     'enable_status_query' => 'Включить запрос статуса сервера?',
     'status_query_help' => 'Если этот параметр включен, то на странице серверов этот сервер будет отображаться как находящийся в онлайн или в оффлайн.',
@@ -356,6 +362,7 @@ $language = [
     'module_disabled' => 'Модуль выключен.',
     'author' => 'Автор:',
     'author_x' => 'Автор: {x}', // Don't replace {x}
+    'updated_x' => 'Обновлено: {x}', // Don't replace {x}
     'module_outdated' => 'Мы обнаружили, что этот модуль предназначен для Nameless версии {x}, но вы используете Nameless версии {y}', // Don't replace "{x}" or "{y}"
     'find_modules' => 'Поиск модулей',
     'view_all_modules' => 'Посмотреть все модули',
@@ -483,6 +490,7 @@ $language = [
     'resend_activation_email' => 'Отправить письмо с активацией',
     'email_resent_successfully' => 'Письмо отправлено.',
     'email_resend_failed' => 'Письмо не отправлено, проверьте настройки почтового сервера.',
+    'no_item_selected' => 'No items selected',
 
     // Permissions
     'select_all' => 'Выбрать все',
@@ -628,6 +636,8 @@ $language = [
     'api_endpoints' => 'API комманды',
     'api_endpoints_info' => 'Эти команды позволяют модулям создавать пути для взаимодействия(Например сайта с игрой) с вашим сайтом. <a href="https://docs.namelessmc.com/en/api-documentation" target="_blank">Check out the API documentation here</a>',
     'route' => 'Путь',
+    'method' => 'Метод',
+    'transformers' => 'Трансформеры',
 
     // File uploads
     'drag_files_here' => 'Перетащите файлы сюда для загрузки.',
@@ -665,10 +675,12 @@ $language = [
     'invalid_hook_url' => 'Некорректный URL',
     'invalid_hook_name' => 'Некорректное название',
     'invalid_hook_events' => 'Нужно указать как минимум 1 событие',
-    'register_hook_info' => 'Регистрация пользователей',
-    'validate_hook_info' => 'Подтверждение аккаунта',
-    'delete_hook_info' => 'Удаление пользователя',
+    'register_hook_info' => 'Пользователь зарегистрировался',
+    'validate_hook_info' => 'Пользователь подтверждён',
+    'delete_hook_info' => 'Пользователь удалён',
     'report_hook_info' => 'Создание жалобы',
+    'ban_hook_info' => 'Пользователь забанен',
+    'warning_hook_info' => 'Пользователь предупреждён',
 
     // Sitemap
     'unable_to_load_sitemap_file_x' => 'Не удалось загрузить файл карты сайта {x}', // Don't replace {x}
@@ -728,5 +740,13 @@ $language = [
     'text_colour_required' => 'Укажите цвет текста',
     'no_announcements' => 'Нету созданных объявлений.',
     'announcement_order' => 'Приоритет объявления',
-    'announcement_hook_info' => 'Announcement creation',
+    'announcement_hook_info' => 'Создание объявления',
+
+    // OAuth
+    'oauth' => 'OAuth',
+    'oauth_info' => 'Настройте OAuth провайдеров, что бы разрешить вашим пользователям входит с их аккаунтами в социальных сетях. <a href="https://docs.namelessmc.com/en/oauth" target="_blank">Посмотрите документацию для помощи.</a>',
+    'unlink' => 'Развязать',
+    'identifier' => 'Идентификатор',
+    'unlink_account_confirm' => 'Вы уверены что хотите принудительно отвязать этот провайдер от этого пользователя?',
+    'unlink_account_success' => 'Этот аккаунт был успешно отвязан от {x}.', // Don't replace {x}
 ];

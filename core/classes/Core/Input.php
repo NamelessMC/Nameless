@@ -1,15 +1,13 @@
 <?php
 
-/*
- *	Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+/**
+ * Input class
  *
- *  License: MIT
- *
- *  Input class
+ * @package NamelessMC\Core
+ * @author Samerton
+ * @version 2.0.0-pr8
+ * @license MIT
  */
-
 class Input {
 
     /**
@@ -54,7 +52,7 @@ class Input {
      * Displays a new CKEditor field
      *
      * @param string $name Name of input field ID
-     * @param boolean $admin Whether to add admin options or not - default false
+     * @param bool $admin Whether to add admin options or not - default false
      * @return string Editor javascript code.
      */
     public static function createEditor(string $name, bool $admin = false): string {
@@ -138,7 +136,7 @@ class Input {
           menubar: false,
           convert_urls: false,
           plugins: \'autolink,codesample,directionality,emoticons,hr,image,link,lists,spoiler\',
-          toolbar: \'undo redo | bold italic underline strikethrough fontsizeselect forecolor backcolor ltr rtl | alignleft aligncenter alignright alignjustify | codesample emoticons hr image link numlist bullist | spoiler-add spoiler-remove\',
+          toolbar: \'undo redo | bold italic underline strikethrough formatselect forecolor backcolor ltr rtl | alignleft aligncenter alignright alignjustify | codesample emoticons hr image link numlist bullist | spoiler-add spoiler-remove\',
           spoiler_caption: \'' . $language->get('general', 'spoiler') . '\',
           default_link_target: \'_blank\',
           skin: "' . (defined('TEMPLATE_TINY_EDITOR_STYLE') ? TEMPLATE_TINY_EDITOR_STYLE : 'oxide') . '"

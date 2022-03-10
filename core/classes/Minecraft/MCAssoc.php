@@ -1,5 +1,11 @@
 <?php
-
+/**
+ * MCAssoc utility class
+ *
+ * @package NamelessMC\Minecraft
+ * @author lukegb
+ * @site https://github.com/lukegb/mcassoc.php
+ */
 class MCAssoc {
 
     private string $_sharedSecret;

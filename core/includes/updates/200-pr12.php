@@ -75,6 +75,27 @@ try {
     echo $e->getMessage() . '<br />';
 }
 
+// Add bedrock to nl2_mc_servers table
+try {
+    DB::getInstance()->createQuery('ALTER TABLE `nl2_mc_servers` ADD `bedrock` tinyint(1) NOT NULL DEFAULT \'0\'');
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+
+// Increase length of name column
+try {
+    DB::getInstance()->createQuery('ALTER TABLE nl2_mc_servers MODIFY `name` VARCHAR(128) NOT NULL');
+} catch (Exception $e) {
+    // Continue
+}
+
+// add unique constraint to modules table
+try {
+    DB::getInstance()->createQuery('ALTER TABLE nl2_modules ADD UNIQUE (`name`)');
+} catch (Exception $e) {
+    // Continue
+}
+
 // Update version number
 /*$version_number_id = $queries->getWhere('settings', array('name', '=', 'nameless_version'));
 

@@ -149,6 +149,11 @@
   function showCancelModal() {
     $('#cancelModal').modal().show();
   }
+
+  $(document).ready(() => {
+      $("#label_forums").select2({ placeholder: "{$NO_ITEM_SELECTED}" });
+      $("#label_groups").select2({ placeholder: "{$NO_ITEM_SELECTED}" });
+  })
 </script>
 
 </body>

@@ -55,7 +55,6 @@ if (isset($_GET['do'])) {
     }
 
     Redirect::to(URL::build('/panel/core/general_settings'));
-    die();
 }
 
 // Deal with input
@@ -266,7 +265,6 @@ if (Input::exists()) {
                     $redirect = URL::build('/panel/core/general_settings', '', 'non-friendly');
                 }
                 Redirect::to($redirect);
-                die();
             }
         } else {
             $errors = $validation->errors();

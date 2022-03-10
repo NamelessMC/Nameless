@@ -31,7 +31,6 @@ class Core_Module extends Module {
         // Define URLs which belong to this module
         $pages->add('Core', '/', 'pages/index.php');
         $pages->add('Core', '/api/v2', 'pages/api/v2/index.php');
-        $pages->add('Core', '/contact', 'pages/contact.php');
         $pages->add('Core', '/home', 'pages/home.php', 'index', true);
 
         $pages->add('Core', '/login', 'pages/login.php');
@@ -734,7 +733,12 @@ class Core_Module extends Module {
                             $servers = [$full_ip];
 
                             foreach ($sub_servers as $server) {
-                                $servers[] = ['ip' => $server->ip . (is_null($server->port) ? '' : ':' . $server->port), 'pre' => $server->pre, 'name' => $server->name];
+                                $servers[] = [
+                                    'ip' => $server->ip . (is_null($server->port) ? '' : ':' . $server->port),
+                                    'pre' => $server->pre,
+                                    'name' => $server->name,
+                                    'bedrock' => $server->bedrock
+                                ];
                             }
 
                             $result = MCQuery::multiQuery($servers, $query_type, $language, true, $queries);
@@ -754,11 +758,10 @@ class Core_Module extends Module {
                                 $result['status'] = $language->get('general', 'offline');
                                 $result['status_full'] = $language->get('general', 'server_offline');
                                 $result['server_offline'] = $language->get('general', 'server_offline');
-
                             }
 
                         } else {
-                            $result = MCQuery::singleQuery($full_ip, $query_type, $language, $queries);
+                            $result = MCQuery::singleQuery($full_ip, $query_type, $default->bedrock, $language, $queries);
 
                             if (isset($result['status_value']) && $result['status_value'] == 1) {
                                 $result['status'] = $language->get('general', 'online');
@@ -1465,6 +1468,7 @@ class Core_Module extends Module {
                 'query_ip' => $server->query_ip,
                 'port' => $server->port,
                 'query_port' => $server->query_port,
+                'bedrock' => (bool)$server->bedrock,
             ];
         }
 

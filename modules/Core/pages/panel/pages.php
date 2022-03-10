@@ -193,7 +193,6 @@ if (!isset($_GET['action'])) {
 
                             Session::flash('admin_pages', $language->get('admin', 'page_created_successfully'));
                             Redirect::to(URL::build('/panel/core/pages'));
-                            die();
 
                         } catch (Exception $e) {
                             $errors[] = $e->getMessage();
@@ -259,12 +258,10 @@ if (!isset($_GET['action'])) {
             // Get page
             if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
                 Redirect::to(URL::build('/panel/core/pages'));
-                die();
             }
             $page = $queries->getWhere('custom_pages', ['id', '=', $_GET['id']]);
             if (!count($page)) {
                 Redirect::to(URL::build('/panel/core/pages'));
-                die();
             }
             $page = $page[0];
 
@@ -498,8 +495,6 @@ if (!isset($_GET['action'])) {
 
                             Session::flash('admin_pages', $language->get('admin', 'page_updated_successfully'));
                             Redirect::to(URL::build('/panel/core/pages'));
-                            die();
-
                         } catch (Exception $e) {
                             $errors[] = $e->getMessage();
                         }
@@ -594,7 +589,6 @@ if (!isset($_GET['action'])) {
 
         default:
             Redirect::to(URL::build('/panel/core/pages'));
-            die();
     }
 }
 

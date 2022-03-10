@@ -103,7 +103,6 @@ if (!isset($_GET['metadata'])) {
     $page = $pages->getPageById($_GET['metadata']);
     if (is_null($page)) {
         Redirect::to(URL::build('/panel/core/seo'));
-        die();
     }
 
     $page_metadata = $queries->getWhere('page_descriptions', ['page', '=', $page['key']]);

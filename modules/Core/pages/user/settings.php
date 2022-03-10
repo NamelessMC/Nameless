@@ -12,7 +12,6 @@
 // Must be logged in
 if (!$user->isLoggedIn()) {
     Redirect::to(URL::build('/'));
-    die();
 }
 
 // Always define page name for navbar
@@ -20,8 +19,6 @@ const PAGE = 'cc_settings';
 $page_title = $language->get('user', 'user_cp');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-require(ROOT_PATH . '/core/includes/password.php'); // For password hashing
-require(ROOT_PATH . '/core/includes/phpass.php'); // phpass for Wordpress auth
 $emojione = new Emojione\Client(new Emojione\Ruleset());
 
 // Forum enabled?
@@ -34,7 +31,6 @@ if (isset($_GET['do'])) {
         // Ensure TFA is currently disabled
         if ($user->data()->tfa_enabled == 1) {
             Redirect::to(URL::build('/user/settings'));
-            die();
         }
 
         $tfa = new \RobThree\Auth\TwoFactorAuth(SITE_NAME);
@@ -89,7 +85,6 @@ if (isset($_GET['do'])) {
                             Session::delete('force_tfa_alert');
                             Session::flash('tfa_success', $language->get('user', 'tfa_successful'));
                             Redirect::to(URL::build('/user/settings'));
-                            die();
                         }
 
                         $error = $language->get('user', 'invalid_tfa');
@@ -140,7 +135,6 @@ if (isset($_GET['do'])) {
             ]);
 
             Redirect::to(URL::build('/user/settings'));
-            die();
         }
     }
 
@@ -337,7 +331,6 @@ if (isset($_GET['do'])) {
 
                             Session::flash('settings_success', $language->get('user', 'settings_updated_successfully'));
                             Redirect::to(URL::build('/user/settings'));
-                            die();
 
                         } catch (Exception $e) {
                             Session::flash('settings_error', $e->getMessage());
@@ -477,8 +470,6 @@ if (isset($_GET['do'])) {
 
                                     Session::flash('settings_success', $language->get('user', 'email_changed_successfully'));
                                     Redirect::to(URL::build('/user/settings'));
-                                    die();
-
                                 }
 
                                 // Invalid password
@@ -514,7 +505,6 @@ if (isset($_GET['do'])) {
                                 Session::flash('settings_success', str_replace('{token}', $token, Discord::getLanguageTerm('discord_id_confirm')));
                             }
                             Redirect::to(URL::build('/user/settings'));
-                            die();
                         }
                     }
                 }

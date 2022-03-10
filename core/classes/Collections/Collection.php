@@ -1,16 +1,15 @@
 <?php
-/*
- *	Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+/**
+ * Base Collection class
  *
- *  License: MIT
- *
- *  Collection class
+ * @package NamelessMC\Collections
+ * @author Samerton
+ * @version 2.0.0-pr13
+ * @license MIT
  */
-
 class Collection {
 
+    /** @var CollectionItemBase[] */
     private array $_items;
 
     public function __construct() {

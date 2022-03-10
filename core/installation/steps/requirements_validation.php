@@ -2,7 +2,6 @@
 
 if (!isset($_SESSION['action'])) {
     Redirect::to('install.php');
-    die();
 }
 
 unset($_SESSION['requirements_validated']);

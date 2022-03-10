@@ -61,8 +61,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
     $profile_user = new User($profile, 'username');
     if (!$profile_user->data()) {
-        Redirect::to(URL::build('/profile/?error=not_exist'));
-        die();
+        Redirect::to(URL::build('/profile/&error=not_exist'));
     }
     $query = $profile_user->data();
 
@@ -134,7 +133,6 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
                             // Redirect to clear input
                             Redirect::to($profile_user->getProfileURL());
-                            die();
                         }
 
                         // Validation failed
@@ -167,7 +165,6 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                             $post = $queries->getWhere('user_profile_wall_posts', ['id', '=', $_POST['post']]);
                             if (!count($post)) {
                                 Redirect::to($profile_user->getProfileURL());
-                                die();
                             }
 
                             // Input into database
@@ -196,7 +193,6 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
                             // Redirect to clear input
                             Redirect::to($profile_user->getProfileURL());
-                            die();
                         }
 
                         // Validation failed
@@ -316,20 +312,17 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                 if (!isset($_GET['post']) || !is_numeric($_GET['post'])) {
                     // Post ID required
                     Redirect::to($profile_user->getProfileURL());
-                    die();
                 }
 
                 // Does the post exist?
                 $post = $queries->getWhere('user_profile_wall_posts', ['id', '=', $_GET['post']]);
                 if (!count($post)) {
                     Redirect::to($profile_user->getProfileURL());
-                    die();
                 }
 
                 // Can't like our own post
                 if ($post[0]->author_id == $user->data()->id) {
                     Redirect::to($profile_user->getProfileURL());
-                    die();
                 }
 
                 // Liking or unliking?
@@ -358,7 +351,6 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
                 // Redirect
                 Redirect::to($profile_user->getProfileURL());
-                die();
 
             case 'reset_banner':
                 if (Token::check($_POST['token'])) {
@@ -369,8 +361,6 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                     }
 
                     Redirect::to($profile_user->getProfileURL());
-                    die();
-
                 }
 
                 $error = $language->get('general', 'invalid_token');
@@ -383,13 +373,11 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     if (isset($_GET['p'])) {
         if (!is_numeric($_GET['p'])) {
             Redirect::to($profile_user->getProfileURL());
-            die();
         }
 
         if ($_GET['p'] == 1) {
             // Avoid bug in pagination class
             Redirect::to($profile_user->getProfileURL());
-            die();
         }
         $p = $_GET['p'];
     } else {
@@ -567,7 +555,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
         // Pagination
         $paginator = new Paginator(($template_pagination ?? []), $template_pagination_left ?? '', $template_pagination_right ?? '');
         $results = $paginator->getLimited($wall_posts_query, 10, $p, count($wall_posts_query));
-        $pagination = $paginator->generate(7, URL::build('/profile/' . Output::getClean($query->username) . '/', true));
+        $pagination = $paginator->generate(7, URL::build('/profile/' . Output::getClean($query->username) . '/'));
 
         $smarty->assign('PAGINATION', $pagination);
 
@@ -745,7 +733,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
             'value' => Output::getClean($query->username),
             'image' => 'https://crafatar.com/renders/body/' . $query->uuid . '?overlay'
         ];
-        
+
         $smarty->assign([
             'UUID' => $profile_user->data()->uuid
         ]);

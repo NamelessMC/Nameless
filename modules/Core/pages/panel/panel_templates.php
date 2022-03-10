@@ -175,7 +175,6 @@ if (!isset($_GET['action'])) {
             }
 
             Redirect::to(URL::build('/panel/core/panel_templates'));
-            die();
 
         case 'activate':
             if (Token::check()) {
@@ -185,7 +184,6 @@ if (!isset($_GET['action'])) {
                 if (!count($template)) {
                     // Doesn't exist
                     Redirect::to(URL::build('/panel/core/panel_templates/'));
-                    die();
                 }
                 $name = str_replace(['../', '/', '..'], '', $template[0]->name);
 
@@ -215,7 +213,6 @@ if (!isset($_GET['action'])) {
             }
 
             Redirect::to(URL::build('/panel/core/panel_templates/'));
-            die();
 
         case 'deactivate':
             if (Token::check()) {
@@ -225,7 +222,6 @@ if (!isset($_GET['action'])) {
                 if (!count($template)) {
                     // Doesn't exist
                     Redirect::to(URL::build('/panel/core/panel_templates/'));
-                    die();
                 }
 
                 $template = $template[0]->id;
@@ -242,12 +238,10 @@ if (!isset($_GET['action'])) {
             }
 
             Redirect::to(URL::build('/panel/core/panel_templates'));
-            die();
 
         case 'delete':
             if (!isset($_GET['template'])) {
                 Redirect::to('/panel/core/panel_templates');
-                die();
             }
 
             if (Token::check()) {
@@ -260,13 +254,11 @@ if (!isset($_GET['action'])) {
                         $template = $template[0];
                         if ($template->name == 'Default' || $template->id == 1 || $template->enabled == 1 || $template->is_default == 1) {
                             Redirect::to(URL::build('/panel/core/panel_templates'));
-                            die();
                         }
 
                         $item = $template->name;
                     } else {
                         Redirect::to(URL::build('/panel/core/panel_templates'));
-                        die();
                     }
 
                     if (!Util::recursiveRemoveDirectory(ROOT_PATH . '/custom/panel_templates/' . $item)) {
@@ -285,7 +277,6 @@ if (!isset($_GET['action'])) {
             }
 
             Redirect::to(URL::build('/panel/core/panel_templates'));
-            die();
 
         case 'make_default':
             if (Token::check()) {
@@ -295,7 +286,6 @@ if (!isset($_GET['action'])) {
                 if (!count($new_default)) {
                     // Doesn't exist
                     Redirect::to(URL::build('/panel/core/panel_templates/'));
-                    die();
                 }
 
                 $new_default_template = $new_default[0]->name;
@@ -327,7 +317,6 @@ if (!isset($_GET['action'])) {
             }
 
             Redirect::to(URL::build('/panel/core/panel_templates/'));
-            die();
 
         case 'clear_cache':
             if (Token::check()) {
@@ -338,11 +327,9 @@ if (!isset($_GET['action'])) {
             }
 
             Redirect::to(URL::build('/panel/core/panel_templates'));
-            die();
 
         default:
             Redirect::to(URL::build('/panel/core/panel_templates'));
-            die();
     }
 }
 

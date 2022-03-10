@@ -147,16 +147,12 @@
                             </div>
                             <div class="form-group">
                                 <label for="inputGroups">{$GROUPS}</label>
-                                <div class="card shadow border-left-primary">
+                                <div class="card shadow border-left-warning">
                                     <div class="card-body">
-                                        <h5><i class="icon fa fa-info-circle"></i> {$INFO}</h5>
-                                        {$GROUPS_INFO}
+                                        <strong>{$MAIN_GROUP_INFO}: </strong>{$MAIN_GROUP->name} {if isset($CANT_EDIT_GROUP)}<i>({$CANT_EDIT_GROUP})</i>{/if}
                                     </div>
                                 </div>
                                 <br />
-                                <p><strong>{$MAIN_GROUP_INFO}: </strong>{$MAIN_GROUP->name} {if isset($CANT_EDIT_GROUP)}
-                                        <i>({$CANT_EDIT_GROUP})</i>
-                                    {/if}</p>
                                 <select class="form-control" name="groups[]" id="inputGroups" multiple>
                                     {foreach from=$ALL_GROUPS item=item}
                                         <option value="{$item->id}"{if in_array($item->id, $GROUPS_VALUE)} selected{/if}>{$item->name|escape}</option>
@@ -233,6 +229,10 @@
       $('#validateUserForm').submit();
     }
     {/if}
+
+    $(document).ready(() => {
+        $('#inputGroups').select2({ placeholder: "{$NO_ITEM_SELECTED}" });
+    })
 </script>
 
 </body>

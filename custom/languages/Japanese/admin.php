@@ -497,6 +497,7 @@ $language = [
     'resend_activation_email' => 'アクティベーションメールの再送信',
     'email_resent_successfully' => 'メールの再送信に成功しました。',
     'email_resend_failed' => 'メールの再送信に失敗しました。メール設定を確認してください。',
+    'no_item_selected' => 'No items selected',
 
     // Permissions
     'select_all' => 'すべて選択',

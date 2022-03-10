@@ -65,11 +65,17 @@ class ProfileUtils {
      */
     public static function getProfile(string $identifier): ?MinecraftProfile {
         if (strlen($identifier) <= 16) {
-            $identifier = self::getUUIDFromUsername($identifier);
-            $url = 'https://sessionserver.mojang.com/session/minecraft/profile/' . $identifier['uuid'];
+            var_dump($identifier);
+            $result = self::getUUIDFromUsername($identifier);
+            if ($result == null) {
+                return null;
+            }
+            $uuid = $result['uuid'];
         } else {
-            $url = 'https://sessionserver.mojang.com/session/minecraft/profile/' . $identifier;
+            $uuid = $identifier;
         }
+
+        $url = 'https://sessionserver.mojang.com/session/minecraft/profile/' . $uuid;
 
         $client = HttpClient::get($url);
 
@@ -89,14 +95,19 @@ class ProfileUtils {
         if (strlen($username) > 16) {
             return ['username' => '', 'uuid' => ''];
         }
-        $url = 'https://api.mojang.com/users/profiles/minecraft/' . htmlspecialchars($username);
+        $url = 'https://api.mojang.com/users/profiles/minecraft/' . urlencode($username);
 
         $result = HttpClient::get($url);
 
         // Verification
         if (!$result->hasError()) {
             $ress = json_decode($result->contents(), true);
-            return ['username' => $ress['name'], 'uuid' => $ress['id']];
+            if ($ress['name'] != null && $ress['uuid'] != null) {
+                return [
+                    'username' => $ress['name'],
+                    'uuid' => $ress['id']
+                ];
+            }
         }
 
         return null;

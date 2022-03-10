@@ -1,14 +1,14 @@
 <?php
-/*
- *	Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+/**
+ * Similar to DB class, but supports entering custom database credentials.
+ * Used during installation.
  *
- *  License: MIT
- *
- *  Custom database class
+ * @package NamelessMC\Database
+ * @see DB
+ * @author Samerton
+ * @version 2.0.0-pr8
+ * @license MIT
  */
-
 class DB_Custom {
 
     private static DB_Custom $_instance;

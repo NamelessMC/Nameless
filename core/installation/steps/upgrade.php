@@ -2,7 +2,6 @@
 
 if (!isset($_SESSION['database_initialized']) || $_SESSION['database_initialized'] != true) {
     Redirect::to('?step=database_configuration');
-    die();
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -49,8 +48,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['db_name'] = $db_name;
 
             Redirect::to('?step=upgrade_perform');
-            die();
-
         }
 
     }

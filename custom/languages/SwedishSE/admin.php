@@ -104,7 +104,7 @@ $language = [
     'enable_mailer_help' => 'Aktivera det här om e-postmeddelanden inte skickas som standard. Användningen av PHPMailer kräver att du har en tjänst som kan skicka e-postmeddelanden, till exempel Gmail eller en SMTP-leverantör.',
     'outgoing_email' => 'Utgående E-postadress',
     'outgoing_email_info' => 'Detta är den e-postadress som NamelessMC ska använda för att skicka e-post från.',
-    'mailer_settings_info' => 'The following fields are required if you have enabled PHPMailer. For more information on how to fill out these fields, check out <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-SMTP-with-Nameless-(e.g.-Gmail-or-Outlook)" target="_blank">the wiki</a>.',
+    'mailer_settings_info' => 'De följande fälten krävs om du har aktiverat PHPMailer, se <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-SMTP-with-Nameless-(e.g.-Gmail-or-Outlook)" target="_blank">dokumentationen.</a>.',
     'host' => 'Host',
     'email_port' => 'Port',
     'email_port_invalid' => 'Vänligen ange en giltig email port.',
@@ -149,7 +149,7 @@ $language = [
     'navigation_settings_updated_successfully' => 'Navigations inställningarna har uppdaterats.',
     'dropdown_items' => 'Dropdown-Objekt',
     'enable_page_load_timer' => 'Aktivera sidladdningstimer?',
-    'captcha_general' => 'Aktivera Captcha på registrering och kontaktsida?',
+    'captcha_general' => 'Aktivera Captcha på registrering?',
     'captcha_login' => 'Aktivera Captcha på inloggningssidan?',
     'captcha_type' => 'Captcha Typ',
     'captcha_site_key' => 'Captcha Site Key',
@@ -493,6 +493,7 @@ $language = [
     'resend_activation_email' => 'Skicka aktiverings-e-post igen',
     'email_resent_successfully' => 'E-postmeddelandet skickades igen.',
     'email_resend_failed' => 'Det gick inte att skicka e-post igen, kontrollera dina e-postinställningar.',
+    'no_item_selected' => 'No items selected',
 
     // Permissions
     'select_all' => 'Välj alla',
@@ -641,7 +642,7 @@ $language = [
     'existing_rules' => 'Befintliga regler',
     'new_rule' => 'Ny regel',
     'api_endpoints' => 'API-slutpunkter',
-    'api_endpoints_info' => 'API-slutpunkter tillåter moduler att skapa sätt för externa applikationer (som Minecraft och Discord) att interagera med din NamelessMC-webbplats. <a href="https://docs.namelessmc.com/en/api-documentation" target="_blank">Check out the API documentation here</a>',
+    'api_endpoints_info' => 'API-slutpunkter tillåter moduler att skapa sätt för externa applikationer (som Minecraft och Discord) att interagera med din NamelessMC-webbplats. <a href="https://docs.namelessmc.com/en/api-documentation" target="_blank">Se API dokumentationen här.</a>',
     'route' => 'Rutt',
 
     // File uploads

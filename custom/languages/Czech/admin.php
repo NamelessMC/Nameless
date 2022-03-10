@@ -147,7 +147,7 @@ $language = [
     'navigation_settings_updated_successfully' => 'Nastavení navigace úspěšně aktualizována.',
     'dropdown_items' => 'Položky rozbalovací nabídky',
     'enable_page_load_timer' => 'Povolit časovač načítání stránky?',
-    'captcha_general' => 'Povolit Captchu na registrační a kontaktní stránce?',
+    'captcha_general' => 'Povolit Captchu na registrační stránce?',
     'captcha_login' => 'Povolit Captchu na přihlašovací stránce?',
     'captcha_type' => 'Typ Captchy',
     'captcha_site_key' => 'Captcha klíč webu',
@@ -482,6 +482,7 @@ $language = [
     'resend_activation_email' => 'Znovu odeslat aktivační e-mail',
     'email_resent_successfully' => 'E-mail byl úspěšně znovu odeslán.',
     'email_resend_failed' => 'Odeslání e-mailu se nezdařilo, zkontrolujte vaše nastavení e-mailů.',
+    'no_item_selected' => 'Nejsou vybrány žádné položky',
 
     // Users & groups
     'select_all' => 'Vybrat vše',

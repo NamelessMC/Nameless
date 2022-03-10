@@ -11,16 +11,14 @@
 
 if (!$user->isLoggedIn()) {
     Redirect::to(URL::build('/'));
-    die();
 }
 
 // Get warning ID
 $wid = explode('/', $route);
 $wid = $wid[count($wid) - 1];
 
-if (!isset($wid[count($wid) - 1]) || !is_numeric($wid)) {
+if (!is_numeric($wid)) {
     Redirect::to(URL::build('/'));
-    die();
 }
 
 // Ensure warning belongs to user
@@ -36,4 +34,3 @@ if (count($warning)) {
 }
 
 Redirect::to(URL::build('/'));
-die();
