@@ -37,9 +37,8 @@ class hCaptcha extends CaptchaBase {
         $client = HttpClient::get($url);
         if ($client->hasError()) {
             return false;
-        } else {
-            return $client->json(true)['pass'] == true;
         }
+        return $client->json(true)['pass'] == true;
     }
 
     public function getHtml(): string {

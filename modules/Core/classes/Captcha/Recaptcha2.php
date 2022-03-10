@@ -36,7 +36,7 @@ class Recaptcha2 extends CaptchaBase {
             'secret' => $secret,
             'response' => $token
         ])->json(true);
-        return !($result['error-codes'][0] == 'invalid-input-secret');
+        return $result['error-codes'][0] !== 'invalid-input-secret';
     }
 
     public function validateKey(string $key) : bool {
