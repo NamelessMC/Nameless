@@ -151,44 +151,46 @@ if (isset($_GET['user'])) {
                                     'acknowledged' => (($type == 2) ? 0 : 1)
                                 ]);
 
-                                if ($type == 1 || $type == 3) {
-                                    // Ban the user
-                                    $queries->update('users', $query->id, [
-                                        'isbanned' => 1,
-                                        'active' => 0
-                                    ]);
-
-                                    $banned_user_ip = $banned_user->data()->lastip;
-
-                                    $queries->delete('users_session', ['user_id', '=', $query->id]);
-
-                                    if ($type == 3) {
-                                        // Ban IP
-                                        $queries->create('ip_bans', [
-                                            'ip' => $banned_user_ip,
-                                            'banned_by' => $user->data()->id,
-                                            'banned_at' => date('U'),
-                                            'reason' => $_POST['reason']
+                                switch($type) {
+                                    case 1:
+                                    case 3:
+                                        // Ban the user
+                                        $queries->update('users', $query->id, [
+                                            'isbanned' => 1,
+                                            'active' => 0
                                         ]);
-                                    }
 
-                                    // Fire userBanned event
-                                    EventHandler::executeEvent('userBanned', [
-                                        'punished_id' => $query->id,
-                                        'punisher_id' => $user->data()->id,
-                                        'reason' => Output::getClean($_POST['reason']),
-                                        'ip_ban' => $type == 3,
-                                    ]);
+                                        $banned_user_ip = $banned_user->data()->lastip;
 
-                                } else {
-                                    if ($type == 2) {
+                                        $queries->delete('users_session', ['user_id', '=', $query->id]);
+
+                                        if ($type == 3) {
+                                            // Ban IP
+                                            $queries->create('ip_bans', [
+                                                'ip' => $banned_user_ip,
+                                                'banned_by' => $user->data()->id,
+                                                'banned_at' => date('U'),
+                                                'reason' => $_POST['reason']
+                                            ]);
+                                        }
+
+                                        // Fire userBanned event
+                                        EventHandler::executeEvent('userBanned', [
+                                            'punished_id' => $query->id,
+                                            'punisher_id' => $user->data()->id,
+                                            'reason' => Output::getClean($_POST['reason']),
+                                            'ip_ban' => $type == 3,
+                                        ]);
+                                        break;
+                                    case 2:
                                         // Fire userWarned event
                                         EventHandler::executeEvent('userWarned', [
                                             'punished_id' => $query->id,
                                             'punisher_id' => $user->data()->id,
                                             'reason' => Output::getClean($_POST['reason']),
                                         ]);
-                                    } else if ($type == 4) {
+                                        break;
+                                    case 4:
                                         // Need to delete any other avatars
                                         $to_remove = [];
                                         foreach (['jpg', 'jpeg', 'png', 'gif'] as $extension) {
@@ -203,7 +205,9 @@ if (isset($_GET['user'])) {
                                             'has_avatar' => 0,
                                             'avatar_updated' => date('U')
                                         ]);
-                                    }
+                                        break;
+                                    default:
+                                        throw new InvalidArgumentException("Unexpected type $type");
                                 }
 
                                 // Send alerts
