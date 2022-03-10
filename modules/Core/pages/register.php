@@ -234,216 +234,199 @@ if (Input::exists()) {
                     // Ensure username doesn't already exist
                     $integrationUser = new IntegrationUser($integration, $username, 'username');
                     if ($integrationUser->exists()) {
-                        $integration_error = str_replace('{x}', $integration->getName(), $language->get('user', 'integration_username_already_linked'));
+                        $integration->addError(str_replace('{x}', $integration->getName(), $language->get('user', 'integration_username_already_linked')));
                     }
 
-                    if ($uuid_linking == 1 && !isset($integration_error)) {
-                        // Perform validation on Minecraft name
-                        $profile = ProfileUtils::getProfile(str_replace(' ', '%20', $username));
+                    $result = $integration->getUuidByUsername($username);
+                    if (!count($integration->getErrors())) {
+                        $uuid = $result['uuid'];
 
-                        $mcname_result = $profile ? $profile->getProfileAsArray() : [];
-
-                        if (isset($mcname_result['username'], $mcname_result['uuid']) && !empty($mcname_result['username']) && !empty($mcname_result['uuid'])) {
-                            // Valid
-                            $uuid = Output::getClean($mcname_result['uuid']);
-
-                            // Ensure identifier doesn't already exist
-                            $integrationUser = new IntegrationUser($integration, $uuid, 'identifier');
-                            if ($integrationUser->exists()) {
-                                $integration_error = str_replace('{x}', $integration->getName(), $language->get('user', 'integration_identifier_already_linked'));
-                            }
-
-                        } else {
-                            // Invalid
-                            $invalid_mcname = true;
+                        // Ensure identifier doesn't already exist
+                        $integrationUser = new IntegrationUser($integration, $uuid, 'identifier');
+                        if ($integrationUser->exists()) {
+                            $integration->addError(str_replace('{x}', $integration->getName(), $language->get('user', 'integration_identifier_already_linked')));
                         }
+
+                    } else {
+                        $integration_errors = $integration->getErrors();
                     }
+                } else {
+                    $uuid = '';
                 }
 
-                // Check to see if the Minecraft username was valid
-                if (!isset($invalid_mcname)) {
-                    if (!isset($uuid)) {
-                        $uuid = '';
-                    }
+                // Check if there was any integration errors
+                if (!isset($integration_errors)) {
+                    // Minecraft user account association
+                    if (isset($account_verification) && $account_verification == '1') {
+                        // MCAssoc enabled
+                        // Get data from database
+                        $mcassoc_site_id = SITE_NAME;
 
-                    if (!isset($integration_error)) {
-                        // Minecraft user account association
-                        if (isset($account_verification) && $account_verification == '1') {
-                            // MCAssoc enabled
-                            // Get data from database
-                            $mcassoc_site_id = SITE_NAME;
+                        $mcassoc_shared_secret = $queries->getWhere('settings', ['name', '=', 'mcassoc_key']);
+                        $mcassoc_shared_secret = $mcassoc_shared_secret[0]->value;
 
-                            $mcassoc_shared_secret = $queries->getWhere('settings', ['name', '=', 'mcassoc_key']);
-                            $mcassoc_shared_secret = $mcassoc_shared_secret[0]->value;
+                        $mcassoc_instance_secret = $queries->getWhere('settings', ['name', '=', 'mcassoc_instance']);
+                        $mcassoc_instance_secret = $mcassoc_instance_secret[0]->value;
 
-                            $mcassoc_instance_secret = $queries->getWhere('settings', ['name', '=', 'mcassoc_instance']);
-                            $mcassoc_instance_secret = $mcassoc_instance_secret[0]->value;
+                        define('MCASSOC', true);
 
-                            define('MCASSOC', true);
+                        // Hash password first
+                        $password = password_hash($_POST['password'], PASSWORD_BCRYPT, ['cost' => 13]);
+                        $_SESSION['password'] = $password;
+                        unset($_POST['password']);
 
-                            // Hash password first
-                            $password = password_hash($_POST['password'], PASSWORD_BCRYPT, ['cost' => 13]);
-                            $_SESSION['password'] = $password;
-                            unset($_POST['password']);
+                        // Initialise
+                        $mcassoc = new MCAssoc($mcassoc_shared_secret, $mcassoc_site_id, $mcassoc_instance_secret);
+                        $mcassoc->enableInsecureMode();
 
-                            // Initialise
-                            $mcassoc = new MCAssoc($mcassoc_shared_secret, $mcassoc_site_id, $mcassoc_instance_secret);
-                            $mcassoc->enableInsecureMode();
+                        require(ROOT_PATH . '/core/integration/run_mcassoc.php');
 
-                            require(ROOT_PATH . '/core/integration/run_mcassoc.php');
+                    } else {
+                        // Disabled
+                        $user = new User();
+
+                        $ip = $user->getIP();
+                        if (!filter_var($ip, FILTER_VALIDATE_IP)) {
+                            // TODO: Invalid IP, do something
+                        }
+
+                        $password = password_hash(Input::get('password'), PASSWORD_BCRYPT, ['cost' => 13]);
+                        // Get current unix time
+                        $date = new DateTime();
+                        $date = $date->getTimestamp();
+
+                        if ($api_verification == '1') {
+                            // Generate shorter code for API validation
+                            $code = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 10);
+                            $active = 1;
+                        } else {
+                            // Generate random code for email
+                            $code = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 60);
+                            $active = 0;
+                        }
+
+                        // Get default language ID before creating user
+                        $language_id = $queries->getWhere('languages', ['name', '=', LANGUAGE]);
+
+                        if (count($language_id)) {
+                            $language_id = $language_id[0]->id;
+                        } else {
+                            $language_id = 1; // fallback to EnglishUK
+                        }
+
+                        // Get default group ID
+                        $cache->setCache('default_group');
+                        if ($cache->isCached('default_group')) {
+                            $default_group = $cache->retrieve('default_group');
+                        } else {
+                            $default_group = $queries->getWhere('groups', ['default_group', '=', 1]);
+                            $default_group = $default_group[0]->id;
+
+                            $cache->store('default_group', $default_group);
+                        }
+
+                        // Create user
+                        $user->create(
+                            [
+                                'username' => $username,
+                                'nickname' => $nickname,
+                                'password' => $password,
+                                'pass_method' => 'default',
+                                'joined' => $date,
+                                'email' => Output::getClean(Input::get('email')),
+                                'reset_code' => $code,
+                                'lastip' => Output::getClean($ip),
+                                'last_online' => $date,
+                                'language_id' => $language_id,
+                                'active' => $active,
+                                // TODO: re-enable this (#2355)
+                                // 'timezone' => ((isset($_POST['timezone']) && $_POST['timezone']) ? Output::getClean(Input::get('timezone')) : Output::getClean(TIMEZONE))
+                                'timezone' => Output::getClean(TIMEZONE)
+                            ]
+                        );
+
+                        // Get user ID
+                        $user_id = $queries->getLastId();
+
+                        $user = new User($user_id);
+                        $user->addGroup($default_group, 0, [true]);
+
+                        // Minecraft Integration
+                        if ($minecraft == 1) {
+                            $integration = Integrations::getInstance()->getIntegration('Minecraft');
+                            if ($integration != null) {
+                                $integrationUser = new IntegrationUser($integration);
+                                $integrationUser->linkIntegration($user, $uuid, $username, false, $code);
+                            }
+                        }
+
+                        if (Session::exists('oauth_register_data')) {
+                            $data = json_decode(Session::get('oauth_register_data'), true);
+                            OAuth::getInstance()->saveUserProvider(
+                                $user_id,
+                                $data['provider'],
+                                $data['id'],
+                            );
+                            Session::delete('oauth_register_data');
+                        }
+
+                        // Custom Fields
+                        if (count($profile_fields)) {
+                            foreach ($profile_fields as $field) {
+                                if ($field->required == false) {
+                                    continue;
+                                }
+                                $value = Input::get($field->name);
+                                if (!empty($value)) {
+                                    // Insert custom field
+                                    $queries->create(
+                                        'users_profile_fields',
+                                        [
+                                            'user_id' => $user_id,
+                                            'field_id' => $field->id,
+                                            'value' => Output::getClean(Input::get($field->name))
+                                        ]
+                                    );
+                                }
+                            }
+                        }
+
+                        Log::getInstance()->log(Log::Action('user/register'));
+
+                        EventHandler::executeEvent('registerUser', [
+                            'user_id' => $user_id,
+                            'username' => Output::getClean(Input::get('username')),
+                            'uuid' => $uuid,
+                            'content' => str_replace('{x}', Output::getClean(Input::get('username')), $language->get('user', 'user_x_has_registered')),
+                            'avatar_url' => $user->getAvatar(128, true),
+                            'url' => Util::getSelfURL() . ltrim(URL::build('/profile/' . Output::getClean(Input::get('username'))), '/'),
+                            'language' => $language
+                        ]);
+
+                        if ($api_verification != '1' && $email_verification == '1') {
+                            // Send registration email
+                            sendRegisterEmail($queries, $language, Output::getClean(Input::get('email')), $username, $user_id, $code);
 
                         } else {
-                            // Disabled
-                            $user = new User();
-
-                            $ip = $user->getIP();
-                            if (!filter_var($ip, FILTER_VALIDATE_IP)) {
-                                // TODO: Invalid IP, do something
-                            }
-
-                            $password = password_hash(Input::get('password'), PASSWORD_BCRYPT, ['cost' => 13]);
-                            // Get current unix time
-                            $date = new DateTime();
-                            $date = $date->getTimestamp();
-
-                            if ($api_verification == '1') {
-                                // Generate shorter code for API validation
-                                $code = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 10);
-                                $active = 1;
-                            } else {
-                                // Generate random code for email
-                                $code = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 60);
-                                $active = 0;
-                            }
-
-                            // Get default language ID before creating user
-                            $language_id = $queries->getWhere('languages', ['name', '=', LANGUAGE]);
-
-                            if (count($language_id)) {
-                                $language_id = $language_id[0]->id;
-                            } else {
-                                $language_id = 1; // fallback to EnglishUK
-                            }
-
-                            // Get default group ID
-                            $cache->setCache('default_group');
-                            if ($cache->isCached('default_group')) {
-                                $default_group = $cache->retrieve('default_group');
-                            } else {
-                                $default_group = $queries->getWhere('groups', ['default_group', '=', 1]);
-                                $default_group = $default_group[0]->id;
-
-                                $cache->store('default_group', $default_group);
-                            }
-
-                            // Create user
-                            $user->create(
-                                [
-                                    'username' => $username,
-                                    'nickname' => $nickname,
-                                    'uuid' => $uuid,
-                                    'password' => $password,
-                                    'pass_method' => 'default',
-                                    'joined' => $date,
-                                    'email' => Output::getClean(Input::get('email')),
-                                    'reset_code' => $code,
-                                    'lastip' => Output::getClean($ip),
-                                    'last_online' => $date,
-                                    'language_id' => $language_id,
-                                    'active' => $active,
-                                    // TODO: re-enable this (#2355)
-                                    // 'timezone' => ((isset($_POST['timezone']) && $_POST['timezone']) ? Output::getClean(Input::get('timezone')) : Output::getClean(TIMEZONE))
-                                    'timezone' => Output::getClean(TIMEZONE)
-                                ]
-                            );
-
-                            // Get user ID
-                            $user_id = $queries->getLastId();
-
-                            $user = new User($user_id);
-                            $user->addGroup($default_group, 0, [true]);
-
-                            // Minecraft Integration
-                            if ($minecraft == 1) {
-                                $integration = Integrations::getInstance()->getIntegration('Minecraft');
-                                if ($integration != null) {
-                                    $integrationUser = new IntegrationUser($integration);
-                                    $integrationUser->linkIntegration($user, $uuid, $username, false, $code);
-                                }
-                            }
-
-                            if (Session::exists('oauth_register_data')) {
-                                $data = json_decode(Session::get('oauth_register_data'), true);
-                                OAuth::getInstance()->saveUserProvider(
-                                    $user_id,
-                                    $data['provider'],
-                                    $data['id'],
-                                );
-                                Session::delete('oauth_register_data');
-                            }
-
-                            // Custom Fields
-                            if (count($profile_fields)) {
-                                foreach ($profile_fields as $field) {
-                                    if ($field->required == false) {
-                                        continue;
-                                    }
-                                    $value = Input::get($field->name);
-                                    if (!empty($value)) {
-                                        // Insert custom field
-                                        $queries->create(
-                                            'users_profile_fields',
-                                            [
-                                                'user_id' => $user_id,
-                                                'field_id' => $field->id,
-                                                'value' => Output::getClean(Input::get($field->name))
-                                            ]
-                                        );
-                                    }
-                                }
-                            }
-
-                            Log::getInstance()->log(Log::Action('user/register'));
-
-                            EventHandler::executeEvent('registerUser', [
-                                'user_id' => $user_id,
-                                'username' => Output::getClean(Input::get('username')),
-                                'uuid' => $uuid,
-                                'content' => str_replace('{x}', Output::getClean(Input::get('username')), $language->get('user', 'user_x_has_registered')),
-                                'avatar_url' => $user->getAvatar(128, true),
-                                'url' => Util::getSelfURL() . ltrim(URL::build('/profile/' . Output::getClean(Input::get('username'))), '/'),
-                                'language' => $language
-                            ]);
-
-                            if ($api_verification != '1' && $email_verification == '1') {
-                                // Send registration email
-                                sendRegisterEmail($queries, $language, Output::getClean(Input::get('email')), $username, $user_id, $code);
-
-                            } else {
-                                if ($api_verification != '1') {
-                                    // Redirect straight to verification link
-                                    $url = URL::build('/validate/', 'c=' . $code);
-                                    Redirect::to($url);
-                                    die();
-                                }
-                            }
-
                             if ($api_verification != '1') {
-                                Session::flash('home', $language->get('user', 'registration_check_email'));
-                            } else {
-                                Session::flash('home', $language->get('user', 'validation_complete'));
+                                // Redirect straight to verification link
+                                $url = URL::build('/validate/', 'c=' . $code);
+                                Redirect::to($url);
+                                die();
                             }
-
-                            Redirect::to(URL::build('/'));
                         }
-                        die();
+
+                        if ($api_verification != '1') {
+                            Session::flash('home', $language->get('user', 'registration_check_email'));
+                        } else {
+                            Session::flash('home', $language->get('user', 'validation_complete'));
+                        }
+
+                        Redirect::to(URL::build('/'));
                     }
-
-                    $errors = [$integration_error];
-
+                    die();
                 } else {
-                    // Invalid Minecraft name
-                    $errors = [$language->get('user', 'invalid_mcname')];
+                    $errors = $integration_errors;
                 }
 
             } else {
@@ -510,19 +493,9 @@ if (Input::exists()) {
                                             $errors[] = $language->get('user', 'username_mcname_email_exists');
                                         }
                                     } else {
-                                        if (strpos($validation_error, 'not a valid Minecraft account') !== false) {
-                                            // Invalid Minecraft username
-                                            $errors[] = $language->get('user', 'invalid_mcname');
-                                        } else {
-                                            if (strpos($validation_error, 'Mojang communication error') !== false) {
-                                                // Mojang server error
-                                                $errors[] = $language->get('user', 'mcname_lookup_error');
-                                            } else {
-                                                if (strpos($validation_error, 'valid email') !== false) {
-                                                    // Validate email
-                                                    $errors[] = $language->get('general', 'contact_message_email');
-                                                }
-                                            }
+                                        if (strpos($validation_error, 'valid email') !== false) {
+                                            // Validate email
+                                            $errors[] = $language->get('general', 'contact_message_email');
                                         }
                                     }
                                 }

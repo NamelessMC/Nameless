@@ -23,44 +23,27 @@ class MinecraftIntegration extends IntegrationBase {
     }
 
     public function onLinkRequest(User $user) {
-        require(ROOT_PATH . '/core/integration/uuid.php'); // For UUID stuff
-
         $queries = new Queries();
         $username = $user->data()->username;
 
         // Ensure username doesn't already exist
         $integrationUser = new IntegrationUser($this, $username, 'username');
         if ($integrationUser->exists()) {
-            Session::flash('connections_error', str_replace('{x}', $this->getName(), $this->_language->get('user', 'integration_username_already_linked')));
+            $this->addError(str_replace('{x}', $this->getName(), $this->_language->get('user', 'integration_username_already_linked')));
             return;
         }
-
-        $uuid_linking = $queries->getWhere('settings', ['name', '=', 'uuid_linking']);
-        $uuid_linking = $uuid_linking[0]->value;
-        if ($uuid_linking == 1) {
-            // Perform validation on Minecraft name
-            $profile = ProfileUtils::getProfile(str_replace(' ', '%20', $username));
-
-            $mcname_result = $profile ? $profile->getProfileAsArray() : [];
-
-            if (isset($mcname_result['username'], $mcname_result['uuid']) && !empty($mcname_result['username']) && !empty($mcname_result['uuid'])) {
-                // Valid
-                $uuid = Output::getClean($mcname_result['uuid']);
-
-                // Ensure identifier doesn't already exist
-                $integrationUser = new IntegrationUser($this, $uuid, 'identifier');
-                if ($integrationUser->exists()) {
-                    Session::flash('connections_error', str_replace('{x}', $this->getName(), $this->_language->get('user', 'integration_identifier_already_linked')));
-                    return;
-                }
-
-            } else {
-                // Invalid
-                Session::flash('connections_error', $this->_language->get('user', 'invalid_mcname'));
-                return;
-            }
-        } else {
-            $uuid = '';
+        
+        $result = $this->getUuidByUsername($username);
+        if (count($integration->getErrors())) {
+            return;
+        }
+        $uuid = $result['uuid'];
+        
+        // Ensure identifier doesn't already exist
+        $integrationUser = new IntegrationUser($this, $uuid, 'identifier');
+        if ($integrationUser->exists()) {
+            $this->addError(str_replace('{x}', $this->getName(), $this->_language->get('user', 'integration_identifier_already_linked')));
+            return;
         }
 
         $code = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 10);
@@ -90,7 +73,7 @@ class MinecraftIntegration extends IntegrationBase {
         if ($api_verification == '1') {
             Session::flash('connections_success', str_replace('{x}', Output::getClean($integrationUser->data()->code), $this->_language->get('user', 'validate_account_command')));
         } else {
-            Session::flash('connections_error', str_replace('{x}', Output::getClean($this->_name), $this->_language->get('user', 'integration_verify_unconfigurated')));
+            $this->addError(str_replace('{x}', Output::getClean($this->_name), $this->_language->get('user', 'integration_verify_unconfigurated')));
         }
     }
 
@@ -102,5 +85,69 @@ class MinecraftIntegration extends IntegrationBase {
     }
 
     public function onSuccessfulVerification(IntegrationUser $integrationUser) {
+    }
+    
+    /**
+     * Get minecraft UUID by username
+     *
+     * @param $username string
+     * @return array
+     */
+    public function getUuidByUsername(string $username): array {
+        $queries = new Queries();
+        
+        $uuid_linking = $queries->getWhere('settings', ['name', '=', 'uuid_linking']);
+        $uuid_linking = $uuid_linking[0]->value;
+
+        if ($uuid_linking == 1) {
+            return $this->getOnlineModeUuid($username);
+        } else {
+            return $this->getOfflineModeUuid($username);
+        }
+    }
+
+    /**
+     * Query mojang api to get online-mode UUID.
+     *
+     * @param $username string
+     * @return array
+     */
+    public function getOnlineModeUuid(string $username): array {
+        require_once(ROOT_PATH . '/core/integration/uuid.php'); // For UUID stuff
+
+        $profile = ProfileUtils::getProfile(str_replace(' ', '%20', $username));
+
+        $mcname_result = $profile ? $profile->getProfileAsArray() : [];
+        if (isset($mcname_result['username'], $mcname_result['uuid']) && !empty($mcname_result['username']) && !empty($mcname_result['uuid'])) {
+            // Valid
+            $result = [
+                'uuid' => $mcname_result['uuid'],
+                'username' => $mcname_result['username']
+            ];
+
+            return $result;
+        } else {
+            // Invalid
+            $this->addError($this->_language->get('user', 'invalid_mcname'));
+        }
+
+        return [];
+    }
+
+    /**
+     * Generate an offline minecraft UUID v3 based on the case sensitive player name.
+     *
+     * @param $username string
+     * @return array
+     */
+    public function getOfflineModeUuid(string $username): array {
+        $data = hex2bin(md5("OfflinePlayer:" . $username));
+        $data[6] = chr(ord($data[6]) & 0x0f | 0x30);
+        $data[8] = chr(ord($data[8]) & 0x3f | 0x80);
+
+        return [
+            'uuid' => bin2hex($data),
+            'username' => $username
+        ];
     }
 }

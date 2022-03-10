@@ -99,7 +99,6 @@ if (!isset($_GET['step'])) {
                 $user->create([
                     'username' => htmlspecialchars($username),
                     'nickname' => htmlspecialchars($_SESSION['mcassoc']['username']),
-                    'uuid' => htmlspecialchars($data->uuid),
                     'password' => $password,
                     'pass_method' => 'default',
                     'joined' => date('U'),
@@ -117,7 +116,7 @@ if (!isset($_GET['step'])) {
 
                 $integration = Integrations::getInstance()->getIntegration('Minecraft');
                 $integrationUser = new IntegrationUser($integration);
-                $integrationUser->linkIntegration($new_user, $uuid, $username, true);
+                $integrationUser->linkIntegration($new_user, htmlspecialchars($data->uuid), htmlspecialchars($username), true);
 
                 unset($_SESSION['mcassoc']);
 

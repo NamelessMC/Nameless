@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr12
+ *  NamelessMC version 2.0.0-pr13
  *
  *  License: MIT
  *
@@ -83,10 +83,6 @@ if (Input::exists()) {
                 $cache->setCache('authme_cache');
                 $authme_hash = $cache->retrieve('authme');
 
-                // UUID linking
-                $uuid_linking = $queries->getWhere('settings', ['name', '=', 'uuid_linking']);
-                $uuid_linking = $uuid_linking[0]->value;
-
                 // Get default language ID before creating user
                 $language_id = $queries->getWhere('languages', ['name', '=', LANGUAGE]);
 
@@ -111,35 +107,26 @@ if (Input::exists()) {
 
                 $mcname = Output::getClean($_SESSION['authme']['user']);
                 
+                $integration = Integrations::getInstance()->getIntegration('Minecraft');
+                
                 // Ensure username doesn't already exist
                 $integrationUser = new IntegrationUser($integration, $mcname, 'username');
                 if ($integrationUser->exists()) {
-                    $errors[] = $language->get('user', 'mcname_already_exists');
+                    $integration->addError(str_replace('{x}', $integration->getName(), $language->get('user', 'integration_username_already_linked')));
                 }
+                
+                $result = $integration->getUuidByUsername($mcname);
+                if (!count($integration->getErrors())) {
+                    $uuid = $result['uuid'];
 
-                // UUID
-                if ($uuid_linking == '1') {
-                    require(ROOT_PATH . '/core/integration/uuid.php'); // For UUID stuff
-                    if (!isset($mcname_result)) {
-                        $profile = ProfileUtils::getProfile(str_replace(' ', '%20', $mcname));
-                        if ($profile && method_exists($profile, 'getProfileAsArray')) {
-                            $mcname_result = $profile->getProfileAsArray();
-                        }
+                    // Ensure identifier doesn't already exist
+                    $integrationUser = new IntegrationUser($integration, $uuid, 'identifier');
+                    if ($integrationUser->exists()) {
+                        $integration->addError(str_replace('{x}', $integration->getName(), $language->get('user', 'integration_identifier_already_linked')));
                     }
-                    if (isset($mcname_result['uuid']) && !empty($mcname_result['uuid'])) {
-                        $uuid = $mcname_result['uuid'];
-                        
-                        // Ensure identifier doesn't already exist
-                        $integrationUser = new IntegrationUser($integration, $uuid, 'identifier');
-                        if ($integrationUser->exists()) {
-                            $errors[] = $language->get('user', 'uuid_already_exists');
-                        }
-                    } else {
-                        $errors[] = $language->get('user', 'mcname_lookup_error');
-                        $uuid = 'none';
-                    }
+
                 } else {
-                    $uuid = 'none';
+                    $errors = $integration->getErrors();
                 }
 
                 if (count($errors)) {
@@ -164,7 +151,6 @@ if (Input::exists()) {
                             'nickname' => $nickname,
                             'password' => $_SESSION['authme']['pass'],
                             'pass_method' => $authme_hash['hash'],
-                            'uuid' => $uuid,
                             'joined' => date('U'),
                             'email' => Output::getClean(Input::get('email')),
                             'lastip' => $ip,
@@ -179,7 +165,6 @@ if (Input::exists()) {
                         $user->addGroup($default_group);
                         
                         // Link the minecraft integration
-                        $integration = Integrations::getInstance()->getIntegration('Minecraft');
                         if ($integration != null) {
                             $integrationUser = new IntegrationUser($integration);
                             $integrationUser->linkIntegration($user, $uuid, $username, true);

@@ -22,33 +22,34 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 if (Input::exists()) {
     if (Token::check()) {
+
+        // Get Integration
+        $integration = Integrations::getInstance()->getIntegration(Input::get('integration'));
+        if ($integration == null) {
+            Redirect::to(URL::build('/user/connections'));
+            die();
+        }
+
         if (Input::get('action') === 'link') {
             // Link Integration
-            $integration = Integrations::getInstance()->getIntegration(Input::get('integration'));
-            if ($integration != null) {
-                $integration->onLinkRequest($user);
-            }
+            $integration->onLinkRequest($user);
 
-            Redirect::to(URL::build('/user/connections'));
-            die();
         } else if (Input::get('action') === 'unlink') {
             // Unlink Integration
-            $integration = Integrations::getInstance()->getIntegration(Input::get('integration'));
-            if ($integration != null) {
-                $integration->onUnlinkRequest($user);
-            }
+            $integration->onUnlinkRequest($user);
 
-            Redirect::to(URL::build('/user/connections'));
-            die();
         } else if (Input::get('action') === 'verify') {
             // Verify Integration
-            $integration = Integrations::getInstance()->getIntegration(Input::get('integration'));
-            if ($integration != null) {
-                $integration->onVerifyRequest($user);
-            }
+            $integration->onVerifyRequest($user);
 
+        }
+
+        // Reload page if there is no errors, Else show errors
+        if (!$integration->getErrors()) {
             Redirect::to(URL::build('/user/connections'));
             die();
+        } else {
+            $errors = $integration->getErrors();
         }
     } else {
         // Invalid token

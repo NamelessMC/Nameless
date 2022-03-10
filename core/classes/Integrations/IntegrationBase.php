@@ -13,6 +13,7 @@ abstract class IntegrationBase {
 
     private DB $_db;
     private $_data;
+    private array $_errors = [];
 
     protected string $_name;
     protected ?int $_order;
@@ -56,7 +57,16 @@ abstract class IntegrationBase {
     public function getIcon(): string {
         return $this->_icon;
     }
-    
+
+    /** 
+     * Get if this integration is enabled
+     *
+     * @return bool Check if integration is enabled
+     */
+    public function isEnabled(): bool {
+        return $this->data()->enabled;
+    }
+
     /**
      * Get the display order of this integration.
      *
@@ -73,6 +83,24 @@ abstract class IntegrationBase {
      */
     public function data(): ?object {
         return $this->_data;
+    }
+
+    /**
+     * Add a error to the errors array
+     *
+     * @param string The error message
+     */
+    public function addError(string $error): void {
+        $this->_errors[] = $error;
+    }
+
+    /**
+     * Get any errors from the functions given by this integration
+     *
+     * @return array Return any errors
+     */
+    public function getErrors(): array {
+        return $this->_errors;
     }
 
     abstract public function onLinkRequest(User $user);
