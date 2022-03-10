@@ -347,10 +347,6 @@ class User {
 
         if ($user) {
             switch ($this->data()->pass_method) {
-                case 'wordpress':
-                    // phpass
-                    return ((new \Ozh\Phpass\PasswordHash(8, false))->checkPassword($password, $this->data()->password));
-
                 case 'sha256':
                     [$salt, $pass] = explode('$', $this->data()->password);
 
