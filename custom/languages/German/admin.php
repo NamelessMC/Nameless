@@ -1,7 +1,7 @@
 <?php
 /*
  *  Made by Samerton & Justman10000
- *  Translation by BukkitTNT, M_Viper
+ *  Translation by BukkitTNT, M_Viper, enno123
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr12
  *
@@ -649,13 +649,15 @@ $language = [
     'api_endpoints' => 'API-Endpunkte',
     'api_endpoints_info' => 'Mit API-Endpunkten können Module Möglichkeiten für externe Anwendungen (wie Minecraft und Discord) erstellen, um mit Deiner NamelessMC-Website zu interagieren. <a href="https://docs.namelessmc.com/en/api-documentation" target="_blank">Check out the API documentation here</a>',
     'route' => 'Route',
+    'method' => 'Methode',
+    'transformers' => 'Transformers',
 
     // File uploads
-    'drag_files_here' => 'Ziehe ein Bild hierhin.',
+    'drag_files_here' => 'Zieh eine Datei hierhin.',
     'invalid_file_type' => 'Ungültiges Dateiformat!',
     'file_too_big' => 'Datei zu groß! Die Datei hat eine größe von {{filesize}}, das Limit ist {{maxFilesize}}', // Don't replace {{filesize}} or {{maxFilesize}}
-    'allowed_proxies' => 'Proxies Erlaubt',
-    'allowed_proxies_info' => 'Zeilenweise Liste der erlaubten Proxy-IPs.',
+    'allowed_proxies' => 'Erlaubte Proxies',
+    'allowed_proxies_info' => 'Zeilengetrennte Liste der erlaubten Proxy-IPs.',
 
     // Error logs
     'error_logs' => 'Fehler Protokolle',
@@ -711,7 +713,7 @@ $language = [
     // Dashboard
     'total_users' => 'Gesamtbenutzer',
     'recent_users' => 'Neue Benutzer',
-    'recent_topics' => 'Test',
+    'recent_topics' => 'Aktuelle Themen',
     'average_players' => 'Durchschnittliche Spieler',
     'nameless_news' => 'NamelessMC Neuigkeiten',
     'unable_to_retrieve_nameless_news' => 'Die neuesten Nachrichten konnten nicht abgerufen werden',
@@ -752,4 +754,13 @@ $language = [
     'no_announcements' => 'Es wurden noch keine Ankündigungen gemacht.',
     'announcement_order' => 'Order',
     'announcement_hook_info' => 'Announcement creation',
+    
+        // OAuth
+    'oauth' => 'OAuth',
+    'oauth_info' => 'Konfiguriere den OAuth-Provider, damit sich die Benutzer mit ihren Konten in sozialen Netzwerken anmelden können. <a href="https://docs.namelessmc.com/en/oauth" target="_blank">Schau dir die Dokumentation an, um Hilfe zu erhalten.</a>',
+    'unlink' => 'Unlink',
+    'identifier' => 'Identifier',
+    'unlink_account_confirm' => 'Bist du sicher, dass du diesen Anbieter zwangsweise von diesem Benutzer trennen willst?',
+    'unlink_account_success' => 'Erfolgreich ihr Konto von {x} entkoppelt.', // Don't replace {x}
+    
 ];
