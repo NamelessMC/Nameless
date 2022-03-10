@@ -19,9 +19,11 @@ class Recaptcha3 extends CaptchaBase {
         $token = $post['recaptcha'];
 
         $url = 'https://www.google.com/recaptcha/api/siteverify';
-        $post_data = 'secret=' . $this->getPrivateKey() . '&response=' . $token;
 
-        $result = HttpClient::post($url, $post_data)->json(true);
+        $result = HttpClient::post($url, [
+            'secret' => $this->getPrivateKey(),
+            'response' => $token,
+        ])->json(true);
 
         return $result['success'] == 'true';
     }

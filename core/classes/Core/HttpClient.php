@@ -61,11 +61,11 @@ class HttpClient {
      * Failures will automatically be logged along with the error.
      *
      * @param string $url URL to send request to.
-     * @param string $data JSON request body to attach to request.
+     * @param mixed $data JSON request body to attach to request, or array of key value pairs if form-urlencoded.
      * @param array $options Options to set with the GuzzleClient.
      * @return HttpClient New HttpClient instance.
      */
-    public static function post(string $url, string $data, array $options = []): HttpClient {
+    public static function post(string $url, $data, array $options = []): HttpClient {
         $guzzleClient = new Client(array_merge([
             'timeout' => 5.0,
             'handler' => self::createHandler(),
@@ -75,7 +75,8 @@ class HttpClient {
 
         try {
             $response = $guzzleClient->post($url, [
-                'body' => $data,
+                // if the data is an array, we assume they want to send it as form-urlencoded, otherwise it's json
+                is_array($data) ? 'form_params' : 'body' => $data,
             ]);
         } catch (GuzzleException $exception) {
             $error = $exception->getMessage();
