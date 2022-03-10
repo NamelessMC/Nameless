@@ -434,68 +434,44 @@ if (Input::exists()) {
                         // x is required
                         if (strpos($validation_error, 'username') !== false) {
                             $errors[] = $language->get('user', 'username_required');
+                        } else if (strpos($validation_error, 'email') !== false) {
+                            $errors[] = $language->get('user', 'email_required');
+                        } else if (strpos($validation_error, 'password') !== false) {
+                            $errors[] = $language->get('user', 'password_required');
+                        } else if (strpos($validation_error, 'mcname') !== false) {
+                            $errors[] = $language->get('user', 'mcname_required');
+                        } else if (strpos($validation_error, 't_and_c') !== false) {
+                            $errors[] = $language->get('user', 'accept_terms');
                         } else {
-                            if (strpos($validation_error, 'email') !== false) {
-                                $errors[] = $language->get('user', 'email_required');
-                            } else {
-                                if (strpos($validation_error, 'password') !== false) {
-                                    $errors[] = $language->get('user', 'password_required');
-                                } else {
-                                    if (strpos($validation_error, 'mcname') !== false) {
-                                        $errors[] = $language->get('user', 'mcname_required');
-                                    } else {
-                                        if (strpos($validation_error, 't_and_c') !== false) {
-                                            $errors[] = $language->get('user', 'accept_terms');
-                                        } else {
-                                            $errors[] = $validation_error . '.';
-                                        }
-                                    }
-                                }
-                            }
+                            $errors[] = $validation_error . '.';
                         }
-                    } else {
-                        if (strpos($validation_error, 'minimum') !== false) {
-                            // x must be a minimum of y characters long
-                            if (strpos($validation_error, 'username') !== false) {
-                                $errors[] = $language->get('user', 'username_minimum_3');
-                            } else {
-                                if (strpos($validation_error, 'mcname') !== false) {
-                                    $errors[] = $language->get('user', 'mcname_minimum_3');
-                                } else {
-                                    if (strpos($validation_error, 'password') !== false) {
-                                        $errors[] = $language->get('user', 'password_minimum_6');
-                                    }
-                                }
-                            }
-                        } else {
-                            if (strpos($validation_error, 'maximum') !== false) {
-                                // x must be a maximum of y characters long
-                                if (strpos($validation_error, 'username') !== false) {
-                                    $errors[] = $language->get('user', 'username_maximum_20');
-                                } else {
-                                    if (strpos($validation_error, 'mcname') !== false) {
-                                        $errors[] = $language->get('user', 'mcname_maximum_20');
-                                    }
-                                }
-                            } else {
-                                if (strpos($validation_error, 'must match') !== false) {
-                                    // password must match password again
-                                    $errors[] = $language->get('user', 'passwords_dont_match');
-                                } else {
-                                    if (strpos($validation_error, 'already exists') !== false) {
-                                        // already exists
-                                        if (!in_array($language->get('user', 'username_mcname_email_exists'), $errors)) {
-                                            $errors[] = $language->get('user', 'username_mcname_email_exists');
-                                        }
-                                    } else {
-                                        if (strpos($validation_error, 'valid email') !== false) {
-                                            // Validate email
-                                            $errors[] = $language->get('general', 'contact_message_email');
-                                        }
-                                    }
-                                }
-                            }
+                    } else if (strpos($validation_error, 'minimum') !== false) {
+                        // x must be a minimum of y characters long
+                        if (strpos($validation_error, 'username') !== false) {
+                            $errors[] = $language->get('user', 'username_minimum_3');
+                        } else if (strpos($validation_error, 'mcname') !== false) {
+                            $errors[] = $language->get('user', 'mcname_minimum_3');
+                        } else if (strpos($validation_error, 'password') !== false) {
+                            $errors[] = $language->get('user', 'password_minimum_6');
                         }
+                    } else if (strpos($validation_error, 'maximum') !== false) {
+                        // x must be a maximum of y characters long
+                        if (strpos($validation_error, 'username') !== false) {
+                            $errors[] = $language->get('user', 'username_maximum_20');
+                        } else if (strpos($validation_error, 'mcname') !== false) {
+                            $errors[] = $language->get('user', 'mcname_maximum_20');
+                        }
+                    } else if (strpos($validation_error, 'must match') !== false) {
+                        // password must match password again
+                        $errors[] = $language->get('user', 'passwords_dont_match');
+                    } else if (strpos($validation_error, 'already exists') !== false) {
+                        // already exists
+                        if (!in_array($language->get('user', 'username_mcname_email_exists'), $errors)) {
+                            $errors[] = $language->get('user', 'username_mcname_email_exists');
+                        }
+                    } else if (strpos($validation_error, 'valid email') !== false) {
+                        // Validate email
+                        $errors[] = $language->get('general', 'contact_message_email');
                     }
                 }
             }
