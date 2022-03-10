@@ -28,6 +28,23 @@ class Recaptcha3 extends CaptchaBase {
         return $result['success'] == 'true';
     }
 
+    public function validateSecret(string $secret) : bool {
+        $token = "Verification";
+        $url = 'https://www.google.com/recaptcha/api/siteverify';
+
+        $result = HttpClient::post($url, [
+            'secret' => $secret,
+            'response' => $token
+        ])->json(true);
+        return !($result['error-codes'][0] == 'invalid-input-secret');
+    }
+
+    public function validateKey(string $key) : bool {
+        $url = 'https://www.google.com/recaptcha/api.js?render=' . $key;
+        $result = HttpClient::get($url)->contents();
+        return strpos($result, $key) !== false;
+    }
+
     public function getHtml(): ?string {
         return null;
     }

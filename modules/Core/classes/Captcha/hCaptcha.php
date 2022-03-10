@@ -28,6 +28,20 @@ class hCaptcha extends CaptchaBase {
         return $result['success'] == 'true';
     }
 
+    public function validateSecret(string $_secret) : bool {
+        return true; // Haven't found a way to verify this
+    }
+
+    public function validateKey(string $key) : bool {
+        $url = 'https://api.hcaptcha.com/checksiteconfig?sitekey=' . $key;
+        $client = HttpClient::get($url);
+        if ($client->hasError()) {
+            return false;
+        } else {
+            return $client->json(true)['pass'] == true;
+        }
+    }
+
     public function getHtml(): string {
         return '<div class="h-captcha" data-sitekey="' . $this->getPublicKey() . '"></div>';
     }
