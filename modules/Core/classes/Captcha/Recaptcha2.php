@@ -28,6 +28,21 @@ class Recaptcha2 extends CaptchaBase {
         return $result['success'] == 'true';
     }
 
+    public function validateSecret(string $secret) : bool {
+        $token = "Verification";
+        $url = 'https://www.google.com/recaptcha/api/siteverify';
+
+        $result = HttpClient::post($url, [
+            'secret' => $secret,
+            'response' => $token
+        ])->json(true);
+        return $result['error-codes'][0] !== 'invalid-input-secret';
+    }
+
+    public function validateKey(string $key) : bool {
+        return true; // No way to verify
+    }
+
     public function getHtml(): string {
         return '<div class="g-recaptcha" data-sitekey="' . $this->getPublicKey() . '"></div>';
     }
