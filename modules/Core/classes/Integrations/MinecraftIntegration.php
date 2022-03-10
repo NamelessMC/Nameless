@@ -32,13 +32,13 @@ class MinecraftIntegration extends IntegrationBase {
             $this->addError(str_replace('{x}', $this->getName(), $this->_language->get('user', 'integration_username_already_linked')));
             return;
         }
-        
+
         $result = $this->getUuidByUsername($username);
         if (count($integration->getErrors())) {
             return;
         }
         $uuid = $result['uuid'];
-        
+
         // Ensure identifier doesn't already exist
         $integrationUser = new IntegrationUser($this, $uuid, 'identifier');
         if ($integrationUser->exists()) {
@@ -65,11 +65,11 @@ class MinecraftIntegration extends IntegrationBase {
     public function onVerifyRequest(User $user) {
         $queries = new Queries();
         $integrationUser = new IntegrationUser($this, $user->data()->id, 'user_id');
-        
+
         // API verification
         $api_verification = $queries->getWhere('settings', ['name', '=', 'api_verification']);
         $api_verification = $api_verification[0]->value;
-        
+
         if ($api_verification == '1') {
             Session::flash('connections_success', str_replace('{x}', Output::getClean($integrationUser->data()->code), $this->_language->get('user', 'validate_account_command')));
         } else {
@@ -80,22 +80,22 @@ class MinecraftIntegration extends IntegrationBase {
     public function onUnlinkRequest(User $user) {
         $integrationUser = new IntegrationUser($this, $user->data()->id, 'user_id');
         $integrationUser->unlinkIntegration();
-        
+
         Session::flash('connections_success', str_replace('{x}', Output::getClean($this->_name), $this->_language->get('user', 'integration_unlinked')));
     }
 
     public function onSuccessfulVerification(IntegrationUser $integrationUser) {
     }
-    
+
     /**
      * Get minecraft UUID by username
      *
-     * @param $username string
+     * @param string $username
      * @return array
      */
     public function getUuidByUsername(string $username): array {
         $queries = new Queries();
-        
+
         $uuid_linking = $queries->getWhere('settings', ['name', '=', 'uuid_linking']);
         $uuid_linking = $uuid_linking[0]->value;
 
@@ -109,7 +109,7 @@ class MinecraftIntegration extends IntegrationBase {
     /**
      * Query mojang api to get online-mode UUID.
      *
-     * @param $username string
+     * @param string $username
      * @return array
      */
     public function getOnlineModeUuid(string $username): array {
@@ -137,7 +137,7 @@ class MinecraftIntegration extends IntegrationBase {
     /**
      * Generate an offline minecraft UUID v3 based on the case sensitive player name.
      *
-     * @param $username string
+     * @param string $username
      * @return array
      */
     public function getOfflineModeUuid(string $username): array {

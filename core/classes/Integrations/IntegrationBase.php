@@ -20,7 +20,7 @@ abstract class IntegrationBase {
 
     public function __construct() {
         $this->_db = DB::getInstance();
-        
+
         $integration = $this->_db->selectQuery('SELECT * FROM nl2_integrations WHERE name = ?', [$this->_name]);
         if ($integration->count()) {
             $integration = $integration->first();
@@ -32,7 +32,7 @@ abstract class IntegrationBase {
             $this->_db->createQuery('INSERT INTO nl2_integrations (name) VALUES (?)', [
                 $this->_name
             ]);
-            
+
             $integration = $this->_db->selectQuery('SELECT * FROM nl2_integrations WHERE name = ?', [$this->_name])->first();
 
             $this->_data = $integration;
@@ -48,7 +48,7 @@ abstract class IntegrationBase {
     public function getName(): string {
         return $this->_name;
     }
-    
+
     /**
      * Get the icon of this integration.
      *
@@ -58,7 +58,7 @@ abstract class IntegrationBase {
         return $this->_icon;
     }
 
-    /** 
+    /**
      * Get if this integration is enabled
      *
      * @return bool Check if integration is enabled
@@ -75,7 +75,7 @@ abstract class IntegrationBase {
     public function getOrder(): ?int {
         return $this->_order;
     }
-    
+
     /**
      * Get the integration data.
      *
@@ -88,7 +88,7 @@ abstract class IntegrationBase {
     /**
      * Add a error to the errors array
      *
-     * @param string The error message
+     * @param string $error The error message
      */
     public function addError(string $error): void {
         $this->_errors[] = $error;
@@ -97,7 +97,7 @@ abstract class IntegrationBase {
     /**
      * Get any errors from the functions given by this integration
      *
-     * @return array Return any errors
+     * @return array Any errors
      */
     public function getErrors(): array {
         return $this->_errors;
