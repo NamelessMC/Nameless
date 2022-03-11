@@ -165,7 +165,7 @@ $smarty->assign([
     'ENABLE_PAGE_LOAD_TIMER' => $language->get('admin', 'enable_page_load_timer'),
     'ENABLE_PAGE_LOAD_TIMER_VALUE' => $page_loading,
     'MAINTENANCE_MODE_MESSAGE' => $language->get('admin', 'maintenance_mode_message'),
-    'MAINTENANCE_MODE_MESSAGE_VALUE' => Output::getDecoded(htmlspecialchars_decode($maintenance['message'])),
+    'MAINTENANCE_MODE_MESSAGE_VALUE' => Output::getDecoded($maintenance['message']),
     'DEBUG_LINK' => $language->get('admin', 'debug_link'),
     'DEBUG_LINK_URL' => URL::build('/queries/debug_link'),
     'TOASTR_COPIED' => $language->get('admin', 'debug_link_toastr'),
