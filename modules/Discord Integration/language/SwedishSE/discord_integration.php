@@ -49,6 +49,7 @@ $language = [
     // User Settings
     'discord_link' => 'Discord Länk',
     'linked' => 'Länkad',
+    'get_link_code' => 'Get link code',
     'not_linked' => 'Inte länkad',
     'discord_id' => 'Discord User ID',
     'discord_id_unlinked' => 'Du har tagit bort länken till ditt Discord-användar-ID.',

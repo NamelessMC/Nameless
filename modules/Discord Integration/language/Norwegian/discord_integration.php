@@ -49,6 +49,7 @@ $language = [
     // User Settings
     'discord_link' => 'Discord-lenke',
     'linked' => 'Tilkoblet',
+    'get_link_code' => 'Get link code',
     'not_linked' => 'Ikke tilkoblet',
     'discord_id' => 'Discord-bruker-ID',
     'discord_id_unlinked' => 'Discord-bruker-ID-en din har blitt frakoblet.',

@@ -54,6 +54,7 @@ $language = [
     // User Settings
     'discord_link' => 'Discord リンク',
     'linked' => 'リンク済み',
+    'get_link_code' => 'Get link code',
     'not_linked' => 'リンクされていません',
     'discord_id' => 'DiscordユーザーID',
     'discord_id_unlinked' => 'Discord ユーザーIDのリンクを解除することに成功しました。',

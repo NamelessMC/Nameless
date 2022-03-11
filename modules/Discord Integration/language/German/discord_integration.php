@@ -50,6 +50,7 @@ $language = [
     // Discord
     'discord_link' => 'Discord Link',
     'linked' => 'Verbunden',
+    'get_link_code' => 'Zeige link command',
     'not_linked' => 'Nicht verbunden',
     'discord_id' => 'Discord User ID',
     'discord_id_unlinked' => 'Die Verknüpfung Ihrer Discord-Benutzer-ID wurde erfolgreich aufgehoben.',

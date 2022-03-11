@@ -205,7 +205,7 @@ $language = [
     'unfollow_all_topics' => 'Alle Themen nicht mehr verfolgen',
     'confirm_unfollow_all_topics' => 'Möchtest Du wirklich allen Themen nicht mehr folgen?',
     'all_topics_unfollowed' => 'Alle Themen werden nicht mehr verfolgt.',
-    'not_following_any_topics' => 'Du verfolgst keine Themen.',
+    'not_following_any_topics' => 'Du folgst keine Themen.',
 
     // Hooks
     'new_topic_hook_info' => 'Neues Thema',
