@@ -49,6 +49,7 @@ $language = [
     // User Settings
     'discord_link' => 'Discord Link',
     'linked' => 'Vinculado',
+    'get_link_code' => 'Get link code',
     'not_linked' => 'No vinculado',
     'discord_id' => 'ID de usuario de Discord',
     'discord_id_unlinked' => 'Se ha desvinculado con éxito su ID de usuario de Discord.',
