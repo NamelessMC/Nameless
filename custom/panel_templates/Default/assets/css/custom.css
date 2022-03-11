@@ -14,11 +14,11 @@ body {
 /* Dark color shades, starting with darkest */
 :root {
     --dark-color-1: #101010;
-    --dark-color-2: #151515;
+    --dark-color-2: #191d22;
     --dark-color-3: #202020;
-    --dark-color-4: #252525;
+    --dark-color-4: #222831;
     --dark-color-5: #303030;
-    --dark-color-6: #353535;
+    --dark-color-6: #222831;
     --dark-color-7: #454545;
     --dark-text-shade-1: rgb(162 162 162);
 }
@@ -65,7 +65,7 @@ body {
 }
 
 .dark .shadow {
-    box-shadow: 0 .15rem 1.75rem 0 rgba(121, 121, 121, 0.15)!important;
+    box-shadow: none !important;
 }
 
 .dark .table th,
@@ -128,7 +128,7 @@ option:checked {
 .dark .card-header,
 .dark .popover-header {
     background-color: var(--dark-color-6) !important;
-    border: none;
+    border-bottom: 2px solid #191d22;
 }
 
 .dark .modal-header,
@@ -143,7 +143,7 @@ option:checked {
 .dark .form-control,
 .dark .dropzone {
     background-color: var(--dark-color-3);
-    border: none;
+    border-bottom: 2px solid #191d22;
 }
 
 .dark .topbar-divider {
