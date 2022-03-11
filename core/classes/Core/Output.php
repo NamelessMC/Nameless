@@ -57,7 +57,7 @@ class Output {
             $purifierConfig->set('CSS.AllowedProperties', ['text-align', 'display', 'float', 'color', 'background-color', 'background', 'font-size', 'font-family', 'text-decoration', 'font-weight', 'font-style', 'font-size', 'width']);
             $purifierConfig->set('CSS.AllowTricky', true);
             $purifierConfig->set('CSS.MaxImgLength', null);
-            $purifierConfig->set('HTML.AllowedAttributes', 'target, rel, href, id, src, height, width, alt, class, style');
+            $purifierConfig->set('HTML.AllowedAttributes', 'target, rel, href, id, src, height, width, alt, class, *.style');
             $purifierConfig->set('Attr.AllowedFrameTargets', ['_blank', '_self', '_parent', '_top']);
             $purifierConfig->set('Attr.AllowedRel', ['noopener', 'nofollow']);
             $purifierConfig->set('HTML.SafeIframe', true);
