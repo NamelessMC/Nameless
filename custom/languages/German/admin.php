@@ -1,7 +1,7 @@
 <?php
 /*
  *  Made by Samerton & Justman10000
- *  Translation by BukkitTNT, M_Viper, enno123
+ *  Translation by BukkitTNT, M_Viper, enno123, TeemoCell
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr12
  *
@@ -191,14 +191,14 @@ $language = [
     'placeholders_show_on_forum_info' => 'Whether to show this placeholder on each user\'s forum posts or not.',
 
     // Placeholder leaderboards
-    'leaderboard_settings' => 'Leaderboard Einstellungen',
-    'placeholder_leaderboard_settings' => 'Platzhalter-Ranglisten-Einstellungen',
-    'placeholder_leaderboard_info' => 'Mit Platzhalter-Ranglisten können Sie Ranglisten erstellen, um die Spieler auf Ihrem Server nach einem beliebigen Platzhalter zu sortieren',
-    'placeholder_leaderboard_enable_info' => 'Ranglisten funktionieren am besten mit numerischen Platzhaltern (wie Münzen, Kills, abgebaute Blöcke usw.). Wenn du ein Leaderboard für einen textbasierten Platzhalter aktivierst, könntest du nicht sicher sein, dass es so angeordnet wird, wie du es wünschst.',
-    'placeholder_leaderboard_updated' => 'Einstellungen des Leaderboards erfolgreich aktualisiert',
-    'placeholder_leaderboard_enabled' => 'Leaderboard aktiviert',
-    'placeholder_leaderboard_title' => 'Leaderboard Titel',
-    'placeholder_leaderboard_sort' => 'Leaderboard sortierung',
+    'leaderboard_settings' => 'Bestenliste Einstellungen',
+    'placeholder_leaderboard_settings' => 'Bestenliste Platzhalter Einstellungen',
+    'placeholder_leaderboard_info' => 'Mit Bestenliste-Platzhalter können Sie Bestenlisten erstellen, um die Spieler auf Ihrem Server nach einem beliebigen Platzhalter zu sortieren',
+    'placeholder_leaderboard_enable_info' => 'Bestenliste funktionieren am besten mit numerischen Platzhaltern (wie Münzen, Kills, abgebaute Blöcke usw.). Wenn Sie eine Bestenliste auf einem textbasierten Platzhalter aktivieren, können Sie nicht sicher sein, dass sie wie gewünscht angeordnet wird.',
+    'placeholder_leaderboard_updated' => 'Einstellungen der Bestenliste erfolgreich aktualisiert',
+    'placeholder_leaderboard_enabled' => 'Bestenliste aktiviert',
+    'placeholder_leaderboard_title' => 'Bestenliste Titel',
+    'placeholder_leaderboard_sort' => 'Bestenliste sortierung',
 
     // SEO
     'seo' => 'SEO',
@@ -381,7 +381,7 @@ $language = [
     'activate' => 'Aktivieren',
     'warning_editing_default_template' => 'Warnung! Editiere nicht die Standard Vorlage.',
     'images' => 'Bilder',
-    'upload_new_image' => 'Lade ein neues Bild hoch.',
+    'upload_new_image' => 'Neues Bild hochladen.',
     'reset_background' => 'Hintergrund zurücksetzen.',
     'install' => '<i class="fa fa-plus-circle"></i> Installieren',
     'template_updated' => 'Vorlage erfolgreich aktualisiert.',
@@ -410,6 +410,9 @@ $language = [
     'logo_reset_successfully' => 'Logo erfolgreich zurückgesetzt.',
     'logo_updated_successfully' => 'Logo erfolgreich aktualisiert.',
     'reset_logo' => 'Logo zurücksetzen',
+    'favicon_reset_successfully' => 'Favicon erfolgreich zurückgesetzt.',
+    'favicon_updated_successfully' => 'Favicon erfolgreich aktualisiert.',
+    'reset_favicon' => 'Favicon zurücksetzen',
     'find_templates' => 'Entdecke Vorlagen',
     'view_all_templates' => 'Zeige alle Vorlagen',
     'unable_to_retrieve_templates' => 'Templates können nicht abgerufen werden',
@@ -739,7 +742,7 @@ $language = [
     'creating_announcement_failure' => 'Die Erstellung der Ankündigung ist fehlgeschlagen.',
     'editing_announcement_failure' => 'Ankündigungsaktualisierung fehlgeschlagen.',
     'announcement_icon_instructions' => 'Du kannst hier auch jeder Ankündigung ein Symbol hinzufügen, z. B. <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>, <a href="https://semantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Semantic UI</a>.',
-    'header' => 'Header',
+    'header' => 'Kopfzeile',
     'message' => 'Nachricht',
     'text_colour' => 'Text Farbe',
     'background_colour' => 'Hintergrund Farbe',
@@ -747,20 +750,19 @@ $language = [
     'can_view_announcement' => 'Kann Ankündigung anzeigen',
     'verify_delete_announcement' => 'Möchtest Du diese Ankündigung wirklich löschen?',
     'deleted_announcement_success' => 'Ankündigung erfolgreich gelöscht.',
-    'header_required' => 'Header ist erforderlich.',
+    'header_required' => 'Kopfzeile ist erforderlich.',
     'message_required' => 'Nachricht ist erforderlich',
     'background_colour_required' => 'Hintergrundfarbe ist erforderlich',
     'text_colour_required' => 'Textfarbe ist erforderlich ',
     'no_announcements' => 'Es wurden noch keine Ankündigungen gemacht.',
-    'announcement_order' => 'Order',
-    'announcement_hook_info' => 'Announcement creation',
-    
-        // OAuth
+    'announcement_order' => 'Anordnung',
+    'announcement_hook_info' => 'Ankündigungserstellung',
+
+    // OAuth
     'oauth' => 'OAuth',
     'oauth_info' => 'Konfiguriere den OAuth-Provider, damit sich die Benutzer mit ihren Konten in sozialen Netzwerken anmelden können. <a href="https://docs.namelessmc.com/en/oauth" target="_blank">Schau dir die Dokumentation an, um Hilfe zu erhalten.</a>',
     'unlink' => 'Unlink',
     'identifier' => 'Identifier',
     'unlink_account_confirm' => 'Bist du sicher, dass du diesen Anbieter zwangsweise von diesem Benutzer trennen willst?',
     'unlink_account_success' => 'Erfolgreich ihr Konto von {x} entkoppelt.', // Don't replace {x}
-    
 ];
