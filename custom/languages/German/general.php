@@ -1,7 +1,7 @@
 <?php
 /*
  *  Made by Samerton
- *  Translation by BukkitTNT, M_Viper
+ *  Translation by BukkitTNT, M_Viper, TeemOCell
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr10
  *
@@ -29,7 +29,7 @@ $language = [
     'warning' => 'Warnung',
     'date' => 'Datum',
     'search' => 'Suche',
-    'edit' => 'Editieren',
+    'edit' => 'Bearbeiten',
     'next' => 'Nächste',
     'previous' => 'Vorherige',
     'confirm_cancel' => 'Willst du dies wirklich abbrechen?',
@@ -53,12 +53,12 @@ $language = [
     'no_messages' => 'Keine Nachrichten',
     'x_new_messages' => 'Du hast {x} neue Nachrichten', // Don't replace {x}
     'loading' => 'Lädt...',
-    'report' => 'Report',
-    'reported_by' => 'Reportet von {x}',
-    'view_report' => 'Report ansehen',
+    'report' => 'Melden',
+    'reported_by' => 'Gemeldet von {x}',
+    'view_report' => 'Meldung ansehen',
     'page_loaded_in' => 'Seite wurde in {x} Sekunden geladen.', // Don't replace {x}, time unit is seconds
     'page_x' => 'Seite {x}',
-    'browse' => 'Blättern',
+    'browse' => 'Durchsuchen',
     'bypass' => 'Bypass',
     'yes' => 'Ja',
     'no' => 'Nein',
@@ -72,7 +72,7 @@ $language = [
     'invalid_timezone' => 'Diese Zeitzone ist ungültig',
     'link' => 'Link',
     'unlink' => 'Verknüpfung aufheben',
-    'leaderboards' => 'Leaderboards',
+    'leaderboards' => 'Bestenliste',
 
     /*
      *  Navbar

@@ -1,7 +1,7 @@
 <?php
 /*
  *  Made by Samerton
- *  Translation by BukkitTNT, M_Viper
+ *  Translation by BukkitTNT, M_Viper, TeemoCell
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr9
  *
@@ -36,7 +36,7 @@ $language = [
     'database_username' => 'Datenbank Benutzername',
     'database_password' => 'Datenbank Passwort',
     'database_name' => 'Datenbank Name',
-    'nameless_path' => 'Installation Path',
+    'nameless_path' => 'Installationspfad',
     'nameless_path_info' => 'Dies ist der Pfad, in dem Nameless relativ zu Ihrer Domain installiert ist. Wenn Nameless beispielsweise unter example.com/forum installiert ist, muss dies <strong>Forum</strong> sein. Lassen Sie das Feld leer, wenn sich Nameless nicht in einem Unterordner befindet.',
     'friendly_urls' => 'Freundliche URLs',
     'friendly_urls_info' => 'Freundliche URLs verbessern die Lesbarkeit von URLs in Ihrem Browser. <br />Zum Beispiel: <br /><code>example.com/index.php?route=/forum</code><br />wird zu:<br /><code>example.com/forum</code><br /><div class="ui inverted orange segment"><i class="exclamation circle icon"></i><strong>Wichtig!</strong><br />Ihr Server muss korrekt konfiguriert sein, damit dies funktioniert. Sie können sehen, ob Sie diese Option aktivieren können, indem Sie hier auf <a href="./rewrite_test" target="_blank" style="color:#2185D0">klicken</a>.</div>',
@@ -76,7 +76,7 @@ $language = [
     'errors_logged' => 'Fehler wurden protokolliert. Klicken Sie auf Weiter, um mit dem Upgrade fortzufahren.',
     'continue' => 'Weiter',
     'convert' => 'Konvertieren',
-    'convert_message' => 'Möchtest als letztes eine andere Forum Software konvertieren?',
+    'convert_message' => 'Möchten Sie als letztes von eine andere Forum Software konvertieren?',
     'yes' => 'Ja',
     'no' => 'Nein',
     'converter' => 'Konverter',

@@ -1,7 +1,7 @@
 <?php
 /*
  *  Made by Samerton
- *  Translation by BukkitTNT, M_Viper
+ *  Translation by BukkitTNT, M_Viper, TeemoCell
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr12
  *
@@ -11,14 +11,10 @@
  */
 
 $language = [
-    /*
-     *  Change this for the account validation message
-     */
+    // Change this for the account validation message
     'validate_account_command' => 'Um die Registrierung abzuschließen, führe bitte den Befehl <strong>/verify {x}</strong> ingame aus.', // Don't replace {x}
 
-    /*
-     *  User Related
-     */
+    // User Related
     'guest' => 'Gast',
     'guests' => 'Gäste',
 
@@ -36,8 +32,8 @@ $language = [
     'delete_all' => 'Alle Löschen',
     'private_profile' => 'Privates Profil',
     'gif_avatar' => 'Laden Sie .gif als benutzerdefinierten Avatar hoch',
-    'placeholders' => 'Placeholders',
-    'no_placeholders' => 'No Placeholders',
+    'placeholders' => 'Platzhalter',
+    'no_placeholders' => 'Keine Platzhalter',
 
     // Profile settings
     'field_is_required' => '{x} wird benötigt.', // Don't replace {x}
@@ -54,9 +50,9 @@ $language = [
     'enable' => 'Aktivieren',
     'disable' => 'Deaktivieren',
     'tfa_scan_code' => 'Scanne folgenden Code mit der APP:',
-    'tfa_code' => 'Wenn die APP dies nicht unterstützt gib diesen Zahlen-Code ein:',
+    'tfa_code' => 'Wenn die APP dies nicht unterstützt, gib diesen Zahlen-Code ein:',
     'tfa_enter_code' => 'Gib den Code ein, welcher in der APP angezeigt wird:',
-    'invalid_tfa' => 'Ungültiger Code, versuche es erneut.',
+    'invalid_tfa' => 'Ungültiger Code, bitte versuche es erneut.',
     'tfa_successful' => '2 Schritt Authentifizierung wurde aktiviert.',
     'active_language' => 'Ausgewählte Sprache:',
     'active_template' => 'Active Template',
@@ -95,7 +91,7 @@ $language = [
     'create_an_account' => 'Erstelle einen Account',
     'terms_and_conditions' => 'Nutzungsbedingungen',
     'validation_complete' => 'Dein Account wurde verifiziert. Du kannst dich nun anmelden.',
-    'validation_error' => 'Mit deinem Account stimmt etwas nicht. Benachrichtige einen Administrator.',
+    'validation_error' => 'Mit deinem Account stimmt etwas nicht. Bitte Benachrichtige einen Administrator.',
     'signature' => 'Signatur',
     'signature_max_900' => 'Ihre Signatur darf maximal 900 Zeichen lang sein.',
 
@@ -212,7 +208,7 @@ $language = [
     'cant_send_to_self' => 'Du kannst keine Nachricht an dich selbst senden!',
     'title_min_2' => 'Der Titel muss mindestens 2 Zeichen lang sein.',
     'content_min_2' => 'Der Inhalt muss mindestens 2 Zeichen lang sein.',
-    'title_max_64' => 'The title must be a maximum of 64 characters',
+    'title_max_64' => 'Der Titel darf maximal 64 Zeichen lang sein',
     'content_max_20480' => 'Der Inhalt darf maximal 20480 Zeichen lang sein.',
     'max_pm_10_users' => 'Du kannst an max. 10 Nutzer eine Nachricht senden.',
     'message_sent_successfully' => 'Nachricht wurde erfolgreich gesendet.',
@@ -226,16 +222,12 @@ $language = [
     'latest_profile_posts' => 'Neueste Profilbeiträge',
     'no_profile_posts' => 'Keine Profilbeiträge.',
 
-    /*
-     *  Infractions area
-     */
-    'you_have_been_banned' => 'Du wurdest Gebannt!',
+    // Infractions area
+    'you_have_been_banned' => 'Du wurdest Gesperrt!',
     'you_have_received_a_warning' => 'Du hast eine Verwarnung erhalten!',
     'acknowledge' => 'Bestätigen',
 
-    /*
-     *  Hooks
-     */
+    //Hooks
     'user_x_has_registered' => '{x} ist beigetreten ' . SITE_NAME . '!',
     'user_x_has_validated' => '{x} hat das Konto validiert!',
 ];

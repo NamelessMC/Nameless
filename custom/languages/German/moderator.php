@@ -1,7 +1,7 @@
 <?php
 /*
  *  Made by Samerton
- *  Translation by BukkitTNT, M_Viper
+ *  Translation by BukkitTNT, M_Viper, TeemoCell
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr9
  *
@@ -18,20 +18,20 @@ $language = [
     // Spam
     'spam' => 'Spam',
     'mark_as_spam' => 'Als Spam makieren',
-    'confirm_spam' => '<p>Willst du diesen Benutzer als Spammer makieren?</p><p>Der Benutzer wird IP gebannt und all seine Beiträge werden gelöscht.</p>',
-    'user_marked_as_spam' => 'Der Benutzer wurde als Spammer makiert.',
-    'cant_ban_admin' => 'Du kannst keine Administratoren bannen!',
+    'confirm_spam' => '<p>Willst du diesen Benutzer als Spammer makieren?</p><p>Der Benutzer wird IP gesperrt und alle seine Beiträge werden gelöscht.</p>',
+    'user_marked_as_spam' => 'Der Benutzer wurde als Spammer markiert.',
+    'cant_ban_admin' => 'Du kannst keine Administratoren sperren!',
 
     // IP Lookup
     'ip_lookup' => 'IP Suche',
-    'search_for_ip' => 'Suche einen Nutzernamen oder eine IP Adesse:',
+    'search_for_ip' => 'Suche nach einen Nutzernamen oder eine IP-Adresse:',
     'no_ips_with_username' => 'Es wurde kein solcher Nutzername gefunden.',
-    'no_accounts_with_that_ip' => 'Es wurde keine solche IP Adresse gefunden.',
+    'no_accounts_with_that_ip' => 'Es wurde keine solche IP-Adresse gefunden.',
     '1_account_with_ip' => '1 Konto mit der IP gefunden {y}', // Don't replace "{y}"
-    'count_accounts_with_ip' => 'Es wurde(n) {x} Account(s) mit der IP {y} gefunden.', // Don't replace "{x}" or "{y}"
+    'count_accounts_with_ip' => 'Es wurde(n) {x} Account(s) mit der IP-Adresse {y} gefunden.', // Don't replace "{x}" or "{y}"
     '1_ip_with_name' => '1 IP-Adresse für Benutzer gefunden {y}', // Don't replace "{y}"
     'count_ips_with_name' => 'Es wurde(n) {x} Account(s) mit dem Namen {y} gefunden.', // Don't replace "{x}" or "{y}"
-    'no_users_or_ips_found' => 'Kein Benutzer oder IP Adresse gefunden.',
+    'no_users_or_ips_found' => 'Kein Benutzer oder IP-Adresse gefunden.',
 
     // Reports
     'reports' => 'Meldungen',
@@ -46,29 +46,29 @@ $language = [
     'view_content' => 'Sehe den gemeldeten Kontent an.',
     'no_comments' => 'Keine Kommentare',
     'new_comment' => 'Neuer Kommentar',
-    'report_comment_invalid' => 'Ungültiger Kontent.',
+    'report_comment_invalid' => 'Ungültiger Kommentarinhalt. Bitte stellen Sie sicher, dass Sie einen Kommentar zwischen 1 und 10000 Zeichen eingegeben haben.',
     'close_report' => 'Meldung schließen',
     'reopen_report' => 'Meldung erneut öffnen',
-    '1_open_report' => 'Derzeit gibt es einen <strong>1</strong> open report.',
-    'open_reports' => 'Es sind aktuell <strong>{x}</strong> Meldungen geöffnet.', // Don't replace {x}
-    'no_open_reports' => 'Es sind keine Meldungen verfügbar.',
-    'no_closed_reports' => 'Es sind keine Geschlossenen Meldungen verfügbar.',
+    '1_open_report' => 'Derzeit gibt es eine <strong>1</strong> offene Meldung.',
+    'open_reports' => 'Derzeit gibt es <strong>{x}</strong> offene Meldungen.', // Don't replace {x}
+    'no_open_reports' => 'Derzeit sind keine offenen Meldungen vorhanden.',
+    'no_closed_reports' => 'Derzeit liegen keine Geschlossenen Meldungen vor.',
     'recent_reports' => 'Aktuelle Meldungen',
     'reported_by' => 'Gemeldet von:',
     'website' => 'Website',
-    'ingame' => 'Ingame',
-    'x_closed_report' => '{x} hat den report geschlossen.', // Don't replace {x} (username)
-    'x_reopened_report' => '{x} hat diesen Bericht erneut geöffnet.', // Don't replace {x} (username)
-    'report_reopened' => 'Bericht erfolgreich wieder geöffnet.',
-    'report_closed' => 'Bericht erfolgreich geschlossen.',
+    'ingame' => 'Im Spiel',
+    'x_closed_report' => '{x} hat den Meldung geschlossen.', // Don't replace {x} (username)
+    'x_reopened_report' => '{x} hat diese Meldung erneut geöffnet.', // Don't replace {x} (username)
+    'report_reopened' => 'Meldung wurde erfolgreich wieder geöffnet.',
+    'report_closed' => 'Meldung erfolgreich geschlossen.',
     'comment_created' => 'Kommentar erfolgreich erstellt.',
 
     // Punishments
-    'punishments' => 'Strafen',
-    'view_punishments' => 'Bans anzeigen',
-    'banned' => 'Gebannt',
+    'punishments' => 'Bestrafungen',
+    'view_punishments' => 'Bestrafung anzeigen',
+    'banned' => 'Verbannt',
     'groups' => 'Gruppen',
-    'punish' => 'Bestrafungen',
+    'punish' => 'Bestrafen',
     'ban' => 'Ban',
     'warn' => 'Verwarnung',
     'ban_ip' => 'IP Bannen',
@@ -77,27 +77,27 @@ $language = [
     'no_previous_punishments' => 'Keine vorherigen Bestrafungen',
     'reset_avatar' => 'Avatar zurücksetzen',
     'warning' => 'Verwarnung',
-    'ip_ban' => 'IP Ban',
+    'ip_ban' => 'IP Sperren',
     'reason' => 'Grund',
     'warn_user' => 'Benutzer verwarnen',
-    'ban_user' => 'Benutzer bannen',
-    'enter_valid_punishment_reason' => 'Bitte geben Sie einen gültigen Grund für Ihre Strafe, zwischen 5 und 5000 Zeichen.',
+    'ban_user' => 'Benutzer sperren',
+    'enter_valid_punishment_reason' => 'Bitte geben Sie einen Grund für Ihre Bestrafung ein, zwischen 5 und 5000 Zeichen.',
     'user_punished' => 'Benutzer bestraft.',
     'user_punished_alert' => '{x} hat den Benutzer {y} bestraft', // Don't replace {x} (staff member) or {y} (user punished)
     'revoke' => 'Aufheben',
     'revoked' => 'Aufgehoben',
     'acknowledged' => 'Anerkannt',
     'confirm_revoke_warning' => 'Sind Sie sicher, dass Sie diese Warnung widerrufen möchten?',
-    'confirm_revoke_ban' => 'Sind Sie sicher, dass Sie das Verbot widerrufen wollen? Der Benutzer wird entbannt, auch wenn Sie ein neueres Verbot haben!',
+    'confirm_revoke_ban' => 'Möchten Sie diese Sperre wirklich aufheben? Der Benutzer wird entsperrt, auch wenn er eine neuere Sperre hat!',
     'punishment_revoked' => 'Bestrafung widerrufen.',
     'punishment_revoked_alert' => '{x} hat eine Bestrafung für den Benutzer {y} zurückgezogen', // Don't replace {x} (staff member) or {y} (user with revoked punishment)
     'cant_punish_admin' => 'Sie können einen Administrator nicht bestrafen!',
-    'viewing_all_punishments' => 'Alle Bans anzeigen',
-    'no_punishments_found' => 'Keine Bans gefunden',
-    'view_user' => 'User anschauen',
+    'viewing_all_punishments' => 'Alle Bestrafungen anzeigen',
+    'no_punishments_found' => 'Keine Bestrafung gefunden',
+    'view_user' => 'Benutzer anschauen',
     'when' => 'Wann',
     'staff' => 'Teammitglied',
-    'type' => 'Type',
+    'type' => 'Typ',
     'recent_punishments' => 'Aktuelle Bans',
     'created' => 'Erstellt:',
     'staff:' => 'Teammitglied:',
@@ -106,5 +106,4 @@ $language = [
     // Users
     'recent_registrations' => 'Aktuelle Registrierungen',
     'reset_profile_banner' => 'Profilbanner zurücksetzen'
-
 ];
