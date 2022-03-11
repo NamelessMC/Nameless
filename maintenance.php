@@ -35,7 +35,7 @@ $smarty->assign(
 // Retrieve maintenance message
 $maintenance_message = $maintenance['message'];
 if (!empty($maintenance_message)) {
-    $smarty->assign('MAINTENANCE_MESSAGE', Output::getDecoded($maintenance['message']));
+    $smarty->assign('MAINTENANCE_MESSAGE', Output::getPurified(htmlspecialchars_decode($maintenance_message)));
 } else {
     $smarty->assign('MAINTENANCE_MESSAGE', 'Maintenance mode is enabled.');
 }
