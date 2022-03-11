@@ -199,11 +199,11 @@ option:checked {
     color: rgba(255, 255, 255) !important;
 }
 
-.dark .nav-item:hover{
+.dark .nav-item:hover {
     background-color: #161c25 !important;
 }
 
-.dark .nav-item.active{
+.dark .nav-item.active {
     background-color: #161c25 !important;
 }
 
