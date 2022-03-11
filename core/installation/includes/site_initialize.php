@@ -103,9 +103,9 @@ $queries->create('groups', [
 ]);
 
 $queries->create('groups', [
-    'name' => 'Admin',
-    'group_html' => '<span class="badge badge-danger">Admin</span>',
-    'group_html_lg' => '<span class="badge badge-danger">Admin</span>',
+    'name' => 'Root',
+    'group_html' => '<span class="badge badge-danger">Root</span>',
+    'group_html_lg' => '<span class="badge badge-danger">Root</span>',
     'group_username_color' => '#ff0000',
     'group_username_css' => '',
     'admin_cp' => 1,
