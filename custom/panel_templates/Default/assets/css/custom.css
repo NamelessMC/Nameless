@@ -48,9 +48,11 @@ body {
 .dark .dropdown-item:hover {
     background-color: var(--dark-color-6);
 }
+
 .dark .sidebar {
-    background-image: linear-gradient( 180deg,var(--dark-color-4) 10%,var(--dark-color-4) 100%) !important;
+    background-image: linear-gradient(180deg, var(--dark-color-4) 10%, var(--dark-color-4) 100%) !important;
 }
+
 .dark .sidebar .nav-item .collapse .collapse-inner .collapse-item:hover,
 .dark .sidebar .nav-item .collapsing .collapse-inner .collapse-item:hover,
 .dark .sidebar .nav-item .collapse .collapse-inner .active,
@@ -178,11 +180,12 @@ option:checked {
 .dark select option:active,
 .dark select option:checked {
     background: linear-gradient(var(--dark-color-4), var(--dark-color-4)) !important;
-    background-color: var(--dark-color-4) !important; /* IE Fallback */
+    background-color: var(--dark-color-4) !important;
+    /* IE Fallback */
 }
 
 .dark .text-github {
-    color:rgba(255, 255, 255) !important;
+    color: rgba(255, 255, 255) !important;
 }
 
 /* --------------- Scrollbar --------------- */
@@ -242,23 +245,27 @@ option:checked {
     .sidebar {
         width: 17rem !important;
     }
+
     #content-wrapper {
         margin-left: 17rem !important;
     }
+
     .sidebar .nav-item .nav-link {
         width: 16.5rem;
         padding: .70rem 1rem;
     }
-    .sidebar.toggled + #content-wrapper {
+
+    .sidebar.toggled+#content-wrapper {
         margin-left: 6.5rem !important;
     }
+
     .sidebar .nav-item .nav-link span {
         font-size: .90rem;
     }
 }
 
 @media (max-width: 768px) {
-    .sidebar.toggled + #content-wrapper {
+    .sidebar.toggled+#content-wrapper {
         margin-left: 0 !important;
     }
 }
@@ -336,6 +343,7 @@ i,
     form .col-md-6:last-child {
         padding-top: 10px;
     }
+
     .dark-switch-text {
         display: none;
     }
@@ -353,14 +361,14 @@ footer.sticky-footer {
     padding: 1.4rem 0;
 }
 
-.font-size-sa{
+.font-size-sa {
     font-size: small;
 }
 
 .text-discord {
-    color:#7289da !important;
+    color: #7289da !important;
 }
 
 .text-github {
-    color:rgba(0, 0, 0) !important;
+    color: rgba(0, 0, 0) !important;
 }
