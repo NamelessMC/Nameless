@@ -53,7 +53,7 @@ $language = [
     'open_reports' => 'Derzeit gibt es <strong>{x}</strong> offene Meldungen.', // Don't replace {x}
     'no_open_reports' => 'Derzeit sind keine offenen Meldungen vorhanden.',
     'no_closed_reports' => 'Derzeit liegen keine Geschlossenen Meldungen vor.',
-    'recent_reports' => 'Aktuelle Meldungen',
+    'recent_reports' => 'Neueste Meldungen',
     'reported_by' => 'Gemeldet von:',
     'website' => 'Website',
     'ingame' => 'Im Spiel',
@@ -98,12 +98,12 @@ $language = [
     'when' => 'Wann',
     'staff' => 'Teammitglied',
     'type' => 'Typ',
-    'recent_punishments' => 'Aktuelle Bans',
+    'recent_punishments' => 'Neueste Bestrafungen',
     'created' => 'Erstellt:',
     'staff:' => 'Teammitglied:',
     'reason:' => 'Grund:',
 
     // Users
-    'recent_registrations' => 'Aktuelle Registrierungen',
+    'recent_registrations' => 'Neueste Registrierungen',
     'reset_profile_banner' => 'Profilbanner zurücksetzen'
 ];
