@@ -157,6 +157,7 @@ $language = [
     'captcha_type' => 'Тип капчи',
     'captcha_site_key' => 'Ключ сайта для капчи',
     'captcha_secret_key' => 'Секретный ключ от сервиса капчи',
+    'invalid_recaptcha_settings' => 'Некорректные данные {x}. Убедитесь что ключи введены верно.', // Don't replace {x}
     'registration_disabled_message' => 'Сообщение об отключенной регистрации',
     'enable_nicknames_on_registration' => 'Включить ники при регистрации пользователей?',
     'validation_promote_group' => 'Группа после подтверждения',
@@ -490,7 +491,7 @@ $language = [
     'resend_activation_email' => 'Отправить письмо с активацией',
     'email_resent_successfully' => 'Письмо отправлено.',
     'email_resend_failed' => 'Письмо не отправлено, проверьте настройки почтового сервера.',
-    'no_item_selected' => 'No items selected',
+    'no_item_selected' => 'Объекты не выбраны',
 
     // Permissions
     'select_all' => 'Выбрать все',
