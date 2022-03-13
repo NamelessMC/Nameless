@@ -1,1 +1,1 @@
-Placeholder - use this template for your own custom portal.
+DefaultRevamp does not provide a custom portal.
