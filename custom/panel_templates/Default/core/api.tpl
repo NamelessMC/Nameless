@@ -74,41 +74,38 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label for="enable_api" style="margin-right:10px">{$ENABLE_API}</label>
+                            <div class="form-group custom-control custom-switch">
                                 <input type="hidden" name="enable_api" value="0">
-                                <input id="enable_api" name="enable_api" type="checkbox"
-                                       class="js-switch"
-                                       value="1"{if $API_ENABLED eq 1} checked{/if} />
+                                <input type="checkbox" class="custom-control-input" id="enable_api" name="enable_api"
+                                       value="1"{if $API_ENABLED eq 1} checked{/if}>
+                                <label class="custom-control-label" for="enable_api">{$ENABLE_API}</label>
                             </div>
 
-                            <div class="form-group">
-                                <label for="verification" style="margin-right:10px">{$EMAIL_VERIFICATION}</label>
-                                <input name="verification" id="verification" type="checkbox"
-                                       class="js-switch"{if $EMAIL_VERIFICATION_VALUE eq 1} checked{/if} />
+                            <div class="form-group custom-control custom-switch">
+                                <input name="verification" id="verification" type="checkbox" class="custom-control-input"
+                                        {if $EMAIL_VERIFICATION_VALUE eq 1} checked{/if} />
+                                <label class="custom-control-label" for="verification" style="margin-right:10px">{$EMAIL_VERIFICATION}</label>
                             </div>
 
-                            <div class="form-group">
-                                <label for="api_verification">{$API_VERIFICATION}</label> <span class="badge badge-info"
-                                                                                                style="margin-right:10px"
+                            <div class="form-group custom-control custom-switch">
+                                <input name="api_verification" id="api_verification" type="checkbox"
+                                       class="custom-control-input" {if $API_VERIFICATION_VALUE eq 1} checked{/if} />
+                                <label class="custom-control-label" for="api_verification">{$API_VERIFICATION}</label> <span class="badge badge-info"
                                                                                                 data-toggle="popover"
                                                                                                 data-title="{$INFO}"
                                                                                                 data-content="{$API_VERIFICATION_INFO}"><i
                                             class="fas fa-question-circle"></i></span>
-                                <input name="api_verification" id="api_verification" type="checkbox"
-                                       class="js-switch"{if $API_VERIFICATION_VALUE eq 1} checked{/if} />
                             </div>
 
-                            <div class="form-group">
-                                <label for="username_sync">{$USERNAME_SYNC}</label> <span class="badge badge-info"
-                                                                                          style="margin-right:10px"
+                            <div class="form-group custom-control custom-switch">
+                                <input name="username_sync" id="username_sync" type="checkbox"
+                                       class="custom-control-input" {if $USERNAME_SYNC_VALUE eq 1} checked{/if} />
+                                <label class="custom-control-label" for="username_sync">{$USERNAME_SYNC}</label> <span class="badge badge-info"
                                                                                           data-toggle="popover"
                                                                                           data-html="true"
                                                                                           data-title="{$INFO}"
                                                                                           data-content="{$USERNAME_SYNC_INFO}"><i
                                             class="fas fa-question-circle"></i></span>
-                                <input name="username_sync" id="username_sync" type="checkbox"
-                                       class="js-switch"{if $USERNAME_SYNC_VALUE eq 1} checked{/if} />
                             </div>
 
                             <div class="form-group">
