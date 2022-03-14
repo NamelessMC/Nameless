@@ -65,7 +65,6 @@ body {
     background-color: var(--dark-color-3);
 }
 
-.dark .switchery>small,
 .dark input[type="radio"] {
     background-color: var(--dark-text-shade-1) !important;
 }
