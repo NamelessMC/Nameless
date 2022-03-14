@@ -78,10 +78,10 @@ class CookieConsent_Module extends Module {
             // Add JS script
             if ($template) {
                 $template->addCSSFiles([
-                    'https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css' => []
+                    URL::build('/core/assets/css/') . 'cookieconsent.min.css' => []
                 ]);
                 $template->addJSFiles([
-                    'https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js' => [],
+                    URL::build('/core/assets/js/') . 'cookieconsent.min.js' => []
                 ]);
                 $template->addJSScript(
                     CookieConsent::generateScript(
