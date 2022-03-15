@@ -379,10 +379,6 @@ body {
     border-radius: .35rem !important;
 }
 
-.dark-switch-text {
-    padding-left: 10px;
-}
-
 .thumbnails li img {
     width: 60px;
 }
@@ -440,10 +436,6 @@ i,
 @media (max-width: 767px) {
     form .col-md-6:last-child {
         padding-top: 10px;
-    }
-
-    .dark-switch-text {
-        display: none;
     }
 }
 

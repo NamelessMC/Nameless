@@ -47,7 +47,7 @@ $language = [
     'upgrade_php_version' => 'Por favor, actualice su versión de PHP al menos a la 7.4 - la próxima versión de NamelessMC ya no soportará la versión que está utilizando.',
 
     // Core
-    'mode_toggle' => 'Modo oscuro/claro',
+    'mode_toggle' => 'Modo oscuro',
     'settings' => 'Ajustes',
     'general_settings' => 'Ajustes generales',
     'sitename' => 'Nombre del sitio',
