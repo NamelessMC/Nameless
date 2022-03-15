@@ -65,12 +65,11 @@
                         <hr>
 
                         <form id="settings" action="" method="post">
-                            <div class="form-group">
-                                <label for="inputEnableDiscord">{$ENABLE_DISCORD_INTEGRATION}</label>
-                                <input type="hidden" name="enable_discord" value="0">
-                                <input id="inputEnableDiscord" name="enable_discord" type="checkbox"
-                                       class="js-switch" {if $DISCORD_ENABLED eq 1} checked{/if} value="1" />
-                                <input type="hidden" name="token" value="{$TOKEN}">
+                            <div class="form-group custom-control custom-switch">
+                                <input id="inputEnableDiscord" name="enable_discord" type="checkbox" class="custom-control-input" value="1" {if $DISCORD_ENABLED eq 1} checked{/if} />
+                                <label for="inputEnableDiscord" class="custom-control-label">
+                                    {$ENABLE_DISCORD_INTEGRATION}
+                                </label>
                             </div>
                             <div class="form-group">
                                 <input type="hidden" name="token" value="{$TOKEN}">
