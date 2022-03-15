@@ -40,13 +40,13 @@
                         {include file='includes/alerts.tpl'}
 
                         <form id="enableMinecraft" action="" method="post">
-                            <div class="form-group">
-                                <label for="inputEnableMinecraft">{$ENABLE_MINECRAFT_INTEGRATION}</label>
+                        <input type="hidden" name="token" value="{$TOKEN}">
+                            <div class="form-group custom-control custom-switch">
                                 <input type="hidden" name="enable_minecraft" value="0">
-                                <input id="inputEnableMinecraft" name="enable_minecraft" type="checkbox"
-                                       class="js-switch js-check-change" {if $MINECRAFT_ENABLED eq 1} checked{/if}
-                                       value="1" />
-                                <input type="hidden" name="token" value="{$TOKEN}">
+                                <input id="inputEnableMinecraft" name="enable_minecraft" type="checkbox" class="custom-control-input js-check-change" value="1" {if $MINECRAFT_ENABLED eq 1} checked{/if} />
+                                <label for="inputEnableMinecraft" class="custom-control-label">
+                                    {$ENABLE_MINECRAFT_INTEGRATION}
+                                </label>
                             </div>
                         </form>
 
