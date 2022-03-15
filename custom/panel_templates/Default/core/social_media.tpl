@@ -50,10 +50,11 @@
                                 <input type="text" name="twitterurl" class="form-control" id="InputTwitter"
                                        placeholder="{$TWITTER_URL}" value="{$TWITTER_URL_VALUE}">
                             </div>
-                            <div class="form-group">
-                                <label for="InputTwitterStyle">{$TWITTER_STYLE}</label>
-                                <input id="InputTwitterStyle" name="twitter_dark_theme" type="checkbox"
-                                       class="js-switch" value="1" {if $TWITTER_STYLE_VALUE eq 'dark' } checked{/if} />
+                            <div class="form-group custom-control custom-switch">
+                                <input id="InputTwitterStyle" type="checkbox"  name="twitter_dark_theme" class="custom-control-input" value="1" {if $TWITTER_STYLE_VALUE eq 'dark' } checked{/if}>
+                                <label for="InputTwitterStyle" class="custom-control-label">
+                                    {$TWITTER_STYLE}
+                                </label>
                             </div>
                             <div class="form-group">
                                 <label for="InputFacebook">{$FACEBOOK_URL}</label>
