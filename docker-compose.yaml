@@ -25,7 +25,7 @@ services:
 
     web:
         image: namelessmc/nginx:dev
-        ports: ['80:80']
+        ports: ['8080:8080']
         volumes:
             - type: bind
               source: .
@@ -64,7 +64,7 @@ services:
         volumes:
           - type: bind
             source: /opt/namelessmc
-            target: /var/lib/db
+            target: /var/lib/mysql
         environment:
             MYSQL_ROOT_PASSWORD: nameless
             MYSQL_USER: nameless
@@ -73,7 +73,7 @@ services:
 
     phpmyadmin:
         image: phpmyadmin
-        ports: ['8080:80']
+        ports: ['8181:80']
         depends_on: [db]
         environment:
             PMA_HOST: db
