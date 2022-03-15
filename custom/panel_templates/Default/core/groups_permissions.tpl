@@ -71,9 +71,13 @@
                                         {foreach from=$item key=permission item=title}
                                             <tr>
                                                 <td>{$title}</td>
-                                                <td><input type="checkbox" name="permissions[{$permission|escape}]"
-                                                           class="js-switch"
-                                                           value="1" {if is_array($PERMISSIONS_VALUES) && array_key_exists($permission|escape, $PERMISSIONS_VALUES)} checked{/if}>
+                                                <td>
+                                                    <div class="custom-control custom-switch">
+                                                        <input type="checkbox"
+                                                               name="permissions[{$permission|escape}]"
+                                                               class="custom-control-input"
+                                                               value="1" {if is_array($PERMISSIONS_VALUES) && array_key_exists($permission|escape, $PERMISSIONS_VALUES)} checked{/if}>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         {/foreach}
@@ -114,7 +118,7 @@
 <script type="text/javascript">
   function selectAllPerms(section) {
     var table = $('table#' + section);
-    table.find('tbody tr td .js-switch').each(function () {
+    table.find('tbody tr td .custom-control-input').each(function () {
       $(this).prop('checked', true);
       onChange(this);
     });
@@ -123,7 +127,7 @@
 
   function deselectAllPerms(section) {
     var table = $('table#' + section);
-    table.find('tbody tr td .js-switch').each(function () {
+    table.find('tbody tr td .custom-control-input').each(function () {
       $(this).prop('checked', false);
       onChange(this);
     });

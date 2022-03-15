@@ -75,36 +75,73 @@
                                 <textarea class="form-control" id="inputDescription" name="description"></textarea>
                             </div>
 
-                            <div class="form-group">
-                                <label for="inputRequired">{$REQUIRED}</label>
-                                <span class="badge badge-info" style="margin-right:10px"><i
-                                            class="fas fa-question-circle" data-container="body" data-toggle="popover"
-                                            title="{$INFO}" data-content="{$REQUIRED_HELP}"></i></span>
-                                <input type="checkbox" id="inputRequired" name="required" class="js-switch" />
+                            <div class="form-group custom-control custom-switch">
+                                <span class="badge badge-info">
+                                    <i class="fas fa-question-circle"
+                                       data-container="body"
+                                       data-toggle="popover"
+                                       title="{$INFO}"
+                                       data-content="{$REQUIRED_HELP}"></i>
+                                </span>
+                                <input type="checkbox"
+                                       id="inputRequired"
+                                       name="required"
+                                       class="custom-control-input">
+                                <label class="custom-control-label" for="inputRequired">
+                                    {$REQUIRED}
+                                </label>
                             </div>
 
-                            <div class="form-group">
-                                <label for="inputEditable">{$EDITABLE}</label>
-                                <span class="badge badge-info" style="margin-right:10px"><i
-                                            class="fas fa-question-circle" data-container="body" data-toggle="popover"
-                                            title="{$INFO}" data-content="{$EDITABLE_HELP}"></i></span>
-                                <input type="checkbox" id="inputEditable" name="editable" class="js-switch" />
+                            <div class="form-group custom-control custom-switch">
+                                <span class="badge badge-info">
+                                    <i class="fas fa-question-circle"
+                                       data-container="body"
+                                       data-toggle="popover"
+                                       title="{$INFO}"
+                                       data-content="{$EDITABLE_HELP}"></i>
+                                </span>
+                                <input type="checkbox"
+                                       id="inputEditable"
+                                       name="editable"
+                                       class="custom-control-input">
+                                <label class="custom-control-label" for="inputEditable">
+                                    {$EDITABLE}
+                                </label>
                             </div>
 
-                            <div class="form-group">
-                                <label for="inputPublic">{$PUBLIC}</label>
-                                <span class="badge badge-info" style="margin-right:10px"><i
-                                            class="fas fa-question-circle" data-container="body" data-toggle="popover"
-                                            title="{$INFO}" data-content="{$PUBLIC_HELP}"></i></span>
-                                <input type="checkbox" id="inputPublic" name="public" class="js-switch" />
+                            <div class="form-group custom-control custom-switch">
+                                <input type="checkbox"
+                                       id="inputPublic"
+                                       name="public"
+                                       class="custom-control-input">
+                                <label class="custom-control-label" for="inputPublic">
+                                    {$PUBLIC}
+                                </label>
+                                <span class="badge badge-info"">
+                                    <i class="fas fa-question-circle"
+                                       data-container="body"
+                                       data-toggle="popover"
+                                       title="{$INFO}"
+                                       data-content="{$PUBLIC_HELP}"></i>
+                              </span>
                             </div>
 
-                            <div class="form-group">
-                                <label for="inputForum">{$DISPLAY_FIELD_ON_FORUM}</label>
-                                <span class="badge badge-info"><i class="fas fa-question-circle" data-container="body"
-                                                                  data-toggle="popover" title="{$INFO}"
-                                                                  data-content="{$DISPLAY_FIELD_ON_FORUM_HELP}"></i></span>
-                                <input type="checkbox" id="inputForum" name="forum" class="js-switch" />
+                            <div class="form-group custom-control custom-switch">
+
+                                <input type="checkbox"
+                                       id="inputForum"
+                                       name="forum"
+                                       class="custom-control-input">
+                                <label class="custom-control-label" for="inputForum">
+                                    {$DISPLAY_FIELD_ON_FORUM}
+                                </label>
+                                <span class="badge badge-info">
+                                    <i class="fas fa-question-circle"
+                                       data-container="body"
+                                       data-toggle="popover"
+                                       title="{$INFO}"
+                                       data-content="{$DISPLAY_FIELD_ON_FORUM_HELP}"></i>
+                                </span>
                             </div>
 
                             <div class="form-group">

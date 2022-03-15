@@ -76,39 +76,74 @@
                                 <label for="inputContent">{$PAGE_CONTENT}</label>
                                 <textarea name="content" id="inputContent">{$PAGE_CONTENT_VALUE}</textarea>
                             </div>
-                            <div class="form-group">
-                                <label for="inputBasicPage">{$BASIC_PAGE}</label>
-                                <input id="inputBasicPage" name="basic" type="checkbox" class="js-switch" />
+                            <div class="form-group custom-control custom-switch">
+                                <input id="inputBasicPage"
+                                       name="basic"
+                                       type="checkbox"
+                                       class="custom-control-input">
+                                <label class="custom-control-label"
+                                       for="inputBasicPage">
+                                    {$BASIC_PAGE}
+                                </label>
                             </div>
-                            <div class="form-group">
-                                <label for="inputRedirect">{$PAGE_REDIRECT}</label>
-                                <input id="inputRedirect" name="redirect_page" type="checkbox" class="js-switch" />
+                            <div class="form-group custom-control custom-switch">
+                                <input id="inputRedirect"
+                                       name="redirect_page"
+                                       type="checkbox"
+                                       class="custom-control-input">
+                                <label class="custom-control-label"
+                                       for="inputRedirect">
+                                    {$PAGE_REDIRECT}
+                                </label>
                             </div>
                             <div class="form-group">
                                 <label for="inputRedirectLink">{$PAGE_REDIRECT_TO}</label>
-                                <input type="text" class="form-control" id="inputRedirectLink" name="redirect_link"
-                                       placeholder="{$PAGE_REDIRECT_TO}" value="{$PAGE_REDIRECT_TO_VALUE}">
+                                <input type="text" class="form-control"
+                                       id="inputRedirectLink"
+                                       name="redirect_link"
+                                       placeholder="{$PAGE_REDIRECT_TO}"
+                                       value="{$PAGE_REDIRECT_TO_VALUE}">
                             </div>
-                            <div class="form-group">
-                                <label for="inputTarget">{$TARGET}</label>
-                                <input id="inputTarget" name="target" type="checkbox" class="js-switch" />
+                            <div class="form-group custom-control custom-switch">
+                                <input id="inputTarget"
+                                       name="target"
+                                       type="checkbox"
+                                       class="custom-control-input">
+                                <label class="custom-control-label"
+                                       for="inputTarget">
+                                    {$TARGET}
+                                </label>
                             </div>
-                            <div class="form-group">
-                                <label for="inputUnsafeHTML">{$UNSAFE_HTML}</label> <span data-toggle="popover"
-                                                                                          data-content="{$UNSAFE_HTML_WARNING}"
-                                                                                          class="badge badge-warning"><i
-                                            class="fas fa-exclamation-triangle"></i></span>
-                                <input id="inputUnsafeHTML" name="unsafe_html" type="checkbox" class="js-switch" />
+                            <div class="form-group custom-control custom-switch">
+                                <input id="inputUnsafeHTML"
+                                       name="unsafe_html"
+                                       type="checkbox"
+                                       class="custom-control-input">
+                                <label for="inputUnsafeHTML"
+                                       class="custom-control-label">
+                                    {$UNSAFE_HTML}
+                                </label>
+                                <span data-toggle="popover"
+                                      data-content="{$UNSAFE_HTML_WARNING}"
+                                      class="badge badge-warning">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                </span>
                             </div>
-                            <div class="form-group">
-                                <label for="inputSitemap">{$INCLUDE_IN_SITEMAP}</label>
-                                <input id="inputSitemap" name="sitemap" type="checkbox" class="js-switch" />
+                            <div class="form-group custom-control custom-switch">
+                                <input id="inputSitemap"
+                                       name="sitemap"
+                                       type="checkbox"
+                                       class="custom-control-input">
+                                <label class="custom-control-label"
+                                       for="inputSitemap">
+                                    {$INCLUDE_IN_SITEMAP}
+                                </label>
                             </div>
                             <hr />
                             <strong>{$PAGE_PERMISSIONS}</strong>
                             <script>
-                              var groups = [];
-                              groups.push("0");
+                                var groups = [];
+                                groups.push("0");
                             </script>
                             <table class="table table-responsive table-striped">
                                 <thead>

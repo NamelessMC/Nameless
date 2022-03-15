@@ -97,10 +97,10 @@
                                 <label for="icon">{$ORDER}</label>
                                 <input type="number" step="1.00" name="order" id="order" class="form-control" value="{$ANNOUNCEMENT->order|escape}">
                             </div>
-                            <div class="form-group">
-                                <label for="closable">{$CLOSABLE}</label>
-                                <input id="closable" name="closable" type="checkbox" class="js-switch"
+                            <div class="form-group custom-control custom-switch">
+                                <input id="closable" name="closable" type="checkbox" class="custom-control-input"
                                        value="1" {if $ANNOUNCEMENT->closable} checked{/if} />
+                                <label for="closable" class="custom-control-label">{$CLOSABLE}</label>
                             </div>
                             <strong style="margin-bottom: 10px; display:block">Groups</strong>
                             <script>

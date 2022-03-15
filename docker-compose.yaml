@@ -50,13 +50,14 @@ services:
             NAMELESS_DATABASE_PASSWORD: nameless
             NAMELESS_FRIENDLY_URLS: 'true'
             NAMELESS_SITE_NAME: 'Development'
-            NAMELESS_SITE_CONTACT_EMAIL: admin@localhost
-            NAMELESS_SITE_OUTGOING_EMAIL: admin@localhost
+            NAMELESS_SITE_CONTACT_EMAIL: admin@namelessmc.com
+            NAMELESS_SITE_OUTGOING_EMAIL: admin@namelessmc.com
             NAMELESS_ADMIN_USERNAME: admin
             NAMELESS_ADMIN_EMAIL: admin@namelessmc.com
             NAMELESS_ADMIN_PASSWORD: password
             NAMELESS_DEBUGGING: 'enabled'
             NAMELESS_AUTO_INSTALL: 'yes please auto install my namelessmc'
+            NAMELESS_COMPOSER_INSTALL: 'yes please always run composer install'
 
     db:
         image: mariadb

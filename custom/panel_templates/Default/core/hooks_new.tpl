@@ -69,8 +69,10 @@
                             </div>
                             <label for="InputName">{$HOOK_EVENTS}</label>
                             {foreach from=$ALL_EVENTS key=key item=item}
-                                <div class="form-group">
-                                    <input type="checkbox" name="events[{$key|escape}]" class="js-switch"
+                                <div class="form-group custom-control custom-switch">
+                                    <input type="checkbox"
+                                           name="events[{$key|escape}]"
+                                           class="custom-control-input"
                                            value="1"> {$item|escape}
                                     </br>
                                 </div>
