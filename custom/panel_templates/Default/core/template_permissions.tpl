@@ -59,7 +59,7 @@
                                     <input type="hidden" name="perm-use-{$group->id|escape}" value="0">
                                     <input class="custom-control-input permission-switch"
                                            name="perm-use-{$group->id|escape}"
-                                           id="Input-use-{$group->id|escape}"
+                                           id="perm-use-{$group->id|escape}"
                                            value="1"
                                            type="checkbox"
                                            {if isset($group->can_use_template) && $group->can_use_template eq 1} checked{/if}>
