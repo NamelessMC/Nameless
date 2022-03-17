@@ -42,7 +42,7 @@ $language = [
     'upgrade_php_version' => 'Aktualizujte svoju PHP verziu aspoň na 7.4 – ďalšie Nameless vydanie už nebude podporovať verziu, ktorú používate.',
 
     // Core
-    'mode_toggle' => 'Tmavý/Svetlý režim',
+    'mode_toggle' => 'Tmavý režim',
     'settings' => 'Nastavenia',
     'general_settings' => 'Všeobecné nastavenia',
     'sitename' => 'Názov stránky',

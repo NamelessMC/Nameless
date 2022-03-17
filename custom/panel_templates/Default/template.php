@@ -46,7 +46,6 @@ if (!class_exists('Default_Panel_Template')) {
             ]);
 
             $this->addJSScript('
-
 				// Dark and light theme switch
 				var currentPanelTheme = localStorage.getItem("nmc_panel_theme");
 
@@ -56,7 +55,7 @@ if (!class_exists('Default_Panel_Template')) {
 					if (currentPanelTheme == "dark") {
 						$("html").addClass("dark");
 						if ($("#dark_mode").length) {
-							$("#dark_mode").prop("checked", false);
+							$("#dark_mode").prop("checked", true);
 						}
 					}
 				}
@@ -64,8 +63,8 @@ if (!class_exists('Default_Panel_Template')) {
 				// Prevents light flicker on dark mode
 				$("body").addClass("visible");
 
-				if ($(".dark-switch").length) {
-					var changeCheckbox = document.querySelector(".dark-switch");
+				if ($("#dark_mode").length) {
+					var changeCheckbox = document.querySelector("#dark_mode");
 					changeCheckbox.onchange = function() {
 						if (currentPanelTheme == "dark") {
 							localStorage.setItem("nmc_panel_theme", "light");
