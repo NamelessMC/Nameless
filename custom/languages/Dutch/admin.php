@@ -46,7 +46,7 @@ $language = [
     'upgrade_php_version' => 'Upgrade alstublieft uw PHP versie naar tenminste 7.4 - de volgende Nameless release zal de versie die u gebruikt niet langer ondersteunen.',
 
     // Core
-    'mode_toggle' => 'Donkere/Lichte modus',
+    'mode_toggle' => 'Donkere modus',
     'settings' => 'Instellingen',
     'general_settings' => 'Algemene Instellingen',
     'sitename' => 'Site naam',

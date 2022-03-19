@@ -42,7 +42,7 @@ $language = [
     'upgrade_php_version' => 'Please upgrade your PHP version to at least 7.4 - the next Nameless release will no longer support the version you are using.',
 
     // Core
-    'mode_toggle' => 'Mørk/Lys Mode',
+    'mode_toggle' => 'Mørk Mode',
     'settings' => 'Indstillinger',
     'general_settings' => 'Generelle Indstillinger',
     'sitename' => 'Side Navn',

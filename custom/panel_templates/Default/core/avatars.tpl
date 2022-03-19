@@ -40,11 +40,11 @@
                         {include file='includes/alerts.tpl'}
 
                         <form action="" method="post">
-                            <div class="form-group">
-                                <label for="inputCustomAvatars">{$CUSTOM_AVATARS}</label>
+                            <div class="form-group custom-control custom-switch">
                                 <input type="hidden" name="custom_avatars" value="0">
-                                <input id="inputCustomAvatars" name="custom_avatars" type="checkbox" class="js-switch"
+                                <input id="inputCustomAvatars" name="custom_avatars" type="checkbox" class="custom-control-input"
                                        value="1" {if $CUSTOM_AVATARS_VALUE eq 1} checked{/if} />
+                                <label class="custom-control-label" for="inputCustomAvatars">{$CUSTOM_AVATARS}</label>
                             </div>
                             <div class="form-group">
                                 <label for="inputDefaultAvatar">{$DEFAULT_AVATAR}</label>

@@ -53,14 +53,22 @@
 
                                 <input type="hidden" name="token" value="{$TOKEN}">
 
-                                <div class="form-group">
-                                    <label for="leaderboard_enabled">
+                                <div class="form-group custom-control custom-switch">
+                                    <input type="checkbox"
+                                           class="custom-control-input"
+                                           name="leaderboard_enabled"
+                                           {if $PLACEHOLDER->leaderboard eq 1}checked{/if}>
+                                    <label class="custom-control-label" for="leaderboard_enabled">
                                         {$LEADERBOARD_ENABLED}
-                                        <span class="badge badge-info" data-toggle="popover" data-title="{$INFO}" data-content="{$ENABLED_INFO}"><i class="fa fa-question"></i>
+                                        <span class="badge badge-info"
+                                              data-toggle="popover"
+                                              data-title="{$INFO}"
+                                              data-content="{$ENABLED_INFO}">
+                                            <i class="fa fa-question"></i>
+                                        </span>
                                     </label>
-                                    <input type="checkbox" class="js-switch" name="leaderboard_enabled" {if $PLACEHOLDER->leaderboard eq 1} checked {/if}>
                                 </div>
-                            
+
                                 <div class="form-group">
                                     <label for="leaderboard_title">{$LEADERBOARD_TITLE}</label>
                                     <input type="text" name="leaderboard_title" class="form-control" value="{$PLACEHOLDER->leaderboard_title}">

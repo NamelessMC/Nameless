@@ -65,7 +65,6 @@ body {
     background-color: var(--dark-color-3);
 }
 
-.dark .switchery>small,
 .dark input[type="radio"] {
     background-color: var(--dark-text-shade-1) !important;
 }
@@ -380,10 +379,6 @@ body {
     border-radius: .35rem !important;
 }
 
-.dark-switch-text {
-    padding-left: 10px;
-}
-
 .thumbnails li img {
     width: 60px;
 }
@@ -442,10 +437,6 @@ i,
     form .col-md-6:last-child {
         padding-top: 10px;
     }
-
-    .dark-switch-text {
-        display: none;
-    }
 }
 
 .CodeMirror {
@@ -470,4 +461,12 @@ footer.sticky-footer {
 
 .text-github {
     color: rgba(0, 0, 0) !important;
+}
+
+.custom-switch > .custom-control-label::before {
+    /* slightly larger than default */
+    top: 0.20rem;
+    height: 1.1rem;
+    width: 1.85rem;
+    border-radius: 0.6rem;
 }

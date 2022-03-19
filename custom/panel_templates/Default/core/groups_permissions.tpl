@@ -51,38 +51,32 @@
 
                         <form action="" method="post">
                             {foreach from=$ALL_PERMISSIONS key=key item=item}
-                                <div class="table-responsive">
-                                    <table id="{$key|escape}" class="table table-striped">
-                                        <colgroup>
-                                            <col span="1" style="width:70%">
-                                            <col span="1" style="width:30%">
-                                        </colgroup>
-                                        <thead>
-                                        <tr>
-                                            <th>{$key|escape}</th>
-                                            <th><a href="#"
-                                                   onclick="selectAllPerms('{$key|escape}'); return false;">{$SELECT_ALL}</a>
-                                                | <a href="#"
-                                                     onclick="deselectAllPerms('{$key|escape}'); return false;">{$DESELECT_ALL}</a>
-                                            </th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        {foreach from=$item key=permission item=title}
-                                            <tr>
-                                                <td>{$title}</td>
-                                                <td><input type="checkbox" name="permissions[{$permission|escape}]"
-                                                           class="js-switch"
-                                                           value="1" {if is_array($PERMISSIONS_VALUES) && array_key_exists($permission|escape, $PERMISSIONS_VALUES)} checked{/if}>
-                                                </td>
-                                            </tr>
-                                        {/foreach}
-                                        </tbody>
-                                    </table>
+                                <h3 class="mt-3">{$key|escape}</h3>
+                                {if $item|@count > 1}
+                                <a href="#" onclick="return selectAllPerms('{$key|escape}');">{$SELECT_ALL}</a>
+                                |
+                                <a href="#" onclick="return deselectAllPerms('{$key|escape}');">{$DESELECT_ALL}</a>
+                                {/if}
+                                <!-- </h3> -->
+                                <div id="perm-section-{$key|escape}">
+                                    {foreach from=$item key=permission item=title}
+                                        <div class="custom-control custom-switch">
+                                            <input type="checkbox"
+                                                   name="permissions[{$permission|escape}]"
+                                                   id="permissions-checkbox-[{$permission|escape}]"
+                                                   class="custom-control-input"
+                                                   value="1"
+                                                   {if is_array($PERMISSIONS_VALUES) && array_key_exists($permission|escape, $PERMISSIONS_VALUES)} checked{/if}>
+                                            <label class="custom-control-label"
+                                                   for="permissions-checkbox-[{$permission|escape}]">
+                                                {$title}
+                                            </label>
+                                        </div>
+                                    {/foreach}
                                 </div>
                             {/foreach}
 
-                            <div class="form-group">
+                            <div class="form-group mt-3">
                                 <input type="hidden" name="token" value="{$TOKEN}">
                                 <input type="submit" class="btn btn-primary" value="{$SUBMIT}">
                             </div>
@@ -112,31 +106,31 @@
 {include file='scripts.tpl'}
 
 <script type="text/javascript">
-  function selectAllPerms(section) {
-    var table = $('table#' + section);
-    table.find('tbody tr td .js-switch').each(function () {
-      $(this).prop('checked', true);
-      onChange(this);
+  function selectAllPerms(sectionName) {
+    let section = $('#perm-section-' + sectionName);
+    section.find('.custom-control-input').each(function () {
+        $(this).prop('checked', true);
+        onChange(this);
     });
     return false;
   }
 
-  function deselectAllPerms(section) {
-    var table = $('table#' + section);
-    table.find('tbody tr td .js-switch').each(function () {
-      $(this).prop('checked', false);
-      onChange(this);
+  function deselectAllPerms(sectionName) {
+    let section = $('#perm-section-' + sectionName);
+    section.find('.custom-control-input').each(function () {
+        $(this).prop('checked', false);
+        onChange(this);
     });
     return false;
   }
 
   function onChange(el) {
     if (typeof Event === 'function' || !document.fireEvent) {
-      var event = document.createEvent('HTMLEvents');
-      event.initEvent('change', true, true);
-      el.dispatchEvent(event);
+        var event = document.createEvent('HTMLEvents');
+        event.initEvent('change', true, true);
+        el.dispatchEvent(event);
     } else {
-      el.fireEvent('onchange');
+        el.fireEvent('onchange');
     }
   }
 </script>

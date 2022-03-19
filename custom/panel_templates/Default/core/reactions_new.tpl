@@ -73,9 +73,9 @@
                                 </select>
                             </div>
 
-                            <div class="form-group">
-                                <label for="InputEnabled">{$ENABLED}</label>
-                                <input type="checkbox" name="enabled" class="js-switch" />
+                            <div class="form-group custom-control custom-switch">
+                                <input type="checkbox" name="enabled" class="custom-control-input">
+                                <label class="custom-control-label" for="InputEnabled">{$ENABLED}</label>
                             </div>
 
                             <div class="form-group">
