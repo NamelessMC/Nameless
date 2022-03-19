@@ -63,7 +63,7 @@
                                            value="1"
                                            type="checkbox"
                                            {if isset($group->can_use_template) && $group->can_use_template eq 1} checked{/if}>
-                                    <label class="custom-control-label" for="perm-use-{$group->id|escape}">
+                                    <label class="custom-control-label" for="Input-use-{$group->id|escape}">
                                         {$group->name|escape}
                                     </label>
                                 </div>
@@ -76,7 +76,7 @@
                                        value="1"
                                        type="checkbox"
                                        {if isset($GUEST_PERMISSIONS->can_use_template) && $GUEST_PERMISSIONS->can_use_template eq 1} checked{/if}>
-                                <label class="custom-control-label" for="perm-use-0">
+                                <label class="custom-control-label" for="Input-use-0">
                                     {$GUEST}
                                 </label>
                             </div>

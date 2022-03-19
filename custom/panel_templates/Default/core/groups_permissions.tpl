@@ -63,11 +63,12 @@
                                         <div class="custom-control custom-switch">
                                             <input type="checkbox"
                                                    name="permissions[{$permission|escape}]"
+                                                   id="permissions-checkbox-[{$permission|escape}]"
                                                    class="custom-control-input"
                                                    value="1"
                                                    {if is_array($PERMISSIONS_VALUES) && array_key_exists($permission|escape, $PERMISSIONS_VALUES)} checked{/if}>
                                             <label class="custom-control-label"
-                                                   for="permissions[{$permission|escape}]">
+                                                   for="permissions-checkbox-[{$permission|escape}]">
                                                 {$title}
                                             </label>
                                         </div>
