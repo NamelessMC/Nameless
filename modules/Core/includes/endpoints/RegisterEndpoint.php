@@ -160,15 +160,13 @@ class RegisterEndpoint extends KeyAuthEndpoint {
 
             if ($return || $api_verification) {
                 $api->returnArray(['message' => $api->getLanguage()->get('api', 'finish_registration_link'), 'user_id' => $user_id, 'link' => rtrim(Util::getSelfURL(), '/') . URL::build('/complete_signup/', 'c=' . $code)]);
-            } else {
-                return ['user_id' => $user_id];
             }
+
+            return ['user_id' => $user_id];
 
         } catch (Exception $e) {
             $api->throwError(13, $api->getLanguage()->get('api', 'unable_to_create_account'), $e->getMessage());
         }
-
-        return [];
     }
 
     /**

@@ -33,14 +33,11 @@ class VerifyMinecraftEndpoint extends KeyAuthEndpoint {
             'reset_code' => ''
         ]);
 
-        try {
-            EventHandler::executeEvent('validateUser', [
-                'user_id' => $user->data()->id,
-                'username' => Output::getClean($user->data()->username),
-                'language' => $api->getLanguage()
-            ]);
-        } catch (Exception $e) {
-        }
+        EventHandler::executeEvent('validateUser', [
+            'user_id' => $user->data()->id,
+            'username' => Output::getClean($user->data()->username),
+            'language' => $api->getLanguage()
+        ]);
 
         $api->returnArray(['message' => $api->getLanguage()->get('api', 'account_validated')]);
     }
