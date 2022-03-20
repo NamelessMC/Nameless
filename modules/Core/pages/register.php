@@ -85,8 +85,6 @@ if ($minecraft == '1') {
 }
 
 // Registration page
-require(ROOT_PATH . '/core/integration/uuid.php'); // For UUID stuff
-
 // Are custom usernames enabled?
 $custom_usernames = $queries->getWhere('settings', ['name', '=', 'displaynames']);
 $custom_usernames = $custom_usernames[0]->value;

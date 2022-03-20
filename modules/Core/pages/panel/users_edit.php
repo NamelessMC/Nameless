@@ -57,7 +57,6 @@ if (isset($_GET['action'])) {
 
     } else {
         if ($_GET['action'] == 'update_mcname') {
-            require_once(ROOT_PATH . '/core/integration/uuid.php');
             $uuid = $user_query->uuid;
 
             $profile = ProfileUtils::getProfile($uuid);
@@ -82,8 +81,6 @@ if (isset($_GET['action'])) {
             }
         } else {
             if ($_GET['action'] == 'update_uuid') {
-                require_once(ROOT_PATH . '/core/integration/uuid.php');
-
                 $profile = ProfileUtils::getProfile($user_query->username);
 
                 if ($profile !== null) {

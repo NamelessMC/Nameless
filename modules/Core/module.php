@@ -345,6 +345,10 @@ class Core_Module extends Module {
         $captchaPrivateKey = $this->_configuration->get('Core', 'recaptcha_secret');
         $activeCaptcha = $this->_configuration->get('Core', 'recaptcha_type');
 
+        if ($activeCaptcha === null) {
+            dd('NamelessMC is not fully installed yet.');
+        }
+
         CaptchaBase::addProvider(new hCaptcha($captchaPrivateKey, $captchaPublicKey));
         CaptchaBase::addProvider(new Recaptcha2($captchaPrivateKey, $captchaPublicKey));
         CaptchaBase::addProvider(new Recaptcha3($captchaPrivateKey, $captchaPublicKey));

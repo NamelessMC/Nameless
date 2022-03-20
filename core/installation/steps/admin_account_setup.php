@@ -7,8 +7,6 @@ if (!isset($_SESSION['site_initialized']) || $_SESSION['site_initialized'] != tr
     Redirect::to('?step=site_configuration');
 }
 
-require_once(ROOT_PATH . '/core/integration/uuid.php');
-
 function display_error(string $message) {
     echo "div class=\"ui error message\">$message</div>";
 }

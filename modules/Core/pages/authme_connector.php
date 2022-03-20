@@ -112,10 +112,9 @@ if (Input::exists()) {
 
                 // UUID
                 if ($uuid_linking == '1') {
-                    require(ROOT_PATH . '/core/integration/uuid.php'); // For UUID stuff
                     if (!isset($mcname_result)) {
                         $profile = ProfileUtils::getProfile(str_replace(' ', '%20', $mcname));
-                        if ($profile && method_exists($profile, 'getProfileAsArray')) {
+                        if ($profile !== null) {
                             $mcname_result = $profile->getProfileAsArray();
                         }
                     }
