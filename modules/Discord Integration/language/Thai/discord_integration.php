@@ -45,7 +45,7 @@ $language = [
     // API Success
     'discord_id_set' => 'ตั้ง Discord ID สำเร็จ',
     'discord_settings_updated' => 'อัปเดตการตั้งค่า Discord เรียบร้อยแล้ว',
-    'discord_usernames_updated' => 'อัปเดตชื่อผู้ใช้ Discord สำเร็จแล้ว'
+    'discord_usernames_updated' => 'อัปเดตชื่อผู้ใช้ Discord สำเร็จแล้ว',
 
     // Discord
     'discord_link' => 'ลิงค์ Discord',
