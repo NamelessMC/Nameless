@@ -60,8 +60,8 @@ $language = [
     'reported_by' => '報告者：',
     'website' => 'ウェブサイト',
     'ingame' => 'ゲーム内',
-    'x_closed_report' => '{x}がレポートを閉鎖しました。',// {x}（username）
-    'x_reopened_report' => '{x}がレポートを再開しました。',// {x}（ユーザー名）
+    'x_closed_report' => '{x}がレポートを閉鎖しました。', // {x}（username）
+    'x_reopened_report' => '{x}がレポートを再開しました。', // Don't replace {x} (username)
     'report_reopened' => 'レポートが正常に再開されました。',
     'report_closed' => 'レポートが正常に閉鎖されました。',
     'comment_created' => 'コメントが正常に作成されました。',
@@ -106,7 +106,7 @@ $language = [
     'staff:' => 'スタッフ：',
     'reason:' => '理由：',
 
-    //ユーザー
+    // Users
     'recent_registrations' => '最近の登録',
     'reset_profile_banner' => 'プロフィールバナーをリセット'
 ];
