@@ -698,6 +698,8 @@ $language = [
     'validate_hook_info' => '用户验证',
     'delete_hook_info' => '用户删除',
     'report_hook_info' => '举报创建',
+    'ban_hook_info' => 'User banned',
+    'warning_hook_info' => 'User warned',
 
     // Sitemap
     'unable_to_load_sitemap_file_x' => '无法加载站点地图文件 {x}', // Don't replace {x}

@@ -689,6 +689,8 @@ $language = [
     'validate_hook_info' => 'การตรวจสอบผู้ใช้',
     'delete_hook_info' => 'การลบผู้ใช้',
     'report_hook_info' => 'Report creation',
+    'ban_hook_info' => 'User banned',
+    'warning_hook_info' => 'User warned',
 
     // Sitemap
     'unable_to_load_sitemap_file_x' => 'ไม่สามารถโหลดไฟล์แผนผังเว็บไซต์ได้ {x}', // Don't replace {x}

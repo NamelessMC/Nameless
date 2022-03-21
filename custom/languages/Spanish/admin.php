@@ -692,6 +692,8 @@ $language = [
     'validate_hook_info' => 'Validación del usuario',
     'delete_hook_info' => 'Eliminación de usuarios',
     'report_hook_info' => 'Creación de informes',
+    'ban_hook_info' => 'User banned',
+    'warning_hook_info' => 'User warned',
 
     // Sitemap
     'unable_to_load_sitemap_file_x' => 'No se puede cargar el archivo del mapa del sitio {x}', // Don't replace {x}

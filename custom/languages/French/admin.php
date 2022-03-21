@@ -641,6 +641,8 @@ Vous devriez configurer votre groupe par défaut pour avoir des autorisations li
     'validate_hook_info' => 'Validation par l’utilisateur',
     'delete_hook_info' => 'Suppression de l\'utilisateur',
     'report_hook_info' => 'Report creation',
+    'ban_hook_info' => 'User banned',
+    'warning_hook_info' => 'User warned',
 
     // Sitemap
     'unable_to_load_sitemap_file_x' => 'Impossible de charger le fichier sitemap {x}', // Don't replace {x}

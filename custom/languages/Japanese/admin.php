@@ -692,6 +692,8 @@ $language = [
     'validate_hook_info' => 'ユーザー検証',
     'delete_hook_info' => 'ユーザー削除',
     'report_hook_info' => '報告の作成',
+    'ban_hook_info' => 'User banned',
+    'warning_hook_info' => 'User warned',
 
     //サイトマップ
     'unable_to_load_sitemap_file_x' => 'サイトマップファイル{x}を読み込むことができませんでした。',// {x}を置き換えない

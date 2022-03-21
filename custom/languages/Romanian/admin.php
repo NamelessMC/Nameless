@@ -689,6 +689,8 @@ $language = [
     'validate_hook_info' => 'Validare cont utilizator',
     'delete_hook_info' => 'Ştergere utilizator',
     'report_hook_info' => 'Report creation',
+    'ban_hook_info' => 'User banned',
+    'warning_hook_info' => 'User warned',
 
     // Sitemap
     'unable_to_load_sitemap_file_x' => 'Imposibil de încărcat fișierul hartă site {x}', // Don't replace {x}

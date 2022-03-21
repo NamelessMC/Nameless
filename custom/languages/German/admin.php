@@ -697,6 +697,9 @@ $language = [
     'register_hook_info' => 'Benutzer Registrierung',
     'validate_hook_info' => 'Benutzer Verifizierung',
     'delete_hook_info' => 'Benutzer Löschung',
+    'report_hook_info' => 'Report creation',
+    'ban_hook_info' => 'User banned',
+    'warning_hook_info' => 'User warned',
 
     // Sitemap
     'unable_to_load_sitemap_file_x' => 'Die Sitemap-Datei {x} konnte nicht geladen werden', // Don't replace {x}

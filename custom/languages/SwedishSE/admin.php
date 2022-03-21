@@ -687,6 +687,8 @@ $language = [
     'validate_hook_info' => 'Användarvalidering',
     'delete_hook_info' => 'Radering av användare',
     'report_hook_info' => 'Rapportera skapelse',
+    'ban_hook_info' => 'User banned',
+    'warning_hook_info' => 'User warned',
 
     // Sitemap
     'impossible_to_load_sitemap_file_x' => 'Det går inte att läsa in webbplatskartfilen {x}', // Don't replace {x}

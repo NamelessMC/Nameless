@@ -684,6 +684,8 @@ $language = [
     'validate_hook_info' => 'Vartotojo patvirtinimas',
     'delete_hook_info' => 'vartotojo ištrynimas',
     'report_hook_info' => 'Report creation',
+    'ban_hook_info' => 'User banned',
+    'warning_hook_info' => 'User warned',
 
     // Sitemap
     'unable_to_load_sitemap_file_x' => 'Nepavyko įkelti svetainės schemos failo {x}', // Don't replace {x}
