@@ -153,7 +153,7 @@ $language = [
     'navigation_settings_updated_successfully' => 'ナビゲーションバーの設定が正常に更新されました。',
     'dropdown_items' => 'ドロップダウンメニュー',
     'enable_page_load_timer' => 'ページロード時間を表示しますか？',
-    'captcha_general' => '登録ページや問い合わせページでCaptchaを有効にしますか？',
+    'captcha_general' => '登録ページでCaptchaを有効にしますか？',
     'captcha_login' => 'ログインページでCaptchaを有効にしますか？',
     'captcha_type' => 'Captchaの種類',
     'captcha_site_key' => 'Captchaサイトキー',
@@ -206,7 +206,7 @@ $language = [
     'google_analytics' => 'Google Analytics',
     'google_analytics_help' => 'ウェブサイトにGoogle Analyticsを追加して、訪問者や統計情報を追跡します。この機能を利用するには、Google Analyticsのアカウントを作成する必要があります。Google AnalyticsのWeb Property IDを入力します。IDはUA-XXXXA-Xのような形式をしており、アカウント情報やGoogleが提供するトラッキングコードに記載されています。',
     'sitemap' => 'サイトマップ',
-    'seo_settings_updated_successfully' => 'SEO settings updated successfully.',
+    'seo_settings_updated_successfully' => 'SEO設定の更新に成功しました。',
 
     // Reactions
     'icon' => 'アイコン',
@@ -497,7 +497,7 @@ $language = [
     'resend_activation_email' => 'アクティベーションメールの再送信',
     'email_resent_successfully' => 'メールの再送信に成功しました。',
     'email_resend_failed' => 'メールの再送信に失敗しました。メール設定を確認してください。',
-    'no_item_selected' => 'No items selected',
+    'no_item_selected' => '選択されている項目がありません',
 
     // Permissions
     'select_all' => 'すべて選択',
@@ -528,8 +528,8 @@ $language = [
     'please_select_logs' => '表示するログを選択してください。',
     'ip_address' => 'IPアドレス',
     'template_changes' => 'テンプレート変更',
-    'email_logs' => 'Mass Emails',
-    'group_sync_logs' => 'Group Sync Changes',
+    'email_logs' => '大量送信メール',
+    'group_sync_logs' => 'グループ同期の変更',
     'file_changed' => 'ファイルが変更されました。',
     'all_logs' => '全ログ',
     'action' => '操作',
@@ -646,7 +646,7 @@ $language = [
     'existing_rules' => '既存のルール',
     'new_rule' => '新しいルール',
     'api_endpoints' => 'API エンドポイント',
-    'api_endpoints_info' => 'APIエンドポイントは、モジュールが外部アプリケーション(MinecraftやDiscordなど)とNamelessMCのウェブサイトが対話するための方法を作成することを可能にします。 <a href="https://docs.namelessmc.com/en/api-documentation" target="_blank">Check out the API documentation here</a>',
+    'api_endpoints_info' => 'APIエンドポイントは、モジュールが外部アプリケーション(MinecraftやDiscordなど)とNamelessMCのウェブサイトが対話するための方法を作成することを可能にします。 <a href="https://docs.namelessmc.com/en/api-documentation" target="_blank">APIドキュメントはこちらをご確認ください。</a>',
     'route' => 'ルート',
 
     // File uploads
@@ -688,7 +688,7 @@ $language = [
     'register_hook_info' => 'ユーザー登録',
     'validate_hook_info' => 'ユーザー検証',
     'delete_hook_info' => 'ユーザー削除',
-    'report_hook_info' => 'Report creation',
+    'report_hook_info' => '報告の作成',
 
     //サイトマップ
     'unable_to_load_sitemap_file_x' => 'サイトマップファイル{x}を読み込むことができませんでした。',// {x}を置き換えない
@@ -749,6 +749,6 @@ $language = [
     'background_colour_required' => '背景色は必須です。',
     'text_colour_required' => 'テキスト色は必須です。',
     'no_announcements' => 'まだお知らせはありません。',
-    'announcement_order' => 'Order',
-    'announcement_hook_info' => 'Announcement creation',
+    'announcement_order' => '順序',
+    'announcement_hook_info' => 'お知らせの作成',
 ];
