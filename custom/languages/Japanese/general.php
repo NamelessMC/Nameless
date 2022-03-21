@@ -98,7 +98,6 @@ $language = [
      */
     'social' => 'ソーシャル',
 
-
     /*
      *  Help dialogues
      */
@@ -145,7 +144,6 @@ $language = [
     'online_users' => 'オンラインユーザー',
     'no_online_users' => 'オンラインのユーザーはいません。',
     'total_online_users' => '累計オンラインユーザー: {x}',
-    'discord_widget_disabled' => 'Discordウィジェットは、指定されたDiscordサーバーでは無効になっています。 Discordサーバー設定のウィジェットタブに移動し、Discordウィジェットが有効で、IDが正しいことを確認してください。',
     'online_guests' => 'オンラインゲスト',
     'total_online' => '累計オンライン', // this is Online Users + Online Guests
     'no_default_server' => 'デフォルトのサーバーがありません、StaffCP - 統合 - Minecraftで選択してください。',
@@ -154,7 +152,7 @@ $language = [
     /*
      *  Privacy policy
      */
-    'privacy_policy' => 'プライバシーポリシー(個人情報保護方針)',
+    'privacy_policy' => 'プライバシーポリシー',
 
     /*
      *  Custom page redirect
