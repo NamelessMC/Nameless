@@ -233,7 +233,7 @@ $language = [
     /*
      *  Infractions area
      */
-    'you_have_been_banned' => 'あなたはbanされています！',
+    'you_have_been_banned' => 'あなたはBANされています！',
     'you_have_received_a_warning' => 'あなたは警告を受けました！',
     'acknowledge' => '承認',
 
@@ -244,11 +244,11 @@ $language = [
     'user_x_has_validated' => '{x}がアカウントを認証しました！',
 
     // OAuth
-    'oauth_unlinked' => 'Successfully unlinked your account from that provider.',
-    'oauth_already_linked' => 'Another NamelessMC user is already linked to that {x} account.', // Don't replace {x}
-    'oauth_link_success' => 'Successfully linked your account with {x}!', // Don't replace {x}
-    'no_user_found_with_provider' => 'No user found with that {x} account.', // Don't replace {x}
-    'oauth_login_success' => 'You have logged in with your {x} account.', // Don't replace {x}
-    'oauth_link_confirm' => 'You will be taken to the {x} website to link your account.', // Don't replace {x}
-    'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {x}.<br>You will not be able to login with this account anymore.', // Don't replace {x}
+    'oauth_unlinked' => 'プロバイダーからアカウントの連携解除に成功しました。',
+    'oauth_already_linked' => '{x}アカウントには、別のNamelessMCユーザーが既に連携されています。', // Don't replace {x}
+    'oauth_link_success' => 'あなたのアカウントと{x}の連携に成功しました。', // Don't replace {x}
+    'no_user_found_with_provider' => '{x}アカウントを持つユーザーは見つかりませんでした。', // Don't replace {x}
+    'oauth_login_success' => '{x}のアカウントでログインしています。', // Don't replace {x}
+    'oauth_link_confirm' => 'アカウント連携のため、{x}ウェブサイトに移動します。', // Don't replace {x}
+    'oauth_unlink_confirm' => '本当に{x}からアカウントの連携を解除しますか？<br>このアカウントでは今後ログインできなくなります。', // Don't replace {x}
 ];
