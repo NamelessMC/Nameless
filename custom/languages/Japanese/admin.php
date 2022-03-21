@@ -26,7 +26,6 @@ $language = [
     'configuration' => 'コンフィグ',
     'layout' => 'レイアウト',
     'user_management' => 'ユーザー管理',
-    'admin_cp' => 'StaffCP',
     'overview' => '概要',
     'core' => 'コア',
     'integrations' => '連携',
@@ -34,7 +33,6 @@ $language = [
     'modules' => 'モジュール',
     'security' => 'セキュリティ',
     'styles' => 'スタイル',
-    'users_and_groups' => 'ユーザー・グループ',
 
     // Overview
     'running_nameless_version' => '実行中のNamelessMCのバージョン:<strong>{x}</strong>', // Don't replace "{x}"
@@ -86,14 +84,15 @@ $language = [
     'twitter_dark_theme' => 'Twitterダークテーマを使用しますか？',
     'dark' => 'ダーク',
     'light' => 'ライト',
-    'google_plus_url' => 'Google+ URL',
     'facebook_url' => 'Facebook URL',
     'social_media_settings_updated' => 'ソーシャルメディア設定が正常に更新されました。',
     'successfully_updated' => '正常に更新されました。',
     'debugging_and_maintenance' => 'メンテナンス',
     'maintenance' => 'メンテナンス',
+    'debug_link' => 'デバッグリンク',
+    'debug_link_toastr' => 'デバッグリンクをクリップボードに貼り付けました！<br>デバッグログは<u><a href="{x}" target="_blank">こちら</a></u>からご覧ください。', // Don't replace "{x}"
+    'debugging_settings_updated_successfully' => 'デバッグ設定の更新に成功しました。',
     'enable_debug_mode' => 'デバッグモードを有効にしますか？',
-    'debugging_settings_updated_successfully' => 'デバッグ・メンテナンス設定が正常に更新されました。',
     'force_https' => 'httpsを強制させますか？',
     'force_https_help' => '有効にするとhttpは自動でhttpsに置き換わります。有効にするには、必ず有効なサーバー証明書をサーバーに設定しておいてください。',
     'force_www' => 'wwwを強制させますか？',
@@ -115,7 +114,7 @@ $language = [
     'mailer_settings_info' => 'PHPMailerを有効にした場合、以下のフィールドに必要事項を記入する必要があります。以下のフィールドに記入する方法については <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-SMTP-with-Nameless-(e.g.-Gmail-or-Outlook)" target="_blank">Wiki</a>を確認して下さい。',
     'host' => 'ホスト',
     'email_port' => 'ポート',
-    'email_port_invalid' => 'Please insert a valid email port.',
+    'email_port_invalid' => '有効なメールポートを挿入してください。',
     'email_password_hidden' => 'セキュリティ保護のためパスワードは非表示です。',
     'send_test_email' => 'テストメール 送信',
     'send_test_email_info' => '<strong>{x}</strong>にNamelessMCからテストメールを送信します。テストを実行することで、メール設定が正しくされているかを確認できます。テスト終了後確認されたエラーは表示されます。送信するには「送信」を押してください。', // Don't replace {x}
@@ -188,6 +187,8 @@ $language = [
     'placeholders_server_id' => 'サーバーID',
     'placeholders_name' => '名前',
     'placeholders_value' => '値',
+    'placeholders_player' => 'プレイヤー',
+    'placeholders_score' => 'スコア',
     'placeholders_last_updated' => '最終更新日',
     'placeholders_friendly_name' => 'フレンドリーネーム',
     'placeholders_friendly_name_info' => 'プレースホルダーに\'ニックネーム\'を設定するには、これを使用します。ニックネームは、生の名前の代わりに使用されます。',
@@ -261,8 +262,6 @@ $language = [
 
     // Minecraft
     'enable_minecraft_integration' => 'Minecraft連携を有効にしますか？',
-    'mc_service_status' => 'Minecraft サービスステータス',
-    'service_query_error' => 'サービスのステータスを取得できません。',
     'authme_integration' => 'AuthMe 連携',
     'authme_integration_info' => 'AuthMe 連携が有効になっている場合、ユーザーはゲーム内でのみ登録できます。',
     'enable_authme' => 'AuthMe 連携を有効にしますか？',
@@ -285,6 +284,7 @@ $language = [
     'no_servers_defined' => '設定済みのサーバーは存在しません。',
     'query_settings' => 'クエリ設定',
     'default_server' => '初期サーバー',
+    'average_players' => '平均プレイヤー数',
     'no_default_server' => '初期サーバーが存在しません。',
     'external_query' => '外部クエリを使用しますか？',
     'external_query_help' => 'デフォルトのサーバークエリが機能しない場合は、このオプションを有効にします。',
@@ -347,12 +347,10 @@ $language = [
     'updated_mcassoc_successfully' => 'mcassoc設定が正常に更新されました。',
     'force_premium_accounts' => 'プレミアムMinecraftアカウントを強制しますか？',
     'banner_background' => 'バナー背景',
-    'query_interval' => 'クエリー間隔 (分単位で、5~60でなければなりません)',
-    'player_graphs' => 'プレイヤーグラフ',
-    'player_count_cronjob_info' => '次のコマンドを使用して{x}分ごとにサーバーに照会するようにジョブを設定できます。',
+    'query_interval' => 'クエリ間隔 (分単位で、5~60でなければなりません)',
     'status_page' => 'ステータスページを表示しますか？',
     'minecraft_settings_updated_successfully' => '設定が正常に更新されました。',
-    'server_id_x' => 'サーバーID：{x}',// {x}を置き換えない
+    'server_id_x' => 'サーバーID: {x}', // Don't replace {x}
     'server_information' => 'サーバー情報',
     'query_information' => 'クエリ情報',
     'query_errors_purged_successfully' => 'クエリエラーが正常にパージされました。',
@@ -415,7 +413,7 @@ $language = [
     'reset_banner' => 'バナーのリセット',
     'logo_reset_successfully' => 'ロゴのリセットに成功しました。',
     'logo_updated_successfully' => 'ロゴの更新に成功しました。',
-    'reset_logo' => 'Reset Logo',
+    'reset_logo' => 'ロゴをリセット',
     'favicon_reset_successfully' => 'ファビコンのリセットに成功しました。',
     'favicon_updated_successfully' => 'ファビコンの更新に成功しました。',
     'reset_favicon' => 'ファビコンのリセット',
@@ -444,11 +442,7 @@ $language = [
     'users' => 'ユーザー',
     'groups' => 'グループ',
     'group' => 'グループ',
-    'new_user' => '<i class="fa fa-plus-circle"></i> 新しいユーザー',
-    'creating_new_user' => '新規ユーザー作成',
     'registered' => '登録',
-    'user_created' => 'ユーザーが正常に作成されました。',
-    'cant_delete_root_user' => 'rootユーザーは削除できません。',
     'cant_modify_root_user' => 'このユーザーのメイングループを変更することはできません！',
     'main_group' => 'メイングループ',
     'user_deleted' => 'ユーザーは正常に削除されました。',
@@ -460,28 +454,24 @@ $language = [
     'punish_user' => '処罰設定',
     'delete_user' => 'ユーザー削除',
     'minecraft_uuid' => 'Minecraft UUID',
-    'other_actions' => 'その他の操作',
-    'disable_avatar' => 'アバター無効',
     'select_user_group' => 'ユーザーのグループを選択する必要があります。',
     'uuid_max_32' => 'UUIDが<strong>32文字</strong>以下であることをご確認ください。',
     'title_max_64' => 'ユーザーのタイトルが<strong>64文字</strong>以下であることをご確認ください。',
     'group_id' => 'グループID',
     'name' => '名前',
     'title' => 'ユーザータイトル',
-    'new_group' => '<i class="fa fa-plus-circle"></i>新しいグループ',
+    'new_group' => '<i class="fa fa-plus-circle"></i> 新しいグループ',
     'group_name_required' => 'グループ名を入力してください。',
     'group_name_minimum' => 'グループ名が<strong>2文字</strong>以上であることをご確認ください。',
     'group_name_maximum' => 'グループ名が<strong>20文字</strong>以下であることをご確認ください。',
     'creating_group' => '新規グループ作成',
-    'group_html_maximum' => 'グループHTMLが<strong>1024文字</strong>以下であることをご確認ください。',
     'group_html' => 'グループ HTML',
     'group_html_lg' => 'グループ HTML(大)',
-    'group_username_colour' => 'グループテーマカラー',
-    'group_username_css' => 'グループユーザー名CSS',
+    'group_username_colour' => 'グループのユーザー名の色',
+    'group_username_css' => 'グループのユーザー名のCSS',
     'group_staff' => 'スタッフグループに設定しますか？',
     'delete_group' => 'グループ削除',
     'confirm_group_deletion' => 'グループ{x}を削除してもよろしいですか？', // Don't replace {x}
-    'group_not_exist' => '指定したグループは存在しません。',
     'secondary_groups' => 'セカンダリグループ',
     'secondary_groups_info' => 'セカンダリグループを設定したユーザーは、セカンダリグループからメイングループにプラスして権限を取得します。複数のグループを選択/選択解除するには「Ctrl+クリック」します。',
     'unable_to_update_uuid' => 'UUIDを更新できませんでした。',
@@ -510,18 +500,12 @@ $language = [
     // Permissions
     'select_all' => 'すべて選択',
     'deselect_all' => 'すべて選択を解除',
-    'background_image' => '背景画像',
     'can_edit_own_group' => '自分のグループの権限を編集できます。',
     'permissions_updated_successfully' => '権限設定が正常に更新されました。',
     'cant_edit_this_group' => '指定されたグループの権限を編集することはできません。',
 
     // General Admin language
-    'task_successful' => 'タスクは成功しました。',
-    'invalid_action' => '無効な操作',
-    'enable_night_mode' => 'ナイトモード有効化',
-    'disable_night_mode' => 'ナイトモード無効化',
     'view_site' => 'ホームページ表示',
-    'signed_in_as_x' => '{x}でログイン中', // Don't replace {x}
     'warning' => '警告',
 
     // Maintenance
@@ -646,6 +630,7 @@ $language = [
     'set_as_primary_group_info' => '有効にするとユーザーのプライマリWebサイトグループが自動で更新されます。無効にするとゲーム内のグループがユーザーのウェブサイトのセカンダリグループに追加されます。',
     'ingame_group_maximum' => 'グループ名は<strong>64文字</strong>以下にする必要があります。',
     'select_website_group' => 'ウェブサイトグループを選択してください。',
+    'at_least_one_external' => '外部グループ（MinecraftまたはDiscord）を1つ以上入力してください。',
     'ingame_group_already_exists' => '指定されたゲームグループのランク同期ルールはすでに作成されています。',
     'group_sync_rule_created_successfully' => 'グループ同期ルールが正常に作成されました。',
     'group_sync_rules_updated_successfully' => 'グループ同期ルールが正常に更新されました。',
@@ -702,7 +687,7 @@ $language = [
     'ban_hook_info' => 'ユーザーのBAN',
     'warning_hook_info' => 'ユーザーの警告',
 
-    //サイトマップ
+    // Sitemap
     'unable_to_load_sitemap_file_x' => 'サイトマップファイル{x}を読み込むことができませんでした。',// {x}を置き換えない
     'sitemap_generated' => 'サイトマップが正常に生成されました。',
     'sitemap_not_writable' => '<strong>cache/sitemaps</strong>ディレクトリに書き込みができません。アクセス権限を確認してください。',
@@ -712,25 +697,23 @@ $language = [
     'sitemap_not_generated_yet' => '生成済みのサイトマップが存在しません。',
     'sitemap_last_generated_x' => '最終サイトマップ生成:{x}',// {x}を置き換えない
 
-    //ページメタデータ
+    // Page metadata
     'page_metadata' => 'ページメタデータ',
     'metadata_page_x' => '{x}のメタデータを表示',// {x}を置き換えない
     'keywords' => 'キーワード',
     'description_max_500' => '説明は<strong>500文字</strong>以下にする必要があります。',
-    'page' => 'Page',
+    'page' => 'ページ',
     'metadata_updated_successfully' => 'メタデータが正常に更新されました。',
 
-    //ダッシュボード
+    // Dashboard
     'total_users' => '合計ユーザー',
     'recent_users' => '新規ユーザー',
-    'average_players' => '平均ユーザー',
     'nameless_news' => 'NamelessMC ニュース',
     'unable_to_retrieve_nameless_news' => '最新のニュースを取得できませんでした。',
     'confirm_leave_site' => 'サイトを離れようとしています。<strong id = "leaveSiteURL"> {x} </strong>にアクセスしてもよろしいですか？',// {x}を置き換えずに、そのIDがleaveSiteURLであることを確認してください
     'server_compatibility' => 'サーバーの互換性',
-    'issues' => '問題',
 
-    //その他
+    // Other
     'source' => 'ソース',
     'support' => 'サポート',
     'admin_dir_still_exists' => '警告！<strong>modules/Core/pages/admin</strong>ディレクトリがまだ存在しています。ディレクトリを削除してください。',
@@ -763,4 +746,12 @@ $language = [
     'no_announcements' => 'まだお知らせはありません。',
     'announcement_order' => '順序',
     'announcement_hook_info' => 'お知らせの作成',
+
+    // OAuth
+    'oauth' => 'OAuth',
+    'oauth_info' => 'ユーザーがソーシャルネットワークのアカウントでログインできるように、OAuthプロバイダを設定します。<a href="https://docs.namelessmc.com/en/oauth" target="_blank">詳しくはドキュメントをご覧ください。</a>',
+    'unlink' => '連携を解除',
+    'identifier' => '識別子',
+    'unlink_account_confirm' => 'プロバイダーとユーザーとの連携を強制的に解除してよろしいですか？',
+    'unlink_account_success' => '{x}からアカウントの連携を解除することに成功しました。', // Don't replace {x}
 ];
