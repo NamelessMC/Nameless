@@ -49,7 +49,7 @@ $language = [
     'upgrade_php_version' => 'PHPのバージョンを7.4以上にアップグレードしてください。次のNamelessのリリースでは、現在使用しているバージョンがサポートされなくなります。',
 
     // Core
-    'mode_toggle' => 'ダーク/ライト モード',
+    'mode_toggle' => 'ダークモード',
     'settings' => '設定',
     'general_settings' => '一般設定',
     'sitename' => 'サイト名',
