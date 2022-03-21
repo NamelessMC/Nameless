@@ -51,6 +51,7 @@ $language = [
     'configuration' => 'Yapılandırma',
     'configuration_info' => 'Lütfen sitenizle ilgili temel bilgileri girin. Bu değerler daha sonra yönetici panelinden değiştirilebilir.',
     'configuration_error' => 'Lütfen 1 ila 32 karakter uzunluğunda geçerli bir site adı ve 4 ila 64 karakter uzunluğunda geçerli bir e-posta adresi girin.',
+    'hostname_error' => 'Please enter a valid hostname without http:// or https://',
     'site_name' => 'Site Adı',
     'contact_email' => 'İletişim E-postası',
     'outgoing_email' => 'Giden E-posta',

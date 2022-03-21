@@ -56,6 +56,7 @@ $language = [
     'configuration' => '設定',
     'configuration_info' => 'サイトの基本情報を入力してください。これらの値は後から管理パネルで変更することができます。',
     'configuration_error' => '1~32文字の有効なサイト名と、4~64文字の有効なメールアドレスを入力してください。',
+    'hostname_error' => '有効なホスト名を http:// または https:// を付けずに入力してください。',
     'site_name' => 'サイト名',
     'contact_email' => '問い合わせ先メールアドレス',
     'outgoing_email' => '送信用メールアドレス',

@@ -53,6 +53,7 @@ $language = [
     'configuration' => 'Configurație',
     'configuration_info' => 'Introduceți informațiile de bază despre site-ul dvs. Aceste valori pot fi modificate ulterior prin panoul de administrare.',
     'configuration_error' => 'Introduceți un nume de site valid între 1 și 32 de caractere și adrese de e-mail valide între 4 și 64 de caractere.',
+    'hostname_error' => 'Please enter a valid hostname without http:// or https://',
     'site_name' => 'Numele site-ului',
     'contact_email' => 'E-Mail contact',
     'outgoing_email' => 'E-Mail de iesire',

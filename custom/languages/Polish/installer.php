@@ -51,6 +51,7 @@ $language = [
     'configuration' => 'Konfiguracja',
     'configuration_info' => 'Wprowadź podstawowe informacje o swojej witrynie. Będą one mogły zostać później zmienione w panelu administratora.',
     'configuration_error' => 'Wpisz nazwę strony mającą od 1 do 32 znaków, i twój adres email mający od 4 do 64 znaków długości.',
+    'hostname_error' => 'Please enter a valid hostname without http:// or https://',
     'site_name' => 'Nazwa strony',
     'contact_email' => 'Email kontaktowy',
     'outgoing_email' => 'Email do wysyłania wiadomości do użytkowników',

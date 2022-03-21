@@ -51,6 +51,7 @@ $language = [
     'configuration' => 'Indstilling',
     'configuration_info' => 'Angiv grundlæggende information om dit websted. Disse værdier kan ændres senere gennem administrationspanelet.',
     'configuration_error' => 'Angiv venligst et gyldigt webstedsnavn på mellem 1 og 32 tegn og gyldige e-mailadresser på mellem 4 og 64 tegn.',
+    'hostname_error' => 'Please enter a valid hostname without http:// or https://',
     'site_name' => 'Side Navn',
     'contact_email' => 'Kontakt E-Mail',
     'outgoing_email' => 'Udgående E-Mail',

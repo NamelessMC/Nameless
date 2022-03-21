@@ -51,6 +51,7 @@ $language = [
     'configuration' => 'Configuración',
     'configuration_info' => 'Por favor, introduzca información básica sobre su sitio. Estos valores pueden ser modificados posteriormente a través del panel de administración.',
     'configuration_error' => 'Por favor, introduzca un nombre de sitio válido de entre 1 y 32 caracteres, y direcciones de correo electrónico válidas de entre 4 y 64 caracteres.',
+    'hostname_error' => 'Please enter a valid hostname without http:// or https://',
     'site_name' => 'Nombre del sitio',
     'contact_email' => 'Dirección de correo electrónico de contacto',
     'outgoing_email' => 'Dirección de correo electrónico de salida',

@@ -53,6 +53,7 @@ $language = [
     'configuration' => '配置',
     'configuration_info' => '请输入有关您网站的基本信息。这些值可以稍后通过管理面板进行更改。',
     'configuration_error' => '请输入有效的网站名称，长度在 1 到 32 个字符之间，有效的电子邮箱地址在 4 到 64 个字符之间。',
+    'hostname_error' => 'Please enter a valid hostname without http:// or https://',
     'site_name' => '网站名称',
     'contact_email' => '联系邮箱',
     'outgoing_email' => '发件箱',

@@ -51,6 +51,7 @@ $language = [
     'configuration' => 'Konfigurácia',
     'configuration_info' => 'Zadajte základné informácie o svojom webe. Tieto hodnoty je možné neskôr zmeniť prostredníctvom admin panela.',
     'configuration_error' => 'Zadajte platný názov webu s dĺžkou od 1 do 32 znakov a platné emailové adresy s dĺžkou od 4 do 64 znakov.',
+    'hostname_error' => 'Please enter a valid hostname without http:// or https://',
     'site_name' => 'Názov stránky',
     'contact_email' => 'Kontaktný email',
     'outgoing_email' => 'Odchádzajúci email',

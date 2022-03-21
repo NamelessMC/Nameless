@@ -52,6 +52,7 @@ $language = [
     'configuration' => 'Konfigurace',
     'configuration_info' => 'Zadejte základní informace o vašem webu. Tyto informace mohou být kdykoli později změněny v panelu.',
     'configuration_error' => 'Zadejte platný název webu o délce 1 až 32 znaků a platnou e-mailovou adresu o délce 4 až 64 znaků.',
+    'hostname_error' => 'Please enter a valid hostname without http:// or https://',
     'site_name' => 'Název webu',
     'contact_email' => 'Kontaktní e-mail',
     'outgoing_email' => 'Odchozí e-mail',

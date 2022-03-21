@@ -52,6 +52,7 @@ $language = [
     'configuration' => 'Konfiguration',
     'configuration_info' => 'Vänligen ange grundläggande information om din webbplats. Dessa information kan ändras senare genom admin kontrolpanelen.',
     'configuration_error' => 'Ange ett giltigt webbplatsnamn mellan 1 och 32 tecken långt och giltiga e-postadresser mellan 4 och 64 tecken långa.',
+    'hostname_error' => 'Please enter a valid hostname without http:// or https://',
     'site_name' => 'Sido Namn',
     'contact_email' => 'Kontakt Email',
     'language' => 'Language',

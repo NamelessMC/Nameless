@@ -51,6 +51,7 @@ $language = [
     'configuration' => 'Konfigurering',
     'configuration_info' => 'Skriv inn informasjonen om nettsiden din. Denne informasjonen kan endres gjennom administrator-panelet senere.',
     'configuration_error' => 'Skriv inn et nettsidenavn mellom 1 til 32 tegn, og en gyldig e-postadresse mellom 4 til 64 tegn.',
+    'hostname_error' => 'Please enter a valid hostname without http:// or https://',
     'site_name' => 'Nettsidenavn',
     'contact_email' => 'Kontakt-e-post',
     'outgoing_email' => 'Utgående e-post',

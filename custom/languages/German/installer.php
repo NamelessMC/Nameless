@@ -52,6 +52,7 @@ $language = [
     'configuration' => 'Konfiguration',
     'configuration_info' => 'Bitte geben Sie grundlegende Informationen über Ihre Website ein. Diese Werte können später über das Admin-Panel geändert werden.',
     'configuration_error' => 'Bitte geben Sie einen gültigen Website-Namen zwischen 1 und 32 Zeichen lang und gültige E-Mail-Adressen zwischen 4 und 64 Zeichen lang ein.',
+    'hostname_error' => 'Please enter a valid hostname without http:// or https://',
     'site_name' => 'Webseiten Name',
     'contact_email' => 'Kontakt Emailadresse',
     'language' => 'Language',

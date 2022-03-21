@@ -53,6 +53,7 @@ $language = [
     'configuration' => 'Διαμόρφωση',
     'configuration_info' => 'Εισάγετε τις βασικές πληροφορίες για την site σας. Οι τιμές αυτές μπορούν να αλλάξουν αργότερα από την διαχείριση.',
     'configuration_error' => 'Εισάγετε ένα έγκυρο όνομα του site σας μήκους μεταξύ 1 έως 32 χαρακτήρες, και έγκυρες διευθύνσεις ηλεκτρονικού ταχυδρομείου μήκους μεταξύ 4 έως 64 χαρακτήρες.',
+    'hostname_error' => 'Please enter a valid hostname without http:// or https://',
     'site_name' => 'Ονομα ιστοσελίδας',
     'contact_email' => 'Email Επικοινωνίας',
     'outgoing_email' => 'Εξερχόμενο Email',
