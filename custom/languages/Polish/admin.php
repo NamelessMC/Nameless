@@ -359,6 +359,7 @@ $language = [
     'module_disabled' => 'Moduł został wyłączony.',
     'author' => 'Autor:',
     'author_x' => 'Autor: {x}', // Don't replace {x}
+    'updated_x' => 'Updated at: {x}', // Don't replace {x}
     'module_outdated' => 'Wykryliśmy, e ten moduł jest przeznaczony do wersji Nameless {x}, a ty używasz wersji Nameless {y}', // Don't replace "{x}" or "{y}"
     'find_modules' => 'Znajdź moduły',
     'view_all_modules' => 'Pokaż wszystkie moduły',

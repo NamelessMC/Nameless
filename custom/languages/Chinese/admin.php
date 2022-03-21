@@ -372,6 +372,7 @@ $language = [
     'module_disabled' => '模組禁用.',
     'author' => '作者:',
     'author_x' => '作者: {x}', // Don't replace {x}
+    'updated_x' => 'Updated at: {x}', // Don't replace {x}
     'module_outdated' => 'We have detected that this module is intended for Nameless version {x}, but you are running Nameless version {y}', // Don't replace "{x}" or "{y}"
     'find_modules' => 'Find Modules',
     'view_all_modules' => 'View all modules',

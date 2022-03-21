@@ -361,6 +361,7 @@ $language = [
     'module_disabled' => 'Modul inaktiverat.',
     'author' => 'Skapare:',
     'author_x' => 'Skapare: {x}', // Don't replace {x}
+    'updated_x' => 'Updated at: {x}', // Don't replace {x}
     'module_outdated' => 'Vi har upptäckt att den här modulen är avsedd för Nameless version {x}, men du kör Nameless version {y}', // Don't replace "{x}" or "{y}"
     'find_modules' => 'Hitta moduler',
     'view_all_modules' => 'Visa alla moduler',

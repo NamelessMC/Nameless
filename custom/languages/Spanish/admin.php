@@ -365,6 +365,7 @@ $language = [
     'module_disabled' => 'Módulo desactivado.',
     'author' => 'Creador:',
     'author_x' => 'Creador: {x}', // Don't replace {x}
+    'updated_x' => 'Updated at: {x}', // Don't replace {x}
     'module_outdated' => 'Hemos detectado que este módulo está destinado a la versión {x} de NamelessMC, pero usted está ejecutando la versión {y} de NamelessMC', // Don't replace "{x}" or "{y}"
     'find_modules' => 'Encontrar módulos',
     'view_all_modules' => 'Ver todos los modulos',

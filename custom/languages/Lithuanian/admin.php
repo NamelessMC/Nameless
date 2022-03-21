@@ -357,6 +357,7 @@ $language = [
     'module_disabled' => 'Modulis išjungtas.',
     'author' => 'Autorius:',
     'author_x' => 'Autorius: {x}', // Don't replace {x}
+    'updated_x' => 'Updated at: {x}', // Don't replace {x}
     'module_outdated' => 'Aptikome, kad šis modulis skirtas "Nameless" versijai {x}, bet jūs naudojate "Nameless" versija {y}', // Don't replace "{x}" or "{y}"
     'find_modules' => 'Rasti Modulius',
     'view_all_modules' => 'Peržiūrėti visus modulius',

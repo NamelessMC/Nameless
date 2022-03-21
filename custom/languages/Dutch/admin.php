@@ -362,6 +362,7 @@ $language = [
     'module_disabled' => 'Module uitgeschakeld.',
     'author' => 'Auteur:',
     'author_x' => 'Auteur: {x}', // Don't replace {x}
+    'updated_x' => 'Updated at: {x}', // Don't replace {x}
     'module_outdated' => 'We hebben gedetecteerd dat deze module bedoeld is voor Nameless versie {x}, maar u gebruikt Nameless versie {y}', // Don't replace "{x}" or "{y}"
     'find_modules' => 'Vind Modules',
     'view_all_modules' => 'Bekijk alle modules',

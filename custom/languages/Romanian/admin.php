@@ -362,6 +362,7 @@ $language = [
     'module_disabled' => 'Modulul este dezactivat.',
     'author' => 'Autor:',
     'author_x' => 'Autor: {x}', // Don't replace {x}
+    'updated_x' => 'Updated at: {x}', // Don't replace {x}
     'module_outdated' => 'Am descoperit că acest modul este destinat pentru Nameless versiunea {x}, dar utilizati Nameless versiunea {y}', // Don't replace "{x}" or "{y}"
     'find_modules' => 'Găsiți module',
     'view_all_modules' => 'Vizualizați toate modulele',

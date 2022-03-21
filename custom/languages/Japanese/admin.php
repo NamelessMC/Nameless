@@ -365,6 +365,7 @@ $language = [
     'module_disabled' => 'モジュールを無効にしました。',
     'author' => '作成者:',
     'author_x' => '作成者: {x}', // Don't replace {x}
+    'updated_x' => 'Updated at: {x}', // Don't replace {x}
     'module_outdated' => 'このモジュールは、NamelessMCバージョン{x}を対象としています。現在、NamelessMCバージョン {y}を実行しています。', // Don't replace "{x}" or "{y}"
     'find_modules' => 'モジュール検索',
     'view_all_modules' => 'すべてのモジュールを見る',

@@ -370,6 +370,7 @@ $language = [
     'module_disabled' => '模块已禁用。',
     'author' => '作者:',
     'author_x' => '作者: {x}', // Don't replace {x}
+    'updated_x' => 'Updated at: {x}', // Don't replace {x}
     'module_outdated' => '我们检测到该模块适用于 Nameless 版本 {x}, 但你正运行 Nameless 版本 {y}', // Don't replace "{x}" or "{y}"
     'find_modules' => '寻找模块',
     'view_all_modules' => '查看所有模块',

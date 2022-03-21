@@ -362,6 +362,7 @@ $language = [
     'module_disabled' => 'Modul zakázaný.',
     'author' => 'Autor:',
     'author_x' => 'Autor: {x}', // Don't replace {x}
+    'updated_x' => 'Updated at: {x}', // Don't replace {x}
     'module_outdated' => 'Zistili sme, že tento modul je určený pre Nameless verziu {x}, ale používate Nameless verziu {y}', // Don't replace "{x}" or "{y}"
     'find_modules' => 'Nájsť moduly',
     'view_all_modules' => 'Zobraziť všetky moduly',

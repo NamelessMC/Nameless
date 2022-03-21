@@ -362,6 +362,7 @@ $language = [
     'module_disabled' => 'ปิดการใช้งาน Module.',
     'author' => 'ผู้เขียน:',
     'author_x' => 'ผู้เขียน: {x}', // Don't replace {x}
+    'updated_x' => 'Updated at: {x}', // Don't replace {x}
     'module_outdated' => 'เราตรวจพบว่าโมดูลนี้มีไว้สำหรับเวอร์ชันที่ไม่มีชื่อ {x} แต่คุณกำลังเรียกใช้เวอร์ชันที่ไม่มีชื่อ {y}', // Don't replace "{x}" or "{y}"
     'find_modules' => 'ค้นหา Modules',
     'view_all_modules' => 'ชม modules ทั้งหมด',

@@ -360,6 +360,7 @@ $language = [
     'module_disabled' => 'Modulo disabilitato.',
     'author' => 'Autore:',
     'author_x' => 'Autore: {x}', // Don't replace {x}
+    'updated_x' => 'Updated at: {x}', // Don't replace {x}
     'module_outdated' => 'Abbiamo rilevato che questo modulo è per la versione {x} di Nameless, ma tu stai usando la {y}', // Don't replace "{x}" or "{y}"
     'find_modules' => 'Trova moduli',
     'view_all_modules' => 'Visualizza tutti i moduli',

@@ -359,6 +359,7 @@ $language = [
     'module_disabled' => 'Modul deaktivert.',
     'author' => 'Utgiver:',
     'author_x' => 'Utgiver: {x}', // Don't replace {x}
+    'updated_x' => 'Updated at: {x}', // Don't replace {x}
     'module_outdated' => 'Det ser ut som denne modulen hører til NamelessMC versjon {x}, men du bruker versjon {y}', // Don't replace "{x}" or "{y}"
     'find_modules' => 'Finn moduler',
     'view_all_modules' => 'Vis alle moduler',

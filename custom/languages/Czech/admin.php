@@ -358,6 +358,7 @@ $language = [
     'module_disabled' => 'Doplněk zakázán.',
     'author' => 'Autor:',
     'author_x' => 'Autor: {x}', // Don't replace {x}
+    'updated_x' => 'Updated at: {x}', // Don't replace {x}
     'module_outdated' => 'Zjistili jsme, že tento doplněk je určen pro verzi Nameless {x}, zatímco vy používáte verzi {y}', // Don't replace "{x}" or "{y}"
     'find_modules' => 'Najít doplňky',
     'view_all_modules' => 'Zobrazit všechny doplňky',

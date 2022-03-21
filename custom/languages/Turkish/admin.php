@@ -360,6 +360,7 @@ $language = [
     'module_disabled' => 'Modül de-aktif.',
     'author' => 'Yazar:',
     'author_x' => 'Yazar: {x}', // Don't replace {x}
+    'updated_x' => 'Updated at: {x}', // Don't replace {x}
     'module_outdated' => 'Bu modülün {x} Nameless sürümü için tasarlandığını tespit ettik, ancak {y} Nameless sürümü çalıştırıyorsunuz', // Don't replace "{x}" or "{y}"
     'find_modules' => 'Modül ara',
     'view_all_modules' => 'Tüm modülleri görüntüle',
