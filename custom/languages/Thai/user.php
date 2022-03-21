@@ -254,4 +254,13 @@ $language = [
     'discord_communication_error' => 'เกิดข้อผิดพลาดขณะสื่อสารกับ Discord Bot โปรดตรวจสอบว่าบอทกำลังทำงานและ URL บอทของคุณถูกต้อง',
     'discord_unknown_error' => 'เกิดข้อผิดพลาดที่ไม่รู้จักขณะซิงค์บทบาท Discord โปรดติดต่อผู้ดูแลระบบ',
     'discord_id_help' => 'สำหรับข้อมูลเกี่ยวกับตำแหน่งของ Discord ID โปรดอ่าน <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">this.</a>'
+
+    // OAuth
+    'oauth_unlinked' => 'Successfully unlinked your account from that provider.',
+    'oauth_already_linked' => 'Another NamelessMC user is already linked to that {x} account.', // Don't replace {x}
+    'oauth_link_success' => 'Successfully linked your account with {x}!', // Don't replace {x}
+    'no_user_found_with_provider' => 'No user found with that {x} account.', // Don't replace {x}
+    'oauth_login_success' => 'You have logged in with your {x} account.', // Don't replace {x}
+    'oauth_link_confirm' => 'You will be taken to the {x} website to link your account.', // Don't replace {x}
+    'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {x}.<br>You will not be able to login with this account anymore.', // Don't replace {x}
 ];

@@ -253,4 +253,13 @@ $language = [
     'discord_communication_error' => 'Wystąpił bląd poczas łączenia z botem. Upewnij się, że bot jest online i adres jest poprawny.',
     'discord_unknown_error' => 'Podczas synchronizacji ról wystąpił błąd, skontaktuj się z administratorem.',
     'discord_id_help' => 'Po informacje jak zdobyć ID Discord, przeczytaj <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">to.</a>'
+
+    // OAuth
+    'oauth_unlinked' => 'Successfully unlinked your account from that provider.',
+    'oauth_already_linked' => 'Another NamelessMC user is already linked to that {x} account.', // Don't replace {x}
+    'oauth_link_success' => 'Successfully linked your account with {x}!', // Don't replace {x}
+    'no_user_found_with_provider' => 'No user found with that {x} account.', // Don't replace {x}
+    'oauth_login_success' => 'You have logged in with your {x} account.', // Don't replace {x}
+    'oauth_link_confirm' => 'You will be taken to the {x} website to link your account.', // Don't replace {x}
+    'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {x}.<br>You will not be able to login with this account anymore.', // Don't replace {x}
 ];
