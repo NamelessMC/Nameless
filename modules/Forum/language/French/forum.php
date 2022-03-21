@@ -131,7 +131,6 @@ $language = [
     'creating_forum' => 'Création d\'un nouveau forum',
     'forum_name' => 'Nom du forum',
     'forum_description' => 'Description du forum',
-
     'delete_forum' => 'Suprimmer le forum',
     'move_topics_and_posts_to' => 'Déplacer les sujets et les messages vers',
     'delete_topics_and_posts' => 'Suprimmer les sujets et les messages',
@@ -206,6 +205,7 @@ $language = [
     'new_topic_text' => 'Topic created in {x} by {y}', // Don't replace {x} (forum name), optional variable {y} (topic author)
     'include_in_hook' => 'Include new topics from this forum in webhooks?',
     'available_hooks' => 'Available Hooks',
+    
     // Panel statistics
     'recent_topics' => 'Recent Topics',
     'recent_posts' => 'Recent Posts',
