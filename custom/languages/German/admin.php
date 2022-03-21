@@ -157,6 +157,7 @@ $language = [
     'captcha_secret_key' => 'Captcha Geheimschlüssel',
     'google_recaptcha' => 'Google Captcha aktivieren?',
     'google_recaptcha_login' => 'Google Captcha beim Login aktivieren?',
+    'invalid_recaptcha_settings' => 'Invalid {x} credentials. Ensure the site key and site secret are correct.', // Don't replace {x}
     'registration_disabled_message' => 'Registration Deaktiviert Nachricht',
     'enable_nicknames_on_registration' => 'Nicknames für registrierte Benutzer?',
     'validation_promote_group' => 'Verifiziert Gruppe',

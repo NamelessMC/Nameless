@@ -163,6 +163,7 @@ $language = [
     'captcha_type' => '验证码类型',
     'captcha_site_key' => '验证码 Site Key',
     'captcha_secret_key' => '验证码 Secret Key',
+    'invalid_recaptcha_settings' => 'Invalid {x} credentials. Ensure the site key and site secret are correct.', // Don't replace {x}
     'registration_disabled_message' => '禁用注册消息',
     'enable_nicknames_on_registration' => '是否启用昵称用来注册账户?',
     'validation_promote_group' => '邮箱验证后权限组',

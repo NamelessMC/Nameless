@@ -142,6 +142,7 @@ $language = [
     'captcha_login' => 'Activer Captcha sur la page de connexion ?',
     'captcha_site_key' => 'Clé de site Captcha',
     'captcha_secret_key' => 'Clé secrète Captcha',
+    'invalid_recaptcha_settings' => 'Invalid {x} credentials. Ensure the site key and site secret are correct.', // Don't replace {x}
     'registration_disabled_message' => 'Enregistrement message désactivé',
     'enable_nicknames_on_registration' => 'Activer les surnoms lors de l\'enregistrement des utilisateurs ?',
     'validation_promote_group' => 'Groupe de postvalidation',

@@ -150,6 +150,7 @@ $language = [
     'captcha_type' => 'Tipo de Captcha',
     'captcha_site_key' => 'Clave del sitio del Captcha',
     'captcha_secret_key' => 'Clave secreta del Captcha',
+    'invalid_recaptcha_settings' => 'Invalid {x} credentials. Ensure the site key and site secret are correct.', // Don't replace {x}
     'registration_disabled_message' => 'Mensaje de registro deshabilitado',
     'enable_nicknames_on_registration' => '¿Permitir apodos para el registro de usuarios?',
     'validation_promote_group' => 'Grupo de post-validación',

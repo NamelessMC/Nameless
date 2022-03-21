@@ -155,6 +155,7 @@ $language = [
     'captcha_type' => 'Tipo de Captcha',
     'captcha_site_key' => 'Chave do site do Captcha',
     'captcha_secret_key' => 'Chave Secreta do Captcha',
+    'invalid_recaptcha_settings' => 'Invalid {x} credentials. Ensure the site key and site secret are correct.', // Don't replace {x}
     'registration_disabled_message' => 'Motivo do registro está desativado',
     'enable_nicknames_on_registration' => 'Ativar nickname para registrar usuários?',
     'validation_promote_group' => 'Grupo pós-validação',

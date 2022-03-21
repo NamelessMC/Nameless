@@ -152,6 +152,7 @@ $language = [
     'captcha_type' => 'Captcha-type',
     'captcha_site_key' => 'Captcha Site Key',
     'captcha_secret_key' => 'Captcha Secret Key',
+    'invalid_recaptcha_settings' => 'Invalid {x} credentials. Ensure the site key and site secret are correct.', // Don't replace {x}
     'registration_disabled_message' => 'Registrering deaktivert-melding',
     'enable_nicknames_on_registration' => 'Tillatt kallenavn for nylig registrerte brukere?',
     'validation_promote_group' => 'Verifisert gruppe',

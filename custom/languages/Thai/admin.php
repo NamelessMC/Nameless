@@ -161,6 +161,7 @@ $language = [
     'captcha_type' => 'ประเภท Captcha',
     'captcha_site_key' => 'คีย์เว็บไซต์ Captcha',
     'captcha_secret_key' => 'กุญแจลับ  Captcha',
+    'invalid_recaptcha_settings' => 'Invalid {x} credentials. Ensure the site key and site secret are correct.', // Don't replace {x}
     'registration_disabled_message' => 'ข้อความปิดใช้งานการลงทะเบียน',
     'enable_nicknames_on_registration' => 'เปิดใช้งานชื่อเล่นสําหรับการลงทะเบียนผู้ใช้หรือไม่',
     'validation_promote_group' => 'หลังการตรวจสอบกลุ่ม',

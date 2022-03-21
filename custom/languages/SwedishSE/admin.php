@@ -154,6 +154,7 @@ $language = [
     'captcha_type' => 'Captcha Typ',
     'captcha_site_key' => 'Captcha Site Key',
     'captcha_secret_key' => 'Captcha Secret Key',
+    'invalid_recaptcha_settings' => 'Invalid {x} credentials. Ensure the site key and site secret are correct.', // Don't replace {x}
     'registration_disabled_message' => 'Registrering inaktiverad text',
     'enable_nicknames_on_registration' => 'Aktivera smeknman för registrerande användare?',
     'validation_promote_group' => 'Grupp efter validering',

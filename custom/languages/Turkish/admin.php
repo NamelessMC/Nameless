@@ -153,6 +153,7 @@ $language = [
     'captcha_type' => 'Captcha Type',
     'captcha_site_key' => 'Captcha Site Key',
     'captcha_secret_key' => 'Captcha Secret Key',
+    'invalid_recaptcha_settings' => 'Invalid {x} credentials. Ensure the site key and site secret are correct.', // Don't replace {x}
     'registration_disabled_message' => 'Kayıt devre dışı bırakıldı mesajı',
     'enable_nicknames_on_registration' => 'Kullanıcıları kaydetmek için takma adlar etkinleştirilsin mi?',
     'validation_promote_group' => 'Doğrulama sonrası grup',

@@ -153,6 +153,7 @@ $language = [
     'captcha_type' => 'Typ Captcha',
     'captcha_site_key' => 'Klucz Captcha Strony',
     'captcha_secret_key' => 'Sekretny Klucz Captcha Strony',
+    'invalid_recaptcha_settings' => 'Invalid {x} credentials. Ensure the site key and site secret are correct.', // Don't replace {x}
     'registration_disabled_message' => 'Wiadomość o wyłączonej rejestracji',
     'enable_nicknames_on_registration' => 'Włączyć nicki dla rejestrowanych użytkowników?',
     'validation_promote_group' => 'Grupa po weryfikacji',

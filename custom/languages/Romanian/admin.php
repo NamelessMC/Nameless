@@ -158,6 +158,7 @@ $language = [
     'captcha_type' => 'Captcha Type',
     'captcha_site_key' => 'Captcha Site Key',
     'captcha_secret_key' => 'Captcha Secret Key',
+    'invalid_recaptcha_settings' => 'Invalid {x} credentials. Ensure the site key and site secret are correct.', // Don't replace {x}
     'registration_disabled_message' => 'Mesaj afișat când înregistrarea este dezactivată',
     'enable_nicknames_on_registration' => 'Activați poreclele pentru utilizatorii ce se înregistrează?',
     'validation_promote_group' => 'Grupul de post-validare',

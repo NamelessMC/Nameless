@@ -152,6 +152,7 @@ $language = [
     'captcha_type' => 'Typ Captchy',
     'captcha_site_key' => 'Captcha klíč webu',
     'captcha_secret_key' => 'Captcha tajný klíč',
+    'invalid_recaptcha_settings' => 'Invalid {x} credentials. Ensure the site key and site secret are correct.', // Don't replace {x}
     'registration_disabled_message' => 'Zpráva zakázané registrace',
     'enable_nicknames_on_registration' => 'Povolit přezdívky při registraci uživatelů?',
     'validation_promote_group' => 'Skupina po ověření',
