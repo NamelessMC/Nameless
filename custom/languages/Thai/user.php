@@ -189,7 +189,6 @@ $language = [
     'new_wall_post_reply_your_profile' => '{x} ได้ตอบกลับโพสต์ของคุณในโปรไฟล์ของคุณ', // Don't replace {x}
     'no_about_fields' => 'ผู้ใช้รายนี้ยังไม่ได้เพิ่มฟิลด์ใดๆ',
     'reply' => 'ตอบกลับ',
-    'discord_username' => 'ชื่อผู้ใช้ Discord',
 
     // Reports
     'invalid_report_content' => 'สร้างรายงานไม่ได้ โปรดตรวจสอบให้แน่ใจว่าเหตุผลในการรายงานของคุณอยู่ระหว่าง 2 ถึง 1024 อักขระ',
@@ -238,22 +237,6 @@ $language = [
      */
     'user_x_has_registered' => '{x} ได้เข้าร่วม ' . SITE_NAME . '!',
     'user_x_has_validated' => '{x} ได้ตรวจสอบบัญชีของพวกเขาแล้ว!',
-
-    // Discord
-    'discord_link' => 'ลิงค์ Discord',
-    'linked' => 'เชื่อมโยง',
-    'not_linked' => 'ไม่เชื่อมโยง',
-    'discord_id' => 'ID ผู้ใช้ Discord',
-    'discord_id_unlinked' => 'ยกเลิกการเชื่อมโยง ID ผู้ใช้ Discord ของคุณสำเร็จแล้ว.',
-    'discord_id_confirm' => 'โปรดเรียกใช้คำสั่ง "/verify token:{token}" ใน Discord เพื่อสิ้นสุดการเชื่อมโยงบัญชี Discord ของคุณ.',
-    'pending_link' => 'รอดำเนินการ',
-    'discord_id_taken' => 'Discord ID นั้นถูกใช้ไปแล้ว',
-    'discord_invalid_id' => 'ID ผู้ใช้ Discord นั้นไม่ถูกต้อง',
-    'discord_already_pending' => 'คุณมีการยืนยันที่รอดำเนินการอยู่แล้ว',
-    'discord_database_error' => 'ขณะนี้ฐานข้อมูล Nameless Link หยุดทำงาน โปรดลองอีกครั้งในภายหลัง.',
-    'discord_communication_error' => 'เกิดข้อผิดพลาดขณะสื่อสารกับ Discord Bot โปรดตรวจสอบว่าบอทกำลังทำงานและ URL บอทของคุณถูกต้อง',
-    'discord_unknown_error' => 'เกิดข้อผิดพลาดที่ไม่รู้จักขณะซิงค์บทบาท Discord โปรดติดต่อผู้ดูแลระบบ',
-    'discord_id_help' => 'สำหรับข้อมูลเกี่ยวกับตำแหน่งของ Discord ID โปรดอ่าน <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">this.</a>'
 
     // OAuth
     'oauth_unlinked' => 'Successfully unlinked your account from that provider.',
