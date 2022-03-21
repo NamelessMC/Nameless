@@ -15,7 +15,6 @@
  */
 
 $language = [
-    'mod_cp' => 'ModCP',
     'staff_cp' => 'StaffCP',
     'overview' => '概要',
 
@@ -104,11 +103,10 @@ $language = [
     'type' => 'タイプ',
     'recent_punishments' => '最近の処罰',
     'created' => '作成者：',
-    'staff：' => 'スタッフ：',
-    'reason：' => '理由：',
+    'staff:' => 'スタッフ：',
+    'reason:' => '理由：',
 
     //ユーザー
     'recent_registrations' => '最近の登録',
     'reset_profile_banner' => 'プロフィールバナーをリセット'
-
 ];
