@@ -53,9 +53,9 @@ $language = [
     'settings' => '設定',
     'general_settings' => '一般設定',
     'sitename' => 'サイト名',
-    'punished_id' => 'Punished User ID',
-    'punisher_id' => 'Punisher User ID',
-    'reason' => 'Ban Reason',
+    'punished_id' => '処罰されたユーザーのID',
+    'punisher_id' => '処罰したユーザーのID',
+    'reason' => 'BANの理由',
     'ip_ban' => 'IP ban?',
     'default_language' => '初期言語',
     'default_language_help' => '初期言語に設定している言語が登録後最初の言語になりますが、各ユーザーは後でインストールされている言語から別の言語を選択できます。',
@@ -369,7 +369,7 @@ $language = [
     'module_disabled' => 'モジュールを無効にしました。',
     'author' => '作成者:',
     'author_x' => '作成者: {x}', // Don't replace {x}
-    'updated_x' => 'Updated at: {x}', // Don't replace {x}
+    'updated_x' => '更新日時: {x}', // Don't replace {x}
     'module_outdated' => 'このモジュールは、NamelessMCバージョン{x}を対象としています。現在、NamelessMCバージョン {y}を実行しています。', // Don't replace "{x}" or "{y}"
     'find_modules' => 'モジュール検索',
     'view_all_modules' => 'すべてのモジュールを見る',
@@ -656,8 +656,8 @@ $language = [
     'api_endpoints' => 'API エンドポイント',
     'api_endpoints_info' => 'APIエンドポイントは、モジュールが外部アプリケーション(MinecraftやDiscordなど)とNamelessMCのウェブサイトが対話するための方法を作成することを可能にします。 <a href="https://docs.namelessmc.com/en/api-documentation" target="_blank">APIドキュメントはこちらをご確認ください。</a>',
     'route' => 'ルート',
-    'method' => 'Method',
-    'transformers' => 'Transformers',
+    'method' => 'メソッド',
+    'transformers' => 'トランスフォーマ',
 
     // File uploads
     'drag_files_here' => 'アップロードするファイルをここにドラッグします。',
@@ -699,8 +699,8 @@ $language = [
     'validate_hook_info' => 'ユーザー検証',
     'delete_hook_info' => 'ユーザー削除',
     'report_hook_info' => '報告の作成',
-    'ban_hook_info' => 'User banned',
-    'warning_hook_info' => 'User warned',
+    'ban_hook_info' => 'ユーザーのBAN',
+    'warning_hook_info' => 'ユーザーの警告',
 
     //サイトマップ
     'unable_to_load_sitemap_file_x' => 'サイトマップファイル{x}を読み込むことができませんでした。',// {x}を置き換えない
