@@ -61,7 +61,7 @@ $language = [
     'reported_by' => '{x}による報告',
     'view_report' => '報告を見る',
     'report_origin' => 'Origin',
-    'origin_website' => 'Website',
+    'origin_website' => 'ウェブサイト',
     'origin_api' => 'API',
     'page_loaded_in' => 'このページは{x}秒で読み込まれました。', // Don't replace {x}, time unit is seconds
     'page_x' => '{x}ページ',
@@ -164,5 +164,5 @@ $language = [
     /*
      * OAuth
      */
-    'oauth_message_continue' => 'Continue registering with {x}', // Don't replace {x}
+    'oauth_message_continue' => '続けて{x}で登録する。', // Don't replace {x}
 ];
