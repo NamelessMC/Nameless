@@ -44,7 +44,7 @@ $language = [
     'upgrade_php_version' => 'Please upgrade your PHP version to at least 7.4 - the next Nameless release will no longer support the version you are using.',
 
     // Core
-    'mode_toggle' => 'โหมดมืด/แสง',
+    'mode_toggle' => 'โหมดมืด',
     'settings' => 'การตั้งค่า',
     'general_settings' => 'การตั้งค่าทั่วไป',
     'sitename' => 'ชื่อไซต์',

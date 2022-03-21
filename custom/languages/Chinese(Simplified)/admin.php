@@ -46,7 +46,7 @@ $language = [
     'upgrade_php_version' => '请将 PHP 更新到 7.4 或以上版本 - NamelessMC 的下一个版本将不再支持您使用的 PHP 版本。',
 
     // Core
-    'mode_toggle' => '深色 / 浅色模式',
+    'mode_toggle' => '深色模式',
     'settings' => '设置',
     'general_settings' => '通用设置',
     'sitename' => '网站名称',
