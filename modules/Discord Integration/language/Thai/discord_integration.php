@@ -6,10 +6,10 @@ $language = [
 
     // Misc
     'discord' => 'Discord',
-    'enable_discord_integration' => 'Enable Discord integration?',
+    'enable_discord_integration' => 'เปิดใช้งานการรวม Discord หรือไม่',
     'discord_role_id' => 'Discord Role ID',
-    'discord_role_id_numeric' => 'Discord Role ID must be numeric.',
-    'discord_role_id_length' => 'Discord Role ID must be 18 digits long.',
+    'discord_role_id_numeric' => 'Discord Role ID ต้องเป็นตัวเลข',
+    'discord_role_id_length' => 'Discord Role ID ต้องมีความยาว 18 หลัก',
     'discord_guild_id' => 'ID เซิฟเวอร์ Discord',
     'discord_widget_theme' => 'ธีมวิดเจ็ต Discord',
     'discord_widget_disabled' => 'วิดเจ็ตถูกปิดใช้งานสำหรับเซิร์ฟเวอร์ Discord ที่ระบุ โปรดไปที่แท็บ  ในการตั้งค่าเซิร์ฟเวอร์ Discord ของคุณ และตรวจสอบให้แน่ใจว่าวิดเจ็ต Discord เปิดใช้งานอยู่และ ID นั้นถูกต้อง',
@@ -22,13 +22,13 @@ $language = [
     'discord_username' => 'ชื่อผู้ใช้ Discord',
 
     // Discord bot Errors
-    'discord_bot_error_badparameter' => 'Invalid request body.',
-    'discord_bot_error_error' => 'An internal bot error occured.',
-    'discord_bot_error_invguild' => 'Provided Guild ID is invalid, or the bot is not in it.',
-    'discord_bot_error_invuser' => 'Provided User ID is invalid, or is not in specified Guild.',
-    'discord_bot_error_notlinked' => 'The bot is not linked to this website for provided Guild ID.',
-    'discord_bot_error_unauthorized' => 'Website API key is invalid',
-    'discord_bot_error_invrole' => 'Provided Role ID is invalid.',
+    'discord_bot_error_badparameter' => 'เนื้อหาคำขอไม่ถูกต้อง',
+    'discord_bot_error_error' => 'เกิดข้อผิดพลาดของบอทภายใน',
+    'discord_bot_error_invguild' => 'Guild ID ที่ระบุไม่ถูกต้อง หรือไม่มีบอทอยู่ในนั้น',
+    'discord_bot_error_invuser' => 'ID ผู้ใช้ที่ระบุไม่ถูกต้อง หรือไม่ได้อยู่ในกิลด์ที่ระบุ',
+    'discord_bot_error_notlinked' => 'บอทไม่ได้เชื่อมโยงกับเว็บไซต์นี้สำหรับ ID กิลด์ที่ให้ไว้',
+    'discord_bot_error_unauthorized' => 'คีย์ API ของเว็บไซต์ไม่ถูกต้อง',
+    'discord_bot_error_invrole' => 'รหัสบทบาทที่ระบุไม่ถูกต้อง',
     'discord_bot_check_logs' => 'You should check for a more specific error (if one exists) in StaffCP -> Security -> All Logs.',
     'discord_bot_error_partsuccess' => 'The bot could not edit one or more of the roles due to a Discord hierarchy misconfiguration.',
 
