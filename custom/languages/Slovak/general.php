@@ -153,4 +153,9 @@ $language = [
      *  Custom page redirect
      */
     'redirecting_message' => 'Presmerovanie... <br />Ak sa nepresmerujete automaticky, kliknite <a href="{x}" rel="nofollow noopener">tu</a>.' // Don't replace {x} which is the redirect URL
+
+    /*
+     * OAuth
+     */
+    'oauth_message_continue' => 'Continue registering with {x}', // Don't replace {x}
 ];

@@ -160,4 +160,9 @@ $language = [
      *  Custom page redirect
      */
     'redirecting_message' => 'リダイレクト...<br />自動的にリダイレクトされない場合は、<a href="{x}" rel="nofollow noopener">こちら</a>をクリックしてください。' // Don't replace {x} which is the redirect URL
+
+    /*
+     * OAuth
+     */
+    'oauth_message_continue' => 'Continue registering with {x}', // Don't replace {x}
 ];

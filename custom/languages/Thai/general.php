@@ -155,4 +155,9 @@ $language = [
      *  Custom page redirect
      */
     'redirecting_message' => 'กำลังเปลี่ยนเส้นทาง...<br />หากคุณไม่ถูกเปลี่ยนเส้นทางโดยอัตโนมัติ โปรดคลิก <a href="{x}" rel="nofollow noopener">ที่นี่/a>.' // Don't replace {x} which is the redirect URL
+
+    /*
+     * OAuth
+     */
+    'oauth_message_continue' => 'Continue registering with {x}', // Don't replace {x}
 ];
