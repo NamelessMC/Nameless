@@ -156,7 +156,7 @@ $language = [
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'Doorsturen...<br />Als u niet automatisch wordt doorgestuurd, klik dan <a href="{x}" rel="nofollow noopener">hier</a>.' // Don't replace {x} which is the redirect URL
+    'redirecting_message' => 'Doorsturen...<br />Als u niet automatisch wordt doorgestuurd, klik dan <a href="{x}" rel="nofollow noopener">hier</a>.', // Don't replace {x} which is the redirect URL
 
     /*
      * OAuth

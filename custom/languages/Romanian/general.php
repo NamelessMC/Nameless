@@ -156,7 +156,7 @@ $language = [
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'În curs de redirecționare...<br />Dacă nu ești redirecționat automat, te rog <a href="{x}" rel="nofollow noopener">apasă aici</a>.' // Don't replace {x} which is the redirect URL
+    'redirecting_message' => 'În curs de redirecționare...<br />Dacă nu ești redirecționat automat, te rog <a href="{x}" rel="nofollow noopener">apasă aici</a>.', // Don't replace {x} which is the redirect URL
 
     /*
      * OAuth

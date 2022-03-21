@@ -154,7 +154,7 @@ $language = [
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'Redireccionando...<br />Si la redireccion tarda mucho, puede hacer <a href="{x}" rel="nofollow noopener">Click aqui</a> para continuar.' // Don't replace {x} which is the redirect URL
+    'redirecting_message' => 'Redireccionando...<br />Si la redireccion tarda mucho, puede hacer <a href="{x}" rel="nofollow noopener">Click aqui</a> para continuar.', // Don't replace {x} which is the redirect URL
 
     /*
      * OAuth

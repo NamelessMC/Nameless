@@ -154,7 +154,7 @@ $language = [
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'Omdirigerer...<br />Hvis du ikke blir omdirigert automatisk, vennligst trykk <a href="{x}" rel="nofollow noopener">her</a>.' // Don't replace {x} which is the redirect URL
+    'redirecting_message' => 'Omdirigerer...<br />Hvis du ikke blir omdirigert automatisk, vennligst trykk <a href="{x}" rel="nofollow noopener">her</a>.', // Don't replace {x} which is the redirect URL
 
     /*
      * OAuth

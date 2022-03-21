@@ -153,7 +153,7 @@ $language = [
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'Redirigiendo...<br />Si no es redirigido automáticamente, por favor haga clic <a href="{x}" rel="nofollow noopener">aquí</a>.' // Don't replace {x} which is the redirect URL
+    'redirecting_message' => 'Redirigiendo...<br />Si no es redirigido automáticamente, por favor haga clic <a href="{x}" rel="nofollow noopener">aquí</a>.', // Don't replace {x} which is the redirect URL
 
     /*
      * OAuth
