@@ -238,22 +238,6 @@ $language = [
     'user_x_has_registered' => '{x} dołączył do ' . SITE_NAME . '!',
     'user_x_has_validated' => '{x} zweryfikował swoje konto!',
 
-    // Discord
-    'discord_link' => 'Synchronizacja Discord',
-    'linked' => 'Podłączono',
-    'not_linked' => 'Nie Podłączono',
-    'discord_id' => 'ID użytkownika Discord',
-    'discord_id_unlinked' => 'Pomyślnie odłączono twoje konto.',
-    'discord_id_confirm' => 'Napisz komendę "/verify token:{token}" na discordzie aby dokończyć synchronizację.',
-    'pending_link' => 'W trakcie',
-    'discord_id_taken' => 'To ID jest już zajęte.',
-    'discord_invalid_id' => 'To ID jest niepoprawne.',
-    'discord_already_pending' => 'Już masz weryfikację w trakcie.',
-    'discord_database_error' => 'Baza danych namelessmc ma problem. Spróbuj ponownie później.',
-    'discord_communication_error' => 'Wystąpił bląd poczas łączenia z botem. Upewnij się, że bot jest online i adres jest poprawny.',
-    'discord_unknown_error' => 'Podczas synchronizacji ról wystąpił błąd, skontaktuj się z administratorem.',
-    'discord_id_help' => 'Po informacje jak zdobyć ID Discord, przeczytaj <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">to.</a>'
-
     // OAuth
     'oauth_unlinked' => 'Successfully unlinked your account from that provider.',
     'oauth_already_linked' => 'Another NamelessMC user is already linked to that {x} account.', // Don't replace {x}
