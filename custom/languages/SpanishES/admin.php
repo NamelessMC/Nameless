@@ -630,6 +630,8 @@ $language = [
     'api_endpoints' => 'API Endpoints',
     'api_endpoints_info' => 'API Endpoints permiten que los módulos creen formas para que las aplicaciones externas (como Minecraft y Discord) interactúen con su sitio web NamelessMC.',
     'route' => 'Ruta',
+    'method' => 'Method',
+    'transformers' => 'Transformers',
 
     // File uploads
     'drag_files_here' => 'Arrastre los archivos aquí para cargarlos.',

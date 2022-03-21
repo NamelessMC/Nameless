@@ -652,6 +652,8 @@ $language = [
     'api_endpoints' => 'Puntos finales de la API',
     'api_endpoints_info' => 'Los puntos finales de la API permiten a los módulos crear formas para que las aplicaciones externas (como Minecraft y Discord) interactúen con su sitio web NamelessMC. <a href="https://docs.namelessmc.com/en/api-documentation" target="_blank">Check out the API documentation here</a>',
     'route' => 'Ruta',
+    'method' => 'Method',
+    'transformers' => 'Transformers',
 
     // File uploads
     'drag_files_here' => 'Arrastre los archivos aquí para cargarlos.',

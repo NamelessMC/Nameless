@@ -646,6 +646,8 @@ $language = [
     'api_endpoints' => 'API Eindpunten',
     'api_endpoints_info' => 'API Eindpunten staan Modules toe om manieren te creëren voor externe applicaties (zoals Minecraft en Discord) om te communiceren met uw NamelessMC website. <a href="https://docs.namelessmc.com/en/api-documentation" target="_blank">Check out the API documentation here</a>',
     'route' => 'Route',
+    'method' => 'Method',
+    'transformers' => 'Transformers',
 
     // Bestand uploads
     'drag_files_here' => 'Sleep bestand(en) hier naartoe om te uploaden.',

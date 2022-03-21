@@ -649,6 +649,8 @@ $language = [
     'api_endpoints' => 'ปลายทาง API',
     'api_endpoints_info' => 'ตำแหน่งข้อมูล API อนุญาตให้โมดูลสร้างวิธีการสำหรับแอปพลิเคชันภายนอก (เช่น Minecraft และ Discord) เพื่อโต้ตอบกับเว็บไซต์ NamelessMC ของคุณ <a href="https://docs.namelessmc.com/en/api-documentation" target="_blank">Check out the API documentation here</a>',
     'route' => 'เส้นทาง',
+    'method' => 'Method',
+    'transformers' => 'Transformers',
 
     // File uploads
     'drag_files_here' => 'ลากไฟล์มาที่นี่เพื่ออัปโหลด',

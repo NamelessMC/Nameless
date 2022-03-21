@@ -645,6 +645,8 @@ $language = [
     'api_endpoints' => 'API-endepunkter',
     'api_endpoints_info' => 'API-endepunkter gir moduler muligheten til å la eksterne programmer (som Minecraft og Discord) kommunisere med NamelessMC-nettsiden din. <a href="https://docs.namelessmc.com/en/api-documentation" target="_blank">Check out the API documentation here</a>',
     'route' => 'Dirigering',
+    'method' => 'Method',
+    'transformers' => 'Transformers',
 
     // File uploads
     'drag_files_here' => 'Dra filene hit for å laste opp.',

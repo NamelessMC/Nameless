@@ -657,6 +657,8 @@ $language = [
     'api_endpoints' => 'API 结点',
     'api_endpoints_info' => 'API 结点允许模块添加第三方程序 (例如 Minecraft 和 Discord) 与您的 NamelessMC 网站互动的方法。<a href="https://docs.namelessmc.com/en/api-documentation" target="_blank">Check out the API documentation here</a>',
     'route' => '路径',
+    'method' => 'Method',
+    'transformers' => 'Transformers',
 
     // File uploads
     'drag_files_here' => '将文件扔到这以上传',

@@ -648,6 +648,8 @@ $language = [
     'api_endpoints' => 'API-slutpunkter',
     'api_endpoints_info' => 'API-slutpunkter tillåter moduler att skapa sätt för externa applikationer (som Minecraft och Discord) att interagera med din NamelessMC-webbplats. <a href="https://docs.namelessmc.com/en/api-documentation" target="_blank">Se API dokumentationen här.</a>',
     'route' => 'Rutt',
+    'method' => 'Method',
+    'transformers' => 'Transformers',
 
     // File uploads
     'drag_files_here' => 'Dra filer här för att ladda upp.',

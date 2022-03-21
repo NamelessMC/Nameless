@@ -652,6 +652,8 @@ $language = [
     'api_endpoints' => 'API エンドポイント',
     'api_endpoints_info' => 'APIエンドポイントは、モジュールが外部アプリケーション(MinecraftやDiscordなど)とNamelessMCのウェブサイトが対話するための方法を作成することを可能にします。 <a href="https://docs.namelessmc.com/en/api-documentation" target="_blank">APIドキュメントはこちらをご確認ください。</a>',
     'route' => 'ルート',
+    'method' => 'Method',
+    'transformers' => 'Transformers',
 
     // File uploads
     'drag_files_here' => 'アップロードするファイルをここにドラッグします。',
