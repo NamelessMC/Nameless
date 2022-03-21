@@ -104,5 +104,5 @@ $language = [
     'no_converters_available' => '没有可用的转换器',
     'config_not_writable' => '配置文件无法写入',
 
-    'session_doesnt_exist' => '无法检测会话。若想使用 Nameless，您必须启用会话。请您再试一次，若此问题始终存在，请咨询您的网页提供商。'
+    'session_doesnt_exist' => 'Unable to detect session. Sessions saving are a requirement to use Nameless. Please try again after clearing cookies in your web browser, and if the issue persists, please contact your web host for support.'
 ];

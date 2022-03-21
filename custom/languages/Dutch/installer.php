@@ -101,5 +101,5 @@ $language = [
     'no_converters_available' => 'Er zijn geen converters beschikbaar.',
     'config_not_writable' => 'Het configuratiebestand is niet beschrijfbaar.',
 
-    'session_doesnt_exist' => 'Niet in staat om de sessie te detecteren. Sessies opslaan is een vereiste om Nameless te gebruiken. Probeer het opnieuw, en als het probleem blijft bestaan, neem dan contact op met uw webhost voor ondersteuning.'
+    'session_doesnt_exist' => 'Unable to detect session. Sessions saving are a requirement to use Nameless. Please try again after clearing cookies in your web browser, and if the issue persists, please contact your web host for support.'
 ];

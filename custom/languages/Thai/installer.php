@@ -102,5 +102,5 @@ $language = [
     'no_converters_available' => 'ไม่มีตัวแปลงที่ใช้ได้',
     'config_not_writable' => 'ไฟล์กำหนดค่าไม่สามารถเขียนได้',
 
-    'session_doesnt_exist' => 'ตรวจไม่พบเซสชัน การบันทึกเซสชันเป็นข้อกำหนดในการใช้ Nameless โปรดลองอีกครั้ง และหากปัญหายังคงอยู่ โปรดติดต่อโฮสต์เว็บของคุณเพื่อขอรับการสนับสนุน'
+    'session_doesnt_exist' => 'Unable to detect session. Sessions saving are a requirement to use Nameless. Please try again after clearing cookies in your web browser, and if the issue persists, please contact your web host for support.'
 ];

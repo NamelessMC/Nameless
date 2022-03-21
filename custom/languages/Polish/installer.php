@@ -102,5 +102,5 @@ $language = [
     'no_converters_available' => 'Brak dostępnych konwersji.',
     'config_not_writable' => 'Plik konfiguracyjny jest zablokowany.',
 
-    'session_doesnt_exist' => 'Nie można zapisać sesji. Jest to wymagane to korzystania z NamelessMC. Spróbuj ponownie, jeśli problem się powtarza skontaktuj się ze swoim hostingiem.'
+    'session_doesnt_exist' => 'Unable to detect session. Sessions saving are a requirement to use Nameless. Please try again after clearing cookies in your web browser, and if the issue persists, please contact your web host for support.'
 ];
