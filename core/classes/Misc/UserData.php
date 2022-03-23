@@ -12,15 +12,15 @@ class UserData {
     public int $joined;
     public string $email;
 
-    /** @deprecated  */
+    /** @deprecated */
     public bool $isbanned;
     public bool $is_banned;
 
-    /** @deprecated  */
+    /** @deprecated */
     public string $lastip;
     public string $last_ip;
 
-    /** @deprecated  */
+    /** @deprecated */
     public bool $active;
     public bool $is_active;
 
@@ -35,7 +35,7 @@ class UserData {
     public int $last_online;
     public string $user_title;
 
-    /** @deprecated  */
+    /** @deprecated */
     public int $theme_id;
     public int $template_id;
 
@@ -53,7 +53,8 @@ class UserData {
     public ?int $discord_id;
     public ?string $discord_username;
 
-    public function __construct(User $user) {
+    public function __construct(User $user)
+    {
         $data = $user->_raw_data;
 
         $this->user = $user;
@@ -123,4 +124,27 @@ class UserData {
         $this->{$name} = $value;
     }
 
+    /**
+     * @param string $module
+     * @return object The module's data
+     */
+    public function module(string $module): object {
+        return new class($this->user, $module) {
+            private User $user;
+            private string $module;
+
+            public function __construct(User $user, string $module) {
+                $this->user = $user;
+                $this->module = $module;
+            }
+
+            public function __get(string $variable) {
+                return UserDataProvider::get($this->user, $this->module, $variable);
+            }
+
+            public function __set(string $variable, $value) {
+                UserDataProvider::set($this->user, $this->module, $variable, $value);
+            }
+        };
+    }
 }
