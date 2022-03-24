@@ -54,7 +54,7 @@ class ProfileUtils {
         // Verification
         if (!$result->hasError()) {
             $ress = json_decode($result->contents(), true);
-            if ($ress['name'] != null && $ress['uuid'] != null) {
+            if ($ress['name'] != null && $ress['id'] != null) {
                 return [
                     'username' => $ress['name'],
                     'uuid' => $ress['id']
