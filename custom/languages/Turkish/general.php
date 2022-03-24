@@ -89,11 +89,6 @@ $language = [
     'social' => 'Sosyal',
 
     /*
-     *  Help dialogues
-     */
-    'markdown_help' => 'Markdown\'u kullanarak yayınınızı biçimlendirebilirsiniz. Daha fazla bilgi için <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>buraya</a> bakın.',
-
-    /*
      *  Server query
      */
     'online' => 'Çevrimiçi',

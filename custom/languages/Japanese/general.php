@@ -95,12 +95,6 @@ $language = [
      */
     'social' => 'ソーシャル',
 
-
-    /*
-     *  Help dialogues
-     */
-    'markdown_help' => 'Markdownを使用して投稿できます。詳しくは<a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>ここ</a>を参照してください。',
-
     /*
      *  Server query
      */

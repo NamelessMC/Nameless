@@ -92,12 +92,6 @@ $language = [
      */
     'social' => 'Social',
 
-
-    /*
-     *  Help dialogues
-     */
-    'markdown_help' => 'Μπορείτε να διαμορφώσετε τα posts σας με τη χρήση Markdown. Για περισσότερες πληροφορίες, δές <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>εδώ</a>.',
-
     /*
      *  Server query
      */

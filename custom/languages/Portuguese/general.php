@@ -92,12 +92,6 @@ $language = [
      */
     'social' => 'Social',
 
-
-    /*
-     *  Help dialogues
-     */
-    'markdown_help' => 'Você pode formatar sua postagem usando o Markdown. Para mais informações, veja <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>aqui</a>.',
-
     /*
     *  Server query
     */

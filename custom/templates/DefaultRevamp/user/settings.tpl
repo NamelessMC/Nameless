@@ -110,11 +110,7 @@
             {if isset($SIGNATURE)}
               <div class="field">
                 <label for="inputSignature">{$SIGNATURE}</label>
-                {if !isset($MARKDOWN)}
-                  <textarea name="signature" id="inputSignature">{$SIGNATURE_VALUE}</textarea>
-                {else}
-                  <textarea name="signature" id="inputSignature">{$SIGNATURE_VALUE}</textarea>
-                {/if}
+                <textarea name="signature" id="inputSignature">{$SIGNATURE_VALUE}</textarea>
               </div>
             {/if}
           {/nocache}
@@ -176,7 +172,7 @@
           <form action="" method="post" class="ui form">
             <input type="hidden" name="action" value="discord">
             <input type="hidden" name="token" value="{$TOKEN}">
-            {if $DISCORD_LINKED} 
+            {if $DISCORD_LINKED}
               <input type="hidden" name="unlink" value="true">
               <input type="submit" value="{$UNLINK}" class="ui red button">
             {else}

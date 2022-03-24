@@ -95,11 +95,6 @@ $language = [
     'social' => '社交',
 
     /*
-     *  Help dialogues
-     */
-    'markdown_help' => '你可以使用Markdown模式編輯文章. 查看更多資訊請參考 <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>此處資料</a>.',
-
-    /*
      *  Server query
      */
     'online' => '線上',

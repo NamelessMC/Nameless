@@ -92,11 +92,6 @@ $language = [
     'social' => 'Socialt',
 
     /*
-     *  Help dialogues
-     */
-    'markdown_help' => 'Du kan formatera ditt inlägg med Markdown. För mer information, se <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>här</a>.',
-
-    /*
      *  Server query
      */
     'online' => 'Online',

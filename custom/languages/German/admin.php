@@ -64,7 +64,6 @@ $language = [
     'email_verification' => 'Email Verifikation aktivieren?',
     'registration_settings_updated' => 'Registration settings updated successfully.',
     'homepage_type' => 'Seiten Typ',
-    'post_formatting_type' => 'Post Format Typ',
     'portal' => 'Portal',
     'private_profiles' => 'Privates Profil',
     'missing_sitename' => 'Der Seiten-Name muss zwischen 2 und 64 Zeichen lang sein.',

@@ -91,12 +91,6 @@ $language = [
      */
     'social' => 'Soziale Medien',
 
-
-    /*
-     *  Help dialogues
-     */
-    'markdown_help' => 'Du kannst deine Beiträge formatieren. <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>Mehr Informationen</a>.',
-
     /*
      *  Server query
      */

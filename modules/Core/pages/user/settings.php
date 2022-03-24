@@ -236,15 +236,7 @@ if (isset($_GET['do'])) {
                             $timezone = Output::getClean(Input::get('timezone'));
 
                             if ($user->hasPermission('usercp.signature')) {
-                                $cache->setCache('post_formatting');
-                                $formatting = $cache->retrieve('formatting');
-
-                                if ($formatting == 'markdown') {
-                                    $signature = \Michelf\Markdown::defaultTransform(Input::get('signature'));
-                                    $signature = Output::getClean($signature);
-                                } else {
-                                    $signature = Output::getClean(Input::get('signature'));
-                                }
+                                $signature = Output::getClean(Input::get('signature'));
                             } else {
                                 $signature = '';
                             }
@@ -522,32 +514,13 @@ if (isset($_GET['do'])) {
     ]);
 
     $template->addJSScript('$(\'.datepicker\').datepicker();');
+    $template->addJSFiles([
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
+    ]);
 
-    $cache->setCache('post_formatting');
-    $formatting = $cache->retrieve('formatting');
-    if ($formatting == 'markdown') {
-        $template->addJSFiles([
-            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/js/emojione.min.js' => [],
-            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/js/emojionearea.min.js' => []
-        ]);
-
-        $template->addJSScript('
-            $(document).ready(function() {
-                var el = $("#inputSignature").emojioneArea({
-                    pickerPosition: "bottom"
-                });
-            });
-		');
-
-    } else {
-        $template->addJSFiles([
-            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
-            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
-            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
-        ]);
-
-        $template->addJSScript(Input::createTinyEditor($language, 'inputSignature'));
-    }
+    $template->addJSScript(Input::createTinyEditor($language, 'inputSignature'));
 
     // Error/success message?
     if (Session::exists('settings_error')) {
@@ -653,22 +626,7 @@ if (isset($_GET['do'])) {
     }
 
     if ($user->hasPermission('usercp.signature')) {
-        // Get post formatting type (HTML or Markdown)
-        $cache->setCache('post_formatting');
-        $formatting = $cache->retrieve('formatting');
-
-        if ($formatting == 'markdown') {
-            // Markdown
-            $converter = new League\HTMLToMarkdown\HtmlConverter(['strip_tags' => true]);
-
-            $signature = $converter->convert(htmlspecialchars_decode($user->data()->signature));
-            $signature = Output::getPurified($signature);
-
-            $smarty->assign('MARKDOWN', true);
-            $smarty->assign('MARKDOWN_HELP', $language->get('general', 'markdown_help'));
-        } else {
-            $signature = Output::getPurified(htmlspecialchars_decode($user->data()->signature));
-        }
+        $signature = Output::getPurified(htmlspecialchars_decode($user->data()->signature));
 
         $smarty->assign([
             'SIGNATURE' => $language->get('user', 'signature'),

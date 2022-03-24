@@ -90,12 +90,6 @@ $language = [
      */
     'social' => 'Social',
 
-
-    /*
-     *  Help dialogues
-     */
-    'markdown_help' => 'Puedes redactar tu publicación usando Markdown. Para más información, mira <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>aquí</a>.',
-
     /*
      *  Server query
      */

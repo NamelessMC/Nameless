@@ -123,17 +123,7 @@ if (Input::exists()) {
 
         if ($validation->passed()) {
             // Valid post content
-
-            // Parse markdown
-            $cache->setCache('post_formatting');
-            $formatting = $cache->retrieve('formatting');
-
-            if ($formatting == 'markdown') {
-                $content = \Michelf\Markdown::defaultTransform(Input::get('content'));
-                $content = Output::getClean($content);
-            } else {
-                $content = Output::getClean(Input::get('content'));
-            }
+            $content = Output::getClean(Input::get('content'));
 
             // Update post content
             $queries->update('posts', $post_id, [
@@ -256,46 +246,16 @@ $smarty->assign([
     'CONTENT' => Output::getPurified(Output::getDecoded($post_editing[0]->post_content))
 ]);
 
-// Get post formatting type (HTML or Markdown)
-$cache->setCache('post_formatting');
-$formatting = $cache->retrieve('formatting');
+$clean = Output::getDecoded($post_editing[0]->post_content);
+$clean = Output::getPurified($clean);
 
-if ($formatting == 'markdown') {
-    // Markdown
-    $smarty->assign('MARKDOWN', true);
-    $smarty->assign('MARKDOWN_HELP', $language->get('general', 'markdown_help'));
+$template->addJSFiles([
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
+]);
 
-    $converter = new League\HTMLToMarkdown\HtmlConverter(['strip_tags' => true]);
-
-    $clean = $converter->convert(Output::getDecoded($post_editing[0]->post_content));
-    $clean = Output::getPurified($clean);
-
-    $template->addJSFiles([
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/js/emojione.min.js' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/js/emojionearea.min.js' => []
-    ]);
-
-    $template->addJSScript('
-	  $(document).ready(function() {
-		var el = $("#markdown").emojioneArea({
-			pickerPosition: "bottom"
-		});
-
-		el[0].emojioneArea.setText(\'' . str_replace(["'", '&gt;', '&amp;'], ['&#39;', '>', '&'], str_replace(["\r", "\n"], ["\\r", "\\n"], $clean)) . '\');
- 	 });
-	');
-} else {
-    $clean = Output::getDecoded($post_editing[0]->post_content);
-    $clean = Output::getPurified($clean);
-
-    $template->addJSFiles([
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
-    ]);
-
-    $template->addJSScript(Input::createTinyEditor($language, 'editor'));
-}
+$template->addJSScript(Input::createTinyEditor($language, 'editor'));
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);

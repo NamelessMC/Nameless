@@ -92,12 +92,6 @@ $language = [
      */
     'social' => 'Sociaal',
 
-
-    /*
-     *  Hulp dialogen
-     */
-    'markdown_help' => 'Je kan gebruik maken van Markdown bij je berichten en forum. Voor meer informatie, klik <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>hier</a>.',
-
     /*
      *  Server query
      */

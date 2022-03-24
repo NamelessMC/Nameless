@@ -64,7 +64,6 @@ $language = [
     'email_verification' => 'Povoliť overovanie pomocou emailu?',
     'registration_settings_updated' => 'Nastavenia registrácie boli úspešne aktualizované.',
     'homepage_type' => 'Typ hlavnej stránky',
-    'post_formatting_type' => 'Typ formátovania',
     'portal' => 'Portál',
     'private_profiles' => 'Súkromné profily',
     'missing_sitename' => 'Vložte názov webu o dĺžke 2 až 64 znakov.',

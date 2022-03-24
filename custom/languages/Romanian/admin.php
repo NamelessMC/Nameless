@@ -67,7 +67,6 @@ $language = [
     'email_verification' => 'Activați verificarea prin e-mail?',
     'registration_settings_updated' => 'Setările de înregistrare au fost actualizate cu succes.',
     'homepage_type' => 'Tipul paginii principale',
-    'post_formatting_type' => 'Tip de formatare textarea',
     'portal' => 'Portal',
     'private_profiles' => 'Profiluri private',
     'missing_sitename' => 'Introduceți un nume de site între 2 și 64 de caractere.',

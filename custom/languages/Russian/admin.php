@@ -65,7 +65,6 @@ $language = [
     'email_verification' => 'Включить проверку по электронной почты?',
     'registration_settings_updated' => 'Настройки регистрации успешно обновлены.',
     'homepage_type' => 'Тип домашней Страницы',
-    'post_formatting_type' => 'Тип Формата Постов',
     'portal' => 'Портал',
     'private_profiles' => 'Приватные Профили',
     'missing_sitename' => 'Пожалуйста, введите имя сайта длинной от 2 до 64 символов.',

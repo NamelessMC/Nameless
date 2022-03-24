@@ -28,36 +28,13 @@ $template->addCSSFiles(
     ]
 );
 
-// Display either Markdown or HTML editor
-$cache->setCache('post_formatting');
-$formatting = $cache->retrieve('formatting');
+$template->addJSFiles([
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
+]);
 
-if ($formatting == 'markdown') {
-    $template->addJSFiles(
-        [
-            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/js/emojione.min.js' => [],
-            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/js/emojionearea.min.js' => [],
-        ]
-    );
-
-    $template->addJSScript(
-        '$(document).ready(function() {
-            var el = $("#markdown").emojioneArea({
-                pickerPosition: "bottom"
-            });
-        });'
-    );
-} else {
-    $template->addJSFiles(
-        [
-            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
-            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
-            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
-        ]
-    );
-
-    $template->addJSScript(Input::createTinyEditor($language, 'reply'));
-}
+$template->addJSScript(Input::createTinyEditor($language, 'reply'));
 
 $timeago = new TimeAgo(TIMEZONE);
 
@@ -269,16 +246,7 @@ if (!isset($_GET['action'])) {
                                 // Get the PM ID
                                 $last_id = $queries->getLastId();
 
-                                // Parse markdown
-                                $cache->setCache('post_formatting');
-                                $formatting = $cache->retrieve('formatting');
-
-                                if ($formatting == 'markdown') {
-                                    $content = \Michelf\Markdown::defaultTransform(Input::get('content'));
-                                    $content = Output::getClean($content);
-                                } else {
-                                    $content = Output::getClean(Input::get('content'));
-                                }
+                                $content = Output::getClean(Input::get('content'));
 
                                 // Insert post content into database
                                 $queries->create(
@@ -342,16 +310,6 @@ if (!isset($_GET['action'])) {
 
         if (isset($error)) {
             $smarty->assign('ERROR', $error);
-        }
-
-        // Markdown or HTML?
-        $cache->setCache('post_formatting');
-        $formatting = $cache->retrieve('formatting');
-
-        if ($formatting == 'markdown') {
-            // Markdown
-            $smarty->assign('MARKDOWN', true);
-            $smarty->assign('MARKDOWN_HELP', $language->get('general', 'markdown_help'));
         }
 
         if (isset($_GET['uid'])) {
@@ -431,16 +389,7 @@ if (!isset($_GET['action'])) {
                 ]);
 
                 if ($validation->passed()) {
-                    // Parse markdown
-                    $cache->setCache('post_formatting');
-                    $formatting = $cache->retrieve('formatting');
-
-                    if ($formatting == 'markdown') {
-                        $content = \Michelf\Markdown::defaultTransform(Input::get('content'));
-                        $content = Output::getClean($content);
-                    } else {
-                        $content = Output::getClean(Input::get('content'));
-                    }
+                    $content = Output::getClean(Input::get('content'));
 
                     // Insert post content into database
                     $queries->create(
@@ -591,16 +540,6 @@ if (!isset($_GET['action'])) {
             'YES' => $language->get('general', 'yes'),
             'NO' => $language->get('general', 'no'),
         ]);
-
-        // Markdown or HTML?
-        $cache->setCache('post_formatting');
-        $formatting = $cache->retrieve('formatting');
-
-        if ($formatting == 'markdown') {
-            // Markdown
-            $smarty->assign('MARKDOWN', true);
-            $smarty->assign('MARKDOWN_HELP', $language->get('general', 'markdown_help'));
-        }
 
         if (isset($_POST['content'])) {
             $smarty->assign('CONTENT', Output::getClean($_POST['content']));

@@ -62,7 +62,6 @@ $language = [
     'email_verification' => 'เปิดใช้งานการยืนยันอีเมลหรือไม่',
     'registration_settings_updated' => 'อัปเดตการตั้งค่าการลงทะเบียนเสร็จเรียบร้อยแล้ว',
     'homepage_type' => 'ประเภทหน้าแรก',
-    'post_formatting_type' => 'ชนิดการจัดรูปแบบโพสต์',
     'portal' => 'พอร์ทัล',
     'private_profiles' => 'โปรไฟล์ส่วนตัว',
     'missing_sitename' => 'โปรดใส่ชื่อไซต์ที่มีความยาวระหว่าง 2 ถึง 64 อักขระ',

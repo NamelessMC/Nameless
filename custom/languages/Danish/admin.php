@@ -60,7 +60,6 @@ $language = [
     'email_verification' => 'Aktiver e-mail bekræftelse?',
     'registration_settings_updated' => 'Registreringsindstillinger opdateret.',
     'homepage_type' => 'Startside Type',
-    'post_formatting_type' => 'Indlæg Formateringstype',
     'portal' => 'Portal',
     'private_profiles' => 'Private Profiler',
     'missing_sitename' => 'Please insert a site name between 2 and 64 characters long.',

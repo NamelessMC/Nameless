@@ -59,7 +59,6 @@ $language = [
     'email_verification' => 'Leisti el. pašto patvirtinimą?',
     'registration_settings_updated' => 'Registracijos nustatymai sėkmingai atnaujinti.',
     'homepage_type' => 'Pagrindinis Puslapio Tipas',
-    'post_formatting_type' => 'Pranešimų Formatavimo Tipas',
     'portal' => 'Portalas',
     'private_profiles' => 'Privatūs Profiliai',
     'missing_sitename' => 'Prašome įterpti svetainės pavadinimą nuo 2 iki 64 simbolių.',

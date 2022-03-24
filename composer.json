@@ -13,8 +13,6 @@
         "phpmailer/phpmailer": "^6.5",
         "evert/sitemap-php": "^1.2",
         "robthree/twofactorauth": "^1.8",
-        "michelf/php-markdown": "^1.9",
-        "league/html-to-markdown": "^5.0",
         "league/oauth2-client": "^2.0",
         "wohali/oauth2-discord-new": "^1.1",
         "league/oauth2-google": "^4.0",

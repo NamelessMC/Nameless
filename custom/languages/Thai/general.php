@@ -72,7 +72,7 @@ $language = [
     'link' => 'ลิงค์',
     'unlink' => 'ยกเลิกการลิงก์',
     'leaderboards' => 'กระดานผู้นำ',
-    
+
     /*
      *  Navbar
      */
@@ -89,12 +89,6 @@ $language = [
      *  Homepage
      */
     'social' => 'Social',
-
-
-    /*
-     *  Help dialogues
-     */
-    'markdown_help' => 'คุณสามารถจัดรูปแบบโพสต์ของคุณโดยใช้ Markdown ดูข้อมูลเพิ่มเติมได้ที่ <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>here</a>.',
 
     /*
      *  Server query

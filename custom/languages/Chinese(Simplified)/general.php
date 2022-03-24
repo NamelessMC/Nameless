@@ -93,12 +93,6 @@ $language = [
      */
     'social' => '社区',
 
-
-    /*
-     *  Help dialogues
-     */
-    'markdown_help' => '您可以使用 Markdown 设置帖子的格式。有关更多信息，请参见 <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>这里</a>.',
-
     /*
      *  Server query
      */

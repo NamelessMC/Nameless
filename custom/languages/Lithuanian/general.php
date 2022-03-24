@@ -85,9 +85,6 @@ $language = [
     // Homepage
     'social' => 'Socialiniai',
 
-    // Help dialogues
-    'markdown_help' => 'Jūs galite formatuoti savo įrašą naudodamiesi "Markdown". Del daugiau informacijos žiurėkite <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>čia</a>.',
-
     // Server query
     'online' => 'Prisijungęs',
     'offline' => 'Neprisijungęs',

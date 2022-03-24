@@ -67,7 +67,6 @@ $language = [
     'email_verification' => 'メール認証を有効にしますか？',
     'registration_settings_updated' => '登録設定が正常に変更されました。',
     'homepage_type' => 'ホームページタイプ',
-    'post_formatting_type' => 'ポストフォーマットタイプ',
     'portal' => 'ポータル',
     'private_profiles' => 'プライベートプロフィールをユーザーに許可しますか？',
     'missing_sitename' => '2~64 文字でサイト名を入力してください。',

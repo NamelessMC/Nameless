@@ -265,15 +265,7 @@ if (Input::exists()) {
 
         if ($validate->passed()) {
             try {
-                $cache->setCache('post_formatting');
-                $formatting = $cache->retrieve('formatting');
-
-                if ($formatting == 'markdown') {
-                    $content = \Michelf\Markdown::defaultTransform(Input::get('content'));
-                    $content = Output::getClean($content);
-                } else {
-                    $content = Output::getClean(Input::get('content'));
-                }
+                $content = Output::getClean(Input::get('content'));
 
                 $queries->create('posts', [
                     'forum_id' => $topic->forum_id,
@@ -802,49 +794,20 @@ $smarty->assign([
     'ERROR' => $language->get('general', 'error')
 ]);
 
-// Get post formatting type (HTML or Markdown)
-$cache->setCache('post_formatting');
-$formatting = $cache->retrieve('formatting');
+$template->addJSFiles([
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
+]);
 
-if ($formatting == 'markdown') {
-    // Markdown
-    $smarty->assign('MARKDOWN', true);
-    $smarty->assign('MARKDOWN_HELP', $language->get('general', 'markdown_help'));
-
-    $template->addJSFiles([
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/js/emojionearea.min.js' => []
-    ]);
-
-    $template->addJSScript('
-	  $(document).ready(function() {
-		var el = $("#markdown").emojioneArea({
-			pickerPosition: "bottom"
-		});
-	  });
-	');
-} else {
-    $template->addJSFiles([
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
-    ]);
-
-    if ($user->isLoggedIn()) {
-        $template->addJSScript(Input::createTinyEditor($language, 'quickreply'));
-    }
+if ($user->isLoggedIn()) {
+    $template->addJSScript(Input::createTinyEditor($language, 'quickreply'));
 }
 
 if ($user->isLoggedIn()) {
-    if ($formatting == 'markdown') {
-        $js = '
-		var el = $("#markdown").emojioneArea();
-		el[0].emojioneArea.setText($(\'#markdown\').val() + "\n> [" + resultData[item].author_nickname + "](" + resultData[item].link + ")\n");
-		';
-    } else {
-        $js = '
-		tinymce.editors[0].execCommand(\'mceInsertContent\', false, \'<blockquote class="blockquote"><a href="\' + resultData[item].link + \'">\' + resultData[item].author_nickname + \':</a><br />\' + resultData[item].content + \'</blockquote><br />\');
-		';
-    }
+    $js = '
+    tinymce.editors[0].execCommand(\'mceInsertContent\', false, \'<blockquote class="blockquote"><a href="\' + resultData[item].link + \'">\' + resultData[item].author_nickname + \':</a><br />\' + resultData[item].content + \'</blockquote><br />\');
+    ';
 
     $template->addJSScript('
 	$(document).ready(function() {

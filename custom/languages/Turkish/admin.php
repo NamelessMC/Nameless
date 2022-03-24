@@ -62,7 +62,6 @@ $language = [
     'email_verification' => 'E-posta doğrulaması etkinleştirilsin mi?',
     'registration_settings_updated' => 'Kayıt ayarları başarıyla güncellendi.',
     'homepage_type' => 'Ana Sayfa Türü',
-    'post_formatting_type' => 'Yazı Biçimlendirme Türü',
     'portal' => 'Portal',
     'private_profiles' => 'Özel Profil',
     'missing_sitename' => 'Lütfen 2 ila 64 karakter uzunluğunda bir site adı girin.',

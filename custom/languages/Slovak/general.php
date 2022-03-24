@@ -91,11 +91,6 @@ $language = [
     'social' => 'Sociálne',
 
     /*
-     *  Help dialogues
-     */
-    'markdown_help' => 'Svoj príspevok môžete naformátovať pomocou Markdown. Ďalšie informácie nájdete <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>tu</a>.',
-
-    /*
      *  Server query
      */
     'online' => 'Online',

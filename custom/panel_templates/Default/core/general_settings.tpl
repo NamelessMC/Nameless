@@ -101,17 +101,6 @@
                                             <option value="portal" {if $HOMEPAGE_VALUE eq 1} selected{/if}>{$HOMEPAGE_PORTAL}</option>
                                         </select>
                                     </div>
-                                    <div class="col-md-6">
-                                        <label for="inputFormatting">{$POST_FORMATTING}</label>
-                                        <select name="formatting" class="form-control" id="inputFormatting">
-                                            <option value="html" {if $POST_FORMATTING_VALUE eq "html" } selected{/if}>
-                                                HTML
-                                            </option>
-                                            <option value="markdown" {if $POST_FORMATTING_VALUE eq "markdown" } selected{/if}>
-                                                Markdown
-                                            </option>
-                                        </select>
-                                    </div>
                                 </div>
                             </div>
                             <div class="form-group">

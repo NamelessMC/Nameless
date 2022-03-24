@@ -173,13 +173,6 @@ if (Input::exists()) {
 
             if ($validation->passed() && $passed) {
                 try {
-                    // Signature from Markdown -> HTML if needed
-                    $cache->setCache('post_formatting');
-                    $formatting = $cache->retrieve('formatting');
-
-                    if ($formatting == 'markdown') {
-                        $signature = \Michelf\Markdown::defaultTransform($signature);
-                    }
                     $signature = Output::getClean($signature);
 
                     $private_profile_active = $queries->getWhere('settings', ['name', '=', 'private_profile']);
@@ -386,18 +379,7 @@ foreach ($groups as $group) {
     }
 }
 
-// HTML -> Markdown if necessary
-$cache->setCache('post_formatting');
-$formatting = $cache->retrieve('formatting');
-
-if ($formatting == 'markdown') {
-    $converter = new League\HTMLToMarkdown\HtmlConverter(['strip_tags' => true]);
-
-    $signature = $converter->convert(Output::getDecoded($user_query->signature));
-    $signature = Output::getPurified($signature);
-} else {
-    $signature = Output::getPurified(Output::getDecoded($user_query->signature));
-}
+$signature = Output::getPurified(Output::getDecoded($user_query->signature));
 
 $user_groups = [];
 foreach ($view_user->getGroups() as $group) {
@@ -457,31 +439,14 @@ if ($discord_id != null && $discord_id != 010) {
     ]);
 }
 
-$cache->setCache('post_formatting');
-$formatting = $cache->retrieve('formatting');
-if ($formatting == 'markdown') {
-    $template->addJSFiles([
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/js/emojione.min.js' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/js/emojionearea.min.js' => []
-    ]);
+$template->addJSFiles([
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/js/emojione.min.js' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/ckeditor.js' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/ckeditor.js' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/emojione/dialogs/emojione.json' => []
+]);
 
-    $template->addJSScript('
-            $(document).ready(function() {
-                var el = $("#InputSignature").emojioneArea({
-                    pickerPosition: "bottom"
-                });
-            });
-        ');
-} else {
-    $template->addJSFiles([
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/js/emojione.min.js' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/ckeditor.js' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/ckeditor.js' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/emojione/dialogs/emojione.json' => []
-    ]);
-
-    $template->addJSScript(Input::createEditor('InputSignature'));
-}
+$template->addJSScript(Input::createEditor('InputSignature'));
 
 $template->addCSSFiles([
     (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css' => [],

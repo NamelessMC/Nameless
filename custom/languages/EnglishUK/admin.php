@@ -64,7 +64,6 @@ $language = [
     'email_verification' => 'Enable email verification?',
     'registration_settings_updated' => 'Registration settings updated successfully.',
     'homepage_type' => 'Homepage Type',
-    'post_formatting_type' => 'Post Formatting Type',
     'portal' => 'Portal',
     'private_profiles' => 'Private Profiles',
     'missing_sitename' => 'Please insert a site name between 2 and 64 characters long.',

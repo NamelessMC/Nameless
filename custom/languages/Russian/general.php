@@ -95,11 +95,6 @@ $language = [
     'social' => 'Социальных сети',
 
     /*
-     *  Help dialogues
-     */
-    'markdown_help' => 'Вы можете отформатировать своё сообщение с помощью Markdown. Для получения дополнительной информации см. <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>здесь</a>.',
-
-    /*
      *  Server query
      */
     'online' => 'Онлайн',
