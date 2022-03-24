@@ -9,13 +9,13 @@ function getEnvVar(string $name, bool $required = false, string $fallback = '') 
     $value = getenv($name);
 
     if ($value === false && $required) {
-        print("⚠️  Required enviroment variable '$name' is not set!" . PHP_EOL);
+        print("⚠️  Required environment variable '$name' is not set!" . PHP_EOL);
         exit(1);
     }
 
     if (!$value && $fallback !== '') {
         $value = $fallback;
-        print("ℹ️  Enviroment variable '$name' is not set, using fallback '$fallback'" . PHP_EOL);
+        print("ℹ️  Environment variable '$name' is not set, using fallback '$fallback'" . PHP_EOL);
     }
 
     return $value;
@@ -51,7 +51,7 @@ if (!$reinstall && file_exists('./core/config.php')) {
 
 foreach (['NAMELESS_SITE_NAME', 'NAMELESS_SITE_CONTACT_EMAIL', 'NAMELESS_SITE_OUTGOING_EMAIL', 'NAMELESS_ADMIN_EMAIL'] as $var) {
     if (getEnvVar($var, true) === '') {
-        print("⚠️  Required enviroment variable '$var' is not set!" . PHP_EOL);
+        print("⚠️  Required environment variable '$var' is not set!" . PHP_EOL);
         exit(1);
     }
 }
