@@ -36,8 +36,6 @@ $login_method = $login_method[0]->value;
 if (Input::exists()) {
     if (Token::check()) {
         // Validate input
-        $validate = new Validate();
-
         if ($login_method == 'email') {
             $to_validate = [
                 'email' => [
@@ -62,7 +60,7 @@ if (Input::exists()) {
             ];
         }
 
-        $validation = $validate->check($_POST, $to_validate);
+        $validation = Validate::check($_POST, $to_validate);
 
         if ($validation->passed()) {
             if ($login_method == 'email') {

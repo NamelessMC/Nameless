@@ -27,8 +27,7 @@ if (Input::exists()) {
     if (Token::check()) {
         // Valid token
         // Validate message
-        $validate = new Validate();
-        $validation = $validate->check($_POST, [
+        $validation = Validate::check($_POST, [
             'message' => [
                 Validate::MAX => 1024
             ]

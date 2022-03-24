@@ -143,9 +143,6 @@ if (isset($_GET['do'])) {
     if (Input::exists()) {
         if (Token::check()) {
             if (Input::get('action') == 'settings') {
-                // Validation
-                $validate = new Validate();
-
                 $to_validate = [
                     'signature' => [
                         'max' => 900
@@ -186,7 +183,7 @@ if (isset($_GET['do'])) {
                     }
                 }
 
-                $validation = $validate->check($_POST, $to_validate);
+                $validation = Validate::check($_POST, $to_validate);
 
                 if ($validation->passed()) {
                     // Check nickname is unique
@@ -376,9 +373,7 @@ if (isset($_GET['do'])) {
             } else {
                 if (Input::get('action') == 'password') {
                     // Change password
-                    $validate = new Validate();
-
-                    $validation = $validate->check($_POST, [
+                    $validation = Validate::check($_POST, [
                         'old_password' => [
                             Validate::REQUIRED => true
                         ],
@@ -429,9 +424,7 @@ if (isset($_GET['do'])) {
                 } else {
                     if (Input::get('action') == 'email') {
                         // Change password
-                        $validate = new Validate();
-
-                        $validation = $validate->check($_POST, [
+                        $validation = Validate::check($_POST, [
                             'password' => [
                                 Validate::REQUIRED => true
                             ],

@@ -87,8 +87,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
 
                         if (Token::check()) {
                             // Validate input
-                            $validate = new Validate();
-                            $validation = $validate->check($_POST, [
+                            $validation = Validate::check($_POST, [
                                 'forumname' => [
                                     Validate::REQUIRED => true,
                                     Validate::MIN => 2,
@@ -486,8 +485,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
 
                 if (Token::check()) {
                     if (Input::get('action') == 'update') {
-                        $validate = new Validate();
-                        $validation = $validate->check($_POST, [
+                        $validation = Validate::check($_POST, [
                             'title' => [
                                 Validate::REQUIRED => true,
                                 Validate::MIN => 2,

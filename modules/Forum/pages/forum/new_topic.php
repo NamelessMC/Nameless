@@ -104,9 +104,7 @@ if (Input::exists()) {
 
         if (!isset($spam_check)) {
             // Spam check passed
-            $validate = new Validate();
-
-            $validate->check($_POST, [
+            $validate = Validate::check($_POST, [
                 'title' => [
                     Validate::REQUIRED => true,
                     Validate::MIN => 2,

@@ -92,8 +92,7 @@ if (Input::exists()) {
     // Check token
     if (Token::check()) {
         // Valid token, check input
-        $validate = new Validate();
-        $validation = [
+        $to_validate = [
             'content' => [
                 Validate::REQUIRED => true,
                 Validate::MIN => 2,
@@ -102,14 +101,14 @@ if (Input::exists()) {
         ];
         // Add title to validation if we need to
         if (isset($edit_title)) {
-            $validation['title'] = [
+            $to_validate['title'] = [
                 Validate::REQUIRED => true,
                 Validate::MIN => 2,
                 Validate::MAX => 64
             ];
         }
 
-        $validation = $validate->check($_POST, $validation)->messages([
+        $validation = Validate::check($_POST, $to_validate)->messages([
             'content' => [
                 Validate::REQUIRED => $forum_language->get('forum', 'content_required'),
                 Validate::MIN => $forum_language->get('forum', 'content_min_2'),

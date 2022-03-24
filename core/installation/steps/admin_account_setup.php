@@ -12,8 +12,7 @@ function display_error(string $message) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $validate = new Validate();
-    $validation = $validate->check($_POST, [
+    $validation = Validate::check($_POST, [
         'username' => [
             Validate::REQUIRED => true,
             Validate::MIN => 3,

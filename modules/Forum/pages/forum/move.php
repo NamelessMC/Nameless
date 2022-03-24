@@ -31,8 +31,7 @@ $topic = $topic[0];
 if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
     if (Input::exists()) {
         if (Token::check()) {
-            $validate = new Validate();
-            $validation = $validate->check($_POST, [
+            $validation = Validate::check($_POST, [
                 'forum' => [
                     Validate::REQUIRED => true
                 ]

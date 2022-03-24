@@ -177,8 +177,7 @@ if (!isset($_GET['action'])) {
         if (Input::exists()) {
             if (Token::check()) {
                 // Validate input
-                $validate = new Validate();
-                $validation = $validate->check($_POST, [
+                $validation = Validate::check($_POST, [
                     'title' => [
                         Validate::REQUIRED => true,
                         Validate::MIN => 2,
@@ -417,8 +416,7 @@ if (!isset($_GET['action'])) {
             if (Token::check()) {
                 // Valid token
                 // Validate input
-                $validate = new Validate();
-                $validation = $validate->check($_POST, [
+                $validation = Validate::check($_POST, [
                     'content' => [
                         Validate::REQUIRED => true,
                         Validate::MIN => 2,

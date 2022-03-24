@@ -99,10 +99,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
                 case 'new_post':
                     if (Token::check()) {
-                        // Valid token
-                        $validate = new Validate();
-
-                        $validation = $validate->check($_POST, [
+                        $validation = Validate::check($_POST, [
                             'post' => [
                                 Validate::REQUIRED => true,
                                 Validate::MIN => 1,
@@ -144,10 +141,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
                 case 'reply':
                     if (Token::check()) {
-                        // Valid token
-                        $validate = new Validate();
-
-                        $validation = $validate->check($_POST, [
+                        $validation = Validate::check($_POST, [
                             'reply' => [
                                 Validate::REQUIRED => true,
                                 Validate::MIN => 1,

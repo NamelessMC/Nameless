@@ -5,9 +5,7 @@ if (!isset($_SESSION['database_initialized']) || $_SESSION['database_initialized
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-    $validate = new Validate();
-    $validation = $validate->check($_POST, [
+    $validation = Validate::check($_POST, [
         'db_address' => [
             Validate::REQUIRED => true
         ],
