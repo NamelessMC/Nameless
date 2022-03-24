@@ -110,7 +110,7 @@ $conf = [
     'core' => [
         'hostname' => getEnvVar('NAMELESS_HOSTNAME', false, 'localhost'),
         'path' => getEnvVar('NAMELESS_PATH'),
-        'friendly' => (bool) getEnvVar('NAMELESS_FRIENDLY_URLS', false, 'false'),
+        'friendly' => getEnvVar('NAMELESS_FRIENDLY_URLS', false, 'false') === 'true' ? true : false,
         'force_https' => false,
         'force_www' => false,
         'captcha' => false,
