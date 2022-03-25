@@ -51,6 +51,7 @@ $language = [
     'configuration' => 'Konfigurering',
     'configuration_info' => 'Skriv inn informasjonen om nettsiden din. Denne informasjonen kan endres gjennom administrator-panelet senere.',
     'configuration_error' => 'Skriv inn et nettsidenavn mellom 1 til 32 tegn, og en gyldig e-postadresse mellom 4 til 64 tegn.',
+    'hostname_error' => 'Please enter a valid hostname without http:// or https://',
     'site_name' => 'Nettsidenavn',
     'contact_email' => 'Kontakt-e-post',
     'outgoing_email' => 'Utgående e-post',
@@ -102,5 +103,5 @@ $language = [
     'no_converters_available' => 'Ingen konverterere er tilgjengelige.',
     'config_not_writable' => 'Konfigurasjonsfilen er ikke skrivbar.',
 
-    'session_doesnt_exist' => 'Kunne ikke finne økt. Økt-lagring (Sessions Saving) er et krav for å kunne bruke Nameless. Vennligst prøv igjen, og hvis denne feilen fortsetter, ta kontakt med din webhost for hjelp.'
+    'session_doesnt_exist' => 'Unable to detect session. Sessions saving are a requirement to use Nameless. Please try again after clearing cookies in your web browser, and if the issue persists, please contact your web host for support.'
 ];

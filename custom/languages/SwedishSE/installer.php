@@ -52,6 +52,7 @@ $language = [
     'configuration' => 'Konfiguration',
     'configuration_info' => 'Vänligen ange grundläggande information om din webbplats. Dessa information kan ändras senare genom admin kontrolpanelen.',
     'configuration_error' => 'Ange ett giltigt webbplatsnamn mellan 1 och 32 tecken långt och giltiga e-postadresser mellan 4 och 64 tecken långa.',
+    'hostname_error' => 'Please enter a valid hostname without http:// or https://',
     'site_name' => 'Sido Namn',
     'contact_email' => 'Kontakt Email',
     'language' => 'Language',
@@ -103,5 +104,5 @@ $language = [
     'no_converters_available' => 'Det finns inga konverterare tillgängliga.',
     'config_not_writable' => 'Konfigurationsfilen är inte skrivbar.',
 
-    'session_doesnt_exist' => 'Det gick inte att upptäcka sessionen. Sessionsbesparingar är ett krav för att använda Nameless. Försök igen, och om problemet kvarstår, kontakta din webbhotell för support.'
+    'session_doesnt_exist' => 'Unable to detect session. Sessions saving are a requirement to use Nameless. Please try again after clearing cookies in your web browser, and if the issue persists, please contact your web host for support.'
 ];

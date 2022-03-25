@@ -104,5 +104,5 @@ $language = [
     'no_converters_available' => 'Ничего не найдено для переноса.',
     'config_not_writable' => 'Файл конфигурации недоступен для записи.',
 
-    'session_doesnt_exist' => 'Не определена сессия. Сессии используются при работе с NamelessMC. Свяжитесь с тех. поддержкой вашего провайдера.'
+    'session_doesnt_exist' => 'Unable to detect session. Sessions saving are a requirement to use Nameless. Please try again after clearing cookies in your web browser, and if the issue persists, please contact your web host for support.'
 ];

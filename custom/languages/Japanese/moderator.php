@@ -15,7 +15,6 @@
  */
 
 $language = [
-    'mod_cp' => 'ModCP',
     'staff_cp' => 'StaffCP',
     'overview' => '概要',
 
@@ -61,8 +60,8 @@ $language = [
     'reported_by' => '報告者：',
     'website' => 'ウェブサイト',
     'ingame' => 'ゲーム内',
-    'x_closed_report' => '{x}がレポートを閉鎖しました。',// {x}（username）
-    'x_reopened_report' => '{x}がレポートを再開しました。',// {x}（ユーザー名）
+    'x_closed_report' => '{x}がレポートを閉鎖しました。', // {x}（username）
+    'x_reopened_report' => '{x}がレポートを再開しました。', // Don't replace {x} (username)
     'report_reopened' => 'レポートが正常に再開されました。',
     'report_closed' => 'レポートが正常に閉鎖されました。',
     'comment_created' => 'コメントが正常に作成されました。',
@@ -79,7 +78,7 @@ $language = [
     'viewing_user_x' => 'ユーザー{x}を表示しています。', // Don't replace {x}
     'previous_punishments' => '処罰履歴',
     'no_previous_punishments' => '処罰履歴はありません。',
-    'reset_avatar' => 'Reset Avatar',
+    'reset_avatar' => 'アバターをリセット',
     'warning' => '警告',
     'ip_ban' => 'IP Ban',
     'reason' => '理由',
@@ -104,11 +103,10 @@ $language = [
     'type' => 'タイプ',
     'recent_punishments' => '最近の処罰',
     'created' => '作成者：',
-    'staff：' => 'スタッフ：',
-    'reason：' => '理由：',
+    'staff:' => 'スタッフ：',
+    'reason:' => '理由：',
 
-    //ユーザー
+    // Users
     'recent_registrations' => '最近の登録',
     'reset_profile_banner' => 'プロフィールバナーをリセット'
-
 ];

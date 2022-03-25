@@ -28,14 +28,13 @@ $language = [
 
     // UserCP
     'user_cp' => 'UserCP',
-    'user_cp_icon' => '<i class="fa fa-cogs" aria-hidden="true"></i>',
+    'user_cp_icon' => '<i class="fa fa-cogs" aria-hidden="true"></i> <span class="mobile_only">アカウント</span>',
     'overview' => '概要',
     'user_details' => 'ユーザー詳細',
     'profile_settings' => 'プロフィール設定',
     'successfully_logged_out' => '正常にログアウトされました。',
     'messaging' => 'メッセージ',
     'click_here_to_view' => 'クリックして表示',
-    'moderation' => 'モデレーション',
     'alerts' => '通知',
     'delete_all' => 'すべて削除',
     'private_profile' => 'プライベートプロフィール',
@@ -209,7 +208,7 @@ $language = [
     'new_message' => '新しいメッセージ',
     'message_title' => 'メッセージタイトル',
     'to' => 'To',
-    'separate_users_with_commas' => 'ユーザーをコンマで区切る',
+    'separate_users_with_commas' => 'ユーザーをカンマで区切る',
     'title_required' => 'タイトルを入力してください。',
     'content_required' => '内容を入力してください。',
     'users_to_required' => 'メッセージ受信者を入力してください。',
@@ -233,7 +232,7 @@ $language = [
     /*
      *  Infractions area
      */
-    'you_have_been_banned' => 'あなたはbanされています！',
+    'you_have_been_banned' => 'あなたはBANされています！',
     'you_have_received_a_warning' => 'あなたは警告を受けました！',
     'acknowledge' => '承認',
 
@@ -242,4 +241,13 @@ $language = [
      */
     'user_x_has_registered' => '{x}が' . SITE_NAME . 'に登録しました。',
     'user_x_has_validated' => '{x}がアカウントを認証しました！',
+
+    // OAuth
+    'oauth_unlinked' => 'プロバイダーからアカウントの連携解除に成功しました。',
+    'oauth_already_linked' => '{x}アカウントには、別のNamelessMCユーザーが既に連携されています。', // Don't replace {x}
+    'oauth_link_success' => 'あなたのアカウントと{x}の連携に成功しました。', // Don't replace {x}
+    'no_user_found_with_provider' => '{x}アカウントを持つユーザーは見つかりませんでした。', // Don't replace {x}
+    'oauth_login_success' => '{x}のアカウントでログインしています。', // Don't replace {x}
+    'oauth_link_confirm' => 'アカウント連携のため、{x}ウェブサイトに移動します。', // Don't replace {x}
+    'oauth_unlink_confirm' => '本当に{x}からアカウントの連携を解除しますか？<br>このアカウントでは今後ログインできなくなります。', // Don't replace {x}
 ];

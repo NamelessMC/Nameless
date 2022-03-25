@@ -29,7 +29,6 @@ $language = [
     'x_posts' => '帖子数 {x}', // Don't replace {x}
     'x_topics' => '话题数 {x} ', // Don't replace {x}
     'registered_x' => '注册于: {x}', // Don't replace {x}
-
     'by' => '发起者',
     'in' => '于',
     'last_reply' => '最后一次回复于',

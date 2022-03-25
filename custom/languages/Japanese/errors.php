@@ -18,22 +18,22 @@ $language = [
     /*
      *  Errors
      */
-    '404_title' => '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>',
-    '404_content' => '=指定したページは存在しません=',
+    '404_title' => '申し訳ありません！',
+    '404_content' => 'ページを発見できませんでした。',
     '404_back' => '戻る',
     '404_home' => 'ホーム',
-    '404_error' => 'URLを確認後再試行してみてください。<br>正常に指定されている場合、削除されている可能性があります。<br>詳しくは管理者に連絡してください', // Don't replace {x} or {y}
-    '403_title' => '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>',
-    '403_content' => 'このページの閲覧は許可されていません。',
-    '403_login' => '続けるにはログインしてください。',
+    '404_error' => 'エラーと思われる場合は、管理者までご連絡ください。',
+    '403_title' => '申し訳ありません！',
+    '403_content' => 'ページを表示する権限がありません。',
+    '403_login' => '続行するにはログインしてください。',
     '403_back' => '戻る',
     '403_home' => 'ホーム',
     'maintenance_title' => 'メンテナンスモード',
     'maintenance_retry' => '再試行',
-    'fatal_error' => '=内部エラーが発生しました=',
-    'fatal_error_title' => '致命的なエラー',
-    'fatal_error_message_user' => 'ページ読み込み中に内部エラーが発生しました。<br>詳しくは管理者{x}に連絡してください{y}',
-    'fatal_error_message_admin' => 'ページ読み込み中に内部エラーが発生しました。エラーの詳細:',
-    'in_file' => 'ファイル: <strong>{x}</strong>', // Don't replace {x}
-    'on_line' => 'ライン(行): <strong>{x}</strong>' // Don't replace {x}
+    'fatal_error' => 'Fatal Error',
+    'fatal_error_title' => '申し訳ありません！',
+    'fatal_error_message_user' => 'ページの読み込み中に何らかの問題が発生しました。管理者までご連絡ください。',
+    'fatal_error_message_admin' => 'ページの読み込み中に何らかの問題が発生しました。エラーの詳細:',
+    'in_file' => 'ファイル <strong>{x}</strong> 内', // Don't replace {x}
+    'on_line' => '<strong>{x}</strong> 行目' // Don't replace {x}
 ];

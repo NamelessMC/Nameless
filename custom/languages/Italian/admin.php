@@ -48,6 +48,10 @@ $language = [
     'settings' => 'Impostazioni',
     'general_settings' => 'Impostazioni Generali',
     'sitename' => 'Nome Sito',
+    'punished_id' => 'Punished User ID',
+    'punisher_id' => 'Punisher User ID',
+    'reason' => 'Ban Reason',
+    'ip_ban' => 'IP ban?',
     'default_language' => 'Lingua Predefinita',
     'default_language_help' => 'Gli utenti potranno scegliere da tutte le lingue installate.',
     'install_language' => 'Installa Lingua',
@@ -153,6 +157,7 @@ $language = [
     'captcha_type' => 'Tipo di captcha',
     'captcha_site_key' => 'Captcha Site Key',
     'captcha_secret_key' => 'Captcha Secret Key',
+    'invalid_recaptcha_settings' => 'Invalid {x} credentials. Ensure the site key and site secret are correct.', // Don't replace {x}
     'registration_disabled_message' => 'Messaggio registrazione disattivata',
     'enable_nicknames_on_registration' => 'Abilitare i nickname per la registrazione degli utenti?',
     'validation_promote_group' => 'Gruppo Post-validazione',
@@ -288,6 +293,8 @@ $language = [
     'no_parent_server' => 'Nessun server principale',
     'bungee_instance' => 'Istanza BungeeCord?',
     'bungee_instance_help' => "Seleziona questa opzione se il server è un'istanza BungeeCord.",
+    'bedrock' => 'Bedrock?',
+    'bedrock_help' => 'Select this option if the server is a Bedrock server.',
     'server_query_information' => "Per visualizzare l'elenco di giocatori online sul tuo sito web, il tuo server <strong>deve</strong> avere l'opzione 'enable-query' abilitata nel file <strong>server.properties</strong> del tuo server.",
     'enable_status_query' => 'Abilitare la query di stato?',
     'status_query_help' => 'Se abilitata, la pagina di stato mosterà se il server è online o offline.',
@@ -357,6 +364,7 @@ $language = [
     'module_disabled' => 'Modulo disabilitato.',
     'author' => 'Autore:',
     'author_x' => 'Autore: {x}', // Don't replace {x}
+    'updated_x' => 'Updated at: {x}', // Don't replace {x}
     'module_outdated' => 'Abbiamo rilevato che questo modulo è per la versione {x} di Nameless, ma tu stai usando la {y}', // Don't replace "{x}" or "{y}"
     'find_modules' => 'Trova moduli',
     'view_all_modules' => 'Visualizza tutti i moduli',
@@ -643,6 +651,8 @@ $language = [
     'api_endpoints' => 'API Endpoints',
     'api_endpoints_info' => 'API Endpoints consentono ai moduli di creare modi per applicazioni esterne (come Minecraft e Discord) per interagire con il tuo sito NamelessMC. <a href="https://docs.namelessmc.com/en/api-documentation" target="_blank">Check out the API documentation here</a>',
     'route' => 'Route',
+    'method' => 'Method',
+    'transformers' => 'Transformers',
 
     // File uploads
     'drag_files_here' => 'Trascina qui i file da caricare.',
@@ -684,6 +694,8 @@ $language = [
     'validate_hook_info' => 'Convalida utente',
     'delete_hook_info' => 'Eliminazione utente',
     'report_hook_info' => 'Report creation',
+    'ban_hook_info' => 'User banned',
+    'warning_hook_info' => 'User warned',
 
     // Sitemap
     'unable_to_load_sitemap_file_x' => 'Impossibile caricare il file sitemap {x}', // Don't replace {x}
@@ -746,4 +758,12 @@ $language = [
     'no_announcements' => 'No announcements have been made yet.',
     'announcement_order' => 'Order',
     'announcement_hook_info' => 'Announcement creation',
+
+    // OAuth
+    'oauth' => 'OAuth',
+    'oauth_info' => 'Configure OAuth providers to allow users to login with their social network accounts. <a href="https://docs.namelessmc.com/en/oauth" target="_blank">Check out our documentation for help.</a>',
+    'unlink' => 'Unlink',
+    'identifier' => 'Identifier',
+    'unlink_account_confirm' => 'Are you sure you want to forcibly unlink this provider from this user?',
+    'unlink_account_success' => 'Successfully unlinked their account from {x}.', // Don't replace {x}
 ];

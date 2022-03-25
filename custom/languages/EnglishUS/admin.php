@@ -46,6 +46,10 @@ $language = [
     'settings' => 'Settings',
     'general_settings' => 'General Settings',
     'sitename' => 'Site Name',
+    'punished_id' => 'Punished User ID',
+    'punisher_id' => 'Punisher User ID',
+    'reason' => 'Ban Reason',
+    'ip_ban' => 'IP ban?',
     'default_language' => 'Default Language',
     'default_language_help' => 'Users will be able to choose from any installed languages.',
     'install_language' => 'Install Language',
@@ -75,12 +79,13 @@ $language = [
     'twitter_dark_theme' => 'Use Twitter dark theme?',
     'dark' => 'Dark',
     'light' => 'Light',
-    'google_plus_url' => 'Google Plus URL',
     'facebook_url' => 'Facebook URL',
     'social_media_settings_updated' => 'Social media settings updated successfully.',
     'successfully_updated' => 'Successfully updated',
     'debugging_and_maintenance' => 'Debugging & Maintenance',
     'maintenance' => 'Maintenance',
+    'debug_link' => 'Debug Link',
+    'debug_link_toastr' => 'Copied debug link to your clipboard!<br>View the debug log <u><a href="{x}" target="_blank">here</a></u>', // Don't replace "{x}"
     'debugging_settings_updated_successfully' => 'Debugging settings updated successfully.',
     'enable_debug_mode' => 'Enable debug mode?',
     'force_https' => 'Force https?',
@@ -106,11 +111,6 @@ $language = [
     'email_port' => 'Port',
     'email_port_invalid' => 'Please insert a valid email port.',
     'email_password_hidden' => 'The password is not shown for security reasons.',
-    'send_test_email' => 'Send Test Email',
-    'send_test_email_info' => 'The following button will attempt to send an email to your email address, <strong>{x}</strong>. Any errors thrown whilst sending the email will be displayed.', // Don't replace {x}
-    'send' => 'Send',
-    'test_email_error' => 'Test email error:',
-    'test_email_success' => 'Test email sent successfully!',
     'edit_email_messages' => 'Email Messages',
     'email_language_info' => 'Not seeing your language? Make sure \'emails.php\' is in your language directory and it is writable by your webserver.',
     'editing_language' => 'Editing Language',
@@ -121,6 +121,11 @@ $language = [
     'email_message_options' => 'Options',
     'email_message_subject' => 'Subject',
     'email_message_message' => 'Message',
+    'send_test_email' => 'Send Test Email',
+    'send_test_email_info' => 'The following button will attempt to send an email to your email address, <strong>{x}</strong>. Any errors thrown whilst sending the email will be displayed.', // Don't replace {x}
+    'send' => 'Send',
+    'test_email_error' => 'Test email error:',
+    'test_email_success' => 'Test email sent successfully!',
     'terms_error' => 'Please enter terms and conditions no longer than 100,000 characters.',
     'privacy_policy_error' => 'Please enter a privacy policy no longer than 100,000 characters.',
     'terms_updated' => 'Privacy policy and terms & conditions updated successfully.',
@@ -151,6 +156,7 @@ $language = [
     'captcha_type' => 'Captcha Type',
     'captcha_site_key' => 'Captcha Site Key',
     'captcha_secret_key' => 'Captcha Secret Key',
+    'invalid_recaptcha_settings' => 'Invalid {x} credentials. Ensure the site key and site secret are correct.', // Don't replace {x}
     'registration_disabled_message' => 'Registration disabled message',
     'enable_nicknames_on_registration' => 'Enable nicknames for registering users?',
     'validation_promote_group' => 'Post-validation group',
@@ -251,8 +257,6 @@ $language = [
 
     // Minecraft
     'enable_minecraft_integration' => 'Enable Minecraft integration?',
-    'mc_service_status' => 'Minecraft Service Status',
-    'service_query_error' => 'Unable to retrieve service status.',
     'authme_integration' => 'AuthMe Integration',
     'authme_integration_info' => 'When AuthMe integration is enabled, users can only register ingame.',
     'enable_authme' => 'Enable AuthMe integration?',
@@ -275,6 +279,7 @@ $language = [
     'no_servers_defined' => 'No servers have been defined yet',
     'query_settings' => 'Query Settings',
     'default_server' => 'Default Server',
+    'average_players' => 'Average Players',
     'no_default_server' => 'No default server',
     'external_query' => 'Use external query?',
     'external_query_help' => 'If the default server query does not work, enable this option.',
@@ -288,6 +293,8 @@ $language = [
     'no_parent_server' => 'No parent server',
     'bungee_instance' => 'BungeeCord Instance?',
     'bungee_instance_help' => 'Select this option if the server is a BungeeCord instance.',
+    'bedrock' => 'Bedrock?',
+    'bedrock_help' => 'Select this option if the server is a Bedrock server.',
     'server_query_information' => 'In order to display a list of online players on your website, your server <strong>must</strong> have the \'enable-query\' option enabled in your server\'s <strong>server.properties</strong> file',
     'enable_status_query' => 'Enable status query?',
     'status_query_help' => 'If this is enabled, the status page will show this server as being online or offline.',
@@ -297,7 +304,7 @@ $language = [
     'pre_1.7' => 'Minecraft version older than 1.7?',
     'player_list_help' => 'If this is enabled, the status page will display a list of online players.',
     'server_query_port' => 'Server Query Port',
-    'server_query_port_help' => 'This is the query.port option in your server\'s server.properties file, provided the enable-query option in the same file is set to true.',
+    'server_query_port_help' => 'This is the query.port option in your server\'s <strong>server.properties</strong>, provided the enable-query option in the same file is set to true.',
     'server_name_required' => 'Please enter the server name',
     'server_name_minimum' => 'Please ensure your server name is a minimum of 1 character',
     'server_name_maximum' => 'Please ensure your server name is a maximum of 20 characters',
@@ -336,8 +343,6 @@ $language = [
     'force_premium_accounts' => 'Force premium Minecraft accounts?',
     'banner_background' => 'Banner background',
     'query_interval' => 'Query interval (in minutes, must be between 5 and 60)',
-    'player_graphs' => 'Player Graphs',
-    'player_count_cronjob_info' => 'You can set up a cron job to query your servers every {x} minutes with the following command:',
     'status_page' => 'Enable status page?',
     'minecraft_settings_updated_successfully' => 'Settings updated successfully.',
     'server_id_x' => 'Server ID: {x}', // Don't replace {x}
@@ -357,6 +362,7 @@ $language = [
     'module_disabled' => 'Module disabled.',
     'author' => 'Author:',
     'author_x' => 'Author: {x}', // Don't replace {x}
+    'updated_x' => 'Updated at: {x}', // Don't replace {x}
     'module_outdated' => 'We have detected that this module is intended for Nameless version {x}, but you are running Nameless version {y}', // Don't replace "{x}" or "{y}"
     'find_modules' => 'Find Modules',
     'view_all_modules' => 'View all modules',
@@ -431,11 +437,7 @@ $language = [
     'users' => 'Users',
     'groups' => 'Groups',
     'group' => 'Group',
-    'new_user' => '<i class="fa fa-plus-circle"></i> New User',
-    'creating_new_user' => 'Creating new user',
     'registered' => 'Registered',
-    'user_created' => 'User created successfully.',
-    'cant_delete_root_user' => 'Can\'t delete the root user!',
     'cant_modify_root_user' => 'Can\'t modify this user\'s main group!',
     'main_group' => 'Main Group',
     'user_deleted' => 'User deleted successfully.',
@@ -447,8 +449,6 @@ $language = [
     'punish_user' => 'Punish User',
     'delete_user' => 'Delete User',
     'minecraft_uuid' => 'Minecraft UUID',
-    'other_actions' => 'Other Actions',
-    'disable_avatar' => 'Disable Avatar',
     'select_user_group' => 'You must select a user\'s group.',
     'uuid_max_32' => 'The UUID must be a maximum of 32 characters.',
     'title_max_64' => 'The user title must be a maximum of 64 characters.',
@@ -460,7 +460,6 @@ $language = [
     'group_name_minimum' => 'Please ensure your group name is a minimum of 2 characters long.',
     'group_name_maximum' => 'Please ensure your group name is a maximum of 20 characters long.',
     'creating_group' => 'Creating new group',
-    'group_html_maximum' => 'Please ensure your group HTML is no longer than 1024 characters long.',
     'group_html' => 'Group HTML',
     'group_html_lg' => 'Group HTML Large',
     'group_username_colour' => 'Group Username Color',
@@ -468,7 +467,6 @@ $language = [
     'group_staff' => 'Is the group a staff group?',
     'delete_group' => 'Delete Group',
     'confirm_group_deletion' => 'Are you sure you want to delete the group {x}?', // Don't replace {x}
-    'group_not_exist' => 'That group doesn\'t exist.',
     'secondary_groups' => 'Secondary Groups',
     'secondary_groups_info' => 'The user will gain any additional permissions from these groups. Ctrl+click to select/deselect multiple groups.',
     'unable_to_update_uuid' => 'Unable to update UUID.',
@@ -497,18 +495,12 @@ $language = [
     // Permissions
     'select_all' => 'Select All',
     'deselect_all' => 'Deselect All',
-    'background_image' => 'Background image',
     'can_edit_own_group' => 'Can edit own group\'s permissions',
     'permissions_updated_successfully' => 'Permissions updated successfully.',
     'cant_edit_this_group' => 'You can\'t edit this group\'s permissions!',
 
     // General Admin language
-    'task_successful' => 'Task successful.',
-    'invalid_action' => 'Invalid action.',
-    'enable_night_mode' => 'Enable Night Mode',
-    'disable_night_mode' => 'Disable Night Mode',
     'view_site' => 'View Site',
-    'signed_in_as_x' => 'Signed in as {x}', // Don't replace {x}
     'warning' => 'Warning',
 
     // Maintenance
@@ -536,7 +528,7 @@ $language = [
     'update' => 'Update',
     'current_version_x' => 'Current version: <strong>{x}</strong>', // Don't replace {x}
     'new_version_x' => 'New version: <strong>{x}</strong>', // Don't replace {x}
-    'new_update_available' => 'There is a new update available',
+    'new_update_available' => 'There is a new update available.',
     'new_urgent_update_available' => 'There is a new urgent update available. Please update as soon as possible!',
     'up_to_date' => 'Your NamelessMC installation is up to date!',
     'urgent' => 'This update is an urgent update',
@@ -633,6 +625,7 @@ $language = [
     'set_as_primary_group_info' => 'If enabled, the user\'s primary website group will be updated. If disabled, the ingame group will be added to the user\'s website secondary groups.',
     'ingame_group_maximum' => 'Please ensure your group name is a maximum of 64 characters long.',
     'select_website_group' => 'Please select a website group.',
+    'at_least_one_external' => 'Please enter at least 1 external group (Minecraft or Discord)',
     'ingame_group_already_exists' => 'A rank sync rule has already been created for that ingame group.',
     'group_sync_rule_created_successfully' => 'The group sync rule has been created successfully.',
     'group_sync_rules_updated_successfully' => 'Group sync rules have been updated successfully.',
@@ -643,6 +636,8 @@ $language = [
     'api_endpoints' => 'API Endpoints',
     'api_endpoints_info' => 'API Endpoints allow Modules to create ways for external applications (such as Minecraft and Discord) to interact with your NamelessMC website. <a href="https://docs.namelessmc.com/en/api-documentation" target="_blank">Check out the API documentation here</a>',
     'route' => 'Route',
+    'method' => 'Method',
+    'transformers' => 'Transformers',
 
     // File uploads
     'drag_files_here' => 'Drag files here to upload.',
@@ -684,6 +679,8 @@ $language = [
     'validate_hook_info' => 'User validation',
     'delete_hook_info' => 'User deletion',
     'report_hook_info' => 'Report creation',
+    'ban_hook_info' => 'User banned',
+    'warning_hook_info' => 'User warned',
 
     // Sitemap
     'unable_to_load_sitemap_file_x' => 'Unable to load sitemap file {x}', // Don't replace {x}
@@ -706,12 +703,10 @@ $language = [
     // Dashboard
     'total_users' => 'Total Users',
     'recent_users' => 'New Users',
-    'average_players' => 'Average Players',
     'nameless_news' => 'NamelessMC News',
     'unable_to_retrieve_nameless_news' => 'Unable to retrieve the latest news',
     'confirm_leave_site' => 'You are about to leave this site! Are you sure you want to visit <strong id="leaveSiteURL">{x}</strong>?', // don't replace {x} and make sure it has the id leaveSiteURL
     'server_compatibility' => 'Server Compatibility',
-    'issues' => 'Issues',
 
     // Other
     'source' => 'Source',
@@ -746,4 +741,12 @@ $language = [
     'no_announcements' => 'No announcements have been made yet.',
     'announcement_order' => 'Order',
     'announcement_hook_info' => 'Announcement creation',
+
+    // OAuth
+    'oauth' => 'OAuth',
+    'oauth_info' => 'Configure OAuth providers to allow users to login with their social network accounts. <a href="https://docs.namelessmc.com/en/oauth" target="_blank">Check out our documentation for help.</a>',
+    'unlink' => 'Unlink',
+    'identifier' => 'Identifier',
+    'unlink_account_confirm' => 'Are you sure you want to forcibly unlink this provider from this user?',
+    'unlink_account_success' => 'Successfully unlinked their account from {x}.', // Don't replace {x}
 ];

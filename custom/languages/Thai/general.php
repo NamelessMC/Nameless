@@ -55,6 +55,9 @@ $language = [
     'report' => 'รายงาน',
     'reported_by' => 'Reported by {x}',
     'view_report' => 'View report',
+    'report_origin' => 'Origin',
+    'origin_website' => 'Website',
+    'origin_api' => 'API',
     'page_loaded_in' => 'Page loaded in {x}s', // Don't replace {x}, time unit is seconds
     'page_x' => 'Page {x}',
     'browse' => 'เรียกดู',
@@ -137,7 +140,6 @@ $language = [
     'online_users' => 'ผู้ใช้ออนไลน์',
     'no_online_users' => 'ไม่มีผู้ใช้ออนไลน์',
     'total_online_users' => 'ผู้ใช้ออนไลน์ทั้งหมด: {x}',
-    'discord_widget_disabled' => 'วิดเจ็ตถูกปิดใช้งานสำหรับเซิร์ฟเวอร์ Discord ที่ระบุ โปรดไปที่แท็บ  ในการตั้งค่าเซิร์ฟเวอร์ Discord ของคุณ และตรวจสอบให้แน่ใจว่าวิดเจ็ต Discord เปิดใช้งานอยู่และ ID นั้นถูกต้อง',
     'online_guests' => 'ผู้เยี่ยมชมออนนไลน์',
     'total_online' => 'ออนไลน์ทั้งหมด', // this is Online Users + Online Guests
     'no_default_server' => 'ไม่มีเซิร์ฟเวอร์เริ่มต้น โปรดเลือกหนึ่งรายการใน StaffCP - Integrations - Minecraft',
@@ -151,5 +153,10 @@ $language = [
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'กำลังเปลี่ยนเส้นทาง...<br />หากคุณไม่ถูกเปลี่ยนเส้นทางโดยอัตโนมัติ โปรดคลิก <a href="{x}" rel="nofollow noopener">ที่นี่/a>.' // Don't replace {x} which is the redirect URL
+    'redirecting_message' => 'กำลังเปลี่ยนเส้นทาง...<br />หากคุณไม่ถูกเปลี่ยนเส้นทางโดยอัตโนมัติ โปรดคลิก <a href="{x}" rel="nofollow noopener">ที่นี่/a>.', // Don't replace {x} which is the redirect URL
+
+    /*
+     * OAuth
+     */
+    'oauth_message_continue' => 'Continue registering with {x}', // Don't replace {x}
 ];
