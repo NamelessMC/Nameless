@@ -55,20 +55,29 @@ class Input {
      * @param string $name Name of input field ID.
      */
     public static function createTinyEditor(Language $language, string $name): string {
-        return '
-        tinymce.init({
-          selector: \'#' . $name . '\',
-          browser_spellcheck: true,
-          contextmenu: false,
-          branding: false,
-          menubar: \'table\',
-          convert_urls: false,
-          plugins: \'autolink,codesample,directionality,emoticons,hr,image,link,lists,spoiler,code,table\',
-          toolbar: \'undo redo | bold italic underline strikethrough formatselect forecolor backcolor ltr rtl | alignleft aligncenter alignright alignjustify | codesample code emoticons hr image link numlist bullist | spoiler-add spoiler-remove\',
-          spoiler_caption: \'' . $language->get('general', 'spoiler') . '\',
-          default_link_target: \'_blank\',
-          skin: "' . (defined('TEMPLATE_TINY_EDITOR_STYLE') ? TEMPLATE_TINY_EDITOR_STYLE : 'oxide') . '"
-        });
-        ';
+        // TODO: use oxide-dark skin when dark theme is enabled?
+        $skin = (defined('TEMPLATE_TINY_EDITOR_STYLE') ? TEMPLATE_TINY_EDITOR_STYLE : 'oxide');
+        return "
+            tinymce.init({
+              selector: '#$name',
+              browser_spellcheck: true,
+              contextmenu: false,
+              branding: false,
+              menubar: 'table',
+              convert_urls: false,
+              plugins: [
+                'autolink', 'codesample', 'directionality', 'emoticons',
+                'hr', 'image', 'link', 'lists', 'spoiler', 'code', 'table',
+              ],
+              toolbar: 'undo redo 
+                        | bold italic underline strikethrough formatselect forecolor backcolor ltr rtl 
+                        | alignleft aligncenter alignright alignjustify 
+                        | codesample code emoticons hr image link numlist bullist 
+                        | spoiler-add spoiler-remove',
+              spoiler_caption: '{$language->get('general', 'spoiler')}',
+              default_link_target: '_blank',
+              skin: '$skin',
+            });
+        ";
     }
 }
