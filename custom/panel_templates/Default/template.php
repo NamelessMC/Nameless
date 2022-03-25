@@ -253,11 +253,10 @@ if (!class_exists('Default_Panel_Template')) {
 
                         if (PANEL_PAGE === 'cookie_settings') {
                             $this->addJSScript(Input::createTinyEditor($this->_language, 'InputCookies'));
-                            break;
+                        } else {
+                            $this->addJSScript(Input::createTinyEditor($this->_language, 'InputPrivacy'));
+                            $this->addJSScript(Input::createTinyEditor($this->_language, 'InputTerms'));
                         }
-
-                        $this->addJSScript(Input::createTinyEditor($this->_language, 'InputPrivacy'));
-                        $this->addJSScript(Input::createTinyEditor($this->_language, 'InputTerms'));
                         break;
 
                     case 'registration':

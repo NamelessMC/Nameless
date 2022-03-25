@@ -36,12 +36,10 @@ if ($registration_enabled == 0) {
         $message = 'Registration is currently disabled.';
     }
 
-    $smarty->assign(
-        [
-            'REGISTRATION_DISABLED' => $message,
-            'CREATE_AN_ACCOUNT' => $language->get('user', 'create_an_account')
-        ]
-    );
+    $smarty->assign([
+        'REGISTRATION_DISABLED' => $message,
+        'CREATE_AN_ACCOUNT' => $language->get('user', 'create_an_account')
+    ]);
 
     // Load modules + template
     Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);

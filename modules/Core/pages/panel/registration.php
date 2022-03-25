@@ -52,6 +52,13 @@ if (Input::exists()) {
                 $verification = isset($_POST['verification']) && $_POST['verification'] == 'on' ? 1 : 0;
                 $configuration->set('Core', 'email_verification', $verification);
 
+                // Registration disabled message
+                $registration_disabled_id = $queries->getWhere('settings', ['name', '=', 'registration_disabled_message']);
+                $registration_disabled_id = $registration_disabled_id[0]->id;
+                $queries->update('settings', $registration_disabled_id, [
+                    'value' => Output::getClean(Input::get('message'))
+                ]);
+
                 // reCAPTCHA type
                 $captcha_type = $queries->getWhere('settings', ['name', '=', 'recaptcha_type']);
                 if (!count($captcha_type)) {
@@ -128,16 +135,8 @@ if (Input::exists()) {
 
                         // reCAPTCHA secret key
                         $configuration->set('Core', 'recaptcha_secret', Input::get('recaptcha_secret'));
-
-                        // Registration disabled message
-                        $registration_disabled_id = $queries->getWhere('settings', ['name', '=', 'registration_disabled_message']);
-                        $registration_disabled_id = $registration_disabled_id[0]->id;
-                        $queries->update('settings', $registration_disabled_id, [
-                            'value' => htmlspecialchars(Input::get('message'))
-                        ]);
                     }
                 }
-
 
                 // Validation group
                 $validation_group_id = $queries->getWhere('settings', ['name', '=', 'validate_user_action']);
