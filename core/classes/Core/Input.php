@@ -55,8 +55,7 @@ class Input {
      * @param string $name Name of input field ID.
      */
     public static function createTinyEditor(Language $language, string $name): string {
-        // TODO: use oxide-dark skin when dark theme is enabled?
-        $skin = (defined('TEMPLATE_TINY_EDITOR_STYLE') ? TEMPLATE_TINY_EDITOR_STYLE : 'oxide');
+        $skin = defined('TEMPLATE_TINY_EDITOR_DARKMODE') ? 'oxide-dark' : 'oxide';
         return "
             tinymce.init({
               selector: '#$name',
