@@ -222,7 +222,6 @@ if (!class_exists('Default_Panel_Template')) {
 						');
 
                         $this->addJSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/ckeditor.js' => [],
                             (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/toastr/toastr.min.js' => []
                         ]);
 
@@ -230,31 +229,23 @@ if (!class_exists('Default_Panel_Template')) {
                             (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/toastr/toastr.min.css' => []
                         ]);
 
-                        $this->addJSScript(Input::createEditor('InputMaintenanceMessage'));
+                        $this->addJSScript(Input::createTinyEditor($this->_language, 'InputMaintenanceMessage'));
 
                         break;
 
                     case 'privacy_and_terms':
                     case 'cookie_settings':
-                        $this->addJSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/ckeditor.js' => []
-                        ]);
-
                         if (PANEL_PAGE === 'cookie_settings') {
-                            $this->addJSScript(Input::createEditor('InputCookies'));
+                            $this->addJSScript(Input::createTinyEditor($this->_language, 'InputCookies'));
                             break;
                         }
 
-                        $this->addJSScript(Input::createEditor('InputPrivacy'));
-                        $this->addJSScript(Input::createEditor('InputTerms'));
+                        $this->addJSScript(Input::createTinyEditor($this->_language, 'InputPrivacy'));
+                        $this->addJSScript(Input::createTinyEditor($this->_language, 'InputTerms'));
                         break;
 
                     case 'registration':
-                        $this->addJSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/ckeditor.js' => []
-                        ]);
-
-                        $this->addJSScript(Input::createEditor('InputRegistrationDisabledMessage'));
+                        $this->addJSScript(Input::createTinyEditor($this->_language, 'InputRegistrationDisabledMessage'));
 
                         $this->addJSScript('
 						/*
@@ -301,11 +292,7 @@ if (!class_exists('Default_Panel_Template')) {
 
                     case 'custom_pages':
                         if (isset($_GET['action'])) {
-                            $this->addJSFiles([
-                                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/ckeditor.js' => []
-                            ]);
-
-                            $this->addJSScript(Input::createEditor('inputContent', true));
+                            $this->addJSScript(Input::createTinyEditor($this->_language, 'inputContent'));
                         }
                         break;
 
@@ -559,12 +546,7 @@ if (!class_exists('Default_Panel_Template')) {
 
                     case 'forums':
                         if (isset($_GET['forum'])) {
-
-                            $this->addJSFiles([
-                                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/ckeditor.js' => []
-                            ]);
-
-                            $this->addJSScript(Input::createEditor('InputPlaceholder', true));
+                            $this->addJSScript(Input::createTinyEditor($this->_language, 'InputPlaceholder'));
                         }
 
                         $this->addJSFiles([

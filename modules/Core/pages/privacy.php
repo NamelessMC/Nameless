@@ -14,14 +14,6 @@ const PAGE = 'privacy';
 $page_title = $language->get('general', 'privacy_policy');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-$template->addCSSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css' => []
-]);
-
-$template->addJSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js' => []
-]);
-
 // Retrieve privacy policy from database
 $policy = $queries->getWhere('privacy_terms', ['name', '=', 'privacy']);
 if (!count($policy)) {
