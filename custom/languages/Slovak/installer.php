@@ -103,5 +103,5 @@ $language = [
     'no_converters_available' => 'Nie sú k dispozícii žiadne konvertory.',
     'config_not_writable' => 'Do konfiguračného súboru nie je možné zapisovať.',
 
-    'session_doesnt_exist' => 'Unable to detect session. Sessions saving are a requirement to use Nameless. Please try again after clearing cookies in your web browser, and if the issue persists, please contact your web host for support.'
+    'session_doesnt_exist' => 'Nepodarilo zistiť session. Ukladanie session je podmienkou používania Nameless. Skúste to znova a ak problém pretrváva, požiadajte o podporu svojho hostiteľa webu.'
 ];
