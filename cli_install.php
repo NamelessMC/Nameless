@@ -138,7 +138,7 @@ if ($reinstall) {
 
 print('✍️  Creating tables...' . PHP_EOL);
 $queries = new Queries();
-$queries->dbInitialise();
+$queries->dbInitialise('utf8mb4');
 
 Session::put('default_language', getEnvVar('NAMELESS_DEFAULT_LANGUAGE', false, 'EnglishUK'));
 
