@@ -129,93 +129,95 @@ if (Input::exists()) {
             ]);
 
             if ($validate->passed()) {
-                try {
-                    $post_labels = [];
+                $post_labels = [];
 
-                    if (isset($_POST['topic_label']) && !empty($_POST['topic_label']) && is_array($_POST['topic_label'])) {
-                        foreach ($_POST['topic_label'] as $topic_label) {
-                            $label = $queries->getWhere('forums_topic_labels', ['id', '=', $topic_label]);
-                            if (count($label)) {
-                                $lgroups = explode(',', $label[0]->gids);
+                if (isset($_POST['topic_label']) && !empty($_POST['topic_label']) && is_array($_POST['topic_label'])) {
+                    foreach ($_POST['topic_label'] as $topic_label) {
+                        $label = $queries->getWhere('forums_topic_labels', ['id', '=', $topic_label]);
+                        if (count($label)) {
+                            $lgroups = explode(',', $label[0]->gids);
 
-                                $hasperm = false;
-                                foreach ($user_groups as $group_id) {
-                                    if (in_array($group_id, $lgroups)) {
-                                        $hasperm = true;
-                                        break;
-                                    }
-                                }
-
-                                if ($hasperm) {
-                                    $post_labels[] = $label[0]->id;
+                            $hasperm = false;
+                            foreach ($user_groups as $group_id) {
+                                if (in_array($group_id, $lgroups)) {
+                                    $hasperm = true;
+                                    break;
                                 }
                             }
-                        }
-                    } else {
-                        if (count($default_labels)) {
-                            $post_labels = $default_labels;
+
+                            if ($hasperm) {
+                                $post_labels[] = $label[0]->id;
+                            }
                         }
                     }
-
-                    $queries->create('topics', [
-                        'forum_id' => $fid,
-                        'topic_title' => Input::get('title'),
-                        'topic_creator' => $user->data()->id,
-                        'topic_last_user' => $user->data()->id,
-                        'topic_date' => date('U'),
-                        'topic_reply_date' => date('U'),
-                        'labels' => implode(',', $post_labels)
-                    ]);
-                    $topic_id = $queries->getLastId();
-
-                    $content = Output::getClean(Input::get('content'));
-
-                    $queries->create('posts', [
-                        'forum_id' => $fid,
-                        'topic_id' => $topic_id,
-                        'post_creator' => $user->data()->id,
-                        'post_content' => $content,
-                        'post_date' => date('Y-m-d H:i:s'),
-                        'created' => date('U')
-                    ]);
-
-                    // Get last post ID
-                    $last_post_id = $queries->getLastId();
-                    $content = $mentionsParser->parse($user->data()->id, $content, URL::build('/forum/topic/' . $topic_id, 'pid=' . $last_post_id), ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag'], ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag_info', 'replace' => '{x}', 'replace_with' => Output::getClean($user->data()->nickname)]);
-
-                    $queries->update('posts', $last_post_id, [
-                        'post_content' => $content
-                    ]);
-
-                    $queries->update('forums', $fid, [
-                        'last_post_date' => date('U'),
-                        'last_user_posted' => $user->data()->id,
-                        'last_topic_posted' => $topic_id
-                    ]);
-
-                    Log::getInstance()->log(Log::Action('forums/topic/create'), Output::getClean(Input::get('title')));
-
-                    // Execute hooks and pass $available_hooks
-                    $available_hooks = $queries->getWhere('forums', ['id', '=', $fid]);
-                    $available_hooks = json_decode($available_hooks[0]->hooks);
-                    EventHandler::executeEvent('newTopic', [
-                        'uuid' => Output::getClean($user->data()->uuid),
-                        'username' => $user->getDisplayname(true),
-                        'nickname' => $user->getDisplayname(),
-                        'content' => str_replace(['{x}', '{y}'], [$forum_title, $user->getDisplayname()], $forum_language->get('forum', 'new_topic_text')),
-                        'content_full' => strip_tags(str_ireplace(['<br />', '<br>', '<br/>'], "\r\n", Input::get('content'))),
-                        'avatar_url' => $user->getAvatar(128, true),
-                        'title' => Input::get('title'),
-                        'url' => Util::getSelfURL() . ltrim(URL::build('/forum/topic/' . $topic_id . '-' . $forum->titleToURL(Input::get('title'))), '/'),
-                        'available_hooks' => $available_hooks == null ? [] : $available_hooks
-                    ]);
-
-                    Session::flash('success_post', $forum_language->get('forum', 'post_successful'));
-
-                    Redirect::to(URL::build('/forum/topic/' . $topic_id . '-' . $forum->titleToURL(Input::get('title'))));
-                } catch (Exception $e) {
-                    die($e->getMessage());
+                } else {
+                    if (count($default_labels)) {
+                        $post_labels = $default_labels;
+                    }
                 }
+
+                $queries->create('topics', [
+                    'forum_id' => $fid,
+                    'topic_title' => Input::get('title'),
+                    'topic_creator' => $user->data()->id,
+                    'topic_last_user' => $user->data()->id,
+                    'topic_date' => date('U'),
+                    'topic_reply_date' => date('U'),
+                    'labels' => implode(',', $post_labels)
+                ]);
+                $topic_id = $queries->getLastId();
+
+                $content = Output::getClean(Input::get('content'));
+
+                $queries->create('posts', [
+                    'forum_id' => $fid,
+                    'topic_id' => $topic_id,
+                    'post_creator' => $user->data()->id,
+                    'post_content' => $content,
+                    'post_date' => date('Y-m-d H:i:s'),
+                    'created' => date('U')
+                ]);
+
+                // Get last post ID
+                $last_post_id = $queries->getLastId();
+                $content = $mentionsParser->parse(
+                    $user->data()->id,
+                    $content,
+                    URL::build('/forum/topic/' . $topic_id, 'pid=' . $last_post_id),
+                    ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag'],
+                    ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag_info', 'replace' => '{x}', 'replace_with' => Output::getClean($user->data()->nickname)]
+                );
+
+                $queries->update('posts', $last_post_id, [
+                    'post_content' => $content
+                ]);
+
+                $queries->update('forums', $fid, [
+                    'last_post_date' => date('U'),
+                    'last_user_posted' => $user->data()->id,
+                    'last_topic_posted' => $topic_id
+                ]);
+
+                Log::getInstance()->log(Log::Action('forums/topic/create'), Output::getClean(Input::get('title')));
+
+                // Execute hooks and pass $available_hooks
+                $available_hooks = $queries->getWhere('forums', ['id', '=', $fid]);
+                $available_hooks = json_decode($available_hooks[0]->hooks);
+                EventHandler::executeEvent('newTopic', [
+                    'uuid' => Output::getClean($user->data()->uuid),
+                    'username' => $user->getDisplayname(true),
+                    'nickname' => $user->getDisplayname(),
+                    'content' => str_replace(['{x}', '{y}'], [$forum_title, $user->getDisplayname()], $forum_language->get('forum', 'new_topic_text')),
+                    'content_full' => strip_tags(str_ireplace(['<br />', '<br>', '<br/>'], "\r\n", Input::get('content'))),
+                    'avatar_url' => $user->getAvatar(128, true),
+                    'title' => Input::get('title'),
+                    'url' => Util::getSelfURL() . ltrim(URL::build('/forum/topic/' . $topic_id . '-' . $forum->titleToURL(Input::get('title'))), '/'),
+                    'available_hooks' => $available_hooks == null ? [] : $available_hooks
+                ]);
+
+                Session::flash('success_post', $forum_language->get('forum', 'post_successful'));
+
+                Redirect::to(URL::build('/forum/topic/' . $topic_id . '-' . $forum->titleToURL(Input::get('title'))));
             } else {
                 $error = $validate->errors();
             }

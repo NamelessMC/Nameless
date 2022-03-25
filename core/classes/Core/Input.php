@@ -131,12 +131,12 @@ class Input {
         tinymce.init({
           selector: \'#' . $name . '\',
           browser_spellcheck: true,
-            contextmenu: false,
+          contextmenu: false,
           branding: false,
-          menubar: false,
+          menubar: \'table\',
           convert_urls: false,
-          plugins: \'autolink,codesample,directionality,emoticons,hr,image,link,lists,spoiler\',
-          toolbar: \'undo redo | bold italic underline strikethrough formatselect forecolor backcolor ltr rtl | alignleft aligncenter alignright alignjustify | codesample emoticons hr image link numlist bullist | spoiler-add spoiler-remove\',
+          plugins: \'autolink,codesample,directionality,emoticons,hr,image,link,lists,spoiler,code,table\',
+          toolbar: \'undo redo | bold italic underline strikethrough formatselect forecolor backcolor ltr rtl | alignleft aligncenter alignright alignjustify | codesample code emoticons hr image link numlist bullist | spoiler-add spoiler-remove\',
           spoiler_caption: \'' . $language->get('general', 'spoiler') . '\',
           default_link_target: \'_blank\',
           skin: "' . (defined('TEMPLATE_TINY_EDITOR_STYLE') ? TEMPLATE_TINY_EDITOR_STYLE : 'oxide') . '"
