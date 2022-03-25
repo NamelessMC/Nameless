@@ -31,7 +31,7 @@ if ($user->isLoggedIn()) {
         $upload = $image->upload();
 
         if ($upload) {
-            $url = ((defined('CONFIG_PATH')) ? CONFIG_PATH : '' . '/uploads/images/' . $user->data()->id . '/' . $image->getName() . '.' . $image->getMime());
+            $url = ((defined('CONFIG_PATH')) ? CONFIG_PATH : '/uploads/images/' . $user->data()->id . '/' . $image->getName() . '.' . $image->getMime());
 
             echo json_encode([
                 'uploaded' => '1',
