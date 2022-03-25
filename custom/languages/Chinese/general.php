@@ -59,6 +59,9 @@ $language = [
     'report' => '回報',
     'reported_by' => 'Reported by {x}',
     'view_report' => 'View report',
+    'report_origin' => 'Origin',
+    'origin_website' => 'Website',
+    'origin_api' => 'API',
     'page_loaded_in' => '畫面在 {x}秒 讀取完畢', // Don't replace {x}, time unit is seconds
     'page_x' => '頁 {x}',
     'browse' => '瀏覽',
@@ -149,5 +152,10 @@ $language = [
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{x}" rel="nofollow noopener">here</a>.' // Don't replace {x} which is the redirect URL
+    'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{x}" rel="nofollow noopener">here</a>.', // Don't replace {x} which is the redirect URL
+
+    /*
+     * OAuth
+     */
+    'oauth_message_continue' => 'Continue registering with {x}', // Don't replace {x}
 ];

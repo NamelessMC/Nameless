@@ -48,6 +48,10 @@ $language = [
     'settings' => 'Ayarlar',
     'general_settings' => 'Genel Ayarlar',
     'sitename' => 'Site Adı',
+    'punished_id' => 'Punished User ID',
+    'punisher_id' => 'Punisher User ID',
+    'reason' => 'Ban Reason',
+    'ip_ban' => 'IP ban?',
     'default_language' => 'Varsayılan Dil',
     'default_language_help' => 'Kullanıcılar yüklü diller arasından seçim yapabilir.',
     'install_language' => 'Dil Yükle',
@@ -152,6 +156,7 @@ $language = [
     'captcha_type' => 'Captcha Type',
     'captcha_site_key' => 'Captcha Site Key',
     'captcha_secret_key' => 'Captcha Secret Key',
+    'invalid_recaptcha_settings' => 'Invalid {x} credentials. Ensure the site key and site secret are correct.', // Don't replace {x}
     'registration_disabled_message' => 'Kayıt devre dışı bırakıldı mesajı',
     'enable_nicknames_on_registration' => 'Kullanıcıları kaydetmek için takma adlar etkinleştirilsin mi?',
     'validation_promote_group' => 'Doğrulama sonrası grup',
@@ -287,6 +292,8 @@ $language = [
     'no_parent_server' => 'Ana sunucu yok',
     'bungee_instance' => 'BungeeCord',
     'bungee_instance_help' => 'Sunucu bir BungeeCord örneği ise bu seçeneği belirleyin.',
+    'bedrock' => 'Bedrock?',
+    'bedrock_help' => 'Select this option if the server is a Bedrock server.',
     'server_query_information' => 'Web sitenizdeki çevrimiçi oyuncuların bir listesini görüntülemek için sunucunuzun <strong> sunucusunda sunucunuzda  \'enable-query\' seçeneğinin etkinleştirilmiş olması gerekir .properties </strong> dosya ',
     'enable_status_query' => 'Durum sorgusu etkinleştirilsin mi?',
     'status_query_help' => 'Bu etkinleştirilirse, durum sayfası bu sunucuyu çevrimiçi veya çevrimdışı olarak gösterir.',
@@ -356,6 +363,7 @@ $language = [
     'module_disabled' => 'Modül de-aktif.',
     'author' => 'Yazar:',
     'author_x' => 'Yazar: {x}', // Don't replace {x}
+    'updated_x' => 'Updated at: {x}', // Don't replace {x}
     'module_outdated' => 'Bu modülün {x} Nameless sürümü için tasarlandığını tespit ettik, ancak {y} Nameless sürümü çalıştırıyorsunuz', // Don't replace "{x}" or "{y}"
     'find_modules' => 'Modül ara',
     'view_all_modules' => 'Tüm modülleri görüntüle',
@@ -643,6 +651,8 @@ $language = [
     'api_endpoints' => 'API Endpoints',
     'api_endpoints_info' => 'API Endpoints allow Modules to create ways for external applications (such as Minecraft and Discord) to interact with your NamelessMC website. <a href="https://docs.namelessmc.com/en/api-documentation" target="_blank">Check out the API documentation here</a>',
     'route' => 'Route',
+    'method' => 'Method',
+    'transformers' => 'Transformers',
 
     // File uploads
     'drag_files_here' => 'Yüklemek için dosyaları buraya sürükleyin.',
@@ -684,6 +694,8 @@ $language = [
     'validate_hook_info' => 'User validation',
     'delete_hook_info' => 'User deletion',
     'report_hook_info' => 'Report creation',
+    'ban_hook_info' => 'User banned',
+    'warning_hook_info' => 'User warned',
 
     // Sitemap
     'unable_to_load_sitemap_file_x' => '{x} site haritası dosyası yüklenemedi', // Don't replace {x}
@@ -746,4 +758,12 @@ $language = [
     'no_announcements' => 'No announcements have been made yet.',
     'announcement_order' => 'Order',
     'announcement_hook_info' => 'Announcement creation',
+
+    // OAuth
+    'oauth' => 'OAuth',
+    'oauth_info' => 'Configure OAuth providers to allow users to login with their social network accounts. <a href="https://docs.namelessmc.com/en/oauth" target="_blank">Check out our documentation for help.</a>',
+    'unlink' => 'Unlink',
+    'identifier' => 'Identifier',
+    'unlink_account_confirm' => 'Are you sure you want to forcibly unlink this provider from this user?',
+    'unlink_account_success' => 'Successfully unlinked their account from {x}.', // Don't replace {x}
 ];

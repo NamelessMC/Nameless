@@ -56,6 +56,9 @@ $language = [
     'report' => 'Melden',
     'reported_by' => 'Gemeldet von {x}',
     'view_report' => 'Meldung ansehen',
+    'report_origin' => 'Origin',
+    'origin_website' => 'Website',
+    'origin_api' => 'API',
     'page_loaded_in' => 'Seite wurde in {x} Sekunden geladen.', // Don't replace {x}, time unit is seconds
     'page_x' => 'Seite {x}',
     'browse' => 'Durchsuchen',
@@ -146,5 +149,10 @@ $language = [
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'Umleiten...<br />Wenn Sie nicht automatisch umgeleitet werden, klicken Sie bitte auf <a href="{x}" rel="nofollow noopener">Hier</a>.' // Don't replace {x} which is the redirect URL
+    'redirecting_message' => 'Umleiten...<br />Wenn Sie nicht automatisch umgeleitet werden, klicken Sie bitte auf <a href="{x}" rel="nofollow noopener">Hier</a>.', // Don't replace {x} which is the redirect URL
+
+    /*
+     * OAuth
+     */
+    'oauth_message_continue' => 'Continue registering with {x}', // Don't replace {x}
 ];

@@ -204,6 +204,7 @@ $language = [
     'new_topic_text' => 'Tråd opprettet i {x} av {y}', // Don't replace {x} (forum name), optional variable {y} (topic author)
     'include_in_hook' => 'Inkluder nye tråder fra dette forumet i webhooks?',
     'available_hooks' => 'Tilgjengelig Hooks',
+    
     // Panel statistics
     'recent_topics' => 'Siste tråder',
     'recent_posts' => 'Siste innlegg',

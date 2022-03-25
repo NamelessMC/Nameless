@@ -51,6 +51,10 @@ $language = [
     'settings' => 'Ajustes',
     'general_settings' => 'Ajustes generales',
     'sitename' => 'Nombre del sitio',
+    'punished_id' => 'Punished User ID',
+    'punisher_id' => 'Punisher User ID',
+    'reason' => 'Ban Reason',
+    'ip_ban' => 'IP ban?',
     'default_language' => 'Idioma por defecto',
     'default_language_help' => 'Los usuarios podrán elegir entre los idiomas instalados.',
     'install_language' => 'Instalar el idioma',
@@ -155,6 +159,7 @@ $language = [
     'captcha_type' => 'Tipo de Captcha',
     'captcha_site_key' => 'Clave del sitio Captcha',
     'captcha_secret_key' => 'Clave secreta del captcha',
+    'invalid_recaptcha_settings' => 'Invalid {x} credentials. Ensure the site key and site secret are correct.', // Don't replace {x}
     'registration_disabled_message' => 'Mensaje de registro deshabilitado',
     'enable_nicknames_on_registration' => '¿Permitir apodos para el registro de usuarios?',
     'validation_promote_group' => 'Grupo de post-validación',
@@ -292,6 +297,8 @@ $language = [
     'no_parent_server' => 'No hay servidor principal',
     'bungee_instance' => '¿Instancia BungeeCord?',
     'bungee_instance_help' => 'Seleccione esta opción si el servidor es una instancia BungeeCord.',
+    'bedrock' => 'Bedrock?',
+    'bedrock_help' => 'Select this option if the server is a Bedrock server.',
     'server_query_information' => 'Para poder mostrar una lista de jugadores en línea en su sitio web, su servidor <strong>debe</strong> tener activada la opción <strong>"enable-query"</strong> en el archivo <strong>server.properties</strong> de su servidor',
     'enable_status_query' => '¿Activar la consulta de estado?',
     'status_query_help' => 'Si esta opción está activada, la página de estado mostrará este servidor como en linea o fuera de linea.',
@@ -361,6 +368,7 @@ $language = [
     'module_disabled' => 'Módulo desactivado.',
     'author' => 'Creador:',
     'author_x' => 'Creador: {x}', // Don't replace {x}
+    'updated_x' => 'Updated at: {x}', // Don't replace {x}
     'module_outdated' => 'Hemos detectado que este módulo está destinado a la versión {x} de NamelessMC, pero usted está ejecutando la versión {y} de NamelessMC', // Don't replace "{x}" or "{y}"
     'find_modules' => 'Encontrar módulos',
     'view_all_modules' => 'Ver todos los modulos',
@@ -647,6 +655,8 @@ $language = [
     'api_endpoints' => 'Puntos finales de la API',
     'api_endpoints_info' => 'Los puntos finales de la API permiten a los módulos crear formas para que las aplicaciones externas (como Minecraft y Discord) interactúen con su sitio web NamelessMC. <a href="https://docs.namelessmc.com/en/api-documentation" target="_blank">Check out the API documentation here</a>',
     'route' => 'Ruta',
+    'method' => 'Method',
+    'transformers' => 'Transformers',
 
     // File uploads
     'drag_files_here' => 'Arrastre los archivos aquí para cargarlos.',
@@ -688,6 +698,8 @@ $language = [
     'validate_hook_info' => 'Validación del usuario',
     'delete_hook_info' => 'Eliminación de usuarios',
     'report_hook_info' => 'Creación de informes',
+    'ban_hook_info' => 'User banned',
+    'warning_hook_info' => 'User warned',
 
     // Sitemap
     'unable_to_load_sitemap_file_x' => 'No se puede cargar el archivo del mapa del sitio {x}', // Don't replace {x}
@@ -750,4 +762,12 @@ $language = [
     'no_announcements' => 'Todavía no se ha hecho ningún anuncio.',
     'announcement_order' => 'Order',
     'announcement_hook_info' => 'Announcement creation',
+
+    // OAuth
+    'oauth' => 'OAuth',
+    'oauth_info' => 'Configure OAuth providers to allow users to login with their social network accounts. <a href="https://docs.namelessmc.com/en/oauth" target="_blank">Check out our documentation for help.</a>',
+    'unlink' => 'Unlink',
+    'identifier' => 'Identifier',
+    'unlink_account_confirm' => 'Are you sure you want to forcibly unlink this provider from this user?',
+    'unlink_account_success' => 'Successfully unlinked their account from {x}.', // Don't replace {x}
 ];

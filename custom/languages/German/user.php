@@ -230,4 +230,13 @@ $language = [
     //Hooks
     'user_x_has_registered' => '{x} ist beigetreten ' . SITE_NAME . '!',
     'user_x_has_validated' => '{x} hat das Konto validiert!',
+
+    // OAuth
+    'oauth_unlinked' => 'Successfully unlinked your account from that provider.',
+    'oauth_already_linked' => 'Another NamelessMC user is already linked to that {x} account.', // Don't replace {x}
+    'oauth_link_success' => 'Successfully linked your account with {x}!', // Don't replace {x}
+    'no_user_found_with_provider' => 'No user found with that {x} account.', // Don't replace {x}
+    'oauth_login_success' => 'You have logged in with your {x} account.', // Don't replace {x}
+    'oauth_link_confirm' => 'You will be taken to the {x} website to link your account.', // Don't replace {x}
+    'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {x}.<br>You will not be able to login with this account anymore.', // Don't replace {x}
 ];

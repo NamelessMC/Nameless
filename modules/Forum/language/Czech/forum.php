@@ -205,6 +205,7 @@ $language = [
     'new_topic_text' => 'Téma vytvořeno v {x} od {y}', // Don't replace {x} (forum name), optional variable {y} (topic author)
     'include_in_hook' => 'Zahrnout do webhooků nová témata z tohoto fóra?',
     'available_hooks' => 'Dostupné webhooky',
+    
     // Panel statistics
     'recent_topics' => 'Poslední témata',
     'recent_posts' => 'Poslední příspěvky',

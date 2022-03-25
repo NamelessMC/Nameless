@@ -50,6 +50,7 @@ $language = [
     'configuration' => 'Konfigūracija',
     'configuration_info' => 'Įveskite pagrindinę informaciją apie jūsų svetainę. Šios vertės vėliau gali būti keičiamos per StaffCP.',
     'configuration_error' => 'Įveskite tinkamą svetainės pavadinimą nuo 1 iki 32 simbolių ilgio ir galiojančius el. Pašto adresus nuo 4 iki 64 simbolių.',
+    'hostname_error' => 'Please enter a valid hostname without http:// or https://',
     'site_name' => 'Svetainės Pavadinimas',
     'contact_email' => 'Kontaktinis el. paštas',
     'outgoing_email' => 'Išeinamasis el. paštas',

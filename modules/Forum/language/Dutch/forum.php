@@ -119,6 +119,7 @@ $language = [
     'label_type_html_help' => 'De HTML moet {x} bevatten als een placeholder voor de label naam',
     'label' => 'Label',
     'label_forums' => 'Label forums',
+    'label_groups' => 'Label Groups',
     'no_forums' => 'Geen forums',
     'no_labels_defined' => 'Geen labels zijn er gedefineerd.',
     'no_label_types_defined' => 'Geen label types zijn er gedefineerd.',
@@ -205,6 +206,7 @@ $language = [
     'new_topic_text' => 'Topic created in {x} by {y}', // Don't replace {x} (forum name), optional variable {y} (topic author)
     'include_in_hook' => 'Include new topics from this forum in webhooks?',
     'available_hooks' => 'Available Hooks',
+    
     // Panel statistics
     'recent_topics' => 'Recent Topics',
     'recent_posts' => 'Recent Posts',

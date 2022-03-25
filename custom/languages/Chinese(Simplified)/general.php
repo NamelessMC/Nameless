@@ -57,6 +57,9 @@ $language = [
     'report' => '反馈',
     'reported_by' => 'Reported by {x}',
     'view_report' => 'View report',
+    'report_origin' => 'Origin',
+    'origin_website' => 'Website',
+    'origin_api' => 'API',
     'page_loaded_in' => '页面在 {x} 秒内加载完成', // Don't replace {x}, time unit is seconds
     'page_x' => '第 {x} 页',
     'browse' => '浏览',
@@ -148,5 +151,10 @@ $language = [
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => '重定向中...<br />如果您的页面没有自动跳转，请点击 <a href="{x}" rel="nofollow noopener">这里</a>.' // Don't replace {x} which is the redirect URL
+    'redirecting_message' => '重定向中...<br />如果您的页面没有自动跳转，请点击 <a href="{x}" rel="nofollow noopener">这里</a>.', // Don't replace {x} which is the redirect URL
+
+    /*
+     * OAuth
+     */
+    'oauth_message_continue' => 'Continue registering with {x}', // Don't replace {x}
 ];

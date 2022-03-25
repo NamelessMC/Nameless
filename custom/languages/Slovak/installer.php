@@ -2,7 +2,7 @@
 /*
  *  Made by RobiNN
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr12
+ *  NamelessMC version 2.0.0-pr13
  *
  *  License: MIT
  *
@@ -51,6 +51,7 @@ $language = [
     'configuration' => 'Konfigurácia',
     'configuration_info' => 'Zadajte základné informácie o svojom webe. Tieto hodnoty je možné neskôr zmeniť prostredníctvom admin panela.',
     'configuration_error' => 'Zadajte platný názov webu s dĺžkou od 1 do 32 znakov a platné emailové adresy s dĺžkou od 4 do 64 znakov.',
+    'hostname_error' => 'Zadajte platný názov hostiteľa bez http:// alebo https://',
     'site_name' => 'Názov stránky',
     'contact_email' => 'Kontaktný email',
     'outgoing_email' => 'Odchádzajúci email',
@@ -69,7 +70,7 @@ $language = [
     'email_address' => 'Emailová adresa',
     'password' => 'Heslo',
     'confirm_password' => 'Potvrdiť heslo',
-    'upgrade' => 'Upgrade',
+    'upgrade' => 'Aktualizovať',
     'input_v1_details' => 'Zadajte podrobnosti databázy pre vašu Nameless v1 inštaláciu.',
     'installer_upgrading_database' => 'Počkajte, kým inštalátor inovuje vašu databázu...',
     'errors_logged' => 'Chyby boli zaznamenané. Kliknutím na Pokračovať pokračujte v aktualizácii.',
@@ -102,5 +103,5 @@ $language = [
     'no_converters_available' => 'Nie sú k dispozícii žiadne konvertory.',
     'config_not_writable' => 'Do konfiguračného súboru nie je možné zapisovať.',
 
-    'session_doesnt_exist' => 'Nepodarilo zistiť session. Ukladanie session je podmienkou používania Nameless. Skúste to znova a ak problém pretrváva, požiadajte o podporu svojho hostiteľa webu.'
+    'session_doesnt_exist' => 'Unable to detect session. Sessions saving are a requirement to use Nameless. Please try again after clearing cookies in your web browser, and if the issue persists, please contact your web host for support.'
 ];

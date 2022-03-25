@@ -50,6 +50,10 @@ $language = [
     'settings' => 'Instellingen',
     'general_settings' => 'Algemene Instellingen',
     'sitename' => 'Site naam',
+    'punished_id' => 'Punished User ID',
+    'punisher_id' => 'Punisher User ID',
+    'reason' => 'Ban Reason',
+    'ip_ban' => 'IP ban?',
     'default_language' => 'Standaard taal',
     'default_language_help' => 'Gebruikers kunnen kiezen uit alle geinstalleerde talen.',
     'install_language' => 'Installeer Taal',
@@ -154,6 +158,7 @@ $language = [
     'captcha_type' => 'Captcha Type',
     'captcha_site_key' => 'Captcha Site Key',
     'captcha_secret_key' => 'Captcha Secret Key',
+    'invalid_recaptcha_settings' => 'Invalid {x} credentials. Ensure the site key and site secret are correct.', // Don't replace {x}
     'registration_disabled_message' => 'Bericht voor uitgezette registratie',
     'enable_nicknames_on_registration' => 'Bijnamen inschakelen bij het registreren van gebruikers?',
     'validation_promote_group' => 'Postvalidatie groep',
@@ -289,6 +294,8 @@ $language = [
     'no_parent_server' => 'Geen hoofd server',
     'bungee_instance' => 'BungeeCord Server?',
     'bungee_instance_help' => 'Zet dit aan als de server een BungeeCord server is.',
+    'bedrock' => 'Bedrock?',
+    'bedrock_help' => 'Select this option if the server is a Bedrock server.',
     'server_query_information' => 'Om een lijst met spelers te laten zien, <strong>moet</strong> je server de optie \'enable-query\' aanzetten in de server\'s <strong>server.properties</strong> bestand',
     'enable_status_query' => 'Status query aanzetten?',
     'status_query_help' => 'Als dit aanstaat, zal er op de status pagina staan of de server online is.',
@@ -358,6 +365,7 @@ $language = [
     'module_disabled' => 'Module uitgeschakeld.',
     'author' => 'Auteur:',
     'author_x' => 'Auteur: {x}', // Don't replace {x}
+    'updated_x' => 'Updated at: {x}', // Don't replace {x}
     'module_outdated' => 'We hebben gedetecteerd dat deze module bedoeld is voor Nameless versie {x}, maar u gebruikt Nameless versie {y}', // Don't replace "{x}" or "{y}"
     'find_modules' => 'Vind Modules',
     'view_all_modules' => 'Bekijk alle modules',
@@ -641,6 +649,8 @@ $language = [
     'api_endpoints' => 'API Eindpunten',
     'api_endpoints_info' => 'API Eindpunten staan Modules toe om manieren te creëren voor externe applicaties (zoals Minecraft en Discord) om te communiceren met uw NamelessMC website. <a href="https://docs.namelessmc.com/en/api-documentation" target="_blank">Check out the API documentation here</a>',
     'route' => 'Route',
+    'method' => 'Method',
+    'transformers' => 'Transformers',
 
     // Bestand uploads
     'drag_files_here' => 'Sleep bestand(en) hier naartoe om te uploaden.',
@@ -682,6 +692,8 @@ $language = [
     'validate_hook_info' => 'Gebruikervalidatie',
     'delete_hook_info' => 'Gebruikerverwijdering',
     'report_hook_info' => 'Report creation',
+    'ban_hook_info' => 'User banned',
+    'warning_hook_info' => 'User warned',
 
     // Sitemap
     'unable_to_load_sitemap_file_x' => 'Kan geen sitemap-bestand laden {x}', // Don't replace {x}
@@ -744,4 +756,12 @@ $language = [
     'no_announcements' => 'Er zijn nog geen aankondigingen gemaakt.',
     'announcement_order' => 'Order',
     'announcement_hook_info' => 'Announcement creation',
+
+    // OAuth
+    'oauth' => 'OAuth',
+    'oauth_info' => 'Configure OAuth providers to allow users to login with their social network accounts. <a href="https://docs.namelessmc.com/en/oauth" target="_blank">Check out our documentation for help.</a>',
+    'unlink' => 'Unlink',
+    'identifier' => 'Identifier',
+    'unlink_account_confirm' => 'Are you sure you want to forcibly unlink this provider from this user?',
+    'unlink_account_success' => 'Successfully unlinked their account from {x}.', // Don't replace {x}
 ];
