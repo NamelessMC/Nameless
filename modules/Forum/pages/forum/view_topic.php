@@ -249,9 +249,7 @@ if (Input::exists()) {
         Redirect::to(URL::build('/forum'));
     }
     if (Token::check()) {
-        $validate = new Validate();
-
-        $validate->check($_POST, [
+        $validate = Validate::check($_POST, [
             'content' => [
                 Validate::REQUIRED => true,
                 Validate::MIN => 2,

@@ -103,8 +103,7 @@ if (!isset($_GET['c'])) {
 
     if (Input::exists()) {
         if (Token::check()) {
-            $validate = new Validate();
-            $validation = $validate->check($_POST, [
+            $validation = Validate::check($_POST, [
                 'email' => [
                     Validate::REQUIRED => true
                 ],

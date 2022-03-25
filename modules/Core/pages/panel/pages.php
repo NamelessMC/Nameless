@@ -60,8 +60,7 @@ if (!isset($_GET['action'])) {
                 $errors = [];
 
                 if (Token::check()) {
-                    $validate = new Validate();
-                    $validation = $validate->check($_POST, [
+                    $validation = Validate::check($_POST, [
                         'page_title' => [
                             Validate::REQUIRED => true,
                             Validate::MIN => 2,
@@ -270,8 +269,7 @@ if (!isset($_GET['action'])) {
                 $errors = [];
 
                 if (Token::check()) {
-                    $validate = new Validate();
-                    $validation = $validate->check($_POST, [
+                    $validation = Validate::check($_POST, [
                         'page_title' => [
                             Validate::REQUIRED => true,
                             Validate::MIN => 2,

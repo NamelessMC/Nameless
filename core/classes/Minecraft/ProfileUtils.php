@@ -51,10 +51,10 @@ class ProfileUtils {
 
         $result = HttpClient::get('https://api.mojang.com/users/profiles/minecraft/' . urlencode($username));
 
-        // Verification
-        if (!$result->hasError()) {
+        // Verification, API will return 204 status code if username is invalid
+        if (!$result->hasError() && $result->getStatus() === 200) {
             $ress = json_decode($result->contents(), true);
-            if ($ress['name'] != null && $ress['uuid'] != null) {
+            if ($ress['name'] != null && $ress['id'] != null) {
                 return [
                     'username' => $ress['name'],
                     'uuid' => $ress['id']

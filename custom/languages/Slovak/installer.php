@@ -2,7 +2,7 @@
 /*
  *  Made by RobiNN
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr12
+ *  NamelessMC version 2.0.0-pr13
  *
  *  License: MIT
  *
@@ -51,7 +51,7 @@ $language = [
     'configuration' => 'Konfigurácia',
     'configuration_info' => 'Zadajte základné informácie o svojom webe. Tieto hodnoty je možné neskôr zmeniť prostredníctvom admin panela.',
     'configuration_error' => 'Zadajte platný názov webu s dĺžkou od 1 do 32 znakov a platné emailové adresy s dĺžkou od 4 do 64 znakov.',
-    'hostname_error' => 'Please enter a valid hostname without http:// or https://',
+    'hostname_error' => 'Zadajte platný názov hostiteľa bez http:// alebo https://',
     'site_name' => 'Názov stránky',
     'contact_email' => 'Kontaktný email',
     'outgoing_email' => 'Odchádzajúci email',
@@ -70,7 +70,7 @@ $language = [
     'email_address' => 'Emailová adresa',
     'password' => 'Heslo',
     'confirm_password' => 'Potvrdiť heslo',
-    'upgrade' => 'Upgrade',
+    'upgrade' => 'Aktualizovať',
     'input_v1_details' => 'Zadajte podrobnosti databázy pre vašu Nameless v1 inštaláciu.',
     'installer_upgrading_database' => 'Počkajte, kým inštalátor inovuje vašu databázu...',
     'errors_logged' => 'Chyby boli zaznamenané. Kliknutím na Pokračovať pokračujte v aktualizácii.',

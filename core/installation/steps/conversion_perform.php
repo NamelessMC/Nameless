@@ -20,8 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (!empty($converters)) {
 
-        $validate = new Validate();
-        $validation = $validate->check($_POST, [
+        $validation = Validate::check($_POST, [
             'db_address' => [
                 Validate::REQUIRED => true,
             ],

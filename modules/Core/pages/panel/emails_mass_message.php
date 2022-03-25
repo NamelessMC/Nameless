@@ -25,10 +25,7 @@ if (Input::exists()) {
     $errors = [];
 
     if (Token::check()) {
-
-        $validate = new Validate();
-
-        $validate->check($_POST, [
+        $validate = Validate::check($_POST, [
             'subject' => [
                 Validate::REQUIRED => true,
                 Validate::MIN => 1,

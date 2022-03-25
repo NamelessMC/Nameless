@@ -119,8 +119,7 @@ if (Input::exists()) {
             $signature = Input::get('signature');
             $_POST['signature'] = strip_tags(Input::get('signature'));
 
-            $validate = new Validate();
-            $validation = $validate->check($_POST, [
+            $validation = Validate::check($_POST, [
                 'email' => [
                     Validate::REQUIRED => true,
                     Validate::MIN => 4,

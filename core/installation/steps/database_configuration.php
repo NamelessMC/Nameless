@@ -9,9 +9,7 @@ if (!isset($_SESSION['hostname'], $_SESSION['install_path']) || !isset($_SESSION
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-    $validate = new Validate();
-    $validation = $validate->check($_POST, [
+    $validation = Validate::check($_POST, [
         'db_address' => [
             Validate::REQUIRED => true,
         ],

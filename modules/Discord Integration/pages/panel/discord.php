@@ -25,8 +25,7 @@ if (Input::exists()) {
 
     if (Token::check()) {
         if (isset($_POST['discord_guild_id'])) {
-            $validate = new Validate();
-            $validation = $validate->check($_POST, [
+            $validation = Validate::check($_POST, [
                 'discord_guild_id' => [
                     Validate::MIN => 18,
                     Validate::MAX => 18,

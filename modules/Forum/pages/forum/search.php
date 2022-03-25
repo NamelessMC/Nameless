@@ -26,8 +26,7 @@ $user_groups = $user->getAllGroupIds();
 if (!isset($_GET['s'])) {
     if (Input::exists()) {
         if (Token::check()) {
-            $validate = new Validate();
-            $validation = $validate->check($_POST, [
+            $validation = Validate::check($_POST, [
                 'forum_search' => [
                     Validate::REQUIRED => true,
                     Validate::MIN => 3,

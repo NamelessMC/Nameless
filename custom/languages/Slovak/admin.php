@@ -2,7 +2,7 @@
 /*
  *  Made by RobiNN
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr12
+ *  NamelessMC version 2.0.0-pr13
  *
  *  License: MIT
  *
@@ -156,7 +156,7 @@ $language = [
     'captcha_type' => 'Typ Captcha',
     'captcha_site_key' => 'Captcha Site Key',
     'captcha_secret_key' => 'Captcha Secret Key',
-    'invalid_recaptcha_settings' => 'Invalid {x} credentials. Ensure the site key and site secret are correct.', // Don't replace {x}
+    'invalid_recaptcha_settings' => 'Neplatné {x} údaje. Uistite sa, že site key a site secret sú správne.', // Don't replace {x}
     'registration_disabled_message' => 'Správa zakázanej registrácii',
     'enable_nicknames_on_registration' => 'Povoliť prezývky pre registrujúcich užívateľov?',
     'validation_promote_group' => 'Skupina po overení',
@@ -294,7 +294,7 @@ $language = [
     'bungee_instance' => 'BungeeCord inštancia?',
     'bungee_instance_help' => 'Túto možnosť vyberte, ak serverom je BungeeCord inštancia.',
     'bedrock' => 'Bedrock?',
-    'bedrock_help' => 'Select this option if the server is a Bedrock server.',
+    'bedrock_help' => 'Túto možnosť vyberte, ak server je Bedrock server.',
     'server_query_information' => 'Ak chcete na svojej webstránke zobraziť zoznam online hráčov, musí váš server <strong>mať</strong> povolenú možnosť \'enable-query\' v <strong>server.properties</strong> súbore vášho servera',
     'enable_status_query' => 'Povoliť query stav?',
     'status_query_help' => 'Ak je táto možnosť povolená, na stavovej stránke sa tento server zobrazí ako online alebo offline.',
@@ -362,7 +362,7 @@ $language = [
     'module_disabled' => 'Modul zakázaný.',
     'author' => 'Autor:',
     'author_x' => 'Autor: {x}', // Don't replace {x}
-    'updated_x' => 'Updated at: {x}', // Don't replace {x}
+    'updated_x' => 'Aktualizované: {x}', // Don't replace {x}
     'module_outdated' => 'Zistili sme, že tento modul je určený pre Nameless verziu {x}, ale používate Nameless verziu {y}', // Don't replace "{x}" or "{y}"
     'find_modules' => 'Nájsť moduly',
     'view_all_modules' => 'Zobraziť všetky moduly',
@@ -490,7 +490,7 @@ $language = [
     'resend_activation_email' => 'Znova odoslať aktivačný email',
     'email_resent_successfully' => 'Email bol znova odoslaný.',
     'email_resend_failed' => 'Opätovné odoslanie emailu zlyhalo. Skontrolujte svoje nastavenia emailu.',
-    'no_item_selected' => 'No items selected',
+    'no_item_selected' => 'Žiadne vybraté položky',
 
     // Permissions
     'select_all' => 'Vybrať všetko',
@@ -636,8 +636,8 @@ $language = [
     'api_endpoints' => 'API koncové body',
     'api_endpoints_info' => 'API Endpoints umožňujú modulom vytvárať spôsoby, ako môžu externé aplikácie (napríklad Minecraft a Discord) interagovať s vašou NamelessMC webstránkou. <a href="https://docs.namelessmc.com/en/api-documentation" target="_blank">Pozrite si tu API dokumentáciu API</a>',
     'route' => 'Cesta',
-    'method' => 'Method',
-    'transformers' => 'Transformers',
+    'method' => 'Metóda',
+    'transformers' => 'Transformátory',
 
     // File uploads
     'drag_files_here' => 'Súbory pretiahnite sem pre nahranie.',
@@ -744,9 +744,9 @@ $language = [
 
     // OAuth
     'oauth' => 'OAuth',
-    'oauth_info' => 'Configure OAuth providers to allow users to login with their social network accounts. <a href="https://docs.namelessmc.com/en/oauth" target="_blank">Check out our documentation for help.</a>',
-    'unlink' => 'Unlink',
-    'identifier' => 'Identifier',
-    'unlink_account_confirm' => 'Are you sure you want to forcibly unlink this provider from this user?',
-    'unlink_account_success' => 'Successfully unlinked their account from {x}.', // Don't replace {x}
+    'oauth_info' => 'Nakonfigurujte OAuth poskytovateľov, aby sa používatelia mohli prihlásiť pomocou svojich účtov sociálnych sietí. <a href="https://docs.namelessmc.com/en/oauth" target="_blank">Pomoc nájdete v našej dokumentácii.</a>',
+    'unlink' => 'Odpojiť',
+    'identifier' => 'Identifikátor',
+    'unlink_account_confirm' => 'Naozaj chcete násilne odpojiť tohto poskytovateľa od tohto používateľa?',
+    'unlink_account_success' => 'Úspešne sa odpojilo prepojenie s účtom {x}.', // Don't replace {x}
 ];

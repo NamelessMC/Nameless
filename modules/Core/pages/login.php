@@ -54,8 +54,6 @@ if (Input::exists()) {
                 unset($_SESSION['remember'], $_SESSION['password'], $_SESSION['tfa']);
             }
 
-            // Initialise validation
-            $validate = new Validate();
             if ($login_method == 'email') {
                 $to_validate = [
                     'email' => [
@@ -80,7 +78,7 @@ if (Input::exists()) {
                 ];
             }
 
-            $validation = $validate->check($_POST, $to_validate)->messages([
+            $validation = Validate::check($_POST, $to_validate)->messages([
                 'email' => [
                     Validate::REQUIRED => $language->get('user', 'must_input_email'),
                     Validate::IS_BANNED => $language->get('user', 'account_banned'),

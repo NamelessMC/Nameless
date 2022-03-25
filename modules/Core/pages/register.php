@@ -146,9 +146,6 @@ if (Input::exists()) {
         }
 
         if ($captcha_passed) {
-            // Validate
-            $validate = new Validate();
-
             $to_validation = [
                 'password' => [
                     Validate::REQUIRED => true,
@@ -190,20 +187,14 @@ if (Input::exists()) {
                         'max' => 20,
                         'unique' => 'users'
                     ];
-
                     $nickname = Output::getClean(Input::get('nickname'));
-
                 } else {
-
                     $nickname = Output::getClean(Input::get('username'));
-
                 }
 
             } else {
                 // Just check username
-
                 $nickname = Output::getClean(Input::get('username'));
-
             }
             $username = Output::getClean(Input::get('username'));
 
@@ -221,7 +212,7 @@ if (Input::exists()) {
             }
 
             // Valid, continue with validation
-            $validation = $validate->check($_POST, $to_validation); // Execute validation
+            $validation = Validate::check($_POST, $to_validation); // Execute validation
 
             if ($validation->passed()) {
                 if (MINECRAFT && $uuid_linking == 1) {

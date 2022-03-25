@@ -2,7 +2,7 @@
 /*
  *  Made by RobiNN
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr12
+ *  NamelessMC version 2.0.0-pr13
  *
  *  License: MIT
  *
@@ -55,8 +55,8 @@ $language = [
     'report' => 'Nahlásiť',
     'reported_by' => 'Nahlásene od {x}',
     'view_report' => 'Zobraziť nahlásenie',
-    'report_origin' => 'Origin',
-    'origin_website' => 'Website',
+    'report_origin' => 'Pôvod',
+    'origin_website' => 'Webstránka',
     'origin_api' => 'API',
     'page_loaded_in' => 'Stránka bola načítaná za {x}s', // Don't replace {x}, time unit is seconds
     'page_x' => 'Stránka {x}',
@@ -157,5 +157,5 @@ $language = [
     /*
      * OAuth
      */
-    'oauth_message_continue' => 'Continue registering with {x}', // Don't replace {x}
+    'oauth_message_continue' => 'Pokračovať v registrácii s {x}', // Don't replace {x}
 ];

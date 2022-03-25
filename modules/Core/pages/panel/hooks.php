@@ -56,8 +56,7 @@ if (!isset($_GET['action'])) {
                 $errors = [];
                 if (Token::check()) {
                     // Validate input
-                    $validate = new Validate();
-                    $validation = $validate->check($_POST, [
+                    $validation = Validate::check($_POST, [
                         'hook_name' => [
                             Validate::REQUIRED => true,
                             Validate::MIN => 3,
@@ -140,8 +139,7 @@ if (!isset($_GET['action'])) {
                 $errors = [];
                 if (Token::check()) {
                     // Validate input
-                    $validate = new Validate();
-                    $validation = $validate->check($_POST, [
+                    $validation = Validate::check($_POST, [
                         'hook_name' => [
                             Validate::REQUIRED => true,
                             Validate::MIN => 3,
