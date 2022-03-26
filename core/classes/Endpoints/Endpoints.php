@@ -56,6 +56,10 @@ class Endpoints {
                 $available_methods[] = $endpoint->getMethod();
 
                 if ($endpoint->getMethod() === $method) {
+                    if (!$endpoint->isAuthorised($api)) {
+                        $api->throwError(36, 'NOT_AUTHORISED', $endpoint->getAuthType(), 403);
+                    }
+
                     if (!method_exists($endpoint, 'execute')) {
                         throw new InvalidArgumentException("Endpoint class must contain an 'execute()' method.");
                     }
@@ -63,10 +67,6 @@ class Endpoints {
                     $reflection = new ReflectionMethod($endpoint, 'execute');
                     if ($reflection->getNumberOfParameters() !== (count($vars) + 1)) {
                         throw new InvalidArgumentException("Endpoint's 'execute()' method must take " . (count($vars) + 1) . " arguments. Endpoint: " . $endpoint->getRoute());
-                    }
-
-                    if (!$endpoint->isAuthorised($api)) {
-                        $api->throwError(36, 'NOT_AUTHORISED', $endpoint->getAuthType(), 403);
                     }
 
                     $endpoint->execute(
