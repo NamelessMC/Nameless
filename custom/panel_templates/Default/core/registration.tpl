@@ -148,7 +148,7 @@
                                     <div class="form-group custom-control custom-switch text-center">
                                         <input id="enable-discord" name="enable-discord" type="checkbox" class="custom-control-input" value="1" {if $DISCORD_OAUTH_ENABLED && $DISCORD_OAUTH_SETUP} checked{/if} />
                                         <label for="enable-discord" id="enable-discord" class="custom-control-label">
-                                            <i class="fab fa-discord fa-2x align-middle"></i> Discord
+                                            Discord <i class="fab fa-discord fa-1x align-middle"></i>
                                         </label>
                                     </div>
 
@@ -170,7 +170,7 @@
                                     <div class="form-group custom-control custom-switch text-center">
                                         <input id="enable-google" name="enable-google" type="checkbox" class="custom-control-input" {if $GOOGLE_OAUTH_ENABLED && $GOOGLE_OAUTH_SETUP} checked{/if} />
                                         <label for="enable-google" id="enable-google" class="custom-control-label">
-                                            <i class="fab fa-google fa-2x align-middle"></i> Google
+                                            Google <i class="fab fa-google fa-1x align-middle"></i>
                                         </label>
                                     </div>
 
