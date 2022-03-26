@@ -53,7 +53,7 @@ class Forum {
                                 $return[$forum->id]['subforums'][$item->id]->forum_description = Output::getClean($item->forum_description);
                                 $return[$forum->id]['subforums'][$item->id]->icon = Output::getPurified(Output::getDecoded($item->icon));
                                 $return[$forum->id]['subforums'][$item->id]->link = URL::build('/forum/view/' . $item->id . '-' . $this->titleToURL($item->forum_title));
-                                $return[$forum->id]['subforums'][$item->id]->redirect_to = Output::getClean(htmlspecialchars_decode($item->redirect_url));
+                                $return[$forum->id]['subforums'][$item->id]->redirect_to = Output::getClean($item->redirect_url);
 
                                 // Get topic/post count
                                 $topics = $this->_db->orderWhere('topics', 'forum_id = ' . $item->id . ' AND deleted = 0', 'id', 'ASC')->results();

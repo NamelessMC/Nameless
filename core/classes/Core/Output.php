@@ -22,7 +22,7 @@ class Output {
      * @return string Cleaned version of string.
      */
     public static function getClean(?string $input): string {
-        return htmlspecialchars($input, ENT_QUOTES);
+        return htmlspecialchars(Output::getDecoded($input), ENT_QUOTES);
     }
 
     /**
