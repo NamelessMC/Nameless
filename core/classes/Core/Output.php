@@ -22,7 +22,7 @@ class Output {
      * @return string Cleaned version of string.
      */
     public static function getClean(?string $input): string {
-        return str_replace('&amp;', '&', htmlspecialchars($input, ENT_QUOTES));
+        return htmlspecialchars($input, ENT_QUOTES);
     }
 
     /**
