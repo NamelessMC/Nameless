@@ -68,7 +68,6 @@ $language = [
     'email_verification' => '是否启用邮箱验证?',
     'registration_settings_updated' => '注册配置已更新成功。',
     'homepage_type' => '主页样式',
-    'post_formatting_type' => '公告样式',
     'portal' => '传送门',
     'private_profiles' => '个人资料',
     'missing_sitename' => '请输入长度介于 2 到 64 个字符之间的网站名称。',

@@ -62,15 +62,9 @@
       <div class="ui segment">
         <h3 class="ui header">{$NEW_REPLY}</h3>
         <form class="ui form" action="" method="post">
-          {if isset($MARKDOWN)}
-            <div class="field">
-              <textarea name="content" id="markdown">{$CONTENT}</textarea>
-            </div>
-          {else}
-            <div class="field">
-              <textarea name="content" id="reply">{$CONTENT}</textarea>
-            </div>
-          {/if}
+          <div class="field">
+            <textarea name="content" id="reply">{$CONTENT}</textarea>
+          </div>
           <input type="hidden" name="token" value="{$TOKEN}">
           <input type="submit" class="ui primary button" name="{$SUBMIT}">
         </form>

@@ -67,7 +67,6 @@ $language = [
     'email_verification' => 'Ενεργοποίηση επαλήθευσης ηλεκτρονικού ταχυδρομείου?',
     'registration_settings_updated' => 'Registration settings updated successfully.',
     'homepage_type' => 'Αρχική Σελίδα τύπος',
-    'post_formatting_type' => 'Αλληλογραφία μορφοποίηση τύπος',
     'portal' => 'Πύλη',
     'private_profiles' => 'Private Profiles',
     'missing_sitename' => 'Παρακαλώ εισάγετε ένα όνομα ιστοσελίδα μήκους μεταξύ 2 έως 64 χαρακτήρων.',

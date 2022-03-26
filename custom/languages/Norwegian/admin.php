@@ -65,7 +65,6 @@ $language = [
     'email_verification' => 'Vil du kreve e-postverifikasjon av nye kontoer?',
     'registration_settings_updated' => 'Registreringsinnstillinger har blitt oppdatert.',
     'homepage_type' => 'Forsidetype',
-    'post_formatting_type' => 'Formatteringstype for innlegg',
     'portal' => 'Portal',
     'private_profiles' => 'Private profiler',
     'missing_sitename' => 'Navnet på nettsiden må være mellom 2 og 64 tegn.',

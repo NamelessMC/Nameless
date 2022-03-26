@@ -97,7 +97,6 @@ $language = [
     /*
      *  Help dialogues
      */
-    'markdown_help' => 'Váš příspěvek můžete naformátovat pomocí stylu Markdown. Pro více informací klikněte <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>sem</a>.',
     'online' => 'Online',
 
     /*

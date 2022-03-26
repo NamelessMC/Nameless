@@ -67,7 +67,6 @@ $language = [
     'email_verification' => 'Aktivera E-post verifiering?',
     'registration_settings_updated' => 'Registratingsinställningar har uppdaterats.',
     'homepage_type' => 'Hemside typ',
-    'post_formatting_type' => 'Post formaterings typ',
     'portal' => 'Portal',
     'private_profiles' => 'Privat Profiler',
     'missing_sitename' => 'Vänligen ange ett sajtnamn mellan 2 och 64 tecken långt.',

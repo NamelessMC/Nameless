@@ -66,7 +66,6 @@ $language = [
     'email_verification' => 'Włączyć weryfikację email?',
     'registration_settings_updated' => 'Ustawnienia rejestracji zostały zaktualizowane.',
     'homepage_type' => 'Typ strony głównej',
-    'post_formatting_type' => 'Typ formatowania posta',
     'portal' => 'Portal',
     'private_profiles' => 'Prywatne profile',
     'missing_sitename' => 'Wpisz nazwę strony mającą on 2 od 64 znaków długości.',

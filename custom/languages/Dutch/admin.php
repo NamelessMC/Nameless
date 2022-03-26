@@ -68,7 +68,6 @@ $language = [
     'email_verification' => 'Schakel email verificatie in?',
     'registration_settings_updated' => 'Registratie-instellingen succesvol bijgewerkt.',
     'homepage_type' => 'Beginpagina type',
-    'post_formatting_type' => 'Bericht opmaak soort',
     'portal' => 'Portaal',
     'private_profiles' => 'Privé Profielen',
     'missing_sitename' => 'Graag een sitenaam invullen van 2 tot 64 karakters lang.',

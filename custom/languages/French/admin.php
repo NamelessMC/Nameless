@@ -66,7 +66,6 @@ $language = [
     'email_verification' => 'Activer la vérification par e-mail ?',
     'registration_settings_updated' => 'Paramètres d’enregistrement actualisés avec succès.',
     'homepage_type' => 'Type de page d\'accueil',
-    'post_formatting_type' => 'Type de formatage du courrier',
     'portal' => 'Portail',
     'private_profiles' => 'Profils privés',
     'missing_sitename' => 'Veuillez insérer un nom de site de 2 à 64 caractères.',

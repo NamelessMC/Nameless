@@ -264,110 +264,98 @@ if (Input::exists()) {
         ]);
 
         if ($validate->passed()) {
-            try {
-                $cache->setCache('post_formatting');
-                $formatting = $cache->retrieve('formatting');
+            $content = Output::getClean(Input::get('content'));
 
-                if ($formatting == 'markdown') {
-                    $content = \Michelf\Markdown::defaultTransform(Input::get('content'));
-                    $content = Output::getClean($content);
-                } else {
-                    $content = Output::getClean(Input::get('content'));
-                }
+            $queries->create('posts', [
+                'forum_id' => $topic->forum_id,
+                'topic_id' => $tid,
+                'post_creator' => $user->data()->id,
+                'post_content' => $content,
+                'post_date' => date('Y-m-d H:i:s'),
+                'created' => date('U')
+            ]);
 
-                $queries->create('posts', [
-                    'forum_id' => $topic->forum_id,
-                    'topic_id' => $tid,
-                    'post_creator' => $user->data()->id,
-                    'post_content' => $content,
-                    'post_date' => date('Y-m-d H:i:s'),
-                    'created' => date('U')
-                ]);
+            // Get last post ID
+            $last_post_id = $queries->getLastId();
+            $content = $mentionsParser->parse($user->data()->id, $content, URL::build('/forum/topic/' . $tid, 'pid=' . $last_post_id), ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag'], ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag_info', 'replace' => '{x}', 'replace_with' => Output::getClean($user->data()->nickname)]);
 
-                // Get last post ID
-                $last_post_id = $queries->getLastId();
-                $content = $mentionsParser->parse($user->data()->id, $content, URL::build('/forum/topic/' . $tid, 'pid=' . $last_post_id), ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag'], ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag_info', 'replace' => '{x}', 'replace_with' => Output::getClean($user->data()->nickname)]);
+            $queries->update('posts', $last_post_id, [
+                'post_content' => $content
+            ]);
 
-                $queries->update('posts', $last_post_id, [
-                    'post_content' => $content
-                ]);
+            $queries->update('forums', $topic->forum_id, [
+                'last_topic_posted' => $tid,
+                'last_user_posted' => $user->data()->id,
+                'last_post_date' => date('U')
+            ]);
+            $queries->update('topics', $tid, [
+                'topic_last_user' => $user->data()->id,
+                'topic_reply_date' => date('U')
+            ]);
 
-                $queries->update('forums', $topic->forum_id, [
-                    'last_topic_posted' => $tid,
-                    'last_user_posted' => $user->data()->id,
-                    'last_post_date' => date('U')
-                ]);
-                $queries->update('topics', $tid, [
-                    'topic_last_user' => $user->data()->id,
-                    'topic_reply_date' => date('U')
-                ]);
-
-                // Alerts + Emails
-                $users_following = $queries->getWhere('topics_following', ['topic_id', '=', $tid]);
-                if (count($users_following)) {
-                    $users_following_info = [];
-                    foreach ($users_following as $user_following) {
-                        if ($user_following->user_id != $user->data()->id) {
-                            if ($user_following->existing_alerts == 0) {
-                                Alert::create(
-                                    $user_following->user_id,
-                                    'new_reply',
-                                    ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'new_reply_in_topic', 'replace' => ['{x}', '{y}'], 'replace_with' => [Output::getClean($user->data()->nickname), Output::getClean($topic->topic_title)]],
-                                    ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'new_reply_in_topic', 'replace' => ['{x}', '{y}'], 'replace_with' => [Output::getClean($user->data()->nickname), Output::getClean($topic->topic_title)]],
-                                    URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id)
-                                );
-                                $queries->update('topics_following', $user_following->id, [
-                                    'existing_alerts' => 1
-                                ]);
-                            }
-                            $user_info = $queries->getWhere('users', ['id', '=', $user_following->user_id]);
-                            if ($user_info[0]->topic_updates) {
-                                $users_following_info[] = ['email' => $user_info[0]->email, 'username' => $user_info[0]->username];
-                            }
-                        }
-                    }
-                    $path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', TEMPLATE, 'email', 'forum_topic_reply.html']);
-                    $html = file_get_contents($path);
-
-                    $message = str_replace(
-                        ['[Sitename]', '[TopicReply]', '[Greeting]', '[Message]', '[Link]', '[Thanks]'],
-                        [
-                            SITE_NAME,
-                            str_replace(['{x}', '{y}'], [$user->data()->username, $topic->topic_title], $language->get('emails', 'forum_topic_reply_subject')),
-                            $language->get('emails', 'greeting'),
-                            str_replace(['{x}', '{z}'], [$user->data()->username, html_entity_decode($content)], $language->get('emails', 'forum_topic_reply_message')),
-                            rtrim(Util::getSelfURL(), '/') . URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id),
-                            $language->get('emails', 'thanks')
-                        ],
-                        $html
-                    );
-                    $subject = SITE_NAME . ' - ' . str_replace(['{x}', '{y}'], [$user->data()->username, $topic->topic_title], $language->get('emails', 'forum_topic_reply_subject'));
-                    $contactemail = $queries->getWhere('settings', ['name', '=', 'incoming_email']);
-                    $contactemail = $contactemail[0]->value;
-
-                    foreach ($users_following_info as $user_info) {
-                        $sent = Email::send(
-                            ['email' => Output::getClean($user_info['email']), 'name' => Output::getClean($user_info['username'])],
-                            $subject,
-                            $message,
-                            ['email' => $contactemail, 'name' => Output::getClean(SITE_NAME)]
-                        );
-
-                        if (isset($sent['error'])) {
-                            $queries->create('email_errors', [
-                                'type' => Email::FORUM_TOPIC_REPLY,
-                                'content' => $sent['error'],
-                                'at' => date('U'),
-                                'user_id' => ($user->data()->id)
+            // Alerts + Emails
+            $users_following = $queries->getWhere('topics_following', ['topic_id', '=', $tid]);
+            if (count($users_following)) {
+                $users_following_info = [];
+                foreach ($users_following as $user_following) {
+                    if ($user_following->user_id != $user->data()->id) {
+                        if ($user_following->existing_alerts == 0) {
+                            Alert::create(
+                                $user_following->user_id,
+                                'new_reply',
+                                ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'new_reply_in_topic', 'replace' => ['{x}', '{y}'], 'replace_with' => [Output::getClean($user->data()->nickname), Output::getClean($topic->topic_title)]],
+                                ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'new_reply_in_topic', 'replace' => ['{x}', '{y}'], 'replace_with' => [Output::getClean($user->data()->nickname), Output::getClean($topic->topic_title)]],
+                                URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id)
+                            );
+                            $queries->update('topics_following', $user_following->id, [
+                                'existing_alerts' => 1
                             ]);
                         }
+                        $user_info = $queries->getWhere('users', ['id', '=', $user_following->user_id]);
+                        if ($user_info[0]->topic_updates) {
+                            $users_following_info[] = ['email' => $user_info[0]->email, 'username' => $user_info[0]->username];
+                        }
                     }
                 }
-                Session::flash('success_post', $forum_language->get('forum', 'post_successful'));
-                Redirect::to(URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id));
-            } catch (Exception $e) {
-                die($e->getMessage());
+                $path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', TEMPLATE, 'email', 'forum_topic_reply.html']);
+                $html = file_get_contents($path);
+
+                $message = str_replace(
+                    ['[Sitename]', '[TopicReply]', '[Greeting]', '[Message]', '[Link]', '[Thanks]'],
+                    [
+                        SITE_NAME,
+                        str_replace(['{x}', '{y}'], [$user->data()->username, $topic->topic_title], $language->get('emails', 'forum_topic_reply_subject')),
+                        $language->get('emails', 'greeting'),
+                        str_replace(['{x}', '{z}'], [$user->data()->username, html_entity_decode($content)], $language->get('emails', 'forum_topic_reply_message')),
+                        rtrim(Util::getSelfURL(), '/') . URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id),
+                        $language->get('emails', 'thanks')
+                    ],
+                    $html
+                );
+                $subject = SITE_NAME . ' - ' . str_replace(['{x}', '{y}'], [$user->data()->username, $topic->topic_title], $language->get('emails', 'forum_topic_reply_subject'));
+                $contactemail = $queries->getWhere('settings', ['name', '=', 'incoming_email']);
+                $contactemail = $contactemail[0]->value;
+
+                foreach ($users_following_info as $user_info) {
+                    $sent = Email::send(
+                        ['email' => Output::getClean($user_info['email']), 'name' => Output::getClean($user_info['username'])],
+                        $subject,
+                        $message,
+                        ['email' => $contactemail, 'name' => Output::getClean(SITE_NAME)]
+                    );
+
+                    if (isset($sent['error'])) {
+                        $queries->create('email_errors', [
+                            'type' => Email::FORUM_TOPIC_REPLY,
+                            'content' => $sent['error'],
+                            'at' => date('U'),
+                            'user_id' => ($user->data()->id)
+                        ]);
+                    }
+                }
             }
+            Session::flash('success_post', $forum_language->get('forum', 'post_successful'));
+            Redirect::to(URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id));
         } else {
             $error = $validate->errors();
         }
@@ -397,8 +385,6 @@ if ($user->isLoggedIn() || (defined('COOKIE_CHECK') && COOKIES_ALLOWED)) {
 $template->addCSSFiles([
     (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.css' => [],
     (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.min.css' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/css/emojionearea.min.css' => []
 ]);
 
 if ($user->isLoggedIn()) {
@@ -802,49 +788,20 @@ $smarty->assign([
     'ERROR' => $language->get('general', 'error')
 ]);
 
-// Get post formatting type (HTML or Markdown)
-$cache->setCache('post_formatting');
-$formatting = $cache->retrieve('formatting');
+$template->addJSFiles([
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
+]);
 
-if ($formatting == 'markdown') {
-    // Markdown
-    $smarty->assign('MARKDOWN', true);
-    $smarty->assign('MARKDOWN_HELP', $language->get('general', 'markdown_help'));
-
-    $template->addJSFiles([
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/js/emojionearea.min.js' => []
-    ]);
-
-    $template->addJSScript('
-	  $(document).ready(function() {
-		var el = $("#markdown").emojioneArea({
-			pickerPosition: "bottom"
-		});
-	  });
-	');
-} else {
-    $template->addJSFiles([
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
-    ]);
-
-    if ($user->isLoggedIn()) {
-        $template->addJSScript(Input::createTinyEditor($language, 'quickreply'));
-    }
+if ($user->isLoggedIn()) {
+    $template->addJSScript(Input::createTinyEditor($language, 'quickreply'));
 }
 
 if ($user->isLoggedIn()) {
-    if ($formatting == 'markdown') {
-        $js = '
-		var el = $("#markdown").emojioneArea();
-		el[0].emojioneArea.setText($(\'#markdown\').val() + "\n> [" + resultData[item].author_nickname + "](" + resultData[item].link + ")\n");
-		';
-    } else {
-        $js = '
-		tinymce.editors[0].execCommand(\'mceInsertContent\', false, \'<blockquote class="blockquote"><a href="\' + resultData[item].link + \'">\' + resultData[item].author_nickname + \':</a><br />\' + resultData[item].content + \'</blockquote><br />\');
-		';
-    }
+    $js = '
+    tinymce.editors[0].execCommand(\'mceInsertContent\', false, \'<blockquote class="blockquote"><a href="\' + resultData[item].link + \'">\' + resultData[item].author_nickname + \':</a><br />\' + resultData[item].content + \'</blockquote><br />\');
+    ';
 
     $template->addJSScript('
 	$(document).ready(function() {

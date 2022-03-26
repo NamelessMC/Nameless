@@ -92,42 +92,13 @@ $smarty->assign([
     'BACK_LINK' => URL::build('/panel/core/emails')
 ]);
 
-$template->addCSSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.min.css' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/css/emojionearea.min.css' => [],
+$template->addJSFiles([
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
 ]);
 
-// Get post formatting type (HTML or Markdown)
-$cache->setCache('post_formatting');
-$formatting = $cache->retrieve('formatting');
-
-if ($formatting == 'markdown') {
-    // Markdown
-    $smarty->assign('MARKDOWN', true);
-    $smarty->assign('MARKDOWN_HELP', $language->get('general', 'markdown_help'));
-
-    $template->addJSFiles([
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/js/emojione.min.js' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/js/emojionearea.min.js' => []
-    ]);
-
-    $template->addJSScript('
-      $(document).ready(function() {
-        var el = $("#markdown").emojioneArea({
-            pickerPosition: "bottom"
-        });
-      });
-    ');
-} else {
-    $template->addJSFiles([
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
-    ]);
-
-    $template->addJSScript(Input::createTinyEditor($language, 'reply'));
-}
+$template->addJSScript(Input::createTinyEditor($language, 'reply'));
 
 $template_file = 'core/emails_mass_message.tpl';
 

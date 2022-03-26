@@ -64,7 +64,6 @@ $language = [
     'email_verification' => '¿Activar la verificación del correo electrónico?',
     'registration_settings_updated' => 'La configuración del registro se ha actualizado correctamente.',
     'homepage_type' => 'Tipo de página de inicio',
-    'post_formatting_type' => 'Tipo de formato de los mensajes', /////////
     'portal' => 'Portal',
     'private_profiles' => 'Perfiles privados',
     'missing_sitename' => 'Introduzca un nombre del sitio web de entre 2 y 64 caracteres.',

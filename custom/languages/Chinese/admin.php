@@ -70,7 +70,6 @@ $language = [
     'email_verification' => '使用電子郵件驗證?',
     'registration_settings_updated' => 'Registration settings updated successfully.',
     'homepage_type' => '首頁類型',
-    'post_formatting_type' => '發布格式',
     'portal' => 'Portal',
     'private_profiles' => 'Private Profiles',
     'missing_sitename' => '請輸入 2 ~ 64 字元的網站名稱.',

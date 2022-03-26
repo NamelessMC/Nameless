@@ -28,14 +28,6 @@ $registration_enabled = $registration_enabled[0]->value;
 
 if ($registration_enabled == 0) {
     // Registration is disabled, display a message
-    $template->addCSSFiles([
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css' => []
-    ]);
-
-    $template->addJSFiles([
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js' => []
-    ]);
-
     // Get registration disabled message and assign to Smarty variable
     $registration_disabled_message = $queries->getWhere('settings', ['name', '=', 'registration_disabled_message']);
     if (count($registration_disabled_message)) {
@@ -44,12 +36,10 @@ if ($registration_enabled == 0) {
         $message = 'Registration is currently disabled.';
     }
 
-    $smarty->assign(
-        [
-            'REGISTRATION_DISABLED' => $message,
-            'CREATE_AN_ACCOUNT' => $language->get('user', 'create_an_account')
-        ]
-    );
+    $smarty->assign([
+        'REGISTRATION_DISABLED' => $message,
+        'CREATE_AN_ACCOUNT' => $language->get('user', 'create_an_account')
+    ]);
 
     // Load modules + template
     Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);

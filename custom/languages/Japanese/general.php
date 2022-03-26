@@ -99,11 +99,6 @@ $language = [
     'social' => 'ソーシャル',
 
     /*
-     *  Help dialogues
-     */
-    'markdown_help' => 'Markdownを使用して投稿を装飾することができます。詳しくは<a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>こちら</a>をご覧ください。',
-
-    /*
      *  Server query
      */
     'online' => 'オンライン',

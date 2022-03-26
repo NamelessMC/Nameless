@@ -921,13 +921,6 @@ switch ($s) {
             'value' => 1
         ]);
 
-        $queries->create('settings', [
-            'name' => 'formatting_type',
-            'value' => 'html'
-        ]);
-        $cache->setCache('post_formatting');
-        $cache->store('formatting', 'html');
-
         $error_reporting = $queries->getWhere('settings', ['name', '=', 'error_reporting']);
         if (count($error_reporting)) {
             $cache->setCache('error_cache');

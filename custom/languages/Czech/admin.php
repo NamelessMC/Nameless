@@ -64,7 +64,6 @@ $language = [
     'email_verification' => 'Povolit ověřování e-mailem?',
     'registration_settings_updated' => 'Nastavení registrací úspěšně aktualizována.',
     'homepage_type' => 'Typ domovské stránky',
-    'post_formatting_type' => 'Typ formátování příspěvků',
     'portal' => 'Portál',
     'private_profiles' => 'Soukromé profily',
     'missing_sitename' => 'Zadejte název webu o délce 2 až 64 znaků.',
