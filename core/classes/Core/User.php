@@ -219,7 +219,7 @@ class User {
      * @throws Exception
      */
     public function update(array $fields = []): void {
-        if (!$this->_db->update('users', $id, $fields)) {
+        if (!$this->_db->update('users', $this->_data->id, $fields)) {
             throw new RuntimeException('There was a problem updating your details.');
         }
     }
