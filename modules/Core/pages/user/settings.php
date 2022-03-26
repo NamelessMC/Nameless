@@ -284,35 +284,18 @@ if (isset($_GET['do'])) {
 
                             Log::getInstance()->log(Log::Action('user/ucp/update'));
 
-
                             foreach ($_POST as $key => $item) {
-                                if (strpos($key, 'action') !== false || strpos($key, 'token') !== false) {
-                                    // Action/token, don't do anything
-
-                                } else {
+                                if (!str_contains($key, 'action')&& !str_contains($key, 'token')) {
                                     // Check field exists
                                     $field_exists = $queries->getWhere('profile_fields', ['id', '=', $key]);
                                     if (!count($field_exists)) {
                                         continue;
                                     }
 
-                                    // Update or create?
-                                    $update = false;
-                                    $exists = $queries->getWhere('users_profile_fields', ['user_id', '=', $user->data()->id]);
-
-                                    if (count($exists)) {
-                                        foreach ($exists as $exist) {
-                                            if ($exist->field_id == $key) {
-                                                // Exists
-                                                $update = true;
-                                                break;
-                                            }
-                                        }
-                                    }
-
-                                    if ($update == true) {
+                                    $user_profile_fields = $user->getProfileFields(false);
+                                    if (array_key_exists($key, $user_profile_fields)) {
                                         // Update field value
-                                        $queries->update('users_profile_fields', $exist->id, [
+                                        $queries->update('users_profile_fields', $user_profile_fields[$key]['row_id'], [
                                             'value' => Output::getClean($item) // Todo - allow HTML
                                         ]);
                                     } else {
@@ -336,6 +319,7 @@ if (isset($_GET['do'])) {
 
                 } else {
                     // Validation errors
+                    // TODO: new validation system
                     foreach ($validation->errors() as $item) {
                         if (strpos($item, 'signature') !== false) {
                             $errors[] = $language->get('user', 'signature_max_900') . '<br />';
@@ -582,13 +566,6 @@ if (isset($_GET['do'])) {
 
     // Get custom fields
     $custom_fields = $queries->getWhere('profile_fields', ['id', '<>', 0]);
-    $user_custom_fields = $queries->getWhere('users_profile_fields', ['user_id', '=', $user->data()->id]);
-
-    $custom_fields_template = [
-        'nickname' => [
-            'disabled' => true
-        ]
-    ];
 
     if ($user->hasPermission('usercp.nickname')) {
         $custom_fields_template['nickname'] = [
@@ -597,46 +574,48 @@ if (isset($_GET['do'])) {
             'id' => 'nickname',
             'type' => 'text'
         ];
+    } else {
+        $custom_fields_template['nickname'] = [
+            'nickname' => [
+                'disabled' => true
+            ]
+        ];
     }
 
-    if (count($custom_fields)) {
-        foreach ($custom_fields as $field) {
-            // Skip this field if it's not editable, and it is already set.
-            // This fixes when a field is made after someone registers, the next time they edit their profile,
-            // they will have to set it.
-            if (!$field->editable  && $field->value !== null) {
-                continue;
-            }
-            // Get field value for user
-            $value = '';
-            if (count($user_custom_fields)) {
-                foreach ($user_custom_fields as $key => $item) {
-                    if ($item->field_id == $field->id) {
-                        // TODO: support HTML fields
-                        $value = Output::getClean($item->value);
-                        unset($user_custom_fields[$key]);
-                        break;
-                    }
-                }
-            }
-
-            // Get custom field type
-            if ($field->type == 1) {
-                $type = 'text';
-            } else if ($field->type == 2) {
-                $type = 'textarea';
-            } else if ($field->type == 3) {
-                $type = 'date';
-            }
-
-            $custom_fields_template[$field->name] = [
-                'name' => Output::getClean($field->name),
-                'value' => $value,
-                'id' => $field->id,
-                'type' => $type,
-                'required' => $field->required
-            ];
+    foreach ($custom_fields as $field) {
+        // Skip this field if it's not editable, and it is already set.
+        // This fixes when a field is made after someone registers, the next time they edit their profile,
+        // they will have to set it.
+        if (!$field->editable  && $field->value !== null) {
+            continue;
         }
+
+        // Get field value for user
+        $value = '';
+        foreach ($user->getProfileFields(false) as $id => $item) {
+            if ($id == $field->id) {
+                // TODO: support HTML fields
+                $value = $item['value'];
+                break;
+            }
+        }
+
+        // Get custom field type
+        if ($field->type == 1) {
+            $type = 'text';
+        } else if ($field->type == 2) {
+            $type = 'textarea';
+        } else if ($field->type == 3) {
+            $type = 'date';
+        }
+
+        $custom_fields_template[$field->name] = [
+            'name' => Output::getClean($field->name),
+            'value' => $value,
+            'id' => $field->id,
+            'type' => $type,
+            'required' => $field->required
+        ];
     }
 
     if (Session::exists('tfa_success')) {

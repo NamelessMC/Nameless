@@ -624,7 +624,7 @@ foreach ($results->data as $n => $nValue) {
     }
 
     // Profile fields
-    $fields = $post_creator->getProfileFields($post_creator->data()->id, true, true);
+    $fields = $post_creator->getProfileFields(true, true);
 
     // TODO: Add setting to hide/show this
     if (Util::isModuleEnabled('Discord Integration') && Discord::isBotSetup()) {
