@@ -601,8 +601,10 @@ if (isset($_GET['do'])) {
 
     if (count($custom_fields)) {
         foreach ($custom_fields as $field) {
-            // Check if its editable if not, next
-            if ($field->editable == false) {
+            // Skip this field if it's not editable, and it is already set.
+            // This fixes when a field is made after someone registers, the next time they edit their profile,
+            // they will have to set it.
+            if (!$field->editable  && $field->value !== null) {
                 continue;
             }
             // Get field value for user
@@ -621,14 +623,10 @@ if (isset($_GET['do'])) {
             // Get custom field type
             if ($field->type == 1) {
                 $type = 'text';
-            } else {
-                if ($field->type == 2) {
-                    $type = 'textarea';
-                } else {
-                    if ($field->type == 3) {
-                        $type = 'date';
-                    }
-                }
+            } else if ($field->type == 2) {
+                $type = 'textarea';
+            } else if ($field->type == 3) {
+                $type = 'date';
             }
 
             $custom_fields_template[$field->name] = [
