@@ -337,7 +337,13 @@ class Validate {
     }
 
     /**
-     * Get message for provided field, returning fallback message unless generic message is supplied.
+     * Get the error message for a field.
+     * Priority:
+     *  - Message is set for the field and rule
+     *  - Message for field, not rule specific
+     *  - Result of callable if "*" rule exists
+     *  - Generic message set with `message(...)`
+     *  - Fallback message for rule
      *
      * @param string $field name of field to search for.
      * @param string $rule rule which check failed. should be from the constants defined above.
@@ -349,7 +355,14 @@ class Validate {
 
         // No custom messages defined for this field
         if (!isset($this->_messages[$field])) {
-            return $this->_message != null ? $this->_message : $fallback;
+            if (isset($this->_messages['*'])) {
+                $message = $this->_messages['*']($field);
+                if ($message !== null) {
+                    return $message;
+                }
+            }
+
+            return $this->_message ?? $fallback;
         }
 
         // Generic custom message for this field supplied - but not rule specific
@@ -359,7 +372,7 @@ class Validate {
 
         // Array of custom messages supplied, but none of their rules matches this rule
         if (!array_key_exists($rule, $this->_messages[$field])) {
-            return $this->_message != null ? $this->_message : $fallback;
+            return $this->_message ?? $fallback;
         }
 
         // Rule-specific custom message was supplied

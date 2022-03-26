@@ -155,9 +155,9 @@ if (isset($_GET['do'])) {
                 // Permission to use nickname?
                 if ($user->hasPermission('usercp.nickname')) {
                     $to_validate['nickname'] = [
-                        'required' => true,
-                        'min' => 3,
-                        'max' => 20
+                        Validate::REQUIRED => true,
+                        Validate::MIN => 3,
+                        Validate::MAX => 20
                     ];
 
                     $displayname = Output::getClean(Input::get('nickname'));
@@ -183,7 +183,28 @@ if (isset($_GET['do'])) {
                     }
                 }
 
-                $validation = Validate::check($_POST, $to_validate);
+                $validation = Validate::check(
+                    $_POST, $to_validate
+                )->messages([
+                    'signature' => $language->get('user', 'signature_max_900'),
+                    'nickname' => [
+                        Validate::REQUIRED => $language->get('user', 'nickname_required'),
+                        Validate::MIN => $language->get('user', 'nickname_minimum_3'),
+                        Validate::MAX => $language->get('user', 'nickname_maximum_20')
+                    ],
+                    'timezone' => $language->get('general', 'invalid_timezone'),
+                    // fallback message for required profile fields
+                    '*' => static function ($field) use ($language, $queries) {
+                        [$id] = explode(' ', $field);
+
+                        $field = $queries->getWhere('profile_fields', ['id', '=', $id]);
+                        if (!count($field)) {
+                            return null;
+                        }
+
+                        return str_replace('{x}', Output::getClean($field[0]->name), $language->get('user', 'field_is_required'));
+                    },
+                ]);
 
                 if ($validation->passed()) {
                     // Check nickname is unique
@@ -318,41 +339,7 @@ if (isset($_GET['do'])) {
                     }
 
                 } else {
-                    // Validation errors
-                    // TODO: new validation system
-                    foreach ($validation->errors() as $item) {
-                        if (strpos($item, 'signature') !== false) {
-                            $errors[] = $language->get('user', 'signature_max_900') . '<br />';
-                        } else {
-                            if (strpos($item, 'nickname') !== false) {
-                                if (strpos($item, 'required') !== false) {
-                                    $errors[] = $language->get('user', 'username_required') . '<br />';
-                                } else {
-                                    if (strpos($item, 'min') !== false) {
-                                        $errors[] = $language->get('user', 'username_minimum_3') . '<br />';
-                                    } else {
-                                        if (strpos($item, 'max') !== false) {
-                                            $errors[] = $language->get('user', 'username_maximum_20') . '<br />';
-                                        }
-                                    }
-                                }
-                            } else {
-                                if (strpos($item, 'timezone') !== false) {
-                                    $errors[] = $language->get('general', 'invalid_timezone') . '<br />';
-                                } else {
-                                    // Get field name
-                                    $id = explode(' ', $item);
-                                    $id = $id[0];
-
-                                    $field = $queries->getWhere('profile_fields', ['id', '=', $id]);
-                                    if (count($field)) {
-                                        $field = $field[0];
-                                        $errors[] = str_replace('{x}', Output::getClean($field->name), $language->get('user', 'field_is_required')) . '<br />';
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    $errors = $validation->errors();
                 }
             } else {
                 if (Input::get('action') == 'password') {
