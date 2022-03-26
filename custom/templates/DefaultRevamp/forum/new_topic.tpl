@@ -42,12 +42,12 @@
           {/if}
           {if isset($MARKDOWN)}
             <div class="field">
-              <label for="markdown">Content:</label>
+              <label for="markdown">{$CONTENT_LABEL}</label>
               <textarea name="content" id="markdown">{$CONTENT}</textarea>
             </div>
           {else}
             <div class="field">
-              <label for="editor">Content:</label>
+              <label for="editor">{$CONTENT_LABEL}</label>
               <textarea name="content" id="reply">{$CONTENT}</textarea>
             </div>
           {/if}
