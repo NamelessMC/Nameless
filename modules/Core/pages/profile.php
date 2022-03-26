@@ -666,40 +666,37 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     $fields = [];
 
     // Get profile fields
-    $profile_fields = $queries->getWhere('users_profile_fields', ['user_id', '=', $query->id]);
-    if (count($profile_fields)) {
-        foreach ($profile_fields as $field) {
-            // Get field
-            $profile_field = $queries->getWhere('profile_fields', ['id', '=', $field->field_id]);
-            if (!count($profile_field)) {
-                continue;
-            }
-
-            $profile_field = $profile_field[0];
-
-            if ($profile_field->public == 0 || !$field->value) {
-                continue;
-            }
-
-            // Get field type
-            switch ($profile_field->type) {
-                case 1:
-                    $type = 'text';
-                    break;
-                case 2:
-                    $type = 'textarea';
-                    break;
-                case 3:
-                    $type = 'date';
-                    break;
-            }
-
-            $fields[] = [
-                'title' => Output::getClean($profile_field->name),
-                'type' => $type,
-                'value' => Output::getPurified(Util::urlToAnchorTag(htmlspecialchars_decode($field->value)))
-            ];
+    foreach ($profile_user->getProfileFields() as $id => $item) {
+        // Get field
+        $profile_field = $queries->getWhere('profile_fields', ['id', '=', $id]);
+        if (!count($profile_field)) {
+            continue;
         }
+
+        $profile_field = $profile_field[0];
+
+        if ($profile_field->public == 0 || !$item['value']) {
+            continue;
+        }
+
+        // Get field type
+        switch ($profile_field->type) {
+            case 1:
+                $type = 'text';
+                break;
+            case 2:
+                $type = 'textarea';
+                break;
+            case 3:
+                $type = 'date';
+                break;
+        }
+
+        $fields[] = [
+            'title' => Output::getClean($profile_field->name),
+            'type' => $type,
+            'value' => Output::getClean($item['value']),
+        ];
     }
 
     $profile_user = new User($query->id);

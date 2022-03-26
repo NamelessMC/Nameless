@@ -3,9 +3,9 @@
 /**
  * @param int $id NamelessMC ID of the user whose announcements to view
  *
- * @return string JSON Array of latest announcements
+ * @return string JSON Array of the latest announcements
  */
-class GetAnnouncementsEndpoint extends KeyAuthEndpoint {
+class GetUserAnnouncementsEndpoint extends KeyAuthEndpoint {
 
     public function __construct() {
         $this->_route = 'users/{user}/announcements';

@@ -267,6 +267,7 @@ $smarty->assign([
     'NO' => $language->get('general', 'no'),
     'TOKEN' => '<input type="hidden" name="token" value="' . $token . '">',
     'FORUM_LINK' => URL::build('/forum'),
+    'CONTENT_LABEL' => $language->get('general', 'content'),
     'CONTENT' => ((isset($_POST['content']) && $_POST['content']) ? Output::getPurified(Input::get('content')) : ($placeholder ?? '')),
     'FORUM_TITLE' => Output::getClean($forum_title),
     'FORUM_DESCRIPTION' => Output::getPurified($forum_query->forum_description),

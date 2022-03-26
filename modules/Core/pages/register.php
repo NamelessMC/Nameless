@@ -137,6 +137,12 @@ if (Input::exists()) {
 
         if ($captcha_passed) {
             $to_validation = [
+                'username' => [
+                    Validate::REQUIRED => true,
+                    Validate::MIN => 3,
+                    Validate::MAX => 20,
+                    Validate::UNIQUE => 'users'
+                ],
                 'password' => [
                     Validate::REQUIRED => true,
                     Validate::MIN => 6,
@@ -162,20 +168,14 @@ if (Input::exists()) {
             ];
 
             // Minecraft username?
-            $to_validation['username'] = [
-                'required' => true,
-                'min' => 3,
-                'max' => 20,
-                'unique' => 'users'
-            ];
             if (MINECRAFT) {
                 if ($custom_usernames == 'true') {
                     // Nickname enabled
                     $to_validation['nickname'] = [
-                        'required' => true,
-                        'min' => 3,
-                        'max' => 20,
-                        'unique' => 'users'
+                        Validate::REQUIRED => true,
+                        Validate::MIN => 3,
+                        Validate::MAX => 20,
+                        Validate::UNIQUE => 'users'
                     ];
                     $nickname = Output::getClean(Input::get('nickname'));
                 } else {
@@ -193,16 +193,53 @@ if (Input::exists()) {
             if (count($profile_fields)) {
                 foreach ($profile_fields as $field) {
                     if ($field->required == true) {
-                        $to_validation[$field->name] = [
-                            'required' => true,
-                            'max' => (is_null($field->length) ? 1024 : $field->length)
+                        $to_validation[$field->id] = [
+                            Validate::REQUIRED => true,
+                            Validate::MAX => (is_null($field->length) ? 1024 : $field->length)
                         ];
                     }
                 }
             }
 
             // Valid, continue with validation
-            $validation = Validate::check($_POST, $to_validation); // Execute validation
+            $validation = Validate::check(
+                $_POST, $to_validation
+            )->messages([
+                'username' => [
+                    Validate::REQUIRED => $language->get('user', 'username_required'),
+                    Validate::MIN => $language->get('user', 'username_minimum_3'),
+                    Validate::MAX => $language->get('user', 'username_maximum_20'),
+                    Validate::UNIQUE => $language->get('user', 'username_mcname_email_exists')
+                ],
+                'email' => [
+                    Validate::REQUIRED => $language->get('user', 'email_required'),
+                    Validate::EMAIL => $language->get('general', 'contact_message_email'),
+                ],
+                'password' => [
+                    Validate::REQUIRED => $language->get('user', 'password_required'),
+                    Validate::MIN => $language->get('user', 'password_minimum_6'),
+                ],
+                'password_again' => [
+                    Validate::MATCHES => $language->get('user', 'passwords_dont_match'),
+                ],
+                'mcname' => [
+                    Validate::REQUIRED => $language->get('user', 'mcname_required'),
+                    Validate::MIN => $language->get('user', 'mcname_minimum_3'),
+                    Validate::MAX => $language->get('user', 'mcname_maximum_20'),
+                ],
+                't_and_c' => [
+                    Validate::REQUIRED => $language->get('user', 'accept_terms'),
+                ],
+                // fallback message for profile fields
+                '*' => static function ($field) use ($language, $queries) {
+                    $profile_field = $queries->getWhere('profile_fields', ['id', '=', $field]);
+                    if (!count($profile_field)) {
+                        return null;
+                    }
+
+                    return str_replace('{x}', Output::getClean($profile_field[0]->name), $language->get('user', 'field_is_required'));
+                },
+            ]);
 
             if ($validation->passed()) {
                 if (MINECRAFT && $uuid_linking == 1) {
@@ -405,88 +442,7 @@ if (Input::exists()) {
 
             } else {
                 // Errors
-                // TODO: Update to new validation system
-                $errors = [];
-                foreach ($validation->errors() as $validation_error) {
-
-                    if (strpos($validation_error, 'is required') !== false) {
-                        // x is required
-                        if (strpos($validation_error, 'username') !== false) {
-                            $errors[] = $language->get('user', 'username_required');
-                        } else {
-                            if (strpos($validation_error, 'email') !== false) {
-                                $errors[] = $language->get('user', 'email_required');
-                            } else {
-                                if (strpos($validation_error, 'password') !== false) {
-                                    $errors[] = $language->get('user', 'password_required');
-                                } else {
-                                    if (strpos($validation_error, 'mcname') !== false) {
-                                        $errors[] = $language->get('user', 'mcname_required');
-                                    } else {
-                                        if (strpos($validation_error, 't_and_c') !== false) {
-                                            $errors[] = $language->get('user', 'accept_terms');
-                                        } else {
-                                            $errors[] = $validation_error . '.';
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    } else {
-                        if (strpos($validation_error, 'minimum') !== false) {
-                            // x must be a minimum of y characters long
-                            if (strpos($validation_error, 'username') !== false) {
-                                $errors[] = $language->get('user', 'username_minimum_3');
-                            } else {
-                                if (strpos($validation_error, 'mcname') !== false) {
-                                    $errors[] = $language->get('user', 'mcname_minimum_3');
-                                } else {
-                                    if (strpos($validation_error, 'password') !== false) {
-                                        $errors[] = $language->get('user', 'password_minimum_6');
-                                    }
-                                }
-                            }
-                        } else {
-                            if (strpos($validation_error, 'maximum') !== false) {
-                                // x must be a maximum of y characters long
-                                if (strpos($validation_error, 'username') !== false) {
-                                    $errors[] = $language->get('user', 'username_maximum_20');
-                                } else {
-                                    if (strpos($validation_error, 'mcname') !== false) {
-                                        $errors[] = $language->get('user', 'mcname_maximum_20');
-                                    }
-                                }
-                            } else {
-                                if (strpos($validation_error, 'must match') !== false) {
-                                    // password must match password again
-                                    $errors[] = $language->get('user', 'passwords_dont_match');
-                                } else {
-                                    if (strpos($validation_error, 'already exists') !== false) {
-                                        // already exists
-                                        if (!in_array($language->get('user', 'username_mcname_email_exists'), $errors)) {
-                                            $errors[] = $language->get('user', 'username_mcname_email_exists');
-                                        }
-                                    } else {
-                                        if (strpos($validation_error, 'not a valid Minecraft account') !== false) {
-                                            // Invalid Minecraft username
-                                            $errors[] = $language->get('user', 'invalid_mcname');
-                                        } else {
-                                            if (strpos($validation_error, 'Mojang communication error') !== false) {
-                                                // Mojang server error
-                                                $errors[] = $language->get('user', 'mcname_lookup_error');
-                                            } else {
-                                                if (strpos($validation_error, 'valid email') !== false) {
-                                                    // Validate email
-                                                    $errors[] = $language->get('general', 'contact_message_email');
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+                $errors = $validation->errors();
             }
         } else {
             // reCAPTCHA failed
@@ -527,7 +483,8 @@ if (count($profile_fields)) {
             'name' => Output::getClean($field->name),
             'description' => Output::getClean($field->description),
             'type' => $field->type,
-            'required' => $field->required
+            'required' => $field->required,
+            'value' => $_POST[$field->id] ?? ''
         ];
     }
 }

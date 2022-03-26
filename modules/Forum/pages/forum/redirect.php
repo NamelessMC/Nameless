@@ -9,7 +9,7 @@
  *  Forum redirects for old links
  */
 
-if (strpos($route, 'view_forum') !== false) {
+if (str_contains($route, 'view_forum')) {
     // Build new forum URL
     if (isset($_GET['fid']) && is_numeric($_GET['fid'])) {
         $url = URL::build('/forum/view/' . Output::getClean($_GET['fid']));
@@ -17,7 +17,7 @@ if (strpos($route, 'view_forum') !== false) {
         $url = URL::build('/forum');
     }
 } else {
-    if (strpos($route, 'view_topic') !== false) {
+    if (str_contains($route, 'view_topic')) {
         // Build new topic URL
         if (isset($_GET['tid']) && is_numeric($_GET['tid'])) {
             $url = URL::build('/forum/topic/' . Output::getClean($_GET['tid']));

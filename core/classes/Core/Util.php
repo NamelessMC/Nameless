@@ -47,7 +47,7 @@ class Util {
      */
     public static function recursiveRemoveDirectory(string $directory): bool {
         // safety precaution, only allow deleting files in "custom" directory
-        if (!strpos($directory, 'custom')) {
+        if (!str_contains($directory, 'custom')) {
             return false;
         }
 
@@ -198,7 +198,7 @@ class Util {
             $proto = 'http://';
         }
 
-        if (strpos($hostname, 'www') === false && defined('FORCE_WWW') && FORCE_WWW) {
+        if (!str_contains($hostname, 'www') && defined('FORCE_WWW') && FORCE_WWW) {
             $www = 'www.';
         } else {
             $www = '';
@@ -437,7 +437,7 @@ class Util {
      */
     public static function replaceAnchorsWithText(string $data): string {
         return preg_replace_callback('/]*href=["|\']([^"|\']*)["|\'][^>]*>([^<]*)<\/a>/i', static function ($m): string {
-            if (strpos($m[1], self::getSelfURL()) === false) {
+            if (!str_contains($m[1], self::getSelfURL())) {
                 return '<a href="' . $m[1] . '" rel="nofollow noopener" target="_blank">' . $m[2] . '</a>';
             }
 

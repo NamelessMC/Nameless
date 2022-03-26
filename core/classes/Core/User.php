@@ -967,25 +967,20 @@ class User {
     /**
      * Get profile fields for specified user
      *
-     * @param int $user_id User to retrieve fields for.
      * @param bool $public Whether to only return public fields or not (default `true`).
      * @param bool $forum Whether to only return fields which display on forum posts, only if $public is true (default `false`).
      *
      * @return array Array of profile fields.
      */
-    public function getProfileFields(int $user_id, bool $public = true, bool $forum = false): array {
-        if ($user_id == null) {
-            throw new InvalidArgumentException('User id is null');
-        }
-
-        $data = $this->_db->get('users_profile_fields', ['user_id', '=', $user_id]);
-
+    public function getProfileFields(bool $public = true, bool $forum = false): array {
+        $data = $this->_db->get('users_profile_fields', ['user_id', '=', $this->data()->id]);
         if (!$data->count()) {
             return [];
         }
 
         $return = [];
         if ($public == true) {
+
             // Return public fields only
             foreach ($data->results() as $result) {
                 $is_public = $this->_db->get('profile_fields', ['id', '=', $result->field_id]);
@@ -998,13 +993,15 @@ class User {
                 if ($is_public[0]->public == 1) {
                     if ($forum == true) {
                         if ($is_public[0]->forum_posts == 1) {
-                            $return[] = [
+                            $return[$result->field_id] = [
+                                'row_id' => $result->id,
                                 'name' => Output::getClean($is_public[0]->name),
                                 'value' => Output::getClean($result->value)
                             ];
                         }
                     } else {
-                        $return[] = [
+                        $return[$result->field_id] = [
+                            'row_id' => $result->id,
                             'name' => Output::getClean($is_public[0]->name),
                             'value' => Output::getClean($result->value)
                         ];
@@ -1022,13 +1019,15 @@ class User {
 
                 $name = $name->results();
 
-                $return[] = [
+                $return[$result->field_id] = [
+                    'row_id' => $result->id,
                     'name' => Output::getClean($name[0]->name),
                     'value' => Output::getClean($result->value)
                 ];
             }
 
         }
+
         return $return;
     }
 
