@@ -40,17 +40,10 @@
               {/foreach}
             </div>
           {/if}
-          {if isset($MARKDOWN)}
-            <div class="field">
-              <label for="markdown">{$CONTENT_LABEL}</label>
-              <textarea name="content" id="markdown">{$CONTENT}</textarea>
-            </div>
-          {else}
-            <div class="field">
-              <label for="editor">{$CONTENT_LABEL}</label>
-              <textarea name="content" id="reply">{$CONTENT}</textarea>
-            </div>
-          {/if}
+          <div class="field">
+            <label for="editor">{$CONTENT_LABEL}</label>
+            <textarea name="content" id="reply">{$CONTENT}</textarea>
+          </div>
           {$TOKEN}
           <input type="submit" class="ui primary button" value="{$SUBMIT}">
           <a class="ui negative button" href="#" data-toggle="modal" data-target="#modal-cancel">{$CANCEL}</a>
