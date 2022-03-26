@@ -45,29 +45,6 @@ if (isset($errors) && count($errors)) {
     );
 }
 
-$output = [];
-if (!defined('PANEL_TEMPLATE_STAFF_USERS_AJAX')) {
-    // Get all users
-    $users = $queries->getWhere('users', ['id', '<>', 0]);
-    foreach ($users as $item) {
-        $target_user = new User($item->id);
-
-        $output[] = [
-            'id' => Output::getClean($item->id),
-            'username' => $target_user->getDisplayname(true),
-            'nickname' => $target_user->getDisplayname(),
-            'avatar' => $target_user->getAvatar(),
-            'style' => $target_user->getGroupClass(),
-            'profile' => $target_user->getProfileURL(),
-            'panel_profile' => URL::build('/panel/user/' . Output::getClean($item->id . '-' . $item->username)),
-            'primary_group' => Output::getClean($target_user->getMainGroup()->name),
-            'all_groups' => $target_user->getAllGroupHtml(),
-            'registered' => date('d M Y', $item->joined),
-            'registered_unix' => Output::getClean($item->joined)
-        ];
-    }
-}
-
 $smarty->assign(
     [
         'PARENT_PAGE' => PARENT_PAGE,
@@ -82,8 +59,7 @@ $smarty->assign(
         'GROUPS' => $language->get('admin', 'groups'),
         'REGISTERED' => $language->get('admin', 'registered'),
         'ACTIONS' => $language->get('general', 'actions'),
-        'ACTIONS_LIST' => Core_Module::getUserActions(),
-        'ALL_USERS' => $output
+        'ACTIONS_LIST' => Core_Module::getUserActions()
     ]
 );
 
