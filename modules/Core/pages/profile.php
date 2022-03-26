@@ -14,8 +14,6 @@ const PAGE = 'profile';
 
 $timeago = new TimeAgo(TIMEZONE);
 
-$emojione = new Emojione\Client(new Emojione\Ruleset());
-
 $profile = explode('/', rtrim($_GET['route'], '/'));
 if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profile[count($profile) - 2] == 'profile') && !isset($_GET['error'])) {
     // User specified

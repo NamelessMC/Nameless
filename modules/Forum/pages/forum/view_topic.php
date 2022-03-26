@@ -18,8 +18,6 @@ $forum = new Forum();
 $timeago = new TimeAgo(TIMEZONE);
 $mentionsParser = new MentionsParser();
 
-$emojione = new Emojione\Client(new Emojione\Ruleset());
-
 // Get topic ID
 $tid = explode('/', $route);
 $tid = $tid[count($tid) - 1];
@@ -671,7 +669,7 @@ foreach ($results->data as $n => $nValue) {
 
     // Purify post content
     $content = Util::replaceAnchorsWithText(Output::getDecoded($nValue->post_content));
-    $content = $emojione->toImage($content);
+    $content = Util::renderEmojis($content);
     $content = Output::getPurified($content, true);
 
     // Get post date
@@ -708,7 +706,7 @@ foreach ($results->data as $n => $nValue) {
         'post_date' => $post_date,
         'buttons' => $buttons,
         'content' => $content,
-        'signature' => Output::getPurified(htmlspecialchars_decode($signature)),
+        'signature' => Output::getPurified(Util::renderEmojis(htmlspecialchars_decode($signature))),
         'fields' => (empty($fields) ? [] : $fields),
         'edited' => (is_null($nValue->last_edited) ? null : str_replace('{x}', $timeago->inWords(date('Y-m-d H:i:s', $nValue->last_edited), $language->getTimeLanguage()), $forum_language->get('forum', 'last_edited'))),
         'edited_full' => (is_null($nValue->last_edited) ? null : date('d M Y, H:i', $nValue->last_edited)),

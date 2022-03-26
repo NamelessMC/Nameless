@@ -72,6 +72,7 @@ class Input {
               spoiler_caption: '{$language->get('general', 'spoiler')}',
               default_link_target: '_blank',
               skin: '$skin',
+              emoticons_database: 'emojiimages',
             });
         ";
     }

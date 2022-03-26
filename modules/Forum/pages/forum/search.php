@@ -18,7 +18,6 @@ const PAGE = 'forum';
 
 // Initialise
 $timeago = new TimeAgo(TIMEZONE);
-$emojione = new Emojione\Client(new Emojione\Ruleset());
 
 // Get user group ID
 $user_groups = $user->getAllGroupIds();
@@ -173,7 +172,7 @@ if (isset($_GET['s'])) {
         $n = 0;
         while (($n < count($results->data)) && isset($results->data[$n])) {
             $content = htmlspecialchars_decode($results->data[$n]['post_content']);
-            $content = $emojione->toImage($content);
+            $content = Util::renderEmojis($content);
             $content = Output::getPurified($content);
 
             $post_user = new User($results->data[$n]['post_author']);

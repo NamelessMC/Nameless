@@ -1,4 +1,7 @@
 <?php
+
+use Astrotomic\Twemoji\Twemoji;
+
 /**
  * Contains misc utility methods.
  *
@@ -556,5 +559,18 @@ class Util {
      */
     public static function getCurrentNamelessVersion(): string {
         return self::getSetting(DB::getInstance(), 'nameless_version');
+    }
+
+    /**
+     * Replace native emojis with their Twemoji equivalent.
+     *
+     * @param string $text Text to parse
+     * @return string Text with emojis replaced with URLs to their Twemoji equivalent.
+     */
+    public static function renderEmojis(string $text): string {
+        return Twemoji::text($text)->toHtml(null, [
+            'width' => 20,
+            'height' => 20,
+        ]);
     }
 }

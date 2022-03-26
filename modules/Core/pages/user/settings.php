@@ -19,8 +19,6 @@ const PAGE = 'cc_settings';
 $page_title = $language->get('user', 'user_cp');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-$emojione = new Emojione\Client(new Emojione\Ruleset());
-
 // Forum enabled?
 $forum_enabled = Util::isModuleEnabled('Forum');
 

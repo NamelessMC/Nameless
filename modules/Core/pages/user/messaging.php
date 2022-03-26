@@ -34,8 +34,6 @@ $template->addJSScript(Input::createTinyEditor($language, 'reply'));
 
 $timeago = new TimeAgo(TIMEZONE);
 
-$emojione = new Emojione\Client(new Emojione\Ruleset());
-
 $smarty->assign(
     [
         'ERROR_TITLE' => $language->get('general', 'error')
@@ -470,7 +468,7 @@ if (!isset($_GET['action'])) {
                 'author_groups' => $target_user->getAllGroupHtml(),
                 'message_date' => $timeago->inWords(date('d M Y, H:i', $nValue->created), $language->getTimeLanguage()),
                 'message_date_full' => date('d M Y, H:i', $nValue->created),
-                'content' => Output::getPurified($emojione->unicodeToImage(Output::getDecoded($nValue->content)))
+                'content' => Output::getPurified(Util::renderEmojis(Output::getDecoded($nValue->content))),
             ];
         }
 
@@ -505,7 +503,7 @@ if (!isset($_GET['action'])) {
                 'author_groups' => $target_user->getAllGroupHtml(),
                 'message_date' => $timeago->inWords(date('d M Y, H:i', $nValue->created), $language->getTimeLanguage()),
                 'message_date_full' => date('d M Y, H:i', $nValue->created),
-                'content' => Output::getPurified($emojione->toImage(Output::getDecoded($nValue->content)))
+                'content' => Output::getPurified(Util::renderEmojis(Output::getDecoded($nValue->content))),
             ];
         }
 
