@@ -361,7 +361,7 @@ class Core_Module extends Module {
         AvatarSource::setActiveSource(DEFAULT_AVATAR_SOURCE);
 
         // Autoload API Endpoints
-        Util::loadEndpoints(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', 'Core', 'includes', 'endpoints']), $endpoints);
+        $endpoints->loadEndpoints(ROOT_PATH . '/modules/Core/includes/endpoints');
 
         GroupSyncManager::getInstance()->registerInjector(NamelessMCGroupSyncInjector::class);
         GroupSyncManager::getInstance()->registerInjector(MinecraftGroupSyncInjector::class);

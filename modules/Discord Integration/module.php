@@ -32,7 +32,7 @@ class Discord_Module extends Module {
 
         require_once(ROOT_PATH . "/modules/{$this->getName()}/hooks/DiscordHook.php");
 
-        Util::loadEndpoints(ROOT_PATH . "/modules/{$this->getName()}/includes/endpoints", $endpoints);
+        $endpoints->loadEndpoints(ROOT_PATH . '/modules/Discord Integration/includes/endpoints');
 
         GroupSyncManager::getInstance()->registerInjector(DiscordGroupSyncInjector::class);
     }

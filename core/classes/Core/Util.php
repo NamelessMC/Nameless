@@ -467,35 +467,6 @@ class Util {
     }
 
     /**
-     * Recursively scan, preload and register EndpointBase classes in a folder.
-     *
-     * @see EndpointBase
-     *
-     * @param string $path Path to scan from.
-     * @param Endpoints $endpoints Instance of Endpoints class to register endpoints to.
-     */
-    public static function loadEndpoints(string $path, Endpoints $endpoints): void {
-        $rii = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS));
-
-        foreach ($rii as $file) {
-            if ($file->isDir()) {
-                self::loadEndpoints($file, $endpoints);
-                return;
-            }
-
-            if ($file->getFilename() === '.DS_Store') {
-                continue;
-            }
-
-            require_once($file->getPathName());
-
-            $endpoint_class_name = str_replace('.php', '', $file->getFilename());
-
-            $endpoints->add(new $endpoint_class_name);
-        }
-    }
-
-    /**
      * Get in-game rank name from a website group ID, uses Group Sync rules.
      *
      * @param int $website_group_id ID of website group to search for.

@@ -16,19 +16,6 @@ class Endpoints {
     private iterable $_endpoints = [];
 
     /**
-     * Register an endpoint if it's route is not already taken.
-     *
-     * @param EndpointBase $endpoint Instance of endpoint class to register.
-     */
-    public function add(EndpointBase $endpoint): void {
-        $key = $endpoint->getRoute() . '-' . $endpoint->getMethod();
-
-        if (!isset($this->_endpoints[$key])) {
-            $this->_endpoints[$key] = $endpoint;
-        }
-    }
-
-    /**
      * Get all registered Endpoints
      *
      * @return EndpointBase[] All endpoints.
@@ -85,5 +72,40 @@ class Endpoints {
         }
 
         $api->throwError(3, $api->getLanguage()->get('api', 'invalid_api_method'), 'If you are seeing this while in a browser, this does not mean your API is not functioning!', 404);
+    }
+
+    /**
+     * Recursively scan, preload and register EndpointBase classes in a folder.
+     *
+     * @see EndpointBase
+     *
+     * @param string $path Path to scan from.
+     */
+    public function loadEndpoints(string $path): void {
+        $rii = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS));
+
+        foreach ($rii as $file) {
+            if ($file->isDir()) {
+                $this->loadEndpoints($file);
+                return;
+            }
+
+            if ($file->getFilename() === '.DS_Store') {
+                continue;
+            }
+
+            require_once($file->getPathName());
+
+            $endpoint_class_name = str_replace('.php', '', $file->getFilename());
+
+            /** @var EndpointBase $endpoint */
+            $endpoint = new $endpoint_class_name();
+
+            $key = $endpoint->getRoute() . '-' . $endpoint->getMethod();
+
+            if (!isset($this->_endpoints[$key])) {
+                $this->_endpoints[$key] = $endpoint;
+            }
+        }
     }
 }
