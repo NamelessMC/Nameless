@@ -69,7 +69,7 @@ if (Input::exists()) {
             } else {
                 if ($login_method == 'email_or_username') {
                     $username = Input::get('username');
-                    if (strpos(Input::get('username'), '@') !== false) {
+                    if (str_contains(Input::get('username'), '@')) {
                         $method_field = 'email';
                     } else {
                         $method_field = 'username';

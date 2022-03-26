@@ -41,8 +41,10 @@ class Recaptcha3 extends CaptchaBase {
 
     public function validateKey(string $key) : bool {
         $url = 'https://www.google.com/recaptcha/api.js?render=' . $key;
-        $result = HttpClient::get($url)->contents();
-        return strpos($result, $key) !== false;
+        return str_contains(
+            HttpClient::get($url)->contents(),
+            $key
+        );
     }
 
     public function getHtml(): ?string {

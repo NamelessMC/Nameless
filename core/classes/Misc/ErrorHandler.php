@@ -76,7 +76,7 @@ class ErrorHandler {
         self::logError('fatal', '[' . date('Y-m-d, H:i:s') . '] ' . $error_file . '(' . $error_line . '): ' . $error_string);
 
         // If this is an API request, print the error in plaintext and dont render the whole error trace page
-        if (strpos($_REQUEST['route'], '/api/v2/') !== false) {
+        if (str_contains($_REQUEST['route'], '/api/v2/')) {
             die($error_string . ' in ' . $error_file . ' on line ' . $error_line . PHP_EOL . $exception->getTraceAsString());
         }
 
