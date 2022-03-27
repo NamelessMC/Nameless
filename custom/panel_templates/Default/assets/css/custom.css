@@ -110,7 +110,7 @@ body {
 }
 
 .dark .list-group-item {
-    background-color: var(--dark-color-5);
+    background-color: #161c25 !important;
 }
 
 .dark .bg-white,
