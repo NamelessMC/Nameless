@@ -579,10 +579,6 @@ if (!class_exists('Default_Panel_Template')) {
                         break;
 
                     case 'forums':
-                        if (isset($_GET['forum'])) {
-                            $this->addJSScript(Input::createTinyEditor($this->_language, 'InputPlaceholder'));
-                        }
-
                         $this->addCSSFiles([
                             (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.css' => [],
                             (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
@@ -594,6 +590,10 @@ if (!class_exists('Default_Panel_Template')) {
                             (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/js/jquery-ui.min.js' => [],
                             (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
                         ]);
+
+                        if (isset($_GET['forum'])) {
+                            $this->addJSScript(Input::createTinyEditor($this->_language, 'InputPlaceholder'));
+                        }
                         break;
 
                 }
