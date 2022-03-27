@@ -110,34 +110,46 @@
                                            name="discord_role_id" value="{$DISCORD_ROLE_ID_VALUE}">
                                 </div>
                             {/if}
-                            <div class="form-group">
-                                <label for="InputTfa">{$FORCE_TFA} <span class="badge badge-warning"
+                            <div class="form-group custom-control custom-switch">
+                                <input type="hidden" name="tfa" value="0">
+                                <input type="checkbox"
+                                       name="tfa"
+                                       class="custom-control-input"
+                                       id="InputTfa"
+                                       value="1" {if $FORCE_TFA_VALUE eq 1} checked{/if}>
+                                <label class="custom-control-label" for="InputTfa">{$FORCE_TFA} <span class="badge badge-warning"
                                                                          data-toggle="popover" data-title="{$WARNING}"
                                                                          data-content="{$FORCE_TFA_WARNING|escape}"><i
                                                 class="fa fa-exclamation-triangle"></i></label>
-                                <input type="hidden" name="tfa" value="0">
-                                <input type="checkbox" name="tfa" class="js-switch" id="InputTfa"
-                                       value="1" {if $FORCE_TFA_VALUE eq 1} checked{/if}>
                             </div>
-                            <div class="form-group">
-                                <label for="InputStaff">{$STAFF_GROUP}</label>
+                            <div class="form-group custom-control custom-switch">
                                 <input type="hidden" name="staff" value="0">
-                                <input type="checkbox" name="staff" class="js-switch" id="InputStaff"
+                                <input type="checkbox"
+                                       name="staff"
+                                       class="custom-control-input"
+                                       id="InputStaff"
                                        value="1" {if $STAFF_GROUP_VALUE eq 1} checked{/if}>
+                                <label class="custom-control-label" for="InputStaff">{$STAFF_GROUP}</label>
                             </div>
                             {if !isset($OWN_GROUP)}
-                                <div class="form-group">
-                                    <label for="InputStaffCP">{$STAFF_CP}</label>
+                                <div class="form-group custom-control custom-switch">
                                     <input type="hidden" name="staffcp" value="0">
-                                    <input type="checkbox" name="staffcp" class="js-switch" id="InputStaffCP"
+                                    <input type="checkbox"
+                                           name="staffcp"
+                                           class="custom-control-input"
+                                           id="InputStaffCP"
                                            value="1" {if $STAFF_CP_VALUE eq 1} checked{/if}>
+                                    <label class="custom-control-label" for="InputStaffCP">{$STAFF_CP}</label>
                                 </div>
                             {/if}
-                            <div class="form-group">
-                                <label for="InputDefault">{$DEFAULT_GROUP}</label>
+                            <div class="form-group custom-control custom-switch">
                                 <input type="hidden" name="default" value="0">
-                                <input type="checkbox" name="default" class="js-switch" id="InputDefault"
+                                <input type="checkbox"
+                                       name="default"
+                                       class="custom-control-input"
+                                       id="InputDefault"
                                        value="1" {if $DEFAULT_GROUP_VALUE eq 1} checked{/if}>
+                                <label class="custom-control-label" for="InputDefault">{$DEFAULT_GROUP}</label>
                             </div>
                             <div class="form-group">
                                 <input type="hidden" name="token" value="{$TOKEN}">

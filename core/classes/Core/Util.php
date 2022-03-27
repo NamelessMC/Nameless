@@ -1,4 +1,7 @@
 <?php
+
+use Astrotomic\Twemoji\Twemoji;
+
 /**
  * Contains misc utility methods.
  *
@@ -47,7 +50,7 @@ class Util {
      */
     public static function recursiveRemoveDirectory(string $directory): bool {
         // safety precaution, only allow deleting files in "custom" directory
-        if (!strpos($directory, 'custom')) {
+        if (!str_contains($directory, 'custom')) {
             return false;
         }
 
@@ -198,7 +201,7 @@ class Util {
             $proto = 'http://';
         }
 
-        if (strpos($hostname, 'www') === false && defined('FORCE_WWW') && FORCE_WWW) {
+        if (!str_contains($hostname, 'www') && defined('FORCE_WWW') && FORCE_WWW) {
             $www = 'www.';
         } else {
             $www = '';
@@ -437,7 +440,7 @@ class Util {
      */
     public static function replaceAnchorsWithText(string $data): string {
         return preg_replace_callback('/]*href=["|\']([^"|\']*)["|\'][^>]*>([^<]*)<\/a>/i', static function ($m): string {
-            if (strpos($m[1], self::getSelfURL()) === false) {
+            if (!str_contains($m[1], self::getSelfURL())) {
                 return '<a href="' . $m[1] . '" rel="nofollow noopener" target="_blank">' . $m[2] . '</a>';
             }
 
@@ -461,35 +464,6 @@ class Util {
         }
 
         return $fallback;
-    }
-
-    /**
-     * Recursively scan, preload and register EndpointBase classes in a folder.
-     *
-     * @see EndpointBase
-     *
-     * @param string $path Path to scan from.
-     * @param Endpoints $endpoints Instance of Endpoints class to register endpoints to.
-     */
-    public static function loadEndpoints(string $path, Endpoints $endpoints): void {
-        $rii = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS));
-
-        foreach ($rii as $file) {
-            if ($file->isDir()) {
-                self::loadEndpoints($file, $endpoints);
-                return;
-            }
-
-            if ($file->getFilename() === '.DS_Store') {
-                continue;
-            }
-
-            require_once($file->getPathName());
-
-            $endpoint_class_name = str_replace('.php', '', $file->getFilename());
-
-            $endpoints->add(new $endpoint_class_name);
-        }
     }
 
     /**
@@ -556,5 +530,18 @@ class Util {
      */
     public static function getCurrentNamelessVersion(): string {
         return self::getSetting(DB::getInstance(), 'nameless_version');
+    }
+
+    /**
+     * Replace native emojis with their Twemoji equivalent.
+     *
+     * @param string $text Text to parse
+     * @return string Text with emojis replaced with URLs to their Twemoji equivalent.
+     */
+    public static function renderEmojis(string $text): string {
+        return Twemoji::text($text)->toHtml(null, [
+            'width' => 20,
+            'height' => 20,
+        ]);
     }
 }

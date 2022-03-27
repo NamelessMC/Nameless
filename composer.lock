@@ -4,55 +4,84 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e6533760b804357c28303b6fd0da230c",
+    "content-hash": "5228d8b92f36c1c86be390907cd9dd1f",
     "packages": [
         {
-            "name": "emojione/emojione",
-            "version": "4.5.0",
+            "name": "astrotomic/php-twemoji",
+            "version": "0.2.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/emojione/emojione.git",
-                "reference": "79e685356877cbb6128074a71b7f88f435b58412"
+                "url": "https://github.com/Astrotomic/php-twemoji.git",
+                "reference": "960bc12c1e156a21a869efdb9045ed42f54a2c6c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/emojione/emojione/zipball/79e685356877cbb6128074a71b7f88f435b58412",
-                "reference": "79e685356877cbb6128074a71b7f88f435b58412",
+                "url": "https://api.github.com/repos/Astrotomic/php-twemoji/zipball/960bc12c1e156a21a869efdb9045ed42f54a2c6c",
+                "reference": "960bc12c1e156a21a869efdb9045ed42f54a2c6c",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3"
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "php": "^7.4 || ^8.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "~4.6 || ~5.0"
+                "pestphp/pest": "^0.3.0",
+                "s9e/regexp-builder": "^1.4",
+                "spatie/emoji": "^2.3.0",
+                "spatie/pest-plugin-snapshots": "^1.0"
+            },
+            "suggest": {
+                "spatie/emoji": "*"
             },
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Emojione\\": "lib/php/src"
+                    "Astrotomic\\Twemoji\\": "src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "(CC-BY-4.0 and MIT)"
+                "MIT"
             ],
-            "description": "EmojiOne is a complete set of emojis designed for the web. It includes libraries to easily convert unicode characters to shortnames (:smile:) and shortnames to our custom emoji images. PNG format provided for the emoji images.",
-            "homepage": "http://www.emojione.com",
+            "authors": [
+                {
+                    "name": "Tom Witkowski",
+                    "email": "gummibeer@astrotomic.info",
+                    "homepage": "https://astrotomic.info",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Easily generate Twemoji URLs",
+            "homepage": "https://github.com/Astrotomic/php-twemoji",
             "keywords": [
                 "emoji",
-                "emojione",
-                "emojis",
-                "emoticons",
-                "smileys",
-                "smilies",
+                "twemoji",
                 "unicode"
             ],
             "support": {
-                "issues": "https://github.com/emojione/emojione/issues",
-                "source": "https://github.com/emojione/emojione/tree/4.5.0"
+                "issues": "https://github.com/Astrotomic/php-twemoji/issues",
+                "source": "https://github.com/Astrotomic/php-twemoji/tree/0.2.2"
             },
-            "abandoned": true,
-            "time": "2019-02-15T01:32:20+00:00"
+            "funding": [
+                {
+                    "url": "https://forest.astrotomic.info",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/Gummibeer",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/SarahSibert",
+                    "type": "github"
+                },
+                {
+                    "url": "https://issuehunt.io/r/astrotomic",
+                    "type": "issuehunt"
+                }
+            ],
+            "time": "2022-02-05T09:04:00+00:00"
         },
         {
             "name": "evert/sitemap-php",
@@ -210,16 +239,16 @@
         },
         {
             "name": "guzzlehttp/guzzle",
-            "version": "7.4.1",
+            "version": "7.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "ee0a041b1760e6a53d2a39c8c34115adc2af2c79"
+                "reference": "ac1ec1cd9b5624694c3a40be801d94137afb12b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/ee0a041b1760e6a53d2a39c8c34115adc2af2c79",
-                "reference": "ee0a041b1760e6a53d2a39c8c34115adc2af2c79",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/ac1ec1cd9b5624694c3a40be801d94137afb12b4",
+                "reference": "ac1ec1cd9b5624694c3a40be801d94137afb12b4",
                 "shasum": ""
             },
             "require": {
@@ -314,7 +343,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/guzzle/issues",
-                "source": "https://github.com/guzzle/guzzle/tree/7.4.1"
+                "source": "https://github.com/guzzle/guzzle/tree/7.4.2"
             },
             "funding": [
                 {
@@ -330,7 +359,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-12-06T18:43:05+00:00"
+            "time": "2022-03-20T14:16:28+00:00"
         },
         {
             "name": "guzzlehttp/promises",
@@ -418,16 +447,16 @@
         },
         {
             "name": "guzzlehttp/psr7",
-            "version": "2.1.0",
+            "version": "2.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
-                "reference": "089edd38f5b8abba6cb01567c2a8aaa47cec4c72"
+                "reference": "c94a94f120803a18554c1805ef2e539f8285f9a2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/089edd38f5b8abba6cb01567c2a8aaa47cec4c72",
-                "reference": "089edd38f5b8abba6cb01567c2a8aaa47cec4c72",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/c94a94f120803a18554c1805ef2e539f8285f9a2",
+                "reference": "c94a94f120803a18554c1805ef2e539f8285f9a2",
                 "shasum": ""
             },
             "require": {
@@ -451,7 +480,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.1-dev"
+                    "dev-master": "2.2-dev"
                 }
             },
             "autoload": {
@@ -513,7 +542,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/psr7/issues",
-                "source": "https://github.com/guzzle/psr7/tree/2.1.0"
+                "source": "https://github.com/guzzle/psr7/tree/2.2.1"
             },
             "funding": [
                 {
@@ -529,7 +558,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-10-06T17:43:30+00:00"
+            "time": "2022-03-20T21:55:58+00:00"
         },
         {
             "name": "ircmaxell/password-compat",
@@ -630,95 +659,6 @@
                 "source": "https://github.com/jdorn/sql-formatter/tree/master"
             },
             "time": "2014-01-12T16:20:24+00:00"
-        },
-        {
-            "name": "league/html-to-markdown",
-            "version": "5.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/thephpleague/html-to-markdown.git",
-                "reference": "e0fc8cf07bdabbcd3765341ecb50c34c271d64e1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/html-to-markdown/zipball/e0fc8cf07bdabbcd3765341ecb50c34c271d64e1",
-                "reference": "e0fc8cf07bdabbcd3765341ecb50c34c271d64e1",
-                "shasum": ""
-            },
-            "require": {
-                "ext-dom": "*",
-                "ext-xml": "*",
-                "php": "^7.2.5 || ^8.0"
-            },
-            "require-dev": {
-                "mikehaertl/php-shellcommand": "^1.1.0",
-                "phpstan/phpstan": "^0.12.99",
-                "phpunit/phpunit": "^8.5 || ^9.2",
-                "scrutinizer/ocular": "^1.6",
-                "unleashedtech/php-coding-standard": "^2.7",
-                "vimeo/psalm": "^4.22"
-            },
-            "bin": [
-                "bin/html-to-markdown"
-            ],
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "5.2-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "League\\HTMLToMarkdown\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Colin O'Dell",
-                    "email": "colinodell@gmail.com",
-                    "homepage": "https://www.colinodell.com",
-                    "role": "Lead Developer"
-                },
-                {
-                    "name": "Nick Cernis",
-                    "email": "nick@cern.is",
-                    "homepage": "http://modernnerd.net",
-                    "role": "Original Author"
-                }
-            ],
-            "description": "An HTML-to-markdown conversion helper for PHP",
-            "homepage": "https://github.com/thephpleague/html-to-markdown",
-            "keywords": [
-                "html",
-                "markdown"
-            ],
-            "support": {
-                "issues": "https://github.com/thephpleague/html-to-markdown/issues",
-                "source": "https://github.com/thephpleague/html-to-markdown/tree/5.1.0"
-            },
-            "funding": [
-                {
-                    "url": "https://www.colinodell.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://www.paypal.me/colinpodell/10.00",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/colinodell",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/league/html-to-markdown",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2022-03-02T17:24:08+00:00"
         },
         {
             "name": "league/oauth2-client",
@@ -844,59 +784,6 @@
                 "source": "https://github.com/thephpleague/oauth2-google/tree/4.0.0"
             },
             "time": "2021-03-04T21:12:06+00:00"
-        },
-        {
-            "name": "michelf/php-markdown",
-            "version": "1.9.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/michelf/php-markdown.git",
-                "reference": "5024d623c1a057dcd2d076d25b7d270a1d0d55f3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/michelf/php-markdown/zipball/5024d623c1a057dcd2d076d25b7d270a1d0d55f3",
-                "reference": "5024d623c1a057dcd2d076d25b7d270a1d0d55f3",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": ">=4.3 <5.8"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Michelf\\": "Michelf/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Michel Fortin",
-                    "email": "michel.fortin@michelf.ca",
-                    "homepage": "https://michelf.ca/",
-                    "role": "Developer"
-                },
-                {
-                    "name": "John Gruber",
-                    "homepage": "https://daringfireball.net/"
-                }
-            ],
-            "description": "PHP Markdown",
-            "homepage": "https://michelf.ca/projects/php-markdown/",
-            "keywords": [
-                "markdown"
-            ],
-            "support": {
-                "issues": "https://github.com/michelf/php-markdown/issues",
-                "source": "https://github.com/michelf/php-markdown/tree/1.9.1"
-            },
-            "time": "2021-11-24T02:52:38+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -1232,16 +1119,16 @@
         },
         {
             "name": "robthree/twofactorauth",
-            "version": "1.8.1",
+            "version": "1.8.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/RobThree/TwoFactorAuth.git",
-                "reference": "5afcb45282f1c75562a48d479ecd1732c9bdb11b"
+                "reference": "65681de5a324eae05140ac58b08648a60212afc0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/RobThree/TwoFactorAuth/zipball/5afcb45282f1c75562a48d479ecd1732c9bdb11b",
-                "reference": "5afcb45282f1c75562a48d479ecd1732c9bdb11b",
+                "url": "https://api.github.com/repos/RobThree/TwoFactorAuth/zipball/65681de5a324eae05140ac58b08648a60212afc0",
+                "reference": "65681de5a324eae05140ac58b08648a60212afc0",
                 "shasum": ""
             },
             "require": {
@@ -1298,7 +1185,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-10-20T12:19:55+00:00"
+            "time": "2022-03-22T16:11:07+00:00"
         },
         {
             "name": "samayo/bulletproof",
@@ -1418,25 +1305,25 @@
         },
         {
             "name": "symfony/deprecation-contracts",
-            "version": "v3.0.0",
+            "version": "v2.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/deprecation-contracts.git",
-                "reference": "c726b64c1ccfe2896cb7df2e1331c357ad1c8ced"
+                "reference": "6f981ee24cf69ee7ce9736146d1c57c2780598a8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/c726b64c1ccfe2896cb7df2e1331c357ad1c8ced",
-                "reference": "c726b64c1ccfe2896cb7df2e1331c357ad1c8ced",
+                "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/6f981ee24cf69ee7ce9736146d1c57c2780598a8",
+                "reference": "6f981ee24cf69ee7ce9736146d1c57c2780598a8",
                 "shasum": ""
             },
             "require": {
-                "php": ">=8.0.2"
+                "php": ">=7.1"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "3.0-dev"
+                    "dev-main": "2.5-dev"
                 },
                 "thanks": {
                     "name": "symfony/contracts",
@@ -1465,7 +1352,7 @@
             "description": "A generic function and convention to trigger deprecation notices",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/deprecation-contracts/tree/v3.0.0"
+                "source": "https://github.com/symfony/deprecation-contracts/tree/v2.5.0"
             },
             "funding": [
                 {
@@ -1481,7 +1368,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-11-01T23:48:49+00:00"
+            "time": "2021-07-12T14:48:14+00:00"
         },
         {
             "name": "symfony/polyfill-php80",
@@ -1916,20 +1803,20 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.4.9",
+            "version": "1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "1a45f44d319cf000a8c960af6b7435741e944771"
+                "reference": "2be8dd6dfa09ab1a21c49956ff591979cd5ab29e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/1a45f44d319cf000a8c960af6b7435741e944771",
-                "reference": "1a45f44d319cf000a8c960af6b7435741e944771",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/2be8dd6dfa09ab1a21c49956ff591979cd5ab29e",
+                "reference": "2be8dd6dfa09ab1a21c49956ff591979cd5ab29e",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.1|^8.0"
+                "php": "^7.2|^8.0"
             },
             "conflict": {
                 "phpstan/phpstan-shim": "*"
@@ -1939,11 +1826,6 @@
                 "phpstan.phar"
             ],
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.4-dev"
-                }
-            },
             "autoload": {
                 "files": [
                     "bootstrap.php"
@@ -1956,7 +1838,7 @@
             "description": "PHPStan - PHP Static Analysis Tool",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/1.4.9"
+                "source": "https://github.com/phpstan/phpstan/tree/1.5.0"
             },
             "funding": [
                 {
@@ -1976,34 +1858,34 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-03-10T08:52:08+00:00"
+            "time": "2022-03-24T18:18:00+00:00"
         },
         {
             "name": "psr/log",
-            "version": "3.0.0",
+            "version": "1.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/log.git",
-                "reference": "fe5ea303b0887d5caefd3d431c3e61ad47037001"
+                "reference": "d49695b909c3b7628b6289db5479a1c204601f11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/log/zipball/fe5ea303b0887d5caefd3d431c3e61ad47037001",
-                "reference": "fe5ea303b0887d5caefd3d431c3e61ad47037001",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/d49695b909c3b7628b6289db5479a1c204601f11",
+                "reference": "d49695b909c3b7628b6289db5479a1c204601f11",
                 "shasum": ""
             },
             "require": {
-                "php": ">=8.0.0"
+                "php": ">=5.3.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.x-dev"
+                    "dev-master": "1.1.x-dev"
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Psr\\Log\\": "src"
+                    "Psr\\Log\\": "Psr/Log/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -2024,9 +1906,9 @@
                 "psr-3"
             ],
             "support": {
-                "source": "https://github.com/php-fig/log/tree/3.0.0"
+                "source": "https://github.com/php-fig/log/tree/1.1.4"
             },
-            "time": "2021-07-14T16:46:02+00:00"
+            "time": "2021-05-03T11:20:27+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -2113,31 +1995,32 @@
         },
         {
             "name": "symfony/var-dumper",
-            "version": "v6.0.6",
+            "version": "v5.4.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "38358405ae948963c50a3aae3dfea598223ba15e"
+                "reference": "294e9da6e2e0dd404e983daa5aa74253d92c05d0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/38358405ae948963c50a3aae3dfea598223ba15e",
-                "reference": "38358405ae948963c50a3aae3dfea598223ba15e",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/294e9da6e2e0dd404e983daa5aa74253d92c05d0",
+                "reference": "294e9da6e2e0dd404e983daa5aa74253d92c05d0",
                 "shasum": ""
             },
             "require": {
-                "php": ">=8.0.2",
-                "symfony/polyfill-mbstring": "~1.0"
+                "php": ">=7.2.5",
+                "symfony/polyfill-mbstring": "~1.0",
+                "symfony/polyfill-php80": "^1.16"
             },
             "conflict": {
                 "phpunit/phpunit": "<5.4.3",
-                "symfony/console": "<5.4"
+                "symfony/console": "<4.4"
             },
             "require-dev": {
                 "ext-iconv": "*",
-                "symfony/console": "^5.4|^6.0",
-                "symfony/process": "^5.4|^6.0",
-                "symfony/uid": "^5.4|^6.0",
+                "symfony/console": "^4.4|^5.0|^6.0",
+                "symfony/process": "^4.4|^5.0|^6.0",
+                "symfony/uid": "^5.1|^6.0",
                 "twig/twig": "^2.13|^3.0.4"
             },
             "suggest": {
@@ -2181,7 +2064,7 @@
                 "dump"
             ],
             "support": {
-                "source": "https://github.com/symfony/var-dumper/tree/v6.0.6"
+                "source": "https://github.com/symfony/var-dumper/tree/v5.4.6"
             },
             "funding": [
                 {
@@ -2197,7 +2080,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-03-02T12:58:14+00:00"
+            "time": "2022-03-02T12:42:23+00:00"
         }
     ],
     "aliases": [],

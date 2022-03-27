@@ -42,7 +42,7 @@ $language = [
     'upgrade_php_version' => 'Please upgrade your PHP version to at least 7.4 - the next Nameless release will no longer support the version you are using.',
 
     // Core
-    'mode_toggle' => 'Dark/Light Mode',
+    'mode_toggle' => 'Dark Mode',
     'settings' => 'Settings',
     'general_settings' => 'General Settings',
     'sitename' => 'Site Name',
@@ -64,7 +64,6 @@ $language = [
     'email_verification' => 'Enable email verification?',
     'registration_settings_updated' => 'Registration settings updated successfully.',
     'homepage_type' => 'Homepage Type',
-    'post_formatting_type' => 'Post Formatting Type',
     'portal' => 'Portal',
     'private_profiles' => 'Private Profiles',
     'missing_sitename' => 'Please insert a site name between 2 and 64 characters long.',

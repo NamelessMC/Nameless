@@ -16,19 +16,6 @@ class Endpoints {
     private iterable $_endpoints = [];
 
     /**
-     * Register an endpoint if it's route is not already taken.
-     *
-     * @param EndpointBase $endpoint Instance of endpoint class to register.
-     */
-    public function add(EndpointBase $endpoint): void {
-        $key = $endpoint->getRoute() . '-' . $endpoint->getMethod();
-
-        if (!isset($this->_endpoints[$key])) {
-            $this->_endpoints[$key] = $endpoint;
-        }
-    }
-
-    /**
      * Get all registered Endpoints
      *
      * @return EndpointBase[] All endpoints.
@@ -56,6 +43,10 @@ class Endpoints {
                 $available_methods[] = $endpoint->getMethod();
 
                 if ($endpoint->getMethod() === $method) {
+                    if (!$endpoint->isAuthorised($api)) {
+                        $api->throwError(36, 'NOT_AUTHORISED', $endpoint->getAuthType(), 403);
+                    }
+
                     if (!method_exists($endpoint, 'execute')) {
                         throw new InvalidArgumentException("Endpoint class must contain an 'execute()' method.");
                     }
@@ -63,10 +54,6 @@ class Endpoints {
                     $reflection = new ReflectionMethod($endpoint, 'execute');
                     if ($reflection->getNumberOfParameters() !== (count($vars) + 1)) {
                         throw new InvalidArgumentException("Endpoint's 'execute()' method must take " . (count($vars) + 1) . " arguments. Endpoint: " . $endpoint->getRoute());
-                    }
-
-                    if (!$endpoint->isAuthorised($api)) {
-                        $api->throwError(36, 'NOT_AUTHORISED', $endpoint->getAuthType(), 403);
                     }
 
                     $endpoint->execute(
@@ -82,9 +69,43 @@ class Endpoints {
 
         if ($matched_endpoint !== null) {
             $api->throwError(3, $api->getLanguage()->get('api', 'invalid_api_method'), "The $route endpoint only accepts " . implode(', ', $available_methods) . ", $method was used.", 405);
-            return;
         }
 
         $api->throwError(3, $api->getLanguage()->get('api', 'invalid_api_method'), 'If you are seeing this while in a browser, this does not mean your API is not functioning!', 404);
+    }
+
+    /**
+     * Recursively scan, preload and register EndpointBase classes in a folder.
+     *
+     * @see EndpointBase
+     *
+     * @param string $path Path to scan from.
+     */
+    public function loadEndpoints(string $path): void {
+        $rii = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS));
+
+        foreach ($rii as $file) {
+            if ($file->isDir()) {
+                $this->loadEndpoints($file);
+                return;
+            }
+
+            if ($file->getFilename() === '.DS_Store') {
+                continue;
+            }
+
+            require_once($file->getPathName());
+
+            $endpoint_class_name = str_replace('.php', '', $file->getFilename());
+
+            /** @var EndpointBase $endpoint */
+            $endpoint = new $endpoint_class_name();
+
+            $key = $endpoint->getRoute() . '-' . $endpoint->getMethod();
+
+            if (!isset($this->_endpoints[$key])) {
+                $this->_endpoints[$key] = $endpoint;
+            }
+        }
     }
 }

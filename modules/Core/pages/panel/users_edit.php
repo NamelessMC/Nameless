@@ -63,7 +63,44 @@ if (isset($_GET['action'])) {
             } else {
                 Session::flash('edit_user_errors', $language->get('admin', 'email_resend_failed'));
             }
-        }
+        } else if ($_GET['action'] == 'update_mcname') {
+            $uuid = $user_query->uuid;
+
+            $profile = ProfileUtils::getProfile($uuid);
+
+            if ($profile) {
+                $result = $profile->getUsername();
+
+                if (!empty($result)) {
+                    if ($user_query->username == $user_query->nickname) {
+                        $queries->update('users', $user_query->id, [
+                            'username' => Output::getClean($result),
+                            'nickname' => Output::getClean($result)
+                        ]);
+                    } else {
+                        $queries->update('users', $user_query->id, [
+                            'username' => Output::getClean($result)
+                        ]);
+                    }
+
+                    Session::flash('edit_user_success', $language->get('admin', 'user_updated_successfully'));
+                }
+            }
+        } else {
+            if ($_GET['action'] == 'update_uuid') {
+                $profile = ProfileUtils::getProfile($user_query->username);
+
+                if ($profile !== null) {
+                    $result = $profile->getProfileAsArray();
+
+                    if (isset($result['uuid']) && !empty($result['uuid'])) {
+                        $queries->update('users', $user_query->id, [
+                            'uuid' => Output::getClean($result['uuid'])
+                        ]);
+
+                        Session::flash('edit_user_success', $language->get('admin', 'user_updated_successfully'));
+                    }
+                }
     }
 
     Redirect::to(URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->id)));
@@ -78,8 +115,7 @@ if (Input::exists()) {
             $signature = Input::get('signature');
             $_POST['signature'] = strip_tags(Input::get('signature'));
 
-            $validate = new Validate();
-            $validation = $validate->check($_POST, [
+            $validation = Validate::check($_POST, [
                 'email' => [
                     Validate::REQUIRED => true,
                     Validate::MIN => 4,
@@ -129,13 +165,6 @@ if (Input::exists()) {
 
             if ($validation->passed() && $passed) {
                 try {
-                    // Signature from Markdown -> HTML if needed
-                    $cache->setCache('post_formatting');
-                    $formatting = $cache->retrieve('formatting');
-
-                    if ($formatting == 'markdown') {
-                        $signature = \Michelf\Markdown::defaultTransform($signature);
-                    }
                     $signature = Output::getClean($signature);
 
                     $private_profile_active = $queries->getWhere('settings', ['name', '=', 'private_profile']);
@@ -329,18 +358,7 @@ foreach ($groups as $group) {
     }
 }
 
-// HTML -> Markdown if necessary
-$cache->setCache('post_formatting');
-$formatting = $cache->retrieve('formatting');
-
-if ($formatting == 'markdown') {
-    $converter = new League\HTMLToMarkdown\HtmlConverter(['strip_tags' => true]);
-
-    $signature = $converter->convert(Output::getDecoded($user_query->signature));
-    $signature = Output::getPurified($signature);
-} else {
-    $signature = Output::getPurified(Output::getDecoded($user_query->signature));
-}
+$signature = Output::getPurified(Output::getDecoded($user_query->signature));
 
 $user_groups = [];
 foreach ($view_user->getGroups() as $group) {
@@ -415,11 +433,16 @@ if ($formatting == 'markdown') {
 }
 
 $template->addCSSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.min.css' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.sprites.css' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/css/emojionearea.min.css' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.css' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
 ]);
+
+$template->addJSFiles([
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
+]);
+$template->addJSScript(Input::createTinyEditor($language, 'InputSignature'));
 
 $page_load = microtime(true) - $start;
 define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));

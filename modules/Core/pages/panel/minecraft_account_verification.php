@@ -30,9 +30,7 @@ if (Input::exists()) {
             $use_mcassoc = $use_mcassoc[0]->id;
 
             if (isset($_POST['use_mcassoc']) && $_POST['use_mcassoc'] == 'on') {
-
-                $validate = new Validate();
-                $validation = $validate->check($_POST, [
+                $validation = Validate::check($_POST, [
                     'mcassoc_key' => [
                         Validate::REQUIRED => true,
                         Validate::MAX => 128

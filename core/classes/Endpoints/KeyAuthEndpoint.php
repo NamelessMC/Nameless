@@ -24,8 +24,8 @@ class KeyAuthEndpoint extends EndpointBase {
             return true;
         }
 
+        /** @phpstan-ignore-next-line  */
         $api->throwError(1, $api->getLanguage()->get('api', 'invalid_api_key'), null, 403);
-        die();
     }
 
     /**

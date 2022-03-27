@@ -38,8 +38,7 @@ if (!$user->isLoggedIn()) {
         if (Input::exists()) {
             if (Token::check()) {
                 // Validate input
-                $validate = new Validate();
-                $validation = $validate->check($_POST, [
+                $validation = Validate::check($_POST, [
                     'password' => [
                         Validate::REQUIRED => true,
                         Validate::MIN => 6

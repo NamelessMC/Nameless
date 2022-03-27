@@ -19,49 +19,20 @@ const PAGE = 'cc_messaging';
 $page_title = $language->get('user', 'user_cp');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-$template->addCSSFiles(
-    [
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.css' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.min.css' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/css/emojionearea.min.css' => []
-    ]
-);
+$template->addCSSFiles([
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.css' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
+]);
 
-// Display either Markdown or HTML editor
-$cache->setCache('post_formatting');
-$formatting = $cache->retrieve('formatting');
+$template->addJSFiles([
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
+]);
 
-if ($formatting == 'markdown') {
-    $template->addJSFiles(
-        [
-            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/js/emojione.min.js' => [],
-            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/js/emojionearea.min.js' => [],
-        ]
-    );
-
-    $template->addJSScript(
-        '$(document).ready(function() {
-            var el = $("#markdown").emojioneArea({
-                pickerPosition: "bottom"
-            });
-        });'
-    );
-} else {
-    $template->addJSFiles(
-        [
-            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
-            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
-            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
-        ]
-    );
-
-    $template->addJSScript(Input::createTinyEditor($language, 'reply'));
-}
+$template->addJSScript(Input::createTinyEditor($language, 'reply'));
 
 $timeago = new TimeAgo(TIMEZONE);
-
-$emojione = new Emojione\Client(new Emojione\Ruleset());
 
 $smarty->assign(
     [
@@ -177,8 +148,7 @@ if (!isset($_GET['action'])) {
         if (Input::exists()) {
             if (Token::check()) {
                 // Validate input
-                $validate = new Validate();
-                $validation = $validate->check($_POST, [
+                $validation = Validate::check($_POST, [
                     'title' => [
                         Validate::REQUIRED => true,
                         Validate::MIN => 2,
@@ -270,16 +240,7 @@ if (!isset($_GET['action'])) {
                                 // Get the PM ID
                                 $last_id = $queries->getLastId();
 
-                                // Parse markdown
-                                $cache->setCache('post_formatting');
-                                $formatting = $cache->retrieve('formatting');
-
-                                if ($formatting == 'markdown') {
-                                    $content = \Michelf\Markdown::defaultTransform(Input::get('content'));
-                                    $content = Output::getClean($content);
-                                } else {
-                                    $content = Output::getClean(Input::get('content'));
-                                }
+                                $content = Output::getClean(Input::get('content'));
 
                                 // Insert post content into database
                                 $queries->create(
@@ -345,16 +306,6 @@ if (!isset($_GET['action'])) {
             $smarty->assign('ERROR', $error);
         }
 
-        // Markdown or HTML?
-        $cache->setCache('post_formatting');
-        $formatting = $cache->retrieve('formatting');
-
-        if ($formatting == 'markdown') {
-            // Markdown
-            $smarty->assign('MARKDOWN', true);
-            $smarty->assign('MARKDOWN_HELP', $language->get('general', 'markdown_help'));
-        }
-
         if (isset($_GET['uid'])) {
             // Messaging a specific user
             $user_messaging = $queries->getWhere('users', ['id', '=', $_GET['uid']]);
@@ -417,8 +368,7 @@ if (!isset($_GET['action'])) {
             if (Token::check()) {
                 // Valid token
                 // Validate input
-                $validate = new Validate();
-                $validation = $validate->check($_POST, [
+                $validation = Validate::check($_POST, [
                     'content' => [
                         Validate::REQUIRED => true,
                         Validate::MIN => 2,
@@ -433,16 +383,7 @@ if (!isset($_GET['action'])) {
                 ]);
 
                 if ($validation->passed()) {
-                    // Parse markdown
-                    $cache->setCache('post_formatting');
-                    $formatting = $cache->retrieve('formatting');
-
-                    if ($formatting == 'markdown') {
-                        $content = \Michelf\Markdown::defaultTransform(Input::get('content'));
-                        $content = Output::getClean($content);
-                    } else {
-                        $content = Output::getClean(Input::get('content'));
-                    }
+                    $content = Output::getClean(Input::get('content'));
 
                     // Insert post content into database
                     $queries->create(
@@ -527,7 +468,7 @@ if (!isset($_GET['action'])) {
                 'author_groups' => $target_user->getAllGroupHtml(),
                 'message_date' => $timeago->inWords(date('d M Y, H:i', $nValue->created), $language->getTimeLanguage()),
                 'message_date_full' => date('d M Y, H:i', $nValue->created),
-                'content' => Output::getPurified($emojione->unicodeToImage(Output::getDecoded($nValue->content)))
+                'content' => Output::getPurified(Util::renderEmojis(Output::getDecoded($nValue->content))),
             ];
         }
 
@@ -562,7 +503,7 @@ if (!isset($_GET['action'])) {
                 'author_groups' => $target_user->getAllGroupHtml(),
                 'message_date' => $timeago->inWords(date('d M Y, H:i', $nValue->created), $language->getTimeLanguage()),
                 'message_date_full' => date('d M Y, H:i', $nValue->created),
-                'content' => Output::getPurified($emojione->toImage(Output::getDecoded($nValue->content)))
+                'content' => Output::getPurified(Util::renderEmojis(Output::getDecoded($nValue->content))),
             ];
         }
 
@@ -593,16 +534,6 @@ if (!isset($_GET['action'])) {
             'YES' => $language->get('general', 'yes'),
             'NO' => $language->get('general', 'no'),
         ]);
-
-        // Markdown or HTML?
-        $cache->setCache('post_formatting');
-        $formatting = $cache->retrieve('formatting');
-
-        if ($formatting == 'markdown') {
-            // Markdown
-            $smarty->assign('MARKDOWN', true);
-            $smarty->assign('MARKDOWN_HELP', $language->get('general', 'markdown_help'));
-        }
 
         if (isset($_POST['content'])) {
             $smarty->assign('CONTENT', Output::getClean($_POST['content']));

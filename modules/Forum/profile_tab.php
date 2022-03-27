@@ -75,7 +75,7 @@ if (!count($latest_posts)) {
         $posts[] = [
             'link' => URL::build('/forum/topic/' . $latest_post->topic_id . '-' . $forum->titleToURL($topic_title), 'pid=' . $latest_post->id),
             'title' => $topic_title,
-            'content' => Output::getPurified($emojione->toImage(htmlspecialchars_decode($latest_post->post_content))),
+            'content' => Output::getPurified(Util::renderEmojis(htmlspecialchars_decode($latest_post->post_content))),
             'date_friendly' => $date_friendly,
             'date_full' => $date_full
         ];

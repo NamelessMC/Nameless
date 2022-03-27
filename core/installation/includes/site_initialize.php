@@ -482,13 +482,6 @@ $queries->create('settings', [
 ]);
 
 $queries->create('settings', [
-    'name' => 'formatting_type',
-    'value' => 'html'
-]);
-$cache->setCache('post_formatting');
-$cache->store('formatting', 'html');
-
-$queries->create('settings', [
     'name' => 'youtube_url',
     'value' => null
 ]);

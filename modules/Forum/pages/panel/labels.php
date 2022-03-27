@@ -83,9 +83,7 @@ if (!isset($_GET['action'])) {
                 if (Token::check()) {
                     // Valid token
                     // Validate input
-                    $validate = new Validate();
-
-                    $validation = $validate->check($_POST, [
+                    $validation = Validate::check($_POST, [
                         'label_name' => [
                             Validate::REQUIRED => true,
                             Validate::MIN => 1,
@@ -225,9 +223,7 @@ if (!isset($_GET['action'])) {
                 if (Token::check()) {
                     // Valid token
                     // Validate input
-                    $validate = new Validate();
-
-                    $validation = $validate->check($_POST, [
+                    $validation = Validate::check($_POST, [
                         'label_name' => [
                             Validate::REQUIRED => true,
                             Validate::MIN => 1,
@@ -414,9 +410,7 @@ if (!isset($_GET['action'])) {
                 if (Token::check()) {
                     // Valid token
                     // Validate input
-                    $validate = new Validate();
-
-                    $validation = $validate->check($_POST, [
+                    $validation = Validate::check($_POST, [
                         'label_name' => [
                             Validate::REQUIRED => true,
                             Validate::MIN => 1,
@@ -497,9 +491,7 @@ if (!isset($_GET['action'])) {
                 if (Token::check()) {
                     // Valid token
                     // Validate input
-                    $validate = new Validate();
-
-                    $validation = $validate->check($_POST, [
+                    $validation = Validate::check($_POST, [
                         'label_name' => [
                             Validate::REQUIRED => true,
                             Validate::MIN => 1,

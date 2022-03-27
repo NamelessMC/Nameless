@@ -57,6 +57,9 @@ $language = [
     'report' => 'Denúncia',
     'reported_by' => 'Reportado por {x}.',
     'view_report' => 'Visualizar Denúncia.',
+    'report_origin' => 'Origin',
+    'origin_website' => 'Website',
+    'origin_api' => 'API',
     'page_loaded_in' => 'Página gerada em {x}s', // Não substitua o "{x}", a unidade de tempo é segundos.
     'page_x' => 'Página {x}',
     'browse' => 'Navegar',
@@ -91,12 +94,6 @@ $language = [
      *  Homepage
      */
     'social' => 'Social',
-
-
-    /*
-     *  Help dialogues
-     */
-    'markdown_help' => 'Você pode formatar sua postagem usando o Markdown. Para mais informações, veja <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>aqui</a>.',
 
     /*
     *  Server query
@@ -153,5 +150,10 @@ $language = [
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'Redirecionando...<br />Se você não for redirecionado automaticamente, clique <a href="{x}" rel="nofollow noopener">aqui</a>.' // Não substitua o "{x}" que é a URL de redirecionamento.
+    'redirecting_message' => 'Redirecionando...<br />Se você não for redirecionado automaticamente, clique <a href="{x}" rel="nofollow noopener">aqui</a>.', // Não substitua o "{x}" que é a URL de redirecionamento.
+
+    /*
+     * OAuth
+     */
+    'oauth_message_continue' => 'Continue registering with {x}', // Don't replace {x}
 ];

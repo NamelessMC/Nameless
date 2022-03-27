@@ -54,8 +54,6 @@ if (Input::exists()) {
                 unset($_SESSION['remember'], $_SESSION['password'], $_SESSION['tfa']);
             }
 
-            // Initialise validation
-            $validate = new Validate();
             if ($login_method == 'email') {
                 $to_validate = [
                     'email' => [
@@ -80,7 +78,7 @@ if (Input::exists()) {
                 ];
             }
 
-            $validation = $validate->check($_POST, $to_validate)->messages([
+            $validation = Validate::check($_POST, $to_validate)->messages([
                 'email' => [
                     Validate::REQUIRED => $language->get('user', 'must_input_email'),
                     Validate::IS_BANNED => $language->get('user', 'account_banned'),
@@ -101,7 +99,7 @@ if (Input::exists()) {
                     $method_field = 'email';
                 } else {
                     $username = Input::get('username');
-                    if (($login_method == 'email_or_username') && strpos(Input::get('username'), '@') !== false) {
+                    if (($login_method == 'email_or_username') && str_contains(Input::get('username'), '@')) {
                         $method_field = 'email';
                     } else {
                         $method_field = 'username';

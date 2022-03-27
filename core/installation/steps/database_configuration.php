@@ -9,9 +9,7 @@ if (!isset($_SESSION['hostname'], $_SESSION['install_path']) || !isset($_SESSION
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-    $validate = new Validate();
-    $validation = $validate->check($_POST, [
+    $validation = Validate::check($_POST, [
         'db_address' => [
             Validate::REQUIRED => true,
         ],
@@ -41,67 +39,75 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $charset = ($_POST['charset'] == 'latin1') ? 'latin1' : 'utf8mb4';
         $engine = ($_POST['engine'] == 'MyISAM') ? 'MyISAM' : 'InnoDB';
 
-        $mysqli = new mysqli($db_address, $db_username, $db_password, $db_name, $db_port);
-        if ($mysqli->connect_errno) {
+        try {
+            $mysqli = new mysqli($db_address, $db_username, $db_password, $db_name, $db_port);
+        } catch (Exception $e) {
+            $error = $e->getMessage();
+        }
 
-            $error = $mysqli->connect_errno . ' - ' . $mysqli->connect_error;
+        if (!$error) {
+            if ($mysqli->connect_errno) {
 
-        } else {
+                $error = $mysqli->connect_errno . ' - ' . $mysqli->connect_error;
 
-            $mysqli->close();
+            } else {
 
-            $conf = [
-                'mysql' => [
-                    'host' => $db_address,
-                    'port' => $db_port,
-                    'username' => $db_username,
-                    'password' => $db_password,
-                    'db' => $db_name,
-                    'prefix' => 'nl2_',
-                    'charset' => $charset,
-                    'engine' => $engine,
-                    'initialise_charset' => true,
-                ],
-                'remember' => [
-                    'cookie_name' => 'nl2',
-                    'cookie_expiry' => 604800,
-                ],
-                'session' => [
-                    'session_name' => '2user',
-                    'admin_name' => '2admin',
-                    'token_name' => '2token',
-                ],
-                'core' => [
-                    'hostname' => $_SESSION['hostname'],
-                    'path' => $_SESSION['install_path'],
-                    'friendly' => $_SESSION['friendly_urls'] == 'true',
-                    'force_https' => false,
-                    'force_www' => false,
-                    'captcha' => false,
-                ],
-                'allowedProxies' => '',
-            ];
+                $mysqli->close();
 
-            try {
+                $conf = [
+                    'mysql' => [
+                        'host' => $db_address,
+                        'port' => $db_port,
+                        'username' => $db_username,
+                        'password' => $db_password,
+                        'db' => $db_name,
+                        'prefix' => 'nl2_',
+                        'charset' => $charset,
+                        'engine' => $engine,
+                        'initialise_charset' => true,
+                    ],
+                    'remember' => [
+                        'cookie_name' => 'nl2',
+                        'cookie_expiry' => 604800,
+                    ],
+                    'session' => [
+                        'session_name' => '2user',
+                        'admin_name' => '2admin',
+                        'token_name' => '2token',
+                    ],
+                    'core' => [
+                        'hostname' => $_SESSION['hostname'],
+                        'path' => $_SESSION['install_path'],
+                        'friendly' => $_SESSION['friendly_urls'] == 'true',
+                        'force_https' => false,
+                        'force_www' => false,
+                        'captcha' => false,
+                    ],
+                    'allowedProxies' => '',
+                ];
 
-                if (!is_writable(ROOT_PATH . '/core/config.php')) {
+                try {
 
-                    $error = $language['config_not_writable'];
+                    if (!is_writable(ROOT_PATH . '/core/config.php')) {
 
-                } else {
+                        $error = $language['config_not_writable'];
 
-                    $config_content = '<?php' . PHP_EOL . '$conf = ' . var_export($conf, true) . ';';
-                    file_put_contents(ROOT_PATH . '/core/config.php', $config_content);
+                    } else {
 
-                    $_SESSION['charset'] = $charset;
-                    $_SESSION['engine'] = $engine;
+                        $config_content = '<?php' . PHP_EOL . '$conf = ' . var_export($conf, true) . ';';
+                        file_put_contents(ROOT_PATH . '/core/config.php', $config_content);
 
-                    Redirect::to('?step=database_initialization');
+                        $_SESSION['charset'] = $charset;
+                        $_SESSION['engine'] = $engine;
+
+                        Redirect::to('?step=database_initialization');
+                    }
+
+                } catch (Exception $e) {
+
+                    $error = $e->getMessage();
+
                 }
-
-            } catch (Exception $e) {
-
-                $error = $e->getMessage();
 
             }
 

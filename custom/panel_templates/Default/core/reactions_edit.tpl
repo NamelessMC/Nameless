@@ -74,10 +74,16 @@
                                 </select>
                             </div>
 
-                            <div class="form-group">
-                                <label for="InputEnabled">{$ENABLED}</label>
-                                <input id="InputEnabled" type="checkbox" name="enabled"
-                                       class="js-switch" {if $ENABLED_VALUE eq 1} checked{/if} />
+                            <div class="form-group custom-control custom-switch">
+                                <input id="InputEnabled"
+                                       type="checkbox"
+                                       name="enabled"
+                                       class="custom-control-input"
+                                       {if $ENABLED_VALUE eq 1} checked{/if} />
+                                <label class="custom-control-label"
+                                       for="InputEnabled">
+                                    {$ENABLED}
+                                </label>
                             </div>
 
                             <div class="form-group">

@@ -363,18 +363,65 @@ class Core_Module extends Module {
         AvatarSource::setActiveSource(DEFAULT_AVATAR_SOURCE);
 
         // Autoload API Endpoints
-        Util::loadEndpoints(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', 'Core', 'includes', 'endpoints']), $endpoints);
+        $endpoints->loadEndpoints(ROOT_PATH . '/modules/Core/includes/endpoints');
 
         GroupSyncManager::getInstance()->registerInjector(NamelessMCGroupSyncInjector::class);
         GroupSyncManager::getInstance()->registerInjector(MinecraftGroupSyncInjector::class);
 
-        Endpoints::registerTransformer('user', 'Core', static function (Nameless2API $api, string $value): User {
-            $user = new User($value);
-            if ($user->exists()) {
-                return $user;
+        Endpoints::registerTransformer('user', 'Core', static function (Nameless2API $api, string $value) {
+            $lookup_data = explode(':', $value);
+            if (count($lookup_data) === 1) {
+                // assume it is a namelessmc user id
+                $user = new User($lookup_data[0]);
+                if ($user->exists()) {
+                    return $user;
+                }
+            } else if (count($lookup_data) === 2) {
+                // probably handling native namelessmc user
+                [$lookup_type, $lookup_value] = $lookup_data;
+                if ($lookup_type === 'id') {
+                    $column = 'id';
+                } else if ($lookup_type === 'username') {
+                    $column = 'username';
+                } else {
+                    $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'), "invalid native lookup type: $value");
+                }
+
+                $user = new User($lookup_value, $column);
+                if ($user->exists()) {
+                    return $user;
+                }
+            } else if (count($lookup_data) === 3) {
+                // probably handling a user integration lookup
+                // TODO: hand off these three values to the integration system to handle when PR is merged
+                [$integration_lookup_type, $integration_name, $lookup_value] = $lookup_data;
+                if ($integration_lookup_type === 'integration_id') {
+                    if ($integration_name === 'discord') {
+                        $column = 'discord_id';
+                    } else if ($integration_name === 'minecraft') {
+                        $column = 'uuid';
+                    } else {
+                        $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'), "invalid integration lookup name: $value");
+                    }
+                } else if ($integration_lookup_type === 'integration_name') {
+                    if ($integration_name === 'discord') {
+                        $column = 'discord_username';
+                    } else if ($integration_name === 'minecraft') {
+                        $column = 'username';
+                    } else {
+                        $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'), "invalid integration lookup name: $value");
+                    }
+                } else {
+                    $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'), "invalid integration lookup type: $value");
+                }
+
+                $user = new User($lookup_value, $column);
+                if ($user->exists()) {
+                    return $user;
+                }
             }
+
             $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'), $value);
-            die();
         });
         
         // Minecraft Integration

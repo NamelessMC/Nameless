@@ -331,11 +331,6 @@ body.pushable>.pusher {
     right: 1rem;
 }
 
-#profile-forum .emojione {
-    height: 24px;
-    width: auto;
-}
-
 /*
  *  [ FORUM SEARCH ]
  */
@@ -917,11 +912,6 @@ select {
     overflow: auto;
     max-width: 100%;
     height: auto;
-}
-
-img.emojione {
-    height: 24px;
-    width: 24px;
 }
 
 .ui.icon.message.announcement i {

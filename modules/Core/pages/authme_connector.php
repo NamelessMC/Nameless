@@ -30,14 +30,12 @@ if (Input::exists()) {
                 Redirect::to(URL::build('/register'));
             }
 
-            $validate = new Validate();
-
             // Are custom usernames enabled?
             $custom_usernames = $queries->getWhere('settings', ['name', '=', 'displaynames']);
             $custom_usernames = $custom_usernames[0]->value;
 
             if ($custom_usernames == 'true') {
-                $validation = $validate->check($_POST, [
+                $validation = Validate::check($_POST, [
                     'nickname' => [
                         Validate::REQUIRED => true,
                         Validate::MIN => 3,
@@ -52,7 +50,7 @@ if (Input::exists()) {
                     ]
                 ]);
             } else {
-                $validation = $validate->check($_POST, [
+                $validation = Validate::check($_POST, [
                     'email' => [
                         Validate::REQUIRED => true,
                         Validate::MIN => 4,
@@ -193,8 +191,7 @@ if (Input::exists()) {
 
             if ($captcha_passed) {
                 // Valid recaptcha
-                $validate = new Validate();
-                $validation = $validate->check($_POST, [
+                $validation = Validate::check($_POST, [
                     'username' => [
                         Validate::REQUIRED => true,
                         Validate::UNIQUE => 'users'

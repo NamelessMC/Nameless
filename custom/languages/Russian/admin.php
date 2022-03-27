@@ -43,7 +43,7 @@ $language = [
     'upgrade_php_version' => 'Пожалуйста обновите вашу PHP версию до 7.4 - следуящая релиз Nameless не будет поддерживать версию которую вы используете.',
 
     // Core
-    'mode_toggle' => 'Чёрная/Белая Тема',
+    'mode_toggle' => 'Чёрная Тема',
     'settings' => 'Настройки',
     'general_settings' => 'Общие Настройки',
     'sitename' => 'Название Сайта',
@@ -65,7 +65,6 @@ $language = [
     'email_verification' => 'Включить проверку по электронной почты?',
     'registration_settings_updated' => 'Настройки регистрации успешно обновлены.',
     'homepage_type' => 'Тип домашней Страницы',
-    'post_formatting_type' => 'Тип Формата Постов',
     'portal' => 'Портал',
     'private_profiles' => 'Приватные Профили',
     'missing_sitename' => 'Пожалуйста, введите имя сайта длинной от 2 до 64 символов.',
@@ -157,6 +156,7 @@ $language = [
     'captcha_type' => 'Тип капчи',
     'captcha_site_key' => 'Ключ сайта для капчи',
     'captcha_secret_key' => 'Секретный ключ от сервиса капчи',
+    'invalid_recaptcha_settings' => 'Некорректные данные {x}. Убедитесь что ключи введены верно.', // Don't replace {x}
     'registration_disabled_message' => 'Сообщение об отключенной регистрации',
     'enable_nicknames_on_registration' => 'Включить ники при регистрации пользователей?',
     'validation_promote_group' => 'Группа после подтверждения',
@@ -490,7 +490,7 @@ $language = [
     'resend_activation_email' => 'Отправить письмо с активацией',
     'email_resent_successfully' => 'Письмо отправлено.',
     'email_resend_failed' => 'Письмо не отправлено, проверьте настройки почтового сервера.',
-    'no_item_selected' => 'No items selected',
+    'no_item_selected' => 'Объекты не выбраны',
 
     // Permissions
     'select_all' => 'Выбрать все',

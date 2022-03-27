@@ -31,9 +31,7 @@ if (isset($_GET['action'])) {
 
             if (Token::check()) {
                 // Validate input
-                $validate = new Validate();
-
-                $validation = $validate->check($_POST, [
+                $validation = Validate::check($_POST, [
                     'name' => [
                         Validate::REQUIRED => true,
                         Validate::MIN => 2,
@@ -148,9 +146,7 @@ if (isset($_GET['action'])) {
                 if (Token::check()) {
                     if (Input::get('action') == 'update') {
                         // Validate input
-                        $validate = new Validate();
-
-                        $validation = $validate->check($_POST, [
+                        $validation = Validate::check($_POST, [
                             'name' => [
                                 Validate::REQUIRED => true,
                                 Validate::MIN => 2,

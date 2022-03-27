@@ -56,6 +56,9 @@ $language = [
     'report' => 'Nahlásit',
     'reported_by' => 'Nahlášen uživatelem {x}',
     'view_report' => 'Zobrazit nahlášení',
+    'report_origin' => 'Origin',
+    'origin_website' => 'Website',
+    'origin_api' => 'API',
     'page_loaded_in' => 'Stránka se načetla za {x}s', // Don't replace {x}, time unit is seconds
     'page_x' => 'Strana {x}',
     'browse' => 'Prohlížet',
@@ -94,7 +97,6 @@ $language = [
     /*
      *  Help dialogues
      */
-    'markdown_help' => 'Váš příspěvek můžete naformátovat pomocí stylu Markdown. Pro více informací klikněte <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>sem</a>.',
     'online' => 'Online',
 
     /*
@@ -151,5 +153,10 @@ $language = [
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'Přesměrování...<br />Pokud nebudete přesměrováni automaticky, klikněte prosím  <a href="{x}" rel="nofollow noopener">sem</a>.' // Don't replace {x} which is the redirect URL
+    'redirecting_message' => 'Přesměrování...<br />Pokud nebudete přesměrováni automaticky, klikněte prosím  <a href="{x}" rel="nofollow noopener">sem</a>.', // Don't replace {x} which is the redirect URL
+
+    /*
+     * OAuth
+     */
+    'oauth_message_continue' => 'Continue registering with {x}', // Don't replace {x}
 ];

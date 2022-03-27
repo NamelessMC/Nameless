@@ -42,14 +42,6 @@ $language = [
     'invalid_server_id' => 'ID เซิร์ฟเวอร์ไม่ถูกต้อง',
     'invalid_code' => 'ระบุรหัสไม่ถูกต้อง',
     'user_already_active' => 'บัญชีของคุณถูกเปิดใช้งานแล้ว.',
-    'discord_integration_disabled' => 'การรวม Discord ถูกปิดใช้งาน',
-    'unable_to_set_discord_id' => 'ไม่สามารถตั้งค่า Discord ID',
-    'unable_to_set_discord_bot_url' => 'ไม่สามารถตั้งค่า URL บอท Discord ได้',
-    'provide_one_discord_settings' => 'โปรดระบุข้อมูลต่อไปนี้อย่างน้อยหนึ่งรายการ: "url", "guild_id"',
-    'no_pending_verification_for_token' => 'ไม่มีการตรวจสอบที่รอดำเนินการภายใต้โทเค็นที่ให้มา',
-    'unable_to_update_discord_username' => 'ไม่สามารถอัปเดตชื่อผู้ใช้ Discord',
-    'unable_to_update_discord_roles' => 'ไม่สามารถอัปเดตรายการบทบาท Discord',
-    'unable_to_update_discord_bot_username' => 'ไม่สามารถอัปเดตชื่อผู้ใช้บอท Discord',
 
     // Success messages
     'finish_registration_link' => 'กรุณาคลิกที่ลิงค์ต่อไปนี้เพื่อเสร็จสิ้นการลงทะเบียน:',
@@ -59,7 +51,4 @@ $language = [
     'username_updated' => 'อัพเดทชื่อผู้ใช้เรียบร้อยแล้ว',
     'server_info_updated' => 'อัปเดตข้อมูลเซิร์ฟเวอร์เรียบร้อยแล้ว',
     'account_validated' => 'ตรวจสอบบัญชีเรียบร้อยแล้ว',
-    'discord_id_set' => 'ตั้ง Discord ID สำเร็จ',
-    'discord_settings_updated' => 'อัปเดตการตั้งค่า Discord เรียบร้อยแล้ว',
-    'discord_usernames_updated' => 'อัปเดตชื่อผู้ใช้ Discord สำเร็จแล้ว'
 ];

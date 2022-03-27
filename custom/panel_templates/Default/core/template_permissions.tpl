@@ -48,43 +48,37 @@
                         <!-- Success and Error Alerts -->
                         {include file='includes/alerts.tpl'}
 
-                        <form role="form" action="" method="post">
-                            <div class="table-responsive">
-                                <table class="table table-striped">
-                                    <colgroup>
-                                        <col span="1" style="width:70%">
-                                        <col span="1" style="width:30%">
-                                    </colgroup>
-                                    <thead>
-                                    <tr>
-                                        <th>{$GROUP}</th>
-                                        <th><a href="#" onclick="selectAllPerms(); return false;">{$SELECT_ALL}</a> | <a
-                                                    href="#"
-                                                    onclick="deselectAllPerms(); return false;">{$DESELECT_ALL}</a></th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>{$GUEST}</td>
-                                        <td><input type="hidden" name="perm-use-0" value="0" /><input
-                                                    onclick="colourUpdate(this);" class="js-switch" name="perm-use-0"
-                                                    id="Input-use-0" value="1"
-                                                    type="checkbox" {if isset($GUEST_PERMISSIONS->can_use_template) && $GUEST_PERMISSIONS->can_use_template eq 1} checked{/if} />
-                                        </td>
-                                    </tr>
-                                    {foreach from=$GROUP_PERMISSIONS item=group}
-                                        <tr>
-                                            <td>{$group->name|escape}</td>
-                                            <td><input type="hidden" name="perm-use-{$group->id|escape}" value="0" />
-                                                <input onclick="colourUpdate(this);" class="js-switch"
-                                                       name="perm-use-{$group->id|escape}"
-                                                       id="Input-use-{$group->id|escape}" value="1"
-                                                       type="checkbox" {if isset($group->can_use_template) && $group->can_use_template eq 1} checked{/if} />
-                                            </td>
-                                        </tr>
-                                    {/foreach}
-                                    </tbody>
-                                </table>
+                        <form role="form" action="" method="post" id="select-deselect-all-target">
+
+                            <a href="#" onclick="return selectAllPerms();">{$SELECT_ALL}</a>
+                            |
+                            <a href="#" onclick="return deselectAllPerms();">{$DESELECT_ALL}</a>
+
+                            {foreach from=$GROUP_PERMISSIONS item=group}
+                                <div class="custom-control custom-switch" style="margin-top: 5px; margin-bottom: 5px;">
+                                    <input type="hidden" name="perm-use-{$group->id|escape}" value="0">
+                                    <input class="custom-control-input permission-switch"
+                                           name="perm-use-{$group->id|escape}"
+                                           id="Input-use-{$group->id|escape}"
+                                           value="1"
+                                           type="checkbox"
+                                           {if isset($group->can_use_template) && $group->can_use_template eq 1} checked{/if}>
+                                    <label class="custom-control-label" for="Input-use-{$group->id|escape}">
+                                        {$group->name|escape}
+                                    </label>
+                                </div>
+                            {/foreach}
+                            <div class="custom-control custom-switch" style="margin-top: 5px; margin-bottom: 5px;">
+                                <input type="hidden" name="perm-use-0" value="0">
+                                <input class="custom-control-input permission-switch"
+                                       name="perm-use-0"
+                                       id="Input-use-0"
+                                       value="1"
+                                       type="checkbox"
+                                       {if isset($GUEST_PERMISSIONS->can_use_template) && $GUEST_PERMISSIONS->can_use_template eq 1} checked{/if}>
+                                <label class="custom-control-label" for="Input-use-0">
+                                    {$GUEST}
+                                </label>
                             </div>
 
                             <div class="form-group">
@@ -117,19 +111,16 @@
 
 <script type="text/javascript">
   function selectAllPerms() {
-    var table = $('table');
-    table.find('tbody tr td .js-switch').each(function () {
-      $(this).prop('checked', true);
-      onChange(this);
+    $('#select-deselect-all-target').find('.permission-switch').each(function () {
+        $(this).prop('checked', true);
+        onChange(this);
     });
     return false;
   }
-
   function deselectAllPerms() {
-    var table = $('table');
-    table.find('tbody tr td .js-switch').each(function () {
-      $(this).prop('checked', false);
-      onChange(this);
+    $('#select-deselect-all-target').find('.permission-switch').each(function () {
+        $(this).prop('checked', false);
+        onChange(this);
     });
     return false;
   }

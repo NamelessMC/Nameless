@@ -55,6 +55,9 @@ $language = [
     'report' => 'Report',
     'reported_by' => 'Reported by {x}',
     'view_report' => 'View report',
+    'report_origin' => 'Origin',
+    'origin_website' => 'Website',
+    'origin_api' => 'API',
     'page_loaded_in' => 'Page loaded in {x}s', // Don't replace {x}, time unit is seconds
     'page_x' => 'Page {x}',
     'browse' => 'Browse',
@@ -89,12 +92,6 @@ $language = [
      *  Homepage
      */
     'social' => 'Social',
-
-
-    /*
-     *  Help dialogues
-     */
-    'markdown_help' => 'You can format your post using Markdown. For more information, see <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>here</a>.',
 
     /*
      *  Server query
@@ -137,7 +134,6 @@ $language = [
     'online_users' => 'Online Users',
     'no_online_users' => 'There are no users online.',
     'total_online_users' => 'Total online users: {x}',
-    'discord_widget_disabled' => 'The widget is disabled for the specified Discord server. Please go to the \'Widget\' tab in your Discord server settings, and ensure the Discord widget is enabled and that the ID is correct.',
     'online_guests' => 'Online Guests',
     'total_online' => 'Total Online', // this is Online Users + Online Guests
     'no_default_server' => 'There is no default server, please select one in StaffCP - Integrations - Minecraft.',
@@ -151,5 +147,10 @@ $language = [
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{x}" rel="nofollow noopener">here</a>.' // Don't replace {x} which is the redirect URL
+    'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{x}" rel="nofollow noopener">here</a>.', // Don't replace {x} which is the redirect URL
+
+    /*
+     * OAuth
+     */
+    'oauth_message_continue' => 'Continue registering with {x}', // Don't replace {x}
 ];

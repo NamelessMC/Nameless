@@ -91,9 +91,11 @@ final class GroupSyncManager extends Instanceable {
      * @return Validate New `Validate` instance
      */
     public function makeValidator(array $source, Language $language): Validate {
-        return (new Validate)
-            ->check($source, $this->compileValidatorRules())
-            ->messages($this->compileValidatorMessages($language));
+        return Validate::check(
+            $source, $this->compileValidatorRules()
+        )->messages(
+            $this->compileValidatorMessages($language)
+        );
     }
 
     /**

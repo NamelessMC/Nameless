@@ -51,6 +51,7 @@ $language = [
     'configuration' => 'Configuración',
     'configuration_info' => 'Por favor, introduzca información básica sobre su sitio. Estos valores pueden ser modificados posteriormente a través del panel de administración.',
     'configuration_error' => 'Por favor, introduzca un nombre de sitio válido de entre 1 y 32 caracteres, y direcciones de correo electrónico válidas de entre 4 y 64 caracteres.',
+    'hostname_error' => 'Please enter a valid hostname without http:// or https://',
     'site_name' => 'Nombre del sitio',
     'contact_email' => 'Dirección de correo electrónico de contacto',
     'outgoing_email' => 'Dirección de correo electrónico de salida',
@@ -102,5 +103,5 @@ $language = [
     'no_converters_available' => 'No hay convertidores disponibles.',
     'config_not_writable' => 'El archivo de configuración no es escribible.',
 
-    'session_doesnt_exist' => 'No se puede detectar la sesión. Guardar las sesiones es un requisito para utilizar Nameless. Por favor, inténtelo de nuevo y, si el problema persiste, póngase en contacto con su proveedor de servidores web para obtener ayuda.'
+    'session_doesnt_exist' => 'Unable to detect session. Sessions saving are a requirement to use Nameless. Please try again after clearing cookies in your web browser, and if the issue persists, please contact your web host for support.'
 ];

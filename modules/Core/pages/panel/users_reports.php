@@ -166,9 +166,7 @@ if (!isset($_GET['id'])) {
             // Check token
             if (Token::check()) {
                 // Valid token
-                $validate = new Validate();
-
-                $validation = $validate->check($_POST, [
+                $validation = Validate::check($_POST, [
                     'content' => [
                         Validate::REQUIRED => true,
                         Validate::MIN => 1,

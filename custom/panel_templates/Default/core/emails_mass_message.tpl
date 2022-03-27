@@ -51,15 +51,9 @@
                                 <label for="inputContent">{$CONTENT} <span class="badge badge-info"><i
                                                 class="fa fa-lightbulb" data-container="body" data-toggle="popover"
                                                 title="{$INFO}" data-content="{$REPLACEMENT_INFO}"></i></span></label>
-                                {if isset($MARKDOWN)}
-                                    <div class="field">
-                                        <textarea name="content" id="markdown"></textarea>
-                                    </div>
-                                {else}
-                                    <div class="field">
-                                        <textarea name="content" id="reply"></textarea>
-                                    </div>
-                                {/if}
+                                <div class="field">
+                                    <textarea name="content" id="reply"></textarea>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <input type="hidden" name="token" value="{$TOKEN}">

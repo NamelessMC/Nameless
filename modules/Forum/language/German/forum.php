@@ -106,7 +106,7 @@ $language = [
 
     // Homepage
     'latest_announcements' => 'Neueste Ankündigungen',
-    'read_full_post' => 'Ganzen Beitrag lesen',
+    'read_full_post' => 'Beitrag lesen',
 
     // Admin tab
     'labels' => 'Labels', //Means 'Etiketten' but Labels is in Germany the same word
@@ -197,7 +197,7 @@ $language = [
     'latest_posts' => 'Neueste Beiträge',
 
     // UserCP
-    'last_7_days_posts' => 'Forenbeiträge (letzte 7 Tage)',
+    'last_7_days_posts' => 'Forenbeiträge (letzten 7 Tage)',
     'your_posts' => 'Deine Beitragsanzahl',
     'average_posts' => 'Durchschnittliche Anzahl von Benutzerbeiträgen',
     'total_posts' => 'Insgesamte Beitragsanzahl',
@@ -205,7 +205,7 @@ $language = [
     'unfollow_all_topics' => 'Alle Themen nicht mehr verfolgen',
     'confirm_unfollow_all_topics' => 'Möchtest Du wirklich allen Themen nicht mehr folgen?',
     'all_topics_unfollowed' => 'Alle Themen werden nicht mehr verfolgt.',
-    'not_following_any_topics' => 'Du verfolgst keine Themen.',
+    'not_following_any_topics' => 'Du folgst keine Themen.',
 
     // Hooks
     'new_topic_hook_info' => 'Neues Thema',

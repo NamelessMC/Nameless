@@ -57,6 +57,9 @@ $language = [
     'report' => 'Αναφορά',
     'reported_by' => 'Reported by {x}',
     'view_report' => 'View report',
+    'report_origin' => 'Origin',
+    'origin_website' => 'Website',
+    'origin_api' => 'API',
     'page_loaded_in' => 'Η σελίδα φορτώθηκε σε {x}s', // Don't replace {x}, time unit is seconds
     'page_x' => 'Page {x}',
     'browse' => 'Browse',
@@ -91,12 +94,6 @@ $language = [
      *  Homepage
      */
     'social' => 'Social',
-
-
-    /*
-     *  Help dialogues
-     */
-    'markdown_help' => 'Μπορείτε να διαμορφώσετε τα posts σας με τη χρήση Markdown. Για περισσότερες πληροφορίες, δές <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>εδώ</a>.',
 
     /*
      *  Server query
@@ -153,5 +150,10 @@ $language = [
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{x}" rel="nofollow noopener">here</a>.' // Don't replace {x} which is the redirect URL
+    'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{x}" rel="nofollow noopener">here</a>.', // Don't replace {x} which is the redirect URL
+
+    /*
+     * OAuth
+     */
+    'oauth_message_continue' => 'Continue registering with {x}', // Don't replace {x}
 ];

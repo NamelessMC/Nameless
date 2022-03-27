@@ -101,15 +101,13 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
             // Update username
             if (!Util::getSetting($api->getDb(), 'displaynames', false)) {
                 $user->update([
-                        'username' => Output::getClean($player['name']),
-                        'nickname' => Output::getClean($player['name'])
-                    ]
-                );
+                    'username' => Output::getClean($player['name']),
+                    'nickname' => Output::getClean($player['name'])
+                ]);
             } else {
                 $user->update([
-                        'username' => Output::getClean($player['name'])
-                    ]
-                );
+                    'username' => Output::getClean($player['name'])
+                ]);
             }
         }
     }

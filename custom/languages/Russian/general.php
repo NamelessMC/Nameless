@@ -56,6 +56,9 @@ $language = [
     'report' => 'Пожаловаться',
     'reported_by' => 'Жалоба от {x}',
     'view_report' => 'Открыть жалобу',
+    'report_origin' => 'Источник',
+    'origin_website' => 'Сайт',
+    'origin_api' => 'API',
     'page_loaded_in' => 'Скорость загрузки страницы: {x}с', // Don't replace {x}, time unit is seconds
     'page_x' => 'Страница {x}',
     'browse' => 'Обзор',
@@ -90,11 +93,6 @@ $language = [
      *  Homepage
      */
     'social' => 'Социальных сети',
-
-    /*
-     *  Help dialogues
-     */
-    'markdown_help' => 'Вы можете отформатировать своё сообщение с помощью Markdown. Для получения дополнительной информации см. <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>здесь</a>.',
 
     /*
      *  Server query

@@ -46,10 +46,14 @@ $language = [
     'upgrade_php_version' => 'Por favor, atualize sua versão PHP para pelo menos 7.4, a próxima versão Nameless não suportará mais a versão que você está usando.',
 
     // Core
-    'mode_toggle' => 'Modo Escuro/Claro',
+    'mode_toggle' => 'Modo Escuro',
     'settings' => 'Configurações',
     'general_settings' => 'Configurações Gerais',
     'sitename' => 'Nome do site',
+    'punished_id' => 'Punished User ID',
+    'punisher_id' => 'Punisher User ID',
+    'reason' => 'Ban Reason',
+    'ip_ban' => 'IP ban?',
     'default_language' => 'Idioma padrão',
     'default_language_help' => 'Os usuários poderão escolher entre os idiomas instalados.',
     'install_language' => 'Instalar Linguagem',
@@ -64,7 +68,6 @@ $language = [
     'email_verification' => 'Ativar verificação de email?',
     'registration_settings_updated' => 'Configurações de registro atualizadas com sucesso.',
     'homepage_type' => 'Tipo de Homepage',
-    'post_formatting_type' => 'Tipo de formatação de postagem',
     'portal' => 'Portal',
     'private_profiles' => 'Perfis Privados',
     'missing_sitename' => 'Por favor, insira o nome do site contendo de 2 a 64 caracteres.',
@@ -155,6 +158,7 @@ $language = [
     'captcha_type' => 'Tipo de Captcha',
     'captcha_site_key' => 'Chave do site do Captcha',
     'captcha_secret_key' => 'Chave Secreta do Captcha',
+    'invalid_recaptcha_settings' => 'Invalid {x} credentials. Ensure the site key and site secret are correct.', // Don't replace {x}
     'registration_disabled_message' => 'Motivo do registro está desativado',
     'enable_nicknames_on_registration' => 'Ativar nickname para registrar usuários?',
     'validation_promote_group' => 'Grupo pós-validação',
@@ -290,6 +294,8 @@ $language = [
     'no_parent_server' => 'Sem servidor pai',
     'bungee_instance' => 'Instância BungeeCord?',
     'bungee_instance_help' => 'Selecione essa opção se o servidor for uma instância BungeeCord.',
+    'bedrock' => 'Bedrock?',
+    'bedrock_help' => 'Select this option if the server is a Bedrock server.',
     'server_query_information' => 'Para exibir uma lista de jogadores online em seu site, seu servidor <strong>deve</strong> estar com a opção \'enable-query\' ativada no arquivo <strong>server.properties</strong> do seu servidor',
     'enable_status_query' => 'Ativar o status da query?',
     'status_query_help' => 'Se isso estiver habilitado, a página de status mostrará a este servidor como estando online ou offline.',
@@ -359,6 +365,7 @@ $language = [
     'module_disabled' => 'Módulo desativado.',
     'author' => 'Autor:',
     'author_x' => 'Autor: {x}', // Não substituir o {x}.
+    'updated_x' => 'Updated at: {x}', // Don't replace {x}
     'module_outdated' => 'Detectamos que este módulo é destinado à versão {x} do Nameless, mas você está rodando a versão {y}', // Não substituir o "{x}" ou "{y}".
     'find_modules' => 'Encontrar Módulos',
     'view_all_modules' => 'Ver todos os módulos',
@@ -645,6 +652,8 @@ $language = [
     'api_endpoints' => 'API Endpoints',
     'api_endpoints_info' => 'A API Endpoints permitem que os Módulos criem maneiras para aplicativos externos (como Minecraft e Discord) interagirem com o seu site NamelessMC. <a href="https://docs.namelessmc.com/en/api-documentation" target="_blank">Clique para confirir a documentação API.</a>',
     'route' => 'Rota',
+    'method' => 'Method',
+    'transformers' => 'Transformers',
 
     // File uploads
     'drag_files_here' => 'Arraste arquivos aqui para fazer o upload.',
@@ -686,6 +695,8 @@ $language = [
     'validate_hook_info' => 'Validação do usuário',
     'delete_hook_info' => 'Exclusão do usuário',
     'report_hook_info' => 'Criação de Denúncia',
+    'ban_hook_info' => 'User banned',
+    'warning_hook_info' => 'User warned',
 
     // Sitemap
     'unable_to_load_sitemap_file_x' => 'Não foi possível carregar o arquivo do mapa do site {x}', // Não substituir o {x}.
@@ -748,4 +759,12 @@ $language = [
     'no_announcements' => 'Nenhum anúncio foi feito ainda.',
     'announcement_order' => 'Ordem',
     'announcement_hook_info' => 'Criação de Anúncio',
+
+    // OAuth
+    'oauth' => 'OAuth',
+    'oauth_info' => 'Configure OAuth providers to allow users to login with their social network accounts. <a href="https://docs.namelessmc.com/en/oauth" target="_blank">Check out our documentation for help.</a>',
+    'unlink' => 'Unlink',
+    'identifier' => 'Identifier',
+    'unlink_account_confirm' => 'Are you sure you want to forcibly unlink this provider from this user?',
+    'unlink_account_success' => 'Successfully unlinked their account from {x}.', // Don't replace {x}
 ];

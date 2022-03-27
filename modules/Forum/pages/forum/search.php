@@ -18,7 +18,6 @@ const PAGE = 'forum';
 
 // Initialise
 $timeago = new TimeAgo(TIMEZONE);
-$emojione = new Emojione\Client(new Emojione\Ruleset());
 
 // Get user group ID
 $user_groups = $user->getAllGroupIds();
@@ -26,8 +25,7 @@ $user_groups = $user->getAllGroupIds();
 if (!isset($_GET['s'])) {
     if (Input::exists()) {
         if (Token::check()) {
-            $validate = new Validate();
-            $validation = $validate->check($_POST, [
+            $validation = Validate::check($_POST, [
                 'forum_search' => [
                     Validate::REQUIRED => true,
                     Validate::MIN => 3,
@@ -151,8 +149,6 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 $template->addCSSFiles([
     (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.css' => [],
     (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.min.css' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/css/emojionearea.min.css' => []
 ]);
 
 $template->addJSFiles([
@@ -176,7 +172,7 @@ if (isset($_GET['s'])) {
         $n = 0;
         while (($n < count($results->data)) && isset($results->data[$n])) {
             $content = htmlspecialchars_decode($results->data[$n]['post_content']);
-            $content = $emojione->toImage($content);
+            $content = Util::renderEmojis($content);
             $content = Output::getPurified($content);
 
             $post_user = new User($results->data[$n]['post_author']);

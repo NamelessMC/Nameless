@@ -89,11 +89,6 @@ $language = [
     'social' => 'Sosyal',
 
     /*
-     *  Help dialogues
-     */
-    'markdown_help' => 'Markdown\'u kullanarak yayınınızı biçimlendirebilirsiniz. Daha fazla bilgi için <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>buraya</a> bakın.',
-
-    /*
      *  Server query
      */
     'online' => 'Çevrimiçi',
@@ -144,8 +139,14 @@ $language = [
      *  Privacy policy
      */
     'privacy_policy' => 'Gizlilik Politikası',
+    
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'Yeniden yönlendiriliyor ... <br />Otomatik olarak yönlendirilmiyorsanız, lütfen <a href="{x}" rel="nofollow noopener">burayı</a> tıklayın.' // Don't replace {x} which is the redirect URL
+    'redirecting_message' => 'Yeniden yönlendiriliyor ... <br />Otomatik olarak yönlendirilmiyorsanız, lütfen <a href="{x}" rel="nofollow noopener">burayı</a> tıklayın.', // Don't replace {x} which is the redirect URL
+
+    /*
+     * OAuth
+     */
+    'oauth_message_continue' => 'Continue registering with {x}', // Don't replace {x}
 ];

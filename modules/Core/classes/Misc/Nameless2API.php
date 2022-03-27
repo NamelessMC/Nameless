@@ -49,6 +49,7 @@ class Nameless2API {
      * @param mixed $message The error message
      * @param mixed $meta Any additional data to return
      * @param int $status HTTP status code
+     * @return never
      */
     public function throwError($code = null, $message = null, $meta = null, int $status = 400): void {
         http_response_code($status);
@@ -100,6 +101,7 @@ class Nameless2API {
      *
      * @param mixed $arr Array of data to be returned
      * @param int $status HTTP status code
+     * @return never
      */
     public function returnArray($arr = null, int $status = 200): void {
         if (!$arr) {
@@ -141,9 +143,9 @@ class Nameless2API {
     private static function encodeJson($value) {
         if (defined('DEBUGGING')) {
             return json_encode($value, JSON_PRETTY_PRINT);
-        } else {
-            return json_encode($value);
         }
+
+        return json_encode($value);
     }
 
 }

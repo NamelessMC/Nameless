@@ -110,11 +110,7 @@
             {if isset($SIGNATURE)}
               <div class="field">
                 <label for="inputSignature">{$SIGNATURE}</label>
-                {if !isset($MARKDOWN)}
-                  <textarea name="signature" id="inputSignature">{$SIGNATURE_VALUE}</textarea>
-                {else}
-                  <textarea name="signature" id="inputSignature">{$SIGNATURE_VALUE}</textarea>
-                {/if}
+                <textarea name="signature" id="inputSignature">{$SIGNATURE_VALUE}</textarea>
               </div>
             {/if}
           {/nocache}

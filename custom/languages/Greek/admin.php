@@ -45,10 +45,14 @@ $language = [
     'upgrade_php_version' => 'Please upgrade your PHP version to at least 7.4 - the next Nameless release will no longer support the version you are using.',
 
     // Core
-    'mode_toggle' => 'Dark/Light Mode',
+    'mode_toggle' => 'Dark Mode',
     'settings' => 'Ρυθμίσης',
     'general_settings' => 'Γενικές Ρυθμίσεις',
     'sitename' => 'Ονομα ιστοσελίδας',
+    'punished_id' => 'Punished User ID',
+    'punisher_id' => 'Punisher User ID',
+    'reason' => 'Ban Reason',
+    'ip_ban' => 'IP ban?',
     'default_language' => 'Προεπιλεγμένη γλώσσα',
     'default_language_help' => 'Οι χρήστες θα έχουν τη δυνατότητα να επιλέξουν από τις εγκατεστημένες γλώσσες.',
     'install_language' => 'Install Language',
@@ -63,7 +67,6 @@ $language = [
     'email_verification' => 'Ενεργοποίηση επαλήθευσης ηλεκτρονικού ταχυδρομείου?',
     'registration_settings_updated' => 'Registration settings updated successfully.',
     'homepage_type' => 'Αρχική Σελίδα τύπος',
-    'post_formatting_type' => 'Αλληλογραφία μορφοποίηση τύπος',
     'portal' => 'Πύλη',
     'private_profiles' => 'Private Profiles',
     'missing_sitename' => 'Παρακαλώ εισάγετε ένα όνομα ιστοσελίδα μήκους μεταξύ 2 έως 64 χαρακτήρων.',
@@ -154,6 +157,7 @@ $language = [
     'captcha_type' => 'Captcha Type',
     'captcha_site_key' => 'Captcha Site Key',
     'captcha_secret_key' => 'Captcha Secret Key',
+    'invalid_recaptcha_settings' => 'Invalid {x} credentials. Ensure the site key and site secret are correct.', // Don't replace {x}
     'registration_disabled_message' => 'Registration disabled message',
     'enable_nicknames_on_registration' => 'Enable nicknames for registering users?',
     'validation_promote_group' => 'Post-validation group',
@@ -289,6 +293,8 @@ $language = [
     'no_parent_server' => 'No parent server',
     'bungee_instance' => 'BungeeCord Instance?',
     'bungee_instance_help' => 'Select this option if the server is a BungeeCord instance.',
+    'bedrock' => 'Bedrock?',
+    'bedrock_help' => 'Select this option if the server is a Bedrock server.',
     'server_query_information' => 'In order to display a list of online players on your website, your server <strong>must</strong> have the \'enable-query\' option enabled in your server\'s <strong>server.properties</strong> file',
     'enable_status_query' => 'Enable status query?',
     'status_query_help' => 'If this is enabled, the status page will show this server as being online or offline.',
@@ -358,6 +364,7 @@ $language = [
     'module_disabled' => 'Τμήμα Απενεργοποιήθηκε.',
     'author' => 'Author:',
     'author_x' => 'Author: {x}', // Don't replace {x}
+    'updated_x' => 'Updated at: {x}', // Don't replace {x}
     'module_outdated' => 'We have detected that this module is intended for Nameless version {x}, but you are running Nameless version {y}', // Don't replace "{x}" or "{y}"
     'find_modules' => 'Find Modules',
     'view_all_modules' => 'View all modules',
@@ -644,6 +651,8 @@ $language = [
     'api_endpoints' => 'API Endpoints',
     'api_endpoints_info' => 'API Endpoints allow Modules to create ways for external applications (such as Minecraft and Discord) to interact with your NamelessMC website. <a href="https://docs.namelessmc.com/en/api-documentation" target="_blank">Check out the API documentation here</a>',
     'route' => 'Route',
+    'method' => 'Method',
+    'transformers' => 'Transformers',
 
     // File uploads
     'drag_files_here' => 'Σύρετε αρχεία εδώ για μεταφόρτωση.',
@@ -685,6 +694,8 @@ $language = [
     'validate_hook_info' => 'User validation',
     'delete_hook_info' => 'User deletion',
     'report_hook_info' => 'Report creation',
+    'ban_hook_info' => 'User banned',
+    'warning_hook_info' => 'User warned',
 
     // Sitemap
     'unable_to_load_sitemap_file_x' => 'Unable to load sitemap file {x}', // Don't replace {x}
@@ -747,4 +758,12 @@ $language = [
     'no_announcements' => 'No announcements have been made yet.',
     'announcement_order' => 'Order',
     'announcement_hook_info' => 'Announcement creation',
+
+    // OAuth
+    'oauth' => 'OAuth',
+    'oauth_info' => 'Configure OAuth providers to allow users to login with their social network accounts. <a href="https://docs.namelessmc.com/en/oauth" target="_blank">Check out our documentation for help.</a>',
+    'unlink' => 'Unlink',
+    'identifier' => 'Identifier',
+    'unlink_account_confirm' => 'Are you sure you want to forcibly unlink this provider from this user?',
+    'unlink_account_success' => 'Successfully unlinked their account from {x}.', // Don't replace {x}
 ];

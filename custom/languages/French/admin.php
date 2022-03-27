@@ -44,10 +44,14 @@ $language = [
     'upgrade_php_version' => 'Please upgrade your PHP version to at least 7.4 - the next Nameless release will no longer support the version you are using.',
 
     // Core
-    'mode_toggle' => 'Mode sombre/clair',
+    'mode_toggle' => 'Mode sombre',
     'settings' => 'Paramètres',
     'general_settings' => 'Paramètres généraux',
     'sitename' => 'Nom du site',
+    'punished_id' => 'Punished User ID',
+    'punisher_id' => 'Punisher User ID',
+    'reason' => 'Ban Reason',
+    'ip_ban' => 'IP ban?',
     'default_language' => 'Langage par défaut',
     'default_language_help' => 'Les utilisateurs pourront choisir parmi n’importe quelle langue installée.',
     'install_language' => 'Installer la langue',
@@ -62,7 +66,6 @@ $language = [
     'email_verification' => 'Activer la vérification par e-mail ?',
     'registration_settings_updated' => 'Paramètres d’enregistrement actualisés avec succès.',
     'homepage_type' => 'Type de page d\'accueil',
-    'post_formatting_type' => 'Type de formatage du courrier',
     'portal' => 'Portail',
     'private_profiles' => 'Profils privés',
     'missing_sitename' => 'Veuillez insérer un nom de site de 2 à 64 caractères.',
@@ -142,6 +145,7 @@ $language = [
     'captcha_login' => 'Activer Captcha sur la page de connexion ?',
     'captcha_site_key' => 'Clé de site Captcha',
     'captcha_secret_key' => 'Clé secrète Captcha',
+    'invalid_recaptcha_settings' => 'Invalid {x} credentials. Ensure the site key and site secret are correct.', // Don't replace {x}
     'registration_disabled_message' => 'Enregistrement message désactivé',
     'enable_nicknames_on_registration' => 'Activer les surnoms lors de l\'enregistrement des utilisateurs ?',
     'validation_promote_group' => 'Groupe de postvalidation',
@@ -269,6 +273,8 @@ $language = [
     'no_parent_server' => 'Pas de serveur parent',
     'bungee_instance' => 'Instance BungeeCord?',
     'bungee_instance_help' => 'Sélectionnez cette option si le serveur est une instance BungeeCord.',
+    'bedrock' => 'Bedrock?',
+    'bedrock_help' => 'Select this option if the server is a Bedrock server.',
     'server_query_information' => 'Pour afficher une liste de lecteurs en ligne sur votre site, votre serveur doit <strong> </strong> avoir l’option \’enable-query\' activée dans le fichier <strong>server.properties </strong> de votre serveur.',
     'enable_status_query' => 'Activer la requête de statut?',
     'status_query_help' => 'Si cette option est activée, la page de statut indiquera que ce serveur est en ligne ou hors ligne.',
@@ -338,6 +344,7 @@ $language = [
     'module_disabled' => 'Module désactivé.',
     'author' => 'Auteur:',
     'author_x' => 'Auteur: {x}', // Don't replace {x}
+    'updated_x' => 'Updated at: {x}', // Don't replace {x}
     'module_outdated' => 'Nous avons détecté que ce module est destiné à la version Nameless {x}, mais vous utilisez la version Nameless {y}', // Don't replace "{x}" or "{y}"
     'find_modules' => 'Trouver des modules',
     'view_all_modules' => 'Voir tous les modules',
@@ -638,6 +645,8 @@ Vous devriez configurer votre groupe par défaut pour avoir des autorisations li
     'validate_hook_info' => 'Validation par l’utilisateur',
     'delete_hook_info' => 'Suppression de l\'utilisateur',
     'report_hook_info' => 'Report creation',
+    'ban_hook_info' => 'User banned',
+    'warning_hook_info' => 'User warned',
 
     // Sitemap
     'unable_to_load_sitemap_file_x' => 'Impossible de charger le fichier sitemap {x}', // Don't replace {x}
@@ -699,4 +708,12 @@ Vous devriez configurer votre groupe par défaut pour avoir des autorisations li
     'support' => 'Support',
     'admin_dir_still_exists' => 'Attention ! Le répertoire <strong>modules/Core/pages/admin</strong> existe toujours. Veuillez supprimer ce répertoire.',
     'mod_dir_still_exists' => 'Attention ! Le répertoire <strong>modules/Core/pages/mod</strong> existe toujours. Veuillez supprimer ce répertoire.',
+
+    // OAuth
+    'oauth' => 'OAuth',
+    'oauth_info' => 'Configure OAuth providers to allow users to login with their social network accounts. <a href="https://docs.namelessmc.com/en/oauth" target="_blank">Check out our documentation for help.</a>',
+    'unlink' => 'Unlink',
+    'identifier' => 'Identifier',
+    'unlink_account_confirm' => 'Are you sure you want to forcibly unlink this provider from this user?',
+    'unlink_account_success' => 'Successfully unlinked their account from {x}.', // Don't replace {x}
 ];

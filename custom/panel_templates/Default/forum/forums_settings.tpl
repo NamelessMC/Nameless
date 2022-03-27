@@ -35,10 +35,10 @@
 
                 <div class="card shadow mb-4">
                     <div class="card-body">
-                    
+
                         <!-- Success and Error Alerts -->
                         {include file='includes/alerts.tpl'}
-                        
+
                         <form action="" method="post">
                             <div class="form-group">
                                 <label for="link_location">{$LINK_LOCATION}</label>
@@ -49,9 +49,12 @@
                                     <option value="4"{if $LINK_LOCATION_VALUE eq 4} selected{/if}>{$LINK_NONE}</option>
                                 </select>
                             </div>
-                            <div class="form-group">
-                                <label for="InputUseReactions">{$USE_REACTIONS}</label>
-                                <input type="checkbox" name="use_reactions" id="InputUseReactions" class="js-switch" {if $USE_REACTIONS_VALUE} checked{/if} />
+
+                            <div class="form-group custom-control custom-switch">
+                                <input id="InputUseReactions" name="use_reactions" type="checkbox" class="custom-control-input" {if $USE_REACTIONS_VALUE} checked{/if} />
+                                <label for="InputUseReactions" class="custom-control-label">
+                                    {$USE_REACTIONS}
+                                </label>
                             </div>
                             <div class="form-group">
                                 <input type="hidden" name="token" value="{$TOKEN}">

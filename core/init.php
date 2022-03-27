@@ -80,7 +80,7 @@ if ($page != 'install') {
     }
 
     if (defined('FORCE_SSL') && !Util::isConnectionSSL()) {
-        if (defined('FORCE_WWW') && strpos($_SERVER['HTTP_HOST'], 'www.') === false) {
+        if (defined('FORCE_WWW') && !str_contains($_SERVER['HTTP_HOST'], 'www.')) {
             header('Location: https://www.' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
             die();
         }
@@ -89,7 +89,7 @@ if ($page != 'install') {
         die();
     }
 
-    if (defined('FORCE_WWW') && strpos($_SERVER['HTTP_HOST'], 'www.') === false) {
+    if (defined('FORCE_WWW') && !str_contains($_SERVER['HTTP_HOST'], 'www.')) {
         if (!Util::isConnectionSSL()) {
             header('Location: http://www.' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
         } else {
@@ -576,7 +576,7 @@ if ($page != 'install') {
         if (isset($forced) && $forced) {
             // Do they have TFA configured?
             if (!$user->data()->tfa_enabled && rtrim($_GET['route'], '/') != '/logout') {
-                if (strpos($_SERVER['REQUEST_URI'], 'do=enable_tfa') === false) {
+                if (!str_contains($_SERVER['REQUEST_URI'], 'do=enable_tfa')) {
                     Session::put('force_tfa_alert', $language->get('admin', 'force_tfa_alert'));
                     Redirect::to(URL::build('/user/settings', 'do=enable_tfa'));
                 }

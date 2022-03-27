@@ -56,6 +56,9 @@ $language = [
     'report' => 'Anmäl',
     'reported_by' => 'Rapporterad av {x}',
     'view_report' => 'Visa rapport',
+    'report_origin' => 'Origin',
+    'origin_website' => 'Website',
+    'origin_api' => 'API',
     'page_loaded_in' => 'Sida laddad på {x}s', // Don't replace {x}, time unit is seconds
     'page_x' => 'Sida {x}',
     'browse' => 'Bläddra',
@@ -90,11 +93,6 @@ $language = [
      *  Homepage
      */
     'social' => 'Socialt',
-
-    /*
-     *  Help dialogues
-     */
-    'markdown_help' => 'Du kan formatera ditt inlägg med Markdown. För mer information, se <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>här</a>.',
 
     /*
      *  Server query
@@ -151,5 +149,10 @@ $language = [
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'Omdirigerar...<br />Om du inte omdirigeras automatiskt, klicka <a href="{x}" rel="nofollow noopener">här</a>.' // Don't replace {x} which is the redirect URL
+    'redirecting_message' => 'Omdirigerar...<br />Om du inte omdirigeras automatiskt, klicka <a href="{x}" rel="nofollow noopener">här</a>.', // Don't replace {x} which is the redirect URL
+
+    /*
+     * OAuth
+     */
+    'oauth_message_continue' => 'Continue registering with {x}', // Don't replace {x}
 ];

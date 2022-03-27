@@ -28,14 +28,6 @@ $registration_enabled = $registration_enabled[0]->value;
 
 if ($registration_enabled == 0) {
     // Registration is disabled, display a message
-    $template->addCSSFiles([
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css' => []
-    ]);
-
-    $template->addJSFiles([
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js' => []
-    ]);
-
     // Get registration disabled message and assign to Smarty variable
     $registration_disabled_message = $queries->getWhere('settings', ['name', '=', 'registration_disabled_message']);
     if (count($registration_disabled_message)) {
@@ -44,12 +36,10 @@ if ($registration_enabled == 0) {
         $message = 'Registration is currently disabled.';
     }
 
-    $smarty->assign(
-        [
-            'REGISTRATION_DISABLED' => $message,
-            'CREATE_AN_ACCOUNT' => $language->get('user', 'create_an_account')
-        ]
-    );
+    $smarty->assign([
+        'REGISTRATION_DISABLED' => $message,
+        'CREATE_AN_ACCOUNT' => $language->get('user', 'create_an_account')
+    ]);
 
     // Load modules + template
     Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
@@ -85,8 +75,6 @@ if ($minecraft == '1') {
 }
 
 // Registration page
-require(ROOT_PATH . '/core/integration/uuid.php'); // For UUID stuff
-
 // Are custom usernames enabled?
 $custom_usernames = $queries->getWhere('settings', ['name', '=', 'displaynames']);
 $custom_usernames = $custom_usernames[0]->value;
@@ -148,10 +136,13 @@ if (Input::exists()) {
         }
 
         if ($captcha_passed) {
-            // Validate
-            $validate = new Validate();
-
             $to_validation = [
+                'username' => [
+                    Validate::REQUIRED => true,
+                    Validate::MIN => 3,
+                    Validate::MAX => 20,
+                    Validate::UNIQUE => 'users'
+                ],
                 'password' => [
                     Validate::REQUIRED => true,
                     Validate::MIN => 6,
@@ -177,35 +168,23 @@ if (Input::exists()) {
             ];
 
             // Minecraft username?
-            $to_validation['username'] = [
-                'required' => true,
-                'min' => 3,
-                'max' => 20,
-                'unique' => 'users'
-            ];
             if (MINECRAFT) {
                 if ($custom_usernames == 'true') {
                     // Nickname enabled
                     $to_validation['nickname'] = [
-                        'required' => true,
-                        'min' => 3,
-                        'max' => 20,
-                        'unique' => 'users'
+                        Validate::REQUIRED => true,
+                        Validate::MIN => 3,
+                        Validate::MAX => 20,
+                        Validate::UNIQUE => 'users'
                     ];
-
                     $nickname = Output::getClean(Input::get('nickname'));
-
                 } else {
-
                     $nickname = Output::getClean(Input::get('username'));
-
                 }
 
             } else {
                 // Just check username
-
                 $nickname = Output::getClean(Input::get('username'));
-
             }
             $username = Output::getClean(Input::get('username'));
 
@@ -214,16 +193,53 @@ if (Input::exists()) {
             if (count($profile_fields)) {
                 foreach ($profile_fields as $field) {
                     if ($field->required == true) {
-                        $to_validation[$field->name] = [
-                            'required' => true,
-                            'max' => (is_null($field->length) ? 1024 : $field->length)
+                        $to_validation[$field->id] = [
+                            Validate::REQUIRED => true,
+                            Validate::MAX => (is_null($field->length) ? 1024 : $field->length)
                         ];
                     }
                 }
             }
 
             // Valid, continue with validation
-            $validation = $validate->check($_POST, $to_validation); // Execute validation
+            $validation = Validate::check(
+                $_POST, $to_validation
+            )->messages([
+                'username' => [
+                    Validate::REQUIRED => $language->get('user', 'username_required'),
+                    Validate::MIN => $language->get('user', 'username_minimum_3'),
+                    Validate::MAX => $language->get('user', 'username_maximum_20'),
+                    Validate::UNIQUE => $language->get('user', 'username_mcname_email_exists')
+                ],
+                'email' => [
+                    Validate::REQUIRED => $language->get('user', 'email_required'),
+                    Validate::EMAIL => $language->get('general', 'contact_message_email'),
+                ],
+                'password' => [
+                    Validate::REQUIRED => $language->get('user', 'password_required'),
+                    Validate::MIN => $language->get('user', 'password_minimum_6'),
+                ],
+                'password_again' => [
+                    Validate::MATCHES => $language->get('user', 'passwords_dont_match'),
+                ],
+                'mcname' => [
+                    Validate::REQUIRED => $language->get('user', 'mcname_required'),
+                    Validate::MIN => $language->get('user', 'mcname_minimum_3'),
+                    Validate::MAX => $language->get('user', 'mcname_maximum_20'),
+                ],
+                't_and_c' => [
+                    Validate::REQUIRED => $language->get('user', 'accept_terms'),
+                ],
+                // fallback message for profile fields
+                '*' => static function ($field) use ($language, $queries) {
+                    $profile_field = $queries->getWhere('profile_fields', ['id', '=', $field]);
+                    if (!count($profile_field)) {
+                        return null;
+                    }
+
+                    return str_replace('{x}', Output::getClean($profile_field[0]->name), $language->get('user', 'field_is_required'));
+                },
+            ]);
 
             if ($validation->passed()) {
                 if (MINECRAFT) {
@@ -513,7 +529,8 @@ if (count($profile_fields)) {
             'name' => Output::getClean($field->name),
             'description' => Output::getClean($field->description),
             'type' => $field->type,
-            'required' => $field->required
+            'required' => $field->required,
+            'value' => $_POST[$field->id] ?? ''
         ];
     }
 }

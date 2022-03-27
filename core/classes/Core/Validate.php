@@ -82,7 +82,7 @@ class Validate {
     /**
      * Create new `Validate` instance
      */
-    public function __construct() {
+    private function __construct() {
         // Connect to database for rules which need DB access
         try {
             $host = Config::get('mysql/host');
@@ -101,9 +101,10 @@ class Validate {
      * @param array $source inputs (eg: $_POST)
      * @param array $items subset of inputs to be validated
      *
-     * @return Validate This instance of Validate.
+     * @return Validate New instance of Validate.
      */
-    public function check(array $source, array $items = []): Validate {
+    public static function check(array $source, array $items = []): Validate {
+        $validator = new Validate();
 
         // Loop through the items which need validating
         foreach ($items as $item => $rules) {
@@ -119,7 +120,7 @@ class Validate {
                 // Required rule
                 if ($rule === self::REQUIRED && empty($value)) {
                     // The post array does not include this value, return an error
-                    $this->addError([
+                    $validator->addError([
                         'field' => $item,
                         'rule' => self::REQUIRED,
                         'fallback' => "$item is required."
@@ -136,7 +137,7 @@ class Validate {
 
                     case self::MIN:
                         if (mb_strlen($value) < $rule_value) {
-                            $this->addError([
+                            $validator->addError([
                                 'field' => $item,
                                 'rule' => self::MIN,
                                 'fallback' => "$item must be a minimum of $rule_value characters."
@@ -146,7 +147,7 @@ class Validate {
 
                     case self::MAX:
                         if (mb_strlen($value) > $rule_value) {
-                            $this->addError([
+                            $validator->addError([
                                 'field' => $item,
                                 'rule' => self::MAX,
                                 'fallback' => "$item must be a maximum of $rule_value characters."
@@ -156,7 +157,7 @@ class Validate {
 
                     case self::MATCHES:
                         if ($value != $source[$rule_value]) {
-                            $this->addError([
+                            $validator->addError([
                                 'field' => $item,
                                 'rule' => self::MATCHES,
                                 'fallback' => "$rule_value must match $item."
@@ -166,7 +167,7 @@ class Validate {
 
                     case self::AGREE:
                         if ($value != 1) {
-                            $this->addError([
+                            $validator->addError([
                                 'field' => $item,
                                 'rule' => self::AGREE,
                                 'fallback' => 'You must agree to our terms and conditions in order to register.'
@@ -175,9 +176,9 @@ class Validate {
                         break;
 
                     case self::UNIQUE:
-                        $check = $this->_db->get($rule_value, [$item, '=', $value]);
+                        $check = $validator->_db->get($rule_value, [$item, '=', $value]);
                         if ($check->count()) {
-                            $this->addError([
+                            $validator->addError([
                                 'field' => $item,
                                 'rule' => self::UNIQUE,
                                 'fallback' => "The $rule_value.$item $value already exists!"
@@ -187,7 +188,7 @@ class Validate {
 
                     case self::EMAIL:
                         if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
-                            $this->addError([
+                            $validator->addError([
                                 'field' => $item,
                                 'rule' => self::EMAIL,
                                 'fallback' => "$value is not a valid email."
@@ -197,7 +198,7 @@ class Validate {
 
                     case self::TIMEZONE:
                         if (!in_array($value, DateTimeZone::listIdentifiers())) {
-                            $this->addError([
+                            $validator->addError([
                                 'field' => $item,
                                 'rule' => self::TIMEZONE,
                                 'fallback' => "The timezone $value is invalid."
@@ -206,14 +207,14 @@ class Validate {
                         break;
 
                     case self::IS_ACTIVE:
-                        $check = $this->_db->get('users', [$item, '=', $value]);
+                        $check = $validator->_db->get('users', [$item, '=', $value]);
                         if (!$check->count()) {
                             break;
                         }
 
                         $isuseractive = $check->first()->active;
                         if ($isuseractive == 0) {
-                            $this->addError([
+                            $validator->addError([
                                 'field' => $item,
                                 'rule' => self::IS_ACTIVE,
                                 'fallback' => "That $item is inactive. Have you validated your account or requested a password reset?"
@@ -222,14 +223,14 @@ class Validate {
                         break;
 
                     case self::IS_BANNED:
-                        $check = $this->_db->get('users', [$item, '=', $value]);
+                        $check = $validator->_db->get('users', [$item, '=', $value]);
                         if (!$check->count()) {
                             break;
                         }
 
                         $isuserbanned = $check->first()->isbanned;
                         if ($isuserbanned == 1) {
-                            $this->addError([
+                            $validator->addError([
                                 'field' => $item,
                                 'rule' => self::IS_BANNED,
                                 'fallback' => "The username $value is banned."
@@ -239,7 +240,7 @@ class Validate {
 
                     case self::ALPHANUMERIC:
                         if (!ctype_alnum($value)) {
-                            $this->addError([
+                            $validator->addError([
                                 'field' => $item,
                                 'rule' => self::ALPHANUMERIC,
                                 'fallback' => "$item must be alphanumeric."
@@ -249,7 +250,7 @@ class Validate {
 
                     case self::NUMERIC:
                         if (!is_numeric($value)) {
-                            $this->addError([
+                            $validator->addError([
                                 'field' => $item,
                                 'rule' => self::NUMERIC,
                                 'fallback' => "$item must be numeric."
@@ -260,12 +261,12 @@ class Validate {
             }
         }
 
-        if (empty($this->_to_convert)) {
+        if (empty($validator->_to_convert)) {
             // Only return true if there are no errors
-            $this->_passed = true;
+            $validator->_passed = true;
         }
 
-        return $this;
+        return $validator;
     }
 
     /**
@@ -336,7 +337,13 @@ class Validate {
     }
 
     /**
-     * Get message for provided field, returning fallback message unless generic message is supplied.
+     * Get the error message for a field.
+     * Priority:
+     *  - Message is set for the field and rule
+     *  - Message for field, not rule specific
+     *  - Result of callable if "*" rule exists
+     *  - Generic message set with `message(...)`
+     *  - Fallback message for rule
      *
      * @param string $field name of field to search for.
      * @param string $rule rule which check failed. should be from the constants defined above.
@@ -348,7 +355,14 @@ class Validate {
 
         // No custom messages defined for this field
         if (!isset($this->_messages[$field])) {
-            return $this->_message != null ? $this->_message : $fallback;
+            if (isset($this->_messages['*'])) {
+                $message = $this->_messages['*']($field);
+                if ($message !== null) {
+                    return $message;
+                }
+            }
+
+            return $this->_message ?? $fallback;
         }
 
         // Generic custom message for this field supplied - but not rule specific
@@ -358,7 +372,7 @@ class Validate {
 
         // Array of custom messages supplied, but none of their rules matches this rule
         if (!array_key_exists($rule, $this->_messages[$field])) {
-            return $this->_message != null ? $this->_message : $fallback;
+            return $this->_message ?? $fallback;
         }
 
         // Rule-specific custom message was supplied

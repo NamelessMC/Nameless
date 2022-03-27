@@ -19,7 +19,7 @@ $page_title = $language->get('general', 'verify_account');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 $template->addJSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/js/client.js' => []
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/js/mcassoc_client.js' => []
 ]);
 
 // Assign post data to session variable
@@ -53,7 +53,7 @@ if (!isset($_GET['step'])) {
 	  </center>
     ');
 
-    $template->addJSFiles([(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/js/client.js' => []]);
+    $template->addJSFiles([(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/js/mcassoc_client.js' => []]);
     $template->addJSScript('
 	  MCAssoc.init("' . $mcassoc_site_id . '", "' . $key . '", "' . $return_link . '");
 	');

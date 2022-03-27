@@ -50,6 +50,7 @@ $language = [
     // User Settings
     'discord_link' => 'Propojení s Discordem',
     'linked' => 'Propojeno',
+    'get_link_code' => 'Get link code',
     'not_linked' => 'Nepropojeno',
     'discord_id' => 'Uživatelské Discord ID',
     'discord_id_unlinked' => 'Úspěšně jste odpojili své uživatelské ID.',

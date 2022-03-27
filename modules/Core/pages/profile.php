@@ -14,8 +14,6 @@ const PAGE = 'profile';
 
 $timeago = new TimeAgo(TIMEZONE);
 
-$emojione = new Emojione\Client(new Emojione\Ruleset());
-
 $profile = explode('/', rtrim($_GET['route'], '/'));
 if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profile[count($profile) - 2] == 'profile') && !isset($_GET['error'])) {
     // User specified
@@ -99,10 +97,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
                 case 'new_post':
                     if (Token::check()) {
-                        // Valid token
-                        $validate = new Validate();
-
-                        $validation = $validate->check($_POST, [
+                        $validation = Validate::check($_POST, [
                             'post' => [
                                 Validate::REQUIRED => true,
                                 Validate::MIN => 1,
@@ -144,10 +139,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
                 case 'reply':
                     if (Token::check()) {
-                        // Valid token
-                        $validate = new Validate();
-
-                        $validation = $validate->check($_POST, [
+                        $validation = Validate::check($_POST, [
                             'reply' => [
                                 Validate::REQUIRED => true,
                                 Validate::MIN => 1,
@@ -672,40 +664,37 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     $fields = [];
 
     // Get profile fields
-    $profile_fields = $queries->getWhere('users_profile_fields', ['user_id', '=', $query->id]);
-    if (count($profile_fields)) {
-        foreach ($profile_fields as $field) {
-            // Get field
-            $profile_field = $queries->getWhere('profile_fields', ['id', '=', $field->field_id]);
-            if (!count($profile_field)) {
-                continue;
-            }
-
-            $profile_field = $profile_field[0];
-
-            if ($profile_field->public == 0 || !$field->value) {
-                continue;
-            }
-
-            // Get field type
-            switch ($profile_field->type) {
-                case 1:
-                    $type = 'text';
-                    break;
-                case 2:
-                    $type = 'textarea';
-                    break;
-                case 3:
-                    $type = 'date';
-                    break;
-            }
-
-            $fields[] = [
-                'title' => Output::getClean($profile_field->name),
-                'type' => $type,
-                'value' => Output::getPurified(Util::urlToAnchorTag(htmlspecialchars_decode($field->value)))
-            ];
+    foreach ($profile_user->getProfileFields() as $id => $item) {
+        // Get field
+        $profile_field = $queries->getWhere('profile_fields', ['id', '=', $id]);
+        if (!count($profile_field)) {
+            continue;
         }
+
+        $profile_field = $profile_field[0];
+
+        if ($profile_field->public == 0 || !$item['value']) {
+            continue;
+        }
+
+        // Get field type
+        switch ($profile_field->type) {
+            case 1:
+                $type = 'text';
+                break;
+            case 2:
+                $type = 'textarea';
+                break;
+            case 3:
+                $type = 'date';
+                break;
+        }
+
+        $fields[] = [
+            'title' => Output::getClean($profile_field->name),
+            'type' => $type,
+            'value' => Output::getClean($item['value']),
+        ];
     }
 
     foreach ($profile_user->getIntegrations() as $key => $integrationUser) {
