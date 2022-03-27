@@ -70,7 +70,7 @@
                 {if $field.type eq 1}
                   <input type="text" name="{$field.id}" id="{$field.name}" value="{$field.value}" placeholder="{$field.description}" tabindex="5">
                 {elseif $field.type eq 2}
-                  <textarea name="{$field.name}" id="{$field.id}" placeholder="{$field.description}" tabindex="5"></textarea>
+                  <textarea name="{$field.id}" id="{$field.name}" placeholder="{$field.description}" tabindex="5"></textarea>
                 {elseif $field.type eq 3}
                   <input type="date" name="{$field.id}" id="{$field.name}" value="{$field.value}" tabindex="5">
                 {/if}
