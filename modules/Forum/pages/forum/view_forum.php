@@ -64,17 +64,12 @@ if (isset($_GET['p'])) {
 $page_metadata = $queries->getWhere('page_descriptions', ['page', '=', '/forum/view']);
 if (count($page_metadata)) {
 
-    define('PAGE_DESCRIPTION', str_replace([
-        '{site}',
-        '{forum_title}',
-        '{page}',
-        '{description}'
-    ], [
-        SITE_NAME,
-        Output::getClean($forum_query->forum_title),
-        Output::getClean($p),
-        Output::getClean($forum_query->forum_description)
-    ], $page_metadata[0]->description));
+    define('PAGE_DESCRIPTION', str_replace(
+            ['{site}', '{forum_title}', '{page}', '{description}'],
+            [SITE_NAME, Output::getClean($forum_query->forum_title), Output::getClean($p), Output::getClean($forum_query->forum_description)],
+            $page_metadata[0]->description
+        )
+    );
 
     define('PAGE_KEYWORDS', $page_metadata[0]->tags);
 }
