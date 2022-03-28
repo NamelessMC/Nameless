@@ -43,9 +43,9 @@
                 {if !isset($field.disabled)}
                   <label for="input{$field.id}">{$field.name}{if $field.required}<super style="color: red;">*</super>{/if}</label>
                   {if $field.type == "text"}
-                    <input type="text" name="{$field.id}" id="input{$field.id}" value="{$field.value}" placeholder="{$field.name}">
+                    <input type="text" name="{$field.id}" id="input{$field.id}" value="{$field.value}" placeholder="{$field.description}">
                   {elseif $field.type == "textarea"}
-                    <textarea name="{$field.id}" id="input{$field.id}">{$field.value}</textarea>
+                    <textarea name="{$field.id}" id="input{$field.id}" placeholder="{$field.description}">{$field.value}</textarea>
                   {elseif $field.type == "date"}
                     <input type="date" name="{$field.id}" id="input{$field.id}" value="{$field.value}">
                   {/if}

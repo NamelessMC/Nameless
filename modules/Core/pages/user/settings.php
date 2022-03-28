@@ -569,7 +569,8 @@ if (isset($_GET['do'])) {
             'value' => $value,
             'id' => $field->id,
             'type' => $type,
-            'required' => $field->required
+            'required' => $field->required,
+            'description' => $field->description ?: $field->name
         ];
     }
 
