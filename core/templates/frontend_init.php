@@ -155,7 +155,7 @@ if ($analytics_id) {
 $smarty->assign([
     'FOOTER_LINKS_TITLE' => $language->get('general', 'links'),
     'FOOTER_SOCIAL_TITLE' => $language->get('general', 'social'),
-    'DARK_LIGHT_MODE' => $language->get('admin', 'mode_toggle'),
+    'TOGGLE_DARK_MODE_TEXT' => $language->get('general', 'toggle_dark_mode'),
     'DARK_LIGHT_MODE_ACTION' => URL::build('/queries/dark_light_mode'),
     'DARK_LIGHT_MODE_TOKEN' => $user->isLoggedIn() ? Token::get() : null
 ]);

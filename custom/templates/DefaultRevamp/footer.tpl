@@ -13,7 +13,7 @@
               <span class="item" id="page_load"></span>
             {/if}
             {if isset($LOGGED_IN_USER)}
-              <a class="item" href="javascript:" onclick="toggleDarkLightMode()">{$DARK_LIGHT_MODE}</a>
+              <a class="item" href="javascript:" onclick="toggleDarkLightMode()">{$TOGGLE_DARK_MODE_TEXT}</a>
             {/if}
           </div>
         </div>
