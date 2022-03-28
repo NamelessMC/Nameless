@@ -1480,6 +1480,10 @@ class Core_Module extends Module {
             if ($user->hasPermission('modcp.reports')) {
                 self::addUserAction($language->get('moderator', 'reports'), URL::build('/panel/users/reports/', 'uid={id}'));
             }
+
+            if (Cookie::exists('nmc_panel_theme') && Cookie::get('nmc_panel_theme') === 'dark') {
+                define('TEMPLATE_TINY_EDITOR_DARKMODE', true);
+            }
         }
 
         require_once(ROOT_PATH . '/modules/Core/hooks/DeleteUserHook.php');
