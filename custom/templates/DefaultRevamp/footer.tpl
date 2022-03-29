@@ -12,9 +12,7 @@
             {if $PAGE_LOAD_TIME}
               <span class="item" id="page_load"></span>
             {/if}
-            {if isset($LOGGED_IN_USER)}
-              <a class="item" href="javascript:" onclick="toggleDarkLightMode()">{$TOGGLE_DARK_MODE_TEXT}</a>
-            {/if}
+            <a class="item" href="javascript:" onclick="toggleDarkLightMode()">{$TOGGLE_DARK_MODE_TEXT}</a>
           </div>
         </div>
         <div class="{if $SOCIAL_MEDIA_ICONS|count > 0}five{else}eight{/if} wide column">
@@ -77,18 +75,16 @@
     </script>
   {/if}
 
-  {if isset($LOGGED_IN_USER)}
-    <script type="text/javascript">
-      function toggleDarkLightMode() {
-        $.post("{$DARK_LIGHT_MODE_ACTION}", { token: "{$DARK_LIGHT_MODE_TOKEN}" })
-          .done(function() {
-            window.location.reload();
-          });
+  <script type="text/javascript">
+    function toggleDarkLightMode() {
+      $.post("{$DARK_LIGHT_MODE_ACTION}", { token: "{$DARK_LIGHT_MODE_TOKEN}" })
+        .done(function() {
+          window.location.reload();
+        });
 
-        return false;
-      }
-    </script>
-  {/if}
+      return false;
+    }
+  </script>
 
   {if isset($NEW_UPDATE) && ($NEW_UPDATE_URGENT != true)}
     <script src="{$TEMPLATE.path}/js/core/update.js"></script>

@@ -63,6 +63,8 @@ class DefaultRevamp_Template extends TemplateBase {
         } else {
             if ($cache->isCached('darkMode')) {
                 $darkMode = $cache->retrieve('darkMode');
+            } else if (Cookie::exists('night_mode')) {
+                $darkMode = Cookie::get('night_mode');
             }
         }
 
