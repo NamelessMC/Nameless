@@ -24,6 +24,11 @@ class User {
     private array $_groups = [];
 
     /**
+     * @var object The user's main group.
+     */
+    private object $_main_group;
+
+    /**
      * @var array The user's placeholders.
      */
     private array $_placeholders;
@@ -172,13 +177,10 @@ class User {
     /**
      * Get this user's main group CSS styling
      *
-     * @return string|bool Styling on success, false if they have no groups.
+     * @return string The CSS styling.
      */
-    public function getGroupClass() {
+    public function getGroupClass(): string {
         $group = $this->getMainGroup();
-        if ($group === null) {
-            return false;
-        }
 
         $group_username_color = htmlspecialchars($group->group_username_color);
         $group_username_css = htmlspecialchars($group->group_username_css);
@@ -291,32 +293,30 @@ class User {
             if (!$is_admin) {
                 $this->_isLoggedIn = true;
             }
-        } else {
-            if ($this->checkCredentials($username, $password, $method) === true) {
-                // Valid credentials
-                Session::put($sessionName, $this->data()->id);
+        } else if ($this->checkCredentials($username, $password, $method) === true) {
+            // Valid credentials
+            Session::put($sessionName, $this->data()->id);
 
-                if ($remember) {
-                    $hash = Hash::unique();
-                    $table = $is_admin ? 'users_admin_session' : 'users_session';
-                    $hashCheck = $this->_db->get($table, ['user_id', '=', $this->data()->id]);
+            if ($remember) {
+                $hash = Hash::unique();
+                $table = $is_admin ? 'users_admin_session' : 'users_session';
+                $hashCheck = $this->_db->get($table, ['user_id', '=', $this->data()->id]);
 
-                    if (!$hashCheck->count()) {
-                        $this->_db->insert($table, [
-                            'user_id' => $this->data()->id,
-                            'hash' => $hash
-                        ]);
-                    } else {
-                        $hash = $hashCheck->first()->hash;
-                    }
-
-                    $expiry = $is_admin ? 3600 : Config::get('remember/cookie_expiry');
-                    $cookieName = $is_admin ? ($this->_cookieName . '_adm') : $this->_cookieName;
-                    Cookie::put($cookieName, $hash, $expiry, Util::isConnectionSSL(), true);
+                if (!$hashCheck->count()) {
+                    $this->_db->insert($table, [
+                        'user_id' => $this->data()->id,
+                        'hash' => $hash
+                    ]);
+                } else {
+                    $hash = $hashCheck->first()->hash;
                 }
 
-                return true;
+                $expiry = $is_admin ? 3600 : Config::get('remember/cookie_expiry');
+                $cookieName = $is_admin ? ($this->_cookieName . '_adm') : $this->_cookieName;
+                Cookie::put($cookieName, $hash, $expiry, Util::isConnectionSSL(), true);
             }
+
+            return true;
         }
 
         return false;
@@ -341,7 +341,7 @@ class User {
      * @return bool True if correct, false otherwise.
      */
     public function checkCredentials(string $username, string $password, string $method = 'email'): bool {
-        $user = $this->find($username, $method == 'oauth' ? 'id' : $method);
+        $user = $this->find($username, $method === 'oauth' ? 'id' : $method);
 
         if ($method === 'oauth') {
             return true;
@@ -351,14 +351,11 @@ class User {
             switch ($this->data()->pass_method) {
                 case 'sha256':
                     [$salt, $pass] = explode('$', $this->data()->password);
-
                     return ($salt . hash('sha256', hash('sha256', $password) . $salt) == $salt . $pass);
 
                 case 'pbkdf2':
                     [$iterations, $salt, $pass] = explode('$', $this->data()->password);
-
                     $hashed = hash_pbkdf2('sha256', $password, $salt, $iterations, 64, true);
-
                     return ($hashed == hex2bin($pass));
 
                 case 'modernbb':
@@ -441,9 +438,9 @@ class User {
     }
 
     /**
-     * Get all of a user's groups. We can return their ID only or their HTML display code.
+     * Get all of a user's group HTML display code.
      *
-     * @return array Array of all their group's IDs or HTML.
+     * @return array Array of all their groups HTML.
      */
     public function getAllGroupHtml(): array {
         $groups = [];
@@ -463,11 +460,7 @@ class User {
      * @return string Their signature.
      */
     public function getSignature(): string {
-        if (empty($this->data()->signature)) {
-            return '';
-        }
-
-        return $this->data()->signature;
+        return $this->data()->signature ?? '';
     }
 
     /**
@@ -648,13 +641,12 @@ class User {
     /**
      * Get this user's main group (with highest order).
      *
-     * @return object|null The group
+     * @return object The group
      */
-    public function getMainGroup(): ?object {
-        foreach ($this->_groups as $group) {
-            return $group;
-        }
-        return null;
+    public function getMainGroup(): object {
+        return $this->_main_group ??= array_reduce($this->_groups, static function ($carry, $group) {
+            return $carry === null || $carry->order > $group->order ? $group : $carry;
+        });
     }
 
     /**
