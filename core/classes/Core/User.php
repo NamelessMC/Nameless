@@ -100,7 +100,7 @@ class User {
 
                     $groups_query = $groups_query->results();
                     foreach ($groups_query as $item) {
-                        $this->_groups[] = $item;
+                        $this->_groups[$item->id] = $item;
                     }
 
                 } else {
@@ -651,7 +651,10 @@ class User {
      * @return object|null The group
      */
     public function getMainGroup(): ?object {
-        return $this->_groups[0] ?? null;
+        foreach ($this->_groups as $group) {
+            return $group;
+        }
+        return null;
     }
 
     /**
@@ -682,10 +685,10 @@ class User {
         if ($group_data == null) {
             $group_data = $this->_db->get('groups', ['id', '=', $group_id]);
             if ($group_data->count()) {
-                $this->_groups[] = $group_data->first();
+                $this->_groups[$group_id] = $group_data->first();
             }
         } else {
-            $this->_groups[] = $group_data;
+            $this->_groups[$group_id] = $group_data;
         }
     }
 

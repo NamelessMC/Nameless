@@ -227,11 +227,11 @@ if (Input::exists()) {
                             }
 
                             // Check for groups they had, but werent in the $_POST groups
-                            foreach ($view_user->getGroups() as $group) {
+                            foreach ($view_user->getAllGroupIds() as $group_id) {
                                 $form_groups = $_POST['groups'] ?? [];
-                                if (!in_array($group->id, $form_groups)) {
-                                    $view_user->removeGroup($group->id);
-                                    $modified[] = $group->id;
+                                if (!in_array($group_id, $form_groups)) {
+                                    $view_user->removeGroup($group_id);
+                                    $modified[] = $group_id;
                                 }
                             }
 
@@ -382,8 +382,8 @@ foreach ($groups as $group) {
 $signature = Output::getPurified(Output::getDecoded($user_query->signature));
 
 $user_groups = [];
-foreach ($view_user->getGroups() as $group) {
-    $user_groups[$group->id] = $group->id;
+foreach ($view_user->getAllGroupIds() as $group_id) {
+    $user_groups[$group_id] = $group_id;
 }
 
 $smarty->assign([
