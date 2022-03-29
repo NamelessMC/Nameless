@@ -542,6 +542,7 @@ class Util {
         return Twemoji::text($text)->toHtml(null, [
             'width' => 20,
             'height' => 20,
+            'style' => 'vertical-align: middle;'
         ]);
     }
 }
