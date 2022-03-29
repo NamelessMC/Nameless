@@ -1162,7 +1162,6 @@ body.dark .tox .tox-tbtn {
 }
 
 body.dark .tox .tox-tbtn:hover, body.dark .tox .tox-tbtn--enabled, body.dark .tox .tox-split-button:focus, body.dark .tox .tox-edit-area__iframe {
-    background: #303030;
     color: #fff;
 }
 
