@@ -100,7 +100,7 @@ if (isset($_GET['action'])) {
                     if (sendRegisterEmail($queries, $language, $user_query->email, $user_query->username, $user_query->id, $user_query->reset_code)) {
                         Session::flash('edit_user_success', $language->get('admin', 'email_resent_successfully'));
                     } else {
-                        Session::flash('edit_user_errors', $language->get('admin', 'email_resend_failed'));
+                        Session::flash('edit_user_error', $language->get('admin', 'email_resend_failed'));
                     }
                 }
             }
@@ -280,8 +280,8 @@ if (Session::exists('edit_user_success')) {
     $success = Session::flash('edit_user_success');
 }
 
-if (Session::exists('edit_user_errors')) {
-    $errors = Session::flash('edit_user_errors');
+if (Session::exists('edit_user_error')) {
+    $errors[] = Session::flash('edit_user_error');
 }
 
 if (Session::exists('edit_user_warnings')) {
