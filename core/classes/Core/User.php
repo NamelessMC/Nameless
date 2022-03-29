@@ -100,7 +100,7 @@ class User {
 
                     $groups_query = $groups_query->results();
                     foreach ($groups_query as $item) {
-                        $this->_groups[$item->id] = $item;
+                        $this->_groups[] = $item;
                     }
 
                 } else {
@@ -175,24 +175,23 @@ class User {
      * @return string|bool Styling on success, false if they have no groups.
      */
     public function getGroupClass() {
-        if (count($this->_groups)) {
-            $group = $this->_groups[0];
-
-            $group_username_color = htmlspecialchars($group->group_username_color);
-            $group_username_css = htmlspecialchars($group->group_username_css);
-
-            $css = '';
-            if ($group_username_color) {
-                $css .= "color: $group_username_color;";
-            }
-            if ($group_username_css) {
-                $css .= $group_username_css;
-            }
-
-            return $css;
+        $group = $this->getMainGroup();
+        if ($group === null) {
+            return false;
         }
 
-        return false;
+        $group_username_color = htmlspecialchars($group->group_username_color);
+        $group_username_css = htmlspecialchars($group->group_username_css);
+
+        $css = '';
+        if ($group_username_color) {
+            $css .= "color: $group_username_color;";
+        }
+        if ($group_username_css) {
+            $css .= $group_username_css;
+        }
+
+        return $css;
     }
 
     /**
@@ -683,10 +682,10 @@ class User {
         if ($group_data == null) {
             $group_data = $this->_db->get('groups', ['id', '=', $group_id]);
             if ($group_data->count()) {
-                $this->_groups[$group_id] = $group_data->first();
+                $this->_groups[] = $group_data->first();
             }
         } else {
-            $this->_groups[$group_id] = $group_data;
+            $this->_groups[] = $group_data;
         }
     }
 
