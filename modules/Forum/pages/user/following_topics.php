@@ -18,7 +18,6 @@ if (!$user->isLoggedIn()) {
 const PAGE = 'cc_following_topics';
 $page_title = $forum_language->get('forum', 'following_topics');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
-require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
 
 $forum = new Forum();
 $timeago = new TimeAgo(TIMEZONE);

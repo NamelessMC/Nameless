@@ -41,7 +41,6 @@ class LatestPostsWidget extends WidgetBase {
     }
 
     public function initialise(): void {
-        require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
         $forum = new Forum();
         $queries = new Queries();
         $timeago = new TimeAgo(TIMEZONE);

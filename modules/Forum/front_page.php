@@ -13,7 +13,6 @@ $cache->setCache('news_cache');
 if ($cache->isCached('news')) {
     $news = $cache->retrieve('news');
 } else {
-    require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
     $forum = new Forum();
     $timeago = new TimeAgo(TIMEZONE);
 

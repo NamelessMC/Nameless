@@ -61,7 +61,7 @@ class CookieConsent_Module extends Module {
         ]);
 
         // Sitemap
-        $pages->registerSitemapMethod(ROOT_PATH . '/modules/Cookie Consent/classes/CookieConsent_Sitemap.php', 'CookieConsent_Sitemap::generateSitemap');
+        $pages->registerSitemapMethod([CookieConsent_Sitemap::class, 'generateSitemap']);
 
         if (defined('FRONT_END')) {
             // Add cookie page link

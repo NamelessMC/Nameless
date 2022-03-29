@@ -9,7 +9,6 @@
  *  Lock/unlock a topic
  */
 
-require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
 $forum = new Forum();
 
 if ($user->isLoggedIn()) {

@@ -9,8 +9,6 @@
  *  View topic page
  */
 
-require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
-
 // Set the page name for the active link in navbar
 const PAGE = 'forum';
 

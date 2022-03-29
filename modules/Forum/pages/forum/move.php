@@ -13,7 +13,6 @@ const PAGE = 'forum';
 $page_title = $forum_language->get('forum', 'move_topic');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
 $forum = new Forum();
 
 if (!isset($_GET['tid']) || !is_numeric($_GET['tid'])) {

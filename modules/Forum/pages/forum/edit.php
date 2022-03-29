@@ -25,7 +25,6 @@ if (!$user->isLoggedIn()) {
 }
 
 // Initialise
-require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
 $forum = new Forum();
 $mentionsParser = new MentionsParser();
 
