@@ -72,6 +72,45 @@ class Input {
               spoiler_caption: '{$language->get('general', 'spoiler')}',
               default_link_target: '_blank',
               skin: '$skin',
+              images_upload_handler: function (blobInfo, success, failure, progress) {
+                  let xhr, formData;
+
+                  xhr = new XMLHttpRequest();
+                  xhr.withCredentials = false;
+                  xhr.open('POST', '" . URL::build('/queries/tinymce_image_upload') . "');
+
+                  xhr.upload.onprogress = function (e) {
+                    progress(e.loaded / e.total * 100);
+                  };
+
+                  xhr.onload = function() {
+                    let json;
+
+                    if (xhr.status !== 200) {
+                      failure('HTTP Error ' + xhr.status + ': ' + xhr.responseText);
+                      return;
+                    }
+
+                    json = JSON.parse(xhr.responseText);
+
+                    if (!json || typeof json.location != 'string') {
+                      failure('Invalid JSON: ' + xhr.responseText);
+                      return;
+                    }
+
+                    success(json.location);
+                  };
+
+                  xhr.onerror = function () {
+                    failure('Image upload failed due to a XHR Transport error. Code: ' + xhr.status);
+                  };
+
+                  formData = new FormData();
+                  formData.append('file', blobInfo.blob(), blobInfo.filename());
+                  formData.append('token', '" . Token::get() . "');
+
+                  xhr.send(formData);
+                },
             });
         ";
     }

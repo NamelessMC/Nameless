@@ -48,6 +48,7 @@ class Core_Module extends Module {
         $pages->add('Core', '/queries/user', 'queries/user.php');
         $pages->add('Core', '/queries/users', 'queries/users.php');
         $pages->add('Core', '/queries/debug_link', 'queries/debug_link.php');
+        $pages->add('Core', '/queries/tinymce_image_upload', 'queries/tinymce_image_upload.php');
         $pages->add('Core', '/banner', 'pages/minecraft/banner.php');
         $pages->add('Core', '/terms', 'pages/terms.php');
         $pages->add('Core', '/privacy', 'pages/privacy.php');
