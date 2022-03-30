@@ -5,7 +5,7 @@ if (!$user->isLoggedIn()) {
 }
 
 $image = new \Bulletproof\Image($_FILES);
-$image->setLocation('uploads/post_images');
+$image->setLocation(ROOT_PATH . '/uploads/post_images');
 $image->setDimension(10000, 10000);
 $image->setSize(10, 10000000 /* 10MB */);
 $image->setName($user->data()->id . '-' . time());
