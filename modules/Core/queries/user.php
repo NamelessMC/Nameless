@@ -13,7 +13,7 @@ if (!is_numeric($_GET['id'])) {
     $username = Output::getClean($_GET['id']);
     $nickname = $username;
     $profile = URL::build('/profile/' . $username);
-    $avatar = (isset($_GET['uuid']) ? Util::getAvatarFromUUID(Output::getClean($_GET['uuid'])) : Util::getAvatarFromUUID($username));
+    $avatar = (isset($_GET['uuid']) ? AvatarSource::getAvatarFromUUID(Output::getClean($_GET['uuid'])) : AvatarSource::getAvatarFromUUID($username));
     $style = '';
     $groups = [];
     $id = 0;

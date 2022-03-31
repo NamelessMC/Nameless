@@ -21,12 +21,20 @@ class CollectionManager {
         self::$_collections[$collection]->addItem($item);
     }
 
+    /**
+     * @param string $collection
+     * @return CollectionItemBase[]
+     */
     public static function getFullCollection(string $collection): array {
         return isset(self::$_collections[$collection])
             ? self::$_collections[$collection]->getAllItems()
             : [];
     }
 
+    /**
+     * @param string $collection
+     * @return CollectionItemBase[]
+     */
     public static function getEnabledCollection(string $collection): array {
         return isset(self::$_collections[$collection])
             ? self::$_collections[$collection]->getEnabledItems()

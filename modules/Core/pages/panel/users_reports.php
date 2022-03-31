@@ -98,7 +98,7 @@ if (!isset($_GET['id'])) {
                 $user_reported = Output::getClean($report->reported_mcname);
                 $user_profile = URL::build('/panel/user/' . Output::getClean($report->reported_id . '-' . $report->reported_mcname));
                 $user_style = '';
-                $user_avatar = $report->reported_id == 0 ? null : Util::getAvatarFromUUID($report->reported_uuid);
+                $user_avatar = $report->reported_id == 0 ? null : AvatarSource::getAvatarFromUUID($report->reported_uuid);
             }
 
             $updated_by_user = new User($report->updated_by);
@@ -226,7 +226,7 @@ if (!isset($_GET['id'])) {
             } else {
                 $reported_user_profile = '#';
                 $reported_user_style = '';
-                $reported_user_avatar = Util::getAvatarFromUUID(Output::getClean($report->reported_uuid));
+                $reported_user_avatar = AvatarSource::getAvatarFromUUID(Output::getClean($report->reported_uuid));
             }
 
             $reported_user_name = Output::getClean($report->reported_mcname);

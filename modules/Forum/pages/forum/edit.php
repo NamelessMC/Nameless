@@ -26,7 +26,6 @@ if (!$user->isLoggedIn()) {
 
 // Initialise
 $forum = new Forum();
-$mentionsParser = new MentionsParser();
 
 if (isset($_GET['pid'], $_GET['tid']) && is_numeric($_GET['pid']) && is_numeric($_GET['tid'])) {
     $post_id = $_GET['pid'];
@@ -120,6 +119,11 @@ if (Input::exists()) {
         if ($validation->passed()) {
             // Valid post content
             $content = Output::getClean(Input::get('content'));
+            $content = MentionsParser::parse(
+                $user->data()->id,
+                $content,
+                URL::build('/forum/topic/' . $topic_id, 'pid=' . $post_id),
+            );
 
             // Update post content
             $queries->update('posts', $post_id, [
@@ -251,7 +255,7 @@ $template->addJSFiles([
     (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
 ]);
 
-$template->addJSScript(Input::createTinyEditor($language, 'editor'));
+$template->addJSScript(Input::createTinyEditor($language, 'editor', true));
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
