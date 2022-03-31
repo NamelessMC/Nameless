@@ -74,7 +74,7 @@ class Input {
                                         fetch('" . URL::build('/api/v2/users', 'avatars=true') . "')
                                             .then((resp) => resp.json())
                                             .then(function (data) {
-                                                let results = [];
+                                                const results = [];
                                                 const users = data.users.filter(p => p.username.toLowerCase().includes(pattern.toLowerCase()));
     
                                                 for (const user of users) {
@@ -84,18 +84,8 @@ class Input {
                                                         icon: '<img style=\"height:20px; width:20px;\" src=\"' + user.avatar_url + '\">'
                                                     });
                                                 }
-    
-                                                results.sort(function (a, b) {
-                                                    let x = a.text.toLowerCase();
-                                                    let y = b.text.toLowerCase();
-                                                    if (x < y) {
-                                                        return -1;
-                                                    }
-                                                    if (x > y) {
-                                                        return 1;
-                                                    }
-                                                    return 0;
-                                                });
+
+                                                results.sort((a, b) => a.text.toLowerCase().localeCompare(b.text.toLowerCase()))
     
                                                 resolve(results);
                                             });
