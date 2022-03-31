@@ -39,15 +39,15 @@ class ErrorHandler {
                 break;
 
             case E_USER_WARNING:
-                self::logError('warning', '[' . date('Y-m-d, H:i:s') . '] ' . $error_file . '(' . $error_line . ') ' . $error_number . ': ' . $error_string);
+                self::logError('warning', '[' . date(DATE_FORMAT) . '] ' . $error_file . '(' . $error_line . ') ' . $error_number . ': ' . $error_string);
                 break;
 
             case E_USER_NOTICE:
-                self::logError('notice', '[' . date('Y-m-d, H:i:s') . '] ' . $error_file . '(' . $error_line . ') ' . $error_number . ': ' . $error_string);
+                self::logError('notice', '[' . date(DATE_FORMAT) . '] ' . $error_file . '(' . $error_line . ') ' . $error_number . ': ' . $error_string);
                 break;
 
             default:
-                self::logError('other', '[' . date('Y-m-d, H:i:s') . '] ' . $error_file . '(' . $error_line . ') ' . $error_number . ': ' . $error_string);
+                self::logError('other', '[' . date(DATE_FORMAT) . '] ' . $error_file . '(' . $error_line . ') ' . $error_number . ': ' . $error_string);
                 break;
         }
 
@@ -71,7 +71,7 @@ class ErrorHandler {
         $error_line = is_null($exception) ? (int)$error_line : $exception->getLine();
 
         // Create a log entry for viewing in staffcp
-        self::logError('fatal', '[' . date('Y-m-d, H:i:s') . '] ' . $error_file . '(' . $error_line . '): ' . $error_string);
+        self::logError('fatal', '[' . date(DATE_FORMAT) . '] ' . $error_file . '(' . $error_line . '): ' . $error_string);
 
         // If this is an API request, print the error in plaintext and dont render the whole error trace page
         if (self::isApiRequest()) {

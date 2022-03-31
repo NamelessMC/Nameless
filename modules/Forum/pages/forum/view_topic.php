@@ -266,7 +266,7 @@ if (Input::exists()) {
                 'topic_id' => $tid,
                 'post_creator' => $user->data()->id,
                 'post_content' => $content,
-                'post_date' => date('Y-m-d H:i:s'),
+                'post_date' => date(DATE_FORMAT),
                 'created' => date('U')
             ]);
 
@@ -693,7 +693,7 @@ foreach ($results->data as $n => $nValue) {
         'uuid' => Output::getClean($post_creator->data()->uuid),
         'username' => $post_creator->getDisplayname(),
         'mcname' => $post_creator->getDisplayname(true),
-        'last_seen' => str_replace('{x}', $timeago->inWords(date('Y-m-d H:i:s', $post_creator->data()->last_online), $language->getTimeLanguage()), $language->get('user', 'last_seen_x')),
+        'last_seen' => str_replace('{x}', $timeago->inWords(date(DATE_FORMAT, $post_creator->data()->last_online), $language->getTimeLanguage()), $language->get('user', 'last_seen_x')),
         'last_seen_full' => date('d M Y', $post_creator->data()->last_online),
         'online_now' => $post_creator->data()->last_online > strtotime('5 minutes ago'),
         'user_title' => Output::getClean($post_creator->data()->user_title),
@@ -702,7 +702,7 @@ foreach ($results->data as $n => $nValue) {
         'user_groups' => $user_groups_html,
         'user_posts_count' => str_replace('{x}', count($queries->getWhere('posts', ['post_creator', '=', $nValue->post_creator])), $forum_language->get('forum', 'x_posts')),
         'user_topics_count' => str_replace('{x}', count($queries->getWhere('topics', ['topic_creator', '=', $nValue->post_creator])), $forum_language->get('forum', 'x_topics')),
-        'user_registered' => str_replace('{x}', $timeago->inWords(date('Y-m-d H:i:s', $post_creator->data()->joined), $language->getTimeLanguage()), $forum_language->get('forum', 'registered_x')),
+        'user_registered' => str_replace('{x}', $timeago->inWords(date(DATE_FORMAT, $post_creator->data()->joined), $language->getTimeLanguage()), $forum_language->get('forum', 'registered_x')),
         'user_registered_full' => date('d M Y', $post_creator->data()->joined),
         'user_reputation' => $post_creator->data()->reputation,
         'post_date_rough' => $post_date_rough,
@@ -711,7 +711,7 @@ foreach ($results->data as $n => $nValue) {
         'content' => $content,
         'signature' => Output::getPurified(Util::renderEmojis(htmlspecialchars_decode($signature))),
         'fields' => (empty($fields) ? [] : $fields),
-        'edited' => (is_null($nValue->last_edited) ? null : str_replace('{x}', $timeago->inWords(date('Y-m-d H:i:s', $nValue->last_edited), $language->getTimeLanguage()), $forum_language->get('forum', 'last_edited'))),
+        'edited' => (is_null($nValue->last_edited) ? null : str_replace('{x}', $timeago->inWords(date(DATE_FORMAT, $nValue->last_edited), $language->getTimeLanguage()), $forum_language->get('forum', 'last_edited'))),
         'edited_full' => (is_null($nValue->last_edited) ? null : date('d M Y, H:i', $nValue->last_edited)),
         'post_reactions' => $post_reactions,
         'karma' => $total_karma

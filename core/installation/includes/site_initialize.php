@@ -41,7 +41,7 @@ $queries->create('posts', [
 		&lt;p&gt;Thank you and enjoy,&lt;/p&gt;
 		&lt;p&gt;The NamelessMC Development team.&lt;/p&gt;'
     ),
-    'post_date' => date('Y-m-d H:i:s'),
+    'post_date' => date(DATE_FORMAT),
     'created' => date('U')
 ]);
 

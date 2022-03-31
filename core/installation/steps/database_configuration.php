@@ -82,6 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         'force_https' => false,
                         'force_www' => false,
                         'captcha' => false,
+                        'date_format' => 'Y-m-d H:i:s',
                     ],
                     'allowedProxies' => '',
                 ];

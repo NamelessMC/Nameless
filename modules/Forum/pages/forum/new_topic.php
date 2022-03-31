@@ -172,7 +172,7 @@ if (Input::exists()) {
                     'topic_id' => $topic_id,
                     'post_creator' => $user->data()->id,
                     'post_content' => $content,
-                    'post_date' => date('Y-m-d H:i:s'),
+                    'post_date' => date(DATE_FORMAT),
                     'created' => date('U')
                 ]);
 
