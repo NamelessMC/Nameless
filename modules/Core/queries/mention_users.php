@@ -16,7 +16,6 @@ foreach ($users as $user) {
     $users_json[] = [
         'id' => (int)$user->id,
         'username' => $user->username,
-        'uuid' => $user->uuid,
         'avatar_url' => AvatarSource::getAvatarFromUserData($user, false, 20, true)
     ];
 }
