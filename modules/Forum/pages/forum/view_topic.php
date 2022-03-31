@@ -272,7 +272,13 @@ if (Input::exists()) {
 
             // Get last post ID
             $last_post_id = $queries->getLastId();
-            $content = MentionsParser::parse($user->data()->id, $content, URL::build('/forum/topic/' . $tid, 'pid=' . $last_post_id), ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag'], ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag_info', 'replace' => '{x}', 'replace_with' => Output::getClean($user->data()->nickname)]);
+            $content = MentionsParser::parse(
+                $user->data()->id,
+                $content,
+                URL::build('/forum/topic/' . $tid, 'pid=' . $last_post_id),
+                ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag'],
+                ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag_info', 'replace' => '{x}', 'replace_with' => Output::getClean($user->data()->nickname)]
+            );
 
             $queries->update('posts', $last_post_id, [
                 'post_content' => $content

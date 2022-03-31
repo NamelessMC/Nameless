@@ -16,12 +16,12 @@ class MentionsParser {
      * @param int $author_id User ID of post creator.
      * @param string $value Post content.
      * @param string $link Link back to post.
-     * @param array $alert_short Short alert info.
-     * @param array $alert_full Full alert info.
+     * @param ?array $alert_short Short alert info, leave null to not alert user.
+     * @param ?array $alert_full Full alert info, leave null to not alert user.
      *
      * @return string Parsed post content.
      */
-    public static function parse(int $author_id, string $value, string $link, array $alert_short, array $alert_full): string {
+    public static function parse(int $author_id, string $value, string $link, array $alert_short = null, array $alert_full = null): string {
         if (preg_match_all('/@([A-Za-z0-9\-_!.]+)/', $value, $matches)) {
             $matches = $matches[1];
 
@@ -35,7 +35,7 @@ class MentionsParser {
                         $value = preg_replace('/' . preg_quote("@$possible_username", '/') . '/', "<a href=\"" . $user->getProfileURL() . "\">@$possible_username</a>", $value);
 
                         // Check if user is blocked by OP
-                        if (!$user->isBlocked($user->data()->id, $author_id)) {
+                        if (($alert_full && $alert_short) && !$user->isBlocked($user->data()->id, $author_id)) {
                             Alert::create($user->data()->id, 'tag', $alert_short, $alert_full, $link);
                             break;
                         }

@@ -119,7 +119,11 @@ if (Input::exists()) {
         if ($validation->passed()) {
             // Valid post content
             $content = Output::getClean(Input::get('content'));
-            $content = MentionsParser::parse($user->data()->id, $content, URL::build('/forum/topic/' . $topic_id, 'pid=' . $post_id), ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag'], ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag_info', 'replace' => '{x}', 'replace_with' => Output::getClean($user->data()->nickname)]);
+            $content = MentionsParser::parse(
+                $user->data()->id,
+                $content,
+                URL::build('/forum/topic/' . $topic_id, 'pid=' . $post_id),
+            );
 
             // Update post content
             $queries->update('posts', $post_id, [
