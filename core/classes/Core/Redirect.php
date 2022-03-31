@@ -17,8 +17,12 @@ class Redirect {
      * @return never
      */
     public static function to(string $location): void {
-        // `attribute data-cfasync="false"` fixes Cloudflare caching issues
-        echo '<script data-cfasync="false">window.location.replace("' . str_replace('&amp;', '&', htmlspecialchars($location)) . '");</script>';
+        if (!headers_sent()) {
+            header("Location: $location");
+        } else {
+            // `attribute data-cfasync="false"` fixes Cloudflare caching issues
+            echo '<script data-cfasync="false">window.location.replace("' . Output::getClean($location) . '");</script>';
+        }
         die();
     }
 }
