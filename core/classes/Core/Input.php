@@ -71,13 +71,12 @@ class Input {
                                 columns: 1,
                                 fetch: function (pattern) {
                                     return new tinymce.util.Promise(function (resolve) {
-                                        fetch('" . URL::build('/api/v2/users', 'avatars=true') . "')
+                                        fetch('" . URL::build('/queries/mention_users') . "&username=' + pattern)
                                             .then((resp) => resp.json())
                                             .then(function (data) {
                                                 const results = [];
-                                                const users = data.users.filter(p => p.username.toLowerCase().includes(pattern.toLowerCase()));
     
-                                                for (const user of users) {
+                                                for (const user of data) {
                                                     results.push({
                                                         value: '@' + user.username,
                                                         text: user.username,
