@@ -637,7 +637,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                 'profile' => $target_user->getProfileURL(),
                 'user_style' => $target_user->getGroupClass(),
                 'avatar' => $target_user->getAvatar(500),
-                'content' => Output::getPurified(htmlspecialchars_decode($nValue->content)),
+                'content' => Output::getPurified($nValue->content),
                 'date_rough' => $timeago->inWords(date('d M Y, H:i', $nValue->time), $language->getTimeLanguage()),
                 'date' => date('d M Y, H:i', $nValue->time),
                 'reactions' => $reactions,

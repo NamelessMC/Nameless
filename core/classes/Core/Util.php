@@ -225,7 +225,7 @@ class Util {
     public static function stringToURL(string $string = null): string {
         if ($string) {
             $string = preg_replace('/[^A-Za-z0-9 ]/', '', $string);
-            return Output::getClean(strtolower(urlencode(str_replace(' ', '-', htmlspecialchars_decode($string)))));
+            return Output::getClean(strtolower(urlencode(str_replace(' ', '-', $string))));
         }
 
         return '';

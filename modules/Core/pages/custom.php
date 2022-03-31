@@ -70,7 +70,7 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp
 $smarty->assign([
     'WIDGETS_LEFT' => $widgets->getWidgets('left'),
     'WIDGETS_RIGHT' => $widgets->getWidgets('right'),
-    'CONTENT' => Util::renderEmojis((($custom_page->all_html == 0) ? Output::getPurified(htmlspecialchars_decode($custom_page->content)) : htmlspecialchars_decode($custom_page->content)))
+    'CONTENT' => Util::renderEmojis((($custom_page->all_html == 0) ? Output::getPurified($custom_page->content) : Output::getClean($custom_page->content)))
 ]);
 
 $page_load = microtime(true) - $start;

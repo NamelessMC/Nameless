@@ -32,7 +32,7 @@ if (!isset($_GET['action'])) {
     $templates_template = [];
 
     foreach ($templates as $item) {
-        $template_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'panel_templates', htmlspecialchars($item->name), 'template.php']);
+        $template_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'panel_templates', Output::getClean($item->name), 'template.php']);
 
         if (file_exists($template_path)) {
             require($template_path);
@@ -154,7 +154,7 @@ if (!isset($_GET['action'])) {
                     $folders = explode(DIRECTORY_SEPARATOR, $directory);
 
                     // Is it already in the database?
-                    $exists = $queries->getWhere('panel_templates', ['name', '=', htmlspecialchars($folders[count($folders) - 1])]);
+                    $exists = $queries->getWhere('panel_templates', ['name', '=', Output::getClean($folders[count($folders) - 1])]);
                     if (!count($exists) && file_exists(ROOT_PATH . DIRECTORY_SEPARATOR . 'custom' . DIRECTORY_SEPARATOR . 'panel_templates' . DIRECTORY_SEPARATOR . str_replace(['../', '/', '..'], '', $folders[count($folders) - 1]) . DIRECTORY_SEPARATOR . 'template.php')) {
                         $template = null;
                         require_once(ROOT_PATH . DIRECTORY_SEPARATOR . 'custom' . DIRECTORY_SEPARATOR . 'panel_templates' . DIRECTORY_SEPARATOR . str_replace(['../', '/', '..'], '', $folders[count($folders) - 1]) . DIRECTORY_SEPARATOR . 'template.php');
@@ -163,7 +163,7 @@ if (!isset($_GET['action'])) {
                         if ($template instanceof TemplateBase) {
                             // No, add it now
                             $queries->create('panel_templates', [
-                                'name' => htmlspecialchars($folders[count($folders) - 1])
+                                'name' => Output::getClean($folders[count($folders) - 1])
                             ]);
                         }
                     }

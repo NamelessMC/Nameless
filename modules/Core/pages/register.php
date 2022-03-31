@@ -31,7 +31,7 @@ if ($registration_enabled == 0) {
     // Get registration disabled message and assign to Smarty variable
     $registration_disabled_message = $queries->getWhere('settings', ['name', '=', 'registration_disabled_message']);
     if (count($registration_disabled_message)) {
-        $message = Output::getPurified(htmlspecialchars_decode($registration_disabled_message[0]->value));
+        $message = Output::getPurified($registration_disabled_message[0]->value);
     } else {
         $message = 'Registration is currently disabled.';
     }

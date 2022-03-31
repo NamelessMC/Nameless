@@ -586,7 +586,7 @@ if (isset($_GET['do'])) {
     }
 
     if ($user->hasPermission('usercp.signature')) {
-        $signature = Output::getPurified(htmlspecialchars_decode($user->data()->signature));
+        $signature = Output::getPurified($user->data()->signature);
 
         $smarty->assign([
             'SIGNATURE' => $language->get('user', 'signature'),
