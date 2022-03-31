@@ -10,7 +10,7 @@
 class MentionsHook {
 
     public static function preCreate(array $params = []): array {
-        if (isset($params['content']) && isset($params['post_id'])&& isset($params['topic_id'])  && isset($params['user'])) {
+        if (isset($params['content']) && isset($params['post_id']) && isset($params['topic_id'])  && isset($params['user'])) {
             $params['content'] = MentionsParser::parse(
                 $params['user']->data()->id,
                 $params['content'],

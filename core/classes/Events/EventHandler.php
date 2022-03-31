@@ -92,7 +92,7 @@ class EventHandler {
      * @param string $event Event name to call.
      * @param array $params Params to pass to the event's function.
      *
-     * @return array|null Response of hook, can be any type
+     * @return array|null Response of hook, can be any type or null when event does not exist
      */
     public static function executeEvent(string $event, array $params = []) {
         if (!isset(self::$_events[$event])) {
@@ -107,7 +107,7 @@ class EventHandler {
         if (isset(self::$_events[$event]['listeners'])) {
             $listeners = self::$_events[$event]['listeners'];
 
-            usort($listeners, function($a, $b) {
+            usort($listeners, static function($a, $b) {
                 return $b['priority'] <=> $a['priority'];
             });
 
