@@ -51,6 +51,6 @@ class KeyAuthEndpoint extends EndpointBase {
             $correct_key = file_get_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('apicache') . '.cache');
         }
 
-        return $api_key === $correct_key;
+        return hash_equals($api_key, $correct_key);
     }
 }
