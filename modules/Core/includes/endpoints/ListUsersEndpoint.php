@@ -20,9 +20,9 @@ class ListUsersEndpoint extends NoAuthEndpoint {
         $discord_enabled = Util::isModuleEnabled('Discord Integration');
 
         if ($discord_enabled) {
-            $query = 'SELECT u.id, u.username, u.uuid, u.gravatar, u.email, u.avatar_updated, u.isbanned AS banned, u.discord_id, u.active FROM nl2_users u';
+            $query = 'SELECT u.id, u.username, u.uuid, u.gravatar, u.email, u.has_avatar, u.avatar_updated, u.isbanned AS banned, u.discord_id, u.active FROM nl2_users u';
         } else {
-            $query = 'SELECT u.id, u.username, u.uuid, u.gravatar, u.email, u.avatar_updated, u.isbanned AS banned, u.active FROM nl2_users u';
+            $query = 'SELECT u.id, u.username, u.uuid, u.gravatar, u.email, u.has_avatar, u.avatar_updated, u.isbanned AS banned, u.active FROM nl2_users u';
         }
 
         $operator = isset($_GET['operator']) && $_GET['operator'] == 'OR'
