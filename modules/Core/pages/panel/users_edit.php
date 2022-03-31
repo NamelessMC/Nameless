@@ -99,6 +99,8 @@ if (isset($_GET['action'])) {
         } else {
             Session::flash('edit_user_error', $language->get('admin', 'email_resend_failed'));
         }
+    } else {
+        throw new InvalidArgumentException('Invalid action: ' . $_GET['action']);
     }
 
     Redirect::to(URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->id)));
