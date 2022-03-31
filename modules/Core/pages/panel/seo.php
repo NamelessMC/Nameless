@@ -57,7 +57,7 @@ if (!isset($_GET['metadata'])) {
                 $sitemap->createSitemapIndex(rtrim(Util::getSelfURL(), '/') . (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/cache/sitemaps/');
 
                 $cache->setCache('sitemap_cache');
-                $cache->store('updated', date('Y-m-d H:i:s'));
+                $cache->store('updated', date(DATE_FORMAT));
 
                 $success = $language->get('admin', 'sitemap_generated');
             } else {

@@ -422,7 +422,7 @@ if (isset($_GET['user'])) {
                 'revoked' => $result->revoked,
                 'acknowledged' => $result->acknowledged,
                 'time_full' => ($result->created ? date(DATE_FORMAT, $result->created) : date(DATE_FORMAT, strtotime($result->infraction_date))),
-                'time' => ($result->created ? $timeago->inWords(date(DATE_FORMAT, $result->created), $language->getTimeLanguage()) : $timeago->inWords($result->infraction_date, $language->getTimeLanguage())),
+                'time' => ($result->created ? $timeago->inWords(date('Y-m-d H:i:s', $result->created), $language->getTimeLanguage()) : $timeago->inWords($result->infraction_date, $language->getTimeLanguage())),
                 'link' => URL::build('/panel/users/punishments/', 'user=' . $result->punished)
             ];
         }
