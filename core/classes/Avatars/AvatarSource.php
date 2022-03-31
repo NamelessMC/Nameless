@@ -27,6 +27,60 @@ class AvatarSource {
     }
 
     /**
+     * Get a user's avatar from their raw data object.
+     * Used by the API for TinyMCE mention avatars to avoid reloading the user from the database.
+     *
+     * @param object $data User data to use
+     * @param bool $allow_gifs Whether to allow GIFs or not ()
+     * @param int $size Size in pixels to render avatar at. Default 128
+     * @param bool $full Whether to return the full URL or just the path
+     *
+     * @return string Full URL of avatar image.
+     */
+    public static function getAvatarFromUserData(object $data, bool $allow_gifs = false, int $size = 128, bool $full = false): string {
+        $default = defined('DEFAULT_AVATAR_TYPE') ? DEFAULT_AVATAR_TYPE : 'minecraft';
+
+        // If custom avatars are enabled, first check if they have gravatar enabled, and then fallback to normal image
+        if ($default === 'custom' && defined('CUSTOM_AVATARS')) {
+            if ($data->gravatar) {
+                return 'https://secure.gravatar.com/avatar/' . md5(strtolower(trim($data->email))) . '?s=' . $size;
+            }
+
+            if ($data->has_avatar) {
+                $exts = ['png', 'jpg', 'jpeg'];
+
+                if ($allow_gifs) {
+                    $exts[] = 'gif';
+                }
+
+                foreach ($exts as $ext) {
+                    if (file_exists(ROOT_PATH . '/uploads/avatars/' . $data->id . '.' . $ext)) {
+                        return ($full ? rtrim(Util::getSelfURL(), '/') : '') . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/avatars/' . $data->id . '.' . $ext . '?v=' . Output::getClean($data->avatar_updated);
+                    }
+                }
+            }
+
+            // Fallback to default avatar image if it is set and the default avatar type is custom
+            if (DEFAULT_AVATAR_IMAGE !== '' && file_exists(ROOT_PATH . '/uploads/avatars/defaults/' . DEFAULT_AVATAR_IMAGE)) {
+                return ($full ? rtrim(Util::getSelfURL(), '/') : '') . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/avatars/defaults/' . DEFAULT_AVATAR_IMAGE;
+            }
+        }
+
+        // If all else fails, or custom avatars are disabled or default avatar type is 'minecraft', get their MC avatar
+        if ($data->uuid != null && $data->uuid != 'none') {
+            $uuid = $data->uuid;
+        } else {
+            $uuid = $data->username;
+            // Fallback to steve avatar if they have an invalid username
+            if (preg_match('#[^][_A-Za-z0-9]#', $uuid)) {
+                $uuid = 'Steve';
+            }
+        }
+
+        return self::getAvatarFromUUID($uuid, $size);
+    }
+
+    /**
      * Get the currently active avatar source.
      *
      * @return AvatarSourceBase The active source.

@@ -5,7 +5,7 @@
  *
  * @return string JSON Array
  */
-class ListUsersEndpoint extends KeyAuthEndpoint {
+class ListUsersEndpoint extends NoAuthEndpoint {
 
     public function __construct() {
         $this->_route = 'users';
@@ -20,9 +20,9 @@ class ListUsersEndpoint extends KeyAuthEndpoint {
         $discord_enabled = Util::isModuleEnabled('Discord Integration');
 
         if ($discord_enabled) {
-            $query = 'SELECT u.id, u.username, u.uuid, u.isbanned AS banned, u.discord_id, u.active FROM nl2_users u';
+            $query = 'SELECT u.id, u.username, u.uuid, u.gravatar, u.email, u.avatar_updated, u.isbanned AS banned, u.discord_id, u.active FROM nl2_users u';
         } else {
-            $query = 'SELECT u.id, u.username, u.uuid, u.isbanned AS banned, u.active FROM nl2_users u';
+            $query = 'SELECT u.id, u.username, u.uuid, u.gravatar, u.email, u.avatar_updated, u.isbanned AS banned, u.active FROM nl2_users u';
         }
 
         $operator = isset($_GET['operator']) && $_GET['operator'] == 'OR'
@@ -75,6 +75,11 @@ class ListUsersEndpoint extends KeyAuthEndpoint {
                 'banned' => (bool)$user->banned,
                 'verified' => (bool)$user->active,
             ];
+
+            if (isset($_GET['avatars']) && $_GET['avatars'] == 'true') {
+                // Use the getAvatarFromUserData method so that we don't have to load the whole user again from the database.
+                $user_json['avatar_url'] = AvatarSource::getAvatarFromUserData($user, false, 20, true);
+            }
 
             if ($discord_enabled) {
                 $user_json['discord_id'] = (int)$user->discord_id;

@@ -53,10 +53,67 @@ class Input {
      *
      * @param Language $language Instance of language class to use for translation.
      * @param string $name Name of input field ID.
+     * @param bool $mentions Whether to enable mention autocompletion/parsing or not.
      */
-    public static function createTinyEditor(Language $language, string $name): string {
+    public static function createTinyEditor(Language $language, string $name, bool $mentions = false): string {
         $skin = defined('TEMPLATE_TINY_EDITOR_DARKMODE') ? 'oxide-dark' : 'oxide';
-        return "
+        $js = '';
+
+        if ($mentions) {
+            $js .= "
+                (function () {
+                    let flags = (function () {
+                        'use strict';
+                        tinymce.PluginManager.add('mentions', function (editor, url) {
+                            editor.ui.registry.addAutocompleter('autocompleter-mentions', {
+                                ch: '@',
+                                minChars: 2,
+                                columns: 1,
+                                fetch: function (pattern) {
+                                    return new tinymce.util.Promise(function (resolve) {
+                                        fetch('" . URL::build('/api/v2/users', 'avatars=true') . "')
+                                            .then((resp) => resp.json())
+                                            .then(function (data) {
+                                                let results = [];
+                                                const users = data.users.filter(p => p.username.toLowerCase().includes(pattern.toLowerCase()));
+    
+                                                for (const user of users) {
+                                                    results.push({
+                                                        value: '@' + user.username,
+                                                        text: user.username,
+                                                        icon: '<img src=\"' + user.avatar_url + '\">'
+                                                    });
+                                                }
+    
+                                                results.sort(function (a, b) {
+                                                    let x = a.text.toLowerCase();
+                                                    let y = b.text.toLowerCase();
+                                                    if (x < y) {
+                                                        return -1;
+                                                    }
+                                                    if (x > y) {
+                                                        return 1;
+                                                    }
+                                                    return 0;
+                                                });
+    
+                                                resolve(results);
+                                            });
+                                    });
+                                },
+                                onAction: function (autocompleteApi, rng, value) {
+                                    editor.selection.setRng(rng);
+                                    editor.insertContent(value);
+                                    autocompleteApi.hide();
+                                },
+                            });
+                        });
+                    }());
+                })();
+            ";
+        }
+
+        $js .= "
             tinymce.init({
               selector: '#$name',
               browser_spellcheck: true,
@@ -65,7 +122,7 @@ class Input {
               menubar: 'table',
               convert_urls: false,
               plugins: [
-                'autolink', 'codesample', 'directionality', 'emoticons',
+                'autolink', 'codesample', 'directionality', 'emoticons', " . ($mentions ? "'mentions', " : '') . "
                 'hr', 'image', 'link', 'lists', 'spoiler', 'code', 'table',
               ],
               toolbar: 'undo redo | bold italic underline strikethrough formatselect forecolor backcolor ltr rtl emoticons | alignleft aligncenter alignright alignjustify | codesample code hr image link numlist bullist | spoiler-add spoiler-remove',
@@ -113,5 +170,7 @@ class Input {
                 },
             });
         ";
+
+        return $js;
     }
 }

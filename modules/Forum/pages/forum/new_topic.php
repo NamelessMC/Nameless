@@ -20,7 +20,6 @@ if (!$user->isLoggedIn()) {
 }
 
 $forum = new Forum();
-$mentionsParser = new MentionsParser();
 
 if (!isset($_GET['fid']) || !is_numeric($_GET['fid'])) {
     Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
@@ -179,7 +178,7 @@ if (Input::exists()) {
 
                 // Get last post ID
                 $last_post_id = $queries->getLastId();
-                $content = $mentionsParser->parse(
+                $content = MentionsParser::parse(
                     $user->data()->id,
                     $content,
                     URL::build('/forum/topic/' . $topic_id, 'pid=' . $last_post_id),
@@ -279,7 +278,7 @@ $template->addJSFiles([
     (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
 ]);
 
-$template->addJSScript(Input::createTinyEditor($language, 'reply'));
+$template->addJSScript(Input::createTinyEditor($language, 'reply', true));
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
