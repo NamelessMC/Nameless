@@ -1,7 +1,7 @@
 <?php
 /*
  *  Made by Samerton & Justman10000
- *  Translation by BukkitTNT, M_Viper
+ *  Translation by BukkitTNT, M_Viper, enno123, TeemoCell
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr12
  *
@@ -46,10 +46,14 @@ $language = [
     'upgrade_php_version' => 'Bitte aktualisiere deine PHP-Version auf mindestens 7.4 - die nächste Nameless-Version wird die von dir verwendete Version nicht mehr unterstützen.',
 
     // Core
-    'mode_toggle' => 'Dunkler/Heller Modus',
+    'mode_toggle' => 'Heller Modus',
     'settings' => 'Einstellungen',
     'general_settings' => 'Allgemeine Einstellungen',
-    'sitename' => 'Name des Forum',
+    'sitename' => 'Seiten Name',
+    'punished_id' => 'Punished User ID',
+    'punisher_id' => 'Punisher User ID',
+    'reason' => 'Ban Reason',
+    'ip_ban' => 'IP ban?',
     'default_language' => 'Standardsprache',
     'default_language_help' => 'Benutzer können aus einer Liste ihre eigene Sprache auswählen.',
     'install_language' => 'Sprache installieren',
@@ -64,7 +68,6 @@ $language = [
     'email_verification' => 'Email Verifikation aktivieren?',
     'registration_settings_updated' => 'Registration settings updated successfully.',
     'homepage_type' => 'Seiten Typ',
-    'post_formatting_type' => 'Post Format Typ',
     'portal' => 'Portal',
     'private_profiles' => 'Privates Profil',
     'missing_sitename' => 'Der Seiten-Name muss zwischen 2 und 64 Zeichen lang sein.',
@@ -89,7 +92,7 @@ $language = [
     'enable_debug_mode' => 'Aktiviere den Fehlerbenachrichtungs Modus?',
     'force_https' => 'Erzwinge https? (Gesicherte Webseitenverbindung)',
     'force_https_help' => 'Falls https aktiviert wird, werden alle Anfragen auf das https Protokoll umgeleitet. Bitte überprüfe ob dein SSL Zertifikat gültig und richtig eingerichtet worden ist.',
-    'force_www' => 'Force www?',
+    'force_www' => '<b>www</b> erzwingen?',
     'contact_email_address' => 'Kontakt Email Addresse',
     'emails' => 'Emails',
     'email_errors' => 'Email Fehler',
@@ -129,7 +132,7 @@ $language = [
     'privacy_policy_error' => 'Bitte stelle sicher, dass Dein Datenschutz nicht länger als 100000 Zeichen ist.',
     'terms_updated' => 'Bedingungen erfolgreich aktualisiert.',
     'avatars' => 'Avatare',
-    'allow_custom_avatars' => 'Eigene Benutzer Avatare erlauben?',
+    'allow_custom_avatars' => 'Eigene Avatare erlauben?',
     'default_avatar' => 'Standard Avatar',
     'custom_avatar' => 'Eigener Avatar',
     'minecraft_avatar' => 'Minecraft Avatar',
@@ -140,7 +143,7 @@ $language = [
     'head' => 'Kopf',
     'bust' => 'Büste',
     'select_default_avatar' => 'Wähle ein neues Standard Avatar:',
-    'no_avatars_available' => 'Kein Avatar verfübar. Bitte lade zuerst ein Neues Bild hoch.',
+    'no_avatars_available' => 'Kein Avatar verfübar. Bitte lade zuerst ein Avatar hoch.',
     'avatar_settings_updated_successfully' => 'Avatar Einstellungen erfolgreich geändert.',
     'navigation' => 'Navigation',
     'navbar_order' => 'Navbar Ordnen',
@@ -157,8 +160,9 @@ $language = [
     'captcha_secret_key' => 'Captcha Geheimschlüssel',
     'google_recaptcha' => 'Google Captcha aktivieren?',
     'google_recaptcha_login' => 'Google Captcha beim Login aktivieren?',
+    'invalid_recaptcha_settings' => 'Invalid {x} credentials. Ensure the site key and site secret are correct.', // Don't replace {x}
     'registration_disabled_message' => 'Registration Deaktiviert Nachricht',
-    'enable_nicknames_on_registration' => 'Aktivierung von Nicknames für registrierte User?',
+    'enable_nicknames_on_registration' => 'Nicknames für registrierte Benutzer?',
     'validation_promote_group' => 'Verifiziert Gruppe',
     'validation_promote_group_info' => 'Diese Gruppe erhält der Spieler, wenn er sich verifiziert hat.',
     'login_method' => 'Login Methode',
@@ -191,14 +195,14 @@ $language = [
     'placeholders_show_on_forum_info' => 'Whether to show this placeholder on each user\'s forum posts or not.',
 
     // Placeholder leaderboards
-    'leaderboard_settings' => 'Leaderboard Einstellungen',
-    'placeholder_leaderboard_settings' => 'Platzhalter-Ranglisten-Einstellungen',
-    'placeholder_leaderboard_info' => 'Mit Platzhalter-Ranglisten können Sie Ranglisten erstellen, um die Spieler auf Ihrem Server nach einem beliebigen Platzhalter zu sortieren',
-    'placeholder_leaderboard_enable_info' => 'Ranglisten funktionieren am besten mit numerischen Platzhaltern (wie Münzen, Kills, abgebaute Blöcke usw.). Wenn du ein Leaderboard für einen textbasierten Platzhalter aktivierst, könntest du nicht sicher sein, dass es so angeordnet wird, wie du es wünschst.',
-    'placeholder_leaderboard_updated' => 'Einstellungen des Leaderboards erfolgreich aktualisiert',
-    'placeholder_leaderboard_enabled' => 'Leaderboard aktiviert',
-    'placeholder_leaderboard_title' => 'Leaderboard Titel',
-    'placeholder_leaderboard_sort' => 'Leaderboard sortierung',
+    'leaderboard_settings' => 'Bestenliste Einstellungen',
+    'placeholder_leaderboard_settings' => 'Bestenliste Platzhalter Einstellungen',
+    'placeholder_leaderboard_info' => 'Mit Bestenliste-Platzhalter können Sie Bestenlisten erstellen, um die Spieler auf Ihrem Server nach einem beliebigen Platzhalter zu sortieren',
+    'placeholder_leaderboard_enable_info' => 'Bestenliste funktionieren am besten mit numerischen Platzhaltern (wie Münzen, Kills, abgebaute Blöcke usw.). Wenn Sie eine Bestenliste auf einem textbasierten Platzhalter aktivieren, können Sie nicht sicher sein, dass sie wie gewünscht angeordnet wird.',
+    'placeholder_leaderboard_updated' => 'Einstellungen der Bestenliste erfolgreich aktualisiert',
+    'placeholder_leaderboard_enabled' => 'Bestenliste aktiviert',
+    'placeholder_leaderboard_title' => 'Bestenliste Titel',
+    'placeholder_leaderboard_sort' => 'Bestenliste sortierung',
 
     // SEO
     'seo' => 'SEO',
@@ -232,7 +236,7 @@ $language = [
     'custom_fields' => 'Eigene Profilfelder',
     'new_field' => '<i class="fa fa-plus-circle"></i> Neues Feld',
     'required' => 'Benötigt',
-    'editable' => 'Editable',
+    'editable' => 'Editierbar',
     'public' => 'Öffentlich',
     'forum_posts' => 'Anzeige im Forum',
     'text' => 'Text',
@@ -292,6 +296,8 @@ $language = [
     'no_parent_server' => 'Kein übergeordneter Server',
     'bungee_instance' => 'BungeeCord Instanz?',
     'bungee_instance_help' => 'Wähle diese Option, wenn der Server eine BungeeCord-Instanz ist.',
+    'bedrock' => 'Bedrock?',
+    'bedrock_help' => 'Select this option if the server is a Bedrock server.',
     'server_query_information' => 'Um eine Liste von Online-Spielern auf Deiner Website anzuzeigen, <strong> muss </strong> Dein Server die Option \'enable-query\' in der <strong> server.properties </strong> des Servers aktiviert sein',
     'enable_status_query' => 'Aktiviere Status Abfrage?',
     'status_query_help' => 'Wenn dies aktiviert ist, zeigt die Statusseite diesen Server als online oder offline an.',
@@ -361,6 +367,7 @@ $language = [
     'module_disabled' => 'Modul deaktiviert.',
     'author' => 'Autor:',
     'author_x' => 'Autor: {x}', // Don't replace {x}
+    'updated_x' => 'Updated at: {x}', // Don't replace {x}
     'module_outdated' => 'Wir haben festgestellt, dass dieses Modul für die Nameless Version {x}, vorgesehen ist, aber Du führst die Nameless Version {y} aus', // Don't replace "{x}" or "{y}"
     'find_modules' => 'Entdecke Module',
     'view_all_modules' => 'Zeige alle Module',
@@ -381,11 +388,11 @@ $language = [
     'activate' => 'Aktivieren',
     'warning_editing_default_template' => 'Warnung! Editiere nicht die Standard Vorlage.',
     'images' => 'Bilder',
-    'upload_new_image' => 'Lade ein neues Bild hoch.',
+    'upload_new_image' => 'Neues Bild hochladen.',
     'reset_background' => 'Hintergrund zurücksetzen.',
     'install' => '<i class="fa fa-plus-circle"></i> Installieren',
     'template_updated' => 'Vorlage erfolgreich aktualisiert.',
-    'default' => 'Voreinstellung',
+    'default' => 'Normal',
     'make_default' => 'Als Standard setzen.',
     'default_template_set' => 'Die Vorlage {x} wurde als Standard gesetzt.', // Don't replace {x}
     'template_deactivated' => 'Vorlage wurde deaktiviert.',
@@ -410,6 +417,9 @@ $language = [
     'logo_reset_successfully' => 'Logo erfolgreich zurückgesetzt.',
     'logo_updated_successfully' => 'Logo erfolgreich aktualisiert.',
     'reset_logo' => 'Logo zurücksetzen',
+    'favicon_reset_successfully' => 'Favicon erfolgreich zurückgesetzt.',
+    'favicon_updated_successfully' => 'Favicon erfolgreich aktualisiert.',
+    'reset_favicon' => 'Favicon zurücksetzen',
     'find_templates' => 'Entdecke Vorlagen',
     'view_all_templates' => 'Zeige alle Vorlagen',
     'unable_to_retrieve_templates' => 'Templates können nicht abgerufen werden',
@@ -496,6 +506,7 @@ $language = [
     'resend_activation_email' => 'Aktivierungsmail erneut senden',
     'email_resent_successfully' => 'E-Mail erfolgreich erneut gesendet.',
     'email_resend_failed' => 'Das erneute Senden von E-Mails ist fehlgeschlagen. Überprüfe Deine E-Mail-Einstellungen.',
+    'no_item_selected' => 'No items selected',
 
     // Permissions
     'select_all' => 'Alle auswählen',
@@ -626,7 +637,7 @@ $language = [
     'link_to_complete_registration' => 'Link zur vollständigen Registrierung: {x}', // Don't replace {x}
     'api_verification' => 'API Verifizierung aktivieren?',
     'api_verification_info' => 'Wenn diese Option aktiviert ist, können Konten nur über die API überprüft werden, z. B. im Spiel mit dem offiziellen Nameless-Plugin. <strong> Diese Option überschreibt die E-Mail-Überprüfung, und die Konten werden automatisch aktiviert! </strong> <br /> Du solltest Deine Standardgruppe mit eingeschränkten Berechtigungen einrichten und anschließend die Post-Validierungsgruppe im StaffCP -> aktualisieren Core -> Registerkarte Registrierung für die vollständige Mitgliedergruppe mit normalen Berechtigungen.',
-    'enable_username_sync' => 'Username Synchronisation aktivieren??',
+    'enable_username_sync' => 'Username Synchronisation aktivieren?',
     'enable_username_sync_info' => 'Wenn diese Option aktiviert ist, werden die Nutzernamen der Website aktualisiert, damit sie mit den Benutzernamen im Spiel übereinstimmen.',
     'api_settings_updated_successfully' => 'API Einstellungen wurden gespeichert.',
     'group_sync' => 'Gruppensynchronisierung',
@@ -648,13 +659,15 @@ $language = [
     'api_endpoints' => 'API-Endpunkte',
     'api_endpoints_info' => 'Mit API-Endpunkten können Module Möglichkeiten für externe Anwendungen (wie Minecraft und Discord) erstellen, um mit Deiner NamelessMC-Website zu interagieren. <a href="https://docs.namelessmc.com/en/api-documentation" target="_blank">Check out the API documentation here</a>',
     'route' => 'Route',
+    'method' => 'Methode',
+    'transformers' => 'Transformers',
 
     // File uploads
-    'drag_files_here' => 'Ziehe ein Bild hierhin.',
+    'drag_files_here' => 'Zieh eine Datei hierhin.',
     'invalid_file_type' => 'Ungültiges Dateiformat!',
     'file_too_big' => 'Datei zu groß! Die Datei hat eine größe von {{filesize}}, das Limit ist {{maxFilesize}}', // Don't replace {{filesize}} or {{maxFilesize}}
-    'allowed_proxies' => 'Proxies Erlaubt',
-    'allowed_proxies_info' => 'Zeilenweise Liste der erlaubten Proxy-IPs.',
+    'allowed_proxies' => 'Erlaubte Proxies',
+    'allowed_proxies_info' => 'Zeilengetrennte Liste der erlaubten Proxy-IPs.',
 
     // Error logs
     'error_logs' => 'Fehler Protokolle',
@@ -688,6 +701,9 @@ $language = [
     'register_hook_info' => 'Benutzer Registrierung',
     'validate_hook_info' => 'Benutzer Verifizierung',
     'delete_hook_info' => 'Benutzer Löschung',
+    'report_hook_info' => 'Report creation',
+    'ban_hook_info' => 'User banned',
+    'warning_hook_info' => 'User warned',
 
     // Sitemap
     'unable_to_load_sitemap_file_x' => 'Die Sitemap-Datei {x} konnte nicht geladen werden', // Don't replace {x}
@@ -710,7 +726,7 @@ $language = [
     // Dashboard
     'total_users' => 'Gesamtbenutzer',
     'recent_users' => 'Neue Benutzer',
-    'recent_topics' => 'Test',
+    'recent_topics' => 'Aktuelle Themen',
     'average_players' => 'Durchschnittliche Spieler',
     'nameless_news' => 'NamelessMC Neuigkeiten',
     'unable_to_retrieve_nameless_news' => 'Die neuesten Nachrichten konnten nicht abgerufen werden',
@@ -736,7 +752,7 @@ $language = [
     'creating_announcement_failure' => 'Die Erstellung der Ankündigung ist fehlgeschlagen.',
     'editing_announcement_failure' => 'Ankündigungsaktualisierung fehlgeschlagen.',
     'announcement_icon_instructions' => 'Du kannst hier auch jeder Ankündigung ein Symbol hinzufügen, z. B. <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>, <a href="https://semantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Semantic UI</a>.',
-    'header' => 'Header',
+    'header' => 'Kopfzeile',
     'message' => 'Nachricht',
     'text_colour' => 'Text Farbe',
     'background_colour' => 'Hintergrund Farbe',
@@ -744,11 +760,19 @@ $language = [
     'can_view_announcement' => 'Kann Ankündigung anzeigen',
     'verify_delete_announcement' => 'Möchtest Du diese Ankündigung wirklich löschen?',
     'deleted_announcement_success' => 'Ankündigung erfolgreich gelöscht.',
-    'header_required' => 'Header ist erforderlich.',
+    'header_required' => 'Kopfzeile ist erforderlich.',
     'message_required' => 'Nachricht ist erforderlich',
     'background_colour_required' => 'Hintergrundfarbe ist erforderlich',
     'text_colour_required' => 'Textfarbe ist erforderlich ',
     'no_announcements' => 'Es wurden noch keine Ankündigungen gemacht.',
-    'announcement_order' => 'Order',
-    'announcement_hook_info' => 'Announcement creation',
+    'announcement_order' => 'Anordnung',
+    'announcement_hook_info' => 'Ankündigungserstellung',
+
+    // OAuth
+    'oauth' => 'OAuth',
+    'oauth_info' => 'Konfiguriere den OAuth-Provider, damit sich die Benutzer mit ihren Konten in sozialen Netzwerken anmelden können. <a href="https://docs.namelessmc.com/en/oauth" target="_blank">Schau dir die Dokumentation an, um Hilfe zu erhalten.</a>',
+    'unlink' => 'Unlink',
+    'identifier' => 'Identifier',
+    'unlink_account_confirm' => 'Bist du sicher, dass du diesen Anbieter zwangsweise von diesem Benutzer trennen willst?',
+    'unlink_account_success' => 'Erfolgreich ihr Konto von {x} entkoppelt.', // Don't replace {x}
 ];

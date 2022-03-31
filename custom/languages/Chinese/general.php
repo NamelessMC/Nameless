@@ -59,6 +59,9 @@ $language = [
     'report' => '回報',
     'reported_by' => 'Reported by {x}',
     'view_report' => 'View report',
+    'report_origin' => 'Origin',
+    'origin_website' => 'Website',
+    'origin_api' => 'API',
     'page_loaded_in' => '畫面在 {x}秒 讀取完畢', // Don't replace {x}, time unit is seconds
     'page_x' => '頁 {x}',
     'browse' => '瀏覽',
@@ -78,18 +81,6 @@ $language = [
     'leaderboards' => 'Leaderboards',
 
     /*
-     *  Contact form
-     */
-    'contact' => '聯絡',
-    'message' => '訊息',
-    'email_address' => '電子郵件位置',
-    'contact_email_subject' => '新的聯絡訊息已送達',
-    'contact_message_failed' => '無法傳送訊息，請檢查你是否有在 10~5000 字元以內.',
-    'contact_message_sent' => '訊息傳送成功.',
-    'contact_message_email' => 'The provided email is invalid.',
-    'contact_message_limit' => '你一小時可以提交一次. 請在 {x} 分鐘後重試.', // Don't replace {x}
-
-    /*
      *  Navbar
      */
     'home' => '首頁',
@@ -105,11 +96,6 @@ $language = [
      *  Homepage
      */
     'social' => '社交',
-
-    /*
-     *  Help dialogues
-     */
-    'markdown_help' => '你可以使用Markdown模式編輯文章. 查看更多資訊請參考 <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>此處資料</a>.',
 
     /*
      *  Server query
@@ -166,5 +152,10 @@ $language = [
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{x}" rel="nofollow noopener">here</a>.' // Don't replace {x} which is the redirect URL
+    'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{x}" rel="nofollow noopener">here</a>.', // Don't replace {x} which is the redirect URL
+
+    /*
+     * OAuth
+     */
+    'oauth_message_continue' => 'Continue registering with {x}', // Don't replace {x}
 ];

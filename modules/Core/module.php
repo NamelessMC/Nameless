@@ -31,15 +31,16 @@ class Core_Module extends Module {
         // Define URLs which belong to this module
         $pages->add('Core', '/', 'pages/index.php');
         $pages->add('Core', '/api/v2', 'pages/api/v2/index.php');
-        $pages->add('Core', '/contact', 'pages/contact.php');
         $pages->add('Core', '/home', 'pages/home.php', 'index', true);
 
         $pages->add('Core', '/login', 'pages/login.php');
         $pages->add('Core', '/logout', 'pages/logout.php');
         $pages->add('Core', '/profile', 'pages/profile.php', 'profile', true);
         $pages->add('Core', '/register', 'pages/register.php');
+        $pages->add('Core', '/register/oauth', 'pages/register.php');
         $pages->add('Core', '/validate', 'pages/validate.php');
         $pages->add('Core', '/queries/admin_users', 'queries/admin_users.php');
+        $pages->add('Core', '/queries/mention_users', 'queries/mention_users.php');
         $pages->add('Core', '/queries/alerts', 'queries/alerts.php');
         $pages->add('Core', '/queries/dark_light_mode', 'queries/dark_light_mode.php');
         $pages->add('Core', '/queries/pms', 'queries/pms.php');
@@ -48,6 +49,7 @@ class Core_Module extends Module {
         $pages->add('Core', '/queries/user', 'queries/user.php');
         $pages->add('Core', '/queries/users', 'queries/users.php');
         $pages->add('Core', '/queries/debug_link', 'queries/debug_link.php');
+        $pages->add('Core', '/queries/tinymce_image_upload', 'queries/tinymce_image_upload.php');
         $pages->add('Core', '/banner', 'pages/minecraft/banner.php');
         $pages->add('Core', '/terms', 'pages/terms.php');
         $pages->add('Core', '/privacy', 'pages/privacy.php');
@@ -55,11 +57,13 @@ class Core_Module extends Module {
         $pages->add('Core', '/complete_signup', 'pages/complete_signup.php');
         $pages->add('Core', '/status', 'pages/status.php', 'status');
         $pages->add('Core', '/leaderboards', 'pages/leaderboards.php', 'leaderboards');
+        $pages->add('Core', '/oauth', 'pages/oauth.php');
 
         $pages->add('Core', '/user', 'pages/user/index.php');
         $pages->add('Core', '/user/settings', 'pages/user/settings.php');
         $pages->add('Core', '/user/messaging', 'pages/user/messaging.php');
         $pages->add('Core', '/user/alerts', 'pages/user/alerts.php');
+        $pages->add('Core', '/user/oauth', 'pages/user/oauth.php');
         $pages->add('Core', '/user/placeholders', 'pages/user/placeholders.php');
         $pages->add('Core', '/user/acknowledge', 'pages/user/acknowledge.php');
 
@@ -102,6 +106,7 @@ class Core_Module extends Module {
         $pages->add('Core', '/panel/upgrade', 'pages/panel/upgrade.php');
         $pages->add('Core', '/panel/users', 'pages/panel/users.php');
         $pages->add('Core', '/panel/users/edit', 'pages/panel/users_edit.php');
+        $pages->add('Core', '/panel/users/oauth', 'pages/panel/users_oauth.php');
         $pages->add('Core', '/panel/users/ip_lookup', 'pages/panel/users_ip_lookup.php');
         $pages->add('Core', '/panel/users/punishments', 'pages/panel/users_punishments.php');
         $pages->add('Core', '/panel/users/reports', 'pages/panel/users_reports.php');
@@ -358,18 +363,65 @@ class Core_Module extends Module {
         AvatarSource::setActiveSource(DEFAULT_AVATAR_SOURCE);
 
         // Autoload API Endpoints
-        Util::loadEndpoints(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', 'Core', 'includes', 'endpoints']), $endpoints);
+        $endpoints->loadEndpoints(ROOT_PATH . '/modules/Core/includes/endpoints');
 
         GroupSyncManager::getInstance()->registerInjector(NamelessMCGroupSyncInjector::class);
         GroupSyncManager::getInstance()->registerInjector(MinecraftGroupSyncInjector::class);
 
-        Endpoints::registerTransformer('user', 'Core', static function (Nameless2API $api, string $value): User {
-            $user = new User($value);
-            if ($user->exists()) {
-                return $user;
+        Endpoints::registerTransformer('user', 'Core', static function (Nameless2API $api, string $value) {
+            $lookup_data = explode(':', $value);
+            if (count($lookup_data) === 1) {
+                // assume it is a namelessmc user id
+                $user = new User($lookup_data[0]);
+                if ($user->exists()) {
+                    return $user;
+                }
+            } else if (count($lookup_data) === 2) {
+                // probably handling native namelessmc user
+                [$lookup_type, $lookup_value] = $lookup_data;
+                if ($lookup_type === 'id') {
+                    $column = 'id';
+                } else if ($lookup_type === 'username') {
+                    $column = 'username';
+                } else {
+                    $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'), "invalid native lookup type: $value");
+                }
+
+                $user = new User($lookup_value, $column);
+                if ($user->exists()) {
+                    return $user;
+                }
+            } else if (count($lookup_data) === 3) {
+                // probably handling a user integration lookup
+                // TODO: hand off these three values to the integration system to handle when PR is merged
+                [$integration_lookup_type, $integration_name, $lookup_value] = $lookup_data;
+                if ($integration_lookup_type === 'integration_id') {
+                    if ($integration_name === 'discord') {
+                        $column = 'discord_id';
+                    } else if ($integration_name === 'minecraft') {
+                        $column = 'uuid';
+                    } else {
+                        $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'), "invalid integration lookup name: $value");
+                    }
+                } else if ($integration_lookup_type === 'integration_name') {
+                    if ($integration_name === 'discord') {
+                        $column = 'discord_username';
+                    } else if ($integration_name === 'minecraft') {
+                        $column = 'username';
+                    } else {
+                        $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'), "invalid integration lookup name: $value");
+                    }
+                } else {
+                    $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'), "invalid integration lookup type: $value");
+                }
+
+                $user = new User($lookup_value, $column);
+                if ($user->exists()) {
+                    return $user;
+                }
             }
+
             $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'), $value);
-            die();
         });
     }
 
@@ -488,7 +540,7 @@ class Core_Module extends Module {
         ]);
 
         // Sitemap
-        $pages->registerSitemapMethod(ROOT_PATH . '/modules/Core/classes/Misc/Core_Sitemap.php', 'Core_Sitemap::generateSitemap');
+        $pages->registerSitemapMethod([Core_Sitemap::class, 'generateSitemap']);
 
         // Queries
         $queries = new Queries();
@@ -730,7 +782,12 @@ class Core_Module extends Module {
                             $servers = [$full_ip];
 
                             foreach ($sub_servers as $server) {
-                                $servers[] = ['ip' => $server->ip . (is_null($server->port) ? '' : ':' . $server->port), 'pre' => $server->pre, 'name' => $server->name];
+                                $servers[] = [
+                                    'ip' => $server->ip . (is_null($server->port) ? '' : ':' . $server->port),
+                                    'pre' => $server->pre,
+                                    'name' => $server->name,
+                                    'bedrock' => $server->bedrock
+                                ];
                             }
 
                             $result = MCQuery::multiQuery($servers, $query_type, $language, true, $queries);
@@ -750,11 +807,10 @@ class Core_Module extends Module {
                                 $result['status'] = $language->get('general', 'offline');
                                 $result['status_full'] = $language->get('general', 'server_offline');
                                 $result['server_offline'] = $language->get('general', 'server_offline');
-
                             }
 
                         } else {
-                            $result = MCQuery::singleQuery($full_ip, $query_type, $language, $queries);
+                            $result = MCQuery::singleQuery($full_ip, $query_type, $default->bedrock, $language, $queries);
 
                             if (isset($result['status_value']) && $result['status_value'] == 1) {
                                 $result['status'] = $language->get('general', 'online');
@@ -1409,6 +1465,10 @@ class Core_Module extends Module {
                 self::addUserAction($language->get('general', 'edit'), URL::build('/panel/users/edit/', 'id={id}'));
             }
 
+            if ($user->hasPermission('admincp.users.edit')) {
+                self::addUserAction($language->get('admin', 'oauth'), URL::build('/panel/users/oauth/', 'id={id}'));
+            }
+
             if ($user->hasPermission('modcp.ip_lookup')) {
                 self::addUserAction($language->get('moderator', 'ip_lookup'), URL::build('/panel/users/ip_lookup/', 'uid={id}'));
             }
@@ -1421,6 +1481,10 @@ class Core_Module extends Module {
 
             if ($user->hasPermission('modcp.reports')) {
                 self::addUserAction($language->get('moderator', 'reports'), URL::build('/panel/users/reports/', 'uid={id}'));
+            }
+
+            if (Cookie::exists('nmc_panel_theme') && Cookie::get('nmc_panel_theme') === 'dark') {
+                define('TEMPLATE_TINY_EDITOR_DARKMODE', true);
             }
         }
 
@@ -1457,6 +1521,7 @@ class Core_Module extends Module {
                 'query_ip' => $server->query_ip,
                 'port' => $server->port,
                 'query_port' => $server->query_port,
+                'bedrock' => (bool)$server->bedrock,
             ];
         }
 

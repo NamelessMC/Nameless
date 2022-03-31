@@ -68,7 +68,6 @@ if (Input::exists()) {
             case 'profile_banner':
                 if (!$user->hasPermission('usercp.profile_banner')) {
                     Redirect::to(URL::build('/profile/' . Output::getClean($user->data()->username)));
-                    die();
                 }
 
                 if (
@@ -121,7 +120,6 @@ if (Input::exists()) {
                         );
 
                         Redirect::to(URL::build('/user/settings'));
-                        die();
                     }
 
                     if (Input::get('type') == 'profile_banner') {
@@ -132,7 +130,6 @@ if (Input::exists()) {
                         );
 
                         Redirect::to(URL::build('/profile/' . Output::getClean($user->data()->username)));
-                        die();
                     }
 
                     die('OK');
@@ -150,7 +147,6 @@ if (Input::exists()) {
         } else {
             if (Input::get('type') == 'avatar') {
                 Redirect::to(URL::build('/user/settings'));
-                die();
             }
 
             die('No image selected');

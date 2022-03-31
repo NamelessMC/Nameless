@@ -13,25 +13,20 @@ if ($user->isLoggedIn()) {
     if (!$user->canViewStaffCP()) {
         // No
         Redirect::to(URL::build('/'));
-        die();
     }
     if ($user->isAdmLoggedIn()) {
         // Already authenticated
         Redirect::to(URL::build('/panel'));
-        die();
     }
 } else {
     // Not logged in
     Redirect::to(URL::build('/login'));
-    die();
 }
 
 const PAGE = 'panel';
 const PANEL_PAGE = 'auth';
 $page_title = $language->get('admin', 're-authenticate');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
-
-require(ROOT_PATH . '/core/includes/password.php'); // Require password compat library
 
 // Get login method
 $login_method = $queries->getWhere('settings', ['name', '=', 'login_method']);
@@ -41,8 +36,6 @@ $login_method = $login_method[0]->value;
 if (Input::exists()) {
     if (Token::check()) {
         // Validate input
-        $validate = new Validate();
-
         if ($login_method == 'email') {
             $to_validate = [
                 'email' => [
@@ -67,7 +60,7 @@ if (Input::exists()) {
             ];
         }
 
-        $validation = $validate->check($_POST, $to_validate);
+        $validation = Validate::check($_POST, $to_validate);
 
         if ($validation->passed()) {
             if ($login_method == 'email') {
@@ -76,7 +69,7 @@ if (Input::exists()) {
             } else {
                 if ($login_method == 'email_or_username') {
                     $username = Input::get('username');
-                    if (strpos(Input::get('username'), '@') !== false) {
+                    if (str_contains(Input::get('username'), '@')) {
                         $method_field = 'email';
                     } else {
                         $method_field = 'username';
@@ -103,8 +96,6 @@ if (Input::exists()) {
                 } else {
                     Redirect::to(URL::build('/panel'));
                 }
-
-                die();
             }
 
             Session::flash('adm_auth_error', $language->get('user', 'incorrect_details'));

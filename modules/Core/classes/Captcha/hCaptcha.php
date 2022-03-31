@@ -1,24 +1,14 @@
 <?php
-
-/*
- *	Made by Samerton
+/**
+ * hCaptcha class
  *
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr10
- *
- *  License: MIT
- *
- *  hCaptcha class
+ * @package Modules\Core\Captcha
+ * @author Samerton
+ * @version 2.0.0-pr10
+ * @license MIT
  */
-
 class hCaptcha extends CaptchaBase {
 
-    /**
-     * hCaptcha constructor
-     *
-     * @param string|null $privateKey
-     * @param string|null $publicKey
-     */
     public function __construct(?string $privateKey, ?string $publicKey) {
         $this->_name = 'hCaptcha';
         $this->_privateKey = $privateKey;
@@ -29,11 +19,26 @@ class hCaptcha extends CaptchaBase {
         $token = $post['h-captcha-response'];
 
         $url = 'https://hcaptcha.com/siteverify';
-        $post_data = 'secret=' . $this->getPrivateKey() . '&response=' . $token;
 
-        $result = json_decode(HttpClient::post($url, $post_data)->data(), true);
+        $result = HttpClient::post($url, [
+            'secret' => $this->getPrivateKey(),
+            'response' => $token,
+        ])->json(true);
 
         return $result['success'] == 'true';
+    }
+
+    public function validateSecret(string $_secret) : bool {
+        return true; // Haven't found a way to verify this
+    }
+
+    public function validateKey(string $key) : bool {
+        $url = 'https://api.hcaptcha.com/checksiteconfig?sitekey=' . $key;
+        $client = HttpClient::get($url);
+        if ($client->hasError()) {
+            return false;
+        }
+        return $client->json(true)['pass'] == true;
     }
 
     public function getHtml(): string {

@@ -331,11 +331,6 @@ body.pushable>.pusher {
     right: 1rem;
 }
 
-#profile-forum .emojione {
-    height: 24px;
-    width: auto;
-}
-
 /*
  *  [ FORUM SEARCH ]
  */
@@ -919,11 +914,6 @@ select {
     height: auto;
 }
 
-img.emojione {
-    height: 24px;
-    width: 24px;
-}
-
 .ui.icon.message.announcement i {
     padding-right: 20px;
 }
@@ -1172,7 +1162,6 @@ body.dark .tox .tox-tbtn {
 }
 
 body.dark .tox .tox-tbtn:hover, body.dark .tox .tox-tbtn--enabled, body.dark .tox .tox-split-button:focus, body.dark .tox .tox-edit-area__iframe {
-    background: #303030;
     color: #fff;
 }
 

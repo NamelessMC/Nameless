@@ -58,7 +58,6 @@ if (Input::exists()) {
         Session::flash('admin_forums_settings', $language->get('general', 'invalid_token'));
     }
     Redirect::to(URL::build('/panel/forums/settings'));
-    die();
 }
 
 // Retrieve Link Location from cache

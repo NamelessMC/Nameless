@@ -12,7 +12,7 @@
 const FRONT_END = true;
 
 // Set current page URL in session, provided it's not the login page
-if (defined('PAGE') && PAGE != 'login' && PAGE != 'register' && PAGE != 404 && PAGE != 'maintenance' && (!isset($_GET['route']) || strpos($_GET['route'], '/queries') === false)) {
+if (defined('PAGE') && PAGE != 'login' && PAGE != 'register' && PAGE != 404 && PAGE != 'maintenance' && (!isset($_GET['route']) || !str_contains($_GET['route'], '/queries'))) {
     if (FRIENDLY_URLS === true) {
         $split = explode('?', $_SERVER['REQUEST_URI']);
 
@@ -34,7 +34,7 @@ if (defined('PAGE') && PAGE != 'login' && PAGE != 'register' && PAGE != 404 && P
 
 if (defined('PAGE') && PAGE != 404) {
     // Auto unset signin tfa variables if set
-    if (strpos($_GET['route'], '/queries/') === false && (isset($_SESSION['remember']) || isset($_SESSION['username']) || isset($_SESSION['email']) || isset($_SESSION['password'])) && (!isset($_POST['tfa_code']) && !isset($_SESSION['mcassoc']))) {
+    if (!str_contains($_GET['route'], '/queries/') && (isset($_SESSION['remember']) || isset($_SESSION['username']) || isset($_SESSION['email']) || isset($_SESSION['password'])) && (!isset($_POST['tfa_code']) && !isset($_SESSION['mcassoc']))) {
         unset($_SESSION['remember'], $_SESSION['username'], $_SESSION['email'], $_SESSION['password']);
     }
 }
@@ -155,7 +155,7 @@ if ($analytics_id) {
 $smarty->assign([
     'FOOTER_LINKS_TITLE' => $language->get('general', 'links'),
     'FOOTER_SOCIAL_TITLE' => $language->get('general', 'social'),
-    'DARK_LIGHT_MODE' => $language->get('admin', 'mode_toggle'),
+    'TOGGLE_DARK_MODE_TEXT' => $language->get('general', 'toggle_dark_mode'),
     'DARK_LIGHT_MODE_ACTION' => URL::build('/queries/dark_light_mode'),
     'DARK_LIGHT_MODE_TOKEN' => $user->isLoggedIn() ? Token::get() : null
 ]);

@@ -9,8 +9,6 @@
  *  Forum index page
  */
 
-require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
-
 // Always define page name
 const PAGE = 'forum';
 $page_title = $forum_language->get('forum', 'forum');

@@ -37,8 +37,7 @@ if (Input::exists()) {
 
         } else {
             // AuthMe config settings
-            $validate = new Validate();
-            $validation = $validate->check($_POST, [
+            $validation = Validate::check($_POST, [
                 'hashing_algorithm' => [
                     Validate::REQUIRED => true
                 ],

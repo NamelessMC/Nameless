@@ -1,14 +1,17 @@
 <?php
-/*
- *	Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
- *
- *  License: MIT
- *
- *  Util class
- */
 
+use Astrotomic\Twemoji\Twemoji;
+
+/**
+ * Contains misc utility methods.
+ *
+ * @package NamelessMC\Core
+ * @author Samerton
+ * @author Aberdeener
+ * @author Partydragen
+ * @version 2.0.0-pr13
+ * @license MIT
+ */
 class Util {
 
     private static array $_enabled_modules = [];
@@ -47,7 +50,7 @@ class Util {
      */
     public static function recursiveRemoveDirectory(string $directory): bool {
         // safety precaution, only allow deleting files in "custom" directory
-        if (!strpos($directory, 'custom')) {
+        if (!str_contains($directory, 'custom')) {
             return false;
         }
 
@@ -138,29 +141,6 @@ class Util {
     }
 
     /**
-     * Get a Minecraft avatar from a UUID.
-     *
-     * @param string $uuid UUID to get avatar for.
-     * @param int $size Size of avatar in pixels to get URL for.
-     * @return string URL to avatar.
-     */
-    public static function getAvatarFromUUID(string $uuid, int $size = 128): string {
-        return AvatarSource::getAvatarFromUUID($uuid, $size);
-    }
-
-    /**
-     * Get avatar source with UUID as `{x}` and size as `{y}`.
-     * Used for avatar preview in online players list.
-     *
-     * @return string URL to be formatted.
-     * @deprecated Use `AvatarSource::getUrlToFormat()`
-     *
-     */
-    public static function getAvatarSource(): string {
-        return AvatarSource::getUrlToFormat();
-    }
-
-    /**
      * Is a URL internal or external? Accepts full URL and also just a path.
      *
      * @param string $url URL/path to check.
@@ -198,7 +178,7 @@ class Util {
             $proto = 'http://';
         }
 
-        if (strpos($hostname, 'www') === false && defined('FORCE_WWW') && FORCE_WWW) {
+        if (!str_contains($hostname, 'www') && defined('FORCE_WWW') && FORCE_WWW) {
             $www = 'www.';
         } else {
             $www = '';
@@ -245,7 +225,7 @@ class Util {
     public static function stringToURL(string $string = null): string {
         if ($string) {
             $string = preg_replace('/[^A-Za-z0-9 ]/', '', $string);
-            return Output::getClean(strtolower(urlencode(str_replace(' ', '-', htmlspecialchars_decode($string)))));
+            return Output::getClean(strtolower(urlencode(str_replace(' ', '-', $string))));
         }
 
         return '';
@@ -363,7 +343,6 @@ class Util {
      * Check for Nameless updates.
      *
      * @return string JSON object with information about any updates.
-     * @throws Exception
      */
     public static function updateCheck(): string {
         $queries = new Queries();
@@ -372,12 +351,12 @@ class Util {
         $current_version = self::getSetting(DB::getInstance(), 'nameless_version');
         $uid = self::getSetting(DB::getInstance(), 'unique_id');
 
-        $update_check = HttpClient::get('https://namelessmc.com/nl_core/nl2/stats.php?uid=' . $uid . '&version=' . $current_version . '&php_version=' . urlencode(PHP_VERSION) . '&language=' . LANGUAGE . '&docker=' . (getenv('NAMELESSMC_METRICS_DOCKER') == true));
+        $update_check = HttpClient::get('https://namelessmc.com/nl_core/nl2/stats.php?uid=' . $uid . '&version=' . $current_version . '&php_version=' . urlencode(PHP_VERSION) . '&language=' . LANGUAGE . '&docker=' . (getenv('NAMELESSMC_METRICS_DOCKER') === false ? 'false' : 'true'));
 
         if ($update_check->hasError()) {
             $error = $update_check->getError();
         } else {
-            $update_check = $update_check->data();
+            $update_check = $update_check->contents();
             if ($update_check == 'Failed') {
                 $error = 'Unknown error';
             }
@@ -421,32 +400,12 @@ class Util {
         $news = HttpClient::get('https://namelessmc.com/news');
 
         if ($news->hasError()) {
-            $error = $news->getError();
+            return json_encode([
+                'error' => $news->getError()
+            ]);
         }
 
-        if (isset($error)) {
-            return json_encode(['error' => $error]);
-        }
-
-        return $news->data();
-    }
-
-    /**
-     * Make a GET request to a URL using cURL.
-     * Failures will automatically be logged along with the error.
-     *
-     * @param string $full_url URL to send request to.
-     * @param string|null $body Request body to attach to request.
-     * @return string Response from remote server, false on failure.
-     * @deprecated Please use HttpClient class instead.
-     *
-     */
-    public static function curlGetContents(string $full_url, ?string $body = null): string {
-        if ($body == null) {
-            return HttpClient::get($full_url)->data();
-        }
-
-        return HttpClient::post($full_url, $body)->data();
+        return $news->contents();
     }
 
     /**
@@ -454,12 +413,11 @@ class Util {
      * From https://stackoverflow.com/a/53461987
      *
      * @param string $data Data to replace.
-     *
      * @return string Replaced string.
      */
     public static function replaceAnchorsWithText(string $data): string {
         return preg_replace_callback('/]*href=["|\']([^"|\']*)["|\'][^>]*>([^<]*)<\/a>/i', static function ($m): string {
-            if (strpos($m[1], self::getSelfURL()) === false) {
+            if (!str_contains($m[1], self::getSelfURL())) {
                 return '<a href="' . $m[1] . '" rel="nofollow noopener" target="_blank">' . $m[2] . '</a>';
             }
 
@@ -486,33 +444,6 @@ class Util {
     }
 
     /**
-     * Recursively scan, preload and register EndpointBase classes in a folder.
-     *
-     * @param string $path Path to scan from.
-     * @param Endpoints $endpoints Instance of Endpoints class to register endpoints to.
-     */
-    public static function loadEndpoints(string $path, Endpoints $endpoints): void {
-        $rii = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS));
-
-        foreach ($rii as $file) {
-            if ($file->isDir()) {
-                self::loadEndpoints($file, $endpoints);
-                return;
-            }
-
-            if ($file->getFilename() === '.DS_Store') {
-                continue;
-            }
-
-            require_once($file->getPathName());
-
-            $endpoint_class_name = str_replace('.php', '', $file->getFilename());
-
-            $endpoints->add(new $endpoint_class_name);
-        }
-    }
-
-    /**
      * Get in-game rank name from a website group ID, uses Group Sync rules.
      *
      * @param int $website_group_id ID of website group to search for.
@@ -533,7 +464,6 @@ class Util {
      * Get a website group's name from it's ID.
      *
      * @param int $group_id ID of group to find.
-     *
      * @return string|null Name of group, null if doesnt exist.
      */
     public static function getGroupNameFromId(int $group_id): ?string {
@@ -550,7 +480,6 @@ class Util {
      * Determine if a specific module is enabled
      *
      * @param string $name Name of module to check for.
-     *
      * @return bool Whether this module is enabled or not.
      */
     public static function isModuleEnabled(string $name): bool {
@@ -572,11 +501,25 @@ class Util {
     }
 
     /**
-     * Get the current Nameless version
+     * Get the current NamelessMC version.
      *
      * @return string Current Nameless version
      */
     public static function getCurrentNamelessVersion(): string {
-        return DB::getInstance()->selectQuery('SELECT `value` FROM nl2_settings WHERE `name` = ?', ['nameless_version'])->first()->value;
+        return self::getSetting(DB::getInstance(), 'nameless_version');
+    }
+
+    /**
+     * Replace native emojis with their Twemoji equivalent.
+     *
+     * @param string $text Text to parse
+     * @return string Text with emojis replaced with URLs to their Twemoji equivalent.
+     */
+    public static function renderEmojis(string $text): string {
+        return Twemoji::text($text)->toHtml(null, [
+            'width' => 20,
+            'height' => 20,
+            'style' => 'vertical-align: middle;'
+        ]);
     }
 }

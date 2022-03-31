@@ -12,7 +12,6 @@
 // Must be logged in
 if (!$user->isLoggedIn()) {
     Redirect::to(URL::build('/'));
-    die();
 }
 
 // Always define page name for navbar
@@ -89,7 +88,6 @@ if (!isset($_GET['view'])) {
             }
 
             Redirect::to(URL::build('/user/alerts'));
-            die();
         }
     }
 
@@ -113,5 +111,4 @@ if (!isset($_GET['view'])) {
     }
 
     Redirect::to($alert[0]->url);
-    die();
 }

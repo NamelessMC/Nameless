@@ -81,12 +81,14 @@
                                             {foreach from=$module_pages key=page item=value}
                                                 <tr>
                                                     <td>
-                                                        <label for="{$page|escape}"
-                                                               style="font-weight: normal;">{($page|escape)|ucfirst}</label>
+                                                        <label for="{$page|escape}" style="font-weight: normal;">{($page|escape)|ucfirst}</label>
                                                         <div class="float-md-right">
-                                                            <input class="js-switch" type="checkbox" name="pages[]"
-                                                                   id="{$page|escape}"
-                                                                   value="{$page|escape}" {if in_array($page, $ACTIVE_PAGES)} checked{/if}>
+                                                            <div class="form-group custom-control custom-switch">
+                                                                <input id="{$page|escape}" type="checkbox"  name="pages[]" class="custom-control-input" value="{$page|escape}" {if in_array($page, $ACTIVE_PAGES)} checked{/if}>
+                                                                <label for="{$page|escape}" class="custom-control-label">
+                                                                    {$TWITTER_STYLE}
+                                                                </label>
+                                                            </div>
                                                         </div>
                                                     </td>
                                                 </tr>

@@ -72,18 +72,6 @@ $language = [
     'leaderboards' => 'Leaderboards',
 
     /*
-     *  Contact form
-     */
-    'contact' => 'İletişim',
-    'message' => 'Mesaj',
-    'email_address' => 'E-posta adresiniz',
-    'contact_email_subject' => 'Yeni iletişim formu gönderme',
-    'contact_message_failed' => 'Mesaj gönderilemedi. Lütfen 10 ila 5000 karakter uzunluğunda bir mesaj girdiğinizden emin olun.',
-    'contact_message_sent' => 'Mesaj başarıyla gönderildi!.',
-    'contact_message_email' => 'Sağlanan e-posta geçersiz.',
-    'contact_message_limit' => 'Saatte yalnızca bir mesaj gönderebilirsiniz. {X} dakika içinde bir mesaj gönderebilirsiniz.', // Don't replace {x}
-
-    /*
      *  Navbar
      */
     'home' => 'Ana Sayfa',
@@ -99,11 +87,6 @@ $language = [
      *  Homepage
      */
     'social' => 'Sosyal',
-
-    /*
-     *  Help dialogues
-     */
-    'markdown_help' => 'Markdown\'u kullanarak yayınınızı biçimlendirebilirsiniz. Daha fazla bilgi için <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>buraya</a> bakın.',
 
     /*
      *  Server query
@@ -156,8 +139,14 @@ $language = [
      *  Privacy policy
      */
     'privacy_policy' => 'Gizlilik Politikası',
+    
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'Yeniden yönlendiriliyor ... <br />Otomatik olarak yönlendirilmiyorsanız, lütfen <a href="{x}" rel="nofollow noopener">burayı</a> tıklayın.' // Don't replace {x} which is the redirect URL
+    'redirecting_message' => 'Yeniden yönlendiriliyor ... <br />Otomatik olarak yönlendirilmiyorsanız, lütfen <a href="{x}" rel="nofollow noopener">burayı</a> tıklayın.', // Don't replace {x} which is the redirect URL
+
+    /*
+     * OAuth
+     */
+    'oauth_message_continue' => 'Continue registering with {x}', // Don't replace {x}
 ];

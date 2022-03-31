@@ -95,7 +95,6 @@ if (isset($_GET['leaderboard'])) {
 
     } else {
         Redirect::to(URL::build('/panel/minecraft/placeholders'));
-        die();
     }
 
 } else {

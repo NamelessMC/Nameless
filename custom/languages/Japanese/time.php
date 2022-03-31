@@ -19,7 +19,6 @@ $language = [
      *  Time
      */
     'time' => '時間', // Placeholder, no need to translate
-    'seconds_short' => '秒', // Shortened "seconds", eg "s"
     'less_than_a_minute' => '1分前',
     '1_minute' => '1分前',
     '_minutes' => '{x}分前',

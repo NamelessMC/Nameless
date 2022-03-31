@@ -44,14 +44,12 @@ class InfoEndpoint extends KeyAuthEndpoint {
             }
         }
 
-        if (isset($version_checked, $version_update) && isset($current_version)) {
-            if ($version_update != 'false') {
-                $ret['version_update'] = [
-                    'update' => true,
-                    'version' => (isset($new_version) ? Output::getClean($new_version) : 'unknown'),
-                    'urgent' => ($version_update == 'urgent')
-                ];
-            }
+        if (isset($version_checked, $version_update, $current_version) && $version_update != 'false') {
+            $ret['version_update'] = [
+                'update' => true,
+                'version' => (isset($new_version) ? Output::getClean($new_version) : 'unknown'),
+                'urgent' => ($version_update == 'urgent')
+            ];
         }
 
         // Return default language
@@ -67,8 +65,6 @@ class InfoEndpoint extends KeyAuthEndpoint {
         }
         $ret['modules'] = $ret_modules;
 
-        if (count($ret)) {
-            $api->returnArray($ret);
-        }
+        $api->returnArray($ret);
     }
 }

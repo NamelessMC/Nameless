@@ -1,5 +1,12 @@
 <?php
-
+/**
+ * MCHeads avatar source class
+ *
+ * @package Modules\Core\Avatars
+ * @author Aberdeener
+ * @version 2.0.0-pr12
+ * @license MIT
+ */
 class MCHeadsAvatarSource extends AvatarSourceBase {
 
     public function __construct() {

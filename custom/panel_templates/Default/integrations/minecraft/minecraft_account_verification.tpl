@@ -41,13 +41,15 @@
                         {include file='includes/alerts.tpl'}
 
                         <form id="enablePremium" action="" method="post">
-                            <label for="inputPremiumAccounts">{$FORCE_PREMIUM_ACCOUNTS}</label>
-                            <input type="hidden" name="enable_premium_accounts" value="0">
-                            <input id="inputPremiumAccounts" name="enable_premium_accounts" type="checkbox"
-                                   class="js-switch js-check-change" {if $FORCE_PREMIUM_ACCOUNTS_VALUE} checked{/if}
-                                   value="1" />
-                            <input type="hidden" name="premium" value="1">
                             <input type="hidden" name="token" value="{$TOKEN}">
+                            <div class="form-group custom-control custom-switch">
+                                <input type="hidden" name="premium" value="1">
+                                <input type="hidden" name="enable_premium_accounts" value="0">
+                                <input id="inputPremiumAccounts" name="enable_premium_accounts" type="checkbox" class="custom-control-input js-check-change" value="1" {if $FORCE_PREMIUM_ACCOUNTS_VALUE} checked{/if}/>
+                                <label for="inputPremiumAccounts" class="custom-control-label">
+                                    {$FORCE_PREMIUM_ACCOUNTS}
+                                </label>
+                            </div>
                         </form>
 
                         {if $FORCE_PREMIUM_ACCOUNTS_VALUE}
@@ -60,10 +62,11 @@
                             </div>
                             <br />
                             <form action="" method="post">
-                                <div class="form-group">
-                                    <label for="use_mcassoc">{$USE_MCASSOC}</label>
-                                    <input id="use_mcassoc" name="use_mcassoc" type="checkbox"
-                                           class="js-switch" {if $USE_MCASSOC_VALUE} checked{/if} />
+                                <div class="form-group custom-control custom-switch">
+                                    <input id="use_mcassoc" name="use_mcassoc" type="checkbox" class="custom-control-input" {if $USE_MCASSOC_VALUE} checked{/if}/>
+                                    <label for="use_mcassoc" class="custom-control-label">
+                                        {$USE_MCASSOC}
+                                    </label>
                                 </div>
                                 <div class="form-group">
                                     <label for="mcassoc_key">{$MCASSOC_KEY}</label>

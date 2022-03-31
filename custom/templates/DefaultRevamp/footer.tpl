@@ -4,7 +4,7 @@
   <div class="ui inverted vertical footer segment" id="footer">
     <div class="ui container">
       <div class="ui stackable inverted divided equal height stackable grid">
-        <div class="six wide column">
+        <div class="{if $SOCIAL_MEDIA_ICONS|count > 0}six{else}eight{/if} wide column">
           <h4 class="ui inverted header">{$SITE_NAME}</h4>
           <div class="ui inverted link list">
             <span class="item">&copy; {$SITE_NAME} {'Y'|date}</span>
@@ -12,12 +12,10 @@
             {if $PAGE_LOAD_TIME}
               <span class="item" id="page_load"></span>
             {/if}
-            {if isset($LOGGED_IN_USER)}
-              <a class="item" href="javascript:" onclick="toggleDarkLightMode()">{$DARK_LIGHT_MODE}</a>
-            {/if}
+            <a class="item" href="javascript:" onclick="toggleDarkLightMode()">{$TOGGLE_DARK_MODE_TEXT}</a>
           </div>
         </div>
-        <div class="five wide column">
+        <div class="{if $SOCIAL_MEDIA_ICONS|count > 0}five{else}eight{/if} wide column">
           <h4 class="ui inverted header">{$FOOTER_LINKS_TITLE}</h4>
           <div class="ui inverted link list">
             {foreach from=$FOOTER_NAVIGATION key=name item=item}
@@ -39,6 +37,7 @@
             <a class="item" href="{$PRIVACY_LINK}">{$PRIVACY_TEXT}</a>
           </div>
         </div>
+        {if $SOCIAL_MEDIA_ICONS|count > 0}
         <div class="five wide column">
           <h4 class="ui inverted header">{$FOOTER_SOCIAL_TITLE}</h4>
           <div class="ui inverted link list">
@@ -47,6 +46,7 @@
             {/foreach}
           </div>
         </div>
+        {/if}
       </div>
     </div>
   </div>
@@ -75,18 +75,16 @@
     </script>
   {/if}
 
-  {if isset($LOGGED_IN_USER)}
-    <script type="text/javascript">
-      function toggleDarkLightMode() {
-        $.post("{$DARK_LIGHT_MODE_ACTION}", { token: "{$DARK_LIGHT_MODE_TOKEN}" })
-          .done(function() {
-            window.location.reload();
-          });
+  <script type="text/javascript">
+    function toggleDarkLightMode() {
+      $.post("{$DARK_LIGHT_MODE_ACTION}", { token: "{$DARK_LIGHT_MODE_TOKEN}" })
+        .done(function() {
+          window.location.reload();
+        });
 
-        return false;
-      }
-    </script>
-  {/if}
+      return false;
+    }
+  </script>
 
   {if isset($NEW_UPDATE) && ($NEW_UPDATE_URGENT != true)}
     <script src="{$TEMPLATE.path}/js/core/update.js"></script>

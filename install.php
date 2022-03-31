@@ -51,7 +51,7 @@ if (!isset($CONFIG['installed'])) {
             die('OK');
         }
     }
-    require(ROOT_PATH . '/core/installation/views/installer.view.php');
+    require(ROOT_PATH . '/core/installation/installer.php');
 } else {
-    require(ROOT_PATH . '/core/installation/views/already_installed.view.php');
+    require(ROOT_PATH . '/core/installation/already_installed.php');
 }

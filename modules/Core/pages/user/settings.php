@@ -12,17 +12,12 @@
 // Must be logged in
 if (!$user->isLoggedIn()) {
     Redirect::to(URL::build('/'));
-    die();
 }
 
 // Always define page name for navbar
 const PAGE = 'cc_settings';
 $page_title = $language->get('user', 'user_cp');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
-
-require(ROOT_PATH . '/core/includes/password.php'); // For password hashing
-require(ROOT_PATH . '/core/includes/phpass.php'); // phpass for Wordpress auth
-$emojione = new Emojione\Client(new Emojione\Ruleset());
 
 // Forum enabled?
 $forum_enabled = Util::isModuleEnabled('Forum');
@@ -34,7 +29,6 @@ if (isset($_GET['do'])) {
         // Ensure TFA is currently disabled
         if ($user->data()->tfa_enabled == 1) {
             Redirect::to(URL::build('/user/settings'));
-            die();
         }
 
         $tfa = new \RobThree\Auth\TwoFactorAuth(SITE_NAME);
@@ -89,7 +83,6 @@ if (isset($_GET['do'])) {
                             Session::delete('force_tfa_alert');
                             Session::flash('tfa_success', $language->get('user', 'tfa_successful'));
                             Redirect::to(URL::build('/user/settings'));
-                            die();
                         }
 
                         $error = $language->get('user', 'invalid_tfa');
@@ -140,7 +133,6 @@ if (isset($_GET['do'])) {
             ]);
 
             Redirect::to(URL::build('/user/settings'));
-            die();
         }
     }
 
@@ -149,9 +141,6 @@ if (isset($_GET['do'])) {
     if (Input::exists()) {
         if (Token::check()) {
             if (Input::get('action') == 'settings') {
-                // Validation
-                $validate = new Validate();
-
                 $to_validate = [
                     'signature' => [
                         'max' => 900
@@ -164,9 +153,9 @@ if (isset($_GET['do'])) {
                 // Permission to use nickname?
                 if ($user->hasPermission('usercp.nickname')) {
                     $to_validate['nickname'] = [
-                        'required' => true,
-                        'min' => 3,
-                        'max' => 20
+                        Validate::REQUIRED => true,
+                        Validate::MIN => 3,
+                        Validate::MAX => 20
                     ];
 
                     $displayname = Output::getClean(Input::get('nickname'));
@@ -192,7 +181,28 @@ if (isset($_GET['do'])) {
                     }
                 }
 
-                $validation = $validate->check($_POST, $to_validate);
+                $validation = Validate::check(
+                    $_POST, $to_validate
+                )->messages([
+                    'signature' => $language->get('user', 'signature_max_900'),
+                    'nickname' => [
+                        Validate::REQUIRED => $language->get('user', 'nickname_required'),
+                        Validate::MIN => $language->get('user', 'nickname_minimum_3'),
+                        Validate::MAX => $language->get('user', 'nickname_maximum_20')
+                    ],
+                    'timezone' => $language->get('general', 'invalid_timezone'),
+                    // fallback message for required profile fields
+                    '*' => static function ($field) use ($language, $queries) {
+                        [$id] = explode(' ', $field);
+
+                        $field = $queries->getWhere('profile_fields', ['id', '=', $id]);
+                        if (!count($field)) {
+                            return null;
+                        }
+
+                        return str_replace('{x}', Output::getClean($field[0]->name), $language->get('user', 'field_is_required'));
+                    },
+                ]);
 
                 if ($validation->passed()) {
                     // Check nickname is unique
@@ -245,15 +255,7 @@ if (isset($_GET['do'])) {
                             $timezone = Output::getClean(Input::get('timezone'));
 
                             if ($user->hasPermission('usercp.signature')) {
-                                $cache->setCache('post_formatting');
-                                $formatting = $cache->retrieve('formatting');
-
-                                if ($formatting == 'markdown') {
-                                    $signature = \Michelf\Markdown::defaultTransform(Input::get('signature'));
-                                    $signature = Output::getClean($signature);
-                                } else {
-                                    $signature = Output::getClean(Input::get('signature'));
-                                }
+                                $signature = Output::getClean(Input::get('signature'));
                             } else {
                                 $signature = '';
                             }
@@ -293,35 +295,18 @@ if (isset($_GET['do'])) {
 
                             Log::getInstance()->log(Log::Action('user/ucp/update'));
 
-
                             foreach ($_POST as $key => $item) {
-                                if (strpos($key, 'action') !== false || strpos($key, 'token') !== false) {
-                                    // Action/token, don't do anything
-
-                                } else {
+                                if (!str_contains($key, 'action')&& !str_contains($key, 'token')) {
                                     // Check field exists
                                     $field_exists = $queries->getWhere('profile_fields', ['id', '=', $key]);
                                     if (!count($field_exists)) {
                                         continue;
                                     }
 
-                                    // Update or create?
-                                    $update = false;
-                                    $exists = $queries->getWhere('users_profile_fields', ['user_id', '=', $user->data()->id]);
-
-                                    if (count($exists)) {
-                                        foreach ($exists as $exist) {
-                                            if ($exist->field_id == $key) {
-                                                // Exists
-                                                $update = true;
-                                                break;
-                                            }
-                                        }
-                                    }
-
-                                    if ($update == true) {
+                                    $user_profile_fields = $user->getProfileFields(false);
+                                    if (array_key_exists($key, $user_profile_fields)) {
                                         // Update field value
-                                        $queries->update('users_profile_fields', $exist->id, [
+                                        $queries->update('users_profile_fields', $user_profile_fields[$key]['row_id'], [
                                             'value' => Output::getClean($item) // Todo - allow HTML
                                         ]);
                                     } else {
@@ -337,7 +322,6 @@ if (isset($_GET['do'])) {
 
                             Session::flash('settings_success', $language->get('user', 'settings_updated_successfully'));
                             Redirect::to(URL::build('/user/settings'));
-                            die();
 
                         } catch (Exception $e) {
                             Session::flash('settings_error', $e->getMessage());
@@ -345,47 +329,12 @@ if (isset($_GET['do'])) {
                     }
 
                 } else {
-                    // Validation errors
-                    foreach ($validation->errors() as $item) {
-                        if (strpos($item, 'signature') !== false) {
-                            $errors[] = $language->get('user', 'signature_max_900') . '<br />';
-                        } else {
-                            if (strpos($item, 'nickname') !== false) {
-                                if (strpos($item, 'required') !== false) {
-                                    $errors[] = $language->get('user', 'username_required') . '<br />';
-                                } else {
-                                    if (strpos($item, 'min') !== false) {
-                                        $errors[] = $language->get('user', 'username_minimum_3') . '<br />';
-                                    } else {
-                                        if (strpos($item, 'max') !== false) {
-                                            $errors[] = $language->get('user', 'username_maximum_20') . '<br />';
-                                        }
-                                    }
-                                }
-                            } else {
-                                if (strpos($item, 'timezone') !== false) {
-                                    $errors[] = $language->get('general', 'invalid_timezone') . '<br />';
-                                } else {
-                                    // Get field name
-                                    $id = explode(' ', $item);
-                                    $id = $id[0];
-
-                                    $field = $queries->getWhere('profile_fields', ['id', '=', $id]);
-                                    if (count($field)) {
-                                        $field = $field[0];
-                                        $errors[] = str_replace('{x}', Output::getClean($field->name), $language->get('user', 'field_is_required')) . '<br />';
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    $errors = $validation->errors();
                 }
             } else {
                 if (Input::get('action') == 'password') {
                     // Change password
-                    $validate = new Validate();
-
-                    $validation = $validate->check($_POST, [
+                    $validation = Validate::check($_POST, [
                         'old_password' => [
                             Validate::REQUIRED => true
                         ],
@@ -436,9 +385,7 @@ if (isset($_GET['do'])) {
                 } else {
                     if (Input::get('action') == 'email') {
                         // Change password
-                        $validate = new Validate();
-
-                        $validation = $validate->check($_POST, [
+                        $validation = Validate::check($_POST, [
                             'password' => [
                                 Validate::REQUIRED => true
                             ],
@@ -477,8 +424,6 @@ if (isset($_GET['do'])) {
 
                                     Session::flash('settings_success', $language->get('user', 'email_changed_successfully'));
                                     Redirect::to(URL::build('/user/settings'));
-                                    die();
-
                                 }
 
                                 // Invalid password
@@ -514,7 +459,6 @@ if (isset($_GET['do'])) {
                                 Session::flash('settings_success', str_replace('{token}', $token, Discord::getLanguageTerm('discord_id_confirm')));
                             }
                             Redirect::to(URL::build('/user/settings'));
-                            die();
                         }
                     }
                 }
@@ -529,9 +473,6 @@ if (isset($_GET['do'])) {
         (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.standalone.min.css' => [],
         (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.css' => [],
         (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.min.css' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.sprites.css' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/css/emojionearea.min.css' => [],
     ]);
 
     $template->addJSFiles([
@@ -539,32 +480,13 @@ if (isset($_GET['do'])) {
     ]);
 
     $template->addJSScript('$(\'.datepicker\').datepicker();');
+    $template->addJSFiles([
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
+    ]);
 
-    $cache->setCache('post_formatting');
-    $formatting = $cache->retrieve('formatting');
-    if ($formatting == 'markdown') {
-        $template->addJSFiles([
-            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/js/emojione.min.js' => [],
-            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/js/emojionearea.min.js' => []
-        ]);
-
-        $template->addJSScript('
-            $(document).ready(function() {
-                var el = $("#inputSignature").emojioneArea({
-                    pickerPosition: "bottom"
-                });
-            });
-		');
-
-    } else {
-        $template->addJSFiles([
-            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
-            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
-            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
-        ]);
-
-        $template->addJSScript(Input::createTinyEditor($language, 'inputSignature'));
-    }
+    $template->addJSScript(Input::createTinyEditor($language, 'inputSignature'));
 
     // Error/success message?
     if (Session::exists('settings_error')) {
@@ -599,13 +521,6 @@ if (isset($_GET['do'])) {
 
     // Get custom fields
     $custom_fields = $queries->getWhere('profile_fields', ['id', '<>', 0]);
-    $user_custom_fields = $queries->getWhere('users_profile_fields', ['user_id', '=', $user->data()->id]);
-
-    $custom_fields_template = [
-        'nickname' => [
-            'disabled' => true
-        ]
-    ];
 
     if ($user->hasPermission('usercp.nickname')) {
         $custom_fields_template['nickname'] = [
@@ -614,48 +529,49 @@ if (isset($_GET['do'])) {
             'id' => 'nickname',
             'type' => 'text'
         ];
+    } else {
+        $custom_fields_template['nickname'] = [
+            'nickname' => [
+                'disabled' => true
+            ]
+        ];
     }
 
-    if (count($custom_fields)) {
-        foreach ($custom_fields as $field) {
-            // Check if its editable if not, next
-            if ($field->editable == false) {
-                continue;
-            }
-            // Get field value for user
-            $value = '';
-            if (count($user_custom_fields)) {
-                foreach ($user_custom_fields as $key => $item) {
-                    if ($item->field_id == $field->id) {
-                        // TODO: support HTML fields
-                        $value = Output::getClean($item->value);
-                        unset($user_custom_fields[$key]);
-                        break;
-                    }
-                }
-            }
-
-            // Get custom field type
-            if ($field->type == 1) {
-                $type = 'text';
-            } else {
-                if ($field->type == 2) {
-                    $type = 'textarea';
-                } else {
-                    if ($field->type == 3) {
-                        $type = 'date';
-                    }
-                }
-            }
-
-            $custom_fields_template[$field->name] = [
-                'name' => Output::getClean($field->name),
-                'value' => $value,
-                'id' => $field->id,
-                'type' => $type,
-                'required' => $field->required
-            ];
+    foreach ($custom_fields as $field) {
+        // Skip this field if it's not editable, and it is already set.
+        // This fixes when a field is made after someone registers, the next time they edit their profile,
+        // they will have to set it.
+        if (!$field->editable  && $field->value !== null) {
+            continue;
         }
+
+        // Get field value for user
+        $value = '';
+        foreach ($user->getProfileFields(false) as $id => $item) {
+            if ($id == $field->id) {
+                // TODO: support HTML fields
+                $value = $item['value'];
+                break;
+            }
+        }
+
+        // Get custom field type
+        if ($field->type == 1) {
+            $type = 'text';
+        } else if ($field->type == 2) {
+            $type = 'textarea';
+        } else if ($field->type == 3) {
+            $type = 'date';
+        }
+
+        $custom_fields_template[$field->name] = [
+            'name' => Output::getClean($field->name),
+            'value' => $value,
+            'id' => $field->id,
+            'type' => $type,
+            'required' => $field->required,
+            'description' => $field->description ?: $field->name
+        ];
     }
 
     if (Session::exists('tfa_success')) {
@@ -670,22 +586,7 @@ if (isset($_GET['do'])) {
     }
 
     if ($user->hasPermission('usercp.signature')) {
-        // Get post formatting type (HTML or Markdown)
-        $cache->setCache('post_formatting');
-        $formatting = $cache->retrieve('formatting');
-
-        if ($formatting == 'markdown') {
-            // Markdown
-            $converter = new League\HTMLToMarkdown\HtmlConverter(['strip_tags' => true]);
-
-            $signature = $converter->convert(htmlspecialchars_decode($user->data()->signature));
-            $signature = Output::getPurified($signature);
-
-            $smarty->assign('MARKDOWN', true);
-            $smarty->assign('MARKDOWN_HELP', $language->get('general', 'markdown_help'));
-        } else {
-            $signature = Output::getPurified(htmlspecialchars_decode($user->data()->signature));
-        }
+        $signature = Output::getPurified($user->data()->signature);
 
         $smarty->assign([
             'SIGNATURE' => $language->get('user', 'signature'),

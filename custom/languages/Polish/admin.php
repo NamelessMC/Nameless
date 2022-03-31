@@ -44,10 +44,14 @@ $language = [
     'upgrade_php_version' => 'Please upgrade your PHP version to at least 7.4 - the next Nameless release will no longer support the version you are using.',
 
     // Core
-    'mode_toggle' => 'Ciemny/Jasny Tryb',
+    'mode_toggle' => 'Ciemny Tryb',
     'settings' => 'Ustawienia',
     'general_settings' => 'Główne ustawienia',
     'sitename' => 'Nazwa strony',
+    'punished_id' => 'Punished User ID',
+    'punisher_id' => 'Punisher User ID',
+    'reason' => 'Ban Reason',
+    'ip_ban' => 'IP ban?',
     'default_language' => 'Domyślny język',
     'default_language_help' => 'Użytkownicy będą mogli wybrać dowolny z zainstalowanych języków.',
     'install_language' => 'Zainstaluj Język',
@@ -62,7 +66,6 @@ $language = [
     'email_verification' => 'Włączyć weryfikację email?',
     'registration_settings_updated' => 'Ustawnienia rejestracji zostały zaktualizowane.',
     'homepage_type' => 'Typ strony głównej',
-    'post_formatting_type' => 'Typ formatowania posta',
     'portal' => 'Portal',
     'private_profiles' => 'Prywatne profile',
     'missing_sitename' => 'Wpisz nazwę strony mającą on 2 od 64 znaków długości.',
@@ -153,6 +156,7 @@ $language = [
     'captcha_type' => 'Typ Captcha',
     'captcha_site_key' => 'Klucz Captcha Strony',
     'captcha_secret_key' => 'Sekretny Klucz Captcha Strony',
+    'invalid_recaptcha_settings' => 'Invalid {x} credentials. Ensure the site key and site secret are correct.', // Don't replace {x}
     'registration_disabled_message' => 'Wiadomość o wyłączonej rejestracji',
     'enable_nicknames_on_registration' => 'Włączyć nicki dla rejestrowanych użytkowników?',
     'validation_promote_group' => 'Grupa po weryfikacji',
@@ -287,6 +291,8 @@ $language = [
     'no_parent_server' => 'Brak serwera nadrzędnego',
     'bungee_instance' => 'Serwer Bungeecord?',
     'bungee_instance_help' => 'Wybierz tą opcję jeśli serwer jest w sieci Bungeecord.',
+    'bedrock' => 'Bedrock?',
+    'bedrock_help' => 'Select this option if the server is a Bedrock server.',
     'server_query_information' => 'Aby wyświetlić listę graczy na twojej stronie, serwer <strong>musi</strong> mieć włączoną opcję \'enable-query\' w pliku <strong>server.properties</strong>',
     'enable_status_query' => 'Włączyć sprawdzanie statusu?',
     'status_query_help' => 'Gdy opcja jest włączona, na stronie statusu serwera będzie pokazane czy jest on online czy offline.',
@@ -356,6 +362,7 @@ $language = [
     'module_disabled' => 'Moduł został wyłączony.',
     'author' => 'Autor:',
     'author_x' => 'Autor: {x}', // Don't replace {x}
+    'updated_x' => 'Updated at: {x}', // Don't replace {x}
     'module_outdated' => 'Wykryliśmy, e ten moduł jest przeznaczony do wersji Nameless {x}, a ty używasz wersji Nameless {y}', // Don't replace "{x}" or "{y}"
     'find_modules' => 'Znajdź moduły',
     'view_all_modules' => 'Pokaż wszystkie moduły',
@@ -491,6 +498,7 @@ $language = [
     'resend_activation_email' => 'Wyślij Maila Ponownie',
     'email_resent_successfully' => 'Wysłano maila ponownie.',
     'email_resend_failed' => 'Wysyłanie maila nie udało się, sprawdź swoje ustawienia.',
+    'no_item_selected' => 'No items selected',
 
     // Permissions
     'select_all' => 'Zaznacz wszystko',
@@ -641,6 +649,8 @@ $language = [
     'api_endpoints' => 'Punkty API',
     'api_endpoints_info' => 'Punkty API pomagają modułom w podłączaniu z różnymi usługami (np. Minecraft lub Discord), aby móc integrować z NamelessMC. <a href="https://docs.namelessmc.com/en/api-documentation" target="_blank">Check out the API documentation here</a>',
     'route' => 'Trasa',
+    'method' => 'Method',
+    'transformers' => 'Transformers',
 
     // File uploads
     'drag_files_here' => 'Przeciągnij pliki tutaj, aby je przesłać.',
@@ -682,6 +692,8 @@ $language = [
     'validate_hook_info' => 'Weryfikacja użytkownia',
     'delete_hook_info' => 'Usunięcie użytkownika',
     'report_hook_info' => 'Report creation',
+    'ban_hook_info' => 'User banned',
+    'warning_hook_info' => 'User warned',
 
     // Sitemap
     'unable_to_load_sitemap_file_x' => 'Nie można załadować pliku mapy strony {x}', // Don't replace {x}
@@ -744,4 +756,12 @@ $language = [
     'no_announcements' => 'Nie ma jeszcze żadnych ogłoszeń.',
     'announcement_order' => 'Order',
     'announcement_hook_info' => 'Announcement creation',
+
+    // OAuth
+    'oauth' => 'OAuth',
+    'oauth_info' => 'Configure OAuth providers to allow users to login with their social network accounts. <a href="https://docs.namelessmc.com/en/oauth" target="_blank">Check out our documentation for help.</a>',
+    'unlink' => 'Unlink',
+    'identifier' => 'Identifier',
+    'unlink_account_confirm' => 'Are you sure you want to forcibly unlink this provider from this user?',
+    'unlink_account_success' => 'Successfully unlinked their account from {x}.', // Don't replace {x}
 ];

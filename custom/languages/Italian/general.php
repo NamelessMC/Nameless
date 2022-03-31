@@ -55,6 +55,9 @@ $language = [
     'report' => 'Segnala',
     'reported_by' => 'Reported by {x}',
     'view_report' => 'View report',
+    'report_origin' => 'Origin',
+    'origin_website' => 'Website',
+    'origin_api' => 'API',
     'page_loaded_in' => 'Pagina caricata in {x}s', // Don't replace {x}, time unit is seconds
     'page_x' => 'Pagina {x}',
     'browse' => 'Esplora',
@@ -74,19 +77,6 @@ $language = [
     'leaderboards' => 'Leaderboards',
 
     /*
-     *  Contact form
-     */
-    'contact' => 'Contattaci',
-    'message' => 'Messaggio',
-    'email_address' => 'Indirizzo Email',
-    'contact_email_subject' => 'Nuova richiesta di modulo di contatto',
-    'contact_message_failed' => 'Impossibile inviare il messaggio. Assicurati di aver inserito un messaggio tra 10 e 5000 caratteri.',
-    'contact_message_email' => "L'email fornita non è valida.",
-    'contact_message_sent' => 'Messaggio inviato con successo.',
-    'contact_message_limit' => "È possibile inviare solo un messaggio all'ora. Puoi inviare un messaggio tra {x} minuti.", // Don't replace {x}
-
-
-    /*
      *  Navbar
      */
     'home' => 'Home',
@@ -102,12 +92,6 @@ $language = [
      *  Homepage
      */
     'social' => 'Social',
-
-
-    /*
-     *  Help dialogues
-     */
-    'markdown_help' => 'Puoi formattare il tuo post utilizzando Markdown. Per ulteriori informazioni, consulta <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank">qui</a>.',
 
     /*
      *  Server query
@@ -164,5 +148,10 @@ $language = [
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'Reindirizzamento in corso...<br />Se non vieni reindirizzato automaticamente, clicca <a href="{x}" rel="nofollow noopener">qui</a>.' // Don't replace {x} which is the redirect URL
+    'redirecting_message' => 'Reindirizzamento in corso...<br />Se non vieni reindirizzato automaticamente, clicca <a href="{x}" rel="nofollow noopener">qui</a>.', // Don't replace {x} which is the redirect URL
+
+    /*
+     * OAuth
+     */
+    'oauth_message_continue' => 'Continue registering with {x}', // Don't replace {x}
 ];

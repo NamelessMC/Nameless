@@ -1,5 +1,12 @@
 <?php
-
+/**
+ * Manages registration of GroupSyncInjectors as well as broadcasting group changes to them.
+ *
+ * @package NamelessMC\Group_Sync
+ * @author Aberdeener
+ * @version 2.0.0-pr13
+ * @license MIT
+ */
 final class GroupSyncManager extends Instanceable {
 
     /** @var GroupSyncInjector[] */
@@ -13,7 +20,7 @@ final class GroupSyncManager extends Instanceable {
      * Ensures the provided class name is a valid GroupSyncInjector instance,
      * and that the column name of the new injector has not been taken.
      *
-     * @param string $class Class name of new injector
+     * @param class-string $class Class name of new injector
      */
     public function registerInjector(string $class): void {
         /** @var GroupSyncInjector */
@@ -84,9 +91,11 @@ final class GroupSyncManager extends Instanceable {
      * @return Validate New `Validate` instance
      */
     public function makeValidator(array $source, Language $language): Validate {
-        return (new Validate)
-            ->check($source, $this->compileValidatorRules())
-            ->messages($this->compileValidatorMessages($language));
+        return Validate::check(
+            $source, $this->compileValidatorRules()
+        )->messages(
+            $this->compileValidatorMessages($language)
+        );
     }
 
     /**
@@ -156,8 +165,7 @@ final class GroupSyncManager extends Instanceable {
      *
      * @param User $user NamelessMC user to apply changes to
      * @param string $sending_injector_class Class name of injector broadcasting this change
-     * @param array $group_ids Array of Group IDs native to the sending injector
-     * which were added/removed to the user
+     * @param array $group_ids Array of Group IDs native to the sending injector which were added/removed to the user
      *
      * @return array Array of logs of changed groups
      */

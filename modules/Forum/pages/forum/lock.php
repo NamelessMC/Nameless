@@ -9,13 +9,11 @@
  *  Lock/unlock a topic
  */
 
-require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
 $forum = new Forum();
 
 if ($user->isLoggedIn()) {
     if (!isset($_GET['tid']) || !is_numeric($_GET['tid'])) {
         Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
-        die();
     }
 
     $topic_id = $_GET['tid'];
@@ -25,13 +23,11 @@ if ($user->isLoggedIn()) {
 
     if (!count($topic)) {
         Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
-        die();
     }
 
     if (!isset($_POST['token']) || !Token::check($_POST['token'])) {
         Session::flash('failure_post', $language->get('general', 'invalid_token'));
         Redirect::to(URL::build('/forum/topic/' . $topic_id));
-        die();
     }
 
     $forum_id = $topic[0]->forum_id;
@@ -58,4 +54,3 @@ if ($user->isLoggedIn()) {
 } else {
     Redirect::to(URL::build('/forum'));
 }
-die();

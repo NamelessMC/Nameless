@@ -1,21 +1,32 @@
 <?php
-
-/*
- *	Made by Aberdeener
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr12
+/**
+ * Discord utility class
  *
- *  License: MIT
- *
- *  Discord Integration module helper class
+ * @package Modules\Discord Integration
+ * @author Aberdeener
+ * @version 2.0.0-pr13
+ * @license MIT
  */
-
 class Discord {
 
+    /**
+     * @var bool Whether the Discord bot is set up properly
+     */
     private static bool $_is_bot_setup;
+
+    /**
+     * @var int|null The ID of this website's Discord server
+     */
     private static ?int $_guild_id;
+
+    /**
+     * @var Language Instance of Language class for translations
+     */
     private static Language $_discord_integration_language;
 
+    /**
+     * @var array|string[] Valid responses from the Discord bot
+     */
     private static array $_valid_responses = [
         'fullsuccess',
         'badparameter',
@@ -27,12 +38,20 @@ class Discord {
         'invrole',
     ];
 
-    public static function updateDiscordRoles(User $user_query, array $added, array $removed): bool {
+    /**
+     * Update a user's roles in the Discord guild.
+     *
+     * @param User $user The user whose roles to update
+     * @param array $added Array of Discord role IDs to add
+     * @param array $removed Array of Discord role IDs to remove
+     * @return bool Whether the request was successful or not
+     */
+    public static function updateDiscordRoles(User $user, array $added, array $removed): bool {
         if (!self::isBotSetup()) {
             return false;
         }
 
-        if ($user_query->data()->discord_id == null || $user_query->data()->discord_id == 010) {
+        if ($user->data()->discord_id == null || $user->data()->discord_id == 010) {
             return false;
         }
 
@@ -43,7 +62,7 @@ class Discord {
             return false;
         }
 
-        $json = self::assembleJson($user_query->data()->discord_id, $added_arr, $removed_arr);
+        $json = self::assembleJson($user->data()->discord_id, $added_arr, $removed_arr);
 
         $result = self::discordBotRequest('/roleChange', $json);
 
@@ -59,20 +78,26 @@ class Discord {
         $errors = self::parseErrors($result);
 
         foreach ($errors as $error) {
-            Log::getInstance()->log(Log::Action('discord/role_set'), $error, $user_query->data()->id, $user_query->getIP());
+            Log::getInstance()->log(Log::Action('discord/role_set'), $error, $user->data()->id, $user->getIP());
         }
 
         return false;
     }
 
+    /**
+     * @return bool Whether the Discord bot is set up properly
+     */
     public static function isBotSetup(): bool {
-        if (!isset(self::$_is_bot_setup)) {
-            self::$_is_bot_setup = Util::getSetting(DB::getInstance(), 'discord_integration');
-        }
-
-        return self::$_is_bot_setup;
+        return self::$_is_bot_setup ??= Util::getSetting(DB::getInstance(), 'discord_integration');
     }
 
+    /**
+     * Create a JSON object to send to the Discord bot.
+     *
+     * @param array $groups Array of Discord role IDs to add or remove
+     * @param string $action Whether to 'add' or 'remove' the groups
+     * @return array Assembled array of Discord role IDs and their action
+     */
     private static function assembleGroupArray(array $groups, string $action): array {
         $return = [];
 
@@ -92,7 +117,14 @@ class Discord {
         return $return;
     }
 
-    public static function getDiscordRoleId(DB $db, int $nameless_group_id) {
+    /**
+     * Get the associated NamelessMC group ID for a Discord role.
+     *
+     * @param DB $db Instance of DB class
+     * @param int $nameless_group_id The ID of the NamelessMC group
+     * @return null|int The Discord role ID for the NamelessMC group
+     */
+    public static function getDiscordRoleId(DB $db, int $nameless_group_id): ?int {
         $nameless_injector = GroupSyncManager::getInstance()->getInjectorByClass(NamelessMCGroupSyncInjector::class);
 
         $discord_role_id = $db->get('group_sync', [$nameless_injector->getColumnName(), '=', $nameless_group_id]);
@@ -103,6 +135,14 @@ class Discord {
         return null;
     }
 
+    /**
+     * Create a JSON objec to send to the Discord bot.
+     *
+     * @param int $user_id Discord user ID to affect
+     * @param array $added_arr Array of Discord role IDs to add (compiled with `assembleGroupArray`)
+     * @param array $removed_arr Array of Discord role IDs to remove (compiled with `assembleGroupArray`)
+     * @return string JSON object to send to the Discord bot
+     */
     private static function assembleJson(int $user_id, array $added_arr, array $removed_arr): string {
         // TODO cache or define() website api key and discord guild id
         return json_encode([
@@ -113,6 +153,9 @@ class Discord {
         ]);
     }
 
+    /**
+     * @return int|null Discord guild ID for this site
+     */
     public static function getGuildId(): ?int {
         if (!isset(self::$_guild_id)) {
             self::$_guild_id = Util::getSetting(DB::getInstance(), 'discord');
@@ -121,8 +164,15 @@ class Discord {
         return self::$_guild_id;
     }
 
-    public static function discordBotRequest(string $url = '/status', ?string $body = null) {
-        $response = HttpClient::post(BOT_URL . $url, $body)->data();
+    /**
+     * Make a request to the Discord bot.
+     *
+     * @param string $url URL of the Discord bot instance
+     * @param string|null $body Body of the request
+     * @return false|string Response from the Discord bot or false if the request failed
+     */
+    private static function discordBotRequest(string $url = '/status', ?string $body = null) {
+        $response = HttpClient::post(BOT_URL . $url, $body)->contents();
 
         if (in_array($response, self::$_valid_responses)) {
             return $response;
@@ -133,6 +183,12 @@ class Discord {
         return false;
     }
 
+    /**
+     * Get a language term for the Discord Integration module.
+     *
+     * @param string $term Term to search for
+     * @return string Language term from the language file
+     */
     public static function getLanguageTerm(string $term): string {
         if (!isset(self::$_discord_integration_language)) {
             self::$_discord_integration_language = new Language(ROOT_PATH . '/modules/Discord Integration/language', LANGUAGE);
@@ -141,6 +197,12 @@ class Discord {
         return self::$_discord_integration_language->get('discord_integration', $term);
     }
 
+    /**
+     * Parse errors from a request to the Discord bot.
+     *
+     * @param mixed $result Result of the Discord bot request
+     * @return array Array of errors during a request to the Discord bot
+     */
     private static function parseErrors($result): array {
         if ($result === false) {
             // This happens when the url is invalid OR the bot is unreachable (down, firewall, etc)
@@ -159,11 +221,21 @@ class Discord {
         return [self::getLanguageTerm('discord_unknown_error')];
     }
 
+    /**
+     * Cache Discord roles.
+     *
+     * @param mixed $roles Discord roles to cache
+     */
     public static function saveRoles($roles): void {
         $roles = [json_encode($roles)];
         file_put_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('discord_roles') . '.cache', $roles);
     }
 
+    /**
+     * Get cached Discord roles.
+     *
+     * @return array Cached Discord roles
+     */
     public static function getRoles(): array {
         if (file_exists(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('discord_roles') . '.cache')) {
             return json_decode(file_get_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('discord_roles') . '.cache'), true);

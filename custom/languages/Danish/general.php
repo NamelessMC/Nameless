@@ -55,6 +55,9 @@ $language = [
     'report' => 'Rapport',
     'reported_by' => 'Reported by {x}',
     'view_report' => 'View report',
+    'report_origin' => 'Origin',
+    'origin_website' => 'Website',
+    'origin_api' => 'API',
     'page_loaded_in' => 'Side indlæst i {x}s', // Don't replace {x}, time unit is seconds
     'page_x' => 'Side {x}',
     'browse' => 'Gennemse',
@@ -74,18 +77,6 @@ $language = [
     'leaderboards' => 'Leaderboards',
 
     /*
-     *  Contact form
-     */
-    'contact' => 'Kontakt',
-    'message' => 'Besked',
-    'email_address' => 'E-Mail Adresse',
-    'contact_email_subject' => 'Ny kontaktformular indsendelse',
-    'contact_message_failed' => 'Kan ikke sende besked. Kontroller, at du har indtastet en besked på mellem 10 og 5000 tegn.',
-    'contact_message_sent' => 'Besked sendt.',
-    'contact_message_email' => 'Den angivne e-mail er ugyldig.',
-    'contact_message_limit' => 'Du kan kun sende en besked i timen. Du kan sende en besked igen om {x} minutter.', // Don't replace {x}
-
-    /*
      *  Navbar
      */
     'home' => 'Hjem',
@@ -101,11 +92,6 @@ $language = [
      *  Homepage
      */
     'social' => 'Social',
-
-    /*
-     *  Help dialogues
-     */
-    'markdown_help' => 'Du kan formatere dit indlæg ved hjælp af Markdown. For mere information, se <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>her</a>.',
 
     /*
      *  Server query
@@ -162,5 +148,10 @@ $language = [
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'Omdirigerer...<br />Hvis du ikke bliver omdirigeret automatisk, klik venligst <a href="{x}" rel="nofollow noopener">her</a>.' // Don't replace {x} which is the redirect URL
+    'redirecting_message' => 'Omdirigerer...<br />Hvis du ikke bliver omdirigeret automatisk, klik venligst <a href="{x}" rel="nofollow noopener">her</a>.', // Don't replace {x} which is the redirect URL
+
+    /*
+     * OAuth
+     */
+    'oauth_message_continue' => 'Continue registering with {x}', // Don't replace {x}
 ];

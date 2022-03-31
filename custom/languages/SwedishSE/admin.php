@@ -45,10 +45,14 @@ $language = [
     'upgrade_php_version' => 'Please upgrade your PHP version to at least 7.4 - the next Nameless release will no longer support the version you are using.',
 
     // Core
-    'mode_toggle' => 'Mörker/Ljus Läge',
+    'mode_toggle' => 'Mörker Läge',
     'settings' => 'Inställningar',
     'general_settings' => 'Allmänna Inställningar',
     'sitename' => 'Sido namn',
+    'punished_id' => 'Punished User ID',
+    'punisher_id' => 'Punisher User ID',
+    'reason' => 'Ban Reason',
+    'ip_ban' => 'IP ban?',
     'default_language' => 'Standardspråk',
     'default_language_help' => 'Användarna kommer att kunna välja mellan alla installerade språk.',
     'install_language' => 'Installera Språk',
@@ -63,7 +67,6 @@ $language = [
     'email_verification' => 'Aktivera E-post verifiering?',
     'registration_settings_updated' => 'Registratingsinställningar har uppdaterats.',
     'homepage_type' => 'Hemside typ',
-    'post_formatting_type' => 'Post formaterings typ',
     'portal' => 'Portal',
     'private_profiles' => 'Privat Profiler',
     'missing_sitename' => 'Vänligen ange ett sajtnamn mellan 2 och 64 tecken långt.',
@@ -104,7 +107,7 @@ $language = [
     'enable_mailer_help' => 'Aktivera det här om e-postmeddelanden inte skickas som standard. Användningen av PHPMailer kräver att du har en tjänst som kan skicka e-postmeddelanden, till exempel Gmail eller en SMTP-leverantör.',
     'outgoing_email' => 'Utgående E-postadress',
     'outgoing_email_info' => 'Detta är den e-postadress som NamelessMC ska använda för att skicka e-post från.',
-    'mailer_settings_info' => 'The following fields are required if you have enabled PHPMailer. For more information on how to fill out these fields, check out <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-SMTP-with-Nameless-(e.g.-Gmail-or-Outlook)" target="_blank">the wiki</a>.',
+    'mailer_settings_info' => 'De följande fälten krävs om du har aktiverat PHPMailer, se <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-SMTP-with-Nameless-(e.g.-Gmail-or-Outlook)" target="_blank">dokumentationen.</a>.',
     'host' => 'Host',
     'email_port' => 'Port',
     'email_port_invalid' => 'Vänligen ange en giltig email port.',
@@ -149,11 +152,12 @@ $language = [
     'navigation_settings_updated_successfully' => 'Navigations inställningarna har uppdaterats.',
     'dropdown_items' => 'Dropdown-Objekt',
     'enable_page_load_timer' => 'Aktivera sidladdningstimer?',
-    'captcha_general' => 'Aktivera Captcha på registrering och kontaktsida?',
+    'captcha_general' => 'Aktivera Captcha på registrering?',
     'captcha_login' => 'Aktivera Captcha på inloggningssidan?',
     'captcha_type' => 'Captcha Typ',
     'captcha_site_key' => 'Captcha Site Key',
     'captcha_secret_key' => 'Captcha Secret Key',
+    'invalid_recaptcha_settings' => 'Invalid {x} credentials. Ensure the site key and site secret are correct.', // Don't replace {x}
     'registration_disabled_message' => 'Registrering inaktiverad text',
     'enable_nicknames_on_registration' => 'Aktivera smeknman för registrerande användare?',
     'validation_promote_group' => 'Grupp efter validering',
@@ -289,6 +293,8 @@ $language = [
     'no_parent_server' => 'Ingen förälder server',
     'bungee_instance' => 'BungeeCord Instans?',
     'bungee_instance_help' => 'Välj det här alternativet om servern är en BungeeCord instans.',
+    'bedrock' => 'Bedrock?',
+    'bedrock_help' => 'Select this option if the server is a Bedrock server.',
     'server_query_information' => 'För att kunna visa en lista över onlinespelare på din webbplats, då <strong>måste</strong> din server ha \'enable-query\' aktiverat i din servers <strong>server.properties</strong> fil',
     'enable_status_query' => 'Aktivera status query?',
     'status_query_help' => 'Om det här är aktiverat visar status sidan den här servern som online eller offline.',
@@ -358,6 +364,7 @@ $language = [
     'module_disabled' => 'Modul inaktiverat.',
     'author' => 'Skapare:',
     'author_x' => 'Skapare: {x}', // Don't replace {x}
+    'updated_x' => 'Updated at: {x}', // Don't replace {x}
     'module_outdated' => 'Vi har upptäckt att den här modulen är avsedd för Nameless version {x}, men du kör Nameless version {y}', // Don't replace "{x}" or "{y}"
     'find_modules' => 'Hitta moduler',
     'view_all_modules' => 'Visa alla moduler',
@@ -493,6 +500,7 @@ $language = [
     'resend_activation_email' => 'Skicka aktiverings-e-post igen',
     'email_resent_successfully' => 'E-postmeddelandet skickades igen.',
     'email_resend_failed' => 'Det gick inte att skicka e-post igen, kontrollera dina e-postinställningar.',
+    'no_item_selected' => 'No items selected',
 
     // Permissions
     'select_all' => 'Välj alla',
@@ -641,8 +649,10 @@ $language = [
     'existing_rules' => 'Befintliga regler',
     'new_rule' => 'Ny regel',
     'api_endpoints' => 'API-slutpunkter',
-    'api_endpoints_info' => 'API-slutpunkter tillåter moduler att skapa sätt för externa applikationer (som Minecraft och Discord) att interagera med din NamelessMC-webbplats. <a href="https://docs.namelessmc.com/en/api-documentation" target="_blank">Check out the API documentation here</a>',
+    'api_endpoints_info' => 'API-slutpunkter tillåter moduler att skapa sätt för externa applikationer (som Minecraft och Discord) att interagera med din NamelessMC-webbplats. <a href="https://docs.namelessmc.com/en/api-documentation" target="_blank">Se API dokumentationen här.</a>',
     'route' => 'Rutt',
+    'method' => 'Method',
+    'transformers' => 'Transformers',
 
     // File uploads
     'drag_files_here' => 'Dra filer här för att ladda upp.',
@@ -683,6 +693,8 @@ $language = [
     'validate_hook_info' => 'Användarvalidering',
     'delete_hook_info' => 'Radering av användare',
     'report_hook_info' => 'Rapportera skapelse',
+    'ban_hook_info' => 'User banned',
+    'warning_hook_info' => 'User warned',
 
     // Sitemap
     'impossible_to_load_sitemap_file_x' => 'Det går inte att läsa in webbplatskartfilen {x}', // Don't replace {x}
@@ -745,4 +757,12 @@ $language = [
     'no_announcements' => 'Inga meddelanden har gjorts ännu.',
     'announcement_order' => 'Order',
     'announcement_hook_info' => 'Announcement creation',
+
+    // OAuth
+    'oauth' => 'OAuth',
+    'oauth_info' => 'Configure OAuth providers to allow users to login with their social network accounts. <a href="https://docs.namelessmc.com/en/oauth" target="_blank">Check out our documentation for help.</a>',
+    'unlink' => 'Unlink',
+    'identifier' => 'Identifier',
+    'unlink_account_confirm' => 'Are you sure you want to forcibly unlink this provider from this user?',
+    'unlink_account_success' => 'Successfully unlinked their account from {x}.', // Don't replace {x}
 ];

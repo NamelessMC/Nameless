@@ -57,6 +57,9 @@ $language = [
     'report' => 'Raportează',
     'reported_by' => 'Reported by {x}',
     'view_report' => 'View report',
+    'report_origin' => 'Origin',
+    'origin_website' => 'Website',
+    'origin_api' => 'API',
     'page_loaded_in' => 'Pagină incărcată în  {x} secunde.', // Don't replace {x}, time unit is seconds
     'page_x' => 'Pagina {x}',
     'browse' => 'Caută',
@@ -76,18 +79,6 @@ $language = [
     'leaderboards' => 'Leaderboards',
 
     /*
-     *  Contact form
-     */
-    'contact' => 'Contact',
-    'message' => 'Mesaj',
-    'email_address' => 'Adresa de e-mail',
-    'contact_email_subject' => 'Un nou mesaj prin intermediul formularului de contact',
-    'contact_message_failed' => 'Mesaj imposibil de trimis. Asigurați-vă că ați introdus un mesaj între 10 și 5000 de caractere.',
-    'contact_message_email' => 'Adresa de email oferită nu este validă.',
-    'contact_message_sent' => 'Mesaj trimis cu succes.',
-    'contact_message_limit' => 'Puteți trimite doar un mesaj pe oră. Aveți posibilitatea să trimiteți un nou mesaj în {x} minute.', // Don't replace {x}
-
-    /*
      *  Navbar
      */
     'home' => 'Acasă',
@@ -103,12 +94,6 @@ $language = [
      *  Homepage
      */
     'social' => 'Social',
-
-
-    /*
-     *  Help dialogues
-     */
-    'markdown_help' => 'Puteți să vă formatați postarea folosind Markdown. Pentru mai multe informații, vedeți <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>aici</a>.',
 
     /*
      *  Server query
@@ -165,5 +150,10 @@ $language = [
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'În curs de redirecționare...<br />Dacă nu ești redirecționat automat, te rog <a href="{x}" rel="nofollow noopener">apasă aici</a>.' // Don't replace {x} which is the redirect URL
+    'redirecting_message' => 'În curs de redirecționare...<br />Dacă nu ești redirecționat automat, te rog <a href="{x}" rel="nofollow noopener">apasă aici</a>.', // Don't replace {x} which is the redirect URL
+
+    /*
+     * OAuth
+     */
+    'oauth_message_continue' => 'Continue registering with {x}', // Don't replace {x}
 ];

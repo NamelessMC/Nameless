@@ -50,11 +50,12 @@ $language = [
     // Discord
     'discord_link' => 'Discord Link',
     'linked' => 'Verbunden',
+    'get_link_code' => 'Zeige link command',
     'not_linked' => 'Nicht verbunden',
     'discord_id' => 'Discord User ID',
     'discord_id_unlinked' => 'Die Verknüpfung Ihrer Discord-Benutzer-ID wurde erfolgreich aufgehoben.',
     'discord_id_confirm' => 'Please run the command "/verify {token}" in Discord to finish linking your Discord account.',
-    'pending_link' => 'steht aus',
+    'pending_link' => 'Ausstehend',
     'discord_id_taken' => 'Diese Discord ID wurde bereits vergeben.',
     'discord_invalid_id' => 'Diese Discord-Benutzer-ID ist ungültig.',
     'discord_already_pending' => 'Sie haben bereits eine ausstehende Überprüfung.',

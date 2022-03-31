@@ -7,16 +7,17 @@
  *  License: MIT
  *
  *  Portuguese Language - Admin
- *  Translation By Douglas Teles & dasilvaj4
- *  Last Update: 24/04/2019
+ *  Translation by Douglas Teles, dasilvaj4 and DeusDrizzyy.
+ *  Last Update: 22/02/2022
  */
+
 $language = [
     /*
      *  Admin Control Panel
      */
 
     // Login
-    're-authenticate' => 'Por favor, logue-se novamente',
+    're-authenticate' => 'Por favor, logue-se novamente.',
 
     // Sidebar
     'dashboard' => 'Painel',
@@ -33,27 +34,31 @@ $language = [
     'users_and_groups' => 'Usuários & Grupos',
 
     // Overview
-    'running_nameless_version' => 'Versão do NamelessMC: <strong>{x}</strong>', // Don't replace "{x}"
-    'running_php_version' => 'Versão do PHP: <strong>{x}</strong>', // Don't replace "{x}"
+    'running_nameless_version' => 'Versão do NamelessMC: <strong>{x}</strong>', // Não substituir o "{x}".
+    'running_php_version' => 'Versão do PHP: <strong>{x}</strong>', // Não substituir o "{x}".
     'statistics' => 'Estatísticas',
     'registrations' => 'Cadastros',
     'topics' => 'Tópicos',
     'posts' => 'Postagens',
     'notices' => 'Notificações',
     'no_notices' => 'Sem notificações.',
-    'email_errors_logged' => 'Erros de email foram registrados',
-    'upgrade_php_version' => 'Please upgrade your PHP version to at least 7.4 - the next Nameless release will no longer support the version you are using.',
+    'email_errors_logged' => 'Erros de email foram registrados.',
+    'upgrade_php_version' => 'Por favor, atualize sua versão PHP para pelo menos 7.4, a próxima versão Nameless não suportará mais a versão que você está usando.',
 
     // Core
-    'mode_toggle' => 'Modo Escuro/Claro',
+    'mode_toggle' => 'Modo Escuro',
     'settings' => 'Configurações',
     'general_settings' => 'Configurações Gerais',
     'sitename' => 'Nome do site',
+    'punished_id' => 'Punished User ID',
+    'punisher_id' => 'Punisher User ID',
+    'reason' => 'Ban Reason',
+    'ip_ban' => 'IP ban?',
     'default_language' => 'Idioma padrão',
     'default_language_help' => 'Os usuários poderão escolher entre os idiomas instalados.',
     'install_language' => 'Instalar Linguagem',
     'update_user_languages' => 'Atualizar Linguagem dos Usuários',
-    'update_user_languages_warning' => 'Isso atualizará o idioma para todos os usuários do seu site, mesmo que eles já tenham selecionado um!',
+    'update_user_languages_warning' => 'Isso atualizará o idioma para todos os usuários do seu site, mesmo que eles já tenham selecionado outro idioma!',
     'updated_user_languages' => 'A lingugagem dos usuários foi atualizada.',
     'installed_languages' => 'Todos os novos idiomas foram instalados com êxito.',
     'default_timezone' => 'Fuso horário padrão',
@@ -63,7 +68,6 @@ $language = [
     'email_verification' => 'Ativar verificação de email?',
     'registration_settings_updated' => 'Configurações de registro atualizadas com sucesso.',
     'homepage_type' => 'Tipo de Homepage',
-    'post_formatting_type' => 'Tipo de formatação de postagem',
     'portal' => 'Portal',
     'private_profiles' => 'Perfis Privados',
     'missing_sitename' => 'Por favor, insira o nome do site contendo de 2 a 64 caracteres.',
@@ -107,16 +111,16 @@ $language = [
     'mailer_settings_info' => 'Os campos a seguir são necessários se você tiver habilitado o PHPMailer. Para obter mais informações sobre como preencher esses campos, confira <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-SMTP-with-Nameless-(e.g.-Gmail-or-Outlook)" target="_blank">a wiki</a>.',
     'host' => 'Host',
     'email_port' => 'Porta',
-    'email_port_invalid' => 'Please insert a valid email port.',
+    'email_port_invalid' => 'Por favor, insira uma porta de email válida.',
     'email_password_hidden' => 'A senha não é mostrada por razões de segurança.',
     'send_test_email' => 'Enviar email de teste',
-    'send_test_email_info' => 'O seguinte botão irá tentar enviar um email para o seu endereço de email, <strong>{x}</strong>. Qualquer erro que occora enquanto envia o email será exibido.', // Don't replace {x}
+    'send_test_email_info' => 'O seguinte botão irá tentar enviar um email para o seu endereço de email, <strong>{x}</strong>. Qualquer erro que occora enquanto envia o email será exibido.', // Não substituir o {x}.
     'send' => 'Enviar',
     'test_email_error' => 'Erro do email de teste:',
     'test_email_success' => 'Email de teste enviado com sucesso!',
     'edit_email_messages' => 'Mensagens de Email',
     'email_language_info' => 'Não está vendo seu idioma? Certificar-se de que \'emails.php\' está no diretório do seu idioma e é gravável pelo seu servidor web.',
-    'editing_language' => 'Editing Language',
+    'editing_language' => 'Editar Linguagem',
     'email_preview_popup' => 'Prévia',
     'email_preview_popup_message' => 'Clique aqui para ver uma prévia do email.',
     'email_message_greeting' => 'Saudações',
@@ -154,6 +158,7 @@ $language = [
     'captcha_type' => 'Tipo de Captcha',
     'captcha_site_key' => 'Chave do site do Captcha',
     'captcha_secret_key' => 'Chave Secreta do Captcha',
+    'invalid_recaptcha_settings' => 'Invalid {x} credentials. Ensure the site key and site secret are correct.', // Don't replace {x}
     'registration_disabled_message' => 'Motivo do registro está desativado',
     'enable_nicknames_on_registration' => 'Ativar nickname para registrar usuários?',
     'validation_promote_group' => 'Grupo pós-validação',
@@ -167,42 +172,42 @@ $language = [
     'emails_mass_message_sent_successfully' => 'Mensagem de email em massa enviada com sucesso.',
     'emails_mass_message_replacements' => 'Você pode usar variáveis ​​em sua mensagem de email. Variáveis ​​com suporte: {username}, {sitename}',
     'emails_mass_message_loading' => 'Carregando... Por favor, não recarregue a página. Isso pode demorar um pouco.',
-    'administrator' => 'Administrator',
-    'administrator_permission_info' => 'Members with this permission will have every permission. This is a dangerous permission to grant.',
+    'administrator' => 'Administrador',
+    'administrator_permission_info' => 'Os membros com esta permissão terão todas as permissões. Esta é uma permissão perigosa a ser concedida.',
 
     // Placeholders
     'placeholders' => 'Placeholders',
-    'enable_placeholders' => 'Enable Placeholders?',
-    'updated_placeholder_settings' => 'Updated placeholder settings successfully.',
-    'placeholders_info' => 'Placeholders allow the NamelessMC Spigot plugin to send statistics about each player to your website so they can display them on their profile and forum posts.',
-    'placeholders_none' => 'There are no placeholders.',
-    'placeholders_server_id' => 'Server ID',
-    'placeholders_name' => 'Name',
-    'placeholders_value' => 'Value',
-    'placeholders_last_updated' => 'Last Updated',
-    'placeholders_friendly_name' => 'Friendly Name',
-    'placeholders_friendly_name_info' => 'Use this to set a \'nickname\' to this placeholder. The friendly name will be used instead of the raw name.',
-    'placeholders_show_on_profile' => 'Show on Profile',
-    'placeholders_show_on_profile_info' => 'Whether to show this placeholder on each user\'s profile or not.',
-    'placeholders_show_on_forum' => 'Show on Forum',
-    'placeholders_show_on_forum_info' => 'Whether to show this placeholder on each user\'s forum posts or not.',
+    'enable_placeholders' => 'Ativar as Placeholders?',
+    'updated_placeholder_settings' => 'Configurações das placeholders atualizadas com sucesso.',
+    'placeholders_info' => 'As Placeholders permitem que o plugin Spigot do NamelessMC envie estatísticas sobre cada jogador para seu website para que possam exibi-las em seus perfis e postagens no fórum.',
+    'placeholders_none' => 'Não há placeholders.',
+    'placeholders_server_id' => 'ID do servidor',
+    'placeholders_name' => 'Nome',
+    'placeholders_value' => 'Valor',
+    'placeholders_last_updated' => 'Última Atualização',
+    'placeholders_friendly_name' => 'Nome amigável',
+    'placeholders_friendly_name_info' => 'Use isto para definir um \'apelido\' para esta placeholder. Apenas o nome amigável que será exibido.',
+    'placeholders_show_on_profile' => 'Mostrar no Perfil',
+    'placeholders_show_on_profile_info' => 'Deseja mostrar ou não este placeholder em cada perfil de usuário.',
+    'placeholders_show_on_forum' => 'Mostrar no Fórum',
+    'placeholders_show_on_forum_info' => 'Deseja mostrar ou não este placeholder nas mensagens do fórum de cada usuário',
 
     // Placeholder leaderboards
-    'leaderboard_settings' => 'Leaderboard Settings',
-    'placeholder_leaderboard_settings' => 'Placeholder Leaderboard Settings',
-    'placeholder_leaderboard_info' => 'Placeholder Leaderboards let you create leaderboards to display ranked players on your server according to any placeholder.',
-    'placeholder_leaderboard_enable_info' => 'Leaderboards work best with numeric placeholders (such as coins, kills, blocks mined, etc). If you enable a leaderboard on a text-based placeholder - you cannot be sure it will order it as you want.',
-    'placeholder_leaderboard_updated' => 'Updated leaderboard settings successfully',
-    'placeholder_leaderboard_enabled' => 'Leaderboard Enabled',
-    'placeholder_leaderboard_title' => 'Leaderboard Title',
-    'placeholder_leaderboard_sort' => 'Leaderboard Sort',
+    'leaderboard_settings' => 'Configuração do Leaderboard',
+    'placeholder_leaderboard_settings' => 'Configurações do Leaderboard de Placeholders',
+    'placeholder_leaderboard_info' => 'Os Leaderboards permitem que você crie uma tabela por rank para exibir os jogadores do seu servidor de acordo com qualquer placeholder.',
+    'placeholder_leaderboard_enable_info' => 'Os "Leaderboards" funcionam melhor com placeholders numéricos (tais como coins, kills, blocos minerados, etc.). Se você habilitar um Leaderboard com um placeholder baseado em texto, pode ser que não seja exibido corretamente e/ou em ordem.',
+    'placeholder_leaderboard_updated' => 'Configurações do leaderboard atualizadas com sucesso.',
+    'placeholder_leaderboard_enabled' => 'Leaderboard Ativado',
+    'placeholder_leaderboard_title' => 'Título do Leaderboard',
+    'placeholder_leaderboard_sort' => 'Ordenar Leaderboard',
 
     // SEO
     'seo' => 'SEO',
     'google_analytics' => 'Google Analytics',
     'google_analytics_help' => 'Adicione o Google Analytics ao seu site para rastrear visitantes e estatísticas. Você precisará criar uma conta do Google Analytics para usar esta funcionalidade. Insira seu ID de propriedade da web do Google Analytics. O ID se parece com UA-XXXXA-X e você pode encontrá-lo nas informações da sua conta ou no código de rastreamento fornecido pelo Google.',
     'sitemap' => 'Sitemap',
-    'seo_settings_updated_successfully' => 'SEO settings updated successfully.',
+    'seo_settings_updated_successfully' => 'Configurações do SEO atualizadas com sucesso.',
 
     // Reactions
     'icon' => 'Ícone',
@@ -218,11 +223,11 @@ $language = [
     'reaction_created_successfully' => 'Reação criada com sucesso.',
     'reaction_edited_successfully' => 'Reação editada com sucesso.',
     'reaction_deleted_successfully' => 'Reação excluída com sucesso.',
-    'name_required' => 'Um nome é obrigatório',
-    'html_required' => 'HTML é obrigatório',
-    'type_required' => 'Um tipo é obrigatório',
-    'name_maximum_16' => 'O nome deve ter no máximo 16 caracteres',
-    'html_maximum_255' => 'O HTML deve ter no máximo 255 caracteres',
+    'name_required' => 'Um nome é obrigatório.',
+    'html_required' => 'HTML é obrigatório.',
+    'type_required' => 'Um tipo é obrigatório.',
+    'name_maximum_16' => 'O nome deve ter no máximo 16 caracteres.',
+    'html_maximum_255' => 'O HTML deve ter no máximo 255 caracteres.',
     'confirm_delete_reaction' => 'Tem certeza de que deseja excluir essa reação?',
 
     // Custom profile fields
@@ -289,6 +294,8 @@ $language = [
     'no_parent_server' => 'Sem servidor pai',
     'bungee_instance' => 'Instância BungeeCord?',
     'bungee_instance_help' => 'Selecione essa opção se o servidor for uma instância BungeeCord.',
+    'bedrock' => 'Bedrock?',
+    'bedrock_help' => 'Select this option if the server is a Bedrock server.',
     'server_query_information' => 'Para exibir uma lista de jogadores online em seu site, seu servidor <strong>deve</strong> estar com a opção \'enable-query\' ativada no arquivo <strong>server.properties</strong> do seu servidor',
     'enable_status_query' => 'Ativar o status da query?',
     'status_query_help' => 'Se isso estiver habilitado, a página de status mostrará a este servidor como estando online ou offline.',
@@ -300,23 +307,23 @@ $language = [
     'server_query_port' => 'Porta Query do Servidor',
     'server_query_port_help' => 'Esta é a opção query.port no arquivo server.properties do servidor, desde que a opção enable-query no mesmo arquivo seja definida como true.',
     'server_name_required' => 'Por favor, insira o nome do servidor',
-    'server_name_minimum' => 'Certifique-se de que o nome do servidor tem pelo menos 1 caractere',
-    'server_name_maximum' => 'Certifique-se de que o nome do servidor tem no máximo 20 caracteres',
-    'server_address_required' => 'Por favor, insira o endereço do servidor',
-    'server_address_minimum' => 'Verifique se o endereço do servidor tem pelo menos 1 caractere',
-    'server_address_maximum' => 'Verifique se o endereço do servidor tem no máximo 64 caracteres',
-    'server_port_required' => 'Por favor, insira a porta do servidor',
-    'server_port_minimum' => 'Verifique se a porta do servidor tem pelo menos 2 caracteres',
-    'server_port_maximum' => 'Verifique se a porta d oservidor tem no máximo 5 caracteres',
-    'server_parent_required' => 'Por favor, selecione um servidor pai',
-    'query_port_maximum' => 'Verifique se a porta de query tem no máximo 5 caracteres',
+    'server_name_minimum' => 'Certifique-se de que o nome do servidor tem pelo menos 1 caractere.',
+    'server_name_maximum' => 'Certifique-se de que o nome do servidor tem no máximo 20 caracteres.',
+    'server_address_required' => 'Por favor, insira o endereço do servidor.',
+    'server_address_minimum' => 'Verifique se o endereço do servidor tem pelo menos 1 caractere.',
+    'server_address_maximum' => 'Verifique se o endereço do servidor tem no máximo 64 caracteres.',
+    'server_port_required' => 'Por favor, insira a porta do servidor.',
+    'server_port_minimum' => 'Verifique se a porta do servidor tem pelo menos 2 caracteres.',
+    'server_port_maximum' => 'Verifique se a porta d oservidor tem no máximo 5 caracteres.',
+    'server_parent_required' => 'Por favor, selecione um servidor pai.',
+    'query_port_maximum' => 'Verifique se a porta de query tem no máximo 5 caracteres.',
     'server_created' => 'Servidor criado com sucesso.',
     'confirm_delete_server' => 'Tem certeza de que deseja excluir este servidor?',
     'server_updated' => 'Servidor atualizado com sucesso.',
     'editing_server' => 'Editando o Servidor',
-    'server_deleted' => 'Servidor deletado com sucesso',
+    'server_deleted' => 'Servidor deletado com sucesso.',
     'unable_to_delete_server' => 'Não foi possível excluir o servidor.',
-    'leave_port_empty_for_srv' => 'Você pode deixar a porta vazia se for 25565, ou se seu domínio usar um registro SRV',
+    'leave_port_empty_for_srv' => 'Você pode deixar a porta vazia se for 25565, ou se seu domínio usar um registro SRV.',
     'viewing_query_error' => 'Visualizando os erros da Query',
     'confirm_query_error_deletion' => 'Tem certeza de que deseja excluir esse erro de Query?',
     'no_query_errors' => 'Sem erro de Query registrado.',
@@ -331,7 +338,7 @@ $language = [
     'mcassoc_help' => 'O mcassoc é um serviço externo que pode ser usado para verificar que os usuários possuem a conta Minecraft com a qual se registraram. Para usar este recurso, você precisará se inscrever para uma chave compartilhada <a href="https://mcassoc.lukegb.com/" target="_blank">aqui</a>.',
     'mcassoc_key' => 'Chave compartilhada mcassoc',
     'mcassoc_instance' => 'Chave de instância do mcassoc',
-    'mcassoc_instance_help' => '<a href="#" onclick="generateInstance();">Clique para gerar uma chave de instância</a>',
+    'mcassoc_instance_help' => '<a href="#" onclick="generateInstance();">Clique para gerar uma chave de instância.</a>',
     'mcassoc_error' => 'Certifique-se de que você inseriu sua chave compartilhada corretamente e que gerou uma chave de instância corretamente.',
     'updated_mcassoc_successfully' => 'Configurações do mcassoc atualizadas com sucesso.',
     'force_premium_accounts' => 'Forçar contas Minecraft premium?',
@@ -341,7 +348,7 @@ $language = [
     'player_count_cronjob_info' => 'Você pode configurar uma cron job para consultar o seu servidor a cada {x} minutos com os seguintes comandos:',
     'status_page' => 'Ativar página de status?',
     'minecraft_settings_updated_successfully' => 'Configurações atualizadas com sucesso.',
-    'server_id_x' => 'ID do Servidor: {x}', // Don't replace {x}
+    'server_id_x' => 'ID do Servidor: {x}', // Não substituir o {x}.
     'server_information' => 'Informações do Servidor',
     'query_information' => 'Informações de Consulta',
     'query_errors_purged_successfully' => 'Erros de consulta removidos com sucesso.',
@@ -357,21 +364,22 @@ $language = [
     'module_enabled' => 'Módulo ativado.',
     'module_disabled' => 'Módulo desativado.',
     'author' => 'Autor:',
-    'author_x' => 'Autor: {x}', // Don't replace {x}
-    'module_outdated' => 'Detectamos que este módulo é destinado à versão {x} do Nameless, mas você está rodando a versão {y}', // Don't replace "{x}" or "{y}"
+    'author_x' => 'Autor: {x}', // Não substituir o {x}.
+    'updated_x' => 'Updated at: {x}', // Don't replace {x}
+    'module_outdated' => 'Detectamos que este módulo é destinado à versão {x} do Nameless, mas você está rodando a versão {y}', // Não substituir o "{x}" ou "{y}".
     'find_modules' => 'Encontrar Módulos',
     'view_all_modules' => 'Ver todos os módulos',
-    'unable_to_retrieve_modules' => 'Não foi possível recuperar os módulos',
+    'unable_to_retrieve_modules' => 'Não foi possível recuperar os módulos.',
     'module' => 'Módulo',
     'unable_to_enable_module' => 'Não é possível habilitar o módulo incompatível.',
-    'unable_to_enable_module_dependencies' => 'Não foi possível habilitar o módulo, pois depende do módulo {x}, que não está habilitado.', // Don't replace {x}
-    'unable_to_disable_module' => 'Não foi possível desativar o módulo - o módulo {x} depende disso.', // Don't replace {x}
+    'unable_to_enable_module_dependencies' => 'Não foi possível habilitar o módulo, pois depende do módulo {x}, que não está habilitado.', // Não substituir o {x}.
+    'unable_to_disable_module' => 'Não foi possível desativar o módulo - o módulo {x} depende disso.', // Não substituir o {x}.
 
     // Styles
     'templates' => 'Modelos',
     'panel_templates' => 'Painel de Modelos',
     'view_all_panel_templates' => 'Ver todos os modelos de painel',
-    'template_outdated' => 'Você está utilizando um modelo para a versão {x} do Nameless, porém sua versão do Nameless é {y}', // Don't replace "{x}" or "{y}"
+    'template_outdated' => 'Você está utilizando um modelo para a versão {x} do Nameless, porém sua versão do Nameless é {y}', // Não substituir o "{x}" ou "{y}".
     'template_not_supported' => 'A partir do NamelessMC 2.0.0-pr8, o modelo padrão não é compatível. Para obter a melhor experiência, use um modelo compatível.',
     'active' => 'Ativo',
     'deactivate' => 'Desativar',
@@ -384,20 +392,20 @@ $language = [
     'template_updated' => 'Modelo atualizado com sucesso.',
     'default' => 'Padrão',
     'make_default' => 'Tornar Padrão',
-    'default_template_set' => 'Modelo padrão definido para {x} com sucesso.', // Don't replace {x}
+    'default_template_set' => 'Modelo padrão definido para {x} com sucesso.', // Não substituir o {x}.
     'template_deactivated' => 'Modelo desativado.',
     'template_activated' => 'Modelo ativado.',
     'permissions' => 'Permissões',
-    'setting_perms_for_x' => 'Configurando as permissões do modelo {x}', // Don't replace {x}
+    'setting_perms_for_x' => 'Configurando as permissões do modelo {x}', // Não substituir o {x}.
     'templates_installed_successfully' => 'Todos os novos modelos foram instalados com sucesso.',
     'confirm_delete_template' => 'Tem certeza que você quer remover esse modelo?',
     'delete' => 'Remover',
     'template_deleted_successfully' => 'Modelo removido com sucesso.',
-    'background_image_x' => 'Imagem de fundo: <strong>{x}</strong>', // Don't replace {x}
-    'banner_image_x' => 'Imagem do banner: <strong>{x}</strong>', // Don't replace {x}
-    'logo_image_x' => 'Imagem do logotipo: <strong>{x}</strong>', // Don't replace {x}
-    'favicon_image_x' => 'Imagem da Favicon: <strong>{x}</strong>', // Don't replace {x}
-    'x_directory_not_writable' => 'O diretório <strong>{x}</strong> não é gravável!', // Don't replace {x}
+    'background_image_x' => 'Imagem de fundo: <strong>{x}</strong>', // Não substituir o {x}.
+    'banner_image_x' => 'Imagem do banner: <strong>{x}</strong>', // Não substituir o {x}.
+    'logo_image_x' => 'Imagem do logotipo: <strong>{x}</strong>', // Não substituir o {x}.
+    'favicon_image_x' => 'Imagem da Favicon: <strong>{x}</strong>', // Não substituir o {x}.
+    'x_directory_not_writable' => 'O diretório <strong>{x}</strong> não é gravável!', // Não substituir o {x}.
     'template_banner_reset_successfully' => 'Banner redefinido com sucesso.',
     'template_banner_updated_successfully' => 'Banner atualizado com sucesso.',
     'reset_banner' => 'Redefinir Banner',
@@ -409,14 +417,14 @@ $language = [
     'reset_favicon' => 'Redefinir Favicon',
     'find_templates' => 'Encontrar Modelos',
     'view_all_templates' => 'Ver todos os modelos',
-    'unable_to_retrieve_templates' => 'Não foi possível recuperar os modelos',
+    'unable_to_retrieve_templates' => 'Não foi possível recuperar os modelos.',
     'template' => 'Modelo',
     'stats' => 'Estatísticas',
     'downloads_x' => 'Downloads: {x}',
     'views_x' => 'Visualizações: {x}',
     'rating_x' => 'Avaliação: {x}',
-    'editing_template_x' => 'Editando modelo {x}', // Don't replace {x}
-    'editing_template_file_in_template' => 'Editando arquivo {x} no modelo {y}', // Don't replace {x} or {y}
+    'editing_template_x' => 'Editando modelo {x}', // Não substituir o {x}.
+    'editing_template_file_in_template' => 'Editando arquivo {x} no modelo {y}', // Não substituir o "{x}" ou "{y}".
     'cant_write_to_template' => 'Não foi possível salvar alterações no arquivo do modelo! Por favor, verifique as permissões de arquivo.',
     'unable_to_delete_template' => 'Não é possível excluir totalmente o modelo. Por favor, verifique as permissões do arquivo.',
     'background_reset_successfully' => 'Background redefinido com sucesso.',
@@ -440,7 +448,7 @@ $language = [
     'cant_modify_root_user' => 'Não é possível modificar o grupo principal deste usuário!',
     'main_group' => 'Grupo principal',
     'user_deleted' => 'Usuário excluído com sucesso.',
-    'confirm_user_deletion' => 'Você tem certeza que deseja excluir o usuário <strong>{x}</strong>?', // Don't replace {x}
+    'confirm_user_deletion' => 'Você tem certeza que deseja excluir o usuário <strong>{x}</strong>?', // Não substituir o {x}.
     'validate_user' => 'Validar Usuário',
     'update_uuid' => 'Atualizar UUID',
     'update_mc_name' => 'Atualizar Usuário Minecraft',
@@ -468,10 +476,10 @@ $language = [
     'group_username_css' => 'Group Username CSS',
     'group_staff' => 'O grupo é um grupo da Staff?',
     'delete_group' => 'Excluír Grupo',
-    'confirm_group_deletion' => 'Você tem certeza de que deseja excluir o grupo {x}?', // Don't replace {x}
+    'confirm_group_deletion' => 'Você tem certeza de que deseja excluir o grupo {x}?', // Não substituir o {x}.
     'group_not_exist' => 'Esse grupo não existe.',
     'secondary_groups' => 'Grupos secundários',
-    'secondary_groups_info' => 'Este usuário vai ganhar qualquer permissão adicional provenientes destes grupos',
+    'secondary_groups_info' => 'Este usuário vai ganhar qualquer permissão adicional provenientes destes grupos.',
     'unable_to_update_uuid' => 'Não foi possível atualizar o UUID.',
     'default_group' => 'Grupo padrão (para novos usuários)?',
     'user_id' => 'ID do usuário',
@@ -485,7 +493,7 @@ $language = [
     'user' => 'Usuário',
     'user_validated_successfully' => 'Usuário validado com sucesso.',
     'user_updated_successfully' => 'Usuário atualizado com sucesso.',
-    'editing_user_x' => 'Editando usuário {x}', // Don't replace {x}
+    'editing_user_x' => 'Editando usuário {x}', // Não substituir o {x}.
     'details' => 'Detalhes',
     'force_tfa' => 'Forçar a autenticação de dois fatores para membros do grupo?',
     'force_tfa_warning' => 'Certifique-se de saber o que isso faz, ou então você corre o risco de se bloquear e todos os membros do grupo.',
@@ -493,12 +501,13 @@ $language = [
     'resend_activation_email' => 'Reenviar Email de Ativação',
     'email_resent_successfully' => 'Email reenviado com sucesso.',
     'email_resend_failed' => 'O reenvio do email falhou, verifique as configurações do seu email.',
+    'no_item_selected' => 'Nenhum item selecionado.',
 
     // Permissions
     'select_all' => 'Selecionar Todos',
     'deselect_all' => 'Deselecionar Todos',
     'background_image' => 'Imagem de Fundo',
-    'can_edit_own_group' => 'Pode editar as permissão do seu próprio grupo',
+    'can_edit_own_group' => 'Pode editar as permissão do seu próprio grupo.',
     'permissions_updated_successfully' => 'Permissões atualizada com sucesso.',
     'cant_edit_this_group' => 'Você pode editar as permissões destes grupos!',
 
@@ -508,7 +517,7 @@ $language = [
     'enable_night_mode' => 'Ativar o modo escuro',
     'disable_night_mode' => 'Desativar o modo escuro',
     'view_site' => 'Ver Site',
-    'signed_in_as_x' => 'Logado como {x}', // Don't replace {x}
+    'signed_in_as_x' => 'Logado como {x}', // Não substituir o {x}.
     'warning' => 'Aviso',
 
     // Maintenance
@@ -523,27 +532,27 @@ $language = [
     'please_select_logs' => 'Selecione o registro para visualizar',
     'ip_address' => 'Endereço IP',
     'template_changes' => 'Alterações do Template',
-    'email_logs' => 'Mass Emails',
-    'group_sync_logs' => 'Group Sync Changes',
+    'email_logs' => 'Emails em Massa',
+    'group_sync_logs' => 'Registro da Sincronização de Grupos',
     'file_changed' => 'Arquivo Modificado',
     'all_logs' => 'Todos os Registros',
     'action' => 'Ação',
     'action_info' => 'Informação de Ação',
-    'groups_removed' => 'Groups Removed',
-    'groups_added' => 'Groups Added',
+    'groups_removed' => 'Grupos Removidos',
+    'groups_added' => 'Grupos Adicionados',
 
     // Updates
     'update' => 'Atualizar',
     'current_version_x' => 'Versão atual: <strong>{x}</strong>', // Don't replaec {x}
-    'new_version_x' => 'Nova versão: <strong>{x}</strong>', // Don't replace {x}
-    'new_update_available' => 'Há uma nova atualização disponível',
+    'new_version_x' => 'Nova versão: <strong>{x}</strong>', // Não substituir o {x}.
+    'new_update_available' => 'Há uma nova atualização disponível.',
     'new_urgent_update_available' => 'Há uma nova atualização urgente disponível. Por favor, atualize o mais rápido possível!',
     'up_to_date' => 'A sua instalação do NamelessMC está atualizada!',
-    'urgent' => 'Esta atualização é uma atualização crítica',
+    'urgent' => 'Esta atualização é uma atualização crítica.',
     'changelog' => 'Changelog',
     'update_check_error' => 'Ocorreu um erro ao verificar se havia uma atualização:',
     'instructions' => 'Instruções',
-    'download' => 'Download',
+    'download' => 'Baixar',
     'install_confirm' => 'Certifique-se de que transferiu o pacote e carregou os ficheiros contidos em primeiro lugar!',
     'check_again' => 'Verificar novamente',
 
@@ -552,8 +561,8 @@ $language = [
     'widget_enabled' => 'Widget ativado.',
     'widget_disabled' => 'Widget desativado.',
     'widget_updated' => 'Widget atualizado.',
-    'editing_widget_x' => 'Editando o widget {x}', // Don't replace {x}
-    'module_x' => 'Módulo: {x}', // Don't replace {x}
+    'editing_widget_x' => 'Editando o widget {x}', // Não substituir o {x}.
+    'module_x' => 'Módulo: {x}', // Não substituir o {x}.
     'widget_order' => 'Ordenação dos Widgets',
     'widget_location' => 'Localização do Widget',
     'left' => 'Esquerda',
@@ -580,7 +589,7 @@ $language = [
     'page_content' => 'Conteúdo da Página',
     'page_redirect' => 'Página de Redirecionamento?',
     'page_redirect_to' => 'Link para o redirecionamento (com o http:// ou https://)',
-    'page_target' => 'Open page in a new tab?',
+    'page_target' => 'Abrir página em uma nova aba?',
     'unsafe_html' => 'Permitir tags HTML não seguras?',
     'unsafe_html_warning' => 'Ativando está opção, siginifica que qualquer HTML pode ser usada nesta página, incluindo JavaScript potencialmente perigosos. Somente ativa esta opção se você está ciente que o seu HTML é seguro.',
     'include_in_sitemap' => 'Incluir no sitemap?',
@@ -588,7 +597,7 @@ $language = [
     'basic_page' => 'Página básica?',
     'page_permissions' => 'Permisões da Página',
     'view_page' => 'Ver Página?',
-    'editing_page_x' => 'Editando a Página {x}', // Don't replace {x}
+    'editing_page_x' => 'Editando a Página {x}', // Não substituir o {x}.
     'unable_to_create_page' => 'Não foi possível criar a página:',
     'page_title_required' => 'É necessário um título.',
     'page_url_required' => 'É necessário um endereço para página.',
@@ -619,7 +628,7 @@ $language = [
     'api_registration_email' => 'email de registro da API',
     'show_registration_link' => 'Mostrar link de registro',
     'registration_link' => 'Link de registro',
-    'link_to_complete_registration' => 'Link para o registro completo: {x}', // Don't replace {x}
+    'link_to_complete_registration' => 'Link para o registro completo: {x}', // Não substituir o {x}.
     'api_verification' => 'Ativar verificação de API?',
     'api_verification_info' => 'Se ativado, as contas só podem ser verificadas por meio da API, por exemplo, usando o plugin oficial Nameless. <strong>Essa opção substituirá a verificação de email e as contas serão ativadas automaticamente.</strong><br />Você deve configurar seu grupo padrão para ter permissões limitadas e, em seguida, atualizar o grupo de pós-validação na guia StaffCP -> Configuration -> Cadastro para o grupo de membros completo com permissões normais.',
     'enable_username_sync' => 'Ativar sincronização de nome de usuário?',
@@ -637,17 +646,19 @@ $language = [
     'group_sync_rule_created_successfully' => 'A regra de sincronização do grupo foi criada com sucesso.',
     'group_sync_rules_updated_successfully' => 'As regras de sincronização de grupo foram atualizadas com sucesso.',
     'group_sync_rule_deleted_successfully' => 'A regra de sincronização do grupo foi excluída com sucesso.',
-    'group_sync_plugin_not_set_up' => 'Plugin not set up',
+    'group_sync_plugin_not_set_up' => 'Plugin não instalado.',
     'existing_rules' => 'Regras Existentes',
     'new_rule' => 'Nova Regra',
     'api_endpoints' => 'API Endpoints',
-    'api_endpoints_info' => 'A API Endpoints permitem que os Módulos criem maneiras para aplicativos externos (como Minecraft e Discord) interagirem com o seu site NamelessMC. <a href="https://docs.namelessmc.com/en/api-documentation" target="_blank">Check out the API documentation here</a>',
+    'api_endpoints_info' => 'A API Endpoints permitem que os Módulos criem maneiras para aplicativos externos (como Minecraft e Discord) interagirem com o seu site NamelessMC. <a href="https://docs.namelessmc.com/en/api-documentation" target="_blank">Clique para confirir a documentação API.</a>',
     'route' => 'Rota',
+    'method' => 'Method',
+    'transformers' => 'Transformers',
 
     // File uploads
     'drag_files_here' => 'Arraste arquivos aqui para fazer o upload.',
     'invalid_file_type' => 'Tipo de arquivo inválido!',
-    'file_too_big' => 'Arquivo muito grande! Seu arquivo possui {{filesize}} e o limite é {{maxFilesize}}', // Don't replace {{filesize}} or {{maxFilesize}}
+    'file_too_big' => 'Arquivo muito grande! Seu arquivo possui {{filesize}} e o limite é {{maxFilesize}}.', // Não substituir o {{filesize}} ou {{maxFilesize}}
     'allowed_proxies' => 'Proxies permitidos',
     'allowed_proxies_info' => 'Lista separada por linha de IPs de proxy permitidos.',
 
@@ -676,28 +687,30 @@ $language = [
     'hook_select_info' => 'Apenas Hooks com \'Novo tópico\' selecionado como um evento são mostrados.',
     'hook_url' => 'URL do Webhook',
     'hook_type' => 'Tipo de Webhook',
-    'hook_events' => 'Eventos para acionar este Webhook',
-    'invalid_hook_url' => 'A URL do Webhook é inválida',
-    'invalid_hook_name' => 'O nome do Webhook é inválido',
-    'invalid_hook_events' => 'Você deve selecionar pelo menos 1 evento',
+    'hook_events' => 'Eventos para acionar este Webhook.',
+    'invalid_hook_url' => 'A URL do Webhook é inválida.',
+    'invalid_hook_name' => 'O nome do Webhook é inválido.',
+    'invalid_hook_events' => 'Você deve selecionar pelo menos 1 evento.',
     'register_hook_info' => 'Registro do usuário',
     'validate_hook_info' => 'Validação do usuário',
     'delete_hook_info' => 'Exclusão do usuário',
-    'report_hook_info' => 'Report creation',
+    'report_hook_info' => 'Criação de Denúncia',
+    'ban_hook_info' => 'User banned',
+    'warning_hook_info' => 'User warned',
 
     // Sitemap
-    'unable_to_load_sitemap_file_x' => 'Não foi possível carregar o arquivo do mapa do site {x}', // Don't replace {x}
+    'unable_to_load_sitemap_file_x' => 'Não foi possível carregar o arquivo do mapa do site {x}', // Não substituir o {x}.
     'sitemap_generated' => 'Mapa do site gerado com sucesso',
     'sitemap_not_writable' => 'O diretório <strong>cache/sitemaps</strong> não é gravável.',
     'cache_not_writable' => 'O diretório <strong>cache</strong> não é gravável.',
     'generate_sitemap' => 'Gerar Mapa do Site',
     'download_sitemap' => 'Baixar Mapa do Site',
     'sitemap_not_generated_yet' => 'O mapa do site não foi gerado ainda!',
-    'sitemap_last_generated_x' => 'Último mapa do site gerado {x}', // Don't replace {x}
+    'sitemap_last_generated_x' => 'Último mapa do site gerado {x}', // Não substituir o {x}.
 
     // Page metadata
     'page_metadata' => 'Metadados da Página',
-    'metadata_page_x' => 'Visualizando metadados da página {x}', // Don't replace {x}
+    'metadata_page_x' => 'Visualizando metadados da página {x}', // Não substituir o {x}.
     'keywords' => 'Palavras-chave',
     'description_max_500' => 'A descrição deve ter no máximo 500 caracteres.',
     'page' => 'Página',
@@ -708,8 +721,8 @@ $language = [
     'recent_users' => 'Novo Usuário',
     'average_players' => 'Média de Jogadores',
     'nameless_news' => 'Notícias do NamelessMC',
-    'unable_to_retrieve_nameless_news' => 'Não foi possível recuperar as últimas notícias',
-    'confirm_leave_site' => 'Você está prestes a sair deste site! Tem a certeza que quer visitar <strong id="leaveSiteURL">{x}</strong>?', // don't replace {x} and make sure it has the id leaveSiteURL
+    'unable_to_retrieve_nameless_news' => 'Não foi possível recuperar as últimas notícias.',
+    'confirm_leave_site' => 'Você está prestes a sair deste site! Tem a certeza que quer visitar <strong id="leaveSiteURL">{x}</strong>?', // Não substituir o {x} e certifique-se de que ele tenha o ID leaveSiteURL.
     'server_compatibility' => 'Compatibilidade do Servidor',
     'issues' => 'Problemas',
 
@@ -735,15 +748,23 @@ $language = [
     'message' => 'Mensagem',
     'text_colour' => 'Cor do Texto',
     'background_colour' => 'Cor de fundo',
-    'closable' => 'Closable',
-    'can_view_announcement' => 'Pode ver o anúncio',
+    'closable' => 'Fechável',
+    'can_view_announcement' => 'Pode ver o anúncio?',
     'verify_delete_announcement' => 'Tem certeza de que deseja excluir este anúncio?',
     'deleted_announcement_success' => 'Anúncio excluído com sucesso.',
     'header_required' => 'O cabeçalho é obrigatório.',
     'message_required' => 'Mensagem é obrigatória',
-    'background_colour_required' => 'A cor de fundo é necessária',
+    'background_colour_required' => 'A cor de fundo é necessária.',
     'text_colour_required' => 'A cor do texto é obrigatória',
     'no_announcements' => 'Nenhum anúncio foi feito ainda.',
-    'announcement_order' => 'Order',
-    'announcement_hook_info' => 'Announcement creation',
+    'announcement_order' => 'Ordem',
+    'announcement_hook_info' => 'Criação de Anúncio',
+
+    // OAuth
+    'oauth' => 'OAuth',
+    'oauth_info' => 'Configure OAuth providers to allow users to login with their social network accounts. <a href="https://docs.namelessmc.com/en/oauth" target="_blank">Check out our documentation for help.</a>',
+    'unlink' => 'Unlink',
+    'identifier' => 'Identifier',
+    'unlink_account_confirm' => 'Are you sure you want to forcibly unlink this provider from this user?',
+    'unlink_account_success' => 'Successfully unlinked their account from {x}.', // Don't replace {x}
 ];

@@ -40,33 +40,51 @@
                         {include file='includes/alerts.tpl'}
 
                         <form id="enableRegistration" action="" method="post">
-                            <div class="form-group">
-                                {$ENABLE_REGISTRATION}
+                            <div class="form-group custom-control custom-switch">
                                 <input type="hidden" name="enable_registration" value="0">
-                                <input name="enable_registration" type="checkbox"
-                                       class="js-switch js-check-change" {if $REGISTRATION_ENABLED eq 1} checked{/if}
-                                       value="1" />
+                                <input name="enable_registration"
+                                       type="checkbox"
+                                       class="custom-control-input js-check-change"
+                                       {if $REGISTRATION_ENABLED eq 1} checked{/if}
+                                       value="1">
+                                <label class="custom-control-label" for="enable_registration">
+                                    {$ENABLE_REGISTRATION}
+                                </label>
                             </div>
                             <input type="hidden" name="token" value="{$TOKEN}">
                         </form>
 
                         <form action="" method="post">
-                            <div class="form-group">
-                                <label for="verification">{$EMAIL_VERIFICATION}</label>
-                                <input name="verification" id="verification" type="checkbox"
-                                       class="js-switch" {if $EMAIL_VERIFICATION_VALUE eq 1} checked{/if} />
+                            <div class="form-group custom-control custom-switch">
+                                <input name="verification"
+                                       id="verification"
+                                       type="checkbox"
+                                       class="custom-control-input"
+                                       {if $EMAIL_VERIFICATION_VALUE eq 1} checked{/if}>
+                                <label class="custom-control-label" for="verification">
+                                    {$EMAIL_VERIFICATION}
+                                </label>
                             </div>
-                            <div class="form-group">
-                                <label for="InputEnableRecaptcha">{$CAPTCHA_GENERAL}</label>
-                                <input id="InputEnableRecaptcha" name="enable_recaptcha" type="checkbox"
-                                       class="js-switch"
-                                       value="1" {if $CAPTCHA_GENERAL_VALUE eq 'true' } checked{/if} />
+                            <div class="form-group custom-control custom-switch">
+                                <input id="InputEnableRecaptcha"
+                                       name="enable_recaptcha"
+                                       type="checkbox"
+                                       class="custom-control-input"
+                                       value="1"
+                                       {if $CAPTCHA_GENERAL_VALUE eq 'true' } checked{/if}>
+                                <label class="custom-control-label" for="InputEnableRecaptcha">
+                                    {$CAPTCHA_GENERAL}
+                                </label>
                             </div>
-                            <div class="form-group">
-                                <label for="InputEnableRecaptchaLogin">{$CAPTCHA_LOGIN}</label>
-                                <input id="InputEnableRecaptchaLogin" name="enable_recaptcha_login" type="checkbox"
-                                       class="js-switch"
+                            <div class="form-group custom-control custom-switch">
+                                <input id="InputEnableRecaptchaLogin"
+                                       name="enable_recaptcha_login"
+                                       type="checkbox"
+                                       class="custom-control-input"
                                        value="1" {if $CAPTCHA_LOGIN_VALUE eq 'true' } checked{/if} />
+                                <label class="custom-control-label" for="InputEnableRecaptchaLogin">
+                                    {$CAPTCHA_LOGIN}
+                                </label>
                             </div>
                             <div class="form-group">
                                 <label for="InputCaptchaType">{$CAPTCHA_TYPE}</label>
@@ -113,6 +131,69 @@
 
                     </div>
                 </div>
+
+                <h5>{$OAUTH}</h5>
+                <div class="card shadow border-left-primary">
+                    <div class="card-body">
+                        <h5><i class="icon fa fa-info-circle"></i> {$INFO}</h5>
+                        {$OAUTH_INFO}
+                    </div>
+                </div>
+                <br />
+                <form action="" method="post">
+                    <div class="row">
+                        <div class="col">
+                            <div class="card shadow mb-4">
+                                <div class="card-body">
+                                    <div class="form-group custom-control custom-switch text-center">
+                                        <input id="enable-discord" name="enable-discord" type="checkbox" class="custom-control-input" value="1" {if $DISCORD_OAUTH_ENABLED && $DISCORD_OAUTH_SETUP} checked{/if} />
+                                        <label for="enable-discord" id="enable-discord" class="custom-control-label">
+                                            Discord <i class="fab fa-discord fa-1x align-middle"></i>
+                                        </label>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="client-id-discord">Client ID</label>
+                                        <input type="text" name="client-id-discord" class="form-control" id="client-id-discord" placeholder="{$CLIENT_ID}" value="{$DISCORD_CLIENT_ID}">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="client-secret-discord">Client Secret</label>
+                                        <input type="password" name="client-secret-discord" class="form-control" id="client-secret-discord" placeholder="{$CLIENT_SECRET}" value="{$DISCORD_CLIENT_SECRET}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card shadow mb-4">
+                                <div class="card-body">
+                                    <div class="form-group custom-control custom-switch text-center">
+                                        <input id="enable-google" name="enable-google" type="checkbox" class="custom-control-input" {if $GOOGLE_OAUTH_ENABLED && $GOOGLE_OAUTH_SETUP} checked{/if} />
+                                        <label for="enable-google" id="enable-google" class="custom-control-label">
+                                            Google <i class="fab fa-google fa-1x align-middle"></i>
+                                        </label>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="client-id-google">Client ID</label>
+                                        <input type="text" name="client-id-google" class="form-control" id="client-id-google" placeholder="{$CLIENT_ID}" value="{$GOOGLE_CLIENT_ID}">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="client-secret-google">Client Secret</label>
+                                        <input type="password" name="client-secret-google" class="form-control" id="client-secret-google" placeholder="{$CLIENT_SECRET}" value="{$GOOGLE_CLIENT_SECRET}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="hidden" name="action" value="oauth">
+                        <input type="hidden" name="token" value="{$TOKEN}">
+                        <input type="submit" class="btn btn-primary" value="{$SUBMIT}">
+                    </div>
+                </form>
 
                 <!-- Spacing -->
                 <div style="height:1rem;"></div>

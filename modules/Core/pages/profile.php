@@ -14,8 +14,6 @@ const PAGE = 'profile';
 
 $timeago = new TimeAgo(TIMEZONE);
 
-$emojione = new Emojione\Client(new Emojione\Ruleset());
-
 $profile = explode('/', rtrim($_GET['route'], '/'));
 if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profile[count($profile) - 2] == 'profile') && !isset($_GET['error'])) {
     // User specified
@@ -61,8 +59,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
     $profile_user = new User($profile, 'username');
     if (!$profile_user->data()) {
-        Redirect::to(URL::build('/profile/?error=not_exist'));
-        die();
+        Redirect::to(URL::build('/profile/&error=not_exist'));
     }
     $query = $profile_user->data();
 
@@ -100,10 +97,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
                 case 'new_post':
                     if (Token::check()) {
-                        // Valid token
-                        $validate = new Validate();
-
-                        $validation = $validate->check($_POST, [
+                        $validation = Validate::check($_POST, [
                             'post' => [
                                 Validate::REQUIRED => true,
                                 Validate::MIN => 1,
@@ -134,7 +128,6 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
                             // Redirect to clear input
                             Redirect::to($profile_user->getProfileURL());
-                            die();
                         }
 
                         // Validation failed
@@ -146,10 +139,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
                 case 'reply':
                     if (Token::check()) {
-                        // Valid token
-                        $validate = new Validate();
-
-                        $validation = $validate->check($_POST, [
+                        $validation = Validate::check($_POST, [
                             'reply' => [
                                 Validate::REQUIRED => true,
                                 Validate::MIN => 1,
@@ -167,7 +157,6 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                             $post = $queries->getWhere('user_profile_wall_posts', ['id', '=', $_POST['post']]);
                             if (!count($post)) {
                                 Redirect::to($profile_user->getProfileURL());
-                                die();
                             }
 
                             // Input into database
@@ -196,7 +185,6 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
                             // Redirect to clear input
                             Redirect::to($profile_user->getProfileURL());
-                            die();
                         }
 
                         // Validation failed
@@ -316,20 +304,17 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                 if (!isset($_GET['post']) || !is_numeric($_GET['post'])) {
                     // Post ID required
                     Redirect::to($profile_user->getProfileURL());
-                    die();
                 }
 
                 // Does the post exist?
                 $post = $queries->getWhere('user_profile_wall_posts', ['id', '=', $_GET['post']]);
                 if (!count($post)) {
                     Redirect::to($profile_user->getProfileURL());
-                    die();
                 }
 
                 // Can't like our own post
                 if ($post[0]->author_id == $user->data()->id) {
                     Redirect::to($profile_user->getProfileURL());
-                    die();
                 }
 
                 // Liking or unliking?
@@ -358,7 +343,6 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
                 // Redirect
                 Redirect::to($profile_user->getProfileURL());
-                die();
 
             case 'reset_banner':
                 if (Token::check($_POST['token'])) {
@@ -369,8 +353,6 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                     }
 
                     Redirect::to($profile_user->getProfileURL());
-                    die();
-
                 }
 
                 $error = $language->get('general', 'invalid_token');
@@ -383,13 +365,11 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     if (isset($_GET['p'])) {
         if (!is_numeric($_GET['p'])) {
             Redirect::to($profile_user->getProfileURL());
-            die();
         }
 
         if ($_GET['p'] == 1) {
             // Avoid bug in pagination class
             Redirect::to($profile_user->getProfileURL());
-            die();
         }
         $p = $_GET['p'];
     } else {
@@ -567,7 +547,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
         // Pagination
         $paginator = new Paginator(($template_pagination ?? []), $template_pagination_left ?? '', $template_pagination_right ?? '');
         $results = $paginator->getLimited($wall_posts_query, 10, $p, count($wall_posts_query));
-        $pagination = $paginator->generate(7, URL::build('/profile/' . Output::getClean($query->username) . '/', true));
+        $pagination = $paginator->generate(7, URL::build('/profile/' . Output::getClean($query->username) . '/'));
 
         $smarty->assign('PAGINATION', $pagination);
 
@@ -658,7 +638,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                 'user_style' => $target_user->getGroupClass(),
                 'avatar' => $target_user->getAvatar(500),
                 'content' => Output::getPurified(htmlspecialchars_decode($nValue->content)),
-                'date_rough' => $timeago->inWords(date('d M Y, H:i', $nValue->time), $language),
+                'date_rough' => $timeago->inWords(date('d M Y, H:i', $nValue->time), $language->getTimeLanguage()),
                 'date' => date('d M Y, H:i', $nValue->time),
                 'reactions' => $reactions,
                 'replies' => $replies,
@@ -684,40 +664,37 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     $fields = [];
 
     // Get profile fields
-    $profile_fields = $queries->getWhere('users_profile_fields', ['user_id', '=', $query->id]);
-    if (count($profile_fields)) {
-        foreach ($profile_fields as $field) {
-            // Get field
-            $profile_field = $queries->getWhere('profile_fields', ['id', '=', $field->field_id]);
-            if (!count($profile_field)) {
-                continue;
-            }
-
-            $profile_field = $profile_field[0];
-
-            if ($profile_field->public == 0 || !$field->value) {
-                continue;
-            }
-
-            // Get field type
-            switch ($profile_field->type) {
-                case 1:
-                    $type = 'text';
-                    break;
-                case 2:
-                    $type = 'textarea';
-                    break;
-                case 3:
-                    $type = 'date';
-                    break;
-            }
-
-            $fields[] = [
-                'title' => Output::getClean($profile_field->name),
-                'type' => $type,
-                'value' => Output::getPurified(Util::urlToAnchorTag(htmlspecialchars_decode($field->value)))
-            ];
+    foreach ($profile_user->getProfileFields() as $id => $item) {
+        // Get field
+        $profile_field = $queries->getWhere('profile_fields', ['id', '=', $id]);
+        if (!count($profile_field)) {
+            continue;
         }
+
+        $profile_field = $profile_field[0];
+
+        if ($profile_field->public == 0 || !$item['value']) {
+            continue;
+        }
+
+        // Get field type
+        switch ($profile_field->type) {
+            case 1:
+                $type = 'text';
+                break;
+            case 2:
+                $type = 'textarea';
+                break;
+            case 3:
+                $type = 'date';
+                break;
+        }
+
+        $fields[] = [
+            'title' => Output::getClean($profile_field->name),
+            'type' => $type,
+            'value' => Output::getClean($item['value']),
+        ];
     }
 
     $profile_user = new User($query->id);
@@ -745,6 +722,10 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
             'value' => Output::getClean($query->username),
             'image' => 'https://crafatar.com/renders/body/' . $query->uuid . '?overlay'
         ];
+
+        $smarty->assign([
+            'UUID' => $profile_user->data()->uuid
+        ]);
     }
 
     $profile_placeholders = $profile_user->getProfilePlaceholders();

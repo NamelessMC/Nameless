@@ -14,14 +14,9 @@ const PAGE = 'login';
 $page_title = $language->get('general', 'sign_in');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-// Requirements
-require(ROOT_PATH . '/core/includes/password.php'); // For password hashing
-require(ROOT_PATH . '/core/includes/phpass.php'); // phpass for Wordpress auth
-
 // Ensure user isn't already logged in
 if ($user->isLoggedIn()) {
     Redirect::to(URL::build('/'));
-    die();
 }
 
 // Get login method
@@ -59,8 +54,6 @@ if (Input::exists()) {
                 unset($_SESSION['remember'], $_SESSION['password'], $_SESSION['tfa']);
             }
 
-            // Initialise validation
-            $validate = new Validate();
             if ($login_method == 'email') {
                 $to_validate = [
                     'email' => [
@@ -85,7 +78,7 @@ if (Input::exists()) {
                 ];
             }
 
-            $validation = $validate->check($_POST, $to_validate)->messages([
+            $validation = Validate::check($_POST, $to_validate)->messages([
                 'email' => [
                     Validate::REQUIRED => $language->get('user', 'must_input_email'),
                     Validate::IS_BANNED => $language->get('user', 'account_banned'),
@@ -106,7 +99,7 @@ if (Input::exists()) {
                     $method_field = 'email';
                 } else {
                     $username = Input::get('username');
-                    if (($login_method == 'email_or_username') && strpos(Input::get('username'), '@') !== false) {
+                    if (($login_method == 'email_or_username') && str_contains(Input::get('username'), '@')) {
                         $method_field = 'email';
                     } else {
                         $method_field = 'username';
@@ -253,7 +246,6 @@ if (Input::exists()) {
                                 Session::flash('home', $language->get('user', 'successful_login'));
                                 Redirect::to(URL::build('/'));
                             }
-                            die();
                         }
 
                         // No, output error
@@ -275,6 +267,9 @@ if (Input::exists()) {
         $return_error = [$language->get('general', 'invalid_token')];
     }
 }
+
+// OAuth session meta
+Session::put('oauth_method', 'login');
 
 // Sign in template
 // Generate content
@@ -300,10 +295,14 @@ $smarty->assign([
     'REGISTER' => $language->get('general', 'register'),
     'ERROR_TITLE' => $language->get('general', 'error'),
     'ERROR' => ($return_error ?? []),
-    'NOT_REGISTERED_YET' => $language->get('general', 'not_registered_yet')
+    'NOT_REGISTERED_YET' => $language->get('general', 'not_registered_yet'),
+    'OAUTH_AVAILABLE' => OAuth::getInstance()->isAvailable(),
+    'OAUTH_PROVIDERS' => OAuth::getInstance()->getProvidersAvailable(),
 ]);
 
-if (isset($return_error)) {
+if (Session::exists('oauth_error')) {
+    $smarty->assign('ERROR', Session::flash('oauth_error'));
+} else if (isset($return_error)) {
     $smarty->assign('SESSION_FLASH', $return_error);
 } else {
     $smarty->assign('SESSION_FLASH', '');

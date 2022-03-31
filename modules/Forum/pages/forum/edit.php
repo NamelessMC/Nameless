@@ -17,28 +17,21 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 $template->addCSSFiles([
     (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.css' => [],
     (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.min.css' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.sprites.css' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/css/emojionearea.min.css' => [],
 ]);
 
 // User must be logged in to proceed
 if (!$user->isLoggedIn()) {
     Redirect::to(URL::build('/forum'));
-    die();
 }
 
 // Initialise
-require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
 $forum = new Forum();
-$mentionsParser = new MentionsParser();
 
 if (isset($_GET['pid'], $_GET['tid']) && is_numeric($_GET['pid']) && is_numeric($_GET['tid'])) {
     $post_id = $_GET['pid'];
     $topic_id = $_GET['tid'];
 } else {
     Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
-    die();
 }
 
 /*
@@ -50,7 +43,6 @@ $post_editing = DB::getInstance()->selectQuery('SELECT * FROM nl2_posts WHERE to
 // Check topic exists
 if (!count($post_editing)) {
     Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
-    die();
 }
 
 if ($post_editing[0]->id == $post_id) {
@@ -74,7 +66,6 @@ $post_editing = $queries->getWhere('posts', ['id', '=', $post_id]);
 // Check post exists
 if (!count($post_editing)) {
     Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
-    die();
 }
 
 $forum_id = $post_editing[0]->forum_id;
@@ -85,12 +76,10 @@ $user_groups = $user->getAllGroupIds();
 // Check permissions before proceeding
 if ($user->data()->id === $post_editing[0]->post_creator && !$forum->canEditTopic($forum_id, $user_groups) && !$forum->canModerateForum($forum_id, $user_groups)) {
     Redirect::to(URL::build('/forum/topic/' . $post_id));
-    die();
 }
 
 if ($user->data()->id !== $post_editing[0]->post_creator && !($forum->canModerateForum($forum_id, $user_groups))) {
     Redirect::to(URL::build('/forum/topic/' . $post_id));
-    die();
 }
 
 // Deal with input
@@ -98,8 +87,7 @@ if (Input::exists()) {
     // Check token
     if (Token::check()) {
         // Valid token, check input
-        $validate = new Validate();
-        $validation = [
+        $to_validate = [
             'content' => [
                 Validate::REQUIRED => true,
                 Validate::MIN => 2,
@@ -108,14 +96,14 @@ if (Input::exists()) {
         ];
         // Add title to validation if we need to
         if (isset($edit_title)) {
-            $validation['title'] = [
+            $to_validate['title'] = [
                 Validate::REQUIRED => true,
                 Validate::MIN => 2,
                 Validate::MAX => 64
             ];
         }
 
-        $validation = $validate->check($_POST, $validation)->messages([
+        $validation = Validate::check($_POST, $to_validate)->messages([
             'content' => [
                 Validate::REQUIRED => $forum_language->get('forum', 'content_required'),
                 Validate::MIN => $forum_language->get('forum', 'content_min_2'),
@@ -130,17 +118,12 @@ if (Input::exists()) {
 
         if ($validation->passed()) {
             // Valid post content
-
-            // Parse markdown
-            $cache->setCache('post_formatting');
-            $formatting = $cache->retrieve('formatting');
-
-            if ($formatting == 'markdown') {
-                $content = \Michelf\Markdown::defaultTransform(Input::get('content'));
-                $content = Output::getClean($content);
-            } else {
-                $content = Output::getClean(Input::get('content'));
-            }
+            $content = Output::getClean(Input::get('content'));
+            $content = MentionsParser::parse(
+                $user->data()->id,
+                $content,
+                URL::build('/forum/topic/' . $topic_id, 'pid=' . $post_id),
+            );
 
             // Update post content
             $queries->update('posts', $post_id, [
@@ -154,7 +137,7 @@ if (Input::exists()) {
                 // Update title and labels
                 $post_labels = [];
 
-                if (isset($_POST['topic_label']) && !empty($_POST['topic_label']) && is_array($_POST['topic_label']) && count($_POST['topic_label'])) {
+                if (isset($_POST['topic_label']) && !empty($_POST['topic_label']) && is_array($_POST['topic_label'])) {
                     foreach ($_POST['topic_label'] as $topic_label) {
                         $label = $queries->getWhere('forums_topic_labels', ['id', '=', $topic_label]);
                         if (count($label)) {
@@ -186,11 +169,9 @@ if (Input::exists()) {
             // Display success message and redirect
             Session::flash('success_post', $forum_language->get('forum', 'post_edited_successfully'));
             Redirect::to(URL::build('/forum/topic/' . $topic_id, 'pid=' . $post_id));
-            die();
-
         }
 
-// Error handling
+        // Error handling
         $errors = $validation->errors();
     } else {
         // Bad token
@@ -265,46 +246,16 @@ $smarty->assign([
     'CONTENT' => Output::getPurified(Output::getDecoded($post_editing[0]->post_content))
 ]);
 
-// Get post formatting type (HTML or Markdown)
-$cache->setCache('post_formatting');
-$formatting = $cache->retrieve('formatting');
+$clean = Output::getDecoded($post_editing[0]->post_content);
+$clean = Output::getPurified($clean);
 
-if ($formatting == 'markdown') {
-    // Markdown
-    $smarty->assign('MARKDOWN', true);
-    $smarty->assign('MARKDOWN_HELP', $language->get('general', 'markdown_help'));
+$template->addJSFiles([
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
+]);
 
-    $converter = new League\HTMLToMarkdown\HtmlConverter(['strip_tags' => true]);
-
-    $clean = $converter->convert(Output::getDecoded($post_editing[0]->post_content));
-    $clean = Output::getPurified($clean);
-
-    $template->addJSFiles([
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/js/emojione.min.js' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/js/emojionearea.min.js' => []
-    ]);
-
-    $template->addJSScript('
-	  $(document).ready(function() {
-		var el = $("#markdown").emojioneArea({
-			pickerPosition: "bottom"
-		});
-
-		el[0].emojioneArea.setText(\'' . str_replace(["'", '&gt;', '&amp;'], ['&#39;', '>', '&'], str_replace(["\r", "\n"], ["\\r", "\\n"], $clean)) . '\');
- 	 });
-	');
-} else {
-    $clean = Output::getDecoded($post_editing[0]->post_content);
-    $clean = Output::getPurified($clean);
-
-    $template->addJSFiles([
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
-    ]);
-
-    $template->addJSScript(Input::createTinyEditor($language, 'editor'));
-}
+$template->addJSScript(Input::createTinyEditor($language, 'editor', true));
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);

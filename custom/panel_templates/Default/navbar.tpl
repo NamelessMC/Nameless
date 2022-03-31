@@ -6,12 +6,22 @@
         <i class="fa fa-bars"></i>
     </button>
 
-    <!-- View Site and Dark/Light Mode Buttons -->
-    <a href="{$SITE_HOME}" target="_blank" class="btn btn-primary" style="margin-right: 10px">{$VIEW_SITE}</a>
+    <!-- View Site and Dark Mode Buttons -->
+    <a href="{$SITE_HOME}" target="_blank" class="btn btn-primary" style="margin-right: 20px">{$VIEW_SITE}</a>
 
-    <input onclick="switchTheme()" type="hidden" name="dark_mode" value="0">
-    <input onclick="switchTheme()" id="dark_mode" name="dark_mode" type="checkbox" class="dark-switch" value="1" checked />
-    <span class="dark-switch-text">{$MODE_TOGGLE}</span>
+    <div class="custom-control custom-switch">
+        <input type="hidden" name="dark_mode" value="0">
+        <input onclick="switchTheme()"
+               id="dark_mode"
+               name="dark_mode"
+               type="checkbox"
+               class="custom-control-input"
+               value="1">
+        <label class="custom-control-label"
+               for="dark_mode">
+            {$MODE_TOGGLE}
+        </label>
+    </div>
 
     <!-- Topbar Navbar -->
     <ul class="navbar-nav ml-auto">

@@ -21,7 +21,7 @@ if (defined('MINECRAFT') && MINECRAFT === true) {
         // Server specified
         $banner = $directories[count($directories) - 1];
 
-        if (substr($banner, -4) == '.png') {
+        if (substr($banner, -4) === '.png') {
             $banner = substr($banner, 0, -4);
         }
 
@@ -35,14 +35,16 @@ if (defined('MINECRAFT') && MINECRAFT === true) {
 
         $server = $server[0];
 
-        require(ROOT_PATH . '/core/includes/motd_format.php');
-
         $display_ip = $server->ip;
         if (!is_null($server->port) && $server->port != 25565) {
             $display_ip .= ':' . $server->port;
         }
 
-        $full_ip = ['ip' => $server->ip . (is_null($server->port) ? ':' . 25565 : ':' . $server->port), 'pre' => $server->pre, 'name' => $server->name];
+        $full_ip = [
+            'ip' => $server->ip . (is_null($server->port) ? ':' . 25565 : ':' . $server->port),
+            'pre' => $server->pre,
+            'name' => $server->name
+        ];
 
         $cache->setCache('banner_cache_' . urlencode($server->name));
         if (!$cache->isCached('image')) {
@@ -58,15 +60,11 @@ if (defined('MINECRAFT') && MINECRAFT === true) {
                 $query_type = 'internal';
             }
 
-            $query = MCQuery::singleQuery($full_ip, $query_type, $language, $queries);
-
-            if ($query['status_value'] != 1) {
-                $query['motd'] = ['§4Offline'];
-            }
+            $query = MCQuery::singleQuery($full_ip, $query_type, $server->bedrock, $language, $queries);
 
             // Do we need to query for favicon?
             if (!$cache->isCached('favicon')) {
-                $favicon = imagecreatefromstring(base64_decode(ltrim(ExternalMCQuery::getFavicon($full_ip['ip']), 'data:image/png;base64')));
+                $favicon = imagecreatefromstring(base64_decode(ltrim(ExternalMCQuery::getFavicon($full_ip['ip'], $server->bedrock), 'data:image/png;base64')));
 
                 imageAlphaBlending($favicon, true);
                 imageSaveAlpha($favicon, true);
@@ -79,13 +77,15 @@ if (defined('MINECRAFT') && MINECRAFT === true) {
                 $favicon = imagecreatefrompng(ROOT_PATH . '/cache/server_fav_' . urlencode($server->name) . '.png');
             }
 
-            // Font
-            $font = ROOT_PATH . '/core/assets/fonts/minecraft.ttf';
+            // remove ".png" from ending (lib expects file name w/o extension)
+            if (substr($server->banner_background, -4) === '.png') {
+                $background = substr($server->banner_background, 0, -4);
+            }
 
             if ($query['status_value'] === 1) {
-                $image = ServerBanner::server($display_ip, $query['motd'], $query['player_count'], $query['player_count_max'], $favicon, $server->banner_background, 5);
+                $image = MinecraftBanner\ServerBanner::server($display_ip, $query['motd'], $query['player_count'], $query['player_count_max'], $favicon, $background, 5);
             } else {
-                $image = ServerBanner::server($display_ip, $query['motd'], '?', '?', $favicon, $server->banner_background, 5);
+                $image = MinecraftBanner\ServerBanner::server($display_ip, '§4Offline Server', '?', '?', $favicon, $background, -1);
             }
 
             header('Content-type: image/png');

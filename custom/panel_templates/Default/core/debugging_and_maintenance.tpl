@@ -53,21 +53,22 @@
                         {include file='includes/alerts.tpl'}
 
                         <form action="" method="post">
-                            <div class="form-group">
-                                <label for="InputDebug">{$ENABLE_DEBUG_MODE}</label>
-                                <input id="InputDebug" name="enable_debugging" type="checkbox" class="js-switch"
+                            <div class="form-group custom-control custom-switch">
+                                <input id="InputDebug" name="enable_debugging" type="checkbox" class="custom-control-input"
                                        value="1" {if $ENABLE_DEBUG_MODE_VALUE eq 1} checked{/if} />
+                                <label class="custom-control-label" for="InputDebug">{$ENABLE_DEBUG_MODE}</label>
                             </div>
-                            <div class="form-group">
-                                <label for="InputMaintenance">{$ENABLE_MAINTENANCE_MODE}</label>
-                                <input id="InputMaintenance" name="enable_maintenance" type="checkbox" class="js-switch"
+                            <div class="form-group custom-control custom-switch">
+                                <input id="InputMaintenance" name="enable_maintenance" type="checkbox"
+                                       class="custom-control-input"
                                        value="1" {if $ENABLE_MAINTENANCE_MODE_VALUE eq 1} checked{/if} />
+                                <label class="custom-control-label" for="InputMaintenance">{$ENABLE_MAINTENANCE_MODE}</label>
                             </div>
-                            <div class="form-group">
-                                <label for="InputPageLoad">{$ENABLE_PAGE_LOAD_TIMER}</label>
+                            <div class="form-group custom-control custom-switch">
                                 <input id="InputPageLoad" name="enable_page_load_timer" type="checkbox"
-                                       class="js-switch"
+                                       class="custom-control-input"
                                        value="1" {if $ENABLE_PAGE_LOAD_TIMER_VALUE eq 1} checked{/if} />
+                                <label class="custom-control-label" for="InputPageLoad">{$ENABLE_PAGE_LOAD_TIMER}</label>
                             </div>
                             <div class="form-group">
                                 <label for="inputMaintenanceMessage">{$MAINTENANCE_MODE_MESSAGE}</label>

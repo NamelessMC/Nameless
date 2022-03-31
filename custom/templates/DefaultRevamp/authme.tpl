@@ -6,7 +6,7 @@
   <div class="sub header">{$AUTHME_INFO}</div>
 </h2>
 
-{if count($ERRORS)}
+{if isset($ERRORS)}
   <div class="ui error icon message">
     <i class="x icon"></i>
     <div class="content">

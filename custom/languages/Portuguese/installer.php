@@ -2,13 +2,13 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
  *  Portuguese Language - Installation
- *  Translation By Douglas Teles, dasilvaj4 and Mansffer
- *  Last Update: 01/03/2021
+ *  Translation by Douglas Teles, dasilvaj4 and Mansffer.
+ *  Last Update: 22/02/2022
  */
 
 $language = [
@@ -53,13 +53,14 @@ $language = [
     'configuration' => 'Configuração',
     'configuration_info' => 'Por favor, insira informações básicas sobre seu site. Esses valores podem ser alterados posteriormente no painel de administração.',
     'configuration_error' => 'Digite um nome de site válido entre 1 e 32 caracteres e endereços de email válidos entre 4 e 64 caracteres.',
+    'hostname_error' => 'Please enter a valid hostname without http:// or https://',
     'site_name' => 'Nome do Site',
     'contact_email' => 'Email de Contato',
     'outgoing_email' => 'Email de envio',
     'language' => 'Idioma',
     'initialising_database_and_cache' => 'Inicializando banco de dados e cache, por favor aguarde...',
     'unable_to_login' => 'Não é possível fazer login.',
-    'unable_to_create_account' => 'Não é possível criar uma conta',
+    'unable_to_create_account' => 'Não é possível criar uma conta.',
     'input_required' => 'Digite um nome de usuário, endereço de email e senha válidos.',
     'input_minimum' => 'Certifique-se de que seu nome de usuário tenha no mínimo 3 caracteres, o seu endereço de email deve ter no mínimo 4 caracteres e sua senha deve ter no mínimo 6 caracteres.',
     'input_maximum' => 'Certifique-se de que seu nome de usuário tenha no máximo 20 caracteres e seu endereço de email e senha tenham no máximo 64 caracteres.',
@@ -87,7 +88,7 @@ $language = [
     'finish_message' => 'Obrigado por instalar o NamelessMC! Agora você pode prosseguir para o Painel de Controle, onde você pode configurar seu site.',
     'support_message' => 'Se você precisar de qualquer suporte, consulte o nosso site <a href="https://namelessmc.com" target="_blank">aqui</a>, ou você também pode visitar nosso <a href="https://discord.gg/nameless" target="_blank">servidor Discord</a> ou nosso <a href="https://github.com/NamelessMC/Nameless/" target="_blank">repositório GitHub</a>.',
     'credits' => 'Créditos',
-    'credits_message' => 'Um grande agradecimento a todos os <a href="https://github.com/NamelessMC/Nameless/graphs/contributors" target="_blank">colaboradores do NamelessMC</a> desde 2014',
+    'credits_message' => 'Um grande agradecimento a todos os <a href="https://github.com/NamelessMC/Nameless/graphs/contributors" target="_blank">colaboradores do NamelessMC</a> desde 2014.',
 
     'step_home' => 'Início',
     'step_requirements' => 'Requisitos',
@@ -104,5 +105,5 @@ $language = [
     'no_converters_available' => 'Não há conversores disponíveis.',
     'config_not_writable' => 'O arquivo de configuração não é gravável.',
 
-    'session_doesnt_exist' => 'Não foi possível detectar a sessão. Salvar sessões é um requisito para usar o Nameless. Tente novamente e, se o problema persistir, entre em contato com sua hospedagem para obter suporte.'
+    'session_doesnt_exist' => 'Unable to detect session. Sessions saving are a requirement to use Nameless. Please try again after clearing cookies in your web browser, and if the issue persists, please contact your web host for support.'
 ];

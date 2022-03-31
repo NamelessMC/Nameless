@@ -1,5 +1,12 @@
 <?php
-
+/**
+ * Provides a baseline for custom group sync injectors.
+ *
+ * @package NamelessMC\Group_Sync
+ * @author Aberdeener
+ * @version 2.0.0-pr13
+ * @license MIT
+ */
 interface GroupSyncInjector {
 
     /**
@@ -47,7 +54,6 @@ interface GroupSyncInjector {
      * Get the message to display in place of the group dropdown on the Group Sync page.
      *
      * @param Language $language The logged in user's language to use for translations.
-     *
      * @return string Not enabled message
      */
     public function getNotEnabledMessage(Language $language): string;
@@ -78,6 +84,8 @@ interface GroupSyncInjector {
      *
      * Should be using the constants from the `Validate` class.
      *
+     * @see Validate
+     *
      * @return array Validation rules
      */
     public function getValidationRules(): array;
@@ -88,8 +96,7 @@ interface GroupSyncInjector {
      *
      * Can return an empty array to use automatically generated messages.
      *
-     * @param Language $language The logged in user's language to use for translations.
-     *
+     * @param Language $language The logged-in user's language to use for translations.
      * @return array Validation error messages
      */
     public function getValidationMessages(Language $language): array;
@@ -98,12 +105,11 @@ interface GroupSyncInjector {
      * Add this group to the user on your service.
      *
      * Can do anything in here (go for a walk, call your API, write a book, etc),
-     * as long as they user gets the group applied on your service!
+     * as long as the user gets the group applied on your service!
      *
      * @param User $user Instance of affected NamelessMC user.
      * @param mixed $group_id Native group ID to use for lookup on your service.
-     *
-     * @return bool Whether it was successfully added or not
+     * @return bool Whether the group was successfully added or not
      */
     public function addGroup(User $user, $group_id): bool;
 
@@ -112,8 +118,7 @@ interface GroupSyncInjector {
      *
      * @param User $user Instance of affected NamelessMC user.
      * @param mixed $group_id Native group ID to use for lookup on your service.
-     *
-     * @return bool Whether it was successfully removed or not
+     * @return bool Whether the group was successfully removed or not
      */
     public function removeGroup(User $user, $group_id): bool;
 }

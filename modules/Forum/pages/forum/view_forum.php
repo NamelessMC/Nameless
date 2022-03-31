@@ -12,7 +12,6 @@
 // Always define page name
 const PAGE = 'forum';
 
-require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
 $forum = new Forum();
 $timeago = new TimeAgo(TIMEZONE);
 
@@ -50,13 +49,11 @@ $forum_query = $forum_query[0];
 if (isset($_GET['p'])) {
     if (!is_numeric($_GET['p'])) {
         Redirect::to(URL::build('/forum'));
-        die();
     }
 
     if ($_GET['p'] == 1) {
         // Avoid bug in pagination class
         Redirect::to(URL::build('/forum/view/' . $fid . '-' . $forum->titleToURL($forum_query->forum_title)));
-        die();
     }
     $p = $_GET['p'];
 } else {
@@ -65,7 +62,13 @@ if (isset($_GET['p'])) {
 
 $page_metadata = $queries->getWhere('page_descriptions', ['page', '=', '/forum/view']);
 if (count($page_metadata)) {
-    define('PAGE_DESCRIPTION', str_replace(['{site}', '{forum_title}', '{page}', '{description}'], [SITE_NAME, Output::getClean($forum_query->forum_title), Output::getClean($p), Output::getClean(strip_tags(Output::getDecoded($forum_query->forum_description)))], $page_metadata[0]->description));
+
+    define('PAGE_DESCRIPTION', str_replace(
+        ['{site}', '{forum_title}', '{page}', '{description}'],
+        [SITE_NAME, Output::getClean($forum_query->forum_title), Output::getClean($p), Output::getClean($forum_query->forum_description)],
+        $page_metadata[0]->description
+    ));
+
     define('PAGE_KEYWORDS', $page_metadata[0]->tags);
 }
 
@@ -77,14 +80,13 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 if ($forum_query->redirect_forum == 1) {
     if (!Util::isExternalURL($forum_query->redirect_url)) {
         Redirect::to(Output::getClean(Output::getDecoded($forum_query->redirect_url)));
-        die();
     }
 
     $smarty->assign([
         'CONFIRM_REDIRECT' => str_replace('{x}', $forum_query->redirect_url, $forum_language->get('forum', 'forum_redirect_warning')),
         'YES' => $language->get('general', 'yes'),
         'NO' => $language->get('general', 'no'),
-        'REDIRECT_URL' => Output::getClean(htmlspecialchars_decode($forum_query->redirect_url)),
+        'REDIRECT_URL' => Output::getClean($forum_query->redirect_url),
         'FORUM_INDEX' => URL::build('/forum')
     ]);
 
@@ -261,8 +263,8 @@ if ($forum_query->redirect_forum == 1) {
     $smarty->assign('NO_TOPICS', $forum_language->get('forum', 'no_topics_short'));
     $smarty->assign('SUBFORUMS', $subforum_array);
     $smarty->assign('SUBFORUM_LANGUAGE', $forum_language->get('forum', 'subforums'));
-    $smarty->assign('FORUM_TITLE', Output::getPurified(htmlspecialchars_decode($forum_query->forum_title)));
-    $smarty->assign('FORUM_ICON', Output::getPurified(Output::getDecoded($forum_query->icon)));
+    $smarty->assign('FORUM_TITLE', Output::getPurified($forum_query->forum_title));
+    $smarty->assign('FORUM_ICON', Output::getPurified($forum_query->icon));
     $smarty->assign('STICKY_TOPICS', $forum_language->get('forum', 'sticky_topics'));
 
     // Can the user post here?
@@ -387,7 +389,7 @@ if ($forum_query->redirect_forum == 1) {
         // Pagination
         $paginator = new Paginator(($template_pagination ?? []), $template_pagination_left ?? '', $template_pagination_right ?? '');
         $results = $paginator->getLimited($topics, 10, $p, count($topics));
-        $pagination = $paginator->generate(7, URL::build('/forum/view/' . $fid . '-' . $forum->titleToURL($forum_query->forum_title), true));
+        $pagination = $paginator->generate(7, URL::build('/forum/view/' . $fid . '-' . $forum->titleToURL($forum_query->forum_title)));
 
         if (count($topics)) {
             $smarty->assign('PAGINATION', $pagination);

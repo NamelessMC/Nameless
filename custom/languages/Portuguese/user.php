@@ -7,14 +7,15 @@
  *  License: MIT
  *
  *  Portuguese Language - Users
- *  Translation By Douglas Teles, dasilvaj4 and Mansffer
- *  Last Update: 01/03/2021
+ *  Translation by Douglas Teles, dasilvaj4, Mansffer and DeusDrizzyy.
+ *  Last Update: 22/02/2022
  */
+
 $language = [
     /*
-     *  Change this for the account validation message
+     *  Mude isto para a mensagem de validação da conta.
      */
-    'validate_account_command' => 'Para completar o registo, por favor execute o comando <strong>/verify {x}</strong> no servidor.', // Don't replace {x}
+    'validate_account_command' => 'Para completar o registo, por favor execute o comando <strong>/verify {x}</strong> no servidor.', // Não substituir {x}.
     /*
      *  User Related
      */
@@ -34,12 +35,12 @@ $language = [
     'alerts' => 'Alertas',
     'delete_all' => 'Excluir Todos',
     'private_profile' => 'Perfil privado',
-    'gif_avatar' => 'Faça upload de um .gif como avatar personalizado',
+    'gif_avatar' => 'Faça upload de um .gif como avatar personalizado.',
     'placeholders' => 'Placeholders',
-    'no_placeholders' => 'No Placeholders',
+    'no_placeholders' => 'Sem Placeholders',
 
     // Profile settings
-    'field_is_required' => '{x} é requerido.', // Don't replace {x}
+    'field_is_required' => '{x} é requerido.', // Não substituir {x}.
     'settings_updated_successfully' => 'Configurações atualizadas com sucesso.',
     'password_changed_successfully' => 'Senha alterada com sucesso.',
     'change_password' => 'Alterar Senha',
@@ -69,16 +70,16 @@ $language = [
     'profile_banner' => 'Banner de Perfil',
     'upload_profile_banner' => 'Enviar Banner de Perfil',
     'upload' => 'Upload',
-    'topic_updates' => 'Receba emails sobre os tópicos que você segue',
+    'topic_updates' => 'Receba emails sobre os tópicos que você segue.',
     'gravatar' => 'Use o Gravatar como avatar',
 
     // Alerts
-    'user_tag_info' => 'Você foi marcado em um post por {x}.', // Don't replace {x}
+    'user_tag_info' => 'Você foi marcado em um post por {x}.', // Não substituir {x}.
     'no_alerts' => 'Sem novos alertas',
     'view_alerts' => 'Ver alertas',
-    '1_new_alert' => 'Você possui 1 novo alerta',
-    'x_new_alerts' => 'Você possui {x} novos alertas', // Don't replace {x}
-    'no_alerts_usercp' => 'Você não possui nenhum alerta.',
+    '1_new_alert' => 'Você tem 1 novo alerta.',
+    'x_new_alerts' => 'Você tem {x} novos alertas', // Não substituir {x}.
+    'no_alerts_usercp' => 'Você não tem nenhum alerta.',
 
     // Registraton
     'registration_check_email' => 'Obrigado por se registrar! Verifique os seus emails para obter um link de validação para concluir o seu registo. Se você não conseguir encontrar o email, verifique sua pasta de lixo eletrônico.',
@@ -90,7 +91,7 @@ $language = [
     'password' => 'Senha',
     'confirm_password' => 'Confirme a senha',
     'i_agree' => 'Eu aceito',
-    'agree_t_and_c' => 'I have read and accept the <a href="{x}" target="_blank">Terms and Conditions</a>.',
+    'agree_t_and_c' => 'Eu li e aceito os <a href="{x}" target="_blank">Termos & Condições</a>.',
     'create_an_account' => 'Criar uma Conta',
     'terms_and_conditions' => 'Termos & Condições',
     'validation_complete' => 'Sua conta foi validada, agora você pode fazer login.',
@@ -124,10 +125,10 @@ $language = [
     'verify_account' => 'Verificar Conta',
     'verify_account_help' => 'Siga as instruções abaixo para que possamos verificar se você possui a conta do Minecraft em questão.',
     'validate_account' => 'Validar Conta',
-    'verification_failed' => 'Falha na verificação. Por favor tente novamente.',
+    'verification_failed' => 'Falha na verificação. Por favor, tente novamente.',
     'verification_success' => 'Validado com sucesso! Agora você pode entrar.',
     'authme_username_exists' => 'Sua conta AuthMe já está conectada com o website!',
-    'uuid_already_exists' => 'Seu UUID já existe, o que significa que esta conta Minecraft já está registrado.',
+    'uuid_already_exists' => 'Seu UUID já existe, o que significa que esta conta Minecraft já está registrada.',
 
     // Login
     'successful_login' => 'Você fez login com sucesso.',
@@ -139,8 +140,8 @@ $language = [
     'must_input_email' => 'Você deve inserir um endereço de email.',
     'must_input_username' => 'Você deve inserir um nome de usuário.',
     'must_input_password' => 'Você deve inserir uma senha.',
-    'must_input_email_or_username' => 'You must input an email or username.',
-    'email_or_username' => 'Email or Username',
+    'must_input_email_or_username' => 'Você deve inserir um email ou nome de usuário.',
+    'email_or_username' => 'Email ou Usuário',
 
     // Forgot password
     'forgot_password_instructions' => 'Por favor, insira seu endereço de email para que possamos enviar-lhe mais instruções sobre como redefinir sua senha.',
@@ -155,15 +156,15 @@ $language = [
     'follow' => 'Seguir',
     'no_wall_posts' => 'Não há nenhuma publicação ainda.',
     'change_banner' => 'Alterar Banner',
-    'post_on_wall' => 'Publicações no perfil de {x}', // Don't replace {x}
+    'post_on_wall' => 'Publicações no perfil de {x}', // Não substituir {x}.
     'invalid_wall_post' => 'Certifique-se de que a sua mensagem tem entre 1 e 10000 caracteres.',
     '1_reaction' => '1 reação',
-    'x_reactions' => '{x} reações', // Don't replace {x}
+    'x_reactions' => '{x} reações', // Não substituir {x}.
     '1_like' => '1 curtida',
-    'x_likes' => '{x} curtidas', // Don't replace {x}
+    'x_likes' => '{x} curtidas', // Não substituir {x}.
     '1_reply' => '1 resposta',
-    'x_replies' => '{x} respostas', // Don't replace {x}
-    'no_replies_yet' => 'Nenhuma resposta ainda',
+    'x_replies' => '{x} respostas', // Não substituir {x}.
+    'no_replies_yet' => 'Nenhuma resposta ainda.',
     'feed' => 'Feed',
     'about' => 'Sobre',
     'reactions' => 'Reações',
@@ -172,7 +173,7 @@ $language = [
     'registered' => 'Cadastrado:',
     'registered_x' => 'Cadastrado: {x}',
     'last_seen' => 'Visto pela última vez:',
-    'last_seen_x' => 'Visto pela última vez: {x}', // Don't replace {x}
+    'last_seen_x' => 'Visto pela última vez: {x}', // Não substituir {x}.
     'new_wall_post' => '{x} postou no seu perfil.',
     'couldnt_find_that_user' => 'Não encontramos este usuário.',
     'block_user' => 'Bloquear Usuário',
@@ -183,36 +184,36 @@ $language = [
     'user_unblocked' => 'Usuário desbloqueado.',
     'views' => 'Visualizações do perfil:',
     'private_profile_page' => 'Este é um perfil privado!',
-    'new_wall_post_reply' => '{x} respondeu a sua postagem no perfil de {y}.', // Don't replace {x} or {y}
-    'new_wall_post_reply_your_profile' => '{x} respondeu ao seu post no seu perfil.', // Don't replace {x}
+    'new_wall_post_reply' => '{x} respondeu a sua postagem no perfil de {y}.', // Não substituir {x} ou {y}.
+    'new_wall_post_reply_your_profile' => '{x} respondeu ao seu post no seu perfil.', // Não substituir {x}.
     'no_about_fields' => 'Este usuário não adicionou nenhum campo sobre ele ainda.',
     'reply' => 'Responder',
 
     // Reports
     'invalid_report_content' => 'Não foi possível criar o alerta. Certifique-se de que o motivo do alerta está entre 2 e 1024 caracteres.',
-    'report_post_content' => 'Introduza uma razão para o seu alerta',
-    'report_created' => 'Alerta criado com sucesso',
+    'report_post_content' => 'Introduza uma razão para o seu alerta.',
+    'report_created' => 'Alerta criado com sucesso.',
 
     // Messaging
-    'no_messages' => 'Sem novas mensagens',
-    'no_messages_full' => 'Você não possui nenhuma mensagem.',
+    'no_messages' => 'Sem novas mensagens.',
+    'no_messages_full' => 'Você não tem nenhuma mensagem.',
     'view_messages' => 'Visualizar mensagens',
-    '1_new_message' => 'Você possui 1 nova mensagem',
-    'x_new_messages' => 'Você possui {x} novas mensagens', // Don't replace {x}
+    '1_new_message' => 'Você tem 1 nova mensagem.',
+    'x_new_messages' => 'Você tem {x} novas mensagens.', // Não substituir {x}.
     'new_message' => 'Nova Mensagem',
     'message_title' => 'Título da Mensagem',
     'to' => 'Para',
-    'separate_users_with_commas' => 'Separe os usuários com vírgula',
-    'title_required' => 'Introduza um título',
-    'content_required' => 'Introduza algum conteúdo',
-    'users_to_required' => 'Introduza algum destinatário',
+    'separate_users_with_commas' => 'Separe os usuários com vírgula.',
+    'title_required' => 'Introduza um título.',
+    'content_required' => 'Introduza algum conteúdo.',
+    'users_to_required' => 'Introduza algum destinatário.',
     'cant_send_to_self' => 'Você não pode enviar uma mensagem para si mesmo!',
-    'title_min_2' => 'O título deve ter no mínimo 2 caracteres',
-    'content_min_2' => 'O conteúdo deve ter no mínimo 2 caracteres',
-    'title_max_64' => 'O título deve ter no máximo 64 caracteres',
-    'content_max_20480' => 'O conteúdo deve ter no máximo 20480 caracteres',
-    'max_pm_10_users' => 'Só pode enviar uma mensagem para no máximo de 10 usuários',
-    'message_sent_successfully' => 'Mensagem enviada com sucesso',
+    'title_min_2' => 'O título deve ter no mínimo 2 caracteres.',
+    'content_min_2' => 'O conteúdo deve ter no mínimo 2 caracteres.',
+    'title_max_64' => 'O título deve ter no máximo 64 caracteres.',
+    'content_max_20480' => 'O conteúdo deve ter no máximo 20480 caracteres.',
+    'max_pm_10_users' => 'Só pode enviar uma mensagem para no máximo de 10 usuários.',
+    'message_sent_successfully' => 'Mensagem enviada com sucesso.',
     'participants' => 'Participantes',
     'last_message' => 'Última Mensagem',
     'by' => 'por',
@@ -235,4 +236,13 @@ $language = [
      */
     'user_x_has_registered' => '{x} juntou-se ' . SITE_NAME . '!',
     'user_x_has_validated' => '{x} validou sua conta!',
+
+    // OAuth
+    'oauth_unlinked' => 'Successfully unlinked your account from that provider.',
+    'oauth_already_linked' => 'Another NamelessMC user is already linked to that {x} account.', // Don't replace {x}
+    'oauth_link_success' => 'Successfully linked your account with {x}!', // Don't replace {x}
+    'no_user_found_with_provider' => 'No user found with that {x} account.', // Don't replace {x}
+    'oauth_login_success' => 'You have logged in with your {x} account.', // Don't replace {x}
+    'oauth_link_confirm' => 'You will be taken to the {x} website to link your account.', // Don't replace {x}
+    'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {x}.<br>You will not be able to login with this account anymore.', // Don't replace {x}
 ];

@@ -61,7 +61,7 @@ class CookieConsent_Module extends Module {
         ]);
 
         // Sitemap
-        $pages->registerSitemapMethod(ROOT_PATH . '/modules/Cookie Consent/classes/CookieConsent_Sitemap.php', 'CookieConsent_Sitemap::generateSitemap');
+        $pages->registerSitemapMethod([CookieConsent_Sitemap::class, 'generateSitemap']);
 
         if (defined('FRONT_END')) {
             // Add cookie page link
@@ -78,10 +78,10 @@ class CookieConsent_Module extends Module {
             // Add JS script
             if ($template) {
                 $template->addCSSFiles([
-                    'https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css' => []
+                    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/css/cookieconsent.min.css' => [],
                 ]);
                 $template->addJSFiles([
-                    'https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js' => [],
+                    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/js/cookieconsent.min.js' => [],
                 ]);
                 $template->addJSScript(
                     CookieConsent::generateScript(

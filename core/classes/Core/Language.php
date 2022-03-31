@@ -1,23 +1,27 @@
 <?php
-
-/*
- *	Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+/**
+ * Provides utilities for retrieving/handling language strings.
  *
- *  License: MIT
- *
- *  Language class
+ * @package NamelessMC\Core
+ * @author Samerton
+ * @version 2.0.0-pr13
+ * @license MIT
  */
 
 use samerton\i18next\i18next;
 
 class Language {
 
+    /**
+     * @var string Name of the language currently being used.
+     */
     private string $_activeLanguage;
-    private string $_activeLanguageFile;
-    private string $_module; // TODO: needed?
-    private i18next $_i18n;
+
+    // TODO: needed?
+    /**
+     * @var string Name of module currently using this instance.
+     */
+    private string $_module;
 
     /**
      * Construct Language class

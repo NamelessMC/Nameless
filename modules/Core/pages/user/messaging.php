@@ -12,7 +12,6 @@
 // Must be logged in
 if (!$user->isLoggedIn()) {
     Redirect::to(URL::build('/'));
-    die();
 }
 
 // Always define page name for navbar
@@ -20,49 +19,20 @@ const PAGE = 'cc_messaging';
 $page_title = $language->get('user', 'user_cp');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-$template->addCSSFiles(
-    [
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.css' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.min.css' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/css/emojionearea.min.css' => []
-    ]
-);
+$template->addCSSFiles([
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.css' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
+]);
 
-// Display either Markdown or HTML editor
-$cache->setCache('post_formatting');
-$formatting = $cache->retrieve('formatting');
+$template->addJSFiles([
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
+]);
 
-if ($formatting == 'markdown') {
-    $template->addJSFiles(
-        [
-            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/js/emojione.min.js' => [],
-            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/js/emojionearea.min.js' => [],
-        ]
-    );
-
-    $template->addJSScript(
-        '$(document).ready(function() {
-            var el = $("#markdown").emojioneArea({
-                pickerPosition: "bottom"
-            });
-        });'
-    );
-} else {
-    $template->addJSFiles(
-        [
-            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
-            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
-            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
-        ]
-    );
-
-    $template->addJSScript(Input::createTinyEditor($language, 'reply'));
-}
+$template->addJSScript(Input::createTinyEditor($language, 'reply'));
 
 $timeago = new TimeAgo(TIMEZONE);
-
-$emojione = new Emojione\Client(new Emojione\Ruleset());
 
 $smarty->assign(
     [
@@ -74,7 +44,6 @@ $smarty->assign(
 if (isset($_GET['p'])) {
     if (!is_numeric($_GET['p'])) {
         Redirect::to(URL::build('/user/messaging'));
-        die();
     }
 
     if ($_GET['p'] == 1) {
@@ -84,7 +53,6 @@ if (isset($_GET['p'])) {
         } else {
             Redirect::to(URL::build('/user/messaging'));
         }
-        die();
     }
     $p = $_GET['p'];
 } else {
@@ -98,7 +66,7 @@ if (!isset($_GET['action'])) {
     // Pagination
     $paginator = new Paginator(($template_pagination ?? []), isset($template_pagination_left) ? $template_pagination_left : '', isset($template_pagination_right) ? $template_pagination_right : '');
     $results = $paginator->getLimited($messages, 10, $p, count($messages));
-    $pagination = $paginator->generate(7, URL::build('/user/messaging/', true));
+    $pagination = $paginator->generate(7, URL::build('/user/messaging/'));
 
     $smarty->assign('PAGINATION', $pagination);
 
@@ -175,14 +143,12 @@ if (!isset($_GET['action'])) {
     if ($_GET['action'] == 'new') {
         if (!$user->hasPermission('usercp.messaging')) {
             Redirect::to(URL::build('/user/messaging'));
-            die();
         }
         // New PM
         if (Input::exists()) {
             if (Token::check()) {
                 // Validate input
-                $validate = new Validate();
-                $validation = $validate->check($_POST, [
+                $validation = Validate::check($_POST, [
                     'title' => [
                         Validate::REQUIRED => true,
                         Validate::MIN => 2,
@@ -274,16 +240,7 @@ if (!isset($_GET['action'])) {
                                 // Get the PM ID
                                 $last_id = $queries->getLastId();
 
-                                // Parse markdown
-                                $cache->setCache('post_formatting');
-                                $formatting = $cache->retrieve('formatting');
-
-                                if ($formatting == 'markdown') {
-                                    $content = \Michelf\Markdown::defaultTransform(Input::get('content'));
-                                    $content = Output::getClean($content);
-                                } else {
-                                    $content = Output::getClean(Input::get('content'));
-                                }
+                                $content = Output::getClean(Input::get('content'));
 
                                 // Insert post content into database
                                 $queries->create(
@@ -326,11 +283,9 @@ if (!isset($_GET['action'])) {
                                 // Sent successfully
                                 Session::flash('user_messaging_success', $language->get('user', 'message_sent_successfully'));
                                 Redirect::to(URL::build('/user/messaging'));
-                                die();
-
                             }
 
-// Over 10 users added
+                            // Over 10 users added
                             $error = $language->get('user', 'max_pm_10_users');
                         }
                     }
@@ -349,16 +304,6 @@ if (!isset($_GET['action'])) {
 
         if (isset($error)) {
             $smarty->assign('ERROR', $error);
-        }
-
-        // Markdown or HTML?
-        $cache->setCache('post_formatting');
-        $formatting = $cache->retrieve('formatting');
-
-        if ($formatting == 'markdown') {
-            // Markdown
-            $smarty->assign('MARKDOWN', true);
-            $smarty->assign('MARKDOWN_HELP', $language->get('general', 'markdown_help'));
         }
 
         if (isset($_GET['uid'])) {
@@ -408,7 +353,6 @@ if (!isset($_GET['action'])) {
         // Ensure message is specified
         if (!isset($_GET['message']) || !is_numeric($_GET['message'])) {
             Redirect::to(URL::build('/user/messaging'));
-            die();
         }
 
         // Ensure message exists
@@ -416,7 +360,6 @@ if (!isset($_GET['action'])) {
 
         if (!$pm) { // Either PM doesn't exist, or the user doesn't have permission to view it
             Redirect::to(URL::build('/user/messaging'));
-            die();
         }
 
         // Deal with input
@@ -425,8 +368,7 @@ if (!isset($_GET['action'])) {
             if (Token::check()) {
                 // Valid token
                 // Validate input
-                $validate = new Validate();
-                $validation = $validate->check($_POST, [
+                $validation = Validate::check($_POST, [
                     'content' => [
                         Validate::REQUIRED => true,
                         Validate::MIN => 2,
@@ -441,16 +383,7 @@ if (!isset($_GET['action'])) {
                 ]);
 
                 if ($validation->passed()) {
-                    // Parse markdown
-                    $cache->setCache('post_formatting');
-                    $formatting = $cache->retrieve('formatting');
-
-                    if ($formatting == 'markdown') {
-                        $content = \Michelf\Markdown::defaultTransform(Input::get('content'));
-                        $content = Output::getClean($content);
-                    } else {
-                        $content = Output::getClean(Input::get('content'));
-                    }
+                    $content = Output::getClean(Input::get('content'));
 
                     // Insert post content into database
                     $queries->create(
@@ -535,7 +468,7 @@ if (!isset($_GET['action'])) {
                 'author_groups' => $target_user->getAllGroupHtml(),
                 'message_date' => $timeago->inWords(date('d M Y, H:i', $nValue->created), $language),
                 'message_date_full' => date('d M Y, H:i', $nValue->created),
-                'content' => Output::getPurified($emojione->unicodeToImage(Output::getDecoded($nValue->content)))
+                'content' => Output::getPurified(Util::renderEmojis(Output::getDecoded($nValue->content))),
             ];
         }
 
@@ -570,7 +503,7 @@ if (!isset($_GET['action'])) {
                 'author_groups' => $target_user->getAllGroupHtml(),
                 'message_date' => $timeago->inWords(date('d M Y, H:i', $nValue->created), $language),
                 'message_date_full' => date('d M Y, H:i', $nValue->created),
-                'content' => Output::getPurified($emojione->toImage(Output::getDecoded($nValue->content)))
+                'content' => Output::getPurified(Util::renderEmojis(Output::getDecoded($nValue->content))),
             ];
         }
 
@@ -602,16 +535,6 @@ if (!isset($_GET['action'])) {
             'NO' => $language->get('general', 'no'),
         ]);
 
-        // Markdown or HTML?
-        $cache->setCache('post_formatting');
-        $formatting = $cache->retrieve('formatting');
-
-        if ($formatting == 'markdown') {
-            // Markdown
-            $smarty->assign('MARKDOWN', true);
-            $smarty->assign('MARKDOWN_HELP', $language->get('general', 'markdown_help'));
-        }
-
         if (isset($_POST['content'])) {
             $smarty->assign('CONTENT', Output::getClean($_POST['content']));
         } else {
@@ -637,7 +560,6 @@ if (!isset($_GET['action'])) {
         // Try to remove the user from the conversation
         if (!isset($_GET['message']) || !is_numeric($_GET['message']) || !Token::check($_POST['token'])) {
             Redirect::to(URL::build('/user/messaging'));
-            die();
         }
 
         $message = $queries->getWhere('private_messages_users', ['pm_id', '=', $_GET['message']]);
@@ -653,6 +575,5 @@ if (!isset($_GET['action'])) {
 
         // Done, redirect
         Redirect::to(URL::build('/user/messaging'));
-        die();
     }
 }

@@ -71,7 +71,6 @@ if (!isset($_GET['view'])) {
         case 'acp_logins':
             if (!$user->hasPermission('admincp.security.acp_logins')) {
                 Redirect::to(URL::build('/panel/security'));
-                die();
             }
 
             $log_title = $language->get('admin', 'acp_logins');
@@ -107,7 +106,6 @@ if (!isset($_GET['view'])) {
         case 'template_changes':
             if (!$user->hasPermission('admincp.security.template')) {
                 Redirect::to(URL::build('/panel/security'));
-                die();
             }
 
             $log_title = $language->get('admin', 'template_changes');
@@ -147,7 +145,6 @@ if (!isset($_GET['view'])) {
         case 'emails':
             if (!$user->hasPermission('admincp.security.emails')) {
                 Redirect::to(URL::build('/panel/security'));
-                die();
             }
 
             $log_title = $language->get('admin', 'email_logs');
@@ -182,7 +179,6 @@ if (!isset($_GET['view'])) {
         case 'group_sync':
             if (!$user->hasPermission('admincp.security.group_sync')) {
                 Redirect::to(URL::build('/panel/security'));
-                die();
             }
 
             $log_title = $language->get('admin', 'group_sync_logs');
@@ -239,7 +235,6 @@ if (!isset($_GET['view'])) {
         case 'all':
             if (!$user->hasPermission('admincp.security.all')) {
                 Redirect::to(URL::build('/panel/security'));
-                die();
             }
 
             $log_title = $language->get('admin', 'all_logs');
@@ -282,7 +277,6 @@ if (!isset($_GET['view'])) {
 
         default:
             Redirect::to(URL::build('/panel/security'));
-            die();
     }
 
     $smarty->assign([

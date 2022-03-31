@@ -50,6 +50,7 @@ $language = [
     // Discord
     'discord_link' => 'Discord Link',
     'linked' => 'Gekoppeld',
+    'get_link_code' => 'Get link code',
     'not_linked' => 'Niet Gekoppeld',
     'discord_id' => 'Discord Gebruikers ID',
     'discord_id_unlinked' => 'Succesvol ontkoppeld van uw Discord Gebruikers-ID.',

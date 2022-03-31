@@ -9,7 +9,6 @@
  *  Forum search page
  */
 
-require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
 if (!isset($forum) || (!$forum instanceof Forum)) {
     $forum = new Forum();
 }
@@ -18,7 +17,6 @@ const PAGE = 'forum';
 
 // Initialise
 $timeago = new TimeAgo(TIMEZONE);
-$emojione = new Emojione\Client(new Emojione\Ruleset());
 
 // Get user group ID
 $user_groups = $user->getAllGroupIds();
@@ -26,8 +24,7 @@ $user_groups = $user->getAllGroupIds();
 if (!isset($_GET['s'])) {
     if (Input::exists()) {
         if (Token::check()) {
-            $validate = new Validate();
-            $validation = $validate->check($_POST, [
+            $validation = Validate::check($_POST, [
                 'forum_search' => [
                     Validate::REQUIRED => true,
                     Validate::MIN => 3,
@@ -40,7 +37,6 @@ if (!isset($_GET['s'])) {
                 $search = preg_replace('/[^a-zA-Z0-9 +]+/', '', $search); // alphanumeric only
 
                 Redirect::to(URL::build('/forum/search/', 's=' . $search . '&p=1'));
-                die();
             }
 
             $error = $forum_language->get('forum', 'invalid_search_query');
@@ -61,7 +57,6 @@ if (!isset($_GET['s'])) {
     if (isset($_SESSION['last_forum_search']) && $_SESSION['last_forum_search_query'] != $_GET['s'] && $_SESSION['last_forum_search'] > strtotime('-1 minute')) {
         Session::flash('search_error', str_replace('{x}', (60 - (date('U') - $_SESSION['last_forum_search'])), $forum_language->get('forum', 'search_again_in_x_seconds')));
         Redirect::to(URL::build('/forum/search'));
-        die();
     }
 
     $cache->setCache($search . '-' . rtrim(implode('-', $user_groups), '-'));
@@ -153,8 +148,6 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 $template->addCSSFiles([
     (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.css' => [],
     (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.min.css' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/css/emojionearea.min.css' => []
 ]);
 
 $template->addJSFiles([
@@ -177,8 +170,8 @@ if (isset($_GET['s'])) {
         // Display the correct number of posts
         $n = 0;
         while (($n < count($results->data)) && isset($results->data[$n])) {
-            $content = htmlspecialchars_decode($results->data[$n]['post_content']);
-            $content = $emojione->toImage($content);
+            $content = $results->data[$n]['post_content'];
+            $content = Util::renderEmojis($content);
             $content = Output::getPurified($content);
 
             $post_user = new User($results->data[$n]['post_author']);

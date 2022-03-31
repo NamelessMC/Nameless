@@ -1,26 +1,28 @@
 <?php
-/*
- *	Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+/**
+ * Forum class
  *
- *  License: MIT
- *
- *  Forum class
+ * @package Modules\Forum
+ * @author Samerton
+ * @version 2.0.0-pr8
+ * @license MIT
  */
-
 class Forum {
 
     private DB $_db;
 
-    // Constructor, connect to database
     public function __construct() {
         $this->_db = DB::getInstance();
     }
 
-    // Returns an array of forums a user can access, including topic information
-    // Params: $groups (array) - user groups
-    public function listAllForums(array $groups = [0], int $user_id = null): array {
+    /**
+     * Get an array of forums a user can access, including topic information
+     *
+     * @param array $groups Users groups
+     * @param int $user_id User ID
+     * @return array Array of forums a user can access
+     */
+    public function listAllForums(array $groups = [0], int $user_id = 0): array {
         if (in_array(0, $groups)) {
             $user_id = 0;
         }
@@ -51,7 +53,7 @@ class Forum {
                                 $return[$forum->id]['subforums'][$item->id]->forum_description = Output::getClean($item->forum_description);
                                 $return[$forum->id]['subforums'][$item->id]->icon = Output::getPurified(Output::getDecoded($item->icon));
                                 $return[$forum->id]['subforums'][$item->id]->link = URL::build('/forum/view/' . $item->id . '-' . $this->titleToURL($item->forum_title));
-                                $return[$forum->id]['subforums'][$item->id]->redirect_to = Output::getClean(htmlspecialchars_decode($item->redirect_url));
+                                $return[$forum->id]['subforums'][$item->id]->redirect_to = Output::getClean($item->redirect_url);
 
                                 // Get topic/post count
                                 $topics = $this->_db->orderWhere('topics', 'forum_id = ' . $item->id . ' AND deleted = 0', 'id', 'ASC')->results();
@@ -122,11 +124,14 @@ class Forum {
         return $return;
     }
 
-    // Returns an array of the latest 50 discussions a user can access
-    // Params: $groups (array) - user groups
-
+    /**
+     * Determine if a forum exists (in the context of a specific user)
+     *
+     * @param int $forum_id ID of the forum
+     * @param array $groups Array of groups the user is in
+     * @return bool Whether the forum exists or not
+     */
     public function forumExist(int $forum_id, array $groups = [0]): bool {
-        // Does the forum exist?
         $exists = $this->_db->get('forums', ['id', '=', $forum_id])->results();
         if (count($exists)) {
             return $this->hasPermission($forum_id, 'view', $groups);
@@ -135,9 +140,14 @@ class Forum {
         return false;
     }
 
-    // Returns true/false, depending on whether the specified forum exists and whether the user can view it
-    // Params: $forum_id (integer) - forum id to check, $groups (array) - user groups
-
+    /**
+     * Determines if any groups have permission to do a certain action on a forum
+     *
+     * @param int $forum_id ID of the forum
+     * @param string $required_permission Required permission
+     * @param array $groups Array of groups the user is in
+     * @return bool Whether the groups have permission or not
+     */
     private function hasPermission(int $forum_id, string $required_permission, array $groups): bool {
         $permissions = $this->_db->get('forums_permissions', ['forum_id', '=', $forum_id])->results();
         foreach ($permissions as $permission) {
@@ -150,13 +160,10 @@ class Forum {
         return false;
     }
 
-    // Returns true/false, depending on whether the specified topic exists
-    // Params: $topic_id (integer) - topic id to check
-
     public function titleToURL(string $topic = null): string {
         if ($topic) {
             $topic = str_replace(URL_EXCLUDE_CHARS, '', Util::cyrillicToLatin($topic));
-            return Output::getClean(strtolower(urlencode(str_replace(' ', '-', htmlspecialchars_decode($topic)))));
+            return Output::getClean(strtolower(urlencode(str_replace(' ', '-', $topic))));
         }
 
         return '';
@@ -184,10 +191,14 @@ class Forum {
         return false;
     }
 
-    // Returns true/false, depending on whether the user's group can create a topic in a specified forum
-    // Params: $forum_id (integer) - forum id to check, $groups (array) - user groups
-
-    public function getLatestDiscussions(array $groups = [0], int $user_id = null): array {
+    /**
+     * Get the newest 50 topics this user/group can view
+     *
+     * @param array $groups Array of groups the user is in
+     * @param int $user_id User ID
+     * @return array 50 latest topics
+     */
+    public function getLatestDiscussions(array $groups = [0], int $user_id = 0): array {
         if (!$user_id) {
             $user_id = 0;
         }
@@ -237,40 +248,66 @@ class Forum {
         return $query;
     }
 
-    // Returns true/false, depending on whether the user's group can create a reply to a topic in a specified forum
-    // Params: $forum_id (integer) - forum id to check, $groups (array) - user groups
-
+    /**
+     * Determine if a topic exists or not.
+     *
+     * @param int $topic_id The topic ID
+     * @return bool Whether the topic exists or not
+     */
     public function topicExist(int $topic_id): bool {
         // Does the topic exist?
         $exists = $this->_db->get('topics', ['id', '=', $topic_id])->results();
         return count($exists) > 0;
     }
 
+    /**
+     * Determine if the groups can view the forum or not.
+     *
+     * @param int $forum_id The forum ID
+     * @param array $groups The user's groups
+     * @return bool Whether the groups can view the forum or not
+     */
     public function canViewForum(int $forum_id, array $groups = [0]): bool {
         return $this->hasPermission($forum_id, 'view', $groups);
-
     }
 
+    /**
+     * Determine if the groups can post topics in the forum or not.
+     *
+     * @param int $forum_id The forum ID
+     * @param array $groups The user's groups
+     * @return bool Whether the groups can post topics in the forum or not
+     */
     public function canPostTopic(int $forum_id, array $groups = [0]): bool {
         return $this->hasPermission($forum_id, 'create_topic', $groups);
     }
 
-    // Updates the latest post column in all forums. Used when a reply/topic is deleted
-
+    /**
+     * Determine if the groups can post replies in the forum or not.
+     *
+     * @param int $forum_id The forum ID
+     * @param array $groups The user's groups
+     * @return bool Whether the groups can post replies in the forum or not
+     */
     public function canPostReply(int $forum_id, array $groups = [0]): bool {
         return $this->hasPermission($forum_id, 'create_post', $groups);
     }
 
-    // Updates the latest post column in all topics
-
+    /**
+     * Determine if the groups can edit [psts] in the forum or not.
+     *
+     * @param int $forum_id The forum ID
+     * @param array $groups The user's groups
+     * @return bool Whether the groups can edit posts in the forum or not
+     */
     public function canEditTopic(int $forum_id, array $groups = [0]): bool {
         return $this->hasPermission($forum_id, 'edit_topic', $groups);
     }
 
-    // Returns a string containing the title of a specified forum
-    // Params: $forum_id (integer) - forum id to check
-
-    public function updateForumLatestPosts(): bool {
+    /**
+     * Update the database with the new latest forum posts.
+     */
+    public function updateForumLatestPosts(): void {
         $forums = $this->_db->get('forums', ['id', '<>', 0])->results();
         $latest_posts = [];
         $n = 0;
@@ -327,14 +364,12 @@ class Forum {
         }
 
         $latest_posts = null;
-
-        return true;
     }
 
-    // Returns an array containing information about a specified post
-    // Params: $post_id (integer) - post id to check
-
-    public function updateTopicLatestPosts(): bool {
+    /**
+     * Update the database with the new latest forum topic posts.
+     */
+    public function updateTopicLatestPosts(): void {
         $topics = $this->_db->get('topics', ['id', '<>', 0])->results();
         $latest_posts = [];
         $n = 0;
@@ -371,38 +406,45 @@ class Forum {
                 ]);
             }
         }
-
-        return true;
     }
 
-    // Returns an array of the latest news items
-    // Params: $number (integer) - number to return (max 10)
-
+    /**
+     * Get the title of a specific forum.
+     *
+     * @param int $forum_id The forum ID to get the title of.
+     * @return string The forum title.
+     */
     public function getForumTitle(int $forum_id): string {
         $data = $this->_db->get('forums', ['id', '=', $forum_id])->results();
         return $data[0]->forum_title;
     }
 
-    // Can the user moderate the specified forum?
-    // Params:  $forum_id (integer) - forum ID to check
-
+    /**
+     * Get data of a specific post.
+     *
+     * @param int $post_id The post ID to data about.
+     * @return array|false The post data or false on failure.
+     */
     public function getIndividualPost(int $post_id) {
         $data = $this->_db->get('posts', ['id', '=', $post_id])->results();
         if (count($data)) {
-            return ([
+            return [
                 'creator' => $data[0]->post_creator,
                 'content' => $data[0]->post_content,
                 'date' => $data[0]->post_date,
                 'forum_id' => $data[0]->forum_id,
                 'topic_id' => $data[0]->topic_id
-            ]);
+            ];
         }
         return false;
     }
 
-    // Returns all posts in topic
-    // Params: $tid (integer) - topic ID to retrieve post from
-
+    /**
+     * Get the latest news posts to display on homepage.
+     *
+     * @param int $number The number of posts to get.
+     * @return array The latest news posts.
+     */
     public function getLatestNews(int $number = 5): array {
         $return = []; // Array to return containing news
         $labels_cache = []; // Array to contain labels
@@ -425,7 +467,7 @@ class Forum {
                 // Get label
                 $label_ids = explode(',', $item->labels);
 
-                if (count($label_ids)) {
+                if ($label_ids !== false) {
                     foreach ($label_ids as $label_id) {
                         if (isset($labels_cache[$label_id])) {
                             $labels[] = $labels_cache[$label_id];
@@ -475,8 +517,13 @@ class Forum {
         return array_slice($return, 0, $number, true);
     }
 
-    // Transform a topic title to URL-ify it
-
+    /**
+     * Determine if groups have permission to moderate a forum.
+     *
+     * @param int|null $forum_id The forum ID to check.
+     * @param array $groups The groups to check.
+     * @return bool Whether the groups can moderate the forum.
+     */
     public function canModerateForum(int $forum_id = null, array $groups = [0]): bool {
         if (!$forum_id || in_array(0, $groups)) {
             return false;
@@ -496,9 +543,12 @@ class Forum {
         return false;
     }
 
-    // Can the user view other topics in a forum?
-    // Params: $forum_id - forum ID (int), $groups (array) - user groups
-
+    /**
+     * Get posts on a specific topic.
+     *
+     * @param int|null $tid The topic ID to check.
+     * @return array|false Array of topics or false on failure.
+     */
     public function getPosts(int $tid = null) {
         if ($tid) {
             // Get posts from database
@@ -520,9 +570,14 @@ class Forum {
         return false;
     }
 
-    // Get any subforums at any level for a forum
-    // Params: $forum_id - forum ID (int), $groups (array) - user groups
-
+    /**
+     * Get any subforums at any level for a forum
+     *
+     * @param int $forum_id The forum ID
+     * @param array $groups The user groups
+     * @param int $depth The depth of the subforums to get
+     * @return array Subforums at any level for a forum
+     */
     public function getAnySubforums(int $forum_id, array $groups = [0], int $depth = 0): array {
         if ($depth == 10) {
             return [];

@@ -19,20 +19,17 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
         // Ensure server exists
         $server_query = $api->getDb()->get('mc_servers', ['id', '=', $serverId]);
 
-        if (!$server_query->count()) {
+        if (!$server_query->count() || $server_query->first()->bedrock) {
             $api->throwError(27, $api->getLanguage()->get('api', 'invalid_server_id') . ' - ' . $serverId);
         }
 
         try {
-            $api->getDb()->insert(
-                'query_results',
-                [
-                    'server_id' => $_POST['server-id'],
-                    'queried_at' => date('U'),
-                    'players_online' => count($_POST['players']),
-                    'groups' => isset($_POST['groups']) ? json_encode($_POST['groups']) : '[]'
-                ]
-            );
+            $api->getDb()->insert('query_results', [
+                'server_id' => $_POST['server-id'],
+                'queried_at' => date('U'),
+                'players_online' => count($_POST['players']),
+                'groups' => isset($_POST['groups']) ? json_encode($_POST['groups']) : '[]'
+            ]);
 
             if (file_exists(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('server_query_cache') . '.cache')) {
                 $query_cache = file_get_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('server_query_cache') . '.cache');
@@ -93,17 +90,13 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
             // Update username
             if (!Util::getSetting($api->getDb(), 'displaynames', false)) {
                 $user->update([
-                        'username' => Output::getClean($player['name']),
-                        'nickname' => Output::getClean($player['name'])
-                    ],
-                    $user->data()->id
-                );
+                    'username' => Output::getClean($player['name']),
+                    'nickname' => Output::getClean($player['name'])
+                ]);
             } else {
                 $user->update([
-                        'username' => Output::getClean($player['name'])
-                    ],
-                    $user->data()->id
-                );
+                    'username' => Output::getClean($player['name'])
+                ]);
             }
         }
     }

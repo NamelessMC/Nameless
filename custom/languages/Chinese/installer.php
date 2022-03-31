@@ -55,6 +55,7 @@ $language = [
     'configuration' => '設定',
     'configuration_info' => '請輸入網站基本資料，這些設定在管理員後台可以看到.',
     'configuration_error' => '網站名稱字元限制 1~32，電子郵件字元限制 4~64.',
+    'hostname_error' => 'Please enter a valid hostname without http:// or https://',
     'site_name' => '網站名稱',
     'contact_email' => '聯絡電子郵件',
     'outgoing_email' => '傳出電子郵件',

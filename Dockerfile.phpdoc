@@ -1,0 +1,14 @@
+FROM phpdoc/phpdoc as doc_builder
+
+COPY . /source
+
+RUN mkdir /target && \
+    phpdoc -d /source/core/classes \
+        -d /source/modules/Core/classes \
+        -d "/source/modules/Discord Integration/classes" \
+        -d "/source/modules/Cookie Consent/classes" \
+        -d /source/modules/Forum/classes -t /target -i /vendor
+
+FROM nginxinc/nginx-unprivileged:stable-alpine
+
+COPY --from=doc_builder /target /usr/share/nginx/html

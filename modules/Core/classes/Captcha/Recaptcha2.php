@@ -1,24 +1,14 @@
 <?php
-
-/*
- *	Made by Samerton
+/**
+ * Recaptcha2 class
  *
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr10
- *
- *  License: MIT
- *
- *  Recaptcha2 class
+ * @package Modules\Core\Captcha
+ * @author Samerton
+ * @version 2.0.0-pr10
+ * @license MIT
  */
-
 class Recaptcha2 extends CaptchaBase {
 
-    /**
-     * Recaptcha2 constructor
-     *
-     * @param string|null $privateKey
-     * @param string|null $publicKey
-     */
     public function __construct(?string $privateKey, ?string $publicKey) {
         $this->_name = 'Recaptcha2';
         $this->_privateKey = $privateKey;
@@ -29,11 +19,28 @@ class Recaptcha2 extends CaptchaBase {
         $token = $post['g-recaptcha-response'];
 
         $url = 'https://www.google.com/recaptcha/api/siteverify';
-        $post_data = 'secret=' . $this->getPrivateKey() . '&response=' . $token;
 
-        $result = json_decode(HttpClient::post($url, $post_data)->data(), true);
+        $result = HttpClient::post($url, [
+            'secret' => $this->getPrivateKey(),
+            'response' => $token,
+        ])->json(true);
 
         return $result['success'] == 'true';
+    }
+
+    public function validateSecret(string $secret) : bool {
+        $token = "Verification";
+        $url = 'https://www.google.com/recaptcha/api/siteverify';
+
+        $result = HttpClient::post($url, [
+            'secret' => $secret,
+            'response' => $token
+        ])->json(true);
+        return $result['error-codes'][0] !== 'invalid-input-secret';
+    }
+
+    public function validateKey(string $key) : bool {
+        return true; // No way to verify
     }
 
     public function getHtml(): string {

@@ -20,7 +20,6 @@ $language = [
     'api_disabled' => 'APIが無効',
     'unknown_error' => '不明なエラー',
     'invalid_api_key' => '無効なAPIキー',
-    'invalid_language_file' => '言語ファイルが無効です。',
     'invalid_api_method' => 'APIメソッドが無効です。',
     'no_unique_site_id' => 'サイトIDはありません。',
     'unable_to_check_for_updates' => '更新を確認できません。',

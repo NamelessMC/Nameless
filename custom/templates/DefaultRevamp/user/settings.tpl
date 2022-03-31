@@ -43,9 +43,9 @@
                 {if !isset($field.disabled)}
                   <label for="input{$field.id}">{$field.name}{if $field.required}<super style="color: red;">*</super>{/if}</label>
                   {if $field.type == "text"}
-                    <input type="text" name="{$field.id}" id="input{$field.id}" value="{$field.value}" placeholder="{$field.name}">
+                    <input type="text" name="{$field.id}" id="input{$field.id}" value="{$field.value}" placeholder="{$field.description}">
                   {elseif $field.type == "textarea"}
-                    <textarea name="{$field.id}" id="input{$field.id}">{$field.value}</textarea>
+                    <textarea name="{$field.id}" id="input{$field.id}" placeholder="{$field.description}">{$field.value}</textarea>
                   {elseif $field.type == "date"}
                     <input type="date" name="{$field.id}" id="input{$field.id}" value="{$field.value}">
                   {/if}
@@ -110,11 +110,7 @@
             {if isset($SIGNATURE)}
               <div class="field">
                 <label for="inputSignature">{$SIGNATURE}</label>
-                {if !isset($MARKDOWN)}
-                  <textarea name="signature" id="inputSignature">{$SIGNATURE_VALUE}</textarea>
-                {else}
-                  <textarea name="signature" id="inputSignature">{$SIGNATURE_VALUE}</textarea>
-                {/if}
+                <textarea name="signature" id="inputSignature">{$SIGNATURE_VALUE}</textarea>
               </div>
             {/if}
           {/nocache}
@@ -176,7 +172,7 @@
           <form action="" method="post" class="ui form">
             <input type="hidden" name="action" value="discord">
             <input type="hidden" name="token" value="{$TOKEN}">
-            {if $DISCORD_LINKED} 
+            {if $DISCORD_LINKED}
               <input type="hidden" name="unlink" value="true">
               <input type="submit" value="{$UNLINK}" class="ui red button">
             {else}

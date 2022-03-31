@@ -1,5 +1,12 @@
 <?php
-
+/**
+ * Discord group sync injector implementation.
+ *
+ * @package Modules\Discord Integration
+ * @author Aberdeener
+ * @version 2.0.0-pr13
+ * @license MIT
+ */
 class DiscordGroupSyncInjector implements GroupSyncInjector {
 
     public function getModule(): string {

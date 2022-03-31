@@ -55,8 +55,11 @@ $language = [
     'report' => 'Report',
     'reported_by' => 'Reported by {{author}}',
     'view_report' => 'View report',
-    'page_loaded_in' => 'Page loaded in {{time}}s', // Don't replace {x}, time unit is seconds
-    'page_x' => 'Page {{page}}',
+    'report_origin' => 'Origin',
+    'origin_website' => 'Website',
+    'origin_api' => 'API',
+    'page_loaded_in' => 'Page loaded in {{time}}s', // Don't replace {{time}}, time unit is seconds
+    'page_x' => 'Page {{page}}', // Don't replace {{page}}
     'browse' => 'Browse',
     'bypass' => 'Bypass',
     'yes' => 'Yes',
@@ -74,18 +77,6 @@ $language = [
     'leaderboards' => 'Leaderboards',
 
     /*
-     *  Contact form
-     */
-    'contact' => 'Contact',
-    'message' => 'Message',
-    'email_address' => 'Email Address',
-    'contact_email_subject' => 'New contact form submission',
-    'contact_message_failed' => 'Unable to send message. Please ensure you have entered a message between {{min}} and {{max}} characters long.',
-    'contact_message_sent' => 'Message sent successfully.',
-    'contact_message_email' => 'The provided email is invalid.',
-    'contact_message_limit' => 'You can only send one message per hour. You can next send a message in {{time}} minutes.', // Don't replace {x}
-
-    /*
      *  Navbar
      */
     'home' => 'Home',
@@ -101,11 +92,6 @@ $language = [
      *  Homepage
      */
     'social' => 'Social',
-
-    /*
-     *  Help dialogues
-     */
-    'markdown_help' => 'You can format your post using Markdown.',
 
     /*
      *  Server query
@@ -159,7 +145,17 @@ $language = [
     'privacy_policy' => 'Privacy Policy',
 
     /*
+     *  Dark mode footer toggle
+     */
+    'toggle_dark_mode' => 'Toggle dark mode',
+
+    /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'Redirecting...\nIf you are not redirected automatically, please click here: {{link}}.' // Don't replace {x} which is the redirect URL
+    'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{{link}}" rel="nofollow noopener">here</a>.', // Don't replace {{link}} which is the redirect URL
+
+    /*
+     * OAuth
+     */
+    'oauth_message_continue' => 'Continue registering with {x}', // Don't replace {x}
 ];

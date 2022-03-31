@@ -9,9 +9,17 @@ use DebugBar\DebugBar;
 use DebugBar\DataCollector\PDO\PDOCollector;
 use Junker\DebugBar\Bridge\SmartyCollector;
 
+/**
+ * Class to help integrate the PHPDebugBar with NamelessMC.
+ *
+ * @package NamelessMC\Misc
+ * @author Aberdeener
+ * @version 2.0.0-pr13
+ * @license MIT
+ */
 class DebugBarHelper extends Instanceable {
 
-    private DebugBar $_debugBar;
+    private ?DebugBar $_debugBar = null;
 
     /**
      * Enable the PHPDebugBar + add the PDO Collector
@@ -39,7 +47,7 @@ class DebugBarHelper extends Instanceable {
         $this->_debugBar = $debugbar;
     }
 
-    public function getDebugBar(): DebugBar {
+    public function getDebugBar(): ?DebugBar {
         return $this->_debugBar;
     }
 

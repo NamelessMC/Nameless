@@ -97,7 +97,6 @@ if (!isset($_GET['action'])) {
         }
 
         Redirect::to(URL::build('/panel/core/widgets'));
-        die();
     }
 
     if ($_GET['action'] == 'disable') {
@@ -133,20 +132,17 @@ if (!isset($_GET['action'])) {
         }
 
         Redirect::to(URL::build('/panel/core/widgets'));
-        die();
     }
 
     if ($_GET['action'] == 'edit') {
         // Ensure widget exists
         if (!isset($_GET['w']) || !is_numeric($_GET['w'])) {
             Redirect::to(URL::build('/panel/core/widgets'));
-            die();
         }
 
         $widget = $queries->getWhere('widgets', ['id', '=', $_GET['w']]);
         if (!count($widget)) {
             Redirect::to(URL::build('/panel/core/widgets'));
-            die();
         }
         $widget = $widget[0];
 
@@ -176,7 +172,6 @@ if (!isset($_GET['action'])) {
 
                     Session::flash('admin_widgets', $language->get('admin', 'widget_updated'));
                     Redirect::to(URL::build('/panel/core/widgets/', 'action=edit&w=' . $widget->id));
-                    die();
                 } catch (Exception $e) {
                     $errors = [$e->getMessage()];
                 }
@@ -232,13 +227,11 @@ if (!isset($_GET['action'])) {
             // Ensure widget exists
             if (!isset($_GET['w']) || !is_numeric($_GET['w'])) {
                 Redirect::to(URL::build('/panel/core/widgets'));
-                die();
             }
 
             $widget = $queries->getWhere('widgets', ['id', '=', $_GET['w']]);
             if (!count($widget)) {
                 Redirect::to(URL::build('/panel/core/widgets'));
-                die();
             }
             $widget = $widget[0];
 
@@ -247,7 +240,6 @@ if (!isset($_GET['action'])) {
                 || !file_exists($widgets->getWidget($widget->name)->getSettings())
             ) {
                 Redirect::to(URL::build('/admin/widgets'));
-                die();
             }
 
             require_once($widgets->getWidget($widget->name)->getSettings());
@@ -263,7 +255,6 @@ if (!isset($_GET['action'])) {
             $template_file = 'core/widget_settings.tpl';
         } else {
             Redirect::to('/panel/core/widgets');
-            die();
         }
     }
 }

@@ -51,6 +51,7 @@ $language = [
     'configuration' => 'การกำหนดค่า',
     'configuration_info' => 'กรุณาป้อนข้อมูลพื้นฐานเกี่ยวกับเว็บไซต์ของคุณ ค่าเหล่านี้สามารถเปลี่ยนแปลงได้ในภายหลังผ่านแผงการดูแลระบบ',
     'configuration_error' => 'โปรดป้อนชื่อไซต์ที่ถูกต้องระหว่าง 1 ถึง 32 อักขระ และที่อยู่อีเมลที่ถูกต้องระหว่าง 4 ถึง 64 อักขระ',
+    'hostname_error' => 'Please enter a valid hostname without http:// or https://',
     'site_name' => 'ชื่อเว็บไซต์',
     'contact_email' => 'อีเมลติดต่อ',
     'outgoing_email' => 'อีเมลส่งออก',
@@ -102,5 +103,5 @@ $language = [
     'no_converters_available' => 'ไม่มีตัวแปลงที่ใช้ได้',
     'config_not_writable' => 'ไฟล์กำหนดค่าไม่สามารถเขียนได้',
 
-    'session_doesnt_exist' => 'ตรวจไม่พบเซสชัน การบันทึกเซสชันเป็นข้อกำหนดในการใช้ Nameless โปรดลองอีกครั้ง และหากปัญหายังคงอยู่ โปรดติดต่อโฮสต์เว็บของคุณเพื่อขอรับการสนับสนุน'
+    'session_doesnt_exist' => 'Unable to detect session. Sessions saving are a requirement to use Nameless. Please try again after clearing cookies in your web browser, and if the issue persists, please contact your web host for support.'
 ];

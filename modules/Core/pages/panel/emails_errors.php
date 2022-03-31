@@ -28,7 +28,6 @@ if (isset($_GET['do'])) {
 
         Session::flash('emails_errors_success', $language->get('admin', 'email_errors_purged_successfully'));
         Redirect::to(URL::build('/panel/core/emails/errors'));
-        die();
     }
 
     if ($_GET['do'] == 'delete' && isset($_GET['id']) && is_numeric($_GET['id'])) {
@@ -37,7 +36,6 @@ if (isset($_GET['do'])) {
 
         Session::flash('emails_errors_success', $language->get('admin', 'error_deleted_successfully'));
         Redirect::to(URL::build('/panel/core/emails/errors'));
-        die();
     }
 
     if ($_GET['do'] == 'view' && isset($_GET['id']) && is_numeric($_GET['id'])) {
@@ -45,16 +43,12 @@ if (isset($_GET['do'])) {
         $error = $queries->getWhere('email_errors', ['id', '=', $_GET['id']]);
         if (!count($error)) {
             Redirect::to(URL::build('/panel/core/emails/errors'));
-            die();
         }
         $error = $error[0];
 
         switch ($error->type) {
             case Email::REGISTRATION:
                 $type = $language->get('admin', 'registration_email');
-                break;
-            case Email::CONTACT:
-                $type = $language->get('admin', 'contact_email');
                 break;
             case Email::FORGOT_PASSWORD:
                 $type = $language->get('admin', 'forgot_password_email');
@@ -125,7 +119,6 @@ if (isset($_GET['do'])) {
         $template_file = 'core/emails_errors_view.tpl';
     } else {
         Redirect::to(URL::build('/panel/core/emails/errors'));
-        die();
     }
 } else {
     // Display all errors
@@ -135,13 +128,11 @@ if (isset($_GET['do'])) {
     if (isset($_GET['p'])) {
         if (!is_numeric($_GET['p'])) {
             Redirect::to(URL::build('/panel/core/emails/errors'));
-            die();
         }
 
         if ($_GET['p'] == 1) {
             // Avoid bug in pagination class
             Redirect::to(URL::build('/panel/core/emails/errors'));
-            die();
         }
         $p = $_GET['p'];
     } else {
@@ -152,7 +143,7 @@ if (isset($_GET['do'])) {
     $paginator = new Paginator();
 
     $results = $paginator->getLimited($email_errors, 10, $p, count($email_errors));
-    $pagination = $paginator->generate(7, URL::build('/panel/core/emails/errors', true));
+    $pagination = $paginator->generate(7, URL::build('/panel/core/emails/errors'));
 
     $smarty->assign([
         'BACK_LINK' => URL::build('/panel/core/emails'),
@@ -169,9 +160,6 @@ if (isset($_GET['do'])) {
             switch ($nValue->type) {
                 case Email::REGISTRATION:
                     $type = $language->get('admin', 'registration_email');
-                    break;
-                case Email::CONTACT:
-                    $type = $language->get('admin', 'contact_email');
                     break;
                 case Email::FORGOT_PASSWORD:
                     $type = $language->get('admin', 'forgot_password_email');

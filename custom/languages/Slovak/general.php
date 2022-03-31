@@ -2,7 +2,7 @@
 /*
  *  Made by RobiNN
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr12
+ *  NamelessMC version 2.0.0-pr13
  *
  *  License: MIT
  *
@@ -55,6 +55,9 @@ $language = [
     'report' => 'Nahlásiť',
     'reported_by' => 'Nahlásene od {x}',
     'view_report' => 'Zobraziť nahlásenie',
+    'report_origin' => 'Pôvod',
+    'origin_website' => 'Webstránka',
+    'origin_api' => 'API',
     'page_loaded_in' => 'Stránka bola načítaná za {x}s', // Don't replace {x}, time unit is seconds
     'page_x' => 'Stránka {x}',
     'browse' => 'Prehliadať',
@@ -74,18 +77,6 @@ $language = [
     'leaderboards' => 'Výsledkové tabuľky',
 
     /*
-     *  Contact form
-     */
-    'contact' => 'Kontakt',
-    'message' => 'Správa',
-    'email_address' => 'Emailová adresa',
-    'contact_email_subject' => 'Nové odoslanie kontaktného formulára',
-    'contact_message_failed' => 'Správu sa nepodarilo odoslať. Uistite sa, že ste zadali správu s dĺžkou 10 až 5 000 znakov.',
-    'contact_message_sent' => 'Správa bola úspešne odoslaná.',
-    'contact_message_email' => 'Zadaný email je neplatný.',
-    'contact_message_limit' => 'Za hodinu môžete odoslať iba jednu správu. Nasledujúcu správu môžete odoslať o {x} minút.', // Don't replace {x}
-
-    /*
      *  Navbar
      */
     'home' => 'Domov',
@@ -101,11 +92,6 @@ $language = [
      *  Homepage
      */
     'social' => 'Sociálne',
-
-    /*
-     *  Help dialogues
-     */
-    'markdown_help' => 'Svoj príspevok môžete naformátovať pomocou Markdown. Ďalšie informácie nájdete <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>tu</a>.',
 
     /*
      *  Server query
@@ -161,5 +147,10 @@ $language = [
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'Presmerovanie... <br />Ak sa nepresmerujete automaticky, kliknite <a href="{x}" rel="nofollow noopener">tu</a>.' // Don't replace {x} which is the redirect URL
+    'redirecting_message' => 'Presmerovanie... <br />Ak sa nepresmerujete automaticky, kliknite <a href="{x}" rel="nofollow noopener">tu</a>.', // Don't replace {x} which is the redirect URL
+
+    /*
+     * OAuth
+     */
+    'oauth_message_continue' => 'Pokračovať v registrácii s {x}', // Don't replace {x}
 ];

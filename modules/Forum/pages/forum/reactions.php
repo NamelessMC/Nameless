@@ -9,20 +9,17 @@
  *  React to a post
  */
 
-require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
 $forum = new Forum();
 
 // User must be logged in to proceed
 if (!$user->isLoggedIn()) {
     Redirect::to(URL::build('/forum'));
-    die();
 }
 
 // Are reactions enabled?
 $reactions_enabled = $queries->getWhere('settings', ['name', '=', 'forum_reactions']);
 if ($reactions_enabled[0]->value != '1') {
     Redirect::to(URL::build('/forum'));
-    die();
 }
 
 // Deal with input
@@ -30,7 +27,6 @@ if (Input::exists()) {
     // Validate form input
     if (!isset($_POST['post'], $_POST['reaction']) || !is_numeric($_POST['post']) || !is_numeric($_POST['reaction'])) {
         Redirect::to(URL::build('/forum'));
-        die();
     }
 
     // Get post information
@@ -38,7 +34,6 @@ if (Input::exists()) {
 
     if (!count($post)) {
         Redirect::to(URL::build('/forum'));
-        die();
     }
 
     $post = $post[0];
@@ -47,7 +42,6 @@ if (Input::exists()) {
     // Check user can actually view the post
     if (!($forum->forumExist($post->forum_id, $user->getAllGroupIds()))) {
         Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
-        die();
     }
 
     if (Token::check()) {
@@ -92,4 +86,3 @@ if (Input::exists()) {
 } else {
     Redirect::to(URL::build('/forum'));
 }
-die();

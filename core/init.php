@@ -80,7 +80,7 @@ if ($page != 'install') {
     }
 
     if (defined('FORCE_SSL') && !Util::isConnectionSSL()) {
-        if (defined('FORCE_WWW') && strpos($_SERVER['HTTP_HOST'], 'www.') === false) {
+        if (defined('FORCE_WWW') && !str_contains($_SERVER['HTTP_HOST'], 'www.')) {
             header('Location: https://www.' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
             die();
         }
@@ -89,7 +89,7 @@ if ($page != 'install') {
         die();
     }
 
-    if (defined('FORCE_WWW') && strpos($_SERVER['HTTP_HOST'], 'www.') === false) {
+    if (defined('FORCE_WWW') && !str_contains($_SERVER['HTTP_HOST'], 'www.')) {
         if (!Util::isConnectionSSL()) {
             header('Location: http://www.' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
         } else {
@@ -324,7 +324,6 @@ if ($page != 'install') {
         'defined',
         'date',
         'explode',
-        'htmlspecialchars_decode',
         'implode',
         'strtolower',
         'strtoupper'
@@ -426,6 +425,7 @@ if ($page != 'install') {
     $cc_nav->add('cc_alerts', $language->get('user', 'alerts'), URL::build('/user/alerts'));
     $cc_nav->add('cc_messaging', $language->get('user', 'messaging'), URL::build('/user/messaging'));
     $cc_nav->add('cc_settings', $language->get('user', 'profile_settings'), URL::build('/user/settings'));
+    $cc_nav->add('cc_oauth', $language->get('admin', 'oauth'), URL::build('/user/oauth'));
 
     // Placeholders enabled?
     $placeholders_enabled = $configuration->get('Core', 'placeholders');
@@ -506,7 +506,6 @@ if ($page != 'install') {
             $user->logout();
             Session::flash('home_error', $language->get('user', 'you_have_been_banned'));
             Redirect::to(URL::build('/'));
-            die();
         }
 
         // Is the IP address banned?
@@ -515,7 +514,6 @@ if ($page != 'install') {
             $user->logout();
             Session::flash('home_error', $language->get('user', 'you_have_been_banned'));
             Redirect::to(URL::build('/'));
-            die();
         }
 
         // Update user last IP and last online
@@ -578,10 +576,9 @@ if ($page != 'install') {
         if (isset($forced) && $forced) {
             // Do they have TFA configured?
             if (!$user->data()->tfa_enabled && rtrim($_GET['route'], '/') != '/logout') {
-                if (strpos($_SERVER['REQUEST_URI'], 'do=enable_tfa') === false) {
+                if (!str_contains($_SERVER['REQUEST_URI'], 'do=enable_tfa')) {
                     Session::put('force_tfa_alert', $language->get('admin', 'force_tfa_alert'));
                     Redirect::to(URL::build('/user/settings', 'do=enable_tfa'));
-                    die();
                 }
             }
         }

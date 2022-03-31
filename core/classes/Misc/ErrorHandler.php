@@ -1,15 +1,13 @@
 <?php
-/*
- *	Made by Samerton
- *  Additions by Aberdeener
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+/**
+ * Handles rendering the exception page as well as logging errors.
  *
- *  License: MIT
- *
- *  Error handler class
+ * @package NamelessMC\Misc
+ * @author Samerton
+ * @author Aberdeener
+ * @version 2.0.0-pr9
+ * @license MIT
  */
-
 class ErrorHandler {
 
     /**
@@ -28,7 +26,6 @@ class ErrorHandler {
      * @return bool False if error reporting is disabled, true otherwise.
      */
     public static function catchError(int $error_number, string $error_string, string $error_file, int $error_line): bool {
-
         if (!(error_reporting() & $error_number)) {
             return false;
         }
@@ -68,19 +65,18 @@ class ErrorHandler {
      * @param int|null $error_line Line in $error_file which caused Exception. Used when $exception is null.
      */
     public static function catchException(?Throwable $exception, ?string $error_string = null, ?string $error_file = null, ?int $error_line = null): void {
-
         // Define variables based on if a Throwable was caught by the compiler, or if this was called manually
         $error_string = is_null($exception) ? $error_string : $exception->getMessage();
         $error_file = is_null($exception) ? $error_file : $exception->getFile();
         $error_line = is_null($exception) ? (int)$error_line : $exception->getLine();
 
-        // If this is an API request, print the error in plaintext and dont render the whole error trace page
-        if (strpos($_REQUEST['route'], '/api/v2/') !== false) {
-            die($error_string . ' in ' . $error_file . ' on line ' . $error_line . PHP_EOL . $exception->getTraceAsString());
-        }
-
         // Create a log entry for viewing in staffcp
         self::logError('fatal', '[' . date('Y-m-d, H:i:s') . '] ' . $error_file . '(' . $error_line . '): ' . $error_string);
+
+        // If this is an API request, print the error in plaintext and dont render the whole error trace page
+        if (self::isApiRequest()) {
+            die($error_string . ' in ' . $error_file . ' on line ' . $error_line . PHP_EOL . $exception->getTraceAsString());
+        }
 
         $frames = [];
 
@@ -107,9 +103,60 @@ class ErrorHandler {
             }
         }
 
-        define('ERRORHANDLER', true);
-        require_once(ROOT_PATH . DIRECTORY_SEPARATOR . 'error.php');
+        $language = new Language('core', LANGUAGE);
+        $user = new User();
+
+        if (defined('CONFIG_PATH')) {
+            $path = CONFIG_PATH . '/core/assets/';
+        } else {
+            $path = '/core/assets/';
+        }
+
+        $smarty = new Smarty();
+
+        $smarty->setCompileDir(ROOT_PATH . '/cache/templates_c');
+
+        $smarty->assign([
+            'LANG' => defined('HTML_LANG') ? HTML_LANG : 'en',
+            'RTL' => defined('HTML_RTL') && HTML_RTL === true ? ' dir="rtl"' : '',
+            'LANG_CHARSET' => defined('LANG_CHARSET') ? LANG_CHARSET : 'utf-8',
+            'TITLE' => $language->get('errors', 'fatal_error') . ' - ' . SITE_NAME,
+            'SITE_NAME' => SITE_NAME,
+            'BOOTSTRAP' => $path . 'css/bootstrap.min.css',
+            'BOOTSTRAP_JS' => $path . 'js/bootstrap.min.js',
+            'CUSTOM' => $path . 'css/custom.css',
+            'FONT_AWESOME' => $path . 'css/font-awesome.min.css',
+            'JQUERY' => $path . 'js/jquery.min.js',
+            'PRISM_CSS' => $path . 'plugins/prism/prism.css',
+            'PRISM_JS' => $path . 'plugins/prism/prism.js',
+            'DETAILED_ERROR' => defined('DEBUGGING') || ($user->isLoggedIn() && $user->hasPermission('admincp.errors')),
+            'FATAL_ERROR_TITLE' => $language->get('errors', 'fatal_error_title'),
+            'FATAL_ERROR_MESSAGE_ADMIN' => $language->get('errors', 'fatal_error_message_admin'),
+            'FATAL_ERROR_MESSAGE_USER' => $language->get('errors', 'fatal_error_message_user'),
+            'ERROR_TYPE' => is_null($exception) ? $language->get('general', 'error') : (new ReflectionClass($exception))->getName(),
+            'ERROR_STRING' => $error_string,
+            'ERROR_FILE' => $error_file,
+            'CAN_GENERATE_DEBUG' => $user->hasPermission('admincp.core.debugging'),
+            'DEBUG_LINK' => $language->get('admin', 'debug_link'),
+            'DEBUG_LINK_URL' => URL::build('/queries/debug_link'),
+            'ERROR_SQL_STACK' => QueryRecorder::getInstance()->getSqlStack(),
+            'CURRENT_URL' => 'http' . ((Util::isConnectionSSL()) ? 's' : '') . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],
+            'FRAMES' => $frames,
+            'SKIP_FRAMES' => $skip_frames,
+            'BACK' => $language->get('general', 'back'),
+            'HOME' => $language->get('general', 'home'),
+            'HOME_URL' => URL::build('/')
+        ]);
+
+        $smarty->display(ROOT_PATH . DIRECTORY_SEPARATOR . 'error.tpl');
         die();
+    }
+
+    /**
+     * @return bool Whether the request is an API request or not.
+     */
+    private static function isApiRequest(): bool {
+        return str_contains($_REQUEST['route'], '/api/v2/');
     }
 
     /**
@@ -119,11 +166,9 @@ class ErrorHandler {
      * @param string $contents The message to be saved.
      */
     private static function logError(string $type, string $contents): void {
-
         $dir_exists = false;
 
         try {
-
             if (!is_dir(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs']))) {
                 if (is_writable(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache')) {
                     mkdir(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . 'logs');
@@ -136,9 +181,7 @@ class ErrorHandler {
             if ($dir_exists) {
                 file_put_contents(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs', $type . '-log.log']), $contents . PHP_EOL, FILE_APPEND);
             }
-
-        } catch (Exception $exception) {
-            // Unable to write to file, ignore for now
+        } catch (Exception $ignored) {
         }
     }
 
@@ -173,7 +216,6 @@ class ErrorHandler {
      * @return string Truncated string from this file.
      */
     private static function parseFile($lines, int $error_line): string {
-
         if ($lines == false || count($lines) < 1) {
             return '';
         }

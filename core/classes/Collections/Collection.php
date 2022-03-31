@@ -1,26 +1,28 @@
 <?php
-/*
- *	Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+/**
+ * Base Collection class
  *
- *  License: MIT
- *
- *  Collection class
+ * @package NamelessMC\Collections
+ * @author Samerton
+ * @version 2.0.0-pr13
+ * @license MIT
  */
-
 class Collection {
 
+    /** @var CollectionItemBase[] */
     private array $_items;
 
     public function __construct() {
         $this->_items = [];
     }
 
-    public function addItem($item): void {
+    public function addItem(CollectionItemBase $item): void {
         $this->_items[] = $item;
     }
 
+    /**
+     * @return CollectionItemBase[]
+     */
     public function getEnabledItems(): array {
         $items = [];
 
@@ -30,16 +32,19 @@ class Collection {
             }
         }
 
-        uasort($items, static function ($a, $b) {
+        uasort($items, static function (CollectionItemBase $a, CollectionItemBase $b) {
             return $a->getOrder() - $b->getOrder();
         });
 
         return $items;
     }
 
+    /**
+     * @return CollectionItemBase[]
+     */
     public function getAllItems(): array {
         $items = $this->_items;
-        uasort($items, static function ($a, $b) {
+        uasort($items, static function (CollectionItemBase $a, CollectionItemBase $b) {
             return $a->getOrder() - $b->getOrder();
         });
 

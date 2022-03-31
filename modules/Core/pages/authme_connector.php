@@ -28,17 +28,14 @@ if (Input::exists()) {
             // Step 2
             if (!isset($_SESSION['authme'])) {
                 Redirect::to(URL::build('/register'));
-                die();
             }
-
-            $validate = new Validate();
 
             // Are custom usernames enabled?
             $custom_usernames = $queries->getWhere('settings', ['name', '=', 'displaynames']);
             $custom_usernames = $custom_usernames[0]->value;
 
             if ($custom_usernames == 'true') {
-                $validation = $validate->check($_POST, [
+                $validation = Validate::check($_POST, [
                     'nickname' => [
                         Validate::REQUIRED => true,
                         Validate::MIN => 3,
@@ -53,7 +50,7 @@ if (Input::exists()) {
                     ]
                 ]);
             } else {
-                $validation = $validate->check($_POST, [
+                $validation = Validate::check($_POST, [
                     'email' => [
                         Validate::REQUIRED => true,
                         Validate::MIN => 4,
@@ -113,10 +110,9 @@ if (Input::exists()) {
 
                 // UUID
                 if ($uuid_linking == '1') {
-                    require(ROOT_PATH . '/core/integration/uuid.php'); // For UUID stuff
                     if (!isset($mcname_result)) {
                         $profile = ProfileUtils::getProfile(str_replace(' ', '%20', $mcname));
-                        if ($profile && method_exists($profile, 'getProfileAsArray')) {
+                        if ($profile !== null) {
                             $mcname_result = $profile->getProfileAsArray();
                         }
                     }
@@ -169,7 +165,6 @@ if (Input::exists()) {
 
                     Session::flash('home', $language->get('user', 'validation_complete'));
                     Redirect::to(URL::build('/'));
-                    die();
 
                 } catch (Exception $e) {
                     $errors[] = $e->getMessage();
@@ -190,8 +185,7 @@ if (Input::exists()) {
 
             if ($captcha_passed) {
                 // Valid recaptcha
-                $validate = new Validate();
-                $validation = $validate->check($_POST, [
+                $validation = Validate::check($_POST, [
                     'username' => [
                         Validate::REQUIRED => true,
                         Validate::UNIQUE => 'users'
@@ -249,8 +243,6 @@ if (Input::exists()) {
 
                                 switch ($authme_db['hash']) {
                                     case 'bcrypt':
-                                        require(ROOT_PATH . '/core/includes/password.php');
-
                                         if (password_verify($_POST['password'], $password)) {
                                             $valid = true;
                                             $_SESSION['authme'] = [
@@ -314,8 +306,6 @@ if (Input::exists()) {
                                     // Passwords match
                                     // Continue to step 2
                                     Redirect::to(URL::build('/register', 'step=2'));
-                                    die();
-
                                 }
 
                                 // Passwords don't match

@@ -89,8 +89,7 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                     $errors = [];
                     if (Token::check()) {
                         // Validate input
-                        $validate = new Validate();
-                        $validation = $validate->check($_POST, [
+                        $validation = Validate::check($_POST, [
                             'name' => [
                                 Validate::REQUIRED => true,
                                 Validate::MIN => 1,
@@ -139,14 +138,13 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                             // Update database
                             $queries->create('reactions', [
                                 'name' => Output::getClean(Input::get('name')),
-                                'html' => Output::getPurified(htmlspecialchars_decode(Input::get('html'))),
+                                'html' => Output::getPurified(Input::get('html')),
                                 'type' => $type,
                                 'enabled' => $enabled
                             ]);
 
                             Session::flash('api_reactions', $language->get('admin', 'reaction_created_successfully'));
                             Redirect::to(URL::build('/panel/core/reactions'));
-                            die();
                         }
 
                         // Validation error
@@ -184,7 +182,6 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                 // Check reaction is specified
                 if (!isset($_GET['reaction']) || !is_numeric($_GET['reaction'])) {
                     Redirect::to(URL::build('/panel/core/reactions'));
-                    die();
                 }
 
                 if (Token::check($_POST['token'])) {
@@ -198,11 +195,9 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
 
                 // Redirect
                 Redirect::to(URL::build('/panel/core/reactions'));
-                die();
 
             default:
                 Redirect::to(URL::build('/panel/core/reactions'));
-                die();
         }
     } else {
         // Get reaction
@@ -210,7 +205,6 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
         if (!count($reaction)) {
             // Reaction doesn't exist
             Redirect::to(URL::build('/panel/core/reactions'));
-            die();
         }
 
         $reaction = $reaction[0];
@@ -221,8 +215,7 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
 
             if (Token::check()) {
                 // Validate input
-                $validate = new Validate();
-                $validation = $validate->check($_POST, [
+                $validation = Validate::check($_POST, [
                     'name' => [
                         Validate::REQUIRED => true,
                         Validate::MIN => 1,
@@ -278,7 +271,6 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
 
                     Session::flash('api_reactions', $language->get('admin', 'reaction_edited_successfully'));
                     Redirect::to(URL::build('/panel/core/reactions'));
-                    die();
                 }
 
                 // Validation error

@@ -11,10 +11,7 @@
 
 if (!$user->isLoggedIn()) {
     Redirect::to(URL::build('/forum'));
-    die();
 }
-
-require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
 
 // Always define page name
 const PAGE = 'forum';
@@ -24,14 +21,12 @@ $forum = new Forum();
 // Check params are set
 if (!isset($_GET['pid']) || !is_numeric($_GET['pid'])) {
     Redirect::to(URL::build('/forum'));
-    die();
 }
 
 // Get post and forum ID
 $post = $queries->getWhere('posts', ['id', '=', $_GET['pid']]);
 if (!count($post)) {
     Redirect::to(URL::build('/forum'));
-    die();
 }
 $post = $post[0];
 
@@ -56,7 +51,7 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
                     $redirect = URL::build('/forum/topic/' . Input::get('tid'));
                 }
             } else {
-                $redirect = URL::build('/forum/search/', 'p=1&s=' . htmlspecialchars($_POST['search_string']));
+                $redirect = URL::build('/forum/search/', 'p=1&s=' . Output::getClean($_POST['search_string']));
             }
 
             $queries->update('posts', Input::get('pid'), [

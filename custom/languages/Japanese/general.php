@@ -32,13 +32,13 @@ $language = [
     'back' => '戻る',
     'warning' => '警告',
     'date' => '日付',
-    'search' => '検索　',
+    'search' => '検索',
     'edit' => '編集',
     'next' => '次へ',
     'previous' => '前へ',
     'confirm_cancel' => 'キャンセルしてもよろしいですか？',
-    'confirm_delete' => '削除確認',
-    'confirm_deletion' => '指定中のものを削除してもよろしいですか？',
+    'confirm_delete' => '削除を確認する',
+    'confirm_deletion' => '本当に削除してもよろしいですか？',
     'cancel' => 'キャンセル',
     'delete' => '削除',
     'none' => '無し',
@@ -56,13 +56,16 @@ $language = [
     'view_messages' => 'メッセージを表示',
     'no_messages' => 'メッセージなし',
     'x_new_messages' => '{x}件の新しいメッセージがあります。', // Don't replace {x}
-    'loading' => 'ロード中...',
+    'loading' => '読み込み中...',
     'report' => 'レポート',
-    'reported_by' => 'Reported by {x}',
-    'view_report' => 'View report',
+    'reported_by' => '{x}による報告',
+    'view_report' => '報告を見る',
+    'report_origin' => 'Origin',
+    'origin_website' => 'ウェブサイト',
+    'origin_api' => 'API',
     'page_loaded_in' => 'このページは{x}秒で読み込まれました。', // Don't replace {x}, time unit is seconds
-    'page_x' => '{x}ページ',
-    'browse' => 'ブラウズ',
+    'page_x' => 'ページ {x}',
+    'browse' => '閲覧',
     'bypass' => 'バイパス',
     'yes' => 'はい',
     'no' => 'いいえ',
@@ -77,18 +80,6 @@ $language = [
     'link' => 'リンク',
     'unlink' => 'リンク解除',
     'leaderboards' => 'リーダーボード',
-
-    /*
-     *  Contact form
-     */
-    'contact' => '問い合わせ',
-    'message' => 'メッセージ',
-    'email_address' => 'Emailアドレス',
-    'contact_email_subject' => '新しい連絡先フォームの送信',
-    'contact_message_failed' => 'メッセージを送信できません。10~5000文字のメッセージを入力してください。',
-    'contact_message_email' => '指定されたメールアドレスは無効です。',
-    'contact_message_sent' => '正常に送信されました。',
-    'contact_message_limit' => '1時間に1つのメッセージのみ送信できます。{x}分後に再試行してください。', // Don't replace {x}
 
     /*
      *  Navbar
@@ -106,12 +97,6 @@ $language = [
      *  Homepage
      */
     'social' => 'ソーシャル',
-
-
-    /*
-     *  Help dialogues
-     */
-    'markdown_help' => 'Markdownを使用して投稿できます。詳しくは<a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>ここ</a>を参照してください。',
 
     /*
      *  Server query
@@ -136,7 +121,7 @@ $language = [
     /*
      *  Cookie notice
      */
-    'cookie_notice' => '当ウェブサイトは、ユーザーのエクスペリエンス向上のためにクッキーを使用しています。 当ウェブサイトに登録するか、この通知を閉じることにより、使用に同意するものとします。',
+    'cookie_notice' => '当ウェブサイトでは、より快適に閲覧していただくためにCookieを使用しています。当ウェブサイトに登録する、もしくはこの通知を閉じることにより、Cookieの使用に同意したことになります。',
     'cookie_agree' => '同意',
 
     /*
@@ -154,19 +139,23 @@ $language = [
     'online_users' => 'オンラインユーザー',
     'no_online_users' => 'オンラインのユーザーはいません。',
     'total_online_users' => '累計オンラインユーザー: {x}',
-    'discord_widget_disabled' => 'Discordウィジェットは、指定されたDiscordサーバーでは無効になっています。 Discordサーバー設定のウィジェットタブに移動し、Discordウィジェットが有効で、IDが正しいことを確認してください。',
     'online_guests' => 'オンラインゲスト',
     'total_online' => '累計オンライン', // this is Online Users + Online Guests
-    'no_default_server' => 'デフォルトのサーバーがありません、StaffCP - 統合 - Minecraftで選択してください。',
+    'no_default_server' => 'デフォルトのサーバーがありません、StaffCP - 連携 - Minecraftで選択してください。',
     'server_status' => 'サーバーステータス',
 
     /*
      *  Privacy policy
      */
-    'privacy_policy' => 'プライバシーポリシー(個人情報保護方針)',
+    'privacy_policy' => 'プライバシーポリシー',
 
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'リダイレクト...<br />自動的にリダイレクトされない場合は、<a href="{x}" rel="nofollow noopener">こちら</a>をクリックしてください。' // Don't replace {x} which is the redirect URL
+    'redirecting_message' => 'リダイレクト...<br />自動的にリダイレクトされない場合は、<a href="{x}" rel="nofollow noopener">こちら</a>をクリックしてください。', // Don't replace {x} which is the redirect URL
+
+    /*
+     * OAuth
+     */
+    'oauth_message_continue' => '続けて{x}で登録する。', // Don't replace {x}
 ];

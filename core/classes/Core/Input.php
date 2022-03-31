@@ -1,15 +1,13 @@
 <?php
 
-/*
- *	Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+/**
+ * Input class
  *
- *  License: MIT
- *
- *  Input class
+ * @package NamelessMC\Core
+ * @author Samerton
+ * @version 2.0.0-pr8
+ * @license MIT
  */
-
 class Input {
 
     /**
@@ -51,98 +49,117 @@ class Input {
     }
 
     /**
-     * Displays a new CKEditor field
-     *
-     * @param string $name Name of input field ID
-     * @param boolean $admin Whether to add admin options or not - default false
-     * @return string Editor javascript code.
-     */
-    public static function createEditor(string $name, bool $admin = false): string {
-        $editor = '
-        window.path = "' . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . '";
-
-        CKEDITOR.replace( \'' . $name . '\', {
-            tabSpaces: 4,
-
-            extraAllowedContent: \'blockquote(blockquote)\',
-            // Define the toolbar groups as it is a more accessible solution.
-
-            toolbarGroups: [
-                {"name":"basicstyles","groups":["basicstyles"]},
-                {"name":"paragraph","groups":["list","align"]},
-                {"name":"styles","groups":["styles"]},
-                {"name":"colors","groups":["colors"]},
-                {"name":"links","groups":["links"]},
-                {"name":"insert","groups":["insert","emoji"]}';
-
-        if ($admin) {
-            $editor .= ',{"name":"mode","groups":["mode"]}';
-        }
-
-        $editor .= '],
-
-            removeButtons: \'Anchor,Styles,SpecialChar,About,Flash' . (!$admin ? ',Iframe,Table' : '') . ',Format\'
-        } );';
-
-        if ($admin) {
-            $editor .= 'CKEDITOR.config.allowedContent = true;';
-        }
-
-        $editor .= '
-        CKEDITOR.config.extraPlugins = \'uploadimage\';
-        CKEDITOR.config.uploadUrl = window.path + \'uploads/upload_image.php\';
-        CKEDITOR.config.filebrowserUploadUrl = window.path + \'uploads/upload_image.php\';
-        CKEDITOR.config.skin = \'' . (defined('TEMPLATE_EDITOR_STYLE') ? TEMPLATE_EDITOR_STYLE : 'moono-lisa') . '\';
-        CKEDITOR.skinName = \'' . (defined('TEMPLATE_EDITOR_STYLE') ? TEMPLATE_EDITOR_STYLE : 'moono-lisa') . '\';
-        CKEDITOR.config.language = \'' . (defined('HTML_LANG') ? HTML_LANG : 'en') . '\';
-        CKEDITOR.config.disableNativeSpellChecker = false;
-        CKEDITOR.config.width = "auto";
-        CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;
-        CKEDITOR.on(\'instanceReady\', function(ev) {
-            var editor = ev.editor;
-            editor.dataProcessor.htmlFilter.addRules({
-                elements : {
-                    a : function( element ) {
-                        var url = element.attributes.href;
-
-                        var parser = document.createElement(\'a\');
-                        parser.href = url;
-
-                        var hostname = parser.hostname;
-                        if ( hostname !== window.location.host) {
-                            element.attributes.rel = \'nofollow noopener\';
-                            element.attributes.target = \'_blank\';
-                        }
-                    }
-                }
-            });
-        })
-        ';
-
-        return $editor;
-    }
-
-    /**
      * Create a new TinyMCE instance
      *
      * @param Language $language Instance of language class to use for translation.
      * @param string $name Name of input field ID.
+     * @param bool $mentions Whether to enable mention autocompletion/parsing or not.
      */
-    public static function createTinyEditor(Language $language, string $name): string {
-        return '
-        tinymce.init({
-          selector: \'#' . $name . '\',
-          browser_spellcheck: true,
-            contextmenu: false,
-          branding: false,
-          menubar: false,
-          convert_urls: false,
-          plugins: \'autolink,codesample,directionality,emoticons,hr,image,link,lists,spoiler\',
-          toolbar: \'undo redo | bold italic underline strikethrough fontsizeselect forecolor backcolor ltr rtl | alignleft aligncenter alignright alignjustify | codesample emoticons hr image link numlist bullist | spoiler-add spoiler-remove\',
-          spoiler_caption: \'' . $language->get('general', 'spoiler') . '\',
-          default_link_target: \'_blank\',
-          skin: "' . (defined('TEMPLATE_TINY_EDITOR_STYLE') ? TEMPLATE_TINY_EDITOR_STYLE : 'oxide') . '"
-        });
-        ';
+    public static function createTinyEditor(Language $language, string $name, bool $mentions = false): string {
+        $skin = defined('TEMPLATE_TINY_EDITOR_DARKMODE') ? 'oxide-dark' : 'oxide';
+        $js = '';
+
+        if ($mentions) {
+            $js .= "
+                (function () {
+                    let flags = (function () {
+                        'use strict';
+                        tinymce.PluginManager.add('mentions', function (editor, url) {
+                            editor.ui.registry.addAutocompleter('autocompleter-mentions', {
+                                ch: '@',
+                                minChars: 2,
+                                columns: 1,
+                                fetch: function (pattern) {
+                                    return new tinymce.util.Promise(function (resolve) {
+                                        fetch('" . URL::build('/queries/mention_users', 'nickname') . "=' + pattern)
+                                            .then((resp) => resp.json())
+                                            .then(function (data) {
+                                                const results = [];
+    
+                                                for (const user of data) {
+                                                    results.push({
+                                                        value: '@' + user.nickname,
+                                                        text: user.nickname,
+                                                        icon: '<img style=\"height:20px; width:20px;\" src=\"' + user.avatar_url + '\">'
+                                                    });
+                                                }
+
+                                                results.sort((a, b) => a.text.toLowerCase().localeCompare(b.text.toLowerCase()))
+    
+                                                resolve(results);
+                                            });
+                                    });
+                                },
+                                onAction: function (autocompleteApi, rng, value) {
+                                    editor.selection.setRng(rng);
+                                    editor.insertContent(value);
+                                    autocompleteApi.hide();
+                                },
+                            });
+                        });
+                    }());
+                })();
+            ";
+        }
+
+        $js .= "
+            tinymce.init({
+              selector: '#$name',
+              browser_spellcheck: true,
+              contextmenu: false,
+              branding: false,
+              menubar: 'table',
+              convert_urls: false,
+              plugins: [
+                'autolink', 'codesample', 'directionality', 'emoticons', " . ($mentions ? "'mentions', " : '') . "
+                'hr', 'image', 'link', 'lists', 'spoiler', 'code', 'table',
+              ],
+              toolbar: 'undo redo | bold italic underline strikethrough formatselect forecolor backcolor ltr rtl emoticons | alignleft aligncenter alignright alignjustify | codesample code hr image link numlist bullist | spoiler-add spoiler-remove',
+              spoiler_caption: '{$language->get('general', 'spoiler')}',
+              default_link_target: '_blank',
+              skin: '$skin',
+              images_upload_handler: function (blobInfo, success, failure, progress) {
+                  let xhr, formData;
+
+                  xhr = new XMLHttpRequest();
+                  xhr.withCredentials = false;
+                  xhr.open('POST', '" . URL::build('/queries/tinymce_image_upload') . "');
+
+                  xhr.upload.onprogress = function (e) {
+                    progress(e.loaded / e.total * 100);
+                  };
+
+                  xhr.onload = function() {
+                    let json;
+
+                    if (xhr.status !== 200) {
+                      failure('HTTP Error ' + xhr.status + ': ' + xhr.responseText);
+                      return;
+                    }
+
+                    json = JSON.parse(xhr.responseText);
+
+                    if (!json || typeof json.location != 'string') {
+                      failure('Invalid JSON: ' + xhr.responseText);
+                      return;
+                    }
+
+                    success(json.location);
+                  };
+
+                  xhr.onerror = function () {
+                    failure('Image upload failed due to a XHR Transport error. Code: ' + xhr.status);
+                  };
+
+                  formData = new FormData();
+                  formData.append('file', blobInfo.blob(), blobInfo.filename());
+                  formData.append('token', '" . Token::get() . "');
+
+                  xhr.send(formData);
+                },
+            });
+        ";
+
+        return $js;
     }
 }

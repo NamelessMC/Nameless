@@ -55,6 +55,9 @@ $language = [
     'report' => 'Rapport',
     'reported_by' => 'Reported by {x}',
     'view_report' => 'View report',
+    'report_origin' => 'Origin',
+    'origin_website' => 'Website',
+    'origin_api' => 'API',
     'page_loaded_in' => 'Side lastet inn på {x}s', // Don't replace {x}, time unit is seconds
     'page_x' => 'Side {x}',
     'browse' => 'Utforsk',
@@ -74,18 +77,6 @@ $language = [
     'leaderboards' => 'Leaderboards',
 
     /*
-     *  Contact form
-     */
-    'contact' => 'Kontakt',
-    'message' => 'Melding',
-    'email_address' => 'E-postadresse',
-    'contact_email_subject' => 'Ny kontaktskjema',
-    'contact_message_failed' => 'Kunne ikke sende melding. Pass på at meldingen er mellom 10 og 5000 tegn lang',
-    'contact_message_email' => 'E-posten er ugyldig.',
-    'contact_message_sent' => 'Meldingen har blitt sendt!',
-    'contact_message_limit' => 'Du kan kun sende èn melding hver time. Du kan sende en ny melding om {x} minutter.', // Don't replace {x}
-
-    /*
      *  Navbar
      */
     'home' => 'Hjem',
@@ -101,12 +92,6 @@ $language = [
      *  Homepage
      */
     'social' => 'Sosiale medier',
-
-
-    /*
-     *  Help dialogues
-     */
-    'markdown_help' => 'Du kan formatere ditt innlegg med Markdown. For mer informasjon, sjekk <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>her</a>.',
 
     /*
      *  Server query
@@ -163,5 +148,10 @@ $language = [
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'Omdirigerer...<br />Hvis du ikke blir omdirigert automatisk, vennligst trykk <a href="{x}" rel="nofollow noopener">her</a>.' // Don't replace {x} which is the redirect URL
+    'redirecting_message' => 'Omdirigerer...<br />Hvis du ikke blir omdirigert automatisk, vennligst trykk <a href="{x}" rel="nofollow noopener">her</a>.', // Don't replace {x} which is the redirect URL
+
+    /*
+     * OAuth
+     */
+    'oauth_message_continue' => 'Continue registering with {x}', // Don't replace {x}
 ];

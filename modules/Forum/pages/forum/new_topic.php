@@ -17,16 +17,12 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 // User must be logged in to proceed
 if (!$user->isLoggedIn()) {
     Redirect::to(URL::build('/forum'));
-    die();
 }
 
-require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
 $forum = new Forum();
-$mentionsParser = new MentionsParser();
 
 if (!isset($_GET['fid']) || !is_numeric($_GET['fid'])) {
     Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
-    die();
 }
 
 $fid = (int)$_GET['fid'];
@@ -38,14 +34,12 @@ $user_groups = $user->getAllGroupIds();
 $list = $forum->forumExist($fid, $user_groups);
 if (!$list) {
     Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
-    die();
 }
 
 // Can the user post a topic in this forum?
 $can_reply = $forum->canPostTopic($fid, $user_groups);
 if (!$can_reply) {
     Redirect::to(URL::build('/forum/view/' . $fid));
-    die();
 }
 
 $current_forum = DB::getInstance()->selectQuery('SELECT * FROM nl2_forums WHERE id = ?', [$fid])->first();
@@ -108,9 +102,7 @@ if (Input::exists()) {
 
         if (!isset($spam_check)) {
             // Spam check passed
-            $validate = new Validate();
-
-            $validate->check($_POST, [
+            $validate = Validate::check($_POST, [
                 'title' => [
                     Validate::REQUIRED => true,
                     Validate::MIN => 2,
@@ -135,103 +127,95 @@ if (Input::exists()) {
             ]);
 
             if ($validate->passed()) {
-                try {
-                    $post_labels = [];
+                $post_labels = [];
 
-                    if (isset($_POST['topic_label']) && !empty($_POST['topic_label']) && is_array($_POST['topic_label']) && count($_POST['topic_label'])) {
-                        foreach ($_POST['topic_label'] as $topic_label) {
-                            $label = $queries->getWhere('forums_topic_labels', ['id', '=', $topic_label]);
-                            if (count($label)) {
-                                $lgroups = explode(',', $label[0]->gids);
+                if (isset($_POST['topic_label']) && !empty($_POST['topic_label']) && is_array($_POST['topic_label'])) {
+                    foreach ($_POST['topic_label'] as $topic_label) {
+                        $label = $queries->getWhere('forums_topic_labels', ['id', '=', $topic_label]);
+                        if (count($label)) {
+                            $lgroups = explode(',', $label[0]->gids);
 
-                                $hasperm = false;
-                                foreach ($user_groups as $group_id) {
-                                    if (in_array($group_id, $lgroups)) {
-                                        $hasperm = true;
-                                        break;
-                                    }
-                                }
-
-                                if ($hasperm) {
-                                    $post_labels[] = $label[0]->id;
+                            $hasperm = false;
+                            foreach ($user_groups as $group_id) {
+                                if (in_array($group_id, $lgroups)) {
+                                    $hasperm = true;
+                                    break;
                                 }
                             }
-                        }
-                    } else {
-                        if (count($default_labels)) {
-                            $post_labels = $default_labels;
+
+                            if ($hasperm) {
+                                $post_labels[] = $label[0]->id;
+                            }
                         }
                     }
-
-                    $queries->create('topics', [
-                        'forum_id' => $fid,
-                        'topic_title' => Input::get('title'),
-                        'topic_creator' => $user->data()->id,
-                        'topic_last_user' => $user->data()->id,
-                        'topic_date' => date('U'),
-                        'topic_reply_date' => date('U'),
-                        'labels' => implode(',', $post_labels)
-                    ]);
-                    $topic_id = $queries->getLastId();
-
-                    // Parse markdown
-                    $cache->setCache('post_formatting');
-                    $formatting = $cache->retrieve('formatting');
-
-                    if ($formatting == 'markdown') {
-                        $content = \Michelf\Markdown::defaultTransform(Input::get('content'));
-                        $content = Output::getClean($content);
-                    } else {
-                        $content = Output::getClean(Input::get('content'));
+                } else {
+                    if (count($default_labels)) {
+                        $post_labels = $default_labels;
                     }
-
-                    $queries->create('posts', [
-                        'forum_id' => $fid,
-                        'topic_id' => $topic_id,
-                        'post_creator' => $user->data()->id,
-                        'post_content' => $content,
-                        'post_date' => date('Y-m-d H:i:s'),
-                        'created' => date('U')
-                    ]);
-
-                    // Get last post ID
-                    $last_post_id = $queries->getLastId();
-                    $content = $mentionsParser->parse($user->data()->id, $content, URL::build('/forum/topic/' . $topic_id, 'pid=' . $last_post_id), ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag'], ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag_info', 'replace' => '{x}', 'replace_with' => Output::getClean($user->data()->nickname)]);
-
-                    $queries->update('posts', $last_post_id, [
-                        'post_content' => $content
-                    ]);
-
-                    $queries->update('forums', $fid, [
-                        'last_post_date' => date('U'),
-                        'last_user_posted' => $user->data()->id,
-                        'last_topic_posted' => $topic_id
-                    ]);
-
-                    Log::getInstance()->log(Log::Action('forums/topic/create'), Output::getClean(Input::get('title')));
-
-                    // Execute hooks and pass $available_hooks
-                    $available_hooks = $queries->getWhere('forums', ['id', '=', $fid]);
-                    $available_hooks = json_decode($available_hooks[0]->hooks);
-                    EventHandler::executeEvent('newTopic', [
-                        'uuid' => Output::getClean($user->data()->uuid),
-                        'username' => $user->getDisplayname(true),
-                        'nickname' => $user->getDisplayname(),
-                        'content' => str_replace(['{x}', '{y}'], [$forum_title, $user->getDisplayname()], $forum_language->get('forum', 'new_topic_text')),
-                        'content_full' => strip_tags(str_ireplace(['<br />', '<br>', '<br/>'], "\r\n", Input::get('content'))),
-                        'avatar_url' => $user->getAvatar(128, true),
-                        'title' => Input::get('title'),
-                        'url' => Util::getSelfURL() . ltrim(URL::build('/forum/topic/' . $topic_id . '-' . $forum->titleToURL(Input::get('title'))), '/'),
-                        'available_hooks' => $available_hooks == null ? [] : $available_hooks
-                    ]);
-
-                    Session::flash('success_post', $forum_language->get('forum', 'post_successful'));
-
-                    Redirect::to(URL::build('/forum/topic/' . $topic_id . '-' . $forum->titleToURL(Input::get('title'))));
-                    die();
-                } catch (Exception $e) {
-                    die($e->getMessage());
                 }
+
+                $queries->create('topics', [
+                    'forum_id' => $fid,
+                    'topic_title' => Input::get('title'),
+                    'topic_creator' => $user->data()->id,
+                    'topic_last_user' => $user->data()->id,
+                    'topic_date' => date('U'),
+                    'topic_reply_date' => date('U'),
+                    'labels' => implode(',', $post_labels)
+                ]);
+                $topic_id = $queries->getLastId();
+
+                $content = Output::getClean(Input::get('content'));
+
+                $queries->create('posts', [
+                    'forum_id' => $fid,
+                    'topic_id' => $topic_id,
+                    'post_creator' => $user->data()->id,
+                    'post_content' => $content,
+                    'post_date' => date('Y-m-d H:i:s'),
+                    'created' => date('U')
+                ]);
+
+                // Get last post ID
+                $last_post_id = $queries->getLastId();
+                $content = MentionsParser::parse(
+                    $user->data()->id,
+                    $content,
+                    URL::build('/forum/topic/' . $topic_id, 'pid=' . $last_post_id),
+                    ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag'],
+                    ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag_info', 'replace' => '{x}', 'replace_with' => Output::getClean($user->data()->nickname)]
+                );
+
+                $queries->update('posts', $last_post_id, [
+                    'post_content' => $content
+                ]);
+
+                $queries->update('forums', $fid, [
+                    'last_post_date' => date('U'),
+                    'last_user_posted' => $user->data()->id,
+                    'last_topic_posted' => $topic_id
+                ]);
+
+                Log::getInstance()->log(Log::Action('forums/topic/create'), Output::getClean(Input::get('title')));
+
+                // Execute hooks and pass $available_hooks
+                $available_hooks = $queries->getWhere('forums', ['id', '=', $fid]);
+                $available_hooks = json_decode($available_hooks[0]->hooks);
+                EventHandler::executeEvent('newTopic', [
+                    'uuid' => Output::getClean($user->data()->uuid),
+                    'username' => $user->getDisplayname(true),
+                    'nickname' => $user->getDisplayname(),
+                    'content' => str_replace(['{x}', '{y}'], [$forum_title, $user->getDisplayname()], $forum_language->get('forum', 'new_topic_text')),
+                    'content_full' => strip_tags(str_ireplace(['<br />', '<br>', '<br/>'], "\r\n", Input::get('content'))),
+                    'avatar_url' => $user->getAvatar(128, true),
+                    'title' => Input::get('title'),
+                    'url' => Util::getSelfURL() . ltrim(URL::build('/forum/topic/' . $topic_id . '-' . $forum->titleToURL(Input::get('title'))), '/'),
+                    'available_hooks' => $available_hooks == null ? [] : $available_hooks
+                ]);
+
+                Session::flash('success_post', $forum_language->get('forum', 'post_successful'));
+
+                Redirect::to(URL::build('/forum/topic/' . $topic_id . '-' . $forum->titleToURL(Input::get('title'))));
             } else {
                 $error = $validate->errors();
             }
@@ -249,9 +233,6 @@ $token = Token::get();
 $template->addCSSFiles([
     (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.css' => [],
     (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.min.css' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.sprites.css' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/css/emojionearea.min.css' => [],
 ]);
 
 // Generate content for template
@@ -284,42 +265,20 @@ $smarty->assign([
     'NO' => $language->get('general', 'no'),
     'TOKEN' => '<input type="hidden" name="token" value="' . $token . '">',
     'FORUM_LINK' => URL::build('/forum'),
+    'CONTENT_LABEL' => $language->get('general', 'content'),
     'CONTENT' => ((isset($_POST['content']) && $_POST['content']) ? Output::getPurified(Input::get('content')) : ($placeholder ?? '')),
     'FORUM_TITLE' => Output::getClean($forum_title),
     'FORUM_DESCRIPTION' => Output::getPurified($forum_query->forum_description),
     'NEWS_FORUM' => $forum_query->news
 ]);
 
-// Get post formatting type (HTML or Markdown)
-$cache->setCache('post_formatting');
-$formatting = $cache->retrieve('formatting');
+$template->addJSFiles([
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
+]);
 
-if ($formatting == 'markdown') {
-    // Markdown
-    $smarty->assign('MARKDOWN', true);
-    $smarty->assign('MARKDOWN_HELP', $language->get('general', 'markdown_help'));
-
-    $template->addJSFiles([
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/js/emojione.min.js' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/js/emojionearea.min.js' => []
-    ]);
-
-    $template->addJSScript('
-	  $(document).ready(function() {
-		var el = $("#markdown").emojioneArea({
-			pickerPosition: "bottom"
-		});
-	  });
-	');
-} else {
-    $template->addJSFiles([
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
-    ]);
-
-    $template->addJSScript(Input::createTinyEditor($language, 'reply'));
-}
+$template->addJSScript(Input::createTinyEditor($language, 'reply', true));
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);

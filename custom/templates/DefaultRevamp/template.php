@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton | Revamped by Xemah
  *	https://github.com/NamelessMC/Nameless/
- *	NamelessMC version 2.0.0-pr12
+ *	NamelessMC version 2.0.0-pr13
  *
  *	License: MIT
  *
@@ -58,17 +58,18 @@ class DefaultRevamp_Template extends TemplateBase {
         $smartyDarkMode = false;
         $smartyNavbarColour = '';
 
+        $darkMode = $cache->isCached('darkMode') ? $cache->retrieve('darkMode') : '0';
         if ($user->isLoggedIn()) {
-            $darkMode = $user->data()->night_mode;
+            $darkMode = $user->data()->night_mode !== null ? $user->data()->night_mode : $darkMode;
         } else {
-            if ($cache->isCached('darkMode')) {
-                $darkMode = $cache->retrieve('darkMode');
+            if (Cookie::exists('night_mode')) {
+                $darkMode = Cookie::get('night_mode');
             }
         }
 
         if (isset($darkMode) && $darkMode == '1') {
             $smartyDarkMode = true;
-            define('TEMPLATE_TINY_EDITOR_STYLE', 'default-revamp');
+            define('TEMPLATE_TINY_EDITOR_DARKMODE', true);
         }
 
         if ($cache->isCached('navbarColour')) {

@@ -2,14 +2,15 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr10
+ *  NamelessMC version 2.0.0-pr12
  *
  *  License: MIT
  *
  *  Portuguese Language - General
- *  Translation by Douglas Teles & Mansffer
- *  Last Update: 01/03/2021
+ *  Translation by Douglas Teles, Mansffer and DeusDrizzyy.
+ *  Last Update: 22/02/2022
  */
+
 $language = [
     /*
      *  General terms
@@ -17,9 +18,9 @@ $language = [
     'help' => 'Ajuda',
     'submit' => 'Enviar',
     'register' => 'Registrar',
-    'already_registered' => 'Já possui registro?',
+    'already_registered' => 'Já tem um registro?',
     'custom_fields' => 'Campo personalizado',
-    'not_registered_yet' => 'Ainda não possui registro?',
+    'not_registered_yet' => 'Ainda não tem registro?',
     'sign_in' => 'Entrar',
     'log_out' => 'Sair',
     'profile' => 'Perfil',
@@ -41,22 +42,25 @@ $language = [
     'view' => 'Visualizar',
     'change' => 'Alterar',
     'remove' => 'Remover',
-    'info' => 'Info',
+    'info' => 'Informações',
     'confirm' => 'Confirmar',
     'actions' => 'Ações',
     'alerts' => 'Alertas',
     'view_alerts' => 'Visualizar alertas',
     'no_alerts' => 'Sem alertas',
-    'x_new_alerts' => 'Você possuí {x} novos alertas.', // Don't replace {x}
+    'x_new_alerts' => 'Você tem {x} novos alertas.', // Não substitua o "{x}" da mensagem.
     'messages' => 'Mensagens',
     'view_messages' => 'Visualizar mensagens',
     'no_messages' => 'Sem mensagens',
-    'x_new_messages' => 'Você possuí {x} novas mensagens.', // Don't replace {x}
+    'x_new_messages' => 'Você tem {x} novas mensagens.', // Não substitua o "{x}" da mensagem.
     'loading' => 'Carregando...',
     'report' => 'Denúncia',
-    'reported_by' => 'Reported by {x}',
-    'view_report' => 'View report',
-    'page_loaded_in' => 'Página gerada em {x}s', // Don't replace {x}, time unit is seconds
+    'reported_by' => 'Reportado por {x}.',
+    'view_report' => 'Visualizar Denúncia.',
+    'report_origin' => 'Origin',
+    'origin_website' => 'Website',
+    'origin_api' => 'API',
+    'page_loaded_in' => 'Página gerada em {x}s', // Não substitua o "{x}", a unidade de tempo é segundos.
     'page_x' => 'Página {x}',
     'browse' => 'Navegar',
     'bypass' => 'Burlar',
@@ -69,22 +73,10 @@ $language = [
     'error' => 'Erro',
     'are_you_sure' => 'Você tem certeza?',
     'spoiler' => 'Spoiler',
-    'invalid_timezone' => 'Esse fuso horário é inválido',
+    'invalid_timezone' => 'Esse fuso horário é inválido.',
     'link' => 'Link',
     'unlink' => 'Desvincular',
     'leaderboards' => 'Leaderboards',
-
-    /*
-    *  Contact form
-    */
-    'contact' => 'Contato',
-    'message' => 'Mensagem',
-    'email_address' => 'Endereço de email',
-    'contact_email_subject' => 'Novo formulário de contato',
-    'contact_message_failed' => 'Não foi possível enviar a mensagem. Certifique-se de ter inserido uma mensagem entre 10 e 5000 caracteres.',
-    'contact_message_email' => 'O email fornecido é inválido.',
-    'contact_message_sent' => 'Mensagem enviada com sucesso.',
-    'contact_message_limit' => 'Você só pode enviar uma mensagem por hora. Você pode enviar uma mensagem em {x} minutos.', // Don't replace {x}
 
     /*
      *  Navbar
@@ -103,31 +95,25 @@ $language = [
      */
     'social' => 'Social',
 
-
-    /*
-     *  Help dialogues
-     */
-    'markdown_help' => 'Você pode formatar sua postagem usando o Markdown. Para mais informações, veja <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>aqui</a>.',
-
     /*
     *  Server query
     */
     'online' => 'Online',
     'offline' => 'Offline',
-    'player_count' => '{x}/{y}', // Don't replace {x} or {y}
-    'ping' => 'Ping: {x}', // Don't replace {x}
-    'version' => 'Versão: {x}', // Don't replace {x}
+    'player_count' => '{x}/{y}', // Não substitua o "{x}" ou "{y}" da mensagem.
+    'ping' => 'Ping: {x}', // Não substitua o "{x}" da mensagem.
+    'version' => 'Versão: {x}', // Não substitua o "{x}" da mensagem.
     'currently_1_player_online' => 'No momento, há <strong>1</strong> jogador online.',
-    'currently_x_players_online' => 'Há <strong>{x}</strong> jogadores online.', // Don't replace {x}
+    'currently_x_players_online' => 'Há <strong>{x}</strong> jogadores online.', // Não substitua o "{x}" da mensagem.
     'server_offline' => 'O servidor está atualmente offline.',
-    'connect_with_ip_x' => 'Junte-se aos nossos jogadores: {x}', // Don't replace {x}
+    'connect_with_ip_x' => 'Junte-se aos nossos jogadores: {x}', // Não substitua o "{x}" da mensagem.
     'click_to_copy_tooltip' => 'Clique para copiar',
     'ip' => 'IP',
     'copied' => 'Copiado!',
     'no_servers' => 'Não há servidores para exibir!',
     'bungee_instance' => 'Este servidor é uma instância do Bungee.',
     'no_players_online' => 'Não há jogadores online.',
-    'and_x_more' => 'e {x} mais', // Don't replace {x}
+    'and_x_more' => 'e {x} mais', // Não substitua o "{x}" da mensagem.
 
     /*
      *  Cookie notice
@@ -152,7 +138,7 @@ $language = [
     'total_online_users' => 'Usuários online: {x}',
     'discord_widget_disabled' => 'O widget está desativado para o servidor Discord especificado. Por favor, vá para a aba \'Widget\' nas configurações do servidor Discord, e assegure-se de que o widget Discord esteja habilitado e que o ID esteja correto.',
     'online_guests' => 'Convidados Online',
-    'total_online' => 'Total Online', // this is Online Users + Online Guests
+    'total_online' => 'Total Online', // Isto é Usuários Online + Convidados Online.
     'no_default_server' => 'Não há servidor padrão, selecione um em StaffCP - Integrações - Minecraft.',
     'server_status' => 'Status do servidor',
 
@@ -164,5 +150,10 @@ $language = [
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'Redirecionando...<br />Se você não for redirecionado automaticamente, clique <a href="{x}" rel="nofollow noopener">aqui</a>.' // Don't replace {x} which is the redirect URL
+    'redirecting_message' => 'Redirecionando...<br />Se você não for redirecionado automaticamente, clique <a href="{x}" rel="nofollow noopener">aqui</a>.', // Não substitua o "{x}" que é a URL de redirecionamento.
+
+    /*
+     * OAuth
+     */
+    'oauth_message_continue' => 'Continue registering with {x}', // Don't replace {x}
 ];

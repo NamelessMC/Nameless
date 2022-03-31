@@ -55,16 +55,13 @@ if (isset($_GET['do'])) {
     }
 
     Redirect::to(URL::build('/panel/core/general_settings'));
-    die();
 }
 
 // Deal with input
 if (Input::exists()) {
     if (Token::check()) {
         // Validate input
-        $validate = new Validate();
-
-        $validation = $validate->check($_POST, [
+        $validation = Validate::check($_POST, [
             'sitename' => [
                 Validate::REQUIRED => true,
                 Validate::MIN => 2,
@@ -182,18 +179,6 @@ if (Input::exists()) {
                 'value' => $_POST['displaynames']
             ]);
 
-            // Post formatting
-            $formatting_id = $queries->getWhere('settings', ['name', '=', 'formatting_type']);
-            $formatting_id = $formatting_id[0]->id;
-
-            $queries->update('settings', $formatting_id, [
-                'value' => Output::getClean(Input::get('formatting'))
-            ]);
-
-            // Update cache
-            $cache->setCache('post_formatting');
-            $cache->store('formatting', Output::getClean(Input::get('formatting')));
-
             // Friendly URLs
             $friendly = Input::get('friendlyURL') == 'true';
 
@@ -266,7 +251,6 @@ if (Input::exists()) {
                     $redirect = URL::build('/panel/core/general_settings', '', 'non-friendly');
                 }
                 Redirect::to($redirect);
-                die();
             }
         } else {
             $errors = $validation->errors();
@@ -318,9 +302,6 @@ $timezone = $timezone[0]->value;
 $portal = $queries->getWhere('settings', ['name', '=', 'portal']);
 $portal = $portal[0]->value;
 
-$cache->setCache('post_formatting');
-$formatting = $cache->retrieve('formatting');
-
 $friendly_url = Config::get('core/friendly');
 
 $private_profile = $queries->getWhere('settings', ['name', '=', 'private_profile']);
@@ -362,8 +343,6 @@ $smarty->assign([
     'HOMEPAGE_DEFAULT' => $language->get('admin', 'default'),
     'HOMEPAGE_PORTAL' => $language->get('admin', 'portal'),
     'HOMEPAGE_VALUE' => $portal,
-    'POST_FORMATTING' => $language->get('admin', 'post_formatting_type'),
-    'POST_FORMATTING_VALUE' => $formatting,
     'USE_FRIENDLY_URLS' => $language->get('admin', 'use_friendly_urls'),
     'USE_FRIENDLY_URLS_VALUE' => $friendly_url,
     'USE_FRIENDLY_URLS_HELP' => $language->get('admin', 'use_friendly_urls_help'),

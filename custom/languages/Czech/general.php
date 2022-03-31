@@ -56,6 +56,9 @@ $language = [
     'report' => 'Nahlásit',
     'reported_by' => 'Nahlášen uživatelem {x}',
     'view_report' => 'Zobrazit nahlášení',
+    'report_origin' => 'Origin',
+    'origin_website' => 'Website',
+    'origin_api' => 'API',
     'page_loaded_in' => 'Stránka se načetla za {x}s', // Don't replace {x}, time unit is seconds
     'page_x' => 'Strana {x}',
     'browse' => 'Prohlížet',
@@ -73,18 +76,6 @@ $language = [
     'link' => 'Propojit',
     'unlink' => 'Odpojit',
     'leaderboards' => 'Žebříčky',
-
-    /*
-     *  Contact form
-     */
-    'contact' => 'Kontakt',
-    'message' => 'Zpráva',
-    'email_address' => 'E-mailová adresa',
-    'contact_email_subject' => 'Nové vyplnění kontaktního formuláře',
-    'contact_message_failed' => 'Nepodařilo se odeslat zpráv. Ujistěte se, že zadaná zpráva má mezi 10 a 5000 znaky.',
-    'contact_message_sent' => 'Zpráva úspěšně odeslána.',
-    'contact_message_email' => 'Zadaný e-mail je neplatný.',
-    'contact_message_limit' => 'Můžete odeslat pouze jednu zprávu za hodinu. Další zprávu budete moct odeslat za {x} minut.', // Don't replace {x}
 
     /*
      *  Navbar
@@ -106,7 +97,6 @@ $language = [
     /*
      *  Help dialogues
      */
-    'markdown_help' => 'Váš příspěvek můžete naformátovat pomocí stylu Markdown. Pro více informací klikněte <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>sem</a>.',
     'online' => 'Online',
 
     /*
@@ -163,5 +153,10 @@ $language = [
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'Přesměrování...<br />Pokud nebudete přesměrováni automaticky, klikněte prosím  <a href="{x}" rel="nofollow noopener">sem</a>.' // Don't replace {x} which is the redirect URL
+    'redirecting_message' => 'Přesměrování...<br />Pokud nebudete přesměrováni automaticky, klikněte prosím  <a href="{x}" rel="nofollow noopener">sem</a>.', // Don't replace {x} which is the redirect URL
+
+    /*
+     * OAuth
+     */
+    'oauth_message_continue' => 'Continue registering with {x}', // Don't replace {x}
 ];

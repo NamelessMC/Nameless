@@ -42,17 +42,10 @@
               </div>
             {/if}
           {/if}
-          {if isset($MARKDOWN)}
-            <div class="field">
-              <label for="markdown">Content:</label>
-              <textarea name="content" id="markdown"></textarea>
-            </div>
-          {else}
             <div class="field">
               <label for="editor">Content:</label>
               <textarea name="content" id="editor">{$CONTENT}</textarea>
             </div>
-          {/if}
           <input type="hidden" name="token" value="{$TOKEN}">
           <input type="submit" class="ui primary button" value="{$SUBMIT}">
           <a class="ui negative button" href="{$CANCEL_LINK}" onclick="return confirm('{$CONFIRM_CANCEL}')">{$CANCEL}</a>

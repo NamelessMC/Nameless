@@ -13,18 +13,15 @@ const PAGE = 'forum';
 $page_title = $forum_language->get('forum', 'merge_topics');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
 $forum = new Forum();
 
 // User must be logged in to proceed
 if (!$user->isLoggedIn()) {
     Redirect::to('/forum');
-    die();
 }
 
 if (!isset($_GET['tid']) || !is_numeric($_GET['tid'])) {
     Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
-    die();
 }
 
 $topic_id = $_GET['tid'];
@@ -34,8 +31,7 @@ $forum_id = $forum_id->forum_id;
 if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
     if (Input::exists()) {
         if (Token::check()) {
-            $validate = new Validate();
-            $validation = $validate->check($_POST, [
+            $validation = Validate::check($_POST, [
                 'merge' => [
                     Validate::REQUIRED => true
                 ]
@@ -65,7 +61,6 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
     }
 } else {
     Redirect::to(URL::build('/forum'));
-    die();
 }
 
 $token = Token::get();

@@ -92,11 +92,10 @@ class RegisterEndpoint extends KeyAuthEndpoint {
      * @param bool $return
      * @param string|null $code The reset token/temp password of the new user
      * @param bool $api_verification
-     * @return array|void
-     * @see Nameless2API::register()
      *
+     * @return array
      */
-    private function createUser(Nameless2API $api, string $username, string $uuid, string $email, bool $return, string $code = null, bool $api_verification = false) {
+    private function createUser(Nameless2API $api, string $username, string $uuid, string $email, bool $return, string $code = null, bool $api_verification = false): array {
         try {
             // Get default group ID
             if (!is_file(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('default_group') . '.cache')) {
@@ -161,9 +160,9 @@ class RegisterEndpoint extends KeyAuthEndpoint {
 
             if ($return || $api_verification) {
                 $api->returnArray(['message' => $api->getLanguage()->get('api', 'finish_registration_link'), 'user_id' => $user_id, 'link' => rtrim(Util::getSelfURL(), '/') . URL::build('/complete_signup/', 'c=' . $code)]);
-            } else {
-                return ['user_id' => $user_id];
             }
+
+            return ['user_id' => $user_id];
 
         } catch (Exception $e) {
             $api->throwError(13, $api->getLanguage()->get('api', 'unable_to_create_account'), $e->getMessage());

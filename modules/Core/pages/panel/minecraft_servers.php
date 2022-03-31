@@ -30,8 +30,7 @@ if (isset($_GET['action'])) {
 
                 if (Token::check()) {
                     // Validate input
-                    $validate = new Validate();
-                    $validation = $validate->check($_POST, [
+                    $validation = Validate::check($_POST, [
                         'server_name' => [
                             Validate::REQUIRED => true,
                             Validate::MIN => 1,
@@ -74,6 +73,13 @@ if (isset($_GET['action'])) {
                     if ($validation->passed()) {
                         // Handle input
                         try {
+                            // Bedrock selected?
+                            if (isset($_POST['bedrock']) && $_POST['bedrock'] == 1) {
+                                $bedrock = 1;
+                            } else {
+                                $bedrock = 0;
+                            }
+
                             // BungeeCord selected?
                             if (isset($_POST['bungee_instance']) && $_POST['bungee_instance'] == 1) {
                                 $bungee = 1;
@@ -150,6 +156,7 @@ if (isset($_GET['action'])) {
                                 'player_list' => $query,
                                 'parent_server' => $parent,
                                 'bungee' => $bungee,
+                                'bedrock' => $bedrock,
                                 'port' => $port,
                                 'query_port' => $query_port,
                                 'show_ip' => $show_ip,
@@ -158,7 +165,6 @@ if (isset($_GET['action'])) {
 
                             Session::flash('admin_mc_servers_success', $language->get('admin', 'server_created'));
                             Redirect::to(URL::build('/panel/minecraft/servers'));
-                            die();
 
                         } catch (Exception $e) {
                             $errors = [$e->getMessage()];
@@ -208,6 +214,8 @@ if (isset($_GET['action'])) {
                 'PARENT_SERVER_VALUE' => Output::getClean(Input::get('parent_server')),
                 'BUNGEE_INSTANCE' => $language->get('admin', 'bungee_instance'),
                 'BUNGEE_INSTANCE_INFO' => $language->get('admin', 'bungee_instance_help'),
+                'BEDROCK' => $language->get('admin', 'bedrock'),
+                'BEDROCK_INFO' => $language->get('admin', 'bedrock_help'),
                 'PRE_17' => $language->get('admin', 'pre_1.7'),
                 'QUERY_INFORMATION' => $language->get('admin', 'query_information'),
                 'ENABLE_STATUS_QUERY' => $language->get('admin', 'enable_status_query'),
@@ -229,13 +237,11 @@ if (isset($_GET['action'])) {
             // Get server
             if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
                 Redirect::to(URL::build('/panel/minecraft/servers'));
-                die();
             }
 
             $server_editing = $queries->getWhere('mc_servers', ['id', '=', $_GET['id']]);
             if (!count($server_editing)) {
                 Redirect::to(URL::build('/panel/minecraft/servers'));
-                die();
             }
             $server_editing = $server_editing[0];
 
@@ -243,8 +249,7 @@ if (isset($_GET['action'])) {
             if (Input::exists()) {
                 if (Token::check()) {
                     // Validate input
-                    $validate = new Validate();
-                    $validation = $validate->check($_POST, [
+                    $validation = Validate::check($_POST, [
                         'server_name' => [
                             Validate::REQUIRED => true,
                             Validate::MIN => 1,
@@ -287,6 +292,13 @@ if (isset($_GET['action'])) {
                     if ($validation->passed()) {
                         // Handle input
                         try {
+                            // Bedrock selected?
+                            if (isset($_POST['bedrock']) && $_POST['bedrock'] == 1) {
+                                $bedrock = 1;
+                            } else {
+                                $bedrock = 0;
+                            }
+
                             // BungeeCord selected?
                             if (isset($_POST['bungee_instance']) && $_POST['bungee_instance'] == 1) {
                                 $bungee = 1;
@@ -356,6 +368,7 @@ if (isset($_GET['action'])) {
                                 'player_list' => $query,
                                 'parent_server' => $parent,
                                 'bungee' => $bungee,
+                                'bedrock' => $bedrock,
                                 'port' => $port,
                                 'query_port' => $query_port,
                                 'show_ip' => $show_ip
@@ -363,7 +376,6 @@ if (isset($_GET['action'])) {
 
                             Session::flash('admin_mc_servers_success', $language->get('admin', 'server_updated'));
                             Redirect::to(URL::build('/panel/minecraft/servers/', 'action=edit&id=' . Output::getClean($server_editing->id)));
-                            die();
 
                         } catch (Exception $e) {
                             $errors = [$e->getMessage()];
@@ -415,6 +427,9 @@ if (isset($_GET['action'])) {
                 'BUNGEE_INSTANCE' => $language->get('admin', 'bungee_instance'),
                 'BUNGEE_INSTANCE_INFO' => $language->get('admin', 'bungee_instance_help'),
                 'BUNGEE_INSTANCE_VALUE' => ($server_editing->bungee == 1),
+                'BEDROCK' => $language->get('admin', 'bedrock'),
+                'BEDROCK_VALUE' => ($server_editing->bedrock == 1),
+                'BEDROCK_INFO' => $language->get('admin', 'bedrock_help'),
                 'PRE_17' => $language->get('admin', 'pre_1.7'),
                 'PRE_17_VALUE' => ($server_editing->pre == 1),
                 'QUERY_INFORMATION' => $language->get('admin', 'query_information'),
@@ -450,7 +465,6 @@ if (isset($_GET['action'])) {
             }
 
             Redirect::to(URL::build('/panel/minecraft/servers'));
-            die();
         case 'order':
             // Get servers
             if (isset($_POST['servers']) && Token::check($_POST['token'])) {
@@ -468,7 +482,6 @@ if (isset($_GET['action'])) {
 
         default:
             Redirect::to(URL::build('/panel/minecraft/servers'));
-            die();
     }
 
 } else {

@@ -53,7 +53,7 @@
 {/if}
 
 {$PAGINATION}
-      
+
 <div class="res right floated">
   {if isset($UNFOLLOW)}
     <form action="{$UNFOLLOW_URL}" method="post" style="display: inline">
@@ -253,15 +253,9 @@
         </div>
         <div class="ui eleven wide tablet thirteen wide computer column" id="reply-content">
           <form class="ui form" action="" method="post">
-            {if isset($MARKDOWN)}
-              <div class="field">
-                <textarea name="content" id="markdown" >{$CONTENT}</textarea>
-              </div>
-            {else}
-              <div class="field">
-                <textarea name="content" id="quickreply">{$CONTENT}</textarea>
-              </div>
-            {/if}
+            <div class="field">
+              <textarea name="content" id="quickreply">{$CONTENT}</textarea>
+            </div>
             <input type="hidden" name="token" value="{$TOKEN}">
             <button class="ui primary button" type="submit">{$SUBMIT}</button>
             <button class="ui warning button" id="quoteButton" type="button" onclick="insertQuotes();">{$INSERT_QUOTES}</button>
@@ -369,7 +363,7 @@
     </div>
     <div class="actions">
       <a class="ui negative button">{$CANCEL}</a>
-      
+
       <form action="{$DELETE_URL}" method="post" id="deleteTopic" style="display: none">
         <input type="hidden" value="{$TOKEN}" name="token" />
       </form>

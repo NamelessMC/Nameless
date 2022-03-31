@@ -53,10 +53,11 @@ $language = [
     'configuration' => '配置',
     'configuration_info' => '请输入有关您网站的基本信息。这些值可以稍后通过管理面板进行更改。',
     'configuration_error' => '请输入有效的网站名称，长度在 1 到 32 个字符之间，有效的电子邮箱地址在 4 到 64 个字符之间。',
+    'hostname_error' => 'Please enter a valid hostname without http:// or https://',
     'site_name' => '网站名称',
     'contact_email' => '联系邮箱',
     'outgoing_email' => '发件箱',
-    'language' => 'Language',
+    'language' => '语言',
     'initialising_database_and_cache' => '初始化数据库和缓存，请稍候...',
     'unable_to_login' => '无法登录。',
     'unable_to_create_account' => '无法创建新用户',
@@ -95,7 +96,7 @@ $language = [
     'step_database_config' => '数据库配置',
     'step_site_config' => '站点配置',
     'step_admin_account' => '管理员账户',
-    'step_conversion' => 'Conversion',
+    'step_conversion' => '转换',
     'step_finish' => '完成',
 
     'general_configuration' => '基本配置',
@@ -104,5 +105,5 @@ $language = [
     'no_converters_available' => '没有可用的转换器',
     'config_not_writable' => '配置文件无法写入',
 
-    'session_doesnt_exist' => '无法检测会话。若想使用 Nameless，您必须启用会话。请您再试一次，若此问题始终存在，请咨询您的网页提供商。'
+    'session_doesnt_exist' => 'Unable to detect session. Sessions saving are a requirement to use Nameless. Please try again after clearing cookies in your web browser, and if the issue persists, please contact your web host for support.'
 ];

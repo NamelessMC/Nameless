@@ -24,8 +24,7 @@ if (Input::exists()) {
     $errors = [];
 
     if (Token::check()) {
-        $validate = new Validate();
-        $validation = $validate->check($_POST, [
+        $validation = Validate::check($_POST, [
             'privacy' => [
                 Validate::REQUIRED => true,
                 Validate::MAX => 100000

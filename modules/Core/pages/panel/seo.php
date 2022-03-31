@@ -45,13 +45,12 @@ if (!isset($_GET['metadata'])) {
                 $sitemap->setPath(ROOT_PATH . '/cache/sitemaps/');
 
                 $methods = $pages->getSitemapMethods();
-                foreach ($methods as $file => $method) {
-                    if (!file_exists($file)) {
-                        $errors[] = str_replace('{x}', Output::getClean($file), $language->get('admin', 'unable_to_load_sitemap_file_x'));
+                foreach ($methods as $method) {
+                    if (!class_exists($method[0])) {
+                        $errors[] = str_replace('{x}', Output::getClean($method[0]), $language->get('admin', 'unable_to_load_sitemap_file_x'));
                         continue;
                     }
 
-                    require_once($file);
                     $method($sitemap, $cache);
                 }
 
@@ -103,7 +102,6 @@ if (!isset($_GET['metadata'])) {
     $page = $pages->getPageById($_GET['metadata']);
     if (is_null($page)) {
         Redirect::to(URL::build('/panel/core/seo'));
-        die();
     }
 
     $page_metadata = $queries->getWhere('page_descriptions', ['page', '=', $page['key']]);

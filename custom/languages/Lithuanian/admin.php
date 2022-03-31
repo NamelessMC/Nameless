@@ -41,10 +41,14 @@ $language = [
     'upgrade_php_version' => 'Please upgrade your PHP version to at least 7.4 - the next Nameless release will no longer support the version you are using.',
 
     // Core
-    'mode_toggle' => 'Dark/Light Mode',
+    'mode_toggle' => 'Dark Mode',
     'settings' => 'Nustatymai',
     'general_settings' => 'Bendrieji nustatymai',
     'sitename' => 'Svetainės pavadinimas',
+    'punished_id' => 'Punished User ID',
+    'punisher_id' => 'Punisher User ID',
+    'reason' => 'Ban Reason',
+    'ip_ban' => 'IP ban?',
     'default_language' => 'Numatytoji Kalba',
     'default_language_help' => 'Vartotojai galės pasirinkti iš bet kurios įdiegtos kalbos.',
     'install_language' => 'Įdiekite Kalbą',
@@ -59,7 +63,6 @@ $language = [
     'email_verification' => 'Leisti el. pašto patvirtinimą?',
     'registration_settings_updated' => 'Registracijos nustatymai sėkmingai atnaujinti.',
     'homepage_type' => 'Pagrindinis Puslapio Tipas',
-    'post_formatting_type' => 'Pranešimų Formatavimo Tipas',
     'portal' => 'Portalas',
     'private_profiles' => 'Privatūs Profiliai',
     'missing_sitename' => 'Prašome įterpti svetainės pavadinimą nuo 2 iki 64 simbolių.',
@@ -145,11 +148,12 @@ $language = [
     'navigation_settings_updated_successfully' => 'Navigacijos nustatymai buvo sėkmingai atnaujinti.',
     'dropdown_items' => 'Išskleidžiamieji Elementai',
     'enable_page_load_timer' => 'Įjungti puslapio įkėlimo laikmatį?',
-    'captcha_general' => 'Enable Captcha on registration and contact page?',
+    'captcha_general' => 'Enable Captcha on registration page?',
     'captcha_login' => 'Enable Captcha on login page?',
     'captcha_type' => 'Captcha Type',
     'captcha_site_key' => 'Captcha Site Key',
     'captcha_secret_key' => 'Captcha Secret Key',
+    'invalid_recaptcha_settings' => 'Invalid {x} credentials. Ensure the site key and site secret are correct.', // Don't replace {x}
     'registration_disabled_message' => 'Išjungtos registracijos žinutė',
     'enable_nicknames_on_registration' => 'Įjungti slapyvardžius besiregistruojantiems vartotojams?',
     'validation_promote_group' => 'Grupė po patvirtinimo',
@@ -285,6 +289,8 @@ $language = [
     'no_parent_server' => 'Nėra pagrindinio serverio',
     'bungee_instance' => 'BungeeCord Instancija?',
     'bungee_instance_help' => 'Pasirinkite šią parinktį, jei serveris yra BungeeCord instancija.',
+    'bedrock' => 'Bedrock?',
+    'bedrock_help' => 'Select this option if the server is a Bedrock server.',
     'server_query_information' => 'Norėdami rodyti prisijungusių žaidėjų sąrašą savo svetainėje, jūsų serveris <strong>privalo</strong> turėti \'enable-query\' pasirinkimą įjungta jūsų serverio <strong>server.properties</strong> faile',
     'enable_status_query' => 'Įjungti būsenos užklausą?',
     'status_query_help' => 'Jei ši funkcija įjungta, būsenos puslapyje šis serveris bus rodomas kaip įjungtas arba išjungtas.',
@@ -354,6 +360,7 @@ $language = [
     'module_disabled' => 'Modulis išjungtas.',
     'author' => 'Autorius:',
     'author_x' => 'Autorius: {x}', // Don't replace {x}
+    'updated_x' => 'Updated at: {x}', // Don't replace {x}
     'module_outdated' => 'Aptikome, kad šis modulis skirtas "Nameless" versijai {x}, bet jūs naudojate "Nameless" versija {y}', // Don't replace "{x}" or "{y}"
     'find_modules' => 'Rasti Modulius',
     'view_all_modules' => 'Peržiūrėti visus modulius',
@@ -489,6 +496,7 @@ $language = [
     'resend_activation_email' => 'Resend Activation Email',
     'email_resent_successfully' => 'Email resent successfully.',
     'email_resend_failed' => 'Email resend failed, please check your email settings.',
+    'no_item_selected' => 'No items selected',
 
     // Permissions
     'select_all' => 'Pažymėti Viską',
@@ -639,6 +647,8 @@ $language = [
     'api_endpoints' => 'API Endpoints',
     'api_endpoints_info' => 'API Endpoints allow Modules to create ways for external applications (such as Minecraft and Discord) to interact with your NamelessMC website. <a href="https://docs.namelessmc.com/en/api-documentation" target="_blank">Check out the API documentation here</a>',
     'route' => 'Route',
+    'method' => 'Method',
+    'transformers' => 'Transformers',
 
     // File uploads
     'drag_files_here' => 'Vilkite failus čia, kad įkelti.',
@@ -680,6 +690,8 @@ $language = [
     'validate_hook_info' => 'Vartotojo patvirtinimas',
     'delete_hook_info' => 'vartotojo ištrynimas',
     'report_hook_info' => 'Report creation',
+    'ban_hook_info' => 'User banned',
+    'warning_hook_info' => 'User warned',
 
     // Sitemap
     'unable_to_load_sitemap_file_x' => 'Nepavyko įkelti svetainės schemos failo {x}', // Don't replace {x}
@@ -742,4 +754,12 @@ $language = [
     'no_announcements' => 'No announcements have been made yet.',
     'announcement_order' => 'Order',
     'announcement_hook_info' => 'Announcement creation',
+
+    // OAuth
+    'oauth' => 'OAuth',
+    'oauth_info' => 'Configure OAuth providers to allow users to login with their social network accounts. <a href="https://docs.namelessmc.com/en/oauth" target="_blank">Check out our documentation for help.</a>',
+    'unlink' => 'Unlink',
+    'identifier' => 'Identifier',
+    'unlink_account_confirm' => 'Are you sure you want to forcibly unlink this provider from this user?',
+    'unlink_account_success' => 'Successfully unlinked their account from {x}.', // Don't replace {x}
 ];

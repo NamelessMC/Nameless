@@ -13,19 +13,16 @@ const PAGE = 'forum';
 $page_title = $forum_language->get('forum', 'move_topic');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
 $forum = new Forum();
 
 if (!isset($_GET['tid']) || !is_numeric($_GET['tid'])) {
     Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
-    die();
 }
 
 $topic_id = $_GET['tid'];
 $topic = $queries->getWhere('topics', ['id', '=', $topic_id]);
 if (!count($topic)) {
     Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
-    die();
 }
 $forum_id = $topic[0]->forum_id;
 $topic = $topic[0];
@@ -33,8 +30,7 @@ $topic = $topic[0];
 if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
     if (Input::exists()) {
         if (Token::check()) {
-            $validate = new Validate();
-            $validation = $validate->check($_POST, [
+            $validation = Validate::check($_POST, [
                 'forum' => [
                     Validate::REQUIRED => true
                 ]
@@ -44,7 +40,6 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
             $forum_moving_to = $queries->getWhere('forums', ['id', '=', Input::get('forum')]);
             if (!count($forum_moving_to)) {
                 Redirect::to(URL::build('/forum'));
-                die();
             }
 
             $posts_to_move = $queries->getWhere('posts', ['topic_id', '=', $topic_id]);
@@ -76,7 +71,6 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
     }
 } else {
     Redirect::to(URL::build('/forum'));
-    die();
 }
 
 // Generate navbar and footer

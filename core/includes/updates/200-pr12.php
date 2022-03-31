@@ -50,6 +50,52 @@ try {
     // Continue
 }
 
+try {
+    DB::getInstance()->createQuery("CREATE TABLE `nl2_oauth` (
+                                          `provider` varchar(256) NOT NULL,
+                                          `enabled` tinyint(1) NOT NULL DEFAULT '0',
+                                          `client_id` varchar(256) DEFAULT NULL,
+                                          `client_secret` varchar(256) DEFAULT NULL,
+                                          PRIMARY KEY (`provider`),
+                                          UNIQUE KEY `id` (`provider`)
+                                        ) ENGINE=$db_engine DEFAULT CHARSET=$db_charset");
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+
+try {
+    DB::getInstance()->createQuery("CREATE TABLE `nl2_oauth_users` (
+                                          `user_id` int NOT NULL,
+                                          `provider` varchar(256) NOT NULL,
+                                          `provider_id` varchar(256) NOT NULL,
+                                          PRIMARY KEY (`user_id`,`provider`,`provider_id`),
+                                          UNIQUE KEY `user_id` (`user_id`,`provider`,`provider_id`)
+                                        ) ENGINE=$db_engine DEFAULT CHARSET=$db_charset");
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+
+// Add bedrock to nl2_mc_servers table
+try {
+    DB::getInstance()->createQuery('ALTER TABLE `nl2_mc_servers` ADD `bedrock` tinyint(1) NOT NULL DEFAULT \'0\'');
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+
+// Increase length of name column
+try {
+    DB::getInstance()->createQuery('ALTER TABLE nl2_mc_servers MODIFY `name` VARCHAR(128) NOT NULL');
+} catch (Exception $e) {
+    // Continue
+}
+
+// add unique constraint to modules table
+try {
+    DB::getInstance()->createQuery('ALTER TABLE nl2_modules ADD UNIQUE (`name`)');
+} catch (Exception $e) {
+    // Continue
+}
+
 // Update version number
 /*$version_number_id = $queries->getWhere('settings', array('name', '=', 'nameless_version'));
 

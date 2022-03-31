@@ -27,8 +27,7 @@ if (Input::exists()) {
     if (Token::check()) {
         // Valid token
         // Validate message
-        $validate = new Validate();
-        $validation = $validate->check($_POST, [
+        $validation = Validate::check($_POST, [
             'message' => [
                 Validate::MAX => 1024
             ]
@@ -107,7 +106,6 @@ if (Input::exists()) {
             // Reload to update debugging
             Session::flash('debugging_success', $language->get('admin', 'debugging_settings_updated_successfully'));
             Redirect::to(URL::build('/panel/core/debugging_and_maintenance'));
-            die();
         }
 
         $errors = $validation->errors();
@@ -166,7 +164,7 @@ $smarty->assign([
     'ENABLE_PAGE_LOAD_TIMER' => $language->get('admin', 'enable_page_load_timer'),
     'ENABLE_PAGE_LOAD_TIMER_VALUE' => $page_loading,
     'MAINTENANCE_MODE_MESSAGE' => $language->get('admin', 'maintenance_mode_message'),
-    'MAINTENANCE_MODE_MESSAGE_VALUE' => Output::getPurified(htmlspecialchars_decode($maintenance['message'])),
+    'MAINTENANCE_MODE_MESSAGE_VALUE' => Output::getPurified($maintenance['message']),
     'DEBUG_LINK' => $language->get('admin', 'debug_link'),
     'DEBUG_LINK_URL' => URL::build('/queries/debug_link'),
     'TOASTR_COPIED' => $language->get('admin', 'debug_link_toastr'),

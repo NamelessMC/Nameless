@@ -55,6 +55,9 @@ $language = [
     'report' => 'Reportar',
     'reported_by' => 'Reported by {x}',
     'view_report' => 'View report',
+    'report_origin' => 'Origin',
+    'origin_website' => 'Website',
+    'origin_api' => 'API',
     'page_loaded_in' => 'Página cargada en {x}s', // Don't replace {x}, time unit is seconds
     'page_x' => 'Pagina {x}',
     'browse' => 'Vistazo',
@@ -74,18 +77,6 @@ $language = [
     'leaderboards' => 'Leaderboards',
 
     /*
-     *  Contact form
-     */
-    'contact' => 'Contacto',
-    'message' => 'Mensaje',
-    'email_address' => 'Correo electrónico',
-    'contact_email_subject' => 'Nuevo formulario de contacto',
-    'contact_message_failed' => 'No se puede enviar el mensaje. Asegúrate de haber ingresado un mensaje entre 10 y 5000 caracteres.',
-    'contact_message_email' => 'Ese e-Mail es inválido.',
-    'contact_message_sent' => 'Mensaje enviado con éxito.',
-    'contact_message_limit' => 'Sólo puede enviar un mensaje por hora. Puede enviar un mensaje en {x} minutos.', // Don't replace {x}
-
-    /*
      *  Navbar
      */
     'home' => 'Inicio',
@@ -101,12 +92,6 @@ $language = [
      *  Homepage
      */
     'social' => 'Social',
-
-
-    /*
-     *  Help dialogues
-     */
-    'markdown_help' => 'Puedes redactar tu publicación usando Markdown. Para más información, mira <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>aquí</a>.',
 
     /*
      *  Server query
@@ -163,5 +148,10 @@ $language = [
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'Redireccionando...<br />Si la redireccion tarda mucho, puede hacer <a href="{x}" rel="nofollow noopener">Click aqui</a> para continuar.' // Don't replace {x} which is the redirect URL
+    'redirecting_message' => 'Redireccionando...<br />Si la redireccion tarda mucho, puede hacer <a href="{x}" rel="nofollow noopener">Click aqui</a> para continuar.', // Don't replace {x} which is the redirect URL
+
+    /*
+     * OAuth
+     */
+    'oauth_message_continue' => 'Continue registering with {x}', // Don't replace {x}
 ];

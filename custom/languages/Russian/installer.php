@@ -15,8 +15,8 @@ $language = [
      *  Installation
      */
     'install' => 'Установка',
-    'pre-release' => 'пред-релиз',
-    'installer_welcome' => 'Добро пожаловать в NamelessMC пред-релизной версии 2.0.',
+    'pre-release' => 'предрелиз',
+    'installer_welcome' => 'Добро пожаловать в NamelessMC предрелизной версии 2.0.',
     'pre-release_warning' => 'Внимание! Эта версия не предназначена для повседневного использования.',
     'installer_information' => 'Установщик поможет вам пройти весь процесс установки.',
     'terms_and_conditions' => 'Продолжая установку, вы соглашаетесь с нашими условиями использования.',
@@ -52,6 +52,7 @@ $language = [
     'configuration' => 'Конфигурация',
     'configuration_info' => 'Пожалуйста, введите основную информацию о вашем сайте. Эти значения могут быть изменены позже через панель администратора.',
     'configuration_error' => 'Пожалуйста, введите действительное название сайта длиной от 1 до 32 символов и действительные адреса электронной почты длиной от 4 до 64 символов.',
+    'hostname_error' => 'Введите домен без http:// или https://',
     'site_name' => 'Название сайта',
     'contact_email' => 'Адрес электронной почты для контактов',
     'outgoing_email' => 'Исходящий адрес электронной почты',
@@ -103,5 +104,5 @@ $language = [
     'no_converters_available' => 'Ничего не найдено для переноса.',
     'config_not_writable' => 'Файл конфигурации недоступен для записи.',
 
-    'session_doesnt_exist' => 'Не определенасессия. Сессии используются при работе с NamelessMC. Свяжитесь с тех. поддержкой вашего провайдера.'
+    'session_doesnt_exist' => 'Unable to detect session. Sessions saving are a requirement to use Nameless. Please try again after clearing cookies in your web browser, and if the issue persists, please contact your web host for support.'
 ];

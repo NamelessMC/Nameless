@@ -13,8 +13,10 @@ The official project website, providing support and additional downloads such as
 The following list is a brief summary of the features available in v2 pre-release 12:
 - 🙋 Forums
 - 📃 Custom pages: create your own HTML pages and even restrict access to them depending on group.
+- 👥 Social logins: allow your users to register/login with services such as Discord and Google.
 - 🎮 Minecraft integration
-  - Account verification using mcassoc or the plugin
+  - Display your Java edition or Bedrock servers statuses
+  - Account verification using MCAssoc or the NamelessMC plugin
   - [In-game plugin](https://www.spigotmc.org/resources/nameless-plugin-for-v2.59032)
     - Require in-game verification for NamelessMC accounts
     - Allow registering for accounts in-game

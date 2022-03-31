@@ -1,14 +1,12 @@
 <?php
-/*
- *	Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+/**
+ * Queries Minecraft servers using the external querying API.
  *
- *  License: MIT
- *
- *  External Minecraft query class
+ * @package NamelessMC\Minecraft
+ * @author Samerton
+ * @version 2.0.0-pr8
+ * @license MIT
  */
-
 class ExternalMCQuery {
 
     /**
@@ -16,63 +14,36 @@ class ExternalMCQuery {
      *
      * @param string $ip IP to query
      * @param int $port Port to query, `25565` by default.
+     * @param bool $bedrock Whether this is a Bedrock server or not.
      * @return object Query result.
      */
-    public static function query(string $ip, int $port = 25565) {
-        $queryUrl = 'https://api.namelessmc.com/api/server/' . $ip . '/' . $port;
-
-        try {
-
-            return json_decode(HttpClient::get($queryUrl, [
-                CURLOPT_CONNECTTIMEOUT => 0,
-                CURLOPT_TIMEOUT => 5
-            ])->data());
-
-        } catch (Exception $e) {
-            return [
-                'error' => true,
-                'value' => $e->getMessage()
-            ];
-        }
+    public static function query(string $ip, int $port = 25565, bool $bedrock = false): object {
+        return HttpClient::get('https://api.namelessmc.com/api/' . ($bedrock ? 'bedrock' : 'server') . '/' . $ip . '/' . $port)->json();
     }
 
     /**
      * Get a server's favicon.
      *
-     * @param string|null $ip Server's IP.
-     * @return bool
+     * @param string $ip Server's IP.
+     * @param bool $bedrock Whether this is a Bedrock server or not.
+     * @return string|false Server's favicon, false on failure.
      */
-    public static function getFavicon(string $ip = null): bool {
-        if ($ip) {
-            $query_ip = explode(':', $ip);
+    public static function getFavicon(string $ip, bool $bedrock = false) {
+        $query_ip = explode(':', $ip);
 
-            if (count($query_ip) == 2) {
-                $ip = $query_ip[0];
-                $port = $query_ip[1];
-            } else {
-                if (count($query_ip) == 1) {
-                    $ip = $query_ip[0];
-                    $port = $query_ip[1];
-                } else {
-                    return false;
-                }
-            }
-
-            $queryUrl = 'https://api.namelessmc.com/api/server/' . $ip . '/' . $port;
-
-            try {
-                $result = json_decode(HttpClient::get($queryUrl, [
-                    CURLOPT_CONNECTTIMEOUT => 0,
-                    CURLOPT_TIMEOUT => 5
-                ])->data());
-
-                if (!$result->error && $result->response->description->favicon) {
-                    return $result->response->description->favicon;
-                }
-
-            } catch (Exception $e) {
-            }
+        if (count($query_ip) !== 2 && count($query_ip) !== 1) {
+            return false;
         }
+
+        $ip = $query_ip[0];
+        $port = $query_ip[1] ?? ($bedrock ? 19132 : 25565);
+
+        $result = HttpClient::get('https://api.namelessmc.com/api/' . ($bedrock ? 'bedrock' : 'server') . '/' . $ip . '/' . $port)->json();
+
+        if (!$result->error && $result->response->description->favicon) {
+            return $result->response->description->favicon;
+        }
+
         return false;
     }
 }

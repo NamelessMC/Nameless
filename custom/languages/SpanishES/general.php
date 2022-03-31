@@ -55,6 +55,9 @@ $language = [
     'report' => 'Informar',
     'reported_by' => 'Reported by {x}',
     'view_report' => 'View report',
+    'report_origin' => 'Origin',
+    'origin_website' => 'Website',
+    'origin_api' => 'API',
     'page_loaded_in' => 'Página cargada en {x}s', // Don't replace {x}, time unit is seconds
     'page_x' => 'Página {x}',
     'browse' => 'Navegar',
@@ -74,18 +77,6 @@ $language = [
     'leaderboards' => 'Tablas de clasificación',
 
     /*
-     *  Contact form
-     */
-    'contact' => 'Contacto',
-    'message' => 'Mensaje',
-    'email_address' => 'Dirección de correo electrónico',
-    'contact_email_subject' => 'Nuevo envío del formulario de contacto',
-    'contact_message_failed' => 'No se puede enviar el mensaje. Por favor, asegúrate de que has introducido un mensaje de entre 10 y 5000 caracteres.',
-    'contact_message_sent' => 'Mensaje enviado con éxito.',
-    'contact_message_email' => 'El correo electrónico proporcionado no es válido.',
-    'contact_message_limit' => 'Sólo puede enviar un mensaje por hora. La siguiente vez que puede enviar un mensaje es en {x} minutos.', // Don't replace {x}
-
-    /*
      *  Navbar
      */
     'home' => 'Inicio',
@@ -101,11 +92,6 @@ $language = [
      *  Homepage
      */
     'social' => 'Social',
-
-    /*
-     *  Help dialogues
-     */
-    'markdown_help' => 'Puedes formatear tu post usando Markdown. Para más información, consulte <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>aquí</a>.',
 
     /*
      *  Server query
@@ -162,5 +148,10 @@ $language = [
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'Redirigiendo...<br />Si no es redirigido automáticamente, por favor haga clic <a href="{x}" rel="nofollow noopener">aquí</a>.' // Don't replace {x} which is the redirect URL
+    'redirecting_message' => 'Redirigiendo...<br />Si no es redirigido automáticamente, por favor haga clic <a href="{x}" rel="nofollow noopener">aquí</a>.', // Don't replace {x} which is the redirect URL
+
+    /*
+     * OAuth
+     */
+    'oauth_message_continue' => 'Continue registering with {x}', // Don't replace {x}
 ];

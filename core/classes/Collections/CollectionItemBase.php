@@ -1,14 +1,13 @@
 <?php
-/*
- *	Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+/**
+ * Represents a single item within a Collection.
  *
- *  License: MIT
- *
- *  Base collection item class
+ * @package NamelessMC\Collections
+ * @see Collection
+ * @author Samerton
+ * @version 2.0.0-pr8
+ * @license MIT
  */
-
 abstract class CollectionItemBase {
 
     private int $_order;

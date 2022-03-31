@@ -41,15 +41,9 @@
  			 </div>
 			</div>
 		  </div>
-		  {if isset($MARKDOWN)}
-			<div class="field">
-			  <textarea name="content" id="markdown">{$CONTENT}</textarea>
-			</div>
-		  {else}
 			<div class="field">
 			  <textarea name="content" id="reply">{$CONTENT}</textarea>
 			</div>
-		  {/if}
 		  <input type="hidden" name="token" value="{$TOKEN}">
 		  <input type="submit" class="ui primary button" value="{$SUBMIT}">
 		</form>
@@ -57,5 +51,5 @@
     </div>
   </div>
 </div>
-			
+
 {include file='footer.tpl'}

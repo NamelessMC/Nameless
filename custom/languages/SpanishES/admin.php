@@ -42,10 +42,14 @@ $language = [
     'upgrade_php_version' => 'Please upgrade your PHP version to at least 7.4 - the next Nameless release will no longer support the version you are using.',
 
     // Core
-    'mode_toggle' => 'Modo oscuro/claro',
+    'mode_toggle' => 'Modo oscuro',
     'settings' => 'Configuración',
     'general_settings' => 'Configuración general',
     'sitename' => 'Nombre del sitio web',
+    'punished_id' => 'Punished User ID',
+    'punisher_id' => 'Punisher User ID',
+    'reason' => 'Ban Reason',
+    'ip_ban' => 'IP ban?',
     'default_language' => 'Idioma por defecto',
     'default_language_help' => 'Los usuarios podrán elegir entre los idiomas instalados.',
     'install_language' => 'Instalar idiomas',
@@ -60,7 +64,6 @@ $language = [
     'email_verification' => '¿Activar la verificación del correo electrónico?',
     'registration_settings_updated' => 'La configuración del registro se ha actualizado correctamente.',
     'homepage_type' => 'Tipo de página de inicio',
-    'post_formatting_type' => 'Tipo de formato de los mensajes', /////////
     'portal' => 'Portal',
     'private_profiles' => 'Perfiles privados',
     'missing_sitename' => 'Introduzca un nombre del sitio web de entre 2 y 64 caracteres.',
@@ -145,11 +148,12 @@ $language = [
     'navigation_settings_updated_successfully' => 'La configuración de la navegación se ha actualizado correctamente.',
     'dropdown_items' => 'Elementos desplegables',
     'enable_page_load_timer' => '¿Activar el temporizador de carga de la página?',
-    'captcha_general' => '¿Activar Captcha en la página de registro y contacto?',
+    'captcha_general' => '¿Activar Captcha en la página de registro?',
     'captcha_login' => '¿Activar Captcha en la página de inicio de sesión?',
     'captcha_type' => 'Tipo de Captcha',
     'captcha_site_key' => 'Clave del sitio del Captcha',
     'captcha_secret_key' => 'Clave secreta del Captcha',
+    'invalid_recaptcha_settings' => 'Invalid {x} credentials. Ensure the site key and site secret are correct.', // Don't replace {x}
     'registration_disabled_message' => 'Mensaje de registro deshabilitado',
     'enable_nicknames_on_registration' => '¿Permitir apodos para el registro de usuarios?',
     'validation_promote_group' => 'Grupo de post-validación',
@@ -286,6 +290,8 @@ $language = [
     'no_parent_server' => 'No hay ningún servidor principal',
     'bungee_instance' => '¿Instancia de BungeeCord?',
     'bungee_instance_help' => 'Seleccione esta opción si el servidor es una instancia de BungeeCord.',
+    'bedrock' => 'Bedrock?',
+    'bedrock_help' => 'Select this option if the server is a Bedrock server.',
     'server_query_information' => 'Para poder mostrar una lista de jugadores en línea en su sitio web, su servidor <strong>debe</strong> tener activada la opción <strong>"enable-query"</strong> en el archivo <strong>server.properties</strong> de su servidor',
     'enable_status_query' => '¿Activar la consulta de estado?',
     'status_query_help' => 'Si esta opción está activada, la página de estado mostrará este servidor como conectado o desconectado.',
@@ -353,6 +359,7 @@ $language = [
     'module_disabled' => 'Módulo desactivado.',
     'author' => 'Autor:',
     'author_x' => 'Autor: {x}', // Don't replace {x}
+    'updated_x' => 'Updated at: {x}', // Don't replace {x}
     'module_outdated' => 'Hemos detectado que este módulo está destinado a la versión {x} de Nameless, pero usted está ejecutando la versión {y} de Nameless', // Don't replace "{x}" or "{y}"
     'find_modules' => 'Buscar módulos',
     'view_all_modules' => 'Ver todos los módulos',
@@ -480,6 +487,7 @@ $language = [
     'resend_activation_email' => 'Reenviar el correo de activación',
     'email_resent_successfully' => 'Correo electrónico reenviado con éxito.',
     'email_resend_failed' => 'El reenvío del correo electrónico ha fallado, por favor, compruebe la configuración de su correo electrónico.',
+    'no_item_selected' => 'No items selected',
 
     // Permissions
     'select_all' => 'Seleccionar todo',
@@ -625,6 +633,8 @@ $language = [
     'api_endpoints' => 'API Endpoints',
     'api_endpoints_info' => 'API Endpoints permiten que los módulos creen formas para que las aplicaciones externas (como Minecraft y Discord) interactúen con su sitio web NamelessMC.',
     'route' => 'Ruta',
+    'method' => 'Method',
+    'transformers' => 'Transformers',
 
     // File uploads
     'drag_files_here' => 'Arrastre los archivos aquí para cargarlos.',
@@ -666,6 +676,8 @@ $language = [
     'validate_hook_info' => 'Validación de usuarios',
     'delete_hook_info' => 'Eliminación de usuarios',
     'report_hook_info' => 'Report creation',
+    'ban_hook_info' => 'User banned',
+    'warning_hook_info' => 'User warned',
 
     // Sitemap
     'unable_to_load_sitemap_file_x' => 'No se puede cargar el archivo del sitemap {x}', // Don't replace {x}
@@ -726,4 +738,12 @@ $language = [
     'no_announcements' => 'Todavía no se ha hecho ningún anuncio.',
     'announcement_order' => 'Orden',
     'announcement_hook_info' => 'Announcement creation',
+
+    // OAuth
+    'oauth' => 'OAuth',
+    'oauth_info' => 'Configure OAuth providers to allow users to login with their social network accounts. <a href="https://docs.namelessmc.com/en/oauth" target="_blank">Check out our documentation for help.</a>',
+    'unlink' => 'Unlink',
+    'identifier' => 'Identifier',
+    'unlink_account_confirm' => 'Are you sure you want to forcibly unlink this provider from this user?',
+    'unlink_account_success' => 'Successfully unlinked their account from {x}.', // Don't replace {x}
 ];

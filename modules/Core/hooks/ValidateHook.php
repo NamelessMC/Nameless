@@ -10,7 +10,7 @@
 class ValidateHook {
 
     public static function execute(array $params = []): void {
-        if (!defined('VALIDATED_DEFAULT')) {
+        if (!defined('VALIDATED_DEFAULT') || VALIDATED_DEFAULT === null) {
             define('VALIDATED_DEFAULT', 1);
         }
 

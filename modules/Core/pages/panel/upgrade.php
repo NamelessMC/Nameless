@@ -17,7 +17,6 @@ $update_needed = $update_needed[0]->value;
 
 if ($update_needed != 'true' && $update_needed != 'urgent') {
     Redirect::to(URL::build('/panel/update'));
-    die();
 }
 
 $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
@@ -38,4 +37,3 @@ if ($cache->isCached('update_check')) {
 }
 
 Redirect::to(URL::build('/panel/update'));
-die();

@@ -50,6 +50,7 @@ $language = [
     // User Settings
     'discord_link' => 'Discord 链接',
     'linked' => '已链接',
+    'get_link_code' => 'Get link code',
     'not_linked' => '未链接',
     'discord_user_id' => 'Discord 用户 ID',
     'discord_id_unlinked' => '成功取消了您的 Discord 链接。',

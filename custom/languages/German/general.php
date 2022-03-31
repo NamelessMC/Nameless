@@ -1,7 +1,7 @@
 <?php
 /*
  *  Made by Samerton
- *  Translation by BukkitTNT, M_Viper
+ *  Translation by BukkitTNT, M_Viper, TeemOCell
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr10
  *
@@ -29,7 +29,7 @@ $language = [
     'warning' => 'Warnung',
     'date' => 'Datum',
     'search' => 'Suche',
-    'edit' => 'Editieren',
+    'edit' => 'Bearbeiten',
     'next' => 'Nächste',
     'previous' => 'Vorherige',
     'confirm_cancel' => 'Willst du dies wirklich abbrechen?',
@@ -53,12 +53,15 @@ $language = [
     'no_messages' => 'Keine Nachrichten',
     'x_new_messages' => 'Du hast {x} neue Nachrichten', // Don't replace {x}
     'loading' => 'Lädt...',
-    'report' => 'Report',
-    'reported_by' => 'Reportet von {x}',
-    'view_report' => 'Report ansehen',
+    'report' => 'Melden',
+    'reported_by' => 'Gemeldet von {x}',
+    'view_report' => 'Meldung ansehen',
+    'report_origin' => 'Origin',
+    'origin_website' => 'Website',
+    'origin_api' => 'API',
     'page_loaded_in' => 'Seite wurde in {x} Sekunden geladen.', // Don't replace {x}, time unit is seconds
     'page_x' => 'Seite {x}',
-    'browse' => 'Blättern',
+    'browse' => 'Durchsuchen',
     'bypass' => 'Bypass',
     'yes' => 'Ja',
     'no' => 'Nein',
@@ -72,19 +75,7 @@ $language = [
     'invalid_timezone' => 'Diese Zeitzone ist ungültig',
     'link' => 'Link',
     'unlink' => 'Verknüpfung aufheben',
-    'leaderboards' => 'Leaderboards',
-
-    /*
-     *  Contact form
-     */
-    'contact' => 'Kontakt',
-    'message' => 'Nachricht',
-    'email_address' => 'Email Address',
-    'contact_email_subject' => 'Neue Kontaktformulareinreichung',
-    'contact_message_failed' => 'Nachricht konnte nicht gesendet werden. Bitte stellen Sie sicher, dass Sie eine Nachricht zwischen 10 und 5000 Zeichen lang eingegeben haben.',
-    'contact_message_email' => 'Die angegebene E-Mail ist ungültig.',
-    'contact_message_sent' => 'Nachricht erfolgreich gesendet.',
-    'contact_message_limit' => 'Sie können nur eine Nachricht pro Stunde senden. Sie können als nächstes eine Nachricht in {x} Minuten senden.', // Don't replace {x}
+    'leaderboards' => 'Bestenliste',
 
     /*
      *  Navbar
@@ -102,12 +93,6 @@ $language = [
      *  Homepage
      */
     'social' => 'Soziale Medien',
-
-
-    /*
-     *  Help dialogues
-     */
-    'markdown_help' => 'Du kannst deine Beiträge formatieren. <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>Mehr Informationen</a>.',
 
     /*
      *  Server query
@@ -164,5 +149,10 @@ $language = [
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'Umleiten...<br />Wenn Sie nicht automatisch umgeleitet werden, klicken Sie bitte auf <a href="{x}" rel="nofollow noopener">Hier</a>.' // Don't replace {x} which is the redirect URL
+    'redirecting_message' => 'Umleiten...<br />Wenn Sie nicht automatisch umgeleitet werden, klicken Sie bitte auf <a href="{x}" rel="nofollow noopener">Hier</a>.', // Don't replace {x} which is the redirect URL
+
+    /*
+     * OAuth
+     */
+    'oauth_message_continue' => 'Continue registering with {x}', // Don't replace {x}
 ];

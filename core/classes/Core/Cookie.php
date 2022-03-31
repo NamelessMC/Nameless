@@ -1,18 +1,16 @@
 <?php
-/*
- *	Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+/**
+ * Easy read/write of cookies.
  *
- *  License: MIT
- *
- *  Cookie class
+ * @package NamelessMC\Core
+ * @author Samerton
+ * @version 2.0.0-pr10
+ * @license MIT
  */
-
 class Cookie {
 
     /**
-     * Check the specified cookie exists.
+     * Check if the specified cookie exists.
      *
      * @param string $name Name of cookie to check
      * @return bool Whether this cookie exists or not.
@@ -24,7 +22,8 @@ class Cookie {
     /**
      * Return the value of the specified cookie.
      *
-     * @param string $name Name of cookie to return value of
+     * @param string $name Name of cookie to get the value of
+     * @return mixed Value of the cookie or an empty string if it doesn't exist
      */
     public static function get(string $name) {
         return $_COOKIE[$name] ?? '';

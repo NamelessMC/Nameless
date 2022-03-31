@@ -42,7 +42,7 @@ $language = [
     'upgrade_php_version' => 'Please upgrade your PHP version to at least 7.4 - the next Nameless release will no longer support the version you are using.',
 
     // Core
-    'mode_toggle' => 'Dark/Light Mode',
+    'mode_toggle' => 'Dark Mode',
     'settings' => 'Settings',
     'general_settings' => 'General Settings',
     'sitename' => 'Site Name',
@@ -64,7 +64,6 @@ $language = [
     'email_verification' => 'Enable email verification?',
     'registration_settings_updated' => 'Registration settings updated successfully.',
     'homepage_type' => 'Homepage Type',
-    'post_formatting_type' => 'Post Formatting Type',
     'portal' => 'Portal',
     'private_profiles' => 'Private Profiles',
     'missing_sitename' => 'Please insert a site name between {{min}} and {{max}} characters long.',
@@ -151,11 +150,12 @@ $language = [
     'navigation_settings_updated_successfully' => 'Navigation settings updated successfully.',
     'dropdown_items' => 'Dropdown Items',
     'enable_page_load_timer' => 'Enable page load timer?',
-    'captcha_general' => 'Enable Captcha on registration and contact page?',
+    'captcha_general' => 'Enable Captcha on registration page?',
     'captcha_login' => 'Enable Captcha on login page?',
     'captcha_type' => 'Captcha Type',
     'captcha_site_key' => 'Captcha Site Key',
     'captcha_secret_key' => 'Captcha Secret Key',
+    'invalid_recaptcha_settings' => 'Invalid {x} credentials. Ensure the site key and site secret are correct.', // Don't replace {x}
     'registration_disabled_message' => 'Registration disabled message',
     'enable_nicknames_on_registration' => 'Enable nicknames for registering users?',
     'validation_promote_group' => 'Post-validation group',
@@ -292,7 +292,9 @@ $language = [
     'no_parent_server' => 'No parent server',
     'bungee_instance' => 'BungeeCord Instance?',
     'bungee_instance_help' => 'Select this option if the server is a BungeeCord instance.',
-    'server_query_information' => 'In order to display a list of online players on your website, your server must have the \'enable-query\' option enabled in your server\'s server.properties file',
+    'bedrock' => 'Bedrock?',
+    'bedrock_help' => 'Select this option if the server is a Bedrock server.',
+    'server_query_information' => 'In order to display a list of online players on your website, your server <strong>must</strong> have the \'enable-query\' option enabled in your server\'s <strong>server.properties</strong> file',
     'enable_status_query' => 'Enable status query?',
     'status_query_help' => 'If this is enabled, the status page will show this server as being online or offline.',
     'show_ip_on_status_page' => 'Show IP on status page?',
@@ -487,6 +489,7 @@ $language = [
     'resend_activation_email' => 'Resend Activation Email',
     'email_resent_successfully' => 'Email resent successfully.',
     'email_resend_failed' => 'Email resend failed, please check your email settings.',
+    'no_item_selected' => 'No items selected',
 
     // Permissions
     'select_all' => 'Select All',
@@ -737,4 +740,12 @@ $language = [
     'no_announcements' => 'No announcements have been made yet.',
     'announcement_order' => 'Order',
     'announcement_hook_info' => 'Announcement creation',
+
+    // OAuth
+    'oauth' => 'OAuth',
+    'oauth_info' => 'Configure OAuth providers to allow users to login with their social network accounts. <a href="https://docs.namelessmc.com/en/oauth" target="_blank">Check out our documentation for help.</a>',
+    'unlink' => 'Unlink',
+    'identifier' => 'Identifier',
+    'unlink_account_confirm' => 'Are you sure you want to forcibly unlink this provider from this user?',
+    'unlink_account_success' => 'Successfully unlinked their account from {x}.', // Don't replace {x}
 ];

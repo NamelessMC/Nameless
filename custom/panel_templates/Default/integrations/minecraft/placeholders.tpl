@@ -27,7 +27,7 @@
                             <li class="breadcrumb-item"><a href="{$PANEL_INDEX}">{$DASHBOARD}</a></li>
                             <li class="breadcrumb-item active">{$INTEGRATIONS}</li>
                             <li class="breadcrumb-item"><a href="{$MINECRAFT_LINK}">{$MINECRAFT}</a></li>
-                            <li class="breadcrumb-item active">{$PLACEHOLDERS}</li>           
+                            <li class="breadcrumb-item active">{$PLACEHOLDERS}</li>
                         </ol>
                     </div>
 
@@ -93,10 +93,10 @@
                                                         <input type="text" class="form-control" name="friendly_name-{$placeholder->name}-server-{$placeholder->server_id}" value="{$placeholder->friendly_name}">
                                                     </td>
                                                     <td class="text-center">
-                                                        <input type="checkbox" class="js-switch" name="show_on_profile-{$placeholder->name}-server-{$placeholder->server_id}" {if $placeholder->show_on_profile eq 1} checked {/if}>
+                                                        <input type="checkbox" name="show_on_profile-{$placeholder->name}-server-{$placeholder->server_id}" {if $placeholder->show_on_profile eq 1} checked {/if}>
                                                     </td>
                                                     <td class="text-center">
-                                                        <input type="checkbox" class="js-switch" name="show_on_forum-{$placeholder->name}-server-{$placeholder->server_id}" {if $placeholder->show_on_forum eq 1} checked {/if}>
+                                                        <input type="checkbox" name="show_on_forum-{$placeholder->name}-server-{$placeholder->server_id}" {if $placeholder->show_on_forum eq 1} checked {/if}>
                                                     </td>
                                                     <td class="text-center">
                                                         {if $placeholder->leaderboard eq 1}

@@ -1,14 +1,12 @@
 <?php
-/*
- *	Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr10
+/**
+ * Main database handling class
  *
- *  License: MIT
- *
- *  Database class
+ * @package NamelessMC\Database
+ * @author Samerton
+ * @version 2.0.0-pr13
+ * @license MIT
  */
-
 class DB extends Instanceable {
 
     private PDO $_pdo;
@@ -249,7 +247,12 @@ class DB extends Instanceable {
         return $this->_count;
     }
 
-    public function lastId(): int {
+    /**
+     * Get the last inserted ID
+     *
+     * @return string|false ID of the last inserted row or false on failure
+     */
+    public function lastId() {
         return $this->_pdo->lastInsertId();
     }
 

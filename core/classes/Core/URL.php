@@ -1,14 +1,12 @@
 <?php
-/*
- *	Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr12
+/**
+ * Helps build URLs which match the site's URL configuration.
  *
- *  License: MIT
- *
- *  URL class
+ * @package NamelessMC\Core
+ * @author Samerton
+ * @version 2.0.0-pr8
+ * @license MIT
  */
-
 class URL {
 
     /**
@@ -16,7 +14,7 @@ class URL {
      *
      * @param string $url Contains the URL which will be formatted.
      * @param string $params Contains string with URL parameters.
-     * @param ?string $force Determines whether or not to force a URL type (optional, can be either "friendly" or "non-friendly").
+     * @param ?string $force Determines whether to force a URL type (optional, can be either "friendly" or "non-friendly").
      *
      * @return string Assembled URL, false on failure.
      */
@@ -31,11 +29,11 @@ class URL {
             return self::buildNonFriendly($url, $params);
         }
 
-        if ($force == 'friendly') {
+        if ($force === 'friendly') {
             return self::buildFriendly($url, $params);
         }
 
-        if ($force == 'non-friendly') {
+        if ($force === 'non-friendly') {
             return self::buildNonFriendly($url, $params);
         }
 
@@ -44,7 +42,7 @@ class URL {
 
     /**
      * Returns a friendly URL.
-     * Internal class use only. All external calls should use build().
+     * Internal class use only. All external calls should use `build()`.
      *
      * @param string $url Contains the URL which will be formatted
      * @param string $params URL paramaters to append to end.
@@ -52,11 +50,7 @@ class URL {
      */
     private static function buildFriendly(string $url, string $params): string {
         // Check for params
-        if ($params != '' || $params === true) {
-            if ($params === true) {
-                $params = '';
-            }
-
+        if ($params != '') {
             $params = '?' . $params;
         }
 
@@ -65,18 +59,14 @@ class URL {
 
     /**
      * Returns a non-friendly URL.
-     * Internal class use only. All external calls should use build().
+     * Internal class use only. All external calls should use `build()`.
      *
      * @param string $url Contains the URL which will be formatted
      * @param string $params URL paramaters to append to end.
      * @return string Assembled URL.
      */
     private static function buildNonFriendly(string $url, string $params): string {
-        if ($params != '' || $params === true) {
-            if ($params === true) {
-                $params = '';
-            }
-
+        if ($params != '') {
             return (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/index.php?route=' . $url . ((substr($url, -1) == '/') ? '' : '/') . '&' . $params;
         }
 
