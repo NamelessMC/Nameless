@@ -7,10 +7,10 @@
  *  Mentions hook for pre-create/edit event for Forum module
  */
 
-class MentionsHook {
+class MentionsHook extends HookBase {
 
     public static function preCreate(array $params = []): array {
-        if (isset($params['content']) && isset($params['post_id']) && isset($params['topic_id'])  && isset($params['user'])) {
+        if (self::validate($params)) {
             $params['content'] = MentionsParser::parse(
                 $params['user']->data()->id,
                 $params['content'],
@@ -24,7 +24,7 @@ class MentionsHook {
     }
 
     public static function preEdit(array $params = []): array {
-        if (isset($params['content']) && isset($params['post_id']) && isset($params['topic_id']) && isset($params['user'])) {
+        if (self::validate($params)) {
             $params['content'] = MentionsParser::parse(
                 $params['user']->data()->id,
                 $params['content'],
@@ -33,5 +33,9 @@ class MentionsHook {
         }
 
         return $params;
+    }
+
+    private static function validate(array $params): bool {
+        return parent::validateParams($params, ['content', 'post_id', 'topic_id', 'user']);
     }
 }
