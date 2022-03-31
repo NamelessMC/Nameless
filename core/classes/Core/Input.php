@@ -71,7 +71,7 @@ class Input {
                                 columns: 1,
                                 fetch: function (pattern) {
                                     return new tinymce.util.Promise(function (resolve) {
-                                        fetch('" . URL::build('/queries/mention_users') . "&nickname=' + pattern)
+                                        fetch('" . URL::build('/queries/mention_users', 'nickname') . "=' + pattern)
                                             .then((resp) => resp.json())
                                             .then(function (data) {
                                                 const results = [];
