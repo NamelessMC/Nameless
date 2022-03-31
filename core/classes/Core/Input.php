@@ -81,7 +81,7 @@ class Input {
                                                     results.push({
                                                         value: '@' + user.username,
                                                         text: user.username,
-                                                        icon: '<img src=\"' + user.avatar_url + '\">'
+                                                        icon: '<img style=\"height:20px; width:20px;\" src=\"' + user.avatar_url + '\">'
                                                     });
                                                 }
     
