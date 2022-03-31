@@ -95,7 +95,7 @@ class Forum_Module extends Module {
         ]);
 
         // Sitemap
-        $pages->registerSitemapMethod(ROOT_PATH . '/modules/Forum/classes/Forum_Sitemap.php', 'Forum_Sitemap::generateSitemap');
+        $pages->registerSitemapMethod([Forum_Sitemap::class, 'generateSitemap']);
 
         // Add link to navbar
         $cache->setCache('nav_location');

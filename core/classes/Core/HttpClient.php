@@ -36,10 +36,7 @@ class HttpClient {
      * @return HttpClient New HttpClient instance.
      */
     public static function get(string $url, array $options = []): HttpClient {
-        $guzzleClient = new Client(array_merge([
-            'timeout' => 5.0,
-            'handler' => self::createHandler(),
-        ], $options));
+        $guzzleClient = self::createClient($options);
 
         $error = '';
 
@@ -61,15 +58,12 @@ class HttpClient {
      * Failures will automatically be logged along with the error.
      *
      * @param string $url URL to send request to.
-     * @param mixed $data JSON request body to attach to request, or array of key value pairs if form-urlencoded.
+     * @param string|array $data JSON request body to attach to request, or array of key value pairs if form-urlencoded.
      * @param array $options Options to set with the GuzzleClient.
      * @return HttpClient New HttpClient instance.
      */
     public static function post(string $url, $data, array $options = []): HttpClient {
-        $guzzleClient = new Client(array_merge([
-            'timeout' => 5.0,
-            'handler' => self::createHandler(),
-        ], $options));
+        $guzzleClient = self::createClient($options);
 
         $error = '';
 
@@ -89,12 +83,7 @@ class HttpClient {
         );
     }
 
-    /**
-     * Create a Guzzle handler stack with profiling middleware for the PHPDebugBar.
-     *
-     * @return HandlerStack The handler stack to use with Guzzle.
-     */
-    private static function createHandler(): HandlerStack {
+    private static function createClient(array $options): Client {
         $debugBar = DebugBarHelper::getInstance()->getDebugBar();
         $stack = HandlerStack::create();
 
@@ -104,7 +93,10 @@ class HttpClient {
             ));
         }
 
-        return $stack;
+        return new Client(array_merge([
+            'timeout' => 5.0,
+            'handler' => $stack,
+        ], $options));
     }
 
     /**

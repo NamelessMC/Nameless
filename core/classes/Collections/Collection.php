@@ -16,10 +16,13 @@ class Collection {
         $this->_items = [];
     }
 
-    public function addItem($item): void {
+    public function addItem(CollectionItemBase $item): void {
         $this->_items[] = $item;
     }
 
+    /**
+     * @return CollectionItemBase[]
+     */
     public function getEnabledItems(): array {
         $items = [];
 
@@ -29,16 +32,19 @@ class Collection {
             }
         }
 
-        uasort($items, static function ($a, $b) {
+        uasort($items, static function (CollectionItemBase $a, CollectionItemBase $b) {
             return $a->getOrder() - $b->getOrder();
         });
 
         return $items;
     }
 
+    /**
+     * @return CollectionItemBase[]
+     */
     public function getAllItems(): array {
         $items = $this->_items;
-        uasort($items, static function ($a, $b) {
+        uasort($items, static function (CollectionItemBase $a, CollectionItemBase $b) {
             return $a->getOrder() - $b->getOrder();
         });
 

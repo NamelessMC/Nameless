@@ -133,7 +133,7 @@
 
                                             {/foreach}
                                         </div>
-                                    
+
                                     </div>
 
                                     <div class="tab-pane fade" id="sql">
@@ -262,7 +262,7 @@ function removeAllActiveSqlFrames() {
 $(document).ready(function() {
     hideAllFrames();
     hideAllSqlFrames();
-    
+
     openFrame({$FRAMES|count + $SKIP_FRAMES});
     openSqlFrame({$ERROR_SQL_STACK|count});
 });
@@ -310,10 +310,15 @@ function openSqlFrame(id) {
                     console.log(url);
                     alert('Could not create debug link. Check console for information.');
                 } else {
-                    navigator.clipboard.writeText(url);
                     $('#debug_link').addClass('btn-success');
                     $('#debug_link_success').show();
-                    alert('Copied debug link to your clipboard.');
+
+                    if (navigator.clipboard !== undefined) {
+                        alert('Copied debug link to your clipboard.');
+                        navigator.clipboard.writeText(url);
+                    } else {
+                        alert(url);
+                    }
                 }
             });
     });

@@ -47,10 +47,10 @@ if (!class_exists('Default_Panel_Template')) {
 
             $this->addJSScript('
 				// Dark and light theme switch
-				var currentPanelTheme = localStorage.getItem("nmc_panel_theme");
+				var currentPanelTheme = $.cookie("nmc_panel_theme");
 
 				if (currentPanelTheme == null) {
-					localStorage.setItem("nmc_panel_theme", "light");
+                    $.cookie("nmc_panel_theme", "light");
 				} else {
 					if (currentPanelTheme == "dark") {
 						$("html").addClass("dark");
@@ -67,10 +67,10 @@ if (!class_exists('Default_Panel_Template')) {
 					var changeCheckbox = document.querySelector("#dark_mode");
 					changeCheckbox.onchange = function() {
 						if (currentPanelTheme == "dark") {
-							localStorage.setItem("nmc_panel_theme", "light");
+                            $.cookie("nmc_panel_theme", "light");
 						};
 						if (currentPanelTheme == "light") {
-							localStorage.setItem("nmc_panel_theme", "dark");
+                            $.cookie("nmc_panel_theme", "dark");
 						};
 						location.reload();
 						return false;

@@ -13,7 +13,6 @@ const PAGE = 'forum';
 $page_title = $forum_language->get('forum', 'merge_topics');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
 $forum = new Forum();
 
 // User must be logged in to proceed

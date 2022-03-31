@@ -9,14 +9,11 @@
  *  View topic page
  */
 
-require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
-
 // Set the page name for the active link in navbar
 const PAGE = 'forum';
 
 $forum = new Forum();
 $timeago = new TimeAgo(TIMEZONE);
-$mentionsParser = new MentionsParser();
 
 // Get topic ID
 $tid = explode('/', $route);
@@ -275,7 +272,13 @@ if (Input::exists()) {
 
             // Get last post ID
             $last_post_id = $queries->getLastId();
-            $content = $mentionsParser->parse($user->data()->id, $content, URL::build('/forum/topic/' . $tid, 'pid=' . $last_post_id), ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag'], ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag_info', 'replace' => '{x}', 'replace_with' => Output::getClean($user->data()->nickname)]);
+            $content = MentionsParser::parse(
+                $user->data()->id,
+                $content,
+                URL::build('/forum/topic/' . $tid, 'pid=' . $last_post_id),
+                ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag'],
+                ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag_info', 'replace' => '{x}', 'replace_with' => Output::getClean($user->data()->nickname)]
+            );
 
             $queries->update('posts', $last_post_id, [
                 'post_content' => $content
@@ -791,7 +794,7 @@ $template->addJSFiles([
 ]);
 
 if ($user->isLoggedIn()) {
-    $template->addJSScript(Input::createTinyEditor($language, 'quickreply'));
+    $template->addJSScript(Input::createTinyEditor($language, 'quickreply', true));
 }
 
 if ($user->isLoggedIn()) {

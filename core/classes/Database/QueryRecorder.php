@@ -29,7 +29,6 @@ class QueryRecorder extends Instanceable {
      * @param array $params Bound parameters used in the query
      */
     public function pushQuery(string $sql, array $params): void {
-
         $backtrace = $this->lastReleventBacktrace();
 
         $this->_query_stack[] = [
@@ -42,18 +41,20 @@ class QueryRecorder extends Instanceable {
     }
 
     /**
-     * Get the last debug_backtrace entry which is not the file that executed this query.
+     * Get the last debug_backtrace entry which is not the file that executed this query or a database class.
      *
      * @return array debug_backtrace entry
      */
     private function lastReleventBacktrace(): array {
-
         $backtrace = debug_backtrace();
 
         $current_file = $last_file = $backtrace[0]['file'];
         $i = 1;
 
-        while ($current_file == $last_file) {
+        while (
+            $current_file === $last_file
+            || (str_ends_with($backtrace[$i]['file'], 'DB.php') || str_ends_with($backtrace[$i]['file'], 'Queries.php'))
+        ) {
             $last_file = $backtrace[$i]['file'];
             $i++;
         }

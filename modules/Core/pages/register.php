@@ -527,7 +527,7 @@ if (count($profile_fields)) {
         $custom_fields[] = [
             'id' => $field->id,
             'name' => Output::getClean($field->name),
-            'description' => Output::getClean($field->description),
+            'description' => Output::getClean($field->description) ?: Output::getClean($field->name),
             'type' => $field->type,
             'required' => $field->required,
             'value' => $_POST[$field->id] ?? ''

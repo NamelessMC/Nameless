@@ -29,6 +29,11 @@ class User {
     private array $_integrations;
 
     /**
+     * @var object The user's main group.
+     */
+    private object $_main_group;
+
+    /**
      * @var array The user's placeholders.
      */
     private array $_placeholders;
@@ -177,27 +182,23 @@ class User {
     /**
      * Get this user's main group CSS styling
      *
-     * @return string|bool Styling on success, false if they have no groups.
+     * @return string The CSS styling.
      */
-    public function getGroupClass() {
-        if (count($this->_groups)) {
-            $group = $this->_groups[0];
+    public function getGroupClass(): string {
+        $group = $this->getMainGroup();
 
-            $group_username_color = htmlspecialchars($group->group_username_color);
-            $group_username_css = htmlspecialchars($group->group_username_css);
+        $group_username_color = htmlspecialchars($group->group_username_color);
+        $group_username_css = htmlspecialchars($group->group_username_css);
 
-            $css = '';
-            if ($group_username_color) {
-                $css .= "color: $group_username_color;";
-            }
-            if ($group_username_css) {
-                $css .= $group_username_css;
-            }
-
-            return $css;
+        $css = '';
+        if ($group_username_color) {
+            $css .= "color: $group_username_color;";
+        }
+        if ($group_username_css) {
+            $css .= $group_username_css;
         }
 
-        return false;
+        return $css;
     }
 
     /**
@@ -297,32 +298,30 @@ class User {
             if (!$is_admin) {
                 $this->_isLoggedIn = true;
             }
-        } else {
-            if ($this->checkCredentials($username, $password, $method) === true) {
-                // Valid credentials
-                Session::put($sessionName, $this->data()->id);
+        } else if ($this->checkCredentials($username, $password, $method) === true) {
+            // Valid credentials
+            Session::put($sessionName, $this->data()->id);
 
-                if ($remember) {
-                    $hash = Hash::unique();
-                    $table = $is_admin ? 'users_admin_session' : 'users_session';
-                    $hashCheck = $this->_db->get($table, ['user_id', '=', $this->data()->id]);
+            if ($remember) {
+                $hash = Hash::unique();
+                $table = $is_admin ? 'users_admin_session' : 'users_session';
+                $hashCheck = $this->_db->get($table, ['user_id', '=', $this->data()->id]);
 
-                    if (!$hashCheck->count()) {
-                        $this->_db->insert($table, [
-                            'user_id' => $this->data()->id,
-                            'hash' => $hash
-                        ]);
-                    } else {
-                        $hash = $hashCheck->first()->hash;
-                    }
-
-                    $expiry = $is_admin ? 3600 : Config::get('remember/cookie_expiry');
-                    $cookieName = $is_admin ? ($this->_cookieName . '_adm') : $this->_cookieName;
-                    Cookie::put($cookieName, $hash, $expiry, Util::isConnectionSSL(), true);
+                if (!$hashCheck->count()) {
+                    $this->_db->insert($table, [
+                        'user_id' => $this->data()->id,
+                        'hash' => $hash
+                    ]);
+                } else {
+                    $hash = $hashCheck->first()->hash;
                 }
 
-                return true;
+                $expiry = $is_admin ? 3600 : Config::get('remember/cookie_expiry');
+                $cookieName = $is_admin ? ($this->_cookieName . '_adm') : $this->_cookieName;
+                Cookie::put($cookieName, $hash, $expiry, Util::isConnectionSSL(), true);
             }
+
+            return true;
         }
 
         return false;
@@ -347,7 +346,7 @@ class User {
      * @return bool True if correct, false otherwise.
      */
     public function checkCredentials(string $username, string $password, string $method = 'email'): bool {
-        $user = $this->find($username, $method == 'oauth' ? 'id' : $method);
+        $user = $this->find($username, $method === 'oauth' ? 'id' : $method);
 
         if ($method === 'oauth') {
             return true;
@@ -357,14 +356,11 @@ class User {
             switch ($this->data()->pass_method) {
                 case 'sha256':
                     [$salt, $pass] = explode('$', $this->data()->password);
-
                     return ($salt . hash('sha256', hash('sha256', $password) . $salt) == $salt . $pass);
 
                 case 'pbkdf2':
                     [$iterations, $salt, $pass] = explode('$', $this->data()->password);
-
                     $hashed = hash_pbkdf2('sha256', $password, $salt, $iterations, 64, true);
-
                     return ($hashed == hex2bin($pass));
 
                 case 'modernbb':
@@ -447,9 +443,9 @@ class User {
     }
 
     /**
-     * Get all of a user's groups. We can return their ID only or their HTML display code.
+     * Get all of a user's group HTML display code.
      *
-     * @return array Array of all their group's IDs or HTML.
+     * @return array Array of all their groups HTML.
      */
     public function getAllGroupHtml(): array {
         $groups = [];
@@ -469,11 +465,7 @@ class User {
      * @return string Their signature.
      */
     public function getSignature(): string {
-        if (empty($this->data()->signature)) {
-            return '';
-        }
-
-        return $this->data()->signature;
+        return $this->data()->signature ?? '';
     }
 
     /**
@@ -485,47 +477,7 @@ class User {
      * @return string URL to their avatar image.
      */
     public function getAvatar(int $size = 128, bool $full = false): string {
-        $default = defined('DEFAULT_AVATAR_TYPE') ? DEFAULT_AVATAR_TYPE : 'minecraft';
-
-        // If custom avatars are enabled, first check if they have gravatar enabled, and then fallback to normal image
-        if ($default === 'custom' && defined('CUSTOM_AVATARS')) {
-
-            if ($this->data()->gravatar) {
-                return 'https://secure.gravatar.com/avatar/' . md5(strtolower(trim($this->data()->email))) . '?s=' . $size;
-            }
-
-            if ($this->data()->has_avatar) {
-                $exts = ['png', 'jpg', 'jpeg'];
-
-                if ($this->hasPermission('usercp.gif_avatar')) {
-                    $exts[] = 'gif';
-                }
-
-                foreach ($exts as $ext) {
-                    if (file_exists(ROOT_PATH . '/uploads/avatars/' . $this->data()->id . '.' . $ext)) {
-                        return ($full ? rtrim(Util::getSelfURL(), '/') : '') . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/avatars/' . $this->data()->id . '.' . $ext . '?v=' . Output::getClean($this->data()->avatar_updated);
-                    }
-                }
-            }
-
-            // Fallback to default avatar image if it is set and the default avatar type is custom
-            if (DEFAULT_AVATAR_IMAGE !== '' && file_exists(ROOT_PATH . '/uploads/avatars/defaults/' . DEFAULT_AVATAR_IMAGE)) {
-                return ($full ? rtrim(Util::getSelfURL(), '/') : '') . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/avatars/defaults/' . DEFAULT_AVATAR_IMAGE;
-            }
-        }
-
-        // If all else fails, or custom avatars are disabled or default avatar type is 'minecraft', get their MC avatar
-        if ($this->data()->uuid != null && $this->data()->uuid != 'none') {
-            $uuid = $this->data()->uuid;
-        } else {
-            $uuid = $this->data()->username;
-            // Fallback to steve avatar if they have an invalid username
-            if (preg_match('#[^][_A-Za-z0-9]#', $uuid)) {
-                $uuid = 'Steve';
-            }
-        }
-
-        return AvatarSource::getAvatarFromUUID($uuid, $size);
+        return AvatarSource::getAvatarFromUserData($this->data(), $this->hasPermission('usercp.gif_avatar'), $size, $full);
     }
 
     /**
@@ -699,10 +651,12 @@ class User {
     /**
      * Get this user's main group (with highest order).
      *
-     * @return object|null The group
+     * @return object The group
      */
-    public function getMainGroup(): ?object {
-        return $this->_groups[0] ?? null;
+    public function getMainGroup(): object {
+        return $this->_main_group ??= array_reduce($this->_groups, static function ($carry, $group) {
+            return $carry === null || $carry->order > $group->order ? $group : $carry;
+        });
     }
 
     /**

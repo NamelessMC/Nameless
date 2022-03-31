@@ -18,7 +18,6 @@ if (!$user->isLoggedIn()) {
 const PAGE = 'cc_following_topics';
 $page_title = $forum_language->get('forum', 'following_topics');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
-require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
 
 $forum = new Forum();
 $timeago = new TimeAgo(TIMEZONE);
@@ -30,10 +29,9 @@ if (Input::exists() && Input::get('action') == 'purge') {
     }
 }
 
-$user_groups = $user->getGroups();
 $groups = '(';
-foreach ($user_groups as $group) {
-    $groups .= Output::getClean($group->id) . ',';
+foreach ($user->getAllGroupIds() as $group_id) {
+    $groups .= Output::getClean($group_id) . ',';
 }
 $groups = rtrim($groups, ',') . ')';
 $topics = DB::getInstance()->selectQuery('SELECT nl2_topics.id AS id, nl2_topics.topic_title AS topic_title, nl2_topics.topic_creator AS topic_creator, nl2_topics.topic_date AS topic_date, nl2_topics.topic_last_user AS last_user, nl2_topics.topic_reply_date AS topic_reply_date, nl2_topics_following.existing_alerts AS existing_alerts FROM nl2_topics LEFT JOIN nl2_topics_following ON nl2_topics.id = nl2_topics_following.topic_id WHERE deleted = 0 AND nl2_topics.id IN (SELECT topic_id FROM nl2_topics_following WHERE user_id = ?) AND forum_id IN (SELECT forum_id FROM nl2_forums_permissions WHERE group_id IN ' . $groups . ' AND `view` = 1) ORDER BY nl2_topics.topic_reply_date DESC', [$user->data()->id])->results();

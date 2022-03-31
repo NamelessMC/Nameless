@@ -9,7 +9,6 @@
  *  Forum search page
  */
 
-require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
 if (!isset($forum) || (!$forum instanceof Forum)) {
     $forum = new Forum();
 }

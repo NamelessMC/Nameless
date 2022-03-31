@@ -141,29 +141,6 @@ class Util {
     }
 
     /**
-     * Get a Minecraft avatar from a UUID.
-     *
-     * @param string $uuid UUID to get avatar for.
-     * @param int $size Size of avatar in pixels to get URL for.
-     * @return string URL to avatar.
-     */
-    public static function getAvatarFromUUID(string $uuid, int $size = 128): string {
-        return AvatarSource::getAvatarFromUUID($uuid, $size);
-    }
-
-    /**
-     * Get avatar source with UUID as `{x}` and size as `{y}`.
-     * Used for avatar preview in online players list.
-     *
-     * @return string URL to be formatted.
-     * @deprecated Use `AvatarSource::getUrlToFormat()`
-     *
-     */
-    public static function getAvatarSource(): string {
-        return AvatarSource::getUrlToFormat();
-    }
-
-    /**
      * Is a URL internal or external? Accepts full URL and also just a path.
      *
      * @param string $url URL/path to check.
@@ -542,6 +519,7 @@ class Util {
         return Twemoji::text($text)->toHtml(null, [
             'width' => 20,
             'height' => 20,
+            'style' => 'vertical-align: middle;'
         ]);
     }
 }

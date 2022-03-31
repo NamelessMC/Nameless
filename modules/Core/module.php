@@ -40,6 +40,7 @@ class Core_Module extends Module {
         $pages->add('Core', '/register/oauth', 'pages/register.php');
         $pages->add('Core', '/validate', 'pages/validate.php');
         $pages->add('Core', '/queries/admin_users', 'queries/admin_users.php');
+        $pages->add('Core', '/queries/mention_users', 'queries/mention_users.php');
         $pages->add('Core', '/queries/alerts', 'queries/alerts.php');
         $pages->add('Core', '/queries/dark_light_mode', 'queries/dark_light_mode.php');
         $pages->add('Core', '/queries/pms', 'queries/pms.php');
@@ -48,6 +49,7 @@ class Core_Module extends Module {
         $pages->add('Core', '/queries/user', 'queries/user.php');
         $pages->add('Core', '/queries/users', 'queries/users.php');
         $pages->add('Core', '/queries/debug_link', 'queries/debug_link.php');
+        $pages->add('Core', '/queries/tinymce_image_upload', 'queries/tinymce_image_upload.php');
         $pages->add('Core', '/banner', 'pages/minecraft/banner.php');
         $pages->add('Core', '/terms', 'pages/terms.php');
         $pages->add('Core', '/privacy', 'pages/privacy.php');
@@ -544,7 +546,7 @@ class Core_Module extends Module {
         ]);
 
         // Sitemap
-        $pages->registerSitemapMethod(ROOT_PATH . '/modules/Core/classes/Misc/Core_Sitemap.php', 'Core_Sitemap::generateSitemap');
+        $pages->registerSitemapMethod([Core_Sitemap::class, 'generateSitemap']);
 
         // Queries
         $queries = new Queries();
@@ -1489,6 +1491,10 @@ class Core_Module extends Module {
 
             if ($user->hasPermission('modcp.reports')) {
                 self::addUserAction($language->get('moderator', 'reports'), URL::build('/panel/users/reports/', 'uid={id}'));
+            }
+
+            if (Cookie::exists('nmc_panel_theme') && Cookie::get('nmc_panel_theme') === 'dark') {
+                define('TEMPLATE_TINY_EDITOR_DARKMODE', true);
             }
         }
 

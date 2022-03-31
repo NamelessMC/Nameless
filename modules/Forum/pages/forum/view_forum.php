@@ -12,7 +12,6 @@
 // Always define page name
 const PAGE = 'forum';
 
-require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
 $forum = new Forum();
 $timeago = new TimeAgo(TIMEZONE);
 

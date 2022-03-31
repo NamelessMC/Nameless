@@ -13,8 +13,6 @@ if (!$user->isLoggedIn()) {
     Redirect::to(URL::build('/forum'));
 }
 
-require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
-
 // Always define page name
 const PAGE = 'forum';
 

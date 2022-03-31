@@ -53,10 +53,56 @@ class Input {
      *
      * @param Language $language Instance of language class to use for translation.
      * @param string $name Name of input field ID.
+     * @param bool $mentions Whether to enable mention autocompletion/parsing or not.
      */
-    public static function createTinyEditor(Language $language, string $name): string {
+    public static function createTinyEditor(Language $language, string $name, bool $mentions = false): string {
         $skin = defined('TEMPLATE_TINY_EDITOR_DARKMODE') ? 'oxide-dark' : 'oxide';
-        return "
+        $js = '';
+
+        if ($mentions) {
+            $js .= "
+                (function () {
+                    let flags = (function () {
+                        'use strict';
+                        tinymce.PluginManager.add('mentions', function (editor, url) {
+                            editor.ui.registry.addAutocompleter('autocompleter-mentions', {
+                                ch: '@',
+                                minChars: 2,
+                                columns: 1,
+                                fetch: function (pattern) {
+                                    return new tinymce.util.Promise(function (resolve) {
+                                        fetch('" . URL::build('/queries/mention_users', 'nickname') . "=' + pattern)
+                                            .then((resp) => resp.json())
+                                            .then(function (data) {
+                                                const results = [];
+    
+                                                for (const user of data) {
+                                                    results.push({
+                                                        value: '@' + user.nickname,
+                                                        text: user.nickname,
+                                                        icon: '<img style=\"height:20px; width:20px;\" src=\"' + user.avatar_url + '\">'
+                                                    });
+                                                }
+
+                                                results.sort((a, b) => a.text.toLowerCase().localeCompare(b.text.toLowerCase()))
+    
+                                                resolve(results);
+                                            });
+                                    });
+                                },
+                                onAction: function (autocompleteApi, rng, value) {
+                                    editor.selection.setRng(rng);
+                                    editor.insertContent(value);
+                                    autocompleteApi.hide();
+                                },
+                            });
+                        });
+                    }());
+                })();
+            ";
+        }
+
+        $js .= "
             tinymce.init({
               selector: '#$name',
               browser_spellcheck: true,
@@ -65,14 +111,55 @@ class Input {
               menubar: 'table',
               convert_urls: false,
               plugins: [
-                'autolink', 'codesample', 'directionality', 'emoticons',
+                'autolink', 'codesample', 'directionality', 'emoticons', " . ($mentions ? "'mentions', " : '') . "
                 'hr', 'image', 'link', 'lists', 'spoiler', 'code', 'table',
               ],
               toolbar: 'undo redo | bold italic underline strikethrough formatselect forecolor backcolor ltr rtl emoticons | alignleft aligncenter alignright alignjustify | codesample code hr image link numlist bullist | spoiler-add spoiler-remove',
               spoiler_caption: '{$language->get('general', 'spoiler')}',
               default_link_target: '_blank',
               skin: '$skin',
+              images_upload_handler: function (blobInfo, success, failure, progress) {
+                  let xhr, formData;
+
+                  xhr = new XMLHttpRequest();
+                  xhr.withCredentials = false;
+                  xhr.open('POST', '" . URL::build('/queries/tinymce_image_upload') . "');
+
+                  xhr.upload.onprogress = function (e) {
+                    progress(e.loaded / e.total * 100);
+                  };
+
+                  xhr.onload = function() {
+                    let json;
+
+                    if (xhr.status !== 200) {
+                      failure('HTTP Error ' + xhr.status + ': ' + xhr.responseText);
+                      return;
+                    }
+
+                    json = JSON.parse(xhr.responseText);
+
+                    if (!json || typeof json.location != 'string') {
+                      failure('Invalid JSON: ' + xhr.responseText);
+                      return;
+                    }
+
+                    success(json.location);
+                  };
+
+                  xhr.onerror = function () {
+                    failure('Image upload failed due to a XHR Transport error. Code: ' + xhr.status);
+                  };
+
+                  formData = new FormData();
+                  formData.append('file', blobInfo.blob(), blobInfo.filename());
+                  formData.append('token', '" . Token::get() . "');
+
+                  xhr.send(formData);
+                },
             });
         ";
+
+        return $js;
     }
 }

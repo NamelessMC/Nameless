@@ -35,40 +35,48 @@
                 {/if}
                 <div class="ui middle aligned relaxed selection list">
                     {nocache}
-                        <table class="ui striped table">
-                            <tbody>
-                            {foreach $OAUTH_PROVIDERS as $provider_name => $provider_data}
-                                <tr>
-                                    <td>
-                                        <div class="ui stackable middle aligned grid">
-                                            <div class="row">
-                                                <div class="ten wide column">
-                                                    {if $provider_data.icon}
-                                                        <i class="{$provider_data.icon} fa-lg">&nbsp;</i>
-                                                    {/if}
-                                                    {$provider_name|ucfirst}
-                                                </div>
-                                                <div class="four wide column">
-                                                    {if isset($USER_OAUTH_PROVIDERS[$provider_name])}
-                                                        <div class="res right floated">
-                                                            <code>{$USER_OAUTH_PROVIDERS[$provider_name]->provider_id}</code>
-                                                        </div>
-                                                    {/if}
-                                                </div>
-                                                <div class="two wide column right aligned">
-                                                    {if isset($USER_OAUTH_PROVIDERS[$provider_name])}
-                                                        <a class="ui mini red button" href="#" data-toggle="modal" data-target="#modal-unlink-{$provider_name}">{$UNLINK}</a>
-                                                    {else}
-                                                        <a class="ui mini green button" href="#" data-toggle="modal" data-target="#modal-link-{$provider_name}">{$LINK}</a>
-                                                    {/if}
+                        {if count($OAUTH_PROVIDERS)}
+                            <table class="ui striped table">
+                                <tbody>
+                                {foreach $OAUTH_PROVIDERS as $provider_name => $provider_data}
+                                    <tr>
+                                        <td>
+                                            <div class="ui stackable middle aligned grid">
+                                                <div class="row">
+                                                    <div class="ten wide column">
+                                                        {if $provider_data.icon}
+                                                            <i class="{$provider_data.icon} fa-lg">&nbsp;</i>
+                                                        {/if}
+                                                        {$provider_name|ucfirst}
+                                                    </div>
+                                                    <div class="four wide column">
+                                                        {if isset($USER_OAUTH_PROVIDERS[$provider_name])}
+                                                            <div class="res right floated">
+                                                                <code>{$USER_OAUTH_PROVIDERS[$provider_name]->provider_id}</code>
+                                                            </div>
+                                                        {/if}
+                                                    </div>
+                                                    <div class="two wide column right aligned">
+                                                        {if isset($USER_OAUTH_PROVIDERS[$provider_name])}
+                                                            <a class="ui mini red button" href="#" data-toggle="modal" data-target="#modal-unlink-{$provider_name}">{$UNLINK}</a>
+                                                        {else}
+                                                            <a class="ui mini green button" href="#" data-toggle="modal" data-target="#modal-link-{$provider_name}">{$LINK}</a>
+                                                        {/if}
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            {/foreach}
-                            </tbody>
-                        </table>
+                                        </td>
+                                    </tr>
+                                {/foreach}
+                                </tbody>
+                            </table>
+                        {else}
+                            <div class="ui info message">
+                                <div class="content">
+                                    {$NO_PROVIDERS}
+                                </div>
+                            </div>
+                        {/if}
                     {/nocache}
                 </div>
             </div>

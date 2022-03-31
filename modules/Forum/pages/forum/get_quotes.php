@@ -13,8 +13,6 @@ if (!$user->isLoggedIn()) {
     die(json_encode(['error' => 'Not logged in']));
 }
 
-require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
-
 // Always define page name
 const PAGE = 'forum';
 
