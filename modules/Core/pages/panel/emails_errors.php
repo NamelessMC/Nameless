@@ -73,7 +73,7 @@ if (isset($_GET['do'])) {
             'USERNAME' => $language->get('user', 'username'),
             'USERNAME_VALUE' => Output::getClean($user->idToName($error->user_id)),
             'DATE' => $language->get('general', 'date'),
-            'DATE_VALUE' => date('d M Y, H:i', $error->at),
+            'DATE_VALUE' => date(DATE_FORMAT, $error->at),
             'TYPE' => $language->get('admin', 'type'),
             'TYPE_ID' => $error->type,
             'TYPE_VALUE' => $type,
@@ -180,7 +180,7 @@ if (isset($_GET['do'])) {
 
             $template_errors[] = [
                 'type' => $type,
-                'date' => date('d M Y, H:i', $nValue->at),
+                'date' => date(DATE_FORMAT, $nValue->at),
                 'user' => Output::getClean($user->idToName($nValue->user_id)),
                 'view_link' => URL::build('/panel/core/emails/errors/', 'do=view&id=' . $nValue->id),
                 'id' => $nValue->id

@@ -616,8 +616,8 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                         'style' => $target_user->getGroupClass(),
                         'profile' => $target_user->getProfileURL(),
                         'avatar' => $target_user->getAvatar(500),
-                        'time_friendly' => $timeago->inWords(date('d M Y, H:i', $reply->time), $language->getTimeLanguage()),
-                        'time_full' => date('d M Y, H:i', $reply->time),
+                        'time_friendly' => $timeago->inWords(date(DATE_FORMAT, $reply->time), $language->getTimeLanguage()),
+                        'time_full' => date(DATE_FORMAT, $reply->time),
                         'content' => Output::getPurified($reply->content),
                         'self' => (($user->isLoggedIn() && $user->data()->id == $reply->author_id) ? 1 : 0),
                         'id' => $reply->id
@@ -638,8 +638,8 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                 'user_style' => $target_user->getGroupClass(),
                 'avatar' => $target_user->getAvatar(500),
                 'content' => Output::getPurified(htmlspecialchars_decode($nValue->content)),
-                'date_rough' => $timeago->inWords(date('d M Y, H:i', $nValue->time), $language->getTimeLanguage()),
-                'date' => date('d M Y, H:i', $nValue->time),
+                'date_rough' => $timeago->inWords(date(DATE_FORMAT, $nValue->time), $language->getTimeLanguage()),
+                'date' => date(DATE_FORMAT, $nValue->time),
                 'reactions' => $reactions,
                 'replies' => $replies,
                 'self' => $user->isLoggedIn() && $user->data()->id == $nValue->author_id,
@@ -734,7 +734,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
             'title' => $profile_placeholder->friendly_name,
             'type' => 'text',
             'value' => $profile_placeholder->value,
-            'tooltip' => $language->get('admin', 'placeholders_last_updated') . ': ' . $timeago->inWords(date('d M Y, H:i', $profile_placeholder->last_updated), $language->getTimeLanguage()),
+            'tooltip' => $language->get('admin', 'placeholders_last_updated') . ': ' . $timeago->inWords(date(DATE_FORMAT, $profile_placeholder->last_updated), $language->getTimeLanguage()),
         ];
     }
 
@@ -742,14 +742,14 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     $fields['registered'] = [
         'title' => $language->get('user', 'registered'),
         'type' => 'text',
-        'value' => $timeago->inWords(date('d M Y, H:i', $query->joined), $language->getTimeLanguage()),
-        'tooltip' => date('d M Y, H:i', $query->joined)
+        'value' => $timeago->inWords(date(DATE_FORMAT, $query->joined), $language->getTimeLanguage()),
+        'tooltip' => date(DATE_FORMAT, $query->joined)
     ];
     $fields['last_seen'] = [
         'title' => $language->get('user', 'last_seen'),
         'type' => 'text',
-        'value' => $timeago->inWords(date('d M Y, H:i', $query->last_online), $language->getTimeLanguage()),
-        'tooltip' => date('d M Y, H:i', $query->last_online)
+        'value' => $timeago->inWords(date(DATE_FORMAT, $query->last_online), $language->getTimeLanguage()),
+        'tooltip' => date(DATE_FORMAT, $query->last_online)
     ];
 
     // Add Profile views

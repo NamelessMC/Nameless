@@ -66,8 +66,8 @@ foreach ($results->data as $nValue) {
 
     $template_array[] = [
         'topic_title' => Output::getClean($topic->topic_title),
-        'topic_date' => $timeago->inWords(date('d M Y, H:i', $topic->topic_date), $language->getTimeLanguage()),
-        'topic_date_full' => date('d M Y, H:i', $topic->topic_date),
+        'topic_date' => $timeago->inWords(date(DATE_FORMAT, $topic->topic_date), $language->getTimeLanguage()),
+        'topic_date_full' => date(DATE_FORMAT, $topic->topic_date),
         'topic_author_id' => Output::getClean($authors[$topic->topic_creator]->data()->id),
         'topic_author_nickname' => $authors[$topic->topic_creator]->getDisplayname(),
         'topic_author_username' => $authors[$topic->topic_creator]->getDisplayname(true),
@@ -80,8 +80,8 @@ foreach ($results->data as $nValue) {
         'reply_author_avatar' => $authors[$topic->topic_last_user]->getAvatar(),
         'reply_author_style' => $authors[$topic->topic_last_user]->getGroupClass(),
         'reply_author_link' => URL::build('/profile/' . Output::getClean($authors[$topic->topic_last_user]->getDisplayname(true))),
-        'reply_date' => $timeago->inWords(date('d M Y, H:i', $topic->topic_reply_date), $language->getTimeLanguage()),
-        'reply_date_full' => date('d M Y, H:i', $topic->topic_reply_date),
+        'reply_date' => $timeago->inWords(date(DATE_FORMAT, $topic->topic_reply_date), $language->getTimeLanguage()),
+        'reply_date_full' => date(DATE_FORMAT, $topic->topic_reply_date),
         'topic_link' => URL::build('/forum/topic/' . $topic->id . '-' . $forum->titleToURL($topic->topic_title)),
         'last_post_link' => URL::build('/forum/topic/' . $topic->id . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post->id),
         'unread' => $topic->existing_alerts == 1,

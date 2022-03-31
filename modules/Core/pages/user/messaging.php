@@ -94,8 +94,8 @@ if (!isset($_GET['action'])) {
             'last_message_user_profile' => $target_user->getProfileURL(),
             'last_message_user_avatar' => $target_user->getAvatar(30),
             'last_message_user_style' => $target_user->getGroupClass(),
-            'last_message_date' => $timeago->inWords(date('d M Y, H:i', $nValue['updated']), $language->getTimeLanguage()),
-            'last_message_date_full' => date('d M Y, H:i', $nValue['updated'])
+            'last_message_date' => $timeago->inWords(date(DATE_FORMAT, $nValue['updated']), $language->getTimeLanguage()),
+            'last_message_date_full' => date(DATE_FORMAT, $nValue['updated'])
         ];
     }
 
@@ -466,8 +466,8 @@ if (!isset($_GET['action'])) {
                 'author_avatar' => $target_user->getAvatar(100),
                 'author_style' => $target_user->getGroupClass(),
                 'author_groups' => $target_user->getAllGroupHtml(),
-                'message_date' => $timeago->inWords(date('d M Y, H:i', $nValue->created), $language->getTimeLanguage()),
-                'message_date_full' => date('d M Y, H:i', $nValue->created),
+                'message_date' => $timeago->inWords(date(DATE_FORMAT, $nValue->created), $language->getTimeLanguage()),
+                'message_date_full' => date(DATE_FORMAT, $nValue->created),
                 'content' => Output::getPurified(Util::renderEmojis(Output::getDecoded($nValue->content))),
             ];
         }
@@ -501,8 +501,8 @@ if (!isset($_GET['action'])) {
                 'author_avatar' => $target_user->getAvatar(100),
                 'author_style' => $target_user->getGroupClass(),
                 'author_groups' => $target_user->getAllGroupHtml(),
-                'message_date' => $timeago->inWords(date('d M Y, H:i', $nValue->created), $language->getTimeLanguage()),
-                'message_date_full' => date('d M Y, H:i', $nValue->created),
+                'message_date' => $timeago->inWords(date(DATE_FORMAT, $nValue->created), $language->getTimeLanguage()),
+                'message_date_full' => date(DATE_FORMAT, $nValue->created),
                 'content' => Output::getPurified(Util::renderEmojis(Output::getDecoded($nValue->content))),
             ];
         }

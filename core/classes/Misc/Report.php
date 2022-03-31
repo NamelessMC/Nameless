@@ -24,8 +24,8 @@ class Report {
         $db = DB::getInstance();
 
         $db->insert('reports', array_merge($data, [
-            'date_reported' => date(DATE_FORMAT),
-            'date_updated' => date(DATE_FORMAT),
+            'date_reported' => date('Y-m-d H:i:s'),
+            'date_updated' => date('Y-m-d H:i:s'),
             'reported' => date('U'),
             'updated' => date('U'),
         ]));

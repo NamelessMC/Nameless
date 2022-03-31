@@ -144,7 +144,7 @@ if ($page != 'install') {
     define('NAMELESS_VERSION', $nameless_version);
 
     // Set the date format
-    define('DATE_FORMAT', Config::get('core/date_format') ?: 'Y-m-d H:i:s');
+    define('DATE_FORMAT', Config::get('core/date_format') ?: 'd M Y, H:i');
 
     // User initialisation
     $user = new User();

@@ -99,8 +99,8 @@ class RecentPunishmentsItem extends CollectionItemBase {
                         'staff_avatar' => $staff_user->getAvatar(),
                         'staff_uuid' => Output::getClean($staff_user->data()->uuid),
                         'staff_profile' => URL::build('/panel/user/' . Output::getClean($staff_user->data()->id) . '-' . Output::getClean($staff_user->data()->username)),
-                        'time' => ($item->created ? $timeago->inWords(date(DATE_FORMAT, $item->created), $this->_language->getTimeLanguage()) : $timeago->inWords($item->infraction_date, $this->_language->getTimeLanguage())),
-                        'time_full' => ($item->created ? date('d M Y, H:i', $item->created) : date('d M Y, H:i', strtotime($item->infraction_date))),
+                        'time' => ($item->created ? $timeago->inWords(date('Y-m-d H:i:s', $item->created), $this->_language->getTimeLanguage()) : $timeago->inWords($item->infraction_date, $this->_language->getTimeLanguage())),
+                        'time_full' => ($item->created ? date(DATE_FORMAT, $item->created) : date(DATE_FORMAT, strtotime($item->infraction_date))),
                         'type' => $item->type,
                         'reason' => Output::getPurified($item->reason),
                         'acknowledged' => $item->acknowledged,
@@ -111,7 +111,7 @@ class RecentPunishmentsItem extends CollectionItemBase {
                         'revoked_by_avatar' => ($revoked_by_user ? $revoked_by_user->getAvatar() : ''),
                         'revoked_by_uuid' => ($revoked_by_user ? Output::getClean($revoked_by_user->data()->uuid) : ''),
                         'revoked_by_profile' => ($revoked_by_user ? URL::build('/panel/user/' . Output::getClean($revoked_by_user->data()->id) . '-' . Output::getClean($revoked_by_user->data()->username)) : ''),
-                        'revoked_at' => $timeago->inWords(date(DATE_FORMAT, $item->revoked_at), $this->_language->getTimeLanguage())
+                        'revoked_at' => $timeago->inWords(date('Y-m-d H:i:s', $item->revoked_at), $this->_language->getTimeLanguage())
                     ];
 
                     if (++$i == 5) {
