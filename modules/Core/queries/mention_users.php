@@ -7,15 +7,14 @@ if (!$user->isLoggedIn()) {
 }
 
 $users = DB::getInstance()->selectQuery(
-    'SELECT u.id, u.username, u.uuid, u.gravatar, u.email, u.has_avatar, u.avatar_updated FROM nl2_users u WHERE u.username LIKE ?',
-    ["{$_GET['username']}%"]
+    'SELECT u.id, u.nickname, u.uuid, u.gravatar, u.email, u.has_avatar, u.avatar_updated FROM nl2_users u WHERE u.nickname LIKE ?',
+    ["{$_GET['nickname']}%"]
 )->results();
 
 $users_json = [];
 foreach ($users as $user) {
     $users_json[] = [
-        'id' => (int)$user->id,
-        'username' => $user->username,
+        'nickname' => $user->nickname,
         'avatar_url' => AvatarSource::getAvatarFromUserData($user, false, 20, true)
     ];
 }
