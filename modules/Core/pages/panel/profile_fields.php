@@ -72,11 +72,11 @@ if (isset($_GET['action'])) {
 
                         // Insert into database
                         $queries->create('profile_fields', [
-                            'name' => Output::getClean(Input::get('name')),
+                            'name' => Input::get('name'),
                             'type' => Input::get('type'),
                             'public' => $public,
                             'required' => $required,
-                            'description' => Output::getClean(Input::get('description')),
+                            'description' => Input::get('description'),
                             'forum_posts' => $forum_posts,
                             'editable' => $editable
                         ]);

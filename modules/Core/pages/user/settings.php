@@ -255,7 +255,7 @@ if (isset($_GET['do'])) {
                             $timezone = Output::getClean(Input::get('timezone'));
 
                             if ($user->hasPermission('usercp.signature')) {
-                                $signature = Output::getClean(Input::get('signature'));
+                                $signature = Input::get('signature');
                             } else {
                                 $signature = '';
                             }
@@ -286,7 +286,7 @@ if (isset($_GET['do'])) {
 
                             // Is forum enabled? Update topic Updates
                             if ($forum_enabled) {
-                                $topicUpdates = Output::getClean(Input::get('topicUpdates'));
+                                $topicUpdates = Input::get('topicUpdates');
 
                                 $data['topic_updates'] = $topicUpdates;
                             }
@@ -307,14 +307,14 @@ if (isset($_GET['do'])) {
                                     if (array_key_exists($key, $user_profile_fields)) {
                                         // Update field value
                                         $queries->update('users_profile_fields', $user_profile_fields[$key]['row_id'], [
-                                            'value' => Output::getClean($item) // Todo - allow HTML
+                                            'value' => $item
                                         ]);
                                     } else {
                                         // Create new field value
                                         $queries->create('users_profile_fields', [
                                             'user_id' => $user->data()->id,
                                             'field_id' => $key,
-                                            'value' => Output::getClean($item) // Todo - allow HTML
+                                            'value' => $item
                                         ]);
                                     }
                                 }
@@ -583,7 +583,7 @@ if (isset($_GET['do'])) {
     }
 
     if ($user->hasPermission('usercp.signature')) {
-        $signature = Output::getPurified(htmlspecialchars_decode($user->data()->signature));
+        $signature = Output::getPurified($user->data()->signature);
 
         $smarty->assign([
             'SIGNATURE' => $language->get('user', 'signature'),

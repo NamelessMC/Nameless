@@ -29,7 +29,7 @@ $posts = [];
 foreach ($_POST['posts'] as $item) {
     $post = $forum->getIndividualPost($item);
 
-    $content = htmlspecialchars_decode($post['content']);
+    $content = $post['content'];
     $content = preg_replace('~<blockquote(.*?)>(.*)</blockquote>~si', '', $content);
 
     if ($post['topic_id'] == $_POST['topic']) {
@@ -38,7 +38,7 @@ foreach ($_POST['posts'] as $item) {
             'content' => Output::getPurified($content),
             'author_username' => $post_author->getDisplayname(),
             'author_nickname' => $post_author->getDisplayname(true),
-            'link' => URL::build('/forum/topic/' . $post['topic_id'], 'pid=' . htmlspecialchars($item))
+            'link' => URL::build('/forum/topic/' . $post['topic_id'], 'pid=' . Output::getClean($item))
         ];
     }
 }

@@ -97,14 +97,14 @@ if (!isset($_GET['step'])) {
                 $ip = $user->getIP();
 
                 $user->create([
-                    'username' => htmlspecialchars($username),
-                    'nickname' => htmlspecialchars($_SESSION['mcassoc']['username']),
+                    'username' => Output::getClean($username),
+                    'nickname' => Output::getClean($_SESSION['mcassoc']['username']),
                     'password' => $password,
                     'pass_method' => 'default',
                     'joined' => date('U'),
-                    'email' => htmlspecialchars($_SESSION['mcassoc']['email']),
+                    'email' => Output::getClean($_SESSION['mcassoc']['email']),
                     'active' => 1,
-                    'lastip' => htmlspecialchars($ip),
+                    'lastip' => Output::getClean($ip),
                     'last_online' => date('U')
                 ]);
 

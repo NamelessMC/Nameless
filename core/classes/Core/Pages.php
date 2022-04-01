@@ -20,7 +20,7 @@ class Pages {
     private array $_active_page;
 
     /**
-     * @var array<array<class-string, string>> Array of sitemap files and methods.
+     * @var array<callable> Array of sitemap files and methods.
      */
     private array $_sm_methods = [];
 
@@ -101,9 +101,9 @@ class Pages {
      * Register a method for sitemap generation.
      * @see \SitemapPHP\Sitemap
      *
-     * @param array<class-string, string> $method Array callable of the sitemap class and method to execute.
+     * @param callable $method Array callable of the sitemap class and method to execute.
      */
-    public function registerSitemapMethod(array $method): void {
+    public function registerSitemapMethod(callable $method): void {
         $this->_sm_methods[] = $method;
     }
 

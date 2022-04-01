@@ -97,7 +97,7 @@ if (Input::exists()) {
                 }
 
                 if ($custom_usernames == 'true') {
-                    $nickname = Output::getClean(Input::get('nickname'));
+                    $nickname = Input::get('nickname');
                 } else {
                     $nickname = $_SESSION['authme']['user'];
                 }
@@ -252,7 +252,7 @@ if (Input::exists()) {
                                         if (password_verify($_POST['password'], $password)) {
                                             $valid = true;
                                             $_SESSION['authme'] = [
-                                                'user' => Output::getClean(Input::get('username')),
+                                                'user' => Input::get('username'),
                                                 'pass' => $password,
                                                 'ip' => $ip
                                             ];
@@ -264,7 +264,7 @@ if (Input::exists()) {
                                         if (sha1($_POST['password']) == $password) {
                                             $valid = true;
                                             $_SESSION['authme'] = [
-                                                'user' => Output::getClean(Input::get('username')),
+                                                'user' => Input::get('username'),
                                                 'pass' => $password,
                                                 'ip' => $ip
                                             ];
@@ -279,7 +279,7 @@ if (Input::exists()) {
                                         if ($salt . hash('sha256', hash('sha256', $_POST['password']) . $salt) == $salt . $exploded[3]) {
                                             $valid = true;
                                             $_SESSION['authme'] = [
-                                                'user' => Output::getClean(Input::get('username')),
+                                                'user' => Input::get('username'),
                                                 'pass' => ($salt . '$' . $exploded[3]),
                                                 'ip' => $ip
                                             ];
@@ -299,7 +299,7 @@ if (Input::exists()) {
                                         if ($hashed == hex2bin($pass)) {
                                             $valid = true;
                                             $_SESSION['authme'] = [
-                                                'user' => Output::getClean(Input::get('username')),
+                                                'user' => Input::get('username'),
                                                 'pass' => ($iterations . '$' . $salt . '$' . $pass),
                                                 'ip' => $ip
                                             ];

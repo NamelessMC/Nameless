@@ -74,7 +74,7 @@ if (Input::exists()) {
             $maintenance_id = $queries->getWhere('settings', ['name', '=', 'maintenance_message']);
             $maintenance_id = $maintenance_id[0]->id;
             $queries->update('settings', $maintenance_id, [
-                'value' => Output::getClean($message)
+                'value' => $message
             ]);
 
             //Log::getInstance()->log(Log::Action('admin/core/maintenance/update'));
@@ -83,7 +83,7 @@ if (Input::exists()) {
             $cache->setCache('maintenance_cache');
             $cache->store('maintenance', [
                 'maintenance' => $enabled,
-                'message' => Output::getClean($message)
+                'message' => $message
             ]);
 
             // Page load timer
@@ -164,7 +164,7 @@ $smarty->assign([
     'ENABLE_PAGE_LOAD_TIMER' => $language->get('admin', 'enable_page_load_timer'),
     'ENABLE_PAGE_LOAD_TIMER_VALUE' => $page_loading,
     'MAINTENANCE_MODE_MESSAGE' => $language->get('admin', 'maintenance_mode_message'),
-    'MAINTENANCE_MODE_MESSAGE_VALUE' => Output::getPurified(htmlspecialchars_decode($maintenance['message'])),
+    'MAINTENANCE_MODE_MESSAGE_VALUE' => Output::getPurified($maintenance['message']),
     'DEBUG_LINK' => $language->get('admin', 'debug_link'),
     'DEBUG_LINK_URL' => URL::build('/queries/debug_link'),
     'TOASTR_COPIED' => $language->get('admin', 'debug_link_toastr'),

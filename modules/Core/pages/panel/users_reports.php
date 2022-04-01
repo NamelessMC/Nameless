@@ -179,7 +179,7 @@ if (!isset($_GET['id'])) {
                         'report_id' => $report->id,
                         'commenter_id' => $user->data()->id,
                         'comment_date' => date('Y-m-d H:i:s'),
-                        'comment_content' => Output::getClean(Input::get('content')),
+                        'comment_content' => Input::get('content'),
                         'date' => date('U')
                     ]);
 
@@ -302,7 +302,7 @@ if (!isset($_GET['id'])) {
                         'commenter_id' => $user->data()->id,
                         'comment_date' => date('Y-m-d H:i:s'),
                         'date' => date('U'),
-                        'comment_content' => str_replace('{x}', Output::getClean($user->data()->username), $language->get('moderator', 'x_closed_report'))
+                        'comment_content' => str_replace('{x}', $user->data()->username, $language->get('moderator', 'x_closed_report'))
                     ]);
                 }
 
@@ -331,7 +331,7 @@ if (!isset($_GET['id'])) {
                         'commenter_id' => $user->data()->id,
                         'comment_date' => date('Y-m-d H:i:s'),
                         'date' => date('U'),
-                        'comment_content' => str_replace('{x}', Output::getClean($user->data()->username), $language->get('moderator', 'x_reopened_report'))
+                        'comment_content' => str_replace('{x}', $user->data()->username, $language->get('moderator', 'x_reopened_report'))
                     ]);
                 }
 

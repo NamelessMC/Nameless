@@ -914,10 +914,6 @@ select {
     height: auto;
 }
 
-.ui.icon.message.announcement i {
-    padding-right: 20px;
-}
-
 .ui.checkbox .box:before, .ui.checkbox label:before {
     margin-top: 4px;
 }

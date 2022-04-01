@@ -170,7 +170,7 @@ if (isset($_GET['s'])) {
         // Display the correct number of posts
         $n = 0;
         while (($n < count($results->data)) && isset($results->data[$n])) {
-            $content = htmlspecialchars_decode($results->data[$n]['post_content']);
+            $content = $results->data[$n]['post_content'];
             $content = Util::renderEmojis($content);
             $content = Output::getPurified($content);
 

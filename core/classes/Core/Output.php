@@ -22,7 +22,7 @@ class Output {
      * @return string Cleaned version of string.
      */
     public static function getClean(?string $input): string {
-        return htmlspecialchars(Output::getDecoded($input), ENT_QUOTES);
+        return htmlspecialchars(self::getDecoded($input), ENT_QUOTES);
     }
 
     /**
@@ -45,6 +45,8 @@ class Output {
      * @return string Purified string.
      */
     public static function getPurified(?string $input, bool $escape_invalid = false): string {
+        $input = Output::getDecoded($input);
+
         if (!isset(self::$_purifier)) {
 
             $purifierConfig = HTMLPurifier_Config::createDefault();

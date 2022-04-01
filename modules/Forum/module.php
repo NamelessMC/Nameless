@@ -70,6 +70,64 @@ class Forum_Module extends Module {
                 'available_hooks' => $this->_forum_language->get('forum', 'available_hooks')
             ]
         );
+
+        EventHandler::registerEvent('prePostCreate',
+            $this->_forum_language->get('forum', 'pre_post_create_hook_info'),
+            [
+                'content' => $this->_language->get('general', 'content'),
+                'post_id' => $this->_forum_language->get('forum', 'post_id'),
+                'topic_id' => $this->_forum_language->get('forum', 'topic_id'),
+                'user' => $this->_forum_language->get('forum', 'user_object')
+            ],
+            true,
+            true
+        );
+
+        EventHandler::registerEvent('prePostEdit',
+            $this->_forum_language->get('forum', 'pre_post_edit_hook_info'),
+            [
+                'content' => $this->_language->get('general', 'content'),
+                'post_id' => $this->_forum_language->get('forum', 'post_id'),
+                'topic_id' => $this->_forum_language->get('forum', 'topic_id'),
+                'user' => $this->_forum_language->get('forum', 'user_object')
+            ],
+            true,
+            true
+        );
+
+        EventHandler::registerEvent('preTopicCreate',
+            $this->_forum_language->get('forum', 'pre_topic_create_hook_info'),
+            [
+                'content' => $this->_language->get('general', 'content'),
+                'post_id' => $this->_forum_language->get('forum', 'post_id'),
+                'topic_id' => $this->_forum_language->get('forum', 'topic_id'),
+                'user' => $this->_forum_language->get('forum', 'user_object')
+            ],
+            true,
+            true
+        );
+
+        EventHandler::registerEvent('preTopicEdit',
+            $this->_forum_language->get('forum', 'pre_topic_edit_hook_info'),
+            [
+                'content' => $this->_language->get('general', 'content'),
+                'post_id' => $this->_forum_language->get('forum', 'post_id'),
+                'topic_id' => $this->_forum_language->get('forum', 'topic_id'),
+                'topic_title' => $this->_forum_language->get('forum', 'topic_title'),
+                'user' => $this->_forum_language->get('forum', 'user_object')
+            ],
+            true,
+            true
+        );
+
+        require_once ROOT_PATH . '/modules/Forum/hooks/DeleteUserForumHook.php';
+        EventHandler::registerListener('deleteUser', 'DeleteUserForumHook::execute');
+
+        require_once ROOT_PATH . '/modules/Forum/hooks/MentionsHook.php';
+        EventHandler::registerListener('prePostCreate', 'MentionsHook::preCreate');
+        EventHandler::registerListener('prePostEdit', 'MentionsHook::preEdit');
+        EventHandler::registerListener('preTopicCreate', 'MentionsHook::preCreate');
+        EventHandler::registerListener('preTopicEdit', 'MentionsHook::preEdit');
     }
 
     public function onInstall() {
@@ -289,9 +347,6 @@ class Forum_Module extends Module {
                 }
             }
         }
-
-        require_once(ROOT_PATH . '/modules/Forum/hooks/DeleteUserForumHook.php');
-        EventHandler::registerListener('deleteUser', 'DeleteUserForumHook::execute');
     }
 
     public function getDebugInfo(): array {

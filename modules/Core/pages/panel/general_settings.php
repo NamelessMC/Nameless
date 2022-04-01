@@ -31,11 +31,11 @@ if (isset($_GET['do'])) {
                 $folder_name = $folders[count($folders) - 1];
 
                 // Is it already in the database?
-                $exists = $queries->getWhere('languages', ['name', '=', Output::getClean($folder_name)]);
+                $exists = $queries->getWhere('languages', ['name', '=', $folder_name]);
                 if (!count($exists)) {
                     // No, add it now
                     $queries->create('languages', [
-                        'name' => Output::getClean($folder_name)
+                        'name' => $folder_name
                     ]);
                 }
             }

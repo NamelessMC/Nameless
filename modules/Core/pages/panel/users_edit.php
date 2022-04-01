@@ -55,63 +55,59 @@ if (isset($_GET['action'])) {
             }
         }
 
-    } else {
-        if ($_GET['action'] == 'resend_email' && $user_query->active == 0) {
-            require_once(ROOT_PATH . '/modules/Core/includes/emails/register.php');
-            if (sendRegisterEmail($queries, $language, $user_query->email, $user_query->username, $user_query->id, $user_query->reset_code)) {
-                Session::flash('edit_user_success', $language->get('admin', 'email_resent_successfully'));
-            } else {
-                Session::flash('edit_user_errors', $language->get('admin', 'email_resend_failed'));
-            }
-        } else if ($_GET['action'] == 'update_mcname') {
-            $uuid = $user_query->uuid;
-
-            $profile = ProfileUtils::getProfile($uuid);
-
-            if ($profile) {
-                $result = $profile->getUsername();
-
-                if (!empty($result)) {
-                    if ($user_query->username == $user_query->nickname) {
-                        $queries->update('users', $user_query->id, [
-                            'username' => Output::getClean($result),
-                            'nickname' => Output::getClean($result)
-                        ]);
-                    } else {
-                        $queries->update('users', $user_query->id, [
-                            'username' => Output::getClean($result)
-                        ]);
-                    }
-
-                    Session::flash('edit_user_success', $language->get('admin', 'user_updated_successfully'));
-                }
-            }
+    } else if ($_GET['action'] == 'resend_email' && $user_query->active == 0) {
+        require_once(ROOT_PATH . '/modules/Core/includes/emails/register.php');
+        if (sendRegisterEmail($queries, $language, $user_query->email, $user_query->username, $user_query->id, $user_query->reset_code)) {
+            Session::flash('edit_user_success', $language->get('admin', 'email_resent_successfully'));
         } else {
-            if ($_GET['action'] == 'update_uuid') {
-                $profile = ProfileUtils::getProfile($user_query->username);
+            Session::flash('edit_user_errors', $language->get('admin', 'email_resend_failed'));
+        }
+    } else if ($_GET['action'] == 'update_mcname') {
+        $uuid = $user_query->uuid;
 
-                if ($profile !== null) {
-                    $result = $profile->getProfileAsArray();
+        $profile = ProfileUtils::getProfile($uuid);
 
-                    if (isset($result['uuid']) && !empty($result['uuid'])) {
-                        $queries->update('users', $user_query->id, [
-                            'uuid' => Output::getClean($result['uuid'])
-                        ]);
+        if ($profile) {
+            $result = $profile->getUsername();
 
-                        Session::flash('edit_user_success', $language->get('admin', 'user_updated_successfully'));
-                    }
+            if (!empty($result)) {
+                if ($user_query->username == $user_query->nickname) {
+                    $queries->update('users', $user_query->id, [
+                        'username' => Output::getClean($result),
+                        'nickname' => Output::getClean($result)
+                    ]);
+                } else {
+                    $queries->update('users', $user_query->id, [
+                        'username' => Output::getClean($result)
+                    ]);
                 }
-            } else {
-                if ($_GET['action'] == 'resend_email' && $user_query->active == 0) {
-                    require_once(ROOT_PATH . '/modules/Core/includes/emails/register.php');
-                    if (sendRegisterEmail($queries, $language, $user_query->email, $user_query->username, $user_query->id, $user_query->reset_code)) {
-                        Session::flash('edit_user_success', $language->get('admin', 'email_resent_successfully'));
-                    } else {
-                        Session::flash('edit_user_error', $language->get('admin', 'email_resend_failed'));
-                    }
-                }
+
+                Session::flash('edit_user_success', $language->get('admin', 'user_updated_successfully'));
             }
         }
+    } else if ($_GET['action'] == 'update_uuid') {
+        $profile = ProfileUtils::getProfile($user_query->username);
+
+        if ($profile !== null) {
+            $result = $profile->getProfileAsArray();
+
+            if (isset($result['uuid']) && !empty($result['uuid'])) {
+                $queries->update('users', $user_query->id, [
+                    'uuid' => Output::getClean($result['uuid'])
+                ]);
+
+                Session::flash('edit_user_success', $language->get('admin', 'user_updated_successfully'));
+            }
+        }
+    } else if ($_GET['action'] == 'resend_email' && $user_query->active == 0) {
+        require_once(ROOT_PATH . '/modules/Core/includes/emails/register.php');
+        if (sendRegisterEmail($queries, $language, $user_query->email, $user_query->username, $user_query->id, $user_query->reset_code)) {
+            Session::flash('edit_user_success', $language->get('admin', 'email_resent_successfully'));
+        } else {
+            Session::flash('edit_user_error', $language->get('admin', 'email_resend_failed'));
+        }
+    } else {
+        throw new InvalidArgumentException('Invalid action: ' . $_GET['action']);
     }
 
     Redirect::to(URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->id)));

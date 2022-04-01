@@ -42,7 +42,7 @@ class KeyAuthEndpoint extends EndpointBase {
             // Retrieve from database
             $correct_key = $api->getDb()->get('settings', ['name', '=', 'mc_api_key']);
             $correct_key = $correct_key->results();
-            $correct_key = htmlspecialchars($correct_key[0]->value);
+            $correct_key = Output::getClean($correct_key[0]->value);
 
             // Store in cache file
             file_put_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('apicache') . '.cache', $correct_key);
@@ -51,6 +51,6 @@ class KeyAuthEndpoint extends EndpointBase {
             $correct_key = file_get_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('apicache') . '.cache');
         }
 
-        return $api_key === $correct_key;
+        return hash_equals($api_key, $correct_key);
     }
 }

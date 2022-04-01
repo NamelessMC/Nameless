@@ -244,7 +244,7 @@ if (!isset($_GET['view'])) {
             'ENABLE_API' => $language->get('admin', 'enable_api'),
             'API_ENABLED' => $api_enabled,
             'API_KEY' => $language->get('admin', 'api_key'),
-            'API_KEY_VALUE' => Output::getClean($api_key),
+            'API_KEY_VALUE' => $api_key,
             'API_KEY_REGEN_URL' => URL::build('/panel/core/api/', 'action=api_regen'),
             'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
             'CONFIRM_API_REGEN' => $language->get('admin', 'confirm_api_regen'),
