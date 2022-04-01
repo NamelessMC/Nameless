@@ -142,9 +142,6 @@ $smarty->assign([
     'FORCE_PREMIUM_ACCOUNTS_VALUE' => ($uuid_linking == '1')
 ]);
 
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{{time}}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
-
 $template->onPageLoad();
 
 require(ROOT_PATH . '/core/templates/panel_navbar.php');

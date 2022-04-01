@@ -115,9 +115,9 @@ if (isset($_GET['do'])) {
         }
         Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
         require(ROOT_PATH . '/core/templates/cc_navbar.php');
-        $page_load = microtime(true) - $start;
-        define('PAGE_LOAD_TIME', str_replace('{{time}}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
+
         $template->onPageLoad();
+
         require(ROOT_PATH . '/core/templates/navbar.php');
         require(ROOT_PATH . '/core/templates/footer.php');
         $template->displayTemplate('user/tfa.tpl', $smarty);
@@ -711,9 +711,6 @@ if (isset($_GET['do'])) {
     Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
     require(ROOT_PATH . '/core/templates/cc_navbar.php');
-
-    $page_load = microtime(true) - $start;
-    define('PAGE_LOAD_TIME', str_replace('{{time}}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
     $template->onPageLoad();
 

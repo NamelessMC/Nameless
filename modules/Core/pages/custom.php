@@ -73,9 +73,6 @@ $smarty->assign([
     'CONTENT' => Util::renderEmojis((($custom_page->all_html == 0) ? Output::getPurified($custom_page->content) : Output::getClean($custom_page->content)))
 ]);
 
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{{time}}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
-
 $template->onPageLoad();
 
 require(ROOT_PATH . '/core/templates/navbar.php');

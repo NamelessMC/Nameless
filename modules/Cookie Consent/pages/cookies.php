@@ -28,9 +28,6 @@ $smarty->assign([
 
 $template->addJSScript(file_get_contents(ROOT_PATH . '/modules/Cookie Consent/assets/js/configure.js'));
 
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{{time}}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
-
 $template->onPageLoad();
 
 require(ROOT_PATH . '/core/templates/navbar.php');

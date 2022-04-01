@@ -139,9 +139,6 @@ if (Session::exists('adm_auth_error')) {
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{{time}}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
-
 $template->onPageLoad();
 
 require(ROOT_PATH . '/core/templates/panel_navbar.php');
