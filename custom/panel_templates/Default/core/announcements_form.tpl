@@ -91,7 +91,7 @@
                                                                 data-title="{$INFO}" data-content="{$ICON_INFO|escape}"><i
                                                 class="fa fa-question"></i></label>
                                 <input type="text" name="icon" id="icon" class="form-control"
-                                       placeholder="fas fa-edit icon" value="{$ANNOUNCEMENT->icon|escape}">
+                                       placeholder="fas fa-edit" value="{$ANNOUNCEMENT->icon|escape}">
                             </div>
                             <div class="form-group">
                                 <label for="icon">{$ORDER}</label>
