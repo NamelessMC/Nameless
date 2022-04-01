@@ -230,7 +230,7 @@ if (!isset($_GET['action'])) {
                                     'private_messages',
                                     [
                                         'author_id' => $user->data()->id,
-                                        'title' => Output::getClean(Input::get('title')),
+                                        'title' => Input::get('title'),
                                         'created' => date('U'),
                                         'last_reply_user' => $user->data()->id,
                                         'last_reply_date' => date('U')
@@ -240,8 +240,6 @@ if (!isset($_GET['action'])) {
                                 // Get the PM ID
                                 $last_id = $queries->getLastId();
 
-                                $content = Output::getClean(Input::get('content'));
-
                                 // Insert post content into database
                                 $queries->create(
                                     'private_messages_replies',
@@ -249,7 +247,7 @@ if (!isset($_GET['action'])) {
                                         'pm_id' => $last_id,
                                         'author_id' => $user->data()->id,
                                         'created' => date('U'),
-                                        'content' => $content
+                                        'content' => Input::get('content')
                                     ]
                                 );
 

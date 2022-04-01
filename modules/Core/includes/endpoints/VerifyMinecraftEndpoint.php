@@ -35,7 +35,7 @@ class VerifyMinecraftEndpoint extends KeyAuthEndpoint {
 
         EventHandler::executeEvent('validateUser', [
             'user_id' => $user->data()->id,
-            'username' => Output::getClean($user->data()->username),
+            'username' => $user->data()->username,
             'language' => $api->getLanguage()
         ]);
 
