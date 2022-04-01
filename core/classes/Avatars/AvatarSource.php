@@ -38,10 +38,8 @@ class AvatarSource {
      * @return string Full URL of avatar image.
      */
     public static function getAvatarFromUserData(object $data, bool $allow_gifs = false, int $size = 128, bool $full = false): string {
-        $default = defined('DEFAULT_AVATAR_TYPE') ? DEFAULT_AVATAR_TYPE : 'minecraft';
-
         // If custom avatars are enabled, first check if they have gravatar enabled, and then fallback to normal image
-        if ($default === 'custom' && defined('CUSTOM_AVATARS')) {
+        if (defined('CUSTOM_AVATARS')) {
             if ($data->gravatar) {
                 return 'https://secure.gravatar.com/avatar/' . md5(strtolower(trim($data->email))) . '?s=' . $size;
             }
@@ -59,9 +57,11 @@ class AvatarSource {
                     }
                 }
             }
+        }
 
-            // Fallback to default avatar image if it is set and the default avatar type is custom
-            if (DEFAULT_AVATAR_IMAGE !== '' && file_exists(ROOT_PATH . '/uploads/avatars/defaults/' . DEFAULT_AVATAR_IMAGE)) {
+        // Fallback to default avatar image if it is set and the avatar type is custom
+        if (defined('DEFAULT_AVATAR_TYPE') && DEFAULT_AVATAR_TYPE == 'custom') {
+            if (file_exists(ROOT_PATH . '/uploads/avatars/defaults/' . DEFAULT_AVATAR_IMAGE)) {
                 return ($full ? rtrim(Util::getSelfURL(), '/') : '') . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/avatars/defaults/' . DEFAULT_AVATAR_IMAGE;
             }
         }
