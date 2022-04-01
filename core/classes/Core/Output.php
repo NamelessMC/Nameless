@@ -45,6 +45,8 @@ class Output {
      * @return string Purified string.
      */
     public static function getPurified(?string $input, bool $escape_invalid = false): string {
+        $input = Output::getDecoded($input);
+
         if (!isset(self::$_purifier)) {
 
             $purifierConfig = HTMLPurifier_Config::createDefault();
