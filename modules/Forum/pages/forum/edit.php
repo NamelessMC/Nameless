@@ -119,11 +119,12 @@ if (Input::exists()) {
         if ($validation->passed()) {
             // Valid post content
             $content = Output::getClean(Input::get('content'));
-            $content = MentionsParser::parse(
-                $user->data()->id,
-                $content,
-                URL::build('/forum/topic/' . $topic_id, 'pid=' . $post_id),
-            );
+            $content = EventHandler::executeEvent(isset($edit_title) ? 'preTopicEdit' : 'prePostEdit', [
+                'content' => $content,
+                'post_id' => $post_id,
+                'topic_id' => $topic_id,
+                'user' => $user,
+            ])['content'];
 
             // Update post content
             $queries->update('posts', $post_id, [
