@@ -322,7 +322,7 @@ if (isset($_GET['user'])) {
 
     $smarty->assign([
         'HAS_AVATAR' => $query->has_avatar,
-        'BACK_LINK' => URL::build('/panel/users/punishments'),
+        'BACK_LINK' => URL::build('/panel/user/' . $view_user->data()->id),
         'BACK' => $language->get('general', 'back'),
         'VIEWING_USER' => str_replace('{x}', $view_user->getDisplayname(), $language->get('moderator', 'viewing_user_x')),
         'PREVIOUS_PUNISHMENTS' => $language->get('moderator', 'previous_punishments'),
