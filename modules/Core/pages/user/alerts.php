@@ -69,7 +69,7 @@ if (!isset($_GET['view'])) {
         require(ROOT_PATH . '/core/templates/cc_navbar.php');
 
         $page_load = microtime(true) - $start;
-        define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
+        define('PAGE_LOAD_TIME', str_replace('{{time}}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
         $template->onPageLoad();
 
