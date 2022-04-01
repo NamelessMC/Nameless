@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5228d8b92f36c1c86be390907cd9dd1f",
+    "content-hash": "8b342c935098836a6e4c085042e7aef1",
     "packages": [
         {
             "name": "astrotomic/php-twemoji",
@@ -1238,6 +1238,53 @@
             "time": "2018-06-23T22:16:47+00:00"
         },
         {
+            "name": "samerton/i18next",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/samerton/i18next-php.git",
+                "reference": "4bfab8849a6511e3687a2db28212693b8c51eac2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/samerton/i18next-php/zipball/4bfab8849a6511e3687a2db28212693b8c51eac2",
+                "reference": "4bfab8849a6511e3687a2db28212693b8c51eac2",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "5.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "samerton\\i18next\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Beerware"
+            ],
+            "authors": [
+                {
+                    "name": "Mika Simanainen",
+                    "role": "Developer"
+                }
+            ],
+            "description": "PHP class for basic i18next functionality ",
+            "homepage": "https://github.com/samerton/i18next-php",
+            "keywords": [
+                "i18n",
+                "i18next"
+            ],
+            "support": {
+                "source": "https://github.com/samerton/i18next-php/tree/v1.0.1"
+            },
+            "time": "2022-01-22T22:56:28+00:00"
+        },
+        {
             "name": "smarty/smarty",
             "version": "v4.1.0",
             "source": {
@@ -1803,16 +1850,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.5.2",
+            "version": "1.5.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "f32e95f571c9587b4e14be05253ae56fedd00b2c"
+                "reference": "39953ac1452a8843702ee41a35b4861d3e8207a7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/f32e95f571c9587b4e14be05253ae56fedd00b2c",
-                "reference": "f32e95f571c9587b4e14be05253ae56fedd00b2c",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/39953ac1452a8843702ee41a35b4861d3e8207a7",
+                "reference": "39953ac1452a8843702ee41a35b4861d3e8207a7",
                 "shasum": ""
             },
             "require": {
@@ -1838,7 +1885,7 @@
             "description": "PHPStan - PHP Static Analysis Tool",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/1.5.2"
+                "source": "https://github.com/phpstan/phpstan/tree/1.5.3"
             },
             "funding": [
                 {
@@ -1858,7 +1905,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-03-29T07:34:36+00:00"
+            "time": "2022-03-30T21:55:08+00:00"
         },
         {
             "name": "psr/log",
@@ -2092,5 +2139,5 @@
         "php": ">=7.4"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.3.0"
 }

@@ -17,23 +17,22 @@ class Language {
      */
     private string $_activeLanguage;
 
-    // TODO: needed?
     /**
-     * @var string Name of module currently using this instance.
+     * @var i18next Instance of i18next.
      */
-    private string $_module;
+    private i18next $_i18n;
 
     /**
      * Construct Language class
      *
-     * @param string|null $module Path of language files for custom modules.
+     * @param string $module
      * @param string|null $active_language The active language set in cache.
      *
      * @throws Exception If LANGUAGES not defined (see custom/languages/languages.php) or if language file does not exist
      */
-    public function __construct(string $module = null, string $active_language = null) {
+    public function __construct(string $module = 'core', string $active_language = null) {
         if (!defined('LANGUAGES')) {
-            throw new Exception('Languages not initialised');
+            throw new RuntimeException('Languages not initialised');
         }
 
         $this->_activeLanguage = $active_language ?? LANGUAGE ?? 'en_UK';
@@ -41,30 +40,27 @@ class Language {
         // Require file
         if (!$module || $module == 'core') {
             $path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'languages', $this->_activeLanguage . '.json']);
-            $this->_module = 'Core';
         } else {
             $path = str_replace('/', DIRECTORY_SEPARATOR, $module) . DIRECTORY_SEPARATOR . $this->_activeLanguage . '.json';
 
             if (!file_exists($path)) {
                 $path = str_replace('/', DIRECTORY_SEPARATOR, $module) . DIRECTORY_SEPARATOR . 'en_UK.json';
             }
-
-            $this->_module = Output::getClean($module);
         }
 
         $this->_activeLanguageFile = $path;
 
         if (!file_exists($path)) {
-            throw new Exception('Language file ' . $path . ' does not exist');
+            throw new RuntimeException('Language file ' . $path . ' does not exist');
         }
 
         // HTML language definition
         if (!defined('HTML_LANG')) {
-            define('HTML_LANG', (LANGUAGES[$this->_activeLanguage] && LANGUAGES[$this->_activeLanguage]['htmlCode']) ?? 'en');
+            define('HTML_LANG', (LANGUAGES[$this->_activeLanguage] && LANGUAGES[$this->_activeLanguage]['htmlCode']) ?: 'en');
         }
 
         if (!defined('HTML_RTL')) {
-            define('HTML_RTL', (LANGUAGES[$this->_activeLanguage] && LANGUAGES[$this->_activeLanguage]['rtl']) ?? false);
+            define('HTML_RTL', LANGUAGES[$this->_activeLanguage] && LANGUAGES[$this->_activeLanguage]['rtl']);
         }
 
         $this->_i18n = new i18next($this->_activeLanguage, $this->_activeLanguageFile, 'en_UK');
@@ -84,12 +80,12 @@ class Language {
      *
      * @param string $key Section key.
      * @param ?string $term The term to translate.
-     * @param ?array $variables Any variables to pass through to the translation.
+     * @param array $variables Any variables to pass through to the translation.
      * @return string Translated phrase.
      */
-    public function get(string $key, ?string $term, ?array $variables = []): string {
+    public function get(string $key, ?string $term, array $variables = []): string {
         if ($term) {
-            $key = $key . '/' . $term;
+            $key .= '/' . $term;
         }
 
         return $this->_i18n->getTranslation($key, $variables);
