@@ -151,7 +151,7 @@ class RegisterEndpoint extends KeyAuthEndpoint {
             EventHandler::executeEvent('registerUser', [
                     'user_id' => $user_id,
                     'username' => $user->getDisplayname(),
-                    'content' => str_replace('{x}', $user->getDisplayname(), $api->getLanguage()->get('user', 'user_x_has_registered')),
+                    'content' => str_replace('{{user}}', $user->getDisplayname(), $api->getLanguage()->get('user', 'user_x_has_registered')),
                     'avatar_url' => $user->getAvatar(128, true),
                     'url' => Util::getSelfURL() . ltrim($user->getProfileURL(), '/'),
                     'language' => $api->getLanguage()
@@ -212,7 +212,7 @@ class RegisterEndpoint extends KeyAuthEndpoint {
         EventHandler::executeEvent('registerUser', [
                 'user_id' => $user_id,
                 'username' => Output::getClean($username),
-                'content' => str_replace('{x}', Output::getClean($username), $api->getLanguage()->get('user', 'user_x_has_registered')),
+                'content' => str_replace('{{user}}', Output::getClean($username), $api->getLanguage()->get('user', 'user_x_has_registered')),
                 'avatar_url' => $user->getAvatar(128, true),
                 'url' => Util::getSelfURL() . ltrim(URL::build('/profile/' . Output::getClean($username)), '/'),
                 'language' => $api->getLanguage()

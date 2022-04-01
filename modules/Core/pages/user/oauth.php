@@ -47,8 +47,8 @@ foreach ($user_providers as $user_provider) {
 $oauth_messsages = [];
 foreach ($providers as $name => $data) {
     $oauth_messsages[$name] = [
-        'unlink_confirm' => str_replace('{x}', ucfirst($name), $language->get('user', 'oauth_unlink_confirm')),
-        'link_confirm' => str_replace('{x}', ucfirst($name), $language->get('user', 'oauth_link_confirm')),
+        'unlink_confirm' => str_replace('{{provider}}', ucfirst($name), $language->get('user', 'oauth_unlink_confirm')),
+        'link_confirm' => str_replace('{{provider}}', ucfirst($name), $language->get('user', 'oauth_link_confirm')),
     ];
 }
 

@@ -404,7 +404,7 @@ if (Input::exists()) {
                                 'user_id' => $user_id,
                                 'username' => Input::get('username'),
                                 'uuid' => $uuid,
-                                'content' => str_replace('{x}', Input::get('username'), $language->get('user', 'user_x_has_registered')),
+                                'content' => str_replace('{{user}}', Input::get('username'), $language->get('user', 'user_x_has_registered')),
                                 'avatar_url' => $user->getAvatar(128, true),
                                 'url' => Util::getSelfURL() . ltrim(URL::build('/profile/' . Input::get('username')), '/'),
                                 'language' => $language
