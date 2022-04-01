@@ -148,15 +148,13 @@ if (!isset($_GET['action'])) {
                                 $basic = 0;
                             }
 
-                            $page_url = Output::getClean(rtrim(Input::get('page_url'), '/'));
-
                             $queries->create('custom_pages', [
-                                'url' => $page_url,
-                                'title' => Output::getClean(Input::get('page_title')),
-                                'content' => Output::getClean(Input::get('content')),
+                                'url' => rtrim(Input::get('page_url'), '/'),
+                                'title' => Input::get('page_title'),
+                                'content' => Input::get('content'),
                                 'link_location' => $location,
                                 'redirect' => $redirect,
-                                'link' => Output::getClean($link),
+                                'link' => $link,
                                 'target' => ($target == 1) ? 1 : 0,
                                 'all_html' => ($unsafe == 1) ? 1 : 0,
                                 'sitemap' => ($sitemap == 1) ? 1 : 0,
@@ -192,7 +190,6 @@ if (!isset($_GET['action'])) {
 
                             Session::flash('admin_pages', $language->get('admin', 'page_created_successfully'));
                             Redirect::to(URL::build('/panel/core/pages'));
-
                         } catch (Exception $e) {
                             $errors[] = $e->getMessage();
                         }
@@ -208,8 +205,8 @@ if (!isset($_GET['action'])) {
             $groups = DB::getInstance()->selectQuery('SELECT * FROM nl2_groups ORDER BY `order`')->results();
             $template_array = [];
             foreach ($groups as $group) {
-                $template_array[Output::getClean($group->id)] = [
-                    'id' => Output::getClean($group->id),
+                $template_array[$group->id] = [
+                    'id' => $group->id,
                     'name' => Output::getClean($group->name),
                     'html' => $group->group_html
                 ];
@@ -357,15 +354,13 @@ if (!isset($_GET['action'])) {
                                 $basic = 0;
                             }
 
-                            $page_url = Output::getClean(rtrim(Input::get('page_url'), '/'));
-
                             $queries->update('custom_pages', $page->id, [
-                                'url' => $page_url,
-                                'title' => Output::getClean(Input::get('page_title')),
-                                'content' => Output::getClean(Input::get('content')),
+                                'url' => rtrim(Input::get('page_url'), '/'),
+                                'title' => Input::get('page_title'),
+                                'content' => Input::get('content'),
                                 'link_location' => $location,
                                 'redirect' => $redirect,
-                                'link' => Output::getClean($link),
+                                'link' => $link,
                                 'target' => ($target == 1) ? 1 : 0,
                                 'all_html' => ($unsafe == 1) ? 1 : 0,
                                 'sitemap' => ($sitemap == 1) ? 1 : 0,
@@ -381,7 +376,7 @@ if (!isset($_GET['action'])) {
                                     if (is_array($pages) && count($pages)) {
                                         foreach ($pages as $widget_page) {
                                             if ($page->title == $widget_page) {
-                                                $new_pages[] = Output::getClean(Input::get('page_title'));
+                                                $new_pages[] = Input::get('page_title');
                                             } else {
                                                 $new_pages[] = $widget_page;
                                             }
@@ -400,7 +395,7 @@ if (!isset($_GET['action'])) {
                                     if (count($pages)) {
                                         foreach ($pages as $announcement_page) {
                                             if ($page->title == $announcement_page) {
-                                                $new_pages[] = Output::getClean(Input::get('page_title'));
+                                                $new_pages[] = Input::get('page_title');
                                             } else {
                                                 $new_pages[] = $announcement_page;
                                             }
