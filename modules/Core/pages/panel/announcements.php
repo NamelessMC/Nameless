@@ -98,7 +98,7 @@ if (!isset($_GET['action'])) {
                         foreach (Input::get('pages') as $page) {
                             $pages[] = $page;
                         }
-                        if (!$announcements->create($user, $pages, $all_groups, Output::getClean(Input::get('text_colour')), Output::getClean(Input::get('background_colour')), Output::getClean(Input::get('icon')), Output::getClean(Input::get('closable')), Output::getClean(Input::get('header')), Output::getClean(Input::get('message')), Output::getClean(Input::get('order')))) {
+                        if (!$announcements->create($user, $pages, $all_groups, Input::get('text_colour'), Input::get('background_colour'), Input::get('icon'), Input::get('closable'), Input::get('header'), Input::get('message'), Input::get('order'))) {
                             Session::flash('announcement_error', $language->get('admin', 'creating_announcement_failure'));
                         } else {
                             Session::flash('announcement_success', $language->get('admin', 'creating_announcement_success'));
@@ -116,8 +116,8 @@ if (!isset($_GET['action'])) {
             $groups = DB::getInstance()->selectQuery('SELECT * FROM nl2_groups ORDER BY `order`')->results();
             $template_array = [];
             foreach ($groups as $group) {
-                $template_array[Output::getClean($group->id)] = [
-                    'id' => Output::getClean($group->id),
+                $template_array[$group->id] = [
+                    'id' => $group->id,
                     'name' => Output::getClean($group->name),
                 ];
             }
@@ -186,7 +186,7 @@ if (!isset($_GET['action'])) {
                         foreach (Input::get('pages') as $page) {
                             $pages[] = $page;
                         }
-                        if (!$announcements->edit($announcement->id, $pages, $all_groups, Output::getClean(Input::get('text_colour')), Output::getClean(Input::get('background_colour')), Output::getClean(Input::get('icon')), Output::getClean(Input::get('closable')), Output::getClean(Input::get('header')), Output::getClean(Input::get('message')), Output::getClean(Input::get('order')))) {
+                        if (!$announcements->edit($announcement->id, $pages, $all_groups, Input::get('text_colour'), Input::get('background_colour'), Input::get('icon'), Output::getClean(Input::get('closable')), Input::get('header'), Input::get('message'), Input::get('order'))) {
                             Session::flash('announcement_error', $language->get('admin', 'editing_announcement_failure'));
                         } else {
                             Session::flash('announcement_success', $language->get('admin', 'editing_announcement_success'));

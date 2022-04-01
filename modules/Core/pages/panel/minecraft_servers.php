@@ -148,9 +148,9 @@ if (isset($_GET['action'])) {
                             }
 
                             $queries->create('mc_servers', [
-                                'ip' => Output::getClean(Input::get('server_address')),
-                                'query_ip' => Output::getClean(Input::get('server_address')),
-                                'name' => Output::getClean(Input::get('server_name')),
+                                'ip' => Input::get('server_address'),
+                                'query_ip' => Input::get('server_address'),
+                                'name' => Input::get('server_name'),
                                 'display' => $status,
                                 'pre' => $pre,
                                 'player_list' => $query,

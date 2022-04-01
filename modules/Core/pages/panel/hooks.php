@@ -81,9 +81,9 @@ if (!isset($_GET['action'])) {
 
                             // Save to database
                             $queries->create('hooks', [
-                                'name' => Output::getClean($_POST['hook_name']),
-                                'action' => Output::getClean($_POST['hook_type']),
-                                'url' => Output::getClean($_POST['hook_url']),
+                                'name' => $_POST['hook_name'],
+                                'action' => $_POST['hook_type'],
+                                'url' => $_POST['hook_url'],
                                 'events' => json_encode($events)
                             ]);
 

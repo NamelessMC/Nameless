@@ -165,7 +165,7 @@ if (Input::exists()) {
                 ]);
                 $topic_id = $queries->getLastId();
 
-                $content = Output::getClean(Input::get('content'));
+                $content = Input::get('content');
 
                 $queries->create('posts', [
                     'forum_id' => $fid,

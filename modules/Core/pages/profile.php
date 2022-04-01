@@ -166,7 +166,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                                     'post_id' => $_POST['post'],
                                     'author_id' => $user->data()->id,
                                     'time' => date('U'),
-                                    'content' => Output::getClean(Input::get('reply'))
+                                    'content' => Input::get('reply')
                                 ]
                             );
 

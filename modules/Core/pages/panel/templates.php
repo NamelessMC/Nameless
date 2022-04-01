@@ -160,7 +160,7 @@ if (!isset($_GET['action'])) {
                     $folders = explode(DIRECTORY_SEPARATOR, $directory);
 
                     // Is it already in the database?
-                    $exists = $queries->getWhere('templates', ['name', '=', Output::getClean($folders[count($folders) - 1])]);
+                    $exists = $queries->getWhere('templates', ['name', '=', $folders[count($folders) - 1]]);
                     if (!count($exists) && file_exists(ROOT_PATH . DIRECTORY_SEPARATOR . 'custom' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . str_replace(['../', '/', '..'], '', $folders[count($folders) - 1]) . DIRECTORY_SEPARATOR . 'template.php')) {
                         $template = null;
                         require_once(ROOT_PATH . DIRECTORY_SEPARATOR . 'custom' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . str_replace(['../', '/', '..'], '', $folders[count($folders) - 1]) . DIRECTORY_SEPARATOR . 'template.php');
@@ -169,7 +169,7 @@ if (!isset($_GET['action'])) {
                         if ($template instanceof TemplateBase) {
                             // No, add it now
                             $queries->create('templates', [
-                                'name' => Output::getClean($folders[count($folders) - 1])
+                                'name' => $folders[count($folders) - 1]
                             ]);
                         }
                     }

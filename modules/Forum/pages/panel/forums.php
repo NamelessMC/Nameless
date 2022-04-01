@@ -122,11 +122,11 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                                     }
 
                                     $queries->create('forums', [
-                                        'forum_title' => Output::getClean(Input::get('forumname')),
-                                        'forum_description' => Output::getClean($description),
+                                        'forum_title' => Input::get('forumname'),
+                                        'forum_description' => $description,
                                         'forum_order' => $last_forum_order + 1,
-                                        'forum_type' => Output::getClean(Input::get('forum_type')),
-                                        'icon' => Output::getClean(Input::get('forum_icon'))
+                                        'forum_type' => Input::get('forum_type'),
+                                        'icon' => Input::get('forum_icon')
                                     ]);
 
                                     $forum_id = $queries->getLastId();

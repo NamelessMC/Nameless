@@ -42,24 +42,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $queries = new Queries();
             $queries->create('settings', [
                 'name' => 'sitename',
-                'value' => Output::getClean(Input::get('sitename'))
+                'value' => Input::get('sitename')
             ]);
 
             $cache = new Cache();
             $cache->setCache('sitenamecache');
-            $cache->store('sitename', Output::getClean(Input::get('sitename')));
+            $cache->store('sitename', Input::get('sitename'));
 
             $queries->create('settings', [
                 'name' => 'incoming_email',
-                'value' => Output::getClean(Input::get('incoming'))
+                'value' => Input::get('incoming')
             ]);
 
             $queries->create('settings', [
                 'name' => 'outgoing_email',
-                'value' => Output::getClean(Input::get('outgoing'))
+                'value' => Input::get('outgoing')
             ]);
 
-            $_SESSION['default_language'] = Output::getClean(Input::get('language'));
+            $_SESSION['default_language'] = Input::get('language');
 
             Redirect::to('?step=site_initialization');
         } catch (Exception $e) {
