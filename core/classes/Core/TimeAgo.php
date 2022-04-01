@@ -37,7 +37,13 @@ class TimeAgo {
         $this->_timezone = $timezone;
     }
 
-    public function inWords(string|int $past, Language $language, string|int $now = 'now'): string {
+    /**
+     * @param string|int $past Past time
+     * @param Language $language
+     * @param string|int $now Current time (optional, defaults to now)
+     * @return string Time ago string
+     */
+    public function inWords($past, Language $language, $now = 'now'): string {
         // sets the default timezone
         date_default_timezone_set($this->_timezone);
         if (is_string($past)) {
