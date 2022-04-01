@@ -51,136 +51,118 @@ class TimeAgo {
         // less than 29secs
         if ($timeDifference <= 29) {
             $key = 'less_than_a_minute';
-        } else {
+        } else if ($timeDifference <= 89) {
             // more than 29secs and less than 1min29secss
-            if ($timeDifference <= 89) {
-                $key = '1_minute';
+            $key = '1_minute';
+        } else if ($timeDifference <= (($this->_secondsPerMinute * 44) + 29)) {
+            // between 1min30secs and 44mins29secs
+            $replace = floor($timeDifference / $this->_secondsPerMinute);
+            $key = '_minutes';
+        } else if (
+                    $timeDifference > (($this->_secondsPerMinute * 44) + 29)
+                    &&
+                    $timeDifference < (($this->_secondsPerMinute * 89) + 29)
+                ) {
+            // between 44mins30secs and 1hour29mins29secs
+            $key = 'about_1_hour';
+        } else if (
+                    $timeDifference > (
+                        ($this->_secondsPerMinute * 89) +
+                        29
+                    )
+                    &&
+                    $timeDifference <= (
+                        ($this->_secondsPerHour * 23) +
+                        ($this->_secondsPerMinute * 59) +
+                        29
+                    )
+                ) {
+            // between 1hour29mins30secs and 23hours59mins29secs
+            $replace = floor($timeDifference / $this->_secondsPerHour);
+            if ($replace == 1) {
+                $key = 'about_1_hour';
+                unset($replace);
             } else {
-                // between 1min30secs and 44mins29secs
-                if ($timeDifference <= (($this->_secondsPerMinute * 44) + 29)) {
-                    $replace = floor($timeDifference / $this->_secondsPerMinute);
-                    $key = '_minutes';
-                } else {
-                    // between 44mins30secs and 1hour29mins29secs
-                    if (
-                        $timeDifference > (($this->_secondsPerMinute * 44) + 29)
-                        &&
-                        $timeDifference < (($this->_secondsPerMinute * 89) + 29)
-                    ) {
-                        $key = 'about_1_hour';
-                    } else {
-                        // between 1hour29mins30secs and 23hours59mins29secs
-                        if (
-                            $timeDifference > (
-                                ($this->_secondsPerMinute * 89) +
-                                29
-                            )
-                            &&
-                            $timeDifference <= (
-                                ($this->_secondsPerHour * 23) +
-                                ($this->_secondsPerMinute * 59) +
-                                29
-                            )
-                        ) {
-                            $replace = floor($timeDifference / $this->_secondsPerHour);
-                            if ($replace == 1) {
-                                $key = 'about_1_hour';
-                                unset($replace);
-                            } else {
-                                $key = '_hours';
-                            }
-                        } else {
-                            // between 23hours59mins30secs and 47hours59mins29secs
-                            if (
-                                $timeDifference > (
-                                    ($this->_secondsPerHour * 23) +
-                                    ($this->_secondsPerMinute * 59) +
-                                    29
-                                )
-                                &&
-                                $timeDifference <= (
-                                    ($this->_secondsPerHour * 47) +
-                                    ($this->_secondsPerMinute * 59) +
-                                    29
-                                )
-                            ) {
-                                $key = '1_day';
-                            } else {
-                                // between 47hours59mins30secs and 29days23hours59mins29secs
-                                if (
-                                    $timeDifference > (
-                                        ($this->_secondsPerHour * 47) +
-                                        ($this->_secondsPerMinute * 59) +
-                                        29
-                                    )
-                                    &&
-                                    $timeDifference <= (
-                                        ($this->_secondsPerDay * 29) +
-                                        ($this->_secondsPerHour * 23) +
-                                        ($this->_secondsPerMinute * 59) +
-                                        29
-                                    )
-                                ) {
-                                    $replace = floor($timeDifference / $this->_secondsPerDay);
-                                    $key = '_days';
-                                } else {
-                                    // between 29days23hours59mins30secs and 59days23hours59mins29secs
-                                    if (
-                                        $timeDifference > (
-                                            ($this->_secondsPerDay * 29) +
-                                            ($this->_secondsPerHour * 23) +
-                                            ($this->_secondsPerMinute * 59) +
-                                            29
-                                        )
-                                        &&
-                                        $timeDifference <= (
-                                            ($this->_secondsPerDay * 59) +
-                                            ($this->_secondsPerHour * 23) +
-                                            ($this->_secondsPerMinute * 59) +
-                                            29
-                                        )
-                                    ) {
-                                        $key = 'about_1_month';
-                                    } else {
-                                        // between 59days23hours59mins30secs and 1year (minus 1sec)
-                                        if (
-                                            $timeDifference > (
-                                                ($this->_secondsPerDay * 59) +
-                                                ($this->_secondsPerHour * 23) +
-                                                ($this->_secondsPerMinute * 59) +
-                                                29
-                                            )
-                                            &&
-                                            $timeDifference < $this->_secondsPerYear
-                                        ) {
-                                            $replace = round($timeDifference / $this->_secondsPerMonth);
-                                            // if months is 1, then set it to 2, because we are "past" 1 month
-                                            if ($replace == 1) {
-                                                $replace = 2;
-                                            }
-
-                                            $key = '_months';
-                                        } else {
-                                            // between 1year and 2years (minus 1sec)
-                                            if (
-                                                $timeDifference >= $this->_secondsPerYear
-                                                &&
-                                                $timeDifference < ($this->_secondsPerYear * 2)
-                                            ) {
-                                                $key = 'about_1_year';
-                                            } else {
-                                                // 2years or more
-                                                $replace = floor($timeDifference / $this->_secondsPerYear);
-                                                $key = 'over_x_years';
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+                $key = '_hours';
             }
+        } else if (
+                    $timeDifference > (
+                        ($this->_secondsPerHour * 23) +
+                        ($this->_secondsPerMinute * 59) +
+                        29
+                    )
+                    &&
+                    $timeDifference <= (
+                        ($this->_secondsPerHour * 47) +
+                        ($this->_secondsPerMinute * 59) +
+                        29
+                    )
+                ) {
+            // between 23hours59mins30secs and 47hours59mins29sec
+            $key = '1_day';
+        } else if (
+                    $timeDifference > (
+                        ($this->_secondsPerHour * 47) +
+                        ($this->_secondsPerMinute * 59) +
+                        29
+                    )
+                    &&
+                    $timeDifference <= (
+                        ($this->_secondsPerDay * 29) +
+                        ($this->_secondsPerHour * 23) +
+                        ($this->_secondsPerMinute * 59) +
+                        29
+                    )
+                ) {
+            // between 47hours59mins30secs and 29days23hours59mins29secs
+            $replace = floor($timeDifference / $this->_secondsPerDay);
+            $key = '_days';
+        } else if (
+                    $timeDifference > (
+                        ($this->_secondsPerDay * 29) +
+                        ($this->_secondsPerHour * 23) +
+                        ($this->_secondsPerMinute * 59) +
+                        29
+                    )
+                    &&
+                    $timeDifference <= (
+                        ($this->_secondsPerDay * 59) +
+                        ($this->_secondsPerHour * 23) +
+                        ($this->_secondsPerMinute * 59) +
+                        29
+                    )
+                ) {
+            // between 29days23hours59mins30secs and 59days23hours59mins29secs
+            $key = 'about_1_month';
+        } else if (
+                    $timeDifference > (
+                        ($this->_secondsPerDay * 59) +
+                        ($this->_secondsPerHour * 23) +
+                        ($this->_secondsPerMinute * 59) +
+                        29
+                    )
+                    &&
+                    $timeDifference < $this->_secondsPerYear
+                ) {
+            // between 59days23hours59mins30secs and 1year (minus 1sec)
+            $replace = round($timeDifference / $this->_secondsPerMonth);
+            // if months is 1, then set it to 2, because we are "past" 1 month
+            if ($replace == 1) {
+                $replace = 2;
+            }
+
+            $key = '_months';
+        } else if (
+                    $timeDifference >= $this->_secondsPerYear
+                    &&
+                    $timeDifference < ($this->_secondsPerYear * 2)
+                ) {
+            // between 1year and 2years (minus 1sec)
+            $key = 'about_1_year';
+        } else {
+            // 2years or more
+            $replace = floor($timeDifference / $this->_secondsPerYear);
+            $key = 'over_x_years';
         }
 
         if (is_array($time_language[$key])) {
