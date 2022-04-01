@@ -94,7 +94,7 @@ if (!isset($_GET['action'])) {
             'last_message_user_profile' => $target_user->getProfileURL(),
             'last_message_user_avatar' => $target_user->getAvatar(30),
             'last_message_user_style' => $target_user->getGroupClass(),
-            'last_message_date' => $timeago->inWords(date('Y-m-d H:i:s', $nValue['updated']), $language),
+            'last_message_date' => $timeago->inWords($nValue['updated'], $language),
             'last_message_date_full' => date(DATE_FORMAT, $nValue['updated'])
         ];
     }
@@ -458,7 +458,7 @@ if (!isset($_GET['action'])) {
                 'author_avatar' => $target_user->getAvatar(100),
                 'author_style' => $target_user->getGroupClass(),
                 'author_groups' => $target_user->getAllGroupHtml(),
-                'message_date' => $timeago->inWords(date('Y-m-d H:i:s', $nValue->created), $language),
+                'message_date' => $timeago->inWords($nValue->created, $language),
                 'message_date_full' => date(DATE_FORMAT, $nValue->created),
                 'content' => Output::getPurified(Util::renderEmojis(Output::getDecoded($nValue->content))),
             ];
@@ -493,7 +493,7 @@ if (!isset($_GET['action'])) {
                 'author_avatar' => $target_user->getAvatar(100),
                 'author_style' => $target_user->getGroupClass(),
                 'author_groups' => $target_user->getAllGroupHtml(),
-                'message_date' => $timeago->inWords(date('Y-m-d H:i:s', $nValue->created), $language),
+                'message_date' => $timeago->inWords($nValue->created, $language),
                 'message_date_full' => date(DATE_FORMAT, $nValue->created),
                 'content' => Output::getPurified(Util::renderEmojis(Output::getDecoded($nValue->content))),
             ];

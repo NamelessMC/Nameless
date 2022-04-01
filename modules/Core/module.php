@@ -867,7 +867,7 @@ class Core_Module extends Module {
                     $user_query = $queries->getWhere('users', ['id', '=', $user_id]);
                     if (count($user_query)) {
                         $user_query = $user_query[0];
-                        $smarty->assign('REGISTERED', str_replace('{x}', $timeago->inWords(date('Y-m-d H:i:s', $user_query->joined), $language), $language->get('user', 'registered_x')));
+                        $smarty->assign('REGISTERED', str_replace('{x}', $timeago->inWords($user_query->joined, $language), $language->get('user', 'registered_x')));
                     }
                 }
             }

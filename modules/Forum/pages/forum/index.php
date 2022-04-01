@@ -82,7 +82,7 @@ if ($cache->isCached('forums')) {
                             $forums[$key]['subforums'][$subforum_id]->last_post->date_friendly = $timeago->inWords($forums[$key]['subforums'][$subforum_id]->last_post->post_date, $language);
                             $forums[$key]['subforums'][$subforum_id]->last_post->post_date = date(DATE_FORMAT, strtotime($forums[$key]['subforums'][$subforum_id]->last_post->post_date));
                         } else {
-                            $forums[$key]['subforums'][$subforum_id]->last_post->date_friendly = $timeago->inWords(date('Y-m-d H:i:s', $forums[$key]['subforums'][$subforum_id]->last_post->created), $language);
+                            $forums[$key]['subforums'][$subforum_id]->last_post->date_friendly = $timeago->inWords($forums[$key]['subforums'][$subforum_id]->last_post->created, $language);
                             $forums[$key]['subforums'][$subforum_id]->last_post->post_date = date(DATE_FORMAT, $forums[$key]['subforums'][$subforum_id]->last_post->created);
                         }
                     }

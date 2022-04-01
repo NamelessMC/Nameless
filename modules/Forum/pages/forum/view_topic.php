@@ -177,7 +177,7 @@ $smarty->assign([
     'TOPIC_AUTHOR_STYLE' => $topic_user->getGroupClass(),
     'TOPIC_ID' => $topic->id,
     'FORUM_ID' => $topic->forum_id,
-    'TOPIC_LAST_EDITED' => ($first_post->last_edited ? $timeago->inWords(date('Y-m-d H:i:s', $first_post->last_edited), $language) : null),
+    'TOPIC_LAST_EDITED' => ($first_post->last_edited ? $timeago->inWords($first_post->last_edited, $language) : null),
     'TOPIC_LAST_EDITED_FULL' => ($first_post->last_edited ? date(DATE_FORMAT, $first_post->last_edited) : null)
 ]);
 
@@ -679,7 +679,7 @@ foreach ($results->data as $n => $nValue) {
         $post_date_rough = $timeago->inWords($nValue->post_date, $language);
         $post_date = date(DATE_FORMAT, strtotime($nValue->post_date));
     } else {
-        $post_date_rough = $timeago->inWords(date('Y-m-d H:i:s', $nValue->created), $language);
+        $post_date_rough = $timeago->inWords($nValue->created, $language);
         $post_date = date(DATE_FORMAT, $nValue->created);
     }
 
@@ -692,7 +692,7 @@ foreach ($results->data as $n => $nValue) {
         'uuid' => Output::getClean($post_creator->data()->uuid),
         'username' => $post_creator->getDisplayname(),
         'mcname' => $post_creator->getDisplayname(true),
-        'last_seen' => str_replace('{x}', $timeago->inWords(date('Y-m-d H:i:s', $post_creator->data()->last_online), $language), $language->get('user', 'last_seen_x')),
+        'last_seen' => str_replace('{x}', $timeago->inWords($post_creator->data()->last_online, $language), $language->get('user', 'last_seen_x')),
         'last_seen_full' => date('d M Y', $post_creator->data()->last_online),
         'online_now' => $post_creator->data()->last_online > strtotime('5 minutes ago'),
         'user_title' => Output::getClean($post_creator->data()->user_title),
@@ -701,7 +701,7 @@ foreach ($results->data as $n => $nValue) {
         'user_groups' => $user_groups_html,
         'user_posts_count' => str_replace('{x}', count($queries->getWhere('posts', ['post_creator', '=', $nValue->post_creator])), $forum_language->get('forum', 'x_posts')),
         'user_topics_count' => str_replace('{x}', count($queries->getWhere('topics', ['topic_creator', '=', $nValue->post_creator])), $forum_language->get('forum', 'x_topics')),
-        'user_registered' => str_replace('{x}', $timeago->inWords(date('Y-m-d H:i:s', $post_creator->data()->joined), $language), $forum_language->get('forum', 'registered_x')),
+        'user_registered' => str_replace('{x}', $timeago->inWords($post_creator->data()->joined, $language), $forum_language->get('forum', 'registered_x')),
         'user_registered_full' => date('d M Y', $post_creator->data()->joined),
         'user_reputation' => $post_creator->data()->reputation,
         'post_date_rough' => $post_date_rough,
@@ -710,7 +710,7 @@ foreach ($results->data as $n => $nValue) {
         'content' => $content,
         'signature' => Output::getPurified(Util::renderEmojis($signature)),
         'fields' => (empty($fields) ? [] : $fields),
-        'edited' => (is_null($nValue->last_edited) ? null : str_replace('{x}', $timeago->inWords(date('Y-m-d H:i:s', $nValue->last_edited), $language), $forum_language->get('forum', 'last_edited'))),
+        'edited' => (is_null($nValue->last_edited) ? null : str_replace('{x}', $timeago->inWords($nValue->last_edited), $language, $forum_language->get('forum', 'last_edited'))),
         'edited_full' => (is_null($nValue->last_edited) ? null : date(DATE_FORMAT, $nValue->last_edited)),
         'post_reactions' => $post_reactions,
         'karma' => $total_karma

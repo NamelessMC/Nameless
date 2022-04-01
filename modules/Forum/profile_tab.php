@@ -67,7 +67,7 @@ if (!count($latest_posts)) {
             $date_friendly = $timeago->inWords($latest_post->post_date, $language);
             $date_full = date(DATE_FORMAT, strtotime($latest_post->post_date));
         } else {
-            $date_friendly = $timeago->inWords(date('Y-m-d H:i:s', $latest_post->created), $language);
+            $date_friendly = $timeago->inWords($latest_post->created, $language);
             $date_full = date(DATE_FORMAT, $latest_post->created);
         }
 

@@ -293,7 +293,7 @@ if (isset($_GET['user'])) {
                 'issued_by_style' => $issued_by_user->getGroupClass(),
                 'issued_by_avatar' => $issued_by_user->getAvatar(),
                 'date_full' => ($punishment->created ? date(DATE_FORMAT, $punishment->created) : date(DATE_FORMAT, strtotime($punishment->infraction_date))),
-                'date_friendly' => ($punishment->created ? $timeago->inWords(date('Y-m-d H:i:s', $punishment->created), $language) : $timeago->inWords($punishment->infraction_date, $language)),
+                'date_friendly' => ($punishment->created ? $timeago->inWords($punishment->created, $language) : $timeago->inWords($punishment->infraction_date, $language)),
                 'revoke_link' => (($user->hasPermission('modcp.punishments.revoke') && $punishment->type != 4) ? URL::build('/panel/users/punishments/', 'user=' . $query->id . '&do=revoke&id=' . $punishment->id) : 'none'),
                 'confirm_revoke_punishment' => (($punishment->type == 2) ? $language->get('moderator', 'confirm_revoke_warning') : $language->get('moderator', 'confirm_revoke_ban'))
             ];
@@ -422,7 +422,7 @@ if (isset($_GET['user'])) {
                 'revoked' => $result->revoked,
                 'acknowledged' => $result->acknowledged,
                 'time_full' => ($result->created ? date(DATE_FORMAT, $result->created) : date(DATE_FORMAT, strtotime($result->infraction_date))),
-                'time' => ($result->created ? $timeago->inWords(date('Y-m-d H:i:s', $result->created), $language) : $timeago->inWords($result->infraction_date, $language)),
+                'time' => ($result->created ? $timeago->inWords($result->created, $language) : $timeago->inWords($result->infraction_date, $language)),
                 'link' => URL::build('/panel/users/punishments/', 'user=' . $result->punished)
             ];
         }

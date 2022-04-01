@@ -78,7 +78,7 @@ class ProfilePostsWidget extends WidgetBase {
                     'date_ago' => date(DATE_FORMAT, $post->time),
                     'user_id' => $post->author_id,
                     'user_profile_link' => $post_author->getProfileURL(),
-                    'ago' => $this->_timeago->inWords(date('Y-m-d H:i:s', $post->time), $this->_language)
+                    'ago' => $this->_timeago->inWords($post->time, $this->_language)
                 ];
             }
             $this->_cache->store('profile_posts_' . $user_id, $posts_array, 120);
