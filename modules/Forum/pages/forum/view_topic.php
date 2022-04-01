@@ -177,8 +177,8 @@ $smarty->assign([
     'TOPIC_AUTHOR_STYLE' => $topic_user->getGroupClass(),
     'TOPIC_ID' => $topic->id,
     'FORUM_ID' => $topic->forum_id,
-    'TOPIC_LAST_EDITED' => ($first_post->last_edited ? $timeago->inWords(date('d M Y, H:i', $first_post->last_edited), $language->getTimeLanguage()) : null),
-    'TOPIC_LAST_EDITED_FULL' => ($first_post->last_edited ? date('d M Y, H:i', $first_post->last_edited) : null)
+    'TOPIC_LAST_EDITED' => ($first_post->last_edited ? $timeago->inWords(date('Y-m-d H:i:s', $first_post->last_edited), $language->getTimeLanguage()) : null),
+    'TOPIC_LAST_EDITED_FULL' => ($first_post->last_edited ? date(DATE_FORMAT, $first_post->last_edited) : null)
 ]);
 
 // Is there a label?
@@ -675,10 +675,10 @@ foreach ($results->data as $n => $nValue) {
     // Get post date
     if (is_null($nValue->created)) {
         $post_date_rough = $timeago->inWords($nValue->post_date, $language->getTimeLanguage());
-        $post_date = date('d M Y, H:i', strtotime($nValue->post_date));
+        $post_date = date(DATE_FORMAT, strtotime($nValue->post_date));
     } else {
-        $post_date_rough = $timeago->inWords(date('d M Y, H:i', $nValue->created), $language->getTimeLanguage());
-        $post_date = date('d M Y, H:i', $nValue->created);
+        $post_date_rough = $timeago->inWords(date('Y-m-d H:i:s', $nValue->created), $language->getTimeLanguage());
+        $post_date = date(DATE_FORMAT, $nValue->created);
     }
 
     $replies[] = [
@@ -709,7 +709,7 @@ foreach ($results->data as $n => $nValue) {
         'signature' => Output::getPurified(Util::renderEmojis($signature)),
         'fields' => (empty($fields) ? [] : $fields),
         'edited' => (is_null($nValue->last_edited) ? null : str_replace('{x}', $timeago->inWords(date('Y-m-d H:i:s', $nValue->last_edited), $language->getTimeLanguage()), $forum_language->get('forum', 'last_edited'))),
-        'edited_full' => (is_null($nValue->last_edited) ? null : date('d M Y, H:i', $nValue->last_edited)),
+        'edited_full' => (is_null($nValue->last_edited) ? null : date(DATE_FORMAT, $nValue->last_edited)),
         'post_reactions' => $post_reactions,
         'karma' => $total_karma
     ];

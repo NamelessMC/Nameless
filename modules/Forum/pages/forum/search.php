@@ -181,7 +181,7 @@ if (isset($_GET['s'])) {
                 'post_author_avatar' => $post_user->getAvatar(25),
                 'post_author_profile' => $post_user->getProfileURL(),
                 'post_author_style' => $post_user->getGroupClass(),
-                'post_date_full' => date('d M Y, H:i', strtotime($results->data[$n]['post_date'])),
+                'post_date_full' => date(DATE_FORMAT, strtotime($results->data[$n]['post_date'])),
                 'post_date_friendly' => $timeago->inWords($results->data[$n]['post_date'], $language->getTimeLanguage()),
                 'content' => $content,
                 'topic_title' => Output::getClean($results->data[$n]['topic_title']),

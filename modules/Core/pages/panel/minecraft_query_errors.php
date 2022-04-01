@@ -53,7 +53,7 @@ if (!isset($_GET['id'])) {
             $template_array[] = [
                 'ip' => Output::getClean($result->ip),
                 'port' => Output::getClean($result->port),
-                'date' => date('d M Y, H:i', $result->date),
+                'date' => date(DATE_FORMAT, $result->date),
                 'view_link' => URL::build('/panel/minecraft/query_errors/', 'id=' . Output::getClean($result->id)),
                 'delete_link' => URL::build('/panel/minecraft/query_errors/', 'action=delete&id=' . Output::getClean($result->id))
             ];
@@ -104,7 +104,7 @@ if (!isset($_GET['id'])) {
         'DATE' => $language->get('general', 'date'),
         'SERVER_ADDRESS_VALUE' => Output::getClean($query_error->ip),
         'SERVER_PORT_VALUE' => Output::getClean($query_error->port),
-        'DATE_VALUE' => date('d M Y, H:i', $query_error->date),
+        'DATE_VALUE' => date(DATE_FORMAT, $query_error->date),
         'ERROR_MESSAGE' => Output::getClean($query_error->error)
     ]);
 

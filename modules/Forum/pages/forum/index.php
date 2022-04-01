@@ -80,10 +80,10 @@ if ($cache->isCached('forums')) {
 
                         if (is_null($forums[$key]['subforums'][$subforum_id]->last_post->created)) {
                             $forums[$key]['subforums'][$subforum_id]->last_post->date_friendly = $timeago->inWords($forums[$key]['subforums'][$subforum_id]->last_post->post_date, $language->getTimeLanguage());
-                            $forums[$key]['subforums'][$subforum_id]->last_post->post_date = date('d M Y, H:i', strtotime($forums[$key]['subforums'][$subforum_id]->last_post->post_date));
+                            $forums[$key]['subforums'][$subforum_id]->last_post->post_date = date(DATE_FORMAT, strtotime($forums[$key]['subforums'][$subforum_id]->last_post->post_date));
                         } else {
-                            $forums[$key]['subforums'][$subforum_id]->last_post->date_friendly = $timeago->inWords(date('d M Y, H:i', $forums[$key]['subforums'][$subforum_id]->last_post->created), $language->getTimeLanguage());
-                            $forums[$key]['subforums'][$subforum_id]->last_post->post_date = date('d M Y, H:i', $forums[$key]['subforums'][$subforum_id]->last_post->created);
+                            $forums[$key]['subforums'][$subforum_id]->last_post->date_friendly = $timeago->inWords(date('Y-m-d H:i:s', $forums[$key]['subforums'][$subforum_id]->last_post->created), $language->getTimeLanguage());
+                            $forums[$key]['subforums'][$subforum_id]->last_post->post_date = date(DATE_FORMAT, $forums[$key]['subforums'][$subforum_id]->last_post->created);
                         }
                     }
 

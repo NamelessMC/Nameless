@@ -97,7 +97,7 @@ if (!isset($_GET['action'])) {
                     'description_short' => Util::truncate(Output::getPurified($item->description)),
                     'author' => Output::getClean($item->author),
                     'author_x' => str_replace('{x}', Output::getClean($item->author), $language->get('admin', 'author_x')),
-                    'updated_x' => str_replace('{x}', date('d M Y, H:i', $item->updated), $language->get('admin', 'updated_x')),
+                    'updated_x' => str_replace('{x}', date(DATE_FORMAT, $item->updated), $language->get('admin', 'updated_x')),
                     'url' => Output::getClean($item->url),
                     'latest_version' => Output::getClean($item->latest_version),
                     'rating' => Output::getClean($item->rating),

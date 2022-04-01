@@ -143,6 +143,9 @@ if ($page != 'install') {
     $nameless_version = $nameless_version[0]->value;
     define('NAMELESS_VERSION', $nameless_version);
 
+    // Set the date format
+    define('DATE_FORMAT', Config::get('core/date_format') ?: 'd M Y, H:i');
+
     // User initialisation
     $user = new User();
     // Do they need logging in (checked remember me)?
