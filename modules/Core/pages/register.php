@@ -498,7 +498,7 @@ $oauth_flow = Session::exists('oauth_register_data');
 if ($oauth_flow) {
     $data = json_decode(Session::get('oauth_register_data'), true);
     $smarty->assign('OAUTH_MESSAGE_CONTINUE', str_replace(
-        '{x}',
+        '{{providerName}}',
         ucfirst($data['provider']),
         $language->get('general', 'oauth_message_continue')
     ));

@@ -28,7 +28,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'delete') {
 
                 OAuth::getInstance()->unlinkProviderForUser($_POST['user_id'], $_POST['provider_name']);
 
-                Session::flash('oauth_success', str_replace('{x}', ucfirst($_POST['provider_name']), $language->get('admin', 'unlink_account_success')));
+                Session::flash('oauth_success', str_replace('{{providerName}}', ucfirst($_POST['provider_name']), $language->get('admin', 'unlink_account_success')));
             }
         }
         die();
