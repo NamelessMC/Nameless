@@ -255,7 +255,7 @@ if (isset($_GET['do'])) {
                             $timezone = Output::getClean(Input::get('timezone'));
 
                             if ($user->hasPermission('usercp.signature')) {
-                                $signature = Output::getClean(Input::get('signature'));
+                                $signature = Input::get('signature');
                             } else {
                                 $signature = '';
                             }
