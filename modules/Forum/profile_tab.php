@@ -61,7 +61,7 @@ if (!count($latest_posts)) {
         if (!count($topic_title)) {
             continue;
         }
-        $topic_title = htmlspecialchars($topic_title[0]->topic_title);
+        $topic_title = Output::getClean($topic_title[0]->topic_title);
 
         if (is_null($latest_post->created)) {
             $date_friendly = $timeago->inWords($latest_post->post_date, $language->getTimeLanguage());
@@ -74,7 +74,7 @@ if (!count($latest_posts)) {
         $posts[] = [
             'link' => URL::build('/forum/topic/' . $latest_post->topic_id . '-' . $forum->titleToURL($topic_title), 'pid=' . $latest_post->id),
             'title' => $topic_title,
-            'content' => Output::getPurified(Util::renderEmojis(htmlspecialchars_decode($latest_post->post_content))),
+            'content' => Output::getPurified(Util::renderEmojis($latest_post->post_content)),
             'date_friendly' => $date_friendly,
             'date_full' => $date_full
         ];

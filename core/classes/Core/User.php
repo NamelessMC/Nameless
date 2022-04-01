@@ -182,8 +182,8 @@ class User {
     public function getGroupClass(): string {
         $group = $this->getMainGroup();
 
-        $group_username_color = htmlspecialchars($group->group_username_color);
-        $group_username_css = htmlspecialchars($group->group_username_css);
+        $group_username_color = Output::getClean($group->group_username_color);
+        $group_username_css = Output::getClean($group->group_username_css);
 
         $css = '';
         if ($group_username_color) {

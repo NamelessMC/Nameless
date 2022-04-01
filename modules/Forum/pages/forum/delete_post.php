@@ -51,7 +51,7 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
                     $redirect = URL::build('/forum/topic/' . Input::get('tid'));
                 }
             } else {
-                $redirect = URL::build('/forum/search/', 'p=1&s=' . htmlspecialchars($_POST['search_string']));
+                $redirect = URL::build('/forum/search/', 'p=1&s=' . Output::getClean($_POST['search_string']));
             }
 
             $queries->update('posts', Input::get('pid'), [

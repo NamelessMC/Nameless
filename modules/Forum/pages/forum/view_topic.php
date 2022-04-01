@@ -272,13 +272,12 @@ if (Input::exists()) {
 
             // Get last post ID
             $last_post_id = $queries->getLastId();
-            $content = MentionsParser::parse(
-                $user->data()->id,
-                $content,
-                URL::build('/forum/topic/' . $tid, 'pid=' . $last_post_id),
-                ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag'],
-                ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag_info', 'replace' => '{x}', 'replace_with' => Output::getClean($user->data()->nickname)]
-            );
+            $content = EventHandler::executeEvent('prePostCreate', [
+                'content' => $content,
+                'post_id' => $last_post_id,
+                'topic_id' => $tid,
+                'user' => $user,
+            ])['content'];
 
             $queries->update('posts', $last_post_id, [
                 'post_content' => $content
@@ -709,7 +708,7 @@ foreach ($results->data as $n => $nValue) {
         'post_date' => $post_date,
         'buttons' => $buttons,
         'content' => $content,
-        'signature' => Output::getPurified(Util::renderEmojis(htmlspecialchars_decode($signature))),
+        'signature' => Output::getPurified(Util::renderEmojis($signature)),
         'fields' => (empty($fields) ? [] : $fields),
         'edited' => (is_null($nValue->last_edited) ? null : str_replace('{x}', $timeago->inWords(date('Y-m-d H:i:s', $nValue->last_edited), $language->getTimeLanguage()), $forum_language->get('forum', 'last_edited'))),
         'edited_full' => (is_null($nValue->last_edited) ? null : date(DATE_FORMAT, $nValue->last_edited)),

@@ -29,24 +29,37 @@ class EventHandler {
      * @param string $event Name of event to add.
      * @param string $description Human readable description.
      * @param array $params Array of available parameters and their descriptions.
+     * @param bool $return Whether to return $params afterwards
+     * @param bool $internal Whether to hide this hook from users in the StaffCP (ie for internal events)
      */
-    public static function registerEvent(string $event, string $description, array $params = []): void {
+    public static function registerEvent(
+        string $event,
+        string $description,
+        array $params = [],
+        bool $return = false,
+        bool $internal = false
+    ): void {
         // Don't re-register if the event already exists, just update the params and description.
         // This is to "fix" when registerListener is called for an event that has not been registered yet.
         if (isset(self::$_events[$event])) {
             self::$_events[$event]['description'] = $description;
+            self::$_events[$event]['internal'] = $internal;
 
             self::$_events[$event]['params'] = array_merge(
                 self::$_events[$event]['params'],
                 $params
             );
 
+            self::$_events[$event]['shouldReturn'] = $return;
+
             return;
         }
 
         self::$_events[$event] = [
             'description' => $description,
+            'internal' => $internal,
             'params' => $params,
+            'shouldReturn' => $return,
             'listeners' => [],
         ];
     }
@@ -58,8 +71,9 @@ class EventHandler {
      * @param string $event Event name to hook into (must be registered with `registerEvent()`).
      * @param callable $callback Listener callback to execute.
      * @param bool $advanced When true, the callback will be given specific parameters as per its method declaration, otherwise it will be given the raw $params array.
+     * @param int $priority Execution priority - higher gets executed first
      */
-    public static function registerListener(string $event, callable $callback, bool $advanced = false): void {
+    public static function registerListener(string $event, callable $callback, bool $advanced = false, int $priority = 10): void {
         if (!isset(self::$_events[$event])) {
             // Silently create event if it doesn't exist, maybe throw exception instead?
             self::registerEvent($event, $event);
@@ -68,6 +82,7 @@ class EventHandler {
         self::$_events[$event]['listeners'][] = [
             'callback' => $callback,
             'advanced' => $advanced,
+            'priority' => $priority,
         ];
     }
 
@@ -76,10 +91,12 @@ class EventHandler {
      *
      * @param string $event Event name to call.
      * @param array $params Params to pass to the event's function.
+     *
+     * @return array|null Response of hook, can be any type or null when event does not exist
      */
-    public static function executeEvent(string $event, array $params = []): void {
+    public static function executeEvent(string $event, array $params = []) {
         if (!isset(self::$_events[$event])) {
-            return;
+            return null;
         }
 
         if (!isset($params['event'])) {
@@ -88,43 +105,52 @@ class EventHandler {
 
         // Execute module listeners
         if (isset(self::$_events[$event]['listeners'])) {
-            foreach (self::$_events[$event]['listeners'] as $listener) {
+            $listeners = self::$_events[$event]['listeners'];
+
+            usort($listeners, static function($a, $b) {
+                return $b['priority'] <=> $a['priority'];
+            });
+
+            foreach ($listeners as $listener) {
                 $callback = $listener['callback'];
 
                 if ($listener['advanced'] === false) {
-                    $callback($params);
-                    continue;
-                }
+                    $response = $callback($params);
+                } else {
+                    $toPass = [];
 
-                $toPass = [];
-
-                foreach ((new ReflectionMethod($callback))->getParameters() as $callbackParam) {
-                    if (!isset($params[$callbackParam->getName()])) {
-                        throw new InvalidArgumentException(
-                            "Callable parameter: {$callbackParam->getName()}, is not set in event params (event: $event)"
-                        );
-                    }
-
-                    if ($callbackParam->getType() != null) {
-                        $eventParamType = get_debug_type($params[$callbackParam->getName()]);
-
-                        if ($callbackParam->getType()->getName() != $eventParamType) {
+                    foreach ((new ReflectionMethod($callback))->getParameters() as $callbackParam) {
+                        if (!isset($params[$callbackParam->getName()])) {
                             throw new InvalidArgumentException(
-                                "{$callbackParam->getName()} expected to be {$callbackParam->getType()->getName()}, but found: $eventParamType"
+                                "Callable parameter: {$callbackParam->getName()}, is not set in event params (event: $event)"
                             );
                         }
 
-                        if (!$callbackParam->getType()->isBuiltin()) {
-                            throw new InvalidArgumentException(
-                                "Callable parameter must be a built-in type, parameter {$callbackParam->getName()} expects: {$callbackParam->getType()->getName()}"
-                            );
+                        if ($callbackParam->getType() != null) {
+                            $eventParamType = get_debug_type($params[$callbackParam->getName()]);
+
+                            if ($callbackParam->getType()->getName() != $eventParamType) {
+                                throw new InvalidArgumentException(
+                                    "{$callbackParam->getName()} expected to be {$callbackParam->getType()->getName()}, but found: $eventParamType"
+                                );
+                            }
+
+                            if (!$callbackParam->getType()->isBuiltin()) {
+                                throw new InvalidArgumentException(
+                                    "Callable parameter must be a built-in type, parameter {$callbackParam->getName()} expects: {$callbackParam->getType()->getName()}"
+                                );
+                            }
                         }
+
+                        $toPass[] = $params[$callbackParam->getName()];
                     }
 
-                    $toPass[] = $params[$callbackParam->getName()];
+                    $response = $callback(...$toPass);
                 }
 
-                $callback(...$toPass);
+                if (self::$_events[$event]['shouldReturn'] && $response) {
+                    $params = $response;
+                }
             }
         }
 
@@ -142,18 +168,24 @@ class EventHandler {
                 }
             }
         }
+
+        return $params;
     }
 
     /**
      * Get a list of events.
      *
+     * @param bool $internal Whether to include internal events or not
+     *
      * @return array List of all currently registered events.
      */
-    public static function getEvents(): array {
+    public static function getEvents(bool $internal = false): array {
         $return = [];
 
         foreach (self::$_events as $name => $meta) {
-            $return[$name] = $meta['description'];
+            if (!$meta['internal'] || $internal) {
+                $return[$name] = $meta['description'];
+            }
         }
 
         return $return;

@@ -18,10 +18,10 @@ class UpdateUsernameEndpoint extends KeyAuthEndpoint {
     public function execute(Nameless2API $api, User $user): void {
         $api->validateParams($_POST, ['username']);
 
-        $fields = ['username' => Output::getClean($_POST['username'])];
+        $fields = ['username' => $_POST['username']];
 
         if (Util::getSetting($api->getDb(), 'displaynames') == 'false') {
-            $fields['nickname'] = Output::getClean($_POST['username']);
+            $fields['nickname'] = $_POST['username'];
         }
 
         try {

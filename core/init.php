@@ -325,7 +325,6 @@ if ($page != 'install') {
         'defined',
         'date',
         'explode',
-        'htmlspecialchars_decode',
         'implode',
         'strtolower',
         'strtoupper'

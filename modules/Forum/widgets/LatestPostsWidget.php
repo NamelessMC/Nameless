@@ -70,7 +70,7 @@ class LatestPostsWidget extends WidgetBase {
             while ($n < $limit) {
                 // Get the name of the forum from the ID
                 $forum_name = $queries->getWhere('forums', ['id', '=', $discussions[$n]['forum_id']]);
-                $forum_name = Output::getPurified(htmlspecialchars_decode($forum_name[0]->forum_title));
+                $forum_name = Output::getPurified($forum_name[0]->forum_title);
 
                 // Get the number of replies
                 $posts = $queries->getWhere('posts', ['topic_id', '=', $discussions[$n]['id']]);

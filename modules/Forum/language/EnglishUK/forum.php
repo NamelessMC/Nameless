@@ -204,6 +204,13 @@ $language = [
     'new_topic_text' => 'Topic created in {x} by {y}', // Don't replace {x} (forum name), optional variable {y} (topic author)
     'include_in_hook' => 'Include new topics from this forum in webhooks?',
     'available_hooks' => 'Available Hooks',
+    'pre_post_create_hook_info' => 'Pre post create',
+    'pre_post_edit_hook_info' => 'Pre post edit',
+    'pre_topic_create_hook_info' => 'Pre topic create',
+    'pre_topic_edit_hook_info' => 'Pre topic edit',
+    'post_id' => 'Post ID',
+    'topic_id' => 'Topic ID',
+    'user_object' => 'User object',
 
     // Panel statistics
     'recent_topics' => 'Recent Topics',

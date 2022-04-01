@@ -275,7 +275,7 @@ if (!isset($_GET['action'])) {
                 $folders = explode('/', $directory);
 
                 if (file_exists(ROOT_PATH . '/modules/' . $folders[count($folders) - 1] . '/init.php')) {
-                    $exists = $queries->getWhere('modules', ['name', '=', Output::getClean($folders[count($folders) - 1])]);
+                    $exists = $queries->getWhere('modules', ['name', '=', $folders[count($folders) - 1]]);
 
                     if (!count($exists)) {
                         $module = null;
@@ -285,7 +285,7 @@ if (!isset($_GET['action'])) {
                         /** @phpstan-ignore-next-line */
                         if ($module instanceof Module) {
                             $queries->create('modules', [
-                                'name' => Output::getClean($folders[count($folders) - 1])
+                                'name' => $folders[count($folders) - 1]
                             ]);
                             $module->onInstall();
                         }
