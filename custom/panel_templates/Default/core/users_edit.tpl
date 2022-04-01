@@ -147,7 +147,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="inputGroups">{$GROUPS}</label>
-                                <div class="card shadow border-left-warning">
+                                <div class="card shadow {if !isset($CANT_EDIT_GROUP)}border-left-info{else}border-left-warning{/if}">
                                     <div class="card-body">
                                         <strong>{$MAIN_GROUP_INFO}: </strong>{$MAIN_GROUP->name} {if isset($CANT_EDIT_GROUP)}<i>({$CANT_EDIT_GROUP})</i>{/if}
                                     </div>

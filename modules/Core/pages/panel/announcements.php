@@ -311,6 +311,7 @@ $smarty->assign([
     'NAME' => $language->get('admin', 'name'),
     'CAN_VIEW_ANNOUNCEMENT' => $language->get('admin', 'can_view_announcement'),
     'ANNOUNCEMENTS' => $language->get('admin', 'announcements'),
+    'NO_ITEM_SELECTED' => $language->get('admin', 'no_item_selected'),
 ]);
 
 $page_load = microtime(true) - $start;
