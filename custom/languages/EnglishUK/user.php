@@ -71,11 +71,11 @@ $language = [
     'gravatar' => 'Use Gravatar as avatar',
 
     // Alerts
-    'user_tag_info' => 'You have been tagged in a post by {{author}}.', // Don't replace {x}
+    'user_tag_info' => 'You have been tagged in a post by {{author}}.',
     'no_alerts' => 'No new alerts',
     'view_alerts' => 'View alerts',
     '1_new_alert' => 'You have {{count}} new alert',
-    'x_new_alerts' => 'You have {{count}} new alerts', // Don't replace {x}
+    'x_new_alerts' => 'You have {{count}} new alerts',
     'no_alerts_usercp' => 'You do not have any alerts.',
 
     // Registration
@@ -155,14 +155,14 @@ $language = [
     'follow' => 'Follow',
     'no_wall_posts' => 'There are no wall posts here yet.',
     'change_banner' => 'Change Banner',
-    'post_on_wall' => 'Post on {{user}}\'s wall', // Don't replace {x}
+    'post_on_wall' => 'Post on {{user}}\'s wall',
     'invalid_wall_post' => 'Please ensure your post is between {{min}} and {{max}} characters.',
     '1_reaction' => '{{count}} reaction',
-    'x_reactions' => '{{count}} reactions', // Don't replace {x}
+    'x_reactions' => '{{count}} reactions',
     '1_like' => '{{count}} like',
-    'x_likes' => '{{count}} likes', // Don't replace {x}
+    'x_likes' => '{{count}} likes',
     '1_reply' => '{{count}} reply',
-    'x_replies' => '{{count}} replies', // Don't replace {x}
+    'x_replies' => '{{count}} replies',
     'no_replies_yet' => 'No replies yet',
     'feed' => 'Feed',
     'about' => 'About',
@@ -172,7 +172,7 @@ $language = [
     'registered' => 'Registered:',
     'registered_x' => 'Registered: {{registeredAt}}',
     'last_seen' => 'Last Seen:',
-    'last_seen_x' => 'Last Seen: {{lastSeenAt}}', // Don't replace {x}
+    'last_seen_x' => 'Last Seen: {{lastSeenAt}}',
     'new_wall_post' => '{{author}} has posted on your profile.',
     'couldnt_find_that_user' => 'Couldn\'t find that user.',
     'block_user' => 'Block User',
@@ -183,8 +183,8 @@ $language = [
     'user_unblocked' => 'User unblocked.',
     'views' => 'Profile Views:',
     'private_profile_page' => 'This is a private profile!',
-    'new_wall_post_reply' => '{{author}} has replied to your post on {{user}}\'s profile.', // Don't replace {x} or {y}
-    'new_wall_post_reply_your_profile' => '{{author}} has replied to your post on your profile.', // Don't replace {x}
+    'new_wall_post_reply' => '{{author}} has replied to your post on {{user}}\'s profile.', or {y}
+    'new_wall_post_reply_your_profile' => '{{author}} has replied to your post on your profile.',
     'no_about_fields' => 'This user has not added any about fields yet.',
     'reply' => 'Reply',
 
@@ -198,7 +198,7 @@ $language = [
     'no_messages_full' => 'You do not have any messages.',
     'view_messages' => 'View messages',
     '1_new_message' => 'You have {{count}} new message',
-    'x_new_messages' => 'You have {{count}} new messages', // Don't replace {x}
+    'x_new_messages' => 'You have {{count}} new messages',
     'new_message' => 'New Message',
     'message_title' => 'Message Title',
     'to' => 'To',
@@ -238,11 +238,11 @@ $language = [
 
     // OAuth
     'oauth_unlinked' => 'Successfully unlinked your account from that provider.',
-    'oauth_already_linked' => 'Another NamelessMC user is already linked to that {{provider}} account.', // Don't replace {x}
-    'oauth_link_success' => 'Successfully linked your account with {{provider}}!', // Don't replace {x}
-    'no_user_found_with_provider' => 'No user found with that {{provider}} account.', // Don't replace {x}
-    'oauth_login_success' => 'You have logged in with your {{provider}} account.', // Don't replace {x}
-    'oauth_link_confirm' => 'You will be taken to the {{provider}} website to link your account.', // Don't replace {x}
-    'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {{provider}}.<br>You will not be able to login with this account anymore.', // Don't replace {x}
+    'oauth_already_linked' => 'Another NamelessMC user is already linked to that {{provider}} account.',
+    'oauth_link_success' => 'Successfully linked your account with {{provider}}!',
+    'no_user_found_with_provider' => 'No user found with that {{provider}} account.',
+    'oauth_login_success' => 'You have logged in with your {{provider}} account.',
+    'oauth_link_confirm' => 'You will be taken to the {{provider}} website to link your account.',
+    'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {{provider}}.<br>You will not be able to login with this account anymore.',
     'no_providers' => 'No OAuth providers are setup.'
 ];

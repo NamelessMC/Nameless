@@ -46,11 +46,11 @@ $language = [
     'alerts' => 'Alerts',
     'view_alerts' => 'View alerts',
     'no_alerts' => 'No alerts',
-    'x_new_alerts' => 'You have {{count}} new alerts.', // Don't replace {x}
+    'x_new_alerts' => 'You have {{count}} new alerts.',
     'messages' => 'Messages',
     'view_messages' => 'View messages',
     'no_messages' => 'No messages',
-    'x_new_messages' => 'You have {{count}} new messages.', // Don't replace {x}
+    'x_new_messages' => 'You have {{count}} new messages.',
     'loading' => 'Loading...',
     'report' => 'Report',
     'reported_by' => 'Reported by {{author}}',
@@ -58,8 +58,8 @@ $language = [
     'report_origin' => 'Origin',
     'origin_website' => 'Website',
     'origin_api' => 'API',
-    'page_loaded_in' => 'Page loaded in {{time}}s', // Don't replace {{time}}, time unit is seconds
-    'page_x' => 'Page {{page}}', // Don't replace {{page}}
+    'page_loaded_in' => 'Page loaded in {{time}}s',
+    'page_x' => 'Page {{page}}',
     'browse' => 'Browse',
     'bypass' => 'Bypass',
     'yes' => 'Yes',
@@ -98,20 +98,20 @@ $language = [
      */
     'online' => 'Online',
     'offline' => 'Offline',
-    'player_count' => '{{onlinePlayers}}/{{totalPlayers}}', // Don't replace {x} or {y}
-    'ping' => 'Ping: {{ping}}', // Don't replace {x}
-    'version' => 'Version: {{version}}', // Don't replace {x}
+    'player_count' => '{{onlinePlayers}}/{{totalPlayers}}',
+    'ping' => 'Ping: {{ping}}',
+    'version' => 'Version: {{version}}',
     'currently_1_player_online' => 'There is currently {{count}} player online.',
-    'currently_x_players_online' => 'There are currently {{count}} players online.', // Don't replace {x}
+    'currently_x_players_online' => 'There are currently {{count}} players online.',
     'server_offline' => 'The server is currently offline.',
-    'connect_with_ip_x' => 'Connect now using the IP {{address}}', // Don't replace {x}
+    'connect_with_ip_x' => 'Connect now using the IP {{address}}',
     'click_to_copy_tooltip' => 'Click to copy',
     'ip' => 'IP',
     'copied' => 'Copied!',
     'no_servers' => 'There are no servers to display!',
     'bungee_instance' => 'This server is a Bungee instance.',
     'no_players_online' => 'There are no players online.',
-    'and_x_more' => 'and {{count}} more', // Don't replace {x}
+    'and_x_more' => 'and {{count}} more',
 
     /*
      *  Cookie notice
@@ -157,5 +157,5 @@ $language = [
     /*
      * OAuth
      */
-    'oauth_message_continue' => 'Continue registering with {{providerName}}', // Don't replace {x}
+    'oauth_message_continue' => 'Continue registering with {{providerName}}',
 ];
