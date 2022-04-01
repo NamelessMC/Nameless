@@ -148,14 +148,16 @@
 
     {if !empty($ANNOUNCEMENTS)}
       {foreach from=$ANNOUNCEMENTS item=$ANNOUNCEMENT}
-        <div class="ui icon message announcement" id="announcement-{$ANNOUNCEMENT->id}" style="background-color:{$ANNOUNCEMENT->background_colour}; color:{$ANNOUNCEMENT->text_colour}">
-          {if $ANNOUNCEMENT->closable}<i class="close icon"></i>{/if}
-          {if isset($ANNOUNCEMENT->icon)}
-           <i class="{$ANNOUNCEMENT->icon}"></i>
+        <div class="ui {if $ANNOUNCEMENT->icon} icon {/if} message announcement" id="announcement-{$ANNOUNCEMENT->id}" style="background-color:{$ANNOUNCEMENT->background_colour}; color:{$ANNOUNCEMENT->text_colour}">
+          {if $ANNOUNCEMENT->closable}
+              <i class="close icon"></i>
+          {/if}
+          {if $ANNOUNCEMENT->icon}
+           <i class="{$ANNOUNCEMENT->icon} icon"></i>
           {/if}
           <div class="content">
             <div class="header">{$ANNOUNCEMENT->header}</div>
-            <p>{$ANNOUNCEMENT->message}</p>
+            <p>{$ANNOUNCEMENT->message|escape}</p>
           </div>
         </div>
       {/foreach}
