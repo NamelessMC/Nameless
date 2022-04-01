@@ -60,8 +60,8 @@ class RecentRegistrationsItem extends CollectionItemBase {
                         'avatar' => $target_user->getAvatar(),
                         'uuid' => Output::getClean($item->uuid),
                         'groups' => $target_user->getAllGroupHtml(),
-                        'time' => $timeago->inWords(date('d M Y, H:i', $item->joined), $this->_language->getTimeLanguage()),
-                        'time_full' => date('d M Y, H:i', $item->joined)
+                        'time' => $timeago->inWords(date('Y-m-d H:i:s', $item->joined), $this->_language->getTimeLanguage()),
+                        'time_full' => date(DATE_FORMAT, $item->joined)
                     ];
 
                     if (++$i == 5) {

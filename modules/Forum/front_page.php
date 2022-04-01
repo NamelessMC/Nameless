@@ -26,7 +26,7 @@ if ($cache->isCached('news')) {
         $news[] = [
             'id' => $item['topic_id'],
             'url' => URL::build('/forum/topic/' . $item['topic_id'] . '-' . $forum->titleToURL($item['topic_title'])),
-            'date' => date('d M Y, H:i', strtotime($item['topic_date'])),
+            'date' => date(DATE_FORMAT, strtotime($item['topic_date'])),
             'time_ago' => $timeago->inWords($item['topic_date'], $language->getTimeLanguage()),
             'title' => Output::getClean($item['topic_title']),
             'views' => $item['topic_views'],
