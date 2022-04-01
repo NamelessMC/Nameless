@@ -39,7 +39,7 @@ if ($cache->isCached('news')) {
             'author_avatar' => $post_user->getAvatar(64),
             'author_group' => Output::getClean($post_user->getMainGroup()->name),
             'author_group_html' => $post_user->getMainGroup()->group_html,
-            'content' => Output::getPurified($item['content']),
+            'content' => Output::getPurified(Util::renderEmojis($item['content'])),
             'label' => $item['label'],
             'labels' => $item['labels']
         ];
