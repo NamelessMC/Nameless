@@ -456,9 +456,9 @@ class Forum {
             $posts = count($news_post);
 
             if (is_null($news_post[0]->created)) {
-                $post_date = date('d M Y, H:i', strtotime($news_post[0]->post_date));
+                $post_date = date(DATE_FORMAT, strtotime($news_post[0]->post_date));
             } else {
-                $post_date = date('d M Y, H:i', $news_post[0]->created);
+                $post_date = date(DATE_FORMAT, $news_post[0]->created);
             }
 
             $labels = [];

@@ -111,14 +111,14 @@ if (!isset($_GET['id'])) {
                 'user_reported_style' => $user_style,
                 'user_reported_avatar' => $user_avatar,
                 'reported_at' => ($report->reported ? $timeago->inWords(date('Y-m-d H:i:s', $report->reported), $language) : $timeago->inWords($report->date_reported, $language)),
-                'reported_at_full' => ($report->reported ? date('d M Y, H:i', $report->reported) : date('d M Y, H:i', strtotime($report->date_reported))),
+                'reported_at_full' => ($report->reported ? date(DATE_FORMAT, $report->reported) : date(DATE_FORMAT, strtotime($report->date_reported))),
                 'link' => URL::build('/panel/users/reports/', 'id=' . $report->id),
                 'updated_by' => $updated_by_user->getDisplayname(),
                 'updated_by_profile' => URL::build('/panel/user/' . Output::getClean($report->updated_by . '-' . $updated_by_user->data()->username)),
                 'updated_by_style' => $updated_by_user->getGroupClass(),
                 'updated_by_avatar' => $updated_by_user->getAvatar(),
                 'updated_at' => ($report->updated ? $timeago->inWords(date('Y-m-d H:i:s', $report->updated), $language) : $timeago->inWords($report->date_updated, $language)),
-                'updated_at_full' => ($report->updated ? date('d M Y, H:i', $report->updated) : date('d M Y, H:i', strtotime($report->date_updated))),
+                'updated_at_full' => ($report->updated ? date(DATE_FORMAT, $report->updated) : date(DATE_FORMAT, strtotime($report->date_updated))),
                 'comments' => $comments
             ];
         }
@@ -212,7 +212,7 @@ if (!isset($_GET['id'])) {
                 'style' => $comment_user->getGroupClass(),
                 'avatar' => $comment_user->getAvatar(),
                 'content' => Output::getPurified(Output::getDecoded($comment->comment_content)),
-                'date' => ($comment->date ? date('d M Y, H:i', $comment->date) : date('d M Y, H:i', strtotime($comment->comment_date))),
+                'date' => ($comment->date ? date(DATE_FORMAT, $comment->date) : date(DATE_FORMAT, strtotime($comment->comment_date))),
                 'date_friendly' => ($comment->date ? $timeago->inWords(date('Y-m-d H:i:s', $comment->date), $language) : $timeago->inWords($comment->comment_date, $language))
             ];
         }
@@ -250,7 +250,7 @@ if (!isset($_GET['id'])) {
             'REPORTED_USER_PROFILE' => $reported_user_profile,
             'REPORTED_USER_STYLE' => $reported_user_style,
             'REPORTED_USER_AVATAR' => $reported_user_avatar,
-            'REPORT_DATE' => ($report->reported ? date('d M Y, H:i', $report->reported) : date('d M Y, H:i', strtotime($report->date_reported))),
+            'REPORT_DATE' => ($report->reported ? date(DATE_FORMAT, $report->reported) : date(DATE_FORMAT, strtotime($report->date_reported))),
             'REPORT_DATE_FRIENDLY' => ($report->reported ? $timeago->inWords(date('Y-m-d H:i:s', $report->reported), $language) : $timeago->inWords($report->date_reported, $language)),
             'CONTENT_LINK' => $report->link,
             'VIEW_CONTENT' => $language->get('moderator', 'view_content'),

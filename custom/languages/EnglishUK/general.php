@@ -140,6 +140,12 @@ $language = [
     'server_status' => 'Server Status',
 
     /*
+     *  Internet Explorer warning
+     */
+    'internet_explorer_header' => 'Internet Explorer',
+    'internet_explorer_info' => 'Internet Explorer is not supported. Please upgrade to a more modern browser.',
+
+    /*
      *  Privacy policy
      */
     'privacy_policy' => 'Privacy Policy',

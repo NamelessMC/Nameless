@@ -87,7 +87,7 @@ class RecentReportsItem extends CollectionItemBase {
                         'reported_uuid' => Output::getClean($reported_user->data()->uuid),
                         'reported_profile' => URL::build('/panel/user/' . Output::getClean($reported_user->data()->id) . '-' . Output::getClean($reported_user->data()->username)),
                         'time' => $timeago->inWords($item->date_reported, $this->_language),
-                        'time_full' => date('d M Y, H:i', strtotime($item->date_reported)),
+                        'time_full' => date(DATE_FORMAT, strtotime($item->date_reported)),
                         'type' => $item->type,
                         'reason' => Output::getPurified($item->report_reason),
                         'link' => Output::getClean($item->link),

@@ -100,7 +100,7 @@ class RecentPunishmentsItem extends CollectionItemBase {
                         'staff_uuid' => Output::getClean($staff_user->data()->uuid),
                         'staff_profile' => URL::build('/panel/user/' . Output::getClean($staff_user->data()->id) . '-' . Output::getClean($staff_user->data()->username)),
                         'time' => ($item->created ? $timeago->inWords(date('Y-m-d H:i:s', $item->created), $this->_language) : $timeago->inWords($item->infraction_date, $this->_language)),
-                        'time_full' => ($item->created ? date('d M Y, H:i', $item->created) : date('d M Y, H:i', strtotime($item->infraction_date))),
+                        'time_full' => ($item->created ? date(DATE_FORMAT, $item->created) : date(DATE_FORMAT, strtotime($item->infraction_date))),
                         'type' => $item->type,
                         'reason' => Output::getPurified($item->reason),
                         'acknowledged' => $item->acknowledged,

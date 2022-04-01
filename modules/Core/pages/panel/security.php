@@ -95,7 +95,7 @@ if (!isset($_GET['view'])) {
                         'content' => '<a href="' . URL::build('/panel/users/ip_lookup/', 'ip=' . Output::getClean($log->ip)) . '">' . Output::getClean($log->ip) . '</a>'
                     ],
                     2 => [
-                        'content' => date('d M Y, H:i', $log->time),
+                        'content' => date(DATE_FORMAT, $log->time),
                         'order' => Output::getClean($log->time)
                     ]
                 ];
@@ -131,7 +131,7 @@ if (!isset($_GET['view'])) {
                         'content' => '<a href="' . URL::build('/panel/users/ip_lookup/', 'ip=' . Output::getClean($log->ip)) . '">' . Output::getClean($log->ip) . '</a>'
                     ],
                     2 => [
-                        'content' => date('d M Y, H:i', $log->time),
+                        'content' => date(DATE_FORMAT, $log->time),
                         'order' => Output::getClean($log->time)
                     ],
                     3 => [
@@ -169,7 +169,7 @@ if (!isset($_GET['view'])) {
                         'content' => '<a href="' . URL::build('/panel/users/ip_lookup/', 'ip=' . Output::getClean($log->ip)) . '">' . Output::getClean($log->ip) . '</a>'
                     ],
                     2 => [
-                        'content' => date('d M Y, H:i', $log->time),
+                        'content' => date(DATE_FORMAT, $log->time),
                         'order' => Output::getClean($log->time)
                     ],
                 ];
@@ -214,7 +214,7 @@ if (!isset($_GET['view'])) {
                         'content' => '<a style="' . $target_user->getGroupClass() . '" href="' . URL::build('/panel/user/' . Output::getClean($log->user_id . '-' . $target_user->getDisplayname(true))) . '">' . $target_user->getDisplayname() . '</a>'
                     ],
                     1 => [
-                        'content' => date('d M Y, H:i', $log->time),
+                        'content' => date(DATE_FORMAT, $log->time),
                         'order' => Output::getClean($log->time)
                     ],
                     2 => [
@@ -261,7 +261,7 @@ if (!isset($_GET['view'])) {
                         'content' => '<a href="' . URL::build('/panel/users/ip_lookup/', 'ip=' . Output::getClean($log->ip)) . '">' . Output::getClean($log->ip) . '</a>'
                     ],
                     2 => [
-                        'content' => date('d M Y, H:i', $log->time),
+                        'content' => date(DATE_FORMAT, $log->time),
                         'order' => Output::getClean($log->time)
                     ],
                     3 => [

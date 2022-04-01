@@ -38,8 +38,8 @@ if (!isset($_GET['view'])) {
         while ($n < $limit) {
             // Only display 30 alerts
             // Get date
-            $alerts[$n]->date = date('d M Y, H:i', $alerts[$n]->created);
-            $alerts[$n]->date_nice = $timeago->inWords(date('d M Y, H:i', $alerts[$n]->created), $language);
+            $alerts[$n]->date = date(DATE_FORMAT, $alerts[$n]->created);
+            $alerts[$n]->date_nice = $timeago->inWords(date('Y-m-d H:i:s', $alerts[$n]->created), $language);
             $alerts[$n]->view_link = URL::build('/user/alerts/', 'view=' . $alerts[$n]->id);
 
             $alerts_limited[] = $alerts[$n];
