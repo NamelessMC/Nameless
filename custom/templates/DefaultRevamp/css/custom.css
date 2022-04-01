@@ -931,6 +931,16 @@ select {
     vertical-align: middle;
 }
 
+#ie-message {
+    display: none;
+}
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    #ie-message {
+        display: initial;
+    }
+}
+
 /*
  *  [ DARK MODE ]
  */

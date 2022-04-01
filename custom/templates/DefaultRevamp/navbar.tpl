@@ -116,6 +116,15 @@
       </div>
     </div>
   <div class="ui container">
+    <div class="ui negative icon message" id="ie-message">
+      <i class="exclamation triangle icon"></i>
+      <div class="content">
+        <div class="header">
+          {$INTERNET_EXPLORER_HEADER}
+        </div>
+        <p>{$INTERNET_EXPLORER_INFO}</p>
+      </div>
+    </div>
 
     {if isset($NEW_UPDATE)}
       {if $NEW_UPDATE_URGENT eq true}
