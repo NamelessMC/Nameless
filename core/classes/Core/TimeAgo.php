@@ -1,9 +1,5 @@
 <?php
 
-function timeAgoInWords(string $timestring, string $timezone = null): string {
-    return (new TimeAgo($timezone))->inWords($timestring, 'now');
-}
-
 /**
  * This class can help you find out just how much time has passed between two dates.
  * It has two functions you can call:
