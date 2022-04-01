@@ -48,7 +48,7 @@ foreach ($leaderboard_placeholders as $leaderboard_placeholder) {
         $row_data->username = Output::getClean($leaderboard_users[$uuid]->username);
         $row_data->avatar = AvatarSource::getAvatarFromUUID($uuid, 24);
         $row_data->value = $row->value;
-        $row_data->last_updated = ucfirst($timeago->inWords(date(DATE_FORMAT, $row->last_updated), $language->getTimeLanguage()));
+        $row_data->last_updated = ucfirst($timeago->inWords(date('Y-m-d H:i:s', $row->last_updated), $language->getTimeLanguage()));
 
         $leaderboard_placeholders_data[] = $row_data;
     }

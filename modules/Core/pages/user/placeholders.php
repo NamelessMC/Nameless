@@ -35,7 +35,7 @@ foreach ($user->getPlaceholders() as $placeholder) {
         'name' => $placeholder->name,
         'friendly_name' => $placeholder->friendly_name,
         'value' => $placeholder->value,
-        'last_updated' => ucfirst($timeago->inWords(date(DATE_FORMAT, $placeholder->last_updated), $language->getTimeLanguage())),
+        'last_updated' => ucfirst($timeago->inWords(date('Y-m-d H:i:s', $placeholder->last_updated), $language->getTimeLanguage())),
         'show_on_profile' => $placeholder->show_on_profile,
         'show_on_forum' => $placeholder->show_on_forum
     ];

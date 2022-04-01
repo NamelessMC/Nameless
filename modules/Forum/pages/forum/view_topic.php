@@ -177,7 +177,7 @@ $smarty->assign([
     'TOPIC_AUTHOR_STYLE' => $topic_user->getGroupClass(),
     'TOPIC_ID' => $topic->id,
     'FORUM_ID' => $topic->forum_id,
-    'TOPIC_LAST_EDITED' => ($first_post->last_edited ? $timeago->inWords(date(DATE_FORMAT, $first_post->last_edited), $language->getTimeLanguage()) : null),
+    'TOPIC_LAST_EDITED' => ($first_post->last_edited ? $timeago->inWords(date('Y-m-d H:i:s', $first_post->last_edited), $language->getTimeLanguage()) : null),
     'TOPIC_LAST_EDITED_FULL' => ($first_post->last_edited ? date(DATE_FORMAT, $first_post->last_edited) : null)
 ]);
 
@@ -679,7 +679,7 @@ foreach ($results->data as $n => $nValue) {
         $post_date_rough = $timeago->inWords($nValue->post_date, $language->getTimeLanguage());
         $post_date = date(DATE_FORMAT, strtotime($nValue->post_date));
     } else {
-        $post_date_rough = $timeago->inWords(date(DATE_FORMAT, $nValue->created), $language->getTimeLanguage());
+        $post_date_rough = $timeago->inWords(date('Y-m-d H:i:s', $nValue->created), $language->getTimeLanguage());
         $post_date = date(DATE_FORMAT, $nValue->created);
     }
 

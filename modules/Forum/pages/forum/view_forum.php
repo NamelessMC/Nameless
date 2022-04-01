@@ -214,7 +214,7 @@ if ($forum_query->redirect_forum == 1) {
                     $latest_post_user_displayname = $latest_post_user->getDisplayname();
                     $latest_post_user_link = $latest_post_user->getProfileURL();
                     $latest_post_style = $latest_post_user->getGroupClass();
-                    $latest_post_date_timeago = $timeago->inWords(date(DATE_FORMAT, $latest_post->topic_reply_date), $language->getTimeLanguage());
+                    $latest_post_date_timeago = $timeago->inWords(date('Y-m-d H:i:s', $latest_post->topic_reply_date), $language->getTimeLanguage());
                     $latest_post_time = date(DATE_FORMAT, $latest_post->topic_reply_date);
                     $latest_post_user_id = Output::getClean($latest_post->topic_last_user);
 
@@ -358,7 +358,7 @@ if ($forum_query->redirect_forum == 1) {
             $sticky_array[] = [
                 'topic_title' => Output::getClean($sticky->topic_title),
                 'topic_id' => $sticky->id,
-                'topic_created_rough' => $timeago->inWords(date(DATE_FORMAT, $sticky->topic_date), $language->getTimeLanguage()),
+                'topic_created_rough' => $timeago->inWords(date('Y-m-d H:i:s', $sticky->topic_date), $language->getTimeLanguage()),
                 'topic_created' => date(DATE_FORMAT, $sticky->topic_date),
                 'topic_created_username' => $topic_user->getDisplayname(),
                 'topic_created_mcname' => $topic_user->getDisplayname(true),
@@ -368,7 +368,7 @@ if ($forum_query->redirect_forum == 1) {
                 'locked' => $sticky->locked,
                 'posts' => $replies,
                 'last_reply_avatar' => $last_reply_user->getAvatar(),
-                'last_reply_rough' => $timeago->inWords(date(DATE_FORMAT, $sticky->topic_reply_date), $language->getTimeLanguage()),
+                'last_reply_rough' => $timeago->inWords(date('Y-m-d H:i:s', $sticky->topic_reply_date), $language->getTimeLanguage()),
                 'last_reply' => date(DATE_FORMAT, $sticky->topic_reply_date),
                 'last_reply_username' => $last_reply_user->getDisplayname(),
                 'last_reply_mcname' => $last_reply_user->getDisplayname(true),
@@ -463,7 +463,7 @@ if ($forum_query->redirect_forum == 1) {
             $template_array[] = [
                 'topic_title' => Output::getClean($nValue->topic_title),
                 'topic_id' => $nValue->id,
-                'topic_created_rough' => $timeago->inWords(date(DATE_FORMAT, $nValue->topic_date), $language->getTimeLanguage()),
+                'topic_created_rough' => $timeago->inWords(date('Y-m-d H:i:s', $nValue->topic_date), $language->getTimeLanguage()),
                 'topic_created' => date(DATE_FORMAT, $nValue->topic_date),
                 'topic_created_username' => $topic_user->getDisplayname(),
                 'topic_created_mcname' => $topic_user->getDisplayname(true),
@@ -473,7 +473,7 @@ if ($forum_query->redirect_forum == 1) {
                 'views' => $nValue->topic_views,
                 'posts' => $replies,
                 'last_reply_avatar' => $last_reply_user->getAvatar(),
-                'last_reply_rough' => $timeago->inWords(date(DATE_FORMAT, $nValue->topic_reply_date), $language->getTimeLanguage()),
+                'last_reply_rough' => $timeago->inWords(date('Y-m-d H:i:s', $nValue->topic_reply_date), $language->getTimeLanguage()),
                 'last_reply' => date(DATE_FORMAT, $nValue->topic_reply_date),
                 'last_reply_username' => $last_reply_user->getDisplayname(),
                 'last_reply_mcname' => $last_reply_user->getDisplayname(true),

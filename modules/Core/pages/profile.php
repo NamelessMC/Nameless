@@ -616,7 +616,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                         'style' => $target_user->getGroupClass(),
                         'profile' => $target_user->getProfileURL(),
                         'avatar' => $target_user->getAvatar(500),
-                        'time_friendly' => $timeago->inWords(date(DATE_FORMAT, $reply->time), $language->getTimeLanguage()),
+                        'time_friendly' => $timeago->inWords(date('Y-m-d H:i:s', $reply->time), $language->getTimeLanguage()),
                         'time_full' => date(DATE_FORMAT, $reply->time),
                         'content' => Output::getPurified($reply->content),
                         'self' => (($user->isLoggedIn() && $user->data()->id == $reply->author_id) ? 1 : 0),
@@ -638,7 +638,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                 'user_style' => $target_user->getGroupClass(),
                 'avatar' => $target_user->getAvatar(500),
                 'content' => Output::getPurified($nValue->content),
-                'date_rough' => $timeago->inWords(date(DATE_FORMAT, $nValue->time), $language->getTimeLanguage()),
+                'date_rough' => $timeago->inWords(date('Y-m-d H:i:s', $nValue->time), $language->getTimeLanguage()),
                 'date' => date(DATE_FORMAT, $nValue->time),
                 'reactions' => $reactions,
                 'replies' => $replies,
@@ -734,7 +734,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
             'title' => $profile_placeholder->friendly_name,
             'type' => 'text',
             'value' => $profile_placeholder->value,
-            'tooltip' => $language->get('admin', 'placeholders_last_updated') . ': ' . $timeago->inWords(date(DATE_FORMAT, $profile_placeholder->last_updated), $language->getTimeLanguage()),
+            'tooltip' => $language->get('admin', 'placeholders_last_updated') . ': ' . $timeago->inWords(date('Y-m-d H:i:s', $profile_placeholder->last_updated), $language->getTimeLanguage()),
         ];
     }
 
@@ -742,13 +742,13 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     $fields['registered'] = [
         'title' => $language->get('user', 'registered'),
         'type' => 'text',
-        'value' => $timeago->inWords(date(DATE_FORMAT, $query->joined), $language->getTimeLanguage()),
+        'value' => $timeago->inWords(date('Y-m-d H:i:s', $query->joined), $language->getTimeLanguage()),
         'tooltip' => date(DATE_FORMAT, $query->joined)
     ];
     $fields['last_seen'] = [
         'title' => $language->get('user', 'last_seen'),
         'type' => 'text',
-        'value' => $timeago->inWords(date(DATE_FORMAT, $query->last_online), $language->getTimeLanguage()),
+        'value' => $timeago->inWords(date('Y-m-d H:i:s', $query->last_online), $language->getTimeLanguage()),
         'tooltip' => date(DATE_FORMAT, $query->last_online)
     ];
 
