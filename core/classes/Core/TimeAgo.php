@@ -36,18 +36,15 @@ class TimeAgo {
     /**
      * @param string|int $past Past time
      * @param Language $language
-     * @param string|int $now Current time (optional, defaults to now)
      * @return string Time ago string
      */
-    public function inWords($past, Language $language, $now = 'now'): string {
+    public function inWords($past, Language $language): string {
         // sets the default timezone
         date_default_timezone_set($this->_timezone);
         if (is_string($past)) {
             $past = strtotime($past);
         }
-        if (is_string($now)) {
-            $now = strtotime($now);
-        }
+        $now = strtotime($now);
 
         // finds the time difference
         $timeDifference = $now - $past;
