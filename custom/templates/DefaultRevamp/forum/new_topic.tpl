@@ -25,8 +25,8 @@
       <div class="ui sixteen wide tablet twelve wide computer column">
         <form class="ui form" action="" method="post" id="form-new-topic">
           <div class="field">
-            <label for="name">{$TOPIC_TITLE}:</label>
-            <input type="text" name="title" placeholder="{$TOPIC_TITLE}" maxlength="64">
+            <label for="title">{$TOPIC_TITLE}</label>
+            <input type="text" id="title" name="title" placeholder="{$TOPIC_TITLE}" maxlength="64">
           </div>
           {if count($LABELS)}
             <div class="inline fields labels">
@@ -41,8 +41,8 @@
             </div>
           {/if}
           <div class="field">
-            <label for="editor">{$CONTENT_LABEL}</label>
-            <textarea name="content" id="reply">{$CONTENT}</textarea>
+            <label for="reply">{$CONTENT_LABEL}</label>
+            <textarea name="content" id="reply"></textarea>
           </div>
           {$TOKEN}
           <input type="submit" class="ui primary button" value="{$SUBMIT}">
