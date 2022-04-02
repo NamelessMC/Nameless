@@ -94,7 +94,7 @@ $language = [
     'unfollow' => '取消关注',
     'now_following_topic' => '你正在关注此话题，任何新回复都将提醒你。',
     'no_longer_following_topic' => '你不再关注此话题，我们不再因此而去打扰你。',
-    'new_reply_in_topic' => '{x} 回复了主题 {y}',
+    'new_reply_in_topic' => '{{author}} 回复了主题 {{topic}}',
     'started_by_x' => '由 {x} 创建',
     'sticky_topics' => '展示中的主题',
 
@@ -203,7 +203,7 @@ $language = [
 
     // Hooks
     'new_topic_hook_info' => '新的话题',
-    'new_topic_text' => '话题创建于{x} 创建者 {y}',
+    'new_topic_text' => '话题创建于 {{forum}} 创建者 {{author}}',
     'include_in_hook' => '是否将新话题包含进这个论坛的webhook?',
     'available_hooks' => '可用的 Hooks',
 

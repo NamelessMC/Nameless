@@ -92,7 +92,7 @@ $language = [
     'unfollow' => 'Slutt å følge',
     'now_following_topic' => 'Du følger nå denne tråden, og vil bli varslet dersom noen svarer på den.',
     'no_longer_following_topic' => 'Du har sluttet å følge denne tråden, og vil ikke lenger bli varslet dersom noen svarer på den. ',
-    'new_reply_in_topic' => '{x} har svart på tråden {y}',
+    'new_reply_in_topic' => '{{author}} har svart på tråden {{topic}}',
     'started_by_x' => 'Startet av {x}',
     'sticky_topics' => 'Festede tråder',
 
@@ -201,7 +201,7 @@ $language = [
 
     // Hooks
     'new_topic_hook_info' => 'Ny tråd',
-    'new_topic_text' => 'Tråd opprettet i {x} av {y}',
+    'new_topic_text' => 'Tråd opprettet i {{forum}} av {{author}}',
     'include_in_hook' => 'Inkluder nye tråder fra dette forumet i webhooks?',
     'available_hooks' => 'Tilgjengelig Hooks',
 

@@ -204,7 +204,10 @@ if (Input::exists()) {
                     'uuid' => Output::getClean($user->data()->uuid),
                     'username' => $user->getDisplayname(true),
                     'nickname' => $user->getDisplayname(),
-                    'content' => str_replace(['{x}', '{y}'], [$forum_title, $user->getDisplayname()], $forum_language->get('forum', 'new_topic_text')),
+                    'content' => $forum_language->get('forum', 'new_topic_text', [
+                        'forum' => $forum_title,
+                        'author' => $user->getDisplayname(),
+                    ]),
                     'content_full' => strip_tags(str_ireplace(['<br />', '<br>', '<br/>'], "\r\n", Input::get('content'))),
                     'avatar_url' => $user->getAvatar(128, true),
                     'title' => Input::get('title'),

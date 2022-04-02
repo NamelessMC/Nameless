@@ -103,7 +103,7 @@ $language = [
      *  Server query
      */
     'offline' => 'Offline',
-    'player_count' => '{x}/{y}',
+    'player_count' => '{{onlinePlayers}}/{{totalPlayers}}',
     'ping' => 'Ping: {{ping}}',
     'version' => 'Verze: {{version}}',
     'currently_1_player_online' => 'Na serveru hraje <strong>1</strong> hráč.',

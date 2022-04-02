@@ -93,7 +93,7 @@ $language = [
     'unfollow' => 'Smetti di seguire',
     'now_following_topic' => 'Ora stai seguendo questa discussione e sarai informato di eventuali nuove risposte.',
     'no_longer_following_topic' => 'Non stai più seguendo questa discussione e non riceverai alcuna notifica di nuove risposte.',
-    'new_reply_in_topic' => '{x} ha risposto alla discussione {y}',
+    'new_reply_in_topic' => '{{author}} ha risposto alla discussione {{topic}}',
     'started_by_x' => 'Avviato da {x}',
     'sticky_topics' => 'Discussioni in rilievo',
 
@@ -202,7 +202,7 @@ $language = [
 
     // Hooks
     'new_topic_hook_info' => 'Nuova discussione',
-    'new_topic_text' => 'Discussione creata in {x} da {y}',
+    'new_topic_text' => 'Discussione creata in {{forum}} da {{author}}',
     'include_in_hook' => 'Includere nuove discussioni da questo forum nel webhook?',
     'available_hooks' => 'Available Hooks',
 

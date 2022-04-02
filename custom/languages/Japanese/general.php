@@ -103,7 +103,7 @@ $language = [
      */
     'online' => 'オンライン',
     'offline' => 'オフライン',
-    'player_count' => '{x}/{y}',
+    'player_count' => '{{onlinePlayers}}/{{totalPlayers}}',
     'ping' => 'Ping: {{ping}}',
     'version' => 'バージョン: {{version}}',
     'currently_1_player_online' => '現在<strong>1</strong>人のプレイヤーが参加しています。',

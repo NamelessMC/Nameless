@@ -98,7 +98,7 @@ $language = [
      */
     'online' => 'Pålogget',
     'offline' => 'Frakoblet',
-    'player_count' => '{x}/{y}',
+    'player_count' => '{{onlinePlayers}}/{{totalPlayers}}',
     'ping' => 'Ping: {{ping}}',
     'version' => 'Versjon: {{version}}',
     'currently_1_player_online' => 'Det er for øyeblikket <strong>1</strong> spiller pålogget.',

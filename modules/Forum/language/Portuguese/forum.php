@@ -94,8 +94,8 @@ $language = [
     'unfollow' => 'Deixar de seguir',
     'now_following_topic' => 'Agora você está seguindo este tópico e será notificado de qualquer nova resposta.',
     'no_longer_following_topic' => 'Você não está mais seguindo este tópico e não será notificado de novas respostas.',
-    'new_reply_in_topic' => '{x} respondeu ao tópico {y}', // Não altere o valor: {x} (username) ou {y} (topic title)
-    'started_by_x' => 'Iniciado por {x}', // Não altere o valor: {x}
+    'new_reply_in_topic' => '{{author}} respondeu ao tópico {{topic}}',
+    'started_by_x' => 'Iniciado por {x}',
     'sticky_topics' => 'Tópicos fixos',
 
     // Página principal
@@ -203,7 +203,7 @@ $language = [
 
     // Hooks
     'new_topic_hook_info' => 'Novo tópico',
-    'new_topic_text' => 'Tópico criado em {x} por {y}', // Não altere o valor: {x}
+    'new_topic_text' => 'Tópico criado em {{forum}} por {{author}}',
     'include_in_hook' => 'Incluir novos tópicos deste fórum nas webhooks?',
     'available_hooks' => 'Hooks disponíveis',
 

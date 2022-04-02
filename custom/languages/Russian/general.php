@@ -99,7 +99,7 @@ $language = [
      */
     'online' => 'Онлайн',
     'offline' => 'Оффлайн',
-    'player_count' => '{x}/{y}',
+    'player_count' => '{{onlinePlayers}}/{{totalPlayers}}',
     'ping' => 'Пинг: {{ping}}',
     'version' => 'Версия: {{version}}',
     'currently_1_player_online' => 'Сейчас <strong>1</strong> игрок онлайн.',

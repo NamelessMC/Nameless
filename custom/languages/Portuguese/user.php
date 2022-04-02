@@ -15,7 +15,7 @@ $language = [
     /*
      *  Mude isto para a mensagem de validação da conta.
      */
-    'validate_account_command' => 'Para completar o registo, por favor execute o comando /verify {{command}} no servidor.', // Não substituir {x}.
+    'validate_account_command' => 'Para completar o registo, por favor execute o comando /verify {{command}} no servidor.',
     /*
      *  User Related
      */

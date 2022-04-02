@@ -92,7 +92,7 @@ $language = [
     'unfollow' => 'Takipten çık',
     'now_following_topic' => 'Şimdi bu konuyu takip ediyorsunuz ve yeni yanıtlar size bildirilecek.',
     'no_longer_following_topic' => 'Artık bu konuyu takip etmiyorsunuz ve yeni yanıtlardan haberdar edilmeyeceksiniz.',
-    'new_reply_in_topic' => '{x}, {y} konusunu yanıtladı',
+    'new_reply_in_topic' => '{{author}}, {{topic}} konusunu yanıtladı',
     'started_by_x' => '{x} tarafından başlatıldı!',
     'sticky_topics' => 'Sabit Konular',
 
@@ -201,7 +201,7 @@ $language = [
 
     // Hooks
     'new_topic_hook_info' => 'Yeni konu aç',
-    'new_topic_text' => '{x} tarafından {y} tarafından oluşturulan konu',
+    'new_topic_text' => '{{forum}} tarafından {{author}} tarafından oluşturulan konu',
     'include_in_hook' => 'Include new topics from this forum in webhooks?',
     'available_hooks' => 'Available Hooks',
 

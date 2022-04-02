@@ -98,7 +98,7 @@ $language = [
      */
     'online' => 'Online',
     'offline' => 'Offline',
-    'player_count' => '{x}/{y}',
+    'player_count' => '{{onlinePlayers}}/{{totalPlayers}}',
     'ping' => 'Ping: {{ping}}',
     'version' => 'Wersja: {{version}}',
     'currently_1_player_online' => 'Na serwerze jest aktualnie <strong>1</strong> gracz online.',

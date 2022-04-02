@@ -94,8 +94,8 @@ $language = [
     'unfollow' => 'Sluta följa',
     'now_following_topic' => 'Du följer nu detta ämne och kommer att meddelas om nya svar.',
     'no_longer_following_topic' => 'Du följer inte längre detta ämne och kommer inte att meddelas om några nya svar.',
-    'new_reply_in_topic' => '{x} har svarat på ämnet {y}',
-    'started_by_x' => 'Startades av {x}', // Don't replace{x}
+    'new_reply_in_topic' => '{{author}} har svarat på ämnet {{topic}}',
+    'started_by_x' => 'Startades av {x}',
     'sticky_topics' => 'Sticky ämnen',
 
     // Homepage
@@ -203,7 +203,7 @@ $language = [
 
     // Hooks
     'new_topic_hook_info' => 'Nytt ämne',
-    'new_topic_text' => 'Ämne skapat i {x} av {y}',
+    'new_topic_text' => 'Ämne skapat i {{forum}} av {{author}}',
     'include_in_hook' => 'Inkludera nya ämnen från detta forum i webhooks?',
     'available_hooks' => 'Tillgängliga hooks',
 

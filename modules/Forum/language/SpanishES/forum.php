@@ -92,7 +92,7 @@ $language = [
     'unfollow' => 'Dejar de seguir',
     'now_following_topic' => 'Ahora estás siguiendo este tema, y serás notificado de cualquier respuesta nueva.',
     'no_longer_following_topic' => 'Ya no sigues este tema y no se te notificará ninguna respuesta nueva.',
-    'new_reply_in_topic' => '{x} ha respondido al tema {y}',
+    'new_reply_in_topic' => '{{author}} ha respondido al tema {{topic}}',
     'started_by_x' => 'Iniciado por {x}',
     'sticky_topics' => 'Temas anclados',
 
@@ -201,7 +201,7 @@ $language = [
 
     // Hooks
     'new_topic_hook_info' => 'Nuevo tema',
-    'new_topic_text' => 'Tema creado en {x} por {y}',
+    'new_topic_text' => 'Tema creado en {{forum}} por {{author}}',
     'include_in_hook' => '¿Incluir los nuevos temas de este foro en los webhooks?',
     'available_hooks' => 'Hooks disponibles',
 

@@ -94,7 +94,7 @@ $language = [
     'unfollow' => 'Nu mai urmări',
     'now_following_topic' => 'Acum urmăriți acest subiect și veți primi notificări cu privire la orice răspuns nou.',
     'no_longer_following_topic' => 'Nu mai urmăriți acest subiect și nu veți mai fi notificat cu privire la niciun răspuns nou.',
-    'new_reply_in_topic' => '{x} a răspuns la subiectul {y}',
+    'new_reply_in_topic' => '{{author}} a răspuns la subiectul {{topic}}',
     'started_by_x' => 'Started by {x}',
     'sticky_topics' => 'Sticky Topics',
 
@@ -204,7 +204,7 @@ $language = [
 
     // Hooks
     'new_topic_hook_info' => 'Subiect nou',
-    'new_topic_text' => 'Subiect creat în {x} de {y}',
+    'new_topic_text' => 'Subiect creat în {{forum}} de {{author}}',
     'include_in_hook' => 'Include new topics from this forum in webhooks?',
     'available_hooks' => 'Available Hooks',
 

@@ -93,7 +93,7 @@ $language = [
     'unfollow' => 'Přestat sledovat',
     'now_following_topic' => 'Nyní sledujete toto téma a budete upozorněni na nové odpovědi.',
     'no_longer_following_topic' => 'Toto téma již nesledujete a nebudete upozorněni na žádné nové odpovědi.',
-    'new_reply_in_topic' => 'Uživatel {x} odpověděl na téma {y}',
+    'new_reply_in_topic' => 'Uživatel {{author}} odpověděl na téma {{topic}}',
     'started_by_x' => 'Téma založil {x}',
     'sticky_topics' => 'Připnutá témata',
 
@@ -202,7 +202,7 @@ $language = [
 
     // Hooks
     'new_topic_hook_info' => 'Nové téma',
-    'new_topic_text' => 'Téma vytvořeno v {x} od {y}',
+    'new_topic_text' => 'Téma vytvořeno v {{forum}} od {{author}}',
     'include_in_hook' => 'Zahrnout do webhooků nová témata z tohoto fóra?',
     'available_hooks' => 'Dostupné webhooky',
 

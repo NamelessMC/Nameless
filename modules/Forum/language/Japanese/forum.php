@@ -97,7 +97,7 @@ $language = [
     'unfollow' => 'フォロー解除',
     'now_following_topic' => '現在、このトピックをフォローしており、新しい返信があれば通知されます。',
     'no_longer_following_topic' => 'このトピックをフォローしていないので、新しい返信は通知されません。',
-    'new_reply_in_topic' => '{x}が{y}に返信しました。',
+    'new_reply_in_topic' => '{{author}} が {{topic}} に返信しました。',
     'started_by_x' => '{x}によって開始されました',
     'sticky_topics' => 'トピック固定',
 
@@ -206,7 +206,7 @@ $language = [
 
     // Hooks
     'new_topic_hook_info' => '新しいトピック',
-    'new_topic_text' => '{y} が {x} にトピックを作成しました。',
+    'new_topic_text' => '{{author}} が {{forum}} にトピックを作成しました。',
     'include_in_hook' => 'このフォーラムの新しいトピックをウェブフックに通知しますか？',
     'available_hooks' => '利用可能なウェブフック',
 

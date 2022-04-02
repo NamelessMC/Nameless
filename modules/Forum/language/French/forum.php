@@ -93,7 +93,7 @@ $language = [
     'unfollow' => 'Unfollow',
     'now_following_topic' => 'You are now following this topic, and will be notified of any new replies.',
     'no_longer_following_topic' => 'You are no longer following this topic, and will not be notified of any new replies.',
-    'new_reply_in_topic' => '{x} has replied to topic {y}',
+    'new_reply_in_topic' => '{{author}} has replied to topic {{topic}}',
     'started_by_x' => 'Started by {x}',
     'sticky_topics' => 'Sticky Topics',
 
@@ -202,7 +202,7 @@ $language = [
 
     // Hooks
     'new_topic_hook_info' => 'New topic',
-    'new_topic_text' => 'Topic created in {x} by {y}',
+    'new_topic_text' => 'Topic created in {{forum}} by {{author}}',
     'include_in_hook' => 'Include new topics from this forum in webhooks?',
     'available_hooks' => 'Available Hooks',
 

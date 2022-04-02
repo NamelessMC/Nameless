@@ -93,7 +93,7 @@ $language = [
      */
     'online' => 'Çevrimiçi',
     'offline' => 'Çevrimdışı',
-    'player_count' => '{x}/{y}',
+    'player_count' => '{{onlinePlayers}}/{{totalPlayers}}',
     'ping' => 'Gecikme: {{ping}}',
     'version' => 'Sürüm: {{version}}',
     'currently_1_player_online' => 'Şu anda <strong>1</strong> oyuncu çevrimiçi.',

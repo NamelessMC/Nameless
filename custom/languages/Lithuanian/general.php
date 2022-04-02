@@ -91,7 +91,7 @@ $language = [
     // Server query
     'online' => 'Prisijungęs',
     'offline' => 'Neprisijungęs',
-    'player_count' => '{x}/{y}',
+    'player_count' => '{{onlinePlayers}}/{{totalPlayers}}',
     'ping' => 'Ping: {{ping}}',
     'version' => 'Versija: {{version}}',
     'currently_1_player_online' => 'Šiuo metu yra <strong>1</strong> žaidėjas serveryje.',

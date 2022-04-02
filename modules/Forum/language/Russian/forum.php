@@ -93,7 +93,7 @@ $language = [
     'unfollow' => 'Отписаться',
     'now_following_topic' => 'Теперь вы подписаны на этот топик и будете получать уведомления о новых ответах.',
     'no_longer_following_topic' => 'Вы больше не подписаны на этот топик и не будете уведомлены о каких-либо новых ответах.',
-    'new_reply_in_topic' => '{x} ответил(а) в топике {y}',
+    'new_reply_in_topic' => '{{author}} ответил(а) в топике {{topic}}',
     'started_by_x' => 'Автор топика: {x}',
     'sticky_topics' => 'Закреплённые топики',
 
@@ -202,7 +202,7 @@ $language = [
 
     // Hooks
     'new_topic_hook_info' => 'Новый топик',
-    'new_topic_text' => 'Создан топик {x} пользователем {y}',
+    'new_topic_text' => 'Создан топик {{forum}} пользователем {{author}}',
     'include_in_hook' => 'Включите новые темы с этого форума в webhook?',
     'available_hooks' => 'Доступные хуки',
 

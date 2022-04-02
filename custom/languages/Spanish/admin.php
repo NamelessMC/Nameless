@@ -368,7 +368,7 @@ $language = [
     'author' => 'Creador:',
     'author_x' => 'Creador: {{author}}',
     'updated_x' => 'Updated at: {{updatedAt}}',
-    'module_outdated' => 'Hemos detectado que este módulo está destinado a la versión {x} de NamelessMC, pero usted está ejecutando la versión {y} de NamelessMC',
+    'module_outdated' => 'Hemos detectado que este módulo está destinado a la versión {{intendedVersion}} de NamelessMC, pero usted está ejecutando la versión {{actualVersion}} de NamelessMC',
     'find_modules' => 'Encontrar módulos',
     'view_all_modules' => 'Ver todos los modulos',
     'unable_to_retrieve_modules' => 'No se pudo encontrar módulos',
@@ -544,7 +544,7 @@ $language = [
     // Updates
     'update' => 'Actualización',
     'current_version_x' => 'Version Actual: {{version}}',
-    'new_version_x' => 'Nueva version: <strong>{x}</strong>',
+    'new_version_x' => 'Nueva version: {{version}}',
     'new_update_available' => 'Hay una nueva actualización disponible',
     'new_urgent_update_available' => 'Hay una nueva actualización urgente disponible. ¡Por favor, actualice lo antes posible!',
     'up_to_date' => 'Su instalación de NamelessMC está actualizada.',

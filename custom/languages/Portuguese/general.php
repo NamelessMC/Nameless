@@ -48,7 +48,7 @@ $language = [
     'alerts' => 'Alertas',
     'view_alerts' => 'Visualizar alertas',
     'no_alerts' => 'Sem alertas',
-    'x_new_alerts' => 'Você tem {{count}} novos alertas.', // Não substitua o "{x}" da mensagem.
+    'x_new_alerts' => 'Você tem {{count}} novos alertas.',
     'messages' => 'Mensagens',
     'view_messages' => 'Visualizar mensagens',
     'no_messages' => 'Sem mensagens',
@@ -100,11 +100,11 @@ $language = [
     */
     'online' => 'Online',
     'offline' => 'Offline',
-    'player_count' => '{x}/{y}', // Não substitua o "{x}" ou "{y}" da mensagem.
+    'player_count' => '{{onlinePlayers}}/{{totalPlayers}}',
     'ping' => 'Ping: {{ping}}',
     'version' => 'Versão: {{version}}',
     'currently_1_player_online' => 'No momento, há <strong>1</strong> jogador online.',
-    'currently_x_players_online' => 'Há {{count}} jogadores online.', // Não substitua o "{x}" da mensagem.
+    'currently_x_players_online' => 'Há {{count}} jogadores online.',
     'server_offline' => 'O servidor está atualmente offline.',
     'connect_with_ip_x' => 'Junte-se aos nossos jogadores: {{address}}',
     'click_to_copy_tooltip' => 'Clique para copiar',
@@ -150,7 +150,7 @@ $language = [
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'Redirecionando...<br />Se você não for redirecionado automaticamente, clique <a href="{x}" rel="nofollow noopener">aqui</a>.', // Não substitua o "{x}" que é a URL de redirecionamento.
+    'redirecting_message' => 'Redirecionando...<br />Se você não for redirecionado automaticamente, clique <a href="{x}" rel="nofollow noopener">aqui</a>.',
 
     /*
      * OAuth
