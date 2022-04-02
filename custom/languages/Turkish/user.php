@@ -69,8 +69,6 @@ $language = [
     'profile_banner' => 'Profil Banner(Afiş)',
     'upload_profile_banner' => 'Yeni banner(afiş) yükle',
     'upload' => 'Yükle',
-    'topic_updates' => 'Get emails for topics you follow',
-    'gravatar' => 'Use Gravatar as avatar',
 
     // Alerts
     'user_tag_info' => 'Bir konuda {{author}} tarafından etiketlendiniz.',
@@ -90,7 +88,6 @@ $language = [
     'password' => 'Şifre',
     'confirm_password' => 'Şifre Onay',
     'i_agree' => 'Onaylıyorum',
-    'agree_t_and_c' => 'I have read and accept the <a href="{x}" target="_blank">Terms and Conditions</a>.',
     'create_an_account' => 'Hesap Oluştur',
     'terms_and_conditions' => 'Şartlar ve koşullar',
     'validation_complete' => 'Hesabınız doğrulandı, şimdi giriş yapabilirsiniz.',
@@ -236,14 +233,4 @@ $language = [
      *  Hooks
      */
     'user_x_has_registered' => '{{user}} katıldı {{siteName}}!',
-    'user_x_has_validated' => '{{user}} has validated their account!',
-
-    // OAuth
-    'oauth_unlinked' => 'Successfully unlinked your account from that provider.',
-    'oauth_already_linked' => 'Another NamelessMC user is already linked to that {{provider}} account.',
-    'oauth_link_success' => 'Successfully linked your account with {{provider}}!',
-    'no_user_found_with_provider' => 'No user found with that {{provider}} account.',
-    'oauth_login_success' => 'You have logged in with your {{provider}} account.',
-    'oauth_link_confirm' => 'You will be taken to the {{provider}} website to link your account.',
-    'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {{provider}}? >You will not be able to login with this account anymore.',
 ];

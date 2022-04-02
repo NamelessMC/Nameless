@@ -39,7 +39,6 @@ $language = [
     'notices' => 'Avisos',
     'no_notices' => 'No hay avisos.',
     'email_errors_logged' => 'Se han registrado errores de correo electrónico',
-    'upgrade_php_version' => 'Please upgrade your PHP version to at least 7.4 - the next Nameless release will no longer support the version you are using.',
 
     // Core
     'mode_toggle' => 'Modo oscuro',
@@ -204,7 +203,6 @@ $language = [
     'google_analytics' => 'Google Analytics',
     'google_analytics_help' => 'Añade Google Analytics a tu sitio web para hacer un seguimiento de los visitantes y las estadísticas. Deberá crear una cuenta de Google Analytics para utilizar esta función. Introduzca su ID de propiedad web de Google Analytics. El ID se parece a UA-XXXXA-X y puede encontrarlo en la información de su cuenta o en el código de seguimiento proporcionado por Google.',
     'sitemap' => 'Sitemap',
-    'seo_settings_updated_successfully' => 'SEO settings updated successfully.',
 
     // Reactions
     'icon' => 'Icono',
@@ -359,7 +357,6 @@ $language = [
     'module_disabled' => 'Módulo desactivado.',
     'author' => 'Autor:',
     'author_x' => 'Autor: {{author}}',
-    'updated_x' => 'Updated at: {{updatedAt}}',
     'module_outdated' => 'Hemos detectado que este módulo está destinado a la versión {{intendedVersion}} de Nameless, pero usted está ejecutando la versión {{actualVersion}} de Nameless',
     'find_modules' => 'Buscar módulos',
     'view_all_modules' => 'Ver todos los módulos',
@@ -486,7 +483,6 @@ $language = [
     'resend_activation_email' => 'Reenviar el correo de activación',
     'email_resent_successfully' => 'Correo electrónico reenviado con éxito.',
     'email_resend_failed' => 'El reenvío del correo electrónico ha fallado, por favor, compruebe la configuración de su correo electrónico.',
-    'no_item_selected' => 'No items selected',
 
     // Permissions
     'select_all' => 'Seleccionar todo',
@@ -631,8 +627,6 @@ $language = [
     'api_endpoints' => 'API Endpoints',
     'api_endpoints_info' => 'API Endpoints permiten que los módulos creen formas para que las aplicaciones externas (como Minecraft y Discord) interactúen con su sitio web NamelessMC.',
     'route' => 'Ruta',
-    'method' => 'Method',
-    'transformers' => 'Transformers',
 
     // File uploads
     'drag_files_here' => 'Arrastre los archivos aquí para cargarlos.',
@@ -734,13 +728,4 @@ $language = [
     'text_colour_required' => 'El color del texto es necesario',
     'no_announcements' => 'Todavía no se ha hecho ningún anuncio.',
     'announcement_order' => 'Orden',
-    'announcement_hook_info' => 'Announcement creation',
-
-    // OAuth
-    'oauth' => 'OAuth',
-    'oauth_info' => 'Configure OAuth providers to allow users to login with their social network accounts. <a href="https://docs.namelessmc.com/en/oauth" target="_blank">Check out our documentation for help.</a>',
-    'unlink' => 'Unlink',
-    'identifier' => 'Identifier',
-    'unlink_account_confirm' => 'Are you sure you want to forcibly unlink this provider from this user?',
-    'unlink_account_success' => 'Successfully unlinked their account from {{provider}}.',
 ];

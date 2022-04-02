@@ -52,10 +52,6 @@ $language = [
     'x_new_messages' => 'Turite {{count}} naujų pranešimų.',
     'loading' => 'Kraunasi...',
     'report' => 'Ataskaita',
-    'reported_by' => 'Reported by {{author}}',
-    'view_report' => 'View report',
-    'report_origin' => 'Origin',
-    'origin_website' => 'Website',
     'origin_api' => 'API',
     'page_loaded_in' => 'Puslapis užsikrovė per {{time}}s',
     'page_x' => 'Puslapis {{page}}',
@@ -136,9 +132,4 @@ $language = [
      *  Custom page redirect
      */
     'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{x}" rel="nofollow noopener">here</a>.',
-
-    /*
-     * OAuth
-     */
-    'oauth_message_continue' => 'Continue registering with {{provider}}',
 ];

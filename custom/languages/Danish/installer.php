@@ -31,7 +31,6 @@ $language = [
     'proceed' => 'Fortsæt',
     'database_configuration' => 'Database Konfiguration',
     'database_address' => 'Database Adresse',
-    'database_port' => 'Database Port',
     'database_username' => 'Database Brugernavn',
     'database_password' => 'Database Adgangskode',
     'database_name' => 'Database Navn',
@@ -51,7 +50,6 @@ $language = [
     'configuration' => 'Indstilling',
     'configuration_info' => 'Angiv grundlæggende information om dit websted. Disse værdier kan ændres senere gennem administrationspanelet.',
     'configuration_error' => 'Angiv venligst et gyldigt webstedsnavn på mellem 1 og 32 tegn og gyldige e-mailadresser på mellem 4 og 64 tegn.',
-    'hostname_error' => 'Please enter a valid hostname without http:// or https://',
     'site_name' => 'Side Navn',
     'contact_email' => 'Kontakt E-Mail',
     'outgoing_email' => 'Udgående E-Mail',
@@ -102,6 +100,4 @@ $language = [
     'reload_page' => 'Genindlæs side',
     'no_converters_available' => 'Der er ingen omdannere tilgængelige.',
     'config_not_writable' => 'Konfigurationsfilen kan ikke skrives i.',
-
-    'session_doesnt_exist' => 'Unable to detect session. Sessions saving are a requirement to use Nameless. Please try again after clearing cookies in your web browser, and if the issue persists, please contact your web host for support.'
 ];

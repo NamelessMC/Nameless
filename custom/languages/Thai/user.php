@@ -168,7 +168,6 @@ $language = [
     'no_replies_yet' => 'ยังไม่มีการตอบกลับ',
     'feed' => 'ฟีด',
     'about' => 'เกี่ยวกับ',
-    'reactions' => 'Reactions',
     'replies' => 'ตอบกลับ',
     'new_reply' => 'ตอบกลับใหม่',
     'registered' => 'ลงทะเบียน:',
@@ -237,13 +236,4 @@ $language = [
      */
     'user_x_has_registered' => '{{user}} ได้เข้าร่วม {{siteName}}!',
     'user_x_has_validated' => '{{user}} ได้ตรวจสอบบัญชีของพวกเขาแล้ว!',
-
-    // OAuth
-    'oauth_unlinked' => 'Successfully unlinked your account from that provider.',
-    'oauth_already_linked' => 'Another NamelessMC user is already linked to that {{provider}} account.',
-    'oauth_link_success' => 'Successfully linked your account with {{provider}}!',
-    'no_user_found_with_provider' => 'No user found with that {{provider}} account.',
-    'oauth_login_success' => 'You have logged in with your {{provider}} account.',
-    'oauth_link_confirm' => 'You will be taken to the {{provider}} website to link your account.',
-    'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {{provider}}? You will not be able to login with this account anymore.',
 ];

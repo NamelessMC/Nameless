@@ -41,7 +41,6 @@ $language = [
     'notices' => 'ประกาศ',
     'no_notices' => 'ไม่มีประกาศ',
     'email_errors_logged' => 'บันทึกข้อผิดพลาดทางอีเมลแล้ว',
-    'upgrade_php_version' => 'Please upgrade your PHP version to at least 7.4 - the next Nameless release will no longer support the version you are using.',
 
     // Core
     'mode_toggle' => 'โหมดมืด',
@@ -207,7 +206,6 @@ $language = [
     'google_analytics' => 'Google Analytics',
     'google_analytics_help' => 'เพิ่ม Google Analytics ลงในเว็บไซต์ของคุณเพื่อติดตามผู้เข้าชมและสถิติ คุณจะต้องสร้างบัญชี Google Analytics เพื่อใช้ฟังก์ชันนี้ ป้อนรหัสพร็อพเพอร์ตี้เว็บของ Google Analytics รหัสดูเหมือน UA-XXXXA-X และคุณสามารถค้นหาได้ในข้อมูลบัญชีของคุณหรือในรหัสติดตามที่ Google ให้ไว้',
     'sitemap' => 'แผนผังเว็บไซต์',
-    'seo_settings_updated_successfully' => 'SEO settings updated successfully.',
 
     // Reactions
     'icon' => 'ไอคอน',
@@ -217,7 +215,6 @@ $language = [
     'negative' => 'Negative',
     'editing_reaction' => 'แก้ไข Reaction',
     'html' => 'HTML',
-    'new_reaction' => '<i class="fa fa-plus-circle"></i> New Reaction',
     'creating_reaction' => 'การสร้าง Reaction',
     'no_reactions' => 'ยังไม่มี reactions',
     'reaction_created_successfully' => 'Reaction สร้างขึ้นเรียบร้อยแล้ว',
@@ -232,7 +229,6 @@ $language = [
 
     // Custom profile fields
     'custom_fields' => 'ฟิลด์โปรไฟล์ที่กำหนดเอง',
-    'new_field' => '<i class="fa fa-plus-circle"></i> New Field',
     'required' => 'จําเป็น',
     'editable' => 'แก้ไขได้',
     'public' => 'สาธารณะ',
@@ -327,7 +323,6 @@ $language = [
     'viewing_query_error' => 'Viewing Query Error',
     'confirm_query_error_deletion' => 'คุณแน่ใจหรือไม่ว่าต้องการลบข้อผิดพลาดในการค้นหานี้หรือไม่',
     'no_query_errors' => 'ไม่มีข้อผิดพลาดในแบบสอบถามที่บันทึกไว้',
-    'new_banner' => '<i class="fa fa-plus-circle"></i> New Banner',
     'purge_errors' => 'ล้างข้อผิดพลาด',
     'confirm_purge_errors' => 'คุณแน่ใจหรือไม่ว่าต้องการล้างข้อผิดพลาดทั้งหมด',
     'email_errors_purged_successfully' => 'ลบข้อผิดพลาดของอีเมลเรียบร้อยแล้ว',
@@ -338,20 +333,15 @@ $language = [
     'mcassoc_help' => 'mcassoc เป็นบริการภายนอกที่สามารถใช้เพื่อยืนยันผู้ใช้ที่เป็นเจ้าของบัญชี Minecraft ที่พวกเขาได้ลงทะเบียนไว้ หากต้องการใช้ฟีเจอร์นี้ คุณจะต้องสมัครใช้งานคีย์ที่ใช้ร่วมกัน <a href="https://mcassoc.lukegb.com/" target="_blank">here</a>.',
     'mcassoc_key' => 'mcassoc คีย์ที่ใช้ร่วมกัน',
     'mcassoc_instance' => 'mcassoc Instance คีย์',
-    'mcassoc_instance_help' => '<a href="#" onclick="generateInstance();">Click to generate an instance key</a>',
     'mcassoc_error' => 'โปรดตรวจสอบให้แน่ใจว่าคุณได้ป้อนรหัสที่ใช้ร่วมกันอย่างถูกต้อง และคุณได้สร้างรหัสอินสแตนซ์อย่างถูกต้อง.',
     'updated_mcassoc_successfully' => 'mcassoc อัปเดตการตั้งค่าเรียบร้อยแล้ว.',
     'force_premium_accounts' => 'บังคับบัญชี Minecraft ระดับพรีเมียม?',
-    'banner_background' => 'Banner background',
     'query_interval' => 'Query interval (เป็นนาที ต้องอยู่ระหว่าง 5 ถึง 60)',
     'player_graphs' => 'กราฟผู้เล่น',
     'status_page' => 'เปิดใช้งานหน้าสถานะหรือไม่',
     'minecraft_settings_updated_successfully' => 'อัปเดตการตั้งค่าเรียบร้อยแล้ว.',
-    'server_id_x' => 'Server ID: {{serverId}}',
     'server_information' => 'ข้อมูลเซิร์ฟเวอร์',
     'query_information' => 'สอบถามข้อมูล',
-    'query_errors_purged_successfully' => 'Query errors purged successfully.',
-    'query_error_deleted_successfully' => 'Query error deleted successfully.',
     'banner_updated_successfully' => 'อัปเดต banner เรียบร้อยแล้ว อาจใช้เวลาสักครู่ก่อนที่การเปลี่ยนแปลงของคุณจะมีผล',
 
     // Modules
@@ -369,20 +359,14 @@ $language = [
     'find_modules' => 'ค้นหา Modules',
     'view_all_modules' => 'ชม modules ทั้งหมด',
     'unable_to_retrieve_modules' => 'ไม่สามารถเรียก modules ',
-    'module' => 'Module',
     'unable_to_enable_module' => 'ไม่สามารถเปิดใช้งานโมดูลที่เข้ากันไม่ได้',
     'unable_to_enable_module_dependencies' => 'ไม่สามารถเปิดใช้งานโมดูลได้ เนื่องจากขึ้นอยู่กับ module {{module}} ซึ่งไม่ได้เปิดใช้งาน',
     'unable_to_disable_module' => 'ไม่สามารถปิดการใช้งาน module - module {{module}} ขึ้นอยู่กับ module',
 
     // Styles
-    'templates' => 'Templates',
-    'panel_templates' => 'Panel Templates',
     'view_all_panel_templates' => 'ดู panel templates ทั้งหมด',
     'template_outdated' => 'เราตรวจพบว่าเทมเพลตของคุณมีไว้สำหรับเวอร์ชันที่ไม่มีชื่อ {{intendedVersion}} แต่คุณกำลังเรียกใช้เวอร์ชันที่ไม่มีชื่อ {{actualVersion}}',
     'template_not_supported' => 'ตั้งแต่ NamelessMC 2.0.0-pr8 Templates เริ่มจะไม่ได้รับการสนับสนุน เพื่อประสบการณ์ที่ดีที่สุด โปรดใช้ Templates ที่รองรับ',
-    'active' => 'Active',
-    'deactivate' => 'Deactivate',
-    'activate' => 'Activate',
     'warning_editing_default_template' => 'คำเตือน! ขอแนะนำว่าอย่าแก้ไข Templates เริ่มต้น',
     'images' => 'รูปภาพ',
     'upload_new_image' => 'อัพโหลดภาพใหม่',
@@ -394,7 +378,6 @@ $language = [
     'default_template_set' => 'ตั้งค่าเทมเพลตเริ่มต้นเป็น {{template}} สำเร็จ',
     'template_deactivated' => 'ปิดใช้งาน Templates',
     'template_activated' => 'เปิดใช้งาน Templates',
-    'permissions' => 'Permissions',
     'templates_installed_successfully' => 'ติดตั้ง Templates ใหม่สำเร็จแล้ว',
     'confirm_delete_template' => 'คุณแน่ใจหรือไม่ว่าต้องการลบ Templates นี้หรือไม่',
     'delete' => 'ลบ',
@@ -418,7 +401,6 @@ $language = [
     'unable_to_retrieve_templates' => 'ไม่สามารถ Template',
     'template' => 'Template',
     'stats' => 'Stats',
-    'downloads_x' => 'Downloads: {{downloads}}',
     'views_x' => 'ชม: {{views}}',
     'rating_x' => 'Rating: {{rating}}',
     'editing_template_x' => 'แก้ไข Template {{template}}',
@@ -437,13 +419,9 @@ $language = [
     // Users & groups
     'users' => 'ผู้ใช้',
     'groups' => 'กลุ่ม',
-    'group' => 'Group',
-    'new_user' => '<i class="fa fa-plus-circle"></i> New User',
     'creating_new_user' => 'การสร้างผู้ใช้ใหม่',
     'registered' => 'ลงทะเบียน',
     'user_created' => 'สร้างผู้ใช้เรียบร้อยแล้ว.',
-    'cant_delete_root_user' => 'Can\'t delete the root user!',
-    'cant_modify_root_user' => 'Can\'t modify this user\'s main group!',
     'main_group' => 'กลุ่มหลัก',
     'user_deleted' => 'ผู้ใช้ลบเรียบร้อยแล้ว',
     'confirm_user_deletion' => 'คุณแน่ใจหรือว่าต้องการลบผู้ใช้ {{user}}?',
@@ -499,7 +477,6 @@ $language = [
     'resend_activation_email' => 'อีเมล์ยืนยันการสมัคร',
     'email_resent_successfully' => 'ส่งอีเมลเรียบร้อยแล้ว',
     'email_resend_failed' => 'การส่งอีเมลซ้ำล้มเหลว โปรดตรวจสอบการตั้งค่าอีเมลของคุณ',
-    'no_item_selected' => 'No items selected',
 
     // Permissions
     'select_all' => 'เลือกทั้งหมด',
@@ -752,14 +729,4 @@ $language = [
     'background_colour_required' => 'ต้องใช้สีพื้นหลัง',
     'text_colour_required' => 'ต้องระบุสีข้อความ',
     'no_announcements' => 'ยังไม่มีการประกาศใด ๆ',
-    'announcement_order' => 'Order',
-    'announcement_hook_info' => 'Announcement creation',
-
-    // OAuth
-    'oauth' => 'OAuth',
-    'oauth_info' => 'Configure OAuth providers to allow users to login with their social network accounts. <a href="https://docs.namelessmc.com/en/oauth" target="_blank">Check out our documentation for help.</a>',
-    'unlink' => 'Unlink',
-    'identifier' => 'Identifier',
-    'unlink_account_confirm' => 'Are you sure you want to forcibly unlink this provider from this user?',
-    'unlink_account_success' => 'Successfully unlinked their account from {{provider}}.',
 ];

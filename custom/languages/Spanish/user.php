@@ -34,9 +34,6 @@ $language = [
     'alerts' => 'Alertas',
     'delete_all' => 'Eliminar todos',
     'private_profile' => 'Perfil privado',
-    'gif_avatar' => 'Upload .gif as custom avatar',
-    'placeholders' => 'Placeholders',
-    'no_placeholders' => 'No Placeholders',
 
     // Profile settings
     'field_is_required' => '{{field}} es requerido.',
@@ -236,14 +233,4 @@ $language = [
      *  Hooks
      */
     'user_x_has_registered' => '{{user}} se ha registado {{siteName}}!',
-    'user_x_has_validated' => '{{user}} has validated their account!',
-
-    // OAuth
-    'oauth_unlinked' => 'Successfully unlinked your account from that provider.',
-    'oauth_already_linked' => 'Another NamelessMC user is already linked to that {{provider}} account.',
-    'oauth_link_success' => 'Successfully linked your account with {{provider}}!',
-    'no_user_found_with_provider' => 'No user found with that {{provider}} account.',
-    'oauth_login_success' => 'You have logged in with your {{provider}} account.',
-    'oauth_link_confirm' => 'You will be taken to the {{provider}} website to link your account.',
-    'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {{provider}}? You will not be able to login with this account anymore.',
 ];

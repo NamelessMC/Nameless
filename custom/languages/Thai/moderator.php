@@ -10,8 +10,6 @@
  */
 
 $language = [
-    'mod_cp' => 'ModCP',
-    'staff_cp' => 'StaffCP',
     'overview' => 'ภาพรวม',
 
     // Spam
@@ -63,11 +61,6 @@ $language = [
     'comment_created' => 'สร้างความคิดเห็นเรียบร้อยแล้ว',
 
     // Punishments
-    'punishments' => 'Punishments',
-    'view_punishments' => 'View Punishments',
-    'banned' => 'Banned',
-    'groups' => 'Groups',
-    'punish' => 'Punish',
     'ban' => 'แบน',
     'warn' => 'เตือน',
     'ban_ip' => 'แบน IP',
@@ -83,7 +76,6 @@ $language = [
     'enter_valid_punishment_reason' => 'โปรดป้อนเหตุผลที่ถูกต้องสำหรับการลงโทษของคุณ ระหว่าง 5 ถึง 5000 อักขระ',
     'user_punished' => 'ผู้ใช้ถูกลงโทษ',
     'user_punished_alert' => '{{staffUser}} ได้ลงโทษผู้ใช้ {{user}}',
-    'revoke' => 'Revoke',
     'revoked' => 'ยกเลิก',
     'acknowledged' => 'รับทราบ',
     'confirm_revoke_warning' => 'คุณแน่ใจหรือไม่ว่าต้องการเพิกถอนคำเตือนนี้',
@@ -93,11 +85,8 @@ $language = [
     'viewing_all_punishments' => 'กำลังดูบทลงโทษทั้งหมด',
     'no_punishments_found' => 'ไม่พบการลงโทษ',
     'view_user' => 'ดูผู้ใช้',
-    'when' => 'When',
     'staff' => 'ผู้ดูแล',
-    'type' => 'Type',
     'recent_punishments' => 'การลงโทษล่าสุด',
-    'created' => 'Created:',
     'staff:' => 'ผู้ดูแล:',
     'reason:' => 'เหตุผล:',
 

@@ -34,8 +34,6 @@ $language = [
     'delete_all' => 'Slet Alle',
     'private_profile' => 'Privat profil',
     'gif_avatar' => 'Upload .gif som tilpasset avatar',
-    'placeholders' => 'Placeholders',
-    'no_placeholders' => 'No Placeholders',
 
     // Profile settings
     'field_is_required' => '{{field}} er påkrævet.',
@@ -133,16 +131,13 @@ $language = [
     // Login
     'successful_login' => 'Du er nu logget ind.',
     'incorrect_details' => 'Du har indtastet forkerte oplysninger.',
-    'inactive_account' => 'Din konto er inaktiv. Tjek venligst dine e-mails for et valideringslink, herunder i din spam
-mappe.',
+    'inactive_account' => 'Din konto er inaktiv. Tjek venligst dine e-mails for et valideringslink, herunder i din spam mappe.',
     'account_banned' => 'Denne konto er udelukket.',
     'forgot_password' => 'Glemt adgangskode?',
     'remember_me' => 'Husk mig',
     'must_input_email' => 'Du skal indtaste en e-mail adresse.',
     'must_input_username' => 'Du skal indtaste et brugernavn.',
     'must_input_password' => 'Du skal indtaste en adgangskode.',
-    'must_input_email_or_username' => 'You must input an email or username.',
-    'email_or_username' => 'Email or Username',
 
     // Forgot password
     'forgot_password_instructions' => 'Indtast venligst din e-mailadresse, så vi kan sende dig yderligere instruktioner om nulstilling af din adgangskode.',
@@ -237,13 +232,4 @@ mappe.',
      */
     'user_x_has_registered' => '{{user}} har tilsluttet sig {{siteName}}!',
     'user_x_has_validated' => '{{user}} har valideret deres konto!',
-
-    // OAuth
-    'oauth_unlinked' => 'Successfully unlinked your account from that provider.',
-    'oauth_already_linked' => 'Another NamelessMC user is already linked to that {{provider}} account.',
-    'oauth_link_success' => 'Successfully linked your account with {{provider}}!',
-    'no_user_found_with_provider' => 'No user found with that {{provider}} account.',
-    'oauth_login_success' => 'You have logged in with your {{provider}} account.',
-    'oauth_link_confirm' => 'You will be taken to the {{provider}} website to link your account.',
-    'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {{provider}}? You will not be able to login with this account anymore.',
 ];

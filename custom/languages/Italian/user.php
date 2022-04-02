@@ -35,8 +35,6 @@ $language = [
     'delete_all' => 'Elimina tutto',
     'private_profile' => 'Profilo privato',
     'gif_avatar' => 'Carica .gif come avatar personalizzato',
-    'placeholders' => 'Placeholders',
-    'no_placeholders' => 'No Placeholders',
 
     // Profile settings
     'field_is_required' => '{{field}} è richiesto.',
@@ -70,7 +68,6 @@ $language = [
     'upload_profile_banner' => 'Carica banner profilo',
     'upload' => 'Carica',
     'topic_updates' => 'Ricevi email per gli argomenti che segui',
-    'gravatar' => 'Use Gravatar as avatar',
 
     // Alerts
     'user_tag_info' => 'Sei stato taggato in un post di {{author}}.',
@@ -83,14 +80,12 @@ $language = [
     // Registraton
     'registration_check_email' => "Grazie per esserti registrato! Si prega di controllare le e-mail per un link di convalida al fine di completare la registrazione. Se non riesci a trovare l'e-mail, controlla la tua cartella spam.",
     'username' => 'Nome utente',
-    'nickname' => 'Nickname',
     'minecraft_username' => 'Nome utente di Minecraft',
     'email_address' => 'Indirizzo Email',
     'email' => 'Email',
     'password' => 'Password',
     'confirm_password' => 'Conferma Password',
     'i_agree' => "Sono d'accordo",
-    'agree_t_and_c' => 'I have read and accept the <a href="{x}" target="_blank">Terms and Conditions</a>.',
     'create_an_account' => 'Crea un account',
     'terms_and_conditions' => 'Termini e condizioni',
     'validation_complete' => 'Il tuo account è stato convalidato, ora puoi effettuare il login.',
@@ -141,8 +136,6 @@ $language = [
     'must_input_email' => 'Devi inserire un indirizzo email.',
     'must_input_username' => 'Devi inserire un nome utente.',
     'must_input_password' => 'Devi inserire una password.',
-    'must_input_email_or_username' => 'You must input an email or username.',
-    'email_or_username' => 'Email or Username',
 
     // Forgot password
     'forgot_password_instructions' => 'Inserisci il tuo indirizzo e-mail in modo che possiamo inviarti ulteriori istruzioni sulla reimpostazione della password.',
@@ -237,13 +230,4 @@ $language = [
      */
     'user_x_has_registered' => '{{user}} si è unito {{siteName}}!',
     'user_x_has_validated' => '{{user}} has validated their account!',
-
-    // OAuth
-    'oauth_unlinked' => 'Successfully unlinked your account from that provider.',
-    'oauth_already_linked' => 'Another NamelessMC user is already linked to that {{provider}} account.',
-    'oauth_link_success' => 'Successfully linked your account with {{provider}}!',
-    'no_user_found_with_provider' => 'No user found with that {{provider}} account.',
-    'oauth_login_success' => 'You have logged in with your {{provider}} account.',
-    'oauth_link_confirm' => 'You will be taken to the {{provider}} website to link your account.',
-    'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {{provider}}? You will not be able to login with this account anymore.',
 ];

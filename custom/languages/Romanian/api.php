@@ -14,7 +14,6 @@
 $language = [
 
     // Errors
-    'api_disabled' => 'API is disabled',
     'unknown_error' => 'Eroare necunoscută',
     'invalid_api_key' => 'Cheie API invalidă',
     'invalid_language_file' => 'Fișier lingvistic invalid',
@@ -43,7 +42,6 @@ $language = [
     'unable_to_update_server_info' => 'Imposibil de actualizat informațiile serverului',
     'invalid_server_id' => 'ID de server invalid',
     'invalid_code' => 'Codul furnizat este invalid',
-    'user_already_active' => 'Your account has already been activated.',
 
     // Success messages
     'finish_registration_link' => 'Faceți clic pe următorul link pentru a finaliza înregistrarea:',

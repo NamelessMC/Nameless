@@ -17,7 +17,6 @@ $language = [
     're-authenticate' => 'Vennligst logg inn på nytt.',
 
     // Sidebar
-    'dashboard' => 'Dashboard',
     'configuration' => 'Konfigurering',
     'layout' => 'Oppsett',
     'user_management' => 'Brukeradministering',
@@ -40,17 +39,12 @@ $language = [
     'notices' => 'Varsler',
     'no_notices' => 'Ingen varsler.',
     'email_errors_logged' => 'En e-postfeil har blitt loggført',
-    'upgrade_php_version' => 'Please upgrade your PHP version to at least 7.4 - the next Nameless release will no longer support the version you are using.',
 
     // Core
     'mode_toggle' => 'Dark Mode',
     'settings' => 'Innstillinger',
     'general_settings' => 'Generelle innstillinger',
     'sitename' => 'Nettsidens navn',
-    'punished_id' => 'Punished User ID',
-    'punisher_id' => 'Punisher User ID',
-    'reason' => 'Ban Reason',
-    'ip_ban' => 'IP ban?',
     'default_language' => 'Standardspråk',
     'default_language_help' => 'Gjester på nettsiden kan benytte alle installerte språk',
     'install_language' => 'Installer språk',
@@ -108,7 +102,6 @@ $language = [
     'mailer_settings_info' => 'De markerte feltene må være utfylt hvis du har PHPMailer aktivert. For mer informasjon om hvordan du fyller ut disse feltene, sjekk ut <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-SMTP-with-Nameless-(e.g.-Gmail-or-Outlook)" target="_blank">wiki</a>.',
     'host' => 'Vert',
     'email_port' => 'Port',
-    'email_port_invalid' => 'Please insert a valid email port.',
     'email_password_hidden' => 'Passordet vises ikke på grunn av sikkerhetsmessige årsaker.',
     'send_test_email' => 'Send test e-post',
     'send_test_email_info' => 'Denne knappen vil prøve å sende en test e-post til din e-postadressse, {{email}}. Alle feilmeldinger som blir oppdaget vil bli listet her.',
@@ -150,12 +143,6 @@ $language = [
     'navigation_settings_updated_successfully' => 'Navigasjonsinnstillingene har blitt oppdatert.',
     'dropdown_items' => 'Rullegardinmeny',
     'enable_page_load_timer' => 'Aktiver timer som viser nedlastingstiden til nettsiden?',
-    'captcha_general' => 'Enable Captcha on registration page?',
-    'captcha_login' => 'Enable Captcha on login page?',
-    'captcha_type' => 'Captcha-type',
-    'captcha_site_key' => 'Captcha Site Key',
-    'captcha_secret_key' => 'Captcha Secret Key',
-    'invalid_recaptcha_settings' => 'Invalid {{recaptchaProvider}} credentials. Ensure the site key and site secret are correct.',
     'registration_disabled_message' => 'Registrering deaktivert-melding',
     'enable_nicknames_on_registration' => 'Tillatt kallenavn for nylig registrerte brukere?',
     'validation_promote_group' => 'Verifisert gruppe',
@@ -169,42 +156,8 @@ $language = [
     'emails_mass_message_sent_successfully' => 'E-post-massemelding har blitt sendt.',
     'emails_mass_message_replacements' => 'Du kan bruke variabler i din e-post-massemelding. Støttede variabler: {username}, {sitename}',
     'emails_mass_message_loading' => 'Laster inn... Vennligst ikke last inn siden på nytt. Dette kan ta en stund.',
-    'administrator' => 'Administrator',
-    'administrator_permission_info' => 'Members with this permission will have every permission. This is a dangerous permission to grant.',
-
-    // Placeholders
-    'placeholders' => 'Placeholders',
-    'enable_placeholders' => 'Enable Placeholders?',
-    'updated_placeholder_settings' => 'Updated placeholder settings successfully.',
-    'placeholders_info' => 'Placeholders allow the NamelessMC Spigot plugin to send statistics about each player to your website so they can display them on their profile and forum posts.',
-    'placeholders_none' => 'There are no placeholders.',
-    'placeholders_server_id' => 'Server ID',
-    'placeholders_name' => 'Name',
-    'placeholders_value' => 'Value',
-    'placeholders_last_updated' => 'Last Updated',
-    'placeholders_friendly_name' => 'Friendly Name',
-    'placeholders_friendly_name_info' => 'Use this to set a \'nickname\' to this placeholder. The friendly name will be used instead of the raw name.',
-    'placeholders_show_on_profile' => 'Show on Profile',
-    'placeholders_show_on_profile_info' => 'Whether to show this placeholder on each user\'s profile or not.',
-    'placeholders_show_on_forum' => 'Show on Forum',
-    'placeholders_show_on_forum_info' => 'Whether to show this placeholder on each user\'s forum posts or not.',
-
-    // Placeholder leaderboards
-    'leaderboard_settings' => 'Leaderboard Settings',
-    'placeholder_leaderboard_settings' => 'Placeholder Leaderboard Settings',
-    'placeholder_leaderboard_info' => 'Placeholder Leaderboards let you create leaderboards to display ranked players on your server according to any placeholder.',
-    'placeholder_leaderboard_enable_info' => 'Leaderboards work best with numeric placeholders (such as coins, kills, blocks mined, etc). If you enable a leaderboard on a text-based placeholder - you cannot be sure it will order it as you want.',
-    'placeholder_leaderboard_updated' => 'Updated leaderboard settings successfully',
-    'placeholder_leaderboard_enabled' => 'Leaderboard Enabled',
-    'placeholder_leaderboard_title' => 'Leaderboard Title',
-    'placeholder_leaderboard_sort' => 'Leaderboard Sort',
-
-    // SEO
-    'seo' => 'SEO',
-    'google_analytics' => 'Google Analytics',
     'google_analytics_help' => 'Legg til Google Analytics til din nettside for å spore besøkende og statistikker. Du vil måtte opprette en Google Analytics-konto for å bruke denne funksjonen. Skriv inn din Google Analytics Web Property ID. ID-en ser ut som UA-XXXXA-X og du finner den i din brukerinformasjon eller i sporingskoden fra Google.',
     'sitemap' => 'Sitemap',
-    'seo_settings_updated_successfully' => 'SEO settings updated successfully.',
 
     // Reactions
     'icon' => 'Ikon',
@@ -291,8 +244,6 @@ $language = [
     'no_parent_server' => 'Ingen hovedserver',
     'bungee_instance' => 'BungeeCord-funksjon?',
     'bungee_instance_help' => 'Velg dette alternativet hvis serveren er en BungeeCord.',
-    'bedrock' => 'Bedrock?',
-    'bedrock_help' => 'Select this option if the server is a Bedrock server.',
     'server_query_information' => 'For at spillerlisten skal vises på nettsiden, <strong>må</strong> serveren ha \'enable-query\' alternativet aktivert på <strong>server.properties</strong> filen.',
     'enable_status_query' => 'Aktiver status-query?',
     'status_query_help' => 'Hvis dette er aktivert, vil statussiden vise om serveren er oppe eller nede.',
@@ -361,7 +312,6 @@ $language = [
     'module_disabled' => 'Modul deaktivert.',
     'author' => 'Utgiver:',
     'author_x' => 'Utgiver: {{author}}',
-    'updated_x' => 'Updated at: {{updatedAt}}',
     'module_outdated' => 'Det ser ut som denne modulen hører til NamelessMC versjon {{intendedVersion}}, men du bruker versjon {{actualVersion}}',
     'find_modules' => 'Finn moduler',
     'view_all_modules' => 'Vis alle moduler',
@@ -495,7 +445,6 @@ $language = [
     'resend_activation_email' => 'Send aktiverings-e-post på nytt.',
     'email_resent_successfully' => 'E-post har blitt sendt på nytt.',
     'email_resend_failed' => 'E-post kunne ikke sendes på nytt, vennligst sjekk dine e-postinnstillinger.',
-    'no_item_selected' => 'No items selected',
 
     // Permissions
     'select_all' => 'Velg alle',
@@ -525,14 +474,9 @@ $language = [
     'please_select_logs' => 'Velg logger du vil se.',
     'ip_address' => 'IP-adresser',
     'template_changes' => 'Malendringer',
-    'email_logs' => 'Mass Emails',
-    'group_sync_logs' => 'Group Sync Changes',
     'file_changed' => 'Filendringer',
     'all_logs' => 'Alle logger',
     'action' => 'Handling',
-    'action_info' => 'Info',
-    'groups_removed' => 'Groups Removed',
-    'groups_added' => 'Groups Added',
 
     // Updates
     'update' => 'Oppdater',
@@ -638,14 +582,11 @@ $language = [
     'group_sync_rule_created_successfully' => 'Modifikasjonen har blitt laget.',
     'group_sync_rules_updated_successfully' => 'Modifikasjonen har blitt oppdatert.',
     'group_sync_rule_deleted_successfully' => 'Modifikasjonen har blitt fjernet.',
-    'group_sync_plugin_not_set_up' => 'Plugin not set up',
     'existing_rules' => 'Eksisterende modifikasjoner',
     'new_rule' => 'Ny modifikasjon',
     'api_endpoints' => 'API-endepunkter',
     'api_endpoints_info' => 'API-endepunkter gir moduler muligheten til å la eksterne programmer (som Minecraft og Discord) kommunisere med NamelessMC-nettsiden din. <a href="https://docs.namelessmc.com/en/api-documentation" target="_blank">Check out the API documentation here</a>',
     'route' => 'Dirigering',
-    'method' => 'Method',
-    'transformers' => 'Transformers',
 
     // File uploads
     'drag_files_here' => 'Dra filene hit for å laste opp.',
@@ -686,9 +627,6 @@ $language = [
     'register_hook_info' => 'Brukerregistrering',
     'validate_hook_info' => 'Brukerverifisering',
     'delete_hook_info' => 'Brukersletting',
-    'report_hook_info' => 'Report creation',
-    'ban_hook_info' => 'User banned',
-    'warning_hook_info' => 'User warned',
 
     // Sitemap
     'unable_to_load_sitemap_file_x' => 'Kunne ikke laste inn sitemapfilen {{file}}',
@@ -750,12 +688,4 @@ $language = [
     'no_announcements' => 'Ingen kunngjøringer har blitt opprettet enda.',
     'announcement_order' => 'Order',
     'announcement_hook_info' => 'Announcement creation',
-
-    // OAuth
-    'oauth' => 'OAuth',
-    'oauth_info' => 'Configure OAuth providers to allow users to login with their social network accounts. <a href="https://docs.namelessmc.com/en/oauth" target="_blank">Check out our documentation for help.</a>',
-    'unlink' => 'Unlink',
-    'identifier' => 'Identifier',
-    'unlink_account_confirm' => 'Are you sure you want to forcibly unlink this provider from this user?',
-    'unlink_account_success' => 'Successfully unlinked their account from {{provider}}.',
 ];

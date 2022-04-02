@@ -23,7 +23,6 @@ $language = [
     'guests' => 'Visitantes',
 
     // UserCP
-    'user_cp' => 'UserCP',
     'user_cp_icon' => '<i class="fas fa-cogs" aria-hidden="true"></i>',
     'overview' => 'Visão Geral',
     'user_details' => 'Detalhes do Usuário',
@@ -98,6 +97,7 @@ $language = [
     'validation_error' => 'Ocorreu um erro desconhecido ao validar sua conta, entre em contato com um administrador.',
     'signature' => 'Assinatura',
     'signature_max_900' => 'Sua assinatura deve ter no máximo 900 caracteres.',
+
     // Registration - Authme
     'connect_with_authme' => 'Conecte sua conta com o AuthMe',
     'authme_help' => 'Digite os detalhes da sua conta AuthMe. Se você ainda não possui uma conta no servidor, entre no servidor agora e siga as instruções fornecidas.',
@@ -105,6 +105,7 @@ $language = [
     'authme_account_linked' => 'Conta vinculada com sucesso.',
     'authme_email_help_1' => 'Finalmente, insira seu endereço de email.',
     'authme_email_help_2' => 'Finalmente, digite seu endereço de email e escolha um nome para sua conta.',
+
     // Registration errors
     'username_required' => 'É necessário um nome de usuário.',
     'email_required' => 'É necessário um endereço de email.',
@@ -236,13 +237,4 @@ $language = [
      */
     'user_x_has_registered' => '{{user}} juntou-se {{siteName}}!',
     'user_x_has_validated' => '{{user}} validou sua conta!',
-
-    // OAuth
-    'oauth_unlinked' => 'Successfully unlinked your account from that provider.',
-    'oauth_already_linked' => 'Another NamelessMC user is already linked to that {{provider}} account.',
-    'oauth_link_success' => 'Successfully linked your account with {{provider}}!',
-    'no_user_found_with_provider' => 'No user found with that {{provider}} account.',
-    'oauth_login_success' => 'You have logged in with your {{provider}} account.',
-    'oauth_link_confirm' => 'You will be taken to the {{provider}} website to link your account.',
-    'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {{provider}}? You will not be able to login with this account anymore.',
 ];

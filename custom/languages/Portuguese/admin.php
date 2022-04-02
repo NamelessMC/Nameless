@@ -158,7 +158,6 @@ $language = [
     'captcha_type' => 'Tipo de Captcha',
     'captcha_site_key' => 'Chave do site do Captcha',
     'captcha_secret_key' => 'Chave Secreta do Captcha',
-    'invalid_recaptcha_settings' => 'Invalid {{recaptchaProvider}} credentials. Ensure the site key and site secret are correct.',
     'registration_disabled_message' => 'Motivo do registro está desativado',
     'enable_nicknames_on_registration' => 'Ativar nickname para registrar usuários?',
     'validation_promote_group' => 'Grupo pós-validação',
@@ -691,8 +690,6 @@ $language = [
     'validate_hook_info' => 'Validação do usuário',
     'delete_hook_info' => 'Exclusão do usuário',
     'report_hook_info' => 'Criação de Denúncia',
-    'ban_hook_info' => 'User banned',
-    'warning_hook_info' => 'User warned',
 
     // Sitemap
     'unable_to_load_sitemap_file_x' => 'Não foi possível carregar o arquivo do mapa do site {{file}}',
@@ -754,12 +751,4 @@ $language = [
     'no_announcements' => 'Nenhum anúncio foi feito ainda.',
     'announcement_order' => 'Ordem',
     'announcement_hook_info' => 'Criação de Anúncio',
-
-    // OAuth
-    'oauth' => 'OAuth',
-    'oauth_info' => 'Configure OAuth providers to allow users to login with their social network accounts. <a href="https://docs.namelessmc.com/en/oauth" target="_blank">Check out our documentation for help.</a>',
-    'unlink' => 'Unlink',
-    'identifier' => 'Identifier',
-    'unlink_account_confirm' => 'Are you sure you want to forcibly unlink this provider from this user?',
-    'unlink_account_success' => 'Successfully unlinked their account from {{provider}}.',
 ];

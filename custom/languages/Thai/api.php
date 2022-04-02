@@ -16,7 +16,6 @@ $language = [
     'unknown_error' => 'ข้อผิดพลาดที่ไม่รู้จัก',
     'invalid_api_key' => 'คีย์ API ไม่ถูกต้อง',
     'invalid_language_file' => 'ไฟล์ภาษาไม่ถูกต้อง',
-    'invalid_api_method' => 'Invalid API method',
     'no_unique_site_id' => 'ไม่มีรหัสไซต์ที่ไม่ซ้ำกัน',
     'unable_to_check_for_updates' => 'ไม่สามารถตรวจสอบการอัปเดตได้',
     'invalid_post_contents' => 'เนื้อหา POST ไม่ถูกต้อง',

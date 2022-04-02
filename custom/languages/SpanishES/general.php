@@ -84,16 +84,6 @@ $language = [
     'status' => 'Estado',
 
     /*
-     *  Footer
-     */
-    'links' => 'Links',
-
-    /*
-     *  Homepage
-     */
-    'social' => 'Social',
-
-    /*
      *  Server query
      */
     'online' => 'En línea',
@@ -149,9 +139,4 @@ $language = [
      *  Custom page redirect
      */
     'redirecting_message' => 'Redirigiendo...<br />Si no es redirigido automáticamente, por favor haga clic <a href="{x}" rel="nofollow noopener">aquí</a>.',
-
-    /*
-     * OAuth
-     */
-    'oauth_message_continue' => 'Continue registering with {{provider}}',
 ];

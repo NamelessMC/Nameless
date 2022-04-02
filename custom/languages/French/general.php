@@ -23,8 +23,6 @@ $language = [
     'invalid_token' => 'Token invalide, veuillez réessayer.',
     'close' => 'Fermer',
     'back' => 'Retour',
-    'warning' => 'Avertissement',
-    'date' => 'Date',
     'search' => 'Recherche',
     'edit' => 'Modifier',
     'next' => 'Suivant',
@@ -81,16 +79,6 @@ $language = [
     'status' => 'Statut',
 
     /*
-     *  Footer
-     */
-    'links' => 'Links',
-
-    /*
-     *  Homepage
-     */
-    'social' => 'Social',
-
-    /*
      *  Server query
      */
     'online' => 'En ligne',
@@ -144,9 +132,4 @@ $language = [
      *  Custom page redirect
      */
     'redirecting_message' => 'Redirection... Si vous n\'êtes pas redirigé automatiquement, veuillez cliquer sur <a href="{x}" rel="nofollow noopener">ici</a>',
-
-    /*
-     * OAuth
-     */
-    'oauth_message_continue' => 'Continue registering with {{provider}}',
 ];

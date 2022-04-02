@@ -51,7 +51,6 @@ $language = [
     'configuration' => 'Yapılandırma',
     'configuration_info' => 'Lütfen sitenizle ilgili temel bilgileri girin. Bu değerler daha sonra yönetici panelinden değiştirilebilir.',
     'configuration_error' => 'Lütfen 1 ila 32 karakter uzunluğunda geçerli bir site adı ve 4 ila 64 karakter uzunluğunda geçerli bir e-posta adresi girin.',
-    'hostname_error' => 'Please enter a valid hostname without http:// or https://',
     'site_name' => 'Site Adı',
     'contact_email' => 'İletişim E-postası',
     'outgoing_email' => 'Giden E-posta',
@@ -87,21 +86,4 @@ $language = [
     'support_message' => 'Herhangi bir desteğe ihtiyacınız varsa, web sitemizi <a href="https://namelessmc.com" target="_blank">buradan</a> inceleyin veya <a href = "https://discord.gg/nameless" target="_ blank">Discord sunucusu</a> veya <a href="https://github.com/NamelessMC/Nameless/" target="_blank">GitHub depomuz</a>. <br>Türkleştirmede sorun yaşıyorsanız <a href="https://orcunozturk.cf/">xOrcun</a> ile iletişime geçiniz.',
     'credits' => 'Hakkında',
     'credits_message' => '2014\'ten bu yana tüm <a href="https://github.com/NamelessMC/Nameless/graphs/contributors" target="_blank"> NamelessMC katılımcılarına </a> çok teşekkür ederiz.',
-
-    'step_home' => 'Home',
-    'step_requirements' => 'Requirements',
-    'step_general_config' => 'General Configuration',
-    'step_database_config' => 'Database Configuration',
-    'step_site_config' => 'Site Configuration',
-    'step_admin_account' => 'Admin Account',
-    'step_conversion' => 'Conversion',
-    'step_finish' => 'Finish',
-
-    'general_configuration' => 'General Configuration',
-    'reload' => 'Reload',
-    'reload_page' => 'Reload page',
-    'no_converters_available' => 'There are no converters available.',
-    'config_not_writable' => 'The config file is not writable.',
-
-    'session_doesnt_exist' => 'Unable to detect session. Sessions saving are a requirement to use Nameless. Please try again after clearing cookies in your web browser, and if the issue persists, please contact your web host for support.'
 ];

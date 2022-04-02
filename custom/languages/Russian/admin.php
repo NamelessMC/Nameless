@@ -79,7 +79,6 @@ $language = [
     'twitter_dark_theme' => 'Использовать тёмную тему в Twitter?',
     'dark' => 'Тёмная',
     'light' => 'Светлая',
-    'facebook_url' => 'Facebook URL',
     'social_media_settings_updated' => 'Настройки социальных сетей успешно обновлены.',
     'successfully_updated' => 'Успешно обновлено',
     'debugging_and_maintenance' => 'Отладка & Режим обслуживания',

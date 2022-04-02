@@ -90,7 +90,6 @@ $language = [
     'password' => 'Hasło',
     'confirm_password' => 'Powtórz hasło',
     'i_agree' => 'Zgadzam się',
-    'agree_t_and_c' => 'I have read and accept the <a href="{x}" target="_blank">Terms and Conditions</a>.',
     'create_an_account' => 'Zarejestruj',
     'terms_and_conditions' => 'Regulamin',
     'validation_complete' => 'Twoje konto zostało zweryfikowane. Możesz się teraz zalogować.',
@@ -141,8 +140,6 @@ $language = [
     'must_input_email' => 'Musisz podać adres email.',
     'must_input_username' => 'Musisz podać nazwę użytkownika.',
     'must_input_password' => 'Musisz podać hasło.',
-    'must_input_email_or_username' => 'You must input an email or username.',
-    'email_or_username' => 'Email or Username',
 
     // Forgot password
     'forgot_password_instructions' => 'Wprowadź swój adres e-mail, abyśmy mogli wysłać Ci dalsze instrukcje dotyczące resetowania hasła.',
@@ -237,13 +234,4 @@ $language = [
      */
     'user_x_has_registered' => '{{user}} dołączył do {{siteName}}!',
     'user_x_has_validated' => '{{user}} zweryfikował swoje konto!',
-
-    // OAuth
-    'oauth_unlinked' => 'Successfully unlinked your account from that provider.',
-    'oauth_already_linked' => 'Another NamelessMC user is already linked to that {{provider}} account.',
-    'oauth_link_success' => 'Successfully linked your account with {{provider}}!',
-    'no_user_found_with_provider' => 'No user found with that {{provider}} account.',
-    'oauth_login_success' => 'You have logged in with your {{provider}} account.',
-    'oauth_link_confirm' => 'You will be taken to the {{provider}} website to link your account.',
-    'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {{provider}}? You will not be able to login with this account anymore.',
 ];

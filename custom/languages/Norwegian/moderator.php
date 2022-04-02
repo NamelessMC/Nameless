@@ -10,12 +10,9 @@
  */
 
 $language = [
-    'mod_cp' => 'ModCP',
-    'staff_cp' => 'StaffCP',
     'overview' => 'Oppsummering',
 
     // Spam
-    'spam' => 'Spam',
     'mark_as_spam' => 'Marker som spam',
     'confirm_spam' => '<p>Er du sikker på at du vil markere denne spilleren som spam?</p><p>Denne personen vil bli IP-bannlyst.</p>',
     'user_marked_as_spam' => 'Bruker markert som spam!',
@@ -94,7 +91,6 @@ $language = [
     'no_punishments_found' => 'Ingen straffer funnet.',
     'view_user' => 'Se bruker',
     'when' => 'Når',
-    'staff' => 'Staff',
     'type' => 'Type',
     'recent_punishments' => 'Nylige straffer',
     'created' => 'Opprettet:',

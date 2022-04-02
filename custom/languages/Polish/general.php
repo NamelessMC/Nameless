@@ -54,10 +54,6 @@ $language = [
     'loading' => 'Ładowanie...',
     'report' => 'Zgłoś',
     'reported_by' => 'Reported by {{author}}',
-    'view_report' => 'View report',
-    'report_origin' => 'Origin',
-    'origin_website' => 'Website',
-    'origin_api' => 'API',
     'page_loaded_in' => 'Strona została załadowana w {{time}}s',
     'page_x' => 'Strona {{page}}',
     'browse' => 'Szukaj',
@@ -82,11 +78,6 @@ $language = [
     'home' => 'Strona główna',
     'more' => 'Więcej',
     'status' => 'Status',
-
-    /*
-     *  Footer
-     */
-    'links' => 'Links',
 
     /*
      *  Homepage
@@ -149,9 +140,4 @@ $language = [
      *  Custom page redirect
      */
     'redirecting_message' => 'Przekierowywanie...<br />Jeżeli nie przenieśliśmy cię automatycznie kliknij <a href="{x}" rel="nofollow noopener">tutaj</a>.',
-
-    /*
-     * OAuth
-     */
-    'oauth_message_continue' => 'Continue registering with {{provider}}',
 ];

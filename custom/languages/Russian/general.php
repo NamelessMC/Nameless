@@ -112,7 +112,6 @@ $language = [
     'no_servers' => 'Сейчас нет серверов для отображения!',
     'bungee_instance' => 'Этот сервер построен на базе BungeeCord.',
     'no_players_online' => 'Сейчас нет игроков онлайн.',
-    'and_x_more' => 'and {{count}} more',
 
     /*
      *  Cookie notice

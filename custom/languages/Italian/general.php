@@ -53,10 +53,6 @@ $language = [
     'x_new_messages' => 'Hai {{count}} nuovi messaggi.',
     'loading' => 'Caricamento...',
     'report' => 'Segnala',
-    'reported_by' => 'Reported by {{author}}',
-    'view_report' => 'View report',
-    'report_origin' => 'Origin',
-    'origin_website' => 'Website',
     'origin_api' => 'API',
     'page_loaded_in' => 'Pagina caricata in {{time}}s',
     'page_x' => 'Pagina {{page}}',
@@ -70,11 +66,7 @@ $language = [
     'success' => 'Successo',
     'error' => 'Errore',
     'are_you_sure' => 'Sei sicuro?',
-    'spoiler' => 'Spoiler',
     'invalid_timezone' => 'Quel fuso orario non è valido',
-    'link' => 'Link',
-    'unlink' => 'Unlink',
-    'leaderboards' => 'Leaderboards',
 
     /*
      *  Navbar
@@ -84,23 +76,8 @@ $language = [
     'status' => 'Stato',
 
     /*
-     *  Footer
-     */
-    'links' => 'Links',
-
-    /*
-     *  Homepage
-     */
-    'social' => 'Social',
-
-    /*
      *  Server query
      */
-    'online' => 'Online',
-    'offline' => 'Offline',
-    'player_count' => '{{onlinePlayers}}/{{totalPlayers}}',
-    'ping' => 'Ping: {{ping}}',
-    'version' => 'Versione: {{version}}',
     'currently_1_player_online' => "Attualmente c'è <strong>1</strong> giocatore online.",
     'currently_x_players_online' => 'Al momento ci sono {{count}} giocatori online.',
     'server_offline' => 'Il server è attualmente offline.',
@@ -149,9 +126,4 @@ $language = [
      *  Custom page redirect
      */
     'redirecting_message' => 'Reindirizzamento in corso...<br />Se non vieni reindirizzato automaticamente, clicca <a href="{x}" rel="nofollow noopener">qui</a>.',
-
-    /*
-     * OAuth
-     */
-    'oauth_message_continue' => 'Continue registering with {{provider}}',
 ];

@@ -63,7 +63,6 @@ $language = [
     'input_required' => 'Var god ange ett giltigt användarnamn, e-postadress och lösenord.',
     'input_minimum' => 'Vänligen se till att användarnamnet är minst 3 tecken, din e-postadress är minst 4 tecken och ditt lösenord är minst 6 tecken.',
     'input_maximum' => 'Se till att din användarnamn är högst 20 tecken och din e-postadress och ditt lösenord är högst 64 tecken.',
-    'email_invalid' => 'Your email is not valid.',
     'passwords_must_match' => 'Dina lösenord måste matcha.',
     'creating_admin_account' => 'Skapar Admin Kontot.',
     'enter_admin_details' => 'Vänligen ange detaljerna för administratorkontot.',
@@ -103,6 +102,4 @@ $language = [
     'reload_page' => 'Ladda om sidan',
     'no_converters_available' => 'Det finns inga konverterare tillgängliga.',
     'config_not_writable' => 'Konfigurationsfilen är inte skrivbar.',
-
-    'session_doesnt_exist' => 'Unable to detect session. Sessions saving are a requirement to use Nameless. Please try again after clearing cookies in your web browser, and if the issue persists, please contact your web host for support.'
 ];

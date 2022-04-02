@@ -11,8 +11,6 @@
  */
 
 $language = [
-    'mod_cp' => 'ModCP',
-    'staff_cp' => 'StaffCP',
     'overview' => 'Visão Geral',
 
     // Spam
@@ -55,8 +53,6 @@ $language = [
     'no_closed_reports' => 'Atualmente não há denúncias fechadas.',
     'recent_reports' => 'Denúncias Recentes',
     'reported_by' => 'Denunciado por:',
-    'website' => 'Website',
-    'ingame' => 'Ingame',
     'x_closed_report' => '{{user}} fechar essa denúncia.',
     'x_reopened_report' => '{{user}} reabrir essa denúncia.',
     'report_reopened' => 'Denúncia reaberta com sucesso.',

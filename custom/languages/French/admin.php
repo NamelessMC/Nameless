@@ -38,20 +38,14 @@ $language = [
     'registrations' => 'Enregistrements',
     'topics' => 'Sujets',
     'posts' => 'Postes',
-    'notices' => 'Notifications',
     'no_notices' => 'Aucunes notifications.',
     'email_errors_logged' => 'Des erreurs de messagerie ont été enregistrées',
-    'upgrade_php_version' => 'Please upgrade your PHP version to at least 7.4 - the next Nameless release will no longer support the version you are using.',
 
     // Core
     'mode_toggle' => 'Mode sombre',
     'settings' => 'Paramètres',
     'general_settings' => 'Paramètres généraux',
     'sitename' => 'Nom du site',
-    'punished_id' => 'Punished User ID',
-    'punisher_id' => 'Punisher User ID',
-    'reason' => 'Ban Reason',
-    'ip_ban' => 'IP ban?',
     'default_language' => 'Langage par défaut',
     'default_language_help' => 'Les utilisateurs pourront choisir parmi n’importe quelle langue installée.',
     'install_language' => 'Installer la langue',
@@ -109,7 +103,6 @@ $language = [
     'mailer_settings_info' => 'Les champs suivants sont requis si vous avez activé PHPMailer. Pour plus d’informations sur la façon de remplir ces champs, consultez <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-SMTP-with-Nameless-(e.g.-Gmail-or-Outlook)" target="_blank">le wiki</a>.',
     'host' => 'Hôte',
     'email_port' => 'Port',
-    'email_port_invalid' => 'Please insert a valid email port.',
     'email_password_hidden' => 'Le mot de passe n’est pas affiché pour des raisons de sécurité.',
     'send_test_email' => 'Envoyer un email de test',
     'send_test_email_info' => 'Le bouton suivant tentera d\'envoyer un courriel à votre adresse électronique, {{email}}. Toute erreur commise lors de l\'envoi du courriel sera affichée.',
@@ -145,15 +138,12 @@ $language = [
     'captcha_login' => 'Activer Captcha sur la page de connexion ?',
     'captcha_site_key' => 'Clé de site Captcha',
     'captcha_secret_key' => 'Clé secrète Captcha',
-    'invalid_recaptcha_settings' => 'Invalid {{recaptchaProvider}} credentials. Ensure the site key and site secret are correct.',
     'registration_disabled_message' => 'Enregistrement message désactivé',
     'enable_nicknames_on_registration' => 'Activer les surnoms lors de l\'enregistrement des utilisateurs ?',
     'validation_promote_group' => 'Groupe de postvalidation',
     'validation_promote_group_info' => 'C’est le groupe auquel un utilisateur sera promu une fois qu’il aura validé son compte.',
     'login_method' => 'Méthode de connexion',
     'privacy_and_terms' => 'Confidentialité et conditions',
-    'administrator' => 'Administrator',
-    'administrator_permission_info' => 'Members with this permission will have every permission. This is a dangerous permission to grant.',
 
     // Placeholders
     'placeholders' => 'Espace réservé',
@@ -184,10 +174,8 @@ $language = [
 
     // SEO
     'seo' => 'SEO',
-    'google_analytics' => 'Google Analytics',
     'google_analytics_help' => 'Ajoutez Google Analytics à votre site Web pour suivre les visiteurs et les statistiques. Vous devrez créer un compte Google Analytics pour utiliser cette fonctionnalité. Saisissez votre ID de propriété Web Google Analytics. L\'ID ressemble à UA-XXXXA-X et vous pouvez le trouver dans les informations de votre compte ou dans le code de suivi fourni par Google.',
     'sitemap' => 'Plan du site',
-    'seo_settings_updated_successfully' => 'SEO settings updated successfully.',
 
     // Reactions
     'icon' => 'Icône',
@@ -343,7 +331,6 @@ $language = [
     'module_disabled' => 'Module désactivé.',
     'author' => 'Auteur:',
     'author_x' => 'Auteur: {{author}}',
-    'updated_x' => 'Updated at: {{updatedAt}}',
     'module_outdated' => 'Nous avons détecté que ce module est destiné à la version Nameless {{intendedVersion}}, mais vous utilisez la version Nameless {{actualVersion}}',
     'find_modules' => 'Trouver des modules',
     'view_all_modules' => 'Voir tous les modules',
@@ -361,7 +348,6 @@ $language = [
     'deactivate' => 'Désactiver',
     'activate' => 'Activer',
     'warning_editing_default_template' => 'Avertissement! Il est recommandé de ne pas modifier le modèle par défaut.',
-    'images' => 'Images',
     'upload_new_image' => 'Upload une nouvelle image',
     'reset_background' => 'Réinitialiser l’arrière plan',
     'install' => '<i class="fa fa-plus-circle"></i> Installer',
@@ -384,12 +370,6 @@ $language = [
     'template_banner_reset_successfully' => 'Bannière réinitialisée avec succès.',
     'template_banner_updated_successfully' => 'Bannière mise à jour avec succès.',
     'reset_banner' => 'Réinitialiser la bannière',
-    'logo_reset_successfully' => 'Logo reset successfully.',
-    'logo_updated_successfully' => 'Logo updated successfully.',
-    'reset_logo' => 'Reset Logo',
-    'favicon_reset_successfully' => 'Favicon reset successfully.',
-    'favicon_updated_successfully' => 'Favicon updated successfully.',
-    'reset_favicon' => 'Reset Favicon',
     'find_templates' => 'Trouver des modèles',
     'view_all_templates' => 'Voir tous les modèles',
     'unable_to_retrieve_templates' => 'Impossible de récupérer des modèles',
@@ -445,8 +425,6 @@ $language = [
     'group_name_maximum' => 'Assurez-vous que votre nom de groupe est d’une longueur maximale de 20 caractères.',
     'creating_group' => 'Création d’un nouveau groupe',
     'group_html_maximum' => 'Veuillez vous assurer que votre groupe HTML ne dépasse pas 1024 caractères.',
-    'group_html' => 'Groupe HTML',
-    'group_html_lg' => 'Groupe HTML Large',
     'group_username_colour' => 'Groupe Nom d’utilisateur Couleur',
     'group_staff' => 'Le groupe est-il un groupe staff?',
     'delete_group' => 'Supprimer le groupe',
@@ -475,7 +453,6 @@ $language = [
     'resend_activation_email' => 'Renvoyer l\'email d\'activation',
     'email_resent_successfully' => 'Email renvoyé avec succès.',
     'email_resend_failed' => 'Le renvoi de l’e-mail a échoué, veuillez vérifier vos paramètres de messagerie.',
-    'no_item_selected' => 'No items selected',
 
     // PermissionsRenvoyer l'email d'activation
     'select_all' => 'Sélectionner tout',
@@ -505,8 +482,6 @@ $language = [
     'please_select_logs' => 'Sélectionner les logs pour les voirs',
     'ip_address' => 'Adresse IP',
     'template_changes' => 'Changements de modèles',
-    'email_logs' => 'Mass Emails',
-    'group_sync_logs' => 'Group Sync Changes',
     'file_changed' => 'Fichier Changé',
     'all_logs' => 'Tout les logs',
     'action' => 'Action',
@@ -543,7 +518,6 @@ $language = [
     'show_nickname_instead_of_username' => 'Afficher le pseudo de l\’utilisateur au lieu du nom d\’utilisateur ?',
 
     // Custom Pages
-    'pages' => 'Pages',
     'custom_pages' => 'Pages personnalisées',
     'new_page' => '<i class="fa fa-plus-circle"></i> Nouvelle page',
     'no_custom_pages' => 'Aucune page n’a encore été créée.',
@@ -695,20 +669,10 @@ Vous devriez configurer votre groupe par défaut pour avoir des autorisations li
     'background_colour_required' => 'La couleur de fond est requise',
     'text_colour_required' => 'La couleur du texte est requise',
     'no_announcements' => 'Aucune annonce n\'a encore été faite.',
-    'announcement_order' => 'Order',
-    'announcement_hook_info' => 'Announcement creation',
 
     // Other
     'source' => 'Source',
     'support' => 'Support',
     'admin_dir_still_exists' => 'Attention ! Le répertoire <strong>modules/Core/pages/admin</strong> existe toujours. Veuillez supprimer ce répertoire.',
     'mod_dir_still_exists' => 'Attention ! Le répertoire <strong>modules/Core/pages/mod</strong> existe toujours. Veuillez supprimer ce répertoire.',
-
-    // OAuth
-    'oauth' => 'OAuth',
-    'oauth_info' => 'Configure OAuth providers to allow users to login with their social network accounts. <a href="https://docs.namelessmc.com/en/oauth" target="_blank">Check out our documentation for help.</a>',
-    'unlink' => 'Unlink',
-    'identifier' => 'Identifier',
-    'unlink_account_confirm' => 'Are you sure you want to forcibly unlink this provider from this user?',
-    'unlink_account_success' => 'Successfully unlinked their account from {{provider}}.',
 ];

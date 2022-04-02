@@ -22,8 +22,4 @@ $language = [
     // Change Password
     'change_password_subject' => 'Pamiršote slaptažodį?',
     'change_password_message' => 'Jei norite iš naujo nustatyti slaptažodį, spauskite šią nuorodą. Jei to neprašėte patys, galite saugiai ištrinti šį el. laišką.',
-
-    // Forum Topic Replies
-    'forum_topic_reply_subject' => '{{author}} has replied to {{topic}}',
-    'forum_topic_reply_message' => '{{author}} has replied to a topic you follow. Content: {{content}}'
 ];

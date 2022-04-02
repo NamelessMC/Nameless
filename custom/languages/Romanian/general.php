@@ -86,20 +86,8 @@ $language = [
     'status' => 'Statistici',
 
     /*
-     *  Footer
-     */
-    'links' => 'Links',
-
-    /*
-     *  Homepage
-     */
-    'social' => 'Social',
-
-    /*
      *  Server query
      */
-    'online' => 'Online',
-    'offline' => 'Offline',
     'player_count' => '{{onlinePlayers}}/{{totalPlayers}}',
     'ping' => 'Ping: {{ping}}',
     'version' => 'Versiune: {{version}}',
@@ -137,10 +125,6 @@ $language = [
     'no_online_users' => 'Nu există utilizatori online momentan.',
     'total_online_users' => 'Utilizatori online: {{count}}',
     'discord_widget_disabled' => 'Widgetul este dezactivat pentru serverul de Discord specificat. Accesați fila \'Widget\' din setările pentru serverul de Discord și asigurați-vă că widgetul Discord este activat și că ID-ul este corect.',
-    'online_guests' => 'Online Guests',
-    'total_online' => 'Total Online', // this is Online Users + Online Guests
-    'no_default_server' => 'There is no default server, please select one in StaffCP - Integrations - Minecraft.',
-    'server_status' => 'Server Status',
 
     /*
      *  Privacy policy
@@ -151,9 +135,4 @@ $language = [
      *  Custom page redirect
      */
     'redirecting_message' => 'În curs de redirecționare...<br />Dacă nu ești redirecționat automat, te rog <a href="{x}" rel="nofollow noopener">apasă aici</a>.',
-
-    /*
-     * OAuth
-     */
-    'oauth_message_continue' => 'Continue registering with {{provider}}',
 ];

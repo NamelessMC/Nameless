@@ -77,30 +77,11 @@ $language = [
     'leaderboards' => 'กระดานผู้นำ',
 
     /*
-     *  Navbar
-     */
-    'home' => 'Home',
-    'more' => 'More',
-    'status' => 'Status',
-
-    /*
-     *  Footer
-     */
-    'links' => 'Links',
-
-    /*
-     *  Homepage
-     */
-    'social' => 'Social',
-
-    /*
      *  Server query
      */
     'online' => 'ออนไลน์',
     'offline' => 'ออฟไลน์',
     'player_count' => '{{onlinePlayers}}/{{totalPlayers}}',
-    'ping' => 'Ping: {{ping}}',
-    'version' => 'Version: {{version}}',
     'currently_1_player_online' => 'ขณะนี้มีผู้เล่นออนไลน์ <strong>1</strong> คน',
     'currently_x_players_online' => 'ขณะนี้มีผู้เล่น {{count}} คนกำลังออนไลน์',
     'server_offline' => 'เซิร์ฟเวอร์ออฟไลน์อยู่ในขณะนี้',
@@ -111,7 +92,6 @@ $language = [
     'no_servers' => 'ไม่มีเซิร์ฟเวอร์ที่จะแสดง!',
     'bungee_instance' => 'เซิร์ฟเวอร์นี้เป็น instance Bungee',
     'no_players_online' => 'ไม่มีผู้เล่นออนไลน์',
-    'and_x_more' => 'and {{count}} more',
 
     /*
      *  Cookie notice
@@ -148,9 +128,4 @@ $language = [
      *  Custom page redirect
      */
     'redirecting_message' => 'กำลังเปลี่ยนเส้นทาง...<br />หากคุณไม่ถูกเปลี่ยนเส้นทางโดยอัตโนมัติ โปรดคลิก <a href="{x}" rel="nofollow noopener">ที่นี่/a>.',
-
-    /*
-     * OAuth
-     */
-    'oauth_message_continue' => 'Continue registering with {{provider}}',
 ];

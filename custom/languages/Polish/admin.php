@@ -41,7 +41,6 @@ $language = [
     'notices' => 'Powiadomienia',
     'no_notices' => 'Brak powiadomień.',
     'email_errors_logged' => 'Błędy email zostały zapisane. Kliknij <a href="{x}">tutaj</a> aby je zobaczyć.',
-    'upgrade_php_version' => 'Please upgrade your PHP version to at least 7.4 - the next Nameless release will no longer support the version you are using.',
 
     // Core
     'mode_toggle' => 'Ciemny Tryb',
@@ -107,9 +106,6 @@ $language = [
     'outgoing_email' => 'Email do wysyłania wiadomości',
     'outgoing_email_info' => 'Ten adres email będzie używany przez NamelessMC do wysyłania emaili.',
     'mailer_settings_info' => 'Następujące pola są wymagane, jeśli masz włączony PHPMailer. Aby uzyskać więcej informacji na temat wypełniania tych pól, przeczytaj <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-Gmail-or-SMTP-with-Nameless" target="_blank">ten</a> artykuł w NamelessMC wiki.',
-    'host' => 'Host',
-    'email_port' => 'Port',
-    'email_port_invalid' => 'Please insert a valid email port.',
     'email_password_hidden' => 'Hasło nie jest pokazane ze względów bezpieczeństwa.',
     'send_test_email' => 'Wyślij testowy email',
     'send_test_email_info' => 'Poniższy przycisk wyśle wiadomość e-mail na twój adres e-mail {{email}}. Zostaną wyświetlone wszystkie błędy wygenerowane podczas wysyłania wiadomości.',
@@ -170,7 +166,6 @@ $language = [
     'emails_mass_message_sent_successfully' => 'Wysłano wiadomość pomyślnie.',
     'emails_mass_message_replacements' => 'Możesz użyć zmiennych w wiadomo. Przykłady:: {username}, {sitename}',
     'emails_mass_message_loading' => 'Ładowanie... Nie odświeżaj strony. To trochę zajmie.',
-    'administrator' => 'Administrator',
     'administrator_permission_info' => 'Każdy użytkownik z tymi uprawnieniami może robić wszystko, uważaj.',
 
     // Placeholders
@@ -376,7 +371,6 @@ $language = [
     'panel_templates' => 'Szablony panelu administracji',
     'view_all_panel_templates' => 'Zobacz wszystkie szablony panelu',
     'template_outdated' => 'Wykryliśmy że ten szablon jest przeznaczony do wersji Nameless {{intendedVersion}}, a ty używasz wersji Nameless {{actualVersion}}',
-    'template_not_supported' => 'As of NamelessMC 2.0.0-pr8 the Default template is not supported. For the best experience, please use a supported template.',
     'active' => 'Aktywny',
     'deactivate' => 'Dezaktywuj',
     'activate' => 'Aktywuj',
@@ -398,18 +392,10 @@ $language = [
     'template_deleted_successfully' => 'Szablon został usunięty pomyślnie.',
     'background_image_x' => 'Grafika w tle: {{imageName}}',
     'banner_image_x' => 'Grafika na bannerze: {{imageName}}',
-    'logo_image_x' => 'Logo image: {{imageName}}',
-    'favicon_image_x' => 'Favicon image: {{imageName}}',
     'x_directory_not_writable' => 'Ścieżka {{directory}} nie jest zapisywalna!',
     'template_banner_reset_successfully' => 'Banner został zresetowany pomyślnie.',
     'template_banner_updated_successfully' => 'Banner został zaktualizowany pomyślnie.',
     'reset_banner' => 'Zresetuj banner',
-    'logo_reset_successfully' => 'Logo reset successfully.',
-    'logo_updated_successfully' => 'Logo updated successfully.',
-    'reset_logo' => 'Reset Logo',
-    'favicon_reset_successfully' => 'Favicon reset successfully.',
-    'favicon_updated_successfully' => 'Favicon updated successfully.',
-    'reset_favicon' => 'Reset Favicon',
     'find_templates' => 'Znajdź szablony',
     'view_all_templates' => 'Pokaż wszystkie szablony',
     'unable_to_retrieve_templates' => 'Podczas pobierania szablonów wystąpił błąd.',
@@ -496,7 +482,6 @@ $language = [
     'resend_activation_email' => 'Wyślij Maila Ponownie',
     'email_resent_successfully' => 'Wysłano maila ponownie.',
     'email_resend_failed' => 'Wysyłanie maila nie udało się, sprawdź swoje ustawienia.',
-    'no_item_selected' => 'No items selected',
 
     // Permissions
     'select_all' => 'Zaznacz wszystko',
@@ -645,8 +630,6 @@ $language = [
     'api_endpoints' => 'Punkty API',
     'api_endpoints_info' => 'Punkty API pomagają modułom w podłączaniu z różnymi usługami (np. Minecraft lub Discord), aby móc integrować z NamelessMC. <a href="https://docs.namelessmc.com/en/api-documentation" target="_blank">Check out the API documentation here</a>',
     'route' => 'Trasa',
-    'method' => 'Method',
-    'transformers' => 'Transformers',
 
     // File uploads
     'drag_files_here' => 'Przeciągnij pliki tutaj, aby je przesłać.',
@@ -687,9 +670,6 @@ $language = [
     'register_hook_info' => 'Rejestracja użytkownika',
     'validate_hook_info' => 'Weryfikacja użytkownia',
     'delete_hook_info' => 'Usunięcie użytkownika',
-    'report_hook_info' => 'Report creation',
-    'ban_hook_info' => 'User banned',
-    'warning_hook_info' => 'User warned',
 
     // Sitemap
     'unable_to_load_sitemap_file_x' => 'Nie można załadować pliku mapy strony {{file}}',
@@ -751,12 +731,4 @@ $language = [
     'no_announcements' => 'Nie ma jeszcze żadnych ogłoszeń.',
     'announcement_order' => 'Order',
     'announcement_hook_info' => 'Announcement creation',
-
-    // OAuth
-    'oauth' => 'OAuth',
-    'oauth_info' => 'Configure OAuth providers to allow users to login with their social network accounts. <a href="https://docs.namelessmc.com/en/oauth" target="_blank">Check out our documentation for help.</a>',
-    'unlink' => 'Unlink',
-    'identifier' => 'Identifier',
-    'unlink_account_confirm' => 'Are you sure you want to forcibly unlink this provider from this user?',
-    'unlink_account_success' => 'Successfully unlinked their account from {{provider}}.',
 ];

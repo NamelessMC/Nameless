@@ -41,7 +41,6 @@ $language = [
     'notices' => 'Avvisi',
     'no_notices' => 'Nessun avviso.',
     'email_errors_logged' => "Gli errori dell'email sono stati registrati",
-    'upgrade_php_version' => 'Please upgrade your PHP version to at least 7.4 - the next Nameless release will no longer support the version you are using.',
 
     // Core
     'mode_toggle' => 'Dark Mode',
@@ -109,7 +108,6 @@ $language = [
     'mailer_settings_info' => 'I seguenti campi sono obbligatori se hai attivato PHPMailer. Per maggiori informazioni su come riempire questi campi controlla <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-SMTP-with-Nameless-(e.g.-Gmail-or-Outlook)" target="_blank">la wiki</a>.',
     'host' => 'Host',
     'email_port' => 'Porta',
-    'email_port_invalid' => 'Please insert a valid email port.',
     'email_password_hidden' => 'La password non è mostrata per motivi di sicurezza.',
     'send_test_email' => 'Invia email di test',
     'send_test_email_info' => "Il seguente bottone tenterà di inviare un'email al tuo indirizzo email, {{email}}. Verranno visualizzati eventuali errori generati durante l'invio dell'email.",
@@ -170,42 +168,6 @@ $language = [
     'emails_mass_message_sent_successfully' => 'Inviato con successo un messaggio di massa via email.',
     'emails_mass_message_replacements' => 'Puoi utilizzare variabili nel tuo messaggio di email. Variabili supportate: {username}, {sitename}',
     'emails_mass_message_loading' => "Caricamento in corso... Non ricaricare la pagina. Potrebbe volerci un po'.",
-    'administrator' => 'Administrator',
-    'administrator_permission_info' => 'Members with this permission will have every permission. This is a dangerous permission to grant.',
-
-    // Placeholders
-    'placeholders' => 'Placeholders',
-    'enable_placeholders' => 'Enable Placeholders?',
-    'updated_placeholder_settings' => 'Updated placeholder settings successfully.',
-    'placeholders_info' => 'Placeholders allow the NamelessMC Spigot plugin to send statistics about each player to your website so they can display them on their profile and forum posts.',
-    'placeholders_none' => 'There are no placeholders.',
-    'placeholders_server_id' => 'Server ID',
-    'placeholders_name' => 'Name',
-    'placeholders_value' => 'Value',
-    'placeholders_last_updated' => 'Last Updated',
-    'placeholders_friendly_name' => 'Friendly Name',
-    'placeholders_friendly_name_info' => 'Use this to set a \'nickname\' to this placeholder. The friendly name will be used instead of the raw name.',
-    'placeholders_show_on_profile' => 'Show on Profile',
-    'placeholders_show_on_profile_info' => 'Whether to show this placeholder on each user\'s profile or not.',
-    'placeholders_show_on_forum' => 'Show on Forum',
-    'placeholders_show_on_forum_info' => 'Whether to show this placeholder on each user\'s forum posts or not.',
-
-    // Placeholder leaderboards
-    'leaderboard_settings' => 'Leaderboard Settings',
-    'placeholder_leaderboard_settings' => 'Placeholder Leaderboard Settings',
-    'placeholder_leaderboard_info' => 'Placeholder Leaderboards let you create leaderboards to display ranked players on your server according to any placeholder.',
-    'placeholder_leaderboard_enable_info' => 'Leaderboards work best with numeric placeholders (such as coins, kills, blocks mined, etc). If you enable a leaderboard on a text-based placeholder - you cannot be sure it will order it as you want.',
-    'placeholder_leaderboard_updated' => 'Updated leaderboard settings successfully',
-    'placeholder_leaderboard_enabled' => 'Leaderboard Enabled',
-    'placeholder_leaderboard_title' => 'Leaderboard Title',
-    'placeholder_leaderboard_sort' => 'Leaderboard Sort',
-
-    // SEO
-    'seo' => 'SEO',
-    'google_analytics' => 'Google Analytics',
-    'google_analytics_help' => 'Add Google Analytics to your website to track visitors and statistics. You will need to create a Google Analytics account to use this functionality. Enter your Google Analytics Web Property ID. The ID looks like UA-XXXXA-X and you can find it in your account information or in the tracking code provided by Google.',
-    'sitemap' => 'Sitemap',
-    'seo_settings_updated_successfully' => 'SEO settings updated successfully.',
 
     // Reactions
     'icon' => 'Icona',
@@ -292,8 +254,6 @@ $language = [
     'no_parent_server' => 'Nessun server principale',
     'bungee_instance' => 'Istanza BungeeCord?',
     'bungee_instance_help' => "Seleziona questa opzione se il server è un'istanza BungeeCord.",
-    'bedrock' => 'Bedrock?',
-    'bedrock_help' => 'Select this option if the server is a Bedrock server.',
     'server_query_information' => "Per visualizzare l'elenco di giocatori online sul tuo sito web, il tuo server <strong>deve</strong> avere l'opzione 'enable-query' abilitata nel file <strong>server.properties</strong> del tuo server.",
     'enable_status_query' => 'Abilitare la query di stato?',
     'status_query_help' => 'Se abilitata, la pagina di stato mosterà se il server è online o offline.',
@@ -369,8 +329,6 @@ $language = [
     'unable_to_retrieve_modules' => 'Impossibile recuperare i moduli',
     'module' => 'Modulo',
     'unable_to_enable_module' => 'Impossibile abilitare il modulo incompatibile.',
-    'unable_to_enable_module_dependencies' => 'Unable to enable module since it depends on the module {{module}}, which is not enabled.',
-    'unable_to_disable_module' => 'Unable to disable module - the module {{module}} depends on it.',
 
     // Styles
     'templates' => 'Modelli',
@@ -399,24 +357,15 @@ $language = [
     'template_deleted_successfully' => 'Modello eliminato con successo.',
     'background_image_x' => 'Immagine di sfondo: {{imageName}}',
     'banner_image_x' => 'Immagine banner: {{imageName}}',
-    'logo_image_x' => 'Logo image: {{imageName}}',
-    'favicon_image_x' => 'Favicon image: {{imageName}}',
     'x_directory_not_writable' => 'La directory {{directory}} non è scrivibile!',
     'template_banner_reset_successfully' => 'Banner ripristinato con successo.',
     'template_banner_updated_successfully' => 'Banner aggiornato con successo.',
     'reset_banner' => 'Reimposta Banner',
-    'logo_reset_successfully' => 'Logo reset successfully.',
-    'logo_updated_successfully' => 'Logo updated successfully.',
-    'reset_logo' => 'Reset Logo',
-    'favicon_reset_successfully' => 'Favicon reset successfully.',
-    'favicon_updated_successfully' => 'Favicon updated successfully.',
-    'reset_favicon' => 'Reset Favicon',
     'find_templates' => 'Trova modelli',
     'view_all_templates' => 'Visualizza tutti i modelli',
     'unable_to_retrieve_templates' => 'Impossibile recuperare i modelli',
     'template' => 'Modello',
     'stats' => 'Statistiche',
-    'downloads_x' => 'Download: {{downloads}}',
     'views_x' => 'Visualizzazioni: {{views}}',
     'rating_x' => 'Valutazione: {{rating}}',
     'editing_template_x' => 'Modifica modello {{template}}',
@@ -426,11 +375,6 @@ $language = [
     'background_reset_successfully' => 'Sfondo ripristinato con successo.',
     'background_updated_successfully' => 'Sfondo aggiornato con successo',
     'unable_to_enable_template' => 'Impossibile abilitare il modello incompatibile.',
-    'background_image_info' => 'Please note that this option may not be compatible with most templates.',
-    'dark_mode' => 'Dark Mode',
-    'navbar_colour' => 'Navbar Colour',
-    'clear_cache' => 'Clear Template Cache',
-    'cache_cleared' => 'Template cache cleared',
 
     // Users & groups
     'users' => 'Utenti',
@@ -494,10 +438,6 @@ $language = [
     'force_tfa' => "Forzare l'autenticazione a due fattori per i membri del gruppo?",
     'force_tfa_warning' => 'Assicurati di sapere cosa stai facendo, oppure rischi di chiudere fuori te stesso e tutti i membri del gruppo.',
     'force_tfa_alert' => "Il tuo gruppo richiede che l'autenticazione a due fattori sia abilitata.",
-    'resend_activation_email' => 'Resend Activation Email',
-    'email_resent_successfully' => 'Email resent successfully.',
-    'email_resend_failed' => 'Email resend failed, please check your email settings.',
-    'no_item_selected' => 'No items selected',
 
     // Permissions
     'select_all' => 'Seleziona tutto',
@@ -527,14 +467,10 @@ $language = [
     'please_select_logs' => 'Si prega di selezionare i log da visualizzare',
     'ip_address' => 'Indirizzo IP',
     'template_changes' => 'Modifiche ai modelli',
-    'email_logs' => 'Mass Emails',
-    'group_sync_logs' => 'Group Sync Changes',
     'file_changed' => 'File modificati',
     'all_logs' => 'Tutti i log',
     'action' => 'Azione',
     'action_info' => "Informazioni sull'azione",
-    'groups_removed' => 'Groups Removed',
-    'groups_added' => 'Groups Added',
 
     // Updates
     'update' => 'Aggiorna',
@@ -640,14 +576,10 @@ $language = [
     'group_sync_rule_created_successfully' => 'La regola di sincronizzazione del gruppo è stata creata con successo.',
     'group_sync_rules_updated_successfully' => 'La regola di sincronizzazione del gruppo è stata aggiornata con successo.',
     'group_sync_rule_deleted_successfully' => 'La regola di sincronizzazione del gruppo è stata eliminata con successo.',
-    'group_sync_plugin_not_set_up' => 'Plugin not set up',
     'existing_rules' => 'Regole Esistenti',
     'new_rule' => 'Nuova Regola',
     'api_endpoints' => 'API Endpoints',
     'api_endpoints_info' => 'API Endpoints consentono ai moduli di creare modi per applicazioni esterne (come Minecraft e Discord) per interagire con il tuo sito NamelessMC. <a href="https://docs.namelessmc.com/en/api-documentation" target="_blank">Check out the API documentation here</a>',
-    'route' => 'Route',
-    'method' => 'Method',
-    'transformers' => 'Transformers',
 
     // File uploads
     'drag_files_here' => 'Trascina qui i file da caricare.',
@@ -749,15 +681,4 @@ $language = [
     'message_required' => 'Il messaggio è richiesto',
     'background_colour_required' => 'Il colore di sfondo è obbligatorio',
     'text_colour_required' => 'Il colore del testo è obbligatorio',
-    'no_announcements' => 'No announcements have been made yet.',
-    'announcement_order' => 'Order',
-    'announcement_hook_info' => 'Announcement creation',
-
-    // OAuth
-    'oauth' => 'OAuth',
-    'oauth_info' => 'Configure OAuth providers to allow users to login with their social network accounts. <a href="https://docs.namelessmc.com/en/oauth" target="_blank">Check out our documentation for help.</a>',
-    'unlink' => 'Unlink',
-    'identifier' => 'Identifier',
-    'unlink_account_confirm' => 'Are you sure you want to forcibly unlink this provider from this user?',
-    'unlink_account_success' => 'Successfully unlinked their account from {{provider}}.',
 ];

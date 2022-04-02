@@ -139,7 +139,6 @@ $language = [
     'online_guests' => 'Online-gäster',
     'total_online' => 'Totalt Online', // this is Online Users + Online Guests
     'no_default_server' => 'Det finns ingen standardserver, välj en i StaffKP - Integrationer - Minecraft.',
-    'server_status' => 'Server Status',
 
     /*
      *  Privacy policy
@@ -150,9 +149,4 @@ $language = [
      *  Custom page redirect
      */
     'redirecting_message' => 'Omdirigerar...<br />Om du inte omdirigeras automatiskt, klicka <a href="{x}" rel="nofollow noopener">här</a>.',
-
-    /*
-     * OAuth
-     */
-    'oauth_message_continue' => 'Continue registering with {{provider}}',
 ];

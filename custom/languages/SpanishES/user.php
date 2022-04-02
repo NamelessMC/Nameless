@@ -140,8 +140,6 @@ $language = [
     'must_input_email' => 'Debe introducir una dirección de correo electrónico.',
     'must_input_username' => 'Debe introducir un nombre de usuario.',
     'must_input_password' => 'Debe introducir una contraseña.',
-    'must_input_email_or_username' => 'You must input an email or username.',
-    'email_or_username' => 'Email or Username',
 
     // Forgot password
     'forgot_password_instructions' => 'Por favor, introduzca su dirección de correo electrónico para que podamos enviarle más instrucciones para restablecer su contraseña.',
@@ -236,13 +234,4 @@ $language = [
      */
     'user_x_has_registered' => '¡{{user}} se ha unido a {{siteName}}!',
     'user_x_has_validated' => '¡{{user}} ha validado su cuenta!',
-
-    // OAuth
-    'oauth_unlinked' => 'Successfully unlinked your account from that provider.',
-    'oauth_already_linked' => 'Another NamelessMC user is already linked to that {{provider}} account.',
-    'oauth_link_success' => 'Successfully linked your account with {{provider}}!',
-    'no_user_found_with_provider' => 'No user found with that {{provider}} account.',
-    'oauth_login_success' => 'You have logged in with your {{provider}} account.',
-    'oauth_link_confirm' => 'You will be taken to the {{provider}} website to link your account.',
-    'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {{provider}}? You will not be able to login with this account anymore.',
 ];

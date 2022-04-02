@@ -71,8 +71,6 @@ $language = [
     'profile_banner' => 'Banner profil',
     'upload_profile_banner' => 'Încărcați banner profil',
     'upload' => 'Încărcați',
-    'topic_updates' => 'Get emails for topics you follow',
-    'gravatar' => 'Use Gravatar as avatar',
 
     // Alerts
     'user_tag_info' => 'Ai fost etichetat într-o postare de către {{author}}.',
@@ -93,7 +91,6 @@ $language = [
     'password' => 'Parolă',
     'confirm_password' => 'Confirmă parola',
     'i_agree' => 'Sunt de acord',
-    'agree_t_and_c' => 'I have read and accept the <a href="{x}" target="_blank">Terms and Conditions</a>.',
     'create_an_account' => 'Creează un cont',
     'terms_and_conditions' => 'Termeni si conditii',
     'validation_complete' => 'Contul dvs. a fost validat, acum vă puteți conecta.',
@@ -224,8 +221,6 @@ $language = [
     'confirm_leave' => 'Sunteți sigur că doriți să părăsiți această conversație?',
     'one_or_more_users_blocked' => 'Nu puteți trimite mesajul privat deoarece unul sau mai mulți destinatari sunt blocați.',
     'messages' => 'Mesaje',
-    'latest_profile_posts' => 'Latest Profile Posts',
-    'no_profile_posts' => 'No profile posts.',
 
     /*
      *  Infractions area
@@ -238,14 +233,4 @@ $language = [
      *  Hooks
      */
     'user_x_has_registered' => '{{user}} s-a alaturat comunităţii!',
-    'user_x_has_validated' => '{{user}} has validated their account!',
-
-    // OAuth
-    'oauth_unlinked' => 'Successfully unlinked your account from that provider.',
-    'oauth_already_linked' => 'Another NamelessMC user is already linked to that {{provider}} account.',
-    'oauth_link_success' => 'Successfully linked your account with {{provider}}!',
-    'no_user_found_with_provider' => 'No user found with that {{provider}} account.',
-    'oauth_login_success' => 'You have logged in with your {{provider}} account.',
-    'oauth_link_confirm' => 'You will be taken to the {{provider}} website to link your account.',
-    'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {{provider}}? You will not be able to login with this account anymore.',
 ];

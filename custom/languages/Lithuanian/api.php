@@ -13,7 +13,6 @@
 $language = [
 
     // Errors
-    'api_disabled' => 'API is disabled',
     'unknown_error' => 'Nežinoma klaida',
     'invalid_api_key' => 'Netinkamas API raktas',
     'invalid_language_file' => 'Netinkamas kalbos failas',
@@ -42,7 +41,6 @@ $language = [
     'unable_to_update_server_info' => 'Nepavyko atnaujinti serverio informacijos',
     'invalid_server_id' => 'Neteisingas serverio ID',
     'invalid_code' => 'Pateiktas netinkamas kodas',
-    'user_already_active' => 'Your account has already been activated.',
 
     // Success messages
     'finish_registration_link' => 'Norėdami užpildyti registraciją, paspauskite šią nuorodą:',

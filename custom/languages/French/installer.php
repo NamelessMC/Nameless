@@ -13,8 +13,6 @@ $language = [
     /*
      *  Installation
      */
-    'install' => 'Installer',
-    'pre-release' => 'pre-release',
     'installer_welcome' => 'Bienvenue sur NamelessMC sous la version 2.0 pre-release.',
     'pre-release_warning' => 'Veuillez noter que ce pre-release n\'est pas destinée à être utilisée sur un site public.',
     'installer_information' => 'L’installateur vous guidera dans le processus d’installation.',
@@ -50,7 +48,6 @@ $language = [
     'configuration' => 'Configuration',
     'configuration_info' => 'Veuillez saisir des informations de base sur votre site. Ces valeurs peuvent être modifiées ultérieurement via le panneau d’administration.',
     'configuration_error' => 'Veuillez saisir un nom de site valide de 1 à 32 caractères, et des adresses email valides de 4 à 64 caractères.',
-    'hostname_error' => 'Please enter a valid hostname without http:// or https://',
     'site_name' => 'Nom du site',
     'contact_email' => 'Email de contact',
     'outgoing_email' => 'Email de sortie (addresse mail d\'envoie)',
@@ -72,7 +69,6 @@ $language = [
     'input_v1_details' => 'Veuillez saisir les détails de la base de données pour votre installation Nameless V1.',
     'installer_upgrading_database' => 'Veuillez patienter pendant que l’installateur met à jour votre base de données...',
     'errors_logged' => 'Des erreurs ont été enregistrées. Cliquez sur Continuer pour continuer la mise à jour.',
-    'continue' => 'Continue',
     'convert' => 'Convertir',
     'convert_message' => 'Enfin, voulez-vous convertir à partir d’un logiciel de forum différent ?',
     'yes' => 'Oui',

@@ -97,11 +97,8 @@ $language = [
     'step_conversion' => 'Convertir',
     'step_finish' => 'Finalizar',
 
-    'general_configuration' => 'General Configuration',
     'reload' => 'Recargar',
     'reload_page' => 'Recargar pagina',
     'no_converters_available' => 'No hay convertidores disponibles.',
     'config_not_writable' => 'El archivo de configuracion no es writable',
-
-    'session_doesnt_exist' => 'Unable to detect session. Sessions saving are a requirement to use Nameless. Please try again after clearing cookies in your web browser, and if the issue persists, please contact your web host for support.'
 ];

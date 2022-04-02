@@ -67,9 +67,6 @@ $language = [
     'avatar' => 'Avatar',
     'profile_banner' => 'Bannière du profil',
     'upload_profile_banner' => 'Uploader une bannière',
-    'upload' => 'Upload',
-    'topic_updates' => 'Get emails for topics you follow',
-    'gravatar' => 'Use Gravatar as avatar',
 
     // Alerts
     'user_tag_info' => 'Vous avez été tagué dans un message par {{author}}.',
@@ -89,7 +86,6 @@ $language = [
     'password' => 'Mot de passe',
     'confirm_password' => 'Confirmer le mot de passe',
     'i_agree' => 'Je suis d’accord',
-    'agree_t_and_c' => 'I have read and accept the <a href="{x}" target="_blank">Terms and Conditions</a>.',
     'create_an_account' => 'Créer un compte',
     'terms_and_conditions' => 'Termes et Conditions',
     'validation_complete' => 'Votre compte a été validé, vous pouvez maintenant vous connecter.',
@@ -140,8 +136,6 @@ $language = [
     'must_input_email' => 'Vous devez saisir une adresse e-mail.',
     'must_input_username' => 'Vous devez saisir un nom d’utilisateur.',
     'must_input_password' => 'Vous devez saisir un mot de passe.',
-    'must_input_email_or_username' => 'You must input an email or username.',
-    'email_or_username' => 'Email or Username',
 
     // Forgot password
     'forgot_password_instructions' => 'Veuillez saisir votre adresse e-mail afin que nous puissions vous envoyer d’autres instructions sur la réinitialisation de votre mot de passe.',
@@ -220,7 +214,6 @@ $language = [
     'leave_conversation' => 'Quitter la conversation',
     'confirm_leave' => 'Voulez-vous vraiment quitter cette conversation ?',
     'one_or_more_users_blocked' => 'Vous ne pouvez pas envoyer de messages privés à au moins un membre de la conversation.',
-    'messages' => 'Messages',
 
     /*
      *  Infractions area
@@ -228,7 +221,6 @@ $language = [
     'you_have_been_banned' => 'Vous avez été banni !',
     'you_have_received_a_warning' => 'Vous avez reçu un avertissement !',
     'acknowledge' => 'Accusé de réception',
-
 
     /*
      *  Emails
@@ -243,13 +235,4 @@ $language = [
      */
     'user_x_has_registered' => '{{user}} a rejoint {{siteName}}!',
     'user_x_has_validated' => '{{user}} a validé son compte !',
-
-    // OAuth
-    'oauth_unlinked' => 'Successfully unlinked your account from that provider.',
-    'oauth_already_linked' => 'Another NamelessMC user is already linked to that {{provider}} account.',
-    'oauth_link_success' => 'Successfully linked your account with {{provider}}!',
-    'no_user_found_with_provider' => 'No user found with that {{provider}} account.',
-    'oauth_login_success' => 'You have logged in with your {{provider}} account.',
-    'oauth_link_confirm' => 'You will be taken to the {{provider}} website to link your account.',
-    'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {{provider}}? You will not be able to login with this account anymore.',
 ];

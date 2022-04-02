@@ -10,7 +10,6 @@
  */
 
 $language = [
-    'staff_cp' => 'StaffCP',
     'overview' => 'Prehľad',
 
     // Spam

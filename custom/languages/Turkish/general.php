@@ -79,11 +79,6 @@ $language = [
     'status' => 'Durum',
 
     /*
-     *  Footer
-     */
-    'links' => 'Links',
-
-    /*
      *  Homepage
      */
     'social' => 'Sosyal',
@@ -144,9 +139,4 @@ $language = [
      *  Custom page redirect
      */
     'redirecting_message' => 'Yeniden yönlendiriliyor ... <br />Otomatik olarak yönlendirilmiyorsanız, lütfen <a href="{x}" rel="nofollow noopener">burayı</a> tıklayın.',
-
-    /*
-     * OAuth
-     */
-    'oauth_message_continue' => 'Continue registering with {{provider}}',
 ];

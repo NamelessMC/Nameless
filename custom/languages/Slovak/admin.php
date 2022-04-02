@@ -17,7 +17,6 @@ $language = [
     're-authenticate' => 'Prosím, znova sa prihláste',
 
     // Sidebar
-    'dashboard' => 'Dashboard',
     'configuration' => 'Konfigurácia',
     'layout' => 'Rozloženie',
     'user_management' => 'Správa užívateľov',
@@ -49,7 +48,6 @@ $language = [
     'punished_id' => 'ID potrestaného používateľa',
     'punisher_id' => 'ID trestajúceho používateľa',
     'reason' => 'Dôvod banu',
-    'ip_ban' => 'IP ban?',
     'default_language' => 'Hlavný jazyk',
     'default_language_help' => 'Užívatelia si budú môcť vybrať z ľubovoľných nainštalovaných jazykov.',
     'install_language' => 'Inštalovať jazyk',
@@ -73,8 +71,6 @@ $language = [
     'config_not_writable' => 'Váš <strong>core/config.php</strong> nie je prepisovateľný. Skontrolujte oprávnenia pre tento súbor.',
     'settings_updated_successfully' => 'Všeobecné nastavenia boli úspešne aktualizované.',
     'social_media' => 'Sociálne média',
-    'youtube_url' => 'Youtube URL',
-    'twitter_url' => 'Twitter URL',
     'twitter_dark_theme' => 'Použiť pre Twitter tmavý vzhľad?',
     'dark' => 'Tmavý',
     'light' => 'Svetlý',
@@ -106,8 +102,6 @@ $language = [
     'outgoing_email' => 'Odchádzajúca emailová adresa',
     'outgoing_email_info' => 'Toto je emailová adresa, z akej NamelessMC posiela emaily.',
     'mailer_settings_info' => 'Nasledujúce polia sú povinné, ak ste povolili PHPMailer. Ďalšie informácie o tom, ako vyplniť tieto polia, nájdete na <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-SMTP-with-Nameless-(e.g.-Gmail-or-Outlook)" target="_blank">wiki</a>.',
-    'host' => 'Host',
-    'email_port' => 'Port',
     'email_port_invalid' => 'Zadajte platný port emailu.',
     'email_password_hidden' => 'Heslo sa z bezpečnostných dôvodov nezobrazuje.',
     'edit_email_messages' => 'Emailové správy',
@@ -203,7 +197,6 @@ $language = [
 
     // SEO
     'seo' => 'SEO',
-    'google_analytics' => 'Google Analytics',
     'google_analytics_help' => 'Pridajte si na svoj web Google Analytics a sledujte návštevníkov a štatistiky. Ak chcete používať túto funkciu, budete si musieť vytvoriť účet Google Analytics. Zadajte svoje ID webového vlastníctva v Google Analytics. ID vyzerá ako UA-XXXXA-X a nájdete ho v informáciách o vašom účte alebo v kóde sledovania poskytnutom Googlom.',
     'sitemap' => 'Sitemap',
     'seo_settings_updated_successfully' => 'Nastavenia SEO sa úspešne aktualizovali.',

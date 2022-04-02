@@ -46,10 +46,6 @@ $language = [
     'settings' => 'Nastavení',
     'general_settings' => 'Obecná nastavení',
     'sitename' => 'Název webu',
-    'punished_id' => 'Punished User ID',
-    'punisher_id' => 'Punisher User ID',
-    'reason' => 'Ban Reason',
-    'ip_ban' => 'IP ban?',
     'default_language' => 'Výchozí jazyk',
     'default_language_help' => 'Uživatelé si budou moci vybrat z nainstalovaných jazyků.',
     'install_language' => 'Nainstalovat jazyk',
@@ -107,7 +103,6 @@ $language = [
     'outgoing_email_info' => 'Toto je adresa, ze které bude NamelessMC odesílat e-maily.',
     'mailer_settings_info' => 'Pro povolení PHPMaileru jsou vyžadována následující pole. Pro více informací, jak vyplnit tato pole, se podívejte na <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-SMTP-with-Nameless-(e.g.-Gmail-or-Outlook)" target="_blank">wiki</a>.',
     'host' => 'Hostitel',
-    'email_port' => 'Port',
     'email_port_invalid' => 'Zadejte platný e-mailový port.',
     'email_password_hidden' => 'Heslo není z bezpečnostních důvodů zobrazeno.',
     'edit_email_messages' => 'E-mailové zprávy',
@@ -155,7 +150,6 @@ $language = [
     'captcha_type' => 'Typ Captchy',
     'captcha_site_key' => 'Captcha klíč webu',
     'captcha_secret_key' => 'Captcha tajný klíč',
-    'invalid_recaptcha_settings' => 'Invalid {{recaptchaProvider}} credentials. Ensure the site key and site secret are correct.',
     'registration_disabled_message' => 'Zpráva zakázané registrace',
     'enable_nicknames_on_registration' => 'Povolit přezdívky při registraci uživatelů?',
     'validation_promote_group' => 'Skupina po ověření',
@@ -633,8 +627,6 @@ $language = [
     'api_endpoints' => 'API endpointy',
     'api_endpoints_info' => 'API endpointy umožňují doplňkům vytvářet cesty pro externí aplikace (jako je Minecraft a Discord) k interakci s vaším NamelessMC webem. <a href="https://docs.namelessmc.com/en/api-documentation" target="_blank">Check out the API documentation here</a>',
     'route' => 'Cesta',
-    'method' => 'Method',
-    'transformers' => 'Transformers',
 
     // File uploads
     'drag_files_here' => 'Sem přetáhněte soubory k nahrání.',
@@ -676,8 +668,6 @@ $language = [
     'validate_hook_info' => 'Ověření uživatele',
     'delete_hook_info' => 'Odstranění uživatele',
     'report_hook_info' => 'Nahlásit tvorbu',
-    'ban_hook_info' => 'User banned',
-    'warning_hook_info' => 'User warned',
 
     // Sitemap
     'unable_to_load_sitemap_file_x' => 'Nepodařilo se načíst soubor Sitemap {{file}}',
@@ -737,12 +727,4 @@ $language = [
     'no_announcements' => 'Zatím jste nevytvořili žádná oznámení',
     'announcement_order' => 'Pořadí',
     'announcement_hook_info' => 'Tvorba oznámení',
-
-    // OAuth
-    'oauth' => 'OAuth',
-    'oauth_info' => 'Configure OAuth providers to allow users to login with their social network accounts. <a href="https://docs.namelessmc.com/en/oauth" target="_blank">Check out our documentation for help.</a>',
-    'unlink' => 'Unlink',
-    'identifier' => 'Identifier',
-    'unlink_account_confirm' => 'Are you sure you want to forcibly unlink this provider from this user?',
-    'unlink_account_success' => 'Successfully unlinked their account from {{provider}}.',
 ];

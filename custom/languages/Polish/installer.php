@@ -51,7 +51,6 @@ $language = [
     'configuration' => 'Konfiguracja',
     'configuration_info' => 'Wprowadź podstawowe informacje o swojej witrynie. Będą one mogły zostać później zmienione w panelu administratora.',
     'configuration_error' => 'Wpisz nazwę strony mającą od 1 do 32 znaków, i twój adres email mający od 4 do 64 znaków długości.',
-    'hostname_error' => 'Please enter a valid hostname without http:// or https://',
     'site_name' => 'Nazwa strony',
     'contact_email' => 'Email kontaktowy',
     'outgoing_email' => 'Email do wysyłania wiadomości do użytkowników',
@@ -102,6 +101,4 @@ $language = [
     'reload_page' => 'Przeładuj Stronę',
     'no_converters_available' => 'Brak dostępnych konwersji.',
     'config_not_writable' => 'Plik konfiguracyjny jest zablokowany.',
-
-    'session_doesnt_exist' => 'Unable to detect session. Sessions saving are a requirement to use Nameless. Please try again after clearing cookies in your web browser, and if the issue persists, please contact your web host for support.'
 ];

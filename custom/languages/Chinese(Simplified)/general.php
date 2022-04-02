@@ -55,11 +55,6 @@ $language = [
     'x_new_messages' => '你有 {{count}} 条新消息。',
     'loading' => '加载中...',
     'report' => '反馈',
-    'reported_by' => 'Reported by {{author}}',
-    'view_report' => 'View report',
-    'report_origin' => 'Origin',
-    'origin_website' => 'Website',
-    'origin_api' => 'API',
     'page_loaded_in' => '页面在 {{time}} 秒内加载完成',
     'page_x' => '第 {{page}} 页',
     'browse' => '浏览',
@@ -78,7 +73,6 @@ $language = [
     'unlink' => '解除链接',
     'leaderboards' => '排行榜',
 
-
     /*
      *  Navbar
      */
@@ -86,10 +80,6 @@ $language = [
     'more' => '更多',
     'status' => '服务器状态',
 
-    /*
-     *  Footer
-     */
-    'links' => 'Links',
 
     /*
      *  Homepage
@@ -152,9 +142,4 @@ $language = [
      *  Custom page redirect
      */
     'redirecting_message' => '重定向中...<br />如果您的页面没有自动跳转，请点击 <a href="{x}" rel="nofollow noopener">这里</a>.',
-
-    /*
-     * OAuth
-     */
-    'oauth_message_continue' => 'Continue registering with {{provider}}',
 ];

@@ -85,11 +85,6 @@ $language = [
     'status' => 'Status',
 
     /*
-     *  Footer
-     */
-    'links' => 'Links',
-
-    /*
      *  Homepage
      */
     'social' => 'Soziale Medien',
@@ -150,9 +145,4 @@ $language = [
      *  Custom page redirect
      */
     'redirecting_message' => 'Umleiten...<br />Wenn Sie nicht automatisch umgeleitet werden, klicken Sie bitte auf <a href="{x}" rel="nofollow noopener">Hier</a>.',
-
-    /*
-     * OAuth
-     */
-    'oauth_message_continue' => 'Continue registering with {{provider}}',
 ];

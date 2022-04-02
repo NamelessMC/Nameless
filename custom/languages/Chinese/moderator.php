@@ -15,7 +15,6 @@
 
 $language = [
     'mod_cp' => '控制者後台',
-    'staff_cp' => 'StaffCP',
     'overview' => '總覽',
 
     // Spam
@@ -30,9 +29,7 @@ $language = [
     'search_for_ip' => '使用IP查詢:',
     'no_ips_with_username' => '使用者找不到IP位置.',
     'no_accounts_with_that_ip' => '在IP位置中沒有找到資料.',
-    '1_account_with_ip' => 'Found 1 account with the IP {{address}}',
     'count_accounts_with_ip' => '找到 {{count}} 個來自IP {{address}} 的使用者',
-    '1_ip_with_name' => 'Found 1 IP address for user {{user}}',
     'count_ips_with_name' => '在 {{user}} 紀錄中找到 {{count}} 個IP位置',
     'no_users_or_ips_found' => '沒有使用者或IP位置記錄.',
 
@@ -52,19 +49,7 @@ $language = [
     'report_comment_invalid' => '無效的留言，請確認留言的限制包含在 1-1000 字元以內.',
     'close_report' => '關閉回報',
     'reopen_report' => '重新開啟回報',
-    '1_open_report' => 'There is currently 1 open report.',
     'open_reports' => '目前有 {{count}} 開啟的回報.',
-    'no_open_reports' => 'There are currently no open reports.',
-    'no_closed_reports' => 'There are currently no closed reports.',
-    'recent_reports' => 'Recent Reports',
-    'reported_by' => 'Reported by:',
-    'website' => 'Website',
-    'ingame' => 'Ingame',
-    'x_closed_report' => '{{user}} closed this report.',
-    'x_reopened_report' => '{{user}} reopened this report.',
-    'report_reopened' => 'Report reopened successfully.',
-    'report_closed' => 'Report closed successfully.',
-    'comment_created' => 'Comment created successfully.',
 
     // Punishments
     'punishments' => '懲罰',
@@ -78,7 +63,6 @@ $language = [
     'viewing_user_x' => '查看使用者 {{user}}',
     'previous_punishments' => '上一個懲罰',
     'no_previous_punishments' => '沒有上一個懲罰',
-    'reset_avatar' => 'Reset Avatar',
     'warning' => '警告',
     'ip_ban' => 'IP封禁',
     'reason' => '原因',
@@ -100,13 +84,4 @@ $language = [
     'when' => '何時',
     'staff' => '管理',
     'type' => '類型',
-    'recent_punishments' => 'Recent Punishments',
-    'created' => 'Created:',
-    'staff:' => 'Staff:',
-    'reason:' => 'Reason:',
-
-    // Users
-    'recent_registrations' => 'Recent Registrations',
-    'reset_profile_banner' => 'Reset Profile Banner'
-
 ];

@@ -53,11 +53,6 @@ $language = [
     'x_new_messages' => 'Tienes {{count}} nuevos mensajes.',
     'loading' => 'Cargando...',
     'report' => 'Reportar',
-    'reported_by' => 'Reported by {{author}}',
-    'view_report' => 'View report',
-    'report_origin' => 'Origin',
-    'origin_website' => 'Website',
-    'origin_api' => 'API',
     'page_loaded_in' => 'Página cargada en {{time}}s',
     'page_x' => 'Pagina {{page}}',
     'browse' => 'Vistazo',
@@ -82,16 +77,6 @@ $language = [
     'home' => 'Inicio',
     'more' => 'Más',
     'status' => 'Estado',
-
-    /*
-     *  Footer
-     */
-    'links' => 'Links',
-
-    /*
-     *  Homepage
-     */
-    'social' => 'Social',
 
     /*
      *  Server query
@@ -149,9 +134,4 @@ $language = [
      *  Custom page redirect
      */
     'redirecting_message' => 'Redireccionando...<br />Si la redireccion tarda mucho, puede hacer <a href="{x}" rel="nofollow noopener">Click aqui</a> para continuar.',
-
-    /*
-     * OAuth
-     */
-    'oauth_message_continue' => 'Continue registering with {{provider}}',
 ];

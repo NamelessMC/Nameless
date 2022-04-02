@@ -166,7 +166,6 @@ $language = [
     'captcha_type' => '验证码类型',
     'captcha_site_key' => '验证码 Site Key',
     'captcha_secret_key' => '验证码 Secret Key',
-    'invalid_recaptcha_settings' => 'Invalid {{recaptchaProvider}} credentials. Ensure the site key and site secret are correct.',
     'registration_disabled_message' => '禁用注册消息',
     'enable_nicknames_on_registration' => '是否启用昵称用来注册账户?',
     'validation_promote_group' => '邮箱验证后权限组',
@@ -215,7 +214,6 @@ $language = [
     'google_analytics' => 'Google Analytics (分析)',
     'google_analytics_help' => '您可在网站上添加 Google Analytics (分析) 以了解各项统计数据。您必须先创建一个 Google Analytics (分析) 帐号。请输入您的 Google Analytics Web Property ID。 此 ID 格式为 UA-XXXXA-X，您可在您的帐号信息中找到此 ID。',
     'sitemap' => '站点地图',
-    'seo_settings_updated_successfully' => 'SEO settings updated successfully.',
 
     // Reactions
     'icon' => '图标',
@@ -302,8 +300,6 @@ $language = [
     'no_parent_server' => '无父服务器',
     'bungee_instance' => '是否启用 BungeeCord 实例?',
     'bungee_instance_help' => '如果服务器是 BungeeCord 代理服，请开启这个配置',
-    'bedrock' => 'Bedrock?',
-    'bedrock_help' => 'Select this option if the server is a Bedrock server.',
     'server_query_information' => '为了显示您网站上的在线玩家列表，您的服务器 <strong>必须</strong> 开启 \'enable-query\'   配置，该配置在服务器\'s <strong>server.properties</strong> 文件',
     'enable_status_query' => '是否启用联机状态查询?',
     'status_query_help' => '如果启用此功能，状态页将显示该服务器处于联机还是脱机状态。',
@@ -372,7 +368,6 @@ $language = [
     'module_disabled' => '模块已禁用。',
     'author' => '作者:',
     'author_x' => '作者: {{author}}',
-    'updated_x' => 'Updated at: {{updatedAt}}',
     'module_outdated' => '我们检测到该模块适用于 Nameless 版本 {{intendedVersion}}, 但你正运行 Nameless 版本 {{actualVersion}}',
     'find_modules' => '寻找模块',
     'view_all_modules' => '查看所有模块',
@@ -409,8 +404,6 @@ $language = [
     'template_deleted_successfully' => '模板删除成功。',
     'background_image_x' => '背景图片: {{imageName}}',
     'banner_image_x' => '条幅图片: {{imageName}}',
-    'logo_image_x' => 'Logo image: {{imageName}}',
-    'favicon_image_x' => 'Favicon image: {{imageName}}',
     'x_directory_not_writable' => '已被选择的 {{directory}} 目录不可写!',
     'template_banner_reset_successfully' => '条幅重置成功。',
     'template_banner_updated_successfully' => '条幅更新成功。',
@@ -656,8 +649,6 @@ $language = [
     'api_endpoints' => 'API 结点',
     'api_endpoints_info' => 'API 结点允许模块添加第三方程序 (例如 Minecraft 和 Discord) 与您的 NamelessMC 网站互动的方法。<a href="https://docs.namelessmc.com/en/api-documentation" target="_blank">Check out the API documentation here</a>',
     'route' => '路径',
-    'method' => 'Method',
-    'transformers' => 'Transformers',
 
     // File uploads
     'drag_files_here' => '将文件扔到这以上传',
@@ -764,12 +755,4 @@ $language = [
     'no_announcements' => '还没有任何公告呢!',
     'announcement_order' => '顺序',
     'announcement_hook_info' => '公告创建',
-
-    // OAuth
-    'oauth' => 'OAuth',
-    'oauth_info' => 'Configure OAuth providers to allow users to login with their social network accounts. <a href="https://docs.namelessmc.com/en/oauth" target="_blank">Check out our documentation for help.</a>',
-    'unlink' => 'Unlink',
-    'identifier' => 'Identifier',
-    'unlink_account_confirm' => 'Are you sure you want to forcibly unlink this provider from this user?',
-    'unlink_account_success' => 'Successfully unlinked their account from {{provider}}.',
 ];

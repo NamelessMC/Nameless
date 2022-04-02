@@ -70,43 +70,23 @@ $language = [
     'success' => 'Succes',
     'error' => 'Fejl',
     'are_you_sure' => 'Er du sikker?',
-    'spoiler' => 'Spoiler',
     'invalid_timezone' => 'Denne tidszone er ugyldig',
-    'link' => 'Link',
     'unlink' => 'Afkobl',
-    'leaderboards' => 'Leaderboards',
 
     /*
      *  Navbar
      */
     'home' => 'Hjem',
     'more' => 'Mere',
-    'status' => 'Status',
-
-    /*
-     *  Footer
-     */
-    'links' => 'Links',
-
-    /*
-     *  Homepage
-     */
-    'social' => 'Social',
 
     /*
      *  Server query
      */
-    'online' => 'Online',
-    'offline' => 'Offline',
-    'player_count' => '{{onlinePlayers}}/{{totalPlayers}}',
-    'ping' => 'Ping: {{ping}}',
-    'version' => 'Version: {{version}}',
     'currently_1_player_online' => 'Der er i øjeblikket <strong>1</strong> spiller online.',
     'currently_x_players_online' => 'Der er i øjeblikket {{count}} spillere online.',
     'server_offline' => 'Serveren er i øjeblikket offline.',
     'connect_with_ip_x' => 'Forbind nu ved hjælp af IP {{address}}',
     'click_to_copy_tooltip' => 'Klik for at kopiere',
-    'ip' => 'IP',
     'copied' => 'Kopieret!',
     'no_servers' => 'Der er ingen servere at vise!',
     'bungee_instance' => 'Denne server er en Bungee instans.',
@@ -138,7 +118,6 @@ $language = [
     'online_guests' => 'Online Gæster',
     'total_online' => 'Online I Alt', // this is Online Users + Online Guests,
     'no_default_server' => 'Der er ingen standardserver, vælg en i PersonaleCP - Integrationer - Minecraft.',
-    'server_status' => 'Server Status',
 
     /*
      *  Privacy policy
@@ -149,9 +128,4 @@ $language = [
      *  Custom page redirect
      */
     'redirecting_message' => 'Omdirigerer...<br />Hvis du ikke bliver omdirigeret automatisk, klik venligst <a href="{x}" rel="nofollow noopener">her</a>.',
-
-    /*
-     * OAuth
-     */
-    'oauth_message_continue' => 'Continue registering with {{provider}}',
 ];

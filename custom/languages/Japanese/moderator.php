@@ -15,7 +15,6 @@
  */
 
 $language = [
-    'staff_cp' => 'StaffCP',
     'overview' => '概要',
 
     // Spam

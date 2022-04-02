@@ -65,7 +65,6 @@ $language = [
     'change_email_address' => 'Změnit e-mailovou adresu',
     'email_already_exists' => 'Zadaná e-mailová adresa již existuje.',
     'email_changed_successfully' => 'E-mailová adresa úspěšně změněna.',
-    'avatar' => 'Avatar',
     'profile_banner' => 'Profilový obrázek',
     'upload_profile_banner' => 'Nahrát profilový obrázek',
     'upload' => 'Nahrát',
@@ -86,7 +85,6 @@ $language = [
     'nickname' => 'Přezdívka',
     'minecraft_username' => 'Jméno v Minecraftu',
     'email_address' => 'E-mailová adresa',
-    'email' => 'E-mail',
     'password' => 'Heslo',
     'confirm_password' => 'Potvrdit heslo',
     'i_agree' => 'Souhlasím',
@@ -237,13 +235,4 @@ $language = [
      */
     'user_x_has_registered' => '{{user}} se připojil na {{siteName}}!',
     'user_x_has_validated' => '{{user}} ověřil svůj účet!',
-
-    // OAuth
-    'oauth_unlinked' => 'Successfully unlinked your account from that provider.',
-    'oauth_already_linked' => 'Another NamelessMC user is already linked to that {{provider}} account.',
-    'oauth_link_success' => 'Successfully linked your account with {{provider}}!',
-    'no_user_found_with_provider' => 'No user found with that {{provider}} account.',
-    'oauth_login_success' => 'You have logged in with your {{provider}} account.',
-    'oauth_link_confirm' => 'You will be taken to the {{provider}} website to link your account.',
-    'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {{provider}}? You will not be able to login with this account anymore.',
 ];

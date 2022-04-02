@@ -22,8 +22,4 @@ $language = [
     // Change Password
     'change_password_subject' => 'Am uitat parola',
     'change_password_message' => 'Pentru a vă reseta parola, faceți clic pe următorul link. Dacă nu ați solicitat acest lucru, puteți șterge în siguranță acest e-mail.',
-
-    // Forum Topic Replies
-    'forum_topic_reply_subject' => '{{author}} has replied to {{topic}}',
-    'forum_topic_reply_message' => '{{author}} has replied to a topic you follow. Content: {{content}}'
 ];

@@ -16,11 +16,6 @@
 
 $language = [
     /*
-     *  Change this for the account validation message
-     */
-    'validate_account_command' => 'To complete registration, please execute the command /verify {{command}} ingame.',
-
-    /*
      *  User Related
      */
     'guest' => '遊客',
@@ -35,13 +30,8 @@ $language = [
     'successfully_logged_out' => '成功登出.',
     'messaging' => '訊息',
     'click_here_to_view' => '點擊查看.',
-    'moderation' => 'Moderation',
     'alerts' => '提醒',
     'delete_all' => '移除全部',
-    'private_profile' => 'Private profile',
-    'gif_avatar' => 'Upload .gif as custom avatar',
-    'placeholders' => 'Placeholders',
-    'no_placeholders' => 'No Placeholders',
 
     // Profile settings
     'field_is_required' => '需要 {{field}}.',
@@ -53,8 +43,6 @@ $language = [
     'confirm_new_password' => '確認新密碼',
     'incorrect_password' => '密碼錯誤.',
     'two_factor_auth' => 'TFA 二次驗證',
-    'enabled' => 'Enabled',
-    'disabled' => 'Disabled',
     'enable' => '啟用',
     'disable' => '禁用',
     'tfa_scan_code' => '請在APP中掃描以下QR Code:',
@@ -63,25 +51,13 @@ $language = [
     'invalid_tfa' => '代碼錯誤，請重試.',
     'tfa_successful' => 'TFA二次驗證設定成功. 每次登入時必須二次驗證才能登入成功.',
     'active_language' => '啟用語言',
-    'active_template' => 'Active Template',
     'timezone' => '時區',
     'upload_new_avatar' => '上傳新的頭像',
-    'nickname_already_exists' => 'Your chosen nickname already exists.',
-    'change_email_address' => 'Change Email Address',
-    'email_already_exists' => 'The email address you have entered already exists.',
-    'email_changed_successfully' => 'Email address changed successfully.',
-    'avatar' => 'Avatar',
-    'profile_banner' => 'Profile Banner',
-    'upload_profile_banner' => 'Upload Profile Banner',
-    'upload' => 'Upload',
-    'topic_updates' => 'Get emails for topics you follow',
-    'gravatar' => 'Use Gravatar as avatar',
 
     // Alerts
     'user_tag_info' => '你被標註於 {{author}}.',
     'no_alerts' => '沒有新提醒',
     'view_alerts' => '檢視提醒',
-    '1_new_alert' => 'You have 1 new alert',
     'x_new_alerts' => '你有 {{count}} 個新提醒',
     'no_alerts_usercp' => '你沒有任何提醒.',
 
@@ -95,7 +71,6 @@ $language = [
     'password' => '密碼',
     'confirm_password' => '確認密碼',
     'i_agree' => '我同意',
-    'agree_t_and_c' => 'I have read and accept the <a href="{x}" target="_blank">Terms and Conditions</a>.',
     'create_an_account' => '建立帳號',
     'terms_and_conditions' => '使用條款',
     'validation_complete' => '你的帳戶已被驗證，你現在可以登入.',
@@ -130,11 +105,9 @@ $language = [
     'invalid_recaptcha' => '無效的 reCAPTCHA.',
     'verify_account' => '驗證帳號',
     'verify_account_help' => '請依照下列的說明來驗證 Minecraft 帳戶為您所有.',
-    'validate_account' => 'Validate Account',
     'verification_failed' => '驗證失敗，請重試.',
     'verification_success' => '成功驗證，已可以登入.',
     'authme_username_exists' => '你的 AuthMe 帳號已存在，請直接登入',
-    'uuid_already_exists' => 'Your UUID already exists, meaning this Minecraft account has already registered.',
 
     // Login
     'successful_login' => '登入成功.',
@@ -143,11 +116,8 @@ $language = [
     'account_banned' => '帳戶已被封禁.',
     'forgot_password' => '忘記密碼?',
     'remember_me' => '記住我',
-    'must_input_email' => 'You must input an email address.',
     'must_input_username' => '你必須輸入帳號.',
     'must_input_password' => '你必須輸入密碼.',
-    'must_input_email_or_username' => 'You must input an email or username.',
-    'email_or_username' => 'Email or Username',
 
     // Forgot password
     'forgot_password_instructions' => '請輸入你的電子郵件讓我們可以在你忘記密碼時寄一封信給你重設密碼.',
@@ -188,13 +158,6 @@ $language = [
     'confirm_unblock_user' => '你要解鎖這位使用者嗎？如果解鎖了他將可以傳送私人訊息與在文章標注你.',
     'user_blocked' => '使用者封鎖.',
     'user_unblocked' => '使用者解鎖.',
-    'views' => 'Profile Views:',
-    'private_profile_page' => 'This is a private profile!',
-    'new_wall_post_reply' => '{{author}} has replied to your post on {{user}}\'s profile.',
-    'new_wall_post_reply_your_profile' => '{{author}} has replied to your post on your profile.',
-    'no_about_fields' => 'This user has not added any about fields yet.',
-    'reply' => 'Reply',
-    'discord_username' => 'Discord Username',
 
     // Reports
     'invalid_report_content' => '無法建立回報. 請確認你輸入的內容有在 2-1024 字元以內.',
@@ -205,11 +168,9 @@ $language = [
     'no_messages' => '沒有新訊息',
     'no_messages_full' => '你沒有新訊息.',
     'view_messages' => '查看訊息',
-    '1_new_message' => 'You have 1 new message',
     'x_new_messages' => '你有 {{count}} 則新訊息',
     'new_message' => '新訊息',
     'message_title' => '訊息標題',
-    'to' => 'To',
     'separate_users_with_commas' => '使用「,」區分使用者',
     'title_required' => '請輸入標題',
     'content_required' => '請輸入內容',
@@ -223,13 +184,9 @@ $language = [
     'message_sent_successfully' => '訊息傳送成功',
     'participants' => '參與者',
     'last_message' => '最後的訊息',
-    'by' => 'by',
     'leave_conversation' => '離開對話',
     'confirm_leave' => '你要離開對話嗎?',
     'one_or_more_users_blocked' => '你無法傳送私人對話，因為有使用者封鎖你.',
-    'messages' => 'Messages',
-    'latest_profile_posts' => 'Latest Profile Posts',
-    'no_profile_posts' => 'No profile posts.',
 
     /*
      *  Infractions area
@@ -237,19 +194,4 @@ $language = [
     'you_have_been_banned' => '你已被封禁!',
     'you_have_received_a_warning' => '你已收到警告!',
     'acknowledge' => '確認',
-
-    /*
-     *  Hooks
-     */
-    'user_x_has_registered' => '{{user}} has joined {{siteName}}!',
-    'user_x_has_validated' => '{{user}} has validated their account!',
-
-    // OAuth
-    'oauth_unlinked' => 'Successfully unlinked your account from that provider.',
-    'oauth_already_linked' => 'Another NamelessMC user is already linked to that {{provider}} account.',
-    'oauth_link_success' => 'Successfully linked your account with {{provider}}!',
-    'no_user_found_with_provider' => 'No user found with that {{provider}} account.',
-    'oauth_login_success' => 'You have logged in with your {{provider}} account.',
-    'oauth_link_confirm' => 'You will be taken to the {{provider}} website to link your account.',
-    'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {{provider}}? You will not be able to login with this account anymore.',
 ];

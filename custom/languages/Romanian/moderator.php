@@ -17,7 +17,6 @@ $language = [
     'overview' => 'Prezentare generală',
 
     // Spam
-    'spam' => 'Spam',
     'mark_as_spam' => 'Marchează ca Spam',
     'confirm_spam' => '<p>Sunteți sigur că doriți să marcați acest utilizator ca fiind un autor de conținut spam?</p><p>Adresa IP a acestui utilizator se va bana, iar tot conținutul sau se va șterge.</p>',
     'user_marked_as_spam' => 'Utilizatorul a fost marcat cu succes ca fiind un autor de conținut spam!',

@@ -74,7 +74,6 @@ $language = [
     'invalid_timezone' => 'Denne tidssonen er ugyldig.',
     'link' => 'Koble til',
     'unlink' => 'Koble fra',
-    'leaderboards' => 'Leaderboards',
 
     /*
      *  Navbar
@@ -82,11 +81,6 @@ $language = [
     'home' => 'Hjem',
     'more' => 'Mer',
     'status' => 'Status',
-
-    /*
-     *  Footer
-     */
-    'links' => 'Links',
 
     /*
      *  Homepage
@@ -149,9 +143,4 @@ $language = [
      *  Custom page redirect
      */
     'redirecting_message' => 'Omdirigerer...<br />Hvis du ikke blir omdirigert automatisk, vennligst trykk <a href="{x}" rel="nofollow noopener">her</a>.',
-
-    /*
-     * OAuth
-     */
-    'oauth_message_continue' => 'Continue registering with {{provider}}',
 ];

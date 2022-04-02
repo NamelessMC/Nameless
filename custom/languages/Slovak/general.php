@@ -96,8 +96,6 @@ $language = [
     /*
      *  Server query
      */
-    'online' => 'Online',
-    'offline' => 'Offline',
     'player_count' => '{{onlinePlayers}}/{{totalPlayers}}',
     'ping' => 'Ping: {{ping}}',
     'version' => 'Verzia: {{version}}',

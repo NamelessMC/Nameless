@@ -30,7 +30,6 @@ $language = [
     '403_home' => 'ホーム',
     'maintenance_title' => 'メンテナンスモード',
     'maintenance_retry' => '再試行',
-    'fatal_error' => 'Fatal Error',
     'fatal_error_title' => '申し訳ありません！',
     'fatal_error_message_user' => 'ページの読み込み中に何らかの問題が発生しました。管理者までご連絡ください。',
     'fatal_error_message_admin' => 'ページの読み込み中に何らかの問題が発生しました。エラーの詳細:',

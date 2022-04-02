@@ -42,7 +42,6 @@ $language = [
     'notices' => 'Notiser',
     'no_notices' => 'Inga Notiser.',
     'email_errors_logged' => 'E-post fel har blivit loggade',
-    'upgrade_php_version' => 'Please upgrade your PHP version to at least 7.4 - the next Nameless release will no longer support the version you are using.',
 
     // Core
     'mode_toggle' => 'Mörker Läge',
@@ -76,8 +75,6 @@ $language = [
     'config_not_writable' => 'Din <strong>core/config.php</strong> fil är inte skrivbar. Vänligen kontrollera filbehörigheter.',
     'settings_updated_successfully' => 'Allmänna inställningar har uppdaterats.',
     'social_media' => 'Sociala Medier',
-    'youtube_url' => 'Youtube URL',
-    'twitter_url' => 'Twitter URL',
     'twitter_dark_theme' => 'Använd Twitter mörker tema?',
     'dark' => 'Mörkt',
     'light' => 'Ljust',
@@ -154,10 +151,6 @@ $language = [
     'enable_page_load_timer' => 'Aktivera sidladdningstimer?',
     'captcha_general' => 'Aktivera Captcha på registrering?',
     'captcha_login' => 'Aktivera Captcha på inloggningssidan?',
-    'captcha_type' => 'Captcha Typ',
-    'captcha_site_key' => 'Captcha Site Key',
-    'captcha_secret_key' => 'Captcha Secret Key',
-    'invalid_recaptcha_settings' => 'Invalid {{recaptchaProvider}} credentials. Ensure the site key and site secret are correct.',
     'registration_disabled_message' => 'Registrering inaktiverad text',
     'enable_nicknames_on_registration' => 'Aktivera smeknman för registrerande användare?',
     'validation_promote_group' => 'Grupp efter validering',
@@ -206,7 +199,6 @@ $language = [
     'google_analytics' => 'Google Analytics',
     'google_analytics_help' => 'Lägg till Google Analytics på din webbplats för att spåra besökare och statistik. Du måste skapa ett Google Analytics-konto för att kunna använda den här funktionen. Ange ditt Google Analytics-webbegendom-ID. ID: n ser ut som UA-XXXXA-X och du hittar det i din kontoinformation eller i spårningskoden från Google.',
     'sitemap' => 'Sitemap',
-    'seo_settings_updated_successfully' => 'SEO settings updated successfully.',
 
     // Reactions
     'icon' => 'Ikon',
@@ -274,7 +266,6 @@ $language = [
     'authme_password_sync_help' => 'Om aktiverat, när användarens lösenord uppdateras i spelet, uppdateras lösenordet även på webbplatsen.',
     'minecraft_servers' => 'Minecraft Serverar',
     'account_verification' => 'Minecraft Konto verifikation',
-    'server_banners' => 'Server Banners',
     'query_errors' => 'Query Fel',
     'add_server' => '<i class="fa fa-plus-circle"></i> Lägg till Server',
     'no_servers_defined' => 'Inga servrar har definierats än',
@@ -293,8 +284,6 @@ $language = [
     'no_parent_server' => 'Ingen förälder server',
     'bungee_instance' => 'BungeeCord Instans?',
     'bungee_instance_help' => 'Välj det här alternativet om servern är en BungeeCord instans.',
-    'bedrock' => 'Bedrock?',
-    'bedrock_help' => 'Select this option if the server is a Bedrock server.',
     'server_query_information' => 'För att kunna visa en lista över onlinespelare på din webbplats, då <strong>måste</strong> din server ha \'enable-query\' aktiverat i din servers <strong>server.properties</strong> fil',
     'enable_status_query' => 'Aktivera status query?',
     'status_query_help' => 'Om det här är aktiverat visar status sidan den här servern som online eller offline.',
@@ -617,8 +606,6 @@ $language = [
     'enable_legacy_api' => 'Aktivera äldre API?',
     'legacy_api_info' => 'Äldre API:an tillåter plugins och andra tjänst som använder det gamla Nameless versionen 1 API:an för att fungera med din version 2 hemsida.',
     'confirm_api_regen' => 'Är du säker på att du vill regenerera din API nyckel?',
-    'api_key' => 'API Key',
-    'api_url' => 'API URL',
     'copy' => 'Kopiera',
     'api_key_regenerated' => 'API-nyckeln har regenererats framgångsrikt.',
     'api_registration_email' => 'API Registrerings Email',
@@ -647,8 +634,6 @@ $language = [
     'api_endpoints' => 'API-slutpunkter',
     'api_endpoints_info' => 'API-slutpunkter tillåter moduler att skapa sätt för externa applikationer (som Minecraft och Discord) att interagera med din NamelessMC-webbplats. <a href="https://docs.namelessmc.com/en/api-documentation" target="_blank">Se API dokumentationen här.</a>',
     'route' => 'Rutt',
-    'method' => 'Method',
-    'transformers' => 'Transformers',
 
     // File uploads
     'drag_files_here' => 'Dra filer här för att ladda upp.',
@@ -668,19 +653,15 @@ $language = [
     'log_purged_successfully' => 'Loggen har rensats framgångsrikt.',
 
     // Hooks
-    'hooks' => 'Webhooks',
     'hooks_info' => 'Webhooks gör att externa tjänster kan meddelas när vissa händelser inträffar. När de angivna händelserna inträffar. ',
     'no_hooks_yet' => 'Det finns inga webbhooks än.',
     'new_hook' => 'Ny hook',
     'creation_new_hook' => 'Skapa ny webbhook',
     'editing_hook' => 'Redigerar Webhook',
     'hook_deleted' => 'Kroken har tagits bort.',
-    'hook_name' => 'Webhook Name',
     'hook_created' => 'Kroken skapades framgångsrikt.',
     'hook_edited' => 'Hook redigerades framgångsrikt',
     'hook_select_info' => 'Endast krokar med \'Nytt ämne \'valt som en händelse visas.',
-    'hook_url' => 'Webhook URL',
-    'hook_type' => 'Webhook Type',
     'hook_events' => 'Händelser för att utlösa denna webbhook',
     'invalid_hook_url' => 'Ogiltig webbhook-URL',
     'invalid_hook_name' => 'Ogiltigt webbhook-namn',
@@ -689,8 +670,6 @@ $language = [
     'validate_hook_info' => 'Användarvalidering',
     'delete_hook_info' => 'Radering av användare',
     'report_hook_info' => 'Rapportera skapelse',
-    'ban_hook_info' => 'User banned',
-    'warning_hook_info' => 'User warned',
 
     // Sitemap
     'impossible_to_load_sitemap_file_x' => 'Det går inte att läsa in webbplatskartfilen {x}',
@@ -750,14 +729,4 @@ $language = [
     'background_colour_required' => 'Bakgrundsfärg krävs',
     'text_colour_required' => 'Textfärg krävs',
     'no_announcements' => 'Inga meddelanden har gjorts ännu.',
-    'announcement_order' => 'Order',
-    'announcement_hook_info' => 'Announcement creation',
-
-    // OAuth
-    'oauth' => 'OAuth',
-    'oauth_info' => 'Configure OAuth providers to allow users to login with their social network accounts. <a href="https://docs.namelessmc.com/en/oauth" target="_blank">Check out our documentation for help.</a>',
-    'unlink' => 'Unlink',
-    'identifier' => 'Identifier',
-    'unlink_account_confirm' => 'Are you sure you want to forcibly unlink this provider from this user?',
-    'unlink_account_success' => 'Successfully unlinked their account from {{provider}}.',
 ];

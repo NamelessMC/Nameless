@@ -35,8 +35,6 @@ $language = [
     'delete_all' => 'Slett alle',
     'private_profile' => 'Private profiler',
     'gif_avatar' => 'Last opp .gif som egendefinert avatar',
-    'placeholders' => 'Placeholders',
-    'no_placeholders' => 'No Placeholders',
 
     // Profile settings
     'field_is_required' => '{{field}} er påkrevd.',
@@ -65,7 +63,6 @@ $language = [
     'change_email_address' => 'Endre e-postadresse',
     'email_already_exists' => 'E-postadressen eksisterer allerede',
     'email_changed_successfully' => 'E-postadressen har blitt endret',
-    'avatar' => 'Avatar',
     'profile_banner' => 'Profilbanner',
     'upload_profile_banner' => 'Last opp et profilbanner',
     'upload' => 'Last opp',
@@ -140,8 +137,6 @@ $language = [
     'must_input_email' => 'Du må skrive inn en e-postadresse',
     'must_input_username' => 'Du må skrive inn et brukernavn.',
     'must_input_password' => 'Du må skrive inn et passord.',
-    'must_input_email_or_username' => 'You must input an email or username.',
-    'email_or_username' => 'Email or Username',
 
     // Forgot password
     'forgot_password_instructions' => 'Vennligst oppgi e-postadressen din slik at vi kan sende deg en e-post med instruksjoner til hvordan du kan tilbakestille passordet ditt.',
@@ -236,13 +231,4 @@ $language = [
      */
     'user_x_has_registered' => '{{user}} har registert seg hos {{siteName}}!',
     'user_x_has_validated' => '{{user}} har validert kontoen deres!',
-
-    // OAuth
-    'oauth_unlinked' => 'Successfully unlinked your account from that provider.',
-    'oauth_already_linked' => 'Another NamelessMC user is already linked to that {{provider}} account.',
-    'oauth_link_success' => 'Successfully linked your account with {{provider}}!',
-    'no_user_found_with_provider' => 'No user found with that {{provider}} account.',
-    'oauth_login_success' => 'You have logged in with your {{provider}} account.',
-    'oauth_link_confirm' => 'You will be taken to the {{provider}} website to link your account.',
-    'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {{provider}}? You will not be able to login with this account anymore.',
 ];

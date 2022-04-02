@@ -95,16 +95,8 @@ $language = [
     'social' => 'Sociální',
 
     /*
-     *  Help dialogues
-     */
-    'online' => 'Online',
-
-    /*
      *  Server query
      */
-    'offline' => 'Offline',
-    'player_count' => '{{onlinePlayers}}/{{totalPlayers}}',
-    'ping' => 'Ping: {{ping}}',
     'version' => 'Verze: {{version}}',
     'currently_1_player_online' => 'Na serveru hraje <strong>1</strong> hráč.',
     'currently_x_players_online' => 'Na serveru hraje {{count}} hráčů.',
@@ -154,9 +146,4 @@ $language = [
      *  Custom page redirect
      */
     'redirecting_message' => 'Přesměrování...<br />Pokud nebudete přesměrováni automaticky, klikněte prosím  <a href="{x}" rel="nofollow noopener">sem</a>.',
-
-    /*
-     * OAuth
-     */
-    'oauth_message_continue' => 'Continue registering with {{provider}}',
 ];

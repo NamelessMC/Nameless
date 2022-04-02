@@ -22,8 +22,4 @@ $language = [
     // Change Password
     'change_password_subject' => 'Zapomniałeś hasła?',
     'change_password_message' => 'By zresetować swoje hasło kliknij w link poniżej. Jeśli nie chciałeś resetować hasła zignoruj i usuń ten email.',
-
-    // Forum Topic Replies
-    'forum_topic_reply_subject' => '{{author}} has replied to {{topic}}',
-    'forum_topic_reply_message' => '{{author}} has replied to a topic you follow. Content: {{author}}'
 ];

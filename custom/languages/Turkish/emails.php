@@ -22,8 +22,4 @@ $language = [
     // Change Password
     'change_password_subject' => 'Parolanızı mı unuttunuz?',
     'change_password_message' => 'Şifrenizi sıfırlamak için lütfen aşağıdaki bağlantıyı tıklayın. Bunu kendiniz istemediyseniz, bu e-postayı güvenle silebilirsiniz.',
-
-    // Forum Topic Replies
-    'forum_topic_reply_subject' => '{{author}} has replied to {{topic}}',
-    'forum_topic_reply_message' => '{{author}} has replied to a topic you follow. Content: {{content}}'
 ];
