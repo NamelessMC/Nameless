@@ -47,7 +47,7 @@ if (!isset($_GET['metadata'])) {
                 $methods = $pages->getSitemapMethods();
                 foreach ($methods as $method) {
                     if (!class_exists($method[0])) {
-                        $errors[] = str_replace('{x}', Output::getClean($method[0]), $language->get('admin', 'unable_to_load_sitemap_file_x'));
+                        $errors[] = $language->get('admin', 'unable_to_load_sitemap_file_x', ['file' => Output::getClean($method[0])]);
                         continue;
                     }
 

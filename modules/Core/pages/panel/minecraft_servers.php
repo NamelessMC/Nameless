@@ -585,7 +585,7 @@ if (isset($_GET['action'])) {
             $template_array[] = [
                 'name' => Output::getClean($server->name),
                 'id' => Output::getClean($server->id),
-                'server_id' => str_replace('{x}', Output::getClean($server->id), $language->get('admin', 'server_id_x')),
+                'server_id' => $language->get('admin', 'server_id_x', ['serverId' => Output::getClean($server->id)]),
                 'edit_link' => URL::build('/panel/minecraft/servers/', 'action=edit&id=' . urlencode($server->id)),
                 'delete_link' => URL::build('/panel/minecraft/servers/', 'action=delete&id=' . urlencode($server->id)),
                 'is_default' => $server->is_default

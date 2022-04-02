@@ -34,7 +34,6 @@ $language = [
     'users_and_groups' => 'Utilizatori și grupuri',
     'query_interval' => 'Intervalul interogării (în minute, trebuie să fie între 5 și 60)',
     'player_graphs' => 'Grafice ale jucătorilor',
-    'player_count_cronjob_info' => 'Puteți configura un "cron job" pentru a interoga serverele dvs. la fiecare {x} minute cu următoarea comandă:',
 
     // Overview
     'running_nameless_version' => 'Rulează versiunea {{version}} a NamelessMC',
@@ -348,7 +347,7 @@ $language = [
     'force_premium_accounts' => 'Forțează deținere unui cont de Minecraft permium?',
     'status_page' => 'Activați pagina de stare <small>(status)</small>?',
     'minecraft_settings_updated_successfully' => 'Setările au fost actualizate cu succes.',
-    'server_id_x' => 'ID server: {x}',
+    'server_id_x' => 'ID server: {{serverId}}',
     'server_information' => 'Informații despre server',
     'query_information' => 'Informații privind interogările',
     'query_errors_purged_successfully' => 'Erorile de interogare au fost eliminate cu succes.',
@@ -379,7 +378,7 @@ $language = [
     'templates' => 'Șabloane',
     'panel_templates' => 'Șabloane panou control',
     'view_all_panel_templates' => 'View all panel templates',
-    'template_outdated' => 'Am detectat că șablonul dvs. este destinat versiunii NamelessMC {x}, dar executați versiunea NamelessMC {y}.', // Don't replace "{x}" or "{y}"
+    'template_outdated' => 'Am detectat că șablonul dvs. este destinat versiunii NamelessMC {{intendedVersion}}, dar executați versiunea NamelessMC {{actualVersion}}.',
     'template_not_supported' => 'As of NamelessMC 2.0.0-pr8 the Default template is not supported. For the best experience, please use a supported template.',
     'active' => 'Activ',
     'deactivate' => 'Dezactivare',
@@ -401,10 +400,10 @@ $language = [
     'confirm_delete_template' => 'Sigur doriți să ștergeți acest șablon?',
     'delete' => 'Șterge',
     'template_deleted_successfully' => 'Șablonul a fost șters cu succes.',
-    'background_image_x' => 'Imagine de fundal: <strong>{x}</strong>',
-    'banner_image_x' => 'Imagine banner: <strong>{x}</strong>',
-    'logo_image_x' => 'Logo image: <strong>{x}</strong>',
-    'favicon_image_x' => 'Favicon image: <strong>{x}</strong>',
+    'background_image_x' => 'Imagine de fundal: {{imageName}}',
+    'banner_image_x' => 'Imagine banner: {{imageName}}',
+    'logo_image_x' => 'Logo image: {{imageName}}',
+    'favicon_image_x' => 'Favicon image: {{imageName}}',
     'x_directory_not_writable' => 'Directorul {{directory}} nu poate fi scris!',
     'template_banner_reset_successfully' => 'Bannerul a fost resetat cu succes.',
     'template_banner_updated_successfully' => 'Bannerul a fost actualizat cu succes.',
@@ -420,8 +419,8 @@ $language = [
     'unable_to_retrieve_templates' => 'Nu s-au putut obține șabloanele',
     'template' => 'Șablon',
     'stats' => 'Statistici',
-    'downloads_x' => 'Descărcări: {x}',
-    'views_x' => 'Vizualizări: {x}',
+    'downloads_x' => 'Descărcări: {{downloads}}',
+    'views_x' => 'Vizualizări: {{views}}',
     'rating_x' => 'Evaluare: {{rating}}',
     'editing_template_x' => 'Editare șablon: {{template}}',
     'editing_template_file_in_template' => 'Editare fișier {x} din șablonul {y}',
@@ -493,7 +492,7 @@ $language = [
     'user' => 'Utilizator',
     'user_validated_successfully' => 'Utilizatorul a fost validat cu succes.',
     'user_updated_successfully' => 'Utilizatorul a fost actualizat cu succes.',
-    'editing_user_x' => 'Editare utilizator: {x}',
+    'editing_user_x' => 'Editare utilizator: {{user}}',
     'details' => 'Detalii',
     'force_tfa' => 'Force Two Factor Authentication for group members?',
     'force_tfa_warning' => 'Please ensure you know what this does, or else you risk locking out yourself and all the group members.',
@@ -517,7 +516,6 @@ $language = [
     'enable_night_mode' => 'Activați modul de noapte',
     'disable_night_mode' => 'Dezactivați modul de noapte',
     'view_site' => 'Vizualizați site-ul',
-    'signed_in_as_x' => 'Conectat drept {x}',
     'warning' => 'Avertizare',
 
     // Maintenance
@@ -699,7 +697,7 @@ $language = [
     'warning_hook_info' => 'User warned',
 
     // Sitemap
-    'unable_to_load_sitemap_file_x' => 'Imposibil de încărcat fișierul hartă site {x}',
+    'unable_to_load_sitemap_file_x' => 'Imposibil de încărcat fișierul hartă site {{file}}',
     'sitemap_generated' => 'Harta site-ului a fost generată cu succes',
     'sitemap_not_writable' => 'Directorul <strong>cache/sitemaps</strong> nu poate fi scris.',
     'cache_not_writable' => 'Directorul <strong>cache</strong> nu poate fi scris.',
@@ -710,7 +708,6 @@ $language = [
 
     // Page metadata
     'page_metadata' => 'Metadatele paginilor',
-    'metadata_page_x' => 'Vizualizarea metadatelor pentru pagina: {x}',
     'keywords' => 'Cuvinte cheie',
     'description_max_500' => 'Descrierea trebuie să aibă cel mult 500 de caractere.',
     'page' => 'Pagină',
@@ -766,5 +763,5 @@ $language = [
     'unlink' => 'Unlink',
     'identifier' => 'Identifier',
     'unlink_account_confirm' => 'Are you sure you want to forcibly unlink this provider from this user?',
-    'unlink_account_success' => 'Successfully unlinked their account from {x}.',
+    'unlink_account_success' => 'Successfully unlinked their account from {{provider}}.',
 ];

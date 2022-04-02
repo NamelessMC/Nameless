@@ -46,6 +46,7 @@ if (!isset($_GET['action'])) {
             'version' => Output::getClean($template->getVersion()),
             'author' => $template->getAuthor(),
             'author_x' => $language->get('admin', 'author_x', ['author' => $template->getAuthor()]),
+            // TODO: new language system
             'version_mismatch' => (($template->getNamelessVersion() != NAMELESS_VERSION) ? str_replace(['{x}', '{y}'], [Output::getClean($template->getNamelessVersion()), NAMELESS_VERSION], $language->get('admin', 'template_outdated')) : false),
             'enabled' => $item->enabled,
             'activate_link' => (($item->enabled) ? null : URL::build('/panel/core/panel_templates/', 'action=activate&template=' . urlencode($item->id))),
@@ -94,8 +95,8 @@ if (!isset($_GET['action'])) {
                     'downloads' => Output::getClean($item->downloads),
                     'views' => Output::getClean($item->views),
                     'rating_full' => $language->get('admin', 'rating_x', ['rating' => Output::getClean($item->rating * 2) . '/100']),
-                    'downloads_full' => str_replace('{x}', Output::getClean($item->downloads), $language->get('admin', 'downloads_x')),
-                    'views_full' => str_replace('{x}', Output::getClean($item->views), $language->get('admin', 'views_x'))
+                    'downloads_full' => $language->get('admin', 'downloads_x', ['downloads' => Output::getClean($item->downloads)]),
+                    'views_full' =>  $language->get('admin', 'views_x', ['views' => Output::getClean($item->views)])
                 ];
             }
 

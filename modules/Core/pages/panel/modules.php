@@ -96,8 +96,8 @@ if (!isset($_GET['action'])) {
                     'downloads' => Output::getClean($item->downloads),
                     'views' => Output::getClean($item->views),
                     'rating_full' => $language->get('admin', 'rating_x', ['rating' => Output::getClean($item->rating * 2) . '/100']),
-                    'downloads_full' => str_replace('{x}', Output::getClean($item->downloads), $language->get('admin', 'downloads_x')),
-                    'views_full' => str_replace('{x}', Output::getClean($item->views), $language->get('admin', 'views_x'))
+                    'downloads_full' => $language->get('admin', 'downloads_x', ['downloads' => Output::getClean($item->downloads)]),
+                    'views_full' =>  $language->get('admin', 'views_x', ['views' => Output::getClean($item->views)])
                 ];
             }
 

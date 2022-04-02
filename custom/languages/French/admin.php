@@ -324,10 +324,9 @@ $language = [
     'banner_background' => 'Fond de bannière',
     'query_interval' => 'Intervalle QUERY (en minutes, doit être compris entre 5 et 60)',
     'player_graphs' => 'Graphiques des joueurs',
-    'player_count_cronjob_info' => 'Vous pouvez configurer une tâche cron pour interroger vos serveurs toutes les {x} minutes avec la commande suivante:',
     'status_page' => 'Activer la page de statut?',
     'minecraft_settings_updated_successfully' => 'Paramètres mis à jour avec succès.',
-    'server_id_x' => 'ID Serveur: {x}',
+    'server_id_x' => 'ID Serveur: {{serverId}}',
     'server_information' => 'Informations sur le serveur',
     'query_information' => 'Informations Query',
     'query_errors_purged_successfully' => 'Erreurs Query purgées avec succès.',
@@ -357,7 +356,7 @@ $language = [
     // Styles
     'templates' => 'Modèles',
     'panel_templates' => 'Panel Modèles',
-    'template_outdated' => 'Nous avons détecté que votre template est destiné à la version Nameless {x}, mais vous utilisez la version Nameless {y}', // Don't replace "{x}" or "{y}"
+    'template_outdated' => 'Nous avons détecté que votre template est destiné à la version Nameless {{intendedVersion}}, mais vous utilisez la version Nameless {{actualVersion}}',
     'active' => 'Actif',
     'deactivate' => 'Désactiver',
     'activate' => 'Activer',
@@ -378,10 +377,10 @@ $language = [
     'confirm_delete_template' => 'Êtes-vous sûr de vouloir supprimer ce modèle?',
     'delete' => 'Supprimer',
     'template_deleted_successfully' => 'Modèle supprimé avec succès.',
-    'background_image_x' => 'Image de fond: <strong>{x}</strong>',
-    'banner_image_x' => 'Image de la bannière: <strong>{x}</strong>',
-    'logo_image_x' => 'Logo image: <strong>{x}</strong>',
-    'favicon_image_x' => 'Favicon image: <strong>{x}</strong>',
+    'background_image_x' => 'Image de fond: {{imageName}}',
+    'banner_image_x' => 'Image de la bannière: {{imageName}}',
+    'logo_image_x' => 'Logo image: {{imageName}}',
+    'favicon_image_x' => 'Favicon image: {{imageName}}',
     'x_directory_not_writable' => 'Le dossier {{directory}} n\'est pas éditable!',
     'template_banner_reset_successfully' => 'Bannière réinitialisée avec succès.',
     'template_banner_updated_successfully' => 'Bannière mise à jour avec succès.',
@@ -397,8 +396,8 @@ $language = [
     'unable_to_retrieve_templates' => 'Impossible de récupérer des modèles',
     'template' => 'Modèles',
     'stats' => 'Stats',
-    'downloads_x' => 'Téléchargements: {x}',
-    'views_x' => 'Vus: {x}',
+    'downloads_x' => 'Téléchargements: {{downloads}}',
+    'views_x' => 'Vus: {{views}}',
     'rating_x' => 'Avis: {{rating}}',
     'editing_template_x' => 'Editer le modèle {{template}}',
     'editing_template_file_in_template' => 'Edition du fichier {x} dans le modèle {y}',
@@ -469,7 +468,7 @@ $language = [
     'user' => 'Utilisateur',
     'user_validated_successfully' => 'Utilisateur validé avec succès.',
     'user_updated_successfully' => 'Utilisateur mis à jour avec succès.',
-    'editing_user_x' => 'Édition de l’utilisateur {x}',
+    'editing_user_x' => 'Édition de l’utilisateur {{user}}',
     'details' => 'Détails',
     'force_tfa' => 'Forcer l\'authentification à deux facteurs pour les membres du groupe ?',
     'force_tfa_warning' => 'Assurez-vous que vous savez ce que cela fait, sinon vous risquez de vous verrouiller et de verrouiller tous les membres du groupe.',
@@ -493,7 +492,6 @@ $language = [
     'enable_night_mode' => 'Activer le mode sombre',
     'disable_night_mode' => 'Désactiver le mode sombre',
     'view_site' => 'Voir le site',
-    'signed_in_as_x' => 'Signé en tant que {x}',
     'warning' => 'Attention',
 
     // Maintenance
@@ -649,7 +647,7 @@ Vous devriez configurer votre groupe par défaut pour avoir des autorisations li
     'warning_hook_info' => 'User warned',
 
     // Sitemap
-    'unable_to_load_sitemap_file_x' => 'Impossible de charger le fichier sitemap {x}',
+    'unable_to_load_sitemap_file_x' => 'Impossible de charger le fichier sitemap {{file}}',
     'sitemap_generated' => 'Plan du site généré avec succès',
     'sitemap_not_writable' => 'Le dossier <strong>cache/sitemaps</strong> n\'est pas éditable.',
     'cache_not_writable' => 'Le dossier <strong>cache</strong> n\'est pas éditbale.',
@@ -660,7 +658,6 @@ Vous devriez configurer votre groupe par défaut pour avoir des autorisations li
 
     // Page metadata
     'page_metadata' => 'Page Métadonnées',
-    'metadata_page_x' => 'Visualisation des métadonnées de la page {x}',
     'keywords' => 'Mots-clés',
     'description_max_500' => 'La description ne doit pas comporter plus de 500 caractères.',
     'page' => 'Page',
@@ -715,5 +712,5 @@ Vous devriez configurer votre groupe par défaut pour avoir des autorisations li
     'unlink' => 'Unlink',
     'identifier' => 'Identifier',
     'unlink_account_confirm' => 'Are you sure you want to forcibly unlink this provider from this user?',
-    'unlink_account_success' => 'Successfully unlinked their account from {x}.',
+    'unlink_account_success' => 'Successfully unlinked their account from {{provider}}.',
 ];

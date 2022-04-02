@@ -693,7 +693,6 @@ $language = [
 
     // Page metadata
     'page_metadata' => 'Page Metadata',
-    'metadata_page_x' => 'Viewing metadata for page {{page}}',
     'keywords' => 'Keywords',
     'description_max_500' => 'The description must be at most 500 characters.',
     'page' => 'Page',
@@ -747,5 +746,5 @@ $language = [
     'unlink' => 'Unlink',
     'identifier' => 'Identifier',
     'unlink_account_confirm' => 'Are you sure you want to forcibly unlink this provider from this user?',
-    'unlink_account_success' => 'Successfully unlinked their account from {{providerName}}.',
+    'unlink_account_success' => 'Successfully unlinked their account from {{provider}}.',
 ];

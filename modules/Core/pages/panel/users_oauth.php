@@ -28,7 +28,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'delete') {
 
                 OAuth::getInstance()->unlinkProviderForUser($_POST['user_id'], $_POST['provider_name']);
 
-                Session::flash('oauth_success', str_replace('{{providerName}}', ucfirst($_POST['provider_name']), $language->get('admin', 'unlink_account_success')));
+                Session::flash('oauth_success', $language->get('admin', 'unlink_account_success', ['provider' => ucfirst($_POST['provider_name'])]));
             }
         }
         die();
@@ -68,7 +68,7 @@ $smarty->assign([
     'PAGE' => PANEL_PAGE,
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit'),
-    'EDITING_USER' => str_replace('{x}', Output::getClean($user_query->nickname), $language->get('admin', 'editing_user_x')),
+    'EDITING_USER' => $language->get('admin', 'editing_user_x', ['user' => Output::getClean($user_query->nickname)]),
     'USER_ID' => $user_query->id,
     'BACK_LINK' => URL::build('/panel/user/' . urlencode($user_query)),
     'BACK' => $language->get('general', 'back'),

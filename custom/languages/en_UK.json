@@ -328,7 +328,6 @@
     "admin\/mcassoc_key": "mcassoc Shared Key",
     "admin\/message": "Message",
     "admin\/message_required": "Message is required",
-    "admin\/metadata_page_x": "Viewing metadata for page {{page}}",
     "admin\/metadata_updated_successfully": "Metadata updated successfully.",
     "admin\/method": "Method",
     "admin\/minecraft": "Minecraft",
