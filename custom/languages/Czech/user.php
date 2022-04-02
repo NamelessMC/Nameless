@@ -14,7 +14,7 @@ $language = [
     /*
      *  Change this for the account validation message
      */
-    'validate_account_command' => 'Pro dokončení registrace zadejte ve hře příkaz <strong>/verify {x}</strong>.', // Don't replace {x}
+    'validate_account_command' => 'Pro dokončení registrace zadejte ve hře příkaz /verify {{command}}.',
 
     /*
      *  User Related
@@ -39,7 +39,7 @@ $language = [
     'no_placeholders' => 'Žádné placeholdery',
 
     // Profile settings
-    'field_is_required' => 'Pole {x} je vyžadováno.', // Don't replace {x}
+    'field_is_required' => 'Pole {x} je vyžadováno.',
     'settings_updated_successfully' => 'Nastavení úspěšně aktualizována.',
     'password_changed_successfully' => 'Heslo úspěšně změněno.',
     'change_password' => 'Změnit heslo',
@@ -73,11 +73,11 @@ $language = [
     'gravatar' => 'Použít Gravatar jako avatar',
 
     // Alerts
-    'user_tag_info' => 'Byli jste označeni v příspěvku uživatelem {x}.', // Don't replace {x}
+    'user_tag_info' => 'Byli jste označeni v příspěvku uživatelem {{author}}.',
     'no_alerts' => 'Žádná nová upozornění',
     'view_alerts' => 'Zobrazit upozornění',
     '1_new_alert' => 'Máte 1 nové upozornění',
-    'x_new_alerts' => 'Máte {{count}} nových upozornění', // Don't replace {x}
+    'x_new_alerts' => 'Máte {{count}} nových upozornění',
     'no_alerts_usercp' => 'Nemáte žádná upozornění.',
 
     // Registration
@@ -157,12 +157,12 @@ $language = [
     'follow' => 'Sledovat',
     'no_wall_posts' => 'Zatím zde nejsou žádné příspěvky.',
     'change_banner' => 'Změnit obrázek',
-    'post_on_wall' => 'Zveřejnit na zdi uživatele {x}', // Don't replace {x}
+    'post_on_wall' => 'Zveřejnit na zdi uživatele {x}',
     'invalid_wall_post' => 'Ujistěte se, že váš příspěvek obsahuje mezi 1 a 10 000 znaky.',
     '1_reaction' => '1 reakce',
-    'x_reactions' => '{x} reakcí', // Don't replace {x}
+    'x_reactions' => '{x} reakcí',
     '1_like' => '1 líbí se mi',
-    'x_likes' => '{x} líbí se mi', // Don't replace {x}
+    'x_likes' => '{x} líbí se mi',
     '1_reply' => '1 odpověď',
     'x_replies' => '{{count}} odpovědí',
     'no_replies_yet' => 'Žádné odpovědi',
@@ -185,7 +185,7 @@ $language = [
     'user_unblocked' => 'Uživatel odblokován.',
     'views' => 'Zobrazení profilu:',
     'private_profile_page' => 'Toto je soukromý profil!',
-    'new_wall_post_reply' => '{x} odpověděl na váš příspěvek na profilu uživatele {y}.', // Don't replace {x} or {y}
+    'new_wall_post_reply' => '{x} odpověděl na váš příspěvek na profilu uživatele {y}.',
     'new_wall_post_reply_your_profile' => '{{author} odpověděl na váš příspěvek na vašem profilu.',
     'no_about_fields' => 'Tento uživatel o sobě zatím nepřidal žádné informace.',
     'reply' => 'Odpovědět',
@@ -236,14 +236,14 @@ $language = [
      *  Hooks
      */
     'user_x_has_registered' => '{x} se připojil na ' . SITE_NAME . '!',
-    'user_x_has_validated' => '{x} ověřil svůj účet!',
+    'user_x_has_validated' => '{{user}} ověřil svůj účet!',
 
     // OAuth
     'oauth_unlinked' => 'Successfully unlinked your account from that provider.',
     'oauth_already_linked' => 'Another NamelessMC user is already linked to that {{provider}} account.',
-    'oauth_link_success' => 'Successfully linked your account with {{provider}}!', // Don't replace {x}
-    'no_user_found_with_provider' => 'No user found with that {x} account.', // Don't replace {x}
-    'oauth_login_success' => 'You have logged in with your {x} account.', // Don't replace {x}
+    'oauth_link_success' => 'Successfully linked your account with {{provider}}!',
+    'no_user_found_with_provider' => 'No user found with that {{provider}} account.',
+    'oauth_login_success' => 'You have logged in with your {{provider}} account.',
     'oauth_link_confirm' => 'You will be taken to the {{provider}} website to link your account.',
-    'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {x}.<br>You will not be able to login with this account anymore.', // Don't replace {x}
+    'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {x}.<br>You will not be able to login with this account anymore.',
 ];

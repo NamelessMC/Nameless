@@ -46,19 +46,19 @@ $language = [
     'alerts' => 'Alerts',
     'view_alerts' => 'View alerts',
     'no_alerts' => 'No alerts',
-    'x_new_alerts' => 'You have {{count}} new alerts.', // Don't replace {x}
+    'x_new_alerts' => 'You have {{count}} new alerts.',
     'messages' => 'Messages',
     'view_messages' => 'View messages',
     'no_messages' => 'No messages',
     'x_new_messages' => 'You have {{count}} new messages.',
     'loading' => 'Loading...',
     'report' => 'Report',
-    'reported_by' => 'Reported by {x}',
+    'reported_by' => 'Reported by {{author}}',
     'view_report' => 'View report',
     'report_origin' => 'Origin',
     'origin_website' => 'Website',
     'origin_api' => 'API',
-    'page_loaded_in' => 'Page loaded in {x}s', // Don't replace {x}, time unit is seconds
+    'page_loaded_in' => 'Page loaded in {x}s',
     'page_x' => 'Page {x}',
     'browse' => 'Browse',
     'bypass' => 'Bypass',
@@ -98,20 +98,20 @@ $language = [
      */
     'online' => 'Online',
     'offline' => 'Offline',
-    'player_count' => '{x}/{y}', // Don't replace {x} or {y}
-    'ping' => 'Ping: {x}', // Don't replace {x}
-    'version' => 'Version: {x}', // Don't replace {x}
+    'player_count' => '{x}/{y}',
+    'ping' => 'Ping: {x}',
+    'version' => 'Version: {x}',
     'currently_1_player_online' => 'There is currently <strong>1</strong> player online.',
-    'currently_x_players_online' => 'There are currently {{count}} players online.', // Don't replace {x}
+    'currently_x_players_online' => 'There are currently {{count}} players online.',
     'server_offline' => 'The server is currently offline.',
-    'connect_with_ip_x' => 'Connect now using the IP {x}', // Don't replace {x}
+    'connect_with_ip_x' => 'Connect now using the IP {x}',
     'click_to_copy_tooltip' => 'Click to copy',
     'ip' => 'IP',
     'copied' => 'Copied!',
     'no_servers' => 'There are no servers to display!',
     'bungee_instance' => 'This server is a Bungee instance.',
     'no_players_online' => 'There are no players online.',
-    'and_x_more' => 'and {x} more', // Don't replace {x}
+    'and_x_more' => 'and {x} more',
 
     /*
      *  Cookie notice
@@ -147,10 +147,10 @@ $language = [
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{x}" rel="nofollow noopener">here</a>.', // Don't replace {x} which is the redirect URL
+    'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{x}" rel="nofollow noopener">here</a>.',
 
     /*
      * OAuth
      */
-    'oauth_message_continue' => 'Continue registering with {x}', // Don't replace {x}
+    'oauth_message_continue' => 'Continue registering with {x}',
 ];

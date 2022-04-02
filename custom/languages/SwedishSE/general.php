@@ -47,19 +47,19 @@ $language = [
     'alerts' => 'Alerts',
     'view_alerts' => 'Visa alerts',
     'no_alerts' => 'Inga alerts',
-    'x_new_alerts' => 'Du har {{count}} nya alerts.', // Don't replace {x}
+    'x_new_alerts' => 'Du har {{count}} nya alerts.',
     'messages' => 'Meddelander',
     'view_messages' => 'Visa Meddelander',
     'no_messages' => 'Inga Meddelanden',
     'x_new_messages' => 'Du har {{count}} nya meddelanden.',
     'loading' => 'Laddar...',
     'report' => 'Anmäl',
-    'reported_by' => 'Rapporterad av {x}',
+    'reported_by' => 'Rapporterad av {{author}}',
     'view_report' => 'Visa rapport',
     'report_origin' => 'Origin',
     'origin_website' => 'Website',
     'origin_api' => 'API',
-    'page_loaded_in' => 'Sida laddad på {x}s', // Don't replace {x}, time unit is seconds
+    'page_loaded_in' => 'Sida laddad på {x}s',
     'page_x' => 'Sida {x}',
     'browse' => 'Bläddra',
     'bypass' => 'Undvika',
@@ -99,20 +99,20 @@ $language = [
      */
     'online' => 'Online',
     'offline' => 'Offline',
-    'player_count' => '{x}/{y}', // Don't replace {x} or {y}
-    'ping' => 'Ping: {x}', // Don't replace {x}
-    'version' => 'Version: {x}', // Don't replace {x}
+    'player_count' => '{x}/{y}',
+    'ping' => 'Ping: {x}',
+    'version' => 'Version: {x}',
     'currently_1_player_online' => 'Det finns just nu <strong>1</strong> spelare online.',
-    'currently_x_players_online' => 'Det finns närvarande {{count}} spelare online.', // Don't replace {x}
+    'currently_x_players_online' => 'Det finns närvarande {{count}} spelare online.',
     'server_offline' => 'Servern är offline.',
-    'connect_with_ip_x' => 'Anslut nu med IP {x}', // Don't replace {x}
+    'connect_with_ip_x' => 'Anslut nu med IP {x}',
     'click_to_copy_tooltip' => 'Klicka för att kopiera',
     'ip' => 'IP',
     'copied' => 'Kopierad!',
     'no_servers' => 'Det finns inga servrar att visa!',
     'bungee_instance' => 'Denna server är en Bungee-instans.',
     'no_players_online' => 'Det finns inga spelare online.',
-    'and_x_more' => 'och {x} mer', // Don't replace {x}
+    'and_x_more' => 'och {x} mer',
 
     /*
      *  Cookie notice
@@ -149,10 +149,10 @@ $language = [
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'Omdirigerar...<br />Om du inte omdirigeras automatiskt, klicka <a href="{x}" rel="nofollow noopener">här</a>.', // Don't replace {x} which is the redirect URL
+    'redirecting_message' => 'Omdirigerar...<br />Om du inte omdirigeras automatiskt, klicka <a href="{x}" rel="nofollow noopener">här</a>.',
 
     /*
      * OAuth
      */
-    'oauth_message_continue' => 'Continue registering with {x}', // Don't replace {x}
+    'oauth_message_continue' => 'Continue registering with {x}',
 ];

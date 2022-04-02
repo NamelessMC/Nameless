@@ -24,9 +24,9 @@ $language = [
     'topics' => 'temas',
     'views' => 'visitas',
     'posts' => 'mensajes',
-    'x_posts' => '{x} mensajes', // Don't replace {x}
-    'x_topics' => '{x} temas', // Don't replace {x}
-    'registered_x' => 'Se ha unido: {x}', // Don't replace {x}
+    'x_posts' => '{x} mensajes',
+    'x_topics' => '{x} temas',
+    'registered_x' => 'Se ha unido: {x}',
     'by' => 'por',
     'in' => 'en',
     'last_reply' => 'Última respuesta',
@@ -41,7 +41,7 @@ $language = [
     'post_successful' => 'Mensaje publicado con éxito.',
     'post_edited_successfully' => 'Mensaje editado con éxito.',
     'user_tag' => 'Has sido etiquetado en un mensaje.',
-    'user_tag_info' => 'Has sido etiquetado en un mensaje de {x}.', // Don't replace "{x}"
+    'user_tag_info' => 'Has sido etiquetado en un mensaje de {{author}}.',
     'creating_topic_in_x' => 'Creación de un tema en {x}', // Don't replace "{x}"
     'topic_title' => 'Título del tema',
     'new_reply' => 'Nueva respuesta',
@@ -92,8 +92,8 @@ $language = [
     'unfollow' => 'Dejar de seguir',
     'now_following_topic' => 'Ahora estás siguiendo este tema, y serás notificado de cualquier respuesta nueva.',
     'no_longer_following_topic' => 'Ya no sigues este tema y no se te notificará ninguna respuesta nueva.',
-    'new_reply_in_topic' => '{x} ha respondido al tema {y}', // Don't replace {x} (username) or {y} (topic title)
-    'started_by_x' => 'Iniciado por {x}', // Don't replace {x}
+    'new_reply_in_topic' => '{x} ha respondido al tema {y}',
+    'started_by_x' => 'Iniciado por {x}',
     'sticky_topics' => 'Temas anclados',
 
     // Homepage
@@ -136,7 +136,7 @@ $language = [
     'forum_permissions' => 'Permisos del foro',
     'select_a_parent_forum' => 'Seleccione un foro principal',
     'parent_forum' => 'Foro principal',
-    'parent_forum_x' => 'Foro principal: {x}', // Don't replace {x}
+    'parent_forum_x' => 'Foro principal: {x}',
     'has_no_parent' => 'No tiene foro principal',
     'guests' => 'Invitados',
     'group' => 'Grupo',
@@ -201,7 +201,7 @@ $language = [
 
     // Hooks
     'new_topic_hook_info' => 'Nuevo tema',
-    'new_topic_text' => 'Tema creado en {x} por {y}', // Don't replace {x} (forum name), optional variable {y} (topic author)
+    'new_topic_text' => 'Tema creado en {x} por {y}',
     'include_in_hook' => '¿Incluir los nuevos temas de este foro en los webhooks?',
     'available_hooks' => 'Hooks disponibles',
 

@@ -25,9 +25,9 @@ $language = [
     'views' => 'Visninger',
     'posts' => 'Innlegg',
     'by' => 'Av',
-    'x_posts' => '{x} innlegg', // Don't replace {x}
-    'x_topics' => '{x} tråder', // Don't replace {x}
-    'registered_x' => 'Ble medlem: {x}', // Don't replace {x}
+    'x_posts' => '{x} innlegg',
+    'x_topics' => '{x} tråder',
+    'registered_x' => 'Ble medlem: {x}',
     'in' => 'i',
     'last_reply' => 'Siste kommentar',
     'latest_discussions' => 'Siste diskusjoner',
@@ -41,7 +41,7 @@ $language = [
     'post_successful' => 'Publisert.',
     'post_edited_successfully' => 'Innlegget har blitt redigert.',
     'user_tag' => 'Du har blitt omtalt.',
-    'user_tag_info' => 'Du har blitt omtalt av {x}.', // Don't replace "{x}"
+    'user_tag_info' => 'Du har blitt omtalt av {{author}}.',
     'creating_topic_in_x' => 'Lager tråd i {x}', // Don't replace "{x}"
     'topic_title' => 'Tittel',
     'new_reply' => 'Nytt svar',
@@ -92,8 +92,8 @@ $language = [
     'unfollow' => 'Slutt å følge',
     'now_following_topic' => 'Du følger nå denne tråden, og vil bli varslet dersom noen svarer på den.',
     'no_longer_following_topic' => 'Du har sluttet å følge denne tråden, og vil ikke lenger bli varslet dersom noen svarer på den. ',
-    'new_reply_in_topic' => '{x} har svart på tråden {y}', // Don't replace {x} (username) or {y} (topic title)
-    'started_by_x' => 'Startet av {x}', // Don't replace {x}
+    'new_reply_in_topic' => '{x} har svart på tråden {y}',
+    'started_by_x' => 'Startet av {x}',
     'sticky_topics' => 'Festede tråder',
 
     // Homepage
@@ -136,7 +136,7 @@ $language = [
     'forum_permissions' => 'Forumrettigheter',
     'select_a_parent_forum' => 'Velg et overordnet forum',
     'parent_forum' => 'Overordnet forum',
-    'parent_forum_x' => 'Overordnet forum: {x}', // Don't replace {x}
+    'parent_forum_x' => 'Overordnet forum: {x}',
     'has_no_parent' => 'Ingen overordnet forum',
     'guests' => 'Gjester',
     'group' => 'Gruppe',
@@ -201,10 +201,10 @@ $language = [
 
     // Hooks
     'new_topic_hook_info' => 'Ny tråd',
-    'new_topic_text' => 'Tråd opprettet i {x} av {y}', // Don't replace {x} (forum name), optional variable {y} (topic author)
+    'new_topic_text' => 'Tråd opprettet i {x} av {y}',
     'include_in_hook' => 'Inkluder nye tråder fra dette forumet i webhooks?',
     'available_hooks' => 'Tilgjengelig Hooks',
-    
+
     // Panel statistics
     'recent_topics' => 'Siste tråder',
     'recent_posts' => 'Siste innlegg',

@@ -112,7 +112,7 @@ $language = [
     'email_port_invalid' => 'Please insert a valid email port.',
     'email_password_hidden' => 'Le mot de passe n’est pas affiché pour des raisons de sécurité.',
     'send_test_email' => 'Envoyer un email de test',
-    'send_test_email_info' => 'Le bouton suivant tentera d\'envoyer un courriel à votre adresse électronique, <strong>{x}</strong>. Toute erreur commise lors de l\'envoi du courriel sera affichée.', // Don't replace {x}
+    'send_test_email_info' => 'Le bouton suivant tentera d\'envoyer un courriel à votre adresse électronique, <strong>{x}</strong>. Toute erreur commise lors de l\'envoi du courriel sera affichée.',
     'send' => 'Envoyer',
     'test_email_error' => 'Erreur du courriel de test :',
     'test_email_success' => 'Envoi réussi du courriel de test !',
@@ -145,7 +145,7 @@ $language = [
     'captcha_login' => 'Activer Captcha sur la page de connexion ?',
     'captcha_site_key' => 'Clé de site Captcha',
     'captcha_secret_key' => 'Clé secrète Captcha',
-    'invalid_recaptcha_settings' => 'Invalid {x} credentials. Ensure the site key and site secret are correct.', // Don't replace {x}
+    'invalid_recaptcha_settings' => 'Invalid {x} credentials. Ensure the site key and site secret are correct.',
     'registration_disabled_message' => 'Enregistrement message désactivé',
     'enable_nicknames_on_registration' => 'Activer les surnoms lors de l\'enregistrement des utilisateurs ?',
     'validation_promote_group' => 'Groupe de postvalidation',
@@ -327,7 +327,7 @@ $language = [
     'player_count_cronjob_info' => 'Vous pouvez configurer une tâche cron pour interroger vos serveurs toutes les {x} minutes avec la commande suivante:',
     'status_page' => 'Activer la page de statut?',
     'minecraft_settings_updated_successfully' => 'Paramètres mis à jour avec succès.',
-    'server_id_x' => 'ID Serveur: {x}', // Don't replace {x}
+    'server_id_x' => 'ID Serveur: {x}',
     'server_information' => 'Informations sur le serveur',
     'query_information' => 'Informations Query',
     'query_errors_purged_successfully' => 'Erreurs Query purgées avec succès.',
@@ -343,16 +343,16 @@ $language = [
     'module_enabled' => 'Module activé.',
     'module_disabled' => 'Module désactivé.',
     'author' => 'Auteur:',
-    'author_x' => 'Auteur: {x}', // Don't replace {x}
-    'updated_x' => 'Updated at: {x}', // Don't replace {x}
+    'author_x' => 'Auteur: {x}',
+    'updated_x' => 'Updated at: {x}',
     'module_outdated' => 'Nous avons détecté que ce module est destiné à la version Nameless {x}, mais vous utilisez la version Nameless {y}', // Don't replace "{x}" or "{y}"
     'find_modules' => 'Trouver des modules',
     'view_all_modules' => 'Voir tous les modules',
     'unable_to_retrieve_modules' => 'Impossible de récupérer les modules',
     'module' => 'Module',
     'unable_to_enable_module' => 'Impossible d’activer un module incompatible.',
-    'unable_to_enable_module_dependencies' => 'Impossible d\'activer le module car il dépend du module {x}, qui n\'est pas activé.', // Don't replace {x}
-    'unable_to_disable_module' => 'Impossible de désactiver le module - le module {x} en dépend.', // Don't replace {x}
+    'unable_to_enable_module_dependencies' => 'Impossible d\'activer le module car il dépend du module {x}, qui n\'est pas activé.',
+    'unable_to_disable_module' => 'Impossible de désactiver le module - le module {x} en dépend.',
 
     // Styles
     'templates' => 'Modèles',
@@ -369,20 +369,20 @@ $language = [
     'template_updated' => 'Modèle installé avec succès.',
     'default' => 'Par défaut',
     'make_default' => 'Mettre par défaut',
-    'default_template_set' => 'Modèle par défaut réglé sur {x} avec succès.', // Don't replace {x}
+    'default_template_set' => 'Modèle par défaut réglé sur {x} avec succès.',
     'template_deactivated' => 'Modèle désactivé.',
     'template_activated' => 'Modèle activé.',
     'permissions' => 'Permissions',
-    'setting_perms_for_x' => 'Configuration des permissions pour le modèle {x}', // Don't replace {x}
+    'setting_perms_for_x' => 'Configuration des permissions pour le modèle {x}',
     'templates_installed_successfully' => 'Tous les nouveaux modèles ont été installés avec succès.',
     'confirm_delete_template' => 'Êtes-vous sûr de vouloir supprimer ce modèle?',
     'delete' => 'Supprimer',
     'template_deleted_successfully' => 'Modèle supprimé avec succès.',
-    'background_image_x' => 'Image de fond: <strong>{x}</strong>', // Don't replace {x}
-    'banner_image_x' => 'Image de la bannière: <strong>{x}</strong>', // Don't replace {x}
-    'logo_image_x' => 'Logo image: <strong>{x}</strong>', // Don't replace {x}
-    'favicon_image_x' => 'Favicon image: <strong>{x}</strong>', // Don't replace {x}
-    'x_directory_not_writable' => 'Le dossier <strong>{x}</strong> n\'est pas éditable!', // Don't replace {x}
+    'background_image_x' => 'Image de fond: <strong>{x}</strong>',
+    'banner_image_x' => 'Image de la bannière: <strong>{x}</strong>',
+    'logo_image_x' => 'Logo image: <strong>{x}</strong>',
+    'favicon_image_x' => 'Favicon image: <strong>{x}</strong>',
+    'x_directory_not_writable' => 'Le dossier <strong>{x}</strong> n\'est pas éditable!',
     'template_banner_reset_successfully' => 'Bannière réinitialisée avec succès.',
     'template_banner_updated_successfully' => 'Bannière mise à jour avec succès.',
     'reset_banner' => 'Réinitialiser la bannière',
@@ -400,8 +400,8 @@ $language = [
     'downloads_x' => 'Téléchargements: {x}',
     'views_x' => 'Vus: {x}',
     'rating_x' => 'Avis: {x}',
-    'editing_template_x' => 'Editer le modèle {x}', // Don't replace {x}
-    'editing_template_file_in_template' => 'Edition du fichier {x} dans le modèle {y}', // Don't replace {x} or {y}
+    'editing_template_x' => 'Editer le modèle {x}',
+    'editing_template_file_in_template' => 'Edition du fichier {x} dans le modèle {y}',
     'cant_write_to_template' => 'Impossible d\’écrire dans un fichier modèle! Veuillez vérifier les permissions des fichiers.',
     'unable_to_delete_template' => 'Impossible de supprimer complètement le modèle. S’il vous plaît vérifier les autorisations de fichier.',
     'background_reset_successfully' => 'Réinitialiser l’arrière-plan.',
@@ -425,7 +425,7 @@ $language = [
     'cant_modify_root_user' => 'On ne peut pas modifier le groupe principal de cet utilisateur !',
     'main_group' => 'Groupe principal',
     'user_deleted' => 'Utilisateur supprimé avec succès.',
-    'confirm_user_deletion' => 'Voulez-vous vraiment supprimer l’utilisateur <strong>{x}</strong> ?', // Don't replace {x}
+    'confirm_user_deletion' => 'Voulez-vous vraiment supprimer l’utilisateur <strong>{x}</strong> ?',
     'validate_user' => 'Valider l\'utilisateur',
     'update_uuid' => 'Mettre à jour l’UUID',
     'update_mc_name' => 'Mettre à jour le nom d’utilisateur Minecraft',
@@ -452,7 +452,7 @@ $language = [
     'group_username_colour' => 'Groupe Nom d’utilisateur Couleur',
     'group_staff' => 'Le groupe est-il un groupe staff?',
     'delete_group' => 'Supprimer le groupe',
-    'confirm_group_deletion' => 'Êtes-vous sûr de vouloir supprimer le groupe {x}?', // Don't replace {x}
+    'confirm_group_deletion' => 'Êtes-vous sûr de vouloir supprimer le groupe {x}?',
     'group_not_exist' => 'Ce groupe n\'existe pas.',
     'secondary_groups' => 'Groupes secondaires',
     'secondary_groups_info' => 'L’utilisateur obtiendra toutes les permissions supplémentaires de ces groupes. Ctrl+clic pour sélectionner/désélectionner plusieurs groupes.',
@@ -469,7 +469,7 @@ $language = [
     'user' => 'Utilisateur',
     'user_validated_successfully' => 'Utilisateur validé avec succès.',
     'user_updated_successfully' => 'Utilisateur mis à jour avec succès.',
-    'editing_user_x' => 'Édition de l’utilisateur {x}', // Don't replace {x}
+    'editing_user_x' => 'Édition de l’utilisateur {x}',
     'details' => 'Détails',
     'force_tfa' => 'Forcer l\'authentification à deux facteurs pour les membres du groupe ?',
     'force_tfa_warning' => 'Assurez-vous que vous savez ce que cela fait, sinon vous risquez de vous verrouiller et de verrouiller tous les membres du groupe.',
@@ -493,7 +493,7 @@ $language = [
     'enable_night_mode' => 'Activer le mode sombre',
     'disable_night_mode' => 'Désactiver le mode sombre',
     'view_site' => 'Voir le site',
-    'signed_in_as_x' => 'Signé en tant que {x}', // Don't replace {x}
+    'signed_in_as_x' => 'Signé en tant que {x}',
     'warning' => 'Attention',
 
     // Maintenance
@@ -519,8 +519,8 @@ $language = [
 
     // Updates
     'update' => 'Mise à jour',
-    'current_version_x' => 'Version actuelle: <strong>{x}</strong>', // Don't replace {x}
-    'new_version_x' => 'Nouvelle version: <strong>{x}</strong>', // Don't replace {x}
+    'current_version_x' => 'Version actuelle: <strong>{x}</strong>',
+    'new_version_x' => 'Nouvelle version: <strong>{x}</strong>',
     'new_update_available' => 'Une nouvelle mise à jour est disponible',
     'new_urgent_update_available' => 'Une nouvelle mise à jour urgente est disponible. Veuillez mettre à jour dès que possible !',
     'up_to_date' => 'Votre installation NamelessMC est à jour!',
@@ -537,8 +537,8 @@ $language = [
     'widget_enabled' => 'Widget activé.',
     'widget_disabled' => 'Widget désactivé.',
     'widget_updated' => 'Widget mis à jour.',
-    'editing_widget_x' => 'Édition widget {x}', // Don't replace {x}
-    'module_x' => 'Module: {x}', // Don't replace {x}
+    'editing_widget_x' => 'Édition widget {x}',
+    'module_x' => 'Module: {x}',
     'widget_order' => 'Ordre des widgets',
 
     // Online users widget
@@ -569,7 +569,7 @@ $language = [
     'sitemap_link' => 'Lien vers le plan du site:',
     'page_permissions' => 'Permissions de page',
     'view_page' => 'Afficher la page?',
-    'editing_page_x' => 'Édition de la page {x}', // Don't replace {x}
+    'editing_page_x' => 'Édition de la page {x}',
     'unable_to_create_page' => 'Impossible de créer une page:',
     'page_title_required' => 'Un titre de page est nécessaire.',
     'page_url_required' => 'Un chemin de page est nécessaire.',
@@ -600,7 +600,7 @@ $language = [
     'api_registration_email' => 'Email d’enregistrement de l’API',
     'show_registration_link' => 'Afficher le lien d’inscription',
     'registration_link' => 'Lien d’inscription',
-    'link_to_complete_registration' => 'Lien vers l\'inscription complète: {x}', // Don't replace {x}
+    'link_to_complete_registration' => 'Lien vers l\'inscription complète: {x}',
     'api_verification' => 'Activer la vérification API ?',
     'api_verification_info' => 'Si cette option est activée, les comptes ne peuvent être vérifiés qu’à travers l’API, par exemple ingame en utilisant le plugin officiel Nameless. <strong>Cette option remplacera la vérification des courriels et les comptes seront automatiquement activés !</strong>
 Vous devriez configurer votre groupe par défaut pour avoir des autorisations limitées, puis mettre à jour le groupe post-validation dans Panel Admin -> Configuration -> Onglet Inscription pour le groupe complet des membres avec les autorisations normales.',
@@ -649,18 +649,18 @@ Vous devriez configurer votre groupe par défaut pour avoir des autorisations li
     'warning_hook_info' => 'User warned',
 
     // Sitemap
-    'unable_to_load_sitemap_file_x' => 'Impossible de charger le fichier sitemap {x}', // Don't replace {x}
+    'unable_to_load_sitemap_file_x' => 'Impossible de charger le fichier sitemap {x}',
     'sitemap_generated' => 'Plan du site généré avec succès',
     'sitemap_not_writable' => 'Le dossier <strong>cache/sitemaps</strong> n\'est pas éditable.',
     'cache_not_writable' => 'Le dossier <strong>cache</strong> n\'est pas éditbale.',
     'generate_sitemap' => 'Générer le plan du site',
     'download_sitemap' => 'Télécharger le plan du site',
     'sitemap_not_generated_yet' => 'Un plan du site n’a pas encore été généré!',
-    'sitemap_last_generated_x' => 'Le plan du site a été généré pour la dernière fois le {x}', // Don't replace {x}
+    'sitemap_last_generated_x' => 'Le plan du site a été généré pour la dernière fois le {x}',
 
     // Page metadata
     'page_metadata' => 'Page Métadonnées',
-    'metadata_page_x' => 'Visualisation des métadonnées de la page {x}', // Don't replace {x}
+    'metadata_page_x' => 'Visualisation des métadonnées de la page {x}',
     'keywords' => 'Mots-clés',
     'description_max_500' => 'La description ne doit pas comporter plus de 500 caractères.',
     'page' => 'Page',
@@ -672,7 +672,7 @@ Vous devriez configurer votre groupe par défaut pour avoir des autorisations li
     'average_players' => 'Joueurs moyens',
     'nameless_news' => 'Nouvelles NamelessMC',
     'unable_to_retrieve_nameless_news' => 'Impossible de récupérer les dernières nouvelles',
-    'confirm_leave_site' => 'Vous êtes sur le point de quitter ce site ! Êtes-vous sûr de vouloir visiter <strong id="leaveSiteURL">{x}</strong> ?', // don't replace {x} and make sure it has the id leaveSiteURL
+    'confirm_leave_site' => 'Vous êtes sur le point de quitter ce site ! Êtes-vous sûr de vouloir visiter <strong id="leaveSiteURL">{x}</strong> ?', and make sure it has the id leaveSiteURL
     'server_compatibility' => 'Compatibilité des serveurs',
     'issues' => 'Questions',
 
@@ -715,5 +715,5 @@ Vous devriez configurer votre groupe par défaut pour avoir des autorisations li
     'unlink' => 'Unlink',
     'identifier' => 'Identifier',
     'unlink_account_confirm' => 'Are you sure you want to forcibly unlink this provider from this user?',
-    'unlink_account_success' => 'Successfully unlinked their account from {x}.', // Don't replace {x}
+    'unlink_account_success' => 'Successfully unlinked their account from {x}.',
 ];

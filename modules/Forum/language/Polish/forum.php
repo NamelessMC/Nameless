@@ -24,9 +24,9 @@ $language = [
     'topics' => 'tematów',
     'views' => 'wyświetlenia',
     'posts' => 'posty',
-    'x_posts' => '{x} postów', // Don't replace {x}
-    'x_topics' => '{x} tematów', // Don't replace {x}
-    'registered_x' => 'Dołączył: {x}', // Don't replace {x}
+    'x_posts' => '{x} postów',
+    'x_topics' => '{x} tematów',
+    'registered_x' => 'Dołączył: {x}',
     'by' => 'przez',
     'in' => 'w',
     'last_reply' => 'Ostatnia odpowiedź',
@@ -41,7 +41,7 @@ $language = [
     'post_successful' => 'Post został stworzony.',
     'post_edited_successfully' => 'Post został edytowany.',
     'user_tag' => 'Zostałeś oznaczony w poście .',
-    'user_tag_info' => 'Zostałeś oznaczony w poście przez {x}.', // Don't replace "{x}"
+    'user_tag_info' => 'Zostałeś oznaczony w poście przez {{author}}.',
     'creating_topic_in_x' => 'Tworzenie tematu w {x}', // Don't replace "{x}"
     'topic_title' => 'Tytuł tematu',
     'new_reply' => 'Nowa odpowiedź',
@@ -92,8 +92,8 @@ $language = [
     'unfollow' => 'Przestań obserwować',
     'now_following_topic' => 'Obserwujesz teraz ten temat, będziesz dostawać powiadomienia o każdej nowej odpowiedzi w nim zamieszczonej.',
     'no_longer_following_topic' => 'Nie obserwujesz już tego tematu, nie będziesz już dostawać powiadomień o nowych odpowiedziach w nim zamieszczonych.',
-    'new_reply_in_topic' => '{x} dodał odpowiedź do tematu {y}', // Don't replace {x} (username) or {y} (topic title)
-    'started_by_x' => 'Zaczęte przez {x}', // Don't replace {x}
+    'new_reply_in_topic' => '{x} dodał odpowiedź do tematu {y}',
+    'started_by_x' => 'Zaczęte przez {x}',
     'sticky_topics' => 'Przyklejone Tematy',
 
     // Homepage
@@ -136,7 +136,7 @@ $language = [
     'forum_permissions' => 'Uprawnienia na forum',
     'select_a_parent_forum' => 'Wybierz forum nadrzędne',
     'parent_forum' => 'Forum nadrzędne',
-    'parent_forum_x' => 'Parent Forum: {x}', // Don't replace {x}
+    'parent_forum_x' => 'Parent Forum: {x}',
     'has_no_parent' => 'Bez forum nadrzędnego',
     'guests' => 'Goście',
     'group' => 'Grupa',
@@ -201,7 +201,7 @@ $language = [
 
     // Hooks
     'new_topic_hook_info' => 'Nowy temat',
-    'new_topic_text' => 'Temat został stworzony w {x} przez {y}', // Don't replace {x} (forum name), optional variable {y} (topic author)
+    'new_topic_text' => 'Temat został stworzony w {x} przez {y}',
     'include_in_hook' => 'Include new topics from this forum in webhooks?',
     'available_hooks' => 'Available Hooks',
 

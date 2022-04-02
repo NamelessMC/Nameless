@@ -15,7 +15,7 @@ $language = [
     /*
      *  Change this for the account validation message
      */
-    'validate_account_command' => '要完成注册，请在游戏中执行命令<strong> / validate {x} </ strong>。', // Don't replace {x}
+    'validate_account_command' => '要完成注册，请在游戏中执行命令 /validate {{command}}。',
 
     /*
      *  User Related
@@ -41,7 +41,7 @@ $language = [
     'no_placeholders' => '无占位符',
 
     // Profile settings
-    'field_is_required' => '{x} 是必须要填写的。', // Don't replace {x}
+    'field_is_required' => '{x} 是必须要填写的。',
     'settings_updated_successfully' => '设置已成功更新。',
     'password_changed_successfully' => '密码修改成功。',
     'change_password' => '更改密码',
@@ -75,11 +75,11 @@ $language = [
     'gravatar' => '用 Gravatar 作为头像',
 
     // Alerts
-    'user_tag_info' => '用户 {x} 在一个帖子中提及了您。', // Don't replace {x}
+    'user_tag_info' => '用户 {{author}} 在一个帖子中提及了您。',
     'no_alerts' => '没有新通知',
     'view_alerts' => '查看通知',
     '1_new_alert' => '您有 1 条新通知',
-    'x_new_alerts' => '您有 {{count}} 条新通知', // Don't replace {x}
+    'x_new_alerts' => '您有 {{count}} 条新通知',
     'no_alerts_usercp' => '您没有任何可读的通知。',
 
     // Registraton
@@ -159,12 +159,12 @@ $language = [
     'follow' => '关注',
     'no_wall_posts' => '很可惜，这里仍没有人给您留言。',
     'change_banner' => '更改背景',
-    'post_on_wall' => '留言于 {x} 的评论区', // Don't replace {x}
+    'post_on_wall' => '留言于 {x} 的评论区',
     'invalid_wall_post' => '请确保您的留言长度在 1 到 10000 个字符之间。',
     '1_reaction' => '1 表态',
-    'x_reactions' => '{x} 表态', // Don't replace {x}
+    'x_reactions' => '{x} 表态',
     '1_like' => '1 喜欢',
-    'x_likes' => '{x} 喜欢', // Don't replace {x}
+    'x_likes' => '{x} 喜欢',
     '1_reply' => '1 回复',
     'x_replies' => '{{count}} 回复',
     'no_replies_yet' => '目前仍无人回复',
@@ -187,7 +187,7 @@ $language = [
     'user_unblocked' => '该用户已被取消屏蔽',
     'views' => '造访数:',
     'private_profile_page' => '这是一份私人资料!',
-    'new_wall_post_reply' => '{x} 已在 {y} 于您的留言板留言', // Don't replace {x} or {y}
+    'new_wall_post_reply' => '{x} 已在 {y} 于您的留言板留言',
     'new_wall_post_reply_your_profile' => '{{author}} 已留言在您的留言板。',
     'no_about_fields' => '该用户很懒，并没有填写个性签名。',
     'reply' => '回复',
@@ -238,14 +238,14 @@ $language = [
      *  Hooks
      */
     'user_x_has_registered' => '{x} 加入了 ' . SITE_NAME . '!',
-    'user_x_has_validated' => '{x} 已验证他的帐号!',
+    'user_x_has_validated' => '{{user}} 已验证他的帐号!',
 
     // OAuth
     'oauth_unlinked' => 'Successfully unlinked your account from that provider.',
     'oauth_already_linked' => 'Another NamelessMC user is already linked to that {{provider}} account.',
     'oauth_link_success' => 'Successfully linked your account with {{provider}}!',
-    'no_user_found_with_provider' => 'No user found with that {x} account.', // Don't replace {x}
-    'oauth_login_success' => 'You have logged in with your {x} account.', // Don't replace {x}
+    'no_user_found_with_provider' => 'No user found with that {{provider}} account.',
+    'oauth_login_success' => 'You have logged in with your {{provider}} account.',
     'oauth_link_confirm' => 'You will be taken to the {{provider}} website to link your account.',
-    'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {x}.<br>You will not be able to login with this account anymore.', // Don't replace {x}
+    'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {x}.<br>You will not be able to login with this account anymore.',
 ];

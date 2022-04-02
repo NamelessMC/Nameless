@@ -25,9 +25,9 @@ $language = [
     'topics' => 'discussioni',
     'views' => 'visualizzazioni',
     'posts' => 'post',
-    'x_posts' => '{x} post', // Don't replace {x}
-    'x_topics' => '{x} discussioni', // Don't replace {x}
-    'registered_x' => 'Iscritto: {x}', // Don't replace {x}
+    'x_posts' => '{x} post',
+    'x_topics' => '{x} discussioni',
+    'registered_x' => 'Iscritto: {x}',
     'by' => 'da',
     'in' => 'nel',
     'last_reply' => 'Ultima risposta',
@@ -42,7 +42,7 @@ $language = [
     'post_successful' => 'Postato con successo.',
     'post_edited_successfully' => 'Post modificato con successo.',
     'user_tag' => 'Sei stato taggato in un post.',
-    'user_tag_info' => 'Sei stato taggato in un post da {x}.', // Don't replace "{x}"
+    'user_tag_info' => 'Sei stato taggato in un post da {{author}}.',
     'creating_topic_in_x' => 'Creazione della discussione in {x}', // Don't replace "{x}"
     'topic_title' => 'Titolo del topic',
     'new_reply' => 'Nuova risposta',
@@ -93,8 +93,8 @@ $language = [
     'unfollow' => 'Smetti di seguire',
     'now_following_topic' => 'Ora stai seguendo questa discussione e sarai informato di eventuali nuove risposte.',
     'no_longer_following_topic' => 'Non stai più seguendo questa discussione e non riceverai alcuna notifica di nuove risposte.',
-    'new_reply_in_topic' => '{x} ha risposto alla discussione {y}', // Don't replace {x} (username) or {y} (topic title)
-    'started_by_x' => 'Avviato da {x}', // Don't replace {x}
+    'new_reply_in_topic' => '{x} ha risposto alla discussione {y}',
+    'started_by_x' => 'Avviato da {x}',
     'sticky_topics' => 'Discussioni in rilievo',
 
     // Homepage
@@ -137,7 +137,7 @@ $language = [
     'forum_permissions' => 'Permessi del forum',
     'select_a_parent_forum' => 'Seleziona un forum principale',
     'parent_forum' => 'Forum principale',
-    'parent_forum_x' => 'Forum principale: {x}', // Don't replace {x}
+    'parent_forum_x' => 'Forum principale: {x}',
     'has_no_parent' => 'Nessun forum principale',
     'guests' => 'Ospiti',
     'group' => 'Gruppo',
@@ -202,7 +202,7 @@ $language = [
 
     // Hooks
     'new_topic_hook_info' => 'Nuova discussione',
-    'new_topic_text' => 'Discussione creata in {x} da {y}', // Don't replace {x} (forum name), optional variable {y} (topic author)
+    'new_topic_text' => 'Discussione creata in {x} da {y}',
     'include_in_hook' => 'Includere nuove discussioni da questo forum nel webhook?',
     'available_hooks' => 'Available Hooks',
 

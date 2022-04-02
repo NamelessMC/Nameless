@@ -12,7 +12,7 @@
 
 $language = [
     // Change this for the account validation message
-    'validate_account_command' => 'Norėdami užbaigti registraciją, rašykite komandą <strong>/verify {x}</strong> žaidime.', // Don't replace {x}
+    'validate_account_command' => 'Norėdami užbaigti registraciją, rašykite komandą /verify {{command}} žaidime.',
 
     // User Related
     'guest' => 'Svečias',
@@ -36,7 +36,7 @@ $language = [
     'no_placeholders' => 'No Placeholders',
 
     // Profile settings
-    'field_is_required' => 'Reikalingas {x}.', // Don't replace {x}
+    'field_is_required' => 'Reikalingas {x}.',
     'settings_updated_successfully' => 'Nustatymai atnaujinti sėkmingai.',
     'password_changed_successfully' => 'Slaptažodis sėkmingai pakeistas.',
     'change_password' => 'Pakeisti Slaptažodį',
@@ -70,11 +70,11 @@ $language = [
     'gravatar' => 'Use Gravatar as avatar',
 
     // Alerts
-    'user_tag_info' => 'Jūs buvote pažymėtas {x} "post".', // Don't replace {x}
+    'user_tag_info' => 'Jūs buvote pažymėtas {{author}} "post".',
     'no_alerts' => 'Naujų įspėjimų nėra',
     'view_alerts' => 'Peržiūrėti įspėjimus',
     '1_new_alert' => 'Turite 1 naują įspėjimą',
-    'x_new_alerts' => 'Turite {{count}} naujų įspėjimų', // Don't replace {x}
+    'x_new_alerts' => 'Turite {{count}} naujų įspėjimų',
     'no_alerts_usercp' => 'Jūs neturite jokių įspėjimų.',
 
     // Registraton
@@ -154,12 +154,12 @@ $language = [
     'follow' => 'Sekti',
     'no_wall_posts' => 'Čia dar nėra sienos "post".',
     'change_banner' => 'Keisti Banerį',
-    'post_on_wall' => '"Post" ant {x}\'s sienos', // Don't replace {x}
+    'post_on_wall' => '"Post" ant {x}\'s sienos',
     'invalid_wall_post' => 'Patikrinkite, ar jūsų "post" yra nuo 1 iki 10000 simbolių.',
     '1_reaction' => '1 reakcija',
-    'x_reactions' => '{x} reakcijos', // Don't replace {x}
+    'x_reactions' => '{x} reakcijos',
     '1_like' => '1 Patinka',
-    'x_likes' => '{x} Patinka', // Don't replace {x}
+    'x_likes' => '{x} Patinka',
     '1_reply' => '1 atsakymas',
     'x_replies' => '{{count}} atsakymai',
     'no_replies_yet' => 'Dar nėra atsakymų',
@@ -182,7 +182,7 @@ $language = [
     'user_unblocked' => 'Vartotojas atblokuotas.',
     'views' => 'Profilio Peržiūros:',
     'private_profile_page' => 'Tai yra privatus profilis!',
-    'new_wall_post_reply' => '{x} atsakė į jūsų "postą" {y}\'s profilyje.', // Don't replace {x} or {y}
+    'new_wall_post_reply' => '{x} atsakė į jūsų "postą" {y}\'s profilyje.',
     'new_wall_post_reply_your_profile' => '{{author}} atsakė į jūsų "postą" jūsų profilyje.',
     'no_about_fields' => 'Šis vartotojas dar nepateikė jokių “apie” laukų.',
     'reply' => 'Atsakyti',
@@ -229,14 +229,14 @@ $language = [
 
     // Hooks
     'user_x_has_registered' => '{x} prisijungė prie ' . SITE_NAME . '!',
-    'user_x_has_validated' => '{x} has validated their account!',
+    'user_x_has_validated' => '{{user}} has validated their account!',
 
     // OAuth
     'oauth_unlinked' => 'Successfully unlinked your account from that provider.',
     'oauth_already_linked' => 'Another NamelessMC user is already linked to that {{provider}} account.',
-    'oauth_link_success' => 'Successfully linked your account with {{provider}}!', // Don't replace {x}
-    'no_user_found_with_provider' => 'No user found with that {x} account.', // Don't replace {x}
-    'oauth_login_success' => 'You have logged in with your {x} account.', // Don't replace {x}
+    'oauth_link_success' => 'Successfully linked your account with {{provider}}!',
+    'no_user_found_with_provider' => 'No user found with that {{provider}} account.',
+    'oauth_login_success' => 'You have logged in with your {{provider}} account.',
     'oauth_link_confirm' => 'You will be taken to the {{provider}} website to link your account.',
-    'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {x}.<br>You will not be able to login with this account anymore.', // Don't replace {x}
+    'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {x}.<br>You will not be able to login with this account anymore.',
 ];

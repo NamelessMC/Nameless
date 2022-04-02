@@ -32,9 +32,9 @@ $language = [
     'topics' => 'Themen',
     'views' => 'Aufrufe',
     'posts' => 'Beiträge',
-    'x_posts' => '{x} Beiträge', // Don't replace {x}
-    'x_topics' => '{x} Themen', // Don't replace {x}
-    'registered_x' => 'Beigetreten am: {x}', // Don't replace {x}
+    'x_posts' => '{x} Beiträge',
+    'x_topics' => '{x} Themen',
+    'registered_x' => 'Beigetreten am: {x}',
     'by' => 'von',
     'in' => 'in',
     'last_reply' => 'Letzte Antwort',
@@ -49,7 +49,7 @@ $language = [
     'post_successful' => 'Beitrag erfolgreich veröffentlicht.',
     'post_edited_successfully' => 'Beitrag erfolgreich editiert.',
     'user_tag' => 'Du wurdest in einem Beitrag erwähnt.',
-    'user_tag_info' => 'Du wurdest in einem Beitrag von {x} erwähnt.', // Don't replace "{x}"
+    'user_tag_info' => 'Du wurdest in einem Beitrag von {{author}} erwähnt.',
     'creating_topic_in_x' => 'Erstelle Thema in {x}', // Don't replace "{x}"
     'topic_title' => 'Titel des Themas',
     'new_reply' => 'Neue Antwort',
@@ -100,8 +100,8 @@ $language = [
     'unfollow' => 'Entfolgen',
     'now_following_topic' => 'Du folgst diesem Thema jetzt und wirst über neue Antworten informiert.',
     'no_longer_following_topic' => 'Du folgst diesem Thema nicht mehr und wirst nicht über neue Antworten informiert.',
-    'new_reply_in_topic' => '{x} hat auf das Thema {y} geantwortet', // Don't replace {x} (username) or {y} (topic title)
-    'started_by_x' => 'Gestartet von {x}', // Don't replace {x}
+    'new_reply_in_topic' => '{x} hat auf das Thema {y} geantwortet',
+    'started_by_x' => 'Gestartet von {x}',
     'sticky_topics' => 'Angeheftete Themen',
 
     // Homepage
@@ -144,7 +144,7 @@ $language = [
     'forum_permissions' => 'Forum Berechtigungen',
     'select_a_parent_forum' => 'Wähle ein übergeordnetes Forum',
     'parent_forum' => 'Übergeordnetes Forum',
-    'parent_forum_x' => 'Übergeordnetes Forum: {x}', // Don't replace {x}
+    'parent_forum_x' => 'Übergeordnetes Forum: {x}',
     'has_no_parent' => 'Kein übergeordnetes Forum',
     'guests' => 'Gäste',
     'group' => 'Gruppe',
@@ -209,7 +209,7 @@ $language = [
 
     // Hooks
     'new_topic_hook_info' => 'Neues Thema',
-    'new_topic_text' => 'Thema in {x} von {y} erstellt', // Don't replace {x} (forum name), optional variable {y} (topic author)
+    'new_topic_text' => 'Thema in {x} von {y} erstellt',
     'include_in_hook' => 'Include new topics from this forum in webhooks?',
     'available_hooks' => 'Verfügbare Haken',
 

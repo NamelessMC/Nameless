@@ -39,7 +39,7 @@ if (isset($_GET['c'])) {
             'user_id' => $user->data()->id,
             'username' => $user->getDisplayname(),
             'uuid' => Output::getClean($user->data()->uuid),
-            'content' => str_replace('{{user}}', $user->getDisplayname(), $language->get('user', 'user_x_has_validated')),
+            'content' => $language->get('user', 'user_x_has_validated', ['user' => $user->getDisplayName()]),
             'avatar_url' => $user->getAvatar(128, true),
             'url' => Util::getSelfURL() . ltrim($user->getProfileURL(), '/'),
             'language' => $language

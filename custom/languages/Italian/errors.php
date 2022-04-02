@@ -29,6 +29,6 @@ $language = [
     'fatal_error_title' => 'Spiacenti!',
     'fatal_error_message_user' => 'Spiacenti, ma qualcosa è andato storto durante il caricamento della pagina. Per favore, contatta un amministratore.',
     'fatal_error_message_admin' => "Spiacenti, ma qualcosa è andato storto durante il caricamento della pagina. Dettagli dell'errore:",
-    'in_file' => 'nel file <strong>{x}</strong>', // Don't replace {x}
-    'on_line' => 'alla linea <strong>{x}</strong>' // Don't replace {x}
+    'in_file' => 'nel file <strong>{x}</strong>',
+    'on_line' => 'alla linea <strong>{x}</strong>'
 ];

@@ -48,19 +48,19 @@ $language = [
     'alerts' => '通知',
     'view_alerts' => '查看通知',
     'no_alerts' => '您还没有通知哟',
-    'x_new_alerts' => '您有 {{count}} 条新通知。', // Don't replace {x}
+    'x_new_alerts' => '您有 {{count}} 条新通知。',
     'messages' => '消息',
     'view_messages' => '查看消息',
     'no_messages' => '您还没有消息哟',
     'x_new_messages' => '你有 {{count}} 条新消息。',
     'loading' => '加载中...',
     'report' => '反馈',
-    'reported_by' => 'Reported by {x}',
+    'reported_by' => 'Reported by {{author}}',
     'view_report' => 'View report',
     'report_origin' => 'Origin',
     'origin_website' => 'Website',
     'origin_api' => 'API',
-    'page_loaded_in' => '页面在 {x} 秒内加载完成', // Don't replace {x}, time unit is seconds
+    'page_loaded_in' => '页面在 {x} 秒内加载完成',
     'page_x' => '第 {x} 页',
     'browse' => '浏览',
     'bypass' => '忽略',
@@ -101,20 +101,20 @@ $language = [
      */
     'online' => '在线',
     'offline' => '离线',
-    'player_count' => '{x}/{y}', // Don't replace {x} or {y}
-    'ping' => '延迟: {x}', // Don't replace {x}
-    'version' => '版本: {x}', // Don't replace {x}
+    'player_count' => '{x}/{y}',
+    'ping' => '延迟: {x}',
+    'version' => '版本: {x}',
     'currently_1_player_online' => '目前只有<strong>一</strong>名玩家在线。',
-    'currently_x_players_online' => '目前有 {{count}} 名玩家在线。', // Don't replace {x}
+    'currently_x_players_online' => '目前有 {{count}} 名玩家在线。',
     'server_offline' => '服务器目前处于离线状态。',
-    'connect_with_ip_x' => '现在就通过 IP 地址来与服务器建立连接吧 {x}', // Don't replace {x}
+    'connect_with_ip_x' => '现在就通过 IP 地址来与服务器建立连接吧 {x}',
     'click_to_copy_tooltip' => '点击以复制',
     'ip' => 'IP',
     'copied' => '已复制!',
     'no_servers' => '啊偶...这里目前没有可展示的服务器！',
     'bungee_instance' => '这个服务器是一个 BungeeCord 服(代理服)。',
     'no_players_online' => '目前没有任何玩家在线',
-    'and_x_more' => '还有 {x} 更多', // Don't replace {x}
+    'and_x_more' => '还有 {x} 更多',
 
     /*
      *  Cookie notice
@@ -151,10 +151,10 @@ $language = [
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => '重定向中...<br />如果您的页面没有自动跳转，请点击 <a href="{x}" rel="nofollow noopener">这里</a>.', // Don't replace {x} which is the redirect URL
+    'redirecting_message' => '重定向中...<br />如果您的页面没有自动跳转，请点击 <a href="{x}" rel="nofollow noopener">这里</a>.',
 
     /*
      * OAuth
      */
-    'oauth_message_continue' => 'Continue registering with {x}', // Don't replace {x}
+    'oauth_message_continue' => 'Continue registering with {x}',
 ];

@@ -13,7 +13,7 @@ $language = [
     /*
      *  Change this for the account validation message
      */
-    'validate_account_command' => 'เพื่อให้การลงทะเบียนเสร็จสมบูรณ์ โปรดดำเนินการคำสั่ง <strong>/ยืนยัน {x}</strong> ในเกม', // Don't replace {x}
+    'validate_account_command' => 'เพื่อให้การลงทะเบียนเสร็จสมบูรณ์ โปรดดำเนินการคำสั่ง /ยืนยัน {{command}} ในเกม',
 
     /*
      *  User Related
@@ -39,7 +39,7 @@ $language = [
     'no_placeholders' => 'ไม่มี Placeholders',
 
     // Profile settings
-    'field_is_required' => '{x} ต้องระบุ.', // Don't replace {x}
+    'field_is_required' => '{x} ต้องระบุ.',
     'settings_updated_successfully' => 'อัปเดตการตั้งค่าเรียบร้อยแล้ว',
     'password_changed_successfully' => 'เปลี่ยนรหัสผ่านสำเร็จ',
     'change_password' => 'เปลี่ยนรหัสผ่าน',
@@ -73,11 +73,11 @@ $language = [
     'gravatar' => 'ใช้ Gravatar เป็นอวตาร',
 
     // Alerts
-    'user_tag_info' => 'คุณได้รับแท็กในกระทู้โดย {x}.', // Don't replace {x}
+    'user_tag_info' => 'คุณได้รับแท็กในกระทู้โดย {{author}}.',
     'no_alerts' => 'ไม่มีการแจ้งเตือนใหม่',
     'view_alerts' => 'ดูการแจ้งเตือน',
     '1_new_alert' => 'คุณมี 1 การแจ้งเตือนใหม่',
-    'x_new_alerts' => 'คุณมี {{count}} การแจ้งเตือนใหม่', // Don't replace {x}
+    'x_new_alerts' => 'คุณมี {{count}} การแจ้งเตือนใหม่',
     'no_alerts_usercp' => 'คุณไม่มีการแจ้งเตือนใด ๆ',
 
     // Registraton
@@ -157,12 +157,12 @@ $language = [
     'follow' => 'ติดตาม',
     'no_wall_posts' => 'ยังไม่มีโพสต์บนผนังที่นี่',
     'change_banner' => 'เปลี่ยน Banner',
-    'post_on_wall' => 'โพสต์บน {x}\'s wall', // Don't replace {x}
+    'post_on_wall' => 'โพสต์บน {x}\'s wall',
     'invalid_wall_post' => 'โปรดตรวจสอบว่าโพสต์ของคุณมีความยาวระหว่าง 1 ถึง 10,000 อักขระ',
     '1_reaction' => '1 ปฏิกิริยา',
-    'x_reactions' => '{x} ปฏิกิริยา', // Don't replace {x}
+    'x_reactions' => '{x} ปฏิกิริยา',
     '1_like' => '1 ถูกใจ',
-    'x_likes' => '{x} ถูกใจ', // Don't replace {x}
+    'x_likes' => '{x} ถูกใจ',
     '1_reply' => '1 ตอบกลับ',
     'x_replies' => '{{count}} ตอบกลับ',
     'no_replies_yet' => 'ยังไม่มีการตอบกลับ',
@@ -185,7 +185,7 @@ $language = [
     'user_unblocked' => 'ปลดล็อคผู้ใช้แล้ว',
     'views' => 'การดูโปรไฟล์:',
     'private_profile_page' => 'นี่เป็นโปรไฟล์ส่วนตัว!',
-    'new_wall_post_reply' => '{x} ได้ตอบกลับโพสต์ของคุณในโปรไฟล์ของ {y}', // Don't replace {x} or {y}
+    'new_wall_post_reply' => '{x} ได้ตอบกลับโพสต์ของคุณในโปรไฟล์ของ {y}',
     'new_wall_post_reply_your_profile' => '{{author}} ได้ตอบกลับโพสต์ของคุณในโปรไฟล์ของคุณ',
     'no_about_fields' => 'ผู้ใช้รายนี้ยังไม่ได้เพิ่มฟิลด์ใดๆ',
     'reply' => 'ตอบกลับ',
@@ -236,14 +236,14 @@ $language = [
      *  Hooks
      */
     'user_x_has_registered' => '{x} ได้เข้าร่วม ' . SITE_NAME . '!',
-    'user_x_has_validated' => '{x} ได้ตรวจสอบบัญชีของพวกเขาแล้ว!',
+    'user_x_has_validated' => '{{user}} ได้ตรวจสอบบัญชีของพวกเขาแล้ว!',
 
     // OAuth
     'oauth_unlinked' => 'Successfully unlinked your account from that provider.',
     'oauth_already_linked' => 'Another NamelessMC user is already linked to that {{provider}} account.',
-    'oauth_link_success' => 'Successfully linked your account with {{provider}}!', // Don't replace {x}
-    'no_user_found_with_provider' => 'No user found with that {x} account.', // Don't replace {x}
-    'oauth_login_success' => 'You have logged in with your {x} account.', // Don't replace {x}
+    'oauth_link_success' => 'Successfully linked your account with {{provider}}!',
+    'no_user_found_with_provider' => 'No user found with that {{provider}} account.',
+    'oauth_login_success' => 'You have logged in with your {{provider}} account.',
     'oauth_link_confirm' => 'You will be taken to the {{provider}} website to link your account.',
-    'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {x}.<br>You will not be able to login with this account anymore.', // Don't replace {x}
+    'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {x}.<br>You will not be able to login with this account anymore.',
 ];

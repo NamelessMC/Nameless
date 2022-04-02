@@ -50,19 +50,19 @@ $language = [
     'alerts' => '提醒',
     'view_alerts' => '檢視通知',
     'no_alerts' => '沒有通知',
-    'x_new_alerts' => '你有 {{count}} 則通知.', // Don't replace {x}
+    'x_new_alerts' => '你有 {{count}} 則通知.',
     'messages' => '訊息',
     'view_messages' => '檢視訊息',
     'no_messages' => '沒有訊息',
     'x_new_messages' => '你有 {{count}} 則訊息.',
     'loading' => '讀取中...',
     'report' => '回報',
-    'reported_by' => 'Reported by {x}',
+    'reported_by' => 'Reported by {{author}}',
     'view_report' => 'View report',
     'report_origin' => 'Origin',
     'origin_website' => 'Website',
     'origin_api' => 'API',
-    'page_loaded_in' => '畫面在 {x}秒 讀取完畢', // Don't replace {x}, time unit is seconds
+    'page_loaded_in' => '畫面在 {x}秒 讀取完畢',
     'page_x' => '頁 {x}',
     'browse' => '瀏覽',
     'bypass' => 'Bypass',
@@ -102,20 +102,20 @@ $language = [
      */
     'online' => '線上',
     'offline' => '離線',
-    'player_count' => '{x}/{y}', // Don't replace {x} or {y}
-    'ping' => '延遲: {x}', // Don't replace {x}
-    'version' => '版本: {x}', // Don't replace {x}
+    'player_count' => '{x}/{y}',
+    'ping' => '延遲: {x}',
+    'version' => '版本: {x}',
     'currently_1_player_online' => 'There is currently <strong>1</strong> player online.',
-    'currently_x_players_online' => '現在有 {{count}} 位玩家在線上.', // Don't replace {x}
+    'currently_x_players_online' => '現在有 {{count}} 位玩家在線上.',
     'server_offline' => '伺服器目前離線.',
-    'connect_with_ip_x' => '使用 IP {x} 來連接伺服器', // Don't replace {x}
+    'connect_with_ip_x' => '使用 IP {x} 來連接伺服器',
     'click_to_copy_tooltip' => 'Click to copy',
     'ip' => 'IP',
     'copied' => 'Copied!',
     'no_servers' => 'There are no servers to display!',
     'bungee_instance' => 'This server is a Bungee instance.',
     'no_players_online' => 'There are no players online.',
-    'and_x_more' => 'and {x} more', // Don't replace {x}
+    'and_x_more' => 'and {x} more',
 
     /*
      *  Cookie notice
@@ -152,10 +152,10 @@ $language = [
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{x}" rel="nofollow noopener">here</a>.', // Don't replace {x} which is the redirect URL
+    'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{x}" rel="nofollow noopener">here</a>.',
 
     /*
      * OAuth
      */
-    'oauth_message_continue' => 'Continue registering with {x}', // Don't replace {x}
+    'oauth_message_continue' => 'Continue registering with {x}',
 ];

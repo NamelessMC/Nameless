@@ -24,9 +24,9 @@ $language = [
     'topics' => 'Konu',
     'views' => 'Görüntüleme',
     'posts' => 'Mesaj',
-    'x_posts' => '{x} Mesaj', // Don't replace {x}
-    'x_topics' => '{x} Konu', // Don't replace {x}
-    'registered_x' => 'Katılım: {x}', // Don't replace {x}
+    'x_posts' => '{x} Mesaj',
+    'x_topics' => '{x} Konu',
+    'registered_x' => 'Katılım: {x}',
     'by' => 'tarafından',
     'in' => 'içinde',
     'last_reply' => 'Son Cevap',
@@ -41,7 +41,7 @@ $language = [
     'post_successful' => 'Gönderi başarılı.',
     'post_edited_successfully' => 'Gönderi başarıyla düzenlendi!',
     'user_tag' => 'Bir konuda etiketlendiniz.',
-    'user_tag_info' => 'Bir konuda {x} tarafından etiketlendiniz.', // Don't replace "{x}"
+    'user_tag_info' => 'Bir konuda {{author}} tarafından etiketlendiniz.',
     'creating_topic_in_x' => '{x} içinde konu oluşturuluyor', // Don't replace "{x}"
     'topic_title' => 'Konu Başlığı',
     'new_reply' => 'Yeni Cevap',
@@ -92,8 +92,8 @@ $language = [
     'unfollow' => 'Takipten çık',
     'now_following_topic' => 'Şimdi bu konuyu takip ediyorsunuz ve yeni yanıtlar size bildirilecek.',
     'no_longer_following_topic' => 'Artık bu konuyu takip etmiyorsunuz ve yeni yanıtlardan haberdar edilmeyeceksiniz.',
-    'new_reply_in_topic' => '{x}, {y} konusunu yanıtladı', // Don't replace {x} (username) or {y} (topic title)
-    'started_by_x' => '{x} tarafından başlatıldı!', // Don't replace {x}
+    'new_reply_in_topic' => '{x}, {y} konusunu yanıtladı',
+    'started_by_x' => '{x} tarafından başlatıldı!',
     'sticky_topics' => 'Sabit Konular',
 
     // Homepage
@@ -136,7 +136,7 @@ $language = [
     'forum_permissions' => 'Forum Yetkileri',
     'select_a_parent_forum' => 'Bir ana forum seçin',
     'parent_forum' => 'Ana Forum',
-    'parent_forum_x' => 'Ana Forum: {x}', // Don't replace {x}
+    'parent_forum_x' => 'Ana Forum: {x}',
     'has_no_parent' => 'Ana forum yok',
     'guests' => 'Ziyaretçi',
     'group' => 'Grup',
@@ -201,7 +201,7 @@ $language = [
 
     // Hooks
     'new_topic_hook_info' => 'Yeni konu aç',
-    'new_topic_text' => '{x} tarafından {y} tarafından oluşturulan konu', // Don't replace {x} (forum name), optional variable {y} (topic author)
+    'new_topic_text' => '{x} tarafından {y} tarafından oluşturulan konu',
     'include_in_hook' => 'Include new topics from this forum in webhooks?',
     'available_hooks' => 'Available Hooks',
 

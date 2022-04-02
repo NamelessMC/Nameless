@@ -51,19 +51,19 @@ $language = [
     'alerts' => 'アラート',
     'view_alerts' => 'アラートを表示',
     'no_alerts' => 'アラートなし',
-    'x_new_alerts' => '{{count}} 件の新しいアラートがあります。', // Don't replace {x}
+    'x_new_alerts' => '{{count}} 件の新しいアラートがあります。',
     'messages' => 'メッセージ',
     'view_messages' => 'メッセージを表示',
     'no_messages' => 'メッセージなし',
     'x_new_messages' => '{{count}} 件の新しいメッセージがあります。',
     'loading' => '読み込み中...',
     'report' => 'レポート',
-    'reported_by' => '{x}による報告',
+    'reported_by' => '{{author}} による報告',
     'view_report' => '報告を見る',
     'report_origin' => 'Origin',
     'origin_website' => 'ウェブサイト',
     'origin_api' => 'API',
-    'page_loaded_in' => 'このページは{x}秒で読み込まれました。', // Don't replace {x}, time unit is seconds
+    'page_loaded_in' => 'このページは{x}秒で読み込まれました。',
     'page_x' => 'ページ {x}',
     'browse' => '閲覧',
     'bypass' => 'バイパス',
@@ -103,20 +103,20 @@ $language = [
      */
     'online' => 'オンライン',
     'offline' => 'オフライン',
-    'player_count' => '{x}/{y}', // Don't replace {x} or {y}
-    'ping' => 'Ping: {x}', // Don't replace {x}
-    'version' => 'バージョン: {x}', // Don't replace {x}
+    'player_count' => '{x}/{y}',
+    'ping' => 'Ping: {x}',
+    'version' => 'バージョン: {x}',
     'currently_1_player_online' => '現在<strong>1</strong>人のプレイヤーが参加しています。',
-    'currently_x_players_online' => '現在 {{count}} 人のプレイヤーが参加しています。', // Don't replace {x}
+    'currently_x_players_online' => '現在 {{count}} 人のプレイヤーが参加しています。',
     'server_offline' => '現在サーバーはオフラインです。',
-    'connect_with_ip_x' => 'IP {x} で今すぐ接続する', // Don't replace {x}
+    'connect_with_ip_x' => 'IP {x} で今すぐ接続する',
     'click_to_copy_tooltip' => 'クリックでコピー',
     'ip' => 'IP',
     'copied' => 'クリップボードにコピーしました。',
     'no_servers' => '表示できるサーバーがありません。',
     'bungee_instance' => 'このサーバーはBungeeCordを使用しています。',
     'no_players_online' => '現在オンラインのプレイヤーはいません。',
-    'and_x_more' => '{x}以上', // Don't replace {x}
+    'and_x_more' => '{x}以上',
 
     /*
      *  Cookie notice
@@ -152,10 +152,10 @@ $language = [
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'リダイレクト...<br />自動的にリダイレクトされない場合は、<a href="{x}" rel="nofollow noopener">こちら</a>をクリックしてください。', // Don't replace {x} which is the redirect URL
+    'redirecting_message' => 'リダイレクト...<br />自動的にリダイレクトされない場合は、<a href="{x}" rel="nofollow noopener">こちら</a>をクリックしてください。',
 
     /*
      * OAuth
      */
-    'oauth_message_continue' => '続けて{x}で登録する。', // Don't replace {x}
+    'oauth_message_continue' => '続けて{x}で登録する。',
 ];

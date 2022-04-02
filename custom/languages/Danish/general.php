@@ -46,19 +46,19 @@ $language = [
     'alerts' => 'Notifikationer',
     'view_alerts' => 'Vis notifikationer',
     'no_alerts' => 'Ingen notifikationer',
-    'x_new_alerts' => 'Du har {{count}} nye notifikationer.', // Don't replace {x}
+    'x_new_alerts' => 'Du har {{count}} nye notifikationer.',
     'messages' => 'Beskeder',
     'view_messages' => 'Se beskeder',
     'no_messages' => 'Ingen beskeder',
     'x_new_messages' => 'Du har {{count}} nye beskeder.',
     'loading' => 'Indlæser...',
     'report' => 'Rapport',
-    'reported_by' => 'Reported by {x}',
+    'reported_by' => 'Reported by {{author}}',
     'view_report' => 'View report',
     'report_origin' => 'Origin',
     'origin_website' => 'Website',
     'origin_api' => 'API',
-    'page_loaded_in' => 'Side indlæst i {x}s', // Don't replace {x}, time unit is seconds
+    'page_loaded_in' => 'Side indlæst i {x}s',
     'page_x' => 'Side {x}',
     'browse' => 'Gennemse',
     'bypass' => 'Omgå',
@@ -98,20 +98,20 @@ $language = [
      */
     'online' => 'Online',
     'offline' => 'Offline',
-    'player_count' => '{x}/{y}', // Don't replace {x} or {y}
-    'ping' => 'Ping: {x}', // Don't replace {x}
-    'version' => 'Version: {x}', // Don't replace {x}
+    'player_count' => '{x}/{y}',
+    'ping' => 'Ping: {x}',
+    'version' => 'Version: {x}',
     'currently_1_player_online' => 'Der er i øjeblikket <strong>1</strong> spiller online.',
-    'currently_x_players_online' => 'Der er i øjeblikket {{count}} spillere online.', // Don't replace {x}
+    'currently_x_players_online' => 'Der er i øjeblikket {{count}} spillere online.',
     'server_offline' => 'Serveren er i øjeblikket offline.',
-    'connect_with_ip_x' => 'Forbind nu ved hjælp af IP {x}', // Don't replace {x}
+    'connect_with_ip_x' => 'Forbind nu ved hjælp af IP {x}',
     'click_to_copy_tooltip' => 'Klik for at kopiere',
     'ip' => 'IP',
     'copied' => 'Kopieret!',
     'no_servers' => 'Der er ingen servere at vise!',
     'bungee_instance' => 'Denne server er en Bungee instans.',
     'no_players_online' => 'Der er ingen spillere online.',
-    'and_x_more' => 'og {x} flere', // Don't replace {x}
+    'and_x_more' => 'og {x} flere',
 
     /*
      *  Cookie notice
@@ -148,10 +148,10 @@ $language = [
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'Omdirigerer...<br />Hvis du ikke bliver omdirigeret automatisk, klik venligst <a href="{x}" rel="nofollow noopener">her</a>.', // Don't replace {x} which is the redirect URL
+    'redirecting_message' => 'Omdirigerer...<br />Hvis du ikke bliver omdirigeret automatisk, klik venligst <a href="{x}" rel="nofollow noopener">her</a>.',
 
     /*
      * OAuth
      */
-    'oauth_message_continue' => 'Continue registering with {x}', // Don't replace {x}
+    'oauth_message_continue' => 'Continue registering with {x}',
 ];

@@ -46,19 +46,19 @@ $language = [
     'alerts' => 'การแจ้งเตือน',
     'view_alerts' => 'ดูการแจ้งเตือน',
     'no_alerts' => 'ไม่มีการแจ้งเตือน',
-    'x_new_alerts' => 'คุณมี {{count}} การแจ้งเตือนใหม่', // Don't replace {x}
+    'x_new_alerts' => 'คุณมี {{count}} การแจ้งเตือนใหม่',
     'messages' => 'ข้อความ',
     'view_messages' => 'ดูข้อความ',
     'no_messages' => 'ไม่มีข้อความ',
     'x_new_messages' => 'คุณมี {{count}} ข้อความใหม่',
     'loading' => 'กำลังโหลด...',
     'report' => 'รายงาน',
-    'reported_by' => 'Reported by {x}',
+    'reported_by' => 'Reported by {{author}}',
     'view_report' => 'View report',
     'report_origin' => 'Origin',
     'origin_website' => 'Website',
     'origin_api' => 'API',
-    'page_loaded_in' => 'Page loaded in {x}s', // Don't replace {x}, time unit is seconds
+    'page_loaded_in' => 'Page loaded in {x}s',
     'page_x' => 'Page {x}',
     'browse' => 'เรียกดู',
     'bypass' => 'Bypass',
@@ -98,20 +98,20 @@ $language = [
      */
     'online' => 'ออนไลน์',
     'offline' => 'ออฟไลน์',
-    'player_count' => '{x}/{y}', // Don't replace {x} or {y}
-    'ping' => 'Ping: {x}', // Don't replace {x}
-    'version' => 'Version: {x}', // Don't replace {x}
+    'player_count' => '{x}/{y}',
+    'ping' => 'Ping: {x}',
+    'version' => 'Version: {x}',
     'currently_1_player_online' => 'ขณะนี้มีผู้เล่นออนไลน์ <strong>1</strong> คน',
-    'currently_x_players_online' => 'ขณะนี้มีผู้เล่น {{count}} คนกำลังออนไลน์', // Don't replace {x}
+    'currently_x_players_online' => 'ขณะนี้มีผู้เล่น {{count}} คนกำลังออนไลน์',
     'server_offline' => 'เซิร์ฟเวอร์ออฟไลน์อยู่ในขณะนี้',
-    'connect_with_ip_x' => 'เชื่อมต่อทันทีโดยใช้ IP {x}', // Don't replace {x}
+    'connect_with_ip_x' => 'เชื่อมต่อทันทีโดยใช้ IP {x}',
     'click_to_copy_tooltip' => 'คลิกเพื่อคัดลอก',
     'ip' => 'IP',
     'copied' => 'คัดลอก!',
     'no_servers' => 'ไม่มีเซิร์ฟเวอร์ที่จะแสดง!',
     'bungee_instance' => 'เซิร์ฟเวอร์นี้เป็น instance Bungee',
     'no_players_online' => 'ไม่มีผู้เล่นออนไลน์',
-    'and_x_more' => 'and {x} more', // Don't replace {x}
+    'and_x_more' => 'and {x} more',
 
     /*
      *  Cookie notice
@@ -147,10 +147,10 @@ $language = [
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'กำลังเปลี่ยนเส้นทาง...<br />หากคุณไม่ถูกเปลี่ยนเส้นทางโดยอัตโนมัติ โปรดคลิก <a href="{x}" rel="nofollow noopener">ที่นี่/a>.', // Don't replace {x} which is the redirect URL
+    'redirecting_message' => 'กำลังเปลี่ยนเส้นทาง...<br />หากคุณไม่ถูกเปลี่ยนเส้นทางโดยอัตโนมัติ โปรดคลิก <a href="{x}" rel="nofollow noopener">ที่นี่/a>.',
 
     /*
      * OAuth
      */
-    'oauth_message_continue' => 'Continue registering with {x}', // Don't replace {x}
+    'oauth_message_continue' => 'Continue registering with {x}',
 ];

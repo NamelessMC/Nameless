@@ -13,7 +13,7 @@ $language = [
     /*
      *  Change this for the account validation message
      */
-    'validate_account_command' => 'Kaydı tamamlamak için lütfen <strong>{x}</strong> oyun adı komutunu yürütün.', // Don't replace {x}
+    'validate_account_command' => 'Kaydı tamamlamak için lütfen {{command}} oyun adı komutunu yürütün.',
 
     /*
      *  User Related
@@ -39,7 +39,7 @@ $language = [
     'no_placeholders' => 'No Placeholders',
 
     // Profile settings
-    'field_is_required' => '{x} gerekli!', // Don't replace {x}
+    'field_is_required' => '{x} gerekli!',
     'settings_updated_successfully' => 'Ayarlar başarıyla güncellendi.',
     'password_changed_successfully' => 'Parola başarıyla değiştirildi.',
     'change_password' => 'Şifre değiştir',
@@ -73,11 +73,11 @@ $language = [
     'gravatar' => 'Use Gravatar as avatar',
 
     // Alerts
-    'user_tag_info' => 'Bir konuda {x} tarafından etiketlendiniz.', // Don't replace {x}
+    'user_tag_info' => 'Bir konuda {{author}} tarafından etiketlendiniz.',
     'no_alerts' => 'Şu an hiç bildiriminiz yok.',
     'view_alerts' => 'Tümünü gör..',
     '1_new_alert' => '1 yeni bildiriminiz var.',
-    'x_new_alerts' => '{{count}} yeni bildiriminiz var.', // Don't replace {x}
+    'x_new_alerts' => '{{count}} yeni bildiriminiz var.',
     'no_alerts_usercp' => 'Şu an hiç bildiriminiz yok.',
 
     // Registration
@@ -157,12 +157,12 @@ $language = [
     'follow' => 'Takip et',
     'no_wall_posts' => 'Henüz duvar yazısı yok.',
     'change_banner' => 'Banner(afiş) değiştir',
-    'post_on_wall' => '{x} duvarında yayınla', // Don't replace {x}
+    'post_on_wall' => '{x} duvarında yayınla',
     'invalid_wall_post' => 'Lütfen yayınınızın 1 ile 10000 karakter arasında olduğundan emin olun.',
     '1_reaction' => '1 reaksiyon',
-    'x_reactions' => '{x} reaksiyon', // Don't replace {x}
+    'x_reactions' => '{x} reaksiyon',
     '1_like' => '1 beğeni',
-    'x_likes' => '{x} beğeni', // Don't replace {x}
+    'x_likes' => '{x} beğeni',
     '1_reply' => '1 cevap',
     'x_replies' => '{{count}} cevap',
     'no_replies_yet' => 'henüz cevap yok',
@@ -185,7 +185,7 @@ $language = [
     'user_unblocked' => 'Kulanıcının engeli kaldırıldı!',
     'views' => 'Profilin görüntülenme sayısı:',
     'private_profile_page' => 'Bu özel bir profil!',
-    'new_wall_post_reply' => '{x}, {y} profilindeki yayınınızı yanıtladı.', // Don't replace {x} or {y}
+    'new_wall_post_reply' => '{x}, {y} profilindeki yayınınızı yanıtladı.',
     'new_wall_post_reply_your_profile' => '{{author}} profilinizdeki yayınınıza cevap verdi.',
     'no_about_fields' => 'Bu kullanıcı henüz alanlarla ilgili herhangi bir bilgi eklemedi.',
     'reply' => 'cevap',
@@ -236,14 +236,14 @@ $language = [
      *  Hooks
      */
     'user_x_has_registered' => '{x} katıldı ' . SITE_NAME . '!',
-    'user_x_has_validated' => '{x} has validated their account!',
+    'user_x_has_validated' => '{{user}} has validated their account!',
 
     // OAuth
     'oauth_unlinked' => 'Successfully unlinked your account from that provider.',
     'oauth_already_linked' => 'Another NamelessMC user is already linked to that {{provider}} account.',
-    'oauth_link_success' => 'Successfully linked your account with {{provider}}!', // Don't replace {x}
-    'no_user_found_with_provider' => 'No user found with that {x} account.', // Don't replace {x}
-    'oauth_login_success' => 'You have logged in with your {x} account.', // Don't replace {x}
+    'oauth_link_success' => 'Successfully linked your account with {{provider}}!',
+    'no_user_found_with_provider' => 'No user found with that {{provider}} account.',
+    'oauth_login_success' => 'You have logged in with your {{provider}} account.',
     'oauth_link_confirm' => 'You will be taken to the {{provider}} website to link your account.',
-    'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {x}.<br>You will not be able to login with this account anymore.', // Don't replace {x}
+    'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {x}.<br>You will not be able to login with this account anymore.',
 ];

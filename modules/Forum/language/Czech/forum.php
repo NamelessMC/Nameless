@@ -25,9 +25,9 @@ $language = [
     'topics' => 'témat',
     'views' => 'zobrazení',
     'posts' => 'příspěvků',
-    'x_posts' => '{x} příspěvků', // Don't replace {x}
-    'x_topics' => '{x} témat', // Don't replace {x}
-    'registered_x' => 'Zaregistrován: {x}', // Don't replace {x}
+    'x_posts' => '{x} příspěvků',
+    'x_topics' => '{x} témat',
+    'registered_x' => 'Zaregistrován: {x}',
     'by' => 'od',
     'in' => 'v',
     'last_reply' => 'Poslední odpověď',
@@ -42,7 +42,7 @@ $language = [
     'post_successful' => 'Příspěvek byl úspěšně přidán.',
     'post_edited_successfully' => 'Příspěvek byl úspěšně upraven.',
     'user_tag' => 'Byli jste označeni v příspěvku.',
-    'user_tag_info' => '{x} vás označil v příspěvku.', // Don't replace "{x}"
+    'user_tag_info' => '{{author}} vás označil v příspěvku.',
     'creating_topic_in_x' => 'Vytvoření tématu v {x}', // Don't replace "{x}"
     'topic_title' => 'Název tématu',
     'new_reply' => 'Nová odpověď',
@@ -93,8 +93,8 @@ $language = [
     'unfollow' => 'Přestat sledovat',
     'now_following_topic' => 'Nyní sledujete toto téma a budete upozorněni na nové odpovědi.',
     'no_longer_following_topic' => 'Toto téma již nesledujete a nebudete upozorněni na žádné nové odpovědi.',
-    'new_reply_in_topic' => 'Uživatel {x} odpověděl na téma {y}', // Don't replace {x} (username) or {y} (topic title)
-    'started_by_x' => 'Téma založil {x}', // Don't replace {x}
+    'new_reply_in_topic' => 'Uživatel {x} odpověděl na téma {y}',
+    'started_by_x' => 'Téma založil {x}',
     'sticky_topics' => 'Připnutá témata',
 
     // Homepage
@@ -137,7 +137,7 @@ $language = [
     'forum_permissions' => 'Oprávnění fóra',
     'select_a_parent_forum' => 'Vyberte nadřazené fórum',
     'parent_forum' => 'Nadřazené fórum',
-    'parent_forum_x' => 'Nadřazené fórum: {x}', // Don't replace {x}
+    'parent_forum_x' => 'Nadřazené fórum: {x}',
     'has_no_parent' => 'Žádné nadřazené',
     'guests' => 'Hosté',
     'group' => 'Skupina',
@@ -202,10 +202,10 @@ $language = [
 
     // Hooks
     'new_topic_hook_info' => 'Nové téma',
-    'new_topic_text' => 'Téma vytvořeno v {x} od {y}', // Don't replace {x} (forum name), optional variable {y} (topic author)
+    'new_topic_text' => 'Téma vytvořeno v {x} od {y}',
     'include_in_hook' => 'Zahrnout do webhooků nová témata z tohoto fóra?',
     'available_hooks' => 'Dostupné webhooky',
-    
+
     // Panel statistics
     'recent_topics' => 'Poslední témata',
     'recent_posts' => 'Poslední příspěvky',

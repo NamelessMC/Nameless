@@ -55,7 +55,7 @@ $language = [
     'x_new_messages' => 'Você tem {{count}} novas mensagens.',
     'loading' => 'Carregando...',
     'report' => 'Denúncia',
-    'reported_by' => 'Reportado por {x}.',
+    'reported_by' => 'Reportado por {{author}}.',
     'view_report' => 'Visualizar Denúncia.',
     'report_origin' => 'Origin',
     'origin_website' => 'Website',
@@ -155,5 +155,5 @@ $language = [
     /*
      * OAuth
      */
-    'oauth_message_continue' => 'Continue registering with {x}', // Don't replace {x}
+    'oauth_message_continue' => 'Continue registering with {x}',
 ];

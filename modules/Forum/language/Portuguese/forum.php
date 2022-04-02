@@ -43,7 +43,7 @@ $language = [
     'post_successful' => 'Postagem bem sucedida.',
     'post_edited_successfully' => 'Postagem editada com sucesso.',
     'user_tag' => 'Você foi marcado em uma publicação.',
-    'user_tag_info' => 'Você foi marcado em uma postagem por {x}.', // Não altere o valor: "{x}"
+    'user_tag_info' => 'Você foi marcado em uma postagem por {{author}}.',
     'creating_topic_in_x' => 'Criando tópico em {x}', // Não altere o valor: "{x}"
     'topic_title' => 'Título do tópico',
     'new_reply' => 'Nova resposta',
@@ -203,7 +203,7 @@ $language = [
 
     // Hooks
     'new_topic_hook_info' => 'Novo tópico',
-    'new_topic_text' => 'Tópico criado em {x} por {y}', // Não altere o valor: {x} (forum name), optional variable {y} (topic author)
+    'new_topic_text' => 'Tópico criado em {x} por {y}', // Não altere o valor: {x}
     'include_in_hook' => 'Incluir novos tópicos deste fórum nas webhooks?',
     'available_hooks' => 'Hooks disponíveis',
 

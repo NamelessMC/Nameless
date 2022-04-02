@@ -37,7 +37,7 @@ if (Session::get('oauth_method') === 'register') {
 // login
 if (Session::get('oauth_method') === 'login') {
     if (!OAuth::getInstance()->userExistsByProviderId($provider_name, $provider_id)) {
-        Session::flash('oauth_error', str_replace('{{provider}}', ucfirst($provider_name), $language->get('user', 'no_user_found_with_provider')));
+        Session::flash('oauth_error', $language->get('user', 'no_user_found_with_provider', ['provider' => ucfirst($provider_name)]));
         Redirect::to(URL::build('/login'));
     }
 
@@ -46,7 +46,7 @@ if (Session::get('oauth_method') === 'login') {
         '', true, 'oauth'
     )) {
         Log::getInstance()->log(Log::Action('user/login'));
-        Session::flash('home', str_replace('{{provider}}', ucfirst($provider_name), $language->get('user', 'oauth_login_success')));
+        Session::flash('home', $language->get('user', 'oauth_login_success', ['provider' => ucfirst($provider_name)]));
         Session::delete('oauth_method');
 
         if (isset($_SESSION['last_page']) && substr($_SESSION['last_page'], -1) != '=') {

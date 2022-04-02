@@ -26,9 +26,9 @@ $language = [
     'topics' => '话题数',
     'views' => '浏览量',
     'posts' => '帖子数',
-    'x_posts' => '帖子数 {x}', // Don't replace {x}
-    'x_topics' => '话题数 {x} ', // Don't replace {x}
-    'registered_x' => '注册于: {x}', // Don't replace {x}
+    'x_posts' => '帖子数 {x}',
+    'x_topics' => '话题数 {x} ',
+    'registered_x' => '注册于: {x}',
     'by' => '发起者',
     'in' => '于',
     'last_reply' => '最后一次回复于',
@@ -43,7 +43,7 @@ $language = [
     'post_successful' => '帖子发送成功。',
     'post_edited_successfully' => '帖子编辑成功。',
     'user_tag' => '你在一个帖子中被提及了。',
-    'user_tag_info' => '你在 {x} 里被提及了。', // Don't replace "{x}"
+    'user_tag_info' => '你在 {{author}} 里被提及了。',
     'creating_topic_in_x' => '于 {x} 创建话题中', // Don't replace "{x}"
     'topic_title' => '话题主题',
     'new_reply' => '新的回复',
@@ -94,8 +94,8 @@ $language = [
     'unfollow' => '取消关注',
     'now_following_topic' => '你正在关注此话题，任何新回复都将提醒你。',
     'no_longer_following_topic' => '你不再关注此话题，我们不再因此而去打扰你。',
-    'new_reply_in_topic' => '{x} 回复了主题 {y}', // Don't replace {x} (username) or {y} (topic title)
-    'started_by_x' => '由 {x} 创建', // Don't replace {x}
+    'new_reply_in_topic' => '{x} 回复了主题 {y}',
+    'started_by_x' => '由 {x} 创建',
     'sticky_topics' => '展示中的主题',
 
     // Homepage
@@ -138,7 +138,7 @@ $language = [
     'forum_permissions' => '论坛权限',
     'select_a_parent_forum' => '选择一个父论坛',
     'parent_forum' => '父论坛',
-    'parent_forum_x' => '父论坛: {x}', // Don't replace {x}
+    'parent_forum_x' => '父论坛: {x}',
     'has_no_parent' => '无主次关系',
     'guests' => '游客',
     'group' => '群组',
@@ -203,7 +203,7 @@ $language = [
 
     // Hooks
     'new_topic_hook_info' => '新的话题',
-    'new_topic_text' => '话题创建于{x} 创建者 {y}', // Don't replace {x} (forum name), optional variable {y} (topic author)
+    'new_topic_text' => '话题创建于{x} 创建者 {y}',
     'include_in_hook' => '是否将新话题包含进这个论坛的webhook?',
     'available_hooks' => '可用的 Hooks',
 

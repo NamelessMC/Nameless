@@ -48,19 +48,19 @@ $language = [
     'alerts' => 'Notificări',
     'view_alerts' => 'Vizualizați notificările',
     'no_alerts' => 'Nu aveți notificări necitite.',
-    'x_new_alerts' => 'Aveți {{count}} notificări noi.', // Don't replace {x}
+    'x_new_alerts' => 'Aveți {{count}} notificări noi.',
     'messages' => 'Mesaje',
     'view_messages' => 'Vizualizați mesajele',
     'no_messages' => 'Nu există mesaje',
     'x_new_messages' => 'Aveți {{count}} mesaje noi.',
     'loading' => 'Se încarcă...',
     'report' => 'Raportează',
-    'reported_by' => 'Reported by {x}',
+    'reported_by' => 'Reported by {{author}}',
     'view_report' => 'View report',
     'report_origin' => 'Origin',
     'origin_website' => 'Website',
     'origin_api' => 'API',
-    'page_loaded_in' => 'Pagină incărcată în  {x} secunde.', // Don't replace {x}, time unit is seconds
+    'page_loaded_in' => 'Pagină incărcată în  {x} secunde.',
     'page_x' => 'Pagina {x}',
     'browse' => 'Caută',
     'bypass' => 'Evită',
@@ -100,20 +100,20 @@ $language = [
      */
     'online' => 'Online',
     'offline' => 'Offline',
-    'player_count' => '{x}/{y}', // Don't replace {x} or {y}
-    'ping' => 'Ping: {x}', // Don't replace {x}
-    'version' => 'Versiune: {x}', // Don't replace {x}
+    'player_count' => '{x}/{y}',
+    'ping' => 'Ping: {x}',
+    'version' => 'Versiune: {x}',
     'currently_1_player_online' => 'În prezent este <strong>un</strong> jucător online.',
-    'currently_x_players_online' => 'În prezent sunt {{count}} jucători online.', // Don't replace {x}
+    'currently_x_players_online' => 'În prezent sunt {{count}} jucători online.',
     'server_offline' => 'Serverul este în prezent offline.',
-    'connect_with_ip_x' => 'Conectați-vă acum folosind IP-ul: {x}', // Don't replace {x}
+    'connect_with_ip_x' => 'Conectați-vă acum folosind IP-ul: {x}',
     'click_to_copy_tooltip' => 'Apasa aici pentru a copia adresa IP',
     'ip' => 'IP',
     'copied' => 'Copiat!',
     'no_servers' => 'Momentan nu există servere de afișat!',
     'bungee_instance' => 'Acest server este o instanță Bungee.',
     'no_players_online' => 'Momentan nu sunt jucători online.',
-    'and_x_more' => 'şi alţii {x}', // Don't replace {x}
+    'and_x_more' => 'şi alţii {x}',
 
     /*
      *  Cookie notice
@@ -150,10 +150,10 @@ $language = [
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'În curs de redirecționare...<br />Dacă nu ești redirecționat automat, te rog <a href="{x}" rel="nofollow noopener">apasă aici</a>.', // Don't replace {x} which is the redirect URL
+    'redirecting_message' => 'În curs de redirecționare...<br />Dacă nu ești redirecționat automat, te rog <a href="{x}" rel="nofollow noopener">apasă aici</a>.',
 
     /*
      * OAuth
      */
-    'oauth_message_continue' => 'Continue registering with {x}', // Don't replace {x}
+    'oauth_message_continue' => 'Continue registering with {x}',
 ];

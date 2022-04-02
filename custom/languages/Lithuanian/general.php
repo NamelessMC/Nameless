@@ -45,19 +45,19 @@ $language = [
     'alerts' => 'Perspėjimai',
     'view_alerts' => 'Peržiūrėti perspėjimus',
     'no_alerts' => 'Nėra perspėjimų',
-    'x_new_alerts' => 'Turite {{count}} naujų įspėjimų.', // Don't replace {x}
+    'x_new_alerts' => 'Turite {{count}} naujų įspėjimų.',
     'messages' => 'Žinutės',
     'view_messages' => 'Peržiūrėti pranešimus',
     'no_messages' => 'Nėra pranešimų',
     'x_new_messages' => 'Turite {{count}} naujų pranešimų.',
     'loading' => 'Kraunasi...',
     'report' => 'Ataskaita',
-    'reported_by' => 'Reported by {x}',
+    'reported_by' => 'Reported by {{author}}',
     'view_report' => 'View report',
     'report_origin' => 'Origin',
     'origin_website' => 'Website',
     'origin_api' => 'API',
-    'page_loaded_in' => 'Puslapis užsikrovė per {x}s', // Don't replace {x}, time unit is seconds
+    'page_loaded_in' => 'Puslapis užsikrovė per {x}s',
     'page_x' => 'Puslapis {x}',
     'browse' => 'Naršyti',
     'bypass' => 'Apeiti',
@@ -91,20 +91,20 @@ $language = [
     // Server query
     'online' => 'Prisijungęs',
     'offline' => 'Neprisijungęs',
-    'player_count' => '{x}/{y}', // Don't replace {x} or {y}
-    'ping' => 'Ping: {x}', // Don't replace {x}
-    'version' => 'Versija: {x}', // Don't replace {x}
+    'player_count' => '{x}/{y}',
+    'ping' => 'Ping: {x}',
+    'version' => 'Versija: {x}',
     'currently_1_player_online' => 'Šiuo metu yra <strong>1</strong> žaidėjas serveryje.',
-    'currently_x_players_online' => 'Šiuo metu yra {{count}} žaidėjų serveryje.', // Don't replace {x}
+    'currently_x_players_online' => 'Šiuo metu yra {{count}} žaidėjų serveryje.',
     'server_offline' => 'Serveris šiuo metu yra išjungtas.',
-    'connect_with_ip_x' => 'Prisijunkite dabar naudodami IP <strong>{x}</strong>', // Don't replace {x}
+    'connect_with_ip_x' => 'Prisijunkite dabar naudodami IP <strong>{x}</strong>',
     'click_to_copy_tooltip' => 'Spauskite, kad nukopijuoti',
     'ip' => 'IP',
     'copied' => 'Nukopijuotas!',
     'no_servers' => 'Nėra serverių, kuriuos būtų galima rodyti!',
     'bungee_instance' => 'Šis serveris yra Bungee instancija.',
     'no_players_online' => 'Dabar nėra žaidėjų serveryje.',
-    'and_x_more' => 'ir {x} daugiau', // Don't replace {x}
+    'and_x_more' => 'ir {x} daugiau',
 
     // Cookie notice
     'cookie_notice' => 'Ši svetainė naudoja slapukus, kad pagerintų naršymo patirtį. Užsiregistruodami mūsų tinklalapyje arba uždarydami šį pranešimą, sutinkate su jų naudojimu.',
@@ -135,10 +135,10 @@ $language = [
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{x}" rel="nofollow noopener">here</a>.', // Don't replace {x} which is the redirect URL
+    'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{x}" rel="nofollow noopener">here</a>.',
 
     /*
      * OAuth
      */
-    'oauth_message_continue' => 'Continue registering with {x}', // Don't replace {x}
+    'oauth_message_continue' => 'Continue registering with {x}',
 ];
