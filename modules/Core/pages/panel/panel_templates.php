@@ -47,7 +47,13 @@ if (!isset($_GET['action'])) {
             'author' => $template->getAuthor(),
             'author_x' => $language->get('admin', 'author_x', ['author' => $template->getAuthor()]),
             // TODO: new language system
-            'version_mismatch' => (($template->getNamelessVersion() != NAMELESS_VERSION) ? str_replace(['{x}', '{y}'], [Output::getClean($template->getNamelessVersion()), NAMELESS_VERSION], $language->get('admin', 'template_outdated')) : false),
+            'version_mismatch' => (($template->getNamelessVersion() != NAMELESS_VERSION)
+                ? $language->get('admin', 'template_outdated', [
+                    'intendedVersion' => Output::getClean($template->getNamelessVersion()),
+                    'actualVersion' => NAMELESS_VERSION,
+                ])
+                : false
+            ),
             'enabled' => $item->enabled,
             'activate_link' => (($item->enabled) ? null : URL::build('/panel/core/panel_templates/', 'action=activate&template=' . urlencode($item->id))),
             'delete_link' => (($item->id == 1 || $item->enabled) ? null : URL::build('/panel/core/panel_templates/', 'action=delete&template=' . urlencode($item->id))),

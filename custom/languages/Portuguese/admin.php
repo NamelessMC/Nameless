@@ -422,7 +422,7 @@ $language = [
     'views_x' => 'Visualizações: {{views}}',
     'rating_x' => 'Avaliação: {{rating}}',
     'editing_template_x' => 'Editando modelo {{template}}',
-    'editing_template_file_in_template' => 'Editando arquivo {{file}} no modelo {{template}}', // Não substituir o "{x}" ou "{y}".
+    'editing_template_file_in_template' => 'Editando arquivo {{file}} no modelo {{template}}',
     'cant_write_to_template' => 'Não foi possível salvar alterações no arquivo do modelo! Por favor, verifique as permissões de arquivo.',
     'unable_to_delete_template' => 'Não é possível excluir totalmente o modelo. Por favor, verifique as permissões do arquivo.',
     'background_reset_successfully' => 'Background redefinido com sucesso.',
@@ -717,7 +717,7 @@ $language = [
     'average_players' => 'Média de Jogadores',
     'nameless_news' => 'Notícias do NamelessMC',
     'unable_to_retrieve_nameless_news' => 'Não foi possível recuperar as últimas notícias.',
-    'confirm_leave_site' => 'Você está prestes a sair deste site! Tem a certeza que quer visitar <strong id="leaveSiteURL">{x}</strong>?', // Não substituir o {x} e certifique-se de que ele tenha o ID leaveSiteURL.
+    'confirm_leave_site' => 'Você está prestes a sair deste site! Tem a certeza que quer visitar <strong id="leaveSiteURL">{x}</strong>?',
     'server_compatibility' => 'Compatibilidade do Servidor',
     'issues' => 'Problemas',
 

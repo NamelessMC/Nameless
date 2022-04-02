@@ -233,7 +233,6 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                                             URL::build('/profile/' . urlencode($profile_user->getDisplayname(true)) . '/#post-' . urlencode($_POST['post']))
                                         );
                                     } else {
-                                        // TODO: new language system
                                         Alert::create(
                                             $post[0]->author_id,
                                             'profile_post_reply',
@@ -241,14 +240,14 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                                                 'path' => 'core',
                                                 'file' => 'user',
                                                 'term' => 'new_wall_post_reply',
-                                                'replace' => ['{x}', '{y}'],
+                                                'replace' => ['{{author}}', '{{user}}'],
                                                 'replace_with' => [$user->getDisplayname(), $profile_user->getDisplayname()]
                                             ],
                                             [
                                                 'path' => 'core',
                                                 'file' => 'user',
                                                 'term' => 'new_wall_post_reply',
-                                                'replace' => ['{x}', '{y}'],
+                                                'replace' => ['{{author}}', '{{user}}'],
                                                 'replace_with' => [$user->getDisplayname(), $profile_user->getDisplayname()]
                                             ],
                                             URL::build('/profile/' . urlencode($profile_user->getDisplayname(true)) . '/#post-' . urlencode($_POST['post']))

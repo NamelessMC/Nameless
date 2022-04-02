@@ -57,7 +57,13 @@ if (!isset($_GET['action'])) {
             'author' => $template->getAuthor(),
             'author_x' => $language->get('admin', 'author_x', ['author' => $template->getAuthor()]),
             // TODO: new language system
-            'version_mismatch' => (($template->getNamelessVersion() != NAMELESS_VERSION) ? str_replace(['{x}', '{y}'], [Output::getClean($template->getNamelessVersion()), NAMELESS_VERSION], $language->get('admin', 'template_outdated')) : false),
+            'version_mismatch' => (($template->getNamelessVersion() != NAMELESS_VERSION)
+                ? $language->get('admin', 'template_outdated', [
+                    'intendedVersion' => Output::getClean($template->getNamelessVersion()),
+                    'actualVersion' => NAMELESS_VERSION
+                ])
+                : false
+            ),
             'enabled' => $item->enabled,
             'default_warning' => (Output::getClean($item->name) == 'Default') ? $language->get('admin', 'template_not_supported') : null,
             'activate_link' => (($item->enabled) ? null : URL::build('/panel/core/templates/', 'action=activate&template=' . urlencode($item->id))),
@@ -677,7 +683,7 @@ if (!isset($_GET['action'])) {
 
                         $smarty->assign([
                             // TODO: new language system
-                            'EDITING_FILE' => str_replace(['{{file}}', '{y}'], [$template_path, Output::getClean($template_query->name)], $language->get('admin', 'editing_template_file_in_template')),
+                            'EDITING_FILE' => str_replace(['{{file}}', '{{template}}'], [$template_path, Output::getClean($template_query->name)], $language->get('admin', 'editing_template_file_in_template')),
                             'CANCEL' => $language->get('general', 'cancel'),
                             'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
                             'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
