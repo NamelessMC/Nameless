@@ -82,7 +82,7 @@ if (Input::exists()) {
 
         // Redirect
     }
-    Redirect::to(URL::build('/forum/topic/' . $topic_id, 'pid=' . $post->id));
+    Redirect::to(URL::build('/forum/topic/' . urlencode($topic_id), 'pid=' . urlencode($post->id)));
 } else {
     Redirect::to(URL::build('/forum'));
 }

@@ -36,7 +36,7 @@ if (!isset($_GET['s'])) {
                 $search = str_replace(' ', '+', Output::getClean(Input::get('forum_search')));
                 $search = preg_replace('/[^a-zA-Z0-9 +]+/', '', $search); // alphanumeric only
 
-                Redirect::to(URL::build('/forum/search/', 's=' . $search . '&p=1'));
+                Redirect::to(URL::build('/forum/search/', 's=' . urlencode($search) . '&p=1'));
             }
 
             $error = $forum_language->get('forum', 'invalid_search_query');
@@ -161,7 +161,7 @@ if (isset($_GET['s'])) {
     if (count($results)) {
         $paginator = new Paginator(($template_pagination ?? []), $template_pagination_left ?? '', $template_pagination_right ?? '');
         $results = $paginator->getLimited($results, 10, $p, count($results));
-        $pagination = $paginator->generate(7, URL::build('/forum/search/', 's=' . $search . '&'));
+        $pagination = $paginator->generate(7, URL::build('/forum/search/', 's=' . urlencode($search) . '&'));
 
         $smarty->assign('PAGINATION', $pagination);
 
@@ -185,7 +185,7 @@ if (isset($_GET['s'])) {
                 'post_date_friendly' => $timeago->inWords($results->data[$n]['post_date'], $language->getTimeLanguage()),
                 'content' => $content,
                 'topic_title' => Output::getClean($results->data[$n]['topic_title']),
-                'post_url' => URL::build('/forum/topic/' . $results->data[$n]['topic_id'] . '-' . $forum->titleToURL($results->data[$n]['topic_title']), 'pid=' . $results->data[$n]['post_id'])
+                'post_url' => URL::build('/forum/topic/' . urlencode($results->data[$n]['topic_id']) . '-' . $forum->titleToURL($results->data[$n]['topic_title']), 'pid=' . $results->data[$n]['post_id'])
             ];
             $n++;
         }

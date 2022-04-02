@@ -45,7 +45,7 @@ if ($forum->canModerateForum($post->forum_id, $user->getAllGroupIds())) {
         // Ensure user is not admin
         if ($is_admin) {
             Session::flash('failure_post', $language->get('moderator', 'cant_ban_admin'));
-            Redirect::to(URL::build('/forum/topic/' . $post->topic_id, 'pid=' . $post->id));
+            Redirect::to(URL::build('/forum/topic/' . urlencode($post->topic_id), 'pid=' . urlencode($post->id)));
         }
 
         // Delete all posts from the user
@@ -76,7 +76,7 @@ if ($forum->canModerateForum($post->forum_id, $user->getAllGroupIds())) {
         Redirect::to(URL::build('/forum'));
     } else {
         // Invalid token
-        Redirect::to(URL::build('/forum/topic/' . $post->topic_id, 'pid=' . $post->id));
+        Redirect::to(URL::build('/forum/topic/' . urlencode($post->topic_id), 'pid=' . urlencode($post->id)));
     }
 } else {
     // Can't moderate forum

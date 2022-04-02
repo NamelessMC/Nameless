@@ -233,7 +233,7 @@ $smarty->assign([
     'CAPTCHA_SECRET_KEY' => $language->get('admin', 'captcha_secret_key'),
     'CAPTCHA_SECRET_KEY_VALUE' => Output::getClean($captcha_secret[0]->value),
     'REGISTRATION_DISABLED_MESSAGE' => $language->get('admin', 'registration_disabled_message'),
-    'REGISTRATION_DISABLED_MESSAGE_VALUE' => Output::getPurified(Output::getDecoded($registration_disabled_message[0]->value)),
+    'REGISTRATION_DISABLED_MESSAGE_VALUE' => Output::getPurified($registration_disabled_message[0]->value),
     'VALIDATE_PROMOTE_GROUP' => $language->get('admin', 'validation_promote_group'),
     'VALIDATE_PROMOTE_GROUP_INFO' => $language->get('admin', 'validation_promote_group_info'),
     'INFO' => $language->get('general', 'info'),

@@ -67,14 +67,14 @@ if (Input::exists()) {
 
             case 'profile_banner':
                 if (!$user->hasPermission('usercp.profile_banner')) {
-                    Redirect::to(URL::build('/profile/' . Output::getClean($user->data()->username)));
+                    Redirect::to(URL::build('/profile/' . urlencode($user->data()->username)));
                 }
 
                 if (
                     !is_dir(implode(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'uploads', 'profile_images', $user->data()->id)))
                     && !mkdir(implode(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'uploads', 'profile_images', $user->data()->id)))
                 ) {
-                    die('uploads/profile_images folder not writable! <a href="' . URL::build('/profile/' . Output::getClean($user->data()->username)) . '">Back</a>');
+                    die('uploads/profile_images folder not writable! <a href="' . URL::build('/profile/' . urlencode($user->data()->username)) . '">Back</a>');
                 }
 
                 $image->setLocation(implode(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'uploads', 'profile_images', $user->data()->id)));
@@ -129,7 +129,7 @@ if (Input::exists()) {
                             )
                         );
 
-                        Redirect::to(URL::build('/profile/' . Output::getClean($user->data()->username)));
+                        Redirect::to(URL::build('/profile/' . urlencode($user->data()->username)));
                     }
 
                     die('OK');

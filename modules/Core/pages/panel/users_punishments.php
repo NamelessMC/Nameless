@@ -37,7 +37,7 @@ if (isset($_GET['user'])) {
         if (Token::checK()) {
             $infraction = $queries->getWhere('infractions', ['id', '=', $_GET['id']]);
             if (!$user->hasPermission('modcp.punishments.revoke') || !count($infraction) || ($infraction[0]->punished != $query->id)) {
-                Redirect::to(URL::build('/panel/users/punishments/', 'user=' . $query->id));
+                Redirect::to(URL::build('/panel/users/punishments/', 'user=' . urlencode($query->id)));
             }
             $infraction = $infraction[0];
 
@@ -88,7 +88,7 @@ if (isset($_GET['user'])) {
             $errors = [$language->get('general', 'invalid_token')];
         }
 
-        Redirect::to(URL::build('/panel/users/punishments/', 'user=' . $query->id));
+        Redirect::to(URL::build('/panel/users/punishments/', 'user=' . urlencode($query->id)));
     }
 
     if (Input::exists()) {
@@ -235,7 +235,31 @@ if (isset($_GET['user'])) {
                                             }
 
                                             // Send alert
-                                            Alert::create($item->id, 'punishment', ['path' => 'core', 'file' => 'moderator', 'term' => 'user_punished_alert', 'replace' => ['{x}', '{y}'], 'replace_with' => [Output::getClean($user->data()->nickname), Output::getClean($query->nickname)]], ['path' => 'core', 'file' => 'moderator', 'term' => 'user_punished_alert', 'replace' => ['{x}', '{y}'], 'replace_with' => [Output::getClean($user->data()->nickname), Output::getClean($query->nickname)]], URL::build('/panel/users/punishments/', 'user=' . Output::getClean($query->id)));
+                                            Alert::create(
+                                                $item->id,
+                                                'punishment',
+                                                [
+                                                    'path' => 'core',
+                                                    'file' => 'moderator',
+                                                    'term' => 'user_punished_alert',
+                                                    'replace' => ['{x}', '{y}'],
+                                                    'replace_with' => [
+                                                        Output::getClean($user->data()->nickname),
+                                                        Output::getClean($query->nickname),
+                                                    ],
+                                                ],
+                                                [
+                                                    'path' => 'core',
+                                                    'file' => 'moderator',
+                                                    'term' => 'user_punished_alert',
+                                                    'replace' => ['{x}', '{y}'],
+                                                    'replace_with' => [
+                                                        Output::getClean($user->data()->nickname),
+                                                        Output::getClean($query->nickname)
+                                                    ],
+                                                ],
+                                                URL::build('/panel/users/punishments/', 'user=' . urlencode($query->id))
+                                            );
                                         }
                                     }
                                 }
@@ -289,12 +313,12 @@ if (isset($_GET['user'])) {
                 'acknowledged' => $punishment->acknowledged,
                 'reason' => Output::getClean($punishment->reason),
                 'issued_by_nickname' => $issued_by_user->getDisplayname(),
-                'issued_by_profile' => URL::build('/panel/user/' . Output::getClean($punishment->staff . '-' . $issued_by_user->data()->username)),
+                'issued_by_profile' => URL::build('/panel/user/' . urlencode($punishment->staff . '-' . $issued_by_user->data()->username)),
                 'issued_by_style' => $issued_by_user->getGroupClass(),
                 'issued_by_avatar' => $issued_by_user->getAvatar(),
                 'date_full' => ($punishment->created ? date(DATE_FORMAT, $punishment->created) : date(DATE_FORMAT, strtotime($punishment->infraction_date))),
                 'date_friendly' => ($punishment->created ? $timeago->inWords(date('Y-m-d H:i:s', $punishment->created), $language->getTimeLanguage()) : $timeago->inWords($punishment->infraction_date, $language->getTimeLanguage())),
-                'revoke_link' => (($user->hasPermission('modcp.punishments.revoke') && $punishment->type != 4) ? URL::build('/panel/users/punishments/', 'user=' . $query->id . '&do=revoke&id=' . $punishment->id) : 'none'),
+                'revoke_link' => (($user->hasPermission('modcp.punishments.revoke') && $punishment->type != 4) ? URL::build('/panel/users/punishments/', 'user=' . urlencode($query->id) . '&do=revoke&id=' . urlencode($punishment->id)) : 'none'),
                 'confirm_revoke_punishment' => (($punishment->type == 2) ? $language->get('moderator', 'confirm_revoke_warning') : $language->get('moderator', 'confirm_revoke_ban'))
             ];
         }
@@ -322,7 +346,7 @@ if (isset($_GET['user'])) {
 
     $smarty->assign([
         'HAS_AVATAR' => $query->has_avatar,
-        'BACK_LINK' => URL::build('/panel/users/punishments'),
+        'BACK_LINK' => URL::build('/panel/user/' . urlencode($view_user->data()->id)),
         'BACK' => $language->get('general', 'back'),
         'VIEWING_USER' => str_replace('{x}', $view_user->getDisplayname(), $language->get('moderator', 'viewing_user_x')),
         'PREVIOUS_PUNISHMENTS' => $language->get('moderator', 'previous_punishments'),
@@ -353,7 +377,7 @@ if (isset($_GET['user'])) {
             if ($check->count()) {
                 $check = $check->first();
 
-                Redirect::to(URL::build('/panel/users/punishments/', 'user=' . Output::getClean($check->id)));
+                Redirect::to(URL::build('/panel/users/punishments/', 'user=' . urlencode($check->id)));
             }
 
             $errors = [$language->get('user', 'couldnt_find_that_user')];
@@ -382,7 +406,7 @@ if (isset($_GET['user'])) {
             $p = 1;
         }
 
-        $paginator = new Paginator(($template_pagination ?? []), $template_pagination_left ?? '', $template_pagination_right ?? '');
+        $paginator = new Paginator();
         $results = $paginator->getLimited($punishments, 10, $p, count($punishments));
         $pagination = $paginator->generate(7, URL::build('/panel/users/punishments/'));
 
@@ -409,12 +433,12 @@ if (isset($_GET['user'])) {
             $smarty_results[] = [
                 'username' => $target_user->getDisplayname(true),
                 'nickname' => $target_user->getDisplayname(),
-                'profile' => URL::build('/panel/user/' . Output::getClean($result->punished . '-' . $target_user->data()->username)),
+                'profile' => URL::build('/panel/user/' . urlencode($result->punished . '-' . $target_user->data()->username)),
                 'style' => $target_user->getGroupClass(),
                 'avatar' => $target_user->getAvatar(),
                 'staff_username' => $staff_user->getDisplayname(true),
                 'staff_nickname' => $staff_user->getDisplayname(),
-                'staff_profile' => URL::build('/panel/user/' . Output::getClean($result->staff . '-' . $staff_user->data()->username)),
+                'staff_profile' => URL::build('/panel/user/' . urlencode($result->staff . '-' . $staff_user->data()->username)),
                 'staff_style' => $staff_user->getGroupClass(),
                 'staff_avatar' => $staff_user->getAvatar(),
                 'type' => $type,
@@ -423,7 +447,7 @@ if (isset($_GET['user'])) {
                 'acknowledged' => $result->acknowledged,
                 'time_full' => ($result->created ? date(DATE_FORMAT, $result->created) : date(DATE_FORMAT, strtotime($result->infraction_date))),
                 'time' => ($result->created ? $timeago->inWords(date('Y-m-d H:i:s', $result->created), $language->getTimeLanguage()) : $timeago->inWords($result->infraction_date, $language->getTimeLanguage())),
-                'link' => URL::build('/panel/users/punishments/', 'user=' . $result->punished)
+                'link' => URL::build('/panel/users/punishments/', 'user=' . urlencode($result->punished))
             ];
         }
 

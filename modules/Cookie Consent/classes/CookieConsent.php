@@ -72,7 +72,7 @@ class CookieConsent {
         $script_options['content'] = [
             'policy' => $options['cookies'],
             'message' => $options['message'],
-            'dismiss' => $options['dismiss'],
+            'deny' => $options['dismiss'],
             'allow' => $options['allow'],
             'link' => $options['link'],
             'href' => $options['href'],

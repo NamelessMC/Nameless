@@ -409,7 +409,7 @@ class User {
      * @return string Compiled profile URL.
      */
     public function getProfileURL(): string {
-        return Output::getClean(URL::build('/profile/' . $this->data()->username));
+        return URL::build('/profile/' . urlencode($this->data()->username));
     }
 
     /**

@@ -75,11 +75,11 @@ $user_groups = $user->getAllGroupIds();
 
 // Check permissions before proceeding
 if ($user->data()->id === $post_editing[0]->post_creator && !$forum->canEditTopic($forum_id, $user_groups) && !$forum->canModerateForum($forum_id, $user_groups)) {
-    Redirect::to(URL::build('/forum/topic/' . $post_id));
+    Redirect::to(URL::build('/forum/topic/' . urlencode($post_id)));
 }
 
 if ($user->data()->id !== $post_editing[0]->post_creator && !($forum->canModerateForum($forum_id, $user_groups))) {
-    Redirect::to(URL::build('/forum/topic/' . $post_id));
+    Redirect::to(URL::build('/forum/topic/' . urlencode($post_id)));
 }
 
 // Deal with input
@@ -169,7 +169,7 @@ if (Input::exists()) {
 
             // Display success message and redirect
             Session::flash('success_post', $forum_language->get('forum', 'post_edited_successfully'));
-            Redirect::to(URL::build('/forum/topic/' . $topic_id, 'pid=' . $post_id));
+            Redirect::to(URL::build('/forum/topic/' . urlencode($topic_id), 'pid=' . ($post_id)));
         }
 
         // Error handling
@@ -242,13 +242,10 @@ $smarty->assign([
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit'),
     'CANCEL' => $language->get('general', 'cancel'),
-    'CANCEL_LINK' => URL::build('/forum/topic/' . $topic_id, 'pid=' . $post_id),
+    'CANCEL_LINK' => URL::build('/forum/topic/' . urlencode($topic_id), 'pid=' . urlencode($post_id)),
     'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
-    'CONTENT' => Output::getPurified(Output::getDecoded($post_editing[0]->post_content))
+    'CONTENT' => Output::getPurified($post_editing[0]->post_content)
 ]);
-
-$clean = Output::getDecoded($post_editing[0]->post_content);
-$clean = Output::getPurified($clean);
 
 $template->addJSFiles([
     (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],

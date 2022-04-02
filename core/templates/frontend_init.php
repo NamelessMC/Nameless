@@ -60,7 +60,7 @@ if ($user->isLoggedIn()) {
                     'GLOBAL_WARNING_TITLE' => $language->get('user', 'you_have_received_a_warning'),
                     'GLOBAL_WARNING_REASON' => Output::getClean($warning->reason),
                     'GLOBAL_WARNING_ACKNOWLEDGE' => $language->get('user', 'acknowledge'),
-                    'GLOBAL_WARNING_ACKNOWLEDGE_LINK' => URL::build('/user/acknowledge/' . $warning->id)
+                    'GLOBAL_WARNING_ACKNOWLEDGE_LINK' => URL::build('/user/acknowledge/' . urlencode($warning->id))
                 ]);
                 break;
             }

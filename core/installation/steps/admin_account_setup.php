@@ -66,18 +66,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($profile !== null) {
                 $result = $profile->getProfileAsArray();
                 if (isset($result['uuid']) && !empty($result['uuid'])) {
-                    $uuid = Output::getClean($result['uuid']);
+                    $uuid = $result['uuid'];
                 }
             }
 
             $user->create([
-                'username' => Output::getClean(Input::get('username')),
-                'nickname' => Output::getClean(Input::get('username')),
+                'username' => Input::get('username'),
+                'nickname' => Input::get('username'),
                 'password' => $password,
                 'pass_method' => 'default',
                 'uuid' => $uuid,
                 'joined' => date('U'),
-                'email' => Output::getClean(Input::get('email')),
+                'email' => Input::get('email'),
                 'lastip' => $ip,
                 'active' => 1,
                 'last_online' => date('U'),

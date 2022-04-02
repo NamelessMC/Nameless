@@ -34,8 +34,8 @@ if (!isset($_GET['id'])) {
             $change_view_link = URL::build('/panel/users/reports/', 'view=closed');
         } else {
             $report_query = DB::getInstance()->selectQuery('SELECT * FROM nl2_reports WHERE status = 0 AND reported_id = ? ORDER BY date_updated DESC', [(int)$_GET['uid']])->results();
-            $url = URL::build('/panel/users/reports/', 'uid=' . (int)Output::getClean($_GET['uid']) . '&');
-            $change_view_link = URL::build('/panel/users/reports/', 'view=closed&uid=' . (int)Output::getClean($_GET['uid']));
+            $url = URL::build('/panel/users/reports/', 'uid=' . urlencode((int) $_GET['uid']) . '&');
+            $change_view_link = URL::build('/panel/users/reports/', 'view=closed&uid=' . urlencode((int) $_GET['uid']));
         }
 
         $smarty->assign([
@@ -50,8 +50,8 @@ if (!isset($_GET['id'])) {
             $change_view_link = URL::build('/panel/users/reports');
         } else {
             $report_query = DB::getInstance()->selectQuery('SELECT * FROM nl2_reports WHERE status = 1 AND reported_id = ? ORDER BY date_updated DESC', [(int)$_GET['uid']])->results();
-            $url = URL::build('/panel/users/reports/', 'view=closed&uid=' . (int)Output::getClean($_GET['uid']) . '&');
-            $change_view_link = URL::build('/panel/users/reports/', 'uid=' . (int)Output::getClean($_GET['uid']));
+            $url = URL::build('/panel/users/reports/', 'view=closed&uid=' . urlencode((int) $_GET['uid']) . '&');
+            $change_view_link = URL::build('/panel/users/reports/', 'uid=' . urlencode((int) $_GET['uid']));
         }
 
         $smarty->assign([
@@ -90,13 +90,13 @@ if (!isset($_GET['id'])) {
             if ($report->type == Report::ORIGIN_WEBSITE) {
                 // Site report
                 $user_reported = $target_user->getDisplayname();
-                $user_profile = URL::build('/panel/user/' . Output::getClean($report->reported_id . '-' . $target_user->data()->username));
+                $user_profile = URL::build('/panel/user/' . urlencode($report->reported_id . '-' . $target_user->data()->username));
                 $user_style = $target_user->getGroupClass();
                 $user_avatar = $target_user->getAvatar();
             } else {
                 // API report
                 $user_reported = Output::getClean($report->reported_mcname);
-                $user_profile = URL::build('/panel/user/' . Output::getClean($report->reported_id . '-' . $report->reported_mcname));
+                $user_profile = URL::build('/panel/user/' . urlencode($report->reported_id . '-' . $report->reported_mcname));
                 $user_style = '';
                 $user_avatar = $report->reported_id == 0 ? null : AvatarSource::getAvatarFromUUID($report->reported_uuid);
             }
@@ -112,9 +112,9 @@ if (!isset($_GET['id'])) {
                 'user_reported_avatar' => $user_avatar,
                 'reported_at' => ($report->reported ? $timeago->inWords(date('Y-m-d H:i:s', $report->reported), $language->getTimeLanguage()) : $timeago->inWords($report->date_reported, $language->getTimeLanguage())),
                 'reported_at_full' => ($report->reported ? date(DATE_FORMAT, $report->reported) : date(DATE_FORMAT, strtotime($report->date_reported))),
-                'link' => URL::build('/panel/users/reports/', 'id=' . $report->id),
+                'link' => URL::build('/panel/users/reports/', 'id=' . urlencode($report->id)),
                 'updated_by' => $updated_by_user->getDisplayname(),
-                'updated_by_profile' => URL::build('/panel/user/' . Output::getClean($report->updated_by . '-' . $updated_by_user->data()->username)),
+                'updated_by_profile' => URL::build('/panel/user/' . urlencode($report->updated_by . '-' . $updated_by_user->data()->username)),
                 'updated_by_style' => $updated_by_user->getGroupClass(),
                 'updated_by_avatar' => $updated_by_user->getAvatar(),
                 'updated_at' => ($report->updated ? $timeago->inWords(date('Y-m-d H:i:s', $report->updated), $language->getTimeLanguage()) : $timeago->inWords($report->date_updated, $language->getTimeLanguage())),
@@ -208,10 +208,10 @@ if (!isset($_GET['id'])) {
 
             $smarty_comments[] = [
                 'username' => $comment_user->getDisplayname(),
-                'profile' => URL::build('/panel/user/' . Output::getClean($comment->commenter_id . '-' . $comment_user->data()->username)),
+                'profile' => URL::build('/panel/user/' . urlencode($comment->commenter_id . '-' . $comment_user->data()->username)),
                 'style' => $comment_user->getGroupClass(),
                 'avatar' => $comment_user->getAvatar(),
-                'content' => Output::getPurified(Output::getDecoded($comment->comment_content)),
+                'content' => Output::getPurified($comment->comment_content),
                 'date' => ($comment->date ? date(DATE_FORMAT, $comment->date) : date(DATE_FORMAT, strtotime($comment->comment_date))),
                 'date_friendly' => ($comment->date ? $timeago->inWords(date('Y-m-d H:i:s', $comment->date), $language->getTimeLanguage()) : $timeago->inWords($comment->comment_date, $language->getTimeLanguage()))
             ];
@@ -220,7 +220,7 @@ if (!isset($_GET['id'])) {
         if (!$report->reported_id) {
             $reported_user = new User($report->reported_uuid, 'uuid');
             if ($reported_user->data()) {
-                $reported_user_profile = URL::build('/panel/user/' . Output::getClean($reported_user->data()->id . '-' . $reported_user->data()->username));
+                $reported_user_profile = URL::build('/panel/user/' . urlencode($reported_user->data()->id . '-' . $reported_user->data()->username));
                 $reported_user_style = $reported_user->getGroupClass();
                 $reported_user_avatar = $reported_user->getAvatar();
             } else {
@@ -234,7 +234,7 @@ if (!isset($_GET['id'])) {
             $reported_user = new User($report->reported_id);
 
             $reported_user_name = $reported_user->getDisplayname();
-            $reported_user_profile = URL::build('/panel/user/' . Output::getClean($report->reported_id . '-' . $reported_user->data()->username));
+            $reported_user_profile = URL::build('/panel/user/' . urlencode($report->reported_id . '-' . $reported_user->data()->username));
             $reported_user_style = $reported_user->getGroupClass();
             $reported_user_avatar = $reported_user->getAvatar();
         }
@@ -254,9 +254,9 @@ if (!isset($_GET['id'])) {
             'REPORT_DATE_FRIENDLY' => ($report->reported ? $timeago->inWords(date('Y-m-d H:i:s', $report->reported), $language->getTimeLanguage()) : $timeago->inWords($report->date_reported, $language->getTimeLanguage())),
             'CONTENT_LINK' => $report->link,
             'VIEW_CONTENT' => $language->get('moderator', 'view_content'),
-            'REPORT_CONTENT' => Output::getPurified(Output::getDecoded($report->report_reason)),
+            'REPORT_CONTENT' => Output::getPurified($report->report_reason),
             'REPORTER_USER' => $reporter_user->getDisplayname(),
-            'REPORTER_USER_PROFILE' => URL::build('/panel/user/' . Output::getClean($report->reporter_id . '-' . $reporter_user->data()->username)),
+            'REPORTER_USER_PROFILE' => URL::build('/panel/user/' . urlencode($report->reporter_id . '-' . $reporter_user->data()->username)),
             'REPORTER_USER_STYLE' => $reporter_user->getGroupClass(),
             'REPORTER_USER_AVATAR' => $reporter_user->getAvatar(),
             'COMMENTS' => $smarty_comments,
@@ -272,12 +272,12 @@ if (!isset($_GET['id'])) {
         // Close/reopen link
         if ($report->status == 0) {
             $smarty->assign([
-                'CLOSE_LINK' => URL::build('/panel/users/reports/', 'action=close&id=' . $report->id),
+                'CLOSE_LINK' => URL::build('/panel/users/reports/', 'action=close&id=' . urlencode($report->id)),
                 'CLOSE_REPORT' => $language->get('moderator', 'close_report')
             ]);
         } else {
             $smarty->assign([
-                'REOPEN_LINK' => URL::build('/panel/users/reports/', 'action=open&id=' . $report->id),
+                'REOPEN_LINK' => URL::build('/panel/users/reports/', 'action=open&id=' . urlencode($report->id)),
                 'REOPEN_REPORT' => $language->get('moderator', 'reopen_report')
             ]);
         }
@@ -307,7 +307,7 @@ if (!isset($_GET['id'])) {
                 }
 
                 Session::flash('report_success', $language->get('moderator', 'report_closed'));
-                Redirect::to(URL::build('/panel/users/reports/', 'id=' . Output::getClean($report[0]->id)));
+                Redirect::to(URL::build('/panel/users/reports/', 'id=' . urlencode($report[0]->id)));
             }
 
             Redirect::to(URL::build('/panel/users/reports'));
@@ -336,7 +336,7 @@ if (!isset($_GET['id'])) {
                 }
 
                 Session::flash('report_success', $language->get('moderator', 'report_reopened'));
-                Redirect::to(URL::build('/panel/users/reports/', 'id=' . Output::getClean($report[0]->id)));
+                Redirect::to(URL::build('/panel/users/reports/', 'id=' . urlencode($report[0]->id)));
             }
 
             Redirect::to(URL::build('/panel/users/reports'));

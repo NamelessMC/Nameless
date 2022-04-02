@@ -37,7 +37,7 @@ class Placeholders extends Instanceable {
             $data->leaderboard = $placeholder->leaderboard;
             $data->leaderboard_title = $placeholder->leaderboard_title ?? $data->friendly_name;
             $data->leaderboard_sort = $sort;
-            $data->leaderboard_settings_url = URL::build('/panel/minecraft/placeholders', 'leaderboard=' . $data->safe_name . '&server_id=' . $data->server_id);
+            $data->leaderboard_settings_url = URL::build('/panel/minecraft/placeholders', 'leaderboard=' . urlencode($data->safe_name) . '&server_id=' . urlencode($data->server_id));
             $placeholders[] = $data;
         }
 

@@ -31,7 +31,7 @@ if (!isset($_GET['action'])) {
         foreach ($custom_pages as $custom_page) {
             $template_array[] = [
                 'id' => Output::getClean($custom_page->id),
-                'edit_link' => URL::build('/panel/core/pages/', 'action=edit&id=' . Output::getClean($custom_page->id)),
+                'edit_link' => URL::build('/panel/core/pages/', 'action=edit&id=' . urlencode($custom_page->id)),
                 'title' => Output::getClean($custom_page->title)
             ];
         }
