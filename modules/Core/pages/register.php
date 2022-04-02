@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr12
+ *  NamelessMC version 2.0.0-pr13
  *
  *  License: MIT
  *
@@ -384,7 +384,7 @@ if (Input::exists()) {
                                     if ($field->required == false) {
                                         continue;
                                     }
-                                    $value = Input::get($field->name);
+                                    $value = Input::get($field->id);
                                     if (!empty($value)) {
                                         // Insert custom field
                                         $queries->create(
@@ -392,7 +392,7 @@ if (Input::exists()) {
                                             [
                                                 'user_id' => $user_id,
                                                 'field_id' => $field->id,
-                                                'value' => Input::get($field->name)
+                                                'value' => $value
                                             ]
                                         );
                                     }
