@@ -1,0 +1,1 @@
+This directory contains important data and should not be deleted! Cache can be cleaned safely from StaffCP.
