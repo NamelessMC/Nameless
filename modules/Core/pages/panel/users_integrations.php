@@ -90,8 +90,7 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
                 $errors = [];
 
                 if (Token::check()) {
-                    $validate = new Validate();
-                    $validation = $validate->check($_POST, [
+                    $validation = Validate::check($_POST, [
                         'username' => [
                             Validate::REQUIRED => true
                         ],
@@ -149,8 +148,7 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
                 $errors = [];
 
                 if (Token::check()) {
-                    $validate = new Validate();
-                    $validation = $validate->check($_POST, [
+                    $validation = Validate::check($_POST, [
                         'username' => [
                             Validate::REQUIRED => true
                         ],

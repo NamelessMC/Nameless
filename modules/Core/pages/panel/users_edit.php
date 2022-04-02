@@ -54,51 +54,6 @@ if (isset($_GET['action'])) {
                 Session::flash('edit_user_success', $language->get('admin', 'user_validated_successfully'));
             }
         }
-
-    } else if ($_GET['action'] == 'resend_email' && $user_query->active == 0) {
-        require_once(ROOT_PATH . '/modules/Core/includes/emails/register.php');
-        if (sendRegisterEmail($queries, $language, $user_query->email, $user_query->username, $user_query->id, $user_query->reset_code)) {
-            Session::flash('edit_user_success', $language->get('admin', 'email_resent_successfully'));
-        } else {
-            Session::flash('edit_user_errors', $language->get('admin', 'email_resend_failed'));
-        }
-    } else if ($_GET['action'] == 'update_mcname') {
-        $uuid = $user_query->uuid;
-
-        $profile = ProfileUtils::getProfile($uuid);
-
-        if ($profile) {
-            $result = $profile->getUsername();
-
-            if (!empty($result)) {
-                if ($user_query->username == $user_query->nickname) {
-                    $queries->update('users', $user_query->id, [
-                        'username' => Output::getClean($result),
-                        'nickname' => Output::getClean($result)
-                    ]);
-                } else {
-                    $queries->update('users', $user_query->id, [
-                        'username' => Output::getClean($result)
-                    ]);
-                }
-
-                Session::flash('edit_user_success', $language->get('admin', 'user_updated_successfully'));
-            }
-        }
-    } else if ($_GET['action'] == 'update_uuid') {
-        $profile = ProfileUtils::getProfile($user_query->username);
-
-        if ($profile !== null) {
-            $result = $profile->getProfileAsArray();
-
-            if (isset($result['uuid']) && !empty($result['uuid'])) {
-                $queries->update('users', $user_query->id, [
-                    'uuid' => Output::getClean($result['uuid'])
-                ]);
-
-                Session::flash('edit_user_success', $language->get('admin', 'user_updated_successfully'));
-            }
-        }
     } else if ($_GET['action'] == 'resend_email' && $user_query->active == 0) {
         require_once(ROOT_PATH . '/modules/Core/includes/emails/register.php');
         if (sendRegisterEmail($queries, $language, $user_query->email, $user_query->username, $user_query->id, $user_query->reset_code)) {
@@ -259,7 +214,6 @@ if (Input::exists()) {
                     EventHandler::executeEvent('deleteUser', [
                         'user_id' => $user_query->id,
                         'username' => $user_query->username,
-                        'uuid' => $user_query->uuid,
                         'email_address' => $user_query->email
                     ]);
 
@@ -412,32 +366,6 @@ $smarty->assign([
     'NO_ITEM_SELECTED' => $language->get('admin', 'no_item_selected'),
     'TEMPLATES' => $templates
 ]);
-
-$cache->setCache('post_formatting');
-$formatting = $cache->retrieve('formatting');
-if ($formatting == 'markdown') {
-    $template->addJSFiles([
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/js/emojione.min.js' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/js/emojionearea.min.js' => []
-    ]);
-
-    $template->addJSScript('
-            $(document).ready(function() {
-                var el = $("#InputSignature").emojioneArea({
-                    pickerPosition: "bottom"
-                });
-            });
-        ');
-} else {
-    $template->addJSFiles([
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/js/emojione.min.js' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/ckeditor.js' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/ckeditor.js' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/emojione/dialogs/emojione.json' => []
-    ]);
-
-    $template->addJSScript(Input::createEditor('InputSignature'));
-}
 
 $template->addCSSFiles([
     (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.css' => [],

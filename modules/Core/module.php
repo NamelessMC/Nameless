@@ -95,6 +95,7 @@ class Core_Module extends Module {
         $pages->add('Core', '/panel/core/modules', 'pages/panel/modules.php');
         $pages->add('Core', '/panel/core/pages', 'pages/panel/pages.php');
         $pages->add('Core', '/panel/core/hooks', 'pages/panel/hooks.php');
+        $pages->add('Core', '/panel/core/integrations', 'pages/panel/integrations.php');
         $pages->add('Core', '/panel/minecraft/placeholders', 'pages/panel/placeholders.php');
         $pages->add('Core', '/panel/minecraft', 'pages/panel/minecraft.php');
         $pages->add('Core', '/panel/minecraft/authme', 'pages/panel/minecraft_authme.php');
@@ -1140,6 +1141,17 @@ class Core_Module extends Module {
                 }
 
                 $navs[2]->addDropdown('integrations', $language->get('admin', 'integrations'), 'top', $order, $icon);
+            }
+
+            if ($user->hasPermission('admincp.integrations.edit')) {
+                if (!$cache->isCached('user_integrations_icon')) {
+                    $icon = '<i class="nav-icon fas fa-link"></i>';
+                    $cache->store('user_integrations_icon', $icon);
+                } else {
+                    $icon = $cache->retrieve('user_integrations_icon');
+                }
+
+                $navs[2]->addItemToDropdown('integrations', 'integrations', $language->get('admin', 'general_settings'), URL::build('/panel/core/integrations'), 'top', null, $icon, 1);
             }
 
             if ($user->hasPermission('admincp.minecraft')) {
