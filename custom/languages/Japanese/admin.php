@@ -365,7 +365,7 @@ $language = [
     'module_enabled' => 'モジュールを有効にしました。',
     'module_disabled' => 'モジュールを無効にしました。',
     'author' => '作成者:',
-    'author_x' => '作成者: {x}',
+    'author_x' => '作成者: {{author}}',
     'updated_x' => '更新日時: {x}',
     'module_outdated' => 'このモジュールは、NamelessMCバージョン{x}を対象としています。現在、NamelessMCバージョン {y}を実行しています。', // Don't replace "{x}" or "{y}"
     'find_modules' => 'モジュール検索',
@@ -709,7 +709,7 @@ $language = [
     'recent_users' => '新規ユーザー',
     'nameless_news' => 'NamelessMC ニュース',
     'unable_to_retrieve_nameless_news' => '最新のニュースを取得できませんでした。',
-    'confirm_leave_site' => 'サイトを離れようとしています。<strong id = "leaveSiteURL"> {x} </strong>にアクセスしてもよろしいですか？', and make sure it has the id leaveSiteURL
+    'confirm_leave_site' => 'サイトを離れようとしています。<strong id = "leaveSiteURL"> {x} </strong>にアクセスしてもよろしいですか？',
     'server_compatibility' => 'サーバーの互換性',
 
     // Other

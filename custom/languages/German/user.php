@@ -238,5 +238,5 @@ $language = [
     'no_user_found_with_provider' => 'No user found with that {{provider}} account.',
     'oauth_login_success' => 'You have logged in with your {{provider}} account.',
     'oauth_link_confirm' => 'You will be taken to the {{provider}} website to link your account.',
-    'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {x}.<br>You will not be able to login with this account anymore.',
+    'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {{provider}}? You will not be able to login with this account anymore.',
 ];

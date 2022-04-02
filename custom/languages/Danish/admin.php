@@ -358,7 +358,7 @@ $language = [
     'module_enabled' => 'Module enabled.',
     'module_disabled' => 'Module disabled.',
     'author' => 'Forfatter:',
-    'author_x' => 'Forfatter: {x}',
+    'author_x' => 'Forfatter: {{author}}',
     'updated_x' => 'Updated at: {x}',
     'module_outdated' => 'We have detected that this module is intended for Nameless version {x}, but you are running Nameless version {y}', // Don't replace "{x}" or "{y}"
     'find_modules' => 'Find Modules',
@@ -700,7 +700,7 @@ $language = [
     'recent_users' => 'New Users',
     'nameless_news' => 'NamelessMC News',
     'unable_to_retrieve_nameless_news' => 'Unable to retrieve the latest news',
-    'confirm_leave_site' => 'You are about to leave this site! Are you sure you want to visit <strong id="leaveSiteURL">{x}</strong>?', and make sure it has the id leaveSiteURL
+    'confirm_leave_site' => 'You are about to leave this site! Are you sure you want to visit <strong id="leaveSiteURL">{x}</strong>?',
     'server_compatibility' => 'Server Compatibility',
 
     // Other

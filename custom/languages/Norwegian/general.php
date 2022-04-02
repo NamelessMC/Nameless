@@ -58,8 +58,8 @@ $language = [
     'report_origin' => 'Origin',
     'origin_website' => 'Website',
     'origin_api' => 'API',
-    'page_loaded_in' => 'Side lastet inn på {x}s',
-    'page_x' => 'Side {x}',
+    'page_loaded_in' => 'Side lastet inn på {{time}}s',
+    'page_x' => 'Side {{page}}',
     'browse' => 'Utforsk',
     'bypass' => 'Hopp over',
     'yes' => 'Ja',
@@ -99,19 +99,19 @@ $language = [
     'online' => 'Pålogget',
     'offline' => 'Frakoblet',
     'player_count' => '{x}/{y}',
-    'ping' => 'Ping: {x}',
-    'version' => 'Versjon: {x}',
+    'ping' => 'Ping: {{ping}}',
+    'version' => 'Versjon: {{version}}',
     'currently_1_player_online' => 'Det er for øyeblikket <strong>1</strong> spiller pålogget.',
     'currently_x_players_online' => 'Det er for øyeblikket {{count}} spillere pålogget.',
     'server_offline' => 'Serveren er nede for øyeblikket.',
-    'connect_with_ip_x' => 'Koble til nå med IP-en: {x}',
+    'connect_with_ip_x' => 'Koble til nå med IP-en: {{address}}',
     'click_to_copy_tooltip' => 'Klikk for å kopiere',
     'ip' => 'IP',
     'copied' => 'Kopiert!',
     'no_servers' => 'Det finnes ingen servere å vise!',
     'bungee_instance' => 'Dette er en Bungee-server',
     'no_players_online' => 'Det er ingen spillere pålogget',
-    'and_x_more' => 'og {x} flere',
+    'and_x_more' => 'og {{count}} flere',
 
     /*
      *  Cookie notice
@@ -130,10 +130,10 @@ $language = [
     'total_posts' => 'Totalt antall innlegg',
     'online_staff' => 'Påloggede stabmedlemmer',
     'no_online_staff' => 'Det er ingen stabmedlemmer pålogget.',
-    'total_online_staff' => 'Totalt påloggede stabmedlemmer: {x}',
+    'total_online_staff' => 'Totalt påloggede stabmedlemmer: {{count}}',
     'online_users' => 'Påloggede brukere',
     'no_online_users' => 'Det er ingen brukere pålogget',
-    'total_online_users' => 'Totalt påloggede brukere: {x}',
+    'total_online_users' => 'Totalt påloggede brukere: {{count}}',
     'discord_widget_disabled' => 'Widget er deaktivert for denne Discord-serveren. Gå til \'Widget\' i Discord-serverens innstillinger, og sjekk at widgets er aktivert og at ID-en stemmer.',
     'online_guests' => 'Gjester',
     'total_online' => 'Totalt pålogget', // this is Online Users + Online Guests
@@ -153,5 +153,5 @@ $language = [
     /*
      * OAuth
      */
-    'oauth_message_continue' => 'Continue registering with {x}',
+    'oauth_message_continue' => 'Continue registering with {{provider}}',
 ];

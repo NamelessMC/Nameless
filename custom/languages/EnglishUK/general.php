@@ -163,5 +163,5 @@ $language = [
     /*
      * OAuth
      */
-    'oauth_message_continue' => 'Continue registering with {{providerName}}',
+    'oauth_message_continue' => 'Continue registering with {{provider}}',
 ];

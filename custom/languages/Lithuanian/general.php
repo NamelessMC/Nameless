@@ -57,8 +57,8 @@ $language = [
     'report_origin' => 'Origin',
     'origin_website' => 'Website',
     'origin_api' => 'API',
-    'page_loaded_in' => 'Puslapis užsikrovė per {x}s',
-    'page_x' => 'Puslapis {x}',
+    'page_loaded_in' => 'Puslapis užsikrovė per {{time}}s',
+    'page_x' => 'Puslapis {{page}}',
     'browse' => 'Naršyti',
     'bypass' => 'Apeiti',
     'yes' => 'Taip',
@@ -92,19 +92,19 @@ $language = [
     'online' => 'Prisijungęs',
     'offline' => 'Neprisijungęs',
     'player_count' => '{x}/{y}',
-    'ping' => 'Ping: {x}',
-    'version' => 'Versija: {x}',
+    'ping' => 'Ping: {{ping}}',
+    'version' => 'Versija: {{version}}',
     'currently_1_player_online' => 'Šiuo metu yra <strong>1</strong> žaidėjas serveryje.',
     'currently_x_players_online' => 'Šiuo metu yra {{count}} žaidėjų serveryje.',
     'server_offline' => 'Serveris šiuo metu yra išjungtas.',
-    'connect_with_ip_x' => 'Prisijunkite dabar naudodami IP <strong>{x}</strong>',
+    'connect_with_ip_x' => 'Prisijunkite dabar naudodami IP {{address}}',
     'click_to_copy_tooltip' => 'Spauskite, kad nukopijuoti',
     'ip' => 'IP',
     'copied' => 'Nukopijuotas!',
     'no_servers' => 'Nėra serverių, kuriuos būtų galima rodyti!',
     'bungee_instance' => 'Šis serveris yra Bungee instancija.',
     'no_players_online' => 'Dabar nėra žaidėjų serveryje.',
-    'and_x_more' => 'ir {x} daugiau',
+    'and_x_more' => 'ir {{count}} daugiau',
 
     // Cookie notice
     'cookie_notice' => 'Ši svetainė naudoja slapukus, kad pagerintų naršymo patirtį. Užsiregistruodami mūsų tinklalapyje arba uždarydami šį pranešimą, sutinkate su jų naudojimu.',
@@ -119,10 +119,10 @@ $language = [
     'total_posts' => 'Total Posts',
     'online_staff' => 'Prisijungusi Administracija',
     'no_online_staff' => 'Nėra prisijungusių administracijos narių.',
-    'total_online_staff' => 'Prisijungusi administracija: {x}',
+    'total_online_staff' => 'Prisijungusi administracija: {{count}}',
     'online_users' => 'Prisijungę Vartotojai',
     'no_online_users' => 'Nėra prisijungusių vartotojų.',
-    'total_online_users' => 'Prisijungę vartotojai: {x}',
+    'total_online_users' => 'Prisijungę vartotojai: {{count}}',
     'discord_widget_disabled' => 'Valdiklis yra išjungtas nurodytam Discord serveriui. Prašome eikite į Discord serverio nustatymus skirtuke \'widget\' ir įsitikinkite, kad Discord valdiklis yra įjungtas ir kad ID yra teisingas.',
     'online_guests' => 'Online Guests',
     'total_online' => 'Total Online', // this is Online Users + Online Guests
@@ -140,5 +140,5 @@ $language = [
     /*
      * OAuth
      */
-    'oauth_message_continue' => 'Continue registering with {x}',
+    'oauth_message_continue' => 'Continue registering with {{provider}}',
 ];

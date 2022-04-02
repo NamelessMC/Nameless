@@ -60,8 +60,8 @@ $language = [
     'report_origin' => 'Origin',
     'origin_website' => 'Website',
     'origin_api' => 'API',
-    'page_loaded_in' => '页面在 {x} 秒内加载完成',
-    'page_x' => '第 {x} 页',
+    'page_loaded_in' => '页面在 {{time}} 秒内加载完成',
+    'page_x' => '第 {{page}} 页',
     'browse' => '浏览',
     'bypass' => '忽略',
     'yes' => '是',
@@ -102,19 +102,19 @@ $language = [
     'online' => '在线',
     'offline' => '离线',
     'player_count' => '{x}/{y}',
-    'ping' => '延迟: {x}',
-    'version' => '版本: {x}',
+    'ping' => '延迟: {{ping}}',
+    'version' => '版本: {{version}}',
     'currently_1_player_online' => '目前只有<strong>一</strong>名玩家在线。',
     'currently_x_players_online' => '目前有 {{count}} 名玩家在线。',
     'server_offline' => '服务器目前处于离线状态。',
-    'connect_with_ip_x' => '现在就通过 IP 地址来与服务器建立连接吧 {x}',
+    'connect_with_ip_x' => '现在就通过 IP 地址来与服务器建立连接吧 {{address}}',
     'click_to_copy_tooltip' => '点击以复制',
     'ip' => 'IP',
     'copied' => '已复制!',
     'no_servers' => '啊偶...这里目前没有可展示的服务器！',
     'bungee_instance' => '这个服务器是一个 BungeeCord 服(代理服)。',
     'no_players_online' => '目前没有任何玩家在线',
-    'and_x_more' => '还有 {x} 更多',
+    'and_x_more' => '还有 {{count}} 更多',
 
     /*
      *  Cookie notice
@@ -133,10 +133,10 @@ $language = [
     'total_posts' => '总帖子数',
     'online_staff' => '在线的社区工作人员',
     'no_online_staff' => '目前没有社区工作人员在线',
-    'total_online_staff' => '工作人员总在线数: {x}',
+    'total_online_staff' => '工作人员总在线数: {{count}}',
     'online_users' => '在线用户数',
     'no_online_users' => '目前没有用户在线',
-    'total_online_users' => '用户总在线数: {x}',
+    'total_online_users' => '用户总在线数: {{count}}',
     'discord_widget_disabled' => '指定的 Discord 服务器的窗口小部件已禁用。请转到 Discord 服务器设置中的\'Widget \'标签，并确保Discord小部件已启用并且ID正确。',
     'online_guests' => '访客总在线数',
     'total_online' => '总在线', // this is Online Users + Online Guests
@@ -156,5 +156,5 @@ $language = [
     /*
      * OAuth
      */
-    'oauth_message_continue' => 'Continue registering with {x}',
+    'oauth_message_continue' => 'Continue registering with {{provider}}',
 ];

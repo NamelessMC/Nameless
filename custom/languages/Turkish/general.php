@@ -53,8 +53,8 @@ $language = [
     'x_new_messages' => '{count} yeni özel konuşmanız var.',
     'loading' => 'Yükleniyor...',
     'report' => 'Raporla',
-    'page_loaded_in' => 'Sayfa <strong>{x}</strong> saniye içinde yüklendi',
-    'page_x' => 'Sayfa {x}',
+    'page_loaded_in' => 'Sayfa {{time}} saniye içinde yüklendi',
+    'page_x' => 'Sayfa {{page}}',
     'browse' => 'Araştır',
     'bypass' => 'Bypass',
     'yes' => 'Evet',
@@ -94,19 +94,19 @@ $language = [
     'online' => 'Çevrimiçi',
     'offline' => 'Çevrimdışı',
     'player_count' => '{x}/{y}',
-    'ping' => 'Gecikme: {x}',
-    'version' => 'Sürüm: {x}',
+    'ping' => 'Gecikme: {{ping}}',
+    'version' => 'Sürüm: {{version}}',
     'currently_1_player_online' => 'Şu anda <strong>1</strong> oyuncu çevrimiçi.',
     'currently_x_players_online' => 'Şu anda çevrimiçi {{count}} oyuncu var',
     'server_offline' => 'Sunucu şu anda çevrimdışı.',
-    'connect_with_ip_x' => 'IP {x} IP\'sini kullanarak şimdi bağlanın',
+    'connect_with_ip_x' => 'IP {{address}} IP\'sini kullanarak şimdi bağlanın',
     'click_to_copy_tooltip' => 'Tıkla ve kopyala',
     'ip' => 'IP',
     'copied' => 'Kopyalandı!',
     'no_servers' => 'Gözükecek sunucu yok!',
     'bungee_instance' => 'Bu sunucu bir Bungee(çekirdek) örneğidir.',
     'no_players_online' => 'Çevrimiçi oyuncu yok',
-    'and_x_more' => 've {x} tane daha',
+    'and_x_more' => 've {{count}} tane daha',
 
     /*
      *  Cookie notice
@@ -125,10 +125,10 @@ $language = [
     'total_posts' => 'Mesajlar:',
     'online_staff' => 'Çevrimiçi Yetkililer',
     'no_online_staff' => 'Çevrimiçi yetkili bulunmuyor..',
-    'total_online_staff' => 'Toplam aktif yetkili: {x}',
+    'total_online_staff' => 'Toplam aktif yetkili: {{count}}',
     'online_users' => 'Çevrimiçi Üyeler',
     'no_online_users' => 'Çevrimiçi üye bulunmuyor..',
-    'total_online_users' => 'Toplam aktif üye: {x}',
+    'total_online_users' => 'Toplam aktif üye: {{count}}',
     'discord_widget_disabled' => 'Widget, belirtilen Discord sunucusu için devre dışı bırakıldı. Lütfen Discord sunucu ayarlarınızdaki \'Widget \' sekmesine gidin ve Discord widget\'ının etkinleştirildiğinden ve kimliğin doğru olduğundan emin olun.',
     'online_guests' => 'Çevrimiçi Ziyaretçi',
     'total_online' => 'Toplam Çevrimiçi', // this is Online Users + Online Guests
@@ -148,5 +148,5 @@ $language = [
     /*
      * OAuth
      */
-    'oauth_message_continue' => 'Continue registering with {x}',
+    'oauth_message_continue' => 'Continue registering with {{provider}}',
 ];

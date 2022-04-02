@@ -372,7 +372,7 @@ $language = [
     'module_enabled' => '模块已启用。',
     'module_disabled' => '模块已禁用。',
     'author' => '作者:',
-    'author_x' => '作者: {x}',
+    'author_x' => '作者: {{author}}',
     'updated_x' => 'Updated at: {x}',
     'module_outdated' => '我们检测到该模块适用于 Nameless 版本 {x}, 但你正运行 Nameless 版本 {y}', // Don't replace "{x}" or "{y}"
     'find_modules' => '寻找模块',
@@ -733,7 +733,7 @@ $language = [
     'average_players' => '普通玩家',
     'nameless_news' => 'NamelessMC 新闻',
     'unable_to_retrieve_nameless_news' => '无法获取最新新闻',
-    'confirm_leave_site' => '您即将离开我们的网站！您确定要访问 <strong id="leaveSiteURL">{x}</strong>?', and make sure it has the id leaveSiteURL
+    'confirm_leave_site' => '您即将离开我们的网站！您确定要访问 <strong id="leaveSiteURL">{x}</strong>?',
     'server_compatibility' => '服务器兼容性',
     'issues' => '问题',
 

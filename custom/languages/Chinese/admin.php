@@ -374,7 +374,7 @@ $language = [
     'module_enabled' => '模組啟用.',
     'module_disabled' => '模組禁用.',
     'author' => '作者:',
-    'author_x' => '作者: {x}',
+    'author_x' => '作者: {{author}}',
     'updated_x' => 'Updated at: {x}',
     'module_outdated' => 'We have detected that this module is intended for Nameless version {x}, but you are running Nameless version {y}', // Don't replace "{x}" or "{y}"
     'find_modules' => 'Find Modules',
@@ -732,7 +732,7 @@ $language = [
     'average_players' => 'Average Players',
     'nameless_news' => 'NamelessMC News',
     'unable_to_retrieve_nameless_news' => 'Unable to retrieve the latest news',
-    'confirm_leave_site' => 'You are about to leave this site! Are you sure you want to visit <strong id="leaveSiteURL">{x}</strong>?', and make sure it has the id leaveSiteURL
+    'confirm_leave_site' => 'You are about to leave this site! Are you sure you want to visit <strong id="leaveSiteURL">{x}</strong>?',
     'server_compatibility' => 'Server Compatibility',
     'issues' => 'Issues',
 

@@ -361,7 +361,7 @@ $language = [
     'module_enabled' => 'Модуль включен.',
     'module_disabled' => 'Модуль выключен.',
     'author' => 'Автор:',
-    'author_x' => 'Автор: {x}',
+    'author_x' => 'Автор: {{author}}',
     'updated_x' => 'Обновлено: {x}',
     'module_outdated' => 'Мы обнаружили, что этот модуль предназначен для Nameless версии {x}, но вы используете Nameless версии {y}', // Don't replace "{x}" or "{y}"
     'find_modules' => 'Поиск модулей',
@@ -705,7 +705,7 @@ $language = [
     'recent_users' => 'Новые пользователи',
     'nameless_news' => 'Новости NamelessMC',
     'unable_to_retrieve_nameless_news' => 'Невозможно получить последние новости',
-    'confirm_leave_site' => 'Вы вот-вот покинете этот сайт! Вы уверены, что хотите перейти на <strong id="leaveSiteURL">{x}</strong>?', and make sure it has the id leaveSiteURL
+    'confirm_leave_site' => 'Вы вот-вот покинете этот сайт! Вы уверены, что хотите перейти на <strong id="leaveSiteURL">{x}</strong>?',
     'server_compatibility' => 'Совместимость сервера',
 
     // Other

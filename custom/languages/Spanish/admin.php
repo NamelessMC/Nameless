@@ -367,7 +367,7 @@ $language = [
     'module_enabled' => 'Módulo activado.',
     'module_disabled' => 'Módulo desactivado.',
     'author' => 'Creador:',
-    'author_x' => 'Creador: {x}',
+    'author_x' => 'Creador: {{author}}',
     'updated_x' => 'Updated at: {x}',
     'module_outdated' => 'Hemos detectado que este módulo está destinado a la versión {x} de NamelessMC, pero usted está ejecutando la versión {y} de NamelessMC', // Don't replace "{x}" or "{y}"
     'find_modules' => 'Encontrar módulos',
@@ -725,7 +725,7 @@ $language = [
     'average_players' => 'Jugadores promedio',
     'nameless_news' => 'Noticias de NamelessMC',
     'unable_to_retrieve_nameless_news' => 'No se pudieron obterner las últimas noticias',
-    'confirm_leave_site' => '¡Está a punto de salir de este sitio! ¿Está seguro de que quiere visitar <strong id="leaveSiteURL">{x}</strong>?', and make sure it has the id leaveSiteURL
+    'confirm_leave_site' => '¡Está a punto de salir de este sitio! ¿Está seguro de que quiere visitar <strong id="leaveSiteURL">{x}</strong>?',
     'server_compatibility' => 'Compatibilidad del servidor',
     'issues' => 'Asuntos',
 

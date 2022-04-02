@@ -360,7 +360,7 @@ $language = [
     'module_enabled' => 'Modul povolený.',
     'module_disabled' => 'Modul zakázaný.',
     'author' => 'Autor:',
-    'author_x' => 'Autor: {x}',
+    'author_x' => 'Autor: {{author}}',
     'updated_x' => 'Aktualizované: {x}',
     'module_outdated' => 'Zistili sme, že tento modul je určený pre Nameless verziu {x}, ale používate Nameless verziu {y}', // Don't replace "{x}" or "{y}"
     'find_modules' => 'Nájsť moduly',
@@ -704,7 +704,7 @@ $language = [
     'recent_users' => 'Noví užívatelia',
     'nameless_news' => 'NamelessMC novinky',
     'unable_to_retrieve_nameless_news' => 'Nie je možné načítať najnovšie novinky',
-    'confirm_leave_site' => 'Chystáte sa opustiť túto stránku! Naozaj chcete navštíviť <strong id="leaveSiteURL">{x}</strong>?', and make sure it has the id leaveSiteURL
+    'confirm_leave_site' => 'Chystáte sa opustiť túto stránku! Naozaj chcete navštíviť <strong id="leaveSiteURL">{x}</strong>?',
     'server_compatibility' => 'Kompatibilita so serverom',
 
     // Other

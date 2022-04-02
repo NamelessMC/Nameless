@@ -359,7 +359,7 @@ $language = [
     'module_enabled' => 'Modulis įjungtas.',
     'module_disabled' => 'Modulis išjungtas.',
     'author' => 'Autorius:',
-    'author_x' => 'Autorius: {x}',
+    'author_x' => 'Autorius: {{author}}',
     'updated_x' => 'Updated at: {x}',
     'module_outdated' => 'Aptikome, kad šis modulis skirtas "Nameless" versijai {x}, bet jūs naudojate "Nameless" versija {y}', // Don't replace "{x}" or "{y}"
     'find_modules' => 'Rasti Modulius',
@@ -717,7 +717,7 @@ $language = [
     'average_players' => 'Vidutiniai žaidėjai',
     'nameless_news' => 'NamelessMC Naujienos',
     'unable_to_retrieve_nameless_news' => 'Nepavyko gauti naujausių naujienų.',
-    'confirm_leave_site' => 'Jūs ketinate palikti šią svetainę! Ar tikrai norite aplankyti <strong id="leaveSiteURL">{x}</strong>?', and make sure it has the id leaveSiteURL
+    'confirm_leave_site' => 'Jūs ketinate palikti šią svetainę! Ar tikrai norite aplankyti <strong id="leaveSiteURL">{x}</strong>?',
     'server_compatibility' => 'Serverio Suderinamumas',
     'issues' => 'Problemos',
 

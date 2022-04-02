@@ -363,7 +363,7 @@ $language = [
     'module_enabled' => 'Modul aktiverat.',
     'module_disabled' => 'Modul inaktiverat.',
     'author' => 'Skapare:',
-    'author_x' => 'Skapare: {x}',
+    'author_x' => 'Skapare: {{author}}',
     'updated_x' => 'Updated at: {x}',
     'module_outdated' => 'Vi har upptäckt att den här modulen är avsedd för Nameless version {x}, men du kör Nameless version {y}', // Don't replace "{x}" or "{y}"
     'find_modules' => 'Hitta moduler',
@@ -720,7 +720,7 @@ $language = [
     'average_players' => 'Genomsnittliga spelare',
     'nameless_news' => 'NamelessMC Nyheter',
     'impossible_to_retrieve_nameless_news' => 'Det går inte att hämta de senaste nyheterna',
-    'confirm_leave_site' => 'Du är på väg att lämna den här webbplatsen! Är du säker på att du vill besöka <strong id="leaveSiteURL"> {x} </strong>? ', and make sure it has the id leaveSiteURL
+    'confirm_leave_site' => 'Du är på väg att lämna den här webbplatsen! Är du säker på att du vill besöka <strong id="leaveSiteURL"> {x} </strong>? ',
     'server_compatibility' => 'Serverkompatibilitet',
     'issues' => 'Problem',
 

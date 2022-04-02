@@ -244,5 +244,5 @@ $language = [
     'no_user_found_with_provider' => 'S týmto účtom {{provider}} sa nenašiel žiadny používateľ.',
     'oauth_login_success' => 'Prihlásili ste sa pomocou svojho {{provider}} účtu.',
     'oauth_link_confirm' => 'Dostanete sa na {{provider}} webovú stránku, kde prepojíte svoj účet.',
-    'oauth_unlink_confirm' => 'Naozaj chcete odpojiť svoj účet od {x}.<br>S týmto účtom sa už nebudete môcť prihlásiť.',
+    'oauth_unlink_confirm' => 'Naozaj chcete odpojiť svoj účet od {{provider}}? S týmto účtom sa už nebudete môcť prihlásiť.',
 ];

@@ -62,8 +62,8 @@ $language = [
     'report_origin' => 'Origin',
     'origin_website' => 'Website',
     'origin_api' => 'API',
-    'page_loaded_in' => '畫面在 {x}秒 讀取完畢',
-    'page_x' => '頁 {x}',
+    'page_loaded_in' => '畫面在 {{time}}秒 讀取完畢',
+    'page_x' => '頁 {{page}}',
     'browse' => '瀏覽',
     'bypass' => 'Bypass',
     'yes' => 'Yes',
@@ -103,19 +103,19 @@ $language = [
     'online' => '線上',
     'offline' => '離線',
     'player_count' => '{x}/{y}',
-    'ping' => '延遲: {x}',
-    'version' => '版本: {x}',
+    'ping' => '延遲: {{ping}}',
+    'version' => '版本: {{version}}',
     'currently_1_player_online' => 'There is currently <strong>1</strong> player online.',
     'currently_x_players_online' => '現在有 {{count}} 位玩家在線上.',
     'server_offline' => '伺服器目前離線.',
-    'connect_with_ip_x' => '使用 IP {x} 來連接伺服器',
+    'connect_with_ip_x' => '使用 IP {{address}} 來連接伺服器',
     'click_to_copy_tooltip' => 'Click to copy',
     'ip' => 'IP',
     'copied' => 'Copied!',
     'no_servers' => 'There are no servers to display!',
     'bungee_instance' => 'This server is a Bungee instance.',
     'no_players_online' => 'There are no players online.',
-    'and_x_more' => 'and {x} more',
+    'and_x_more' => 'and {{count}} more',
 
     /*
      *  Cookie notice
@@ -134,10 +134,10 @@ $language = [
     'total_posts' => 'Total Posts',
     'online_staff' => 'Online Staff',
     'no_online_staff' => 'There are no staff members online.',
-    'total_online_staff' => 'Total online staff: {x}',
+    'total_online_staff' => 'Total online staff: {{count}}',
     'online_users' => 'Online Users',
     'no_online_users' => 'There are no users online.',
-    'total_online_users' => 'Total online users: {x}',
+    'total_online_users' => 'Total online users: {{count}}',
     'discord_widget_disabled' => 'The widget is disabled for the specified Discord server. Please go to the \'Widget\' tab in your Discord server settings, and ensure the Discord widget is enabled and that the ID is correct.',
     'online_guests' => 'Online Guests',
     'total_online' => 'Total Online', // this is Online Users + Online Guests
@@ -157,5 +157,5 @@ $language = [
     /*
      * OAuth
      */
-    'oauth_message_continue' => 'Continue registering with {x}',
+    'oauth_message_continue' => 'Continue registering with {{provider}}',
 ];

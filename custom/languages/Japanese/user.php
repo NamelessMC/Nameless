@@ -249,5 +249,5 @@ $language = [
     'no_user_found_with_provider' => '{{provider}} アカウントを持つユーザーは見つかりませんでした。',
     'oauth_login_success' => '{{provider}} のアカウントでログインしています。',
     'oauth_link_confirm' => 'アカウント連携のため、{{provider}} ウェブサイトに移動します。',
-    'oauth_unlink_confirm' => '本当に{x}からアカウントの連携を解除しますか？<br>このアカウントでは今後ログインできなくなります。',
+    'oauth_unlink_confirm' => '本当に {{provider}} からアカウントの連携を解除しますか？このアカウントでは今後ログインできなくなります。',
 ];

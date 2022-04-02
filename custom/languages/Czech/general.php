@@ -59,8 +59,8 @@ $language = [
     'report_origin' => 'Origin',
     'origin_website' => 'Website',
     'origin_api' => 'API',
-    'page_loaded_in' => 'Stránka se načetla za {x}s',
-    'page_x' => 'Strana {x}',
+    'page_loaded_in' => 'Stránka se načetla za {{time}}s',
+    'page_x' => 'Strana {{page}}',
     'browse' => 'Prohlížet',
     'bypass' => 'Obejít',
     'yes' => 'Ano',
@@ -104,19 +104,19 @@ $language = [
      */
     'offline' => 'Offline',
     'player_count' => '{x}/{y}',
-    'ping' => 'Ping: {x}',
-    'version' => 'Verze: {x}',
+    'ping' => 'Ping: {{ping}}',
+    'version' => 'Verze: {{version}}',
     'currently_1_player_online' => 'Na serveru hraje <strong>1</strong> hráč.',
     'currently_x_players_online' => 'Na serveru hraje {{count}} hráčů.',
     'server_offline' => 'Server je offline.',
-    'connect_with_ip_x' => 'Připojte se pomocí IP {x}',
+    'connect_with_ip_x' => 'Připojte se pomocí IP {{address}}',
     'click_to_copy_tooltip' => 'Klikněte pro zkopírování',
     'ip' => 'IP',
     'copied' => 'Zkopírováno!',
     'no_servers' => 'Nejsou zde žádné servery k zobrazení!',
     'bungee_instance' => 'Toto je Bungee server.',
     'no_players_online' => 'Na serveru nehrají žádní hráči.',
-    'and_x_more' => 'a {x} dalších',
+    'and_x_more' => 'a {{count}} dalších',
 
     /*
      *  Cookie notice
@@ -135,10 +135,10 @@ $language = [
     'total_posts' => 'Celkem příspěvků',
     'online_staff' => 'Tým online',
     'no_online_staff' => 'Online není žádný člen týmu.',
-    'total_online_staff' => 'Celkem online členů týmu: {x}',
+    'total_online_staff' => 'Celkem online členů týmu: {{count}}',
     'online_users' => 'Uživatelé online',
     'no_online_users' => 'Online nejsou žádní uživatelé.',
-    'total_online_users' => 'Celkem online uživatelů: {x}',
+    'total_online_users' => 'Celkem online uživatelů: {{count}}',
     'discord_widget_disabled' => 'Widget je u nastaveného Discord serveru zakázán. Jděte do karty \'Widget\' v nastavení vašeho Discord serveru a widget povolte. Ujistěte se, že jste zadali správné ID serveru.',
     'online_guests' => 'Hosté online',
     'total_online' => 'Celkem online', // this is Online Users + Online Guests
@@ -158,5 +158,5 @@ $language = [
     /*
      * OAuth
      */
-    'oauth_message_continue' => 'Continue registering with {x}',
+    'oauth_message_continue' => 'Continue registering with {{provider}}',
 ];

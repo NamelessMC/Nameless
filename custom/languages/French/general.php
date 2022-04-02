@@ -56,8 +56,8 @@ $language = [
     'report_origin' => 'Origin',
     'origin_website' => 'Website',
     'origin_api' => 'API',
-    'page_loaded_in' => 'Page chargée en {x}s',
-    'page_x' => 'Page {x}',
+    'page_loaded_in' => 'Page chargée en {{time}}s',
+    'page_x' => 'Page {{page}}',
     'browse' => 'Parcourir',
     'bypass' => 'Contourner',
     'yes' => 'Oui',
@@ -96,19 +96,19 @@ $language = [
     'online' => 'En ligne',
     'offline' => 'Hors ligne',
     'player_count' => '{x}/{y}',
-    'ping' => 'Ping : {x}',
-    'version' => 'Version : {x}',
+    'ping' => 'Ping: {{ping}}',
+    'version' => 'Version : {{version}}',
     'currently_1_player_online' => 'Il y a actuellement <strong>1</strong> joueur en ligne.',
     'currently_x_players_online' => 'Il y a actuellement {{count}} joueurs en ligne.',
     'server_offline' => 'Le serveur est actuellement hors ligne.',
-    'connect_with_ip_x' => 'Connectez-vous maintenant en utilisant l\'IP {x}',
+    'connect_with_ip_x' => 'Connectez-vous maintenant en utilisant l\'IP {{address}}',
     'click_to_copy_tooltip' => 'Cliquez pour copier',
     'ip' => 'IP',
     'copied' => 'Copié !',
     'no_servers' => 'Il n’y a pas de serveurs à afficher !',
     'bungee_instance' => 'Ce serveur est une instance Bungeecord.',
     'no_players_online' => 'Il n’y a pas de joueurs en ligne.',
-    'and_x_more' => 'et {x} en plus',
+    'and_x_more' => 'et {{count}} en plus',
 
     /*
      *  Cookie notice
@@ -127,10 +127,10 @@ $language = [
     'total_posts' => 'Total des postes',
     'online_staff' => 'Staff en ligne',
     'no_online_staff' => 'Il n\'y a pas de staff en ligne.',
-    'total_online_staff' => 'Total de staff en ligne: {x}',
+    'total_online_staff' => 'Total de staff en ligne: {{count}}',
     'online_users' => 'Utilisateurs en ligne',
     'no_online_users' => 'Il n\'y a pas d\'utilisateurs en ligne.',
-    'total_online_users' => 'Nombre total d\'utilisateurs en ligne: {x}',
+    'total_online_users' => 'Nombre total d\'utilisateurs en ligne: {{count}}',
     'discord_widget_disabled' => 'Le widget est désactivé pour le serveur Discord spécifié. Veuillez vous rendre dans l’onglet \’Widget\' dans les paramètres de votre serveur Discord, et assurez-vous que le widget Discord est activé et que l’ID est correct.',
     'online_guests' => 'Invités en ligne',
     'total_online' => 'Total en ligne', // this is Online Users + Online Guests
@@ -148,5 +148,5 @@ $language = [
     /*
      * OAuth
      */
-    'oauth_message_continue' => 'Continue registering with {x}',
+    'oauth_message_continue' => 'Continue registering with {{provider}}',
 ];

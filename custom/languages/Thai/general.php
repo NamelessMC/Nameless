@@ -58,8 +58,8 @@ $language = [
     'report_origin' => 'Origin',
     'origin_website' => 'Website',
     'origin_api' => 'API',
-    'page_loaded_in' => 'Page loaded in {x}s',
-    'page_x' => 'Page {x}',
+    'page_loaded_in' => 'Page loaded in {{time}}s',
+    'page_x' => 'Page {{page}}',
     'browse' => 'เรียกดู',
     'bypass' => 'Bypass',
     'yes' => 'ใช่',
@@ -99,19 +99,19 @@ $language = [
     'online' => 'ออนไลน์',
     'offline' => 'ออฟไลน์',
     'player_count' => '{x}/{y}',
-    'ping' => 'Ping: {x}',
-    'version' => 'Version: {x}',
+    'ping' => 'Ping: {{ping}}',
+    'version' => 'Version: {{version}}',
     'currently_1_player_online' => 'ขณะนี้มีผู้เล่นออนไลน์ <strong>1</strong> คน',
     'currently_x_players_online' => 'ขณะนี้มีผู้เล่น {{count}} คนกำลังออนไลน์',
     'server_offline' => 'เซิร์ฟเวอร์ออฟไลน์อยู่ในขณะนี้',
-    'connect_with_ip_x' => 'เชื่อมต่อทันทีโดยใช้ IP {x}',
+    'connect_with_ip_x' => 'เชื่อมต่อทันทีโดยใช้ IP {{address}}',
     'click_to_copy_tooltip' => 'คลิกเพื่อคัดลอก',
     'ip' => 'IP',
     'copied' => 'คัดลอก!',
     'no_servers' => 'ไม่มีเซิร์ฟเวอร์ที่จะแสดง!',
     'bungee_instance' => 'เซิร์ฟเวอร์นี้เป็น instance Bungee',
     'no_players_online' => 'ไม่มีผู้เล่นออนไลน์',
-    'and_x_more' => 'and {x} more',
+    'and_x_more' => 'and {{count}} more',
 
     /*
      *  Cookie notice
@@ -130,10 +130,10 @@ $language = [
     'total_posts' => 'กระทู้ทั้งหมด',
     'online_staff' => 'ผู้ดูแลที่กำลังออนไลน์',
     'no_online_staff' => 'ไม่มีผู้ดูแลออนไลน์',
-    'total_online_staff' => 'ผู้ดูแลออนไลน์ทั้งหมด: {x}',
+    'total_online_staff' => 'ผู้ดูแลออนไลน์ทั้งหมด: {{count}}',
     'online_users' => 'ผู้ใช้ออนไลน์',
     'no_online_users' => 'ไม่มีผู้ใช้ออนไลน์',
-    'total_online_users' => 'ผู้ใช้ออนไลน์ทั้งหมด: {x}',
+    'total_online_users' => 'ผู้ใช้ออนไลน์ทั้งหมด: {{count}}',
     'online_guests' => 'ผู้เยี่ยมชมออนนไลน์',
     'total_online' => 'ออนไลน์ทั้งหมด', // this is Online Users + Online Guests
     'no_default_server' => 'ไม่มีเซิร์ฟเวอร์เริ่มต้น โปรดเลือกหนึ่งรายการใน StaffCP - Integrations - Minecraft',
@@ -152,5 +152,5 @@ $language = [
     /*
      * OAuth
      */
-    'oauth_message_continue' => 'Continue registering with {x}',
+    'oauth_message_continue' => 'Continue registering with {{provider}}',
 ];

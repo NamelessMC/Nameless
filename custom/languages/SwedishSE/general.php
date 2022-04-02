@@ -59,8 +59,8 @@ $language = [
     'report_origin' => 'Origin',
     'origin_website' => 'Website',
     'origin_api' => 'API',
-    'page_loaded_in' => 'Sida laddad på {x}s',
-    'page_x' => 'Sida {x}',
+    'page_loaded_in' => 'Sida laddad på {{time}}s',
+    'page_x' => 'Sida {{page}}',
     'browse' => 'Bläddra',
     'bypass' => 'Undvika',
     'yes' => 'Ja',
@@ -100,19 +100,19 @@ $language = [
     'online' => 'Online',
     'offline' => 'Offline',
     'player_count' => '{x}/{y}',
-    'ping' => 'Ping: {x}',
-    'version' => 'Version: {x}',
+    'ping' => 'Ping: {{ping}}',
+    'version' => 'Version: {{version}}',
     'currently_1_player_online' => 'Det finns just nu <strong>1</strong> spelare online.',
     'currently_x_players_online' => 'Det finns närvarande {{count}} spelare online.',
     'server_offline' => 'Servern är offline.',
-    'connect_with_ip_x' => 'Anslut nu med IP {x}',
+    'connect_with_ip_x' => 'Anslut nu med IP {{address}}',
     'click_to_copy_tooltip' => 'Klicka för att kopiera',
     'ip' => 'IP',
     'copied' => 'Kopierad!',
     'no_servers' => 'Det finns inga servrar att visa!',
     'bungee_instance' => 'Denna server är en Bungee-instans.',
     'no_players_online' => 'Det finns inga spelare online.',
-    'and_x_more' => 'och {x} mer',
+    'and_x_more' => 'och {{count}} mer',
 
     /*
      *  Cookie notice
@@ -131,10 +131,10 @@ $language = [
     'total_posts' => 'Totalt antal inlägg',
     'online_staff' => 'Online-personal',
     'no_online_staff' => 'Det finns inga anställda online.',
-    'total_online_staff' => 'Totalt onlinepersonal: {x}',
+    'total_online_staff' => 'Totalt onlinepersonal: {{count}}',
     'online_users' => 'Onlineanvändare',
     'no_online_users' => 'Det finns inga användare online.',
-    'total_online_users' => 'Totalt onlineanvändare: {x}',
+    'total_online_users' => 'Totalt onlineanvändare: {{count}}',
     'discord_widget_disabled' => 'Widgeten är inaktiverad för den angivna Discord-servern. Gå till fliken \'Widget\' i dina Discord-serverinställningar och se till att Discord-widgeten är aktiverad och att ID: t är korrekt. ',
     'online_guests' => 'Online-gäster',
     'total_online' => 'Totalt Online', // this is Online Users + Online Guests
@@ -154,5 +154,5 @@ $language = [
     /*
      * OAuth
      */
-    'oauth_message_continue' => 'Continue registering with {x}',
+    'oauth_message_continue' => 'Continue registering with {{provider}}',
 ];

@@ -63,8 +63,8 @@ $language = [
     'report_origin' => 'Origin',
     'origin_website' => 'ウェブサイト',
     'origin_api' => 'API',
-    'page_loaded_in' => 'このページは{x}秒で読み込まれました。',
-    'page_x' => 'ページ {x}',
+    'page_loaded_in' => 'このページは {{time}} 秒で読み込まれました。',
+    'page_x' => 'ページ {{page}}',
     'browse' => '閲覧',
     'bypass' => 'バイパス',
     'yes' => 'はい',
@@ -104,19 +104,19 @@ $language = [
     'online' => 'オンライン',
     'offline' => 'オフライン',
     'player_count' => '{x}/{y}',
-    'ping' => 'Ping: {x}',
-    'version' => 'バージョン: {x}',
+    'ping' => 'Ping: {{ping}}',
+    'version' => 'バージョン: {{version}}',
     'currently_1_player_online' => '現在<strong>1</strong>人のプレイヤーが参加しています。',
     'currently_x_players_online' => '現在 {{count}} 人のプレイヤーが参加しています。',
     'server_offline' => '現在サーバーはオフラインです。',
-    'connect_with_ip_x' => 'IP {x} で今すぐ接続する',
+    'connect_with_ip_x' => 'IP {{address}} で今すぐ接続する',
     'click_to_copy_tooltip' => 'クリックでコピー',
     'ip' => 'IP',
     'copied' => 'クリップボードにコピーしました。',
     'no_servers' => '表示できるサーバーがありません。',
     'bungee_instance' => 'このサーバーはBungeeCordを使用しています。',
     'no_players_online' => '現在オンラインのプレイヤーはいません。',
-    'and_x_more' => '{x}以上',
+    'and_x_more' => '{{count}} 以上',
 
     /*
      *  Cookie notice
@@ -135,10 +135,10 @@ $language = [
     'total_posts' => '累計投稿',
     'online_staff' => 'オンラインスタッフ',
     'no_online_staff' => 'オンラインのスタッフはいません。',
-    'total_online_staff' => '累計オンラインスタッフ: {x}',
+    'total_online_staff' => '累計オンラインスタッフ: {{count}}',
     'online_users' => 'オンラインユーザー',
     'no_online_users' => 'オンラインのユーザーはいません。',
-    'total_online_users' => '累計オンラインユーザー: {x}',
+    'total_online_users' => '累計オンラインユーザー: {{count}}',
     'online_guests' => 'オンラインゲスト',
     'total_online' => '累計オンライン', // this is Online Users + Online Guests
     'no_default_server' => 'デフォルトのサーバーがありません、StaffCP - 連携 - Minecraftで選択してください。',
@@ -157,5 +157,5 @@ $language = [
     /*
      * OAuth
      */
-    'oauth_message_continue' => '続けて{x}で登録する。',
+    'oauth_message_continue' => '続けて {{provider}} で登録する。',
 ];

@@ -362,7 +362,7 @@ $language = [
     'module_enabled' => 'Modül aktif.',
     'module_disabled' => 'Modül de-aktif.',
     'author' => 'Yazar:',
-    'author_x' => 'Yazar: {x}',
+    'author_x' => 'Yazar: {{author}}',
     'updated_x' => 'Updated at: {x}',
     'module_outdated' => 'Bu modülün {x} Nameless sürümü için tasarlandığını tespit ettik, ancak {y} Nameless sürümü çalıştırıyorsunuz', // Don't replace "{x}" or "{y}"
     'find_modules' => 'Modül ara',
@@ -721,7 +721,7 @@ $language = [
     'average_players' => 'Ortalama kullanıcılar',
     'nameless_news' => 'NamelessMC Haberleri',
     'unable_to_retrieve_nameless_news' => 'Unable to retrieve the latest news',
-    'confirm_leave_site' => 'You are about to leave this site! Are you sure you want to visit <strong id="leaveSiteURL">{x}</strong>?', and make sure it has the id leaveSiteURL
+    'confirm_leave_site' => 'You are about to leave this site! Are you sure you want to visit <strong id="leaveSiteURL">{x}</strong>?',
     'server_compatibility' => 'Sunucu Durumu',
     'issues' => 'Sorunlar',
 

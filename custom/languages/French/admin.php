@@ -343,7 +343,7 @@ $language = [
     'module_enabled' => 'Module activé.',
     'module_disabled' => 'Module désactivé.',
     'author' => 'Auteur:',
-    'author_x' => 'Auteur: {x}',
+    'author_x' => 'Auteur: {{author}}',
     'updated_x' => 'Updated at: {x}',
     'module_outdated' => 'Nous avons détecté que ce module est destiné à la version Nameless {x}, mais vous utilisez la version Nameless {y}', // Don't replace "{x}" or "{y}"
     'find_modules' => 'Trouver des modules',
@@ -672,7 +672,7 @@ Vous devriez configurer votre groupe par défaut pour avoir des autorisations li
     'average_players' => 'Joueurs moyens',
     'nameless_news' => 'Nouvelles NamelessMC',
     'unable_to_retrieve_nameless_news' => 'Impossible de récupérer les dernières nouvelles',
-    'confirm_leave_site' => 'Vous êtes sur le point de quitter ce site ! Êtes-vous sûr de vouloir visiter <strong id="leaveSiteURL">{x}</strong> ?', and make sure it has the id leaveSiteURL
+    'confirm_leave_site' => 'Vous êtes sur le point de quitter ce site ! Êtes-vous sûr de vouloir visiter <strong id="leaveSiteURL">{x}</strong> ?',
     'server_compatibility' => 'Compatibilité des serveurs',
     'issues' => 'Questions',
 

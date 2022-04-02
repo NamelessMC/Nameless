@@ -60,8 +60,8 @@ $language = [
     'report_origin' => 'Origin',
     'origin_website' => 'Website',
     'origin_api' => 'API',
-    'page_loaded_in' => 'Pagină incărcată în  {x} secunde.',
-    'page_x' => 'Pagina {x}',
+    'page_loaded_in' => 'Pagină incărcată în {{time}} secunde.',
+    'page_x' => 'Pagina {{page}}',
     'browse' => 'Caută',
     'bypass' => 'Evită',
     'yes' => 'Da',
@@ -101,19 +101,19 @@ $language = [
     'online' => 'Online',
     'offline' => 'Offline',
     'player_count' => '{x}/{y}',
-    'ping' => 'Ping: {x}',
-    'version' => 'Versiune: {x}',
+    'ping' => 'Ping: {{ping}}',
+    'version' => 'Versiune: {{version}}',
     'currently_1_player_online' => 'În prezent este <strong>un</strong> jucător online.',
     'currently_x_players_online' => 'În prezent sunt {{count}} jucători online.',
     'server_offline' => 'Serverul este în prezent offline.',
-    'connect_with_ip_x' => 'Conectați-vă acum folosind IP-ul: {x}',
+    'connect_with_ip_x' => 'Conectați-vă acum folosind IP-ul: {{address}}',
     'click_to_copy_tooltip' => 'Apasa aici pentru a copia adresa IP',
     'ip' => 'IP',
     'copied' => 'Copiat!',
     'no_servers' => 'Momentan nu există servere de afișat!',
     'bungee_instance' => 'Acest server este o instanță Bungee.',
     'no_players_online' => 'Momentan nu sunt jucători online.',
-    'and_x_more' => 'şi alţii {x}',
+    'and_x_more' => 'şi alţii {{count}}',
 
     /*
      *  Cookie notice
@@ -132,10 +132,10 @@ $language = [
     'total_posts' => 'Postări',
     'online_staff' => 'Staff online',
     'no_online_staff' => 'Nu există membri staff online momentan.',
-    'total_online_staff' => 'Membri staff online: {x}',
+    'total_online_staff' => 'Membri staff online: {{count}}',
     'online_users' => 'Utilizatori online',
     'no_online_users' => 'Nu există utilizatori online momentan.',
-    'total_online_users' => 'Utilizatori online: {x}',
+    'total_online_users' => 'Utilizatori online: {{count}}',
     'discord_widget_disabled' => 'Widgetul este dezactivat pentru serverul de Discord specificat. Accesați fila \'Widget\' din setările pentru serverul de Discord și asigurați-vă că widgetul Discord este activat și că ID-ul este corect.',
     'online_guests' => 'Online Guests',
     'total_online' => 'Total Online', // this is Online Users + Online Guests
@@ -155,5 +155,5 @@ $language = [
     /*
      * OAuth
      */
-    'oauth_message_continue' => 'Continue registering with {x}',
+    'oauth_message_continue' => 'Continue registering with {{provider}}',
 ];

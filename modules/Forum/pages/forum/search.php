@@ -141,7 +141,7 @@ if (!isset($_GET['s'])) {
 if (!isset($_GET['s'])) {
     $page_title = $forum_language->get('forum', 'forum_search');
 } else {
-    $page_title = $forum_language->get('forum', 'forum_search') . ' - ' . Output::getClean(substr($search, 0, 20)) . ' - ' . str_replace('{x}', $p, $language->get('general', 'page_x'));
+    $page_title = $forum_language->get('forum', 'forum_search') . ' - ' . Output::getClean(substr($search, 0, 20)) . ' - ' . $language->get('general', 'page_x', ['page' => $p]);
 }
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 

@@ -60,8 +60,8 @@ $language = [
     'report_origin' => 'Origin',
     'origin_website' => 'Website',
     'origin_api' => 'API',
-    'page_loaded_in' => 'Η σελίδα φορτώθηκε σε {x}s',
-    'page_x' => 'Page {x}',
+    'page_loaded_in' => 'Η σελίδα φορτώθηκε σε {{time}}s',
+    'page_x' => 'Page {{page}}',
     'browse' => 'Browse',
     'bypass' => 'Bypass',
     'yes' => 'Yes',
@@ -101,19 +101,19 @@ $language = [
     'online' => 'Online',
     'offline' => 'Offline',
     'player_count' => '{x}/{y}',
-    'ping' => 'Ping: {x}',
-    'version' => 'Version: {x}',
+    'ping' => 'Ping: {{ping}}',
+    'version' => 'Version: {{version}}',
     'currently_1_player_online' => 'There is currently <strong>1</strong> player online.',
     'currently_x_players_online' => 'There are currently {{count}} players online.',
     'server_offline' => 'The server is currently offline.',
-    'connect_with_ip_x' => 'Connect now using the IP {x}',
+    'connect_with_ip_x' => 'Connect now using the IP {{address}}',
     'click_to_copy_tooltip' => 'Click to copy',
     'ip' => 'IP',
     'copied' => 'Copied!',
     'no_servers' => 'There are no servers to display!',
     'bungee_instance' => 'This server is a Bungee instance.',
     'no_players_online' => 'There are no players online.',
-    'and_x_more' => 'and {x} more',
+    'and_x_more' => 'and {{count}} more',
 
     /*
      *  Cookie notice
@@ -132,10 +132,10 @@ $language = [
     'total_posts' => 'Total Posts',
     'online_staff' => 'Online Staff',
     'no_online_staff' => 'There are no staff members online.',
-    'total_online_staff' => 'Total online staff: {x}',
+    'total_online_staff' => 'Total online staff: {{count}}',
     'online_users' => 'Online Users',
     'no_online_users' => 'There are no users online.',
-    'total_online_users' => 'Total online users: {x}',
+    'total_online_users' => 'Total online users: {{count}}',
     'discord_widget_disabled' => 'The widget is disabled for the specified Discord server. Please go to the \'Widget\' tab in your Discord server settings, and ensure the Discord widget is enabled and that the ID is correct.',
     'online_guests' => 'Online Guests',
     'total_online' => 'Total Online', // this is Online Users + Online Guests
@@ -155,5 +155,5 @@ $language = [
     /*
      * OAuth
      */
-    'oauth_message_continue' => 'Continue registering with {x}',
+    'oauth_message_continue' => 'Continue registering with {{provider}}',
 ];

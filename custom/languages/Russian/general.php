@@ -59,8 +59,8 @@ $language = [
     'report_origin' => 'Источник',
     'origin_website' => 'Сайт',
     'origin_api' => 'API',
-    'page_loaded_in' => 'Скорость загрузки страницы: {x}с',
-    'page_x' => 'Страница {x}',
+    'page_loaded_in' => 'Скорость загрузки страницы: {{time}}с',
+    'page_x' => 'Страница {{page}}',
     'browse' => 'Обзор',
     'bypass' => 'Игнор.',
     'yes' => 'Да',
@@ -100,19 +100,19 @@ $language = [
     'online' => 'Онлайн',
     'offline' => 'Оффлайн',
     'player_count' => '{x}/{y}',
-    'ping' => 'Пинг: {x}',
-    'version' => 'Версия: {x}',
+    'ping' => 'Пинг: {{ping}}',
+    'version' => 'Версия: {{version}}',
     'currently_1_player_online' => 'Сейчас <strong>1</strong> игрок онлайн.',
     'currently_x_players_online' => 'Сейчас игроков онлайн: {{count}}.',
     'server_offline' => 'Сервер выключен.',
-    'connect_with_ip_x' => 'Присоединитесь сейчас, используя IP {x}',
+    'connect_with_ip_x' => 'Присоединитесь сейчас, используя IP {{address}}',
     'click_to_copy_tooltip' => 'Нажмите, чтобы скопировать',
     'ip' => 'IP',
     'copied' => 'Скопировано!',
     'no_servers' => 'Сейчас нет серверов для отображения!',
     'bungee_instance' => 'Этот сервер построен на базе BungeeCord.',
     'no_players_online' => 'Сейчас нет игроков онлайн.',
-    'and_x_more' => 'and {x} more',
+    'and_x_more' => 'and {{count}} more',
 
     /*
      *  Cookie notice
@@ -131,10 +131,10 @@ $language = [
     'total_posts' => 'Всего постов',
     'online_staff' => 'Команда проекта онлайн',
     'no_online_staff' => 'Сейчас нет участников команды форума онлайн.',
-    'total_online_staff' => 'Участников команды онлайн: {x}',
+    'total_online_staff' => 'Участников команды онлайн: {{count}}',
     'online_users' => 'Пользователи онлайн',
     'no_online_users' => 'Сейчас нет пользователей онлайн.',
-    'total_online_users' => 'Всего пользователей онлайн: {x}',
+    'total_online_users' => 'Всего пользователей онлайн: {{count}}',
     'online_guests' => 'Онлайн гостей',
     'total_online' => 'Всего онлайн', // this is Online Users + Online Guests
     'no_default_server' => 'Нету сервера по умолчанию, сделать это можно в админ панели - Интеграции - Minecraft.',
@@ -153,5 +153,5 @@ $language = [
     /*
      * OAuth
      */
-    'oauth_message_continue' => 'Продолжить регистрироваться с {x}',
+    'oauth_message_continue' => 'Продолжить регистрироваться с {{provider}}',
 ];

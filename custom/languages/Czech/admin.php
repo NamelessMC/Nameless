@@ -360,7 +360,7 @@ $language = [
     'module_enabled' => 'Doplněk povolen.',
     'module_disabled' => 'Doplněk zakázán.',
     'author' => 'Autor:',
-    'author_x' => 'Autor: {x}',
+    'author_x' => 'Autor: {{author}}',
     'updated_x' => 'Updated at: {x}',
     'module_outdated' => 'Zjistili jsme, že tento doplněk je určen pro verzi Nameless {x}, zatímco vy používáte verzi {y}', // Don't replace "{x}" or "{y}"
     'find_modules' => 'Najít doplňky',
@@ -704,7 +704,7 @@ $language = [
     'recent_users' => 'Noví uživatelé',
     'nameless_news' => 'NamelessMC novinky',
     'unable_to_retrieve_nameless_news' => 'Nepodařilo se získat novinky',
-    'confirm_leave_site' => 'Chystáte se opustit tento web! Opravdu chcete navštívit <strong id="leaveSiteURL">{x}</strong>?', and make sure it has the id leaveSiteURL
+    'confirm_leave_site' => 'Chystáte se opustit tento web! Opravdu chcete navštívit <strong id="leaveSiteURL">{x}</strong>?',
     'server_compatibility' => 'Kompatibilita serveru',
 
     // Other
