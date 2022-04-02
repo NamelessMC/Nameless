@@ -214,6 +214,7 @@ if (Input::exists()) {
                 'email' => [
                     Validate::REQUIRED => $language->get('user', 'email_required'),
                     Validate::EMAIL => $language->get('general', 'contact_message_email'),
+                    Validate::UNIQUE => $language->get('user', 'username_mcname_email_exists')
                 ],
                 'password' => [
                     Validate::REQUIRED => $language->get('user', 'password_required'),
