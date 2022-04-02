@@ -258,7 +258,8 @@ if (isset($_GET['user'])) {
                                                         Output::getClean($query->nickname)
                                                     ],
                                                 ],
-                                                URL::build('/panel/users/punishments/', 'user=' . urlencode($query->id)));
+                                                URL::build('/panel/users/punishments/', 'user=' . urlencode($query->id))
+                                            );
                                         }
                                     }
                                 }

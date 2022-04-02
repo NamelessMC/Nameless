@@ -273,7 +273,8 @@ class Core_Module extends Module {
                                                 'footer',
                                                 $custom_page->target ? '_blank' : null,
                                                 2000,
-                                                $custom_page->icon);
+                                                $custom_page->icon
+                                            );
                                             break;
                                     }
                                 }
