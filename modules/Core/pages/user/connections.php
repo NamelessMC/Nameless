@@ -55,7 +55,7 @@ if (Input::exists()) {
 }
 
 $integrations_list = [];
-foreach (Integrations::getInstance()->getAll() as $integration) {
+foreach (Integrations::getInstance()->getEnabledIntegrations() as $integration) {
     $connected = false;
     $username = null;
     $verified = null;

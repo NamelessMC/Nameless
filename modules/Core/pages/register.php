@@ -442,13 +442,13 @@ $fields = new Fields();
 
 // Are custom usernames enabled?
 if ($custom_usernames == 'true') {
-    $fields->add('nickname', Fields::TEXT, $language->get('user', 'nickname'), $_POST['nickname'] ?? '', true);
+    $fields->add('nickname', Fields::TEXT, $language->get('user', 'nickname'), true);
 }
 
-$fields->add('username', Fields::TEXT, $language->get('user', 'username'), $_POST['username'] ?? '', true);
-$fields->add('email', Fields::EMAIL, $language->get('user', 'email_address'), $_POST['email'] ?? '', true);
-$fields->add('password', Fields::PASSWORD, $language->get('user', 'password'), '', true);
-$fields->add('password_again', Fields::PASSWORD, $language->get('user', 'confirm_password'), '', true);
+$fields->add('username', Fields::TEXT, $language->get('user', 'username'), true);
+$fields->add('email', Fields::EMAIL, $language->get('user', 'email_address'), true);
+$fields->add('password', Fields::PASSWORD, $language->get('user', 'password'), true);
+$fields->add('password_again', Fields::PASSWORD, $language->get('user', 'confirm_password'), true);
 
 // Check if any integrations have fields to add
 foreach ($integrations->getEnabledIntegrations() as $integration) {
@@ -467,8 +467,8 @@ if (count($profile_fields)) {
             $field->id,
             $field->type,
             Output::getClean($field->name),
-            $_POST[$field->id] ?? '',
             true,
+            null,
             Output::getClean($field->description) ?: Output::getClean($field->name)
         );
     }

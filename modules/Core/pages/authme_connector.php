@@ -103,26 +103,12 @@ if (Input::exists()) {
                 }
 
                 $mcname = Output::getClean($_SESSION['authme']['user']);
+                $_POST['username'] => $_SESSION['authme']['user'];
 
                 $integration = Integrations::getInstance()->getIntegration('Minecraft');
+                $integration->afterRegistrationValidation();
 
-                // Ensure username doesn't already exist
-                $integrationUser = new IntegrationUser($integration, $mcname, 'username');
-                if ($integrationUser->exists()) {
-                    $integration->addError(str_replace('{x}', $integration->getName(), $language->get('user', 'integration_username_already_linked')));
-                }
-
-                $result = $integration->getUuidByUsername($mcname);
-                if (!count($integration->getErrors())) {
-                    $uuid = $result['uuid'];
-
-                    // Ensure identifier doesn't already exist
-                    $integrationUser = new IntegrationUser($integration, $uuid, 'identifier');
-                    if ($integrationUser->exists()) {
-                        $integration->addError(str_replace('{x}', $integration->getName(), $language->get('user', 'integration_identifier_already_linked')));
-                    }
-
-                } else {
+                if (count($integration->getErrors())) {
                     $errors = $integration->getErrors();
                 }
 
@@ -148,7 +134,6 @@ if (Input::exists()) {
                             'nickname' => $nickname,
                             'password' => $_SESSION['authme']['pass'],
                             'pass_method' => $authme_hash['hash'],
-                            'uuid' => $uuid,
                             'joined' => date('U'),
                             'email' => Output::getClean(Input::get('email')),
                             'lastip' => $ip,
@@ -163,10 +148,7 @@ if (Input::exists()) {
                         $user->addGroup($default_group);
 
                         // Link the minecraft integration
-                        if ($integration != null) {
-                            $integrationUser = new IntegrationUser($integration);
-                            $integrationUser->linkIntegration($user, $uuid, $username, true);
-                        }
+                        $integration->successfulRegistration($user);
 
                         unset($_SESSION['authme']);
 

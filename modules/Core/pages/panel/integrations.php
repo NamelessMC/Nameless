@@ -50,7 +50,6 @@ if (!isset($_GET['integration'])) {
     $integration = $integrations->getIntegration($_GET['integration']);
     if ($integration == null) {
         Redirect::to(URL::build('/panel/core/integrations'));
-        die();
     }
 
     if (Input::exists()) {
@@ -65,7 +64,6 @@ if (!isset($_GET['integration'])) {
 
             Session::flash('integrations_success', $language->get('admin', 'integration_updated_successfully'));
             Redirect::to(URL::build('/panel/core/integrations/', 'integration=' . $integration->getName()));
-            die();
         } else {
             $errors[] = $language->get('general', 'invalid_token');
         }
@@ -73,9 +71,6 @@ if (!isset($_GET['integration'])) {
 
     $smarty->assign([
         'EDITING_INTEGRATION' => str_replace('{integration}', $integration->getName(), $language->get('admin', 'editing_integration_x')),
-        'ENABLED_VALUE' => $integration->data()->enabled,
-        'CAN_UNLINK_VALUE' => $integration->data()->can_unlink,
-        'REQUIRED_VALUE' => $integration->data()->required,
         'BACK' => $language->get('general', 'back'),
         'BACK_LINK' => URL::build('/panel/core/integrations'),
         'ENABLED' => $language->get('admin', 'enabled'),
