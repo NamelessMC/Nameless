@@ -11,7 +11,7 @@ $sortColumns = ['username' => 'username', 'nickname' => 'nickname', 'joined' => 
 $db = DB::getInstance();
 
 $total = $db->selectQuery('SELECT COUNT(*) as `total` FROM nl2_users', [])->first()->total;
-$query = 'SELECT nl2_users.id as id, nl2_users.username as username, nl2_users.nickname as nickname, nl2_users.joined as joined FROM nl2_users';
+$query = 'SELECT u.id, u.username, u.nickname, u.joined, u.uuid, u.gravatar, u.email, u.has_avatar, u.avatar_updated FROM nl2_users u';
 $where = '';
 $order = '';
 $limit = '';
@@ -66,14 +66,15 @@ $groups = [];
 
 if (count($results)) {
     foreach ($results as $result) {
+        $img = AvatarSource::getAvatarFromUserData($result, true, 30, true);
+
         $obj = new stdClass();
         $obj->id = $result->id;
-        $obj->username = Output::getClean($result->username);
-        $obj->nickname = Output::getClean($result->nickname);
+        $obj->username = "<img src='{$img}' style='padding-right: 5px;'>" . Output::getClean($result->username) . "</img>";
         $obj->joined = date('d M Y', $result->joined);
 
         // Get group
-        $group = DB::getInstance()->selectQuery('SELECT `name` FROM nl2_groups g JOIN nl2_users_groups ug ON g.id = ug.group_id WHERE ug.user_id = ? ORDER BY g.order ASC LIMIT 1', [$result->id]);
+        $group = DB::getInstance()->selectQuery('SELECT `name` FROM nl2_groups g JOIN nl2_users_groups ug ON g.id = ug.group_id WHERE ug.user_id = ? ORDER BY g.order LIMIT 1', [$result->id]);
         $obj->groupName = $group->first()->name;
 
         $data[] = $obj;

@@ -17,7 +17,6 @@
     <!-- Global CSS -->
     <link rel="stylesheet" href="core/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="core/assets/css/custom.css">
-    <link rel="stylesheet" href="core/assets/css/font-awesome.min.css">
 
     <style>
         html {

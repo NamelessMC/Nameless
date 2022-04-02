@@ -227,22 +227,21 @@
   }
 
   $(document).ready(function () {
-    $('td').click(function () {
-      let checkbox = $(this).find('input:checkbox');
-      let id = checkbox.attr('id');
+      $('#pages').select2({ placeholder: "{$NO_ITEM_SELECTED}" });
+      $('td').click(function () {
+          let checkbox = $(this).find('input:checkbox');
+          let id = checkbox.attr('id');
 
-      if (checkbox.is(':checked')) {
-        checkbox.prop('checked', false);
-
-        colourUpdate(document.getElementById(id));
-      } else {
-        checkbox.prop('checked', true);
-
-        colourUpdate(document.getElementById(id));
-      }
-    }).children().click(function (e) {
-      e.stopPropagation();
-    });
+          if (checkbox.is(':checked')) {
+              checkbox.prop('checked', false);
+              colourUpdate(document.getElementById(id));
+          } else {
+              checkbox.prop('checked', true);
+              colourUpdate(document.getElementById(id));
+          }
+      }).children().click(function (e) {
+          e.stopPropagation();
+      });
   });
 </script>
 

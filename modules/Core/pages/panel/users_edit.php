@@ -391,7 +391,7 @@ $smarty->assign([
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit'),
     'EDITING_USER' => str_replace('{x}', Output::getClean($user_query->nickname), $language->get('admin', 'editing_user_x')),
-    'BACK_LINK' => URL::build('/panel/users'),
+    'BACK_LINK' => URL::build('/panel/user/' . $user_query->id),
     'BACK' => $language->get('general', 'back'),
     'ACTIONS' => $language->get('general', 'actions'),
     'USER_ID' => Output::getClean($user_query->id),
