@@ -27,56 +27,51 @@
     <div class="ui centered row">
       <div class="ui sixteen wide tablet ten wide computer column">
         <form class="ui form" action="" method="post" id="form-register">
-          {if isset($NICKNAMES)}
+
+          {assign var=counter value=1}
+          {foreach $FIELDS as $field_key => $field}
             <div class="field">
-              <label>{$NICKNAME}</label>
-              <input type="text" name="{if isset($MINECRAFT)}nickname{else}username{/if}" id="username" value="{if isset($MINECRAFT)}{$NICKNAME_VALUE}{else}{$USERNAME_VALUE}{/if}" placeholder="{$NICKNAME}" tabindex="1">
+              <label>{$field.name}</label>
+              {if $field.type eq 1}
+                <input type="text" name="{$field_key}" id="{$field_key}" value="{$field.value}" placeholder="{$field.placeholder}" tabindex="{$counter++}"{if $field.required} required{/if}>
+              {else if $field.type eq 2}
+                <textarea name="{$field_key}" id="{$field_key}" placeholder="{$field.placeholder}" tabindex="{$counter++}"></textarea>
+              {else if $field.type eq 3}
+                <input type="date" name="{$field_key}" id="{$field_key}" value="{$field.value}" tabindex="{$counter++}">
+              {else if $field.type eq 4}
+                <input type="password" name="{$field_key}" id="{$field_key}" value="{$field.value}" placeholder="{$field.placeholder}" tabindex="{$counter++}"{if $field.required} required{/if}>
+              {else if $field.type eq 5}
+                <select class="ui fluid dropdown" name="{$field_key}" id="{$field_key}" {if $field.required}required{/if}>
+                  {foreach from=$field.options item=option}
+                    <option value="{$option.value}" {if $option.value eq $field.value} selected{/if}>{$option.option}</option>
+                  {/foreach}
+                </select>
+              {else if $field.type eq 6}
+                <input type="number" name="{$field_key}" id="{$field_key}" value="{$field.value}" placeholder="{$field.name}" tabindex="{$counter++}"{if $field.required} required{/if}>
+              {else if $field.type eq 7}
+                <input type="email" name="{$field_key}" id="{$field_key}" value="{$field.value}" placeholder="{$field.placeholder}" tabindex="{$counter++}"{if $field.required} required{/if}>
+              {else if $field.type eq 8}
+                {foreach from=$field.options item=option}
+                  <div class="field">
+                    <div class="ui radio checkbox" tabindex="{$counter++}">
+                      <input type="radio" name="{$field_key}" value="{$option.value}" {if $field.value eq $option.value}checked{/if} {if $field.required}required{/if}>
+                      <label>{$option.option}</label>
+                    </div>
+                  </div>
+                {/foreach}
+              {else if $field.type eq 9}
+                {foreach from=$field.options item=option}
+                  <div class="field">
+                    <div class="ui checkbox">
+                      <input type="checkbox" name="{$field_key}[]" value="{$option.value}" {if is_array($field.value) && in_array($option.value, $field.value)}checked{/if} tabindex="{$counter++}">
+                      <label>{$option.option}</label>
+                    </div>
+                  </div>
+                {/foreach}
+              {/if}
             </div>
-            {if isset($MINECRAFT)}
-              <div class="field">
-                <label>{$MINECRAFT_USERNAME}</label>
-                <input type="text" name="username" id="mcname" value="{$USERNAME_VALUE}" placeholder="{$MINECRAFT_USERNAME}" tabindex="2">
-              </div>
-            {/if}
-          {else}
-            {if isset($MINECRAFT)}
-              <div class="field">
-                <label>{$MINECRAFT_USERNAME}</label>
-                <input type="text" name="username" id="mcname" value="{$USERNAME_VALUE}" placeholder="{$MINECRAFT_USERNAME}" tabindex="1">
-              </div>
-            {else}
-              <div class="field">
-                <label>{$USERNAME}</label>
-                <input type="text" name="username" id="mcname" value="{$USERNAME_VALUE}" placeholder="{$NICKNAME}" tabindex="1">
-              </div>
-            {/if}
-          {/if}
-          <div class="field">
-            <label>{$EMAIL}</label>
-            <input type="email" name="email" id="email" value="{$EMAIL_VALUE}" placeholder="{$EMAIL}" tabindex="3">
-          </div>
-          <div class="field">
-            <label>{$PASSWORD}</label>
-            <input type="password" name="password" id="password" placeholder="{$PASSWORD}" tabindex="4" required>
-          </div>
-          <div class="field">
-            <label>{$CONFIRM_PASSWORD}</label>
-            <input type="password" name="password_again" id="password_again" placeholder="{$CONFIRM_PASSWORD}" tabindex="5" required>
-          </div>
-          {if count($CUSTOM_FIELDS)}
-            {foreach $CUSTOM_FIELDS as $field}
-              <div class="field">
-                <label>{$field.name}</label>
-                {if $field.type eq 1}
-                  <input type="text" name="{$field.id}" id="{$field.name}" value="{$field.value}" placeholder="{$field.description}" tabindex="5">
-                {elseif $field.type eq 2}
-                  <textarea name="{$field.id}" id="{$field.name}" placeholder="{$field.description}" tabindex="5"></textarea>
-                {elseif $field.type eq 3}
-                  <input type="date" name="{$field.id}" id="{$field.name}" value="{$field.value}" tabindex="5">
-                {/if}
-              </div>
-            {/foreach}
-          {/if}
+          {/foreach}
+
           {if $CAPTCHA}
             <div class="field">
               {$CAPTCHA}

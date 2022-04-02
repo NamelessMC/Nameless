@@ -50,4 +50,26 @@ class Integrations extends Instanceable {
 
         return $integrations;
     }
+
+    /**
+     * List all enabled integrations, sorted by their order.
+     *
+     * @return IntegrationBase[] List of integrations.
+     */
+    public function getEnabledIntegrations(): iterable {
+        $integrations = $this->_integrations;
+        
+        $enabled_integrations = [];
+        foreach ($integrations as $integration) {
+            if ($integration->isEnabled()) {
+                $enabled_integrations[] = $integration;
+            }
+        }
+
+        uasort($enabled_integrations, static function ($a, $b) {
+            return $a->getOrder() - $b->getOrder();
+        });
+
+        return $enabled_integrations;
+    }
 }

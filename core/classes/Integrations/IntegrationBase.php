@@ -107,4 +107,9 @@ abstract class IntegrationBase {
     abstract public function onVerifyRequest(User $user);
     abstract public function onUnlinkRequest(User $user);
     abstract public function onSuccessfulVerification(IntegrationUser $integrationUser);
+
+    abstract public function onRegistrationPageLoad(Fields $fields);
+    abstract public function beforeRegistrationValidation(Validate $validate);
+    abstract public function afterRegistrationValidation();
+    abstract public function successfulRegistration(User $user);
 }

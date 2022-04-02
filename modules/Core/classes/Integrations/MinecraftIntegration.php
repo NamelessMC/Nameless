@@ -13,6 +13,7 @@
 class MinecraftIntegration extends IntegrationBase {
 
     private Language $_language;
+    private string $_uuid;
 
     public function __construct(Language $language) {
         $this->_name = 'Minecraft';
@@ -34,13 +35,13 @@ class MinecraftIntegration extends IntegrationBase {
         }
 
         $result = $this->getUuidByUsername($username);
-        if (count($integration->getErrors())) {
+        if (count($this->getErrors())) {
             return;
         }
-        $uuid = $result['uuid'];
+        $this->_uuid = $result['uuid'];
 
         // Ensure identifier doesn't already exist
-        $integrationUser = new IntegrationUser($this, $uuid, 'identifier');
+        $integrationUser = new IntegrationUser($this, $this->_uuid, 'identifier');
         if ($integrationUser->exists()) {
             $this->addError(str_replace('{x}', $this->getName(), $this->_language->get('user', 'integration_identifier_already_linked')));
             return;
@@ -49,7 +50,7 @@ class MinecraftIntegration extends IntegrationBase {
         $code = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 10);
 
         $integrationUser = new IntegrationUser($this);
-        $integrationUser->linkIntegration($user, $uuid, $username, false, $code);
+        $integrationUser->linkIntegration($user, $this->_uuid, $username, false, $code);
 
         // API verification
         $api_verification = $queries->getWhere('settings', ['name', '=', 'api_verification']);
@@ -87,6 +88,44 @@ class MinecraftIntegration extends IntegrationBase {
     public function onSuccessfulVerification(IntegrationUser $integrationUser) {
     }
 
+    public function onRegistrationPageLoad(Fields $fields) {
+        $fields->add('username', FIELDS::TEXT, $this->_language->get('user', 'minecraft_username'), Output::getClean($_POST['username']) ?? '', true, null, null, 1);
+    }
+
+    public function beforeRegistrationValidation(Validate $validate) {
+    }
+
+    public function afterRegistrationValidation() {
+        $username = Input::get('username');
+
+        // Ensure username doesn't already exist
+        $integrationUser = new IntegrationUser($this, $username, 'username');
+        if ($integrationUser->exists()) {
+            $this->addError(str_replace('{x}', $this->getName(), $this->_language->get('user', 'integration_username_already_linked')));
+            return;
+        }
+
+        $result = $this->getUuidByUsername($username);
+        if (count($this->getErrors())) {
+            return;
+        }
+        $this->_uuid = $result['uuid'];
+
+        // Ensure identifier doesn't already exist
+        $integrationUser = new IntegrationUser($this, $this->_uuid, 'identifier');
+        if ($integrationUser->exists()) {
+            $this->addError(str_replace('{x}', $this->getName(), $this->_language->get('user', 'integration_identifier_already_linked')));
+            return;
+        }
+    }
+
+    public function successfulRegistration(User $user) {
+        $code = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 10);
+
+        $integrationUser = new IntegrationUser($this);
+        $integrationUser->linkIntegration($user, $this->_uuid, Input::get('username'), false, $code);
+    }
+
     /**
      * Get minecraft UUID by username
      *
@@ -113,8 +152,6 @@ class MinecraftIntegration extends IntegrationBase {
      * @return array
      */
     public function getOnlineModeUuid(string $username): array {
-        require_once(ROOT_PATH . '/core/integration/uuid.php'); // For UUID stuff
-
         $profile = ProfileUtils::getProfile(str_replace(' ', '%20', $username));
 
         $mcname_result = $profile ? $profile->getProfileAsArray() : [];

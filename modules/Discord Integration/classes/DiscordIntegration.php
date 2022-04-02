@@ -55,4 +55,16 @@ class DiscordIntegration extends IntegrationBase {
         
         Discord::updateDiscordRoles($user, $user->getAllGroupIds(), []);
     }
+    
+    public function onRegistrationPageLoad(Fields $fields) {
+    }
+
+    public function beforeRegistrationValidation(Validate $validate) {
+    }
+
+    public function afterRegistrationValidation() {
+    }
+
+    public function successfulRegistration(User $user) {
+    }
 }
