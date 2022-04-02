@@ -152,5 +152,5 @@ $language = [
     /*
      * OAuth
      */
-    'oauth_message_continue' => 'Pokračovať v registrácii s {x}',
+    'oauth_message_continue' => 'Pokračovať v registrácii s {{provider}}',
 ];

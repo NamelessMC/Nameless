@@ -89,7 +89,7 @@ $language = [
     'debugging_and_maintenance' => 'メンテナンス',
     'maintenance' => 'メンテナンス',
     'debug_link' => 'デバッグリンク',
-    'debug_link_toastr' => 'デバッグリンクをクリップボードに貼り付けました！<br>デバッグログは<u><a href="{x}" target="_blank">こちら</a></u>からご覧ください。', // Don't replace "{x}"
+    'debug_link_toastr' => 'デバッグリンクをクリップボードに貼り付けました！<br>デバッグログは<u><a href="{x}" target="_blank">こちら</a></u>からご覧ください。',
     'debugging_settings_updated_successfully' => 'デバッグ設定の更新に成功しました。',
     'enable_debug_mode' => 'デバッグモードを有効にしますか？',
     'force_https' => 'httpsを強制させますか？',
@@ -367,7 +367,7 @@ $language = [
     'author' => '作成者:',
     'author_x' => '作成者: {{author}}',
     'updated_x' => '更新日時: {{updatedAt}}',
-    'module_outdated' => 'このモジュールは、NamelessMCバージョン{x}を対象としています。現在、NamelessMCバージョン {y}を実行しています。', // Don't replace "{x}" or "{y}"
+    'module_outdated' => 'このモジュールは、NamelessMCバージョン{x}を対象としています。現在、NamelessMCバージョン {y}を実行しています。',
     'find_modules' => 'モジュール検索',
     'view_all_modules' => 'すべてのモジュールを見る',
     'unable_to_retrieve_modules' => 'モジュールを取得できませんでした。',

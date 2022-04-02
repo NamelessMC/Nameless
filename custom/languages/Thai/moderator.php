@@ -26,10 +26,10 @@ $language = [
     'search_for_ip' => 'ค้นหาชื่อผู้ใช้หรือที่อยู่ IP',
     'no_ips_with_username' => 'ไม่พบที่อยู่ IP สำหรับผู้ใช้รายนั้น',
     'no_accounts_with_that_ip' => 'ไม่พบบัญชีสำหรับที่อยู่ IP นั้น',
-    '1_account_with_ip' => 'พบ 1 บัญชีที่มี IP {{address}}', // Don't replace "{y}"
-    'count_accounts_with_ip' => 'พบ {{count}} บัญชีที่มี IP {{address}}', // Don't replace "{x}" or "{y}"
-    '1_ip_with_name' => 'พบ 1 IP address สำหรับผู้ใช้ {{user}}', // Don't replace "{y}"
-    'count_ips_with_name' => 'พบ {{count}} ที่อยู่ IP สำหรับผู้ใช้ {{user}}', // Don't replace "{x}" or "{y}"
+    '1_account_with_ip' => 'พบ 1 บัญชีที่มี IP {{address}}',
+    'count_accounts_with_ip' => 'พบ {{count}} บัญชีที่มี IP {{address}}',
+    '1_ip_with_name' => 'พบ 1 IP address สำหรับผู้ใช้ {{user}}',
+    'count_ips_with_name' => 'พบ {{count}} ที่อยู่ IP สำหรับผู้ใช้ {{user}}',
     'no_users_or_ips_found' => 'ไม่พบผู้ใช้หรือที่อยู่ IP',
 
     // Reports

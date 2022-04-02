@@ -25,10 +25,10 @@ $language = [
     'search_for_ip' => 'Søg efter brugernavn eller IP-adresse',
     'no_ips_with_username' => 'Ingen IP-adresser for den pågældende bruger blev fundet.',
     'no_accounts_with_that_ip' => 'Ingen konti for denne IP-adresse fundet.',
-    '1_account_with_ip' => 'Fandt 1 konto med IP {{address}}', // Don't replace "{y}"
-    'count_accounts_with_ip' => 'Fandt {{count}} konti med IP {{address}}', // Don't replace "{x}" or "{y}"
-    '1_ip_with_name' => 'Fandt 1 IP-adresse for bruger {{user}}', // Don't replace "{y}"
-    'count_ips_with_name' => 'Fandt {{count}} IP-adresser for bruger {{user}}', // Don't replace "{x}" or "{y}"
+    '1_account_with_ip' => 'Fandt 1 konto med IP {{address}}',
+    'count_accounts_with_ip' => 'Fandt {{count}} konti med IP {{address}}',
+    '1_ip_with_name' => 'Fandt 1 IP-adresse for bruger {{user}}',
+    'count_ips_with_name' => 'Fandt {{count}} IP-adresser for bruger {{user}}',
     'no_users_or_ips_found' => 'Ingen brugere eller IP-adresser fundet.',
 
     // Reports

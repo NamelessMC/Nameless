@@ -28,11 +28,11 @@ $language = [
     'search_for_ip' => 'Căutați un nume de utilizator sau o adresă IP:',
     'no_ips_with_username' => 'Nu a fost găsită nici o adresă IP pentru acest utilizator.',
     'no_accounts_with_that_ip' => 'Nu a fost găsit nici un cont de utilizator pentru această adresă IP.',
-    'count_accounts_with_ip' => 'Am găsit {{count}} conturi de utilizatori pentru adresa IP {{address}}', // Don't replace "{x}" or "{y}"
-    'count_ips_with_name' => 'Am găsit {{count}} adrese IP pentru utilizatorul {{user}}', // Don't replace "{x}" or "{y}"
+    'count_accounts_with_ip' => 'Am găsit {{count}} conturi de utilizatori pentru adresa IP {{address}}',
+    'count_ips_with_name' => 'Am găsit {{count}} adrese IP pentru utilizatorul {{user}}',
     'no_users_or_ips_found' => 'Nu a fost găsit nici un cont de utilizator sau adresă IP.',
-    '1_account_with_ip' => 'Am găsit un cont de utilizatori pentru adresa IP {{address}}', // Don't replace "{y}"
-    '1_ip_with_name' => 'Am găsit o adresă IP pentru utilizatorul {{user}}', // Don't replace "{y}"
+    '1_account_with_ip' => 'Am găsit un cont de utilizatori pentru adresa IP {{address}}',
+    '1_ip_with_name' => 'Am găsit o adresă IP pentru utilizatorul {{user}}',
 
     // Reports
     'reports' => 'Rapoarte',

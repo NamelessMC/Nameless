@@ -26,10 +26,10 @@ $language = [
     'search_for_ip' => 'Cerca un nome utente o un indirizzo IP',
     'no_ips_with_username' => "Nessun indirizzo IP trovato per quell'utente.",
     'no_accounts_with_that_ip' => "Nessun account trovato per quell'indirizzo IP.",
-    '1_account_with_ip' => "Trovato 1 account con l'IP {{address}}", // Don't replace "{y}"
-    'count_accounts_with_ip' => "Trovati {{count}} account con l'IP {{address}}", // Don't replace "{x}" or "{y}"
-    '1_ip_with_name' => "Trovato 1 indirizzo IP per l'utente {{user}}", // Don't replace "{y}"
-    'count_ips_with_name' => "Trovati {{count}} indirizzi IP per l'utente {{user}}", // Don't replace "{x}" or "{y}"
+    '1_account_with_ip' => "Trovato 1 account con l'IP {{address}}",
+    'count_accounts_with_ip' => "Trovati {{count}} account con l'IP {{address}}",
+    '1_ip_with_name' => "Trovato 1 indirizzo IP per l'utente {{user}}",
+    'count_ips_with_name' => "Trovati {{count}} indirizzi IP per l'utente {{user}}",
     'no_users_or_ips_found' => 'Nessun utente o indirizzo IP trovato.',
 
     // Reports

@@ -26,10 +26,10 @@ $language = [
     'search_for_ip' => 'Поиск имени пользователя или IP-адреса',
     'no_ips_with_username' => 'IP-адреса для этого пользователя не найдены.',
     'no_accounts_with_that_ip' => 'Никаких учетных записей для этого IP-адреса не найдено.',
-    '1_account_with_ip' => 'Найден 1 аккаунт с IP {{address}}', // Don't replace "{y}"
-    'count_accounts_with_ip' => 'Найдено {{count}} аккаунтов с IP {{address}}', // Don't replace "{x}" or "{y}"
-    '1_ip_with_name' => 'Найден 1 IP-адрес у пользователя {{user}}', // Don't replace "{y}"
-    'count_ips_with_name' => 'Найдено {{count}} IP-адресов у пользователя {{user}}', // Don't replace "{x}" or "{y}"
+    '1_account_with_ip' => 'Найден 1 аккаунт с IP {{address}}',
+    'count_accounts_with_ip' => 'Найдено {{count}} аккаунтов с IP {{address}}',
+    '1_ip_with_name' => 'Найден 1 IP-адрес у пользователя {{user}}',
+    'count_ips_with_name' => 'Найдено {{count}} IP-адресов у пользователя {{user}}',
     'no_users_or_ips_found' => 'Ни пользователей, ни IP-адресов не найдено.',
 
     // Reports

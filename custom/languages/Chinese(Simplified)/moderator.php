@@ -28,10 +28,10 @@ $language = [
     'search_for_ip' => '搜索用户名或 IP 地址',
     'no_ips_with_username' => '找不到该账号的 IP 地址。',
     'no_accounts_with_that_ip' => '找不到该 IP 地址的帐号。',
-    '1_account_with_ip' => '找到 IP 地址为 {{address}} 的 1 个账号', // Don't replace "{y}"
-    'count_accounts_with_ip' => '找到 IP 为 {{address}} 的 {{count}} 个账号', // Don't replace "{x}" or "{y}"
-    '1_ip_with_name' => '找到账号 {{user}} 的 1 个 IP', // Don't replace "{y}"
-    'count_ips_with_name' => '找到账号 {{user}} 的 {{count}} 个 IP', // Don't replace "{x}" or "{y}"
+    '1_account_with_ip' => '找到 IP 地址为 {{address}} 的 1 个账号',
+    'count_accounts_with_ip' => '找到 IP 为 {{address}} 的 {{count}} 个账号',
+    '1_ip_with_name' => '找到账号 {{user}} 的 1 个 IP',
+    'count_ips_with_name' => '找到账号 {{user}} 的 {{count}} 个 IP',
     'no_users_or_ips_found' => '没有账号或IP被找到。',
 
     // Reports

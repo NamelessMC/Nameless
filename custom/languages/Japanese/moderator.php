@@ -30,10 +30,10 @@ $language = [
     'search_for_ip' => 'ユーザー名またはIPアドレスを検索する:',
     'no_ips_with_username' => '指定したユーザーのIPアドレスは見つかりませんでした。',
     'no_accounts_with_that_ip' => '指定したIPアドレスのアカウントは見つかりませんでした。',
-    '1_account_with_ip' => '{{address}} のアカウントが1件見つかりました。', // Don't replace "{y}"
-    'count_accounts_with_ip' => '{{address}} のアカウントが {{count}} 件見つかりました。', // Don't replace "{x}" or "{y}"
-    '1_ip_with_name' => '{{user}} のIPアドレスが1件見つかりました。', // Don't replace "{y}"
-    'count_ips_with_name' => '{{user}} のIPアドレスが {{count}} 件見つかりました。', // Don't replace "{x}" or "{y}"
+    '1_account_with_ip' => '{{address}} のアカウントが1件見つかりました。',
+    'count_accounts_with_ip' => '{{address}} のアカウントが {{count}} 件見つかりました。',
+    '1_ip_with_name' => '{{user}} のIPアドレスが1件見つかりました。',
+    'count_ips_with_name' => '{{user}} のIPアドレスが {{count}} 件見つかりました。',
     'no_users_or_ips_found' => 'ユーザーまたはIPアドレスが見つかりません。',
 
     // Reports

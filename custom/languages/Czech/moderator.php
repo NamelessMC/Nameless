@@ -26,10 +26,10 @@ $language = [
     'search_for_ip' => 'Hledat uživatelské jméno nebo IP adresu',
     'no_ips_with_username' => 'U tohoto uživatele nebyly nalezeny žádné IP adresy.',
     'no_accounts_with_that_ip' => 'U této IP adresy nebyly nalezeny žádné účty.',
-    '1_account_with_ip' => 'Byl nalezen 1 účet s IP adresou {{address}}', // Don't replace "{y}"
-    'count_accounts_with_ip' => 'Bylo nalezeno {{count}} účtů s IP adresou {{address}}', // Don't replace "{x}" "{y}"
-    '1_ip_with_name' => 'U uživatele {{user}} byla nalezena 1 IP adresa', // Don't replace "{y}"
-    'count_ips_with_name' => 'U uživatele {{user}} bylo nalezeno {{count}} IP adres', // Don't replace "{x}" "{y}"
+    '1_account_with_ip' => 'Byl nalezen 1 účet s IP adresou {{address}}',
+    'count_accounts_with_ip' => 'Bylo nalezeno {{count}} účtů s IP adresou {{address}}',
+    '1_ip_with_name' => 'U uživatele {{user}} byla nalezena 1 IP adresa',
+    'count_ips_with_name' => 'U uživatele {{user}} bylo nalezeno {{count}} IP adres',
     'no_users_or_ips_found' => 'Nebyly nalezeny žádné IP adresy ani uživatelé.',
 
     // Reports

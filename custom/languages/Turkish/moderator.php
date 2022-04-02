@@ -26,10 +26,10 @@ $language = [
     'search_for_ip' => 'Bir kullanıcı adı veya IP adresi arayın',
     'no_ips_with_username' => 'Bu kullanıcı için IP adresi bulunamadı.',
     'no_accounts_with_that_ip' => 'Bu IP adresi için hesap bulunamadı.',
-    '1_account_with_ip' => 'IP {{address}} ile 1 hesap bulundu', // Don't replace "{y}"
-    'count_accounts_with_ip' => 'IP ile {{count}} hesap bulundu {{address}}', // Don't replace "{x}" or "{y}"
-    '1_ip_with_name' => '{{user}} kullanıcısı için 1 IP adresi bulundu', // Don't replace "{y}"
-    'count_ips_with_name' => '{{user}} kullanıcısı için {{count}} IP adresi bulundu', // Don't replace "{x}" or "{y}"
+    '1_account_with_ip' => 'IP {{address}} ile 1 hesap bulundu',
+    'count_accounts_with_ip' => 'IP ile {{count}} hesap bulundu {{address}}',
+    '1_ip_with_name' => '{{user}} kullanıcısı için 1 IP adresi bulundu',
+    'count_ips_with_name' => '{{user}} kullanıcısı için {{count}} IP adresi bulundu',
     'no_users_or_ips_found' => 'Kullanıcı veya IP adresi bulunamadı.',
 
     // Reports

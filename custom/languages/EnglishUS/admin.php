@@ -84,7 +84,7 @@ $language = [
     'debugging_and_maintenance' => 'Debugging & Maintenance',
     'maintenance' => 'Maintenance',
     'debug_link' => 'Debug Link',
-    'debug_link_toastr' => 'Copied debug link to your clipboard!<br>View the debug log <u><a href="{x}" target="_blank">here</a></u>', // Don't replace "{x}"
+    'debug_link_toastr' => 'Copied debug link to your clipboard!<br>View the debug log <u><a href="{x}" target="_blank">here</a></u>',
     'debugging_settings_updated_successfully' => 'Debugging settings updated successfully.',
     'enable_debug_mode' => 'Enable debug mode?',
     'force_https' => 'Force https?',
@@ -362,7 +362,7 @@ $language = [
     'author' => 'Author:',
     'author_x' => 'Author: {{author}}',
     'updated_x' => 'Updated at: {{updatedAt}}',
-    'module_outdated' => 'We have detected that this module is intended for Nameless version {x}, but you are running Nameless version {y}', // Don't replace "{x}" or "{y}"
+    'module_outdated' => 'We have detected that this module is intended for Nameless version {x}, but you are running Nameless version {y}',
     'find_modules' => 'Find Modules',
     'view_all_modules' => 'View all modules',
     'unable_to_retrieve_modules' => 'Unable to retrieve modules',

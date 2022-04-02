@@ -85,7 +85,7 @@ $language = [
     'debugging_and_maintenance' => 'Отладка & Режим обслуживания',
     'maintenance' => 'Отладка',
     'debug_link' => 'Ссылка на отладочную страницу',
-    'debug_link_toastr' => 'Отладочная страница скопирована в буфер обмена!<br>Открыть журнал можете <u><a href="{x}" target="_blank">здесь</a></u>', // Don't replace "{x}"
+    'debug_link_toastr' => 'Отладочная страница скопирована в буфер обмена!<br>Открыть журнал можете <u><a href="{x}" target="_blank">здесь</a></u>',
     'debugging_settings_updated_successfully' => 'Параметры отладки успешно обновлены.',
     'enable_debug_mode' => 'Включить режим отладки?',
     'force_https' => 'Использовать https?',
@@ -363,7 +363,7 @@ $language = [
     'author' => 'Автор:',
     'author_x' => 'Автор: {{author}}',
     'updated_x' => 'Обновлено: {{updatedAt}}',
-    'module_outdated' => 'Мы обнаружили, что этот модуль предназначен для Nameless версии {x}, но вы используете Nameless версии {y}', // Don't replace "{x}" or "{y}"
+    'module_outdated' => 'Мы обнаружили, что этот модуль предназначен для Nameless версии {x}, но вы используете Nameless версии {y}',
     'find_modules' => 'Поиск модулей',
     'view_all_modules' => 'Посмотреть все модули',
     'unable_to_retrieve_modules' => 'Невозможно получить модули',

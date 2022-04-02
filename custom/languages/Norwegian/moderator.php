@@ -26,10 +26,10 @@ $language = [
     'search_for_ip' => 'Søk etter en bruker eller IP-adresse:',
     'no_ips_with_username' => 'IP-adresse for denne spilleren ble ikke funnet.',
     'no_accounts_with_that_ip' => 'IP-adresse for denne brukeren ble ikke funnet.',
-    '1_account_with_ip' => 'Fant 1 bruker med IP {{address}}', // Don't replace "{y}"
-    'count_accounts_with_ip' => 'Fant {{count}} brukere med IP-en {{address}}', // Don't replace "{x}" or "{y}"
-    '1_ip_with_name' => 'Fant 1 IP-adresse for brukeren {{user}}', // Don't replace "{y}"
-    'count_ips_with_name' => 'Fant {{count}} IP-adresser for bruker {{user}}', // Don't replace "{x}" or "{y}"
+    '1_account_with_ip' => 'Fant 1 bruker med IP {{address}}',
+    'count_accounts_with_ip' => 'Fant {{count}} brukere med IP-en {{address}}',
+    '1_ip_with_name' => 'Fant 1 IP-adresse for brukeren {{user}}',
+    'count_ips_with_name' => 'Fant {{count}} IP-adresser for bruker {{user}}',
     'no_users_or_ips_found' => 'Spillerens IP-adresse ble ikke funnet.',
 
     // Reports

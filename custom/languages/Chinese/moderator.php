@@ -30,10 +30,10 @@ $language = [
     'search_for_ip' => '使用IP查詢:',
     'no_ips_with_username' => '使用者找不到IP位置.',
     'no_accounts_with_that_ip' => '在IP位置中沒有找到資料.',
-    '1_account_with_ip' => 'Found 1 account with the IP {{address}}', // Don't replace "{y}"
-    'count_accounts_with_ip' => '找到 {{count}} 個來自IP {{address}} 的使用者', // Don't replace "{x}" or "{y}"
-    '1_ip_with_name' => 'Found 1 IP address for user {{user}}', // Don't replace "{y}"
-    'count_ips_with_name' => '在 {{user}} 紀錄中找到 {{count}} 個IP位置', // Don't replace "{x}" or "{y}"
+    '1_account_with_ip' => 'Found 1 account with the IP {{address}}',
+    'count_accounts_with_ip' => '找到 {{count}} 個來自IP {{address}} 的使用者',
+    '1_ip_with_name' => 'Found 1 IP address for user {{user}}',
+    'count_ips_with_name' => '在 {{user}} 紀錄中找到 {{count}} 個IP位置',
     'no_users_or_ips_found' => '沒有使用者或IP位置記錄.',
 
     // Reports

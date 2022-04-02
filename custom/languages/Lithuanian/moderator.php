@@ -28,10 +28,10 @@ $language = [
     'search_for_ip' => 'Ieškoti vartotojo vardo arba IP adreso:',
     'no_ips_with_username' => 'Nerasta jokių to adreso IP adresų.',
     'no_accounts_with_that_ip' => 'Neatsirado šio IP adreso paskyrų.',
-    '1_account_with_ip' => 'Rasta 1 paskyra su IP {{address}}', // Don't replace "{y}"
-    'count_accounts_with_ip' => 'Rasta {{count}} paskyrų su IP {{address}}', // Don't replace "{x}" or "{y}"
-    '1_ip_with_name' => 'Rastas 1 IP adresas vartotojui {{user}}', // Don't replace "{y}"
-    'count_ips_with_name' => 'Rasti {{count}} IP adresas(-ai) vartotojui {{user}}', // Don't replace "{x}" or "{y}"
+    '1_account_with_ip' => 'Rasta 1 paskyra su IP {{address}}',
+    'count_accounts_with_ip' => 'Rasta {{count}} paskyrų su IP {{address}}',
+    '1_ip_with_name' => 'Rastas 1 IP adresas vartotojui {{user}}',
+    'count_ips_with_name' => 'Rasti {{count}} IP adresas(-ai) vartotojui {{user}}',
     'no_users_or_ips_found' => 'Nerasta jokių vartotojų ar IP adresų.',
 
     // Reports

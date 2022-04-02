@@ -84,7 +84,7 @@ $language = [
     'debugging_and_maintenance' => 'Ladenie a údržba',
     'maintenance' => 'Údržba',
     'debug_link' => 'Odkaz ladenia',
-    'debug_link_toastr' => 'Odkaz ladenia bol skopírovaný do vašej schránky!<br>Zobraziť zaznám ladenia <u><a href="{x}" target="_blank">tu</a></u>', // Don't replace "{x}"
+    'debug_link_toastr' => 'Odkaz ladenia bol skopírovaný do vašej schránky!<br>Zobraziť zaznám ladenia <u><a href="{x}" target="_blank">tu</a></u>',
     'debugging_settings_updated_successfully' => 'Nastavenia ladenia sa úspešne aktualizovali.',
     'enable_debug_mode' => 'Povoliť debug mód?',
     'force_https' => 'Vynútiť https?',
@@ -362,7 +362,7 @@ $language = [
     'author' => 'Autor:',
     'author_x' => 'Autor: {{author}}',
     'updated_x' => 'Aktualizované: {{updatedAt}}',
-    'module_outdated' => 'Zistili sme, že tento modul je určený pre Nameless verziu {x}, ale používate Nameless verziu {y}', // Don't replace "{x}" or "{y}"
+    'module_outdated' => 'Zistili sme, že tento modul je určený pre Nameless verziu {x}, ale používate Nameless verziu {y}',
     'find_modules' => 'Nájsť moduly',
     'view_all_modules' => 'Zobraziť všetky moduly',
     'unable_to_retrieve_modules' => 'Nepodarilo sa načítať moduly',
