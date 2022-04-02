@@ -254,7 +254,7 @@ if (!isset($_GET['id'])) {
             'REPORT_DATE_FRIENDLY' => ($report->reported ? $timeago->inWords(date('Y-m-d H:i:s', $report->reported), $language->getTimeLanguage()) : $timeago->inWords($report->date_reported, $language->getTimeLanguage())),
             'CONTENT_LINK' => $report->link,
             'VIEW_CONTENT' => $language->get('moderator', 'view_content'),
-            'REPORT_CONTENT' => Output::getPurified(Output::getDecoded($report->report_reason)),
+            'REPORT_CONTENT' => Output::getPurified($report->report_reason),
             'REPORTER_USER' => $reporter_user->getDisplayname(),
             'REPORTER_USER_PROFILE' => URL::build('/panel/user/' . urlencode($report->reporter_id . '-' . $reporter_user->data()->username)),
             'REPORTER_USER_STYLE' => $reporter_user->getGroupClass(),

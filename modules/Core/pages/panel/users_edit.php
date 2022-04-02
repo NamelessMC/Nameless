@@ -375,7 +375,7 @@ foreach ($groups as $group) {
     }
 }
 
-$signature = Output::getPurified(Output::getDecoded($user_query->signature));
+$signature = Output::getPurified($user_query->signature);
 
 $user_groups = [];
 foreach ($view_user->getAllGroupIds() as $group_id) {

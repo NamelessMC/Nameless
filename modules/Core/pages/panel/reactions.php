@@ -264,7 +264,7 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                     // Update database
                     $queries->update('reactions', $_GET['id'], [
                         'name' => Output::getClean(Input::get('name')),
-                        'html' => Output::getPurified(Output::getDecoded(Input::get('html'))),
+                        'html' => Output::getPurified(Input::get('html')),
                         'type' => $type,
                         'enabled' => $enabled
                     ]);

@@ -244,11 +244,8 @@ $smarty->assign([
     'CANCEL' => $language->get('general', 'cancel'),
     'CANCEL_LINK' => URL::build('/forum/topic/' . urlencode($topic_id), 'pid=' . urlencode($post_id)),
     'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
-    'CONTENT' => Output::getPurified(Output::getDecoded($post_editing[0]->post_content))
+    'CONTENT' => Output::getPurified($post_editing[0]->post_content)
 ]);
-
-$clean = Output::getDecoded($post_editing[0]->post_content);
-$clean = Output::getPurified($clean);
 
 $template->addJSFiles([
     (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],

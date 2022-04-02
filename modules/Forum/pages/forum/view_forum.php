@@ -235,12 +235,12 @@ if ($forum_query->redirect_forum == 1) {
 
                 $subforum_array[] = [
                     'id' => $subforum->id,
-                    'title' => Output::getPurified(Output::getDecoded($subforum->forum_title)),
-                    'description' => Output::getPurified(Output::getDecoded($subforum->forum_description)),
+                    'title' => Output::getPurified($subforum->forum_title),
+                    'description' => Output::getPurified($subforum->forum_description),
                     'topics' => $subforum_topics,
                     'link' => URL::build('/forum/view/' . urlencode($subforum->id) . '-' . $forum->titleToURL($subforum->forum_title)),
                     'latest_post' => $latest_post,
-                    'icon' => Output::getPurified(Output::getDecoded($subforum->icon)),
+                    'icon' => Output::getPurified($subforum->icon),
                     'redirect' => $subforum->redirect_forum
                 ];
             }
