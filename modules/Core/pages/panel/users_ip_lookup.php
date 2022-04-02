@@ -41,7 +41,7 @@ if (isset($_GET['uid'])) {
         foreach ($user_ips as $account) {
             $accounts[] = [
                 'ip' => Output::getClean($account->ip),
-                'link' => URL::build('/panel/users/ip_lookup/', 'ip=' . Output::getClean($account->ip))
+                'link' => URL::build('/panel/users/ip_lookup/', 'ip=' . urlencode($account->ip))
             ];
         }
 
@@ -84,8 +84,8 @@ if (isset($_GET['uid'])) {
                     $accounts[] = [
                         'username' => Output::getClean($username[0]->username),
                         'nickname' => Output::getClean($username[0]->nickname),
-                        'profile' => URL::build('/panel/user/' . Output::getClean($username[0]->id . '-' . $username[0]->username)),
-                        'account_ips' => URL::build('/panel/users/ip_lookup/', 'uid=' . $account->user_id),
+                        'profile' => URL::build('/panel/user/' . urlencode($username[0]->id . '-' . $username[0]->username)),
+                        'account_ips' => URL::build('/panel/users/ip_lookup/', 'uid=' . urlencode($account->user_id)),
                         'style' => $user->getGroupClass()
                     ];
                 }
@@ -120,14 +120,14 @@ if (isset($_GET['uid'])) {
                 }
 
                 if (count($query)) {
-                    Redirect::to(URL::build('/panel/users/ip_lookup/', 'uid=' . Output::getClean($query[0]->id)));
+                    Redirect::to(URL::build('/panel/users/ip_lookup/', 'uid=' . urlencode($query[0]->id)));
                 }
 
                 // Try searching IPs
                 $query = $queries->getWhere('users_ips', ['ip', '=', Output::getClean(Input::get('search'))]);
 
                 if (count($query)) {
-                    Redirect::to(URL::build('/panel/users/ip_lookup/', 'ip=' . Output::getClean(Input::get('search'))));
+                    Redirect::to(URL::build('/panel/users/ip_lookup/', 'ip=' . urlencode(Input::get('search'))));
                 }
 
                 $errors = [$language->get('moderator', 'no_users_or_ips_found')];

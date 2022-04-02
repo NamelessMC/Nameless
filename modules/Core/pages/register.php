@@ -406,7 +406,7 @@ if (Input::exists()) {
                                 'uuid' => $uuid,
                                 'content' => str_replace('{x}', Input::get('username'), $language->get('user', 'user_x_has_registered')),
                                 'avatar_url' => $user->getAvatar(128, true),
-                                'url' => Util::getSelfURL() . ltrim(URL::build('/profile/' . Input::get('username')), '/'),
+                                'url' => Util::getSelfURL() . ltrim(URL::build('/profile/' . urlencode(Input::get('username'))), '/'),
                                 'language' => $language
                             ]);
 
@@ -417,7 +417,7 @@ if (Input::exists()) {
                             } else {
                                 if ($api_verification != '1') {
                                     // Redirect straight to verification link
-                                    $url = URL::build('/validate/', 'c=' . $code);
+                                    $url = URL::build('/validate/', 'c=' . urlencode($code));
                                     Redirect::to($url);
                                 }
                             }

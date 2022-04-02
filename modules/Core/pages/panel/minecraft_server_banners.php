@@ -34,8 +34,8 @@ if (!isset($_GET['server']) && !isset($_GET['edit'])) {
         foreach ($servers as $server) {
             $template_array[] = [
                 'name' => Output::getClean($server->name),
-                'edit_link' => URL::build('/panel/minecraft/banners/', 'edit=' . Output::getClean($server->id)),
-                'view_link' => URL::build('/panel/minecraft/banners/', 'server=' . Output::getClean($server->id))
+                'edit_link' => URL::build('/panel/minecraft/banners/', 'edit=' . urlencode($server->id)),
+                'view_link' => URL::build('/panel/minecraft/banners/', 'server=' . urlencode($server->id))
             ];
         }
 

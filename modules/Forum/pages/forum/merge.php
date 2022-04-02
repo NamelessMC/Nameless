@@ -51,7 +51,7 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
                 $forum->updateForumLatestPosts();
                 $forum->updateTopicLatestPosts();
 
-                Redirect::to(URL::build('/forum/topic/' . Input::get('merge')));
+                Redirect::to(URL::build('/forum/topic/' . urlencode(Input::get('merge'))));
 
             } else {
                 echo 'Error processing that action. <a href="' . URL::build('/forum') . '">Forum index</a>';
@@ -76,7 +76,7 @@ $smarty->assign([
     'SUBMIT' => $language->get('general', 'submit'),
     'CANCEL' => $language->get('general', 'cancel'),
     'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
-    'CANCEL_LINK' => URL::build('/forum/topic/' . Output::getClean($topic_id)),
+    'CANCEL_LINK' => URL::build('/forum/topic/' . urlencode($topic_id)),
     'TOPICS' => $topics
 ]);
 

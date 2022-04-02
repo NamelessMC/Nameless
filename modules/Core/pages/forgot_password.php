@@ -33,7 +33,7 @@ if (!isset($_GET['c'])) {
                     $code = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 60);
 
                     // Send an email
-                    $link = rtrim(Util::getSelfURL(), '/') . URL::build('/forgot_password/', 'c=' . $code);
+                    $link = rtrim(Util::getSelfURL(), '/') . URL::build('/forgot_password/', 'c=' . urlencode($code));
 
                     $sent = Email::send(
                         ['email' => Output::getClean($target_user->data()->email), 'name' => $target_user->getDisplayname()],

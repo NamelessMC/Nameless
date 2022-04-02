@@ -70,7 +70,7 @@ $smarty->assign([
     'SUBMIT' => $language->get('general', 'submit'),
     'EDITING_USER' => str_replace('{x}', Output::getClean($user_query->nickname), $language->get('admin', 'editing_user_x')),
     'USER_ID' => $user_query->id,
-    'BACK_LINK' => URL::build('/panel/user/' . $user_query),
+    'BACK_LINK' => URL::build('/panel/user/' . urlencode($user_query)),
     'BACK' => $language->get('general', 'back'),
     'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
     'ARE_YOU_SURE_MESSAGE' => $language->get('admin', 'unlink_account_confirm'),

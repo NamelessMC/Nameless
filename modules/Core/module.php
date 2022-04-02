@@ -172,15 +172,38 @@ class Core_Module extends Module {
                                         switch ($custom_page->link_location) {
                                             case 1:
                                                 // Navbar
-                                                $navigation->add($custom_page->id, Output::getClean($custom_page->title), (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'top', $custom_page->target ? '_blank' : null, $page_order, $custom_page->icon);
+                                                $navigation->add(
+                                                    $custom_page->id,
+                                                    Output::getClean($custom_page->title),
+                                                    (is_null($redirect)) ? URL::build(urlencode($custom_page->url)) : $redirect,
+                                                    'top',
+                                                    $custom_page->target ? '_blank' : null,
+                                                    $page_order,
+                                                    $custom_page->icon
+                                                );
                                                 break;
                                             case 2:
                                                 // "More" dropdown
-                                                $more[] = ['id' => $custom_page->id, 'title' => Output::getClean($custom_page->title), 'url' => (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'redirect' => $redirect, 'target' => $custom_page->target, 'icon' => $custom_page->icon, 'order' => $page_order];
+                                                $more[] = [
+                                                    'id' => $custom_page->id,
+                                                    'title' => Output::getClean($custom_page->title),
+                                                    'url' => is_null($redirect) ? URL::build(urlencode($custom_page->url)) : $redirect,
+                                                    'redirect' => $redirect,
+                                                    'target' => $custom_page->target,
+                                                    'icon' => $custom_page->icon,
+                                                    'order' => $page_order
+                                                ];
                                                 break;
                                             case 3:
                                                 // Footer
-                                                $navigation->add($custom_page->id, Output::getClean($custom_page->title), (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'footer', $custom_page->target ? '_blank' : null, 2000, $custom_page->icon);
+                                                $navigation->add(
+                                                    $custom_page->id,
+                                                    Output::getClean($custom_page->title),
+                                                    (is_null($redirect)) ? URL::build(urlencode($custom_page->url)) : $redirect,
+                                                    'footer', $custom_page->target ? '_blank' : null,
+                                                    2000,
+                                                    $custom_page->icon
+                                                );
                                                 break;
                                         }
                                         break 2;
@@ -219,15 +242,38 @@ class Core_Module extends Module {
                                     switch ($custom_page->link_location) {
                                         case 1:
                                             // Navbar
-                                            $navigation->add($custom_page->id, Output::getClean($custom_page->title), (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'top', $custom_page->target ? '_blank' : null, $page_order, $custom_page->icon);
+                                            $navigation->add(
+                                                $custom_page->id,
+                                                Output::getClean($custom_page->title),
+                                                is_null($redirect) ? URL::build(urlencode($custom_page->url)) : $redirect,
+                                                'top',
+                                                $custom_page->target ? '_blank' : null,
+                                                $page_order,
+                                                $custom_page->icon
+                                            );
                                             break;
                                         case 2:
                                             // "More" dropdown
-                                            $more[] = ['id' => $custom_page->id, 'title' => Output::getClean($custom_page->title), 'url' => (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'redirect' => $redirect, 'target' => $custom_page->target, 'icon' => $custom_page->icon, 'order' => $page_order];
+                                            $more[] = [
+                                                'id' => $custom_page->id,
+                                                'title' => Output::getClean($custom_page->title),
+                                                'url' => is_null($redirect) ? URL::build(urlencode($custom_page->url)) : $redirect,
+                                                'redirect' => $redirect,
+                                                'target' => $custom_page->target,
+                                                'icon' => $custom_page->icon,
+                                                'order' => $page_order
+                                            ];
                                             break;
                                         case 3:
                                             // Footer
-                                            $navigation->add($custom_page->id, Output::getClean($custom_page->title), (is_null($redirect)) ? URL::build(Output::getClean($custom_page->url)) : $redirect, 'footer', $custom_page->target ? '_blank' : null, 2000, $custom_page->icon);
+                                            $navigation->add(
+                                                $custom_page->id,
+                                                Output::getClean($custom_page->title),
+                                                is_null($redirect) ? URL::build(urlencode($custom_page->url)) : $redirect,
+                                                'footer',
+                                                $custom_page->target ? '_blank' : null,
+                                                2000,
+                                                $custom_page->icon);
                                             break;
                                     }
                                 }

@@ -375,7 +375,7 @@ if (isset($_GET['action'])) {
                             ]);
 
                             Session::flash('admin_mc_servers_success', $language->get('admin', 'server_updated'));
-                            Redirect::to(URL::build('/panel/minecraft/servers/', 'action=edit&id=' . Output::getClean($server_editing->id)));
+                            Redirect::to(URL::build('/panel/minecraft/servers/', 'action=edit&id=' . urlencode($server_editing->id)));
 
                         } catch (Exception $e) {
                             $errors = [$e->getMessage()];
@@ -586,8 +586,8 @@ if (isset($_GET['action'])) {
                 'name' => Output::getClean($server->name),
                 'id' => Output::getClean($server->id),
                 'server_id' => str_replace('{x}', Output::getClean($server->id), $language->get('admin', 'server_id_x')),
-                'edit_link' => URL::build('/panel/minecraft/servers/', 'action=edit&id=' . Output::getClean($server->id)),
-                'delete_link' => URL::build('/panel/minecraft/servers/', 'action=delete&id=' . Output::getClean($server->id)),
+                'edit_link' => URL::build('/panel/minecraft/servers/', 'action=edit&id=' . urlencode($server->id)),
+                'delete_link' => URL::build('/panel/minecraft/servers/', 'action=delete&id=' . urlencode($server->id)),
                 'is_default' => $server->is_default
             ];
         }

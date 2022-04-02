@@ -44,7 +44,7 @@ if (!isset($_GET['step'])) {
         }
     }
 
-    $return_link = Output::getClean(rtrim(Util::getSelfURL(), '/')) . URL::build('/register/', 'step=2');
+    $return_link = rtrim(Util::getSelfURL(), '/') . URL::build('/register/', 'step=2');
     $key = $mcassoc->generateKey($username);
 
     $smarty->assign('MCASSOC', '
