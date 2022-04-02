@@ -24,6 +24,6 @@ $language = [
     'change_password_message' => 'Ak chcete obnoviť svoje heslo, kliknite na nasledujúci odkaz. Ak ste o to sami nepožiadali, môžete tento email bezpečne odstrániť.',
 
     // Forum Topic Replies
-    'forum_topic_reply_subject' => '{x} odpovedal/a na {y}', // Don't remove {x} or {y}
-    'forum_topic_reply_message' => '{x} odpovedal/a na tému, ktorú sledujete. Obsah: {z}' // Don't remove {x} or {z}
+    'forum_topic_reply_subject' => '{{author}} odpovedal/a na {{topic}}',
+    'forum_topic_reply_message' => '{{author}} odpovedal/a na tému, ktorú sledujete. Obsah: {{content}}'
 ];

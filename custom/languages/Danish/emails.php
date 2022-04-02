@@ -24,6 +24,6 @@ $language = [
     'change_password_message' => 'For at nulstille din adgangskode, skal du klikke på følgende link. Hvis du ikke selv har anmodet om dette, kan du uden risiko slette denne e-mail.',
 
     // Forum Topic Replies
-    'forum_topic_reply_subject' => '{x} har svaret {y}', // Don't remove {x} or {y}
-    'forum_topic_reply_message' => '{x} har svaret på et emne, du følger. Indhold: {z}' // Don't remove {x} or {z}
+    'forum_topic_reply_subject' => '{{author}} har svaret {{topic}}',
+    'forum_topic_reply_message' => '{{author}} har svaret på et emne, du følger. Indhold: {{count}}'
 ];

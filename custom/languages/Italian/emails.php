@@ -24,6 +24,6 @@ $language = [
     'change_password_message' => 'Per reimpostare la tua password, fai clic sul seguente collegamento. Se non sei stato te a richiederlo, puoi tranquillamente eliminare questa email.',
 
     // Forum Topic Replies
-    'forum_topic_reply_subject' => '{x} ha risposto a {y}', // Don't remove {x} or {y}
-    'forum_topic_reply_message' => '{x} ha risposto a un argomento che segui. Contenuto: {z}' // Don't remove {x} or {z}
+    'forum_topic_reply_subject' => '{{author}} ha risposto a {{topic}}',
+    'forum_topic_reply_message' => '{{author}} ha risposto a un argomento che segui. Contenuto: {{content}}'
 ];

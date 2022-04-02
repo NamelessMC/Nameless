@@ -25,6 +25,6 @@ $language = [
     'change_password_message' => 'Vennligst følg denne lenken for å tilbakestille passordet ditt. Hvis dette ikke var deg, kan du trygt slette denne e-posten.',
 
     // Forum Topic Replies
-    'forum_topic_reply_subject' => '{x} har svart {y}', // Don't remove {x} or {y}
-    'forum_topic_reply_message' => '{x} har svart i en tråd du følger. Innhold: {z}' // Don't remove {x} or {z}
+    'forum_topic_reply_subject' => '{{author}} har svart {{topic}}',
+    'forum_topic_reply_message' => '{{author}} har svart i en tråd du følger. Innhold: {{content}}'
 ];

@@ -25,6 +25,6 @@ $language = [
     'change_password_message' => 'Для сброса пароля, откройте эту ссылку. Если вы не делали этот запрос, вы можете спокойно удалить это письмо.',
 
     // Forum Topic Replies
-    'forum_topic_reply_subject' => '{x} ответил {y}', // Don't remove {x} or {y}
-    'forum_topic_reply_message' => '{x} ответил вам в теме. Ответ: {z}' // Don't remove {x} or {z}
+    'forum_topic_reply_subject' => '{{author}} ответил {{topic}}',
+    'forum_topic_reply_message' => '{{author}} ответил вам в теме. Ответ: {{content}}'
 ];

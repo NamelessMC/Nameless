@@ -24,6 +24,6 @@ $language = [
     'change_password_message' => 'Şifrenizi sıfırlamak için lütfen aşağıdaki bağlantıyı tıklayın. Bunu kendiniz istemediyseniz, bu e-postayı güvenle silebilirsiniz.',
 
     // Forum Topic Replies
-    'forum_topic_reply_subject' => '{x} has replied to {y}', // Don't remove {x} or {y}
-    'forum_topic_reply_message' => '{x} has replied to a topic you follow. Content: {z}' // Don't remove {x} or {z}
+    'forum_topic_reply_subject' => '{{author}} has replied to {{topic}}',
+    'forum_topic_reply_message' => '{{author}} has replied to a topic you follow. Content: {{content}}'
 ];

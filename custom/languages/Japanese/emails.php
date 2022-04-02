@@ -29,6 +29,6 @@ $language = [
     'change_password_message' => 'パスワードをリセットするには、次のリンクをクリックしてください。これを自分でリクエストしていない場合は、このメールを安全に削除できます。',
 
     // Forum Topic Replies
-    'forum_topic_reply_subject' => '{x}は{y}に返信しました', // Don't remove {x} or {y}
-    'forum_topic_reply_message' => '{x}がフォローしているトピックに返信しました。内容: {z}' // Don't remove {x} or {z}
+    'forum_topic_reply_subject' => '{{author}} は {{topic}} に返信しました',
+    'forum_topic_reply_message' => '{{author}} がフォローしているトピックに返信しました。内容: {{content}}'
 ];

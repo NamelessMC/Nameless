@@ -24,6 +24,6 @@ $language = [
     'change_password_message' => 'To reset your password, please click the following link. If you did not request this yourself, you can safely delete this email.',
 
     // Forum Topic Replies
-    'forum_topic_reply_subject' => '{{author}} has replied to {{user}}',
+    'forum_topic_reply_subject' => '{{author}} has replied to {{topic}}',
     'forum_topic_reply_message' => '{{author}} has replied to a topic you follow. Content: {{content}}',
 ];

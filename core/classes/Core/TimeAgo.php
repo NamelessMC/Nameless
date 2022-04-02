@@ -169,9 +169,10 @@ class TimeAgo {
         $term = $language->get('time', $key);
 
         if (count($exploded = explode('|', $term)) > 1) {
-            if (function_exists('pluralForm')) {
+            // TODO, functions cannot exist in defined constants
+            if (($pluralForm = LANGUAGES[$language->getActiveLanguage()]['pluralForm']) !== null) {
                 if (isset($replace)) {
-                    return str_replace('{{count}}', $replace, pluralForm($replace, $exploded));
+                    return str_replace('{{count}}', $replace, $pluralForm($replace, $exploded));
                 }
 
                 return 'Plural specified but replace not set for ' . Output::getClean($key);

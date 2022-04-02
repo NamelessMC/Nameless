@@ -324,15 +324,15 @@ if (Input::exists()) {
                     ['[Sitename]', '[TopicReply]', '[Greeting]', '[Message]', '[Link]', '[Thanks]'],
                     [
                         SITE_NAME,
-                        str_replace(['{x}', '{y}'], [$user->data()->username, $topic->topic_title], $language->get('emails', 'forum_topic_reply_subject')),
+                        $language->get('emails', 'forum_topic_reply_subject', ['author' => $user->data()->username, 'topic' => $topic->topic_title]),
                         $language->get('emails', 'greeting'),
-                        str_replace(['{x}', '{z}'], [$user->data()->username, html_entity_decode($content)], $language->get('emails', 'forum_topic_reply_message')),
+                        $language->get('emails', 'forum_topic_reply_message', ['author' => $user->data()->username, 'content' => html_entity_decode($content)]),
                         rtrim(Util::getSelfURL(), '/') . URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id),
                         $language->get('emails', 'thanks')
                     ],
                     $html
                 );
-                $subject = SITE_NAME . ' - ' . str_replace(['{x}', '{y}'], [$user->data()->username, $topic->topic_title], $language->get('emails', 'forum_topic_reply_subject'));
+                $subject = SITE_NAME . ' - ' . $language->get('emails', 'forum_topic_reply_subject', ['author' => $user->data()->username, 'topic' => $topic->topic_title]);
                 $contactemail = $queries->getWhere('settings', ['name', '=', 'incoming_email']);
                 $contactemail = $contactemail[0]->value;
 
@@ -710,7 +710,7 @@ foreach ($results->data as $n => $nValue) {
         'content' => $content,
         'signature' => Output::getPurified(Util::renderEmojis($signature)),
         'fields' => (empty($fields) ? [] : $fields),
-        'edited' => (is_null($nValue->last_edited) ? null : str_replace('{x}', $timeago->inWords($nValue->last_edited), $language, $forum_language->get('forum', 'last_edited'))),
+        'edited' => (is_null($nValue->last_edited) ? null : str_replace('{x}', $timeago->inWords($nValue->last_edited, $language), $forum_language->get('forum', 'last_edited'))),
         'edited_full' => (is_null($nValue->last_edited) ? null : date(DATE_FORMAT, $nValue->last_edited)),
         'post_reactions' => $post_reactions,
         'karma' => $total_karma

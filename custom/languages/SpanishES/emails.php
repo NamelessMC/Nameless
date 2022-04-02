@@ -24,6 +24,6 @@ $language = [
     'change_password_message' => 'Para restablecer su contraseña, haga clic en el siguiente enlace. Si no lo ha solicitado usted mismo, puede eliminar este correo electrónico con toda seguridad.',
 
     // Forum Topic Replies
-    'forum_topic_reply_subject' => '{x} ha respondido a {y}', // Don't remove {x} or {y}
-    'forum_topic_reply_message' => '{x} ha respondido a un tema que sigues. Contenido: {z}' // Don't remove {x} or {z}
+    'forum_topic_reply_subject' => '{{author}} ha respondido a {{topic}}',
+    'forum_topic_reply_message' => '{{author}} ha respondido a un tema que sigues. Contenido: {{content}}' // Don't remove {x} or {z}
 ];

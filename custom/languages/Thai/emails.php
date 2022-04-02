@@ -24,6 +24,6 @@ $language = [
     'change_password_message' => 'หากต้องการรีเซ็ตรหัสผ่าน โปรดคลิกลิงก์ต่อไปนี้ หากคุณไม่ได้ร้องขอด้วยตัวเอง คุณสามารถลบอีเมลนี้ได้อย่างปลอดภัย',
 
     // Forum Topic Replies
-    'forum_topic_reply_subject' => '{x} ได้ตอบกลับ {y}', // Don't remove {x} or {y}
-    'forum_topic_reply_message' => '{x} ได้ตอบกลับหัวข้อที่คุณติดตาม เนื้อหา: {z}' // Don't remove {x} or {z}
+    'forum_topic_reply_subject' => '{{author}} ได้ตอบกลับ {{topic}}',
+    'forum_topic_reply_message' => '{{author}} ได้ตอบกลับหัวข้อที่คุณติดตาม เนื้อหา: {{content}}'
 ];

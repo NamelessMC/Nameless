@@ -25,6 +25,6 @@ $language = [
     'change_password_message' => 'Pro obnovení vašeho hesla klikněte na následující odkaz. Pokud jste o změnu hesla nezažádali, můžete tento e-mail odstranit.',
 
     // Forum Topic Replies
-    'forum_topic_reply_subject' => '{x} odpověděl uživateli {y}', // Don't remove {x} or {y}
-    'forum_topic_reply_message' => '{x} odpověděl na téma, které sledujete. Obsah: {z}' // Don't remove {x} or {z}
+    'forum_topic_reply_subject' => '{{author}} odpověděl uživateli {{topic}}',
+    'forum_topic_reply_message' => '{{author}} odpověděl na téma, které sledujete. Obsah: {{content}}'
 ];

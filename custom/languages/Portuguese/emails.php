@@ -26,6 +26,6 @@ $language = [
     'change_password_message' => 'Para resetar sua senha, clique no seguinte link. Se você desconhece essa requisição, você pode excluir com segurança este email.',
 
     // Forum Topic Replies
-    'forum_topic_reply_subject' => '{x} respondeu a {y}', // Não remova "{x}" ou "{y} desta mensagem."
-    'forum_topic_reply_message' => '{x} respondeu a um tópico que você segue. Conteúdo: {z}' // Não remova "{x}" ou "{z} desta mensagem."
+    'forum_topic_reply_subject' => '{{author}} respondeu a {{topic}}',
+    'forum_topic_reply_message' => '{{author}} respondeu a um tópico que você segue. Conteúdo: {{content}}'
 ];

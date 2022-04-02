@@ -25,6 +25,6 @@ $language = [
     'change_password_message' => 'Um dein Passwort zurückzusetzen, klicke bitte auf den folgenden Link. Wenn du dies nicht selbst angefordert haben, kannst du diese E-Mail bedenkenlos löschen.',
 
     // Forum Topic Replies
-    'forum_topic_reply_subject' => '{x} hat geantwortet {y}', // Don't remove {x} or {y}
-    'forum_topic_reply_message' => '{x} hat auf ein Thema geantwortet, dem Sie folgen. Content: {z}' // Don't remove {x} or {z}
+    'forum_topic_reply_subject' => '{{author}} hat geantwortet {{topic}}',
+    'forum_topic_reply_message' => '{{author}} hat auf ein Thema geantwortet, dem Sie folgen. Content: {{content}}'
 ];

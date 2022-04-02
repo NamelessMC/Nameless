@@ -365,7 +365,7 @@ if ($forum_query->redirect_forum == 1) {
                 'locked' => $sticky->locked,
                 'posts' => $replies,
                 'last_reply_avatar' => $last_reply_user->getAvatar(),
-                'last_reply_rough' => $timeago->inWords(sticky->topic_reply_date, $language),
+                'last_reply_rough' => $timeago->inWords($sticky->topic_reply_date, $language),
                 'last_reply' => date(DATE_FORMAT, $sticky->topic_reply_date),
                 'last_reply_username' => $last_reply_user->getDisplayname(),
                 'last_reply_mcname' => $last_reply_user->getDisplayname(true),

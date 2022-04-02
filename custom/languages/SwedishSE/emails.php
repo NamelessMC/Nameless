@@ -24,6 +24,6 @@ $language = [
     'change_password_message' => 'För att återställa ditt lösenord, klicka på följande länk. Om du inte begärt det själv kan du radera det här e-postmeddelandet.',
 
     // Forum Topic Replies
-    'forum_topic_reply_subject' => '{x} har svarat på {y}', // Don't remove {x} or {y}
-    'forum_topic_reply_message' => '{x} har svarat på ett inlägg du följer. Innehåll: {z}' // Don't remove {x} or {z}
+    'forum_topic_reply_subject' => '{{author}} har svarat på {{topic}}',
+    'forum_topic_reply_message' => '{{author}} har svarat på ett inlägg du följer. Innehåll: {{content}}'
 ];
