@@ -13,7 +13,6 @@ class ContentHook extends HookBase {
         if (parent::validateParams($params, ['content'])) {
             $domDocument = new DOMDocument();
             $domDocument->loadHTML(mb_convert_encoding($params['content'], 'HTML-ENTITIES', 'UTF-8'));
-            echo $domDocument->nodeValue;
             $tags = $domDocument->getElementsByTagName('code');
             foreach ($tags as $tag) {
                 $code = '';
