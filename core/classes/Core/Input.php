@@ -56,7 +56,7 @@ class Input {
      * @param ?string $content Any default content to insert
      * @param bool $mentions Whether to enable mention autocompletion/parsing or not.
      */
-    public static function createTinyEditor(Language $language, string $name, ?string $content, bool $mentions = false): string {
+    public static function createTinyEditor(Language $language, string $name, ?string $content = null, bool $mentions = false): string {
         $skin = defined('TEMPLATE_TINY_EDITOR_DARKMODE') ? 'oxide-dark' : 'oxide';
         $js = '';
 
