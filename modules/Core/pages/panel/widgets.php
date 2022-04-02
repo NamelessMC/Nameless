@@ -46,9 +46,9 @@ if (!isset($_GET['action'])) {
             'module' => str_replace('{x}', Output::getClean($widget->getModule()), $language->get('admin', 'module_x')),
             'description' => Output::getClean($widget->getDescription()),
             'enabled' => $widgets->isEnabled($widget),
-            'disable_link' => (($widgets->isEnabled($widget)) ? URL::build('/panel/core/widgets/', 'action=disable&w=' . Output::getClean($widget_query)) : null),
-            'enable_link' => ((!$widgets->isEnabled($widget)) ? URL::build('/panel/core/widgets/', 'action=enable&w=' . Output::getClean($widget_query)) : null),
-            'settings_link' => (($widgets->isEnabled($widget)) ? URL::build('/panel/core/widgets/', 'action=edit&w=' . Output::getClean($widget_query)) : null)
+            'disable_link' => (($widgets->isEnabled($widget)) ? URL::build('/panel/core/widgets/', 'action=disable&w=' . urlencode($widget_query)) : null),
+            'enable_link' => ((!$widgets->isEnabled($widget)) ? URL::build('/panel/core/widgets/', 'action=enable&w=' . urlencode($widget_query)) : null),
+            'settings_link' => (($widgets->isEnabled($widget)) ? URL::build('/panel/core/widgets/', 'action=edit&w=' . urlencode($widget_query)) : null)
         ];
     }
 
@@ -171,7 +171,7 @@ if (!isset($_GET['action'])) {
                     $queries->update('widgets', $widget->id, ['pages' => $active_pages_string, '`order`' => $order, '`location`' => $location]);
 
                     Session::flash('admin_widgets', $language->get('admin', 'widget_updated'));
-                    Redirect::to(URL::build('/panel/core/widgets/', 'action=edit&w=' . $widget->id));
+                    Redirect::to(URL::build('/panel/core/widgets/', 'action=edit&w=' . urlencode($widget->id)));
                 } catch (Exception $e) {
                     $errors = [$e->getMessage()];
                 }
@@ -188,7 +188,7 @@ if (!isset($_GET['action'])) {
             $smarty->assign(
                 [
                     'SETTINGS' => $language->get('admin', 'settings'),
-                    'SETTINGS_LINK' => URL::build('/panel/core/widgets/', 'action=settings&w=' . $widget->id)
+                    'SETTINGS_LINK' => URL::build('/panel/core/widgets/', 'action=settings&w=' . urlencode($widget->id))
                 ]
             );
         }
@@ -248,7 +248,7 @@ if (!isset($_GET['action'])) {
                 [
                     'EDITING_WIDGET' => str_replace('{x}', Output::getClean($widget->name), $language->get('admin', 'editing_widget_x')),
                     'BACK' => $language->get('general', 'back'),
-                    'BACK_LINK' => URL::build('/panel/core/widgets/', 'action=edit&w=' . $widget->id)
+                    'BACK_LINK' => URL::build('/panel/core/widgets/', 'action=edit&w=' . urlencode($widget->id))
                 ]
             );
 

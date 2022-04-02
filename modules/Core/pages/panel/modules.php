@@ -55,8 +55,8 @@ if (!isset($_GET['action'])) {
             'author' => Output::getPurified($module->getAuthor()),
             'author_x' => str_replace('{x}', Output::getPurified($module->getAuthor()), $language->get('admin', 'author_x')),
             'version_mismatch' => (($module->getNamelessVersion() != NAMELESS_VERSION) ? str_replace(['{x}', '{y}'], [Output::getClean($module->getNamelessVersion()), NAMELESS_VERSION], $language->get('admin', 'module_outdated')) : false),
-            'disable_link' => (($module->getName() != 'Core' && $item->enabled) ? URL::build('/panel/core/modules/', 'action=disable&m=' . Output::getClean($item->id)) : null),
-            'enable_link' => (($module->getName() != 'Core' && !$item->enabled) ? URL::build('/panel/core/modules/', 'action=enable&m=' . Output::getClean($item->id)) : null),
+            'disable_link' => (($module->getName() != 'Core' && $item->enabled) ? URL::build('/panel/core/modules/', 'action=disable&m=' . urlencode($item->id)) : null),
+            'enable_link' => (($module->getName() != 'Core' && !$item->enabled) ? URL::build('/panel/core/modules/', 'action=enable&m=' . urlencode($item->id)) : null),
             'enabled' => $item->enabled
         ];
     }

@@ -40,7 +40,7 @@ if (!isset($_GET['view'])) {
             // Get date
             $alerts[$n]->date = date(DATE_FORMAT, $alerts[$n]->created);
             $alerts[$n]->date_nice = $timeago->inWords(date('Y-m-d H:i:s', $alerts[$n]->created), $language->getTimeLanguage());
-            $alerts[$n]->view_link = URL::build('/user/alerts/', 'view=' . $alerts[$n]->id);
+            $alerts[$n]->view_link = URL::build('/user/alerts/', 'view=' . urlencode($alerts[$n]->id));
 
             $alerts_limited[] = $alerts[$n];
 

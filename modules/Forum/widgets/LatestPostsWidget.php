@@ -122,7 +122,7 @@ class LatestPostsWidget extends WidgetBase {
                     'last_reply_style' => $last_reply_user->getGroupClass(),
                     'last_reply_user_id' => Output::getClean($discussions[$n]['topic_last_user']),
                     'label' => $label,
-                    'link' => URL::build('/forum/topic/' . $discussions[$n]['id'] . '-' . $forum->titleToURL($discussions[$n]['topic_title'])),
+                    'link' => URL::build('/forum/topic/' . urlencode($discussions[$n]['id']) . '-' . $forum->titleToURL($discussions[$n]['topic_title'])),
                     'forum_link' => URL::build('/forum/forum/' . $discussions[$n]['forum_id']),
                     'author_link' => $topic_creator->getProfileURL(),
                     'last_reply_profile_link' => $last_reply_user->getProfileURL(),

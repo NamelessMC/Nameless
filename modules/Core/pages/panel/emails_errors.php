@@ -95,7 +95,7 @@ if (isset($_GET['do'])) {
                 $user_validated = $user_validated[0];
                 if ($user_validated->active == 0) {
                     $smarty->assign([
-                        'VALIDATE_USER_LINK' => URL::build('/panel/users/edit/', 'id=' . $error->user_id . '&amp;action=validate'),
+                        'VALIDATE_USER_LINK' => URL::build('/panel/users/edit/', 'id=' . urlencode($error->user_id) . '&amp;action=validate'),
                         'VALIDATE_USER_TEXT' => $language->get('admin', 'validate_user')
                     ]);
                 }
@@ -109,7 +109,7 @@ if (isset($_GET['do'])) {
                         $smarty->assign([
                             'REGISTRATION_LINK' => $language->get('admin', 'registration_link'),
                             'SHOW_REGISTRATION_LINK' => $language->get('admin', 'show_registration_link'),
-                            'REGISTRATION_LINK_VALUE' => rtrim(Util::getSelfURL(), '/') . URL::build('/complete_signup/', 'c=' . Output::getClean($user_error->reset_code))
+                            'REGISTRATION_LINK_VALUE' => rtrim(Util::getSelfURL(), '/') . URL::build('/complete_signup/', 'c=' . urlencode($user_error->reset_code))
                         ]);
                     }
                 }

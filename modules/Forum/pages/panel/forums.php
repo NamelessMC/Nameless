@@ -33,7 +33,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                 $parent_forum_query = $queries->getWhere('forums', ['id', '=', $item->parent]);
                 if (count($parent_forum_query)) {
                     $parent_forum_count = 1;
-                    $parent_forum = str_replace('{x}', Output::getClean(Output::getDecoded($parent_forum_query[0]->forum_title)), $forum_language->get('forum', 'parent_forum_x'));
+                    $parent_forum = str_replace('{x}', Output::getClean($parent_forum_query[0]->forum_title), $forum_language->get('forum', 'parent_forum_x'));
                     $id = $parent_forum_query[0]->parent;
 
                     while ($parent_forum_count < 100 && $id > 0) {
@@ -54,8 +54,8 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                 'delete_link' => URL::build('/panel/forums/', 'action=delete&fid=' . Output::getClean($item->id)),
                 'up_link' => ($i > 1 ? URL::build('/panel/forums/', 'action=order&dir=up&fid=' . Output::getClean($item->id)) : null),
                 'down_link' => ($i < $count ? URL::build('/panel/forums/', 'action=order&dir=down&fid=' . Output::getClean($item->id)) : null),
-                'title' => Output::getClean(Output::getDecoded($item->forum_title)),
-                'description' => Output::getPurified(Output::getDecoded($item->forum_description)),
+                'title' => Output::getClean($item->forum_title),
+                'description' => Output::getPurified($item->forum_description),
                 'id' => Output::getClean($item->id),
                 'parent_forum' => (($item->parent > 0) ? $parent_forum : null),
                 'parent_forum_count' => $parent_forum_count
@@ -231,7 +231,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                         foreach ($forums as $item) {
                             $template_array[] = [
                                 'id' => Output::getClean($item->id),
-                                'name' => Output::getClean(Output::getDecoded($item->forum_title))
+                                'name' => Output::getClean($item->forum_title)
                             ];
                         }
                     }
@@ -446,7 +446,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
 
                     $template_array[] = [
                         'id' => Output::getClean($item->id),
-                        'name' => Output::getClean(Output::getDecoded($item->forum_title))
+                        'name' => Output::getClean($item->forum_title)
                     ];
                 }
 
@@ -753,11 +753,11 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                 'FORUM_TYPE_CATEGORY' => $forum_language->get('forum', 'forum_type_category'),
                 'FORUM_TYPE_VALUE' => ($forum[0]->forum_type == 'category') ? 'category' : 'forum',
                 'FORUM_TITLE' => $forum_language->get('forum', 'forum_name'),
-                'FORUM_TITLE_VALUE' => Output::getClean(Output::getDecoded($forum[0]->forum_title)),
+                'FORUM_TITLE_VALUE' => Output::getClean($forum[0]->forum_title),
                 'FORUM_DESCRIPTION' => $forum_language->get('forum', 'forum_description'),
-                'FORUM_DESCRIPTION_VALUE' => Output::getClean(Output::getDecoded($forum[0]->forum_description)),
+                'FORUM_DESCRIPTION_VALUE' => Output::getClean($forum[0]->forum_description),
                 'FORUM_ICON' => $forum_language->get('forum', 'forum_icon'),
-                'FORUM_ICON_VALUE' => Output::getClean(Output::getDecoded($forum[0]->icon)),
+                'FORUM_ICON_VALUE' => Output::getClean($forum[0]->icon),
                 'PARENT_FORUM' => $forum_language->get('forum', 'parent_forum'),
                 'PARENT_FORUM_VALUE' => $forum[0]->parent,
                 'NO_PARENT' => $forum_language->get('forum', 'has_no_parent'),
@@ -767,7 +767,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                 'REDIRECT_FORUM' => $forum_language->get('forum', 'redirect_forum'),
                 'REDIRECT_FORUM_VALUE' => ($forum[0]->redirect_forum == 1),
                 'REDIRECT_URL' => $forum_language->get('forum', 'redirect_url'),
-                'REDIRECT_URL_VALUE' => Output::getClean(Output::getDecoded($forum[0]->redirect_url)),
+                'REDIRECT_URL_VALUE' => Output::getClean($forum[0]->redirect_url),
                 'INCLUDE_IN_HOOK' => $forum_language->get('forum', 'include_in_hook'),
                 'HOOKS_ARRAY' => $hooks_array,
                 'FORUM_HOOKS' => json_decode($forum_hooks),

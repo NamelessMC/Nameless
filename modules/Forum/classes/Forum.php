@@ -41,7 +41,7 @@ class Forum {
                 if ($this->forumExist($forum->id, $groups)) {
                     $return[$forum->id]['description'] = Output::getClean($forum->forum_description);
                     $return[$forum->id]['title'] = Output::getClean($forum->forum_title);
-                    $return[$forum->id]['icon'] = Output::getPurified(Output::getDecoded($forum->icon));
+                    $return[$forum->id]['icon'] = Output::getPurified($forum->icon);
 
                     // Get subforums
                     $forums = $this->_db->orderWhere('forums', 'parent = ' . $forum->id, 'forum_order', 'ASC')->results();
@@ -51,8 +51,8 @@ class Forum {
                                 $return[$forum->id]['subforums'][$item->id] = $item;
                                 $return[$forum->id]['subforums'][$item->id]->forum_title = Output::getClean($item->forum_title);
                                 $return[$forum->id]['subforums'][$item->id]->forum_description = Output::getClean($item->forum_description);
-                                $return[$forum->id]['subforums'][$item->id]->icon = Output::getPurified(Output::getDecoded($item->icon));
-                                $return[$forum->id]['subforums'][$item->id]->link = URL::build('/forum/view/' . $item->id . '-' . $this->titleToURL($item->forum_title));
+                                $return[$forum->id]['subforums'][$item->id]->icon = Output::getPurified($item->icon);
+                                $return[$forum->id]['subforums'][$item->id]->link = URL::build('/forum/view/' . urlencode($item->id) . '-' . $this->titleToURL($item->forum_title));
                                 $return[$forum->id]['subforums'][$item->id]->redirect_to = Output::getClean($item->redirect_url);
 
                                 // Get topic/post count
@@ -96,7 +96,7 @@ class Forum {
 
                                     $return[$forum->id]['subforums'][$item->id]->last_post = $last_reply[$n];
                                     $return[$forum->id]['subforums'][$item->id]->last_post->title = Output::getClean($last_topic[0]->topic_title);
-                                    $return[$forum->id]['subforums'][$item->id]->last_post->link = URL::build('/forum/topic/' . $last_reply[$n]->topic_id . '-' . $this->titleToURL($last_topic[0]->topic_title), 'pid=' . $last_reply[0]->id);
+                                    $return[$forum->id]['subforums'][$item->id]->last_post->link = URL::build('/forum/topic/' . urlencode($last_reply[$n]->topic_id) . '-' . $this->titleToURL($last_topic[0]->topic_title), 'pid=' . $last_reply[0]->id);
                                 }
 
                                 // Get list of subforums (names + links)
@@ -109,8 +109,8 @@ class Forum {
                                             }
                                             $return[$forum->id]['subforums'][$item->id]->subforums[$subforum->id] = new stdClass();
                                             $return[$forum->id]['subforums'][$item->id]->subforums[$subforum->id]->title = Output::getClean($subforum->forum_title);
-                                            $return[$forum->id]['subforums'][$item->id]->subforums[$subforum->id]->link = URL::build('/forum/view/' . $subforum->id . '-' . $this->titleToURL($subforum->forum_title));
-                                            $return[$forum->id]['subforums'][$item->id]->subforums[$subforum->id]->icon = Output::getPurified(Output::getDecoded($subforum->icon));
+                                            $return[$forum->id]['subforums'][$item->id]->subforums[$subforum->id]->link = URL::build('/forum/view/' . urlencode($subforum->id) . '-' . $this->titleToURL($subforum->forum_title));
+                                            $return[$forum->id]['subforums'][$item->id]->subforums[$subforum->id]->icon = Output::getPurified($subforum->icon);
                                         }
                                     }
                                 }
@@ -502,7 +502,7 @@ class Forum {
                 'topic_title' => $item->topic_title,
                 'topic_views' => $item->topic_views,
                 'author' => $item->topic_creator,
-                'content' => Util::truncate(Output::getDecoded($post)),
+                'content' => Util::truncate($post),
                 'replies' => $posts,
                 'label' => $labels[0],
                 'labels' => $labels
@@ -541,6 +541,34 @@ class Forum {
         }
 
         return false;
+    }
+
+    /**
+     * Get a user's post count
+     *
+     * @param int|null $user_id User ID to check
+     * @return int Number of posts
+     */
+    public function getPostCount(int $user_id = null): int {
+        if ($user_id) {
+            return $this->_db->selectQuery('SELECT COUNT(*) AS c FROM nl2_posts WHERE deleted = 0 AND post_creator = ?', [$user_id])->first()->c;
+        }
+
+        return 0;
+    }
+
+    /**
+     * Get a user's topic count
+     *
+     * @param int|null $user_id User ID to check
+     * @return int Number of topics
+     */
+    public function getTopicCount(int $user_id = null): int {
+        if ($user_id) {
+            return $this->_db->selectQuery('SELECT COUNT(*) AS c FROM nl2_topics WHERE deleted = 0 AND topic_creator = ?', [$user_id])->first()->c;
+        }
+
+        return 0;
     }
 
     /**

@@ -54,8 +54,8 @@ if (!isset($_GET['id'])) {
                 'ip' => Output::getClean($result->ip),
                 'port' => Output::getClean($result->port),
                 'date' => date(DATE_FORMAT, $result->date),
-                'view_link' => URL::build('/panel/minecraft/query_errors/', 'id=' . Output::getClean($result->id)),
-                'delete_link' => URL::build('/panel/minecraft/query_errors/', 'action=delete&id=' . Output::getClean($result->id))
+                'view_link' => URL::build('/panel/minecraft/query_errors/', 'id=' . urlencode($result->id)),
+                'delete_link' => URL::build('/panel/minecraft/query_errors/', 'action=delete&id=' . urlencode($result->id))
             ];
         }
 
@@ -98,7 +98,7 @@ if (!isset($_GET['id'])) {
         'YES' => $language->get('general', 'yes'),
         'NO' => $language->get('general', 'no'),
         'CONFIRM_DELETE_ERROR' => $language->get('admin', 'confirm_query_error_deletion'),
-        'DELETE_LINK' => URL::build('/panel/minecraft/query_errors/', 'action=delete&id=' . Output::getClean($query_error->id)),
+        'DELETE_LINK' => URL::build('/panel/minecraft/query_errors/', 'action=delete&id=' . urlencode($query_error->id)),
         'SERVER_ADDRESS' => $language->get('admin', 'server_address'),
         'SERVER_PORT' => $language->get('admin', 'server_port'),
         'DATE' => $language->get('general', 'date'),

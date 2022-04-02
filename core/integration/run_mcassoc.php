@@ -44,7 +44,7 @@ if (!isset($_GET['step'])) {
         }
     }
 
-    $return_link = Output::getClean(rtrim(Util::getSelfURL(), '/')) . URL::build('/register/', 'step=2');
+    $return_link = rtrim(Util::getSelfURL(), '/') . URL::build('/register/', 'step=2');
     $key = $mcassoc->generateKey($username);
 
     $smarty->assign('MCASSOC', '
@@ -97,15 +97,15 @@ if (!isset($_GET['step'])) {
                 $ip = $user->getIP();
 
                 $user->create([
-                    'username' => Output::getClean($username),
-                    'nickname' => Output::getClean($_SESSION['mcassoc']['username']),
-                    'uuid' => Output::getClean($data->uuid),
+                    'username' => $username,
+                    'nickname' => $_SESSION['mcassoc']['username'],
+                    'uuid' => $data->uuid,
                     'password' => $password,
                     'pass_method' => 'default',
                     'joined' => date('U'),
-                    'email' => Output::getClean($_SESSION['mcassoc']['email']),
+                    'email' => $_SESSION['mcassoc']['email'],
                     'active' => 1,
-                    'lastip' => Output::getClean($ip),
+                    'lastip' => $ip,
                     'last_online' => date('U')
                 ]);
 

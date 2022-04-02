@@ -39,11 +39,11 @@ if (!$list) {
 // Can the user post a topic in this forum?
 $can_reply = $forum->canPostTopic($fid, $user_groups);
 if (!$can_reply) {
-    Redirect::to(URL::build('/forum/view/' . $fid));
+    Redirect::to(URL::build('/forum/view/' . urlencode($fid)));
 }
 
 $current_forum = DB::getInstance()->selectQuery('SELECT * FROM nl2_forums WHERE id = ?', [$fid])->first();
-$forum_title = Output::getClean(Output::getDecoded($current_forum->forum_title));
+$forum_title = Output::getClean($current_forum->forum_title);
 
 // Topic labels
 $smarty->assign('LABELS_TEXT', $forum_language->get('forum', 'label'));
@@ -208,13 +208,13 @@ if (Input::exists()) {
                     'content_full' => strip_tags(str_ireplace(['<br />', '<br>', '<br/>'], "\r\n", Input::get('content'))),
                     'avatar_url' => $user->getAvatar(128, true),
                     'title' => Input::get('title'),
-                    'url' => Util::getSelfURL() . ltrim(URL::build('/forum/topic/' . $topic_id . '-' . $forum->titleToURL(Input::get('title'))), '/'),
+                    'url' => Util::getSelfURL() . ltrim(URL::build('/forum/topic/' . urlencode($topic_id) . '-' . $forum->titleToURL(Input::get('title'))), '/'),
                     'available_hooks' => $available_hooks == null ? [] : $available_hooks
                 ]);
 
                 Session::flash('success_post', $forum_language->get('forum', 'post_successful'));
 
-                Redirect::to(URL::build('/forum/topic/' . $topic_id . '-' . $forum->titleToURL(Input::get('title'))));
+                Redirect::to(URL::build('/forum/topic/' . urlencode($topic_id) . '-' . $forum->titleToURL(Input::get('title'))));
             } else {
                 $error = $validate->errors();
             }

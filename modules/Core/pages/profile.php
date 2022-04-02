@@ -120,7 +120,25 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
                             if ($query->id !== $user->data()->id) {
                                 // Alert user
-                                Alert::create($query->id, 'profile_post', ['path' => 'core', 'file' => 'user', 'term' => 'new_wall_post', 'replace' => '{x}', 'replace_with' => $user->getDisplayname()], ['path' => 'core', 'file' => 'user', 'term' => 'new_wall_post', 'replace' => '{x}', 'replace_with' => $user->getDisplayname()], URL::build('/profile/' . $profile_user->getDisplayname(true) . '/#post-' . $queries->getLastId()));
+                                Alert::create(
+                                    $query->id,
+                                    'profile_post',
+                                    [
+                                        'path' => 'core',
+                                        'file' => 'user',
+                                        'term' => 'new_wall_post',
+                                        'replace' => '{x}',
+                                        'replace_with' => $user->getDisplayname()
+                                    ],
+                                    [
+                                        'path' => 'core',
+                                        'file' => 'user',
+                                        'term' => 'new_wall_post',
+                                        'replace' => '{x}',
+                                        'replace_with' => $user->getDisplayname()
+                                    ],
+                                    URL::build('/profile/' . urlencode($profile_user->getDisplayname(true)) . '/#post-' . urlencode($queries->getLastId()))
+                                );
                             }
 
                             $cache->setCache('profile_posts_widget');
@@ -171,14 +189,68 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                             );
 
                             if ($post[0]->author_id != $query->id && $query->id != $user->data()->id) {
-                                Alert::create($query->id, 'profile_post', ['path' => 'core', 'file' => 'user', 'term' => 'new_wall_post', 'replace' => '{x}', 'replace_with' => $user->getDisplayname()], ['path' => 'core', 'file' => 'user', 'term' => 'new_wall_post', 'replace' => '{x}', 'replace_with' => $user->getDisplayname()], URL::build('/profile/' . $profile_user->getDisplayname(true) . '/#post-' . $_POST['post']));
+                                Alert::create(
+                                    $query->id,
+                                    'profile_post',
+                                    [
+                                        'path' => 'core',
+                                        'file' => 'user',
+                                        'term' => 'new_wall_post',
+                                        'replace' => '{x}',
+                                        'replace_with' => $user->getDisplayname(),
+                                    ],
+                                    [
+                                        'path' => 'core',
+                                        'file' => 'user',
+                                        'term' => 'new_wall_post',
+                                        'replace' => '{x}',
+                                        'replace_with' => $user->getDisplayname(),
+                                    ],
+                                    URL::build('/profile/' . urlencode($profile_user->getDisplayname(true)) . '/#post-' . urlencode($_POST['post']))
+                                );
                             } else {
                                 if ($post[0]->author_id != $user->data()->id) {
                                     // Alert post author
                                     if ($post[0]->author_id == $query->id) {
-                                        Alert::create($query->id, 'profile_post_reply', ['path' => 'core', 'file' => 'user', 'term' => 'new_wall_post_reply_your_profile', 'replace' => '{x}', 'replace_with' => $user->getDisplayname()], ['path' => 'core', 'file' => 'user', 'term' => 'new_wall_post_reply_your_profile', 'replace' => '{x}', 'replace_with' => $user->getDisplayname], URL::build('/profile/' . $profile_user->getDisplayname(true) . '/#post-' . $_POST['post']));
+                                        Alert::create(
+                                            $query->id,
+                                            'profile_post_reply',
+                                            [
+                                                'path' => 'core',
+                                                'file' => 'user',
+                                                'term' => 'new_wall_post_reply_your_profile',
+                                                'replace' => '{x}',
+                                                'replace_with' => $user->getDisplayname(),
+                                            ],
+                                            [
+                                                'path' => 'core',
+                                                'file' => 'user',
+                                                'term' => 'new_wall_post_reply_your_profile',
+                                                'replace' => '{x}',
+                                                'replace_with' => $user->getDisplayname()
+                                            ],
+                                            URL::build('/profile/' . urlencode($profile_user->getDisplayname(true)) . '/#post-' . urlencode($_POST['post']))
+                                        );
                                     } else {
-                                        Alert::create($post[0]->author_id, 'profile_post_reply', ['path' => 'core', 'file' => 'user', 'term' => 'new_wall_post_reply', 'replace' => ['{x}', '{y}'], 'replace_with' => [$user->getDisplayname(), $profile_user->getDisplayname()]], ['path' => 'core', 'file' => 'user', 'term' => 'new_wall_post_reply', 'replace' => ['{x}', '{y}'], 'replace_with' => [$user->getDisplayname(), $profile_user->getDisplayname()]], URL::build('/profile/' . $profile_user->getDisplayname(true) . '/#post-' . $_POST['post']));
+                                        Alert::create(
+                                            $post[0]->author_id,
+                                            'profile_post_reply',
+                                            [
+                                                'path' => 'core',
+                                                'file' => 'user', '
+                                                term' => 'new_wall_post_reply',
+                                                'replace' => ['{x}', '{y}'],
+                                                'replace_with' => [$user->getDisplayname(), $profile_user->getDisplayname()]
+                                            ],
+                                            [
+                                                'path' => 'core',
+                                                'file' => 'user',
+                                                'term' => 'new_wall_post_reply',
+                                                'replace' => ['{x}', '{y}'],
+                                                'replace_with' => [$user->getDisplayname(), $profile_user->getDisplayname()]
+                                            ],
+                                            URL::build('/profile/' . urlencode($profile_user->getDisplayname(true)) . '/#post-' . urlencode($_POST['post']))
+                                        );
                                     }
                                 }
                             }
@@ -483,8 +555,8 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
             }
         } else {
             $smarty->assign([
-                'MESSAGE_LINK' => URL::build('/user/messaging/', 'action=new&amp;uid=' . $query->id),
-                'FOLLOW_LINK' => URL::build('/user/follow/', 'user=' . $query->id),
+                'MESSAGE_LINK' => URL::build('/user/messaging/', 'action=new&amp;uid=' . urlencode($query->id)),
+                'FOLLOW_LINK' => URL::build('/user/follow/', 'user=' . urlencode($query->id)),
                 'CONFIRM' => $language->get('general', 'confirm'),
                 'MOD_OR_ADMIN' => $profile_user->canViewStaffCP()
             ]);
@@ -505,7 +577,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
             if ($user->hasPermission('modcp.profile_banner_reset')) {
                 $smarty->assign([
                     'RESET_PROFILE_BANNER' => $language->get('moderator', 'reset_profile_banner'),
-                    'RESET_PROFILE_BANNER_LINK' => URL::build('/profile/' . Output::getClean($query->username) . '/', 'action=reset_banner')
+                    'RESET_PROFILE_BANNER_LINK' => URL::build('/profile/' . urlencode($query->username) . '/', 'action=reset_banner')
                 ]);
             }
         }
@@ -551,7 +623,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
             $template_pagination_right ?? null
         );
         $results = $paginator->getLimited($wall_posts_query, 10, $p, count($wall_posts_query));
-        $pagination = $paginator->generate(7, URL::build('/profile/' . Output::getClean($query->username) . '/'));
+        $pagination = $paginator->generate(7, URL::build('/profile/' . urlencode($query->username) . '/'));
 
         $smarty->assign('PAGINATION', $pagination);
 
@@ -647,7 +719,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                 'reactions' => $reactions,
                 'replies' => $replies,
                 'self' => $user->isLoggedIn() && $user->data()->id == $nValue->author_id,
-                'reactions_link' => ($user->isLoggedIn() && ($post_user[0]->id != $user->data()->id) ? URL::build('/profile/' . Output::getClean($query->username) . '/', 'action=react&amp;post=' . $nValue->id) : '#')
+                'reactions_link' => ($user->isLoggedIn() && ($post_user[0]->id != $user->data()->id) ? URL::build('/profile/' . urlencode($query->username) . '/', 'action=react&amp;post=' . urlencode($nValue->id)) : '#')
             ];
         }
     } else {

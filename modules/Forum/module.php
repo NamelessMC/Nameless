@@ -251,10 +251,10 @@ class Forum_Module extends Module {
                 $user_id = $smarty->getTemplateVars('USER_ID');
 
                 if ($user_id) {
-                    $topic_count = $queries->getWhere('topics', ['topic_creator', '=', $user_id]);
-                    $smarty->assign('TOPICS', str_replace('{x}', count($topic_count), $this->_forum_language->get('forum', 'x_topics')));
-                    $post_count = $queries->getWhere('posts', ['post_creator', '=', $user_id]);
-                    $smarty->assign('POSTS', str_replace('{x}', count($post_count), $this->_forum_language->get('forum', 'x_posts')));
+                    $forum = new Forum();
+
+                    $smarty->assign('TOPICS', str_replace('{x}', $forum->getTopicCount($user_id), $this->_forum_language->get('forum', 'x_topics')));
+                    $smarty->assign('POSTS', str_replace('{x}', $forum->getPostCount($user_id), $this->_forum_language->get('forum', 'x_posts')));
                 }
             }
 

@@ -75,11 +75,11 @@ $user_groups = $user->getAllGroupIds();
 
 // Check permissions before proceeding
 if ($user->data()->id === $post_editing[0]->post_creator && !$forum->canEditTopic($forum_id, $user_groups) && !$forum->canModerateForum($forum_id, $user_groups)) {
-    Redirect::to(URL::build('/forum/topic/' . $post_id));
+    Redirect::to(URL::build('/forum/topic/' . urlencode($post_id)));
 }
 
 if ($user->data()->id !== $post_editing[0]->post_creator && !($forum->canModerateForum($forum_id, $user_groups))) {
-    Redirect::to(URL::build('/forum/topic/' . $post_id));
+    Redirect::to(URL::build('/forum/topic/' . urlencode($post_id)));
 }
 
 // Deal with input
@@ -159,16 +159,16 @@ if (Input::exists()) {
                 }
 
                 $queries->update('topics', $topic_id, [
-                    'topic_title' => Output::getDecoded(Input::get('title')),
+                    'topic_title' => Input::get('title'),
                     'labels' => implode(',', $post_labels)
                 ]);
 
-                Log::getInstance()->log(Log::Action('forums/topic/edit'), Output::getDecoded(Input::get('title')));
+                Log::getInstance()->log(Log::Action('forums/topic/edit'), Input::get('title'));
             }
 
             // Display success message and redirect
             Session::flash('success_post', $forum_language->get('forum', 'post_edited_successfully'));
-            Redirect::to(URL::build('/forum/topic/' . $topic_id, 'pid=' . $post_id));
+            Redirect::to(URL::build('/forum/topic/' . urlencode($topic_id), 'pid=' . ($post_id)));
         }
 
         // Error handling
@@ -244,7 +244,7 @@ $smarty->assign([
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit'),
     'CANCEL' => $language->get('general', 'cancel'),
-    'CANCEL_LINK' => URL::build('/forum/topic/' . $topic_id, 'pid=' . $post_id),
+    'CANCEL_LINK' => URL::build('/forum/topic/' . urlencode($topic_id), 'pid=' . urlencode($post_id)),
     'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
     'CONTENT_LABEL' => $language->get('general', 'content'),
     'TOPIC_TITLE' => $forum_language->get('forum', 'topic_title')
