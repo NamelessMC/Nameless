@@ -200,7 +200,7 @@ if (isset($_GET['action'])) {
 
                                 // Redirect
                                 Session::flash('profile_field_success', $language->get('admin', 'profile_field_updated_successfully'));
-                                Redirect::to(URL::build('/panel/core/profile_fields/', 'action=edit&id=' . Output::getClean($field->id)));
+                                Redirect::to(URL::build('/panel/core/profile_fields/', 'action=edit&id=' . urlencode($field->id)));
                             } catch (Exception $e) {
                                 $errors[] = $e->getMessage();
                             }
@@ -284,7 +284,7 @@ if (isset($_GET['action'])) {
         }
 
         $template_fields[] = [
-            'edit_link' => URL::build('/panel/core/profile_fields/', 'action=edit&id=' . Output::getClean($field->id)),
+            'edit_link' => URL::build('/panel/core/profile_fields/', 'action=edit&id=' . urlencode($field->id)),
             'name' => Output::getClean($field->name),
             'type' => $type,
             'required' => $field->required,

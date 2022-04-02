@@ -36,7 +36,7 @@ if (!count($topic)) {
 
 if (!isset($_POST['token']) || !Token::check($_POST['token'])) {
     Session::flash('failure_post', $language->get('general', 'invalid_token'));
-    Redirect::to(URL::build('/forum/topic/' . $topic_id));
+    Redirect::to(URL::build('/forum/topic/' . urlencode($topic_id)));
 }
 
 $forum_id = $topic[0]->forum_id;
@@ -60,4 +60,4 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
     Session::flash('success_post', $status);
 }
 
-Redirect::to(URL::build('/forum/topic/' . $topic_id));
+Redirect::to(URL::build('/forum/topic/' . urlencode($topic_id)));

@@ -14,7 +14,7 @@ class MentionsHook extends HookBase {
             $params['content'] = MentionsParser::parse(
                 $params['user']->data()->id,
                 $params['content'],
-                URL::build('/forum/topic/' . $params['topic_id'], 'pid=' . $params['post_id']),
+                URL::build('/forum/topic/' . urlencode($params['topic_id']), 'pid=' . urlencode($params['post_id'])),
                 ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag'],
                 ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag_info', 'replace' => '{x}', 'replace_with' => Output::getClean($params['user']->data()->nickname)]
             );
@@ -28,7 +28,7 @@ class MentionsHook extends HookBase {
             $params['content'] = MentionsParser::parse(
                 $params['user']->data()->id,
                 $params['content'],
-                URL::build('/forum/topic/' . $params['topic_id'], 'pid=' . $params['post_id'])
+                URL::build('/forum/topic/' . urlencode($params['topic_id']), 'pid=' . urlencode($params['post_id']))
             );
         }
 

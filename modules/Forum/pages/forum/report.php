@@ -42,7 +42,7 @@ if (Token::check()) {
             if ($report->reporter_id == $user->data()->id && $report->status == 0) {
                 // User already has an open report
                 Session::flash('failure_post', $forum_language->get('forum', 'post_already_reported'));
-                Redirect::to(URL::build('/forum/topic/' . Output::getClean($_POST['topic'])));
+                Redirect::to(URL::build('/forum/topic/' . urlencode($_POST['topic'])));
             }
         }
     }
@@ -63,7 +63,7 @@ if (Token::check()) {
             'report_reason' => Output::getClean($_POST['reason']),
             'updated_by' => $user->data()->id,
             'reported_post' => $post->id,
-            'link' => URL::build('/forum/topic/' . Output::getClean($_POST['topic']), 'pid=' . Output::getClean($_POST['post']))
+            'link' => URL::build('/forum/topic/' . urlencode($_POST['topic']), 'pid=' . urlencode($_POST['post']))
         ]);
 
         Log::getInstance()->log(Log::Action('misc/report'), $post->post_creator);
@@ -76,4 +76,4 @@ if (Token::check()) {
     // Invalid token
     Session::flash('failure_post', $language->get('general', 'invalid_token'));
 }
-Redirect::to(URL::build('/forum/topic/' . Output::getClean($_POST['topic'])));
+Redirect::to(URL::build('/forum/topic/' . urlencode($_POST['topic'])));

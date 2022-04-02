@@ -73,26 +73,26 @@ class RecentReportsItem extends CollectionItemBase {
                     }
 
                     $data[] = [
-                        'url' => URL::build('/panel/users/reports/', 'id=' . Output::getClean($item->id)),
+                        'url' => URL::build('/panel/users/reports/', 'id=' . urlencode($item->id)),
                         'reporter_username' => $reporter_user->getDisplayname(true),
                         'reporter_nickname' => $reporter_user->getDisplayname(),
                         'reporter_style' => $reporter_user->getGroupClass(),
                         'reporter_avatar' => $reporter_user->getAvatar(),
                         'reporter_uuid' => Output::getClean($reporter_user->data()->uuid),
-                        'reporter_profile' => URL::build('/panel/user/' . Output::getClean($reporter_user->data()->id) . '-' . Output::getClean($reporter_user->data()->username)),
+                        'reporter_profile' => URL::build('/panel/user/' . urlencode($reporter_user->data()->id) . '-' . urlencode($reporter_user->data()->username)),
                         'reported_username' => $reported_user->getDisplayname(true),
                         'reported_nickname' => $reported_user->getDisplayname(),
                         'reported_style' => $reported_user->getGroupClass(),
                         'reported_avatar' => $reported_user->getAvatar(),
                         'reported_uuid' => Output::getClean($reported_user->data()->uuid),
-                        'reported_profile' => URL::build('/panel/user/' . Output::getClean($reported_user->data()->id) . '-' . Output::getClean($reported_user->data()->username)),
+                        'reported_profile' => URL::build('/panel/user/' . urlencode($reported_user->data()->id) . '-' . urlencode($reported_user->data()->username)),
                         'time' => $timeago->inWords($item->date_reported, $this->_language),
                         'time_full' => date(DATE_FORMAT, strtotime($item->date_reported)),
                         'type' => $item->type,
                         'reason' => Output::getPurified($item->report_reason),
                         'link' => Output::getClean($item->link),
-                        'ig_reported_mcname' => ($item->reported_mcname ? Output::getClean($item->reported_mcname) : ''),
-                        'ig_reported_uuid' => ($item->reported_uuid ? Output::getClean($item->reported_uuid) : '')
+                        'ig_reported_mcname' => ($item->reported_mcname ? urlencode($item->reported_mcname) : ''),
+                        'ig_reported_uuid' => ($item->reported_uuid ? urlencode($item->reported_uuid) : '')
                     ];
 
                     if (++$i == 5) {

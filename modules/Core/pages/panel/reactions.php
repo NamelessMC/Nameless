@@ -59,7 +59,7 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
             }
 
             $template_reactions[] = [
-                'edit_link' => URL::build('/panel/core/reactions/', 'id=' . Output::getClean($reaction->id)),
+                'edit_link' => URL::build('/panel/core/reactions/', 'id=' . urlencode($reaction->id)),
                 'name' => Output::getClean($reaction->name),
                 'html' => $reaction->html,
                 'type_id' => $reaction->type,
@@ -264,7 +264,7 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                     // Update database
                     $queries->update('reactions', $_GET['id'], [
                         'name' => Output::getClean(Input::get('name')),
-                        'html' => Output::getPurified(Output::getDecoded(Input::get('html'))),
+                        'html' => Output::getPurified(Input::get('html')),
                         'type' => $type,
                         'enabled' => $enabled
                     ]);
@@ -289,7 +289,7 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
             'YES' => $language->get('general', 'yes'),
             'NO' => $language->get('general', 'no'),
             'DELETE' => $language->get('general', 'delete'),
-            'DELETE_LINK' => URL::build('/panel/core/reactions/', 'action=delete&reaction=' . $reaction->id),
+            'DELETE_LINK' => URL::build('/panel/core/reactions/', 'action=delete&reaction=' . urlencode($reaction->id)),
             'CONFIRM_DELETE' => $language->get('admin', 'confirm_delete_reaction'),
             'EDITING_REACTION' => $language->get('admin', 'editing_reaction'),
             'NAME' => $language->get('admin', 'name'),

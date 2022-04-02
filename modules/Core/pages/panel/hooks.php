@@ -30,8 +30,8 @@ if (!isset($_GET['action'])) {
             $hooks_array[] = [
                 'name' => Output::getClean($hook->name),
                 'url' => Output::getClean($hook->url),
-                'edit_link' => URL::build('/panel/core/hooks/', 'action=edit&id=' . Output::getClean($hook->id)),
-                'delete_link' => URL::build('/panel/core/hooks/', 'action=delete&id=' . Output::getClean($hook->id))
+                'edit_link' => URL::build('/panel/core/hooks/', 'action=edit&id=' . urlencode($hook->id)),
+                'delete_link' => URL::build('/panel/core/hooks/', 'action=delete&id=' . urlencode($hook->id))
             ];
         }
     }

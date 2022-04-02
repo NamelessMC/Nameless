@@ -211,6 +211,7 @@ if (Input::exists()) {
                 'email' => [
                     Validate::REQUIRED => $language->get('user', 'email_required'),
                     Validate::EMAIL => $language->get('general', 'contact_message_email'),
+                    Validate::UNIQUE => $language->get('user', 'username_mcname_email_exists')
                 ],
                 'password' => [
                     Validate::REQUIRED => $language->get('user', 'password_required'),
@@ -346,15 +347,15 @@ if (Input::exists()) {
                                     'password' => $password,
                                     'pass_method' => 'default',
                                     'joined' => $date,
-                                    'email' => Output::getClean(Input::get('email')),
+                                    'email' => Input::get('email'),
                                     'reset_code' => $code,
-                                    'lastip' => Output::getClean($ip),
+                                    'lastip' => $ip,
                                     'last_online' => $date,
                                     'language_id' => $language_id,
                                     'active' => $active,
                                     // TODO: re-enable this (#2355)
                                     // 'timezone' => ((isset($_POST['timezone']) && $_POST['timezone']) ? Output::getClean(Input::get('timezone')) : Output::getClean(TIMEZONE))
-                                    'timezone' => Output::getClean(TIMEZONE)
+                                    'timezone' => TIMEZONE
                                 ]
                             );
 
@@ -403,7 +404,7 @@ if (Input::exists()) {
                                 'uuid' => $uuid,
                                 'content' => str_replace('{{user}}', Input::get('username'), $language->get('user', 'user_x_has_registered')),
                                 'avatar_url' => $user->getAvatar(128, true),
-                                'url' => Util::getSelfURL() . ltrim(URL::build('/profile/' . Input::get('username')), '/'),
+                                'url' => Util::getSelfURL() . ltrim(URL::build('/profile/' . urlencode(Input::get('username'))), '/'),
                                 'language' => $language
                             ]);
 
@@ -414,7 +415,7 @@ if (Input::exists()) {
                             } else {
                                 if ($api_verification != '1') {
                                     // Redirect straight to verification link
-                                    $url = URL::build('/validate/', 'c=' . $code);
+                                    $url = URL::build('/validate/', 'c=' . urlencode($code));
                                     Redirect::to($url);
                                 }
                             }

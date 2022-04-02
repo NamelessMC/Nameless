@@ -49,7 +49,7 @@ if (!isset($_GET['action'])) {
             $forums_string = rtrim($forums_string, ', ');
 
             $template_array[] = [
-                'name' => str_replace('{x}', Output::getClean(Output::getDecoded($topic_label->name)), Output::getPurified(Output::getDecoded($label_type->html))),
+                'name' => str_replace('{x}', Output::getClean($topic_label->name), Output::getPurified($label_type->html)),
                 'edit_link' => URL::build('/panel/forums/labels/', 'action=edit&lid=' . Output::getClean($topic_label->id)),
                 'delete_link' => URL::build('/panel/forums/labels/', 'action=delete&lid=' . Output::getClean($topic_label->id)),
                 'enabled_forums' => $forums_string
@@ -148,7 +148,7 @@ if (!isset($_GET['action'])) {
                 foreach ($labels as $label) {
                     $template_array[] = [
                         'id' => Output::getClean($label->id),
-                        'name' => str_replace('{x}', Output::getClean($label->name), Output::getPurified(Output::getDecoded($label->html)))
+                        'name' => str_replace('{x}', Output::getClean($label->name), Output::getPurified($label->html))
                     ];
                 }
             }
@@ -288,7 +288,7 @@ if (!isset($_GET['action'])) {
                 foreach ($labels as $item) {
                     $template_array[] = [
                         'id' => Output::getClean($item->id),
-                        'name' => str_replace('{x}', Output::getClean($item->name), Output::getPurified(Output::getDecoded($item->html))),
+                        'name' => str_replace('{x}', Output::getClean($item->name), Output::getPurified($item->html)),
                         'selected' => ($label->label == $item->id)
                     ];
                 }
@@ -376,7 +376,7 @@ if (!isset($_GET['action'])) {
             if (count($labels)) {
                 foreach ($labels as $label) {
                     $template_array[] = [
-                        'name' => str_replace('{x}', Output::getClean(Output::getDecoded($label->name)), Output::getPurified(Output::getDecoded($label->html))),
+                        'name' => str_replace('{x}', Output::getClean($label->name), Output::getPurified($label->html)),
                         'edit_link' => URL::build('/panel/forums/labels/', 'action=edit_type&lid=' . Output::getClean($label->id)),
                         'delete_link' => URL::build('/panel/forums/labels/', 'action=delete_type&lid=' . Output::getClean($label->id)),
                     ];

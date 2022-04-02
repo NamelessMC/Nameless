@@ -33,7 +33,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                 $parent_forum_query = $queries->getWhere('forums', ['id', '=', $item->parent]);
                 if (count($parent_forum_query)) {
                     $parent_forum_count = 1;
-                    $parent_forum = str_replace('{x}', Output::getClean(Output::getDecoded($parent_forum_query[0]->forum_title)), $forum_language->get('forum', 'parent_forum_x'));
+                    $parent_forum = str_replace('{x}', Output::getClean($parent_forum_query[0]->forum_title), $forum_language->get('forum', 'parent_forum_x'));
                     $id = $parent_forum_query[0]->parent;
 
                     while ($parent_forum_count < 100 && $id > 0) {
@@ -54,8 +54,8 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                 'delete_link' => URL::build('/panel/forums/', 'action=delete&fid=' . Output::getClean($item->id)),
                 'up_link' => ($i > 1 ? URL::build('/panel/forums/', 'action=order&dir=up&fid=' . Output::getClean($item->id)) : null),
                 'down_link' => ($i < $count ? URL::build('/panel/forums/', 'action=order&dir=down&fid=' . Output::getClean($item->id)) : null),
-                'title' => Output::getClean(Output::getDecoded($item->forum_title)),
-                'description' => Output::getPurified(Output::getDecoded($item->forum_description)),
+                'title' => Output::getClean($item->forum_title),
+                'description' => Output::getPurified($item->forum_description),
                 'id' => Output::getClean($item->id),
                 'parent_forum' => (($item->parent > 0) ? $parent_forum : null),
                 'parent_forum_count' => $parent_forum_count

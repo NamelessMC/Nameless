@@ -159,7 +159,7 @@ if (isset($_GET['action'])) {
             } else {
                 $smarty->assign([
                     'PERMISSIONS' => $language->get('admin', 'permissions'),
-                    'PERMISSIONS_LINK' => URL::build('/panel/core/groups/', 'action=permissions&group=' . Output::getClean($group->id)),
+                    'PERMISSIONS_LINK' => URL::build('/panel/core/groups/', 'action=permissions&group=' . urlencode($group->id)),
                     'DELETE' => $language->get('general', 'delete'),
                     'DELETE_GROUP' => $language->get('admin', 'delete_group'),
                     'CONFIRM_DELETE' => str_replace('{x}', Output::getClean($group->name), $language->get('admin', 'confirm_group_deletion'))
@@ -233,7 +233,7 @@ if (isset($_GET['action'])) {
                                 $cache->store('enabled', Input::get('tfa'));
 
                                 Session::flash('admin_groups', $language->get('admin', 'group_updated_successfully'));
-                                Redirect::to(URL::build('/panel/core/groups/', 'action=edit&group=' . Output::getClean($_GET['group'])));
+                                Redirect::to(URL::build('/panel/core/groups/', 'action=edit&group=' . urlencode($_GET['group'])));
                             } catch (Exception $e) {
                                 $errors[] = $e->getMessage();
                             }
@@ -330,7 +330,7 @@ if (isset($_GET['action'])) {
                             $queries->update('groups', $group->id, ['permissions' => $perms_json]);
 
                             Session::flash('admin_groups', $language->get('admin', 'permissions_updated_successfully'));
-                            Redirect::to(URL::build('/panel/core/groups/', 'action=edit&group=' . $group->id));
+                            Redirect::to(URL::build('/panel/core/groups/', 'action=edit&group=' . urlencode($group->id)));
                         } catch (Exception $e) {
                             $errors[] = $e->getMessage();
                         }
@@ -342,7 +342,7 @@ if (isset($_GET['action'])) {
                 $smarty->assign([
                     'PERMISSIONS' => $language->get('admin', 'permissions'),
                     'BACK' => $language->get('general', 'back'),
-                    'BACK_LINK' => URL::build('/panel/core/groups/', 'action=edit&group=' . Output::getClean($group->id)),
+                    'BACK_LINK' => URL::build('/panel/core/groups/', 'action=edit&group=' . urlencode($group->id)),
                     'PERMISSIONS_VALUES' => json_decode($group->permissions, true),
                     'ALL_PERMISSIONS' => PermissionHandler::getPermissions(),
                     'SELECT_ALL' => $language->get('admin', 'select_all'),
@@ -381,7 +381,7 @@ if (isset($_GET['action'])) {
             'id' => Output::getClean($group->id),
             'order' => $group->order,
             'name' => Output::getClean($group->name),
-            'edit_link' => URL::build('/panel/core/groups/', 'action=edit&group=' . Output::getClean($group->id)),
+            'edit_link' => URL::build('/panel/core/groups/', 'action=edit&group=' . urlencode($group->id)),
             'users' => $users,
             'staff' => $group->staff
         ];

@@ -77,7 +77,7 @@ if (isset($_GET['p'])) {
 
     if ($_GET['p'] <= 1) {
         // Avoid bug in pagination class
-        Redirect::to(URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title)));
+        Redirect::to(URL::build('/forum/topic/' . urlencode($tid) . '-' . $forum->titleToURL($topic->topic_title)));
     }
     $p = $_GET['p'];
 } else {
@@ -97,9 +97,9 @@ if (isset($_GET['pid'])) {
             $i++;
         }
         if (ceil($output / 10) != $p) {
-            Redirect::to(URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title), 'p=' . ceil($output / 10)) . '#post-' . $_GET['pid']);
+            Redirect::to(URL::build('/forum/topic/' . urlencode($tid) . '-' . $forum->titleToURL($topic->topic_title), 'p=' . ceil($output / 10)) . '#post-' . $_GET['pid']);
         } else {
-            Redirect::to(URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title)) . '#post-' . $_GET['pid']);
+            Redirect::to(URL::build('/forum/topic/' . urlencode($tid) . '-' . $forum->titleToURL($topic->topic_title)) . '#post-' . $_GET['pid']);
         }
     } else {
         require_once(ROOT_PATH . '/404.php');
@@ -136,7 +136,7 @@ if (isset($_GET['action'])) {
         }
     }
 
-    Redirect::to(URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title)));
+    Redirect::to(URL::build('/forum/topic/' . urlencode($tid) . '-' . $forum->titleToURL($topic->topic_title)));
 }
 
 $forum_parent = $queries->getWhere('forums', ['id', '=', $topic->forum_id]);
@@ -305,7 +305,7 @@ if (Input::exists()) {
                                 'new_reply',
                                 ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'new_reply_in_topic', 'replace' => ['{x}', '{y}'], 'replace_with' => [Output::getClean($user->data()->nickname), Output::getClean($topic->topic_title)]],
                                 ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'new_reply_in_topic', 'replace' => ['{x}', '{y}'], 'replace_with' => [Output::getClean($user->data()->nickname), Output::getClean($topic->topic_title)]],
-                                URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id)
+                                URL::build('/forum/topic/' . urlencode($tid) . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id)
                             );
                             $queries->update('topics_following', $user_following->id, [
                                 'existing_alerts' => 1
@@ -327,7 +327,7 @@ if (Input::exists()) {
                         $language->get('emails', 'forum_topic_reply_subject', ['author' => $user->data()->username, 'topic' => $topic->topic_title]),
                         $language->get('emails', 'greeting'),
                         $language->get('emails', 'forum_topic_reply_message', ['author' => $user->data()->username, 'content' => html_entity_decode($content)]),
-                        rtrim(Util::getSelfURL(), '/') . URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id),
+                        rtrim(Util::getSelfURL(), '/') . URL::build('/forum/topic/' . urlencode($tid) . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id),
                         $language->get('emails', 'thanks')
                     ],
                     $html
@@ -355,7 +355,7 @@ if (Input::exists()) {
                 }
             }
             Session::flash('success_post', $forum_language->get('forum', 'post_successful'));
-            Redirect::to(URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id));
+            Redirect::to(URL::build('/forum/topic/' . urlencode($tid) . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id));
         } else {
             $error = $validate->errors();
         }
@@ -407,12 +407,12 @@ $breadcrumbs = [
         'id' => 0,
         'forum_title' => Output::getClean($topic->topic_title),
         'active' => 1,
-        'link' => URL::build('/forum/topic/' . $topic->id . '-' . $forum->titleToURL($topic->topic_title))
+        'link' => URL::build('/forum/topic/' . urlencode($topic->id) . '-' . $forum->titleToURL($topic->topic_title))
     ],
     1 => [
         'id' => $forum_parent[0]->id,
         'forum_title' => Output::getClean($forum_parent[0]->forum_title),
-        'link' => URL::build('/forum/view/' . $forum_parent[0]->id . '-' . $forum->titleToURL($forum_parent[0]->forum_title))
+        'link' => URL::build('/forum/view/' . urlencode($forum_parent[0]->id) . '-' . $forum->titleToURL($forum_parent[0]->forum_title))
     ]
 ];
 if (!empty($parent_category) && $parent_category[0]->parent == 0) {
@@ -420,7 +420,7 @@ if (!empty($parent_category) && $parent_category[0]->parent == 0) {
     $breadcrumbs[] = [
         'id' => $parent_category[0]->id,
         'forum_title' => Output::getClean($parent_category[0]->forum_title),
-        'link' => URL::build('/forum/view/' . $parent_category[0]->id . '-' . $forum->titleToURL($parent_category[0]->forum_title))
+        'link' => URL::build('/forum/view/' . urlencode($parent_category[0]->id) . '-' . $forum->titleToURL($parent_category[0]->forum_title))
     ];
 } else {
     if (!empty($parent_category)) {
@@ -428,7 +428,7 @@ if (!empty($parent_category) && $parent_category[0]->parent == 0) {
         $breadcrumbs[] = [
             'id' => $parent_category[0]->id,
             'forum_title' => Output::getClean($parent_category[0]->forum_title),
-            'link' => URL::build('/forum/view/' . $parent_category[0]->id . '-' . $forum->titleToURL($parent_category[0]->forum_title))
+            'link' => URL::build('/forum/view/' . urlencode($parent_category[0]->id) . '-' . $forum->titleToURL($parent_category[0]->forum_title))
         ];
         $parent = false;
         while ($parent == false) {
@@ -436,7 +436,7 @@ if (!empty($parent_category) && $parent_category[0]->parent == 0) {
             $breadcrumbs[] = [
                 'id' => $parent_category[0]->id,
                 'forum_title' => Output::getClean($parent_category[0]->forum_title),
-                'link' => URL::build('/forum/view/' . $parent_category[0]->id . '-' . $forum->titleToURL($parent_category[0]->forum_title))
+                'link' => URL::build('/forum/view/' . urlencode($parent_category[0]->id) . '-' . $forum->titleToURL($parent_category[0]->forum_title))
             ];
             if ($parent_category[0]->parent == 0) {
                 $parent = true;
@@ -496,18 +496,18 @@ if ($user->isLoggedIn() && $forum->canModerateForum($forum_parent[0]->id, $user_
     $smarty->assign([
         'CAN_MODERATE' => true,
         'MOD_ACTIONS' => $forum_language->get('forum', 'mod_actions'),
-        'LOCK_URL' => URL::build('/forum/lock/', 'tid=' . $tid),
+        'LOCK_URL' => URL::build('/forum/lock/', 'tid=' . urlencode($tid)),
         'LOCK' => (($topic->locked == 1) ? $forum_language->get('forum', 'unlock_topic') : $forum_language->get('forum', 'lock_topic')),
-        'MERGE_URL' => URL::build('/forum/merge/', 'tid=' . $tid),
+        'MERGE_URL' => URL::build('/forum/merge/', 'tid=' . urlencode($tid)),
         'MERGE' => $forum_language->get('forum', 'merge_topic'),
-        'DELETE_URL' => URL::build('/forum/delete/', 'tid=' . $tid),
+        'DELETE_URL' => URL::build('/forum/delete/', 'tid=' . urlencode($tid)),
         'CONFIRM_DELETE' => $forum_language->get('forum', 'confirm_delete_topic'),
         'CONFIRM_DELETE_SHORT' => $language->get('general', 'confirm_delete'),
         'CONFIRM_DELETE_POST' => $forum_language->get('forum', 'confirm_delete_post'),
         'DELETE' => $forum_language->get('forum', 'delete_topic'),
-        'MOVE_URL' => URL::build('/forum/move/', 'tid=' . $tid),
+        'MOVE_URL' => URL::build('/forum/move/', 'tid=' . urlencode($tid)),
         'MOVE' => $forum_language->get('forum', 'move_topic'),
-        'STICK_URL' => URL::build('/forum/stick/', 'tid=' . $tid),
+        'STICK_URL' => URL::build('/forum/stick/', 'tid=' . urlencode($tid)),
         'STICK' => (($topic->sticky == 1) ? $forum_language->get('forum', 'unstick_topic') : $forum_language->get('forum', 'stick_topic')),
         'MARK_AS_SPAM' => $language->get('moderator', 'mark_as_spam'),
         'CONFIRM_SPAM_POST' => $language->get('moderator', 'confirm_spam')
@@ -518,9 +518,9 @@ if ($user->isLoggedIn() && $forum->canModerateForum($forum_parent[0]->id, $user_
 $smarty->assign([
     'SHARE' => $forum_language->get('forum', 'share'),
     'SHARE_TWITTER' => $forum_language->get('forum', 'share_twitter'),
-    'SHARE_TWITTER_URL' => 'https://twitter.com/intent/tweet?text=' . Output::getClean(rtrim(Util::getSelfURL(), '/')) . URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title)),
+    'SHARE_TWITTER_URL' => 'https://twitter.com/intent/tweet?text=' . urlencode(rtrim(Util::getSelfURL(), '/')) . URL::build('/forum/topic/' . urlencode($tid) . '-' . $forum->titleToURL($topic->topic_title)),
     'SHARE_FACEBOOK' => $forum_language->get('forum', 'share_facebook'),
-    'SHARE_FACEBOOK_URL' => 'https://www.facebook.com/sharer/sharer.php?u=' . Output::getClean(rtrim(Util::getSelfURL(), '/')) . URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title))
+    'SHARE_FACEBOOK_URL' => 'https://www.facebook.com/sharer/sharer.php?u=' . urlencode(rtrim(Util::getSelfURL(), '/')) . URL::build('/forum/topic/' . urlencode($tid) . '-' . $forum->titleToURL($topic->topic_title))
 ]);
 
 // Pagination
@@ -699,8 +699,8 @@ foreach ($results->data as $n => $nValue) {
         'profile' => $post_creator->getProfileURL(),
         'user_style' => $post_creator->getGroupClass(),
         'user_groups' => $user_groups_html,
-        'user_posts_count' => str_replace('{x}', count($queries->getWhere('posts', ['post_creator', '=', $nValue->post_creator])), $forum_language->get('forum', 'x_posts')),
-        'user_topics_count' => str_replace('{x}', count($queries->getWhere('topics', ['topic_creator', '=', $nValue->post_creator])), $forum_language->get('forum', 'x_topics')),
+        'user_posts_count' => str_replace('{x}', $forum->getPostCount($nValue->post_creator), $forum_language->get('forum', 'x_posts')),
+        'user_topics_count' => str_replace('{x}', $forum->getTopicCount($nValue->post_creator), $forum_language->get('forum', 'x_topics')),
         'user_registered' => str_replace('{x}', $timeago->inWords($post_creator->data()->joined, $language), $forum_language->get('forum', 'registered_x')),
         'user_registered_full' => date('d M Y', $post_creator->data()->joined),
         'user_reputation' => $post_creator->data()->reputation,

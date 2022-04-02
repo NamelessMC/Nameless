@@ -49,7 +49,7 @@ if (isset($_GET['p'])) {
     if ($_GET['p'] == 1) {
         // Avoid bug in pagination class
         if (isset($_GET['message'])) {
-            Redirect::to(URL::build('/user/messaging/', 'action=view&message=' . Output::getClean($_GET['message'])));
+            Redirect::to(URL::build('/user/messaging/', 'action=view&message=' . urlencode($_GET['message'])));
         } else {
             Redirect::to(URL::build('/user/messaging'));
         }
@@ -79,7 +79,7 @@ if (!isset($_GET['action'])) {
         $participants = '';
 
         foreach ($nValue['users'] as $item) {
-            $participants .= '<a href="' . URL::build('/profile/' . Output::getClean($user->idToName($item))) . '">' . Output::getClean($user->idToNickname($item)) . '</a>, ';
+            $participants .= '<a href="' . URL::build('/profile/' . urlencode($user->idToName($item))) . '">' . Output::getClean($user->idToNickname($item)) . '</a>, ';
         }
         $participants = rtrim($participants, ', ');
 
@@ -88,7 +88,7 @@ if (!isset($_GET['action'])) {
             'id' => $nValue['id'],
             'title' => Output::getClean($nValue['title']),
             'participants' => $participants,
-            'link' => URL::build('/user/messaging/', 'action=view&amp;message=' . $nValue['id']),
+            'link' => URL::build('/user/messaging/', 'action=view&amp;message=' . urlencode($nValue['id'])),
             'last_message_user_id' => Output::getClean($nValue['user_updated']),
             'last_message_user' => $target_user->getDisplayname(),
             'last_message_user_profile' => $target_user->getProfileURL(),
@@ -439,7 +439,7 @@ if (!isset($_GET['action'])) {
         // Pagination
         $paginator = new Paginator(($template_pagination ?? []), isset($template_pagination_left) ? $template_pagination_left : '', isset($template_pagination_right) ? $template_pagination_right : '');
         $results = $paginator->getLimited($pm_replies, 10, $p, count($pm_replies));
-        $pagination = $paginator->generate(7, URL::build('/user/messaging/', 'action=view&amp;message=' . $pm[0]->id . '&amp;'));
+        $pagination = $paginator->generate(7, URL::build('/user/messaging/', 'action=view&amp;message=' . urlencode($pm[0]->id) . '&amp;'));
 
         $smarty->assign('PAGINATION', $pagination);
 
@@ -474,7 +474,7 @@ if (!isset($_GET['action'])) {
         // Pagination
         $paginator = new Paginator(($template_pagination ?? []));
         $results = $paginator->getLimited($pm_replies, 10, $p, count($pm_replies));
-        $pagination = $paginator->generate(7, URL::build('/user/messaging/', 'action=view&amp;message=' . $pm[0]->id . '&amp;'));
+        $pagination = $paginator->generate(7, URL::build('/user/messaging/', 'action=view&amp;message=' . urlencode($pm[0]->id) . '&amp;'));
 
         $smarty->assign('PAGINATION', $pagination);
 
@@ -503,7 +503,7 @@ if (!isset($_GET['action'])) {
         $participants = '';
 
         foreach ($pm[1] as $item) {
-            $participants .= '<a href="' . URL::build('/profile/' . Output::getClean($user->idToName($item))) . '">' . Output::getClean($user->idToNickname($item)) . '</a>, ';
+            $participants .= '<a href="' . URL::build('/profile/' . urlencode($user->idToName($item))) . '">' . Output::getClean($user->idToNickname($item)) . '</a>, ';
         }
         $participants = rtrim($participants, ', ');
 
@@ -514,7 +514,7 @@ if (!isset($_GET['action'])) {
             'BACK_LINK' => URL::build('/user/messaging'),
             'LEAVE_CONVERSATION' => $language->get('user', 'leave_conversation'),
             'CONFIRM_LEAVE' => $language->get('user', 'confirm_leave'),
-            'LEAVE_CONVERSATION_LINK' => URL::build('/user/messaging/', 'action=leave&amp;message=' . $pm[0]->id),
+            'LEAVE_CONVERSATION_LINK' => URL::build('/user/messaging/', 'action=leave&amp;message=' . urlencode($pm[0]->id)),
             'PAGINATION' => $pagination,
             'PARTICIPANTS_TEXT' => $language->get('user', 'participants'),
             'PARTICIPANTS' => $participants,

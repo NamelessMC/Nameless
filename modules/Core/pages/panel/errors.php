@@ -78,7 +78,7 @@ if (isset($_GET['log'])) {
         'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
         'YES' => $language->get('general', 'yes'),
         'NO' => $language->get('general', 'no'),
-        'PURGE_LOG_LINK' => URL::build('/panel/core/errors/', 'log=' . $type . '&do=purge')
+        'PURGE_LOG_LINK' => URL::build('/panel/core/errors/', 'log=' . urlencode($type) . '&do=purge')
     ]);
 } else {
     $smarty->assign([

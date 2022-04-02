@@ -103,7 +103,7 @@ if (isset($_GET['action'])) {
         throw new InvalidArgumentException('Invalid action: ' . $_GET['action']);
     }
 
-    Redirect::to(URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->id)));
+    Redirect::to(URL::build('/panel/users/edit/', 'id=' . urlencode($user_query->id)));
 }
 
 if (Input::exists()) {
@@ -241,7 +241,7 @@ if (Input::exists()) {
                     }
 
                     Session::flash('edit_user_success', $language->get('admin', 'user_updated_successfully'));
-                    Redirect::to(URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->id)));
+                    Redirect::to(URL::build('/panel/users/edit/', 'id=' . urlencode($user_query->id)));
                 } catch (Exception $e) {
                     $errors[] = $e->getMessage();
                 }
@@ -256,9 +256,9 @@ if (Input::exists()) {
                 if ($user_query->id > 1) {
                     EventHandler::executeEvent('deleteUser', [
                         'user_id' => $user_query->id,
-                        'username' => Output::getClean($user_query->username),
-                        'uuid' => Output::getClean($user_query->uuid),
-                        'email_address' => Output::getClean($user_query->email)
+                        'username' => $user_query->username,
+                        'uuid' => $user_query->uuid,
+                        'email_address' => $user_query->email
                     ]);
 
                     Session::flash('users_session', $language->get('admin', 'user_deleted'));
@@ -308,18 +308,18 @@ if (isset($warnings) && count($warnings)) {
 if ($user_query->active == 0) {
     $smarty->assign([
         'VALIDATE_USER' => $language->get('admin', 'validate_user'),
-        'VALIDATE_USER_LINK' => URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->id) . '&action=validate'),
+        'VALIDATE_USER_LINK' => URL::build('/panel/users/edit/', 'id=' . urlencode($user_query->id) . '&action=validate'),
         'RESEND_ACTIVATION_EMAIL' => $language->get('admin', 'resend_activation_email'),
-        'RESEND_ACTIVATION_EMAIL_LINK' => URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->id) . '&action=resend_email')
+        'RESEND_ACTIVATION_EMAIL_LINK' => URL::build('/panel/users/edit/', 'id=' . urlencode($user_query->id) . '&action=resend_email')
     ]);
 }
 
 if (defined('MINECRAFT') && MINECRAFT === true) {
     $smarty->assign([
         'UPDATE_MINECRAFT_USERNAME' => $language->get('admin', 'update_mc_name'),
-        'UPDATE_MINECRAFT_USERNAME_LINK' => URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->id) . '&action=update_mcname'),
+        'UPDATE_MINECRAFT_USERNAME_LINK' => URL::build('/panel/users/edit/', 'id=' . urlencode($user_query->id) . '&action=update_mcname'),
         'UPDATE_UUID' => $language->get('admin', 'update_uuid'),
-        'UPDATE_UUID_LINK' => URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->id) . '&action=update_uuid')
+        'UPDATE_UUID_LINK' => URL::build('/panel/users/edit/', 'id=' . urlencode($user_query->id) . '&action=update_uuid')
     ]);
 }
 
@@ -375,7 +375,7 @@ foreach ($groups as $group) {
     }
 }
 
-$signature = Output::getPurified(Output::getDecoded($user_query->signature));
+$signature = Output::getPurified($user_query->signature);
 
 $user_groups = [];
 foreach ($view_user->getAllGroupIds() as $group_id) {
@@ -391,7 +391,7 @@ $smarty->assign([
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit'),
     'EDITING_USER' => str_replace('{x}', Output::getClean($user_query->nickname), $language->get('admin', 'editing_user_x')),
-    'BACK_LINK' => URL::build('/panel/users'),
+    'BACK_LINK' => URL::build('/panel/user/' . $user_query->id),
     'BACK' => $language->get('general', 'back'),
     'ACTIONS' => $language->get('general', 'actions'),
     'USER_ID' => Output::getClean($user_query->id),

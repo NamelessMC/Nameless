@@ -48,11 +48,11 @@ if (!isset($_GET['action'])) {
             'author_x' => str_replace('{x}', $template->getAuthor(), $language->get('admin', 'author_x')),
             'version_mismatch' => (($template->getNamelessVersion() != NAMELESS_VERSION) ? str_replace(['{x}', '{y}'], [Output::getClean($template->getNamelessVersion()), NAMELESS_VERSION], $language->get('admin', 'template_outdated')) : false),
             'enabled' => $item->enabled,
-            'activate_link' => (($item->enabled) ? null : URL::build('/panel/core/panel_templates/', 'action=activate&template=' . Output::getClean($item->id))),
-            'delete_link' => (($item->id == 1 || $item->enabled) ? null : URL::build('/panel/core/panel_templates/', 'action=delete&template=' . Output::getClean($item->id))),
+            'activate_link' => (($item->enabled) ? null : URL::build('/panel/core/panel_templates/', 'action=activate&template=' . urlencode($item->id))),
+            'delete_link' => (($item->id == 1 || $item->enabled) ? null : URL::build('/panel/core/panel_templates/', 'action=delete&template=' . urlencode($item->id))),
             'default' => $item->is_default,
-            'deactivate_link' => (($item->enabled && count($active_templates) > 1 && !$item->is_default) ? URL::build('/panel/core/panel_templates/', 'action=deactivate&template=' . Output::getClean($item->id)) : null),
-            'default_link' => (($item->enabled && !$item->is_default) ? URL::build('/panel/core/panel_templates/', 'action=make_default&template=' . Output::getClean($item->id)) : null)
+            'deactivate_link' => (($item->enabled && count($active_templates) > 1 && !$item->is_default) ? URL::build('/panel/core/panel_templates/', 'action=deactivate&template=' . urlencode($item->id)) : null),
+            'default_link' => (($item->enabled && !$item->is_default) ? URL::build('/panel/core/panel_templates/', 'action=make_default&template=' .urlencode($item->id)) : null)
         ];
 
     }
@@ -183,7 +183,7 @@ if (!isset($_GET['action'])) {
                 $template = $queries->getWhere('panel_templates', ['id', '=', $_GET['template']]);
                 if (!count($template)) {
                     // Doesn't exist
-                    Redirect::to(URL::build('/panel/core/panel_templates/'));
+                    Redirect::to(URL::build('/panel/core/panel_templates'));
                 }
                 $name = str_replace(['../', '/', '..'], '', $template[0]->name);
 
@@ -212,7 +212,7 @@ if (!isset($_GET['action'])) {
                 Session::flash('admin_templates_error', $language->get('general', 'invalid_token'));
             }
 
-            Redirect::to(URL::build('/panel/core/panel_templates/'));
+            Redirect::to(URL::build('/panel/core/panel_templates'));
 
         case 'deactivate':
             if (Token::check()) {
@@ -221,7 +221,7 @@ if (!isset($_GET['action'])) {
                 $template = $queries->getWhere('panel_templates', ['id', '=', $_GET['template']]);
                 if (!count($template)) {
                     // Doesn't exist
-                    Redirect::to(URL::build('/panel/core/panel_templates/'));
+                    Redirect::to(URL::build('/panel/core/panel_templates'));
                 }
 
                 $template = $template[0]->id;
@@ -285,7 +285,7 @@ if (!isset($_GET['action'])) {
                 $new_default = $queries->getWhere('panel_templates', ['id', '=', $_GET['template']]);
                 if (!count($new_default)) {
                     // Doesn't exist
-                    Redirect::to(URL::build('/panel/core/panel_templates/'));
+                    Redirect::to(URL::build('/panel/core/panel_templates'));
                 }
 
                 $new_default_template = $new_default[0]->name;
@@ -316,7 +316,7 @@ if (!isset($_GET['action'])) {
                 Session::flash('admin_templates_error', $language->get('general', 'invalid_token'));
             }
 
-            Redirect::to(URL::build('/panel/core/panel_templates/'));
+            Redirect::to(URL::build('/panel/core/panel_templates'));
 
         case 'clear_cache':
             if (Token::check()) {

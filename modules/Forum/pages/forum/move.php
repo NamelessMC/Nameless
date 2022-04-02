@@ -130,7 +130,7 @@ $smarty->assign([
     'SUBMIT' => $language->get('general', 'submit'),
     'CANCEL' => $language->get('general', 'cancel'),
     'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
-    'CANCEL_LINK' => URL::build('/forum/topic/' . $topic->id),
+    'CANCEL_LINK' => URL::build('/forum/topic/' . urlencode($topic->id)),
     'FORUMS' => $template_forums
 ]);
 

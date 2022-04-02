@@ -67,7 +67,7 @@ if ($cache->isCached('forums')) {
     // Loop through to get last poster avatars and to format a date
     if (count($forums)) {
         foreach ($forums as $key => $item) {
-            $forums[$key]['link'] = URL::build('/forum/view/' . $key . '-' . $forum->titleToURL($item['title']));
+            $forums[$key]['link'] = URL::build('/forum/view/' . urlencode($key) . '-' . $forum->titleToURL($item['title']));
             if (isset($item['subforums']) && count($item['subforums'])) {
                 foreach ($item['subforums'] as $subforum_id => $subforum) {
                     if (isset($subforum->last_post)) {
