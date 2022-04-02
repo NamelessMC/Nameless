@@ -120,6 +120,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
                             if ($query->id !== $user->data()->id) {
                                 // Alert user
+                                // TODO: new language system
                                 Alert::create(
                                     $query->id,
                                     'profile_post',
@@ -232,13 +233,14 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                                             URL::build('/profile/' . urlencode($profile_user->getDisplayname(true)) . '/#post-' . urlencode($_POST['post']))
                                         );
                                     } else {
+                                        // TODO: new language system
                                         Alert::create(
                                             $post[0]->author_id,
                                             'profile_post_reply',
                                             [
                                                 'path' => 'core',
-                                                'file' => 'user', '
-                                                term' => 'new_wall_post_reply',
+                                                'file' => 'user',
+                                                'term' => 'new_wall_post_reply',
                                                 'replace' => ['{x}', '{y}'],
                                                 'replace_with' => [$user->getDisplayname(), $profile_user->getDisplayname()]
                                             ],
@@ -592,7 +594,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
         'FOLLOW' => $language->get('user', 'follow'),
         'AVATAR' => $profile_user->getAvatar(500),
         'BANNER' => ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/profile_images/' . (($query->banner) ? Output::getClean($query->banner) : 'profile.jpg'),
-        'POST_ON_WALL' => str_replace('{x}', Output::getClean($profile_user->getDisplayname()), $language->get('user', 'post_on_wall')),
+        'POST_ON_WALL' => $language->get('user', 'post_on_wall', ['user' => Output::getClean($profile_user->getDisplayName())]),
         'FEED' => $language->get('user', 'feed'),
         'ABOUT' => $language->get('user', 'about'),
         'REACTIONS_TITLE' => $language->get('user', 'likes'),
@@ -640,7 +642,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                 if (count($reactions_query) == 1) {
                     $reactions['count'] = $language->get('user', '1_like');
                 } else {
-                    $reactions['count'] = str_replace('{x}', count($reactions_query), $language->get('user', 'x_likes'));
+                    $reactions['count'] = $language->get('user', 'x_likes', ['count' => count($reactions_query)]);
                 }
 
                 foreach ($reactions_query as $reaction) {
@@ -667,7 +669,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                     ];
                 }
             } else {
-                $reactions['count'] = str_replace('{x}', 0, $language->get('user', 'x_likes'));
+                $reactions['count'] = $language->get('user', 'x_likes', ['count' => 0]);
             }
             $reactions_query = null;
 

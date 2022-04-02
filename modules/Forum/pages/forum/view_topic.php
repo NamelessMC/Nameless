@@ -701,7 +701,7 @@ foreach ($results->data as $n => $nValue) {
         'user_groups' => $user_groups_html,
         'user_posts_count' => str_replace('{x}', $forum->getPostCount($nValue->post_creator), $forum_language->get('forum', 'x_posts')),
         'user_topics_count' => str_replace('{x}', $forum->getTopicCount($nValue->post_creator), $forum_language->get('forum', 'x_topics')),
-        'user_registered' => str_replace('{x}', $timeago->inWords($post_creator->data()->joined, $language), $forum_language->get('forum', 'registered_x')),
+        'user_registered' => $forum_language->get('forum', 'registered_x', ['registeredAt' => $timeago->inWords($post_creator->data()->joined, $language)]),
         'user_registered_full' => date('d M Y', $post_creator->data()->joined),
         'user_reputation' => $post_creator->data()->reputation,
         'post_date_rough' => $post_date_rough,

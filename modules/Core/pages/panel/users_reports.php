@@ -302,7 +302,7 @@ if (!isset($_GET['id'])) {
                         'commenter_id' => $user->data()->id,
                         'comment_date' => date('Y-m-d H:i:s'),
                         'date' => date('U'),
-                        'comment_content' => str_replace('{x}', $user->data()->username, $language->get('moderator', 'x_closed_report'))
+                        'comment_content' => $language->get('moderator', 'x_closed_report', ['user' => $user->data()->username])
                     ]);
                 }
 
@@ -331,7 +331,7 @@ if (!isset($_GET['id'])) {
                         'commenter_id' => $user->data()->id,
                         'comment_date' => date('Y-m-d H:i:s'),
                         'date' => date('U'),
-                        'comment_content' => str_replace('{x}', $user->data()->username, $language->get('moderator', 'x_reopened_report'))
+                        'comment_content' => $language->get('moderator', 'x_reopened_report', ['user' => $user->data()->username])
                     ]);
                 }
 
