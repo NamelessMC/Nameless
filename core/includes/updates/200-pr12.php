@@ -96,6 +96,10 @@ try {
     // Continue
 }
 
+// delete language cache since it will contain the old language names and not the short codes
+$cache->setCache('languagecache');
+$cache->eraseAll();
+
 // Update version number
 /*$version_number_id = $queries->getWhere('settings', array('name', '=', 'nameless_version'));
 

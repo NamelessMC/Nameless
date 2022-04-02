@@ -133,6 +133,7 @@ $queries->create('groups', [
 ]);
 
 // Languages
+// TODO: new language system
 $queries->create('languages', [
     'name' => 'EnglishUK',
     'is_default' => (Session::get('default_language') == 'EnglishUK') ? 1 : 0

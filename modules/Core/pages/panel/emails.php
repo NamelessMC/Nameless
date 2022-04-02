@@ -78,7 +78,7 @@ if (isset($_GET['action'])) {
             $languages = $queries->getWhere('languages', ['id', '<>', 0]);
             foreach ($languages as $language_db) {
                 $lang = new Language('core', $language_db->name);
-                $lang_file = ($lang->getActiveLanguageDirectory() . DIRECTORY_SEPARATOR . 'emails.php');
+                $lang_file = $lang->getActiveLanguageDirectory() . DIRECTORY_SEPARATOR . $lang->getActiveLanguage() . '.json';
                 if (file_exists($lang_file) && is_writable($lang_file)) {
                     $available_languages[] = $language_db;
                 }

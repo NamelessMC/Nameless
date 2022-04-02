@@ -767,7 +767,7 @@ switch ($s) {
             'is_default' => 0
         ]);
         $cache->setCache('languagecache');
-        $cache->store('language', 'EnglishUK');
+        $cache->store('language', 'en_UK');
 
         // Modules
         $queries->create('modules', [

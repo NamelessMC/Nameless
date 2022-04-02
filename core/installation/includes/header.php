@@ -2,6 +2,7 @@
 $readme = file(ROOT_PATH . '/README.md');
 $subheader = str_replace('#', '', $readme[0]);
 
+// TODO: new language system
 if (isset($_SESSION['installer_language']) && is_file('custom/languages/' . $_SESSION['installer_language'] . '/installer.php')) {
     $installer_language = $_SESSION['installer_language'];
 } else {
