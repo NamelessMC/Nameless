@@ -34,7 +34,9 @@ if (Input::exists()) {
 
         } else if (Input::get('action') === 'unlink') {
             // Unlink Integration
-            $integration->onUnlinkRequest($user);
+            if ($integration->data()->can_unlink) {
+                $integration->onUnlinkRequest($user);
+            }
 
         } else if (Input::get('action') === 'verify') {
             // Verify Integration
@@ -71,6 +73,8 @@ foreach (Integrations::getInstance()->getEnabledIntegrations() as $integration) 
     $integrations_list[] = [
         'name' => Output::getClean($integration->getName()),
         'icon' => Output::getClean($integration->geticon()),
+        'required' => $integration->data()->required,
+        'can_unlink' => $integration->data()->can_unlink,
         'connected' => $connected,
         'username' => $username,
         'verified' => $verified
@@ -82,7 +86,13 @@ $smarty->assign([
     'TOKEN' => Token::get(),
     'USER_CP' => $language->get('user', 'user_cp'),
     'CONNECTIONS' => $language->get('user', 'connections'),
-    'INTEGRATIONS' => $integrations_list
+    'INTEGRATIONS' => $integrations_list,
+    'REQUIRED' => $language->get('admin', 'required'),
+    'CONNECT' => $language->get('general', 'connect'),
+    'VERIFY' => $language->get('general', 'verify'),
+    'UNLINK' => $language->get('general', 'unlink'),
+    'NOT_CONNECTED' => $language->get('user', 'not_connected'),
+    'PENDING_VERIFICATION' => $language->get('user', 'pending_verification'),
 ]);
 
 if (Session::exists('connections_success')) {

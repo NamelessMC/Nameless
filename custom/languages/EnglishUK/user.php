@@ -255,4 +255,7 @@ $language = [
     'integration_verify_unconfigurated' => 'Administration has not configurated a way to verify your {x} account.', // Don't replace {x}
     'integration_identifier_already_linked' => '{x} identifier is already linked to another user.',
     'integration_username_already_linked' => '{x} username is already linked to another user.',
+    'integration_required_to_continue' => 'Please connect and verify the required connections before you can continue using this website.',
+    'not_connected' => 'Not Connected',
+    'pending_verification' => 'Pending Verification',
 ];

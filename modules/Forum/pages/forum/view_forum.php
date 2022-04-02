@@ -282,7 +282,7 @@ if ($forum_query->redirect_forum == 1) {
         $smarty->assign('NO_TOPICS_FULL', $forum_language->get('forum', 'no_topics'));
 
         if ($user->isLoggedIn() && $forum->canPostTopic($fid, $user_groups)) {
-            $smarty->assign('NEW_TOPIC_BUTTON', URL::build('/forum/new/', 'fid=' . urlencode($fid));
+            $smarty->assign('NEW_TOPIC_BUTTON', URL::build('/forum/new/', 'fid=' . urlencode($fid)));
         } else {
             $smarty->assign('NEW_TOPIC_BUTTON', false);
         }

@@ -757,7 +757,12 @@ $language = [
     'not_linked' => 'Not linked',
     'verified' => 'Verified',
     'manual_linking' => 'Manual Linking',
+    'can_unlink' => 'Can Unlink',
+    'can_unlink_integration' => 'Can users unlink integration?',
+    'require_integration' => 'Require users to link and verify integration',
     'username_and_identifier_required' => 'Username and identifier is required',
     'link_account_success' => 'Successfully linked their {x} account.', // Don't replace {x}
     'user_integration_updated_successfully' => 'User integration updated successfully.',
+    'editing_integration_x' => 'Editing integration {integration}', // Don't replace {integration}
+    'integration_updated_successfully' => 'Integration updated successfully.',
 ];

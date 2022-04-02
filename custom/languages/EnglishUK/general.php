@@ -74,6 +74,8 @@ $language = [
     'invalid_timezone' => 'That timezone is invalid',
     'link' => 'Link',
     'unlink' => 'Unlink',
+    'verify' => 'Verify',
+    'connect' => 'Connect',
     'leaderboards' => 'Leaderboards',
 
     /*

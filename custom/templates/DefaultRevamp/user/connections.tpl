@@ -49,11 +49,17 @@
                 </svg>
               </div>
               <div class="nine wide column">
-                <strong>{$integration.name}</strong> {if $integration.connected && !$integration.verified}<div class="ui orange tiny label">Pending Verification</div>{/if}</br>
+                <strong>{$integration.name}</strong> 
+                {if $integration.connected && !$integration.verified}
+                  <div class="ui orange tiny label">{$PENDING_VERIFICATION}</div> {if $integration.required}<div class="ui red tiny label">{$REQUIRED}</div>{/if}
+                {else if !$integration.connected && $integration.required}
+                  <div class="ui red tiny label">{$REQUIRED}</div>
+                {/if}
+                </br>
                 {if $integration.connected}
                   {$integration.username}
                 {else}
-                  Not Connected
+                  {$NOT_CONNECTED}
                 {/if}
               </div>
               <div class="six wide column right aligned">
@@ -63,21 +69,23 @@
                       <input type="hidden" name="token" value="{$TOKEN}">
                       <input type="hidden" name="action" value="verify">
                       <input type="hidden" name="integration" value="{$integration.name}">
-                      <input type="submit" class="ui mini orange button" value="Verify">
+                      <input type="submit" class="ui mini orange button" value="{$VERIFY}">
                     </form>
                   {/if}
+                  {if $integration.can_unlink}
                   <form class="ui form" action="" method="post" style="display: inline">
                     <input type="hidden" name="token" value="{$TOKEN}">
                     <input type="hidden" name="action" value="unlink">
                     <input type="hidden" name="integration" value="{$integration.name}">
-                    <input type="submit" class="ui mini negative button" value="Unlink">
+                    <input type="submit" class="ui mini negative button" value="{$UNLINK}">
                   </form>
+                  {/if}
                 {else}
                   <form class="ui form" action="" method="post" style="display: inline">
                     <input type="hidden" name="token" value="{$TOKEN}">
                     <input type="hidden" name="action" value="link">
                     <input type="hidden" name="integration" value="{$integration.name}">
-                    <input type="submit" class="ui mini positive button" value="Connect">
+                    <input type="submit" class="ui mini positive button" value="{$CONNECT}">
                   </form>
                 {/if}
               </div>
