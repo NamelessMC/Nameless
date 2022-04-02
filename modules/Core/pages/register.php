@@ -349,15 +349,15 @@ if (Input::exists()) {
                                     'password' => $password,
                                     'pass_method' => 'default',
                                     'joined' => $date,
-                                    'email' => Output::getClean(Input::get('email')),
+                                    'email' => Input::get('email'),
                                     'reset_code' => $code,
-                                    'lastip' => Output::getClean($ip),
+                                    'lastip' => $ip,
                                     'last_online' => $date,
                                     'language_id' => $language_id,
                                     'active' => $active,
                                     // TODO: re-enable this (#2355)
                                     // 'timezone' => ((isset($_POST['timezone']) && $_POST['timezone']) ? Output::getClean(Input::get('timezone')) : Output::getClean(TIMEZONE))
-                                    'timezone' => Output::getClean(TIMEZONE)
+                                    'timezone' => TIMEZONE
                                 ]
                             );
 
