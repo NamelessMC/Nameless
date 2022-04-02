@@ -127,6 +127,14 @@ class User {
                     $this->addGroup($default_group_id, 0, $default_group);
                 }
 
+                // Get user uuid
+                $uuid = $this->_db->selectQuery('SELECT identifier FROM nl2_users_integrations INNER JOIN nl2_integrations on integration_id=nl2_integrations.id WHERE name = \'Minecraft\' AND user_id = ?;', [$this->_data->id]);
+                if ($uuid->count()) {
+                    $this->_data->uuid = $uuid->first()->identifier;
+                } else {
+                    $this->_data->uuid = '';
+                }
+
                 return true;
             }
         }
