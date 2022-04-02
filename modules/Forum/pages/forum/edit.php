@@ -15,7 +15,7 @@ $page_title = $forum_language->get('forum', 'edit_post');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 $template->addCSSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.css' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism_' . (DARK_MODE ? 'dark' : 'light') . '.css' => [],
     (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
 ]);
 
@@ -118,9 +118,8 @@ if (Input::exists()) {
 
         if ($validation->passed()) {
             // Valid post content
-            $content = Output::getClean(Input::get('content'));
             $content = EventHandler::executeEvent(isset($edit_title) ? 'preTopicEdit' : 'prePostEdit', [
-                'content' => $content,
+                'content' => Input::get('content'),
                 'post_id' => $post_id,
                 'topic_id' => $topic_id,
                 'user' => $user,
@@ -238,17 +237,18 @@ if (isset($edit_title, $post_labels)) {
     $smarty->assign('LABELS', $labels);
 }
 
+// Purify post content
+$content = EventHandler::executeEvent('renderPostEdit', ['content' => $post_editing[0]->post_content])['content'];
+
 $smarty->assign([
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit'),
     'CANCEL' => $language->get('general', 'cancel'),
     'CANCEL_LINK' => URL::build('/forum/topic/' . $topic_id, 'pid=' . $post_id),
     'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
-    'CONTENT' => Output::getPurified(Output::getDecoded($post_editing[0]->post_content))
+    'CONTENT_LABEL' => $language->get('general', 'content'),
+    'TOPIC_TITLE' => $forum_language->get('forum', 'topic_title')
 ]);
-
-$clean = Output::getDecoded($post_editing[0]->post_content);
-$clean = Output::getPurified($clean);
 
 $template->addJSFiles([
     (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
@@ -256,7 +256,7 @@ $template->addJSFiles([
     (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
 ]);
 
-$template->addJSScript(Input::createTinyEditor($language, 'editor', true));
+$template->addJSScript(Input::createTinyEditor($language, 'editor', $content, true));
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);

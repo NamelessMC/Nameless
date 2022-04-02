@@ -9,6 +9,16 @@
  *  Forum module - front page module
  */
 
+$template->addCSSFiles([
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism_' . (DARK_MODE ? 'dark' : 'light') . '.css' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
+]);
+
+$template->addJSFiles([
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => []
+]);
+
 $cache->setCache('news_cache');
 if ($cache->isCached('news')) {
     $news = $cache->retrieve('news');
@@ -39,7 +49,7 @@ if ($cache->isCached('news')) {
             'author_avatar' => $post_user->getAvatar(64),
             'author_group' => Output::getClean($post_user->getMainGroup()->name),
             'author_group_html' => $post_user->getMainGroup()->group_html,
-            'content' => Output::getPurified(Util::renderEmojis($item['content'])),
+            'content' => EventHandler::executeEvent('renderPost', ['content' => $item['content']])['content'],
             'label' => $item['label'],
             'labels' => $item['labels']
         ];

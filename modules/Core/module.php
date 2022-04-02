@@ -293,6 +293,24 @@ class Core_Module extends Module {
             ]
         );
 
+        EventHandler::registerEvent('renderPrivateMessage',
+            $language->get('admin', 'render_private_message'),
+            [
+                'content' => $language->get('general', 'content')
+            ],
+            true,
+            true
+        );
+
+        EventHandler::registerEvent('renderPrivateMessageEdit',
+            $language->get('admin', 'render_private_message_edit'),
+            [
+                'content' => $language->get('general', 'content')
+            ],
+            true,
+            true
+        );
+
         EventHandler::registerEvent('userBanned',
             $language->get('admin', 'ban_hook_info'),
             [
@@ -423,6 +441,17 @@ class Core_Module extends Module {
 
             $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'), $value);
         });
+
+        require_once ROOT_PATH . '/modules/Core/hooks/ContentHook.php';
+        EventHandler::registerListener('renderPrivateMessage', 'ContentHook::purify');
+        EventHandler::registerListener('renderPrivateMessage', 'ContentHook::codeTransform', false, 15);
+        EventHandler::registerListener('renderPrivateMessage', 'ContentHook::decode', false, 20);
+        EventHandler::registerListener('renderPrivateMessage', 'ContentHook::renderEmojis', false, 16);
+        EventHandler::registerListener('renderPrivateMessage', 'ContentHook::replaceAnchors', false, 15);
+        EventHandler::registerListener('renderPrivateMessageEdit', 'ContentHook::purify');
+        EventHandler::registerListener('renderPrivateMessageEdit', 'ContentHook::codeTransform', false, 15);
+        EventHandler::registerListener('renderPrivateMessageEdit', 'ContentHook::decode', false, 20);
+        EventHandler::registerListener('renderPrivateMessageEdit', 'ContentHook::replaceAnchors', false, 15);
     }
 
     public static function getDashboardGraphs(): array {

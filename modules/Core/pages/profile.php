@@ -545,7 +545,11 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
     if (count($wall_posts_query)) {
         // Pagination
-        $paginator = new Paginator(($template_pagination ?? []), $template_pagination_left ?? '', $template_pagination_right ?? '');
+        $paginator = new Paginator(
+            $template_pagination ?? null,
+            $template_pagination_left ?? null,
+            $template_pagination_right ?? null
+        );
         $results = $paginator->getLimited($wall_posts_query, 10, $p, count($wall_posts_query));
         $pagination = $paginator->generate(7, URL::build('/profile/' . Output::getClean($query->username) . '/'));
 
