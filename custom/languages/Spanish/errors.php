@@ -29,6 +29,6 @@ $language = [
     'fatal_error_title' => '¡Lo sentimos!',
     'fatal_error_message_user' => 'Se ha producido un error al cargar la página. Inténtelo nuevamente.',
     'fatal_error_message_admin' => 'Se ha producido un error al cargar la página. Detalles del error:',
-    'in_file' => 'En el archivo <strong>{x}</strong>',
-    'on_line' => 'En la línea <strong>{x}</strong>'
+    'in_file' => 'En el archivo {{file}}',
+    'on_line' => 'En la línea {{line}}'
 ];

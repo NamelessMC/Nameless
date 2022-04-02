@@ -29,6 +29,6 @@ $language = [
     'fatal_error_title' => 'Sorry!',
     'fatal_error_message_user' => 'ขออภัย เกิดข้อผิดพลาดขณะโหลดหน้านี้ โปรดติดต่อผู้ดูแลระบบ',
     'fatal_error_message_admin' => 'ขออภัย เกิดข้อผิดพลาดขณะโหลดหน้า รายละเอียดผิดพลาด:',
-    'in_file' => 'in file <strong>{x}</strong>',
-    'on_line' => 'on line <strong>{x}</strong>'
+    'in_file' => 'in file {{file}}',
+    'on_line' => 'on line {{line}}'
 ];

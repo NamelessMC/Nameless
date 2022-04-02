@@ -84,7 +84,7 @@ if (Input::exists()) {
                             || CaptchaBase::getActiveProvider()->validateKey(Input::get('recaptcha')) == false
                         )
                     ) {
-                        $errors = [str_replace('{{recaptchaProvider}}', Input::get('captcha_type'), $language->get('admin', 'invalid_recaptcha_settings'))];
+                        $errors = [$language->get('admin', 'invalid_recaptcha_settings', ['recaptchaProvider' => Input::get('captcha_type')])];
                     } else {
                         // reCAPTCHA enabled?
                         if (Input::get('enable_recaptcha') == 1) {

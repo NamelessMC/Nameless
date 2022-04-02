@@ -29,6 +29,6 @@ $language = [
     'fatal_error_title' => 'Beklager!',
     'fatal_error_message_user' => 'Beklager, men det oppstod en feil. Vennligst kontakt en administrator.',
     'fatal_error_message_admin' => 'Beklager, men det oppstod en feil. Feilmelding:',
-    'in_file' => 'i filen <strong>{x}</strong>',
-    'on_line' => 'på linje <strong>{x}</strong>'
+    'in_file' => 'i filen {{file}}',
+    'on_line' => 'på linje {{line}}'
 ];

@@ -31,6 +31,6 @@ $language = [
     'fatal_error_title' => 'Scuze!',
     'fatal_error_message_user' => 'Ne pare rău, dar în timpul încărcării paginii s-a întâmplat ceva. Contactați un administrator.',
     'fatal_error_message_admin' => 'Ne pare rău, dar în timpul încărcării paginii s-a întâmplat ceva. Detalii eroare:',
-    'in_file' => 'în fișierul <strong>{x}</strong>',
-    'on_line' => 'linia <strong>{x}</strong>'
+    'in_file' => 'în fișierul {{file}}',
+    'on_line' => 'linia {{line}}'
 ];

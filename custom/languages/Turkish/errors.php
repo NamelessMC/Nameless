@@ -29,6 +29,6 @@ $language = [
     'fatal_error_title' => 'Üzgünüm!',
     'fatal_error_message_user' => 'Maalesef, sayfa yüklenirken bir şeyler ters gitti. Lütfen bir yöneticiye başvurun.',
     'fatal_error_message_admin' => 'Maalesef, sayfa yüklenirken bir şeyler ters gitti. Hata detayları:',
-    'in_file' => '<strong>{x}</strong> dosyasında',
-    'on_line' => '<strong>{x}</strong> internet üzerinde'
+    'in_file' => '{{file}} dosyasında',
+    'on_line' => '{{line}} internet üzerinde'
 ];

@@ -33,6 +33,6 @@ $language = [
     'fatal_error_title' => '抱歉!',
     'fatal_error_message_user' => 'Sorry, but something went wrong while loading the page. Please contact an administrator.',
     'fatal_error_message_admin' => 'Sorry, but something went wrong while loading the page. Error details:',
-    'in_file' => 'in file <strong>{x}</strong>',
-    'on_line' => 'on line <strong>{x}</strong>'
+    'in_file' => 'in file {{file}}',
+    'on_line' => 'on line {{line}}'
 ];

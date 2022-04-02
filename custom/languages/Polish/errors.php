@@ -29,6 +29,6 @@ $language = [
     'fatal_error_title' => 'Przypraszamy!',
     'fatal_error_message_user' => 'Przepraszamy, ale podczas ładowania strony coś poszło nie tak. Skontaktuj się z administratorem.',
     'fatal_error_message_admin' => 'Przepraszamy, ale podczas ładowania strony coś poszło nie tak. Szczegóły błędu:',
-    'in_file' => 'w pliku <strong>{x}</strong>',
-    'on_line' => 'w linijce <strong>{x}</strong>',
+    'in_file' => 'w pliku {{file}}',
+    'on_line' => 'w linijce {{line}}',
 ];

@@ -34,6 +34,6 @@ $language = [
     'fatal_error_title' => '申し訳ありません！',
     'fatal_error_message_user' => 'ページの読み込み中に何らかの問題が発生しました。管理者までご連絡ください。',
     'fatal_error_message_admin' => 'ページの読み込み中に何らかの問題が発生しました。エラーの詳細:',
-    'in_file' => 'ファイル <strong>{x}</strong> 内',
-    'on_line' => '<strong>{x}</strong> 行目'
+    'in_file' => 'ファイル {{file}} 内',
+    'on_line' => '{{line}} 行目'
 ];

@@ -97,13 +97,13 @@ if (!isset($_GET['action'])) {
                     'description_short' => Util::truncate(Output::getPurified($item->description)),
                     'author' => Output::getClean($item->author),
                     'author_x' => $language->get('admin', 'author_x', ['author' => Output::getClean($item->author)]),
-                    'updated_x' => str_replace('{x}', date(DATE_FORMAT, $item->updated), $language->get('admin', 'updated_x')),
+                    'updated_x' => $language->get('admin', 'updated_x', ['updatedAt' => date(DATE_FORMAT, $item->updated)]),
                     'url' => Output::getClean($item->url),
                     'latest_version' => Output::getClean($item->latest_version),
                     'rating' => Output::getClean($item->rating),
                     'downloads' => Output::getClean($item->downloads),
                     'views' => Output::getClean($item->views),
-                    'rating_full' => str_replace('{x}', Output::getClean($item->rating * 2) . '/100', $language->get('admin', 'rating_x')),
+                    'rating_full' => $language->get('admin', 'rating_x', ['rating' => Output::getClean($item->rating * 2) . '/100']),
                     'downloads_full' => str_replace('{x}', Output::getClean($item->downloads), $language->get('admin', 'downloads_x')),
                     'views_full' => str_replace('{x}', Output::getClean($item->views), $language->get('admin', 'views_x'))
                 ];
