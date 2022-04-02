@@ -316,7 +316,7 @@ if (!isset($_GET['action'])) {
                 $cache->store('default', $new_default_template);
 
                 // Session
-                Session::flash('admin_templates', str_replace('{x}', Output::getClean($new_default_template), $language->get('admin', 'default_template_set')));
+                Session::flash('admin_templates', $language->get('admin', 'default_template_set', ['template' => Output::getClean($new_default_template)]));
             } else {
                 Session::flash('admin_templates_error', $language->get('general', 'invalid_token'));
             }
@@ -676,7 +676,8 @@ if (!isset($_GET['action'])) {
                         }
 
                         $smarty->assign([
-                            'EDITING_FILE' => str_replace(['{x}', '{y}'], [$template_path, Output::getClean($template_query->name)], $language->get('admin', 'editing_template_file_in_template')),
+                            // TODO: new language system
+                            'EDITING_FILE' => str_replace(['{{file}}', '{y}'], [$template_path, Output::getClean($template_query->name)], $language->get('admin', 'editing_template_file_in_template')),
                             'CANCEL' => $language->get('general', 'cancel'),
                             'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
                             'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),

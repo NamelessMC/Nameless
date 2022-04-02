@@ -312,7 +312,7 @@ if (!isset($_GET['action'])) {
                 $cache->store('panel_default', $new_default_template);
 
                 // Session
-                Session::flash('admin_templates', str_replace('{x}', Output::getClean($new_default_template), $language->get('admin', 'default_template_set')));
+                Session::flash('admin_templates', $language->get('admin', 'default_template_set', ['template' => Output::getClean($new_default_template)]));
             } else {
                 Session::flash('admin_templates_error', $language->get('general', 'invalid_token'));
             }

@@ -235,6 +235,7 @@ if (isset($_GET['user'])) {
                                             }
 
                                             // Send alert
+                                            // TODO: new language system
                                             Alert::create(
                                                 $item->id,
                                                 'punishment',
@@ -242,7 +243,7 @@ if (isset($_GET['user'])) {
                                                     'path' => 'core',
                                                     'file' => 'moderator',
                                                     'term' => 'user_punished_alert',
-                                                    'replace' => ['{x}', '{y}'],
+                                                    'replace' => ['{{staffUser}}', '{{user}}'],
                                                     'replace_with' => [
                                                         Output::getClean($user->data()->nickname),
                                                         Output::getClean($query->nickname),
@@ -252,7 +253,7 @@ if (isset($_GET['user'])) {
                                                     'path' => 'core',
                                                     'file' => 'moderator',
                                                     'term' => 'user_punished_alert',
-                                                    'replace' => ['{x}', '{y}'],
+                                                    'replace' => ['{{staffUser}}', '{{user}}'],
                                                     'replace_with' => [
                                                         Output::getClean($user->data()->nickname),
                                                         Output::getClean($query->nickname)

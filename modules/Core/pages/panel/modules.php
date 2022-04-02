@@ -191,7 +191,7 @@ if (!isset($_GET['action'])) {
                     }
                     foreach ($module->getLoadAfter() as $item) {
                         if (!in_array($item, $enabled_modules)) {
-                            Session::flash('admin_modules_error', str_replace('{x}', Output::getClean($item), $language->get('admin', 'unable_to_enable_module_dependencies')));
+                            Session::flash('admin_modules_error', $language->get('admin', 'unable_to_enable_module_dependencies', ['module' =>  Output::getClean($item)]));
                             Redirect::to(URL::build('/panel/core/modules'));
                         }
                     }
@@ -223,7 +223,7 @@ if (!isset($_GET['action'])) {
             foreach (Module::getModules() as $item) {
                 if (in_array($name, $item->getLoadAfter())) {
                     // Unable to disable module
-                    Session::flash('admin_modules_error', str_replace('{x}', Output::getClean($item->getName()), $language->get('admin', 'unable_to_disable_module')));
+                    Session::flash('admin_modules_error', $language->get('admin', 'unable_to_disable_module', ['module' => Output::getClean($item->getName())]));
                     Redirect::to(URL::build('/panel/core/modules'));
                 }
             }

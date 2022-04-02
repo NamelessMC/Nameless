@@ -327,7 +327,7 @@ if ($user_query->id != 1 && !$view_user->canViewStaffCP()) {
     $smarty->assign([
         'DELETE_USER' => $language->get('admin', 'delete_user'),
         'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
-        'CONFIRM_DELETE_USER' => str_replace('{x}', Output::getClean($user_query->nickname), $language->get('admin', 'confirm_user_deletion')),
+        'CONFIRM_DELETE_USER' => $language->get('admin', 'confirm_user_deletion', ['user' => Output::getClean($user_query->nickname)]),
         'YES' => $language->get('general', 'yes'),
         'NO' => $language->get('general', 'no')
     ]);

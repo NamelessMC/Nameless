@@ -27,7 +27,7 @@ $language = [
     'no_accounts_with_that_ip' => 'No accounts for that IP address found.',
     '1_account_with_ip' => 'Found {{count}} account with the IP {{address}}',
     'count_accounts_with_ip' => 'Found {{count}} accounts with the IP {{address}}',
-    '1_ip_with_name' => 'Found {{count}} IP address for user {{user}}',
+    '1_ip_with_name' => 'Found 1 IP address for user {{user}}',
     'count_ips_with_name' => 'Found {{count}} IP addresses for user {{user}}',
     'no_users_or_ips_found' => 'No users or IP addresses found.',
 
@@ -88,7 +88,6 @@ $language = [
     'confirm_revoke_warning' => 'Are you sure you want to revoke this warning?',
     'confirm_revoke_ban' => 'Are you sure you want to revoke this ban? The user will be unbanned, even if they have a more recent ban!',
     'punishment_revoked' => 'Punishment revoked.',
-    'punishment_revoked_alert' => '{{staffUser}} has revoked a punishment for user {{user}}',
     'cant_punish_admin' => 'You can\'t punish an administrator!',
     'viewing_all_punishments' => 'Viewing all punishments',
     'no_punishments_found' => 'No punishments found.',

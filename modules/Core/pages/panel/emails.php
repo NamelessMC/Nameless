@@ -62,7 +62,7 @@ if (isset($_GET['action'])) {
             }
         } else {
             $smarty->assign([
-                'SEND_TEST_EMAIL_INFO' => str_replace('{x}', Output::getClean($user->data()->email), $language->get('admin', 'send_test_email_info')),
+                'SEND_TEST_EMAIL_INFO' => $language->get('admin', 'send_test_email_info', ['email' => Output::getClean($user->data()->email)]),
                 'INFO' => $language->get('general', 'info'),
                 'SEND' => $language->get('admin', 'send'),
                 'SEND_LINK' => URL::build('/panel/core/emails/', 'action=test&do=send')

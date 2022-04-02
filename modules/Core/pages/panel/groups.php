@@ -162,7 +162,7 @@ if (isset($_GET['action'])) {
                     'PERMISSIONS_LINK' => URL::build('/panel/core/groups/', 'action=permissions&group=' . urlencode($group->id)),
                     'DELETE' => $language->get('general', 'delete'),
                     'DELETE_GROUP' => $language->get('admin', 'delete_group'),
-                    'CONFIRM_DELETE' => str_replace('{x}', Output::getClean($group->name), $language->get('admin', 'confirm_group_deletion'))
+                    'CONFIRM_DELETE' => $language->get('admin', 'confirm_group_deletion', ['group' => Output::getClean($group->name)]),
                 ]);
             }
 
