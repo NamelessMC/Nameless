@@ -237,7 +237,7 @@ $language = [
     /*
      *  Hooks
      */
-    'user_x_has_registered' => '{x} s-a alaturat comunităţii!',
+    'user_x_has_registered' => '{{user}} s-a alaturat comunităţii!',
     'user_x_has_validated' => '{{user}} has validated their account!',
 
     // OAuth

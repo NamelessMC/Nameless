@@ -237,7 +237,7 @@ $language = [
     /*
      *  Hooks
      */
-    'user_x_has_registered' => '{x} 加入了 ' . SITE_NAME . '!',
+    'user_x_has_registered' => '{{user}} 加入了 {{siteName}}!',
     'user_x_has_validated' => '{{user}} 已验证他的帐号!',
 
     // OAuth

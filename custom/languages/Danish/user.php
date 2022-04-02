@@ -235,7 +235,7 @@ mappe.',
     /*
      *  Hooks
      */
-    'user_x_has_registered' => '{x} har tilsluttet sig ' . SITE_NAME . '!',
+    'user_x_has_registered' => '{{user}} har tilsluttet sig {{siteName}}!',
     'user_x_has_validated' => '{{user}} har valideret deres konto!',
 
     // OAuth

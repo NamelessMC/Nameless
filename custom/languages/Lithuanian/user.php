@@ -228,7 +228,7 @@ $language = [
     'acknowledge' => 'Pripažinti',
 
     // Hooks
-    'user_x_has_registered' => '{x} prisijungė prie ' . SITE_NAME . '!',
+    'user_x_has_registered' => '{{user}} prisijungė prie {{siteName}}!',
     'user_x_has_validated' => '{{user}} has validated their account!',
 
     // OAuth

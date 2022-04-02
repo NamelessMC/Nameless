@@ -234,7 +234,7 @@ $language = [
     /*
      *  Hooks
      */
-    'user_x_has_registered' => '{x} juntou-se ' . SITE_NAME . '!',
+    'user_x_has_registered' => '{{user}} juntou-se {{siteName}}!',
     'user_x_has_validated' => '{{user}} validou sua conta!',
 
     // OAuth

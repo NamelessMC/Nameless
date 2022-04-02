@@ -402,7 +402,10 @@ if (Input::exists()) {
                                 'user_id' => $user_id,
                                 'username' => Input::get('username'),
                                 'uuid' => $uuid,
-                                'content' => str_replace('{{user}}', Input::get('username'), $language->get('user', 'user_x_has_registered')),
+                                'content' => $api->getLanguage()->get('user', 'user_x_has_registered', [
+                                    'user' => Input::get('username'),
+                                    'siteName' => SITE_NAME,
+                                ]),
                                 'avatar_url' => $user->getAvatar(128, true),
                                 'url' => Util::getSelfURL() . ltrim(URL::build('/profile/' . urlencode(Input::get('username'))), '/'),
                                 'language' => $language

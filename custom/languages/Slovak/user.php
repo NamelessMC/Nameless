@@ -234,7 +234,7 @@ $language = [
     /*
      *  Hooks
      */
-    'user_x_has_registered' => '{x} sa pripojil/a ' . SITE_NAME . '!',
+    'user_x_has_registered' => '{{user}} sa pripojil/a {{siteName}}!',
     'user_x_has_validated' => '{{user}} overil/a svoj účet!',
 
     // OAuth

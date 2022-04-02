@@ -228,7 +228,7 @@ $language = [
     'acknowledge' => 'Bestätigen',
 
     //Hooks
-    'user_x_has_registered' => '{x} ist beigetreten ' . SITE_NAME . '!',
+    'user_x_has_registered' => '{{user}} ist beigetreten {{siteName}}!',
     'user_x_has_validated' => '{{user}} hat das Konto validiert!',
 
     // OAuth

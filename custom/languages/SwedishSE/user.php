@@ -236,7 +236,7 @@ $language = [
     /*
      *  Hooks
      */
-    'user_x_has_registered' => '{x} gått med ' . SITE_NAME . '!',
+    'user_x_has_registered' => '{{user}} gått med {{siteName}}!',
     'user_x_has_validated' => '{{user}} har verifierat sitt konto!',
 
     // OAuth

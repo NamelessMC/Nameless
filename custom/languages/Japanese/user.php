@@ -239,7 +239,7 @@ $language = [
     /*
      *  Hooks
      */
-    'user_x_has_registered' => '{x}が' . SITE_NAME . 'に登録しました。',
+    'user_x_has_registered' => '{{user}} が {{siteName}} に登録しました。',
     'user_x_has_validated' => '{{user}} がアカウントを認証しました！',
 
     // OAuth
