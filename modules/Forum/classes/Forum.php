@@ -544,6 +544,34 @@ class Forum {
     }
 
     /**
+     * Get a user's post count
+     *
+     * @param int|null $user_id User ID to check
+     * @return int Number of posts
+     */
+    public function getPostCount(int $user_id = null): int {
+        if ($user_id) {
+            return $this->_db->selectQuery('SELECT COUNT(*) AS c FROM nl2_posts WHERE deleted = 0 AND post_creator = ?', [$user_id])->first()->c;
+        }
+
+        return 0;
+    }
+
+    /**
+     * Get a user's topic count
+     *
+     * @param int|null $user_id User ID to check
+     * @return int Number of topics
+     */
+    public function getTopicCount(int $user_id = null): int {
+        if ($user_id) {
+            return $this->_db->selectQuery('SELECT COUNT(*) AS c FROM nl2_topics WHERE deleted = 0 AND topic_creator = ?', [$user_id])->first()->c;
+        }
+
+        return 0;
+    }
+
+    /**
      * Get posts on a specific topic.
      *
      * @param int|null $tid The topic ID to check.
