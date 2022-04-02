@@ -466,7 +466,7 @@ if (!isset($_GET['action'])) {
                 'author_groups' => $target_user->getAllGroupHtml(),
                 'message_date' => $timeago->inWords(date('Y-m-d H:i:s', $nValue->created), $language->getTimeLanguage()),
                 'message_date_full' => date(DATE_FORMAT, $nValue->created),
-                'content' => Output::getPurified(Util::renderEmojis(Output::getDecoded($nValue->content))),
+                'content' => Output::getPurified(Util::renderEmojis($nValue->content)),
             ];
         }
 
@@ -501,7 +501,7 @@ if (!isset($_GET['action'])) {
                 'author_groups' => $target_user->getAllGroupHtml(),
                 'message_date' => $timeago->inWords(date('Y-m-d H:i:s', $nValue->created), $language->getTimeLanguage()),
                 'message_date_full' => date(DATE_FORMAT, $nValue->created),
-                'content' => Output::getPurified(Util::renderEmojis(Output::getDecoded($nValue->content))),
+                'content' => Output::getPurified(Util::renderEmojis($nValue->content)),
             ];
         }
 

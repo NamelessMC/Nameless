@@ -160,11 +160,11 @@ if (Input::exists()) {
                 }
 
                 $queries->update('topics', $topic_id, [
-                    'topic_title' => Output::getDecoded(Input::get('title')),
+                    'topic_title' => Input::get('title'),
                     'labels' => implode(',', $post_labels)
                 ]);
 
-                Log::getInstance()->log(Log::Action('forums/topic/edit'), Output::getDecoded(Input::get('title')));
+                Log::getInstance()->log(Log::Action('forums/topic/edit'), Input::get('title'));
             }
 
             // Display success message and redirect

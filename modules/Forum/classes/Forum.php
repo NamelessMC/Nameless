@@ -502,7 +502,7 @@ class Forum {
                 'topic_title' => $item->topic_title,
                 'topic_views' => $item->topic_views,
                 'author' => $item->topic_creator,
-                'content' => Util::truncate(Output::getDecoded($post)),
+                'content' => Util::truncate($post),
                 'replies' => $posts,
                 'label' => $labels[0],
                 'labels' => $labels

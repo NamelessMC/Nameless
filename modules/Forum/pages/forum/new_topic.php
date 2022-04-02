@@ -43,7 +43,7 @@ if (!$can_reply) {
 }
 
 $current_forum = DB::getInstance()->selectQuery('SELECT * FROM nl2_forums WHERE id = ?', [$fid])->first();
-$forum_title = Output::getClean(Output::getDecoded($current_forum->forum_title));
+$forum_title = Output::getClean($current_forum->forum_title);
 
 // Topic labels
 $smarty->assign('LABELS_TEXT', $forum_language->get('forum', 'label'));
