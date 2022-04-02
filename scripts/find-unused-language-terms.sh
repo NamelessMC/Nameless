@@ -12,10 +12,10 @@ do
     AFTER_SLASH="${KEY#*/}"
 
     if ! grep -r --exclude-dir .git \
-            -e "get('$BEFORE_SLASH', '$AFTER_SLASH')" \
-            -e "get(\"$BEFORE_SLASH\", '$AFTER_SLASH')" \
-            -e "get('$BEFORE_SLASH', \"$AFTER_SLASH\")" \
-            -e "get(\"$BEFORE_SLASH\", \"$AFTER_SLASH\")" \
+            -e "get('$BEFORE_SLASH', '$AFTER_SLASH'" \
+            -e "get(\"$BEFORE_SLASH\", '$AFTER_SLASH'" \
+            -e "get('$BEFORE_SLASH', \"$AFTER_SLASH\"" \
+            -e "get(\"$BEFORE_SLASH\", \"$AFTER_SLASH\"" \
             > /dev/null
     then
         echo "$KEY"
