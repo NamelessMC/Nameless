@@ -345,7 +345,7 @@ if (!isset($_GET['action'])) {
                     require_once($template->getSettings());
 
                     $smarty->assign([
-                        'EDITING_TEMPLATE' => str_replace('{x}', Output::getClean($template_query->name), $language->get('admin', 'editing_template_x')),
+                        'EDITING_TEMPLATE' => $language->get('admin', 'editing_template_x', ['template' => Output::getClean($template_query->name)]),
                         'BACK' => $language->get('general', 'back'),
                         'BACK_LINK' => URL::build('/panel/core/templates'),
                         'PERMISSIONS' => $language->get('admin', 'permissions'),
@@ -470,7 +470,7 @@ if (!isset($_GET['action'])) {
             $group_query = DB::getInstance()->selectQuery('SELECT id, `name`, can_use_template FROM nl2_groups A LEFT JOIN (SELECT group_id, can_use_template FROM nl2_groups_templates WHERE template_id = ?) B ON A.id = B.group_id ORDER BY `order` ASC', [$template_query->id])->results();
 
             $smarty->assign([
-                'EDITING_TEMPLATE' => str_replace('{x}', Output::getClean($template_query->name), $language->get('admin', 'editing_template_x')),
+                'EDITING_TEMPLATE' => $language->get('admin', 'editing_template_x', ['template' => Output::getClean($template_query->name)]),
                 'BACK' => $language->get('general', 'back'),
                 'BACK_LINK' => URL::build('/panel/core/templates'),
                 'PERMISSIONS' => $language->get('admin', 'permissions'),
@@ -692,7 +692,7 @@ if (!isset($_GET['action'])) {
             }
 
             $smarty->assign([
-                'EDITING_TEMPLATE' => str_replace('{x}', Output::getClean($template_query->name), $language->get('admin', 'editing_template_x'))
+                'EDITING_TEMPLATE' => $language->get('admin', 'editing_template_x', ['template' => Output::getClean($template_query->name)]),
             ]);
 
             break;

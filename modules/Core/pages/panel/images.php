@@ -243,19 +243,19 @@ foreach ($images as $image) {
 }
 
 if (!is_writable(ROOT_PATH . '/uploads/backgrounds')) {
-    $smarty->assign('BACKGROUNDS_NOT_WRITABLE', str_replace('{x}', 'uploads/backgrounds', $language->get('admin', 'x_directory_not_writable')));
+    $smarty->assign('BACKGROUNDS_NOT_WRITABLE', $language->get('admin', 'x_directory_not_writable', ['directory' => 'uploads/backgrounds']));
 }
 
 if (!is_writable(ROOT_PATH . '/uploads/template_banners')) {
-    $smarty->assign('TEMPLATE_BANNERS_DIRECTORY_NOT_WRITABLE', str_replace('{x}', 'uploads/template_banners', $language->get('admin', 'x_directory_not_writable')));
+    $smarty->assign('TEMPLATE_BANNERS_DIRECTORY_NOT_WRITABLE', $language->get('admin', 'x_directory_not_writable', ['directory' => 'uploads/template_banners']));
 }
 
 if (!is_writable(ROOT_PATH . '/uploads/logos')) {
-    $smarty->assign('LOGOS_DIRECTORY_NOT_WRITABLE', str_replace('{x}', 'uploads/logos', $language->get('admin', 'x_directory_not_writable')));
+    $smarty->assign('LOGOS_DIRECTORY_NOT_WRITABLE', $language->get('admin', 'x_directory_not_writable', ['directory' => 'uploads/logos']));
 }
 
 if (!is_writable(ROOT_PATH . '/uploads/favicons')) {
-    $smarty->assign('FAVICONS_DIRECTORY_NOT_WRITABLE', str_replace('{x}', 'uploads/favicons', $language->get('admin', 'x_directory_not_writable')));
+    $smarty->assign('FAVICONS_DIRECTORY_NOT_WRITABLE', $language->get('admin', 'x_directory_not_writable', ['directory' => 'uploads/favicons']));
 }
 
 $smarty->assign([

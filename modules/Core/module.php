@@ -704,8 +704,8 @@ class Core_Module extends Module {
                     $smarty->assign([
                         'NEW_UPDATE' => (isset($update_check->urgent) && $update_check->urgent == 'true') ? $language->get('admin', 'new_urgent_update_available') : $language->get('admin', 'new_update_available'),
                         'NEW_UPDATE_URGENT' => (isset($update_check->urgent) && $update_check->urgent == 'true'),
-                        'CURRENT_VERSION' => str_replace('{x}', Output::getClean($current_version), $language->get('admin', 'current_version_x')),
-                        'NEW_VERSION' => str_replace('{x}', Output::getClean($update_check->new_version), $language->get('admin', 'new_version_x')),
+                        'CURRENT_VERSION' => $language->get('admin', 'current_version_x', ['version' => Output::getClean($current_version)]),
+                        'NEW_VERSION' => $language->get('admin', 'new_version_x', ['version' => Output::getClean($update_check->new_version)]),
                         'UPDATE' => $language->get('admin', 'update'),
                         'UPDATE_LINK' => URL::build('/panel/update')
                     ]);

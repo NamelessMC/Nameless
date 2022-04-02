@@ -32,8 +32,8 @@ $language = [
     'users_and_groups' => 'Utilisateurs et groupes',
 
     // Overview
-    'running_nameless_version' => 'Version actuelle de NamelessMC <strong>{x}</strong>', // Don't replace "{x}"
-    'running_php_version' => 'Version actuelle de PHP <strong>{x}</strong>', // Don't replace "{x}"
+    'running_nameless_version' => 'Version actuelle de NamelessMC {{version}}',
+    'running_php_version' => 'Version actuelle de PHP {{version}}',
     'statistics' => 'Statistiques',
     'registrations' => 'Enregistrements',
     'topics' => 'Sujets',
@@ -382,7 +382,7 @@ $language = [
     'banner_image_x' => 'Image de la bannière: <strong>{x}</strong>',
     'logo_image_x' => 'Logo image: <strong>{x}</strong>',
     'favicon_image_x' => 'Favicon image: <strong>{x}</strong>',
-    'x_directory_not_writable' => 'Le dossier <strong>{x}</strong> n\'est pas éditable!',
+    'x_directory_not_writable' => 'Le dossier {{directory}} n\'est pas éditable!',
     'template_banner_reset_successfully' => 'Bannière réinitialisée avec succès.',
     'template_banner_updated_successfully' => 'Bannière mise à jour avec succès.',
     'reset_banner' => 'Réinitialiser la bannière',
@@ -400,7 +400,7 @@ $language = [
     'downloads_x' => 'Téléchargements: {x}',
     'views_x' => 'Vus: {x}',
     'rating_x' => 'Avis: {{rating}}',
-    'editing_template_x' => 'Editer le modèle {x}',
+    'editing_template_x' => 'Editer le modèle {{template}}',
     'editing_template_file_in_template' => 'Edition du fichier {x} dans le modèle {y}',
     'cant_write_to_template' => 'Impossible d\’écrire dans un fichier modèle! Veuillez vérifier les permissions des fichiers.',
     'unable_to_delete_template' => 'Impossible de supprimer complètement le modèle. S’il vous plaît vérifier les autorisations de fichier.',
@@ -519,8 +519,8 @@ $language = [
 
     // Updates
     'update' => 'Mise à jour',
-    'current_version_x' => 'Version actuelle: <strong>{x}</strong>',
-    'new_version_x' => 'Nouvelle version: <strong>{x}</strong>',
+    'current_version_x' => 'Version actuelle: {{version}}',
+    'new_version_x' => 'Nouvelle version: {{version}}',
     'new_update_available' => 'Une nouvelle mise à jour est disponible',
     'new_urgent_update_available' => 'Une nouvelle mise à jour urgente est disponible. Veuillez mettre à jour dès que possible !',
     'up_to_date' => 'Votre installation NamelessMC est à jour!',
@@ -538,7 +538,7 @@ $language = [
     'widget_disabled' => 'Widget désactivé.',
     'widget_updated' => 'Widget mis à jour.',
     'editing_widget_x' => 'Édition widget {{widget}}',
-    'module_x' => 'Module: {x}',
+    'module_x' => 'Module: {{module}}',
     'widget_order' => 'Ordre des widgets',
 
     // Online users widget
@@ -569,7 +569,7 @@ $language = [
     'sitemap_link' => 'Lien vers le plan du site:',
     'page_permissions' => 'Permissions de page',
     'view_page' => 'Afficher la page?',
-    'editing_page_x' => 'Édition de la page {x}',
+    'editing_page_x' => 'Édition de la page {{page}}',
     'unable_to_create_page' => 'Impossible de créer une page:',
     'page_title_required' => 'Un titre de page est nécessaire.',
     'page_url_required' => 'Un chemin de page est nécessaire.',

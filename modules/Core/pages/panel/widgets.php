@@ -43,7 +43,7 @@ if (!isset($_GET['action'])) {
 
         $template_array[] = [
             'name' => Output::getClean($widget->getName()),
-            'module' => str_replace('{x}', Output::getClean($widget->getModule()), $language->get('admin', 'module_x')),
+            'module' => $language->get('admin', 'module_x', ['module' => Output::getClean($widget->getModule())]),
             'description' => Output::getClean($widget->getDescription()),
             'enabled' => $widgets->isEnabled($widget),
             'disable_link' => (($widgets->isEnabled($widget)) ? URL::build('/panel/core/widgets/', 'action=disable&w=' . urlencode($widget_query)) : null),

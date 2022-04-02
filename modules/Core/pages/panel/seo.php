@@ -157,7 +157,7 @@ if (!isset($_GET['metadata'])) {
     $smarty->assign([
         'BACK' => $language->get('general', 'back'),
         'BACK_LINK' => URL::build('/panel/core/seo'),
-        'EDITING_PAGE' => str_replace('{x}', Output::getClean($page['key']), $language->get('admin', 'editing_page_x')),
+        'EDITING_PAGE' => $language->get('admin', 'editing_page_x', ['page' => Output::getClean($page['key'])]),
         'DESCRIPTION' => $language->get('admin', 'description'),
         'DESCRIPTION_VALUE' => $description,
         'KEYWORDS' => $language->get('admin', 'keywords'),
