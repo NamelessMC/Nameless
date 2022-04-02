@@ -103,7 +103,7 @@ if (Input::exists()) {
                 }
 
                 $mcname = Output::getClean($_SESSION['authme']['user']);
-                $_POST['username'] => $_SESSION['authme']['user'];
+                $_POST['username'] = $_SESSION['authme']['user'];
 
                 $integration = Integrations::getInstance()->getIntegration('Minecraft');
                 $integration->afterRegistrationValidation();
