@@ -2,7 +2,7 @@
 /*
  *  Gemaakt door Samerton
  *  en vertaald door Sander Lambrechts
- *  
+ *
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC versie 2.0.0-pr3
  *
@@ -26,9 +26,9 @@ $language = [
     'topics' => 'onderwerpen',
     'views' => 'x bekeken',
     'posts' => 'berichten',
-    'x_posts' => '{x} posts', // Don't replace {x}
-    'x_topics' => '{x} topics', // Don't replace {x}
-    'registered_x' => 'Joined: {x}', // Don't replace {x}
+    'x_posts' => '{x} posts',
+    'x_topics' => '{x} topics',
+    'registered_x' => 'Joined: {x}',
     'by' => 'door',
     'in' => 'in',
     'last_reply' => 'Laatste antwoord',
@@ -43,7 +43,7 @@ $language = [
     'post_successful' => 'Bericht succesvol.',
     'post_edited_successfully' => 'Bericht succesvol bewerkt.',
     'user_tag' => 'Je bent genoemd in een bericht.',
-    'user_tag_info' => 'Je bent genoemd in een bericht door {x}.', // Verander "{x}" niet
+    'user_tag_info' => 'Je bent genoemd in een bericht door {{author}}.',
     'creating_topic_in_x' => 'Onderwerp maken in {x}', // Verander "{x}" niet
     'topic_title' => 'Onderwerp titel',
     'new_reply' => 'Nieuw antwoord',
@@ -94,8 +94,8 @@ $language = [
     'unfollow' => 'Unfollow',
     'now_following_topic' => 'You are now following this topic, and will be notified of any new replies.',
     'no_longer_following_topic' => 'You are no longer following this topic, and will not be notified of any new replies.',
-    'new_reply_in_topic' => '{x} has replied to topic {y}', // Don't replace {x} (username) or {y} (topic title)
-    'started_by_x' => 'Started by {x}', // Don't replace {x}
+    'new_reply_in_topic' => '{x} has replied to topic {y}',
+    'started_by_x' => 'Started by {x}',
     'sticky_topics' => 'Sticky Topics',
 
     // Homepagina
@@ -138,7 +138,7 @@ $language = [
     'forum_permissions' => 'Forum toestemmingen',
     'select_a_parent_forum' => 'Selecteer een ouder forum',
     'parent_forum' => 'Ouder Forum',
-    'parent_forum_x' => 'Parent Forum: {x}', // Don't replace {x}
+    'parent_forum_x' => 'Parent Forum: {x}',
     'has_no_parent' => 'Geen ouder',
     'guests' => 'Gasten',
     'group' => 'Groep',
@@ -203,10 +203,10 @@ $language = [
 
     // Hooks
     'new_topic_hook_info' => 'New topic',
-    'new_topic_text' => 'Topic created in {x} by {y}', // Don't replace {x} (forum name), optional variable {y} (topic author)
+    'new_topic_text' => 'Topic created in {x} by {y}',
     'include_in_hook' => 'Include new topics from this forum in webhooks?',
     'available_hooks' => 'Available Hooks',
-    
+
     // Panel statistics
     'recent_topics' => 'Recent Topics',
     'recent_posts' => 'Recent Posts',

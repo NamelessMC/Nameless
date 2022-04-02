@@ -26,9 +26,9 @@ $language = [
     'topics' => 'subiecte',
     'views' => 'vizualizari',
     'posts' => 'mesaje',
-    'x_posts' => '{x} mesaje', // Don't replace {x}
-    'x_topics' => '{x} subiecte', // Don't replace {x}
-    'registered_x' => 'Data înscrierii: {x}', // Don't replace {x}
+    'x_posts' => '{x} mesaje',
+    'x_topics' => '{x} subiecte',
+    'registered_x' => 'Data înscrierii: {x}',
     'by' => 'de',
     'in' => 'în',
     'last_reply' => 'Ultimul răspuns',
@@ -43,7 +43,7 @@ $language = [
     'post_successful' => 'Mesajul dvs. a fost publicat cu succes.',
     'post_edited_successfully' => 'Mesajul dvs. a fost editat cu succes.',
     'user_tag' => 'Ai fost etichetat într-o postare.',
-    'user_tag_info' => 'Ai fost etichetat într-o postare de către {x}.', // Don't replace "{x}"
+    'user_tag_info' => 'Ai fost etichetat într-o postare de către {{author}}.',
     'creating_topic_in_x' => 'Creați un subiect în {x}', // Don't replace "{x}"
     'topic_title' => 'Titlul subiectului',
     'new_reply' => 'Răspuns nou',
@@ -94,8 +94,8 @@ $language = [
     'unfollow' => 'Nu mai urmări',
     'now_following_topic' => 'Acum urmăriți acest subiect și veți primi notificări cu privire la orice răspuns nou.',
     'no_longer_following_topic' => 'Nu mai urmăriți acest subiect și nu veți mai fi notificat cu privire la niciun răspuns nou.',
-    'new_reply_in_topic' => '{x} a răspuns la subiectul {y}', // Don't replace {x} (username) or {y} (topic title)
-    'started_by_x' => 'Started by {x}', // Don't replace {x}
+    'new_reply_in_topic' => '{x} a răspuns la subiectul {y}',
+    'started_by_x' => 'Started by {x}',
     'sticky_topics' => 'Sticky Topics',
 
     // Homepage
@@ -138,7 +138,7 @@ $language = [
     'forum_permissions' => 'Permisiuni forum',
     'select_a_parent_forum' => 'Selectați un forum părinte',
     'parent_forum' => 'Forum părinte',
-    'parent_forum_x' => 'Forum părinte: {x}', // Don't replace {x}
+    'parent_forum_x' => 'Forum părinte: {x}',
     'has_no_parent' => 'Fără forum părinte',
     'guests' => 'Vizitatori',
     'group' => 'Grup',
@@ -204,7 +204,7 @@ $language = [
 
     // Hooks
     'new_topic_hook_info' => 'Subiect nou',
-    'new_topic_text' => 'Subiect creat în {x} de {y}', // Don't replace {x} (forum name), optional variable {y} (topic author)
+    'new_topic_text' => 'Subiect creat în {x} de {y}',
     'include_in_hook' => 'Include new topics from this forum in webhooks?',
     'available_hooks' => 'Available Hooks',
 

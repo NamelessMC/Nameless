@@ -24,9 +24,9 @@ $language = [
     'topics' => 'topics',
     'views' => 'views',
     'posts' => 'posts',
-    'x_posts' => '{x} posts', // Don't replace {x}
-    'x_topics' => '{x} topics', // Don't replace {x}
-    'registered_x' => 'Joined: {x}', // Don't replace {x}
+    'x_posts' => '{x} posts',
+    'x_topics' => '{x} topics',
+    'registered_x' => 'Joined: {x}',
     'by' => 'by',
     'in' => 'in',
     'last_reply' => 'Last Reply',
@@ -41,7 +41,7 @@ $language = [
     'post_successful' => 'Post successful.',
     'post_edited_successfully' => 'Post edited successfully.',
     'user_tag' => 'You have been tagged in a post.',
-    'user_tag_info' => 'You have been tagged in a post by {x}.', // Don't replace "{x}"
+    'user_tag_info' => 'You have been tagged in a post by {{author}}.',
     'creating_topic_in_x' => 'Creating topic in {x}', // Don't replace "{x}"
     'topic_title' => 'Topic Title',
     'new_reply' => 'New Reply',
@@ -92,8 +92,8 @@ $language = [
     'unfollow' => 'Unfollow',
     'now_following_topic' => 'You are now following this topic, and will be notified of any new replies.',
     'no_longer_following_topic' => 'You are no longer following this topic, and will not be notified of any new replies.',
-    'new_reply_in_topic' => '{x} has replied to topic {y}', // Don't replace {x} (username) or {y} (topic title)
-    'started_by_x' => 'Started by {x}', // Don't replace {x}
+    'new_reply_in_topic' => '{x} has replied to topic {y}',
+    'started_by_x' => 'Started by {x}',
     'sticky_topics' => 'Sticky Topics',
 
     // Homepage
@@ -136,7 +136,7 @@ $language = [
     'forum_permissions' => 'Forum permissions',
     'select_a_parent_forum' => 'Select a parent forum',
     'parent_forum' => 'Parent Forum',
-    'parent_forum_x' => 'Parent Forum: {x}', // Don't replace {x}
+    'parent_forum_x' => 'Parent Forum: {x}',
     'has_no_parent' => 'No parent',
     'guests' => 'Guests',
     'group' => 'Group',
@@ -201,7 +201,7 @@ $language = [
 
     // Hooks
     'new_topic_hook_info' => 'New topic',
-    'new_topic_text' => 'Topic created in {x} by {y}', // Don't replace {x} (forum name), optional variable {y} (topic author)
+    'new_topic_text' => 'Topic created in {x} by {y}',
     'include_in_hook' => 'Include new topics from this forum in webhooks?',
     'available_hooks' => 'Available Hooks',
 

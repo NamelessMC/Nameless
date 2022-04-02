@@ -13,7 +13,7 @@ $language = [
     /*
      *  Change this for the account validation message
      */
-    'validate_account_command' => 'For å fullføre registeringen, skriv inn kommandoen <strong>/verify {x}</strong> ingame.', // Don't replace {x}
+    'validate_account_command' => 'For å fullføre registeringen, skriv inn kommandoen /verify {{command}} ingame.',
 
     /*
      *  User Related
@@ -39,7 +39,7 @@ $language = [
     'no_placeholders' => 'No Placeholders',
 
     // Profile settings
-    'field_is_required' => '{x} er påkrevd.', // Don't replace {x}
+    'field_is_required' => '{x} er påkrevd.',
     'settings_updated_successfully' => 'Innstillingene har blitt oppdatert.',
     'password_changed_successfully' => 'Passordet har blitt endret.',
     'change_password' => 'Endre passord',
@@ -73,11 +73,11 @@ $language = [
     'gravatar' => 'Bruk Gravatar som avatar',
 
     // Alerts
-    'user_tag_info' => 'Du har blitt omtalt i et innlegg av {x}', // Don't replace {x}
+    'user_tag_info' => 'Du har blitt omtalt i et innlegg av {{author}}',
     'no_alerts' => 'Ingen nye viktige meldinger',
     'view_alerts' => 'Vis meldinger',
     '1_new_alert' => 'Du har 1 ny varsling',
-    'x_new_alerts' => 'Du har {{count}} nye viktige meldinger', // Don't replace {x}
+    'x_new_alerts' => 'Du har {{count}} nye viktige meldinger',
     'no_alerts_usercp' => 'Du har ingen nye viktige meldinger',
 
     // Registraton
@@ -156,12 +156,12 @@ $language = [
     'follow' => 'Følg',
     'no_wall_posts' => 'Ingen har lagt igjen en kommentar her enda.',
     'change_banner' => 'Endre banner',
-    'post_on_wall' => 'Skriv en kommentar på {x} sin vegg', // Don't replace {x}
+    'post_on_wall' => 'Skriv en kommentar på {x} sin vegg',
     'invalid_wall_post' => 'Sjekk at lengden på kommentaren ikke overskrider 10000 tegn.',
     '1_reaction' => '1 reaksjon',
-    'x_reactions' => '{x} reaksjoner', // Don't replace {x}
+    'x_reactions' => '{x} reaksjoner',
     '1_like' => '1 likerklikk',
-    'x_likes' => '{x} likerklikk', // Don't replace {x}
+    'x_likes' => '{x} likerklikk',
     '1_reply' => '1 svar',
     'x_replies' => '{{count}} svar',
     'no_replies_yet' => 'Ingen svar enda',
@@ -184,7 +184,7 @@ $language = [
     'user_unblocked' => 'Fjernet blokkering.',
     'views' => 'Profilvisninger:',
     'private_profile_page' => 'Dette er en privat profil!',
-    'new_wall_post_reply' => '{x} har svart på innlegget ditt på {y} sin profil.', // Don't replace {x} or {y}
+    'new_wall_post_reply' => '{x} har svart på innlegget ditt på {y} sin profil.',
     'new_wall_post_reply_your_profile' => '{{author}} har svart på innlegget ditt på din profil',
     'no_about_fields' => 'Denne brukeren har ikke skrevet noe om seg selv enda.',
     'reply' => 'Svar',
@@ -235,14 +235,14 @@ $language = [
      *  Hooks
      */
     'user_x_has_registered' => '{x} har registert seg hos ' . SITE_NAME . '!',
-    'user_x_has_validated' => '{x} har validert kontoen deres!',
+    'user_x_has_validated' => '{{user}} har validert kontoen deres!',
 
     // OAuth
     'oauth_unlinked' => 'Successfully unlinked your account from that provider.',
     'oauth_already_linked' => 'Another NamelessMC user is already linked to that {{provider}} account.',
-    'oauth_link_success' => 'Successfully linked your account with {{provider}}!', // Don't replace {x}
-    'no_user_found_with_provider' => 'No user found with that {x} account.', // Don't replace {x}
-    'oauth_login_success' => 'You have logged in with your {x} account.', // Don't replace {x}
+    'oauth_link_success' => 'Successfully linked your account with {{provider}}!',
+    'no_user_found_with_provider' => 'No user found with that {{provider}} account.',
+    'oauth_login_success' => 'You have logged in with your {{provider}} account.',
     'oauth_link_confirm' => 'You will be taken to the {{provider}} website to link your account.',
-    'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {x}.<br>You will not be able to login with this account anymore.', // Don't replace {x}
+    'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {x}.<br>You will not be able to login with this account anymore.',
 ];

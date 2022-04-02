@@ -9,7 +9,7 @@
  *
  *  Chinese Language - Forum
  *  Translation progress : 100%
- *  翻譯有誤請使用GitHun回報issues 
+ *  翻譯有誤請使用GitHun回報issues
  *  https://github.com/haer0248/NamelessMC-v2-Traditional-Chinese/issues
  */
 
@@ -28,9 +28,9 @@ $language = [
     'topics' => '主題',
     'views' => '觀看數',
     'posts' => '文章',
-    'x_posts' => '{x} posts', // Don't replace {x}
-    'x_topics' => '{x} topics', // Don't replace {x}
-    'registered_x' => 'Joined: {x}', // Don't replace {x}
+    'x_posts' => '{x} posts',
+    'x_topics' => '{x} topics',
+    'registered_x' => 'Joined: {x}',
     'by' => 'by',
     'in' => 'in',
     'last_reply' => '最後回覆',
@@ -45,7 +45,7 @@ $language = [
     'post_successful' => '成功發文.',
     'post_edited_successfully' => '文章編輯成功.',
     'user_tag' => '你被標註在一則文章中.',
-    'user_tag_info' => '你已被標註在 {x} 的文章中.', // Don't replace "{x}"
+    'user_tag_info' => '你已被標註在 {{author}} 的文章中.',
     'creating_topic_in_x' => '在 {x} 建立主題', // Don't replace "{x}"
     'topic_title' => '主題標題',
     'new_reply' => '新回覆',
@@ -96,8 +96,8 @@ $language = [
     'unfollow' => 'Unfollow',
     'now_following_topic' => 'You are now following this topic, and will be notified of any new replies.',
     'no_longer_following_topic' => 'You are no longer following this topic, and will not be notified of any new replies.',
-    'new_reply_in_topic' => '{x} has replied to topic {y}', // Don't replace {x} (username) or {y} (topic title)
-    'started_by_x' => 'Started by {x}', // Don't replace {x}
+    'new_reply_in_topic' => '{x} has replied to topic {y}',
+    'started_by_x' => 'Started by {x}',
     'sticky_topics' => 'Sticky Topics',
 
     // Homepage
@@ -140,7 +140,7 @@ $language = [
     'forum_permissions' => '論壇權限',
     'select_a_parent_forum' => '選擇父論壇',
     'parent_forum' => '父論壇',
-    'parent_forum_x' => 'Parent Forum: {x}', // Don't replace {x}
+    'parent_forum_x' => 'Parent Forum: {x}',
     'has_no_parent' => '沒有父論壇',
     'guests' => '遊客',
     'group' => '群組',
@@ -205,7 +205,7 @@ $language = [
 
     // Hooks
     'new_topic_hook_info' => 'New topic',
-    'new_topic_text' => 'Topic created in {x} by {y}', // Don't replace {x} (forum name), optional variable {y} (topic author)
+    'new_topic_text' => 'Topic created in {x} by {y}',
     'include_in_hook' => 'Include new topics from this forum in webhooks?',
     'available_hooks' => 'Available Hooks',
 

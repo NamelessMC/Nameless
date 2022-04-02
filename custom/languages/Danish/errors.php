@@ -29,6 +29,6 @@ $language = [
     'fatal_error_title' => 'Beklager!',
     'fatal_error_message_user' => 'Beklager, men noget gik galt under indlæsning af siden. Kontakt venligst en administrator.',
     'fatal_error_message_admin' => 'Beklager, men noget gik galt under indlæsning af siden. Fejldetaljer:',
-    'in_file' => 'i filen <strong>{x}</strong>', // Don't replace {x}
-    'on_line' => 'på linje <strong>{x}</strong>' // Don't replace {x}
+    'in_file' => 'i filen <strong>{x}</strong>',
+    'on_line' => 'på linje <strong>{x}</strong>'
 ];

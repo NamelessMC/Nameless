@@ -47,19 +47,19 @@ $language = [
     'alerts' => 'Upozornění',
     'view_alerts' => 'Zobrazit upozornění',
     'no_alerts' => 'Žádná upozornění',
-    'x_new_alerts' => 'Máte {{count}} nových upozornění', // Don't replace {x}
+    'x_new_alerts' => 'Máte {{count}} nových upozornění',
     'messages' => 'Zprávy',
     'view_messages' => 'Zobrazit zprávy',
     'no_messages' => 'Žádné zprávy',
     'x_new_messages' => 'Máte {{count}} nových zpráv',
     'loading' => 'Načítání...',
     'report' => 'Nahlásit',
-    'reported_by' => 'Nahlášen uživatelem {x}',
+    'reported_by' => 'Nahlášen uživatelem {{author}}',
     'view_report' => 'Zobrazit nahlášení',
     'report_origin' => 'Origin',
     'origin_website' => 'Website',
     'origin_api' => 'API',
-    'page_loaded_in' => 'Stránka se načetla za {x}s', // Don't replace {x}, time unit is seconds
+    'page_loaded_in' => 'Stránka se načetla za {x}s',
     'page_x' => 'Strana {x}',
     'browse' => 'Prohlížet',
     'bypass' => 'Obejít',
@@ -103,20 +103,20 @@ $language = [
      *  Server query
      */
     'offline' => 'Offline',
-    'player_count' => '{x}/{y}', // Don't replace {x} or {y}
-    'ping' => 'Ping: {x}', // Don't replace {x}
-    'version' => 'Verze: {x}', // Don't replace {x}
+    'player_count' => '{x}/{y}',
+    'ping' => 'Ping: {x}',
+    'version' => 'Verze: {x}',
     'currently_1_player_online' => 'Na serveru hraje <strong>1</strong> hráč.',
-    'currently_x_players_online' => 'Na serveru hraje {{count}} hráčů.', // Don't replace {x}
+    'currently_x_players_online' => 'Na serveru hraje {{count}} hráčů.',
     'server_offline' => 'Server je offline.',
-    'connect_with_ip_x' => 'Připojte se pomocí IP {x}', // Don't replace {x}
+    'connect_with_ip_x' => 'Připojte se pomocí IP {x}',
     'click_to_copy_tooltip' => 'Klikněte pro zkopírování',
     'ip' => 'IP',
     'copied' => 'Zkopírováno!',
     'no_servers' => 'Nejsou zde žádné servery k zobrazení!',
     'bungee_instance' => 'Toto je Bungee server.',
     'no_players_online' => 'Na serveru nehrají žádní hráči.',
-    'and_x_more' => 'a {x} dalších', // Don't replace {x}
+    'and_x_more' => 'a {x} dalších',
 
     /*
      *  Cookie notice
@@ -153,10 +153,10 @@ $language = [
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'Přesměrování...<br />Pokud nebudete přesměrováni automaticky, klikněte prosím  <a href="{x}" rel="nofollow noopener">sem</a>.', // Don't replace {x} which is the redirect URL
+    'redirecting_message' => 'Přesměrování...<br />Pokud nebudete přesměrováni automaticky, klikněte prosím  <a href="{x}" rel="nofollow noopener">sem</a>.',
 
     /*
      * OAuth
      */
-    'oauth_message_continue' => 'Continue registering with {x}', // Don't replace {x}
+    'oauth_message_continue' => 'Continue registering with {x}',
 ];

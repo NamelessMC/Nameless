@@ -14,7 +14,7 @@ $language = [
     /*
      *  Change this for the account validation message
      */
-    'validate_account_command' => 'För att slutföra registreringen, vänligen kör kommandot <strong>/verify {x}</strong> i spelet.', // Don't replace {x}
+    'validate_account_command' => 'För att slutföra registreringen, vänligen kör kommandot /verify {{command}} i spelet.',
 
     /*
      *  User Related
@@ -40,7 +40,7 @@ $language = [
     'no_placeholders' => 'Inga Placeholders',
 
     // Profile settings
-    'field_is_required' => '{x} krävs', // Don't replace {x}
+    'field_is_required' => '{x} krävs',
     'settings_updated_successfully' => 'Inställningarna uppdateras!',
     'password_changed_successfully' => 'Lösenordet har ändrats!',
     'change_password' => 'Byt Lösenord',
@@ -74,11 +74,11 @@ $language = [
     'gravatar' => 'Använd Gravatar som avatar',
 
     // Alerts
-    'user_tag_info' => 'Du har blivit taggad i ett inlägg av {x}.', // Don't replace {x}
+    'user_tag_info' => 'Du har blivit taggad i ett inlägg av {{author}}.',
     'no_alerts' => 'Inga nya alerter.',
     'view_alerts' => 'Visa alerter',
     '1_new_alert' => 'Du har 1 ny alert',
-    'x_new_alerts' => 'Du har {{count}} nya alerter', // Don't replace {x}
+    'x_new_alerts' => 'Du har {{count}} nya alerter',
     'no_alerts_usercp' => 'Du har inga nya alerter.',
 
     // Registraton
@@ -158,12 +158,12 @@ $language = [
     'follow' => 'Följ',
     'no_wall_posts' => 'Det finns inga väggposter här än.',
     'change_banner' => 'Ändra banner',
-    'post_on_wall' => 'Skriv något på {x}s vägg', // Don't replace {x}
+    'post_on_wall' => 'Skriv något på {x}s vägg',
     'invalid_wall_post' => 'Var god och se till att ditt inlägg är mellan 1 och 10000 tecken.',
     '1_reaction' => '1 reaktion',
-    'x_reactions' => '{x} reaktioner', // Don't replace {x}
+    'x_reactions' => '{x} reaktioner',
     '1_like' => '1 gillar',
-    'x_likes' => '{x} gillar', // Don't replace {x}
+    'x_likes' => '{x} gillar',
     '1_reply' => '1 svar',
     'x_replies' => '{{count}} svar',
     'no_replies_yet' => 'Inga svar än',
@@ -186,7 +186,7 @@ $language = [
     'user_unblocked' => 'Användare avblockerad.',
     'views' => 'Profil Visningar:',
     'private_profile_page' => 'Det här är en privat profil!',
-    'new_wall_post_reply' => '{x} har svarat på ditt inlägg på {y}\'s profil.', // Don't replace {x} or {y}
+    'new_wall_post_reply' => '{x} har svarat på ditt inlägg på {y}\'s profil.',
     'new_wall_post_reply_your_profile' => '{{author}} har svarat på ditt inlägg på din profil.',
     'no_about_fields' => 'Den här användaren har inte lagt till några om fält ännu.',
     'reply' => 'Svara',
@@ -237,14 +237,14 @@ $language = [
      *  Hooks
      */
     'user_x_has_registered' => '{x} gått med ' . SITE_NAME . '!',
-    'user_x_has_validated' => '{x} har verifierat sitt konto!',
+    'user_x_has_validated' => '{{user}} har verifierat sitt konto!',
 
     // OAuth
     'oauth_unlinked' => 'Successfully unlinked your account from that provider.',
     'oauth_already_linked' => 'Another NamelessMC user is already linked to that {{provider}} account.',
-    'oauth_link_success' => 'Successfully linked your account with {{provider}}!', // Don't replace {x}
-    'no_user_found_with_provider' => 'No user found with that {x} account.', // Don't replace {x}
-    'oauth_login_success' => 'You have logged in with your {x} account.', // Don't replace {x}
+    'oauth_link_success' => 'Successfully linked your account with {{provider}}!',
+    'no_user_found_with_provider' => 'No user found with that {{provider}} account.',
+    'oauth_login_success' => 'You have logged in with your {{provider}} account.',
     'oauth_link_confirm' => 'You will be taken to the {{provider}} website to link your account.',
-    'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {x}.<br>You will not be able to login with this account anymore.', // Don't replace {x}
+    'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {x}.<br>You will not be able to login with this account anymore.',
 ];

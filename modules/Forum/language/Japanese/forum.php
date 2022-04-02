@@ -29,9 +29,9 @@ $language = [
     'topics' => 'トピック',
     'views' => 'ビュー',
     'posts' => '投稿',
-    'x_posts' => '{x}回の投稿', // Don't replace {x}
-    'x_topics' => '{x}トピック', // Don't replace {x}
-    'registered_x' => '登録日: {x}', // Don't replace {x}
+    'x_posts' => '{x}回の投稿',
+    'x_topics' => '{x}トピック',
+    'registered_x' => '登録日: {x}',
     'by' => 'by',
     'in' => 'in',
     'last_reply' => '最後の返信',
@@ -46,7 +46,7 @@ $language = [
     'post_successful' => '投稿に成功しました。',
     'post_edited_successfully' => '投稿の編集に成功しました。',
     'user_tag' => 'タグ付けされた投稿がありました。',
-    'user_tag_info' => '{x}の投稿でタグ付けされています。', // Don't replace "{x}"
+    'user_tag_info' => '{{author}} の投稿でタグ付けされています。',
     'creating_topic_in_x' => '{x}でトピックを作成', // Don't replace "{x}"
     'topic_title' => 'トピックタイトル',
     'new_reply' => '新しい返信',
@@ -97,8 +97,8 @@ $language = [
     'unfollow' => 'フォロー解除',
     'now_following_topic' => '現在、このトピックをフォローしており、新しい返信があれば通知されます。',
     'no_longer_following_topic' => 'このトピックをフォローしていないので、新しい返信は通知されません。',
-    'new_reply_in_topic' => '{x}が{y}に返信しました。', // Don't replace {x} (username) or {y} (topic title)
-    'started_by_x' => '{x}によって開始されました', // Don't replace {x}
+    'new_reply_in_topic' => '{x}が{y}に返信しました。',
+    'started_by_x' => '{x}によって開始されました',
     'sticky_topics' => 'トピック固定',
 
     // Homepage
@@ -141,7 +141,7 @@ $language = [
     'forum_permissions' => 'フォーラムの権限',
     'select_a_parent_forum' => '親フォーラムの選択',
     'parent_forum' => '親フォーラム',
-    'parent_forum_x' => '親フォーラム: {x}', // Don't replace {x}
+    'parent_forum_x' => '親フォーラム: {x}',
     'has_no_parent' => '親フォーラムなし',
     'guests' => 'ゲスト',
     'group' => 'グループ',
@@ -206,7 +206,7 @@ $language = [
 
     // Hooks
     'new_topic_hook_info' => '新しいトピック',
-    'new_topic_text' => '{y} が {x} にトピックを作成しました。', // Don't replace {x} (forum name), optional variable {y} (topic author)
+    'new_topic_text' => '{y} が {x} にトピックを作成しました。',
     'include_in_hook' => 'このフォーラムの新しいトピックをウェブフックに通知しますか？',
     'available_hooks' => '利用可能なウェブフック',
 

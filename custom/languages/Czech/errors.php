@@ -30,6 +30,6 @@ $language = [
     'fatal_error_title' => 'Omlouváme se!',
     'fatal_error_message_user' => 'Omlouváme se, ale při načítání stránky se něco pokazilo. Kontaktujte prosím správce.',
     'fatal_error_message_admin' => 'Omlouváme se, ale při načítání stránky se něco pokazilo. Podrobnosti chyby:',
-    'in_file' => 'v souboru <strong>{x}</strong>', // Don't replace {x}
-    'on_line' => 'na řádku <strong>{x}</strong>' // Don't replace {x}
+    'in_file' => 'v souboru <strong>{x}</strong>',
+    'on_line' => 'na řádku <strong>{x}</strong>'
 ];

@@ -18,7 +18,7 @@ $language = [
     /*
      *  Change this for the account validation message
      */
-    'validate_account_command' => '登録を完了するには、ゲーム内で<strong>/verify {x}</strong>コマンドを送信してください。', // Don't replace {x}
+    'validate_account_command' => '登録を完了するには、ゲーム内で /verify {{command}} コマンドを送信してください。',
 
     /*
      *  User Related
@@ -43,7 +43,7 @@ $language = [
     'no_placeholders' => 'プレースホルダーなし',
 
     // Profile settings
-    'field_is_required' => '{x}は必須です。', // Don't replace {x}
+    'field_is_required' => '{x}は必須です。',
     'settings_updated_successfully' => '設定が正常に更新されました。',
     'password_changed_successfully' => 'パスワードが正常に変更されました。',
     'change_password' => 'パスワード変更',
@@ -77,11 +77,11 @@ $language = [
     'gravatar' => 'アバターとしてGravatarを使用',
 
     // Alerts
-    'user_tag_info' => '{x}の投稿にタグがつけられました。', // Don't replace {x}
+    'user_tag_info' => '{{author}} の投稿にタグがつけられました。',
     'no_alerts' => '新しい通知はありません',
     'view_alerts' => '通知を表示',
     '1_new_alert' => '1件の新しい通知があります。',
-    'x_new_alerts' => '{{count}} 件の新しい通知があります。', // Don't replace {x}
+    'x_new_alerts' => '{{count}} 件の新しい通知があります。',
     'no_alerts_usercp' => '通知は受信していません。',
 
     // Registraton
@@ -161,12 +161,12 @@ $language = [
     'follow' => 'フォロー',
     'no_wall_posts' => 'ユーザーの投稿は存在しません。',
     'change_banner' => 'バナーを変更',
-    'post_on_wall' => '{x}に投稿する', // Don't replace {x}
+    'post_on_wall' => '{x}に投稿する',
     'invalid_wall_post' => '投稿内容が1~10000文字であることを確認してください。',
     '1_reaction' => '1件の反応',
-    'x_reactions' => '{x}件の反応', // Don't replace {x}
+    'x_reactions' => '{x}件の反応',
     '1_like' => 'いいね',
-    'x_likes' => '{x}件のいいね', // Don't replace {x}
+    'x_likes' => '{x}件のいいね',
     '1_reply' => '1件の返信',
     'x_replies' => '{{count}} 件の返信',
     'no_replies_yet' => '返信がありません。',
@@ -240,14 +240,14 @@ $language = [
      *  Hooks
      */
     'user_x_has_registered' => '{x}が' . SITE_NAME . 'に登録しました。',
-    'user_x_has_validated' => '{x}がアカウントを認証しました！',
+    'user_x_has_validated' => '{{user}} がアカウントを認証しました！',
 
     // OAuth
     'oauth_unlinked' => 'プロバイダーからアカウントの連携解除に成功しました。',
     'oauth_already_linked' => '{{provider}} アカウントには、別のNamelessMCユーザーが既に連携されています。',
-    'oauth_link_success' => 'あなたのアカウントと {{provider}} の連携に成功しました。', // Don't replace {x}
-    'no_user_found_with_provider' => '{x}アカウントを持つユーザーは見つかりませんでした。', // Don't replace {x}
-    'oauth_login_success' => '{x}のアカウントでログインしています。', // Don't replace {x}
+    'oauth_link_success' => 'あなたのアカウントと {{provider}} の連携に成功しました。',
+    'no_user_found_with_provider' => '{{provider}} アカウントを持つユーザーは見つかりませんでした。',
+    'oauth_login_success' => '{{provider}} のアカウントでログインしています。',
     'oauth_link_confirm' => 'アカウント連携のため、{{provider}} ウェブサイトに移動します。',
-    'oauth_unlink_confirm' => '本当に{x}からアカウントの連携を解除しますか？<br>このアカウントでは今後ログインできなくなります。', // Don't replace {x}
+    'oauth_unlink_confirm' => '本当に{x}からアカウントの連携を解除しますか？<br>このアカウントでは今後ログインできなくなります。',
 ];

@@ -15,7 +15,7 @@ $language = [
     /*
      *  Mude isto para a mensagem de validação da conta.
      */
-    'validate_account_command' => 'Para completar o registo, por favor execute o comando <strong>/verify {x}</strong> no servidor.', // Não substituir {x}.
+    'validate_account_command' => 'Para completar o registo, por favor execute o comando /verify {{command}} no servidor.', // Não substituir {x}.
     /*
      *  User Related
      */
@@ -74,11 +74,11 @@ $language = [
     'gravatar' => 'Use o Gravatar como avatar',
 
     // Alerts
-    'user_tag_info' => 'Você foi marcado em um post por {x}.', // Não substituir {x}.
+    'user_tag_info' => 'Você foi marcado em um post por {{author}}.',
     'no_alerts' => 'Sem novos alertas',
     'view_alerts' => 'Ver alertas',
     '1_new_alert' => 'Você tem 1 novo alerta.',
-    'x_new_alerts' => 'Você tem {{count}} novos alertas', // Não substituir {x}.
+    'x_new_alerts' => 'Você tem {{count}} novos alertas',
     'no_alerts_usercp' => 'Você não tem nenhum alerta.',
 
     // Registraton
@@ -235,14 +235,14 @@ $language = [
      *  Hooks
      */
     'user_x_has_registered' => '{x} juntou-se ' . SITE_NAME . '!',
-    'user_x_has_validated' => '{x} validou sua conta!',
+    'user_x_has_validated' => '{{user}} validou sua conta!',
 
     // OAuth
     'oauth_unlinked' => 'Successfully unlinked your account from that provider.',
     'oauth_already_linked' => 'Another NamelessMC user is already linked to that {{provider}} account.',
-    'oauth_link_success' => 'Successfully linked your account with {{provider}}!', // Don't replace {x}
-    'no_user_found_with_provider' => 'No user found with that {x} account.', // Don't replace {x}
-    'oauth_login_success' => 'You have logged in with your {x} account.', // Don't replace {x}
+    'oauth_link_success' => 'Successfully linked your account with {{provider}}!',
+    'no_user_found_with_provider' => 'No user found with that {{provider}} account.',
+    'oauth_login_success' => 'You have logged in with your {{provider}} account.',
     'oauth_link_confirm' => 'You will be taken to the {{provider}} website to link your account.',
-    'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {x}.<br>You will not be able to login with this account anymore.', // Don't replace {x}
+    'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {x}.<br>You will not be able to login with this account anymore.',
 ];

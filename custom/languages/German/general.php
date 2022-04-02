@@ -47,19 +47,19 @@ $language = [
     'alerts' => 'Benachtichtigungen',
     'view_alerts' => 'Benachtichtigungen ansehen',
     'no_alerts' => 'Keine Benachtichtigungen',
-    'x_new_alerts' => 'Du hast {{count}} Benachtichtigungen.', // Don't replace {x}
+    'x_new_alerts' => 'Du hast {{count}} Benachtichtigungen.',
     'messages' => 'Nachrichten',
     'view_messages' => 'Nachrichten ansehen',
     'no_messages' => 'Keine Nachrichten',
     'x_new_messages' => 'Du hast {{count}} neue Nachrichten',
     'loading' => 'Lädt...',
     'report' => 'Melden',
-    'reported_by' => 'Gemeldet von {x}',
+    'reported_by' => 'Gemeldet von {{author}}',
     'view_report' => 'Meldung ansehen',
     'report_origin' => 'Origin',
     'origin_website' => 'Website',
     'origin_api' => 'API',
-    'page_loaded_in' => 'Seite wurde in {x} Sekunden geladen.', // Don't replace {x}, time unit is seconds
+    'page_loaded_in' => 'Seite wurde in {x} Sekunden geladen.',
     'page_x' => 'Seite {x}',
     'browse' => 'Durchsuchen',
     'bypass' => 'Bypass',
@@ -99,20 +99,20 @@ $language = [
      */
     'online' => 'Online',
     'offline' => 'Offline',
-    'player_count' => '{x}/{y}', // Don't replace {x} or {y}
-    'ping' => 'Ping: {x}', // Don't replace {x}
-    'version' => 'Version: {x}', // Don't replace {x}
+    'player_count' => '{x}/{y}',
+    'ping' => 'Ping: {x}',
+    'version' => 'Version: {x}',
     'currently_1_player_online' => 'Es ist <strong>1</strong> Spieler online',
-    'currently_x_players_online' => 'Derzeit sind {{count}} Spieler online.', // Don't replace {x}
+    'currently_x_players_online' => 'Derzeit sind {{count}} Spieler online.',
     'server_offline' => 'Der Server ist zurzeit Offline.',
-    'connect_with_ip_x' => 'Verbinde dich jetzt mit folgender Adresse: {x}', // Don't replace {x}
+    'connect_with_ip_x' => 'Verbinde dich jetzt mit folgender Adresse: {x}',
     'click_to_copy_tooltip' => 'In Zwischenablage kopieren',
     'ip' => 'IP',
     'copied' => 'In Zwischenablage kopiert!',
     'no_servers' => 'Es sind keine Server verfügbar!',
     'bungee_instance' => 'Der Server ist eine Bungeecord Instanz',
     'no_players_online' => 'Es sind keine Spieler Online.',
-    'and_x_more' => 'und {x} mehr', // Don't replace {x}
+    'and_x_more' => 'und {x} mehr',
 
     /*
      *  Cookie notice
@@ -149,10 +149,10 @@ $language = [
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'Umleiten...<br />Wenn Sie nicht automatisch umgeleitet werden, klicken Sie bitte auf <a href="{x}" rel="nofollow noopener">Hier</a>.', // Don't replace {x} which is the redirect URL
+    'redirecting_message' => 'Umleiten...<br />Wenn Sie nicht automatisch umgeleitet werden, klicken Sie bitte auf <a href="{x}" rel="nofollow noopener">Hier</a>.',
 
     /*
      * OAuth
      */
-    'oauth_message_continue' => 'Continue registering with {x}', // Don't replace {x}
+    'oauth_message_continue' => 'Continue registering with {x}',
 ];

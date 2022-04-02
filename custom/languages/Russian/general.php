@@ -47,19 +47,19 @@ $language = [
     'alerts' => 'Уведомления',
     'view_alerts' => 'Просмотреть уведомления',
     'no_alerts' => 'Нет уведомлений',
-    'x_new_alerts' => 'У вас {{count}} новых уведомлений.', // Don't replace {x}
+    'x_new_alerts' => 'У вас {{count}} новых уведомлений.',
     'messages' => 'Сообщения',
     'view_messages' => 'Просмотреть сообщения',
     'no_messages' => 'Нет сообщений',
     'x_new_messages' => 'У вас {{count}} новых сообщений.',
     'loading' => 'Загрузка...',
     'report' => 'Пожаловаться',
-    'reported_by' => 'Жалоба от {x}',
+    'reported_by' => 'Жалоба от {{author}}',
     'view_report' => 'Открыть жалобу',
     'report_origin' => 'Источник',
     'origin_website' => 'Сайт',
     'origin_api' => 'API',
-    'page_loaded_in' => 'Скорость загрузки страницы: {x}с', // Don't replace {x}, time unit is seconds
+    'page_loaded_in' => 'Скорость загрузки страницы: {x}с',
     'page_x' => 'Страница {x}',
     'browse' => 'Обзор',
     'bypass' => 'Игнор.',
@@ -99,20 +99,20 @@ $language = [
      */
     'online' => 'Онлайн',
     'offline' => 'Оффлайн',
-    'player_count' => '{x}/{y}', // Don't replace {x} or {y}
-    'ping' => 'Пинг: {x}', // Don't replace {x}
-    'version' => 'Версия: {x}', // Don't replace {x}
+    'player_count' => '{x}/{y}',
+    'ping' => 'Пинг: {x}',
+    'version' => 'Версия: {x}',
     'currently_1_player_online' => 'Сейчас <strong>1</strong> игрок онлайн.',
-    'currently_x_players_online' => 'Сейчас игроков онлайн: {{count}}.', // Don't replace {x}
+    'currently_x_players_online' => 'Сейчас игроков онлайн: {{count}}.',
     'server_offline' => 'Сервер выключен.',
-    'connect_with_ip_x' => 'Присоединитесь сейчас, используя IP {x}', // Don't replace {x}
+    'connect_with_ip_x' => 'Присоединитесь сейчас, используя IP {x}',
     'click_to_copy_tooltip' => 'Нажмите, чтобы скопировать',
     'ip' => 'IP',
     'copied' => 'Скопировано!',
     'no_servers' => 'Сейчас нет серверов для отображения!',
     'bungee_instance' => 'Этот сервер построен на базе BungeeCord.',
     'no_players_online' => 'Сейчас нет игроков онлайн.',
-    'and_x_more' => 'and {x} more', // Don't replace {x}
+    'and_x_more' => 'and {x} more',
 
     /*
      *  Cookie notice
@@ -148,10 +148,10 @@ $language = [
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'Перенаправление...<br />Если вы не перенаправлены автоматически, пожалуйста, нажмите на <a href="{x}" rel="nofollow noopener">эту кнопку</a>.', // Don't replace {x} which is the redirect URL
+    'redirecting_message' => 'Перенаправление...<br />Если вы не перенаправлены автоматически, пожалуйста, нажмите на <a href="{x}" rel="nofollow noopener">эту кнопку</a>.',
 
     /*
      * OAuth
      */
-    'oauth_message_continue' => 'Продолжить регистрироваться с {x}', // Don't replace {x}
+    'oauth_message_continue' => 'Продолжить регистрироваться с {x}',
 ];

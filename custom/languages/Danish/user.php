@@ -13,7 +13,7 @@ $language = [
     /*
      *  Change this for the account validation message
      */
-    'validate_account_command' => 'For at fuldføre registreringen, skal du udføre kommandoen <strong>/verify {x}</strong> ingame.', // Don't replace {x}
+    'validate_account_command' => 'For at fuldføre registreringen, skal du udføre kommandoen /verify {{command}} ingame.',
 
     /*
      *  User Related
@@ -38,7 +38,7 @@ $language = [
     'no_placeholders' => 'No Placeholders',
 
     // Profile settings
-    'field_is_required' => '{x} er påkrævet.', // Don't replace {x}
+    'field_is_required' => '{x} er påkrævet.',
     'settings_updated_successfully' => 'Indstillingerne blev opdateret.',
     'password_changed_successfully' => 'Adgangskoden blev ændret.',
     'change_password' => 'Skift Adgangskode',
@@ -72,11 +72,11 @@ $language = [
     'gravatar' => 'Brug Gravatar som avatar',
 
     // Alerts
-    'user_tag_info' => 'Du er blevet tagget i et indlæg af {x}.', // Don't replace {x}
+    'user_tag_info' => 'Du er blevet tagget i et indlæg af {{author}}.',
     'no_alerts' => 'Ingen nye advarsler',
     'view_alerts' => 'Vis advarsler',
     '1_new_alert' => 'Du har 1 ny advarsel',
-    'x_new_alerts' => 'Du har {{count}} nye advarsler', // Don't replace {x}
+    'x_new_alerts' => 'Du har {{count}} nye advarsler',
     'no_alerts_usercp' => 'Du har ingen advarsler.',
 
     // Registration
@@ -157,12 +157,12 @@ mappe.',
     'follow' => 'Følg',
     'no_wall_posts' => 'Der er endnu ingen vægopslag her.',
     'change_banner' => 'Skift Banner',
-    'post_on_wall' => 'Indlæg på {x}\'s væg', // Don't replace {x}
+    'post_on_wall' => 'Indlæg på {x}\'s væg',
     'invalid_wall_post' => 'Sørg for, at dit indlæg er mellem 1 og 10000 tegn.',
     '1_reaction' => '1 reaktion',
-    'x_reactions' => '{x} reaktioner', // Don't replace {x}
+    'x_reactions' => '{x} reaktioner',
     '1_like' => '1 like',
-    'x_likes' => '{x} likes', // Don't replace {x}
+    'x_likes' => '{x} likes',
     '1_reply' => '1 svar',
     'x_replies' => '{{author}} svar',
     'no_replies_yet' => 'Endnu ingen svar',
@@ -185,7 +185,7 @@ mappe.',
     'user_unblocked' => 'Blockeringen er fjernet.',
     'views' => 'Profil Visninger:',
     'private_profile_page' => 'Dette er en privat profil!',
-    'new_wall_post_reply' => '{x} har svaret på dit indlæg på {y}\'s profil.', // Don't replace {x} or {y}
+    'new_wall_post_reply' => '{x} har svaret på dit indlæg på {y}\'s profil.',
     'new_wall_post_reply_your_profile' => '{{author}} har svaret på dit indlæg på din profil.',
     'no_about_fields' => 'Denne bruger har endnu ikke tilføjet nogle omkring felter.',
     'reply' => 'Svar',
@@ -236,14 +236,14 @@ mappe.',
      *  Hooks
      */
     'user_x_has_registered' => '{x} har tilsluttet sig ' . SITE_NAME . '!',
-    'user_x_has_validated' => '{x} har valideret deres konto!',
+    'user_x_has_validated' => '{{user}} har valideret deres konto!',
 
     // OAuth
     'oauth_unlinked' => 'Successfully unlinked your account from that provider.',
     'oauth_already_linked' => 'Another NamelessMC user is already linked to that {{provider}} account.',
-    'oauth_link_success' => 'Successfully linked your account with {{provider}}!', // Don't replace {x}
-    'no_user_found_with_provider' => 'No user found with that {x} account.', // Don't replace {x}
-    'oauth_login_success' => 'You have logged in with your {x} account.', // Don't replace {x}
+    'oauth_link_success' => 'Successfully linked your account with {{provider}}!',
+    'no_user_found_with_provider' => 'No user found with that {{provider}} account.',
+    'oauth_login_success' => 'You have logged in with your {{provider}} account.',
     'oauth_link_confirm' => 'You will be taken to the {{provider}} website to link your account.',
-    'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {x}.<br>You will not be able to login with this account anymore.', // Don't replace {x}
+    'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {x}.<br>You will not be able to login with this account anymore.',
 ];

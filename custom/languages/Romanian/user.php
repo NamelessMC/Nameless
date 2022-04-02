@@ -15,7 +15,7 @@ $language = [
     /*
      *  Change this for the account validation message
      */
-    'validate_account_command' => 'Pentru a finaliza înregistrarea, vă rugăm să executați comanda <strong>/verify {x}</strong> in joc.', // Don't replace {x}
+    'validate_account_command' => 'Pentru a finaliza înregistrarea, vă rugăm să executați comanda /verify {{command}} in joc.',
 
     /*
      *  User Related
@@ -41,7 +41,7 @@ $language = [
     'no_placeholders' => 'No Placeholders',
 
     // Profile settings
-    'field_is_required' => 'Câmpul "{x}" este necesar.', // Don't replace {x}
+    'field_is_required' => 'Câmpul "{x}" este necesar.',
     'settings_updated_successfully' => 'Setările s-au actualizat cu succes.',
     'password_changed_successfully' => 'Parola a fost schimbată cu succes.',
     'change_password' => 'Schimbaţi parola',
@@ -75,11 +75,11 @@ $language = [
     'gravatar' => 'Use Gravatar as avatar',
 
     // Alerts
-    'user_tag_info' => 'Ai fost etichetat într-o postare de către {x}.', // Don't replace {x}
+    'user_tag_info' => 'Ai fost etichetat într-o postare de către {{author}}.',
     'no_alerts' => 'Nu aveți notificări necitite.',
     'view_alerts' => 'Vizualizați notificările',
     '1_new_alert' => 'Aveți o notificare nouă.',
-    'x_new_alerts' => 'Aveți {{count}} notificări noi.', // Don't replace {x}
+    'x_new_alerts' => 'Aveți {{count}} notificări noi.',
     'no_alerts_usercp' => 'Momentan nu aveți notificări noi.',
     'new_wall_post' => '{x} a postat pe peretele tău.',
 
@@ -161,12 +161,12 @@ $language = [
     'follow' => 'Urmăriţi',
     'no_wall_posts' => 'Momentan nu există nimic de afişat pe acest perete.',
     'change_banner' => 'Schimbați bannerul',
-    'post_on_wall' => 'Postați pe peretele lui {x}', // Don't replace {x}
+    'post_on_wall' => 'Postați pe peretele lui {x}',
     'invalid_wall_post' => 'Asigurați-vă că postarea dvs. are între 1 și 10000 de caractere.',
     '1_reaction' => 'O reacție',
-    'x_reactions' => '{x} reacții', // Don't replace {x}
+    'x_reactions' => '{x} reacții',
     '1_like' => 'O apreciere',
-    'x_likes' => '{x} aprecieri', // Don't replace {x}
+    'x_likes' => '{x} aprecieri',
     '1_reply' => 'Un răspuns',
     'x_replies' => '{{count}} răspunsuri',
     'no_replies_yet' => 'Nu există răspunsuri încă.',
@@ -187,7 +187,7 @@ $language = [
     'user_unblocked' => 'Utilizatorul a fost deblocat.',
     'views' => 'Vizualizări profil:',
     'private_profile_page' => 'Acest profil este privat!',
-    'new_wall_post_reply' => '{x} a răspuns la postarea ta pe profilul lui {y}.', // Don't replace {x} or {y}
+    'new_wall_post_reply' => '{x} a răspuns la postarea ta pe profilul lui {y}.',
     'new_wall_post_reply_your_profile' => '{{author}} a răspuns la postarea de pe profilul tău.',
     'no_about_fields' => 'Acest utilizator nu și-a completat încă nici un câmp aici.',
     'reply' => 'Răspunde',
@@ -238,14 +238,14 @@ $language = [
      *  Hooks
      */
     'user_x_has_registered' => '{x} s-a alaturat comunităţii!',
-    'user_x_has_validated' => '{x} has validated their account!',
+    'user_x_has_validated' => '{{user}} has validated their account!',
 
     // OAuth
     'oauth_unlinked' => 'Successfully unlinked your account from that provider.',
     'oauth_already_linked' => 'Another NamelessMC user is already linked to that {{provider}} account.',
-    'oauth_link_success' => 'Successfully linked your account with {{provider}}!', // Don't replace {x}
-    'no_user_found_with_provider' => 'No user found with that {x} account.', // Don't replace {x}
-    'oauth_login_success' => 'You have logged in with your {x} account.', // Don't replace {x}
+    'oauth_link_success' => 'Successfully linked your account with {{provider}}!',
+    'no_user_found_with_provider' => 'No user found with that {{provider}} account.',
+    'oauth_login_success' => 'You have logged in with your {{provider}} account.',
     'oauth_link_confirm' => 'You will be taken to the {{provider}} website to link your account.',
-    'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {x}.<br>You will not be able to login with this account anymore.', // Don't replace {x}
+    'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {x}.<br>You will not be able to login with this account anymore.',
 ];

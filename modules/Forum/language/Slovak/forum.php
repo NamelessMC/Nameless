@@ -24,9 +24,9 @@ $language = [
     'topics' => 'témy',
     'views' => 'zobrazení',
     'posts' => 'príspevky',
-    'x_posts' => '{x} príspevkov', // Don't replace {x}
-    'x_topics' => '{x} tém', // Don't replace {x}
-    'registered_x' => 'Pripojený/á: {x}', // Don't replace {x}
+    'x_posts' => '{x} príspevkov',
+    'x_topics' => '{x} tém',
+    'registered_x' => 'Pripojený/á: {x}',
     'by' => 'od',
     'in' => 'v',
     'last_reply' => 'Posledná odpoveď',
@@ -41,7 +41,7 @@ $language = [
     'post_successful' => 'Príspevok bol úspešne pridaný.',
     'post_edited_successfully' => 'Príspevok bol úspešne upravený.',
     'user_tag' => 'Bol/a si označený/á v príspevku.',
-    'user_tag_info' => 'Bol/a si označený/á v príspevku od {x}.', // Don't replace "{x}"
+    'user_tag_info' => 'Bol/a si označený/á v príspevku od {{author}}.',
     'creating_topic_in_x' => 'Vytváranie témy v {x}', // Don't replace "{x}"
     'topic_title' => 'Názov témy',
     'new_reply' => 'Nová odpoveď',
@@ -92,8 +92,8 @@ $language = [
     'unfollow' => 'Zrušiť sledovanie',
     'now_following_topic' => 'Teraz sledujete túto tému a budete informovaný o všetkých nových odpovediach.',
     'no_longer_following_topic' => 'Túto tému už nesledujete a nebudete dostávať oznámenia o nových odpovediach.',
-    'new_reply_in_topic' => '{x} odpovedal/a na {y}', // Don't replace {x} (username) or {y} (topic title)
-    'started_by_x' => 'Založil/a {x}', // Don't replace {x}
+    'new_reply_in_topic' => '{x} odpovedal/a na {y}',
+    'started_by_x' => 'Založil/a {x}',
     'sticky_topics' => 'Pripnuté témy',
 
     // Homepage
@@ -136,7 +136,7 @@ $language = [
     'forum_permissions' => 'Oprávnenia fóra',
     'select_a_parent_forum' => 'Vyberte nadradené fórum',
     'parent_forum' => 'Nadradené fórum',
-    'parent_forum_x' => 'Nadradené fórum: {x}', // Don't replace {x}
+    'parent_forum_x' => 'Nadradené fórum: {x}',
     'has_no_parent' => 'Žiadne nadradené',
     'guests' => 'Hostia',
     'group' => 'Skupina',
@@ -201,7 +201,7 @@ $language = [
 
     // Hooks
     'new_topic_hook_info' => 'Nová téma',
-    'new_topic_text' => 'Téma vytvorená v {x} od {y}', // Don't replace {x} (forum name), optional variable {y} (topic author)
+    'new_topic_text' => 'Téma vytvorená v {x} od {y}',
     'include_in_hook' => 'Chcete zahrnúť nové témy z tohto fóra do webhookov?',
     'available_hooks' => 'Dostupné hooky',
 

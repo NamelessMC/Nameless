@@ -46,19 +46,19 @@ $language = [
     'alerts' => 'Avisos',
     'view_alerts' => 'Ver avisos',
     'no_alerts' => 'No hay avisos',
-    'x_new_alerts' => 'Tienes {{count}} nuevos avisos.', // Don't replace {x}
+    'x_new_alerts' => 'Tienes {{count}} nuevos avisos.',
     'messages' => 'Mensajes',
     'view_messages' => 'Ver mensajes',
     'no_messages' => 'No hay mensajes',
     'x_new_messages' => 'Tienes {{count}} mensajes nuevos.',
     'loading' => 'Cargando...',
     'report' => 'Informar',
-    'reported_by' => 'Reported by {x}',
+    'reported_by' => 'Reported by {{author}}',
     'view_report' => 'View report',
     'report_origin' => 'Origin',
     'origin_website' => 'Website',
     'origin_api' => 'API',
-    'page_loaded_in' => 'Página cargada en {x}s', // Don't replace {x}, time unit is seconds
+    'page_loaded_in' => 'Página cargada en {x}s',
     'page_x' => 'Página {x}',
     'browse' => 'Navegar',
     'bypass' => 'Evitar',
@@ -98,20 +98,20 @@ $language = [
      */
     'online' => 'En línea',
     'offline' => 'Desconectado',
-    'player_count' => '{x}/{y}', // Don't replace {x} or {y}
-    'ping' => 'Ping: {x}', // Don't replace {x}
-    'version' => 'Versión: {x}', // Don't replace {x}
+    'player_count' => '{x}/{y}',
+    'ping' => 'Ping: {x}',
+    'version' => 'Versión: {x}',
     'currently_1_player_online' => 'Actualmente hay <strong>1</strong> jugador en línea.',
-    'currently_x_players_online' => 'Actualmente hay {{count}} jugadores en línea.', // Don't replace {x}
+    'currently_x_players_online' => 'Actualmente hay {{count}} jugadores en línea.',
     'server_offline' => 'El servidor está actualmente desconectado.',
-    'connect_with_ip_x' => 'Conéctate ahora usando la IP {x}', // Don't replace {x}
+    'connect_with_ip_x' => 'Conéctate ahora usando la IP {x}',
     'click_to_copy_tooltip' => 'Haga clic para copiar',
     'ip' => 'IP',
     'copied' => '¡Copiada!',
     'no_servers' => '¡No hay servidores para mostrar!',
     'bungee_instance' => 'Este servidor es una instancia de Bungee.',
     'no_players_online' => 'No hay jugadores conectados.',
-    'and_x_more' => 'y {x} más', // Don't replace {x}
+    'and_x_more' => 'y {x} más',
 
     /*
      *  Cookie notice
@@ -148,10 +148,10 @@ $language = [
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'Redirigiendo...<br />Si no es redirigido automáticamente, por favor haga clic <a href="{x}" rel="nofollow noopener">aquí</a>.', // Don't replace {x} which is the redirect URL
+    'redirecting_message' => 'Redirigiendo...<br />Si no es redirigido automáticamente, por favor haga clic <a href="{x}" rel="nofollow noopener">aquí</a>.',
 
     /*
      * OAuth
      */
-    'oauth_message_continue' => 'Continue registering with {x}', // Don't replace {x}
+    'oauth_message_continue' => 'Continue registering with {x}',
 ];

@@ -29,6 +29,6 @@ $language = [
     'fatal_error_title' => '¡Lo sentimos!',
     'fatal_error_message_user' => 'Lo sentimos, pero algo ha ido mal al cargar la página. Por favor, póngase en contacto con un administrador.',
     'fatal_error_message_admin' => 'Lo sentimos, pero algo ha ido mal al cargar la página. Detalles del error:',
-    'in_file' => 'en el archivo <strong>{x}</strong>', // Don't replace {x}
-    'on_line' => 'en la línea <strong>{x}</strong>' // Don't replace {x}
+    'in_file' => 'en el archivo <strong>{x}</strong>',
+    'on_line' => 'en la línea <strong>{x}</strong>'
 ];

@@ -25,9 +25,9 @@ $language = [
     'topics' => 'топики',
     'views' => 'просмотры',
     'posts' => 'посты',
-    'x_posts' => '{x} постов', // Don't replace {x}
-    'x_topics' => '{x} топиков', // Don't replace {x}
-    'registered_x' => 'Регистрация: {x}', // Don't replace {x}
+    'x_posts' => '{x} постов',
+    'x_topics' => '{x} топиков',
+    'registered_x' => 'Регистрация: {x}',
     'by' => '',
     'in' => 'в',
     'last_reply' => 'Последний ответ',
@@ -42,7 +42,7 @@ $language = [
     'post_successful' => 'Пост опубликован.',
     'post_edited_successfully' => 'Сообщение успешно отредактировано.',
     'user_tag' => 'Вас упомянули в посте.',
-    'user_tag_info' => 'Вас упомянул в своем посте пользователь {x}.', // Don't replace "{x}"
+    'user_tag_info' => 'Вас упомянул в своем посте пользователь {{author}}.',
     'creating_topic_in_x' => 'Создание топика в {x}', // Don't replace "{x}"
     'topic_title' => 'Заголовок топика',
     'new_reply' => 'Новый ответ',
@@ -93,8 +93,8 @@ $language = [
     'unfollow' => 'Отписаться',
     'now_following_topic' => 'Теперь вы подписаны на этот топик и будете получать уведомления о новых ответах.',
     'no_longer_following_topic' => 'Вы больше не подписаны на этот топик и не будете уведомлены о каких-либо новых ответах.',
-    'new_reply_in_topic' => '{x} ответил(а) в топике {y}', // Don't replace {x} (username) or {y} (topic title)
-    'started_by_x' => 'Автор топика: {x}', // Don't replace {x}
+    'new_reply_in_topic' => '{x} ответил(а) в топике {y}',
+    'started_by_x' => 'Автор топика: {x}',
     'sticky_topics' => 'Закреплённые топики',
 
     // Homepage
@@ -137,7 +137,7 @@ $language = [
     'forum_permissions' => 'Настройка прав',
     'select_a_parent_forum' => 'Выберите родительский форум',
     'parent_forum' => 'Родительский форум',
-    'parent_forum_x' => 'Родительский форум: {x}', // Don't replace {x}
+    'parent_forum_x' => 'Родительский форум: {x}',
     'has_no_parent' => 'Нет родительского форума',
     'guests' => 'Гости',
     'group' => 'Группа',
@@ -202,7 +202,7 @@ $language = [
 
     // Hooks
     'new_topic_hook_info' => 'Новый топик',
-    'new_topic_text' => 'Создан топик {x} пользователем {y}', // Don't replace {x} (forum name), optional variable {y} (topic author)
+    'new_topic_text' => 'Создан топик {x} пользователем {y}',
     'include_in_hook' => 'Включите новые темы с этого форума в webhook?',
     'available_hooks' => 'Доступные хуки',
 

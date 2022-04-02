@@ -13,7 +13,7 @@ $language = [
     /*
      *  Change this for the account validation message
      */
-    'validate_account_command' => 'Para completar la validación, ejecute el comando <strong>/verify {x}</strong> en el servidor.', // Don't replace {x}
+    'validate_account_command' => 'Para completar la validación, ejecute el comando /verify {{command}} en el servidor.',
 
     /*
      *  User Related
@@ -39,7 +39,7 @@ $language = [
     'no_placeholders' => 'No Placeholders',
 
     // Profile settings
-    'field_is_required' => '{x} es requerido.', // Don't replace {x}
+    'field_is_required' => '{x} es requerido.',
     'settings_updated_successfully' => 'Configuración actualizada correctamente.',
     'password_changed_successfully' => 'Contraseña cambiada con éxito.',
     'change_password' => 'Cambia la contraseña',
@@ -73,11 +73,11 @@ $language = [
     'gravatar' => 'Utilizar Gravatar como avatar',
 
     // Alerts
-    'user_tag_info' => 'Has sido etiquetado en un post por {x}.', // Don't replace {x}
+    'user_tag_info' => 'Has sido etiquetado en un post por {{author}}.',
     'no_alerts' => 'No hay nuevas alertas',
     'view_alerts' => 'Ver alertas',
     '1_new_alert' => 'Tienes 1 nueva alerta.',
-    'x_new_alerts' => 'Tienes {{count}} nuevas alertas', // Don't replace {x}
+    'x_new_alerts' => 'Tienes {{count}} nuevas alertas',
     'no_alerts_usercp' => 'No tienes alertas.',
 
     // Registraton
@@ -157,12 +157,12 @@ $language = [
     'follow' => 'Seguir',
     'no_wall_posts' => 'No hay publicaciones en el muro todavía.',
     'change_banner' => 'Cambiar banner',
-    'post_on_wall' => 'Publicar en el muro de {x}', // Don't replace {x}
+    'post_on_wall' => 'Publicar en el muro de {x}',
     'invalid_wall_post' => 'Asegúrese de que su publicación tenga entre 1 y 10000 caracteres.',
     '1_reaction' => '1 reacción',
-    'x_reactions' => '{x} reaccciones', // Don't replace {x}
+    'x_reactions' => '{x} reaccciones',
     '1_like' => '1 Me gusta',
-    'x_likes' => '{x} Me gustas', // Don't replace {x}
+    'x_likes' => '{x} Me gustas',
     '1_reply' => '1 respuesta',
     'x_replies' => '{{count}} respuestas',
     'no_replies_yet' => 'No hay respuestas',
@@ -185,7 +185,7 @@ $language = [
     'user_unblocked' => 'Usuario desbloqueado.',
     'views' => 'Visitas al Perfil:',
     'private_profile_page' => '¡Este es un Perfil privado!',
-    'new_wall_post_reply' => '{x} ha respondido a tu publicación en el Perfil de {y}.', // Don't replace {x} or {y}
+    'new_wall_post_reply' => '{x} ha respondido a tu publicación en el Perfil de {y}.',
     'new_wall_post_reply_your_profile' => '{{author}} ha respondido a tu publicación en tu Perfil.',
     'no_about_fields' => 'Este usuario todavía no ha agregado ningún campo sobre el.',
     'reply' => 'Responder',
@@ -236,14 +236,14 @@ $language = [
      *  Hooks
      */
     'user_x_has_registered' => '{x} se ha registado ' . SITE_NAME . '!',
-    'user_x_has_validated' => '{x} has validated their account!',
+    'user_x_has_validated' => '{{user}} has validated their account!',
 
     // OAuth
     'oauth_unlinked' => 'Successfully unlinked your account from that provider.',
     'oauth_already_linked' => 'Another NamelessMC user is already linked to that {{provider}} account.',
-    'oauth_link_success' => 'Successfully linked your account with {{provider}}!', // Don't replace {x}
-    'no_user_found_with_provider' => 'No user found with that {x} account.', // Don't replace {x}
-    'oauth_login_success' => 'You have logged in with your {x} account.', // Don't replace {x}
+    'oauth_link_success' => 'Successfully linked your account with {{provider}}!',
+    'no_user_found_with_provider' => 'No user found with that {{provider}} account.',
+    'oauth_login_success' => 'You have logged in with your {{provider}} account.',
     'oauth_link_confirm' => 'You will be taken to the {{provider}} website to link your account.',
-    'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {x}.<br>You will not be able to login with this account anymore.', // Don't replace {x}
+    'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {x}.<br>You will not be able to login with this account anymore.',
 ];

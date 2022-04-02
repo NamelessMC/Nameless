@@ -13,7 +13,7 @@ $language = [
     /*
      *  Change this for the account validation message
      */
-    'validate_account_command' => 'Registráciu dokončíte vykonaním príkazu <strong>/verify {x}</strong> v hre.', // Don't replace {x}
+    'validate_account_command' => 'Registráciu dokončíte vykonaním príkazu /verify {{command}} v hre.',
 
     /*
      *  User Related
@@ -38,7 +38,7 @@ $language = [
     'no_placeholders' => 'Žiadne placeholdery',
 
     // Profile settings
-    'field_is_required' => '{x} je povinné.', // Don't replace {x}
+    'field_is_required' => '{x} je povinné.',
     'settings_updated_successfully' => 'Nastavenia sa úspešne aktualizovali.',
     'password_changed_successfully' => 'Heslo bolo úspešne zmenené.',
     'change_password' => 'Zmeniť heslo',
@@ -72,11 +72,11 @@ $language = [
     'gravatar' => 'Použiť Gravatar ako avatar',
 
     // Alerts
-    'user_tag_info' => 'Bol/a si označený/á v príspevku od {x}.', // Don't replace {x}
+    'user_tag_info' => 'Bol/a si označený/á v príspevku od {{author}}.',
     'no_alerts' => 'Žiadne nové upozornenia',
     'view_alerts' => 'Zobraziť upozornenia',
     '1_new_alert' => 'Máte 1 nové upozornenie',
-    'x_new_alerts' => 'Máte {{count}} nových upozornení', // Don't replace {x}
+    'x_new_alerts' => 'Máte {{count}} nových upozornení',
     'no_alerts_usercp' => 'Nemáte žiadne upozornenia.',
 
     // Registration
@@ -156,12 +156,12 @@ $language = [
     'follow' => 'Sledovať',
     'no_wall_posts' => 'Zatiaľ tu nie sú žiadne príspevky.',
     'change_banner' => 'Zmeniť banner',
-    'post_on_wall' => 'Napísať na stenu užívateľa {x}', // Don't replace {x}
+    'post_on_wall' => 'Napísať na stenu užívateľa {x}',
     'invalid_wall_post' => 'Uistite sa, že váš príspevok má 1 až 10 000 znakov.',
     '1_reaction' => '1 reakcia',
-    'x_reactions' => '{x} reakcií', // Don't replace {x}
+    'x_reactions' => '{x} reakcií',
     '1_like' => '1 páči sa mi to',
-    'x_likes' => '{x} páči sa mi to', // Don't replace {x}
+    'x_likes' => '{x} páči sa mi to',
     '1_reply' => '1 odpoveď',
     'x_replies' => '{{count}} odpovedí',
     'no_replies_yet' => 'Zatiaľ žiadne odpovede',
@@ -184,7 +184,7 @@ $language = [
     'user_unblocked' => 'Užívateľ odblokovaný.',
     'views' => 'Zobrazení profilu:',
     'private_profile_page' => 'Toto je súkromný profil!',
-    'new_wall_post_reply' => '{x} odpovedal/a na váš príspevok v profile užívateľa {y}.', // Don't replace {x} or {y}
+    'new_wall_post_reply' => '{x} odpovedal/a na váš príspevok v profile užívateľa {y}.',
     'new_wall_post_reply_your_profile' => '{{author}} odpovedal/a na váš príspevok vo vašom profile.',
     'no_about_fields' => 'Tento užívateľ zatiaľ nepridal žiadne informácie.',
     'reply' => 'Odpoveď',
@@ -235,14 +235,14 @@ $language = [
      *  Hooks
      */
     'user_x_has_registered' => '{x} sa pripojil/a ' . SITE_NAME . '!',
-    'user_x_has_validated' => '{x} overil/a svoj účet!',
+    'user_x_has_validated' => '{{user}} overil/a svoj účet!',
 
     // OAuth
     'oauth_unlinked' => 'Váš účet bol úspešne odpojený od tohto poskytovateľa.',
     'oauth_already_linked' => 'S týmto účtom {{provider}} je už prepojený iný používateľ NamelessMC.',
-    'oauth_link_success' => 'Váš účet bol úspešne prepojený s {{provider}}!', // Don't replace {x}
-    'no_user_found_with_provider' => 'S týmto účtom {x} sa nenašiel žiadny používateľ.', // Don't replace {x}
-    'oauth_login_success' => 'Prihlásili ste sa pomocou svojho {x} účtu.', // Don't replace {x}
+    'oauth_link_success' => 'Váš účet bol úspešne prepojený s {{provider}}!',
+    'no_user_found_with_provider' => 'S týmto účtom {{provider}} sa nenašiel žiadny používateľ.',
+    'oauth_login_success' => 'Prihlásili ste sa pomocou svojho {{provider}} účtu.',
     'oauth_link_confirm' => 'Dostanete sa na {{provider}} webovú stránku, kde prepojíte svoj účet.',
-    'oauth_unlink_confirm' => 'Naozaj chcete odpojiť svoj účet od {x}.<br>S týmto účtom sa už nebudete môcť prihlásiť.', // Don't replace {x}
+    'oauth_unlink_confirm' => 'Naozaj chcete odpojiť svoj účet od {x}.<br>S týmto účtom sa už nebudete môcť prihlásiť.',
 ];

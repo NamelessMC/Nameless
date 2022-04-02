@@ -46,14 +46,14 @@ $language = [
     'alerts' => 'Bildirimler',
     'view_alerts' => 'Tümünü gör...',
     'no_alerts' => 'Şu an hiç bildiriminiz yok.',
-    'x_new_alerts' => '{{count}} yeni bildiriminiz var.', // Don't replace {x}
+    'x_new_alerts' => '{{count}} yeni bildiriminiz var.',
     'messages' => 'Özel konuşmalar',
     'view_messages' => 'Tümünü gör...',
     'no_messages' => 'Şu an hiç özel konuşmanız yok.',
     'x_new_messages' => '{count} yeni özel konuşmanız var.',
     'loading' => 'Yükleniyor...',
     'report' => 'Raporla',
-    'page_loaded_in' => 'Sayfa <strong>{x}</strong> saniye içinde yüklendi', // Don't replace {x}, time unit is seconds
+    'page_loaded_in' => 'Sayfa <strong>{x}</strong> saniye içinde yüklendi',
     'page_x' => 'Sayfa {x}',
     'browse' => 'Araştır',
     'bypass' => 'Bypass',
@@ -93,20 +93,20 @@ $language = [
      */
     'online' => 'Çevrimiçi',
     'offline' => 'Çevrimdışı',
-    'player_count' => '{x}/{y}', // Don't replace {x} or {y}
-    'ping' => 'Gecikme: {x}', // Don't replace {x}
-    'version' => 'Sürüm: {x}', // Don't replace {x}
+    'player_count' => '{x}/{y}',
+    'ping' => 'Gecikme: {x}',
+    'version' => 'Sürüm: {x}',
     'currently_1_player_online' => 'Şu anda <strong>1</strong> oyuncu çevrimiçi.',
-    'currently_x_players_online' => 'Şu anda çevrimiçi {{count}} oyuncu var', // Don't replace {x}
+    'currently_x_players_online' => 'Şu anda çevrimiçi {{count}} oyuncu var',
     'server_offline' => 'Sunucu şu anda çevrimdışı.',
-    'connect_with_ip_x' => 'IP {x} IP\'sini kullanarak şimdi bağlanın', // Don't replace {x}
+    'connect_with_ip_x' => 'IP {x} IP\'sini kullanarak şimdi bağlanın',
     'click_to_copy_tooltip' => 'Tıkla ve kopyala',
     'ip' => 'IP',
     'copied' => 'Kopyalandı!',
     'no_servers' => 'Gözükecek sunucu yok!',
     'bungee_instance' => 'Bu sunucu bir Bungee(çekirdek) örneğidir.',
     'no_players_online' => 'Çevrimiçi oyuncu yok',
-    'and_x_more' => 've {x} tane daha', // Don't replace {x}
+    'and_x_more' => 've {x} tane daha',
 
     /*
      *  Cookie notice
@@ -143,10 +143,10 @@ $language = [
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'Yeniden yönlendiriliyor ... <br />Otomatik olarak yönlendirilmiyorsanız, lütfen <a href="{x}" rel="nofollow noopener">burayı</a> tıklayın.', // Don't replace {x} which is the redirect URL
+    'redirecting_message' => 'Yeniden yönlendiriliyor ... <br />Otomatik olarak yönlendirilmiyorsanız, lütfen <a href="{x}" rel="nofollow noopener">burayı</a> tıklayın.',
 
     /*
      * OAuth
      */
-    'oauth_message_continue' => 'Continue registering with {x}', // Don't replace {x}
+    'oauth_message_continue' => 'Continue registering with {x}',
 ];

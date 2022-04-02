@@ -46,19 +46,19 @@ $language = [
     'alerts' => 'Upozornenie',
     'view_alerts' => 'Zobraziť upozornenia',
     'no_alerts' => 'Žiadne upozornenia',
-    'x_new_alerts' => 'Máte {{count}} nových upozornení.', // Don't replace {x}
+    'x_new_alerts' => 'Máte {{count}} nových upozornení.',
     'messages' => 'Správy',
     'view_messages' => 'Zobraziť správy',
     'no_messages' => 'Žiadne správy',
     'x_new_messages' => 'Máte {{count}} nových správ.',
     'loading' => 'Načítavanie...',
     'report' => 'Nahlásiť',
-    'reported_by' => 'Nahlásene od {x}',
+    'reported_by' => 'Nahlásene od {{author}}',
     'view_report' => 'Zobraziť nahlásenie',
     'report_origin' => 'Pôvod',
     'origin_website' => 'Webstránka',
     'origin_api' => 'API',
-    'page_loaded_in' => 'Stránka bola načítaná za {x}s', // Don't replace {x}, time unit is seconds
+    'page_loaded_in' => 'Stránka bola načítaná za {x}s',
     'page_x' => 'Stránka {x}',
     'browse' => 'Prehliadať',
     'bypass' => 'Obísť',
@@ -98,20 +98,20 @@ $language = [
      */
     'online' => 'Online',
     'offline' => 'Offline',
-    'player_count' => '{x}/{y}', // Don't replace {x} or {y}
-    'ping' => 'Ping: {x}', // Don't replace {x}
-    'version' => 'Verzia: {x}', // Don't replace {x}
+    'player_count' => '{x}/{y}',
+    'ping' => 'Ping: {x}',
+    'version' => 'Verzia: {x}',
     'currently_1_player_online' => 'Aktuálne je online <strong>1</strong> hráč.',
-    'currently_x_players_online' => 'Aktuálne je {{count}} online hráčov.', // Don't replace {x}
+    'currently_x_players_online' => 'Aktuálne je {{count}} online hráčov.',
     'server_offline' => 'Server je momentálne offline.',
-    'connect_with_ip_x' => 'Pripojte sa teraz pomocou IP adresy {x}', // Don't replace {x}
+    'connect_with_ip_x' => 'Pripojte sa teraz pomocou IP adresy {x}',
     'click_to_copy_tooltip' => 'Kliknite pre skopírovanie',
     'ip' => 'IP',
     'copied' => 'Skopírované!',
     'no_servers' => 'Nie sú k dispozícii žiadne servery na zobrazenie!',
     'bungee_instance' => 'Tento server je inštancia Bungee.',
     'no_players_online' => 'Nie sú žiadni hráči online.',
-    'and_x_more' => 'a {x} viac', // Don't replace {x}
+    'and_x_more' => 'a {x} viac',
 
     /*
      *  Cookie notice
@@ -147,10 +147,10 @@ $language = [
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'Presmerovanie... <br />Ak sa nepresmerujete automaticky, kliknite <a href="{x}" rel="nofollow noopener">tu</a>.', // Don't replace {x} which is the redirect URL
+    'redirecting_message' => 'Presmerovanie... <br />Ak sa nepresmerujete automaticky, kliknite <a href="{x}" rel="nofollow noopener">tu</a>.',
 
     /*
      * OAuth
      */
-    'oauth_message_continue' => 'Pokračovať v registrácii s {x}', // Don't replace {x}
+    'oauth_message_continue' => 'Pokračovať v registrácii s {x}',
 ];

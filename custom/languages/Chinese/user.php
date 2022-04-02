@@ -18,7 +18,7 @@ $language = [
     /*
      *  Change this for the account validation message
      */
-    'validate_account_command' => 'To complete registration, please execute the command <strong>/verify {x}</strong> ingame.', // Don't replace {x}
+    'validate_account_command' => 'To complete registration, please execute the command /verify {{command}} ingame.',
 
     /*
      *  User Related
@@ -44,7 +44,7 @@ $language = [
     'no_placeholders' => 'No Placeholders',
 
     // Profile settings
-    'field_is_required' => '需要 {x}.', // Don't replace {x}
+    'field_is_required' => '需要 {x}.',
     'settings_updated_successfully' => '設定更新成功.',
     'password_changed_successfully' => '密碼更新成功.',
     'change_password' => '更換密碼',
@@ -78,11 +78,11 @@ $language = [
     'gravatar' => 'Use Gravatar as avatar',
 
     // Alerts
-    'user_tag_info' => '你被標註於 {x}.', // Don't replace {x}
+    'user_tag_info' => '你被標註於 {{author}}.',
     'no_alerts' => '沒有新提醒',
     'view_alerts' => '檢視提醒',
     '1_new_alert' => 'You have 1 new alert',
-    'x_new_alerts' => '你有 {{count}} 個新提醒', // Don't replace {x}
+    'x_new_alerts' => '你有 {{count}} 個新提醒',
     'no_alerts_usercp' => '你沒有任何提醒.',
 
     // Registraton
@@ -162,12 +162,12 @@ $language = [
     'follow' => '追隨',
     'no_wall_posts' => '這個人的塗鴉牆沒有東西.',
     'change_banner' => '更換橫幅',
-    'post_on_wall' => '塗鴉牆上有 {x} 篇文章', // Don't replace {x}
+    'post_on_wall' => '塗鴉牆上有 {x} 篇文章',
     'invalid_wall_post' => '請輸入 1 ~ 10000 個字元的文章內容.',
     '1_reaction' => '1 個回應',
-    'x_reactions' => '{x} 個回應', // Don't replace {x}
+    'x_reactions' => '{x} 個回應',
     '1_like' => '1 個讚',
-    'x_likes' => '{x} 個讚', // Don't replace {x}
+    'x_likes' => '{x} 個讚',
     '1_reply' => '1 個回覆',
     'x_replies' => '{{count}} 個回覆',
     'no_replies_yet' => '這邊沒有回覆',
@@ -190,7 +190,7 @@ $language = [
     'user_unblocked' => '使用者解鎖.',
     'views' => 'Profile Views:',
     'private_profile_page' => 'This is a private profile!',
-    'new_wall_post_reply' => '{x} has replied to your post on {y}\'s profile.', // Don't replace {x} or {y}
+    'new_wall_post_reply' => '{x} has replied to your post on {y}\'s profile.',
     'new_wall_post_reply_your_profile' => '{{author}} has replied to your post on your profile.',
     'no_about_fields' => 'This user has not added any about fields yet.',
     'reply' => 'Reply',
@@ -242,14 +242,14 @@ $language = [
      *  Hooks
      */
     'user_x_has_registered' => '{x} has joined ' . SITE_NAME . '!',
-    'user_x_has_validated' => '{x} has validated their account!',
+    'user_x_has_validated' => '{{user}} has validated their account!',
 
     // OAuth
     'oauth_unlinked' => 'Successfully unlinked your account from that provider.',
     'oauth_already_linked' => 'Another NamelessMC user is already linked to that {{provider}} account.',
     'oauth_link_success' => 'Successfully linked your account with {{provider}}!',
-    'no_user_found_with_provider' => 'No user found with that {x} account.', // Don't replace {x}
-    'oauth_login_success' => 'You have logged in with your {x} account.', // Don't replace {x}
+    'no_user_found_with_provider' => 'No user found with that {{provider}} account.',
+    'oauth_login_success' => 'You have logged in with your {{provider}} account.',
     'oauth_link_confirm' => 'You will be taken to the {{provider}} website to link your account.',
-    'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {x}.<br>You will not be able to login with this account anymore.', // Don't replace {x}
+    'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {x}.<br>You will not be able to login with this account anymore.',
 ];
