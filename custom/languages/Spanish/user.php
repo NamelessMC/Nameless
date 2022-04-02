@@ -77,7 +77,7 @@ $language = [
     'no_alerts' => 'No hay nuevas alertas',
     'view_alerts' => 'Ver alertas',
     '1_new_alert' => 'Tienes 1 nueva alerta.',
-    'x_new_alerts' => 'Tienes {x} nuevas alertas', // Don't replace {x}
+    'x_new_alerts' => 'Tienes {{count}} nuevas alertas', // Don't replace {x}
     'no_alerts_usercp' => 'No tienes alertas.',
 
     // Registraton
@@ -164,7 +164,7 @@ $language = [
     '1_like' => '1 Me gusta',
     'x_likes' => '{x} Me gustas', // Don't replace {x}
     '1_reply' => '1 respuesta',
-    'x_replies' => '{x} respuestas', // Don't replace {x}
+    'x_replies' => '{{count}} respuestas',
     'no_replies_yet' => 'No hay respuestas',
     'feed' => 'Muro',
     'about' => 'Acerca de',
@@ -174,7 +174,7 @@ $language = [
     'registered' => 'Registrado:',
     'registered_x' => 'Registrado: {x}',
     'last_seen' => 'Ultima vez visto:',
-    'last_seen_x' => 'Ultima vez visto: {x}', // Don't replace {x}
+    'last_seen_x' => 'Ultima vez visto: {{lastSeenAt}}',
     'new_wall_post' => '{x} ha publicado en tu Perfil.',
     'couldnt_find_that_user' => 'No se ha podido encontrar a ese usuario.',
     'block_user' => 'Bloquear usuario',
@@ -186,7 +186,7 @@ $language = [
     'views' => 'Visitas al Perfil:',
     'private_profile_page' => '¡Este es un Perfil privado!',
     'new_wall_post_reply' => '{x} ha respondido a tu publicación en el Perfil de {y}.', // Don't replace {x} or {y}
-    'new_wall_post_reply_your_profile' => '{x} ha respondido a tu publicación en tu Perfil.', // Don't replace {x}
+    'new_wall_post_reply_your_profile' => '{{author}} ha respondido a tu publicación en tu Perfil.',
     'no_about_fields' => 'Este usuario todavía no ha agregado ningún campo sobre el.',
     'reply' => 'Responder',
 
@@ -200,7 +200,7 @@ $language = [
     'no_messages_full' => 'No tienes ningún mensaje.',
     'view_messages' => 'Ver mensajes',
     '1_new_message' => 'Tienes 1 nuevo mensaje',
-    'x_new_messages' => 'Tienes {x} nuevos mensajes', // Don't replace {x}
+    'x_new_messages' => 'Tienes {{count}} nuevos mensajes',
     'new_message' => 'Nuevo mensaje',
     'message_title' => 'Titulo del Mensaje',
     'to' => 'a',
@@ -240,10 +240,10 @@ $language = [
 
     // OAuth
     'oauth_unlinked' => 'Successfully unlinked your account from that provider.',
-    'oauth_already_linked' => 'Another NamelessMC user is already linked to that {x} account.', // Don't replace {x}
-    'oauth_link_success' => 'Successfully linked your account with {x}!', // Don't replace {x}
+    'oauth_already_linked' => 'Another NamelessMC user is already linked to that {{provider}} account.',
+    'oauth_link_success' => 'Successfully linked your account with {{provider}}!', // Don't replace {x}
     'no_user_found_with_provider' => 'No user found with that {x} account.', // Don't replace {x}
     'oauth_login_success' => 'You have logged in with your {x} account.', // Don't replace {x}
-    'oauth_link_confirm' => 'You will be taken to the {x} website to link your account.', // Don't replace {x}
+    'oauth_link_confirm' => 'You will be taken to the {{provider}} website to link your account.',
     'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {x}.<br>You will not be able to login with this account anymore.', // Don't replace {x}
 ];

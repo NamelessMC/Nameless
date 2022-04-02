@@ -46,11 +46,11 @@ $language = [
     'alerts' => 'Bildirimler',
     'view_alerts' => 'Tümünü gör...',
     'no_alerts' => 'Şu an hiç bildiriminiz yok.',
-    'x_new_alerts' => '<strong>{x}</strong> yeni bildiriminiz var.', // Don't replace {x}
+    'x_new_alerts' => '{{count}} yeni bildiriminiz var.', // Don't replace {x}
     'messages' => 'Özel konuşmalar',
     'view_messages' => 'Tümünü gör...',
     'no_messages' => 'Şu an hiç özel konuşmanız yok.',
-    'x_new_messages' => '<strong>{x}</strong> yeni özel konuşmanız var.', // Don't replace {x}
+    'x_new_messages' => '{count} yeni özel konuşmanız var.',
     'loading' => 'Yükleniyor...',
     'report' => 'Raporla',
     'page_loaded_in' => 'Sayfa <strong>{x}</strong> saniye içinde yüklendi', // Don't replace {x}, time unit is seconds
@@ -97,7 +97,7 @@ $language = [
     'ping' => 'Gecikme: {x}', // Don't replace {x}
     'version' => 'Sürüm: {x}', // Don't replace {x}
     'currently_1_player_online' => 'Şu anda <strong>1</strong> oyuncu çevrimiçi.',
-    'currently_x_players_online' => 'Şu anda çevrimiçi <strong>{x}</strong> oyuncu var', // Don't replace {x}
+    'currently_x_players_online' => 'Şu anda çevrimiçi {{count}} oyuncu var', // Don't replace {x}
     'server_offline' => 'Sunucu şu anda çevrimdışı.',
     'connect_with_ip_x' => 'IP {x} IP\'sini kullanarak şimdi bağlanın', // Don't replace {x}
     'click_to_copy_tooltip' => 'Tıkla ve kopyala',
@@ -139,7 +139,7 @@ $language = [
      *  Privacy policy
      */
     'privacy_policy' => 'Gizlilik Politikası',
-    
+
     /*
      *  Custom page redirect
      */

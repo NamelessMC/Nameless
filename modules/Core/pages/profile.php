@@ -604,7 +604,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                 if (count($replies_query) == 1) {
                     $replies['count'] = $language->get('user', '1_reply');
                 } else {
-                    $replies['count'] = str_replace('{x}', count($replies_query), $language->get('user', 'x_replies'));
+                    $replies['count'] = $language->get('user', 'x_replies', ['count' => count($replies_query)]);
                 }
 
                 foreach ($replies_query as $reply) {
@@ -624,7 +624,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                     ];
                 }
             } else {
-                $replies['count'] = str_replace('{x}', 0, $language->get('user', 'x_replies'));
+                $replies['count'] = $language->get('user', 'x_replies', ['count' => 0]);
             }
             $replies_query = null;
 

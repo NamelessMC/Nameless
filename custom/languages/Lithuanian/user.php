@@ -74,7 +74,7 @@ $language = [
     'no_alerts' => 'Naujų įspėjimų nėra',
     'view_alerts' => 'Peržiūrėti įspėjimus',
     '1_new_alert' => 'Turite 1 naują įspėjimą',
-    'x_new_alerts' => 'Turite {x} naujų įspėjimų', // Don't replace {x}
+    'x_new_alerts' => 'Turite {{count}} naujų įspėjimų', // Don't replace {x}
     'no_alerts_usercp' => 'Jūs neturite jokių įspėjimų.',
 
     // Registraton
@@ -161,7 +161,7 @@ $language = [
     '1_like' => '1 Patinka',
     'x_likes' => '{x} Patinka', // Don't replace {x}
     '1_reply' => '1 atsakymas',
-    'x_replies' => '{x} atsakymai', // Don't replace {x}
+    'x_replies' => '{{count}} atsakymai',
     'no_replies_yet' => 'Dar nėra atsakymų',
     'feed' => '"Feed"',
     'about' => 'Apie',
@@ -171,7 +171,7 @@ $language = [
     'registered' => 'Prisiregistravo:',
     'registered_x' => 'Prisiregistravo: {x}',
     'last_seen' => 'Paskutinį kartą matytas:',
-    'last_seen_x' => 'Paskutinį kartą matytas: {x}', // Don't replace {x}
+    'last_seen_x' => 'Paskutinį kartą matytas: {{lastSeenAt}}',
     'new_wall_post' => '{x} paskelbė ant jūsų profilio.',
     'couldnt_find_that_user' => 'Nepavyko rasti šio vartotojo.',
     'block_user' => 'Užblokuoti Vartotoją',
@@ -183,7 +183,7 @@ $language = [
     'views' => 'Profilio Peržiūros:',
     'private_profile_page' => 'Tai yra privatus profilis!',
     'new_wall_post_reply' => '{x} atsakė į jūsų "postą" {y}\'s profilyje.', // Don't replace {x} or {y}
-    'new_wall_post_reply_your_profile' => '{x} atsakė į jūsų "postą" jūsų profilyje.', // Don't replace {x}
+    'new_wall_post_reply_your_profile' => '{{author}} atsakė į jūsų "postą" jūsų profilyje.',
     'no_about_fields' => 'Šis vartotojas dar nepateikė jokių “apie” laukų.',
     'reply' => 'Atsakyti',
 
@@ -197,7 +197,7 @@ $language = [
     'no_messages_full' => 'Jūs neturite jokių žinučių',
     'view_messages' => 'Peržiūrėti žinutes',
     '1_new_message' => 'Turite 1 naują žinutę',
-    'x_new_messages' => 'Turite {x} naujų žinučių', // Don't replace {x}
+    'x_new_messages' => 'Turite {{count}} naujų žinučių',
     'new_message' => 'Nauja žinutė',
     'message_title' => 'Žinutės Antraštė',
     'to' => 'To',
@@ -233,10 +233,10 @@ $language = [
 
     // OAuth
     'oauth_unlinked' => 'Successfully unlinked your account from that provider.',
-    'oauth_already_linked' => 'Another NamelessMC user is already linked to that {x} account.', // Don't replace {x}
-    'oauth_link_success' => 'Successfully linked your account with {x}!', // Don't replace {x}
+    'oauth_already_linked' => 'Another NamelessMC user is already linked to that {{provider}} account.',
+    'oauth_link_success' => 'Successfully linked your account with {{provider}}!', // Don't replace {x}
     'no_user_found_with_provider' => 'No user found with that {x} account.', // Don't replace {x}
     'oauth_login_success' => 'You have logged in with your {x} account.', // Don't replace {x}
-    'oauth_link_confirm' => 'You will be taken to the {x} website to link your account.', // Don't replace {x}
+    'oauth_link_confirm' => 'You will be taken to the {{provider}} website to link your account.',
     'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {x}.<br>You will not be able to login with this account anymore.', // Don't replace {x}
 ];

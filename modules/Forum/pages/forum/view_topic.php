@@ -692,7 +692,7 @@ foreach ($results->data as $n => $nValue) {
         'uuid' => Output::getClean($post_creator->data()->uuid),
         'username' => $post_creator->getDisplayname(),
         'mcname' => $post_creator->getDisplayname(true),
-        'last_seen' => str_replace('{x}', $timeago->inWords($post_creator->data()->last_online, $language), $language->get('user', 'last_seen_x')),
+        'last_seen' => $language->get('user', 'last_seen_x', ['lastSeenAt' => $timeago->inWords($post_creator->data()->last_online, $language)]),
         'last_seen_full' => date('d M Y', $post_creator->data()->last_online),
         'online_now' => $post_creator->data()->last_online > strtotime('5 minutes ago'),
         'user_title' => Output::getClean($post_creator->data()->user_title),

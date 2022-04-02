@@ -77,7 +77,7 @@ $language = [
     'no_alerts' => 'Nessun nuovo avviso',
     'view_alerts' => 'Visualizza avvisi',
     '1_new_alert' => 'Hai 1 nuovo avviso',
-    'x_new_alerts' => 'Hai {x} nuovi avvisi', // Don't replace {x}
+    'x_new_alerts' => 'Hai {{count}} nuovi avvisi', // Don't replace {x}
     'no_alerts_usercp' => 'Non hai avvisi.',
 
     // Registraton
@@ -164,7 +164,7 @@ $language = [
     '1_like' => '1 mi piace',
     'x_likes' => '{x} mi piace', // Don't replace {x}
     '1_reply' => '1 risposta',
-    'x_replies' => '{x} risposte', // Don't replace {x}
+    'x_replies' => '{{count}} risposte',
     'no_replies_yet' => 'Ancora nessuna risposta',
     'feed' => 'Bacheca',
     'about' => 'Informazioni',
@@ -174,7 +174,7 @@ $language = [
     'registered' => 'Registrato:',
     'registered_x' => 'Registrato: {x}',
     'last_seen' => 'Ultimo Accesso:',
-    'last_seen_x' => 'Ultimo Accesso: {x}', // Don't replace {x}
+    'last_seen_x' => 'Ultimo Accesso: {{lastSeenAt}}',
     'new_wall_post' => '{x} ha pubblicato sul tuo profilo.',
     'couldnt_find_that_user' => "Impossibile trovare quell'utente.",
     'block_user' => 'Blocca Utente',
@@ -186,7 +186,7 @@ $language = [
     'views' => 'Visualizzazioni del profilo:',
     'private_profile_page' => 'Questo è un profilo privato!',
     'new_wall_post_reply' => '{x} ha risposto al tuo post sul profilo di {y}.', // Don't replace {x} or {y}
-    'new_wall_post_reply_your_profile' => '{x} ha risposto al tuo post sul tuo profilo.', // Don't replace {x}
+    'new_wall_post_reply_your_profile' => '{{author}} ha risposto al tuo post sul tuo profilo.',
     'no_about_fields' => 'Questo utente non ha ancora aggiunto informazioni su se stesso',
     'reply' => 'Rispondi',
 
@@ -200,7 +200,7 @@ $language = [
     'no_messages_full' => 'Non hai nessun messaggio.',
     'view_messages' => 'Visualizza i messaggi',
     '1_new_message' => 'Hai 1 nuovo messaggio',
-    'x_new_messages' => 'Hai {x} nuovi messaggi', // Don't replace {x}
+    'x_new_messages' => 'Hai {{count}} nuovi messaggi',
     'new_message' => 'Nuovo messaggio',
     'message_title' => 'Titolo del messaggio',
     'to' => 'A',
@@ -240,10 +240,10 @@ $language = [
 
     // OAuth
     'oauth_unlinked' => 'Successfully unlinked your account from that provider.',
-    'oauth_already_linked' => 'Another NamelessMC user is already linked to that {x} account.', // Don't replace {x}
-    'oauth_link_success' => 'Successfully linked your account with {x}!', // Don't replace {x}
+    'oauth_already_linked' => 'Another NamelessMC user is already linked to that {{provider}} account.',
+    'oauth_link_success' => 'Successfully linked your account with {{provider}}!', // Don't replace {x}
     'no_user_found_with_provider' => 'No user found with that {x} account.', // Don't replace {x}
     'oauth_login_success' => 'You have logged in with your {x} account.', // Don't replace {x}
-    'oauth_link_confirm' => 'You will be taken to the {x} website to link your account.', // Don't replace {x}
+    'oauth_link_confirm' => 'You will be taken to the {{provider}} website to link your account.',
     'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {x}.<br>You will not be able to login with this account anymore.', // Don't replace {x}
 ];

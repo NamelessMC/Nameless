@@ -74,7 +74,7 @@ $language = [
     'no_alerts' => 'Keine Benachrichtigungen',
     'view_alerts' => 'Benachrichtigungen ansehen',
     '1_new_alert' => 'Du hast 1 neue Benachrichtigung.',
-    'x_new_alerts' => 'Du hast {x} neue Benachrichtigungen', // Don't replace {x}
+    'x_new_alerts' => 'Du hast {{count}} neue Benachrichtigungen', // Don't replace {x}
     'no_alerts_usercp' => 'Du hast keine Benachrichtigungen.',
 
     // Registraton
@@ -161,7 +161,7 @@ $language = [
     '1_like' => '1 Like',
     'x_likes' => '{x} Likes', // Don't replace {x}
     '1_reply' => '1 Antwort',
-    'x_replies' => '{x} Antworten', // Don't replace {x}
+    'x_replies' => '{{count}} Antworten',
     'no_replies_yet' => 'Bisher keine Antworten',
     'feed' => 'Pinnwand',
     'about' => 'Über Mich',
@@ -171,7 +171,7 @@ $language = [
     'registered' => 'Mitglied seit:',
     'registered_x' => 'Mitglied seit: {x}',
     'last_seen' => 'Zuletzt gesehen:',
-    'last_seen_x' => 'Zuletzt gesehen: {x}', // Don't replace {x}
+    'last_seen_x' => 'Zuletzt gesehen: {{lastSeenAt}}',
     'new_wall_post' => '{x} hat etwas in deine Pinnwand geschrieben.',
     'couldnt_find_that_user' => 'Konnte den Benutzer nicht finden.',
     'block_user' => 'Benutzer blockieren',
@@ -183,7 +183,7 @@ $language = [
     'views' => 'Profil-Aufrufe:',
     'private_profile_page' => 'Der Benutzer hat den Zugriff auf sein vollständiges Profil eingeschränkt.',
     'new_wall_post_reply' => '{x} hat auf deinen Beitrag im Profil von {y} geantwortet.', // Don't replace {x} or {y}
-    'new_wall_post_reply_your_profile' => '{x} hat auf deinen Beitrag in deinem Profil geantwortet.', // Don't replace {x}
+    'new_wall_post_reply_your_profile' => '{{author}} hat auf deinen Beitrag in deinem Profil geantwortet.',
     'no_about_fields' => 'Dieser Benutzer hat noch keine Felder hinzugefügt.',
     'reply' => 'Antworten',
 
@@ -197,7 +197,7 @@ $language = [
     'no_messages_full' => 'Du hast keine neuen Nachrichten.',
     'view_messages' => 'Nachrichten ansehen',
     '1_new_message' => 'Du hast 1 neue Nachricht',
-    'x_new_messages' => 'Du hast {x} neue Nachrichten', // Don't replace {x}
+    'x_new_messages' => 'Du hast {{count}} neue Nachrichten',
     'new_message' => 'Neue Nachricht',
     'message_title' => 'Nachrichten Titel',
     'to' => 'An',
@@ -233,10 +233,10 @@ $language = [
 
     // OAuth
     'oauth_unlinked' => 'Successfully unlinked your account from that provider.',
-    'oauth_already_linked' => 'Another NamelessMC user is already linked to that {x} account.', // Don't replace {x}
-    'oauth_link_success' => 'Successfully linked your account with {x}!', // Don't replace {x}
+    'oauth_already_linked' => 'Another NamelessMC user is already linked to that {{provider}} account.',
+    'oauth_link_success' => 'Successfully linked your account with {{provider}}!', // Don't replace {x}
     'no_user_found_with_provider' => 'No user found with that {x} account.', // Don't replace {x}
     'oauth_login_success' => 'You have logged in with your {x} account.', // Don't replace {x}
-    'oauth_link_confirm' => 'You will be taken to the {x} website to link your account.', // Don't replace {x}
+    'oauth_link_confirm' => 'You will be taken to the {{provider}} website to link your account.',
     'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {x}.<br>You will not be able to login with this account anymore.', // Don't replace {x}
 ];

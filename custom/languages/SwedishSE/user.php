@@ -78,7 +78,7 @@ $language = [
     'no_alerts' => 'Inga nya alerter.',
     'view_alerts' => 'Visa alerter',
     '1_new_alert' => 'Du har 1 ny alert',
-    'x_new_alerts' => 'Du har {x} nya alerter', // Don't replace {x}
+    'x_new_alerts' => 'Du har {{count}} nya alerter', // Don't replace {x}
     'no_alerts_usercp' => 'Du har inga nya alerter.',
 
     // Registraton
@@ -165,7 +165,7 @@ $language = [
     '1_like' => '1 gillar',
     'x_likes' => '{x} gillar', // Don't replace {x}
     '1_reply' => '1 svar',
-    'x_replies' => '{x} svar', // Don't replace {x}
+    'x_replies' => '{{count}} svar',
     'no_replies_yet' => 'Inga svar än',
     'feed' => 'Flöde',
     'about' => 'Om',
@@ -175,7 +175,7 @@ $language = [
     'registered' => 'Registrerad:',
     'registered_x' => 'Registrerad: {x}',
     'last_seen' => 'Senast Inloggad:',
-    'last_seen_x' => 'Senast Inloggad: {x}', // Don't replace {x}
+    'last_seen_x' => 'Senast Inloggad: {{lastSeenAt}}',
     'new_wall_post' => '{x} har skrivit på din profil.',
     'couldnt_find_that_user' => 'Kunde inte hitta den användaren.',
     'block_user' => 'Blockera Användare',
@@ -187,7 +187,7 @@ $language = [
     'views' => 'Profil Visningar:',
     'private_profile_page' => 'Det här är en privat profil!',
     'new_wall_post_reply' => '{x} har svarat på ditt inlägg på {y}\'s profil.', // Don't replace {x} or {y}
-    'new_wall_post_reply_your_profile' => '{x} har svarat på ditt inlägg på din profil.', // Don't replace {x}
+    'new_wall_post_reply_your_profile' => '{{author}} har svarat på ditt inlägg på din profil.',
     'no_about_fields' => 'Den här användaren har inte lagt till några om fält ännu.',
     'reply' => 'Svara',
 
@@ -201,7 +201,7 @@ $language = [
     'no_messages_full' => 'Du har inga meddelanden.',
     'view_messages' => 'Visa meddelanden',
     '1_new_message' => 'Du har 1 nytt meddelande',
-    'x_new_messages' => 'Du har {x} nya meddelanden', // Don't replace {x}
+    'x_new_messages' => 'Du har {{count}} nya meddelanden',
     'new_message' => 'Nytt meddelande',
     'message_title' => 'Meddelande Titel',
     'to' => 'Till',
@@ -241,10 +241,10 @@ $language = [
 
     // OAuth
     'oauth_unlinked' => 'Successfully unlinked your account from that provider.',
-    'oauth_already_linked' => 'Another NamelessMC user is already linked to that {x} account.', // Don't replace {x}
-    'oauth_link_success' => 'Successfully linked your account with {x}!', // Don't replace {x}
+    'oauth_already_linked' => 'Another NamelessMC user is already linked to that {{provider}} account.',
+    'oauth_link_success' => 'Successfully linked your account with {{provider}}!', // Don't replace {x}
     'no_user_found_with_provider' => 'No user found with that {x} account.', // Don't replace {x}
     'oauth_login_success' => 'You have logged in with your {x} account.', // Don't replace {x}
-    'oauth_link_confirm' => 'You will be taken to the {x} website to link your account.', // Don't replace {x}
+    'oauth_link_confirm' => 'You will be taken to the {{provider}} website to link your account.',
     'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {x}.<br>You will not be able to login with this account anymore.', // Don't replace {x}
 ];

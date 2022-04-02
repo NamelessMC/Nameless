@@ -81,7 +81,7 @@ $language = [
     'no_alerts' => '新しい通知はありません',
     'view_alerts' => '通知を表示',
     '1_new_alert' => '1件の新しい通知があります。',
-    'x_new_alerts' => '{x}件の新しい通知があります。', // Don't replace {x}
+    'x_new_alerts' => '{{count}} 件の新しい通知があります。', // Don't replace {x}
     'no_alerts_usercp' => '通知は受信していません。',
 
     // Registraton
@@ -168,7 +168,7 @@ $language = [
     '1_like' => 'いいね',
     'x_likes' => '{x}件のいいね', // Don't replace {x}
     '1_reply' => '1件の返信',
-    'x_replies' => '{x}件の返信', // Don't replace {x}
+    'x_replies' => '{{count}} 件の返信',
     'no_replies_yet' => '返信がありません。',
     'feed' => 'フィード',
     'about' => '情報',
@@ -178,7 +178,7 @@ $language = [
     'registered' => '登録:',
     'registered_x' => '登録: {x}',
     'last_seen' => '最終オンライン時:',
-    'last_seen_x' => '最終オンライン時: {x}', // Don't replace {x}
+    'last_seen_x' => '最終オンライン時: {{lastSeenAt}}',
     'new_wall_post' => '{x}さんがあなたのプロフィールに投稿しました。',
     'couldnt_find_that_user' => '指定されたユーザーを見つけることができませんでした。',
     'block_user' => 'ユーザをブロック',
@@ -190,7 +190,7 @@ $language = [
     'views' => 'プロフィールビュー:',
     'private_profile_page' => '表示しているユーザはプライベートプロファイルに設定されています。',
     'new_wall_post_reply' => '{x}さんが{y}のプロフィールの投稿に返信しました。',// {x}か{y}
-    'new_wall_post_reply_your_profile' => '{x}さんがプロフィールの投稿に返信しました。',// {x}を置き換えないでください
+    'new_wall_post_reply_your_profile' => '{{author}} さんがプロフィールの投稿に返信しました。',
     'no_about_fields' => 'フィールドの内容を追加していません。',
     'reply' => '返信',
 
@@ -204,7 +204,7 @@ $language = [
     'no_messages_full' => 'メッセージが存在しません。',
     'view_messages' => 'メッセージを表示',
     '1_new_message' => '1件の新しいメッセージがあります。',
-    'x_new_messages' => '{x}件の新しいメッセージがあります。', // Don't replace {x}
+    'x_new_messages' => '{{count}} 件の新しいメッセージがあります。',
     'new_message' => '新しいメッセージ',
     'message_title' => 'メッセージタイトル',
     'to' => 'To',
@@ -244,10 +244,10 @@ $language = [
 
     // OAuth
     'oauth_unlinked' => 'プロバイダーからアカウントの連携解除に成功しました。',
-    'oauth_already_linked' => '{x}アカウントには、別のNamelessMCユーザーが既に連携されています。', // Don't replace {x}
-    'oauth_link_success' => 'あなたのアカウントと{x}の連携に成功しました。', // Don't replace {x}
+    'oauth_already_linked' => '{{provider}} アカウントには、別のNamelessMCユーザーが既に連携されています。',
+    'oauth_link_success' => 'あなたのアカウントと {{provider}} の連携に成功しました。', // Don't replace {x}
     'no_user_found_with_provider' => '{x}アカウントを持つユーザーは見つかりませんでした。', // Don't replace {x}
     'oauth_login_success' => '{x}のアカウントでログインしています。', // Don't replace {x}
-    'oauth_link_confirm' => 'アカウント連携のため、{x}ウェブサイトに移動します。', // Don't replace {x}
+    'oauth_link_confirm' => 'アカウント連携のため、{{provider}} ウェブサイトに移動します。',
     'oauth_unlink_confirm' => '本当に{x}からアカウントの連携を解除しますか？<br>このアカウントでは今後ログインできなくなります。', // Don't replace {x}
 ];

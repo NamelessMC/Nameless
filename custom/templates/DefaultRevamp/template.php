@@ -101,6 +101,7 @@ class DefaultRevamp_Template extends TemplateBase {
 
         $route = (isset($_GET['route']) ? rtrim($_GET['route'], '/') : '/');
 
+        // TODO: new language system
         $JSVariables = [
             'siteName' => SITE_NAME,
             'siteURL' => URL::build('/'),

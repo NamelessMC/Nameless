@@ -77,7 +77,7 @@ $language = [
     'no_alerts' => 'Žádná nová upozornění',
     'view_alerts' => 'Zobrazit upozornění',
     '1_new_alert' => 'Máte 1 nové upozornění',
-    'x_new_alerts' => 'Máte {x} nových upozornění', // Don't replace {x}
+    'x_new_alerts' => 'Máte {{count}} nových upozornění', // Don't replace {x}
     'no_alerts_usercp' => 'Nemáte žádná upozornění.',
 
     // Registration
@@ -164,7 +164,7 @@ $language = [
     '1_like' => '1 líbí se mi',
     'x_likes' => '{x} líbí se mi', // Don't replace {x}
     '1_reply' => '1 odpověď',
-    'x_replies' => '{x} odpovědí', // Don't replace {x}
+    'x_replies' => '{{count}} odpovědí',
     'no_replies_yet' => 'Žádné odpovědi',
     'feed' => 'Kanál',
     'about' => 'O uživateli',
@@ -174,7 +174,7 @@ $language = [
     'registered' => 'Zaregistrován:',
     'registered_x' => 'Zaregistrován: {x}',
     'last_seen' => 'Naposledy spatřen:',
-    'last_seen_x' => 'Naposledy spatřen: {x}', // Don't replace {x}
+    'last_seen_x' => 'Naposledy spatřen: {{lastSeenAt}}',
     'new_wall_post' => '{x} zveřejnil příspěvek na vaší zdi.',
     'couldnt_find_that_user' => 'Tak toho uživatele jsme nenašli.',
     'block_user' => 'Zablokovat uživatele',
@@ -186,7 +186,7 @@ $language = [
     'views' => 'Zobrazení profilu:',
     'private_profile_page' => 'Toto je soukromý profil!',
     'new_wall_post_reply' => '{x} odpověděl na váš příspěvek na profilu uživatele {y}.', // Don't replace {x} or {y}
-    'new_wall_post_reply_your_profile' => '{x} odpověděl na váš příspěvek na vašem profilu.', // Don't replace {x}
+    'new_wall_post_reply_your_profile' => '{{author} odpověděl na váš příspěvek na vašem profilu.',
     'no_about_fields' => 'Tento uživatel o sobě zatím nepřidal žádné informace.',
     'reply' => 'Odpovědět',
 
@@ -200,7 +200,7 @@ $language = [
     'no_messages_full' => 'Nemáte žádné zprávy.',
     'view_messages' => 'Zobrazit zprávy',
     '1_new_message' => 'Máte 1 novou zprávu',
-    'x_new_messages' => 'Máte {x} nových zpráv', // Don't replace {x}
+    'x_new_messages' => 'Máte {{count}} nových zpráv',
     'new_message' => 'Nová zpráva',
     'message_title' => 'Nadpis zprávy',
     'to' => 'Komu:',
@@ -240,10 +240,10 @@ $language = [
 
     // OAuth
     'oauth_unlinked' => 'Successfully unlinked your account from that provider.',
-    'oauth_already_linked' => 'Another NamelessMC user is already linked to that {x} account.', // Don't replace {x}
-    'oauth_link_success' => 'Successfully linked your account with {x}!', // Don't replace {x}
+    'oauth_already_linked' => 'Another NamelessMC user is already linked to that {{provider}} account.',
+    'oauth_link_success' => 'Successfully linked your account with {{provider}}!', // Don't replace {x}
     'no_user_found_with_provider' => 'No user found with that {x} account.', // Don't replace {x}
     'oauth_login_success' => 'You have logged in with your {x} account.', // Don't replace {x}
-    'oauth_link_confirm' => 'You will be taken to the {x} website to link your account.', // Don't replace {x}
+    'oauth_link_confirm' => 'You will be taken to the {{provider}} website to link your account.',
     'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {x}.<br>You will not be able to login with this account anymore.', // Don't replace {x}
 ];

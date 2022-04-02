@@ -77,7 +77,7 @@ $language = [
     'no_alerts' => 'ไม่มีการแจ้งเตือนใหม่',
     'view_alerts' => 'ดูการแจ้งเตือน',
     '1_new_alert' => 'คุณมี 1 การแจ้งเตือนใหม่',
-    'x_new_alerts' => 'คุณมี {x} การแจ้งเตือนใหม่', // Don't replace {x}
+    'x_new_alerts' => 'คุณมี {{count}} การแจ้งเตือนใหม่', // Don't replace {x}
     'no_alerts_usercp' => 'คุณไม่มีการแจ้งเตือนใด ๆ',
 
     // Registraton
@@ -164,7 +164,7 @@ $language = [
     '1_like' => '1 ถูกใจ',
     'x_likes' => '{x} ถูกใจ', // Don't replace {x}
     '1_reply' => '1 ตอบกลับ',
-    'x_replies' => '{x} ตอบกลับ', // Don't replace {x}
+    'x_replies' => '{{count}} ตอบกลับ',
     'no_replies_yet' => 'ยังไม่มีการตอบกลับ',
     'feed' => 'ฟีด',
     'about' => 'เกี่ยวกับ',
@@ -174,7 +174,7 @@ $language = [
     'registered' => 'ลงทะเบียน:',
     'registered_x' => 'ลงทะเบียน: {x}',
     'last_seen' => 'ครั้งสุดท้ายที่เห็น:',
-    'last_seen_x' => 'เห็นครั้งสุดท้าย: {x}', // Don't replace {x}
+    'last_seen_x' => 'เห็นครั้งสุดท้าย: {{lastSeenAt}}',
     'new_wall_post' => '{x} ได้โพสต์บนโปรไฟล์ของคุณ.',
     'couldnt_find_that_user' => 'ไม่พบผู้ใช้รายนั้น',
     'block_user' => 'บล็อกผู้ใช้',
@@ -186,7 +186,7 @@ $language = [
     'views' => 'การดูโปรไฟล์:',
     'private_profile_page' => 'นี่เป็นโปรไฟล์ส่วนตัว!',
     'new_wall_post_reply' => '{x} ได้ตอบกลับโพสต์ของคุณในโปรไฟล์ของ {y}', // Don't replace {x} or {y}
-    'new_wall_post_reply_your_profile' => '{x} ได้ตอบกลับโพสต์ของคุณในโปรไฟล์ของคุณ', // Don't replace {x}
+    'new_wall_post_reply_your_profile' => '{{author}} ได้ตอบกลับโพสต์ของคุณในโปรไฟล์ของคุณ',
     'no_about_fields' => 'ผู้ใช้รายนี้ยังไม่ได้เพิ่มฟิลด์ใดๆ',
     'reply' => 'ตอบกลับ',
 
@@ -200,7 +200,7 @@ $language = [
     'no_messages_full' => 'คุณไม่มีข้อความใดๆ',
     'view_messages' => 'ดูข้อความ',
     '1_new_message' => 'คุณมี 1 ข้อความใหม่',
-    'x_new_messages' => 'คุณมี {x} ข้อความใหม่', // Don't replace {x}
+    'x_new_messages' => 'คุณมี {{count}} ข้อความใหม่',
     'new_message' => 'ข้อความใหม่',
     'message_title' => 'ชื่อข้อความ',
     'to' => 'To',
@@ -240,10 +240,10 @@ $language = [
 
     // OAuth
     'oauth_unlinked' => 'Successfully unlinked your account from that provider.',
-    'oauth_already_linked' => 'Another NamelessMC user is already linked to that {x} account.', // Don't replace {x}
-    'oauth_link_success' => 'Successfully linked your account with {x}!', // Don't replace {x}
+    'oauth_already_linked' => 'Another NamelessMC user is already linked to that {{provider}} account.',
+    'oauth_link_success' => 'Successfully linked your account with {{provider}}!', // Don't replace {x}
     'no_user_found_with_provider' => 'No user found with that {x} account.', // Don't replace {x}
     'oauth_login_success' => 'You have logged in with your {x} account.', // Don't replace {x}
-    'oauth_link_confirm' => 'You will be taken to the {x} website to link your account.', // Don't replace {x}
+    'oauth_link_confirm' => 'You will be taken to the {{provider}} website to link your account.',
     'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {x}.<br>You will not be able to login with this account anymore.', // Don't replace {x}
 ];

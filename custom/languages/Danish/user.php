@@ -76,7 +76,7 @@ $language = [
     'no_alerts' => 'Ingen nye advarsler',
     'view_alerts' => 'Vis advarsler',
     '1_new_alert' => 'Du har 1 ny advarsel',
-    'x_new_alerts' => 'Du har {x} nye advarsler', // Don't replace {x}
+    'x_new_alerts' => 'Du har {{count}} nye advarsler', // Don't replace {x}
     'no_alerts_usercp' => 'Du har ingen advarsler.',
 
     // Registration
@@ -164,7 +164,7 @@ mappe.',
     '1_like' => '1 like',
     'x_likes' => '{x} likes', // Don't replace {x}
     '1_reply' => '1 svar',
-    'x_replies' => '{x} svar', // Don't replace {x}
+    'x_replies' => '{{author}} svar',
     'no_replies_yet' => 'Endnu ingen svar',
     'feed' => 'Feed',
     'about' => 'Om',
@@ -174,7 +174,7 @@ mappe.',
     'registered' => 'Registreret:',
     'registered_x' => 'Registreret: {x}',
     'last_seen' => 'Sidst set:',
-    'last_seen_x' => 'Sidst set: {x}', // Don't replace {x}
+    'last_seen_x' => 'Sidst set: {{lastSeenAt}}',
     'new_wall_post' => '{x} har skrevet på din profil.',
     'couldnt_find_that_user' => 'Kunne ikke finde denne bruger.',
     'block_user' => 'Blokér Bruger',
@@ -186,7 +186,7 @@ mappe.',
     'views' => 'Profil Visninger:',
     'private_profile_page' => 'Dette er en privat profil!',
     'new_wall_post_reply' => '{x} har svaret på dit indlæg på {y}\'s profil.', // Don't replace {x} or {y}
-    'new_wall_post_reply_your_profile' => '{x} har svaret på dit indlæg på din profil.', // Don't replace {x}
+    'new_wall_post_reply_your_profile' => '{{author}} har svaret på dit indlæg på din profil.',
     'no_about_fields' => 'Denne bruger har endnu ikke tilføjet nogle omkring felter.',
     'reply' => 'Svar',
 
@@ -200,7 +200,7 @@ mappe.',
     'no_messages_full' => 'Du har ingen beskeder.',
     'view_messages' => 'Se beskeder',
     '1_new_message' => 'Du har 1 ny besked',
-    'x_new_messages' => 'Du har {x} nye beskeder', // Don't replace {x}
+    'x_new_messages' => 'Du har {{count}} nye beskeder',
     'new_message' => 'Ny Besked',
     'message_title' => 'Besked Titel',
     'to' => 'Til',
@@ -240,10 +240,10 @@ mappe.',
 
     // OAuth
     'oauth_unlinked' => 'Successfully unlinked your account from that provider.',
-    'oauth_already_linked' => 'Another NamelessMC user is already linked to that {x} account.', // Don't replace {x}
-    'oauth_link_success' => 'Successfully linked your account with {x}!', // Don't replace {x}
+    'oauth_already_linked' => 'Another NamelessMC user is already linked to that {{provider}} account.',
+    'oauth_link_success' => 'Successfully linked your account with {{provider}}!', // Don't replace {x}
     'no_user_found_with_provider' => 'No user found with that {x} account.', // Don't replace {x}
     'oauth_login_success' => 'You have logged in with your {x} account.', // Don't replace {x}
-    'oauth_link_confirm' => 'You will be taken to the {x} website to link your account.', // Don't replace {x}
+    'oauth_link_confirm' => 'You will be taken to the {{provider}} website to link your account.',
     'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {x}.<br>You will not be able to login with this account anymore.', // Don't replace {x}
 ];

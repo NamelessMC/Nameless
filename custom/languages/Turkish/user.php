@@ -77,7 +77,7 @@ $language = [
     'no_alerts' => 'Şu an hiç bildiriminiz yok.',
     'view_alerts' => 'Tümünü gör..',
     '1_new_alert' => '1 yeni bildiriminiz var.',
-    'x_new_alerts' => '{x} yeni bildiriminiz var.', // Don't replace {x}
+    'x_new_alerts' => '{{count}} yeni bildiriminiz var.', // Don't replace {x}
     'no_alerts_usercp' => 'Şu an hiç bildiriminiz yok.',
 
     // Registration
@@ -164,7 +164,7 @@ $language = [
     '1_like' => '1 beğeni',
     'x_likes' => '{x} beğeni', // Don't replace {x}
     '1_reply' => '1 cevap',
-    'x_replies' => '{x} cevap', // Don't replace {x}
+    'x_replies' => '{{count}} cevap',
     'no_replies_yet' => 'henüz cevap yok',
     'feed' => 'Profil Mesajları',
     'about' => 'Hakkında',
@@ -174,7 +174,7 @@ $language = [
     'registered' => 'Katılım:',
     'registered_x' => 'Katılım: {x}',
     'last_seen' => 'Son görülme:',
-    'last_seen_x' => 'Son görülme: {x}', // Don't replace {x}
+    'last_seen_x' => 'Son görülme: {{lastSeenAt}}',
     'new_wall_post' => '{x} profilinize gönderildi.',
     'couldnt_find_that_user' => 'Bu kullanıcı bulunamadı.',
     'block_user' => 'Kullanıcıyı engelle',
@@ -186,7 +186,7 @@ $language = [
     'views' => 'Profilin görüntülenme sayısı:',
     'private_profile_page' => 'Bu özel bir profil!',
     'new_wall_post_reply' => '{x}, {y} profilindeki yayınınızı yanıtladı.', // Don't replace {x} or {y}
-    'new_wall_post_reply_your_profile' => '{x} profilinizdeki yayınınıza cevap verdi.', // Don't replace {x}
+    'new_wall_post_reply_your_profile' => '{{author}} profilinizdeki yayınınıza cevap verdi.',
     'no_about_fields' => 'Bu kullanıcı henüz alanlarla ilgili herhangi bir bilgi eklemedi.',
     'reply' => 'cevap',
 
@@ -200,7 +200,7 @@ $language = [
     'no_messages_full' => 'Şu an hiç özel konuşmanız yok.',
     'view_messages' => 'Tümünü gör..',
     '1_new_message' => '1 yeni özel mesajın var.',
-    'x_new_messages' => '{x} yeni özel mesajın var.', // Don't replace {x}
+    'x_new_messages' => '{{count}} yeni özel mesajın var.',
     'new_message' => 'Yeni Özel Mesaj',
     'message_title' => 'Mesaj Başlığı',
     'to' => 'Kime?',
@@ -240,10 +240,10 @@ $language = [
 
     // OAuth
     'oauth_unlinked' => 'Successfully unlinked your account from that provider.',
-    'oauth_already_linked' => 'Another NamelessMC user is already linked to that {x} account.', // Don't replace {x}
-    'oauth_link_success' => 'Successfully linked your account with {x}!', // Don't replace {x}
+    'oauth_already_linked' => 'Another NamelessMC user is already linked to that {{provider}} account.',
+    'oauth_link_success' => 'Successfully linked your account with {{provider}}!', // Don't replace {x}
     'no_user_found_with_provider' => 'No user found with that {x} account.', // Don't replace {x}
     'oauth_login_success' => 'You have logged in with your {x} account.', // Don't replace {x}
-    'oauth_link_confirm' => 'You will be taken to the {x} website to link your account.', // Don't replace {x}
+    'oauth_link_confirm' => 'You will be taken to the {{provider}} website to link your account.',
     'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {x}.<br>You will not be able to login with this account anymore.', // Don't replace {x}
 ];

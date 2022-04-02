@@ -799,8 +799,8 @@ class Core_Module extends Module {
                                     $result['status_full'] = $language->get('general', 'currently_1_player_online');
                                     $result['x_players_online'] = $language->get('general', 'currently_1_player_online');
                                 } else {
-                                    $result['status_full'] = str_replace('{x}', $result['total_players'], $language->get('general', 'currently_x_players_online'));
-                                    $result['x_players_online'] = str_replace('{x}', $result['total_players'], $language->get('general', 'currently_x_players_online'));
+                                    $result['status_full'] = $language->get('general', 'currently_x_players_online', ['count' => $result['total_players']]);
+                                    $result['x_players_online'] = $language->get('general', 'currently_x_players_online', ['count' => $result['total_players']]);
                                 }
 
                             } else {
@@ -819,8 +819,8 @@ class Core_Module extends Module {
                                     $result['status_full'] = $language->get('general', 'currently_1_player_online');
                                     $result['x_players_online'] = $language->get('general', 'currently_1_player_online');
                                 } else {
-                                    $result['status_full'] = str_replace('{x}', $result['player_count'], $language->get('general', 'currently_x_players_online'));
-                                    $result['x_players_online'] = str_replace('{x}', $result['player_count'], $language->get('general', 'currently_x_players_online'));
+                                    $result['status_full'] = $language->get('general', 'currently_x_players_online', ['count' => $result['player_count']]);
+                                    $result['x_players_online'] = $language->get('general', 'currently_x_players_online', ['count' => $result['player_count']]);
                                 }
 
                             } else {

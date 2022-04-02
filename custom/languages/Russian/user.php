@@ -77,7 +77,7 @@ $language = [
     'no_alerts' => 'Нет новых уведомлений',
     'view_alerts' => 'Посмотреть уведомления',
     '1_new_alert' => 'У вас 1 новое уведомление',
-    'x_new_alerts' => 'У вас {x} новых уведомлений', // Don't replace {x}
+    'x_new_alerts' => 'У вас {{count}} новых уведомлений', // Don't replace {x}
     'no_alerts_usercp' => 'У вас нет никаких уведомлений.',
 
     // Registration
@@ -164,7 +164,7 @@ $language = [
     '1_like' => '1 лайк',
     'x_likes' => '{x} лайков', // Don't replace {x}
     '1_reply' => '1 ответ',
-    'x_replies' => '{x} ответов', // Don't replace {x}
+    'x_replies' => '{{count}} ответов',
     'no_replies_yet' => 'Нет ответов',
     'feed' => 'Стена',
     'about' => 'О пользователе',
@@ -174,7 +174,7 @@ $language = [
     'registered' => 'Дата регистрации:',
     'registered_x' => 'Регистрация: {x}',
     'last_seen' => 'Заходил:',
-    'last_seen_x' => 'Заходил: {x}', // Don't replace {x}
+    'last_seen_x' => 'Заходил: {{lastSeenAt}}',
     'new_wall_post' => '{x} оставил(а) пост в вашем профиле.',
     'couldnt_find_that_user' => 'Не удалось найти этого пользователя.',
     'block_user' => 'Заблокировать пользователя',
@@ -186,7 +186,7 @@ $language = [
     'views' => 'Просмотров профиля:',
     'private_profile_page' => 'Это приватный профиль!',
     'new_wall_post_reply' => '{x} ответил(а) ваше сообщение в прфиле пользователя {y}.', // Don't replace {x} or {y}
-    'new_wall_post_reply_your_profile' => '{x} ответил(а) на сообщение в вашем профиле.', // Don't replace {x}
+    'new_wall_post_reply_your_profile' => '{{author}} ответил(а) на сообщение в вашем профиле.',
     'no_about_fields' => 'Этот пользователь еще не добавил никакой информации о себе.',
     'reply' => 'Ответить',
 
@@ -200,7 +200,7 @@ $language = [
     'no_messages_full' => 'У вас нет никаких сообщений.',
     'view_messages' => 'Просмотр сообщений',
     '1_new_message' => 'У вас 1 новое сообщение',
-    'x_new_messages' => 'У вас {x} новых сообщений', // Don't replace {x}
+    'x_new_messages' => 'У вас {{count}} новых сообщений',
     'new_message' => 'Новое сообщение',
     'message_title' => 'Заголовок сообщения',
     'to' => 'Кому',
@@ -240,10 +240,10 @@ $language = [
 
     // OAuth
     'oauth_unlinked' => 'Ваш аккаунт был успешно отвязан от того провайдера.',
-    'oauth_already_linked' => 'Другой NamelessMC пользователь уже привязал к {x} аккаунту.', // Don't replace {x}
-    'oauth_link_success' => 'Ваш аккаунт был успешно связан с {x}!', // Don't replace {x}
+    'oauth_already_linked' => 'Другой NamelessMC пользователь уже привязал к {{provider}} аккаунту.',
+    'oauth_link_success' => 'Ваш аккаунт был успешно связан с {{provider}}!', // Don't replace {x}
     'no_user_found_with_provider' => 'Нет пользователей с таким {x} аккаунтом.', // Don't replace {x}
     'oauth_login_success' => 'Вы успешно зашли в ваш {x} аккаунт.', // Don't replace {x}
-    'oauth_link_confirm' => 'Вы будете перенаправлены на сайт {x}, что бы связать ваш аккаунт', // Don't replace {x}
+    'oauth_link_confirm' => 'Вы будете перенаправлены на сайт {{provider}}, что бы связать ваш аккаунт',
     'oauth_unlink_confirm' => 'Вы уверены что хотите отвязать ваш аккаунт от {x}.<br>Вы не сможете зайти в этот аккаунт больше.', // Don't replace {x}
 ];

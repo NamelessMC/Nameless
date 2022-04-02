@@ -79,7 +79,7 @@ $language = [
     'no_alerts' => '没有新通知',
     'view_alerts' => '查看通知',
     '1_new_alert' => '您有 1 条新通知',
-    'x_new_alerts' => '您有 {x} 条新通知', // Don't replace {x}
+    'x_new_alerts' => '您有 {{count}} 条新通知', // Don't replace {x}
     'no_alerts_usercp' => '您没有任何可读的通知。',
 
     // Registraton
@@ -166,7 +166,7 @@ $language = [
     '1_like' => '1 喜欢',
     'x_likes' => '{x} 喜欢', // Don't replace {x}
     '1_reply' => '1 回复',
-    'x_replies' => '{x} 回复', // Don't replace {x}
+    'x_replies' => '{{count}} 回复',
     'no_replies_yet' => '目前仍无人回复',
     'feed' => '个人资料留言',
     'about' => '关于我',
@@ -176,7 +176,7 @@ $language = [
     'registered' => '注册时间:',
     'registered_x' => '注册时间: {x}',
     'last_seen' => '最近一次在线时间:',
-    'last_seen_x' => '最近一次在线时间: {x}', // Don't replace {x}
+    'last_seen_x' => '最近一次在线时间: {{lastSeenAt}}',
     'new_wall_post' => '{x} 已发布在您的个人资料上。',
     'couldnt_find_that_user' => '找不到该用户。',
     'block_user' => '屏蔽该用户',
@@ -188,7 +188,7 @@ $language = [
     'views' => '造访数:',
     'private_profile_page' => '这是一份私人资料!',
     'new_wall_post_reply' => '{x} 已在 {y} 于您的留言板留言', // Don't replace {x} or {y}
-    'new_wall_post_reply_your_profile' => '{x} 已留言在您的留言板。', // Don't replace {x}
+    'new_wall_post_reply_your_profile' => '{{author}} 已留言在您的留言板。',
     'no_about_fields' => '该用户很懒，并没有填写个性签名。',
     'reply' => '回复',
 
@@ -202,7 +202,7 @@ $language = [
     'no_messages_full' => '您没有任何可读讯息。',
     'view_messages' => '查看讯息',
     '1_new_message' => '你有 1 条新讯息',
-    'x_new_messages' => '你有 {x} 条新讯息', // Don't replace {x}
+    'x_new_messages' => '你有 {{count}} 条新讯息',
     'new_message' => '创建新讯息',
     'message_title' => '讯息标题',
     'to' => '发送给',
@@ -242,10 +242,10 @@ $language = [
 
     // OAuth
     'oauth_unlinked' => 'Successfully unlinked your account from that provider.',
-    'oauth_already_linked' => 'Another NamelessMC user is already linked to that {x} account.', // Don't replace {x}
-    'oauth_link_success' => 'Successfully linked your account with {x}!', // Don't replace {x}
+    'oauth_already_linked' => 'Another NamelessMC user is already linked to that {{provider}} account.',
+    'oauth_link_success' => 'Successfully linked your account with {{provider}}!',
     'no_user_found_with_provider' => 'No user found with that {x} account.', // Don't replace {x}
     'oauth_login_success' => 'You have logged in with your {x} account.', // Don't replace {x}
-    'oauth_link_confirm' => 'You will be taken to the {x} website to link your account.', // Don't replace {x}
+    'oauth_link_confirm' => 'You will be taken to the {{provider}} website to link your account.',
     'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {x}.<br>You will not be able to login with this account anymore.', // Don't replace {x}
 ];

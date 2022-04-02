@@ -77,7 +77,7 @@ $language = [
     'no_alerts' => 'Ingen nye viktige meldinger',
     'view_alerts' => 'Vis meldinger',
     '1_new_alert' => 'Du har 1 ny varsling',
-    'x_new_alerts' => 'Du har {x} nye viktige meldinger', // Don't replace {x}
+    'x_new_alerts' => 'Du har {{count}} nye viktige meldinger', // Don't replace {x}
     'no_alerts_usercp' => 'Du har ingen nye viktige meldinger',
 
     // Registraton
@@ -163,7 +163,7 @@ $language = [
     '1_like' => '1 likerklikk',
     'x_likes' => '{x} likerklikk', // Don't replace {x}
     '1_reply' => '1 svar',
-    'x_replies' => '{x} svar', // Don't replace {x}
+    'x_replies' => '{{count}} svar',
     'no_replies_yet' => 'Ingen svar enda',
     'feed' => 'Profilvegg',
     'about' => 'Om',
@@ -173,7 +173,7 @@ $language = [
     'registered' => 'Registrerte seg:',
     'registered_x' => 'Registrerte seg: {x}',
     'last_seen' => 'Sist sett:',
-    'last_seen_x' => 'Sist sett: {x}', // Don't replace {x}
+    'last_seen_x' => 'Sist sett: {{lastSeenAt}}',
     'new_wall_post' => '{x} har skrevet en kommentar på profilsiden din.',
     'couldnt_find_that_user' => 'Kunne ikke finne den brukeren.',
     'block_user' => 'Blokker bruker',
@@ -185,7 +185,7 @@ $language = [
     'views' => 'Profilvisninger:',
     'private_profile_page' => 'Dette er en privat profil!',
     'new_wall_post_reply' => '{x} har svart på innlegget ditt på {y} sin profil.', // Don't replace {x} or {y}
-    'new_wall_post_reply_your_profile' => '{x} har svart på innlegget ditt på din profil', // Don't replace {x}
+    'new_wall_post_reply_your_profile' => '{{author}} har svart på innlegget ditt på din profil',
     'no_about_fields' => 'Denne brukeren har ikke skrevet noe om seg selv enda.',
     'reply' => 'Svar',
 
@@ -199,7 +199,7 @@ $language = [
     'no_messages_full' => 'Du har ingen meldinger.',
     'view_messages' => 'Vis meldinger',
     '1_new_message' => 'Du har én ny melding',
-    'x_new_messages' => 'Du har {x} nye meldinger', // Don't replace {x}
+    'x_new_messages' => 'Du har {{count}} nye meldinger',
     'new_message' => 'Ny melding',
     'message_title' => 'Tittel',
     'to' => 'Til',
@@ -239,10 +239,10 @@ $language = [
 
     // OAuth
     'oauth_unlinked' => 'Successfully unlinked your account from that provider.',
-    'oauth_already_linked' => 'Another NamelessMC user is already linked to that {x} account.', // Don't replace {x}
-    'oauth_link_success' => 'Successfully linked your account with {x}!', // Don't replace {x}
+    'oauth_already_linked' => 'Another NamelessMC user is already linked to that {{provider}} account.',
+    'oauth_link_success' => 'Successfully linked your account with {{provider}}!', // Don't replace {x}
     'no_user_found_with_provider' => 'No user found with that {x} account.', // Don't replace {x}
     'oauth_login_success' => 'You have logged in with your {x} account.', // Don't replace {x}
-    'oauth_link_confirm' => 'You will be taken to the {x} website to link your account.', // Don't replace {x}
+    'oauth_link_confirm' => 'You will be taken to the {{provider}} website to link your account.',
     'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {x}.<br>You will not be able to login with this account anymore.', // Don't replace {x}
 ];

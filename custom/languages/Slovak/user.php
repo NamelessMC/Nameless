@@ -76,7 +76,7 @@ $language = [
     'no_alerts' => 'Žiadne nové upozornenia',
     'view_alerts' => 'Zobraziť upozornenia',
     '1_new_alert' => 'Máte 1 nové upozornenie',
-    'x_new_alerts' => 'Máte {x} nových upozornení', // Don't replace {x}
+    'x_new_alerts' => 'Máte {{count}} nových upozornení', // Don't replace {x}
     'no_alerts_usercp' => 'Nemáte žiadne upozornenia.',
 
     // Registration
@@ -163,7 +163,7 @@ $language = [
     '1_like' => '1 páči sa mi to',
     'x_likes' => '{x} páči sa mi to', // Don't replace {x}
     '1_reply' => '1 odpoveď',
-    'x_replies' => '{x} odpovedí', // Don't replace {x}
+    'x_replies' => '{{count}} odpovedí',
     'no_replies_yet' => 'Zatiaľ žiadne odpovede',
     'feed' => 'Kanál',
     'about' => 'O užívateľovi',
@@ -173,7 +173,7 @@ $language = [
     'registered' => 'Registrovaný/á:',
     'registered_x' => 'Registrovaný/á: {x}',
     'last_seen' => 'Naposledy online:',
-    'last_seen_x' => 'Naposledy online: {x}', // Don't replace {x}
+    'last_seen_x' => 'Naposledy online: {{lastSeenAt}}',
     'new_wall_post' => '{x} uverejnil príspevok vo vašom profile.',
     'couldnt_find_that_user' => 'Nepodarilo sa nájsť tohto užívateľa.',
     'block_user' => 'Blokovať užívateľa',
@@ -185,7 +185,7 @@ $language = [
     'views' => 'Zobrazení profilu:',
     'private_profile_page' => 'Toto je súkromný profil!',
     'new_wall_post_reply' => '{x} odpovedal/a na váš príspevok v profile užívateľa {y}.', // Don't replace {x} or {y}
-    'new_wall_post_reply_your_profile' => '{x} odpovedal/a na váš príspevok vo vašom profile.', // Don't replace {x}
+    'new_wall_post_reply_your_profile' => '{{author}} odpovedal/a na váš príspevok vo vašom profile.',
     'no_about_fields' => 'Tento užívateľ zatiaľ nepridal žiadne informácie.',
     'reply' => 'Odpoveď',
 
@@ -199,7 +199,7 @@ $language = [
     'no_messages_full' => 'Nemáte žiadne správy.',
     'view_messages' => 'Zobraziť správy',
     '1_new_message' => 'Máte 1 novú správu',
-    'x_new_messages' => 'Máte {x} nových správ', // Don't replace {x}
+    'x_new_messages' => 'Máte {{count}} nových správ',
     'new_message' => 'Nová správa',
     'message_title' => 'Názov správy',
     'to' => 'Komu',
@@ -239,10 +239,10 @@ $language = [
 
     // OAuth
     'oauth_unlinked' => 'Váš účet bol úspešne odpojený od tohto poskytovateľa.',
-    'oauth_already_linked' => 'S týmto účtom {x} je už prepojený iný používateľ NamelessMC.', // Don't replace {x}
-    'oauth_link_success' => 'Váš účet bol úspešne prepojený s {x}!', // Don't replace {x}
+    'oauth_already_linked' => 'S týmto účtom {{provider}} je už prepojený iný používateľ NamelessMC.',
+    'oauth_link_success' => 'Váš účet bol úspešne prepojený s {{provider}}!', // Don't replace {x}
     'no_user_found_with_provider' => 'S týmto účtom {x} sa nenašiel žiadny používateľ.', // Don't replace {x}
     'oauth_login_success' => 'Prihlásili ste sa pomocou svojho {x} účtu.', // Don't replace {x}
-    'oauth_link_confirm' => 'Dostanete sa na {x} webovú stránku, kde prepojíte svoj účet.', // Don't replace {x}
+    'oauth_link_confirm' => 'Dostanete sa na {{provider}} webovú stránku, kde prepojíte svoj účet.',
     'oauth_unlink_confirm' => 'Naozaj chcete odpojiť svoj účet od {x}.<br>S týmto účtom sa už nebudete môcť prihlásiť.', // Don't replace {x}
 ];

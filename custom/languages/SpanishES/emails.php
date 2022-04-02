@@ -25,5 +25,5 @@ $language = [
 
     // Forum Topic Replies
     'forum_topic_reply_subject' => '{{author}} ha respondido a {{topic}}',
-    'forum_topic_reply_message' => '{{author}} ha respondido a un tema que sigues. Contenido: {{content}}' // Don't remove {x} or {z}
+    'forum_topic_reply_message' => '{{author}} ha respondido a un tema que sigues. Contenido: {{content}}'
 ];
