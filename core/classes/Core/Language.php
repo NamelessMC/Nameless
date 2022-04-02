@@ -12,6 +12,20 @@ use samerton\i18next\i18next;
 
 class Language {
 
+    public const LANGUAGES = [
+        'en_UK' => [
+            'name' => 'English UK',
+        ],
+        'nl_NL' => [
+            'name' => 'Dutch',
+            'htmlCode' => 'nl',
+        ],
+        'ru_RU' => [
+            'name' => 'Russian',
+            'htmlCode' => 'ru',
+        ],
+    ];
+
     /**
      * @var string Name of the language currently being used.
      */
@@ -23,18 +37,22 @@ class Language {
     private i18next $_i18n;
 
     /**
+     * Return the current active language.
+     *
+     * @return string Active language name.
+     */
+    public function getActiveLanguage(): string {
+        return $this->_activeLanguage;
+    }
+
+    /**
      * Construct Language class
      *
-     * @param string $module
-     * @param string|null $active_language The active language set in cache.
-     *
-     * @throws Exception If LANGUAGES not defined (see custom/languages/languages.php) or if language file does not exist
+     * @param string $module Path to the custom language files to use, "core" by default for builtin language files.
+     * @param string|null $active_language The translation to use.
+     * @throws Exception If the language file cannot be found.
      */
     public function __construct(string $module = 'core', string $active_language = null) {
-        if (!defined('LANGUAGES')) {
-            throw new RuntimeException('Languages not initialised');
-        }
-
         $this->_activeLanguage = $active_language ?? LANGUAGE ?? 'en_UK';
 
         // Require file
@@ -56,23 +74,14 @@ class Language {
 
         // HTML language definition
         if (!defined('HTML_LANG')) {
-            define('HTML_LANG', (LANGUAGES[$this->_activeLanguage] && LANGUAGES[$this->_activeLanguage]['htmlCode']) ?: 'en');
+            define('HTML_LANG', self::LANGUAGES[$this->_activeLanguage]['htmlCode'] ?? 'en');
         }
 
         if (!defined('HTML_RTL')) {
-            define('HTML_RTL', LANGUAGES[$this->_activeLanguage] && LANGUAGES[$this->_activeLanguage]['rtl']);
+            define('HTML_RTL', self::LANGUAGES[$this->_activeLanguage]['rtl'] ?? false);
         }
 
         $this->_i18n = new i18next($this->_activeLanguage, $this->_activeLanguageFile, 'en_UK');
-    }
-
-    /**
-     * Return the current active language.
-     *
-     * @return string Active language name.
-     */
-    public function getActiveLanguage(): string {
-        return $this->_activeLanguage;
     }
 
     /**
@@ -89,6 +98,17 @@ class Language {
         }
 
         return $this->_i18n->getTranslation($key, $variables);
+    }
+
+    public function getPluralForm(): ?Closure {
+        switch ($this->_activeLanguage) {
+            case 'ru_RU':
+                return static function ($count, $forms) {
+                    return $count % 10 == 1 && $count % 100 != 11 ? $forms[0] : ($count % 10 >= 2 && $count % 10 <= 4 && ($count % 100 < 10 || $count % 100 >= 20) ? $forms[1] : $forms[2]);
+                };
+            default:
+                return null;
+        }
     }
 
     /**

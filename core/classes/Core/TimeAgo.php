@@ -169,8 +169,8 @@ class TimeAgo {
         $term = $language->get('time', $key);
 
         if (count($exploded = explode('|', $term)) > 1) {
-            // TODO, functions cannot exist in defined constants
-            if (($pluralForm = LANGUAGES[$language->getActiveLanguage()]['pluralForm']) !== null) {
+            $pluralForm = $language->getPluralForm();
+            if ($pluralForm !== null) {
                 if (isset($replace)) {
                     return str_replace('{{count}}', $replace, $pluralForm($replace, $exploded));
                 }
