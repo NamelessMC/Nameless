@@ -28,7 +28,7 @@ if (Session::exists('editing_language')) {
     $default_lang = $default_lang[0]->name;
     $lang_name = $default_lang;
 }
-$editing_language = new Language(null, $lang_name);
+$editing_language = new Language('core', $lang_name);
 $emails = [
     ['register', $language->get('admin', 'registration'), ['subject' => $editing_language->get('emails', 'register_subject'), 'message' => $editing_language->get('emails', 'register_message')]],
     ['change_password', $language->get('user', 'change_password'), ['subject' => str_replace('?', '', $editing_language->get('emails', 'change_password_subject')), 'message' => $editing_language->get('emails', 'change_password_message')]],
@@ -77,7 +77,7 @@ if (isset($_GET['action'])) {
 
             $languages = $queries->getWhere('languages', ['id', '<>', 0]);
             foreach ($languages as $language_db) {
-                $lang = new Language(null, $language_db->name);
+                $lang = new Language('core', $language_db->name);
                 $lang_file = ($lang->getActiveLanguageDirectory() . DIRECTORY_SEPARATOR . 'emails.php');
                 if (file_exists($lang_file) && is_writable($lang_file)) {
                     $available_languages[] = $language_db;
@@ -111,8 +111,7 @@ if (isset($_GET['action'])) {
             $template_file = 'core/emails_edit_messages.tpl';
         } else {
             if ($_GET['action'] == 'preview') {
-
-                $viewing_language = new Language(null, Session::get('editing_language'));
+                $viewing_language = new Language('core', Session::get('editing_language'));
 
                 $smarty->assign([
                     'USER_NAME' => $user->data()->username,
@@ -133,7 +132,7 @@ if (isset($_GET['action'])) {
 
             // Handle email message updating
             if (isset($_POST['greeting'])) {
-                $editing_lang = new Language(null, $lang_name);
+                $editing_lang = new Language('core', $lang_name);
 
                 Session::put('editing_language', Input::get('editing_language'));
 

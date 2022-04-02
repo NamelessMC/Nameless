@@ -103,7 +103,7 @@ class ErrorHandler {
             }
         }
 
-        $language = new Language('core', LANGUAGE);
+        $language = new Language();
         $user = new User();
 
         if (defined('CONFIG_PATH')) {

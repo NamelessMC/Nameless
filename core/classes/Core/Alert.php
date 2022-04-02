@@ -27,8 +27,7 @@ class Alert {
             return;
         }
 
-        $language_name = $language->first()->name;
-        $language = new Language($text_short['path'], $language_name);
+        $language = new Language($text_short['path'], $language->first()->name);
 
         // TODO: new language system
         $db->insert('alerts', [

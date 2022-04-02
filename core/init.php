@@ -215,10 +215,8 @@ if ($page != 'install') {
 
         if (!$language) {
             define('LANGUAGE', 'en_UK');
-            $language = new Language();
         } else {
             define('LANGUAGE', $language);
-            $language = new Language('core', $language);
         }
     } else {
         // User selected language
@@ -230,16 +228,14 @@ if ($page != 'install') {
 
             if (!$language) {
                 define('LANGUAGE', 'en_UK');
-                $language = new Language();
             } else {
                 define('LANGUAGE', $language);
-                $language = new Language('core', $language);
             }
         } else {
             define('LANGUAGE', $language[0]->name);
-            $language = new Language('core', $language[0]->name);
         }
     }
+    $language = new Language();
 
     // Site name
     $cache->setCache('sitenamecache');

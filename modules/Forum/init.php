@@ -27,7 +27,7 @@ if (!$module_installed) {
 const FORUM = true;
 
 // Initialise forum language
-$forum_language = new Language(ROOT_PATH . '/modules/Forum/language', LANGUAGE);
+$forum_language = new Language(ROOT_PATH . '/modules/Forum/language');
 
 /*
  *  Temp methods for front page module, profile page tab + admin sidebar; likely to change in the future

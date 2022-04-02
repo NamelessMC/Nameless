@@ -191,7 +191,7 @@ class Discord {
      */
     public static function getLanguageTerm(string $term): string {
         if (!isset(self::$_discord_integration_language)) {
-            self::$_discord_integration_language = new Language(ROOT_PATH . '/modules/Discord Integration/language', LANGUAGE);
+            self::$_discord_integration_language = new Language(ROOT_PATH . '/modules/Discord Integration/language');
         }
 
         return self::$_discord_integration_language->get('discord_integration', $term);
