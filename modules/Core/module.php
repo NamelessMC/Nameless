@@ -500,11 +500,6 @@ class Core_Module extends Module {
                 } else {
                     $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'), "invalid integration lookup type: $value");
                 }
-
-                $user = new User($lookup_value, $column);
-                if ($user->exists()) {
-                    return $user;
-                }
             }
 
             $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'), $value);
