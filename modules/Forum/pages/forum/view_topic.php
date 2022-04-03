@@ -530,9 +530,6 @@ $pagination = $paginator->generate(7, URL::build('/forum/topic/' . $tid . '-' . 
 
 $smarty->assign('PAGINATION', $pagination);
 
-// Is Minecraft integration enabled?
-$mc_integration = $queries->getWhere('settings', ['name', '=', 'mc_integration']);
-
 // Replies
 $replies = [];
 // Display the correct number of posts
