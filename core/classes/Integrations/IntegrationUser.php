@@ -15,15 +15,18 @@ class IntegrationUser {
     private User $_user;
     private IntegrationBase $_integration;
 
-    public function __construct(IntegrationBase $integration, string $value = null, string $field = 'id') {
+    public function __construct(IntegrationBase $integration, string $value = null, string $field = 'id', $query_data = null) {
         $this->_db = DB::getInstance();
         $this->_integration = $integration;
 
-        if ($value) {
+        if (!$query_data && $value) {
             $data = $this->_db->selectQuery('SELECT * FROM nl2_users_integrations WHERE ' . $field . ' = ? AND integration_id = ?;', [$value, $integration->data()->id]);
             if ($data->count()) {
                 $this->_data = $data->first();
             }
+        } else if ($query_data) {
+            // Load data from existing query.
+            $this->_data = $query_data;
         }
     }
 

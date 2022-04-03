@@ -769,6 +769,8 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
         ];
     }
 
+    // User Integrations
+    $user_integrations = [];
     foreach ($profile_user->getIntegrations() as $key => $integrationUser) {
         if ($integrationUser->data()->username != null && $integrationUser->data()->show_publicly) {
             $fields[] = [
@@ -776,22 +778,18 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                 'type' => 'text',
                 'value' => Output::getClean($integrationUser->data()->username)
             ];
+
+            $user_integrations[$key] = [
+                'username' => Output::getClean($integrationUser->data()->username),
+                'identifier' => Output::getClean($integrationUser->data()->identifier)
+            ];
         }
     }
+    $smarty->assign('INTEGRATIONS', $user_integrations);
 
     if (!count($fields)) {
         $smarty->assign('NO_ABOUT_FIELDS', $language->get('user', 'no_about_fields'));
     }
-
-    // User Integrations
-    $user_integrations = [];
-    foreach ($post_creator->getIntegrations() as $integrationUser) {
-        $user_integrations[$integrationUser->getIntegration()->getName()] = [
-            'username' => Output::getClean($integrationUser->data()->username),
-            'identifier' => Output::getClean($integrationUser->data()->identifier)
-        ];
-    }
-    $smarty->assign('INTEGRATIONS', $user_integrations);
 
     $profile_placeholders = $profile_user->getProfilePlaceholders();
     foreach ($profile_placeholders as $profile_placeholder) {

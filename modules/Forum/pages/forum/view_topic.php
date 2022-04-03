@@ -612,11 +612,18 @@ foreach ($results->data as $n => $nValue) {
     // Profile fields
     $fields = $post_creator->getProfileFields(true, true);
 
+    // User integrations
+    $user_integrations = [];
     foreach ($post_creator->getIntegrations() as $key => $integrationUser) {
         if ($integrationUser->data()->username != null && $integrationUser->data()->show_publicly) {
             $fields[] = [
                 'name' => Output::getClean($key),
                 'value' => Output::getClean($integrationUser->data()->username)
+            ];
+
+            $user_integrations[$key] = [
+                'username' => Output::getClean($integrationUser->data()->username),
+                'identifier' => Output::getClean($integrationUser->data()->identifier)
             ];
         }
     }
@@ -679,14 +686,6 @@ foreach ($results->data as $n => $nValue) {
     } else {
         $post_date_rough = $timeago->inWords(date('Y-m-d H:i:s', $nValue->created), $language->getTimeLanguage());
         $post_date = date(DATE_FORMAT, $nValue->created);
-    }
-
-    $user_integrations = [];
-    foreach ($post_creator->getIntegrations() as $integrationUser) {
-        $user_integrations[$integrationUser->getIntegration()->getName()] = [
-            'username' => Output::getClean($integrationUser->data()->username),
-            'identifier' => Output::getClean($integrationUser->data()->identifier)
-        ];
     }
 
     $replies[] = [

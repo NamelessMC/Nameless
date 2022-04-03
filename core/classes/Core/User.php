@@ -592,7 +592,7 @@ class User {
                 foreach ($integrations_query as $item) {
                     $integration = $integrations->getIntegration($item->integration_name);
                     if ($integration != null) {
-                        $integrationUser = new IntegrationUser($integration, $this->_data->id, 'user_id');
+                        $integrationUser = new IntegrationUser($integration, $this->_data->id, 'user_id', $item);
                         
                         $integrations_list[$item->integration_name] = $integrationUser;
                     }

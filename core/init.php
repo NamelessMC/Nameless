@@ -586,7 +586,7 @@ if ($page != 'install') {
         }
 
         $user_integrations = [];
-        foreach ($post_creator->getIntegrations() as $integrationUser) {
+        foreach ($user->getIntegrations() as $integrationUser) {
             $user_integrations[$integrationUser->getIntegration()->getName()] = [
                 'username' => Output::getClean($integrationUser->data()->username),
                 'identifier' => Output::getClean($integrationUser->data()->identifier)
