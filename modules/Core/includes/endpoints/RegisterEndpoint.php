@@ -2,7 +2,6 @@
 
 /**
  * @param string $username The username of the new user to create
- * @param string $uuid (optional) The Minecraft UUID of the new user
  * @param string $email The email of the new user
  *
  * @return string JSON Array
@@ -17,21 +16,7 @@ class RegisterEndpoint extends KeyAuthEndpoint {
     }
 
     public function execute(Nameless2API $api): void {
-        $params = ['username', 'email'];
-
-        $minecraft_integration = Util::getSetting($api->getDb(), 'mc_integration');
-        if ($minecraft_integration) {
-            $params[] = 'uuid';
-        }
-
-        $api->validateParams($_POST, $params);
-
-        if ($minecraft_integration) {
-            $_POST['uuid'] = str_replace('-', '', $_POST['uuid']);
-            if (strlen($_POST['uuid']) > 32) {
-                $api->throwError(9, $api->getLanguage()->get('api', 'invalid_uuid'));
-            }
-        }
+        $api->validateParams($_POST, ['username', 'email']);
 
         if (strlen($_POST['username']) > 20) {
             $api->throwError(8, $api->getLanguage()->get('api', 'invalid_username'));
@@ -52,19 +37,29 @@ class RegisterEndpoint extends KeyAuthEndpoint {
             $api->throwError(11, $api->getLanguage()->get('api', 'username_already_exists'));
         }
 
-        if ($minecraft_integration) {
-            $integration = Integrations::getInstance()->getIntegration('Minecraft');
+        // Integrations
+        if (isset($_POST['integrations'])) {
+            $integrations = Integrations::getInstance();
 
-            // Ensure username doesn't already exist
-            $integrationUser = new IntegrationUser($integration, $_POST['username'], 'username');
-            if ($integrationUser->exists()) {
-                $api->throwError(38, str_replace('{x}', $integration->getName(), $api->getLanguage()->get('api', 'integration_username_already_linked')));
-            }
+            foreach ($_POST['integrations'] as $integration_name => $item) {
+                if (!isset($item['id']) || !isset($item['username'])) {
+                    continue;
+                }
 
-            // Ensure identifier doesn't already exist
-            $integrationUser = new IntegrationUser($integration, $_POST['uuid'], 'identifier');
-            if ($integrationUser->exists()) {
-                $api->throwError(39, str_replace('{x}', $integration->getName(), $api->getLanguage()->get('api', 'integration_identifier_already_linked')));
+                $integration = $integrations->getIntegration($integration_name);
+                if ($integration != null) {
+                    // Ensure username doesn't already exist
+                    $integrationUser = new IntegrationUser($integration, $item['username'], 'username');
+                    if ($integrationUser->exists()) {
+                        $api->throwError(38, str_replace('{x}', $integration->getName(), $api->getLanguage()->get('api', 'integration_username_already_linked')));
+                    }
+
+                    // Ensure identifier doesn't already exist
+                    $integrationUser = new IntegrationUser($integration, $item['id'], 'identifier');
+                    if ($integrationUser->exists()) {
+                        $api->throwError(39, str_replace('{x}', $integration->getName(), $api->getLanguage()->get('api', 'integration_identifier_already_linked')));
+                    }
+                }
             }
         }
 
@@ -73,18 +68,16 @@ class RegisterEndpoint extends KeyAuthEndpoint {
             $api->throwError(10, $api->getLanguage()->get('api', 'email_already_exists'));
         }
 
-        $uuid = ($minecraft_integration) ? Output::getClean($_POST['uuid']) : 'none';
-
         if (Util::getSetting($api->getDb(), 'api_verification', false)) {
             // Create user and send link to set password
-            $this->createUser($api, $_POST['username'], $uuid, $_POST['email'], true, null, true);
+            $this->createUser($api, $_POST['username'], $_POST['email'], true, null, true);
         } else {
             if (Util::getSetting($api->getDb(), 'email_verification', true)) {
                 // Send email to verify
-                $this->sendRegistrationEmail($api, $_POST['username'], $uuid, $_POST['email']);
+                $this->sendRegistrationEmail($api, $_POST['username'], $_POST['email']);
             } else {
                 // Register user + send link to verify account
-                $this->createUser($api, $_POST['username'], $uuid, $_POST['email'], true);
+                $this->createUser($api, $_POST['username'], $_POST['email'], true);
             }
         }
     }
@@ -96,7 +89,6 @@ class RegisterEndpoint extends KeyAuthEndpoint {
      *
      * @param Nameless2API $api
      * @param string $username The username of the new user to create
-     * @param string $uuid (optional) The Minecraft UUID of the new user
      * @param string $email The email of the new user
      * @param bool $return
      * @param string|null $code The reset token/temp password of the new user
@@ -104,7 +96,7 @@ class RegisterEndpoint extends KeyAuthEndpoint {
      *
      * @return array
      */
-    private function createUser(Nameless2API $api, string $username, string $uuid, string $email, bool $return, string $code = null, bool $api_verification = false): array {
+    private function createUser(Nameless2API $api, string $username, string $email, bool $return, string $code = null, bool $api_verification = false): array {
         try {
             // Get default group ID
             if (!is_file(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('default_group') . '.cache')) {
@@ -141,7 +133,6 @@ class RegisterEndpoint extends KeyAuthEndpoint {
             $api->getDb()->insert('users', [
                     'username' => Output::getClean($username),
                     'nickname' => Output::getClean($username),
-                    'uuid' => $uuid,
                     'email' => Output::getClean($email),
                     'password' => md5($code), // temp code
                     'joined' => date('U'),
@@ -157,11 +148,21 @@ class RegisterEndpoint extends KeyAuthEndpoint {
             $user = new User($user_id);
             $user->setGroup($default_group);
 
-            // Minecraft Integration
-            if ($uuid != 'none') {
-                $integration = Integrations::getInstance()->getIntegration('Minecraft');
-                $integrationUser = new IntegrationUser($integration);
-                $integrationUser->linkIntegration($user, $uuid, Output::getClean($username), true);
+            // Integrations
+            if (isset($_POST['integrations'])) {
+                $integrations = Integrations::getInstance();
+
+                foreach ($_POST['integrations'] as $integration_name => $item) {
+                    if (!isset($item['id']) || !isset($item['username'])) {
+                        continue;
+                    }
+
+                    $integration = $integrations->getIntegration($integration_name);
+                    if ($integration != null) {
+                        $integrationUser = new IntegrationUser($integration);
+                        $integrationUser->linkIntegration($user, $item['id'], $item['username'], true);
+                    }
+                }
             }
 
             EventHandler::executeEvent('registerUser', [
@@ -191,17 +192,16 @@ class RegisterEndpoint extends KeyAuthEndpoint {
      * For internal API use only
      *
      * @param string $username The username of the new user to create
-     * @param string $uuid (optional) The Minecraft UUID of the new user
      * @param string $email The email of the new user
      * @see Nameless2API::register()
      *
      */
-    private function sendRegistrationEmail(Nameless2API $api, string $username, string $uuid, string $email): void {
+    private function sendRegistrationEmail(Nameless2API $api, string $username, string $email): void {
         // Generate random code
         $code = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 60);
 
         // Create user
-        $user_id = $this->createUser($api, $username, $uuid, $email, false, $code);
+        $user_id = $this->createUser($api, $username, $email, false, $code);
         $user_id = $user_id['user_id'];
 
         // Get link + template
