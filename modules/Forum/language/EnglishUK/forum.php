@@ -209,6 +209,8 @@ $language = [
     'pre_topic_create_hook_info' => 'Pre topic create',
     'pre_topic_edit_hook_info' => 'Pre topic edit',
     'post_id' => 'Post ID',
+    'render_post' => 'Render post',
+    'render_post_edit' => 'Render post edit',
     'topic_id' => 'Topic ID',
     'user_object' => 'User object',
 

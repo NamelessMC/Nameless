@@ -26,8 +26,8 @@
         <form class="ui form" action="" method="post" id="form-post-edit">
           {if isset($EDITING_TOPIC)}
             <div class="field">
-              <label for="name">Topic Title:</label>
-              <input type="text" name="title" value="{$TOPIC_TITLE}">
+              <label for="title">{$TOPIC_TITLE}</label>
+              <input type="text" id="title" name="title" value="{$TOPIC_TITLE}">
             </div>
             {if count($LABELS)}
               <div class="inline fields labels">
@@ -42,10 +42,10 @@
               </div>
             {/if}
           {/if}
-            <div class="field">
-              <label for="editor">Content:</label>
-              <textarea name="content" id="editor">{$CONTENT}</textarea>
-            </div>
+          <div class="field">
+            <label for="editor">{$CONTENT_LABEL}</label>
+            <textarea name="content" id="editor"></textarea>
+          </div>
           <input type="hidden" name="token" value="{$TOKEN}">
           <input type="submit" class="ui primary button" value="{$SUBMIT}">
           <a class="ui negative button" href="{$CANCEL_LINK}" onclick="return confirm('{$CONFIRM_CANCEL}')">{$CANCEL}</a>

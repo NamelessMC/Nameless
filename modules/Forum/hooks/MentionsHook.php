@@ -35,6 +35,21 @@ class MentionsHook extends HookBase {
         return $params;
     }
 
+    public static function parsePost(array $params = []): array {
+        if (parent::validateParams($params, ['content'])) {
+            $params['content'] = preg_replace_callback(
+                '/\[user\](.*?)\[\/user\]/ism',
+                function($match) {
+                    $user = new User($match[1]);
+                    return '<a href="' . $user->getProfileURL() . '" data-poload="' . URL::build('/queries/user/', 'id=' . $user->data()->id) . '" class="user-mention" style="' . $user->getGroupClass() . '">@' . Output::getClean($user->data()->nickname) . '</a>';
+                },
+                $params['content']
+            );
+        }
+
+        return $params;
+    }
+
     private static function validate(array $params): bool {
         return parent::validateParams($params, ['content', 'post_id', 'topic_id', 'user']);
     }

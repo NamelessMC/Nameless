@@ -53,9 +53,10 @@ class Input {
      *
      * @param Language $language Instance of language class to use for translation.
      * @param string $name Name of input field ID.
+     * @param ?string $content Any default content to insert
      * @param bool $mentions Whether to enable mention autocompletion/parsing or not.
      */
-    public static function createTinyEditor(Language $language, string $name, bool $mentions = false): string {
+    public static function createTinyEditor(Language $language, string $name, ?string $content = null, bool $mentions = false): string {
         $skin = defined('TEMPLATE_TINY_EDITOR_DARKMODE') ? 'oxide-dark' : 'oxide';
         $js = '';
 
@@ -117,7 +118,16 @@ class Input {
               toolbar: 'undo redo | bold italic underline strikethrough formatselect forecolor backcolor ltr rtl emoticons | alignleft aligncenter alignright alignjustify | codesample code hr image link numlist bullist | spoiler-add spoiler-remove',
               spoiler_caption: '{$language->get('general', 'spoiler')}',
               default_link_target: '_blank',
-              skin: '$skin',
+              skin: '$skin'," .
+            ($content ?
+                '
+                setup: (editor) => {
+                  editor.on(\'init\', () => {
+                    editor.setContent(' . json_encode($content) . ');
+                  });
+                },
+                '
+            : '') . "
               images_upload_handler: function (blobInfo, success, failure, progress) {
                   let xhr, formData;
 

@@ -32,7 +32,7 @@ class MentionsParser {
                     $user = new User($possible_username, 'nickname');
 
                     if ($user->data()) {
-                        $value = preg_replace('/' . preg_quote("@$possible_username", '/') . '/', "<a href=\"" . $user->getProfileURL() . "\">@$possible_username</a>", $value);
+                        $value = preg_replace('/' . preg_quote("@$possible_username", '/') . '/', '[user]' . $user->data()->id . '[/user]', $value);
 
                         // Check if user is blocked by OP
                         if (($alert_full && $alert_short) && !$user->isBlocked($user->data()->id, $author_id)) {

@@ -19,19 +19,6 @@ const PAGE = 'cc_messaging';
 $page_title = $language->get('user', 'user_cp');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-$template->addCSSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.css' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
-]);
-
-$template->addJSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
-]);
-
-$template->addJSScript(Input::createTinyEditor($language, 'reply'));
-
 $timeago = new TimeAgo(TIMEZONE);
 
 $smarty->assign(
@@ -64,7 +51,11 @@ if (!isset($_GET['action'])) {
     $messages = $user->listPMs($user->data()->id);
 
     // Pagination
-    $paginator = new Paginator(($template_pagination ?? []), isset($template_pagination_left) ? $template_pagination_left : '', isset($template_pagination_right) ? $template_pagination_right : '');
+    $paginator = new Paginator(
+        $template_pagination ?? null,
+        $template_pagination_left ?? null,
+        $template_pagination_right ?? null
+    );
     $results = $paginator->getLimited($messages, 10, $p, count($messages));
     $pagination = $paginator->generate(7, URL::build('/user/messaging/'));
 
@@ -313,6 +304,8 @@ if (!isset($_GET['action'])) {
             }
         }
 
+        $content = (isset($_POST['content'])) ? EventHandler::executeEvent('renderPrivateMessageEdit', ['content' => $_POST['content']])['content'] : null;
+
         // Assign Smarty variables
         $smarty->assign(
             [
@@ -324,12 +317,24 @@ if (!isset($_GET['action'])) {
                 'TOKEN' => Token::get(),
                 'MESSAGE_TITLE' => $language->get('user', 'message_title'),
                 'MESSAGE_TITLE_VALUE' => (isset($_POST['title']) ? Output::getPurified($_POST['title']) : ''),
-                'CONTENT' => (isset($_POST['content']) ? Output::getPurified($_POST['content']) : ''),
                 'TO' => $language->get('user', 'to'),
                 'SEPARATE_USERS_WITH_COMMAS' => $language->get('user', 'separate_users_with_commas'),
                 'ALL_USERS' => $user->listAllUsers()
             ]
         );
+
+        $template->addCSSFiles([
+            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism_' . (DARK_MODE ? 'dark' : 'light') . '.css' => [],
+            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
+        ]);
+
+        $template->addJSFiles([
+            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
+            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
+            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
+        ]);
+
+        $template->addJSScript(Input::createTinyEditor($language, 'reply', $content));
 
         // Load modules + template
         Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
@@ -443,7 +448,11 @@ if (!isset($_GET['action'])) {
         $pm_replies = $queries->getWhere('private_messages_replies', ['pm_id', '=', $_GET['message']]);
 
         // Pagination
-        $paginator = new Paginator(($template_pagination ?? []), isset($template_pagination_left) ? $template_pagination_left : '', isset($template_pagination_right) ? $template_pagination_right : '');
+        $paginator = new Paginator(
+            $template_pagination ?? null,
+            $template_pagination_left ?? null,
+            $template_pagination_right ?? null
+        );
         $results = $paginator->getLimited($pm_replies, 10, $p, count($pm_replies));
         $pagination = $paginator->generate(7, URL::build('/user/messaging/', 'action=view&amp;message=' . urlencode($pm[0]->id) . '&amp;'));
 
@@ -466,42 +475,7 @@ if (!isset($_GET['action'])) {
                 'author_groups' => $target_user->getAllGroupHtml(),
                 'message_date' => $timeago->inWords(date('Y-m-d H:i:s', $nValue->created), $language->getTimeLanguage()),
                 'message_date_full' => date(DATE_FORMAT, $nValue->created),
-                'content' => Output::getPurified(Util::renderEmojis(Output::getDecoded($nValue->content))),
-            ];
-        }
-
-        if (isset($error)) {
-            $smarty->assign('ERROR', $error);
-        }
-
-        // Get all PM replies
-        $pm_replies = $queries->getWhere('private_messages_replies', ['pm_id', '=', $_GET['message']]);
-
-        // Pagination
-        $paginator = new Paginator(($template_pagination ?? []));
-        $results = $paginator->getLimited($pm_replies, 10, $p, count($pm_replies));
-        $pagination = $paginator->generate(7, URL::build('/user/messaging/', 'action=view&amp;message=' . urlencode($pm[0]->id) . '&amp;'));
-
-        $smarty->assign('PAGINATION', $pagination);
-
-        // Array to pass to template
-        $template_array = [];
-
-        // Display the correct number of messages
-        foreach ($results->data as $nValue) {
-            $target_user = new User($nValue->author_id);
-
-            $template_array[] = [
-                'id' => $nValue->id,
-                'author_id' => $nValue->author_id,
-                'author_username' => $target_user->getDisplayname(),
-                'author_profile' => $target_user->getProfileURL(),
-                'author_avatar' => $target_user->getAvatar(100),
-                'author_style' => $target_user->getGroupClass(),
-                'author_groups' => $target_user->getAllGroupHtml(),
-                'message_date' => $timeago->inWords(date('Y-m-d H:i:s', $nValue->created), $language->getTimeLanguage()),
-                'message_date_full' => date(DATE_FORMAT, $nValue->created),
-                'content' => Output::getPurified(Util::renderEmojis(Output::getDecoded($nValue->content))),
+                'content' => EventHandler::executeEvent('renderPrivateMessage', ['content' => $nValue->content])['content'],
             ];
         }
 
@@ -533,11 +507,20 @@ if (!isset($_GET['action'])) {
             'NO' => $language->get('general', 'no'),
         ]);
 
-        if (isset($_POST['content'])) {
-            $smarty->assign('CONTENT', Output::getClean($_POST['content']));
-        } else {
-            $smarty->assign('CONTENT', '');
-        }
+        $content = (isset($_POST['content'])) ? EventHandler::executeEvent('renderPrivateMessageEdit', ['content' => $_POST['content']])['content'] : null;
+
+        $template->addCSSFiles([
+            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism_' . (DARK_MODE ? 'dark' : 'light') . '.css' => [],
+            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
+        ]);
+
+        $template->addJSFiles([
+            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
+            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
+            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
+        ]);
+
+        $template->addJSScript(Input::createTinyEditor($language, 'reply', $content));
 
         Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 

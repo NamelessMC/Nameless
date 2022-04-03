@@ -161,7 +161,7 @@ if (!isset($_GET['action'])) {
                 foreach ($forum_list as $item) {
                     $template_forums[] = [
                         'id' => Output::getClean($item->id),
-                        'name' => Output::getClean(Output::getDecoded($item->forum_title))
+                        'name' => Output::getClean($item->forum_title)
                     ];
                 }
             }
@@ -174,7 +174,7 @@ if (!isset($_GET['action'])) {
                 foreach ($group_list as $item) {
                     $template_groups[] = [
                         'id' => Output::getClean($item->id),
-                        'name' => Output::getClean(Output::getDecoded($item->name))
+                        'name' => Output::getClean($item->name)
                     ];
                 }
             }
@@ -305,7 +305,7 @@ if (!isset($_GET['action'])) {
                 foreach ($forum_list as $item) {
                     $template_forums[] = [
                         'id' => Output::getClean($item->id),
-                        'name' => Output::getClean(Output::getDecoded($item->forum_title)),
+                        'name' => Output::getClean($item->forum_title),
                         'selected' => (in_array($item->id, $enabled_forums))
                     ];
                 }
@@ -322,7 +322,7 @@ if (!isset($_GET['action'])) {
                 foreach ($group_list as $item) {
                     $template_groups[] = [
                         'id' => Output::getClean($item->id),
-                        'name' => Output::getClean(Output::getDecoded($item->name)),
+                        'name' => Output::getClean($item->name),
                         'selected' => (in_array($item->id, $groups))
                     ];
                 }
@@ -508,7 +508,7 @@ if (!isset($_GET['action'])) {
                         try {
                             $queries->update('forums_labels', $label->id, [
                                 'name' => Output::getClean(Input::get('label_name')),
-                                'html' => Output::getDecoded(Input::get('label_html'))
+                                'html' => Input::get('label_html')
                             ]);
 
                             Session::flash('forum_labels', $forum_language->get('forum', 'label_type_edit_success'));
