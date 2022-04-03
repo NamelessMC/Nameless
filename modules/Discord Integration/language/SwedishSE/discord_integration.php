@@ -10,15 +10,10 @@ $language = [
     'discord_role_id' => 'Discord Roll ID',
     'discord_role_id_numeric' => 'Discord-roll-ID måste vara numeriskt.',
     'discord_role_id_length' => 'Discord-roll-ID måste vara 18 siffror långt.',
-    'discord_guild_id' => 'Discord Server ID',
-    'discord_widget_theme' => 'Discord Widget Theme',
     'discord_id_length' => 'Vänligen se till att ditt Discord ID is 18 bokstäver långt.',
     'discord_id_numeric' => 'Vängligen se till att ditt Discord ID är numeriskt. (Endast Nummer).',
-    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://namelessmc.com/discord-bot-invite">here</a>. Then, run the <code>/apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
-    'discord_bot_must_be_setup' => 'Kan inte aktivera Discord Integrationen tills att du har ställt in botten. För mer information, vänligen <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">klicka här</a>.',
-    'discord_bot_setup' => 'Bot Setup',
+    'discord_bot_must_be_setup' => 'Kan inte aktivera Discord Integrationen tills att du har ställt in botten. För mer information, vänligen {{linkStart}}klicka här{{linkEnd}}.',
     'discord_integration_not_setup' => 'Discord Integrationen är inte inställd.',
-    'discord_username' => 'Discord Username',
 
     // Discord bot Errors
     'discord_bot_error_badparameter' => 'Ogiltig begäran.',
@@ -28,8 +23,6 @@ $language = [
     'discord_bot_error_notlinked' => 'Bot är inte länkad till den här webbplatsen för angivet guild-ID.',
     'discord_bot_error_unauthorized' => 'Webbplatsens API-nyckel är ogiltig',
     'discord_bot_error_invrole' => 'Angivet roll-ID är ogiltigt.',
-    'discord_bot_check_logs' => 'You should check for a more specific error (if one exists) in StaffCP -> Security -> All Logs.',
-    'discord_bot_error_partsuccess' => 'The bot could not edit one or more of the roles due to a Discord hierarchy misconfiguration.',
 
     // API Errors
     'discord_integration_disabled' => 'Discord-integrering är inaktiverad.',
@@ -49,11 +42,9 @@ $language = [
     // User Settings
     'discord_link' => 'Discord Länk',
     'linked' => 'Länkad',
-    'get_link_code' => 'Get link code',
     'not_linked' => 'Inte länkad',
-    'discord_id' => 'Discord User ID',
     'discord_id_unlinked' => 'Du har tagit bort länken till ditt Discord-användar-ID.',
-    'discord_id_confirm' => 'Vänligen kör "/verify {token}" kommandot på Discord för att slutföra länkningen till ditt Discord-konto.',
+    'discord_id_confirm' => 'Vänligen kör "/verify {{token}}" kommandot på Discord för att slutföra länkningen till ditt Discord-konto.',
     'pending_link' => 'Väntar',
     'discord_id_taken' => 'Det Discord-ID har redan tagits.',
     'discord_invalid_id' => 'Discord-användar-ID är ogiltigt.',

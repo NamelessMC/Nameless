@@ -187,14 +187,15 @@ class Discord {
      * Get a language term for the Discord Integration module.
      *
      * @param string $term Term to search for
+     * @param array $variables Variables to replace in the term
      * @return string Language term from the language file
      */
-    public static function getLanguageTerm(string $term): string {
+    public static function getLanguageTerm(string $term, array $variables = []): string {
         if (!isset(self::$_discord_integration_language)) {
             self::$_discord_integration_language = new Language(ROOT_PATH . '/modules/Discord Integration/language');
         }
 
-        return self::$_discord_integration_language->get('discord_integration', $term);
+        return self::$_discord_integration_language->get('discord_integration', $term, $variables);
     }
 
     /**

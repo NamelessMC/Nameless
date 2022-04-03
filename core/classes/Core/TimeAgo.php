@@ -41,10 +41,10 @@ class TimeAgo {
     public function inWords($past, Language $language): string {
         // sets the default timezone
         date_default_timezone_set($this->_timezone);
-        if (is_string($past)) {
+        if (!is_numeric($past)) {
             $past = strtotime($past);
         }
-        $now = strtotime($now);
+        $now = time();
 
         // finds the time difference
         $timeDifference = $now - $past;

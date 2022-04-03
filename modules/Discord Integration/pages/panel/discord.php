@@ -61,7 +61,10 @@ if (Input::exists()) {
             $enable_discord_id = $enable_discord_id[0]->id;
             if ($_POST['enable_discord'] == '1') {
                 if (BOT_URL == '' || BOT_USERNAME == '' || Discord::getGuildId() == '') {
-                    $errors[] = Discord::getLanguageTerm('discord_bot_must_be_setup');
+                    $errors[] = Discord::getLanguageTerm('discord_bot_must_be_setup', [
+                        'linkStart' => '<a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">',
+                        'linkEnd' => '</a>',
+                    ]);
                     $queries->update('settings', $enable_discord_id, [
                         'value' => 0
                     ]);
@@ -121,7 +124,12 @@ $smarty->assign([
     'SUBMIT' => $language->get('general', 'submit'),
     'ENABLE_DISCORD_INTEGRATION' => Discord::getLanguageTerm('enable_discord_integration'),
     'DISCORD_ENABLED' => Discord::isBotSetup(),
-    'INVITE_LINK' => Discord::getLanguageTerm('discord_invite_info'),
+    'INVITE_LINK' => Discord::getLanguageTerm('discord_invite_info', [
+        'inviteLinkStart' => '<a target="_blank" href="https://namelessmc.com/discord-bot-invite">',
+        'inviteLinkEnd' => '</a>',
+        'selfHostLinkStart' => '<a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">',
+        'selfHostLinkEnd' => '</a>',
+    ]),
     'GUILD_ID_SET' => (Discord::getGuildId() != ''),
     'BOT_URL_SET' => (BOT_URL != ''),
     'BOT_USERNAME_SET' => (BOT_USERNAME != ''),

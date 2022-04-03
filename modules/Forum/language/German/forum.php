@@ -177,10 +177,6 @@ $language = [
     'forum_updated_successfully' => 'Forum erfolgreich aktualisiert.',
     'forum_deleted_successfully' => 'Forum erfolgreich gelöscht.',
     'label_deleted_successfully' => 'Label erfolgreich gelöscht.',
-    'label_type_deleted_successfully' => 'Label type deleted successfully.',
-    'topic_placeholder' => 'Topic placeholder',
-    'default_labels' => 'Default Labels',
-    'default_labels_info' => 'These will be assigned to a new topic in the forum unless overridden during topic creation. Ctrl+Click to select multiple',
 
     // Search
     'forum_search' => 'Foren-Suche',

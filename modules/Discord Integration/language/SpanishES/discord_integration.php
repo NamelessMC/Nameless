@@ -14,8 +14,7 @@ $language = [
     'discord_widget_theme' => 'Tema del Widget de Discord',
     'discord_id_length' => 'Por favor, asegúrate de que la ID de Discord tiene 18 caracteres.',
     'discord_id_numeric' => 'Por favor, asegúrese de que su ID de Discord es numérica (sólo números).',
-    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://namelessmc.com/discord-bot-invite">here</a>. Then, run the <code>/apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
-    'discord_bot_must_be_setup' => 'No se puede habilitar la integración de Discord hasta que no se haya configurado el bot. Para obtener información, por favor <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">haga clic aquí</a>.',
+    'discord_bot_must_be_setup' => 'No se puede habilitar la integración de Discord hasta que no se haya configurado el bot. Para obtener información, por favor {{linkStart}}haga clic aquí{{linkEnd}}.',
     'discord_bot_setup' => '¿Bot instalado?',
     'discord_integration_not_setup' => 'La integración de Discord no está configurada',
     'discord_username' => 'Discord Username',
@@ -47,13 +46,10 @@ $language = [
     'discord_usernames_updated' => 'Los nombres de usuario de Discord se han actualizado con éxito',
 
     // User Settings
-    'discord_link' => 'Discord Link',
     'linked' => 'Vinculado',
-    'get_link_code' => 'Get link code',
     'not_linked' => 'No vinculado',
     'discord_id' => 'ID de usuario de Discord',
     'discord_id_unlinked' => 'Se ha desvinculado con éxito su ID de usuario de Discord.',
-    'discord_id_confirm' => 'Please run the command "/verify {token}" in Discord to finish linking your Discord account.',
     'pending_link' => 'Pendiente',
     'discord_id_taken' => 'Esa ID de Discord ya ha sido tomada.',
     'discord_invalid_id' => 'Esa ID de usuario de Discord no es válida.',

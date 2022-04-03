@@ -74,7 +74,7 @@ $language = [
     'user_tag_info' => 'You have been tagged in a post by {{author}}.',
     'no_alerts' => 'No new alerts',
     'view_alerts' => 'View alerts',
-    '1_new_alert' => 'You have {{count}} new alert',
+    '1_new_alert' => 'You have 1 new alert',
     'x_new_alerts' => 'You have {{count}} new alerts',
     'no_alerts_usercp' => 'You do not have any alerts.',
 

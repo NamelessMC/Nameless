@@ -456,7 +456,7 @@ if (isset($_GET['do'])) {
                                     'discord_id' => 010
                                 ]);
 
-                                Session::flash('settings_success', str_replace('{token}', $token, Discord::getLanguageTerm('discord_id_confirm')));
+                                Session::flash('settings_success', Discord::getLanguageTerm('discord_id_confirm', ['token' => $token]));
                             }
                             Redirect::to(URL::build('/user/settings'));
                         }

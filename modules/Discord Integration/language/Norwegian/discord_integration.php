@@ -12,14 +12,11 @@ $language = [
     'discord_role_id_length' => 'Discord rolle-ID må inneholde 18 tegn.',
     'discord_guild_id' => 'Discord Server-ID',
     'discord_widget_theme' => 'Discord Widget-Tema',
-    'discord_widget_disabled' => 'The widget is disabled for the specified Discord server. Please go to the \'Widget\' tab in your Discord server settings, and ensure the Discord widget is enabled and that the ID is correct.',
     'discord_id_length' => 'Pass på at Discord-ID-en inneholder 18 tegn.',
     'discord_id_numeric' => 'Pass på at Discord-ID-en er numerisk (kun tall).',
-    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://namelessmc.com/discord-bot-invite">here</a>. Then, run the <code>/apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
-    'discord_bot_must_be_setup' => 'Kan ikke aktivere Discord-integrering før du har satt opp boten. For informasjon, vennligst <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">klikk her</a>.',
+    'discord_bot_must_be_setup' => 'Kan ikke aktivere Discord-integrering før du har satt opp boten. For informasjon, vennligst {{linkStart}}klikk her{{linkEnd}}.',
     'discord_bot_setup' => 'Bot-oppsett',
     'discord_integration_not_setup' => 'Discord-integrering er ikke satt opp',
-    'discord_username' => 'Discord Username',
 
     // Discord bot Errors
     'discord_bot_error_badparameter' => 'Ugyldig forespørseltekst',
@@ -53,7 +50,6 @@ $language = [
     'not_linked' => 'Ikke tilkoblet',
     'discord_id' => 'Discord-bruker-ID',
     'discord_id_unlinked' => 'Discord-bruker-ID-en din har blitt frakoblet.',
-    'discord_id_confirm' => 'Please run the command "/verify {token}" in Discord to finish linking your Discord account.',
     'pending_link' => 'Venter',
     'discord_id_taken' => 'Den oppgitte Discord-bruker-ID-en er allerede koblet til en annen bruker.',
     'discord_invalid_id' => 'Den oppgitte Discord-bruker-ID-en er ikke gyldig.',

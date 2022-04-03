@@ -10,16 +10,10 @@ $language = [
     'discord_role_id' => 'Discord Rollen ID',
     'discord_role_id_numeric' => 'Die ID der Discord Rolle muss numerisch sein.',
     'discord_role_id_length' => 'Die Discord Rollen ID muss 18 Stellen lang sein.',
-    'discord_guild_id' => 'Discord Server ID',
-    'discord_widget_theme' => 'Discord Widget Theme',
-    'discord_widget_disabled' => 'The widget is disabled for the specified Discord server. Please go to the \'Widget\' tab in your Discord server settings, and ensure the Discord widget is enabled and that the ID is correct.',
     'discord_id_length' => 'Bitte stellen Sie sicher, dass Ihre Discord ID 18 Zeichen lang ist.',
     'discord_id_numeric' => 'Bitte stellen Sie sicher, dass Ihre Discord ID numerisch ist (nur Zahlen)..',
-    'discord_invite_info' => 'To invite the Nameless Link bot to your Discord server, click <a target="_blank" href="https://namelessmc.com/discord-bot-invite">here</a>. Then, run the <code>/apiurl</code> command to link the bot with your website. Alternatively, you can <a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">host the bot yourself</a>.',
-    'discord_bot_must_be_setup' => 'Die Discord-Integration kann erst aktiviert werden, wenn Sie den Bot eingerichtet haben. Für Informationen klicken Sie bitte  <a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">click hier</a>.',
-    'discord_bot_setup' => 'Bot Setup',
+    'discord_bot_must_be_setup' => 'Die Discord-Integration kann erst aktiviert werden, wenn Sie den Bot eingerichtet haben. Für Informationen klicken Sie bitte {{linkStart}}click hier{{linkEnd}}.',
     'discord_integration_not_setup' => 'Die Discord-Integration ist nicht eingerichtet',
-    'discord_username' => 'Discord Username',
 
     // Discord bot Errors
     'discord_bot_error_badparameter' => 'Ungültiger Anfragetext.',
@@ -29,8 +23,6 @@ $language = [
     'discord_bot_error_notlinked' => 'Der Bot ist für die angegebene Gilden-ID nicht mit dieser Website verlinkt.',
     'discord_bot_error_unauthorized' => 'Der Website-API-Schlüssel ist ungültig',
     'discord_bot_error_invrole' => 'Die angegebene Rollen-ID ist ungültig.',
-    'discord_bot_check_logs' => 'You should check for a more specific error (if one exists) in StaffCP -> Security -> All Logs.',
-    'discord_bot_error_partsuccess' => 'The bot could not edit one or more of the roles due to a Discord hierarchy misconfiguration.',
 
     // API Errors
     'discord_integration_disabled' => 'Die Discord-Integration ist deaktiviert.',
@@ -48,13 +40,11 @@ $language = [
     'discord_usernames_updated' => 'Discord-Benutzernamen wurden erfolgreich aktualisiert',
 
     // Discord
-    'discord_link' => 'Discord Link',
     'linked' => 'Verbunden',
     'get_link_code' => 'Zeige link command',
     'not_linked' => 'Nicht verbunden',
     'discord_id' => 'Discord User ID',
     'discord_id_unlinked' => 'Die Verknüpfung Ihrer Discord-Benutzer-ID wurde erfolgreich aufgehoben.',
-    'discord_id_confirm' => 'Please run the command "/verify {token}" in Discord to finish linking your Discord account.',
     'pending_link' => 'Ausstehend',
     'discord_id_taken' => 'Diese Discord ID wurde bereits vergeben.',
     'discord_invalid_id' => 'Diese Discord-Benutzer-ID ist ungültig.',

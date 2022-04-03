@@ -93,8 +93,6 @@ $language = [
     'now_following_topic' => 'Acum urmăriți acest subiect și veți primi notificări cu privire la orice răspuns nou.',
     'no_longer_following_topic' => 'Nu mai urmăriți acest subiect și nu veți mai fi notificat cu privire la niciun răspuns nou.',
     'new_reply_in_topic' => '{{author}} a răspuns la subiectul {{topic}}',
-    'started_by_x' => 'Started by {{author}}',
-    'sticky_topics' => 'Sticky Topics',
 
     // Homepage
     'latest_announcements' => 'Cele mai recente noutăti',
@@ -173,9 +171,6 @@ $language = [
     'label_deleted_successfully' => 'Eticheta a fost ștearsă cu succes.',
     'label_type_deleted_successfully' => 'Tipul de etichetă a fost șters cu succes.',
     'topic_placeholder' => 'Placeholdere subiect',
-    // mai e de lucru la asta cu "topic_placeholder"
-    'default_labels' => 'Default Labels',
-    'default_labels_info' => 'These will be assigned to a new topic in the forum unless overridden during topic creation. Ctrl+Click to select multiple',
 
     // Search
     'forum_search' => 'Căutare în forum',
@@ -194,17 +189,10 @@ $language = [
     'your_posts' => 'Numărul mesajelor tale',
     'average_posts' => 'Număr mediu de mesaje per utilizator',
     'total_posts' => 'Numărul total de mesaje',
-    'following_topics' => 'Followed Topics',
-    'unfollow_all_topics' => 'Unfollow All Topics',
-    'confirm_unfollow_all_topics' => 'Are you sure you want to unfollow all topics?',
-    'all_topics_unfollowed' => 'All topics have been unfollowed.',
-    'not_following_any_topics' => 'You are not following any topics.',
 
     // Hooks
     'new_topic_hook_info' => 'Subiect nou',
     'new_topic_text' => 'Subiect creat în {{forum}} de {{author}}',
-    'include_in_hook' => 'Include new topics from this forum in webhooks?',
-    'available_hooks' => 'Available Hooks',
 
     // Panel statistics
     'recent_topics' => 'Subiecte recente',

@@ -172,8 +172,6 @@ $language = [
     'label_deleted_successfully' => 'Etichetta eliminata con successo.',
     'label_type_deleted_successfully' => 'Tipo di etichetta eliminata con successo.',
     'topic_placeholder' => 'Topic segnaposto',
-    'default_labels' => 'Default Labels',
-    'default_labels_info' => 'These will be assigned to a new topic in the forum unless overridden during topic creation. Ctrl+Click to select multiple',
 
     // Search
     'forum_search' => 'Ricerca nel forum',
@@ -192,11 +190,6 @@ $language = [
     'your_posts' => 'Il tuo numero di post',
     'average_posts' => "Numero medio di post dell'utente",
     'total_posts' => 'Conteggio totale delle post',
-    'following_topics' => 'Followed Topics',
-    'unfollow_all_topics' => 'Unfollow All Topics',
-    'confirm_unfollow_all_topics' => 'Are you sure you want to unfollow all topics?',
-    'all_topics_unfollowed' => 'All topics have been unfollowed.',
-    'not_following_any_topics' => 'You are not following any topics.',
 
     // Hooks
     'new_topic_hook_info' => 'Nuova discussione',

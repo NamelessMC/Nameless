@@ -1,7 +1,7 @@
 {
     "cookie\/configure_cookies": "Настроить использование cookie-файлов",
     "cookie\/cookie_notice": "Политика использования cookie-файлов",
-    "cookie\/cookie_notice_error": "Политика об использовании cookie файлов должна содержать не более {{max}} символов.",
+    "cookie\/cookie_notice_error": "Политика об использовании cookie файлов должна содержать не более 10.000 символов.",
     "cookie\/cookie_notice_info": "Этот виджет использует cookie-файлы",
     "cookie\/cookie_notice_success": "Политика обновлена.",
     "cookie\/cookie_popup": "Мы используем файлы cookie, чтобы обеспечить Вам наилучшую работу на нашем сайте.",

@@ -87,14 +87,6 @@ $language = [
     'spam_wait' => 'Graag {{count}} seconden wachten voordat je weer opnieuw plaatst.',
     'overview' => 'Overzicht',
     'no_label' => 'Geen label',
-    'forum_redirect_warning' => 'Notice: you are about to leave this site! Are you sure you want to proceed to {{url}}?',
-    'follow' => 'Follow',
-    'unfollow' => 'Unfollow',
-    'now_following_topic' => 'You are now following this topic, and will be notified of any new replies.',
-    'no_longer_following_topic' => 'You are no longer following this topic, and will not be notified of any new replies.',
-    'new_reply_in_topic' => '{{author}} has replied to topic {{topic}}',
-    'started_by_x' => 'Started by {{author}}',
-    'sticky_topics' => 'Sticky Topics',
 
     // Homepagina
     'latest_announcements' => 'Laatste aankondigingen',
@@ -115,9 +107,6 @@ $language = [
     'label_type_name' => 'Label type naam',
     'label_type_html' => 'Label type HTML',
     'label_type_html_help' => 'De HTML moet {x} bevatten als een placeholder voor de label naam',
-    'label' => 'Label',
-    'label_forums' => 'Label forums',
-    'label_groups' => 'Label Groups',
     'no_forums' => 'Geen forums',
     'no_labels_defined' => 'Geen labels zijn er gedefineerd.',
     'no_label_types_defined' => 'Geen label types zijn er gedefineerd.',
@@ -162,52 +151,8 @@ $language = [
     'forum_type_category' => 'Categorie',
     'invalid_action' => 'Ongeldige actie',
     'use_reactions' => 'Reacties gebruiken?',
-    'redirect_forum' => 'Redirect forum?',
-    'redirect_url' => 'Redirect URL',
-    'invalid_redirect_url' => 'You have enabled the forum redirect, but you have not entered a valid URL between 1 and 512 characters.',
-    'forum_icon' => 'Forum Icon',
-    'forum_icon_maximum' => 'The forum icon must be a maximum of 256 characters.',
-    'settings_updated_successfully' => 'Settings updated successfully.',
-    'forum_updated_successfully' => 'Forum updated successfully.',
-    'forum_deleted_successfully' => 'Forum deleted successfully.',
-    'label_deleted_successfully' => 'Label deleted successfully.',
-    'label_type_deleted_successfully' => 'Label type deleted successfully.',
-    'topic_placeholder' => 'Topic placeholder',
-    'default_labels' => 'Default Labels',
-    'default_labels_info' => 'These will be assigned to a new topic in the forum unless overridden during topic creation. Ctrl+Click to select multiple',
-
-    // Search
-    'forum_search' => 'Forum Search',
-    'search_again_in_x_seconds' => 'Please wait {{count}} seconds before searching again.',
-    'search_results' => 'Search Results',
-    'new_search' => 'New Search',
-    'invalid_search_query' => 'Please enter a search query between 3 and 128 characters long.',
-    'no_results_found' => 'No results found.',
 
     // Profiel tab
     'user_no_posts' => 'Deze gebruiker heeft nog geen berichten geplaatst op het forum .',
     'latest_posts' => 'Laatste berichten',
-
-    // UserCP
-    'last_7_days_posts' => 'Forum posts (last 7 days)',
-    'your_posts' => 'Your post count',
-    'average_posts' => 'Average user post count',
-    'total_posts' => 'Total post count',
-    'following_topics' => 'Followed Topics',
-    'unfollow_all_topics' => 'Unfollow All Topics',
-    'confirm_unfollow_all_topics' => 'Are you sure you want to unfollow all topics?',
-    'all_topics_unfollowed' => 'All topics have been unfollowed.',
-    'not_following_any_topics' => 'You are not following any topics.',
-
-    // Hooks
-    'new_topic_hook_info' => 'New topic',
-    'new_topic_text' => 'Topic created in {{forum}} by {{author}}',
-    'include_in_hook' => 'Include new topics from this forum in webhooks?',
-    'available_hooks' => 'Available Hooks',
-
-    // Panel statistics
-    'recent_topics' => 'Recent Topics',
-    'recent_posts' => 'Recent Posts',
-    'topics_title' => 'Topics',
-    'posts_title' => 'Posts',
 ];

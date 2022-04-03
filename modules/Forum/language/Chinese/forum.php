@@ -89,14 +89,6 @@ $language = [
     'spam_wait' => '請等待 {{count}} 秒後再發言.',
     'overview' => '總覽',
     'no_label' => '沒有標籤',
-    'forum_redirect_warning' => 'Notice: you are about to leave this site! Are you sure you want to proceed to {{url}}?',
-    'follow' => 'Follow',
-    'unfollow' => 'Unfollow',
-    'now_following_topic' => 'You are now following this topic, and will be notified of any new replies.',
-    'no_longer_following_topic' => 'You are no longer following this topic, and will not be notified of any new replies.',
-    'new_reply_in_topic' => '{{author}} has replied to topic {{topic}}',
-    'started_by_x' => 'Started by {{author}}',
-    'sticky_topics' => 'Sticky Topics',
 
     // Homepage
     'latest_announcements' => '最新公告',
@@ -164,19 +156,6 @@ $language = [
     'forum_type_category' => '類別',
     'invalid_action' => '無效操作',
     'use_reactions' => '使用回應?',
-    'redirect_forum' => 'Redirect forum?',
-    'redirect_url' => 'Redirect URL',
-    'invalid_redirect_url' => 'You have enabled the forum redirect, but you have not entered a valid URL between 1 and 512 characters.',
-    'forum_icon' => 'Forum Icon',
-    'forum_icon_maximum' => 'The forum icon must be a maximum of 256 characters.',
-    'settings_updated_successfully' => 'Settings updated successfully.',
-    'forum_updated_successfully' => 'Forum updated successfully.',
-    'forum_deleted_successfully' => 'Forum deleted successfully.',
-    'label_deleted_successfully' => 'Label deleted successfully.',
-    'label_type_deleted_successfully' => 'Label type deleted successfully.',
-    'topic_placeholder' => 'Topic placeholder',
-    'default_labels' => 'Default Labels',
-    'default_labels_info' => 'These will be assigned to a new topic in the forum unless overridden during topic creation. Ctrl+Click to select multiple',
 
     // Search
     'forum_search' => '論壇搜尋',
@@ -189,27 +168,4 @@ $language = [
     // Profile tab
     'user_no_posts' => '使用者尚未在論壇發布貼文.',
     'latest_posts' => '最新文章',
-
-    // UserCP
-    'last_7_days_posts' => 'Forum posts (last 7 days)',
-    'your_posts' => 'Your post count',
-    'average_posts' => 'Average user post count',
-    'total_posts' => 'Total post count',
-    'following_topics' => 'Followed Topics',
-    'unfollow_all_topics' => 'Unfollow All Topics',
-    'confirm_unfollow_all_topics' => 'Are you sure you want to unfollow all topics?',
-    'all_topics_unfollowed' => 'All topics have been unfollowed.',
-    'not_following_any_topics' => 'You are not following any topics.',
-
-    // Hooks
-    'new_topic_hook_info' => 'New topic',
-    'new_topic_text' => 'Topic created in {{forum}} by {{author}}',
-    'include_in_hook' => 'Include new topics from this forum in webhooks?',
-    'available_hooks' => 'Available Hooks',
-
-    // Panel statistics
-    'recent_topics' => 'Recent Topics',
-    'recent_posts' => 'Recent Posts',
-    'topics_title' => 'Topics',
-    'posts_title' => 'Posts',
 ];
