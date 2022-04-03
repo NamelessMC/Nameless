@@ -1,6 +1,6 @@
 <?php
 $languages = [
-    'Chinese' => 'zh',
+    'Chinese' => 'zh_TW',
     'Chinese(Simplified)' => 'zh_CN',
     'Czech' => 'cs_CZ',
     'Danish' => 'da_DK',
@@ -14,12 +14,12 @@ $languages = [
     'Lithuanian' => 'lt_LT',
     'Norwegian' => 'no_NO',
     'Polish' => 'pl_PL',
-    'Portuguese' => 'pt_PT',
+    'Portuguese' => 'pt_BR',
     'Romanian' => 'ro_RO',
     'Russian' => 'ru_RU',
     'Slovak' => 'sk_SK',
-    'Spanish' => 'es_ES',
-    'SpanishSE' => 'es_ES',
+    'Spanish' => 'es_419',
+    'SpanishES' => 'es_ES',
     'SwedishSE' => 'sv_SE',
     'Thai' => 'th_TH',
     'Turkish' => 'tr_TR',
@@ -35,7 +35,6 @@ $paths = [
 foreach ($languages as $lang => $code) {
     foreach ($paths as $path) {
 
-        // check if directory exists
         if (!file_exists(__DIR__ . $path . $lang . '/')) {
             continue;
         }
