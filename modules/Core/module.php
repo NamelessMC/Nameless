@@ -475,22 +475,25 @@ class Core_Module extends Module {
                     return $user;
                 }
             } else if (count($lookup_data) === 3) {
-                // probably handling a user integration lookup
-                // TODO: hand off these three values to the integration system to handle when PR is merged
+                // Handling a user integration lookup
                 [$integration_lookup_type, $integration_name, $lookup_value] = $lookup_data;
-                if ($integration_lookup_type === 'integration_id') {
-                    if ($integration_name === 'discord') {
-                        $column = 'discord_id';
-                    } else if ($integration_name === 'minecraft') {
-                        $column = 'uuid';
-                    } else {
+
+                $integration = Integrations::getInstance()->getIntegration($integration_name);
+                if ($integration != null) {
+                    if ($integration_lookup_type === 'integration_id') {
+                        $integrationUser = new IntegrationUser($integration, $lookup_value, 'identifier');
+                        if ($integrationUser->exists()) {
+                            return $integrationUser->getUser();
+                        }
+
                         $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'), "invalid integration lookup name: $value");
-                    }
-                } else if ($integration_lookup_type === 'integration_name') {
-                    if ($integration_name === 'discord') {
-                        $column = 'discord_username';
-                    } else if ($integration_name === 'minecraft') {
-                        $column = 'username';
+                    } else if ($integration_lookup_type === 'integration_name') {
+                        $integrationUser = new IntegrationUser($integration, $lookup_value, 'username');
+                        if ($integrationUser->exists()) {
+                            return $integrationUser->getUser();
+                        }
+
+                        $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'), "invalid integration lookup name: $value");
                     } else {
                         $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'), "invalid integration lookup name: $value");
                     }
