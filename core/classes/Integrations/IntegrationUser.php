@@ -110,6 +110,47 @@ class IntegrationUser {
                 $code
             ]
         );
+
+        EventHandler::executeEvent('linkIntegrationUser', [
+            'integration' => $this->_integration->getName(),
+            'user_id' => $user->data()->id,
+            'username' => $user->getDisplayname(),
+            'content' => str_replace(['{user}', '{integration}'], [$user->getDisplayname(), $this->_integration->getName()], $this->_integration->getLanguage()->get('user', 'user_has_linked_integration')),
+            'avatar_url' => $user->getAvatar(128, true),
+            'url' => Util::getSelfURL() . ltrim($user->getProfileURL(), '/'),
+            'integration_user' => [
+                'identifier' => Output::getClean($identifier),
+                'username' => Output::getClean($username),
+                'verified' => (bool) $verified,
+            ]
+        ]);
+    }
+
+    /**
+     * Verify user integration
+     */
+    public function verifyIntegration(): void {
+        $this->update([
+            'verified' => 1,
+            'code' => null
+        ]);
+        
+        $this->_integration->onSuccessfulVerification($this);
+
+        $user = $this->getUser();
+        EventHandler::executeEvent('verifyIntegrationUser', [
+            'integration' => $this->_integration->getName(),
+            'user_id' => $user->data()->id,
+            'username' => $user->getDisplayname(),
+            'content' => str_replace(['{user}', '{integration}'], [$user->getDisplayname(), $this->_integration->getName()], $this->_integration->getLanguage()->get('user', 'user_has_verified_integration')),
+            'avatar_url' => $user->getAvatar(128, true),
+            'url' => Util::getSelfURL() . ltrim($user->getProfileURL(), '/'),
+            'integration_user' => [
+                'identifier' => Output::getClean($this->data()->identifier),
+                'username' => Output::getClean($this->data()->username),
+                'verified' => (bool) $this->data()->verified,
+            ]
+        ]);
     }
 
     /**
@@ -122,5 +163,20 @@ class IntegrationUser {
                 $this->_integration->data()->id
             ]
         );
+
+        $user = $this->getUser();
+        EventHandler::executeEvent('unlinkIntegrationUser', [
+            'integration' => $this->_integration->getName(),
+            'user_id' => $user->data()->id,
+            'username' => $user->getDisplayname(),
+            'content' => str_replace(['{user}', '{integration}'], [$user->getDisplayname(), $this->_integration->getName()], $this->_integration->getLanguage()->get('user', 'user_has_unlinked_integration')),
+            'avatar_url' => $user->getAvatar(128, true),
+            'url' => Util::getSelfURL() . ltrim($user->getProfileURL(), '/'),
+            'integration_user' => [
+                'identifier' => Output::getClean($this->data()->identifier),
+                'username' => Output::getClean($this->data()->username),
+                'verified' => (bool) $this->data()->verified,
+            ]
+        ]);
     }
 }

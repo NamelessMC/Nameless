@@ -12,7 +12,7 @@
 
 class DiscordIntegration extends IntegrationBase {
 
-    private Language $_language;
+    protected Language $_language;
 
     public function __construct(Language $language) {
         $this->_name = 'Discord';

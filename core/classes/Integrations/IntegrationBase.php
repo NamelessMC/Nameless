@@ -14,6 +14,7 @@ abstract class IntegrationBase {
     private DB $_db;
     private $_data;
     private array $_errors = [];
+    protected Language $_language;
 
     protected string $_name;
     protected ?int $_order;
@@ -101,6 +102,15 @@ abstract class IntegrationBase {
      */
     public function getErrors(): array {
         return $this->_errors;
+    }
+    
+    /**
+     * Get language
+     *
+     * @return Language Get language
+     */
+    public function getLanguage(): Language {
+        return $this->_language;
     }
 
     abstract public function onLinkRequest(User $user);

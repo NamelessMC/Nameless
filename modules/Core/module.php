@@ -303,7 +303,6 @@ class Core_Module extends Module {
             [
                 'user_id' => $language->get('admin', 'user_id'),
                 'username' => $language->get('user', 'username'),
-                'uuid' => $language->get('admin', 'uuid'),
                 'avatar_url' => $language->get('user', 'avatar'),
                 'content' => $language->get('general', 'content'),
                 'url' => $language->get('user', 'profile')
@@ -314,8 +313,7 @@ class Core_Module extends Module {
             $language->get('admin', 'validate_hook_info'),
             [
                 'user_id' => $language->get('admin', 'user_id'),
-                'username' => $language->get('user', 'username'),
-                'uuid' => $language->get('admin', 'uuid')
+                'username' => $language->get('user', 'username')
             ]
         );
 
@@ -324,7 +322,6 @@ class Core_Module extends Module {
             [
                 'user_id' => $language->get('admin', 'user_id'),
                 'username' => $language->get('user', 'username'),
-                'uuid' => $language->get('admin', 'uuid'),
                 'email_address' => $language->get('user', 'email_address')
             ]
         );
@@ -359,6 +356,42 @@ class Core_Module extends Module {
                 'punished_id' => $language->get('admin', 'punished_id'),
                 'punisher_id' => $language->get('admin', 'punisher_id'),
                 'reason' => $language->get('admin', 'reason'),
+            ]
+        );
+
+        EventHandler::registerEvent('linkIntegrationUser',
+            $language->get('admin', 'user_link_integration_hook_info'),
+            [
+                'integration' => $language->get('admin', 'integration'),
+                'user_id' => $language->get('admin', 'user_id'),
+                'username' => $language->get('user', 'username'),
+                'avatar_url' => $language->get('user', 'avatar'),
+                'content' => $language->get('general', 'content'),
+                'url' => $language->get('user', 'profile')
+            ]
+        );
+
+        EventHandler::registerEvent('verifyIntegrationUser',
+            $language->get('admin', 'user_verify_integration_hook_info'),
+            [
+                'integration' => $language->get('admin', 'integration'),
+                'user_id' => $language->get('admin', 'user_id'),
+                'username' => $language->get('user', 'username'),
+                'avatar_url' => $language->get('user', 'avatar'),
+                'content' => $language->get('general', 'content'),
+                'url' => $language->get('user', 'profile')
+            ]
+        );
+
+        EventHandler::registerEvent('unlinkIntegrationUser',
+            $language->get('admin', 'user_unlink_integration_hook_info'),
+            [
+                'integration' => $language->get('admin', 'integration'),
+                'user_id' => $language->get('admin', 'user_id'),
+                'username' => $language->get('user', 'username'),
+                'avatar_url' => $language->get('user', 'avatar'),
+                'content' => $language->get('general', 'content'),
+                'url' => $language->get('user', 'profile')
             ]
         );
 

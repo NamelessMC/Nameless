@@ -12,7 +12,7 @@
 
 class MinecraftIntegration extends IntegrationBase {
 
-    private Language $_language;
+    protected Language $_language;
     private string $_uuid;
 
     public function __construct(Language $language) {

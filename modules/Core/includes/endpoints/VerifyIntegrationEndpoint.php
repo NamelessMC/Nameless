@@ -46,11 +46,9 @@ class VerifyIntegrationEndpoint extends KeyAuthEndpoint {
         $integrationUser->update([
             'identifier' => Output::getClean($_POST['identifier']),
             'username' => Output::getClean($_POST['username']),
-            'verified' => 1,
-            'code' => null
         ]);
-        
-        $integration->onSuccessfulVerification($integrationUser);
+
+        $integrationUser->verifyIntegration();
 
         $api->returnArray(['message' => $api->getLanguage()->get('api', 'account_validated')]);
     }

@@ -258,4 +258,7 @@ $language = [
     'integration_required_to_continue' => 'Please connect and verify the required connections before you can continue using this website.',
     'not_connected' => 'Not Connected',
     'pending_verification' => 'Pending Verification',
+    'user_has_linked_integration' => '{user} has linked their {integration} account.',
+    'user_has_verified_integration' => '{user} has verified their {integration} account.',
+    'user_has_unlinked_integration' => '{user} has unlinked their {integration} account.',
 ];
