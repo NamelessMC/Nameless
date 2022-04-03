@@ -23,8 +23,6 @@ $language = [
 
     // UserCP
     'user_cp' => 'บัญชี',
-    'user_cp_icon' => '<i class="fa fa-cogs" aria-hidden="true"></i> <span class="mobile_only">บัญชี</span>',
-    'overview' => 'ภาพรวม',
     'user_details' => 'รายละเอียดผู้ใช้',
     'profile_settings' => 'การตั้งค่าโปรไฟล์',
     'successfully_logged_out' => 'คุณออกจากระบบเรียบร้อยแล้ว',
@@ -125,7 +123,6 @@ $language = [
     'invalid_recaptcha' => 'Invalid reCAPTCHA response.',
     'verify_account' => 'ตรวจสอบบัญชี',
     'verify_account_help' => 'โปรดปฏิบัติตามคำแนะนำด้านล่างเพื่อให้เราสามารถยืนยันได้ว่าคุณเป็นเจ้าของบัญชี Minecraft ที่เป็นปัญหา',
-    'validate_account' => 'ตรวจสอบบัญชี',
     'verification_failed' => 'การยืนยันล้มเหลว โปรดลองอีกครั้ง',
     'verification_success' => 'ตรวจสอบสำเร็จแล้ว! ตอนนี้คุณสามารถเข้าสู่ระบบ',
     'authme_username_exists' => 'บัญชี Authme ของคุณเชื่อมต่อกับเว็บไซต์แล้ว!',
@@ -161,8 +158,6 @@ $language = [
     'invalid_wall_post' => 'โปรดตรวจสอบว่าโพสต์ของคุณมีความยาวระหว่าง 1 ถึง 10,000 อักขระ',
     '1_reaction' => '1 ปฏิกิริยา',
     'x_reactions' => '{{count}} ปฏิกิริยา',
-    '1_like' => '1 ถูกใจ',
-    'x_likes' => '{{count}} ถูกใจ',
     '1_reply' => '1 ตอบกลับ',
     'x_replies' => '{{count}} ตอบกลับ',
     'no_replies_yet' => 'ยังไม่มีการตอบกลับ',

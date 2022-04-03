@@ -639,9 +639,9 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
             $reactions_query = $queries->getWhere('user_profile_wall_posts_reactions', ['post_id', '=', $nValue->id]);
             if (count($reactions_query)) {
                 if (count($reactions_query) == 1) {
-                    $reactions['count'] = $language->get('user', '1_like');
+                    $reactions['count'] = $language->get('user', '1_reaction');
                 } else {
-                    $reactions['count'] = $language->get('user', 'x_likes', ['count' => count($reactions_query)]);
+                    $reactions['count'] = $language->get('user', 'x_reactions', ['count' => count($reactions_query)]);
                 }
 
                 foreach ($reactions_query as $reaction) {
@@ -668,7 +668,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                     ];
                 }
             } else {
-                $reactions['count'] = $language->get('user', 'x_likes', ['count' => 0]);
+                $reactions['count'] = $language->get('user', 'x_reactions', ['count' => 0]);
             }
             $reactions_query = null;
 

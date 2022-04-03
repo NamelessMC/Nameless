@@ -23,8 +23,6 @@ $language = [
 
     // UserCP
     'user_cp' => 'BrukerCP',
-    'user_cp_icon' => '<i class="fa fa-cogs" aria-hidden="true"></i>',
-    'overview' => 'Oversikt',
     'user_details' => 'Dine detaljer',
     'profile_settings' => 'Profilinnstillinger',
     'successfully_logged_out' => 'Du har nå blitt logget ut.',
@@ -120,7 +118,6 @@ $language = [
     'invalid_recaptcha' => 'Feil reCAPTCHA',
     'verify_account' => 'Verifiser bruker.',
     'verify_account_help' => 'Vennligst følg instruksjonene så vi kan verifisere at dette er din bruker.',
-    'validate_account' => 'Valider bruker',
     'verification_failed' => 'Verifisering feilet, prøv igjen.',
     'verification_success' => 'Verifisering fullført, du kan nå logge inn!',
     'authme_username_exists' => 'Din AuthMe-bruker har allerede blitt koblet til denne nettsiden!',
@@ -154,8 +151,6 @@ $language = [
     'invalid_wall_post' => 'Sjekk at lengden på kommentaren ikke overskrider 10000 tegn.',
     '1_reaction' => '1 reaksjon',
     'x_reactions' => '{{count}} reaksjoner',
-    '1_like' => '1 likerklikk',
-    'x_likes' => '{{count}} likerklikk',
     '1_reply' => '1 svar',
     'x_replies' => '{{count}} svar',
     'no_replies_yet' => 'Ingen svar enda',

@@ -28,8 +28,6 @@ $language = [
 
     // UserCP
     'user_cp' => 'UserCP',
-    'user_cp_icon' => '<i class="fa fa-cogs" aria-hidden="true"></i> <span class="mobile_only">アカウント</span>',
-    'overview' => '概要',
     'user_details' => 'ユーザー詳細',
     'profile_settings' => 'プロフィール設定',
     'successfully_logged_out' => '正常にログアウトされました。',
@@ -129,7 +127,6 @@ $language = [
     'invalid_recaptcha' => 'reCAPTCHAレスポンスが無効です。',
     'verify_account' => 'アカウント確認',
     'verify_account_help' => 'Minecraft アカウントを所有することを確認します。以下の手順に従ってください。',
-    'validate_account' => 'アカウント検証',
     'verification_failed' => '検証に失敗しました、再試行してください。',
     'verification_success' => '正常に検証されました。ログインが可能です。',
     'authme_username_exists' => '指定されたAuthMeアカウントはすでにウェブサイトに接続されています。',
@@ -165,8 +162,6 @@ $language = [
     'invalid_wall_post' => '投稿内容が1~10000文字であることを確認してください。',
     '1_reaction' => '1件の反応',
     'x_reactions' => '{{count}} 件の反応',
-    '1_like' => 'いいね',
-    'x_likes' => '{{count}} 件のいいね',
     '1_reply' => '1件の返信',
     'x_replies' => '{{count}} 件の返信',
     'no_replies_yet' => '返信がありません。',

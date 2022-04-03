@@ -24,8 +24,6 @@ $language = [
 
     // UserCP
     'user_cp' => 'UserKP',
-    'user_cp_icon' => '<i class="fa fa-cogs" aria-hidden="true"></i>',
-    'overview' => 'Översikt',
     'user_details' => 'Användaruppgifter',
     'profile_settings' => 'Profil Inställningar',
     'successfully_logged_out' => 'Du har blivit utloggad!',
@@ -126,7 +124,6 @@ $language = [
     'invalid_recaptcha' => 'Ogiltigt reCAPTCHA svar.',
     'verify_account' => 'Bekräfta Konto',
     'verify_account_help' => 'Var god och följ instruktionerna nedan så att vi kan verifiera att du äger det här Minecraft kontot.',
-    'validate_account' => 'Validate Account',
     'verification_failed' => 'Verifiering misslyckades, vänligen försök igen.',
     'verification_success' => 'Du har validerats! Nu kan du logga in.',
     'authme_username_exists' => 'Ditt Authme konto har redan anslutits till den här webbplatsen!',
@@ -162,8 +159,6 @@ $language = [
     'invalid_wall_post' => 'Var god och se till att ditt inlägg är mellan 1 och 10000 tecken.',
     '1_reaction' => '1 reaktion',
     'x_reactions' => '{{count}} reaktioner',
-    '1_like' => '1 gillar',
-    'x_likes' => '{{count}} gillar',
     '1_reply' => '1 svar',
     'x_replies' => '{{count}} svar',
     'no_replies_yet' => 'Inga svar än',

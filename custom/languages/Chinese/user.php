@@ -23,8 +23,6 @@ $language = [
 
     // UserCP
     'user_cp' => '使用者後台',
-    'user_cp_icon' => '<i class="fa fa-cogs" aria-hidden="true"></i>',
-    'overview' => '總覽',
     'user_details' => '使用者資訊',
     'profile_settings' => '個人檔設定',
     'successfully_logged_out' => '成功登出.',
@@ -136,8 +134,6 @@ $language = [
     'invalid_wall_post' => '請輸入 1 ~ 10000 個字元的文章內容.',
     '1_reaction' => '1 個回應',
     'x_reactions' => '{{count}} 個回應',
-    '1_like' => '1 個讚',
-    'x_likes' => '{{count}} 個讚',
     '1_reply' => '1 個回覆',
     'x_replies' => '{{count}} 個回覆',
     'no_replies_yet' => '這邊沒有回覆',
@@ -165,10 +161,8 @@ $language = [
     'report_created' => '回報建立成功',
 
     // Messaging
-    'no_messages' => '沒有新訊息',
     'no_messages_full' => '你沒有新訊息.',
     'view_messages' => '查看訊息',
-    'x_new_messages' => '你有 {{count}} 則新訊息',
     'new_message' => '新訊息',
     'message_title' => '訊息標題',
     'separate_users_with_commas' => '使用「,」區分使用者',

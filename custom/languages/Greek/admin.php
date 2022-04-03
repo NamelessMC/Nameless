@@ -34,7 +34,6 @@ $language = [
 
     // Overview
     'running_nameless_version' => 'Τρέχουσα NamelessMC έκδοση {{version}}',
-    'running_php_version' => 'Τρέχουσα PHP έκδοση {{version}}',
     'statistics' => 'Στατιστικά',
 
     // Core
@@ -108,7 +107,7 @@ $language = [
     'images' => 'Eικόνες',
     'upload_new_image' => 'Μεταφόρτωση Νέας Εικόνας',
     'reset_background' => 'Επαναφορά Background',
-    'install' => '<i class="fa fa-plus-circle"></i> Εγκαταστασή',
+    'install' => 'Εγκαταστασή',
     'template_updated' => 'Template ενημερώθηκε με επιτυχία.',
     'default' => 'Προκαθορισμένο',
     'make_default' => 'Κάντε Προεπιλογή',
@@ -121,7 +120,7 @@ $language = [
     'users' => 'Χρήστες',
     'groups' => 'Ομάδες',
     'group' => 'Ομάδα',
-    'new_user' => '<i class="fa fa-plus-circle"></i> Νέος Χρήστης',
+    'new_user' => 'Νέος Χρήστης',
     'creating_new_user' => 'Δημιουργία νέου χρήστη',
     'registered' => 'Εγγεγραμμένος',
     'user_created' => 'Ο Χρήστης δημιουργήθηκε με επιτυχία.',
@@ -133,8 +132,6 @@ $language = [
     'validate_user' => 'Επικύρωση Χρήστη',
     'update_uuid' => 'Ενήμερωση UUID',
     'update_mc_name' => 'Ενήμερωση Minecraft Username',
-    'reset_password' => 'Επαναφέρετε τον κωδικό πρόσβασης',
-    'punish_user' => 'Τιμωρία χρήστη',
     'delete_user' => 'Διαγραφή χρήστη',
     'minecraft_uuid' => 'Minecraft UUID',
     'other_actions' => 'Αλλες ενέργειες',
@@ -145,7 +142,7 @@ $language = [
     'group_id' => 'Group ID',
     'name' => 'Όνομα',
     'title' => 'Τίτλος Xρήστη',
-    'new_group' => '<i class="fa fa-plus-circle"></i> Νέα Ομάδα',
+    'new_group' => 'Νέα Ομάδα',
     'group_name_required' => 'Εισάγετε ένα όνομα ομάδας.',
     'group_name_minimum' => 'Βεβαιωθείτε ότι το όνομα της ομάδας σας είναι τουλάχιστον 2 χαρακτήρες.',
     'group_name_maximum' => 'Βεβαιωθείτε ότι το όνομα της ομάδας σας είναι το μέγιστο μήκος 20 χαρακτήρων.',
@@ -159,7 +156,6 @@ $language = [
     'warning' => 'Προειδοποίηση',
 
     // Maintenance
-    'maintenance_mode' => 'Λειτουργία Συντήρησης',
     'maintenance_enabled' => 'Λειτουργία συντήρησης είναι ενεργοποιημένη.',
     'enable_maintenance_mode' => 'Ενεργοποίηση λειτουργίας συντήρησης?',
     'maintenance_mode_message' => 'Μήνυμα λειτουργία συντήρησης',
@@ -179,8 +175,6 @@ $language = [
     'new_urgent_update_available' => 'There is a new urgent update available. Please update as soon as possible!',
     'up_to_date' => 'Your   NamelessMC installation is up to date!',
     'urgent' => 'Αυτή η ενήμερωση είναι μια επείγουσα ενημέρωση',
-    'changelog' => 'Αλλαγές',
-    'update_check_error' => 'Παρουσιάστικε σφάλμα ενώ γινόταν ο έλεγχος ενημέρωσης:',
     'instructions' => 'Οδηγίες',
     'download' => 'Λήψη',
     'install_confirm' => 'Παρακαλούμε βεβαιωθείτε ότι έχετε κατεβάσει το πακέτο και να έχετε ανεβάσει τα αρχεία πρώτα!',

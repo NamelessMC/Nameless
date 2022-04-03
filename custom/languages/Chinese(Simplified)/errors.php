@@ -31,6 +31,4 @@ $language = [
     'fatal_error_title' => '非常抱歉!',
     'fatal_error_message_user' => '抱歉，加载页面时出了点问题。请与管理员联系。',
     'fatal_error_message_admin' => '抱歉，加载页面时出了点问题。错误详情:',
-    'in_file' => '在文件 {{file}} 的',
-    'on_line' => '第 {{line}} 行'
 ];

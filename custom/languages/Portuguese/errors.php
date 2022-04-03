@@ -31,6 +31,4 @@ $language = [
     'fatal_error_title' => 'Desculpe!',
     'fatal_error_message_user' => 'Desculpe, mas algo deu errado ao carregar a página. Por favor, contate um administrador.',
     'fatal_error_message_admin' => 'Desculpe, mas algo deu errado ao carregar a página. Detalhes do erro:',
-    'in_file' => 'no arquivo {{file}}',
-    'on_line' => 'na linha {{line}}'
 ];

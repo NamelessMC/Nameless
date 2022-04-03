@@ -22,6 +22,8 @@ do
             -e "get(\"$BEFORE_SLASH\", '$AFTER_SLASH'" \
             -e "get('$BEFORE_SLASH', \"$AFTER_SLASH\"" \
             -e "get(\"$BEFORE_SLASH\", \"$AFTER_SLASH\"" \
+            -e "'$AFTER_SLASH'," \
+            -e "\['$AFTER_SLASH'\]" \
             > /dev/null
     then
         echo "$KEY"

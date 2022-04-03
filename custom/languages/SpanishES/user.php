@@ -23,8 +23,6 @@ $language = [
 
     // UserCP
     'user_cp' => 'Cuenta',
-    'user_cp_icon' => '<i class="fa fa-cogs" aria-hidden="true"></i> <span class="mobile_only">Cuenta</span>',
-    'overview' => 'Resumen',
     'user_details' => 'Detalles del usuario',
     'profile_settings' => 'Configuración del perfil',
     'successfully_logged_out' => 'Se ha cerrado la sesión con éxito.',
@@ -124,7 +122,6 @@ $language = [
     'invalid_recaptcha' => 'Respuesta reCAPTCHA inválida.',
     'verify_account' => 'Verificar la cuenta',
     'verify_account_help' => 'Por favor, sigue las siguientes instrucciones para que podamos verificar que eres el propietario de la cuenta de Minecraft en cuestión.',
-    'validate_account' => 'Validar la cuenta',
     'verification_failed' => 'Verificación fallida, por favor, inténtelo de nuevo.',
     'verification_success' => '¡Validado con éxito! Ya puede iniciar la sesión.',
     'authme_username_exists' => 'Su cuenta de Authme ya ha sido conectada al sitio web.',
@@ -158,8 +155,6 @@ $language = [
     'invalid_wall_post' => 'Por favor, asegúrese de que su mensaje tiene entre 1 y 10000 caracteres.',
     '1_reaction' => 'Una reacción',
     'x_reactions' => '{{count}} reacciones',
-    '1_like' => 'Un me gusta',
-    'x_likes' => '{{count}} me gusta',
     '1_reply' => 'Una respuesta',
     'x_replies' => '{{count}} respuestas',
     'no_replies_yet' => 'Todavía no hay respuestas',

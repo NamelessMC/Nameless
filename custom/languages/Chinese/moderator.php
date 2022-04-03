@@ -49,11 +49,9 @@ $language = [
     'report_comment_invalid' => '無效的留言，請確認留言的限制包含在 1-1000 字元以內.',
     'close_report' => '關閉回報',
     'reopen_report' => '重新開啟回報',
-    'open_reports' => '目前有 {{count}} 開啟的回報.',
 
     // Punishments
     'punishments' => '懲罰',
-    'view_punishments' => '查看懲罰',
     'banned' => '封禁',
     'groups' => '群組',
     'punish' => '懲罰',
@@ -69,7 +67,6 @@ $language = [
     'warn_user' => '警告使用者',
     'ban_user' => '封禁使用者',
     'enter_valid_punishment_reason' => '請輸入懲罰原因 5-5000 字元以內.',
-    'user_punished' => '使用者已懲罰.',
     'user_punished_alert' => '{{staffUser}} 懲罰使用者 {{user}}',
     'revoke' => '移除',
     'revoked' => '移除',
@@ -78,7 +75,6 @@ $language = [
     'confirm_revoke_ban' => '你確定要移除封禁? 使用者將會被解封! 直到下次被封禁!',
     'punishment_revoked' => '懲罰已移除.',
     'cant_punish_admin' => '你不能懲罰管理員!',
-    'viewing_all_punishments' => '檢視所有懲罰',
     'no_punishments_found' => '沒有紀錄.',
     'view_user' => '查看使用者',
     'when' => '何時',

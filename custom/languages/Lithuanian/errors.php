@@ -26,6 +26,4 @@ $language = [
     'fatal_error_title' => 'Atsiprašome!',
     'fatal_error_message_user' => 'Atsiprašome, pakrovimo metu įvyko klaida. Susisiekite su administratoriumi.',
     'fatal_error_message_admin' => 'Atsiprašome, pakrovimo metu įvyko klaida. Klaidos detalės:',
-    'in_file' => 'faile {{file}}',
-    'on_line' => 'linijoi {{line}}'
 ];

@@ -20,7 +20,6 @@ $language = [
 
     // UserCP
     'user_cp' => 'Konto',
-    'user_cp_icon' => '<i class="fa fa-cogs" aria-hidden="true"></i>',
     'overview' => 'Übersicht',
     'user_details' => 'Benutzer Details',
     'profile_settings' => 'Profil Einstellungen',
@@ -122,7 +121,6 @@ $language = [
     'invalid_recaptcha' => 'Ungültige reCAPTCHA Antwort.',
     'verify_account' => 'Account verifizieren',
     'verify_account_help' => 'Bitte führe die angegeben Schritte durch um deinen Account zu verifizieren.',
-    'validate_account' => 'Validate Account',
     'verification_failed' => 'Verifikation fehlgeschlagen.',
     'verification_success' => 'Erfolgreich freigeschaltet.',
     'authme_username_exists' => 'Ihr Authme-Konto wurde bereits mit der Website verbunden!',
@@ -158,8 +156,6 @@ $language = [
     'invalid_wall_post' => 'Die Nachricht darf nicht länger als 10.000 Zeichen sein.',
     '1_reaction' => '1 Reaktion',
     'x_reactions' => '{{count}} Reaktionen',
-    '1_like' => '1 Like',
-    'x_likes' => '{{count}} Likes',
     '1_reply' => '1 Antwort',
     'x_replies' => '{{count}} Antworten',
     'no_replies_yet' => 'Bisher keine Antworten',

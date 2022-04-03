@@ -31,12 +31,10 @@ $language = [
 
     // Overview
     'running_nameless_version' => 'Kører NamelessMC version {{version}}',
-    'running_php_version' => 'Kører PHP version {{version}}',
     'statistics' => 'Statistikker',
     'registrations' => 'Registreringer',
     'topics' => 'Emner',
     'posts' => 'Indlæg',
-    'notices' => 'Meddelelser',
     'no_notices' => 'Ingen meddelelser.',
     'email_errors_logged' => 'E-mail fejl er blevet logget',
 
@@ -113,7 +111,7 @@ $language = [
     'negative' => 'Negativ',
     'editing_reaction' => 'Redigerer Reaktion',
     'html' => 'HTML',
-    'new_reaction' => '<i class="fa fa-plus-circle"></i> New Reaction',
+    'new_reaction' => 'New Reaction',
     'creating_reaction' => 'Opretter Reaktion',
     'name_required' => 'Et navn er påkrævet',
 

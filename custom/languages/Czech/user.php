@@ -24,8 +24,6 @@ $language = [
 
     // UserCP
     'user_cp' => 'Účet',
-    'user_cp_icon' => '<i class="fa fa-cogs" aria-hidden="true"></i> <span class="mobile_only">Účet</span>',
-    'overview' => 'Přehled',
     'user_details' => 'Detaily uživatele',
     'profile_settings' => 'Profilová nastavení',
     'successfully_logged_out' => 'Byli jste úspěšně odhlášeni.',
@@ -123,7 +121,6 @@ $language = [
     'invalid_recaptcha' => 'Neplatná odpověď reCAPTCHA.',
     'verify_account' => 'Ověřit účet',
     'verify_account_help' => 'Následujte prosím pokyny níže, abychom mohli ověřit, že vlastníte daný Minecraft účet.',
-    'validate_account' => 'Ověřit účet',
     'verification_failed' => 'Ověření se nezdařilo, zkuste to znovu.',
     'verification_success' => 'Úspěšně ověřeno! Nyní se můžete přihlásit.',
     'authme_username_exists' => 'Váš AuthMe účet již je propojen s webem!',
@@ -159,8 +156,6 @@ $language = [
     'invalid_wall_post' => 'Ujistěte se, že váš příspěvek obsahuje mezi 1 a 10 000 znaky.',
     '1_reaction' => '1 reakce',
     'x_reactions' => '{{count}} reakcí',
-    '1_like' => '1 líbí se mi',
-    'x_likes' => '{{count}} líbí se mi',
     '1_reply' => '1 odpověď',
     'x_replies' => '{{count}} odpovědí',
     'no_replies_yet' => 'Žádné odpovědi',

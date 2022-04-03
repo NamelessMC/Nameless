@@ -23,8 +23,6 @@ $language = [
 
     // UserCP
     'user_cp' => 'Panel',
-    'user_cp_icon' => '<i class="fa fa-cogs" aria-hidden="true"></i>',
-    'overview' => 'Przegląd',
     'user_details' => 'Szczegóły użytkownika',
     'profile_settings' => 'Ustawienia',
     'successfully_logged_out' => 'Zostałeś wylogowany.',
@@ -124,7 +122,6 @@ $language = [
     'invalid_recaptcha' => 'Źle przpisano kod reCAPTCHA.',
     'verify_account' => 'Zweryfikuj konto',
     'verify_account_help' => 'Postępuj zgodnie z wyświetlanymi instrukcjami by zweryfikować twoje konto minecraft.',
-    'validate_account' => 'Aktywuj konto',
     'verification_failed' => 'Weryfikacja nie powiodła się. Spróbuj ponownie później.',
     'verification_success' => 'Pomyślnie zweryfikowano konto minecraft.',
     'authme_username_exists' => 'Twoje konto na serwerze jest już połączone ze stroną!',
@@ -158,8 +155,6 @@ $language = [
     'invalid_wall_post' => 'Twój post może mieć od 1 do 10000 znaków.',
     '1_reaction' => '1 ocena',
     'x_reactions' => '{{count}} ocen',
-    '1_like' => '1 polubienie',
-    'x_likes' => '{{count}} polubień',
     '1_reply' => '1 komentarz',
     'x_replies' => '{{count}} komentarzy',
     'no_replies_yet' => 'Brak komentarzy',

@@ -23,7 +23,6 @@ $language = [
 
     // UserCP
     'user_cp' => 'Account',
-    'overview' => 'Overview',
     'user_details' => 'User Details',
     'profile_settings' => 'Profile Settings',
     'successfully_logged_out' => 'You have been logged out successfully.',
@@ -123,7 +122,6 @@ $language = [
     'invalid_recaptcha' => 'Invalid reCAPTCHA response.',
     'verify_account' => 'Verify Account',
     'verify_account_help' => 'Please follow the instructions below so we can verify you own the Minecraft account in question.',
-    'validate_account' => 'Validate Account',
     'verification_failed' => 'Verification failed, please try again.',
     'verification_success' => 'Successfully validated! You can now log in.',
     'authme_username_exists' => 'Your Authme account has already been connected to the website!',
@@ -159,8 +157,6 @@ $language = [
     'invalid_wall_post' => 'Please ensure your post is between {{min}} and {{max}} characters.',
     '1_reaction' => '{{count}} reaction',
     'x_reactions' => '{{count}} reactions',
-    '1_like' => '{{count}} like',
-    'x_likes' => '{{count}} likes',
     '1_reply' => '{{count}} reply',
     'x_replies' => '{{count}} replies',
     'no_replies_yet' => 'No replies yet',

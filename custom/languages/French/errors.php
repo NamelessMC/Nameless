@@ -29,6 +29,4 @@ $language = [
     'fatal_error_title' => 'Désolé !',
     'fatal_error_message_user' => 'Désolé, mais un problème est survenu lors du chargement de la page. Veuillez contacter un administrateur.',
     'fatal_error_message_admin' => 'Désolé, mais un problème est survenu lors du chargement de la page. Détails de l\'erreur :',
-    'in_file' => 'dans le fichier {{file}}',
-    'on_line' => 'sur la ligne {{line}}'
 ];

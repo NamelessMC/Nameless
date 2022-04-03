@@ -24,8 +24,6 @@ $language = [
 
     // UserCP
     'user_cp' => 'Аккаунт',
-    'user_cp_icon' => '<i class="fa fa-cogs" aria-hidden="true"></i> <span class="mobile_only">Аккаунт</span>',
-    'overview' => 'Просмотр',
     'user_details' => 'Детали пользователя',
     'profile_settings' => 'Настройки профиля',
     'successfully_logged_out' => 'Вы успешно вышли из системы.',
@@ -125,7 +123,6 @@ $language = [
     'invalid_recaptcha' => 'Неверный ответ reCAPTCHA.',
     'verify_account' => 'Подтверждение аккаунта',
     'verify_account_help' => 'Пожалуйста, следуйте приведенным ниже инструкциям, чтобы мы могли убедиться, что вы владеете учетной записью Minecraft.',
-    'validate_account' => 'Подтверждение аккаунта',
     'verification_failed' => 'Проверка не удалась, пожалуйста, попробуйте еще раз.',
     'verification_success' => 'Аккаунт успешно подтверждён! Теперь вы можете войти на сайт.',
     'authme_username_exists' => 'Ваша учетная запись AuthMe уже подключена к веб-сайту!',
@@ -161,8 +158,6 @@ $language = [
     'invalid_wall_post' => 'Пожалуйста, убедитесь, что ваш пост содержит от 1 до 10000 символов.',
     '1_reaction' => '1 реакция',
     'x_reactions' => '{{count}} реакций',
-    '1_like' => '1 лайк',
-    'x_likes' => '{{count}} лайков',
     '1_reply' => '1 ответ',
     'x_replies' => '{{count}} ответов',
     'no_replies_yet' => 'Нет ответов',

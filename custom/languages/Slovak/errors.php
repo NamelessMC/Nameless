@@ -29,6 +29,4 @@ $language = [
     'fatal_error_title' => 'Ospravedlňujeme sa!',
     'fatal_error_message_user' => 'Je nám ľúto, ale pri načítaní stránky sa niečo pokazilo. Prosím kontaktujte správcu.',
     'fatal_error_message_admin' => 'Je nám ľúto, ale pri načítaní stránky sa niečo pokazilo. Detaily chyby:',
-    'in_file' => 'v súbore {{file}}',
-    'on_line' => 'na riadku {{line}}'
 ];

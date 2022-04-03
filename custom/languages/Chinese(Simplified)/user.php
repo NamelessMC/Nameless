@@ -25,8 +25,6 @@ $language = [
 
     // UserCP
     'user_cp' => '账号',
-    'user_cp_icon' => '<i class="fa fa-cogs" aria-hidden="true"></i> <span class="mobile_only">账号</span>',
-    'overview' => '总览',
     'user_details' => '用户详细信息',
     'profile_settings' => '个人资料设置',
     'successfully_logged_out' => '您已成功登出',
@@ -127,7 +125,6 @@ $language = [
     'invalid_recaptcha' => 'reCAPTCHA 响应无效。',
     'verify_account' => '验证账户',
     'verify_account_help' => '请按照以下说明进行操作，以便我们可以验证您是否拥有相应的 Minecraft 帐户。',
-    'validate_account' => '验证账户',
     'verification_failed' => '验证失败，请重试。',
     'verification_success' => '验证成功！您现在可以登录。',
     'authme_username_exists' => '您的 AuthMe 帐户已连接到网站!',
@@ -163,8 +160,6 @@ $language = [
     'invalid_wall_post' => '请确保您的留言长度在 1 到 10000 个字符之间。',
     '1_reaction' => '1 表态',
     'x_reactions' => '{{count}} 表态',
-    '1_like' => '1 喜欢',
-    'x_likes' => '{{count}} 喜欢',
     '1_reply' => '1 回复',
     'x_replies' => '{{count}} 回复',
     'no_replies_yet' => '目前仍无人回复',
@@ -202,7 +197,6 @@ $language = [
     'no_messages_full' => '您没有任何可读讯息。',
     'view_messages' => '查看讯息',
     '1_new_message' => '你有 1 条新讯息',
-    'x_new_messages' => '你有 {{count}} 条新讯息',
     'new_message' => '创建新讯息',
     'message_title' => '讯息标题',
     'to' => '发送给',

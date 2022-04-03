@@ -20,8 +20,6 @@ $language = [
 
     // UserCP
     'user_cp' => 'Paskyra',
-    'user_cp_icon' => '<i class="fa fa-cogs" aria-hidden="true"></i> <span class="mobile_only">Paskyra</span>',
-    'overview' => 'Apžvalga',
     'user_details' => 'Vartotojo Duomenys',
     'profile_settings' => 'Profilio Nustatymai',
     'successfully_logged_out' => 'Jūs sėkmingai atsijungėte.',
@@ -121,7 +119,6 @@ $language = [
     'invalid_recaptcha' => 'Netinkamas reCAPTCHA atsakymas.',
     'verify_account' => 'Patvirtinkite Paskyrą',
     'verify_account_help' => 'Prašome laikytis žemiau pateiktų instrukcijų, jog galėtume patvirtinti, kad turite minėtą Minecraft paskyrą.',
-    'validate_account' => 'Patikrinkite Paskyrą',
     'verification_failed' => 'Patvirtinimas nepavyko, bandykite dar kartą.',
     'verification_success' => 'Sėkmingai patvirtinta! Dabar galite prisijungti.',
     'authme_username_exists' => 'Jūsų AuthMe paskyra jau buvo prijungta prie svetainės!',
@@ -155,8 +152,6 @@ $language = [
     'invalid_wall_post' => 'Patikrinkite, ar jūsų "post" yra nuo 1 iki 10000 simbolių.',
     '1_reaction' => '1 reakcija',
     'x_reactions' => '{{count}} reakcijos',
-    '1_like' => '1 Patinka',
-    'x_likes' => '{{count}} Patinka',
     '1_reply' => '1 atsakymas',
     'x_replies' => '{{count}} atsakymai',
     'no_replies_yet' => 'Dar nėra atsakymų',

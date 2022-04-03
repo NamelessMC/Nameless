@@ -23,8 +23,6 @@ $language = [
 
     // UserCP
     'user_cp' => 'Konto',
-    'user_cp_icon' => '<i class="fa fa-cogs" aria-hidden="true"></i> <span class="mobile_only">Konto</span>',
-    'overview' => 'Oversigt',
     'user_details' => 'Bruger Detaljer',
     'profile_settings' => 'Profil Indstillinger',
     'successfully_logged_out' => 'Du er nu logget ud.',
@@ -122,7 +120,6 @@ $language = [
     'invalid_recaptcha' => 'Ugyldigt reCAPTCHA svar.',
     'verify_account' => 'Bekræft Konto',
     'verify_account_help' => 'Følg venligst instruktionerne nedenfor, så vi kan bekræfte at du ejer den pågældende Minecraft konto.',
-    'validate_account' => 'Validér Konto',
     'verification_failed' => 'Bekræftelse mislykkedes, forsøg venligst igen.',
     'verification_success' => 'Succesfuldt valideret! Du kan nu logge ind.',
     'authme_username_exists' => 'Din Authme konto er allerede forbundet til hjemmesiden!',
@@ -156,8 +153,6 @@ $language = [
     'invalid_wall_post' => 'Sørg for, at dit indlæg er mellem 1 og 10000 tegn.',
     '1_reaction' => '1 reaktion',
     'x_reactions' => '{{count}} reaktioner',
-    '1_like' => '1 like',
-    'x_likes' => '{{count}} likes',
     '1_reply' => '1 svar',
     'x_replies' => '{{author}} svar',
     'no_replies_yet' => 'Endnu ingen svar',

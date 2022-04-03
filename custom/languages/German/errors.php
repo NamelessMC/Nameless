@@ -30,6 +30,4 @@ $language = [
     'fatal_error_title' => 'Entschuldige!',
     'fatal_error_message_user' => 'Entschuldigung, aber beim Laden der Seite ist etwas schiefgelaufen. Bitte kontaktieren Sie einen Administrator',
     'fatal_error_message_admin' => 'Entschuldigung, aber beim Laden der Seite ist etwas schief gelaufen. Fehlerdetails:',
-    'in_file' => 'In File {{file}}',
-    'on_line' => 'In Zeile {{line}}'
 ];

@@ -23,8 +23,6 @@ $language = [
 
     // UserCP
     'user_cp' => 'Hesap',
-    'user_cp_icon' => '<i class="fa fa-cogs" aria-hidden="true"></i> <span class="mobile_only">Hesap</span>',
-    'overview' => 'Genel Bakış',
     'user_details' => 'Kullanıcı Detayları',
     'profile_settings' => 'Profil Ayarları',
     'successfully_logged_out' => 'Başarıyla çıkış yaptın!',
@@ -122,7 +120,6 @@ $language = [
     'invalid_recaptcha' => 'Geçersiz reCAPTCHA yanıtı.',
     'verify_account' => 'Hesabı Doğrula',
     'verify_account_help' => 'Söz konusu Minecraft hesabına sahip olduğunuzu doğrulayabilmemiz için lütfen aşağıdaki talimatları uygulayın.',
-    'validate_account' => 'Hesabı Doğrula',
     'verification_failed' => 'Hesap doğrulanırken hata oluştu, lütfen tekrar deneyin.',
     'verification_success' => 'Başarıyla doğrulandı! Şimdi giriş yapabilirsiniz.',
     'authme_username_exists' => 'Authme hesabınız zaten web sitesine bağlandı!',
@@ -158,8 +155,6 @@ $language = [
     'invalid_wall_post' => 'Lütfen yayınınızın 1 ile 10000 karakter arasında olduğundan emin olun.',
     '1_reaction' => '1 reaksiyon',
     'x_reactions' => '{{count}} reaksiyon',
-    '1_like' => '1 beğeni',
-    'x_likes' => '{{count}} beğeni',
     '1_reply' => '1 cevap',
     'x_replies' => '{{count}} cevap',
     'no_replies_yet' => 'henüz cevap yok',
