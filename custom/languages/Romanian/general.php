@@ -45,10 +45,6 @@ $language = [
     'confirm' => 'Confirmă',
     'actions' => 'Acţiuni',
     'alerts' => 'Notificări',
-    'view_alerts' => 'Vizualizați notificările',
-    'x_new_alerts' => 'Aveți {{count}} notificări noi.',
-    'messages' => 'Mesaje',
-    'view_messages' => 'Vizualizați mesajele',
     'loading' => 'Se încarcă...',
     'report' => 'Raportează',
     'reported_by' => 'Reported by {{author}}',
@@ -85,7 +81,6 @@ $language = [
      *  Server query
      */
     'player_count' => '{{onlinePlayers}}/{{totalPlayers}}',
-    'ping' => 'Ping: {{ping}}',
     'version' => 'Versiune: {{version}}',
     'currently_1_player_online' => 'În prezent este <strong>un</strong> jucător online.',
     'currently_x_players_online' => 'În prezent sunt {{count}} jucători online.',
@@ -103,7 +98,6 @@ $language = [
      *  Cookie notice
      */
     'cookie_notice' => 'Acest site utilizează cookie-uri pentru a îmbunătăți experiența dvs. de navigare. Prin înregistrarea pe site-ul nostru sau închiderea acestei notificări sunteți de acord cu utilizarea lor.',
-    'cookie_agree' => 'De acord',
 
     /*
      *  Widgets

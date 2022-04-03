@@ -43,9 +43,6 @@ $language = [
     'confirm' => 'Aksepter',
     'actions' => 'Valg',
     'alerts' => 'Viktige meldinger',
-    'view_alerts' => 'Vis viktige meldinger',
-    'messages' => 'Meldinger',
-    'view_messages' => 'Vis meldinger',
     'loading' => 'Laster...',
     'report' => 'Rapport',
     'reported_by' => 'Reported by {{author}}',
@@ -88,7 +85,6 @@ $language = [
     'online' => 'Pålogget',
     'offline' => 'Frakoblet',
     'player_count' => '{{onlinePlayers}}/{{totalPlayers}}',
-    'ping' => 'Ping: {{ping}}',
     'version' => 'Versjon: {{version}}',
     'currently_1_player_online' => 'Det er for øyeblikket <strong>1</strong> spiller pålogget.',
     'currently_x_players_online' => 'Det er for øyeblikket {{count}} spillere pålogget.',
@@ -106,7 +102,6 @@ $language = [
      *  Cookie notice
      */
     'cookie_notice' => 'Denne nettsiden benytter seg av cookies for å forbedre din brukeropplevelse. Ved å registrere deg på vår nettside eller ved å lukke denne meldingen, aksepterer du dette.',
-    'cookie_agree' => 'Enig',
 
     /*
      *  Widgets

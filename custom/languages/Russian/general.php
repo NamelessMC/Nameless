@@ -44,10 +44,6 @@ $language = [
     'confirm' => 'Подтвердить',
     'actions' => 'Действия',
     'alerts' => 'Уведомления',
-    'view_alerts' => 'Просмотреть уведомления',
-    'x_new_alerts' => 'У вас {{count}} новых уведомлений.',
-    'messages' => 'Сообщения',
-    'view_messages' => 'Просмотреть сообщения',
     'loading' => 'Загрузка...',
     'report' => 'Пожаловаться',
     'reported_by' => 'Жалоба от {{author}}',
@@ -96,7 +92,6 @@ $language = [
     'online' => 'Онлайн',
     'offline' => 'Оффлайн',
     'player_count' => '{{onlinePlayers}}/{{totalPlayers}}',
-    'ping' => 'Пинг: {{ping}}',
     'version' => 'Версия: {{version}}',
     'currently_1_player_online' => 'Сейчас <strong>1</strong> игрок онлайн.',
     'currently_x_players_online' => 'Сейчас игроков онлайн: {{count}}.',
@@ -113,7 +108,6 @@ $language = [
      *  Cookie notice
      */
     'cookie_notice' => 'Этот веб-сайт использует файлы cookie для улучшения вашего опыта просмотра. Регистрируясь на нашем сайте или закрывая данное уведомление, вы соглашаетесь с их использованием.',
-    'cookie_agree' => 'Подтвердить',
 
     /*
      *  Widgets

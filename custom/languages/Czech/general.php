@@ -44,9 +44,6 @@ $language = [
     'confirm' => 'Potvrdit',
     'actions' => 'Akce',
     'alerts' => 'Upozornění',
-    'view_alerts' => 'Zobrazit upozornění',
-    'messages' => 'Zprávy',
-    'view_messages' => 'Zobrazit zprávy',
     'loading' => 'Načítání...',
     'report' => 'Nahlásit',
     'reported_by' => 'Nahlášen uživatelem {{author}}',
@@ -109,7 +106,6 @@ $language = [
      *  Cookie notice
      */
     'cookie_notice' => 'Tento web používá cookies pro zlepšení uživatelského zážitku. Registrací nebo zavřením tohoto oznámení souhlasíte s jejich použitím.',
-    'cookie_agree' => 'Souhlasím',
 
     /*
      *  Widgets

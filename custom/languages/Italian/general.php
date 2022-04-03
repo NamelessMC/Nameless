@@ -43,9 +43,6 @@ $language = [
     'confirm' => 'Conferma',
     'actions' => 'Azioni',
     'alerts' => 'Avvisi',
-    'view_alerts' => 'Visualizza avvisi',
-    'messages' => 'Messaggi',
-    'view_messages' => 'Visualizza messaggi',
     'loading' => 'Caricamento...',
     'report' => 'Segnala',
     'origin_api' => 'API',
@@ -89,7 +86,6 @@ $language = [
      *  Cookie notice
      */
     'cookie_notice' => 'Questo sito web utilizza i cookie per migliorare la tua esperienza di navigazione. Registrandoti sul nostro sito web o chiudendo questo avviso accetti il ​​loro utilizzo.',
-    'cookie_agree' => 'Accetto',
 
     /*
      *  Widgets

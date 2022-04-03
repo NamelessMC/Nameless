@@ -395,11 +395,11 @@ if (isset($_GET['do'])) {
                             ]
                         ])->messages([
                             'password' => [
-                                Validate::REQUIRED => $language->get('user', 'password_required') . '<br />'
+                                Validate::REQUIRED => $language->get('user', 'password_required')
                             ],
                             'email' => [
-                                Validate::REQUIRED => $language->get('user', 'email_required') . '<br />',
-                                Validate::EMAIL => $language->get('general', 'contact_message_email') . '<br />'
+                                Validate::REQUIRED => $language->get('user', 'email_required'),
+                                Validate::EMAIL => $language->get('user', 'email_required')
                             ]
                         ]);
 

@@ -84,7 +84,6 @@ $language = [
     'online' => '在线',
     'offline' => '离线',
     'player_count' => '{{onlinePlayers}}/{{totalPlayers}}',
-    'ping' => '延迟: {{ping}}',
     'version' => '版本: {{version}}',
     'currently_1_player_online' => '目前只有<strong>一</strong>名玩家在线。',
     'currently_x_players_online' => '目前有 {{count}} 名玩家在线。',
@@ -102,7 +101,6 @@ $language = [
      *  Cookie notice
      */
     'cookie_notice' => '本网站使用 Cookie 来增强您的浏览体验。通过在我们的网站上进行注册或关闭此通知，代表您同意它们的使用。',
-    'cookie_agree' => '同意',
 
     /*
      *  Widgets

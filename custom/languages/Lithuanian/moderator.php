@@ -14,7 +14,6 @@ $language = [
     // General
     'mod_cp' => 'ModCP',
     'staff_cp' => 'StaffCP',
-    'overview' => 'Apžvalga',
 
     // Spam
     'spam' => 'Šlamštas',

@@ -12,7 +12,6 @@
 $language = [
     'mod_cp' => 'Panel de Moderación',
     'staff_cp' => 'Panel Administrativo',
-    'overview' => 'Visión General',
 
     // Spam
     'spam' => 'Spam',

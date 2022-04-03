@@ -13,7 +13,6 @@
 $language = [
     'mod_cp' => 'ModCP',
     'staff_cp' => 'StaffCP',
-    'overview' => 'Überblick',
 
     // Spam
     'spam' => 'Spam',

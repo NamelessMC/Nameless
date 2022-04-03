@@ -11,7 +11,6 @@
 
 $language = [
     'staff_cp' => 'PersonaleCP',
-    'overview' => 'Oversigt',
 
     // Spam
     'spam' => 'Spam',

@@ -11,7 +11,6 @@
 
 $language = [
     'staff_cp' => 'StaffCP',
-    'overview' => 'Overview',
 
     // Spam
     'spam' => 'Spam',

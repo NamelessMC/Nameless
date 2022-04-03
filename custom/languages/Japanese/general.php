@@ -48,9 +48,6 @@ $language = [
     'confirm' => '確認',
     'actions' => 'アクション',
     'alerts' => 'アラート',
-    'view_alerts' => 'アラートを表示',
-    'messages' => 'メッセージ',
-    'view_messages' => 'メッセージを表示',
     'loading' => '読み込み中...',
     'report' => 'レポート',
     'reported_by' => '{{author}} による報告',
@@ -99,7 +96,6 @@ $language = [
     'online' => 'オンライン',
     'offline' => 'オフライン',
     'player_count' => '{{onlinePlayers}}/{{totalPlayers}}',
-    'ping' => 'Ping: {{ping}}',
     'version' => 'バージョン: {{version}}',
     'currently_1_player_online' => '現在<strong>1</strong>人のプレイヤーが参加しています。',
     'currently_x_players_online' => '現在 {{count}} 人のプレイヤーが参加しています。',
@@ -117,7 +113,6 @@ $language = [
      *  Cookie notice
      */
     'cookie_notice' => '当ウェブサイトでは、より快適に閲覧していただくためにCookieを使用しています。当ウェブサイトに登録する、もしくはこの通知を閉じることにより、Cookieの使用に同意したことになります。',
-    'cookie_agree' => '同意',
 
     /*
      *  Widgets

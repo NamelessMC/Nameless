@@ -11,7 +11,6 @@
 
 $language = [
     'staff_cp' => 'Panneau d\'administration',
-    'overview' => 'Vue d\'ensemble',
 
     // Spam
     'spam' => 'Spam',

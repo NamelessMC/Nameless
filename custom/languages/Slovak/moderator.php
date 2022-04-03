@@ -10,7 +10,6 @@
  */
 
 $language = [
-    'overview' => 'Prehľad',
 
     // Spam
     'spam' => 'Spam',

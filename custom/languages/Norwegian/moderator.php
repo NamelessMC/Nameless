@@ -10,7 +10,6 @@
  */
 
 $language = [
-    'overview' => 'Oppsummering',
 
     // Spam
     'mark_as_spam' => 'Marker som spam',

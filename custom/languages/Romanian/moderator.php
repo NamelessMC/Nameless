@@ -14,7 +14,6 @@
 $language = [
     'mod_cp' => 'Panou Moderator',
     'staff_cp' => 'Panoul de Control',
-    'overview' => 'Prezentare generală',
 
     // Spam
     'mark_as_spam' => 'Marchează ca Spam',

@@ -11,7 +11,6 @@
  */
 
 $language = [
-    'overview' => 'Visão Geral',
 
     // Spam
     'spam' => 'Spam',

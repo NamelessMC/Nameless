@@ -12,7 +12,6 @@
 
 $language = [
     'staff_cp' => 'Panel',
-    'overview' => 'Nástěnka',
 
     // Spam
     'spam' => 'Spam',

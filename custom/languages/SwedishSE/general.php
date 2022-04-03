@@ -44,10 +44,6 @@ $language = [
     'confirm' => 'Bekräfta',
     'actions' => 'Handlingar',
     'alerts' => 'Alerts',
-    'view_alerts' => 'Visa alerts',
-    'x_new_alerts' => 'Du har {{count}} nya alerts.',
-    'messages' => 'Meddelander',
-    'view_messages' => 'Visa Meddelander',
     'loading' => 'Laddar...',
     'report' => 'Anmäl',
     'reported_by' => 'Rapporterad av {{author}}',
@@ -96,7 +92,6 @@ $language = [
     'online' => 'Online',
     'offline' => 'Offline',
     'player_count' => '{{onlinePlayers}}/{{totalPlayers}}',
-    'ping' => 'Ping: {{ping}}',
     'version' => 'Version: {{version}}',
     'currently_1_player_online' => 'Det finns just nu <strong>1</strong> spelare online.',
     'currently_x_players_online' => 'Det finns närvarande {{count}} spelare online.',
@@ -114,7 +109,6 @@ $language = [
      *  Cookie notice
      */
     'cookie_notice' => 'Denna webbplats använder cookies för att förbättra din surfupplevelse. Genom att registrera dig på vår webbplats eller stänga detta meddelande godkänner du deras användning. ',
-    'cookie_agree' => 'Håller med',
 
     /*
      *  Widgets

@@ -128,14 +128,14 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                                         'path' => 'core',
                                         'file' => 'user',
                                         'term' => 'new_wall_post',
-                                        'replace' => '{x}',
+                                        'replace' => '{{author}}',
                                         'replace_with' => $user->getDisplayname()
                                     ],
                                     [
                                         'path' => 'core',
                                         'file' => 'user',
                                         'term' => 'new_wall_post',
-                                        'replace' => '{x}',
+                                        'replace' => '{{author}}',
                                         'replace_with' => $user->getDisplayname()
                                     ],
                                     URL::build('/profile/' . urlencode($profile_user->getDisplayname(true)) . '/#post-' . urlencode($queries->getLastId()))
@@ -197,14 +197,14 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                                         'path' => 'core',
                                         'file' => 'user',
                                         'term' => 'new_wall_post',
-                                        'replace' => '{x}',
+                                        'replace' => '{{author}}',
                                         'replace_with' => $user->getDisplayname(),
                                     ],
                                     [
                                         'path' => 'core',
                                         'file' => 'user',
                                         'term' => 'new_wall_post',
-                                        'replace' => '{x}',
+                                        'replace' => '{{author}}',
                                         'replace_with' => $user->getDisplayname(),
                                     ],
                                     URL::build('/profile/' . urlencode($profile_user->getDisplayname(true)) . '/#post-' . urlencode($_POST['post']))
@@ -220,14 +220,14 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                                                 'path' => 'core',
                                                 'file' => 'user',
                                                 'term' => 'new_wall_post_reply_your_profile',
-                                                'replace' => '{x}',
+                                                'replace' => '{{author}}',
                                                 'replace_with' => $user->getDisplayname(),
                                             ],
                                             [
                                                 'path' => 'core',
                                                 'file' => 'user',
                                                 'term' => 'new_wall_post_reply_your_profile',
-                                                'replace' => '{x}',
+                                                'replace' => '{{author}}',
                                                 'replace_with' => $user->getDisplayname()
                                             ],
                                             URL::build('/profile/' . urlencode($profile_user->getDisplayname(true)) . '/#post-' . urlencode($_POST['post']))

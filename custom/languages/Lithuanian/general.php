@@ -42,9 +42,6 @@ $language = [
     'confirm' => 'Patvirtinti',
     'actions' => 'Veiksmai',
     'alerts' => 'Perspėjimai',
-    'view_alerts' => 'Peržiūrėti perspėjimus',
-    'messages' => 'Žinutės',
-    'view_messages' => 'Peržiūrėti pranešimus',
     'loading' => 'Kraunasi...',
     'report' => 'Ataskaita',
     'origin_api' => 'API',
@@ -83,7 +80,6 @@ $language = [
     'online' => 'Prisijungęs',
     'offline' => 'Neprisijungęs',
     'player_count' => '{{onlinePlayers}}/{{totalPlayers}}',
-    'ping' => 'Ping: {{ping}}',
     'version' => 'Versija: {{version}}',
     'currently_1_player_online' => 'Šiuo metu yra <strong>1</strong> žaidėjas serveryje.',
     'currently_x_players_online' => 'Šiuo metu yra {{count}} žaidėjų serveryje.',
@@ -99,7 +95,6 @@ $language = [
 
     // Cookie notice
     'cookie_notice' => 'Ši svetainė naudoja slapukus, kad pagerintų naršymo patirtį. Užsiregistruodami mūsų tinklalapyje arba uždarydami šį pranešimą, sutinkate su jų naudojimu.',
-    'cookie_agree' => 'Sutinku',
 
     // Widgets
     'statistics' => 'Statistika',

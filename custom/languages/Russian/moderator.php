@@ -12,7 +12,6 @@
 
 $language = [
     'staff_cp' => 'Админ панель',
-    'overview' => 'Обзор',
 
     // Spam
     'spam' => 'Спам',

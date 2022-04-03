@@ -43,9 +43,6 @@ $language = [
     'confirm' => 'Bekræft',
     'actions' => 'Handlinger',
     'alerts' => 'Notifikationer',
-    'view_alerts' => 'Vis notifikationer',
-    'messages' => 'Beskeder',
-    'view_messages' => 'Se beskeder',
     'loading' => 'Indlæser...',
     'report' => 'Rapport',
     'reported_by' => 'Reported by {{author}}',
@@ -92,7 +89,6 @@ $language = [
      *  Cookie notice
      */
     'cookie_notice' => 'Denne hjemmeside bruger cookies til at forbedre din browsing oplevelse. Ved at registrere på vores hjemmeside eller lukke denne meddelelse accepterer du deres brug.',
-    'cookie_agree' => 'Accepter',
 
     /*
      *  Widgets

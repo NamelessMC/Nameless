@@ -15,7 +15,6 @@
  */
 
 $language = [
-    'overview' => '概要',
 
     // Spam
     'spam' => 'スパム',

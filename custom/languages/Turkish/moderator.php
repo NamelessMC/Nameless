@@ -12,7 +12,6 @@
 $language = [
     'mod_cp' => 'Moderatör Panel',
     'staff_cp' => 'Yönetim Panel',
-    'overview' => 'Görüntüle',
 
     // Spam
     'spam' => 'Spam',

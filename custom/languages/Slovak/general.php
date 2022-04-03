@@ -43,10 +43,6 @@ $language = [
     'confirm' => 'Potvrdiť',
     'actions' => 'Akcie',
     'alerts' => 'Upozornenie',
-    'view_alerts' => 'Zobraziť upozornenia',
-    'x_new_alerts' => 'Máte {{count}} nových upozornení.',
-    'messages' => 'Správy',
-    'view_messages' => 'Zobraziť správy',
     'loading' => 'Načítavanie...',
     'report' => 'Nahlásiť',
     'reported_by' => 'Nahlásene od {{author}}',
@@ -93,7 +89,6 @@ $language = [
      *  Server query
      */
     'player_count' => '{{onlinePlayers}}/{{totalPlayers}}',
-    'ping' => 'Ping: {{ping}}',
     'version' => 'Verzia: {{version}}',
     'currently_1_player_online' => 'Aktuálne je online <strong>1</strong> hráč.',
     'currently_x_players_online' => 'Aktuálne je {{count}} online hráčov.',
@@ -111,7 +106,6 @@ $language = [
      *  Cookie notice
      */
     'cookie_notice' => 'Táto webstránka používa súbory cookie na zlepšenie vášho zážitku z prehliadania. Registráciou na našom webe alebo zatvorením tohto oznámenia súhlasíte s ich použitím.',
-    'cookie_agree' => 'Súhlasím',
 
     /*
      *  Widgets

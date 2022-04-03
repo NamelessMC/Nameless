@@ -44,9 +44,6 @@ $language = [
     'confirm' => '重複確認',
     'actions' => '動作',
     'alerts' => '提醒',
-    'view_alerts' => '檢視通知',
-    'messages' => '訊息',
-    'view_messages' => '檢視訊息',
     'loading' => '讀取中...',
     'report' => '回報',
     'page_loaded_in' => '畫面在 {{time}}秒 讀取完畢',
@@ -69,7 +66,6 @@ $language = [
      */
     'online' => '線上',
     'offline' => '離線',
-    'ping' => '延遲: {{ping}}',
     'version' => '版本: {{version}}',
     'currently_x_players_online' => '現在有 {{count}} 位玩家在線上.',
     'server_offline' => '伺服器目前離線.',

@@ -43,9 +43,6 @@ $language = [
     'confirm' => 'Confirm',
     'actions' => 'Actions',
     'alerts' => 'Alerts',
-    'view_alerts' => 'View alerts',
-    'messages' => 'Messages',
-    'view_messages' => 'View messages',
     'loading' => 'Loading...',
     'report' => 'Report',
     'reported_by' => 'Reported by {{author}}',
@@ -94,7 +91,6 @@ $language = [
     'online' => 'Online',
     'offline' => 'Offline',
     'player_count' => '{{onlinePlayers}}/{{totalPlayers}}',
-    'ping' => 'Ping: {{ping}}',
     'version' => 'Version: {{version}}',
     'currently_1_player_online' => 'There is currently {{count}} player online.',
     'currently_x_players_online' => 'There are currently {{count}} players online.',
@@ -112,7 +108,6 @@ $language = [
      *  Cookie notice
      */
     'cookie_notice' => 'This website uses cookies to enhance your browsing experience. By registering on our website or closing this notice you agree with their use.',
-    'cookie_agree' => 'Agree',
 
     /*
      *  Widgets

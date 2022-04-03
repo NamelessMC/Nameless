@@ -43,10 +43,6 @@ $language = [
     'confirm' => 'Onayla',
     'actions' => 'Eylemler',
     'alerts' => 'Bildirimler',
-    'view_alerts' => 'Tümünü gör...',
-    'x_new_alerts' => '{{count}} yeni bildiriminiz var.',
-    'messages' => 'Özel konuşmalar',
-    'view_messages' => 'Tümünü gör...',
     'loading' => 'Yükleniyor...',
     'report' => 'Raporla',
     'page_loaded_in' => 'Sayfa {{time}} saniye içinde yüklendi',
@@ -85,7 +81,6 @@ $language = [
     'online' => 'Çevrimiçi',
     'offline' => 'Çevrimdışı',
     'player_count' => '{{onlinePlayers}}/{{totalPlayers}}',
-    'ping' => 'Gecikme: {{ping}}',
     'version' => 'Sürüm: {{version}}',
     'currently_1_player_online' => 'Şu anda <strong>1</strong> oyuncu çevrimiçi.',
     'currently_x_players_online' => 'Şu anda çevrimiçi {{count}} oyuncu var',
@@ -103,7 +98,6 @@ $language = [
      *  Cookie notice
      */
     'cookie_notice' => 'Bu web sitesi, tarama deneyiminizi geliştirmek için çerezleri kullanır. Web sitemize kayıt olarak veya bu bildirimi kapatarak kullanımlarını kabul etmiş olursunuz..',
-    'cookie_agree' => 'Katılıyorum',
 
     /*
      *  Widgets

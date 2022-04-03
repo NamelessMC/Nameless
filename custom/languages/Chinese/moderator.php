@@ -15,7 +15,6 @@
 
 $language = [
     'mod_cp' => '控制者後台',
-    'overview' => '總覽',
 
     // Spam
     'spam' => '垃圾訊息',
