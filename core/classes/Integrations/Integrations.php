@@ -29,8 +29,10 @@ class Integrations extends Instanceable {
      * @return IntegrationBase|null Instance of integration with same name, null if it doesnt exist.
      */
     public function getIntegration(string $name): ?IntegrationBase {
-        if (array_key_exists($name, $this->_integrations)) {
-            return $this->_integrations[$name];
+        foreach ($this->_integrations as $integration) {
+            if (strcasecmp($name, $integration->getName()) == 0) {
+                return $integration;
+            }
         }
 
         return null;
