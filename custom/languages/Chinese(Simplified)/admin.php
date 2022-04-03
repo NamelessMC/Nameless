@@ -719,7 +719,7 @@ $language = [
     'average_players' => '普通玩家',
     'nameless_news' => 'NamelessMC 新闻',
     'unable_to_retrieve_nameless_news' => '无法获取最新新闻',
-    'confirm_leave_site' => '您即将离开我们的网站！您确定要访问 <strong id="leaveSiteURL">{x}</strong>?',
+    'confirm_leave_site' => '您即将离开我们的网站！您确定要访问 {{link}}?',
     'server_compatibility' => '服务器兼容性',
     'issues' => '问题',
 

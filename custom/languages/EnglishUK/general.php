@@ -156,11 +156,6 @@ $language = [
     'toggle_dark_mode' => 'Toggle dark mode',
 
     /*
-     *  Custom page redirect
-     */
-    'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{{link}}" rel="nofollow noopener">here</a>.', // Don't replace {{link}} which is the redirect URL
-
-    /*
      * OAuth
      */
     'oauth_message_continue' => 'Continue registering with {{provider}}',

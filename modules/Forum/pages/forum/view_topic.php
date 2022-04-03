@@ -700,8 +700,8 @@ foreach ($results->data as $n => $nValue) {
         'profile' => $post_creator->getProfileURL(),
         'user_style' => $post_creator->getGroupClass(),
         'user_groups' => $user_groups_html,
-        'user_posts_count' => str_replace('{x}', $forum->getPostCount($nValue->post_creator), $forum_language->get('forum', 'x_posts')),
-        'user_topics_count' => str_replace('{x}', $forum->getTopicCount($nValue->post_creator), $forum_language->get('forum', 'x_topics')),
+        'user_posts_count' => $forum_language->get('forum', 'x_posts', ['count' => $forum->getPostCount($nValue->post_creator)]),
+        'user_topics_count' => $forum_language->get('forum', 'x_topics', ['count' => $forum->getTopicCount($nValue->post_creator)]),
         'user_registered' => $forum_language->get('forum', 'registered_x', ['registeredAt' => $timeago->inWords($post_creator->data()->joined, $language)]),
         'user_registered_full' => date('d M Y', $post_creator->data()->joined),
         'user_reputation' => $post_creator->data()->reputation,
@@ -711,7 +711,9 @@ foreach ($results->data as $n => $nValue) {
         'content' => $content,
         'signature' => Output::getPurified(Util::renderEmojis($signature)),
         'fields' => (empty($fields) ? [] : $fields),
-        'edited' => (is_null($nValue->last_edited) ? null : str_replace('{x}', $timeago->inWords($nValue->last_edited, $language), $forum_language->get('forum', 'last_edited'))),
+        'edited' => is_null($nValue->last_edited)
+            ? null
+            : $forum_language->get('forum', 'last_edited', ['lastEditedAt' => $timeago->inWords($nValue->last_edited, $language)]),
         'edited_full' => (is_null($nValue->last_edited) ? null : date(DATE_FORMAT, $nValue->last_edited)),
         'post_reactions' => $post_reactions,
         'karma' => $total_karma

@@ -22,6 +22,7 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Handle input
 if (isset($_GET['do'])) {
+    // TODO: new language system
     if ($_GET['do'] == 'installLanguage') {
         // Install new language
         $languages = glob(ROOT_PATH . DIRECTORY_SEPARATOR . 'custom' . DIRECTORY_SEPARATOR . 'languages' . DIRECTORY_SEPARATOR . '*', GLOB_ONLYDIR);
@@ -288,7 +289,7 @@ $contact_email = Output::getClean($contact_email[0]->value);
 
 $languages = $queries->getWhere('languages', ['id', '<>', 0]);
 $count = count($languages);
-
+// TODO: new language system
 for ($i = 0; $i < $count; $i++) {
     $language_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'languages', $languages[$i]->name, 'version.php']);
     if (!file_exists($language_path)) {

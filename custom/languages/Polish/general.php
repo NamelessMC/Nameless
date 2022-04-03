@@ -135,9 +135,4 @@ $language = [
      *  Privacy policy
      */
     'privacy_policy' => 'Polityka Prywatności',
-
-    /*
-     *  Custom page redirect
-     */
-    'redirecting_message' => 'Przekierowywanie...<br />Jeżeli nie przenieśliśmy cię automatycznie kliknij <a href="{x}" rel="nofollow noopener">tutaj</a>.',
 ];

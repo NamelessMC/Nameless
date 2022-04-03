@@ -145,11 +145,6 @@ $language = [
     'privacy_policy' => 'Политика конфиденциальности',
 
     /*
-     *  Custom page redirect
-     */
-    'redirecting_message' => 'Перенаправление...<br />Если вы не перенаправлены автоматически, пожалуйста, нажмите на <a href="{x}" rel="nofollow noopener">эту кнопку</a>.',
-
-    /*
      * OAuth
      */
     'oauth_message_continue' => 'Продолжить регистрироваться с {{provider}}',

@@ -123,9 +123,4 @@ $language = [
      *  Privacy policy
      */
     'privacy_policy' => 'นโยบายความเป็นส่วนตัว',
-
-    /*
-     *  Custom page redirect
-     */
-    'redirecting_message' => 'กำลังเปลี่ยนเส้นทาง...<br />หากคุณไม่ถูกเปลี่ยนเส้นทางโดยอัตโนมัติ โปรดคลิก <a href="{x}" rel="nofollow noopener">ที่นี่/a>.',
 ];

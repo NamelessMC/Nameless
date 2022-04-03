@@ -55,7 +55,7 @@ if (!isset($_GET['s'])) {
     }
 
     if (isset($_SESSION['last_forum_search']) && $_SESSION['last_forum_search_query'] != $_GET['s'] && $_SESSION['last_forum_search'] > strtotime('-1 minute')) {
-        Session::flash('search_error', str_replace('{x}', (60 - (date('U') - $_SESSION['last_forum_search'])), $forum_language->get('forum', 'search_again_in_x_seconds')));
+        Session::flash('search_error', $forum_language->get('forum', 'search_again_in_x_seconds', ['count' => (60 - (date('U') - $_SESSION['last_forum_search']))]));
         Redirect::to(URL::build('/forum/search'));
     }
 

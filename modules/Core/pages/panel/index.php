@@ -200,7 +200,9 @@ $smarty->assign([
     'GRAPHS' => $graphs,
     'STATISTICS' => $language->get('admin', 'statistics'),
     'NAMELESS_NEWS' => $language->get('admin', 'nameless_news'),
-    'CONFIRM_LEAVE_SITE' => $language->get('admin', 'confirm_leave_site'),
+    'CONFIRM_LEAVE_SITE' => $language->get('admin', 'confirm_leave_site', [
+        'link' => '<strong id="leaveSiteURL">{x}</strong>', // TODO: new language system. do we want html here? i'm confused why we can't have html...
+    ]),
     'YES' => $language->get('general', 'yes'),
     'NO' => $language->get('general', 'no'),
     'MAIN_ITEMS' => CollectionManager::getEnabledCollection('dashboard_main_items'),

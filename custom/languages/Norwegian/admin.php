@@ -651,7 +651,7 @@ $language = [
     'average_players' => 'Gjennomsnittlige spillere',
     'nameless_news' => 'NamelessMC-nyheter',
     'unable_to_retrieve_nameless_news' => 'Kunne ikke laste inn nyeste nytt',
-    'confirm_leave_site' => 'Du er i ferd med å forlate denne siden! Er du sikker på at du vil besøke <strong id="leaveSiteURL">{x}</strong>?',
+    'confirm_leave_site' => 'Du er i ferd med å forlate denne siden! Er du sikker på at du vil besøke {{link}}?',
     'server_compatibility' => 'Serverkompatibilitet',
     'issues' => 'Feil',
 

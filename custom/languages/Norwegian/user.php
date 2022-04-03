@@ -87,7 +87,6 @@ $language = [
     'password' => 'Passord',
     'confirm_password' => 'Bekreft passordet',
     'i_agree' => 'Jeg godtar',
-    'agree_t_and_c' => 'I have read and accept the <a href="{x}" target="_blank">Terms and Conditions</a>.',
     'create_an_account' => 'Opprett ny konto',
     'terms_and_conditions' => 'Vilkår for tjenesten',
     'validation_complete' => 'Kontoen er nå bekreftet.',

@@ -145,11 +145,6 @@ $language = [
     'privacy_policy' => 'Privacy Policy',
 
     /*
-     *  Custom page redirect
-     */
-    'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{x}" rel="nofollow noopener">here</a>.',
-
-    /*
      * OAuth
      */
     'oauth_message_continue' => 'Continue registering with {{provider}}',

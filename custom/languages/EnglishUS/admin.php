@@ -701,7 +701,7 @@ $language = [
     'recent_users' => 'New Users',
     'nameless_news' => 'NamelessMC News',
     'unable_to_retrieve_nameless_news' => 'Unable to retrieve the latest news',
-    'confirm_leave_site' => 'You are about to leave this site! Are you sure you want to visit <strong id="leaveSiteURL">{x}</strong>?',
+    'confirm_leave_site' => 'You are about to leave this site! Are you sure you want to visit {{link}}?',
     'server_compatibility' => 'Server Compatibility',
 
     // Other

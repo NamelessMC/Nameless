@@ -706,7 +706,7 @@ $language = [
     'recent_users' => '新規ユーザー',
     'nameless_news' => 'NamelessMC ニュース',
     'unable_to_retrieve_nameless_news' => '最新のニュースを取得できませんでした。',
-    'confirm_leave_site' => 'サイトを離れようとしています。<strong id = "leaveSiteURL"> {x} </strong>にアクセスしてもよろしいですか？',
+    'confirm_leave_site' => 'サイトを離れようとしています。{{link}} にアクセスしてもよろしいですか？',
     'server_compatibility' => 'サーバーの互換性',
 
     // Other

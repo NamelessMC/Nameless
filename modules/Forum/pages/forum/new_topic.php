@@ -222,7 +222,7 @@ if (Input::exists()) {
                 $error = $validate->errors();
             }
         } else {
-            $error = [str_replace('{x}', (strtotime($last_post[0]->post_date) - strtotime('-30 seconds')), $forum_language->get('forum', 'spam_wait'))];
+            $error = [$forum_language->get('forum', 'spam_wait', ['count' => (strtotime($last_post[0]->post_date) - strtotime('-30 seconds'))])];
         }
     } else {
         $error = [$language->get('general', 'invalid_token')];
@@ -242,7 +242,7 @@ if (isset($error)) {
     $smarty->assign('ERROR', $error);
 }
 
-$creating_topic_in = str_replace('{x}', $forum_title, $forum_language->get('forum', 'creating_topic_in_x'));
+$creating_topic_in = $forum_language->get('forum', 'creating_topic_in_x', ['forum' => $forum_title]);
 $smarty->assign('CREATING_TOPIC_IN', $creating_topic_in);
 
 // Get info about forum

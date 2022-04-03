@@ -694,7 +694,7 @@ $language = [
     'recent_users' => 'Noví užívatelia',
     'nameless_news' => 'NamelessMC novinky',
     'unable_to_retrieve_nameless_news' => 'Nie je možné načítať najnovšie novinky',
-    'confirm_leave_site' => 'Chystáte sa opustiť túto stránku! Naozaj chcete navštíviť <strong id="leaveSiteURL">{x}</strong>?',
+    'confirm_leave_site' => 'Chystáte sa opustiť túto stránku! Naozaj chcete navštíviť {{link}}?',
     'server_compatibility' => 'Kompatibilita so serverom',
 
     // Other

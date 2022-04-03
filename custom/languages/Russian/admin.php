@@ -701,7 +701,7 @@ $language = [
     'recent_users' => 'Новые пользователи',
     'nameless_news' => 'Новости NamelessMC',
     'unable_to_retrieve_nameless_news' => 'Невозможно получить последние новости',
-    'confirm_leave_site' => 'Вы вот-вот покинете этот сайт! Вы уверены, что хотите перейти на <strong id="leaveSiteURL">{x}</strong>?',
+    'confirm_leave_site' => 'Вы вот-вот покинете этот сайт! Вы уверены, что хотите перейти на {{link}}?',
     'server_compatibility' => 'Совместимость сервера',
 
     // Other

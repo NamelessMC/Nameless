@@ -679,7 +679,7 @@ $language = [
     'average_players' => 'Durchschnittliche Spieler',
     'nameless_news' => 'NamelessMC Neuigkeiten',
     'unable_to_retrieve_nameless_news' => 'Die neuesten Nachrichten konnten nicht abgerufen werden',
-    'confirm_leave_site' => 'Du bist im Begriff, diese Seite zu verlassen! Möchtest Du <strong id="leaveSiteURL">{x}</strong>unbedingt besuchen??',
+    'confirm_leave_site' => 'Du bist im Begriff, diese Seite zu verlassen! Möchtest Du {{link}} unbedingt besuchen??',
     'server_compatibility' => 'Serverkompatibilität',
     'issues' => 'Probleme',
 

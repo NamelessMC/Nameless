@@ -137,9 +137,4 @@ $language = [
      *  Privacy policy
      */
     'privacy_policy' => '隐私政策',
-
-    /*
-     *  Custom page redirect
-     */
-    'redirecting_message' => '重定向中...<br />如果您的页面没有自动跳转，请点击 <a href="{x}" rel="nofollow noopener">这里</a>.',
 ];

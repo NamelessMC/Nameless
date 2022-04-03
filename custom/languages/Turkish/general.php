@@ -127,16 +127,9 @@ $language = [
     'discord_widget_disabled' => 'Widget, belirtilen Discord sunucusu için devre dışı bırakıldı. Lütfen Discord sunucu ayarlarınızdaki \'Widget \' sekmesine gidin ve Discord widget\'ının etkinleştirildiğinden ve kimliğin doğru olduğundan emin olun.',
     'online_guests' => 'Çevrimiçi Ziyaretçi',
     'total_online' => 'Toplam Çevrimiçi', // this is Online Users + Online Guests
-    'no_default_server' => 'There is no default server, please select one in StaffCP - Integrations - Minecraft.',
-    'server_status' => 'Server Status',
 
     /*
      *  Privacy policy
      */
     'privacy_policy' => 'Gizlilik Politikası',
-
-    /*
-     *  Custom page redirect
-     */
-    'redirecting_message' => 'Yeniden yönlendiriliyor ... <br />Otomatik olarak yönlendirilmiyorsanız, lütfen <a href="{x}" rel="nofollow noopener">burayı</a> tıklayın.',
 ];

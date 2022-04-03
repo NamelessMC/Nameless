@@ -579,7 +579,7 @@ $language = [
     'average_players' => 'Vidutiniai žaidėjai',
     'nameless_news' => 'NamelessMC Naujienos',
     'unable_to_retrieve_nameless_news' => 'Nepavyko gauti naujausių naujienų.',
-    'confirm_leave_site' => 'Jūs ketinate palikti šią svetainę! Ar tikrai norite aplankyti <strong id="leaveSiteURL">{x}</strong>?',
+    'confirm_leave_site' => 'Jūs ketinate palikti šią svetainę! Ar tikrai norite aplankyti {{link}}?',
     'server_compatibility' => 'Serverio Suderinamumas',
     'issues' => 'Problemos',
 

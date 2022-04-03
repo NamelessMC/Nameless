@@ -694,7 +694,7 @@ $language = [
     'average_players' => 'Średnia liczba graczy',
     'nameless_news' => 'Newsy NamelessMC',
     'unable_to_retrieve_nameless_news' => 'Podczas pobierania newsów NamelessMC wystąpił błąd',
-    'confirm_leave_site' => 'Zamierzasz opuścić tę stronę! Czy na pewno chcesz przejść do <strong id="leaveSiteURL">{x}</strong>?',
+    'confirm_leave_site' => 'Zamierzasz opuścić tę stronę! Czy na pewno chcesz przejść do {{link}}?',
     'server_compatibility' => 'Kompatybilność serwera',
     'issues' => 'Problemy',
 

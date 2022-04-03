@@ -641,7 +641,7 @@ Vous devriez configurer votre groupe par défaut pour avoir des autorisations li
     'average_players' => 'Joueurs moyens',
     'nameless_news' => 'Nouvelles NamelessMC',
     'unable_to_retrieve_nameless_news' => 'Impossible de récupérer les dernières nouvelles',
-    'confirm_leave_site' => 'Vous êtes sur le point de quitter ce site ! Êtes-vous sûr de vouloir visiter <strong id="leaveSiteURL">{x}</strong> ?',
+    'confirm_leave_site' => 'Vous êtes sur le point de quitter ce site ! Êtes-vous sûr de vouloir visiter {{link}}?',
     'server_compatibility' => 'Compatibilité des serveurs',
     'issues' => 'Questions',
 

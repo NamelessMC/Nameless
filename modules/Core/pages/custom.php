@@ -53,9 +53,7 @@ if (!isset($can_view)) {
 
 if ($custom_page->redirect) {
     header('X-Robots-Tag: noindex, nofollow');
-    header('Location: ' . Output::getClean($custom_page->link));
-
-    die(str_replace('{x}', Output::getClean($custom_page->link), $language->get('general', 'redirecting_message')));
+    Redirect::to(URL::build(Output::getClean($custom_page->link)));
 }
 
 // Always define page name

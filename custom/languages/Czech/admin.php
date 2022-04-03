@@ -691,7 +691,7 @@ $language = [
     'recent_users' => 'Noví uživatelé',
     'nameless_news' => 'NamelessMC novinky',
     'unable_to_retrieve_nameless_news' => 'Nepodařilo se získat novinky',
-    'confirm_leave_site' => 'Chystáte se opustit tento web! Opravdu chcete navštívit <strong id="leaveSiteURL">{x}</strong>?',
+    'confirm_leave_site' => 'Chystáte se opustit tento web! Opravdu chcete navštívit {{link}}?',
     'server_compatibility' => 'Kompatibilita serveru',
 
     // Other

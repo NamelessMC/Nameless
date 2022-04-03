@@ -693,7 +693,7 @@ $language = [
     'recent_users' => 'Nuevos usuarios',
     'nameless_news' => 'Noticias de NamelessMC',
     'unable_to_retrieve_nameless_news' => 'No se pueden recuperar las últimas noticias',
-    'confirm_leave_site' => '¡Está a punto de abandonar este sitio! ¿Estás seguro de que quieres visitar <strong id="leaveSiteURL">{x}</strong>?',
+    'confirm_leave_site' => '¡Está a punto de abandonar este sitio! ¿Estás seguro de que quieres visitar {{link}}?',
     'server_compatibility' => 'Compatibilidad del servidor',
 
     // Other

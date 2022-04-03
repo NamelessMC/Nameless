@@ -143,11 +143,6 @@ $language = [
     'privacy_policy' => 'Zásady ochrany osobných údajov',
 
     /*
-     *  Custom page redirect
-     */
-    'redirecting_message' => 'Presmerovanie... <br />Ak sa nepresmerujete automaticky, kliknite <a href="{x}" rel="nofollow noopener">tu</a>.',
-
-    /*
      * OAuth
      */
     'oauth_message_continue' => 'Pokračovať v registrácii s {{provider}}',

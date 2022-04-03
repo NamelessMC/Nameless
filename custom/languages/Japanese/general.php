@@ -150,11 +150,6 @@ $language = [
     'privacy_policy' => 'プライバシーポリシー',
 
     /*
-     *  Custom page redirect
-     */
-    'redirecting_message' => 'リダイレクト...<br />自動的にリダイレクトされない場合は、<a href="{x}" rel="nofollow noopener">こちら</a>をクリックしてください。',
-
-    /*
      * OAuth
      */
     'oauth_message_continue' => '続けて {{provider}} で登録する。',

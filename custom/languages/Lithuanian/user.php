@@ -87,7 +87,6 @@ $language = [
     'password' => 'Slaptažodis',
     'confirm_password' => 'Patvirtinti slaptažodį',
     'i_agree' => 'Aš Sutinku',
-    'agree_t_and_c' => 'I have read and accept the <a href="{x}" target="_blank">Terms and Conditions</a>.',
     'create_an_account' => 'Sukurti paskyrą',
     'terms_and_conditions' => 'Terminai & Sąlygos',
     'validation_complete' => 'Jūsų paskyra patvirtinta, dabar galite prisijungti.',

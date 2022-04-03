@@ -230,7 +230,7 @@ if ($page != 'install') {
                 define('LANGUAGE', $language);
             }
         } else {
-            define('LANGUAGE', $language[0]->name);
+            define('LANGUAGE', $language[0]->name); // TODO: new language system
         }
     }
     $language = new Language();

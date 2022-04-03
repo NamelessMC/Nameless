@@ -607,8 +607,6 @@ $language = [
     'recent_users' => 'Yeni Kullanıcılar',
     'average_players' => 'Ortalama kullanıcılar',
     'nameless_news' => 'NamelessMC Haberleri',
-    'unable_to_retrieve_nameless_news' => 'Unable to retrieve the latest news',
-    'confirm_leave_site' => 'You are about to leave this site! Are you sure you want to visit <strong id="leaveSiteURL">{x}</strong>?',
     'server_compatibility' => 'Sunucu Durumu',
     'issues' => 'Sorunlar',
 

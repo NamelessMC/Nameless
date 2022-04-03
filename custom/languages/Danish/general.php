@@ -123,9 +123,4 @@ $language = [
      *  Privacy policy
      */
     'privacy_policy' => 'Privatlivspolitik',
-
-    /*
-     *  Custom page redirect
-     */
-    'redirecting_message' => 'Omdirigerer...<br />Hvis du ikke bliver omdirigeret automatisk, klik venligst <a href="{x}" rel="nofollow noopener">her</a>.',
 ];
