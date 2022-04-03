@@ -89,7 +89,7 @@ $language = [
     'password' => 'Password',
     'confirm_password' => 'Confirm Password',
     'i_agree' => 'I Agree',
-    'agree_t_and_c' => 'I have read and accept the <a href="{x}" target="_blank">Terms and Conditions</a>.',
+    'agree_t_and_c' => 'I have read and accept the {{linkStart}}Terms and Conditions</a>.',
     'create_an_account' => 'Create an Account',
     'terms_and_conditions' => 'Terms and Conditions',
     'validation_complete' => 'Your account has been validated, you can now log in.',

@@ -91,7 +91,7 @@ $language = [
     'password' => 'Lösenord',
     'confirm_password' => 'Bekräfta Lösenord',
     'i_agree' => 'Jag accepterar.',
-    'agree_t_and_c' => 'Jag har läst och accepterar <a href="{x}" target="_blank">Villkor</a>.',
+    'agree_t_and_c' => 'Jag har läst och accepterar {{linkStart}}Villkor{{linkEnd}}.',
     'create_an_account' => 'Skapa ett konto',
     'terms_and_conditions' => 'Användar Villkor',
     'validation_complete' => 'Ditt konto har validerats, du kan nu logga in.',

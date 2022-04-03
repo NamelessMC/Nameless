@@ -89,7 +89,7 @@ $language = [
     'debugging_and_maintenance' => 'メンテナンス',
     'maintenance' => 'メンテナンス',
     'debug_link' => 'デバッグリンク',
-    'debug_link_toastr' => 'デバッグリンクをクリップボードに貼り付けました！<br>デバッグログは<u><a href="{x}" target="_blank">こちら</a></u>からご覧ください。',
+    'debug_link_toastr' => 'デバッグリンクをクリップボードに貼り付けました！<br>デバッグログは {{linkStart}}こちら{{linkEnd}} からご覧ください。',
     'debugging_settings_updated_successfully' => 'デバッグ設定の更新に成功しました。',
     'enable_debug_mode' => 'デバッグモードを有効にしますか？',
     'force_https' => 'httpsを強制させますか？',

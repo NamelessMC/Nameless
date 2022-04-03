@@ -90,7 +90,7 @@ $language = [
     'password' => 'รหัสผ่าน',
     'confirm_password' => 'ยืนยันรหัสผ่าน',
     'i_agree' => 'ฉันยอมรับ',
-    'agree_t_and_c' => 'ฉันได้อ่านและยอมรับ <a href="{x}" target="_blank">ข้อกำหนดและเงื่อนไข</a>.',
+    'agree_t_and_c' => 'ฉันได้อ่านและยอมรับ {{linkStart}}ข้อกำหนดและเงื่อนไข{{linkEnd}}.',
     'create_an_account' => 'สร้างบัญชี',
     'terms_and_conditions' => 'ข้อกำหนดและเงื่อนไข',
     'validation_complete' => 'บัญชีของคุณได้รับการตรวจสอบแล้ว คุณสามารถเข้าสู่ระบบได้แล้ว',

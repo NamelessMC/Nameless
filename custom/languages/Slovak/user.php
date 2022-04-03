@@ -89,7 +89,7 @@ $language = [
     'password' => 'Heslo',
     'confirm_password' => 'Potvrdiť heslo',
     'i_agree' => 'Súhlasím',
-    'agree_t_and_c' => 'Prečítal/a som si <a href="{x}" target="_blank">podmienky</a> a súhlasím s nimi.',
+    'agree_t_and_c' => 'Prečítal/a som si {{linkStart}}podmienky{{linkEnd}} a súhlasím s nimi.',
     'create_an_account' => 'Vytvoriť účet',
     'terms_and_conditions' => 'Podmienky',
     'validation_complete' => 'Váš účet bol overený. Teraz sa môžete prihlásiť.',

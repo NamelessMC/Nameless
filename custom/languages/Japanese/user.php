@@ -94,7 +94,7 @@ $language = [
     'password' => 'パスワード',
     'confirm_password' => 'パスワードの確認',
     'i_agree' => '同意します',
-    'agree_t_and_c' => '<a href="{x}" target="_blank">利用規約</a>を読み、同意しました。',
+    'agree_t_and_c' => '{{linkStart}}利用規約{{linkEnd}} を読み、同意しました。',
     'create_an_account' => 'アカウント作成',
     'terms_and_conditions' => '利用規約',
     'validation_complete' => 'アカウントが検証されました。ログインが可能です。',

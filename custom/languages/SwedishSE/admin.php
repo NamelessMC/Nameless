@@ -672,7 +672,6 @@ $language = [
     'report_hook_info' => 'Rapportera skapelse',
 
     // Sitemap
-    'impossible_to_load_sitemap_file_x' => 'Det går inte att läsa in webbplatskartfilen {x}',
     'sitemap_generated' => 'Sitemap genereras framgångsrikt',
     'sitemap_not_writable' => 'Katalogen <strong> cache / sitemaps </strong> är inte skrivbar.',
     'cache_not_writable' => 'Katalogen <strong> cache </strong> är inte skrivbar.',

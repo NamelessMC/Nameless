@@ -92,7 +92,7 @@ $language = [
     'password' => '密码',
     'confirm_password' => '二次确认密码',
     'i_agree' => '我同意',
-    'agree_t_and_c' => '我已认真阅读并同意<a href="{x}" target="_blank">条款与条件</a>。',
+    'agree_t_and_c' => '我已认真阅读并同意 {{linkStart}}条款与条件{{linkEnd}}。',
     'create_an_account' => '创建一个帐号',
     'terms_and_conditions' => '服务条款与相关条件',
     'validation_complete' => '您的帐号已通过验证，现在您可以进行登录等操作。',

@@ -87,7 +87,7 @@ $language = [
     'password' => 'Adgangskode',
     'confirm_password' => 'Bekræft Adgangskode',
     'i_agree' => 'Jeg Accepterer',
-    'agree_t_and_c' => 'Ved at klikke på <strong class="label label-primary">Registrer</strong>, accepterer du vores <a href="{x}" target="_blank">Vilkår og Betingelser</a>.',
+    'agree_t_and_c' => 'Ved at klikke på {{linkStart}}Vilkår og Betingelser{{linkEnd}}.',
     'create_an_account' => 'Opret en konto',
     'terms_and_conditions' => 'Vilkår og Betingelser',
     'validation_complete' => 'Din konto er blevet valideret, du kan nu logge ind.',

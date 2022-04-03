@@ -84,7 +84,7 @@ $language = [
     'debugging_and_maintenance' => 'Отладка & Режим обслуживания',
     'maintenance' => 'Отладка',
     'debug_link' => 'Ссылка на отладочную страницу',
-    'debug_link_toastr' => 'Отладочная страница скопирована в буфер обмена!<br>Открыть журнал можете <u><a href="{x}" target="_blank">здесь</a></u>',
+    'debug_link_toastr' => 'Отладочная страница скопирована в буфер обмена!<br>Открыть журнал можете {{linkStart}}здесь{{linkEnd}}',
     'debugging_settings_updated_successfully' => 'Параметры отладки успешно обновлены.',
     'enable_debug_mode' => 'Включить режим отладки?',
     'force_https' => 'Использовать https?',

@@ -87,7 +87,7 @@ $language = [
     'password' => 'Passwort',
     'confirm_password' => 'Passwort wiederholen',
     'i_agree' => 'Ich akzeptiere',
-    'agree_t_and_c' => 'Ich akzeptiere die <a href="{x}" target="_blank">Nutzungsbedingungen</a>.',
+    'agree_t_and_c' => 'Ich akzeptiere die {{linkStart}}Nutzungsbedingungen{{linkEnd}}.',
     'create_an_account' => 'Erstelle einen Account',
     'terms_and_conditions' => 'Nutzungsbedingungen',
     'validation_complete' => 'Dein Account wurde verifiziert. Du kannst dich nun anmelden.',

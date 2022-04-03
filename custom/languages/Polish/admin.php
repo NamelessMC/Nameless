@@ -40,7 +40,7 @@ $language = [
     'posts' => 'Posty',
     'notices' => 'Powiadomienia',
     'no_notices' => 'Brak powiadomień.',
-    'email_errors_logged' => 'Błędy email zostały zapisane. Kliknij <a href="{x}">tutaj</a> aby je zobaczyć.',
+    'email_errors_logged' => 'Błędy email zostały zapisane.',
 
     // Core
     'mode_toggle' => 'Ciemny Tryb',

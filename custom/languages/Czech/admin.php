@@ -80,7 +80,6 @@ $language = [
     'debugging_and_maintenance' => 'Ladění a údržba',
     'maintenance' => 'Údržba',
     'debug_link' => 'Odkaz ladění',
-    'debug_link_toastr' => 'Odkaz ladění zkopírován do vaší schránky!',
     'debugging_settings_updated_successfully' => 'Nastavení ladění úspěšně aktualizována.',
     'enable_debug_mode' => 'Povolit režim ladění?',
     'force_https' => 'Vynutit https?',

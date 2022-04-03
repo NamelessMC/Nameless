@@ -80,7 +80,7 @@ $language = [
     'debugging_and_maintenance' => 'Ladenie a údržba',
     'maintenance' => 'Údržba',
     'debug_link' => 'Odkaz ladenia',
-    'debug_link_toastr' => 'Odkaz ladenia bol skopírovaný do vašej schránky!<br>Zobraziť zaznám ladenia <u><a href="{x}" target="_blank">tu</a></u>',
+    'debug_link_toastr' => 'Odkaz ladenia bol skopírovaný do vašej schránky!<br>Zobraziť zaznám ladenia {{linkStart}}tu{{linkEnd}}',
     'debugging_settings_updated_successfully' => 'Nastavenia ladenia sa úspešne aktualizovali.',
     'enable_debug_mode' => 'Povoliť debug mód?',
     'force_https' => 'Vynútiť https?',

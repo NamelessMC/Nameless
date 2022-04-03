@@ -111,7 +111,10 @@ $smarty->assign([
     'CONFIRM_PASSWORD' => $language->get('user', 'confirm_password'),
     'SUBMIT' => $language->get('general', 'submit'),
     'I_AGREE' => $language->get('user', 'i_agree'),
-    'AGREE_TO_TERMS' => str_replace('{x}', URL::build('/terms'), $language->get('user', 'agree_t_and_c')),
+    'AGREE_TO_TERMS' => $language->get('user', 'agree_t_and_c', [
+        'linkStart' => '<a href="' . URL::build('/terms') . '" target="_blank">',
+        'linkEnd' => '</a>'
+    ]),
     'TOKEN' => Token::get()
 ]);
 
