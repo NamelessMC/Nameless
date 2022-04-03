@@ -783,15 +783,15 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
         $smarty->assign('NO_ABOUT_FIELDS', $language->get('user', 'no_about_fields'));
     }
 
-    // Minecraft?
-    $minecraft_integration = $queries->getWhere('settings', ['name', '=', 'mc_integration']);
-    $minecraft_integration = $minecraft_integration[0];
-
-    if ($minecraft_integration->value == '1') {
-        $smarty->assign([
-            'UUID' => $profile_user->data()->uuid
-        ]);
+    // User Integrations
+    $user_integrations = [];
+    foreach ($post_creator->getIntegrations() as $integrationUser) {
+        $user_integrations[$integrationUser->getIntegration()->getName()] = [
+            'username' => Output::getClean($integrationUser->data()->username),
+            'identifier' => Output::getClean($integrationUser->data()->identifier)
+        ];
     }
+    $smarty->assign('INTEGRATIONS', $user_integrations);
 
     $profile_placeholders = $profile_user->getProfilePlaceholders();
     foreach ($profile_placeholders as $profile_placeholder) {

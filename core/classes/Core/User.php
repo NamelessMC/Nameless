@@ -127,14 +127,6 @@ class User {
                     $this->addGroup($default_group_id, 0, $default_group);
                 }
 
-                // Get user uuid
-                $uuid = $this->_db->selectQuery('SELECT identifier FROM nl2_users_integrations INNER JOIN nl2_integrations on integration_id=nl2_integrations.id WHERE name = \'Minecraft\' AND user_id = ?;', [$this->_data->id]);
-                if ($uuid->count()) {
-                    $this->_data->uuid = $uuid->first()->identifier;
-                } else {
-                    $this->_data->uuid = '';
-                }
-
                 return true;
             }
         }
@@ -485,7 +477,16 @@ class User {
      * @return string URL to their avatar image.
      */
     public function getAvatar(int $size = 128, bool $full = false): string {
-        return AvatarSource::getAvatarFromUserData($this->data(), $this->hasPermission('usercp.gif_avatar'), $size, $full);
+        $data = $this->data();
+
+        $integrationUser = $this->getIntegration('Minecraft');
+        if ($integrationUser != null) {
+            $data->uuid = $integrationUser->data()->identifier;
+        } else {
+            $data->uuid = '';
+        }
+
+        return AvatarSource::getAvatarFromUserData($data, $this->hasPermission('usercp.gif_avatar'), $size, $full);
     }
 
     /**
@@ -637,8 +638,9 @@ class User {
      */
     public function getPlaceholders(): array {
         return $this->_placeholders ??= (function (): array {
-            if ($this->_data->uuid != null && $this->_data->uuid != 'none') {
-                return Placeholders::getInstance()->loadUserPlaceholders($this->_data->uuid);
+            $integrationUser = $this->getIntegration('Minecraft');
+            if ($integrationUser != null) {
+                return Placeholders::getInstance()->loadUserPlaceholders($integrationUser->data()->identifier);
             }
 
             return [];
@@ -1108,7 +1110,7 @@ class User {
             Placeholders::getInstance()->registerPlaceholder($server_id, $name);
 
             $last_updated = time();
-            $uuid = hex2bin(str_replace('-', '', $this->data()->uuid));
+            $uuid = hex2bin(str_replace('-', '', $this->getIntegration('Minecraft')->data()->identifier));
 
             $this->_db->createQuery('INSERT INTO nl2_users_placeholders (server_id, uuid, name, value, last_updated) VALUES (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE value = ?, last_updated = ?', [
                 $server_id,

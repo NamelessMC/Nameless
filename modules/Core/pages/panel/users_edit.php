@@ -47,7 +47,6 @@ if (isset($_GET['action'])) {
                 EventHandler::executeEvent('validateUser', [
                     'user_id' => $user_query->id,
                     'username' => Output::getClean($user_query->username),
-                    'uuid' => Output::getClean($user_query->uuid),
                     'language' => $language
                 ]);
 

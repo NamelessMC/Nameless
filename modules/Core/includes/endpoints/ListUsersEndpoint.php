@@ -15,7 +15,7 @@ class ListUsersEndpoint extends KeyAuthEndpoint {
     }
 
     public function execute(Nameless2API $api): void {
-        $query = 'SELECT u.id, u.username, u.uuid, u.isbanned AS banned, u.active FROM nl2_users u';
+        $query = 'SELECT u.id, u.username, u.isbanned AS banned, u.active FROM nl2_users u';
         $where = [];
         $params = [];
 
@@ -70,7 +70,6 @@ class ListUsersEndpoint extends KeyAuthEndpoint {
             $user_json = [
                 'id' => (int)$user->id,
                 'username' => $user->username,
-                'uuid' => $user->uuid,
                 'banned' => (bool)$user->banned,
                 'verified' => (bool)$user->active,
                 'integrations' => $integrations

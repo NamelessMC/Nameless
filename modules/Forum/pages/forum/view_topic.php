@@ -681,13 +681,21 @@ foreach ($results->data as $n => $nValue) {
         $post_date = date(DATE_FORMAT, $nValue->created);
     }
 
+    $user_integrations = [];
+    foreach ($post_creator->getIntegrations() as $integrationUser) {
+        $user_integrations[$integrationUser->getIntegration()->getName()] = [
+            'username' => Output::getClean($integrationUser->data()->username),
+            'identifier' => Output::getClean($integrationUser->data()->identifier)
+        ];
+    }
+
     $replies[] = [
         'url' => $url,
         'heading' => $heading,
         'id' => $nValue->id,
         'user_id' => $post_creator->data()->id,
         'avatar' => $post_creator->getAvatar(500),
-        'uuid' => Output::getClean($post_creator->data()->uuid),
+        'integrations' => $user_integrations,
         'username' => $post_creator->getDisplayname(),
         'mcname' => $post_creator->getDisplayname(true),
         'last_seen' => str_replace('{x}', $timeago->inWords(date('Y-m-d H:i:s', $post_creator->data()->last_online), $language->getTimeLanguage()), $language->get('user', 'last_seen_x')),

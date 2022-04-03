@@ -67,6 +67,13 @@ class CreateReportEndpoint extends KeyAuthEndpoint {
             }
         }
 
+        $integrationUser = $reported_user->getIntegration('Minecraft');
+        if ($integrationUser != null) {
+            $reported_uuid = $integrationUser->data()->identifier;
+        } else {
+            $reported_uuid = 'none';
+        }
+
         Report::create($api->getLanguage(), $user_reporting, $reported_user, [
             'type' => Report::ORIGIN_API,
             'reporter_id' => $user_reporting_data->id,
@@ -74,7 +81,7 @@ class CreateReportEndpoint extends KeyAuthEndpoint {
             'report_reason' => Output::getClean($_POST['content']),
             'updated_by' => $user_reporting_data->id,
             'reported_mcname' => $_POST['reported_username'] ? Output::getClean($_POST['reported_username']) : $reported_user->getDisplayName(),
-            'reported_uuid' => $_POST['reported_uid'] ? Output::getClean($_POST['reported_uid']) : $reported_user->data()->uuid,
+            'reported_uuid' => $_POST['reported_uid'] ? Output::getClean($_POST['reported_uid']) : $reported_uuid,
         ]);
 
         $api->returnArray(['message' => $api->getLanguage()->get('api', 'report_created')], 201);

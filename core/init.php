@@ -585,6 +585,14 @@ if ($page != 'install') {
             }
         }
 
+        $user_integrations = [];
+        foreach ($post_creator->getIntegrations() as $integrationUser) {
+            $user_integrations[$integrationUser->getIntegration()->getName()] = [
+                'username' => Output::getClean($integrationUser->data()->username),
+                'identifier' => Output::getClean($integrationUser->data()->identifier)
+            ];
+        }
+
         // Basic user variables
         $smarty->assign('LOGGED_IN_USER', [
             'username' => $user->getDisplayname(true),
@@ -594,7 +602,7 @@ if ($page != 'install') {
             'username_style' => $user->getGroupClass(),
             'user_title' => Output::getClean($user->data()->user_title),
             'avatar' => $user->getAvatar(),
-            'uuid' => Output::getClean($user->data()->uuid)
+            'integrations' => $user_integrations
         ]);
 
         // Panel access?
