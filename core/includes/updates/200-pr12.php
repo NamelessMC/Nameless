@@ -97,6 +97,13 @@ try {
     echo $e->getMessage() . '<br />';
 }
 
+try {
+    DB::getInstance()->createQuery('ALTER TABLE `nl2_users_integrations` ADD INDEX `nl2_users_integrations_idx_integration_id` (`integration_id`)');
+    DB::getInstance()->createQuery('ALTER TABLE `nl2_users_integrations` ADD INDEX `nl2_users_integrations_idx_user_id` (`user_id`)');
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+
 // Convert users integrations
 try {
     $users = DB::getInstance()->selectQuery('SELECT id, username, uuid, discord_id, discord_username, joined FROM nl2_users')->results();
