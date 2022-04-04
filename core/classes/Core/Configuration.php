@@ -38,10 +38,8 @@ class Configuration {
             return $this->_cache->retrieve($setting);
         }
 
-        $data = $this->_db->selectQuery(
-            'SELECT value FROM ? WHERE `name` = ?',
-            ['nl2_' . Output::getClean($module) . 'settings', $setting]
-        );
+        $table = 'nl2_' . preg_replace('/[^A-Za-z0-9_]+/', '', $module) . 'settings';
+        $data = $this->_db->selectQuery("SELECT value FROM $table WHERE `name` = ?", [$setting]);
         if ($data->count()) {
             $results = $data->results();
             $this->_cache->store($setting, $results[0]->value);
@@ -65,8 +63,8 @@ class Configuration {
 
         $module = ($module == 'Core' ? '' : $module . '_');
 
-        $this->_db->createQuery('UPDATE ? SET `value` = ? WHERE `name` = ?', [
-            'nl2_' . Output::getClean($module) . 'settings',
+        $table = 'nl2_' . preg_replace('/[^A-Za-z0-9_]+/', '', $module) . 'settings';
+        $this->_db->createQuery("UPDATE $table SET `value` = ? WHERE `name` = ?", [
             $value,
             $setting,
         ]);
