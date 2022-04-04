@@ -42,7 +42,7 @@ class RegisterEndpoint extends KeyAuthEndpoint {
             $integrations = Integrations::getInstance();
 
             foreach ($_POST['integrations'] as $integration_name => $item) {
-                if (!isset($item['id']) || !isset($item['username'])) {
+                if (!isset($item['identifier']) || !isset($item['username'])) {
                     continue;
                 }
 
@@ -55,7 +55,7 @@ class RegisterEndpoint extends KeyAuthEndpoint {
                     }
 
                     // Ensure identifier doesn't already exist
-                    $integrationUser = new IntegrationUser($integration, $item['id'], 'identifier');
+                    $integrationUser = new IntegrationUser($integration, $item['identifier'], 'identifier');
                     if ($integrationUser->exists()) {
                         $api->throwError(39, str_replace('{x}', $integration->getName(), $api->getLanguage()->get('api', 'integration_identifier_already_linked')));
                     }
@@ -153,14 +153,14 @@ class RegisterEndpoint extends KeyAuthEndpoint {
                 $integrations = Integrations::getInstance();
 
                 foreach ($_POST['integrations'] as $integration_name => $item) {
-                    if (!isset($item['id']) || !isset($item['username'])) {
+                    if (!isset($item['identifier']) || !isset($item['username'])) {
                         continue;
                     }
 
                     $integration = $integrations->getIntegration($integration_name);
                     if ($integration != null) {
                         $integrationUser = new IntegrationUser($integration);
-                        $integrationUser->linkIntegration($user, $item['id'], $item['username'], true);
+                        $integrationUser->linkIntegration($user, $item['identifier'], $item['username'], true);
                     }
                 }
             }
