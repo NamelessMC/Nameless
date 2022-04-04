@@ -174,7 +174,6 @@
     "admin\/email_errors": "邮件配置时出现了错误",
     "admin\/email_errors_logged": "邮件错误已被记录",
     "admin\/email_errors_purged_successfully": "电子邮件错误已成功清除。",
-    "admin\/email_language_info": "找不到您的语言? 请确保 'emails.php' 在你您语言目录中，并且可被服务器写入。",
     "admin\/email_logs": "邮件广播",
     "admin\/email_message_greeting": "您好,",
     "admin\/email_message_message": "消息",

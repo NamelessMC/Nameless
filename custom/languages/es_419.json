@@ -162,7 +162,6 @@
     "admin\/email_errors": "Errores de correo electrónico",
     "admin\/email_errors_logged": "Se han registrado errores en el sistema de correo electrónico",
     "admin\/email_errors_purged_successfully": "Los errores de correo electrónico se han purgado con éxito.",
-    "admin\/email_language_info": "¿No ve su idioma? Asegúrese de que 'emails.php' está en su directorio de idiomas y es escribible por su servidor web.",
     "admin\/email_logs": "Correos masivos",
     "admin\/email_message_greeting": "Saludos",
     "admin\/email_message_message": "Mensaje",

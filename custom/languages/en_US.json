@@ -165,7 +165,6 @@
     "admin\/email_errors": "Email Errors",
     "admin\/email_errors_logged": "Email errors have been logged",
     "admin\/email_errors_purged_successfully": "Email errors have been purged successfully.",
-    "admin\/email_language_info": "Not seeing your language? Make sure 'emails.php' is in your language directory and it is writable by your webserver.",
     "admin\/email_logs": "Mass Emails",
     "admin\/email_message_greeting": "Greeting",
     "admin\/email_message_message": "Message",

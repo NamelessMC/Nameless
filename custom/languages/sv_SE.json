@@ -158,7 +158,6 @@
     "admin\/email_errors": "E-postfel",
     "admin\/email_errors_logged": "E-post fel har blivit loggade",
     "admin\/email_errors_purged_successfully": "E-postfel har rensats.",
-    "admin\/email_language_info": "Ser du inte ditt språk? Se till att 'emails.php' finns i din språk mapp och att den är skrivbar av din webserver.",
     "admin\/email_logs": "Mass Emails",
     "admin\/email_message_greeting": "Hälsning",
     "admin\/email_message_message": "Meddelande",

@@ -165,7 +165,6 @@
     "admin\/email_errors": "メールエラー",
     "admin\/email_errors_logged": "電子メールエラーが検出されました。",
     "admin\/email_errors_purged_successfully": "メールエラーが正常に消去されました。",
-    "admin\/email_language_info": "あなたの言語が表示されていませんか？'emails.php'がlanguageディレクトリにあり、ウェブサーバが書き込み可能であることを確認してください。",
     "admin\/email_logs": "大量送信メール",
     "admin\/email_message_greeting": "挨拶",
     "admin\/email_message_message": "メッセージ",

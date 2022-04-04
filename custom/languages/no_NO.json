@@ -154,7 +154,6 @@
     "admin\/email_errors": "E-post-feilmeldinger",
     "admin\/email_errors_logged": "En e-postfeil har blitt loggført",
     "admin\/email_errors_purged_successfully": "E-post feilmeldinger har blitt fjernet.",
-    "admin\/email_language_info": "Ser du ikke ditt språk her? Pass på at 'emails.php' er i ditt valgte språks mappe, og at den kan redigeres på web-serveren.",
     "admin\/email_message_greeting": "Hilsen",
     "admin\/email_message_message": "Melding",
     "admin\/email_message_options": "Valg",

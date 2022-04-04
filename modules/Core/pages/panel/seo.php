@@ -85,7 +85,9 @@ if (!isset($_GET['metadata'])) {
             }
 
             $smarty->assign([
-                'SITEMAP_LAST_GENERATED' => $language->get('admin', 'sitemap_last_generated_x', ['generatedAt' => $updated]),
+                'SITEMAP_LAST_GENERATED' => $language->get('admin', 'sitemap_last_generated_x', [
+                    'generatedAt' => Util::bold($updated)
+                ]),
                 'SITEMAP_LINK' => (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/cache/sitemaps/sitemap-index.xml',
                 'SITEMAP_FULL_LINK' => rtrim(Util::getSelfURL(), '/') . (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/cache/sitemaps/sitemap-index.xml',
                 'DOWNLOAD_SITEMAP' => $language->get('admin', 'download_sitemap'),

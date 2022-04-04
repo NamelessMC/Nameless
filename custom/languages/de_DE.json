@@ -163,7 +163,6 @@
     "admin\/email_errors": "Email Fehler",
     "admin\/email_errors_logged": "Fehler bei der Email wurden gespeichert",
     "admin\/email_errors_purged_successfully": "E-Mail-Fehler wurden erfolgreich gelöscht.",
-    "admin\/email_language_info": "Du siehst Deine Sprache nicht? Stelle sicher, dass sich 'email.php' in Deinem Sprachverzeichnis befindet und von Deinem Webserver beschreibbar ist.",
     "admin\/email_logs": "E-Mail Logs",
     "admin\/email_message_greeting": "Gruß",
     "admin\/email_message_message": "Nachricht",

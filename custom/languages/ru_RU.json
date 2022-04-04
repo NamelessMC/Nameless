@@ -165,7 +165,6 @@
     "admin\/email_errors": "Ошибки электронной Почты",
     "admin\/email_errors_logged": "Были зарегистрированы ошибки электронной почты",
     "admin\/email_errors_purged_successfully": "Ошибки электронной почты были успешно удалены.",
-    "admin\/email_language_info": "Не видите на вашем языке? Убедитесь, что файл 'emails.php' находится в папке с локализацией на вашем веб сервере.",
     "admin\/email_logs": "Рассылка писем",
     "admin\/email_message_greeting": "Приветствуем",
     "admin\/email_message_message": "Сообщение",

@@ -165,7 +165,6 @@
     "admin\/email_errors": "Błędy email",
     "admin\/email_errors_logged": "Błędy email zostały zapisane.",
     "admin\/email_errors_purged_successfully": "Błędy email zostały wyczyszczone pomyślnie.",
-    "admin\/email_language_info": "Nie znaleziono języka? Sprawdź czy 'emails.php' jest w katalogu języka.",
     "admin\/email_logs": "Mass Emails",
     "admin\/email_message_greeting": "Powitanie",
     "admin\/email_message_message": "Wiadomość",

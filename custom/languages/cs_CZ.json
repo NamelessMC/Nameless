@@ -163,7 +163,6 @@
     "admin\/email_errors": "Chyby e-mailů",
     "admin\/email_errors_logged": "Byly zaznamenány chyby e-mailů",
     "admin\/email_errors_purged_successfully": "Chyby e-mailů byly úspěšně vymazány.",
-    "admin\/email_language_info": "Nevidíte váš jazyk? Zkontrolujte, zda je v adresáři vašeho jazyka soubor 'emails.php' a že je zapisovatelný vaším webovým serverem.",
     "admin\/email_logs": "Hromadné e-maily",
     "admin\/email_message_greeting": "Pozdrav",
     "admin\/email_message_message": "Zpráva",

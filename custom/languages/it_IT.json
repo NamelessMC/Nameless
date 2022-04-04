@@ -157,7 +157,6 @@
     "admin\/email_errors": "Errori Email",
     "admin\/email_errors_logged": "Gli errori dell'email sono stati registrati",
     "admin\/email_errors_purged_successfully": "Gli errori email sono stati eliminati con successo.",
-    "admin\/email_language_info": "Non vedi la tua lingua? Assicurati che 'emails.php' sia nella directory della tua lingua e sia scrivibile dal tuo server web.",
     "admin\/email_message_greeting": "Saluti",
     "admin\/email_message_message": "Messaggio",
     "admin\/email_message_options": "Opzioni",

@@ -159,7 +159,6 @@
     "admin\/email_errors": "อีเมล Errors",
     "admin\/email_errors_logged": "บันทึกข้อผิดพลาดทางอีเมลแล้ว",
     "admin\/email_errors_purged_successfully": "ลบข้อผิดพลาดของอีเมลเรียบร้อยแล้ว",
-    "admin\/email_language_info": "ไม่พบภาษาใช่ไหมโปรดตรวจสอบให้แน่ใจว่า 'emails.php'อยู่ในไดเรกทอรีภาษาของคุณ และสามารถเขียนได้โดยเว็บเซิร์ฟเวอร์ของคุณ.",
     "admin\/email_logs": "Mass Emails",
     "admin\/email_message_greeting": "ทักทาย",
     "admin\/email_message_message": "ข้อความ",
