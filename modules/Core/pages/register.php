@@ -442,11 +442,11 @@ $fields = new Fields();
 
 // Are custom usernames enabled?
 if ($custom_usernames == 'true') {
-    $fields->add('nickname', Fields::TEXT, $language->get('user', 'nickname'), true);
+    $fields->add('nickname', Fields::TEXT, $language->get('user', 'nickname'), true, $_POST['nickname'] ?? '');
 }
 
-$fields->add('username', Fields::TEXT, $language->get('user', 'username'), true);
-$fields->add('email', Fields::EMAIL, $language->get('user', 'email_address'), true);
+$fields->add('username', Fields::TEXT, $language->get('user', 'username'), true, $_POST['username'] ?? '');
+$fields->add('email', Fields::EMAIL, $language->get('user', 'email_address'), true, $_POST['email'] ?? '');
 $fields->add('password', Fields::PASSWORD, $language->get('user', 'password'), true);
 $fields->add('password_again', Fields::PASSWORD, $language->get('user', 'confirm_password'), true);
 

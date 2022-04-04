@@ -107,7 +107,7 @@ if (!isset($_GET['id'])) {
                 $user_reported = Output::getClean($report->reported_mcname);
                 $user_profile = URL::build('/panel/user/' . urlencode($report->reported_id . '-' . $report->reported_mcname));
                 $user_style = '';
-                $user_avatar = AvatarSource::getAvatarFromUUID($report->reported_uuid);
+                $user_avatar = AvatarSource::getAvatarFromUUID($report->reported_uuid ?? $report->reported_mcname);
             }
 
             $updated_by_user = new User($report->updated_by);

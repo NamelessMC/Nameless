@@ -86,7 +86,7 @@ class MinecraftIntegration extends IntegrationBase {
     }
 
     public function onRegistrationPageLoad(Fields $fields) {
-        $fields->add('username', Fields::TEXT, $this->_language->get('user', 'minecraft_username'), true, null, null, null, 1);
+        $fields->add('username', Fields::TEXT, $this->_language->get('user', 'minecraft_username'), true, $_POST['username'] ?? '', null, null, 1);
     }
 
     public function beforeRegistrationValidation(Validate $validate) {
