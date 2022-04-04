@@ -11,7 +11,7 @@ unset($_SESSION['requirements_validated']);
 <div class="ui segments">
     <div class="ui secondary segment">
         <h4 class="ui header">
-            <?php echo rtrim($language['requirements'], ':'); ?>
+            <?php echo rtrim($language->get('installer', 'requirements'), ':'); ?>
         </h4>
     </div>
     <div class="ui segment">
@@ -43,13 +43,13 @@ unset($_SESSION['requirements_validated']);
     <?php if (isset($_SESSION['requirements_validated']) && $_SESSION['requirements_validated'] == true) { ?>
         <div class="ui right aligned secondary segment">
             <a href="?step=general_configuration" class="ui small primary button">
-                <?php echo $language['proceed']; ?>
+                <?php echo $language->get('installer', 'proceed'); ?>
             </a>
         </div>
     <?php } else { ?>
         <div class="ui inverted red segment">
             <i class="exclamation circle icon"></i>
-            <?php echo $language['requirements_error']; ?>
+            <?php echo $language->get('installer', 'requirements_error'); ?>
         </div>
     <?php } ?>
 </div>

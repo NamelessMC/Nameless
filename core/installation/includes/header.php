@@ -2,19 +2,19 @@
 $readme = file(ROOT_PATH . '/README.md');
 $subheader = str_replace('#', '', $readme[0]);
 
-// TODO: new language system
-if (isset($_SESSION['installer_language']) && is_file('custom/languages/' . $_SESSION['installer_language'] . '/installer.php')) {
+if (isset($_SESSION['installer_language']) && is_file('custom/languages/' . $_SESSION['installer_language'] . '.json')) {
     $installer_language = $_SESSION['installer_language'];
 } else {
-    $installer_language = 'EnglishUK';
+    $installer_language = 'en_UK';
 }
 
-$languages_folders = glob('custom' . DIRECTORY_SEPARATOR . 'languages' . DIRECTORY_SEPARATOR . '*', GLOB_ONLYDIR);
+$languages_folders = glob('custom' . DIRECTORY_SEPARATOR . 'languages' . DIRECTORY_SEPARATOR . '*');
 $languages = [];
 
 foreach ($languages_folders as $folder) {
     $folder = explode(DIRECTORY_SEPARATOR, $folder);
-    $languages[] = $folder[2];
+    $short_code = explode('.', $folder[2])[0];
+    $languages[$short_code] = Language::LANGUAGES[$short_code]['name'];
 }
 
 ?>
@@ -26,7 +26,7 @@ foreach ($languages_folders as $folder) {
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $language['install']; ?> &bull; NamelessMC</title>
+    <title><?php echo $language->get('installer', 'install'); ?> &bull; NamelessMC</title>
     <link rel="stylesheet" href="custom/templates/DefaultRevamp/css/semantic.min.css">
 
     <style>

@@ -132,128 +132,13 @@ $queries->create('groups', [
     'order' => 4
 ]);
 
-// Languages
-// TODO: new language system
-$queries->create('languages', [
-    'name' => 'EnglishUK',
-    'is_default' => (Session::get('default_language') == 'EnglishUK') ? 1 : 0
-]);
-
-$queries->create('languages', [
-    'name' => 'Chinese',
-    'is_default' => (Session::get('default_language') == 'Chinese') ? 1 : 0
-]);
-
-$queries->create('languages', [
-    'name' => 'Chinese(Simplified)',
-    'is_default' => (Session::get('default_language') == 'Chinese(Simplified)') ? 1 : 0
-]);
-
-$queries->create('languages', [
-    'name' => 'Czech',
-    'is_default' => (Session::get('default_language') == 'Czech') ? 1 : 0
-]);
-
-$queries->create('languages', [
-    'name' => 'Danish',
-    'is_default' => (Session::get('default_language') == 'Danish') ? 1 : 0
-]);
-
-$queries->create('languages', [
-    'name' => 'EnglishUS',
-    'is_default' => (Session::get('default_language') == 'EnglishUS') ? 1 : 0
-]);
-
-$queries->create('languages', [
-    'name' => 'French',
-    'is_default' => (Session::get('default_language') == 'French') ? 1 : 0
-]);
-
-$queries->create('languages', [
-    'name' => 'Dutch',
-    'is_default' => (Session::get('default_language') == 'Dutch') ? 1 : 0
-]);
-
-$queries->create('languages', [
-    'name' => 'German',
-    'is_default' => (Session::get('default_language') == 'German') ? 1 : 0
-]);
-
-$queries->create('languages', [
-    'name' => 'Greek',
-    'is_default' => (Session::get('default_language') == 'Greek') ? 1 : 0
-]);
-
-$queries->create('languages', [
-    'name' => 'Japanese',
-    'is_default' => (Session::get('default_language') == 'Japanese') ? 1 : 0
-]);
-
-$queries->create('languages', [
-    'name' => 'Lithuanian',
-    'is_default' => (Session::get('default_language') == 'Lithuanian') ? 1 : 0
-]);
-
-$queries->create('languages', [
-    'name' => 'Norwegian',
-    'is_default' => (Session::get('default_language') == 'Norwegian') ? 1 : 0
-]);
-
-$queries->create('languages', [
-    'name' => 'Polish',
-    'is_default' => (Session::get('default_language') == 'Polish') ? 1 : 0
-]);
-
-$queries->create('languages', [
-    'name' => 'Portuguese',
-    'is_default' => (Session::get('default_language') == 'Portuguese') ? 1 : 0
-]);
-
-$queries->create('languages', [
-    'name' => 'Romanian',
-    'is_default' => (Session::get('default_language') == 'Romanian') ? 1 : 0
-]);
-
-$queries->create('languages', [
-    'name' => 'Russian',
-    'is_default' => (Session::get('default_language') == 'Russian') ? 1 : 0
-]);
-
-
-$queries->create('languages', [
-    'name' => 'Slovak',
-    'is_default' => (Session::get('default_language') == 'Slovak') ? 1 : 0
-]);
-
-$queries->create('languages', [
-    'name' => 'Spanish',
-    'is_default' => (Session::get('default_language') == 'Spanish') ? 1 : 0
-]);
-
-$queries->create('languages', [
-    'name' => 'Italian',
-    'is_default' => (Session::get('default_language') == 'Italian') ? 1 : 0
-]);
-
-$queries->create('languages', [
-    'name' => 'SwedishSE',
-    'is_default' => (Session::get('default_language') == 'SwedishSE') ? 1 : 0
-]);
-
-$queries->create('languages', [
-    'name' => 'SpanishES',
-    'is_default' => (Session::get('default_language') == 'SpanishES') ? 1 : 0
-]);
-
-$queries->create('languages', [
-    'name' => 'Turkish',
-    'is_default' => (Session::get('default_language') == 'Turkish') ? 1 : 0
-]);
-
-$queries->create('languages', [
-    'name' => 'Thai',
-    'is_default' => (Session::get('default_language') == 'Thai') ? 1 : 0
-]);
+foreach (Language::LANGUAGES as $short_code => $meta) {
+    $queries->create('languages', [
+        'name' => $meta['name'],
+        'short_code' => $short_code,
+        'is_default' => (Session::get('default_language') == $short_code) ? 1 : 0
+    ]);
+}
 
 $cache->setCache('languagecache');
 $cache->store('language', Session::get('default_language'));

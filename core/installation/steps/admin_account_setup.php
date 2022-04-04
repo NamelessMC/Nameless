@@ -8,7 +8,7 @@ if (!isset($_SESSION['site_initialized']) || $_SESSION['site_initialized'] != tr
 }
 
 function display_error(string $message) {
-    echo "div class=\"ui error message\">$message</div>";
+    echo "<div class=\"ui error message\">$message</div>";
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -38,15 +38,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!$validation->passed()) {
         foreach ($validation->errors() as $item) {
             if (strpos($item, 'is required') !== false) {
-                display_error($language['input_required']);
+                display_error($language->get('installer', 'input_required'));
             } else if (strpos($item, 'minimum') !== false) {
-                display_error($language['input_minimum']);
+                display_error($language->get('installer', 'input_minimum'));
             } else if (strpos($item, 'maximum') !== false) {
-                display_error($language['input_maximum']);
+                display_error($language->get('installer', 'input_maximum'));
             } else if (strpos($item, 'must match') !== false) {
-                display_error($language['passwords_must_match']);
+                display_error($language->get('installer', 'passwords_must_match'));
             } else if (strpos($item, 'not a valid email') !== false) {
-                display_error($language['email_invalid']);
+                display_error($language->get('installer', 'email_invalid'));
             }
         }
 
@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         try {
             $queries = new Queries();
 
-            $language = $queries->getWhere('languages', ['is_default', '=', 1]);
+            $default_language = $queries->getWhere('languages', ['is_default', '=', 1]);
 
             $ip = $user->getIP();
             $uuid = 'none';
@@ -82,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 'active' => 1,
                 'last_online' => date('U'),
                 'theme_id' => 1,
-                'language_id' => $language[0]->id,
+                'language_id' => $default_language[0]->id,
             ]);
 
             $login = $user->login(Input::get('email'), Input::get('password'), true);
@@ -94,9 +94,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
 
             $queries->delete('users', ['id', '=', 1]);
-            display_error($language['unable_to_login']);
+            display_error($language->get('installer', 'unable_to_login'));
         } catch (Exception $e) {
-            display_error($language['unable_to_create_account'] . ': ' . $e->getMessage());
+            display_error($language->get('installer', 'unable_to_create_account') . ': ' . $e->getMessage());
         }
     }
 }
@@ -106,19 +106,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="ui segments">
         <div class="ui secondary segment">
             <h4 class="ui header">
-                <?php echo $language['creating_admin_account']; ?>
+                <?php echo $language->get('installer', 'creating_admin_account'); ?>
             </h4>
         </div>
         <div class="ui segment">
-            <p><?php echo $language['enter_admin_details']; ?></p>
+            <p><?php echo $language->get('installer', 'enter_admin_details'); ?></p>
             <div class="ui centered grid">
                 <div class="sixteen wide mobile twelve wide tablet ten wide computer column">
                     <div class="ui form">
                         <?php
-                        create_field('text', $language['username'], 'username', 'inputUsername', getenv('NAMELESS_ADMIN_USERNAME') ?: '');
-                        create_field('email', $language['email_address'], 'email', 'inputEmail', getenv('NAMELESS_ADMIN_EMAIL') ?: '');
-                        create_field('password', $language['password'], 'password', 'inputPassword');
-                        create_field('password', $language['confirm_password'], 'password_again', 'inputPasswordAgain');
+                        create_field('text', $language->get('installer', 'username'), 'username', 'inputUsername', getenv('NAMELESS_ADMIN_USERNAME') ?: '');
+                        create_field('email', $language->get('installer', 'email_address'), 'email', 'inputEmail', getenv('NAMELESS_ADMIN_EMAIL') ?: '');
+                        create_field('password', $language->get('installer', 'password'), 'password', 'inputPassword');
+                        create_field('password', $language->get('installer', 'confirm_password'), 'password_again', 'inputPasswordAgain');
                         ?>
                     </div>
                 </div>
@@ -126,7 +126,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
         <div class="ui right aligned secondary segment">
             <button type="submit" class="ui small primary button">
-                <?php echo $language['proceed']; ?>
+                <?php echo $language->get('installer', 'proceed'); ?>
             </button>
         </div>
     </div>

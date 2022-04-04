@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (!$validation->passed()) {
 
-        $error = $language['database_error'];
+        $error = $language->get('installer', 'database_error');
 
     } else {
 
@@ -64,20 +64,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="ui segments">
         <div class="ui secondary segment">
             <h4 class="ui header">
-                <?php echo $language['upgrade']; ?>
+                <?php echo $language->get('installer', 'upgrade'); ?>
             </h4>
         </div>
         <div class="ui segment">
-            <p><?php echo $language['input_v1_details']; ?></p>
+            <p><?php echo $language->get('installer', 'input_v1_details'); ?></p>
             <div class="ui centered grid">
                 <div class="sixteen wide mobile twelve wide tablet ten wide computer column">
                     <div class="ui form">
                         <?php
-                        create_field('text', $language['database_address'], 'db_address', 'inputDBAddress', '127.0.0.1');
-                        create_field('text', $language['database_port'], 'db_port', 'inputDBPort', '3306');
-                        create_field('text', $language['database_username'], 'db_username', 'inputDBUsername');
-                        create_field('password', $language['database_password'], 'db_password', 'inputDBPassword');
-                        create_field('text', $language['database_name'], 'db_name', 'inputDBName');
+                        create_field('text', $language->get('installer', 'database_address'), 'db_address', 'inputDBAddress', '127.0.0.1');
+                        create_field('text', $language->get('installer', 'database_port'), 'db_port', 'inputDBPort', '3306');
+                        create_field('text', $language->get('installer', 'database_username'), 'db_username', 'inputDBUsername');
+                        create_field('password', $language->get('installer', 'database_password'), 'db_password', 'inputDBPassword');
+                        create_field('text', $language->get('installer', 'database_name'), 'db_name', 'inputDBName');
                         ?>
                     </div>
                 </div>
@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
         <div class="ui secondary right aligned segment">
             <button type="submit" class="ui small primary button">
-                <?php echo $language['proceed']; ?>
+                <?php echo $language->get('installer', 'proceed'); ?>
             </button>
         </div>
     </div>

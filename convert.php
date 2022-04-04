@@ -4,6 +4,7 @@ $languages = [
     'Chinese(Simplified)' => 'zh_CN',
     'Czech' => 'cs_CZ',
     'Danish' => 'da_DK',
+    'Dutch' => 'nl_NL',
     'EnglishUK' => 'en_UK',
     'EnglishUS' => 'en_US',
     'French' => 'fr_FR',

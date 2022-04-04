@@ -14,10 +14,10 @@
             <div class="eight wide right aligned column">
                 <div class="ui inverted basic labeled scrolling dropdown icon button">
                     <i class="world icon"></i>
-                    <span class="text"><?php echo $installer_language; ?></span>
+                    <span class="text"><?php echo Language::LANGUAGES[$installer_language]['name']; ?></span>
                     <div class="menu">
-                        <?php foreach ($languages as $language) { ?>
-                            <a onclick="setLanguage($(this).text())" class="item"><?php echo $language; ?></a>
+                        <?php foreach ($languages as $short_code => $name) { ?>
+                            <a onclick="setLanguage($(this).data('short_code'))" data-short_code="<?php echo $short_code ?>" class="item"><?php echo $name; ?></a>
                         <?php } ?>
                     </div>
                 </div>

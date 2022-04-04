@@ -16,17 +16,101 @@ class Language {
      * @var array Metadata about different languages available
      */
     public const LANGUAGES = [
-        'en_UK' => [
-            'name' => 'English UK',
-            'htmlCode' => 'en',
+        'zh_TW' => [
+            'name' => 'Chinese',
+            'htmlCode' => 'zh-TW',
+        ],
+        'zh_CN' => [
+            'name' => 'Chinese (Simplified)',
+            'htmlCode' => 'zh-CN',
+        ],
+        'cs_CZ' => [
+            'name' => 'Czech',
+            'htmlCode' => 'cs',
+        ],
+        'da_DK' => [
+            'name' => 'Danish',
+            'htmlCode' => 'da',
         ],
         'nl_NL' => [
             'name' => 'Dutch',
             'htmlCode' => 'nl',
         ],
+        'en_UK' => [
+            'name' => 'English UK',
+            'htmlCode' => 'en',
+        ],
+        'en_US' => [
+            'name' => 'English US',
+            'htmlCode' => 'en',
+        ],
+        'fr_FR' => [
+            'name' => 'French',
+            'htmlCode' => 'fr',
+        ],
+        'de_DE' => [
+            'name' => 'German',
+            'htmlCode' => 'de',
+        ],
+        'el_GR' => [
+            'name' => 'Greek',
+            'htmlCode' => 'el',
+        ],
+        'it_IT' => [
+            'name' => 'Italian',
+            'htmlCode' => 'it',
+        ],
+        'ja_JP' => [
+            'name' => 'Japanese',
+            'htmlCode' => 'ja',
+        ],
+        'lt_LT' => [
+            'name' => 'Lithuanian',
+            'htmlCode' => 'lt',
+        ],
+        'no_NO' => [
+            'name' => 'Norwegian',
+            'htmlCode' => 'no',
+        ],
+        'pl_PL' => [
+            'name' => 'Polish',
+            'htmlCode' => 'pl',
+        ],
+        'pt_BR' => [
+            'name' => 'Portuguese',
+            'htmlCode' => 'pt',
+        ],
+        'ro_RO' => [
+            'name' => 'Romanian',
+            'htmlCode' => 'ro',
+        ],
         'ru_RU' => [
             'name' => 'Russian',
             'htmlCode' => 'ru',
+        ],
+        'sk_SK' => [
+            'name' => 'Slovak',
+            'htmlCode' => 'sk',
+        ],
+        'es_419' => [
+            'name' => 'Spanish',
+            'htmlCode' => 'es',
+        ],
+        'es_ES' => [
+            'name' => 'Spanish ES',
+            'htmlCode' => 'es',
+        ],
+        'sv_SE' => [
+            'name' => 'Swedish',
+            'htmlCode' => 'sv',
+        ],
+        'th_TH' => [
+            'name' => 'Thai',
+            'htmlCode' => 'th',
+        ],
+        'tr_TR' => [
+            'name' => 'Turkish',
+            'htmlCode' => 'tr',
         ],
     ];
 
@@ -95,9 +179,10 @@ class Language {
             define('HTML_LANG', self::LANGUAGES[$this->_activeLanguage]['htmlCode']);
         }
 
-        if (!defined('HTML_RTL')) {
-            define('HTML_RTL', self::LANGUAGES[$this->_activeLanguage]['rtl'] ?? false);
-        }
+        // TODO: new language system - none of our languages are RTL
+//        if (!defined('HTML_RTL')) {
+//            define('HTML_RTL', self::LANGUAGES[$this->_activeLanguage]['rtl'] ?? false);
+//        }
 
         $this->_i18n = new i18next(
             $this->_activeLanguage,

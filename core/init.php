@@ -230,10 +230,10 @@ if ($page != 'install') {
                 define('LANGUAGE', $language);
             }
         } else {
-            define('LANGUAGE', $language[0]->name); // TODO: new language system
+            define('LANGUAGE', $language[0]->short_code);
         }
     }
-    $language = new Language();
+    $language = new Language('core', LANGUAGE);
 
     // Site name
     $cache->setCache('sitenamecache');
