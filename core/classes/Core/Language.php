@@ -179,7 +179,7 @@ class Language {
             define('HTML_LANG', self::LANGUAGES[$this->_activeLanguage]['htmlCode']);
         }
 
-        // TODO: new language system - none of our languages are RTL
+        // TODO: new language system - none of our languages are RTL, do we need this?
 //        if (!defined('HTML_RTL')) {
 //            define('HTML_RTL', self::LANGUAGES[$this->_activeLanguage]['rtl'] ?? false);
 //        }

@@ -235,7 +235,6 @@ if (isset($_GET['user'])) {
                                             }
 
                                             // Send alert
-                                            // TODO: new language system
                                             Alert::create(
                                                 $item->id,
                                                 'punishment',

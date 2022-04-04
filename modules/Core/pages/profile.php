@@ -120,7 +120,6 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
                             if ($query->id !== $user->data()->id) {
                                 // Alert user
-                                // TODO: new language system
                                 Alert::create(
                                     $query->id,
                                     'profile_post',

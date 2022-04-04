@@ -29,7 +29,6 @@ class Alert {
 
         $language = new Language($text_short['path'], $language->first()->name);
 
-        // TODO: new language system
         $db->insert('alerts', [
             'user_id' => $user_id,
             'type' => $type,

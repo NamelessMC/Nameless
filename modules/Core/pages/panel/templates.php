@@ -56,7 +56,6 @@ if (!isset($_GET['action'])) {
             'version' => Output::getClean($template->getVersion()),
             'author' => $template->getAuthor(),
             'author_x' => $language->get('admin', 'author_x', ['author' => $template->getAuthor()]),
-            // TODO: new language system
             'version_mismatch' => (($template->getNamelessVersion() != NAMELESS_VERSION)
                 ? $language->get('admin', 'template_outdated', [
                     'intendedVersion' => Output::getClean($template->getNamelessVersion()),
@@ -682,8 +681,10 @@ if (!isset($_GET['action'])) {
                         }
 
                         $smarty->assign([
-                            // TODO: new language system
-                            'EDITING_FILE' => str_replace(['{{file}}', '{{template}}'], [$template_path, Output::getClean($template_query->name)], $language->get('admin', 'editing_template_file_in_template')),
+                            'EDITING_FILE' => $language->get('admin', 'editing_template_file_in_template', [
+                                'file' => $template_path,
+                                'template' => Output::getClean($template_query->name),
+                            ]),
                             'CANCEL' => $language->get('general', 'cancel'),
                             'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
                             'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),

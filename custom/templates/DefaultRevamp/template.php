@@ -101,7 +101,6 @@ class DefaultRevamp_Template extends TemplateBase {
 
         $route = (isset($_GET['route']) ? rtrim($_GET['route'], '/') : '/');
 
-        // TODO: new language system
         $JSVariables = [
             'siteName' => SITE_NAME,
             'siteURL' => URL::build('/'),
@@ -128,7 +127,7 @@ class DefaultRevamp_Template extends TemplateBase {
             'route' => $route
         ];
 
-        if (strpos($route, '/forum/topic/') !== false || PAGE == 'profile') {
+        if (PAGE == 'profile' || strpos($route, '/forum/topic/') !== false) {
             $this->addJSFiles([
                 $this->_template['path'] . 'js/jquery-ui.min.js' => []
             ]);
