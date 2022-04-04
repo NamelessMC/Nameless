@@ -182,7 +182,7 @@ class RegisterEndpoint extends KeyAuthEndpoint {
      */
     private function sendRegistrationEmail(Nameless2API $api, string $username, string $uuid, string $email): void {
         // Generate random code
-        $code = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 60);
+        $code = Hash::unique()
 
         // Create user
         $user_id = $this->createUser($api, $username, $uuid, $email, false, $code);
