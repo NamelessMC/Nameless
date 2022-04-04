@@ -41,12 +41,14 @@ class DiscordHook {
 
         $json = json_encode($return, JSON_UNESCAPED_SLASHES);
 
-        $httpClient = HttpClient::post($params['webhook'], $json);
+        $httpClient = HttpClient::post($params['webhook'], $json, [
+            'headers' => [
+                'Content-Type' => 'application/json',
+            ],
+        ]);
 
-        $response = $httpClient->json(true);
-
-        if ($httpClient->getStatus() != 204) {
-            trigger_error($response['message']);
+        if ($httpClient->hasError()) {
+            trigger_error($httpClient->getError());
         }
     }
 }
