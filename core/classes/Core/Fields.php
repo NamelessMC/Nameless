@@ -18,6 +18,7 @@ class Fields {
     public const EMAIL = 7;
     public const RADIO = 8;
     public const CHECKBOX = 9;
+
     /**
      * @var array Array of all the registered fields.
      */
@@ -67,7 +68,7 @@ class Fields {
     /**
      * List all fields, sorted by their order.
      *
-     * @return array List of widgets.
+     * @return array List of fields.
      */
     public function getAll(): iterable {
         $fields = $this->_fields;

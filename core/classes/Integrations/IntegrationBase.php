@@ -1,12 +1,11 @@
 <?php
-/*
- *	Made by Partydragen
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+/**
+ * Base class integrations need to extend.
  *
- *  License: MIT
- *
- *  Integration Base class
+ * @package NamelessMC\Integrations
+ * @author Partydragen
+ * @version 2.0.0-pr13
+ * @license MIT
  */
 
 abstract class IntegrationBase {
@@ -103,7 +102,7 @@ abstract class IntegrationBase {
     public function getErrors(): array {
         return $this->_errors;
     }
-    
+
     /**
      * Get language
      *
@@ -113,13 +112,43 @@ abstract class IntegrationBase {
         return $this->_language;
     }
 
+    /**
+     * Called when user wanna link their account from user connections page, Does not need to be verified
+     */
     abstract public function onLinkRequest(User $user);
+
+    /**
+     * Called when user wanna continue to verify their integration user from connections page
+     */
     abstract public function onVerifyRequest(User $user);
+
+    /**
+     * Called when user wanna unlink their integration user from connections page
+     */
     abstract public function onUnlinkRequest(User $user);
+
+    /**
+     * Called when the user have successfully validated the ownership of the account
+     */
     abstract public function onSuccessfulVerification(IntegrationUser $integrationUser);
 
+    /**
+     * Called when register page being loaded
+     */
     abstract public function onRegistrationPageLoad(Fields $fields);
+
+    /**
+     * Called before registration validation
+     */
     abstract public function beforeRegistrationValidation(Validate $validate);
+
+    /**
+     * Called after registration validation
+     */
     abstract public function afterRegistrationValidation();
+
+    /**
+     * Called when user is successfully registered
+     */
     abstract public function successfulRegistration(User $user);
 }

@@ -1,15 +1,12 @@
 <?php
-
-/*
- *	Made by Partydragen
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+/**
+ * MinecraftIntegration class
  *
- *  License: MIT
- *
- *  Minecraft Integration
+ * @package Modules\Core\Integrations
+ * @author Partydragen
+ * @version 2.0.0-pr13
+ * @license MIT
  */
-
 class MinecraftIntegration extends IntegrationBase {
 
     protected Language $_language;

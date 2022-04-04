@@ -7,7 +7,6 @@
  * @version 2.0.0-pr13
  * @license MIT
  */
-
 class IntegrationUser {
 
     private DB $_db;

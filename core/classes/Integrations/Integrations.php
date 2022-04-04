@@ -7,7 +7,6 @@
  * @version 2.0.0-pr13
  * @license MIT
  */
-
 class Integrations extends Instanceable {
 
     private array $_integrations = [];

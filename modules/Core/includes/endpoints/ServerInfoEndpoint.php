@@ -83,8 +83,7 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
         $api->returnArray(array_merge(['message' => $api->getLanguage()->get('api', 'server_info_updated')], ['log' => $group_sync_log]));
     }
 
-    private function updateUsername(IntegrationUser $integrationUser, array $player, Nameless2API $api): void
-    {
+    private function updateUsername(IntegrationUser $integrationUser, array $player, Nameless2API $api): void {
         if ($player['name'] != $integrationUser->data()->username) {
             $integrationUser->update([
                 'username' => Output::getClean($player['name'])
@@ -139,8 +138,7 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
         return $log;
     }
 
-    private function updatePlaceholders(User $user, $player): void
-    {
+    private function updatePlaceholders(User $user, $player): void {
         if ($user->exists()) {
             $user->savePlaceholders($_POST['server-id'], $player['placeholders']);
         }

@@ -1,15 +1,12 @@
 <?php
-
-/*
- *	Made by Partydragen
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+/**
+ * DiscordIntegration class
  *
- *  License: MIT
- *
- *  Discord Integration
+ * @package Modules\Core\Integrations
+ * @author Partydragen
+ * @version 2.0.0-pr13
+ * @license MIT
  */
-
 class DiscordIntegration extends IntegrationBase {
 
     protected Language $_language;
