@@ -22,13 +22,12 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Since emails are sent in the user's language, they need to be able to pick which language's messages to edit
 if (Session::exists('editing_language')) {
-    $lang_name = Session::get('editing_language');
+    $lang_short_code = Session::get('editing_language');
 } else {
     $default_lang = $queries->getWhere('languages', ['is_default', '=', 1]);
-    $default_lang = $default_lang[0]->name;
-    $lang_name = $default_lang;
+    $lang_short_code = $default_lang[0]->short_code;
 }
-$editing_language = new Language('core', $lang_name);
+$editing_language = new Language('core', $lang_short_code);
 $emails = [
     ['register', $language->get('admin', 'registration'), ['subject' => $editing_language->get('emails', 'register_subject'), 'message' => $editing_language->get('emails', 'register_message')]],
     ['change_password', $language->get('user', 'change_password'), ['subject' => str_replace('?', '', $editing_language->get('emails', 'change_password_subject')), 'message' => $editing_language->get('emails', 'change_password_message')]],
@@ -75,11 +74,10 @@ if (isset($_GET['action'])) {
 
             $available_languages = [];
 
-            // TODO: new language system
             $languages = $queries->getWhere('languages', ['id', '<>', 0]);
             foreach ($languages as $language_db) {
                 $lang = new Language('core', $language_db->short_code);
-                $lang_file = $lang->getActiveLanguageDirectory() . DIRECTORY_SEPARATOR . $lang->getActiveLanguage() . '.json';
+                $lang_file = $lang->getActiveLanguageDirectory();
                 if (file_exists($lang_file) && is_writable($lang_file)) {
                     $available_languages[] = $language_db;
                 }
@@ -133,7 +131,7 @@ if (isset($_GET['action'])) {
 
             // Handle email message updating
             if (isset($_POST['greeting'])) {
-                $editing_lang = new Language('core', $lang_name);
+                $editing_lang = new Language('core', $lang_short_code);
 
                 Session::put('editing_language', Input::get('editing_language'));
 
@@ -144,7 +142,8 @@ if (isset($_GET['action'])) {
                     $editing_lang->set('emails', $email[0] . '_subject', Output::getClean(Input::get($email[0] . '_subject')));
                     $editing_lang->set('emails', $email[0] . '_message', Output::getClean(Input::get($email[0] . '_message')));
                 }
-
+                Session::flash('emails_success', $language->get('admin', 'email_settings_updated_successfully'));
+                Redirect::to(URL::build('/panel/core/emails', 'action=edit_messages'));
             } else {
 
                 if (isset($_POST['enable_mailer']) && $_POST['enable_mailer'] == 1) {
