@@ -135,6 +135,9 @@ if (!class_exists('Default_Panel_Template')) {
         }
 
         public function onPageLoad() {
+            $page_load = microtime(true) - PAGE_START_TIME;
+            define('PAGE_LOAD_TIME', $this->_language->get('general', 'page_loaded_in', ['time' => round($page_load, 3)]));
+
             if (defined('PANEL_PAGE')) {
                 switch (PANEL_PAGE) {
                     case 'dashboard':

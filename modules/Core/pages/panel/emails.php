@@ -77,7 +77,7 @@ if (isset($_GET['action'])) {
             $languages = $queries->getWhere('languages', ['id', '<>', 0]);
             foreach ($languages as $language_db) {
                 $lang = new Language('core', $language_db->short_code);
-                $lang_file = $lang->getActiveLanguageDirectory();
+                $lang_file = $lang->getActiveLanguageFile();
                 if (file_exists($lang_file) && is_writable($lang_file)) {
                     $available_languages[] = $language_db;
                 }

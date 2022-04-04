@@ -120,9 +120,9 @@ class Language {
     private string $_activeLanguage;
 
     /**
-     * @var string Path of the language currently being used.
+     * @var string Path of the language JSON file currently being used.
      */
-    private string $_activeLanguageDirectory;
+    private string $_activeLanguageFile;
 
     /**
      * @var i18next Instance of i18next.
@@ -139,12 +139,12 @@ class Language {
     }
 
     /**
-     * Return the path to the active language directory.
+     * Return the path to the active language file.
      *
      * @return string Active language path.
      */
-    public function getActiveLanguageDirectory(): string {
-        return $this->_activeLanguageDirectory;
+    public function getActiveLanguageFile(): string {
+        return $this->_activeLanguageFile;
     }
 
     /**
@@ -172,7 +172,7 @@ class Language {
             throw new RuntimeException('Language file ' . $path . ' does not exist');
         }
 
-        $this->_activeLanguageDirectory = $path;
+        $this->_activeLanguageFile = $path;
 
         // HTML language definition
         if (!defined('HTML_LANG')) {
@@ -186,7 +186,7 @@ class Language {
 
         $this->_i18n = new i18next(
             $this->_activeLanguage,
-            $this->_activeLanguageDirectory,
+            $this->_activeLanguageFile,
             'en_UK'
         );
     }
@@ -194,17 +194,17 @@ class Language {
     /**
      * Return a term in the currently active language
      *
-     * @param string $key Section key.
+     * @param string $section Section name.
      * @param ?string $term The term to translate.
      * @param array $variables Any variables to pass through to the translation.
      * @return string Translated phrase.
      */
-    public function get(string $key, ?string $term, array $variables = []): string {
+    public function get(string $section, ?string $term, array $variables = []): string {
         if ($term) {
-            $key .= '/' . $term;
+            $section .= '/' . $term;
         }
 
-        return $this->_i18n->getTranslation($key, $variables);
+        return $this->_i18n->getTranslation($section, $variables);
     }
 
     /**
@@ -233,22 +233,17 @@ class Language {
      * Set a term in specific file.
      * Used for email message editing.
      *
-     * TODO: new language system
-     *
-     * @param string $file Name of file without extension to edit.
+     * @param string $section Name of file without extension to edit.
      * @param string $term Term which value to change.
      * @param string $value New value to set for term.
      */
-    public function set(string $file, string $term, string $value): void {
-        $editing_file = $this->_activeLanguageDirectory . DIRECTORY_SEPARATOR . $file . '.php';
-        if (is_file($editing_file) && is_writable($editing_file)) {
-            file_put_contents($editing_file, html_entity_decode(
-                str_replace(
-                    htmlspecialchars("'" . $term . "'" . ' => ' . "'" . $this->get($file, $term) . "'"),
-                    htmlspecialchars("'" . $term . "'" . ' => ' . "'" . $value . "'"),
-                    htmlspecialchars(file_get_contents($editing_file))
-                )
-            ));
-        }
+    public function set(string $section, string $term, string $value): void {
+        $editing_file = $this->_activeLanguageFile;
+        $json = json_decode(file_get_contents($editing_file), true);
+
+        $json[$section . '/' . $term] = $value;
+
+        ksort($json);
+        file_put_contents($editing_file, json_encode($json, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE));
     }
 }
