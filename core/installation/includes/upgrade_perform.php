@@ -690,82 +690,14 @@ switch ($s) {
         }
 
         // Languages
-        $queries->create('languages', [
-            'name' => 'EnglishUK',
-            'is_default' => 1
-        ]);
-        $queries->create('languages', [
-            'name' => 'Chinese',
-            'is_default' => 0
-        ]);
-        $queries->create('languages', [
-            'name' => 'Czech',
-            'is_default' => 0
-        ]);
-        $queries->create('languages', [
-            'name' => 'Danish',
-            'is_default' => 0
-        ]);
-        $queries->create('languages', [
-            'name' => 'Dutch',
-            'is_default' => 0
-        ]);
-        $queries->create('languages', [
-            'name' => 'EnglishUS',
-            'is_default' => 0
-        ]);
-        $queries->create('languages', [
-            'name' => 'German',
-            'is_default' => 0
-        ]);
-        $queries->create('languages', [
-            'name' => 'Greek',
-            'is_default' => 0
-        ]);
-        $queries->create('languages', [
-            'name' => 'Japanese',
-            'is_default' => 0
-        ]);
-        $queries->create('languages', [
-            'name' => 'Lithuanian',
-            'is_default' => 0
-        ]);
-        $queries->create('languages', [
-            'name' => 'Norwegian',
-            'is_default' => 0
-        ]);
-        $queries->create('languages', [
-            'name' => 'Polish',
-            'is_default' => 0
-        ]);
-        $queries->create('languages', [
-            'name' => 'Portuguese',
-            'is_default' => 0
-        ]);
-        $queries->create('languages', [
-            'name' => 'Romanian',
-            'is_default' => 0
-        ]);
-        $queries->create('languages', [
-            'name' => 'Slovak',
-            'is_default' => 0
-        ]);
-        $queries->create('languages', [
-            'name' => 'Spanish',
-            'is_default' => 0
-        ]);
-        $queries->create('languages', [
-            'name' => 'SwedishSE',
-            'is_default' => 0
-        ]);
-        $queries->create('languages', [
-            'name' => 'Turkish',
-            'is_default' => 0
-        ]);
-        $queries->create('languages', [
-            'name' => 'Thai',
-            'is_default' => 0
-        ]);
+        foreach (Language::LANGUAGES as $short_code => $meta) {
+            $queries->create('languages', [
+                'name' => $meta['name'],
+                'short_code' => $short_code,
+                'is_default' => $short_code === 'en_UK' ? 1 : 0
+            ]);
+        }
+
         $cache->setCache('languagecache');
         $cache->store('language', 'en_UK');
 

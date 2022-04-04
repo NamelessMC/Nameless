@@ -104,24 +104,21 @@ if (Input::exists()) {
             $default_language = $queries->getWhere('languages', ['is_default', '=', 1]);
             $default_language = $default_language[0];
 
-            if ($default_language->name != Input::get('language')) {
-                // The default language has been changed
-                $queries->update('languages', $default_language->id, [
-                    'is_default' => 0
-                ]);
+            $queries->update('languages', $default_language->id, [
+                'is_default' => 0
+            ]);
 
-                $language_id = $queries->getWhere('languages', ['id', '=', Input::get('language')]);
-                $language_short_code = Output::getClean($language_id[0]->short_code);
-                $language_id = $language_id[0]->id;
+            $language_id = $queries->getWhere('languages', ['id', '=', Input::get('language')]);
+            $language_short_code = Output::getClean($language_id[0]->short_code);
+            $language_id = $language_id[0]->id;
 
-                $queries->update('languages', $language_id, [
-                    'is_default' => 1
-                ]);
+            $queries->update('languages', $language_id, [
+                'is_default' => 1
+            ]);
 
-                // Update cache
-                $cache->setCache('languagecache');
-                $cache->store('language', $language_short_code);
-            }
+            // Update cache
+            $cache->setCache('languagecache');
+            $cache->store('language', $language_short_code);
 
             // Timezone
             $timezone_id = $queries->getWhere('settings', ['name', '=', 'timezone']);

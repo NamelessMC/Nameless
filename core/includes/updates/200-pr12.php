@@ -100,6 +100,35 @@ try {
 $cache->setCache('languagecache');
 $cache->eraseAll();
 
+$default_language = $queries->getWhere('languages', ['is_default', '=', 1])[0]->name;
+
+// drop all from languages table
+try {
+    DB::getInstance()->createQuery('DELETE FROM nl2_languages WHERE `id` <> 0');
+} catch (Exception $e) {
+    // Continue
+}
+
+// add short code column to languages table
+try {
+    DB::getInstance()->createQuery('ALTER TABLE nl2_languages ADD `short_code` VARCHAR(64) NOT NULL');
+} catch (Exception $e) {
+    // Continue
+}
+
+// insert short codes into languages table, keeping the default language
+try {
+    foreach (Language::LANGUAGES as $short_code => $meta) {
+        DB::getInstance()->createQuery('INSERT INTO nl2_languages (`name`, `short_code`, `is_default`) VALUES (?, ?, ?)', [
+            $meta['name'],
+            $short_code,
+            $default_language === str_replace(' ', '', $meta['name']) ? 1 : 0
+        ]);
+    }
+} catch (Exception $e) {
+    // Continue
+}
+
 // Update version number
 /*$version_number_id = $queries->getWhere('settings', array('name', '=', 'nameless_version'));
 
