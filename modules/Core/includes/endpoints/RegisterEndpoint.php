@@ -126,7 +126,7 @@ class RegisterEndpoint extends KeyAuthEndpoint {
             }
 
             if (!$code) {
-                $code = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 60);
+                $code = Hash::unique();
             }
 
             $api->getDb()->insert('users', [
