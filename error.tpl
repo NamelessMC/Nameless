@@ -165,7 +165,7 @@
     float: left;
     border: 1px solid #ccc;
     background-color: #f1f1f1;
-    width: 30%;
+    width: 20%;
     max-height: inherit;
 }
 
@@ -180,7 +180,7 @@
     outline: none;
     text-align: left;
     cursor: pointer;
-    transition: 0.3s;
+    transition: 0.1s;
 }
 
 /* Change background color of buttons on hover */
@@ -196,13 +196,16 @@
 /* Style the tab content */
 .tabcontent, .sql-tabcontent {
     float: left;
-    padding: 0px 12px;
-    width: 70%;
+    padding: 0 12px;
+    width: 80%;
 }
 
 pre[class*="language-"] > code {
-    box-shadow: none; !important;
+    box-shadow: none;
     border: #E5E5E5 solid 1px;
+    background-image: none;
+    font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    cursor: default;
 }
 
 pre[class*="language-"]::after, pre[class*="language-"]::before {
