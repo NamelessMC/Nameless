@@ -253,7 +253,7 @@ class Forum_Module extends Module {
                 if ($user_id) {
                     $forum = new Forum();
 
-                    $smarty->assign('TOPICS', $this->_forum_language->get('forum', 'x_topics'), ['count' => $forum->getTopicCount($user_id)]);
+                    $smarty->assign('TOPICS', $this->_forum_language->get('forum', 'x_topics', ['count' => $forum->getTopicCount($user_id)]));
                     $smarty->assign('POSTS', $this->_forum_language->get('forum', 'x_posts', ['count' => $forum->getPostCount($user_id)]));
                 }
             }
