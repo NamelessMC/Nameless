@@ -30,6 +30,6 @@ $language = [
     'fatal_error_title' => 'Förlåt!',
     'fatal_error_message_user' => 'Tyvärr, men något gick fel när sidan laddades in. Kontakta en administratör.',
     'fatal_error_message_admin' => 'Tyvärr, men något gick fel när sidan laddades in. Detaljer om felet:',
-    'in_file' => 'in file <strong>{x}</strong>', // Don't replace {x}
-    'on_line' => 'on line <strong>{x}</strong>' // Don't replace {x}
+    'in_file' => 'i fil <strong>{x}</strong>', // Don't replace {x}
+    'on_line' => 'på linje <strong>{x}</strong>' // Don't replace {x}
 ];
