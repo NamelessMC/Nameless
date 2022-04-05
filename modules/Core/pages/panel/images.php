@@ -299,7 +299,7 @@ $smarty->assign([
     ]),
     'FAVICON_IMAGES_ARRAY' => $favicon_images,
     'FAVICON_IMAGE' => $language->get('admin', 'favicon_image_x', [
-        'imageName' => Util::bold($favicon_image)
+        'imageName' => Util::bold($favicon_img)
     ]),
     'ERRORS_TITLE' => $language->get('general', 'error'),
     'INFO' => $language->get('general', 'info'),
