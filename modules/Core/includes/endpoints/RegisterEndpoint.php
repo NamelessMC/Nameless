@@ -127,7 +127,7 @@ class RegisterEndpoint extends KeyAuthEndpoint {
             }
 
             if (!$code) {
-                $code = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 60);
+                $code = Hash::unique();
             }
 
             $api->getDb()->insert('users', [
@@ -198,7 +198,7 @@ class RegisterEndpoint extends KeyAuthEndpoint {
      */
     private function sendRegistrationEmail(Nameless2API $api, string $username, string $email): void {
         // Generate random code
-        $code = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 60);
+        $code = Hash::unique();
 
         // Create user
         $user_id = $this->createUser($api, $username, $email, false, $code);
@@ -223,16 +223,6 @@ class RegisterEndpoint extends KeyAuthEndpoint {
 
             $api->throwError(14, $api->getLanguage()->get('api', 'unable_to_send_registration_email'));
         }
-
-        $user = new User();
-        EventHandler::executeEvent('registerUser', [
-                'user_id' => $user_id,
-                'username' => Output::getClean($username),
-                'content' => str_replace('{x}', Output::getClean($username), $api->getLanguage()->get('user', 'user_x_has_registered')),
-                'avatar_url' => $user->getAvatar(128, true),
-                'url' => Util::getSelfURL() . ltrim(URL::build('/profile/' . urlencode($username)), '/'),
-                'language' => $api->getLanguage()
-        ]);
 
         $api->returnArray(['message' => $api->getLanguage()->get('api', 'finish_registration_email')]);
     }

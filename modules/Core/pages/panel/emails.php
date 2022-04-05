@@ -185,7 +185,7 @@ if (isset($_GET['action'])) {
                                 '$GLOBALS[\'email\'] = array(' . PHP_EOL .
                                 '    \'email\' => \'' . (!empty($_POST['email']) ? addslashes($_POST['email']) : $GLOBALS['email']['email']) . '\',' . PHP_EOL .
                                 '    \'username\' => \'' . (!empty($_POST['username']) ? addslashes($_POST['username']) : $GLOBALS['email']['username']) . '\',' . PHP_EOL .
-                                '    \'password\' => \'' . (!empty($_POST['password']) ? addslashes($_POST['password']) : $GLOBALS['email']['password']) . '\',' . PHP_EOL .
+                                '    \'password\' => \'' . (!empty($_POST['password']) ? addslashes($_POST['password']) : addslashes($GLOBALS['email']['password'])) . '\',' . PHP_EOL .
                                 '    \'name\' => \'' . (!empty($_POST['name']) ? addslashes($_POST['name']) : $GLOBALS['email']['name']) . '\',' . PHP_EOL .
                                 '    \'host\' => \'' . (!empty($_POST['host']) ? addslashes($_POST['host']) : $GLOBALS['email']['host']) . '\',' . PHP_EOL .
                                 '    \'port\' => ' . (!empty($_POST['port']) ? $_POST['port'] : $GLOBALS['email']['port']) . ',' . PHP_EOL .
