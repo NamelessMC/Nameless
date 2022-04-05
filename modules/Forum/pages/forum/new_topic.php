@@ -43,7 +43,7 @@ if (!$can_reply) {
 }
 
 $current_forum = DB::getInstance()->selectQuery('SELECT * FROM nl2_forums WHERE id = ?', [$fid])->first();
-$forum_title = Output::getClean(Output::getDecoded($current_forum->forum_title));
+$forum_title = Output::getClean($current_forum->forum_title);
 
 // Topic labels
 $smarty->assign('LABELS_TEXT', $forum_language->get('forum', 'label'));
@@ -233,7 +233,7 @@ if (Input::exists()) {
 $token = Token::get();
 
 $template->addCSSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.css' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism_' . (DARK_MODE ? 'dark' : 'light') . '.css' => [],
     (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
 ]);
 
@@ -268,11 +268,16 @@ $smarty->assign([
     'TOKEN' => '<input type="hidden" name="token" value="' . $token . '">',
     'FORUM_LINK' => URL::build('/forum'),
     'CONTENT_LABEL' => $language->get('general', 'content'),
-    'CONTENT' => ((isset($_POST['content']) && $_POST['content']) ? Output::getPurified(Input::get('content')) : ($placeholder ?? '')),
     'FORUM_TITLE' => Output::getClean($forum_title),
     'FORUM_DESCRIPTION' => Output::getPurified($forum_query->forum_description),
     'NEWS_FORUM' => $forum_query->news
 ]);
+
+$content = $_POST['content'] ?? $forum_query->topic_placeholder ?? null;
+if ($content) {
+    // Purify post content
+    $content = EventHandler::executeEvent('renderPostEdit', ['content' => $content])['content'];
+}
 
 $template->addJSFiles([
     (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
@@ -280,7 +285,7 @@ $template->addJSFiles([
     (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
 ]);
 
-$template->addJSScript(Input::createTinyEditor($language, 'reply', true));
+$template->addJSScript(Input::createTinyEditor($language, 'reply', $content, true));
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);

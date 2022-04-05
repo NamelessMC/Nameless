@@ -9,6 +9,16 @@
  *  Forum module - forum profile tab
  */
 
+$template->addCSSFiles([
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism_' . (DARK_MODE ? 'dark' : 'light') . '.css' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
+]);
+
+$template->addJSFiles([
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => []
+]);
+
 if (!isset($forum) || (!$forum instanceof Forum)) {
     $forum = new Forum();
 }
@@ -74,7 +84,7 @@ if (!count($latest_posts)) {
         $posts[] = [
             'link' => URL::build('/forum/topic/' . $latest_post->topic_id . '-' . $forum->titleToURL($topic_title), 'pid=' . $latest_post->id),
             'title' => $topic_title,
-            'content' => Output::getPurified(Util::renderEmojis($latest_post->post_content)),
+            'content' => EventHandler::executeEvent('renderPost', ['content' => $latest_post->post_content])['content'],
             'date_friendly' => $date_friendly,
             'date_full' => $date_full
         ];

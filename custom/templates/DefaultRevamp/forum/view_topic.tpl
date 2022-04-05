@@ -254,7 +254,7 @@
         <div class="ui eleven wide tablet thirteen wide computer column" id="reply-content">
           <form class="ui form" action="" method="post">
             <div class="field">
-              <textarea name="content" id="quickreply">{$CONTENT}</textarea>
+              <textarea name="content" id="quickreply"></textarea>
             </div>
             <input type="hidden" name="token" value="{$TOKEN}">
             <button class="ui primary button" type="submit">{$SUBMIT}</button>

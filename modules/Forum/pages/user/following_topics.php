@@ -38,7 +38,11 @@ $topics = DB::getInstance()->selectQuery('SELECT nl2_topics.id AS id, nl2_topics
 
 // Pagination
 $p = (isset($_GET['p']) && is_numeric($_GET['p'])) ? $_GET['p'] : 1;
-$paginator = new Paginator(($template_pagination ?? []), $template_pagination_left ?? '', $template_pagination_right ?? '');
+$paginator = new Paginator(
+    $template_pagination ?? null,
+    $template_pagination_left ?? null,
+    $template_pagination_right ?? null
+);
 $results = $paginator->getLimited($topics, 10, $p, count($topics));
 $pagination = $paginator->generate(7, URL::build('/user/following_topics/'));
 

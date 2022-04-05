@@ -144,7 +144,7 @@ $forum_parent = $queries->getWhere('forums', ['id', '=', $topic->forum_id]);
 $page_metadata = $queries->getWhere('page_descriptions', ['page', '=', '/forum/topic']);
 if (count($page_metadata)) {
     $first_post = $queries->orderWhere('posts', 'topic_id = ' . $topic->id, 'created', 'ASC LIMIT 1');
-    $first_post = htmlentities(strip_tags(str_ireplace(['<br />', '<br>', '<br/>', '&nbsp;'], ["\n", "\n", "\n", ' '], Output::getDecoded($first_post[0]->post_content))), ENT_QUOTES, 'UTF-8', false);
+    $first_post = htmlentities(strip_tags(str_ireplace(['<br />', '<br>', '<br/>', '&nbsp;'], ["\n", "\n", "\n", ' '], $first_post[0]->post_content)), ENT_QUOTES, 'UTF-8', false);
 
     define('PAGE_DESCRIPTION', str_replace(['{site}', '{title}', '{author}', '{forum_title}', '{page}', '{post}'], [SITE_NAME, Output::getClean($topic->topic_title), Output::getClean($user->idToName($topic->topic_creator)), Output::getClean($forum_parent[0]->forum_title), Output::getClean($p), substr($first_post, 0, 160) . '...'], $page_metadata[0]->description));
     define('PAGE_KEYWORDS', $page_metadata[0]->tags);
@@ -153,7 +153,7 @@ if (count($page_metadata)) {
 
     if (count($page_metadata)) {
         $first_post = $queries->orderWhere('posts', 'topic_id = ' . $topic->id, 'created', 'ASC LIMIT 1');
-        $first_post = htmlentities(strip_tags(str_ireplace(['<br />', '<br>', '<br/>', '&nbsp;'], ["\n", "\n", "\n", ' '], Output::getDecoded($first_post[0]->post_content))), ENT_QUOTES, 'UTF-8', false);
+        $first_post = htmlentities(strip_tags(str_ireplace(['<br />', '<br>', '<br/>', '&nbsp;'], ["\n", "\n", "\n", ' '], $first_post[0]->post_content)), ENT_QUOTES, 'UTF-8', false);
 
         define('PAGE_DESCRIPTION', str_replace(['{site}', '{title}', '{author}', '{forum_title}', '{page}', '{post}'], [SITE_NAME, Output::getClean($topic->topic_title), Output::getClean($user->idToName($topic->topic_creator)), Output::getClean($forum_parent[0]->forum_title), Output::getClean($p), substr($first_post, 0, 160) . '...'], $page_metadata[0]->description));
         define('PAGE_KEYWORDS', $page_metadata[0]->tags);
@@ -383,7 +383,7 @@ if ($user->isLoggedIn() || (defined('COOKIE_CHECK') && COOKIES_ALLOWED)) {
 }
 
 $template->addCSSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.css' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism_' . (DARK_MODE ? 'dark' : 'light') . '.css' => [],
     (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
 ]);
 
@@ -524,7 +524,11 @@ $smarty->assign([
 ]);
 
 // Pagination
-$paginator = new Paginator(($template_pagination ?? []));
+$paginator = new Paginator(
+    $template_pagination ?? null,
+    $template_pagination_left ?? null,
+    $template_pagination_right ?? null
+);
 $results = $paginator->getLimited($posts, 10, $p, count($posts));
 $pagination = $paginator->generate(7, URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title)));
 
@@ -670,9 +674,7 @@ foreach ($results->data as $n => $nValue) {
     }
 
     // Purify post content
-    $content = Util::replaceAnchorsWithText(Output::getDecoded($nValue->post_content));
-    $content = Util::renderEmojis($content);
-    $content = Output::getPurified($content, true);
+    $content = EventHandler::executeEvent('renderPost', ['content' => $nValue->post_content])['content'];
 
     // Get post date
     if (is_null($nValue->created)) {
@@ -759,6 +761,9 @@ if ($user->isLoggedIn()) {
 
 $smarty->assign('REACTIONS_TEXT', $language->get('user', 'reactions'));
 
+// Existing quick reply content
+$content = null;
+
 // Quick reply
 if ($user->isLoggedIn() && $can_reply) {
     if ($forum->canModerateForum($forum_parent[0]->id, $user_groups) || $topic->locked != 1) {
@@ -766,8 +771,12 @@ if ($user->isLoggedIn() && $can_reply) {
             $smarty->assign('TOPIC_LOCKED_NOTICE', $forum_language->get('forum', 'topic_locked_notice'));
         }
 
+        if (isset($_POST['content'])) {
+            // Purify post content
+            $content = EventHandler::executeEvent('renderPostEdit', ['content' => $_POST['content']])['content'];
+        }
+
         $smarty->assign([
-            'CONTENT' => Output::getClean(Input::get('content')),
             'SUBMIT' => $language->get('general', 'submit')
         ]);
     }
@@ -797,7 +806,7 @@ $template->addJSFiles([
 ]);
 
 if ($user->isLoggedIn()) {
-    $template->addJSScript(Input::createTinyEditor($language, 'quickreply', true));
+    $template->addJSScript(Input::createTinyEditor($language, 'quickreply', $content, true));
 }
 
 if ($user->isLoggedIn()) {
