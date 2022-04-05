@@ -53,7 +53,10 @@ try {
             </h4>
         </div>
         <div class="ui segment">
-            <p><?php echo $language->get('installer', 'credits_message'); ?></p>
+            <p><?php echo $language->get('installer', 'credits_message', [
+                    'contribLinkStart' => '<a href="https://github.com/NamelessMC/Nameless/graphs/contributors" target="_blank">',
+                    'contribLinkEnd' => '</a>'
+                ]); ?></p>
         </div>
         <div class="ui secondary right aligned segment">
             <a href="index.php?route=/panel" class="ui small primary button">

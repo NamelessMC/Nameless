@@ -286,7 +286,7 @@
     "installer\/converter": "Konvertérer",
     "installer\/creating_admin_account": "Opretter Administrationskonto",
     "installer\/credits": "Medvirkende",
-    "installer\/credits_message": "En stor tak til alle <a href=\"https:\/\/github.com\/NamelessMC\/Nameless\/graphs\/contributors\" target=\"_blank\">NamelessMC bidragsydere<\/a> siden 2014",
+    "installer\/credits_message": "En stor tak til alle {{contribLinkStart}}NamelessMC bidragsydere{{contribLinkEnd}} siden 2014",
     "installer\/database_address": "Database Adresse",
     "installer\/database_configuration": "Database Konfiguration",
     "installer\/database_engine": "Database Lager Motor",

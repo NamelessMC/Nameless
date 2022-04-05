@@ -239,7 +239,12 @@ if (!isset($_GET['view'])) {
             'CONFIGURATION' => $language->get('admin', 'configuration'),
             'API' => $language->get('admin', 'api'),
             'PAGE' => PANEL_PAGE,
-            'API_INFO' => $language->get('admin', 'api_info'),
+            'API_INFO' => $language->get('admin', 'api_info', [
+                'pluginLinkStart' => '<a href="https://plugin.namelessmc.com" target="_blank">',
+                'pluginLinkEnd' => '</a>',
+                'botLinkStart' => '<a href="https://github.com/NamelessMC/Nameless-Link" target="_blank">',
+                'botLinkEnd' => '</a>',
+            ]),
             'INFO' => $language->get('general', 'info'),
             'ENABLE_API' => $language->get('admin', 'enable_api'),
             'API_ENABLED' => $api_enabled,
@@ -343,7 +348,10 @@ if (!isset($_GET['view'])) {
                     'DESCRIPTION' => $language->get('admin', 'description'),
                     'MODULE' => $language->get('admin', 'module'),
                     'METHOD' => $language->get('admin', 'method'),
-                    'ENDPOINTS_INFO' => $language->get('admin', 'api_endpoints_info'),
+                    'ENDPOINTS_INFO' => $language->get('admin', 'api_endpoints_info', [
+                        'docLinkStart' => '<a href="https://docs.namelessmc.com/en/api-documentation" target="_blank">',
+                        'docLinkEnd' => '</a>'
+                    ]),
                     'ENDPOINTS_ARRAY' => $endpoints_array,
                     'TYPE' => $language->get('admin', 'type'),
                     'TRANSFORMERS' => $language->get('admin', 'transformers'),

@@ -193,7 +193,7 @@
     "installer\/convert_message": "Τέλος, θέλετε να μετατρέψετε από ένα διαφορετικό λογισμικό φόρουμ?",
     "installer\/creating_admin_account": "Δημιουργία Λογαριασμού Διαχειριστή",
     "installer\/credits": "Συντελεστές",
-    "installer\/credits_message": "Ένα τεράστιο ευχαριστώ σε όλους <a href=\"https:\/\/github.com\/NamelessMC\/Nameless\/graphs\/contributors\" target=\"_blank\">NamelessMC contributors<\/a> από το 2014",
+    "installer\/credits_message": "Ένα τεράστιο ευχαριστώ σε όλους {{contribLinkStart}}NamelessMC contributors{{contribLinkEnd}} από το 2014",
     "installer\/database_error": "Βεβαιωθείτε οτι όλα τα πεδία έχουν συμπληρωθεί.",
     "installer\/email_invalid": "Your email is not valid.",
     "installer\/enter_admin_details": "Παρακαλώ εισάγετε τα στοιχεία του λογαριασμού διαχειριστή.",

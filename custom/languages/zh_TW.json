@@ -380,7 +380,7 @@
     "installer\/convert_message": "最後，您想要從不同的論壇升級?",
     "installer\/creating_admin_account": "建立管理員帳號",
     "installer\/credits": "貢獻歸功於",
-    "installer\/credits_message": "從 2014年開始 非常感謝所有 <a href=\"https:\/\/github.com\/NamelessMC\/Nameless\/graphs\/contributors\" target=\"_blank\">NamelessMC 貢獻者<\/a>",
+    "installer\/credits_message": "從 2014年開始 非常感謝所有 {{contribLinkStart}}NamelessMC 貢獻者{{contribLinkEnd}}",
     "installer\/database_address": "資料庫位置",
     "installer\/database_configuration": "資料庫設定",
     "installer\/database_error": "請確認所有資料都已填寫.",
