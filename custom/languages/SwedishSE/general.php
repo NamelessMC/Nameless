@@ -48,16 +48,16 @@ $language = [
     'view_alerts' => 'Visa alerts',
     'no_alerts' => 'Inga alerts',
     'x_new_alerts' => 'Du har {x} nya alerts.', // Don't replace {x}
-    'messages' => 'Meddelander',
-    'view_messages' => 'Visa Meddelander',
+    'messages' => 'Meddelanden',
+    'view_messages' => 'Visa Meddelanden',
     'no_messages' => 'Inga Meddelanden',
     'x_new_messages' => 'Du har {x} nya meddelanden.', // Don't replace {x}
     'loading' => 'Laddar...',
     'report' => 'Anmäl',
     'reported_by' => 'Rapporterad av {x}',
     'view_report' => 'Visa rapport',
-    'report_origin' => 'Origin',
-    'origin_website' => 'Website',
+    'report_origin' => 'Ursprung',
+    'origin_website' => 'Hemsida',
     'origin_api' => 'API',
     'page_loaded_in' => 'Sida laddad på {x}s', // Don't replace {x}, time unit is seconds
     'page_x' => 'Sida {x}',
@@ -123,7 +123,7 @@ $language = [
     /*
      *  Widgets
      */
-    'statistics' => 'Statistics',
+    'statistics' => 'Statistik',
     'users_registered' => 'Registrerade användare',
     'latest_member' => 'Senaste medlem',
     'forum_statistics' => 'Forumstatistik',
@@ -154,5 +154,5 @@ $language = [
     /*
      * OAuth
      */
-    'oauth_message_continue' => 'Continue registering with {x}', // Don't replace {x}
+    'oauth_message_continue' => 'Fortsätt registrera med {x}', // Don't replace {x}
 ];
