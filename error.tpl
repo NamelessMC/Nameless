@@ -111,26 +111,17 @@
 
                                         <div class="code">
                                             {foreach from=$FRAMES item=frame}
-
                                                 <div id="frame-{$frame['number']}" class="tabcontent">
                                                     <h5>File: <strong>{$frame['file']}</strong></h5>
 
-                                                    <hr>
-
                                                     {if $frame['code'] != ''}
-
                                                         <pre data-line="{$frame['highlight_line']}" data-start="{($frame['start_line'])}">
                                                             <code class="language-php line-numbers">{$frame['code']}</code>
                                                         </pre>
-
                                                     {else}
-
                                                         <pre class="text-center">Cannot read file.</pre>
-
                                                     {/if}
-
                                                 </div>
-
                                             {/foreach}
                                         </div>
 
@@ -150,27 +141,18 @@
 
                                         <div class="code">
                                             {foreach from=$ERROR_SQL_STACK item=$stack}
-
                                                 <div id="sql-frame-{$stack['number']}" class="sql-tabcontent">
                                                     <h5>SQL query: <strong>{$stack['sql_query']}</strong></h5>
                                                     <h5>File: <strong>{$stack['frame']['file']}</strong></h5>
 
-                                                    <hr>
-
                                                     {if $stack['frame']['code'] != ''}
-
                                                         <pre data-line="{$stack['frame']['highlight_line']}" data-start="{($stack['frame']['start_line'])}">
                                                             <code class="language-php line-numbers">{$stack['frame']['code']}</code>
                                                         </pre>
-
                                                     {else}
-
                                                         <pre class="text-center">Cannot read file.</pre>
-
                                                     {/if}
-
                                                 </div>
-
                                             {/foreach}
                                         </div>
                                     </div>
@@ -230,6 +212,15 @@
     float: left;
     padding: 0px 12px;
     width: 70%;
+}
+
+pre[class*="language-"] > code {
+    box-shadow: none; !important;
+    border: #E5E5E5 solid 1px;
+}
+
+pre[class*="language-"]::after, pre[class*="language-"]::before {
+    display: none;
 }
 {/literal}
 </style>
