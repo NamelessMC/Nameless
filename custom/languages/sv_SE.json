@@ -848,7 +848,7 @@
     "installer\/step_home": "Hem",
     "installer\/step_requirements": "Krav",
     "installer\/step_site_config": "Sid konfiguration",
-    "installer\/support_message": "Om du behöver hjälp, kolla in vår hemsida <a href=\"https:\/\/namelessmc.com\" target=\"_blank\">here<\/a>, eller kan du besöka vår <a href=\"https:\/\/discord.gg\/J6QsVaP\" target=\"_blank\">Discord server<\/a> eller vår <a href=\"https:\/\/github.com\/NamelessMC\/Nameless\/\" target=\"_blank\">GitHub förvaring<\/a>.",
+    "installer\/support_message": "Om du behöver hjälp, kolla in vår hemsida {{websiteLinkStart}}here{{websiteLinkEnd}}, eller kan du besöka vår {{discordLinkStart}}Discord server{{discordLinkEnd}} eller vår {{githubLinkStart}}GitHub förvaring{{githubLinkEnd}}.",
     "installer\/template_cache_writable": "Mall Cache Skrivbar",
     "installer\/terms_and_conditions": "By continuing you agree to the terms and conditions.",
     "installer\/unable_to_create_account": "Det går inte att skapa ett konto.",

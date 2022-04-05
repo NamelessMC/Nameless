@@ -221,7 +221,7 @@
     "installer\/requirements": "Απαιτήσεις:",
     "installer\/requirements_error": "Πρέπει να έχετε όλες τις απαιτούμενες επεκτάσεις εγκατεστημένες, και να έχουν οριστεί σωστά δικαιώματα, προκειμένου να προχωρήσει με την εγκατάσταση.",
     "installer\/site_name": "Ονομα ιστοσελίδας",
-    "installer\/support_message": "Αν χρειάζεστε υποστήριξη, ελέγξτε την ιστοσελίδα μας <a href=\"https:\/\/namelessmc.com\" target=\"_blank\">here<\/a>, ή μπορείτε επίσης να επισκεφθείτε τον δικό μας <a href=\"https:\/\/discord.gg\/nameless\" target=\"_blank\">Discord server<\/a> η το δικό μας <a href=\"https:\/\/github.com\/NamelessMC\/Nameless\/\" target=\"_blank\">GitHub repository<\/a>.",
+    "installer\/support_message": "Αν χρειάζεστε υποστήριξη, ελέγξτε την ιστοσελίδα μας {{websiteLinkStart}}here{{websiteLinkEnd}}, ή μπορείτε επίσης να επισκεφθείτε τον δικό μας {{discordLinkStart}}Discord server{{discordLinkEnd}} η το δικό μας {{githubLinkStart}}GitHub repository{{githubLinkEnd}}.",
     "installer\/template_cache_writable": "Template Cache με δυνατότητα εγγραφής",
     "installer\/terms_and_conditions": "By continuing you agree to the terms and conditions.",
     "installer\/unable_to_create_account": "Δεν είναι δυνατή η δημιουργία του λογαριασμού",

@@ -871,7 +871,7 @@
     "installer\/step_home": "Início",
     "installer\/step_requirements": "Requisitos",
     "installer\/step_site_config": "Configuração do Site",
-    "installer\/support_message": "Se você precisar de qualquer suporte, consulte o nosso site <a href=\"https:\/\/namelessmc.com\" target=\"_blank\">aqui<\/a>, ou você também pode visitar nosso <a href=\"https:\/\/discord.gg\/nameless\" target=\"_blank\">servidor Discord<\/a> ou nosso <a href=\"https:\/\/github.com\/NamelessMC\/Nameless\/\" target=\"_blank\">repositório GitHub<\/a>.",
+    "installer\/support_message": "Se você precisar de qualquer suporte, consulte o nosso site {{websiteLinkStart}}aqui{{websiteLinkEnd}}, ou você também pode visitar nosso {{discordLinkStart}}servidor Discord{{discordLinkEnd}} ou nosso {{githubLinkStart}}repositório GitHub{{githubLinkEnd}}.",
     "installer\/template_cache_writable": "Template Cache é Gravável",
     "installer\/terms_and_conditions": "Ao continuar, você concorda com os termos e condições.",
     "installer\/unable_to_create_account": "Não é possível criar uma conta.",

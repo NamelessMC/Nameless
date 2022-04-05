@@ -342,7 +342,7 @@
     "installer\/step_home": "Hjem",
     "installer\/step_requirements": "Krav",
     "installer\/step_site_config": "Websted Konfiguration",
-    "installer\/support_message": "Hvis du har brug for støtte, så tjek vores hjemmeside <a href=\"https:\/\/namelessmc.com\" target=\"_blank\">her<\/a>, eller du kan også besøge vores <a href=\"https:\/\/discord.gg\/9vk93VR\" target=\"_blank\">Discord server<\/a> eller vores <a href=\"https:\/\/github.com\/NamelessMC\/Nameless\/\" target=\"_blank\">GitHub lager<\/a>.",
+    "installer\/support_message": "Hvis du har brug for støtte, så tjek vores hjemmeside {{websiteLinkStart}}her{{websiteLinkEnd}}, eller du kan også besøge vores {{discordLinkStart}}Discord server{{discordLinkEnd}} eller vores {{githubLinkStart}}GitHub lager{{githubLinkEnd}}.",
     "installer\/template_cache_writable": "Skabelon Cache Skrivbar",
     "installer\/terms_and_conditions": "Ved at fortsætte accepterer du vilkårene og betingelserne.",
     "installer\/unable_to_create_account": "Kunne ikke oprette konto",

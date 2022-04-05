@@ -770,7 +770,7 @@
     "installer\/requirements": "Exigences :",
     "installer\/requirements_error": "Vous devez avoir installé toutes les extensions requises, et avoir les permissions correctes définies, afin de procéder à l’installation.",
     "installer\/site_name": "Nom du site",
-    "installer\/support_message": "Si vous avez besoin d’aide, consultez notre site Web <a href=\"https:\/\/namelessmc.com\" target=\"_blank\">ici<\/a>, ou vous pouvez également consulter notre serveur <a href=\"https:\/\/discord.gg\/nameless\" target=\"_blank\">Discord<\/a> ou notre dépôt <a href=\"https:\/\/github.com\/NamelessMC\/Nameless\/\" target=\"_blank\">GitHub<\/a>.",
+    "installer\/support_message": "Si vous avez besoin d’aide, consultez notre site Web {{websiteLinkStart}}ici{{websiteLinkEnd}}, ou vous pouvez également consulter notre serveur {{discordLinkStart}}Discord{{discordLinkEnd}} ou notre dépôt {{githubLinkStart}}GitHub{{githubLinkEnd}}.",
     "installer\/template_cache_writable": "Permission d'écrire Template Cache",
     "installer\/unable_to_create_account": "Impossible de créer un compte",
     "installer\/unable_to_load_converter": "Impossible de charger le convertisseur!",

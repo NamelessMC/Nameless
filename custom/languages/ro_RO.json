@@ -715,7 +715,7 @@
     "installer\/requirements": "Cerinţe:",
     "installer\/requirements_error": "Trebuie să aveți instalate toate extensiile necesare și setați permisiunile corecte (permisiuni de scriere) pentru a continua instalarea.",
     "installer\/site_name": "Numele site-ului",
-    "installer\/support_message": "Dacă aveți nevoie de asistență, consultați site-ul nostru web <a href=\"https:\/\/namelessmc.com\" target=\"_blank\">aici<\/a>, sau puteți vizita și serverul nostru de <a href=\"https:\/\/discord.gg\/nameless\" target=\"_blank\">Discord<\/a> sau pagina noastra de <a href=\"https:\/\/github.com\/NamelessMC\/Nameless\/\" target=\"_blank\">GitHub<\/a>.",
+    "installer\/support_message": "Dacă aveți nevoie de asistență, consultați site-ul nostru web {{websiteLinkStart}}aici{{websiteLinkEnd}}, sau puteți vizita și serverul nostru de {{discordLinkStart}}Discord{{discordLinkEnd}} sau pagina noastra de {{githubLinkStart}}GitHub{{githubLinkEnd}}.",
     "installer\/template_cache_writable": "Șabloanele Cache au permisiune de scriere",
     "installer\/terms_and_conditions": "By continuing you agree to the terms and conditions.",
     "installer\/unable_to_create_account": "Nu am putut crea contul de utilizator",

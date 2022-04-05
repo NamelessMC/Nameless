@@ -864,7 +864,7 @@
     "installer\/step_home": "ホーム",
     "installer\/step_requirements": "要件",
     "installer\/step_site_config": "サイト設定",
-    "installer\/support_message": "サポートが必要な場合は、<a href=\"https:\/\/namelessmc.com\" target=\"_blank\">私達のウェブサイト<\/a>をご覧ください。また、<a href=\"https:\/\/discord.gg\/nameless\" target=\"_blank\">Discordサーバー<\/a>や<a href=\"https:\/\/github.com\/NamelessMC\/Nameless\/\" target=\"_blank\">GitHubリポジトリ<\/a>もご利用いただけます。",
+    "installer\/support_message": "サポートが必要な場合は、{{websiteLinkStart}}私達のウェブサイト{{websiteLinkEnd}} をご覧ください。また、{{discordLinkStart}}Discordサーバー{{discordLinkEnd}} や {{githubLinkStart}}GitHubリポジトリ{{githubLinkEnd}} もご利用いただけます。",
     "installer\/template_cache_writable": "Template Cache 書き込み可能",
     "installer\/terms_and_conditions": "継続することで、規約に同意することになります。",
     "installer\/unable_to_create_account": "アカウントを作成できません。",

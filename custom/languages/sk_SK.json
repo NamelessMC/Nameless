@@ -855,7 +855,7 @@
     "installer\/step_home": "Domov",
     "installer\/step_requirements": "Požiadavky",
     "installer\/step_site_config": "Konfigurácia stránky",
-    "installer\/support_message": "Ak potrebujete podporu, navštívte našu <a href=\"https:\/\/namelessmc.com\" target=\"_blank\">webstránku<\/a> alebo môžete navštíviť aj náš <a href=\"https:\/\/discord.gg\/nameless\" target=\"_blank\">Discord server<\/a> alebo naše <a href=\"https:\/\/github.com\/NamelessMC\/Nameless\/\" target=\"_blank\">GitHub úložisko<\/a>.",
+    "installer\/support_message": "Ak potrebujete podporu, navštívte našu {{websiteLinkStart}}webstránku{{websiteLinkEnd}} alebo môžete navštíviť aj náš {{discordLinkStart}}Discord server{{discordLinkEnd}} alebo naše {{githubLinkStart}}GitHub úložisko{{githubLinkEnd}}.",
     "installer\/template_cache_writable": "Cache šablóny zapisovateľná",
     "installer\/terms_and_conditions": "Pokračovaním vyjadrujete súhlas s obchodnými podmienkami.",
     "installer\/unable_to_create_account": "Nie je možné vytvoriť účet",

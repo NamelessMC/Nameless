@@ -869,7 +869,7 @@
     "installer\/step_home": "开始",
     "installer\/step_requirements": "环境需求",
     "installer\/step_site_config": "站点配置",
-    "installer\/support_message": "如果你需要任何帮助，请在 <a href=\"https:\/\/namelessmc.com\" target=\"_blank\">我们的网站<\/a> 上查找 , 或者你可以访问我们的 <a href=\"https:\/\/discord.gg\/nameless\" target=\"_blank\">Discord 服务器<\/a> 或 <a href=\"https:\/\/github.com\/NamelessMC\/Nameless\/\" target=\"_blank\">GitHub 资料库<\/a>.",
+    "installer\/support_message": "如果你需要任何帮助，请在 {{websiteLinkStart}}我们的网站{{websiteLinkEnd}} 上查找 , 或者你可以访问我们的 {{discordLinkStart}}Discord 服务器{{discordLinkEnd}} 或 {{githubLinkStart}}GitHub 资料库{{githubLinkEnd}}.",
     "installer\/template_cache_writable": "Template Cache 可写",
     "installer\/terms_and_conditions": "您在继续前必须同意 NamelessMC 条款与条件。",
     "installer\/unable_to_create_account": "无法创建新用户",

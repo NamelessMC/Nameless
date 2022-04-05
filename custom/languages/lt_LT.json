@@ -695,7 +695,7 @@
     "installer\/requirements": "Reikalavimai:",
     "installer\/requirements_error": "Jei norite tęsti diegimą, turite turėti visus reikalingus plėtinius ir nustatyti teisingus leidimus.",
     "installer\/site_name": "Svetainės Pavadinimas",
-    "installer\/support_message": "Jei jums reikia pagalbos, apsilankykite mūsų tinklalapyje <a href=\"https:\/\/namelessmc.com\" target=\"_blank\">čia<\/a>, ar taip pat galite apsilankyti mūsų <a href=\"https:\/\/discord.gg\/nameless\" target=\"_blank\">Discord serveryje<\/a> arba mūsų <a href=\"https:\/\/github.com\/NamelessMC\/Nameless\/\" target=\"_blank\">GitHub<\/a>.",
+    "installer\/support_message": "Jei jums reikia pagalbos, apsilankykite mūsų tinklalapyje {{websiteLinkStart}}čia{{websiteLinkEnd}}, ar taip pat galite apsilankyti mūsų {{discordLinkStart}}Discord serveryje{{discordLinkEnd}} arba mūsų {{githubLinkStart}}GitHub{{githubLinkEnd}}.",
     "installer\/terms_and_conditions": "By continuing you agree to the terms and conditions.",
     "installer\/unable_to_create_account": "Neįmanoma sukurti paskyros",
     "installer\/unable_to_login": "Negalima prisijungti.",

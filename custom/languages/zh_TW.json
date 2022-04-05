@@ -414,7 +414,7 @@
     "installer\/requirements": "需要:",
     "installer\/requirements_error": "你必須安裝所有必需的，並設置正確才能繼續安裝.",
     "installer\/site_name": "網站名稱",
-    "installer\/support_message": "如果需要支援，逛逛我們的 <a href=\"https:\/\/namelessmc.com\" target=\"_blank\">網站<\/a>, 或是加入我們的 <a href=\"https:\/\/discord.gg\/nameless\" target=\"_blank\">Discord伺服器<\/a> 或是 <a href=\"https:\/\/github.com\/NamelessMC\/Nameless\/\" target=\"_blank\">GitHub 知識庫<\/a>.",
+    "installer\/support_message": "如果需要支援，逛逛我們的 {{websiteLinkStart}}網站{{websiteLinkEnd}}, 或是加入我們的 {{discordLinkStart}}Discord伺服器{{discordLinkEnd}} 或是 {{githubLinkStart}}GitHub 知識庫{{githubLinkEnd}}.",
     "installer\/template_cache_writable": "Template Cache 可寫入",
     "installer\/unable_to_create_account": "無法建立帳號",
     "installer\/unable_to_login": "無法登入.",

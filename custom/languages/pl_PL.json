@@ -845,7 +845,7 @@
     "installer\/step_requirements": "Wymagania",
     "installer\/step_site_config": "Konfiguracja Strony",
     "installer\/submit": "Zatwierdź",
-    "installer\/support_message": "Jeśli potrzebujesz pomocy, sprawdź naszą stronę internetową <a href=\"https:\/\/namelessmc.com\" target=\"_blank\">tutaj<\/a>. Możesz też odwiedzić nasz<a href=\"https:\/\/discord.gg\/nameless\" target=\"_blank\">serwer Discord<\/a> lub nasze <a href=\"https:\/\/github.com\/NamelessMC\/Nameless\/\" target=\"_blank\">repozytorium GitHub<\/a>.",
+    "installer\/support_message": "Jeśli potrzebujesz pomocy, sprawdź naszą stronę internetową {{websiteLinkStart}}tutaj{{websiteLinkEnd}}. Możesz też odwiedzić nasz {{discordLinkStart}}serwer Discord{{discordLinkEnd}} lub nasze {{githubLinkStart}}repozytorium GitHub{{githubLinkEnd}}.",
     "installer\/template_cache_writable": "Szablon do zapisu w pamięci podręcznej",
     "installer\/terms_and_conditions": "By continuing you agree to the terms and conditions.",
     "installer\/unable_to_create_account": "Podczas tworzenia konta wystąpił błąd.",

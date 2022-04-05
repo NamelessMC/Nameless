@@ -813,7 +813,7 @@
     "installer\/step_home": "Hjem",
     "installer\/step_requirements": "Krav",
     "installer\/step_site_config": "Nettsidekonfigurering",
-    "installer\/support_message": "Hvis det er noe du lurer på, sjekk ut nettsiden vår nettside <a href=\"https:\/\/namelessmc.com\" target=\"_blank\">her<\/a>, <a href=\"https:\/\/discord.gg\/nameless\" target=\"_blank\">Discord serveren<\/a>, eller vår <a href=\"https:\/\/github.com\/NamelessMC\/Nameless\/\" target=\"_blank\">GitHub-nettside<\/a>.",
+    "installer\/support_message": "Hvis det er noe du lurer på, sjekk ut nettsiden vår nettside {{websiteLinkStart}}her{{websiteLinkEnd}}, {{discordLinkStart}}Discord serveren{{discordLinkEnd}}, eller vår {{githubLinkStart}}GitHub-nettside{{githubLinkEnd}}.",
     "installer\/template_cache_writable": "Mal-cache skrivelig",
     "installer\/terms_and_conditions": "Ved å fortsette, erkjenner du at du er enig i våre vilkår og betingelser.",
     "installer\/unable_to_create_account": "Kunne ikke registrere bruker, prøv igjen.",

@@ -844,7 +844,7 @@
     "installer\/step_home": "Domů",
     "installer\/step_requirements": "Požadavky",
     "installer\/step_site_config": "Konfigurace webu",
-    "installer\/support_message": "Pokud potřebujete jakoukoli podporu, podívejte se na <a href=\"https:\/\/namelessmc.com\" target=\"_blank\">náš web<\/a> nebo navštivte náš <a href=\"https:\/\/discord.gg\/nameless\" target=\"_blank\">Discord server<\/a> nebo náš <a href=\"https:\/\/github.com\/NamelessMC\/Nameless\/\" target=\"_blank\">GitHub repozitář<\/a>.",
+    "installer\/support_message": "Pokud potřebujete jakoukoli podporu, podívejte se na {{websiteLinkStart}}>náš web{{websiteLinkEnd}} nebo navštivte náš {{discordLinkStart}}Discord server{{discordLinkEnd}} nebo náš {{githubLinkStart}}GitHub repozitář{{githubLinkEnd}}.",
     "installer\/template_cache_writable": "Mezipaměť šablon zapisovatelná",
     "installer\/terms_and_conditions": "Pokračováním souhlasíte s pravidly a podmínkami.",
     "installer\/unable_to_create_account": "Nepodařilo se vytvořit účet",

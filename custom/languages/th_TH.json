@@ -840,7 +840,7 @@
     "installer\/step_home": "Home",
     "installer\/step_requirements": "Requirements",
     "installer\/step_site_config": "การกำหนดค่าไซต์",
-    "installer\/support_message": "หากคุณต้องการความช่วยเหลือ ตรวจสอบเว็บไซต์ของเรา <a href=\"https:\/\/namelessmc.com\" target=\"_blank\">here<\/a>, หรือเยี่ยมชมของเราได้เช่นกัน <a href=\"https:\/\/discord.gg\/nameless\" target=\"_blank\">Discord server<\/a> or our <a href=\"https:\/\/github.com\/NamelessMC\/Nameless\/\" target=\"_blank\">GitHub repository<\/a>.",
+    "installer\/support_message": "หากคุณต้องการความช่วยเหลือ ตรวจสอบเว็บไซต์ของเรา {{websiteLinkStart}}here{{websiteLinkEnd}}, หรือเยี่ยมชมของเราได้เช่นกัน {{discordLinkStart}}Discord server{{discordLinkEnd}} or our {{githubLinkStart}}GitHub repository{{githubLinkEnd}}.",
     "installer\/template_cache_writable": "Template Cache เขียนได้",
     "installer\/terms_and_conditions": "การดำเนินการต่อแสดงว่าคุณยอมรับข้อกำหนดและเงื่อนไข",
     "installer\/unable_to_create_account": "สร้างบัญชีไม่ได้",
