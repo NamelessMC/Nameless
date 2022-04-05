@@ -30,7 +30,7 @@ The following list is a brief summary of the features available in v2 pre-releas
   - [Nameless-Link Discord bot](https://github.com/NamelessMC/Nameless-Link/wiki/Setup)
     - Link Discord accounts with NamelessMC accounts
     - Synchronize Discord roles with NamelessMC groups (bidirectional)
-- ⚙️ [API](https://github.com/NamelessMC/Nameless/wiki/v2-API) - Write your own integrations or use one of ours (see above)
+- ⚙️ [API](https://docs.namelessmc.com/en/api-documentation) - Write your own integrations or use one of ours (see above)
 - 🧩 New powerful module system allowing for further NamelessMC integration.
 - ✏️ New template and language systems, allowing for total customisation.
 - ✨ Pretty URL option (requires mod_rewrite or special nginx config).
@@ -39,7 +39,7 @@ The following list is a brief summary of the features available in v2 pre-releas
 
 
 #### Customising Nameless
-- Check out [this wiki article](https://github.com/NamelessMC/Nameless/wiki/Nameless-2.0-Module-Developer-Documentation) for the Module Developer Documenation.
+- Check out [this wiki article](https://docs.namelessmc.com/en/module-documentation) for the Module Developer Documenation.
 - Developer documentation is coming soon for template and widget development.
 
 ---

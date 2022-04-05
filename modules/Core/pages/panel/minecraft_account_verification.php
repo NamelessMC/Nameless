@@ -117,7 +117,10 @@ if ($uuid_linking == '1') {
 
     $smarty->assign([
         'INFO' => $language->get('general', 'info'),
-        'MCASSOC_INFO' => $language->get('admin', 'mcassoc_help'),
+        'MCASSOC_INFO' => $language->get('admin', 'mcassoc_help', [
+            'linkStart' => '<a href="https://mcassoc.lukegb.com/" target="_blank">',
+            'linkEnd' => '</a>'
+        ]),
         'USE_MCASSOC' => $language->get('admin', 'verify_with_mcassoc'),
         'USE_MCASSOC_VALUE' => ($use_mcassoc == '1'),
         'MCASSOC_KEY' => $language->get('admin', 'mcassoc_key'),

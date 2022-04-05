@@ -91,7 +91,10 @@ $smarty->assign([
     'SUBMIT' => $language->get('general', 'submit'),
     'INFO' => $language->get('general', 'info'),
     'NAVBAR_ORDER_INSTRUCTIONS' => $language->get('admin', 'navbar_order_instructions'),
-    'NAVBAR_ICON_INSTRUCTIONS' => $language->get('admin', 'navbar_icon_instructions'),
+    'NAVBAR_ICON_INSTRUCTIONS' => $language->get('admin', 'navbar_icon_instructions', [
+        'faLink' => '<a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>',
+        'semLink' => '<a href="https://semantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Semantic UI</a>'
+    ]),
     'NAV_ITEMS' => $navigation->returnNav('top'),
     'NAVBAR_ORDER' => $language->get('admin', 'navbar_order'),
     'NAVBAR_ICON' => $language->get('admin', 'navbar_icon'),
