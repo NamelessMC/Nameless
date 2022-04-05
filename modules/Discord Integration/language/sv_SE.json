@@ -12,7 +12,7 @@
     "discord_integration\/discord_communication_error": "Det uppstod ett fel när du kommunicerade med Discord Botten. Se till att botten körs och att din webbadress är korrekt. ",
     "discord_integration\/discord_database_error": "Nameless Link-databasen är för närvarande nere. Vänligen försök igen senare.",
     "discord_integration\/discord_id_confirm": "Vänligen kör \"\/verify {{token}}\" kommandot på Discord för att slutföra länkningen till ditt Discord-konto.",
-    "discord_integration\/discord_id_help": "För information om var du hittar Discord ID's, vänligen läs <a href=\"https:\/\/support.discord.com\/hc\/en-us\/articles\/206346498-Where-can-I-find-my-User-Server-Message-ID-\" target=\"_blank\">detta.<\/a>",
+    "discord_integration\/discord_id_help": "För information om var du hittar Discord ID's, vänligen läs {{linkStart}}detta.{{linkEnd}}",
     "discord_integration\/discord_id_length": "Vänligen se till att ditt Discord ID is 18 bokstäver långt.",
     "discord_integration\/discord_id_numeric": "Vängligen se till att ditt Discord ID är numeriskt. (Endast Nummer).",
     "discord_integration\/discord_id_set": "Discord ID har lyckats",

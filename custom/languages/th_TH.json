@@ -11,7 +11,7 @@
     "admin\/administrator_permission_info": "สมาชิกที่ได้รับอนุญาตนี้จะได้รับสิทธิ์ทุกสิทธิ์ นี่เป็นการอนุญาตที่ไม่ปลอดภัยที่จะให้",
     "admin\/all_logs": "บันทึกทั้งหมด",
     "admin\/allow_custom_avatars": "อนุญาติให้ผู้ใช้ใช้รูปแบบที่กำหนดเอง",
-    "admin\/announcement_icon_instructions": "คุณยังสามารถเพิ่มไอคอนในแต่ละประกาศได้ที่นี่ เช่น ใช้ <a href=\"https:\/\/fontaweee\" target=\"_blasome.com\/icons?d=gallery&m=frnk\" rel=\"noopener nofollow\">Font Awesome<\/a>, <a href=\"https:\/\/semantic-ui.com\/elements\/icon.html\" target=\"_blank\" rel=\"noopener nofollow\">Semantic UI<\/a>.",
+    "admin\/announcement_icon_instructions": "คุณยังสามารถเพิ่มไอคอนในแต่ละประกาศได้ที่นี่ เช่น ใช้ {{faLink}}, {{semLink}}.",
     "admin\/announcement_info": "สร้างประกาศเพื่อแสดงข้อความไปยังกลุ่มที่ต้องการในหน้าเฉพาะของเว็บไซต์ของคุณ",
     "admin\/announcements": "ประกาศ",
     "admin\/api": "API",

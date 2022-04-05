@@ -13,7 +13,7 @@
     "admin\/all_logs": "Všetky záznamy",
     "admin\/allow_custom_avatars": "Povoliť vlastné avatary užívateľov?",
     "admin\/announcement_hook_info": "Vytvorenie oznámenia",
-    "admin\/announcement_icon_instructions": "Môžete tu tiež pridať ikonu ku každému oznámeniu, napríklad pomocou <a href=\"https:\/\/fontawesome.com\/icons?d=gallery&m=free\" target=\"_blank\" rel=\"noopener nofollow\">Font Awesome<\/a>, <a href=\"https:\/\/semantic-ui.com\/elements\/icon.html\" target=\"_blank\" rel=\"noopener nofollow\">Semantic UI<\/a>.",
+    "admin\/announcement_icon_instructions": "Môžete tu tiež pridať ikonu ku každému oznámeniu, napríklad pomocou {{faLink}}, {{semLink}}.",
     "admin\/announcement_info": "Vytvorte oznámenia na zobrazenie správy konkrétnym skupinám na konkrétnych stránkach vášho webu.",
     "admin\/announcement_order": "Poradie",
     "admin\/announcements": "Oznámenia",

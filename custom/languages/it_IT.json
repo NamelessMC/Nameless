@@ -11,7 +11,7 @@
     "admin\/admin_dir_still_exists": "Attenzione! La directory <strong>modules\/Core\/pages\/admin<\/strong> esiste ancora. Si prega di rimuovere questa directory.",
     "admin\/all_logs": "Tutti i log",
     "admin\/allow_custom_avatars": "Permettere agli utenti di caricare avatar personalizzati?",
-    "admin\/announcement_icon_instructions": "Puoi anche aggiungere un'icona a ogni annuncio qui, per esempio usando <a href=\"https:\/\/fontawesome.com\/icons?d=gallery&m=free\" target=\"_blank\" rel=\"noopener nofollow\">Font Awesome<\/a>, <a href=\"https:\/\/semantic-ui.com\/elements\/icon.html\" target=\"_blank\" rel=\"noopener nofollow\">Semantic UI<\/a>.",
+    "admin\/announcement_icon_instructions": "Puoi anche aggiungere un'icona a ogni annuncio qui, per esempio usando {{faLink}}, {{semLink}}.",
     "admin\/announcement_info": "Crea annunci per mostrare un messaggio a gruppi specifici su pagine specifiche del tuo sito web.",
     "admin\/announcements": "Annunci",
     "admin\/api": "API",

@@ -10,7 +10,7 @@
     "discord_integration\/discord_communication_error": "Er was een fout in de communicatie met de Discord Bot. Zorg ervoor dat de bot werkt en dat uw Bot-URL correct is.",
     "discord_integration\/discord_database_error": "De Nameless Link database is op dit moment offline. Probeer het later nog eens.",
     "discord_integration\/discord_id": "Discord Gebruikers ID",
-    "discord_integration\/discord_id_help": "Voor informatie over waar je de Discord ID's kunt vinden, lees alsjeblieft <a href=\"https:\/\/support.discord.com\/hc\/en-us\/articles\/206346498-Where-can-I-find-my-User-Server-Message-ID-\" target=\"_blank\">dit.<\/a>",
+    "discord_integration\/discord_id_help": "Voor informatie over waar je de Discord ID's kunt vinden, lees alsjeblieft {{linkStart}}dit.{{linkEnd}}",
     "discord_integration\/discord_id_length": "Zorg ervoor dat uw Discord ID 18 karakters lang is.",
     "discord_integration\/discord_id_numeric": "Zorg ervoor dat uw Discord ID numeriek is (alleen cijfers).",
     "discord_integration\/discord_id_set": "Discord ID met succes ingesteld",

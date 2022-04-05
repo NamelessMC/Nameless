@@ -13,7 +13,7 @@
     "admin\/all_logs": "Todos os Registros",
     "admin\/allow_custom_avatars": "Permitir os usuários utilizar avatares personalizados?",
     "admin\/announcement_hook_info": "Criação de Anúncio",
-    "admin\/announcement_icon_instructions": "Você também pode adicionar um ícone a cada anúncio aqui, por exemplo, usando <a href=\"https:\/\/fontawesome.com\/icons?d=gallery&m=free\" target=\"_blank\" rel=\"noopener nofollow\">Font Awesome<\/a>, <a href=\"https:\/\/semantic-ui.com\/elements\/icon.html\" target=\"_blank\" rel=\"noopener nofollow\">Semantic UI<\/a>.",
+    "admin\/announcement_icon_instructions": "Você também pode adicionar um ícone a cada anúncio aqui, por exemplo, usando {{faLink}}, {{semLink}}.",
     "admin\/announcement_info": "Crie anúncios para exibir uma mensagem para grupos específicos em páginas específicas do seu site.",
     "admin\/announcement_order": "Ordem",
     "admin\/announcements": "Anúncios",

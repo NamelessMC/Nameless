@@ -138,7 +138,10 @@ $smarty->assign([
     'BOT_SETUP' => Discord::getLanguageTerm('discord_bot_setup'),
     'DISCORD_GUILD_ID' => Discord::getLanguageTerm('discord_guild_id'),
     'DISCORD_GUILD_ID_VALUE' => Discord::getGuildId(),
-    'ID_INFO' => Discord::getLanguageTerm('discord_id_help'),
+    'ID_INFO' => Discord::getLanguageTerm('discord_id_help', [
+        'linkStart' => '<a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">',
+        'linkEnd' => '</a>',
+    ]),
 ]);
 
 $template->onPageLoad();

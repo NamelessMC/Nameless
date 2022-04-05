@@ -16,7 +16,7 @@
     "discord_integration\/discord_database_error": "База бота Nameless Link не работает в данный момент. Попробуйте в другой раз.",
     "discord_integration\/discord_guild_id": "ID сервера в Discord",
     "discord_integration\/discord_id_confirm": "Введите команду \"\/verify {{token}}\" в Discord для завершения привязки.",
-    "discord_integration\/discord_id_help": "Чтобы найти ваш ID сервера в Discord, прочитайте это <a href=\"https:\/\/support.discord.com\/hc\/ru\/articles\/206346498-%D0%93%D0%B4%D0%B5-%D0%BC%D0%BD%D0%B5-%D0%BD%D0%B0%D0%B9%D1%82%D0%B8-ID-%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8F-%D1%81%D0%B5%D1%80%D0%B2%D0%B5%D1%80%D0%B0-%D1%81%D0%BE%D0%BE%D0%B1%D1%89%D0%B5%D0%BD%D0%B8%D1%8F-\" target=\"_blank\">руководство.<\/a>",
+    "discord_integration\/discord_id_help": "Чтобы найти ваш ID сервера в Discord, прочитайте это {{linkStart}}руководство{{linkEnd}}.",
     "discord_integration\/discord_id_length": "Убедитесь что ваш ID длинее 18 символов.",
     "discord_integration\/discord_id_numeric": "Убедитесь что ваш ID состоит из цифр.",
     "discord_integration\/discord_id_set": "Discord ID установлен",

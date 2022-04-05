@@ -637,7 +637,10 @@ if (isset($_GET['do'])) {
             'DISCORD_USERNAME' => Discord::getLanguageTerm('discord_username'),
             'DISCORD_USERNAME_VALUE' => $user->data()->discord_username,
             'DISCORD_ID' => Discord::getLanguageTerm('discord_user_id'),
-            'ID_INFO' => Discord::getLanguageTerm('discord_id_help'),
+            'ID_INFO' => Discord::getLanguageTerm('discord_id_help', [
+                'linkStart' => '<a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">',
+                'linkEnd' => '</a>',
+            ]),
         ]);
     } else {
         $smarty->assign([

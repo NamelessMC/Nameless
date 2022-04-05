@@ -3,7 +3,7 @@
     "discord_integration\/discord_communication_error": "Der opstod en fejl under kommunikation med Discord Botten. Kontroller, at botten kører, og at din Bot URL er korrekt.",
     "discord_integration\/discord_database_error": "Nameless Link databasen er i øjeblikket nede. Prøv igen senere.",
     "discord_integration\/discord_id": "Discord Bruger ID",
-    "discord_integration\/discord_id_help": "For information om, hvor du kan finde Discord ID's, læs venligst <a href=\"https:\/\/support.discord.com\/hc\/en-us\/articles\/206346498-Where-can-I-find-my-User-Server-Message-ID-\" target=\"_blank\">denne.<\/a>",
+    "discord_integration\/discord_id_help": "For information om, hvor du kan finde Discord ID's, læs venligst {{linkStart}}denne.{{linkEnd}}",
     "discord_integration\/discord_id_set": "Discord ID sat",
     "discord_integration\/discord_id_taken": "Det Discord ID allerede er taget.",
     "discord_integration\/discord_id_unlinked": "Dit Discord bruger-id blev afkoblet korrekt.",

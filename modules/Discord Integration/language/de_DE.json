@@ -12,7 +12,7 @@
     "discord_integration\/discord_communication_error": "Bei der Kommunikation mit dem Discord Bot ist ein Fehler aufgetreten. Bitte stellen Sie sicher, dass der Bot ausgeführt wird und Ihre Bot-URL korrekt ist.",
     "discord_integration\/discord_database_error": "Die Nameless Link-Datenbank ist derzeit nicht verfügbar. Bitte versuchen Sie es später noch einmal.",
     "discord_integration\/discord_id": "Discord User ID",
-    "discord_integration\/discord_id_help": "Informationen dazu, wo Discord IDs zu finden sind, finden Sie unter <a href=\"https:\/\/support.discord.com\/hc\/en-us\/articles\/206346498-Where-can-I-find-my-User-Server-Message-ID-\" target=\"_blank\">this.<\/a>",
+    "discord_integration\/discord_id_help": "Informationen dazu, wo Discord IDs zu finden sind, finden Sie unter {{linkStart}}this.{{linkEnd}}",
     "discord_integration\/discord_id_length": "Bitte stellen Sie sicher, dass Ihre Discord ID 18 Zeichen lang ist.",
     "discord_integration\/discord_id_numeric": "Bitte stellen Sie sicher, dass Ihre Discord ID numerisch ist (nur Zahlen)..",
     "discord_integration\/discord_id_set": "Discord ID erfolgreich eingestellt",

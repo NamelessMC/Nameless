@@ -13,7 +13,7 @@
     "admin\/administrator_permission_info": "Medlemmar med denna behörighet kommer att ha alla behörigheter. Detta är en farlig behörighet att ge.",
     "admin\/all_logs": "Alla Loggar",
     "admin\/allow_custom_avatars": "Tillåt egna användare avatarer?",
-    "admin\/announcement_icon_instructions": "Du kan också lägga till en ikon i varje meddelande här, till exempel med <a href = \"https:\/\/fontawesome.com\/icons?d=gallery&m=free\" target = \"_ blank\" rel = \"noopener nofollow \"> Awesome Font <\/a>, <a href=\"https:\/\/semantic-ui.com\/elements\/icon.html\" target=\"_blank\" rel=\"noopener nofollow\"> Semantic UI <\/a>. ",
+    "admin\/announcement_icon_instructions": "Du kan också lägga till en ikon i varje meddelande här, till exempel med {{faLink}}, {{semLink}}.",
     "admin\/announcement_info": "Skapa meddelanden för att visa ett meddelande till specifika grupper på specifika sidor på din webbplats.",
     "admin\/announcements": "Meddelanden",
     "admin\/api": "API",

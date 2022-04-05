@@ -10,7 +10,7 @@
     "admin\/all_logs": "Alle logger",
     "admin\/allow_custom_avatars": "Tillatt egne avatarer?",
     "admin\/announcement_hook_info": "Announcement creation",
-    "admin\/announcement_icon_instructions": "Du kan også legge til et ikon til hver kunngjøring her, for eksempel ved å bruke <a href=\"https:\/\/fontawesome.com\/icons?d=gallery&m=free\" target=\"_blank\" rel=\"noopener nofollow\">Font Awesome<\/a>, <a href=\"https:\/\/semantic-ui.com\/elements\/icon.html\" target=\"_blank\" rel=\"noopener nofollow\">Semantic UI<\/a>.",
+    "admin\/announcement_icon_instructions": "Du kan også legge til et ikon til hver kunngjøring her, for eksempel ved å bruke {{faLink}}, {{semLink}}.",
     "admin\/announcement_info": "Opprett kunngjøringer for å vise en melding til spesifikke grupper på spesifikke sider på nettsiden din.",
     "admin\/announcement_order": "Order",
     "admin\/announcements": "Kunngjøring",

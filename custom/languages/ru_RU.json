@@ -13,7 +13,7 @@
     "admin\/all_logs": "Все логи",
     "admin\/allow_custom_avatars": "Разрешить пользовательские аватарки?",
     "admin\/announcement_hook_info": "Создание объявления",
-    "admin\/announcement_icon_instructions": "Вы можете взять иконку с <a href=\"https:\/\/fontawesome.com\/icons?d=gallery&m=free\" target=\"_blank\" rel=\"noopener nofollow\">Font Awesome<\/a>, <a href=\"https:\/\/semantic-ui.com\/elements\/icon.html\" target=\"_blank\" rel=\"noopener nofollow\">Semantic UI<\/a>.",
+    "admin\/announcement_icon_instructions": "Вы можете взять иконку с {{faLink}}, {{semLink}}.",
     "admin\/announcement_info": "Создайте объявление с новостью для определённых групп или страниц.",
     "admin\/announcement_order": "Приоритет объявления",
     "admin\/announcements": "Объявления",

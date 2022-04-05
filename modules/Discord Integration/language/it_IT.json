@@ -7,7 +7,7 @@
     "discord_integration\/discord_database_error": "Il database dei collegamenti di Nameless è attualmente inattivo. Riprova più tardi.",
     "discord_integration\/discord_guild_id": "ID Server Discord",
     "discord_integration\/discord_id": "ID utente Discord",
-    "discord_integration\/discord_id_help": "Per informazioni su dove trovare gli ID Discord, leggi <a href=\"https:\/\/support.discord.com\/hc\/en-us\/articles\/206346498-Where-can-I-find-my-User-Server-Message-ID-\" target=\"_blank\">questo.<\/a>",
+    "discord_integration\/discord_id_help": "Per informazioni su dove trovare gli ID Discord, leggi {{linkStart}}questo.{{linkEnd}}",
     "discord_integration\/discord_id_length": "Assicurati che il tuo ID Discord sia lungo 18 caratteri.",
     "discord_integration\/discord_id_numeric": "Assicurati che il tuo ID Discord sia numerico (solo numeri).",
     "discord_integration\/discord_id_set": "ID Discord impostato correttamente",

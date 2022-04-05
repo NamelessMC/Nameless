@@ -12,7 +12,7 @@
     "admin\/administrator_permission_info": "Los miembros con este permiso tendrán todos los permisos. Este es un permiso peligroso de conceder.",
     "admin\/all_logs": "Todos los registros",
     "admin\/allow_custom_avatars": "¿Permitir avatares de usuario personalizados?",
-    "admin\/announcement_icon_instructions": "También puedes añadir un icono a cada anuncio aquí, por ejemplo usando <a href=\"https:\/\/fontawesome.com\/icons?d=gallery&m=free\" target=\"_blank\" rel=\"noopener nofollow\">Font Awesome<\/a>, <a href=\"https:\/\/semantic-ui.com\/elements\/icon.html\" target=\"_blank\" rel=\"noopener nofollow\">Semantic UI<\/a>.",
+    "admin\/announcement_icon_instructions": "También puedes añadir un icono a cada anuncio aquí, por ejemplo usando {{faLink}}, {{semLink}}.",
     "admin\/announcement_info": "Cree anuncios para mostrar un mensaje a grupos específicos en páginas concretas de su sitio web.",
     "admin\/announcements": "Anuncios",
     "admin\/api": "API",

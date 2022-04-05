@@ -16,7 +16,7 @@
     "discord_integration\/discord_database_error": "Databáza Nameless Link je momentálne nefunkčná. Skúste neskôr prosím.",
     "discord_integration\/discord_guild_id": "ID Discord serveru",
     "discord_integration\/discord_id_confirm": "Spustite príkaz \"\/verify {{token}}\" v Discorde, aby ste dokončili prepojenie svojho Discord účtu.",
-    "discord_integration\/discord_id_help": "Informácie o tom, kde nájdete Discord ID, si prečítajte <a href=\"https:\/\/support.discord.com\/hc\/en-us\/articles\/206346498-Where-can-I-find-my-User-Server-Message-ID-\" target=\"_blank\">toto.<\/a>",
+    "discord_integration\/discord_id_help": "Informácie o tom, kde nájdete Discord ID, si prečítajte {{linkStart}}toto.{{linkEnd}}",
     "discord_integration\/discord_id_length": "Uistite sa, že vaše Discord ID má 18 znakov.",
     "discord_integration\/discord_id_numeric": "Uistite sa, že vaše Discord ID je číselné (iba čísla).",
     "discord_integration\/discord_id_set": "Discord ID bolo úspešne nastavené",

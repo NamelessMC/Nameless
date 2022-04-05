@@ -17,7 +17,7 @@
     "discord_integration\/discord_guild_id": "ID del Servidor de Discord",
     "discord_integration\/discord_id": "ID de usuario de Discord",
     "discord_integration\/discord_id_confirm": "Por favor, ejecuta el comando \"\/verify {{token}}\" en Discord para terminar de vincular tu cuenta de Discord.",
-    "discord_integration\/discord_id_help": "Para obtener información sobre dónde encontrar ID\\ de Discord, por favor lea <a href=\"https:\/\/support.discord.com\/hc\/en-us\/articles\/206346498-Where-can-I-find-my-User-Server-Message-ID-\" target=\"_blank\">esto.<\/a>",
+    "discord_integration\/discord_id_help": "Para obtener información sobre dónde encontrar ID\\ de Discord, por favor lea {{linkStart}}>esto.{{linkEnd}}",
     "discord_integration\/discord_id_length": "Asegúrate de que tu ID de Discord tenga 18 caracteres.",
     "discord_integration\/discord_id_numeric": "Asegúrese de que su ID de Discord sea numérica (No debe contener letras).",
     "discord_integration\/discord_id_set": "ID de discord establecida correctamente.",

@@ -13,7 +13,7 @@
     "discord_integration\/discord_database_error": "La base de données du lien Nameless est actuellement en panne. Veuillez réessayer plus tard.",
     "discord_integration\/discord_guild_id": "ID du serveur discord",
     "discord_integration\/discord_id": "ID de l'utilisateur Discord",
-    "discord_integration\/discord_id_help": "Pour savoir où trouver les identifiants Discord, veuillez lire le <a href=\"https:\/\/support.discord.com\/hc\/en-us\/articles\/206346498-Where-can-I-find-my-User-Server-Message-ID-\" target=\"_blank\">document<\/a>suivant.",
+    "discord_integration\/discord_id_help": "Pour savoir où trouver les identifiants Discord, veuillez lire le {{linkStart}}documen{{linkEnd}} suivant.",
     "discord_integration\/discord_id_taken": "Cet identifiant Discord a déjà été pris.",
     "discord_integration\/discord_id_unlinked": "Vous avez réussi à dissocier votre ID utilisateur Discord.",
     "discord_integration\/discord_integration_not_setup": "L'intégration de Discord n'est pas configurée",

@@ -14,7 +14,7 @@
     "admin\/all_logs": "Alle Logs",
     "admin\/allow_custom_avatars": "Eigene Avatare erlauben?",
     "admin\/announcement_hook_info": "Ankündigungserstellung",
-    "admin\/announcement_icon_instructions": "Du kannst hier auch jeder Ankündigung ein Symbol hinzufügen, z. B. <a href=\"https:\/\/fontawesome.com\/icons?d=gallery&m=free\" target=\"_blank\" rel=\"noopener nofollow\">Font Awesome<\/a>, <a href=\"https:\/\/semantic-ui.com\/elements\/icon.html\" target=\"_blank\" rel=\"noopener nofollow\">Semantic UI<\/a>.",
+    "admin\/announcement_icon_instructions": "Du kannst hier auch jeder Ankündigung ein Symbol hinzufügen, z. B. {{faLink}}, {{semLink}}.",
     "admin\/announcement_info": "Erstelle Ankündigungen, um eine Nachricht für bestimmte Gruppen auf bestimmten Seiten Deiner Website anzuzeigen.",
     "admin\/announcement_order": "Anordnung",
     "admin\/announcements": "Ankündigungen",

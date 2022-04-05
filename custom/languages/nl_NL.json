@@ -14,7 +14,7 @@
     "admin\/all_logs": "Alle Logboeken",
     "admin\/allow_custom_avatars": "Toestaan van aangepaste gebruiker avatars?",
     "admin\/announcement_hook_info": "Announcement creation",
-    "admin\/announcement_icon_instructions": "Je kunt een icoon toevoegen aan elke aankondiging, bijvoorbeeld met behulp van Font Awesome, Semantic UI.",
+    "admin\/announcement_icon_instructions": "Je kunt een icoon toevoegen aan elke aankondiging, bijvoorbeeld met behulp van {{faLink}}, {{semLink}}.",
     "admin\/announcement_info": "Maak aankondigingen om een bericht te tonen aan specifieke groepen op specifieke pagina's van uw website.",
     "admin\/announcement_order": "Order",
     "admin\/announcements": "Aankondigingen",

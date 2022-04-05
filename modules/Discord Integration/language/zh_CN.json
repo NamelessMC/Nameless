@@ -13,7 +13,7 @@
     "discord_integration\/discord_communication_error": "无法与 Discord 机器人交流。请您确保机器人正在运行并且您的机器人链接是正确的。",
     "discord_integration\/discord_database_error": "Nameless Link 数据库目前掉线了。请您稍后再试。",
     "discord_integration\/discord_guild_id": "Discord 服务器 ID",
-    "discord_integration\/discord_id_help": "您可阅读 <a href=\"https:\/\/support.discord.com\/hc\/en-us\/articles\/206346498-Where-can-I-find-my-User-Server-Message-ID-\" target=\"_blank\">此文章<\/a> 来了解如何获得您的用户 ID。",
+    "discord_integration\/discord_id_help": "您可阅读 {{linkStart}}此文章{{linkEnd}} 来了解如何获得您的用户 ID。",
     "discord_integration\/discord_id_length": "请确保您的 Discord ID 长 18 位。",
     "discord_integration\/discord_id_numeric": "请确保您的 Discord ID 只包含数字。",
     "discord_integration\/discord_id_set": "Discord ID 更新成功",

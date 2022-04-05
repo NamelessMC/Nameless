@@ -17,7 +17,7 @@
     "discord_integration\/discord_guild_id": "DiscordサーバーID",
     "discord_integration\/discord_id": "DiscordユーザーID",
     "discord_integration\/discord_id_confirm": "Discordで「 \"\/verify {{token}}\" {トークン}」というコマンドを実行して、Discordアカウントのリンクを完了させてください。",
-    "discord_integration\/discord_id_help": "Discord IDがどこにあるかについては、<a href=\"https:\/\/support.discord.com\/hc\/en-us\/articles\/206346498-Where-can-I-find-my-User-Server-Message-ID-\" target=\"_blank\">こちら<\/a>をご確認ください。",
+    "discord_integration\/discord_id_help": "Discord IDがどこにあるかについては、{{linkStart}}こちら{{linkEnd}} をご確認ください。",
     "discord_integration\/discord_id_length": "Discord IDは18文字以内にしてください。",
     "discord_integration\/discord_id_numeric": "Discord IDが数字であることを確認してください(数字のみ)",
     "discord_integration\/discord_id_set": "Discord IDの設定に成功しました。",

@@ -13,7 +13,7 @@
     "admin\/all_logs": "全ログ",
     "admin\/allow_custom_avatars": "アバターをユーザーが変更できるようにしますか？",
     "admin\/announcement_hook_info": "お知らせの作成",
-    "admin\/announcement_icon_instructions": "また、<a href=\"https:\/\/fontawesome.com\/icons?d=gallery&m=free\" target=\"_blank\" rel=\"noopener nofollow\">Font Awesome<\/a>や<a href=\"https:\/\/semantic-ui.com\/elements\/icon.html\" target=\"_blank\" rel=\"noopener nofollow\">Semantic UI<\/a>などを使用して、ここで各お知らせにアイコンを追加することができます。",
+    "admin\/announcement_icon_instructions": "また、{{faLink}} や {{semLink}} などを使用して、ここで各お知らせにアイコンを追加することができます。",
     "admin\/announcement_info": "ウェブサイトの特定のページに特定のグループにメッセージを表示するためのお知らせを作成します。",
     "admin\/announcement_order": "順序",
     "admin\/announcements": "お知らせ",

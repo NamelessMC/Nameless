@@ -13,7 +13,7 @@
     "admin\/all_logs": "Wszystkie Logi",
     "admin\/allow_custom_avatars": "Zezwolić na niestandardowe awatary?",
     "admin\/announcement_hook_info": "Announcement creation",
-    "admin\/announcement_icon_instructions": "Możesz tu dodać ikonkę korzystając z np. <a href=\"https:\/\/fontawesome.com\/icons?d=gallery&m=free\" target=\"_blank\" rel=\"noopener nofollow\">Font Awesome<\/a>, <a href=\"https:\/\/semantic-ui.com\/elements\/icon.html\" target=\"_blank\" rel=\"noopener nofollow\">Semantic UI<\/a>.",
+    "admin\/announcement_icon_instructions": "Możesz tu dodać ikonkę korzystając z np. {{faLink}}, {{semLink}}.",
     "admin\/announcement_info": "Stwórz ogłoszenia pojawiające się wybranym grupom na stronie",
     "admin\/announcement_order": "Order",
     "admin\/announcements": "Ogłoszenia",

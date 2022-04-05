@@ -15,7 +15,7 @@
     "discord_integration\/discord_database_error": "Nameless Link-databasen er nede for øyeblikket. Prøv igjen senere.",
     "discord_integration\/discord_guild_id": "Discord Server-ID",
     "discord_integration\/discord_id": "Discord-bruker-ID",
-    "discord_integration\/discord_id_help": "For mer informasjon om hvordan man finner Discord-bruker-ID, vennligst les <a href=\"https:\/\/support.discord.com\/hc\/en-us\/articles\/206346498-Where-can-I-find-my-User-Server-Message-ID-\" target=\"_blank\">denne artikkelen.<\/a>",
+    "discord_integration\/discord_id_help": "For mer informasjon om hvordan man finner Discord-bruker-ID, vennligst les {{linkStart}}denne artikkelen.{{linkEnd}}",
     "discord_integration\/discord_id_length": "Pass på at Discord-ID-en inneholder 18 tegn.",
     "discord_integration\/discord_id_numeric": "Pass på at Discord-ID-en er numerisk (kun tall).",
     "discord_integration\/discord_id_set": "Discord-ID-en har blitt endret.",
