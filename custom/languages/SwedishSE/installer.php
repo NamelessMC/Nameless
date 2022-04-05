@@ -38,13 +38,13 @@ $language = [
     'database_name' => 'Databas Namn',
     'nameless_path' => 'Installation Path',
     'nameless_path_info' => 'Detta är sökvägen Nameless är installerad i, i förhållande till din domän. Till exempel, om Nameless är installerat på example.com/forum, måste detta vara <strong>forum</strong>. Lämna tomt om Nameless inte finns i en undermapp.',
-    'friendly_urls' => 'Friendly URLs',
+    'friendly_urls' => 'Fredliga URL:er',
     'friendly_urls_info' => 'Användbara webbadresser kommer att förbättra läsbarheten för webbadresserna i din webbläsare. <br /> <b> Till exempel: </b> <br /> <code> example.com/index.php?route=/forum </code> <br/> blir <br /> <code > example.com/forum </code> <br /> <div class = "ui inverterat orange segment"> <i class = "exclamation circle icon"> </i> <strong> VIKTIGT! </strong> Din webbserver måste konfigureras korrekt för att användarvänliga webbadresser ska fungera. Du kan se om du kan aktivera det här alternativet genom att klicka <a href=\'./rewrite_test\' target=\'_blank\'style="color:#2185D0"> här </a>. </div> ',
     'enabled' => 'Aktiverad',
     'disabled' => 'Avaktiverad',
     'character_set' => 'Teckenuppsättning',
     'database_engine' => 'Databas Förvarings Motor',
-    'host' => 'Hostname',
+    'host' => 'Värdnamn',
     'host_help' => 'Värdnamnet är <strong>baswebbadressen</strong> för din webbplats. Inkludera inte undermapparna från fältet Installation Path, eller http(s):// här!',
     'database_error' => 'Se till att alla fält har fyllts i.',
     'submit' => 'Enter',
@@ -63,7 +63,7 @@ $language = [
     'input_required' => 'Var god ange ett giltigt användarnamn, e-postadress och lösenord.',
     'input_minimum' => 'Vänligen se till att användarnamnet är minst 3 tecken, din e-postadress är minst 4 tecken och ditt lösenord är minst 6 tecken.',
     'input_maximum' => 'Se till att din användarnamn är högst 20 tecken och din e-postadress och ditt lösenord är högst 64 tecken.',
-    'email_invalid' => 'Your email is not valid.',
+    'email_invalid' => 'Din email är inte giltig.',
     'passwords_must_match' => 'Dina lösenord måste matcha.',
     'creating_admin_account' => 'Skapar Admin Kontot.',
     'enter_admin_details' => 'Vänligen ange detaljerna för administratorkontot.',
@@ -104,5 +104,5 @@ $language = [
     'no_converters_available' => 'Det finns inga konverterare tillgängliga.',
     'config_not_writable' => 'Konfigurationsfilen är inte skrivbar.',
 
-    'session_doesnt_exist' => 'Unable to detect session. Sessions saving are a requirement to use Nameless. Please try again after clearing cookies in your web browser, and if the issue persists, please contact your web host for support.'
+    'session_doesnt_exist' => 'Kunde inte hitta session. Sessions sparande är en nödvändighet för att använda Nameless. Töm cookies i din webbläsare och försök igen, och om problemet återstår, vänligen kontakta ditt webbhotell för hjälp.'
 ];
