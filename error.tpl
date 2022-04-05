@@ -25,15 +25,12 @@
 <body>
 
     <br /><br />
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
-
-            <div class="col-md-{if $DETAILED_ERROR}12{else}6 offset-md-3{/if}">
+            <div class="col-md-{if $DETAILED_ERROR}10 offset-1{else}6 offset-md-3{/if}">
                 <div class="jumbotron">
                     <div style="text-align:{if $DETAILED_ERROR} left {else} center {/if};">
-
                         {if $DETAILED_ERROR}
-
                             <h4>Uncaught <i>{$ERROR_TYPE}</i></h4>
                             <h2><kbd>{$ERROR_STRING}</kbd></h2>
                             <h3>(File: {$ERROR_FILE})</h3>
@@ -50,27 +47,22 @@
                                     </span>
                                 </button>
                             {/if}
-
                         {else}
-
                             <h2>{$FATAL_ERROR_TITLE}</h2>
-
                             <h4>{$FATAL_ERROR_MESSAGE_USER}</h4>
 
                             <div class="btn-group" role="group" aria-label="...">
-                                <button href="#" class="btn btn-primary btn-lg" onclick="javascript:history.go(-1)">
+                                <button href="#" class="btn btn-primary btn-lg" onclick="history.go(-1)">
                                     {$BACK}
                                 </button>
                                 <a href="{$HOME_URL}" class="btn btn-success btn-lg">
                                     {$HOME}
                                 </a>
                             </div>
-
                         {/if}
                     </div>
                 </div>
             </div>
-
         </div>
 
         {if $DETAILED_ERROR}
@@ -78,7 +70,7 @@
             <br />
 
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-10 offset-1">
                     <div class="jumbotron">
                         <div class="card">
                             <div class="card-body">
@@ -99,13 +91,10 @@
 
                                         <div class="tab">
                                             {foreach from=$FRAMES item=frame}
-
-                                                <button class="tablinks" id="button-{$frame['number']}"
-                                                    onclick="openFrame({$frame['number']})">
+                                                <button class="tablinks" id="button-{$frame['number']}" onclick="openFrame({$frame['number']})">
                                                     <h5>Frame #{$frame['number']}</h5>
                                                     <sub>{$frame['file']}:{$frame['line']}</sub>
                                                 </button>
-
                                             {/foreach}
                                         </div>
 
@@ -115,7 +104,7 @@
                                                     <h5>File: <strong>{$frame['file']}</strong></h5>
 
                                                     {if $frame['code'] != ''}
-                                                        <pre data-line="{$frame['highlight_line']}" data-start="{($frame['start_line'])}">
+                                                        <pre data-line="{$frame['highlight_line']}" data-start="{$frame['start_line']}">
                                                             <code class="language-php line-numbers">{$frame['code']}</code>
                                                         </pre>
                                                     {else}
@@ -124,18 +113,15 @@
                                                 </div>
                                             {/foreach}
                                         </div>
-
                                     </div>
 
                                     <div class="tab-pane fade" id="sql">
                                         <div class="tab">
                                             {foreach from=$ERROR_SQL_STACK item=$stack}
-
                                                 <button class="sql-tablinks" id="sql-button-{$stack['number']}" onclick="openSqlFrame({$stack['number']})">
                                                     <h5>Query #{$stack['number']}</h5>
                                                     <sub>{$stack['frame']['file']}:{$stack['frame']['line']}</sub>
                                                 </button>
-
                                             {/foreach}
                                         </div>
 
@@ -146,7 +132,7 @@
                                                     <h5>File: <strong>{$stack['frame']['file']}</strong></h5>
 
                                                     {if $stack['frame']['code'] != ''}
-                                                        <pre data-line="{$stack['frame']['highlight_line']}" data-start="{($stack['frame']['start_line'])}">
+                                                        <pre data-line="{$stack['frame']['highlight_line']}" data-start="{$stack['frame']['start_line']}">
                                                             <code class="language-php line-numbers">{$stack['frame']['code']}</code>
                                                         </pre>
                                                     {else}
