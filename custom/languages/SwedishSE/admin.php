@@ -756,13 +756,13 @@ $language = [
     'text_colour_required' => 'Textfärg krävs',
     'no_announcements' => 'Inga meddelanden har gjorts ännu.',
     'announcement_order' => 'Order',
-    'announcement_hook_info' => 'Announcement creation',
+    'announcement_hook_info' => 'Meddelande skapelse',
 
     // OAuth
     'oauth' => 'OAuth',
-    'oauth_info' => 'Configure OAuth providers to allow users to login with their social network accounts. <a href="https://docs.namelessmc.com/en/oauth" target="_blank">Check out our documentation for help.</a>',
-    'unlink' => 'Unlink',
-    'identifier' => 'Identifier',
-    'unlink_account_confirm' => 'Are you sure you want to forcibly unlink this provider from this user?',
-    'unlink_account_success' => 'Successfully unlinked their account from {x}.', // Don't replace {x}
+    'oauth_info' => 'Konfigurera OAuth leverantörer för att tillåta användare att logga in med deras sociala medier. <a href="https://docs.namelessmc.com/en/oauth" target="_blank">Kolla dokumentationen för hjälp.</a>',
+    'unlink' => 'Avkoppla',
+    'identifier' => 'Identifierar',
+    'unlink_account_confirm' => 'Är du säker på att du vill tvinga avkoppling av den här leverantören för användaren?',
+    'unlink_account_success' => 'Kopplingen har tagits bort från kontot {x}.', // Don't replace {x}
 ];
