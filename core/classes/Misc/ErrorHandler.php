@@ -103,7 +103,13 @@ class ErrorHandler {
             }
         }
 
-        $language = new Language();
+        if (defined('LANGUAGE')) {
+            $language = new Language('core', LANGUAGE);
+        } else {
+            // NamelessMC not installed yet
+            $language = new Language('core', 'en_UK');
+        }
+
         $user = new User();
 
         if (defined('CONFIG_PATH')) {
@@ -120,8 +126,8 @@ class ErrorHandler {
             'LANG' => defined('HTML_LANG') ? HTML_LANG : 'en',
             'RTL' => defined('HTML_RTL') && HTML_RTL === true ? ' dir="rtl"' : '',
             'LANG_CHARSET' => defined('LANG_CHARSET') ? LANG_CHARSET : 'utf-8',
-            'TITLE' => $language->get('errors', 'fatal_error') . ' - ' . SITE_NAME,
-            'SITE_NAME' => SITE_NAME,
+            'TITLE' => $language->get('errors', 'fatal_error') . ' - ' . (defined('SITE_NAME') ? SITE_NAME : 'installer'),
+            'SITE_NAME' => (defined('SITE_NAME') ? SITE_NAME : 'installer'),
             'BOOTSTRAP' => $path . 'css/bootstrap.min.css',
             'BOOTSTRAP_JS' => $path . 'js/bootstrap.min.js',
             'CUSTOM' => $path . 'css/custom.css',
