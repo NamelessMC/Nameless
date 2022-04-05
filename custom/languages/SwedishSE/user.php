@@ -95,7 +95,7 @@ $language = [
     'create_an_account' => 'Skapa ett konto',
     'terms_and_conditions' => 'Användar Villkor',
     'validation_complete' => 'Ditt konto har validerats, du kan nu logga in.',
-    'validation_error' => 'Ett okänt fell uppstod under valideringen av ditt konto, var god kontakta en webbplats administratör.',
+    'validation_error' => 'Ett okänt fel uppstod under valideringen av ditt konto, var god kontakta en webbplats administratör.',
     'signature' => 'Signatur',
     'signature_max_900' => 'Din signatur måste vara högst 900 tecken.',
 
@@ -126,7 +126,7 @@ $language = [
     'invalid_recaptcha' => 'Ogiltigt reCAPTCHA svar.',
     'verify_account' => 'Bekräfta Konto',
     'verify_account_help' => 'Var god och följ instruktionerna nedan så att vi kan verifiera att du äger det här Minecraft kontot.',
-    'validate_account' => 'Validate Account',
+    'validate_account' => 'Validera Konto',
     'verification_failed' => 'Verifiering misslyckades, vänligen försök igen.',
     'verification_success' => 'Du har validerats! Nu kan du logga in.',
     'authme_username_exists' => 'Ditt Authme konto har redan anslutits till den här webbplatsen!',
@@ -240,11 +240,11 @@ $language = [
     'user_x_has_validated' => '{x} har verifierat sitt konto!',
 
     // OAuth
-    'oauth_unlinked' => 'Successfully unlinked your account from that provider.',
-    'oauth_already_linked' => 'Another NamelessMC user is already linked to that {x} account.', // Don't replace {x}
-    'oauth_link_success' => 'Successfully linked your account with {x}!', // Don't replace {x}
-    'no_user_found_with_provider' => 'No user found with that {x} account.', // Don't replace {x}
-    'oauth_login_success' => 'You have logged in with your {x} account.', // Don't replace {x}
-    'oauth_link_confirm' => 'You will be taken to the {x} website to link your account.', // Don't replace {x}
-    'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {x}.<br>You will not be able to login with this account anymore.', // Don't replace {x}
+    'oauth_unlinked' => 'Avkopplade ditt konto från den leverantören.',
+    'oauth_already_linked' => 'En annan NamelessMC användare är redan länkat till {x} kontot.', // Don't replace {x}
+    'oauth_link_success' => 'Kopplade ditt konto till {x}!', // Don't replace {x}
+    'no_user_found_with_provider' => 'Ingen användare hittades med {x} kontot.', // Don't replace {x}
+    'oauth_login_success' => 'Du har loggat in med ditt {x} konto.', // Don't replace {x}
+    'oauth_link_confirm' => 'Du kommer att omdirigeras till {x} hemsidan för att koppla ditt konto.', // Don't replace {x}
+    'oauth_unlink_confirm' => 'Är du säker på att du vill avkoppla ditt konto från {x}.<br>Du kommer inte kunna logga in med detta kontot längre.', // Don't replace {x}
 ];
