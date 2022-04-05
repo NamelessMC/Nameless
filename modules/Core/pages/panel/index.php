@@ -115,7 +115,7 @@ if ($user->hasPermission('admincp.core.debugging')) {
     $compat_success = [];
     $compat_errors = [];
 
-    if (version_compare(PHP_VERSION, '7.4', '<')) {
+    if (PHP_VERSION_ID < 70400) {
         $compat_errors[] = 'PHP ' . PHP_VERSION;
     } else {
         $compat_success[] = 'PHP ' . PHP_VERSION;
@@ -208,7 +208,9 @@ $smarty->assign([
     'MAIN_ITEMS' => CollectionManager::getEnabledCollection('dashboard_main_items'),
     'SIDE_ITEMS' => CollectionManager::getEnabledCollection('dashboard_side_items'),
     // TODO: show latest git commit hash?
-    'NAMELESS_VERSION' => $language->get('admin', 'running_nameless_version', ['version' => NAMELESS_VERSION])
+    'NAMELESS_VERSION' => $language->get('admin', 'running_nameless_version', [
+        'version' => Util::bold(NAMELESS_VERSION)
+    ]),
 ]);
 
 $template->onPageLoad();

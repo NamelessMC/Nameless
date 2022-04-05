@@ -390,7 +390,9 @@ $smarty->assign([
     'PAGE' => PANEL_PAGE,
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit'),
-    'EDITING_USER' => $language->get('admin', 'editing_user_x', ['user' => Output::getClean($user_query->nickname)]),
+    'EDITING_USER' => $language->get('admin', 'editing_user_x', [
+        'user' => Util::bold(Output::getClean($user_query->nickname))
+    ]),
     'BACK_LINK' => URL::build('/panel/user/' . $user_query->id),
     'BACK' => $language->get('general', 'back'),
     'ACTIONS' => $language->get('general', 'actions'),

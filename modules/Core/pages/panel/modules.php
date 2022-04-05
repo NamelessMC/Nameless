@@ -55,8 +55,8 @@ if (!isset($_GET['action'])) {
             'author' => Output::getPurified($module->getAuthor()),
             'author_x' => $language->get('admin', 'author_x', ['author' => Output::getPurified($module->getAuthor())]),
             'version_mismatch' => (($module->getNamelessVersion() != NAMELESS_VERSION) ? $language->get('admin', 'module_outdated', [
-                'intendedVersion' => Output::getClean($module->getNamelessVersion()),
-                'actualVersion' => NAMELESS_VERSION
+                'intendedVersion' => Util::bold(Output::getClean($module->getNamelessVersion())),
+                'actualVersion' => Util::bold(NAMELESS_VERSION)
             ]) : false),
             'disable_link' => (($module->getName() != 'Core' && $item->enabled) ? URL::build('/panel/core/modules/', 'action=disable&m=' . urlencode($item->id)) : null),
             'enable_link' => (($module->getName() != 'Core' && !$item->enabled) ? URL::build('/panel/core/modules/', 'action=enable&m=' . urlencode($item->id)) : null),

@@ -58,8 +58,8 @@ if (!isset($_GET['action'])) {
             'author_x' => $language->get('admin', 'author_x', ['author' => $template->getAuthor()]),
             'version_mismatch' => (($template->getNamelessVersion() != NAMELESS_VERSION)
                 ? $language->get('admin', 'template_outdated', [
-                    'intendedVersion' => Output::getClean($template->getNamelessVersion()),
-                    'actualVersion' => NAMELESS_VERSION
+                    'intendedVersion' => Util::bold(Output::getClean($template->getNamelessVersion())),
+                    'actualVersion' => Util::bold(NAMELESS_VERSION)
                 ])
                 : false
             ),
@@ -351,7 +351,9 @@ if (!isset($_GET['action'])) {
                     require_once($template->getSettings());
 
                     $smarty->assign([
-                        'EDITING_TEMPLATE' => $language->get('admin', 'editing_template_x', ['template' => Output::getClean($template_query->name)]),
+                        'EDITING_TEMPLATE' => $language->get('admin', 'editing_template_x', [
+                            'template' => Util::bold(Output::getClean($template_query->name))
+                        ]),
                         'BACK' => $language->get('general', 'back'),
                         'BACK_LINK' => URL::build('/panel/core/templates'),
                         'PERMISSIONS' => $language->get('admin', 'permissions'),
@@ -476,7 +478,9 @@ if (!isset($_GET['action'])) {
             $group_query = DB::getInstance()->selectQuery('SELECT id, `name`, can_use_template FROM nl2_groups A LEFT JOIN (SELECT group_id, can_use_template FROM nl2_groups_templates WHERE template_id = ?) B ON A.id = B.group_id ORDER BY `order` ASC', [$template_query->id])->results();
 
             $smarty->assign([
-                'EDITING_TEMPLATE' => $language->get('admin', 'editing_template_x', ['template' => Output::getClean($template_query->name)]),
+                'EDITING_TEMPLATE' => $language->get('admin', 'editing_template_x', [
+                    'template' => Util::bold(Output::getClean($template_query->name))
+                ]),
                 'BACK' => $language->get('general', 'back'),
                 'BACK_LINK' => URL::build('/panel/core/templates'),
                 'PERMISSIONS' => $language->get('admin', 'permissions'),
@@ -682,8 +686,8 @@ if (!isset($_GET['action'])) {
 
                         $smarty->assign([
                             'EDITING_FILE' => $language->get('admin', 'editing_template_file_in_template', [
-                                'file' => $template_path,
-                                'template' => Output::getClean($template_query->name),
+                                'file' => Util::bold($template_path),
+                                'template' => Util::bold(Output::getClean($template_query->name)),
                             ]),
                             'CANCEL' => $language->get('general', 'cancel'),
                             'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
@@ -701,7 +705,9 @@ if (!isset($_GET['action'])) {
             }
 
             $smarty->assign([
-                'EDITING_TEMPLATE' => $language->get('admin', 'editing_template_x', ['template' => Output::getClean($template_query->name)]),
+                'EDITING_TEMPLATE' => $language->get('admin', 'editing_template_x', [
+                    'template' => Util::bold(Output::getClean($template_query->name))
+                ]),
             ]);
 
             break;

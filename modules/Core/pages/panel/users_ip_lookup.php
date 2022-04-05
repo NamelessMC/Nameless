@@ -46,9 +46,14 @@ if (isset($_GET['uid'])) {
         }
 
         if (count($user_ips) == 1) {
-            $count_accounts = $language->get('moderator', '1_ip_with_name', ['user' => Output::getClean($user_query->username)]);
+            $count_accounts = $language->get('moderator', '1_ip_with_name', [
+                'user' => Util::bold(Output::getClean($user_query->username))
+            ]);
         } else {
-            $count_accounts = $language->get('moderator', 'count_ips_with_name', ['count' => count($user_ips), 'user' => Output::getClean($user_query->username)]);
+            $count_accounts = $language->get('moderator', 'count_ips_with_name', [
+                'count' => count($user_ips),
+                'user' => Util::bold(Output::getClean($user_query->username))
+            ]);
         }
 
         $smarty->assign([
