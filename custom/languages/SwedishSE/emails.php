@@ -16,7 +16,7 @@ $language = [
     'thanks' => 'Tack,',
 
     // Registration Email
-    'register_subject' => 'Validate Account',
+    'register_subject' => 'Validera konto',
     'register_message' => 'Tack för att du registrerade! För att slutföra din registrering klickar du på följande länk:',
 
     // Change Password
