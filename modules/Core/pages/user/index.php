@@ -98,10 +98,11 @@ if ($forum_enabled) {
 }
 
 if ($forum_enabled) {
-    $template->addJSFiles([
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/moment/moment.min.js' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/charts/Chart.min.js' => []
+    $template->assets()->resolve([
+        TemplateAssets::MOMENT,
+        TemplateAssets::CHART_JS,
     ]);
+
     $template->addJSScript(
         '
 		$(document).ready(function() {

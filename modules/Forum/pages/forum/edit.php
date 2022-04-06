@@ -14,9 +14,11 @@ const PAGE = 'forum';
 $page_title = $forum_language->get('forum', 'edit_post');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-$template->addCSSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism_' . (DARK_MODE ? 'dark' : 'light') . '.css' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
+$template->assets()->resolve([
+    DARK_MODE
+        ? TemplateAssets::PRISM_DARK
+        : TemplateAssets::PRISM_LIGHT,
+    TemplateAssets::TINYMCE_SPOILER,
 ]);
 
 // User must be logged in to proceed
@@ -250,10 +252,8 @@ $smarty->assign([
     'TOPIC_TITLE' => $forum_language->get('forum', 'topic_title')
 ]);
 
-$template->addJSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
+$template->assets()->resolve([
+    TemplateAssets::TINYMCE,
 ]);
 
 $template->addJSScript(Input::createTinyEditor($language, 'editor', $content, true));

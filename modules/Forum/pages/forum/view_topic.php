@@ -382,9 +382,11 @@ if ($user->isLoggedIn() || (defined('COOKIE_CHECK') && COOKIES_ALLOWED)) {
     }
 }
 
-$template->addCSSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism_' . (DARK_MODE ? 'dark' : 'light') . '.css' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
+$template->assets()->resolve([
+    DARK_MODE
+        ? TemplateAssets::PRISM_DARK
+        : TemplateAssets::PRISM_LIGHT,
+    TemplateAssets::TINYMCE_SPOILER,
 ]);
 
 if ($user->isLoggedIn()) {
@@ -797,10 +799,8 @@ $smarty->assign([
     'ERROR' => $language->get('general', 'error')
 ]);
 
-$template->addJSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
+$template->assets()->resolve([
+    TemplateAssets::TINYMCE,
 ]);
 
 if ($user->isLoggedIn()) {

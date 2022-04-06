@@ -9,14 +9,11 @@
  *  Forum module - front page module
  */
 
-$template->addCSSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism_' . (DARK_MODE ? 'dark' : 'light') . '.css' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
-]);
-
-$template->addJSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => []
+$template->assets()->resolve([
+    DARK_MODE
+        ? TemplateAssets::PRISM_DARK
+        : TemplateAssets::PRISM_LIGHT,
+    TemplateAssets::TINYMCE_SPOILER
 ]);
 
 $cache->setCache('news_cache');

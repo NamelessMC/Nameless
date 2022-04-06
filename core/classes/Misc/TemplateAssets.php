@@ -18,6 +18,7 @@ class TemplateAssets {
     public const PRISM_DARK = 'PRISM_DARK';
     public const PRISM_LIGHT = 'PRISM_LIGHT';
     public const TINYMCE = 'TINYMCE';
+    public const TINYMCE_SPOILER = 'TINYMCE_SPOILER';
     public const TOASTR = 'TOASTR';
 
     private static array $_ASSET_TREE = [
@@ -131,17 +132,20 @@ class TemplateAssets {
             'js' => [
                 'plugins/tinymce/tinymce.min.js',
             ],
-            'extra' => [
-                'css' => [
-                    'plugins/tinymce/plugins/spoiler/css/spoiler.css',
-                ],
-                'js' => [
-                    'plugins/tinymce/plugins/spoiler/js/spoiler.js',
-                ],
-                'assets' => [
-                    self::PRISM_LIGHT,
-                ]
-            ]
+            'depends' => [
+                DARK_MODE
+                    ? self::PRISM_LIGHT
+                    : self::PRISM_DARK,
+                self::TINYMCE_SPOILER,
+            ],
+        ],
+        self::TINYMCE_SPOILER => [
+            'css' => [
+                'plugins/tinymce/plugins/spoiler/css/spoiler.css',
+            ],
+            'js' => [
+                'plugins/tinymce/plugins/spoiler/js/spoiler.js',
+            ],
         ],
         self::TOASTR => [
             'css' => [
@@ -165,7 +169,7 @@ class TemplateAssets {
 
         foreach ($assets as $asset) {
             if (!defined(self::class . '::' . $asset)) {
-                return;
+                throw new InvalidArgumentException('Asset "' . $asset . '" is not defined');
             }
 
             if (array_key_exists($asset, $this->_assets)) {
@@ -181,32 +185,16 @@ class TemplateAssets {
         $js = [];
 
         foreach ($this->_assets as $asset) {
-            if (array_key_exists('css', $asset)) {
-                foreach ($asset['css'] as $cssFile) {
-                    $css[] = $this->buildPath($cssFile, 'css');
-                }
+            foreach ($asset['css'] as $cssFile) {
+                $css[] = $this->buildPath($cssFile, 'css');
             }
 
-            if (array_key_exists('js', $asset)) {
-                foreach ($asset['js'] as $jsFile) {
-                    $js[] = $this->buildPath($jsFile, 'js');
-                }
+            foreach ($asset['js'] as $jsFile) {
+                $js[] = $this->buildPath($jsFile, 'js');
             }
 
-            if (array_key_exists('extra', $asset)) {
-                foreach ($asset['extra'] as $extra) {
-                    if (array_key_exists('css', $extra)) {
-                        foreach ($extra['css'] as $cssFile) {
-                            $css[] = $this->buildPath($cssFile, 'css');
-                        }
-                    }
-
-                    if (array_key_exists('js', $extra)) {
-                        foreach ($extra['js'] as $jsFile) {
-                            $js[] = $this->buildPath($jsFile, 'js');
-                        }
-                    }
-                }
+            if (array_key_exists('depends', $asset)) {
+                $this->resolve($asset['depends']);
             }
         }
 
@@ -214,7 +202,10 @@ class TemplateAssets {
     }
 
     private function buildPath(string $file, string $type): string {
-        $href = '/core/assets/' . $file;
+        $href = (defined('CONFIG_PATH')
+                ? CONFIG_PATH
+                : '')
+            . '/core/assets/' . $file;
 
         if ($type === 'css') {
             return '<link rel="stylesheet" href="' . $href . '">';
