@@ -230,7 +230,7 @@ if (Input::exists()) {
 $token = Token::get();
 
 $template->addCSSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism_' . (DARK_MODE ? 'dark' : 'light') . '.css' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism_' . (DARK_MODE ? 'dark' : 'light_default') . '.css' => [],
     (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
 ]);
 

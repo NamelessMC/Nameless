@@ -9,6 +9,8 @@
 
 class MentionsHook extends HookBase {
 
+    private static array $_cache = [];
+
     public static function preCreate(array $params = []): array {
         if (self::validate($params)) {
             $params['content'] = MentionsParser::parse(
@@ -40,8 +42,19 @@ class MentionsHook extends HookBase {
             $params['content'] = preg_replace_callback(
                 '/\[user\](.*?)\[\/user\]/ism',
                 function($match) {
-                    $user = new User($match[1]);
-                    return '<a href="' . $user->getProfileURL() . '" data-poload="' . URL::build('/queries/user/', 'id=' . $user->data()->id) . '" class="user-mention" style="' . $user->getGroupClass() . '">@' . Output::getClean($user->data()->nickname) . '</a>';
+                    if (isset(MentionsHook::$_cache[$match[1]])) {
+                        [$userId, $userStyle, $userNickname, $userProfileUrl] = MentionsHook::$_cache[$match[1]];
+                    } else {
+                        $user = new User($match[1]);
+                        $userId = $user->data()->id;
+                        $userStyle = $user->getGroupClass();
+                        $userNickname = $user->data()->nickname;
+                        $userProfileUrl = $user->getProfileURL();
+
+                        MentionsHook::$_cache[$match[1]] = [$userId, $userStyle, $userNickname, $userProfileUrl];
+                    }
+
+                    return '<a href="' . $userProfileUrl . '" data-poload="' . URL::build('/queries/user/', 'id=' . $userId) . '" class="user-mention" style="' . $userStyle . '">@' . Output::getClean($userNickname) . '</a>';
                 },
                 $params['content']
             );
