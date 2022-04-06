@@ -493,7 +493,7 @@ class Core_Module extends Module {
         EventHandler::registerListener('renderPrivateMessage', 'ContentHook::purify');
         EventHandler::registerListener('renderPrivateMessage', 'ContentHook::codeTransform', false, 15);
         EventHandler::registerListener('renderPrivateMessage', 'ContentHook::decode', false, 20);
-        EventHandler::registerListener('renderPrivateMessage', 'ContentHook::renderEmojis', false, 16);
+        EventHandler::registerListener('renderPrivateMessage', 'ContentHook::renderEmojis', false, 10);
         EventHandler::registerListener('renderPrivateMessage', 'ContentHook::replaceAnchors', false, 15);
         EventHandler::registerListener('renderPrivateMessageEdit', 'ContentHook::purify');
         EventHandler::registerListener('renderPrivateMessageEdit', 'ContentHook::codeTransform', false, 15);
