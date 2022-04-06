@@ -22,7 +22,7 @@ class User {
      * @var array The user's groups.
      */
     private array $_groups = [];
-    
+
     /**
      * @var array The user's integrations.
      */
@@ -583,8 +583,8 @@ class User {
     public function getIntegrations(): array {
         return $this->_integrations ??= (function (): array {
             $integrations = Integrations::getInstance();
-            
-            $integrations_query = $this->_db->selectQuery('SELECT nl2_users_integrations.*, nl2_integrations.name as integration_name FROM nl2_users_integrations LEFT JOIN nl2_integrations ON integration_id=nl2_integrations.id WHERE user_id = ?;', [$this->_data->id]);
+
+            $integrations_query = $this->_db->selectQuery('SELECT nl2_users_integrations.*, nl2_integrations.name as integration_name FROM nl2_users_integrations LEFT JOIN nl2_integrations ON integration_id=nl2_integrations.id WHERE user_id = ?', [$this->_data->id]);
             if ($integrations_query->count()) {
                 $integrations_query = $integrations_query->results();
 
@@ -593,22 +593,22 @@ class User {
                     $integration = $integrations->getIntegration($item->integration_name);
                     if ($integration != null) {
                         $integrationUser = new IntegrationUser($integration, $this->_data->id, 'user_id', $item);
-                        
+
                         $integrations_list[$item->integration_name] = $integrationUser;
                     }
                 }
-                
+
                 return $integrations_list;
             }
-            
+
             return [];
         })();
     }
-    
+
     /**
      * Get the user's integration.
      *
-     * @param string $integrationName Integration name 
+     * @param string $integrationName Integration name
      *
      * @return IntegrationUser|null Their integration user  if connected otherwise null.
      */
@@ -616,7 +616,7 @@ class User {
         if (array_key_exists($integrationName, $this->getIntegrations())) {
             return $this->getIntegrations()[$integrationName];
         }
-        
+
         return null;
     }
 
