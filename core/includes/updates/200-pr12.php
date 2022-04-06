@@ -1,5 +1,5 @@
 <?php
-// 2.0.0 pr-12 to 2.0.0 ? updater
+// 2.0.0-pr12 to 2.0.0-pr13 updater
 try {
     $db_engine = Config::get('mysql/engine');
 } catch (Exception $e) {
