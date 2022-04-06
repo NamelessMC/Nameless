@@ -133,7 +133,7 @@ class ErrorHandler {
             'CUSTOM' => $path . 'css/custom.css',
             'FONT_AWESOME' => $path . 'css/font-awesome.min.css',
             'JQUERY' => $path . 'js/jquery.min.js',
-            'PRISM_CSS' => $path . 'plugins/prism/prism.css',
+            'PRISM_CSS' => $path . 'plugins/prism/prism_light_coy.css',
             'PRISM_JS' => $path . 'plugins/prism/prism.js',
             'DETAILED_ERROR' => defined('DEBUGGING') || ($user->isLoggedIn() && $user->hasPermission('admincp.errors')),
             'FATAL_ERROR_TITLE' => $language->get('errors', 'fatal_error_title'),
