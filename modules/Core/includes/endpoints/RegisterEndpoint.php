@@ -131,9 +131,9 @@ class RegisterEndpoint extends KeyAuthEndpoint {
             }
 
             $api->getDb()->insert('users', [
-                    'username' => Output::getClean($username),
-                    'nickname' => Output::getClean($username),
-                    'email' => Output::getClean($email),
+                    'username' => $username,
+                    'nickname' => $username,
+                    'email' => $email,
                     'password' => md5($code), // temp code
                     'joined' => date('U'),
                     'lastip' => 'Unknown',
