@@ -87,7 +87,7 @@
                                 <br />
 
                                 <div class="tab-content">
-                                    <div class="tab-pane fade show active" id="stack">
+                                    <div class="tab-pane show active" id="stack">
 
                                         <div class="tab">
                                             {foreach from=$FRAMES item=frame}
@@ -104,9 +104,7 @@
                                                     <h5>File: <strong>{$frame['file']}</strong></h5>
 
                                                     {if $frame['code'] != ''}
-                                                        <pre data-line="{$frame['highlight_line']}" data-start="{$frame['start_line']}">
-                                                            <code class="language-php line-numbers">{$frame['code']}</code>
-                                                        </pre>
+                                                        <pre data-line="{$frame['highlight_line']}" data-start="{$frame['start_line']}"><code class="language-php line-numbers">{$frame['code']}</code></pre>
                                                     {else}
                                                         <pre class="text-center">Cannot read file.</pre>
                                                     {/if}
@@ -115,7 +113,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="tab-pane fade" id="sql">
+                                    <div class="tab-pane active" id="sql">
                                         <div class="tab">
                                             {foreach from=$ERROR_SQL_STACK item=$stack}
                                                 <button class="sql-tablinks" id="sql-button-{$stack['number']}" onclick="openSqlFrame({$stack['number']})">
@@ -132,9 +130,7 @@
                                                     <h5>File: <strong>{$stack['frame']['file']}</strong></h5>
 
                                                     {if $stack['frame']['code'] != ''}
-                                                        <pre data-line="{$stack['frame']['highlight_line']}" data-start="{$stack['frame']['start_line']}">
-                                                            <code class="language-php line-numbers">{$stack['frame']['code']}</code>
-                                                        </pre>
+                                                        <pre data-line="{$stack['frame']['highlight_line']}" data-start="{$stack['frame']['start_line']}"><code class="language-php line-numbers">{$stack['frame']['code']}</code></pre>
                                                     {else}
                                                         <pre class="text-center">Cannot read file.</pre>
                                                     {/if}
@@ -240,6 +236,10 @@ function removeAllActiveSqlFrames() {
 }
 
 $(document).ready(function() {
+    // Jank fix for prism not highlighting the tabs which are "display: hidden;"
+    // from the bootstrap active class
+    document.getElementById('sql').classList.remove('active');
+
     hideAllFrames();
     hideAllSqlFrames();
 
