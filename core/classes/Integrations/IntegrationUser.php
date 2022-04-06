@@ -103,7 +103,7 @@ class IntegrationUser {
                 $user->data()->id,
                 $this->_integration->data()->id,
                 Output::getClean($identifier),
-                Output::getClean($username), 
+                Output::getClean($username),
                 $verified ? 1 : 0,
                 date('U'),
                 $code
@@ -118,8 +118,8 @@ class IntegrationUser {
             'avatar_url' => $user->getAvatar(128, true),
             'url' => Util::getSelfURL() . ltrim($user->getProfileURL(), '/'),
             'integration_user' => [
-                'identifier' => Output::getClean($identifier),
-                'username' => Output::getClean($username),
+                'identifier' => $identifier,
+                'username' => $username,
                 'verified' => (bool) $verified,
             ]
         ]);
@@ -133,7 +133,7 @@ class IntegrationUser {
             'verified' => 1,
             'code' => null
         ]);
-        
+
         $this->_integration->onSuccessfulVerification($this);
 
         $user = $this->getUser();
@@ -145,8 +145,8 @@ class IntegrationUser {
             'avatar_url' => $user->getAvatar(128, true),
             'url' => Util::getSelfURL() . ltrim($user->getProfileURL(), '/'),
             'integration_user' => [
-                'identifier' => Output::getClean($this->data()->identifier),
-                'username' => Output::getClean($this->data()->username),
+                'identifier' => $this->data()->identifier,
+                'username' => $this->data()->username,
                 'verified' => (bool) $this->data()->verified,
             ]
         ]);
@@ -172,8 +172,8 @@ class IntegrationUser {
             'avatar_url' => $user->getAvatar(128, true),
             'url' => Util::getSelfURL() . ltrim($user->getProfileURL(), '/'),
             'integration_user' => [
-                'identifier' => Output::getClean($this->data()->identifier),
-                'username' => Output::getClean($this->data()->username),
+                'identifier' => $this->data()->identifier,
+                'username' => $this->data()->username,
                 'verified' => (bool) $this->data()->verified,
             ]
         ]);
