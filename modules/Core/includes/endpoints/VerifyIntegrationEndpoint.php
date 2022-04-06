@@ -44,8 +44,8 @@ class VerifyIntegrationEndpoint extends KeyAuthEndpoint {
         }
 
         $integrationUser->update([
-            'identifier' => Output::getClean($_POST['identifier']),
-            'username' => Output::getClean($_POST['username']),
+            'identifier' => $_POST['identifier'],
+            'username' => $_POST['username'],
         ]);
 
         $integrationUser->verifyIntegration();
