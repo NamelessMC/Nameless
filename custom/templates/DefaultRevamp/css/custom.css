@@ -1228,3 +1228,16 @@ body.dark .cc-window.cc-floating .cc-highlight .cc-btn.cc-allow {
 body.dark .white {
     color: #fff;
 }
+
+/*
+ * Prism changes in TinyMCE so it doesn't look so bad!
+ */
+
+pre[class*="language-"] > code {
+    box-shadow: none;
+    border: #E5E5E5 solid 1px;
+}
+
+pre[class*="language-"]::after, pre[class*="language-"]::before {
+    display: none;
+}
