@@ -10,7 +10,7 @@
  */
 
 // Uncomment to enable debugging
-define('DEBUGGING', 1);
+// define('DEBUGGING', 1);
 
 header('X-Frame-Options: SAMEORIGIN');
 
@@ -78,7 +78,7 @@ if (!isset($_GET['route']) || $_GET['route'] == '/') {
     }
     die();
 }
-throw new Exception('Page not found');
+
 $route = rtrim(strtok($_GET['route'], '?'), '/');
 
 $all_pages = $pages->returnPages();

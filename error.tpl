@@ -27,7 +27,7 @@
     <br /><br />
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-{if $DETAILED_ERROR}10 offset-1{else}6 offset-md-3{/if}">
+            <div class="col-md-{if $DETAILED_ERROR}10 offset-1{else}4 offset-md-4{/if}">
                 <div class="jumbotron">
                     <div style="text-align:{if $DETAILED_ERROR} left {else} center {/if};">
                         {if $DETAILED_ERROR}
