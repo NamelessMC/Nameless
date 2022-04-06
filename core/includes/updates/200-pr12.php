@@ -79,7 +79,7 @@ try {
 try {
     DB::getInstance()->createTable('integrations', " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(32) NOT NULL, `enabled` tinyint(1) NOT NULL DEFAULT '1', `can_unlink` tinyint(1) NOT NULL DEFAULT '1', `required` tinyint(1) NOT NULL DEFAULT '0', `order` int(11) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)", "ENGINE=$db_engine DEFAULT CHARSET=$db_charset");
     DB::getInstance()->createTable('users_integrations', " `id` int(11) NOT NULL AUTO_INCREMENT, `integration_id` int(11) NOT NULL, `user_id` int(11) NOT NULL, `identifier` varchar(64) DEFAULT NULL, `username` varchar(32) DEFAULT NULL, `verified` tinyint(1) NOT NULL DEFAULT '0', `date` int(11) NOT NULL, `code` varchar(64) DEFAULT NULL, `show_publicly` tinyint(1) NOT NULL DEFAULT '1', PRIMARY KEY (`id`)", "ENGINE=$db_engine DEFAULT CHARSET=$db_charset");
-    
+
     $queries->create('integrations', [
         'name' => 'Minecraft',
         'enabled' => 1,
@@ -120,7 +120,7 @@ try {
         $query .= implode('', $inserts);
     }
     DB::getInstance()->createQuery(rtrim($query, ','));
-    
+
     // Only delete after successful conversion
     DB::getInstance()->createQuery('ALTER TABLE `nl2_users` DROP COLUMN `uuid`;');
     DB::getInstance()->createQuery('ALTER TABLE `nl2_users` DROP COLUMN `discord_id`;');
@@ -146,6 +146,13 @@ try {
 // add unique constraint to modules table
 try {
     DB::getInstance()->createQuery('ALTER TABLE nl2_modules ADD UNIQUE (`name`)');
+} catch (Exception $e) {
+    // Continue
+}
+
+// Increase length of reset_code column
+try {
+    DB::getInstance()->createQuery('ALTER TABLE nl2_users MODIFY `reset_code` VARCHAR(64) NOT NULL');
 } catch (Exception $e) {
     // Continue
 }
