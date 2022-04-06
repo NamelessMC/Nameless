@@ -4,7 +4,7 @@
  *
  * @package NamelessMC\Misc
  * @author Samerton
- * @version 2.0.0-pr8
+ * @version 2.0.0-pr13
  * @license MIT
  */
 abstract class TemplateBase {
@@ -34,6 +34,8 @@ abstract class TemplateBase {
      */
     protected string $_settings = '';
 
+    protected TemplateAssets $_assets_resolver;
+
     /**
      * @var array Array of CSS scripts to add to the template.
      */
@@ -56,6 +58,10 @@ abstract class TemplateBase {
      */
     abstract public function onPageLoad();
 
+    public function assets(): TemplateAssets {
+        return $this->_assets_resolver ??= new TemplateAssets();
+    }
+
     /**
      * Add list of CSS files to be loaded on each page load.
      *
@@ -75,7 +81,6 @@ abstract class TemplateBase {
             }
         }
     }
-
 
     /**
      * Add internal CSS styling to this page load.
@@ -168,6 +173,11 @@ abstract class TemplateBase {
      * Render this template with Smarty engine.
      */
     public function displayTemplate(string $template, Smarty $smarty): void {
+        [$css, $js] = $this->assets()->compile();
+
+        array_unshift($this->_css, ...$css);
+        array_unshift($this->_js, ...$js);
+
         $smarty->assign([
             'TEMPLATE_CSS' => $this->getCSS(),
             'TEMPLATE_JS' => $this->getJS()

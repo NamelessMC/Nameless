@@ -36,17 +36,19 @@ class DefaultRevamp_Template extends TemplateBase {
 
         $this->_settings = ROOT_PATH . '/custom/templates/DefaultRevamp/template_settings/settings.php';
 
+        $this->assets()->resolve([
+            TemplateAssets::FONT_AWESOME,
+            TemplateAssets::TOASTR,
+            TemplateAssets::JQUERY,
+            TemplateAssets::JQUERY_COOKIE,
+        ]);
+
         $this->addCSSFiles([
             $template['path'] . 'css/semantic.min.css' => [],
-            $template['path'] . 'css/toastr.min.css' => [],
-            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/css/font-awesome.min.css' => [],
         ]);
 
         $this->addJSFiles([
-            $template['path'] . 'js/jquery.min.js' => [],
-            $template['path'] . 'js/jquery.cookie.js' => [],
             $template['path'] . 'js/semantic.min.js' => [],
-            $template['path'] . 'js/toastr.min.js' => [],
         ]);
 
         $smarty->assign('TEMPLATE', $template);

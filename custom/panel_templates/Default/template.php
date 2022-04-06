@@ -29,8 +29,13 @@ if (!class_exists('Default_Panel_Template')) {
                 '<a href="https://coldfiredzn.com" target="_blank">Coldfire</a>'  // Author, you can use HTML here
             );
 
+            $this->assets()->resolve([
+                TemplateAssets::FONT_AWESOME,
+                TemplateAssets::JQUERY,
+                TemplateAssets::JQUERY_COOKIE,
+            ]);
+
             $this->addCSSFiles([
-                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/css/font-awesome.min.css' => [],
                 (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/css/sb-admin-2.min.css' => [],
                 'https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i' => [],
                 (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/css/custom.css?v=2' => [],
@@ -38,8 +43,6 @@ if (!class_exists('Default_Panel_Template')) {
             ]);
 
             $this->addJSFiles([
-                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/plugins/jquery/jquery.min.js' => [],
-                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/js/jquery.cookie.js' => [],
                 (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/plugins/bootstrap/js/bootstrap.bundle.min.js' => [],
                 (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/js/sb-admin-2.js' => [],
                 (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/plugins/select2/select2.min.js' => [],
@@ -138,22 +141,18 @@ if (!class_exists('Default_Panel_Template')) {
             if (defined('PANEL_PAGE')) {
                 switch (PANEL_PAGE) {
                     case 'dashboard':
-                        $this->addJSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/moment/moment.min.js' => [],
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/charts/Chart.min.js' => []
+                        $this->assets()->resolve([
+                            TemplateAssets::MOMENT,
+                            TemplateAssets::CHART_JS,
                         ]);
+
                         break;
 
                     case 'api':
-                        $this->addCSSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/toastr/toastr.min.css' => [],
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/css/dataTables.bootstrap4.min.css' => []
-                        ]);
 
-                        $this->addJSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/toastr/toastr.min.js' => [],
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/dataTables/jquery.dataTables.min.js' => [],
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/js/dataTables.bootstrap4.min.js' => []
+                        $this->assets()->resolve([
+                            TemplateAssets::TOASTR,
+                            TemplateAssets::DATATABLES
                         ]);
 
                         $this->addJSScript('
@@ -179,14 +178,9 @@ if (!class_exists('Default_Panel_Template')) {
                         break;
 
                     case 'avatars':
-                        $this->addCSSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/dropzone/dropzone.min.css' => [],
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/image-picker/image-picker.css' => []
-                        ]);
-
-                        $this->addJSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/dropzone/dropzone.min.js' => [],
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/image-picker/image-picker.min.js' => []
+                        $this->assets()->resolve([
+                            TemplateAssets::DROPZONE,
+                            TemplateAssets::IMAGE_PICKER,
                         ]);
 
                         $this->addJSScript('
@@ -202,6 +196,7 @@ if (!class_exists('Default_Panel_Template')) {
 						');
 
                         break;
+
                     case 'debugging_and_maintenance':
                         $this->addCSSStyle('
 						.error_log {
@@ -218,17 +213,8 @@ if (!class_exists('Default_Panel_Template')) {
 	                    }
 						');
 
-                        $this->addCSSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.css' => [],
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/toastr/toastr.min.css' => []
-                        ]);
-
-                        $this->addJSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/toastr/toastr.min.js' => [],
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
+                        $this->assets()->resolve([
+                            TemplateAssets::TINYMCE,
                         ]);
 
                         $this->addJSScript(Input::createTinyEditor($this->_language, 'InputMaintenanceMessage'));
@@ -237,15 +223,8 @@ if (!class_exists('Default_Panel_Template')) {
 
                     case 'privacy_and_terms':
                     case 'cookie_settings':
-                        $this->addCSSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.css' => [],
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
-                        ]);
-
-                        $this->addJSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
+                        $this->assets()->resolve([
+                            TemplateAssets::TINYMCE,
                         ]);
 
                         if (PANEL_PAGE === 'cookie_settings') {
@@ -257,15 +236,8 @@ if (!class_exists('Default_Panel_Template')) {
                         break;
 
                     case 'registration':
-                        $this->addCSSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.css' => [],
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
-                        ]);
-
-                        $this->addJSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
+                        $this->assets()->resolve([
+                            TemplateAssets::TINYMCE,
                         ]);
 
                         $this->addJSScript(Input::createTinyEditor($this->_language, 'InputRegistrationDisabledMessage'));
@@ -285,29 +257,17 @@ if (!class_exists('Default_Panel_Template')) {
 
                     case 'announcements':
                     case 'groups':
-                        $this->addCSSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css' => []
-                        ]);
-
-                        $this->addJSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js' => [],
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/js/jquery-ui.min.js' => []
+                        $this->assets()->resolve([
+                            TemplateAssets::BOOTSTRAP_COLORPICKER,
+                            TemplateAssets::JQUERY_UI,
                         ]);
 
                         break;
 
                     case 'template':
                         if (isset($_GET['file'])) {
-                            $this->addCSSFiles([
-                                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/codemirror/lib/codemirror.css' => []
-                            ]);
-
-                            $this->addJSFiles([
-                                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/codemirror/lib/codemirror.js' => [],
-                                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/codemirror/mode/smarty/smarty.js' => [],
-                                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/codemirror/mode/css/css.js' => [],
-                                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/codemirror/mode/javascript/javascript.js' => [],
-                                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/codemirror/mode/properties/properties.js' => []
+                            $this->assets()->resolve([
+                                TemplateAssets::CODEMIRROR,
                             ]);
                         }
 
@@ -315,15 +275,8 @@ if (!class_exists('Default_Panel_Template')) {
 
                     case 'custom_pages':
                         if (isset($_GET['action'])) {
-                            $this->addCSSFiles([
-                                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.css' => [],
-                                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
-                            ]);
-
-                            $this->addJSFiles([
-                                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
-                                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
-                                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
+                            $this->assets()->resolve([
+                                TemplateAssets::TINYMCE,
                             ]);
 
                             $this->addJSScript(Input::createTinyEditor($this->_language, 'inputContent'));
@@ -331,13 +284,8 @@ if (!class_exists('Default_Panel_Template')) {
                         break;
 
                     case 'seo':
-                        $this->addCSSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/css/dataTables.bootstrap4.min.css' => []
-                        ]);
-
-                        $this->addJSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/dataTables/jquery.dataTables.min.js' => [],
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/js/dataTables.bootstrap4.min.js' => []
+                        $this->assets()->resolve([
+                            TemplateAssets::DATATABLES,
                         ]);
 
                         $this->addJSScript('
@@ -363,13 +311,8 @@ if (!class_exists('Default_Panel_Template')) {
 
                     case 'users':
                         if (!defined('EDITING_USER')) {
-                            $this->addCSSFiles([
-                                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/css/dataTables.bootstrap4.min.css' => []
-                            ]);
-
-                            $this->addJSFiles([
-                                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/dataTables/jquery.dataTables.min.js' => [],
-                                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/js/dataTables.bootstrap4.min.js' => []
+                            $this->assets()->resolve([
+                                TemplateAssets::DATATABLES,
                             ]);
 
                             $this->addJSScript('
@@ -452,8 +395,8 @@ if (!class_exists('Default_Panel_Template')) {
 							');
 
                         } else if (MINECRAFT_PAGE == 'servers') {
-                            $this->addJSFiles([
-                                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/js/jquery-ui.min.js' => []
+                            $this->assets()->resolve([
+                                TemplateAssets::JQUERY_UI,
                             ]);
                         } else if (MINECRAFT_PAGE == 'query_errors') {
                             $this->addCSSStyle('
@@ -473,8 +416,8 @@ if (!class_exists('Default_Panel_Template')) {
 
                         } else if (MINECRAFT_PAGE == 'server_banners') {
                             if (isset($_GET['edit'])) {
-                                $this->addCSSFiles([
-                                    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/image-picker/image-picker.css' => []
+                                $this->assets()->resolve([
+                                    TemplateAssets::IMAGE_PICKER,
                                 ]);
 
                                 $this->addCSSStyle('
@@ -482,10 +425,6 @@ if (!class_exists('Default_Panel_Template')) {
 							        width: 200px;
 							    }
 								');
-
-                                $this->addJSFiles([
-                                    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/image-picker/image-picker.min.js' => []
-                                ]);
 
                                 $this->addJSScript('$(".image-picker").imagepicker();');
                             }
@@ -495,13 +434,8 @@ if (!class_exists('Default_Panel_Template')) {
 
                     case 'security':
                         if (isset($_GET['view'])) {
-                            $this->addCSSFiles([
-                                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/css/dataTables.bootstrap4.min.css' => []
-                            ]);
-
-                            $this->addJSFiles([
-                                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/dataTables/jquery.dataTables.min.js' => [],
-                                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/js/dataTables.bootstrap4.min.js' => []
+                            $this->assets()->resolve([
+                                TemplateAssets::DATATABLES,
                             ]);
 
                             $this->addJSScript('
@@ -528,14 +462,9 @@ if (!class_exists('Default_Panel_Template')) {
                         break;
 
                     case 'images':
-                        $this->addCSSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/dropzone/dropzone.min.css' => [],
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/image-picker/image-picker.css' => []
-                        ]);
-
-                        $this->addJSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/dropzone/dropzone.min.js' => [],
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/image-picker/image-picker.min.js' => [],
+                        $this->assets()->resolve([
+                            TemplateAssets::DROPZONE,
+                            TemplateAssets::IMAGE_PICKER,
                         ]);
 
                         $this->addJSScript('
@@ -579,16 +508,9 @@ if (!class_exists('Default_Panel_Template')) {
                         break;
 
                     case 'forums':
-                        $this->addCSSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.css' => [],
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
-                        ]);
-
-                        $this->addJSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/js/jquery-ui.min.js' => [],
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
+                        $this->assets()->resolve([
+                            TemplateAssets::TINYMCE,
+                            TemplateAssets::JQUERY_UI
                         ]);
 
                         if (isset($_GET['forum'])) {
