@@ -202,7 +202,7 @@ class AssetTree {
                 'plugins/prism/prism.js',
             ],
             'css' => [
-                'plugins/prism/prism_light.css',
+                'plugins/prism/prism_light_default.css',
             ],
         ],
         self::TINYMCE => [
