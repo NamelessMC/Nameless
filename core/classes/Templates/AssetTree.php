@@ -77,7 +77,7 @@ class AssetTree {
      */
     public const PRISM_LIGHT = 'PRISM_LIGHT';
     /**
-     * @var string TinyMCE v5.10 (JS, and the light/dark theme, as well as the spoiler plugin)
+     * @var string TinyMCE v5.10 (JS, and the light/dark theme of Prism, as well as the spoiler plugin)
      */
     public const TINYMCE = 'TINYMCE';
     /**
@@ -216,10 +216,9 @@ class AssetTree {
                 'plugins/tinymce/tinymce.min.js',
             ],
             'depends' => [
-                /** @phpstan-ignore-next-line  */
-                DARK_MODE
-                    ? self::PRISM_DARK
-                    : self::PRISM_LIGHT,
+                // Not included here: Prism light/dark, since we cannot
+                // check dark_mode const here in PHP 8.0+,
+                // it is added in AssetResolver instead.
                 self::TINYMCE_SPOILER,
             ],
         ],

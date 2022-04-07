@@ -16,8 +16,4 @@ parameters:
         # because php is dumb
         - '#Call to an undefined method ReflectionType::getName\(\).#'
         - '#Call to an undefined method ReflectionType::isBuiltin\(\).#'
-        # dark_mode constant is not defined in php 8.0 and 8.1 analysis...
-        -
-            message: '#Undefined constant "DARK_MODE"#'
-            path: 'core/classes/Templates/AssetResolver.php'
     reportUnmatchedIgnoredErrors: false
