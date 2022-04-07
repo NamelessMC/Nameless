@@ -99,8 +99,8 @@ if ($forum_enabled) {
 
 if ($forum_enabled) {
     $template->assets()->resolve([
-        TemplateAssets::MOMENT,
-        TemplateAssets::CHART_JS,
+        AssetTree::MOMENT,
+        AssetTree::CHART_JS,
     ]);
 
     $template->addJSScript(

@@ -1,25 +1,27 @@
 <?php
 
 /**
- * Template asset management class.
+ * Template asset tree.
+ * In different class to keep the TemplateAssets class clean.
  *
- * @package NamelessMC\Misc
+ * @package NamelessMC\Templates
+ * @see AssetResolver
  * @author Aberdeener
  * @version 2.0.0-pr13
  * @license MIT
  */
-class TemplateAssets {
+class AssetTree {
 
     /**
-     * @var string Font Awesome 6.x (CSS)
+     * @var string Font Awesome 6.1 (CSS)
      */
     public const FONT_AWESOME = 'FONT_AWESOME';
     /**
-     * @var string Bootstrap v4.x (CSS + JS)
+     * @var string Bootstrap v4.5 (CSS + JS)
      */
     public const BOOTSTRAP = 'BOOTSTRAP';
     /**
-     * @var string Bootstrap Colorpicker v3.x (CSS + JS)
+     * @var string Bootstrap Colorpicker v3.0 (CSS + JS)
      */
     public const BOOTSTRAP_COLORPICKER = 'BOOTSTRAP_COLORPICKER';
     /**
@@ -27,28 +29,71 @@ class TemplateAssets {
      */
     public const BOOTSTRAP_DATEPICKER = 'BOOTSTRAP_DATEPICKER';
     /**
-     * @var string Chart.js v2.7.x (JS)
+     * @var string Chart.js v2.7 (JS)
      */
     public const CHART_JS = 'CHART_JS';
     /**
-     * @var string Codemirror CSS + JS, as well as modes for Smarty, CSS, HTML & JS
+     * @var string Codemirror (CSS + JS, as well as modes for Smarty, CSS, HTML & JS)
      */
     public const CODEMIRROR = 'CODEMIRROR';
+    /**
+     * @var string DataTables JQuery v1.10 (CSS + JS)
+     */
     public const DATATABLES = 'DATATABLES';
+    /**
+     * @var string Dropzone (CSS + JS)
+     */
     public const DROPZONE = 'DROPZONE';
+    /**
+     * @var string Image-Picker v0.2 (CSS + JS)
+     */
     public const IMAGE_PICKER = 'IMAGE_PICKER';
+    /**
+     * @var string JQuery v3.5 (JS)
+     */
     public const JQUERY = 'JQUERY';
+    /**
+     * @var string JQuery-UI v2.12 (JS)
+     */
     public const JQUERY_UI = 'JQUERY_UI';
+    /**
+     * @var string JQuery-Cookie v1.4 (JS)
+     */
     public const JQUERY_COOKIE = 'JQUERY_COOKIE';
+    /**
+     * @var string MCAssoc-Client (JS
+     */
     public const MCASSOC_CLIENT = 'MCASSOC_CLIENT';
+    /**
+     * @var string Moment (JS)
+     */
     public const MOMENT = 'MOMENT';
+    /**
+     * @var string PrismJS v1.27 (CSS + JS, and the dark theme)
+     */
     public const PRISM_DARK = 'PRISM_DARK';
+    /**
+     * @var string PrismJS v1.27 (CSS + JS, and the Coy light theme)
+     */
     public const PRISM_LIGHT = 'PRISM_LIGHT';
+    /**
+     * @var string TinyMCE v5.10 (JS, and the light/dark theme, as well as the spoiler plugin)
+     */
     public const TINYMCE = 'TINYMCE';
+    /**
+     * @var string TinyMCE Spoiler plugin. Used individually when posts will be shown but not created (home page for example)
+     */
     public const TINYMCE_SPOILER = 'TINYMCE_SPOILER';
+    /**
+     * @var string Toastr (CSS + JS)
+     */
     public const TOASTR = 'TOASTR';
 
-    private const ASSET_TREE = [
+    /**
+     * @var mixed Tree of all available assets, with their applicable CSS/JS files.
+     * In the case an asset depends on other assets within the tree, they are defined as "depends".
+     */
+    protected const ASSET_TREE = [
         self::FONT_AWESOME => [
             'css' => [
                 'css/font-awesome.min.css',
@@ -188,78 +233,4 @@ class TemplateAssets {
             ],
         ],
     ];
-
-    private array $_assets = [];
-
-    /**
-     * @param string|array $assets
-     */
-    public function resolve($assets): void {
-        if (!is_array($assets)) {
-            $assets = [$assets];
-        }
-
-        foreach ($assets as $asset) {
-            $this->validateAsset($asset);
-
-            $this->_assets[$asset] = self::ASSET_TREE[$asset];
-        }
-    }
-
-    public function compile(): array {
-        $css = [];
-        $js = [];
-
-        foreach ($this->_assets as $asset) {
-            $this->gatherAsset($asset, $css, $js);
-        }
-
-        return [$css, $js];
-    }
-
-    private function validateAsset(string $assetName): void {
-        if (!array_key_exists($assetName, self::ASSET_TREE)) {
-            throw new InvalidArgumentException('Asset "' . $assetName . '" is not defined');
-        }
-
-        if (array_key_exists($assetName, $this->_assets)) {
-            throw new InvalidArgumentException('Asset "' . $assetName . '" has already been resolved');
-        }
-    }
-
-    private function gatherAsset(array $asset, array &$css, array &$js): void {
-        foreach ($asset['css'] as $cssFile) {
-            $css[] = $this->buildPath($cssFile, 'css');
-        }
-
-        foreach ($asset['js'] as $jsFile) {
-            $js[] = $this->buildPath($jsFile, 'js');
-        }
-
-        foreach ($asset['depends'] as $dependency) {
-            $this->validateAsset($dependency);
-            $this->gatherAsset(self::ASSET_TREE[$dependency], $css, $js);
-        }
-    }
-
-    private function buildPath(string $file, string $type): string {
-        $href = (defined('CONFIG_PATH')
-                ? CONFIG_PATH
-                : '')
-            . '/core/assets/' . $file;
-
-        if (!file_exists(ROOT_PATH . $href)) {
-            throw new InvalidArgumentException('Asset file "' . $href . '" not found');
-        }
-
-        if ($type === 'css') {
-            return '<link rel="stylesheet" href="' . $href . '">';
-        }
-
-        if ($type === 'js') {
-            return '<script type="text/javascript" src="' . $href . '"></script>';
-        }
-
-        throw new RuntimeException('Unknown asset type: ' . $type);
-    }
 }

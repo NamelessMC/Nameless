@@ -30,9 +30,9 @@ if (!class_exists('Default_Panel_Template')) {
             );
 
             $this->assets()->resolve([
-                TemplateAssets::FONT_AWESOME,
-                TemplateAssets::JQUERY,
-                TemplateAssets::JQUERY_COOKIE,
+                AssetTree::FONT_AWESOME,
+                AssetTree::JQUERY,
+                AssetTree::JQUERY_COOKIE,
             ]);
 
             $this->addCSSFiles([
@@ -142,8 +142,8 @@ if (!class_exists('Default_Panel_Template')) {
                 switch (PANEL_PAGE) {
                     case 'dashboard':
                         $this->assets()->resolve([
-                            TemplateAssets::MOMENT,
-                            TemplateAssets::CHART_JS,
+                            AssetTree::MOMENT,
+                            AssetTree::CHART_JS,
                         ]);
 
                         break;
@@ -151,8 +151,8 @@ if (!class_exists('Default_Panel_Template')) {
                     case 'api':
 
                         $this->assets()->resolve([
-                            TemplateAssets::TOASTR,
-                            TemplateAssets::DATATABLES
+                            AssetTree::TOASTR,
+                            AssetTree::DATATABLES
                         ]);
 
                         $this->addJSScript('
@@ -179,8 +179,8 @@ if (!class_exists('Default_Panel_Template')) {
 
                     case 'avatars':
                         $this->assets()->resolve([
-                            TemplateAssets::DROPZONE,
-                            TemplateAssets::IMAGE_PICKER,
+                            AssetTree::DROPZONE,
+                            AssetTree::IMAGE_PICKER,
                         ]);
 
                         $this->addJSScript('
@@ -214,7 +214,7 @@ if (!class_exists('Default_Panel_Template')) {
 						');
 
                         $this->assets()->resolve([
-                            TemplateAssets::TINYMCE,
+                            AssetTree::TINYMCE,
                         ]);
 
                         $this->addJSScript(Input::createTinyEditor($this->_language, 'InputMaintenanceMessage'));
@@ -224,7 +224,7 @@ if (!class_exists('Default_Panel_Template')) {
                     case 'privacy_and_terms':
                     case 'cookie_settings':
                         $this->assets()->resolve([
-                            TemplateAssets::TINYMCE,
+                            AssetTree::TINYMCE,
                         ]);
 
                         if (PANEL_PAGE === 'cookie_settings') {
@@ -237,7 +237,7 @@ if (!class_exists('Default_Panel_Template')) {
 
                     case 'registration':
                         $this->assets()->resolve([
-                            TemplateAssets::TINYMCE,
+                            AssetTree::TINYMCE,
                         ]);
 
                         $this->addJSScript(Input::createTinyEditor($this->_language, 'InputRegistrationDisabledMessage'));
@@ -258,8 +258,8 @@ if (!class_exists('Default_Panel_Template')) {
                     case 'announcements':
                     case 'groups':
                         $this->assets()->resolve([
-                            TemplateAssets::BOOTSTRAP_COLORPICKER,
-                            TemplateAssets::JQUERY_UI,
+                            AssetTree::BOOTSTRAP_COLORPICKER,
+                            AssetTree::JQUERY_UI,
                         ]);
 
                         break;
@@ -267,7 +267,7 @@ if (!class_exists('Default_Panel_Template')) {
                     case 'template':
                         if (isset($_GET['file'])) {
                             $this->assets()->resolve([
-                                TemplateAssets::CODEMIRROR,
+                                AssetTree::CODEMIRROR,
                             ]);
                         }
 
@@ -276,7 +276,7 @@ if (!class_exists('Default_Panel_Template')) {
                     case 'custom_pages':
                         if (isset($_GET['action'])) {
                             $this->assets()->resolve([
-                                TemplateAssets::TINYMCE,
+                                AssetTree::TINYMCE,
                             ]);
 
                             $this->addJSScript(Input::createTinyEditor($this->_language, 'inputContent'));
@@ -285,7 +285,7 @@ if (!class_exists('Default_Panel_Template')) {
 
                     case 'seo':
                         $this->assets()->resolve([
-                            TemplateAssets::DATATABLES,
+                            AssetTree::DATATABLES,
                         ]);
 
                         $this->addJSScript('
@@ -312,7 +312,7 @@ if (!class_exists('Default_Panel_Template')) {
                     case 'users':
                         if (!defined('EDITING_USER')) {
                             $this->assets()->resolve([
-                                TemplateAssets::DATATABLES,
+                                AssetTree::DATATABLES,
                             ]);
 
                             $this->addJSScript('
@@ -396,7 +396,7 @@ if (!class_exists('Default_Panel_Template')) {
 
                         } else if (MINECRAFT_PAGE == 'servers') {
                             $this->assets()->resolve([
-                                TemplateAssets::JQUERY_UI,
+                                AssetTree::JQUERY_UI,
                             ]);
                         } else if (MINECRAFT_PAGE == 'query_errors') {
                             $this->addCSSStyle('
@@ -417,7 +417,7 @@ if (!class_exists('Default_Panel_Template')) {
                         } else if (MINECRAFT_PAGE == 'server_banners') {
                             if (isset($_GET['edit'])) {
                                 $this->assets()->resolve([
-                                    TemplateAssets::IMAGE_PICKER,
+                                    AssetTree::IMAGE_PICKER,
                                 ]);
 
                                 $this->addCSSStyle('
@@ -435,7 +435,7 @@ if (!class_exists('Default_Panel_Template')) {
                     case 'security':
                         if (isset($_GET['view'])) {
                             $this->assets()->resolve([
-                                TemplateAssets::DATATABLES,
+                                AssetTree::DATATABLES,
                             ]);
 
                             $this->addJSScript('
@@ -463,8 +463,8 @@ if (!class_exists('Default_Panel_Template')) {
 
                     case 'images':
                         $this->assets()->resolve([
-                            TemplateAssets::DROPZONE,
-                            TemplateAssets::IMAGE_PICKER,
+                            AssetTree::DROPZONE,
+                            AssetTree::IMAGE_PICKER,
                         ]);
 
                         $this->addJSScript('
@@ -509,8 +509,8 @@ if (!class_exists('Default_Panel_Template')) {
 
                     case 'forums':
                         $this->assets()->resolve([
-                            TemplateAssets::TINYMCE,
-                            TemplateAssets::JQUERY_UI
+                            AssetTree::TINYMCE,
+                            AssetTree::JQUERY_UI
                         ]);
 
                         if (isset($_GET['forum'])) {

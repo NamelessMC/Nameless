@@ -793,7 +793,7 @@ $smarty->assign([
 ]);
 
 $template->assets()->resolve([
-    TemplateAssets::TINYMCE,
+    AssetTree::TINYMCE,
 ]);
 
 if ($user->isLoggedIn()) {

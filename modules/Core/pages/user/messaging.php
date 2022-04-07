@@ -324,7 +324,7 @@ if (!isset($_GET['action'])) {
         );
 
         $template->assets()->resolve([
-            TemplateAssets::TINYMCE,
+            AssetTree::TINYMCE,
         ]);
 
         $template->addJSScript(Input::createTinyEditor($language, 'reply', $content));
@@ -503,7 +503,7 @@ if (!isset($_GET['action'])) {
         $content = (isset($_POST['content'])) ? EventHandler::executeEvent('renderPrivateMessageEdit', ['content' => $_POST['content']])['content'] : null;
 
         $template->assets()->resolve([
-            TemplateAssets::TINYMCE,
+            AssetTree::TINYMCE,
         ]);
 
         $template->addJSScript(Input::createTinyEditor($language, 'reply', $content));

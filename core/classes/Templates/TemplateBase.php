@@ -2,7 +2,7 @@
 /**
  * Base class templates should extend to add functionality.
  *
- * @package NamelessMC\Misc
+ * @package NamelessMC\Templates
  * @author Samerton
  * @version 2.0.0-pr13
  * @license MIT
@@ -34,7 +34,7 @@ abstract class TemplateBase {
      */
     protected string $_settings = '';
 
-    protected TemplateAssets $_assets_resolver;
+    protected AssetResolver $_assets_resolver;
 
     /**
      * @var array Array of CSS scripts to add to the template.
@@ -58,8 +58,8 @@ abstract class TemplateBase {
      */
     abstract public function onPageLoad();
 
-    public function assets(): TemplateAssets {
-        return $this->_assets_resolver ??= new TemplateAssets();
+    public function assets(): AssetResolver {
+        return $this->_assets_resolver ??= new AssetResolver();
     }
 
     /**
@@ -175,6 +175,7 @@ abstract class TemplateBase {
     public function displayTemplate(string $template, Smarty $smarty): void {
         [$css, $js] = $this->assets()->compile();
 
+        // Put the assets at the start of the arrays, so they load first (SBAdmin requires JQuery first, etc.)
         array_unshift($this->_css, ...$css);
         array_unshift($this->_js, ...$js);
 

@@ -470,8 +470,8 @@ if (isset($_GET['do'])) {
     }
 
     $template->assets()->resolve([
-        TemplateAssets::BOOTSTRAP_DATEPICKER,
-        TemplateAssets::TINYMCE,
+        AssetTree::BOOTSTRAP_DATEPICKER,
+        AssetTree::TINYMCE,
     ]);
 
     $template->addJSScript('$(\'.datepicker\').datepicker();');

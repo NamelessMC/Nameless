@@ -19,7 +19,7 @@ $page_title = $language->get('general', 'verify_account');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 $template->assets()->resolve([
-    TemplateAssets::MCASSOC_CLIENT,
+    AssetTree::MCASSOC_CLIENT,
 ]);
 
 // Assign post data to session variable
@@ -54,7 +54,7 @@ if (!isset($_GET['step'])) {
     ');
 
     $template->assets()->resolve([
-        TemplateAssets::MCASSOC_CLIENT,
+        AssetTree::MCASSOC_CLIENT,
     ]);
     $template->addJSScript('
 	  MCAssoc.init("' . $mcassoc_site_id . '", "' . $key . '", "' . $return_link . '");

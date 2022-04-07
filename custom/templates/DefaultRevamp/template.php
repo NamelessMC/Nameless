@@ -37,10 +37,10 @@ class DefaultRevamp_Template extends TemplateBase {
         $this->_settings = ROOT_PATH . '/custom/templates/DefaultRevamp/template_settings/settings.php';
 
         $this->assets()->resolve([
-            TemplateAssets::FONT_AWESOME,
-            TemplateAssets::TOASTR,
-            TemplateAssets::JQUERY,
-            TemplateAssets::JQUERY_COOKIE,
+            AssetTree::FONT_AWESOME,
+            AssetTree::TOASTR,
+            AssetTree::JQUERY,
+            AssetTree::JQUERY_COOKIE,
         ]);
 
         $this->addCSSFiles([
@@ -120,7 +120,7 @@ class DefaultRevamp_Template extends TemplateBase {
 
         if (strpos($route, '/forum/topic/') !== false || PAGE == 'profile') {
             $this->assets()->resolve([
-                TemplateAssets::JQUERY_UI,
+                AssetTree::JQUERY_UI,
             ]);
         }
 

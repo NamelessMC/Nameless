@@ -436,7 +436,7 @@ if ($discord_id != null && $discord_id != 010) {
 }
 
 $template->assets()->resolve([
-    TemplateAssets::TINYMCE,
+    AssetTree::TINYMCE,
 ]);
 
 $template->addJSScript(Input::createTinyEditor($language, 'InputSignature'));

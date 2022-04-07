@@ -34,9 +34,9 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 $template->assets()->resolve([
     DARK_MODE
-        ? TemplateAssets::PRISM_DARK
-        : TemplateAssets::PRISM_LIGHT,
-    TemplateAssets::TINYMCE_SPOILER
+        ? AssetTree::PRISM_DARK
+        : AssetTree::PRISM_LIGHT,
+    AssetTree::TINYMCE_SPOILER
 ]);
 
 $template->addCSSStyle(
@@ -846,7 +846,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     if (isset($directories[1]) && !empty($directories[1]) && !isset($_GET['error']) && $user->isLoggedIn() && $user->data()->username == $profile) {
         // Script for banner selector
         $template->assets()->resolve([
-            TemplateAssets::IMAGE_PICKER,
+            AssetTree::IMAGE_PICKER,
         ]);
     }
 

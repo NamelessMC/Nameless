@@ -246,7 +246,7 @@ $smarty->assign([
 ]);
 
 $template->assets()->resolve([
-    TemplateAssets::TINYMCE,
+    AssetTree::TINYMCE,
 ]);
 
 $template->addJSScript(Input::createTinyEditor($language, 'editor', $content, true));

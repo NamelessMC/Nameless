@@ -272,7 +272,7 @@ if ($content) {
 }
 
 $template->assets()->resolve([
-    TemplateAssets::TINYMCE,
+    AssetTree::TINYMCE,
 ]);
 
 $template->addJSScript(Input::createTinyEditor($language, 'reply', $content, true));

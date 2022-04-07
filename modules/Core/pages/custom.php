@@ -65,7 +65,7 @@ $page_title = Output::getClean($custom_page->title);
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 $template->assets()->resolve([
-    TemplateAssets::TINYMCE_SPOILER,
+    AssetTree::TINYMCE_SPOILER,
 ]);
 
 // Load modules + template

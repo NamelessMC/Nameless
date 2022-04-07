@@ -146,7 +146,7 @@ if (!isset($_GET['s'])) {
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 $template->assets()->resolve([
-    TemplateAssets::TINYMCE,
+    AssetTree::TINYMCE,
 ]);
 
 if (isset($_GET['s'])) {
