@@ -216,6 +216,7 @@ class AssetTree {
                 'plugins/tinymce/tinymce.min.js',
             ],
             'depends' => [
+                /** @phpstan-ignore-next-line  */
                 DARK_MODE
                     ? self::PRISM_DARK
                     : self::PRISM_LIGHT,
