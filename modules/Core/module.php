@@ -602,6 +602,7 @@ class Core_Module extends Module {
             'admincp.core.announcements' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'announcements'),
             'admincp.core.placeholders' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'placeholders'),
             'admincp.integrations' => $language->get('admin', 'integrations'),
+            'admincp.integrations.edit' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'general_settings'),
             'admincp.minecraft' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft'),
             'admincp.minecraft.authme' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'authme_integration'),
             'admincp.minecraft.verification' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'account_verification'),
