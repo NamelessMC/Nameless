@@ -9,13 +9,6 @@
  *  Forum module - forum profile tab
  */
 
-$template->assets()->resolve([
-    DARK_MODE
-        ? TemplateAssets::PRISM_DARK
-        : TemplateAssets::PRISM_LIGHT,
-    TemplateAssets::TINYMCE_SPOILER
-]);
-
 if (!isset($forum) || (!$forum instanceof Forum)) {
     $forum = new Forum();
 }

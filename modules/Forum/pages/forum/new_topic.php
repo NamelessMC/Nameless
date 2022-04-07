@@ -229,13 +229,6 @@ if (Input::exists()) {
 // Generate a token
 $token = Token::get();
 
-$template->assets()->resolve([
-    DARK_MODE
-        ? TemplateAssets::PRISM_DARK
-        : TemplateAssets::PRISM_LIGHT,
-    TemplateAssets::TINYMCE_SPOILER,
-]);
-
 // Generate content for template
 if (isset($error)) {
     $smarty->assign('ERROR', $error);

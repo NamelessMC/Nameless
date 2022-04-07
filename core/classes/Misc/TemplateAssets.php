@@ -1,12 +1,38 @@
 <?php
 
+/**
+ * Template asset management class.
+ *
+ * @package NamelessMC\Misc
+ * @author Aberdeener
+ * @version 2.0.0-pr13
+ * @license MIT
+ */
 class TemplateAssets {
 
+    /**
+     * @var string Font Awesome 6.x (CSS)
+     */
     public const FONT_AWESOME = 'FONT_AWESOME';
+    /**
+     * @var string Bootstrap v4.x (CSS + JS)
+     */
     public const BOOTSTRAP = 'BOOTSTRAP';
+    /**
+     * @var string Bootstrap Colorpicker v3.x (CSS + JS)
+     */
     public const BOOTSTRAP_COLORPICKER = 'BOOTSTRAP_COLORPICKER';
+    /**
+     * @var string Bootstrap Datepicker v1.7 (CSS + JS)
+     */
     public const BOOTSTRAP_DATEPICKER = 'BOOTSTRAP_DATEPICKER';
+    /**
+     * @var string Chart.js v2.7.x (JS)
+     */
     public const CHART_JS = 'CHART_JS';
+    /**
+     * @var string Codemirror CSS + JS, as well as modes for Smarty, CSS, HTML & JS
+     */
     public const CODEMIRROR = 'CODEMIRROR';
     public const DATATABLES = 'DATATABLES';
     public const DROPZONE = 'DROPZONE';
@@ -14,6 +40,7 @@ class TemplateAssets {
     public const JQUERY = 'JQUERY';
     public const JQUERY_UI = 'JQUERY_UI';
     public const JQUERY_COOKIE = 'JQUERY_COOKIE';
+    public const MCASSOC_CLIENT = 'MCASSOC_CLIENT';
     public const MOMENT = 'MOMENT';
     public const PRISM_DARK = 'PRISM_DARK';
     public const PRISM_LIGHT = 'PRISM_LIGHT';
@@ -21,7 +48,7 @@ class TemplateAssets {
     public const TINYMCE_SPOILER = 'TINYMCE_SPOILER';
     public const TOASTR = 'TOASTR';
 
-    private static array $_ASSET_TREE = [
+    private const ASSET_TREE = [
         self::FONT_AWESOME => [
             'css' => [
                 'css/font-awesome.min.css',
@@ -89,7 +116,7 @@ class TemplateAssets {
                 'plugins/image-picker/image-picker.css',
             ],
             'js' => [
-                'plugins/image-picker/image-picker.js',
+                'plugins/image-picker/image-picker.min.js',
             ],
         ],
         self::JQUERY => [
@@ -105,6 +132,11 @@ class TemplateAssets {
         self::JQUERY_COOKIE => [
             'js' => [
                 'js/jquery.cookie.js',
+            ],
+        ],
+        self::MCASSOC_CLIENT => [
+            'js' => [
+                'js/mcassoc-client.js',
             ],
         ],
         self::MOMENT => [
@@ -125,7 +157,7 @@ class TemplateAssets {
                 'plugins/prism/prism.js',
             ],
             'css' => [
-                'plugins/prism/prism_light_default.css',
+                'plugins/prism/prism_light.css',
             ],
         ],
         self::TINYMCE => [
@@ -134,8 +166,8 @@ class TemplateAssets {
             ],
             'depends' => [
                 DARK_MODE
-                    ? self::PRISM_LIGHT
-                    : self::PRISM_DARK,
+                    ? self::PRISM_DARK
+                    : self::PRISM_LIGHT,
                 self::TINYMCE_SPOILER,
             ],
         ],
@@ -168,15 +200,9 @@ class TemplateAssets {
         }
 
         foreach ($assets as $asset) {
-            if (!defined(self::class . '::' . $asset)) {
-                throw new InvalidArgumentException('Asset "' . $asset . '" is not defined');
-            }
+            $this->validateAsset($asset);
 
-            if (array_key_exists($asset, $this->_assets)) {
-                return;
-            }
-
-            $this->_assets[$asset] = self::$_ASSET_TREE[$asset];
+            $this->_assets[$asset] = self::ASSET_TREE[$asset];
         }
     }
 
@@ -185,20 +211,35 @@ class TemplateAssets {
         $js = [];
 
         foreach ($this->_assets as $asset) {
-            foreach ($asset['css'] as $cssFile) {
-                $css[] = $this->buildPath($cssFile, 'css');
-            }
-
-            foreach ($asset['js'] as $jsFile) {
-                $js[] = $this->buildPath($jsFile, 'js');
-            }
-
-            if (array_key_exists('depends', $asset)) {
-                $this->resolve($asset['depends']);
-            }
+            $this->gatherAsset($asset, $css, $js);
         }
 
         return [$css, $js];
+    }
+
+    private function validateAsset(string $assetName): void {
+        if (!array_key_exists($assetName, self::ASSET_TREE)) {
+            throw new InvalidArgumentException('Asset "' . $assetName . '" is not defined');
+        }
+
+        if (array_key_exists($assetName, $this->_assets)) {
+            throw new InvalidArgumentException('Asset "' . $assetName . '" has already been resolved');
+        }
+    }
+
+    private function gatherAsset(array $asset, array &$css, array &$js): void {
+        foreach ($asset['css'] as $cssFile) {
+            $css[] = $this->buildPath($cssFile, 'css');
+        }
+
+        foreach ($asset['js'] as $jsFile) {
+            $js[] = $this->buildPath($jsFile, 'js');
+        }
+
+        foreach ($asset['depends'] as $dependency) {
+            $this->validateAsset($dependency);
+            $this->gatherAsset(self::ASSET_TREE[$dependency], $css, $js);
+        }
     }
 
     private function buildPath(string $file, string $type): string {
@@ -206,6 +247,10 @@ class TemplateAssets {
                 ? CONFIG_PATH
                 : '')
             . '/core/assets/' . $file;
+
+        if (!file_exists(ROOT_PATH . $href)) {
+            throw new InvalidArgumentException('Asset file "' . $href . '" not found');
+        }
 
         if ($type === 'css') {
             return '<link rel="stylesheet" href="' . $href . '">';

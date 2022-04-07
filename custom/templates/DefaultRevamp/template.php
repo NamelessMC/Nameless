@@ -119,8 +119,8 @@ class DefaultRevamp_Template extends TemplateBase {
         ];
 
         if (strpos($route, '/forum/topic/') !== false || PAGE == 'profile') {
-            $this->addJSFiles([
-                $this->_template['path'] . 'js/jquery-ui.min.js' => []
+            $this->assets()->resolve([
+                TemplateAssets::JQUERY_UI,
             ]);
         }
 

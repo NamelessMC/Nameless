@@ -259,7 +259,7 @@ if (Input::exists()) {
         ]);
 
         if ($validate->passed()) {
-            $content = Output::getClean(Input::get('content'));
+            $content = Input::get('content');
 
             $queries->create('posts', [
                 'forum_id' => $topic->forum_id,
@@ -381,13 +381,6 @@ if ($user->isLoggedIn() || (defined('COOKIE_CHECK') && COOKIES_ALLOWED)) {
         Session::put('nl-topic-' . $tid, 'true');
     }
 }
-
-$template->assets()->resolve([
-    DARK_MODE
-        ? TemplateAssets::PRISM_DARK
-        : TemplateAssets::PRISM_LIGHT,
-    TemplateAssets::TINYMCE_SPOILER,
-]);
 
 if ($user->isLoggedIn()) {
     $template->addJSScript('var quotedPosts = [];');

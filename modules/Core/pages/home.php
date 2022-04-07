@@ -14,13 +14,6 @@ const PAGE = 'index';
 $page_title = $language->get('general', 'home');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-$template->assets()->resolve([
-    DARK_MODE
-        ? TemplateAssets::PRISM_DARK
-        : TemplateAssets::PRISM_LIGHT,
-    TemplateAssets::TINYMCE_SPOILER
-]);
-
 if (Session::exists('home')) {
     $smarty->assign('HOME_SESSION_FLASH', Session::flash('home'));
     $smarty->assign('SUCCESS_TITLE', $language->get('general', 'success'));

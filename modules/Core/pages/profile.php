@@ -33,7 +33,6 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 $template->assets()->resolve([
-    TemplateAssets::IMAGE_PICKER,
     DARK_MODE
         ? TemplateAssets::PRISM_DARK
         : TemplateAssets::PRISM_LIGHT,
@@ -844,11 +843,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     // Assign profile tabs
     $smarty->assign('TABS', $tabs);
 
-    if (isset($directories[1]) &&
-        !empty($directories[1]) &&
-        !isset($_GET['error']) &&
-        $user->isLoggedIn() &&
-        $user->data()->username == $profile) {
+    if (isset($directories[1]) && !empty($directories[1]) && !isset($_GET['error']) && $user->isLoggedIn() && $user->data()->username == $profile) {
         // Script for banner selector
         $template->assets()->resolve([
             TemplateAssets::IMAGE_PICKER,

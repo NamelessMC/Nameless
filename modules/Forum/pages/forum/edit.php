@@ -14,13 +14,6 @@ const PAGE = 'forum';
 $page_title = $forum_language->get('forum', 'edit_post');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-$template->assets()->resolve([
-    DARK_MODE
-        ? TemplateAssets::PRISM_DARK
-        : TemplateAssets::PRISM_LIGHT,
-    TemplateAssets::TINYMCE_SPOILER,
-]);
-
 // User must be logged in to proceed
 if (!$user->isLoggedIn()) {
     Redirect::to(URL::build('/forum'));
