@@ -33,6 +33,7 @@ if (!class_exists('Default_Panel_Template')) {
                 AssetTree::FONT_AWESOME,
                 AssetTree::JQUERY,
                 AssetTree::JQUERY_COOKIE,
+                AssetTree::BOOTSTRAP,
             ]);
 
             $this->addCSSFiles([
@@ -43,7 +44,6 @@ if (!class_exists('Default_Panel_Template')) {
             ]);
 
             $this->addJSFiles([
-                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/plugins/bootstrap/js/bootstrap.bundle.min.js' => [],
                 (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/js/sb-admin-2.js' => [],
                 (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/plugins/select2/select2.min.js' => [],
             ]);

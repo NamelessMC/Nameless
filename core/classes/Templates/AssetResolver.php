@@ -76,17 +76,18 @@ class AssetResolver extends AssetTree {
      * @param array $js Array of JS assets already resolved to add to.
      */
     private function gatherAsset(array $asset, array &$css, array &$js): void {
+        // Load the dependencies first so that they're the first to be added to the HTML
+        foreach ($asset['depends'] as $dependency) {
+            $this->validateAsset($dependency);
+            $this->gatherAsset(parent::ASSET_TREE[$dependency], $css, $js);
+        }
+
         foreach ($asset['css'] as $cssFile) {
             $css[] = $this->buildPath($cssFile, 'css');
         }
 
         foreach ($asset['js'] as $jsFile) {
             $js[] = $this->buildPath($jsFile, 'js');
-        }
-
-        foreach ($asset['depends'] as $dependency) {
-            $this->validateAsset($dependency);
-            $this->gatherAsset(parent::ASSET_TREE[$dependency], $css, $js);
         }
     }
 

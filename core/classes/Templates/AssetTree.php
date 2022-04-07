@@ -69,6 +69,10 @@ class AssetTree {
      */
     public const MOMENT = 'MOMENT';
     /**
+     * @var string Popper.js (CSS + JS)
+     */
+    public const POPPER = 'POPPER';
+    /**
      * @var string PrismJS v1.27 (CSS + JS, and the dark theme)
      */
     public const PRISM_DARK = 'PRISM_DARK';
@@ -105,6 +109,9 @@ class AssetTree {
             ],
             'js' => [
                 'js/bootstrap.min.js',
+            ],
+            'depends' => [
+                self::POPPER,
             ],
         ],
         self::BOOTSTRAP_COLORPICKER => [
@@ -187,6 +194,11 @@ class AssetTree {
         self::MOMENT => [
             'js' => [
                 'plugins/moment/moment.min.js',
+            ],
+        ],
+        self::POPPER => [
+            'js' => [
+                'js/popper.min.js',
             ],
         ],
         self::PRISM_DARK => [
