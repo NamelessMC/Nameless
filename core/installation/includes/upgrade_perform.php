@@ -1021,11 +1021,6 @@ switch ($s) {
         ]);
 
         $queries->create('settings', [
-            'name' => 'api_verification',
-            'value' => '1'
-        ]);
-
-        $queries->create('settings', [
             'name' => 'validate_user_action',
             'value' => '{"action":"activate"}'
         ]);

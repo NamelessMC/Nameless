@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr12
+ *  NamelessMC version 2.0.0-pr13
  *
  *  License: MIT
  *
@@ -63,10 +63,6 @@ if (!isset($_GET['view'])) {
             // Update email verification
             $verification = isset($_POST['verification']) && $_POST['verification'] == 'on' ? 1 : 0;
             $configuration->set('Core', 'email_verification', $verification);
-
-            // Update API verification
-            $api_verification = isset($_POST['api_verification']) && $_POST['api_verification'] == 'on' ? 1 : 0;
-            $configuration->set('Core', 'api_verification', $api_verification);
 
             // Update Username sync
             $username_sync = isset($_POST['username_sync']) && $_POST['username_sync'] == 'on' ? 1 : 0;
@@ -226,9 +222,6 @@ if (!isset($_GET['view'])) {
     // Is email verification enabled
     $emails = $configuration->get('Core', 'email_verification');
 
-    // Is API verification enabled?
-    $api_verification = $configuration->get('Core', 'api_verification');
-
     // Is the username sync enabled?
     $username_sync = $configuration->get('Core', 'username_sync');
 
@@ -257,9 +250,6 @@ if (!isset($_GET['view'])) {
             'COPY' => $language->get('admin', 'copy'),
             'EMAIL_VERIFICATION' => $language->get('admin', 'email_verification'),
             'EMAIL_VERIFICATION_VALUE' => $emails,
-            'API_VERIFICATION' => $language->get('admin', 'api_verification'),
-            'API_VERIFICATION_VALUE' => $api_verification,
-            'API_VERIFICATION_INFO' => $language->get('admin', 'api_verification_info'),
             'USERNAME_SYNC' => $language->get('admin', 'enable_username_sync'),
             'USERNAME_SYNC_INFO' => $language->get('admin', 'enable_username_sync_info'),
             'USERNAME_SYNC_VALUE' => $username_sync,

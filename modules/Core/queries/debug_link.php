@@ -162,7 +162,6 @@ $data = [
             'phpmailer' => (bool)Util::getSetting(DB::getInstance(), 'phpmailer'),
             'api_enabled' => (bool)Util::getSetting(DB::getInstance(), 'use_api'),
             'email_verification' => (bool)Util::getSetting(DB::getInstance(), 'email_verification'),
-            'api_verification' => (bool)Util::getSetting(DB::getInstance(), 'api_verification'),
             'login_method' => Util::getSetting(DB::getInstance(), 'login_method'),
             'captcha_type' => Util::getSetting(DB::getInstance(), 'recaptcha_type'),
             'captcha_login' => Util::getSetting(DB::getInstance(), 'recaptcha_login') === 'false' ? false : true, // dont ask

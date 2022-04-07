@@ -68,17 +68,12 @@ class RegisterEndpoint extends KeyAuthEndpoint {
             $api->throwError(10, $api->getLanguage()->get('api', 'email_already_exists'));
         }
 
-        if (Util::getSetting($api->getDb(), 'api_verification', false)) {
-            // Create user and send link to set password
-            $this->createUser($api, $_POST['username'], $_POST['email'], true, null, true);
+        if (Util::getSetting($api->getDb(), 'email_verification', true)) {
+            // Send email to verify
+            $this->sendRegistrationEmail($api, $_POST['username'], $_POST['email']);
         } else {
-            if (Util::getSetting($api->getDb(), 'email_verification', true)) {
-                // Send email to verify
-                $this->sendRegistrationEmail($api, $_POST['username'], $_POST['email']);
-            } else {
-                // Register user + send link to verify account
-                $this->createUser($api, $_POST['username'], $_POST['email'], true);
-            }
+            // Register user + send link to verify account
+            $this->createUser($api, $_POST['username'], $_POST['email'], true);
         }
     }
 
@@ -92,11 +87,10 @@ class RegisterEndpoint extends KeyAuthEndpoint {
      * @param string $email The email of the new user
      * @param bool $return
      * @param string|null $code The reset token/temp password of the new user
-     * @param bool $api_verification
      *
      * @return array
      */
-    private function createUser(Nameless2API $api, string $username, string $email, bool $return, string $code = null, bool $api_verification = false): array {
+    private function createUser(Nameless2API $api, string $username, string $email, bool $return, string $code = null): array {
         try {
             // Get default group ID
             if (!is_file(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('default_group') . '.cache')) {
@@ -137,7 +131,6 @@ class RegisterEndpoint extends KeyAuthEndpoint {
                     'password' => md5($code), // temp code
                     'joined' => date('U'),
                     'lastip' => 'Unknown',
-                    'active' => $api_verification === true ? 1 : 0,
                     'reset_code' => $code,
                     'last_online' => date('U')
                 ]
@@ -175,7 +168,7 @@ class RegisterEndpoint extends KeyAuthEndpoint {
                 ]
             );
 
-            if ($return || $api_verification) {
+            if ($return) {
                 $api->returnArray(['message' => $api->getLanguage()->get('api', 'finish_registration_link'), 'user_id' => $user_id, 'link' => rtrim(Util::getSelfURL(), '/') . URL::build('/complete_signup/', 'c=' . urlencode($code))]);
             }
 

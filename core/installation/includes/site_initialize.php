@@ -618,11 +618,6 @@ $queries->create('settings', [
 ]);
 
 $queries->create('settings', [
-    'name' => 'api_verification',
-    'value' => '0'
-]);
-
-$queries->create('settings', [
     'name' => 'validate_user_action',
     'value' => '{"action":"promote","group":1}'
 ]);

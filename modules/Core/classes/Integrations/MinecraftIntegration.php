@@ -21,7 +21,6 @@ class MinecraftIntegration extends IntegrationBase {
     }
 
     public function onLinkRequest(User $user) {
-        $queries = new Queries();
         $username = $user->data()->username;
 
         // Ensure username doesn't already exist
@@ -49,30 +48,13 @@ class MinecraftIntegration extends IntegrationBase {
         $integrationUser = new IntegrationUser($this);
         $integrationUser->linkIntegration($user, $this->_uuid, $username, false, $code);
 
-        // API verification
-        $api_verification = $queries->getWhere('settings', ['name', '=', 'api_verification']);
-        $api_verification = $api_verification[0]->value;
-
-        if ($api_verification == '1') {
-            Session::flash('connections_success', str_replace('{x}', Output::getClean($code), $this->_language->get('user', 'validate_account_command')));
-        } else {
-            Session::flash('connections_success', str_replace('{x}', Output::getClean($this->getName()), $this->_language->get('user', 'integration_linked')));
-        }
+        Session::flash('connections_success', str_replace('{x}', Output::getClean($code), $this->_language->get('user', 'validate_account_command')));
     }
 
     public function onVerifyRequest(User $user) {
-        $queries = new Queries();
         $integrationUser = new IntegrationUser($this, $user->data()->id, 'user_id');
 
-        // API verification
-        $api_verification = $queries->getWhere('settings', ['name', '=', 'api_verification']);
-        $api_verification = $api_verification[0]->value;
-
-        if ($api_verification == '1') {
-            Session::flash('connections_success', str_replace('{x}', Output::getClean($integrationUser->data()->code), $this->_language->get('user', 'validate_account_command')));
-        } else {
-            $this->addError(str_replace('{x}', Output::getClean($this->_name), $this->_language->get('user', 'integration_verify_unconfigurated')));
-        }
+        Session::flash('connections_success', str_replace('{x}', Output::getClean($integrationUser->data()->code), $this->_language->get('user', 'validate_account_command')));
     }
 
     public function onUnlinkRequest(User $user) {

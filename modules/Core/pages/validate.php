@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr13
  *
  *  License: MIT
  *
@@ -19,19 +19,9 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp
 
 if (isset($_GET['c'])) {
     $user = new User($_GET['c'], 'reset_code');
-    if ($user->data()) {
-        // API verification
-        $api_verification = $queries->getWhere('settings', ['name', '=', 'api_verification']);
-        $api_verification = $api_verification[0]->value;
-
-        if ($api_verification == '1') {
-            $reset_code = $user->data()->reset_code;
-        } else {
-            $reset_code = null;
-        }
-
-        $queries->update('users', $user->data()->id, [
-            'reset_code' => $reset_code,
+    if ($user->exists()) {
+        $user->update([
+            'reset_code' => null,
             'active' => 1
         ]);
 

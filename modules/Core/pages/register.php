@@ -119,10 +119,6 @@ $captcha = CaptchaBase::isCaptchaEnabled();
 $email_verification = $queries->getWhere('settings', ['name', '=', 'email_verification']);
 $email_verification = $email_verification[0]->value;
 
-// API verification
-$api_verification = $queries->getWhere('settings', ['name', '=', 'api_verification']);
-$api_verification = $api_verification[0]->value;
-
 $integrations = Integrations::getInstance();
 
 Session::put('oauth_method', 'register');
@@ -289,15 +285,8 @@ if (Input::exists()) {
                         $date = new DateTime();
                         $date = $date->getTimestamp();
 
-                        if ($api_verification == '1') {
-                            // Generate shorter code for API validation
-                            $code = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 10);
-                            $active = 1;
-                        } else {
-                            // Generate random code for email
-                            $code = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 60);
-                            $active = 0;
-                        }
+                        // Generate validation code
+                        $code = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 60);
 
                         // Get default language ID before creating user
                         $language_id = $queries->getWhere('languages', ['name', '=', LANGUAGE]);
@@ -332,7 +321,6 @@ if (Input::exists()) {
                                 'lastip' => $ip,
                                 'last_online' => $date,
                                 'language_id' => $language_id,
-                                'active' => $active,
                                 // TODO: re-enable this (#2355)
                                 // 'timezone' => ((isset($_POST['timezone']) && $_POST['timezone']) ? Output::getClean(Input::get('timezone')) : Output::getClean(TIMEZONE))
                                 'timezone' => TIMEZONE
@@ -391,22 +379,14 @@ if (Input::exists()) {
                             'language' => $language
                         ]);
 
-                        if ($api_verification != '1' && $email_verification == '1') {
+                        if ($email_verification == '1') {
                             // Send registration email
                             sendRegisterEmail($queries, $language, Output::getClean(Input::get('email')), $username, $user_id, $code);
 
-                        } else {
-                            if ($api_verification != '1') {
-                                // Redirect straight to verification link
-                                $url = URL::build('/validate/', 'c=' . urlencode($code));
-                                Redirect::to($url);
-                            }
-                        }
-
-                        if ($api_verification != '1') {
                             Session::flash('home', $language->get('user', 'registration_check_email'));
                         } else {
-                            Session::flash('home', $language->get('user', 'validation_complete'));
+                            // Redirect straight to verification link
+                            Redirect::to(URL::build('/validate/', 'c=' . urlencode($code)));
                         }
 
                         Redirect::to(URL::build('/'));
