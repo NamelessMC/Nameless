@@ -75,7 +75,9 @@ class AssetResolver extends AssetTree {
                 ? parent::PRISM_DARK
                 : parent::PRISM_LIGHT;
 
-            $this->gatherAsset($prism, parent::ASSET_TREE[$prism], $css, $js);
+            if ($this->validateAsset($prism, false)) {
+                $this->gatherAsset($prism, parent::ASSET_TREE[$prism], $css, $js);
+            }
         }
 
         foreach ($asset['css'] as $cssFile) {
