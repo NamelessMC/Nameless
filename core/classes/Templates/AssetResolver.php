@@ -55,16 +55,27 @@ class AssetResolver extends AssetTree {
      * This checks that it exists in the asset tree, and that it has not already been resolved.
      *
      * @param string $assetName The asset name to validate.
+     * @return bool aaa
      * @throws InvalidArgumentException If the asset name is invalid or if it has already been resolved.
      */
-    private function validateAsset(string $assetName): void {
+    private function validateAsset(string $assetName, bool $throw = true): bool {
         if (!array_key_exists($assetName, parent::ASSET_TREE)) {
-            throw new InvalidArgumentException('Asset "' . $assetName . '" is not defined');
+            if ($throw) {
+                throw new InvalidArgumentException('Asset "' . $assetName . '" is not defined');
+            }
+
+            return false;
         }
 
         if (array_key_exists($assetName, $this->_assets)) {
-            throw new InvalidArgumentException('Asset "' . $assetName . '" has already been resolved');
+            if ($throw) {
+                throw new InvalidArgumentException('Asset "' . $assetName . '" has already been resolved');
+            }
+
+            return false;
         }
+
+        return true;
     }
 
     /**
@@ -78,8 +89,11 @@ class AssetResolver extends AssetTree {
     private function gatherAsset(array $asset, array &$css, array &$js): void {
         // Load the dependencies first so that they're the first to be added to the HTML
         foreach ($asset['depends'] as $dependency) {
-            $this->validateAsset($dependency);
-            $this->gatherAsset(parent::ASSET_TREE[$dependency], $css, $js);
+            // Don't throw an exception if the dependency has already been resolved
+            // since it is a dependency, there is a high chance it has already been resolved anyway
+            if ($this->validateAsset($dependency, false)) {
+                $this->gatherAsset(parent::ASSET_TREE[$dependency], $css, $js);
+            }
         }
 
         foreach ($asset['css'] as $cssFile) {
