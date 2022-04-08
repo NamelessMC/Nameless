@@ -35,9 +35,6 @@
             "modules/Core/classes",
             "modules/Discord Integration/classes",
             "modules/Forum/classes"
-        ],
-        "files": [
-            "core/autoload.php"
         ]
     }
 }
