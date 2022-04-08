@@ -151,10 +151,13 @@ $nameless_terms = 'This website uses "Nameless" website software. The ' .
 
 print('✍️  Inserting default data to database...' . PHP_EOL);
 require './core/installation/includes/site_initialize.php';
+$sitename = getEnvVar('NAMELESS_SITE_NAME', true);
 $queries->create('settings', [
     'name' => 'sitename',
-    'value' => getEnvVar('NAMELESS_SITE_NAME', true),
+    'value' => $sitename,
 ]);
+$cache->setCache('sitenamecache');
+$cache->store('sitename', $sitename);
 $queries->create('settings', [
     'name' => 'incoming_email',
     'value' => getEnvVar('NAMELESS_SITE_CONTACT_EMAIL', true),
