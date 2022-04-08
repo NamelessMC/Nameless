@@ -79,4 +79,15 @@ class Output {
         // Purify the string
         return self::$_purifier->purify($input);
     }
+
+    /**
+     * urlencode() a string without encoding slashes
+     *
+     * @param string String to encode
+     * @return string Encoded string
+     */
+    public static function urlEncodeAllowSlashes(string $input): string {
+        return str_replace('%2F', '/', urlencode($input));
+    }
+
 }
