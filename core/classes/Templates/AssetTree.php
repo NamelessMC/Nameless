@@ -13,7 +13,7 @@
 class AssetTree {
 
     /**
-     * @var string Font Awesome 6.1 (CSS)
+     * @var string Font Awesome v6.1 (CSS)
      */
     public const FONT_AWESOME = 'FONT_AWESOME';
     /**
@@ -37,7 +37,7 @@ class AssetTree {
      */
     public const DATATABLES = 'DATATABLES';
     /**
-     * @var string Dropzone (CSS + JS)
+     * @var string Dropzone v5.9 (CSS + JS)
      */
     public const DROPZONE = 'DROPZONE';
     /**
@@ -61,7 +61,7 @@ class AssetTree {
      */
     public const MCASSOC_CLIENT = 'MCASSOC_CLIENT';
     /**
-     * @var string Moment (JS)
+     * @var string Moment v2.29 (JS)
      */
     public const MOMENT = 'MOMENT';
     /**
@@ -85,7 +85,7 @@ class AssetTree {
      */
     public const TINYMCE_SPOILER = 'TINYMCE_SPOILER';
     /**
-     * @var string Toastr (CSS + JS)
+     * @var string Toastr v2.1 (CSS + JS)
      */
     public const TOASTR = 'TOASTR';
 
