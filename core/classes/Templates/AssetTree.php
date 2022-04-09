@@ -73,9 +73,13 @@ class AssetTree {
      */
     public const PRISM_DARK = 'PRISM_DARK';
     /**
-     * @var string PrismJS v1.27 (CSS + JS, and the Coy light theme)
+     * @var string PrismJS v1.27 (CSS + JS, and the Default light theme)
      */
     public const PRISM_LIGHT = 'PRISM_LIGHT';
+    /**
+     * @var string Select2 v4.0 (CSS + JS)
+     */
+    public const SELECT2 = 'SELECT2';
     /**
      * @var string TinyMCE v5.10 (JS, and the light/dark theme of Prism, as well as the spoiler plugin)
      */
@@ -152,6 +156,7 @@ class AssetTree {
             ],
             'js' => [
                 'vendor/datatables.net/js/jquery.dataTables.min.js',
+                'vendor/datatables.net-bs4/js/dataTables.bootstrap4.min.js',
             ],
         ],
         self::DROPZONE => [
@@ -211,9 +216,17 @@ class AssetTree {
                 'plugins/prism/prism_light_default.css',
             ],
         ],
+        self::SELECT2 => [
+            'js' => [
+                'vendor/select2/dist/js/select2.min.js',
+            ],
+            'css' => [
+                'vendor/select2/dist/css/select2.min.css',
+            ],
+        ],
         self::TINYMCE => [
             'js' => [
-                'plugins/tinymce/tinymce.min.js',
+                'vendor/tinymce/tinymce.min.js',
             ],
             'depends' => [
                 // Not included here: Prism light/dark, since we cannot
@@ -224,10 +237,10 @@ class AssetTree {
         ],
         self::TINYMCE_SPOILER => [
             'css' => [
-                'plugins/tinymce/plugins/spoiler/css/spoiler.css',
+                'plugins/tinymce_spoiler/css/spoiler.css',
             ],
             'js' => [
-                'plugins/tinymce/plugins/spoiler/js/spoiler.js',
+                'plugins/tinymce_spoiler/js/spoiler.js',
             ],
         ],
         self::TOASTR => [

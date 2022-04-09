@@ -9,7 +9,7 @@
     "bootstrap": "4.6.1",
     "bootstrap-colorpicker": "^3.4.0",
     "bootstrap-datepicker": "^1.9.0",
-    "chart.js": "^3.7.1",
+    "chart.js": "2.7.1",
     "codemirror": "^5.65.2",
     "datatables.net": "^1.11.5",
     "datatables.net-bs4": "^1.11.5",
@@ -20,6 +20,8 @@
     "jquery.cookie": "^1.4.1",
     "moment": "^2.29.2",
     "popper.js": "^1.16.1",
+    "select2": "4.0.0",
+    "tinymce": "5.10.3",
     "toastr": "^2.1.4"
   },
   "scripts": {

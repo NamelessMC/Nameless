@@ -65,6 +65,9 @@ $page_title = Output::getClean($custom_page->title);
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 $template->assets()->resolve([
+    DARK_MODE
+        ? AssetTree::PRISM_DARK
+        : AssetTree::PRISM_LIGHT,
     AssetTree::TINYMCE_SPOILER,
 ]);
 
