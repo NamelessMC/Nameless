@@ -96,23 +96,23 @@ class AssetTree {
     protected const ASSET_TREE = [
         self::FONT_AWESOME => [
             'css' => [
-                'css/font-awesome.min.css',
+                'vendor/@fortawesome/fontawesome-free/css/all.min.css'
             ],
         ],
         self::BOOTSTRAP => [
             'css' => [
-                'css/bootstrap.min.css',
+                'vendor/bootstrap/dist/css/bootstrap.min.css',
             ],
             'js' => [
-                'js/bootstrap.min.js',
+                'vendor/bootstrap/dist/js/bootstrap.bundle.js',
             ],
         ],
         self::BOOTSTRAP_COLORPICKER => [
             'css' => [
-                'plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css',
+                'vendor/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css',
             ],
             'js' => [
-                'plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js',
+                'vendor/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js',
             ],
             'depends' => [
                 self::BOOTSTRAP,
@@ -120,10 +120,10 @@ class AssetTree {
         ],
         self::BOOTSTRAP_DATEPICKER => [
             'css' => [
-                'plugins/bootstrap-datepicker/css/bootstrap-datepicker3.standalone.min.css',
+                'vendor/bootstrap-datepicker/dist/css/bootstrap-datepicker3.standalone.min.css',
             ],
             'js' => [
-                'plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js',
+                'vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js',
             ],
             'depends' => [
                 self::BOOTSTRAP,
@@ -131,58 +131,58 @@ class AssetTree {
         ],
         self::CHART_JS => [
             'js' => [
-                'plugins/Charts/Chart.min.js',
+                'vendor/chart.js/dist/chart.min.js',
             ],
         ],
         self::CODEMIRROR => [
             'css' => [
-                'plugins/codemirror/lib/codemirror.css',
+                'vendor/codemirror/lib/codemirror.css',
             ],
             'js' => [
-                'plugins/codemirror/lib/codemirror.js',
-                'plugins/codemirror/mode/smarty/smarty.js',
-                'plugins/codemirror/mode/javascript/javascript.js',
-                'plugins/codemirror/mode/css/css.js',
-                'plugins/codemirror/mode/htmlmixed/htmlmixed.js',
+                'vendor/codemirror/lib/codemirror.js',
+                'vendor/codemirror/mode/smarty/smarty.js',
+                'vendor/codemirror/mode/javascript/javascript.js',
+                'vendor/codemirror/mode/css/css.js',
+                'vendor/codemirror/mode/htmlmixed/htmlmixed.js',
             ],
         ],
         self::DATATABLES => [
             'css' => [
-                'plugins/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.css',
+                'vendor/datatables.net-bs4/css/dataTables.bootstrap4.css',
             ],
             'js' => [
-                'plugins/datatables/jquery.dataTables.min.js',
+                'vendor/datatables.net/js/jquery.dataTables.min.js',
             ],
         ],
         self::DROPZONE => [
             'css' => [
-                'plugins/dropzone/dropzone.min.css',
+                'vendor/dropzone/dist/min/dropzone.min.css',
             ],
             'js' => [
-                'plugins/dropzone/dropzone.min.js',
+                'vendor/dropzone/dist/min/dropzone.min.js',
             ],
         ],
         self::IMAGE_PICKER => [
             'css' => [
-                'plugins/image-picker/image-picker.css',
+                'vendor/image-picker/image-picker/image-picker.css',
             ],
             'js' => [
-                'plugins/image-picker/image-picker.min.js',
+                'vendor/image-picker/image-picker/image-picker.min.js',
             ],
         ],
         self::JQUERY => [
             'js' => [
-                'js/jquery.min.js',
+                'vendor/jquery/dist/jquery.min.js',
             ],
         ],
         self::JQUERY_UI => [
             'js' => [
-                'js/jquery-ui.min.js',
+                'vendor/jquery-ui-dist/jquery-ui.min.js',
             ],
         ],
         self::JQUERY_COOKIE => [
             'js' => [
-                'js/jquery.cookie.js',
+                'vendor/jquery.cookie/jquery.cookie.js',
             ],
         ],
         self::MCASSOC_CLIENT => [
@@ -192,7 +192,7 @@ class AssetTree {
         ],
         self::MOMENT => [
             'js' => [
-                'plugins/moment/moment.min.js',
+                'vendor/moment/min/moment.min.js',
             ],
         ],
         self::PRISM_DARK => [
@@ -232,10 +232,10 @@ class AssetTree {
         ],
         self::TOASTR => [
             'css' => [
-                'plugins/toastr/toastr.min.css',
+                'vendor/toastr/build/toastr.min.css',
             ],
             'js' => [
-                'plugins/toastr/toastr.min.js',
+                'vendor/toastr/build/toastr.min.js',
             ],
         ],
     ];
