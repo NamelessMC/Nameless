@@ -1,4 +1,7 @@
 <?php
+
+use GuzzleHttp\Client;
+
 /**
  * Manages avatar sources and provides static methods for fetching avatars.
  *
@@ -53,6 +56,7 @@ class AvatarSource {
 
                 foreach ($exts as $ext) {
                     if (file_exists(ROOT_PATH . '/uploads/avatars/' . $data->id . '.' . $ext)) {
+                        // We don't check the validity here since we know the file exists for sure
                         return ($full ? rtrim(Util::getSelfURL(), '/') : '') . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/avatars/' . $data->id . '.' . $ext . '?v=' . Output::getClean($data->avatar_updated);
                     }
                 }
@@ -60,24 +64,58 @@ class AvatarSource {
         }
 
         // Fallback to default avatar image if it is set and the avatar type is custom
-        if (defined('DEFAULT_AVATAR_TYPE') && DEFAULT_AVATAR_TYPE == 'custom') {
+        if (defined('DEFAULT_AVATAR_TYPE') && DEFAULT_AVATAR_TYPE == 'custom' && DEFAULT_AVATAR_IMAGE !== '') {
             if (file_exists(ROOT_PATH . '/uploads/avatars/defaults/' . DEFAULT_AVATAR_IMAGE)) {
-                return ($full ? rtrim(Util::getSelfURL(), '/') : '') . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/avatars/defaults/' . DEFAULT_AVATAR_IMAGE;
+                $url = ($full ? rtrim(Util::getSelfURL(), '/') : '') . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/avatars/defaults/' . DEFAULT_AVATAR_IMAGE;
+                // Check that the default avatar is a valid image URL
+                if (self::validImageUrl($url)) {
+                    return $url;
+                }
             }
         }
 
-        // If all else fails, or custom avatars are disabled or default avatar type is 'minecraft', get their MC avatar
-        if ($data->uuid != null && $data->uuid != 'none') {
-            $uuid = $data->uuid;
-        } else {
-            $uuid = $data->username;
-            // Fallback to steve avatar if they have an invalid username
-            if (preg_match('#[^][_A-Za-z0-9]#', $uuid)) {
-                $uuid = 'Steve';
+        // Attempt to get their MC avatar if Minecraft integration is enabled
+        if (MINECRAFT) {
+            if ($data->uuid != null && $data->uuid != 'none') {
+                $uuid = $data->uuid;
+            } else {
+                $uuid = $data->username;
+                // Fallback to steve avatar if they have an invalid username
+                if (preg_match('#[^][_A-Za-z0-9]#', $uuid)) {
+                    $uuid = 'Steve';
+                }
+            }
+
+            $url = self::getAvatarFromUUID($uuid, $size);
+            // The avatar might be invalid if they are using
+            // an MC avatar service that uses only UUIDs
+            // and this user doesn't have one
+            if (self::validImageUrl($url)) {
+                return $url;
             }
         }
 
-        return self::getAvatarFromUUID($uuid, $size);
+        return 'https://ui-avatars.com/api/?name=' . $data->nickname . '&size=' . $size;
+    }
+
+    /**
+     * Determine if a URL is a valid image URL for avatars.
+     *
+     * @param string $url URL to check
+     * @return bool Whether the URL is a valid image URL
+     */
+    private static function validImageUrl(string $url): bool {
+        try {
+            $client = new Client();
+            $response = $client->head($url);
+            $headers = $response->getHeaders();
+            if (isset($headers['Content-Type']) && $headers['Content-Type'][0] === 'image/png') {
+                return true;
+            }
+        } catch (Exception $e) {
+            return false;
+        }
+        return false;
     }
 
     /**
