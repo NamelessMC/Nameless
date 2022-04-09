@@ -9,7 +9,7 @@
  *  Forum module - front page module
  */
 
-$template->assets()->resolve([
+$template->assets()->include([
     DARK_MODE
         ? AssetTree::PRISM_DARK
         : AssetTree::PRISM_LIGHT,

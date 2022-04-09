@@ -469,7 +469,7 @@ if (isset($_GET['do'])) {
         }
     }
 
-    $template->assets()->resolve([
+    $template->assets()->include([
         AssetTree::TINYMCE,
     ]);
 

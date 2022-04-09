@@ -98,7 +98,7 @@ if ($forum_enabled) {
 }
 
 if ($forum_enabled) {
-    $template->assets()->resolve([
+    $template->assets()->include([
         AssetTree::MOMENT,
         AssetTree::CHART_JS,
     ]);

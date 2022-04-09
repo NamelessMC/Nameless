@@ -245,7 +245,7 @@ $smarty->assign([
     'TOPIC_TITLE' => $forum_language->get('forum', 'topic_title')
 ]);
 
-$template->assets()->resolve([
+$template->assets()->include([
     AssetTree::TINYMCE,
 ]);
 

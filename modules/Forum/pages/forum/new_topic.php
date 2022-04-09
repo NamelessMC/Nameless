@@ -271,7 +271,7 @@ if ($content) {
     $content = EventHandler::executeEvent('renderPostEdit', ['content' => $content])['content'];
 }
 
-$template->assets()->resolve([
+$template->assets()->include([
     AssetTree::TINYMCE,
 ]);
 

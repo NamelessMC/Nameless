@@ -435,7 +435,7 @@ if ($discord_id != null && $discord_id != 010) {
     ]);
 }
 
-$template->assets()->resolve([
+$template->assets()->include([
     AssetTree::TINYMCE,
 ]);
 

@@ -323,7 +323,7 @@ if (!isset($_GET['action'])) {
             ]
         );
 
-        $template->assets()->resolve([
+        $template->assets()->include([
             AssetTree::TINYMCE,
         ]);
 
@@ -502,7 +502,7 @@ if (!isset($_GET['action'])) {
 
         $content = (isset($_POST['content'])) ? EventHandler::executeEvent('renderPrivateMessageEdit', ['content' => $_POST['content']])['content'] : null;
 
-        $template->assets()->resolve([
+        $template->assets()->include([
             AssetTree::TINYMCE,
         ]);
 

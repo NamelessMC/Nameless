@@ -792,7 +792,7 @@ $smarty->assign([
     'ERROR' => $language->get('general', 'error')
 ]);
 
-$template->assets()->resolve([
+$template->assets()->include([
     AssetTree::TINYMCE,
 ]);
 

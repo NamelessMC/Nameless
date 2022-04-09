@@ -21,7 +21,7 @@ class AssetResolver extends AssetTree {
      *
      * @param string|array<string> $assets The asset(s) to resolve and add. Must be a constant from the `AssetTree` class.
      */
-    public function resolve($assets): void {
+    public function include($assets): void {
         if (!is_array($assets)) {
             $assets = [$assets];
         }

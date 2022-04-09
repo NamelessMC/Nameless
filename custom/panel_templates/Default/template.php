@@ -29,7 +29,7 @@ if (!class_exists('Default_Panel_Template')) {
                 '<a href="https://coldfiredzn.com" target="_blank">Coldfire</a>'  // Author, you can use HTML here
             );
 
-            $this->assets()->resolve([
+            $this->assets()->include([
                 AssetTree::FONT_AWESOME,
                 AssetTree::JQUERY,
                 AssetTree::JQUERY_COOKIE,
@@ -140,7 +140,7 @@ if (!class_exists('Default_Panel_Template')) {
             if (defined('PANEL_PAGE')) {
                 switch (PANEL_PAGE) {
                     case 'dashboard':
-                        $this->assets()->resolve([
+                        $this->assets()->include([
                             AssetTree::MOMENT,
                             AssetTree::CHART_JS,
                         ]);
@@ -149,7 +149,7 @@ if (!class_exists('Default_Panel_Template')) {
 
                     case 'api':
 
-                        $this->assets()->resolve([
+                        $this->assets()->include([
                             AssetTree::TOASTR,
                             AssetTree::DATATABLES
                         ]);
@@ -177,7 +177,7 @@ if (!class_exists('Default_Panel_Template')) {
                         break;
 
                     case 'avatars':
-                        $this->assets()->resolve([
+                        $this->assets()->include([
                             AssetTree::DROPZONE,
                             AssetTree::IMAGE_PICKER,
                         ]);
@@ -212,7 +212,7 @@ if (!class_exists('Default_Panel_Template')) {
 	                    }
 						');
 
-                        $this->assets()->resolve([
+                        $this->assets()->include([
                             AssetTree::TINYMCE,
                         ]);
 
@@ -222,7 +222,7 @@ if (!class_exists('Default_Panel_Template')) {
 
                     case 'privacy_and_terms':
                     case 'cookie_settings':
-                        $this->assets()->resolve([
+                        $this->assets()->include([
                             AssetTree::TINYMCE,
                         ]);
 
@@ -235,7 +235,7 @@ if (!class_exists('Default_Panel_Template')) {
                         break;
 
                     case 'registration':
-                        $this->assets()->resolve([
+                        $this->assets()->include([
                             AssetTree::TINYMCE,
                         ]);
 
@@ -256,7 +256,7 @@ if (!class_exists('Default_Panel_Template')) {
 
                     case 'announcements':
                     case 'groups':
-                        $this->assets()->resolve([
+                        $this->assets()->include([
                             AssetTree::BOOTSTRAP_COLORPICKER,
                             AssetTree::JQUERY_UI,
                         ]);
@@ -265,7 +265,7 @@ if (!class_exists('Default_Panel_Template')) {
 
                     case 'template':
                         if (isset($_GET['file'])) {
-                            $this->assets()->resolve([
+                            $this->assets()->include([
                                 AssetTree::CODEMIRROR,
                             ]);
                         }
@@ -274,7 +274,7 @@ if (!class_exists('Default_Panel_Template')) {
 
                     case 'custom_pages':
                         if (isset($_GET['action'])) {
-                            $this->assets()->resolve([
+                            $this->assets()->include([
                                 AssetTree::TINYMCE,
                             ]);
 
@@ -283,7 +283,7 @@ if (!class_exists('Default_Panel_Template')) {
                         break;
 
                     case 'seo':
-                        $this->assets()->resolve([
+                        $this->assets()->include([
                             AssetTree::DATATABLES,
                         ]);
 
@@ -310,7 +310,7 @@ if (!class_exists('Default_Panel_Template')) {
 
                     case 'users':
                         if (!defined('EDITING_USER')) {
-                            $this->assets()->resolve([
+                            $this->assets()->include([
                                 AssetTree::DATATABLES,
                             ]);
 
@@ -394,7 +394,7 @@ if (!class_exists('Default_Panel_Template')) {
 							');
 
                         } else if (MINECRAFT_PAGE == 'servers') {
-                            $this->assets()->resolve([
+                            $this->assets()->include([
                                 AssetTree::JQUERY_UI,
                             ]);
                         } else if (MINECRAFT_PAGE == 'query_errors') {
@@ -415,7 +415,7 @@ if (!class_exists('Default_Panel_Template')) {
 
                         } else if (MINECRAFT_PAGE == 'server_banners') {
                             if (isset($_GET['edit'])) {
-                                $this->assets()->resolve([
+                                $this->assets()->include([
                                     AssetTree::IMAGE_PICKER,
                                 ]);
 
@@ -433,7 +433,7 @@ if (!class_exists('Default_Panel_Template')) {
 
                     case 'security':
                         if (isset($_GET['view'])) {
-                            $this->assets()->resolve([
+                            $this->assets()->include([
                                 AssetTree::DATATABLES,
                             ]);
 
@@ -461,7 +461,7 @@ if (!class_exists('Default_Panel_Template')) {
                         break;
 
                     case 'images':
-                        $this->assets()->resolve([
+                        $this->assets()->include([
                             AssetTree::DROPZONE,
                             AssetTree::IMAGE_PICKER,
                         ]);
@@ -507,7 +507,7 @@ if (!class_exists('Default_Panel_Template')) {
                         break;
 
                     case 'forums':
-                        $this->assets()->resolve([
+                        $this->assets()->include([
                             AssetTree::TINYMCE,
                             AssetTree::JQUERY_UI
                         ]);

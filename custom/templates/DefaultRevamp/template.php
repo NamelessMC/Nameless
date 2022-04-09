@@ -36,7 +36,7 @@ class DefaultRevamp_Template extends TemplateBase {
 
         $this->_settings = ROOT_PATH . '/custom/templates/DefaultRevamp/template_settings/settings.php';
 
-        $this->assets()->resolve([
+        $this->assets()->include([
             AssetTree::FONT_AWESOME,
             AssetTree::TOASTR,
             AssetTree::JQUERY,
@@ -119,7 +119,7 @@ class DefaultRevamp_Template extends TemplateBase {
         ];
 
         if (strpos($route, '/forum/topic/') !== false || PAGE == 'profile') {
-            $this->assets()->resolve([
+            $this->assets()->include([
                 AssetTree::JQUERY_UI,
             ]);
         }

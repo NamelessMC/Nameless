@@ -64,7 +64,7 @@ define('CUSTOM_PAGE', $custom_page->title);
 $page_title = Output::getClean($custom_page->title);
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-$template->assets()->resolve([
+$template->assets()->include([
     DARK_MODE
         ? AssetTree::PRISM_DARK
         : AssetTree::PRISM_LIGHT,

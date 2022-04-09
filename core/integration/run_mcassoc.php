@@ -18,7 +18,7 @@ if (!defined('MCASSOC') ||
 $page_title = $language->get('general', 'verify_account');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-$template->assets()->resolve([
+$template->assets()->include([
     AssetTree::MCASSOC_CLIENT,
 ]);
 
@@ -53,7 +53,7 @@ if (!isset($_GET['step'])) {
 	  </center>
     ');
 
-    $template->assets()->resolve([
+    $template->assets()->include([
         AssetTree::MCASSOC_CLIENT,
     ]);
     $template->addJSScript('
