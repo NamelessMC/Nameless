@@ -83,7 +83,7 @@ class Output {
     /**
      * urlencode() a string without encoding slashes
      *
-     * @param string String to encode
+     * @param string $input String to encode
      * @return string Encoded string
      */
     public static function urlEncodeAllowSlashes(string $input): string {
