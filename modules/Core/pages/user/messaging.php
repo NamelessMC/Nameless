@@ -527,11 +527,20 @@ if (!isset($_GET['action'])) {
             'NO' => $language->get('general', 'no'),
         ]);
 
-        if (isset($_POST['content'])) {
-            $smarty->assign('CONTENT', Output::getClean($_POST['content']));
-        } else {
-            $smarty->assign('CONTENT', '');
-        }
+        $content = (isset($_POST['content'])) ? EventHandler::executeEvent('renderPrivateMessageEdit', ['content' => $_POST['content']])['content'] : null;
+
+        $template->addCSSFiles([
+            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism_' . (DARK_MODE ? 'dark' : 'light_default') . '.css' => [],
+            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
+        ]);
+
+        $template->addJSFiles([
+            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
+            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
+            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
+        ]);
+
+        $template->addJSScript(Input::createTinyEditor($language, 'reply', $content));
 
         Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
