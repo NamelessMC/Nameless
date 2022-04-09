@@ -25,10 +25,6 @@ class AssetTree {
      */
     public const BOOTSTRAP_COLORPICKER = 'BOOTSTRAP_COLORPICKER';
     /**
-     * @var string Bootstrap Datepicker v1.7 (CSS + JS)
-     */
-    public const BOOTSTRAP_DATEPICKER = 'BOOTSTRAP_DATEPICKER';
-    /**
      * @var string Chart.js v2.7 (JS)
      */
     public const CHART_JS = 'CHART_JS';
@@ -117,17 +113,6 @@ class AssetTree {
             ],
             'js' => [
                 'vendor/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js',
-            ],
-            'depends' => [
-                self::BOOTSTRAP,
-            ],
-        ],
-        self::BOOTSTRAP_DATEPICKER => [
-            'css' => [
-                'vendor/bootstrap-datepicker/dist/css/bootstrap-datepicker3.standalone.min.css',
-            ],
-            'js' => [
-                'vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js',
             ],
             'depends' => [
                 self::BOOTSTRAP,

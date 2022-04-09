@@ -470,11 +470,8 @@ if (isset($_GET['do'])) {
     }
 
     $template->assets()->resolve([
-        AssetTree::BOOTSTRAP_DATEPICKER,
         AssetTree::TINYMCE,
     ]);
-
-    $template->addJSScript('$(\'.datepicker\').datepicker();');
 
     $template->addJSScript(Input::createTinyEditor($language, 'inputSignature'));
 

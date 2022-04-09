@@ -8,7 +8,6 @@
     "@popperjs/core": "^2.10.2",
     "bootstrap": "4.6.1",
     "bootstrap-colorpicker": "^3.4.0",
-    "bootstrap-datepicker": "^1.9.0",
     "chart.js": "2.7.1",
     "codemirror": "^5.65.2",
     "datatables.net": "^1.11.5",
