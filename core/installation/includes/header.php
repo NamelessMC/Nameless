@@ -26,7 +26,7 @@ foreach ($languages_folders as $folder) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $language['install']; ?> &bull; NamelessMC</title>
-    <link rel="stylesheet" href="custom/templates/DefaultRevamp/css/semantic.min.css">
+    <link rel="stylesheet" href="custom/templates/DefaultRevamp/css/fomantic.min.css">
 
     <style>
 

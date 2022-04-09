@@ -131,10 +131,15 @@ $('#debug_link').click(() => {
             $('#debug_link_success').show();
             $('#debug_link').prop('disabled', false);
 
-            toastr.options.progressBar = true;
-            toastr.options.closeButton = true;
-            toastr.options.positionClass = 'toast-bottom-left';
-            toastr.info('{$TOASTR_COPIED}'.replaceAll({literal}'{x}'{/literal}, url));
+            $('body').toast({
+                showIcon: 'fa-solid fa-circle-info move-right',
+                message: '{$TOAST_COPIED}'.replaceAll({literal}'{x}'{/literal}, url),
+                class: 'info',
+                progressUp: true,
+                displayTime: 6000,
+                pauseOnHover: true,
+                position: 'bottom left',
+            });
         });
 });
 </script>
