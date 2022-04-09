@@ -76,6 +76,11 @@ class Validate {
      */
     public const REGEX = 'regex';
 
+    /**
+     * @var string Check that the value does not start with a pattern
+     */
+    public const NOT_START_WITH = 'not_start_with';
+
     private DB $_db;
 
     private ?string $_message = null;
@@ -269,6 +274,16 @@ class Validate {
                                 'field' => $item,
                                 'rule' => self::REGEX,
                                 'fallback' => "$item does not match the pattern $rule_value."
+                            ]);
+                        }
+                        break;
+
+                    case self::NOT_START_WITH:
+                        if (str_starts_with($value, $rule_value)) {
+                            $validator->addError([
+                                'field' => $item,
+                                'rule' => self::REGEX,
+                                'fallback' => "$item must not start with $rule_value."
                             ]);
                         }
                         break;
