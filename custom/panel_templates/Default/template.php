@@ -50,7 +50,7 @@ if (!class_exists('Default_Panel_Template')) {
 				var currentPanelTheme = $.cookie("nmc_panel_theme");
 
 				if (currentPanelTheme == null) {
-                    $.cookie("nmc_panel_theme", "light");
+                    $.cookie("nmc_panel_theme", "light", { path: "/" });
 				} else {
 					if (currentPanelTheme == "dark") {
 						$("html").addClass("dark");
@@ -67,10 +67,10 @@ if (!class_exists('Default_Panel_Template')) {
 					var changeCheckbox = document.querySelector("#dark_mode");
 					changeCheckbox.onchange = function() {
 						if (currentPanelTheme == "dark") {
-                            $.cookie("nmc_panel_theme", "light");
+                            $.cookie("nmc_panel_theme", "light", { path: "/" });
 						};
 						if (currentPanelTheme == "light") {
-                            $.cookie("nmc_panel_theme", "dark");
+                            $.cookie("nmc_panel_theme", "dark", { path: "/" });
 						};
 						location.reload();
 						return false;

@@ -5,15 +5,16 @@
  * this script was made with the primary goal of making the install process automatic for hosting providers + our API test suite.
  */
 
-function getEnvVar(string $name, bool $required = false, string $fallback = '') {
+function getEnvVar(string $name, string $fallback = null) {
     $value = getenv($name);
+    $required = $fallback === null;
 
     if ($value === false && $required) {
         print("⚠️  Required environment variable '$name' is not set!" . PHP_EOL);
         exit(1);
     }
 
-    if (!$value && $fallback !== '') {
+    if (!$value && $fallback !== null) {
         $value = $fallback;
         print("ℹ️  Environment variable '$name' is not set, using fallback '$fallback'" . PHP_EOL);
     }
@@ -49,11 +50,9 @@ if (!$reinstall && file_exists('./core/config.php')) {
     exit(1);
 }
 
+// check all the required environment variables are set
 foreach (['NAMELESS_SITE_NAME', 'NAMELESS_SITE_CONTACT_EMAIL', 'NAMELESS_SITE_OUTGOING_EMAIL', 'NAMELESS_ADMIN_EMAIL'] as $var) {
-    if (getEnvVar($var, true) === '') {
-        print("⚠️  Required environment variable '$var' is not set!" . PHP_EOL);
-        exit(1);
-    }
+    getEnvVar($var);
 }
 
 $start = microtime(true);
@@ -88,14 +87,14 @@ const ROOT_PATH = __DIR__;
 print('✍️  Creating new config.php file...' . PHP_EOL);
 $conf = [
     'mysql' => [
-        'host' => getEnvVar('NAMELESS_DATABASE_ADDRESS', false, '127.0.0.1'),
-        'port' => getEnvVar('NAMELESS_DATABASE_PORT', false, '3306'),
-        'username' => getEnvVar('NAMELESS_DATABASE_USERNAME', false, 'root'),
-        'password' => getEnvVar('NAMELESS_DATABASE_PASSWORD'),
-        'db' => getEnvVar('NAMELESS_DATABASE_NAME', false, 'nameless'),
+        'host' => getEnvVar('NAMELESS_DATABASE_ADDRESS', '127.0.0.1'),
+        'port' => getEnvVar('NAMELESS_DATABASE_PORT', '3306'),
+        'username' => getEnvVar('NAMELESS_DATABASE_USERNAME', 'root'),
+        'password' => getEnvVar('NAMELESS_DATABASE_PASSWORD', ''),
+        'db' => getEnvVar('NAMELESS_DATABASE_NAME', 'nameless'),
         'prefix' => 'nl2_',
-        'charset' => getEnvVar('NAMELESS_DATABASE_CHARSET', false, 'utf8mb4'),
-        'engine' => getEnvVar('NAMELESS_DATABASE_ENGINE', false, 'InnoDB'),
+        'charset' => getEnvVar('NAMELESS_DATABASE_CHARSET', 'utf8mb4'),
+        'engine' => getEnvVar('NAMELESS_DATABASE_ENGINE', 'InnoDB'),
         'initialise_charset' => true,
     ],
     'remember' => [
@@ -108,9 +107,9 @@ $conf = [
         'token_name' => '2token',
     ],
     'core' => [
-        'hostname' => getEnvVar('NAMELESS_HOSTNAME', false, 'localhost'),
-        'path' => getEnvVar('NAMELESS_PATH'),
-        'friendly' => getEnvVar('NAMELESS_FRIENDLY_URLS', false, 'false') === 'true' ? true : false,
+        'hostname' => getEnvVar('NAMELESS_HOSTNAME', 'localhost'),
+        'path' => getEnvVar('NAMELESS_PATH', ''),
+        'friendly' => getEnvVar('NAMELESS_FRIENDLY_URLS', 'false') === 'true' ? true : false,
         'force_https' => false,
         'force_www' => false,
         'captcha' => false,
@@ -126,7 +125,6 @@ $GLOBALS['config'] = $conf;
 
 print('♻️  Registering autoloader...' . PHP_EOL);
 require './vendor/autoload.php';
-require './core/autoload.php';
 
 if ($reinstall) {
     print('🗑️  Deleting old database...' . PHP_EOL);
@@ -140,7 +138,7 @@ print('✍️  Creating tables...' . PHP_EOL);
 $queries = new Queries();
 $queries->dbInitialise('utf8mb4');
 
-Session::put('default_language', getEnvVar('NAMELESS_DEFAULT_LANGUAGE', false, 'EnglishUK'));
+Session::put('default_language', getEnvVar('NAMELESS_DEFAULT_LANGUAGE', 'EnglishUK'));
 
 $nameless_terms = 'This website uses "Nameless" website software. The ' .
     '"Nameless" software creators will not be held responsible for any content ' .
@@ -151,24 +149,27 @@ $nameless_terms = 'This website uses "Nameless" website software. The ' .
 
 print('✍️  Inserting default data to database...' . PHP_EOL);
 require './core/installation/includes/site_initialize.php';
+$sitename = getEnvVar('NAMELESS_SITE_NAME');
 $queries->create('settings', [
     'name' => 'sitename',
-    'value' => getEnvVar('NAMELESS_SITE_NAME', true),
+    'value' => $sitename,
 ]);
+$cache->setCache('sitenamecache');
+$cache->store('sitename', $sitename);
 $queries->create('settings', [
     'name' => 'incoming_email',
-    'value' => getEnvVar('NAMELESS_SITE_CONTACT_EMAIL', true),
+    'value' => getEnvVar('NAMELESS_SITE_CONTACT_EMAIL'),
 ]);
 $queries->create('settings', [
     'name' => 'outgoing_email',
-    'value' => getEnvVar('NAMELESS_SITE_OUTGOING_EMAIL', true),
+    'value' => getEnvVar('NAMELESS_SITE_OUTGOING_EMAIL'),
 ]);
 
-print('✍️  Creating admin account...' . PHP_EOL);
+print('👮 Creating admin account...' . PHP_EOL);
 
-$username = getEnvVar('NAMELESS_ADMIN_USERNAME', false, 'admin');
-$password = getEnvVar('NAMELESS_ADMIN_PASSWORD', false, 'password');
-$email = getEnvVar('NAMELESS_ADMIN_EMAIL', true);
+$username = getEnvVar('NAMELESS_ADMIN_USERNAME', 'admin');
+$password = getEnvVar('NAMELESS_ADMIN_PASSWORD', 'password');
+$email = getEnvVar('NAMELESS_ADMIN_EMAIL');
 
 $user = new User();
 $user->create([

@@ -155,7 +155,7 @@ class Core_Module extends Module {
                         $redirect = Output::getClean($custom_page->link);
                     }
 
-                    $pages->addCustom(Output::getClean($custom_page->url), Output::getClean($custom_page->title), !$custom_page->basic);
+                    $pages->addCustom(Output::urlEncodeAllowSlashes($custom_page->url), Output::getClean($custom_page->title), !$custom_page->basic);
 
                     foreach ($user_groups as $user_group) {
                         $custom_page_permissions = $queries->getWhere('custom_pages_permissions', ['group_id', '=', $user_group]);
@@ -178,7 +178,7 @@ class Core_Module extends Module {
                                                 $navigation->add(
                                                     $custom_page->id,
                                                     Output::getClean($custom_page->title),
-                                                    (is_null($redirect)) ? URL::build(urlencode($custom_page->url)) : $redirect,
+                                                    (is_null($redirect)) ? URL::build(Output::urlEncodeAllowSlashes($custom_page->url)) : $redirect,
                                                     'top',
                                                     $custom_page->target ? '_blank' : null,
                                                     $page_order,
@@ -190,7 +190,7 @@ class Core_Module extends Module {
                                                 $more[] = [
                                                     'id' => $custom_page->id,
                                                     'title' => Output::getClean($custom_page->title),
-                                                    'url' => is_null($redirect) ? URL::build(urlencode($custom_page->url)) : $redirect,
+                                                    'url' => is_null($redirect) ? URL::build(Output::urlEncodeAllowSlashes($custom_page->url)) : $redirect,
                                                     'redirect' => $redirect,
                                                     'target' => $custom_page->target,
                                                     'icon' => $custom_page->icon,
@@ -202,7 +202,7 @@ class Core_Module extends Module {
                                                 $navigation->add(
                                                     $custom_page->id,
                                                     Output::getClean($custom_page->title),
-                                                    (is_null($redirect)) ? URL::build(urlencode($custom_page->url)) : $redirect,
+                                                    (is_null($redirect)) ? URL::build(Output::urlEncodeAllowSlashes($custom_page->url)) : $redirect,
                                                     'footer', $custom_page->target ? '_blank' : null,
                                                     2000,
                                                     $custom_page->icon
@@ -228,7 +228,7 @@ class Core_Module extends Module {
                             $redirect = Output::getClean($custom_page->link);
                         }
 
-                        $pages->addCustom(Output::getClean($custom_page->url), Output::getClean($custom_page->title), !$custom_page->basic);
+                        $pages->addCustom(Output::urlEncodeAllowSlashes($custom_page->url), Output::getClean($custom_page->title), !$custom_page->basic);
 
                         foreach ($custom_page_permissions as $permission) {
                             if ($permission->page_id == $custom_page->id) {
@@ -248,7 +248,7 @@ class Core_Module extends Module {
                                             $navigation->add(
                                                 $custom_page->id,
                                                 Output::getClean($custom_page->title),
-                                                is_null($redirect) ? URL::build(urlencode($custom_page->url)) : $redirect,
+                                                is_null($redirect) ? URL::build(Output::urlEncodeAllowSlashes($custom_page->url)) : $redirect,
                                                 'top',
                                                 $custom_page->target ? '_blank' : null,
                                                 $page_order,
@@ -260,7 +260,7 @@ class Core_Module extends Module {
                                             $more[] = [
                                                 'id' => $custom_page->id,
                                                 'title' => Output::getClean($custom_page->title),
-                                                'url' => is_null($redirect) ? URL::build(urlencode($custom_page->url)) : $redirect,
+                                                'url' => is_null($redirect) ? URL::build(Output::urlEncodeAllowSlashes($custom_page->url)) : $redirect,
                                                 'redirect' => $redirect,
                                                 'target' => $custom_page->target,
                                                 'icon' => $custom_page->icon,
@@ -272,7 +272,7 @@ class Core_Module extends Module {
                                             $navigation->add(
                                                 $custom_page->id,
                                                 Output::getClean($custom_page->title),
-                                                is_null($redirect) ? URL::build(urlencode($custom_page->url)) : $redirect,
+                                                is_null($redirect) ? URL::build(Output::urlEncodeAllowSlashes($custom_page->url)) : $redirect,
                                                 'footer',
                                                 $custom_page->target ? '_blank' : null,
                                                 2000,
@@ -531,7 +531,7 @@ class Core_Module extends Module {
         EventHandler::registerListener('renderPrivateMessage', 'ContentHook::purify');
         EventHandler::registerListener('renderPrivateMessage', 'ContentHook::codeTransform', false, 15);
         EventHandler::registerListener('renderPrivateMessage', 'ContentHook::decode', false, 20);
-        EventHandler::registerListener('renderPrivateMessage', 'ContentHook::renderEmojis', false, 16);
+        EventHandler::registerListener('renderPrivateMessage', 'ContentHook::renderEmojis', false, 10);
         EventHandler::registerListener('renderPrivateMessage', 'ContentHook::replaceAnchors', false, 15);
         EventHandler::registerListener('renderPrivateMessageEdit', 'ContentHook::purify');
         EventHandler::registerListener('renderPrivateMessageEdit', 'ContentHook::codeTransform', false, 15);

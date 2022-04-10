@@ -140,7 +140,7 @@ class ErrorHandler {
             'FATAL_ERROR_MESSAGE_ADMIN' => $language->get('errors', 'fatal_error_message_admin'),
             'FATAL_ERROR_MESSAGE_USER' => $language->get('errors', 'fatal_error_message_user'),
             'ERROR_TYPE' => is_null($exception) ? $language->get('general', 'error') : (new ReflectionClass($exception))->getName(),
-            'ERROR_STRING' => $error_string,
+            'ERROR_STRING' => Output::getClean($error_string),
             'ERROR_FILE' => $error_file,
             'CAN_GENERATE_DEBUG' => $user->hasPermission('admincp.core.debugging'),
             'DEBUG_LINK' => $language->get('admin', 'debug_link'),
