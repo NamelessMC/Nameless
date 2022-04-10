@@ -282,7 +282,7 @@ class Validate {
                         if (str_starts_with($value, $rule_value)) {
                             $validator->addError([
                                 'field' => $item,
-                                'rule' => self::REGEX,
+                                'rule' => self::NOT_START_WITH,
                                 'fallback' => "$item must not start with $rule_value."
                             ]);
                         }
