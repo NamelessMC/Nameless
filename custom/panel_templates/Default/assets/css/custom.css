@@ -214,8 +214,6 @@ body {
     border-color: #0c1015 !important;
 }
 
-.dark .modal-header,
-
 /* ----------- Text Darkmode ----------- */
 .dark .text-warning {
     color: var(--dark-color-warning) !important;
