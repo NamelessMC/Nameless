@@ -121,7 +121,7 @@ body {
     background-color: var(--dark-color-4) !important;
 }
 
-.dark .card-header{
+.dark .card-header {
     background-color: #161c25 !important;
     border: 0;
 }
@@ -471,7 +471,7 @@ footer.sticky-footer {
     color: rgba(0, 0, 0) !important;
 }
 
-.custom-switch > .custom-control-label::before {
+.custom-switch>.custom-control-label::before {
     /* slightly larger than default */
     top: 0.20rem;
     height: 1.1rem;
