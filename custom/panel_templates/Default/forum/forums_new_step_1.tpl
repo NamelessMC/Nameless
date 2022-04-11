@@ -73,7 +73,7 @@
                             <div class="form-group">
                                 <label for="forum_icon">{$FORUM_ICON}</label>
                                 <input class="form-control" type="text" name="forum_icon" id="forum_icon"
-                                       value="{$FORUM_ICON_VALUE}" placeholder="{$FORUM_ICON}" autocomplete="off">
+                                       value="{$FORUM_ICON_VALUE}" placeholder='<i class="fa fa-comment icon">' autocomplete="off">
                             </div>
                             <div class="form-group">
                                 <input type="hidden" name="token" value="{$TOKEN}">

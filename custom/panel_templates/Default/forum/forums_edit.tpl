@@ -76,7 +76,7 @@
                             <div class="form-group">
                                 <label for="InputIcon">{$FORUM_ICON}</label>
                                 <input type="text" name="icon" class="form-control" id="InputIcon"
-                                       placeholder="{$FORUM_ICON}" value="{$FORUM_ICON_VALUE}">
+                                       placeholder='<i class="fa fa-comment icon">' value="{$FORUM_ICON_VALUE}">
                             </div>
 
                             <div class="form-group">
