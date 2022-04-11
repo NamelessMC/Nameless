@@ -146,12 +146,12 @@ if (!class_exists('Default_Panel_Template')) {
 
                     case 'api':
                         $this->addCSSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/css/fomantic.min.css' => [],
+                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/css/fomantic.toast.min.css' => [],
                             (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/css/dataTables.bootstrap4.min.css' => []
                         ]);
 
                         $this->addJSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/js/fomantic.min.js' => [],
+                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/js/fomantic.toast.min.js' => [],
                             (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/dataTables/jquery.dataTables.min.js' => [],
                             (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/js/dataTables.bootstrap4.min.js' => []
                         ]);
