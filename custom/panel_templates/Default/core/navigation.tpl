@@ -63,7 +63,8 @@
                                             <label for="input{$item.title|escape}Icon">{$NAVBAR_ICON}</label>
                                             <input type="text" class="form-control" id="input{$item.title|escape}Icon"
                                                    name="inputIcon[{if isset($item.custom) && is_numeric($item.custom)}{$item.custom}{else}{$key}{/if}]"
-                                                   value="{$item.icon|escape}">
+                                                   value="{$item.icon|escape}"
+                                                   placeholder='<i class="fas fa-home icon"></i>'>
                                         </div>
                                     </div>
                                 </div>
