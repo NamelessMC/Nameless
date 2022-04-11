@@ -43,11 +43,12 @@
                             <div class="form-group custom-control custom-switch">
                                 <input type="hidden" name="enable_registration" value="0">
                                 <input name="enable_registration"
+                                       id="InputEnableRegistration"
                                        type="checkbox"
                                        class="custom-control-input js-check-change"
                                        {if $REGISTRATION_ENABLED eq 1} checked{/if}
                                        value="1">
-                                <label class="custom-control-label" for="enable_registration">
+                                <label class="custom-control-label" for="InputEnableRegistration">
                                     {$ENABLE_REGISTRATION}
                                 </label>
                             </div>
