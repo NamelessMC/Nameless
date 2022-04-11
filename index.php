@@ -64,7 +64,7 @@ if (isset($_GET['route']) && $_GET['route'] == '/rewrite_test') {
 require(ROOT_PATH . '/core/init.php');
 
 if (!isset($GLOBALS['config']['core']) && is_file(ROOT_PATH . '/install.php')) {
-    Redirect::to('install.php');
+    Redirect::to('/install.php');
 }
 
 // Get page to load from URL
