@@ -75,6 +75,7 @@ $language = [
     'link' => 'Link',
     'unlink' => 'Unlink',
     'leaderboards' => 'Leaderboards',
+    'deleted_user' => 'DeletedUser',
 
     /*
      *  Navbar
