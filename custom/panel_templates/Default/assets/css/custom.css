@@ -44,9 +44,9 @@ body {
 .dark .dropdown-item,
 .dark .dropdown-menu,
 .dark .topbar .dropdown-list .dropdown-item:active {
-    background-color: var(--dark-color-5);
+    background-color: #161c25;
     color: var(--dark-text-shade-1);
-    border-color: var(--dark-color-5) !important;
+    border-color: #0c1015 !important;
 }
 
 .dark .dropdown-item:hover {
@@ -117,21 +117,11 @@ body {
 .dark .card,
 .dark .breadcrumb,
 .dark .modal-content,
-option:checked {
+.dark option:checked {
     background-color: var(--dark-color-4) !important;
 }
 
-.dark .popover {
-    background-color: var(--dark-color-5);
-}
-
-.dark .popover .arrow,
-.dark .popover .arrow::after {
-    border-right-color: var(--dark-color-5);
-}
-
-.dark .card-header,
-.dark .popover-header {
+.dark .card-header {
     background-color: #161c25 !important;
     border: 0;
 }
@@ -204,6 +194,24 @@ option:checked {
 
 .dark .nav-item.active {
     background-color: #161c25 !important;
+}
+
+/* ----------- Popover Darkmode ----------- */
+.dark .popover {
+    background-color: rgb(12 16 21);
+    box-shadow: 2px 2px 2px 2px rgb(12 16 21 / 9%)
+}
+
+.dark .popover .arrow,
+.dark .popover .arrow::after {
+    border-top-color: #202630 !important;
+}
+
+.dark .card-header,
+.dark .popover-body,
+.dark .popover-header {
+    background-color: #202630 !important;
+    border-color: #0c1015 !important;
 }
 
 /* ----------- Text Darkmode ----------- */
@@ -463,7 +471,7 @@ footer.sticky-footer {
     color: rgba(0, 0, 0) !important;
 }
 
-.custom-switch > .custom-control-label::before {
+.custom-switch>.custom-control-label::before {
     /* slightly larger than default */
     top: 0.20rem;
     height: 1.1rem;

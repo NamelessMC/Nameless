@@ -41,11 +41,16 @@ class MentionsHook extends HookBase {
         if (parent::validateParams($params, ['content'])) {
             $params['content'] = preg_replace_callback(
                 '/\[user\](.*?)\[\/user\]/ism',
-                function($match) {
+                static function (array $match) {
                     if (isset(MentionsHook::$_cache[$match[1]])) {
                         [$userId, $userStyle, $userNickname, $userProfileUrl] = MentionsHook::$_cache[$match[1]];
                     } else {
                         $user = new User($match[1]);
+
+                        if (!$user->exists()) {
+                            return '@' . (new Language('core', LANGUAGE))->get('general', 'deleted_user');
+                        }
+
                         $userId = $user->data()->id;
                         $userStyle = $user->getGroupClass();
                         $userNickname = $user->data()->nickname;

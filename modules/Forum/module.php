@@ -143,16 +143,19 @@ class Forum_Module extends Module {
 
         require_once ROOT_PATH . '/modules/Core/hooks/ContentHook.php';
         require_once ROOT_PATH . '/modules/Forum/hooks/MentionsHook.php';
+
         EventHandler::registerListener('prePostCreate', 'MentionsHook::preCreate');
         EventHandler::registerListener('prePostEdit', 'MentionsHook::preEdit');
         EventHandler::registerListener('preTopicCreate', 'MentionsHook::preCreate');
         EventHandler::registerListener('preTopicEdit', 'MentionsHook::preEdit');
+
         EventHandler::registerListener('renderPost', 'ContentHook::purify');
         EventHandler::registerListener('renderPost', 'ContentHook::codeTransform', false, 15);
         EventHandler::registerListener('renderPost', 'ContentHook::decode', false, 20);
         EventHandler::registerListener('renderPost', 'ContentHook::renderEmojis', false, 10);
         EventHandler::registerListener('renderPost', 'ContentHook::replaceAnchors', false, 15);
         EventHandler::registerListener('renderPost', 'MentionsHook::parsePost', false, 5);
+
         EventHandler::registerListener('renderPostEdit', 'ContentHook::purify');
         EventHandler::registerListener('renderPostEdit', 'ContentHook::codeTransform', false, 15);
         EventHandler::registerListener('renderPostEdit', 'ContentHook::decode', false, 20);
