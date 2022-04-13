@@ -990,7 +990,7 @@ body.dark .ui.popup, body.dark .ui.secondary.menu .ui.popup, body.dark .ui.menu 
     background-color: #222;
     border: 1px solid #444;
     color: rgba(255, 255, 255, 0.6);
-    min-width: 200px;
+    min-width: calc(100% - 1px);
 }
 
 body.dark .ui.button, body.dark .ui.default.button, body.dark .ui.mini.icon.button, body.dark .ui.top.right.attached.label {
