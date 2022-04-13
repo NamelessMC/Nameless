@@ -133,6 +133,26 @@ abstract class IntegrationBase {
     abstract public function onSuccessfulVerification(IntegrationUser $integrationUser);
 
     /**
+     * Validate username when it being linked or updated.
+     *
+     * @param string $username The username value to validate.
+     * @param int $integration_user_id The integration user id to ignore during duplicate check.
+     *
+     * @return bool whether this validation passed or not.
+     */
+    abstract public function validateUsername(string $username, int $integration_user_id = 0);
+
+    /**
+     * Validate identifier when it being linked or updated.
+     *
+     * @param string $identifier The identifier value to validate.
+     * @param int $integration_user_id The integration user id to ignore during duplicate check.
+     *
+     * @return bool whether this validation passed or not.
+     */
+    abstract public function validateIdentifier(string $identifier, int $integration_user_id = 0);
+
+    /**
      * Called when register page being loaded
      */
     abstract public function onRegistrationPageLoad(Fields $fields);

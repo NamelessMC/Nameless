@@ -756,18 +756,23 @@ $language = [
     
     // Integrations
     'integration' => 'Integration',
-    'viewing_integrations_for_x' => 'Viewing user integrations for {user}', // Don't replace {user}
-    'editing_integration_for_x' => 'Editing {integration} integration for {user}', // Don't replace {integration} and {user}
-    'linking_integration_for_x' => 'Linking {integration} integration for {user}', // Don't replace {integration} and {user}
+    'viewing_integrations_for_x' => 'Viewing user integrations for {{user}}', // Don't replace {user}
+    'editing_integration_for_x' => 'Editing {{integration}} integration for {{user}}', // Don't replace {integration} and {user}
+    'linking_integration_for_x' => 'Linking {{integration}} integration for {{user}}', // Don't replace {integration} and {user}
     'not_linked' => 'Not linked',
     'verified' => 'Verified',
     'manual_linking' => 'Manual Linking',
     'can_unlink' => 'Can Unlink',
     'can_unlink_integration' => 'Can users unlink integration?',
     'require_integration' => 'Require users to link and verify integration',
-    'username_and_identifier_required' => 'Username and identifier are required',
-    'link_account_success' => '{user} has successfully linked their {integration} account.', // Don't replace {user} and {integration}
+    'link_account_success' => '{{user}} has successfully linked their {{integration}} account.', // Don't replace {user} and {integration}
     'user_integration_updated_successfully' => 'User integration updated successfully.',
-    'editing_integration_x' => 'Editing integration {integration}', // Don't replace {integration}
+    'editing_integration_x' => 'Editing integration {{integration}}', // Don't replace {integration}
     'integration_updated_successfully' => 'Integration updated successfully.',
+    'integration_username' => '{{integration}} Username',
+    'integration_username_required' => '{{integration}} username is required.',
+    'integration_username_invalid' => '{{integration}} username is invalid.',
+    'integration_identifier' => '{{integration}} Identifier',
+    'integration_identifier_required' => '{{integration}} identifier is required.',
+    'integration_identifier_invalid' => '{{integration}} identifier is invalid.',
 ];

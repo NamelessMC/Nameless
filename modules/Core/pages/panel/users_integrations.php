@@ -69,6 +69,8 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
         'UNLINK' => $language->get('admin', 'unlink'),
         'BACK_LINK' => URL::build('/panel/user/' . Output::getClean($view_user->data()->id . '-' . $view_user->data()->username)),
         'UNLINK_LINK' => URL::build('/panel/users/integrations/', 'id=' . $view_user->data()->id . '&action=unlink&integration='),
+        'USERNAME' => $language->get('user', 'username'),
+        'IDENTIFIER' => $language->get('admin', 'identifier'),
     ]);
 
     $template_file = 'core/users_integrations.tpl';
@@ -90,16 +92,7 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
                 $errors = [];
 
                 if (Token::check()) {
-                    $validation = Validate::check($_POST, [
-                        'username' => [
-                            Validate::REQUIRED => true
-                        ],
-                        'identifier' => [
-                            Validate::REQUIRED => true
-                        ]
-                    ]);
-
-                    if ($validation->passed()) {
+                    if ($integration->validateUsername(Input::get('username')) && $integration->validateIdentifier(Input::get('identifier'))) {
                         if ($integrationUser == null) {
                             // Register new integration user
                             $code = uniqid('', true);
@@ -118,7 +111,7 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
                         Session::flash('integrations_success', str_replace(['{user}', '{integration}'], [$view_user->getDisplayname(true), Output::getClean($integrationUser->getIntegration()->getName())], $language->get('admin', 'link_account_success')));
                         Redirect::to(URL::build('/panel/users/integrations/', 'id=' . $view_user->data()->id));
                     } else {
-                        $errors[] = $language->get('admin', 'username_and_identifier_required');
+                        $errors = $integration->getErrors();
                     }
                 } else {
                     $errors[] = $language->get('general', 'invalid_token');
@@ -130,7 +123,9 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
                 'USERNAME_VALUE' => ((isset($_POST['username']) && $_POST['username']) ? Output::getClean(Input::get('username')) : ''),
                 'IDENTIFIER_VALUE' => ((isset($_POST['identifier']) && $_POST['identifier']) ? Output::getClean(Input::get('identifier')) : ''),
                 'VERIFIED_VALUE' => ((isset($_POST['verified']) && $_POST['verified']) ? Output::getClean(Input::get('verified')) : 0),
-                'BACK_LINK' => URL::build('/panel/users/integrations/', 'id=' . $view_user->data()->id)
+                'BACK_LINK' => URL::build('/panel/users/integrations/', 'id=' . $view_user->data()->id),
+                'USERNAME' => str_replace('{integration}', Output::getClean($integration->getName()), $language->get('admin', 'integration_username')),
+                'IDENTIFIER' => str_replace('{integration}', Output::getClean($integration->getName()), $language->get('admin', 'integration_identifier'))
             ]);
 
             $template_file = 'core/users_integrations_form.tpl';
@@ -144,20 +139,12 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
                 Redirect::to(URL::build('/panel/users/integrations/', 'id=' . $view_user->data()->id));
             }
 
+            $integration = $integrationUser->getIntegration();
             if (Input::exists()) {
                 $errors = [];
 
                 if (Token::check()) {
-                    $validation = Validate::check($_POST, [
-                        'username' => [
-                            Validate::REQUIRED => true
-                        ],
-                        'identifier' => [
-                            Validate::REQUIRED => true
-                        ]
-                    ]);
-
-                    if ($validation->passed()) {
+                    if ($integration->validateUsername(Input::get('username'), $integrationUser->data()->id) && $integration->validateIdentifier(Input::get('identifier'), $integrationUser->data()->id)) {
                         $integrationUser->update([
                             'username' => Output::getClean(Input::get('username')),
                             'identifier' => Output::getClean(Input::get('identifier')),
@@ -167,7 +154,7 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
                         Session::flash('integrations_success', $language->get('admin', 'user_integration_updated_successfully'));
                         Redirect::to(URL::build('/panel/users/integrations/', 'id=' . $view_user->data()->id));
                     } else {
-                        $errors[] = $language->get('admin', 'username_and_identifier_required');
+                        $errors = $integration->getErrors();
                     }
                 } else {
                     $errors[] = $language->get('general', 'invalid_token');
@@ -175,11 +162,13 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
             }
 
             $smarty->assign([
-                'INTEGRATION_TITLE' => str_replace(['{integration}', '{user}'], [Output::getClean($integrationUser->getIntegration()->getName()), Output::getClean($view_user->data()->username)], $language->get('admin', 'editing_integration_for_x')),
+                'INTEGRATION_TITLE' => str_replace(['{integration}', '{user}'], [Output::getClean($integration->getName()), Output::getClean($view_user->data()->username)], $language->get('admin', 'editing_integration_for_x')),
                 'USERNAME_VALUE' => Output::getClean($integrationUser->data()->username),
                 'IDENTIFIER_VALUE' => Output::getClean($integrationUser->data()->identifier),
                 'VERIFIED_VALUE' => Output::getClean($integrationUser->isVerified()),
-                'BACK_LINK' => URL::build('/panel/users/integrations/', 'id=' . $view_user->data()->id)
+                'BACK_LINK' => URL::build('/panel/users/integrations/', 'id=' . $view_user->data()->id),
+                'USERNAME' => str_replace('{integration}', Output::getClean($integration->getName()), $language->get('admin', 'integration_username')),
+                'IDENTIFIER' => str_replace('{integration}', Output::getClean($integration->getName()), $language->get('admin', 'integration_identifier'))
             ]);
 
             $template_file = 'core/users_integrations_form.tpl';
@@ -219,8 +208,6 @@ $smarty->assign([
     'SUBMIT' => $language->get('general', 'submit'),
     'USER_ID' => $view_user->data()->id,
     'BACK' => $language->get('general', 'back'),
-    'USERNAME' => $language->get('user', 'username'),
-    'IDENTIFIER' => $language->get('admin', 'identifier'),
     'VERIFIED' => $language->get('admin', 'verified'),
 ]);
 

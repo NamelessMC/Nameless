@@ -31,16 +31,14 @@ class VerifyIntegrationEndpoint extends KeyAuthEndpoint {
             $api->throwError(28, $api->getLanguage()->get('api', 'invalid_code'));
         }
 
-        // Ensure username doesn't already exist
-        $exists = new IntegrationUser($integration, $_POST['username'], 'username');
-        if ($exists->exists() && $exists->data()->id != $integrationUser->data()->id) {
-            $api->throwError(38, str_replace('{integration}', $integration->getName(), $api->getLanguage()->get('api', 'integration_username_already_linked')));
+        // Validate username and make sure username is unique
+        if (!$integration->validateUsername($_POST['username'], $integrationUser->data()->id)) {
+            $api->throwError(38, $integration->getErrors()[0]);
         }
 
-        // Ensure identifier doesn't already exist
-        $exists = new IntegrationUser($integration, $_POST['identifier'], 'identifier');
-        if ($exists->exists() && $exists->data()->id != $integrationUser->data()->id) {
-            $api->throwError(39, str_replace('{integration}', $integration->getName(), $api->getLanguage()->get('api', 'integration_identifier_already_linked')));
+        // Validate identifier and make sure identifier is unique
+        if (!$integration->validateIdentifier($_POST['identifier'], $integrationUser->data()->id)) {
+            $api->throwError(39, $integration->getErrors()[0]);
         }
 
         $integrationUser->update([

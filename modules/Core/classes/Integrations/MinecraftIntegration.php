@@ -23,10 +23,8 @@ class MinecraftIntegration extends IntegrationBase {
     public function onLinkRequest(User $user) {
         $username = $user->data()->username;
 
-        // Ensure username doesn't already exist
-        $integrationUser = new IntegrationUser($this, $username, 'username');
-        if ($integrationUser->exists()) {
-            $this->addError(str_replace('{integration}', $this->getName(), $this->_language->get('user', 'integration_username_already_linked')));
+        // Validate username
+        if (!$this->validateUsername($username)) {
             return;
         }
 
@@ -36,10 +34,8 @@ class MinecraftIntegration extends IntegrationBase {
         }
         $this->_uuid = $result['uuid'];
 
-        // Ensure identifier doesn't already exist
-        $integrationUser = new IntegrationUser($this, $this->_uuid, 'identifier');
-        if ($integrationUser->exists()) {
-            $this->addError(str_replace('{integration}', $this->getName(), $this->_language->get('user', 'integration_identifier_already_linked')));
+        // Validate identifier
+        if (!$this->validateIdentifier($this->_uuid)) {
             return;
         }
 
@@ -68,6 +64,70 @@ class MinecraftIntegration extends IntegrationBase {
         // Nothing to do here
     }
 
+    public function validateUsername(string $username, int $integration_user_id = 0): bool {
+        $validation = Validate::check(['username' => $username], [
+            'username' => [
+                Validate::REQUIRED => true,
+                Validate::MIN => 3,
+                Validate::MAX => 20
+            ]
+        ])->messages([
+            'username' => [
+                Validate::REQUIRED => str_replace('{integration}', $this->getName(), $this->_language->get('admin', 'integration_username_required')),
+                Validate::MIN => $this->_language->get('user', 'mcname_minimum_3'),
+                Validate::MAX => $this->_language->get('user', 'mcname_maximum_20')
+            ]
+        ]);
+
+        if (count($validation->errors())) {
+            // Validation errors
+            foreach ($validation->errors() as $error) {
+                $this->addError($error);
+            }
+        } else {
+            // Ensure identifier doesn't already exist
+            $exists = DB::getInstance()->selectQuery("SELECT * FROM nl2_users_integrations WHERE integration_id = ? AND username = ? AND id <> ?", [$this->data()->id, $username, $integration_user_id]);
+            if ($exists->count()) {
+                $this->addError(str_replace('{integration}', $this->getName(), $this->_language->get('user', 'integration_username_already_linked')));
+                return false;
+            }
+        }
+
+        return $validation->passed();
+    }
+
+    public function validateIdentifier(string $identifier, int $integration_user_id = 0): bool {
+        $validation = Validate::check(['identifier' => $identifier], [
+            'identifier' => [
+                Validate::REQUIRED => true,
+                Validate::MIN => 32,
+                Validate::MAX => 32
+            ]
+        ])->messages([
+            'identifier' => [
+                Validate::REQUIRED => str_replace('{integration}', $this->getName(), $this->_language->get('admin', 'integration_identifier_required')),
+                Validate::MIN => str_replace('{integration}', $this->getName(), $this->_language->get('admin', 'integration_identifier_invalid')),
+                Validate::MAX => str_replace('{integration}', $this->getName(), $this->_language->get('admin', 'integration_identifier_invalid'))
+            ]
+        ]);
+
+        if (count($validation->errors())) {
+            // Validation errors
+            foreach ($validation->errors() as $error) {
+                $this->addError($error);
+            }
+        } else {
+            // Ensure identifier doesn't already exist
+            $exists = DB::getInstance()->selectQuery("SELECT * FROM nl2_users_integrations WHERE integration_id = ? AND identifier = ? AND id <> ?", [$this->data()->id, $identifier, $integration_user_id]);
+            if ($exists->count()) {
+                $this->addError(str_replace('{integration}', $this->getName(), $this->_language->get('user', 'integration_identifier_already_linked')));
+                return false;
+            }
+        }
+
+        return $validation->passed();
+    }
+
     public function onRegistrationPageLoad(Fields $fields) {
         $username_value = ((isset($_POST['username']) && $_POST['username']) ? Output::getClean(Input::get('username')) : '');
 
@@ -81,23 +141,20 @@ class MinecraftIntegration extends IntegrationBase {
     public function afterRegistrationValidation() {
         $username = Input::get('username');
 
-        // Ensure username doesn't already exist
-        $integrationUser = new IntegrationUser($this, $username, 'username');
-        if ($integrationUser->exists()) {
-            $this->addError(str_replace('{integration}', $this->getName(), $this->_language->get('user', 'integration_username_already_linked')));
+        // Validate username
+        if (!$this->validateUsername($username)) {
             return;
         }
 
+        // Get minecraft UUID
         $result = $this->getUuidByUsername($username);
         if (count($this->getErrors())) {
             return;
         }
         $this->_uuid = $result['uuid'];
 
-        // Ensure identifier doesn't already exist
-        $integrationUser = new IntegrationUser($this, $this->_uuid, 'identifier');
-        if ($integrationUser->exists()) {
-            $this->addError(str_replace('{integration}', $this->getName(), $this->_language->get('user', 'integration_identifier_already_linked')));
+        // Validate identifier
+        if (!$this->validateIdentifier($this->_uuid)) {
             return;
         }
     }

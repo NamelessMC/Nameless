@@ -151,10 +151,22 @@ class RegisterEndpoint extends KeyAuthEndpoint {
                     }
 
                     $integration = $integrations->getIntegration($integration_name);
-                    if ($integration != null) {
-                        $integrationUser = new IntegrationUser($integration);
-                        $integrationUser->linkIntegration($user, $item['identifier'], $item['username'], true);
+                    if ($integration == null) {
+                        continue;
                     }
+                    
+                    // Validate username and make sure username is unique
+                    if (!$integration->validateUsername($item['username'])) {
+                        continue;
+                    }
+
+                    // Validate identifier and make sure identifier is unique
+                    if (!$integration->validateIdentifier($item['identifier'])) {
+                        continue;
+                    }
+
+                    $integrationUser = new IntegrationUser($integration);
+                    $integrationUser->linkIntegration($user, $item['identifier'], $item['username'], true);
                 }
             }
 

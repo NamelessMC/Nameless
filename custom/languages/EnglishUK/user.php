@@ -250,14 +250,14 @@ $language = [
     'no_providers' => 'No OAuth providers are set up.',
 
     // Integrations
-    'integration_linked' => 'You have successfully linked your {integration} account.', // Don't replace {integration}
-    'integration_unlinked' => 'You have successfully unlinked your {integration} account.', // Don't replace {integration}
-    'integration_identifier_already_linked' => '{integration} identifier is already linked to another user.',
-    'integration_username_already_linked' => '{integration} username is already linked to another user.',
+    'integration_linked' => 'You have successfully linked your {{integration}} account.', // Don't replace {integration}
+    'integration_unlinked' => 'You have successfully unlinked your {{integration}} account.', // Don't replace {integration}
+    'integration_identifier_already_linked' => '{{integration}} identifier is already linked to another user.',
+    'integration_username_already_linked' => '{{integration}} username is already linked to another user.',
     'integration_required_to_continue' => 'Please connect and verify the required connections before continuing to use this website.',
     'not_connected' => 'Not Connected',
     'pending_verification' => 'Pending Verification',
-    'user_has_linked_integration' => '{user} has linked their {integration} account.',
-    'user_has_verified_integration' => '{user} has verified their {integration} account.',
-    'user_has_unlinked_integration' => '{user} has unlinked their {integration} account.',
+    'user_has_linked_integration' => '{{user}} has linked their {{integration}} account.',
+    'user_has_verified_integration' => '{{user}} has verified their {{integration}} account.',
+    'user_has_unlinked_integration' => '{{user}} has unlinked their {{integration}} account.',
 ];
