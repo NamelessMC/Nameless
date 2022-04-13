@@ -422,11 +422,16 @@ $fields = new Fields();
 
 // Are custom usernames enabled?
 if ($custom_usernames == 'true') {
-    $fields->add('nickname', Fields::TEXT, $language->get('user', 'nickname'), true, $_POST['nickname'] ?? '');
+    $nickname_value = ((isset($_POST['nickname']) && $_POST['nickname']) ? Output::getClean(Input::get('nickname')) : '');
+
+    $fields->add('nickname', Fields::TEXT, $language->get('user', 'nickname'), true, $nickname_value);
 }
 
-$fields->add('username', Fields::TEXT, $language->get('user', 'username'), true, $_POST['username'] ?? '');
-$fields->add('email', Fields::EMAIL, $language->get('user', 'email_address'), true, $_POST['email'] ?? '');
+$username_value = ((isset($_POST['username']) && $_POST['username']) ? Output::getClean(Input::get('username')) : '');
+$email_value = ((isset($_POST['email']) && $_POST['email']) ? Output::getClean(Input::get('email')) : '');
+
+$fields->add('username', Fields::TEXT, $language->get('user', 'username'), true, $username_value);
+$fields->add('email', Fields::EMAIL, $language->get('user', 'email_address'), true, $email_value);
 $fields->add('password', Fields::PASSWORD, $language->get('user', 'password'), true);
 $fields->add('password_again', Fields::PASSWORD, $language->get('user', 'confirm_password'), true);
 
@@ -448,13 +453,12 @@ if (count($profile_fields)) {
             $field->type,
             Output::getClean($field->name),
             true,
-            null,
+            ((isset($_POST[$field->id]) && $_POST[$field->id]) ? Output::getClean(Input::get($field->id)) : ''),
             Output::getClean($field->description) ?: Output::getClean($field->name)
         );
     }
 }
 
-$email_value = ((isset($_POST['email']) && $_POST['email']) ? Output::getClean(Input::get('email')) : '');
 if (Session::exists('oauth_register_data')) {
     $email_value = json_decode(Session::get('oauth_register_data'), true)['email'];
 }

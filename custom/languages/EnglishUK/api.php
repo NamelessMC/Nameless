@@ -42,8 +42,8 @@ $language = [
     'invalid_code' => 'Invalid code provided',
     'user_already_active' => 'Your account has already been activated.',
     'invalid_integration' => 'Invalid integration',
-    'integration_identifier_already_linked' => '{x} identifier is already linked to another user.',
-    'integration_username_already_linked' => '{x} username is already linked to another user.',
+    'integration_identifier_already_linked' => '{integration} identifier is already linked to another user.', // Don't replace {integration}
+    'integration_username_already_linked' => '{integration} username is already linked to another user.', // Don't replace {integration}
 
     // Success messages
     'finish_registration_link' => 'Please click on the following link to complete registration:',

@@ -115,7 +115,7 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
                             ]);
                         }
 
-                        Session::flash('integrations_success', str_replace('{x}', Output::getClean($integrationUser->getIntegration()->getName()), $language->get('admin', 'link_account_success')));
+                        Session::flash('integrations_success', str_replace(['{user}', '{integration}'], [$view_user->getDisplayname(true), Output::getClean($integrationUser->getIntegration()->getName())], $language->get('admin', 'link_account_success')));
                         Redirect::to(URL::build('/panel/users/integrations/', 'id=' . $view_user->data()->id));
                     } else {
                         $errors[] = $language->get('admin', 'username_and_identifier_required');
@@ -195,6 +195,7 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
                         $integrationUser->unlinkIntegration();
 
                         Session::flash('integrations_success', str_replace('{x}', Output::getClean($integrationUser->getIntegration()->getName()), $language->get('admin', 'unlink_account_success')));
+                        Redirect::to(URL::build('/panel/users/integrations/', 'id=' . $view_user->data()->id));
                     }
                 } else {
                     Session::flash('integrations_errors', $language->get('general', 'invalid_token'));

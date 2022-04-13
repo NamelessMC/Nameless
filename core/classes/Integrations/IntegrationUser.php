@@ -19,7 +19,9 @@ class IntegrationUser {
         $this->_integration = $integration;
 
         if (!$query_data && $value) {
-            $data = $this->_db->selectQuery('SELECT * FROM nl2_users_integrations WHERE ' . $field . ' = ? AND integration_id = ?;', [$value, $integration->data()->id]);
+            $field = preg_replace('/[^A-Za-z_]+/', '', $field);
+
+            $data = $this->_db->selectQuery("SELECT * FROM nl2_users_integrations WHERE $field = ? AND integration_id = ?", [$value, $integration->data()->id]);
             if ($data->count()) {
                 $this->_data = $data->first();
             }
@@ -120,7 +122,7 @@ class IntegrationUser {
             'integration_user' => [
                 'identifier' => $identifier,
                 'username' => $username,
-                'verified' => (bool) $verified,
+                'verified' => $verified,
             ]
         ]);
     }
@@ -147,7 +149,7 @@ class IntegrationUser {
             'integration_user' => [
                 'identifier' => $this->data()->identifier,
                 'username' => $this->data()->username,
-                'verified' => (bool) $this->data()->verified,
+                'verified' => $this->data()->verified,
             ]
         ]);
     }
@@ -174,7 +176,7 @@ class IntegrationUser {
             'integration_user' => [
                 'identifier' => $this->data()->identifier,
                 'username' => $this->data()->username,
-                'verified' => (bool) $this->data()->verified,
+                'verified' => $this->data()->verified,
             ]
         ]);
     }

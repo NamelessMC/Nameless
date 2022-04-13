@@ -1106,11 +1106,16 @@ class User {
      * @param array $placeholders Key/value array of placeholders name/value from API endpoint.
      */
     public function savePlaceholders(int $server_id, array $placeholders): void {
+        $integrationUser = $this->getIntegration('Minecraft');
+        if ($integrationUser == null || !$integrationUser->getIntegration()->isEnabled()) {
+            return;
+        }
+
+        $uuid = hex2bin(str_replace('-', '', $integrationUser->data()->identifier));
         foreach ($placeholders as $name => $value) {
             Placeholders::getInstance()->registerPlaceholder($server_id, $name);
 
             $last_updated = time();
-            $uuid = hex2bin(str_replace('-', '', $this->getIntegration('Minecraft')->data()->identifier));
 
             $this->_db->createQuery('INSERT INTO nl2_users_placeholders (server_id, uuid, name, value, last_updated) VALUES (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE value = ?, last_updated = ?', [
                 $server_id,

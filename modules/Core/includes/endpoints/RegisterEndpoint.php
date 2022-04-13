@@ -51,13 +51,13 @@ class RegisterEndpoint extends KeyAuthEndpoint {
                     // Ensure username doesn't already exist
                     $integrationUser = new IntegrationUser($integration, $item['username'], 'username');
                     if ($integrationUser->exists()) {
-                        $api->throwError(38, str_replace('{x}', $integration->getName(), $api->getLanguage()->get('api', 'integration_username_already_linked')));
+                        $api->throwError(38, str_replace('{integration}', $integration->getName(), $api->getLanguage()->get('api', 'integration_username_already_linked')));
                     }
 
                     // Ensure identifier doesn't already exist
                     $integrationUser = new IntegrationUser($integration, $item['identifier'], 'identifier');
                     if ($integrationUser->exists()) {
-                        $api->throwError(39, str_replace('{x}', $integration->getName(), $api->getLanguage()->get('api', 'integration_identifier_already_linked')));
+                        $api->throwError(39, str_replace('{integration}', $integration->getName(), $api->getLanguage()->get('api', 'integration_identifier_already_linked')));
                     }
                 }
             }

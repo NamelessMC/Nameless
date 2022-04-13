@@ -43,7 +43,7 @@ class DiscordIntegration extends IntegrationBase {
         $integrationUser = new IntegrationUser($this, $user->data()->id, 'user_id');
         $integrationUser->unlinkIntegration();
         
-        Session::flash('connections_success', str_replace('{x}', Output::getClean($this->_name), $this->_language->get('user', 'integration_unlinked')));
+        Session::flash('connections_success', str_replace('{integration}', Output::getClean($this->_name), $this->_language->get('user', 'integration_unlinked')));
     }
 
     public function onSuccessfulVerification(IntegrationUser $integrationUser) {
@@ -54,14 +54,18 @@ class DiscordIntegration extends IntegrationBase {
     }
     
     public function onRegistrationPageLoad(Fields $fields) {
+        // Nothing to do here
     }
 
     public function beforeRegistrationValidation(Validate $validate) {
+        // Nothing to do here
     }
 
     public function afterRegistrationValidation() {
+        // Nothing to do here
     }
 
     public function successfulRegistration(User $user) {
+        // Nothing to do here
     }
 }

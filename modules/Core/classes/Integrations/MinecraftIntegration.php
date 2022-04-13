@@ -26,7 +26,7 @@ class MinecraftIntegration extends IntegrationBase {
         // Ensure username doesn't already exist
         $integrationUser = new IntegrationUser($this, $username, 'username');
         if ($integrationUser->exists()) {
-            $this->addError(str_replace('{x}', $this->getName(), $this->_language->get('user', 'integration_username_already_linked')));
+            $this->addError(str_replace('{integration}', $this->getName(), $this->_language->get('user', 'integration_username_already_linked')));
             return;
         }
 
@@ -39,7 +39,7 @@ class MinecraftIntegration extends IntegrationBase {
         // Ensure identifier doesn't already exist
         $integrationUser = new IntegrationUser($this, $this->_uuid, 'identifier');
         if ($integrationUser->exists()) {
-            $this->addError(str_replace('{x}', $this->getName(), $this->_language->get('user', 'integration_identifier_already_linked')));
+            $this->addError(str_replace('{integration}', $this->getName(), $this->_language->get('user', 'integration_identifier_already_linked')));
             return;
         }
 
@@ -61,17 +61,21 @@ class MinecraftIntegration extends IntegrationBase {
         $integrationUser = new IntegrationUser($this, $user->data()->id, 'user_id');
         $integrationUser->unlinkIntegration();
 
-        Session::flash('connections_success', str_replace('{x}', Output::getClean($this->_name), $this->_language->get('user', 'integration_unlinked')));
+        Session::flash('connections_success', str_replace('{integration}', Output::getClean($this->_name), $this->_language->get('user', 'integration_unlinked')));
     }
 
     public function onSuccessfulVerification(IntegrationUser $integrationUser) {
+        // Nothing to do here
     }
 
     public function onRegistrationPageLoad(Fields $fields) {
-        $fields->add('username', Fields::TEXT, $this->_language->get('user', 'minecraft_username'), true, $_POST['username'] ?? '', null, null, 1);
+        $username_value = ((isset($_POST['username']) && $_POST['username']) ? Output::getClean(Input::get('username')) : '');
+
+        $fields->add('username', Fields::TEXT, $this->_language->get('user', 'minecraft_username'), true, $username_value, null, null, 1);
     }
 
     public function beforeRegistrationValidation(Validate $validate) {
+        // Nothing to do here
     }
 
     public function afterRegistrationValidation() {
@@ -80,7 +84,7 @@ class MinecraftIntegration extends IntegrationBase {
         // Ensure username doesn't already exist
         $integrationUser = new IntegrationUser($this, $username, 'username');
         if ($integrationUser->exists()) {
-            $this->addError(str_replace('{x}', $this->getName(), $this->_language->get('user', 'integration_username_already_linked')));
+            $this->addError(str_replace('{integration}', $this->getName(), $this->_language->get('user', 'integration_username_already_linked')));
             return;
         }
 
@@ -93,7 +97,7 @@ class MinecraftIntegration extends IntegrationBase {
         // Ensure identifier doesn't already exist
         $integrationUser = new IntegrationUser($this, $this->_uuid, 'identifier');
         if ($integrationUser->exists()) {
-            $this->addError(str_replace('{x}', $this->getName(), $this->_language->get('user', 'integration_identifier_already_linked')));
+            $this->addError(str_replace('{integration}', $this->getName(), $this->_language->get('user', 'integration_identifier_already_linked')));
             return;
         }
     }

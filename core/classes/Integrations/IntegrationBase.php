@@ -113,17 +113,17 @@ abstract class IntegrationBase {
     }
 
     /**
-     * Called when user wanna link their account from user connections page, Does not need to be verified
+     * Called when user wants to link their account from user connections page, Does not need to be verified
      */
     abstract public function onLinkRequest(User $user);
 
     /**
-     * Called when user wanna continue to verify their integration user from connections page
+     * Called when user wants to continue to verify their integration user from connections page
      */
     abstract public function onVerifyRequest(User $user);
 
     /**
-     * Called when user wanna unlink their integration user from connections page
+     * Called when user wants to unlink their integration user from connections page
      */
     abstract public function onUnlinkRequest(User $user);
 

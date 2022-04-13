@@ -247,15 +247,14 @@ $language = [
     'oauth_login_success' => 'You have logged in with your {x} account.', // Don't replace {x}
     'oauth_link_confirm' => 'You will be taken to the {x} website to link your account.', // Don't replace {x}
     'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {x}.<br>You will not be able to login with this account anymore.', // Don't replace {x}
-    'no_providers' => 'No OAuth providers are setup.',
+    'no_providers' => 'No OAuth providers are set up.',
 
     // Integrations
-    'integration_linked' => 'Successfully linked your {x} account.', // Don't replace {x}
-    'integration_unlinked' => 'Successfully unlinked your {x} account.', // Don't replace {x}
-    'integration_verify_unconfigurated' => 'Administration has not configurated a way to verify your {x} account.', // Don't replace {x}
-    'integration_identifier_already_linked' => '{x} identifier is already linked to another user.',
-    'integration_username_already_linked' => '{x} username is already linked to another user.',
-    'integration_required_to_continue' => 'Please connect and verify the required connections before you can continue using this website.',
+    'integration_linked' => 'You have successfully linked your {integration} account.', // Don't replace {integration}
+    'integration_unlinked' => 'You have successfully unlinked your {integration} account.', // Don't replace {integration}
+    'integration_identifier_already_linked' => '{integration} identifier is already linked to another user.',
+    'integration_username_already_linked' => '{integration} username is already linked to another user.',
+    'integration_required_to_continue' => 'Please connect and verify the required connections before continuing to use this website.',
     'not_connected' => 'Not Connected',
     'pending_verification' => 'Pending Verification',
     'user_has_linked_integration' => '{user} has linked their {integration} account.',
