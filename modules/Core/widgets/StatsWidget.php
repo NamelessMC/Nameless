@@ -34,7 +34,6 @@ class StatsWidget extends WidgetBase {
 
     public function initialise(): void {
         $queries = new Queries();
-        $user = new User();
 
         $this->_cache->setCache('statistics');
 
