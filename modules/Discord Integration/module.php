@@ -34,7 +34,7 @@ class Discord_Module extends Module {
 
         $endpoints->loadEndpoints(ROOT_PATH . '/modules/Discord Integration/includes/endpoints');
 
-        GroupSyncManager::getInstance()->registerInjector(DiscordGroupSyncInjector::class);
+        GroupSyncManager::getInstance()->registerInjector(new DiscordGroupSyncInjector);
     }
 
     public function onInstall() {

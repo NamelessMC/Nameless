@@ -430,8 +430,8 @@ class Core_Module extends Module {
         // Autoload API Endpoints
         $endpoints->loadEndpoints(ROOT_PATH . '/modules/Core/includes/endpoints');
 
-        GroupSyncManager::getInstance()->registerInjector(NamelessMCGroupSyncInjector::class);
-        GroupSyncManager::getInstance()->registerInjector(MinecraftGroupSyncInjector::class);
+        GroupSyncManager::getInstance()->registerInjector(new NamelessMCGroupSyncInjector);
+        GroupSyncManager::getInstance()->registerInjector(new MinecraftGroupSyncInjector);
 
         Endpoints::registerTransformer('user', 'Core', static function (Nameless2API $api, string $value) {
             $lookup_data = explode(':', $value);
