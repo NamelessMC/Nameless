@@ -34,8 +34,8 @@ class Discord_Module extends Module {
 
         $endpoints->loadEndpoints(ROOT_PATH . '/modules/Discord Integration/includes/endpoints');
 
-        GroupSyncManager::getInstance()->registerInjector(DiscordGroupSyncInjector::class);
-        
+        GroupSyncManager::getInstance()->registerInjector(new DiscordGroupSyncInjector);
+
         // Discord Integration
         require_once(ROOT_PATH . "/modules/{$this->getName()}/classes/DiscordIntegration.php");
         Integrations::getInstance()->registerIntegration(new DiscordIntegration($language));
@@ -59,8 +59,7 @@ class Discord_Module extends Module {
         ]);
 
         require_once(ROOT_PATH . "/modules/{$this->getName()}/widgets/DiscordWidget.php");
-        $module_pages = $widgets->getPages('Discord');
-        $widgets->add(new DiscordWidget($module_pages, $cache, $smarty));
+        $widgets->add(new DiscordWidget($cache, $smarty));
 
         if (!defined('FRONT_END')) {
             $cache->setCache('panel_sidebar');

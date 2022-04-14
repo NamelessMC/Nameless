@@ -35,7 +35,7 @@ class MentionsParser {
                         $value = preg_replace('/' . preg_quote("@$possible_username", '/') . '/', '[user]' . $user->data()->id . '[/user]', $value);
 
                         // Check if user is blocked by OP
-                        if (($alert_full && $alert_short) && !$user->isBlocked($user->data()->id, $author_id)) {
+                        if (($alert_full && $alert_short) && ($user->data()->id != $author_id) && !$user->isBlocked($user->data()->id, $author_id)) {
                             Alert::create($user->data()->id, 'tag', $alert_short, $alert_full, $link);
                             break;
                         }

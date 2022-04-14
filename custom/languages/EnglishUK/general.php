@@ -77,6 +77,7 @@ $language = [
     'verify' => 'Verify',
     'connect' => 'Connect',
     'leaderboards' => 'Leaderboards',
+    'deleted_user' => 'DeletedUser',
 
     /*
      *  Navbar

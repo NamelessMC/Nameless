@@ -16,29 +16,14 @@ final class GroupSyncManager extends Instanceable {
 
     /**
      * Register a new GroupSyncInjector class.
+     * Ensures the column name of the new injector has not been taken.
      *
-     * Ensures the provided class name is a valid GroupSyncInjector instance,
-     * and that the column name of the new injector has not been taken.
-     *
-     * @param class-string $class Class name of new injector
+     * @param GroupSyncInjector $injector New injector.
      */
-    public function registerInjector(string $class): void {
-        /** @var GroupSyncInjector */
-        $injector = new $class();
-
-        if (!($injector instanceof GroupSyncInjector)) {
-            throw new RuntimeException("Class: {$class} is not an instanceof " . GroupSyncInjector::class);
-        }
-
+    public function registerInjector(GroupSyncInjector $injector): void {
         if (in_array($injector->getColumnName(), $this->getColumnNames())) {
             throw new RuntimeException("GroupSyncInjector column name {$injector->getColumnName()} already taken, {$class} tried to use it as well.");
         }
-
-        // TODO: do in onInstall / onEnable
-        $this->addColumnToDb(
-            $injector->getColumnName(),
-            $injector->getColumnType()
-        );
 
         $this->_injectors[$injector->getColumnName()] = $injector;
     }
@@ -49,27 +34,19 @@ final class GroupSyncManager extends Instanceable {
      * @return string[] All column names
      */
     public function getColumnNames(): array {
-        $form_names = [];
-
-        foreach ($this->_injectors as $injector) {
-            $form_names[] = $injector->getColumnName();
-        }
-
-        return $form_names;
+        return array_map(static function (GroupSyncInjector $injector) {
+            return $injector->getColumnName();
+        }, $this->_injectors);
     }
 
     /**
      * Add a new column to the `nl2_group_sync` table for this injector
-     * to use.
+     * to use. Should be called during module initialisation.
      *
-     * @param string $column_name Unique column name to use.
-     * @param string $column_type Valid MySQL column type to assign the new column.
+     * @param GroupSyncInjector $injector Injector to add column for.
      */
-    private function addColumnToDb(string $column_name, string $column_type): void {
-        try {
-            DB::getInstance()->alterTable('group_sync', $column_name, "{$column_type} NULL DEFAULT NULL");
-        } catch (PDOException $ignored) {
-        }
+    public function registerInjectorColumn(GroupSyncInjector $injector): void {
+        DB::getInstance()->alterTable('group_sync', $injector->getColumnName(), "{$injector->getColumnType()} NULL DEFAULT NULL");
     }
 
     /**
@@ -198,7 +175,7 @@ final class GroupSyncManager extends Instanceable {
                 $sending_group_id = $rule->{$sending_injector->getColumnName()};
                 $nameless_group_id = $rule->{$namelessmc_column};
 
-                // Skip this injector if it doesnt have a group id setup for this rule
+                // Skip this injector if it doesn't have a group id setup for this rule
                 if ($injector_group_id == null) {
                     continue;
                 }
@@ -218,7 +195,7 @@ final class GroupSyncManager extends Instanceable {
                     && !in_array($nameless_group_id, $user->getAllGroupIds())
                 ) {
                     // Attempt to add group if this group id was sent in the broadcastChange() method
-                    // and if they dont have the namelessmc equivilant of it
+                    // and if they don't have the namelessmc equivilant of it
                     if ($injector->addGroup($user, $injector_group_id)) {
                         $modified[$injector_column][] = $injector_group_id;
                         $logs['added'][] = "{$injector_column} -> {$injector_group_id}";
@@ -232,7 +209,7 @@ final class GroupSyncManager extends Instanceable {
                         }
                     }
 
-                    // Attempt to remove this group if it doesnt have multiple rules, or if the group ids
+                    // Attempt to remove this group if it doesn't have multiple rules, or if the group ids
                     // list sent to broadcastChange() was empty - NOT both
                     if ($injector->removeGroup($user, $injector_group_id)) {
                         $modified[$injector_column][] = $injector_group_id;
@@ -246,12 +223,12 @@ final class GroupSyncManager extends Instanceable {
     }
 
     /**
-     * Get an enabled `GroupSyncInjector` from it's class name, if it exists.
+     * Get an enabled `GroupSyncInjector` from its class name, if it exists.
      *
      * @param string $class Class name to get injector from
      *
-     * @return GroupSyncInjector|null Instance of injector, null if it doesnt exist
-     * or isnt enabled
+     * @return GroupSyncInjector|null Instance of injector, null if it doesn't exist
+     * or isn't enabled
      */
     public function getInjectorByClass(string $class): ?GroupSyncInjector {
         foreach ($this->getEnabledInjectors() as $injector) {
