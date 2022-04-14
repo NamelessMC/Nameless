@@ -5,7 +5,7 @@
  *
  * @return string JSON Array
  */
-class ListUsersEndpoint extends NoAuthEndpoint {
+class ListUsersEndpoint extends KeyAuthEndpoint {
 
     public function __construct() {
         $this->_route = 'users';
