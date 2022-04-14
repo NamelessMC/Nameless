@@ -146,7 +146,7 @@ class ErrorHandler {
             'DEBUG_LINK' => $language->get('admin', 'debug_link'),
             'DEBUG_LINK_URL' => URL::build('/queries/debug_link'),
             'ERROR_SQL_STACK' => QueryRecorder::getInstance()->getSqlStack(),
-            'CURRENT_URL' => 'http' . ((Util::isConnectionSSL()) ? 's' : '') . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],
+            'CURRENT_URL' => urldecode('http' . ((Util::isConnectionSSL()) ? 's' : '') . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']),
             'FRAMES' => $frames,
             'SKIP_FRAMES' => $skip_frames,
             'BACK' => $language->get('general', 'back'),
