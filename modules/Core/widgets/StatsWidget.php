@@ -14,15 +14,15 @@ class StatsWidget extends WidgetBase {
     private Cache $_cache;
     private array $_language;
 
-    public function __construct(array $pages, Smarty $smarty, array $language, Cache $cache) {
+    public function __construct(Smarty $smarty, array $language, Cache $cache) {
         $this->_cache = $cache;
         $this->_smarty = $smarty;
         $this->_language = $language;
 
-        parent::__construct($pages);
-
         // Get widget
-        $widget_query = DB::getInstance()->selectQuery('SELECT `location`, `order` FROM nl2_widgets WHERE `name` = ?', ['Statistics'])->first();
+        $widget_query = self::getData('Statistics');
+
+        parent::__construct(self::parsePages($widget_query->pages));
 
         // Set widget variables
         $this->_module = 'Core';

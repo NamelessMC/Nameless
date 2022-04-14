@@ -108,4 +108,12 @@ abstract class WidgetBase {
      * Generate this widget's `$_content`.
      */
     abstract public function initialise(): void;
+
+    protected static function getData(string $name): ?object {
+        return DB::getInstance()->selectQuery('SELECT `location`, `order`, `pages` FROM nl2_widgets WHERE `name` = ?', [$name])->first();
+    }
+
+    protected static function parsePages(?string $pages): array {
+        return json_decode($pages, true) ?? [];
+    }
 }

@@ -629,10 +629,7 @@ class Core_Module extends Module {
         $cache->setCache('social_media');
         $fb_url = $cache->retrieve('facebook');
         if ($fb_url) {
-            // Active pages
-            $module_pages = $widgets->getPages('Facebook');
-
-            $widgets->add(new FacebookWidget($module_pages, $smarty, $fb_url));
+            $widgets->add(new FacebookWidget($smarty, $fb_url));
         }
 
         // Twitter
@@ -641,35 +638,28 @@ class Core_Module extends Module {
 
         if ($twitter) {
             $theme = $cache->retrieve('twitter_theme');
-            $module_pages = $widgets->getPages('Twitter');
-
-            $widgets->add(new TwitterWidget($module_pages, $smarty, $twitter, $theme));
+            $widgets->add(new TwitterWidget($smarty, $twitter, $theme));
         }
 
         // Profile Posts
         require_once(ROOT_PATH . '/modules/Core/widgets/ProfilePostsWidget.php');
-        $module_pages = $widgets->getPages('Latest Profile Posts');
-        $widgets->add(new ProfilePostsWidget($module_pages, $smarty, $language, $cache, $user, new TimeAgo(TIMEZONE)));
+        $widgets->add(new ProfilePostsWidget($smarty, $language, $cache, $user, new TimeAgo(TIMEZONE)));
 
         // Online staff
-        require_once(ROOT_PATH . '/modules/Core/widgets/OnlineStaff.php');
-        $module_pages = $widgets->getPages('Online Staff');
-        $widgets->add(new OnlineStaffWidget($module_pages, $smarty, ['title' => $language->get('general', 'online_staff'), 'no_online_staff' => $language->get('general', 'no_online_staff'), 'total_online_staff' => $language->get('general', 'total_online_staff')], $cache));
+        require_once(ROOT_PATH . '/modules/Core/widgets/OnlineStaffWidget.php');
+        $widgets->add(new OnlineStaffWidget($smarty, ['title' => $language->get('general', 'online_staff'), 'no_online_staff' => $language->get('general', 'no_online_staff'), 'total_online_staff' => $language->get('general', 'total_online_staff')], $cache));
 
         // Online users
-        require_once(ROOT_PATH . '/modules/Core/widgets/OnlineUsers.php');
-        $module_pages = $widgets->getPages('Online Users');
-        $widgets->add(new OnlineUsersWidget($module_pages, $cache, $smarty, ['title' => $language->get('general', 'online_users'), 'no_online_users' => $language->get('general', 'no_online_users'), 'total_online_users' => $language->get('general', 'total_online_users')]));
+        require_once(ROOT_PATH . '/modules/Core/widgets/OnlineUsersWidget.php');
+        $widgets->add(new OnlineUsersWidget($cache, $smarty, ['title' => $language->get('general', 'online_users'), 'no_online_users' => $language->get('general', 'no_online_users'), 'total_online_users' => $language->get('general', 'total_online_users')]));
 
         // Online users
         require_once(ROOT_PATH . '/modules/Core/widgets/ServerStatusWidget.php');
-        $module_pages = $widgets->getPages('Server Status');
-        $widgets->add(new ServerStatusWidget($module_pages, $smarty, $language, $cache));
+        $widgets->add(new ServerStatusWidget($smarty, $language, $cache));
 
         // Statistics
         require_once(ROOT_PATH . '/modules/Core/widgets/StatsWidget.php');
-        $module_pages = $widgets->getPages('Statistics');
-        $widgets->add(new StatsWidget($module_pages, $smarty, [
+        $widgets->add(new StatsWidget($smarty, [
             'statistics' => $language->get('general', 'statistics'),
             'users_registered' => $language->get('general', 'users_registered'),
             'latest_member' => $language->get('general', 'latest_member'),
