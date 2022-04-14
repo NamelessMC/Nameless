@@ -119,7 +119,7 @@
                         <br />
 
                         {if isset($WEBSITE_TEMPLATES_ERROR)}
-                            <div class="alert bg-warning text-white">{$WEBSITE_TEMPLATES_ERROR}</div>
+                            <div class="alert alert-warning">{$UNABLE_TO_RETRIEVE_TEMPLATES}</div>
                         {/if}
 
                         {if count($WEBSITE_TEMPLATES)}
@@ -172,7 +172,7 @@
                                 </table>
                             </div>
                         {else}
-                            <div class="alert bg-warning text-white">{$UNABLE_TO_RETRIEVE_TEMPLATES}</div>
+                            <div class="alert alert-warning">{$WEBSITE_TEMPLATES_ERROR}</div>
                         {/if}
 
                         <a href="{$VIEW_ALL_PANEL_TEMPLATES_LINK}" class="btn btn-primary"
