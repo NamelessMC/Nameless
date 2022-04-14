@@ -144,17 +144,29 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
                 $errors = [];
 
                 if (Token::check()) {
-                    if ($integration->validateUsername(Input::get('username'), $integrationUser->data()->id) && $integration->validateIdentifier(Input::get('identifier'), $integrationUser->data()->id)) {
-                        $integrationUser->update([
-                            'username' => Output::getClean(Input::get('username')),
-                            'identifier' => Output::getClean(Input::get('identifier')),
-                            'verified' => Output::getClean(Input::get('verified'))
-                        ]);
+                    if (Input::get('action') == 'details') {
+                        // Update integration user details
+                        if ($integration->validateUsername(Input::get('username'), $integrationUser->data()->id) && $integration->validateIdentifier(Input::get('identifier'), $integrationUser->data()->id)) {
+                            $integrationUser->update([
+                                'username' => Output::getClean(Input::get('username')),
+                                'identifier' => Output::getClean(Input::get('identifier')),
+                                'verified' => Output::getClean(Input::get('verified'))
+                            ]);
 
-                        Session::flash('integrations_success', $language->get('admin', 'user_integration_updated_successfully'));
-                        Redirect::to(URL::build('/panel/users/integrations/', 'id=' . $view_user->data()->id));
-                    } else {
-                        $errors = $integration->getErrors();
+                            Session::flash('integrations_success', $language->get('admin', 'user_integration_updated_successfully'));
+                            Redirect::to(URL::build('/panel/users/integrations/', 'id=' . $view_user->data()->id . '&action=edit&integration=' . $integration->getName()));
+                        } else {
+                            $errors = $integration->getErrors();
+                        }
+
+                    } else if (Input::get('action') == 'sync') {
+                        // Sync integration user
+                        if ($integration->syncIntegrationUser($integrationUser)) {
+                            Session::flash('integrations_success', $language->get('admin', 'user_integration_updated_successfully'));
+                            Redirect::to(URL::build('/panel/users/integrations/', 'id=' . $view_user->data()->id . '&action=edit&integration=' . $integration->getName()));
+                        } else {
+                            $errors = $integration->getErrors();
+                        }
                     }
                 } else {
                     $errors[] = $language->get('general', 'invalid_token');
@@ -168,7 +180,8 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
                 'VERIFIED_VALUE' => Output::getClean($integrationUser->isVerified()),
                 'BACK_LINK' => URL::build('/panel/users/integrations/', 'id=' . $view_user->data()->id),
                 'USERNAME' => str_replace('{integration}', Output::getClean($integration->getName()), $language->get('admin', 'integration_username')),
-                'IDENTIFIER' => str_replace('{integration}', Output::getClean($integration->getName()), $language->get('admin', 'integration_identifier'))
+                'IDENTIFIER' => str_replace('{integration}', Output::getClean($integration->getName()), $language->get('admin', 'integration_identifier')),
+                'SYNC_INTEGRATION' => $language->get('admin', 'sync_integration')
             ]);
 
             $template_file = 'core/users_integrations_form.tpl';

@@ -171,4 +171,9 @@ abstract class IntegrationBase {
      * Called when user is successfully registered
      */
     abstract public function successfulRegistration(User $user);
+
+    /**
+     * Called when user integration is requested to be synced.
+     */
+    abstract public function syncIntegrationUser(IntegrationUser $integration_user): bool;
 }

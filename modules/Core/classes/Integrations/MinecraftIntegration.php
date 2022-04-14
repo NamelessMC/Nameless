@@ -166,6 +166,25 @@ class MinecraftIntegration extends IntegrationBase {
         $integrationUser->linkIntegration($user, $this->_uuid, Input::get('username'), false, $code);
     }
 
+    public function syncIntegrationUser(IntegrationUser $integration_user): bool {
+        $profile = ProfileUtils::getProfile($integration_user->data()->identifier);
+
+        if ($profile) {
+            $result = $profile->getUsername();
+
+            if (!empty($result)) {
+                $integration_user->update([
+                    'username' => $result,
+                    'last_sync' => date('U')
+                ]);
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     /**
      * Get minecraft UUID by username
      *

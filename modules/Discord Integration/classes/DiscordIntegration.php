@@ -132,4 +132,10 @@ class DiscordIntegration extends IntegrationBase {
     public function successfulRegistration(User $user) {
         // Nothing to do here
     }
+
+    public function syncIntegrationUser(IntegrationUser $integration_user): bool {
+        $this->addError($this->_language->get('admin', 'integration_sync_not_supported'));
+
+        return false;
+    }
 }

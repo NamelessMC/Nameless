@@ -775,4 +775,6 @@ $language = [
     'integration_identifier' => '{{integration}} Identifier',
     'integration_identifier_required' => '{{integration}} identifier is required.',
     'integration_identifier_invalid' => '{{integration}} identifier is invalid.',
+    'sync_integration' => 'Sync Integration',
+    'integration_sync_not_supported' => 'Synchronization is not supported for this integration!',
 ];
