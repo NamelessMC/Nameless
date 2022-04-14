@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr12
+ *  NamelessMC version 2.0.0-pr13
  *
  *  License: MIT
  *
@@ -776,5 +776,5 @@ $language = [
     'integration_identifier_required' => '{{integration}} identifier is required.',
     'integration_identifier_invalid' => '{{integration}} identifier is invalid.',
     'sync_integration' => 'Sync Integration',
-    'integration_sync_not_supported' => 'Synchronization is not supported for this integration!',
+    'integration_sync_not_supported' => 'Synchronisation is not supported for this integration!',
 ];
