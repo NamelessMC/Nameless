@@ -59,8 +59,7 @@ if ($registration_enabled == 0) {
 }
 
 // Check if Minecraft is enabled
-$minecraft = $queries->getWhere('settings', ['name', '=', 'mc_integration']);
-$minecraft = $minecraft[0]->value;
+$minecraft = MINECRAFT;
 
 if ($minecraft == '1') {
     // Check if AuthMe is enabled

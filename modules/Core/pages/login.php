@@ -152,8 +152,7 @@ if (Input::exists()) {
                         $remember = Input::get('remember') == 1;
 
                         // Is Minecraft and AuthMe integration enabled?
-                        $minecraft = $queries->getWhere('settings', ['name', '=', 'mc_integration']);
-                        $minecraft = $minecraft[0]->value;
+                        $minecraft = MINECRAFT;
 
                         $authme_enabled = $queries->getWhere('settings', ['name', '=', 'authme']);
                         $authme_enabled = $authme_enabled[0]->value;

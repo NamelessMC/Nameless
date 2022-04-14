@@ -19,7 +19,7 @@ class RegisterEndpoint extends KeyAuthEndpoint {
     public function execute(Nameless2API $api): void {
         $params = ['username', 'email'];
 
-        $minecraft_integration = Util::getSetting($api->getDb(), 'mc_integration');
+        $minecraft_integration = MINECRAFT;
         if ($minecraft_integration) {
             $params[] = 'uuid';
         }
@@ -64,7 +64,9 @@ class RegisterEndpoint extends KeyAuthEndpoint {
             $api->throwError(10, $api->getLanguage()->get('api', 'email_already_exists'));
         }
 
-        $uuid = ($minecraft_integration) ? Output::getClean($_POST['uuid']) : 'none';
+        $uuid = $minecraft_integration
+            ? Output::getClean($_POST['uuid'])
+            : 'none';
 
         if (Util::getSetting($api->getDb(), 'api_verification', false)) {
             // Create user and send link to set password

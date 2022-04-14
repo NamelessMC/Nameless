@@ -54,8 +54,10 @@ class Discord_Module extends Module {
             'admincp.discord' => $this->_language->get('admin', 'integrations') . ' &raquo; ' . Discord::getLanguageTerm('discord'),
         ]);
 
-        require_once(ROOT_PATH . "/modules/{$this->getName()}/widgets/DiscordWidget.php");
-        $widgets->add(new DiscordWidget($cache, $smarty));
+        if (defined('FRONT_END') || (defined('PANEL_PAGE') && str_contains(PANEL_PAGE, 'widget'))) {
+            require_once(ROOT_PATH . "/modules/{$this->getName()}/widgets/DiscordWidget.php");
+            $widgets->add(new DiscordWidget($cache, $smarty));
+        }
 
         if (!defined('FRONT_END')) {
             $cache->setCache('panel_sidebar');

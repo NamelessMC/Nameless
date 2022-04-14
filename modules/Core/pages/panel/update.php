@@ -61,10 +61,7 @@ if (!isset($update_check->error) && !isset($update_check->no_update) && isset($u
     $uid = $queries->getWhere('settings', ['name', '=', 'unique_id']);
     $uid = $uid[0]->value;
 
-    $current_version = $queries->getWhere('settings', ['name', '=', 'nameless_version']);
-    $current_version = $current_version[0]->value;
-
-    $instructions = HttpClient::get('https://namelessmc.com/nl_core/nl2/instructions.php?uid=' . $uid . '&version=' . $current_version);
+    $instructions = HttpClient::get('https://namelessmc.com/nl_core/nl2/instructions.php?uid=' . $uid . '&version=' . NAMELESS_VERSION);
 
     if ($instructions->hasError()) {
         $instructions = $instructions->getError();

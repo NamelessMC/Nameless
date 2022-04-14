@@ -40,21 +40,28 @@ if (!count($latest_posts)) {
     // Array to assign posts to
     $posts = [];
 
+    $permissions = [];
+    $topic_titles = [];
     foreach ($latest_posts as $latest_post) {
         if ($n == 5) {
             break;
         }
 
         // Is the post somewhere the user can view?
-        $permission = false;
-        $forum_permissions = $queries->getWhere('forums_permissions', ['forum_id', '=', $latest_post->forum_id]);
-        foreach ($forum_permissions as $forum_permission) {
-            if (in_array($forum_permission->group_id, $groups)) {
-                if ($forum_permission->view == 1 && $forum_permission->view_other_topics == 1) {
-                    $permission = true;
-                    break;
+        if (!isset($permissions[$latest_post->forum_id])) {
+            $permission = false;
+            $forum_permissions = $queries->getWhere('forums_permissions', ['forum_id', '=', $latest_post->forum_id]);
+            foreach ($forum_permissions as $forum_permission) {
+                if (in_array($forum_permission->group_id, $groups)) {
+                    if ($forum_permission->view == 1 && $forum_permission->view_other_topics == 1) {
+                        $permission = true;
+                        break;
+                    }
                 }
             }
+            $permissions[$latest_post->forum_id] = $permission;
+        } else {
+            $permission = $permissions[$latest_post->forum_id];
         }
 
         if ($permission != true) {
@@ -67,11 +74,16 @@ if (!count($latest_posts)) {
         }
 
         // Get topic title
-        $topic_title = $queries->getWhere('topics', ['id', '=', $latest_post->topic_id]);
-        if (!count($topic_title)) {
-            continue;
+        if (!isset($topic_titles[$latest_post->topic_id])) {
+            $topic_title = $queries->getWhere('topics', ['id', '=', $latest_post->topic_id]);
+            if (!count($topic_title)) {
+                continue;
+            }
+            $topic_title = Output::getClean($topic_title[0]->topic_title);
+            $topic_titles[$latest_post->topic_id] = $topic_title;
+        } else {
+            $topic_title = $topic_titles[$latest_post->topic_id];
         }
-        $topic_title = Output::getClean($topic_title[0]->topic_title);
 
         if (is_null($latest_post->created)) {
             $date_friendly = $timeago->inWords($latest_post->post_date, $language->getTimeLanguage());

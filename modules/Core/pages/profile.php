@@ -787,10 +787,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     }
 
     // Minecraft?
-    $minecraft_integration = $queries->getWhere('settings', ['name', '=', 'mc_integration']);
-    $minecraft_integration = $minecraft_integration[0];
-
-    if ($minecraft_integration->value == '1') {
+    if (MINECRAFT == '1') {
         // TODO: This does not display anywhere
         $fields['minecraft'] = [
             'title' => 'IGN',

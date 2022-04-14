@@ -535,7 +535,7 @@ $pagination = $paginator->generate(7, URL::build('/forum/topic/' . $tid . '-' . 
 $smarty->assign('PAGINATION', $pagination);
 
 // Is Minecraft integration enabled?
-$mc_integration = $queries->getWhere('settings', ['name', '=', 'mc_integration']);
+$mc_integration = MINECRAFT;
 
 // Replies
 $replies = [];
