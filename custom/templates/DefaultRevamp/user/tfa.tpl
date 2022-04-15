@@ -1,5 +1,6 @@
-{include file='header.tpl'}
-{include file='navbar.tpl'}
+{extends 'user/layout.tpl'}
+
+{block "userContent"}
 
 <h2 class="ui header">
   {$TITLE}

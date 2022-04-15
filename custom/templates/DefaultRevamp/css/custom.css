@@ -2,12 +2,23 @@
  *  [ HTML & BODY ]
  */
 
+html, body, .pusher {
+	height: 100%;
+}
+
 html, body {
     background: #f3f6fa;
 }
 
-body.pushable>.pusher {
-    background: #f3f6fa;
+body.pushable {
+	overflow: auto !important;
+}
+
+.pusher {
+    background: #f3f6fa !important;
+	overflow: auto !important;
+	display: grid;
+	grid-template-rows: auto 1fr auto;
 }
 
 /*
@@ -407,7 +418,7 @@ body.pushable>.pusher {
  */
 
 .ui.footer.segment {
-    margin: 1rem 0 -.5rem 0;
+    margin: 1rem 0 0 0;
     padding: 3em 0;
 }
 

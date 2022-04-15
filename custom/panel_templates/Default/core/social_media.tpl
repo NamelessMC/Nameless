@@ -56,11 +56,35 @@
                                     {$TWITTER_STYLE}
                                 </label>
                             </div>
+
                             <div class="form-group">
-                                <label for="InputFacebook">{$FACEBOOK_URL}</label>
-                                <input type="text" name="fburl" class="form-control" id="InputFacebook"
-                                       placeholder="{$FACEBOOK_URL}" value="{$FACEBOOK_URL_VALUE}">
+                                <label for="inputCustom1">Custom Social Media Link 1</label>
+                                <div class="input-group">
+                                    <input type="text" name="inputCustom1" class="form-control" id="inputCustom1"
+                                           placeholder="Label" value="">
+                                    <input type="text" name="inputCustom1" class="form-control" id="inputCustom1"
+                                           placeholder="URL" value="">
+                                </div>
                             </div>
+
+                            <div class="form-group">
+                                <label for="inputCustom1">Custom Social Media Link 2</label>
+                                <input type="text" name="inputCustom1" class="form-control" id="inputCustom1"
+                                       placeholder="Custom Social Media Link" value="">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputCustom1">Custom Social Media Link 3</label>
+                                <input type="text" name="inputCustom1" class="form-control" id="inputCustom1"
+                                       placeholder="Custom Social Media Link" value="">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputCustom1">Custom Social Media Link 4</label>
+                                <input type="text" name="inputCustom1" class="form-control" id="inputCustom1"
+                                       placeholder="Custom Social Media Link" value="">
+                            </div>
+
                             <input type="hidden" name="token" value="{$TOKEN}">
                             <input type="submit" class="btn btn-primary" value="{$SUBMIT}">
                         </form>

@@ -1,12 +1,13 @@
-{include file='header.tpl'}
-{include file='navbar.tpl'}
+{extends 'layouts/default.tpl'}
 
-<h2 class="ui header">
-  {$PRIVACY_POLICY}
-</h2>
+{block 'body'}
+	<div class="ui container">
+		<h2 class="ui header">
+		  {$PRIVACY_POLICY}
+		</h2>
 
-<div class="ui padded segment" id="privacy-policy">
-  <p>{$POLICY}</p>
-</div>
-
-{include file='footer.tpl'}
+		<div class="ui padded segment" id="privacy-policy">
+		  <p>{$POLICY}</p>
+		</div>
+	</div>
+{/block}
