@@ -15,15 +15,15 @@ class OnlineUsersWidget extends WidgetBase {
     private Cache $_cache;
     private array $_language;
 
-    public function __construct(array $pages, Cache $cache, Smarty $smarty, array $language) {
+    public function __construct(Cache $cache, Smarty $smarty, array $language) {
         $this->_smarty = $smarty;
         $this->_cache = $cache;
         $this->_language = $language;
 
-        parent::__construct($pages);
-
         // Get widget
-        $widget_query = DB::getInstance()->selectQuery('SELECT `location`, `order` FROM nl2_widgets WHERE `name` = ?', ['Online Users'])->first();
+        $widget_query = self::getData('Online Users');
+
+        parent::__construct(self::parsePages($widget_query->pages));
 
         // Set widget variables
         $this->_module = 'Core';

@@ -108,4 +108,24 @@ abstract class WidgetBase {
      * Generate this widget's `$_content`.
      */
     abstract public function initialise(): void;
+
+    /**
+     * Get the data (location, order, pages) for a widget.
+     *
+     * @param string $name The widget to get data for.
+     * @return object|null Widgets data.
+     */
+    protected static function getData(string $name): ?object {
+        return DB::getInstance()->selectQuery('SELECT `location`, `order`, `pages` FROM nl2_widgets WHERE `name` = ?', [$name])->first();
+    }
+
+    /**
+     * Parse the widgets JSON pages string into an array.
+     *
+     * @param string|null $pages The JSON string to parse.
+     * @return array The parsed pages array.
+     */
+    protected static function parsePages(?string $pages): array {
+        return json_decode($pages, true) ?? [];
+    }
 }

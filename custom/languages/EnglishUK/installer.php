@@ -79,6 +79,7 @@ $language = [
     'convert_message' => 'Finally, do you want to convert from a different forum software?',
     'yes' => 'Yes',
     'no' => 'No',
+    'not_upgrading' => 'Not Upgrading',
     'converter' => 'Converter',
     'back' => 'Back',
     'unable_to_load_converter' => 'Unable to load converter!',

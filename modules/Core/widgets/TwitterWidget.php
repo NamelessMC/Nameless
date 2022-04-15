@@ -12,13 +12,13 @@
 
 class TwitterWidget extends WidgetBase {
 
-    public function __construct(array $pages, Smarty $smarty, ?string $twitter = '', ?string $theme = '') {
-        parent::__construct($pages, true);
+    public function __construct(Smarty $smarty, ?string $twitter = '', ?string $theme = '') {
+        // Get widget
+        $widget_query = self::getData('Twitter');
+
+        parent::__construct(self::parsePages($widget_query->pages), true);
 
         $this->_smarty = $smarty;
-
-        // Get widget
-        $widget_query = DB::getInstance()->selectQuery('SELECT `location`, `order` FROM nl2_widgets WHERE `name` = ?', ['Twitter'])->first();
 
         // Set widget variables
         $this->_module = 'Core';

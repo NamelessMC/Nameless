@@ -12,13 +12,13 @@
 
 class FacebookWidget extends WidgetBase {
 
-    public function __construct(array $pages, Smarty $smarty, ?string $fb_url = '') {
-        parent::__construct($pages, true);
-
+    public function __construct(Smarty $smarty, ?string $fb_url = '') {
         $this->_smarty = $smarty;
 
         // Get widget
-        $widget_query = DB::getInstance()->selectQuery('SELECT `location`, `order` FROM nl2_widgets WHERE `name` = ?', ['Facebook'])->first();
+        $widget_query = self::getData('Facebook');
+
+        parent::__construct(self::parsePages($widget_query->pages), true);
 
         // Set widget variables
         $this->_module = 'Core';
