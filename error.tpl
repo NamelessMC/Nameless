@@ -25,15 +25,12 @@
 <body>
 
     <br /><br />
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
-
-            <div class="col-md-{if $DETAILED_ERROR}12{else}6 offset-md-3{/if}">
+            <div class="col-md-{if $DETAILED_ERROR}10 offset-1{else}4 offset-md-4{/if}">
                 <div class="jumbotron">
                     <div style="text-align:{if $DETAILED_ERROR} left {else} center {/if};">
-
                         {if $DETAILED_ERROR}
-
                             <h4>Uncaught <i>{$ERROR_TYPE}</i></h4>
                             <h2><kbd>{$ERROR_STRING}</kbd></h2>
                             <h3>(File: {$ERROR_FILE})</h3>
@@ -50,27 +47,22 @@
                                     </span>
                                 </button>
                             {/if}
-
                         {else}
-
                             <h2>{$FATAL_ERROR_TITLE}</h2>
-
                             <h4>{$FATAL_ERROR_MESSAGE_USER}</h4>
 
                             <div class="btn-group" role="group" aria-label="...">
-                                <button href="#" class="btn btn-primary btn-lg" onclick="javascript:history.go(-1)">
+                                <button href="#" class="btn btn-primary btn-lg" onclick="history.go(-1)">
                                     {$BACK}
                                 </button>
                                 <a href="{$HOME_URL}" class="btn btn-success btn-lg">
                                     {$HOME}
                                 </a>
                             </div>
-
                         {/if}
                     </div>
                 </div>
             </div>
-
         </div>
 
         {if $DETAILED_ERROR}
@@ -78,7 +70,7 @@
             <br />
 
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-10 offset-1">
                     <div class="jumbotron">
                         <div class="card">
                             <div class="card-body">
@@ -95,82 +87,54 @@
                                 <br />
 
                                 <div class="tab-content">
-                                    <div class="tab-pane fade show active" id="stack">
+                                    <div class="tab-pane show active" id="stack">
 
                                         <div class="tab">
                                             {foreach from=$FRAMES item=frame}
-
-                                                <button class="tablinks" id="button-{$frame['number']}"
-                                                    onclick="openFrame({$frame['number']})">
+                                                <button class="tablinks" id="button-{$frame['number']}" onclick="openFrame({$frame['number']})">
                                                     <h5>Frame #{$frame['number']}</h5>
                                                     <sub>{$frame['file']}:{$frame['line']}</sub>
                                                 </button>
-
                                             {/foreach}
                                         </div>
 
                                         <div class="code">
                                             {foreach from=$FRAMES item=frame}
-
                                                 <div id="frame-{$frame['number']}" class="tabcontent">
                                                     <h5>File: <strong>{$frame['file']}</strong></h5>
 
-                                                    <hr>
-
                                                     {if $frame['code'] != ''}
-
-                                                        <pre data-line="{$frame['highlight_line']}" data-start="{($frame['start_line'])}">
-                                                            <code class="language-php line-numbers">{$frame['code']}</code>
-                                                        </pre>
-
+                                                        <pre data-line="{$frame['highlight_line']}" data-start="{$frame['start_line']}"><code class="language-php line-numbers">{$frame['code']}</code></pre>
                                                     {else}
-
                                                         <pre class="text-center">Cannot read file.</pre>
-
                                                     {/if}
-
                                                 </div>
-
                                             {/foreach}
                                         </div>
-
                                     </div>
 
-                                    <div class="tab-pane fade" id="sql">
+                                    <div class="tab-pane active" id="sql">
                                         <div class="tab">
                                             {foreach from=$ERROR_SQL_STACK item=$stack}
-
                                                 <button class="sql-tablinks" id="sql-button-{$stack['number']}" onclick="openSqlFrame({$stack['number']})">
                                                     <h5>Query #{$stack['number']}</h5>
                                                     <sub>{$stack['frame']['file']}:{$stack['frame']['line']}</sub>
                                                 </button>
-
                                             {/foreach}
                                         </div>
 
                                         <div class="code">
                                             {foreach from=$ERROR_SQL_STACK item=$stack}
-
                                                 <div id="sql-frame-{$stack['number']}" class="sql-tabcontent">
                                                     <h5>SQL query: <strong>{$stack['sql_query']}</strong></h5>
                                                     <h5>File: <strong>{$stack['frame']['file']}</strong></h5>
 
-                                                    <hr>
-
                                                     {if $stack['frame']['code'] != ''}
-
-                                                        <pre data-line="{$stack['frame']['highlight_line']}" data-start="{($stack['frame']['start_line'])}">
-                                                            <code class="language-php line-numbers">{$stack['frame']['code']}</code>
-                                                        </pre>
-
+                                                        <pre data-line="{$stack['frame']['highlight_line']}" data-start="{$stack['frame']['start_line']}"><code class="language-php line-numbers">{$stack['frame']['code']}</code></pre>
                                                     {else}
-
                                                         <pre class="text-center">Cannot read file.</pre>
-
                                                     {/if}
-
                                                 </div>
-
                                             {/foreach}
                                         </div>
                                     </div>
@@ -197,7 +161,7 @@
     float: left;
     border: 1px solid #ccc;
     background-color: #f1f1f1;
-    width: 30%;
+    width: 20%;
     max-height: inherit;
 }
 
@@ -212,7 +176,7 @@
     outline: none;
     text-align: left;
     cursor: pointer;
-    transition: 0.3s;
+    transition: 0.1s;
 }
 
 /* Change background color of buttons on hover */
@@ -228,8 +192,38 @@
 /* Style the tab content */
 .tabcontent, .sql-tabcontent {
     float: left;
-    padding: 0px 12px;
-    width: 70%;
+    padding: 0 12px;
+    width: 80%;
+}
+
+/* TODO: might be nice to have some padding inside the code container so the code isnt right at the top/right/bottom */
+pre[class*="language-"] > code {
+    box-shadow: none;
+    border: none;
+    background: rgb(245, 245, 245);
+    font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    cursor: default;
+    border-radius: 3px;
+}
+
+code[class*="language-"], pre[class*="language-"] {
+    font-size: 14px;
+}
+
+pre[class*="language-"]::after, pre[class*="language-"]::before {
+    display: none;
+}
+
+.token.entity, .token.operator, .token.url, .token.variable {
+    background: none;
+}
+
+.line-numbers .line-numbers-rows {
+    border-right: none;
+}
+
+.line-highlight {
+    background: hsla(30, 80%, 10%, .08);
 }
 {/literal}
 </style>
@@ -260,6 +254,16 @@ function removeAllActiveSqlFrames() {
 }
 
 $(document).ready(function() {
+    // Fix prism line highlights not reaching full width of scroll box
+    const line_highlights = document.getElementsByClassName('line-highlight');
+    for (line of line_highlights) {
+        line.style.width = line.parentNode.scrollWidth + "px";
+    }
+
+    // Jank fix for prism not highlighting the tabs which are "display: hidden;"
+    // from the bootstrap active class
+    document.getElementById('sql').classList.remove('active');
+
     hideAllFrames();
     hideAllSqlFrames();
 

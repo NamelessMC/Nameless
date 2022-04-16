@@ -152,7 +152,7 @@ class Core_Module extends Module {
                         $redirect = Output::getClean($custom_page->link);
                     }
 
-                    $pages->addCustom(Output::getClean($custom_page->url), Output::getClean($custom_page->title), !$custom_page->basic);
+                    $pages->addCustom(Output::urlEncodeAllowSlashes($custom_page->url), Output::getClean($custom_page->title), !$custom_page->basic);
 
                     foreach ($user_groups as $user_group) {
                         $custom_page_permissions = $queries->getWhere('custom_pages_permissions', ['group_id', '=', $user_group]);
@@ -175,7 +175,7 @@ class Core_Module extends Module {
                                                 $navigation->add(
                                                     $custom_page->id,
                                                     Output::getClean($custom_page->title),
-                                                    (is_null($redirect)) ? URL::build(urlencode($custom_page->url)) : $redirect,
+                                                    (is_null($redirect)) ? URL::build(Output::urlEncodeAllowSlashes($custom_page->url)) : $redirect,
                                                     'top',
                                                     $custom_page->target ? '_blank' : null,
                                                     $page_order,
@@ -187,7 +187,7 @@ class Core_Module extends Module {
                                                 $more[] = [
                                                     'id' => $custom_page->id,
                                                     'title' => Output::getClean($custom_page->title),
-                                                    'url' => is_null($redirect) ? URL::build(urlencode($custom_page->url)) : $redirect,
+                                                    'url' => is_null($redirect) ? URL::build(Output::urlEncodeAllowSlashes($custom_page->url)) : $redirect,
                                                     'redirect' => $redirect,
                                                     'target' => $custom_page->target,
                                                     'icon' => $custom_page->icon,
@@ -199,7 +199,7 @@ class Core_Module extends Module {
                                                 $navigation->add(
                                                     $custom_page->id,
                                                     Output::getClean($custom_page->title),
-                                                    (is_null($redirect)) ? URL::build(urlencode($custom_page->url)) : $redirect,
+                                                    (is_null($redirect)) ? URL::build(Output::urlEncodeAllowSlashes($custom_page->url)) : $redirect,
                                                     'footer', $custom_page->target ? '_blank' : null,
                                                     2000,
                                                     $custom_page->icon
@@ -225,7 +225,7 @@ class Core_Module extends Module {
                             $redirect = Output::getClean($custom_page->link);
                         }
 
-                        $pages->addCustom(Output::getClean($custom_page->url), Output::getClean($custom_page->title), !$custom_page->basic);
+                        $pages->addCustom(Output::urlEncodeAllowSlashes($custom_page->url), Output::getClean($custom_page->title), !$custom_page->basic);
 
                         foreach ($custom_page_permissions as $permission) {
                             if ($permission->page_id == $custom_page->id) {
@@ -245,7 +245,7 @@ class Core_Module extends Module {
                                             $navigation->add(
                                                 $custom_page->id,
                                                 Output::getClean($custom_page->title),
-                                                is_null($redirect) ? URL::build(urlencode($custom_page->url)) : $redirect,
+                                                is_null($redirect) ? URL::build(Output::urlEncodeAllowSlashes($custom_page->url)) : $redirect,
                                                 'top',
                                                 $custom_page->target ? '_blank' : null,
                                                 $page_order,
@@ -257,7 +257,7 @@ class Core_Module extends Module {
                                             $more[] = [
                                                 'id' => $custom_page->id,
                                                 'title' => Output::getClean($custom_page->title),
-                                                'url' => is_null($redirect) ? URL::build(urlencode($custom_page->url)) : $redirect,
+                                                'url' => is_null($redirect) ? URL::build(Output::urlEncodeAllowSlashes($custom_page->url)) : $redirect,
                                                 'redirect' => $redirect,
                                                 'target' => $custom_page->target,
                                                 'icon' => $custom_page->icon,
@@ -269,7 +269,7 @@ class Core_Module extends Module {
                                             $navigation->add(
                                                 $custom_page->id,
                                                 Output::getClean($custom_page->title),
-                                                is_null($redirect) ? URL::build(urlencode($custom_page->url)) : $redirect,
+                                                is_null($redirect) ? URL::build(Output::urlEncodeAllowSlashes($custom_page->url)) : $redirect,
                                                 'footer',
                                                 $custom_page->target ? '_blank' : null,
                                                 2000,
@@ -430,8 +430,8 @@ class Core_Module extends Module {
         // Autoload API Endpoints
         $endpoints->loadEndpoints(ROOT_PATH . '/modules/Core/includes/endpoints');
 
-        GroupSyncManager::getInstance()->registerInjector(NamelessMCGroupSyncInjector::class);
-        GroupSyncManager::getInstance()->registerInjector(MinecraftGroupSyncInjector::class);
+        GroupSyncManager::getInstance()->registerInjector(new NamelessMCGroupSyncInjector);
+        GroupSyncManager::getInstance()->registerInjector(new MinecraftGroupSyncInjector);
 
         Endpoints::registerTransformer('user', 'Core', static function (Nameless2API $api, string $value) {
             $lookup_data = explode(':', $value);
@@ -490,11 +490,13 @@ class Core_Module extends Module {
         });
 
         require_once ROOT_PATH . '/modules/Core/hooks/ContentHook.php';
+
         EventHandler::registerListener('renderPrivateMessage', 'ContentHook::purify');
         EventHandler::registerListener('renderPrivateMessage', 'ContentHook::codeTransform', false, 15);
         EventHandler::registerListener('renderPrivateMessage', 'ContentHook::decode', false, 20);
-        EventHandler::registerListener('renderPrivateMessage', 'ContentHook::renderEmojis', false, 16);
+        EventHandler::registerListener('renderPrivateMessage', 'ContentHook::renderEmojis', false, 10);
         EventHandler::registerListener('renderPrivateMessage', 'ContentHook::replaceAnchors', false, 15);
+
         EventHandler::registerListener('renderPrivateMessageEdit', 'ContentHook::purify');
         EventHandler::registerListener('renderPrivateMessageEdit', 'ContentHook::codeTransform', false, 15);
         EventHandler::registerListener('renderPrivateMessageEdit', 'ContentHook::decode', false, 20);
@@ -627,10 +629,7 @@ class Core_Module extends Module {
         $cache->setCache('social_media');
         $fb_url = $cache->retrieve('facebook');
         if ($fb_url) {
-            // Active pages
-            $module_pages = $widgets->getPages('Facebook');
-
-            $widgets->add(new FacebookWidget($module_pages, $smarty, $fb_url));
+            $widgets->add(new FacebookWidget($smarty, $fb_url));
         }
 
         // Twitter
@@ -639,35 +638,28 @@ class Core_Module extends Module {
 
         if ($twitter) {
             $theme = $cache->retrieve('twitter_theme');
-            $module_pages = $widgets->getPages('Twitter');
-
-            $widgets->add(new TwitterWidget($module_pages, $smarty, $twitter, $theme));
+            $widgets->add(new TwitterWidget($smarty, $twitter, $theme));
         }
 
         // Profile Posts
         require_once(ROOT_PATH . '/modules/Core/widgets/ProfilePostsWidget.php');
-        $module_pages = $widgets->getPages('Latest Profile Posts');
-        $widgets->add(new ProfilePostsWidget($module_pages, $smarty, $language, $cache, $user, new TimeAgo(TIMEZONE)));
+        $widgets->add(new ProfilePostsWidget($smarty, $language, $cache, $user, new TimeAgo(TIMEZONE)));
 
         // Online staff
-        require_once(ROOT_PATH . '/modules/Core/widgets/OnlineStaff.php');
-        $module_pages = $widgets->getPages('Online Staff');
-        $widgets->add(new OnlineStaffWidget($module_pages, $smarty, ['title' => $language->get('general', 'online_staff'), 'no_online_staff' => $language->get('general', 'no_online_staff'), 'total_online_staff' => $language->get('general', 'total_online_staff')], $cache));
+        require_once(ROOT_PATH . '/modules/Core/widgets/OnlineStaffWidget.php');
+        $widgets->add(new OnlineStaffWidget($smarty, ['title' => $language->get('general', 'online_staff'), 'no_online_staff' => $language->get('general', 'no_online_staff'), 'total_online_staff' => $language->get('general', 'total_online_staff')], $cache));
 
         // Online users
-        require_once(ROOT_PATH . '/modules/Core/widgets/OnlineUsers.php');
-        $module_pages = $widgets->getPages('Online Users');
-        $widgets->add(new OnlineUsersWidget($module_pages, $cache, $smarty, ['title' => $language->get('general', 'online_users'), 'no_online_users' => $language->get('general', 'no_online_users'), 'total_online_users' => $language->get('general', 'total_online_users')]));
+        require_once(ROOT_PATH . '/modules/Core/widgets/OnlineUsersWidget.php');
+        $widgets->add(new OnlineUsersWidget($cache, $smarty, ['title' => $language->get('general', 'online_users'), 'no_online_users' => $language->get('general', 'no_online_users'), 'total_online_users' => $language->get('general', 'total_online_users')]));
 
         // Online users
         require_once(ROOT_PATH . '/modules/Core/widgets/ServerStatusWidget.php');
-        $module_pages = $widgets->getPages('Server Status');
-        $widgets->add(new ServerStatusWidget($module_pages, $smarty, $language, $cache));
+        $widgets->add(new ServerStatusWidget($smarty, $language, $cache));
 
         // Statistics
         require_once(ROOT_PATH . '/modules/Core/widgets/StatsWidget.php');
-        $module_pages = $widgets->getPages('Statistics');
-        $widgets->add(new StatsWidget($module_pages, $smarty, [
+        $widgets->add(new StatsWidget($smarty, [
             'statistics' => $language->get('general', 'statistics'),
             'users_registered' => $language->get('general', 'users_registered'),
             'latest_member' => $language->get('general', 'latest_member'),

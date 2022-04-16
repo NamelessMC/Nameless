@@ -184,6 +184,11 @@ class Queries {
         DB::getInstance()->createQuery('ALTER TABLE `nl2_users_groups` ADD INDEX `nl2_users_groups_idx_group_id` (`group_id`)');
         DB::getInstance()->createQuery('ALTER TABLE `nl2_users_groups` ADD INDEX `nl2_users_groups_idx_user_id` (`user_id`)');
 
+        // (Builtin) Group Sync Injectors
+        DB::getInstance()->alterTable('group_sync', 'website_group_id', "INT NULL DEFAULT NULL");
+        DB::getInstance()->alterTable('group_sync', 'discord_role_id', "BIGINT NULL DEFAULT NULL");
+        DB::getInstance()->alterTable('group_sync', 'ingame_rank_name', "VARCHAR(64) NULL DEFAULT NULL");
+
         // Success
         return true;
     }

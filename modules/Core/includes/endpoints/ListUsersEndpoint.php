@@ -64,6 +64,25 @@ class ListUsersEndpoint extends KeyAuthEndpoint {
             $query .= ' `u.discord_id` IS ' . ($_GET['discord_linked'] == 'true' ? 'NOT' : '') . ' NULL';
         }
 
+        $return_array = [
+            'limit' => -1,
+            'offset' => 0,
+        ];
+
+        if (isset($_GET['limit']) && is_numeric($_GET['limit'])) {
+            $limit = (int) $_GET['limit'];
+            if ($limit >= 1) {
+                $return_array['limit'] = $limit;
+                $query .= ' LIMIT ' . $limit;
+
+                if (isset($_GET['offset']) && is_numeric($_GET['offset'])) {
+                    $offset = (int) $_GET['offset'];
+                    $return_array['offset'] = $offset;
+                    $query .= ' OFFSET ' . $offset;
+                }
+            }
+        }
+
         $users = $api->getDb()->selectQuery($query, $params)->results();
 
         $users_json = [];
@@ -83,6 +102,8 @@ class ListUsersEndpoint extends KeyAuthEndpoint {
             $users_json[] = $user_json;
         }
 
-        $api->returnArray(['users' => $users_json]);
+        $return_array['users'] = $users_json;
+
+        $api->returnArray($return_array);
     }
 }

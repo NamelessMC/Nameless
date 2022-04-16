@@ -71,6 +71,11 @@ class Validate {
      */
     public const NUMERIC = 'numeric';
 
+    /**
+     * @var string Check that the value matches a regex pattern
+     */
+    public const REGEX = 'regex';
+
     private DB $_db;
 
     private ?string $_message = null;
@@ -254,6 +259,16 @@ class Validate {
                                 'field' => $item,
                                 'rule' => self::NUMERIC,
                                 'fallback' => "$item must be numeric."
+                            ]);
+                        }
+                        break;
+
+                    case self::REGEX:
+                        if (!preg_match($rule_value, $value)) {
+                            $validator->addError([
+                                'field' => $item,
+                                'rule' => self::REGEX,
+                                'fallback' => "$item does not match the pattern $rule_value."
                             ]);
                         }
                         break;
