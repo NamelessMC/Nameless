@@ -44,9 +44,6 @@ if ($registration_enabled == 0) {
     // Load modules + template
     Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-    $page_load = microtime(true) - $start;
-    define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
-
     $template->onPageLoad();
 
     require(ROOT_PATH . '/core/templates/navbar.php');
@@ -237,7 +234,7 @@ if (Input::exists()) {
                 // Check if any integrations have actions to perform
                 foreach ($integrations->getEnabledIntegrations() as $integration) {
                     $integration->afterRegistrationValidation();
-                    
+
                     if (count($integration->getErrors())) {
                         $integration_errors = $integration->getErrors();
                         break;
@@ -507,9 +504,6 @@ if ($captcha) {
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
-
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 
