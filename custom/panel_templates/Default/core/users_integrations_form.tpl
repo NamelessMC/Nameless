@@ -70,7 +70,7 @@
                             <div class="form-group custom-control custom-switch">
                                 <input type="hidden" name="verified" value="0">
                                 <input type="checkbox" name="verified" class="custom-control-input" id="InputVerified" value="1" {if $VERIFIED_VALUE} checked{/if}>
-                                <label class="custom-control-label" for="InputVerified">{$VERIFIED}?</label>
+                                <label class="custom-control-label" for="InputVerified">{$IS_VERIFIED}</label>
                             </div>
                             <div class="form-group">
                                 <input type="hidden" name="token" value="{$TOKEN}">

@@ -71,6 +71,7 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
         'UNLINK_LINK' => URL::build('/panel/users/integrations/', 'id=' . $view_user->data()->id . '&action=unlink&integration='),
         'USERNAME' => $language->get('user', 'username'),
         'IDENTIFIER' => $language->get('admin', 'identifier'),
+        'VERIFIED' => $language->get('admin', 'verified')
     ]);
 
     $template_file = 'core/users_integrations.tpl';
@@ -122,6 +123,7 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
                 'INTEGRATION_TITLE' => str_replace(['{integration}', '{user}'], [Output::getClean($integration->getName()), Output::getClean($view_user->data()->username)], $language->get('admin', 'linking_integration_for_x')),
                 'USERNAME_VALUE' => ((isset($_POST['username']) && $_POST['username']) ? Output::getClean(Input::get('username')) : ''),
                 'IDENTIFIER_VALUE' => ((isset($_POST['identifier']) && $_POST['identifier']) ? Output::getClean(Input::get('identifier')) : ''),
+                'IS_VERIFIED' => $language->get('admin', 'is_verified'),
                 'VERIFIED_VALUE' => ((isset($_POST['verified']) && $_POST['verified']) ? Output::getClean(Input::get('verified')) : 0),
                 'BACK_LINK' => URL::build('/panel/users/integrations/', 'id=' . $view_user->data()->id),
                 'USERNAME' => str_replace('{integration}', Output::getClean($integration->getName()), $language->get('admin', 'integration_username')),
@@ -177,6 +179,7 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
                 'INTEGRATION_TITLE' => str_replace(['{integration}', '{user}'], [Output::getClean($integration->getName()), Output::getClean($view_user->data()->username)], $language->get('admin', 'editing_integration_for_x')),
                 'USERNAME_VALUE' => Output::getClean($integrationUser->data()->username),
                 'IDENTIFIER_VALUE' => Output::getClean($integrationUser->data()->identifier),
+                'IS_VERIFIED' => $language->get('admin', 'is_verified'),
                 'VERIFIED_VALUE' => Output::getClean($integrationUser->isVerified()),
                 'BACK_LINK' => URL::build('/panel/users/integrations/', 'id=' . $view_user->data()->id),
                 'USERNAME' => str_replace('{integration}', Output::getClean($integration->getName()), $language->get('admin', 'integration_username')),
@@ -220,8 +223,7 @@ $smarty->assign([
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit'),
     'USER_ID' => $view_user->data()->id,
-    'BACK' => $language->get('general', 'back'),
-    'VERIFIED' => $language->get('admin', 'verified'),
+    'BACK' => $language->get('general', 'back')
 ]);
 
 if (Session::exists('integrations_success')) {

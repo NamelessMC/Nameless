@@ -761,6 +761,7 @@ $language = [
     'linking_integration_for_x' => 'Linking {{integration}} integration for {{user}}', // Don't replace {integration} and {user}
     'not_linked' => 'Not linked',
     'verified' => 'Verified',
+    'is_verified' => 'Is Verified?',
     'manual_linking' => 'Manual Linking',
     'can_unlink' => 'Can Unlink',
     'can_unlink_integration' => 'Can users unlink integration?',
