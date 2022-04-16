@@ -796,7 +796,9 @@ $smarty->assign([
     'USER_ID' => (($user->isLoggedIn()) ? $user->data()->id : 0),
     'INSERT_QUOTES' => $forum_language->get('forum', 'insert_quotes'),
     'FORUM_TITLE' => Output::getClean($forum_parent[0]->forum_title),
-    'STARTED_BY' => $forum_language->get('forum', 'started_by_x'),
+    'STARTED_BY' => $forum_language->get('forum', 'started_by_x', [
+        'author' => '<a href="' . $topic_user->getProfileURL() . '" style="' . $topic_user->getGroupClass() . '">' . $topic_user->getDisplayName() . '</a>',
+    ]),
     'SUCCESS' => $language->get('general', 'success'),
     'ERROR' => $language->get('general', 'error')
 ]);
