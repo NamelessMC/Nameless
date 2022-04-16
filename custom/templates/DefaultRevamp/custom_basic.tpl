@@ -1,5 +1,5 @@
 {extends 'layouts/basic.tpl'}
 
 {block 'body'}
-	{$CONTENT}
+    {$CONTENT}
 {/block}
