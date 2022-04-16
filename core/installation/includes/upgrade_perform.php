@@ -516,7 +516,6 @@ switch ($s) {
                         'has_avatar' => $item->has_avatar,
                         'gravatar' => $item->gravatar,
                         'last_online' => $item->last_online,
-                        'last_username_update' => $item->last_username_update,
                         'user_title' => $item->user_title,
                         'tfa_enabled' => $item->tfa_enabled,
                         'tfa_type' => $item->tfa_type,
