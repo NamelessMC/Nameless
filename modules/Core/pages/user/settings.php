@@ -198,7 +198,9 @@ if (isset($_GET['do'])) {
                             return null;
                         }
 
-                        return str_replace('{x}', Output::getClean($field[0]->name), $language->get('user', 'field_is_required'));
+                        return $language->get('user', 'field_is_required', [
+                            'field' => Output::getClean($field[0]->name),
+                        ]);
                     },
                 ]);
 

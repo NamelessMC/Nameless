@@ -340,7 +340,10 @@ if (!isset($_GET['step'])) {
         'TOKEN' => Token::get(),
         'SUBMIT' => $language->get('general', 'submit'),
         'I_AGREE' => $language->get('user', 'i_agree'),
-        'AGREE_TO_TERMS' => str_replace('{x}', URL::build('/terms'), $language->get('user', 'agree_t_and_c'))
+        'AGREE_TO_TERMS' => $language->get('user', 'agree_t_and_c', [
+            'linkStart' => '<a href="' . URL::build('/terms') . '">',
+            'linkEnd' => '</a>',
+        ])
     ]);
 
     // Recaptcha

@@ -221,7 +221,9 @@ if (Input::exists()) {
                         return null;
                     }
 
-                    return str_replace('{x}', Output::getClean($profile_field[0]->name), $language->get('user', 'field_is_required'));
+                    return  $language->get('user', 'field_is_required', [
+                        'field' => Output::getClean($profile_field[0]->name),
+                    ]);
                 },
             ]);
 
@@ -371,7 +373,10 @@ if (Input::exists()) {
                         EventHandler::executeEvent('registerUser', [
                             'user_id' => $user_id,
                             'username' => Input::get('username'),
-                            'content' => str_replace('{x}', Input::get('username'), $language->get('user', 'user_x_has_registered')),
+                            'content' => $language->get('user', 'user_x_has_registered', [
+                                'user' => Input::get('username'),
+                                'siteName' => SITE_NAME,
+                            ]),
                             'avatar_url' => $user->getAvatar(128, true),
                             'url' => Util::getSelfURL() . ltrim(URL::build('/profile/' . urlencode(Input::get('username'))), '/'),
                             'language' => $language
@@ -475,7 +480,10 @@ if ($oauth_flow) {
 $smarty->assign([
     'FIELDS' => $fields->getAll(),
     'I_AGREE' => $language->get('user', 'i_agree'),
-    'AGREE_TO_TERMS' => str_replace('{x}', URL::build('/terms'), $language->get('user', 'agree_t_and_c')),
+    'AGREE_TO_TERMS' => $language->get('user', 'agree_t_and_c', [
+        'linkStart' => '<a href="' . URL::build('/terms') . '">',
+        'linkEnd' => '</a>',
+    ]),
     'REGISTER' => $language->get('general', 'register'),
     'LOG_IN' => $language->get('general', 'sign_in'),
     'LOGIN_URL' => URL::build('/login'),

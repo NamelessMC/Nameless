@@ -215,19 +215,6 @@ if (Input::exists()) {
                 $errors = [$language->get('admin', 'config_not_writable')];
             }
 
-            /*
-            if (!empty($_POST["allowedProxies"])) {
-                $allowedProxies = $_POST["allowedProxies"];
-                $allowedProxies = str_replace("\r", "", $allowedProxies);
-                $allowedProxies = preg_replace('/\s+/', ' ', $allowedProxies);
-                $allowedProxies = str_replace(" ", "", $allowedProxies);
-
-                Config::set("allowedProxies", $allowedProxies);
-            }else {
-                Config::set("allowedProxies", "");
-            }
-            */
-
             // Login method
             $login_method_id = $queries->getWhere('settings', ['name', '=', 'login_method']);
             $login_method_id = $login_method_id[0]->id;

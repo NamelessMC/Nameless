@@ -70,7 +70,7 @@ if (!isset($_GET['integration'])) {
     }
 
     $smarty->assign([
-        'EDITING_INTEGRATION' => str_replace('{integration}', $integration->getName(), $language->get('admin', 'editing_integration_x')),
+        'EDITING_INTEGRATION' => $language->get('admin', 'editing_integration_x', ['integration' => $integration->getName()]),
         'BACK' => $language->get('general', 'back'),
         'BACK_LINK' => URL::build('/panel/core/integrations'),
         'ENABLED' => $language->get('admin', 'enabled'),

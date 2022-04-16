@@ -686,11 +686,11 @@ class Core_Module extends Module {
 
         // Online staff
         require_once(ROOT_PATH . '/modules/Core/widgets/OnlineStaffWidget.php');
-        $widgets->add(new OnlineStaffWidget($smarty, ['title' => $language->get('general', 'online_staff'), 'no_online_staff' => $language->get('general', 'no_online_staff'), 'total_online_staff' => $language->get('general', 'total_online_staff')], $cache));
+        $widgets->add(new OnlineStaffWidget($smarty, $language, $cache));
 
         // Online users
         require_once(ROOT_PATH . '/modules/Core/widgets/OnlineUsersWidget.php');
-        $widgets->add(new OnlineUsersWidget($cache, $smarty, ['title' => $language->get('general', 'online_users'), 'no_online_users' => $language->get('general', 'no_online_users'), 'total_online_users' => $language->get('general', 'total_online_users')]));
+        $widgets->add(new OnlineUsersWidget($cache, $smarty, $language));
 
         // Online users
         require_once(ROOT_PATH . '/modules/Core/widgets/ServerStatusWidget.php');
@@ -764,8 +764,8 @@ class Core_Module extends Module {
                     $smarty->assign([
                         'NEW_UPDATE' => (isset($update_check->urgent) && $update_check->urgent == 'true') ? $language->get('admin', 'new_urgent_update_available') : $language->get('admin', 'new_update_available'),
                         'NEW_UPDATE_URGENT' => (isset($update_check->urgent) && $update_check->urgent == 'true'),
-                        'CURRENT_VERSION' => str_replace('{x}', Output::getClean($current_version), $language->get('admin', 'current_version_x')),
-                        'NEW_VERSION' => str_replace('{x}', Output::getClean($update_check->new_version), $language->get('admin', 'new_version_x')),
+                        'CURRENT_VERSION' => $language->get('admin', 'current_version_x', ['version' => Output::getClean($current_version)]),
+                        'NEW_VERSION' => $language->get('admin', 'new_version_x', ['version' => Output::getClean($update_check->new_version)]),
                         'UPDATE' => $language->get('admin', 'update'),
                         'UPDATE_LINK' => URL::build('/panel/update')
                     ]);
@@ -906,8 +906,8 @@ class Core_Module extends Module {
                                     $result['status_full'] = $language->get('general', 'currently_1_player_online');
                                     $result['x_players_online'] = $language->get('general', 'currently_1_player_online');
                                 } else {
-                                    $result['status_full'] = str_replace('{x}', $result['total_players'], $language->get('general', 'currently_x_players_online'));
-                                    $result['x_players_online'] = str_replace('{x}', $result['total_players'], $language->get('general', 'currently_x_players_online'));
+                                    $result['status_full'] = $language->get('general', 'currently_x_players_online', ['count' => $result['total_players']]);
+                                    $result['x_players_online'] = $language->get('general', 'currently_x_players_online', ['count' => $result['total_players']]);
                                 }
 
                             } else {
@@ -926,8 +926,8 @@ class Core_Module extends Module {
                                     $result['status_full'] = $language->get('general', 'currently_1_player_online');
                                     $result['x_players_online'] = $language->get('general', 'currently_1_player_online');
                                 } else {
-                                    $result['status_full'] = str_replace('{x}', $result['player_count'], $language->get('general', 'currently_x_players_online'));
-                                    $result['x_players_online'] = str_replace('{x}', $result['player_count'], $language->get('general', 'currently_x_players_online'));
+                                    $result['status_full'] = $language->get('general', 'currently_x_players_online', ['count' => $result['player_count']]);
+                                    $result['x_players_online'] = $language->get('general', 'currently_x_players_online', ['count' => $result['player_count']]);
                                 }
 
                             } else {
@@ -951,7 +951,9 @@ class Core_Module extends Module {
                 }
 
                 if (!is_null($default) && isset($default->ip)) {
-                    $smarty->assign('CONNECT_WITH', str_replace('{x}', '<span id="ip">' . Output::getClean($default->ip . ($default->port && $default->port != 25565 ? ':' . $default->port : '')) . '</span>', $language->get('general', 'connect_with_ip_x')));
+                    $smarty->assign('CONNECT_WITH', $language->get('general', 'connect_with_ip_x', [
+                        'address' => '<span id="ip">' . Output::getClean($default->ip . ($default->port && $default->port != 25565 ? ':' . $default->port : '')) . '</span>',
+                    ]));
                     $smarty->assign('DEFAULT_IP', Output::getClean($default->ip . ($default->port != 25565 ? ':' . $default->port : '')));
                     $smarty->assign('CLICK_TO_COPY_TOOLTIP', $language->get('general', 'click_to_copy_tooltip'));
                     $smarty->assign('COPIED', $language->get('general', 'copied'));
@@ -974,7 +976,9 @@ class Core_Module extends Module {
                     $user_query = $queries->getWhere('users', ['id', '=', $user_id]);
                     if (count($user_query)) {
                         $user_query = $user_query[0];
-                        $smarty->assign('REGISTERED', str_replace('{x}', $timeago->inWords(date('Y-m-d H:i:s', $user_query->joined), $language->getTimeLanguage()), $language->get('user', 'registered_x')));
+                        $smarty->assign('REGISTERED', $language->get('user', 'registered_x', [
+                            'registeredAt' => $timeago->inWords(date('Y-m-d H:i:s', $user_query->joined), $language),
+                        ]));
                     }
                 }
             }
@@ -1582,7 +1586,7 @@ class Core_Module extends Module {
             if ($user->hasPermission('admincp.users.edit')) {
                 self::addUserAction($language->get('general', 'edit'), URL::build('/panel/users/edit/', 'id={id}'));
             }
-            
+
             if ($user->hasPermission('admincp.users.edit')) {
                 self::addUserAction($language->get('admin', 'integrations'), URL::build('/panel/users/integrations/', 'id={id}'));
             }

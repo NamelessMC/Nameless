@@ -44,20 +44,20 @@ class MinecraftIntegration extends IntegrationBase {
         $integrationUser = new IntegrationUser($this);
         $integrationUser->linkIntegration($user, $this->_uuid, $username, false, $code);
 
-        Session::flash('connections_success', str_replace('{x}', Output::getClean($code), $this->_language->get('user', 'validate_account_command')));
+        Session::flash('connections_success', $this->_language->get('user', 'validate_account_command', ['command' => Output::getClean($code)]));
     }
 
     public function onVerifyRequest(User $user) {
         $integrationUser = new IntegrationUser($this, $user->data()->id, 'user_id');
 
-        Session::flash('connections_success', str_replace('{x}', Output::getClean($integrationUser->data()->code), $this->_language->get('user', 'validate_account_command')));
+        Session::flash('connections_success', $this->_language->get('user', 'validate_account_command', ['command' => Output::getClean($integrationUser->data()->code)]));
     }
 
     public function onUnlinkRequest(User $user) {
         $integrationUser = new IntegrationUser($this, $user->data()->id, 'user_id');
         $integrationUser->unlinkIntegration();
 
-        Session::flash('connections_success', str_replace('{integration}', Output::getClean($this->_name), $this->_language->get('user', 'integration_unlinked')));
+        Session::flash('connections_success', $this->_language->get('user', 'integration_unlinked', ['integration' => Output::getClean($this->_name)]));
     }
 
     public function onSuccessfulVerification(IntegrationUser $integrationUser) {
@@ -73,7 +73,7 @@ class MinecraftIntegration extends IntegrationBase {
             ]
         ])->messages([
             'username' => [
-                Validate::REQUIRED => str_replace('{integration}', $this->getName(), $this->_language->get('admin', 'integration_username_required')),
+                Validate::REQUIRED => $this->_language->get('admin', 'integration_username_required', ['integration' => $this->getName()]),
                 Validate::MIN => $this->_language->get('user', 'mcname_minimum_3'),
                 Validate::MAX => $this->_language->get('user', 'mcname_maximum_20')
             ]
@@ -88,7 +88,7 @@ class MinecraftIntegration extends IntegrationBase {
             // Ensure identifier doesn't already exist
             $exists = DB::getInstance()->selectQuery("SELECT * FROM nl2_users_integrations WHERE integration_id = ? AND username = ? AND id <> ?", [$this->data()->id, $username, $integration_user_id]);
             if ($exists->count()) {
-                $this->addError(str_replace('{integration}', $this->getName(), $this->_language->get('user', 'integration_username_already_linked')));
+                $this->addError($this->_language->get('user', 'integration_username_already_linked', ['integration' => $this->getName()]));
                 return false;
             }
         }
@@ -105,9 +105,9 @@ class MinecraftIntegration extends IntegrationBase {
             ]
         ])->messages([
             'identifier' => [
-                Validate::REQUIRED => str_replace('{integration}', $this->getName(), $this->_language->get('admin', 'integration_identifier_required')),
-                Validate::MIN => str_replace('{integration}', $this->getName(), $this->_language->get('admin', 'integration_identifier_invalid')),
-                Validate::MAX => str_replace('{integration}', $this->getName(), $this->_language->get('admin', 'integration_identifier_invalid'))
+                Validate::REQUIRED => $this->_language->get('admin', 'integration_identifier_required', ['integration' => $this->getName()]),
+                Validate::MIN => $this->_language->get('admin', 'integration_identifier_invalid', ['integration' => $this->getName()]),
+                Validate::MAX => $this->_language->get('admin', 'integration_identifier_invalid', ['integration' => $this->getName()]),
             ]
         ]);
 
@@ -120,7 +120,7 @@ class MinecraftIntegration extends IntegrationBase {
             // Ensure identifier doesn't already exist
             $exists = DB::getInstance()->selectQuery("SELECT * FROM nl2_users_integrations WHERE integration_id = ? AND identifier = ? AND id <> ?", [$this->data()->id, $identifier, $integration_user_id]);
             if ($exists->count()) {
-                $this->addError(str_replace('{integration}', $this->getName(), $this->_language->get('user', 'integration_identifier_already_linked')));
+                $this->addError($this->_language->get('user', 'integration_identifier_already_linked', ['integration' => $this->getName()]));
                 return false;
             }
         }
