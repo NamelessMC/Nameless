@@ -13,17 +13,17 @@
 class OnlineUsersWidget extends WidgetBase {
 
     private Cache $_cache;
-    private Language $_language;
+    private array $_language;
 
-    public function __construct(array $pages, Smarty $smarty, Language $language, Cache $cache) {
+    public function __construct(Cache $cache, Smarty $smarty, array $language) {
         $this->_smarty = $smarty;
         $this->_cache = $cache;
         $this->_language = $language;
 
-        parent::__construct($pages);
-
         // Get widget
-        $widget_query = DB::getInstance()->selectQuery('SELECT `location`, `order` FROM nl2_widgets WHERE `name` = ?', ['Online Users'])->first();
+        $widget_query = self::getData('Online Users');
+
+        parent::__construct(self::parsePages($widget_query->pages));
 
         // Set widget variables
         $this->_module = 'Core';
@@ -83,16 +83,16 @@ class OnlineUsersWidget extends WidgetBase {
 
             $this->_smarty->assign([
                 'SHOW_NICKNAME_INSTEAD' => $use_nickname_show,
-                'ONLINE_USERS' => $this->_language->get('general', 'online_users'),
+                'ONLINE_USERS' => $this->_language['title'],
                 'ONLINE_USERS_LIST' => $users,
-                'TOTAL_ONLINE_USERS' => $this->_language->get('general', 'total_online_users', ['count' => count($users)]),
+                'TOTAL_ONLINE_USERS' => str_replace('{x}', count($users), $this->_language['total_online_users'])
             ]);
 
         } else {
             $this->_smarty->assign([
-                'ONLINE_USERS' => $this->_language->get('general', 'online_users'),
-                'NO_USERS_ONLINE' => $this->_language->get('general', 'no_online_users'),
-                'TOTAL_ONLINE_USERS' => $this->_language->get('general', 'total_online_users', ['count' => 0]),
+                'ONLINE_USERS' => $this->_language['title'],
+                'NO_USERS_ONLINE' => $this->_language['no_online_users'],
+                'TOTAL_ONLINE_USERS' => str_replace('{x}', 0, $this->_language['total_online_users'])
             ]);
         }
 

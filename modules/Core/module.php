@@ -430,8 +430,8 @@ class Core_Module extends Module {
         // Autoload API Endpoints
         $endpoints->loadEndpoints(ROOT_PATH . '/modules/Core/includes/endpoints');
 
-        GroupSyncManager::getInstance()->registerInjector(NamelessMCGroupSyncInjector::class);
-        GroupSyncManager::getInstance()->registerInjector(MinecraftGroupSyncInjector::class);
+        GroupSyncManager::getInstance()->registerInjector(new NamelessMCGroupSyncInjector);
+        GroupSyncManager::getInstance()->registerInjector(new MinecraftGroupSyncInjector);
 
         Endpoints::registerTransformer('user', 'Core', static function (Nameless2API $api, string $value) {
             $lookup_data = explode(':', $value);
@@ -490,11 +490,13 @@ class Core_Module extends Module {
         });
 
         require_once ROOT_PATH . '/modules/Core/hooks/ContentHook.php';
+
         EventHandler::registerListener('renderPrivateMessage', 'ContentHook::purify');
         EventHandler::registerListener('renderPrivateMessage', 'ContentHook::codeTransform', false, 15);
         EventHandler::registerListener('renderPrivateMessage', 'ContentHook::decode', false, 20);
         EventHandler::registerListener('renderPrivateMessage', 'ContentHook::renderEmojis', false, 10);
         EventHandler::registerListener('renderPrivateMessage', 'ContentHook::replaceAnchors', false, 15);
+
         EventHandler::registerListener('renderPrivateMessageEdit', 'ContentHook::purify');
         EventHandler::registerListener('renderPrivateMessageEdit', 'ContentHook::codeTransform', false, 15);
         EventHandler::registerListener('renderPrivateMessageEdit', 'ContentHook::decode', false, 20);
@@ -627,10 +629,7 @@ class Core_Module extends Module {
         $cache->setCache('social_media');
         $fb_url = $cache->retrieve('facebook');
         if ($fb_url) {
-            // Active pages
-            $module_pages = $widgets->getPages('Facebook');
-
-            $widgets->add(new FacebookWidget($module_pages, $smarty, $fb_url));
+            $widgets->add(new FacebookWidget($smarty, $fb_url));
         }
 
         // Twitter
@@ -639,35 +638,28 @@ class Core_Module extends Module {
 
         if ($twitter) {
             $theme = $cache->retrieve('twitter_theme');
-            $module_pages = $widgets->getPages('Twitter');
-
-            $widgets->add(new TwitterWidget($module_pages, $smarty, $twitter, $theme));
+            $widgets->add(new TwitterWidget($smarty, $twitter, $theme));
         }
 
         // Profile Posts
         require_once(ROOT_PATH . '/modules/Core/widgets/ProfilePostsWidget.php');
-        $module_pages = $widgets->getPages('Latest Profile Posts');
-        $widgets->add(new ProfilePostsWidget($module_pages, $smarty, $language, $cache, $user, new TimeAgo(TIMEZONE)));
+        $widgets->add(new ProfilePostsWidget($smarty, $language, $cache, $user, new TimeAgo(TIMEZONE)));
 
         // Online staff
-        require_once(ROOT_PATH . '/modules/Core/widgets/OnlineStaff.php');
-        $module_pages = $widgets->getPages('Online Staff');
-        $widgets->add(new OnlineStaffWidget($module_pages, $smarty, $language, $cache));
+        require_once(ROOT_PATH . '/modules/Core/widgets/OnlineStaffWidget.php');
+        $widgets->add(new OnlineStaffWidget($smarty, ['title' => $language->get('general', 'online_staff'), 'no_online_staff' => $language->get('general', 'no_online_staff'), 'total_online_staff' => $language->get('general', 'total_online_staff')], $cache));
 
         // Online users
-        require_once(ROOT_PATH . '/modules/Core/widgets/OnlineUsers.php');
-        $module_pages = $widgets->getPages('Online Users');
-        $widgets->add(new OnlineUsersWidget($module_pages, $smarty, $language, $cache));
+        require_once(ROOT_PATH . '/modules/Core/widgets/OnlineUsersWidget.php');
+        $widgets->add(new OnlineUsersWidget($cache, $smarty, ['title' => $language->get('general', 'online_users'), 'no_online_users' => $language->get('general', 'no_online_users'), 'total_online_users' => $language->get('general', 'total_online_users')]));
 
-        // Server status
+        // Online users
         require_once(ROOT_PATH . '/modules/Core/widgets/ServerStatusWidget.php');
-        $module_pages = $widgets->getPages('Server Status');
-        $widgets->add(new ServerStatusWidget($module_pages, $smarty, $language, $cache));
+        $widgets->add(new ServerStatusWidget($smarty, $language, $cache));
 
         // Statistics
         require_once(ROOT_PATH . '/modules/Core/widgets/StatsWidget.php');
-        $module_pages = $widgets->getPages('Statistics');
-        $widgets->add(new StatsWidget($module_pages, $smarty, [
+        $widgets->add(new StatsWidget($smarty, [
             'statistics' => $language->get('general', 'statistics'),
             'users_registered' => $language->get('general', 'users_registered'),
             'latest_member' => $language->get('general', 'latest_member'),
@@ -733,8 +725,8 @@ class Core_Module extends Module {
                     $smarty->assign([
                         'NEW_UPDATE' => (isset($update_check->urgent) && $update_check->urgent == 'true') ? $language->get('admin', 'new_urgent_update_available') : $language->get('admin', 'new_update_available'),
                         'NEW_UPDATE_URGENT' => (isset($update_check->urgent) && $update_check->urgent == 'true'),
-                        'CURRENT_VERSION' => $language->get('admin', 'current_version_x', ['version' => Output::getClean($current_version)]),
-                        'NEW_VERSION' => $language->get('admin', 'new_version_x', ['version' => Output::getClean($update_check->new_version)]),
+                        'CURRENT_VERSION' => str_replace('{x}', Output::getClean($current_version), $language->get('admin', 'current_version_x')),
+                        'NEW_VERSION' => str_replace('{x}', Output::getClean($update_check->new_version), $language->get('admin', 'new_version_x')),
                         'UPDATE' => $language->get('admin', 'update'),
                         'UPDATE_LINK' => URL::build('/panel/update')
                     ]);
@@ -875,8 +867,8 @@ class Core_Module extends Module {
                                     $result['status_full'] = $language->get('general', 'currently_1_player_online');
                                     $result['x_players_online'] = $language->get('general', 'currently_1_player_online');
                                 } else {
-                                    $result['status_full'] = $language->get('general', 'currently_x_players_online', ['count' => $result['total_players']]);
-                                    $result['x_players_online'] = $language->get('general', 'currently_x_players_online', ['count' => $result['total_players']]);
+                                    $result['status_full'] = str_replace('{x}', $result['total_players'], $language->get('general', 'currently_x_players_online'));
+                                    $result['x_players_online'] = str_replace('{x}', $result['total_players'], $language->get('general', 'currently_x_players_online'));
                                 }
 
                             } else {
@@ -895,8 +887,8 @@ class Core_Module extends Module {
                                     $result['status_full'] = $language->get('general', 'currently_1_player_online');
                                     $result['x_players_online'] = $language->get('general', 'currently_1_player_online');
                                 } else {
-                                    $result['status_full'] = $language->get('general', 'currently_x_players_online', ['count' => $result['player_count']]);
-                                    $result['x_players_online'] = $language->get('general', 'currently_x_players_online', ['count' => $result['player_count']]);
+                                    $result['status_full'] = str_replace('{x}', $result['player_count'], $language->get('general', 'currently_x_players_online'));
+                                    $result['x_players_online'] = str_replace('{x}', $result['player_count'], $language->get('general', 'currently_x_players_online'));
                                 }
 
                             } else {
@@ -920,9 +912,7 @@ class Core_Module extends Module {
                 }
 
                 if (!is_null($default) && isset($default->ip)) {
-                    $smarty->assign('CONNECT_WITH', $language->get('general', 'connect_with_ip_x', [
-                        'address' => '<span id="ip">' . Output::getClean($default->ip . ($default->port && $default->port != 25565 ? ':' . $default->port : '')) . '</span>',
-                    ]));
+                    $smarty->assign('CONNECT_WITH', str_replace('{x}', '<span id="ip">' . Output::getClean($default->ip . ($default->port && $default->port != 25565 ? ':' . $default->port : '')) . '</span>', $language->get('general', 'connect_with_ip_x')));
                     $smarty->assign('DEFAULT_IP', Output::getClean($default->ip . ($default->port != 25565 ? ':' . $default->port : '')));
                     $smarty->assign('CLICK_TO_COPY_TOOLTIP', $language->get('general', 'click_to_copy_tooltip'));
                     $smarty->assign('COPIED', $language->get('general', 'copied'));
@@ -945,7 +935,7 @@ class Core_Module extends Module {
                     $user_query = $queries->getWhere('users', ['id', '=', $user_id]);
                     if (count($user_query)) {
                         $user_query = $user_query[0];
-                        $smarty->assign('REGISTERED', $language->get('user', 'registered_x', ['registeredAt' => $timeago->inWords($user_query->joined, $language)]));
+                        $smarty->assign('REGISTERED', str_replace('{x}', $timeago->inWords(date('Y-m-d H:i:s', $user_query->joined), $language->getTimeLanguage()), $language->get('user', 'registered_x')));
                     }
                 }
             }

@@ -544,7 +544,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                                     'news' => Input::get('display'),
                                     'parent' => $parent,
                                     'redirect_forum' => $redirect,
-                                    'icon' => Output::getClean(Input::get('icon')),
+                                    'icon' => Input::get('icon'),
                                     'forum_type' => Output::getClean(Input::get('forum_type')),
                                     'topic_placeholder' => Input::get('topic_placeholder'),
                                     'hooks' => $hooks,

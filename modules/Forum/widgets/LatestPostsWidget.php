@@ -16,16 +16,16 @@ class LatestPostsWidget extends WidgetBase {
     private Cache $_cache;
     private User $_user;
 
-    public function __construct(array $pages, string $latest_posts_language, string $by_language, Smarty $smarty, Cache $cache, User $user, Language $language) {
+    public function __construct(string $latest_posts_language, string $by_language, Smarty $smarty, Cache $cache, User $user, Language $language) {
         $this->_smarty = $smarty;
         $this->_cache = $cache;
         $this->_user = $user;
         $this->_language = $language;
 
-        parent::__construct($pages);
-
         // Get widget
-        $widget_query = DB::getInstance()->selectQuery('SELECT `location`, `order` FROM nl2_widgets WHERE `name` = ?', ['Latest Posts'])->first();
+        $widget_query = self::getData('Latest Posts');
+
+        parent::__construct(self::parsePages($widget_query->pages));
 
         // Set widget variables
         $this->_module = 'Forum';
