@@ -24,6 +24,11 @@ class User {
     private array $_groups = [];
 
     /**
+     * @var array The user's integrations.
+     */
+    private array $_integrations;
+
+    /**
      * @var object The user's main group.
      */
     private object $_main_group;
@@ -472,7 +477,16 @@ class User {
      * @return string URL to their avatar image.
      */
     public function getAvatar(int $size = 128, bool $full = false): string {
-        return AvatarSource::getAvatarFromUserData($this->data(), $this->hasPermission('usercp.gif_avatar'), $size, $full);
+        $data = $this->data();
+
+        $integrationUser = $this->getIntegration('Minecraft');
+        if ($integrationUser != null) {
+            $data->uuid = $integrationUser->data()->identifier;
+        } else {
+            $data->uuid = '';
+        }
+
+        return AvatarSource::getAvatarFromUserData($data, $this->hasPermission('usercp.gif_avatar'), $size, $full);
     }
 
     /**
@@ -553,12 +567,57 @@ class User {
     }
 
     /**
-     * Get the currently logged-in user's groups.
+     * Get the user's groups.
      *
      * @return array Their groups.
      */
     public function getGroups(): array {
         return $this->_groups;
+    }
+
+    /**
+     * Get the user's integrations.
+     *
+     * @return array Their integrations.
+     */
+    public function getIntegrations(): array {
+        return $this->_integrations ??= (function (): array {
+            $integrations = Integrations::getInstance();
+
+            $integrations_query = $this->_db->selectQuery('SELECT nl2_users_integrations.*, nl2_integrations.name as integration_name FROM nl2_users_integrations LEFT JOIN nl2_integrations ON integration_id=nl2_integrations.id WHERE user_id = ?', [$this->_data->id]);
+            if ($integrations_query->count()) {
+                $integrations_query = $integrations_query->results();
+
+                $integrations_list = [];
+                foreach ($integrations_query as $item) {
+                    $integration = $integrations->getIntegration($item->integration_name);
+                    if ($integration != null) {
+                        $integrationUser = new IntegrationUser($integration, $this->_data->id, 'user_id', $item);
+
+                        $integrations_list[$item->integration_name] = $integrationUser;
+                    }
+                }
+
+                return $integrations_list;
+            }
+
+            return [];
+        })();
+    }
+
+    /**
+     * Get the user's integration.
+     *
+     * @param string $integrationName Integration name
+     *
+     * @return IntegrationUser|null Their integration user  if connected otherwise null.
+     */
+    public function getIntegration(string $integrationName): ?IntegrationUser {
+        if (array_key_exists($integrationName, $this->getIntegrations())) {
+            return $this->getIntegrations()[$integrationName];
+        }
+
+        return null;
     }
 
     /**
@@ -579,8 +638,9 @@ class User {
      */
     public function getPlaceholders(): array {
         return $this->_placeholders ??= (function (): array {
-            if ($this->_data->uuid != null && $this->_data->uuid != 'none') {
-                return Placeholders::getInstance()->loadUserPlaceholders($this->_data->uuid);
+            $integrationUser = $this->getIntegration('Minecraft');
+            if ($integrationUser != null) {
+                return Placeholders::getInstance()->loadUserPlaceholders($integrationUser->data()->identifier);
             }
 
             return [];
@@ -1046,11 +1106,16 @@ class User {
      * @param array $placeholders Key/value array of placeholders name/value from API endpoint.
      */
     public function savePlaceholders(int $server_id, array $placeholders): void {
+        $integrationUser = $this->getIntegration('Minecraft');
+        if ($integrationUser == null || !$integrationUser->getIntegration()->isEnabled()) {
+            return;
+        }
+
+        $uuid = hex2bin(str_replace('-', '', $integrationUser->data()->identifier));
         foreach ($placeholders as $name => $value) {
             Placeholders::getInstance()->registerPlaceholder($server_id, $name);
 
             $last_updated = time();
-            $uuid = hex2bin(str_replace('-', '', $this->data()->uuid));
 
             $this->_db->createQuery('INSERT INTO nl2_users_placeholders (server_id, uuid, name, value, last_updated) VALUES (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE value = ?, last_updated = ?', [
                 $server_id,

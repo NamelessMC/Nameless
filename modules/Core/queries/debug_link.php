@@ -142,11 +142,18 @@ foreach ($queries->getWhere('groups', ['id', '<>', 0]) as $group) {
 
 $namelessmc_version = trim(Util::getSetting(DB::getInstance(), 'nameless_version'));
 
+$uuid = $this->_db->selectQuery('SELECT identifier FROM nl2_users_integrations INNER JOIN nl2_integrations on integration_id=nl2_integrations.id WHERE name = \'Minecraft\' AND user_id = ?;', [$user->data()->id]);
+if ($uuid->count()) {
+    $uuid = $uuid->first()->identifier;
+} else {
+    $uuid = '';
+}
+
 $data = [
     'debug_version' => 1,
     'generated_at' => time(),
     'generated_by_name' => $user->data()->username,
-    'generated_by_uuid' => $user->data()->uuid ?? '',
+    'generated_by_uuid' => $uuid,
     'namelessmc' => [
         'version' => $namelessmc_version,
         'update_available' => Util::getSetting(DB::getInstance(), 'version_update') != 'false',
@@ -155,7 +162,6 @@ $data = [
             'phpmailer' => (bool)Util::getSetting(DB::getInstance(), 'phpmailer'),
             'api_enabled' => (bool)Util::getSetting(DB::getInstance(), 'use_api'),
             'email_verification' => (bool)Util::getSetting(DB::getInstance(), 'email_verification'),
-            'api_verification' => (bool)Util::getSetting(DB::getInstance(), 'api_verification'),
             'login_method' => Util::getSetting(DB::getInstance(), 'login_method'),
             'captcha_type' => Util::getSetting(DB::getInstance(), 'recaptcha_type'),
             'captcha_login' => Util::getSetting(DB::getInstance(), 'recaptcha_login') === 'false' ? false : true, // dont ask

@@ -74,7 +74,6 @@ if (!$user->isLoggedIn()) {
                     EventHandler::executeEvent('validateUser', [
                         'user_id' => $target_user->data()->id,
                         'username' => $target_user->getDisplayname(),
-                        'uuid' => $target_user->data()->uuid,
                         'content' => str_replace('{x}', $target_user->getDisplayname(), $language->get('user', 'user_x_has_validated')),
                         'avatar_url' => $target_user->getAvatar(128, true),
                         'url' => Util::getSelfURL() . ltrim($target_user->getProfileURL(), '/'),

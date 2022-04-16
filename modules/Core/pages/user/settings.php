@@ -432,34 +432,6 @@ if (isset($_GET['do'])) {
                         } else {
                             $errors = $validation->errors();
                         }
-                    } else {
-                        if (Input::get('action') == 'discord') {
-
-                            if (Input::get('unlink') == 'true') {
-
-                                $user->update([
-                                    'discord_id' => null,
-                                    'discord_username' => null
-                                ]);
-
-                                Session::flash('settings_success', Discord::getLanguageTerm('discord_id_unlinked'));
-
-                            } else {
-
-                                $token = uniqid('', true);
-                                $queries->create('discord_verifications', [
-                                    'token' => $token,
-                                    'user_id' => $user->data()->id,
-                                ]);
-
-                                $user->update([
-                                    'discord_id' => 010
-                                ]);
-
-                                Session::flash('settings_success', str_replace('{token}', $token, Discord::getLanguageTerm('discord_id_confirm')));
-                            }
-                            Redirect::to(URL::build('/user/settings'));
-                        }
                     }
                 }
             }
@@ -605,43 +577,6 @@ if (isset($_GET['do'])) {
         $smarty->assign([
             'PRIVATE_PROFILE' => $language->get('user', 'private_profile'),
             'PRIVATE_PROFILE_ENABLED' => $user->isPrivateProfile()
-        ]);
-    }
-
-    // Discord Integration
-    if (Util::isModuleEnabled('Discord Integration')) {
-        $discord_linked = !($user->data()->discord_id == null || $user->data()->discord_id == 010);
-
-        if ($discord_linked) {
-            $smarty->assign([
-                'UNLINK' => Discord::getLanguageTerm('unlink'),
-                'LINKED' => Discord::getLanguageTerm('linked'),
-                'DISCORD_ID_VALUE' => $user->data()->discord_id,
-            ]);
-        } else {
-            $smarty->assign([
-                'GET_LINK_CODE' => Discord::getLanguageTerm('get_link_code'),
-                'NOT_LINKED' => Discord::getLanguageTerm('not_linked'),
-            ]);
-            if ($user->data()->discord_id == 010) {
-                $smarty->assign([
-                    'PENDING_LINK' => Discord::getLanguageTerm('pending_link'),
-                ]);
-            }
-        }
-
-        $smarty->assign([
-            'DISCORD_INTEGRATION' => true,
-            'DISCORD_LINK' => Discord::getLanguageTerm('discord_link'),
-            'DISCORD_LINKED' => $discord_linked,
-            'DISCORD_USERNAME' => Discord::getLanguageTerm('discord_username'),
-            'DISCORD_USERNAME_VALUE' => $user->data()->discord_username,
-            'DISCORD_ID' => Discord::getLanguageTerm('discord_user_id'),
-            'ID_INFO' => Discord::getLanguageTerm('discord_id_help'),
-        ]);
-    } else {
-        $smarty->assign([
-            'DISCORD_INTEGRATION' => false
         ]);
     }
 

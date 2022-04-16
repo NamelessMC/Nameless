@@ -119,9 +119,7 @@ $captcha = CaptchaBase::isCaptchaEnabled();
 $email_verification = $queries->getWhere('settings', ['name', '=', 'email_verification']);
 $email_verification = $email_verification[0]->value;
 
-// API verification
-$api_verification = $queries->getWhere('settings', ['name', '=', 'api_verification']);
-$api_verification = $api_verification[0]->value;
+$integrations = Integrations::getInstance();
 
 Session::put('oauth_method', 'register');
 
@@ -167,23 +165,16 @@ if (Input::exists()) {
                 // ]
             ];
 
-            // Minecraft username?
-            if (MINECRAFT) {
-                if ($custom_usernames == 'true') {
-                    // Nickname enabled
-                    $to_validation['nickname'] = [
-                        Validate::REQUIRED => true,
-                        Validate::MIN => 3,
-                        Validate::MAX => 20,
-                        Validate::UNIQUE => 'users'
-                    ];
-                    $nickname = Output::getClean(Input::get('nickname'));
-                } else {
-                    $nickname = Output::getClean(Input::get('username'));
-                }
-
+            if ($custom_usernames == 'true') {
+                // Nickname enabled
+                $to_validation['nickname'] = [
+                    Validate::REQUIRED => true,
+                    Validate::MIN => 3,
+                    Validate::MAX => 20,
+                    Validate::UNIQUE => 'users'
+                ];
+                $nickname = Output::getClean(Input::get('nickname'));
             } else {
-                // Just check username
                 $nickname = Output::getClean(Input::get('username'));
             }
             $username = Output::getClean(Input::get('username'));
@@ -223,11 +214,6 @@ if (Input::exists()) {
                 'password_again' => [
                     Validate::MATCHES => $language->get('user', 'passwords_dont_match'),
                 ],
-                'mcname' => [
-                    Validate::REQUIRED => $language->get('user', 'mcname_required'),
-                    Validate::MIN => $language->get('user', 'mcname_minimum_3'),
-                    Validate::MAX => $language->get('user', 'mcname_maximum_20'),
-                ],
                 't_and_c' => [
                     Validate::REQUIRED => $language->get('user', 'accept_terms'),
                 ],
@@ -242,203 +228,173 @@ if (Input::exists()) {
                 },
             ]);
 
+            // Check if any integrations wanna modify the validation
+            foreach ($integrations->getEnabledIntegrations() as $integration) {
+                $integration->beforeRegistrationValidation($validation);
+            }
+
             if ($validation->passed()) {
-                if (MINECRAFT && $uuid_linking == 1) {
-                    // Perform validation on Minecraft name
-                    $profile = ProfileUtils::getProfile(str_replace(' ', '%20', $username));
-
-                    $mcname_result = $profile ? $profile->getProfileAsArray() : [];
-
-                    if (isset($mcname_result['username'], $mcname_result['uuid']) && !empty($mcname_result['username']) && !empty($mcname_result['uuid'])) {
-                        // Valid
-                        $uuid = Output::getClean($mcname_result['uuid']);
-
-                        // Ensure UUID is unique
-                        $uuid_query = $queries->getWhere('users', ['uuid', '=', $uuid]);
-                        if (count($uuid_query)) {
-                            $uuid_error = $language->get('user', 'uuid_already_exists');
-                        }
-
-                    } else {
-                        // Invalid
-                        $invalid_mcname = true;
+                // Check if any integrations have actions to perform
+                foreach ($integrations->getEnabledIntegrations() as $integration) {
+                    $integration->afterRegistrationValidation();
+                    
+                    if (count($integration->getErrors())) {
+                        $integration_errors = $integration->getErrors();
+                        break;
                     }
                 }
 
-                // Check to see if the Minecraft username was valid
-                if (!isset($invalid_mcname)) {
-                    if (!isset($uuid)) {
-                        $uuid = '';
-                    }
+                // Check if there was any integrations errors
+                if (!isset($integration_errors)) {
+                    // Minecraft user account association
+                    if (isset($account_verification) && $account_verification == '1') {
+                        // MCAssoc enabled
+                        // Get data from database
+                        $mcassoc_site_id = SITE_NAME;
 
-                    if (!isset($uuid_error)) {
-                        // Minecraft user account association
-                        if (isset($account_verification) && $account_verification == '1') {
-                            // MCAssoc enabled
-                            // Get data from database
-                            $mcassoc_site_id = SITE_NAME;
+                        $mcassoc_shared_secret = $queries->getWhere('settings', ['name', '=', 'mcassoc_key']);
+                        $mcassoc_shared_secret = $mcassoc_shared_secret[0]->value;
 
-                            $mcassoc_shared_secret = $queries->getWhere('settings', ['name', '=', 'mcassoc_key']);
-                            $mcassoc_shared_secret = $mcassoc_shared_secret[0]->value;
+                        $mcassoc_instance_secret = $queries->getWhere('settings', ['name', '=', 'mcassoc_instance']);
+                        $mcassoc_instance_secret = $mcassoc_instance_secret[0]->value;
 
-                            $mcassoc_instance_secret = $queries->getWhere('settings', ['name', '=', 'mcassoc_instance']);
-                            $mcassoc_instance_secret = $mcassoc_instance_secret[0]->value;
+                        define('MCASSOC', true);
 
-                            define('MCASSOC', true);
+                        // Hash password first
+                        $password = password_hash($_POST['password'], PASSWORD_BCRYPT, ['cost' => 13]);
+                        $_SESSION['password'] = $password;
+                        unset($_POST['password']);
 
-                            // Hash password first
-                            $password = password_hash($_POST['password'], PASSWORD_BCRYPT, ['cost' => 13]);
-                            $_SESSION['password'] = $password;
-                            unset($_POST['password']);
+                        // Initialise
+                        $mcassoc = new MCAssoc($mcassoc_shared_secret, $mcassoc_site_id, $mcassoc_instance_secret);
+                        $mcassoc->enableInsecureMode();
 
-                            // Initialise
-                            $mcassoc = new MCAssoc($mcassoc_shared_secret, $mcassoc_site_id, $mcassoc_instance_secret);
-                            $mcassoc->enableInsecureMode();
+                        require(ROOT_PATH . '/core/integration/run_mcassoc.php');
 
-                            require(ROOT_PATH . '/core/integration/run_mcassoc.php');
+                    } else {
+                        // Disabled
+                        $user = new User();
 
-                        } else {
-                            // Disabled
-                            $user = new User();
-
-                            $ip = $user->getIP();
-                            if (!filter_var($ip, FILTER_VALIDATE_IP)) {
-                                // TODO: Invalid IP, do something
-                            }
-
-                            $password = password_hash(Input::get('password'), PASSWORD_BCRYPT, ['cost' => 13]);
-                            // Get current unix time
-                            $date = new DateTime();
-                            $date = $date->getTimestamp();
-
-                            if ($api_verification == '1') {
-                                // Generate shorter code for API validation
-                                $code = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 10);
-                                $active = 1;
-                            } else {
-                                // Generate random code for email
-                                $code = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 60);
-                                $active = 0;
-                            }
-
-                            // Get default language ID before creating user
-                            $language_id = $queries->getWhere('languages', ['name', '=', LANGUAGE]);
-
-                            if (count($language_id)) {
-                                $language_id = $language_id[0]->id;
-                            } else {
-                                $language_id = 1; // fallback to EnglishUK
-                            }
-
-                            // Get default group ID
-                            $cache->setCache('default_group');
-                            if ($cache->isCached('default_group')) {
-                                $default_group = $cache->retrieve('default_group');
-                            } else {
-                                $default_group = $queries->getWhere('groups', ['default_group', '=', 1]);
-                                $default_group = $default_group[0]->id;
-
-                                $cache->store('default_group', $default_group);
-                            }
-
-                            // Create user
-                            $user->create(
-                                [
-                                    'username' => $username,
-                                    'nickname' => $nickname,
-                                    'uuid' => $uuid,
-                                    'password' => $password,
-                                    'pass_method' => 'default',
-                                    'joined' => $date,
-                                    'email' => Input::get('email'),
-                                    'reset_code' => $code,
-                                    'lastip' => $ip,
-                                    'last_online' => $date,
-                                    'language_id' => $language_id,
-                                    'active' => $active,
-                                    // TODO: re-enable this (#2355)
-                                    // 'timezone' => ((isset($_POST['timezone']) && $_POST['timezone']) ? Output::getClean(Input::get('timezone')) : Output::getClean(TIMEZONE))
-                                    'timezone' => TIMEZONE
-                                ]
-                            );
-
-                            // Get user ID
-                            $user_id = $queries->getLastId();
-
-                            $user = new User($user_id);
-                            $user->addGroup($default_group, 0, [true]);
-
-                            if (Session::exists('oauth_register_data')) {
-                                $data = json_decode(Session::get('oauth_register_data'), true);
-                                OAuth::getInstance()->saveUserProvider(
-                                    $user_id,
-                                    $data['provider'],
-                                    $data['id'],
-                                );
-                                Session::delete('oauth_register_data');
-                            }
-
-                            // Custom Fields
-                            if (count($profile_fields)) {
-                                foreach ($profile_fields as $field) {
-                                    if ($field->required == false) {
-                                        continue;
-                                    }
-                                    $value = Input::get($field->id);
-                                    if (!empty($value)) {
-                                        // Insert custom field
-                                        $queries->create(
-                                            'users_profile_fields',
-                                            [
-                                                'user_id' => $user_id,
-                                                'field_id' => $field->id,
-                                                'value' => $value
-                                            ]
-                                        );
-                                    }
-                                }
-                            }
-
-                            Log::getInstance()->log(Log::Action('user/register'));
-
-                            EventHandler::executeEvent('registerUser', [
-                                'user_id' => $user_id,
-                                'username' => Input::get('username'),
-                                'uuid' => $uuid,
-                                'content' => str_replace('{x}', Input::get('username'), $language->get('user', 'user_x_has_registered')),
-                                'avatar_url' => $user->getAvatar(128, true),
-                                'url' => Util::getSelfURL() . ltrim(URL::build('/profile/' . urlencode(Input::get('username'))), '/'),
-                                'language' => $language
-                            ]);
-
-                            if ($api_verification != '1' && $email_verification == '1') {
-                                // Send registration email
-                                sendRegisterEmail($queries, $language, Output::getClean(Input::get('email')), $username, $user_id, $code);
-
-                            } else {
-                                if ($api_verification != '1') {
-                                    // Redirect straight to verification link
-                                    $url = URL::build('/validate/', 'c=' . urlencode($code));
-                                    Redirect::to($url);
-                                }
-                            }
-
-                            if ($api_verification != '1') {
-                                Session::flash('home', $language->get('user', 'registration_check_email'));
-                            } else {
-                                Session::flash('home', $language->get('user', 'validation_complete'));
-                            }
-
-                            Redirect::to(URL::build('/'));
+                        $ip = $user->getIP();
+                        if (!filter_var($ip, FILTER_VALIDATE_IP)) {
+                            // TODO: Invalid IP, do something
                         }
-                        die();
+
+                        $password = password_hash(Input::get('password'), PASSWORD_BCRYPT, ['cost' => 13]);
+                        // Get current unix time
+                        $date = new DateTime();
+                        $date = $date->getTimestamp();
+
+                        // Generate validation code
+                        $code = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 60);
+
+                        // Get default language ID before creating user
+                        $language_id = $queries->getWhere('languages', ['name', '=', LANGUAGE]);
+
+                        if (count($language_id)) {
+                            $language_id = $language_id[0]->id;
+                        } else {
+                            $language_id = 1; // fallback to EnglishUK
+                        }
+
+                        // Get default group ID
+                        $cache->setCache('default_group');
+                        if ($cache->isCached('default_group')) {
+                            $default_group = $cache->retrieve('default_group');
+                        } else {
+                            $default_group = $queries->getWhere('groups', ['default_group', '=', 1]);
+                            $default_group = $default_group[0]->id;
+
+                            $cache->store('default_group', $default_group);
+                        }
+
+                        // Create user
+                        $user->create(
+                            [
+                                'username' => $username,
+                                'nickname' => $nickname,
+                                'password' => $password,
+                                'pass_method' => 'default',
+                                'joined' => $date,
+                                'email' => Input::get('email'),
+                                'reset_code' => $code,
+                                'lastip' => $ip,
+                                'last_online' => $date,
+                                'language_id' => $language_id,
+                                // TODO: re-enable this (#2355)
+                                // 'timezone' => ((isset($_POST['timezone']) && $_POST['timezone']) ? Output::getClean(Input::get('timezone')) : Output::getClean(TIMEZONE))
+                                'timezone' => TIMEZONE
+                            ]
+                        );
+
+                        // Get user ID
+                        $user_id = $queries->getLastId();
+
+                        $user = new User($user_id);
+                        $user->addGroup($default_group, 0, [true]);
+
+                        foreach ($integrations->getEnabledIntegrations() as $integration) {
+                            $integration->successfulRegistration($user);
+                        }
+
+                        if (Session::exists('oauth_register_data')) {
+                            $data = json_decode(Session::get('oauth_register_data'), true);
+                            OAuth::getInstance()->saveUserProvider(
+                                $user_id,
+                                $data['provider'],
+                                $data['id'],
+                            );
+                            Session::delete('oauth_register_data');
+                        }
+
+                        // Custom Fields
+                        if (count($profile_fields)) {
+                            foreach ($profile_fields as $field) {
+                                if ($field->required == false) {
+                                    continue;
+                                }
+                                $value = Input::get($field->id);
+                                if (!empty($value)) {
+                                    // Insert custom field
+                                    $queries->create(
+                                        'users_profile_fields',
+                                        [
+                                            'user_id' => $user_id,
+                                            'field_id' => $field->id,
+                                            'value' => $value
+                                        ]
+                                    );
+                                }
+                            }
+                        }
+
+                        Log::getInstance()->log(Log::Action('user/register'));
+
+                        EventHandler::executeEvent('registerUser', [
+                            'user_id' => $user_id,
+                            'username' => Input::get('username'),
+                            'content' => str_replace('{x}', Input::get('username'), $language->get('user', 'user_x_has_registered')),
+                            'avatar_url' => $user->getAvatar(128, true),
+                            'url' => Util::getSelfURL() . ltrim(URL::build('/profile/' . urlencode(Input::get('username'))), '/'),
+                            'language' => $language
+                        ]);
+
+                        if ($email_verification == '1') {
+                            // Send registration email
+                            sendRegisterEmail($queries, $language, Output::getClean(Input::get('email')), $username, $user_id, $code);
+
+                            Session::flash('home', $language->get('user', 'registration_check_email'));
+                        } else {
+                            // Redirect straight to verification link
+                            Redirect::to(URL::build('/validate/', 'c=' . urlencode($code)));
+                        }
+
+                        Redirect::to(URL::build('/'));
                     }
-
-                    $errors = [$uuid_error];
-
+                    die();
                 } else {
-                    // Invalid Minecraft name
-                    $errors = [$language->get('user', 'invalid_mcname')];
+                    // Integrations errors
+                    $errors = $integration_errors;
                 }
 
             } else {
@@ -462,16 +418,29 @@ if (isset($errors)) {
     $smarty->assign('REGISTRATION_ERROR', Session::flash('oauth_error'));
 }
 
+$fields = new Fields();
+
 // Are custom usernames enabled?
-if ($custom_usernames !== 'false') {
-    $smarty->assign('NICKNAMES', true);
+if ($custom_usernames == 'true') {
+    $nickname_value = ((isset($_POST['nickname']) && $_POST['nickname']) ? Output::getClean(Input::get('nickname')) : '');
+
+    $fields->add('nickname', Fields::TEXT, $language->get('user', 'nickname'), true, $nickname_value);
 }
 
-if ($minecraft == 1) {
-    $smarty->assign('MINECRAFT', true);
+$username_value = ((isset($_POST['username']) && $_POST['username']) ? Output::getClean(Input::get('username')) : '');
+$email_value = ((isset($_POST['email']) && $_POST['email']) ? Output::getClean(Input::get('email')) : '');
+
+$fields->add('username', Fields::TEXT, $language->get('user', 'username'), true, $username_value);
+$fields->add('email', Fields::EMAIL, $language->get('user', 'email_address'), true, $email_value);
+$fields->add('password', Fields::PASSWORD, $language->get('user', 'password'), true);
+$fields->add('password_again', Fields::PASSWORD, $language->get('user', 'confirm_password'), true);
+
+// Check if any integrations have fields to add
+foreach ($integrations->getEnabledIntegrations() as $integration) {
+    $integration->onRegistrationPageLoad($fields);
 }
 
-$custom_fields = [];
+// Custom profile fields
 $profile_fields = $queries->getWhere('profile_fields', ['id', '<>', 0]);
 if (count($profile_fields)) {
     foreach ($profile_fields as $field) {
@@ -479,18 +448,17 @@ if (count($profile_fields)) {
             continue;
         }
 
-        $custom_fields[] = [
-            'id' => $field->id,
-            'name' => Output::getClean($field->name),
-            'description' => Output::getClean($field->description) ?: Output::getClean($field->name),
-            'type' => $field->type,
-            'required' => $field->required,
-            'value' => $_POST[$field->id] ?? ''
-        ];
+        $fields->add(
+            $field->id,
+            $field->type,
+            Output::getClean($field->name),
+            true,
+            ((isset($_POST[$field->id]) && $_POST[$field->id]) ? Output::getClean(Input::get($field->id)) : ''),
+            Output::getClean($field->description) ?: Output::getClean($field->name)
+        );
     }
 }
 
-$email_value = ((isset($_POST['email']) && $_POST['email']) ? Output::getClean(Input::get('email')) : '');
 if (Session::exists('oauth_register_data')) {
     $email_value = json_decode(Session::get('oauth_register_data'), true)['email'];
 }
@@ -507,15 +475,7 @@ if ($oauth_flow) {
 
 // Assign Smarty variables
 $smarty->assign([
-    'USERNAME' => $language->get('user', 'username'),
-    'NICKNAME' => ($custom_usernames == 'false' && !MINECRAFT) ? $language->get('user', 'username') : $language->get('user', 'nickname'),
-    'NICKNAME_VALUE' => ((isset($_POST['nickname']) && $_POST['nickname']) ? Output::getClean(Input::get('nickname')) : ''),
-    'USERNAME_VALUE' => ((isset($_POST['username']) && $_POST['username']) ? Output::getClean(Input::get('username')) : ''),
-    'MINECRAFT_USERNAME' => $language->get('user', 'minecraft_username'),
-    'EMAIL' => $language->get('user', 'email_address'),
-    'EMAIL_VALUE' => $email_value,
-    'PASSWORD' => $language->get('user', 'password'),
-    'CONFIRM_PASSWORD' => $language->get('user', 'confirm_password'),
+    'FIELDS' => $fields->getAll(),
     'I_AGREE' => $language->get('user', 'i_agree'),
     'AGREE_TO_TERMS' => str_replace('{x}', URL::build('/terms'), $language->get('user', 'agree_t_and_c')),
     'REGISTER' => $language->get('general', 'register'),
@@ -525,7 +485,6 @@ $smarty->assign([
     'CREATE_AN_ACCOUNT' => $language->get('user', 'create_an_account'),
     'ALREADY_REGISTERED' => $language->get('general', 'already_registered'),
     'ERROR_TITLE' => $language->get('general', 'error'),
-    'CUSTOM_FIELDS' => $custom_fields,
     'OAUTH_FLOW' => $oauth_flow,
     'OAUTH_AVAILABLE' => OAuth::getInstance()->isAvailable(),
     'OAUTH_PROVIDERS' => OAuth::getInstance()->getProvidersAvailable(),

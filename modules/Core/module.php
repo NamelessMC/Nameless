@@ -66,6 +66,7 @@ class Core_Module extends Module {
         $pages->add('Core', '/user/oauth', 'pages/user/oauth.php');
         $pages->add('Core', '/user/placeholders', 'pages/user/placeholders.php');
         $pages->add('Core', '/user/acknowledge', 'pages/user/acknowledge.php');
+        $pages->add('Core', '/user/connections', 'pages/user/connections.php');
 
         // Panel
         $pages->add('Core', '/panel', 'pages/panel/index.php');
@@ -94,6 +95,7 @@ class Core_Module extends Module {
         $pages->add('Core', '/panel/core/modules', 'pages/panel/modules.php');
         $pages->add('Core', '/panel/core/pages', 'pages/panel/pages.php');
         $pages->add('Core', '/panel/core/hooks', 'pages/panel/hooks.php');
+        $pages->add('Core', '/panel/core/integrations', 'pages/panel/integrations.php');
         $pages->add('Core', '/panel/minecraft/placeholders', 'pages/panel/placeholders.php');
         $pages->add('Core', '/panel/minecraft', 'pages/panel/minecraft.php');
         $pages->add('Core', '/panel/minecraft/authme', 'pages/panel/minecraft_authme.php');
@@ -106,6 +108,7 @@ class Core_Module extends Module {
         $pages->add('Core', '/panel/upgrade', 'pages/panel/upgrade.php');
         $pages->add('Core', '/panel/users', 'pages/panel/users.php');
         $pages->add('Core', '/panel/users/edit', 'pages/panel/users_edit.php');
+        $pages->add('Core', '/panel/users/integrations', 'pages/panel/users_integrations.php');
         $pages->add('Core', '/panel/users/oauth', 'pages/panel/users_oauth.php');
         $pages->add('Core', '/panel/users/ip_lookup', 'pages/panel/users_ip_lookup.php');
         $pages->add('Core', '/panel/users/punishments', 'pages/panel/users_punishments.php');
@@ -300,7 +303,6 @@ class Core_Module extends Module {
             [
                 'user_id' => $language->get('admin', 'user_id'),
                 'username' => $language->get('user', 'username'),
-                'uuid' => $language->get('admin', 'uuid'),
                 'avatar_url' => $language->get('user', 'avatar'),
                 'content' => $language->get('general', 'content'),
                 'url' => $language->get('user', 'profile')
@@ -311,8 +313,7 @@ class Core_Module extends Module {
             $language->get('admin', 'validate_hook_info'),
             [
                 'user_id' => $language->get('admin', 'user_id'),
-                'username' => $language->get('user', 'username'),
-                'uuid' => $language->get('admin', 'uuid')
+                'username' => $language->get('user', 'username')
             ]
         );
 
@@ -321,7 +322,6 @@ class Core_Module extends Module {
             [
                 'user_id' => $language->get('admin', 'user_id'),
                 'username' => $language->get('user', 'username'),
-                'uuid' => $language->get('admin', 'uuid'),
                 'email_address' => $language->get('user', 'email_address')
             ]
         );
@@ -374,6 +374,42 @@ class Core_Module extends Module {
                 'punished_id' => $language->get('admin', 'punished_id'),
                 'punisher_id' => $language->get('admin', 'punisher_id'),
                 'reason' => $language->get('admin', 'reason'),
+            ]
+        );
+
+        EventHandler::registerEvent('linkIntegrationUser',
+            $language->get('admin', 'user_link_integration_hook_info'),
+            [
+                'integration' => $language->get('admin', 'integration'),
+                'user_id' => $language->get('admin', 'user_id'),
+                'username' => $language->get('user', 'username'),
+                'avatar_url' => $language->get('user', 'avatar'),
+                'content' => $language->get('general', 'content'),
+                'url' => $language->get('user', 'profile')
+            ]
+        );
+
+        EventHandler::registerEvent('verifyIntegrationUser',
+            $language->get('admin', 'user_verify_integration_hook_info'),
+            [
+                'integration' => $language->get('admin', 'integration'),
+                'user_id' => $language->get('admin', 'user_id'),
+                'username' => $language->get('user', 'username'),
+                'avatar_url' => $language->get('user', 'avatar'),
+                'content' => $language->get('general', 'content'),
+                'url' => $language->get('user', 'profile')
+            ]
+        );
+
+        EventHandler::registerEvent('unlinkIntegrationUser',
+            $language->get('admin', 'user_unlink_integration_hook_info'),
+            [
+                'integration' => $language->get('admin', 'integration'),
+                'user_id' => $language->get('admin', 'user_id'),
+                'username' => $language->get('user', 'username'),
+                'avatar_url' => $language->get('user', 'avatar'),
+                'content' => $language->get('general', 'content'),
+                'url' => $language->get('user', 'profile')
             ]
         );
 
@@ -457,37 +493,39 @@ class Core_Module extends Module {
                     return $user;
                 }
             } else if (count($lookup_data) === 3) {
-                // probably handling a user integration lookup
-                // TODO: hand off these three values to the integration system to handle when PR is merged
+                // Handling a user integration lookup
                 [$integration_lookup_type, $integration_name, $lookup_value] = $lookup_data;
-                if ($integration_lookup_type === 'integration_id') {
-                    if ($integration_name === 'discord') {
-                        $column = 'discord_id';
-                    } else if ($integration_name === 'minecraft') {
-                        $column = 'uuid';
-                    } else {
+
+                $integration = Integrations::getInstance()->getIntegration($integration_name);
+                if ($integration != null) {
+                    if ($integration_lookup_type === 'integration_id') {
+                        $integrationUser = new IntegrationUser($integration, $lookup_value, 'identifier');
+                        if ($integrationUser->exists()) {
+                            return $integrationUser->getUser();
+                        }
+
                         $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'), "invalid integration lookup name: $value");
-                    }
-                } else if ($integration_lookup_type === 'integration_name') {
-                    if ($integration_name === 'discord') {
-                        $column = 'discord_username';
-                    } else if ($integration_name === 'minecraft') {
-                        $column = 'username';
+                    } else if ($integration_lookup_type === 'integration_name') {
+                        $integrationUser = new IntegrationUser($integration, $lookup_value, 'username');
+                        if ($integrationUser->exists()) {
+                            return $integrationUser->getUser();
+                        }
+
+                        $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'), "invalid integration lookup name: $value");
                     } else {
                         $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'), "invalid integration lookup name: $value");
                     }
                 } else {
                     $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'), "invalid integration lookup type: $value");
                 }
-
-                $user = new User($lookup_value, $column);
-                if ($user->exists()) {
-                    return $user;
-                }
             }
 
             $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'), $value);
         });
+
+        // Minecraft Integration
+        require_once(ROOT_PATH . "/modules/{$this->getName()}/classes/Integrations/MinecraftIntegration.php");
+        Integrations::getInstance()->registerIntegration(new MinecraftIntegration($language));
 
         require_once ROOT_PATH . '/modules/Core/hooks/ContentHook.php';
 
@@ -566,6 +604,7 @@ class Core_Module extends Module {
             'admincp.core.announcements' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'announcements'),
             'admincp.core.placeholders' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'placeholders'),
             'admincp.integrations' => $language->get('admin', 'integrations'),
+            'admincp.integrations.edit' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'general_settings'),
             'admincp.minecraft' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft'),
             'admincp.minecraft.authme' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'authme_integration'),
             'admincp.minecraft.verification' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'account_verification'),
@@ -1157,6 +1196,17 @@ class Core_Module extends Module {
                 $navs[2]->addDropdown('integrations', $language->get('admin', 'integrations'), 'top', $order, $icon);
             }
 
+            if ($user->hasPermission('admincp.integrations.edit')) {
+                if (!$cache->isCached('user_integrations_icon')) {
+                    $icon = '<i class="nav-icon fas fa-link"></i>';
+                    $cache->store('user_integrations_icon', $icon);
+                } else {
+                    $icon = $cache->retrieve('user_integrations_icon');
+                }
+
+                $navs[2]->addItemToDropdown('integrations', 'integrations', $language->get('admin', 'general_settings'), URL::build('/panel/core/integrations'), 'top', null, $icon, 1);
+            }
+
             if ($user->hasPermission('admincp.minecraft')) {
                 if (!$cache->isCached('minecraft_icon')) {
                     $icon = '<i class="nav-icon fas fa-cubes"></i>';
@@ -1531,6 +1581,10 @@ class Core_Module extends Module {
 
             if ($user->hasPermission('admincp.users.edit')) {
                 self::addUserAction($language->get('general', 'edit'), URL::build('/panel/users/edit/', 'id={id}'));
+            }
+            
+            if ($user->hasPermission('admincp.users.edit')) {
+                self::addUserAction($language->get('admin', 'integrations'), URL::build('/panel/users/integrations/', 'id={id}'));
             }
 
             if ($user->hasPermission('admincp.users.edit')) {

@@ -51,7 +51,8 @@ class Discord {
             return false;
         }
 
-        if ($user->data()->discord_id == null || $user->data()->discord_id == 010) {
+        $integrationUser = $user->getIntegration('Discord');
+        if ($integrationUser == null || !$integrationUser->isVerified()) {
             return false;
         }
 
@@ -62,7 +63,7 @@ class Discord {
             return false;
         }
 
-        $json = self::assembleJson($user->data()->discord_id, $added_arr, $removed_arr);
+        $json = self::assembleJson($integrationUser->data()->identifier, $added_arr, $removed_arr);
 
         $result = self::discordBotRequest('/roleChange', $json);
 

@@ -505,7 +505,6 @@ switch ($s) {
                         'nickname' => $item->username,
                         'password' => $item->password,
                         'pass_method' => $item->pass_method,
-                        'uuid' => $item->uuid,
                         'joined' => $item->joined,
                         'email' => $item->email,
                         'isbanned' => $item->isbanned,
@@ -528,6 +527,15 @@ switch ($s) {
                     $queries->create('users_groups', [
                         'user_id' => $item->id,
                         'group_id' => $item->group_id
+                    ]);
+                    
+                    $queries->create('users_integrations', [
+                        'integration_id' => 1,
+                        'user_id' => $item->id,
+                        'identifier' => $item->uuid,
+                        'username' => $item->mcname,
+                        'verified' => 1,
+                        'date' => $item->joined,
                     ]);
                 }
             }
@@ -790,6 +798,21 @@ switch ($s) {
         ]);
         $cache->store('module_core', true);
         $cache->store('module_forum', true);
+        
+        // Integrations
+        $queries->create('integrations', [
+            'name' => 'Minecraft',
+            'enabled' => 1,
+            'can_unlink' => 0,
+            'required' => 0
+        ]);
+
+        $queries->create('integrations', [
+            'name' => 'Discord',
+            'enabled' => 1,
+            'can_unlink' => 1,
+            'required' => 0
+        ]);
 
         // Reactions
         $queries->create('reactions', [
@@ -995,11 +1018,6 @@ switch ($s) {
         $queries->create('settings', [
             'name' => 'registration_disabled_message',
             'value' => null
-        ]);
-
-        $queries->create('settings', [
-            'name' => 'api_verification',
-            'value' => '1'
         ]);
 
         $queries->create('settings', [
