@@ -6,10 +6,10 @@
  *
  * @return string JSON Array
  */
-class VerifyMinecraftEndpoint extends KeyAuthEndpoint {
+class VerifyEndpoint extends KeyAuthEndpoint {
 
     public function __construct() {
-        $this->_route = 'minecraft/verify';
+        $this->_route = 'verify';
         $this->_module = 'Core';
         $this->_description = 'Validate/Activate a NamelessMC account by confirming their reset code';
         $this->_method = 'POST';

@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr13
  *
  *  License: MIT
  *
@@ -773,35 +773,26 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
         ];
     }
 
-    $profile_user = new User($query->id);
-    if (Util::isModuleEnabled('Discord Integration') && $profile_user->data()->discord_username != null) {
-        $fields[] = [
-            'title' => Discord::getLanguageTerm('discord_username') . ':',
-            'type' => 'text',
-            'value' => $profile_user->data()->discord_username
-        ];
+    // User Integrations
+    $user_integrations = [];
+    foreach ($profile_user->getIntegrations() as $key => $integrationUser) {
+        if ($integrationUser->data()->username != null && $integrationUser->data()->show_publicly) {
+            $fields[] = [
+                'title' => Output::getClean($key),
+                'type' => 'text',
+                'value' => Output::getClean($integrationUser->data()->username)
+            ];
+
+            $user_integrations[$key] = [
+                'username' => Output::getClean($integrationUser->data()->username),
+                'identifier' => Output::getClean($integrationUser->data()->identifier)
+            ];
+        }
     }
+    $smarty->assign('INTEGRATIONS', $user_integrations);
 
     if (!count($fields)) {
         $smarty->assign('NO_ABOUT_FIELDS', $language->get('user', 'no_about_fields'));
-    }
-
-    // Minecraft?
-    $minecraft_integration = $queries->getWhere('settings', ['name', '=', 'mc_integration']);
-    $minecraft_integration = $minecraft_integration[0];
-
-    if ($minecraft_integration->value == '1') {
-        // TODO: This does not display anywhere
-        $fields['minecraft'] = [
-            'title' => 'IGN',
-            'type' => 'text',
-            'value' => Output::getClean($query->username),
-            'image' => 'https://crafatar.com/renders/body/' . $query->uuid . '?overlay'
-        ];
-
-        $smarty->assign([
-            'UUID' => $profile_user->data()->uuid
-        ]);
     }
 
     $profile_placeholders = $profile_user->getProfilePlaceholders();

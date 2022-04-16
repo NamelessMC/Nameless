@@ -60,22 +60,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $default_language = $queries->getWhere('languages', ['is_default', '=', 1]);
 
             $ip = $user->getIP();
-            $uuid = 'none';
-
-            $profile = ProfileUtils::getProfile(Output::getClean(Input::get('username')));
-            if ($profile !== null) {
-                $result = $profile->getProfileAsArray();
-                if (isset($result['uuid']) && !empty($result['uuid'])) {
-                    $uuid = $result['uuid'];
-                }
-            }
 
             $user->create([
                 'username' => Input::get('username'),
                 'nickname' => Input::get('username'),
                 'password' => $password,
                 'pass_method' => 'default',
-                'uuid' => $uuid,
                 'joined' => date('U'),
                 'email' => Input::get('email'),
                 'lastip' => $ip,
@@ -84,6 +74,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 'theme_id' => 1,
                 'language_id' => $default_language[0]->id,
             ]);
+
+            $profile = ProfileUtils::getProfile(Output::getClean(Input::get('username')));
+            if ($profile !== null) {
+                $result = $profile->getProfileAsArray();
+                if (isset($result['uuid']) && !empty($result['uuid'])) {
+                    $uuid = $result['uuid'];
+                    
+                    $queries->create('users_integrations', [
+                        'integration_id' => 1,
+                        'user_id' => 1,
+                        'identifier' => $uuid,
+                        'username' => Input::get('username'),
+                        'verified' => 1,
+                        'date' => date('U'),
+                    ]);
+                }
+            }
 
             $login = $user->login(Input::get('email'), Input::get('password'), true);
             if ($login) {

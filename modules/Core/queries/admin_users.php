@@ -11,7 +11,7 @@ $sortColumns = ['username' => 'username', 'nickname' => 'nickname', 'joined' => 
 $db = DB::getInstance();
 
 $total = $db->selectQuery('SELECT COUNT(*) as `total` FROM nl2_users', [])->first()->total;
-$query = 'SELECT u.id, u.username, u.nickname, u.joined, u.uuid, u.gravatar, u.email, u.has_avatar, u.avatar_updated FROM nl2_users u';
+$query = 'SELECT u.id, u.username, u.nickname, u.joined, u.gravatar, u.email, u.has_avatar, u.avatar_updated, IFNULL(nl2_users_integrations.identifier, \'none\') as uuid FROM nl2_users u LEFT JOIN nl2_users_integrations ON user_id=u.id AND integration_id=1';
 $where = '';
 $order = '';
 $limit = '';

@@ -58,7 +58,6 @@ class RecentRegistrationsItem extends CollectionItemBase {
                         'nickname' => $target_user->getDisplayname(),
                         'style' => $target_user->getGroupClass(),
                         'avatar' => $target_user->getAvatar(),
-                        'uuid' => Output::getClean($item->uuid),
                         'groups' => $target_user->getAllGroupHtml(),
                         'time' => $timeago->inWords($item->joined, $this->_language),
                         'time_full' => date(DATE_FORMAT, $item->joined),

@@ -63,10 +63,10 @@ class DiscordGroupSyncInjector implements GroupSyncInjector {
     }
 
     public function addGroup(User $user, $group_id): bool {
-        return Discord::updateDiscordRoles($user->data()->id, [$group_id], []) === true;
+        return Discord::updateDiscordRoles($user, [$group_id], []) === true;
     }
 
     public function removeGroup(User $user, $group_id): bool {
-        return Discord::updateDiscordRoles($user->data()->id, [], [$group_id]) === true;
+        return Discord::updateDiscordRoles($user, [], [$group_id]) === true;
     }
 }

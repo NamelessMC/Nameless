@@ -115,9 +115,9 @@ if (isset($_GET['do'])) {
         }
         Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
         require(ROOT_PATH . '/core/templates/cc_navbar.php');
-
+        $page_load = microtime(true) - $start;
+        define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
         $template->onPageLoad();
-
         require(ROOT_PATH . '/core/templates/navbar.php');
         require(ROOT_PATH . '/core/templates/footer.php');
         $template->displayTemplate('user/tfa.tpl', $smarty);
@@ -200,7 +200,7 @@ if (isset($_GET['do'])) {
                             return null;
                         }
 
-                        return $language->get('user', 'field_is_required', ['field' => Output::getClean($field[0]->name)]);
+                        return str_replace('{x}', Output::getClean($field[0]->name), $language->get('user', 'field_is_required'));
                     },
                 ]);
 
@@ -395,11 +395,11 @@ if (isset($_GET['do'])) {
                             ]
                         ])->messages([
                             'password' => [
-                                Validate::REQUIRED => $language->get('user', 'password_required')
+                                Validate::REQUIRED => $language->get('user', 'password_required') . '<br />'
                             ],
                             'email' => [
-                                Validate::REQUIRED => $language->get('user', 'email_required'),
-                                Validate::EMAIL => $language->get('user', 'email_required')
+                                Validate::REQUIRED => $language->get('user', 'email_required') . '<br />',
+                                Validate::EMAIL => $language->get('general', 'contact_message_email') . '<br />'
                             ]
                         ]);
 
@@ -431,34 +431,6 @@ if (isset($_GET['do'])) {
                             }
                         } else {
                             $errors = $validation->errors();
-                        }
-                    } else {
-                        if (Input::get('action') == 'discord') {
-
-                            if (Input::get('unlink') == 'true') {
-
-                                $user->update([
-                                    'discord_id' => null,
-                                    'discord_username' => null
-                                ]);
-
-                                Session::flash('settings_success', Discord::getLanguageTerm('discord_id_unlinked'));
-
-                            } else {
-
-                                $token = uniqid('', true);
-                                $queries->create('discord_verifications', [
-                                    'token' => $token,
-                                    'user_id' => $user->data()->id,
-                                ]);
-
-                                $user->update([
-                                    'discord_id' => 010
-                                ]);
-
-                                Session::flash('settings_success', Discord::getLanguageTerm('discord_id_confirm', ['token' => $token]));
-                            }
-                            Redirect::to(URL::build('/user/settings'));
                         }
                     }
                 }
@@ -608,46 +580,6 @@ if (isset($_GET['do'])) {
         ]);
     }
 
-    // Discord Integration
-    if (Util::isModuleEnabled('Discord Integration')) {
-        $discord_linked = !($user->data()->discord_id == null || $user->data()->discord_id == 010);
-
-        if ($discord_linked) {
-            $smarty->assign([
-                'UNLINK' => Discord::getLanguageTerm('unlink'),
-                'LINKED' => Discord::getLanguageTerm('linked'),
-                'DISCORD_ID_VALUE' => $user->data()->discord_id,
-            ]);
-        } else {
-            $smarty->assign([
-                'GET_LINK_CODE' => Discord::getLanguageTerm('get_link_code'),
-                'NOT_LINKED' => Discord::getLanguageTerm('not_linked'),
-            ]);
-            if ($user->data()->discord_id == 010) {
-                $smarty->assign([
-                    'PENDING_LINK' => Discord::getLanguageTerm('pending_link'),
-                ]);
-            }
-        }
-
-        $smarty->assign([
-            'DISCORD_INTEGRATION' => true,
-            'DISCORD_LINK' => Discord::getLanguageTerm('discord_link'),
-            'DISCORD_LINKED' => $discord_linked,
-            'DISCORD_USERNAME' => Discord::getLanguageTerm('discord_username'),
-            'DISCORD_USERNAME_VALUE' => $user->data()->discord_username,
-            'DISCORD_ID' => Discord::getLanguageTerm('discord_user_id'),
-            'ID_INFO' => Discord::getLanguageTerm('discord_id_help', [
-                'linkStart' => '<a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">',
-                'linkEnd' => '</a>',
-            ]),
-        ]);
-    } else {
-        $smarty->assign([
-            'DISCORD_INTEGRATION' => false
-        ]);
-    }
-
     // Language values
     $smarty->assign([
         'SETTINGS' => $language->get('user', 'profile_settings'),
@@ -714,6 +646,9 @@ if (isset($_GET['do'])) {
     Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
     require(ROOT_PATH . '/core/templates/cc_navbar.php');
+
+    $page_load = microtime(true) - $start;
+    define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
     $template->onPageLoad();
 

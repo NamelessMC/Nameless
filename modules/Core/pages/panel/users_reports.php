@@ -89,20 +89,25 @@ if (!isset($_GET['id'])) {
             $comments = $queries->getWhere('reports_comments', ['report_id', '=', $report->id]);
             $comments = count($comments);
 
-            $target_user = new User($report->reported_id);
+            $user_reported = null;
+            if ($report->reported_id != 0) {
+                $reported_user = new User($report->reported_id);
 
-            if ($report->type == Report::ORIGIN_WEBSITE) {
-                // Site report
-                $user_reported = $target_user->getDisplayname();
-                $user_profile = URL::build('/panel/user/' . urlencode($report->reported_id . '-' . $target_user->data()->username));
-                $user_style = $target_user->getGroupClass();
-                $user_avatar = $target_user->getAvatar();
-            } else {
-                // API report
+                if ($reported_user->exists()) {
+                    // Reported user exists
+                    $user_reported = $reported_user->getDisplayname();
+                    $user_profile = URL::build('/panel/user/' . urlencode($report->reported_id . '-' . $reported_user->data()->username));
+                    $user_style = $reported_user->getGroupClass();
+                    $user_avatar = $reported_user->getAvatar();
+                }
+            }
+
+            if ($user_reported == null) {
+                // Reported user doesn't exist, use their username and uuid
                 $user_reported = Output::getClean($report->reported_mcname);
                 $user_profile = URL::build('/panel/user/' . urlencode($report->reported_id . '-' . $report->reported_mcname));
                 $user_style = '';
-                $user_avatar = $report->reported_id == 0 ? null : AvatarSource::getAvatarFromUUID($report->reported_uuid);
+                $user_avatar = AvatarSource::getAvatarFromUUID($report->reported_uuid ?? $report->reported_mcname);
             }
 
             $updated_by_user = new User($report->updated_by);
@@ -222,11 +227,20 @@ if (!isset($_GET['id'])) {
         }
 
         if (!$report->reported_id) {
-            $reported_user = new User($report->reported_uuid, 'uuid');
-            if ($reported_user->data()) {
-                $reported_user_profile = URL::build('/panel/user/' . urlencode($reported_user->data()->id . '-' . $reported_user->data()->username));
-                $reported_user_style = $reported_user->getGroupClass();
-                $reported_user_avatar = $reported_user->getAvatar();
+            $integration = Integrations::getInstance()->getIntegration('Minecraft');
+            if ($integration != null) {
+                $reported_user = new IntegrationUser($integration, $report->reported_uuid, 'identifier');
+                if ($reported_user->exists()) {
+                    $reported_user = $reported_user->getUser();
+                    
+                    $reported_user_profile = URL::build('/panel/user/' . urlencode($reported_user->data()->id . '-' . $reported_user->data()->username));
+                    $reported_user_style = $reported_user->getGroupClass();
+                    $reported_user_avatar = $reported_user->getAvatar();
+                } else {
+                    $reported_user_profile = '#';
+                    $reported_user_style = '';
+                    $reported_user_avatar = AvatarSource::getAvatarFromUUID(Output::getClean($report->reported_uuid));
+                }
             } else {
                 $reported_user_profile = '#';
                 $reported_user_style = '';

@@ -32,6 +32,19 @@ if (defined('PAGE') && PAGE != 'login' && PAGE != 'register' && PAGE != 404 && P
 
 }
 
+// Check if any integrations is required before user can continue
+if ($user->isLoggedIn() && defined('PAGE') && PAGE != 'cc_connections') {
+    foreach (Integrations::getInstance()->getEnabledIntegrations() as $integration) {
+        if ($integration->data()->required) {
+            $integrationUser = $user->getIntegration($integration->getName());
+            if ($integrationUser == null || !$integrationUser->isVerified()) {
+                Session::flash('connections_error', $language->get('user', 'integration_required_to_continue'));
+                Redirect::to(URL::build('/user/connections'));
+            }
+        }
+    }
+}
+
 if (defined('PAGE') && PAGE != 404) {
     // Auto unset signin tfa variables if set
     if (!str_contains($_GET['route'], '/queries/') && (isset($_SESSION['remember']) || isset($_SESSION['username']) || isset($_SESSION['email']) || isset($_SESSION['password'])) && (!isset($_POST['tfa_code']) && !isset($_SESSION['mcassoc']))) {
@@ -81,12 +94,6 @@ if ($user->isLoggedIn()) {
         }
 
         $cache->store('default_group', $default_group);
-    }
-
-    $api_verification = $configuration->get('Core', 'api_verification');
-    if ($api_verification == 1 && in_array($default_group, $user->getAllGroupIds()) && ($user->data()->reset_code)) {
-        // User needs to validate account
-        $smarty->assign('MUST_VALIDATE_ACCOUNT', $language->get('user', 'validate_account_command', ['command' => Output::getClean($user->data()->reset_code)]));
     }
 }
 

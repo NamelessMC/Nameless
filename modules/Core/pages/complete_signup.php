@@ -73,9 +73,8 @@ if (!$user->isLoggedIn()) {
 
                     EventHandler::executeEvent('validateUser', [
                         'user_id' => $target_user->data()->id,
-                        'username' => $target_user->getDisplayName(),
-                        'uuid' => $target_user->data()->uuid,
-                        'content' =>  $language->get('user', 'user_x_has_validated', ['user' => $target_user->getDisplayName()]),
+                        'username' => $target_user->getDisplayname(),
+                        'content' => str_replace('{x}', $target_user->getDisplayname(), $language->get('user', 'user_x_has_validated')),
                         'avatar_url' => $target_user->getAvatar(128, true),
                         'url' => Util::getSelfURL() . ltrim($target_user->getProfileURL(), '/'),
                         'language' => $language
@@ -111,12 +110,12 @@ $smarty->assign([
     'CONFIRM_PASSWORD' => $language->get('user', 'confirm_password'),
     'SUBMIT' => $language->get('general', 'submit'),
     'I_AGREE' => $language->get('user', 'i_agree'),
-    'AGREE_TO_TERMS' => $language->get('user', 'agree_t_and_c', [
-        'linkStart' => '<a href="' . URL::build('/terms') . '" target="_blank">',
-        'linkEnd' => '</a>'
-    ]),
+    'AGREE_TO_TERMS' => str_replace('{x}', URL::build('/terms'), $language->get('user', 'agree_t_and_c')),
     'TOKEN' => Token::get()
 ]);
+
+$page_load = microtime(true) - $start;
+define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 
