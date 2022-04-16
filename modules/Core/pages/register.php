@@ -291,7 +291,8 @@ if (Input::exists()) {
                         if (count($language_id)) {
                             $language_id = $language_id[0]->id;
                         } else {
-                            $language_id = 1; // fallback to EnglishUK
+                            // fallback to EnglishUK
+                            $language_id = 1;
                         }
 
                         // Get default group ID

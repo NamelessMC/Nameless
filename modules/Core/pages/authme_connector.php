@@ -86,8 +86,9 @@ if (Input::exists()) {
                 if (count($language_id)) {
                     $language_id = $language_id[0]->id;
                 } else {
+                    // fallback to EnglishUK
                     $language_id = 1;
-                } // fallback to EnglishUK
+                }
 
                 $ip = $user->getIP();
                 if (filter_var($ip, FILTER_VALIDATE_IP)) {
