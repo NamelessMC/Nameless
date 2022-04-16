@@ -1,4 +1,4 @@
-{extends 'layouts/default.tpl'}
+{extends 'layouts/basic.tpl'}
 
 {block 'body'}
   <div class="ui container">
