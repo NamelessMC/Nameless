@@ -206,11 +206,11 @@ class Util {
     /**
      * Get the server name.
      *
-     * @param bool $protocol Whether to show http(s) at front or not.
+     * @param bool $show_protocol Whether to show http(s) at front or not.
      *
      * @return string Compiled URL.
      */
-    public static function getSelfURL(bool $protocol = true): string {
+    public static function getSelfURL(bool $show_protocol = true): string {
         $hostname = Config::get('core/hostname');
 
         if (!$hostname) {
@@ -218,19 +218,19 @@ class Util {
         }
 
         // https and www checks
-        $proto = self::getProtocol() . '://';
+        $protocol = self::getProtocol() . '://';
 
         $url = $hostname;
 
-        if (!str_contains($hostname, 'www') && defined('FORCE_WWW') && FORCE_WWW) {
+        if (defined('FORCE_WWW') && FORCE_WWW && !str_contains($hostname, 'www')) {
             $url = 'www.' . $url;
         }
 
-        if ($protocol) {
-            $url = $proto . $url;
+        if ($show_protocol) {
+            $url = $protocol . $url;
             $port = self::getPort();
-            if ($port !== 80 && $proto !== 'http://' ||
-                $port !== 443 && $proto !== 'https://') {
+            if (($port !== 80 && $protocol !== 'http://') ||
+                ($port !== 443 && $protocol !== 'https://')) {
                 $url .= ':' . $port;
             }
         }
