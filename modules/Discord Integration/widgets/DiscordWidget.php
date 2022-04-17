@@ -16,15 +16,15 @@ class DiscordWidget extends WidgetBase {
     private Cache $_cache;
     private ?int $_guild_id;
 
-    public function __construct(array $pages, Cache $cache, Smarty $smarty) {
+    public function __construct(Cache $cache, Smarty $smarty) {
         $this->_cache = $cache;
         $this->_guild_id = Discord::getGuildId();
         $this->_smarty = $smarty;
 
-        parent::__construct($pages, true);
-
         // Get widget
-        $widget_query = DB::getInstance()->selectQuery('SELECT `location`, `order` FROM nl2_widgets WHERE `name` = ?', ['Discord'])->first();
+        $widget_query = self::getData('Discord');
+
+        parent::__construct(self::parsePages($widget_query->pages), true);
 
         // Set widget variables
         $this->_module = 'Discord Integration';
@@ -37,6 +37,12 @@ class DiscordWidget extends WidgetBase {
 
     public function initialise(): void {
         // Generate HTML code for widget
+        // If there is no Guild ID set, display error message
+        if ($this->_guild_id === null) {
+            $this->_content = Discord::getLanguageTerm('discord_widget_disabled');
+            return;
+        }
+
         // First, check to see if the Discord server has the widget enabled.
         $this->_cache->setCache('social_media');
         if ($this->_cache->isCached('discord_widget_check')) {

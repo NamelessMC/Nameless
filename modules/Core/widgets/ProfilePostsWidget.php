@@ -17,17 +17,17 @@ class ProfilePostsWidget extends WidgetBase {
     private User $_user;
     private TimeAgo $_timeago;
 
-    public function __construct(array $pages, Smarty $smarty, Language $language, Cache $cache, User $user, TimeAgo $timeago) {
+    public function __construct(Smarty $smarty, Language $language, Cache $cache, User $user, TimeAgo $timeago) {
         $this->_language = $language;
         $this->_smarty = $smarty;
         $this->_cache = $cache;
         $this->_user = $user;
         $this->_timeago = $timeago;
 
-        parent::__construct($pages);
-
         // Get widget
-        $widget_query = DB::getInstance()->selectQuery('SELECT `location`, `order` FROM nl2_widgets WHERE `name` = ?', ['Latest Profile Posts'])->first();
+        $widget_query = self::getData('Latest Profile Posts');
+
+        parent::__construct(self::parsePages($widget_query->pages));
 
         // Set widget variables
         $this->_module = 'Core';

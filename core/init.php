@@ -424,6 +424,7 @@ if ($page != 'install') {
     $cc_nav->add('cc_overview', $language->get('user', 'overview'), URL::build('/user'));
     $cc_nav->add('cc_alerts', $language->get('user', 'alerts'), URL::build('/user/alerts'));
     $cc_nav->add('cc_messaging', $language->get('user', 'messaging'), URL::build('/user/messaging'));
+    $cc_nav->add('cc_connections', $language->get('user', 'connections'), URL::build('/user/connections'));
     $cc_nav->add('cc_settings', $language->get('user', 'profile_settings'), URL::build('/user/settings'));
     $cc_nav->add('cc_oauth', $language->get('admin', 'oauth'), URL::build('/user/oauth'));
 
@@ -583,6 +584,14 @@ if ($page != 'install') {
             }
         }
 
+        $user_integrations = [];
+        foreach ($user->getIntegrations() as $integrationUser) {
+            $user_integrations[$integrationUser->getIntegration()->getName()] = [
+                'username' => Output::getClean($integrationUser->data()->username),
+                'identifier' => Output::getClean($integrationUser->data()->identifier)
+            ];
+        }
+
         // Basic user variables
         $smarty->assign('LOGGED_IN_USER', [
             'username' => $user->getDisplayname(true),
@@ -592,7 +601,7 @@ if ($page != 'install') {
             'username_style' => $user->getGroupClass(),
             'user_title' => Output::getClean($user->data()->user_title),
             'avatar' => $user->getAvatar(),
-            'uuid' => Output::getClean($user->data()->uuid)
+            'integrations' => $user_integrations
         ]);
 
         // Panel access?

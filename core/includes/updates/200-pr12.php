@@ -1,5 +1,5 @@
 <?php
-// 2.0.0 pr-12 to 2.0.0 ? updater
+// 2.0.0-pr12 to 2.0.0-pr13 updater
 try {
     $db_engine = Config::get('mysql/engine');
 } catch (Exception $e) {
@@ -75,6 +75,60 @@ try {
     echo $e->getMessage() . '<br />';
 }
 
+// User integrations
+try {
+    DB::getInstance()->createTable('integrations', " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(32) NOT NULL, `enabled` tinyint(1) NOT NULL DEFAULT '1', `can_unlink` tinyint(1) NOT NULL DEFAULT '1', `required` tinyint(1) NOT NULL DEFAULT '0', `order` int(11) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)", "ENGINE=$db_engine DEFAULT CHARSET=$db_charset");
+    DB::getInstance()->createTable('users_integrations', " `id` int(11) NOT NULL AUTO_INCREMENT, `integration_id` int(11) NOT NULL, `user_id` int(11) NOT NULL, `identifier` varchar(64) DEFAULT NULL, `username` varchar(32) DEFAULT NULL, `verified` tinyint(1) NOT NULL DEFAULT '0', `date` int(11) NOT NULL, `code` varchar(64) DEFAULT NULL, `show_publicly` tinyint(1) NOT NULL DEFAULT '1', `last_sync` int(11) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)", "ENGINE=$db_engine DEFAULT CHARSET=$db_charset");
+
+    $queries->create('integrations', [
+        'name' => 'Minecraft',
+        'enabled' => 1,
+        'can_unlink' => 0,
+        'required' => 0
+    ]);
+
+    $queries->create('integrations', [
+        'name' => 'Discord',
+        'enabled' => 1,
+        'can_unlink' => 1,
+        'required' => 0
+    ]);
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+
+try {
+    DB::getInstance()->createQuery('ALTER TABLE `nl2_users_integrations` ADD INDEX `nl2_users_integrations_idx_integration_id` (`integration_id`)');
+    DB::getInstance()->createQuery('ALTER TABLE `nl2_users_integrations` ADD INDEX `nl2_users_integrations_idx_user_id` (`user_id`)');
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+
+// Convert users integrations
+try {
+    $users = DB::getInstance()->selectQuery('SELECT id, username, uuid, discord_id, discord_username, joined FROM nl2_users')->results();
+    $query = 'INSERT INTO nl2_users_integrations (integration_id, user_id, identifier, username, verified, date) VALUES ';
+    foreach ($users as $item) {
+        if (!empty($item->uuid) && $item->uuid != 'none') {
+            $inserts = ['(1,' . $item->id . ',\'' . $item->uuid . '\',\'' . $item->username . '\',1,' . $item->joined . '),'];
+        }
+
+        if ($item->discord_id != null && $item->discord_username != null && $item->discord_id != 010) {
+            $inserts[] = '(2,' . $item->id . ',\'' . $item->discord_id . '\',\'' . $item->discord_username . '\',1,' . $item->joined . '),';
+        }
+
+        $query .= implode('', $inserts);
+    }
+    DB::getInstance()->createQuery(rtrim($query, ','));
+
+    // Only delete after successful conversion
+    DB::getInstance()->createQuery('ALTER TABLE `nl2_users` DROP COLUMN `uuid`;');
+    DB::getInstance()->createQuery('ALTER TABLE `nl2_users` DROP COLUMN `discord_id`;');
+    DB::getInstance()->createQuery('ALTER TABLE `nl2_users` DROP COLUMN `discord_username`;');
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br />';
+}
+
 // Add bedrock to nl2_mc_servers table
 try {
     DB::getInstance()->createQuery('ALTER TABLE `nl2_mc_servers` ADD `bedrock` tinyint(1) NOT NULL DEFAULT \'0\'');
@@ -92,6 +146,13 @@ try {
 // add unique constraint to modules table
 try {
     DB::getInstance()->createQuery('ALTER TABLE nl2_modules ADD UNIQUE (`name`)');
+} catch (Exception $e) {
+    // Continue
+}
+
+// Increase length of reset_code column
+try {
+    DB::getInstance()->createQuery('ALTER TABLE nl2_users MODIFY `reset_code` VARCHAR(64) NOT NULL');
 } catch (Exception $e) {
     // Continue
 }

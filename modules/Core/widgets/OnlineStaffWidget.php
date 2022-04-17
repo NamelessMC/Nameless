@@ -15,15 +15,15 @@ class OnlineStaffWidget extends WidgetBase {
     private Cache $_cache;
     private array $_language;
 
-    public function __construct(array $pages, Smarty $smarty, array $language, Cache $cache) {
+    public function __construct(Smarty $smarty, array $language, Cache $cache) {
+        // Get widget
+        $widget_query = self::getData('Online Staff');
+
         $this->_cache = $cache;
         $this->_smarty = $smarty;
         $this->_language = $language;
 
-        parent::__construct($pages);
-
-        // Get widget
-        $widget_query = DB::getInstance()->selectQuery('SELECT `location`, `order` FROM nl2_widgets WHERE `name` = ?', ['Online Staff'])->first();
+        parent::__construct(self::parsePages($widget_query->pages));
 
         // Set widget variables
         $this->_module = 'Core';

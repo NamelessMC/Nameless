@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr13
  *
  *  License: MIT
  *
@@ -39,57 +39,18 @@ if (isset($_GET['action'])) {
         if (Token::check()) {
             // Validate the user
             if ($user_query->active == 0) {
-                $queries->update('users', $user_query->id, [
+                $view_user->update([
                     'active' => 1,
                     'reset_code' => ''
                 ]);
 
                 EventHandler::executeEvent('validateUser', [
                     'user_id' => $user_query->id,
-                    'username' => Output::getClean($user_query->username),
-                    'uuid' => Output::getClean($user_query->uuid),
+                    'username' => $user_query->username,
                     'language' => $language
                 ]);
 
                 Session::flash('edit_user_success', $language->get('admin', 'user_validated_successfully'));
-            }
-        }
-
-    } else if ($_GET['action'] == 'update_mcname') {
-        $uuid = $user_query->uuid;
-
-        $profile = ProfileUtils::getProfile($uuid);
-
-        if ($profile) {
-            $result = $profile->getUsername();
-
-            if (!empty($result)) {
-                if ($user_query->username == $user_query->nickname) {
-                    $queries->update('users', $user_query->id, [
-                        'username' => Output::getClean($result),
-                        'nickname' => Output::getClean($result)
-                    ]);
-                } else {
-                    $queries->update('users', $user_query->id, [
-                        'username' => Output::getClean($result)
-                    ]);
-                }
-
-                Session::flash('edit_user_success', $language->get('admin', 'user_updated_successfully'));
-            }
-        }
-    } else if ($_GET['action'] == 'update_uuid') {
-        $profile = ProfileUtils::getProfile($user_query->username);
-
-        if ($profile !== null) {
-            $result = $profile->getProfileAsArray();
-
-            if (isset($result['uuid']) && !empty($result['uuid'])) {
-                $queries->update('users', $user_query->id, [
-                    'uuid' => Output::getClean($result['uuid'])
-                ]);
-
-                Session::flash('edit_user_success', $language->get('admin', 'user_updated_successfully'));
             }
         }
     } else if ($_GET['action'] == 'resend_email' && $user_query->active == 0) {
@@ -121,9 +82,6 @@ if (Input::exists()) {
                     Validate::MIN => 4,
                     Validate::MAX => 50
                 ],
-                'UUID' => [
-                    Validate::MAX => 32
-                ],
                 'signature' => [
                     Validate::MAX => 900
                 ],
@@ -147,7 +105,6 @@ if (Input::exists()) {
                 'email' => [
                     Validate::REQUIRED => $language->get('user', 'email_required')
                 ],
-                'UUID' => $language->get('admin', 'uuid_max_32'),
                 'title' => $language->get('admin', 'title_max_64'),
                 'username' => [
                     Validate::REQUIRED => $language->get('user', 'mcname_required'),
@@ -199,12 +156,11 @@ if (Input::exists()) {
                         $nickname = Input::get('username');
                     }
 
-                    $queries->update('users', $user_query->id, [
+                    $view_user->update([
                         'nickname' => Output::getClean($nickname),
                         'email' => Output::getClean(Input::get('email')),
                         'username' => Output::getClean($username),
                         'user_title' => Output::getClean(Input::get('title')),
-                        'uuid' => Output::getClean(Input::get('UUID')),
                         'signature' => $signature,
                         'private_profile' => $private_profile,
                         'theme_id' => $new_template
@@ -257,7 +213,6 @@ if (Input::exists()) {
                     EventHandler::executeEvent('deleteUser', [
                         'user_id' => $user_query->id,
                         'username' => $user_query->username,
-                        'uuid' => $user_query->uuid,
                         'email_address' => $user_query->email
                     ]);
 
@@ -314,20 +269,11 @@ if ($user_query->active == 0) {
     ]);
 }
 
-if (defined('MINECRAFT') && MINECRAFT === true) {
-    $smarty->assign([
-        'UPDATE_MINECRAFT_USERNAME' => $language->get('admin', 'update_mc_name'),
-        'UPDATE_MINECRAFT_USERNAME_LINK' => URL::build('/panel/users/edit/', 'id=' . urlencode($user_query->id) . '&action=update_mcname'),
-        'UPDATE_UUID' => $language->get('admin', 'update_uuid'),
-        'UPDATE_UUID_LINK' => URL::build('/panel/users/edit/', 'id=' . urlencode($user_query->id) . '&action=update_uuid')
-    ]);
-}
-
 if ($user_query->id != 1 && !$view_user->canViewStaffCP()) {
     $smarty->assign([
         'DELETE_USER' => $language->get('admin', 'delete_user'),
         'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
-        'CONFIRM_DELETE_USER' => str_replace('{x}', Output::getClean($user_query->nickname), $language->get('admin', 'confirm_user_deletion')),
+        'CONFIRM_DELETE_USER' => str_replace('{x}', Output::getClean($user_query->username), $language->get('admin', 'confirm_user_deletion')),
         'YES' => $language->get('general', 'yes'),
         'NO' => $language->get('general', 'no')
     ]);
@@ -343,9 +289,6 @@ if ($user_query->id == 1 || ($user_query->id == $user->data()->id && !$user->has
 
 $displaynames = $queries->getWhere('settings', ['name', '=', 'displaynames']);
 $displaynames = $displaynames[0]->value;
-
-$uuid_linking = $queries->getWhere('settings', ['name', '=', 'uuid_linking']);
-$uuid_linking = $uuid_linking[0]->value;
 
 $private_profile = $queries->getWhere('settings', ['name', '=', 'private_profile']);
 $private_profile = $private_profile[0]->value;
@@ -402,9 +345,6 @@ $smarty->assign([
     'NICKNAME_VALUE' => Output::getClean($user_query->nickname),
     'EMAIL_ADDRESS' => $language->get('user', 'email_address'),
     'EMAIL_ADDRESS_VALUE' => Output::getClean($user_query->email),
-    'UUID_LINKING' => ($uuid_linking == '1'),
-    'UUID' => $language->get('admin', 'minecraft_uuid'),
-    'UUID_VALUE' => Output::getClean($user_query->uuid),
     'USER_TITLE' => $language->get('admin', 'title'),
     'USER_TITLE_VALUE' => Output::getClean($user_query->user_title),
     'PRIVATE_PROFILE' => $language->get('user', 'private_profile'),
@@ -425,15 +365,6 @@ $smarty->assign([
     'NO_ITEM_SELECTED' => $language->get('admin', 'no_item_selected'),
     'TEMPLATES' => $templates
 ]);
-
-$discord_id = $user_query->discord_id;
-
-if ($discord_id != null && $discord_id != 010) {
-    $smarty->assign([
-        'DISCORD_ID' => Discord::getLanguageTerm('discord_user_id'),
-        'DISCORD_ID_VALUE' => $discord_id
-    ]);
-}
 
 $template->addCSSFiles([
     (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.css' => [],

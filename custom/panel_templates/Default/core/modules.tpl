@@ -94,7 +94,7 @@
                         <br />
 
                         {if isset($WEBSITE_MODULES_ERROR)}
-                            <div class="alert bg-danger text-white">{$WEBSITE_MODULES_ERROR}</div>
+                            <div class="alert alert-warning">{$UNABLE_TO_RETRIEVE_MODULES}</div>
                         {/if}
 
                         {if count($WEBSITE_MODULES)}
@@ -147,7 +147,7 @@
                                 </table>
                             </div>
                         {else}
-                            <div class="alert bg-danger text-white">{$UNABLE_TO_RETRIEVE_MODULES}</div>
+                            <div class="alert alert-warning">{$WEBSITE_MODULES_ERROR}</div>
                         {/if}
 
                         <a href="{$VIEW_ALL_MODULES_LINK}" class="btn btn-primary" target="_blank">{$VIEW_ALL_MODULES}

@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr12
+ *  NamelessMC version 2.0.0-pr13
  *
  *  License: MIT
  *
@@ -534,9 +534,6 @@ $pagination = $paginator->generate(7, URL::build('/forum/topic/' . $tid . '-' . 
 
 $smarty->assign('PAGINATION', $pagination);
 
-// Is Minecraft integration enabled?
-$mc_integration = $queries->getWhere('settings', ['name', '=', 'mc_integration']);
-
 // Replies
 $replies = [];
 // Display the correct number of posts
@@ -616,15 +613,20 @@ foreach ($results->data as $n => $nValue) {
     // Profile fields
     $fields = $post_creator->getProfileFields(true, true);
 
-    // TODO: Add setting to hide/show this
-    if (Util::isModuleEnabled('Discord Integration') && Discord::isBotSetup()) {
-        if ($post_creator->data()->discord_username != null) {
-            $fields[] = ['name' => Discord::getLanguageTerm('discord'), 'value' => $post_creator->data()->discord_username];
-        }
-    }
+    // User integrations
+    $user_integrations = [];
+    foreach ($post_creator->getIntegrations() as $key => $integrationUser) {
+        if ($integrationUser->data()->username != null && $integrationUser->data()->show_publicly) {
+            $fields[] = [
+                'name' => Output::getClean($key),
+                'value' => Output::getClean($integrationUser->data()->username)
+            ];
 
-    if ($mc_integration[0]->value == '1') {
-        $fields[] = ['name' => 'IGN', 'value' => $post_creator->getDisplayname(true)];
+            $user_integrations[$key] = [
+                'username' => Output::getClean($integrationUser->data()->username),
+                'identifier' => Output::getClean($integrationUser->data()->identifier)
+            ];
+        }
     }
 
     $forum_placeholders = $post_creator->getForumPlaceholders();
@@ -691,7 +693,7 @@ foreach ($results->data as $n => $nValue) {
         'id' => $nValue->id,
         'user_id' => $post_creator->data()->id,
         'avatar' => $post_creator->getAvatar(500),
-        'uuid' => Output::getClean($post_creator->data()->uuid),
+        'integrations' => $user_integrations,
         'username' => $post_creator->getDisplayname(),
         'mcname' => $post_creator->getDisplayname(true),
         'last_seen' => str_replace('{x}', $timeago->inWords(date('Y-m-d H:i:s', $post_creator->data()->last_online), $language->getTimeLanguage()), $language->get('user', 'last_seen_x')),

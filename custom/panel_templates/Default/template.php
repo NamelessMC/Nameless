@@ -412,6 +412,7 @@ if (!class_exists('Default_Panel_Template')) {
 							');
 
                         }
+
                         break;
 
                     case 'minecraft':

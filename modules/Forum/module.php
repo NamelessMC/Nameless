@@ -229,9 +229,7 @@ class Forum_Module extends Module {
         // Widgets
         // Latest posts
         require_once(ROOT_PATH . '/modules/Forum/widgets/LatestPostsWidget.php');
-        $module_pages = $widgets->getPages('Latest Posts');
-
-        $widgets->add(new LatestPostsWidget($module_pages, $this->_forum_language->get('forum', 'latest_posts'), $this->_forum_language->get('forum', 'by'), $smarty, $cache, $user, $this->_language));
+        $widgets->add(new LatestPostsWidget($this->_forum_language->get('forum', 'latest_posts'), $this->_forum_language->get('forum', 'by'), $smarty, $cache, $user, $this->_language));
 
         // Front end or back end?
         if (defined('FRONT_END')) {

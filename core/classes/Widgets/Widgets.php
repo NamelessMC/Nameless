@@ -155,24 +155,6 @@ class Widgets {
     }
 
     /**
-     * Get a list of pages a widget is enabled on.
-     *
-     * @param string $name Name of widget to get pages for.
-     *
-     * @return array List of page names.
-     */
-    public function getPages(string $name): array {
-        $pages = $this->_db->get('widgets', ['name', '=', $name]);
-
-        if ($pages->count()) {
-            $pages = $pages->first();
-            return json_decode($pages->pages, true) ?? [];
-        }
-
-        return [];
-    }
-
-    /**
      * Get the name of this collection of widgets.
      * Not used internally.
      *

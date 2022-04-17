@@ -88,16 +88,6 @@
                             </div>
 
                             <div class="form-group custom-control custom-switch">
-                                <input name="api_verification" id="api_verification" type="checkbox"
-                                       class="custom-control-input" {if $API_VERIFICATION_VALUE eq 1} checked{/if} />
-                                <label class="custom-control-label" for="api_verification">{$API_VERIFICATION}</label> <span class="badge badge-info"
-                                                                                                data-toggle="popover"
-                                                                                                data-title="{$INFO}"
-                                                                                                data-content="{$API_VERIFICATION_INFO}"><i
-                                            class="fas fa-question-circle"></i></span>
-                            </div>
-
-                            <div class="form-group custom-control custom-switch">
                                 <input name="username_sync" id="username_sync" type="checkbox"
                                        class="custom-control-input" {if $USERNAME_SYNC_VALUE eq 1} checked{/if} />
                                 <label class="custom-control-label" for="username_sync">{$USERNAME_SYNC}</label> <span class="badge badge-info"

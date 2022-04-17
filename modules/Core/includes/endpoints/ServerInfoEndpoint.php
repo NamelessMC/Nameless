@@ -63,14 +63,18 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
         $group_sync_log = [];
 
         try {
+            $integration = Integrations::getInstance()->getIntegration('Minecraft');
+
             foreach ($_POST['players'] as $uuid => $player) {
-                $user = new User($uuid, 'uuid');
-                $this->updateUsername($user, $player, $api);
-                $log = $this->updateGroups($user, $player);
-                if (count($log)) {
-                    $group_sync_log[] = $log;
+                $integrationUser = new IntegrationUser($integration, $uuid, 'identifier');
+                if ($integrationUser->exists()) {
+                    $this->updateUsername($integrationUser, $player, $api);
+                    $log = $this->updateGroups($integrationUser, $player);
+                    if (count($log)) {
+                        $group_sync_log[] = $log;
+                    }
+                    $this->updatePlaceholders($integrationUser->getUser(), $player);
                 }
-                $this->updatePlaceholders($user, $player);
             }
         } catch (Exception $e) {
             $api->throwError(25, $api->getLanguage()->get('api', 'unable_to_update_server_info'), $e->getMessage(), 500);
@@ -79,9 +83,15 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
         $api->returnArray(array_merge(['message' => $api->getLanguage()->get('api', 'server_info_updated')], ['log' => $group_sync_log]));
     }
 
-    private function updateUsername(User $user, array $player, Nameless2API $api): void
-    {
+    private function updateUsername(IntegrationUser $integrationUser, array $player, Nameless2API $api): void {
+        if ($player['name'] != $integrationUser->data()->username) {
+            $integrationUser->update([
+                'username' => Output::getClean($player['name'])
+            ]);
+        }
+
         if (Util::getSetting($api->getDb(), 'username_sync')) {
+            $user = $integrationUser->getUser();
             if (!$user->data() ||
                 $player['name'] == $user->data()->username) {
                 return;
@@ -101,7 +111,12 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
         }
     }
 
-    private function updateGroups(User $user, array $player): array {
+    private function updateGroups(IntegrationUser $integrationUser, array $player): array {
+        if (!$integrationUser->isVerified()) {
+            return [];
+        }
+
+        $user = $integrationUser->getUser();
         if (!$user->exists()) {
             return [];
         }
@@ -123,9 +138,8 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
         return $log;
     }
 
-    private function updatePlaceholders(User $user, $player): void
-    {
-        if ($user->data()) {
+    private function updatePlaceholders(User $user, $player): void {
+        if ($user->exists()) {
             $user->savePlaceholders($_POST['server-id'], $player['placeholders']);
         }
     }
