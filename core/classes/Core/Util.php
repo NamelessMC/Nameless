@@ -162,7 +162,9 @@ class Util {
         if (isset($_SERVER['HTTP_X_REAL_IP'])) {
             self::ensureTrustedProxy();
             return $_SERVER['HTTP_X_REAL_IP'];
-        } else if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+        }
+
+        if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
             self::ensureTrustedProxy();
             // Comma separated list of addresses, first one is the real client
             return strtok($_SERVER['HTTP_X_FORWARDED_FOR'], ',');
@@ -186,7 +188,9 @@ class Util {
             return $proto;
         }
 
-        return (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+        return (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
+            ? 'https'
+            : 'http';
     }
 
     /**
