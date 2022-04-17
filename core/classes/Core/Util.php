@@ -129,7 +129,11 @@ class Util {
         return !(str_replace('www.', '', rtrim(self::getSelfURL(false), '/')) == str_replace('www.', '', $parsed['host']));
     }
 
-    private static function ensureTrustedProxy() {
+    /**
+     * Checks whether the client making the request is a trusted proxy. If not,
+     * abruptly aborts the request using die().
+     */
+    private static function ensureTrustedProxy(): void {
         $trustedProxies = Config::get('core/trustedProxies');
         if ($trustedProxies === false) {
             die("Received proxy header but trustedProxies not configured");
@@ -149,6 +153,11 @@ class Util {
         }
     }
 
+    /**
+     * Get the client's true IP address, using proxy headers if necessary.
+     *
+     * @return string Client IP address
+     */
     public static function getRemoteAddress(): string {
         if (isset($_SERVER['HTTP_X_REAL_IP'])) {
             self::ensureTrustedProxy();
@@ -162,7 +171,11 @@ class Util {
         return $_SERVER['REMOTE_ADDR'];
     }
 
-    // returns 'http' or 'https'
+    /**
+     * Get the protocol used by client's HTTP request, using proxy headers if necessary.
+     *
+     * @return string 'http' if HTTP or 'https' if HTTPS
+     */
     public static function getProtocol(): string {
         if (isset($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
             self::ensureTrustedProxy();
@@ -176,13 +189,18 @@ class Util {
         return (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
     }
 
+    /**
+     * Get port used by client's HTTP request, using proxy headers if necessary.
+     *
+     * @return int Port number
+     */
     public static function getPort(): int {
         if (isset($_SERVER['HTTP_X_FORWARDED_PORT'])) {
             self::ensureTrustedProxy();
             return (int) $_SERVER['HTTP_X_FORWARDED_PORT'];
         }
 
-        return $_SERVER['SERVER_PORT'];
+        return (int) $_SERVER['SERVER_PORT'];
     }
 
     /**
