@@ -78,7 +78,7 @@ if ($page != 'install') {
         define('FORCE_WWW', true);
     }
 
-    if (defined('FORCE_SSL') && !Util::isConnectionSSL()) {
+    if (defined('FORCE_SSL') && Util::getProtocol() === 'http') {
         if (defined('FORCE_WWW') && !str_contains($_SERVER['HTTP_HOST'], 'www.')) {
             header('Location: https://www.' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
             die();
@@ -89,11 +89,7 @@ if ($page != 'install') {
     }
 
     if (defined('FORCE_WWW') && !str_contains($_SERVER['HTTP_HOST'], 'www.')) {
-        if (!Util::isConnectionSSL()) {
-            header('Location: http://www.' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
-        } else {
-            header('Location: https://www.' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
-        }
+        header('Location: ' . Util::getProtocol() . '://www.' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
     }
 
     // Queries
@@ -498,7 +494,7 @@ if ($page != 'install') {
     }
 
     // Get IP
-    $ip = $user->getIP();
+    $ip = Util::getRemoteAddress();
 
     // Perform tasks if the user is logged in
     if ($user->isLoggedIn()) {

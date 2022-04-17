@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             $language = $queries->getWhere('languages', ['is_default', '=', 1]);
 
-            $ip = $user->getIP();
+            $ip = Util::getRemoteAddress();
 
             $user->create([
                 'username' => Input::get('username'),
@@ -80,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $result = $profile->getProfileAsArray();
                 if (isset($result['uuid']) && !empty($result['uuid'])) {
                     $uuid = $result['uuid'];
-                    
+
                     $queries->create('users_integrations', [
                         'integration_id' => 1,
                         'user_id' => 1,

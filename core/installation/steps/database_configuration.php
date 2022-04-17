@@ -84,7 +84,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         'captcha' => false,
                         'date_format' => 'd M Y, H:i',
                     ],
-                    'allowedProxies' => '',
                 ];
 
                 try {

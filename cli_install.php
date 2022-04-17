@@ -114,7 +114,6 @@ $conf = [
         'force_www' => false,
         'captcha' => false,
     ],
-    'allowedProxies' => '',
 ];
 
 file_put_contents(
@@ -197,7 +196,7 @@ if ($profile !== null) {
    $result = $profile->getProfileAsArray();
     if (isset($result['uuid']) && !empty($result['uuid'])) {
         $uuid = $result['uuid'];
-                    
+
         $queries->create('users_integrations', [
             'integration_id' => 1,
             'user_id' => 1,

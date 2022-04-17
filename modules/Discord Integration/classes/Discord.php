@@ -79,7 +79,7 @@ class Discord {
         $errors = self::parseErrors($result);
 
         foreach ($errors as $error) {
-            Log::getInstance()->log(Log::Action('discord/role_set'), $error, $user->data()->id, $user->getIP());
+            Log::getInstance()->log(Log::Action('discord/role_set'), $error, $user->data()->id, Util::getRemoteAddress());
         }
 
         return false;

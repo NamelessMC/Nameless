@@ -1,6 +1,7 @@
 <?php
 
 use Astrotomic\Twemoji\Twemoji;
+use Symfony\Component\HttpFoundation\IpUtils;
 
 /**
  * Contains misc utility methods.
@@ -128,6 +129,62 @@ class Util {
         return !(str_replace('www.', '', rtrim(self::getSelfURL(false), '/')) == str_replace('www.', '', $parsed['host']));
     }
 
+    private static function ensureTrustedProxy() {
+        $trustedProxies = Config::get('core/trustedProxies');
+        if ($trustedProxies === false) {
+            die("Received proxy header but trustedProxies not configured");
+        }
+
+        $trusted = false;
+
+        foreach ($trustedProxies as $trustedProxy) {
+            if (IpUtils::checkIp($_SERVER['REMOTE_ADDR'], $trustedProxy)) {
+                $trusted = true;
+                break;
+            }
+        }
+
+        if (!$trusted) {
+            die("Received proxy header but address " . $_SERVER['REMOTE_ADDR'] . " is not trusted.");
+        }
+    }
+
+    public static function getRemoteAddress(): string {
+        if (isset($_SERVER['HTTP_X_REAL_IP'])) {
+            self::ensureTrustedProxy();
+            return $_SERVER['HTTP_X_REAL_IP'];
+        } else if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            self::ensureTrustedProxy();
+            // Comma separated list of addresses, first one is the real client
+            return strtok($_SERVER['HTTP_X_FORWARDED_FOR'], ',');
+        }
+
+        return $_SERVER['REMOTE_ADDR'];
+    }
+
+    // returns 'http' or 'https'
+    public static function getProtocol(): string {
+        if (isset($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
+            self::ensureTrustedProxy();
+            $proto = $_SERVER['HTTP_X_FORWARDED_PROTO'];
+            if ($proto !== 'http' && $proto !== 'https') {
+                die("Invalid X-Forwarded-Proto header, should be 'http' or 'https'.");
+            }
+            return $proto;
+        }
+
+        return (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+    }
+
+    public static function getPort(): int {
+        if (isset($_SERVER['HTTP_X_FORWARDED_PORT'])) {
+            self::ensureTrustedProxy();
+            return (int) $_SERVER['HTTP_X_FORWARDED_PORT'];
+        }
+
+        return $_SERVER['SERVER_PORT'];
+    }
+
     /**
      * Get the server name.
      *
@@ -143,26 +200,21 @@ class Util {
         }
 
         // https and www checks
-        if (self::isConnectionSSL()) {
-            $proto = 'https://';
-        } else {
-            $proto = 'http://';
-        }
+        $proto = self::getProtocol() . '://';
+
+        $url = $hostname;
 
         if (!str_contains($hostname, 'www') && defined('FORCE_WWW') && FORCE_WWW) {
-            $www = 'www.';
-        } else {
-            $www = '';
+            $url = 'www.' . $url;
         }
 
         if ($protocol) {
-            if ($_SERVER['SERVER_PORT'] == 80 || $_SERVER['SERVER_PORT'] == 443) {
-                $url = $proto . $www . Output::getClean($hostname);
-            } else {
-                $url = $proto . $www . Output::getClean($hostname) . ':' . $_SERVER['SERVER_PORT'];
+            $url = $proto . $url;
+            $port = self::getPort();
+            if ($port !== 80 && $proto !== 'http://' ||
+                $port !== 443 && $proto !== 'https://') {
+                $url .= ':' . $port;
             }
-        } else {
-            $url = $www . Output::getClean($hostname);
         }
 
         if (substr($url, -1) !== '/') {
@@ -170,15 +222,6 @@ class Util {
         }
 
         return $url;
-    }
-
-    /**
-     * Detect if the current connection is using SSL.
-     *
-     * @return bool Whether SSL is in use or not.
-     */
-    public static function isConnectionSSL(): bool {
-        return (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https');
     }
 
     /*

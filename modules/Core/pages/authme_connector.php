@@ -89,7 +89,7 @@ if (Input::exists()) {
                     $language_id = 1;
                 } // fallback to EnglishUK
 
-                $ip = $user->getIP();
+                $ip = Util::getRemoteAddress();
                 if (filter_var($ip, FILTER_VALIDATE_IP)) {
                     // Valid IP
                 } else {

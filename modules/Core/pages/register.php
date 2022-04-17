@@ -237,7 +237,7 @@ if (Input::exists()) {
                 // Check if any integrations have actions to perform
                 foreach ($integrations->getEnabledIntegrations() as $integration) {
                     $integration->afterRegistrationValidation();
-                    
+
                     if (count($integration->getErrors())) {
                         $integration_errors = $integration->getErrors();
                         break;
@@ -275,7 +275,7 @@ if (Input::exists()) {
                         // Disabled
                         $user = new User();
 
-                        $ip = $user->getIP();
+                        $ip = Util::getRemoteAddress();
                         if (!filter_var($ip, FILTER_VALIDATE_IP)) {
                             // TODO: Invalid IP, do something
                         }
