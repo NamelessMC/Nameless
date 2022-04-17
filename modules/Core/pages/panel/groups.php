@@ -370,10 +370,8 @@ if (isset($_GET['action'])) {
         }
     }
 } else {
-    $groups = $queries->orderAll('groups', '`order`', 'ASC');
-
     $groups_template = [];
-    foreach ($groups as $group) {
+    foreach (Group::all() as $group) {
         $users = $queries->getWhere('users_groups', ['group_id', '=', $group->id]);
         $users = count($users);
 

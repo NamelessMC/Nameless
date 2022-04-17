@@ -171,10 +171,10 @@ if (Input::exists()) {
                             $modified = [];
 
                             // Check for new groups to give them which they dont already have
-                            foreach ($_POST['groups'] as $group) {
-                                if (!in_array($group, $view_user->getAllGroupIds())) {
-                                    $view_user->addGroup($group, 0, [true]);
-                                    $modified[] = $group;
+                            foreach ($_POST['groups'] as $group_id) {
+                                if (!in_array($group_id, $view_user->getAllGroupIds())) {
+                                    $view_user->addGroup($group_id);
+                                    $modified[] = $group_id;
                                 }
                             }
 

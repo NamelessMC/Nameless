@@ -237,7 +237,7 @@ if (Input::exists()) {
                 // Check if any integrations have actions to perform
                 foreach ($integrations->getEnabledIntegrations() as $integration) {
                     $integration->afterRegistrationValidation();
-                    
+
                     if (count($integration->getErrors())) {
                         $integration_errors = $integration->getErrors();
                         break;
@@ -331,7 +331,7 @@ if (Input::exists()) {
                         $user_id = $queries->getLastId();
 
                         $user = new User($user_id);
-                        $user->addGroup($default_group, 0, [true]);
+                        $user->addGroup($default_group);
 
                         foreach ($integrations->getEnabledIntegrations() as $integration) {
                             $integration->successfulRegistration($user);

@@ -14,24 +14,24 @@ class User {
     private DB $_db;
 
     /**
-     * @var mixed The user's data. Basically just the row from `nl2_users` where the user ID is the key.
+     * @var UserData|null The user's data. Basically just the row from `nl2_users` where the user ID is the key.
      */
-    private $_data;
+    private ?UserData $_data;
 
     /**
-     * @var array The user's groups.
+     * @var array<int, UserGroup> The user's groups.
      */
     private array $_groups = [];
 
     /**
-     * @var array The user's integrations.
+     * @var IntegrationUser[] The user's integrations.
      */
     private array $_integrations;
 
     /**
-     * @var object The user's main group.
+     * @var UserGroup The user's main group.
      */
-    private object $_main_group;
+    private UserGroup $_main_group;
 
     /**
      * @var array The user's placeholders.
@@ -101,16 +101,16 @@ class User {
             $data = $this->_db->get('users', [$field, '=', $value]);
 
             if ($data->count()) {
-                $this->_data = $data->first();
+                $this->_data = new UserData($data->first());
 
                 // Get user groups
-                $groups_query = $this->_db->selectQuery('SELECT nl2_groups.* FROM nl2_users_groups INNER JOIN nl2_groups ON group_id = nl2_groups.id WHERE user_id = ? AND deleted = 0 ORDER BY `order`;', [$this->_data->id]);
+                $groups_query = $this->_db->selectQuery('SELECT nl2_groups.* FROM nl2_users_groups INNER JOIN nl2_groups ON group_id = nl2_groups.id WHERE user_id = ? AND deleted = 0 ORDER BY `order`;', [$this->data()->id]);
 
                 if ($groups_query->count()) {
 
                     $groups_query = $groups_query->results();
                     foreach ($groups_query as $item) {
-                        $this->_groups[$item->id] = $item;
+                        $this->_groups[$item->id] = new UserGroup($item);
                     }
 
                 } else {
@@ -161,10 +161,10 @@ class User {
         if ($group_data == null) {
             $group_data = $this->_db->get('groups', ['id', '=', $group_id]);
             if ($group_data->count()) {
-                $this->_groups[$group_id] = $group_data->first();
+                $this->_groups[$group_id] = new UserGroup($group_data->first());
             }
         } else {
-            $this->_groups[$group_id] = $group_data;
+            $this->_groups[$group_id] = new UserGroup($group_data);
         }
 
         return true;
@@ -173,9 +173,9 @@ class User {
     /**
      * Get the currently logged in user's data.
      *
-     * @return object This user's data.
+     * @return UserData This user's data.
      */
-    public function data(): ?object {
+    public function data(): ?UserData {
         return $this->_data;
     }
 
@@ -225,7 +225,7 @@ class User {
      * @throws Exception
      */
     public function update(array $fields = []): void {
-        if (!$this->_db->update('users', $this->_data->id, $fields)) {
+        if (!$this->_db->update('users', $this->data()->id, $fields)) {
             throw new RuntimeException('There was a problem updating your details.');
         }
     }
@@ -397,10 +397,10 @@ class User {
      */
     public function getDisplayName(bool $username = false): string {
         if ($username) {
-            return Output::getClean($this->_data->username);
+            return Output::getClean($this->data()->username);
         }
 
-        return Output::getClean($this->_data->nickname);
+        return Output::getClean($this->data()->nickname);
     }
 
     /**
@@ -419,7 +419,7 @@ class User {
      */
     public function getAllGroupIds(): array {
         if (!$this->exists()) {
-            return [0];
+            return [0 => 0];
         }
 
         $groups = [];
@@ -477,16 +477,16 @@ class User {
      * @return string URL to their avatar image.
      */
     public function getAvatar(int $size = 128, bool $full = false): string {
-        $data = $this->data();
+        $data_obj = (object) $this->data();
 
         $integrationUser = $this->getIntegration('Minecraft');
         if ($integrationUser != null) {
-            $data->uuid = $integrationUser->data()->identifier;
+            $data_obj->uuid = $integrationUser->data()->identifier;
         } else {
-            $data->uuid = '';
+            $data_obj->uuid = '';
         }
 
-        return AvatarSource::getAvatarFromUserData($data, $this->hasPermission('usercp.gif_avatar'), $size, $full);
+        return AvatarSource::getAvatarFromUserData($data_obj, $this->hasPermission('usercp.gif_avatar'), $size, $full);
     }
 
     /**
@@ -578,13 +578,13 @@ class User {
     /**
      * Get the user's integrations.
      *
-     * @return array Their integrations.
+     * @return IntegrationUser[] Their integrations.
      */
     public function getIntegrations(): array {
         return $this->_integrations ??= (function (): array {
             $integrations = Integrations::getInstance();
 
-            $integrations_query = $this->_db->selectQuery('SELECT nl2_users_integrations.*, nl2_integrations.name as integration_name FROM nl2_users_integrations LEFT JOIN nl2_integrations ON integration_id=nl2_integrations.id WHERE user_id = ?', [$this->_data->id]);
+            $integrations_query = $this->_db->selectQuery('SELECT nl2_users_integrations.*, nl2_integrations.name as integration_name FROM nl2_users_integrations LEFT JOIN nl2_integrations ON integration_id=nl2_integrations.id WHERE user_id = ?', [$this->data()->id]);
             if ($integrations_query->count()) {
                 $integrations_query = $integrations_query->results();
 
@@ -592,7 +592,7 @@ class User {
                 foreach ($integrations_query as $item) {
                     $integration = $integrations->getIntegration($item->integration_name);
                     if ($integration != null) {
-                        $integrationUser = new IntegrationUser($integration, $this->_data->id, 'user_id', $item);
+                        $integrationUser = new IntegrationUser($integration, $this->data()->id, 'user_id', $item);
 
                         $integrations_list[$item->integration_name] = $integrationUser;
                     }
@@ -661,10 +661,10 @@ class User {
     /**
      * Get this user's main group (with highest order).
      *
-     * @return object The group
+     * @return UserGroup The group
      */
-    public function getMainGroup(): object {
-        return $this->_main_group ??= array_reduce($this->_groups, static function ($carry, $group) {
+    public function getMainGroup(): UserGroup {
+        return $this->_main_group ??= array_reduce($this->_groups, static function (?UserGroup $carry, UserGroup $group) {
             return $carry === null || $carry->order > $group->order ? $group : $carry;
         });
     }
@@ -1079,7 +1079,7 @@ class User {
      * @return bool Whether their profile is set to private or not.
      */
     public function isPrivateProfile(): bool {
-        return $this->_data->private_profile ?? false;
+        return $this->data()->private_profile ?? false;
     }
 
     /**
@@ -1090,9 +1090,7 @@ class User {
     public function getUserTemplates(): array {
         $groups = '(';
         foreach ($this->_groups as $group) {
-            if (is_numeric($group->id)) {
-                $groups .= ((int)$group->id) . ',';
-            }
+            $groups .= ((int)$group->id) . ',';
         }
         $groups = rtrim($groups, ',') . ')';
 
