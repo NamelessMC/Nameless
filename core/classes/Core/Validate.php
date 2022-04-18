@@ -196,7 +196,19 @@ class Validate {
                         break;
 
                     case self::UNIQUE:
-                        $check = $validator->_db->get($rule_value, [$item, '=', $value]);
+                        if (is_array($rule_value)) {
+                            $table = $rule_value[0];
+                            [$ignore_col, $ignore_val] = explode(':', $rule_value[1]);
+                            $check = $validator->_db->selectQuery('SELECT * FROM nl2_' . $table . ' WHERE ? = ? AND ? <> ?', [
+                                $item,
+                                $value,
+                                $ignore_col,
+                                $ignore_val,
+                            ]);
+                        } else {
+                            $table = $rule_value;
+                            $check = $validator->_db->get($table, [$item, '=', $value]);
+                        }
                         if ($check->count()) {
                             $validator->addError([
                                 'field' => $item,

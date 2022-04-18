@@ -154,6 +154,10 @@ if (isset($_GET['do'])) {
                 if ($user->hasPermission('usercp.nickname')) {
                     $to_validate['nickname'] = [
                         Validate::REQUIRED => true,
+                        Validate::UNIQUE => [
+                            'users',
+                            'id:' . $user->data()->id // ignore current user
+                        ],
                         Validate::MIN => 3,
                         Validate::MAX => 20
                     ];
@@ -199,125 +203,109 @@ if (isset($_GET['do'])) {
                 ]);
 
                 if ($validation->passed()) {
-                    // Check nickname is unique
-                    if ($user->hasPermission('usercp.nickname')) {
-                        $unique_nickname = $queries->getWhere('users', ['nickname', '=', Output::getClean(Input::get('nickname'))]);
-                        if (count($unique_nickname)) {
-                            $unique_nickname = $unique_nickname[0];
-                            if ($unique_nickname->id != $user->data()->id) {
-                                // Not unique
-                                $nickname_error = true;
-                                $error = $language->get('user', 'nickname_already_exists');
+                    try {
+                        // Update language, template and timezone
+                        $new_language = $queries->getWhere('languages', ['name', '=', Input::get('language')]);
+
+                        if (count($new_language)) {
+                            $new_language = $new_language[0]->id;
+                        } else {
+                            $new_language = $user->data()->language_id;
+                        }
+
+                        $new_template = $queries->getWhere('templates', ['id', '=', Input::get('template')]);
+
+                        if (count($new_template)) {
+                            $new_template = $new_template[0]->id;
+                        } else {
+                            $new_template = $user->data()->theme_id;
+                        }
+
+                        // Check permissions
+                        $available_templates = $user->getUserTemplates();
+
+                        foreach ($available_templates as $available_template) {
+                            if ($available_template->id == $new_template) {
+                                $can_update = true;
+                                break;
                             }
                         }
-                    }
 
-                    // Update profile fields
-                    if (!isset($nickname_error)) {
-                        try {
-                            // Update language, template and timezone
-                            $new_language = $queries->getWhere('languages', ['name', '=', Input::get('language')]);
-
-                            if (count($new_language)) {
-                                $new_language = $new_language[0]->id;
-                            } else {
-                                $new_language = $user->data()->language_id;
-                            }
-
-                            $new_template = $queries->getWhere('templates', ['id', '=', Input::get('template')]);
-
-                            if (count($new_template)) {
-                                $new_template = $new_template[0]->id;
-                            } else {
-                                $new_template = $user->data()->theme_id;
-                            }
-
-                            // Check permissions
-                            $available_templates = $user->getUserTemplates();
-
-                            foreach ($available_templates as $available_template) {
-                                if ($available_template->id == $new_template) {
-                                    $can_update = true;
-                                    break;
-                                }
-                            }
-
-                            if (!isset($can_update)) {
-                                $new_template = $user->data()->theme_id;
-                            }
-
-                            $timezone = Output::getClean(Input::get('timezone'));
-
-                            if ($user->hasPermission('usercp.signature')) {
-                                $signature = Input::get('signature');
-                            } else {
-                                $signature = '';
-                            }
-
-                            // Private profiles enabled?
-                            $private_profiles = $queries->getWhere('settings', ['name', '=', 'private_profile']);
-                            if ($private_profiles[0]->value == 1) {
-                                if ($user->canPrivateProfile() && $_POST['privateProfile'] == 1) {
-                                    $privateProfile = 1;
-                                } else {
-                                    $privateProfile = 0;
-                                }
-                            } else {
-                                $privateProfile = $user->data()->private_profile;
-                            }
-
-                            $gravatar = $_POST['gravatar'] == '1' ? 1 : 0;
-
-                            $data = [
-                                'language_id' => $new_language,
-                                'timezone' => $timezone,
-                                'signature' => $signature,
-                                'nickname' => $displayname,
-                                'private_profile' => $privateProfile,
-                                'theme_id' => $new_template,
-                                'gravatar' => $gravatar
-                            ];
-
-                            // Is forum enabled? Update topic Updates
-                            if ($forum_enabled) {
-                                $topicUpdates = Input::get('topicUpdates');
-
-                                $data['topic_updates'] = $topicUpdates;
-                            }
-
-                            $user->update($data);
-
-                            Log::getInstance()->log(Log::Action('user/ucp/update'));
-
-                            foreach ($_POST['profile_fields'] as $field_id => $value) {
-                                // Check field exists
-                                $field = ProfileField::find($field_id);
-                                if (!$field) {
-                                    continue;
-                                }
-
-                                $user_profile_fields = $user->getProfileFields(true);
-                                if (array_key_exists($field->id, $user_profile_fields) && $user_profile_fields[$field->id]->value !== null) {
-                                    // Update field value
-                                    $queries->update('users_profile_fields', $user_profile_fields[$field->id]->upf_id, [
-                                        'value' => $value
-                                    ]);
-                                } else {
-                                    // Create new field value
-                                    $queries->create('users_profile_fields', [
-                                        'user_id' => $user->data()->id,
-                                        'field_id' => $field->id,
-                                        'value' => $value
-                                    ]);
-                                }
-                            }
-
-                            Session::flash('settings_success', $language->get('user', 'settings_updated_successfully'));
-                            Redirect::to(URL::build('/user/settings'));
-
-                        } catch (Exception $e) {
-                            Session::flash('settings_error', $e->getMessage());
+                        if (!isset($can_update)) {
+                            $new_template = $user->data()->theme_id;
                         }
+
+                        $timezone = Output::getClean(Input::get('timezone'));
+
+                        if ($user->hasPermission('usercp.signature')) {
+                            $signature = Input::get('signature');
+                        } else {
+                            $signature = '';
+                        }
+
+                        // Private profiles enabled?
+                        $private_profiles = $queries->getWhere('settings', ['name', '=', 'private_profile']);
+                        if ($private_profiles[0]->value == 1) {
+                            if ($user->canPrivateProfile() && $_POST['privateProfile'] == 1) {
+                                $privateProfile = 1;
+                            } else {
+                                $privateProfile = 0;
+                            }
+                        } else {
+                            $privateProfile = $user->data()->private_profile;
+                        }
+
+                        $gravatar = $_POST['gravatar'] == '1' ? 1 : 0;
+
+                        $data = [
+                            'language_id' => $new_language,
+                            'timezone' => $timezone,
+                            'signature' => $signature,
+                            'nickname' => $displayname,
+                            'private_profile' => $privateProfile,
+                            'theme_id' => $new_template,
+                            'gravatar' => $gravatar
+                        ];
+
+                        // Is forum enabled? Update topic Updates
+                        if ($forum_enabled) {
+                            $topicUpdates = Input::get('topicUpdates');
+
+                            $data['topic_updates'] = $topicUpdates;
+                        }
+
+                        $user->update($data);
+
+                        Log::getInstance()->log(Log::Action('user/ucp/update'));
+
+                        foreach ($_POST['profile_fields'] as $field_id => $value) {
+                            // Check field exists
+                            $field = ProfileField::find($field_id);
+                            if (!$field) {
+                                continue;
+                            }
+
+                            $user_profile_fields = $user->getProfileFields(true);
+                            if (array_key_exists($field->id, $user_profile_fields) && $user_profile_fields[$field->id]->value !== null) {
+                                // Update field value
+                                $queries->update('users_profile_fields', $user_profile_fields[$field->id]->upf_id, [
+                                    'value' => $value
+                                ]);
+                            } else {
+                                // Create new field value
+                                $queries->create('users_profile_fields', [
+                                    'user_id' => $user->data()->id,
+                                    'field_id' => $field->id,
+                                    'value' => $value
+                                ]);
+                            }
+                        }
+
+                        Session::flash('settings_success', $language->get('user', 'settings_updated_successfully'));
+                        Redirect::to(URL::build('/user/settings'));
+
+                    } catch (Exception $e) {
+                        Session::flash('settings_error', $e->getMessage());
                     }
 
                 } else {
