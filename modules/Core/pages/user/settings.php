@@ -198,7 +198,7 @@ if (isset($_GET['do'])) {
                         return $language->get('user', 'field_is_required', [
                             'field' => Output::getClean($field->name),
                         ]);
-                   },
+                    },
                 ]);
 
                 if ($validation->passed()) {
