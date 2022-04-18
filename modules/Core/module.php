@@ -977,7 +977,7 @@ class Core_Module extends Module {
                     if (count($user_query)) {
                         $user_query = $user_query[0];
                         $smarty->assign('REGISTERED', $language->get('user', 'registered_x', [
-                            'registeredAt' => $timeago->inWords(date('Y-m-d H:i:s', $user_query->joined), $language),
+                            'registeredAt' => $timeago->inWords($user_query->joined, $language),
                         ]));
                     }
                 }
