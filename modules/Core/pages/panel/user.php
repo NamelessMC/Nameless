@@ -28,7 +28,7 @@ if (!is_numeric($uid[0])) {
 $uid = $uid[0];
 
 $view_user = new User($uid);
-if (!$view_user->data()) {
+if (!$view_user->exists()) {
     Redirect::to(URL::build('/panel'));
 }
 $user_query = $view_user->data();

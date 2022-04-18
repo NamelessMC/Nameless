@@ -13,11 +13,11 @@ class Group {
     public string $name;
     public string $group_html;
     public string $group_html_lg;
-    public string $group_username_color;
-    public string $group_username_css;
+    public ?string $group_username_color;
+    public ?string $group_username_css;
     public bool $admin_cp;
     public bool $staff;
-    public string $permissions;
+    public ?string $permissions;
     public bool $default_group;
     public int $order;
     public bool $force_tfa;

@@ -19,7 +19,7 @@ if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
 }
 
 $view_user = new User($_GET['id']);
-if (!$view_user->data()) {
+if (!$view_user->exists()) {
     Redirect::to(URL::build('/panel/users'));
 }
 $user_query = $view_user->data();

@@ -176,11 +176,11 @@ class MCQuery {
         foreach ($player_list as $player) {
             $player = (array)$player;
             $user = new User($player['id'], 'uuid');
-            if (!$user->data()) {
+            if (!$user->exists()) {
                 $user = new User($player['name'], 'username');
             }
 
-            if (!$user->data()) {
+            if (!$user->exists()) {
                 $avatar = AvatarSource::getAvatarFromUUID($player['id']);
                 $profile = '#';
             } else {

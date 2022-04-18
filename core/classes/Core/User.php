@@ -19,7 +19,7 @@ class User {
     private ?UserData $_data;
 
     /**
-     * @var array<int, UserGroup> The user's groups.
+     * @var array<int, Group> The user's groups.
      */
     private array $_groups = [];
 
@@ -29,9 +29,9 @@ class User {
     private array $_integrations;
 
     /**
-     * @var UserGroup The user's main group.
+     * @var Group The user's main group.
      */
-    private UserGroup $_main_group;
+    private Group $_main_group;
 
     /**
      * @var array The user's placeholders.
@@ -110,7 +110,7 @@ class User {
 
                     $groups_query = $groups_query->results();
                     foreach ($groups_query as $item) {
-                        $this->_groups[$item->id] = new UserGroup($item);
+                        $this->_groups[$item->id] = new Group($item);
                     }
 
                 } else {
@@ -161,10 +161,10 @@ class User {
         if ($group_data == null) {
             $group_data = $this->_db->get('groups', ['id', '=', $group_id]);
             if ($group_data->count()) {
-                $this->_groups[$group_id] = new UserGroup($group_data->first());
+                $this->_groups[$group_id] = new Group($group_data->first());
             }
         } else {
-            $this->_groups[$group_id] = new UserGroup($group_data);
+            $this->_groups[$group_id] = new Group($group_data);
         }
 
         return true;
@@ -661,10 +661,10 @@ class User {
     /**
      * Get this user's main group (with highest order).
      *
-     * @return UserGroup The group
+     * @return Group The group
      */
-    public function getMainGroup(): UserGroup {
-        return $this->_main_group ??= array_reduce($this->_groups, static function (?UserGroup $carry, UserGroup $group) {
+    public function getMainGroup(): Group {
+        return $this->_main_group ??= array_reduce($this->_groups, static function (?Group $carry, Group $group) {
             return $carry === null || $carry->order > $group->order ? $group : $carry;
         });
     }

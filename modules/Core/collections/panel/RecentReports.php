@@ -56,7 +56,7 @@ class RecentReportsItem extends CollectionItemBase {
                         $reporter_user = $users[$item->reporter_id];
                     } else {
                         $reporter_user = new User($item->reporter_id);
-                        if (!$reporter_user->data()) {
+                        if (!$reporter_user->exists()) {
                             continue;
                         }
                         $users[$item->reporter_id] = $reporter_user;
@@ -66,7 +66,7 @@ class RecentReportsItem extends CollectionItemBase {
                         $reported_user = $users[$item->reported_id];
                     } else {
                         $reported_user = new User($item->reported_id);
-                        if (!$reported_user->data()) {
+                        if (!$reported_user->exists()) {
                             continue;
                         }
                         $users[$item->reported_id] = $reported_user;

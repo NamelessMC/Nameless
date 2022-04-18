@@ -580,6 +580,12 @@ if (isset($_GET['do'])) {
         ]);
     }
 
+    if (isset($error)) {
+        $smarty->assign([
+            'ERROR' => $error,
+        ]);
+    }
+
     // Language values
     $smarty->assign([
         'SETTINGS' => $language->get('user', 'profile_settings'),
@@ -590,7 +596,6 @@ if (isset($_GET['do'])) {
         'PROFILE_FIELDS' => $custom_fields_template,
         'SUBMIT' => $language->get('general', 'submit'),
         'TOKEN' => Token::get(),
-        'ERROR' => ($error ?? false),
         'SUCCESS' => ($success ?? false),
         'CHANGE_PASSWORD' => $language->get('user', 'change_password'),
         'CURRENT_PASSWORD' => $language->get('user', 'current_password'),

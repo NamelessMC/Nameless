@@ -32,15 +32,15 @@ class UserData {
     public int $theme_id;
     public int $language_id;
     public int $warning_points;
-    public bool $night_mode;
-    public int $last_username_update;
+    public ?bool $night_mode;
+    public ?int $last_username_update;
     public bool $tfa_enabled;
     public int $tfa_type;
     public ?string $tfa_secret;
     public bool $tfa_complete;
     public ?string $banner;
     public string $timezone;
-    public string $avatar_updated;
+    public ?string $avatar_updated;
 
     public function __construct(object $row) {
         $this->id = $row->id;

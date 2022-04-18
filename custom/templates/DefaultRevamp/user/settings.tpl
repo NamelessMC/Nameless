@@ -15,7 +15,7 @@
   </div>
 {/if}
 
-{if isset($ERRORS)}
+{if (isset($ERRORS) || isset($ERROR))}
 <div class="ui error icon message">
   <i class="x icon"></i>
   <div class="content">
@@ -23,6 +23,9 @@
       {foreach from=$ERRORS item=error}
       <li>{$error}</li>
       {/foreach}
+      {if isset($ERROR)}
+        <li>{$ERROR}</li>
+      {/if}
     </ul>
   </div>
 </div>

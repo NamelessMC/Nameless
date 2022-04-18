@@ -25,7 +25,7 @@ if (!is_numeric($_GET['id'])) {
 
     } else {
         $target_user = new User($_GET['id']);
-        if (!$target_user->data()) {
+        if (!$target_user->exists()) {
             die(json_encode(['html' => 'User not found']));
         }
 

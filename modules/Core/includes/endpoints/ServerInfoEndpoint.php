@@ -92,7 +92,7 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
 
         if (Util::getSetting($api->getDb(), 'username_sync')) {
             $user = $integrationUser->getUser();
-            if (!$user->data() ||
+            if (!$user->exists() ||
                 $player['name'] == $user->data()->username) {
                 return;
             }
