@@ -251,11 +251,15 @@ if (!isset($_GET['view'])) {
             $rows = [];
 
             foreach ($logs as $log) {
-                $target_user = new User($log->user_id);
+                if ($log->user_id != 0) {
+                    $target_user = new User($log->user_id);
+                }
 
                 $rows[] = [
                     0 => [
-                        'content' => '<a style="' . $target_user->getGroupClass() . '" href="' . URL::build('/panel/user/' . urlencode($log->user_id . '-' . $target_user->getDisplayname(true))) . '">' . Output::getClean($target_user->getDisplayname()) . '</a>'
+                        'content' => $log->user_id == 0
+                            ? $language->get('general', 'none')
+                            : '<a style="' . $target_user->getGroupClass() . '" href="' . URL::build('/panel/user/' . urlencode($log->user_id . '-' . $target_user->getDisplayname(true))) . '">' . Output::getClean($target_user->getDisplayname()) . '</a>'
                     ],
                     1 => [
                         'content' => '<a href="' . URL::build('/panel/users/ip_lookup/', 'ip=' . urlencode($log->ip)) . '">' . Output::getClean($log->ip) . '</a>'

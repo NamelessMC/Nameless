@@ -21,7 +21,16 @@ function copy(element) {
     $temp.val($(element).text()).select();
     document.execCommand('copy');
     $temp.remove();
-	toastr.success(copied);
+    $('body').toast({
+        showIcon: 'checkmark',
+        message: copied,
+        class: 'success',
+        progressUp: true,
+        displayTime: 6000,
+        showProgress: 'bottom',
+        pauseOnHover: false,
+        position: 'bottom left',
+    });
 }
 $(function() {
 
@@ -43,8 +52,6 @@ $(function() {
         let att = $(this).attr("data-target");
         $(att).modal('show');
     });
-
-	$('.menu .item').tab();
 
     $('.message .close').on('click', function() {
         $(this).closest('.message').transition('fade');

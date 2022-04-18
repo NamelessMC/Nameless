@@ -740,7 +740,7 @@ $language = [
     'editing_announcement_success' => 'Ogłoszenie zaaktualizowane pomyślnie.',
     'creating_announcement_failure' => 'Tworzenie ogłoszenia zawiodło.',
     'editing_announcement_failure' => 'Edytowanie ogłoszenia zawiodło.',
-    'announcement_icon_instructions' => 'Możesz tu dodać ikonkę korzystając z np. <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>, <a href="https://semantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Semantic UI</a>.',
+    'announcement_icon_instructions' => 'Możesz tu dodać ikonkę korzystając z np. <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>, <a href="https://fomantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Fomantic UI</a>.',
     'header' => 'Tytuł',
     'message' => 'Wiadomość',
     'text_colour' => 'Kolor Tekstu',

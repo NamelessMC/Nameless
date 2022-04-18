@@ -44,11 +44,11 @@ class DefaultRevamp_Template extends TemplateBase {
         ]);
 
         $this->addCSSFiles([
-            $template['path'] . 'css/semantic.min.css' => [],
+            $template['path'] . 'css/fomantic.min.css' => [],
         ]);
 
         $this->addJSFiles([
-            $template['path'] . 'js/semantic.min.js' => [],
+            $template['path'] . 'js/fomantic.min.js' => [],
         ]);
 
         $smarty->assign('TEMPLATE', $template);

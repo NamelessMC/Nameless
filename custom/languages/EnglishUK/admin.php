@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr12
+ *  NamelessMC version 2.0.0-pr13
  *
  *  License: MIT
  *
@@ -146,7 +146,7 @@ $language = [
     'navbar_order' => 'Navbar Order',
     'navbar_order_instructions' => 'You can give each item a number above 0 to order items in the navbar, with 1 being the first item and higher numbers coming after it.',
     'navbar_icon' => 'Navbar Icon',
-    'navbar_icon_instructions' => 'You can also add an icon to each navbar item here, for example using <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>, <a href="https://semantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Semantic UI</a>.',
+    'navbar_icon_instructions' => 'You can also add an icon to each navbar item here, for example using <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>, <a href="https://fomantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Fomantic UI</a>.',
     'navigation_settings_updated_successfully' => 'Navigation settings updated successfully.',
     'dropdown_items' => 'Dropdown Items',
     'enable_page_load_timer' => 'Enable page load timer?',
@@ -682,6 +682,9 @@ $language = [
     'report_hook_info' => 'Report creation',
     'ban_hook_info' => 'User banned',
     'warning_hook_info' => 'User warned',
+    'user_link_integration_hook_info' => 'User link integration',
+    'user_verify_integration_hook_info' => 'User verify integration',
+    'user_unlink_integration_hook_info' => 'User unlink integration',
 
     // Sitemap
     'unable_to_load_sitemap_file_x' => 'Unable to load sitemap file {x}', // Don't replace {x}
@@ -726,7 +729,7 @@ $language = [
     'editing_announcement_success' => 'Announcement updated successfully.',
     'creating_announcement_failure' => 'Announcement creation failed.',
     'editing_announcement_failure' => 'Announcement update failed.',
-    'announcement_icon_instructions' => 'You can also add an icon to each announcement here, for example using <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>, <a href="https://semantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Semantic UI</a>.',
+    'announcement_icon_instructions' => 'You can also add an icon to each announcement here, for example using <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>, <a href="https://fomantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Fomantic UI</a>.',
     'header' => 'Header',
     'message' => 'Message',
     'text_colour' => 'Text Colour',
@@ -750,4 +753,29 @@ $language = [
     'identifier' => 'Identifier',
     'unlink_account_confirm' => 'Are you sure you want to forcibly unlink this provider from this user?',
     'unlink_account_success' => 'Successfully unlinked their account from {x}.', // Don't replace {x}
+    
+    // Integrations
+    'integration' => 'Integration',
+    'viewing_integrations_for_x' => 'Viewing user integrations for {{user}}', // Don't replace {user}
+    'editing_integration_for_x' => 'Editing {{integration}} integration for {{user}}', // Don't replace {integration} and {user}
+    'linking_integration_for_x' => 'Linking {{integration}} integration for {{user}}', // Don't replace {integration} and {user}
+    'not_linked' => 'Not linked',
+    'verified' => 'Verified',
+    'is_verified' => 'Is Verified?',
+    'manual_linking' => 'Manual Linking',
+    'can_unlink' => 'Can Unlink',
+    'can_unlink_integration' => 'Can users unlink integration?',
+    'require_integration' => 'Require users to link and verify integration',
+    'link_account_success' => '{{user}} has successfully linked their {{integration}} account.', // Don't replace {user} and {integration}
+    'user_integration_updated_successfully' => 'User integration updated successfully.',
+    'editing_integration_x' => 'Editing integration {{integration}}', // Don't replace {integration}
+    'integration_updated_successfully' => 'Integration updated successfully.',
+    'integration_username' => '{{integration}} Username',
+    'integration_username_required' => '{{integration}} username is required.',
+    'integration_username_invalid' => '{{integration}} username is invalid.',
+    'integration_identifier' => '{{integration}} Identifier',
+    'integration_identifier_required' => '{{integration}} identifier is required.',
+    'integration_identifier_invalid' => '{{integration}} identifier is invalid.',
+    'sync_integration' => 'Sync Integration',
+    'integration_sync_not_supported' => 'Synchronisation is not supported for this integration!',
 ];

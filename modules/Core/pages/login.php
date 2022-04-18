@@ -107,7 +107,7 @@ if (Input::exists()) {
                 }
 
                 $user_query = new User($username, $method_field);
-                if ($user_query->data()) {
+                if ($user_query->exists()) {
                     if ($user_query->data()->tfa_enabled == 1 && $user_query->data()->tfa_complete == 1) {
                         // Verify password first
                         if ($user->checkCredentials($username, Input::get('password'), $method_field)) {

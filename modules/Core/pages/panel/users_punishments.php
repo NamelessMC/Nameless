@@ -28,7 +28,7 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp
 if (isset($_GET['user'])) {
     // Viewing a certain user
     $view_user = new User($_GET['user']);
-    if (!$view_user->data()) {
+    if (!$view_user->exists()) {
         Redirect::to(URL::build('/panel/users/punishments'));
     }
     $query = $view_user->data();
@@ -178,7 +178,7 @@ if (isset($_GET['user'])) {
                                         EventHandler::executeEvent('userBanned', [
                                             'punished_id' => $query->id,
                                             'punisher_id' => $user->data()->id,
-                                            'reason' => Output::getClean($_POST['reason']),
+                                            'reason' => $_POST['reason'],
                                             'ip_ban' => $type == 3,
                                         ]);
                                         break;
@@ -187,7 +187,7 @@ if (isset($_GET['user'])) {
                                         EventHandler::executeEvent('userWarned', [
                                             'punished_id' => $query->id,
                                             'punisher_id' => $user->data()->id,
-                                            'reason' => Output::getClean($_POST['reason']),
+                                            'reason' => $_POST['reason'],
                                         ]);
                                         break;
                                     case 4:

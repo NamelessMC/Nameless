@@ -116,37 +116,12 @@ if (!isset($_GET['action'])) {
                                 $location = 1;
                             }
 
-                            if (isset($_POST['redirect_page']) && $_POST['redirect_page'] == 'on') {
-                                $redirect = 1;
-                            } else {
-                                $redirect = 0;
-                            }
-
-                            if (isset($_POST['target']) && $_POST['target'] == 'on') {
-                                $target = 1;
-                            } else {
-                                $target = 0;
-                            }
-
+                            $redirect = intval(isset($_POST['redirect_page']) && $_POST['redirect_page'] == 'on');
+                            $target = intval(isset($_POST['target']) && $_POST['target'] == 'on');
                             $link = $_POST['redirect_link'] ?? '';
-
-                            if (isset($_POST['unsafe_html']) && $_POST['unsafe_html'] == 'on') {
-                                $unsafe = 1;
-                            } else {
-                                $unsafe = 0;
-                            }
-
-                            if (isset($_POST['sitemap']) && $_POST['sitemap'] == 'on') {
-                                $sitemap = 1;
-                            } else {
-                                $sitemap = 0;
-                            }
-
-                            if (isset($_POST['basic']) && $_POST['basic'] == 'on') {
-                                $basic = 1;
-                            } else {
-                                $basic = 0;
-                            }
+                            $unsafe = intval(isset($_POST['unsafe_html']) && $_POST['unsafe_html'] == 'on');
+                            $sitemap = intval(isset($_POST['sitemap']) && $_POST['sitemap'] == 'on');
+                            $basic = intval(isset($_POST['basic']) && $_POST['basic'] == 'on');
 
                             $queries->create('custom_pages', [
                                 'url' => rtrim(Input::get('page_url'), '/'),
@@ -155,10 +130,10 @@ if (!isset($_GET['action'])) {
                                 'link_location' => $location,
                                 'redirect' => $redirect,
                                 'link' => $link,
-                                'target' => ($target == 1) ? 1 : 0,
-                                'all_html' => ($unsafe == 1) ? 1 : 0,
-                                'sitemap' => ($sitemap == 1) ? 1 : 0,
-                                'basic' => ($basic == 1) ? 1 : 0,
+                                'target' => $target,
+                                'all_html' => $unsafe,
+                                'sitemap' => $sitemap,
+                                'basic' => $basic,
                             ]);
 
                             $last_id = $queries->getLastId();
@@ -171,8 +146,7 @@ if (!isset($_GET['action'])) {
                                 $perms[0] = 0;
                             }
 
-                            $groups = $queries->getWhere('groups', ['id', '<>', 0]);
-                            foreach ($groups as $group) {
+                            foreach (Group::all() as $group) {
                                 if (isset($_POST['perm-view-' . $group->id]) && $_POST['perm-view-' . $group->id] == 1) {
                                     $perms[$group->id] = 1;
                                 } else {
@@ -202,9 +176,8 @@ if (!isset($_GET['action'])) {
                 }
             }
 
-            $groups = DB::getInstance()->selectQuery('SELECT * FROM nl2_groups ORDER BY `order`')->results();
             $template_array = [];
-            foreach ($groups as $group) {
+            foreach (Group::all() as $group) {
                 $template_array[$group->id] = [
                     'id' => $group->id,
                     'name' => Output::getClean($group->name),
@@ -322,37 +295,12 @@ if (!isset($_GET['action'])) {
                                 $location = 1;
                             }
 
-                            if (isset($_POST['redirect_page']) && $_POST['redirect_page'] == 'on') {
-                                $redirect = 1;
-                            } else {
-                                $redirect = 0;
-                            }
-
-                            if (isset($_POST['target']) && $_POST['target'] == 'on') {
-                                $target = 1;
-                            } else {
-                                $target = 0;
-                            }
-
+                            $redirect = intval(isset($_POST['redirect_page']) && $_POST['redirect_page'] == 'on');
+                            $target = intval(isset($_POST['target']) && $_POST['target'] == 'on');
                             $link = $_POST['redirect_link'] ?? '';
-
-                            if (isset($_POST['unsafe_html']) && $_POST['unsafe_html'] == 'on') {
-                                $unsafe = 1;
-                            } else {
-                                $unsafe = 0;
-                            }
-
-                            if (isset($_POST['sitemap']) && $_POST['sitemap'] == 'on') {
-                                $sitemap = 1;
-                            } else {
-                                $sitemap = 0;
-                            }
-
-                            if (isset($_POST['basic']) && $_POST['basic'] == 'on') {
-                                $basic = 1;
-                            } else {
-                                $basic = 0;
-                            }
+                            $unsafe = intval(isset($_POST['unsafe_html']) && $_POST['unsafe_html'] == 'on');
+                            $sitemap = intval(isset($_POST['sitemap']) && $_POST['sitemap'] == 'on');
+                            $basic = intval(isset($_POST['basic']) && $_POST['basic'] == 'on');
 
                             $queries->update('custom_pages', $page->id, [
                                 'url' => rtrim(Input::get('page_url'), '/'),
@@ -361,10 +309,10 @@ if (!isset($_GET['action'])) {
                                 'link_location' => $location,
                                 'redirect' => $redirect,
                                 'link' => $link,
-                                'target' => ($target == 1) ? 1 : 0,
-                                'all_html' => ($unsafe == 1) ? 1 : 0,
-                                'sitemap' => ($sitemap == 1) ? 1 : 0,
-                                'basic' => ($basic == 1) ? 1 : 0
+                                'target' => $target,
+                                'all_html' => $unsafe,
+                                'sitemap' => $sitemap,
+                                'basic' => $basic
                             ]);
 
                             // Update all widget and announcement page arrays with the custom pages' new name
@@ -447,8 +395,7 @@ if (!isset($_GET['action'])) {
                             }
 
                             // Group category permissions
-                            $groups = $queries->getWhere('groups', ['id', '<>', 0]);
-                            foreach ($groups as $group) {
+                            foreach (Group::all() as $group) {
                                 $view = Input::get('perm-view-' . $group->id);
 
                                 if (!($view)) {

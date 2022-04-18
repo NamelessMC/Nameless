@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.0.0-pr13
  *
  *  License: MIT
  *
@@ -28,7 +28,7 @@ if (!is_numeric($uid[0])) {
 $uid = $uid[0];
 
 $view_user = new User($uid);
-if (!$view_user->data()) {
+if (!$view_user->exists()) {
     Redirect::to(URL::build('/panel'));
 }
 $user_query = $view_user->data();
@@ -90,7 +90,6 @@ $smarty->assign([
     'USER_GROUP' => Output::getClean($view_user->getMainGroup()->name),
     'USER_GROUPS' => $view_user->getAllGroupHtml(),
     'USER_TITLE' => Output::getClean($user_query->user_title),
-    'UUID' => Output::getClean($user_query->uuid),
     'LANGUAGE' => Output::getClean($user_language),
     'TIMEZONE' => Output::getClean($user_query->timezone),
     'REGISTERED' => $language->get('user', 'registered'),
@@ -104,7 +103,6 @@ $smarty->assign([
     'USERNAME_LABEL' => $language->get('user', 'username'),
     'NICKNAME_LABEL' => $language->get('user', 'nickname'),
     'USER_TITLE_LABEL' => $language->get('admin', 'title'),
-    'UUID_LABEL' => $language->get('admin', 'uuid'),
     'LANGUAGE_LABEL' => $language->get('user', 'active_language'),
     'TIMEZONE_LABEL' => $language->get('user', 'timezone')
 ]);

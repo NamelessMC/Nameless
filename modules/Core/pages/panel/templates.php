@@ -87,7 +87,7 @@ if (!isset($_GET['action'])) {
         if (isset($all_templates_error)) {
             $smarty->assign('WEBSITE_TEMPLATES_ERROR', $all_templates_error);
         } else {
-            $all_templates_query = json_decode($all_templates_query->contents());
+            $all_templates_query = $all_templates_query->json();
             $timeago = new TimeAgo(TIMEZONE);
 
             foreach ($all_templates_query as $item) {
@@ -378,9 +378,6 @@ if (!isset($_GET['action'])) {
                 Redirect::to(URL::build('/panel/core/templates'));
             }
 
-            // Get groups
-            $groups = $queries->getWhere('groups', ['id', '<>', 0]);
-
             // Handle input
             if (Input::exists()) {
                 if (Token::check()) {
@@ -422,7 +419,7 @@ if (!isset($_GET['action'])) {
                     }
 
                     // Group template permissions
-                    foreach ($groups as $group) {
+                    foreach (Group::all() as $group) {
                         $can_use_template = Input::get('perm-use-' . $group->id);
 
                         if (!($can_use_template)) {

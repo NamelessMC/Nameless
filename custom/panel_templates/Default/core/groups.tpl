@@ -59,11 +59,13 @@
                                         <td>{$group.id}</td>
                                         <td><a href="{$group.edit_link}">{$group.name}</a></td>
                                         <td>{$group.users}</td>
-                                        <td>{if $group.staff}
+                                        <td>
+                                            {if $group.staff}
                                                 <i class="fas fa-check-circle text-success"></i>
                                             {else}
                                                 <i class="fas fa-times-circle text-danger"></i>
-                                            {/if}</td>
+                                            {/if}
+                                        </td>
                                         <td>
                                             <div class="float-md-right">
                                                 <div class="btn btn-secondary btn-sm"><i class="fas fa-arrows-alt"></i></div>
