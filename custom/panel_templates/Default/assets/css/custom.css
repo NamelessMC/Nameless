@@ -478,3 +478,8 @@ footer.sticky-footer {
     width: 1.85rem;
     border-radius: 0.6rem;
 }
+
+.toast .move-right {
+    position: absolute;
+    left: 20px;
+}

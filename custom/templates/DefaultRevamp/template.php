@@ -37,7 +37,7 @@ class DefaultRevamp_Template extends TemplateBase {
         $this->_settings = ROOT_PATH . '/custom/templates/DefaultRevamp/template_settings/settings.php';
 
         $this->addCSSFiles([
-            $template['path'] . 'css/semantic.min.css' => [],
+            $template['path'] . 'css/fomantic.min.css' => [],
             $template['path'] . 'css/toastr.min.css' => [],
             (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/css/font-awesome.min.css' => [],
         ]);
@@ -45,7 +45,7 @@ class DefaultRevamp_Template extends TemplateBase {
         $this->addJSFiles([
             $template['path'] . 'js/jquery.min.js' => [],
             $template['path'] . 'js/jquery.cookie.js' => [],
-            $template['path'] . 'js/semantic.min.js' => [],
+            $template['path'] . 'js/fomantic.min.js' => [],
             $template['path'] . 'js/toastr.min.js' => [],
         ]);
 

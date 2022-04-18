@@ -59,13 +59,13 @@ $.extend( true, DataTable.defaults, {
 				"<'right aligned nine wide column'p>"+
 			">"+
 		">",
-	renderer: 'semanticUI'
+	renderer: 'fomanticUI'
 } );
 
 
 /* Default class modification */
 $.extend( DataTable.ext.classes, {
-	sWrapper:      "dataTables_wrapper dt-semanticUI",
+	sWrapper:      "dataTables_wrapper dt-fomanticUI",
 	sFilter:       "dataTables_filter ui input",
 	sProcessing:   "dataTables_processing ui segment",
 	sPageButton:   "paginate_button item"
@@ -73,7 +73,7 @@ $.extend( DataTable.ext.classes, {
 
 
 /* Bootstrap paging button renderer */
-DataTable.ext.renderer.pageButton.semanticUI = function ( settings, host, idx, buttons, page, pages ) {
+DataTable.ext.renderer.pageButton.fomanticUI = function ( settings, host, idx, buttons, page, pages ) {
 	var api     = new DataTable.Api( settings );
 	var classes = settings.oClasses;
 	var lang    = settings.oLanguage.oPaginate;

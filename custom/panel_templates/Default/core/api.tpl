@@ -162,11 +162,17 @@
     url.select();
     document.execCommand("copy");
 
-    // Toastr
-    toastr.options.progressBar = true;
-    toastr.options.closeButton = true;
-    toastr.options.positionClass = 'toast-bottom-left';
-    toastr.success("{$COPIED}");
+    // Toast
+    $('body').toast({
+        showIcon: 'fa-solid fa-check move-right',
+        message: '{$COPIED}',
+        class: 'success',
+        progressUp: true,
+        displayTime: 6000,
+        showProgress: 'bottom',
+        pauseOnHover: false,
+        position: 'bottom left',
+    });
   }
 </script>
 
