@@ -292,7 +292,7 @@ $smarty->assign([
     'CONFIRM_DELETE_ANNOUNCEMENT' => $language->get('admin', 'verify_delete_announcement'),
     'ICON_INFO' => $language->get('admin', 'announcement_icon_instructions', [
         'faLink' => '<a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>',
-        'semLink' => '<a href="https://semantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Semantic UI</a>',
+        'semLink' => '<a href="https://fomantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Fomantic UI</a>',
     ]),
     'YES' => $language->get('general', 'yes'),
     'NO' => $language->get('general', 'no'),
