@@ -611,7 +611,7 @@ foreach ($results->data as $n => $nValue) {
     }
 
     // Profile fields
-    $fields = $post_creator->getProfileFields(true, true);
+    $fields = $post_creator->getProfileFields(false, true);
 
     // User integrations
     $user_integrations = [];

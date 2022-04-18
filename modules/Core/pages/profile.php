@@ -466,7 +466,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     }
 
     // Set Can view
-    if ($user->isPrivateProfile() && $user->canPrivateProfile()) {
+    if ($profile_user->isPrivateProfile() && $user->canPrivateProfile()) {
         $smarty->assign([
             'PRIVATE_PROFILE' => $language->get('user', 'private_profile_page'),
             'CAN_VIEW' => false
@@ -608,7 +608,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
         'ERROR_TITLE' => $language->get('general', 'error'),
         'REPLY' => $language->get('user', 'reply'),
         'EDIT_POST' => $language->get('general', 'edit'),
-        'VIEWER_ID' => $user->data()->id
+        'VIEWER_ID' => $user->isLoggedIn() ? $user->data()->id : 0,
     ]);
 
     // Wall posts
@@ -740,28 +740,20 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     $fields = [];
 
     // Get profile fields
-    foreach ($profile_user->getProfileFields() as $id => $item) {
-        // Get field
-        $profile_field = $queries->getWhere('profile_fields', ['id', '=', $id]);
-        if (!count($profile_field)) {
-            continue;
-        }
-
-        $profile_field = $profile_field[0];
-
-        if ($profile_field->public == 0 || !$item['value']) {
+    foreach ($profile_user->getProfileFields() as $id => $profile_field) {
+        if (!$profile_field->value) {
             continue;
         }
 
         // Get field type
         switch ($profile_field->type) {
-            case 1:
+            case Fields::TEXT:
                 $type = 'text';
                 break;
-            case 2:
+            case Fields::TEXTAREA:
                 $type = 'textarea';
                 break;
-            case 3:
+            case Fields::DATE:
                 $type = 'date';
                 break;
         }
@@ -769,7 +761,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
         $fields[] = [
             'title' => Output::getClean($profile_field->name),
             'type' => $type,
-            'value' => Output::getClean($item['value']),
+            'value' => Output::getClean($profile_field->value)
         ];
     }
 

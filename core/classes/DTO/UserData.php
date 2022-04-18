@@ -29,7 +29,7 @@ class UserData {
     public bool $private_profile;
     public int $last_online;
     public ?string $user_title;
-    public int $theme_id;
+    public ?int $theme_id;
     public int $language_id;
     public int $warning_points;
     public ?bool $night_mode;

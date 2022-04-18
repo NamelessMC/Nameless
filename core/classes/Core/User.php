@@ -926,70 +926,31 @@ class User {
     }
 
     /**
-     * Get profile fields for specified user
+     * Get profile fields for this user
      *
-     * @param bool $public Whether to only return public fields or not (default `true`).
-     * @param bool $forum Whether to only return fields which display on forum posts, only if $public is true (default `false`).
+     * @param bool $show_private Whether to only return public fields or not (default `true`).
+     * @param bool $only_forum Whether to only return fields which display on forum posts, only if $public is true (default `false`).
      *
-     * @return array Array of profile fields.
+     * @return array<int, UserProfileField> Array of profile fields.
      */
-    public function getProfileFields(bool $public = true, bool $forum = false): array {
-        $data = $this->_db->get('users_profile_fields', ['user_id', '=', $this->data()->id]);
-        if (!$data->count()) {
-            return [];
+    public function getProfileFields(bool $show_private = false, bool $only_forum = false): array {
+        $rows = DB::getInstance()->selectQuery('SELECT pf.*, upf.id as upf_id, upf.value FROM nl2_profile_fields pf LEFT JOIN nl2_users_profile_fields upf ON (pf.id = upf.field_id AND upf.user_id = ?)', [
+            $this->data()->id,
+        ])->results();
+
+        $fields = [];
+
+        foreach ($rows as $row) {
+            $field = new UserProfileField($row);
+            // Check that the field is public, or they are viewing private fields
+            // also if they're checking forum fields, check that the field is a forum field
+            // TODO: ideally within the query
+            if (($field->public || $show_private) && (!$only_forum || $field->forum_posts)) {
+                $fields[$row->id] = $field;
+            }
         }
 
-        $return = [];
-        if ($public == true) {
-
-            // Return public fields only
-            foreach ($data->results() as $result) {
-                $is_public = $this->_db->get('profile_fields', ['id', '=', $result->field_id]);
-                if (!$is_public->count()) {
-                    continue;
-                }
-
-                $is_public = $is_public->results();
-
-                if ($is_public[0]->public == 1) {
-                    if ($forum == true) {
-                        if ($is_public[0]->forum_posts == 1) {
-                            $return[$result->field_id] = [
-                                'row_id' => $result->id,
-                                'name' => Output::getClean($is_public[0]->name),
-                                'value' => Output::getClean($result->value)
-                            ];
-                        }
-                    } else {
-                        $return[$result->field_id] = [
-                            'row_id' => $result->id,
-                            'name' => Output::getClean($is_public[0]->name),
-                            'value' => Output::getClean($result->value)
-                        ];
-                    }
-                }
-            }
-
-        } else {
-            // Return all fields
-            foreach ($data->results() as $result) {
-                $name = $this->_db->get('profile_fields', ['id', '=', $result->field_id]);
-                if (!$name->count()) {
-                    continue;
-                }
-
-                $name = $name->results();
-
-                $return[$result->field_id] = [
-                    'row_id' => $result->id,
-                    'name' => Output::getClean($name[0]->name),
-                    'value' => Output::getClean($result->value)
-                ];
-            }
-
-        }
-
-        return $return;
+        return $fields;
     }
 
     /**

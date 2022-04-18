@@ -164,21 +164,14 @@ if (isset($_GET['do'])) {
                 }
 
                 // Get a list of required profile fields
-                $profile_fields = $queries->getWhere('profile_fields', ['required', '=', 1]);
-
-                if (count($profile_fields)) {
-                    foreach ($profile_fields as $field) {
-                        if ($field->required == '1') {
-                            $to_validate[$field->id] = [
-                                'required' => true,
-                                'max' => (is_null($field->length) ? 1024 : $field->length)
-                            ];
-                        } else {
-                            $to_validate[$field->id] = [
-                                'max' => (is_null($field->length) ? 1024 : $field->length)
-                            ];
-                        }
+                $profile_fields = ProfileField::find(true, 'required');
+                foreach ($profile_fields as $field) {
+                    if ($field->required) {
+                        $to_validate["profile_fields[{$field->id}]"] = [
+                            'required' => true,
+                        ];
                     }
+                    $to_validate["profile_fields[{$field->id}]"]['max'] = (is_null($field->length) ? 1024 : $field->length);
                 }
 
                 $validation = Validate::check(
@@ -192,15 +185,16 @@ if (isset($_GET['do'])) {
                     ],
                     'timezone' => $language->get('general', 'invalid_timezone'),
                     // fallback message for required profile fields
-                    '*' => static function ($field) use ($language, $queries) {
-                        [$id] = explode(' ', $field);
+                    '*' => static function ($field) use ($language) {
+                        // get the id from between the square brackets
+                        $id = substr($field, strpos($field, '[') + 1, -1);
 
-                        $field = $queries->getWhere('profile_fields', ['id', '=', $id]);
-                        if (!count($field)) {
+                        $field = ProfileField::find($id);
+                        if (!$field) {
                             return null;
                         }
 
-                        return str_replace('{x}', Output::getClean($field[0]->name), $language->get('user', 'field_is_required'));
+                        return str_replace('{x}', Output::getClean($field->name), $language->get('user', 'field_is_required'));
                     },
                 ]);
 
@@ -295,28 +289,26 @@ if (isset($_GET['do'])) {
 
                             Log::getInstance()->log(Log::Action('user/ucp/update'));
 
-                            foreach ($_POST as $key => $item) {
-                                if (!str_contains($key, 'action')&& !str_contains($key, 'token')) {
-                                    // Check field exists
-                                    $field_exists = $queries->getWhere('profile_fields', ['id', '=', $key]);
-                                    if (!count($field_exists)) {
-                                        continue;
-                                    }
+                            foreach ($_POST['profile_fields'] as $field_id => $value) {
+                                // Check field exists
+                                $field = ProfileField::find($field_id);
+                                if (!$field) {
+                                    continue;
+                                }
 
-                                    $user_profile_fields = $user->getProfileFields(false);
-                                    if (array_key_exists($key, $user_profile_fields)) {
-                                        // Update field value
-                                        $queries->update('users_profile_fields', $user_profile_fields[$key]['row_id'], [
-                                            'value' => $item
-                                        ]);
-                                    } else {
-                                        // Create new field value
-                                        $queries->create('users_profile_fields', [
-                                            'user_id' => $user->data()->id,
-                                            'field_id' => $key,
-                                            'value' => $item
-                                        ]);
-                                    }
+                                $user_profile_fields = $user->getProfileFields(true);
+                                if (array_key_exists($field->id, $user_profile_fields) && $user_profile_fields[$field->id]->value !== null) {
+                                    // Update field value
+                                    $queries->update('users_profile_fields', $user_profile_fields[$field->id]->upf_id, [
+                                        'value' => $value
+                                    ]);
+                                } else {
+                                    // Create new field value
+                                    $queries->create('users_profile_fields', [
+                                        'user_id' => $user->data()->id,
+                                        'field_id' => $field->id,
+                                        'value' => $value
+                                    ]);
                                 }
                             }
 
@@ -492,8 +484,7 @@ if (isset($_GET['do'])) {
     }
 
     // Get custom fields
-    $custom_fields = $queries->getWhere('profile_fields', ['id', '<>', 0]);
-
+    $custom_fields_template = [];
     if ($user->hasPermission('usercp.nickname')) {
         $custom_fields_template['nickname'] = [
             'name' => $language->get('user', 'nickname'),
@@ -509,36 +500,26 @@ if (isset($_GET['do'])) {
         ];
     }
 
-    foreach ($custom_fields as $field) {
+    foreach ($user->getProfileFields(true) as $id => $field) {
         // Skip this field if it's not editable, and it is already set.
-        // This fixes when a field is made after someone registers, the next time they edit their profile,
-        // they will have to set it.
-        if (!$field->editable  && $field->value !== null) {
+        // This fixes when a field is made after someone registers,
+        // the next time they edit their profile, they will have to set it.
+        if (!$field->editable && $field->value != null) {
             continue;
         }
 
-        // Get field value for user
-        $value = '';
-        foreach ($user->getProfileFields(false) as $id => $item) {
-            if ($id == $field->id) {
-                // TODO: support HTML fields
-                $value = $item['value'];
-                break;
-            }
-        }
-
         // Get custom field type
-        if ($field->type == 1) {
+        if ($field->type == Fields::TEXT) {
             $type = 'text';
-        } else if ($field->type == 2) {
+        } else if ($field->type == Fields::TEXTAREA) {
             $type = 'textarea';
-        } else if ($field->type == 3) {
+        } else if ($field->type == Fields::DATE) {
             $type = 'date';
         }
 
         $custom_fields_template[$field->name] = [
             'name' => Output::getClean($field->name),
-            'value' => $value,
+            'value' => $field->value,
             'id' => $field->id,
             'type' => $type,
             'required' => $field->required,

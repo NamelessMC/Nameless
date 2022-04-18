@@ -41,16 +41,16 @@
         <h3 class="ui header">{$SETTINGS}</h3>
         <form class="ui form" action="" method="post" id="form-user-settings">
           {nocache}
-            {foreach from=$PROFILE_FIELDS item=field}
+            {foreach from=$PROFILE_FIELDS key=name item=field}
               <div class="field">
                 {if !isset($field.disabled)}
                   <label for="input{$field.id}">{$field.name}{if $field.required}<super style="color: red;">*</super>{/if}</label>
                   {if $field.type == "text"}
-                    <input type="text" name="{$field.id}" id="input{$field.id}" value="{$field.value}" placeholder="{$field.description}">
+                    <input type="text" name="{if $name == 'nickname'}nickname{else}profile_fields[{$field.id}]{/if}" id="input{$field.id}" value="{$field.value}" placeholder="{$field.description}">
                   {elseif $field.type == "textarea"}
-                    <textarea name="{$field.id}" id="input{$field.id}" placeholder="{$field.description}">{$field.value}</textarea>
+                    <textarea name="profile_fields[{$field.id}]" id="input{$field.id}" placeholder="{$field.description}">{$field.value}</textarea>
                   {elseif $field.type == "date"}
-                    <input type="date" name="{$field.id}" id="input{$field.id}" value="{$field.value}">
+                    <input type="date" name="profile_fields[{$field.id}]" id="input{$field.id}" value="{$field.value}">
                   {/if}
                 {/if}
               </div>

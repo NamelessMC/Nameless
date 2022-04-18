@@ -40,21 +40,24 @@ class Group {
     }
 
     /**
-     * @return Group[]
+     * @return array<int, Group>
      */
     public static function all(): array {
-        return array_map(static function (object $row) {
-            return new Group($row);
-        }, DB::getInstance()->selectQuery('SELECT * FROM nl2_groups ORDER BY `order`')->results());
+        $rows = DB::getInstance()->selectQuery('SELECT * FROM nl2_groups ORDER BY `order`')->results();
+        $fields = [];
+        foreach ($rows as $row) {
+            $fields[$row->id] = new Group($row);
+        }
+        return $fields;
     }
 
     /**
-     * @param int $value
+     * @param string $value
      * @param string $column
      * @return Group|null
      */
-    public static function find(int $value, string $column = 'id'): ?Group {
-        $row = DB::getInstance()->selectQuery('SELECT * FROM nl2_groups WHERE ' . $column . ' = ?', [$value])->first();
+    public static function find(string $value, string $column = 'id'): ?Group {
+        $row = DB::getInstance()->get('groups', [$column, '=', $value])->first();
         return $row
             ? new Group($row)
             : null;

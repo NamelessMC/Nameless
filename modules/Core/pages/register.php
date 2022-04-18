@@ -180,15 +180,13 @@ if (Input::exists()) {
             $username = Output::getClean(Input::get('username'));
 
             // Validate custom fields
-            $profile_fields = $queries->getWhere('profile_fields', ['id', '<>', 0]);
-            if (count($profile_fields)) {
-                foreach ($profile_fields as $field) {
-                    if ($field->required == true) {
-                        $to_validation[$field->id] = [
-                            Validate::REQUIRED => true,
-                            Validate::MAX => (is_null($field->length) ? 1024 : $field->length)
-                        ];
-                    }
+            $profile_fields = ProfileField::all();
+            foreach ($profile_fields as $field) {
+                if ($field->required) {
+                    $to_validation["profile_fields[{$field->id}]"] = [
+                        Validate::REQUIRED => true,
+                        Validate::MAX => (is_null($field->length) ? 1024 : $field->length)
+                    ];
                 }
             }
 
@@ -218,13 +216,16 @@ if (Input::exists()) {
                     Validate::REQUIRED => $language->get('user', 'accept_terms'),
                 ],
                 // fallback message for profile fields
-                '*' => static function ($field) use ($language, $queries) {
-                    $profile_field = $queries->getWhere('profile_fields', ['id', '=', $field]);
-                    if (!count($profile_field)) {
+                '*' => static function ($field) use ($language) {
+                    // get the id from between the square brackets
+                    $id = substr($field, strpos($field, '[') + 1, -1);
+
+                    $field = ProfileField::find($id);
+                    if (!$field) {
                         return null;
                     }
 
-                    return str_replace('{x}', Output::getClean($profile_field[0]->name), $language->get('user', 'field_is_required'));
+                    return str_replace('{x}', Output::getClean($field->name), $language->get('user', 'field_is_required'));
                 },
             ]);
 
@@ -347,23 +348,14 @@ if (Input::exists()) {
                         }
 
                         // Custom Fields
-                        if (count($profile_fields)) {
-                            foreach ($profile_fields as $field) {
-                                if ($field->required == false) {
-                                    continue;
-                                }
-                                $value = Input::get($field->id);
-                                if (!empty($value)) {
-                                    // Insert custom field
-                                    $queries->create(
-                                        'users_profile_fields',
-                                        [
-                                            'user_id' => $user_id,
-                                            'field_id' => $field->id,
-                                            'value' => $value
-                                        ]
-                                    );
-                                }
+                        foreach ($_POST['profile_fields'] as $field_id => $value) {
+                            if (!empty($value)) {
+                                // Insert custom field
+                                $queries->create('users_profile_fields', [
+                                    'user_id' => $user_id,
+                                    'field_id' => $field_id,
+                                    'value' => $value
+                                ]);
                             }
                         }
 
@@ -440,22 +432,15 @@ foreach ($integrations->getEnabledIntegrations() as $integration) {
 }
 
 // Custom profile fields
-$profile_fields = $queries->getWhere('profile_fields', ['id', '<>', 0]);
-if (count($profile_fields)) {
-    foreach ($profile_fields as $field) {
-        if ($field->required == false) {
-            continue;
-        }
-
-        $fields->add(
-            $field->id,
-            $field->type,
-            Output::getClean($field->name),
-            true,
-            ((isset($_POST[$field->id]) && $_POST[$field->id]) ? Output::getClean(Input::get($field->id)) : ''),
-            Output::getClean($field->description) ?: Output::getClean($field->name)
-        );
-    }
+foreach (ProfileField::all() as $field) {
+    $fields->add(
+        "profile_fields[{$field->id}]",
+        $field->type,
+        Output::getClean($field->name),
+        $field->required,
+        Output::getClean(Input::get("profile_fields[{$field->id}]")),
+        Output::getClean($field->description) ?: Output::getClean($field->name)
+    );
 }
 
 if (Session::exists('oauth_register_data')) {
