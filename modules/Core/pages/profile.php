@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr13
  *
  *  License: MIT
  *
@@ -58,7 +58,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     $profile = $profile[count($profile) - 1];
 
     $profile_user = new User($profile, 'username');
-    if (!$profile_user->data()) {
+    if (!$profile_user->exists()) {
         Redirect::to(URL::build('/profile/&error=not_exist'));
     }
     $query = $profile_user->data();
@@ -466,7 +466,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     }
 
     // Set Can view
-    if ($user->isPrivateProfile() && $user->canPrivateProfile()) {
+    if ($profile_user->isPrivateProfile() && $user->canPrivateProfile()) {
         $smarty->assign([
             'PRIVATE_PROFILE' => $language->get('user', 'private_profile_page'),
             'CAN_VIEW' => false
@@ -608,7 +608,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
         'ERROR_TITLE' => $language->get('general', 'error'),
         'REPLY' => $language->get('user', 'reply'),
         'EDIT_POST' => $language->get('general', 'edit'),
-        'VIEWER_ID' => $user->data()->id
+        'VIEWER_ID' => $user->isLoggedIn() ? $user->data()->id : 0,
     ]);
 
     // Wall posts
@@ -740,28 +740,20 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     $fields = [];
 
     // Get profile fields
-    foreach ($profile_user->getProfileFields() as $id => $item) {
-        // Get field
-        $profile_field = $queries->getWhere('profile_fields', ['id', '=', $id]);
-        if (!count($profile_field)) {
-            continue;
-        }
-
-        $profile_field = $profile_field[0];
-
-        if ($profile_field->public == 0 || !$item['value']) {
+    foreach ($profile_user->getProfileFields() as $id => $profile_field) {
+        if (!$profile_field->value) {
             continue;
         }
 
         // Get field type
         switch ($profile_field->type) {
-            case 1:
+            case Fields::TEXT:
                 $type = 'text';
                 break;
-            case 2:
+            case Fields::TEXTAREA:
                 $type = 'textarea';
                 break;
-            case 3:
+            case Fields::DATE:
                 $type = 'date';
                 break;
         }
@@ -769,36 +761,30 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
         $fields[] = [
             'title' => Output::getClean($profile_field->name),
             'type' => $type,
-            'value' => Output::getClean($item['value']),
+            'value' => Output::getClean($profile_field->value)
         ];
     }
 
-    $profile_user = new User($query->id);
-    if (Util::isModuleEnabled('Discord Integration') && $profile_user->data()->discord_username != null) {
-        $fields[] = [
-            'title' => Discord::getLanguageTerm('discord_username') . ':',
-            'type' => 'text',
-            'value' => $profile_user->data()->discord_username
-        ];
+    // User Integrations
+    $user_integrations = [];
+    foreach ($profile_user->getIntegrations() as $key => $integrationUser) {
+        if ($integrationUser->data()->username != null && $integrationUser->data()->show_publicly) {
+            $fields[] = [
+                'title' => Output::getClean($key),
+                'type' => 'text',
+                'value' => Output::getClean($integrationUser->data()->username)
+            ];
+
+            $user_integrations[$key] = [
+                'username' => Output::getClean($integrationUser->data()->username),
+                'identifier' => Output::getClean($integrationUser->data()->identifier)
+            ];
+        }
     }
+    $smarty->assign('INTEGRATIONS', $user_integrations);
 
     if (!count($fields)) {
         $smarty->assign('NO_ABOUT_FIELDS', $language->get('user', 'no_about_fields'));
-    }
-
-    // Minecraft?
-    if (MINECRAFT == '1') {
-        // TODO: This does not display anywhere
-        $fields['minecraft'] = [
-            'title' => 'IGN',
-            'type' => 'text',
-            'value' => Output::getClean($query->username),
-            'image' => 'https://crafatar.com/renders/body/' . $query->uuid . '?overlay'
-        ];
-
-        $smarty->assign([
-            'UUID' => $profile_user->data()->uuid
-        ]);
     }
 
     $profile_placeholders = $profile_user->getProfilePlaceholders();

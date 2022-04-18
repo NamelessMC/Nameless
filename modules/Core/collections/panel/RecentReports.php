@@ -56,7 +56,7 @@ class RecentReportsItem extends CollectionItemBase {
                         $reporter_user = $users[$item->reporter_id];
                     } else {
                         $reporter_user = new User($item->reporter_id);
-                        if (!$reporter_user->data()) {
+                        if (!$reporter_user->exists()) {
                             continue;
                         }
                         $users[$item->reporter_id] = $reporter_user;
@@ -66,7 +66,7 @@ class RecentReportsItem extends CollectionItemBase {
                         $reported_user = $users[$item->reported_id];
                     } else {
                         $reported_user = new User($item->reported_id);
-                        if (!$reported_user->data()) {
+                        if (!$reported_user->exists()) {
                             continue;
                         }
                         $users[$item->reported_id] = $reported_user;
@@ -78,13 +78,11 @@ class RecentReportsItem extends CollectionItemBase {
                         'reporter_nickname' => $reporter_user->getDisplayname(),
                         'reporter_style' => $reporter_user->getGroupClass(),
                         'reporter_avatar' => $reporter_user->getAvatar(),
-                        'reporter_uuid' => Output::getClean($reporter_user->data()->uuid),
                         'reporter_profile' => URL::build('/panel/user/' . urlencode($reporter_user->data()->id) . '-' . urlencode($reporter_user->data()->username)),
                         'reported_username' => $reported_user->getDisplayname(true),
                         'reported_nickname' => $reported_user->getDisplayname(),
                         'reported_style' => $reported_user->getGroupClass(),
                         'reported_avatar' => $reported_user->getAvatar(),
-                        'reported_uuid' => Output::getClean($reported_user->data()->uuid),
                         'reported_profile' => URL::build('/panel/user/' . urlencode($reported_user->data()->id) . '-' . urlencode($reported_user->data()->username)),
                         'time' => $timeago->inWords($item->date_reported, $this->_language->getTimeLanguage()),
                         'time_full' => date(DATE_FORMAT, strtotime($item->date_reported)),

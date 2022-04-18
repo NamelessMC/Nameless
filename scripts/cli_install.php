@@ -177,7 +177,6 @@ $user->create([
     'nickname' => $username,
     'password' => password_hash($password, PASSWORD_BCRYPT, ['cost' => 13]),
     'pass_method' => 'default',
-    'uuid' => '', // TODO Get UUID from mojang
     'joined' => date('U'),
     'email' => $email,
     'lastip' => '127.0.0.1',
@@ -192,6 +191,23 @@ DB::getInstance()->createQuery('INSERT INTO `nl2_users_groups` (`user_id`, `grou
     date('U'),
     0,
 ]);
+
+$profile = ProfileUtils::getProfile($username);
+if ($profile !== null) {
+    $result = $profile->getProfileAsArray();
+    if (isset($result['uuid']) && !empty($result['uuid'])) {
+        $uuid = $result['uuid'];
+
+        $queries->create('users_integrations', [
+            'integration_id' => 1,
+            'user_id' => 1,
+            'identifier' => $uuid,
+            'username' => $username,
+            'verified' => 1,
+            'date' => date('U'),
+        ]);
+    }
+}
 
 print(PHP_EOL . '✅ Installation complete! (Took ' . round(microtime(true) - $start, 2) . ' seconds)' . PHP_EOL);
 print(PHP_EOL . '🖥  URL: http://' . $conf['core']['hostname'] . $conf['core']['path']);

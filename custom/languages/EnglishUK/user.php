@@ -36,6 +36,7 @@ $language = [
     'gif_avatar' => 'Upload .gif as custom avatar',
     'placeholders' => 'Placeholders',
     'no_placeholders' => 'No Placeholders',
+    'connections' => 'Connections',
 
     // Profile settings
     'field_is_required' => '{x} is required.', // Don't replace {x}
@@ -118,6 +119,7 @@ $language = [
     'mcname_maximum_20' => 'Your Minecraft username must be a maximum of 20 characters.',
     'passwords_dont_match' => 'Your passwords do not match.',
     'username_mcname_email_exists' => 'Your username or email address already exists.',
+    'mcname_already_exists' => 'Your Minecraft username already exists.',
     'invalid_mcname' => 'Your Minecraft username is invalid.',
     'invalid_email' => 'Your email is invalid.',
     'mcname_lookup_error' => 'There has been an error communicating with Mojang\'s servers to verify your username. Please try again later.',
@@ -245,5 +247,17 @@ $language = [
     'oauth_login_success' => 'You have logged in with your {x} account.', // Don't replace {x}
     'oauth_link_confirm' => 'You will be taken to the {x} website to link your account.', // Don't replace {x}
     'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {x}.<br>You will not be able to login with this account anymore.', // Don't replace {x}
-    'no_providers' => 'No OAuth providers are setup.'
+    'no_providers' => 'No OAuth providers are set up.',
+
+    // Integrations
+    'integration_linked' => 'You have successfully linked your {{integration}} account.', // Don't replace {integration}
+    'integration_unlinked' => 'You have successfully unlinked your {{integration}} account.', // Don't replace {integration}
+    'integration_identifier_already_linked' => '{{integration}} identifier is already linked to another user.',
+    'integration_username_already_linked' => '{{integration}} username is already linked to another user.',
+    'integration_required_to_continue' => 'Please connect and verify the required connections before continuing to use this website.',
+    'not_connected' => 'Not Connected',
+    'pending_verification' => 'Pending Verification',
+    'user_has_linked_integration' => '{{user}} has linked their {{integration}} account.',
+    'user_has_verified_integration' => '{{user}} has verified their {{integration}} account.',
+    'user_has_unlinked_integration' => '{{user}} has unlinked their {{integration}} account.',
 ];

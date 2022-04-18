@@ -84,12 +84,11 @@ if (!isset($_GET['action'])) {
                     ]);
 
                     if ($validation->passed()) {
-                        $groups = $queries->getWhere('groups', ['id', '<>', '0']);
                         $all_groups = [];
                         if (Input::get('perm-view-0')) {
                             $all_groups[] = '0';
                         }
-                        foreach ($groups as $group) {
+                        foreach (Group::all() as $group) {
                             if (Input::get('perm-view-' . $group->id)) {
                                 $all_groups[] = $group->id;
                             }
@@ -113,9 +112,8 @@ if (!isset($_GET['action'])) {
                 }
             }
 
-            $groups = DB::getInstance()->selectQuery('SELECT * FROM nl2_groups ORDER BY `order`')->results();
             $template_array = [];
-            foreach ($groups as $group) {
+            foreach (Group::all() as $group) {
                 $template_array[$group->id] = [
                     'id' => $group->id,
                     'name' => Output::getClean($group->name),
@@ -177,7 +175,7 @@ if (!isset($_GET['action'])) {
                         if (Input::get('perm-view-0')) {
                             $all_groups[] = '0';
                         }
-                        foreach ($queries->getWhere('groups', ['id', '<>', '0']) as $group) {
+                        foreach (Group::all() as $group) {
                             if (Input::get('perm-view-' . $group->id)) {
                                 $all_groups[] = $group->id;
                             }
@@ -207,7 +205,7 @@ if (!isset($_GET['action'])) {
             $guest_permissions = in_array('0', json_decode($announcement->groups));
             $groups = [];
 
-            foreach (DB::getInstance()->selectQuery('SELECT * FROM nl2_groups ORDER BY `order`')->results() as $group) {
+            foreach (Group::all() as $group) {
                 $groups[$group->id] = [
                     'name' => $group->name,
                     'id' => $group->id,

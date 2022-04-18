@@ -35,6 +35,10 @@ class Discord_Module extends Module {
         $endpoints->loadEndpoints(ROOT_PATH . '/modules/Discord Integration/includes/endpoints');
 
         GroupSyncManager::getInstance()->registerInjector(new DiscordGroupSyncInjector);
+
+        // Discord Integration
+        require_once(ROOT_PATH . "/modules/{$this->getName()}/classes/DiscordIntegration.php");
+        Integrations::getInstance()->registerIntegration(new DiscordIntegration($language));
     }
 
     public function onInstall() {

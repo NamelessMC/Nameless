@@ -74,70 +74,57 @@
                                     {/foreach}
                                 </ul>
                                 <hr />
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
                                             <label for="username">{$USERNAME_LABEL}</label>
                                             <input id="username" type="text" class="form-control" value="{$USERNAME}"
-                                                   readonly>
+                                                    readonly>
                                         </div>
-                                        <div class="col-md-6">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
                                             <label for="nickname">{$NICKNAME_LABEL}</label>
                                             <input id="nickname" type="text" class="form-control" value="{$NICKNAME}"
-                                                   readonly>
+                                                    readonly>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-6">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
                                             <label for="title">{$USER_TITLE_LABEL}</label>
                                             <input id="title" type="text" class="form-control" value="{$USER_TITLE}"
-                                                   readonly>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="uuid">{$UUID_LABEL}</label>
-                                            <input id="uuid" type="text" class="form-control" value="{$UUID}" readonly>
+                                                    readonly>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-6">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
                                             <label for="language">{$LANGUAGE_LABEL}</label>
                                             <input id="language" type="text" class="form-control" value="{$LANGUAGE}"
-                                                   readonly>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="timezone">{$TIMEZONE_LABEL}</label>
-                                            <input id="timezone" type="text" class="form-control" value="{$TIMEZONE}"
-                                                   readonly>
+                                                    readonly>
                                         </div>
                                     </div>
-                                </div>
-                                {if isset($EMAIL_ADDRESS) || isset($LAST_IP)}
-                                <div class="form-group">
-                                    <div class="row">
-                                        {if isset($EMAIL_ADDRESS) && isset($LAST_IP)}
-                                        <div class="col-md-6">
-                                            {else}
-                                            <div class="col-md-12">
-                                                {/if}
-                                                {if isset($EMAIL_ADDRESS)}
-                                                    <label for="email">{$EMAIL_ADDRESS_LABEL}</label>
-                                                    <input id="email" type="email" class="form-control"
-                                                           value="{$EMAIL_ADDRESS}" readonly>
-                                                {/if}
-                                                {if isset($EMAIL_ADDRESS) && isset($LAST_IP)}
-                                            </div>
-                                            <div class="col-md-6">
-                                                {/if}
-                                                {if isset($LAST_IP)}
-                                                    <label for="last_ip">{$LAST_IP_LABEL}</label>
-                                                    <input id="last_ip" type="text" class="form-control"
-                                                           value="{$LAST_IP}" readonly>
-                                                {/if}
-                                            </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="timezone">{$TIMEZONE_LABEL}</label>
+                                            <input id="timezone" type="text" class="form-control" value="{$TIMEZONE}"
+                                                    readonly>
+                                        </div>
+                                    </div>
+                                    {if isset($EMAIL_ADDRESS)}
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="email">{$EMAIL_ADDRESS_LABEL}</label>
+                                            <input id="email" type="email" class="form-control"
+                                                    value="{$EMAIL_ADDRESS}" readonly>
+                                        </div>
+                                    </div>
+                                    {/if}
+                                    {if isset($LAST_IP)}
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="last_ip">{$LAST_IP_LABEL}</label>
+                                            <input id="last_ip" type="text" class="form-control"
+                                                    value="{$LAST_IP}" readonly>
                                         </div>
                                     </div>
                                     {/if}
@@ -145,26 +132,26 @@
                             </div>
                         </div>
                     </div>
-
-
-                    <!-- Spacing -->
-                    <div style="height:1rem;"></div>
-
-                    <!-- End Page Content -->
                 </div>
 
-                <!-- End Main Content -->
+                <!-- Spacing -->
+                <div style="height:1rem;"></div>
+
+                <!-- End Page Content -->
             </div>
 
-            {include file='footer.tpl'}
-
-            <!-- End Content Wrapper -->
+            <!-- End Main Content -->
         </div>
 
-        <!-- End Wrapper -->
+        {include file='footer.tpl'}
+
+        <!-- End Content Wrapper -->
     </div>
 
-    {include file='scripts.tpl'}
+    <!-- End Wrapper -->
+</div>
+
+{include file='scripts.tpl'}
 
 </body>
 

@@ -15,7 +15,7 @@
   </div>
 {/if}
 
-{if isset($ERRORS)}
+{if (isset($ERRORS) || isset($ERROR))}
 <div class="ui error icon message">
   <i class="x icon"></i>
   <div class="content">
@@ -23,6 +23,9 @@
       {foreach from=$ERRORS item=error}
       <li>{$error}</li>
       {/foreach}
+      {if isset($ERROR)}
+        <li>{$ERROR}</li>
+      {/if}
     </ul>
   </div>
 </div>
@@ -38,16 +41,16 @@
         <h3 class="ui header">{$SETTINGS}</h3>
         <form class="ui form" action="" method="post" id="form-user-settings">
           {nocache}
-            {foreach from=$PROFILE_FIELDS item=field}
+            {foreach from=$PROFILE_FIELDS key=name item=field}
               <div class="field">
                 {if !isset($field.disabled)}
                   <label for="input{$field.id}">{$field.name}{if $field.required}<super style="color: red;">*</super>{/if}</label>
                   {if $field.type == "text"}
-                    <input type="text" name="{$field.id}" id="input{$field.id}" value="{$field.value}" placeholder="{$field.description}">
+                    <input type="text" name="{if $name == 'nickname'}nickname{else}profile_fields[{$field.id}]{/if}" id="input{$field.id}" value="{$field.value}" placeholder="{$field.description}">
                   {elseif $field.type == "textarea"}
-                    <textarea name="{$field.id}" id="input{$field.id}" placeholder="{$field.description}">{$field.value}</textarea>
+                    <textarea name="profile_fields[{$field.id}]" id="input{$field.id}" placeholder="{$field.description}">{$field.value}</textarea>
                   {elseif $field.type == "date"}
-                    <input type="date" name="{$field.id}" id="input{$field.id}" value="{$field.value}">
+                    <input type="date" name="profile_fields[{$field.id}]" id="input{$field.id}" value="{$field.value}">
                   {/if}
                 {/if}
               </div>
@@ -155,32 +158,6 @@
           <input type="submit" value="{$SUBMIT}" class="ui primary button">
         </form>
       </div>
-      {if $DISCORD_INTEGRATION}
-        <div class="ui segment">
-          <h3 class="ui header">{$DISCORD_LINK}
-            {if $DISCORD_LINKED}
-              <span class="ui green label">{$LINKED}</span>
-            {else if isset($PENDING_LINK)}
-              <span class="ui orange label">{$PENDING_LINK}</span>
-            {else}
-              <span class="ui red label">{$NOT_LINKED}</span>
-            {/if}
-            </h3>
-          {if $DISCORD_LINKED}
-            <p><strong>{$DISCORD_USERNAME}:</strong> {$DISCORD_USERNAME_VALUE}</p>
-          {/if}
-          <form action="" method="post" class="ui form">
-            <input type="hidden" name="action" value="discord">
-            <input type="hidden" name="token" value="{$TOKEN}">
-            {if $DISCORD_LINKED}
-              <input type="hidden" name="unlink" value="true">
-              <input type="submit" value="{$UNLINK}" class="ui red button">
-            {else}
-              <input type="submit" value="{$GET_LINK_CODE}" class="ui primary button">
-            {/if}
-          </form>
-        </div>
-      {/if}
       <div class="ui segment">
         <h3 class="ui header">{$TWO_FACTOR_AUTH}</h3>
         {if isset($ENABLE)}

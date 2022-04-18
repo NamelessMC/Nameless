@@ -156,11 +156,11 @@
               <div class="ui list">
                 <div class="ui divider"></div>
                 {foreach from=$reply.fields item=field}
-                  {if !empty($field.value)}
+                  {if !empty($field->value)}
                     <div class="item">
                       <div class="content">
-                        <div class="header">{$field.name}</div>
-                        <div class="res right floated description">{$field.value}</div>
+                        <div class="header">{$field->name}</div>
+                        <div class="res right floated description">{$field->value}</div>
                       </div>
                     </div>
                   {/if}

@@ -15,7 +15,7 @@ class ValidateHook {
         }
 
         $validate_user = new User($params['user_id']);
-        if (!$validate_user->data()) {
+        if (!$validate_user->exists()) {
             return;
         }
 
