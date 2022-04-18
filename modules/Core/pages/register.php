@@ -433,6 +433,9 @@ foreach ($integrations->getEnabledIntegrations() as $integration) {
 
 // Custom profile fields
 foreach (ProfileField::all() as $field) {
+    if (!$field->required) {
+        continue;
+    }
     $fields->add(
         "profile_fields[{$field->id}]",
         $field->type,
