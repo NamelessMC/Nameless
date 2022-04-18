@@ -124,7 +124,7 @@ foreach (DB::getInstance()->selectQuery('SELECT `id`, `forum_title`, `hooks` FRO
 
 
 $groups = [];
-foreach ($queries->getWhere('groups', ['id', '<>', 0]) as $group) {
+foreach (Group::all() as $group) {
     $groups[(int)$group->id] = [
         'id' => (int)$group->id,
         'name' => $group->name,

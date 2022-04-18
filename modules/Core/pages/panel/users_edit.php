@@ -19,7 +19,7 @@ if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
 }
 
 $view_user = new User($_GET['id']);
-if (!$view_user->data()) {
+if (!$view_user->exists()) {
     Redirect::to(URL::build('/panel/users'));
 }
 $user_query = $view_user->data();
@@ -171,10 +171,10 @@ if (Input::exists()) {
                             $modified = [];
 
                             // Check for new groups to give them which they dont already have
-                            foreach ($_POST['groups'] as $group) {
-                                if (!in_array($group, $view_user->getAllGroupIds())) {
-                                    $view_user->addGroup($group, 0, [true]);
-                                    $modified[] = $group;
+                            foreach ($_POST['groups'] as $group_id) {
+                                if (!in_array($group_id, $view_user->getAllGroupIds())) {
+                                    $view_user->addGroup($group_id);
+                                    $modified[] = $group_id;
                                 }
                             }
 

@@ -524,8 +524,10 @@ class Core_Module extends Module {
         });
 
         // Minecraft Integration
-        require_once(ROOT_PATH . "/modules/{$this->getName()}/classes/Integrations/MinecraftIntegration.php");
-        Integrations::getInstance()->registerIntegration(new MinecraftIntegration($language));
+        if (defined('MINECRAFT') && MINECRAFT === true) {
+            require_once(ROOT_PATH . "/modules/{$this->getName()}/classes/Integrations/MinecraftIntegration.php");
+            Integrations::getInstance()->registerIntegration(new MinecraftIntegration($language));
+        }
 
         require_once ROOT_PATH . '/modules/Core/hooks/ContentHook.php';
 

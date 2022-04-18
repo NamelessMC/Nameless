@@ -146,8 +146,7 @@ if (!isset($_GET['action'])) {
                                 $perms[0] = 0;
                             }
 
-                            $groups = $queries->getWhere('groups', ['id', '<>', 0]);
-                            foreach ($groups as $group) {
+                            foreach (Group::all() as $group) {
                                 if (isset($_POST['perm-view-' . $group->id]) && $_POST['perm-view-' . $group->id] == 1) {
                                     $perms[$group->id] = 1;
                                 } else {
@@ -177,9 +176,8 @@ if (!isset($_GET['action'])) {
                 }
             }
 
-            $groups = DB::getInstance()->selectQuery('SELECT * FROM nl2_groups ORDER BY `order`')->results();
             $template_array = [];
-            foreach ($groups as $group) {
+            foreach (Group::all() as $group) {
                 $template_array[$group->id] = [
                     'id' => $group->id,
                     'name' => Output::getClean($group->name),
@@ -397,8 +395,7 @@ if (!isset($_GET['action'])) {
                             }
 
                             // Group category permissions
-                            $groups = $queries->getWhere('groups', ['id', '<>', 0]);
-                            foreach ($groups as $group) {
+                            foreach (Group::all() as $group) {
                                 $view = Input::get('perm-view-' . $group->id);
 
                                 if (!($view)) {

@@ -56,11 +56,10 @@ class DB extends Instanceable {
             $x = 1;
             if (count($params)) {
                 foreach ($params as $param) {
-                    if (is_int($param)) {
-                        $this->_query->bindValue($x, $param, PDO::PARAM_INT);
-                    } else {
-                        $this->_query->bindValue($x, $param, PDO::PARAM_STR);
-                    }
+                    $this->_query->bindValue($x, $param, is_int($param)
+                        ? PDO::PARAM_INT
+                        : PDO::PARAM_STR
+                    );
                     $x++;
                 }
             }

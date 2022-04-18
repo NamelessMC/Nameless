@@ -56,7 +56,7 @@ class RecentPunishmentsItem extends CollectionItemBase {
                         $punished_user = $users[$item->punished];
                     } else {
                         $punished_user = new User($item->punished);
-                        if (!$punished_user->data()) {
+                        if (!$punished_user->exists()) {
                             continue;
                         }
                         $users[$item->punished] = $punished_user;
@@ -66,7 +66,7 @@ class RecentPunishmentsItem extends CollectionItemBase {
                         $staff_user = $users[$item->staff];
                     } else {
                         $staff_user = new User($item->staff);
-                        if (!$staff_user->data()) {
+                        if (!$staff_user->exists()) {
                             continue;
                         }
                         $users[$item->staff] = $staff_user;
@@ -78,7 +78,7 @@ class RecentPunishmentsItem extends CollectionItemBase {
                             $revoked_by_user = $users[$item->revoked_by_user];
                         } else {
                             $revoked_by_user = new User($item->revoked_by);
-                            if (!$revoked_by_user->data()) {
+                            if (!$revoked_by_user->exists()) {
                                 continue;
                             }
                             $users[$item->revoked_by] = $revoked_by_user;

@@ -12,7 +12,7 @@ parameters:
         - '#Constant#'
         - '#Undefined variable:#'
         # $queries->getWhere()->{$property}
-        - '#Access to an undefined property#'
+        - '#Access to an undefined property object::#'
         # because php is dumb
         - '#Call to an undefined method ReflectionType::getName\(\).#'
         - '#Call to an undefined method ReflectionType::isBuiltin\(\).#'

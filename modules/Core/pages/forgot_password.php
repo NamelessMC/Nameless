@@ -94,7 +94,7 @@ if (!isset($_GET['c'])) {
 } else {
     // Check code exists
     $target_user = new User($_GET['c'], 'reset_code');
-    if (!$target_user->data()) {
+    if (!$target_user->exists()) {
         Redirect::to('/forgot_password');
     }
 

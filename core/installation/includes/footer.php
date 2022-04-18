@@ -32,7 +32,7 @@
 </div>
 
 <script src="core/assets/js/jquery.min.js"></script>
-<script src="custom/templates/DefaultRevamp/js/semantic.min.js"></script>
+<script src="custom/templates/DefaultRevamp/js/fomantic.min.js"></script>
 <script>
 
     $('.dropdown').dropdown();

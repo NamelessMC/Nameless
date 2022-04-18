@@ -478,7 +478,6 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
             }
 
             $available_forums = $queries->orderWhere('forums', 'id > 0', 'forum_order', 'ASC'); // Get a list of all forums which can be chosen as a parent
-            $groups = $queries->getWhere('groups', ['id', '<>', '0']); // Get a list of all groups
 
             if (Input::exists()) {
                 $errors = [];
@@ -613,7 +612,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                             }
 
                             // Group forum permissions
-                            foreach ($groups as $group) {
+                            foreach (Group::all() as $group) {
                                 $view = Input::get('perm-view-' . $group->id);
                                 $create = Input::get('perm-topic-' . $group->id);
                                 $edit = Input::get('perm-edit_topic-' . $group->id);

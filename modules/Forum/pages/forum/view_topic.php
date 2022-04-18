@@ -539,7 +539,7 @@ $replies = [];
 // Display the correct number of posts
 foreach ($results->data as $n => $nValue) {
     $post_creator = new User($nValue->post_creator);
-    if (!$post_creator->data()) {
+    if (!$post_creator->exists()) {
         continue;
     }
 
@@ -611,7 +611,7 @@ foreach ($results->data as $n => $nValue) {
     }
 
     // Profile fields
-    $fields = $post_creator->getProfileFields(true, true);
+    $fields = $post_creator->getProfileFields(false, true);
 
     // User integrations
     $user_integrations = [];

@@ -34,15 +34,16 @@ class UserInfoEndpoint extends KeyAuthEndpoint {
         $return->validated = (bool)$return->validated;
 
         // Get custom profile fields
-        $custom_profile_fields = $api->getDb()->selectQuery('SELECT fields.id, fields.name, fields.type, fields.public, fields.required, fields.description, pf_values.value FROM nl2_users_profile_fields pf_values LEFT JOIN nl2_profile_fields fields ON pf_values.field_id = fields.id WHERE pf_values.user_id = ?', [$user->data()->id]);
-
-        foreach ($custom_profile_fields->results() as $profile_field) {
-            $return->profile_fields[$profile_field->id]['name'] = $profile_field->name;
-            $return->profile_fields[$profile_field->id]['type'] = (int)$profile_field->type;
-            $return->profile_fields[$profile_field->id]['public'] = (bool)$profile_field->public;
-            $return->profile_fields[$profile_field->id]['required'] = (bool)$profile_field->required;
-            $return->profile_fields[$profile_field->id]['description'] = $profile_field->description;
-            $return->profile_fields[$profile_field->id]['value'] = $profile_field->value;
+        foreach ($user->getProfileFields(true) as $id => $profile_field) {
+            $return->profile_fields[$id] = [
+                'name' => $profile_field->name,
+                'type' => $profile_field->type,
+                'public' => $profile_field->public,
+                'required' => $profile_field->required,
+                'editable' => $profile_field->editable,
+                'description' => $profile_field->description,
+                'value' => $profile_field->value
+            ];
         }
 
         // Get the groups the user has
