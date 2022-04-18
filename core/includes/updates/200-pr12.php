@@ -163,12 +163,22 @@ $cache->eraseAll();
 
 $default_language = $queries->getWhere('languages', ['is_default', '=', 1])[0]->name;
 
-// drop all from languages table
+// drop all & truncate from languages table
 try {
-    DB::getInstance()->createQuery('DELETE FROM nl2_languages WHERE `id` <> 0');
+    DB::getInstance()->createQuery('TRUNCATE TABLE nl2_languages');
 } catch (Exception $e) {
     // Continue
 }
+
+// reset all user languages to default
+try {
+    DB::getInstance()->createQuery('UPDATE nl2_users SET `language_id` = ?', [
+        $default_language[0]->id
+    ]);
+} catch (Exception $e) {
+    // Continue
+}
+
 
 // add short code column to languages table
 try {
