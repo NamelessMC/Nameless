@@ -43,12 +43,21 @@ class Group {
      * @return Group[]
      */
     public static function all(): array {
-        $rows = DB::getInstance()->selectQuery('SELECT * FROM nl2_groups ORDER BY `order`')->results();
-        $groups = [];
-        foreach ($rows as $row) {
-            $groups[] = new Group($row);
-        }
-        return $groups;
+        return array_map(static function (object $row) {
+            return new Group($row);
+        }, DB::getInstance()->selectQuery('SELECT * FROM nl2_groups ORDER BY `order`')->results());
+    }
+
+    /**
+     * @param int $value
+     * @param string $column
+     * @return Group|null
+     */
+    public static function find(int $value, string $column = 'id'): ?Group {
+        $row = DB::getInstance()->selectQuery('SELECT * FROM nl2_groups WHERE ' . $column . ' = ?', [$value])->first();
+        return $row
+            ? new Group($row)
+            : null;
     }
 
 }

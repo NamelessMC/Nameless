@@ -65,8 +65,8 @@ if (isset($_GET['action'])) {
                         }
 
                         // If this is the new default group, update old default group
-                        $default_group = $queries->getWhere('groups', ['default_group', '=', 1]);
-                        if (!count($default_group) && $default == 0) {
+                        $default_group = Group::find(1, 'default_group');
+                        if (!$default_group && $default == 0) {
                             $default = 1;
                         }
 
@@ -93,8 +93,8 @@ if (isset($_GET['action'])) {
                         $group_id = $queries->getLastId();
 
                         if ($default == 1) {
-                            if (count($default_group) && $default_group[0]->id != $group_id) {
-                                $queries->update('groups', $default_group[0]->id, [
+                            if ($default_group && $default_group->id != $group_id) {
+                                $queries->update('groups', $default_group->id, [
                                     'default_group' => 0
                                 ]);
                             }
@@ -145,11 +145,10 @@ if (isset($_GET['action'])) {
                 Redirect::to(URL::build('/panel/core/groups'));
             }
 
-            $group = $queries->getWhere('groups', ['id', '=', $_GET['group']]);
-            if (!count($group)) {
+            $group = Group::find($_GET['group']);
+            if (!$group) {
                 Redirect::to(URL::build('/panel/core/groups'));
             }
-            $group = $group[0];
 
             if ($group->id == 2 || ((in_array($group->id, $user->getAllGroupIds())) && !$user->hasPermission('admincp.groups.self'))) {
                 $smarty->assign([
@@ -199,13 +198,13 @@ if (isset($_GET['action'])) {
                                 }
 
                                 // If this is the new default group, update old default group
-                                $default_group = $queries->getWhere('groups', ['default_group', '=', 1]);
-                                if (count($default_group) && $default == 1 && $default_group[0]->id != $_GET['group']) {
-                                    $queries->update('groups', $default_group[0]->id, [
+                                $default_group = Group::find(1, 'default_group');
+                                if ($default_group && $default == 1 && $default_group->id != $_GET['group']) {
+                                    $queries->update('groups', $default_group->id, [
                                         'default_group' => 0
                                     ]);
                                 } else {
-                                    if (!count($default_group) && $default == 0) {
+                                    if (!$default_group && $default == 0) {
                                         $default = 1;
                                     }
                                 }
@@ -243,10 +242,10 @@ if (isset($_GET['action'])) {
                     } else {
                         if (Input::get('action') == 'delete') {
                             try {
-                                $default_group = $queries->getWhere('groups', ['default_group', '=', 1]);
+                                $default_group = Group::find(1, 'default_group');
 
-                                if (count($default_group)) {
-                                    if ($group->id == 2 || $default_group[0]->id == Input::get('id') || $group->admin_cp == 1) {
+                                if ($default_group) {
+                                    if ($group->id == 2 || $default_group->id == Input::get('id') || $group->admin_cp == 1) {
                                         // Can't delete default group/admin group
                                         Session::flash('admin_groups_error', $language->get('admin', 'unable_to_delete_group'));
                                     } else {
@@ -302,11 +301,10 @@ if (isset($_GET['action'])) {
                     Redirect::to(URL::build('/panel/core/groups'));
                 }
 
-                $group = $queries->getWhere('groups', ['id', '=', $_GET['group']]);
-                if (!count($group)) {
+                $group = Group::find($_GET['group']);
+                if (!$group) {
                     Redirect::to(URL::build('/panel/core/groups'));
                 }
-                $group = $group[0];
 
                 if ($group->id == 2 || ((in_array($group->id, $user->getAllGroupIds())) && !$user->hasPermission('admincp.groups.self'))) {
                     Redirect::to(URL::build('/panel/core/groups'));

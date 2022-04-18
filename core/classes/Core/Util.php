@@ -432,22 +432,6 @@ class Util {
     }
 
     /**
-     * Get a website group's name from it's ID.
-     *
-     * @param int $group_id ID of group to find.
-     * @return string|null Name of group, null if doesnt exist.
-     */
-    public static function getGroupNameFromId(int $group_id): ?string {
-        $data = DB::getInstance()->get('groups', ['id', '=', $group_id]);
-
-        if ($data->count()) {
-            return $data->first()->name;
-        }
-
-        return null;
-    }
-
-    /**
      * Determine if a specific module is enabled
      *
      * @param string $name Name of module to check for.

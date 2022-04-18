@@ -87,9 +87,9 @@ class Queries {
     }
 
     public function addPermissionGroup(int $group_id, string $permission): void {
-        $permissions = $this->getWhere('groups', ['id', '=', $group_id]);
-        if (count($permissions)) {
-            $permissions = $permissions[0]->permissions;
+        $group = Group::find($group_id);
+        if ($group) {
+            $permissions = $group->permissions;
             $permissions = json_decode($permissions, true);
             if (is_array($permissions)) {
                 $permissions[$permission] = 1;

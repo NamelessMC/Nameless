@@ -159,9 +159,9 @@ class User {
         );
 
         if ($group_data == null) {
-            $group_data = $this->_db->get('groups', ['id', '=', $group_id]);
-            if ($group_data->count()) {
-                $this->_groups[$group_id] = new Group($group_data->first());
+            $group = Group::find($group_id);
+            if ($group) {
+                $this->_groups[$group_id] = $group;
             }
         } else {
             $this->_groups[$group_id] = new Group($group_data);
@@ -504,7 +504,7 @@ class User {
         }
 
         foreach ($groups as $group) {
-            $permissions = json_decode($group->permissions, true);
+            $permissions = json_decode($group->permissions, true) ?? [];
 
             if (isset($permissions['administrator']) && $permissions['administrator'] == 1) {
                 return true;
@@ -516,33 +516,6 @@ class User {
         }
 
         return false;
-    }
-
-    /**
-     * If the user has infractions, list them all. Or else return false.
-     * @deprecated  Not used internally.
-     *
-     * @return array|bool Array of infractions if they have one or more, else false.
-     */
-    public function hasInfraction() {
-        $data = $this->_db->get('infractions', ['punished', '=', $this->data()->id])->results();
-        if (empty($data)) {
-            return false;
-        }
-
-        $return = [];
-        $n = 0;
-        foreach ($data as $infraction) {
-            if ($infraction->acknowledged == '0') {
-                $return[$n]['id'] = $infraction->id;
-                $return[$n]['staff'] = $infraction->staff;
-                $return[$n]['reason'] = $infraction->reason;
-                $return[$n]['date'] = $infraction->infraction_date;
-                $n++;
-            }
-        }
-
-        return $return;
     }
 
     /**
@@ -613,11 +586,7 @@ class User {
      * @return IntegrationUser|null Their integration user  if connected otherwise null.
      */
     public function getIntegration(string $integrationName): ?IntegrationUser {
-        if (array_key_exists($integrationName, $this->getIntegrations())) {
-            return $this->getIntegrations()[$integrationName];
-        }
-
-        return null;
+        return $this->getIntegrations()[$integrationName] ?? null;
     }
 
     /**
@@ -695,9 +664,9 @@ class User {
 
         $this->_groups = [];
         if ($group_data == null) {
-            $group_data = $this->_db->get('groups', ['id', '=', $group_id]);
-            if ($group_data->count()) {
-                $this->_groups[$group_id] = $group_data->first();
+            $group = Group::find($group_id);
+            if ($group) {
+                $this->_groups[$group_id] = $group;
             }
         } else {
             $this->_groups[$group_id] = $group_data;
