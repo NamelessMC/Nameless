@@ -79,6 +79,10 @@ if (Input::exists()) {
             $validation = Validate::check($_POST, [
                 'email' => [
                     Validate::REQUIRED => true,
+                    Validate::UNIQUE => [
+                        'users',
+                        'id:' . $view_user->data()->id // ignore current user
+                    ],
                     Validate::MIN => 4,
                     Validate::MAX => 50
                 ],
@@ -93,6 +97,10 @@ if (Input::exists()) {
                 ],
                 'username' => [
                     Validate::REQUIRED => true,
+                    Validate::UNIQUE => [
+                        'users',
+                        'id:' . $view_user->data()->id // ignore current user
+                    ],
                     Validate::MIN => 3,
                     Validate::MAX => 20
                 ],
@@ -103,11 +111,13 @@ if (Input::exists()) {
                 ]
             ])->messages([
                 'email' => [
-                    Validate::REQUIRED => $language->get('user', 'email_required')
+                    Validate::REQUIRED => $language->get('user', 'email_required'),
+                    Validate::UNIQUE => $language->get('user', 'email_already_exists')
                 ],
                 'title' => $language->get('admin', 'title_max_64'),
                 'username' => [
                     Validate::REQUIRED => $language->get('user', 'mcname_required'),
+                    Validate::UNIQUE => $language->get('user', 'username_already_exists'),
                     Validate::MIN => $language->get('user', 'mcname_minimum_3'),
                     Validate::MAX => $language->get('user', 'mcname_maximum_20')
                 ],
