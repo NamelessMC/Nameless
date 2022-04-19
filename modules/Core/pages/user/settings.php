@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr12
+ *  NamelessMC version 2.0.0-pr13
  *
  *  License: MIT
  *
@@ -184,6 +184,7 @@ if (isset($_GET['do'])) {
                     'signature' => $language->get('user', 'signature_max_900'),
                     'nickname' => [
                         Validate::REQUIRED => $language->get('user', 'nickname_required'),
+                        Validate::UNIQUE => $language->get('user', 'nickname_already_exists'),
                         Validate::MIN => $language->get('user', 'nickname_minimum_3'),
                         Validate::MAX => $language->get('user', 'nickname_maximum_20')
                     ],
