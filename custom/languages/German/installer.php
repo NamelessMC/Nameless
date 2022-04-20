@@ -104,5 +104,5 @@ $language = [
     'no_converters_available' => 'Es sind keine Konverter verfügbar.',
     'config_not_writable' => 'Die Konfigurationsdatei ist nicht beschreibbar.',
 
-    'session_doesnt_exist' => 'Unable to detect session. Sessions saving are a requirement to use Nameless. Please try again after clearing cookies in your web browser, and if the issue persists, please contact your web host for support.'
+    'session_doesnt_exist' => 'Sitzung kann nicht erkannt werden. Das Speichern von Sitzungen ist eine Voraussetzung für die Verwendung von Nameless. Bitte versuche es erneut, nachdem du die Cookies in deinem Webbrowser gelöscht hast. Sollte das Problem weiterhin bestehen, wenden Sie sich bitte an Ihren Webhoster.'
 ];
