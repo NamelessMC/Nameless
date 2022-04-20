@@ -154,5 +154,5 @@ $language = [
     /*
      * OAuth
      */
-    'oauth_message_continue' => 'Continue registering with {x}', // Don't replace {x}
+    'oauth_message_continue' => 'Registrierung mit {x} fortsetzen', // Don't replace {x}
 ];
