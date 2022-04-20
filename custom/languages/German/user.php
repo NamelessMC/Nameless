@@ -232,11 +232,23 @@ $language = [
     'user_x_has_validated' => '{x} hat das Konto validiert!',
 
     // OAuth
-    'oauth_unlinked' => 'Successfully unlinked your account from that provider.',
-    'oauth_already_linked' => 'Another NamelessMC user is already linked to that {x} account.', // Don't replace {x}
-    'oauth_link_success' => 'Successfully linked your account with {x}!', // Don't replace {x}
-    'no_user_found_with_provider' => 'No user found with that {x} account.', // Don't replace {x}
-    'oauth_login_success' => 'You have logged in with your {x} account.', // Don't replace {x}
-    'oauth_link_confirm' => 'You will be taken to the {x} website to link your account.', // Don't replace {x}
-    'oauth_unlink_confirm' => 'Are you sure you want to unlink your account from {x}.<br>You will not be able to login with this account anymore.', // Don't replace {x}
+    'oauth_unlinked' => 'Die Verknüpfung deines Kontos mit diesem Anbieter wurde erfolgreich aufgehoben.',
+    'oauth_already_linked' => 'Ein anderer NamelessMC-Benutzer ist bereits mit diesem {x}-Konto verknüpft.', // Don't replace {x}
+    'oauth_link_success' => 'Ihr Konto wurde erfolgreich mit {x} verknüpft!', // Don't replace {x}
+    'no_user_found_with_provider' => 'Kein Benutzer mit diesem {x} Konto gefunden.', // Don't replace {x}
+    'oauth_login_success' => 'Du hast dich mit deinem {x} Konto angemeldet.', // Don't replace {x}
+    'oauth_link_confirm' => 'Du wirst zur {x} Website weitergeleitet, um dein Konto zu verknüpfen.', // Don't replace {x}
+    'oauth_unlink_confirm' => 'Bist du sicher, dass du die Verknüpfung deines Kontos von {x} aufheben möchtest? Du wirst dich nicht mehr mit diesem Konto anmelden können.', // Don't replace {x}
+    
+    // Integrations
+    'integration_linked' => 'Du hast dein {{integration}}-Konto erfolgreich verknüpft.', // Don't replace {integration}
+    'integration_unlinked' => 'Du hast dein {{integration}}-Konto erfolgreich entkoppelt.', // Don't replace {integration}
+    'integration_identifier_already_linked' => 'Der Identifier {{integration}} ist bereits mit einem anderen Benutzer verknüpft.',
+    'integration_username_already_linked' => 'Der Benutzername {{integration}} ist bereits mit einem anderen Benutzer verknüpft.',
+    'integration_required_to_continue' => 'Bitte stelle eine Verbindung her und überprüfe die erforderlichen Verbindungen, bevor du diese Website weiter nutzt.',
+    'not_connected' => 'Nicht verbunden',
+    'pending_verification' => 'Ausstehende Verifizierung',
+    'user_has_linked_integration' => '{{user}} hat sein {{integration}}-Konto verlinkt.',
+    'user_has_verified_integration' => '{{user}} hat sein {{integration}}-Konto verifiziert.',
+    'user_has_unlinked_integration' => 'Der {{user}} hat sein {{integration}}-Konto entkoppelt.',    
 ];
