@@ -775,4 +775,29 @@ $language = [
     'identifier' => 'Identifier',
     'unlink_account_confirm' => 'Bist du sicher, dass du diesen Anbieter zwangsweise von diesem Benutzer trennen willst?',
     'unlink_account_success' => 'Erfolgreich ihr Konto von {x} entkoppelt.', // Don't replace {x}
+    
+    // Integrations
+    'integration' => 'Integration',
+    'viewing_integrations_for_x' => 'Anzeigen von Benutzerintegrationen für {{user}}', // Don't replace {user}
+    'editing_integration_for_x' => 'Bearbeitung der {{Integration}} Integration für {{Benutzer}}', // Don't replace {integration} and {user}
+    'linking_integration_for_x' => 'Verlinkung der {{Integration}} Integration für {{Benutzer}}', // Don't replace {integration} and {user}
+    'not_linked' => 'Nicht verknüpft',
+    'verified' => 'Verifiziert',
+    'is_verified' => 'Wurde er verifiziert?',
+    'manual_linking' => 'Manuelle Verlinkung',
+    'can_unlink' => 'Kann Unlink',
+    'can_unlink_integration' => 'Können Nutzer die Integration unlinken?',
+    'require_integration' => 'Benutzer zur Verknüpfung und Überprüfung der Integration auffordern',
+    'link_account_success' => '{{Benutzer}} hat sein {{Integration}}-Konto erfolgreich verknüpft.', // Don't replace {user} and {integration}
+    'user_integration_updated_successfully' => 'Die Benutzerintegration wurde erfolgreich aktualisiert.',
+    'editing_integration_x' => 'Bearbeitung der Integration {{integration}}', // Don't replace {integration}
+    'integration_updated_successfully' => 'Die Integration wurde erfolgreich aktualisiert.',
+    'integration_username' => '{{Integration}} Benutzername',
+    'integration_username_required' => 'Der {{Integration}}-Benutzername ist erforderlich.',
+    'integration_username_invalid' => 'Der {{Integration}}-Benutzername ist ungültig.',
+    'integration_identifier' => '{{integration}} Identifier',
+    'integration_identifier_required' => '{{integration}} identifier ist erforderlich',
+    'integration_identifier_invalid' => '{{integration}} identifier ist ungültig',
+    'sync_integration' => 'Sync-Integration',
+    'integration_sync_not_supported' => 'Die Synchronisation wird bei dieser Integration nicht unterstützt!',        
 ];
