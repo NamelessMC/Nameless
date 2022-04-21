@@ -793,7 +793,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
             'title' => $profile_placeholder->friendly_name,
             'type' => 'text',
             'value' => $profile_placeholder->value,
-            'tooltip' => $language->get('admin', 'placeholders_last_updated') . ': ' . $timeago->inWords($profile_placeholder->last_updated, $language),
+            'tooltip' => $language->get('admin', 'placeholders_last_updated_time', ['time' => $timeago->inWords($profile_placeholder->last_updated, $language)]),
         ];
     }
 

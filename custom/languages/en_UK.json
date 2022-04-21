@@ -444,6 +444,7 @@
     "admin\/placeholders_friendly_name_info": "Use this to set a 'nickname' to this placeholder. The friendly name will be used instead of the raw name.",
     "admin\/placeholders_info": "Placeholders allow the NamelessMC Spigot plugin to send statistics about each player to your website so they can display them on their profile and forum posts.",
     "admin\/placeholders_last_updated": "Last Updated",
+    "admin\/placeholders_last_updated_time": "Last Updated: {{time}}",
     "admin\/placeholders_name": "Name",
     "admin\/placeholders_none": "There are no placeholders.",
     "admin\/placeholders_player": "Player",
