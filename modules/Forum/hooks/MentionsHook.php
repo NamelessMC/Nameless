@@ -52,7 +52,7 @@ class MentionsHook extends HookBase {
                         }
 
                         $userId = $user->data()->id;
-                        $userStyle = $user->getGroupClass();
+                        $userStyle = $user->getGroupStyle();
                         $userNickname = $user->data()->nickname;
                         $userProfileUrl = $user->getProfileURL();
 

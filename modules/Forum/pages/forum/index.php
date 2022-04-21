@@ -74,7 +74,7 @@ if ($cache->isCached('forums')) {
                         $last_post_user = new User($forums[$key]['subforums'][$subforum_id]->last_post->post_creator);
 
                         $forums[$key]['subforums'][$subforum_id]->last_post->avatar = $last_post_user->getAvatar(64);
-                        $forums[$key]['subforums'][$subforum_id]->last_post->user_style = $last_post_user->getGroupClass();
+                        $forums[$key]['subforums'][$subforum_id]->last_post->user_style = $last_post_user->getGroupStyle();
                         $forums[$key]['subforums'][$subforum_id]->last_post->username = $last_post_user->getDisplayname();
                         $forums[$key]['subforums'][$subforum_id]->last_post->profile = $last_post_user->getProfileURL();
 

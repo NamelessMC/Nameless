@@ -51,7 +51,7 @@ class OnlineStaffWidget extends WidgetBase {
                 $staff_user = new User($staff->id);
                 $staff_members[] = [
                     'profile' => $staff_user->getProfileURL(),
-                    'style' => $staff_user->getGroupClass(),
+                    'style' => $staff_user->getGroupStyle(),
                     'username' => $staff_user->getDisplayname(true),
                     'nickname' => $staff_user->getDisplayname(),
                     'avatar' => $staff_user->getAvatar(),
