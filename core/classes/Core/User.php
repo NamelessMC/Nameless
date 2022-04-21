@@ -397,10 +397,10 @@ class User {
      */
     public function getDisplayname(bool $username = false): string {
         if ($username) {
-            return Output::getClean($this->data()->username);
+            return $this->data()->username;
         }
 
-        return Output::getClean($this->data()->nickname);
+        return $this->data()->nickname;
     }
 
     /**
@@ -790,7 +790,7 @@ class User {
                 $pm = $pm[0];
 
                 $return[$pm->id]['id'] = $pm->id;
-                $return[$pm->id]['title'] = Output::getClean($pm->title);
+                $return[$pm->id]['title'] = $pm->title;
                 $return[$pm->id]['created'] = $pm->created;
                 $return[$pm->id]['updated'] = $pm->last_reply_date;
                 $return[$pm->id]['user_updated'] = $pm->last_reply_user;
