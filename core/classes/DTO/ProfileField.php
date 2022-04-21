@@ -1,5 +1,12 @@
 <?php
-
+/**
+ * Represents a custom profile field.
+ *
+ * @package NamelessMC\DTO
+ * @author Aberdeener
+ * @version 2.0.0-pr13
+ * @license MIT
+ */
 class ProfileField {
 
     public int $id;
