@@ -75,7 +75,7 @@ class ErrorHandler {
 
         // If this is an API request, print the error in plaintext and dont render the whole error trace page
         if (self::isApiRequest()) {
-            die($error_string . ' in ' . $error_file . ' on line ' . $error_line . PHP_EOL . $exception->getTraceAsString());
+            die($error_string . ' in ' . $error_file . ' on line ' . $error_line . (!is_null($exception) ? PHP_EOL . $exception->getTraceAsString() : ''));
         }
 
         $frames = [];

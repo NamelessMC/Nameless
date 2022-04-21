@@ -395,7 +395,7 @@ class User {
      * @param bool $username If true, will use their username. If false, will use their nickname.
      * @return string Their display name.
      */
-    public function getDisplayName(bool $username = false): string {
+    public function getDisplayname(bool $username = false): string {
         if ($username) {
             return Output::getClean($this->data()->username);
         }
