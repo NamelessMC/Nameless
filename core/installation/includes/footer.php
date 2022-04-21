@@ -17,7 +17,7 @@
                     <span class="text"><?php echo Language::LANGUAGES[$installer_language]['name']; ?></span>
                     <div class="menu">
                         <?php foreach ($languages as $short_code => $name) { ?>
-                            <a onclick="setLanguage($(this).data('short_code'))" data-short_code="<?php echo $short_code ?>" class="item"><?php echo $name; ?></a>
+                            <a onclick="setLanguage($(this).data('short_code'))" data-short_code="<?php echo $short_code; ?>" class="item"><?php echo $name; ?></a>
                         <?php } ?>
                     </div>
                 </div>
