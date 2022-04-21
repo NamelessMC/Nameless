@@ -592,7 +592,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
         'FOLLOW' => $language->get('user', 'follow'),
         'AVATAR' => $profile_user->getAvatar(500),
         'BANNER' => ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/profile_images/' . (($query->banner) ? Output::getClean($query->banner) : 'profile.jpg'),
-        'POST_ON_WALL' => $language->get('user', 'post_on_wall', ['user' => Output::getClean($profile_user->getDisplayName())]),
+        'POST_ON_WALL' => $language->get('user', 'post_on_wall', ['user' => Output::getClean($profile_user->getDisplayname())]),
         'FEED' => $language->get('user', 'feed'),
         'ABOUT' => $language->get('user', 'about'),
         'REACTIONS_TITLE' => $language->get('user', 'likes'),

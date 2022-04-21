@@ -348,7 +348,7 @@ if (isset($_GET['user'])) {
         'HAS_AVATAR' => $query->has_avatar,
         'BACK_LINK' => URL::build('/panel/user/' . urlencode($view_user->data()->id)),
         'BACK' => $language->get('general', 'back'),
-        'VIEWING_USER' => $language->get('moderator', 'viewing_user_x', ['user' => $view_user->getDisplayName()]),
+        'VIEWING_USER' => $language->get('moderator', 'viewing_user_x', ['user' => $view_user->getDisplayname()]),
         'PREVIOUS_PUNISHMENTS' => $language->get('moderator', 'previous_punishments'),
         'PREVIOUS_PUNISHMENTS_LIST' => $previous_punishments_array,
         'NO_PREVIOUS_PUNISHMENTS' => $language->get('moderator', 'no_previous_punishments'),

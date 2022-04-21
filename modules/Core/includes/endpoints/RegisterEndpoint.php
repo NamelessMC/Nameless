@@ -174,7 +174,7 @@ class RegisterEndpoint extends KeyAuthEndpoint {
                     'user_id' => $user_id,
                     'username' => $user->getDisplayname(),
                     'content' => $api->getLanguage()->get('user', 'user_x_has_registered', [
-                        'user' => $user->getDisplayName(),
+                        'user' => $user->getDisplayname(),
                         'siteName' => SITE_NAME,
                     ]),
                     'avatar_url' => $user->getAvatar(128, true),
