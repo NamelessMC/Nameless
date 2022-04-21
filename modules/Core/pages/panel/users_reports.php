@@ -320,7 +320,7 @@ if (!isset($_GET['id'])) {
                         'commenter_id' => $user->data()->id,
                         'comment_date' => date('Y-m-d H:i:s'),
                         'date' => date('U'),
-                        'comment_content' => $language->get('moderator', 'x_closed_report', ['user' => $user->data()->username])
+                        'comment_content' => $language->get('moderator', 'x_closed_report', ['user' => Output::getClean($user->data()->username)])
                     ]);
                 }
 
