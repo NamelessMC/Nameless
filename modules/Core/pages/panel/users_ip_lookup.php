@@ -86,7 +86,7 @@ if (isset($_GET['uid'])) {
                         'nickname' => Output::getClean($username[0]->nickname),
                         'profile' => URL::build('/panel/user/' . urlencode($username[0]->id . '-' . $username[0]->username)),
                         'account_ips' => URL::build('/panel/users/ip_lookup/', 'uid=' . urlencode($account->user_id)),
-                        'style' => $user->getGroupClass()
+                        'style' => $user->getGroupStyle()
                     ];
                 }
             }

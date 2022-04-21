@@ -50,7 +50,7 @@ class StatsWidget extends WidgetBase {
 
             $latest_user = new User($users_query[0]->id);
             $latest_member = [
-                'style' => $latest_user->getGroupClass(),
+                'style' => $latest_user->getGroupStyle(),
                 'profile' => $latest_user->getProfileURL(),
                 'avatar' => $latest_user->getAvatar(),
                 'username' => $latest_user->getDisplayname(true),

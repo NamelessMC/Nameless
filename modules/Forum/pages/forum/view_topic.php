@@ -174,7 +174,7 @@ $smarty->assign([
     'TOPIC_AUTHOR_USERNAME' => $topic_user->getDisplayname(),
     'TOPIC_AUTHOR_MCNAME' => $topic_user->getDisplayname(true),
     'TOPIC_AUTHOR_PROFILE' => $topic_user->getProfileURL(),
-    'TOPIC_AUTHOR_STYLE' => $topic_user->getGroupClass(),
+    'TOPIC_AUTHOR_STYLE' => $topic_user->getGroupStyle(),
     'TOPIC_ID' => $topic->id,
     'FORUM_ID' => $topic->forum_id,
     'TOPIC_LAST_EDITED' => ($first_post->last_edited ? $timeago->inWords(date('Y-m-d H:i:s', $first_post->last_edited), $language->getTimeLanguage()) : null),
@@ -667,7 +667,7 @@ foreach ($results->data as $n => $nValue) {
                 $post_reactions[$item->reaction_id]['users'][] = [
                     'username' => $reaction_user->getDisplayname(true),
                     'nickname' => $reaction_user->getDisplayname(),
-                    'style' => $reaction_user->getGroupClass(),
+                    'style' => $reaction_user->getGroupStyle(),
                     'avatar' => $reaction_user->getAvatar(500),
                     'profile' => $reaction_user->getProfileURL()
                 ];
@@ -701,7 +701,7 @@ foreach ($results->data as $n => $nValue) {
         'online_now' => $post_creator->data()->last_online > strtotime('5 minutes ago'),
         'user_title' => Output::getClean($post_creator->data()->user_title),
         'profile' => $post_creator->getProfileURL(),
-        'user_style' => $post_creator->getGroupClass(),
+        'user_style' => $post_creator->getGroupStyle(),
         'user_groups' => $user_groups_html,
         'user_posts_count' => str_replace('{x}', $forum->getPostCount($nValue->post_creator), $forum_language->get('forum', 'x_posts')),
         'user_topics_count' => str_replace('{x}', $forum->getTopicCount($nValue->post_creator), $forum_language->get('forum', 'x_topics')),

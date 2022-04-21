@@ -56,7 +56,7 @@ class RecentRegistrationsItem extends CollectionItemBase {
                         'url' => URL::build('/panel/user/' . urlencode($item->id) . '-' . urlencode($item->username)),
                         'username' => $target_user->getDisplayname(true),
                         'nickname' => $target_user->getDisplayname(),
-                        'style' => $target_user->getGroupClass(),
+                        'style' => $target_user->getGroupStyle(),
                         'avatar' => $target_user->getAvatar(),
                         'groups' => $target_user->getAllGroupHtml(),
                         'time' => $timeago->inWords(date('Y-m-d H:i:s', $item->joined), $this->_language->getTimeLanguage()),

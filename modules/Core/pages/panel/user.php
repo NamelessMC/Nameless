@@ -86,7 +86,7 @@ $smarty->assign([
     'AVATAR' => $view_user->getAvatar(256),
     'NICKNAME' => $view_user->getDisplayname(),
     'USERNAME' => $view_user->getDisplayname(true),
-    'USER_STYLE' => $view_user->getGroupClass(),
+    'USER_STYLE' => $view_user->getGroupStyle(),
     'USER_GROUP' => Output::getClean($view_user->getMainGroup()->name),
     'USER_GROUPS' => $view_user->getAllGroupHtml(),
     'USER_TITLE' => Output::getClean($user_query->user_title),

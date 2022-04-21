@@ -43,7 +43,7 @@ if ($cache->isCached('news')) {
             'replies' => $item['replies'],
             'author_id' => Output::getClean($item['author']),
             'author_url' => $post_user->getProfileURL(),
-            'author_style' => $post_user->getGroupClass(),
+            'author_style' => $post_user->getGroupStyle(),
             'author_name' => $post_user->getDisplayname(true),
             'author_nickname' => $post_user->getDisplayname(),
             'author_avatar' => $post_user->getAvatar(64),

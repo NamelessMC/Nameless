@@ -213,7 +213,7 @@ if ($forum_query->redirect_forum == 1) {
                     $latest_post_title = Output::getClean($latest_post->topic_title);
                     $latest_post_user_displayname = $latest_post_user->getDisplayname();
                     $latest_post_user_link = $latest_post_user->getProfileURL();
-                    $latest_post_style = $latest_post_user->getGroupClass();
+                    $latest_post_style = $latest_post_user->getGroupStyle();
                     $latest_post_date_timeago = $timeago->inWords(date('Y-m-d H:i:s', $latest_post->topic_reply_date), $language->getTimeLanguage());
                     $latest_post_time = date(DATE_FORMAT, $latest_post->topic_reply_date);
                     $latest_post_user_id = Output::getClean($latest_post->topic_last_user);
@@ -362,7 +362,7 @@ if ($forum_query->redirect_forum == 1) {
                 'topic_created' => date(DATE_FORMAT, $sticky->topic_date),
                 'topic_created_username' => $topic_user->getDisplayname(),
                 'topic_created_mcname' => $topic_user->getDisplayname(true),
-                'topic_created_style' => $topic_user->getGroupClass(),
+                'topic_created_style' => $topic_user->getGroupStyle(),
                 'topic_created_user_id' => Output::getClean($sticky->topic_creator),
                 'views' => $sticky->topic_views,
                 'locked' => $sticky->locked,
@@ -372,7 +372,7 @@ if ($forum_query->redirect_forum == 1) {
                 'last_reply' => date(DATE_FORMAT, $sticky->topic_reply_date),
                 'last_reply_username' => $last_reply_user->getDisplayname(),
                 'last_reply_mcname' => $last_reply_user->getDisplayname(true),
-                'last_reply_style' => $last_reply_user->getGroupClass(),
+                'last_reply_style' => $last_reply_user->getGroupStyle(),
                 'last_reply_user_id' => Output::getClean($sticky->topic_last_user),
                 'label' => $label,
                 'labels' => $labels,
@@ -471,7 +471,7 @@ if ($forum_query->redirect_forum == 1) {
                 'topic_created' => date(DATE_FORMAT, $nValue->topic_date),
                 'topic_created_username' => $topic_user->getDisplayname(),
                 'topic_created_mcname' => $topic_user->getDisplayname(true),
-                'topic_created_style' => $topic_user->getGroupClass(),
+                'topic_created_style' => $topic_user->getGroupStyle(),
                 'topic_created_user_id' => Output::getClean($nValue->topic_creator),
                 'locked' => $nValue->locked,
                 'views' => $nValue->topic_views,
@@ -481,7 +481,7 @@ if ($forum_query->redirect_forum == 1) {
                 'last_reply' => date(DATE_FORMAT, $nValue->topic_reply_date),
                 'last_reply_username' => $last_reply_user->getDisplayname(),
                 'last_reply_mcname' => $last_reply_user->getDisplayname(true),
-                'last_reply_style' => $last_reply_user->getGroupClass(),
+                'last_reply_style' => $last_reply_user->getGroupStyle(),
                 'label' => $label,
                 'labels' => $labels,
                 'author_link' => $topic_user->getProfileURL(),

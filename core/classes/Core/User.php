@@ -180,11 +180,18 @@ class User {
     }
 
     /**
+     * @deprecated Use getGroupStyle instead
+     */
+    public function getGroupClass(): string {
+        return this->getGroupStyle();
+    }
+
+    /**
      * Get this user's main group CSS styling
      *
      * @return string The CSS styling.
      */
-    public function getGroupClass(): string {
+    public function getGroupStyle(): string {
         $group = $this->getMainGroup();
 
         $group_username_color = Output::getClean($group->group_username_color);

@@ -97,7 +97,7 @@ if (!isset($_GET['id'])) {
                     // Reported user exists
                     $user_reported = $reported_user->getDisplayname();
                     $user_profile = URL::build('/panel/user/' . urlencode($report->reported_id . '-' . $reported_user->data()->username));
-                    $user_style = $reported_user->getGroupClass();
+                    $user_style = $reported_user->getGroupStyle();
                     $user_avatar = $reported_user->getAvatar();
                 }
             }
@@ -124,7 +124,7 @@ if (!isset($_GET['id'])) {
                 'link' => URL::build('/panel/users/reports/', 'id=' . urlencode($report->id)),
                 'updated_by' => $updated_by_user->getDisplayname(),
                 'updated_by_profile' => URL::build('/panel/user/' . urlencode($report->updated_by . '-' . $updated_by_user->data()->username)),
-                'updated_by_style' => $updated_by_user->getGroupClass(),
+                'updated_by_style' => $updated_by_user->getGroupStyle(),
                 'updated_by_avatar' => $updated_by_user->getAvatar(),
                 'updated_at' => ($report->updated ? $timeago->inWords(date('Y-m-d H:i:s', $report->updated), $language->getTimeLanguage()) : $timeago->inWords($report->date_updated, $language->getTimeLanguage())),
                 'updated_at_full' => ($report->updated ? date(DATE_FORMAT, $report->updated) : date(DATE_FORMAT, strtotime($report->date_updated))),
@@ -218,7 +218,7 @@ if (!isset($_GET['id'])) {
             $smarty_comments[] = [
                 'username' => $comment_user->getDisplayname(),
                 'profile' => URL::build('/panel/user/' . urlencode($comment->commenter_id . '-' . $comment_user->data()->username)),
-                'style' => $comment_user->getGroupClass(),
+                'style' => $comment_user->getGroupStyle(),
                 'avatar' => $comment_user->getAvatar(),
                 'content' => Output::getPurified($comment->comment_content),
                 'date' => ($comment->date ? date(DATE_FORMAT, $comment->date) : date(DATE_FORMAT, strtotime($comment->comment_date))),
@@ -232,9 +232,9 @@ if (!isset($_GET['id'])) {
                 $reported_user = new IntegrationUser($integration, $report->reported_uuid, 'identifier');
                 if ($reported_user->exists()) {
                     $reported_user = $reported_user->getUser();
-                    
+
                     $reported_user_profile = URL::build('/panel/user/' . urlencode($reported_user->data()->id . '-' . $reported_user->data()->username));
-                    $reported_user_style = $reported_user->getGroupClass();
+                    $reported_user_style = $reported_user->getGroupStyle();
                     $reported_user_avatar = $reported_user->getAvatar();
                 } else {
                     $reported_user_profile = '#';
@@ -253,7 +253,7 @@ if (!isset($_GET['id'])) {
 
             $reported_user_name = $reported_user->getDisplayname();
             $reported_user_profile = URL::build('/panel/user/' . urlencode($report->reported_id . '-' . $reported_user->data()->username));
-            $reported_user_style = $reported_user->getGroupClass();
+            $reported_user_style = $reported_user->getGroupStyle();
             $reported_user_avatar = $reported_user->getAvatar();
         }
 
@@ -275,7 +275,7 @@ if (!isset($_GET['id'])) {
             'REPORT_CONTENT' => Output::getPurified($report->report_reason),
             'REPORTER_USER' => $reporter_user->getDisplayname(),
             'REPORTER_USER_PROFILE' => URL::build('/panel/user/' . urlencode($report->reporter_id . '-' . $reporter_user->data()->username)),
-            'REPORTER_USER_STYLE' => $reporter_user->getGroupClass(),
+            'REPORTER_USER_STYLE' => $reporter_user->getGroupStyle(),
             'REPORTER_USER_AVATAR' => $reporter_user->getAvatar(),
             'COMMENTS' => $smarty_comments,
             'COMMENTS_TEXT' => $language->get('moderator', 'comments'),

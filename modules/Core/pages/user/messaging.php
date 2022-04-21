@@ -84,7 +84,7 @@ if (!isset($_GET['action'])) {
             'last_message_user' => $target_user->getDisplayname(),
             'last_message_user_profile' => $target_user->getProfileURL(),
             'last_message_user_avatar' => $target_user->getAvatar(30),
-            'last_message_user_style' => $target_user->getGroupClass(),
+            'last_message_user_style' => $target_user->getGroupStyle(),
             'last_message_date' => $timeago->inWords(date('Y-m-d H:i:s', $nValue['updated']), $language->getTimeLanguage()),
             'last_message_date_full' => date(DATE_FORMAT, $nValue['updated'])
         ];
@@ -471,7 +471,7 @@ if (!isset($_GET['action'])) {
                 'author_username' => $target_user->getDisplayname(),
                 'author_profile' => $target_user->getProfileURL(),
                 'author_avatar' => $target_user->getAvatar(100),
-                'author_style' => $target_user->getGroupClass(),
+                'author_style' => $target_user->getGroupStyle(),
                 'author_groups' => $target_user->getAllGroupHtml(),
                 'message_date' => $timeago->inWords(date('Y-m-d H:i:s', $nValue->created), $language->getTimeLanguage()),
                 'message_date_full' => date(DATE_FORMAT, $nValue->created),

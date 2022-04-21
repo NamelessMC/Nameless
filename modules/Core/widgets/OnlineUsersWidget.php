@@ -71,7 +71,7 @@ class OnlineUsersWidget extends WidgetBase {
                 $online_user = new User($item->id);
                 $users[] = [
                     'profile' => $online_user->getProfileURL(),
-                    'style' => $online_user->getGroupClass(),
+                    'style' => $online_user->getGroupStyle(),
                     'username' => $online_user->getDisplayname(true),
                     'nickname' => $online_user->getDisplayname(),
                     'avatar' => $online_user->getAvatar(),
