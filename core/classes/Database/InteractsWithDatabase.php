@@ -1,5 +1,14 @@
 <?php
-
+/**
+ * Handles querying an underlying PDO connection.
+ * Contains all methods that are used to interact with the database.
+ *
+ * @package NamelessMC\Database
+ * @see PDO
+ * @author Aberdeener
+ * @version 2.0.0-pr13
+ * @license MIT
+ */
 trait InteractsWithDatabase {
 
     protected PDO $_pdo;
