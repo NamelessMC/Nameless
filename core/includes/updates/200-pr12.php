@@ -170,16 +170,6 @@ try {
     // Continue
 }
 
-// reset all user languages to default
-try {
-    DB::getInstance()->createQuery('UPDATE nl2_users SET `language_id` = ?', [
-        $default_language[0]->id
-    ]);
-} catch (Exception $e) {
-    // Continue
-}
-
-
 // add short code column to languages table
 try {
     DB::getInstance()->createQuery('ALTER TABLE nl2_languages ADD `short_code` VARCHAR(64) NOT NULL');
@@ -196,6 +186,15 @@ try {
             $default_language === str_replace(' ', '', $meta['name']) ? 1 : 0
         ]);
     }
+} catch (Exception $e) {
+    // Continue
+}
+
+// reset all user languages to default
+try {
+    DB::getInstance()->createQuery('UPDATE nl2_users SET `language_id` = ?', [
+        1
+    ]);
 } catch (Exception $e) {
     // Continue
 }
