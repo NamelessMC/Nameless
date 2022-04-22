@@ -183,7 +183,7 @@ class User {
      * @deprecated Use getGroupStyle instead
      */
     public function getGroupClass(): string {
-        return this->getGroupStyle();
+        return $this->getGroupStyle();
     }
 
     /**
