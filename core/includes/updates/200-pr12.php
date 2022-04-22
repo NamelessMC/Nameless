@@ -185,6 +185,8 @@ foreach (Language::LANGUAGES as $short_code => $meta) {
             'name' => $meta['name'],
             'short_code' => $short_code
         ]);
+
+        $converted_languages[] = $queries->getLastId();
     }
 }
 
