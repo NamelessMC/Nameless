@@ -222,7 +222,7 @@ if (Input::exists()) {
                         return null;
                     }
 
-                    return  $language->get('user', 'field_is_required', [
+                    return $language->get('user', 'field_is_required', [
                         'field' => Output::getClean($field->name),
                     ]);
                 },
@@ -367,7 +367,8 @@ if (Input::exists()) {
                             'content' => $language->get('user', 'user_x_has_registered', [
                                 'user' => Input::get('username'),
                                 'siteName' => SITE_NAME,
-                            ]),                            'avatar_url' => $user->getAvatar(128, true),
+                            ]),
+                            'avatar_url' => $user->getAvatar(128, true),
                             'url' => Util::getSelfURL() . ltrim(URL::build('/profile/' . urlencode(Input::get('username'))), '/'),
                             'language' => $language
                         ]);
