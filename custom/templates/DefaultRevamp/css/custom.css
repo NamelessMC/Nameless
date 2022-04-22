@@ -259,6 +259,10 @@ body.pushable>.pusher {
     margin-right: 1.3em;
 }
 
+#topic-post #post-sidebar .groups {
+    text-align: center;
+}
+
 .inline.fields.labels {
     flex-wrap: wrap;
 }
