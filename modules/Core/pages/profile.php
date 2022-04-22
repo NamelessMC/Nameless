@@ -114,7 +114,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                                     'user_id' => $query->id,
                                     'author_id' => $user->data()->id,
                                     'time' => date('U'),
-                                    'content' => Output::getClean(Input::get('post'))
+                                    'content' => Input::get('post')
                                 ]
                             );
 
@@ -308,7 +308,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                                     if (isset($_POST['content']) && strlen($_POST['content']) < 10000 && strlen($_POST['content']) >= 1) {
                                         try {
                                             $queries->update('user_profile_wall_posts', $_POST['post_id'], [
-                                                'content' => Output::getClean($_POST['content'])
+                                                'content' => $_POST['content']
                                             ]);
                                         } catch (Exception $e) {
                                             $error = $e->getMessage();
@@ -694,7 +694,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                         'avatar' => $target_user->getAvatar(500),
                         'time_friendly' => $timeago->inWords($reply->time, $language),
                         'time_full' => date(DATE_FORMAT, $reply->time),
-                        'content' => Output::getPurified($reply->content),
+                        'content' => Output::getPurified(Output::getDecoded($reply->content)),
                         'self' => (($user->isLoggedIn() && $user->data()->id == $reply->author_id) ? 1 : 0),
                         'id' => $reply->id
                     ];
@@ -713,7 +713,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                 'profile' => $target_user->getProfileURL(),
                 'user_style' => $target_user->getGroupStyle(),
                 'avatar' => $target_user->getAvatar(500),
-                'content' => Output::getPurified(htmlspecialchars_decode($nValue->content)),
+                'content' => Output::getPurified(Output::getDecoded($nValue->content)),
                 'date_rough' => $timeago->inWords($nValue->time, $language),
                 'date' => date(DATE_FORMAT, $nValue->time),
                 'reactions' => $reactions,

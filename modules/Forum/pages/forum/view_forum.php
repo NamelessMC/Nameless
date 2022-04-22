@@ -83,7 +83,7 @@ if ($forum_query->redirect_forum == 1) {
     }
 
     $smarty->assign([
-        'CONFIRM_REDIRECT' => $forum_language->get('forum', 'forum_redirect_warning', ['url' => $forum_query->redirect_url]),
+        'CONFIRM_REDIRECT' => $forum_language->get('forum', 'forum_redirect_warning', ['url' => Output::getClean($forum_query->redirect_url)]),
         'YES' => $language->get('general', 'yes'),
         'NO' => $language->get('general', 'no'),
         'REDIRECT_URL' => Output::getClean($forum_query->redirect_url),

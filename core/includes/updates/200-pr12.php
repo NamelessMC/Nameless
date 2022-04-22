@@ -161,15 +161,6 @@ try {
 $cache->setCache('languagecache');
 $cache->eraseAll();
 
-$default_language = $queries->getWhere('languages', ['is_default', '=', 1])[0]->name;
-
-// drop all & truncate from languages table
-try {
-    DB::getInstance()->createQuery('TRUNCATE TABLE nl2_languages');
-} catch (Exception $e) {
-    // Continue
-}
-
 // add short code column to languages table
 try {
     DB::getInstance()->createQuery('ALTER TABLE nl2_languages ADD `short_code` VARCHAR(64) NOT NULL');
@@ -177,24 +168,40 @@ try {
     // Continue
 }
 
-// insert short codes into languages table, keeping the default language
-try {
-    foreach (Language::LANGUAGES as $short_code => $meta) {
-        DB::getInstance()->createQuery('INSERT INTO nl2_languages (`name`, `short_code`, `is_default`) VALUES (?, ?, ?)', [
-            $meta['name'],
-            $short_code,
-            $default_language === str_replace(' ', '', $meta['name']) ? 1 : 0
+$languages = DB::getInstance()->selectQuery('SELECT * FROM nl2_languages')->results();
+$converted_languages = [];
+foreach (Language::LANGUAGES as $short_code => $meta) {
+    $key = array_search(str_replace(' ', '', $meta['name']), $languages);
+
+    if ($key !== false) {
+        $queries->update('languages', $languages[$key]->id, [
+            'name' => $meta['name'],
+            'short_code' => $short_code
+        ]);
+
+        $converted_languages[] = $languages[$key]->id;
+    } else {
+        $queries->create('languages', [
+            'name' => $meta['name'],
+            'short_code' => $short_code
         ]);
     }
-} catch (Exception $e) {
-    // Continue
 }
 
-// reset all user languages to default
 try {
-    DB::getInstance()->createQuery('UPDATE nl2_users SET `language_id` = ?', [
-        1
-    ]);
+    DB::getInstance()->createQuery('DELETE FROM nl2_languages WHERE `short_code` IS NULL');
+
+    $default_language = DB::getInstance()->selectQuery('SELECT id FROM nl2_languages WHERE `is_default` = 1');
+
+    if (!$default_language->count()) {
+        // Default to 1 (EnglishUK)
+        $default_language = 1;
+        DB::getInstance()->createQuery('UPDATE nl2_languages SET `is_default` = 1 WHERE `id` = 1');
+    } else {
+        $default_language = $default_language->first()->id;
+    }
+
+    DB::getInstance()->createQuery('UPDATE nl2_users SET `language_id` = ? WHERE `language_id` NOT IN (' . implode(', ', $converted_languages) . ')', [$default_language]);
 } catch (Exception $e) {
     // Continue
 }
@@ -205,12 +212,12 @@ try {
 if (count($version_number_id)) {
     $version_number_id = $version_number_id[0]->id;
     $queries->update('settings', $version_number_id, array(
-        'value' => '2.0.0'
+        'value' => '2.0.0-pr13'
     ));
 } else {
     $queries->create('settings', array(
         'name' => 'nameless_version',
-        'value' => '2.0.0'
+        'value' => '2.0.0-pr13'
     ));
 }*/
 
