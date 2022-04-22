@@ -121,9 +121,11 @@
                 {/if}
               </h3>
             </center>
+            <div class="groups">
               {foreach from=$reply.user_groups item=group}
                 {$group}
               {/foreach}
+            </div>
             <div class="ui list">
               <div class="ui divider"></div>
               <div class="item">
