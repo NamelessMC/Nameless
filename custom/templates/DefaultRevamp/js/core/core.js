@@ -8,105 +8,104 @@ toastr.options = {
 };
 
 function URLBuild(path, full = false) {
-    return (full ? fullSiteURL : siteURL) + path;
+  return (full ? fullSiteURL : siteURL) + path;
 }
 
 function redirect(url) {
-    window.location.href = url;
+  window.location.href = url;
 }
 
 function copy(element) {
-    var $temp = $('<input>');
-    $('body').append($temp);
-    $temp.val($(element).text()).select();
-    document.execCommand('copy');
-    $temp.remove();
-    $('body').toast({
-        showIcon: 'checkmark',
-        message: copied,
-        class: 'success',
-        progressUp: true,
-        displayTime: 6000,
-        showProgress: 'bottom',
-        pauseOnHover: false,
-        position: 'bottom left',
-    });
+  const temp = $('<input>');
+  $('body').append(temp);
+  temp.val($(element).text()).select();
+  document.execCommand('copy');
+  temp.remove();
+  $('body').toast({
+    showIcon: 'checkmark',
+    message: copied,
+    class: 'success',
+    progressUp: true,
+    displayTime: 6000,
+    showProgress: 'bottom',
+    pauseOnHover: false,
+    position: 'bottom left',
+  });
 }
+
 $(function() {
+  $('.ui.sidebar').sidebar('attach events', '.toc.item');
 
-    $('.ui.sidebar').sidebar('attach events', '.toc.item');
+  $('.ui.dropdown:not(.search):not(.upward)').dropdown();
+  $('.ui.dropdown.upward:not(.search)').dropdown({ direction: 'upward' });
 
-    $('.ui.dropdown:not(.search):not(.upward)').dropdown();
-    $('.ui.dropdown.upward:not(.search)').dropdown({ direction: 'upward' });
-
-    $('[data-toggle="tooltip"]').popup({
-        hoverable: true
-    });
+  $('[data-toggle="tooltip"]').popup({
+    hoverable: true
+  });
 
 	$('[data-toggle="popup"]').popup({
-        hoverable: true,
-        variation: 'special flowing',
-    });
+    hoverable: true,
+    variation: 'special flowing',
+  });
 
-    $('[data-toggle="modal"]').click(function() {
-        let att = $(this).attr("data-target");
-        $(att).modal('show');
-    });
+  $('[data-toggle="modal"]').click(function() {
+    let att = $(this).attr("data-target");
+    $(att).modal('show');
+  });
 
-    $('.message .close').on('click', function() {
-        $(this).closest('.message').transition('fade');
-    });
+  $('.message .close').on('click', function() {
+    $(this).closest('.message').transition('fade');
+  });
 
 });
 
 $(function() {
-    if (loadingTime !== '') {
-        $('#page_load').html(loadingTime);
-    }
+  if (loadingTime !== '') {
+    $('#page_load').html(loadingTime);
+  }
 });
 
 $(function() {
-    var cachedUsers = {};
-    var timeoutId;
+  const cachedUsers = {};
 
-    $('*[data-poload]').mouseenter(function (){
-        var elem = this;
-        $.get($(elem).data('poload'),
-        function(d) {
-            (debugging ? console.log(d) : '');
-            var data = JSON.parse(d);
-            cachedUsers[$(elem).data('poload')] = data;
-            var tmp = document.createElement('div');
-            tmp.innerHTML = data.html;
-            var img = tmp.getElementsByTagName('img')[0];
-            var image = new Image();
-            image.src = img.src;
-        });
-    });
+  $('*[data-poload]').mouseenter(function (){
+    const elem = this;
+    $.get($(elem).data('poload'),
+      function(d) {
+        (debugging ? console.log(d) : '');
+        const data = JSON.parse(d);
+        cachedUsers[$(elem).data('poload')] = data;
+        const tmp = document.createElement('div');
+        tmp.innerHTML = data.html;
+        const img = tmp.getElementsByTagName('img')[0];
+        const image = new Image();
+        image.src = img.src;
+      }
+    );
+  });
 
-    $('*[data-poload]').popup({
-        hoverable: true,
-        variation: 'special flowing',
-        html: '<i class="circle notch loading icon"></i>',
-        delay: {show: 500, hide: 200},
-        onShow: function(e) {this.html(cachedUsers[$(e).data('poload')].html)}
-    });
+  $('*[data-poload]').popup({
+    hoverable: true,
+    html: '<i class="circle notch loading icon"></i>',
+    delay: {show: 500, hide: 200},
+    onShow: function(e) {this.html(cachedUsers[$(e).data('poload')].html)}
+  });
 
-		const timezone = document.getElementById('timezone');
+  const timezone = document.getElementById('timezone');
 
-		if (timezone) {
-		  timezone.value = Intl.DateTimeFormat().resolvedOptions().timeZone;
-		}
+  if (timezone) {
+    timezone.value = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  }
 
 });
 
 const announcements = document.querySelectorAll('[id^="announcement"]');
 announcements.forEach((announcement) => {
-	const closeButton = announcement.querySelector('.close');
-	if (closeButton) {
-		closeButton.addEventListener('click', () => {
-			document.cookie = announcement.id + '=true; path=/';
-		});
-	}
+  const closeButton = announcement.querySelector('.close');
+  if (closeButton) {
+    closeButton.addEventListener('click', () => {
+      document.cookie = announcement.id + '=true; path=/';
+    });
+  }
 });
 // @license-end

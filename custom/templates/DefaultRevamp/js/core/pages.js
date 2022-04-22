@@ -75,12 +75,15 @@ if (page !== '') {
 
 	else if (route.indexOf("/forum/topic/") != -1) {
 		$(function() {
-			var postId = window.location.hash.replace('#post-', '');
-			var postElem = '#topic-post[post-id=\'' + postId + '\']';
-			setTimeout(function(){
-			   $('html, body').animate({scrollTop: $(postElem).offset().top-15}, 800);
-			}, 100);
-			$('> .ui.segment', postElem).delay(600).effect("highlight", {}, 800);
+			const postId = window.location.hash.replace('#post-', '');
+			const postElem = '#topic-post[post-id=\'' + postId + '\']';
+
+			if (postId) {
+				setTimeout(function(){
+					$('html, body').animate({scrollTop: $(postElem).offset().top-15}, 800);
+					$('> .ui.segment', postElem).effect("highlight", {}, 800);
+				}, 100);
+			}
 		});
 	}
 }
