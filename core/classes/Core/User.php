@@ -69,7 +69,7 @@ class User {
         $this->_cookieName = Config::get('remember/cookie_name');
         $this->_admSessionName = Config::get('session/admin_name');
 
-        if (!$user) {
+        if ($user === null) {
             if (Session::exists($this->_sessionName)) {
                 $user = Session::get($this->_sessionName);
                 if ($this->find($user, $field)) {
