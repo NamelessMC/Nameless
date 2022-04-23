@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr13
  *
  *  License: MIT
  *
@@ -174,9 +174,8 @@ if (isset($_GET['s'])) {
         // Display the correct number of posts
         $n = 0;
         while (($n < count($results->data)) && isset($results->data[$n])) {
-            $content = $results->data[$n]['post_content'];
-            $content = Util::renderEmojis($content);
-            $content = Output::getPurified($content);
+            // Purify post content
+            $content = EventHandler::executeEvent('renderPost', ['content' => $results->data[$n]['post_content']])['content'];
 
             $post_user = new User($results->data[$n]['post_author']);
             $posts[$n] = [
