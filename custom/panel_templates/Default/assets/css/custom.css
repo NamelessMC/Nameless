@@ -401,6 +401,10 @@ body {
     max-width: none;
 }
 
+.collapse-item {
+    white-space: normal !important;
+}
+
 .table-hover.dataTables-users tbody tr {
     cursor: pointer;
 }
