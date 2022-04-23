@@ -120,12 +120,14 @@ if (!isset($_GET['step'])) {
 
                 unset($_SESSION['mcassoc']);
 
+                $smarty->assign('SUCCESS_TITLE', $language->get('general', 'success'));
                 $smarty->assign('SUCCESS', $language->get('user', 'verification_success'));
                 $smarty->assign('LOGIN_LINK', URL::build('/login'));
                 $smarty->assign('LOGIN_TEXT', $language->get('general', 'sign_in'));
 
             }
         } catch (Exception $e) {
+            $smarty->assign('ERROR_TITLE', $language->get('general', 'error'));
             $smarty->assign('ERROR', $language->get('user', 'verification_failed') . ' - ' . $e->getMessage());
             $smarty->assign('RETRY_LINK', URL::build('/register'));
             $smarty->assign('RETRY_TEXT', $language->get('general', 'register'));

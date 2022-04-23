@@ -38,7 +38,8 @@ $smarty->assign(
         'DEFAULT_STATUS' => ($result ?? null),
         'SERVERS' => $servers,
         'NO_SERVERS' => $language->get('general', 'no_servers'),
-        'BUNGEE' => $language->get('general', 'bungee_instance')
+        'BUNGEE' => $language->get('general', 'bungee_instance'),
+        'ERROR_TITLE' => $language->get('general', 'error')
     ]
 );
 
