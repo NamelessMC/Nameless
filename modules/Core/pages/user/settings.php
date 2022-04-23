@@ -168,7 +168,7 @@ if (isset($_GET['do'])) {
                 }
 
                 // Get a list of required profile fields
-                $profile_fields = ProfileField::find(true, 'required');
+                $profile_fields = ProfileField::all();
                 foreach ($profile_fields as $field) {
                     if ($field->required) {
                         $to_validate["profile_fields[{$field->id}]"] = [
