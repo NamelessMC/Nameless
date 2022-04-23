@@ -60,8 +60,7 @@ if (isset($errors) && count($errors)) {
 }
 
 // Check if Minecraft integration is enabled
-$minecraft_enabled = $queries->getWhere('settings', ['name', '=', 'mc_integration']);
-$minecraft_enabled = $minecraft_enabled[0]->value;
+$minecraft_enabled = MINECRAFT;
 
 $smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,

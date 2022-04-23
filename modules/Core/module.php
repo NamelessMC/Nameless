@@ -420,24 +420,21 @@ class Core_Module extends Module {
         } else {
             $hook_array = [];
             if (Util::isModuleEnabled('Discord Integration')) {
-                $hooks = $queries->tableExists('hooks');
-                if (!empty($hooks)) {
-                    $hooks = $queries->getWhere('hooks', ['id', '<>', 0]);
-                    if (count($hooks)) {
-                        foreach ($hooks as $hook) {
-                            if ($hook->action != 2) {
-                                continue;
-                            }
-
-                            $hook_array[] = [
-                                'id' => $hook->id,
-                                'url' => Output::getClean($hook->url),
-                                'action' => 'DiscordHook::execute',
-                                'events' => json_decode($hook->events, true)
-                            ];
+                $hooks = $queries->getWhere('hooks', ['id', '<>', 0]);
+                if (count($hooks)) {
+                    foreach ($hooks as $hook) {
+                        if ($hook->action != 2) {
+                            continue;
                         }
-                        $cache->store('hooks', $hook_array);
+
+                        $hook_array[] = [
+                            'id' => $hook->id,
+                            'url' => Output::getClean($hook->url),
+                            'action' => 'DiscordHook::execute',
+                            'events' => json_decode($hook->events, true)
+                        ];
                     }
+                    $cache->store('hooks', $hook_array);
                 }
             }
         }
@@ -661,56 +658,58 @@ class Core_Module extends Module {
         // Sitemap
         $pages->registerSitemapMethod([Core_Sitemap::class, 'generateSitemap']);
 
+        // Widgets - only load if on a widget staffcp page or the frontend
+        if (defined('FRONT_END') || (defined('PANEL_PAGE') && str_contains(PANEL_PAGE, 'widget'))) {
+            // Facebook
+            require_once(ROOT_PATH . '/modules/Core/widgets/FacebookWidget.php');
+            $cache->setCache('social_media');
+            $fb_url = $cache->retrieve('facebook');
+            if ($fb_url) {
+                $widgets->add(new FacebookWidget($smarty, $fb_url));
+            }
+
+            // Twitter
+            require_once(ROOT_PATH . '/modules/Core/widgets/TwitterWidget.php');
+            $twitter = $cache->retrieve('twitter');
+
+            if ($twitter) {
+                $theme = $cache->retrieve('twitter_theme');
+                $widgets->add(new TwitterWidget($smarty, $twitter, $theme));
+            }
+
+            // Profile Posts
+            require_once(ROOT_PATH . '/modules/Core/widgets/ProfilePostsWidget.php');
+            $widgets->add(new ProfilePostsWidget($smarty, $language, $cache, $user, new TimeAgo(TIMEZONE)));
+
+            // Online staff
+            require_once(ROOT_PATH . '/modules/Core/widgets/OnlineStaffWidget.php');
+            $widgets->add(new OnlineStaffWidget($smarty, $language, $cache));
+
+            // Online users
+            require_once(ROOT_PATH . '/modules/Core/widgets/OnlineUsersWidget.php');
+            $widgets->add(new OnlineUsersWidget($cache, $smarty, $language));
+
+            // Online users
+            require_once(ROOT_PATH . '/modules/Core/widgets/ServerStatusWidget.php');
+            $widgets->add(new ServerStatusWidget($smarty, $language, $cache));
+
+            // Statistics
+            require_once(ROOT_PATH . '/modules/Core/widgets/StatsWidget.php');
+            $widgets->add(new StatsWidget($smarty, [
+                'statistics' => $language->get('general', 'statistics'),
+                'users_registered' => $language->get('general', 'users_registered'),
+                'latest_member' => $language->get('general', 'latest_member'),
+                'forum_stats' => $language->get('general', 'forum_statistics'),
+                'total_threads' => $language->get('general', 'total_threads'),
+                'total_posts' => $language->get('general', 'total_posts'),
+                'users_online' => $language->get('general', 'online_users'),
+                'guests_online' => $language->get('general', 'online_guests'),
+                'total_online' => $language->get('general', 'total_online'),
+            ], $cache));
+        }
+
         // Queries
         $queries = new Queries();
-
-        // Widgets
-        // Facebook
-        require_once(ROOT_PATH . '/modules/Core/widgets/FacebookWidget.php');
-        $cache->setCache('social_media');
-        $fb_url = $cache->retrieve('facebook');
-        if ($fb_url) {
-            $widgets->add(new FacebookWidget($smarty, $fb_url));
-        }
-
-        // Twitter
-        require_once(ROOT_PATH . '/modules/Core/widgets/TwitterWidget.php');
-        $twitter = $cache->retrieve('twitter');
-
-        if ($twitter) {
-            $theme = $cache->retrieve('twitter_theme');
-            $widgets->add(new TwitterWidget($smarty, $twitter, $theme));
-        }
-
-        // Profile Posts
-        require_once(ROOT_PATH . '/modules/Core/widgets/ProfilePostsWidget.php');
-        $widgets->add(new ProfilePostsWidget($smarty, $language, $cache, $user, new TimeAgo(TIMEZONE)));
-
-        // Online staff
-        require_once(ROOT_PATH . '/modules/Core/widgets/OnlineStaffWidget.php');
-        $widgets->add(new OnlineStaffWidget($smarty, $language, $cache));
-
-        // Online users
-        require_once(ROOT_PATH . '/modules/Core/widgets/OnlineUsersWidget.php');
-        $widgets->add(new OnlineUsersWidget($cache, $smarty, $language));
-
-        // Online users
-        require_once(ROOT_PATH . '/modules/Core/widgets/ServerStatusWidget.php');
-        $widgets->add(new ServerStatusWidget($smarty, $language, $cache));
-
-        // Statistics
-        require_once(ROOT_PATH . '/modules/Core/widgets/StatsWidget.php');
-        $widgets->add(new StatsWidget($smarty, [
-            'statistics' => $language->get('general', 'statistics'),
-            'users_registered' => $language->get('general', 'users_registered'),
-            'latest_member' => $language->get('general', 'latest_member'),
-            'forum_stats' => $language->get('general', 'forum_statistics'),
-            'total_threads' => $language->get('general', 'total_threads'),
-            'total_posts' => $language->get('general', 'total_posts'),
-            'users_online' => $language->get('general', 'online_users'),
-            'guests_online' => $language->get('general', 'online_guests'),
-            'total_online' => $language->get('general', 'total_online'),
-        ], $cache));
 
         // Validate user hook
         $cache->setCache('validate_action');
@@ -757,8 +756,7 @@ class Core_Module extends Module {
                     $cache->store('update_check', $update_check, 3600);
                 }
 
-                $current_version = $queries->getWhere('settings', ['name', '=', 'nameless_version']);
-                $current_version = $current_version[0]->value;
+                $current_version = NAMELESS_VERSION;
 
                 $update_check = json_decode($update_check);
 

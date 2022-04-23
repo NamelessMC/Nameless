@@ -4,12 +4,14 @@
  *
  * @package Modules\Forum
  * @author Samerton
- * @version 2.0.0-pr8
+ * @version 2.0.0-pr13
  * @license MIT
  */
 class Forum {
 
     private DB $_db;
+    private static array $_permission_cache = [];
+    private static array $_count_cache = [];
 
     public function __construct() {
         $this->_db = DB::getInstance();
@@ -149,10 +151,15 @@ class Forum {
      * @return bool Whether the groups have permission or not
      */
     private function hasPermission(int $forum_id, string $required_permission, array $groups): bool {
+        $cache_key = 'forum_permissions_' . $forum_id . '_' . $required_permission . '_' . implode('_', $groups);
+        if (isset(self::$_permission_cache[$cache_key])) {
+            return true;
+        }
         $permissions = $this->_db->get('forums_permissions', ['forum_id', '=', $forum_id])->results();
         foreach ($permissions as $permission) {
             if (in_array($permission->group_id, $groups)) {
                 if ($permission->{$required_permission} == 1) {
+                    self::$_permission_cache[$cache_key] = true;
                     return true;
                 }
             }
@@ -171,8 +178,11 @@ class Forum {
 
     // Returns true/false depending on whether the current user can view a forum
     // Params: $forum_id (integer) - forum id to check, $groups (array) - user groups
-
     public function canViewOtherTopics(int $forum_id, array $groups = [0]): bool {
+        $cache_key = 'topics_view_' . $forum_id . '_' . implode('_', $groups);
+        if (isset(self::$_permission_cache[$cache_key])) {
+            return true;
+        }
         // Does the forum exist?
         $exists = $this->_db->get('forums', ['id', '=', $forum_id])->results();
         if (count($exists)) {
@@ -182,6 +192,7 @@ class Forum {
             foreach ($access as $item) {
                 if (in_array($item->group_id, $groups)) {
                     if ($item->view_other_topics == 1) {
+                        self::$_permission_cache[$cache_key] = true;
                         return true;
                     }
                 }
@@ -529,12 +540,18 @@ class Forum {
             return false;
         }
 
+        $cache_key = 'moderate_' . $forum_id . '_' . implode('_', $groups);
+        if (isset(self::$_permission_cache[$cache_key])) {
+            return true;
+        }
+
         $permissions = $this->_db->get('forums_permissions', ['forum_id', '=', $forum_id])->results();
 
         // Check the forum
         foreach ($permissions as $permission) {
             if (in_array($permission->group_id, $groups)) {
                 if ($permission->moderate == 1) {
+                    self::$_permission_cache[$cache_key] = true;
                     return true;
                 }
             }
@@ -551,7 +568,12 @@ class Forum {
      */
     public function getPostCount(int $user_id = null): int {
         if ($user_id) {
-            return $this->_db->selectQuery('SELECT COUNT(*) AS c FROM nl2_posts WHERE deleted = 0 AND post_creator = ?', [$user_id])->first()->c;
+            if (isset(self::$_count_cache["posts_$user_id"])) {
+                return self::$_count_cache["posts_$user_id"];
+            }
+            $count = $this->_db->selectQuery('SELECT COUNT(*) AS c FROM nl2_posts WHERE deleted = 0 AND post_creator = ?', [$user_id])->first()->c;
+            self::$_count_cache["posts_$user_id"] = $count;
+            return $count;
         }
 
         return 0;
@@ -565,7 +587,12 @@ class Forum {
      */
     public function getTopicCount(int $user_id = null): int {
         if ($user_id) {
-            return $this->_db->selectQuery('SELECT COUNT(*) AS c FROM nl2_topics WHERE deleted = 0 AND topic_creator = ?', [$user_id])->first()->c;
+            if (isset(self::$_count_cache["topics_$user_id"])) {
+                return self::$_count_cache["topics_$user_id"];
+            }
+            $count = $this->_db->selectQuery('SELECT COUNT(*) AS c FROM nl2_topics WHERE deleted = 0 AND topic_creator = ?', [$user_id])->first()->c;
+            self::$_count_cache["topics_$user_id"] = $count;
+            return $count;
         }
 
         return 0;

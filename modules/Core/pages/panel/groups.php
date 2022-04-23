@@ -378,7 +378,7 @@ if (isset($_GET['action'])) {
             'order' => $group->order,
             'name' => Output::getClean($group->name),
             'edit_link' => URL::build('/panel/core/groups/', 'action=edit&group=' . urlencode($group->id)),
-            'users' => $users,
+            'users' => DB::getInstance()->selectQuery('SELECT COUNT(*) AS c FROM nl2_users_groups WHERE group_id = ?', [$group->id])->first()->c,
             'staff' => $group->staff
         ];
     }
