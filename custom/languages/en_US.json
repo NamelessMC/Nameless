@@ -1183,7 +1183,7 @@
     "user/connections": "Connections",
     "user/integration_identifier_already_linked": "{{integration}} identifier is already linked to another user.",
     "user/integration_required_to_continue": "Please connect and verify the required connections before continuing to use this website.",
-    "user/no_providers": "No OAuth providers are setup.",
+    "user/no_providers": "No OAuth providers are set up.",
     "user/user_has_linked_integration": "{{user}} has linked their {{integration}} account.",
     "user/user_has_unlinked_integration": "{{user}} has unlinked their {{integration}} account.",
     "api/integration_identifier_already_linked": "{{integration}} identifier is already linked to another user.",
