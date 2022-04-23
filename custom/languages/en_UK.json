@@ -1121,7 +1121,7 @@
     "user\/no_messages_full": "You do not have any messages.",
     "user\/no_placeholders": "No Placeholders",
     "user\/no_profile_posts": "No profile posts.",
-    "user\/no_providers": "No OAuth providers are setup.",
+    "user\/no_providers": "No OAuth providers are set up.",
     "user\/no_replies_yet": "No replies yet",
     "user\/no_user_found_with_provider": "No user found with that {{provider}} account.",
     "user\/no_wall_posts": "There are no wall posts here yet.",
