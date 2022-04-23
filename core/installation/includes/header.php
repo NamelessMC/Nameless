@@ -2,18 +2,17 @@
 $readme = file(ROOT_PATH . '/README.md');
 $subheader = str_replace('#', '', $readme[0]);
 
-if (isset($_SESSION['installer_language']) && is_file('custom/languages/' . $_SESSION['installer_language'] . '/installer.php')) {
+if (isset($_SESSION['installer_language']) && is_file('custom/languages/' . $_SESSION['installer_language'] . '.json')) {
     $installer_language = $_SESSION['installer_language'];
 } else {
-    $installer_language = 'EnglishUK';
+    $installer_language = 'en_UK';
 }
 
 $languages_folders = glob('custom' . DIRECTORY_SEPARATOR . 'languages' . DIRECTORY_SEPARATOR . '*', GLOB_ONLYDIR);
 $languages = [];
 
-foreach ($languages_folders as $folder) {
-    $folder = explode(DIRECTORY_SEPARATOR, $folder);
-    $languages[] = $folder[2];
+foreach (Language::LANGUAGES as $short_code => $meta) {
+    $languages[$short_code] = $meta['name'];
 }
 
 ?>
