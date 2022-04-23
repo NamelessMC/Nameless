@@ -226,7 +226,7 @@ if ($page != 'install') {
         $language = $queries->getWhere('languages', ['id', '=', $user->data()->language_id]);
         if (!count($language)) {
             // Get default language
-            define('LANGUAGE', $language);
+            define('LANGUAGE', $default_language);
         } else {
             define('LANGUAGE', $language[0]->short_code);
         }
