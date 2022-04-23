@@ -288,13 +288,14 @@ if (Input::exists()) {
                         $code = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 60);
 
                         // Get default language ID before creating user
-                        $language_id = $queries->getWhere('languages', ['name', '=', LANGUAGE]);
+                        $language_id = $queries->getWhere('languages', ['short_code', '=', LANGUAGE]);
 
                         if (count($language_id)) {
                             $language_id = $language_id[0]->id;
                         } else {
                             // fallback to EnglishUK
-                            $language_id = 1;
+                            $language_id = $queries->getWhere('languages', ['short_code', '=', 'en_UK']);
+                            $language_id = $language_id[0]->id;
                         }
 
                         // Get default group ID

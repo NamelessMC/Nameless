@@ -81,13 +81,14 @@ if (Input::exists()) {
                 $authme_hash = $cache->retrieve('authme');
 
                 // Get default language ID before creating user
-                $language_id = $queries->getWhere('languages', ['name', '=', LANGUAGE]);
+                $language_id = $queries->getWhere('languages', ['short_code', '=', LANGUAGE]);
 
                 if (count($language_id)) {
                     $language_id = $language_id[0]->id;
                 } else {
                     // fallback to EnglishUK
-                    $language_id = 1;
+                    $language_id = $queries->getWhere('languages', ['short_code', '=', 'en_UK']);
+                    $language_id = $language_id[0]->id;
                 }
 
                 $ip = $user->getIP();
