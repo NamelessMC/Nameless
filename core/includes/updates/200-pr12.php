@@ -1,6 +1,6 @@
 <?php
 
-return new class extends UpgradeScript {
+class Pre13 extends UpgradeScript {
 
     public function run(): void {
         // Default night mode to null instead of 0
@@ -164,5 +164,6 @@ return new class extends UpgradeScript {
 
         $this->setVersion('2.0.0-pr13');
     }
-};
+}
 
+return new Pre13();
