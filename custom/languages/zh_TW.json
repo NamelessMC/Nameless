@@ -208,7 +208,7 @@
     "admin\/player_list_help": "如果啟用，狀態網站將會顯示玩家列表.",
     "admin\/please_select_logs": "請選擇紀錄顯示",
     "admin\/positive": "讚",
-    "admin\/pre_1.7": "Minecraft 版本在 1.7 之前?",
+    "admin\/pre_1_7": "Minecraft 版本在 1.7 之前?",
     "admin\/profile_field_error": "請輸入 2~16 字元的區域名稱.",
     "admin\/profile_field_forum_help": "如果啟用，區域的文字將會在論壇中被顯示.",
     "admin\/profile_field_public_help": "公開將會顯示給所有使用者，如果關閉，只有本人可以查看.",
