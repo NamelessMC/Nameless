@@ -413,6 +413,16 @@ class Core_Module extends Module {
             ]
         );
 
+        EventHandler::registerEvent('cloneGroup',
+            $language->get('admin', 'clone_group'),
+            [
+                'group_id' => $language->get('admin', 'group_id'),
+                'cloned_group_id' => $language->get('admin', 'group_id')
+            ],
+            false,
+            true
+        );
+
         // Webhooks
         $cache->setCache('hooks');
         if ($cache->isCached('hooks')) {
@@ -538,6 +548,9 @@ class Core_Module extends Module {
         EventHandler::registerListener('renderPrivateMessageEdit', 'ContentHook::codeTransform', false, 15);
         EventHandler::registerListener('renderPrivateMessageEdit', 'ContentHook::decode', false, 20);
         EventHandler::registerListener('renderPrivateMessageEdit', 'ContentHook::replaceAnchors', false, 15);
+
+        require_once(ROOT_PATH . '/modules/Core/hooks/CloneGroupHook.php');
+        EventHandler::registerListener('cloneGroup', 'CloneGroupHook::execute');
     }
 
     public static function getDashboardGraphs(): array {
