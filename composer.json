@@ -27,7 +27,8 @@
         "phpstan/phpstan": "^1.5",
         "maximebf/debugbar": "^1.18",
         "junker/debugbar-smarty": "^0.2",
-        "hannesvdvreken/guzzle-debugbar": "^3.0"
+        "hannesvdvreken/guzzle-debugbar": "^3.0",
+        "fakerphp/faker": "^1.19"
     },
     "autoload": {
         "classmap": [

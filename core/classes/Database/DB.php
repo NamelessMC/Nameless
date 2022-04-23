@@ -27,7 +27,6 @@ class DB extends Instanceable {
                     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
                 ],
             );
-            $this->_prefix = Config::get('mysql/prefix');
         } catch (PDOException $e) {
             die("<strong>Error:<br /></strong><div class=\"alert alert-danger\">" . $e->getMessage() . '</div>Please check your database connection settings.');
         }
