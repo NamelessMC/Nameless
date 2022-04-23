@@ -37,20 +37,20 @@
 
                         <div class="row">
                             <div class="col-md-9">
-                                <h5 style="margin-top: 7px; margin-bottom: 7px;">{$GROUP_NAME}</h5>
+                                <h5 style="margin-top: 7px; margin-bottom: 7px;">{$GROUP_TITLE}</h5>
                             </div>
                             <div class="col-md-3">
-                                    <span class="float-md-right">{if isset($PERMISSIONS)}
-
+                                <span class="float-md-right">
+                                    {if isset($PERMISSIONS)}
                                             <a href="{$PERMISSIONS_LINK}" class="btn btn-primary">{$PERMISSIONS}</a>
-                                        {/if}
-                                        <button role="button" class="btn btn-warning"
-                                                onclick="showCancelModal()">{$CANCEL}</button>
-                                        {if isset($DELETE_GROUP)}
-                                            <button role="button" class="btn btn-danger"
-                                                    onclick="showDeleteModal()">{$DELETE}</button>
-                                        {/if}
-                                    </span>
+                                    {/if}
+                                    <button role="button" class="btn btn-warning"
+                                            onclick="showCancelModal()">{$CANCEL}</button>
+                                    {if isset($DELETE_GROUP)}
+                                        <button role="button" class="btn btn-danger"
+                                                onclick="showDeleteModal()">{$DELETE}</button>
+                                    {/if}
+                                </span>
                             </div>
                         </div>
                         <hr />

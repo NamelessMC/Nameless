@@ -160,6 +160,9 @@ class Forum_Module extends Module {
         EventHandler::registerListener('renderPostEdit', 'ContentHook::codeTransform', false, 15);
         EventHandler::registerListener('renderPostEdit', 'ContentHook::decode', false, 20);
         EventHandler::registerListener('renderPostEdit', 'ContentHook::replaceAnchors', false, 15);
+
+        require_once(ROOT_PATH . '/modules/Forum/hooks/CloneGroupForumHook.php');
+        EventHandler::registerListener('cloneGroup', 'CloneGroupForumHook::execute');
     }
 
     public function onInstall() {

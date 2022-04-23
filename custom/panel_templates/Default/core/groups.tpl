@@ -69,6 +69,7 @@
                                         <td>
                                             <div class="float-md-right">
                                                 <div class="btn btn-secondary btn-sm"><i class="fas fa-arrows-alt"></i></div>
+                                                <a href="{$group.clone_link}" class="btn btn-primary btn-sm"><i class="fas fa-clone fa-fw"></i></a>
                                                 <a href="{$group.edit_link}" class="btn btn-warning btn-sm"><i class="fas fa-edit fa-fw"></i></a>
                                             </div>
                                         </td>
