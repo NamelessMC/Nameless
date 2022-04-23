@@ -1,5 +1,7 @@
 <?php
-class Pre13 extends UpgradeScript {
+
+return new class extends UpgradeScript {
+
     public function run(): void {
         // Default night mode to null instead of 0
         $this->databaseQuery(function (DB $db) {
@@ -159,28 +161,8 @@ class Pre13 extends UpgradeScript {
 
             $db->createQuery('UPDATE nl2_users SET `language_id` = ? WHERE `language_id` NOT IN (' . implode(', ', $converted_languages) . ')', [$default_language]);
         });
-        // Update version number
-        /*$version_number_id = $queries->getWhere('settings', array('name', '=', 'nameless_version'));
 
-        if (count($version_number_id)) {
-            $version_number_id = $version_number_id[0]->id;
-            $queries->update('settings', $version_number_id, array(
-                'value' => '2.0.0-pr13'
-            ));
-        } else {
-            $queries->create('settings', array(
-                'name' => 'nameless_version',
-                'value' => '2.0.0-pr13'
-            ));
-        }*/
-
-        $version_update_id = $this->_queries->getWhere('settings', array('name', '=', 'version_update'));
-        $version_update_id = $version_update_id[0]->id;
-
-        $this->_queries->update('settings', $version_update_id, array(
-            'value' => 'false'
-        ));
+        $this->setVersion('2.0.0-pr13');
     }
-}
+};
 
-return new Pre13();
