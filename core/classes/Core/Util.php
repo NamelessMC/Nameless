@@ -311,13 +311,9 @@ class Util {
      * @return string JSON object with information about any updates.
      */
     public static function updateCheck(): string {
-        $queries = new Queries();
-
-        // Check for updates
-        $current_version = self::getSetting(DB::getInstance(), 'nameless_version');
         $uid = self::getSetting(DB::getInstance(), 'unique_id');
 
-        $update_check = HttpClient::get('https://namelessmc.com/nl_core/nl2/stats.php?uid=' . $uid . '&version=' . $current_version . '&php_version=' . urlencode(PHP_VERSION) . '&language=' . LANGUAGE . '&docker=' . (getenv('NAMELESSMC_METRICS_DOCKER') === false ? 'false' : 'true'));
+        $update_check = HttpClient::get('https://namelessmc.com/nl_core/nl2/stats.php?uid=' . $uid . '&version=' . NAMELESS_VERSION . '&php_version=' . urlencode(PHP_VERSION) . '&language=' . LANGUAGE . '&docker=' . (getenv('NAMELESSMC_METRICS_DOCKER') === false ? 'false' : 'true'));
 
         if ($update_check->hasError()) {
             $error = $update_check->getError();
@@ -347,6 +343,7 @@ class Util {
                 $to_db = 'true';
             }
 
+            $queries = new Queries();
             $update_id = $queries->getWhere('settings', ['name', '=', 'version_update']);
             $update_id = $update_id[0]->id;
             $queries->update('settings', $update_id, [
@@ -448,15 +445,6 @@ class Util {
         }
 
         return false;
-    }
-
-    /**
-     * Get the current NamelessMC version.
-     *
-     * @return string Current Nameless version
-     */
-    public static function getCurrentNamelessVersion(): string {
-        return self::getSetting(DB::getInstance(), 'nameless_version');
     }
 
     /**

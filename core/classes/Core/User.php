@@ -11,6 +11,8 @@
  */
 class User {
 
+    private static array $_user_cache = [];
+
     private DB $_db;
 
     /**
@@ -98,6 +100,13 @@ class User {
      */
     public function find(string $value = null, string $field = 'id'): bool {
         if ($value) {
+            if (isset(self::$_user_cache["$value.$field"])) {
+                $cache = self::$_user_cache["$value.$field"];
+                $this->_data = $cache['data'];
+                $this->_groups = $cache['groups'];
+                return true;
+            }
+
             $data = $this->_db->get('users', [$field, '=', $value]);
 
             if ($data->count()) {
@@ -112,6 +121,11 @@ class User {
                     foreach ($groups_query as $item) {
                         $this->_groups[$item->id] = new Group($item);
                     }
+
+                    self::$_user_cache["$value.$field"] = [
+                        'data' => $this->_data,
+                        'groups' => $this->_groups,
+                    ];
 
                 } else {
                     // Get default group
