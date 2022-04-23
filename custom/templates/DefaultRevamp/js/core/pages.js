@@ -50,6 +50,8 @@ if (page !== '') {
 			});
 		});
 	} else if (page === 'profile') {
+		$('.menu.tabular .item').tab();
+
 		function showBannerSelect(){
 			$('#imageModal').modal({
 				onVisible: function() {
@@ -58,9 +60,9 @@ if (page !== '') {
 			}).modal('show');
 		}
 		$(function () {
-			var postElem = window.location.hash;
-			postElem = $(postElem.slice(0, -1));
+			let postElem = window.location.hash;
 			if (postElem) {
+				postElem = $(postElem.slice(0, -1));
 				setTimeout(function () {
 					$('html, body').animate({ scrollTop: postElem.offset().top - 15 }, 800);
 				}, 100);
