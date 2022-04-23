@@ -86,7 +86,7 @@ abstract class UpgradeScript {
 
         foreach ($queries as $query) {
             try {
-                $results[] = $query();
+                $results[] = $query(DB::getInstance());
             } catch (Exception $exception) {
                 $results[] = null;
                 echo $exception->getMessage() . '<br />';
