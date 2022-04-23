@@ -48,7 +48,7 @@ foreach ($leaderboard_placeholders as $leaderboard_placeholder) {
         $row_data->username = Output::getClean($leaderboard_users[$uuid]->username);
         $row_data->avatar = AvatarSource::getAvatarFromUUID($uuid, 24);
         $row_data->value = $row->value;
-        $row_data->last_updated = ucfirst($timeago->inWords(date('Y-m-d H:i:s', $row->last_updated), $language->getTimeLanguage()));
+        $row_data->last_updated = ucfirst($timeago->inWords($row->last_updated, $language));
 
         $leaderboard_placeholders_data[] = $row_data;
     }
@@ -97,9 +97,6 @@ $template->addJSScript('
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
-
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 

@@ -129,7 +129,6 @@ foreach (Group::all() as $group) {
         'id' => (int)$group->id,
         'name' => $group->name,
         'group_html' => $group->group_html,
-        'group_html_lg' => $group->group_html_lg,
         'admin_cp' => (bool)$group->admin_cp,
         'staff' => (bool)$group->staff,
         'permissions' => json_decode($group->permissions, true) ?? [],

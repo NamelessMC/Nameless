@@ -73,7 +73,7 @@ abstract class AvatarSourceBase {
      */
     public function formatUrl(string $url_to_format, string $uuid, int $size): string {
         return str_replace(
-            ['{x}', '{y}'],
+            ['{identifier}', '{size}'],
             [$uuid, $size],
             $url_to_format
         );
@@ -81,8 +81,8 @@ abstract class AvatarSourceBase {
 
     /**
      * Get raw URL with placeholders to format.
-     * - `{x} = UUID / username`
-     * - `{y} = size in pixels`
+     * - `{identifier} = UUID / username`
+     * - `{size} = size in pixels`
      *
      * @param string $perspective Perspective to use in url.
      *

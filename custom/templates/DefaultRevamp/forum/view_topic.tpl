@@ -13,8 +13,7 @@
 <h2 class="ui header">
   <div class="topic title">{if count($TOPIC_LABELS)}{foreach from=$TOPIC_LABELS item=label}{$label} {/foreach}{/if}{$TOPIC_TITLE}</div>
   <div class="sub header">
-    {$started_by_val="<a href=\"`$TOPIC_AUTHOR_PROFILE`\" style=\"`$TOPIC_AUTHOR_STYLE`\">`$TOPIC_AUTHOR_USERNAME`</a>"}
-    {$STARTED_BY|replace:'{x}':$started_by_val}
+    {$STARTED_BY}
   </div>
 </h2>
 

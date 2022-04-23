@@ -283,7 +283,7 @@ if ($user_query->id != 1 && !$view_user->canViewStaffCP()) {
     $smarty->assign([
         'DELETE_USER' => $language->get('admin', 'delete_user'),
         'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
-        'CONFIRM_DELETE_USER' => str_replace('{x}', Output::getClean($user_query->username), $language->get('admin', 'confirm_user_deletion')),
+        'CONFIRM_DELETE_USER' => $language->get('admin', 'confirm_user_deletion', ['user' => Output::getClean($user_query->username)]),
         'YES' => $language->get('general', 'yes'),
         'NO' => $language->get('general', 'no')
     ]);
@@ -343,7 +343,9 @@ $smarty->assign([
     'PAGE' => PANEL_PAGE,
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit'),
-    'EDITING_USER' => str_replace('{x}', Output::getClean($user_query->nickname), $language->get('admin', 'editing_user_x')),
+    'EDITING_USER' => $language->get('admin', 'editing_user_x', [
+        'user' => Output::getClean($user_query->nickname),
+    ]),
     'BACK_LINK' => URL::build('/panel/user/' . $user_query->id),
     'BACK' => $language->get('general', 'back'),
     'ACTIONS' => $language->get('general', 'actions'),
@@ -387,9 +389,6 @@ $template->addJSFiles([
     (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
 ]);
 $template->addJSScript(Input::createTinyEditor($language, 'InputSignature'));
-
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 

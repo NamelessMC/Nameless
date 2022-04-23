@@ -204,7 +204,10 @@ if (Input::exists()) {
                     'user_id' => Output::getClean($user->data()->id),
                     'username' => $user->getDisplayname(true),
                     'nickname' => $user->getDisplayname(),
-                    'content' => str_replace(['{x}', '{y}'], [$forum_title, $user->getDisplayname()], $forum_language->get('forum', 'new_topic_text')),
+                    'content' => $forum_language->get('forum', 'new_topic_text', [
+                        'forum' => $forum_title,
+                        'author' => $user->getDisplayname(),
+                    ]),
                     'content_full' => strip_tags(str_ireplace(['<br />', '<br>', '<br/>'], "\r\n", Input::get('content'))),
                     'avatar_url' => $user->getAvatar(128, true),
                     'title' => Input::get('title'),
@@ -219,7 +222,7 @@ if (Input::exists()) {
                 $error = $validate->errors();
             }
         } else {
-            $error = [str_replace('{x}', (strtotime($last_post[0]->post_date) - strtotime('-30 seconds')), $forum_language->get('forum', 'spam_wait'))];
+            $error = [$forum_language->get('forum', 'spam_wait', ['count' => (strtotime($last_post[0]->post_date) - strtotime('-30 seconds'))])];
         }
     } else {
         $error = [$language->get('general', 'invalid_token')];
@@ -239,7 +242,7 @@ if (isset($error)) {
     $smarty->assign('ERROR', $error);
 }
 
-$creating_topic_in = str_replace('{x}', $forum_title, $forum_language->get('forum', 'creating_topic_in_x'));
+$creating_topic_in = $forum_language->get('forum', 'creating_topic_in_x', ['forum' => $forum_title]);
 $smarty->assign('CREATING_TOPIC_IN', $creating_topic_in);
 
 // Get info about forum
@@ -286,9 +289,6 @@ $template->addJSScript(Input::createTinyEditor($language, 'reply', $content, tru
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
-
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 

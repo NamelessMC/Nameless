@@ -20,7 +20,7 @@ if ($user->isLoggedIn()) {
     $user_area['usercp'] = [
         'target' => '',
         'link' => URL::build('/user'),
-        'title' => $language->get('user', 'user_cp_icon')
+        'title' => $language->get('user', 'user_cp')
     ];
     if (defined('PAGE') && PAGE == 'usercp') {
         $user_area['usercp']['active'] = true;

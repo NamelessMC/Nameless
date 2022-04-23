@@ -178,6 +178,7 @@ if (isset($_GET['do'])) {
                     $to_validate["profile_fields[{$field->id}]"]['max'] = (is_null($field->length) ? 1024 : $field->length);
                 }
 
+
                 $validation = Validate::check(
                     $_POST, $to_validate
                 )->messages([
@@ -199,7 +200,9 @@ if (isset($_GET['do'])) {
                             return null;
                         }
 
-                        return str_replace('{x}', Output::getClean($field->name), $language->get('user', 'field_is_required'));
+                        return $language->get('user', 'field_is_required', [
+                            'field' => Output::getClean($field->name),
+                        ]);
                     },
                 ]);
 
@@ -498,12 +501,19 @@ if (isset($_GET['do'])) {
         }
 
         // Get custom field type
-        if ($field->type == Fields::TEXT) {
-            $type = 'text';
-        } else if ($field->type == Fields::TEXTAREA) {
-            $type = 'textarea';
-        } else if ($field->type == Fields::DATE) {
-            $type = 'date';
+        switch ($field->type) {
+            case Fields::DATE:
+                $type = 'date';
+                break;
+
+            case Fields::TEXTAREA:
+                $type = 'textarea';
+                break;
+
+            case Fields::TEXT:
+            default:
+                $type = 'text';
+                break;
         }
 
         $custom_fields_template[$field->name] = [
@@ -621,9 +631,6 @@ if (isset($_GET['do'])) {
     Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
     require(ROOT_PATH . '/core/templates/cc_navbar.php');
-
-    $page_load = microtime(true) - $start;
-    define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
     $template->onPageLoad();
 

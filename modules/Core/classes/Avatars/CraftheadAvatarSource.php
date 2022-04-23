@@ -19,6 +19,6 @@ class CraftheadAvatarSource extends AvatarSourceBase {
     }
 
     public function getUrlToFormat(string $perspective): string {
-        return $this->_base_url . $this->getRelativePerspective($perspective) . '/{x}/{y}';
+        return $this->_base_url . $this->getRelativePerspective($perspective) . '/{identifier}/{size}';
     }
 }

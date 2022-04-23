@@ -20,7 +20,8 @@
         "games647/minecraft-banner-generator": "^0.4.1",
         "symfony/polyfill-php80": "^v1.25",
         "ircmaxell/password-compat": "^1.0",
-        "astrotomic/php-twemoji": "^0.2.2"
+        "astrotomic/php-twemoji": "^0.2.2",
+        "samerton/i18next": "^1.0"
     },
     "require-dev": {
         "phpstan/phpstan": "^1.5",

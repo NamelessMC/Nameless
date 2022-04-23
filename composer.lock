@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fbfaa91fb702ed21bd75ae965a321cb8",
+    "content-hash": "8b342c935098836a6e4c085042e7aef1",
     "packages": [
         {
             "name": "astrotomic/php-twemoji",
@@ -1236,6 +1236,53 @@
                 "source": "https://github.com/samayo/bulletproof/tree/master"
             },
             "time": "2018-06-23T22:16:47+00:00"
+        },
+        {
+            "name": "samerton/i18next",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/samerton/i18next-php.git",
+                "reference": "4bfab8849a6511e3687a2db28212693b8c51eac2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/samerton/i18next-php/zipball/4bfab8849a6511e3687a2db28212693b8c51eac2",
+                "reference": "4bfab8849a6511e3687a2db28212693b8c51eac2",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "5.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "samerton\\i18next\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Beerware"
+            ],
+            "authors": [
+                {
+                    "name": "Mika Simanainen",
+                    "role": "Developer"
+                }
+            ],
+            "description": "PHP class for basic i18next functionality ",
+            "homepage": "https://github.com/samerton/i18next-php",
+            "keywords": [
+                "i18n",
+                "i18next"
+            ],
+            "support": {
+                "source": "https://github.com/samerton/i18next-php/tree/v1.0.1"
+            },
+            "time": "2022-01-22T22:56:28+00:00"
         },
         {
             "name": "smarty/smarty",

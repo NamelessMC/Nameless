@@ -27,8 +27,7 @@ class Alert {
             return;
         }
 
-        $language_name = $language->first()->name;
-        $language = new Language($text_short['path'], $language_name);
+        $language = new Language($text_short['path'], $language->first()->name);
 
         $db->insert('alerts', [
             'user_id' => $user_id,

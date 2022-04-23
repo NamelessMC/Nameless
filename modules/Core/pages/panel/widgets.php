@@ -43,7 +43,7 @@ if (!isset($_GET['action'])) {
 
         $template_array[] = [
             'name' => Output::getClean($widget->getName()),
-            'module' => str_replace('{x}', Output::getClean($widget->getModule()), $language->get('admin', 'module_x')),
+            'module' => $language->get('admin', 'module_x', ['module' => Output::getClean($widget->getModule())]),
             'description' => Output::getClean($widget->getDescription()),
             'enabled' => $widgets->isEnabled($widget),
             'disable_link' => (($widgets->isEnabled($widget)) ? URL::build('/panel/core/widgets/', 'action=disable&w=' . urlencode($widget_query)) : null),
@@ -205,7 +205,9 @@ if (!isset($_GET['action'])) {
 
         $smarty->assign(
             [
-                'EDITING_WIDGET' => str_replace('{x}', Output::getClean($widget->name), $language->get('admin', 'editing_widget_x')),
+                'EDITING_WIDGET' => $language->get('admin', 'editing_widget_x', [
+                    'widget' => Util::bold(Output::getClean($widget->name))
+                ]),
                 'BACK' => $language->get('general', 'back'),
                 'BACK_LINK' => URL::build('/panel/core/widgets'),
                 'ORDER' => $order,
@@ -246,7 +248,9 @@ if (!isset($_GET['action'])) {
 
             $smarty->assign(
                 [
-                    'EDITING_WIDGET' => str_replace('{x}', Output::getClean($widget->name), $language->get('admin', 'editing_widget_x')),
+                    'EDITING_WIDGET' => $language->get('admin', 'editing_widget_x', [
+                        'widget' => Util::bold(Output::getClean($widget->name))
+                    ]),
                     'BACK' => $language->get('general', 'back'),
                     'BACK_LINK' => URL::build('/panel/core/widgets/', 'action=edit&w=' . urlencode($widget->id))
                 ]
@@ -296,9 +300,6 @@ $smarty->assign(
         'SUBMIT' => $language->get('general', 'submit')
     ]
 );
-
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 

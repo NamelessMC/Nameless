@@ -91,7 +91,10 @@ $smarty->assign([
     'SUBMIT' => $language->get('general', 'submit'),
     'INFO' => $language->get('general', 'info'),
     'NAVBAR_ORDER_INSTRUCTIONS' => $language->get('admin', 'navbar_order_instructions'),
-    'NAVBAR_ICON_INSTRUCTIONS' => $language->get('admin', 'navbar_icon_instructions'),
+    'NAVBAR_ICON_INSTRUCTIONS' => $language->get('admin', 'navbar_icon_instructions', [
+        'faLink' => '<a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>',
+        'semLink' => '<a href="https://fomantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Fomantic UI</a>'
+    ]),
     'NAV_ITEMS' => $navigation->returnNav('top'),
     'NAVBAR_ORDER' => $language->get('admin', 'navbar_order'),
     'NAVBAR_ICON' => $language->get('admin', 'navbar_icon'),
@@ -99,9 +102,6 @@ $smarty->assign([
     'DROPDOWN_NAME' => $language->get('admin', 'dropdown_name'),
     'DROPDOWN_NAME_VALUE' => $language->get('general', 'more')
 ]);
-
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 

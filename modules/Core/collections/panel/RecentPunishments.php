@@ -97,7 +97,7 @@ class RecentPunishmentsItem extends CollectionItemBase {
                         'staff_style' => $staff_user->getGroupStyle(),
                         'staff_avatar' => $staff_user->getAvatar(),
                         'staff_profile' => URL::build('/panel/user/' . urlencode($staff_user->data()->id) . '-' . urlencode($staff_user->data()->username)),
-                        'time' => ($item->created ? $timeago->inWords(date('Y-m-d H:i:s', $item->created), $this->_language->getTimeLanguage()) : $timeago->inWords($item->infraction_date, $this->_language->getTimeLanguage())),
+                        'time' => ($item->created ? $timeago->inWords($item->created, $this->_language) : $timeago->inWords($item->infraction_date, $this->_language)),
                         'time_full' => ($item->created ? date(DATE_FORMAT, $item->created) : date(DATE_FORMAT, strtotime($item->infraction_date))),
                         'type' => $item->type,
                         'reason' => Output::getPurified($item->reason),
@@ -108,7 +108,7 @@ class RecentPunishmentsItem extends CollectionItemBase {
                         'revoked_by_style' => ($revoked_by_user ? $revoked_by_user->getGroupStyle() : ''),
                         'revoked_by_avatar' => ($revoked_by_user ? $revoked_by_user->getAvatar() : ''),
                         'revoked_by_profile' => ($revoked_by_user ? URL::build('/panel/user/' . urlencode($revoked_by_user->data()->id) . '-' . urlencode($revoked_by_user->data()->username)) : ''),
-                        'revoked_at' => $timeago->inWords(date('Y-m-d H:i:s', $item->revoked_at), $this->_language->getTimeLanguage())
+                        'revoked_at' => $timeago->inWords($item->revoked_at, $this->_language)
                     ];
 
                     if (++$i == 5) {

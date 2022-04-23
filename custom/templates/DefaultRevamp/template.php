@@ -83,6 +83,8 @@ class DefaultRevamp_Template extends TemplateBase {
     }
 
     public function onPageLoad() {
+        $page_load = microtime(true) - PAGE_START_TIME;
+        define('PAGE_LOAD_TIME', $this->_language->get('general', 'page_loaded_in', ['time' => round($page_load, 3)]));
 
         $this->addCSSFiles([
             $this->_template['path'] . 'css/custom.css?v=2pr12' => []
@@ -116,7 +118,7 @@ class DefaultRevamp_Template extends TemplateBase {
             'route' => $route
         ];
 
-        if (strpos($route, '/forum/topic/') !== false || PAGE == 'profile') {
+        if (PAGE == 'profile' || strpos($route, '/forum/topic/') !== false) {
             $this->addJSFiles([
                 $this->_template['path'] . 'js/jquery-ui.min.js' => []
             ]);

@@ -107,7 +107,7 @@ class ErrorHandler {
             $language = new Language('core', LANGUAGE);
         } else {
             // NamelessMC not installed yet
-            $language = new Language('core', 'EnglishUK');
+            $language = new Language('core', 'en_UK');
         }
 
         $user = new User();

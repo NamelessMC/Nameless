@@ -59,8 +59,8 @@ class RecentRegistrationsItem extends CollectionItemBase {
                         'style' => $target_user->getGroupStyle(),
                         'avatar' => $target_user->getAvatar(),
                         'groups' => $target_user->getAllGroupHtml(),
-                        'time' => $timeago->inWords(date('Y-m-d H:i:s', $item->joined), $this->_language->getTimeLanguage()),
-                        'time_full' => date(DATE_FORMAT, $item->joined)
+                        'time' => $timeago->inWords($item->joined, $this->_language),
+                        'time_full' => date(DATE_FORMAT, $item->joined),
                     ];
 
                     if (++$i == 5) {

@@ -161,7 +161,7 @@ if (isset($_GET['action'])) {
                     'PERMISSIONS_LINK' => URL::build('/panel/core/groups/', 'action=permissions&group=' . urlencode($group->id)),
                     'DELETE' => $language->get('general', 'delete'),
                     'DELETE_GROUP' => $language->get('admin', 'delete_group'),
-                    'CONFIRM_DELETE' => str_replace('{x}', Output::getClean($group->name), $language->get('admin', 'confirm_group_deletion'))
+                    'CONFIRM_DELETE' => $language->get('admin', 'confirm_group_deletion', ['group' => Output::getClean($group->name)]),
                 ]);
             }
 
@@ -428,9 +428,6 @@ $smarty->assign([
     'GROUP_SYNC' => $language->get('admin', 'group_sync'),
     'GROUP_SYNC_LINK' => URL::build('/panel/core/api/', 'view=group_sync')
 ]);
-
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 

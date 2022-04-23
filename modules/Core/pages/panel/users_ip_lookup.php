@@ -46,9 +46,14 @@ if (isset($_GET['uid'])) {
         }
 
         if (count($user_ips) == 1) {
-            $count_accounts = str_replace('{y}', Output::getClean($user_query->username), $language->get('moderator', '1_ip_with_name'));
+            $count_accounts = $language->get('moderator', '1_ip_with_name', [
+                'user' => Util::bold(Output::getClean($user_query->username))
+            ]);
         } else {
-            $count_accounts = str_replace(['{x}', '{y}'], [count($user_ips), Output::getClean($user_query->username)], $language->get('moderator', 'count_ips_with_name'));
+            $count_accounts = $language->get('moderator', 'count_ips_with_name', [
+                'count' => count($user_ips),
+                'user' => Util::bold(Output::getClean($user_query->username))
+            ]);
         }
 
         $smarty->assign([
@@ -92,9 +97,9 @@ if (isset($_GET['uid'])) {
             }
 
             if (count($ip_accounts) == 1) {
-                $count_accounts = str_replace('{y}', Output::getClean($_GET['ip']), $language->get('moderator', '1_account_with_ip'));
+                $count_accounts = $language->get('moderator', '1_account_with_ip', ['address' => Output::getClean($_GET['ip'])]);
             } else {
-                $count_accounts = str_replace(['{x}', '{y}'], [count($ip_accounts), Output::getClean($_GET['ip'])], $language->get('moderator', 'count_accounts_with_ip'));
+                $count_accounts = $language->get('moderator', 'count_accounts_with_ip', ['count' => count($ip_accounts), 'address' => Output::getClean($_GET['ip'])]);
             }
 
             $smarty->assign([
@@ -164,9 +169,6 @@ $smarty->assign([
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit')
 ]);
-
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 

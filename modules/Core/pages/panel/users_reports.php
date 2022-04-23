@@ -119,14 +119,14 @@ if (!isset($_GET['id'])) {
                 'user_profile' => $user_profile,
                 'user_reported_style' => $user_style,
                 'user_reported_avatar' => $user_avatar,
-                'reported_at' => ($report->reported ? $timeago->inWords(date('Y-m-d H:i:s', $report->reported), $language->getTimeLanguage()) : $timeago->inWords($report->date_reported, $language->getTimeLanguage())),
+                'reported_at' => ($report->reported ? $timeago->inWords($report->reported, $language) : $timeago->inWords($report->date_reported, $language)),
                 'reported_at_full' => ($report->reported ? date(DATE_FORMAT, $report->reported) : date(DATE_FORMAT, strtotime($report->date_reported))),
                 'link' => URL::build('/panel/users/reports/', 'id=' . urlencode($report->id)),
                 'updated_by' => $updated_by_user->getDisplayname(),
                 'updated_by_profile' => URL::build('/panel/user/' . urlencode($report->updated_by . '-' . $updated_by_user->data()->username)),
                 'updated_by_style' => $updated_by_user->getGroupStyle(),
                 'updated_by_avatar' => $updated_by_user->getAvatar(),
-                'updated_at' => ($report->updated ? $timeago->inWords(date('Y-m-d H:i:s', $report->updated), $language->getTimeLanguage()) : $timeago->inWords($report->date_updated, $language->getTimeLanguage())),
+                'updated_at' => ($report->updated ? $timeago->inWords($report->updated, $language) : $timeago->inWords($report->date_updated, $language)),
                 'updated_at_full' => ($report->updated ? date(DATE_FORMAT, $report->updated) : date(DATE_FORMAT, strtotime($report->date_updated))),
                 'comments' => $comments
             ];
@@ -222,7 +222,7 @@ if (!isset($_GET['id'])) {
                 'avatar' => $comment_user->getAvatar(),
                 'content' => Output::getPurified($comment->comment_content),
                 'date' => ($comment->date ? date(DATE_FORMAT, $comment->date) : date(DATE_FORMAT, strtotime($comment->comment_date))),
-                'date_friendly' => ($comment->date ? $timeago->inWords(date('Y-m-d H:i:s', $comment->date), $language->getTimeLanguage()) : $timeago->inWords($comment->comment_date, $language->getTimeLanguage()))
+                'date_friendly' => ($comment->date ? $timeago->inWords($comment->date, $language) : $timeago->inWords($comment->comment_date, $language))
             ];
         }
 
@@ -269,7 +269,7 @@ if (!isset($_GET['id'])) {
             'REPORTED_USER_STYLE' => $reported_user_style,
             'REPORTED_USER_AVATAR' => $reported_user_avatar,
             'REPORT_DATE' => ($report->reported ? date(DATE_FORMAT, $report->reported) : date(DATE_FORMAT, strtotime($report->date_reported))),
-            'REPORT_DATE_FRIENDLY' => ($report->reported ? $timeago->inWords(date('Y-m-d H:i:s', $report->reported), $language->getTimeLanguage()) : $timeago->inWords($report->date_reported, $language->getTimeLanguage())),
+            'REPORT_DATE_FRIENDLY' => ($report->reported ? $timeago->inWords($report->reported, $language) : $timeago->inWords($report->date_reported, $language)),
             'CONTENT_LINK' => $report->link,
             'VIEW_CONTENT' => $language->get('moderator', 'view_content'),
             'REPORT_CONTENT' => Output::getPurified($report->report_reason),
@@ -320,7 +320,7 @@ if (!isset($_GET['id'])) {
                         'commenter_id' => $user->data()->id,
                         'comment_date' => date('Y-m-d H:i:s'),
                         'date' => date('U'),
-                        'comment_content' => str_replace('{x}', $user->data()->username, $language->get('moderator', 'x_closed_report'))
+                        'comment_content' => $language->get('moderator', 'x_closed_report', ['user' => Output::getClean($user->data()->username)])
                     ]);
                 }
 
@@ -349,7 +349,7 @@ if (!isset($_GET['id'])) {
                         'commenter_id' => $user->data()->id,
                         'comment_date' => date('Y-m-d H:i:s'),
                         'date' => date('U'),
-                        'comment_content' => str_replace('{x}', $user->data()->username, $language->get('moderator', 'x_reopened_report'))
+                        'comment_content' => $language->get('moderator', 'x_reopened_report', ['user' => $user->data()->username])
                     ]);
                 }
 
@@ -394,9 +394,6 @@ $smarty->assign([
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit')
 ]);
-
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 

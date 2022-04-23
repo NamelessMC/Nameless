@@ -84,7 +84,7 @@ class RecentReportsItem extends CollectionItemBase {
                         'reported_style' => $reported_user->getGroupStyle(),
                         'reported_avatar' => $reported_user->getAvatar(),
                         'reported_profile' => URL::build('/panel/user/' . urlencode($reported_user->data()->id) . '-' . urlencode($reported_user->data()->username)),
-                        'time' => $timeago->inWords($item->date_reported, $this->_language->getTimeLanguage()),
+                        'time' => $timeago->inWords($item->date_reported, $this->_language),
                         'time_full' => date(DATE_FORMAT, strtotime($item->date_reported)),
                         'type' => $item->type,
                         'reason' => Output::getPurified($item->report_reason),

@@ -4,74 +4,133 @@
  *
  * @package NamelessMC\Core
  * @author Samerton
- * @version 2.0.0-pr11
+ * @version 2.0.0-pr13
  * @license MIT
  */
+
+use samerton\i18next\i18next;
+
 class Language {
 
     /**
-     * @var string Name of the language currently being used.
+     * @var array Metadata about different languages available
+     */
+    public const LANGUAGES = [
+        'zh_TW' => [
+            'name' => 'Chinese',
+            'htmlCode' => 'zh-TW',
+        ],
+        'zh_CN' => [
+            'name' => 'Chinese (Simplified)',
+            'htmlCode' => 'zh-CN',
+        ],
+        'cs_CZ' => [
+            'name' => 'Czech',
+            'htmlCode' => 'cs',
+        ],
+        'da_DK' => [
+            'name' => 'Danish',
+            'htmlCode' => 'da',
+        ],
+        'nl_NL' => [
+            'name' => 'Dutch',
+            'htmlCode' => 'nl',
+        ],
+        'en_UK' => [
+            'name' => 'English UK',
+            'htmlCode' => 'en',
+        ],
+        'en_US' => [
+            'name' => 'English US',
+            'htmlCode' => 'en',
+        ],
+        'fr_FR' => [
+            'name' => 'French',
+            'htmlCode' => 'fr',
+        ],
+        'de_DE' => [
+            'name' => 'German',
+            'htmlCode' => 'de',
+        ],
+        'el_GR' => [
+            'name' => 'Greek',
+            'htmlCode' => 'el',
+        ],
+        'it_IT' => [
+            'name' => 'Italian',
+            'htmlCode' => 'it',
+        ],
+        'ja_JP' => [
+            'name' => 'Japanese',
+            'htmlCode' => 'ja',
+        ],
+        'lt_LT' => [
+            'name' => 'Lithuanian',
+            'htmlCode' => 'lt',
+        ],
+        'no_NO' => [
+            'name' => 'Norwegian',
+            'htmlCode' => 'no',
+        ],
+        'pl_PL' => [
+            'name' => 'Polish',
+            'htmlCode' => 'pl',
+        ],
+        'pt_BR' => [
+            'name' => 'Portuguese',
+            'htmlCode' => 'pt',
+        ],
+        'ro_RO' => [
+            'name' => 'Romanian',
+            'htmlCode' => 'ro',
+        ],
+        'ru_RU' => [
+            'name' => 'Russian',
+            'htmlCode' => 'ru',
+        ],
+        'sk_SK' => [
+            'name' => 'Slovak',
+            'htmlCode' => 'sk',
+        ],
+        'es_419' => [
+            'name' => 'Spanish',
+            'htmlCode' => 'es',
+        ],
+        'es_ES' => [
+            'name' => 'Spanish ES',
+            'htmlCode' => 'es',
+        ],
+        'sv_SE' => [
+            'name' => 'Swedish',
+            'htmlCode' => 'sv',
+        ],
+        'th_TH' => [
+            'name' => 'Thai',
+            'htmlCode' => 'th',
+        ],
+        'tr_TR' => [
+            'name' => 'Turkish',
+            'htmlCode' => 'tr',
+        ],
+    ];
+
+    /**
+     * @var string Name of the language translation currently being used.
      */
     private string $_activeLanguage;
 
     /**
-     * @var string Path to the language files for current language.
+     * @var string Path of the language JSON file currently being used.
      */
-    private string $_activeLanguageDirectory;
+    private string $_activeLanguageFile;
 
     /**
-     * @var array<string, array<string, string>> Array of language file names to language file entries.
+     * @var i18next Instance of i18next.
      */
-    private array $_activeLanguageEntries;
+    private i18next $_i18n;
 
     /**
-     * @var string Name of module currently using this instance.
-     */
-    private string $_module;
-
-    /**
-     * Construct Language class
-     *
-     * @param string|null $module Path of language files for custom modules.
-     * @param string|null $active_language The active language set in cache.
-     */
-    public function __construct(string $module = null, string $active_language = null) {
-        $this->_activeLanguage = $active_language ?? 'EnglishUK';
-
-        // Require file
-        if (!$module || $module == 'core') {
-            $path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'languages', $this->_activeLanguage]);
-            $this->_module = 'Core';
-        } else {
-            $path = str_replace('/', DIRECTORY_SEPARATOR, $module) . DIRECTORY_SEPARATOR . $this->_activeLanguage;
-
-            if (!is_dir($path)) {
-                $path = str_replace('/', DIRECTORY_SEPARATOR, $module) . DIRECTORY_SEPARATOR . 'EnglishUK';
-            }
-
-            $this->_module = Output::getClean($module);
-        }
-
-        $this->_activeLanguageDirectory = $path;
-
-        // HTML language definition
-        if (is_file($path . DIRECTORY_SEPARATOR . 'version.php')) {
-            require($path . DIRECTORY_SEPARATOR . 'version.php');
-
-            /** @phpstan-ignore-next-line  */
-            if (isset($language_html) && !defined('HTML_LANG')) {
-                define('HTML_LANG', $language_html);
-            }
-
-            /** @phpstan-ignore-next-line  */
-            if (isset($language_rtl) && !defined('HTML_RTL')) {
-                define('HTML_RTL', $language_rtl);
-            }
-        }
-    }
-
-    /**
-     * Return the current active language.
+     * Return the current active language code.
      *
      * @return string Active language name.
      */
@@ -80,93 +139,111 @@ class Language {
     }
 
     /**
-     * Return the current active language directory.
+     * Return the path to the active language file.
      *
-     * @return string Path to active language files.
+     * @return string Active language path.
      */
-    public function getActiveLanguageDirectory(): string {
-        return $this->_activeLanguageDirectory;
+    public function getActiveLanguageFile(): string {
+        return $this->_activeLanguageFile;
     }
 
     /**
-     * Return current time language.
+     * Construct Language class
      *
-     * @return array Time lang for use in TimeAgo class.
+     * @param string $module Path to the custom language files to use, "core" by default for builtin language files.
+     * @param string|null $active_language The translation to use.
+     * @throws RuntimeException If the language file cannot be found.
      */
-    public function getTimeLanguage(): array {
-        $this->get('time', 'time');
-        return $this->_activeLanguageEntries['time'];
+    public function __construct(string $module = 'core', string $active_language = null) {
+        $this->_activeLanguage = $active_language ?? LANGUAGE ?? 'en_UK';
+
+        // Require file
+        if ($module == null || $module === 'core') {
+            $path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'languages', $this->_activeLanguage . '.json']);
+        } else {
+            $path = str_replace('/', DIRECTORY_SEPARATOR, $module) . DIRECTORY_SEPARATOR . $this->_activeLanguage . '.json';
+
+            if (!file_exists($path)) {
+                $path = str_replace('/', DIRECTORY_SEPARATOR, $module) . DIRECTORY_SEPARATOR . 'en_UK.json';
+            }
+        }
+
+        if (!file_exists($path)) {
+            throw new RuntimeException('Language file ' . $path . ' does not exist');
+        }
+
+        $this->_activeLanguageFile = $path;
+
+        // HTML language definition
+        if (!defined('HTML_LANG')) {
+            define('HTML_LANG', self::LANGUAGES[$this->_activeLanguage]['htmlCode']);
+        }
+
+        if (!defined('HTML_RTL')) {
+            /** @phpstan-ignore-next-line - none of our languages are RTL (yet) */
+            define('HTML_RTL', self::LANGUAGES[$this->_activeLanguage]['rtl'] ?? false);
+        }
+
+        $this->_i18n = new i18next(
+            $this->_activeLanguage,
+            $this->_activeLanguageFile,
+            'en_UK'
+        );
     }
 
     /**
      * Return a term in the currently active language
      *
-     * @param string $file Name of file to look in, without file extension.
-     * @param string $term The term to translate.
-     * @param int|null $number Number of items to pass through to a plural function.
+     * @param string $section Section name.
+     * @param ?string $term The term to translate.
+     * @param array $variables Any variables to pass through to the translation.
      * @return string Translated phrase.
      */
-    public function get(string $file, string $term, int $number = null): string {
-        // Check if the file exists for this language,
-        // if not, use the fallback EnglishUK file. If it doesnt exist, show an error.
-        if (is_file($this->_activeLanguageDirectory . DIRECTORY_SEPARATOR . $file . '.php')) {
-            if (!isset($this->_activeLanguageEntries[$file])) {
-                require($this->_activeLanguageDirectory . DIRECTORY_SEPARATOR . $file . '.php');
-                $this->_activeLanguageEntries[$file] = $language;
-            }
-        } else if (is_file($this->getFallbackFile($file))) {
-            require($this->getFallbackFile($file));
-            $this->_activeLanguageEntries[$file] = $language;
-        } else {
-            die('Error loading fallback language file ' . Output::getClean($file) . '.php in ' . $this->_module . ', does ' . $this->_activeLanguageDirectory . ' exist?');
+    public function get(string $section, ?string $term, array $variables = []): string {
+        if ($term) {
+            $section .= '/' . $term;
         }
 
-        // Check if this term exists in the language file
-        if (!isset($this->_activeLanguageEntries[$file][$term])) {
-            return 'Term ' . Output::getClean($term) . ' not set (file: ' . $file . '.php)';
-        }
-
-        // If the term is not an array, it is not plural, so we can just return the term
-        if (!is_array($this->_activeLanguageEntries[$file][$term])) {
-            return $this->_activeLanguageEntries[$file][$term];
-        }
-
-        // If the term is an array, it is plural, so we pass it to the languages pluralForm function
-        if (function_exists('pluralForm') && $number != null) {
-            return pluralForm($number, $this->_activeLanguageEntries[$file][$term]);
-        }
-
-        return 'Plural form not set for ' . Output::getClean($term);
+        return $this->_i18n->getTranslation($section, $variables);
     }
 
     /**
-     * Return the fallback EnglishUK language file path for a given file name.
+     * Get a closure that can be used to get a pluralised term in the currently active language,
+     * or null if the active language does not support pluralisation.
      *
-     * @param string $file Name of file to get fallback for
-     * @return string Path of fallback file
+     * @return Closure(int, array<string>)|null Closure or null if not available.
      */
-    private function getFallbackFile(string $file): string {
-        return rtrim($this->_activeLanguageDirectory, $this->_activeLanguage) . DIRECTORY_SEPARATOR . 'EnglishUK' . DIRECTORY_SEPARATOR . $file . '.php';
+    public function getPluralForm(): ?Closure {
+        if ($this->_activeLanguage === 'ru_RU') {
+            return static function (int $count, array $forms) {
+                if ($count % 10 === 1 && $count % 100 !== 11) {
+                    return $forms[0];
+                }
+                if ($count % 10 >= 2 && $count % 10 <= 4 && ($count % 100 < 10 || $count % 100 >= 20)) {
+                    return $forms[1];
+                }
+                return $forms[2];
+            };
+        }
+
+        return null;
     }
 
     /**
      * Set a term in specific file.
      * Used for email message editing.
      *
-     * @param string $file Name of file without extension to edit.
+     * @param string $section Name of file without extension to edit.
      * @param string $term Term which value to change.
      * @param string $value New value to set for term.
      */
-    public function set(string $file, string $term, string $value): void {
-        $editing_file = ($this->_activeLanguageDirectory . DIRECTORY_SEPARATOR . $file . '.php');
-        if (is_file($editing_file) && is_writable($editing_file)) {
-            file_put_contents($editing_file, html_entity_decode(
-                str_replace(
-                    htmlspecialchars("'" . $term . "'" . ' => ' . "'" . $this->get($file, $term) . "'"),
-                    htmlspecialchars("'" . $term . "'" . ' => ' . "'" . $value . "'"),
-                    htmlspecialchars(file_get_contents($editing_file))
-                )
-            ));
-        }
+    public function set(string $section, string $term, string $value): void {
+        $editing_file = $this->_activeLanguageFile;
+        $json = json_decode(file_get_contents($editing_file), true);
+
+        $json[$section . '/' . $term] = $value;
+
+        ksort($json);
+        file_put_contents($editing_file, json_encode($json, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE));
     }
 }

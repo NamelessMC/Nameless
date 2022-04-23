@@ -55,7 +55,7 @@ if (!isset($_GET['s'])) {
     }
 
     if (isset($_SESSION['last_forum_search']) && $_SESSION['last_forum_search_query'] != $_GET['s'] && $_SESSION['last_forum_search'] > strtotime('-1 minute')) {
-        Session::flash('search_error', str_replace('{x}', (60 - (date('U') - $_SESSION['last_forum_search'])), $forum_language->get('forum', 'search_again_in_x_seconds')));
+        Session::flash('search_error', $forum_language->get('forum', 'search_again_in_x_seconds', ['count' => (60 - (date('U') - $_SESSION['last_forum_search']))]));
         Redirect::to(URL::build('/forum/search'));
     }
 
@@ -141,7 +141,7 @@ if (!isset($_GET['s'])) {
 if (!isset($_GET['s'])) {
     $page_title = $forum_language->get('forum', 'forum_search');
 } else {
-    $page_title = $forum_language->get('forum', 'forum_search') . ' - ' . Output::getClean(substr($search, 0, 20)) . ' - ' . str_replace('{x}', $p, $language->get('general', 'page_x'));
+    $page_title = $forum_language->get('forum', 'forum_search') . ' - ' . Output::getClean(substr($search, 0, 20)) . ' - ' . $language->get('general', 'page_x', ['page' => $p]);
 }
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
@@ -186,7 +186,7 @@ if (isset($_GET['s'])) {
                 'post_author_profile' => $post_user->getProfileURL(),
                 'post_author_style' => $post_user->getGroupStyle(),
                 'post_date_full' => date(DATE_FORMAT, strtotime($results->data[$n]['post_date'])),
-                'post_date_friendly' => $timeago->inWords($results->data[$n]['post_date'], $language->getTimeLanguage()),
+                'post_date_friendly' => $timeago->inWords($results->data[$n]['post_date'], $language),
                 'content' => $content,
                 'topic_title' => Output::getClean($results->data[$n]['topic_title']),
                 'post_url' => URL::build('/forum/topic/' . urlencode($results->data[$n]['topic_id']) . '-' . $forum->titleToURL($results->data[$n]['topic_title']), 'pid=' . $results->data[$n]['post_id'])
@@ -213,9 +213,6 @@ if (isset($_GET['s'])) {
 
     // Load modules + template
     Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
-
-    $page_load = microtime(true) - $start;
-    define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
     $template->onPageLoad();
 
@@ -245,9 +242,6 @@ if (isset($_GET['s'])) {
 
     // Load modules + template
     Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
-
-    $page_load = microtime(true) - $start;
-    define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
     $template->onPageLoad();
 

@@ -138,7 +138,7 @@ print('✍️  Creating tables...' . PHP_EOL);
 $queries = new Queries();
 $queries->dbInitialise('utf8mb4');
 
-Session::put('default_language', getEnvVar('NAMELESS_DEFAULT_LANGUAGE', 'EnglishUK'));
+Session::put('default_language', getEnvVar('NAMELESS_DEFAULT_LANGUAGE', 'en_UK'));
 
 $nameless_terms = 'This website uses "Nameless" website software. The ' .
     '"Nameless" software creators will not be held responsible for any content ' .
