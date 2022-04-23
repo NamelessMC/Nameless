@@ -170,7 +170,7 @@
     "admin\/email_errors": "Email Errors",
     "admin\/email_errors_logged": "Email errors have been logged",
     "admin\/email_errors_purged_successfully": "Email errors have been purged successfully.",
-    "admin\/email_language_info": "Not seeing your language? Make sure it's language file is writable by your webserver in \/custom\/languages\/.",
+    "admin\/email_language_info": "Not seeing your language? Make sure its language file is writable by your webserver in \/custom\/languages\/.",
     "admin\/email_logs": "Mass Emails",
     "admin\/email_message_greeting": "Greeting",
     "admin\/email_message_message": "Message",
