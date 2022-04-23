@@ -8,6 +8,11 @@ class Pre13 extends UpgradeScript {
             $db->createQuery('ALTER TABLE nl2_users MODIFY night_mode tinyint(1) DEFAULT NULL NULL');
         });
 
+        // Default log table user IP to null
+        $this->databaseQuery(function (DB $db) {
+            $db->createQuery('ALTER TABLE nl2_logs MODIFY ip varchar(128) DEFAULT NULL NULL');
+        });
+
         // Cookie policy
         $this->databaseQuery(function (DB $db) {
             if (!$db->selectQuery('SELECT `id` FROM nl2_privacy_terms WHERE `name` = ?', ['cookies'])->count()) {
