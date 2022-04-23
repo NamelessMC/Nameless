@@ -15,7 +15,7 @@ trait InteractsWithDatabase {
     private PDOStatement $_query;
     private bool $_error = false;
     private array $_results;
-    private string $_prefix = '';
+    private string $_prefix = 'nl2_';
     private int $_count = 0;
     protected QueryRecorder $_query_recorder;
 
