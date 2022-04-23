@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr13
  *
  *  License: MIT
  *
@@ -101,7 +101,10 @@ if (!$user->isLoggedIn()) {
 
 // Smarty variables
 if (isset($errors) && count($errors)) {
-    $smarty->assign('ERRORS', $errors);
+    $smarty->assign([
+        'ERRORS_TITLE' => $language->get('general', 'error'),
+        'ERRORS' => $errors
+    ]);
 }
 
 $smarty->assign([

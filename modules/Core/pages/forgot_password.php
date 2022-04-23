@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr13
  *
  *  License: MIT
  *
@@ -67,10 +67,16 @@ if (!isset($_GET['c'])) {
     }
 
     if (isset($error)) {
-        $smarty->assign('ERROR', $error);
+        $smarty->assign([
+            'ERROR_TITLE' => $language->get('general', 'error'),
+            'ERROR' => $error
+        ]);
     } else {
         if (isset($success)) {
-            $smarty->assign('SUCCESS', $success);
+            $smarty->assign([
+                'SUCCESS_TITLE' => $language->get('general', 'success'),
+                'SUCCESS' => $success
+            ]);
         }
     }
 
@@ -146,7 +152,10 @@ if (!isset($_GET['c'])) {
     }
 
     if (isset($errors) && count($errors)) {
-        $smarty->assign('ERROR', $errors);
+        $smarty->assign([
+            'ERROR_TITLE' => $language->get('general', 'error'),
+            'ERROR' => $errors
+        ]);
     }
 
     $smarty->assign([
