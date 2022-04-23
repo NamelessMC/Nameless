@@ -19,6 +19,6 @@ class CravatarAvatarSource extends AvatarSourceBase {
     }
 
     public function getUrlToFormat(string $perspective): string {
-        return $this->_base_url . $this->getRelativePerspective($perspective) . '/{x}/{y}.png';
+        return $this->_base_url . $this->getRelativePerspective($perspective) . '/{identifier}/{size}.png';
     }
 }

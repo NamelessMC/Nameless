@@ -53,7 +53,7 @@ class InfoEndpoint extends KeyAuthEndpoint {
         }
 
         // Return default language
-        $ret['language'] = LANGUAGE;
+        $ret['locale'] = LANGUAGE;
 
         $modules_query = $api->getDb()->get('modules', ['enabled', '=', 1]);
         $ret_modules = [];

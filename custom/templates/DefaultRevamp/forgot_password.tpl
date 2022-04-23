@@ -10,7 +10,7 @@
   <div class="ui error icon message">
     <i class="x icon"></i>
     <div class="content">
-      <div class="header">Error</div>
+      <div class="header">{$ERROR_TITLE}</div>
       {$ERROR}
     </div>
   </div>
@@ -18,7 +18,7 @@
   <div class="ui success icon message">
     <i class="check icon"></i>
     <div class="content">
-      <div class="header">Success</div>
+      <div class="header">{$SUCCESS_TITLE}</div>
       {$SUCCESS}
     </div>
   </div>

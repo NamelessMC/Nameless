@@ -181,11 +181,6 @@ class Util {
         return (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https');
     }
 
-    /*
-     *  The truncate function is taken from CakePHP, license MIT
-     *  https://github.com/cakephp/cakephp/blob/master/LICENSE
-     */
-
     /**
      * URL-ify a string
      *
@@ -464,5 +459,15 @@ class Util {
             'height' => 20,
             'style' => 'vertical-align: middle;'
         ]);
+    }
+
+    /**
+     * Wrap text in HTML `<strong>` tags.
+     *
+     * @param string $text Text to wrap
+     * @return string Text wrapped in `<strong>` tags
+     */
+    public static function bold(string $text): string {
+        return '<strong>' . $text . '</strong>';
     }
 }

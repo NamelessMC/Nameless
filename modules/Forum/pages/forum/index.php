@@ -74,21 +74,21 @@ if ($cache->isCached('forums')) {
                         $last_post_user = new User($forums[$key]['subforums'][$subforum_id]->last_post->post_creator);
 
                         $forums[$key]['subforums'][$subforum_id]->last_post->avatar = $last_post_user->getAvatar(64);
-                        $forums[$key]['subforums'][$subforum_id]->last_post->user_style = $last_post_user->getGroupClass();
+                        $forums[$key]['subforums'][$subforum_id]->last_post->user_style = $last_post_user->getGroupStyle();
                         $forums[$key]['subforums'][$subforum_id]->last_post->username = $last_post_user->getDisplayname();
                         $forums[$key]['subforums'][$subforum_id]->last_post->profile = $last_post_user->getProfileURL();
 
                         if (is_null($forums[$key]['subforums'][$subforum_id]->last_post->created)) {
-                            $forums[$key]['subforums'][$subforum_id]->last_post->date_friendly = $timeago->inWords($forums[$key]['subforums'][$subforum_id]->last_post->post_date, $language->getTimeLanguage());
+                            $forums[$key]['subforums'][$subforum_id]->last_post->date_friendly = $timeago->inWords($forums[$key]['subforums'][$subforum_id]->last_post->post_date, $language);
                             $forums[$key]['subforums'][$subforum_id]->last_post->post_date = date(DATE_FORMAT, strtotime($forums[$key]['subforums'][$subforum_id]->last_post->post_date));
                         } else {
-                            $forums[$key]['subforums'][$subforum_id]->last_post->date_friendly = $timeago->inWords(date('Y-m-d H:i:s', $forums[$key]['subforums'][$subforum_id]->last_post->created), $language->getTimeLanguage());
+                            $forums[$key]['subforums'][$subforum_id]->last_post->date_friendly = $timeago->inWords($forums[$key]['subforums'][$subforum_id]->last_post->created, $language);
                             $forums[$key]['subforums'][$subforum_id]->last_post->post_date = date(DATE_FORMAT, $forums[$key]['subforums'][$subforum_id]->last_post->created);
                         }
                     }
 
                     if ($forums[$key]['subforums'][$subforum_id]->redirect_forum == 1 && Util::isExternalURL($forums[$key]['subforums'][$subforum_id]->redirect_url)) {
-                        $forums[$key]['subforums'][$subforum_id]->redirect_confirm = str_replace('{x}', $forums[$key]['subforums'][$subforum_id]->redirect_to, $forum_language->get('forum', 'forum_redirect_warning'));
+                        $forums[$key]['subforums'][$subforum_id]->redirect_confirm = $forum_language->get('forum', 'forum_redirect_warning', ['url' => $forums[$key]['subforums'][$subforum_id]->redirect_to]);
                     }
                 }
             }
@@ -109,9 +109,6 @@ $smarty->assign('FORUM_INDEX_LINK', URL::build('/forum'));
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
-
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 

@@ -290,7 +290,10 @@ $smarty->assign([
     'SUBMIT' => $language->get('general', 'submit'),
     'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
     'CONFIRM_DELETE_ANNOUNCEMENT' => $language->get('admin', 'verify_delete_announcement'),
-    'ICON_INFO' => $language->get('admin', 'announcement_icon_instructions'),
+    'ICON_INFO' => $language->get('admin', 'announcement_icon_instructions', [
+        'faLink' => '<a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>',
+        'semLink' => '<a href="https://fomantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Fomantic UI</a>',
+    ]),
     'YES' => $language->get('general', 'yes'),
     'NO' => $language->get('general', 'no'),
     'ORDER' => $language->get('admin', 'announcement_order'),
@@ -311,9 +314,6 @@ $smarty->assign([
     'ANNOUNCEMENTS' => $language->get('admin', 'announcements'),
     'NO_ITEM_SELECTED' => $language->get('admin', 'no_item_selected'),
 ]);
-
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 

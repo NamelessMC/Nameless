@@ -47,7 +47,7 @@ if (!isset($_GET['metadata'])) {
                 $methods = $pages->getSitemapMethods();
                 foreach ($methods as $method) {
                     if (!class_exists($method[0])) {
-                        $errors[] = str_replace('{x}', Output::getClean($method[0]), $language->get('admin', 'unable_to_load_sitemap_file_x'));
+                        $errors[] = $language->get('admin', 'unable_to_load_sitemap_file_x', ['file' => Output::getClean($method[0])]);
                         continue;
                     }
 
@@ -79,13 +79,15 @@ if (!isset($_GET['metadata'])) {
             $cache->setCache('sitemap_cache');
             if ($cache->isCached('updated')) {
                 $updated = $cache->retrieve('updated');
-                $updated = $timeago->inWords($updated, $language->getTimeLanguage());
+                $updated = $timeago->inWords($updated, $language);
             } else {
                 $updated = $language->get('admin', 'unknown');
             }
 
             $smarty->assign([
-                'SITEMAP_LAST_GENERATED' => str_replace('{x}', $updated, $language->get('admin', 'sitemap_last_generated_x')),
+                'SITEMAP_LAST_GENERATED' => $language->get('admin', 'sitemap_last_generated_x', [
+                    'generatedAt' => Util::bold($updated)
+                ]),
                 'SITEMAP_LINK' => (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/cache/sitemaps/sitemap-index.xml',
                 'SITEMAP_FULL_LINK' => rtrim(Util::getSelfURL(), '/') . (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/cache/sitemaps/sitemap-index.xml',
                 'DOWNLOAD_SITEMAP' => $language->get('admin', 'download_sitemap'),
@@ -157,7 +159,9 @@ if (!isset($_GET['metadata'])) {
     $smarty->assign([
         'BACK' => $language->get('general', 'back'),
         'BACK_LINK' => URL::build('/panel/core/seo'),
-        'EDITING_PAGE' => str_replace('{x}', Output::getClean($page['key']), $language->get('admin', 'editing_page_x')),
+        'EDITING_PAGE' => $language->get('admin', 'editing_page_x', [
+            'page' => Util::bold(Output::getClean($page['key']))
+        ]),
         'DESCRIPTION' => $language->get('admin', 'description'),
         'DESCRIPTION_VALUE' => $description,
         'KEYWORDS' => $language->get('admin', 'keywords'),
@@ -199,9 +203,6 @@ $smarty->assign([
     'SITEMAP' => $language->get('admin', 'sitemap'),
     'PAGE_METADATA' => $language->get('admin', 'page_metadata'),
 ]);
-
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 

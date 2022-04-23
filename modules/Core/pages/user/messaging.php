@@ -84,8 +84,8 @@ if (!isset($_GET['action'])) {
             'last_message_user' => $target_user->getDisplayname(),
             'last_message_user_profile' => $target_user->getProfileURL(),
             'last_message_user_avatar' => $target_user->getAvatar(30),
-            'last_message_user_style' => $target_user->getGroupClass(),
-            'last_message_date' => $timeago->inWords(date('Y-m-d H:i:s', $nValue['updated']), $language->getTimeLanguage()),
+            'last_message_user_style' => $target_user->getGroupStyle(),
+            'last_message_date' => $timeago->inWords($nValue['updated'], $language),
             'last_message_date_full' => date(DATE_FORMAT, $nValue['updated'])
         ];
     }
@@ -118,9 +118,6 @@ if (!isset($_GET['action'])) {
     Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
     require(ROOT_PATH . '/core/templates/cc_navbar.php');
-
-    $page_load = microtime(true) - $start;
-    define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
     $template->onPageLoad();
 
@@ -341,9 +338,6 @@ if (!isset($_GET['action'])) {
 
         require(ROOT_PATH . '/core/templates/cc_navbar.php');
 
-        $page_load = microtime(true) - $start;
-        define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
-
         $template->onPageLoad();
 
         require(ROOT_PATH . '/core/templates/navbar.php');
@@ -471,9 +465,9 @@ if (!isset($_GET['action'])) {
                 'author_username' => $target_user->getDisplayname(),
                 'author_profile' => $target_user->getProfileURL(),
                 'author_avatar' => $target_user->getAvatar(100),
-                'author_style' => $target_user->getGroupClass(),
+                'author_style' => $target_user->getGroupStyle(),
                 'author_groups' => $target_user->getAllGroupHtml(),
-                'message_date' => $timeago->inWords(date('Y-m-d H:i:s', $nValue->created), $language->getTimeLanguage()),
+                'message_date' => $timeago->inWords($nValue->created, $language),
                 'message_date_full' => date(DATE_FORMAT, $nValue->created),
                 'content' => EventHandler::executeEvent('renderPrivateMessage', ['content' => $nValue->content])['content'],
             ];
@@ -525,9 +519,6 @@ if (!isset($_GET['action'])) {
         Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
         require(ROOT_PATH . '/core/templates/cc_navbar.php');
-
-        $page_load = microtime(true) - $start;
-        define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
         $template->onPageLoad();
 

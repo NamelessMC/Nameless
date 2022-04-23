@@ -117,7 +117,10 @@ if ($uuid_linking == '1') {
 
     $smarty->assign([
         'INFO' => $language->get('general', 'info'),
-        'MCASSOC_INFO' => $language->get('admin', 'mcassoc_help'),
+        'MCASSOC_INFO' => $language->get('admin', 'mcassoc_help', [
+            'linkStart' => '<a href="https://mcassoc.lukegb.com/" target="_blank">',
+            'linkEnd' => '</a>'
+        ]),
         'USE_MCASSOC' => $language->get('admin', 'verify_with_mcassoc'),
         'USE_MCASSOC_VALUE' => ($use_mcassoc == '1'),
         'MCASSOC_KEY' => $language->get('admin', 'mcassoc_key'),
@@ -141,9 +144,6 @@ $smarty->assign([
     'FORCE_PREMIUM_ACCOUNTS' => $language->get('admin', 'force_premium_accounts'),
     'FORCE_PREMIUM_ACCOUNTS_VALUE' => ($uuid_linking == '1')
 ]);
-
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 

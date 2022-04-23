@@ -35,7 +35,7 @@ foreach ($user->getPlaceholders() as $placeholder) {
         'name' => $placeholder->name,
         'friendly_name' => $placeholder->friendly_name,
         'value' => $placeholder->value,
-        'last_updated' => ucfirst($timeago->inWords(date('Y-m-d H:i:s', $placeholder->last_updated), $language->getTimeLanguage())),
+        'last_updated' => ucfirst($timeago->inWords($placeholder->last_updated, $language)),
         'show_on_profile' => $placeholder->show_on_profile,
         'show_on_forum' => $placeholder->show_on_forum
     ];
@@ -58,9 +58,6 @@ $smarty->assign([
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 require(ROOT_PATH . '/core/templates/cc_navbar.php');
-
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 

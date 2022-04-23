@@ -13,9 +13,9 @@
 class OnlineStaffWidget extends WidgetBase {
 
     private Cache $_cache;
-    private array $_language;
+    private Language $_language;
 
-    public function __construct(Smarty $smarty, array $language, Cache $cache) {
+    public function __construct(Smarty $smarty, Language $language, Cache $cache) {
         // Get widget
         $widget_query = self::getData('Online Staff');
 
@@ -51,7 +51,7 @@ class OnlineStaffWidget extends WidgetBase {
                 $staff_user = new User($staff->id);
                 $staff_members[] = [
                     'profile' => $staff_user->getProfileURL(),
-                    'style' => $staff_user->getGroupClass(),
+                    'style' => $staff_user->getGroupStyle(),
                     'username' => $staff_user->getDisplayname(true),
                     'nickname' => $staff_user->getDisplayname(),
                     'avatar' => $staff_user->getAvatar(),
@@ -63,16 +63,16 @@ class OnlineStaffWidget extends WidgetBase {
             }
 
             $this->_smarty->assign([
-                'ONLINE_STAFF' => $this->_language['title'],
+                'ONLINE_STAFF' => $this->_language->get('general', 'online_staff'),
                 'ONLINE_STAFF_LIST' => $staff_members,
-                'TOTAL_ONLINE_STAFF' => str_replace('{x}', count($staff_members), $this->_language['total_online_staff'])
+                'TOTAL_ONLINE_STAFF' => $this->_language->get('general', 'total_online_staff', ['count' => count($staff_members)]),
             ]);
 
         } else {
             $this->_smarty->assign([
-                'ONLINE_STAFF' => $this->_language['title'],
-                'NO_STAFF_ONLINE' => $this->_language['no_online_staff'],
-                'TOTAL_ONLINE_STAFF' => str_replace('{x}', '0', $this->_language['total_online_staff'])
+                'ONLINE_STAFF' => $this->_language->get('general', 'online_staff'),
+                'NO_STAFF_ONLINE' => $this->_language->get('general', 'no_online_staff'),
+                'TOTAL_ONLINE_STAFF' => $this->_language->get('general', 'total_online_staff', ['count' => 0]),
             ]);
         }
 

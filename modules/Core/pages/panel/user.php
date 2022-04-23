@@ -86,7 +86,7 @@ $smarty->assign([
     'AVATAR' => $view_user->getAvatar(256),
     'NICKNAME' => $view_user->getDisplayname(),
     'USERNAME' => $view_user->getDisplayname(true),
-    'USER_STYLE' => $view_user->getGroupClass(),
+    'USER_STYLE' => $view_user->getGroupStyle(),
     'USER_GROUP' => Output::getClean($view_user->getMainGroup()->name),
     'USER_GROUPS' => $view_user->getAllGroupHtml(),
     'USER_TITLE' => Output::getClean($user_query->user_title),
@@ -95,7 +95,7 @@ $smarty->assign([
     'REGISTERED' => $language->get('user', 'registered'),
     'REGISTERED_VALUE' => date('d M Y', $user_query->joined),
     'LAST_SEEN' => $language->get('user', 'last_seen'),
-    'LAST_SEEN_SHORT_VALUE' => $timeago->inWords(date('Y-m-d H:i:s', $user_query->last_online), $language->getTimeLanguage()),
+    'LAST_SEEN_SHORT_VALUE' => $timeago->inWords($user_query->last_online, $language),
     'LAST_SEEN_FULL_VALUE' => date(DATE_FORMAT, $user_query->last_online),
     'DETAILS' => $language->get('admin', 'details'),
     'LINKS' => Core_Module::getUserActions(),
@@ -106,9 +106,6 @@ $smarty->assign([
     'LANGUAGE_LABEL' => $language->get('user', 'active_language'),
     'TIMEZONE_LABEL' => $language->get('user', 'timezone')
 ]);
-
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 

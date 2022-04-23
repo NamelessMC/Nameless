@@ -29,7 +29,7 @@ if (loggedIn == 1) {
                 toastr.info(newAlert1);
 		    } else {
                 toastr.options.onclick = function () {redirect(URLBuild('user/alerts'))};
-                toastr.info(newAlertsX.replace("{x}", data.value));
+                toastr.info(newAlertsX.replace("{{count}}", data.value));
 			}
             if (Notification.permission !== "granted") {
         		Notification.requestPermission();
@@ -40,7 +40,7 @@ if (loggedIn == 1) {
         			);
         		} else {
         		    var notification = new Notification(
-        			    siteName, {body: newAlertsX.replace("{x}", data.value)}
+        			    siteName, {body: newAlertsX.replace("{{count}}", data.value)}
         			);
         		}
         		notification.onclick = function () {
@@ -73,7 +73,7 @@ if (loggedIn == 1) {
                 toastr.info(newMessage1);
 		    } else {
                 toastr.options.onclick = function () {redirect(URLBuild('user/messaging'))};
-                toastr.info(newMessagesX.replace("{x}", data.value));
+                toastr.info(newMessagesX.replace("{{count}}", data.value));
 			}
             if (Notification.permission !== "granted") {
         		Notification.requestPermission();
@@ -84,7 +84,7 @@ if (loggedIn == 1) {
         			);
         		} else {
         		    var notification = new Notification(
-        			    siteName, {body: newMessagesX.replace("{x}", data.value)}
+        			    siteName, {body: newMessagesX.replace("{{count}}", data.value)}
         			);
         		}
         		notification.onclick = function () {

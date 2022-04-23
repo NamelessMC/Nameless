@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (!$validation->passed()) {
 
-        $error = $language['configuration_error'];
+        $error = $language->get('installer', 'configuration_error');
 
     } else {
 
@@ -80,18 +80,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="ui segments">
         <div class="ui secondary segment">
             <h4 class="ui header">
-                <?php echo $language['configuration']; ?>
+                <?php echo $language->get('installer', 'configuration'); ?>
             </h4>
         </div>
         <div class="ui segment">
-            <p><?php echo $language['configuration_info']; ?></p>
+            <p><?php echo $language->get('installer', 'configuration_info'); ?></p>
             <div class="ui centered grid">
                 <div class="sixteen wide mobile twelve wide tablet ten wide computer column">
                     <div class="ui form">
-                        <?php create_field('text', $language['site_name'], 'sitename', 'inputSitename', getenv('NAMELESS_SITE_NAME') ?: ''); ?>
-                        <?php create_field('email', $language['contact_email'], 'incoming', 'contact_email', getenv('NAMELESS_SITE_CONTACT_EMAIL') ?: ''); ?>
-                        <?php create_field('email', $language['outgoing_email'], 'outgoing', 'outgoing_email', getenv('NAMELESS_SITE_OUTGOING_EMAIL') ?: ''); ?>
-                        <?php create_field('select', $language['language'], 'language', 'inputLanguage', $installer_language, $languages, true) ?>
+                        <?php create_field('text', $language->get('installer', 'site_name'), 'sitename', 'inputSitename', getenv('NAMELESS_SITE_NAME') ?: ''); ?>
+                        <?php create_field('email', $language->get('installer', 'contact_email'), 'incoming', 'contact_email', getenv('NAMELESS_SITE_CONTACT_EMAIL') ?: ''); ?>
+                        <?php create_field('email', $language->get('installer', 'outgoing_email'), 'outgoing', 'outgoing_email', getenv('NAMELESS_SITE_OUTGOING_EMAIL') ?: ''); ?>
+                        <?php create_field('select', $language->get('installer', 'language'), 'language', 'inputLanguage', $installer_language, $languages) ?>
                     </div>
                 </div>
             </div>
@@ -99,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </div>
 <div class="ui right aligned secondary segment">
     <button type="submit" class="ui small primary button">
-        <?php echo $language['proceed']; ?>
+        <?php echo $language->get('installer', 'proceed'); ?>
     </button>
 </div>
 </div>

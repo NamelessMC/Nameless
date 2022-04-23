@@ -57,9 +57,7 @@ abstract class UpgradeScript {
             return null;
         }
 
-        return (static function () use ($path) {
-            return require $path;
-        })();
+        return require $path;
     }
 
     /**

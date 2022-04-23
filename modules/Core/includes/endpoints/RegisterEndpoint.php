@@ -51,13 +51,13 @@ class RegisterEndpoint extends KeyAuthEndpoint {
                     // Ensure username doesn't already exist
                     $integrationUser = new IntegrationUser($integration, $item['username'], 'username');
                     if ($integrationUser->exists()) {
-                        $api->throwError(38, str_replace('{integration}', $integration->getName(), $api->getLanguage()->get('api', 'integration_username_already_linked')));
+                        $api->throwError(38, $api->getLanguage()->get('api', 'integration_username_already_linked', ['integration' => $integration->getName()]));
                     }
 
                     // Ensure identifier doesn't already exist
                     $integrationUser = new IntegrationUser($integration, $item['identifier'], 'identifier');
                     if ($integrationUser->exists()) {
-                        $api->throwError(39, str_replace('{integration}', $integration->getName(), $api->getLanguage()->get('api', 'integration_identifier_already_linked')));
+                        $api->throwError(39, $api->getLanguage()->get('api', 'integration_identifier_already_linked', ['integration' => $integration->getName()]));
                     }
                 }
             }
@@ -154,7 +154,7 @@ class RegisterEndpoint extends KeyAuthEndpoint {
                     if ($integration == null) {
                         continue;
                     }
-                    
+
                     // Validate username and make sure username is unique
                     if (!$integration->validateUsername($item['username'])) {
                         continue;
@@ -173,7 +173,10 @@ class RegisterEndpoint extends KeyAuthEndpoint {
             EventHandler::executeEvent('registerUser', [
                     'user_id' => $user_id,
                     'username' => $user->getDisplayname(),
-                    'content' => str_replace('{x}', $user->getDisplayname(), $api->getLanguage()->get('user', 'user_x_has_registered')),
+                    'content' => $api->getLanguage()->get('user', 'user_x_has_registered', [
+                        'user' => $user->getDisplayname(),
+                        'siteName' => SITE_NAME,
+                    ]),
                     'avatar_url' => $user->getAvatar(128, true),
                     'url' => Util::getSelfURL() . ltrim($user->getProfileURL(), '/'),
                     'language' => $api->getLanguage()

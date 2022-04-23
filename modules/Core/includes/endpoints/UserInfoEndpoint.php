@@ -19,7 +19,7 @@ class UserInfoEndpoint extends KeyAuthEndpoint {
     public function execute(Nameless2API $api, User $user): void {
         $discord_enabled = Util::isModuleEnabled('Discord Integration');
 
-        $query = 'SELECT nl2_users.id, nl2_users.username, nl2_users.language_id, nl2_languages.name as `language`, nl2_users.nickname as displayname, nl2_users.joined as registered_timestamp, nl2_users.last_online as last_online_timestamp, nl2_users.isbanned as banned, nl2_users.active as validated, nl2_users.user_title as user_title FROM nl2_users LEFT JOIN nl2_languages ON nl2_users.language_id = nl2_languages.id';
+        $query = 'SELECT nl2_users.id, nl2_users.username, nl2_languages.short_code as `locale`, nl2_users.nickname as displayname, nl2_users.joined as registered_timestamp, nl2_users.last_online as last_online_timestamp, nl2_users.isbanned as banned, nl2_users.active as validated, nl2_users.user_title as user_title FROM nl2_users LEFT JOIN nl2_languages ON nl2_users.language_id = nl2_languages.id';
 
         // Ensure the user exists
         $results = $api->getDb()->selectQuery($query . ' WHERE nl2_users.id = ?', [(int) $user->data()->id]);
@@ -27,7 +27,6 @@ class UserInfoEndpoint extends KeyAuthEndpoint {
         $return = $results->first();
         $return->exists = true;
         $return->id = (int)$return->id;
-        $return->language_id = (int)$return->language_id;
         $return->registered_timestamp = (int)$return->registered_timestamp;
         $return->last_online_timestamp = (int)$return->last_online_timestamp;
         $return->banned = (bool)$return->banned;

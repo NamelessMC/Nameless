@@ -86,8 +86,9 @@ if (Input::exists()) {
                 if (count($language_id)) {
                     $language_id = $language_id[0]->id;
                 } else {
+                    // fallback to EnglishUK
                     $language_id = 1;
-                } // fallback to EnglishUK
+                }
 
                 $ip = $user->getIP();
                 if (filter_var($ip, FILTER_VALIDATE_IP)) {
@@ -339,7 +340,10 @@ if (!isset($_GET['step'])) {
         'TOKEN' => Token::get(),
         'SUBMIT' => $language->get('general', 'submit'),
         'I_AGREE' => $language->get('user', 'i_agree'),
-        'AGREE_TO_TERMS' => str_replace('{x}', URL::build('/terms'), $language->get('user', 'agree_t_and_c'))
+        'AGREE_TO_TERMS' => $language->get('user', 'agree_t_and_c', [
+            'linkStart' => '<a href="' . URL::build('/terms') . '">',
+            'linkEnd' => '</a>',
+        ])
     ]);
 
     // Recaptcha
@@ -386,9 +390,6 @@ if (!isset($_GET['step'])) {
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
-
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 

@@ -1,9 +1,5 @@
 <?php
 
-function timeAgoInWords(string $timestring, string $timezone = null): string {
-    return (new TimeAgo($timezone))->inWords($timestring, 'now');
-}
-
 /**
  * This class can help you find out just how much time has passed between two dates.
  * It has two functions you can call:
@@ -37,13 +33,18 @@ class TimeAgo {
         $this->_timezone = $timezone;
     }
 
-    public function inWords(string $past, $time_language, $now = 'now'): string {
+    /**
+     * @param string|int $past Past time
+     * @param Language $language
+     * @return string Time ago string
+     */
+    public function inWords($past, Language $language): string {
         // sets the default timezone
         date_default_timezone_set($this->_timezone);
-        // finds the past in datetime
-        $past = strtotime($past);
-        // finds the current datetime
-        $now = strtotime($now);
+        if (!is_numeric($past)) {
+            $past = strtotime($past);
+        }
+        $now = time();
 
         // finds the time difference
         $timeDifference = $now - $past;
@@ -165,10 +166,13 @@ class TimeAgo {
             $key = 'over_x_years';
         }
 
-        if (is_array($time_language[$key])) {
-            if (function_exists('pluralForm')) {
+        $term = $language->get('time', $key);
+
+        if (count($exploded = explode('|', $term)) > 1) {
+            $pluralForm = $language->getPluralForm();
+            if ($pluralForm !== null) {
                 if (isset($replace)) {
-                    return str_replace('{x}', $replace, pluralForm($replace, $time_language[$key]));
+                    return str_replace('{{count}}', $replace, $pluralForm($replace, $exploded));
                 }
 
                 return 'Plural specified but replace not set for ' . Output::getClean($key);
@@ -177,10 +181,10 @@ class TimeAgo {
             }
         } else {
             if (isset($replace)) {
-                return str_replace('{x}', $replace, $time_language[$key]);
+                return $language->get('time', $key, ['count' => $replace]);
             }
 
-            return $time_language[$key];
+            return $term;
         }
     }
 

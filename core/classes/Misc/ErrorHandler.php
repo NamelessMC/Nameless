@@ -75,7 +75,7 @@ class ErrorHandler {
 
         // If this is an API request, print the error in plaintext and dont render the whole error trace page
         if (self::isApiRequest()) {
-            die($error_string . ' in ' . $error_file . ' on line ' . $error_line . PHP_EOL . $exception->getTraceAsString());
+            die($error_string . ' in ' . $error_file . ' on line ' . $error_line . (!is_null($exception) ? PHP_EOL . $exception->getTraceAsString() : ''));
         }
 
         $frames = [];
@@ -107,7 +107,7 @@ class ErrorHandler {
             $language = new Language('core', LANGUAGE);
         } else {
             // NamelessMC not installed yet
-            $language = new Language('core', 'EnglishUK');
+            $language = new Language('core', 'en_UK');
         }
 
         $user = new User();
@@ -142,7 +142,7 @@ class ErrorHandler {
             'ERROR_TYPE' => is_null($exception) ? $language->get('general', 'error') : (new ReflectionClass($exception))->getName(),
             'ERROR_STRING' => Output::getClean($error_string),
             'ERROR_FILE' => $error_file,
-            'CAN_GENERATE_DEBUG' => $user->hasPermission('admincp.core.debugging'),
+            'CAN_GENERATE_DEBUG' => defined('DEBUGGING') || $user->hasPermission('admincp.core.debugging'),
             'DEBUG_LINK' => $language->get('admin', 'debug_link'),
             'DEBUG_LINK_URL' => URL::build('/queries/debug_link'),
             'ERROR_SQL_STACK' => QueryRecorder::getInstance()->getSqlStack(),

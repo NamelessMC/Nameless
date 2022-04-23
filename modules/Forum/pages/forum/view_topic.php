@@ -160,7 +160,7 @@ if (count($page_metadata)) {
     }
 }
 
-$page_title = ((strlen(Output::getClean($topic->topic_title)) > 20) ? Output::getClean(mb_substr($topic->topic_title, 0, 20)) . '...' : Output::getClean($topic->topic_title)) . ' - ' . str_replace('{x}', $p, $language->get('general', 'page_x'));
+$page_title = ((strlen(Output::getClean($topic->topic_title)) > 20) ? Output::getClean(mb_substr($topic->topic_title, 0, 20)) . '...' : Output::getClean($topic->topic_title)) . ' - ' . $language->get('general', 'page_x', ['page' => $p]);
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 // Assign author + title to Smarty variables
@@ -174,10 +174,10 @@ $smarty->assign([
     'TOPIC_AUTHOR_USERNAME' => $topic_user->getDisplayname(),
     'TOPIC_AUTHOR_MCNAME' => $topic_user->getDisplayname(true),
     'TOPIC_AUTHOR_PROFILE' => $topic_user->getProfileURL(),
-    'TOPIC_AUTHOR_STYLE' => $topic_user->getGroupClass(),
+    'TOPIC_AUTHOR_STYLE' => $topic_user->getGroupStyle(),
     'TOPIC_ID' => $topic->id,
     'FORUM_ID' => $topic->forum_id,
-    'TOPIC_LAST_EDITED' => ($first_post->last_edited ? $timeago->inWords(date('Y-m-d H:i:s', $first_post->last_edited), $language->getTimeLanguage()) : null),
+    'TOPIC_LAST_EDITED' => ($first_post->last_edited ? $timeago->inWords($first_post->last_edited, $language) : null),
     'TOPIC_LAST_EDITED_FULL' => ($first_post->last_edited ? date(DATE_FORMAT, $first_post->last_edited) : null)
 ]);
 
@@ -303,8 +303,8 @@ if (Input::exists()) {
                             Alert::create(
                                 $user_following->user_id,
                                 'new_reply',
-                                ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'new_reply_in_topic', 'replace' => ['{x}', '{y}'], 'replace_with' => [Output::getClean($user->data()->nickname), Output::getClean($topic->topic_title)]],
-                                ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'new_reply_in_topic', 'replace' => ['{x}', '{y}'], 'replace_with' => [Output::getClean($user->data()->nickname), Output::getClean($topic->topic_title)]],
+                                ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'new_reply_in_topic', 'replace' => ['{{author}}', '{{topic}}'], 'replace_with' => [Output::getClean($user->data()->nickname), Output::getClean($topic->topic_title)]],
+                                ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'new_reply_in_topic', 'replace' => ['{{author}}', '{{topic}}'], 'replace_with' => [Output::getClean($user->data()->nickname), Output::getClean($topic->topic_title)]],
                                 URL::build('/forum/topic/' . urlencode($tid) . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id)
                             );
                             $queries->update('topics_following', $user_following->id, [
@@ -324,15 +324,15 @@ if (Input::exists()) {
                     ['[Sitename]', '[TopicReply]', '[Greeting]', '[Message]', '[Link]', '[Thanks]'],
                     [
                         SITE_NAME,
-                        str_replace(['{x}', '{y}'], [$user->data()->username, $topic->topic_title], $language->get('emails', 'forum_topic_reply_subject')),
+                        $language->get('emails', 'forum_topic_reply_subject', ['author' => $user->data()->username, 'topic' => $topic->topic_title]),
                         $language->get('emails', 'greeting'),
-                        str_replace(['{x}', '{z}'], [$user->data()->username, html_entity_decode($content)], $language->get('emails', 'forum_topic_reply_message')),
+                        $language->get('emails', 'forum_topic_reply_message', ['author' => $user->data()->username, 'content' => html_entity_decode($content)]),
                         rtrim(Util::getSelfURL(), '/') . URL::build('/forum/topic/' . urlencode($tid) . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id),
                         $language->get('emails', 'thanks')
                     ],
                     $html
                 );
-                $subject = SITE_NAME . ' - ' . str_replace(['{x}', '{y}'], [$user->data()->username, $topic->topic_title], $language->get('emails', 'forum_topic_reply_subject'));
+                $subject = SITE_NAME . ' - ' . $language->get('emails', 'forum_topic_reply_subject', ['author' => $user->data()->username, 'topic' => $topic->topic_title]);
                 $contactemail = $queries->getWhere('settings', ['name', '=', 'incoming_email']);
                 $contactemail = $contactemail[0]->value;
 
@@ -667,7 +667,7 @@ foreach ($results->data as $n => $nValue) {
                 $post_reactions[$item->reaction_id]['users'][] = [
                     'username' => $reaction_user->getDisplayname(true),
                     'nickname' => $reaction_user->getDisplayname(),
-                    'style' => $reaction_user->getGroupClass(),
+                    'style' => $reaction_user->getGroupStyle(),
                     'avatar' => $reaction_user->getAvatar(500),
                     'profile' => $reaction_user->getProfileURL()
                 ];
@@ -680,10 +680,10 @@ foreach ($results->data as $n => $nValue) {
 
     // Get post date
     if (is_null($nValue->created)) {
-        $post_date_rough = $timeago->inWords($nValue->post_date, $language->getTimeLanguage());
+        $post_date_rough = $timeago->inWords($nValue->post_date, $language);
         $post_date = date(DATE_FORMAT, strtotime($nValue->post_date));
     } else {
-        $post_date_rough = $timeago->inWords(date('Y-m-d H:i:s', $nValue->created), $language->getTimeLanguage());
+        $post_date_rough = $timeago->inWords($nValue->created, $language);
         $post_date = date(DATE_FORMAT, $nValue->created);
     }
 
@@ -696,16 +696,16 @@ foreach ($results->data as $n => $nValue) {
         'integrations' => $user_integrations,
         'username' => $post_creator->getDisplayname(),
         'mcname' => $post_creator->getDisplayname(true),
-        'last_seen' => str_replace('{x}', $timeago->inWords(date('Y-m-d H:i:s', $post_creator->data()->last_online), $language->getTimeLanguage()), $language->get('user', 'last_seen_x')),
+        'last_seen' => $language->get('user', 'last_seen_x', ['lastSeenAt' => $timeago->inWords($post_creator->data()->last_online, $language)]),
         'last_seen_full' => date('d M Y', $post_creator->data()->last_online),
         'online_now' => $post_creator->data()->last_online > strtotime('5 minutes ago'),
         'user_title' => Output::getClean($post_creator->data()->user_title),
         'profile' => $post_creator->getProfileURL(),
-        'user_style' => $post_creator->getGroupClass(),
+        'user_style' => $post_creator->getGroupStyle(),
         'user_groups' => $user_groups_html,
-        'user_posts_count' => str_replace('{x}', $forum->getPostCount($nValue->post_creator), $forum_language->get('forum', 'x_posts')),
-        'user_topics_count' => str_replace('{x}', $forum->getTopicCount($nValue->post_creator), $forum_language->get('forum', 'x_topics')),
-        'user_registered' => str_replace('{x}', $timeago->inWords(date('Y-m-d H:i:s', $post_creator->data()->joined), $language->getTimeLanguage()), $forum_language->get('forum', 'registered_x')),
+        'user_posts_count' => $forum_language->get('forum', 'x_posts', ['count' => $forum->getPostCount($nValue->post_creator)]),
+        'user_topics_count' => $forum_language->get('forum', 'x_topics', ['count' => $forum->getTopicCount($nValue->post_creator)]),
+        'user_registered' => $forum_language->get('forum', 'registered_x', ['registeredAt' => $timeago->inWords($post_creator->data()->joined, $language)]),
         'user_registered_full' => date('d M Y', $post_creator->data()->joined),
         'user_reputation' => $post_creator->data()->reputation,
         'post_date_rough' => $post_date_rough,
@@ -714,7 +714,9 @@ foreach ($results->data as $n => $nValue) {
         'content' => $content,
         'signature' => Output::getPurified(Util::renderEmojis($signature)),
         'fields' => (empty($fields) ? [] : $fields),
-        'edited' => (is_null($nValue->last_edited) ? null : str_replace('{x}', $timeago->inWords(date('Y-m-d H:i:s', $nValue->last_edited), $language->getTimeLanguage()), $forum_language->get('forum', 'last_edited'))),
+        'edited' => is_null($nValue->last_edited)
+            ? null
+            : $forum_language->get('forum', 'last_edited', ['lastEditedAt' => $timeago->inWords($nValue->last_edited, $language)]),
         'edited_full' => (is_null($nValue->last_edited) ? null : date(DATE_FORMAT, $nValue->last_edited)),
         'post_reactions' => $post_reactions,
         'karma' => $total_karma
@@ -794,7 +796,9 @@ $smarty->assign([
     'USER_ID' => (($user->isLoggedIn()) ? $user->data()->id : 0),
     'INSERT_QUOTES' => $forum_language->get('forum', 'insert_quotes'),
     'FORUM_TITLE' => Output::getClean($forum_parent[0]->forum_title),
-    'STARTED_BY' => $forum_language->get('forum', 'started_by_x'),
+    'STARTED_BY' => $forum_language->get('forum', 'started_by_x', [
+        'author' => '<a href="' . $topic_user->getProfileURL() . '" style="' . $topic_user->getGroupClass() . '">' . $topic_user->getDisplayname() . '</a>',
+    ]),
     'SUCCESS' => $language->get('general', 'success'),
     'ERROR' => $language->get('general', 'error')
 ]);
@@ -902,9 +906,6 @@ if ($user->isLoggedIn()) {
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
-
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 

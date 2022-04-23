@@ -116,7 +116,10 @@ class IntegrationUser {
             'integration' => $this->_integration->getName(),
             'user_id' => $user->data()->id,
             'username' => $user->getDisplayname(),
-            'content' => str_replace(['{user}', '{integration}'], [$user->getDisplayname(), $this->_integration->getName()], $this->_integration->getLanguage()->get('user', 'user_has_linked_integration')),
+            'content' => $this->_integration->getLanguage()->get('user', 'user_has_linked_integration', [
+                'user' => $user->getDisplayname(),
+                'integration' => $this->_integration->getName(),
+            ]),
             'avatar_url' => $user->getAvatar(128, true),
             'url' => Util::getSelfURL() . ltrim($user->getProfileURL(), '/'),
             'integration_user' => [
@@ -143,7 +146,10 @@ class IntegrationUser {
             'integration' => $this->_integration->getName(),
             'user_id' => $user->data()->id,
             'username' => $user->getDisplayname(),
-            'content' => str_replace(['{user}', '{integration}'], [$user->getDisplayname(), $this->_integration->getName()], $this->_integration->getLanguage()->get('user', 'user_has_verified_integration')),
+            'content' => $this->_integration->getLanguage()->get('user', 'user_has_verified_integration', [
+                'user' => $user->getDisplayname(),
+                'integration' => $this->_integration->getName(),
+            ]),
             'avatar_url' => $user->getAvatar(128, true),
             'url' => Util::getSelfURL() . ltrim($user->getProfileURL(), '/'),
             'integration_user' => [
@@ -170,7 +176,10 @@ class IntegrationUser {
             'integration' => $this->_integration->getName(),
             'user_id' => $user->data()->id,
             'username' => $user->getDisplayname(),
-            'content' => str_replace(['{user}', '{integration}'], [$user->getDisplayname(), $this->_integration->getName()], $this->_integration->getLanguage()->get('user', 'user_has_unlinked_integration')),
+            'content' => $this->_integration->getLanguage()->get('user', 'user_has_unlinked_integration', [
+                'user' => $user->getDisplayname(),
+                'integration' => $this->_integration->getName(),
+            ]),
             'avatar_url' => $user->getAvatar(128, true),
             'url' => Util::getSelfURL() . ltrim($user->getProfileURL(), '/'),
             'integration_user' => [

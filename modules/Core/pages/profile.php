@@ -35,7 +35,7 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 $template->addCSSFiles(
     [
         (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/image-picker/image-picker.css' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.css' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism_' . (DARK_MODE ? 'dark' : 'light_default') . '.css' => [],
         (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => []
     ]
 );
@@ -114,7 +114,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                                     'user_id' => $query->id,
                                     'author_id' => $user->data()->id,
                                     'time' => date('U'),
-                                    'content' => Output::getClean(Input::get('post'))
+                                    'content' => Input::get('post')
                                 ]
                             );
 
@@ -127,14 +127,14 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                                         'path' => 'core',
                                         'file' => 'user',
                                         'term' => 'new_wall_post',
-                                        'replace' => '{x}',
+                                        'replace' => '{{author}}',
                                         'replace_with' => $user->getDisplayname()
                                     ],
                                     [
                                         'path' => 'core',
                                         'file' => 'user',
                                         'term' => 'new_wall_post',
-                                        'replace' => '{x}',
+                                        'replace' => '{{author}}',
                                         'replace_with' => $user->getDisplayname()
                                     ],
                                     URL::build('/profile/' . urlencode($profile_user->getDisplayname(true)) . '/#post-' . urlencode($queries->getLastId()))
@@ -196,14 +196,14 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                                         'path' => 'core',
                                         'file' => 'user',
                                         'term' => 'new_wall_post',
-                                        'replace' => '{x}',
+                                        'replace' => '{{author}}',
                                         'replace_with' => $user->getDisplayname(),
                                     ],
                                     [
                                         'path' => 'core',
                                         'file' => 'user',
                                         'term' => 'new_wall_post',
-                                        'replace' => '{x}',
+                                        'replace' => '{{author}}',
                                         'replace_with' => $user->getDisplayname(),
                                     ],
                                     URL::build('/profile/' . urlencode($profile_user->getDisplayname(true)) . '/#post-' . urlencode($_POST['post']))
@@ -219,14 +219,14 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                                                 'path' => 'core',
                                                 'file' => 'user',
                                                 'term' => 'new_wall_post_reply_your_profile',
-                                                'replace' => '{x}',
+                                                'replace' => '{{author}}',
                                                 'replace_with' => $user->getDisplayname(),
                                             ],
                                             [
                                                 'path' => 'core',
                                                 'file' => 'user',
                                                 'term' => 'new_wall_post_reply_your_profile',
-                                                'replace' => '{x}',
+                                                'replace' => '{{author}}',
                                                 'replace_with' => $user->getDisplayname()
                                             ],
                                             URL::build('/profile/' . urlencode($profile_user->getDisplayname(true)) . '/#post-' . urlencode($_POST['post']))
@@ -237,16 +237,16 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                                             'profile_post_reply',
                                             [
                                                 'path' => 'core',
-                                                'file' => 'user', '
-                                                term' => 'new_wall_post_reply',
-                                                'replace' => ['{x}', '{y}'],
+                                                'file' => 'user',
+                                                'term' => 'new_wall_post_reply',
+                                                'replace' => ['{{author}}', '{{user}}'],
                                                 'replace_with' => [$user->getDisplayname(), $profile_user->getDisplayname()]
                                             ],
                                             [
                                                 'path' => 'core',
                                                 'file' => 'user',
                                                 'term' => 'new_wall_post_reply',
-                                                'replace' => ['{x}', '{y}'],
+                                                'replace' => ['{{author}}', '{{user}}'],
                                                 'replace_with' => [$user->getDisplayname(), $profile_user->getDisplayname()]
                                             ],
                                             URL::build('/profile/' . urlencode($profile_user->getDisplayname(true)) . '/#post-' . urlencode($_POST['post']))
@@ -308,7 +308,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                                     if (isset($_POST['content']) && strlen($_POST['content']) < 10000 && strlen($_POST['content']) >= 1) {
                                         try {
                                             $queries->update('user_profile_wall_posts', $_POST['post_id'], [
-                                                'content' => Output::getClean($_POST['content'])
+                                                'content' => $_POST['content']
                                             ]);
                                         } catch (Exception $e) {
                                             $error = $e->getMessage();
@@ -587,12 +587,12 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
         'NICKNAME' => $profile_user->getDisplayname(true),
         'USERNAME' => $profile_user->getDisplayname(),
         'GROUPS' => (isset($query) ? $profile_user->getAllGroupHtml() : [Output::getPurified($group)]),
-        'USERNAME_COLOUR' => $profile_user->getGroupClass(),
+        'USERNAME_COLOUR' => $profile_user->getGroupStyle(),
         'USER_TITLE' => Output::getClean($query->user_title),
         'FOLLOW' => $language->get('user', 'follow'),
         'AVATAR' => $profile_user->getAvatar(500),
         'BANNER' => ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/profile_images/' . (($query->banner) ? Output::getClean($query->banner) : 'profile.jpg'),
-        'POST_ON_WALL' => str_replace('{x}', Output::getClean($profile_user->getDisplayname()), $language->get('user', 'post_on_wall')),
+        'POST_ON_WALL' => $language->get('user', 'post_on_wall', ['user' => Output::getClean($profile_user->getDisplayname())]),
         'FEED' => $language->get('user', 'feed'),
         'ABOUT' => $language->get('user', 'about'),
         'REACTIONS_TITLE' => $language->get('user', 'likes'),
@@ -642,9 +642,9 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
             $reactions_query = $queries->getWhere('user_profile_wall_posts_reactions', ['post_id', '=', $nValue->id]);
             if (count($reactions_query)) {
                 if (count($reactions_query) == 1) {
-                    $reactions['count'] = $language->get('user', '1_like');
+                    $reactions['count'] = $language->get('user', '1_reaction');
                 } else {
-                    $reactions['count'] = str_replace('{x}', count($reactions_query), $language->get('user', 'x_likes'));
+                    $reactions['count'] = $language->get('user', 'x_reactions', ['count' => count($reactions_query)]);
                 }
 
                 foreach ($reactions_query as $reaction) {
@@ -663,7 +663,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                         'user_id' => Output::getClean($reaction->user_id),
                         'username' => $target_user->getDisplayname(true),
                         'nickname' => $target_user->getDisplayname(),
-                        'style' => $target_user->getGroupClass(),
+                        'style' => $target_user->getGroupStyle(),
                         'profile' => $target_user->getProfileURL(),
                         'avatar' => $target_user->getAvatar(500),
                         //'reaction_name' => $reaction_name,
@@ -671,7 +671,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                     ];
                 }
             } else {
-                $reactions['count'] = str_replace('{x}', 0, $language->get('user', 'x_likes'));
+                $reactions['count'] = $language->get('user', 'x_reactions', ['count' => 0]);
             }
             $reactions_query = null;
 
@@ -680,7 +680,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                 if (count($replies_query) == 1) {
                     $replies['count'] = $language->get('user', '1_reply');
                 } else {
-                    $replies['count'] = str_replace('{x}', count($replies_query), $language->get('user', 'x_replies'));
+                    $replies['count'] = $language->get('user', 'x_replies', ['count' => count($replies_query)]);
                 }
 
                 foreach ($replies_query as $reply) {
@@ -689,18 +689,18 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                         'user_id' => Output::getClean($reply->author_id),
                         'username' => $target_user->getDisplayname(true),
                         'nickname' => $target_user->getDisplayname(),
-                        'style' => $target_user->getGroupClass(),
+                        'style' => $target_user->getGroupStyle(),
                         'profile' => $target_user->getProfileURL(),
                         'avatar' => $target_user->getAvatar(500),
-                        'time_friendly' => $timeago->inWords(date('Y-m-d H:i:s', $reply->time), $language->getTimeLanguage()),
+                        'time_friendly' => $timeago->inWords($reply->time, $language),
                         'time_full' => date(DATE_FORMAT, $reply->time),
-                        'content' => Output::getPurified($reply->content),
+                        'content' => Output::getPurified(Output::getDecoded($reply->content)),
                         'self' => (($user->isLoggedIn() && $user->data()->id == $reply->author_id) ? 1 : 0),
                         'id' => $reply->id
                     ];
                 }
             } else {
-                $replies['count'] = str_replace('{x}', 0, $language->get('user', 'x_replies'));
+                $replies['count'] = $language->get('user', 'x_replies', ['count' => 0]);
             }
             $replies_query = null;
 
@@ -711,10 +711,10 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                 'username' => $target_user->getDisplayname(true),
                 'nickname' => $target_user->getDisplayname(),
                 'profile' => $target_user->getProfileURL(),
-                'user_style' => $target_user->getGroupClass(),
+                'user_style' => $target_user->getGroupStyle(),
                 'avatar' => $target_user->getAvatar(500),
-                'content' => Output::getPurified($nValue->content),
-                'date_rough' => $timeago->inWords(date('Y-m-d H:i:s', $nValue->time), $language->getTimeLanguage()),
+                'content' => Output::getPurified(Output::getDecoded($nValue->content)),
+                'date_rough' => $timeago->inWords($nValue->time, $language),
                 'date' => date(DATE_FORMAT, $nValue->time),
                 'reactions' => $reactions,
                 'replies' => $replies,
@@ -793,7 +793,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
             'title' => $profile_placeholder->friendly_name,
             'type' => 'text',
             'value' => $profile_placeholder->value,
-            'tooltip' => $language->get('admin', 'placeholders_last_updated') . ': ' . $timeago->inWords(date('Y-m-d H:i:s', $profile_placeholder->last_updated), $language->getTimeLanguage()),
+            'tooltip' => $language->get('admin', 'placeholders_last_updated_time', ['time' => $timeago->inWords($profile_placeholder->last_updated, $language)]),
         ];
     }
 
@@ -801,13 +801,13 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     $fields['registered'] = [
         'title' => $language->get('user', 'registered'),
         'type' => 'text',
-        'value' => $timeago->inWords(date('Y-m-d H:i:s', $query->joined), $language->getTimeLanguage()),
+        'value' => $timeago->inWords($query->joined, $language),
         'tooltip' => date(DATE_FORMAT, $query->joined)
     ];
     $fields['last_seen'] = [
         'title' => $language->get('user', 'last_seen'),
         'type' => 'text',
-        'value' => $timeago->inWords(date('Y-m-d H:i:s', $query->last_online), $language->getTimeLanguage()),
+        'value' => $timeago->inWords($query->last_online, $language),
         'tooltip' => date(DATE_FORMAT, $query->last_online)
     ];
 
@@ -850,9 +850,6 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     // Load modules + template
     Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-    $page_load = microtime(true) - $start;
-    define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
-
     $template->onPageLoad();
 
     $smarty->assign('WIDGETS_LEFT', $widgets->getWidgets('left'));
@@ -873,9 +870,6 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
         ]);
         // Load modules + template
         Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
-
-        $page_load = microtime(true) - $start;
-        define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
         $template->onPageLoad();
 
