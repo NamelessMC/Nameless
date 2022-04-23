@@ -1124,6 +1124,7 @@
     "user\/no_user_found_with_provider": "No user found with that {{provider}} account.",
     "user\/no_wall_posts": "There are no wall posts here yet.",
     "user\/not_connected": "Not Connected",
+    "user\/overview": "Overview",
     "user\/oauth_already_linked": "Another NamelessMC user is already linked to that {{provider}} account.",
     "user\/oauth_link_confirm": "You will be taken to the {{provider}} website to link your account.",
     "user\/oauth_link_success": "Successfully linked your account with {{provider}}!",
