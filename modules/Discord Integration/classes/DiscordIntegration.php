@@ -130,7 +130,19 @@ class DiscordIntegration extends IntegrationBase {
     }
 
     public function successfulRegistration(User $user) {
-        // Nothing to do here
+        // Link integration if user registered using discord oauth
+        if (Session::exists('oauth_register_data')) {
+            $data = json_decode(Session::get('oauth_register_data'), true);
+            if ($data['provider'] == 'discord' && isset($data['data']['username']) && isset($data['data']['discriminator'])) {
+
+                $username = $data['data']['username'] . '#' . $data['data']['discriminator'];
+                $discord_id = $data['data']['id'];
+                if ($this->validateIdentifier($discord_id) && $this->validateUsername($username)) {
+                    $integrationUser = new IntegrationUser($this);
+                    $integrationUser->linkIntegration($user, $discord_id, $username, true);
+                }
+            }
+        }
     }
 
     public function syncIntegrationUser(IntegrationUser $integration_user): bool {

@@ -29,6 +29,7 @@ if (Session::get('oauth_method') === 'register') {
         'provider' => $provider_name,
         'id' => $provider_id,
         'email' => $oauth_user['email'],
+        'data' => $oauth_user
     ]));
 
     Redirect::to(URL::build('/register'));
