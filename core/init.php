@@ -205,29 +205,28 @@ if ($page != 'install') {
     date_default_timezone_set(TIMEZONE);
 
     // Language
+    $cache->setCache('languagecache');
+    if ($cache->isCached('language')) {
+        $default_language = $cache->retrieve('language');
+    } else {
+        $default_language = $queries->getWhere('languages', ['is_default', '=', 1]);
+        if (count($language)) {
+            $default_language = $default_language[0]->short_code;
+            $cache->store('language', $default_language);
+        } else {
+            $default_language = 'en_UK';
+        }
+    }
+
     if (!$user->isLoggedIn() || !($user->data()->language_id)) {
         // Default language for guests
-        $cache->setCache('languagecache');
-        $language = $cache->retrieve('language');
-
-        if (!$language) {
-            define('LANGUAGE', 'en_UK');
-        } else {
-            define('LANGUAGE', $language);
-        }
+        define('LANGUAGE', $default_language);
     } else {
         // User selected language
         $language = $queries->getWhere('languages', ['id', '=', $user->data()->language_id]);
         if (!count($language)) {
             // Get default language
-            $cache->setCache('languagecache');
-            $language = $cache->retrieve('language');
-
-            if (!$language) {
-                define('LANGUAGE', 'en_UK');
-            } else {
-                define('LANGUAGE', $language);
-            }
+            define('LANGUAGE', $language);
         } else {
             define('LANGUAGE', $language[0]->short_code);
         }
