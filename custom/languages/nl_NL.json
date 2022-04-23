@@ -1145,5 +1145,19 @@
     "user/x_reactions": "{{count}} reacties",
     "user/x_replies": "{{count}} antwoorden",
     "user/you_have_been_banned": "Je bent verbannen!",
-    "user/you_have_received_a_warning": "Je hebt een waarschuwing gekregen!"
+    "user/you_have_received_a_warning": "Je hebt een waarschuwing gekregen!",
+    "admin/api_endpoints_info": "API eindpunten staan Modules toe dat externe applicaties (zoals Minecraft en Discord) te kunnen communiceren met je NamelessMC website. {{docLinkStart}}Bekijk de API documentatie hier{{docLinkEnd}}",
+    "admin/debug_link": "Debug link",
+    "admin/debug_link_toastr": "Debug link succesvol gekopieerd naar uw klembord!<br>Bekijk de debug log: {{linkStart}}hier{{linkEnd}}",
+    "admin/email_language_info": "Zie je je taal niet? Zorg ervoor dat de taalbestanden schrijfbaar zijn door je webserver in /custom/languages/.",
+    "admin/at_least_one_external": "Vul alstublieft minstens 1 externe groep in (Minecraft of Discord)",
+    "admin/ban_hook_info": "Gebruiker verbannen",
+    "admin/bedrock": "Bedrock?",
+    "admin/bedrock_help": "Selecteer deze optie als de server een Bedrock server is.",
+    "admin/can_unlink": "Kan ontkoppelen",
+    "admin/can_unlink_integration": "Kunnen gebruikers integraties ontkoppelen?",
+    "admin/editing_integration_for_x": "{{integration}} integratie aan het wijzigen voor {{user}}",
+    "admin/editing_integration_x": "{{integration}} integratie aan het wijzigen",
+    "admin/email_resend_failed": "Email opnieuw verzenden is mislukt, check alstublieft je email instellingen.",
+    "admin/email_resent_successfully": "Email succesvol opnieuw verzonden."
 }
