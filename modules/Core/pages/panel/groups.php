@@ -505,7 +505,6 @@ if (isset($_GET['action'])) {
             die('Complete');
         default:
             Redirect::to(URL::build('/panel/core/groups'));
-            break;
     }
 } else {
     $groups_template = [];
