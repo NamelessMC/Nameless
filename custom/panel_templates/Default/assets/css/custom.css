@@ -351,6 +351,12 @@ body {
     .sidebar {
         width: 17rem !important;
     }
+    
+    .sidebar.toggled {
+        width: 7rem !important;
+        overflow-y: scroll;
+        scrollbar-width: thin;
+    }
 
     #content-wrapper {
         margin-left: 17rem !important;
