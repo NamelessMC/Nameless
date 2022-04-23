@@ -475,27 +475,55 @@ if (isset($_GET['do'])) {
         ];
     }
 
-    foreach ($_POST['profile_fields'] as $field_id => $value) {
-        // Check field exists
-        $field = ProfileField::find($field_id);
-        if (!$field) {
+    // Get custom fields
+    $custom_fields_template = [];
+    if ($user->hasPermission('usercp.nickname')) {
+        $custom_fields_template['nickname'] = [
+            'name' => $language->get('user', 'nickname'),
+            'value' => Output::getClean($user->data()->nickname),
+            'id' => 'nickname',
+            'type' => 'text'
+        ];
+    } else {
+        $custom_fields_template['nickname'] = [
+            'nickname' => [
+                'disabled' => true
+            ]
+        ];
+    }
+
+    foreach ($user->getProfileFields(true) as $id => $field) {
+        // Skip this field if it's not editable, and it is already set.
+        // This fixes when a field is made after someone registers,
+        // the next time they edit their profile, they will have to set it.
+        if (!$field->editable && $field->value != null) {
             continue;
         }
 
-        $user_profile_fields = $user->getProfileFields(true);
-        if (array_key_exists($field->id, $user_profile_fields) && $user_profile_fields[$field->id]->value !== null) {
-            // Update field value
-            $queries->update('users_profile_fields', $user_profile_fields[$field->id]->upf_id, [
-                'value' => $value
-            ]);
-        } else {
-            // Create new field value
-            $queries->create('users_profile_fields', [
-                'user_id' => $user->data()->id,
-                'field_id' => $field->id,
-                'value' => $value
-            ]);
+        // Get custom field type
+        switch ($field->type) {
+            case Fields::DATE:
+                $type = 'date';
+                break;
+
+            case Fields::TEXTAREA:
+                $type = 'textarea';
+                break;
+
+            case Fields::TEXT:
+            default:
+                $type = 'text';
+                break;
         }
+
+        $custom_fields_template[$field->name] = [
+            'name' => Output::getClean($field->name),
+            'value' => $field->value,
+            'id' => $field->id,
+            'type' => $type,
+            'required' => $field->required,
+            'description' => $field->description ?: $field->name
+        ];
     }
 
     if (Session::exists('tfa_success')) {
