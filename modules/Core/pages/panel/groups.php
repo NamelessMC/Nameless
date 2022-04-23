@@ -338,8 +338,6 @@ if (isset($_GET['action'])) {
                             try {
                                 if (isset($_POST['default']) && $_POST['default'] == 1) {
                                     $default = 1;
-                                    $cache->setCache('default_group');
-                                    $cache->store('default_group', $_GET['group']);
                                 } else {
                                     $default = 0;
                                 }

@@ -19,13 +19,13 @@ class CloneGroupForumHook {
 
             $inserts = [];
             foreach ($permissions as $permission) {
-                $inserts[] = '('.$new_group_id.',' . $permission->forum_id . ',' . $permission->view . ',' . $permission->create_topic . ',' . $permission->edit_topic . ',' . $permission->create_post . ',' . $permission->view_other_topics . ',' . $permission->moderate . '),';
+                $inserts[] = '('.$new_group_id.',' . $permission->forum_id . ',' . $permission->view . ',' . $permission->create_topic . ',' . $permission->edit_topic . ',' . $permission->create_post . ',' . $permission->view_other_topics . ',' . $permission->moderate . ')';
             }
 
             $query = 'INSERT INTO nl2_forums_permissions (group_id, forum_id, view, create_topic, edit_topic, create_post, view_other_topics, moderate) VALUES ';
-            $query .= implode('', $inserts);
+            $query .= implode(',', $inserts);
 
-            DB::getInstance()->createQuery(rtrim($query, ','));
+            DB::getInstance()->createQuery($query);
         }
     }
 }

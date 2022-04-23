@@ -19,13 +19,13 @@ class CloneGroupHook {
 
             $inserts = [];
             foreach ($permissions as $permission) {
-                $inserts[] = '('.$permission->page_id.',' . $new_group_id . ',' . $permission->view . '),';
+                $inserts[] = '('.$permission->page_id.',' . $new_group_id . ',' . $permission->view . ')';
             }
 
             $query = 'INSERT INTO nl2_custom_pages_permissions (page_id, group_id, view) VALUES ';
-            $query .= implode('', $inserts);
+            $query .= implode(',', $inserts);
 
-            DB::getInstance()->createQuery(rtrim($query, ','));
+            DB::getInstance()->createQuery($query);
         }
     }
 }
