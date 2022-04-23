@@ -210,7 +210,7 @@ if ($page != 'install') {
         $default_language = $cache->retrieve('language');
     } else {
         $default_language = $queries->getWhere('languages', ['is_default', '=', 1]);
-        if (count($language)) {
+        if (count($default_language)) {
             $default_language = $default_language[0]->short_code;
             $cache->store('language', $default_language);
         } else {

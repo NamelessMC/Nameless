@@ -101,7 +101,7 @@ class Language {
             'htmlCode' => 'es',
         ],
         'sv_SE' => [
-            'name' => 'Swedish',
+            'name' => 'Swedish SE',
             'htmlCode' => 'sv',
         ],
         'th_TH' => [
@@ -159,17 +159,9 @@ class Language {
 
         // Require file
         if ($module == null || $module === 'core') {
-            $path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'languages', $this->_activeLanguage . '.json']);
+            $path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'languages', '__lng__.json']);
         } else {
-            $path = str_replace('/', DIRECTORY_SEPARATOR, $module) . DIRECTORY_SEPARATOR . $this->_activeLanguage . '.json';
-
-            if (!file_exists($path)) {
-                $path = str_replace('/', DIRECTORY_SEPARATOR, $module) . DIRECTORY_SEPARATOR . 'en_UK.json';
-            }
-        }
-
-        if (!file_exists($path)) {
-            throw new RuntimeException('Language file ' . $path . ' does not exist');
+            $path = str_replace('/', DIRECTORY_SEPARATOR, $module) . DIRECTORY_SEPARATOR . '__lng__.json';
         }
 
         $this->_activeLanguageFile = $path;
