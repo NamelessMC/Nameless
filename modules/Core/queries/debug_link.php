@@ -141,7 +141,7 @@ foreach (Group::all() as $group) {
 
 $namelessmc_version = trim(Util::getSetting(DB::getInstance(), 'nameless_version'));
 
-$uuid = $this->_db->selectQuery('SELECT identifier FROM nl2_users_integrations INNER JOIN nl2_integrations on integration_id=nl2_integrations.id WHERE name = \'Minecraft\' AND user_id = ?;', [$user->data()->id]);
+$uuid = DB::getInstance()->selectQuery('SELECT identifier FROM nl2_users_integrations INNER JOIN nl2_integrations on integration_id=nl2_integrations.id WHERE name = \'Minecraft\' AND user_id = ?;', [$user->data()->id]);
 if ($uuid->count()) {
     $uuid = $uuid->first()->identifier;
 } else {
