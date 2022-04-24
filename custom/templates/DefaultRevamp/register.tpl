@@ -88,7 +88,7 @@
           <input type="submit" class="ui primary button" value="{$REGISTER}" tabindex="8">
         </form>
         {if $OAUTH_AVAILABLE and !$OAUTH_FLOW}
-          <div class="ui horizontal divider">OR</div>
+          <div class="ui horizontal divider">{$OR}</div>
           <div class="ui equal width grid">
             {foreach $OAUTH_PROVIDERS as $name => $meta}
               <div class="column">

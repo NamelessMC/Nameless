@@ -476,6 +476,7 @@ $smarty->assign([
     'CREATE_AN_ACCOUNT' => $language->get('user', 'create_an_account'),
     'ALREADY_REGISTERED' => $language->get('general', 'already_registered'),
     'ERROR_TITLE' => $language->get('general', 'error'),
+    'OR' => $language->get('general', 'or'),
     'OAUTH_FLOW' => $oauth_flow,
     'OAUTH_AVAILABLE' => OAuth::getInstance()->isAvailable(),
     'OAUTH_PROVIDERS' => OAuth::getInstance()->getProvidersAvailable(),

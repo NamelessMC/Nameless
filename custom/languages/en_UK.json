@@ -791,6 +791,7 @@
     "general\/online_users": "Online Users",
     "general\/origin_api": "API",
     "general\/origin_website": "Website",
+    "general\/or": "OR",
     "general\/page_loaded_in": "Page loaded in {{time}}s",
     "general\/page_x": "Page {{page}}",
     "general\/player_count": "{{onlinePlayers}}\/{{totalPlayers}}",
