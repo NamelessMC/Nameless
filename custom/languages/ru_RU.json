@@ -20,7 +20,7 @@
     "admin/api": "API",
     "admin/api_endpoints": "API комманды",
     "admin/api_endpoints_info": "Эти команды позволяют модулям создавать пути для взаимодействия(Например сайта с игрой) с вашим сайтом. {{docLinkStart}}Check out the API documentation here{{docLinkEnd}}",
-    "admin/api_info": "API позволяет плагинам и другим сервисам взаимодействовать с вашим сайтом. Например, это необходимо для {{pluginLinkStart}}Nameless плагина{{pluginLinkEnd}}.",
+    "admin/api_info": "API позволяет плагинам и другим сервисам взаимодействовать с вашим сайтом. Например, это необходимо для {{pluginLinkStart}}официального Nameless плагина{{pluginLinkEnd}} и {{botLinkStart}}официального NamelessMC Discord Бота{{botLinkEnd}}.",
     "admin/api_key": "API ключ",
     "admin/api_key_regenerated": "Ключ API был успешно перегенерирован.",
     "admin/api_registration_email": "Электронная регистрации API",
