@@ -1130,5 +1130,18 @@
     "user/x_reactions": "{{count}} reacciones",
     "user/x_replies": "{{count}} respuestas",
     "user/you_have_been_banned": "¡Has sido expulsado!",
-    "user/you_have_received_a_warning": "¡Has recibido una advertencia!"
+    "user/you_have_received_a_warning": "¡Has recibido una advertencia!",
+    "admin/cloning_group": "Grupo de clonación {{group}}",
+    "admin/debug_link": "Enlace de depuración",
+    "admin/debug_link_toastr": "¡Enlace de depuración copiado al portapapeles!<br>Ver el registro de depuración: {{linkStart}}aquí{{linkEnd}}",
+    "admin/editing_integration_for_x": "Edición de la integración {{integration}} para {{user}}",
+    "admin/editing_integration_x": "Edición de la integración {{integration}}",
+    "admin/group_cloned_successfully": "Grupo clonado correctamente.",
+    "admin/integration": "Integración",
+    "admin/integration_identifier": "{{integration}} Identificador",
+    "admin/announcement_hook_info": "Creación de anuncios",
+    "admin/can_unlink": "Puede desvincularse",
+    "admin/can_unlink_integration": "¿Pueden los usuarios desvincularse de la integración?",
+    "admin/email_language_info": "¿No ve su idioma? Asegúrese de que su archivo de idioma es escribible por su servidor web en /custom/languages/.",
+    "admin/identifier": "Identificador"
 }
