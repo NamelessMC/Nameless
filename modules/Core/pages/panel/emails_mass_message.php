@@ -41,15 +41,14 @@ if (Input::exists()) {
 
             $users = $queries->getWhere('users', ['id', '<>', 0]);
 
-            $contactemail = $queries->getWhere('settings', ['name', '=', 'incoming_email']);
-            $contactemail = $contactemail[0]->value;
+            $reply_to = Email::getReplyTo($queries);
 
             foreach ($users as $email_user) {
                 $sent = Email::send(
                     ['email' => Output::getClean($email_user->email), 'name' => Output::getClean($email_user->username)],
                     Output::getClean(Input::get('subject')),
                     str_replace(['{username}', '{sitename}'], [$email_user->username, SITE_NAME], Input::get('content')),
-                    ['email' => $contactemail, 'name' => Output::getClean(SITE_NAME)]
+                    $reply_to
                 );
 
                 if (isset($sent['error'])) {
