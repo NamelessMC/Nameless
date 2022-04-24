@@ -100,7 +100,6 @@ if (!isset($_GET['action'])) {
             'MESSAGE_TITLE' => $language->get('user', 'message_title'),
             'PARTICIPANTS' => $language->get('user', 'participants'),
             'LAST_MESSAGE' => $language->get('user', 'last_message'),
-            'BY' => $language->get('user', 'by')
         ]
     );
 
