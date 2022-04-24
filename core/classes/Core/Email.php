@@ -54,7 +54,7 @@ class Email {
      * @return array Array with reply-to email address and name
      */
     public static function getReplyTo(?Queries $queries): array {
-        if ($queries == null){
+        if ($queries == null) {
             $queries = new Queries();
         }
         $contactemail = $queries->getWhere('settings', ['name', '=', 'incoming_email']);
