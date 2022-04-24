@@ -26,7 +26,6 @@
     "discord_integration\/discord_integration_not_setup": "Discord integration is not set up",
     "discord_integration\/discord_invalid_id": "That Discord User ID is invalid.",
     "discord_integration\/discord_invite_info": "To invite the Nameless Link bot to your Discord server, click {{inviteLinkStart}}here{{inviteLinkEnd}}. Then, run the {{command}} command to link the bot with your website. Alternatively, you can {{selfHostLinkStart}}host the bot yourself{{selfHostLinkEnd}}.",
-    "discord_integration\/discord_link": "Discord Link",
     "discord_integration\/discord_role_id": "Discord Role ID",
     "discord_integration\/discord_role_id_length": "Discord Role ID must be 18 digits long.",
     "discord_integration\/discord_role_id_numeric": "Discord Role ID must be numeric.",
