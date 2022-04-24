@@ -168,8 +168,12 @@ if (isset($_GET['do'])) {
                 }
 
                 // Get a list of required profile fields
-                $profile_fields = ProfileField::all();
+                $profile_fields = $user->getProfileFields(true);
                 foreach ($profile_fields as $field) {
+                    if (!$field->editable && $field->value != null) {
+                        continue;
+                    }
+
                     if ($field->required) {
                         $to_validate["profile_fields[{$field->id}]"] = [
                             'required' => true,
