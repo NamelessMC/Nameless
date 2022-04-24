@@ -22,7 +22,6 @@
     "discord_integration/discord_integration_disabled": "Integrace Discordu je zakázána.",
     "discord_integration/discord_integration_not_setup": "Integrace Discordu nenastavena",
     "discord_integration/discord_invalid_id": "Toto uživatelské Discord ID je neplatné.",
-    "discord_integration/discord_link": "Propojení s Discordem",
     "discord_integration/discord_role_id": "ID Discord role",
     "discord_integration/discord_role_id_length": "ID Discord role musí být dlouhé 18 znaků.",
     "discord_integration/discord_role_id_numeric": "ID Discord role může obsahovat pouze čísla.",

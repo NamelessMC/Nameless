@@ -23,7 +23,6 @@
     "discord_integration/discord_integration_disabled": "Discord-integrering er deaktivert.",
     "discord_integration/discord_integration_not_setup": "Discord-integrering er ikke satt opp",
     "discord_integration/discord_invalid_id": "Den oppgitte Discord-bruker-ID-en er ikke gyldig.",
-    "discord_integration/discord_link": "Discord-lenke",
     "discord_integration/discord_role_id": "Discord rolle-ID",
     "discord_integration/discord_role_id_length": "Discord rolle-ID må inneholde 18 tegn.",
     "discord_integration/discord_role_id_numeric": "Discord rolle-ID må være numerisk",

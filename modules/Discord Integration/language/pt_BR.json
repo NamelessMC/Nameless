@@ -26,7 +26,6 @@
     "discord_integration/discord_integration_not_setup": "A integração do Discord não está configurada.",
     "discord_integration/discord_invalid_id": "Esse ID de usuário do Discord é inválido.",
     "discord_integration/discord_invite_info": "Para convidar o bot Nameless Link para seu servidor Discord, clique {{inviteLinkStart}}aqui{{inviteLinkEnd}}. Então, envie uma mensagem privada para o bot com o comando <code>/apiurl</code> para vincular o bot ao seu site. Alternativamente, você pode {{selfHostLinkStart}}hospedar o bot você mesmo{{selfHostLinkEnd}}.",
-    "discord_integration/discord_link": "Discord Link",
     "discord_integration/discord_role_id": "ID do Cargo do Discord",
     "discord_integration/discord_role_id_length": "O ID do cargo do Discord deve ter 18 dígitos.",
     "discord_integration/discord_role_id_numeric": "O ID do cargo do Discord deve ser numérico.",

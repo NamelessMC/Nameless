@@ -14,7 +14,6 @@
     "discord_integration/discord_id_unlinked": "Scollegato con successo il tuo ID utente Discord.",
     "discord_integration/discord_integration_disabled": "L'integrazione di Discord è disabilitata.",
     "discord_integration/discord_invalid_id": "Quell'ID utente Discord non è valido.",
-    "discord_integration/discord_link": "Collegamento Discord",
     "discord_integration/discord_role_id": "ID ruolo Discord",
     "discord_integration/discord_role_id_length": "L'ID del ruolo Discord deve contenere 18 cifre.",
     "discord_integration/discord_role_id_numeric": "L'ID ruolo Discord deve essere numerico.",
