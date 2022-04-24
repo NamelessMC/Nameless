@@ -15,7 +15,7 @@
     "discord_integration/discord_communication_error": "Se ha producido un error al comunicarse con el Bot de Discord. Por favor, asegúrate de que el bot se está ejecutando y de que la URL de tu bot es correcta.",
     "discord_integration/discord_database_error": "La base de datos de Nameless Link no funciona actualmente. Por favor, inténtelo más tarde.",
     "discord_integration/discord_guild_id": "ID del servidor de Discord",
-    "discord_integration/discord_id_help": "Para obtener información sobre dónde encontrar ID de Discordia, por favor lea {{linkStart}}esto.{{linkEnd}}",
+    "discord_integration/discord_id_help": "Para obtener información sobre dónde encontrar IDs de Discord, por favor lea {{linkStart}}esto.{{linkEnd}}",
     "discord_integration/discord_id_length": "Por favor, asegúrate de que la ID de Discord tiene 18 caracteres.",
     "discord_integration/discord_id_numeric": "Por favor, asegúrese de que su ID de Discord es numérica (sólo números).",
     "discord_integration/discord_id_set": "ID de Discord establecida con éxito",
@@ -42,5 +42,10 @@
     "discord_integration/unable_to_set_discord_id": "No se puede establecer la ID de Discord.",
     "discord_integration/unable_to_update_discord_bot_username": "No se puede actualizar el nombre de usuario del bot de Discord.",
     "discord_integration/unable_to_update_discord_roles": "No se puede actualizar la lista de roles de Discord.",
-    "discord_integration/unable_to_update_discord_username": "No se puede actualizar el nombre de usuario de Discord."
+    "discord_integration/unable_to_update_discord_username": "No se puede actualizar el nombre de usuario de Discord.",
+    "discord_integration/discord_id_confirm": "Por favor, ejecuta el comando \"/verify {{token}}\" en Discord para terminar de vincular tu cuenta de Discord.",
+    "discord_integration/get_link_code": "Obtener código de enlace",
+    "discord_integration/discord_invite_info": "Para invitar al bot Nameless Link a tu servidor de Discord, haz clic en {{inviteLinkStart}}aquí{{inviteLinkEnd}}. A continuación, ejecuta el comando {{command}} para enlazar el bot con tu sitio web. También puedes {{selfHostLinkStart}}alojar el bot tú mismo{{selfHostLinkEnd}}.",
+    "discord_integration/discord_user_id": "ID de usuario de Discord",
+    "discord_integration/discord_widget_disabled": "El widget está desactivado para el servidor de Discord especificado. Ve a la pestaña \"Widget\" en la configuración de tu servidor de Discord y asegúrate de que el widget de Discord está activado y de que el ID es correcto."
 }
