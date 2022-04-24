@@ -949,7 +949,6 @@
     "time/about_1_year": "hace aproximadamente 1 año",
     "time/less_than_a_minute": "hace menos de un minuto",
     "time/over_x_years": "hace más de {{count}} años",
-    "time/time": "hora",
     "user/1_new_alert": "Tienes un nuevo aviso",
     "user/1_new_message": "Tienes {{count}} nuevos mensajes",
     "user/1_reaction": "{{count}} reacciones",

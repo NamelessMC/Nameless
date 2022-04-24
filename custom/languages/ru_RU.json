@@ -966,7 +966,6 @@
     "time/about_1_year": "около года назад",
     "time/less_than_a_minute": "меньше минуты назад",
     "time/over_x_years": "более {{count}} года назад|более {{count}} лет назад|более {{count}} лет назад",
-    "time/time": "время",
     "user/1_new_alert": "У вас 1 новое уведомление",
     "user/1_new_message": "У вас {{count}} новых сообщений",
     "user/1_reaction": "{{count}} реакций",
