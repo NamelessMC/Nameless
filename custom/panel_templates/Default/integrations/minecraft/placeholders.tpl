@@ -52,6 +52,17 @@
 
                             {if count($ALL_PLACEHOLDERS)}
                             <form action="" method="POST">
+                                <div class="form-group custom-control custom-switch">
+                                    <input name="placeholders_enabled"
+                                           id="InputEnablePlaceholders"
+                                           type="checkbox"
+                                           class="custom-control-input js-check-change"
+                                           {if $ENABLE_PLACEHOLDERS_VALUE eq 1} checked{/if}>
+                                    <label class="custom-control-label" for="InputEnablePlaceholders">
+                                        {$ENABLE_PLACEHOLDERS}
+                                    </label>
+                                </div>
+
                                 <input type="hidden" name="token" value="{$TOKEN}">
                                 <div class="table-responsive">
                                     <table class="table table-borderless table-striped">
