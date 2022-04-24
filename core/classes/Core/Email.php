@@ -39,11 +39,8 @@ class Email {
             'to' => $recipient,
             'subject' => $subject,
             'message' => $message,
+            'replyto' => $reply_to,
         ];
-
-        if ($reply_to !== null) {
-            $email['replyto'] = $reply_to;
-        }
 
         if (Util::getSetting(DB::getInstance(), 'phpmailer') == '1') {
             return self::sendMailer($email);

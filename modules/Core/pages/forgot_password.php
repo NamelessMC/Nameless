@@ -35,13 +35,11 @@ if (!isset($_GET['c'])) {
                     // Send an email
                     $link = rtrim(Util::getSelfURL(), '/') . URL::build('/forgot_password/', 'c=' . urlencode($code));
 
-                    $reply_to = Email::getReplyTo();
-
                     $sent = Email::send(
                         ['email' => Output::getClean($target_user->data()->email), 'name' => $target_user->getDisplayname()],
                         SITE_NAME . ' - ' . $language->get('emails', 'change_password_subject'),
                         str_replace('[Link]', $link, Email::formatEmail('change_password', $language)),
-                        $reply_to = Email::getReplyTo($queries)
+                        Email::getReplyTo($queries)
                     );
 
                     if (isset($sent['error'])) {
