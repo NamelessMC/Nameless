@@ -1174,5 +1174,20 @@
     "admin/integration_sync_not_supported": "Синхронизация недоступна для данного сервиса!",
     "admin/integration_updated_successfully": "Настройки интеграции обновлены.",
     "admin/is_verified": "Верифицирован?",
-    "admin/verified": "Верифицирован"
+    "admin/verified": "Верифицирован",
+    "admin/editing_integration_for_x": "Изменение {{integration}} интеграции для {{user}}",
+    "admin/editing_integration_x": "Изменение интеграции {{integration}}",
+    "admin/can_unlink": "Может Разъединить",
+    "admin/not_linked": "Не привязан",
+    "admin/can_unlink_integration": "Могут пользователи разъединить интеграцию?",
+    "admin/cloning_group": "Клонирование группы {{group}}",
+    "admin/integration_identifier": "{{integration}} Идентификатор",
+    "admin/integration_identifier_invalid": "{{integration}} идентификатор неправильный.",
+    "admin/integration_username": "{{integration}} Никнейм",
+    "admin/integration_username_invalid": "{{integration}} никнейм неправильный.",
+    "admin/integration_username_required": "{{integration}} никнейм обязательный.",
+    "admin/link_account_success": "{{user}} успешно привязал их {{integration}} аккаунт.",
+    "admin/linking_integration_for_x": "Привязка {{integration}} интеграции для {{user}}",
+    "admin/integration_identifier_required": "{{integration}} идентификатор обязательный.",
+    "admin/manual_linking": "Ручная Привязка"
 }
