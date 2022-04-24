@@ -53,7 +53,7 @@ class Email {
      * Get reply to array for send()
      * @return array Array with reply-to email address and name
      */
-    public static function getReplyTo(?Queries $queries): array {
+    public static function getReplyTo(): array {
         $contactemail = Util::getSetting(DB::getInstance(), 'incoming_email');
         return ['email' => $contactemail, 'name' => Output::getClean(SITE_NAME)];
     }

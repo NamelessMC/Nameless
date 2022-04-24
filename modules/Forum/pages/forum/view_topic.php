@@ -334,7 +334,7 @@ if (Input::exists()) {
                 );
                 $subject = SITE_NAME . ' - ' . $language->get('emails', 'forum_topic_reply_subject', ['author' => $user->data()->username, 'topic' => $topic->topic_title]);
 
-                $reply_to = Email::getReplyTo($queries);
+                $reply_to = Email::getReplyTo();
                 foreach ($users_following_info as $user_info) {
                     $sent = Email::send(
                         ['email' => Output::getClean($user_info['email']), 'name' => Output::getClean($user_info['username'])],

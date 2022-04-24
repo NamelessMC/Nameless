@@ -50,7 +50,7 @@ if (isset($_GET['action'])) {
                 ['email' => Output::getClean($user->data()->email), 'name' => Output::getClean($user->data()->nickname)],
                 SITE_NAME . ' - Test Email',
                 SITE_NAME . ' - Test email successful!',
-                Email::getReplyTo($queries)
+                Email::getReplyTo()
             );
 
             if (isset($sent['error'])) {

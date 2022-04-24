@@ -208,7 +208,7 @@ class RegisterEndpoint extends KeyAuthEndpoint {
             ['email' => Output::getClean($email), 'name' => Output::getClean($username)],
             SITE_NAME . ' - ' . $api->getLanguage()->get('emails', 'register_subject'),
             str_replace('[Link]', $link, Email::formatEmail('register', $api->getLanguage())),
-            Email::getReplyTo(null)
+            Email::getReplyTo()
         );
 
         if (isset($sent['error'])) {

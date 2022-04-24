@@ -16,7 +16,7 @@ function sendRegisterEmail(Queries $queries, Language $language, string $email_a
         ['email' => Output::getClean($email_address), 'name' => Output::getClean($username)],
         SITE_NAME . ' - ' . $language->get('emails', 'register_subject'),
         str_replace('[Link]', $link, Email::formatEmail('register', $language)),
-        Email::getReplyTo($queries)
+        Email::getReplyTo()
     );
 
     if (isset($sent['error'])) {
