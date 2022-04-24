@@ -115,7 +115,7 @@
     "admin/date": "日付",
     "admin/deactivate": "非アクティブ",
     "admin/debug_link": "デバッグリンク",
-    "admin/debug_link_toastr": "デバッグリンクをクリップボードに貼り付けました！<br>デバッグログは {{linkStart}}こちら{{linkEnd}} からご覧ください。",
+    "admin/debug_link_toast": "デバッグリンクをクリップボードに貼り付けました！<br>デバッグログは {{linkStart}}こちら{{linkEnd}} からご覧ください。",
     "admin/debugging_and_maintenance": "メンテナンス",
     "admin/debugging_settings_updated_successfully": "デバッグ設定の更新に成功しました。",
     "admin/default": "デフォルト",

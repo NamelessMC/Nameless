@@ -167,7 +167,7 @@ $smarty->assign([
     'MAINTENANCE_MODE_MESSAGE_VALUE' => Output::getPurified($maintenance['message']),
     'DEBUG_LINK' => $language->get('admin', 'debug_link'),
     'DEBUG_LINK_URL' => URL::build('/queries/debug_link'),
-    'TOASTR_COPIED' => $language->get('admin', 'debug_link_toastr', [
+    'TOAST_COPIED' => $language->get('admin', 'debug_link_toast', [
         'linkStart' => '<u><a href="{url}" target="_blank">',
         'linkEnd' => '</a></u>',
     ]),

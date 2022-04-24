@@ -114,7 +114,7 @@
     "admin\/date": "Dátum",
     "admin\/deactivate": "Deaktivovať",
     "admin\/debug_link": "Odkaz ladenia",
-    "admin\/debug_link_toastr": "Odkaz ladenia bol skopírovaný do vašej schránky!<br>Zobraziť zaznám ladenia {{linkStart}}tu{{linkEnd}}",
+    "admin\/debug_link_toast": "Odkaz ladenia bol skopírovaný do vašej schránky!<br>Zobraziť zaznám ladenia {{linkStart}}tu{{linkEnd}}",
     "admin\/debugging_and_maintenance": "Ladenie a údržba",
     "admin\/debugging_settings_updated_successfully": "Nastavenia ladenia sa úspešne aktualizovali.",
     "admin\/default": "Predvolené",

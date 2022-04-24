@@ -115,7 +115,7 @@
     "admin/date": "Дата",
     "admin/deactivate": "Отключить",
     "admin/debug_link": "Ссылка на отладочную страницу",
-    "admin/debug_link_toastr": "Отладочная страница скопирована в буфер обмена!<br>Открыть журнал можете {{linkStart}}здесь{{linkEnd}}",
+    "admin/debug_link_toast": "Отладочная страница скопирована в буфер обмена!<br>Открыть журнал можете {{linkStart}}здесь{{linkEnd}}",
     "admin/debugging_and_maintenance": "Отладка & Режим обслуживания",
     "admin/debugging_settings_updated_successfully": "Параметры отладки успешно обновлены.",
     "admin/default": "По умолчанию",

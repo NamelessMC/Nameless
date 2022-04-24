@@ -115,7 +115,7 @@
     "admin/date": "Date",
     "admin/deactivate": "Deactivate",
     "admin/debug_link": "Debug Link",
-    "admin/debug_link_toastr": "Copied debug link to your clipboard!<br>View the debug log {{linkStart}}here{{linkEnd}}",
+    "admin/debug_link_toast": "Copied debug link to your clipboard!<br>View the debug log {{linkStart}}here{{linkEnd}}",
     "admin/debugging_and_maintenance": "Debugging & Maintenance",
     "admin/debugging_settings_updated_successfully": "Debugging settings updated successfully.",
     "admin/default": "Default",
