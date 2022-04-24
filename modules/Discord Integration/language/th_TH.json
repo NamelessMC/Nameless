@@ -26,7 +26,6 @@
     "discord_integration/discord_integration_not_setup": "ไม่ได้ตั้งค่าการรวม Discord",
     "discord_integration/discord_invalid_id": "ID ผู้ใช้ Discord นั้นไม่ถูกต้อง",
     "discord_integration/discord_invite_info": "เมื่อต้องการเชิญบอทลิงก์นิรนามไปยังเซิร์ฟเวอร์ Discord ของคุณ ให้คลิก {{inviteLinkStart}}here{{inviteLinkEnd}}. จากนั้นรันคำสั่ง <code>/apiurl</code> เพื่อเชื่อมโยงบอทกับเว็บไซต์ของคุณ หรือคุณสามารถใช้ {{selfHostLinkStart}}host the bot yourself{{selfHostLinkEnd}}.",
-    "discord_integration/discord_link": "ลิงค์ Discord",
     "discord_integration/discord_role_id": "Discord Role ID",
     "discord_integration/discord_role_id_length": "Discord Role ID ต้องมีความยาว 18 หลัก",
     "discord_integration/discord_role_id_numeric": "Discord Role ID ต้องเป็นตัวเลข",
