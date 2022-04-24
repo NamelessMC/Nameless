@@ -961,7 +961,6 @@
     "user/authme_username_exists": "您的 AuthMe 帐户已连接到网站!",
     "user/avatar": "头像",
     "user/block_user": "屏蔽该用户",
-    "user/by": "发送者",
     "user/cant_send_to_self": "您可不能自言自语!",
     "user/change_banner": "更改背景",
     "user/change_email_address": "更改电子邮箱地址",

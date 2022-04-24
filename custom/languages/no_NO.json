@@ -913,7 +913,6 @@
     "user/authme_help": "Vennligst skriv inn ditt ingame AuthMe-brukers påloggingsinformasjon. Hvis du ikke har en bruker ingame, logg inn på serveren og følg instruksjonene.",
     "user/authme_username_exists": "Din AuthMe-bruker har allerede blitt koblet til denne nettsiden!",
     "user/block_user": "Blokker bruker",
-    "user/by": "av",
     "user/cant_send_to_self": "Du kan ikke sende melding til deg selv!",
     "user/change_banner": "Endre banner",
     "user/change_email_address": "Endre e-postadresse",

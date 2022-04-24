@@ -987,7 +987,6 @@
     "user/authme_username_exists": "指定されたAuthMeアカウントはすでにウェブサイトに接続されています。",
     "user/avatar": "アバター",
     "user/block_user": "ユーザをブロック",
-    "user/by": "作成者",
     "user/cant_send_to_self": "自身にメッセージを送ることはできません。",
     "user/change_banner": "バナーを変更",
     "user/change_email_address": "メールアドレス変更",

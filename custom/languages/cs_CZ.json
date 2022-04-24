@@ -966,7 +966,6 @@
     "user/authme_help": "Zadejte prosím údaje vašeho herního AuthMe účtu. Pokud ještě nemáte ve hře účet, připojte se na server a následujte pokyny ve hře.",
     "user/authme_username_exists": "Váš AuthMe účet již je propojen s webem!",
     "user/block_user": "Zablokovat uživatele",
-    "user/by": "od uživatele",
     "user/cant_send_to_self": "Nemůžete poslat zprávu sami sobě!",
     "user/change_banner": "Změnit obrázek",
     "user/change_email_address": "Změnit e-mailovou adresu",

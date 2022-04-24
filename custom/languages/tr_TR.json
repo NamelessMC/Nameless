@@ -826,7 +826,6 @@
     "user/authme_username_exists": "Authme hesabınız zaten web sitesine bağlandı!",
     "user/avatar": "Resim",
     "user/block_user": "Kullanıcıyı engelle",
-    "user/by": "tarafından",
     "user/cant_send_to_self": "Kendinize mesaj gönderemezsiniz!",
     "user/change_banner": "Banner(afiş) değiştir",
     "user/change_email_address": "E-posta adresini değiştir",

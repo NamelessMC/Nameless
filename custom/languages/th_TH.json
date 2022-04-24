@@ -933,7 +933,6 @@
     "user/authme_username_exists": "บัญชี Authme ของคุณเชื่อมต่อกับเว็บไซต์แล้ว!",
     "user/avatar": "อวตาร",
     "user/block_user": "บล็อกผู้ใช้",
-    "user/by": "โดย",
     "user/cant_send_to_self": "ส่งข้อความหาตัวเองไม่ได้!",
     "user/change_banner": "เปลี่ยน Banner",
     "user/change_email_address": "เปลี่ยนที่อยู่อีเมลล์",
