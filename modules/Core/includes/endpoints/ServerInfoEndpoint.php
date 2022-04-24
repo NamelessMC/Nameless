@@ -73,7 +73,10 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
                     if (count($log)) {
                         $group_sync_log[] = $log;
                     }
-                    $this->updatePlaceholders($integrationUser->getUser(), $player);
+
+                    if (isset($player['placeholders']) && count($player['placeholders'])) {
+                        $this->updatePlaceholders($integrationUser->getUser(), $player);
+                    }
                 }
             }
         } catch (Exception $e) {
