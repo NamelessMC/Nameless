@@ -105,6 +105,8 @@ if (Input::exists()) {
                 }
 
                 $mcname = Output::getClean($_SESSION['authme']['user']);
+                
+                // Add username back to post for integration handling
                 $_POST['username'] = $_SESSION['authme']['user'];
 
                 $integration = Integrations::getInstance()->getIntegration('Minecraft');
@@ -114,7 +116,7 @@ if (Input::exists()) {
                     $errors = $integration->getErrors();
                 }
 
-                if (count($errors)) {
+                if (!count($errors)) {
                     try {
                         // Get default group ID
                         $cache->setCache('default_group');
@@ -140,7 +142,8 @@ if (Input::exists()) {
                             'email' => Output::getClean(Input::get('email')),
                             'lastip' => $ip,
                             'active' => 1,
-                            'last_online' => date('U')
+                            'last_online' => date('U'),
+                            'language_id' => $language_id
                         ]);
 
                         // Get user ID
