@@ -102,10 +102,10 @@ if (isset($_GET['action'])) {
 
                                 $cache->setCache('default_group');
                                 $cache->store('default_group', $group_id);
-
-                                $cache->setCache('groups_tfa_' . $group_id);
-                                $cache->store('enabled', Input::get('tfa'));
                             }
+
+                            $cache->setCache('groups_tfa_' . $group_id);
+                            $cache->store('enabled', Input::get('tfa'));
 
                             Session::flash('admin_groups', $language->get('admin', 'group_created_successfully'));
                             Redirect::to(URL::build('/panel/core/groups'));
@@ -507,9 +507,6 @@ if (isset($_GET['action'])) {
 } else {
     $groups_template = [];
     foreach (Group::all() as $group) {
-        $users = $queries->getWhere('users_groups', ['group_id', '=', $group->id]);
-        $users = count($users);
-
         $groups_template[] = [
             'id' => Output::getClean($group->id),
             'order' => $group->order,
