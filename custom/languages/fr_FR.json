@@ -871,7 +871,6 @@
     "user/authme_username_exists": "Votre compte Authme a déjà été connecté au site!",
     "user/avatar": "Avatar",
     "user/block_user": "Bloquer l'utilisateur",
-    "user/by": "par",
     "user/cant_send_to_self": "Vous ne pouvez pas vous envoyer un message à vous-même !",
     "user/change_banner": "Changer la bannière",
     "user/change_email_address": "Changer l'adresse mail",

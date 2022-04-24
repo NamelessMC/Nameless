@@ -986,7 +986,6 @@
     "user/authme_username_exists": "Ваша учетная запись AuthMe уже подключена к веб-сайту!",
     "user/avatar": "Аватар",
     "user/block_user": "Заблокировать пользователя",
-    "user/by": "",
     "user/cant_send_to_self": "Вы не можете отправить сообщение самому себе!",
     "user/change_banner": "Изменить баннер",
     "user/change_email_address": "Изменить адрес электронной почты",
