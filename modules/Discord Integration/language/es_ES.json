@@ -1,7 +1,7 @@
 {
     "discord_integration/discord": "Discord",
     "discord_integration/discord_already_pending": "Ya tienes una verificación pendiente.",
-    "discord_integration/discord_bot_check_logs": "Debería comprobar si hay un error más específico (si existe) en \"Seguridad -> Todos los registros\"",
+    "discord_integration/discord_bot_check_logs": "Debería comprobar si hay un error más específico (si existe) en \"Seguridad -> Todos los registros\".",
     "discord_integration/discord_bot_error_badparameter": "Cuerpo de la solicitud no válido.",
     "discord_integration/discord_bot_error_error": "Se ha producido un error interno del bot.",
     "discord_integration/discord_bot_error_invguild": "Siempre que la ID del servidor no sea válida, o el bot no esté en él.",
