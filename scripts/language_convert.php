@@ -41,6 +41,10 @@ if (isset($argv[3], $argv[4]) && $argv[3] == '--out') {
 print PHP_EOL;
 
 $files = scandir($in);
+$parts = explode('/', $in);
+$output_file_name = $parts[count($parts) - 1];
+$data = [];
+
 foreach ($files as $file) {
     if (substr($file, -4) !== '.php') {
         continue;
@@ -52,18 +56,17 @@ foreach ($files as $file) {
     }
 
     require_once($filePath);
-    $data = [];
     $file_name = explode('.', $file)[0];
     foreach ($language as $term => $value) {
         $data[$file_name . '/' . $term] = $value;
     }
-
-    ksort($data);
-    $json = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-    file_put_contents($out . '/' . $file_name . '.json', $json);
-
-    print '☑️  Converted: ' . $filePath . ' to ' . $out . '/' . $file_name . '.json'  . PHP_EOL;
 }
+
+ksort($data);
+$json = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+file_put_contents($out . '/' . $output_file_name . '.json', $json);
+
+print '☑️  Converted files in: ' . $in . ' to ' . $out . '/' . $output_file_name . '.json'  . PHP_EOL;
 
 print PHP_EOL;
 
