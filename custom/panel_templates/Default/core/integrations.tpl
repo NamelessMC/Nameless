@@ -36,7 +36,7 @@
                     <div class="card-body">
                         <!-- Success and Error Alerts -->
                         {include file='includes/alerts.tpl'}
-                        
+
                         <div class="table-responsive">
                             <table class="table table-borderless table-striped">
                                 <thead>
@@ -46,7 +46,7 @@
                                         <th>{$CAN_UNLINK}</th>
                                         <th>{$REQUIRED}</th>
                                         <th></th>
-                                        
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -54,7 +54,7 @@
                                     <tr>
                                         <td>
                                             {if $integration.icon}
-                                                <i class="{$integration.icon} fa-2x align-middle">&nbsp;</i>
+                                                <i class="{$integration.icon} fa-lg align-middle">&nbsp;</i>
                                             {/if}
                                             {$integration.name}
                                         </td>

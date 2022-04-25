@@ -173,19 +173,23 @@ class MCQuery {
     private static function formatPlayerList(array $player_list): array {
         $formatted = [];
 
+        $integration = Integrations::getInstance()->getIntegration('Minecraft');
         foreach ($player_list as $player) {
             $player = (array)$player;
-            $user = new User($player['id'], 'uuid');
-            if (!$user->exists()) {
-                $user = new User($player['name'], 'username');
-            }
 
-            if (!$user->exists()) {
+            $integration_user = new IntegrationUser($integration, str_replace('-', '', $player['id']), 'identifier');
+            if ($integration_user->exists()) {
+                $user = $integration_user->getUser();
+                if ($user->exists()) {
+                    $avatar = $user->getAvatar();
+                    $profile = $user->getProfileURL();
+                } else {
+                    $avatar = AvatarSource::getAvatarFromUUID($player['id']);
+                    $profile = '#';
+                }
+            } else {
                 $avatar = AvatarSource::getAvatarFromUUID($player['id']);
                 $profile = '#';
-            } else {
-                $avatar = $user->getAvatar();
-                $profile = $user->getProfileURL();
             }
 
             $formatted[] = [

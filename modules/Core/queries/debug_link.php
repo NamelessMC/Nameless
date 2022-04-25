@@ -122,7 +122,6 @@ foreach (DB::getInstance()->selectQuery('SELECT `id`, `forum_title`, `hooks` FRO
     ];
 }
 
-
 $groups = [];
 foreach (Group::all() as $group) {
     $groups[(int)$group->id] = [
@@ -139,9 +138,21 @@ foreach (Group::all() as $group) {
     ];
 }
 
+$integrations = [];
+foreach (Integrations::getInstance()->getAll() as $integration) {
+    $integrations[$integration->getName()] = [
+        'id' => (int) $integration->data()->id,
+        'name' => $integration->data()->name,
+        'enabled' => (bool) $integration->data()->enabled,
+        'can_unlink' => (bool) $integration->data()->can_unlink,
+        'required' => (bool) $integration->data()->required,
+        'order' => (int) $integration->data()->order
+    ];
+}
+
 $namelessmc_version = trim(Util::getSetting(DB::getInstance(), 'nameless_version'));
 
-$uuid = $this->_db->selectQuery('SELECT identifier FROM nl2_users_integrations INNER JOIN nl2_integrations on integration_id=nl2_integrations.id WHERE name = \'Minecraft\' AND user_id = ?;', [$user->data()->id]);
+$uuid = DB::getInstance()->selectQuery('SELECT identifier FROM nl2_users_integrations INNER JOIN nl2_integrations on integration_id=nl2_integrations.id WHERE name = \'Minecraft\' AND user_id = ?;', [$user->data()->id]);
 if ($uuid->count()) {
     $uuid = $uuid->first()->identifier;
 } else {
@@ -187,6 +198,7 @@ $data = [
             'front_end' => $namelessmc_fe_templates,
             'panel' => $namelessmc_panel_templates,
         ],
+        'integrations' => $integrations,
     ],
     'environment' => [
         'php_version' => PHP_VERSION,

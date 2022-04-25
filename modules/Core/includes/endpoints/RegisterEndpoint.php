@@ -48,7 +48,7 @@ class RegisterEndpoint extends KeyAuthEndpoint {
 
                 // Require successful validation if integration is required
                 $integration = $integrations->getIntegration($integration_name);
-                if ($integration != null && $integration->data()->required) {
+                if ($integration != null) {
                     // Validate username and make sure username is unique
                     if (!$integration->validateUsername($item['username'])) {
                         $api->throwError(38, $integration->getErrors()[0]);
@@ -154,16 +154,6 @@ class RegisterEndpoint extends KeyAuthEndpoint {
                         continue;
                     }
 
-                    // Validate username and make sure username is unique
-                    if (!$integration->validateUsername($item['username'])) {
-                        continue;
-                    }
-
-                    // Validate identifier and make sure identifier is unique
-                    if (!$integration->validateIdentifier($item['identifier'])) {
-                        continue;
-                    }
-
                     $integrationUser = new IntegrationUser($integration);
                     $integrationUser->linkIntegration($user, $item['identifier'], $item['username'], true);
                 }
@@ -217,7 +207,8 @@ class RegisterEndpoint extends KeyAuthEndpoint {
         $sent = Email::send(
             ['email' => Output::getClean($email), 'name' => Output::getClean($username)],
             SITE_NAME . ' - ' . $api->getLanguage()->get('emails', 'register_subject'),
-            str_replace('[Link]', $link, Email::formatEmail('register', $api->getLanguage()))
+            str_replace('[Link]', $link, Email::formatEmail('register', $api->getLanguage())),
+            Email::getReplyTo()
         );
 
         if (isset($sent['error'])) {

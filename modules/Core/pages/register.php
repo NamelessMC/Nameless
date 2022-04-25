@@ -424,6 +424,10 @@ if ($custom_usernames == 'true') {
 $username_value = ((isset($_POST['username']) && $_POST['username']) ? Output::getClean(Input::get('username')) : '');
 $email_value = ((isset($_POST['email']) && $_POST['email']) ? Output::getClean(Input::get('email')) : '');
 
+if (Session::exists('oauth_register_data')) {
+    $email_value = json_decode(Session::get('oauth_register_data'), true)['email'];
+}
+
 $fields->add('username', Fields::TEXT, $language->get('user', 'username'), true, $username_value);
 $fields->add('email', Fields::EMAIL, $language->get('user', 'email_address'), true, $email_value);
 $fields->add('password', Fields::PASSWORD, $language->get('user', 'password'), true);
@@ -449,10 +453,6 @@ foreach (ProfileField::all() as $field) {
     );
 }
 
-if (Session::exists('oauth_register_data')) {
-    $email_value = json_decode(Session::get('oauth_register_data'), true)['email'];
-}
-
 $oauth_flow = Session::exists('oauth_register_data');
 if ($oauth_flow) {
     $data = json_decode(Session::get('oauth_register_data'), true);
@@ -476,6 +476,7 @@ $smarty->assign([
     'CREATE_AN_ACCOUNT' => $language->get('user', 'create_an_account'),
     'ALREADY_REGISTERED' => $language->get('general', 'already_registered'),
     'ERROR_TITLE' => $language->get('general', 'error'),
+    'OR' => $language->get('general', 'or'),
     'OAUTH_FLOW' => $oauth_flow,
     'OAUTH_AVAILABLE' => OAuth::getInstance()->isAvailable(),
     'OAUTH_PROVIDERS' => OAuth::getInstance()->getProvidersAvailable(),

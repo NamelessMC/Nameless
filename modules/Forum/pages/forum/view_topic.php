@@ -333,15 +333,14 @@ if (Input::exists()) {
                     $html
                 );
                 $subject = SITE_NAME . ' - ' . $language->get('emails', 'forum_topic_reply_subject', ['author' => $user->data()->username, 'topic' => $topic->topic_title]);
-                $contactemail = $queries->getWhere('settings', ['name', '=', 'incoming_email']);
-                $contactemail = $contactemail[0]->value;
 
+                $reply_to = Email::getReplyTo();
                 foreach ($users_following_info as $user_info) {
                     $sent = Email::send(
                         ['email' => Output::getClean($user_info['email']), 'name' => Output::getClean($user_info['username'])],
                         $subject,
                         $message,
-                        ['email' => $contactemail, 'name' => Output::getClean(SITE_NAME)]
+                        $reply_to
                     );
 
                     if (isset($sent['error'])) {

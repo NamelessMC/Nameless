@@ -232,6 +232,5 @@
     "time/about_1_month": "περίπου 1 μήνα πριν",
     "time/about_1_year": "Πριν από περίπου 1 χρόνο",
     "time/less_than_a_minute": "λιγότερο από ένα λεπτό πριν",
-    "time/over_x_years": "πάνω από {{count}} χρόνια πριν",
-    "time/time": "χρόνος"
+    "time/over_x_years": "πάνω από {{count}} χρόνια πριν"
 }

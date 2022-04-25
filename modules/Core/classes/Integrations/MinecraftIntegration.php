@@ -44,13 +44,13 @@ class MinecraftIntegration extends IntegrationBase {
         $integrationUser = new IntegrationUser($this);
         $integrationUser->linkIntegration($user, $this->_uuid, $username, false, $code);
 
-        Session::flash('connections_success', $this->_language->get('user', 'validate_account_command', ['command' => Output::getClean($code)]));
+        Session::flash('connections_success', $this->_language->get('user', 'validate_account_command', ['command' => Output::getClean('/verify ' . $code)]));
     }
 
     public function onVerifyRequest(User $user) {
         $integrationUser = new IntegrationUser($this, $user->data()->id, 'user_id');
 
-        Session::flash('connections_success', $this->_language->get('user', 'validate_account_command', ['command' => Output::getClean($integrationUser->data()->code)]));
+        Session::flash('connections_success', $this->_language->get('user', 'validate_account_command', ['command' => Output::getClean('/verify ' . $integrationUser->data()->code)]));
     }
 
     public function onUnlinkRequest(User $user) {

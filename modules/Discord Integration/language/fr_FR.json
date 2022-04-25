@@ -17,7 +17,6 @@
     "discord_integration/discord_id_unlinked": "Vous avez réussi à dissocier votre ID utilisateur Discord.",
     "discord_integration/discord_integration_not_setup": "L'intégration de Discord n'est pas configurée",
     "discord_integration/discord_invalid_id": "Cet ID utilisateur Discord n'est pas valide.",
-    "discord_integration/discord_link": "Lien Discord",
     "discord_integration/discord_settings_updated": "Les paramètres de Discord ont été mis à jour avec succès",
     "discord_integration/discord_unknown_error": "Une erreur inconnue s'est produite lors de la synchronisation des rôles Discord. Veuillez contacter un administrateur.",
     "discord_integration/discord_usernames_updated": "Les noms d'utilisateur Discord ont été mis à jour avec succès",

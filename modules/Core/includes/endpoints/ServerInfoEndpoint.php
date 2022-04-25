@@ -73,7 +73,10 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
                     if (count($log)) {
                         $group_sync_log[] = $log;
                     }
-                    $this->updatePlaceholders($integrationUser->getUser(), $player);
+
+                    if (isset($player['placeholders']) && count($player['placeholders'])) {
+                        $this->updatePlaceholders($integrationUser->getUser(), $player);
+                    }
                 }
             }
         } catch (Exception $e) {
@@ -128,7 +131,7 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
         $log = GroupSyncManager::getInstance()->broadcastChange(
             $user,
             MinecraftGroupSyncInjector::class,
-            isset($player['groups']) ? array_map('strtolower', $player['groups']) : []
+            isset($player['groups']) ? $player['groups'] : []
         );
 
         if (count($log)) {

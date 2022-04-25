@@ -84,6 +84,7 @@ $smarty->assign([
     'UNLINK' => $language->get('admin', 'unlink'),
     'NAME' => $language->get('admin', 'name'),
     'IDENTIFIER' => $language->get('admin', 'identifier'),
+    'NOT_LINKED' => $language->get('admin', 'not_linked'),
 ]);
 
 // Load modules + template

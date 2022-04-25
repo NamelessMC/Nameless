@@ -49,7 +49,8 @@ if (isset($_GET['action'])) {
             $sent = Email::send(
                 ['email' => Output::getClean($user->data()->email), 'name' => Output::getClean($user->data()->nickname)],
                 SITE_NAME . ' - Test Email',
-                SITE_NAME . ' - Test email successful!'
+                SITE_NAME . ' - Test email successful!',
+                Email::getReplyTo()
             );
 
             if (isset($sent['error'])) {

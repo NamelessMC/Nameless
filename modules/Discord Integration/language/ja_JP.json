@@ -25,7 +25,6 @@
     "discord_integration/discord_integration_not_setup": "Discord統合が設定されていません",
     "discord_integration/discord_invalid_id": "そのDiscord ユーザーIDは無効です。",
     "discord_integration/discord_invite_info": "Nameless LinkボットをDiscordサーバーに招待するには、{{inviteLinkStart}}ここ{{inviteLinkEnd}} をクリックしてください。次に、<code>/apiurl</code>コマンドを実行して、ボットをあなたのウェブサイトにリンクさせます。また、{{selfHostLinkStart}}自分でボットをホストすることもできます{{selfHostLinkEnd}}。",
-    "discord_integration/discord_link": "Discord リンク",
     "discord_integration/discord_role_id": "Discord ロールID",
     "discord_integration/discord_role_id_length": "Discord ロールIDは18桁でなければなりません。",
     "discord_integration/discord_role_id_numeric": "Discord ロールIDは数値でなければなりません。",

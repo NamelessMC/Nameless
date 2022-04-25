@@ -115,8 +115,6 @@ if (isset($_GET['do'])) {
         }
         Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
         require(ROOT_PATH . '/core/templates/cc_navbar.php');
-        $page_load = microtime(true) - $start;
-        define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
         $template->onPageLoad();
         require(ROOT_PATH . '/core/templates/navbar.php');
         require(ROOT_PATH . '/core/templates/footer.php');
@@ -168,8 +166,12 @@ if (isset($_GET['do'])) {
                 }
 
                 // Get a list of required profile fields
-                $profile_fields = ProfileField::all();
+                $profile_fields = $user->getProfileFields(true);
                 foreach ($profile_fields as $field) {
+                    if (!$field->editable && $field->value != null) {
+                        continue;
+                    }
+
                     if ($field->required) {
                         $to_validate["profile_fields[{$field->id}]"] = [
                             'required' => true,

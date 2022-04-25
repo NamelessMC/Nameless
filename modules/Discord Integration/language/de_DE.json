@@ -11,7 +11,7 @@
     "discord_integration/discord_bot_must_be_setup": "Die Discord-Integration kann erst aktiviert werden, wenn Sie den Bot eingerichtet haben. Für Informationen klicken Sie bitte {{linkStart}}click hier{{linkEnd}}.",
     "discord_integration/discord_communication_error": "Bei der Kommunikation mit dem Discord Bot ist ein Fehler aufgetreten. Bitte stellen Sie sicher, dass der Bot ausgeführt wird und Ihre Bot-URL korrekt ist.",
     "discord_integration/discord_database_error": "Die Nameless Link-Datenbank ist derzeit nicht verfügbar. Bitte versuchen Sie es später noch einmal.",
-    "discord_integration/discord_id_help": "Informationen dazu, wo Discord IDs zu finden sind, finden Sie unter {{linkStart}}this.{{linkEnd}}",
+    "discord_integration/discord_id_help": "Für Informationen darüber, wo man Discord-IDs findet, lies bitte {{linkStart}}hier.{{linkEnd}}",
     "discord_integration/discord_id_length": "Bitte stellen Sie sicher, dass Ihre Discord ID 18 Zeichen lang ist.",
     "discord_integration/discord_id_numeric": "Bitte stellen Sie sicher, dass Ihre Discord ID numerisch ist (nur Zahlen)..",
     "discord_integration/discord_id_set": "Discord ID erfolgreich eingestellt",
@@ -37,5 +37,15 @@
     "discord_integration/unable_to_set_discord_id": "Discord ID kann nicht festgelegt werden.",
     "discord_integration/unable_to_update_discord_bot_username": "Discord Bot-Benutzername kann nicht aktualisiert werden.",
     "discord_integration/unable_to_update_discord_roles": "Discord-Rollen-Liste kann nicht aktualisiert werden.",
-    "discord_integration/unable_to_update_discord_username": "Discord-Benutzername kann nicht aktualisiert werden."
+    "discord_integration/unable_to_update_discord_username": "Discord-Benutzername kann nicht aktualisiert werden.",
+    "discord_integration/discord_user_id": "Discord User ID",
+    "discord_integration/discord_username": "Discord Benutzername",
+    "discord_integration/discord_widget_disabled": "Das Widget ist für den angegebenen Discord-Server deaktiviert. Bitte geh auf die Registerkarte \"Widget\" in den Einstellungen deines Discord-Servers und stelle sicher, dass das Discord-Widget aktiviert ist und die ID korrekt ist.",
+    "discord_integration/discord_bot_check_logs": "Du solltest unter StaffCP -> Sicherheit -> Alle Protokolle nach einem spezifischeren Fehler suchen (falls es einen gibt).",
+    "discord_integration/discord_bot_error_partsuccess": "Der Bot konnte eine oder mehrere Rollen aufgrund einer Fehlkonfiguration der Discord-Hierarchie nicht bearbeiten.",
+    "discord_integration/discord_bot_setup": "Bot einrichten?",
+    "discord_integration/discord_guild_id": "Discord Server ID",
+    "discord_integration/discord_id_confirm": "Bitte führe den Befehl \"/verify {{token}}\" in Discord aus, um die Verknüpfung deines Discord-Kontos abzuschließen.",
+    "discord_integration/discord_invite_info": "Um den Nameless Link-Bot auf deinen Discord-Server einzuladen, klicke auf {{inviteLinkStart}}hier{{inviteLinkEnd}}. Führe dann den Befehl {{command}} aus, um den Bot mit deiner Website zu verbinden. Alternativ kannst du {{selfHostLinkStart}} den Bot auch selbst hosten{{selfHostLinkEnd}}.",
+    "discord_integration/discord_widget_theme": "Discord Widget Theme"
 }

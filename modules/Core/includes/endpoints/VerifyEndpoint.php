@@ -9,16 +9,14 @@
 class VerifyEndpoint extends KeyAuthEndpoint {
 
     public function __construct() {
-        $this->_route = 'verify';
+        $this->_route = 'users/{user}/verify';
         $this->_module = 'Core';
         $this->_description = 'Validate/Activate a NamelessMC account by confirming their reset code';
         $this->_method = 'POST';
     }
 
-    public function execute(Nameless2API $api): void {
-        $api->validateParams($_POST, ['user', 'code']);
-
-        $user = $api->getUser('id', $_POST['user']);
+    public function execute(Nameless2API $api, User $user): void {
+        $api->validateParams($_POST, ['code']);
 
         if ($user->data()->active || $user->data()->reset_code == '') {
             $api->throwError(32, $api->getLanguage()->get('api', 'user_already_active'));
