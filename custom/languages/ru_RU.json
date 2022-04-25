@@ -1211,5 +1211,6 @@
     "user/integration_username_already_linked": "{{integration}} никнейм уже привязан к другому пользователю.",
     "user/overview": "Обзор",
     "user/not_connected": "Не Подключен",
-    "user/user_has_linked_integration": "{{user}} привязал их {{integration}} аккаунт."
+    "user/user_has_linked_integration": "{{user}} привязал их {{integration}} аккаунт.",
+    "general/or": "ИЛИ"
 }
