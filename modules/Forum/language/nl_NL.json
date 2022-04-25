@@ -132,5 +132,10 @@
     "forum/user_tag_info": "Je bent genoemd in een bericht door {{author}}.",
     "forum/views": "x bekeken",
     "forum/x_posts": "{{count}} posts",
-    "forum/x_topics": "{{count}} topics"
+    "forum/x_topics": "{{count}} topics",
+    "forum/confirm_unfollow_all_topics": "Ben je zeker dat je al de onderwerpen niet meer wilt volgen?",
+    "forum/all_topics_unfollowed": "Alle onderwerpen zijn niet meer gevolgd.",
+    "forum/available_hooks": "Beschikbare Hooks",
+    "forum/average_posts": "Gemiddelde gebruikers post aantal",
+    "forum/default_labels": "Standaard Labels"
 }
