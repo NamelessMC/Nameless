@@ -1012,7 +1012,7 @@
     "user\/1_new_alert": "You have 1 new alert",
     "user\/1_new_message": "You have {{count}} new message",
     "user\/1_reaction": "{{count}} reaction",
-    "user\/1_reply": "{{count}} reply",
+    "user\/1_reply": "1 reply",
     "user\/about": "About",
     "user\/accept_terms": "You must accept the terms and conditions before registering.",
     "user\/account_banned": "That account is banned.",
