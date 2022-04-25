@@ -41,7 +41,7 @@ if (Input::exists()) {
 
             $users = $queries->getWhere('users', ['id', '<>', 0]);
 
-            $reply_to = Email::getReplyTo($queries);
+            $reply_to = Email::getReplyTo();
 
             foreach ($users as $email_user) {
                 $sent = Email::send(
