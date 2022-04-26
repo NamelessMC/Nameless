@@ -1212,5 +1212,8 @@
     "user/oauth_unlinked": "Die Verknüpfung deines Kontos mit diesem Provider wurde erfolgreich aufgehoben.",
     "user/pending_verification": "Ausstehende Verifizierung",
     "user/user_has_verified_integration": "{{user}} hat sein {{integration}}-Konto verifiziert.",
-    "general/or": "ODER"
+    "general/or": "ODER",
+    "user/nickname_maximum_20": "Dein Nickname darf maximal 20 Zeichen lang sein.",
+    "user/nickname_minimum_3": "Dein Nickname muss aus mindestens 3 Zeichen bestehen.",
+    "user/nickname_required": "Ein Nickname ist erforderlich."
 }
