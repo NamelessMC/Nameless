@@ -359,7 +359,7 @@ if (Input::exists()) {
                             }
                         }
 
-                        Log::getInstance()->log(Log::Action('user/register'), '', $user_id, $user->getIP());
+                        Log::getInstance()->log(Log::Action('user/register'), '', $user_id, Util::getRemoteAddress());
 
                         EventHandler::executeEvent('registerUser', [
                             'user_id' => $user_id,
