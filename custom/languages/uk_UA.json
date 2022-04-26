@@ -1111,7 +1111,5 @@
     "user/x_replies": "{{count}} відповідей",
     "user/you_have_been_banned": "Ви були забанені!",
     "user/you_have_received_a_warning": "Ви отримали попередження!",
-    "version/feed": "Стіна",
-    "version/password": "Пароль",
-    "version/validation_error": "Відбулася невідома помилка під час перевірки вашого облікового запису, будь ласка, звʼяжіться з адміністратором сайту."
+    "version/password": "Пароль"
 }
