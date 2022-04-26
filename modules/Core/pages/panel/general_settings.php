@@ -24,20 +24,20 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 if (isset($_GET['do'])) {
     if ($_GET['do'] == 'installLanguage') {
         // Install new language
-        $languages = glob(ROOT_PATH . DIRECTORY_SEPARATOR . 'custom' . DIRECTORY_SEPARATOR . 'languages' . DIRECTORY_SEPARATOR . '*', GLOB_ONLYDIR);
+        $languages = glob('custom' . DIRECTORY_SEPARATOR . 'languages' . DIRECTORY_SEPARATOR . '*');
         foreach ($languages as $item) {
-            if (file_exists($item . DIRECTORY_SEPARATOR . 'version.php')) {
-                $folders = explode(DIRECTORY_SEPARATOR, $item);
-                $folder_name = $folders[count($folders) - 1];
+            // cursed
+            $short_code = explode('.', explode(DIRECTORY_SEPARATOR, $item)[2])[0];
 
-                // Is it already in the database?
-                $exists = $queries->getWhere('languages', ['name', '=', $folder_name]);
-                if (!count($exists)) {
-                    // No, add it now
-                    $queries->create('languages', [
-                        'name' => $folder_name
-                    ]);
-                }
+            // Is it already in the database?
+            $exists = $queries->getWhere('languages', ['short_code', '=', $short_code]);
+            if (!count($exists)) {
+                // No, add it now
+                $queries->create('languages', [
+                    // If they try and install a language which is not "official", default to the short code for the name
+                    'name' => Language::LANGUAGES[$short_code]['name'] ?? $short_code,
+                    'short_code' => $short_code
+                ]);
             }
         }
 
@@ -47,7 +47,7 @@ if (isset($_GET['do'])) {
             $active_language = $queries->getWhere('languages', ['is_default', '=', 1]);
             if (count($active_language)) {
                 DB::getInstance()->createQuery('UPDATE nl2_users SET language_id = ?', [$active_language[0]->id]);
-                $language = new Language('core', $active_language[0]->name);
+                $language = new Language('core', $active_language[0]->short_code);
             }
 
             Session::flash('general_language', $language->get('admin', 'updated_user_languages'));
@@ -104,24 +104,21 @@ if (Input::exists()) {
             $default_language = $queries->getWhere('languages', ['is_default', '=', 1]);
             $default_language = $default_language[0];
 
-            if ($default_language->name != Input::get('language')) {
-                // The default language has been changed
-                $queries->update('languages', $default_language->id, [
-                    'is_default' => 0
-                ]);
+            $queries->update('languages', $default_language->id, [
+                'is_default' => 0
+            ]);
 
-                $language_id = $queries->getWhere('languages', ['id', '=', Input::get('language')]);
-                $language_name = Output::getClean($language_id[0]->name);
-                $language_id = $language_id[0]->id;
+            $language_id = $queries->getWhere('languages', ['id', '=', Input::get('language')]);
+            $language_short_code = Output::getClean($language_id[0]->short_code);
+            $language_id = $language_id[0]->id;
 
-                $queries->update('languages', $language_id, [
-                    'is_default' => 1
-                ]);
+            $queries->update('languages', $language_id, [
+                'is_default' => 1
+            ]);
 
-                // Update cache
-                $cache->setCache('languagecache');
-                $cache->store('language', $language_name);
-            }
+            // Update cache
+            $cache->setCache('languagecache');
+            $cache->store('language', $language_short_code);
 
             // Timezone
             $timezone_id = $queries->getWhere('settings', ['name', '=', 'timezone']);
@@ -275,9 +272,8 @@ $contact_email = Output::getClean($contact_email[0]->value);
 
 $languages = $queries->getWhere('languages', ['id', '<>', 0]);
 $count = count($languages);
-
 for ($i = 0; $i < $count; $i++) {
-    $language_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'languages', $languages[$i]->name, 'version.php']);
+    $language_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'languages', $languages[$i]->short_code . '.json']);
     if (!file_exists($language_path)) {
         unset($languages[$i]);
     }
@@ -350,9 +346,6 @@ $smarty->assign([
     'EMAIL_OR_USERNAME' => $language->get('user', 'email_or_username'),
     'USERNAME' => $language->get('user', 'username'),
 ]);
-
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 

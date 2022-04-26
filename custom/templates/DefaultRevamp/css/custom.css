@@ -259,6 +259,10 @@ body.pushable>.pusher {
     margin-right: 1.3em;
 }
 
+#topic-post #post-sidebar .groups {
+    text-align: center;
+}
+
 .inline.fields.labels {
     flex-wrap: wrap;
 }
@@ -487,82 +491,6 @@ body.pushable>.pusher {
 
 #user-popup .header .ui.image {
     margin: auto;
-}
-
-/*
- *  [ TOASTR ]
- */
-
-#toast-container {
-    font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
-    width: 100%;
-}
-
-#toast-container .toast-close-button {
-    color: #000;
-    opacity: .4;
-}
-
-#toast-container .toast-close-button:hover, #toast-container .toast-close-button:focus {
-    color: #000;
-    opacity: .6;
-}
-
-#toast-container .toast {
-    padding: 1rem 1.5rem;
-    background: #fff;
-    color: rgba(0, 0, 0, .68);
-    -webkit-box-shadow: 0 1px 3px 0 #bababb, 0 0 1px 1px #bababb;
-    box-shadow: 0 1px 3px 0 #bababb, 0 0 1px 1px #bababb;
-    border: none;
-    border-radius: .28571429rem;
-    cursor: default;
-    opacity: 1;
-    transition: .5s all ease;
-}
-
-#toast-container .toast-success {
-    border-bottom: solid 2px #30B245;
-}
-
-#toast-container .toast-success .toast-progress {
-    background: #30B245;
-}
-
-#toast-container .toast-error {
-    border-bottom: solid 2px #CE1D28;
-}
-
-#toast-container .toast-error .toast-progress {
-    background: #CE1D28;
-}
-
-#toast-container .toast-warning {
-    border-bottom: solid 2px #EE6A1C;
-}
-
-#toast-container .toast-warning .toast-progress {
-    background: #EE6A1C;
-}
-
-#toast-container .toast-info {
-    border-bottom: solid 2px #367DC4;
-}
-
-#toast-container .toast-info .toast-progress {
-    background: #367DC4;
-}
-
-#toast-container .toast:hover {
-    -webkit-box-shadow: 0 1px 3px 0 #bababb, 0 0 1px 1px #bababb;
-    box-shadow: 0 1px 3px 0 #bababb, 0 0 1px 1px #bababb;
-    cursor: default;
-}
-
-@media (max-width: 576px) {
-    #toast-container .toast {
-        width: calc(100% - 24px);
-    }
 }
 
 /*
@@ -990,6 +918,9 @@ body.dark .ui.popup, body.dark .ui.secondary.menu .ui.popup, body.dark .ui.menu 
     background-color: #222;
     border: 1px solid #444;
     color: rgba(255, 255, 255, 0.6);
+}
+
+body.dark .ui.menu .dropdown.item .menu, body.dark .ui.dropdown .menu {
     min-width: calc(100% - 1px);
 }
 

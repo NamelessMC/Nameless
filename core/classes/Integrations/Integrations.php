@@ -9,10 +9,13 @@
  */
 class Integrations extends Instanceable {
 
+    /**
+     * @var IntegrationBase[] $integrations The array of integrations
+     */
     private array $_integrations = [];
 
     /**
-     * Register a integration to the integration list.
+     * Register an integration to the integration list.
      *
      * @param IntegrationBase $integration Instance of intagration to register.
      */
@@ -45,7 +48,7 @@ class Integrations extends Instanceable {
     public function getAll(): iterable {
         $integrations = $this->_integrations;
 
-        uasort($integrations, static function ($a, $b) {
+        uasort($integrations, static function (IntegrationBase $a, IntegrationBase $b) {
             return $a->getOrder() - $b->getOrder();
         });
 
@@ -59,7 +62,7 @@ class Integrations extends Instanceable {
      */
     public function getEnabledIntegrations(): iterable {
         $integrations = $this->_integrations;
-        
+
         $enabled_integrations = [];
         foreach ($integrations as $integration) {
             if ($integration->isEnabled()) {

@@ -55,7 +55,9 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
     }
 
     $smarty->assign([
-        'VIEWING_USER_INTEGRATIONS' => str_replace('{user}', Output::getClean($view_user->data()->username), $language->get('admin', 'viewing_integrations_for_x')),
+        'VIEWING_USER_INTEGRATIONS' => $language->get('admin', 'viewing_integrations_for_x', [
+            'user' =>  Output::getClean($view_user->data()->username),
+        ]),
         'INTEGRATION' => $language->get('admin', 'integration'),
         'INTEGRATIONS' => $integrations_list,
         'USER_INTEGRATIONS' => $user_integrations_list,
@@ -109,7 +111,10 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
                             ]);
                         }
 
-                        Session::flash('integrations_success', str_replace(['{user}', '{integration}'], [$view_user->getDisplayname(true), Output::getClean($integrationUser->getIntegration()->getName())], $language->get('admin', 'link_account_success')));
+                        Session::flash('integrations_success', $language->get('admin', 'link_account_success', [
+                            'user' => $view_user->getDisplayname(true),
+                            'integration' => Output::getClean($integrationUser->getIntegration()->getName()),
+                        ]));
                         Redirect::to(URL::build('/panel/users/integrations/', 'id=' . $view_user->data()->id));
                     } else {
                         $errors = $integration->getErrors();
@@ -120,14 +125,17 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
             }
 
             $smarty->assign([
-                'INTEGRATION_TITLE' => str_replace(['{integration}', '{user}'], [Output::getClean($integration->getName()), Output::getClean($view_user->data()->username)], $language->get('admin', 'linking_integration_for_x')),
+                'INTEGRATION_TITLE' => $language->get('admin', 'linking_integration_for_x', [
+                    'integration' => Output::getClean($integration->getName()),
+                    'user' => Output::getClean($view_user->data()->username),
+                ]),
                 'USERNAME_VALUE' => ((isset($_POST['username']) && $_POST['username']) ? Output::getClean(Input::get('username')) : ''),
                 'IDENTIFIER_VALUE' => ((isset($_POST['identifier']) && $_POST['identifier']) ? Output::getClean(Input::get('identifier')) : ''),
                 'IS_VERIFIED' => $language->get('admin', 'is_verified'),
                 'VERIFIED_VALUE' => ((isset($_POST['verified']) && $_POST['verified']) ? Output::getClean(Input::get('verified')) : 0),
                 'BACK_LINK' => URL::build('/panel/users/integrations/', 'id=' . $view_user->data()->id),
-                'USERNAME' => str_replace('{integration}', Output::getClean($integration->getName()), $language->get('admin', 'integration_username')),
-                'IDENTIFIER' => str_replace('{integration}', Output::getClean($integration->getName()), $language->get('admin', 'integration_identifier'))
+                'USERNAME' => $language->get('admin', 'integration_username', ['integration' => Output::getClean($integration->getName())]),
+                'IDENTIFIER' => $language->get('admin', 'integration_identifier', ['integration' => Output::getClean($integration->getName())]),
             ]);
 
             $template_file = 'core/users_integrations_form.tpl';
@@ -176,15 +184,18 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
             }
 
             $smarty->assign([
-                'INTEGRATION_TITLE' => str_replace(['{integration}', '{user}'], [Output::getClean($integration->getName()), Output::getClean($view_user->data()->username)], $language->get('admin', 'editing_integration_for_x')),
+                'INTEGRATION_TITLE' => $language->get('admin', 'editing_integration_for_x', [
+                    'integration' => Output::getClean($integration->getName()),
+                    'user' => Output::getClean($view_user->data()->username),
+                ]),
                 'USERNAME_VALUE' => Output::getClean($integrationUser->data()->username),
                 'IDENTIFIER_VALUE' => Output::getClean($integrationUser->data()->identifier),
                 'IS_VERIFIED' => $language->get('admin', 'is_verified'),
                 'VERIFIED_VALUE' => Output::getClean($integrationUser->isVerified()),
                 'BACK_LINK' => URL::build('/panel/users/integrations/', 'id=' . $view_user->data()->id),
-                'USERNAME' => str_replace('{integration}', Output::getClean($integration->getName()), $language->get('admin', 'integration_username')),
-                'IDENTIFIER' => str_replace('{integration}', Output::getClean($integration->getName()), $language->get('admin', 'integration_identifier')),
-                'SYNC_INTEGRATION' => $language->get('admin', 'sync_integration')
+                'USERNAME' =>  $language->get('admin', 'integration_username', ['integration' => Output::getClean($integration->getName())]),
+                'IDENTIFIER' => $language->get('admin', 'integration_identifier', ['integration' => Output::getClean($integration->getName())]),
+                'SYNC_INTEGRATION' => $language->get('admin', 'sync_integration'),
             ]);
 
             $template_file = 'core/users_integrations_form.tpl';
@@ -199,7 +210,9 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
                     if ($integrationUser != null) {
                         $integrationUser->unlinkIntegration();
 
-                        Session::flash('integrations_success', str_replace('{x}', Output::getClean($integrationUser->getIntegration()->getName()), $language->get('admin', 'unlink_account_success')));
+                        Session::flash('integrations_success', $language->get('admin', 'unlink_account_success', [
+                            'provider' => Output::getClean($integrationUser->getIntegration()->getName()),
+                        ]));
                         Redirect::to(URL::build('/panel/users/integrations/', 'id=' . $view_user->data()->id));
                     }
                 } else {
@@ -250,9 +263,6 @@ if (isset($errors) && count($errors)) {
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
-
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 

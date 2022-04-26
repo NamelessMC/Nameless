@@ -21,14 +21,13 @@ class Alert {
     public static function create(int $user_id, string $type, array $text_short, array $text, string $link = '#'): void {
         $db = DB::getInstance();
 
-        $language = $db->selectQuery('SELECT nl2_languages.name AS `name` FROM nl2_users LEFT JOIN nl2_languages ON nl2_languages.id = nl2_users.language_id WHERE nl2_users.id = ?', [$user_id]);
+        $language = $db->selectQuery('SELECT nl2_languages.short_code AS `short_code` FROM nl2_users LEFT JOIN nl2_languages ON nl2_languages.id = nl2_users.language_id WHERE nl2_users.id = ?', [$user_id]);
 
         if (!$language->count()) {
             return;
         }
 
-        $language_name = $language->first()->name;
-        $language = new Language($text_short['path'], $language_name);
+        $language = new Language($text_short['path'], $language->first()->short_code);
 
         $db->insert('alerts', [
             'user_id' => $user_id,

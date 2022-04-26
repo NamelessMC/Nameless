@@ -2,7 +2,7 @@
 /*
  *	Made by Aberdeener
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr12
+ *  NamelessMC version 2.0.0-pr13
  *
  *  License: MIT
  *
@@ -34,21 +34,25 @@ foreach ($leaderboard_placeholders as $leaderboard_placeholder) {
     }
 
     // TODO: move this to placeholders class
+    $integration = Integrations::getInstance()->getIntegration('Minecraft');
     foreach ($data as $row) {
         $row_data = new stdClass();
 
         $uuid = bin2hex($row->uuid);
         if (!array_key_exists($uuid, $leaderboard_users)) {
-            $user_data = DB::getInstance()->get('users', ['uuid', '=', $uuid])->first();
-            $leaderboard_users[$uuid] = $user_data;
+            $integration_user = new IntegrationUser($integration, $uuid, 'identifier');
+            if (!$integration_user->exists()) {
+                continue;
+            }
+            $leaderboard_users[$uuid] = $integration_user;
         }
 
         $row_data->server_id = $leaderboard_placeholder->server_id;
         $row_data->name = $leaderboard_placeholder->name;
-        $row_data->username = Output::getClean($leaderboard_users[$uuid]->username);
+        $row_data->username = Output::getClean($leaderboard_users[$uuid]->data()->username);
         $row_data->avatar = AvatarSource::getAvatarFromUUID($uuid, 24);
         $row_data->value = $row->value;
-        $row_data->last_updated = ucfirst($timeago->inWords(date('Y-m-d H:i:s', $row->last_updated), $language->getTimeLanguage()));
+        $row_data->last_updated = ucfirst($timeago->inWords($row->last_updated, $language));
 
         $leaderboard_placeholders_data[] = $row_data;
     }
@@ -97,9 +101,6 @@ $template->addJSScript('
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
-
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 

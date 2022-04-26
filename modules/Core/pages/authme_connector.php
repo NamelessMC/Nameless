@@ -81,13 +81,15 @@ if (Input::exists()) {
                 $authme_hash = $cache->retrieve('authme');
 
                 // Get default language ID before creating user
-                $language_id = $queries->getWhere('languages', ['name', '=', LANGUAGE]);
+                $language_id = $queries->getWhere('languages', ['short_code', '=', LANGUAGE]);
 
                 if (count($language_id)) {
                     $language_id = $language_id[0]->id;
                 } else {
-                    $language_id = 1;
-                } // fallback to EnglishUK
+                    // fallback to EnglishUK
+                    $language_id = $queries->getWhere('languages', ['short_code', '=', 'en_UK']);
+                    $language_id = $language_id[0]->id;
+                }
 
                 $ip = Util::getRemoteAddress();
                 if (filter_var($ip, FILTER_VALIDATE_IP)) {
@@ -103,6 +105,8 @@ if (Input::exists()) {
                 }
 
                 $mcname = Output::getClean($_SESSION['authme']['user']);
+                
+                // Add username back to post for integration handling
                 $_POST['username'] = $_SESSION['authme']['user'];
 
                 $integration = Integrations::getInstance()->getIntegration('Minecraft');
@@ -112,7 +116,7 @@ if (Input::exists()) {
                     $errors = $integration->getErrors();
                 }
 
-                if (count($errors)) {
+                if (!count($errors)) {
                     try {
                         // Get default group ID
                         $cache->setCache('default_group');
@@ -138,7 +142,8 @@ if (Input::exists()) {
                             'email' => Output::getClean(Input::get('email')),
                             'lastip' => $ip,
                             'active' => 1,
-                            'last_online' => date('U')
+                            'last_online' => date('U'),
+                            'language_id' => $language_id
                         ]);
 
                         // Get user ID
@@ -339,7 +344,10 @@ if (!isset($_GET['step'])) {
         'TOKEN' => Token::get(),
         'SUBMIT' => $language->get('general', 'submit'),
         'I_AGREE' => $language->get('user', 'i_agree'),
-        'AGREE_TO_TERMS' => str_replace('{x}', URL::build('/terms'), $language->get('user', 'agree_t_and_c'))
+        'AGREE_TO_TERMS' => $language->get('user', 'agree_t_and_c', [
+            'linkStart' => '<a href="' . URL::build('/terms') . '">',
+            'linkEnd' => '</a>',
+        ])
     ]);
 
     // Recaptcha
@@ -386,9 +394,6 @@ if (!isset($_GET['step'])) {
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
-
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 

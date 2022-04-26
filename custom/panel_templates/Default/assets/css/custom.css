@@ -351,6 +351,12 @@ body {
     .sidebar {
         width: 17rem !important;
     }
+    
+    .sidebar.toggled {
+        width: 7rem !important;
+        overflow-y: scroll;
+        scrollbar-width: thin;
+    }
 
     #content-wrapper {
         margin-left: 17rem !important;
@@ -393,6 +399,10 @@ body {
 
 .dropdown-menu-lg {
     max-width: none;
+}
+
+.collapse-item {
+    white-space: normal !important;
 }
 
 .table-hover.dataTables-users tbody tr {
@@ -477,4 +487,9 @@ footer.sticky-footer {
     height: 1.1rem;
     width: 1.85rem;
     border-radius: 0.6rem;
+}
+
+.toast .move-right {
+    position: absolute;
+    left: 20px;
 }

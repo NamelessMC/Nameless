@@ -25,9 +25,9 @@ class DiscordIntegration extends IntegrationBase {
         $integrationUser = new IntegrationUser($this);
         $integrationUser->linkIntegration($user, null, null, false, $token);
 
-        Session::flash('connections_success', str_replace('{token}', $token, Discord::getLanguageTerm('discord_id_confirm')));
+        Session::flash('connections_success', Discord::getLanguageTerm('discord_id_confirm', ['token' => $token]));
     }
-    
+
     public function onVerifyRequest(User $user) {
         $token = uniqid('', true);
 
@@ -36,23 +36,23 @@ class DiscordIntegration extends IntegrationBase {
             'code' => $token
         ]);
 
-        Session::flash('connections_success', str_replace('{token}', $token, Discord::getLanguageTerm('discord_id_confirm')));
+        Session::flash('connections_success', Discord::getLanguageTerm('discord_id_confirm', ['token' => $token]));
     }
 
     public function onUnlinkRequest(User $user) {
         $integrationUser = new IntegrationUser($this, $user->data()->id, 'user_id');
         $integrationUser->unlinkIntegration();
-        
-        Session::flash('connections_success', str_replace('{integration}', Output::getClean($this->_name), $this->_language->get('user', 'integration_unlinked')));
+
+        Session::flash('connections_success', $this->_language->get('user', 'integration_unlinked', ['integration' => Output::getClean($this->_name)]));
     }
 
     public function onSuccessfulVerification(IntegrationUser $integrationUser) {
         // attempt to update their Discord roles
         $user = $integrationUser->getUser();
-        
+
         Discord::updateDiscordRoles($user, $user->getAllGroupIds(), []);
     }
-    
+
     public function validateUsername(string $username, int $integration_user_id = 0): bool {
         $validation = Validate::check(['username' => $username], [
             'username' => [
@@ -61,8 +61,8 @@ class DiscordIntegration extends IntegrationBase {
             ]
         ])->messages([
             'username' => [
-                Validate::REQUIRED => str_replace('{integration}', $this->getName(), $this->_language->get('admin', 'integration_username_required')),
-                Validate::REGEX => str_replace('{integration}', $this->getName(), $this->_language->get('admin', 'integration_username_invalid'))
+                Validate::REQUIRED => $this->_language->get('admin', 'integration_username_required', ['integration' => $this->getName()]),
+                Validate::REGEX => $this->_language->get('admin', 'integration_username_invalid', ['integration' => $this->getName()])
             ]
         ]);
 
@@ -75,7 +75,7 @@ class DiscordIntegration extends IntegrationBase {
             // Ensure identifier doesn't already exist
             $exists = DB::getInstance()->selectQuery("SELECT * FROM nl2_users_integrations WHERE integration_id = ? AND username = ? AND id <> ?", [$this->data()->id, $username, $integration_user_id]);
             if ($exists->count()) {
-                $this->addError(str_replace('{integration}', $this->getName(), $this->_language->get('user', 'integration_username_already_linked')));
+                $this->addError($this->_language->get('user', 'integration_username_already_linked', ['integration' =>  $this->getName()]));
                 return false;
             }
         }
@@ -93,10 +93,10 @@ class DiscordIntegration extends IntegrationBase {
             ]
         ])->messages([
             'identifier' => [
-                Validate::REQUIRED => str_replace('{integration}', $this->getName(), $this->_language->get('admin', 'integration_identifier_required')),
-                Validate::NUMERIC => str_replace('{integration}', $this->getName(), $this->_language->get('admin', 'integration_identifier_invalid')),
-                Validate::MIN => str_replace('{integration}', $this->getName(), $this->_language->get('admin', 'integration_identifier_invalid')),
-                Validate::MAX => str_replace('{integration}', $this->getName(), $this->_language->get('admin', 'integration_identifier_invalid'))
+                Validate::REQUIRED => $this->_language->get('admin', 'integration_identifier_required', ['integration' => $this->getName()]),
+                Validate::NUMERIC => $this->_language->get('admin', 'integration_identifier_invalid', ['integration' => $this->getName()]),
+                Validate::MIN => $this->_language->get('admin', 'integration_identifier_invalid', ['integration' => $this->getName()]),
+                Validate::MAX => $this->_language->get('admin', 'integration_identifier_invalid', ['integration' => $this->getName()]),
             ]
         ]);
 
@@ -109,7 +109,7 @@ class DiscordIntegration extends IntegrationBase {
             // Ensure identifier doesn't already exist
             $exists = DB::getInstance()->selectQuery("SELECT * FROM nl2_users_integrations WHERE integration_id = ? AND identifier = ? AND id <> ?", [$this->data()->id, $identifier, $integration_user_id]);
             if ($exists->count()) {
-                $this->addError(str_replace('{integration}', $this->getName(), $this->_language->get('user', 'integration_identifier_already_linked')));
+                $this->addError($this->_language->get('user', 'integration_identifier_already_linked', ['integration' => $this->getName()]));
                 return false;
             }
         }
@@ -130,7 +130,19 @@ class DiscordIntegration extends IntegrationBase {
     }
 
     public function successfulRegistration(User $user) {
-        // Nothing to do here
+        // Link integration if user registered using discord oauth
+        if (Session::exists('oauth_register_data')) {
+            $data = json_decode(Session::get('oauth_register_data'), true);
+            if ($data['provider'] == 'discord' && isset($data['data']['username']) && isset($data['data']['discriminator'])) {
+
+                $username = $data['data']['username'] . '#' . $data['data']['discriminator'];
+                $discord_id = $data['data']['id'];
+                if ($this->validateIdentifier($discord_id) && $this->validateUsername($username)) {
+                    $integrationUser = new IntegrationUser($this);
+                    $integrationUser->linkIntegration($user, $discord_id, $username, true);
+                }
+            }
+        }
     }
 
     public function syncIntegrationUser(IntegrationUser $integration_user): bool {

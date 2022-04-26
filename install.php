@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr13
  *
  *  License: MIT
  *
@@ -30,15 +30,15 @@ date_default_timezone_set('Europe/London');
 
 // Select language
 if (isset($_SESSION['installer_language'])
-    && is_file('custom/languages/' . $_SESSION['installer_language'] . '/installer.php')
+    && is_file('custom/languages/' . $_SESSION['installer_language'] . '.json')
 ) {
-    require(ROOT_PATH . '/custom/languages/' . $_SESSION['installer_language'] . '/version.php');
-    require(ROOT_PATH . '/custom/languages/' . $_SESSION['installer_language'] . '/installer.php');
+    $language_short_code = $_SESSION['installer_language'];
 } else {
-    // Require default language (EnglishUK)
-    require(ROOT_PATH . '/custom/languages/EnglishUK/version.php');
-    require(ROOT_PATH . '/custom/languages/EnglishUK/installer.php');
+    // Require default language (English UK)
+    $language_short_code = 'en_UK';
 }
+
+$language = new Language('core', $language_short_code);
 
 // Get installation path
 $install_path = substr(str_replace('\\', '/', substr(__DIR__, strlen($_SERVER['DOCUMENT_ROOT']))), 1);
@@ -46,10 +46,11 @@ $install_path = substr(str_replace('\\', '/', substr(__DIR__, strlen($_SERVER['D
 if (!isset($CONFIG['installed'])) {
     if (isset($_GET['language'])) {
         // Set language
-        if (is_file('custom/languages/' . $_GET['language'] . '/installer.php')) {
+        if (is_file('custom/languages/' . $_GET['language'] . '.json')) {
             $_SESSION['installer_language'] = $_GET['language'];
             die('OK');
         }
+        die($_GET['language'] . ' is not a valid language');
     }
     require(ROOT_PATH . '/core/installation/installer.php');
 } else {

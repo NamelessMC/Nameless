@@ -38,15 +38,13 @@ $smarty->assign(
         'DEFAULT_STATUS' => ($result ?? null),
         'SERVERS' => $servers,
         'NO_SERVERS' => $language->get('general', 'no_servers'),
-        'BUNGEE' => $language->get('general', 'bungee_instance')
+        'BUNGEE' => $language->get('general', 'bungee_instance'),
+        'ERROR_TITLE' => $language->get('general', 'error')
     ]
 );
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
-
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 

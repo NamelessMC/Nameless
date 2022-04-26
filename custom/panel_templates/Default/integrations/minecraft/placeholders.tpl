@@ -52,6 +52,17 @@
 
                             {if count($ALL_PLACEHOLDERS)}
                             <form action="" method="POST">
+                                <div class="form-group custom-control custom-switch">
+                                    <input name="placeholders_enabled"
+                                           id="InputEnablePlaceholders"
+                                           type="checkbox"
+                                           class="custom-control-input js-check-change"
+                                           {if $ENABLE_PLACEHOLDERS_VALUE eq 1} checked{/if}>
+                                    <label class="custom-control-label" for="InputEnablePlaceholders">
+                                        {$ENABLE_PLACEHOLDERS}
+                                    </label>
+                                </div>
+
                                 <input type="hidden" name="token" value="{$TOKEN}">
                                 <div class="table-responsive">
                                     <table class="table table-borderless table-striped">
@@ -93,10 +104,24 @@
                                                         <input type="text" class="form-control" name="friendly_name-{$placeholder->name}-server-{$placeholder->server_id}" value="{$placeholder->friendly_name}">
                                                     </td>
                                                     <td class="text-center">
-                                                        <input type="checkbox" name="show_on_profile-{$placeholder->name}-server-{$placeholder->server_id}" {if $placeholder->show_on_profile eq 1} checked {/if}>
+                                                        <div class="form-group custom-control custom-switch">
+                                                            <input type="checkbox"
+                                                                    id="InputShowOnProfile-{$placeholder->name}-{$placeholder->server_id}"
+                                                                    class="custom-control-input"
+                                                                    name="show_on_profile-{$placeholder->name}-server-{$placeholder->server_id}"
+                                                                    {if $placeholder->show_on_profile eq 1} checked {/if}>
+                                                            <label class="custom-control-label" for="InputShowOnProfile-{$placeholder->name}-{$placeholder->server_id}"></label>
+                                                        </div>
                                                     </td>
                                                     <td class="text-center">
-                                                        <input type="checkbox" name="show_on_forum-{$placeholder->name}-server-{$placeholder->server_id}" {if $placeholder->show_on_forum eq 1} checked {/if}>
+                                                        <div class="form-group custom-control custom-switch">
+                                                            <input type="checkbox"
+                                                                    id="InputShowOnForum-{$placeholder->name}-{$placeholder->server_id}"
+                                                                    class="custom-control-input"
+                                                                    name="show_on_forum-{$placeholder->name}-server-{$placeholder->server_id}"
+                                                                    {if $placeholder->show_on_forum eq 1} checked {/if}>
+                                                            <label class="custom-control-label" for="InputShowOnForum-{$placeholder->name}-{$placeholder->server_id}"></label>
+                                                        </div>
                                                     </td>
                                                     <td class="text-center">
                                                         {if $placeholder->leaderboard eq 1}

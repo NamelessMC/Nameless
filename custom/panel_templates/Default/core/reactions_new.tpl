@@ -74,7 +74,7 @@
                             </div>
 
                             <div class="form-group custom-control custom-switch">
-                                <input type="checkbox" name="enabled" class="custom-control-input">
+                                <input type="checkbox" id="InputEnabled" name="enabled" class="custom-control-input">
                                 <label class="custom-control-label" for="InputEnabled">{$ENABLED}</label>
                             </div>
 

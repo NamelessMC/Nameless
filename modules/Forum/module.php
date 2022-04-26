@@ -160,6 +160,9 @@ class Forum_Module extends Module {
         EventHandler::registerListener('renderPostEdit', 'ContentHook::codeTransform', false, 15);
         EventHandler::registerListener('renderPostEdit', 'ContentHook::decode', false, 20);
         EventHandler::registerListener('renderPostEdit', 'ContentHook::replaceAnchors', false, 15);
+
+        require_once(ROOT_PATH . '/modules/Forum/hooks/CloneGroupForumHook.php');
+        EventHandler::registerListener('cloneGroup', 'CloneGroupForumHook::execute');
     }
 
     public function onInstall() {
@@ -227,9 +230,11 @@ class Forum_Module extends Module {
         }
 
         // Widgets
-        // Latest posts
-        require_once(ROOT_PATH . '/modules/Forum/widgets/LatestPostsWidget.php');
-        $widgets->add(new LatestPostsWidget($this->_forum_language->get('forum', 'latest_posts'), $this->_forum_language->get('forum', 'by'), $smarty, $cache, $user, $this->_language));
+        if (defined('FRONT_END') || (defined('PANEL_PAGE') && str_contains(PANEL_PAGE, 'widget'))) {
+            // Latest posts
+            require_once(ROOT_PATH . '/modules/Forum/widgets/LatestPostsWidget.php');
+            $widgets->add(new LatestPostsWidget($this->_forum_language->get('forum', 'latest_posts'), $this->_forum_language->get('forum', 'by'), $smarty, $cache, $user, $this->_language));
+        }
 
         // Front end or back end?
         if (defined('FRONT_END')) {
@@ -254,8 +259,8 @@ class Forum_Module extends Module {
                 if ($user_id) {
                     $forum = new Forum();
 
-                    $smarty->assign('TOPICS', str_replace('{x}', $forum->getTopicCount($user_id), $this->_forum_language->get('forum', 'x_topics')));
-                    $smarty->assign('POSTS', str_replace('{x}', $forum->getPostCount($user_id), $this->_forum_language->get('forum', 'x_posts')));
+                    $smarty->assign('TOPICS', $this->_forum_language->get('forum', 'x_topics', ['count' => $forum->getTopicCount($user_id)]));
+                    $smarty->assign('POSTS', $this->_forum_language->get('forum', 'x_posts', ['count' => $forum->getPostCount($user_id)]));
                 }
             }
 

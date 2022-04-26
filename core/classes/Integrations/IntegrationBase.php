@@ -11,7 +11,8 @@
 abstract class IntegrationBase {
 
     private DB $_db;
-    private $_data;
+    private ?object $_data;
+    protected string $_icon;
     private array $_errors = [];
     protected Language $_language;
 
@@ -138,9 +139,9 @@ abstract class IntegrationBase {
      * @param string $username The username value to validate.
      * @param int $integration_user_id The integration user id to ignore during duplicate check.
      *
-     * @return bool whether this validation passed or not.
+     * @return bool Whether this validation passed or not.
      */
-    abstract public function validateUsername(string $username, int $integration_user_id = 0);
+    abstract public function validateUsername(string $username, int $integration_user_id = 0): bool;
 
     /**
      * Validate identifier when it being linked or updated.
@@ -148,9 +149,9 @@ abstract class IntegrationBase {
      * @param string $identifier The identifier value to validate.
      * @param int $integration_user_id The integration user id to ignore during duplicate check.
      *
-     * @return bool whether this validation passed or not.
+     * @return bool Whether this validation passed or not.
      */
-    abstract public function validateIdentifier(string $identifier, int $integration_user_id = 0);
+    abstract public function validateIdentifier(string $identifier, int $integration_user_id = 0): bool;
 
     /**
      * Called when register page being loaded

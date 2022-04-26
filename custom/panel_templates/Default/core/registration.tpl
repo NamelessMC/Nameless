@@ -147,7 +147,7 @@
                             <div class="card shadow mb-4">
                                 <div class="card-body">
                                     <div class="form-group custom-control custom-switch text-center">
-                                        <input id="enable-discord" name="enable-discord" type="checkbox" class="custom-control-input" value="1" {if $DISCORD_OAUTH_ENABLED && $DISCORD_OAUTH_SETUP} checked{/if} />
+                                        <input id="enable-discord" name="enable-discord" type="checkbox" class="custom-control-input" {if $DISCORD_OAUTH_ENABLED && $DISCORD_OAUTH_SETUP} checked{/if} />
                                         <label for="enable-discord" id="enable-discord" class="custom-control-label">
                                             Discord <i class="fab fa-discord fa-1x align-middle"></i>
                                         </label>

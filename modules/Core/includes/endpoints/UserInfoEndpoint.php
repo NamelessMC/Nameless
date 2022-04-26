@@ -19,7 +19,7 @@ class UserInfoEndpoint extends KeyAuthEndpoint {
     public function execute(Nameless2API $api, User $user): void {
         $discord_enabled = Util::isModuleEnabled('Discord Integration');
 
-        $query = 'SELECT nl2_users.id, nl2_users.username, nl2_users.language_id, nl2_languages.name as `language`, nl2_users.nickname as displayname, nl2_users.joined as registered_timestamp, nl2_users.last_online as last_online_timestamp, nl2_users.isbanned as banned, nl2_users.active as validated, nl2_users.user_title as user_title FROM nl2_users LEFT JOIN nl2_languages ON nl2_users.language_id = nl2_languages.id';
+        $query = 'SELECT nl2_users.id, nl2_users.username, nl2_languages.short_code as `locale`, nl2_users.nickname as displayname, nl2_users.joined as registered_timestamp, nl2_users.last_online as last_online_timestamp, nl2_users.isbanned as banned, nl2_users.active as validated, nl2_users.user_title as user_title FROM nl2_users LEFT JOIN nl2_languages ON nl2_users.language_id = nl2_languages.id';
 
         // Ensure the user exists
         $results = $api->getDb()->selectQuery($query . ' WHERE nl2_users.id = ?', [(int) $user->data()->id]);
@@ -27,22 +27,22 @@ class UserInfoEndpoint extends KeyAuthEndpoint {
         $return = $results->first();
         $return->exists = true;
         $return->id = (int)$return->id;
-        $return->language_id = (int)$return->language_id;
         $return->registered_timestamp = (int)$return->registered_timestamp;
         $return->last_online_timestamp = (int)$return->last_online_timestamp;
         $return->banned = (bool)$return->banned;
         $return->validated = (bool)$return->validated;
 
         // Get custom profile fields
-        $custom_profile_fields = $api->getDb()->selectQuery('SELECT fields.id, fields.name, fields.type, fields.public, fields.required, fields.description, pf_values.value FROM nl2_users_profile_fields pf_values LEFT JOIN nl2_profile_fields fields ON pf_values.field_id = fields.id WHERE pf_values.user_id = ?', [$user->data()->id]);
-
-        foreach ($custom_profile_fields->results() as $profile_field) {
-            $return->profile_fields[$profile_field->id]['name'] = $profile_field->name;
-            $return->profile_fields[$profile_field->id]['type'] = (int)$profile_field->type;
-            $return->profile_fields[$profile_field->id]['public'] = (bool)$profile_field->public;
-            $return->profile_fields[$profile_field->id]['required'] = (bool)$profile_field->required;
-            $return->profile_fields[$profile_field->id]['description'] = $profile_field->description;
-            $return->profile_fields[$profile_field->id]['value'] = $profile_field->value;
+        foreach ($user->getProfileFields(true) as $id => $profile_field) {
+            $return->profile_fields[$id] = [
+                'name' => $profile_field->name,
+                'type' => $profile_field->type,
+                'public' => $profile_field->public,
+                'required' => $profile_field->required,
+                'editable' => $profile_field->editable,
+                'description' => $profile_field->description,
+                'value' => $profile_field->value
+            ];
         }
 
         // Get the groups the user has

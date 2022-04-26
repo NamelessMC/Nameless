@@ -74,7 +74,7 @@
                                             {if isset($USER_OAUTH_PROVIDERS[$provider_name])}
                                                 <code>{$USER_OAUTH_PROVIDERS[$provider_name]->provider_id}</code>
                                             {else}
-                                                <i>Not linked</i>
+                                                <i>{$NOT_LINKED}</i>
                                             {/if}
                                         </td>
 

@@ -146,8 +146,7 @@ if (!isset($_GET['action'])) {
                                 $perms[0] = 0;
                             }
 
-                            $groups = $queries->getWhere('groups', ['id', '<>', 0]);
-                            foreach ($groups as $group) {
+                            foreach (Group::all() as $group) {
                                 if (isset($_POST['perm-view-' . $group->id]) && $_POST['perm-view-' . $group->id] == 1) {
                                     $perms[$group->id] = 1;
                                 } else {
@@ -177,9 +176,8 @@ if (!isset($_GET['action'])) {
                 }
             }
 
-            $groups = DB::getInstance()->selectQuery('SELECT * FROM nl2_groups ORDER BY `order`')->results();
             $template_array = [];
-            foreach ($groups as $group) {
+            foreach (Group::all() as $group) {
                 $template_array[$group->id] = [
                     'id' => $group->id,
                     'name' => Output::getClean($group->name),
@@ -397,8 +395,7 @@ if (!isset($_GET['action'])) {
                             }
 
                             // Group category permissions
-                            $groups = $queries->getWhere('groups', ['id', '<>', 0]);
-                            foreach ($groups as $group) {
+                            foreach (Group::all() as $group) {
                                 $view = Input::get('perm-view-' . $group->id);
 
                                 if (!($view)) {
@@ -476,7 +473,9 @@ if (!isset($_GET['action'])) {
                 'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
                 'YES' => $language->get('general', 'yes'),
                 'NO' => $language->get('general', 'no'),
-                'EDITING_PAGE' => str_replace('{x}', Output::getClean($page->title), $language->get('admin', 'editing_page_x')),
+                'EDITING_PAGE' => $language->get('admin', 'editing_page_x', [
+                    'page' => Util::bold(Output::getClean($page->title))
+                ]),
                 'PAGE_TITLE' => $language->get('admin', 'page_title'),
                 'PAGE_TITLE_VALUE' => (isset($_POST['page_title']) ? Output::getClean(Input::get('page_title')) : Output::getClean($page->title)),
                 'PAGE_PATH' => $language->get('admin', 'page_path'),
@@ -566,9 +565,6 @@ $smarty->assign([
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit')
 ]);
-
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 

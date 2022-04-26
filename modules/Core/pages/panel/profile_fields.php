@@ -133,12 +133,11 @@ if (isset($_GET['action'])) {
             }
             $id = (int)$_GET['id'];
 
-            $field = $queries->getWhere('profile_fields', ['id', '=', $id]);
+            $field = ProfileField::find($id);
 
-            if (!count($field)) {
+            if (!$field) {
                 Redirect::to(URL::build('/panel/core/profile_fields'));
             }
-            $field = $field[0];
 
             if (Input::exists()) {
                 $errors = [];
@@ -265,20 +264,19 @@ if (isset($_GET['action'])) {
         }
     }
 } else {
-    $profile_fields = $queries->getWhere('profile_fields', ['id', '<>', 0]);
     $template_fields = [];
 
-    foreach ($profile_fields as $field) {
+    foreach (ProfileField::all() as $field) {
         switch ($field->type) {
-            case 1:
+            case Fields::TEXT:
                 $type = $language->get('admin', 'text');
                 break;
 
-            case 2:
+            case Fields::TEXTAREA:
                 $type = $language->get('admin', 'textarea');
                 break;
 
-            case 3:
+            case Fields::DATE:
                 $type = $language->get('admin', 'date');
                 break;
         }
@@ -335,9 +333,6 @@ $smarty->assign([
     'PROFILE_FIELDS' => $language->get('admin', 'custom_fields'),
     'PAGE' => PANEL_PAGE
 ]);
-
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 

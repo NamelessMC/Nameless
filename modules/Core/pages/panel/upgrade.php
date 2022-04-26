@@ -21,12 +21,8 @@ if ($update_needed != 'true' && $update_needed != 'urgent') {
 
 $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
 
-// Get the current version
-$current_version = $queries->getWhere('settings', ['name', '=', 'nameless_version']);
-$current_version = $current_version[0]->value;
-
 // Perform the update
-$upgradeScript = UpgradeScript::get($current_version);
+$upgradeScript = UpgradeScript::get(NAMELESS_VERSION);
 if ($upgradeScript instanceof UpgradeScript) {
     $upgradeScript->run();
 }

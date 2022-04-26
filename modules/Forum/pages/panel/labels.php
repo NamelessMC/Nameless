@@ -167,16 +167,13 @@ if (!isset($_GET['action'])) {
             }
 
             // Get a list of all groups
-            $group_list = $queries->getWhere('groups', ['id', '<>', 0]);
             $template_groups = [];
 
-            if (count($group_list)) {
-                foreach ($group_list as $item) {
-                    $template_groups[] = [
-                        'id' => Output::getClean($item->id),
-                        'name' => Output::getClean($item->name)
-                    ];
-                }
+            foreach (Group::all() as $item) {
+                $template_groups[] = [
+                    'id' => Output::getClean($item->id),
+                    'name' => Output::getClean($item->name)
+                ];
             }
 
             $smarty->assign([
@@ -312,20 +309,17 @@ if (!isset($_GET['action'])) {
             }
 
             // Get a list of all groups
-            $group_list = $queries->getWhere('groups', ['id', '<>', 0]);
             $template_groups = [];
 
             // Get a list of groups which have access to the label
             $groups = explode(',', $label->gids);
 
-            if (count($group_list)) {
-                foreach ($group_list as $item) {
-                    $template_groups[] = [
-                        'id' => Output::getClean($item->id),
-                        'name' => Output::getClean($item->name),
-                        'selected' => (in_array($item->id, $groups))
-                    ];
-                }
+            foreach (Group::all() as $item) {
+                $template_groups[] = [
+                    'id' => Output::getClean($item->id),
+                    'name' => Output::getClean($item->name),
+                    'selected' => (in_array($item->id, $groups))
+                ];
             }
 
             $smarty->assign([
@@ -607,9 +601,6 @@ $smarty->assign([
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit')
 ]);
-
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 

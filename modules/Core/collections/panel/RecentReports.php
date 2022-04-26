@@ -56,7 +56,7 @@ class RecentReportsItem extends CollectionItemBase {
                         $reporter_user = $users[$item->reporter_id];
                     } else {
                         $reporter_user = new User($item->reporter_id);
-                        if (!$reporter_user->data()) {
+                        if (!$reporter_user->exists()) {
                             continue;
                         }
                         $users[$item->reporter_id] = $reporter_user;
@@ -66,7 +66,7 @@ class RecentReportsItem extends CollectionItemBase {
                         $reported_user = $users[$item->reported_id];
                     } else {
                         $reported_user = new User($item->reported_id);
-                        if (!$reported_user->data()) {
+                        if (!$reported_user->exists()) {
                             continue;
                         }
                         $users[$item->reported_id] = $reported_user;
@@ -76,15 +76,15 @@ class RecentReportsItem extends CollectionItemBase {
                         'url' => URL::build('/panel/users/reports/', 'id=' . urlencode($item->id)),
                         'reporter_username' => $reporter_user->getDisplayname(true),
                         'reporter_nickname' => $reporter_user->getDisplayname(),
-                        'reporter_style' => $reporter_user->getGroupClass(),
+                        'reporter_style' => $reporter_user->getGroupStyle(),
                         'reporter_avatar' => $reporter_user->getAvatar(),
                         'reporter_profile' => URL::build('/panel/user/' . urlencode($reporter_user->data()->id) . '-' . urlencode($reporter_user->data()->username)),
                         'reported_username' => $reported_user->getDisplayname(true),
                         'reported_nickname' => $reported_user->getDisplayname(),
-                        'reported_style' => $reported_user->getGroupClass(),
+                        'reported_style' => $reported_user->getGroupStyle(),
                         'reported_avatar' => $reported_user->getAvatar(),
                         'reported_profile' => URL::build('/panel/user/' . urlencode($reported_user->data()->id) . '-' . urlencode($reported_user->data()->username)),
-                        'time' => $timeago->inWords($item->date_reported, $this->_language->getTimeLanguage()),
+                        'time' => $timeago->inWords($item->date_reported, $this->_language),
                         'time_full' => date(DATE_FORMAT, strtotime($item->date_reported)),
                         'type' => $item->type,
                         'reason' => Output::getPurified($item->report_reason),

@@ -19,7 +19,7 @@ if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
 }
 
 $view_user = new User($_GET['id']);
-if (!$view_user->data()) {
+if (!$view_user->exists()) {
     Redirect::to(URL::build('/panel/users'));
 }
 $user_query = $view_user->data();
@@ -79,6 +79,10 @@ if (Input::exists()) {
             $validation = Validate::check($_POST, [
                 'email' => [
                     Validate::REQUIRED => true,
+                    Validate::UNIQUE => [
+                        'users',
+                        'id:' . $view_user->data()->id // ignore current user
+                    ],
                     Validate::MIN => 4,
                     Validate::MAX => 50
                 ],
@@ -93,6 +97,10 @@ if (Input::exists()) {
                 ],
                 'username' => [
                     Validate::REQUIRED => true,
+                    Validate::UNIQUE => [
+                        'users',
+                        'id:' . $view_user->data()->id // ignore current user
+                    ],
                     Validate::MIN => 3,
                     Validate::MAX => 20
                 ],
@@ -103,11 +111,13 @@ if (Input::exists()) {
                 ]
             ])->messages([
                 'email' => [
-                    Validate::REQUIRED => $language->get('user', 'email_required')
+                    Validate::REQUIRED => $language->get('user', 'email_required'),
+                    Validate::UNIQUE => $language->get('user', 'email_already_exists')
                 ],
                 'title' => $language->get('admin', 'title_max_64'),
                 'username' => [
                     Validate::REQUIRED => $language->get('user', 'mcname_required'),
+                    Validate::UNIQUE => $language->get('user', 'username_already_exists'),
                     Validate::MIN => $language->get('user', 'mcname_minimum_3'),
                     Validate::MAX => $language->get('user', 'mcname_maximum_20')
                 ],
@@ -171,10 +181,10 @@ if (Input::exists()) {
                             $modified = [];
 
                             // Check for new groups to give them which they dont already have
-                            foreach ($_POST['groups'] as $group) {
-                                if (!in_array($group, $view_user->getAllGroupIds())) {
-                                    $view_user->addGroup($group, 0, [true]);
-                                    $modified[] = $group;
+                            foreach ($_POST['groups'] as $group_id) {
+                                if (!in_array($group_id, $view_user->getAllGroupIds())) {
+                                    $view_user->addGroup($group_id);
+                                    $modified[] = $group_id;
                                 }
                             }
 
@@ -273,7 +283,7 @@ if ($user_query->id != 1 && !$view_user->canViewStaffCP()) {
     $smarty->assign([
         'DELETE_USER' => $language->get('admin', 'delete_user'),
         'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
-        'CONFIRM_DELETE_USER' => str_replace('{x}', Output::getClean($user_query->username), $language->get('admin', 'confirm_user_deletion')),
+        'CONFIRM_DELETE_USER' => $language->get('admin', 'confirm_user_deletion', ['user' => Output::getClean($user_query->username)]),
         'YES' => $language->get('general', 'yes'),
         'NO' => $language->get('general', 'no')
     ]);
@@ -333,7 +343,9 @@ $smarty->assign([
     'PAGE' => PANEL_PAGE,
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit'),
-    'EDITING_USER' => str_replace('{x}', Output::getClean($user_query->nickname), $language->get('admin', 'editing_user_x')),
+    'EDITING_USER' => $language->get('admin', 'editing_user_x', [
+        'user' => Output::getClean($user_query->nickname),
+    ]),
     'BACK_LINK' => URL::build('/panel/user/' . $user_query->id),
     'BACK' => $language->get('general', 'back'),
     'ACTIONS' => $language->get('general', 'actions'),
@@ -377,9 +389,6 @@ $template->addJSFiles([
     (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
 ]);
 $template->addJSScript(Input::createTinyEditor($language, 'InputSignature'));
-
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 

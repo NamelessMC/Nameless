@@ -81,7 +81,7 @@ class MCQuery {
                             'player_count_max' => Output::getClean($query['players']['max']),
                             'player_list' => $player_list,
                             'format_player_list' => self::formatPlayerList($player_list),
-                            'x_players_online' => str_replace('{x}', Output::getClean($query['players']['online']), $language->get('general', 'currently_x_players_online')),
+                            'x_players_online' => $language->get('general', 'currently_x_players_online', ['count' => Output::getClean($query['players']['online'])]),
                             'motd' => self::getMotd(
                                 $query['description']['text'],
                                 $query['description']['extra']
@@ -98,7 +98,7 @@ class MCQuery {
                         'status' => $language->get('general', 'online'),
                         'player_count' => Output::getClean($query['Players']),
                         'player_count_max' => Output::getClean($query['MaxPlayers']),
-                        'x_players_online' => str_replace('{x}', Output::getClean($query['Players']), $language->get('general', 'currently_x_players_online')),
+                        'x_players_online' => $language->get('general', 'currently_x_players_online', ['count' => Output::getClean($query['Players'])]),
                         'motd' => $query['HostName'],
                         'version' => $query['Version']
                     ];
@@ -131,7 +131,7 @@ class MCQuery {
                     'player_count_max' => Output::getClean($query->response->players->max),
                     'player_list' => $player_list,
                     'format_player_list' => self::formatPlayerList($player_list),
-                    'x_players_online' => str_replace('{x}', Output::getClean($query->response->players->online), $language->get('general', 'currently_x_players_online')),
+                    'x_players_online' => $language->get('general', 'currently_x_players_online', ['count' => Output::getClean($query->response->players->online)]),
                     // TODO: external query does not return bedrock MOTD at all
                     'motd' => self::getMotd(
                         json_decode(json_encode($query->response->description->text), true) ?? '',
@@ -173,19 +173,23 @@ class MCQuery {
     private static function formatPlayerList(array $player_list): array {
         $formatted = [];
 
+        $integration = Integrations::getInstance()->getIntegration('Minecraft');
         foreach ($player_list as $player) {
             $player = (array)$player;
-            $user = new User($player['id'], 'uuid');
-            if (!$user->data()) {
-                $user = new User($player['name'], 'username');
-            }
 
-            if (!$user->data()) {
+            $integration_user = new IntegrationUser($integration, str_replace('-', '', $player['id']), 'identifier');
+            if ($integration_user->exists()) {
+                $user = $integration_user->getUser();
+                if ($user->exists()) {
+                    $avatar = $user->getAvatar();
+                    $profile = $user->getProfileURL();
+                } else {
+                    $avatar = AvatarSource::getAvatarFromUUID($player['id']);
+                    $profile = '#';
+                }
+            } else {
                 $avatar = AvatarSource::getAvatarFromUUID($player['id']);
                 $profile = '#';
-            } else {
-                $avatar = $user->getAvatar();
-                $profile = $user->getProfileURL();
             }
 
             $formatted[] = [
@@ -256,7 +260,7 @@ class MCQuery {
                                     'status' => $language->get('general', 'online'),
                                     'player_count' => Output::getClean($query['Players']),
                                     'player_count_max' => Output::getClean($query['MaxPlayers']),
-                                    'x_players_online' => str_replace('{x}', Output::getClean($query['Players']), $language->get('general', 'currently_x_players_online')),
+                                    'x_players_online' => $language->get('general', 'currently_x_players_online', ['count' => Output::getClean($query['Players'])]),
                                 ];
                             } else {
                                 if ($status == 0) {
@@ -272,7 +276,7 @@ class MCQuery {
                                     'status' => $language->get('general', 'online'),
                                     'player_count' => Output::getClean($query['players']['online']),
                                     'player_count_max' => Output::getClean($query['players']['max']),
-                                    'x_players_online' => str_replace('{x}', Output::getClean($query['players']['online']), $language->get('general', 'currently_x_players_online'))
+                                    'x_players_online' => $language->get('general', 'currently_x_players_online', ['count' => Output::getClean($query['players']['online'])]),
                                 ];
                             } else {
                                 if ($status == 0) {
@@ -311,7 +315,7 @@ class MCQuery {
                                     'status' => $language->get('general', 'online'),
                                     'player_count' => Output::getClean($query->response->players->online),
                                     'player_count_max' => Output::getClean($query->response->players->max),
-                                    'x_players_online' => str_replace('{x}', Output::getClean($query->response->players->online), $language->get('general', 'currently_x_players_online'))
+                                    'x_players_online' => $language->get('general', 'currently_x_players_online', ['count' => Output::getClean($query->response->players->online)]),
                                 ];
                             } else {
                                 if ($status == 0) {
@@ -335,7 +339,7 @@ class MCQuery {
                 $to_return = [
                     'status_value' => $status,
                     'status' => (($status == 1) ? $language->get('general', 'online') : $language->get('general', 'offline')),
-                    'status_full' => (($status == 1) ? str_replace('{x}', $total_count, $language->get('general', 'currently_x_players_online')) : $language->get('general', 'server_offline')),
+                    'status_full' => (($status == 1) ? $language->get('general', 'currently_x_players_online', ['count' => $total_count]) : $language->get('general', 'server_offline')),
                     'total_players' => $total_count,
                     'player_count' => $total_count
                 ];

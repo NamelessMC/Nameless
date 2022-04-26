@@ -21,7 +21,7 @@ $provider_id = $oauth_user[OAuth::getInstance()->getIdName($provider_name)];
 // register
 if (Session::get('oauth_method') === 'register') {
     if (OAuth::getInstance()->userExistsByProviderId($provider_name, $provider_id)) {
-        Session::flash('oauth_error', str_replace('{x}', ucfirst($provider_name), $language->get('user', 'oauth_already_linked')));
+        Session::flash('oauth_error', $language->get('user', 'oauth_already_linked', ['provider' => ucfirst($provider_name)]));
         Redirect::to(URL::build('/register'));
     }
 
@@ -29,6 +29,7 @@ if (Session::get('oauth_method') === 'register') {
         'provider' => $provider_name,
         'id' => $provider_id,
         'email' => $oauth_user['email'],
+        'data' => $oauth_user
     ]));
 
     Redirect::to(URL::build('/register'));
@@ -37,7 +38,7 @@ if (Session::get('oauth_method') === 'register') {
 // login
 if (Session::get('oauth_method') === 'login') {
     if (!OAuth::getInstance()->userExistsByProviderId($provider_name, $provider_id)) {
-        Session::flash('oauth_error', str_replace('{x}', ucfirst($provider_name), $language->get('user', 'no_user_found_with_provider')));
+        Session::flash('oauth_error', $language->get('user', 'no_user_found_with_provider', ['provider' => ucfirst($provider_name)]));
         Redirect::to(URL::build('/login'));
     }
 
@@ -46,7 +47,7 @@ if (Session::get('oauth_method') === 'login') {
         '', true, 'oauth'
     )) {
         Log::getInstance()->log(Log::Action('user/login'));
-        Session::flash('home', str_replace('{x}', ucfirst($provider_name), $language->get('user', 'oauth_login_success')));
+        Session::flash('home', $language->get('user', 'oauth_login_success', ['provider' => ucfirst($provider_name)]));
         Session::delete('oauth_method');
 
         if (isset($_SESSION['last_page']) && substr($_SESSION['last_page'], -1) != '=') {
@@ -62,7 +63,7 @@ if (Session::get('oauth_method') === 'login') {
 // link
 if (Session::get('oauth_method') === 'link') {
     if (OAuth::getInstance()->userExistsByProviderId($provider_name, $provider_id)) {
-        Session::flash('oauth_error', str_replace('{x}', ucfirst($provider_name), $language->get('user', 'oauth_already_linked')));
+        Session::flash('oauth_error', $language->get('user', 'oauth_already_linked', ['provider' => ucfirst($provider_name)]));
         Redirect::to(URL::build('/user/oauth'));
     }
 
@@ -72,7 +73,7 @@ if (Session::get('oauth_method') === 'link') {
         $provider_id,
     );
 
-    Session::flash('oauth_success', str_replace('{x}', ucfirst($provider_name), $language->get('user', 'oauth_link_success')));
+    Session::flash('oauth_success', $language->get('user', 'oauth_link_success', ['provider', ucfirst($provider_name)]));
     Session::delete('oauth_method');
 
     Redirect::to(URL::build('/user/oauth'));

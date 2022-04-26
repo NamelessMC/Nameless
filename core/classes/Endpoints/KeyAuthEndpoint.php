@@ -10,22 +10,27 @@
 class KeyAuthEndpoint extends EndpointBase {
 
     /**
-     * Determine if the passed API key (`HTTP_X_API_KEY`) is valid.
+     * Determine if the passed API key (in Authorization header) is valid.
      *
      * @param Nameless2API $api Instance of the Nameless2API class
      * @return bool Whether the API key is valid
      */
     final public function isAuthorised(Nameless2API $api): bool {
-        if (!isset($_SERVER['HTTP_X_API_KEY'])) {
+
+        if (!isset($_SERVER['HTTP_AUTHORIZATION'])) {
             return false;
         }
 
-        if ($this->validateKey($api, $_SERVER['HTTP_X_API_KEY'])) {
-            return true;
+        $exploded = explode(' ', trim($_SERVER['HTTP_AUTHORIZATION']));
+
+        if (count($exploded) !== 2 ||
+            strcasecmp($exploded[0], 'Bearer') !== 0) {
+            return false;
         }
 
-        /** @phpstan-ignore-next-line  */
-        $api->throwError(1, $api->getLanguage()->get('api', 'invalid_api_key'), null, 403);
+        $api_key = $exploded[1];
+
+        return $this->validateKey($api, $api_key);
     }
 
     /**

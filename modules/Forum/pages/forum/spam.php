@@ -56,7 +56,6 @@ if ($forum->canModerateForum($post->forum_id, $user->getAllGroupIds())) {
 
         // Log user out
         $banned_user_ip = $banned_user->data()->lastip;
-        $banned_user->logout();
 
         // Ban IP
         $queries->create('ip_bans', [

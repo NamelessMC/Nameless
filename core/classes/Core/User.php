@@ -11,27 +11,29 @@
  */
 class User {
 
+    private static array $_user_cache = [];
+
     private DB $_db;
 
     /**
-     * @var mixed The user's data. Basically just the row from `nl2_users` where the user ID is the key.
+     * @var UserData|null The user's data. Basically just the row from `nl2_users` where the user ID is the key.
      */
-    private $_data;
+    private ?UserData $_data;
 
     /**
-     * @var array The user's groups.
+     * @var array<int, Group> The user's groups.
      */
     private array $_groups = [];
 
     /**
-     * @var array The user's integrations.
+     * @var IntegrationUser[] The user's integrations.
      */
     private array $_integrations;
 
     /**
-     * @var object The user's main group.
+     * @var Group The user's main group.
      */
-    private object $_main_group;
+    private Group $_main_group;
 
     /**
      * @var array The user's placeholders.
@@ -69,7 +71,7 @@ class User {
         $this->_cookieName = Config::get('remember/cookie_name');
         $this->_admSessionName = Config::get('session/admin_name');
 
-        if (!$user) {
+        if ($user === null) {
             if (Session::exists($this->_sessionName)) {
                 $user = Session::get($this->_sessionName);
                 if ($this->find($user, $field)) {
@@ -98,20 +100,32 @@ class User {
      */
     public function find(string $value = null, string $field = 'id'): bool {
         if ($value) {
+            if (isset(self::$_user_cache["$value.$field"])) {
+                $cache = self::$_user_cache["$value.$field"];
+                $this->_data = $cache['data'];
+                $this->_groups = $cache['groups'];
+                return true;
+            }
+
             $data = $this->_db->get('users', [$field, '=', $value]);
 
             if ($data->count()) {
-                $this->_data = $data->first();
+                $this->_data = new UserData($data->first());
 
                 // Get user groups
-                $groups_query = $this->_db->selectQuery('SELECT nl2_groups.* FROM nl2_users_groups INNER JOIN nl2_groups ON group_id = nl2_groups.id WHERE user_id = ? AND deleted = 0 ORDER BY `order`;', [$this->_data->id]);
+                $groups_query = $this->_db->selectQuery('SELECT nl2_groups.* FROM nl2_users_groups INNER JOIN nl2_groups ON group_id = nl2_groups.id WHERE user_id = ? AND deleted = 0 ORDER BY `order`;', [$this->data()->id]);
 
                 if ($groups_query->count()) {
 
                     $groups_query = $groups_query->results();
                     foreach ($groups_query as $item) {
-                        $this->_groups[$item->id] = $item;
+                        $this->_groups[$item->id] = new Group($item);
                     }
+
+                    self::$_user_cache["$value.$field"] = [
+                        'data' => $this->_data,
+                        'groups' => $this->_groups,
+                    ];
 
                 } else {
                     // Get default group
@@ -159,12 +173,12 @@ class User {
         );
 
         if ($group_data == null) {
-            $group_data = $this->_db->get('groups', ['id', '=', $group_id]);
-            if ($group_data->count()) {
-                $this->_groups[$group_id] = $group_data->first();
+            $group = Group::find($group_id);
+            if ($group) {
+                $this->_groups[$group_id] = $group;
             }
         } else {
-            $this->_groups[$group_id] = $group_data;
+            $this->_groups[$group_id] = new Group($group_data);
         }
 
         return true;
@@ -173,10 +187,17 @@ class User {
     /**
      * Get the currently logged in user's data.
      *
-     * @return object This user's data.
+     * @return UserData This user's data.
      */
-    public function data(): ?object {
+    public function data(): ?UserData {
         return $this->_data;
+    }
+
+    /**
+     * @deprecated Use getGroupStyle instead
+     */
+    public function getGroupClass(): string {
+        return $this->getGroupStyle();
     }
 
     /**
@@ -184,7 +205,7 @@ class User {
      *
      * @return string The CSS styling.
      */
-    public function getGroupClass(): string {
+    public function getGroupStyle(): string {
         $group = $this->getMainGroup();
 
         $group_username_color = Output::getClean($group->group_username_color);
@@ -208,7 +229,7 @@ class User {
      * @throws Exception
      */
     public function update(array $fields = []): void {
-        if (!$this->_db->update('users', $this->_data->id, $fields)) {
+        if (!$this->_db->update('users', $this->data()->id, $fields)) {
             throw new RuntimeException('There was a problem updating your details.');
         }
     }
@@ -378,12 +399,12 @@ class User {
      * @param bool $username If true, will use their username. If false, will use their nickname.
      * @return string Their display name.
      */
-    public function getDisplayName(bool $username = false): string {
+    public function getDisplayname(bool $username = false): string {
         if ($username) {
-            return Output::getClean($this->_data->username);
+            return $this->data()->username;
         }
 
-        return Output::getClean($this->_data->nickname);
+        return $this->data()->nickname;
     }
 
     /**
@@ -402,7 +423,7 @@ class User {
      */
     public function getAllGroupIds(): array {
         if (!$this->exists()) {
-            return [0];
+            return [0 => 0];
         }
 
         $groups = [];
@@ -460,16 +481,16 @@ class User {
      * @return string URL to their avatar image.
      */
     public function getAvatar(int $size = 128, bool $full = false): string {
-        $data = $this->data();
+        $data_obj = (object) $this->data();
 
         $integrationUser = $this->getIntegration('Minecraft');
         if ($integrationUser != null) {
-            $data->uuid = $integrationUser->data()->identifier;
+            $data_obj->uuid = $integrationUser->data()->identifier;
         } else {
-            $data->uuid = '';
+            $data_obj->uuid = '';
         }
 
-        return AvatarSource::getAvatarFromUserData($data, $this->hasPermission('usercp.gif_avatar'), $size, $full);
+        return AvatarSource::getAvatarFromUserData($data_obj, $this->hasPermission('usercp.gif_avatar'), $size, $full);
     }
 
     /**
@@ -487,7 +508,7 @@ class User {
         }
 
         foreach ($groups as $group) {
-            $permissions = json_decode($group->permissions, true);
+            $permissions = json_decode($group->permissions, true) ?? [];
 
             if (isset($permissions['administrator']) && $permissions['administrator'] == 1) {
                 return true;
@@ -499,33 +520,6 @@ class User {
         }
 
         return false;
-    }
-
-    /**
-     * If the user has infractions, list them all. Or else return false.
-     * @deprecated  Not used internally.
-     *
-     * @return array|bool Array of infractions if they have one or more, else false.
-     */
-    public function hasInfraction() {
-        $data = $this->_db->get('infractions', ['punished', '=', $this->data()->id])->results();
-        if (empty($data)) {
-            return false;
-        }
-
-        $return = [];
-        $n = 0;
-        foreach ($data as $infraction) {
-            if ($infraction->acknowledged == '0') {
-                $return[$n]['id'] = $infraction->id;
-                $return[$n]['staff'] = $infraction->staff;
-                $return[$n]['reason'] = $infraction->reason;
-                $return[$n]['date'] = $infraction->infraction_date;
-                $n++;
-            }
-        }
-
-        return $return;
     }
 
     /**
@@ -561,13 +555,13 @@ class User {
     /**
      * Get the user's integrations.
      *
-     * @return array Their integrations.
+     * @return IntegrationUser[] Their integrations.
      */
     public function getIntegrations(): array {
         return $this->_integrations ??= (function (): array {
             $integrations = Integrations::getInstance();
 
-            $integrations_query = $this->_db->selectQuery('SELECT nl2_users_integrations.*, nl2_integrations.name as integration_name FROM nl2_users_integrations LEFT JOIN nl2_integrations ON integration_id=nl2_integrations.id WHERE user_id = ?', [$this->_data->id]);
+            $integrations_query = $this->_db->selectQuery('SELECT nl2_users_integrations.*, nl2_integrations.name as integration_name FROM nl2_users_integrations LEFT JOIN nl2_integrations ON integration_id=nl2_integrations.id WHERE user_id = ?', [$this->data()->id]);
             if ($integrations_query->count()) {
                 $integrations_query = $integrations_query->results();
 
@@ -575,7 +569,7 @@ class User {
                 foreach ($integrations_query as $item) {
                     $integration = $integrations->getIntegration($item->integration_name);
                     if ($integration != null) {
-                        $integrationUser = new IntegrationUser($integration, $this->_data->id, 'user_id', $item);
+                        $integrationUser = new IntegrationUser($integration, $this->data()->id, 'user_id', $item);
 
                         $integrations_list[$item->integration_name] = $integrationUser;
                     }
@@ -596,11 +590,7 @@ class User {
      * @return IntegrationUser|null Their integration user  if connected otherwise null.
      */
     public function getIntegration(string $integrationName): ?IntegrationUser {
-        if (array_key_exists($integrationName, $this->getIntegrations())) {
-            return $this->getIntegrations()[$integrationName];
-        }
-
-        return null;
+        return $this->getIntegrations()[$integrationName] ?? null;
     }
 
     /**
@@ -644,10 +634,10 @@ class User {
     /**
      * Get this user's main group (with highest order).
      *
-     * @return object The group
+     * @return Group The group
      */
-    public function getMainGroup(): object {
-        return $this->_main_group ??= array_reduce($this->_groups, static function ($carry, $group) {
+    public function getMainGroup(): Group {
+        return $this->_main_group ??= array_reduce($this->_groups, static function (?Group $carry, Group $group) {
             return $carry === null || $carry->order > $group->order ? $group : $carry;
         });
     }
@@ -678,9 +668,9 @@ class User {
 
         $this->_groups = [];
         if ($group_data == null) {
-            $group_data = $this->_db->get('groups', ['id', '=', $group_id]);
-            if ($group_data->count()) {
-                $this->_groups[$group_id] = $group_data->first();
+            $group = Group::find($group_id);
+            if ($group) {
+                $this->_groups[$group_id] = $group;
             }
         } else {
             $this->_groups[$group_id] = $group_data;
@@ -804,7 +794,7 @@ class User {
                 $pm = $pm[0];
 
                 $return[$pm->id]['id'] = $pm->id;
-                $return[$pm->id]['title'] = Output::getClean($pm->title);
+                $return[$pm->id]['title'] = $pm->title;
                 $return[$pm->id]['created'] = $pm->created;
                 $return[$pm->id]['updated'] = $pm->last_reply_date;
                 $return[$pm->id]['user_updated'] = $pm->last_reply_user;
@@ -940,70 +930,31 @@ class User {
     }
 
     /**
-     * Get profile fields for specified user
+     * Get profile fields for this user
      *
-     * @param bool $public Whether to only return public fields or not (default `true`).
-     * @param bool $forum Whether to only return fields which display on forum posts, only if $public is true (default `false`).
+     * @param bool $show_private Whether to only return public fields or not (default `true`).
+     * @param bool $only_forum Whether to only return fields which display on forum posts, only if $public is true (default `false`).
      *
-     * @return array Array of profile fields.
+     * @return array<int, UserProfileField> Array of profile fields.
      */
-    public function getProfileFields(bool $public = true, bool $forum = false): array {
-        $data = $this->_db->get('users_profile_fields', ['user_id', '=', $this->data()->id]);
-        if (!$data->count()) {
-            return [];
+    public function getProfileFields(bool $show_private = false, bool $only_forum = false): array {
+        $rows = DB::getInstance()->selectQuery('SELECT pf.*, upf.id as upf_id, upf.value FROM nl2_profile_fields pf LEFT JOIN nl2_users_profile_fields upf ON (pf.id = upf.field_id AND upf.user_id = ?)', [
+            $this->data()->id,
+        ])->results();
+
+        $fields = [];
+
+        foreach ($rows as $row) {
+            $field = new UserProfileField($row);
+            // Check that the field is public, or they are viewing private fields
+            // also if they're checking forum fields, check that the field is a forum field
+            // TODO: ideally within the query
+            if (($field->public || $show_private) && (!$only_forum || $field->forum_posts)) {
+                $fields[$row->id] = $field;
+            }
         }
 
-        $return = [];
-        if ($public == true) {
-
-            // Return public fields only
-            foreach ($data->results() as $result) {
-                $is_public = $this->_db->get('profile_fields', ['id', '=', $result->field_id]);
-                if (!$is_public->count()) {
-                    continue;
-                }
-
-                $is_public = $is_public->results();
-
-                if ($is_public[0]->public == 1) {
-                    if ($forum == true) {
-                        if ($is_public[0]->forum_posts == 1) {
-                            $return[$result->field_id] = [
-                                'row_id' => $result->id,
-                                'name' => Output::getClean($is_public[0]->name),
-                                'value' => Output::getClean($result->value)
-                            ];
-                        }
-                    } else {
-                        $return[$result->field_id] = [
-                            'row_id' => $result->id,
-                            'name' => Output::getClean($is_public[0]->name),
-                            'value' => Output::getClean($result->value)
-                        ];
-                    }
-                }
-            }
-
-        } else {
-            // Return all fields
-            foreach ($data->results() as $result) {
-                $name = $this->_db->get('profile_fields', ['id', '=', $result->field_id]);
-                if (!$name->count()) {
-                    continue;
-                }
-
-                $name = $name->results();
-
-                $return[$result->field_id] = [
-                    'row_id' => $result->id,
-                    'name' => Output::getClean($name[0]->name),
-                    'value' => Output::getClean($result->value)
-                ];
-            }
-
-        }
-
-        return $return;
+        return $fields;
     }
 
     /**
@@ -1062,7 +1013,7 @@ class User {
      * @return bool Whether their profile is set to private or not.
      */
     public function isPrivateProfile(): bool {
-        return $this->_data->private_profile ?? false;
+        return $this->data()->private_profile ?? false;
     }
 
     /**
@@ -1073,9 +1024,7 @@ class User {
     public function getUserTemplates(): array {
         $groups = '(';
         foreach ($this->_groups as $group) {
-            if (is_numeric($group->id)) {
-                $groups .= ((int)$group->id) . ',';
-            }
+            $groups .= ((int)$group->id) . ',';
         }
         $groups = rtrim($groups, ',') . ')';
 

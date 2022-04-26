@@ -26,7 +26,7 @@
                 {/if}
                 {if isset($ERROR_MESSAGE)}
                     <div class="ui negative icon message">
-                        <i class="check icon"></i>
+                        <i class="x icon"></i>
                         <div class="content">
                             <div class="header">{$ERROR}</div>
                             {$ERROR_MESSAGE}

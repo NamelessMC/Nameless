@@ -30,7 +30,7 @@ if (PHP_VERSION_ID < 70400) {
 }
 
 // Start page load timer
-$start = microtime(true);
+define('PAGE_START_TIME', microtime(true));
 
 // Definitions
 const PATH = '/';

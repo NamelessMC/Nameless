@@ -44,9 +44,6 @@ if ($registration_enabled == 0) {
     // Load modules + template
     Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-    $page_load = microtime(true) - $start;
-    define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
-
     $template->onPageLoad();
 
     require(ROOT_PATH . '/core/templates/navbar.php');
@@ -59,8 +56,7 @@ if ($registration_enabled == 0) {
 }
 
 // Check if Minecraft is enabled
-$minecraft = $queries->getWhere('settings', ['name', '=', 'mc_integration']);
-$minecraft = $minecraft[0]->value;
+$minecraft = MINECRAFT;
 
 if ($minecraft == '1') {
     // Check if AuthMe is enabled
@@ -180,15 +176,13 @@ if (Input::exists()) {
             $username = Output::getClean(Input::get('username'));
 
             // Validate custom fields
-            $profile_fields = $queries->getWhere('profile_fields', ['id', '<>', 0]);
-            if (count($profile_fields)) {
-                foreach ($profile_fields as $field) {
-                    if ($field->required == true) {
-                        $to_validation[$field->id] = [
-                            Validate::REQUIRED => true,
-                            Validate::MAX => (is_null($field->length) ? 1024 : $field->length)
-                        ];
-                    }
+            $profile_fields = ProfileField::all();
+            foreach ($profile_fields as $field) {
+                if ($field->required) {
+                    $to_validation["profile_fields[{$field->id}]"] = [
+                        Validate::REQUIRED => true,
+                        Validate::MAX => (is_null($field->length) ? 1024 : $field->length)
+                    ];
                 }
             }
 
@@ -218,13 +212,18 @@ if (Input::exists()) {
                     Validate::REQUIRED => $language->get('user', 'accept_terms'),
                 ],
                 // fallback message for profile fields
-                '*' => static function ($field) use ($language, $queries) {
-                    $profile_field = $queries->getWhere('profile_fields', ['id', '=', $field]);
-                    if (!count($profile_field)) {
+                '*' => static function ($field) use ($language) {
+                    // get the id from between the square brackets
+                    $id = substr($field, strpos($field, '[') + 1, -1);
+
+                    $field = ProfileField::find($id);
+                    if (!$field) {
                         return null;
                     }
 
-                    return str_replace('{x}', Output::getClean($profile_field[0]->name), $language->get('user', 'field_is_required'));
+                    return $language->get('user', 'field_is_required', [
+                        'field' => Output::getClean($field->name),
+                    ]);
                 },
             ]);
 
@@ -289,12 +288,14 @@ if (Input::exists()) {
                         $code = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 60);
 
                         // Get default language ID before creating user
-                        $language_id = $queries->getWhere('languages', ['name', '=', LANGUAGE]);
+                        $language_id = $queries->getWhere('languages', ['short_code', '=', LANGUAGE]);
 
                         if (count($language_id)) {
                             $language_id = $language_id[0]->id;
                         } else {
-                            $language_id = 1; // fallback to EnglishUK
+                            // fallback to EnglishUK
+                            $language_id = $queries->getWhere('languages', ['short_code', '=', 'en_UK']);
+                            $language_id = $language_id[0]->id;
                         }
 
                         // Get default group ID
@@ -302,8 +303,7 @@ if (Input::exists()) {
                         if ($cache->isCached('default_group')) {
                             $default_group = $cache->retrieve('default_group');
                         } else {
-                            $default_group = $queries->getWhere('groups', ['default_group', '=', 1]);
-                            $default_group = $default_group[0]->id;
+                            $default_group = Group::find(1, 'default_group')->id;
 
                             $cache->store('default_group', $default_group);
                         }
@@ -331,7 +331,7 @@ if (Input::exists()) {
                         $user_id = $queries->getLastId();
 
                         $user = new User($user_id);
-                        $user->addGroup($default_group, 0, [true]);
+                        $user->addGroup($default_group);
 
                         foreach ($integrations->getEnabledIntegrations() as $integration) {
                             $integration->successfulRegistration($user);
@@ -348,32 +348,26 @@ if (Input::exists()) {
                         }
 
                         // Custom Fields
-                        if (count($profile_fields)) {
-                            foreach ($profile_fields as $field) {
-                                if ($field->required == false) {
-                                    continue;
-                                }
-                                $value = Input::get($field->id);
-                                if (!empty($value)) {
-                                    // Insert custom field
-                                    $queries->create(
-                                        'users_profile_fields',
-                                        [
-                                            'user_id' => $user_id,
-                                            'field_id' => $field->id,
-                                            'value' => $value
-                                        ]
-                                    );
-                                }
+                        foreach ($_POST['profile_fields'] as $field_id => $value) {
+                            if (!empty($value)) {
+                                // Insert custom field
+                                $queries->create('users_profile_fields', [
+                                    'user_id' => $user_id,
+                                    'field_id' => $field_id,
+                                    'value' => $value
+                                ]);
                             }
                         }
 
-                        Log::getInstance()->log(Log::Action('user/register'));
+                        Log::getInstance()->log(Log::Action('user/register'), '', $user_id, $user->getIP());
 
                         EventHandler::executeEvent('registerUser', [
                             'user_id' => $user_id,
                             'username' => Input::get('username'),
-                            'content' => str_replace('{x}', Input::get('username'), $language->get('user', 'user_x_has_registered')),
+                            'content' => $language->get('user', 'user_x_has_registered', [
+                                'user' => Input::get('username'),
+                                'siteName' => SITE_NAME,
+                            ]),
                             'avatar_url' => $user->getAvatar(128, true),
                             'url' => Util::getSelfURL() . ltrim(URL::build('/profile/' . urlencode(Input::get('username'))), '/'),
                             'language' => $language
@@ -430,6 +424,10 @@ if ($custom_usernames == 'true') {
 $username_value = ((isset($_POST['username']) && $_POST['username']) ? Output::getClean(Input::get('username')) : '');
 $email_value = ((isset($_POST['email']) && $_POST['email']) ? Output::getClean(Input::get('email')) : '');
 
+if (Session::exists('oauth_register_data')) {
+    $email_value = json_decode(Session::get('oauth_register_data'), true)['email'];
+}
+
 $fields->add('username', Fields::TEXT, $language->get('user', 'username'), true, $username_value);
 $fields->add('email', Fields::EMAIL, $language->get('user', 'email_address'), true, $email_value);
 $fields->add('password', Fields::PASSWORD, $language->get('user', 'password'), true);
@@ -441,43 +439,36 @@ foreach ($integrations->getEnabledIntegrations() as $integration) {
 }
 
 // Custom profile fields
-$profile_fields = $queries->getWhere('profile_fields', ['id', '<>', 0]);
-if (count($profile_fields)) {
-    foreach ($profile_fields as $field) {
-        if ($field->required == false) {
-            continue;
-        }
-
-        $fields->add(
-            $field->id,
-            $field->type,
-            Output::getClean($field->name),
-            true,
-            ((isset($_POST[$field->id]) && $_POST[$field->id]) ? Output::getClean(Input::get($field->id)) : ''),
-            Output::getClean($field->description) ?: Output::getClean($field->name)
-        );
+foreach (ProfileField::all() as $field) {
+    if (!$field->required) {
+        continue;
     }
-}
-
-if (Session::exists('oauth_register_data')) {
-    $email_value = json_decode(Session::get('oauth_register_data'), true)['email'];
+    $fields->add(
+        "profile_fields[{$field->id}]",
+        $field->type,
+        Output::getClean($field->name),
+        $field->required,
+        Output::getClean(Input::get("profile_fields[{$field->id}]")),
+        Output::getClean($field->description) ?: Output::getClean($field->name)
+    );
 }
 
 $oauth_flow = Session::exists('oauth_register_data');
 if ($oauth_flow) {
     $data = json_decode(Session::get('oauth_register_data'), true);
-    $smarty->assign('OAUTH_MESSAGE_CONTINUE', str_replace(
-        '{x}',
-        ucfirst($data['provider']),
-        $language->get('general', 'oauth_message_continue')
-    ));
+    $smarty->assign('OAUTH_MESSAGE_CONTINUE', $language->get('general', 'oauth_message_continue', [
+        'provider' => ucfirst($data['provider'])
+    ]));
 }
 
 // Assign Smarty variables
 $smarty->assign([
     'FIELDS' => $fields->getAll(),
     'I_AGREE' => $language->get('user', 'i_agree'),
-    'AGREE_TO_TERMS' => str_replace('{x}', URL::build('/terms'), $language->get('user', 'agree_t_and_c')),
+    'AGREE_TO_TERMS' => $language->get('user', 'agree_t_and_c', [
+        'linkStart' => '<a href="' . URL::build('/terms') . '">',
+        'linkEnd' => '</a>',
+    ]),
     'REGISTER' => $language->get('general', 'register'),
     'LOG_IN' => $language->get('general', 'sign_in'),
     'LOGIN_URL' => URL::build('/login'),
@@ -485,6 +476,7 @@ $smarty->assign([
     'CREATE_AN_ACCOUNT' => $language->get('user', 'create_an_account'),
     'ALREADY_REGISTERED' => $language->get('general', 'already_registered'),
     'ERROR_TITLE' => $language->get('general', 'error'),
+    'OR' => $language->get('general', 'or'),
     'OAUTH_FLOW' => $oauth_flow,
     'OAUTH_AVAILABLE' => OAuth::getInstance()->isAvailable(),
     'OAUTH_PROVIDERS' => OAuth::getInstance()->getProvidersAvailable(),
@@ -507,9 +499,6 @@ if ($captcha) {
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
-
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 

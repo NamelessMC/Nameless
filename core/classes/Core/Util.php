@@ -246,10 +246,14 @@ class Util {
         return $url;
     }
 
-    /*
-     *  The truncate function is taken from CakePHP, license MIT
-     *  https://github.com/cakephp/cakephp/blob/master/LICENSE
+    /**
+     * Detect if the current connection is using SSL.
+     *
+     * @return bool Whether SSL is in use or not.
      */
+    public static function isConnectionSSL(): bool {
+        return (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https');
+    }
 
     /**
      * URL-ify a string
@@ -266,6 +270,11 @@ class Util {
 
         return '';
     }
+
+    /*
+    *  The truncate function is taken from CakePHP, license MIT
+    *  https://github.com/cakephp/cakephp/blob/master/LICENSE
+    */
 
     /**
      * Truncates text.
@@ -381,13 +390,9 @@ class Util {
      * @return string JSON object with information about any updates.
      */
     public static function updateCheck(): string {
-        $queries = new Queries();
-
-        // Check for updates
-        $current_version = self::getSetting(DB::getInstance(), 'nameless_version');
         $uid = self::getSetting(DB::getInstance(), 'unique_id');
 
-        $update_check = HttpClient::get('https://namelessmc.com/nl_core/nl2/stats.php?uid=' . $uid . '&version=' . $current_version . '&php_version=' . urlencode(PHP_VERSION) . '&language=' . LANGUAGE . '&docker=' . (getenv('NAMELESSMC_METRICS_DOCKER') === false ? 'false' : 'true'));
+        $update_check = HttpClient::get('https://namelessmc.com/nl_core/nl2/stats.php?uid=' . $uid . '&version=' . NAMELESS_VERSION . '&php_version=' . urlencode(PHP_VERSION) . '&language=' . LANGUAGE . '&docker=' . (getenv('NAMELESSMC_METRICS_DOCKER') === false ? 'false' : 'true'));
 
         if ($update_check->hasError()) {
             $error = $update_check->getError();
@@ -417,6 +422,7 @@ class Util {
                 $to_db = 'true';
             }
 
+            $queries = new Queries();
             $update_id = $queries->getWhere('settings', ['name', '=', 'version_update']);
             $update_id = $update_id[0]->id;
             $queries->update('settings', $update_id, [
@@ -497,22 +503,6 @@ class Util {
     }
 
     /**
-     * Get a website group's name from it's ID.
-     *
-     * @param int $group_id ID of group to find.
-     * @return string|null Name of group, null if doesnt exist.
-     */
-    public static function getGroupNameFromId(int $group_id): ?string {
-        $data = DB::getInstance()->get('groups', ['id', '=', $group_id]);
-
-        if ($data->count()) {
-            return $data->first()->name;
-        }
-
-        return null;
-    }
-
-    /**
      * Determine if a specific module is enabled
      *
      * @param string $name Name of module to check for.
@@ -537,15 +527,6 @@ class Util {
     }
 
     /**
-     * Get the current NamelessMC version.
-     *
-     * @return string Current Nameless version
-     */
-    public static function getCurrentNamelessVersion(): string {
-        return self::getSetting(DB::getInstance(), 'nameless_version');
-    }
-
-    /**
      * Replace native emojis with their Twemoji equivalent.
      *
      * @param string $text Text to parse
@@ -557,5 +538,15 @@ class Util {
             'height' => 20,
             'style' => 'vertical-align: middle;'
         ]);
+    }
+
+    /**
+     * Wrap text in HTML `<strong>` tags.
+     *
+     * @param string $text Text to wrap
+     * @return string Text wrapped in `<strong>` tags
+     */
+    public static function bold(string $text): string {
+        return '<strong>' . $text . '</strong>';
     }
 }

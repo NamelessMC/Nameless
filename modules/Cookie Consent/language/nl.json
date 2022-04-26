@@ -1,0 +1,13 @@
+{
+    "cookie/configure_cookies": "Configureer Cookies",
+    "cookie/cookie_notice": "Cookie opmerking",
+    "cookie/cookie_notice_info": "Deze widget vereist cookies",
+    "cookie/cookie_notice_success": "Cookie opmerking succesvol aangepast.",
+    "cookie/cookie_popup": "Deze website gebruikt cookies om jouw surfervaring te verbeteren.",
+    "cookie/cookie_popup_allow": "Sta cookies toe",
+    "cookie/cookie_popup_disallow": "Sta cookies niet toe",
+    "cookie/cookie_popup_more_info": "Meer info",
+    "cookie/cookies": "Cookies",
+    "cookie/update_settings": "Toon Cookie Popup",
+    "cookie/cookie_notice_error": "Vul alstublieft een cookie opmerking in van maximaal 10.000 karakters."
+}

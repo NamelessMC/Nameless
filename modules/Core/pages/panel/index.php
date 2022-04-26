@@ -90,7 +90,7 @@ if ($cache->isCached('news')) {
             $news[] = [
                 'title' => Output::getClean($item->title),
                 'date' => Output::getClean($item->date),
-                'date_friendly' => $timeago->inWords($item->date, $language->getTimeLanguage()),
+                'date_friendly' => $timeago->inWords($item->date, $language),
                 'author' => Output::getClean($item->author),
                 'url' => Output::getClean($item->url)
             ];
@@ -115,7 +115,7 @@ if ($user->hasPermission('admincp.core.debugging')) {
     $compat_success = [];
     $compat_errors = [];
 
-    if (version_compare(PHP_VERSION, '7.4', '<')) {
+    if (PHP_VERSION_ID < 70400) {
         $compat_errors[] = 'PHP ' . PHP_VERSION;
     } else {
         $compat_success[] = 'PHP ' . PHP_VERSION;
@@ -200,17 +200,18 @@ $smarty->assign([
     'GRAPHS' => $graphs,
     'STATISTICS' => $language->get('admin', 'statistics'),
     'NAMELESS_NEWS' => $language->get('admin', 'nameless_news'),
-    'CONFIRM_LEAVE_SITE' => $language->get('admin', 'confirm_leave_site'),
+    'CONFIRM_LEAVE_SITE' => $language->get('admin', 'confirm_leave_site', [
+        'link' => '<strong id="leaveSiteURL">{x}</strong>',
+    ]),
     'YES' => $language->get('general', 'yes'),
     'NO' => $language->get('general', 'no'),
     'MAIN_ITEMS' => CollectionManager::getEnabledCollection('dashboard_main_items'),
     'SIDE_ITEMS' => CollectionManager::getEnabledCollection('dashboard_side_items'),
     // TODO: show latest git commit hash?
-    'NAMELESS_VERSION' => str_replace('{x}', NAMELESS_VERSION, $language->get('admin', 'running_nameless_version'))
+    'NAMELESS_VERSION' => $language->get('admin', 'running_nameless_version', [
+        'version' => Util::bold(NAMELESS_VERSION)
+    ]),
 ]);
-
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 

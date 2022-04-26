@@ -6,7 +6,7 @@
  * @package NamelessMC\Core
  * @author Samerton
  * @author Aberdeener
- * @version 2.0.0-pr10
+ * @version 2.0.0-pr13
  * @license MIT
  */
 class Validate {
@@ -123,14 +123,29 @@ class Validate {
                 $item = Output::getClean($item);
 
                 // Required rule
-                if ($rule === self::REQUIRED && empty($value)) {
-                    // The post array does not include this value, return an error
-                    $validator->addError([
-                        'field' => $item,
-                        'rule' => self::REQUIRED,
-                        'fallback' => "$item is required."
-                    ]);
-                    continue;
+                if ($rule === self::REQUIRED ) {
+                    $missing = false;
+                    // If the item is HTML array syntax, check if it exists within the subarray.
+                    // Otherwise, check if it's empty.
+                    if (str_contains($item, '[') && str_ends_with($item, ']')) {
+                        preg_match('/\[(.*?)\]/', $item, $matches);
+                        $array = explode('[', $item)[0];
+                        if (empty($source[$array][$matches[1]])) {
+                            $missing = true;
+                        }
+                    } else if (empty($value)) {
+                        $missing = true;
+                    }
+
+                    if ($missing) {
+                        // The post array does not include this value, return an error
+                        $validator->addError([
+                            'field' => $item,
+                            'rule' => self::REQUIRED,
+                            'fallback' => "$item is required."
+                        ]);
+                        continue;
+                    }
                 }
 
                 if (empty($value)) {
@@ -181,7 +196,19 @@ class Validate {
                         break;
 
                     case self::UNIQUE:
-                        $check = $validator->_db->get($rule_value, [$item, '=', $value]);
+                        if (is_array($rule_value)) {
+                            $table = $rule_value[0];
+                            [$ignore_col, $ignore_val] = explode(':', $rule_value[1]);
+                            $check = $validator->_db->selectQuery('SELECT * FROM nl2_' . $table . ' WHERE ? = ? AND ? <> ?', [
+                                $item,
+                                $value,
+                                $ignore_col,
+                                $ignore_val,
+                            ]);
+                        } else {
+                            $table = $rule_value;
+                            $check = $validator->_db->get($table, [$item, '=', $value]);
+                        }
                         if ($check->count()) {
                             $validator->addError([
                                 'field' => $item,
