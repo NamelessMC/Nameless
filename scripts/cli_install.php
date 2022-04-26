@@ -164,6 +164,14 @@ $queries->create('settings', [
     'name' => 'outgoing_email',
     'value' => getEnvVar('NAMELESS_SITE_OUTGOING_EMAIL'),
 ]);
+if (getEnvVar('NAMELESS_DISABLE_EMAIL_VERIFICATION')) {
+    $email_verification = $queries->getWhere('settings', ['name', '=', 'email_verification']);
+    $email_verification_id = $email_verification[0]->id;
+    $queries->update('settings', $email_verification_id, [
+        'name' => 'email_verification',
+        'value' => 0,
+    ]);
+}
 
 print('👮 Creating admin account...' . PHP_EOL);
 
