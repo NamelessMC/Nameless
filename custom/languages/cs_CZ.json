@@ -74,7 +74,7 @@
     "admin/captcha_login": "Povolit Captchu na přihlašovací stránce?",
     "admin/captcha_secret_key": "Captcha tajný klíč",
     "admin/captcha_site_key": "Captcha klíč webu",
-    "admin/captcha_type": "Typ Captchy",
+    "admin/captcha_type": "Typ Captcha",
     "admin/check_again": "Zkontrolovat znovu",
     "admin/clear_cache": "Vyčistit mezipaměť šablon",
     "admin/closable": "Lze zavřít",
@@ -575,7 +575,7 @@
     "admin/unsafe_html": "Povolit nebezpečné HTML?",
     "admin/unsafe_html_warning": "Povolením této možnosti lze na stránce použít jakékoli HTML, včetně potenciálně nebezpečného JavaScriptu. Tuto možnost povolte pouze pokud jste si jistí, že je vaše HTML bezpečné.",
     "admin/up_to_date": "Vaše instalace NamelessMC je aktuální!",
-    "admin/update": "Aktualizovat",
+    "admin/update": "Aktualizace",
     "admin/update_mc_name": "Aktualizovat uživatelské jméno v Minecraftu",
     "admin/update_user_languages": "Aktualizovat jazyk uživatelů",
     "admin/update_user_languages_warning": "Tímto aktualizujete jazyk všech uživatelů na vašem webu, i když si už nějaký vybrali!",
@@ -1212,5 +1212,8 @@
     "user/pending_verification": "Čekající ověření",
     "user/user_has_verified_integration": "Uživatel {{user}} ověřil svůj účet {{integration}}.",
     "user/user_has_linked_integration": "Uživatel {{user}} si propojil svůj účet s účtem {{integration}}.",
-    "user/not_connected": "Nepřipojen"
+    "user/not_connected": "Nepřipojen",
+    "user/nickname_minimum_3": "Vaše přezdívka musí obsahovat alespoň 3 znaky.",
+    "user/nickname_required": "Je vyžadována přezdívka.",
+    "user/nickname_maximum_20": "Vaše přezdívka může obsahovat maximálně 20 znaků."
 }
