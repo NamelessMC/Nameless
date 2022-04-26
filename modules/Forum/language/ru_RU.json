@@ -181,5 +181,10 @@
     "forum/x_topics": "{{count}} топиков",
     "forum/your_posts": "Ваше кол-во постов",
     "forum/post_id": "ID поста",
-    "forum/topic_id": "ID топика"
+    "forum/topic_id": "ID топика",
+    "forum/pre_post_create_hook_info": "Пред. создание поста",
+    "forum/pre_topic_create_hook_info": "Пред. создание топика",
+    "forum/pre_topic_edit_hook_info": "Пред. изменение топика",
+    "forum/pre_post_edit_hook_info": "Пред. изменение поста",
+    "forum/user_object": "Объект пользователя"
 }
