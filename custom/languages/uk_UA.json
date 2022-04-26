@@ -1110,6 +1110,5 @@
     "user/x_reactions": "{{count}} реакцій",
     "user/x_replies": "{{count}} відповідей",
     "user/you_have_been_banned": "Ви були забанені!",
-    "user/you_have_received_a_warning": "Ви отримали попередження!",
-    "version/password": "Пароль"
+    "user/you_have_received_a_warning": "Ви отримали попередження!"
 }
