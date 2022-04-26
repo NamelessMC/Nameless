@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr13
  *
  *  License: MIT
  *
@@ -50,6 +50,7 @@ $smarty->assign('LABELS_TEXT', $forum_language->get('forum', 'label'));
 $labels = [];
 
 $default_labels = $current_forum->default_labels ? explode(',', $current_forum->default_labels) : [];
+$selected_labels = ((isset($_POST['topic_label']) && is_array($_POST['topic_label'])) ? Input::get('topic_label') : $default_labels);
 
 $forum_labels = $queries->getWhere('forums_topic_labels', ['id', '<>', 0]);
 if (count($forum_labels)) {
@@ -83,7 +84,7 @@ if (count($forum_labels)) {
             $labels[] = [
                 'id' => $label->id,
                 'html' => $label_html,
-                'checked' => in_array($label->id, $default_labels)
+                'checked' => in_array($label->id, $selected_labels)
             ];
         }
     }
@@ -258,6 +259,7 @@ if ($forum_query->topic_placeholder) {
 $smarty->assign([
     'LABELS' => $labels,
     'TOPIC_TITLE' => $forum_language->get('forum', 'topic_title'),
+    'TOPIC_VALUE' => ((isset($_POST['title']) && $_POST['title']) ? Output::getClean(Input::get('title')) : ''),
     'LABEL' => $forum_language->get('forum', 'label'),
     'SUBMIT' => $language->get('general', 'submit'),
     'CANCEL' => $language->get('general', 'cancel'),
