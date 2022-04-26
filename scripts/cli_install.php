@@ -190,7 +190,6 @@ $user->create([
     'lastip' => '127.0.0.1',
     'active' => 1,
     'last_online' => date('U'),
-    'theme_id' => 1,
     'language_id' => $queries->getWhere('languages', ['is_default', '=', 1])[0]->id,
 ]);
 DB::getInstance()->createQuery('INSERT INTO `nl2_users_groups` (`user_id`, `group_id`, `received`, `expire`) VALUES (?, ?, ?, ?)', [

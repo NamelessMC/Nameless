@@ -71,7 +71,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 'lastip' => $ip,
                 'active' => 1,
                 'last_online' => date('U'),
-                'theme_id' => 1,
                 'language_id' => $default_language[0]->id,
             ]);
 
