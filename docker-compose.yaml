@@ -58,6 +58,7 @@ services:
             NAMELESS_DEBUGGING: 'enabled'
             NAMELESS_AUTO_INSTALL: 'yes please auto install my namelessmc'
             NAMELESS_COMPOSER_INSTALL: 'yes please always run composer install'
+            NAMELESS_DISABLE_EMAIL_VERIFICATION: 1
 
     db:
         image: mariadb
