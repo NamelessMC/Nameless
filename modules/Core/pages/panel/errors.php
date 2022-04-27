@@ -64,7 +64,7 @@ if (isset($_GET['log'])) {
     }
 
     if (file_exists(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs', $_GET['log'] . '-log.log']))) {
-        $smarty->assign('LOG', nl2br(Output::getClean(file_get_contents(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs', $type . '-log.log'])))));
+        $smarty->assign('LOG', nl2br(Output::getClean(Util::readFileEnd(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs', $type . '-log.log'])))));
     } else {
         $smarty->assign('NO_LOG_FOUND', $language->get('admin', 'log_file_not_found'));
     }
