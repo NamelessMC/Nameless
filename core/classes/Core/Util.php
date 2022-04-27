@@ -481,11 +481,12 @@ class Util {
         $fp = fopen($file_path, 'r');
         $size = filesize($file_path);
         $start = max([$size - $max_bytes, 0]);
+        fseek($fp, $start);
         $read_length = $size - $start;
         $content = fread($fp, $read_length);
         if ($start > 0) {
             // Read content may contain partial line, remove it
-            $first_lf = strpos(PHP_EOL, $content);
+            $first_lf = strpos($content, PHP_EOL);
             $content = substr($content, $first_lf + 1);
         }
         return $content;
