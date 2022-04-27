@@ -159,6 +159,11 @@ if ($uuid->count()) {
     $uuid = '';
 }
 
+$logs = [];
+foreach (['fatal', 'warning', 'notice', 'other', 'custom'] as $type) {
+    $logs[$type] = file_get_contents(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs', $type . '-log.log'])) ?: '';
+}
+
 $data = [
     'debug_version' => 1,
     'generated_at' => time(),
@@ -199,6 +204,13 @@ $data = [
             'panel' => $namelessmc_panel_templates,
         ],
         'integrations' => $integrations,
+    ],
+    'logs' => [
+        'fatal' => $logs['fatal'],
+        'warning' => $logs['warning'],
+        'notice' => $logs['notice'],
+        'other' => $logs['other'],
+        'custom' => $logs['custom'],
     ],
     'environment' => [
         'php_version' => PHP_VERSION,
