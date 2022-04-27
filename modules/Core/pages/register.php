@@ -443,12 +443,14 @@ foreach (ProfileField::all() as $field) {
     if (!$field->required) {
         continue;
     }
+
+    $field_value = ((isset($_POST['profile_fields']) && is_array($_POST['profile_fields'])) ? Output::getClean(Input::get('profile_fields')[$field->id]) : '');
     $fields->add(
         "profile_fields[{$field->id}]",
         $field->type,
         Output::getClean($field->name),
         $field->required,
-        Output::getClean(Input::get("profile_fields[{$field->id}]")),
+        Output::getClean($field_value),
         Output::getClean($field->description) ?: Output::getClean($field->name)
     );
 }

@@ -112,6 +112,10 @@ class Language {
             'name' => 'Turkish',
             'htmlCode' => 'tr',
         ],
+        'uk_UA' => [
+            'name' => 'Ukrainian',
+            'htmlCode' => 'uk',
+        ],
     ];
 
     /**
@@ -206,7 +210,7 @@ class Language {
      * @return Closure(int, array<string>)|null Closure or null if not available.
      */
     public function getPluralForm(): ?Closure {
-        if ($this->_activeLanguage === 'ru_RU') {
+        if ($this->_activeLanguage === 'ru_RU' || $this->_activeLanguage === 'uk_UA') {
             return static function (int $count, array $forms) {
                 if ($count % 10 === 1 && $count % 100 !== 11) {
                     return $forms[0];

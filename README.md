@@ -63,15 +63,11 @@ Feature requests can be posted on the [forum](https://namelessmc.com/forum/view/
 For Minecraft integration, you can install the Nameless Plugin in your Spigot server. Currently the plugin is only available for spigot, but we're working on bringing it to different server software, such as Sponge and BungeeCord. You can find a list of features and installation instructions in the [plugin readme](https://github.com/NamelessMC/Nameless-Plugin/blob/master/README.md).
 
 ## Translations
-NamelessMC translations are kindly provided by the community. Currently available translations can be found [here](https://github.com/NamelessMC/Nameless/tree/v2/custom/languages). Please note, not all translations may be up to date.
+NamelessMC translations are kindly provided by the community. Please note, not all translations may be up to date. Progress for the core module is shown below.
 
-#### Contributing translation updates
-If you would like to assist with the NamelessMC development by providing an updated translation, please feel free to fork the repository here on GitHub and create any pull requests. Or, if you don't want to deal with creating a pull request, please send us a zip file and we'll add it to the repository for you. Just make sure you translate the [latest development version](https://github.com/NamelessMC/Nameless/archive/refs/heads/v2.zip), not the latest release or we won't be able to merge your translations!
+If you would like to assist with the NamelessMC development by translating to your language, please create an account on [translate.namelessmc.com](https://translate.namelessmc.com/projects/namelessmc/). To discuss with fellow translators, visit the [NamelessMC Translators](https://discord.gg/7Dku3fE) discord server.
 
-To discuss changes with fellow translators, visit the [NamelessMC Translators](https://discord.gg/7Dku3fE) discord server.
-
-#### Translation credits
-Translation credits can be found within CONTRIBUTORS.md
+![Translation progress](https://translate.namelessmc.com/widgets/namelessmc/-/nameless/multi-auto.svg)
 
 ## Contributing
 We welcome all contributions of code and translations. Please feel free to fork the repository on GitHub and create any pull requests.
