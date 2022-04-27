@@ -2,19 +2,19 @@
 
 # INSTRUCTIONS
 # Set up or update:
-# docker-compose pull
+# docker compose pull
 # sudo mkdir /opt/namelessmc
 #
 # Run:
-# docker-compose up
+# docker compose up
 #
 # Reset:
-# docker-compose down
+# docker compose down
 # rm -rf core/config.php cache/*
 # sudo rm -r /opt/namelessmc/*
 #
 # Uninstall
-# docker-compose down
+# docker compose down
 # rm -rf core/config.php cache/*
 # sudo rm -r /opt/namelessmc
 # docker image prune -af
