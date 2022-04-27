@@ -73,7 +73,7 @@ if (Session::get('oauth_method') === 'link') {
         $provider_id,
     );
 
-    Session::flash('oauth_success', $language->get('user', 'oauth_link_success', ['provider', ucfirst($provider_name)]));
+    Session::flash('oauth_success', $language->get('user', 'oauth_link_success', ['provider' => ucfirst($provider_name)]));
     Session::delete('oauth_method');
 
     Redirect::to(URL::build('/user/oauth'));
