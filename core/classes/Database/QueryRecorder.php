@@ -46,7 +46,7 @@ class QueryRecorder extends Instanceable {
      * @return array debug_backtrace entry
      */
     private function lastReleventBacktrace(): array {
-        $backtrace = debug_backtrace(2);
+        $backtrace = debug_backtrace();
 
         $current_file = $last_file = $backtrace[0]['file'];
         $i = 1;
