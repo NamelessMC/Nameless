@@ -53,9 +53,6 @@ if (!isset($_GET['step'])) {
 	  </center>
     ');
 
-    $template->assets()->include([
-        AssetTree::MCASSOC_CLIENT,
-    ]);
     $template->addJSScript('
 	  MCAssoc.init("' . $mcassoc_site_id . '", "' . $key . '", "' . $return_link . '");
 	');
