@@ -1,4 +1,8 @@
 <?php
+if (PHP_SAPI !== 'cli') {
+    die('This script must be run from the command line.');
+}
+
 require 'vendor/autoload.php';
 require 'core/config.php';
 
