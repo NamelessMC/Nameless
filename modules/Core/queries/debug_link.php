@@ -166,7 +166,6 @@ foreach (['fatal', 'warning', 'notice', 'other', 'custom'] as $type) {
 }
 
 $data = [
-    'debug_version' => 1,
     'generated_at' => time(),
     'generated_by_name' => $user->data()->username,
     'generated_by_uuid' => $uuid,
