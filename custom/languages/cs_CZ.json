@@ -1131,7 +1131,7 @@
     "admin/ban_hook_info": "Uživatel zabanován",
     "admin/can_unlink": "Lze zrušit propojení",
     "admin/cloning_group": "Klonování skupiny {{group}}",
-    "admin/debug_link_toastr": "Ladicí odkaz zkopírován do schránky!<br>Prohlédněte si ladicí protokol: {{linkStart}}zde{{linkEnd}}",
+    "admin/debug_link_toast": "Ladicí odkaz zkopírován do schránky!<br>Prohlédněte si ladicí protokol: {{linkStart}}zde{{linkEnd}}",
     "admin/editing_integration_for_x": "Úprava integrace {{integration}} u uživatele {{user}}",
     "admin/editing_integration_x": "Úprava integrace {{integration}}",
     "admin/email_language_info": "Nevidíte váš jazyk? Ujistěte se, že je jeho jazykový soubor v adresáři /custom/languages/ zapisovatelný vaším webovým serverem.",

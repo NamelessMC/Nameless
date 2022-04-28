@@ -831,20 +831,30 @@ if ($user->isLoggedIn()) {
 		if (index > -1) {
 			quotedPosts.splice(index, 1);
 
-			toastr.options.onclick = function () {};
-			toastr.options.progressBar = true;
-			toastr.options.closeButton = true;
-			toastr.options.positionClass = \'toast-bottom-left\';
-			toastr.info(\'' . $forum_language->get('forum', 'removed_quoted_post') . '\');
+            $(\'body\').toast({
+                showIcon: \'info circle icon\',
+                message: \'' . $forum_language->get('forum', 'removed_quoted_post') . '\',
+                class: \'info\',
+                progressUp: true,
+                displayTime: 6000,
+                showProgress: \'bottom\',
+                pauseOnHover: false,
+                position: \'bottom left\',
+            });
 		}
 		else {
 			quotedPosts.push(post);
 
-			toastr.options.onclick = function () {};
-			toastr.options.progressBar = true;
-			toastr.options.closeButton = true;
-			toastr.options.positionClass = \'toast-bottom-left\';
-			toastr.info(\'' . $forum_language->get('forum', 'quoted_post') . '\');
+            $(\'body\').toast({
+                showIcon: \'info circle icon\',
+                message: \'' . $forum_language->get('forum', 'quoted_post') . '\',
+                class: \'info\',
+                progressUp: true,
+                displayTime: 6000,
+                showProgress: \'bottom\',
+                pauseOnHover: false,
+                position: \'bottom left\',
+            });
 		}
 
 		if (quotedPosts.length == 0) {
@@ -869,11 +879,16 @@ if ($user->isLoggedIn()) {
 			"topic": ' . $tid . '
 		};
 
-		toastr.options.onclick = function () {};
-		toastr.options.progressBar = true;
-		toastr.options.closeButton = true;
-		toastr.options.positionClass = \'toast-bottom-left\';
-		toastr.info(\'' . $forum_language->get('forum', 'quoting_posts') . '\');
+        $(\'body\').toast({
+            showIcon: \'info circle icon\',
+            message: \'' . $forum_language->get('forum', 'quoting_posts') . '\',
+            class: \'info\',
+            progressUp: true,
+            displayTime: 6000,
+            showProgress: \'bottom\',
+            pauseOnHover: false,
+            position: \'bottom left\',
+        });
 
 		var getQuotes = $.ajax({
 			  type: "POST",
@@ -892,11 +907,16 @@ if ($user->isLoggedIn()) {
 				  $("#quoteButton").hide();
 			  },
 			  error: function(data) {
-				  toastr.options.onclick = function () {};
-				  toastr.options.progressBar = true;
-				  toastr.options.closeButton = true;
-				  toastr.options.positionClass = \'toast-bottom-left\';
-				  toastr.error(\'' . $forum_language->get('forum', 'error_quoting_posts') . '\');
+                  $(\'body\').toast({
+                    showIcon: \'exclamation triangle icon\',
+                    message: \'' . $forum_language->get('forum', 'error_quoting_posts') . '\',
+                    class: \'danger\',
+                    progressUp: true,
+                    displayTime: 6000,
+                    showProgress: \'bottom\',
+                    pauseOnHover: false,
+                    position: \'bottom left\',
+                });
 			  }
 		});
 	}
