@@ -84,10 +84,6 @@ class AssetTree {
      * @var string TinyMCE Spoiler plugin. Used individually when posts will be shown but not created (home page for example)
      */
     public const TINYMCE_SPOILER = 'TINYMCE_SPOILER';
-    /**
-     * @var string Toastr v2.1 (CSS + JS)
-     */
-    public const TOASTR = 'TOASTR';
 
     /**
      * @var mixed Tree of all available assets, with their applicable CSS/JS files.
@@ -226,14 +222,6 @@ class AssetTree {
             ],
             'js' => [
                 'plugins/tinymce_spoiler/js/spoiler.js',
-            ],
-        ],
-        self::TOASTR => [
-            'css' => [
-                'vendor/toastr/build/toastr.min.css',
-            ],
-            'js' => [
-                'vendor/toastr/build/toastr.min.js',
             ],
         ],
     ];

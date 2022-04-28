@@ -152,8 +152,8 @@ if (!class_exists('Default_Panel_Template')) {
 
                     case 'api':
                         $this->assets()->include([
-                            AssetTree::TOASTR,
                             AssetTree::DATATABLES
+                        ]);
                         $this->addCSSFiles([
                             (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/css/fomantic.toast.min.css' => [],
                         ]);
@@ -223,7 +223,7 @@ if (!class_exists('Default_Panel_Template')) {
                         $this->assets()->include([
                             AssetTree::TINYMCE,
                         ]);
-                          
+
                         $this->addCSSFiles([
                             (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/css/fomantic.toast.min.css' => []
                         ]);

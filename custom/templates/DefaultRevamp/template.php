@@ -38,7 +38,6 @@ class DefaultRevamp_Template extends TemplateBase {
 
         $this->assets()->include([
             AssetTree::FONT_AWESOME,
-            AssetTree::TOASTR,
             AssetTree::JQUERY,
             AssetTree::JQUERY_COOKIE,
         ]);
@@ -119,7 +118,7 @@ class DefaultRevamp_Template extends TemplateBase {
             'loadingTime' => ((defined('PAGE_LOADING') && PAGE_LOADING == 1) ? PAGE_LOAD_TIME : ''),
             'route' => $route
         ];
-      
+
         if (strpos($route, '/forum/topic/') !== false || PAGE == 'profile') {
             $this->assets()->include([
                 AssetTree::JQUERY_UI,
