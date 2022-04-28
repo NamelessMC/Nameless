@@ -378,15 +378,6 @@ $smarty->assign([
     'TEMPLATES' => $templates
 ]);
 
-$discord_id = $user_query->discord_id;
-
-if ($discord_id != null && $discord_id != 010) {
-    $smarty->assign([
-        'DISCORD_ID' => Discord::getLanguageTerm('discord_user_id'),
-        'DISCORD_ID_VALUE' => $discord_id
-    ]);
-}
-
 $template->assets()->include([
     AssetTree::TINYMCE,
 ]);
