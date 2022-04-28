@@ -470,4 +470,26 @@ class Util {
     public static function bold(string $text): string {
         return '<strong>' . $text . '</strong>';
     }
+
+    /**
+     * Read the last part of a file, removing a leading partial line if necessary.
+     * @param string $file_path Path to file to read
+     * @param int $max_bytes Max number of bytes to read at end of file
+     * @return string Read string
+     */
+    public static function readFileEnd(string $file_path, int $max_bytes = 100_000): string {
+        $fp = fopen($file_path, 'r');
+        $size = filesize($file_path);
+        $start = max([$size - $max_bytes, 0]);
+        fseek($fp, $start);
+        $read_length = $size - $start;
+        $content = fread($fp, $read_length);
+        if ($start > 0) {
+            // Read content may contain partial line, remove it
+            $first_lf = strpos($content, PHP_EOL);
+            $content = substr($content, $first_lf + 1);
+        }
+        return $content;
+    }
+
 }

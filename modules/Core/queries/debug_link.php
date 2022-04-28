@@ -161,7 +161,8 @@ if ($uuid->count()) {
 
 $logs = [];
 foreach (['fatal', 'warning', 'notice', 'other', 'custom'] as $type) {
-    $logs[$type] = file_get_contents(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs', $type . '-log.log'])) ?: '';
+    $file_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs', $type . '-log.log']);
+    $logs[$type] = file_exists($file_path) ? Util::readFileEnd($file_path) : '';
 }
 
 $data = [
