@@ -1212,5 +1212,8 @@
     "user/overview": "Обзор",
     "user/not_connected": "Не Подключен",
     "user/user_has_linked_integration": "{{user}} привязал их {{integration}} аккаунт.",
-    "general/or": "ИЛИ"
+    "general/or": "ИЛИ",
+    "user/nickname_required": "Требуется никнейм.",
+    "user/nickname_maximum_20": "Ваш никнейм должен быть максимум 20 букв.",
+    "user/nickname_minimum_3": "Ваш никнейм должен быть минимум 3 буквы."
 }
