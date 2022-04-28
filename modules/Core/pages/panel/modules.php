@@ -53,8 +53,11 @@ if (!isset($_GET['action'])) {
             'version' => Output::getClean($module->getVersion()),
             'nameless_version' => Output::getClean($module->getNamelessVersion()),
             'author' => Output::getPurified($module->getAuthor()),
-            'author_x' => str_replace('{x}', Output::getPurified($module->getAuthor()), $language->get('admin', 'author_x')),
-            'version_mismatch' => (($module->getNamelessVersion() != NAMELESS_VERSION) ? str_replace(['{x}', '{y}'], [Output::getClean($module->getNamelessVersion()), NAMELESS_VERSION], $language->get('admin', 'module_outdated')) : false),
+            'author_x' => $language->get('admin', 'author_x', ['author' => Output::getPurified($module->getAuthor())]),
+            'version_mismatch' => (($module->getNamelessVersion() != NAMELESS_VERSION) ? $language->get('admin', 'module_outdated', [
+                'intendedVersion' => Util::bold(Output::getClean($module->getNamelessVersion())),
+                'actualVersion' => Util::bold(NAMELESS_VERSION)
+            ]) : false),
             'disable_link' => (($module->getName() != 'Core' && $item->enabled) ? URL::build('/panel/core/modules/', 'action=disable&m=' . urlencode($item->id)) : null),
             'enable_link' => (($module->getName() != 'Core' && !$item->enabled) ? URL::build('/panel/core/modules/', 'action=enable&m=' . urlencode($item->id)) : null),
             'enabled' => $item->enabled
@@ -88,16 +91,16 @@ if (!isset($_GET['action'])) {
                     'description' => Output::getPurified($item->description),
                     'description_short' => Util::truncate(Output::getPurified($item->description)),
                     'author' => Output::getClean($item->author),
-                    'author_x' => str_replace('{x}', Output::getClean($item->author), $language->get('admin', 'author_x')),
-                    'updated_x' => str_replace('{x}', date(DATE_FORMAT, $item->updated), $language->get('admin', 'updated_x')),
+                    'author_x' => $language->get('admin', 'author_x', ['author' => Output::getClean($item->author)]),
+                    'updated_x' => $language->get('admin', 'updated_x', ['updatedAt' => date(DATE_FORMAT, $item->updated)]),
                     'url' => Output::getClean($item->url),
                     'latest_version' => Output::getClean($item->latest_version),
                     'rating' => Output::getClean($item->rating),
                     'downloads' => Output::getClean($item->downloads),
                     'views' => Output::getClean($item->views),
-                    'rating_full' => str_replace('{x}', Output::getClean($item->rating * 2) . '/100', $language->get('admin', 'rating_x')),
-                    'downloads_full' => str_replace('{x}', Output::getClean($item->downloads), $language->get('admin', 'downloads_x')),
-                    'views_full' => str_replace('{x}', Output::getClean($item->views), $language->get('admin', 'views_x'))
+                    'rating_full' => $language->get('admin', 'rating_x', ['rating' => Output::getClean($item->rating * 2) . '/100']),
+                    'downloads_full' => $language->get('admin', 'downloads_x', ['downloads' => Output::getClean($item->downloads)]),
+                    'views_full' =>  $language->get('admin', 'views_x', ['views' => Output::getClean($item->views)])
                 ];
             }
 
@@ -191,7 +194,7 @@ if (!isset($_GET['action'])) {
                     }
                     foreach ($module->getLoadAfter() as $item) {
                         if (!in_array($item, $enabled_modules)) {
-                            Session::flash('admin_modules_error', str_replace('{x}', Output::getClean($item), $language->get('admin', 'unable_to_enable_module_dependencies')));
+                            Session::flash('admin_modules_error', $language->get('admin', 'unable_to_enable_module_dependencies', ['module' =>  Output::getClean($item)]));
                             Redirect::to(URL::build('/panel/core/modules'));
                         }
                     }
@@ -223,7 +226,7 @@ if (!isset($_GET['action'])) {
             foreach (Module::getModules() as $item) {
                 if (in_array($name, $item->getLoadAfter())) {
                     // Unable to disable module
-                    Session::flash('admin_modules_error', str_replace('{x}', Output::getClean($item->getName()), $language->get('admin', 'unable_to_disable_module')));
+                    Session::flash('admin_modules_error', $language->get('admin', 'unable_to_disable_module', ['module' => Output::getClean($item->getName())]));
                     Redirect::to(URL::build('/panel/core/modules'));
                 }
             }
@@ -332,9 +335,6 @@ $smarty->assign([
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit')
 ]);
-
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 

@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (!$validation->passed()) {
 
-        $error = $language['database_error'];
+        $error = $language->get('installer', 'database_error');
 
     } else {
 
@@ -91,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                     if (!is_writable(ROOT_PATH . '/core/config.php')) {
 
-                        $error = $language['config_not_writable'];
+                        $error = $language->get('installer', 'config_not_writable');
 
                     } else {
 
@@ -130,7 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="ui segments">
         <div class="ui secondary segment">
             <h4 class="ui header">
-                <?php echo $language['database_configuration']; ?>
+                <?php echo $language->get('installer', 'database_configuration'); ?>
             </h4>
         </div>
         <div class="ui segment">
@@ -145,16 +145,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         $default_name = getenv('NAMELESS_DATABASE_NAME') ?: 'nameless';
                         $default_charset = getenv('NAMELESS_DATABASE_CHARSET') ?: 'utf8mb4';
                         $default_engine = getenv('NAMELESS_DATABASE_ENGINE') ?: 'InnoDB';
-                        create_field('text', $language['database_address'], 'db_address', 'inputDBAddress', $default_addr);
-                        create_field('text', $language['database_port'], 'db_port', 'inputDBPort', $default_port);
-                        create_field('text', $language['database_username'], 'db_username', 'inputDBUsername', $default_user);
-                        create_field('password', $language['database_password'], 'db_password', 'inputDBPassword', $default_pass);
-                        create_field('text', $language['database_name'], 'db_name', 'inputDBName', $default_name);
-                        create_field('select', $language['character_set'], 'charset', 'inputCharset', $default_charset, [
+                        create_field('text', $language->get('installer', 'database_address'), 'db_address', 'inputDBAddress', $default_addr);
+                        create_field('text', $language->get('installer', 'database_port'), 'db_port', 'inputDBPort', $default_port);
+                        create_field('text', $language->get('installer', 'database_username'), 'db_username', 'inputDBUsername', $default_user);
+                        create_field('password', $language->get('installer', 'database_password'), 'db_password', 'inputDBPassword', $default_pass);
+                        create_field('text', $language->get('installer', 'database_name'), 'db_name', 'inputDBName', $default_name);
+                        create_field('select', $language->get('installer', 'character_set'), 'charset', 'inputCharset', $default_charset, [
                             'utf8mb4' => 'Unicode (utf8mb4)',
                             'latin1' => 'Latin (latin1)',
                         ]);
-                        create_field('select', $language['database_engine'], 'engine', 'inputEngine', $default_engine, [
+                        create_field('select', $language->get('installer', 'database_engine'), 'engine', 'inputEngine', $default_engine, [
                             'InnoDB' => 'InnoDB',
                             'MyISAM' => 'MyISAM',
                         ]);
@@ -165,7 +165,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
         <div class="ui secondary right aligned segment">
             <button type="submit" class="ui small primary button">
-                <?php echo $language['proceed']; ?>
+                <?php echo $language->get('installer', 'proceed'); ?>
             </button>
         </div>
     </div>

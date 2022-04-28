@@ -413,6 +413,16 @@ class Core_Module extends Module {
             ]
         );
 
+        EventHandler::registerEvent('cloneGroup',
+            $language->get('admin', 'clone_group'),
+            [
+                'group_id' => $language->get('admin', 'group_id'),
+                'cloned_group_id' => $language->get('admin', 'group_id')
+            ],
+            false,
+            true
+        );
+
         // Webhooks
         $cache->setCache('hooks');
         if ($cache->isCached('hooks')) {
@@ -420,24 +430,21 @@ class Core_Module extends Module {
         } else {
             $hook_array = [];
             if (Util::isModuleEnabled('Discord Integration')) {
-                $hooks = $queries->tableExists('hooks');
-                if (!empty($hooks)) {
-                    $hooks = $queries->getWhere('hooks', ['id', '<>', 0]);
-                    if (count($hooks)) {
-                        foreach ($hooks as $hook) {
-                            if ($hook->action != 2) {
-                                continue;
-                            }
-
-                            $hook_array[] = [
-                                'id' => $hook->id,
-                                'url' => Output::getClean($hook->url),
-                                'action' => 'DiscordHook::execute',
-                                'events' => json_decode($hook->events, true)
-                            ];
+                $hooks = $queries->getWhere('hooks', ['id', '<>', 0]);
+                if (count($hooks)) {
+                    foreach ($hooks as $hook) {
+                        if ($hook->action != 2) {
+                            continue;
                         }
-                        $cache->store('hooks', $hook_array);
+
+                        $hook_array[] = [
+                            'id' => $hook->id,
+                            'url' => Output::getClean($hook->url),
+                            'action' => 'DiscordHook::execute',
+                            'events' => json_decode($hook->events, true)
+                        ];
                     }
+                    $cache->store('hooks', $hook_array);
                 }
             }
         }
@@ -541,6 +548,9 @@ class Core_Module extends Module {
         EventHandler::registerListener('renderPrivateMessageEdit', 'ContentHook::codeTransform', false, 15);
         EventHandler::registerListener('renderPrivateMessageEdit', 'ContentHook::decode', false, 20);
         EventHandler::registerListener('renderPrivateMessageEdit', 'ContentHook::replaceAnchors', false, 15);
+
+        require_once(ROOT_PATH . '/modules/Core/hooks/CloneGroupHook.php');
+        EventHandler::registerListener('cloneGroup', 'CloneGroupHook::execute');
     }
 
     public static function getDashboardGraphs(): array {
@@ -661,56 +671,58 @@ class Core_Module extends Module {
         // Sitemap
         $pages->registerSitemapMethod([Core_Sitemap::class, 'generateSitemap']);
 
+        // Widgets - only load if on a widget staffcp page or the frontend
+        if (defined('FRONT_END') || (defined('PANEL_PAGE') && str_contains(PANEL_PAGE, 'widget'))) {
+            // Facebook
+            require_once(ROOT_PATH . '/modules/Core/widgets/FacebookWidget.php');
+            $cache->setCache('social_media');
+            $fb_url = $cache->retrieve('facebook');
+            if ($fb_url) {
+                $widgets->add(new FacebookWidget($smarty, $fb_url));
+            }
+
+            // Twitter
+            require_once(ROOT_PATH . '/modules/Core/widgets/TwitterWidget.php');
+            $twitter = $cache->retrieve('twitter');
+
+            if ($twitter) {
+                $theme = $cache->retrieve('twitter_theme');
+                $widgets->add(new TwitterWidget($smarty, $twitter, $theme));
+            }
+
+            // Profile Posts
+            require_once(ROOT_PATH . '/modules/Core/widgets/ProfilePostsWidget.php');
+            $widgets->add(new ProfilePostsWidget($smarty, $language, $cache, $user, new TimeAgo(TIMEZONE)));
+
+            // Online staff
+            require_once(ROOT_PATH . '/modules/Core/widgets/OnlineStaffWidget.php');
+            $widgets->add(new OnlineStaffWidget($smarty, $language, $cache));
+
+            // Online users
+            require_once(ROOT_PATH . '/modules/Core/widgets/OnlineUsersWidget.php');
+            $widgets->add(new OnlineUsersWidget($cache, $smarty, $language));
+
+            // Online users
+            require_once(ROOT_PATH . '/modules/Core/widgets/ServerStatusWidget.php');
+            $widgets->add(new ServerStatusWidget($smarty, $language, $cache));
+
+            // Statistics
+            require_once(ROOT_PATH . '/modules/Core/widgets/StatsWidget.php');
+            $widgets->add(new StatsWidget($smarty, [
+                'statistics' => $language->get('general', 'statistics'),
+                'users_registered' => $language->get('general', 'users_registered'),
+                'latest_member' => $language->get('general', 'latest_member'),
+                'forum_stats' => $language->get('general', 'forum_statistics'),
+                'total_threads' => $language->get('general', 'total_threads'),
+                'total_posts' => $language->get('general', 'total_posts'),
+                'users_online' => $language->get('general', 'online_users'),
+                'guests_online' => $language->get('general', 'online_guests'),
+                'total_online' => $language->get('general', 'total_online'),
+            ], $cache));
+        }
+
         // Queries
         $queries = new Queries();
-
-        // Widgets
-        // Facebook
-        require_once(ROOT_PATH . '/modules/Core/widgets/FacebookWidget.php');
-        $cache->setCache('social_media');
-        $fb_url = $cache->retrieve('facebook');
-        if ($fb_url) {
-            $widgets->add(new FacebookWidget($smarty, $fb_url));
-        }
-
-        // Twitter
-        require_once(ROOT_PATH . '/modules/Core/widgets/TwitterWidget.php');
-        $twitter = $cache->retrieve('twitter');
-
-        if ($twitter) {
-            $theme = $cache->retrieve('twitter_theme');
-            $widgets->add(new TwitterWidget($smarty, $twitter, $theme));
-        }
-
-        // Profile Posts
-        require_once(ROOT_PATH . '/modules/Core/widgets/ProfilePostsWidget.php');
-        $widgets->add(new ProfilePostsWidget($smarty, $language, $cache, $user, new TimeAgo(TIMEZONE)));
-
-        // Online staff
-        require_once(ROOT_PATH . '/modules/Core/widgets/OnlineStaffWidget.php');
-        $widgets->add(new OnlineStaffWidget($smarty, ['title' => $language->get('general', 'online_staff'), 'no_online_staff' => $language->get('general', 'no_online_staff'), 'total_online_staff' => $language->get('general', 'total_online_staff')], $cache));
-
-        // Online users
-        require_once(ROOT_PATH . '/modules/Core/widgets/OnlineUsersWidget.php');
-        $widgets->add(new OnlineUsersWidget($cache, $smarty, ['title' => $language->get('general', 'online_users'), 'no_online_users' => $language->get('general', 'no_online_users'), 'total_online_users' => $language->get('general', 'total_online_users')]));
-
-        // Online users
-        require_once(ROOT_PATH . '/modules/Core/widgets/ServerStatusWidget.php');
-        $widgets->add(new ServerStatusWidget($smarty, $language, $cache));
-
-        // Statistics
-        require_once(ROOT_PATH . '/modules/Core/widgets/StatsWidget.php');
-        $widgets->add(new StatsWidget($smarty, [
-            'statistics' => $language->get('general', 'statistics'),
-            'users_registered' => $language->get('general', 'users_registered'),
-            'latest_member' => $language->get('general', 'latest_member'),
-            'forum_stats' => $language->get('general', 'forum_statistics'),
-            'total_threads' => $language->get('general', 'total_threads'),
-            'total_posts' => $language->get('general', 'total_posts'),
-            'users_online' => $language->get('general', 'online_users'),
-            'guests_online' => $language->get('general', 'online_guests'),
-            'total_online' => $language->get('general', 'total_online'),
-        ], $cache));
 
         // Validate user hook
         $cache->setCache('validate_action');
@@ -757,8 +769,7 @@ class Core_Module extends Module {
                     $cache->store('update_check', $update_check, 3600);
                 }
 
-                $current_version = $queries->getWhere('settings', ['name', '=', 'nameless_version']);
-                $current_version = $current_version[0]->value;
+                $current_version = NAMELESS_VERSION;
 
                 $update_check = json_decode($update_check);
 
@@ -766,8 +777,8 @@ class Core_Module extends Module {
                     $smarty->assign([
                         'NEW_UPDATE' => (isset($update_check->urgent) && $update_check->urgent == 'true') ? $language->get('admin', 'new_urgent_update_available') : $language->get('admin', 'new_update_available'),
                         'NEW_UPDATE_URGENT' => (isset($update_check->urgent) && $update_check->urgent == 'true'),
-                        'CURRENT_VERSION' => str_replace('{x}', Output::getClean($current_version), $language->get('admin', 'current_version_x')),
-                        'NEW_VERSION' => str_replace('{x}', Output::getClean($update_check->new_version), $language->get('admin', 'new_version_x')),
+                        'CURRENT_VERSION' => $language->get('admin', 'current_version_x', ['version' => Output::getClean($current_version)]),
+                        'NEW_VERSION' => $language->get('admin', 'new_version_x', ['version' => Output::getClean($update_check->new_version)]),
                         'UPDATE' => $language->get('admin', 'update'),
                         'UPDATE_LINK' => URL::build('/panel/update')
                     ]);
@@ -908,8 +919,8 @@ class Core_Module extends Module {
                                     $result['status_full'] = $language->get('general', 'currently_1_player_online');
                                     $result['x_players_online'] = $language->get('general', 'currently_1_player_online');
                                 } else {
-                                    $result['status_full'] = str_replace('{x}', $result['total_players'], $language->get('general', 'currently_x_players_online'));
-                                    $result['x_players_online'] = str_replace('{x}', $result['total_players'], $language->get('general', 'currently_x_players_online'));
+                                    $result['status_full'] = $language->get('general', 'currently_x_players_online', ['count' => $result['total_players']]);
+                                    $result['x_players_online'] = $language->get('general', 'currently_x_players_online', ['count' => $result['total_players']]);
                                 }
 
                             } else {
@@ -928,8 +939,8 @@ class Core_Module extends Module {
                                     $result['status_full'] = $language->get('general', 'currently_1_player_online');
                                     $result['x_players_online'] = $language->get('general', 'currently_1_player_online');
                                 } else {
-                                    $result['status_full'] = str_replace('{x}', $result['player_count'], $language->get('general', 'currently_x_players_online'));
-                                    $result['x_players_online'] = str_replace('{x}', $result['player_count'], $language->get('general', 'currently_x_players_online'));
+                                    $result['status_full'] = $language->get('general', 'currently_x_players_online', ['count' => $result['player_count']]);
+                                    $result['x_players_online'] = $language->get('general', 'currently_x_players_online', ['count' => $result['player_count']]);
                                 }
 
                             } else {
@@ -953,7 +964,9 @@ class Core_Module extends Module {
                 }
 
                 if (!is_null($default) && isset($default->ip)) {
-                    $smarty->assign('CONNECT_WITH', str_replace('{x}', '<span id="ip">' . Output::getClean($default->ip . ($default->port && $default->port != 25565 ? ':' . $default->port : '')) . '</span>', $language->get('general', 'connect_with_ip_x')));
+                    $smarty->assign('CONNECT_WITH', $language->get('general', 'connect_with_ip_x', [
+                        'address' => '<span id="ip">' . Output::getClean($default->ip . ($default->port && $default->port != 25565 ? ':' . $default->port : '')) . '</span>',
+                    ]));
                     $smarty->assign('DEFAULT_IP', Output::getClean($default->ip . ($default->port != 25565 ? ':' . $default->port : '')));
                     $smarty->assign('CLICK_TO_COPY_TOOLTIP', $language->get('general', 'click_to_copy_tooltip'));
                     $smarty->assign('COPIED', $language->get('general', 'copied'));
@@ -976,7 +989,9 @@ class Core_Module extends Module {
                     $user_query = $queries->getWhere('users', ['id', '=', $user_id]);
                     if (count($user_query)) {
                         $user_query = $user_query[0];
-                        $smarty->assign('REGISTERED', str_replace('{x}', $timeago->inWords(date('Y-m-d H:i:s', $user_query->joined), $language->getTimeLanguage()), $language->get('user', 'registered_x')));
+                        $smarty->assign('REGISTERED', $language->get('user', 'registered_x', [
+                            'registeredAt' => $timeago->inWords($user_query->joined, $language),
+                        ]));
                     }
                 }
             }
@@ -1584,7 +1599,7 @@ class Core_Module extends Module {
             if ($user->hasPermission('admincp.users.edit')) {
                 self::addUserAction($language->get('general', 'edit'), URL::build('/panel/users/edit/', 'id={id}'));
             }
-            
+
             if ($user->hasPermission('admincp.users.edit')) {
                 self::addUserAction($language->get('admin', 'integrations'), URL::build('/panel/users/integrations/', 'id={id}'));
             }

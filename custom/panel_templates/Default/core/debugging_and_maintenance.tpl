@@ -133,7 +133,7 @@ $('#debug_link').click(() => {
 
             $('body').toast({
                 showIcon: 'fa-solid fa-circle-info move-right',
-                message: '{$TOAST_COPIED}'.replaceAll({literal}'{x}'{/literal}, url),
+                message: '{$TOAST_COPIED}'.replaceAll({literal}'{url}'{/literal}, url),
                 class: 'info',
                 progressUp: true,
                 displayTime: 6000,

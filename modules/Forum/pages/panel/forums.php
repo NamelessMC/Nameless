@@ -33,7 +33,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                 $parent_forum_query = $queries->getWhere('forums', ['id', '=', $item->parent]);
                 if (count($parent_forum_query)) {
                     $parent_forum_count = 1;
-                    $parent_forum = str_replace('{x}', Output::getClean($parent_forum_query[0]->forum_title), $forum_language->get('forum', 'parent_forum_x'));
+                    $parent_forum = $forum_language->get('forum', 'parent_forum_x', ['forum' => Output::getClean($parent_forum_query[0]->forum_title)]);
                     $id = $parent_forum_query[0]->parent;
 
                     while ($parent_forum_count < 100 && $id > 0) {
@@ -830,9 +830,6 @@ $smarty->assign([
     'SUBMIT' => $language->get('general', 'submit'),
     'NO_ITEM_SELECTED' => $language->get('admin', 'no_item_selected'),
 ]);
-
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 

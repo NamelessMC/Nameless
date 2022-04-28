@@ -14,6 +14,16 @@ const PAGE = 'index';
 $page_title = $language->get('general', 'home');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
+$template->addCSSFiles([
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism_' . (DARK_MODE ? 'dark' : 'light_default') . '.css' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => []
+]);
+
+$template->addJSFiles([
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => []
+]);
+
 if (Session::exists('home')) {
     $smarty->assign('HOME_SESSION_FLASH', Session::flash('home'));
     $smarty->assign('SUCCESS_TITLE', $language->get('general', 'success'));
@@ -35,9 +45,6 @@ $smarty->assign('SOCIAL', $language->get('general', 'social'));
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
-
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 

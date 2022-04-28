@@ -216,7 +216,7 @@ if (isset($_GET['action'])) {
                 'BUNGEE_INSTANCE_INFO' => $language->get('admin', 'bungee_instance_help'),
                 'BEDROCK' => $language->get('admin', 'bedrock'),
                 'BEDROCK_INFO' => $language->get('admin', 'bedrock_help'),
-                'PRE_17' => $language->get('admin', 'pre_1.7'),
+                'PRE_17' => $language->get('admin', 'pre_1_7'),
                 'QUERY_INFORMATION' => $language->get('admin', 'query_information'),
                 'ENABLE_STATUS_QUERY' => $language->get('admin', 'enable_status_query'),
                 'ENABLE_STATUS_QUERY_INFO' => $language->get('admin', 'status_query_help'),
@@ -430,7 +430,7 @@ if (isset($_GET['action'])) {
                 'BEDROCK' => $language->get('admin', 'bedrock'),
                 'BEDROCK_VALUE' => ($server_editing->bedrock == 1),
                 'BEDROCK_INFO' => $language->get('admin', 'bedrock_help'),
-                'PRE_17' => $language->get('admin', 'pre_1.7'),
+                'PRE_17' => $language->get('admin', 'pre_1_7'),
                 'PRE_17_VALUE' => ($server_editing->pre == 1),
                 'QUERY_INFORMATION' => $language->get('admin', 'query_information'),
                 'ENABLE_STATUS_QUERY' => $language->get('admin', 'enable_status_query'),
@@ -585,7 +585,7 @@ if (isset($_GET['action'])) {
             $template_array[] = [
                 'name' => Output::getClean($server->name),
                 'id' => Output::getClean($server->id),
-                'server_id' => str_replace('{x}', Output::getClean($server->id), $language->get('admin', 'server_id_x')),
+                'server_id' => $language->get('admin', 'server_id_x', ['serverId' => Output::getClean($server->id)]),
                 'edit_link' => URL::build('/panel/minecraft/servers/', 'action=edit&id=' . urlencode($server->id)),
                 'delete_link' => URL::build('/panel/minecraft/servers/', 'action=delete&id=' . urlencode($server->id)),
                 'is_default' => $server->is_default
@@ -687,9 +687,6 @@ $smarty->assign([
     'SUBMIT' => $language->get('general', 'submit'),
     'MINECRAFT_SERVERS' => $language->get('admin', 'minecraft_servers')
 ]);
-
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 

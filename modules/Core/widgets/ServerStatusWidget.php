@@ -70,7 +70,7 @@ class ServerStatusWidget extends WidgetBase {
                     'ONLINE' => $this->_language->get('general', 'online'),
                     'OFFLINE' => $this->_language->get('general', 'offline'),
                     'IP' => $this->_language->get('general', 'ip'),
-                    'VERSION' => isset($server_array['version']) ? str_replace('{x}', '<strong>' . $server_array['version'] . '</strong>', $this->_language->get('general', 'version')) : null
+                    'VERSION' => isset($server_array['version']) ? $this->_language->get('general', 'version', ['version' => $server_array['version']]) : null
                 ]
             );
         }

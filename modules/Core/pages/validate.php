@@ -28,7 +28,7 @@ if (isset($_GET['c'])) {
         EventHandler::executeEvent('validateUser', [
             'user_id' => $user->data()->id,
             'username' => $user->getDisplayname(),
-            'content' => str_replace('{x}', $user->getDisplayname(), $language->get('user', 'user_x_has_validated')),
+            'content' => $language->get('user', 'user_x_has_validated', ['user' => $user->getDisplayname()]),
             'avatar_url' => $user->getAvatar(128, true),
             'url' => Util::getSelfURL() . ltrim($user->getProfileURL(), '/'),
             'language' => $language

@@ -53,9 +53,7 @@ if (!isset($can_view)) {
 
 if ($custom_page->redirect) {
     header('X-Robots-Tag: noindex, nofollow');
-    header('Location: ' . Output::getClean($custom_page->link));
-
-    die(str_replace('{x}', Output::getClean($custom_page->link), $language->get('general', 'redirecting_message')));
+    Redirect::to(URL::build(Output::getClean($custom_page->link)));
 }
 
 // Always define page name
@@ -79,9 +77,6 @@ $smarty->assign([
     'WIDGETS_RIGHT' => $widgets->getWidgets('right'),
     'CONTENT' => Util::renderEmojis((($custom_page->all_html == 0) ? Output::getPurified($custom_page->content) : Output::getClean($custom_page->content)))
 ]);
-
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 

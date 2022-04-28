@@ -61,7 +61,10 @@ if (Input::exists()) {
             $enable_discord_id = $enable_discord_id[0]->id;
             if ($_POST['enable_discord'] == '1') {
                 if (BOT_URL == '' || BOT_USERNAME == '' || Discord::getGuildId() == '') {
-                    $errors[] = Discord::getLanguageTerm('discord_bot_must_be_setup');
+                    $errors[] = Discord::getLanguageTerm('discord_bot_must_be_setup', [
+                        'linkStart' => '<a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">',
+                        'linkEnd' => '</a>',
+                    ]);
                     $queries->update('settings', $enable_discord_id, [
                         'value' => 0
                     ]);
@@ -121,7 +124,13 @@ $smarty->assign([
     'SUBMIT' => $language->get('general', 'submit'),
     'ENABLE_DISCORD_INTEGRATION' => Discord::getLanguageTerm('enable_discord_integration'),
     'DISCORD_ENABLED' => Discord::isBotSetup(),
-    'INVITE_LINK' => Discord::getLanguageTerm('discord_invite_info'),
+    'INVITE_LINK' => Discord::getLanguageTerm('discord_invite_info', [
+        'inviteLinkStart' => '<a target="_blank" href="https://namelessmc.com/discord-bot-invite">',
+        'inviteLinkEnd' => '</a>',
+        'command' => '<code>/apiurl</code>',
+        'selfHostLinkStart' => '<a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">',
+        'selfHostLinkEnd' => '</a>',
+    ]),
     'GUILD_ID_SET' => (Discord::getGuildId() != ''),
     'BOT_URL_SET' => (BOT_URL != ''),
     'BOT_USERNAME_SET' => (BOT_USERNAME != ''),
@@ -129,11 +138,11 @@ $smarty->assign([
     'BOT_SETUP' => Discord::getLanguageTerm('discord_bot_setup'),
     'DISCORD_GUILD_ID' => Discord::getLanguageTerm('discord_guild_id'),
     'DISCORD_GUILD_ID_VALUE' => Discord::getGuildId(),
-    'ID_INFO' => Discord::getLanguageTerm('discord_id_help'),
+    'ID_INFO' => Discord::getLanguageTerm('discord_id_help', [
+        'linkStart' => '<a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">',
+        'linkEnd' => '</a>',
+    ]),
 ]);
-
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 

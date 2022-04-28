@@ -112,17 +112,27 @@ if (!isset($_GET['action'])) {
                 }
             }
 
-            $template_array = [];
+            $groups = [];
             foreach (Group::all() as $group) {
-                $template_array[$group->id] = [
+                $groups[$group->id] = [
                     'id' => $group->id,
                     'name' => Output::getClean($group->name),
+                    'allowed' => (isset($_POST['perm-view-' . $group->id]) && $_POST['perm-view-' . $group->id] == 1)
                 ];
             }
 
             $smarty->assign([
                 'ANNOUNCEMENT_TITLE' => $language->get('admin', 'creating_announcement'),
-                'GROUPS' => $template_array,
+                'HEADER_VALUE' => ((isset($_POST['header']) && $_POST['header']) ? Output::getClean(Input::get('header')) : ''),
+                'MESSAGE_VALUE' => ((isset($_POST['message']) && $_POST['message']) ? Output::getClean(Input::get('message')) : ''),
+                'PAGES_VALUE' => ((isset($_POST['pages']) && is_array($_POST['pages'])) ? Input::get('pages') : []),
+                'BACKGROUND_COLOUR_VALUE' => ((isset($_POST['background_colour']) && $_POST['background_colour']) ? Output::getClean(Input::get('background_colour')) : '#007BFF'),
+                'TEXT_COLOUR_VALUE' => ((isset($_POST['text_colour']) && $_POST['text_colour']) ? Output::getClean(Input::get('text_colour')) : '#ffffff'),
+                'ICON_VALUE' => ((isset($_POST['icon']) && $_POST['icon']) ? Output::getClean(Input::get('icon')) : ''),
+                'ORDER_VALUE' => ((isset($_POST['order']) && $_POST['order']) ? Output::getClean(Input::get('order')) : 1),
+                'CLOSABLE_VALUE' => ((isset($_POST['closable']) && $_POST['closable']) ? Output::getClean(Input::get('closable')) : ''),
+                'GROUPS_VALUE' => $groups,
+                'GUEST_PERMISSIONS' => (isset($_POST['perm-view-0']) && $_POST['perm-view-0'] == 1)
             ]);
 
             $template_file = 'core/announcements_form.tpl';
@@ -200,11 +210,9 @@ if (!isset($_GET['action'])) {
             }
 
             $announcement_pages = json_decode($announcement->pages);
-            $announcement->pages = is_array($announcement_pages) ? $announcement_pages : [];
-
             $guest_permissions = in_array('0', json_decode($announcement->groups));
-            $groups = [];
 
+            $groups = [];
             foreach (Group::all() as $group) {
                 $groups[$group->id] = [
                     'name' => $group->name,
@@ -215,8 +223,15 @@ if (!isset($_GET['action'])) {
 
             $smarty->assign([
                 'ANNOUNCEMENT_TITLE' => $language->get('admin', 'editing_announcement'),
-                'ANNOUNCEMENT' => $announcement,
-                'GROUPS' => $groups,
+                'HEADER_VALUE' => Output::getClean($announcement->header),
+                'MESSAGE_VALUE' => Output::getClean($announcement->message),
+                'PAGES_VALUE' => is_array($announcement_pages) ? $announcement_pages : [],
+                'BACKGROUND_COLOUR_VALUE' => Output::getClean($announcement->background_colour),
+                'TEXT_COLOUR_VALUE' => Output::getClean($announcement->text_colour),
+                'ICON_VALUE' => Output::getClean($announcement->icon),
+                'ORDER_VALUE' => Output::getClean($announcement->order),
+                'CLOSABLE_VALUE' => Output::getClean($announcement->closable),
+                'GROUPS_VALUE' => $groups,
                 'GUEST_PERMISSIONS' => $guest_permissions,
             ]);
 
@@ -290,12 +305,16 @@ $smarty->assign([
     'SUBMIT' => $language->get('general', 'submit'),
     'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
     'CONFIRM_DELETE_ANNOUNCEMENT' => $language->get('admin', 'verify_delete_announcement'),
-    'ICON_INFO' => $language->get('admin', 'announcement_icon_instructions'),
+    'ICON_INFO' => $language->get('admin', 'announcement_icon_instructions', [
+        'faLink' => '<a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>',
+        'semLink' => '<a href="https://fomantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Fomantic UI</a>',
+    ]),
     'YES' => $language->get('general', 'yes'),
     'NO' => $language->get('general', 'no'),
     'ORDER' => $language->get('admin', 'announcement_order'),
     'HEADER' => $language->get('admin', 'header'),
     'MESSAGE' => $language->get('admin', 'message'),
+    'GROUPS' => $language->get('admin', 'groups'),
     'BACK' => $language->get('general', 'back'),
     'BACK_LINK' => URL::build('/panel/core/announcements'),
     'PAGES' => $language->get('admin', 'pages'),
@@ -311,9 +330,6 @@ $smarty->assign([
     'ANNOUNCEMENTS' => $language->get('admin', 'announcements'),
     'NO_ITEM_SELECTED' => $language->get('admin', 'no_item_selected'),
 ]);
-
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 

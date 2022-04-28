@@ -73,7 +73,7 @@ if (count($page_metadata)) {
 }
 
 $page_title = $forum_language->get('forum', 'forum');
-$page_title .= ' - ' . str_replace('{x}', $p, $language->get('general', 'page_x'));
+$page_title .= ' - ' . $language->get('general', 'page_x', ['page' => $p]);
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 // Redirect forum?
@@ -83,7 +83,7 @@ if ($forum_query->redirect_forum == 1) {
     }
 
     $smarty->assign([
-        'CONFIRM_REDIRECT' => str_replace('{x}', $forum_query->redirect_url, $forum_language->get('forum', 'forum_redirect_warning')),
+        'CONFIRM_REDIRECT' => $forum_language->get('forum', 'forum_redirect_warning', ['url' => Output::getClean($forum_query->redirect_url)]),
         'YES' => $language->get('general', 'yes'),
         'NO' => $language->get('general', 'no'),
         'REDIRECT_URL' => Output::getClean($forum_query->redirect_url),
@@ -92,9 +92,6 @@ if ($forum_query->redirect_forum == 1) {
 
     // Load modules + template
     Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
-
-    $page_load = microtime(true) - $start;
-    define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
     $template->onPageLoad();
 
@@ -213,8 +210,8 @@ if ($forum_query->redirect_forum == 1) {
                     $latest_post_title = Output::getClean($latest_post->topic_title);
                     $latest_post_user_displayname = $latest_post_user->getDisplayname();
                     $latest_post_user_link = $latest_post_user->getProfileURL();
-                    $latest_post_style = $latest_post_user->getGroupClass();
-                    $latest_post_date_timeago = $timeago->inWords(date('Y-m-d H:i:s', $latest_post->topic_reply_date), $language->getTimeLanguage());
+                    $latest_post_style = $latest_post_user->getGroupStyle();
+                    $latest_post_date_timeago = $timeago->inWords($latest_post->topic_reply_date, $language);
                     $latest_post_time = date(DATE_FORMAT, $latest_post->topic_reply_date);
                     $latest_post_user_id = Output::getClean($latest_post->topic_last_user);
 
@@ -358,21 +355,21 @@ if ($forum_query->redirect_forum == 1) {
             $sticky_array[] = [
                 'topic_title' => Output::getClean($sticky->topic_title),
                 'topic_id' => $sticky->id,
-                'topic_created_rough' => $timeago->inWords(date('Y-m-d H:i:s', $sticky->topic_date), $language->getTimeLanguage()),
+                'topic_created_rough' => $timeago->inWords($sticky->topic_date, $language),
                 'topic_created' => date(DATE_FORMAT, $sticky->topic_date),
                 'topic_created_username' => $topic_user->getDisplayname(),
                 'topic_created_mcname' => $topic_user->getDisplayname(true),
-                'topic_created_style' => $topic_user->getGroupClass(),
+                'topic_created_style' => $topic_user->getGroupStyle(),
                 'topic_created_user_id' => Output::getClean($sticky->topic_creator),
                 'views' => $sticky->topic_views,
                 'locked' => $sticky->locked,
                 'posts' => $replies,
                 'last_reply_avatar' => $last_reply_user->getAvatar(),
-                'last_reply_rough' => $timeago->inWords(date('Y-m-d H:i:s', $sticky->topic_reply_date), $language->getTimeLanguage()),
+                'last_reply_rough' => $timeago->inWords($sticky->topic_reply_date, $language),
                 'last_reply' => date(DATE_FORMAT, $sticky->topic_reply_date),
                 'last_reply_username' => $last_reply_user->getDisplayname(),
                 'last_reply_mcname' => $last_reply_user->getDisplayname(true),
-                'last_reply_style' => $last_reply_user->getGroupClass(),
+                'last_reply_style' => $last_reply_user->getGroupStyle(),
                 'last_reply_user_id' => Output::getClean($sticky->topic_last_user),
                 'label' => $label,
                 'labels' => $labels,
@@ -467,21 +464,21 @@ if ($forum_query->redirect_forum == 1) {
             $template_array[] = [
                 'topic_title' => Output::getClean($nValue->topic_title),
                 'topic_id' => $nValue->id,
-                'topic_created_rough' => $timeago->inWords(date('Y-m-d H:i:s', $nValue->topic_date), $language->getTimeLanguage()),
+                'topic_created_rough' => $timeago->inWords($nValue->topic_date, $language),
                 'topic_created' => date(DATE_FORMAT, $nValue->topic_date),
                 'topic_created_username' => $topic_user->getDisplayname(),
                 'topic_created_mcname' => $topic_user->getDisplayname(true),
-                'topic_created_style' => $topic_user->getGroupClass(),
+                'topic_created_style' => $topic_user->getGroupStyle(),
                 'topic_created_user_id' => Output::getClean($nValue->topic_creator),
                 'locked' => $nValue->locked,
                 'views' => $nValue->topic_views,
                 'posts' => $replies,
                 'last_reply_avatar' => $last_reply_user->getAvatar(),
-                'last_reply_rough' => $timeago->inWords(date('Y-m-d H:i:s', $nValue->topic_reply_date), $language->getTimeLanguage()),
+                'last_reply_rough' => $timeago->inWords($nValue->topic_reply_date, $language),
                 'last_reply' => date(DATE_FORMAT, $nValue->topic_reply_date),
                 'last_reply_username' => $last_reply_user->getDisplayname(),
                 'last_reply_mcname' => $last_reply_user->getDisplayname(true),
-                'last_reply_style' => $last_reply_user->getGroupClass(),
+                'last_reply_style' => $last_reply_user->getGroupStyle(),
                 'label' => $label,
                 'labels' => $labels,
                 'author_link' => $topic_user->getProfileURL(),
@@ -498,9 +495,6 @@ if ($forum_query->redirect_forum == 1) {
 
     // Load modules + template
     Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
-
-    $page_load = microtime(true) - $start;
-    define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
     $template->onPageLoad();
 

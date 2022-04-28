@@ -39,7 +39,7 @@ if (!isset($_GET['view'])) {
             // Only display 30 alerts
             // Get date
             $alerts[$n]->date = date(DATE_FORMAT, $alerts[$n]->created);
-            $alerts[$n]->date_nice = $timeago->inWords(date('Y-m-d H:i:s', $alerts[$n]->created), $language->getTimeLanguage());
+            $alerts[$n]->date_nice = $timeago->inWords($alerts[$n]->created, $language);
             $alerts[$n]->view_link = URL::build('/user/alerts/', 'view=' . urlencode($alerts[$n]->id));
 
             $alerts_limited[] = $alerts[$n];
@@ -67,9 +67,6 @@ if (!isset($_GET['view'])) {
         Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
         require(ROOT_PATH . '/core/templates/cc_navbar.php');
-
-        $page_load = microtime(true) - $start;
-        define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
         $template->onPageLoad();
 

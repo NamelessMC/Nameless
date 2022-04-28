@@ -30,10 +30,9 @@ class UserData {
     public int $last_online;
     public ?string $user_title;
     public ?int $theme_id;
-    public int $language_id;
+    public ?int $language_id;
     public int $warning_points;
     public ?bool $night_mode;
-    public ?int $last_username_update;
     public bool $tfa_enabled;
     public int $tfa_type;
     public ?string $tfa_secret;
@@ -67,7 +66,6 @@ class UserData {
         $this->language_id = $row->language_id;
         $this->warning_points = $row->warning_points;
         $this->night_mode = $row->night_mode;
-        $this->last_username_update = $row->last_username_update;
         $this->tfa_enabled = $row->tfa_enabled;
         $this->tfa_type = $row->tfa_type;
         $this->tfa_secret = $row->tfa_secret;

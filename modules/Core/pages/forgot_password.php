@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr13
  *
  *  License: MIT
  *
@@ -28,7 +28,7 @@ if (!isset($_GET['c'])) {
             } else {
                 // Check to see if the email exists
                 $target_user = new User(Input::get('email'), 'email');
-                if ($target_user->data() && $target_user->data()->active) {
+                if ($target_user->exists() && $target_user->data()->active) {
                     // Generate a code
                     $code = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 60);
 
@@ -38,7 +38,8 @@ if (!isset($_GET['c'])) {
                     $sent = Email::send(
                         ['email' => Output::getClean($target_user->data()->email), 'name' => $target_user->getDisplayname()],
                         SITE_NAME . ' - ' . $language->get('emails', 'change_password_subject'),
-                        str_replace('[Link]', $link, Email::formatEmail('change_password', $language))
+                        str_replace('[Link]', $link, Email::formatEmail('change_password', $language)),
+                        Email::getReplyTo()
                     );
 
                     if (isset($sent['error'])) {
@@ -67,10 +68,16 @@ if (!isset($_GET['c'])) {
     }
 
     if (isset($error)) {
-        $smarty->assign('ERROR', $error);
+        $smarty->assign([
+            'ERROR_TITLE' => $language->get('general', 'error'),
+            'ERROR' => $error
+        ]);
     } else {
         if (isset($success)) {
-            $smarty->assign('SUCCESS', $success);
+            $smarty->assign([
+                'SUCCESS_TITLE' => $language->get('general', 'success'),
+                'SUCCESS' => $success
+            ]);
         }
     }
 
@@ -81,9 +88,6 @@ if (!isset($_GET['c'])) {
         'TOKEN' => Token::get(),
         'SUBMIT' => $language->get('general', 'submit')
     ]);
-
-    $page_load = microtime(true) - $start;
-    define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
     // Load modules + template
     Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
@@ -149,7 +153,10 @@ if (!isset($_GET['c'])) {
     }
 
     if (isset($errors) && count($errors)) {
-        $smarty->assign('ERROR', $errors);
+        $smarty->assign([
+            'ERROR_TITLE' => $language->get('general', 'error'),
+            'ERROR' => $errors
+        ]);
     }
 
     $smarty->assign([
@@ -164,9 +171,6 @@ if (!isset($_GET['c'])) {
 
     // Load modules + template
     Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
-
-    $page_load = microtime(true) - $start;
-    define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
     $template->onPageLoad();
 

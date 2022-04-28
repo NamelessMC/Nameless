@@ -21,7 +21,7 @@ class DiscordHook {
                     'url' => $params['url'],
                     'icon_url' => $params['avatar_url']
                 ],
-                'description' => str_replace('{x}', Output::getClean($params['username']), $params['language']->get('user', 'user_x_has_registered'))
+                'description' => $params['language']->get('user', 'user_x_has_registered', ['user' => Output::getClean($params['username']), 'siteName' => SITE_NAME])
             ]];
         } else {
             $content = html_entity_decode(str_replace(['&nbsp;', '&bull;'], [' ', ''], $params['content_full']));

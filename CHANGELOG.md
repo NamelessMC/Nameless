@@ -34,11 +34,11 @@ NamelessMC version 2 Changelog
 - Fix installation detection
 - Separate core JS into templates
 - Add maintenance mode
-- Allow logging in whilst in maintenance mode 
-- Prevent admin account switch in AdminCP 
-- Fix installer not loading 
+- Allow logging in whilst in maintenance mode
+- Prevent admin account switch in AdminCP
+- Fix installer not loading
 - Allow installer translations
-- Add default database address to installer 
+- Add default database address to installer
 - Update admin auth screen layout
 - Remove deprecated mcrypt requirement, along with a now unused function
 - Fix permission check for configuration file
@@ -91,7 +91,7 @@ NamelessMC version 2 Changelog
 - Fix server banner issues
 - Add missing font file
 - Fix white screen if no avatar is uploaded
-- Only display 5 forum posts on profile pages 
+- Only display 5 forum posts on profile pages
 - Fix AdminCP forums page navbar
 - Fix potentially broken AdminCP link with non-friendly URLs
 - Update Minecraft server banners and allow custom backgrounds
@@ -630,7 +630,7 @@ NamelessMC version 2 Changelog
 - Add new forum settings page including link location option
 - Add ability to log in with either username or email
 - Discord sync rework
-- Ingame sync rework
+- In-game sync rework
 - Fix legacy panel template update alert style
 - Only send password reset email if user is already active
 - PHPMailer autoloader PHP 8 compatibility

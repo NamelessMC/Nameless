@@ -51,18 +51,18 @@
                             <div class="form-group">
                                 <label for="header">{$HEADER}</label>
                                 <input type="text" name="header" class="form-control" id="header"
-                                       value="{$ANNOUNCEMENT->header}">
+                                       value="{$HEADER_VALUE}">
                             </div>
                             <div class="form-group">
                                 <label for="message">{$MESSAGE}</label>
                                 <textarea name="message" class="form-control"
-                                          id="message">{$ANNOUNCEMENT->message}</textarea>
+                                          id="message">{$MESSAGE_VALUE}</textarea>
                             </div>
                             <div class="form-group">
                                 <label for="pages">{$PAGES}</label>
                                 <select name="pages[]" id="pages" class="form-control" multiple>
                                     {foreach from=$PAGES_ARRAY item=page}
-                                        <option value="{$page.name}"{if isset($ANNOUNCEMENT) && in_array($page.name, $ANNOUNCEMENT->pages)} selected {/if}>{$page.name|ucfirst}</option>
+                                        <option value="{$page.name}"{if in_array($page.name, $PAGES_VALUE)} selected {/if}>{$page.name|ucfirst}</option>
                                     {/foreach}
                                 </select>
                             </div>
@@ -70,7 +70,7 @@
                                 <label for="InputBackgroundColour">{$BACKGROUND_COLOUR}</label>
                                 <div class="input-group">
                                     <input type="text" name="background_colour" class="form-control"
-                                           id="InputBackgroundColour" value="{$ANNOUNCEMENT->background_colour}">
+                                           id="InputBackgroundColour" value="{$BACKGROUND_COLOUR_VALUE}">
                                     <span class="input-group-append">
                                             <span class="input-group-text colorpicker-input-addon"><i></i></span>
                                         </span>
@@ -80,7 +80,7 @@
                                 <label for="InputTextColour">{$TEXT_COLOUR}</label>
                                 <div class="input-group">
                                     <input type="text" name="text_colour" class="form-control" id="InputTextColour"
-                                           value="{$ANNOUNCEMENT->text_colour}">
+                                           value="{$TEXT_COLOUR_VALUE}">
                                     <span class="input-group-append">
                                             <span class="input-group-text colorpicker-input-addon"><i></i></span>
                                         </span>
@@ -88,21 +88,21 @@
                             </div>
                             <div class="form-group">
                                 <label for="icon">{$ICON} <span class="badge badge-info" data-toggle="popover"
-                                                                data-title="{$INFO}" data-content="{$ICON_INFO|escape}"><i
+                                                                data-title="{$INFO}" data-content="{$ICON_INFO}"><i
                                                 class="fa fa-question"></i></label>
                                 <input type="text" name="icon" id="icon" class="form-control"
-                                       placeholder="fas fa-edit" value="{$ANNOUNCEMENT->icon|escape}">
+                                       placeholder="fas fa-edit" value="{$ICON_VALUE}">
                             </div>
                             <div class="form-group">
                                 <label for="icon">{$ORDER}</label>
-                                <input type="number" step="1.00" name="order" id="order" class="form-control" value="{$ANNOUNCEMENT->order|escape}">
+                                <input type="number" step="1.00" name="order" id="order" class="form-control" value="{$ORDER_VALUE}">
                             </div>
                             <div class="form-group custom-control custom-switch">
                                 <input id="closable" name="closable" type="checkbox" class="custom-control-input"
-                                       value="1" {if $ANNOUNCEMENT->closable} checked{/if} />
+                                       value="1" {if $CLOSABLE_VALUE} checked{/if} />
                                 <label for="closable" class="custom-control-label">{$CLOSABLE}</label>
                             </div>
-                            <strong style="margin-bottom: 10px; display:block">Groups</strong>
+                            <strong style="margin-bottom: 10px; display:block">{$GROUPS}</strong>
                             <script>
                               var groups = [];
                               groups.push("0");
@@ -121,13 +121,13 @@
                                                 onclick="colourUpdate(this);" name="perm-view-0" id="Input-view-0"
                                                 value="1" type="checkbox" {if $GUEST_PERMISSIONS} checked {/if} /></td>
                                 </tr>
-                                {foreach from=$GROUPS item=item}
+                                {foreach from=$GROUPS_VALUE item=item}
                                     <tr>
                                         <td onclick="toggleAll(this);">{$item.name}</td>
                                         <td><input type="hidden" name="perm-view-{$item.id}" value="0" /><input
                                                     onclick="colourUpdate(this);" name="perm-view-{$item.id}"
                                                     id="Input-view-{$item.id}" value="1"
-                                                    type="checkbox" {if $GROUPS[$item.id]['allowed'] } checked {/if} />
+                                                    type="checkbox" {if $GROUPS_VALUE[$item.id]['allowed'] } checked {/if} />
                                         </td>
                                     </tr>
                                     <script>
@@ -187,11 +187,11 @@
   $(function () {
     $('.backgroundColour').colorpicker({
       format: 'hex',
-      'color': {if $ANNOUNCEMENT->background_colour} '{$ANNOUNCEMENT->background_colour}' {else}'#007BFF'{/if}
+      'color': '{$BACKGROUND_COLOUR_VALUE}'
     });
     $('.textColour').colorpicker({
       format: 'hex',
-      'color': {if $ANNOUNCEMENT->text_colour} '{$ANNOUNCEMENT->text_colour}' {else}'#ffffff'{/if}
+      'color': '{$TEXT_COLOUR_VALUE}'
     });
   });
 

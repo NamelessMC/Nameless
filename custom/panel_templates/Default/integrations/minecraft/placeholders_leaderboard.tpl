@@ -55,10 +55,11 @@
 
                                 <div class="form-group custom-control custom-switch">
                                     <input type="checkbox"
+                                           id="InputEnableLeaderboard"
                                            class="custom-control-input"
                                            name="leaderboard_enabled"
                                            {if $PLACEHOLDER->leaderboard eq 1}checked{/if}>
-                                    <label class="custom-control-label" for="leaderboard_enabled">
+                                    <label class="custom-control-label" for="InputEnableLeaderboard">
                                         {$LEADERBOARD_ENABLED}
                                         <span class="badge badge-info"
                                               data-toggle="popover"

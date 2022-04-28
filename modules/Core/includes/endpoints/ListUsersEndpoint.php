@@ -44,11 +44,13 @@ class ListUsersEndpoint extends KeyAuthEndpoint {
         }
 
         // Build where string
-        $where_string = ' WHERE ';
-        foreach ($where as $item) {
-            $where_string .= $item . $operator;
+        if (!empty($where)) {
+            $query .= ' WHERE ';
+            foreach ($where as $item) {
+                $query .= $item . $operator;
+            }
+            $query = rtrim($query, $operator);
         }
-        $where_string = rtrim($where_string, $operator);
 
         $return_array = [
             'limit' => -1,
@@ -59,17 +61,17 @@ class ListUsersEndpoint extends KeyAuthEndpoint {
             $limit = (int) $_GET['limit'];
             if ($limit >= 1) {
                 $return_array['limit'] = $limit;
-                $where_string .= ' LIMIT ' . $limit;
+                $query .= ' LIMIT ' . $limit;
 
                 if (isset($_GET['offset']) && is_numeric($_GET['offset'])) {
                     $offset = (int) $_GET['offset'];
                     $return_array['offset'] = $offset;
-                    $where_string .= ' OFFSET ' . $offset;
+                    $query .= ' OFFSET ' . $offset;
                 }
             }
         }
 
-        $users = $api->getDb()->selectQuery($query . $where_string, $params)->results();
+        $users = $api->getDb()->selectQuery($query, $params)->results();
 
         $users_json = [];
         foreach ($users as $user) {

@@ -31,25 +31,31 @@ class Email {
      * @param array $recipient Array containing `'email'` and `'name'` strings for the recipient of the email.
      * @param string $subject Subject of the email.
      * @param string $message Message of the email.
-     * @param ?array $reply_to Optional array containing `'email'` and `'name'` strings for the reply-to address.
+     * @param array $reply_to Array containing `'email'` and `'name'` strings for the reply-to address.
      * @return bool|array Returns true if email sent, otherwise returns an array containing the error.
      */
-    public static function send(array $recipient, string $subject, string $message, ?array $reply_to = null) {
+    public static function send(array $recipient, string $subject, string $message, array $reply_to) {
         $email = [
             'to' => $recipient,
             'subject' => $subject,
             'message' => $message,
+            'replyto' => $reply_to,
         ];
-
-        if ($reply_to !== null) {
-            $email['replyto'] = $reply_to;
-        }
 
         if (Util::getSetting(DB::getInstance(), 'phpmailer') == '1') {
             return self::sendMailer($email);
         }
 
         return self::sendPHP($email);
+    }
+
+    /**
+     * Get reply to array for send()
+     * @return array Array with reply-to email address and name
+     */
+    public static function getReplyTo(): array {
+        $contactemail = Util::getSetting(DB::getInstance(), 'incoming_email');
+        return ['email' => $contactemail, 'name' => Output::getClean(SITE_NAME)];
     }
 
     /**

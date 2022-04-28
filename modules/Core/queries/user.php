@@ -33,7 +33,7 @@ if (!is_numeric($_GET['id'])) {
         $nickname = $target_user->getDisplayname();
         $profile = $target_user->getProfileURL();
         $avatar = $target_user->getAvatar();
-        $style = $target_user->getGroupClass();
+        $style = $target_user->getGroupStyle();
         $groups = $target_user->getAllGroupHtml();
         $id = Output::getClean($target_user->data()->id);
 

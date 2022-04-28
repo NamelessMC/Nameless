@@ -28,7 +28,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'delete') {
 
                 OAuth::getInstance()->unlinkProviderForUser($_POST['user_id'], $_POST['provider_name']);
 
-                Session::flash('oauth_success', str_replace('{x}', ucfirst($_POST['provider_name']), $language->get('admin', 'unlink_account_success')));
+                Session::flash('oauth_success', $language->get('admin', 'unlink_account_success', ['provider' => ucfirst($_POST['provider_name'])]));
             }
         }
         die();
@@ -68,9 +68,11 @@ $smarty->assign([
     'PAGE' => PANEL_PAGE,
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit'),
-    'EDITING_USER' => str_replace('{x}', Output::getClean($user_query->nickname), $language->get('admin', 'editing_user_x')),
+    'EDITING_USER' => $language->get('admin', 'editing_user_x', [
+        'user' => Util::bold(Output::getClean($user_query->nickname))
+    ]),
     'USER_ID' => $user_query->id,
-    'BACK_LINK' => URL::build('/panel/user/' . urlencode($user_query)),
+    'BACK_LINK' => URL::build('/panel/user/' . urlencode($user_query->id)),
     'BACK' => $language->get('general', 'back'),
     'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
     'ARE_YOU_SURE_MESSAGE' => $language->get('admin', 'unlink_account_confirm'),
@@ -82,13 +84,11 @@ $smarty->assign([
     'UNLINK' => $language->get('admin', 'unlink'),
     'NAME' => $language->get('admin', 'name'),
     'IDENTIFIER' => $language->get('admin', 'identifier'),
+    'NOT_LINKED' => $language->get('admin', 'not_linked'),
 ]);
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
-
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 

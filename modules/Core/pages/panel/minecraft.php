@@ -60,8 +60,7 @@ if (isset($errors) && count($errors)) {
 }
 
 // Check if Minecraft integration is enabled
-$minecraft_enabled = $queries->getWhere('settings', ['name', '=', 'mc_integration']);
-$minecraft_enabled = $minecraft_enabled[0]->value;
+$minecraft_enabled = MINECRAFT;
 
 $smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,
@@ -118,9 +117,6 @@ if ($minecraft_enabled == 1) {
         ]);
     }
 }
-
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 

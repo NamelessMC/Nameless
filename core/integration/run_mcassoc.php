@@ -122,12 +122,14 @@ if (!isset($_GET['step'])) {
 
                 unset($_SESSION['mcassoc']);
 
+                $smarty->assign('SUCCESS_TITLE', $language->get('general', 'success'));
                 $smarty->assign('SUCCESS', $language->get('user', 'verification_success'));
                 $smarty->assign('LOGIN_LINK', URL::build('/login'));
                 $smarty->assign('LOGIN_TEXT', $language->get('general', 'sign_in'));
 
             }
         } catch (Exception $e) {
+            $smarty->assign('ERROR_TITLE', $language->get('general', 'error'));
             $smarty->assign('ERROR', $language->get('user', 'verification_failed') . ' - ' . $e->getMessage());
             $smarty->assign('RETRY_LINK', URL::build('/register'));
             $smarty->assign('RETRY_TEXT', $language->get('general', 'register'));
@@ -139,9 +141,6 @@ if (!isset($_GET['step'])) {
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
-
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 

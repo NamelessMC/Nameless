@@ -72,13 +72,13 @@ class ProfilePostsWidget extends WidgetBase {
                 $posts_array[] = [
                     'avatar' => $post_author->getAvatar(),
                     'username' => $post_author->getDisplayname(),
-                    'username_style' => $post_author->getGroupClass(),
+                    'username_style' => $post_author->getGroupStyle(),
                     'content' => Util::truncate(strip_tags($post->content), 20),
                     'link' => $link . '/#post-' . $post->id,
                     'date_ago' => date(DATE_FORMAT, $post->time),
                     'user_id' => $post->author_id,
                     'user_profile_link' => $post_author->getProfileURL(),
-                    'ago' => $this->_timeago->inWords(date('Y-m-d H:i:s', $post->time), $this->_language->getTimeLanguage())
+                    'ago' => $this->_timeago->inWords($post->time, $this->_language)
                 ];
             }
             $this->_cache->store('profile_posts_' . $user_id, $posts_array, 120);

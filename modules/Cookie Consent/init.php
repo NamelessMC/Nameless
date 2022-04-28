@@ -11,6 +11,6 @@
 
 require_once ROOT_PATH . '/modules/Cookie Consent/module.php';
 
-$cookie_language = new Language(ROOT_PATH . '/modules/Cookie Consent/language', LANGUAGE);
+$cookie_language = new Language(ROOT_PATH . '/modules/Cookie Consent/language');
 
 $module = new CookieConsent_Module($language, $cookie_language, $pages);

@@ -11,6 +11,8 @@
  */
 class User {
 
+    private static array $_user_cache = [];
+
     private DB $_db;
 
     /**
@@ -69,7 +71,7 @@ class User {
         $this->_cookieName = Config::get('remember/cookie_name');
         $this->_admSessionName = Config::get('session/admin_name');
 
-        if (!$user) {
+        if ($user === null) {
             if (Session::exists($this->_sessionName)) {
                 $user = Session::get($this->_sessionName);
                 if ($this->find($user, $field)) {
@@ -98,6 +100,13 @@ class User {
      */
     public function find(string $value = null, string $field = 'id'): bool {
         if ($value) {
+            if (isset(self::$_user_cache["$value.$field"])) {
+                $cache = self::$_user_cache["$value.$field"];
+                $this->_data = $cache['data'];
+                $this->_groups = $cache['groups'];
+                return true;
+            }
+
             $data = $this->_db->get('users', [$field, '=', $value]);
 
             if ($data->count()) {
@@ -112,6 +121,11 @@ class User {
                     foreach ($groups_query as $item) {
                         $this->_groups[$item->id] = new Group($item);
                     }
+
+                    self::$_user_cache["$value.$field"] = [
+                        'data' => $this->_data,
+                        'groups' => $this->_groups,
+                    ];
 
                 } else {
                     // Get default group
@@ -180,11 +194,18 @@ class User {
     }
 
     /**
+     * @deprecated Use getGroupStyle instead
+     */
+    public function getGroupClass(): string {
+        return $this->getGroupStyle();
+    }
+
+    /**
      * Get this user's main group CSS styling
      *
      * @return string The CSS styling.
      */
-    public function getGroupClass(): string {
+    public function getGroupStyle(): string {
         $group = $this->getMainGroup();
 
         $group_username_color = Output::getClean($group->group_username_color);
@@ -395,12 +416,12 @@ class User {
      * @param bool $username If true, will use their username. If false, will use their nickname.
      * @return string Their display name.
      */
-    public function getDisplayName(bool $username = false): string {
+    public function getDisplayname(bool $username = false): string {
         if ($username) {
-            return Output::getClean($this->data()->username);
+            return $this->data()->username;
         }
 
-        return Output::getClean($this->data()->nickname);
+        return $this->data()->nickname;
     }
 
     /**
@@ -790,7 +811,7 @@ class User {
                 $pm = $pm[0];
 
                 $return[$pm->id]['id'] = $pm->id;
-                $return[$pm->id]['title'] = Output::getClean($pm->title);
+                $return[$pm->id]['title'] = $pm->title;
                 $return[$pm->id]['created'] = $pm->created;
                 $return[$pm->id]['updated'] = $pm->last_reply_date;
                 $return[$pm->id]['user_updated'] = $pm->last_reply_user;

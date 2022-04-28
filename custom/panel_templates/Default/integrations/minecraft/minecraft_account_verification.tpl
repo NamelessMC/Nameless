@@ -79,7 +79,7 @@
                                            id="mcassoc_instance" value="{$MCASSOC_INSTANCE_VALUE}"
                                            placeholder="{$MCASSOC_INSTANCE}">
                                     <br />
-                                    <p>{$MCASSOC_INSTANCE_HELP}</p>
+                                    <a href="#" onclick="generateInstance();">{$MCASSOC_INSTANCE_HELP}</a>
                                 </div>
                                 <div class="form-group">
                                     <input type="hidden" name="token" value="{$TOKEN}">

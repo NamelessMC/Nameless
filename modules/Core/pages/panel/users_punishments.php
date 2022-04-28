@@ -242,7 +242,7 @@ if (isset($_GET['user'])) {
                                                     'path' => 'core',
                                                     'file' => 'moderator',
                                                     'term' => 'user_punished_alert',
-                                                    'replace' => ['{x}', '{y}'],
+                                                    'replace' => ['{{staffUser}}', '{{user}}'],
                                                     'replace_with' => [
                                                         Output::getClean($user->data()->nickname),
                                                         Output::getClean($query->nickname),
@@ -252,7 +252,7 @@ if (isset($_GET['user'])) {
                                                     'path' => 'core',
                                                     'file' => 'moderator',
                                                     'term' => 'user_punished_alert',
-                                                    'replace' => ['{x}', '{y}'],
+                                                    'replace' => ['{{staffUser}}', '{{user}}'],
                                                     'replace_with' => [
                                                         Output::getClean($user->data()->nickname),
                                                         Output::getClean($query->nickname)
@@ -314,10 +314,10 @@ if (isset($_GET['user'])) {
                 'reason' => Output::getClean($punishment->reason),
                 'issued_by_nickname' => $issued_by_user->getDisplayname(),
                 'issued_by_profile' => URL::build('/panel/user/' . urlencode($punishment->staff . '-' . $issued_by_user->data()->username)),
-                'issued_by_style' => $issued_by_user->getGroupClass(),
+                'issued_by_style' => $issued_by_user->getGroupStyle(),
                 'issued_by_avatar' => $issued_by_user->getAvatar(),
                 'date_full' => ($punishment->created ? date(DATE_FORMAT, $punishment->created) : date(DATE_FORMAT, strtotime($punishment->infraction_date))),
-                'date_friendly' => ($punishment->created ? $timeago->inWords(date('Y-m-d H:i:s', $punishment->created), $language->getTimeLanguage()) : $timeago->inWords($punishment->infraction_date, $language->getTimeLanguage())),
+                'date_friendly' => ($punishment->created ? $timeago->inWords($punishment->created, $language) : $timeago->inWords($punishment->infraction_date, $language)),
                 'revoke_link' => (($user->hasPermission('modcp.punishments.revoke') && $punishment->type != 4) ? URL::build('/panel/users/punishments/', 'user=' . urlencode($query->id) . '&do=revoke&id=' . urlencode($punishment->id)) : 'none'),
                 'confirm_revoke_punishment' => (($punishment->type == 2) ? $language->get('moderator', 'confirm_revoke_warning') : $language->get('moderator', 'confirm_revoke_ban'))
             ];
@@ -348,7 +348,7 @@ if (isset($_GET['user'])) {
         'HAS_AVATAR' => $query->has_avatar,
         'BACK_LINK' => URL::build('/panel/user/' . urlencode($view_user->data()->id)),
         'BACK' => $language->get('general', 'back'),
-        'VIEWING_USER' => str_replace('{x}', $view_user->getDisplayname(), $language->get('moderator', 'viewing_user_x')),
+        'VIEWING_USER' => $language->get('moderator', 'viewing_user_x', ['user' => $view_user->getDisplayname()]),
         'PREVIOUS_PUNISHMENTS' => $language->get('moderator', 'previous_punishments'),
         'PREVIOUS_PUNISHMENTS_LIST' => $previous_punishments_array,
         'NO_PREVIOUS_PUNISHMENTS' => $language->get('moderator', 'no_previous_punishments'),
@@ -361,7 +361,7 @@ if (isset($_GET['user'])) {
         'ACKNOWLEDGED' => $language->get('moderator', 'acknowledged'),
         'USERNAME' => $view_user->getDisplayname(true),
         'NICKNAME' => $view_user->getDisplayname(),
-        'USER_STYLE' => $view_user->getGroupClass(),
+        'USER_STYLE' => $view_user->getGroupStyle(),
         'AVATAR' => $view_user->getAvatar(),
         'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
         'YES' => $language->get('general', 'yes'),
@@ -438,20 +438,20 @@ if (isset($_GET['user'])) {
                 'username' => $target_user->getDisplayname(true),
                 'nickname' => $target_user->getDisplayname(),
                 'profile' => URL::build('/panel/user/' . urlencode($result->punished . '-' . $target_user->data()->username)),
-                'style' => $target_user->getGroupClass(),
+                'style' => $target_user->getGroupStyle(),
                 'avatar' => $target_user->getAvatar(),
                 'staff_username' => $staff_user->getDisplayname(true),
                 'staff_nickname' => $staff_user->getDisplayname(),
                 'staff_profile' => URL::build('/panel/user/' . urlencode($result->staff . '-' . $staff_user->data()->username)),
-                'staff_style' => $staff_user->getGroupClass(),
+                'staff_style' => $staff_user->getGroupStyle(),
                 'staff_avatar' => $staff_user->getAvatar(),
                 'type' => $type,
                 'type_numeric' => $result->type,
                 'revoked' => $result->revoked,
                 'acknowledged' => $result->acknowledged,
                 'time_full' => ($result->created ? date(DATE_FORMAT, $result->created) : date(DATE_FORMAT, strtotime($result->infraction_date))),
-                'time' => ($result->created ? $timeago->inWords(date('Y-m-d H:i:s', $result->created), $language->getTimeLanguage()) : $timeago->inWords($result->infraction_date, $language->getTimeLanguage())),
-                'link' => URL::build('/panel/users/punishments/', 'user=' . urlencode($result->punished))
+                'time' => ($result->created ? $timeago->inWords($result->created, $language) : $timeago->inWords($result->infraction_date, $language)),
+                'link' => URL::build('/panel/users/punishments/', 'user=' . urlencode($result->punished)),
             ];
         }
 
@@ -506,9 +506,6 @@ $smarty->assign([
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit')
 ]);
-
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 
