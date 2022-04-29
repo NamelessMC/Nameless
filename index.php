@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.0.0-pr13
  *
  *  License: MIT
  *
@@ -14,7 +14,7 @@
 
 header('X-Frame-Options: SAMEORIGIN');
 
-if ((!defined('DEBUGGING') || !DEBUGGING) && (getenv('NAMELESS_DEBUGGING') || $_SERVER['NAMELESS_DEBUGGING'])) {
+if ((!defined('DEBUGGING') || !DEBUGGING) && (getenv('NAMELESS_DEBUGGING') || isset($_SERVER['NAMELESS_DEBUGGING']))) {
     define('DEBUGGING', 1);
 }
 
