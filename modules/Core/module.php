@@ -437,6 +437,11 @@ class Core_Module extends Module {
                             continue;
                         }
 
+                        // TODO: more extendable webhook system, #2676
+                        if (!class_exists(DiscordHook::class)) {
+                            continue;
+                        }
+
                         $hook_array[] = [
                             'id' => $hook->id,
                             'url' => Output::getClean($hook->url),
