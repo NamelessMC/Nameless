@@ -9,13 +9,6 @@
  *  Forum module - front page module
  */
 
-$template->assets()->include([
-    DARK_MODE
-        ? AssetTree::PRISM_DARK
-        : AssetTree::PRISM_LIGHT,
-    AssetTree::TINYMCE_SPOILER
-]);
-
 $cache->setCache('news_cache');
 if ($cache->isCached('news')) {
     $news = $cache->retrieve('news');
