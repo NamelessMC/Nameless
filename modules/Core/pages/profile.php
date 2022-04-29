@@ -847,6 +847,10 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
         );
     }
 
+    if (Session::exists('profile_banner_error')) {
+        $smarty->assign('ERROR', Session::flash('profile_banner_error'));
+    }
+
     // Load modules + template
     Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
