@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr13
  *
  *  License: MIT
  *
@@ -34,7 +34,7 @@ foreach ($user->getAllGroupIds() as $group_id) {
     $groups .= Output::getClean($group_id) . ',';
 }
 $groups = rtrim($groups, ',') . ')';
-$topics = DB::getInstance()->selectQuery('SELECT nl2_topics.id AS id, nl2_topics.topic_title AS topic_title, nl2_topics.topic_creator AS topic_creator, nl2_topics.topic_date AS topic_date, nl2_topics.topic_last_user AS last_user, nl2_topics.topic_reply_date AS topic_reply_date, nl2_topics_following.existing_alerts AS existing_alerts FROM nl2_topics LEFT JOIN nl2_topics_following ON nl2_topics.id = nl2_topics_following.topic_id WHERE deleted = 0 AND nl2_topics.id IN (SELECT topic_id FROM nl2_topics_following WHERE user_id = ?) AND forum_id IN (SELECT forum_id FROM nl2_forums_permissions WHERE group_id IN ' . $groups . ' AND `view` = 1) ORDER BY nl2_topics.topic_reply_date DESC', [$user->data()->id])->results();
+$topics = DB::getInstance()->selectQuery('SELECT nl2_topics.id AS id, nl2_topics.topic_title AS topic_title, nl2_topics.topic_creator AS topic_creator, nl2_topics.topic_date AS topic_date, nl2_topics.topic_last_user AS topic_last_user, nl2_topics.topic_reply_date AS topic_reply_date, nl2_topics_following.existing_alerts AS existing_alerts FROM nl2_topics LEFT JOIN nl2_topics_following ON nl2_topics.id = nl2_topics_following.topic_id WHERE deleted = 0 AND nl2_topics.id IN (SELECT topic_id FROM nl2_topics_following WHERE user_id = ?) AND forum_id IN (SELECT forum_id FROM nl2_forums_permissions WHERE group_id IN ' . $groups . ' AND `view` = 1) ORDER BY nl2_topics.topic_reply_date DESC', [$user->data()->id])->results();
 
 // Pagination
 $p = (isset($_GET['p']) && is_numeric($_GET['p'])) ? $_GET['p'] : 1;
