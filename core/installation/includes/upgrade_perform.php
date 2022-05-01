@@ -527,7 +527,7 @@ switch ($s) {
                         'user_id' => $item->id,
                         'group_id' => $item->group_id
                     ]);
-                    
+
                     $queries->create('users_integrations', [
                         'integration_id' => 1,
                         'user_id' => $item->id,
@@ -729,7 +729,7 @@ switch ($s) {
         ]);
         $cache->store('module_core', true);
         $cache->store('module_forum', true);
-        
+
         // Integrations
         $queries->create('integrations', [
             'name' => 'Minecraft',

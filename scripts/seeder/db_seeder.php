@@ -29,6 +29,8 @@ $db = DB_Custom::getInstance(
     $conf['mysql']['db'],
     $conf['mysql']['username'],
     $conf['mysql']['password'],
+    3306,
+    'nl2_'
 );
 
 $wipe = false;
