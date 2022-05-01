@@ -8,7 +8,7 @@ use xPaw\MinecraftQuery;
  *
  * @package NamelessMC\Minecraft
  * @author Samerton
- * @version 2.0.0-pr8
+ * @version 2.0.0-pr13
  * @license MIT
  */
 class MCQuery {
@@ -121,7 +121,7 @@ class MCQuery {
 
             $query = ExternalMCQuery::query($query_ip[0], ($query_ip[1] ?? ($bedrock ? 19132 : 25565)), $bedrock);
 
-            if (!$query->error && isset($query->response)) {
+            if ($query !== false && !$query->error && isset($query->response)) {
                 $player_list = $query->response->players->list ?? [];
 
                 return [
@@ -307,7 +307,7 @@ class MCQuery {
                     if (count($query_ip) <= 2) {
                         $query = ExternalMCQuery::query($query_ip[0], ($query_ip[1] ?? ($server['bedrock'] ? 19132 : 25565)), $server['bedrock']);
 
-                        if (!$query->error && isset($query->response)) {
+                        if ($query !== false && !$query->error && isset($query->response)) {
                             if ($accumulate === false) {
                                 $to_return[] = [
                                     'name' => Output::getClean($server['name']),
