@@ -512,7 +512,7 @@ if (isset($_GET['action'])) {
             try {
                 // Default server
                 if ($new_default > 0) {
-                    $current_default = $queries->getWhere('mc_servers', ['is_default', 1]);
+                    $current_default = $queries->getWhere('mc_servers', ['is_default', true]);
                     if (count($current_default) && $current_default[0]->id != $new_default) {
                         $queries->update('mc_servers', $current_default[0]->id, [
                             'is_default' => 0
@@ -542,10 +542,7 @@ if (isset($_GET['action'])) {
                 ]);
 
                 // Status page
-                $status_page_id = $queries->getWhere('settings', ['name', 'status_page']);
-                $status_page_id = $status_page_id[0]->id;
-
-                $queries->update('settings', $status_page_id, [
+                $queries->update('settings', ['name', 'status_page'], [
                     'value' => $status
                 ]);
 

@@ -108,6 +108,10 @@ trait InteractsWithDatabase {
         if ($this->_statement = $this->_pdo->prepare($sql)) {
             $x = 1;
             foreach ($params as $param) {
+                // Convert "true" and "false" to 1 and 0 so that query params can be more fluent
+                if (is_bool($param)) {
+                    $param = $param ? 1 : 0;
+                }
                 $this->_statement->bindValue($x, $param, is_int($param)
                     ? PDO::PARAM_INT
                     : PDO::PARAM_STR

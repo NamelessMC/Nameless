@@ -24,7 +24,7 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 if (Session::exists('editing_language')) {
     $lang_short_code = Session::get('editing_language');
 } else {
-    $default_lang = $queries->getWhere('languages', ['is_default', 1]);
+    $default_lang = $queries->getWhere('languages', ['is_default', true]);
     $lang_short_code = $default_lang[0]->short_code;
 }
 $editing_language = new Language('core', $lang_short_code);

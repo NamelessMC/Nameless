@@ -41,11 +41,7 @@ if (Input::exists()) {
             ]);
 
             if ($validation->passed()) {
-
-                $discord_id = $queries->getWhere('settings', ['name', 'discord']);
-                $discord_id = $discord_id[0]->id;
-
-                $queries->update('settings', $discord_id, [
+                $queries->update('settings', ['name', 'discord'], [
                     'value' => Output::getClean(Input::get('discord_guild_id'))
                 ]);
 

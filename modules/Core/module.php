@@ -870,7 +870,7 @@ class Core_Module extends Module {
                         $sub_servers = $cache->retrieve('default_sub');
                     } else {
                         // Get default server from database
-                        $default = $queries->getWhere('mc_servers', ['is_default', 1]);
+                        $default = $queries->getWhere('mc_servers', ['is_default', true]);
                         if (count($default)) {
                             // Get sub-servers of default server
                             $sub_servers = $queries->getWhere('mc_servers', ['parent_server', $default[0]->id]);

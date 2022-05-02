@@ -25,7 +25,7 @@ if (!isset($_GET['action'])) {
     $templates = $queries->getWhere('panel_templates', ['id', '<>', 0]);
 
     // Get all active templates
-    $active_templates = $queries->getWhere('panel_templates', ['enabled', 1]);
+    $active_templates = $queries->getWhere('panel_templates', ['enabled', true]);
 
     $current_template = $template;
 
@@ -298,7 +298,7 @@ if (!isset($_GET['action'])) {
                 $new_default = $new_default[0]->id;
 
                 // Get current default template
-                $current_default = $queries->getWhere('panel_templates', ['is_default', 1]);
+                $current_default = $queries->getWhere('panel_templates', ['is_default', true]);
                 if (count($current_default)) {
                     $current_default = $current_default[0]->id;
                     // No longer default

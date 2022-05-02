@@ -344,9 +344,7 @@ class Util {
             }
 
             $queries = new Queries();
-            $update_id = $queries->getWhere('settings', ['name', 'version_update']);
-            $update_id = $update_id[0]->id;
-            $queries->update('settings', $update_id, [
+            $queries->update('settings', ['name', 'version_update'], [
                 'value' => $to_db
             ]);
         }

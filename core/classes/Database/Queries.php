@@ -15,7 +15,7 @@ class Queries {
         $this->_db = DB::getInstance();
     }
 
-    public function getAll(string $table, array $where = []): array {
+    public function getWhere(string $table, array $where): array {
         return $this->_db->get($table, $where)->results();
     }
 
@@ -27,8 +27,8 @@ class Queries {
         return $this->_db->orderWhere($table, $where, $order, $sort)->results();
     }
 
-    public function update(string $table, int $id, array $fields = []): void {
-        if (!$this->_db->update($table, $id, $fields)) {
+    public function update(string $table, $where, array $fields = []): void {
+        if (!$this->_db->update($table, $where, $fields)) {
             throw new RuntimeException('There was a problem performing that action.');
         }
     }
@@ -87,10 +87,6 @@ class Queries {
                 $this->_db->update('groups', $group_id, ['permissions' => $perms_json]);
             }
         }
-    }
-
-    public function getWhere(string $table, array $where): array {
-        return $this->_db->get($table, $where)->results();
     }
 
     /**

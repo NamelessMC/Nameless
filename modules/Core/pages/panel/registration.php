@@ -30,10 +30,7 @@ if (Input::exists()) {
         // Process input
         if (isset($_POST['enable_registration'])) {
             // Either enable or disable registration
-            $enable_registration_id = $queries->getWhere('settings', ['name', 'registration_enabled']);
-            $enable_registration_id = $enable_registration_id[0]->id;
-
-            $queries->update('settings', $enable_registration_id, [
+            $queries->update('settings', ['name', 'registration_enabled'], [
                 'value' => Input::get('enable_registration')
             ]);
         } else {
@@ -53,9 +50,7 @@ if (Input::exists()) {
                 $configuration->set('Core', 'email_verification', $verification);
 
                 // Registration disabled message
-                $registration_disabled_id = $queries->getWhere('settings', ['name', 'registration_disabled_message']);
-                $registration_disabled_id = $registration_disabled_id[0]->id;
-                $queries->update('settings', $registration_disabled_id, [
+                $queries->update('settings', ['name', 'registration_disabled_message'], [
                     'value' => Output::getClean(Input::get('message'))
                 ]);
 
@@ -94,9 +89,9 @@ if (Input::exists()) {
                         } else {
                             $captcha = 'false';
                         }
-                        $captcha_id = $queries->getWhere('settings', ['name', 'recaptcha']);
-                        $captcha_id = $captcha_id[0]->id;
-                        $queries->update('settings', $captcha_id, [
+
+
+                        $queries->update('settings', ['name', 'recaptcha'], [
                             'value' => $captcha
                         ]);
 
@@ -106,9 +101,8 @@ if (Input::exists()) {
                         } else {
                             $captcha = 'false';
                         }
-                        $captcha_login = $queries->getWhere('settings', ['name', 'recaptcha_login']);
-                        $captcha_login = $captcha_login[0]->id;
-                        $queries->update('settings', $captcha_login, [
+
+                        $queries->update('settings', ['name', 'recaptcha_login'], [
                             'value' => $captcha
                         ]);
 

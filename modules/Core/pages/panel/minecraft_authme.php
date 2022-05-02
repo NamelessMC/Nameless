@@ -28,10 +28,7 @@ if (Input::exists()) {
     if (Token::check()) {
         if (isset($_POST['enable_authme'])) {
             // Either enable or disable Authme integration
-            $enable_authme_id = $queries->getWhere('settings', ['name', 'authme']);
-            $enable_authme_id = $enable_authme_id[0]->id;
-
-            $queries->update('settings', $enable_authme_id, [
+            $queries->update('settings', ['name', 'authme'], [
                 'value' => Input::get('enable_authme')
             ]);
 

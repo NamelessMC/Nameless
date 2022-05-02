@@ -32,21 +32,13 @@ if (Input::exists()) {
             }
 
             try {
-                $custom_avatars_id = $queries->getWhere('settings', ['name', 'user_avatars']);
-                $custom_avatars_id = $custom_avatars_id[0]->id;
-                $queries->update('settings', $custom_avatars_id, ['value' => $custom_avatars]);
+                $queries->update('settings', ['name', 'user_avatars'], ['value' => $custom_avatars]);
 
-                $default_avatar_type = $queries->getWhere('settings', ['name', 'default_avatar_type']);
-                $default_avatar_type = $default_avatar_type[0]->id;
-                $queries->update('settings', $default_avatar_type, ['value' => Input::get('default_avatar')]);
+                $queries->update('settings', ['name', 'default_avatar_type'], ['value' => Input::get('default_avatar')]);
 
-                $mc_avatar_source = $queries->getWhere('settings', ['name', 'avatar_site']);
-                $mc_avatar_source = $mc_avatar_source[0]->id;
-                $queries->update('settings', $mc_avatar_source, ['value' => Input::get('avatar_source')]);
+                $queries->update('settings', ['name', 'avatar_site'], ['value' => Input::get('avatar_source')]);
 
-                $mc_avatar_perspective = $queries->getWhere('settings', ['name', 'avatar_type']);
-                $mc_avatar_perspective = $mc_avatar_perspective[0]->id;
-                $queries->update('settings', $mc_avatar_perspective, ['value' => Input::get('avatar_perspective')]);
+                $queries->update('settings', ['name', 'avatar_type'], ['value' => Input::get('avatar_perspective')]);
 
                 $cache->setCache('avatar_settings_cache');
                 $cache->store('custom_avatars', $custom_avatars);

@@ -105,7 +105,7 @@ if (Input::exists()) {
                 }
 
                 $mcname = Output::getClean($_SESSION['authme']['user']);
-                
+
                 // Add username back to post for integration handling
                 $_POST['username'] = $_SESSION['authme']['user'];
 
@@ -123,7 +123,7 @@ if (Input::exists()) {
                         if ($cache->isCached('default_group')) {
                             $default_group = $cache->retrieve('default_group');
                         } else {
-                            $default_group = $queries->getWhere('groups', ['default_group', 1]);
+                            $default_group = $queries->getWhere('groups', ['default_group', true]);
                             if (!count($default_group)) {
                                 $default_group = 1;
                             } else {

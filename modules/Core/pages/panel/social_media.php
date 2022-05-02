@@ -27,10 +27,7 @@ if (Input::exists()) {
     if (Token::check()) {
         // Update database values
         // Youtube URL
-        $youtube_url_id = $queries->getWhere('settings', ['name', 'youtube_url']);
-        $youtube_url_id = $youtube_url_id[0]->id;
-
-        $queries->update('settings', $youtube_url_id, [
+        $queries->update('settings', ['name', 'youtube_url'], [
             'value' => Output::getClean(Input::get('youtubeurl'))
         ]);
 
@@ -39,10 +36,7 @@ if (Input::exists()) {
         $cache->store('youtube', Output::getClean(Input::get('youtubeurl')));
 
         // Twitter URL
-        $twitter_url_id = $queries->getWhere('settings', ['name', 'twitter_url']);
-        $twitter_url_id = $twitter_url_id[0]->id;
-
-        $queries->update('settings', $twitter_url_id, [
+        $queries->update('settings', ['name', 'twitter_url'], [
             'value' => Output::getClean(Input::get('twitterurl'))
         ]);
 
@@ -65,9 +59,7 @@ if (Input::exists()) {
         $cache->store('twitter_theme', $theme);
 
         // Facebook URL
-        $fb_url_id = $queries->getWhere('settings', ['name', 'fb_url']);
-        $fb_url_id = $fb_url_id[0]->id;
-        $queries->update('settings', $fb_url_id, [
+        $queries->update('settings', ['name', 'fb_url'], [
             'value' => Output::getClean(Input::get('fburl'))
         ]);
 

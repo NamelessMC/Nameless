@@ -727,7 +727,7 @@ $smarty->assign('REPLIES', $replies);
 if ($user->isLoggedIn()) {
     // Reactions
     if ($reactions_enabled) {
-        $reactions = $queries->getWhere('reactions', ['enabled', 1]);
+        $reactions = $queries->getWhere('reactions', ['enabled', true]);
         if (!count($reactions)) {
             $reactions = [];
         }

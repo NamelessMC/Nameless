@@ -44,7 +44,7 @@ if (isset($_GET['do'])) {
         Session::flash('general_language', $language->get('admin', 'installed_languages'));
     } else {
         if ($_GET['do'] == 'updateLanguages') {
-            $active_language = $queries->getWhere('languages', ['is_default', 1]);
+            $active_language = $queries->getWhere('languages', ['is_default', true]);
             if (count($active_language)) {
                 DB::getInstance()->query('UPDATE nl2_users SET language_id = ?', [$active_language[0]->id]);
                 $language = new Language('core', $active_language[0]->short_code);
@@ -80,10 +80,7 @@ if (Input::exists()) {
         if ($validation->passed()) {
             // Update settings
             // Sitename
-            $sitename_id = $queries->getWhere('settings', ['name', 'sitename']);
-            $sitename_id = $sitename_id[0]->id;
-
-            $queries->update('settings', $sitename_id, [
+            $queries->update('settings', ['name', 'sitename'], [
                 'value' => Output::getClean(Input::get('sitename'))
             ]);
 
@@ -92,19 +89,13 @@ if (Input::exists()) {
             $cache->store('sitename', Output::getClean(Input::get('sitename')));
 
             // Email address
-            $contact_id = $queries->getWhere('settings', ['name', 'incoming_email']);
-            $contact_id = $contact_id[0]->id;
-
-            $queries->update('settings', $contact_id, [
+            $queries->update('settings', ['name', 'incoming_email'], [
                 'value' => Output::getClean(Input::get('contact_email'))
             ]);
 
             // Language
             // Get current default language
-            $default_language = $queries->getWhere('languages', ['is_default', 1]);
-            $default_language = $default_language[0];
-
-            $queries->update('languages', $default_language->id, [
+            $queries->update('languages', ['is_default', true], [
                 'is_default' => 0
             ]);
 
@@ -121,11 +112,8 @@ if (Input::exists()) {
             $cache->store('language', $language_short_code);
 
             // Timezone
-            $timezone_id = $queries->getWhere('settings', ['name', 'timezone']);
-            $timezone_id = $timezone_id[0]->id;
-
             try {
-                $queries->update('settings', $timezone_id, [
+                $queries->update('settings', ['name', 'timezone'], [
                     'value' => Output::getClean($_POST['timezone'])
                 ]);
 
@@ -137,16 +125,13 @@ if (Input::exists()) {
             }
 
             // Portal
-            $portal_id = $queries->getWhere('settings', ['name', 'portal']);
-            $portal_id = $portal_id[0]->id;
-
             if ($_POST['homepage'] == 'portal') {
                 $use_portal = 1;
             } else {
                 $use_portal = 0;
             }
 
-            $queries->update('settings', $portal_id, [
+            $queries->update('settings', ['name', 'portal'], [
                 'value' => $use_portal
             ]);
 
@@ -155,24 +140,18 @@ if (Input::exists()) {
             $cache->store('portal', $use_portal);
 
             // Private profile
-            $private_profile_id = $queries->getWhere('settings', ['name', 'private_profile']);
-            $private_profile_id = $private_profile_id[0]->id;
-
             if ($_POST['privateProfile']) {
                 $private_profile = 1;
             } else {
                 $private_profile = 0;
             }
 
-            $queries->update('settings', $private_profile_id, [
+            $queries->update('settings', ['name', 'private_profile'], [
                 'value' => $private_profile
             ]);
 
             // Registration displaynames
-            $displaynames_id = $queries->getWhere('settings', ['name', 'displaynames']);
-            $displaynames_id = $displaynames_id[0]->id;
-
-            $queries->update('settings', $displaynames_id, [
+            $queries->update('settings', ['name', 'displaynames'], [
                 'value' => $_POST['displaynames']
             ]);
 
@@ -216,10 +195,7 @@ if (Input::exists()) {
             }
 
             // Login method
-            $login_method_id = $queries->getWhere('settings', ['name', 'login_method']);
-            $login_method_id = $login_method_id[0]->id;
-
-            $queries->update('settings', $login_method_id, [
+            $queries->update('settings', ['name', 'login_method'], [
                 'value' => $_POST['login_method']
             ]);
 

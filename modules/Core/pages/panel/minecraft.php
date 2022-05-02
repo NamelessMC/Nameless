@@ -27,10 +27,7 @@ if (Input::exists()) {
         // Process input
         if (isset($_POST['enable_minecraft'])) {
             // Either enable or disable Minecraft integration
-            $enable_minecraft_id = $queries->getWhere('settings', ['name', 'mc_integration']);
-            $enable_minecraft_id = $enable_minecraft_id[0]->id;
-
-            $queries->update('settings', $enable_minecraft_id, [
+            $queries->update('settings', ['name', 'mc_integration'], [
                 'value' => Input::get('enable_minecraft')
             ]);
         }

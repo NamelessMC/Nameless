@@ -862,12 +862,6 @@ class User {
             }
 
             // User has permission, return the PM information
-
-            // Get a list of users in the conversation
-            if (!isset($pms)) {
-                $pms = $this->_db->get('private_messages_users', ['pm_id', $pm_id])->results();
-            }
-
             $users = []; // Array to store users
             foreach ($pms as $pm) {
                 $users[] = $pm->user_id;

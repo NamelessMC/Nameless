@@ -95,7 +95,7 @@ class RegisterEndpoint extends KeyAuthEndpoint {
             if (!is_file(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('default_group') . '.cache')) {
                 // Not cached, cache now
                 // Retrieve from database
-                $default_group = $api->getDb()->get('groups', ['default_group', 1]);
+                $default_group = $api->getDb()->get('groups', ['default_group', true]);
                 if (!$default_group->count()) {
                     $default_group = 1;
                 } else {
