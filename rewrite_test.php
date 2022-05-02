@@ -14,7 +14,7 @@
 <head>
     <title>Rewrite Test &bull; NamelessMC</title>
 
-    <link rel="stylesheet" href="core/assets/vendor/bootstrap/dist/js/bootstrap.min.js">
+    <link rel="stylesheet" href="core/assets/vendor/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="core/assets/css/custom.css">
 
     <style>
