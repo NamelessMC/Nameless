@@ -212,8 +212,8 @@ trait InteractsWithDatabase {
         $set = '';
         $x = 1;
 
-        foreach (array_keys($fields) as $name) {
-            $set .= "{$name} = ?";
+        foreach (array_keys($fields) as $column) {
+            $set .= "`{$column}` = ?";
             if ($x < count($fields)) {
                 $set .= ', ';
             }
@@ -229,7 +229,12 @@ trait InteractsWithDatabase {
         }
 
         $table = $this->_prefix . $table;
-        $sql = "UPDATE {$table} SET {$set} WHERE {$field} {$operator} {$value}";
+
+        if (is_string($value)) {
+            $value = "'{$value}'";
+        }
+
+        $sql = "UPDATE {$table} SET {$set} WHERE `{$field}` {$operator} {$value}";
 
         return !$this->query($sql, $fields)->error();
     }
