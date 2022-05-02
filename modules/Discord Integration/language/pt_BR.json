@@ -3,7 +3,7 @@
     "discord_integration/discord_already_pending": "Você já tem uma verificação pendente.",
     "discord_integration/discord_bot_check_logs": "Você deve verificar um erro mais específico (se houver) em StaffCP -> Security -> All Logs.",
     "discord_integration/discord_bot_error_badparameter": "Corpo de solicitação inválido.",
-    "discord_integration/discord_bot_error_error": "Ocorreu um erro do bot interno.",
+    "discord_integration/discord_bot_error_error": "Ocorreu um erro interno no bot.",
     "discord_integration/discord_bot_error_invguild": "O Guild ID fornecido é inválido ou o bot não está nele.",
     "discord_integration/discord_bot_error_invrole": "O ID do cargo do Discord fornecido é inválido.",
     "discord_integration/discord_bot_error_invuser": "A ID de usuário fornecido é inválida ou não está na Guilda especificada.",
@@ -16,7 +16,7 @@
     "discord_integration/discord_database_error": "O banco de dados Nameless Link está inativo no momento. Por favor, tente novamente mais tarde.",
     "discord_integration/discord_guild_id": "ID do Servidor do Discord",
     "discord_integration/discord_id_confirm": "Por favor, execute o comando \"/verify {{token}}\" no Discord para terminar de vincular sua conta Discord.",
-    "discord_integration/discord_id_help": "Para obter informações sobre onde encontrar as IDs do Discord, leia {{linkStart}}isso.{{linkEnd}}",
+    "discord_integration/discord_id_help": "Para obter informações sobre onde encontrar as IDs do Discord, por favor, leia {{linkStart}}isso.{{linkEnd}}",
     "discord_integration/discord_id_length": "Certifique-se de que seu ID do Discord tenha 18 caracteres.",
     "discord_integration/discord_id_numeric": "Certifique-se de que o seu ID Discord seja numérico (apenas números).",
     "discord_integration/discord_id_set": "O ID do Discord foi definido com sucesso.",
@@ -46,5 +46,6 @@
     "discord_integration/unable_to_set_discord_id": "Não foi possível definir ID do Discord.",
     "discord_integration/unable_to_update_discord_bot_username": "Não foi possível atualizar o nome de usuário do bot do Discord.",
     "discord_integration/unable_to_update_discord_roles": "Não foi possível atualizar a lista de funções do Discord.",
-    "discord_integration/unable_to_update_discord_username": "Não foi possível atualizar o nome de usuário do Discord."
+    "discord_integration/unable_to_update_discord_username": "Não foi possível atualizar o nome de usuário do Discord.",
+    "discord_integration/discord_user_id": "ID de usuário do Discord"
 }
