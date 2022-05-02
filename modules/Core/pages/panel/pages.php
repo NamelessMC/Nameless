@@ -228,7 +228,7 @@ if (!isset($_GET['action'])) {
             if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
                 Redirect::to(URL::build('/panel/core/pages'));
             }
-            $page = $queries->getWhere('custom_pages', ['id', '=', $_GET['id']]);
+            $page = $queries->getWhere('custom_pages', ['id', $_GET['id']]);
             if (!count($page)) {
                 Redirect::to(URL::build('/panel/core/pages'));
             }
@@ -365,7 +365,7 @@ if (!isset($_GET['action'])) {
 
                             $page_perm_exists = 0;
 
-                            $page_perm_query = $queries->getWhere('custom_pages_permissions', ['page_id', '=', $page->id]);
+                            $page_perm_query = $queries->getWhere('custom_pages_permissions', ['page_id', $page->id]);
                             if (count($page_perm_query)) {
                                 foreach ($page_perm_query as $query) {
                                     if ($query->group_id == 0) {
@@ -518,8 +518,8 @@ if (!isset($_GET['action'])) {
                 if (Token::check(Input::get('token'))) {
                     if (isset($_POST['id']) && is_numeric($_POST['id'])) {
 
-                        $queries->delete('custom_pages', ['id', '=', $_POST['id']]);
-                        $queries->delete('custom_pages_permissions', ['page_id', '=', $_POST['id']]);
+                        $queries->delete('custom_pages', ['id', $_POST['id']]);
+                        $queries->delete('custom_pages_permissions', ['page_id', $_POST['id']]);
 
                         Session::flash('admin_pages', $language->get('admin', 'page_deleted_successfully'));
                     }

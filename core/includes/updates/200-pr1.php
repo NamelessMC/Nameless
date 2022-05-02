@@ -38,7 +38,7 @@ try {
 }
 
 // New settings
-$update_check = $queries->getWhere('settings', array('name', '=', 'maintenance_message'));
+$update_check = $queries->getWhere('settings', array('name', 'maintenance_message'));
 if (!count($update_check)) {
     $queries->create('settings', array(
         'name' => 'maintenance_message',
@@ -48,7 +48,7 @@ if (!count($update_check)) {
     $cache->store('maintenance', array('maintenance' => 'false', 'message' => 'This website is currently in maintenance mode.'));
 }
 
-$update_check = $queries->getWhere('settings', array('name', '=', 'authme'));
+$update_check = $queries->getWhere('settings', array('name', 'authme'));
 if (!count($update_check)) {
     $queries->create('settings', array(
         'name' => 'authme',
@@ -56,7 +56,7 @@ if (!count($update_check)) {
     ));
 }
 
-$update_check = $queries->getWhere('settings', array('name', '=', 'authme_db'));
+$update_check = $queries->getWhere('settings', array('name', 'authme_db'));
 if (!count($update_check)) {
     $queries->create('settings', array(
         'name' => 'authme_db',
@@ -64,7 +64,7 @@ if (!count($update_check)) {
     ));
 }
 
-$update_check = $queries->getWhere('settings', array('name', '=', 'force_https'));
+$update_check = $queries->getWhere('settings', array('name', 'force_https'));
 if (!count($update_check)) {
     $queries->create('settings', array(
         'name' => 'force_https',
@@ -72,7 +72,7 @@ if (!count($update_check)) {
     ));
 }
 
-$update_check = $queries->getWhere('settings', array('name', '=', 'default_avatar_type'));
+$update_check = $queries->getWhere('settings', array('name', 'default_avatar_type'));
 if (!count($update_check)) {
     $queries->create('settings', array(
         'name' => 'default_avatar_type',
@@ -80,7 +80,7 @@ if (!count($update_check)) {
     ));
 }
 
-$update_check = $queries->getWhere('settings', array('name', '=', 'custom_default_avatar'));
+$update_check = $queries->getWhere('settings', array('name', 'custom_default_avatar'));
 if (!count($update_check)) {
     $queries->create('settings', array(
         'name' => 'custom_default_avatar',
@@ -91,7 +91,7 @@ if (!count($update_check)) {
 $update_check = null;
 
 // Update version number
-$version_number_id = $queries->getWhere('settings', array('name', '=', 'nameless_version'));
+$version_number_id = $queries->getWhere('settings', array('name', 'nameless_version'));
 $version_number_id = $version_number_id[0]->id;
 
 if (count($version_number_id)) {
@@ -99,7 +99,7 @@ if (count($version_number_id)) {
         'value' => '2.0.0-pr2'
     ));
 } else {
-    $version_number_id = $queries->getWhere('settings', array('name', '=', 'version'));
+    $version_number_id = $queries->getWhere('settings', array('name', 'version'));
     $version_number_id = $version_number_id[0]->id;
 
     $queries->update('settings', $version_number_id, array(
@@ -107,7 +107,7 @@ if (count($version_number_id)) {
     ));
 }
 
-$version_update_id = $queries->getWhere('settings', array('name', '=', 'version_update'));
+$version_update_id = $queries->getWhere('settings', array('name', 'version_update'));
 $version_update_id = $version_update_id[0]->id;
 
 $queries->update('settings', $version_update_id, array(

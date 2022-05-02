@@ -28,7 +28,7 @@ if (Input::exists()) {
     if (Token::check()) {
         if (isset($_POST['enable_authme'])) {
             // Either enable or disable Authme integration
-            $enable_authme_id = $queries->getWhere('settings', ['name', '=', 'authme']);
+            $enable_authme_id = $queries->getWhere('settings', ['name', 'authme']);
             $enable_authme_id = $enable_authme_id[0]->id;
 
             $queries->update('settings', $enable_authme_id, [
@@ -56,7 +56,7 @@ if (Input::exists()) {
             ])->message($language->get('admin', 'enter_authme_db_details'));
 
             if ($validation->passed()) {
-                $authme_db = $queries->getWhere('settings', ['name', '=', 'authme_db']);
+                $authme_db = $queries->getWhere('settings', ['name', 'authme_db']);
                 $authme_db_id = $authme_db[0]->id;
                 $authme_db = json_decode($authme_db[0]->value);
 
@@ -117,12 +117,12 @@ if (isset($errors) && count($errors)) {
 }
 
 // Is Authme enabled?
-$authme_enabled = $queries->getWhere('settings', ['name', '=', 'authme']);
+$authme_enabled = $queries->getWhere('settings', ['name', 'authme']);
 $authme_enabled = $authme_enabled[0]->value;
 
 if ($authme_enabled == '1') {
     // Retrieve Authme database details
-    $authme_db = $queries->getWhere('settings', ['name', '=', 'authme_db']);
+    $authme_db = $queries->getWhere('settings', ['name', 'authme_db']);
     $authme_db = json_decode($authme_db[0]->value);
 
     $smarty->assign([

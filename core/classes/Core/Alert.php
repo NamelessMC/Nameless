@@ -51,7 +51,7 @@ class Alert {
         $db = DB::getInstance();
 
         if ($all == true) {
-            return $db->get('alerts', ['user_id', '=', $user_id])->results();
+            return $db->get('alerts', ['user_id', $user_id])->results();
         }
 
         return $db->query('SELECT * FROM nl2_alerts WHERE user_id = ? AND `read` = 0', [$user_id])->results();
@@ -69,12 +69,12 @@ class Alert {
         $db = DB::getInstance();
 
         if ($all == true) {
-            $pms_access = $db->get('private_messages_users', ['user_id', '=', $user_id])->results();
+            $pms_access = $db->get('private_messages_users', ['user_id', $user_id])->results();
             $pms = [];
 
             foreach ($pms_access as $pm) {
                 // Get actual PM information
-                $pm_full = $db->get('private_messages', ['id', '=', $pm->pm_id])->results();
+                $pm_full = $db->get('private_messages', ['id', $pm->pm_id])->results();
 
                 if (!count($pm_full)) {
                     continue;
@@ -95,12 +95,12 @@ class Alert {
             return $pms;
         }
 
-        $pms = $db->get('private_messages_users', ['user_id', '=', $user_id])->results();
+        $pms = $db->get('private_messages_users', ['user_id', $user_id])->results();
         $unread = [];
 
         foreach ($pms as $pm) {
             if ($pm->read == 0) {
-                $pm_full = $db->get('private_messages', ['id', '=', $pm->pm_id])->results();
+                $pm_full = $db->get('private_messages', ['id', $pm->pm_id])->results();
 
                 if (!count($pm_full)) {
                     continue;

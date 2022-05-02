@@ -43,14 +43,14 @@ try {
 }
 
 // Login reCAPTCHA
-$recaptcha_check = $queries->getWhere('settings', array('name', '=', 'recaptcha_login'));
+$recaptcha_check = $queries->getWhere('settings', array('name', 'recaptcha_login'));
 
 if (!count($recaptcha_check)) {
     $queries->create('settings', array('name' => 'recaptcha_login', 'value' => 'false'));
 }
 
 // Update version number
-$version_number_id = $queries->getWhere('settings', array('name', '=', 'nameless_version'));
+$version_number_id = $queries->getWhere('settings', array('name', 'nameless_version'));
 
 if (count($version_number_id)) {
     $version_number_id = $version_number_id[0]->id;
@@ -58,7 +58,7 @@ if (count($version_number_id)) {
         'value' => '2.0.0-pr7'
     ));
 } else {
-    $version_number_id = $queries->getWhere('settings', array('name', '=', 'version'));
+    $version_number_id = $queries->getWhere('settings', array('name', 'version'));
     $version_number_id = $version_number_id[0]->id;
 
     $queries->update('settings', $version_number_id, array(
@@ -66,7 +66,7 @@ if (count($version_number_id)) {
     ));
 }
 
-$version_update_id = $queries->getWhere('settings', array('name', '=', 'version_update'));
+$version_update_id = $queries->getWhere('settings', array('name', 'version_update'));
 $version_update_id = $version_update_id[0]->id;
 
 $queries->update('settings', $version_update_id, array(

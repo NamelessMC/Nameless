@@ -106,7 +106,7 @@ if (!isset($_GET['metadata'])) {
         Redirect::to(URL::build('/panel/core/seo'));
     }
 
-    $page_metadata = $queries->getWhere('page_descriptions', ['page', '=', $page['key']]);
+    $page_metadata = $queries->getWhere('page_descriptions', ['page', $page['key']]);
     if (Input::exists()) {
         if (Token::check(Input::get('token'))) {
             if (isset($_POST['description'])) {
@@ -138,7 +138,7 @@ if (!isset($_GET['metadata'])) {
                     ]);
                 }
 
-                $page_metadata = $queries->getWhere('page_descriptions', ['page', '=', $page['key']]);
+                $page_metadata = $queries->getWhere('page_descriptions', ['page', $page['key']]);
 
                 $success = $language->get('admin', 'metadata_updated_successfully');
 

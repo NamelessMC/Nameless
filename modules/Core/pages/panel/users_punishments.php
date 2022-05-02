@@ -35,7 +35,7 @@ if (isset($_GET['user'])) {
 
     if (isset($_GET['do'], $_GET['id']) && $_GET['do'] == 'revoke' && is_numeric($_GET['id'])) {
         if (Token::checK()) {
-            $infraction = $queries->getWhere('infractions', ['id', '=', $_GET['id']]);
+            $infraction = $queries->getWhere('infractions', ['id', $_GET['id']]);
             if (!$user->hasPermission('modcp.punishments.revoke') || !count($infraction) || ($infraction[0]->punished != $query->id)) {
                 Redirect::to(URL::build('/panel/users/punishments/', 'user=' . urlencode($query->id)));
             }
@@ -62,7 +62,7 @@ if (isset($_GET['user'])) {
                             'active' => 1
                         ]);
 
-                        $queries->delete('ip_bans', ['ip', '=', $query->lastip]);
+                        $queries->delete('ip_bans', ['ip', $query->lastip]);
                     } catch (Exception $e) {
                         // Error
                         $errors = [$e->getMessage()];
@@ -162,7 +162,7 @@ if (isset($_GET['user'])) {
 
                                         $banned_user_ip = $banned_user->data()->lastip;
 
-                                        $queries->delete('users_session', ['user_id', '=', $query->id]);
+                                        $queries->delete('users_session', ['user_id', $query->id]);
 
                                         if ($type == 3) {
                                             // Ban IP

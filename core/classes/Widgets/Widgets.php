@@ -51,7 +51,7 @@ class Widgets {
         $this->_cache->store('enabled', $this->_enabled);
 
         // Update database
-        $widget_id = $this->_db->get('widgets', ['name', '=', $widget->getName()]);
+        $widget_id = $this->_db->get('widgets', ['name', $widget->getName()]);
         if ($widget_id->count()) {
             $widget_id = $widget_id->first();
             $this->_db->update('widgets', $widget_id->id, ['enabled' => 1]);
@@ -69,7 +69,7 @@ class Widgets {
         $this->_cache->store('enabled', $this->_enabled);
 
         // Update database
-        $widget_id = $this->_db->get('widgets', ['name', '=', $widget->getName()]);
+        $widget_id = $this->_db->get('widgets', ['name', $widget->getName()]);
         if ($widget_id->count()) {
             $widget_id = $widget_id->first();
             $this->_db->update('widgets', $widget_id->id, ['enabled' => 0]);

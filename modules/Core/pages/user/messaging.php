@@ -293,7 +293,7 @@ if (!isset($_GET['action'])) {
 
         if (isset($_GET['uid'])) {
             // Messaging a specific user
-            $user_messaging = $queries->getWhere('users', ['id', '=', $_GET['uid']]);
+            $user_messaging = $queries->getWhere('users', ['id', $_GET['uid']]);
 
             if (count($user_messaging)) {
                 $smarty->assign('TO_USER', Output::getClean($user_messaging[0]->nickname));
@@ -403,7 +403,7 @@ if (!isset($_GET['action'])) {
                     );
 
                     // Update PM as unread for all users
-                    $users = $queries->getWhere('private_messages_users', ['pm_id', '=', $pm[0]->id]);
+                    $users = $queries->getWhere('private_messages_users', ['pm_id', $pm[0]->id]);
 
                     foreach ($users as $item) {
                         if ($item->user_id != $user->data()->id) {
@@ -438,7 +438,7 @@ if (!isset($_GET['action'])) {
         }
 
         // Get all PM replies
-        $pm_replies = $queries->getWhere('private_messages_replies', ['pm_id', '=', $_GET['message']]);
+        $pm_replies = $queries->getWhere('private_messages_replies', ['pm_id', $_GET['message']]);
 
         // Pagination
         $paginator = new Paginator(
@@ -533,12 +533,12 @@ if (!isset($_GET['action'])) {
             Redirect::to(URL::build('/user/messaging'));
         }
 
-        $message = $queries->getWhere('private_messages_users', ['pm_id', '=', $_GET['message']]);
+        $message = $queries->getWhere('private_messages_users', ['pm_id', $_GET['message']]);
 
         if (count($message)) {
             foreach ($message as $item) {
                 if ($item->user_id == $user->data()->id) {
-                    $queries->delete('private_messages_users', ['id', '=', $item->id]);
+                    $queries->delete('private_messages_users', ['id', $item->id]);
                     break;
                 }
             }

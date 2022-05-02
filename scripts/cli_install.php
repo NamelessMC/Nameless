@@ -165,7 +165,7 @@ $queries->create('settings', [
     'value' => getEnvVar('NAMELESS_SITE_OUTGOING_EMAIL'),
 ]);
 if (getEnvVar('NAMELESS_DISABLE_EMAIL_VERIFICATION', false)) {
-    $email_verification = $queries->getWhere('settings', ['name', '=', 'email_verification']);
+    $email_verification = $queries->getWhere('settings', ['name', 'email_verification']);
     $email_verification_id = $email_verification[0]->id;
     $queries->update('settings', $email_verification_id, [
         'name' => 'email_verification',
@@ -190,7 +190,7 @@ $user->create([
     'lastip' => '127.0.0.1',
     'active' => 1,
     'last_online' => date('U'),
-    'language_id' => $queries->getWhere('languages', ['is_default', '=', 1])[0]->id,
+    'language_id' => $queries->getWhere('languages', ['is_default', 1])[0]->id,
 ]);
 DB::getInstance()->query('INSERT INTO `nl2_users_groups` (`user_id`, `group_id`, `received`, `expire`) VALUES (?, ?, ?, ?)', [
     1,

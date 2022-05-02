@@ -24,7 +24,7 @@ if (!isset($_POST['post']) || !is_numeric($_POST['post'])) {
     Redirect::to(URL::build('/forum'));
 }
 
-$post = $queries->getWhere('posts', ['id', '=', $_POST['post']]);
+$post = $queries->getWhere('posts', ['id', $_POST['post']]);
 if (!count($post)) {
     // Doesn't exist
     Redirect::to(URL::build('/forum'));
@@ -35,7 +35,7 @@ $post = $post[0];
 if (Token::check()) {
     // Valid token
     // Ensure user hasn't already submitted a report for this post
-    $reports = $queries->getWhere('reports', ['reported_post', '=', $_POST['post']]);
+    $reports = $queries->getWhere('reports', ['reported_post', $_POST['post']]);
 
     if (count($reports)) {
         foreach ($reports as $report) {

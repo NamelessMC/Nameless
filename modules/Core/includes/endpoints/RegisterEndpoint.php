@@ -32,7 +32,7 @@ class RegisterEndpoint extends KeyAuthEndpoint {
         }
 
         // Ensure user doesn't already exist
-        $username = $api->getDb()->get('users', ['username', '=', Output::getClean($_POST['username'])]);
+        $username = $api->getDb()->get('users', ['username', Output::getClean($_POST['username'])]);
         if (count($username->results())) {
             $api->throwError(11, $api->getLanguage()->get('api', 'username_already_exists'));
         }
@@ -62,7 +62,7 @@ class RegisterEndpoint extends KeyAuthEndpoint {
             }
         }
 
-        $email = $api->getDb()->get('users', ['email', '=', Output::getClean($_POST['email'])]);
+        $email = $api->getDb()->get('users', ['email', Output::getClean($_POST['email'])]);
         if (count($email->results())) {
             $api->throwError(10, $api->getLanguage()->get('api', 'email_already_exists'));
         }
@@ -95,7 +95,7 @@ class RegisterEndpoint extends KeyAuthEndpoint {
             if (!is_file(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('default_group') . '.cache')) {
                 // Not cached, cache now
                 // Retrieve from database
-                $default_group = $api->getDb()->get('groups', ['default_group', '=', 1]);
+                $default_group = $api->getDb()->get('groups', ['default_group', 1]);
                 if (!$default_group->count()) {
                     $default_group = 1;
                 } else {

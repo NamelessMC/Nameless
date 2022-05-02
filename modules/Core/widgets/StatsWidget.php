@@ -92,7 +92,7 @@ class StatsWidget extends WidgetBase {
             $online_guests = $this->_cache->retrieve('online_guests');
         }
 
-        $forum_module = $queries->getWhere('modules', ['name', '=', 'Forum']);
+        $forum_module = $queries->getWhere('modules', ['name', 'Forum']);
         $forum_module = $forum_module[0];
 
         if ($forum_module->enabled) {

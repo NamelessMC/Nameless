@@ -144,7 +144,7 @@ if (!isset($_GET['action'])) {
 
         if (Token::check($_POST['token'])) {
             // Get module name
-            $name = $queries->getWhere('modules', ['id', '=', $_GET['m']]);
+            $name = $queries->getWhere('modules', ['id', $_GET['m']]);
             if (!count($name)) {
                 Redirect::to(URL::build('/panel/modules'));
             }
@@ -220,7 +220,7 @@ if (!isset($_GET['action'])) {
 
         if (Token::check($_POST['token'])) {
             // Get module name
-            $name = $queries->getWhere('modules', ['id', '=', $_GET['m']]);
+            $name = $queries->getWhere('modules', ['id', $_GET['m']]);
             $name = Output::getClean($name[0]->name);
 
             foreach (Module::getModules() as $item) {
@@ -278,7 +278,7 @@ if (!isset($_GET['action'])) {
                 $folders = explode('/', $directory);
 
                 if (file_exists(ROOT_PATH . '/modules/' . $folders[count($folders) - 1] . '/init.php')) {
-                    $exists = $queries->getWhere('modules', ['name', '=', $folders[count($folders) - 1]]);
+                    $exists = $queries->getWhere('modules', ['name', $folders[count($folders) - 1]]);
 
                     if (!count($exists)) {
                         $module = null;

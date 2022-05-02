@@ -30,7 +30,7 @@ if (Input::exists()) {
         // Process input
         if (isset($_POST['enable_registration'])) {
             // Either enable or disable registration
-            $enable_registration_id = $queries->getWhere('settings', ['name', '=', 'registration_enabled']);
+            $enable_registration_id = $queries->getWhere('settings', ['name', 'registration_enabled']);
             $enable_registration_id = $enable_registration_id[0]->id;
 
             $queries->update('settings', $enable_registration_id, [
@@ -53,14 +53,14 @@ if (Input::exists()) {
                 $configuration->set('Core', 'email_verification', $verification);
 
                 // Registration disabled message
-                $registration_disabled_id = $queries->getWhere('settings', ['name', '=', 'registration_disabled_message']);
+                $registration_disabled_id = $queries->getWhere('settings', ['name', 'registration_disabled_message']);
                 $registration_disabled_id = $registration_disabled_id[0]->id;
                 $queries->update('settings', $registration_disabled_id, [
                     'value' => Output::getClean(Input::get('message'))
                 ]);
 
                 // reCAPTCHA type
-                $captcha_type = $queries->getWhere('settings', ['name', '=', 'recaptcha_type']);
+                $captcha_type = $queries->getWhere('settings', ['name', 'recaptcha_type']);
                 if (!count($captcha_type)) {
                     $queries->create('settings', [
                         'name' => 'recaptcha_type',
@@ -94,7 +94,7 @@ if (Input::exists()) {
                         } else {
                             $captcha = 'false';
                         }
-                        $captcha_id = $queries->getWhere('settings', ['name', '=', 'recaptcha']);
+                        $captcha_id = $queries->getWhere('settings', ['name', 'recaptcha']);
                         $captcha_id = $captcha_id[0]->id;
                         $queries->update('settings', $captcha_id, [
                             'value' => $captcha
@@ -106,7 +106,7 @@ if (Input::exists()) {
                         } else {
                             $captcha = 'false';
                         }
-                        $captcha_login = $queries->getWhere('settings', ['name', '=', 'recaptcha_login']);
+                        $captcha_login = $queries->getWhere('settings', ['name', 'recaptcha_login']);
                         $captcha_login = $captcha_login[0]->id;
                         $queries->update('settings', $captcha_login, [
                             'value' => $captcha
@@ -141,7 +141,7 @@ if (Input::exists()) {
                 }
 
                 // Validation group
-                $validation_group_id = $queries->getWhere('settings', ['name', '=', 'validate_user_action']);
+                $validation_group_id = $queries->getWhere('settings', ['name', 'validate_user_action']);
                 $validation_action = $validation_group_id[0]->value;
                 $validation_action = json_decode($validation_action, true);
                 $validation_action = $validation_action['action'] ?? 'promote';
@@ -189,22 +189,22 @@ if (isset($errors) && count($errors)) {
 }
 
 // Check if registration is enabled
-$registration_enabled = $queries->getWhere('settings', ['name', '=', 'registration_enabled']);
+$registration_enabled = $queries->getWhere('settings', ['name', 'registration_enabled']);
 $registration_enabled = $registration_enabled[0]->value;
 
 // Is email verification enabled
 $emails = $configuration->get('Core', 'email_verification');
 
 // Recaptcha
-$captcha_id = $queries->getWhere('settings', ['name', '=', 'recaptcha']);
-$captcha_login = $queries->getWhere('settings', ['name', '=', 'recaptcha_login']);
-$captcha_type = $queries->getWhere('settings', ['name', '=', 'recaptcha_type']);
-$captcha_key = $queries->getWhere('settings', ['name', '=', 'recaptcha_key']);
-$captcha_secret = $queries->getWhere('settings', ['name', '=', 'recaptcha_secret']);
-$registration_disabled_message = $queries->getWhere('settings', ['name', '=', 'registration_disabled_message']);
+$captcha_id = $queries->getWhere('settings', ['name', 'recaptcha']);
+$captcha_login = $queries->getWhere('settings', ['name', 'recaptcha_login']);
+$captcha_type = $queries->getWhere('settings', ['name', 'recaptcha_type']);
+$captcha_key = $queries->getWhere('settings', ['name', 'recaptcha_key']);
+$captcha_secret = $queries->getWhere('settings', ['name', 'recaptcha_secret']);
+$registration_disabled_message = $queries->getWhere('settings', ['name', 'registration_disabled_message']);
 
 // Validation group
-$validation_group = $queries->getWhere('settings', ['name', '=', 'validate_user_action']);
+$validation_group = $queries->getWhere('settings', ['name', 'validate_user_action']);
 $validation_group = $validation_group[0]->value;
 $validation_group = json_decode($validation_group, true);
 $validation_group = $validation_group['group'] ?? 1;
@@ -239,7 +239,7 @@ $smarty->assign([
     'VALIDATE_PROMOTE_GROUP' => $language->get('admin', 'validation_promote_group'),
     'VALIDATE_PROMOTE_GROUP_INFO' => $language->get('admin', 'validation_promote_group_info'),
     'INFO' => $language->get('general', 'info'),
-    'GROUPS' => $queries->getWhere('groups', ['staff', '=', 0]),
+    'GROUPS' => $queries->getWhere('groups', ['staff', 0]),
     'VALIDATION_GROUP' => $validation_group,
     'CAPTCHA_OPTIONS' => $captcha_options,
     'OAUTH' => $language->get('admin', 'oauth'),

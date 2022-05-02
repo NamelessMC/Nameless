@@ -194,7 +194,7 @@ class MinecraftIntegration extends IntegrationBase {
     public function getUuidByUsername(string $username): array {
         $queries = new Queries();
 
-        $uuid_linking = $queries->getWhere('settings', ['name', '=', 'uuid_linking']);
+        $uuid_linking = $queries->getWhere('settings', ['name', 'uuid_linking']);
         $uuid_linking = $uuid_linking[0]->value;
 
         if ($uuid_linking == 1) {

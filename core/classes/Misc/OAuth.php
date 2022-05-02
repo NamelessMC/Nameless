@@ -107,7 +107,7 @@ class OAuth extends Instanceable {
      * @return bool If the provider is enabled
      */
     public function isEnabled(string $provider): bool {
-        return $this->_db->get('oauth', ['provider', '=', $provider])->first()->enabled == '1';
+        return $this->_db->get('oauth', ['provider', $provider])->first()->enabled == '1';
     }
 
     /**
@@ -179,7 +179,7 @@ class OAuth extends Instanceable {
      * @return array The configured credentials for this provider
      */
     public function getCredentials(string $provider): array {
-        $data = $this->_db->get('oauth', ['provider', '=', $provider])->first();
+        $data = $this->_db->get('oauth', ['provider', $provider])->first();
         return [
             $data->client_id,
             $data->client_secret,

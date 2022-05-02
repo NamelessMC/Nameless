@@ -25,7 +25,7 @@ if (!isset($_GET['action'])) {
     $templates = $queries->getWhere('panel_templates', ['id', '<>', 0]);
 
     // Get all active templates
-    $active_templates = $queries->getWhere('panel_templates', ['enabled', '=', 1]);
+    $active_templates = $queries->getWhere('panel_templates', ['enabled', 1]);
 
     $current_template = $template;
 
@@ -37,7 +37,7 @@ if (!isset($_GET['action'])) {
         if (file_exists($template_path)) {
             require($template_path);
         } else {
-            $queries->delete('panel_templates', ['id', '=', $item->id]);
+            $queries->delete('panel_templates', ['id', $item->id]);
             continue;
         }
 
@@ -160,7 +160,7 @@ if (!isset($_GET['action'])) {
                     $folders = explode(DIRECTORY_SEPARATOR, $directory);
 
                     // Is it already in the database?
-                    $exists = $queries->getWhere('panel_templates', ['name', '=', $folders[count($folders) - 1]]);
+                    $exists = $queries->getWhere('panel_templates', ['name', $folders[count($folders) - 1]]);
                     if (!count($exists) && file_exists(ROOT_PATH . DIRECTORY_SEPARATOR . 'custom' . DIRECTORY_SEPARATOR . 'panel_templates' . DIRECTORY_SEPARATOR . str_replace(['../', '/', '..'], '', $folders[count($folders) - 1]) . DIRECTORY_SEPARATOR . 'template.php')) {
                         $template = null;
                         require_once(ROOT_PATH . DIRECTORY_SEPARATOR . 'custom' . DIRECTORY_SEPARATOR . 'panel_templates' . DIRECTORY_SEPARATOR . str_replace(['../', '/', '..'], '', $folders[count($folders) - 1]) . DIRECTORY_SEPARATOR . 'template.php');
@@ -186,7 +186,7 @@ if (!isset($_GET['action'])) {
             if (Token::check()) {
                 // Activate a template
                 // Ensure it exists
-                $template = $queries->getWhere('panel_templates', ['id', '=', $_GET['template']]);
+                $template = $queries->getWhere('panel_templates', ['id', $_GET['template']]);
                 if (!count($template)) {
                     // Doesn't exist
                     Redirect::to(URL::build('/panel/core/panel_templates'));
@@ -224,7 +224,7 @@ if (!isset($_GET['action'])) {
             if (Token::check()) {
                 // Deactivate a template
                 // Ensure it exists
-                $template = $queries->getWhere('panel_templates', ['id', '=', $_GET['template']]);
+                $template = $queries->getWhere('panel_templates', ['id', $_GET['template']]);
                 if (!count($template)) {
                     // Doesn't exist
                     Redirect::to(URL::build('/panel/core/panel_templates'));
@@ -255,7 +255,7 @@ if (!isset($_GET['action'])) {
 
                 try {
                     // Ensure template is not default or active
-                    $template = $queries->getWhere('panel_templates', ['id', '=', $item]);
+                    $template = $queries->getWhere('panel_templates', ['id', $item]);
                     if (count($template)) {
                         $template = $template[0];
                         if ($template->name == 'Default' || $template->id == 1 || $template->enabled == 1 || $template->is_default == 1) {
@@ -274,7 +274,7 @@ if (!isset($_GET['action'])) {
                     }
 
                     // Delete from database
-                    $queries->delete('templates', ['name', '=', $item]);
+                    $queries->delete('templates', ['name', $item]);
                 } catch (Exception $e) {
                     Session::flash('admin_templates_error', $e->getMessage());
                 }
@@ -288,7 +288,7 @@ if (!isset($_GET['action'])) {
             if (Token::check()) {
                 // Make a template default
                 // Ensure it exists
-                $new_default = $queries->getWhere('panel_templates', ['id', '=', $_GET['template']]);
+                $new_default = $queries->getWhere('panel_templates', ['id', $_GET['template']]);
                 if (!count($new_default)) {
                     // Doesn't exist
                     Redirect::to(URL::build('/panel/core/panel_templates'));
@@ -298,7 +298,7 @@ if (!isset($_GET['action'])) {
                 $new_default = $new_default[0]->id;
 
                 // Get current default template
-                $current_default = $queries->getWhere('panel_templates', ['is_default', '=', 1]);
+                $current_default = $queries->getWhere('panel_templates', ['is_default', 1]);
                 if (count($current_default)) {
                     $current_default = $current_default[0]->id;
                     // No longer default

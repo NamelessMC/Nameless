@@ -252,8 +252,8 @@ if (isset($_GET['action'])) {
                                         // Can't delete default group/admin group
                                         Session::flash('admin_groups_error', $language->get('admin', 'unable_to_delete_group'));
                                     } else {
-                                        $queries->delete('groups', ['id', '=', Input::get('id')]);
-                                        $queries->delete('users_groups', ['group_id', '=', Input::get('id')]);
+                                        $queries->delete('groups', ['id', Input::get('id')]);
+                                        $queries->delete('users_groups', ['group_id', Input::get('id')]);
                                         Session::flash('admin_groups', $language->get('admin', 'group_deleted_successfully'));
                                     }
                                 }

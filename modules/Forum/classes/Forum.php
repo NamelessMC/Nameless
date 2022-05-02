@@ -94,7 +94,7 @@ class Forum {
                                     }
 
                                     // Title
-                                    $last_topic = $this->_db->get('topics', ['id', '=', $last_reply[$n]->topic_id])->results();
+                                    $last_topic = $this->_db->get('topics', ['id', $last_reply[$n]->topic_id])->results();
 
                                     $return[$forum->id]['subforums'][$item->id]->last_post = $last_reply[$n];
                                     $return[$forum->id]['subforums'][$item->id]->last_post->title = Output::getClean($last_topic[0]->topic_title);
@@ -134,7 +134,7 @@ class Forum {
      * @return bool Whether the forum exists or not
      */
     public function forumExist(int $forum_id, array $groups = [0]): bool {
-        $exists = $this->_db->get('forums', ['id', '=', $forum_id])->results();
+        $exists = $this->_db->get('forums', ['id', $forum_id])->results();
         if (count($exists)) {
             return $this->hasPermission($forum_id, 'view', $groups);
         }
@@ -155,7 +155,7 @@ class Forum {
         if (isset(self::$_permission_cache[$cache_key])) {
             return true;
         }
-        $permissions = $this->_db->get('forums_permissions', ['forum_id', '=', $forum_id])->results();
+        $permissions = $this->_db->get('forums_permissions', ['forum_id', $forum_id])->results();
         foreach ($permissions as $permission) {
             if (in_array($permission->group_id, $groups)) {
                 if ($permission->{$required_permission} == 1) {
@@ -184,10 +184,10 @@ class Forum {
             return true;
         }
         // Does the forum exist?
-        $exists = $this->_db->get('forums', ['id', '=', $forum_id])->results();
+        $exists = $this->_db->get('forums', ['id', $forum_id])->results();
         if (count($exists)) {
             // Can the user view other topics?
-            $access = $this->_db->get('forums_permissions', ['forum_id', '=', $forum_id])->results();
+            $access = $this->_db->get('forums_permissions', ['forum_id', $forum_id])->results();
 
             foreach ($access as $item) {
                 if (in_array($item->group_id, $groups)) {
@@ -267,7 +267,7 @@ class Forum {
      */
     public function topicExist(int $topic_id): bool {
         // Does the topic exist?
-        $exists = $this->_db->get('topics', ['id', '=', $topic_id])->results();
+        $exists = $this->_db->get('topics', ['id', $topic_id])->results();
         return count($exists) > 0;
     }
 
@@ -331,7 +331,7 @@ class Forum {
                     foreach ($latest_post_query as $latest_post) {
                         if ($latest_post->deleted != 1) {
                             // Ensure topic isn't deleted
-                            $topic_query = $this->_db->get('topics', ['id', '=', $latest_post->topic_id])->results();
+                            $topic_query = $this->_db->get('topics', ['id', $latest_post->topic_id])->results();
 
                             if (empty($topic_query)) {
                                 continue;
@@ -426,7 +426,7 @@ class Forum {
      * @return string The forum title.
      */
     public function getForumTitle(int $forum_id): string {
-        $data = $this->_db->get('forums', ['id', '=', $forum_id])->results();
+        $data = $this->_db->get('forums', ['id', $forum_id])->results();
         return $data[0]->forum_title;
     }
 
@@ -437,7 +437,7 @@ class Forum {
      * @return array|false The post data or false on failure.
      */
     public function getIndividualPost(int $post_id) {
-        $data = $this->_db->get('posts', ['id', '=', $post_id])->results();
+        $data = $this->_db->get('posts', ['id', $post_id])->results();
         if (count($data)) {
             return [
                 'creator' => $data[0]->post_creator,
@@ -463,7 +463,7 @@ class Forum {
         $news_items = $this->_db->query('SELECT * FROM nl2_topics WHERE forum_id IN (SELECT id FROM nl2_forums WHERE news = 1) AND deleted = 0 ORDER BY topic_date DESC LIMIT 10')->results();
 
         foreach ($news_items as $item) {
-            $news_post = $this->_db->get('posts', ['topic_id', '=', $item->id])->results();
+            $news_post = $this->_db->get('posts', ['topic_id', $item->id])->results();
             $posts = count($news_post);
 
             if (is_null($news_post[0]->created)) {
@@ -483,11 +483,11 @@ class Forum {
                         if (isset($labels_cache[$label_id])) {
                             $labels[] = $labels_cache[$label_id];
                         } else {
-                            $label = $this->_db->get('forums_topic_labels', ['id', '=', $label_id]);
+                            $label = $this->_db->get('forums_topic_labels', ['id', $label_id]);
                             if ($label->count()) {
                                 $label = $label->first();
 
-                                $label_html = $this->_db->get('forums_labels', ['id', '=', $label->label]);
+                                $label_html = $this->_db->get('forums_labels', ['id', $label->label]);
 
                                 if ($label_html->count()) {
                                     $label_html = $label_html->first()->html;
@@ -545,7 +545,7 @@ class Forum {
             return true;
         }
 
-        $permissions = $this->_db->get('forums_permissions', ['forum_id', '=', $forum_id])->results();
+        $permissions = $this->_db->get('forums_permissions', ['forum_id', $forum_id])->results();
 
         // Check the forum
         foreach ($permissions as $permission) {
@@ -607,7 +607,7 @@ class Forum {
     public function getPosts(int $tid = null) {
         if ($tid) {
             // Get posts from database
-            $posts = $this->_db->get('posts', ['topic_id', '=', $tid]);
+            $posts = $this->_db->get('posts', ['topic_id', $tid]);
 
             if ($posts->count()) {
                 $posts = $posts->results();

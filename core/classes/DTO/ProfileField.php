@@ -49,7 +49,7 @@ class ProfileField {
      * @return array<int, ProfileField>|ProfileField
      */
     public static function find(string $value, string $column = 'id') {
-        $rows = DB::getInstance()->get('profile_fields', [$column, '=', $value]);
+        $rows = DB::getInstance()->get('profile_fields', [$column, $value]);
         if (!$rows->count()) {
             return [];
         }

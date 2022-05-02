@@ -20,7 +20,7 @@ if (!isset($_GET['tid']) || !is_numeric($_GET['tid'])) {
 }
 
 $topic_id = $_GET['tid'];
-$topic = $queries->getWhere('topics', ['id', '=', $topic_id]);
+$topic = $queries->getWhere('topics', ['id', $topic_id]);
 if (!count($topic)) {
     Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
 }
@@ -37,12 +37,12 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
             ]);
 
             // Ensure forum we're moving to exists
-            $forum_moving_to = $queries->getWhere('forums', ['id', '=', Input::get('forum')]);
+            $forum_moving_to = $queries->getWhere('forums', ['id', Input::get('forum')]);
             if (!count($forum_moving_to)) {
                 Redirect::to(URL::build('/forum'));
             }
 
-            $posts_to_move = $queries->getWhere('posts', ['topic_id', '=', $topic_id]);
+            $posts_to_move = $queries->getWhere('posts', ['topic_id', $topic_id]);
             if ($validation->passed()) {
 
                 $queries->update('topics', $topic->id, [

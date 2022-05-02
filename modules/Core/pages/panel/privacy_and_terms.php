@@ -40,7 +40,7 @@ if (Input::exists()) {
 
         if ($validation->passed()) {
             try {
-                $privacy_id = $queries->getWhere('privacy_terms', ['name', '=', 'privacy']);
+                $privacy_id = $queries->getWhere('privacy_terms', ['name', 'privacy']);
                 if (count($privacy_id)) {
                     $privacy_id = $privacy_id[0]->id;
 
@@ -54,7 +54,7 @@ if (Input::exists()) {
                     ]);
                 }
 
-                $terms_id = $queries->getWhere('privacy_terms', ['name', '=', 'terms']);
+                $terms_id = $queries->getWhere('privacy_terms', ['name', 'terms']);
                 if (count($terms_id)) {
                     $terms_id = $terms_id[0]->id;
 
@@ -98,15 +98,15 @@ if (isset($errors) && count($errors)) {
 }
 
 // Get privacy policy + terms
-$site_terms = $queries->getWhere('privacy_terms', ['name', '=', 'terms']);
+$site_terms = $queries->getWhere('privacy_terms', ['name', 'terms']);
 if (!count($site_terms)) {
-    $site_terms = $queries->getWhere('settings', ['name', '=', 't_and_c_site']);
+    $site_terms = $queries->getWhere('settings', ['name', 't_and_c_site']);
 }
 $site_terms = $site_terms[0]->value;
 
-$site_privacy = $queries->getWhere('privacy_terms', ['name', '=', 'privacy']);
+$site_privacy = $queries->getWhere('privacy_terms', ['name', 'privacy']);
 if (!count($site_privacy)) {
-    $site_privacy = $queries->getWhere('settings', ['name', '=', 'privacy_policy']);
+    $site_privacy = $queries->getWhere('settings', ['name', 'privacy_policy']);
 }
 $site_privacy = $site_privacy[0]->value;
 

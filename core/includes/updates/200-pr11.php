@@ -43,7 +43,7 @@ try {
 
 // Add placeholder enabled setting to settings table, Auto enable if placeholders contain data
 try {
-    $placeholders_exist = $queries->getWhere('settings', array('name', '=', 'placeholders'));
+    $placeholders_exist = $queries->getWhere('settings', array('name', 'placeholders'));
     if (!count($placeholders_exist)) {
         $placeholders = $queries->getWhere('placeholders_settings', array('id', '<>', '0'));
 
@@ -67,7 +67,7 @@ try {
 }
 
 // Update version number
-$version_number_id = $queries->getWhere('settings', array('name', '=', 'nameless_version'));
+$version_number_id = $queries->getWhere('settings', array('name', 'nameless_version'));
 
 if (count($version_number_id)) {
     $version_number_id = $version_number_id[0]->id;
@@ -75,7 +75,7 @@ if (count($version_number_id)) {
         'value' => '2.0.0-pr12'
     ));
 } else {
-    $version_number_id = $queries->getWhere('settings', array('name', '=', 'version'));
+    $version_number_id = $queries->getWhere('settings', array('name', 'version'));
     $version_number_id = $version_number_id[0]->id;
 
     $queries->update('settings', $version_number_id, array(
@@ -83,7 +83,7 @@ if (count($version_number_id)) {
     ));
 }
 
-$version_update_id = $queries->getWhere('settings', array('name', '=', 'version_update'));
+$version_update_id = $queries->getWhere('settings', array('name', 'version_update'));
 $version_update_id = $version_update_id[0]->id;
 
 $queries->update('settings', $version_update_id, array(

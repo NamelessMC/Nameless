@@ -52,18 +52,18 @@ try {
 }
 
 // Permissions
-$existing_user_permissions = $queries->getWhere('groups', array('id', '=', 1));
+$existing_user_permissions = $queries->getWhere('groups', array('id', 1));
 $existing_user_permissions = $existing_user_permissions[0]->permissions;
 $existing_user_permissions = json_decode($existing_user_permissions, true);
 $existing_user_permissions['usercp.profile_banner'] = 1;
 
-$existing_mod_permissions = $queries->getWhere('groups', array('id', '=', 3));
+$existing_mod_permissions = $queries->getWhere('groups', array('id', 3));
 $existing_mod_permissions = $existing_mod_permissions[0]->permissions;
 $existing_mod_permissions = json_decode($existing_mod_permissions, true);
 $existing_mod_permissions['modcp.profile_banner_reset'] = 1;
 $existing_mod_permissions['usercp.profile_banner'] = 1;
 
-$existing_admin_permissions = $queries->getWhere('groups', array('id', '=', 2));
+$existing_admin_permissions = $queries->getWhere('groups', array('id', 2));
 $existing_admin_permissions = $existing_admin_permissions[0]->permissions;
 $existing_admin_permissions = json_decode($existing_admin_permissions, true);
 $existing_admin_permissions['admincp.styles.panel_templates'] = 1;
@@ -96,7 +96,7 @@ try {
 
 // Revamp template
 try {
-    $revamp_template_exists = $queries->getWhere('templates', array('name', '=', 'DefaultRevamp'));
+    $revamp_template_exists = $queries->getWhere('templates', array('name', 'DefaultRevamp'));
 
     if (!count($revamp_template_exists)) {
         $queries->create('templates', array(
@@ -110,7 +110,7 @@ try {
 }
 
 // Update version number
-$version_number_id = $queries->getWhere('settings', array('name', '=', 'nameless_version'));
+$version_number_id = $queries->getWhere('settings', array('name', 'nameless_version'));
 $version_number_id = $version_number_id[0]->id;
 
 if (count($version_number_id)) {
@@ -118,7 +118,7 @@ if (count($version_number_id)) {
         'value' => '2.0.0-pr6'
     ));
 } else {
-    $version_number_id = $queries->getWhere('settings', array('name', '=', 'version'));
+    $version_number_id = $queries->getWhere('settings', array('name', 'version'));
     $version_number_id = $version_number_id[0]->id;
 
     $queries->update('settings', $version_number_id, array(
@@ -126,7 +126,7 @@ if (count($version_number_id)) {
     ));
 }
 
-$version_update_id = $queries->getWhere('settings', array('name', '=', 'version_update'));
+$version_update_id = $queries->getWhere('settings', array('name', 'version_update'));
 $version_update_id = $version_update_id[0]->id;
 
 $queries->update('settings', $version_update_id, array(

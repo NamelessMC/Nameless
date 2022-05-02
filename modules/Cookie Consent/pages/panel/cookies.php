@@ -35,7 +35,7 @@ if (Input::exists()) {
 
         if ($validation->passed()) {
             try {
-                $cookie_id = $queries->getWhere('privacy_terms', ['name', '=', 'cookies']);
+                $cookie_id = $queries->getWhere('privacy_terms', ['name', 'cookies']);
                 if (count($cookie_id)) {
                     $cookie_id = $cookie_id[0]->id;
 

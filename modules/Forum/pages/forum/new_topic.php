@@ -74,7 +74,7 @@ if (count($forum_labels)) {
             }
 
             // Get label HTML
-            $label_html = $queries->getWhere('forums_labels', ['id', '=', $label->label]);
+            $label_html = $queries->getWhere('forums_labels', ['id', $label->label]);
             if (!count($label_html)) {
                 continue;
             }
@@ -132,7 +132,7 @@ if (Input::exists()) {
 
                 if (isset($_POST['topic_label']) && !empty($_POST['topic_label']) && is_array($_POST['topic_label'])) {
                     foreach ($_POST['topic_label'] as $topic_label) {
-                        $label = $queries->getWhere('forums_topic_labels', ['id', '=', $topic_label]);
+                        $label = $queries->getWhere('forums_topic_labels', ['id', $topic_label]);
                         if (count($label)) {
                             $lgroups = explode(',', $label[0]->gids);
 
@@ -199,7 +199,7 @@ if (Input::exists()) {
                 Log::getInstance()->log(Log::Action('forums/topic/create'), Output::getClean(Input::get('title')));
 
                 // Execute hooks and pass $available_hooks
-                $available_hooks = $queries->getWhere('forums', ['id', '=', $fid]);
+                $available_hooks = $queries->getWhere('forums', ['id', $fid]);
                 $available_hooks = json_decode($available_hooks[0]->hooks);
                 EventHandler::executeEvent('newTopic', [
                     'user_id' => Output::getClean($user->data()->id),
@@ -247,7 +247,7 @@ $creating_topic_in = $forum_language->get('forum', 'creating_topic_in_x', ['foru
 $smarty->assign('CREATING_TOPIC_IN', $creating_topic_in);
 
 // Get info about forum
-$forum_query = $queries->getWhere('forums', ['id', '=', $fid]);
+$forum_query = $queries->getWhere('forums', ['id', $fid]);
 $forum_query = $forum_query[0];
 
 // Placeholder?

@@ -158,7 +158,7 @@ class Core_Module extends Module {
                     $pages->addCustom(Output::urlEncodeAllowSlashes($custom_page->url), Output::getClean($custom_page->title), !$custom_page->basic);
 
                     foreach ($user_groups as $user_group) {
-                        $custom_page_permissions = $queries->getWhere('custom_pages_permissions', ['group_id', '=', $user_group]);
+                        $custom_page_permissions = $queries->getWhere('custom_pages_permissions', ['group_id', $user_group]);
                         if (count($custom_page_permissions)) {
                             foreach ($custom_page_permissions as $permission) {
                                 if ($permission->page_id == $custom_page->id) {
@@ -219,7 +219,7 @@ class Core_Module extends Module {
                     }
                 }
             } else {
-                $custom_page_permissions = $queries->getWhere('custom_pages_permissions', ['group_id', '=', 0]);
+                $custom_page_permissions = $queries->getWhere('custom_pages_permissions', ['group_id', 0]);
                 if (count($custom_page_permissions)) {
                     foreach ($custom_pages as $custom_page) {
                         $redirect = null;
@@ -735,7 +735,7 @@ class Core_Module extends Module {
             $validate_action = $cache->retrieve('validate_action');
 
         } else {
-            $validate_action = $queries->getWhere('settings', ['name', '=', 'validate_user_action']);
+            $validate_action = $queries->getWhere('settings', ['name', 'validate_user_action']);
             $validate_action = $validate_action[0]->value;
             $validate_action = json_decode($validate_action, true);
 
@@ -757,7 +757,7 @@ class Core_Module extends Module {
             $group_id = $cache->retrieve('pre_validation_default');
 
         } else {
-            $group_id = $queries->getWhere('groups', ['default_group', '=', '1']);
+            $group_id = $queries->getWhere('groups', ['default_group', '1']);
             $group_id = $group_id[0]->id;
         }
 
@@ -798,7 +798,7 @@ class Core_Module extends Module {
                 $status_enabled = $cache->retrieve('enabled');
 
             } else {
-                $status_enabled = $queries->getWhere('settings', ['name', '=', 'status_page']);
+                $status_enabled = $queries->getWhere('settings', ['name', 'status_page']);
                 if ($status_enabled[0]->value == 1) {
                     $status_enabled = 1;
                 } else {
@@ -870,10 +870,10 @@ class Core_Module extends Module {
                         $sub_servers = $cache->retrieve('default_sub');
                     } else {
                         // Get default server from database
-                        $default = $queries->getWhere('mc_servers', ['is_default', '=', 1]);
+                        $default = $queries->getWhere('mc_servers', ['is_default', 1]);
                         if (count($default)) {
                             // Get sub-servers of default server
-                            $sub_servers = $queries->getWhere('mc_servers', ['parent_server', '=', $default[0]->id]);
+                            $sub_servers = $queries->getWhere('mc_servers', ['parent_server', $default[0]->id]);
                             if (count($sub_servers)) {
                                 $cache->store('default_sub', $sub_servers);
                             } else {
@@ -892,7 +892,7 @@ class Core_Module extends Module {
                         $full_ip = ['ip' => $default->ip . (is_null($default->port) ? '' : ':' . $default->port), 'pre' => $default->pre, 'name' => $default->name];
 
                         // Get query type
-                        $query_type = $queries->getWhere('settings', ['name', '=', 'external_query']);
+                        $query_type = $queries->getWhere('settings', ['name', 'external_query']);
                         if (count($query_type)) {
                             if ($query_type[0]->value == '1') {
                                 $query_type = 'external';
@@ -991,7 +991,7 @@ class Core_Module extends Module {
                 $timeago = new TimeAgo(TIMEZONE);
 
                 if ($user_id) {
-                    $user_query = $queries->getWhere('users', ['id', '=', $user_id]);
+                    $user_query = $queries->getWhere('users', ['id', $user_id]);
                     if (count($user_query)) {
                         $user_query = $user_query[0];
                         $smarty->assign('REGISTERED', $language->get('user', 'registered_x', [

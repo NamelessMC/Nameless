@@ -70,14 +70,14 @@ if (!isset($_GET['s'])) {
         $results = [];
         foreach ($search_results as $result) {
             // Check permissions
-            $perms = $queries->getWhere('forums_permissions', ['forum_id', '=', $result->forum_id]);
+            $perms = $queries->getWhere('forums_permissions', ['forum_id', $result->forum_id]);
             foreach ($perms as $perm) {
                 if (in_array($perm->group_id, $user_groups) && $perm->view == 1 && $perm->view_other_topics == 1) {
                     if (isset($result->topic_id)) {
                         // Post
                         if (!isset($results[$result->id]) && $result->deleted == 0) {
                             // Get associated topic
-                            $topic = $queries->getWhere('topics', ['id', '=', $result->topic_id]);
+                            $topic = $queries->getWhere('topics', ['id', $result->topic_id]);
                             if (count($topic) && $topic[0]->deleted === 0) {
                                 $topic = $topic[0];
                                 $results[$result->id] = [

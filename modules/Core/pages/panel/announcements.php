@@ -145,7 +145,7 @@ if (!isset($_GET['action'])) {
             }
 
             // Does the announcement exist?
-            $announcement = $queries->getWhere('custom_announcements', ['id', '=', $_GET['id']]);
+            $announcement = $queries->getWhere('custom_announcements', ['id', $_GET['id']]);
             if (!count($announcement)) {
                 // No, it doesn't exist
                 Redirect::to(URL::build('/panel/core/announcements'));
@@ -243,7 +243,7 @@ if (!isset($_GET['action'])) {
             if (Input::exists()) {
                 if (Token::check(Input::get('token'))) {
                     if (isset($_POST['id'])) {
-                        $queries->delete('custom_announcements', ['id', '=', $_POST['id']]);
+                        $queries->delete('custom_announcements', ['id', $_POST['id']]);
 
                         $announcements->resetCache();
                         Session::flash('announcement_success', $language->get('admin', 'deleted_announcement_success'));

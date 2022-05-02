@@ -107,7 +107,7 @@ class User {
                 return true;
             }
 
-            $data = $this->_db->get('users', [$field, '=', $value]);
+            $data = $this->_db->get('users', [$field, $value]);
 
             if ($data->count()) {
                 $this->_data = new UserData($data->first());
@@ -270,7 +270,7 @@ class User {
      * @return ?string Their username, null on failure.
      */
     public function idToName(int $id): ?string {
-        $data = $this->_db->get('users', ['id', '=', $id]);
+        $data = $this->_db->get('users', ['id', $id]);
 
         if ($data->count()) {
             $results = $data->results();
@@ -288,7 +288,7 @@ class User {
      * @return ?string Their nickname, null on failure.
      */
     public function idToNickname(int $id): ?string {
-        $data = $this->_db->get('users', ['id', '=', $id]);
+        $data = $this->_db->get('users', ['id', $id]);
 
         if ($data->count()) {
             $results = $data->results();
@@ -326,7 +326,7 @@ class User {
             if ($remember) {
                 $hash = Hash::unique();
                 $table = $is_admin ? 'users_admin_session' : 'users_session';
-                $hashCheck = $this->_db->get($table, ['user_id', '=', $this->data()->id]);
+                $hashCheck = $this->_db->get($table, ['user_id', $this->data()->id]);
 
                 if (!$hashCheck->count()) {
                     $this->_db->insert($table, [
@@ -544,7 +544,7 @@ class User {
      * Deletes their cookies, sessions and database session entry.
      */
     public function logout(): void {
-        $this->_db->delete('users_session', ['user_id', '=', $this->data()->id]);
+        $this->_db->delete('users_session', ['user_id', $this->data()->id]);
 
         Session::delete($this->_sessionName);
         Cookie::delete($this->_cookieName);
@@ -554,7 +554,7 @@ class User {
      * Process logout if user is admin
      */
     public function admLogout(): void {
-        $this->_db->delete('users_admin_session', ['user_id', '=', $this->data()->id]);
+        $this->_db->delete('users_admin_session', ['user_id', $this->data()->id]);
 
         Session::delete($this->_admSessionName);
         Cookie::delete($this->_cookieName . '_adm');
@@ -757,7 +757,7 @@ class User {
      * @return ?int ID on success, null on failure.
      */
     public function nameToId(string $username): ?int {
-        $data = $this->_db->get('users', ['username', '=', $username]);
+        $data = $this->_db->get('users', ['username', $username]);
 
         if ($data->count()) {
             $results = $data->results();
@@ -774,7 +774,7 @@ class User {
      * @return ?int ID on success, false on failure.
      */
     public function emailToId(string $email): ?int {
-        $data = $this->_db->get('users', ['email', '=', $email]);
+        $data = $this->_db->get('users', ['email', $email]);
 
         if ($data->count()) {
             $results = $data->results();
@@ -794,21 +794,20 @@ class User {
         $return = []; // Array to return containing info of PMs
 
         // Get a list of PMs which the user is in
-        $data = $this->_db->get('private_messages_users', ['user_id', '=', $user_id]);
+        $data = $this->_db->get('private_messages_users', ['user_id', $user_id]);
 
         if ($data->count()) {
             $data = $data->results();
             foreach ($data as $result) {
                 // Get a list of users who are in this conversation and return them as an array
-                $pms = $this->_db->get('private_messages_users', ['pm_id', '=', $result->pm_id])->results();
+                $pms = $this->_db->get('private_messages_users', ['pm_id', $result->pm_id])->results();
                 $users = []; // Array containing users with permission
                 foreach ($pms as $pm) {
                     $users[] = $pm->user_id;
                 }
 
                 // Get the PM data
-                $pm = $this->_db->get('private_messages', ['id', '=', $result->pm_id])->results();
-                $pm = $pm[0];
+                $pm = $this->_db->get('private_messages', ['id', $result->pm_id])->first();
 
                 $return[$pm->id]['id'] = $pm->id;
                 $return[$pm->id]['title'] = $pm->title;
@@ -836,13 +835,13 @@ class User {
      */
     public function getPM(int $pm_id, int $user_id): ?array {
         // Get the PM - is the user the author?
-        $data = $this->_db->get('private_messages', ['id', '=', $pm_id]);
+        $data = $this->_db->get('private_messages', ['id', $pm_id]);
         if ($data->count()) {
             $data = $data->results();
             $data = $data[0];
 
             // Does the user have permission to view the PM?
-            $pms = $this->_db->get('private_messages_users', ['pm_id', '=', $pm_id])->results();
+            $pms = $this->_db->get('private_messages_users', ['pm_id', $pm_id])->results();
             foreach ($pms as $pm) {
                 if ($pm->user_id == $user_id) {
                     $has_permission = true;
@@ -866,7 +865,7 @@ class User {
 
             // Get a list of users in the conversation
             if (!isset($pms)) {
-                $pms = $this->_db->get('private_messages_users', ['pm_id', '=', $pm_id])->results();
+                $pms = $this->_db->get('private_messages_users', ['pm_id', $pm_id])->results();
             }
 
             $users = []; // Array to store users
@@ -984,7 +983,7 @@ class User {
      */
     public function isBlocked(int $user, int $blocked): bool {
         if ($user && $blocked) {
-            $possible_users = $this->_db->get('blocked_users', ['user_id', '=', $user]);
+            $possible_users = $this->_db->get('blocked_users', ['user_id', $user]);
             if ($possible_users->count()) {
                 $possible_users = $possible_users->results();
 
@@ -1018,7 +1017,7 @@ class User {
      * @return bool Whether profile privatizing is allowed and if they have permission to use it.
      */
     public function canPrivateProfile(): bool {
-        $settings_data = $this->_db->get('settings', ['name', '=', 'private_profile']);
+        $settings_data = $this->_db->get('settings', ['name', 'private_profile']);
         $settings_results = $settings_data->results();
 
         return (($settings_results[0]->value == 1) && ($this->hasPermission('usercp.private_profile')));
