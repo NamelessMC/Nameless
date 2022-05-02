@@ -113,7 +113,7 @@ class User {
                 $this->_data = new UserData($data->first());
 
                 // Get user groups
-                $groups_query = $this->_db->selectQuery('SELECT nl2_groups.* FROM nl2_users_groups INNER JOIN nl2_groups ON group_id = nl2_groups.id WHERE user_id = ? AND deleted = 0 ORDER BY `order`;', [$this->data()->id]);
+                $groups_query = $this->_db->query('SELECT nl2_groups.* FROM nl2_users_groups INNER JOIN nl2_groups ON group_id = nl2_groups.id WHERE user_id = ? AND deleted = 0 ORDER BY `order`;', [$this->data()->id]);
 
                 if ($groups_query->count()) {
 
@@ -130,12 +130,12 @@ class User {
                 } else {
                     // Get default group
                     // TODO: Use PRE_VALIDATED_DEFAULT ?
-                    $default_group = $this->_db->selectQuery('SELECT * FROM nl2_groups WHERE default_group = 1', [])->first();
+                    $default_group = $this->_db->query('SELECT * FROM nl2_groups WHERE default_group = 1', [])->first();
                     if ($default_group) {
                         $default_group_id = $default_group->id;
                     } else {
                         $default_group_id = 1; // default to 1
-                        $default_group = $this->_db->selectQuery('SELECT * FROM nl2_groups WHERE id = 1', [])->first();
+                        $default_group = $this->_db->query('SELECT * FROM nl2_groups WHERE id = 1', [])->first();
                     }
 
                     $this->addGroup($default_group_id, 0, $default_group);
@@ -162,7 +162,7 @@ class User {
             return false;
         }
 
-        $this->_db->createQuery(
+        $this->_db->query(
             'INSERT INTO `nl2_users_groups` (`user_id`, `group_id`, `received`, `expire`) VALUES (?, ?, ?, ?)',
             [
                 $this->data()->id,
@@ -578,7 +578,7 @@ class User {
         return $this->_integrations ??= (function (): array {
             $integrations = Integrations::getInstance();
 
-            $integrations_query = $this->_db->selectQuery('SELECT nl2_users_integrations.*, nl2_integrations.name as integration_name FROM nl2_users_integrations LEFT JOIN nl2_integrations ON integration_id=nl2_integrations.id WHERE user_id = ?', [$this->data()->id]);
+            $integrations_query = $this->_db->query('SELECT nl2_users_integrations.*, nl2_integrations.name as integration_name FROM nl2_users_integrations LEFT JOIN nl2_integrations ON integration_id=nl2_integrations.id WHERE user_id = ?', [$this->data()->id]);
             if ($integrations_query->count()) {
                 $integrations_query = $integrations_query->results();
 
@@ -671,9 +671,9 @@ class User {
         if ($this->data()->id == 1) {
             return false;
         }
-        $this->_db->createQuery('DELETE FROM `nl2_users_groups` WHERE `user_id` = ?', [$this->data()->id]);
+        $this->_db->query('DELETE FROM `nl2_users_groups` WHERE `user_id` = ?', [$this->data()->id]);
 
-        $this->_db->createQuery(
+        $this->_db->query(
             'INSERT INTO `nl2_users_groups` (`user_id`, `group_id`, `received`, `expire`) VALUES (?, ?, ?, ?)',
             [
                 $this->data()->id,
@@ -710,7 +710,7 @@ class User {
             return false;
         }
 
-        $this->_db->createQuery(
+        $this->_db->query(
             'DELETE FROM `nl2_users_groups` WHERE `user_id` = ? AND `group_id` = ?',
             [
                 $this->data()->id,
@@ -955,7 +955,7 @@ class User {
      * @return array<int, UserProfileField> Array of profile fields.
      */
     public function getProfileFields(bool $show_private = false, bool $only_forum = false): array {
-        $rows = DB::getInstance()->selectQuery('SELECT pf.*, upf.id as upf_id, upf.value FROM nl2_profile_fields pf LEFT JOIN nl2_users_profile_fields upf ON (pf.id = upf.field_id AND upf.user_id = ?)', [
+        $rows = DB::getInstance()->query('SELECT pf.*, upf.id as upf_id, upf.value FROM nl2_profile_fields pf LEFT JOIN nl2_users_profile_fields upf ON (pf.id = upf.field_id AND upf.user_id = ?)', [
             $this->data()->id,
         ])->results();
 
@@ -1045,7 +1045,7 @@ class User {
         }
         $groups = rtrim($groups, ',') . ')';
 
-        return $this->_db->selectQuery('SELECT template.id, template.name FROM nl2_templates AS template WHERE template.enabled = 1 AND template.id IN (SELECT template_id FROM nl2_groups_templates WHERE can_use_template = 1 AND group_id IN ' . $groups . ')')->results();
+        return $this->_db->query('SELECT template.id, template.name FROM nl2_templates AS template WHERE template.enabled = 1 AND template.id IN (SELECT template_id FROM nl2_groups_templates WHERE can_use_template = 1 AND group_id IN ' . $groups . ')')->results();
     }
 
     /**
@@ -1066,7 +1066,7 @@ class User {
 
             $last_updated = time();
 
-            $this->_db->createQuery('INSERT INTO nl2_users_placeholders (server_id, uuid, name, value, last_updated) VALUES (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE value = ?, last_updated = ?', [
+            $this->_db->query('INSERT INTO nl2_users_placeholders (server_id, uuid, name, value, last_updated) VALUES (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE value = ?, last_updated = ?', [
                 $server_id,
                 $uuid,
                 $name,

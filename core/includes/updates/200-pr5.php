@@ -22,14 +22,14 @@ if (!$db_charset || ($db_charset != 'utf8mb4' && $db_charset != 'latin1')) {
 
 // Leftover from pr5, just in case
 try {
-    $queries->alterTable('groups', '`order`', "int(11) NOT NULL DEFAULT '1'");
+    $queries->addColumn('groups', '`order`', "int(11) NOT NULL DEFAULT '1'");
 } catch (Exception $e) {
     // unable to update table
 }
 
 // Topic placeholders
 try {
-    $queries->alterTable('forums', '`topic_placeholder`', 'mediumtext');
+    $queries->addColumn('forums', '`topic_placeholder`', 'mediumtext');
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }

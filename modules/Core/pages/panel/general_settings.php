@@ -46,7 +46,7 @@ if (isset($_GET['do'])) {
         if ($_GET['do'] == 'updateLanguages') {
             $active_language = $queries->getWhere('languages', ['is_default', '=', 1]);
             if (count($active_language)) {
-                DB::getInstance()->createQuery('UPDATE nl2_users SET language_id = ?', [$active_language[0]->id]);
+                DB::getInstance()->query('UPDATE nl2_users SET language_id = ?', [$active_language[0]->id]);
                 $language = new Language('core', $active_language[0]->short_code);
             }
 

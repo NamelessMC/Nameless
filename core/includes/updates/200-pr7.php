@@ -22,28 +22,28 @@ if (!$db_charset || ($db_charset != 'utf8mb4' && $db_charset != 'latin1')) {
 
 // Edit Topics forum permission
 try {
-    $queries->alterTable('forums_permissions', '`edit_topic`', "tinyint(1) NOT NULL DEFAULT '0'");
+    $queries->addColumn('forums_permissions', '`edit_topic`', "tinyint(1) NOT NULL DEFAULT '0'");
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
 
 // Custom pages basic setting
 try {
-    $queries->alterTable('custom_pages', '`basic`', "tinyint(1) NOT NULL DEFAULT '0'");
+    $queries->addColumn('custom_pages', '`basic`', "tinyint(1) NOT NULL DEFAULT '0'");
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
 
-// Topic Updates 
+// Topic Updates
 try {
-    $queries->alterTable('users', '`topic_updates`', "tinyint(1) NOT NULL DEFAULT '1'");
+    $queries->addColumn('users', '`topic_updates`', "tinyint(1) NOT NULL DEFAULT '1'");
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
 
 // Discord Integration
 try {
-    DB::getInstance()->createQuery("CREATE TABLE `nl2_discord_verifications` (
+    DB::getInstance()->query("CREATE TABLE `nl2_discord_verifications` (
         `id` int(11) NOT NULL AUTO_INCREMENT,
         `token` varchar(23) NOT NULL,
         `user_id` int(11) NOT NULL,
@@ -77,17 +77,17 @@ try {
     echo $e->getMessage() . '<br />';
 }
 try {
-    $queries->alterTable('group_sync', '`discord_role_id`', "bigint(18) NULL DEFAULT NULL");
+    $queries->addColumn('group_sync', '`discord_role_id`', "bigint(18) NULL DEFAULT NULL");
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
 try {
-    $queries->alterTable('users', '`discord_id`', "bigint(18) NULL DEFAULT NULL");
+    $queries->addColumn('users', '`discord_id`', "bigint(18) NULL DEFAULT NULL");
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
 try {
-    $queries->alterTable('users', '`discord_username` ', "varchar(128) NULL DEFAULT NULL");
+    $queries->addColumn('users', '`discord_username` ', "varchar(128) NULL DEFAULT NULL");
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
@@ -109,7 +109,7 @@ try {
     echo $e->getMessage() . '<br />';
 }
 try {
-    $queries->alterTable('groups', '`deleted`', "tinyint(1) NOT NULL DEFAULT '0'");
+    $queries->addColumn('groups', '`deleted`', "tinyint(1) NOT NULL DEFAULT '0'");
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
@@ -123,7 +123,7 @@ try {
     echo $e->getMessage() . '<br />';
 }
 try {
-    DB::getInstance()->createQuery("CREATE TABLE `nl2_custom_announcements` (
+    DB::getInstance()->query("CREATE TABLE `nl2_custom_announcements` (
         `id` int(11) NOT NULL AUTO_INCREMENT,
         `pages` varchar(1024) NOT NULL,
         `groups` varchar(1024) NOT NULL,
@@ -146,12 +146,12 @@ try {
 
 // Group Username Colour + Group CSS
 try {
-    DB::getInstance()->createQuery("ALTER TABLE `nl2_groups` CHANGE `group_username_css` `group_username_color` VARCHAR(256) CHARACTER SET $db_charset NULL DEFAULT NULL;");
+    DB::getInstance()->query("ALTER TABLE `nl2_groups` CHANGE `group_username_css` `group_username_color` VARCHAR(256) CHARACTER SET $db_charset NULL DEFAULT NULL;");
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
 try {
-    $queries->alterTable('groups', '`group_username_css`', "varchar(256) NULL DEFAULT NULL");
+    $queries->addColumn('groups', '`group_username_css`', "varchar(256) NULL DEFAULT NULL");
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
@@ -159,7 +159,7 @@ try {
 // Multiple webhooks
 try {
     if (!empty($queries->tableExists('hooks'))) {
-        $queries->alterTable('hooks', '`name`', "varchar(128) NULL DEFAULT NULL");
+        $queries->addColumn('hooks', '`name`', "varchar(128) NULL DEFAULT NULL");
     } else {
         $queries->createTable("hooks", " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(128) NOT NULL, `action` int(11) NOT NULL, `url` varchar(2048) NOT NULL, `events` varchar(2048) NOT NULL, PRIMARY KEY (`id`)", "");
     }
@@ -172,7 +172,7 @@ try {
     echo $e->getMessage() . '<br />';
 }
 try {
-    $queries->alterTable('forums', '`hooks`', "varchar(512) NULL DEFAULT NULL");
+    $queries->addColumn('forums', '`hooks`', "varchar(512) NULL DEFAULT NULL");
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
@@ -185,7 +185,7 @@ try {
 
 // Force group TFA
 try {
-    $queries->alterTable('groups', '`force_tfa`', "tinyint(1) NOT NULL DEFAULT '0'");
+    $queries->addColumn('groups', '`force_tfa`', "tinyint(1) NOT NULL DEFAULT '0'");
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
@@ -204,38 +204,38 @@ try {
 
 // Widget Locations
 try {
-    $queries->alterTable('widgets', '`location`', "varchar(5) NOT NULL DEFAULT 'right'");
+    $queries->addColumn('widgets', '`location`', "varchar(5) NOT NULL DEFAULT 'right'");
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
 
 // Ingame group dropdown
 try {
-    $queries->alterTable('query_results', '`groups`', "varchar(256) NOT NULL DEFAULT '[]'");
+    $queries->addColumn('query_results', '`groups`', "varchar(256) NOT NULL DEFAULT '[]'");
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
 
 // Labels
 try {
-    DB::getInstance()->createQuery("ALTER TABLE `nl2_forums_labels` CHANGE `html` `html` VARCHAR(1024) CHARACTER SET $db_charset NULL DEFAULT NULL;");
+    DB::getInstance()->query("ALTER TABLE `nl2_forums_labels` CHANGE `html` `html` VARCHAR(1024) CHARACTER SET $db_charset NULL DEFAULT NULL;");
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
 try {
-    DB::getInstance()->createQuery("ALTER TABLE `nl2_forums_labels` CHANGE `name` `name` VARCHAR(32) CHARACTER SET $db_charset NULL DEFAULT NULL;");
+    DB::getInstance()->query("ALTER TABLE `nl2_forums_labels` CHANGE `name` `name` VARCHAR(32) CHARACTER SET $db_charset NULL DEFAULT NULL;");
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
 try {
-    DB::getInstance()->createQuery("ALTER TABLE `nl2_forums_topic_labels` CHANGE `gids` `gids` VARCHAR(256) CHARACTER SET $db_charset NULL DEFAULT NULL;");
+    DB::getInstance()->query("ALTER TABLE `nl2_forums_topic_labels` CHANGE `gids` `gids` VARCHAR(256) CHARACTER SET $db_charset NULL DEFAULT NULL;");
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
 
 // Convert user groups
 try {
-    $users = DB::getInstance()->selectQuery('SELECT id, group_id, secondary_groups FROM nl2_users')->results();
+    $users = DB::getInstance()->query('SELECT id, group_id, secondary_groups FROM nl2_users')->results();
     $query = 'INSERT INTO nl2_users_groups (user_id, group_id) VALUES ';
     foreach ($users as $item) {
         $inserts = array('(' . Output::getClean($item->id) . ',' . Output::getClean($item->group_id) . '),');
@@ -247,14 +247,14 @@ try {
         }
         $query .= implode('', $inserts);
     }
-    DB::getInstance()->createQuery(rtrim($query, ','));
+    DB::getInstance()->query(rtrim($query, ','));
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
 
 // Delete "group_id" from nl2_users table to prevent issues of it not being set
 try {
-    DB::getInstance()->createQuery('ALTER TABLE `nl2_users` DROP COLUMN `group_id`;');
+    DB::getInstance()->query('ALTER TABLE `nl2_users` DROP COLUMN `group_id`;');
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }

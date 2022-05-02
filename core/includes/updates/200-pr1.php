@@ -3,7 +3,7 @@
 
 // Database changes
 try {
-    $queries->alterTable('custom_pages', 'icon', "varchar(64) DEFAULT NULL");
+    $queries->addColumn('custom_pages', 'icon', "varchar(64) DEFAULT NULL");
 } catch (Exception $e) {
     // Error, may have already been created - continue anyway
 }
@@ -15,7 +15,7 @@ try {
 }
 
 try {
-    $queries->alterTable('forums_topic_labels', 'gids', "varchar(64) DEFAULT NULL");
+    $queries->addColumn('forums_topic_labels', 'gids', "varchar(64) DEFAULT NULL");
 } catch (Exception $e) {
     // Error
 }
@@ -25,7 +25,7 @@ try {
 } catch (Exception $e) {
     // Error
     try {
-        $queries->alterTable('mc_servers', 'banner_background', "varchar(32) NOT NULL DEFAULT 'background.png'");
+        $queries->addColumn('mc_servers', 'banner_background', "varchar(32) NOT NULL DEFAULT 'background.png'");
     } catch (Exception $ex) {
         // Error
     }

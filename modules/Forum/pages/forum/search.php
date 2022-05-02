@@ -62,8 +62,8 @@ if (!isset($_GET['s'])) {
     $cache->setCache($search . '-' . rtrim(implode('-', $user_groups), '-'));
     if (!$cache->isCached('result')) {
         // Execute search
-        $search_topics = DB::getInstance()->selectQuery('SELECT * FROM nl2_topics WHERE topic_title LIKE ?', ['%' . $search . '%'])->results();
-        $search_posts = DB::getInstance()->selectQuery('SELECT * FROM nl2_posts WHERE post_content LIKE ?', ['%' . $search . '%'])->results();
+        $search_topics = DB::getInstance()->query('SELECT * FROM nl2_topics WHERE topic_title LIKE ?', ['%' . $search . '%'])->results();
+        $search_posts = DB::getInstance()->query('SELECT * FROM nl2_posts WHERE post_content LIKE ?', ['%' . $search . '%'])->results();
 
         $search_results = array_merge($search_topics, $search_posts);
 
@@ -98,7 +98,7 @@ if (!isset($_GET['s'])) {
                         }
                     } else {
                         // Topic, get associated post
-                        $post = DB::getInstance()->selectQuery('SELECT * FROM nl2_posts WHERE topic_id = ? ORDER BY post_date ASC LIMIT 1', [$result->id]);
+                        $post = DB::getInstance()->query('SELECT * FROM nl2_posts WHERE topic_id = ? ORDER BY post_date ASC LIMIT 1', [$result->id]);
                         if ($post->count()) {
                             $post = $post->first();
                             if (!isset($results[$post->id]) && $post->deleted == 0) {

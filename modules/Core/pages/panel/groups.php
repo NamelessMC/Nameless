@@ -71,7 +71,7 @@ if (isset($_GET['action'])) {
                                 $default = 1;
                             }
 
-                            $last_group_order = DB::getInstance()->selectQuery('SELECT `order` FROM nl2_groups ORDER BY `order` DESC LIMIT 1')->results();
+                            $last_group_order = DB::getInstance()->query('SELECT `order` FROM nl2_groups ORDER BY `order` DESC LIMIT 1')->results();
                             if (count($last_group_order)) {
                                 $last_group_order = $last_group_order[0]->order;
                             } else {
@@ -486,7 +486,7 @@ if (isset($_GET['action'])) {
             $template_file = 'core/groups_permissions.tpl';
 
             break;
-            
+
         case 'order':
             // Get groups
             if (isset($_POST['groups']) && Token::check($_POST['token'])) {
@@ -513,7 +513,7 @@ if (isset($_GET['action'])) {
             'name' => Output::getClean($group->name),
             'edit_link' => URL::build('/panel/core/groups/', 'action=edit&group=' . urlencode($group->id)),
             'clone_link' => URL::build('/panel/core/groups/', 'action=clone&group=' . urlencode($group->id)),
-            'users' => DB::getInstance()->selectQuery('SELECT COUNT(*) AS c FROM nl2_users_groups WHERE group_id = ?', [$group->id])->first()->c,
+            'users' => DB::getInstance()->query('SELECT COUNT(*) AS c FROM nl2_users_groups WHERE group_id = ?', [$group->id])->first()->c,
             'staff' => $group->staff
         ];
     }

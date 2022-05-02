@@ -27,10 +27,6 @@ class Queries {
         return $this->_db->orderWhere($table, $where, $order, $sort)->results();
     }
 
-    public function getLike(string $table, string $where, string $like): array {
-        return $this->_db->like($table, $where, $like)->results();
-    }
-
     public function update(string $table, int $id, array $fields = []): void {
         if (!$this->_db->update($table, $id, $fields)) {
             throw new RuntimeException('There was a problem performing that action.');
@@ -55,12 +51,6 @@ class Queries {
         }
     }
 
-    public function decrement(string $table, int $id, string $field): void {
-        if (!$this->_db->decrement($table, $id, $field)) {
-            throw new RuntimeException('There was a problem performing that action.');
-        }
-    }
-
     public function createTable(string $table, string $columns, string $other): void {
         if (!$this->_db->createTable($table, $columns, $other)) {
             throw new RuntimeException('There was a problem performing that action.');
@@ -76,8 +66,8 @@ class Queries {
         return $this->_db->lastId();
     }
 
-    public function alterTable(string $table, string $column, string $attributes): void {
-        if (!$this->_db->alterTable($table, $column, $attributes)) {
+    public function addColumn(string $table, string $column, string $attributes): void {
+        if (!$this->_db->addColumn($table, $column, $attributes)) {
             throw new RuntimeException('There was a problem performing that action.');
         }
     }
@@ -151,7 +141,7 @@ class Queries {
         $this->_db->createTable('private_messages_users', " `id` int(11) NOT NULL AUTO_INCREMENT, `pm_id` int(11) NOT NULL, `user_id` int(11) NOT NULL, `read` tinyint(1) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
         $this->_db->createTable('profile_fields', " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(16) NOT NULL, `type` int(11) NOT NULL DEFAULT '1', `public` tinyint(1) NOT NULL DEFAULT '1', `required` tinyint(1) NOT NULL DEFAULT '0', `description` text, `length` int(11) DEFAULT NULL, `forum_posts` tinyint(1) NOT NULL DEFAULT '0', `editable` tinyint(1) NOT NULL DEFAULT '1', PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
         $this->_db->createTable('placeholders_settings', " `server_id` int(4) NOT NULL, `name` varchar(186) NOT NULL, `friendly_name` varchar(256) NULL DEFAULT NULL, `show_on_profile` tinyint(1) NOT NULL DEFAULT '1', `show_on_forum` tinyint(1) NOT NULL DEFAULT '1', `leaderboard` tinyint(1) NOT NULL DEFAULT '0', `leaderboard_title` varchar(36) NULL DEFAULT NULL, `leaderboard_sort` varchar(4) NOT NULL DEFAULT 'DESC'", "ENGINE=$engine DEFAULT CHARSET=$charset");
-        $this->_db->createQuery('ALTER TABLE `nl2_placeholders_settings` ADD PRIMARY KEY(`server_id`, `name`)');
+        $this->_db->query('ALTER TABLE `nl2_placeholders_settings` ADD PRIMARY KEY(`server_id`, `name`)');
         $this->_db->createTable('query_errors', ' `id` int(11) NOT NULL AUTO_INCREMENT, `date` int(11) NOT NULL, `error` varchar(2048) NOT NULL, `ip` varchar(64) NOT NULL, `port` int(6) NOT NULL, PRIMARY KEY (`id`)', "ENGINE=$engine DEFAULT CHARSET=$charset");
         $this->_db->createTable('query_results', ' `id` int(11) NOT NULL AUTO_INCREMENT, `server_id` int(11) NOT NULL, `queried_at` int(11) NOT NULL, `players_online` int(11) NOT NULL, `groups` text, PRIMARY KEY (`id`)', "ENGINE=$engine DEFAULT CHARSET=$charset");
         $this->_db->createTable('reactions', " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(16) NOT NULL, `html` varchar(255) NOT NULL, `enabled` tinyint(1) NOT NULL DEFAULT '1', `type` tinyint(1) NOT NULL DEFAULT '2', PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
@@ -171,7 +161,7 @@ class Queries {
         $this->_db->createTable('users_session', ' `id` int(11) NOT NULL AUTO_INCREMENT, `user_id` int(11) NOT NULL, `hash` varchar(64) NOT NULL, PRIMARY KEY (`id`)', "ENGINE=$engine DEFAULT CHARSET=$charset");
         $this->_db->createTable('users_username_history', " `id` int(11) NOT NULL AUTO_INCREMENT, `user_id` int(11) NOT NULL, `changed_to` varchar(64) NOT NULL, `changed_at` int(11) NOT NULL, `original` tinyint(1) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
         $this->_db->createTable('users_placeholders', ' `server_id` int(4) NOT NULL, `uuid` varbinary(16) NOT NULL, `name` varchar(186) NOT NULL, `value` TEXT NOT NULL, `last_updated` int(11) NOT NULL', "ENGINE=$engine DEFAULT CHARSET=$charset");
-        $this->_db->createQuery('ALTER TABLE `nl2_users_placeholders` ADD PRIMARY KEY(`server_id`, `uuid`, `name`)');
+        $this->_db->query('ALTER TABLE `nl2_users_placeholders` ADD PRIMARY KEY(`server_id`, `uuid`, `name`)');
         $this->_db->createTable('user_profile_wall_posts', ' `id` int(11) NOT NULL AUTO_INCREMENT, `user_id` int(11) NOT NULL, `author_id` int(11) NOT NULL, `time` int(11) NOT NULL, `content` mediumtext NOT NULL, PRIMARY KEY (`id`)', "ENGINE=$engine DEFAULT CHARSET=$charset");
         $this->_db->createTable('user_profile_wall_posts_reactions', ' `id` int(11) NOT NULL AUTO_INCREMENT, `user_id` int(11) NOT NULL, `post_id` int(11) NOT NULL, `reaction_id` int(11) NOT NULL, `time` int(11) NOT NULL, PRIMARY KEY (`id`)', "ENGINE=$engine DEFAULT CHARSET=$charset");
         $this->_db->createTable('user_profile_wall_posts_replies', ' `id` int(11) NOT NULL AUTO_INCREMENT, `post_id` int(11) NOT NULL, `author_id` int(11) NOT NULL, `time` int(11) NOT NULL, `content` mediumtext NOT NULL, PRIMARY KEY (`id`)', "ENGINE=$engine DEFAULT CHARSET=$charset");
@@ -179,17 +169,17 @@ class Queries {
         $this->_db->createTable('widgets', " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(20) NOT NULL, `enabled` tinyint(1) NOT NULL DEFAULT '0', `pages` text, `order` int(11) NOT NULL DEFAULT '10', `location` varchar(5) NOT NULL DEFAULT 'right', PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
 
         // Indexes
-        DB::getInstance()->createQuery('ALTER TABLE `nl2_groups` ADD INDEX `nl2_groups_idx_staff` (`staff`)');
-        DB::getInstance()->createQuery('ALTER TABLE `nl2_posts` ADD INDEX `nl2_posts_idx_topic_id` (`topic_id`)');
-        DB::getInstance()->createQuery('ALTER TABLE `nl2_users` ADD INDEX `nl2_users_idx_id_last_online` (`id`,`last_online`)');
-        DB::getInstance()->createQuery('ALTER TABLE `nl2_users_groups` ADD INDEX `nl2_users_groups_idx_group_id` (`group_id`)');
-        DB::getInstance()->createQuery('ALTER TABLE `nl2_users_groups` ADD INDEX `nl2_users_groups_idx_user_id` (`user_id`)');
-        DB::getInstance()->createQuery('ALTER TABLE `nl2_users_integrations` ADD INDEX `nl2_users_integrations_idx_integration_id` (`integration_id`)');
-        DB::getInstance()->createQuery('ALTER TABLE `nl2_users_integrations` ADD INDEX `nl2_users_integrations_idx_user_id` (`user_id`)');
+        DB::getInstance()->query('ALTER TABLE `nl2_groups` ADD INDEX `nl2_groups_idx_staff` (`staff`)');
+        DB::getInstance()->query('ALTER TABLE `nl2_posts` ADD INDEX `nl2_posts_idx_topic_id` (`topic_id`)');
+        DB::getInstance()->query('ALTER TABLE `nl2_users` ADD INDEX `nl2_users_idx_id_last_online` (`id`,`last_online`)');
+        DB::getInstance()->query('ALTER TABLE `nl2_users_groups` ADD INDEX `nl2_users_groups_idx_group_id` (`group_id`)');
+        DB::getInstance()->query('ALTER TABLE `nl2_users_groups` ADD INDEX `nl2_users_groups_idx_user_id` (`user_id`)');
+        DB::getInstance()->query('ALTER TABLE `nl2_users_integrations` ADD INDEX `nl2_users_integrations_idx_integration_id` (`integration_id`)');
+        DB::getInstance()->query('ALTER TABLE `nl2_users_integrations` ADD INDEX `nl2_users_integrations_idx_user_id` (`user_id`)');
 
         // (Builtin) Group Sync Injectors
-        DB::getInstance()->alterTable('group_sync', 'discord_role_id', "BIGINT NULL DEFAULT NULL");
-        DB::getInstance()->alterTable('group_sync', 'ingame_rank_name', "VARCHAR(64) NULL DEFAULT NULL");
+        DB::getInstance()->addColumn('group_sync', 'discord_role_id', "BIGINT NULL DEFAULT NULL");
+        DB::getInstance()->addColumn('group_sync', 'ingame_rank_name', "VARCHAR(64) NULL DEFAULT NULL");
 
         // Success
         return true;

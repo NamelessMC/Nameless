@@ -1502,14 +1502,14 @@ class Core_Module extends Module {
                     if (defined('MINECRAFT') && MINECRAFT) {
                         $players = [];
 
-                        $version = DB::getInstance()->selectQuery('select version()')->first()->{'version()'};
+                        $version = DB::getInstance()->query('select version()')->first()->{'version()'};
 
                         if (stripos($version, 'mariadb') !== false) {
                             $version = preg_replace('#[^0-9\.]#', '', $version);
 
                             if (version_compare($version, '10.1', '>=')) {
                                 try {
-                                    $players = DB::getInstance()->selectQuery('SET STATEMENT MAX_STATEMENT_TIME = 1000 FOR SELECT ROUND(AVG(players_online)) AS players, DATE(FROM_UNIXTIME(queried_at)) AS `date` FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) IN (SELECT DATE(FROM_UNIXTIME(queried_at)) AS ForDate FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) > NOW() - INTERVAL 1 WEEK GROUP BY DATE(FROM_UNIXTIME(queried_at)) ORDER BY ForDate) GROUP BY DATE(FROM_UNIXTIME(queried_at))')->results();
+                                    $players = DB::getInstance()->query('SET STATEMENT MAX_STATEMENT_TIME = 1000 FOR SELECT ROUND(AVG(players_online)) AS players, DATE(FROM_UNIXTIME(queried_at)) AS `date` FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) IN (SELECT DATE(FROM_UNIXTIME(queried_at)) AS ForDate FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) > NOW() - INTERVAL 1 WEEK GROUP BY DATE(FROM_UNIXTIME(queried_at)) ORDER BY ForDate) GROUP BY DATE(FROM_UNIXTIME(queried_at))')->results();
                                 } catch (Exception $e) {
                                     // Unable to obtain player count
                                     $player_count_error = true;
@@ -1520,14 +1520,14 @@ class Core_Module extends Module {
 
                             if (version_compare($version, '5.7.4', '>=') && version_compare($version, '5.7.8', '<')) {
                                 try {
-                                    $players = DB::getInstance()->selectQuery('SELECT MAX_STATEMENT_TIME = 1000 ROUND(AVG(players_online)) AS players, DATE(FROM_UNIXTIME(queried_at)) AS `date` FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) IN (SELECT DATE(FROM_UNIXTIME(queried_at)) AS ForDate FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) > NOW() - INTERVAL 1 WEEK GROUP BY DATE(FROM_UNIXTIME(queried_at)) ORDER BY ForDate) GROUP BY DATE(FROM_UNIXTIME(queried_at))')->results();
+                                    $players = DB::getInstance()->query('SELECT MAX_STATEMENT_TIME = 1000 ROUND(AVG(players_online)) AS players, DATE(FROM_UNIXTIME(queried_at)) AS `date` FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) IN (SELECT DATE(FROM_UNIXTIME(queried_at)) AS ForDate FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) > NOW() - INTERVAL 1 WEEK GROUP BY DATE(FROM_UNIXTIME(queried_at)) ORDER BY ForDate) GROUP BY DATE(FROM_UNIXTIME(queried_at))')->results();
                                 } catch (Exception $e) {
                                     // Unable to obtain player count
                                     $player_count_error = true;
                                 }
                             } else if (version_compare($version, '5.7.8', '>=')) {
                                 try {
-                                    $players = DB::getInstance()->selectQuery('SELECT MAX_EXECUTION_TIME = 1000 ROUND(AVG(players_online)) AS players, DATE(FROM_UNIXTIME(queried_at)) AS `date` FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) IN (SELECT DATE(FROM_UNIXTIME(queried_at)) AS ForDate FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) > NOW() - INTERVAL 1 WEEK GROUP BY DATE(FROM_UNIXTIME(queried_at)) ORDER BY ForDate) GROUP BY DATE(FROM_UNIXTIME(queried_at))')->results();
+                                    $players = DB::getInstance()->query('SELECT MAX_EXECUTION_TIME = 1000 ROUND(AVG(players_online)) AS players, DATE(FROM_UNIXTIME(queried_at)) AS `date` FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) IN (SELECT DATE(FROM_UNIXTIME(queried_at)) AS ForDate FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) > NOW() - INTERVAL 1 WEEK GROUP BY DATE(FROM_UNIXTIME(queried_at)) ORDER BY ForDate) GROUP BY DATE(FROM_UNIXTIME(queried_at))')->results();
                                 } catch (Exception $e) {
                                     // Unable to obtain player count
                                     $player_count_error = true;

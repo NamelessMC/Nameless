@@ -79,7 +79,7 @@ if (isset($errors) && count($errors)) {
 }
 
 // Get cookie notice
-$cookies = DB::getInstance()->selectQuery('SELECT value FROM nl2_privacy_terms WHERE `name` = ?', ['cookies'])->first()->value;
+$cookies = DB::getInstance()->query('SELECT value FROM nl2_privacy_terms WHERE `name` = ?', ['cookies'])->first()->value;
 
 $smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,

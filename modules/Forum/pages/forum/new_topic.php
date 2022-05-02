@@ -42,7 +42,7 @@ if (!$can_reply) {
     Redirect::to(URL::build('/forum/view/' . urlencode($fid)));
 }
 
-$current_forum = DB::getInstance()->selectQuery('SELECT * FROM nl2_forums WHERE id = ?', [$fid])->first();
+$current_forum = DB::getInstance()->query('SELECT * FROM nl2_forums WHERE id = ?', [$fid])->first();
 $forum_title = Output::getClean($current_forum->forum_title);
 
 // Topic labels

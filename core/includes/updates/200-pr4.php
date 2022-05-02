@@ -51,70 +51,70 @@ try {
 
 // New columns
 try {
-    $queries->alterTable('profile_fields', 'editable', "tinyint(1) NOT NULL DEFAULT '1'");
+    $queries->addColumn('profile_fields', 'editable', "tinyint(1) NOT NULL DEFAULT '1'");
 } catch (Exception $e) {
     // unable to update table
     echo $e->getMessage() . '<br />';
 }
 
 try {
-    $queries->alterTable('forums', 'icon', "varchar(256) DEFAULT NULL");
+    $queries->addColumn('forums', 'icon', "varchar(256) DEFAULT NULL");
 } catch (Exception $e) {
     // unable to update table
     echo $e->getMessage() . '<br />';
 }
 
 try {
-    $queries->alterTable('custom_pages', 'sitemap', "tinyint(1) NOT NULL DEFAULT '0'");
+    $queries->addColumn('custom_pages', 'sitemap', "tinyint(1) NOT NULL DEFAULT '0'");
 } catch (Exception $e) {
     // unable to update table
     echo $e->getMessage() . '<br />';
 }
 
 try {
-    $queries->alterTable('widgets', '`order`', "int(11) NOT NULL DEFAULT '10'");
+    $queries->addColumn('widgets', '`order`', "int(11) NOT NULL DEFAULT '10'");
 } catch (Exception $e) {
     // unable to update table
     echo $e->getMessage() . '<br />';
 }
 
 try {
-    $queries->alterTable('groups', '`order`', "int(11) NOT NULL DEFAULT '1'");
+    $queries->addColumn('groups', '`order`', "int(11) NOT NULL DEFAULT '1'");
 } catch (Exception $e) {
     // unable to update table
     echo $e->getMessage() . '<br />';
 }
 
 try {
-    $queries->alterTable('infractions', 'created', "int(11) DEFAULT NULL");
+    $queries->addColumn('infractions', 'created', "int(11) DEFAULT NULL");
 } catch (Exception $e) {
     // unable to update table
     echo $e->getMessage() . '<br />';
 }
 
 try {
-    $queries->alterTable('reports', 'reported', "int(11) DEFAULT NULL");
+    $queries->addColumn('reports', 'reported', "int(11) DEFAULT NULL");
 } catch (Exception $e) {
     // unable to update table
     echo $e->getMessage() . '<br />';
 }
 
 try {
-    $queries->alterTable('reports', 'updated', "int(11) DEFAULT NULL");
+    $queries->addColumn('reports', 'updated', "int(11) DEFAULT NULL");
 } catch (Exception $e) {
     // unable to update table
     echo $e->getMessage() . '<br />';
 }
 
 try {
-    $queries->alterTable('reports_comments', 'date', "int(11) DEFAULT NULL");
+    $queries->addColumn('reports_comments', 'date', "int(11) DEFAULT NULL");
 } catch (Exception $e) {
     // unable to update table
     echo $e->getMessage() . '<br />';
 }
 
 try {
-    DB::getInstance()->createQuery('ALTER TABLE nl2_alerts MODIFY content_short VARCHAR(128) NOT NULL', array());
+    DB::getInstance()->query('ALTER TABLE nl2_alerts MODIFY content_short VARCHAR(128) NOT NULL', array());
 } catch (Exception $e) {
     // unable to update table
     echo $e->getMessage() . '<br />';

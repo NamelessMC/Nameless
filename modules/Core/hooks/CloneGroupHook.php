@@ -13,7 +13,7 @@ class CloneGroupHook {
 
         // Clone group permissions for custom pages
         $new_group_id = $params['group_id'];
-        $permissions = DB::getInstance()->selectQuery('SELECT * FROM nl2_custom_pages_permissions WHERE group_id = ?', [$params['cloned_group_id']]);
+        $permissions = DB::getInstance()->query('SELECT * FROM nl2_custom_pages_permissions WHERE group_id = ?', [$params['cloned_group_id']]);
         if ($permissions->count()) {
             $permissions = $permissions->results();
 
@@ -25,7 +25,7 @@ class CloneGroupHook {
             $query = 'INSERT INTO nl2_custom_pages_permissions (page_id, group_id, view) VALUES ';
             $query .= implode(',', $inserts);
 
-            DB::getInstance()->createQuery($query);
+            DB::getInstance()->query($query);
         }
     }
 }

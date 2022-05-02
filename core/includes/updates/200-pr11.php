@@ -22,21 +22,21 @@ if (!$db_charset || ($db_charset != 'utf8mb4' && $db_charset != 'latin1')) {
 
 // Change empty values to null
 try {
-    DB::getInstance()->createQuery("ALTER TABLE `nl2_group_sync` CHANGE `ingame_rank_name` `ingame_rank_name` VARCHAR(64) CHARACTER SET $db_charset NULL DEFAULT NULL;");
-    DB::getInstance()->createQuery('UPDATE `nl2_group_sync` SET `ingame_rank_name` = NULL WHERE `ingame_rank_name` = \'\';');
+    DB::getInstance()->query("ALTER TABLE `nl2_group_sync` CHANGE `ingame_rank_name` `ingame_rank_name` VARCHAR(64) CHARACTER SET $db_charset NULL DEFAULT NULL;");
+    DB::getInstance()->query('UPDATE `nl2_group_sync` SET `ingame_rank_name` = NULL WHERE `ingame_rank_name` = \'\';');
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
 
 // Set CustomPages url and title length to 255
 try {
-    DB::getInstance()->createQuery('ALTER TABLE `nl2_custom_pages` MODIFY `url` varchar(255)');
+    DB::getInstance()->query('ALTER TABLE `nl2_custom_pages` MODIFY `url` varchar(255)');
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
 
 try {
-    DB::getInstance()->createQuery('ALTER TABLE `nl2_custom_pages` MODIFY `title` varchar(255)');
+    DB::getInstance()->query('ALTER TABLE `nl2_custom_pages` MODIFY `title` varchar(255)');
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
@@ -57,7 +57,7 @@ try {
 }
 
 try {
-    $recaptcha_type = DB::getInstance()->selectQuery('SELECT id FROM nl2_settings WHERE `name` = ? AND `value` = ?', array('recaptcha_type', 'Recaptcha2'));
+    $recaptcha_type = DB::getInstance()->query('SELECT id FROM nl2_settings WHERE `name` = ? AND `value` = ?', array('recaptcha_type', 'Recaptcha2'));
     if ($recaptcha_type->count()) {
         $cache->setCache('configuration');
         $cache->store('recaptcha_type', 'Recaptcha2');

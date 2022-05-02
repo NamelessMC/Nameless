@@ -3,49 +3,49 @@
 
 // Database changes
 try {
-    $queries->alterTable('groups', 'permissions', "mediumtext");
+    $queries->addColumn('groups', 'permissions', "mediumtext");
 } catch (Exception $e) {
     // Error
 }
 
 try {
-    $queries->alterTable('users', 'profile_views', "int(11) NOT NULL DEFAULT '0'");
+    $queries->addColumn('users', 'profile_views', "int(11) NOT NULL DEFAULT '0'");
 } catch (Exception $e) {
     // Error
 }
 
 try {
-    $queries->alterTable('users', 'private_profile', "tinyint(1) NOT NULL DEFAULT '0'");
+    $queries->addColumn('users', 'private_profile', "tinyint(1) NOT NULL DEFAULT '0'");
 } catch (Exception $e) {
     // Error
 }
 
 try {
-    $queries->alterTable('posts', 'created', "int(11) DEFAULT NULL");
+    $queries->addColumn('posts', 'created', "int(11) DEFAULT NULL");
 } catch (Exception $e) {
     // Error
 }
 
 try {
-    $queries->alterTable('forums', 'redirect_forum', "tinyint(1) NOT NULL DEFAULT '0'");
+    $queries->addColumn('forums', 'redirect_forum', "tinyint(1) NOT NULL DEFAULT '0'");
 } catch (Exception $e) {
     // Error
 }
 
 try {
-    $queries->alterTable('forums', 'redirect_url', "varchar(512) DEFAULT NULL");
+    $queries->addColumn('forums', 'redirect_url', "varchar(512) DEFAULT NULL");
 } catch (Exception $e) {
     // Error
 }
 
 try {
-    $queries->alterTable('query_results', 'extra', "text");
+    $queries->addColumn('query_results', 'extra', "text");
 } catch (Exception $e) {
     // Error
 }
 
 try {
-    $queries->alterTable('groups', 'default_group', "tinyint(1) NOT NULL DEFAULT '0'");
+    $queries->addColumn('groups', 'default_group', "tinyint(1) NOT NULL DEFAULT '0'");
 } catch (Exception $e) {
     // Error
 }

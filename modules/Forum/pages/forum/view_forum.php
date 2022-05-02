@@ -112,13 +112,13 @@ if ($forum_query->redirect_forum == 1) {
     }
 
     if ($forum->canViewOtherTopics($fid, $user_groups)) {
-        $topics = DB::getInstance()->selectQuery('SELECT * FROM nl2_topics WHERE forum_id = ? AND sticky = 0 AND deleted = 0 ORDER BY topic_reply_date DESC', [$fid])->results();
+        $topics = DB::getInstance()->query('SELECT * FROM nl2_topics WHERE forum_id = ? AND sticky = 0 AND deleted = 0 ORDER BY topic_reply_date DESC', [$fid])->results();
     } else {
-        $topics = DB::getInstance()->selectQuery('SELECT * FROM nl2_topics WHERE forum_id = ? AND sticky = 0 AND deleted = 0 AND topic_creator = ? ORDER BY topic_reply_date DESC', [$fid, $user_id])->results();
+        $topics = DB::getInstance()->query('SELECT * FROM nl2_topics WHERE forum_id = ? AND sticky = 0 AND deleted = 0 AND topic_creator = ? ORDER BY topic_reply_date DESC', [$fid, $user_id])->results();
     }
 
     // Get sticky topics
-    $stickies = DB::getInstance()->selectQuery('SELECT * FROM nl2_topics WHERE forum_id = ? AND sticky = 1 AND deleted = 0 ORDER BY topic_reply_date DESC', [$fid])->results();
+    $stickies = DB::getInstance()->query('SELECT * FROM nl2_topics WHERE forum_id = ? AND sticky = 1 AND deleted = 0 ORDER BY topic_reply_date DESC', [$fid])->results();
 
     // Search bar
     $smarty->assign([
@@ -180,7 +180,7 @@ if ($forum_query->redirect_forum == 1) {
     $smarty->assign('FORUM_INDEX_LINK', URL::build('/forum'));
 
     // Any subforums?
-    $subforums = DB::getInstance()->selectQuery('SELECT * FROM nl2_forums WHERE parent = ? ORDER BY forum_order ASC', [$forum_query->id])->results();
+    $subforums = DB::getInstance()->query('SELECT * FROM nl2_forums WHERE parent = ? ORDER BY forum_order ASC', [$forum_query->id])->results();
 
     $subforum_array = [];
 
@@ -190,9 +190,9 @@ if ($forum_query->redirect_forum == 1) {
             // Get number of topics
             if ($forum->forumExist($subforum->id, $user_groups)) {
                 if ($forum->canViewOtherTopics($subforum->id, $user_groups)) {
-                    $latest_post = DB::getInstance()->selectQuery('SELECT * FROM nl2_topics WHERE forum_id = ? AND deleted = 0 ORDER BY topic_reply_date DESC', [$subforum->id])->results();
+                    $latest_post = DB::getInstance()->query('SELECT * FROM nl2_topics WHERE forum_id = ? AND deleted = 0 ORDER BY topic_reply_date DESC', [$subforum->id])->results();
                 } else {
-                    $latest_post = DB::getInstance()->selectQuery('SELECT * FROM nl2_topics WHERE forum_id = ? AND deleted = 0 AND topic_creator = ? ORDER BY topic_reply_date DESC', [$subforum->id, $user_id])->results();
+                    $latest_post = DB::getInstance()->query('SELECT * FROM nl2_topics WHERE forum_id = ? AND deleted = 0 AND topic_creator = ? ORDER BY topic_reply_date DESC', [$subforum->id, $user_id])->results();
                 }
 
                 $subforum_topics = count($latest_post);

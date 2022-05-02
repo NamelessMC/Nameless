@@ -22,7 +22,7 @@ if (!$db_charset || ($db_charset != 'utf8mb4' && $db_charset != 'latin1')) {
 
 // Delete "group_id" from nl2_users table to prevent issues of it not being set
 try {
-    DB::getInstance()->createQuery('ALTER TABLE `nl2_users` DROP COLUMN `group_id`;');
+    DB::getInstance()->query('ALTER TABLE `nl2_users` DROP COLUMN `group_id`;');
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
@@ -30,29 +30,29 @@ try {
 
 // Add order to nl2_mc_servers table
 try {
-    DB::getInstance()->createQuery('ALTER TABLE `nl2_mc_servers` ADD `order` int(11) NOT NULL DEFAULT \'1\'');
+    DB::getInstance()->query('ALTER TABLE `nl2_mc_servers` ADD `order` int(11) NOT NULL DEFAULT \'1\'');
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
 
 // Forum labels update
 try {
-    DB::getInstance()->createQuery('ALTER TABLE `nl2_forums` ADD `default_labels` VARCHAR(128) NULL DEFAULT NULL');
+    DB::getInstance()->query('ALTER TABLE `nl2_forums` ADD `default_labels` VARCHAR(128) NULL DEFAULT NULL');
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
 
 try {
-    DB::getInstance()->createQuery('ALTER TABLE `nl2_topics` ADD `labels` VARCHAR(128) NULL DEFAULT NULL');
+    DB::getInstance()->query('ALTER TABLE `nl2_topics` ADD `labels` VARCHAR(128) NULL DEFAULT NULL');
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
 
 try {
-    $topics = DB::getInstance()->selectQuery('SELECT id, label FROM nl2_topics WHERE label IS NOT NULL')->results();
+    $topics = DB::getInstance()->query('SELECT id, label FROM nl2_topics WHERE label IS NOT NULL')->results();
     if (count($topics)) {
         foreach ($topics as $topic) {
-            DB::getInstance()->createQuery('UPDATE nl2_topics SET labels = ? WHERE id = ?', array($topic->label, $topic->id));
+            DB::getInstance()->query('UPDATE nl2_topics SET labels = ? WHERE id = ?', array($topic->label, $topic->id));
         }
     }
 } catch (Exception $e) {

@@ -447,7 +447,7 @@ if (!isset($_GET['action'])) {
                 }
             }
 
-            $group_permissions = DB::getInstance()->selectQuery('SELECT id, `name`, group_html, subquery.view AS `view` FROM nl2_groups LEFT JOIN (SELECT `view`, group_id FROM nl2_custom_pages_permissions WHERE page_id = ?) AS subquery ON nl2_groups.id = subquery.group_id ORDER BY `order`', [$page->id])->results();
+            $group_permissions = DB::getInstance()->query('SELECT id, `name`, group_html, subquery.view AS `view` FROM nl2_groups LEFT JOIN (SELECT `view`, group_id FROM nl2_custom_pages_permissions WHERE page_id = ?) AS subquery ON nl2_groups.id = subquery.group_id ORDER BY `order`', [$page->id])->results();
             $template_array = [];
             foreach ($group_permissions as $group) {
                 $template_array[Output::getClean($group->id)] = [
@@ -458,7 +458,7 @@ if (!isset($_GET['action'])) {
                 ];
             }
 
-            $guest_permissions = DB::getInstance()->selectQuery('SELECT `view` FROM nl2_custom_pages_permissions WHERE group_id = 0 AND page_id = ?', [$page->id])->results();
+            $guest_permissions = DB::getInstance()->query('SELECT `view` FROM nl2_custom_pages_permissions WHERE group_id = 0 AND page_id = ?', [$page->id])->results();
             $guest_can_view = 0;
             if (count($guest_permissions)) {
                 if ($guest_permissions[0]->view == 1) {

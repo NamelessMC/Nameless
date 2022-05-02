@@ -471,8 +471,8 @@ if (!isset($_GET['action'])) {
             }
 
             // Get permissions
-            $guest_query = DB::getInstance()->selectQuery('SELECT 0 AS id, can_use_template FROM nl2_groups_templates WHERE group_id = 0 AND template_id = ?', [$template_query->id])->results();
-            $group_query = DB::getInstance()->selectQuery('SELECT id, `name`, can_use_template FROM nl2_groups A LEFT JOIN (SELECT group_id, can_use_template FROM nl2_groups_templates WHERE template_id = ?) B ON A.id = B.group_id ORDER BY `order` ASC', [$template_query->id])->results();
+            $guest_query = DB::getInstance()->query('SELECT 0 AS id, can_use_template FROM nl2_groups_templates WHERE group_id = 0 AND template_id = ?', [$template_query->id])->results();
+            $group_query = DB::getInstance()->query('SELECT id, `name`, can_use_template FROM nl2_groups A LEFT JOIN (SELECT group_id, can_use_template FROM nl2_groups_templates WHERE template_id = ?) B ON A.id = B.group_id ORDER BY `order` ASC', [$template_query->id])->results();
 
             $smarty->assign([
                 'EDITING_TEMPLATE' => $language->get('admin', 'editing_template_x', [

@@ -22,14 +22,14 @@ if (!$db_charset || ($db_charset != 'utf8mb4' && $db_charset != 'latin1')) {
 
 // Minecraft servers - show_ip
 try {
-    $queries->alterTable('mc_servers', '`show_ip`', "tinyint(1) NOT NULL DEFAULT '1'");
+    $queries->addColumn('mc_servers', '`show_ip`', "tinyint(1) NOT NULL DEFAULT '1'");
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
 
 // Users - avatar_updated
 try {
-    $queries->alterTable('users', '`avatar_updated`', "int(11) DEFAULT NULL");
+    $queries->addColumn('users', '`avatar_updated`', "int(11) DEFAULT NULL");
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }

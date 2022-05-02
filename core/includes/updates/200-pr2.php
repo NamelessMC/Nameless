@@ -9,25 +9,25 @@ try {
 }
 
 try {
-    $queries->alterTable('custom_pages', 'all_html', "tinyint(1) NOT NULL DEFAULT '0'");
+    $queries->addColumn('custom_pages', 'all_html', "tinyint(1) NOT NULL DEFAULT '0'");
 } catch (Exception $e) {
     // Error, may have already been created - continue anyway
 }
 
 try {
-    $queries->alterTable('infractions', 'revoked', "tinyint(1) NOT NULL DEFAULT '0'");
+    $queries->addColumn('infractions', 'revoked', "tinyint(1) NOT NULL DEFAULT '0'");
 } catch (Exception $e) {
     // Error
 }
 
 try {
-    $queries->alterTable('infractions', 'revoked_by', "int(11) DEFAULT NULL");
+    $queries->addColumn('infractions', 'revoked_by', "int(11) DEFAULT NULL");
 } catch (Exception $e) {
     // Error
 }
 
 try {
-    $queries->alterTable('infractions', 'revoked_at', "int(11) DEFAULT NULL");
+    $queries->addColumn('infractions', 'revoked_at', "int(11) DEFAULT NULL");
 } catch (Exception $e) {
     // Error
 }

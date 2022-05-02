@@ -116,7 +116,7 @@ abstract class WidgetBase {
      * @return object|null Widgets data.
      */
     protected static function getData(string $name): ?object {
-        return DB::getInstance()->selectQuery('SELECT `location`, `order`, `pages` FROM nl2_widgets WHERE `name` = ?', [$name])->first();
+        return DB::getInstance()->query('SELECT `location`, `order`, `pages` FROM nl2_widgets WHERE `name` = ?', [$name])->first();
     }
 
     /**
