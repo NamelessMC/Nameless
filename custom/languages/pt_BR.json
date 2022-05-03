@@ -1144,5 +1144,8 @@
     "admin/can_unlink_integration": "Os usuários podem desvincular a integração?",
     "admin/debug_link_toast": "Link de depuração copiado para sua área de transferência!<br>Veja o log de depuração: {{linkStart}}aqui{{linkEnd}}",
     "admin/integration": "Integração",
-    "admin/integration_sync_not_supported": "A sincronização não é suportada para esta integração!"
+    "admin/integration_sync_not_supported": "A sincronização não é suportada para esta integração!",
+    "admin/cloning_group": "Clonando o grupo {{group}}",
+    "admin/editing_integration_for_x": "Editando a integração {{integration}} para {{user}}",
+    "admin/integration_identifier_invalid": "O identificador da integração {{integration}} é inválido."
 }
