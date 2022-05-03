@@ -936,8 +936,8 @@
     "time/over_x_years": "meer dan {{count}} jaar geleden",
     "user/1_new_alert": "U heeft 1 nieuwe melding",
     "user/1_new_message": "Je hebt {{count}} nieuw bericht",
-    "user/1_reaction": "{{count}} reactie",
-    "user/1_reply": "{{count}} antwoord",
+    "user/1_reaction": "1 reactie",
+    "user/1_reply": "1 antwoord",
     "user/about": "Over",
     "user/accept_terms": "Je moet de voorwaarden accepteren voordat je kunt registreren.",
     "user/account_banned": "Dit account is verbannen.",
@@ -1212,5 +1212,8 @@
     "admin/placeholders_last_updated_time": "Laatst geüpdatet: {{time}}",
     "admin/placeholders_player": "Speler",
     "admin/placeholders_score": "Score",
-    "general/or": "OF"
+    "general/or": "OF",
+    "user/nickname_minimum_3": "Je bijnaam moet minimaal 3 karakters lang zijn.",
+    "user/nickname_required": "Een bijnaam is vereist.",
+    "user/nickname_maximum_20": "Je bijnaam mag maximaal 20 karakters lang zijn."
 }
