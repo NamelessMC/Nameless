@@ -38,8 +38,8 @@ class DiscordGroupSyncInjector implements GroupSyncInjector {
 
         foreach (Discord::getRoles() as $role) {
             $roles[] = [
-                'id' => $role->id,
-                'name' => Output::getClean($role->name),
+                'id' => $role['id'],
+                'name' => Output::getClean($role['name']),
             ];
         }
 
