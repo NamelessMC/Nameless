@@ -1,0 +1,33 @@
+<?php
+
+class MinecraftPlaceholderSeeder extends Seeder {
+
+    public array $tables = [
+        'nl2_placeholders_settings',
+    ];
+
+    protected function run(DB_Custom $db, \Faker\Generator $faker): void {
+        $db->createQuery("UPDATE nl2_settings SET value = ? WHERE name = 'placeholders'", [1]);
+        $servers = $db->get('mc_servers', ['id', '<>', 0])->results();
+
+        $this->times(5, function() use ($db, $faker, $servers) {
+            $name = str_replace(' ', '_', $faker->words(2, true));
+            $friendly_name = $faker->boolean
+                ? $name
+                : ($faker->boolean
+                    ? str_replace('_', ' ', $name)
+                    : $faker->words(2, true));
+
+            $db->insert('placeholders_settings', [
+                'server_id' => $faker->randomElement($servers)->id,
+                'name' => $name,
+                'friendly_name' => $friendly_name,
+                'show_on_profile' => $faker->boolean(75) ? 1 : 0,
+                'show_on_forum' => $faker->boolean(75) ? 1 : 0,
+                'leaderboard' => 1,
+                'leaderboard_title' => $friendly_name . ' leaderboard',
+                'leaderboard_sort' => $faker->randomElement(['DESC', 'ASC']),
+            ]);
+        });
+    }
+}

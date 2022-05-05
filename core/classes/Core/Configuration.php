@@ -9,6 +9,8 @@
  */
 class Configuration {
 
+    private static Configuration $_instance;
+
     private DB $_db;
 
     private Cache $_cache;
@@ -16,6 +18,12 @@ class Configuration {
     public function __construct(Cache $cache) {
         $this->_db = DB::getInstance();
         $this->_cache = $cache;
+
+        self::$_instance = $this;
+    }
+
+    public static function getInstance(): Configuration {
+        return self::$_instance;
     }
 
     /**

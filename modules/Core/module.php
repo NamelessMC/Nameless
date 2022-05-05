@@ -831,9 +831,10 @@ class Core_Module extends Module {
         }
 
         $leaderboard_placeholders = Placeholders::getInstance()->getLeaderboardPlaceholders();
+        $placeholders_enabled = Configuration::getInstance()->get('Core', 'placeholders');
 
         // Only add leaderboard link if there is at least one enabled placeholder
-        if (count($leaderboard_placeholders)) {
+        if ($placeholders_enabled == 1 && count($leaderboard_placeholders)) {
 
             $cache->setCache('navbar_order');
             if (!$cache->isCached('leaderboards_order')) {

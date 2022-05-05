@@ -16,6 +16,13 @@ if (!count($leaderboard_placeholders)) {
     die();
 }
 
+// Placeholders enabled?
+$placeholders_enabled = $configuration->get('Core', 'placeholders');
+if ($placeholders_enabled != 1) {
+    require_once(ROOT_PATH . '/404.php');
+    die();
+}
+
 const PAGE = 'leaderboards';
 $page_title = $language->get('general', 'leaderboards');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
