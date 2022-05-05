@@ -44,9 +44,7 @@ class HttpClient {
             $response = $guzzleClient->get($url);
         } catch (GuzzleException $exception) {
             $error = $exception->getMessage();
-            if (!defined('SEEDING')) {
-                Log::getInstance()->log(Log::Action('misc/curl_error'), $exception->getMessage());
-            }
+            Log::getInstance()->log(Log::Action('misc/curl_error'), $exception->getMessage());
         }
 
         return new HttpClient(
