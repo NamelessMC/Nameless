@@ -670,7 +670,7 @@
     "general/content": "Inhalt",
     "general/cookie_notice": "Diese Website verwendet Cookies, um Ihre Browser-Erfahrung zu verbessern. Mit der Registrierung auf unserer Website oder dem Schließen dieses Hinweises stimmen Sie der Verwendung zu.",
     "general/copied": "In Zwischenablage kopiert!",
-    "general/currently_1_player_online": "Derzeit sind {{count}} Spieler online.",
+    "general/currently_1_player_online": "Derzeit ist ein Spieler online.",
     "general/currently_x_players_online": "Derzeit sind {{count}} Spieler online.",
     "general/date": "Datum",
     "general/delete": "Löschen",
