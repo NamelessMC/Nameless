@@ -7,7 +7,7 @@ class MinecraftServerSeeder extends Seeder {
     ];
 
     // Disclaimer: These are randomly picked servers, not endorsements/opinionated.
-    private array $mc_server_ips = [
+    private array $_mc_server_ips = [
         'hypixel.net',
         'us.mineplex.com',
         'brawl.com',
@@ -20,7 +20,7 @@ class MinecraftServerSeeder extends Seeder {
 
         $id = 1;
         $this->times(5, function () use ($db, $faker, $default_id, &$id) {
-            $server = $faker->unique()->randomElement($this->mc_server_ips);
+            $server = $faker->unique()->randomElement($this->_mc_server_ips);
             $db->insert('mc_servers', [
                 'ip' => $server,
                 'query_ip' => $server,

@@ -12,11 +12,15 @@ class MinecraftPlaceholderSeeder extends Seeder {
 
         $this->times(5, function() use ($db, $faker, $servers) {
             $name = str_replace(' ', '_', $faker->words(2, true));
-            $friendly_name = $faker->boolean
-                ? $name
-                : ($faker->boolean
-                    ? str_replace('_', ' ', $name)
-                    : $faker->words(2, true));
+
+            if ($faker->boolean) {
+                $friendly_name = $name;
+                /** @phpstan-ignore-next-line Bad */
+            } else if ($faker->boolean) {
+                $friendly_name = str_replace('_', ' ', $name);
+            } else {
+                $friendly_name = $faker->words(2, true);
+            }
 
             $db->insert('placeholders_settings', [
                 'server_id' => $faker->randomElement($servers)->id,
