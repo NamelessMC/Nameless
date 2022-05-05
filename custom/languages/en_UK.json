@@ -751,7 +751,7 @@
     "general\/content": "Content",
     "general\/cookie_notice": "This website uses cookies to enhance your browsing experience. By registering on our website or closing this notice you agree with their use.",
     "general\/copied": "Copied!",
-    "general\/currently_1_player_online": "There is currently {{count}} player online.",
+    "general\/currently_1_player_online": "There is currently 1 player online.",
     "general\/currently_x_players_online": "There are currently {{count}} players online.",
     "general\/date": "Date",
     "general\/delete": "Delete",

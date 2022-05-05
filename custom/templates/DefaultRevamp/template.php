@@ -108,6 +108,8 @@ class DefaultRevamp_Template extends TemplateBase {
             'newAlertsX' => $this->_language->get('user', 'x_new_alerts'),
             'bungeeInstance' => $this->_language->get('general', 'bungee_instance'),
             'andMoreX' => $this->_language->get('general', 'and_x_more'),
+            'onePlayerOnline' => $this->_language->get('general', 'currently_1_player_online'),
+            'xPlayersOnline' => $this->_language->get('general', 'currently_x_players_online'),
             'noPlayersOnline' => $this->_language->get('general', 'no_players_online'),
             'offline' => $this->_language->get('general', 'offline'),
             'confirmDelete' => $this->_language->get('general', 'confirm_deletion'),
