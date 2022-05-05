@@ -111,18 +111,18 @@ if (Input::exists()) {
 if ($login_method == 'email') {
     $smarty->assign([
         'EMAIL' => $language->get('user', 'email'),
-        'EMAIL_VALUE' => Input::get('email'),
+        'EMAIL_VALUE' => Output::getClean(Input::get('email')),
     ]);
 } else {
     if ($login_method == 'email_or_username') {
         $smarty->assign([
             'USERNAME' => $language->get('user', 'email_or_username'),
-            'USERNAME_VALUE' => Input::get('username'),
+            'USERNAME_VALUE' => Output::getClean(Input::get('username')),
         ]);
     } else {
         $smarty->assign([
             'USERNAME' => $language->get('user', 'username'),
-            'USERNAME_VALUE' => Input::get('username'),
+            'USERNAME_VALUE' => Output::getClean(Input::get('username')),
         ]);
     }
 }
