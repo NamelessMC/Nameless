@@ -64,7 +64,7 @@
                                                         <select name="existing[{$group_sync['id']}][{$column_name}]" class="form-control" id="input_{$column_name}">
                                                         <option value="0" {if {$group_sync[$column_name]} eq null} selected {/if}>{$NONE} ({$DISABLED})</option>
                                                             {foreach from=$injector->getSelectionOptions() item=group}
-                                                                <option value="{$group.id}" {if $group_sync[$column_name] eq $group.id} selected {/if}>{$group.name}</option>
+                                                                <option value="{$group['id']}" {if $group_sync[$column_name] eq $group['id']} selected {/if}>{$group['name']}</option>
                                                             {/foreach}
                                                         </select>
                                                     {else}
@@ -104,7 +104,7 @@
                                                         <option value="0">{$NONE} ({$DISABLED})</option>
                                                     {/if}
                                                     {foreach from=$injector->getSelectionOptions() item=group}
-                                                        <option value="{$group.id}">{$group.name}</option>
+                                                        <option value="{$group['id']}">{$group['name']}</option>
                                                     {/foreach}
                                                 </select>
                                             {else}
