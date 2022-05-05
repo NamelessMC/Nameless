@@ -702,7 +702,7 @@
     "general/content": "Contenido",
     "general/cookie_notice": "Este sitio web utiliza cookies para mejorar su experiencia de navegación. Al registrarse en nuestro sitio web o cerrar este aviso, usted acepta su uso.",
     "general/copied": "¡Copiada!",
-    "general/currently_1_player_online": "Actualmente hay {{count}} jugadores en línea.",
+    "general/currently_1_player_online": "Actualmente hay 1 jugador en línea.",
     "general/currently_x_players_online": "Actualmente hay {{count}} jugadores en línea.",
     "general/date": "Fecha",
     "general/delete": "Borrar",
