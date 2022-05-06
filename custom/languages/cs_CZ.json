@@ -700,7 +700,7 @@
     "general/content": "Obsah",
     "general/cookie_notice": "Tento web používá cookies pro zlepšení uživatelského zážitku. Registrací nebo zavřením tohoto oznámení souhlasíte s jejich použitím.",
     "general/copied": "Zkopírováno!",
-    "general/currently_1_player_online": "Na serveru hraje {{count}} hráč.",
+    "general/currently_1_player_online": "Na serveru hraje 1 hráč.",
     "general/currently_x_players_online": "Na serveru hraje {{count}} hráčů.",
     "general/date": "Datum",
     "general/delete": "Smazat",
