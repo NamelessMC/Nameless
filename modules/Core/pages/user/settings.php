@@ -74,7 +74,7 @@ if (isset($_GET['do'])) {
             if (Input::exists()) {
                 if (Token::check()) {
                     if (isset($_POST['tfa_code'])) {
-                        if ($tfa->verifyCode($user->data()->tfa_secret, $_POST['tfa_code']) === true) {
+                        if ($tfa->verifyCode($user->data()->tfa_secret, str_replace(' ', '', $_POST['tfa_code'])) === true) {
                             $user->update([
                                 'tfa_complete' => 1,
                                 'tfa_enabled' => 1,
