@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.0.0-pr13
  *
  *  License: MIT
  *
@@ -44,74 +44,6 @@ if ($cache->isCached('navbarColour')) {
     $cache->store('navbarColour', $navbarColour);
 }
 
-$nav_colours = [
-    0 => [
-        'value' => 'white',
-        'name' => 'Default',
-        'selected' => ($navbarColour == 'white')
-    ],
-    1 => [
-        'value' => 'red',
-        'name' => 'Red',
-        'selected' => ($navbarColour == 'red')
-    ],
-    2 => [
-        'value' => 'orange',
-        'name' => 'Orange',
-        'selected' => ($navbarColour == 'orange')
-    ],
-    3 => [
-        'value' => 'yellow',
-        'name' => 'Yellow',
-        'selected' => ($navbarColour == 'yellow')
-    ],
-    4 => [
-        'value' => 'olive',
-        'name' => 'Olive',
-        'selected' => ($navbarColour == 'olive')
-    ],
-    5 => [
-        'value' => 'green',
-        'name' => 'Green',
-        'selected' => ($navbarColour == 'green')
-    ],
-    6 => [
-        'value' => 'teal',
-        'name' => 'Teal',
-        'selected' => ($navbarColour == 'teal')
-    ],
-    7 => [
-        'value' => 'blue',
-        'name' => 'Blue',
-        'selected' => ($navbarColour == 'blue')
-    ],
-    8 => [
-        'value' => 'violet',
-        'name' => 'Violet',
-        'selected' => ($navbarColour == 'violet')
-    ],
-    9 => [
-        'value' => 'purple',
-        'name' => 'Purple',
-        'selected' => ($navbarColour == 'purple')
-    ],
-    10 => [
-        'value' => 'pink',
-        'name' => 'Pink',
-        'selected' => ($navbarColour == 'pink')
-    ],
-    11 => [
-        'value' => 'brown',
-        'name' => 'Brown',
-        'selected' => ($navbarColour == 'brown')
-    ],
-    12 => [
-        'value' => 'grey',
-        'name' => 'Grey',
-        'selected' => ($navbarColour == 'grey')
-    ],
-];
-
 $smarty->assign([
     'SUBMIT' => $language->get('general', 'submit'),
     'ENABLED' => $language->get('admin', 'enabled'),
@@ -119,6 +51,19 @@ $smarty->assign([
     'DARK_MODE' => $language->get('admin', 'dark_mode'),
     'DARK_MODE_VALUE' => $darkMode,
     'NAVBAR_COLOUR' => $language->get('admin', 'navbar_colour'),
-    'NAVBAR_COLOURS' => $nav_colours,
+    'NAVBAR_COLOUR_VALUE' => $navbarColour,
+    'NAVBAR_COLOUR_DEFAULT' => $language->get('admin', 'navbar_colour_default'),
+    'NAVBAR_COLOUR_RED' => $language->get('admin', 'navbar_colour_red'),
+    'NAVBAR_COLOUR_ORANGE' => $language->get('admin', 'navbar_colour_orange'),
+    'NAVBAR_COLOUR_YELLOW' => $language->get('admin', 'navbar_colour_yellow'),
+    'NAVBAR_COLOUR_OLIVE' => $language->get('admin', 'navbar_colour_olive'),
+    'NAVBAR_COLOUR_GREEN' => $language->get('admin', 'navbar_colour_green'),
+    'NAVBAR_COLOUR_TEAL' => $language->get('admin', 'navbar_colour_teal'),
+    'NAVBAR_COLOUR_BLUE' => $language->get('admin', 'navbar_colour_blue'),
+    'NAVBAR_COLOUR_VIOLET' => $language->get('admin', 'navbar_colour_violet'),
+    'NAVBAR_COLOUR_PURPLE' => $language->get('admin', 'navbar_colour_purple'),
+    'NAVBAR_COLOUR_PINK' => $language->get('admin', 'navbar_colour_pink'),
+    'NAVBAR_COLOUR_BROWN' => $language->get('admin', 'navbar_colour_brown'),
+    'NAVBAR_COLOUR_GREY' => $language->get('admin', 'navbar_colour_grey'),
     'SETTINGS_TEMPLATE' => ROOT_PATH . '/custom/templates/DefaultRevamp/template_settings/settings.tpl'
 ]);
