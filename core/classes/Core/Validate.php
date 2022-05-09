@@ -306,12 +306,16 @@ class Validate {
                         break;
 
                     case self::NOT_START_WITH:
-                        if (str_starts_with($value, $rule_value)) {
-                            $validator->addError([
-                                'field' => $item,
-                                'rule' => self::NOT_START_WITH,
-                                'fallback' => "$item must not start with $rule_value."
-                            ]);
+                        $denied_values = is_string($rule_value) ? [$rule_value] : $rule_value;
+                        foreach ($denied_values as $denied_value) {
+                            if (str_starts_with($value, $denied_value)) {
+                                $validator->addError([
+                                    'field' => $item,
+                                    'rule' => self::NOT_START_WITH,
+                                    'fallback' => "$item must not start with $denied_value."
+                                ]);
+                            }
+                            break;
                         }
                         break;
                 }
