@@ -56,8 +56,8 @@ services:
             NAMELESS_ADMIN_EMAIL: admin@namelessmc.com
             NAMELESS_ADMIN_PASSWORD: password
             NAMELESS_DEBUGGING: 'enabled'
-            NAMELESS_AUTO_INSTALL: 'yes please auto install my namelessmc'
-            NAMELESS_COMPOSER_INSTALL: 'yes please always run composer install'
+            NAMELESS_AUTO_INSTALL: 'yes please'
+            NAMELESS_ALWAYS_INSTALL_DEPENDENCIES: 'yes please'
             NAMELESS_DISABLE_EMAIL_VERIFICATION: 1
 
     db:
