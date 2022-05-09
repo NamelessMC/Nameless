@@ -116,7 +116,7 @@ class AssetTree {
         ],
         self::CHART_JS => [
             'js' => [
-                'vendor/chart.js/dist/chart.min.js',
+                'vendor/chart.js/dist/Chart.min.js',
             ],
         ],
         self::CODEMIRROR => [
