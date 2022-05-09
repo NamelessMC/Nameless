@@ -28,7 +28,7 @@ if (!isset($_GET['action'])) {
     foreach ($announcements->getAll() as $announcement) {
         $announcements_list[] = [
             $announcement,
-            'pages' => $announcements->getPagesCsv($announcement->pages)
+            'pages' => Announcements::getPagesCsv($announcement->pages)
         ];
     }
 
@@ -145,12 +145,11 @@ if (!isset($_GET['action'])) {
             }
 
             // Does the announcement exist?
-            $announcement = $queries->getWhere('custom_announcements', ['id', '=', $_GET['id']]);
-            if (!count($announcement)) {
+            $announcement = Announcement::find($_GET['id']);
+            if (!$announcement) {
                 // No, it doesn't exist
                 Redirect::to(URL::build('/panel/core/announcements'));
             }
-            $announcement = $announcement[0];
 
             if (Input::exists()) {
                 $errors = [];
@@ -322,7 +321,7 @@ $smarty->assign([
     'BACKGROUND_COLOUR' => $language->get('admin', 'background_colour'),
     'ICON' => $language->get('admin', 'icon'),
     'CLOSABLE' => $language->get('admin', 'closable'),
-    'PAGES_ARRAY' => $announcements->getPages($pages),
+    'PAGES_ARRAY' => Announcements::getPages($pages),
     'INFO' => $language->get('general', 'info'),
     'GUESTS' => $language->get('user', 'guests'),
     'NAME' => $language->get('admin', 'name'),
