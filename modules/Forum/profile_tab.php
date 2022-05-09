@@ -31,11 +31,7 @@ if (!count($latest_posts)) {
     // Check permissions
     $n = 0;
 
-    if (!$user->isLoggedIn()) {
-        $groups = [0];
-    } else {
-        $groups = $user->getAllGroupIds();
-    }
+    $groups = $user->getAllGroupIds();
 
     // Array to assign posts to
     $posts = [];

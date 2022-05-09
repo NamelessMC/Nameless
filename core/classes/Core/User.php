@@ -434,12 +434,12 @@ class User {
     }
 
     /**
-     * Get all of a user's groups id.
+     * Get all of a user's groups id. Logged out/non-existent users will return just `0`.
      *
      * @return array Array of all their group IDs.
      */
     public function getAllGroupIds(): array {
-        if (!$this->exists()) {
+        if (!$this->isLoggedIn() || !$this->exists()) {
             return [0 => 0];
         }
 

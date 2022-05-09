@@ -330,10 +330,7 @@ foreach ($groups as $group) {
 
 $signature = Output::getPurified($user_query->signature);
 
-$user_groups = [];
-foreach ($view_user->getAllGroupIds() as $group_id) {
-    $user_groups[$group_id] = $group_id;
-}
+$user_groups = $view_user->getAllGroupIds();
 
 $smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,
