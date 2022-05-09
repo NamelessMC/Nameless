@@ -375,16 +375,10 @@ $smarty->assign([
     'TEMPLATES' => $templates
 ]);
 
-$template->addCSSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.css' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
+$template->assets()->include([
+    AssetTree::TINYMCE,
 ]);
 
-$template->addJSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
-]);
 $template->addJSScript(Input::createTinyEditor($language, 'InputSignature'));
 
 $template->onPageLoad();

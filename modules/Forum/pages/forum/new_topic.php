@@ -233,11 +233,6 @@ if (Input::exists()) {
 // Generate a token
 $token = Token::get();
 
-$template->addCSSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism_' . (DARK_MODE ? 'dark' : 'light_default') . '.css' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
-]);
-
 // Generate content for template
 if (isset($error)) {
     $smarty->assign('ERROR', $error);
@@ -281,10 +276,8 @@ if ($content) {
     $content = EventHandler::executeEvent('renderPostEdit', ['content' => $content])['content'];
 }
 
-$template->addJSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
+$template->assets()->include([
+    AssetTree::TINYMCE,
 ]);
 
 $template->addJSScript(Input::createTinyEditor($language, 'reply', $content, true));

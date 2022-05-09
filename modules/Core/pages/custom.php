@@ -62,6 +62,13 @@ define('CUSTOM_PAGE', $custom_page->title);
 $page_title = Output::getClean($custom_page->title);
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
+$template->assets()->include([
+    DARK_MODE
+        ? AssetTree::PRISM_DARK
+        : AssetTree::PRISM_LIGHT,
+    AssetTree::TINYMCE_SPOILER,
+]);
+
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 

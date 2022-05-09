@@ -427,21 +427,8 @@ if (isset($_GET['do'])) {
         }
     }
 
-    $template->addCSSFiles([
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.standalone.min.css' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.css' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
-    ]);
-
-    $template->addJSFiles([
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js' => []
-    ]);
-
-    $template->addJSScript('$(\'.datepicker\').datepicker();');
-    $template->addJSFiles([
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
+    $template->assets()->include([
+        AssetTree::TINYMCE,
     ]);
 
     $template->addJSScript(Input::createTinyEditor($language, 'inputSignature'));

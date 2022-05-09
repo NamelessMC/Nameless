@@ -36,17 +36,18 @@ class DefaultRevamp_Template extends TemplateBase {
 
         $this->_settings = ROOT_PATH . '/custom/templates/DefaultRevamp/template_settings/settings.php';
 
+        $this->assets()->include([
+            AssetTree::FONT_AWESOME,
+            AssetTree::JQUERY,
+            AssetTree::JQUERY_COOKIE,
+        ]);
+
         $this->addCSSFiles([
             $template['path'] . 'css/fomantic.min.css' => [],
-            $template['path'] . 'css/toastr.min.css' => [],
-            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/css/font-awesome.min.css' => [],
         ]);
 
         $this->addJSFiles([
-            $template['path'] . 'js/jquery.min.js' => [],
-            $template['path'] . 'js/jquery.cookie.js' => [],
             $template['path'] . 'js/fomantic.min.js' => [],
-            $template['path'] . 'js/toastr.min.js' => [],
         ]);
 
         $smarty->assign('TEMPLATE', $template);
@@ -120,9 +121,9 @@ class DefaultRevamp_Template extends TemplateBase {
             'route' => $route
         ];
 
-        if (PAGE == 'profile' || strpos($route, '/forum/topic/') !== false) {
-            $this->addJSFiles([
-                $this->_template['path'] . 'js/jquery-ui.min.js' => []
+        if (strpos($route, '/forum/topic/') !== false || PAGE == 'profile') {
+            $this->assets()->include([
+                AssetTree::JQUERY_UI,
             ]);
         }
 
