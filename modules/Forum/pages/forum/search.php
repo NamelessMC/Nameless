@@ -39,7 +39,7 @@ if (!isset($_GET['s'])) {
                 Redirect::to(URL::build('/forum/search/', 's=' . urlencode($search) . '&p=1'));
             }
 
-            $error = $forum_language->get('forum', 'invalid_search_query');
+            $error = $forum_language->get('forum', 'invalid_search_query', ['min' => 3, 'max' => 128]);
         } else {
             $error = $language->get('general', 'invalid_token');
         }
