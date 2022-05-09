@@ -8,3 +8,4 @@
 .valet-env.php
 /vendor
 /uploads/avatars/**
+/node_modules/
