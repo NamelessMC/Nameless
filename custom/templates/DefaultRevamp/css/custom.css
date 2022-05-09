@@ -869,7 +869,7 @@ select {
  *  [ DARK MODE ]
  */
 
-body.dark, body.dark.pushable>.pusher, body.dark .ui.pointing.dropdown>.menu:after {
+body.dark, body.dark>.pusher, body.dark .ui.pointing.dropdown>.menu:after {
     background: #222;
 }
 
