@@ -22,13 +22,12 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Since emails are sent in the user's language, they need to be able to pick which language's messages to edit
 if (Session::exists('editing_language')) {
-    $lang_name = Session::get('editing_language');
+    $lang_short_code = Session::get('editing_language');
 } else {
     $default_lang = $queries->getWhere('languages', ['is_default', '=', 1]);
-    $default_lang = $default_lang[0]->name;
-    $lang_name = $default_lang;
+    $lang_short_code = $default_lang[0]->short_code;
 }
-$editing_language = new Language(null, $lang_name);
+$editing_language = new Language('core', $lang_short_code);
 $emails = [
     ['register', $language->get('admin', 'registration'), ['subject' => $editing_language->get('emails', 'register_subject'), 'message' => $editing_language->get('emails', 'register_message')]],
     ['change_password', $language->get('user', 'change_password'), ['subject' => str_replace('?', '', $editing_language->get('emails', 'change_password_subject')), 'message' => $editing_language->get('emails', 'change_password_message')]],
@@ -50,7 +49,8 @@ if (isset($_GET['action'])) {
             $sent = Email::send(
                 ['email' => Output::getClean($user->data()->email), 'name' => Output::getClean($user->data()->nickname)],
                 SITE_NAME . ' - Test Email',
-                SITE_NAME . ' - Test email successful!'
+                SITE_NAME . ' - Test email successful!',
+                Email::getReplyTo()
             );
 
             if (isset($sent['error'])) {
@@ -62,7 +62,9 @@ if (isset($_GET['action'])) {
             }
         } else {
             $smarty->assign([
-                'SEND_TEST_EMAIL_INFO' => str_replace('{x}', Output::getClean($user->data()->email), $language->get('admin', 'send_test_email_info')),
+                'SEND_TEST_EMAIL_INFO' => $language->get('admin', 'send_test_email_info', [
+                    'email' => Util::bold(Output::getClean($user->data()->email))
+                ]),
                 'INFO' => $language->get('general', 'info'),
                 'SEND' => $language->get('admin', 'send'),
                 'SEND_LINK' => URL::build('/panel/core/emails/', 'action=test&do=send')
@@ -77,8 +79,8 @@ if (isset($_GET['action'])) {
 
             $languages = $queries->getWhere('languages', ['id', '<>', 0]);
             foreach ($languages as $language_db) {
-                $lang = new Language(null, $language_db->name);
-                $lang_file = ($lang->getActiveLanguageDirectory() . DIRECTORY_SEPARATOR . 'emails.php');
+                $lang = new Language('core', $language_db->short_code);
+                $lang_file = $lang->getActiveLanguageFile();
                 if (file_exists($lang_file) && is_writable($lang_file)) {
                     $available_languages[] = $language_db;
                 }
@@ -111,8 +113,7 @@ if (isset($_GET['action'])) {
             $template_file = 'core/emails_edit_messages.tpl';
         } else {
             if ($_GET['action'] == 'preview') {
-
-                $viewing_language = new Language(null, Session::get('editing_language'));
+                $viewing_language = new Language('core', Session::get('editing_language'));
 
                 $smarty->assign([
                     'USER_NAME' => $user->data()->username,
@@ -133,7 +134,7 @@ if (isset($_GET['action'])) {
 
             // Handle email message updating
             if (isset($_POST['greeting'])) {
-                $editing_lang = new Language(null, $lang_name);
+                $editing_lang = new Language('core', $lang_short_code);
 
                 Session::put('editing_language', Input::get('editing_language'));
 
@@ -144,7 +145,8 @@ if (isset($_GET['action'])) {
                     $editing_lang->set('emails', $email[0] . '_subject', Output::getClean(Input::get($email[0] . '_subject')));
                     $editing_lang->set('emails', $email[0] . '_message', Output::getClean(Input::get($email[0] . '_message')));
                 }
-
+                Session::flash('emails_success', $language->get('admin', 'email_settings_updated_successfully'));
+                Redirect::to(URL::build('/panel/core/emails', 'action=edit_messages'));
             } else {
 
                 if (isset($_POST['enable_mailer']) && $_POST['enable_mailer'] == 1) {
@@ -266,7 +268,10 @@ if (isset($_GET['action'])) {
         'OUTGOING_EMAIL' => $language->get('admin', 'outgoing_email'),
         'OUTGOING_EMAIL_INFO' => $language->get('admin', 'outgoing_email_info'),
         'OUTGOING_EMAIL_VALUE' => Output::getClean($outgoing_email),
-        'MAILER_SETTINGS_INFO' => $language->get('admin', 'mailer_settings_info'),
+        'MAILER_SETTINGS_INFO' => $language->get('admin', 'mailer_settings_info', [
+            'docLinkStart' => '<a href="https://docs.namelessmc.com/en/smtp" target="_blank">',
+            'docLinkEnd' => '</a>'
+        ]),
         'USERNAME' => $language->get('user', 'username'),
         'USERNAME_VALUE' => (!empty($GLOBALS['email']['username']) ? Output::getClean($GLOBALS['email']['username']) : ''),
         'PASSWORD' => $language->get('user', 'password'),
@@ -314,9 +319,6 @@ $smarty->assign([
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit')
 ]);
-
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 

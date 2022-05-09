@@ -11,14 +11,14 @@ $sortColumns = ['username' => 'username', 'nickname' => 'nickname', 'joined' => 
 $db = DB::getInstance();
 
 $total = $db->selectQuery('SELECT COUNT(*) as `total` FROM nl2_users', [])->first()->total;
-$query = 'SELECT u.id, u.username, u.nickname, u.joined, u.uuid, u.gravatar, u.email, u.has_avatar, u.avatar_updated FROM nl2_users u';
+$query = 'SELECT u.id, u.username, u.nickname, u.joined, u.gravatar, u.email, u.has_avatar, u.avatar_updated, IFNULL(nl2_users_integrations.identifier, \'none\') as uuid FROM nl2_users u LEFT JOIN nl2_users_integrations ON user_id=u.id AND integration_id=1';
 $where = '';
 $order = '';
 $limit = '';
 $params = [];
 
 if (isset($_GET['search']) && $_GET['search']['value'] != '') {
-    $where .= ' WHERE username LIKE ? OR nickname LIKE ? OR email LIKE ?';
+    $where .= ' WHERE u.username LIKE ? OR u.nickname LIKE ? OR u.email LIKE ?';
     array_push($params, '%' . $_GET['search']['value'] . '%', '%' . $_GET['search']['value'] . '%', '%' . $_GET['search']['value'] . '%');
 }
 
@@ -57,7 +57,7 @@ if (isset($_GET['start']) && $_GET['length'] != -1) {
 }
 
 if (strlen($where) > 0) {
-    $totalFiltered = $db->selectQuery('SELECT COUNT(*) as `total` FROM nl2_users' . $where, $params)->first()->total;
+    $totalFiltered = $db->selectQuery('SELECT COUNT(*) as `total` FROM nl2_users u' . $where, $params)->first()->total;
 }
 
 $results = $db->selectQuery($query . $where . $order . $limit, $params)->results();
@@ -70,7 +70,7 @@ if (count($results)) {
 
         $obj = new stdClass();
         $obj->id = $result->id;
-        $obj->username = "<img src='{$img}' style='padding-right: 5px;'>" . Output::getClean($result->username) . "</img>";
+        $obj->username = "<img src='{$img}' style='padding-right: 5px; max-height: 30px;'>" . Output::getClean($result->username) . "</img>";
         $obj->joined = date('d M Y', $result->joined);
 
         // Get group

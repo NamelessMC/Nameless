@@ -1,9 +1,5 @@
 <?php
 
-function timeAgoInWords(string $timestring, string $timezone = null): string {
-    return (new TimeAgo($timezone))->inWords($timestring, 'now');
-}
-
 /**
  * This class can help you find out just how much time has passed between two dates.
  * It has two functions you can call:
@@ -37,13 +33,18 @@ class TimeAgo {
         $this->_timezone = $timezone;
     }
 
-    public function inWords(string $past, $time_language, $now = 'now'): string {
+    /**
+     * @param string|int $past Past time
+     * @param Language $language
+     * @return string Time ago string
+     */
+    public function inWords($past, Language $language): string {
         // sets the default timezone
         date_default_timezone_set($this->_timezone);
-        // finds the past in datetime
-        $past = strtotime($past);
-        // finds the current datetime
-        $now = strtotime($now);
+        if (!is_numeric($past)) {
+            $past = strtotime($past);
+        }
+        $now = time();
 
         // finds the time difference
         $timeDifference = $now - $past;
@@ -59,24 +60,24 @@ class TimeAgo {
             $replace = floor($timeDifference / $this->_secondsPerMinute);
             $key = '_minutes';
         } else if (
-                    $timeDifference > (($this->_secondsPerMinute * 44) + 29)
-                    &&
-                    $timeDifference < (($this->_secondsPerMinute * 89) + 29)
-                ) {
+            $timeDifference > (($this->_secondsPerMinute * 44) + 29)
+            &&
+            $timeDifference < (($this->_secondsPerMinute * 89) + 29)
+        ) {
             // between 44mins30secs and 1hour29mins29secs
             $key = 'about_1_hour';
         } else if (
-                    $timeDifference > (
-                        ($this->_secondsPerMinute * 89) +
-                        29
-                    )
-                    &&
-                    $timeDifference <= (
-                        ($this->_secondsPerHour * 23) +
-                        ($this->_secondsPerMinute * 59) +
-                        29
-                    )
-                ) {
+            $timeDifference > (
+                ($this->_secondsPerMinute * 89) +
+                29
+            )
+            &&
+            $timeDifference <= (
+                ($this->_secondsPerHour * 23) +
+                ($this->_secondsPerMinute * 59) +
+                29
+            )
+        ) {
             // between 1hour29mins30secs and 23hours59mins29secs
             $replace = floor($timeDifference / $this->_secondsPerHour);
             if ($replace == 1) {
@@ -86,64 +87,64 @@ class TimeAgo {
                 $key = '_hours';
             }
         } else if (
-                    $timeDifference > (
-                        ($this->_secondsPerHour * 23) +
-                        ($this->_secondsPerMinute * 59) +
-                        29
-                    )
-                    &&
-                    $timeDifference <= (
-                        ($this->_secondsPerHour * 47) +
-                        ($this->_secondsPerMinute * 59) +
-                        29
-                    )
-                ) {
+            $timeDifference > (
+                ($this->_secondsPerHour * 23) +
+                ($this->_secondsPerMinute * 59) +
+                29
+            )
+            &&
+            $timeDifference <= (
+                ($this->_secondsPerHour * 47) +
+                ($this->_secondsPerMinute * 59) +
+                29
+            )
+        ) {
             // between 23hours59mins30secs and 47hours59mins29sec
             $key = '1_day';
         } else if (
-                    $timeDifference > (
-                        ($this->_secondsPerHour * 47) +
-                        ($this->_secondsPerMinute * 59) +
-                        29
-                    )
-                    &&
-                    $timeDifference <= (
-                        ($this->_secondsPerDay * 29) +
-                        ($this->_secondsPerHour * 23) +
-                        ($this->_secondsPerMinute * 59) +
-                        29
-                    )
-                ) {
+            $timeDifference > (
+                ($this->_secondsPerHour * 47) +
+                ($this->_secondsPerMinute * 59) +
+                29
+            )
+            &&
+            $timeDifference <= (
+                ($this->_secondsPerDay * 29) +
+                ($this->_secondsPerHour * 23) +
+                ($this->_secondsPerMinute * 59) +
+                29
+            )
+        ) {
             // between 47hours59mins30secs and 29days23hours59mins29secs
             $replace = floor($timeDifference / $this->_secondsPerDay);
             $key = '_days';
         } else if (
-                    $timeDifference > (
-                        ($this->_secondsPerDay * 29) +
-                        ($this->_secondsPerHour * 23) +
-                        ($this->_secondsPerMinute * 59) +
-                        29
-                    )
-                    &&
-                    $timeDifference <= (
-                        ($this->_secondsPerDay * 59) +
-                        ($this->_secondsPerHour * 23) +
-                        ($this->_secondsPerMinute * 59) +
-                        29
-                    )
-                ) {
+            $timeDifference > (
+                ($this->_secondsPerDay * 29) +
+                ($this->_secondsPerHour * 23) +
+                ($this->_secondsPerMinute * 59) +
+                29
+            )
+            &&
+            $timeDifference <= (
+                ($this->_secondsPerDay * 59) +
+                ($this->_secondsPerHour * 23) +
+                ($this->_secondsPerMinute * 59) +
+                29
+            )
+        ) {
             // between 29days23hours59mins30secs and 59days23hours59mins29secs
             $key = 'about_1_month';
         } else if (
-                    $timeDifference > (
-                        ($this->_secondsPerDay * 59) +
-                        ($this->_secondsPerHour * 23) +
-                        ($this->_secondsPerMinute * 59) +
-                        29
-                    )
-                    &&
-                    $timeDifference < $this->_secondsPerYear
-                ) {
+            $timeDifference > (
+                ($this->_secondsPerDay * 59) +
+                ($this->_secondsPerHour * 23) +
+                ($this->_secondsPerMinute * 59) +
+                29
+            )
+            &&
+            $timeDifference < $this->_secondsPerYear
+        ) {
             // between 59days23hours59mins30secs and 1year (minus 1sec)
             $replace = round($timeDifference / $this->_secondsPerMonth);
             // if months is 1, then set it to 2, because we are "past" 1 month
@@ -153,10 +154,10 @@ class TimeAgo {
 
             $key = '_months';
         } else if (
-                    $timeDifference >= $this->_secondsPerYear
-                    &&
-                    $timeDifference < ($this->_secondsPerYear * 2)
-                ) {
+            $timeDifference >= $this->_secondsPerYear
+            &&
+            $timeDifference < ($this->_secondsPerYear * 2)
+        ) {
             // between 1year and 2years (minus 1sec)
             $key = 'about_1_year';
         } else {
@@ -165,23 +166,26 @@ class TimeAgo {
             $key = 'over_x_years';
         }
 
-        if (is_array($time_language[$key])) {
-            if (function_exists('pluralForm')) {
-                if (isset($replace)) {
-                    return str_replace('{x}', $replace, pluralForm($replace, $time_language[$key]));
-                }
+        $term = $language->get('time', $key);
 
+        if (count($exploded = explode('|', $term)) > 1) {
+            if (!isset($replace)) {
                 return 'Plural specified but replace not set for ' . Output::getClean($key);
-            } else {
+            }
+
+            $pluralForm = $language->getPluralForm();
+            if ($pluralForm === null) {
                 return 'Plural form function not defined';
             }
-        } else {
-            if (isset($replace)) {
-                return str_replace('{x}', $replace, $time_language[$key]);
-            }
 
-            return $time_language[$key];
+            return str_replace('{{count}}', $replace, $pluralForm($replace, $exploded));
         }
+
+        if (isset($replace)) {
+            return $language->get('time', $key, ['count' => $replace]);
+        }
+
+        return $term;
     }
 
     public function dateDifference(string $past, string $now = 'now'): array {

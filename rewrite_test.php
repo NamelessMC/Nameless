@@ -14,8 +14,7 @@
 <head>
     <title>Rewrite Test &bull; NamelessMC</title>
 
-    <!-- Global CSS -->
-    <link rel="stylesheet" href="core/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="core/assets/vendor/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="core/assets/css/custom.css">
 
     <style>

@@ -107,7 +107,7 @@ if (Input::exists()) {
                 }
 
                 $user_query = new User($username, $method_field);
-                if ($user_query->data()) {
+                if ($user_query->exists()) {
                     if ($user_query->data()->tfa_enabled == 1 && $user_query->data()->tfa_complete == 1) {
                         // Verify password first
                         if ($user->checkCredentials($username, Input::get('password'), $method_field)) {
@@ -127,7 +127,7 @@ if (Input::exists()) {
                                     // App
                                     $tfa = new \RobThree\Auth\TwoFactorAuth('NamelessMC');
 
-                                    if ($tfa->verifyCode($user_query->data()->tfa_secret, $_POST['tfa_code']) !== true) {
+                                    if ($tfa->verifyCode($user_query->data()->tfa_secret, str_replace(' ', '', $_POST['tfa_code'])) !== true) {
                                         Session::flash('tfa_signin', $language->get('user', 'invalid_tfa'));
                                         require(ROOT_PATH . '/core/includes/tfa_signin.php');
                                         die();
@@ -152,8 +152,7 @@ if (Input::exists()) {
                         $remember = Input::get('remember') == 1;
 
                         // Is Minecraft and AuthMe integration enabled?
-                        $minecraft = $queries->getWhere('settings', ['name', '=', 'mc_integration']);
-                        $minecraft = $minecraft[0]->value;
+                        $minecraft = MINECRAFT;
 
                         $authme_enabled = $queries->getWhere('settings', ['name', '=', 'authme']);
                         $authme_enabled = $authme_enabled[0]->value;
@@ -329,9 +328,6 @@ if ($captcha) {
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
-
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 

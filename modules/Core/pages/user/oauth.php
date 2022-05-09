@@ -47,8 +47,8 @@ foreach ($user_providers as $user_provider) {
 $oauth_messsages = [];
 foreach ($providers as $name => $data) {
     $oauth_messsages[$name] = [
-        'unlink_confirm' => str_replace('{x}', ucfirst($name), $language->get('user', 'oauth_unlink_confirm')),
-        'link_confirm' => str_replace('{x}', ucfirst($name), $language->get('user', 'oauth_link_confirm')),
+        'unlink_confirm' => $language->get('user', 'oauth_unlink_confirm', ['provider' => ucfirst($name)]),
+        'link_confirm' => $language->get('user', 'oauth_link_confirm', ['provider' => ucfirst($name)]),
     ];
 }
 
@@ -85,9 +85,6 @@ $smarty->assign([
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 require(ROOT_PATH . '/core/templates/cc_navbar.php');
-
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 

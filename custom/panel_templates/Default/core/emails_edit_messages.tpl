@@ -66,7 +66,7 @@
                                     <div class="input-group">
                                         <select name="editing_language" class="form-control" id="inputDefaultLanguage">
                                             {foreach from=$LANGUAGES item=item}
-                                                <option value="{$item->name}" {if $item->name eq $EDITING_LANGUAGE} selected{/if}>{$item->name}</option>
+                                                <option value="{$item->short_code}" {if $item->short_code eq $EDITING_LANGUAGE} selected{/if}>{$item->name}</option>
                                             {/foreach}
                                         </select>
                                     </div>

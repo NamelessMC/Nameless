@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if (!$validation->passed()) {
 
-            $error = $language['database_error'];
+            $error = $language->get('installer', 'database_error');
 
         } else {
 
@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 if (!isset($_POST['converter']) || !in_array($_POST['converter'], $converters)) {
 
-                    $error = $language['unable_to_load_converter'];
+                    $error = $language->get('installer', 'unable_to_load_converter');
 
                 } else {
 
@@ -91,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="ui segments">
         <div class="ui secondary segment">
             <h4 class="ui header">
-                <?php echo $language['convert']; ?>
+                <?php echo $language->get('installer', 'convert'); ?>
             </h4>
         </div>
         <div class="ui segment">
@@ -104,31 +104,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             foreach ($converters as $converter) {
                                 $converter_options[Output::getClean($converter)] = str_replace('_', ' ', Output::getClean($converter));
                             }
-                            create_field('select', $language['converter'], 'converter', 'inputConverter', '', $converter_options);
-                            create_field('text', $language['database_address'], 'db_address', 'inputDBAddress', '127.0.0.1');
-                            create_field('text', $language['database_port'], 'db_port', 'inputDBPort', '3306');
-                            create_field('text', $language['database_username'], 'db_username', 'inputDBUsername');
-                            create_field('text', $language['database_password'], 'db_password', 'inputDBPassword');
-                            create_field('text', $language['database_name'], 'db_name', 'inputDBName');
+                            create_field('select', $language->get('installer', 'converter'), 'converter', 'inputConverter', '', $converter_options);
+                            create_field('text', $language->get('installer', 'database_address'), 'db_address', 'inputDBAddress', '127.0.0.1');
+                            create_field('text', $language->get('installer', 'database_port'), 'db_port', 'inputDBPort', '3306');
+                            create_field('text', $language->get('installer', 'database_username'), 'db_username', 'inputDBUsername');
+                            create_field('text', $language->get('installer', 'database_password'), 'db_password', 'inputDBPassword');
+                            create_field('text', $language->get('installer', 'database_name'), 'db_name', 'inputDBName');
                             ?>
                         </div>
                     </div>
                 </div>
             <?php } else { ?>
-                <p><?php echo $language['no_converters_available']; ?></p>
+                <p><?php echo $language->get('installer', 'no_converters_available'); ?></p>
             <?php } ?>
         </div>
         <div class="ui secondary right aligned segment">
             <a href="?step=conversion" class="ui small button">
-                <?php echo $language['back']; ?>
+                <?php echo $language->get('installer', 'back'); ?>
             </a>
             <?php if (!empty($converters)) { ?>
                 <button type="submit" class="ui small primary button">
-                    <?php echo $language['proceed']; ?>
+                    <?php echo $language->get('installer', 'proceed'); ?>
                 </button>
             <?php } else { ?>
                 <a href="?step=finish" class="ui small primary button">
-                    <?php echo $language['proceed']; ?>
+                    <?php echo $language->get('installer', 'proceed'); ?>
                 </a>
             <?php } ?>
         </div>

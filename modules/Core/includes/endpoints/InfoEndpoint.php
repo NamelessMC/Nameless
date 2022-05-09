@@ -31,16 +31,12 @@ class InfoEndpoint extends KeyAuthEndpoint {
             if ($item->name == 'nameless_version') {
                 $ret[$item->name] = $item->value;
                 $current_version = $item->value;
+            } else if ($item->name == 'version_update') {
+                $version_update = $item->value;
+            } else if ($item->name == 'version_checked') {
+                $version_checked = (int) $item->value;
             } else {
-                if ($item->name == 'version_update') {
-                    $version_update = $item->value;
-                } else {
-                    if ($item->name == 'version_checked') {
-                        $version_checked = (int) $item->value;
-                    } else {
-                        $new_version = $item->value;
-                    }
-                }
+                $new_version = $item->value;
             }
         }
 
@@ -53,7 +49,7 @@ class InfoEndpoint extends KeyAuthEndpoint {
         }
 
         // Return default language
-        $ret['language'] = LANGUAGE;
+        $ret['locale'] = LANGUAGE;
 
         $modules_query = $api->getDb()->get('modules', ['enabled', '=', 1]);
         $ret_modules = [];

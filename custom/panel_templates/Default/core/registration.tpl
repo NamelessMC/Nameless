@@ -43,11 +43,12 @@
                             <div class="form-group custom-control custom-switch">
                                 <input type="hidden" name="enable_registration" value="0">
                                 <input name="enable_registration"
+                                       id="InputEnableRegistration"
                                        type="checkbox"
                                        class="custom-control-input js-check-change"
                                        {if $REGISTRATION_ENABLED eq 1} checked{/if}
                                        value="1">
-                                <label class="custom-control-label" for="enable_registration">
+                                <label class="custom-control-label" for="InputEnableRegistration">
                                     {$ENABLE_REGISTRATION}
                                 </label>
                             </div>
@@ -146,7 +147,7 @@
                             <div class="card shadow mb-4">
                                 <div class="card-body">
                                     <div class="form-group custom-control custom-switch text-center">
-                                        <input id="enable-discord" name="enable-discord" type="checkbox" class="custom-control-input" value="1" {if $DISCORD_OAUTH_ENABLED && $DISCORD_OAUTH_SETUP} checked{/if} />
+                                        <input id="enable-discord" name="enable-discord" type="checkbox" class="custom-control-input" {if $DISCORD_OAUTH_ENABLED && $DISCORD_OAUTH_SETUP} checked{/if} />
                                         <label for="enable-discord" id="enable-discord" class="custom-control-label">
                                             Discord <i class="fab fa-discord fa-1x align-middle"></i>
                                         </label>

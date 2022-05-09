@@ -78,10 +78,10 @@ class CookieConsent_Module extends Module {
             // Add JS script
             if ($template) {
                 $template->addCSSFiles([
-                    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/css/cookieconsent.min.css' => [],
+                    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/modules/Cookie Consent/assets/css/cookieconsent.min.css' => [],
                 ]);
                 $template->addJSFiles([
-                    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/js/cookieconsent.min.js' => [],
+                    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/modules/Cookie Consent/assets/js/cookieconsent.min.js' => [],
                 ]);
                 $template->addJSScript(
                     CookieConsent::generateScript(

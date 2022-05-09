@@ -41,15 +41,14 @@ if (Input::exists()) {
 
             $users = $queries->getWhere('users', ['id', '<>', 0]);
 
-            $contactemail = $queries->getWhere('settings', ['name', '=', 'incoming_email']);
-            $contactemail = $contactemail[0]->value;
+            $reply_to = Email::getReplyTo();
 
             foreach ($users as $email_user) {
                 $sent = Email::send(
                     ['email' => Output::getClean($email_user->email), 'name' => Output::getClean($email_user->username)],
                     Output::getClean(Input::get('subject')),
                     str_replace(['{username}', '{sitename}'], [$email_user->username, SITE_NAME], Input::get('content')),
-                    ['email' => $contactemail, 'name' => Output::getClean(SITE_NAME)]
+                    $reply_to
                 );
 
                 if (isset($sent['error'])) {
@@ -97,10 +96,8 @@ $template_file = 'core/emails_mass_message.tpl';
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-$template->addJSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
+$template->assets()->include([
+    AssetTree::TINYMCE,
 ]);
 
 $template->addJSScript(Input::createTinyEditor($language, 'reply'));
@@ -132,9 +129,6 @@ $smarty->assign([
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit')
 ]);
-
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 

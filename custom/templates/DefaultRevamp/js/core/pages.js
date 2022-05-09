@@ -24,9 +24,16 @@ if (page !== '') {
 							players = '';
 						} else {
 							if (serverPlayerList === 1) {
-								if (data.player_list.length > 0) {
+								if (data.player_count > 0 && data.player_list.length <= 0) {
+									// Weird edge case where player list is empty but the player count is > 0
+									if (data.player_count > 1) {
+										players += xPlayersOnline.replace('{{count}}', data.player_count);
+									} else {
+										players += onePlayerOnline;
+									}
+								} else if (data.player_list.length > 0) {
 									for (var i = 0; i < data.player_list.length; i++) {
-										players += '<a href="' + URLBuild('profile/' + data.player_list[i].name) + '" data-tooltip="' + data.player_list[i].name + '" data-variation="mini" data-inverted="" data-position="bottom center"><img class="ui mini circular image" src="' + avatarSource.replace('{x}', data.player_list[i].id).replace('{y}', 64) + '" alt="' + data.player_list[i].name + '"></a>';
+										players += '<a href="' + URLBuild('profile/' + data.player_list[i].name) + '" data-tooltip="' + data.player_list[i].name + '" data-variation="mini" data-inverted="" data-position="bottom center"><img class="ui mini circular image" src="' + avatarSource.replace('{identifier}', data.player_list[i].id).replace('{size}', 64) + '" alt="' + data.player_list[i].name + '"></a>';
 									}
 
 									if(data.player_list.length < data.player_count) {
@@ -50,6 +57,8 @@ if (page !== '') {
 			});
 		});
 	} else if (page === 'profile') {
+		$('.menu.tabular .item').tab();
+
 		function showBannerSelect(){
 			$('#imageModal').modal({
 				onVisible: function() {
@@ -58,9 +67,9 @@ if (page !== '') {
 			}).modal('show');
 		}
 		$(function () {
-			var postElem = window.location.hash;
-			postElem = $(postElem.slice(0, -1));
+			let postElem = window.location.hash;
 			if (postElem) {
+				postElem = $(postElem.slice(0, -1));
 				setTimeout(function () {
 					$('html, body').animate({ scrollTop: postElem.offset().top - 15 }, 800);
 				}, 100);
@@ -75,12 +84,15 @@ if (page !== '') {
 
 	else if (route.indexOf("/forum/topic/") != -1) {
 		$(function() {
-			var postId = window.location.hash.replace('#post-', '');
-			var postElem = '#topic-post[post-id=\'' + postId + '\']';
-			setTimeout(function(){
-			   $('html, body').animate({scrollTop: $(postElem).offset().top-15}, 800);
-			}, 100);
-			$('> .ui.segment', postElem).delay(600).effect("highlight", {}, 800);
+			const postId = window.location.hash.replace('#post-', '');
+			const postElem = '#topic-post[post-id=\'' + postId + '\']';
+
+			if (postId) {
+				setTimeout(function(){
+					$('html, body').animate({scrollTop: $(postElem).offset().top-15}, 800);
+					$('> .ui.segment', postElem).effect("highlight", {}, 800);
+				}, 100);
+			}
 		});
 	}
 }

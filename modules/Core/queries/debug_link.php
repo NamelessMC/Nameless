@@ -1,7 +1,7 @@
 <?php
 
 // Can user generate the debug link?
-if (!$user->hasPermission('admincp.core.debugging')) {
+if (!defined('DEBUGGING') && !$user->hasPermission('admincp.core.debugging')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }
@@ -122,14 +122,12 @@ foreach (DB::getInstance()->selectQuery('SELECT `id`, `forum_title`, `hooks` FRO
     ];
 }
 
-
 $groups = [];
-foreach ($queries->getWhere('groups', ['id', '<>', 0]) as $group) {
+foreach (Group::all() as $group) {
     $groups[(int)$group->id] = [
         'id' => (int)$group->id,
         'name' => $group->name,
         'group_html' => $group->group_html,
-        'group_html_lg' => $group->group_html_lg,
         'admin_cp' => (bool)$group->admin_cp,
         'staff' => (bool)$group->staff,
         'permissions' => json_decode($group->permissions, true) ?? [],
@@ -140,13 +138,37 @@ foreach ($queries->getWhere('groups', ['id', '<>', 0]) as $group) {
     ];
 }
 
+$integrations = [];
+foreach (Integrations::getInstance()->getAll() as $integration) {
+    $integrations[$integration->getName()] = [
+        'id' => (int) $integration->data()->id,
+        'name' => $integration->data()->name,
+        'enabled' => (bool) $integration->data()->enabled,
+        'can_unlink' => (bool) $integration->data()->can_unlink,
+        'required' => (bool) $integration->data()->required,
+        'order' => (int) $integration->data()->order
+    ];
+}
+
 $namelessmc_version = trim(Util::getSetting(DB::getInstance(), 'nameless_version'));
 
+$uuid = DB::getInstance()->selectQuery('SELECT identifier FROM nl2_users_integrations INNER JOIN nl2_integrations on integration_id=nl2_integrations.id WHERE name = \'Minecraft\' AND user_id = ?;', [$user->data()->id]);
+if ($uuid->count()) {
+    $uuid = $uuid->first()->identifier;
+} else {
+    $uuid = '';
+}
+
+$logs = [];
+foreach (['fatal', 'warning', 'notice', 'other', 'custom'] as $type) {
+    $file_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs', $type . '-log.log']);
+    $logs[$type] = file_exists($file_path) ? Util::readFileEnd($file_path) : '';
+}
+
 $data = [
-    'debug_version' => 1,
     'generated_at' => time(),
     'generated_by_name' => $user->data()->username,
-    'generated_by_uuid' => $user->data()->uuid ?? '',
+    'generated_by_uuid' => $uuid,
     'namelessmc' => [
         'version' => $namelessmc_version,
         'update_available' => Util::getSetting(DB::getInstance(), 'version_update') != 'false',
@@ -155,7 +177,6 @@ $data = [
             'phpmailer' => (bool)Util::getSetting(DB::getInstance(), 'phpmailer'),
             'api_enabled' => (bool)Util::getSetting(DB::getInstance(), 'use_api'),
             'email_verification' => (bool)Util::getSetting(DB::getInstance(), 'email_verification'),
-            'api_verification' => (bool)Util::getSetting(DB::getInstance(), 'api_verification'),
             'login_method' => Util::getSetting(DB::getInstance(), 'login_method'),
             'captcha_type' => Util::getSetting(DB::getInstance(), 'recaptcha_type'),
             'captcha_login' => Util::getSetting(DB::getInstance(), 'recaptcha_login') === 'false' ? false : true, // dont ask
@@ -182,6 +203,14 @@ $data = [
             'front_end' => $namelessmc_fe_templates,
             'panel' => $namelessmc_panel_templates,
         ],
+        'integrations' => $integrations,
+    ],
+    'logs' => [
+        'fatal' => $logs['fatal'],
+        'warning' => $logs['warning'],
+        'notice' => $logs['notice'],
+        'other' => $logs['other'],
+        'custom' => $logs['custom'],
     ],
     'environment' => [
         'php_version' => PHP_VERSION,

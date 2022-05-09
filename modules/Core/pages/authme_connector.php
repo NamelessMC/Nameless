@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr12
+ *  NamelessMC version 2.0.0-pr13
  *
  *  License: MIT
  *
@@ -80,18 +80,16 @@ if (Input::exists()) {
                 $cache->setCache('authme_cache');
                 $authme_hash = $cache->retrieve('authme');
 
-                // UUID linking
-                $uuid_linking = $queries->getWhere('settings', ['name', '=', 'uuid_linking']);
-                $uuid_linking = $uuid_linking[0]->value;
-
                 // Get default language ID before creating user
-                $language_id = $queries->getWhere('languages', ['name', '=', LANGUAGE]);
+                $language_id = $queries->getWhere('languages', ['short_code', '=', LANGUAGE]);
 
                 if (count($language_id)) {
                     $language_id = $language_id[0]->id;
                 } else {
-                    $language_id = 1;
-                } // fallback to EnglishUK
+                    // fallback to EnglishUK
+                    $language_id = $queries->getWhere('languages', ['short_code', '=', 'en_UK']);
+                    $language_id = $language_id[0]->id;
+                }
 
                 $ip = $user->getIP();
                 if (filter_var($ip, FILTER_VALIDATE_IP)) {
@@ -106,70 +104,65 @@ if (Input::exists()) {
                     $nickname = $_SESSION['authme']['user'];
                 }
 
-                $mcname = $_SESSION['authme']['user'];
+                $mcname = Output::getClean($_SESSION['authme']['user']);
+                
+                // Add username back to post for integration handling
+                $_POST['username'] = $_SESSION['authme']['user'];
 
-                // UUID
-                if ($uuid_linking == '1') {
-                    if (!isset($mcname_result)) {
-                        $profile = ProfileUtils::getProfile(str_replace(' ', '%20', $mcname));
-                        if ($profile !== null) {
-                            $mcname_result = $profile->getProfileAsArray();
-                        }
-                    }
-                    if (isset($mcname_result['uuid']) && !empty($mcname_result['uuid'])) {
-                        $uuid = $mcname_result['uuid'];
-                    } else {
-                        $errors[] = $language->get('user', 'mcname_lookup_error');
-                        $uuid = 'none';
-                    }
-                } else {
-                    $uuid = 'none';
+                $integration = Integrations::getInstance()->getIntegration('Minecraft');
+                $integration->afterRegistrationValidation();
+
+                if (count($integration->getErrors())) {
+                    $errors = $integration->getErrors();
                 }
 
-                try {
-                    // Get default group ID
-                    $cache->setCache('default_group');
-                    if ($cache->isCached('default_group')) {
-                        $default_group = $cache->retrieve('default_group');
-                    } else {
-                        $default_group = $queries->getWhere('groups', ['default_group', '=', 1]);
-                        if (!count($default_group)) {
-                            $default_group = 1;
+                if (!count($errors)) {
+                    try {
+                        // Get default group ID
+                        $cache->setCache('default_group');
+                        if ($cache->isCached('default_group')) {
+                            $default_group = $cache->retrieve('default_group');
                         } else {
-                            $default_group = $default_group[0]->id;
+                            $default_group = $queries->getWhere('groups', ['default_group', '=', 1]);
+                            if (!count($default_group)) {
+                                $default_group = 1;
+                            } else {
+                                $default_group = $default_group[0]->id;
+                            }
+
+                            $cache->store('default_group', $default_group);
                         }
 
-                        $cache->store('default_group', $default_group);
+                        $user->create([
+                            'username' => $_SESSION['authme']['user'],
+                            'nickname' => $nickname,
+                            'password' => $_SESSION['authme']['pass'],
+                            'pass_method' => $authme_hash['hash'],
+                            'joined' => date('U'),
+                            'email' => Output::getClean(Input::get('email')),
+                            'lastip' => $ip,
+                            'active' => 1,
+                            'last_online' => date('U'),
+                            'language_id' => $language_id
+                        ]);
+
+                        // Get user ID
+                        $user_id = $queries->getLastId();
+
+                        $user = new User($user_id);
+                        $user->addGroup($default_group);
+
+                        // Link the minecraft integration
+                        $integration->successfulRegistration($user);
+
+                        unset($_SESSION['authme']);
+
+                        Session::flash('home', $language->get('user', 'validation_complete'));
+                        Redirect::to(URL::build('/'));
+                    } catch (Exception $e) {
+                        $errors[] = $e->getMessage();
                     }
-
-                    $user->create([
-                        'username' => $_SESSION['authme']['user'],
-                        'nickname' => $nickname,
-                        'password' => $_SESSION['authme']['pass'],
-                        'pass_method' => $authme_hash['hash'],
-                        'uuid' => $uuid,
-                        'joined' => date('U'),
-                        'email' => Input::get('email'),
-                        'lastip' => $ip,
-                        'active' => 1,
-                        'last_online' => date('U')
-                    ]);
-
-                    // Get user ID
-                    $user_id = $queries->getLastId();
-
-                    $user = new User($user_id);
-                    $user->addGroup($default_group);
-
-                    unset($_SESSION['authme']);
-
-                    Session::flash('home', $language->get('user', 'validation_complete'));
-                    Redirect::to(URL::build('/'));
-
-                } catch (Exception $e) {
-                    $errors[] = $e->getMessage();
                 }
-
             } else {
                 // Validation errors
                 $errors = $validation->errors();
@@ -351,7 +344,10 @@ if (!isset($_GET['step'])) {
         'TOKEN' => Token::get(),
         'SUBMIT' => $language->get('general', 'submit'),
         'I_AGREE' => $language->get('user', 'i_agree'),
-        'AGREE_TO_TERMS' => str_replace('{x}', URL::build('/terms'), $language->get('user', 'agree_t_and_c'))
+        'AGREE_TO_TERMS' => $language->get('user', 'agree_t_and_c', [
+            'linkStart' => '<a href="' . URL::build('/terms') . '">',
+            'linkEnd' => '</a>',
+        ])
     ]);
 
     // Recaptcha
@@ -398,9 +394,6 @@ if (!isset($_GET['step'])) {
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
-
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 

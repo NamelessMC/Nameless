@@ -55,7 +55,7 @@ class Report {
 
         EventHandler::executeEvent('createReport', [
             'username' => $data['reported_mcname'],
-            'content' => str_replace('{x}', $user_reporting->data()->username, $language->get('general', 'reported_by')),
+            'content' => $language->get('general', 'reported_by', ['author' => $user_reporting->data()->username]),
             'content_full' => $data['report_reason'],
             'avatar_url' => $data['reported_id'] == 0 ? null : ($data['reported_uuid'] !== null ? AvatarSource::getAvatarFromUUID($data['reported_uuid']) : $reported_user->getAvatar()),
             'title' => $language->get('general', 'view_report'),

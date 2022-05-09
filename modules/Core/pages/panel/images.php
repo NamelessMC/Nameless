@@ -243,19 +243,27 @@ foreach ($images as $image) {
 }
 
 if (!is_writable(ROOT_PATH . '/uploads/backgrounds')) {
-    $smarty->assign('BACKGROUNDS_NOT_WRITABLE', str_replace('{x}', 'uploads/backgrounds', $language->get('admin', 'x_directory_not_writable')));
+    $smarty->assign('BACKGROUNDS_NOT_WRITABLE', $language->get('admin', 'x_directory_not_writable', [
+        'directory' => Util::bold('uploads/backgrounds')
+    ]));
 }
 
 if (!is_writable(ROOT_PATH . '/uploads/template_banners')) {
-    $smarty->assign('TEMPLATE_BANNERS_DIRECTORY_NOT_WRITABLE', str_replace('{x}', 'uploads/template_banners', $language->get('admin', 'x_directory_not_writable')));
+    $smarty->assign('TEMPLATE_BANNERS_DIRECTORY_NOT_WRITABLE', $language->get('admin', 'x_directory_not_writable', [
+        'directory' => Util::bold('uploads/template_banners')
+    ]));
 }
 
 if (!is_writable(ROOT_PATH . '/uploads/logos')) {
-    $smarty->assign('LOGOS_DIRECTORY_NOT_WRITABLE', str_replace('{x}', 'uploads/logos', $language->get('admin', 'x_directory_not_writable')));
+    $smarty->assign('LOGOS_DIRECTORY_NOT_WRITABLE', $language->get('admin', 'x_directory_not_writable', [
+        'directory' => Util::bold('uploads/logos')
+    ]));
 }
 
 if (!is_writable(ROOT_PATH . '/uploads/favicons')) {
-    $smarty->assign('FAVICONS_DIRECTORY_NOT_WRITABLE', str_replace('{x}', 'uploads/favicons', $language->get('admin', 'x_directory_not_writable')));
+    $smarty->assign('FAVICONS_DIRECTORY_NOT_WRITABLE', $language->get('admin', 'x_directory_not_writable', [
+        'directory' => Util::bold('uploads/favicons')
+    ]));
 }
 
 $smarty->assign([
@@ -269,7 +277,9 @@ $smarty->assign([
     'UPLOAD_NEW_IMAGE' => $language->get('admin', 'upload_new_image'),
     'UPLOAD_PATH' => (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/includes/image_upload.php',
     'CLOSE' => $language->get('general', 'close'),
-    'BACKGROUND_IMAGE' => str_replace('{x}', $bg_img, $language->get('admin', 'background_image_x')),
+    'BACKGROUND_IMAGE' => $language->get('admin', 'background_image_x', [
+        'imageName' => Util::bold($bg_img)
+    ]),
     'RESET' => $language->get('admin', 'reset_background'),
     'RESET_LINK' => URL::build('/panel/core/images/', 'action=reset_bg'),
     'RESET_BANNER' => $language->get('admin', 'reset_banner'),
@@ -280,18 +290,21 @@ $smarty->assign([
     'RESET_FAVICON_LINK' => URL::build('/panel/core/images/', 'action=reset_favicon'),
     'BACKGROUND_IMAGES_ARRAY' => $template_images,
     'BANNER_IMAGES_ARRAY' => $template_banner_images,
-    'BANNER_IMAGE' => str_replace('{x}', $banner_img, $language->get('admin', 'banner_image_x')),
+    'BANNER_IMAGE' => $language->get('admin', 'banner_image_x', [
+        'imageName' => Util::bold($banner_img)
+    ]),
     'LOGO_IMAGES_ARRAY' => $logo_images,
-    'LOGO_IMAGE' => str_replace('{x}', $logo_img, $language->get('admin', 'logo_image_x')),
+    'LOGO_IMAGE' => $language->get('admin', 'logo_image_x', [
+        'imageName' => Util::bold($logo_img)
+    ]),
     'FAVICON_IMAGES_ARRAY' => $favicon_images,
-    'FAVICON_IMAGE' => str_replace('{x}', $favicon_img, $language->get('admin', 'favicon_image_x')),
+    'FAVICON_IMAGE' => $language->get('admin', 'favicon_image_x', [
+        'imageName' => Util::bold($favicon_img)
+    ]),
     'ERRORS_TITLE' => $language->get('general', 'error'),
     'INFO' => $language->get('general', 'info'),
     'BACKGROUND_IMAGE_INFO' => $language->get('admin', 'background_image_info')
 ]);
-
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 

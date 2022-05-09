@@ -101,6 +101,14 @@
                                             <option value="portal" {if $HOMEPAGE_VALUE eq 1} selected{/if}>{$HOMEPAGE_PORTAL}</option>
                                         </select>
                                     </div>
+                                    <div class="col-md-6">
+                                        <label for="inputLoginMethod">{$LOGIN_METHOD}</label>
+                                        <select name="login_method" class="form-control" id="inputLoginMethod">
+                                            <option value="email" {if $LOGIN_METHOD_VALUE eq "email" } selected{/if}>{$EMAIL}</option>
+                                            <option value="username" {if $LOGIN_METHOD_VALUE eq "username" } selected{/if}>{$USERNAME}</option>
+                                            <option value="email_or_username" {if $LOGIN_METHOD_VALUE eq "email_or_username" } selected{/if}>{$EMAIL_OR_USERNAME}</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -148,23 +156,15 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-6">
+				<div class="row">
+				    <div class="col-md-6">
                                         <label for="inputEnableNicknames">{$ENABLE_NICKNAMES}</label>
                                         <select name="displaynames" class="form-control" id="inputEnableNicknames">
                                             <option value="true" {if $ENABLE_NICKNAMES_VALUE eq "true" } selected{/if}>{$ENABLED}</option>
                                             <option value="false" {if $ENABLE_NICKNAMES_VALUE eq "false" } selected{/if}>{$DISABLED}</option>
                                         </select>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="inputLoginMethod">{$LOGIN_METHOD}</label>
-                                        <select name="login_method" class="form-control" id="inputLoginMethod">
-                                            <option value="email" {if $LOGIN_METHOD_VALUE eq "email" } selected{/if}>{$EMAIL}</option>
-                                            <option value="username" {if $LOGIN_METHOD_VALUE eq "username" } selected{/if}>{$USERNAME}</option>
-                                            <option value="email_or_username" {if $LOGIN_METHOD_VALUE eq "email_or_username" } selected{/if}>{$EMAIL_OR_USERNAME}</option>
-                                        </select>
-                                    </div>
-                                </div>
+				    </div>
+				</div>
                             </div>
                             <div class="form-group">
                                 <input type="hidden" name="token" value="{$TOKEN}">

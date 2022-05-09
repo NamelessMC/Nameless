@@ -17,17 +17,17 @@ class ProfilePostsWidget extends WidgetBase {
     private User $_user;
     private TimeAgo $_timeago;
 
-    public function __construct(array $pages, Smarty $smarty, Language $language, Cache $cache, User $user, TimeAgo $timeago) {
+    public function __construct(Smarty $smarty, Language $language, Cache $cache, User $user, TimeAgo $timeago) {
         $this->_language = $language;
         $this->_smarty = $smarty;
         $this->_cache = $cache;
         $this->_user = $user;
         $this->_timeago = $timeago;
 
-        parent::__construct($pages);
-
         // Get widget
-        $widget_query = DB::getInstance()->selectQuery('SELECT `location`, `order` FROM nl2_widgets WHERE `name` = ?', ['Latest Profile Posts'])->first();
+        $widget_query = self::getData('Latest Profile Posts');
+
+        parent::__construct(self::parsePages($widget_query->pages));
 
         // Set widget variables
         $this->_module = 'Core';
@@ -72,13 +72,13 @@ class ProfilePostsWidget extends WidgetBase {
                 $posts_array[] = [
                     'avatar' => $post_author->getAvatar(),
                     'username' => $post_author->getDisplayname(),
-                    'username_style' => $post_author->getGroupClass(),
+                    'username_style' => $post_author->getGroupStyle(),
                     'content' => Util::truncate(strip_tags($post->content), 20),
                     'link' => $link . '/#post-' . $post->id,
                     'date_ago' => date(DATE_FORMAT, $post->time),
                     'user_id' => $post->author_id,
                     'user_profile_link' => $post_author->getProfileURL(),
-                    'ago' => $this->_timeago->inWords(date('Y-m-d H:i:s', $post->time), $this->_language->getTimeLanguage())
+                    'ago' => $this->_timeago->inWords($post->time, $this->_language)
                 ];
             }
             $this->_cache->store('profile_posts_' . $user_id, $posts_array, 120);

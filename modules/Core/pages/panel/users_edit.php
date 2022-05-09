@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr13
  *
  *  License: MIT
  *
@@ -19,7 +19,7 @@ if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
 }
 
 $view_user = new User($_GET['id']);
-if (!$view_user->data()) {
+if (!$view_user->exists()) {
     Redirect::to(URL::build('/panel/users'));
 }
 $user_query = $view_user->data();
@@ -39,57 +39,18 @@ if (isset($_GET['action'])) {
         if (Token::check()) {
             // Validate the user
             if ($user_query->active == 0) {
-                $queries->update('users', $user_query->id, [
+                $view_user->update([
                     'active' => 1,
                     'reset_code' => ''
                 ]);
 
                 EventHandler::executeEvent('validateUser', [
                     'user_id' => $user_query->id,
-                    'username' => Output::getClean($user_query->username),
-                    'uuid' => Output::getClean($user_query->uuid),
+                    'username' => $user_query->username,
                     'language' => $language
                 ]);
 
                 Session::flash('edit_user_success', $language->get('admin', 'user_validated_successfully'));
-            }
-        }
-
-    } else if ($_GET['action'] == 'update_mcname') {
-        $uuid = $user_query->uuid;
-
-        $profile = ProfileUtils::getProfile($uuid);
-
-        if ($profile) {
-            $result = $profile->getUsername();
-
-            if (!empty($result)) {
-                if ($user_query->username == $user_query->nickname) {
-                    $queries->update('users', $user_query->id, [
-                        'username' => Output::getClean($result),
-                        'nickname' => Output::getClean($result)
-                    ]);
-                } else {
-                    $queries->update('users', $user_query->id, [
-                        'username' => Output::getClean($result)
-                    ]);
-                }
-
-                Session::flash('edit_user_success', $language->get('admin', 'user_updated_successfully'));
-            }
-        }
-    } else if ($_GET['action'] == 'update_uuid') {
-        $profile = ProfileUtils::getProfile($user_query->username);
-
-        if ($profile !== null) {
-            $result = $profile->getProfileAsArray();
-
-            if (isset($result['uuid']) && !empty($result['uuid'])) {
-                $queries->update('users', $user_query->id, [
-                    'uuid' => Output::getClean($result['uuid'])
-                ]);
-
-                Session::flash('edit_user_success', $language->get('admin', 'user_updated_successfully'));
             }
         }
     } else if ($_GET['action'] == 'resend_email' && $user_query->active == 0) {
@@ -118,11 +79,12 @@ if (Input::exists()) {
             $validation = Validate::check($_POST, [
                 'email' => [
                     Validate::REQUIRED => true,
+                    Validate::UNIQUE => [
+                        'users',
+                        'id:' . $view_user->data()->id // ignore current user
+                    ],
                     Validate::MIN => 4,
                     Validate::MAX => 50
-                ],
-                'UUID' => [
-                    Validate::MAX => 32
                 ],
                 'signature' => [
                     Validate::MAX => 900
@@ -135,6 +97,10 @@ if (Input::exists()) {
                 ],
                 'username' => [
                     Validate::REQUIRED => true,
+                    Validate::UNIQUE => [
+                        'users',
+                        'id:' . $view_user->data()->id // ignore current user
+                    ],
                     Validate::MIN => 3,
                     Validate::MAX => 20
                 ],
@@ -145,12 +111,13 @@ if (Input::exists()) {
                 ]
             ])->messages([
                 'email' => [
-                    Validate::REQUIRED => $language->get('user', 'email_required')
+                    Validate::REQUIRED => $language->get('user', 'email_required'),
+                    Validate::UNIQUE => $language->get('user', 'email_already_exists')
                 ],
-                'UUID' => $language->get('admin', 'uuid_max_32'),
                 'title' => $language->get('admin', 'title_max_64'),
                 'username' => [
                     Validate::REQUIRED => $language->get('user', 'mcname_required'),
+                    Validate::UNIQUE => $language->get('user', 'username_already_exists'),
                     Validate::MIN => $language->get('user', 'mcname_minimum_3'),
                     Validate::MAX => $language->get('user', 'mcname_maximum_20')
                 ],
@@ -199,12 +166,11 @@ if (Input::exists()) {
                         $nickname = Input::get('username');
                     }
 
-                    $queries->update('users', $user_query->id, [
+                    $view_user->update([
                         'nickname' => Output::getClean($nickname),
                         'email' => Output::getClean(Input::get('email')),
                         'username' => Output::getClean($username),
                         'user_title' => Output::getClean(Input::get('title')),
-                        'uuid' => Output::getClean(Input::get('UUID')),
                         'signature' => $signature,
                         'private_profile' => $private_profile,
                         'theme_id' => $new_template
@@ -215,10 +181,10 @@ if (Input::exists()) {
                             $modified = [];
 
                             // Check for new groups to give them which they dont already have
-                            foreach ($_POST['groups'] as $group) {
-                                if (!in_array($group, $view_user->getAllGroupIds())) {
-                                    $view_user->addGroup($group, 0, [true]);
-                                    $modified[] = $group;
+                            foreach ($_POST['groups'] as $group_id) {
+                                if (!in_array($group_id, $view_user->getAllGroupIds())) {
+                                    $view_user->addGroup($group_id);
+                                    $modified[] = $group_id;
                                 }
                             }
 
@@ -257,7 +223,6 @@ if (Input::exists()) {
                     EventHandler::executeEvent('deleteUser', [
                         'user_id' => $user_query->id,
                         'username' => $user_query->username,
-                        'uuid' => $user_query->uuid,
                         'email_address' => $user_query->email
                     ]);
 
@@ -314,20 +279,11 @@ if ($user_query->active == 0) {
     ]);
 }
 
-if (defined('MINECRAFT') && MINECRAFT === true) {
-    $smarty->assign([
-        'UPDATE_MINECRAFT_USERNAME' => $language->get('admin', 'update_mc_name'),
-        'UPDATE_MINECRAFT_USERNAME_LINK' => URL::build('/panel/users/edit/', 'id=' . urlencode($user_query->id) . '&action=update_mcname'),
-        'UPDATE_UUID' => $language->get('admin', 'update_uuid'),
-        'UPDATE_UUID_LINK' => URL::build('/panel/users/edit/', 'id=' . urlencode($user_query->id) . '&action=update_uuid')
-    ]);
-}
-
 if ($user_query->id != 1 && !$view_user->canViewStaffCP()) {
     $smarty->assign([
         'DELETE_USER' => $language->get('admin', 'delete_user'),
         'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
-        'CONFIRM_DELETE_USER' => str_replace('{x}', Output::getClean($user_query->nickname), $language->get('admin', 'confirm_user_deletion')),
+        'CONFIRM_DELETE_USER' => $language->get('admin', 'confirm_user_deletion', ['user' => Output::getClean($user_query->username)]),
         'YES' => $language->get('general', 'yes'),
         'NO' => $language->get('general', 'no')
     ]);
@@ -343,9 +299,6 @@ if ($user_query->id == 1 || ($user_query->id == $user->data()->id && !$user->has
 
 $displaynames = $queries->getWhere('settings', ['name', '=', 'displaynames']);
 $displaynames = $displaynames[0]->value;
-
-$uuid_linking = $queries->getWhere('settings', ['name', '=', 'uuid_linking']);
-$uuid_linking = $uuid_linking[0]->value;
 
 $private_profile = $queries->getWhere('settings', ['name', '=', 'private_profile']);
 $private_profile = $private_profile[0]->value;
@@ -377,10 +330,7 @@ foreach ($groups as $group) {
 
 $signature = Output::getPurified($user_query->signature);
 
-$user_groups = [];
-foreach ($view_user->getAllGroupIds() as $group_id) {
-    $user_groups[$group_id] = $group_id;
-}
+$user_groups = $view_user->getAllGroupIds();
 
 $smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,
@@ -390,7 +340,9 @@ $smarty->assign([
     'PAGE' => PANEL_PAGE,
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit'),
-    'EDITING_USER' => str_replace('{x}', Output::getClean($user_query->nickname), $language->get('admin', 'editing_user_x')),
+    'EDITING_USER' => $language->get('admin', 'editing_user_x', [
+        'user' => Output::getClean($user_query->nickname),
+    ]),
     'BACK_LINK' => URL::build('/panel/user/' . $user_query->id),
     'BACK' => $language->get('general', 'back'),
     'ACTIONS' => $language->get('general', 'actions'),
@@ -402,9 +354,6 @@ $smarty->assign([
     'NICKNAME_VALUE' => Output::getClean($user_query->nickname),
     'EMAIL_ADDRESS' => $language->get('user', 'email_address'),
     'EMAIL_ADDRESS_VALUE' => Output::getClean($user_query->email),
-    'UUID_LINKING' => ($uuid_linking == '1'),
-    'UUID' => $language->get('admin', 'minecraft_uuid'),
-    'UUID_VALUE' => Output::getClean($user_query->uuid),
     'USER_TITLE' => $language->get('admin', 'title'),
     'USER_TITLE_VALUE' => Output::getClean($user_query->user_title),
     'PRIVATE_PROFILE' => $language->get('user', 'private_profile'),
@@ -426,29 +375,11 @@ $smarty->assign([
     'TEMPLATES' => $templates
 ]);
 
-$discord_id = $user_query->discord_id;
-
-if ($discord_id != null && $discord_id != 010) {
-    $smarty->assign([
-        'DISCORD_ID' => Discord::getLanguageTerm('discord_user_id'),
-        'DISCORD_ID_VALUE' => $discord_id
-    ]);
-}
-
-$template->addCSSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.css' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
+$template->assets()->include([
+    AssetTree::TINYMCE,
 ]);
 
-$template->addJSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
-]);
 $template->addJSScript(Input::createTinyEditor($language, 'InputSignature'));
-
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 

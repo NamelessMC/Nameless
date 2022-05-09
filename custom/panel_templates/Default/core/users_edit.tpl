@@ -51,10 +51,6 @@
                                                                            onclick="showDeleteModal()">{$DELETE_USER}</a>{/if}
                                                 {if isset($RESEND_ACTIVATION_EMAIL)}<a class="dropdown-item"
                                                                                        href="{$RESEND_ACTIVATION_EMAIL_LINK}">{$RESEND_ACTIVATION_EMAIL}</a>{/if}
-                                                {if isset($UPDATE_MINECRAFT_USERNAME)}<a class="dropdown-item"
-                                                                                         href="{$UPDATE_MINECRAFT_USERNAME_LINK}">{$UPDATE_MINECRAFT_USERNAME}</a>{/if}
-                                                {if isset($UPDATE_UUID)}<a class="dropdown-item"
-                                                                           href="{$UPDATE_UUID_LINK}">{$UPDATE_UUID}</a>{/if}
                                                 {if isset($VALIDATE_USER)}<a class="dropdown-item"
                                                                              href="#" onclick="validateUser()">{$VALIDATE_USER}</a>{/if}
                                             </div>
@@ -102,25 +98,11 @@
                                 <input type="email" name="email" class="form-control" id="InputEmail"
                                        placeholder="{$EMAIL_ADDRESS}" value="{$EMAIL_ADDRESS_VALUE}">
                             </div>
-                            {if $UUID_LINKING eq true}
-                                <div class="form-group">
-                                    <label for="InputUUID">{$UUID}</label>
-                                    <input type="text" name="UUID" class="form-control" id="InputUUID"
-                                           placeholder="{$UUID}" value="{$UUID_VALUE}">
-                                </div>
-                            {/if}
                             <div class="form-group">
                                 <label for="InputTitle">{$USER_TITLE}</label>
                                 <input type="text" name="title" class="form-control" id="InputTitle"
                                        placeholder="{$USER_TITLE}" value="{$USER_TITLE_VALUE}">
                             </div>
-                            {if isset($DISCORD_ID_VALUE)}
-                                <div class="form-group">
-                                    <label for="InputDiscordId">{$DISCORD_ID}</label>
-                                    <input type="text" class="form-control" id="InputDiscordId"
-                                           value="{$DISCORD_ID_VALUE}" disabled>
-                                </div>
-                            {/if}
                             {if $PRIVATE_PROFILE_ENABLED eq true}
                                 <div class="form-group">
                                     <label for="inputPrivateProfile">{$PRIVATE_PROFILE}</label>

@@ -46,7 +46,7 @@ class Paginator {
      * @param string|null $rightContent Optional string to display in "next" button, default &raquo;
      */
     public function __construct(?array $class = [], ?string $leftContent = null, ?string $rightContent = null) {
-        if (!count($class)) {
+        if (!is_array($class) || !count($class)) {
             $this->_class = ['ul' => 'pagination d-inline-flex', 'li' => 'page-item {x}', 'a' => 'page-link'];
         } else {
             $this->_class = $class;

@@ -44,7 +44,7 @@ class Endpoints {
 
                 if ($endpoint->getMethod() === $method) {
                     if (!$endpoint->isAuthorised($api)) {
-                        $api->throwError(36, 'NOT_AUTHORISED', $endpoint->getAuthType(), 403);
+                        $api->throwError(36, 'Not authorized', $endpoint->getAuthType(), 403);
                     }
 
                     if (!method_exists($endpoint, 'execute')) {

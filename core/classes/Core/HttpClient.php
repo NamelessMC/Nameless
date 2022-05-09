@@ -48,7 +48,7 @@ class HttpClient {
         }
 
         return new HttpClient(
-            $response,
+            $response ?? null,
             $error
         );
     }
@@ -78,7 +78,7 @@ class HttpClient {
         }
 
         return new HttpClient(
-            $response,
+            $response ?? null,
             $error
         );
     }
@@ -143,7 +143,7 @@ class HttpClient {
      */
     public function getError(): string {
         if ($this->_error !== '') {
-            return $this->_error;
+            return Output::getClean($this->_error);
         }
 
         if ($this->_response === null) {

@@ -109,7 +109,7 @@ $queries->create('groups', [
     'group_username_color' => '#ff0000',
     'group_username_css' => '',
     'admin_cp' => 1,
-    'permissions' => '{"administrator":1,"admincp.core":1,"admincp.core.api":1,"admincp.core.seo":1,"admincp.core.general":1,"admincp.core.avatars":1,"admincp.core.fields":1,"admincp.core.debugging":1,"admincp.core.emails":1,"admincp.core.navigation":1,"admincp.core.announcements":1,"admincp.core.reactions":1,"admincp.core.registration":1,"admincp.core.social_media":1,"admincp.core.terms":1,"admincp.errors":1,"admincp.core.placeholders":1,"admincp.integrations":1,"admincp.discord":1,"admincp.minecraft":1,"admincp.minecraft.authme":1,"admincp.minecraft.verification":1,"admincp.minecraft.servers":1,"admincp.minecraft.query_errors":1,"admincp.minecraft.banners":1,"admincp.modules":1,"admincp.pages":1,"admincp.security":1,"admincp.security.acp_logins":1,"admincp.security.template":1,"admincp.styles":1,"admincp.styles.panel_templates":1,"admincp.styles.templates":1,"admincp.styles.templates.edit":1,"admincp.styles.images":1,"admincp.update":1,"admincp.users":1,"admincp.users.edit":1,"admincp.groups":1,"admincp.groups.self":1,"admincp.widgets":1,"modcp.ip_lookup":1,"modcp.punishments":1,"modcp.punishments.warn":1,"modcp.punishments.ban":1,"modcp.punishments.banip":1,"modcp.punishments.revoke":1,"modcp.reports":1,"modcp.profile_banner_reset":1,"usercp.messaging":1,"usercp.signature":1,"admincp.forums":1,"usercp.private_profile":1,"usercp.nickname":1,"usercp.profile_banner":1,"profile.private.bypass":1, "admincp.security.all":1,"admincp.core.hooks":1,"admincp.security.group_sync":1,"admincp.core.emails_mass_message":1,"modcp.punishments.reset_avatar":1,"usercp.gif_avatar":1}',
+    'permissions' => '{"administrator":1,"admincp.core":1,"admincp.core.api":1,"admincp.core.seo":1,"admincp.core.general":1,"admincp.core.avatars":1,"admincp.core.fields":1,"admincp.core.debugging":1,"admincp.core.emails":1,"admincp.core.navigation":1,"admincp.core.announcements":1,"admincp.core.reactions":1,"admincp.core.registration":1,"admincp.core.social_media":1,"admincp.core.terms":1,"admincp.errors":1,"admincp.core.placeholders":1,"admincp.integrations":1,"admincp.integrations.edit":1,"admincp.discord":1,"admincp.minecraft":1,"admincp.minecraft.authme":1,"admincp.minecraft.verification":1,"admincp.minecraft.servers":1,"admincp.minecraft.query_errors":1,"admincp.minecraft.banners":1,"admincp.modules":1,"admincp.pages":1,"admincp.security":1,"admincp.security.acp_logins":1,"admincp.security.template":1,"admincp.styles":1,"admincp.styles.panel_templates":1,"admincp.styles.templates":1,"admincp.styles.templates.edit":1,"admincp.styles.images":1,"admincp.update":1,"admincp.users":1,"admincp.users.edit":1,"admincp.groups":1,"admincp.groups.self":1,"admincp.widgets":1,"modcp.ip_lookup":1,"modcp.punishments":1,"modcp.punishments.warn":1,"modcp.punishments.ban":1,"modcp.punishments.banip":1,"modcp.punishments.revoke":1,"modcp.reports":1,"modcp.profile_banner_reset":1,"usercp.messaging":1,"usercp.signature":1,"admincp.forums":1,"usercp.private_profile":1,"usercp.nickname":1,"usercp.profile_banner":1,"profile.private.bypass":1, "admincp.security.all":1,"admincp.core.hooks":1,"admincp.security.group_sync":1,"admincp.core.emails_mass_message":1,"modcp.punishments.reset_avatar":1,"usercp.gif_avatar":1}',
     'order' => 1,
     'staff' => 1
 ]);
@@ -132,127 +132,13 @@ $queries->create('groups', [
     'order' => 4
 ]);
 
-// Languages
-$queries->create('languages', [
-    'name' => 'EnglishUK',
-    'is_default' => (Session::get('default_language') == 'EnglishUK') ? 1 : 0
-]);
-
-$queries->create('languages', [
-    'name' => 'Chinese',
-    'is_default' => (Session::get('default_language') == 'Chinese') ? 1 : 0
-]);
-
-$queries->create('languages', [
-    'name' => 'Chinese(Simplified)',
-    'is_default' => (Session::get('default_language') == 'Chinese(Simplified)') ? 1 : 0
-]);
-
-$queries->create('languages', [
-    'name' => 'Czech',
-    'is_default' => (Session::get('default_language') == 'Czech') ? 1 : 0
-]);
-
-$queries->create('languages', [
-    'name' => 'Danish',
-    'is_default' => (Session::get('default_language') == 'Danish') ? 1 : 0
-]);
-
-$queries->create('languages', [
-    'name' => 'EnglishUS',
-    'is_default' => (Session::get('default_language') == 'EnglishUS') ? 1 : 0
-]);
-
-$queries->create('languages', [
-    'name' => 'French',
-    'is_default' => (Session::get('default_language') == 'French') ? 1 : 0
-]);
-
-$queries->create('languages', [
-    'name' => 'Dutch',
-    'is_default' => (Session::get('default_language') == 'Dutch') ? 1 : 0
-]);
-
-$queries->create('languages', [
-    'name' => 'German',
-    'is_default' => (Session::get('default_language') == 'German') ? 1 : 0
-]);
-
-$queries->create('languages', [
-    'name' => 'Greek',
-    'is_default' => (Session::get('default_language') == 'Greek') ? 1 : 0
-]);
-
-$queries->create('languages', [
-    'name' => 'Japanese',
-    'is_default' => (Session::get('default_language') == 'Japanese') ? 1 : 0
-]);
-
-$queries->create('languages', [
-    'name' => 'Lithuanian',
-    'is_default' => (Session::get('default_language') == 'Lithuanian') ? 1 : 0
-]);
-
-$queries->create('languages', [
-    'name' => 'Norwegian',
-    'is_default' => (Session::get('default_language') == 'Norwegian') ? 1 : 0
-]);
-
-$queries->create('languages', [
-    'name' => 'Polish',
-    'is_default' => (Session::get('default_language') == 'Polish') ? 1 : 0
-]);
-
-$queries->create('languages', [
-    'name' => 'Portuguese',
-    'is_default' => (Session::get('default_language') == 'Portuguese') ? 1 : 0
-]);
-
-$queries->create('languages', [
-    'name' => 'Romanian',
-    'is_default' => (Session::get('default_language') == 'Romanian') ? 1 : 0
-]);
-
-$queries->create('languages', [
-    'name' => 'Russian',
-    'is_default' => (Session::get('default_language') == 'Russian') ? 1 : 0
-]);
-
-
-$queries->create('languages', [
-    'name' => 'Slovak',
-    'is_default' => (Session::get('default_language') == 'Slovak') ? 1 : 0
-]);
-
-$queries->create('languages', [
-    'name' => 'Spanish',
-    'is_default' => (Session::get('default_language') == 'Spanish') ? 1 : 0
-]);
-
-$queries->create('languages', [
-    'name' => 'Italian',
-    'is_default' => (Session::get('default_language') == 'Italian') ? 1 : 0
-]);
-
-$queries->create('languages', [
-    'name' => 'SwedishSE',
-    'is_default' => (Session::get('default_language') == 'SwedishSE') ? 1 : 0
-]);
-
-$queries->create('languages', [
-    'name' => 'SpanishES',
-    'is_default' => (Session::get('default_language') == 'SpanishES') ? 1 : 0
-]);
-
-$queries->create('languages', [
-    'name' => 'Turkish',
-    'is_default' => (Session::get('default_language') == 'Turkish') ? 1 : 0
-]);
-
-$queries->create('languages', [
-    'name' => 'Thai',
-    'is_default' => (Session::get('default_language') == 'Thai') ? 1 : 0
-]);
+foreach (Language::LANGUAGES as $short_code => $meta) {
+    $queries->create('languages', [
+        'name' => $meta['name'],
+        'short_code' => $short_code,
+        'is_default' => (Session::get('default_language') == $short_code) ? 1 : 0
+    ]);
+}
 
 $cache->setCache('languagecache');
 $cache->store('language', Session::get('default_language'));
@@ -300,6 +186,21 @@ $cache->store('enabled_modules', [
 
 $cache->store('module_core', true);
 $cache->store('module_forum', true);
+
+// Integrations
+$queries->create('integrations', [
+    'name' => 'Minecraft',
+    'enabled' => 1,
+    'can_unlink' => 0,
+    'required' => 0
+]);
+
+$queries->create('integrations', [
+    'name' => 'Discord',
+    'enabled' => 1,
+    'can_unlink' => 1,
+    'required' => 0
+]);
 
 // Reactions
 $queries->create('reactions', [
@@ -600,11 +501,6 @@ $queries->create('settings', [
 $queries->create('settings', [
     'name' => 'registration_disabled_message',
     'value' => null
-]);
-
-$queries->create('settings', [
-    'name' => 'api_verification',
-    'value' => '0'
 ]);
 
 $queries->create('settings', [

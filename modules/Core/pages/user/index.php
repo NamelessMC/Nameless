@@ -98,10 +98,11 @@ if ($forum_enabled) {
 }
 
 if ($forum_enabled) {
-    $template->addJSFiles([
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/moment/moment.min.js' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/charts/Chart.min.js' => []
+    $template->assets()->include([
+        AssetTree::MOMENT,
+        AssetTree::CHART_JS,
     ]);
+
     $template->addJSScript(
         '
 		$(document).ready(function() {
@@ -178,9 +179,6 @@ if ($forum_enabled) {
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 require(ROOT_PATH . '/core/templates/cc_navbar.php');
-
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 

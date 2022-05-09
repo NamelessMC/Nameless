@@ -44,6 +44,11 @@ class UpdateDiscordBotSettingsEndpoint extends KeyAuthEndpoint {
             }
         }
 
+        // If bot url and username is empty then its setup for the first time
+        if (empty(BOT_URL) && empty(BOT_USERNAME)) {
+            $api->getDb()->createQuery("UPDATE nl2_settings SET `value` = 1 WHERE `name` = 'discord_integration'");
+        }
+
         if (isset($_POST['bot_user_id'])) {
             // TODO
         }

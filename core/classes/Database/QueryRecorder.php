@@ -53,7 +53,7 @@ class QueryRecorder extends Instanceable {
 
         while (
             $current_file === $last_file
-            || (str_ends_with($backtrace[$i]['file'], 'DB.php') || str_ends_with($backtrace[$i]['file'], 'Queries.php'))
+            || (str_ends_with($backtrace[$i]['file'], 'InteractsWithDatabase.php') || str_ends_with($backtrace[$i]['file'], 'Queries.php'))
         ) {
             $last_file = $backtrace[$i]['file'];
             $i++;
@@ -94,7 +94,9 @@ class QueryRecorder extends Instanceable {
             $i++;
         }
 
-        $comp .= ';';
+        if (!str_ends_with($comp, ';')) {
+            $comp .= ';';
+        }
 
         return SqlFormatter::highlight(trim($comp));
     }

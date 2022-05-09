@@ -115,6 +115,9 @@ class Input {
                 'autolink', 'codesample', 'directionality', 'emoticons', " . ($mentions ? "'mentions', " : '') . "
                 'hr', 'image', 'link', 'lists', 'spoiler', 'code', 'table',
               ],
+              external_plugins: {
+                'spoiler': " . (defined('CONFIG_PATH') ? CONFIG_PATH : '') . " '/core/assets/plugins/tinymce_spoiler/plugin.min.js',
+              },
               toolbar: 'undo redo | bold italic underline strikethrough formatselect forecolor backcolor ltr rtl emoticons | alignleft aligncenter alignright alignjustify | codesample code hr image link numlist bullist | spoiler-add spoiler-remove',
               spoiler_caption: '{$language->get('general', 'spoiler')}',
               default_link_target: '_blank',

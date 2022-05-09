@@ -51,7 +51,8 @@ class Discord {
             return false;
         }
 
-        if ($user->data()->discord_id == null || $user->data()->discord_id == 010) {
+        $integrationUser = $user->getIntegration('Discord');
+        if ($integrationUser == null || !$integrationUser->isVerified()) {
             return false;
         }
 
@@ -62,7 +63,7 @@ class Discord {
             return false;
         }
 
-        $json = self::assembleJson($user->data()->discord_id, $added_arr, $removed_arr);
+        $json = self::assembleJson($integrationUser->data()->identifier, $added_arr, $removed_arr);
 
         $result = self::discordBotRequest('/roleChange', $json);
 
@@ -172,7 +173,14 @@ class Discord {
      * @return false|string Response from the Discord bot or false if the request failed
      */
     private static function discordBotRequest(string $url = '/status', ?string $body = null) {
-        $response = HttpClient::post(BOT_URL . $url, $body)->contents();
+        $client = HttpClient::post(BOT_URL . $url, $body);
+
+        if ($client->hasError()) {
+            Log::getInstance()->log(Log::Action('discord/role_set'), $client->getError());
+            return false;
+        }
+
+        $response = $client->contents();
 
         if (in_array($response, self::$_valid_responses)) {
             return $response;
@@ -187,14 +195,15 @@ class Discord {
      * Get a language term for the Discord Integration module.
      *
      * @param string $term Term to search for
+     * @param array $variables Variables to replace in the term
      * @return string Language term from the language file
      */
-    public static function getLanguageTerm(string $term): string {
+    public static function getLanguageTerm(string $term, array $variables = []): string {
         if (!isset(self::$_discord_integration_language)) {
-            self::$_discord_integration_language = new Language(ROOT_PATH . '/modules/Discord Integration/language', LANGUAGE);
+            self::$_discord_integration_language = new Language(ROOT_PATH . '/modules/Discord Integration/language');
         }
 
-        return self::$_discord_integration_language->get('discord_integration', $term);
+        return self::$_discord_integration_language->get('discord_integration', $term, $variables);
     }
 
     /**

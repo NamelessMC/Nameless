@@ -15,7 +15,7 @@
     <div class="ui error icon message">
       <i class="x icon"></i>
       <div class="content">
-        <div class="header">Error</div>
+        <div class="header">{$ERROR_TITLE}</div>
         {$ERROR}
         <br />
         <b><a href="{$RETRY_LINK}">{$RETRY_TEXT}</a></b>
@@ -25,7 +25,7 @@
     <div class="ui success icon message">
       <i class="check icon"></i>
       <div class="content">
-        <div class="header">Success</div>
+        <div class="header">{$SUCCESS_TITLE}</div>
         {$SUCCESS}
         <br />
         <b><a href="{$LOGIN_LINK}">{$LOGIN_TEXT}</a></b>

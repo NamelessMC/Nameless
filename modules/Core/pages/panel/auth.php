@@ -110,16 +110,19 @@ if (Input::exists()) {
 
 if ($login_method == 'email') {
     $smarty->assign([
-        'EMAIL' => $language->get('user', 'email')
+        'EMAIL' => $language->get('user', 'email'),
+        'EMAIL_VALUE' => Output::getClean(Input::get('email')),
     ]);
 } else {
     if ($login_method == 'email_or_username') {
         $smarty->assign([
-            'USERNAME' => $language->get('user', 'email_or_username')
+            'USERNAME' => $language->get('user', 'email_or_username'),
+            'USERNAME_VALUE' => Output::getClean(Input::get('username')),
         ]);
     } else {
         $smarty->assign([
-            'USERNAME' => $language->get('user', 'username')
+            'USERNAME' => $language->get('user', 'username'),
+            'USERNAME_VALUE' => Output::getClean(Input::get('username')),
         ]);
     }
 }
@@ -138,9 +141,6 @@ if (Session::exists('adm_auth_error')) {
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
-
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 

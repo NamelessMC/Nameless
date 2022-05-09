@@ -18,7 +18,7 @@ class MentionsHook extends HookBase {
                 $params['content'],
                 URL::build('/forum/topic/' . urlencode($params['topic_id']), 'pid=' . urlencode($params['post_id'])),
                 ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag'],
-                ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag_info', 'replace' => '{x}', 'replace_with' => Output::getClean($params['user']->data()->nickname)]
+                ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag_info', 'replace' => '{{author}}', 'replace_with' => Output::getClean($params['user']->data()->nickname)]
             );
         }
 
@@ -41,13 +41,18 @@ class MentionsHook extends HookBase {
         if (parent::validateParams($params, ['content'])) {
             $params['content'] = preg_replace_callback(
                 '/\[user\](.*?)\[\/user\]/ism',
-                function($match) {
+                static function (array $match) {
                     if (isset(MentionsHook::$_cache[$match[1]])) {
                         [$userId, $userStyle, $userNickname, $userProfileUrl] = MentionsHook::$_cache[$match[1]];
                     } else {
                         $user = new User($match[1]);
+
+                        if (!$user->exists()) {
+                            return '@' . (new Language('core', LANGUAGE))->get('general', 'deleted_user');
+                        }
+
                         $userId = $user->data()->id;
-                        $userStyle = $user->getGroupClass();
+                        $userStyle = $user->getGroupStyle();
                         $userNickname = $user->data()->nickname;
                         $userProfileUrl = $user->getProfileURL();
 

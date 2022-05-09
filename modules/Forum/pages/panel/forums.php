@@ -33,7 +33,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                 $parent_forum_query = $queries->getWhere('forums', ['id', '=', $item->parent]);
                 if (count($parent_forum_query)) {
                     $parent_forum_count = 1;
-                    $parent_forum = str_replace('{x}', Output::getClean($parent_forum_query[0]->forum_title), $forum_language->get('forum', 'parent_forum_x'));
+                    $parent_forum = $forum_language->get('forum', 'parent_forum_x', ['forum' => Output::getClean($parent_forum_query[0]->forum_title)]);
                     $id = $parent_forum_query[0]->parent;
 
                     while ($parent_forum_count < 100 && $id > 0) {
@@ -478,7 +478,6 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
             }
 
             $available_forums = $queries->orderWhere('forums', 'id > 0', 'forum_order', 'ASC'); // Get a list of all forums which can be chosen as a parent
-            $groups = $queries->getWhere('groups', ['id', '<>', '0']); // Get a list of all groups
 
             if (Input::exists()) {
                 $errors = [];
@@ -544,7 +543,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                                     'news' => Input::get('display'),
                                     'parent' => $parent,
                                     'redirect_forum' => $redirect,
-                                    'icon' => Output::getClean(Input::get('icon')),
+                                    'icon' => Input::get('icon'),
                                     'forum_type' => Output::getClean(Input::get('forum_type')),
                                     'topic_placeholder' => Input::get('topic_placeholder'),
                                     'hooks' => $hooks,
@@ -613,7 +612,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                             }
 
                             // Group forum permissions
-                            foreach ($groups as $group) {
+                            foreach (Group::all() as $group) {
                                 $view = Input::get('perm-view-' . $group->id);
                                 $create = Input::get('perm-topic-' . $group->id);
                                 $edit = Input::get('perm-edit_topic-' . $group->id);
@@ -831,9 +830,6 @@ $smarty->assign([
     'SUBMIT' => $language->get('general', 'submit'),
     'NO_ITEM_SELECTED' => $language->get('admin', 'no_item_selected'),
 ]);
-
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 

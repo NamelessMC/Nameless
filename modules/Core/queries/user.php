@@ -18,18 +18,27 @@ if (!is_numeric($_GET['id'])) {
     $groups = [];
     $id = 0;
 } else {
-    $target_user = new User($_GET['id']);
-    if (!$target_user->data()) {
-        die(json_encode(['html' => 'User not found']));
-    }
+    $cache->setCache('user_query');
 
-    $username = $target_user->getDisplayname(true);
-    $nickname = $target_user->getDisplayname();
-    $profile = $target_user->getProfileURL();
-    $avatar = $target_user->getAvatar();
-    $style = $target_user->getGroupClass();
-    $groups = $target_user->getAllGroupHtml();
-    $id = Output::getClean($target_user->data()->id);
+    if ($cache->isCached($_GET['id'])) {
+        [$username, $nickname, $profile, $avatar, $style, $groups, $id] = $cache->retrieve($_GET['id']);
+
+    } else {
+        $target_user = new User($_GET['id']);
+        if (!$target_user->exists()) {
+            die(json_encode(['html' => 'User not found']));
+        }
+
+        $username = $target_user->getDisplayname(true);
+        $nickname = $target_user->getDisplayname();
+        $profile = $target_user->getProfileURL();
+        $avatar = $target_user->getAvatar();
+        $style = $target_user->getGroupStyle();
+        $groups = $target_user->getAllGroupHtml();
+        $id = Output::getClean($target_user->data()->id);
+
+        $cache->store($_GET['id'], [$username, $nickname, $profile, $avatar, $style, $groups, $id], 60);
+    }
 }
 
 $smarty->assign([

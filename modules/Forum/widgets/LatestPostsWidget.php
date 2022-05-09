@@ -16,16 +16,16 @@ class LatestPostsWidget extends WidgetBase {
     private Cache $_cache;
     private User $_user;
 
-    public function __construct(array $pages, string $latest_posts_language, string $by_language, Smarty $smarty, Cache $cache, User $user, Language $language) {
+    public function __construct(string $latest_posts_language, string $by_language, Smarty $smarty, Cache $cache, User $user, Language $language) {
         $this->_smarty = $smarty;
         $this->_cache = $cache;
         $this->_user = $user;
         $this->_language = $language;
 
-        parent::__construct($pages);
-
         // Get widget
-        $widget_query = DB::getInstance()->selectQuery('SELECT `location`, `order` FROM nl2_widgets WHERE `name` = ?', ['Latest Posts'])->first();
+        $widget_query = self::getData('Latest Posts');
+
+        parent::__construct(self::parsePages($widget_query->pages));
 
         // Set widget variables
         $this->_module = 'Forum';
@@ -103,11 +103,11 @@ class LatestPostsWidget extends WidgetBase {
                 $template_array[] = [
                     'topic_title' => Output::getClean($discussions[$n]['topic_title']),
                     'topic_id' => $discussions[$n]['id'],
-                    'topic_created_rough' => $timeago->inWords(date('Y-m-d H:i:s', $discussions[$n]['topic_date']), $this->_language->getTimeLanguage()),
+                    'topic_created_rough' => $timeago->inWords($discussions[$n]['topic_date'], $this->_language),
                     'topic_created' => date(DATE_FORMAT, $discussions[$n]['topic_date']),
                     'topic_created_username' => $topic_creator->getDisplayname(),
                     'topic_created_mcname' => $topic_creator->getDisplayname(true),
-                    'topic_created_style' => $topic_creator->getGroupClass(),
+                    'topic_created_style' => $topic_creator->getGroupStyle(),
                     'topic_created_user_id' => Output::getClean($discussions[$n]['topic_creator']),
                     'locked' => $discussions[$n]['locked'],
                     'forum_name' => $forum_name,
@@ -115,11 +115,11 @@ class LatestPostsWidget extends WidgetBase {
                     'views' => $discussions[$n]['topic_views'],
                     'posts' => $posts,
                     'last_reply_avatar' => $last_reply_user->getAvatar(64),
-                    'last_reply_rough' => $timeago->inWords(date('Y-m-d H:i:s', $discussions[$n]['topic_reply_date']), $this->_language->getTimeLanguage()),
+                    'last_reply_rough' => $timeago->inWords($discussions[$n]['topic_reply_date'], $this->_language),
                     'last_reply' => date(DATE_FORMAT, $discussions[$n]['topic_reply_date']),
                     'last_reply_username' => $last_reply_user->getDisplayname(),
                     'last_reply_mcname' => $last_reply_user->getDisplayname(true),
-                    'last_reply_style' => $last_reply_user->getGroupClass(),
+                    'last_reply_style' => $last_reply_user->getGroupStyle(),
                     'last_reply_user_id' => Output::getClean($discussions[$n]['topic_last_user']),
                     'label' => $label,
                     'link' => URL::build('/forum/topic/' . urlencode($discussions[$n]['id']) . '-' . $forum->titleToURL($discussions[$n]['topic_title'])),

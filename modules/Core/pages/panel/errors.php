@@ -64,7 +64,7 @@ if (isset($_GET['log'])) {
     }
 
     if (file_exists(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs', $_GET['log'] . '-log.log']))) {
-        $smarty->assign('LOG', nl2br(Output::getClean(file_get_contents(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs', $type . '-log.log'])))));
+        $smarty->assign('LOG', nl2br(Output::getClean(Util::readFileEnd(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs', $type . '-log.log'])))));
     } else {
         $smarty->assign('NO_LOG_FOUND', $language->get('admin', 'log_file_not_found'));
     }
@@ -103,9 +103,6 @@ $smarty->assign([
     'ERROR_LOGS' => $language->get('admin', 'error_logs'),
     'BACK' => $language->get('general', 'back')
 ]);
-
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 

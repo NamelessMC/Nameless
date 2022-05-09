@@ -45,8 +45,14 @@ if (!isset($_GET['action'])) {
             'name' => Output::getClean($item->name),
             'version' => Output::getClean($template->getVersion()),
             'author' => $template->getAuthor(),
-            'author_x' => str_replace('{x}', $template->getAuthor(), $language->get('admin', 'author_x')),
-            'version_mismatch' => (($template->getNamelessVersion() != NAMELESS_VERSION) ? str_replace(['{x}', '{y}'], [Output::getClean($template->getNamelessVersion()), NAMELESS_VERSION], $language->get('admin', 'template_outdated')) : false),
+            'author_x' => $language->get('admin', 'author_x', ['author' => $template->getAuthor()]),
+            'version_mismatch' => (($template->getNamelessVersion() != NAMELESS_VERSION)
+                ? $language->get('admin', 'template_outdated', [
+                    'intendedVersion' => Output::getClean($template->getNamelessVersion()),
+                    'actualVersion' => NAMELESS_VERSION,
+                ])
+                : false
+            ),
             'enabled' => $item->enabled,
             'activate_link' => (($item->enabled) ? null : URL::build('/panel/core/panel_templates/', 'action=activate&template=' . urlencode($item->id))),
             'delete_link' => (($item->id == 1 || $item->enabled) ? null : URL::build('/panel/core/panel_templates/', 'action=delete&template=' . urlencode($item->id))),
@@ -77,7 +83,7 @@ if (!isset($_GET['action'])) {
             $smarty->assign('WEBSITE_TEMPLATES_ERROR', $all_templates_error);
 
         } else {
-            $all_templates_query = json_decode($all_templates_query->contents());
+            $all_templates_query = $all_templates_query->json();
             $timeago = new TimeAgo(TIMEZONE);
 
             foreach ($all_templates_query as $item) {
@@ -86,16 +92,16 @@ if (!isset($_GET['action'])) {
                     'description' => Output::getPurified($item->description),
                     'description_short' => Util::truncate(Output::getPurified($item->description)),
                     'author' => Output::getClean($item->author),
-                    'author_x' => str_replace('{x}', Output::getClean($item->author), $language->get('admin', 'author_x')),
-                    'updated_x' => str_replace('{x}', date(DATE_FORMAT, $item->updated), $language->get('admin', 'updated_x')),
+                    'author_x' => $language->get('admin', 'author_x', ['author' => Output::getClean($item->author)]),
+                    'updated_x' => $language->get('admin', 'updated_x', ['updatedAt' => date(DATE_FORMAT, $item->updated)]),
                     'url' => Output::getClean($item->url),
                     'latest_version' => Output::getClean($item->latest_version),
                     'rating' => Output::getClean($item->rating),
                     'downloads' => Output::getClean($item->downloads),
                     'views' => Output::getClean($item->views),
-                    'rating_full' => str_replace('{x}', Output::getClean($item->rating * 2) . '/100', $language->get('admin', 'rating_x')),
-                    'downloads_full' => str_replace('{x}', Output::getClean($item->downloads), $language->get('admin', 'downloads_x')),
-                    'views_full' => str_replace('{x}', Output::getClean($item->views), $language->get('admin', 'views_x'))
+                    'rating_full' => $language->get('admin', 'rating_x', ['rating' => Output::getClean($item->rating * 2) . '/100']),
+                    'downloads_full' => $language->get('admin', 'downloads_x', ['downloads' => Output::getClean($item->downloads)]),
+                    'views_full' =>  $language->get('admin', 'views_x', ['views' => Output::getClean($item->views)])
                 ];
             }
 
@@ -311,7 +317,7 @@ if (!isset($_GET['action'])) {
                 $cache->store('panel_default', $new_default_template);
 
                 // Session
-                Session::flash('admin_templates', str_replace('{x}', Output::getClean($new_default_template), $language->get('admin', 'default_template_set')));
+                Session::flash('admin_templates', $language->get('admin', 'default_template_set', ['template' => Output::getClean($new_default_template)]));
             } else {
                 Session::flash('admin_templates_error', $language->get('general', 'invalid_token'));
             }
@@ -367,9 +373,6 @@ $smarty->assign([
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit')
 ]);
-
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 

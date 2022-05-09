@@ -14,11 +14,6 @@ const PAGE = 'forum';
 $page_title = $forum_language->get('forum', 'edit_post');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-$template->addCSSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism_' . (DARK_MODE ? 'dark' : 'light_default') . '.css' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
-]);
-
 // User must be logged in to proceed
 if (!$user->isLoggedIn()) {
     Redirect::to(URL::build('/forum'));
@@ -250,19 +245,14 @@ $smarty->assign([
     'TOPIC_TITLE' => $forum_language->get('forum', 'topic_title')
 ]);
 
-$template->addJSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
+$template->assets()->include([
+    AssetTree::TINYMCE,
 ]);
 
 $template->addJSScript(Input::createTinyEditor($language, 'editor', $content, true));
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
-
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 

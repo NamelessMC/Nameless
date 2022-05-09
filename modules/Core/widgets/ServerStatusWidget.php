@@ -15,15 +15,15 @@ class ServerStatusWidget extends WidgetBase {
     private Cache $_cache;
     private Language $_language;
 
-    public function __construct(array $pages, Smarty $smarty, Language $language, Cache $cache) {
+    public function __construct(Smarty $smarty, Language $language, Cache $cache) {
         $this->_language = $language;
         $this->_smarty = $smarty;
         $this->_cache = $cache;
 
-        parent::__construct($pages);
-
         // Get widget
-        $widget_query = DB::getInstance()->selectQuery('SELECT `location`, `order` FROM nl2_widgets WHERE `name` = ?', ['Server Status'])->first();
+        $widget_query = self::getData('Server Status');
+
+        parent::__construct(self::parsePages($widget_query->pages));
 
         // Set widget variables
         $this->_module = 'Core';
@@ -70,7 +70,7 @@ class ServerStatusWidget extends WidgetBase {
                     'ONLINE' => $this->_language->get('general', 'online'),
                     'OFFLINE' => $this->_language->get('general', 'offline'),
                     'IP' => $this->_language->get('general', 'ip'),
-                    'VERSION' => isset($server_array['version']) ? str_replace('{x}', '<strong>' . $server_array['version'] . '</strong>', $this->_language->get('general', 'version')) : null
+                    'VERSION' => isset($server_array['version']) ? $this->_language->get('general', 'version', ['version' => $server_array['version']]) : null
                 ]
             );
         }

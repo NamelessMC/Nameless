@@ -13,8 +13,7 @@
 <h2 class="ui header">
   <div class="topic title">{if count($TOPIC_LABELS)}{foreach from=$TOPIC_LABELS item=label}{$label} {/foreach}{/if}{$TOPIC_TITLE}</div>
   <div class="sub header">
-    {$started_by_val="<a href=\"`$TOPIC_AUTHOR_PROFILE`\" style=\"`$TOPIC_AUTHOR_STYLE`\">`$TOPIC_AUTHOR_USERNAME`</a>"}
-    {$STARTED_BY|replace:'{x}':$started_by_val}
+    {$STARTED_BY}
   </div>
 </h2>
 
@@ -122,9 +121,11 @@
                 {/if}
               </h3>
             </center>
+            <div class="groups">
               {foreach from=$reply.user_groups item=group}
                 {$group}
               {/foreach}
+            </div>
             <div class="ui list">
               <div class="ui divider"></div>
               <div class="item">
@@ -156,11 +157,11 @@
               <div class="ui list">
                 <div class="ui divider"></div>
                 {foreach from=$reply.fields item=field}
-                  {if !empty($field.value)}
+                  {if !empty($field->value)}
                     <div class="item">
                       <div class="content">
-                        <div class="header">{$field.name}</div>
-                        <div class="res right floated description">{$field.value}</div>
+                        <div class="header">{$field->name}</div>
+                        <div class="res right floated description">{$field->value}</div>
                       </div>
                     </div>
                   {/if}

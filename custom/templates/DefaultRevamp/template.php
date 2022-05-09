@@ -36,17 +36,18 @@ class DefaultRevamp_Template extends TemplateBase {
 
         $this->_settings = ROOT_PATH . '/custom/templates/DefaultRevamp/template_settings/settings.php';
 
+        $this->assets()->include([
+            AssetTree::FONT_AWESOME,
+            AssetTree::JQUERY,
+            AssetTree::JQUERY_COOKIE,
+        ]);
+
         $this->addCSSFiles([
-            $template['path'] . 'css/semantic.min.css' => [],
-            $template['path'] . 'css/toastr.min.css' => [],
-            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/css/font-awesome.min.css' => [],
+            $template['path'] . 'css/fomantic.min.css' => [],
         ]);
 
         $this->addJSFiles([
-            $template['path'] . 'js/jquery.min.js' => [],
-            $template['path'] . 'js/jquery.cookie.js' => [],
-            $template['path'] . 'js/semantic.min.js' => [],
-            $template['path'] . 'js/toastr.min.js' => [],
+            $template['path'] . 'js/fomantic.min.js' => [],
         ]);
 
         $smarty->assign('TEMPLATE', $template);
@@ -83,6 +84,8 @@ class DefaultRevamp_Template extends TemplateBase {
     }
 
     public function onPageLoad() {
+        $page_load = microtime(true) - PAGE_START_TIME;
+        define('PAGE_LOAD_TIME', $this->_language->get('general', 'page_loaded_in', ['time' => round($page_load, 3)]));
 
         $this->addCSSFiles([
             $this->_template['path'] . 'css/custom.css?v=2pr12' => []
@@ -106,6 +109,8 @@ class DefaultRevamp_Template extends TemplateBase {
             'newAlertsX' => $this->_language->get('user', 'x_new_alerts'),
             'bungeeInstance' => $this->_language->get('general', 'bungee_instance'),
             'andMoreX' => $this->_language->get('general', 'and_x_more'),
+            'onePlayerOnline' => $this->_language->get('general', 'currently_1_player_online'),
+            'xPlayersOnline' => $this->_language->get('general', 'currently_x_players_online'),
             'noPlayersOnline' => $this->_language->get('general', 'no_players_online'),
             'offline' => $this->_language->get('general', 'offline'),
             'confirmDelete' => $this->_language->get('general', 'confirm_deletion'),
@@ -117,8 +122,8 @@ class DefaultRevamp_Template extends TemplateBase {
         ];
 
         if (strpos($route, '/forum/topic/') !== false || PAGE == 'profile') {
-            $this->addJSFiles([
-                $this->_template['path'] . 'js/jquery-ui.min.js' => []
+            $this->assets()->include([
+                AssetTree::JQUERY_UI,
             ]);
         }
 

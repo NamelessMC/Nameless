@@ -84,7 +84,9 @@ if (Input::exists()) {
                             || CaptchaBase::getActiveProvider()->validateKey(Input::get('recaptcha')) == false
                         )
                     ) {
-                        $errors = [str_replace('{x}', Input::get('captcha_type'), $language->get('admin', 'invalid_recaptcha_settings'))];
+                        $errors = [$language->get('admin', 'invalid_recaptcha_settings', [
+                            'recaptchaProvider' => Util::bold(Input::get('captcha_type'))
+                        ])];
                     } else {
                         // reCAPTCHA enabled?
                         if (Input::get('enable_recaptcha') == 1) {
@@ -241,7 +243,10 @@ $smarty->assign([
     'VALIDATION_GROUP' => $validation_group,
     'CAPTCHA_OPTIONS' => $captcha_options,
     'OAUTH' => $language->get('admin', 'oauth'),
-    'OAUTH_INFO' => $language->get('admin', 'oauth_info'),
+    'OAUTH_INFO' => $language->get('admin', 'oauth_info', [
+        'docLinkStart' => '<a href="https://docs.namelessmc.com/en/oauth" target="_blank">',
+        'docLinkEnd' => '</a>'
+    ]),
 ]);
 
 [$discord_client_id, $discord_client_secret] = OAuth::getInstance()->getCredentials(OAuth::DISCORD);
@@ -272,9 +277,6 @@ $smarty->assign([
     'ENABLE_REGISTRATION' => $language->get('admin', 'enable_registration'),
     'REGISTRATION_ENABLED' => $registration_enabled
 ]);
-
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 

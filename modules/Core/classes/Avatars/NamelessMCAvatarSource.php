@@ -19,9 +19,9 @@ class NamelessMCAvatarSource extends AvatarSourceBase {
 
     public function getUrlToFormat(string $perspective): string {
         if (defined('FRIENDLY_URLS') && FRIENDLY_URLS == true) {
-            return URL::build('/avatar/{x}');
+            return URL::build('/avatar/{identifier}');
         }
 
-        return ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'core/avatar/face.php?u={x}';
+        return ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'core/avatar/face.php?u={identifier}';
     }
 }

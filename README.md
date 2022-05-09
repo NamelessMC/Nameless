@@ -30,7 +30,7 @@ The following list is a brief summary of the features available in v2 pre-releas
   - [Nameless-Link Discord bot](https://github.com/NamelessMC/Nameless-Link/wiki/Setup)
     - Link Discord accounts with NamelessMC accounts
     - Synchronize Discord roles with NamelessMC groups (bidirectional)
-- ⚙️ [API](https://github.com/NamelessMC/Nameless/wiki/v2-API) - Write your own integrations or use one of ours (see above)
+- ⚙️ [API](https://docs.namelessmc.com/en/api-documentation) - Write your own integrations or use one of ours (see above)
 - 🧩 New powerful module system allowing for further NamelessMC integration.
 - ✏️ New template and language systems, allowing for total customisation.
 - ✨ Pretty URL option (requires mod_rewrite or special nginx config).
@@ -39,7 +39,7 @@ The following list is a brief summary of the features available in v2 pre-releas
 
 
 #### Customising Nameless
-- Check out [this wiki article](https://github.com/NamelessMC/Nameless/wiki/Nameless-2.0-Module-Developer-Documentation) for the Module Developer Documenation.
+- Check out [this wiki article](https://docs.namelessmc.com/en/module-documentation) for the Module Developer Documenation.
 - Developer documentation is coming soon for template and widget development.
 
 ---
@@ -63,22 +63,18 @@ Feature requests can be posted on the [forum](https://namelessmc.com/forum/view/
 For Minecraft integration, you can install the Nameless Plugin in your Spigot server. Currently the plugin is only available for spigot, but we're working on bringing it to different server software, such as Sponge and BungeeCord. You can find a list of features and installation instructions in the [plugin readme](https://github.com/NamelessMC/Nameless-Plugin/blob/master/README.md).
 
 ## Translations
-NamelessMC translations are kindly provided by the community. Currently available translations can be found [here](https://github.com/NamelessMC/Nameless/tree/v2/custom/languages). Please note, not all translations may be up to date.
+NamelessMC translations are kindly provided by the community. Please note, not all translations may be up to date. Progress for the core module is shown below.
 
-#### Contributing translation updates
-If you would like to assist with the NamelessMC development by providing an updated translation, please feel free to fork the repository here on GitHub and create any pull requests. Or, if you don't want to deal with creating a pull request, please send us a zip file and we'll add it to the repository for you. Just make sure you translate the [latest development version](https://github.com/NamelessMC/Nameless/archive/refs/heads/v2.zip), not the latest release or we won't be able to merge your translations!
+If you would like to assist with the NamelessMC development by translating to your language, please create an account on [translate.namelessmc.com](https://translate.namelessmc.com/projects/namelessmc/). To discuss with fellow translators, visit the [NamelessMC Translators](https://discord.gg/7Dku3fE) discord server.
 
-To discuss changes with fellow translators, visit the [NamelessMC Translators](https://discord.gg/7Dku3fE) discord server.
-
-#### Translation credits
-Translation credits can be found within CONTRIBUTORS.md
+![Translation progress](https://translate.namelessmc.com/widgets/namelessmc/-/nameless/multi-auto.svg)
 
 ## Contributing
 We welcome all contributions of code and translations. Please feel free to fork the repository on GitHub and create any pull requests.
 - We generally keep a todo list in the Milestones tab of the the Issues page.
 - We use Composer to manage dependencies. Before you can install the dependencies, you need to install Composer on your local computer. Installation instructions are [here](https://getcomposer.org/doc/00-intro.md).
 - To install the Composer packages we depend on, run the following command in the root directory of the NamelessMC repository:
-    ```
+    ```console
     composer install --dev
     ```
   - This could take up to about a minute depending on your internet connection.

@@ -104,8 +104,18 @@
                                 <!-- Card Body -->
                                 <div class="card-body">
                                     {$NAMELESS_VERSION}
-                                    <hr /> {foreach from=$COMPAT_SUCCESS item=item} <i class="fas fa-check-circle text-success"></i> {$item} <br /> {/foreach} {if count($COMPAT_ERRORS)}
-                                    <hr /> {foreach from=$COMPAT_ERRORS item=item} <i class="fas fa-times-circle text-danger"> {$item} </i><br /> {/foreach} {/if}
+                                    <hr />
+                                    {foreach from=$COMPAT_SUCCESS item=item}
+                                        <i class="fas fa-check-circle text-success"></i> {$item}
+                                        <br />
+                                    {/foreach}
+                                    {if count($COMPAT_ERRORS)}
+                                    <hr />
+                                        {foreach from=$COMPAT_ERRORS item=item}
+                                            <i class="fas fa-times-circle text-danger"></i> {$item}
+                                            <br />
+                                        {/foreach}
+                                    {/if}
                                 </div>
                             </div>
                             {/if}

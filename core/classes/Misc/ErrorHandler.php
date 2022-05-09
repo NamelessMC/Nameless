@@ -75,7 +75,7 @@ class ErrorHandler {
 
         // If this is an API request, print the error in plaintext and dont render the whole error trace page
         if (self::isApiRequest()) {
-            die($error_string . ' in ' . $error_file . ' on line ' . $error_line . PHP_EOL . $exception->getTraceAsString());
+            die($error_string . ' in ' . $error_file . ' on line ' . $error_line . (!is_null($exception) ? PHP_EOL . $exception->getTraceAsString() : ''));
         }
 
         $frames = [];
@@ -107,7 +107,7 @@ class ErrorHandler {
             $language = new Language('core', LANGUAGE);
         } else {
             // NamelessMC not installed yet
-            $language = new Language('core', 'EnglishUK');
+            $language = new Language('core', 'en_UK');
         }
 
         $user = new User();
@@ -128,11 +128,11 @@ class ErrorHandler {
             'LANG_CHARSET' => defined('LANG_CHARSET') ? LANG_CHARSET : 'utf-8',
             'TITLE' => $language->get('errors', 'fatal_error') . ' - ' . (defined('SITE_NAME') ? SITE_NAME : 'installer'),
             'SITE_NAME' => (defined('SITE_NAME') ? SITE_NAME : 'installer'),
-            'BOOTSTRAP' => $path . 'css/bootstrap.min.css',
-            'BOOTSTRAP_JS' => $path . 'js/bootstrap.min.js',
+            'BOOTSTRAP' => $path . 'vendor/bootstrap/dist/css/bootstrap.min.css',
+            'BOOTSTRAP_JS' => $path . 'vendor/bootstrap/dist/js/bootstrap.min.js',
             'CUSTOM' => $path . 'css/custom.css',
-            'FONT_AWESOME' => $path . 'css/font-awesome.min.css',
-            'JQUERY' => $path . 'js/jquery.min.js',
+            'FONT_AWESOME' => $path . 'vendor/@fortawesome/fontawesome-free/css/all.min.css',
+            'JQUERY' => $path . 'vendor/jquery/dist/jquery.min.js',
             'PRISM_CSS' => $path . 'plugins/prism/prism_light_coy.css',
             'PRISM_JS' => $path . 'plugins/prism/prism.js',
             'DETAILED_ERROR' => defined('DEBUGGING') || ($user->isLoggedIn() && $user->hasPermission('admincp.errors')),
@@ -140,13 +140,13 @@ class ErrorHandler {
             'FATAL_ERROR_MESSAGE_ADMIN' => $language->get('errors', 'fatal_error_message_admin'),
             'FATAL_ERROR_MESSAGE_USER' => $language->get('errors', 'fatal_error_message_user'),
             'ERROR_TYPE' => is_null($exception) ? $language->get('general', 'error') : (new ReflectionClass($exception))->getName(),
-            'ERROR_STRING' => $error_string,
+            'ERROR_STRING' => Output::getClean($error_string),
             'ERROR_FILE' => $error_file,
-            'CAN_GENERATE_DEBUG' => $user->hasPermission('admincp.core.debugging'),
+            'CAN_GENERATE_DEBUG' => defined('DEBUGGING') || $user->hasPermission('admincp.core.debugging'),
             'DEBUG_LINK' => $language->get('admin', 'debug_link'),
             'DEBUG_LINK_URL' => URL::build('/queries/debug_link'),
             'ERROR_SQL_STACK' => QueryRecorder::getInstance()->getSqlStack(),
-            'CURRENT_URL' => 'http' . ((Util::isConnectionSSL()) ? 's' : '') . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],
+            'CURRENT_URL' => urldecode('http' . ((Util::isConnectionSSL()) ? 's' : '') . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']),
             'FRAMES' => $frames,
             'SKIP_FRAMES' => $skip_frames,
             'BACK' => $language->get('general', 'back'),
