@@ -1215,5 +1215,7 @@
     "general/or": "ODER",
     "user/nickname_maximum_20": "Dein Nickname darf maximal 20 Zeichen lang sein.",
     "user/nickname_minimum_3": "Dein Nickname muss aus mindestens 3 Zeichen bestehen.",
-    "user/nickname_required": "Ein Nickname ist erforderlich."
+    "user/nickname_required": "Ein Nickname ist erforderlich.",
+    "admin/not_set": "Nicht festgelegt",
+    "admin/updated": "Aktualisiert"
 }
