@@ -354,7 +354,8 @@ if (Input::exists()) {
                                 $queries->create('users_profile_fields', [
                                     'user_id' => $user_id,
                                     'field_id' => $field_id,
-                                    'value' => $value
+                                    'value' => $value,
+                                    'updated' => date('U'),
                                 ]);
                             }
                         }

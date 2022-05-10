@@ -167,6 +167,11 @@ class Pre13 extends UpgradeScript {
             $db->createQuery('UPDATE nl2_users SET `language_id` = ? WHERE `language_id` NOT IN (' . implode(', ', $converted_languages) . ')', [$default_language]);
         });
 
+        // add updated column to users profile fields
+        $this->databaseQuery(function (DB $db) {
+            $db->alterTable('users_profile_fields', 'updated', 'int(11)');
+        });
+
         $this->setVersion('2.0.0-pr13');
     }
 }
