@@ -439,7 +439,7 @@ class User {
      * @return array Array of all their group IDs.
      */
     public function getAllGroupIds(): array {
-        if (!$this->isLoggedIn() || !$this->exists()) {
+        if (!$this->exists()) {
             return [0 => 0];
         }
 
