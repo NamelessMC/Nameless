@@ -1215,5 +1215,7 @@
     "general/or": "ИЛИ",
     "user/nickname_required": "Требуется никнейм.",
     "user/nickname_maximum_20": "Ваш никнейм должен быть максимум 20 букв.",
-    "user/nickname_minimum_3": "Ваш никнейм должен быть минимум 3 буквы."
+    "user/nickname_minimum_3": "Ваш никнейм должен быть минимум 3 буквы.",
+    "admin/not_set": "Не поставлено",
+    "admin/updated": "Обновлено"
 }
