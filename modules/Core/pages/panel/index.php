@@ -162,6 +162,7 @@ if ($user->hasPermission('admincp.core.debugging')) {
     }
     $pdo_driver = DB::getInstance()->getPDO()->getAttribute(PDO::ATTR_DRIVER_NAME);
     $pdo_server_version = DB::getInstance()->getPDO()->getAttribute(PDO::ATTR_SERVER_VERSION);
+    // Even if it is a MariaDB server, it still reports "mysql" as the driver name.
     if ($pdo_driver === 'mysql') {
         if (!str_contains($pdo_server_version, 'MariaDB')) {
             $pdo_driver = 'MySQL';
