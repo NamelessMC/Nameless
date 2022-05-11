@@ -84,7 +84,7 @@ class MCQuery {
                             'x_players_online' => $language->get('general', 'currently_x_players_online', ['count' => Output::getClean($query['players']['online'])]),
                             'motd' => self::getMotd(
                                 $query['description']['text'],
-                                $query['description']['extra']
+                                $query['description']['extra'] ?? [],
                             ),
                             'version' => $query['version']['name']
                         ];
