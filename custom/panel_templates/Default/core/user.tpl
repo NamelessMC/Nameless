@@ -166,6 +166,10 @@
                                                     {/if}
                                                 </td>
                                             </tr>
+                                        {foreachelse}
+                                            <tr>
+                                                <td colspan="3" style="text-align:center;">{$NO_PROFILE_FIELDS}</td>
+                                            </tr>
                                         {/foreach}
                                         </tbody>
                                     </table>

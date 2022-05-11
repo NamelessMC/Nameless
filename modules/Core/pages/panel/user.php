@@ -112,6 +112,7 @@ $smarty->assign([
     'PROFILE_FIELDS_LABEL' => 'Profile Fields',
     'ALL_PROFILE_FIELDS' => ProfileField::all(),
     'USER_PROFILE_FIELDS' => $view_user->getProfileFields(true),
+    'NO_PROFILE_FIELDS' => $language->get('admin', 'no_custom_fields'),
 ]);
 
 $template->onPageLoad();
