@@ -36,7 +36,6 @@ $template->assets()->include([
     DARK_MODE
         ? AssetTree::PRISM_DARK
         : AssetTree::PRISM_LIGHT,
-    AssetTree::IMAGE_PICKER,
     AssetTree::TINYMCE_SPOILER,
 ]);
 
