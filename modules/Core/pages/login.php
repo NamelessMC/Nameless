@@ -127,7 +127,7 @@ if (Input::exists()) {
                                     // App
                                     $tfa = new \RobThree\Auth\TwoFactorAuth('NamelessMC');
 
-                                    if ($tfa->verifyCode($user_query->data()->tfa_secret, $_POST['tfa_code']) !== true) {
+                                    if ($tfa->verifyCode($user_query->data()->tfa_secret, str_replace(' ', '', $_POST['tfa_code'])) !== true) {
                                         Session::flash('tfa_signin', $language->get('user', 'invalid_tfa'));
                                         require(ROOT_PATH . '/core/includes/tfa_signin.php');
                                         die();

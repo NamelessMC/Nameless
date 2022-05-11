@@ -10,6 +10,9 @@ $classes = [
     'Seeder.php',
     'UserSeeder.php',
     'UserProfilePostSeeder.php',
+    'MinecraftServerSeeder.php',
+    'MinecraftPlaceholderSeeder.php',
+    'MinecraftPlaceholderDataSeeder.php',
 ];
 
 foreach ($classes as $class) {
@@ -20,6 +23,9 @@ foreach ($classes as $class) {
 $seeders = [
     new UserSeeder,
     new UserProfilePostSeeder,
+    new MinecraftServerSeeder,
+    new MinecraftPlaceholderSeeder,
+    new MinecraftPlaceholderDataSeeder,
 ];
 
 $faker = Faker\Factory::create();
@@ -47,7 +53,7 @@ if (!$wipe && $db->get('users', ['id', '>', 0])->count() > 0) {
 if ($wipe) {
     foreach ($seeders as $seeder) {
         foreach ($seeder->tables as $table) {
-            $db->query("DELETE FROM {$table}");
+            $db->query("TRUNCATE {$table}");
         }
     }
     print '🧨 Deleted existing data!' . PHP_EOL;

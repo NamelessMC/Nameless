@@ -39,7 +39,7 @@ if (!isset($_GET['s'])) {
                 Redirect::to(URL::build('/forum/search/', 's=' . urlencode($search) . '&p=1'));
             }
 
-            $error = $forum_language->get('forum', 'invalid_search_query');
+            $error = $forum_language->get('forum', 'invalid_search_query', ['min' => 3, 'max' => 128]);
         } else {
             $error = $language->get('general', 'invalid_token');
         }
@@ -145,15 +145,8 @@ if (!isset($_GET['s'])) {
 }
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-$template->addCSSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.css' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
-]);
-
-$template->addJSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
+$template->assets()->include([
+    AssetTree::TINYMCE,
 ]);
 
 if (isset($_GET['s'])) {

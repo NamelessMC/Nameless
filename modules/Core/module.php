@@ -831,9 +831,10 @@ class Core_Module extends Module {
         }
 
         $leaderboard_placeholders = Placeholders::getInstance()->getLeaderboardPlaceholders();
+        $placeholders_enabled = Configuration::getInstance()->get('Core', 'placeholders');
 
         // Only add leaderboard link if there is at least one enabled placeholder
-        if (count($leaderboard_placeholders)) {
+        if ($placeholders_enabled == 1 && count($leaderboard_placeholders)) {
 
             $cache->setCache('navbar_order');
             if (!$cache->isCached('leaderboards_order')) {
@@ -920,12 +921,12 @@ class Core_Module extends Module {
                             if (isset($result['status_value']) && $result['status_value'] == 1) {
                                 $result['status'] = $language->get('general', 'online');
 
-                                if ($result['total_players'] == 1) {
+                                if ($result['player_count'] == 1) {
                                     $result['status_full'] = $language->get('general', 'currently_1_player_online');
                                     $result['x_players_online'] = $language->get('general', 'currently_1_player_online');
                                 } else {
-                                    $result['status_full'] = $language->get('general', 'currently_x_players_online', ['count' => $result['total_players']]);
-                                    $result['x_players_online'] = $language->get('general', 'currently_x_players_online', ['count' => $result['total_players']]);
+                                    $result['status_full'] = $language->get('general', 'currently_x_players_online', ['count' => $result['player_count']]);
+                                    $result['x_players_online'] = $language->get('general', 'currently_x_players_online', ['count' => $result['player_count']]);
                                 }
 
                             } else {

@@ -21,14 +21,15 @@ class GetNotificationsEndpoint extends KeyAuthEndpoint {
         $return = ['notifications' => []];
 
         // Get unread alerts
-        $alerts = $api->getDb()->query('SELECT id, type, url, content_short FROM nl2_alerts WHERE user_id = ? AND `read` = 0', [$user->data()->id]);
+        $alerts = $api->getDb()->query('SELECT id, type, url, content_short, content, created FROM nl2_alerts WHERE user_id = ? AND `read` = 0', [$user->data()->id]);
         if ($alerts->count()) {
             foreach ($alerts->results() as $result) {
                 $return['notifications'][] = [
                     'type' => $result->type,
                     'message_short' => $result->content_short,
                     'message' => ($result->content) ? strip_tags($result->content) : $result->content_short,
-                    'url' => rtrim(Util::getSelfURL(), '/') . URL::build('/user/alerts/', 'view=' . urlencode($result->id))
+                    'url' => rtrim(Util::getSelfURL(), '/') . URL::build('/user/alerts/', 'view=' . urlencode($result->id)),
+                    'received_at' => $result->created,
                 ];
             }
         }

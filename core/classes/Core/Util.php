@@ -313,7 +313,13 @@ class Util {
     public static function updateCheck(): string {
         $uid = self::getSetting(DB::getInstance(), 'unique_id');
 
-        $update_check = HttpClient::get('https://namelessmc.com/nl_core/nl2/stats.php?uid=' . $uid . '&version=' . NAMELESS_VERSION . '&php_version=' . urlencode(PHP_VERSION) . '&language=' . LANGUAGE . '&docker=' . (getenv('NAMELESSMC_METRICS_DOCKER') === false ? 'false' : 'true'));
+        $update_check = HttpClient::get('https://namelessmc.com/nl_core/nl2/stats.php?uid=' . $uid .
+            '&version=' . NAMELESS_VERSION .
+            '&php_version=' . urlencode(PHP_VERSION) .
+            '&language=' . LANGUAGE .
+            '&docker=' . (getenv('NAMELESSMC_METRICS_DOCKER') === false ? 'false' : 'true') .
+            '&mysql_server=' . DB::getInstance()->getPDO()->getAttribute(PDO::ATTR_SERVER_VERSION)
+        );
 
         if ($update_check->hasError()) {
             $error = $update_check->getError();

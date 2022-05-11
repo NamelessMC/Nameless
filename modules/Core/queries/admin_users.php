@@ -18,7 +18,7 @@ $limit = '';
 $params = [];
 
 if (isset($_GET['search']) && $_GET['search']['value'] != '') {
-    $where .= ' WHERE username LIKE ? OR nickname LIKE ? OR email LIKE ?';
+    $where .= ' WHERE u.username LIKE ? OR u.nickname LIKE ? OR u.email LIKE ?';
     array_push($params, '%' . $_GET['search']['value'] . '%', '%' . $_GET['search']['value'] . '%', '%' . $_GET['search']['value'] . '%');
 }
 
@@ -57,7 +57,7 @@ if (isset($_GET['start']) && $_GET['length'] != -1) {
 }
 
 if (strlen($where) > 0) {
-    $totalFiltered = $db->query('SELECT COUNT(*) as `total` FROM nl2_users' . $where, $params)->first()->total;
+    $totalFiltered = $db->query('SELECT COUNT(*) as `total` FROM nl2_users u' . $where, $params)->first()->total;
 }
 
 $results = $db->query($query . $where . $order . $limit, $params)->results();

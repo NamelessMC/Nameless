@@ -84,7 +84,7 @@ class MCQuery {
                             'x_players_online' => $language->get('general', 'currently_x_players_online', ['count' => Output::getClean($query['players']['online'])]),
                             'motd' => self::getMotd(
                                 $query['description']['text'],
-                                $query['description']['extra']
+                                $query['description']['extra'] ?? [],
                             ),
                             'version' => $query['version']['name']
                         ];
@@ -205,149 +205,149 @@ class MCQuery {
 
     /**
      * Query multiple servers
+     *
      * @param array $servers Servers
      * @param string $type Type of query to use (internal or external)
      * @param Language $language Query language object
      * @param bool $accumulate Whether to return as one accumulated result or not
      * @param Queries $queries Queries instance to pass through for error logging
-     *
      * @return array Array containing query result
-     * @throws Exception if not able to query the server
-     *
      */
     public static function multiQuery(array $servers, string $type, Language $language, bool $accumulate, Queries $queries): array {
-        if (count($servers)) {
-            $to_return = [];
-            $total_count = 0;
-            $status = 0;
-            if ($type == 'internal') {
-                foreach ($servers as $server) {
-                    $query_ip = explode(':', $server['ip']);
-                    if (count($query_ip) <= 2) {
-                        try {
-                            if (!$server['bedrock']) {
-                                $ping = new MinecraftPing($query_ip[0], ($query_ip[1] ?? 25565), 5);
+        $to_return = [];
+        $total_count = 0;
+        $status = 0;
 
-                                if ($server['pre'] == 1) {
-                                    $query = $ping->QueryOldPre17();
-                                } else {
-                                    $query = $ping->Query();
-                                }
-                            } else {
-                                $ping = new MinecraftQuery();
-                                $ping->ConnectBedrock($query_ip[0], ($query_ip[1] ?? 19132), 5);
-                                $query = $ping->GetInfo();
-                            }
-                        } catch (Exception $e) {
-                            $error = $e->getMessage();
-
-                            $query = [];
-
-                            $queries->create('query_errors', [
-                                'date' => date('U'),
-                                'error' => $error,
-                                'ip' => $query_ip[0],
-                                'port' => ($query_ip[1] ?? ($server['bedrock'] ? 19132 : 25565))
-                            ]);
-                        }
-
-                        // bedrock
-                        if (isset($query['HostName'])) {
-                            if ($accumulate === false) {
-                                $to_return[] = [
-                                    'name' => Output::getClean($server['name']),
-                                    'status_value' => 1,
-                                    'status' => $language->get('general', 'online'),
-                                    'player_count' => Output::getClean($query['Players']),
-                                    'player_count_max' => Output::getClean($query['MaxPlayers']),
-                                    'x_players_online' => $language->get('general', 'currently_x_players_online', ['count' => Output::getClean($query['Players'])]),
-                                ];
-                            } else {
-                                if ($status == 0) {
-                                    $status = 1;
-                                }
-                                $total_count += $query['Players'];
-                            }
-                        } else if (isset($query['players'])) {
-                            if ($accumulate === false) {
-                                $to_return[] = [
-                                    'name' => Output::getClean($server['name']),
-                                    'status_value' => 1,
-                                    'status' => $language->get('general', 'online'),
-                                    'player_count' => Output::getClean($query['players']['online']),
-                                    'player_count_max' => Output::getClean($query['players']['max']),
-                                    'x_players_online' => $language->get('general', 'currently_x_players_online', ['count' => Output::getClean($query['players']['online'])]),
-                                ];
-                            } else {
-                                if ($status == 0) {
-                                    $status = 1;
-                                }
-                                $total_count += $query['players']['online'];
-                            }
-                        } else if ($accumulate === true) {
-                            $to_return[] = [
-                                'name' => Output::getClean($server['name']),
-                                'status_value' => 0,
-                                'status' => $language->get('general', 'offline'),
-                                'server_offline' => $language->get('general', 'server_offline')
-                            ];
-                        }
-                    }
+        if ($type === 'internal') {
+            foreach ($servers as $server) {
+                $query_ip = explode(':', $server['ip']);
+                if (count($query_ip) > 2) {
+                    continue;
                 }
 
-                if (isset($ping) && $ping instanceof MinecraftPing) {
-                    $ping->close();
-                }
+                try {
+                    if ($server['bedrock']) {
+                        $ping = new MinecraftQuery();
+                        $ping->ConnectBedrock($query_ip[0], ($query_ip[1] ?? 19132), 5);
+                        $query = $ping->GetInfo();
+                    } else {
+                        $ping = new MinecraftPing($query_ip[0], ($query_ip[1] ?? 25565), 5);
 
-            } else {
-                // External query
-                foreach ($servers as $server) {
-                    $query_ip = explode(':', $server['ip']);
-
-                    if (count($query_ip) <= 2) {
-                        $query = ExternalMCQuery::query($query_ip[0], ($query_ip[1] ?? ($server['bedrock'] ? 19132 : 25565)), $server['bedrock']);
-
-                        if ($query !== false && !$query->error && isset($query->response)) {
-                            if ($accumulate === false) {
-                                $to_return[] = [
-                                    'name' => Output::getClean($server['name']),
-                                    'status_value' => 1,
-                                    'status' => $language->get('general', 'online'),
-                                    'player_count' => Output::getClean($query->response->players->online),
-                                    'player_count_max' => Output::getClean($query->response->players->max),
-                                    'x_players_online' => $language->get('general', 'currently_x_players_online', ['count' => Output::getClean($query->response->players->online)]),
-                                ];
-                            } else {
-                                if ($status == 0) {
-                                    $status = 1;
-                                }
-                                $total_count += $query->response->players->online;
-                            }
-                        } else if ($accumulate === true) {
-                            $to_return[] = [
-                                'name' => Output::getClean($server['name']),
-                                'status_value' => 0,
-                                'status' => $language->get('general', 'offline'),
-                                'server_offline' => $language->get('general', 'server_offline')
-                            ];
+                        if ($server['pre'] == 1) {
+                            $query = $ping->QueryOldPre17();
+                        } else {
+                            $query = $ping->Query();
                         }
                     }
+                } catch (Exception $e) {
+                    $query = [];
+
+                    $queries->create('query_errors', [
+                        'date' => date('U'),
+                        'error' => $e->getMessage(),
+                        'ip' => $query_ip[0],
+                        'port' => ($query_ip[1] ?? ($server['bedrock'] ? 19132 : 25565))
+                    ]);
+                }
+
+                // bedrock
+                if ($server['bedrock']) {
+                    if ($accumulate === false) {
+                        $to_return[] = [
+                            'name' => Output::getClean($server['name']),
+                            'status_value' => 1,
+                            'status' => $language->get('general', 'online'),
+                            'player_count' => Output::getClean($query['Players']),
+                            'player_count_max' => Output::getClean($query['MaxPlayers']),
+                            'x_players_online' => $language->get('general', 'currently_x_players_online', ['count' => Output::getClean($query['Players'])]),
+                        ];
+                    } else {
+                        if ($status == 0) {
+                            $status = 1;
+                        }
+                        $total_count += $query['Players'];
+                    }
+                } else if (isset($query['players'])) {
+                    if ($accumulate === false) {
+                        $to_return[] = [
+                            'name' => Output::getClean($server['name']),
+                            'status_value' => 1,
+                            'status' => $language->get('general', 'online'),
+                            'player_count' => Output::getClean($query['players']['online']),
+                            'player_count_max' => Output::getClean($query['players']['max']),
+                            'x_players_online' => $language->get('general', 'currently_x_players_online', ['count' => Output::getClean($query['players']['online'])]),
+                        ];
+                    } else {
+                        if ($status == 0) {
+                            $status = 1;
+                        }
+                        $total_count += $query['players']['online'];
+                    }
+                } else if ($accumulate === true) {
+                    $to_return[] = [
+                        'name' => Output::getClean($server['name']),
+                        'status_value' => 0,
+                        'status' => $language->get('general', 'offline'),
+                        'server_offline' => $language->get('general', 'server_offline')
+                    ];
                 }
             }
 
-            if ($accumulate === true) {
-                $to_return = [
-                    'status_value' => $status,
-                    'status' => (($status == 1) ? $language->get('general', 'online') : $language->get('general', 'offline')),
-                    'status_full' => (($status == 1) ? $language->get('general', 'currently_x_players_online', ['count' => $total_count]) : $language->get('general', 'server_offline')),
-                    'total_players' => $total_count,
-                    'player_count' => $total_count
-                ];
+            if (isset($ping) && $ping instanceof MinecraftPing) {
+                $ping->close();
             }
-            return $to_return;
+
+        } else {
+            // External query
+            foreach ($servers as $server) {
+                $query_ip = explode(':', $server['ip']);
+                if (count($query_ip) > 2) {
+                    continue;
+                }
+
+                $query = ExternalMCQuery::query($query_ip[0], ($query_ip[1] ?? ($server['bedrock'] ? 19132 : 25565)), $server['bedrock']);
+
+                if ($query !== false && !$query->error && isset($query->response)) {
+                    if ($accumulate === false) {
+                        $to_return[] = [
+                            'name' => Output::getClean($server['name']),
+                            'status_value' => 1,
+                            'status' => $language->get('general', 'online'),
+                            'player_count' => Output::getClean($query->response->players->online),
+                            'player_count_max' => Output::getClean($query->response->players->max),
+                            'x_players_online' => $language->get('general', 'currently_x_players_online', ['count' => Output::getClean($query->response->players->online)]),
+                        ];
+                    } else {
+                        if ($status == 0) {
+                            $status = 1;
+                        }
+                        $total_count += $query->response->players->online;
+                    }
+                } else if ($accumulate === true) {
+                    $to_return[] = [
+                        'name' => Output::getClean($server['name']),
+                        'status_value' => 0,
+                        'status' => $language->get('general', 'offline'),
+                        'server_offline' => $language->get('general', 'server_offline')
+                    ];
+                }
+            }
         }
 
-        return [];
+        if ($accumulate === true) {
+            $to_return = [
+                'status_value' => $status,
+                'status' => $status == 1
+                    ? $language->get('general', 'online')
+                    : $language->get('general', 'offline'),
+                'status_full' => $status == 1
+                    ? $language->get('general', 'currently_x_players_online', ['count' => $total_count])
+                    : $language->get('general', 'server_offline'),
+                'player_count' => $total_count,
+            ];
+        }
+
+        return $to_return;
     }
 
     /**

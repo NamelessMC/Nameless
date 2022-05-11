@@ -24,7 +24,14 @@ if (page !== '') {
 							players = '';
 						} else {
 							if (serverPlayerList === 1) {
-								if (data.player_list.length > 0) {
+								if (data.player_count > 0 && data.player_list.length <= 0) {
+									// Weird edge case where player list is empty but the player count is > 0
+									if (data.player_count > 1) {
+										players += xPlayersOnline.replace('{{count}}', data.player_count);
+									} else {
+										players += onePlayerOnline;
+									}
+								} else if (data.player_list.length > 0) {
 									for (var i = 0; i < data.player_list.length; i++) {
 										players += '<a href="' + URLBuild('profile/' + data.player_list[i].name) + '" data-tooltip="' + data.player_list[i].name + '" data-variation="mini" data-inverted="" data-position="bottom center"><img class="ui mini circular image" src="' + avatarSource.replace('{identifier}', data.player_list[i].id).replace('{size}', 64) + '" alt="' + data.player_list[i].name + '"></a>';
 									}

@@ -132,6 +132,51 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-12">
+                        <div class="card shadow mb-4">
+                            <div class="card-body">
+                                <h5>{$PROFILE_FIELDS_LABEL}</h5>
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>{$NAME}</th>
+                                                <th>{$CONTENT}</th>
+                                                <th>{$UPDATED}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        {foreach from=$ALL_PROFILE_FIELDS item=field}
+                                            <tr>
+                                                <td>
+                                                    {$field->name}
+                                                </td>
+                                                <td>
+                                                    {if $USER_PROFILE_FIELDS[$field->id]->value}
+                                                        {$USER_PROFILE_FIELDS[$field->id]->value}
+                                                    {else}
+                                                        <i>{$NOT_SET}</i>
+                                                    {/if}
+                                                </td>
+                                                <td>
+                                                    {if $USER_PROFILE_FIELDS[$field->id]->updated}
+                                                        {$USER_PROFILE_FIELDS[$field->id]->updated()}
+                                                    {else}
+                                                        <i>{$NOT_SET}</i>
+                                                    {/if}
+                                                </td>
+                                            </tr>
+                                        {foreachelse}
+                                            <tr>
+                                                <td colspan="3" style="text-align:center;">{$NO_PROFILE_FIELDS}</td>
+                                            </tr>
+                                        {/foreach}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Spacing -->

@@ -259,7 +259,7 @@ if (Input::exists()) {
         ]);
 
         if ($validate->passed()) {
-            $content = Output::getClean(Input::get('content'));
+            $content = Input::get('content');
 
             $queries->create('posts', [
                 'forum_id' => $topic->forum_id,
@@ -380,11 +380,6 @@ if ($user->isLoggedIn() || (defined('COOKIE_CHECK') && COOKIES_ALLOWED)) {
         Session::put('nl-topic-' . $tid, 'true');
     }
 }
-
-$template->addCSSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism_' . (DARK_MODE ? 'dark' : 'light_default') . '.css' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
-]);
 
 if ($user->isLoggedIn()) {
     $template->addJSScript('var quotedPosts = [];');
@@ -802,10 +797,8 @@ $smarty->assign([
     'ERROR' => $language->get('general', 'error')
 ]);
 
-$template->addJSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
+$template->assets()->include([
+    AssetTree::TINYMCE,
 ]);
 
 if ($user->isLoggedIn()) {

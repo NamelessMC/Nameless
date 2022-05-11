@@ -74,7 +74,7 @@ if (isset($_GET['do'])) {
             if (Input::exists()) {
                 if (Token::check()) {
                     if (isset($_POST['tfa_code'])) {
-                        if ($tfa->verifyCode($user->data()->tfa_secret, $_POST['tfa_code']) === true) {
+                        if ($tfa->verifyCode($user->data()->tfa_secret, str_replace(' ', '', $_POST['tfa_code'])) === true) {
                             $user->update([
                                 'tfa_complete' => 1,
                                 'tfa_enabled' => 1,
@@ -293,16 +293,20 @@ if (isset($_GET['do'])) {
 
                             $user_profile_fields = $user->getProfileFields(true);
                             if (array_key_exists($field->id, $user_profile_fields) && $user_profile_fields[$field->id]->value !== null) {
-                                // Update field value
-                                $queries->update('users_profile_fields', $user_profile_fields[$field->id]->upf_id, [
-                                    'value' => $value
-                                ]);
+                                // Update field value if it has changed
+                                if ($value !== $user_profile_fields[$field->id]->value) {
+                                    $queries->update('users_profile_fields', $user_profile_fields[$field->id]->upf_id, [
+                                        'value' => $value,
+                                        'updated' => date('U'),
+                                    ]);
+                                }
                             } else {
                                 // Create new field value
                                 $queries->create('users_profile_fields', [
                                     'user_id' => $user->data()->id,
                                     'field_id' => $field->id,
-                                    'value' => $value
+                                    'value' => $value,
+                                    'updated' => date('U'),
                                 ]);
                             }
                         }
@@ -427,21 +431,8 @@ if (isset($_GET['do'])) {
         }
     }
 
-    $template->addCSSFiles([
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.standalone.min.css' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.css' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
-    ]);
-
-    $template->addJSFiles([
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js' => []
-    ]);
-
-    $template->addJSScript('$(\'.datepicker\').datepicker();');
-    $template->addJSFiles([
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
+    $template->assets()->include([
+        AssetTree::TINYMCE,
     ]);
 
     $template->addJSScript(Input::createTinyEditor($language, 'inputSignature'));

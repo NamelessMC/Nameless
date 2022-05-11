@@ -173,7 +173,14 @@ class Discord {
      * @return false|string Response from the Discord bot or false if the request failed
      */
     private static function discordBotRequest(string $url = '/status', ?string $body = null) {
-        $response = HttpClient::post(BOT_URL . $url, $body)->contents();
+        $client = HttpClient::post(BOT_URL . $url, $body);
+
+        if ($client->hasError()) {
+            Log::getInstance()->log(Log::Action('discord/role_set'), $client->getError());
+            return false;
+        }
+
+        $response = $client->contents();
 
         if (in_array($response, self::$_valid_responses)) {
             return $response;

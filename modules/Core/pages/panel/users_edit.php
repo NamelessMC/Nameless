@@ -330,10 +330,7 @@ foreach ($groups as $group) {
 
 $signature = Output::getPurified($user_query->signature);
 
-$user_groups = [];
-foreach ($view_user->getAllGroupIds() as $group_id) {
-    $user_groups[$group_id] = $group_id;
-}
+$user_groups = $view_user->getAllGroupIds();
 
 $smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,
@@ -378,16 +375,10 @@ $smarty->assign([
     'TEMPLATES' => $templates
 ]);
 
-$template->addCSSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.css' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
+$template->assets()->include([
+    AssetTree::TINYMCE,
 ]);
 
-$template->addJSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
-]);
 $template->addJSScript(Input::createTinyEditor($language, 'InputSignature'));
 
 $template->onPageLoad();

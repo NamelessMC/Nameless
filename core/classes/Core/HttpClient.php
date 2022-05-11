@@ -48,7 +48,7 @@ class HttpClient {
         }
 
         return new HttpClient(
-            $response,
+            $response ?? null,
             $error
         );
     }
@@ -78,7 +78,7 @@ class HttpClient {
         }
 
         return new HttpClient(
-            $response,
+            $response ?? null,
             $error
         );
     }

@@ -104,7 +104,15 @@ $smarty->assign([
     'NICKNAME_LABEL' => $language->get('user', 'nickname'),
     'USER_TITLE_LABEL' => $language->get('admin', 'title'),
     'LANGUAGE_LABEL' => $language->get('user', 'active_language'),
-    'TIMEZONE_LABEL' => $language->get('user', 'timezone')
+    'TIMEZONE_LABEL' => $language->get('user', 'timezone'),
+    'NAME' => $language->get('admin', 'name'),
+    'CONTENT' => $language->get('admin', 'content'),
+    'UPDATED' => $language->get('admin', 'updated'),
+    'NOT_SET' => $language->get('admin', 'not_set'),
+    'PROFILE_FIELDS_LABEL' => 'Profile Fields',
+    'ALL_PROFILE_FIELDS' => ProfileField::all(),
+    'USER_PROFILE_FIELDS' => $view_user->getProfileFields(true),
+    'NO_PROFILE_FIELDS' => $language->get('admin', 'no_custom_fields'),
 ]);
 
 $template->onPageLoad();

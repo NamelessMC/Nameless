@@ -32,20 +32,12 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-$template->addCSSFiles(
-    [
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/image-picker/image-picker.css' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism_' . (DARK_MODE ? 'dark' : 'light_default') . '.css' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => []
-    ]
-);
-
-$template->addJSFiles(
-    [
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => []
-    ]
-);
+$template->assets()->include([
+    DARK_MODE
+        ? AssetTree::PRISM_DARK
+        : AssetTree::PRISM_LIGHT,
+    AssetTree::TINYMCE_SPOILER,
+]);
 
 $template->addCSSStyle(
     '.thumbnails li img{
@@ -834,17 +826,11 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     // Assign profile tabs
     $smarty->assign('TABS', $tabs);
 
-    if (isset($directories[1]) &&
-        !empty($directories[1]) &&
-        !isset($_GET['error']) &&
-        $user->isLoggedIn() &&
-        $user->data()->username == $profile) {
+    if (isset($directories[1]) && !empty($directories[1]) && !isset($_GET['error']) && $user->isLoggedIn() && $user->data()->username == $profile) {
         // Script for banner selector
-        $template->addJSFiles(
-            [
-                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/image-picker/image-picker.min.js' => []
-            ]
-        );
+        $template->assets()->include([
+            AssetTree::IMAGE_PICKER,
+        ]);
     }
 
     if (Session::exists('profile_banner_error')) {

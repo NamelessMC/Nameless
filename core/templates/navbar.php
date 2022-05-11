@@ -182,7 +182,11 @@ $smarty->assign([
     'USER_AREA' => $user_area,
     'USER_DROPDOWN' => $user_area_left,
     'USER_SECTION' => $user_section,
-    'ANNOUNCEMENTS' => $announcements->getAvailable(PAGE, defined('CUSTOM_PAGE') ? CUSTOM_PAGE : null, !$user->isLoggedIn() ? [0] : $user->getAllGroupIds()),
+    'ANNOUNCEMENTS' => $announcements->getAvailable(
+        PAGE,
+        defined('CUSTOM_PAGE') ? CUSTOM_PAGE : null,
+        !$user->isLoggedIn() ? [0] : $user->getAllGroupIds()
+    ),
     'INTERNET_EXPLORER_HEADER' => $language->get('general', 'internet_explorer_header'),
     'INTERNET_EXPLORER_INFO' => $language->get('general', 'internet_explorer_info')
 ]);

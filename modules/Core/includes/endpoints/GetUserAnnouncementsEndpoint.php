@@ -23,9 +23,9 @@ class GetUserAnnouncementsEndpoint extends KeyAuthEndpoint {
 
         foreach ($announcements->getAvailable('api', null, $user->getAllGroupIds()) as $announcement) {
             $user_announcements[] = [
-                'id' => (int) $announcement->id,
-                'header' => Output::getClean($announcement->header),
-                'message' => Output::getPurified($announcement->message),
+                'id' => $announcement->id,
+                'header' => $announcement->header,
+                'message' => $announcement->message,
                 'pages' => json_decode($announcement->pages),
                 'groups' => array_map('intval', json_decode($announcement->groups)),
             ];

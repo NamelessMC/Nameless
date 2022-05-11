@@ -23,13 +23,12 @@ class Announcements {
      * @param string|null $custom_page Title of custom page they're viewing.
      * @param array $user_groups All this user's groups.
      *
-     * @return array Array of announcements they should see on this specific page with their groups.
+     * @return Announcement[] Array of announcements they should see on this specific page with their groups.
      */
-    public function getAvailable(?string $page = null, ?string $custom_page = null, array $user_groups = [0]): array {
+    public function getAvailable(?string $page = null, ?string $custom_page = null, array $user_groups = [0]): iterable {
         $announcements = [];
 
         foreach ($this->getAll() as $announcement) {
-
             if (Cookie::exists('announcement-' . $announcement->id)) {
                 continue;
             }
@@ -53,16 +52,22 @@ class Announcements {
     /**
      * Get all announcements for listing in StaffCP.
      *
-     * @return array All announcements.
+     * @return Announcement[] All announcements.
      */
-    public function getAll(): array {
+    public function getAll(): iterable {
         $this->_cache->setCache('custom_announcements');
 
         if ($this->_cache->isCached('custom_announcements')) {
             return $this->_cache->retrieve('custom_announcements');
         }
 
-        $this->_cache->store('custom_announcements', DB::getInstance()->query('SELECT * FROM nl2_custom_announcements ORDER BY `order`')->results());
+        $rows = DB::getInstance()->query('SELECT * FROM nl2_custom_announcements ORDER BY `order`')->results();
+        $announcements = [];
+        foreach ($rows as $row) {
+            $announcements[] = new Announcement($row);
+        }
+
+        $this->_cache->store('custom_announcements', $announcements);
 
         return $this->_cache->retrieve('custom_announcements');
     }
@@ -74,7 +79,7 @@ class Announcements {
      *
      * @return array<string> Name of all pages announcements can be on.
      */
-    public function getPages(Pages $pages): array {
+    public static function getPages(Pages $pages): array {
         $available_pages = [];
 
         foreach ($pages->returnPages() as $page) {
@@ -93,7 +98,7 @@ class Announcements {
      *
      * @return string Comma seperated list of page names.
      */
-    public function getPagesCsv(?string $pages_json = null): ?string {
+    public static function getPagesCsv(?string $pages_json = null): ?string {
         $pages = json_decode($pages_json);
 
         if (!$pages) {

@@ -434,7 +434,7 @@ class User {
     }
 
     /**
-     * Get all of a user's groups id.
+     * Get all of a user's groups id. Logged out/non-existent users will return just `0`.
      *
      * @return array Array of all their group IDs.
      */
@@ -890,12 +890,12 @@ class User {
             } else {
                 $_SESSION['last_page'] = URL::build($split[0]);
             }
+
+            if (defined('CONFIG_PATH')) {
+                $_SESSION['last_page'] = substr($_SESSION['last_page'], strlen(CONFIG_PATH));
+            }
         } else {
             $_SESSION['last_page'] = URL::build($_GET['route']);
-        }
-
-        if (defined('CONFIG_PATH')) {
-            $_SESSION['last_page'] = substr($_SESSION['last_page'], strlen(CONFIG_PATH));
         }
 
         if (!$this->isLoggedIn()) {
@@ -948,7 +948,7 @@ class User {
      * @return array<int, UserProfileField> Array of profile fields.
      */
     public function getProfileFields(bool $show_private = false, bool $only_forum = false): array {
-        $rows = DB::getInstance()->query('SELECT pf.*, upf.id as upf_id, upf.value FROM nl2_profile_fields pf LEFT JOIN nl2_users_profile_fields upf ON (pf.id = upf.field_id AND upf.user_id = ?)', [
+        $rows = DB::getInstance()->query('SELECT pf.*, upf.id as upf_id, upf.value, upf.updated FROM nl2_profile_fields pf LEFT JOIN nl2_users_profile_fields upf ON (pf.id = upf.field_id AND upf.user_id = ?)', [
             $this->data()->id,
         ])->results();
 

@@ -526,7 +526,7 @@ body.pushable>.pusher {
     color: #fff;
 }
 
-.cc-revoke.cc-bottom.cc-right.cc-animate {
+.cc-revoke.cc-bottom.cc-right {
     color: #fff;
 }
 
@@ -869,7 +869,7 @@ select {
  *  [ DARK MODE ]
  */
 
-body.dark, body.dark.pushable>.pusher, body.dark .ui.pointing.dropdown>.menu:after {
+body.dark, body.dark>.pusher, body.dark .ui.pointing.dropdown>.menu:after {
     background: #222;
 }
 

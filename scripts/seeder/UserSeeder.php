@@ -5,16 +5,48 @@ class UserSeeder extends Seeder {
     public array $tables = [
         'nl2_users',
         'nl2_users_groups',
+        'nl2_users_integrations',
     ];
 
     public function run(DB_Custom $db, \Faker\Generator $faker): void {
         $password = password_hash('password', PASSWORD_BCRYPT, ['cost' => 13]);
 
+        $db->insert('users', [
+            'username' => 'admin',
+            'nickname' => 'admin',
+            'password' => $password,
+            'pass_method' => 'default',
+            'joined' => date('U'),
+            'email' => 'admin@localhost',
+            'lastip' => '127.0.0.1',
+            'active' => 1,
+            'last_online' => date('U'),
+            'language_id' => $db->get('languages', ['is_default', '=', 1])->first()->id,
+        ]);
+        $user_id = $db->lastId();
+        $db->createQuery('INSERT INTO `nl2_users_groups` (`user_id`, `group_id`, `received`, `expire`) VALUES (?, ?, ?, ?)', [
+            1,
+            2,
+            date('U'),
+            0,
+        ]);
+        $db->createQuery(
+            'INSERT INTO nl2_users_integrations (user_id, integration_id, identifier, username, verified, date, code) VALUES (?, ?, ?, ?, ?, ?, ?)', [
+                $user_id,
+                1,
+                str_replace('-', '', $faker->unique()->uuid),
+                'admin',
+                1,
+                date('U'),
+                null
+            ]
+        );
+
         $this->times(100, function () use ($db, $faker, $password) {
             $username = substr($faker->unique()->userName, 0, 20);
             $full_name = substr($faker->unique()->name, 0, 20);
             $active = $faker->boolean(90) ? 1 : 0;
-            $joined = $faker->dateTimeBetween('-1 years', 'now')->format('U');
+            $joined = $faker->dateTimeBetween('-1 years')->format('U');
 
             $db->insert('users', [
                 'username' => $username,
@@ -54,6 +86,18 @@ class UserSeeder extends Seeder {
                     'expire' => 0,
                 ]);
             }
+
+            $db->createQuery(
+                'INSERT INTO nl2_users_integrations (user_id, integration_id, identifier, username, verified, date, code) VALUES (?, ?, ?, ?, ?, ?, ?)', [
+                    $user_id,
+                    1,
+                    str_replace('-', '', $faker->unique()->uuid),
+                    $username,
+                    1,
+                    date('U'),
+                    null
+                ]
+            );
         });
     }
 }
