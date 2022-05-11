@@ -198,7 +198,7 @@ if (Input::exists()) {
                 ],
                 'email' => [
                     Validate::REQUIRED => $language->get('user', 'email_required'),
-                    Validate::EMAIL => $language->get('general', 'contact_message_email'),
+                    Validate::EMAIL => $language->get('user', 'invalid_email'),
                     Validate::UNIQUE => $language->get('user', 'username_mcname_email_exists')
                 ],
                 'password' => [
@@ -308,24 +308,26 @@ if (Input::exists()) {
                             $cache->store('default_group', $default_group);
                         }
 
+                        $timezone = TIMEZONE;
+                        $auto_timezone = Input::get('timezone');
+                        if ($auto_timezone && in_array($auto_timezone, DateTimeZone::listIdentifiers())) {
+                            $timezone = $auto_timezone;
+                        }
+
                         // Create user
-                        $user->create(
-                            [
-                                'username' => $username,
-                                'nickname' => $nickname,
-                                'password' => $password,
-                                'pass_method' => 'default',
-                                'joined' => $date,
-                                'email' => Input::get('email'),
-                                'reset_code' => $code,
-                                'lastip' => $ip,
-                                'last_online' => $date,
-                                'language_id' => $language_id,
-                                // TODO: re-enable this (#2355)
-                                // 'timezone' => ((isset($_POST['timezone']) && $_POST['timezone']) ? Output::getClean(Input::get('timezone')) : Output::getClean(TIMEZONE))
-                                'timezone' => TIMEZONE
-                            ]
-                        );
+                        $user->create([
+                            'username' => $username,
+                            'nickname' => $nickname,
+                            'password' => $password,
+                            'pass_method' => 'default',
+                            'joined' => $date,
+                            'email' => Input::get('email'),
+                            'reset_code' => $code,
+                            'lastip' => $ip,
+                            'last_online' => $date,
+                            'language_id' => $language_id,
+                            'timezone' => $timezone,
+                        ]);
 
                         // Get user ID
                         $user_id = $queries->getLastId();
