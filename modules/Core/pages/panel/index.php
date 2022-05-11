@@ -150,10 +150,32 @@ if ($user->hasPermission('admincp.core.debugging')) {
     } else {
         $compat_success[] = 'PHP EXIF ' . phpversion('exif');
     }
+    if (!extension_loaded('PDO')) {
+        $compat_errors[] = 'PHP PDO';
+    } else {
+        $compat_success[] = 'PHP PDO ' . phpversion('PDO');
+    }
     if (!extension_loaded('mysql') && !extension_loaded('mysqlnd')) {
         $compat_errors[] = 'PHP MySQL';
     } else {
-        $compat_success[] = 'PHP MySQL ' . (extension_loaded('mysql') ? phpversion('mysql') : substr(phpversion('mysqlnd'), 0, strpos(phpversion('mysqlnd'), ' - ')));
+        $compat_success[] = 'PHP MySQL ' . (extension_loaded('mysql') ? phpversion('mysql') : explode(' ', phpversion('mysqlnd'))[1]);
+    }
+    $pdo_driver = DB::getInstance()->getPDO()->getAttribute(PDO::ATTR_DRIVER_NAME);
+    $pdo_server_version = DB::getInstance()->getPDO()->getAttribute(PDO::ATTR_SERVER_VERSION);
+    if ($pdo_driver === 'mysql') {
+        if (!str_contains($pdo_server_version, 'MariaDB')) {
+            $pdo_driver = 'MySQL';
+        } else {
+            $pdo_driver = 'MariaDB';
+            // MariaDB version strings are displayed as: "<major>.<minor>.<patch>-MariaDB",
+            // and we only want the version number.
+            $pdo_server_version = explode('-', $pdo_server_version)[0];
+        }
+    }
+    if (!in_array($pdo_driver, ['MySQL', 'MariaDB']) || version_compare($pdo_server_version, '5.7.0', '<')) {
+        $compat_errors[] = $pdo_driver . ' Server ' . $pdo_server_version;
+    } else {
+        $compat_success[] = $pdo_driver . ' Server ' . $pdo_server_version;
     }
 
     // Permissions
