@@ -9,7 +9,7 @@ class IntegrationUserData {
     public string $username;
     public bool $verified;
     public int $date;
-    public string $code;
+    public ?string $code;
     public bool $show_publicly;
     public int $last_sync;
 
@@ -18,6 +18,7 @@ class IntegrationUserData {
         $this->integration_id = $row->integration_id;
         $this->user_id = $row->user_id;
         $this->identifier = $row->identifier;
+        $this->username = $row->username;
         $this->verified = $row->verified;
         $this->date = $row->date;
         $this->code = $row->code;
