@@ -5,8 +5,8 @@ class IntegrationUserData {
     public int $id;
     public int $integration_id;
     public string $user_id;
-    public string $identifier;
-    public string $username;
+    public ?string $identifier;
+    public ?string $username;
     public bool $verified;
     public int $date;
     public ?string $code;
