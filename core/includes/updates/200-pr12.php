@@ -169,7 +169,7 @@ class Pre13 extends UpgradeScript {
 
         // add updated column to users profile fields
         $this->databaseQuery(function (DB $db) {
-            $db->alterTable('users_profile_fields', 'updated', 'int(11)');
+            $db->addColumn('users_profile_fields', 'updated', 'int(11)');
         });
 
         $this->setVersion('2.0.0-pr13');
