@@ -10,7 +10,7 @@
 class IntegrationUser {
 
     private DB $_db;
-    private $_data;
+    private IntegrationUserData $_data;
     private User $_user;
     private IntegrationBase $_integration;
 
@@ -23,11 +23,11 @@ class IntegrationUser {
 
             $data = $this->_db->selectQuery("SELECT * FROM nl2_users_integrations WHERE $field = ? AND integration_id = ?", [$value, $integration->data()->id]);
             if ($data->count()) {
-                $this->_data = $data->first();
+                $this->_data = new IntegrationUserData($data->first());
             }
         } else if ($query_data) {
             // Load data from existing query.
-            $this->_data = $query_data;
+            $this->_data = new IntegrationUserData($query_data);
         }
     }
 
@@ -54,9 +54,9 @@ class IntegrationUser {
     /**
      * Get the integration user data.
      *
-     * @return object This integration user data.
+     * @return IntegrationUserData This integration user data.
      */
-    public function data(): ?object {
+    public function data(): IntegrationUserData {
         return $this->_data;
     }
 
