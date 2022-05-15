@@ -1215,5 +1215,7 @@
     "user/nickname_minimum_3": "Su apodo debe tener un mínimo de 3 caracteres.",
     "user/nickname_required": "Se requiere un apodo.",
     "general/or": "O",
-    "user/nickname_maximum_20": "Su apodo debe tener un máximo de 20 caracteres."
+    "user/nickname_maximum_20": "Su apodo debe tener un máximo de 20 caracteres.",
+    "admin/not_set": "No se ha establecido",
+    "admin/updated": "Actualizado"
 }
