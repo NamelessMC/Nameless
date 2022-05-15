@@ -69,21 +69,21 @@ class LatestPostsWidget extends WidgetBase {
             // Generate an array to pass to template
             while ($n < $limit) {
                 // Get the name of the forum from the ID
-                $forum_name = $queries->getWhere('forums', ['id', '=', $discussions[$n]['forum_id']]);
+                $forum_name = $queries->getWhere('forums', ['id', $discussions[$n]['forum_id']]);
                 $forum_name = Output::getPurified($forum_name[0]->forum_title);
 
                 // Get the number of replies
-                $posts = $queries->getWhere('posts', ['topic_id', '=', $discussions[$n]['id']]);
+                $posts = $queries->getWhere('posts', ['topic_id', $discussions[$n]['id']]);
                 $posts = count($posts);
 
                 // Is there a label?
                 if ($discussions[$n]['label'] != 0) { // yes
                     // Get label
-                    $label = $queries->getWhere('forums_topic_labels', ['id', '=', $discussions[$n]['label']]);
+                    $label = $queries->getWhere('forums_topic_labels', ['id', $discussions[$n]['label']]);
                     if (count($label)) {
                         $label = $label[0];
 
-                        $label_html = $queries->getWhere('forums_labels', ['id', '=', $label->label]);
+                        $label_html = $queries->getWhere('forums_labels', ['id', $label->label]);
                         if (count($label_html)) {
                             $label_html = $label_html[0]->html;
                             $label = str_replace('{x}', Output::getClean($label->name), $label_html);

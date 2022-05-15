@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         try {
             $queries = new Queries();
 
-            $default_language = $queries->getWhere('languages', ['is_default', '=', 1]);
+            $default_language = $queries->getWhere('languages', ['is_default', true]);
 
             $ip = $user->getIP();
 
@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $result = $profile->getProfileAsArray();
                 if (isset($result['uuid']) && !empty($result['uuid'])) {
                     $uuid = $result['uuid'];
-                    
+
                     $queries->create('users_integrations', [
                         'integration_id' => 1,
                         'user_id' => 1,
@@ -99,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 Redirect::to('?step=conversion');
             }
 
-            $queries->delete('users', ['id', '=', 1]);
+            $queries->delete('users', ['id', 1]);
             display_error($language->get('installer', 'unable_to_login'));
         } catch (Exception $e) {
             display_error($language->get('installer', 'unable_to_create_account') . ': ' . $e->getMessage());

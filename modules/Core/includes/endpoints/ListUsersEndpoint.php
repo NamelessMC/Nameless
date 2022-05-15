@@ -83,12 +83,12 @@ class ListUsersEndpoint extends KeyAuthEndpoint {
             $return_array['next_page'] = $base_url . 'limit=15&offset=' . ($return_array['offset'] + 15);
         }
 
-        $users = $api->getDb()->selectQuery($query, $params)->results();
+        $users = $api->getDb()->query($query, $params)->results();
 
         $users_json = [];
         foreach ($users as $user) {
             $integrations = [];
-            $integrations_query = $api->getDb()->selectQuery('SELECT ui.*, i.name FROM nl2_users_integrations ui INNER JOIN nl2_integrations i ON i.id=ui.integration_id WHERE user_id = ? AND username IS NOT NULL AND identifier IS NOT NULL', [$user->id])->results();
+            $integrations_query = $api->getDb()->query('SELECT ui.*, i.name FROM nl2_users_integrations ui INNER JOIN nl2_integrations i ON i.id=ui.integration_id WHERE user_id = ? AND username IS NOT NULL AND identifier IS NOT NULL', [$user->id])->results();
             foreach ($integrations_query as $integration) {
                 $integrations[] = [
                     'integration' => Output::getClean($integration->name),

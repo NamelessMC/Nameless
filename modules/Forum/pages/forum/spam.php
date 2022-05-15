@@ -24,7 +24,7 @@ if (!isset($_POST['post']) || !is_numeric($_POST['post'])) {
     Redirect::to(URL::build('/forum'));
 }
 
-$post = $queries->getWhere('posts', ['id', '=', $_POST['post']]);
+$post = $queries->getWhere('posts', ['id', $_POST['post']]);
 if (!count($post)) {
     // Doesn't exist
     Redirect::to(URL::build('/forum'));
@@ -49,10 +49,10 @@ if ($forum->canModerateForum($post->forum_id, $user->getAllGroupIds())) {
         }
 
         // Delete all posts from the user
-        $queries->delete('posts', ['post_creator', '=', $post->post_creator]);
+        $queries->delete('posts', ['post_creator', $post->post_creator]);
 
         // Delete all topics from the user
-        $queries->delete('topics', ['topic_creator', '=', $post->post_creator]);
+        $queries->delete('topics', ['topic_creator', $post->post_creator]);
 
         // Log user out
         $banned_user_ip = $banned_user->data()->lastip;

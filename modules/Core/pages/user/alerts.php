@@ -79,7 +79,7 @@ if (!isset($_GET['view'])) {
     } else {
         if ($_GET['action'] == 'purge') {
             if (Token::check()) {
-                $queries->delete('alerts', ['user_id', '=', $user->data()->id]);
+                $queries->delete('alerts', ['user_id', $user->data()->id]);
             } else {
                 Session::flash('alerts_error', $language->get('general', 'invalid_token'));
             }
@@ -95,7 +95,7 @@ if (!isset($_GET['view'])) {
     }
 
     // Check the alert belongs to the user..
-    $alert = $queries->getWhere('alerts', ['id', '=', $_GET['view']]);
+    $alert = $queries->getWhere('alerts', ['id', $_GET['view']]);
 
     if (!count($alert) || $alert[0]->user_id != $user->data()->id) {
         Redirect::to(URL::build('/user/alerts'));

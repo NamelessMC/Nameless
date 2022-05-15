@@ -42,9 +42,7 @@ if (Input::exists()) {
                 $enabled = 0;
             }
 
-            $debug_id = $queries->getWhere('settings', ['name', '=', 'error_reporting']);
-            $debug_id = $debug_id[0]->id;
-            $queries->update('settings', $debug_id, [
+            $queries->update('settings', ['name', 'error_reporting'], [
                 'value' => $enabled
             ]);
 
@@ -59,9 +57,7 @@ if (Input::exists()) {
                 $enabled = 'false';
             }
 
-            $maintenance_id = $queries->getWhere('settings', ['name', '=', 'maintenance']);
-            $maintenance_id = $maintenance_id[0]->id;
-            $queries->update('settings', $maintenance_id, [
+            $queries->update('settings', ['name', 'maintenance'], [
                 'value' => $enabled
             ]);
 
@@ -71,9 +67,7 @@ if (Input::exists()) {
                 $message = 'Maintenance mode is enabled.';
             }
 
-            $maintenance_id = $queries->getWhere('settings', ['name', '=', 'maintenance_message']);
-            $maintenance_id = $maintenance_id[0]->id;
-            $queries->update('settings', $maintenance_id, [
+            $queries->update('settings', ['name', 'maintenance_message'], [
                 'value' => $message
             ]);
 
@@ -93,9 +87,7 @@ if (Input::exists()) {
                 $enabled = 0;
             }
 
-            $load_id = $queries->getWhere('settings', ['name', '=', 'page_loading']);
-            $load_id = $load_id[0]->id;
-            $queries->update('settings', $load_id, [
+            $queries->update('settings', ['name', 'page_loading'], [
                 'value' => $enabled
             ]);
 

@@ -20,7 +20,7 @@ if ($cache->isCached('query_interval')) {
 
 if (isset($_GET['key'])) {
     // Get key from database - check it matches
-    $key = $queries->getWhere('settings', ['name', '=', 'unique_id']);
+    $key = $queries->getWhere('settings', ['name', 'unique_id']);
     if (!count($key)) {
         die();
     }
@@ -40,7 +40,7 @@ if (isset($_GET['key'])) {
 }
 
 // Get query type
-$query_type = $queries->getWhere('settings', ['name', '=', 'external_query']);
+$query_type = $queries->getWhere('settings', ['name', 'external_query']);
 if (count($query_type)) {
     if ($query_type[0]->value == '1') {
         $query_type = 'external';

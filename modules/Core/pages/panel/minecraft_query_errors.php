@@ -77,14 +77,14 @@ if (!isset($_GET['id'])) {
         Redirect::to(URL::build('/panel/minecraft/query_errors'));
     }
 
-    $query_error = $queries->getWhere('query_errors', ['id', '=', $_GET['id']]);
+    $query_error = $queries->getWhere('query_errors', ['id', $_GET['id']]);
     if (!count($query_error)) {
         Redirect::to(URL::build('/panel/minecraft/query_errors'));
     }
     $query_error = $query_error[0];
 
     if ($_GET['action'] == 'delete') {
-        $queries->delete('query_errors', ['id', '=', $_GET['id']]);
+        $queries->delete('query_errors', ['id', $_GET['id']]);
         Session::flash('panel_query_errors_success', $language->get('admin', 'query_error_deleted_successfully'));
         Redirect::to(URL::build('/panel/minecraft/query_errors'));
     }

@@ -21,7 +21,7 @@ if (!$db_charset || ($db_charset != 'utf8mb4' && $db_charset != 'latin1')) {
 }
 
 try {
-    DB::getInstance()->createQuery('ALTER TABLE nl2_query_results MODIFY groups TEXT');
+    DB::getInstance()->query('ALTER TABLE nl2_query_results MODIFY groups TEXT');
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
@@ -32,7 +32,7 @@ try {
 }
 
 try {
-    $recaptcha_type = DB::getInstance()->selectQuery('SELECT id FROM nl2_settings WHERE `name` = ? AND `value` = ?', array('recaptcha_type', 'reCaptcha'));
+    $recaptcha_type = DB::getInstance()->query('SELECT id FROM nl2_settings WHERE `name` = ? AND `value` = ?', array('recaptcha_type', 'reCaptcha'));
     if ($recaptcha_type->count()) {
         $configuration->set('Core', 'recaptcha_type', 'Recaptcha2');
     }
@@ -42,11 +42,11 @@ try {
 
 // New indexes
 try {
-    DB::getInstance()->createQuery('ALTER TABLE `nl2_groups` ADD INDEX `nl2_groups_idx_staff` (`staff`)');
-    DB::getInstance()->createQuery('ALTER TABLE `nl2_groups` ADD INDEX `nl2_groups_idx_id` (`id`)');
-    DB::getInstance()->createQuery('ALTER TABLE `nl2_users` ADD INDEX `nl2_users_idx_id_last_online` (`id`,`last_online`)');
-    DB::getInstance()->createQuery('ALTER TABLE `nl2_users_groups` ADD INDEX `nl2_users_groups_idx_group_id` (`group_id`)');
-    DB::getInstance()->createQuery('ALTER TABLE `nl2_users_groups` ADD INDEX `nl2_users_groups_idx_user_id` (`user_id`)');
+    DB::getInstance()->query('ALTER TABLE `nl2_groups` ADD INDEX `nl2_groups_idx_staff` (`staff`)');
+    DB::getInstance()->query('ALTER TABLE `nl2_groups` ADD INDEX `nl2_groups_idx_id` (`id`)');
+    DB::getInstance()->query('ALTER TABLE `nl2_users` ADD INDEX `nl2_users_idx_id_last_online` (`id`,`last_online`)');
+    DB::getInstance()->query('ALTER TABLE `nl2_users_groups` ADD INDEX `nl2_users_groups_idx_group_id` (`group_id`)');
+    DB::getInstance()->query('ALTER TABLE `nl2_users_groups` ADD INDEX `nl2_users_groups_idx_user_id` (`user_id`)');
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
@@ -62,22 +62,22 @@ try {
 }
 
 try {
-    DB::getInstance()->createQuery('ALTER TABLE `nl2_users_placeholders` ADD PRIMARY KEY(`server_id`, `uuid`, `name`)');
-    DB::getInstance()->createQuery('ALTER TABLE `nl2_placeholders_settings` ADD PRIMARY KEY(`server_id`, `name`)');
+    DB::getInstance()->query('ALTER TABLE `nl2_users_placeholders` ADD PRIMARY KEY(`server_id`, `uuid`, `name`)');
+    DB::getInstance()->query('ALTER TABLE `nl2_placeholders_settings` ADD PRIMARY KEY(`server_id`, `name`)');
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
 
 // announcement ordering
 try {
-    DB::getInstance()->createQuery('ALTER TABLE `nl2_custom_announcements` ADD `order` int(11) NOT NULL');
+    DB::getInstance()->query('ALTER TABLE `nl2_custom_announcements` ADD `order` int(11) NOT NULL');
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
 
 // Captcha
-$captcha = $queries->getWhere('settings', array('name', '=', 'recaptcha'));
-$captcha_login = $queries->getWhere('settings', array('name', '=', 'recaptcha_login'));
+$captcha = $queries->getWhere('settings', array('name', 'recaptcha'));
+$captcha_login = $queries->getWhere('settings', array('name', 'recaptcha_login'));
 if ($captcha[0]->value == 'true' || $captcha_login[0]->value == 'true') {
     try {
         Config::set('core/captcha', true);
@@ -113,7 +113,7 @@ if ($cache->isCached('force_www')) {
 }
 
 // Update version number
-$version_number_id = $queries->getWhere('settings', array('name', '=', 'nameless_version'));
+$version_number_id = $queries->getWhere('settings', array('name', 'nameless_version'));
 
 if (count($version_number_id)) {
     $version_number_id = $version_number_id[0]->id;
@@ -121,7 +121,7 @@ if (count($version_number_id)) {
         'value' => '2.0.0-pr10'
     ));
 } else {
-    $version_number_id = $queries->getWhere('settings', array('name', '=', 'version'));
+    $version_number_id = $queries->getWhere('settings', array('name', 'version'));
     $version_number_id = $version_number_id[0]->id;
 
     $queries->update('settings', $version_number_id, array(
@@ -129,7 +129,7 @@ if (count($version_number_id)) {
     ));
 }
 
-$version_update_id = $queries->getWhere('settings', array('name', '=', 'version_update'));
+$version_update_id = $queries->getWhere('settings', array('name', 'version_update'));
 $version_update_id = $version_update_id[0]->id;
 
 $queries->update('settings', $version_update_id, array(

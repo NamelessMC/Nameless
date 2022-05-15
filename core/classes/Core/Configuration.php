@@ -47,7 +47,7 @@ class Configuration {
         }
 
         $table = 'nl2_' . preg_replace('/[^A-Za-z0-9_]+/', '', $module) . 'settings';
-        $data = $this->_db->selectQuery("SELECT value FROM $table WHERE `name` = ?", [$setting]);
+        $data = $this->_db->query("SELECT value FROM $table WHERE `name` = ?", [$setting]);
         if ($data->count()) {
             $results = $data->results();
             $this->_cache->store($setting, $results[0]->value);
@@ -72,7 +72,7 @@ class Configuration {
         $module = ($module == 'Core' ? '' : $module . '_');
 
         $table = 'nl2_' . preg_replace('/[^A-Za-z0-9_]+/', '', $module) . 'settings';
-        $this->_db->createQuery("UPDATE $table SET `value` = ? WHERE `name` = ?", [
+        $this->_db->query("UPDATE $table SET `value` = ? WHERE `name` = ?", [
             $value,
             $setting,
         ]);

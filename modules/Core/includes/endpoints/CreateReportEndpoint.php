@@ -40,7 +40,7 @@ class CreateReportEndpoint extends KeyAuthEndpoint {
         }
 
         // See if reported user exists
-        $user_reported_id = $api->getDb()->get('users', ['id', '=', (int)$_POST['reported']]);
+        $user_reported_id = $api->getDb()->get('users', ['id', (int)$_POST['reported']]);
         if (!$user_reported_id->count()) {
             $user_reported_id = 0;
         } else {
@@ -52,7 +52,7 @@ class CreateReportEndpoint extends KeyAuthEndpoint {
         }
 
         // Ensure user has not already reported the same player, and the report is open
-        $user_reports = $api->getDb()->get('reports', ['reporter_id', '=', $user_reporting_data->id])->results();
+        $user_reports = $api->getDb()->get('reports', ['reporter_id', $user_reporting_data->id])->results();
         foreach ($user_reports as $report) {
             if ($report->status == 1) {
                 continue;

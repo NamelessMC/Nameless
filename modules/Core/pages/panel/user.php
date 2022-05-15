@@ -58,7 +58,7 @@ if (isset($errors) && count($errors)) {
     ]);
 }
 
-$user_language = $queries->getWhere('languages', ['id', '=', $user_query->language_id]);
+$user_language = $queries->getWhere('languages', ['id', $user_query->language_id]);
 $user_language = $user_language[0]->name;
 
 if ($user->hasPermission('admincp.users.edit')) {

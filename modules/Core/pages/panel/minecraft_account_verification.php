@@ -26,7 +26,7 @@ if (Input::exists()) {
     $errors = [];
     if (Token::check()) {
         if (!isset($_POST['premium'])) {
-            $use_mcassoc = $queries->getWhere('settings', ['name', '=', 'verify_accounts']);
+            $use_mcassoc = $queries->getWhere('settings', ['name', 'verify_accounts']);
             $use_mcassoc = $use_mcassoc[0]->id;
 
             if (isset($_POST['use_mcassoc']) && $_POST['use_mcassoc'] == 'on') {
@@ -44,10 +44,10 @@ if (Input::exists()) {
 
                 if ($validation->passed()) {
                     // Update settings
-                    $mcassoc_key = $queries->getWhere('settings', ['name', '=', 'mcassoc_key']);
+                    $mcassoc_key = $queries->getWhere('settings', ['name', 'mcassoc_key']);
                     $mcassoc_key = $mcassoc_key[0]->id;
 
-                    $mcassoc_instance = $queries->getWhere('settings', ['name', '=', 'mcassoc_instance']);
+                    $mcassoc_instance = $queries->getWhere('settings', ['name', 'mcassoc_instance']);
                     $mcassoc_instance = $mcassoc_instance[0]->id;
 
                     $queries->update('settings', $use_mcassoc, ['value' => 1]);
@@ -66,7 +66,7 @@ if (Input::exists()) {
             }
 
         } else {
-            $uuid_linking = $queries->getWhere('settings', ['name', '=', 'uuid_linking']);
+            $uuid_linking = $queries->getWhere('settings', ['name', 'uuid_linking']);
             $uuid_linking = $uuid_linking[0]->id;
 
             if (isset($_POST['enable_premium_accounts']) && $_POST['enable_premium_accounts'] == 1) {
@@ -101,18 +101,18 @@ if (isset($errors) && count($errors)) {
 }
 
 // Get UUID linking settings
-$uuid_linking = $queries->getWhere('settings', ['name', '=', 'uuid_linking']);
+$uuid_linking = $queries->getWhere('settings', ['name', 'uuid_linking']);
 $uuid_linking = $uuid_linking[0]->value;
 
 if ($uuid_linking == '1') {
     // Get mcassoc settings
-    $use_mcassoc = $queries->getWhere('settings', ['name', '=', 'verify_accounts']);
+    $use_mcassoc = $queries->getWhere('settings', ['name', 'verify_accounts']);
     $use_mcassoc = $use_mcassoc[0]->value;
 
-    $mcassoc_key = $queries->getWhere('settings', ['name', '=', 'mcassoc_key']);
+    $mcassoc_key = $queries->getWhere('settings', ['name', 'mcassoc_key']);
     $mcassoc_key = Output::getClean($mcassoc_key[0]->value);
 
-    $mcassoc_instance = $queries->getWhere('settings', ['name', '=', 'mcassoc_instance']);
+    $mcassoc_instance = $queries->getWhere('settings', ['name', 'mcassoc_instance']);
     $mcassoc_instance = Output::getClean($mcassoc_instance[0]->value);
 
     $smarty->assign([

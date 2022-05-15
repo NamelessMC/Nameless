@@ -13,7 +13,7 @@ class CloneGroupForumHook {
 
         // Clone group permissions for forums
         $new_group_id = $params['group_id'];
-        $permissions = DB::getInstance()->selectQuery('SELECT * FROM nl2_forums_permissions WHERE group_id = ?', [$params['cloned_group_id']]);
+        $permissions = DB::getInstance()->query('SELECT * FROM nl2_forums_permissions WHERE group_id = ?', [$params['cloned_group_id']]);
         if ($permissions->count()) {
             $permissions = $permissions->results();
 
@@ -25,7 +25,7 @@ class CloneGroupForumHook {
             $query = 'INSERT INTO nl2_forums_permissions (group_id, forum_id, view, create_topic, edit_topic, create_post, view_other_topics, moderate) VALUES ';
             $query .= implode(',', $inserts);
 
-            DB::getInstance()->createQuery($query);
+            DB::getInstance()->query($query);
         }
     }
 }

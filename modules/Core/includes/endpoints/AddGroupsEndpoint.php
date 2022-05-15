@@ -24,7 +24,7 @@ class AddGroupsEndpoint extends KeyAuthEndpoint {
         $log_array = [];
         $added_groups = [];
         foreach ($groups as $group) {
-            $group_query = $api->getDb()->get('groups', ['id', '=', $group]);
+            $group_query = $api->getDb()->get('groups', ['id', $group]);
             if (!$group_query->count()) {
                 continue;
             }

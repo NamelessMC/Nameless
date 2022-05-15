@@ -199,7 +199,7 @@ class Validate {
                         if (is_array($rule_value)) {
                             $table = $rule_value[0];
                             [$ignore_col, $ignore_val] = explode(':', $rule_value[1]);
-                            $check = $validator->_db->selectQuery('SELECT * FROM nl2_' . $table . ' WHERE ? = ? AND ? <> ?', [
+                            $check = $validator->_db->query('SELECT * FROM nl2_' . $table . ' WHERE ? = ? AND ? <> ?', [
                                 $item,
                                 $value,
                                 $ignore_col,
@@ -207,7 +207,7 @@ class Validate {
                             ]);
                         } else {
                             $table = $rule_value;
-                            $check = $validator->_db->get($table, [$item, '=', $value]);
+                            $check = $validator->_db->get($table, [$item, $value]);
                         }
                         if ($check->count()) {
                             $validator->addError([
@@ -239,7 +239,7 @@ class Validate {
                         break;
 
                     case self::IS_ACTIVE:
-                        $check = $validator->_db->get('users', [$item, '=', $value]);
+                        $check = $validator->_db->get('users', [$item, $value]);
                         if (!$check->count()) {
                             break;
                         }
@@ -255,7 +255,7 @@ class Validate {
                         break;
 
                     case self::IS_BANNED:
-                        $check = $validator->_db->get('users', [$item, '=', $value]);
+                        $check = $validator->_db->get('users', [$item, $value]);
                         if (!$check->count()) {
                             break;
                         }

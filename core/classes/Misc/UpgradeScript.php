@@ -151,16 +151,11 @@ abstract class UpgradeScript {
     }
 
     protected function setVersion(string $version): void {
-        $version_number_id = $this->_queries->getWhere('settings', ['name', '=', 'nameless_version']);
-        $version_number_id = $version_number_id[0]->id;
-        $this->_queries->update('settings', $version_number_id, [
+        $this->_queries->update('settings', ['name', 'nameless_version'], [
             'value' => $version
         ]);
 
-        $version_update_id = $this->_queries->getWhere('settings', ['name', '=', 'version_update']);
-        $version_update_id = $version_update_id[0]->id;
-
-        $this->_queries->update('settings', $version_update_id, [
+        $this->_queries->update('settings', ['name', 'version_update'], [
             'value' => 'false'
         ]);
     }

@@ -33,7 +33,7 @@ if (isset($_GET['pid'], $_GET['tid']) && is_numeric($_GET['pid']) && is_numeric(
  *  Is the post the first in the topic? If so, allow the title to be edited.
  */
 
-$post_editing = DB::getInstance()->selectQuery('SELECT * FROM nl2_posts WHERE topic_id = ? ORDER BY id ASC LIMIT 1', [$topic_id])->results();
+$post_editing = DB::getInstance()->query('SELECT * FROM nl2_posts WHERE topic_id = ? ORDER BY id ASC LIMIT 1', [$topic_id])->results();
 
 // Check topic exists
 if (!count($post_editing)) {
@@ -47,7 +47,7 @@ if ($post_editing[0]->id == $post_id) {
 	 *  Get the title of the topic
 	 */
 
-    $post_title = $queries->getWhere('topics', ['id', '=', $topic_id]);
+    $post_title = $queries->getWhere('topics', ['id', $topic_id]);
     $post_labels = $post_title[0]->labels ? explode(',', $post_title[0]->labels) : [];
     $post_title = Output::getClean($post_title[0]->topic_title);
 }
@@ -56,7 +56,7 @@ if ($post_editing[0]->id == $post_id) {
  *  Get the post we're editing
  */
 
-$post_editing = $queries->getWhere('posts', ['id', '=', $post_id]);
+$post_editing = $queries->getWhere('posts', ['id', $post_id]);
 
 // Check post exists
 if (!count($post_editing)) {
@@ -134,7 +134,7 @@ if (Input::exists()) {
 
                 if (isset($_POST['topic_label']) && !empty($_POST['topic_label']) && is_array($_POST['topic_label'])) {
                     foreach ($_POST['topic_label'] as $topic_label) {
-                        $label = $queries->getWhere('forums_topic_labels', ['id', '=', $topic_label]);
+                        $label = $queries->getWhere('forums_topic_labels', ['id', $topic_label]);
                         if (count($label)) {
                             $lgroups = explode(',', $label[0]->gids);
 
@@ -213,7 +213,7 @@ if (isset($edit_title, $post_labels)) {
                 }
 
                 // Get label HTML
-                $label_html = $queries->getWhere('forums_labels', ['id', '=', $label->label]);
+                $label_html = $queries->getWhere('forums_labels', ['id', $label->label]);
                 if (!count($label_html)) {
                     continue;
                 }

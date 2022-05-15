@@ -42,7 +42,7 @@ class ServerStatusWidget extends WidgetBase {
         if ($this->_cache->isCached('server_status')) {
             $server_array = $this->_cache->retrieve('server_status');
         } else {
-            $server = DB::getInstance()->selectQuery('SELECT * FROM nl2_mc_servers WHERE is_default = 1')->results();
+            $server = DB::getInstance()->query('SELECT * FROM nl2_mc_servers WHERE is_default = 1')->results();
             $server = $server[0];
 
             if ($server != null) {

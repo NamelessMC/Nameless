@@ -334,7 +334,7 @@ class Util {
             return json_encode(['error' => $error]);
         }
 
-        DB::getInstance()->createQuery("UPDATE nl2_settings SET `value`= ? WHERE `name` = 'version_checked'", [date('U')]);
+        DB::getInstance()->query("UPDATE nl2_settings SET `value`= ? WHERE `name` = 'version_checked'", [date('U')]);
 
         if ($update_check == 'None') {
             return json_encode(['no_update' => true]);
@@ -350,9 +350,7 @@ class Util {
             }
 
             $queries = new Queries();
-            $update_id = $queries->getWhere('settings', ['name', '=', 'version_update']);
-            $update_id = $update_id[0]->id;
-            $queries->update('settings', $update_id, [
+            $queries->update('settings', ['name', 'version_update'], [
                 'value' => $to_db
             ]);
         }
@@ -403,7 +401,7 @@ class Util {
      * @return mixed Setting from DB or $fallback.
      */
     public static function getSetting(DB $db, string $setting, $fallback = null) {
-        $value = $db->get('settings', ['name', '=', $setting]);
+        $value = $db->get('settings', ['name', $setting]);
 
         if ($value->count()) {
             return $value->first()->value;
@@ -420,7 +418,7 @@ class Util {
      */
     public static function getIngameRankName(int $website_group_id): ?string {
         $nameless_injector = GroupSyncManager::getInstance()->getInjectorByClass(NamelessMCGroupSyncInjector::class);
-        $data = DB::getInstance()->get('group_sync', [$nameless_injector->getColumnName(), '=', $website_group_id]);
+        $data = DB::getInstance()->get('group_sync', [$nameless_injector->getColumnName(), $website_group_id]);
 
         if ($data->count()) {
             return $data->first()->ingame_rank_name;

@@ -243,9 +243,9 @@ class Forum_Module extends Module {
             // Global variables if user is logged in
             if ($user->isLoggedIn()) {
                 // Basic user variables
-                $topic_count = $queries->getWhere('topics', ['topic_creator', '=', $user->data()->id]);
+                $topic_count = $queries->getWhere('topics', ['topic_creator', $user->data()->id]);
                 $topic_count = count($topic_count);
-                $post_count = $queries->getWhere('posts', ['post_creator', '=', $user->data()->id]);
+                $post_count = $queries->getWhere('posts', ['post_creator', $user->data()->id]);
                 $post_count = count($post_count);
                 $smarty->assign('LOGGED_IN_USER_FORUM', [
                     'topic_count' => $topic_count,

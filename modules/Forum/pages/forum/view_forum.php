@@ -42,7 +42,7 @@ if (!$list) {
 }
 
 // Get data from the database
-$forum_query = $queries->getWhere('forums', ['id', '=', $fid]);
+$forum_query = $queries->getWhere('forums', ['id', $fid]);
 $forum_query = $forum_query[0];
 
 // Get page
@@ -60,7 +60,7 @@ if (isset($_GET['p'])) {
     $p = 1;
 }
 
-$page_metadata = $queries->getWhere('page_descriptions', ['page', '=', '/forum/view']);
+$page_metadata = $queries->getWhere('page_descriptions', ['page', '/forum/view']);
 if (count($page_metadata)) {
 
     define('PAGE_DESCRIPTION', str_replace(
@@ -112,13 +112,13 @@ if ($forum_query->redirect_forum == 1) {
     }
 
     if ($forum->canViewOtherTopics($fid, $user_groups)) {
-        $topics = DB::getInstance()->selectQuery('SELECT * FROM nl2_topics WHERE forum_id = ? AND sticky = 0 AND deleted = 0 ORDER BY topic_reply_date DESC', [$fid])->results();
+        $topics = DB::getInstance()->query('SELECT * FROM nl2_topics WHERE forum_id = ? AND sticky = 0 AND deleted = 0 ORDER BY topic_reply_date DESC', [$fid])->results();
     } else {
-        $topics = DB::getInstance()->selectQuery('SELECT * FROM nl2_topics WHERE forum_id = ? AND sticky = 0 AND deleted = 0 AND topic_creator = ? ORDER BY topic_reply_date DESC', [$fid, $user_id])->results();
+        $topics = DB::getInstance()->query('SELECT * FROM nl2_topics WHERE forum_id = ? AND sticky = 0 AND deleted = 0 AND topic_creator = ? ORDER BY topic_reply_date DESC', [$fid, $user_id])->results();
     }
 
     // Get sticky topics
-    $stickies = DB::getInstance()->selectQuery('SELECT * FROM nl2_topics WHERE forum_id = ? AND sticky = 1 AND deleted = 0 ORDER BY topic_reply_date DESC', [$fid])->results();
+    $stickies = DB::getInstance()->query('SELECT * FROM nl2_topics WHERE forum_id = ? AND sticky = 1 AND deleted = 0 ORDER BY topic_reply_date DESC', [$fid])->results();
 
     // Search bar
     $smarty->assign([
@@ -128,7 +128,7 @@ if ($forum_query->redirect_forum == 1) {
     ]);
 
     // Breadcrumbs and search bar - same for latest discussions view + table view
-    $parent_category = $queries->getWhere('forums', ['id', '=', $forum_query->parent]);
+    $parent_category = $queries->getWhere('forums', ['id', $forum_query->parent]);
     $breadcrumbs = [0 => [
         'id' => $forum_query->id,
         'forum_title' => Output::getClean($forum_query->forum_title),
@@ -152,7 +152,7 @@ if ($forum_query->redirect_forum == 1) {
             ];
             $parent = false;
             while ($parent == false) {
-                $parent_category = $queries->getWhere('forums', ['id', '=', $parent_category[0]->parent]);
+                $parent_category = $queries->getWhere('forums', ['id', $parent_category[0]->parent]);
                 $breadcrumbs[] = [
                     'id' => $parent_category[0]->id,
                     'forum_title' => Output::getClean($parent_category[0]->forum_title),
@@ -180,7 +180,7 @@ if ($forum_query->redirect_forum == 1) {
     $smarty->assign('FORUM_INDEX_LINK', URL::build('/forum'));
 
     // Any subforums?
-    $subforums = DB::getInstance()->selectQuery('SELECT * FROM nl2_forums WHERE parent = ? ORDER BY forum_order ASC', [$forum_query->id])->results();
+    $subforums = DB::getInstance()->query('SELECT * FROM nl2_forums WHERE parent = ? ORDER BY forum_order ASC', [$forum_query->id])->results();
 
     $subforum_array = [];
 
@@ -190,9 +190,9 @@ if ($forum_query->redirect_forum == 1) {
             // Get number of topics
             if ($forum->forumExist($subforum->id, $user_groups)) {
                 if ($forum->canViewOtherTopics($subforum->id, $user_groups)) {
-                    $latest_post = DB::getInstance()->selectQuery('SELECT * FROM nl2_topics WHERE forum_id = ? AND deleted = 0 ORDER BY topic_reply_date DESC', [$subforum->id])->results();
+                    $latest_post = DB::getInstance()->query('SELECT * FROM nl2_topics WHERE forum_id = ? AND deleted = 0 ORDER BY topic_reply_date DESC', [$subforum->id])->results();
                 } else {
-                    $latest_post = DB::getInstance()->selectQuery('SELECT * FROM nl2_topics WHERE forum_id = ? AND deleted = 0 AND topic_creator = ? ORDER BY topic_reply_date DESC', [$subforum->id, $user_id])->results();
+                    $latest_post = DB::getInstance()->query('SELECT * FROM nl2_topics WHERE forum_id = ? AND deleted = 0 AND topic_creator = ? ORDER BY topic_reply_date DESC', [$subforum->id, $user_id])->results();
                 }
 
                 $subforum_topics = count($latest_post);
@@ -293,7 +293,7 @@ if ($forum_query->redirect_forum == 1) {
         // Assign sticky threads to smarty variable
         foreach ($stickies as $sticky) {
             // Get number of replies to a topic
-            $replies = $queries->getWhere('posts', ['topic_id', '=', $sticky->id]);
+            $replies = $queries->getWhere('posts', ['topic_id', $sticky->id]);
             $replies = count($replies);
 
             // Is there a label?
@@ -302,11 +302,11 @@ if ($forum_query->redirect_forum == 1) {
                 if ($labels_cache[$sticky->label]) {
                     $label = $labels_cache[$sticky->label];
                 } else {
-                    $label = $queries->getWhere('forums_topic_labels', ['id', '=', $sticky->label]);
+                    $label = $queries->getWhere('forums_topic_labels', ['id', $sticky->label]);
                     if (count($label)) {
                         $label = $label[0];
 
-                        $label_html = $queries->getWhere('forums_labels', ['id', '=', $label->label]);
+                        $label_html = $queries->getWhere('forums_labels', ['id', $label->label]);
                         if (count($label_html)) {
                             $label_html = Output::getPurified($label_html[0]->html);
                             $label = str_replace('{x}', Output::getClean($label->name), $label_html);
@@ -332,11 +332,11 @@ if ($forum_query->redirect_forum == 1) {
                     if ($labels_cache[$item]) {
                         $labels[] = $labels_cache[$item];
                     } else {
-                        $label_query = $queries->getWhere('forums_topic_labels', ['id', '=', $item]);
+                        $label_query = $queries->getWhere('forums_topic_labels', ['id', $item]);
                         if (count($label_query)) {
                             $label_query = $label_query[0];
 
-                            $label_html = $queries->getWhere('forums_labels', ['id', '=', $label_query->label]);
+                            $label_html = $queries->getWhere('forums_labels', ['id', $label_query->label]);
                             if (count($label_html)) {
                                 $label_html = Output::getPurified($label_html[0]->html);
                                 $label_html = str_replace('{x}', Output::getClean($label_query->name), $label_html);
@@ -402,7 +402,7 @@ if ($forum_query->redirect_forum == 1) {
         // Get a list of all topics from the forum, and paginate
         foreach ($results->data as $nValue) {
             // Get number of replies to a topic
-            $replies = $queries->getWhere('posts', ['topic_id', '=', $nValue->id]);
+            $replies = $queries->getWhere('posts', ['topic_id', $nValue->id]);
             $replies = count($replies);
 
             // Is there a label?
@@ -411,11 +411,11 @@ if ($forum_query->redirect_forum == 1) {
                 if ($labels_cache[$nValue->label]) {
                     $label = $labels_cache[$nValue->label];
                 } else {
-                    $label = $queries->getWhere('forums_topic_labels', ['id', '=', $nValue->label]);
+                    $label = $queries->getWhere('forums_topic_labels', ['id', $nValue->label]);
                     if (count($label)) {
                         $label = $label[0];
 
-                        $label_html = $queries->getWhere('forums_labels', ['id', '=', $label->label]);
+                        $label_html = $queries->getWhere('forums_labels', ['id', $label->label]);
                         if (count($label_html)) {
                             $label_html = $label_html[0]->html;
                             $label = str_replace('{x}', Output::getClean($label->name), Output::getPurified($label_html));
@@ -441,11 +441,11 @@ if ($forum_query->redirect_forum == 1) {
 
                     foreach ($topic_labels as $item) {
                         // Get label
-                        $label_query = $queries->getWhere('forums_topic_labels', ['id', '=', $item]);
+                        $label_query = $queries->getWhere('forums_topic_labels', ['id', $item]);
                         if (count($label_query)) {
                             $label_query = $label_query[0];
 
-                            $label_html = $queries->getWhere('forums_labels', ['id', '=', $label_query->label]);
+                            $label_html = $queries->getWhere('forums_labels', ['id', $label_query->label]);
                             if (count($label_html)) {
                                 $label_html = $label_html[0]->html;
                                 $label_html = str_replace('{x}', Output::getClean($label_query->name), Output::getPurified($label_html));

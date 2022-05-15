@@ -17,7 +17,7 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
 
         $serverId = $_POST['server-id'];
         // Ensure server exists
-        $server_query = $api->getDb()->get('mc_servers', ['id', '=', $serverId]);
+        $server_query = $api->getDb()->get('mc_servers', ['id', $serverId]);
 
         if (!$server_query->count() || $server_query->first()->bedrock) {
             $api->throwError(27, $api->getLanguage()->get('api', 'invalid_server_id') . ' - ' . $serverId);

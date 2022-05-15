@@ -32,7 +32,7 @@ if (isset($_GET['do'])) {
 
     if ($_GET['do'] == 'delete' && isset($_GET['id']) && is_numeric($_GET['id'])) {
 
-        $queries->delete('email_errors', ['id', '=', $_GET['id']]);
+        $queries->delete('email_errors', ['id', $_GET['id']]);
 
         Session::flash('emails_errors_success', $language->get('admin', 'error_deleted_successfully'));
         Redirect::to(URL::build('/panel/core/emails/errors'));
@@ -40,7 +40,7 @@ if (isset($_GET['do'])) {
 
     if ($_GET['do'] == 'view' && isset($_GET['id']) && is_numeric($_GET['id'])) {
         // Check the error exists
-        $error = $queries->getWhere('email_errors', ['id', '=', $_GET['id']]);
+        $error = $queries->getWhere('email_errors', ['id', $_GET['id']]);
         if (!count($error)) {
             Redirect::to(URL::build('/panel/core/emails/errors'));
         }
@@ -90,7 +90,7 @@ if (isset($_GET['do'])) {
         ]);
 
         if ($error->type == 1) {
-            $user_validated = $queries->getWhere('users', ['id', '=', $error->user_id]);
+            $user_validated = $queries->getWhere('users', ['id', $error->user_id]);
             if (count($user_validated)) {
                 $user_validated = $user_validated[0];
                 if ($user_validated->active == 0) {
@@ -102,7 +102,7 @@ if (isset($_GET['do'])) {
             }
         } else {
             if ($error->type == 4) {
-                $user_error = $queries->getWhere('users', ['id', '=', $error->user_id]);
+                $user_error = $queries->getWhere('users', ['id', $error->user_id]);
                 if (count($user_error)) {
                     $user_error = $user_error[0];
                     if ($user_error->active == 0 && !is_null($user_error->reset_code)) {

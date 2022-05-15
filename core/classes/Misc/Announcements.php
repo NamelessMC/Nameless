@@ -61,7 +61,7 @@ class Announcements {
             return $this->_cache->retrieve('custom_announcements');
         }
 
-        $rows = DB::getInstance()->selectQuery('SELECT * FROM nl2_custom_announcements ORDER BY `order`')->results();
+        $rows = DB::getInstance()->query('SELECT * FROM nl2_custom_announcements ORDER BY `order`')->results();
         $announcements = [];
         foreach ($rows as $row) {
             $announcements[] = new Announcement($row);

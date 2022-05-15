@@ -24,7 +24,7 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 if (Session::exists('editing_language')) {
     $lang_short_code = Session::get('editing_language');
 } else {
-    $default_lang = $queries->getWhere('languages', ['is_default', '=', 1]);
+    $default_lang = $queries->getWhere('languages', ['is_default', true]);
     $lang_short_code = $default_lang[0]->short_code;
 }
 $editing_language = new Language('core', $lang_short_code);
@@ -155,7 +155,7 @@ if (isset($_GET['action'])) {
                     $mailer = '0';
                 }
 
-                $php_mailer = $queries->getWhere('settings', ['name', '=', 'phpmailer']);
+                $php_mailer = $queries->getWhere('settings', ['name', 'phpmailer']);
                 $php_mailer = $php_mailer[0]->id;
 
                 $queries->update('settings', $php_mailer, [
@@ -163,7 +163,7 @@ if (isset($_GET['action'])) {
                 ]);
 
                 if (!empty($_POST['email'])) {
-                    $outgoing_email = $queries->getWhere('settings', ['name', '=', 'outgoing_email']);
+                    $outgoing_email = $queries->getWhere('settings', ['name', 'outgoing_email']);
                     $outgoing_email = $outgoing_email[0]->id;
 
                     $queries->update('settings', $outgoing_email, [
@@ -237,10 +237,10 @@ if (isset($_GET['action'])) {
         }
     }
 
-    $php_mailer = $queries->getWhere('settings', ['name', '=', 'phpmailer']);
+    $php_mailer = $queries->getWhere('settings', ['name', 'phpmailer']);
     $php_mailer = $php_mailer[0]->value;
 
-    $outgoing_email = $queries->getWhere('settings', ['name', '=', 'outgoing_email']);
+    $outgoing_email = $queries->getWhere('settings', ['name', 'outgoing_email']);
     $outgoing_email = $outgoing_email[0]->value;
 
     require(ROOT_PATH . '/core/email.php');

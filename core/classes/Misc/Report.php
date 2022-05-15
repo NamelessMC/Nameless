@@ -33,7 +33,7 @@ class Report {
         $id = $db->lastId();
 
         // Alert moderators
-        $moderator_groups = DB::getInstance()->selectQuery('SELECT id FROM nl2_groups WHERE permissions LIKE \'%"modcp.reports":1%\'')->results();
+        $moderator_groups = DB::getInstance()->query('SELECT id FROM nl2_groups WHERE permissions LIKE \'%"modcp.reports":1%\'')->results();
 
         if (count($moderator_groups)) {
             $groups = '(';
@@ -44,7 +44,7 @@ class Report {
             }
             $groups = rtrim($groups, ',') . ')';
 
-            $moderators = DB::getInstance()->selectQuery('SELECT DISTINCT(nl2_users.id) AS id FROM nl2_users LEFT JOIN nl2_users_groups ON nl2_users.id = nl2_users_groups.user_id WHERE group_id in ' . $groups)->results();
+            $moderators = DB::getInstance()->query('SELECT DISTINCT(nl2_users.id) AS id FROM nl2_users LEFT JOIN nl2_users_groups ON nl2_users.id = nl2_users_groups.user_id WHERE group_id in ' . $groups)->results();
 
             if (count($moderators)) {
                 foreach ($moderators as $moderator) {

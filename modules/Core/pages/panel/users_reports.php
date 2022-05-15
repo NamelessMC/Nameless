@@ -29,11 +29,11 @@ if (!isset($_GET['id'])) {
     if (!isset($_GET['view'])) {
         // Get open reports
         if (!isset($_GET['uid'])) {
-            $report_query = DB::getInstance()->selectQuery('SELECT * FROM nl2_reports WHERE status = 0 ORDER BY date_updated DESC')->results();
+            $report_query = DB::getInstance()->query('SELECT * FROM nl2_reports WHERE status = 0 ORDER BY date_updated DESC')->results();
             $url = URL::build('/panel/users/reports/', true);
             $change_view_link = URL::build('/panel/users/reports/', 'view=closed');
         } else {
-            $report_query = DB::getInstance()->selectQuery('SELECT * FROM nl2_reports WHERE status = 0 AND reported_id = ? ORDER BY date_updated DESC', [(int)$_GET['uid']])->results();
+            $report_query = DB::getInstance()->query('SELECT * FROM nl2_reports WHERE status = 0 AND reported_id = ? ORDER BY date_updated DESC', [(int)$_GET['uid']])->results();
             $url = URL::build('/panel/users/reports/', 'uid=' . urlencode((int) $_GET['uid']) . '&');
             $change_view_link = URL::build('/panel/users/reports/', 'view=closed&uid=' . urlencode((int) $_GET['uid']));
         }
@@ -45,11 +45,11 @@ if (!isset($_GET['id'])) {
     } else {
         // Get closed reports
         if (!isset($_GET['uid'])) {
-            $report_query = DB::getInstance()->selectQuery('SELECT * FROM nl2_reports WHERE status = 1 ORDER BY date_updated DESC')->results();
+            $report_query = DB::getInstance()->query('SELECT * FROM nl2_reports WHERE status = 1 ORDER BY date_updated DESC')->results();
             $url = URL::build('/panel/users/reports/', 'view=closed&');
             $change_view_link = URL::build('/panel/users/reports');
         } else {
-            $report_query = DB::getInstance()->selectQuery('SELECT * FROM nl2_reports WHERE status = 1 AND reported_id = ? ORDER BY date_updated DESC', [(int)$_GET['uid']])->results();
+            $report_query = DB::getInstance()->query('SELECT * FROM nl2_reports WHERE status = 1 AND reported_id = ? ORDER BY date_updated DESC', [(int)$_GET['uid']])->results();
             $url = URL::build('/panel/users/reports/', 'view=closed&uid=' . urlencode((int) $_GET['uid']) . '&');
             $change_view_link = URL::build('/panel/users/reports/', 'uid=' . urlencode((int) $_GET['uid']));
         }
@@ -86,7 +86,7 @@ if (!isset($_GET['id'])) {
 
         foreach ($results->data as $report) {
             // Get comments count
-            $comments = $queries->getWhere('reports_comments', ['report_id', '=', $report->id]);
+            $comments = $queries->getWhere('reports_comments', ['report_id', $report->id]);
             $comments = count($comments);
 
             $user_reported = null;
@@ -162,7 +162,7 @@ if (!isset($_GET['id'])) {
 } else {
     // Get report by ID
     if (!isset($_GET['action'])) {
-        $report = $queries->getWhere('reports', ['id', '=', $_GET['id']]);
+        $report = $queries->getWhere('reports', ['id', $_GET['id']]);
         if (!count($report)) {
             Redirect::to(URL::build('/panel/users/reports'));
         }
@@ -210,7 +210,7 @@ if (!isset($_GET['id'])) {
         }
 
         // Get comments
-        $comments = $queries->getWhere('reports_comments', ['report_id', '=', $report->id]);
+        $comments = $queries->getWhere('reports_comments', ['report_id', $report->id]);
         $smarty_comments = [];
         foreach ($comments as $comment) {
             $comment_user = new User($comment->commenter_id);
@@ -306,7 +306,7 @@ if (!isset($_GET['id'])) {
             // Close report
             if (is_numeric($_GET['id'])) {
                 // Get report
-                $report = $queries->getWhere('reports', ['id', '=', $_GET['id']]);
+                $report = $queries->getWhere('reports', ['id', $_GET['id']]);
                 if (count($report)) {
                     $queries->update('reports', $report[0]->id, [
                         'status' => 1,
@@ -335,7 +335,7 @@ if (!isset($_GET['id'])) {
             // Reopen report
             if (is_numeric($_GET['id'])) {
                 // Get report
-                $report = $queries->getWhere('reports', ['id', '=', $_GET['id']]);
+                $report = $queries->getWhere('reports', ['id', $_GET['id']]);
                 if (count($report)) {
                     $queries->update('reports', $report[0]->id, [
                         'status' => 0,

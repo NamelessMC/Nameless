@@ -55,7 +55,7 @@ if (!isset($_GET['server']) && !isset($_GET['edit'])) {
     if (isset($_GET['server'])) {
         // View
         // Get server
-        $server = $queries->getWhere('mc_servers', ['id', '=', $_GET['server']]);
+        $server = $queries->getWhere('mc_servers', ['id', $_GET['server']]);
         if (!count($server)) {
             Redirect::to(URL::build('/panel/minecraft/banners'));
         }
@@ -74,7 +74,7 @@ if (!isset($_GET['server']) && !isset($_GET['edit'])) {
     } else {
         // Edit
         // Get server
-        $server = $queries->getWhere('mc_servers', ['id', '=', $_GET['edit']]);
+        $server = $queries->getWhere('mc_servers', ['id', $_GET['edit']]);
         if (!count($server)) {
             Redirect::to(URL::build('/panel/minecraft/banners'));
         }
@@ -102,7 +102,7 @@ if (!isset($_GET['server']) && !isset($_GET['edit'])) {
             }
 
             // Re-query
-            $server = $queries->getWhere('mc_servers', ['id', '=', $_GET['edit']]);
+            $server = $queries->getWhere('mc_servers', ['id', $_GET['edit']]);
         }
 
         $server = $server[0];

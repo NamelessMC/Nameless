@@ -29,7 +29,7 @@ $page_title = $language->get('admin', 're-authenticate');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Get login method
-$login_method = $queries->getWhere('settings', ['name', '=', 'login_method']);
+$login_method = $queries->getWhere('settings', ['name', 'login_method']);
 $login_method = $login_method[0]->value;
 
 // Deal with any input

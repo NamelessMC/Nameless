@@ -22,7 +22,7 @@ class UserInfoEndpoint extends KeyAuthEndpoint {
         $query = 'SELECT nl2_users.id, nl2_users.username, nl2_languages.short_code as `locale`, nl2_users.nickname as displayname, nl2_users.joined as registered_timestamp, nl2_users.last_online as last_online_timestamp, nl2_users.isbanned as banned, nl2_users.active as validated, nl2_users.user_title as user_title FROM nl2_users LEFT JOIN nl2_languages ON nl2_users.language_id = nl2_languages.id';
 
         // Ensure the user exists
-        $results = $api->getDb()->selectQuery($query . ' WHERE nl2_users.id = ?', [(int) $user->data()->id]);
+        $results = $api->getDb()->query($query . ' WHERE nl2_users.id = ?', [(int) $user->data()->id]);
 
         $return = $results->first();
         $return->exists = true;
@@ -46,7 +46,7 @@ class UserInfoEndpoint extends KeyAuthEndpoint {
         }
 
         // Get the groups the user has
-        $groups = $api->getDb()->selectQuery('SELECT nl2_groups.* FROM nl2_users_groups INNER JOIN nl2_groups ON group_id = nl2_groups.id WHERE user_id = ? AND deleted = 0 ORDER BY `order`;', [$user->data()->id])->results();
+        $groups = $api->getDb()->query('SELECT nl2_groups.* FROM nl2_users_groups INNER JOIN nl2_groups ON group_id = nl2_groups.id WHERE user_id = ? AND deleted = 0 ORDER BY `order`;', [$user->data()->id])->results();
 
         $groups_array = [];
         foreach ($groups as $group) {

@@ -41,11 +41,7 @@ if (Input::exists()) {
             ]);
 
             if ($validation->passed()) {
-
-                $discord_id = $queries->getWhere('settings', ['name', '=', 'discord']);
-                $discord_id = $discord_id[0]->id;
-
-                $queries->update('settings', $discord_id, [
+                $queries->update('settings', ['name', 'discord'], [
                     'value' => Output::getClean(Input::get('discord_guild_id'))
                 ]);
 
@@ -57,7 +53,7 @@ if (Input::exists()) {
         } else {
             // Valid token
             // Either enable or disable Discord integration
-            $enable_discord_id = $queries->getWhere('settings', ['name', '=', 'discord_integration']);
+            $enable_discord_id = $queries->getWhere('settings', ['name', 'discord_integration']);
             $enable_discord_id = $enable_discord_id[0]->id;
             if ($_POST['enable_discord'] == '1') {
                 if (BOT_URL == '' || BOT_USERNAME == '' || Discord::getGuildId() == '') {
