@@ -119,10 +119,10 @@ abstract class UpgradeScript {
                 if (is_dir($newFile)) {
                     if ($recursive) {
                         $this->deleteFilesInPath($newFile, ['*'], true);
-                        $this->deleteFile($newFile);
+                        $this->deleteFiles($newFile);
                     }
                 } else {
-                    $this->deleteFile($newFile);
+                    $this->deleteFiles($newFile);
                 }
 
             } else {
