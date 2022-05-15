@@ -20,7 +20,7 @@ class DB {
     private int $_count = 0;
     protected QueryRecorder $_query_recorder;
 
-    private function __construct(string $host, string $database, string $username, string $password, int $port = 3306, ?string $force_charset, string $prefix) {
+    private function __construct(string $host, string $database, string $username, string $password, int $port, ?string $force_charset, string $prefix) {
         try {
             $connection_string = 'mysql:host=' . $host . ';port=' . $port . ';dbname=' . $database;
             if ($force_charset) {
