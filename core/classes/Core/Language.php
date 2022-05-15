@@ -227,14 +227,14 @@ class Language {
 
     /**
      * Set a term in specific file.
-     * Used for email message editing.
+     * Used for email message editing & dropdown name editing.
      *
      * @param string $section Name of file without extension to edit.
      * @param string $term Term which value to change.
      * @param string $value New value to set for term.
      */
     public function set(string $section, string $term, string $value): void {
-        $editing_file = $this->_activeLanguageFile;
+        $editing_file = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'languages', $this->_activeLanguage . '.json']);
         $json = json_decode(file_get_contents($editing_file), true);
 
         $json[$section . '/' . $term] = $value;
