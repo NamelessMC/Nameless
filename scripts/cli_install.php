@@ -133,7 +133,8 @@ if ($reinstall) {
         $conf['mysql']['db'],
         $conf['mysql']['username'],
         $conf['mysql']['password'],
-        $conf['mysql']['port']);
+        $conf['mysql']['port']
+    );
     $instance->query('DROP DATABASE IF EXISTS `' . $conf['mysql']['db'] . '`');
     print('✍️  Creating new database...' . PHP_EOL);
     $instance->query('CREATE DATABASE `' . $conf['mysql']['db'] . '`');
