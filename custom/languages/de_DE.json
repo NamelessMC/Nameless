@@ -1217,5 +1217,8 @@
     "user/nickname_minimum_3": "Dein Nickname muss aus mindestens 3 Zeichen bestehen.",
     "user/nickname_required": "Ein Nickname ist erforderlich.",
     "admin/not_set": "Nicht festgelegt",
-    "admin/updated": "Aktualisiert"
+    "admin/updated": "Aktualisiert",
+    "admin/home_custom_content": "Startseite Benutzerdefinierter Inhalt",
+    "admin/custom_content": "Benutzerdefinierter Inhalt",
+    "admin/homepage_news": "Neuigkeiten"
 }
