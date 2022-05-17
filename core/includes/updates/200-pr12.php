@@ -225,6 +225,18 @@ class Pre13 extends UpgradeScript {
             'core/classes/Widgets.php',
         ]);
 
+        // delete old home type cache & update new cache
+        $this->_cache->setCache('portal_cache');
+        $portal = $this->_cache->retrieve('portal');
+        $this->_cache->eraseAll();
+        $this->_cache->setCache('home_type');
+        $this->_cache->store('type', $home_type = ($portal ? 'portal' : 'news'));
+        $this->databaseQuery(function (DB $db) use ($home_type) {
+            $db->query("DELETE FROM nl2_settings WHERE `name` = 'portal'");
+            $db->query("INSERT INTO nl2_settings (`name`, `value`) VALUES ('home_type', ?)", [$home_type]);
+            $db->query("INSERT INTO nl2_settings (`name`, `value`) VALUES ('home_custom_content', null)");
+        });
+
         $this->setVersion('2.0.0-pr13');
     }
 }

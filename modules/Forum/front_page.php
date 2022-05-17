@@ -51,3 +51,4 @@ if ($cache->isCached('news')) {
 $smarty->assign('LATEST_ANNOUNCEMENTS', $forum_language->get('forum', 'latest_announcements'));
 $smarty->assign('READ_FULL_POST', $forum_language->get('forum', 'read_full_post'));
 $smarty->assign('NEWS', $news);
+$smarty->assign('NO_NEWS', $forum_language->get('forum', 'no_news'));

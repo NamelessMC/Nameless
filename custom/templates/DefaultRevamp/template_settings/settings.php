@@ -21,6 +21,8 @@ if (Input::exists()) {
             $cache->store('navbarColour', $_POST['navbarColour']);
         }
 
+        DB::getInstance()->update('settings', ['name', 'home_custom_content'], ['value' => Input::get('home_custom_content')]);
+
         Session::flash('admin_templates', $language->get('admin', 'successfully_updated'));
 
     } else {
@@ -112,6 +114,12 @@ $nav_colours = [
     ],
 ];
 
+$current_template->assets()->include([
+    AssetTree::TINYMCE,
+]);
+
+$current_template->addJSScript(Input::createTinyEditor($language, 'inputHomeCustomContent', Util::getSetting(DB::getInstance(), 'home_custom_content')));
+
 $smarty->assign([
     'SUBMIT' => $language->get('general', 'submit'),
     'ENABLED' => $language->get('admin', 'enabled'),
@@ -120,5 +128,6 @@ $smarty->assign([
     'DARK_MODE_VALUE' => $darkMode,
     'NAVBAR_COLOUR' => $language->get('admin', 'navbar_colour'),
     'NAVBAR_COLOURS' => $nav_colours,
+    'HOME_CUSTOM_CONTENT' => $language->get('admin', 'home_custom_content'),
     'SETTINGS_TEMPLATE' => ROOT_PATH . '/custom/templates/DefaultRevamp/template_settings/settings.tpl'
 ]);

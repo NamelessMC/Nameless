@@ -125,19 +125,21 @@ if (Input::exists()) {
             }
 
             // Portal
-            if ($_POST['homepage'] == 'portal') {
-                $use_portal = 1;
-            } else {
-                $use_portal = 0;
+            if ($_POST['homepage'] === 'portal') {
+                $home_type = 'portal';
+            } else if ($_POST['homepage'] === 'news') {
+                $home_type = 'news';
+            } else if ($_POST['homepage'] === 'custom') {
+                $home_type = 'custom';
             }
 
-            $queries->update('settings', ['name', 'portal'], [
-                'value' => $use_portal
+            $queries->update('settings', ['name', 'home_type'], [
+                'value' => $home_type
             ]);
 
             // Update cache
-            $cache->setCache('portal_cache');
-            $cache->store('portal', $use_portal);
+            $cache->setCache('home_type');
+            $cache->store('type', $home_type);
 
             // Private profile
             if ($_POST['privateProfile']) {
@@ -258,8 +260,8 @@ for ($i = 0; $i < $count; $i++) {
 $timezone = $queries->getWhere('settings', ['name', 'timezone']);
 $timezone = $timezone[0]->value;
 
-$portal = $queries->getWhere('settings', ['name', 'portal']);
-$portal = $portal[0]->value;
+$home_type = $queries->getWhere('settings', ['name', 'home_type']);
+$home_type = $home_type[0]->value;
 
 $friendly_url = Config::get('core/friendly');
 
@@ -299,9 +301,10 @@ $smarty->assign([
     'DEFAULT_TIMEZONE_LIST' => Util::listTimezones(),
     'DEFAULT_TIMEZONE_VALUE' => $timezone,
     'HOMEPAGE_TYPE' => $language->get('admin', 'homepage_type'),
-    'HOMEPAGE_DEFAULT' => $language->get('admin', 'default'),
+    'HOMEPAGE_NEWS' => $language->get('admin', 'homepage_news'),
     'HOMEPAGE_PORTAL' => $language->get('admin', 'portal'),
-    'HOMEPAGE_VALUE' => $portal,
+    'HOMEPAGE_CUSTOM' => $language->get('admin', 'homepage_custom_content'),
+    'HOMEPAGE_VALUE' => $home_type,
     'USE_FRIENDLY_URLS' => $language->get('admin', 'use_friendly_urls'),
     'USE_FRIENDLY_URLS_VALUE' => $friendly_url,
     'USE_FRIENDLY_URLS_HELP' => $language->get('admin', 'use_friendly_urls_help'),
