@@ -117,7 +117,7 @@ class ErrorHandler {
             $user = new User();
             $detailed_error |= $user->isLoggedIn() && $user->hasPermission('admincp.errors');
             $can_generate_debug |= $user->hasPermission('admincp.core.debugging');
-        } catch (Exception $ignored) {
+        } catch (Error $ignored) {
             // Getting user info might fail, for example if the website isn't
             // installed yet. Assume the user does not have permission.
         }
