@@ -161,12 +161,12 @@ trait InteractsWithDatabase {
      * @return static|false This instance if successful, false otherwise.
      */
     private function action(string $action, string $table, array $where = []) {
-        [$field, $operator, $value] = $this->parseWhereClause($where);
+        [$where, $where_params] = $this->makeWhere($where);
 
         $table = $this->_prefix . $table;
-        $sql = "{$action} FROM {$table} WHERE {$field} {$operator} ?";
+        $sql = "{$action} FROM {$table} {$where}";
 
-        if (!$this->query($sql, [$value])->error()) {
+        if (!$this->query($sql, $where_params)->error()) {
             return $this;
         }
 
@@ -221,22 +221,15 @@ trait InteractsWithDatabase {
         }
 
         if (!is_array($where)) {
-            $field = 'id';
-            $operator = '=';
-            $value = $where;
-        } else {
-            [$field, $operator, $value] = $this->parseWhereClause($where);
+            $where = ['id', '=', $where];
         }
 
+        [$where, $where_params] = $this->makeWhere($where);
         $table = $this->_prefix . $table;
 
-        if (is_string($value)) {
-            $value = "'{$value}'";
-        }
+        $sql = "UPDATE {$table} SET {$set} $where";
 
-        $sql = "UPDATE {$table} SET {$set} WHERE `{$field}` {$operator} {$value}";
-
-        return !$this->query($sql, $fields)->error();
+        return !$this->query($sql, array_merge($fields, $where_params))->error();
     }
 
     /**
@@ -339,28 +332,74 @@ trait InteractsWithDatabase {
     }
 
     /**
-     * Attempt to parse a where clause in array format.
+     * Convert an array of where clause data into a MySQL WHERE clause and params.
      *
-     * @internal This method is used by the class and should not be called directly.
-     * @param array $clause The where clause.
-     * @return array The parsed where clause as [field, operator, value] form.
+     * @param array $clauses An array, or nested array, of
+     * column, operator (default =), value, and glue (default AND).
+     * @return array The where clause string, and parameters to bind.
      */
-    private function parseWhereClause(array $clause): array {
-        $operators = ['=', '>', '<', '>=', '<=', '<>'];
-        if (count($clause) === 3) {
-            [$field, $operator, $value] = $clause;
-        } else if (count($clause) === 2) {
-            [$field, $value] = $clause;
+    private function makeWhere(array $clauses): array {
+        if (count($clauses) === count($clauses, COUNT_RECURSIVE)) {
+            return $this->makeWhere([$clauses]);
+        }
+
+        $where_clauses = [];
+        foreach ($clauses as $clause) {
+            if (!is_array($clause)) {
+                continue;
+            }
+
+            if (count($clause) !== count($clause, COUNT_RECURSIVE)) {
+                $this->makeWhere(...$clause);
+                continue;
+            }
+
+            $column = null;
             $operator = '=';
-        } else {
-            throw new InvalidArgumentException("Invalid SQL where clause");
+            $value = null;
+            $glue = 'AND';
+
+            switch (count($clause)) {
+                case 4:
+                    [$column, $operator, $value, $glue] = $clause;
+                    break;
+                case 3:
+                    [$column, $operator, $value] = $clause;
+                    break;
+                case 2:
+                    [$column, $value] = $clause;
+                    break;
+                default:
+                    throw new InvalidArgumentException('Invalid where clause');
+            }
+
+            if (!in_array($operator, ['=', '<>', '<', '>', '<=', '>=', 'LIKE', 'NOT LIKE'])) {
+                throw new InvalidArgumentException("Invalid operator: {$operator}");
+            }
+
+            $where_clauses[] = [
+                'column' => $column,
+                'operator' => $operator,
+                'value' => $value,
+                'glue' => $glue,
+            ];
         }
 
-        if (!in_array($operator, $operators)) {
-            throw new InvalidArgumentException("Invalid SQL operator: '{$operator}'");
+        $first = true;
+        $where = '';
+        $params = [];
+        foreach ($where_clauses as $clause) {
+            if ($first) {
+                $where .= 'WHERE ';
+                $first = false;
+            } else {
+                $where .= " {$clause['glue']} ";
+            }
+
+            $where .= "`{$clause['column']}` {$clause['operator']} ?";
+            $params[] = $clause['value'];
         }
 
-        return [$field, $operator, $value];
+        return [$where, $params];
     }
-
 }
