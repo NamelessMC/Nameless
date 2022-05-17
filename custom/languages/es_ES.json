@@ -1217,5 +1217,8 @@
     "general/or": "O",
     "user/nickname_maximum_20": "Su apodo debe tener un máximo de 20 caracteres.",
     "admin/not_set": "No se ha establecido",
-    "admin/updated": "Actualizado"
+    "admin/updated": "Actualizado",
+    "admin/home_custom_content": "Inicio del contenido personalizado",
+    "admin/custom_content": "Contenido personalizado",
+    "admin/homepage_news": "Noticias"
 }
