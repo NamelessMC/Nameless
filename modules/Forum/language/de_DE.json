@@ -186,5 +186,6 @@
     "forum/pre_topic_create_hook_info": "Pre Thema erstellen",
     "forum/pre_topic_edit_hook_info": "Pre Topic bearbeiten",
     "forum/topic_placeholder": "Topic Platzhalter",
-    "forum/user_object": "Benutzerobjekt"
+    "forum/user_object": "Benutzerobjekt",
+    "forum/no_news": "Es gibt keine Nachrichten."
 }
