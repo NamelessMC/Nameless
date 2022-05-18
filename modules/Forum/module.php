@@ -59,7 +59,7 @@ class Forum_Module extends Module {
         EventHandler::registerEvent('newTopic',
             $this->_forum_language->get('forum', 'new_topic_hook_info'),
             [
-                'uuid' => $this->_language->get('admin', 'uuid'),
+                'user_id' => $this->_language->get('admin', 'user_id'),
                 'username' => $this->_language->get('user', 'username'),
                 'nickname' => $this->_language->get('user', 'nickname'),
                 'content' => $this->_language->get('general', 'content'),
@@ -136,6 +136,23 @@ class Forum_Module extends Module {
             ],
             true,
             true
+        );
+
+        EventHandler::registerEvent('topicReply',
+            $this->_forum_language->get('forum', 'topic_reply'),
+            [
+                'user_id' => $this->_language->get('admin', 'user_id'),
+                'username' => $this->_language->get('user', 'username'),
+                'nickname' => $this->_language->get('user', 'nickname'),
+                'content' => $this->_language->get('general', 'content'),
+                'content_full' => $this->_language->get('general', 'full_content'),
+                'avatar_url' => $this->_language->get('user', 'avatar'),
+                'title' => $this->_forum_language->get('forum', 'topic_title'),
+                'url' => $this->_language->get('general', 'url'),
+                'topic_author_user_id' => $this->_forum_language->get('forum', 'topic_author_uuid'),
+                'topic_author_username' => $this->_forum_language->get('forum', 'topic_author_username'),
+                'topic_author_nickname' => $this->_forum_language->get('forum', 'topic_author_nickname'),
+            ]
         );
 
         require_once ROOT_PATH . '/modules/Forum/hooks/DeleteUserForumHook.php';

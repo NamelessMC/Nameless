@@ -185,7 +185,7 @@ class User {
             'username' => $this->data()->username,
             'user_id' => $this->data()->id,
             'group_id' => $group_id,
-            'name' => $this->_groups[$group_id]->name,
+            'group_name' => $this->_groups[$group_id]->name,
         ]);
 
         return true;
@@ -729,7 +729,7 @@ class User {
             'username' => $this->data()->username,
             'user_id' => $this->data()->id,
             'group_id' => $group_id,
-            'name' => $this->_groups[$group_id]->name,
+            'group_name' => $this->_groups[$group_id]->name,
         ]);
 
         unset($this->_groups[$group_id]);
