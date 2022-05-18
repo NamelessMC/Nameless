@@ -1,4 +1,5 @@
 {
+    "admin\/user_group_added_hook_info": "User Group Added",
     "admin\/account_verification": "Minecraft Account Verification",
     "admin\/acp_logins": "StaffCP Logins",
     "admin\/action": "Action",
@@ -240,6 +241,7 @@
     "admin\/google_analytics": "Google Analytics",
     "admin\/google_analytics_help": "Add Google Analytics to your website to track visitors and statistics. You will need to create a Google Analytics account to use this functionality. Enter your Google Analytics Web Property ID. The ID looks like UA-XXXXA-X and you can find it in your account information or in the tracking code provided by Google.",
     "admin\/group": "Group",
+    "admin\/group_name": "Group Name",
     "admin\/group_created_successfully": "Group created successfully.",
     "admin\/group_deleted_successfully": "Group deleted successfully.",
     "admin\/group_html": "Group HTML",
