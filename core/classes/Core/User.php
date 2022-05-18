@@ -181,7 +181,7 @@ class User {
             $this->_groups[$group_id] = new Group($group_data);
         }
 
-        EventHandler::executeEvent("userGroupAdded", [
+        EventHandler::executeEvent('userGroupAdded', [
             'username' => $this->data()->username,
             'user_id' => $this->data()->id,
             'group_id' => $group_id,
@@ -725,7 +725,7 @@ class User {
             ]
         );
 
-        EventHandler::executeEvent("userGroupRemoved", [
+        EventHandler::executeEvent('userGroupRemoved', [
             'username' => $this->data()->username,
             'user_id' => $this->data()->id,
             'group_id' => $group_id,
