@@ -152,6 +152,8 @@ class Forum_Module extends Module {
                 'topic_author_user_id' => $this->_forum_language->get('forum', 'topic_author_uuid'),
                 'topic_author_username' => $this->_forum_language->get('forum', 'topic_author_username'),
                 'topic_author_nickname' => $this->_forum_language->get('forum', 'topic_author_nickname'),
+                'topic_id' => $this->_forum_language->get('forum', 'topic_id'),
+                'post_id' => $this->_forum_language->get('forum', 'post_id'),
             ]
         );
 
