@@ -423,6 +423,26 @@ class Core_Module extends Module {
             true
         );
 
+        EventHandler::registerEvent('userGroupAdded',
+            $language->get('admin', 'user_group_added_hook_info'),
+            [
+                'group_id' => $language->get('admin', 'group_id'),
+                'group_name' => $language->get('admin', 'group_name'),
+                'username' => $language->get('user', 'username'),
+                'user_id' => $language->get('admin', 'user_id'),
+            ]
+        );
+
+        EventHandler::registerEvent('userGroupRemoved',
+            $language->get('admin', 'user_group_removed_hook_info'),
+            [
+                'group_id' => $language->get('admin', 'group_id'),
+                'group_name' => $language->get('admin', 'group_name'),
+                'username' => $language->get('user', 'username'),
+                'user_id' => $language->get('admin', 'user_id'),
+            ]
+        );
+
         // Webhooks
         $cache->setCache('hooks');
         if ($cache->isCached('hooks')) {
