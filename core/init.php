@@ -221,7 +221,7 @@ if ($page != 'install') {
     if (!$user->isLoggedIn() || !($user->data()->language_id)) {
         // Attempt to get the requested language from the browser if it exists
         // and if the user has enabled auto language detection
-        $automatic_locale = Language::acceptFromHttp($_SERVER['HTTP_ACCEPT_LANGUAGE']);
+        $automatic_locale = Language::acceptFromHttp($_SERVER['HTTP_ACCEPT_LANGUAGE'] ?? '');
         if ($automatic_locale !== false && (!Cookie::exists('auto_language') || Cookie::get('auto_language') === 'true')) {
             $default_language = $automatic_locale;
         }
