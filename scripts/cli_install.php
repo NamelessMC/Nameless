@@ -51,7 +51,7 @@ if (!$reinstall && file_exists('./core/config.php')) {
 }
 
 // check all the required environment variables are set
-foreach (['NAMELESS_SITE_NAME', 'NAMELESS_SITE_CONTACT_EMAIL', 'NAMELESS_SITE_OUTGOING_EMAIL', 'NAMELESS_ADMIN_EMAIL'] as $var) {
+foreach (['NAMELESS_SITE_NAME', 'NAMELESS_SITE_OUTGOING_EMAIL', 'NAMELESS_ADMIN_EMAIL'] as $var) {
     getEnvVar($var);
 }
 
@@ -158,7 +158,6 @@ $cache->setCache('sitenamecache');
 $cache->store('sitename', $sitename);
 $queries->create('settings', [
     'name' => 'incoming_email',
-    'value' => getEnvVar('NAMELESS_SITE_CONTACT_EMAIL'),
 ]);
 $queries->create('settings', [
     'name' => 'outgoing_email',

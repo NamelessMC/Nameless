@@ -89,7 +89,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="sixteen wide mobile twelve wide tablet ten wide computer column">
                     <div class="ui form">
                         <?php create_field('text', $language->get('installer', 'site_name'), 'sitename', 'inputSitename', getenv('NAMELESS_SITE_NAME') ?: ''); ?>
-                        <?php create_field('email', $language->get('installer', 'contact_email'), 'incoming', 'contact_email', getenv('NAMELESS_SITE_CONTACT_EMAIL') ?: ''); ?>
                         <?php create_field('email', $language->get('installer', 'outgoing_email'), 'outgoing', 'outgoing_email', getenv('NAMELESS_SITE_OUTGOING_EMAIL') ?: ''); ?>
                         <?php create_field('select', $language->get('installer', 'language'), 'language', 'inputLanguage', $installer_language, $languages) ?>
                     </div>
