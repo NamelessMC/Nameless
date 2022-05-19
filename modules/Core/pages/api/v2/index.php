@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  Additions by Aberdeener
  *
  *  https://github.com/NamelessMC/Nameless/

@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
  *
@@ -105,73 +105,73 @@ if ($forum_enabled) {
 
     $template->addJSScript(
         '
-		$(document).ready(function() {
-			var ctx = $("#dataChart").get(0).getContext("2d");
+        $(document).ready(function() {
+            var ctx = $("#dataChart").get(0).getContext("2d");
 
-			moment.locale(\'' . (defined('HTML_LANG') ? strtolower(HTML_LANG) : 'en') . '\');
+            moment.locale(\'' . (defined('HTML_LANG') ? strtolower(HTML_LANG) : 'en') . '\');
 
-			var data = {
-				labels: ' . $labels . ',
-				datasets: [
-					{
-						label: "' . $forum_language->get('forum', 'your_posts') . '",
-						fill: false,
-						borderColor: "rgba(255,12,0,0.5)",
-						pointBorderColor: "rgba(255,0,5,0.5)",
-						pointBackgroundColor: "#fff",
-						tension: 0.1,
-						data: ' . $user_data . '
-					},
-					{
-						label: "' . $forum_language->get('forum', 'average_posts') . '",
-						fill: false,
-						borderColor: "#0004FF",
-						pointBorderColor: "#0004FF",
-						pointBackgroundColor: "#fff",
-						tension: 0.1,
-						data: ' . $average_data . '
-					},
-					{
-						label: "' . $forum_language->get('forum', 'total_posts') . '",
-						fill: false,
-						borderColor: "#00931D",
-						pointBorderColor: "#00931D",
-						pointBackgroundColor: "#fff",
-						tension: 0.1,
-						data: ' . $total_data . '
-					},
-				]
-			}
+            var data = {
+                labels: ' . $labels . ',
+                datasets: [
+                    {
+                        label: "' . $forum_language->get('forum', 'your_posts') . '",
+                        fill: false,
+                        borderColor: "rgba(255,12,0,0.5)",
+                        pointBorderColor: "rgba(255,0,5,0.5)",
+                        pointBackgroundColor: "#fff",
+                        tension: 0.1,
+                        data: ' . $user_data . '
+                    },
+                    {
+                        label: "' . $forum_language->get('forum', 'average_posts') . '",
+                        fill: false,
+                        borderColor: "#0004FF",
+                        pointBorderColor: "#0004FF",
+                        pointBackgroundColor: "#fff",
+                        tension: 0.1,
+                        data: ' . $average_data . '
+                    },
+                    {
+                        label: "' . $forum_language->get('forum', 'total_posts') . '",
+                        fill: false,
+                        borderColor: "#00931D",
+                        pointBorderColor: "#00931D",
+                        pointBackgroundColor: "#fff",
+                        tension: 0.1,
+                        data: ' . $total_data . '
+                    },
+                ]
+            }
 
-			var dataLineChart = new Chart(ctx, {
-				type: \'line\',
-				data: data,
-				options: {
-					scales: {
-						yAxes: [{
-							display: true,
-							ticks: {
-								beginAtZero: true,
-								userCallback: function(label, index, labels) {
-									// when the floored value is the same as the value we have a whole number
-									if (Math.floor(label) === label) {
-										return label;
-									}
+            var dataLineChart = new Chart(ctx, {
+                type: \'line\',
+                data: data,
+                options: {
+                    scales: {
+                        yAxes: [{
+                            display: true,
+                            ticks: {
+                                beginAtZero: true,
+                                userCallback: function(label, index, labels) {
+                                    // when the floored value is the same as the value we have a whole number
+                                    if (Math.floor(label) === label) {
+                                        return label;
+                                    }
 
-								}
-							}
-						}],
-						xAxes: [{
-							type: \'time\',
-							time: {
-								unit: \'day\'
-							}
-						}]
-					}
-				}
-			});
-		});
-		'
+                                }
+                            }
+                        }],
+                        xAxes: [{
+                            type: \'time\',
+                            time: {
+                                unit: \'day\'
+                            }
+                        }]
+                    }
+                }
+            });
+        });
+        '
     );
 }
 

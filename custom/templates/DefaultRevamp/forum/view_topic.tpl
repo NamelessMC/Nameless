@@ -298,17 +298,17 @@
          {$reply.buttons.report.TEXT}
       </div>
       <div class="content">
-		<form action="{$reply.buttons.report.URL}" method="post" id="form-report-{$reply.id}">
-		  <div class="ui form">
-		    <div class="field">
+        <form action="{$reply.buttons.report.URL}" method="post" id="form-report-{$reply.id}">
+          <div class="ui form">
+            <div class="field">
               <label for="InputReason">{$reply.buttons.report.REPORT_TEXT}</label>
               <textarea id="InputReason" name="reason"></textarea>
-			</div>
+            </div>
             <input type="hidden" name="post" value="{$reply.id}">
             <input type="hidden" name="topic" value="{$TOPIC_ID}">
             <input type="hidden" name="token" value="{$TOKEN}">
-		  </div>
-		</form>
+          </div>
+        </form>
       </div>
       <div class="actions">
         <a class="ui negative button">{$CANCEL}</a>
@@ -323,10 +323,10 @@
       </div>
       <div class="content">
         {$CONFIRM_SPAM_POST}
-		<form action="{$reply.buttons.spam.URL}" method="post" id="form-spam-{$reply.id}">
+        <form action="{$reply.buttons.spam.URL}" method="post" id="form-spam-{$reply.id}">
           <input type="hidden" name="post" value="{$reply.id}">
           <input type="hidden" name="token" value="{$TOKEN}">
-		</form>
+        </form>
       </div>
       <div class="actions">
         <a class="ui negative button">{$CANCEL}</a>
@@ -339,12 +339,12 @@
       </div>
       <div class="content">
         {$CONFIRM_DELETE_POST}
-		<form action="{$reply.buttons.delete.URL}" method="post" id="form-delete-{$reply.id}">
+        <form action="{$reply.buttons.delete.URL}" method="post" id="form-delete-{$reply.id}">
           <input type="hidden" name="tid" value="{$TOPIC_ID}">
           <input type="hidden" name="number" value="{$reply.buttons.delete.NUMBER}">
           <input type="hidden" name="pid" value="{$reply.id}">
           <input type="hidden" name="token" value="{$TOKEN}">
-		</form>
+        </form>
       </div>
       <div class="actions">
         <a class="ui negative button">{$CANCEL}</a>

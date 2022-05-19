@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
  *
@@ -15,8 +15,8 @@ $user_area_left = [];
 
 if ($user->isLoggedIn()) {
     /*
-	 *  Start deprecated variable generation
-	 */
+     *  Start deprecated variable generation
+     */
     $user_area['usercp'] = [
         'target' => '',
         'link' => URL::build('/user'),
@@ -66,8 +66,8 @@ if ($user->isLoggedIn()) {
     ];
 
     /*
-	 *  End deprecated variable generation
-	 */
+     *  End deprecated variable generation
+     */
 
     $user_section = [
         'pms' => [

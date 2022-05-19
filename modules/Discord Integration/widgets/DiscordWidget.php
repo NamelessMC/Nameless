@@ -1,7 +1,7 @@
 <?php
 
 /*
- *	Made by Partydragen
+ *  Made by Partydragen
  *  Updated by BrightSkyz
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8

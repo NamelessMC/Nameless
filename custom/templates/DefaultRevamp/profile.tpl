@@ -31,9 +31,9 @@
         <div class="sub header">{$USER_TITLE}</div>
       {/if}
     </h2>
-	{foreach from=$GROUPS item=group}
-	  {$group}
-	{/foreach}
+    {foreach from=$GROUPS item=group}
+      {$group}
+    {/foreach}
   </center>
 </div>
 

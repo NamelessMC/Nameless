@@ -157,15 +157,15 @@
                                 </div>
                             </div>
                             <div class="form-group">
-				<div class="row">
-				    <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-6">
                                         <label for="inputEnableNicknames">{$ENABLE_NICKNAMES}</label>
                                         <select name="displaynames" class="form-control" id="inputEnableNicknames">
                                             <option value="true" {if $ENABLE_NICKNAMES_VALUE eq "true" } selected{/if}>{$ENABLED}</option>
                                             <option value="false" {if $ENABLE_NICKNAMES_VALUE eq "false" } selected{/if}>{$DISABLED}</option>
                                         </select>
-				    </div>
-				</div>
+                    </div>
+                </div>
                             </div>
                             <div class="form-group">
                                 <input type="hidden" name="token" value="{$TOKEN}">

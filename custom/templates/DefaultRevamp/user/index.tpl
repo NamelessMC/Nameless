@@ -8,7 +8,7 @@
 <div class="ui stackable grid" id="user">
   <div class="ui centered row">
     <div class="ui six wide tablet four wide computer column">
-	  {include file='user/navigation.tpl'}
+      {include file='user/navigation.tpl'}
     </div>
     <div class="ui ten wide tablet twelve wide computer column">
       <div class="ui segment">
@@ -28,13 +28,13 @@
         </div>
       </div>
       {if isset($FORUM_GRAPH)}
-	    <div class="ui segment">
-		  <h3 class="ui header">{$FORUM_GRAPH}</h3>
-	      <div id="chartWrapper">
-		    <canvas id="dataChart" width="100%" height="40"></canvas>
-		  </div>
-		</div>
-	  {/if}
+        <div class="ui segment">
+          <h3 class="ui header">{$FORUM_GRAPH}</h3>
+          <div id="chartWrapper">
+            <canvas id="dataChart" width="100%" height="40"></canvas>
+          </div>
+        </div>
+      {/if}
     </div>
   </div>
 </div>

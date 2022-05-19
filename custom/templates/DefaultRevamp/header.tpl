@@ -13,9 +13,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <title>{$TITLE} &bull; {$smarty.const.SITE_NAME}</title>
 
-	{if isset($FAVICON)}
-	<link rel="shortcut icon" href="{$FAVICON}" type="image/x-icon" />
-	{/if}
+    {if isset($FAVICON)}
+    <link rel="shortcut icon" href="{$FAVICON}" type="image/x-icon" />
+    {/if}
 
     <meta name="author" content="{$smarty.const.SITE_NAME}">
     <meta name='description' content='{$PAGEDESCRIPTION}' />
@@ -27,7 +27,7 @@
     <meta property="og:image" content="{$OG_IMAGE}" />
     <meta property='og:description' content='{$PAGEDESCRIPTION}' />
 
-	  <!-- Twitter Card Properties -->
+      <!-- Twitter Card Properties -->
     <meta name="twitter:title" content="{$TITLE} &bull; {$smarty.const.SITE_NAME}" />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:image" content="{$OG_IMAGE}" />
@@ -40,17 +40,17 @@
       {$css}
     {/foreach}
 
-	{if isset($ANALYTICS_ID)}
-	  {literal}
-		<script async src="https://www.googletagmanager.com/gtag/js?id={/literal}{$ANALYTICS_ID}{literal}"></script>
-		<script>
-		  window.dataLayer = window.dataLayer || [];
-		  function gtag(){dataLayer.push(arguments);}
-		  gtag('js', new Date());
+    {if isset($ANALYTICS_ID)}
+      {literal}
+        <script async src="https://www.googletagmanager.com/gtag/js?id={/literal}{$ANALYTICS_ID}{literal}"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
 
-		  gtag('config', '{/literal}{$ANALYTICS_ID}{literal}');
-		</script>
-	  {/literal}
+          gtag('config', '{/literal}{$ANALYTICS_ID}{literal}');
+        </script>
+      {/literal}
     {/if}
 
     {if isset($DEBUGBAR_JS)}

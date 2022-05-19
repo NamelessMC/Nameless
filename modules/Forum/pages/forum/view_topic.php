@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr13
  *
@@ -811,18 +811,18 @@ if ($user->isLoggedIn()) {
     ';
 
     $template->addJSScript('
-	$(document).ready(function() {
-		if (typeof $.cookie(\'' . $tid . '-quoted\') === \'undefined\') {
-			$("#quoteButton").hide();
-		}
-	});
+    $(document).ready(function() {
+        if (typeof $.cookie(\'' . $tid . '-quoted\') === \'undefined\') {
+            $("#quoteButton").hide();
+        }
+    });
 
-	// Add post to quoted posts array
-	function quote(post) {
-		var index = quotedPosts.indexOf(post);
+    // Add post to quoted posts array
+    function quote(post) {
+        var index = quotedPosts.indexOf(post);
 
-		if (index > -1) {
-			quotedPosts.splice(index, 1);
+        if (index > -1) {
+            quotedPosts.splice(index, 1);
 
             $(\'body\').toast({
                 showIcon: \'info circle icon\',
@@ -834,9 +834,9 @@ if ($user->isLoggedIn()) {
                 pauseOnHover: false,
                 position: \'bottom left\',
             });
-		}
-		else {
-			quotedPosts.push(post);
+        }
+        else {
+            quotedPosts.push(post);
 
             $(\'body\').toast({
                 showIcon: \'info circle icon\',
@@ -848,29 +848,29 @@ if ($user->isLoggedIn()) {
                 pauseOnHover: false,
                 position: \'bottom left\',
             });
-		}
+        }
 
-		if (quotedPosts.length == 0) {
-			// Delete cookie
-			$.removeCookie(\'' . $tid . '-quoted\');
+        if (quotedPosts.length == 0) {
+            // Delete cookie
+            $.removeCookie(\'' . $tid . '-quoted\');
 
-			// Hide insert quote button
-			$("#quoteButton").hide();
-		} else {
-			// Create cookie
-			$.cookie(\'' . $tid . '-quoted\', JSON.stringify(quotedPosts));
+            // Hide insert quote button
+            $("#quoteButton").hide();
+        } else {
+            // Create cookie
+            $.cookie(\'' . $tid . '-quoted\', JSON.stringify(quotedPosts));
 
-			// Show insert quote button
-			$("#quoteButton").show();
-		}
-	}
+            // Show insert quote button
+            $("#quoteButton").show();
+        }
+    }
 
-	// Insert quoted posts to editor
-	function insertQuotes() {
-		var postData = {
-			"posts": JSON.parse($.cookie(\'' . $tid . '-quoted\')),
-			"topic": ' . $tid . '
-		};
+    // Insert quoted posts to editor
+    function insertQuotes() {
+        var postData = {
+            "posts": JSON.parse($.cookie(\'' . $tid . '-quoted\')),
+            "topic": ' . $tid . '
+        };
 
         $(\'body\').toast({
             showIcon: \'info circle icon\',
@@ -883,23 +883,23 @@ if ($user->isLoggedIn()) {
             position: \'bottom left\',
         });
 
-		var getQuotes = $.ajax({
-			  type: "POST",
-			  url: "' . URL::build('/forum/get_quotes') . '",
-			  data: postData,
-			  dataType: "json",
-			  success: function(resultData) {
-				  for(var item in resultData) {
-					  if (resultData.hasOwnProperty(item)) {
-					  ' . $js . '
-					  }
-				  }
+        var getQuotes = $.ajax({
+              type: "POST",
+              url: "' . URL::build('/forum/get_quotes') . '",
+              data: postData,
+              dataType: "json",
+              success: function(resultData) {
+                  for(var item in resultData) {
+                      if (resultData.hasOwnProperty(item)) {
+                      ' . $js . '
+                      }
+                  }
 
-				  // Remove cookie containing quoted posts, and hide quote button
-				  $.removeCookie(\'' . $tid . '-quoted\');
-				  $("#quoteButton").hide();
-			  },
-			  error: function(data) {
+                  // Remove cookie containing quoted posts, and hide quote button
+                  $.removeCookie(\'' . $tid . '-quoted\');
+                  $("#quoteButton").hide();
+              },
+              error: function(data) {
                   $(\'body\').toast({
                     showIcon: \'exclamation triangle icon\',
                     message: \'' . $forum_language->get('forum', 'error_quoting_posts') . '\',
@@ -910,10 +910,10 @@ if ($user->isLoggedIn()) {
                     pauseOnHover: false,
                     position: \'bottom left\',
                 });
-			  }
-		});
-	}
-	');
+              }
+        });
+    }
+    ');
 }
 
 // Load modules + template

@@ -11,7 +11,7 @@
 {else}
   {foreach from=$PF_LATEST_POSTS item=post}
     <h4 class="ui dividing header">
-	  <div class="sub header right floated" data-toggle="tooltip" data-content="{$post.date_full}">{$post.date_friendly}</div>
+      <div class="sub header right floated" data-toggle="tooltip" data-content="{$post.date_full}">{$post.date_friendly}</div>
       <a href="{$post.link}" data-toggle="popup">{$post.title}</a>
       <div class="ui wide popup">
         <h4 class="ui header">{$post.title}</h4>
