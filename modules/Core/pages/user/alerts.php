@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr13
  *
  *  License: MIT
  *
@@ -103,7 +103,7 @@ if (!isset($_GET['view'])) {
 
     if ($alert[0]->read == 0) {
         $queries->update('alerts', $alert[0]->id, [
-            '`read`' => 1
+            'read' => 1
         ]);
     }
 

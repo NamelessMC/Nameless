@@ -162,6 +162,9 @@ $smarty->assign([
     'FOOTER_LINKS_TITLE' => $language->get('general', 'links'),
     'FOOTER_SOCIAL_TITLE' => $language->get('general', 'social'),
     'TOGGLE_DARK_MODE_TEXT' => $language->get('general', 'toggle_dark_mode'),
+    'AUTO_LANGUAGE_TEXT' => $language->get('general', 'auto_language'),
+    'ENABLED' => $language->get('user', 'enabled'),
+    'DISABLED' => $language->get('user', 'disabled'),
     'DARK_LIGHT_MODE_ACTION' => URL::build('/queries/dark_light_mode'),
     'DARK_LIGHT_MODE_TOKEN' => $user->isLoggedIn() ? Token::get() : null
 ]);
