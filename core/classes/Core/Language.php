@@ -260,9 +260,11 @@ class Language {
             return Locale::acceptFromHttp($header);
         }
 
-        $prefLocales = array_reduce(explode(',', $header), static function ($res, $el) {
-                [$l, $q] = array_merge(explode(';q=', $el), [1]);
-                $res[$l] = (float) $q;
+        $prefLocales = array_reduce(
+            explode(',', $header),
+            static function ($res, $el) {
+                [$lang, $weight] = array_merge(explode(';q=', $el), [1]);
+                $res[$lang] = (float) $weight;
                 return $res;
             }, []
         );
