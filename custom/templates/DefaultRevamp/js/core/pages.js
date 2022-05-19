@@ -2,8 +2,8 @@
 if (page !== '') {
 
 	if (page === 'status') {
-		$(function() {
-			$(".server").each(function() {
+		$(function () {
+			$(".server").each(function () {
 				let serverID = $(this).data("id");
 				let serverBungee = $(this).data("bungee");
 				let serverBedrock = $(this).data("bedrock");
@@ -12,7 +12,7 @@ if (page !== '') {
 
 				const paramChar = URLBuild('').includes('?') ? '&' : '?';
 
-				$.getJSON(URLBuild('queries/server/' + paramChar + 'id=' + serverID), function(data){
+				$.getJSON(URLBuild('queries/server/' + paramChar + 'id=' + serverID), function (data) {
 					var content = '';
 					var players = '';
 					if (data.status_value === 1) {
@@ -36,7 +36,7 @@ if (page !== '') {
 										players += '<a href="' + URLBuild('profile/' + data.player_list[i].name) + '" data-tooltip="' + data.player_list[i].name + '" data-variation="mini" data-inverted="" data-position="bottom center"><img class="ui mini circular image" src="' + avatarSource.replace('{identifier}', data.player_list[i].id).replace('{size}', 64) + '" alt="' + data.player_list[i].name + '"></a>';
 									}
 
-									if(data.player_list.length < data.player_count) {
+									if (data.player_list.length < data.player_count) {
 										players += '<span class="ui blue circular label">+' + (data.player_count - data.player_list.length) + '</span>';
 									}
 
@@ -59,9 +59,9 @@ if (page !== '') {
 	} else if (page === 'profile') {
 		$('.menu.tabular .item').tab();
 
-		function showBannerSelect(){
+		function showBannerSelect() {
 			$('#imageModal').modal({
-				onVisible: function() {
+				onVisible: function () {
 					$("select").imagepicker();
 				}
 			}).modal('show');
@@ -83,13 +83,13 @@ if (page !== '') {
 	}
 
 	else if (route.indexOf("/forum/topic/") != -1) {
-		$(function() {
+		$(function () {
 			const postId = window.location.hash.replace('#post-', '');
 			const postElem = '#topic-post[post-id=\'' + postId + '\']';
 
 			if (postId) {
-				setTimeout(function(){
-					$('html, body').animate({scrollTop: $(postElem).offset().top-15}, 800);
+				setTimeout(function () {
+					$('html, body').animate({ scrollTop: $(postElem).offset().top - 15 }, 800);
 					$('> .ui.segment', postElem).effect("highlight", {}, 800);
 				}, 100);
 			}

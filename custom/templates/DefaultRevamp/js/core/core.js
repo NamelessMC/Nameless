@@ -25,7 +25,7 @@ function copy(element) {
   });
 }
 
-$(function() {
+$(function () {
   $('.ui.sidebar').sidebar('attach events', '.toc.item');
 
   $('.ui.dropdown:not(.search):not(.upward)').dropdown();
@@ -35,35 +35,35 @@ $(function() {
     hoverable: true
   });
 
-	$('[data-toggle="popup"]').popup({
+  $('[data-toggle="popup"]').popup({
     hoverable: true,
     variation: 'special flowing',
   });
 
-  $('[data-toggle="modal"]').click(function() {
+  $('[data-toggle="modal"]').click(function () {
     let att = $(this).attr("data-target");
     $(att).modal('show');
   });
 
-  $('.message .close').on('click', function() {
+  $('.message .close').on('click', function () {
     $(this).closest('.message').transition('fade');
   });
 
 });
 
-$(function() {
+$(function () {
   if (loadingTime !== '') {
     $('#page_load').html(loadingTime);
   }
 });
 
-$(function() {
+$(function () {
   const cachedUsers = {};
 
-  $('*[data-poload]').mouseenter(function (){
+  $('*[data-poload]').mouseenter(function () {
     const elem = this;
     $.get($(elem).data('poload'),
-      function(d) {
+      function (d) {
         (debugging ? console.log(d) : '');
         const data = JSON.parse(d);
         cachedUsers[$(elem).data('poload')] = data;
@@ -79,8 +79,8 @@ $(function() {
   $('*[data-poload]').popup({
     hoverable: true,
     html: '<i class="circle notch loading icon"></i>',
-    delay: {show: 500, hide: 200},
-    onShow: function(e) {this.html(cachedUsers[$(e).data('poload')].html)}
+    delay: { show: 500, hide: 200 },
+    onShow: function (e) { this.html(cachedUsers[$(e).data('poload')].html) }
   });
 
   const timezone = document.getElementById('timezone');
