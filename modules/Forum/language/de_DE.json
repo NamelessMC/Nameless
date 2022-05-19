@@ -187,5 +187,10 @@
     "forum/pre_topic_edit_hook_info": "Pre Topic bearbeiten",
     "forum/topic_placeholder": "Topic Platzhalter",
     "forum/user_object": "Benutzerobjekt",
-    "forum/no_news": "Es gibt keine Nachrichten."
+    "forum/no_news": "Es gibt keine Nachrichten.",
+    "forum/topic_reply": "Antwort zum Thema",
+    "forum/topic_author_username": "Benutzername des Themenautors",
+    "forum/new_topic_reply_text": "Themenantwort erstellt in {{forum}} von {{author}}",
+    "forum/topic_author_uuid": "Benutzer-ID des Themenautors",
+    "forum/topic_author_nickname": "Spitzname des Themenautors"
 }
