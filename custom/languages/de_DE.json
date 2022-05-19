@@ -1234,5 +1234,8 @@
     "general/purple": "Lila",
     "general/pink": "Rosa",
     "general/brown": "Braun",
-    "general/grey": "Grau"
+    "general/grey": "Grau",
+    "admin/user_group_removed_hook_info": "Benutzergruppe entfernt",
+    "admin/user_group_added_hook_info": "Benutzergruppe hinzugefügt",
+    "admin/group_name": "Gruppe Name"
 }
