@@ -7,9 +7,9 @@ if (loggedIn == 1) {
 	var countPms = 0;
 	var countAlerts = 0;
 
-    function updateAlerts(data) {
+	function updateAlerts(data) {
 		if (data.value > 0) {
-		    $("#button-alerts").removeClass('default').addClass("red");
+			$("#button-alerts").removeClass('default').addClass("red");
 			var alerts_list = '';
 			for (var i in data.alerts) {
 				alerts_list += '<a class="item" href="' + URLBuild('user/alerts/?view=' + data.alerts[i].id) + '">' + data.alerts[i].content_short + '</a>';
@@ -20,38 +20,38 @@ if (loggedIn == 1) {
 		}
 
 		countAlerts = data.value;
-    }
+	}
 
-    function notifyAlerts(data) {
+	function notifyAlerts(data) {
 		if (data.value > 0) {
 			if (data.value == 1) {
-                toastr.options.onclick = function () {redirect(URLBuild('user/alerts'))};
-                toastr.info(newAlert1);
-		    } else {
-                toastr.options.onclick = function () {redirect(URLBuild('user/alerts'))};
-                toastr.info(newAlertsX.replace("{{count}}", data.value));
+				toastr.options.onclick = function () { redirect(URLBuild('user/alerts')) };
+				toastr.info(newAlert1);
+			} else {
+				toastr.options.onclick = function () { redirect(URLBuild('user/alerts')) };
+				toastr.info(newAlertsX.replace("{{count}}", data.value));
 			}
-            if (Notification.permission !== "granted") {
-        		Notification.requestPermission();
-        	} else {
-        		if (data.value == 1) {
-        		    var notification = new Notification(
-        			    siteName, {body: newAlert1}
-        			);
-        		} else {
-        		    var notification = new Notification(
-        			    siteName, {body: newAlertsX.replace("{{count}}", data.value)}
-        			);
-        		}
-        		notification.onclick = function () {
-        			window.open(URLBuild('user/alerts', true));
-        		};
-        	}
-            countAlerts = data.value;
-    	}
-    }
+			if (Notification.permission !== "granted") {
+				Notification.requestPermission();
+			} else {
+				if (data.value == 1) {
+					var notification = new Notification(
+						siteName, { body: newAlert1 }
+					);
+				} else {
+					var notification = new Notification(
+						siteName, { body: newAlertsX.replace("{{count}}", data.value) }
+					);
+				}
+				notification.onclick = function () {
+					window.open(URLBuild('user/alerts', true));
+				};
+			}
+			countAlerts = data.value;
+		}
+	}
 
-    function updatePMs(data) {
+	function updatePMs(data) {
 		if (data.value > 0) {
 			$("#button-pms").removeClass('default').addClass("red");
 			var pms_list = '';
@@ -64,73 +64,73 @@ if (loggedIn == 1) {
 		}
 
 		countPms = data.value;
-    }
+	}
 
-    function notifyPMs(data) {
+	function notifyPMs(data) {
 		if (data.value > 0) {
 			if (data.value == 1) {
-                toastr.options.onclick = function () {redirect(URLBuild('user/messaging'))};
-                toastr.info(newMessage1);
-		    } else {
-                toastr.options.onclick = function () {redirect(URLBuild('user/messaging'))};
-                toastr.info(newMessagesX.replace("{{count}}", data.value));
+				toastr.options.onclick = function () { redirect(URLBuild('user/messaging')) };
+				toastr.info(newMessage1);
+			} else {
+				toastr.options.onclick = function () { redirect(URLBuild('user/messaging')) };
+				toastr.info(newMessagesX.replace("{{count}}", data.value));
 			}
-            if (Notification.permission !== "granted") {
-        		Notification.requestPermission();
-        	} else {
-        		if (data.value == 1) {
-        		    var notification = new Notification(
-        			    siteName, {body: newMessage1}
-        			);
-        		} else {
-        		    var notification = new Notification(
-        			    siteName, {body: newMessagesX.replace("{{count}}", data.value)}
-        			);
-        		}
-        		notification.onclick = function () {
-        			window.open(URLBuild('user/messaging', true));
-        		};
-        	}
-            countPms = data.value;
-    	}
-    }
+			if (Notification.permission !== "granted") {
+				Notification.requestPermission();
+			} else {
+				if (data.value == 1) {
+					var notification = new Notification(
+						siteName, { body: newMessage1 }
+					);
+				} else {
+					var notification = new Notification(
+						siteName, { body: newMessagesX.replace("{{count}}", data.value) }
+					);
+				}
+				notification.onclick = function () {
+					window.open(URLBuild('user/messaging', true));
+				};
+			}
+			countPms = data.value;
+		}
+	}
 
-    $(document).ready(function () {
+	$(document).ready(function () {
 
 		if (Notification) {
 			if (Notification.permission !== "granted")
 				Notification.requestPermission();
 		}
 
-        $.getJSON(URLBuild('queries/alerts'), function(data) {
+		$.getJSON(URLBuild('queries/alerts'), function (data) {
 			updateAlerts(data);
 		});
 
-		$.getJSON(URLBuild('queries/pms'), function(data) {
+		$.getJSON(URLBuild('queries/pms'), function (data) {
 			updatePMs(data);
 		});
 
 		window.setInterval(function () {
 
-            $.getJSON(URLBuild('queries/alerts'), function(data) {
-                if (countAlerts < data.value) {
-                    notifyAlerts(data);
-                }
+			$.getJSON(URLBuild('queries/alerts'), function (data) {
+				if (countAlerts < data.value) {
+					notifyAlerts(data);
+				}
 
 				updateAlerts(data);
-    		});
+			});
 
-    		$.getJSON(URLBuild('queries/pms'), function(data) {
-                if (countPms < data.value) {
-                    notifyPMs(data);
-                }
+			$.getJSON(URLBuild('queries/pms'), function (data) {
+				if (countPms < data.value) {
+					notifyPMs(data);
+				}
 
 				updatePMs(data);
-		    });
+			});
 
 		}, 10000);
 
-    });
+	});
 
 }
 // @license-end
