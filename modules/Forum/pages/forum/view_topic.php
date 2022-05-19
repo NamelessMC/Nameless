@@ -310,7 +310,7 @@ if (Input::exists()) {
                 'topic_author_username' => $topic_user->data()->username,
                 'topic_author_nickname' => $topic_user->data()->nickname,
                 'topic_id' => $tid,
-                'forum_id' => $topic->forum_id,
+                'post_id' => $last_post_id,
             ]);
 
             // Alerts + Emails
