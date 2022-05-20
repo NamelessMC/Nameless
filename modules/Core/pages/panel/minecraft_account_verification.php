@@ -61,7 +61,9 @@ if (Input::exists()) {
                 }
 
             } else {
-                $queries->update('settings', $use_mcassoc, ['value' => 0]);
+                $queries->update('settings', $use_mcassoc, [
+                    'value' => false
+                ]);
                 $success = $language->get('admin', 'updated_mcassoc_successfully');
             }
 

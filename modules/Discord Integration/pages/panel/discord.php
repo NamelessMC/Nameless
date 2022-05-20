@@ -62,16 +62,16 @@ if (Input::exists()) {
                         'linkEnd' => '</a>',
                     ]);
                     $queries->update('settings', $enable_discord_id, [
-                        'value' => 0
+                        'value' => false
                     ]);
                 } else {
                     $queries->update('settings', $enable_discord_id, [
-                        'value' => 1
+                        'value' => true
                     ]);
                 }
             } else {
                 $queries->update('settings', $enable_discord_id, [
-                    'value' => 0
+                    'value' => false
                 ]);
             }
         }

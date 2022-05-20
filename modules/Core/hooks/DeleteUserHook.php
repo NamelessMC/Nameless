@@ -35,10 +35,6 @@ class DeleteUserHook {
             // Email errors
             $queries->delete('email_errors', ['user_id', $params['user_id']]);
 
-            // Friends
-            $queries->delete('friends', ['user_id', $params['user_id']]);
-            $queries->delete('friends', ['friend_id', $params['user_id']]);
-
             // Infractions
             $queries->delete('infractions', ['punished', $params['user_id']]);
             $queries->delete('infractions', ['staff', $params['user_id']]);
@@ -59,18 +55,15 @@ class DeleteUserHook {
             // Profile fields
             $queries->delete('users_profile_fields', ['user_id', $params['user_id']]);
 
-            // Username history
-            $queries->delete('users_username_history', ['user_id', $params['user_id']]);
-
             // Profile wall posts
             $queries->delete('user_profile_wall_posts', ['user_id', $params['user_id']]);
             $queries->delete('user_profile_wall_posts', ['author_id', $params['user_id']]);
             $queries->delete('user_profile_wall_posts_reactions', ['user_id', $params['user_id']]);
             $queries->delete('user_profile_wall_posts_replies', ['author_id', $params['user_id']]);
-            
+
             // Oauth
             $queries->delete('oauth_users', ['user_id', $params['user_id']]);
-            
+
             // User Integrations
             $queries->delete('users_integrations', ['user_id', $params['user_id']]);
         }

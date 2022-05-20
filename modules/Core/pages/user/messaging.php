@@ -256,14 +256,11 @@ if (!isset($_GET['action'])) {
                                 }
 
                                 // Add the author to the list of users
-                                $queries->create(
-                                    'private_messages_users',
-                                    [
-                                        'pm_id' => $last_id,
-                                        'user_id' => $user->data()->id,
-                                        'read' => 1
-                                    ]
-                                );
+                                $queries->create('private_messages_users', [
+                                    'pm_id' => $last_id,
+                                    'user_id' => $user->data()->id,
+                                    'read' => true
+                                ]);
 
                                 // Sent successfully
                                 Session::flash('user_messaging_success', $language->get('user', 'message_sent_successfully'));
@@ -400,13 +397,9 @@ if (!isset($_GET['action'])) {
 
                     foreach ($users as $item) {
                         if ($item->user_id != $user->data()->id) {
-                            $queries->update(
-                                'private_messages_users',
-                                $item->id,
-                                [
-                                    '`read`' => 0
-                                ]
-                            );
+                            $queries->update('private_messages_users', $item->id, [
+                                'read' => false
+                            ]);
                         }
                     }
 

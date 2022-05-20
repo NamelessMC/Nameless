@@ -81,7 +81,6 @@ if (isset($_GET['action'])) {
                             $queries->create('groups', [
                                 'name' => Input::get('groupname'),
                                 'group_html' => Input::get('html'),
-                                'group_html_lg' => Input::get('html'),
                                 'group_username_color' => ($_POST['username_style'] ? Input::get('username_style') : null),
                                 'group_username_css' => ($_POST['username_css'] ? Input::get('username_css') : null),
                                 'admin_cp' => Input::get('staffcp'),
@@ -96,7 +95,7 @@ if (isset($_GET['action'])) {
                             if ($default == 1) {
                                 if ($default_group && $default_group->id != $group_id) {
                                     $queries->update('groups', $default_group->id, [
-                                        'default_group' => 0
+                                        'default_group' => false
                                     ]);
                                 }
 
@@ -204,7 +203,7 @@ if (isset($_GET['action'])) {
                                 $default_group = Group::find(1, 'default_group');
                                 if ($default_group && $default == 1 && $default_group->id != $_GET['group']) {
                                     $queries->update('groups', $default_group->id, [
-                                        'default_group' => 0
+                                        'default_group' => false
                                     ]);
                                 } else {
                                     if (!$default_group && $default == 0) {
@@ -221,13 +220,12 @@ if (isset($_GET['action'])) {
                                 $queries->update('groups', $_GET['group'], [
                                     'name' => Input::get('groupname'),
                                     'group_html' => Input::get('html'),
-                                    'group_html_lg' => Input::get('html'),
                                     'group_username_color' => ($_POST['username_style'] ? Input::get('username_style') : null),
                                     'group_username_css' => ($_POST['username_css'] ? Input::get('username_css') : null),
                                     'admin_cp' => $staff_cp,
                                     'staff' => Input::get('staff'),
                                     'default_group' => $default,
-                                    '`order`' => Input::get('order'),
+                                    'order' => Input::get('order'),
                                     'force_tfa' => Input::get('tfa')
                                 ]);
 
@@ -351,7 +349,6 @@ if (isset($_GET['action'])) {
                                 $queries->create('groups', [
                                     'name' => Input::get('groupname'),
                                     'group_html' => Input::get('html'),
-                                    'group_html_lg' => Input::get('html'),
                                     'group_username_color' => ($_POST['username_style'] ? Input::get('username_style') : null),
                                     'group_username_css' => ($_POST['username_css'] ? Input::get('username_css') : null),
                                     'admin_cp' => Input::get('staff'),
@@ -372,7 +369,7 @@ if (isset($_GET['action'])) {
                                 if ($default == 1) {
                                     if ($default_group && $default_group->id != $group_id) {
                                         $queries->update('groups', $default_group->id, [
-                                            'default_group' => 0
+                                            'default_group' => false
                                         ]);
                                     }
 
@@ -495,7 +492,7 @@ if (isset($_GET['action'])) {
                 $i = 1;
                 foreach ($groups as $item) {
                     $queries->update('groups', $item, [
-                        '`order`' => $i
+                        'order' => $i
                     ]);
                     $i++;
                 }

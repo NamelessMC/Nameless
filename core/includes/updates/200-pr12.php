@@ -56,16 +56,16 @@ class Pre13 extends UpgradeScript {
             function (DB $db) {
                 $db->insert('integrations', [
                     'name' => 'Minecraft',
-                    'enabled' => 1,
-                    'can_unlink' => 0,
-                    'required' => 0
+                    'enabled' => true,
+                    'can_unlink' => false,
+                    'required' => false,
                 ]);
 
                 $db->insert('integrations', [
                     'name' => 'Discord',
-                    'enabled' => 1,
-                    'can_unlink' => 1,
-                    'required' => 0
+                    'enabled' => true,
+                    'can_unlink' => true,
+                    'required' => false
                 ]);
             }
         ]);
@@ -235,6 +235,52 @@ class Pre13 extends UpgradeScript {
             $db->query("DELETE FROM nl2_settings WHERE `name` = 'portal'");
             $db->query("INSERT INTO nl2_settings (`name`, `value`) VALUES ('home_type', ?)", [$home_type]);
             $db->query("INSERT INTO nl2_settings (`name`, `value`) VALUES ('home_custom_content', null)");
+        });
+
+        // add existing migrations to phinxlog table, so it doesn't try to run them again
+        $migrations = [];
+        $migrations_dir = ROOT_PATH . '/core/migrations';
+        $files = scandir($migrations_dir);
+        foreach ($files as $file) {
+            if (str_starts_with($file, '.')) {
+                continue;
+            }
+            $file = explode('.', $file)[0];
+            [$time, $name] =  explode('_', $file, 2);
+            $name_parts = explode('_', $name);
+            // join name parts with upper case
+            $name = implode('', array_map('ucfirst', $name_parts));
+            $epoch = time();
+            $dt = new DateTime("@$epoch");
+            $migrations[] = [
+                'version' => $time,
+                'name' => $name,
+                'start_time' => $dt->format('Y-m-d H:i:s'),
+                'end_time' => $dt->format('Y-m-d H:i:s'),
+                'breakpoint' => 0,
+            ];
+        }
+
+        $this->databaseQuery(function (DB $db) use ($migrations) {
+            $db->query("CREATE TABLE IF NOT EXISTS `phinxlog` (
+                `version` bigint NOT NULL,
+                `migration_name` varchar(100) NULL DEFAULT NULL,
+                `start_time` timestamp NULL DEFAULT NULL,
+                `end_time` timestamp NULL DEFAULT NULL,
+                `breakpoint` tinyint(1) NOT NULL DEFAULT '0',
+                PRIMARY KEY (`version`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
+            $db->query("TRUNCATE TABLE `nl2_phinxlog`");
+
+            foreach ($migrations as $migration) {
+                $db->query("INSERT INTO phinxlog (`version`, `migration_name`, `start_time`, `end_time`, `breakpoint`) VALUES (?, ?, ?, ?, ?)", [
+                    $migration['version'],
+                    $migration['name'],
+                    $migration['start_time'],
+                    $migration['end_time'],
+                    $migration['breakpoint'],
+                ]);
+            }
         });
 
         $this->setVersion('2.0.0-pr13');

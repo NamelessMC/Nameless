@@ -262,19 +262,10 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                     if (Token::check()) {
                         if ($user->isBlocked($user->data()->id, $query->id)) {
                             // Unblock
-                            $blocked_id = $queries->getWhere('blocked_users', ['user_id', $user->data()->id]);
-                            if (count($blocked_id)) {
-                                foreach ($blocked_id as $id) {
-                                    if ($id->user_blocked_id == $query->id) {
-                                        $blocked_id = $id->id;
-                                        break;
-                                    }
-                                }
-
-                                if (is_numeric($blocked_id)) {
-                                    $queries->delete('blocked_users', ['id', $blocked_id]);
-                                    $success = $language->get('user', 'user_unblocked');
-                                }
+                            $row = DB::getInstance()->get('blocked_users', [['user_id', $user->data()->id], ['user_blocked_id', $query->id]])->first();
+                            if ($row) {
+                                DB::getInstance()->delete('blocked_users', [['user_id', $user->data()->id], ['user_blocked_id', $query->id]]);
+                                $success = $language->get('user', 'user_unblocked');
                             }
                         } else {
                             // Block

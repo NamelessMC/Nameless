@@ -40,7 +40,7 @@ if (isset($_GET['action'])) {
             // Validate the user
             if ($user_query->active == 0) {
                 $view_user->update([
-                    'active' => 1,
+                    'active' => true,
                     'reset_code' => ''
                 ]);
 

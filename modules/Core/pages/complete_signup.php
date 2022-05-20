@@ -68,7 +68,7 @@ if (!$user->isLoggedIn()) {
                         'password' => $password,
                         'reset_code' => null,
                         'last_online' => date('U'),
-                        'active' => 1
+                        'active' => true,
                     ]);
 
                     EventHandler::executeEvent('validateUser', [

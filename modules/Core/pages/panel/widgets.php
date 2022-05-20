@@ -78,13 +78,9 @@ if (!isset($_GET['action'])) {
                 $widget = $widgets->getWidget($name);
 
                 if (!is_null($widget)) {
-                    $queries->update(
-                        'widgets',
-                        $_GET['w'],
-                        [
-                            'enabled' => 1
-                        ]
-                    );
+                    $queries->update('widgets', $_GET['w'], [
+                        'enabled' => true
+                    ]);
 
                     $widgets->enable($widget);
 
@@ -113,13 +109,9 @@ if (!isset($_GET['action'])) {
                 $widget = $widgets->getWidget($name);
 
                 if (!is_null($widget)) {
-                    $queries->update(
-                        'widgets',
-                        $_GET['w'],
-                        [
-                            'enabled' => 0
-                        ]
-                    );
+                    $queries->update('widgets', $_GET['w'], [
+                        'enabled' => false
+                    ]);
 
                     $widgets->disable($widget);
 

@@ -141,7 +141,7 @@ if (Input::exists()) {
                             'joined' => date('U'),
                             'email' => Output::getClean(Input::get('email')),
                             'lastip' => $ip,
-                            'active' => 1,
+                            'active' => true,
                             'last_online' => date('U'),
                             'language_id' => $language_id
                         ]);

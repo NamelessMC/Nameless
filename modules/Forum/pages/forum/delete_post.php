@@ -40,7 +40,7 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
                 if (isset($_POST['number']) && Input::get('number') == 10) {
 
                     $queries->update('topics', Input::get('tid'), [
-                        'deleted' => 1
+                        'deleted' => true,
                     ]);
 
                     Log::getInstance()->log(Log::Action('forums/post/delete'), Input::get('tid'));
@@ -55,7 +55,7 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
             }
 
             $queries->update('posts', Input::get('pid'), [
-                'deleted' => 1
+                'deleted' => true,
             ]);
 
             if (isset($opening_post)) {
@@ -64,7 +64,7 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
                 if (count($posts)) {
                     foreach ($posts as $post) {
                         $queries->update('posts', $post->id, [
-                            'deleted' => 1
+                            'deleted' => true,
                         ]);
                         Log::getInstance()->log(Log::Action('forums/post/delete'), $post->id);
                     }

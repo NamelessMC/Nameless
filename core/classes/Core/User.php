@@ -243,7 +243,7 @@ class User {
             return $_SERVER['HTTP_X_FORWARDED_FOR'];
         }
 
-        return $_SERVER['REMOTE_ADDR'];
+        return $_SERVER['REMOTE_ADDR'] ?? '';
     }
 
     /**
@@ -871,7 +871,7 @@ class User {
             // Set message to "read"
             if ($pm->read == 0) {
                 $this->_db->update('private_messages_users', $pm_user_id, [
-                    '`read`' => 1
+                    'read' => true
                 ]);
             }
 

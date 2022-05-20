@@ -28,7 +28,7 @@ class MinecraftPlaceholderSeeder extends Seeder {
                 'friendly_name' => $friendly_name,
                 'show_on_profile' => $faker->boolean(75) ? 1 : 0,
                 'show_on_forum' => $faker->boolean(75) ? 1 : 0,
-                'leaderboard' => 1,
+                'leaderboard' => true,
                 'leaderboard_title' => $friendly_name . ' leaderboard',
                 'leaderboard_sort' => $faker->randomElement(['DESC', 'ASC']),
             ]);

@@ -1,0 +1,266 @@
+Reference Database: root@localhost @ jdbc:mysql://127.0.0.1:3306/nameless (Default Schema: nameless)
+Comparison Database: root@localhost @ jdbc:mysql://127.0.0.1:3306/nameless_test (Default Schema: nameless_test)
+Compared Schemas: nameless -> nameless_test
+Product Name: EQUAL
+Product Version: EQUAL
+Missing Catalog(s): NONE
+Unexpected Catalog(s): NONE
+Changed Catalog(s): NONE
+Changed Column(s):
+     nameless.nl2_custom_pages.all_html
+          defaultValue changed from 'false' to '0'
+          type changed from 'BIT(1)' to 'INT(10)'
+     nameless.nl2_ip_bans.banned_by
+          nullable changed from 'false' to 'true'
+     nameless.nl2_mc_servers.banner_background
+          nullable changed from 'false' to 'true'
+     nameless.nl2_custom_pages.basic
+          defaultValue changed from 'false' to '0'
+          type changed from 'BIT(1)' to 'INT(10)'
+     nameless.nl2_groups_templates.can_use_template
+          defaultValue changed from 'true' to 'false'
+     nameless.nl2_oauth.client_id
+          type changed from 'VARCHAR(256 BYTE)' to 'VARCHAR(255 BYTE)'
+     nameless.nl2_oauth.client_secret
+          type changed from 'VARCHAR(256 BYTE)' to 'VARCHAR(255 BYTE)'
+     nameless.nl2_users_integrations.code
+          nullable changed from 'true' to 'false'
+     nameless.nl2_reports_comments.comment_content
+          type changed from 'MEDIUMTEXT(16777215)' to 'TEXT(65535)'
+     nameless.nl2_custom_pages.content
+          type changed from 'MEDIUMTEXT(16777215)' to 'TEXT(65535)'
+     nameless.nl2_private_messages_replies.content
+          type changed from 'MEDIUMTEXT(16777215)' to 'TEXT(65535)'
+     nameless.nl2_user_profile_wall_posts.content
+          type changed from 'MEDIUMTEXT(16777215)' to 'TEXT(65535)'
+     nameless.nl2_user_profile_wall_posts_replies.content
+          type changed from 'MEDIUMTEXT(16777215)' to 'TEXT(65535)'
+     nameless.nl2_alerts.content_short
+          type changed from 'VARCHAR(128 BYTE)' to 'VARCHAR(255 BYTE)'
+     nameless.nl2_infractions.created
+          nullable changed from 'true' to 'false'
+     nameless.nl2_posts.created
+          nullable changed from 'true' to 'false'
+     nameless.nl2_reports_comments.date
+          nullable changed from 'true' to 'false'
+     nameless.nl2_forums.default_labels
+          type changed from 'VARCHAR(128 BYTE)' to 'TEXT(65535)'
+     nameless.nl2_groups.deleted
+          defaultValue changed from '0' to '1'
+          order changed from '13' to '11'
+     nameless.nl2_page_descriptions.description
+          type changed from 'VARCHAR(500 BYTE)' to 'TEXT(65535)'
+     nameless.nl2_users.email
+          type changed from 'VARCHAR(64 BYTE)' to 'INT(10)'
+     nameless.nl2_query_errors.error
+          type changed from 'VARCHAR(2048 BYTE)' to 'TEXT(65535)'
+     nameless.nl2_hooks.events
+          type changed from 'VARCHAR(2048 BYTE)' to 'TEXT(65535)'
+     nameless.nl2_forums_topic_labels.gids
+          nullable changed from 'true' to 'false'
+     nameless.nl2_groups.group_username_color
+          nullable changed from 'true' to 'false'
+          order changed from '5' to '4'
+     nameless.nl2_custom_announcements.groups
+          type changed from 'VARCHAR(1024 BYTE)' to 'TEXT(65535)'
+     nameless.nl2_query_results.groups
+          nullable changed from 'true' to 'false'
+     nameless.nl2_forums.hooks
+          type changed from 'VARCHAR(512 BYTE)' to 'TEXT(65535)'
+     nameless.nl2_forums.icon
+          type changed from 'VARCHAR(256 BYTE)' to 'VARCHAR(255 BYTE)'
+     nameless.nl2_users_integrations.identifier
+          nullable changed from 'true' to 'false'
+     nameless.nl2_logs.info
+          nullable changed from 'true' to 'false'
+          type changed from 'MEDIUMTEXT(16777215)' to 'TEXT(65535)'
+     nameless.nl2_users_integrations.integration_id
+          order changed from '2' to '3'
+     nameless.nl2_logs.ip
+          nullable changed from 'true' to 'false'
+     nameless.nl2_query_errors.ip
+          type changed from 'VARCHAR(64 BYTE)' to 'VARCHAR(128 BYTE)'
+     nameless.nl2_topics.label
+          nullable changed from 'true' to 'false'
+     nameless.nl2_topics.labels
+          nullable changed from 'true' to 'false'
+     nameless.nl2_posts.last_edited
+          nullable changed from 'true' to 'false'
+     nameless.nl2_forums.last_post_date
+          nullable changed from 'true' to 'false'
+     nameless.nl2_users_integrations.last_sync
+          defaultValue changed from '0' to 'null'
+     nameless.nl2_users.lastip
+          type changed from 'VARCHAR(128 BYTE)' to 'INT(10)'
+     nameless.nl2_profile_fields.length
+          order changed from '7' to '9'
+     nameless.nl2_custom_pages.link_location
+          defaultValue changed from 'true' to '1'
+          type changed from 'BIT(1)' to 'INT(10)'
+     nameless.nl2_custom_announcements.message
+          type changed from 'VARCHAR(1024 BYTE)' to 'TEXT(65535)'
+     nameless.nl2_hooks.name
+          type changed from 'VARCHAR(128 BYTE)' to 'VARCHAR(64 BYTE)'
+     nameless.nl2_profile_fields.name
+          type changed from 'VARCHAR(16 BYTE)' to 'VARCHAR(255 BYTE)'
+     nameless.nl2_users.nickname
+          type changed from 'VARCHAR(20 BYTE)' to 'VARCHAR(255 BYTE)'
+     nameless.nl2_custom_announcements.pages
+          type changed from 'VARCHAR(1024 BYTE)' to 'TEXT(65535)'
+     nameless.nl2_widgets.pages
+          nullable changed from 'true' to 'false'
+     nameless.nl2_posts.post_date
+          nullable changed from 'true' to 'false'
+     nameless.nl2_mc_servers.query_port
+          nullable changed from 'true' to 'false'
+     nameless.nl2_ip_bans.reason
+          type changed from 'VARCHAR(255 BYTE)' to 'TEXT(65535)'
+     nameless.nl2_forums.redirect_url
+          type changed from 'VARCHAR(512 BYTE)' to 'VARCHAR(255 BYTE)'
+     nameless.nl2_reports.report_reason
+          type changed from 'MEDIUMTEXT(16777215)' to 'TEXT(65535)'
+     nameless.nl2_reports.reported
+          nullable changed from 'true' to 'false'
+     nameless.nl2_users.signature
+          nullable changed from 'true' to 'false'
+          type changed from 'MEDIUMTEXT(16777215)' to 'TEXT(65535)'
+     nameless.nl2_custom_pages.sitemap
+          defaultValue changed from 'false' to '0'
+          type changed from 'BIT(1)' to 'INT(10)'
+     nameless.nl2_groups.staff
+          order changed from '8' to '6'
+     nameless.nl2_reports.status
+          defaultValue changed from 'false' to '0'
+          type changed from 'BIT(1)' to 'INT(10)'
+     nameless.nl2_page_descriptions.tags
+          nullable changed from 'true' to 'false'
+     nameless.nl2_users.tfa_type
+          defaultValue changed from '0' to '0'
+          type changed from 'INT(10)' to 'VARCHAR(11 BYTE)'
+     nameless.nl2_forums.topic_placeholder
+          nullable changed from 'true' to 'false'
+          type changed from 'MEDIUMTEXT(16777215)' to 'TEXT(65535)'
+     nameless.nl2_reactions.type
+          defaultValue changed from 'false' to '2'
+          type changed from 'BIT(1)' to 'INT(10)'
+     nameless.nl2_reports.type
+          type changed from 'BIT(1)' to 'INT(10)'
+     nameless.nl2_reports.updated
+          nullable changed from 'true' to 'false'
+     nameless.nl2_users_profile_fields.updated
+          nullable changed from 'true' to 'false'
+     nameless.nl2_blocked_users.user_blocked_id
+          order changed from '3' to '2'
+     nameless.nl2_blocked_users.user_id
+          order changed from '2' to '1'
+     nameless.nl2_users_integrations.user_id
+          order changed from '3' to '2'
+     nameless.nl2_users_integrations.username
+          nullable changed from 'true' to 'false'
+     nameless.nl2_privacy_terms.value
+          type changed from 'MEDIUMTEXT(16777215)' to 'TEXT(65535)'
+     nameless.nl2_settings.value
+          nullable changed from 'true' to 'false'
+     nameless.nl2_users_profile_fields.value
+          nullable changed from 'true' to 'false'
+          type changed from 'MEDIUMTEXT(16777215)' to 'TEXT(65535)'
+     nameless.nl2_custom_pages_permissions.view
+          defaultValue changed from '0' to 'false'
+          type changed from 'TINYINT(3)' to 'BIT(1)'
+Missing Foreign Key(s): NONE
+Changed Foreign Key(s): NONE
+Missing Index(s):
+     PRIMARY UNIQUE  ON nameless.nl2_blocked_users(id)
+     nl2_groups_idx_staff ON nameless.nl2_groups(staff)
+     nl2_users_groups_idx_user_id ON nameless.nl2_users_groups(user_id)
+     nl2_users_integrations_idx_user_id ON nameless.nl2_users_integrations(user_id)
+Unexpected Index(s):
+     PRIMARY UNIQUE  ON nameless_test.phinxlog(version)
+     author_id ON nameless_test.nl2_private_messages(author_id)
+     author_id ON nameless_test.nl2_private_messages_replies(author_id)
+     author_id ON nameless_test.nl2_user_profile_wall_posts(author_id)
+     author_id ON nameless_test.nl2_user_profile_wall_posts_replies(author_id)
+     banned_by ON nameless_test.nl2_ip_bans(banned_by)
+     commenter_id ON nameless_test.nl2_reports_comments(commenter_id)
+     field_id ON nameless_test.nl2_users_profile_fields(field_id)
+     forum_id ON nameless_test.nl2_forums_permissions(forum_id)
+     forum_id ON nameless_test.nl2_posts(forum_id)
+     forum_id ON nameless_test.nl2_topics(forum_id)
+     group_id ON nameless_test.nl2_custom_pages_permissions(group_id)
+     group_id ON nameless_test.nl2_forums_permissions(group_id)
+     group_id ON nameless_test.nl2_groups_templates(group_id)
+     language_id ON nameless_test.nl2_users(language_id)
+     last_reply_user ON nameless_test.nl2_private_messages(last_reply_user)
+     last_topic_posted ON nameless_test.nl2_forums(last_topic_posted)
+     last_user_posted ON nameless_test.nl2_forums(last_user_posted)
+     page_id UNIQUE  ON nameless_test.nl2_custom_pages_permissions(page_id, group_id)
+     parent_server ON nameless_test.nl2_mc_servers(parent_server)
+     pm_id ON nameless_test.nl2_private_messages_replies(pm_id)
+     pm_id ON nameless_test.nl2_private_messages_users(pm_id)
+     post_creator ON nameless_test.nl2_posts(post_creator)
+     post_id ON nameless_test.nl2_forums_reactions(post_id)
+     post_id ON nameless_test.nl2_user_profile_wall_posts_reactions(post_id)
+     post_id ON nameless_test.nl2_user_profile_wall_posts_replies(post_id)
+     provider ON nameless_test.nl2_oauth_users(provider)
+     punished ON nameless_test.nl2_infractions(punished)
+     reaction_id ON nameless_test.nl2_forums_reactions(reaction_id)
+     reaction_id ON nameless_test.nl2_user_profile_wall_posts_reactions(reaction_id)
+     report_id ON nameless_test.nl2_reports_comments(report_id)
+     reported_id ON nameless_test.nl2_reports(reported_id)
+     reported_post ON nameless_test.nl2_reports(reported_post)
+     reporter_id ON nameless_test.nl2_reports(reporter_id)
+     revoked_by ON nameless_test.nl2_infractions(revoked_by)
+     server_id ON nameless_test.nl2_query_results(server_id)
+     staff ON nameless_test.nl2_infractions(staff)
+     template_id ON nameless_test.nl2_groups_templates(template_id)
+     theme_id ON nameless_test.nl2_users(theme_id)
+     topic_creator ON nameless_test.nl2_topics(topic_creator)
+     topic_id ON nameless_test.nl2_topics_following(topic_id)
+     topic_last_user ON nameless_test.nl2_topics(topic_last_user)
+     updated_by ON nameless_test.nl2_reports(updated_by)
+     user_blocked_id ON nameless_test.nl2_blocked_users(user_blocked_id)
+     user_given ON nameless_test.nl2_forums_reactions(user_given)
+     user_id ON nameless_test.nl2_alerts(user_id)
+     user_id ON nameless_test.nl2_email_errors(user_id)
+     user_id ON nameless_test.nl2_logs(user_id)
+     user_id ON nameless_test.nl2_private_messages_users(user_id)
+     user_id ON nameless_test.nl2_topics_following(user_id)
+     user_id ON nameless_test.nl2_user_profile_wall_posts(user_id)
+     user_id ON nameless_test.nl2_user_profile_wall_posts_reactions(user_id)
+     user_id ON nameless_test.nl2_users_admin_session(user_id)
+     user_id ON nameless_test.nl2_users_ips(user_id)
+     user_id ON nameless_test.nl2_users_profile_fields(user_id)
+     user_id ON nameless_test.nl2_users_session(user_id)
+     user_id UNIQUE  ON nameless_test.nl2_blocked_users(user_id, user_blocked_id)
+     user_id UNIQUE  ON nameless_test.nl2_users_groups(user_id, group_id)
+     user_id UNIQUE  ON nameless_test.nl2_users_integrations(user_id, integration_id)
+     user_received ON nameless_test.nl2_forums_reactions(user_received)
+     username UNIQUE  ON nameless_test.nl2_users(username, email)
+     website_group_id ON nameless_test.nl2_group_sync(website_group_id)
+Changed Index(s): NONE
+Missing Primary Key(s): NONE
+Unexpected Primary Key(s):
+     PRIMARY on nameless_test.phinxlog(version)
+Changed Primary Key(s):
+     PRIMARY on nameless.nl2_blocked_users(id)
+          columns changed from '[nameless.nl2_blocked_users.id]' to '[nameless_test.nl2_blocked_users.user_id, nameless_test.nl2_blocked_users.user_blocked_id]'
+Missing Sequence(s): NONE
+Unexpected Sequence(s): NONE
+Changed Sequence(s): NONE
+Missing Table(s): NONE
+Unexpected Table(s):
+     phinxlog
+Changed Table(s): NONE
+Missing Unique Constraint(s):
+     id on nl2_oauth(provider)
+     user_id on nl2_oauth_users(user_id, provider, provider_id)
+Unexpected Unique Constraint(s):
+     page_id on nl2_custom_pages_permissions(page_id, group_id)
+     user_id on nl2_blocked_users(user_id, user_blocked_id)
+     user_id on nl2_users_groups(user_id, group_id)
+     user_id on nl2_users_integrations(user_id, integration_id)
+     username on nl2_users(username, email)
+Changed Unique Constraint(s): NONE
+Missing View(s): NONE
+Unexpected View(s): NONE
+Changed View(s): NONE

@@ -473,7 +473,7 @@ if (isset($_GET['action'])) {
                 $i = 1;
                 foreach ($servers as $item) {
                     $queries->update('mc_servers', $item, [
-                        '`order`' => $i
+                        'order' => $i
                     ]);
                     $i++;
                 }
@@ -515,13 +515,13 @@ if (isset($_GET['action'])) {
                     $current_default = $queries->getWhere('mc_servers', ['is_default', true]);
                     if (count($current_default) && $current_default[0]->id != $new_default) {
                         $queries->update('mc_servers', $current_default[0]->id, [
-                            'is_default' => 0
+                            'is_default' => false,
                         ]);
                     }
 
                     if (!count($current_default) || $current_default[0]->id != $new_default) {
                         $queries->update('mc_servers', $new_default, [
-                            'is_default' => 1
+                            'is_default' => true,
                         ]);
                     }
                 }

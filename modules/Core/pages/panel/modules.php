@@ -183,7 +183,7 @@ if (!isset($_GET['action'])) {
                     $cache->store('enabled_modules', $modules);
 
                     $queries->update('modules', $_GET['m'], [
-                        'enabled' => 1
+                        'enabled' => true,
                     ]);
                     Session::flash('admin_modules', $language->get('admin', 'module_enabled'));
                 } else {
@@ -232,7 +232,7 @@ if (!isset($_GET['action'])) {
             }
 
             $queries->update('modules', $_GET['m'], [
-                'enabled' => 0
+                'enabled' => false,
             ]);
 
             // Cache

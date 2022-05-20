@@ -51,6 +51,7 @@ if (!$wipe && $db->get('users', ['id', '>', 0])->count() > 0) {
 }
 
 if ($wipe) {
+    $db->query('SET FOREIGN_KEY_CHECKS = 0');
     foreach ($seeders as $seeder) {
         foreach ($seeder->tables as $table) {
             $db->query("TRUNCATE {$table}");

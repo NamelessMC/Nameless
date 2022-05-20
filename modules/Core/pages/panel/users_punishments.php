@@ -47,8 +47,8 @@ if (isset($_GET['user'])) {
                 // Unban user
                 try {
                     $queries->update('users', $query->id, [
-                        'isbanned' => 0,
-                        'active' => 1
+                        'isbanned' => false,
+                        'active' => true,
                     ]);
                 } catch (Exception $e) {
                     // Error
@@ -58,8 +58,8 @@ if (isset($_GET['user'])) {
                 if ($infraction->type == 3) {
                     try {
                         $queries->update('users', $query->id, [
-                            'isbanned' => 0,
-                            'active' => 1
+                            'isbanned' => false,
+                            'active' => true,
                         ]);
 
                         $queries->delete('ip_bans', ['ip', $query->lastip]);
@@ -72,8 +72,8 @@ if (isset($_GET['user'])) {
 
             try {
                 $queries->update('infractions', $infraction->id, [
-                    'acknowledged' => 1,
-                    'revoked' => 1,
+                    'acknowledged' => true,
+                    'revoked' => true,
                     'revoked_by' => $user->data()->id,
                     'revoked_at' => date('U')
                 ]);
@@ -156,8 +156,8 @@ if (isset($_GET['user'])) {
                                     case 3:
                                         // Ban the user
                                         $queries->update('users', $query->id, [
-                                            'isbanned' => 1,
-                                            'active' => 0
+                                            'isbanned' => true,
+                                            'active' => false
                                         ]);
 
                                         $banned_user_ip = $banned_user->data()->lastip;
@@ -202,7 +202,7 @@ if (isset($_GET['user'])) {
                                         }
 
                                         $queries->update('users', $query->id, [
-                                            'has_avatar' => 0,
+                                            'has_avatar' => false,
                                             'avatar_updated' => date('U')
                                         ]);
                                         break;

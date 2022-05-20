@@ -19,7 +19,7 @@ class UserSeeder extends Seeder {
             'joined' => date('U'),
             'email' => 'admin@localhost',
             'lastip' => '127.0.0.1',
-            'active' => 1,
+            'active' => true,
             'last_online' => date('U'),
             'language_id' => $db->get('languages', ['is_default', '=', 1])->first()->id,
         ]);

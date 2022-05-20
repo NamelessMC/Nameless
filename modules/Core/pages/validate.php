@@ -22,7 +22,7 @@ if (isset($_GET['c'])) {
     if ($user->exists()) {
         $user->update([
             'reset_code' => null,
-            'active' => 1
+            'active' => true,
         ]);
 
         EventHandler::executeEvent('validateUser', [

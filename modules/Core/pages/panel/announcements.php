@@ -260,7 +260,7 @@ if (!isset($_GET['action'])) {
                 $i = 1;
                 foreach ($announcements_list as $item) {
                     $queries->update('custom_announcements', $item, [
-                        '`order`' => $i
+                        'order' => $i
                     ]);
                     $i++;
                 }

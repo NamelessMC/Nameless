@@ -203,7 +203,7 @@ if (!isset($_GET['action'])) {
                     if ($template instanceof TemplateBase) {
                         // Activate the template
                         $queries->update('panel_templates', $id, [
-                            'enabled' => 1
+                            'enabled' => true,
                         ]);
 
                         // Session
@@ -234,7 +234,7 @@ if (!isset($_GET['action'])) {
 
                 // Deactivate the template
                 $queries->update('panel_templates', $template, [
-                    'enabled' => 0
+                    'enabled' => false,
                 ]);
 
                 // Session
@@ -303,13 +303,13 @@ if (!isset($_GET['action'])) {
                     $current_default = $current_default[0]->id;
                     // No longer default
                     $queries->update('panel_templates', $current_default, [
-                        'is_default' => 0
+                        'is_default' => false,
                     ]);
                 }
 
                 // Make selected template default
                 $queries->update('panel_templates', $new_default, [
-                    'is_default' => 1
+                    'is_default' => true,
                 ]);
 
                 // Cache
