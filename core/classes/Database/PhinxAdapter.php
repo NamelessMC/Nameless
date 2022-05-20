@@ -11,7 +11,7 @@ class PhinxAdapter {
         return self::handle('getMigrate');
     }
 
-    public static function isMigrated(): bool { // TODO
+    public static function isMigrated(): bool {
         return !str_contains(self::handle('getStatus'), 'down');
     }
 
