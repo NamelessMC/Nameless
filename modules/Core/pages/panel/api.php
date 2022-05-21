@@ -233,7 +233,7 @@ if (!isset($_GET['view'])) {
             'API' => $language->get('admin', 'api'),
             'PAGE' => PANEL_PAGE,
             'API_INFO' => $language->get('admin', 'api_info', [
-                'pluginLinkStart' => '<a href="https://www.spigotmc.org/resources/59032" target="_blank">',
+                'pluginLinkStart' => '<a href="https://plugin.namelessmc.com" target="_blank">',
                 'pluginLinkEnd' => '</a>',
                 'botLinkStart' => '<a href="https://github.com/NamelessMC/Nameless-Link" target="_blank">',
                 'botLinkEnd' => '</a>',
