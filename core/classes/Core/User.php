@@ -747,20 +747,20 @@ class User {
     }
 
     /**
-     * Get a comma separated string of all users.
+     * Get a comma separated string of all other users.
      * For the new private message dropdown.
      *
-     * @return string CSV list of user's usernames.
+     * @return array Array of usernames.
      */
-    public function listAllUsers(): string {
-        $data = $this->_db->get('users', ['id', '<>', '0'])->results();
-        $return = '';
+    public function listAllOtherUsers(): array {
+        $data = $this->_db->query("SELECT `username` FROM `nl2_users` WHERE `id` <> ?", [$this->data()->id])->results();
+        $return = [];
 
         foreach ($data as $item) {
-            $return .= '"' . $item->username . '",';
+            $return[] = $item->username;
         }
 
-        return rtrim($return, ',');
+        return $return;
     }
 
     /**

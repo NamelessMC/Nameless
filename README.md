@@ -17,7 +17,7 @@ The following list is a brief summary of the features available in v2 pre-releas
 - 🎮 Minecraft integration
   - Display your Java edition or Bedrock servers statuses
   - Account verification using MCAssoc or the NamelessMC plugin
-  - [In-game plugin](https://www.spigotmc.org/resources/nameless-plugin-for-v2.59032)
+  - [In-game plugin](https://plugin.namelessmc.com)
     - Require in-game verification for NamelessMC accounts
     - Allow registering for accounts in-game
     - Synchronize Vault ranks with NamelessMC groups (unidirectional, game->website)

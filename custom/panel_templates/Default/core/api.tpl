@@ -90,12 +90,11 @@
                             <div class="form-group custom-control custom-switch">
                                 <input name="username_sync" id="username_sync" type="checkbox"
                                        class="custom-control-input" {if $USERNAME_SYNC_VALUE eq 1} checked{/if} />
-                                <label class="custom-control-label" for="username_sync">{$USERNAME_SYNC}</label> <span class="badge badge-info"
-                                                                                          data-toggle="popover"
-                                                                                          data-html="true"
-                                                                                          data-title="{$INFO}"
-                                                                                          data-content="{$USERNAME_SYNC_INFO}"><i
-                                            class="fas fa-question-circle"></i></span>
+                                <label class="custom-control-label" for="username_sync">{$USERNAME_SYNC}</label> <span class="badge badge-info">
+                                                                    <i class="fas fa-question-circle"
+                                                                        data-container="body" data-toggle="popover"
+                                                                        data-placement="top" title="{$INFO}"
+                                                                        data-content="{$USERNAME_SYNC_INFO}"></i></span>
                             </div>
 
                             <div class="form-group">

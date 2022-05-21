@@ -90,7 +90,7 @@
                                     <i class="fas fa-question-circle"
                                        data-container="body"
                                        data-toggle="popover"
-                                       title="{$INFO}"
+                                       title="{$INFO}" data-placement="top"
                                        data-content="{$REQUIRED_HELP}"></i>
                                 </span>
                             </div>
@@ -108,7 +108,7 @@
                                     <i class="fas fa-question-circle"
                                        data-container="body"
                                        data-toggle="popover"
-                                       title="{$INFO}"
+                                       title="{$INFO}" data-placement="top"
                                        data-content="{$EDITABLE_HELP}"></i>
                                 </span>
                             </div>
@@ -126,7 +126,7 @@
                                     <i class="fas fa-question-circle"
                                        data-container="body"
                                        data-toggle="popover"
-                                       title="{$INFO}"
+                                       title="{$INFO}" data-placement="top"
                                        data-content="{$PUBLIC_HELP}"></i>
                                 </span>
                             </div>
@@ -143,7 +143,8 @@
                                 <span class="badge badge-info">
                                     <i class="fas fa-question-circle"
                                        data-container="body"
-                                       data-toggle="popover" title="{$INFO}"
+                                       data-toggle="popover"
+                                       title="{$INFO}" data-placement="top"
                                        data-content="{$DISPLAY_FIELD_ON_FORUM_HELP}"></i>
                                 </span>
                             </div>

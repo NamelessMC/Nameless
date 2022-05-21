@@ -312,7 +312,7 @@ if (!isset($_GET['action'])) {
                 'MESSAGE_TITLE_VALUE' => (isset($_POST['title']) ? Output::getPurified($_POST['title']) : ''),
                 'TO' => $language->get('user', 'to'),
                 'SEPARATE_USERS_WITH_COMMAS' => $language->get('user', 'separate_users_with_commas'),
-                'ALL_USERS' => $user->listAllUsers()
+                'ALL_USERS' => $user->listAllOtherUsers()
             ]
         );
 

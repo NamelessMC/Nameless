@@ -7,7 +7,7 @@ location / {
     try_files $uri $uri/ /index.php?route=$uri&$args;
 }
 
-location ~ \.(tpl|cache|vendor|node_modules)$ {
+location ~ \.(tpl|cache)$ {
     return 403;
 }
 
