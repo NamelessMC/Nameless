@@ -7,17 +7,17 @@
 </h2>
 
 {if isset($ERRORS)}
-  <div class="ui error icon message">
-    <i class="x icon"></i>
-    <div class="content">
-      <div class="header">{$ERROR}</div>
-      <ul class="list">
-        {foreach from=$ERRORS item=error}
-          <li>{$error}</li>
-        {/foreach}
-      </ul>
-    </div>
+<div class="ui error icon message">
+  <i class="x icon"></i>
+  <div class="content">
+    <div class="header">{$ERROR}</div>
+    <ul class="list">
+      {foreach from=$ERRORS item=error}
+      <li>{$error}</li>
+      {/foreach}
+    </ul>
   </div>
+</div>
 {/if}
 
 <div class="ui padded segment" id="authme-email">
@@ -34,9 +34,9 @@
             <input type="password" id="inputPassword" name="password" placeholder="{$PASSWORD}" tabindex="2">
           </div>
           {if $CAPTCHA}
-            <div class="field">
-              {$CAPTCHA}
-            </div>
+          <div class="field">
+            {$CAPTCHA}
+          </div>
           {/if}
           <div class="inline field">
             <div class="ui checkbox">

@@ -6,17 +6,17 @@
 </h2>
 
 {if isset($ERRORS)}
-  <div class="ui error icon message">
-    <i class="x icon"></i>
-    <div class="content">
-      <div class="header">{$ERRORS_TITLE}</div>
-      <ul class="list">
-        {foreach from=$ERRORS item=error}
-          <li>{$error}</li>
-        {/foreach}
-        </ul>
-    </div>
+<div class="ui error icon message">
+  <i class="x icon"></i>
+  <div class="content">
+    <div class="header">{$ERRORS_TITLE}</div>
+    <ul class="list">
+      {foreach from=$ERRORS item=error}
+      <li>{$error}</li>
+      {/foreach}
+    </ul>
   </div>
+</div>
 {/if}
 
 <div class="ui padded segment" id="complete-signup">
@@ -26,11 +26,13 @@
         <form class="ui form" action="" method="post" id="form-complete-signup">
           <div class="field">
             <label for="inputPassword">{$PASSWORD}</label>
-            <input type="password" name="password" id="inputPassword" placeholder="{$PASSWORD}" autocomplete="off" tabindex="1">
+            <input type="password" name="password" id="inputPassword" placeholder="{$PASSWORD}" autocomplete="off"
+              tabindex="1">
           </div>
           <div class="field">
             <label for="inputPasswordAgain">{$CONFIRM_PASSWORD}</label>
-            <input type="password" name="password_again" id="inputPasswordAgain" placeholder="{$CONFIRM_PASSWORD}" autocomplete="off" tabindex="2">
+            <input type="password" name="password_again" id="inputPasswordAgain" placeholder="{$CONFIRM_PASSWORD}"
+              autocomplete="off" tabindex="2">
           </div>
           <div class="inline field">
             <div class="ui checkbox">

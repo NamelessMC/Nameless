@@ -49,13 +49,19 @@
                             <!-- Area Chart -->
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
-                                <div class="card-header bg-primary py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-white"><i class="far fa-chart-bar"></i> {$STATISTICS}</h6>
+                                <div
+                                    class="card-header bg-primary py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-white"><i class="far fa-chart-bar"></i>
+                                        {$STATISTICS}</h6>
                                     <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i></a>
-                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
+                                                class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i></a>
+                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                            aria-labelledby="dropdownMenuLink">
                                             {assign var="i" value=0} {foreach from=$GRAPHS key=key item=graph}
-                                            <a class="dropdown-item" href="#" onclick="drawChart({$i})">{$key}</a> {assign var="i" value=$i+1} {/foreach}
+                                            <a class="dropdown-item" href="#" onclick="drawChart({$i})">{$key}</a>
+                                            {assign var="i" value=$i+1} {/foreach}
                                         </div>
                                     </div>
                                 </div>
@@ -68,7 +74,9 @@
                             </div>
                             {/if} {if count($MAIN_ITEMS)} {assign var="i" value=0} {assign var="counter" value=0}
                             <div class="row justify-content-md-center">
-                                {foreach from=$MAIN_ITEMS item=item} {assign var="width" value=(12*$item->getWidth())|round:1} {assign var="counter" value=($counter+$width)} {if $counter > 12} {assign var="counter" value=0}
+                                {foreach from=$MAIN_ITEMS item=item} {assign var="width"
+                                value=(12*$item->getWidth())|round:1} {assign var="counter" value=($counter+$width)} {if
+                                $counter > 12} {assign var="counter" value=0}
                             </div><br />
                             <div class="row justify-content-md-center">
                                 {/if}
@@ -81,8 +89,10 @@
                         <div class="col-md-3">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
-                                <div class="card-header bg-primary py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-white"><i class="far fa-newspaper"></i> {$NAMELESS_NEWS}</h6>
+                                <div
+                                    class="card-header bg-primary py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-white"><i class="far fa-newspaper"></i>
+                                        {$NAMELESS_NEWS}</h6>
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
@@ -90,7 +100,9 @@
                                     <div class="alert alert-warning">{$NO_NEWS}</div>
                                     {else} {foreach from=$NEWS item=item name=newsarray}
                                     <a href="#" onclick="confirmLeaveSite('{$item.url}')">{$item.title}</a>
-                                    <br /><small>{$item.author} | <span data-toggle="tooltip" data-title="{$item.date}">{$item.date_friendly}</span></small> {if not $smarty.foreach.newsarray.last}
+                                    <br /><small>{$item.author} | <span data-toggle="tooltip"
+                                            data-title="{$item.date}">{$item.date_friendly}</span></small> {if not
+                                    $smarty.foreach.newsarray.last}
                                     <hr />{/if} {/foreach} {/if}
                                 </div>
                             </div>
@@ -98,23 +110,25 @@
                             {if isset($SERVER_COMPATIBILITY)}
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
-                                <div class="card-header bg-primary py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-white"><i class="fas fa-wrench"></i> {$SERVER_COMPATIBILITY}</h6>
+                                <div
+                                    class="card-header bg-primary py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-white"><i class="fas fa-wrench"></i>
+                                        {$SERVER_COMPATIBILITY}</h6>
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
                                     {$NAMELESS_VERSION}
                                     <hr />
                                     {foreach from=$COMPAT_SUCCESS item=item}
-                                        <i class="fas fa-check-circle text-success"></i> {$item}
-                                        <br />
+                                    <i class="fas fa-check-circle text-success"></i> {$item}
+                                    <br />
                                     {/foreach}
                                     {if count($COMPAT_ERRORS)}
                                     <hr />
-                                        {foreach from=$COMPAT_ERRORS item=item}
-                                            <i class="fas fa-times-circle text-danger"></i> {$item}
-                                            <br />
-                                        {/foreach}
+                                    {foreach from=$COMPAT_ERRORS item=item}
+                                    <i class="fas fa-times-circle text-danger"></i> {$item}
+                                    <br />
+                                    {/foreach}
                                     {/if}
                                 </div>
                             </div>
@@ -159,7 +173,7 @@
 
     {include file='scripts.tpl'}
 
-        {if count($GRAPHS)}
+    {if count($GRAPHS)}
     <script type="text/javascript">
         Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 

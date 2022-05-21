@@ -56,7 +56,8 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <label for="inputFieldName">{$FIELD_NAME}</label>
-                                            <input type="text" class="form-control" id="inputFieldName" name="name" placeholder="{$FIELD_NAME}">
+                                            <input type="text" class="form-control" id="inputFieldName" name="name"
+                                                placeholder="{$FIELD_NAME}">
                                         </div>
                                         <div class="col-md-6">
                                             <label for="inputFieldType">{$TYPE}</label>
@@ -75,22 +76,26 @@
                                 </div>
 
                                 <div class="form-group custom-control custom-switch">
-                                    <input type="checkbox" id="inputRequired" name="required" class="custom-control-input">
+                                    <input type="checkbox" id="inputRequired" name="required"
+                                        class="custom-control-input">
                                     <label class="custom-control-label" for="inputRequired">
                                         {$REQUIRED}
                                     </label>
                                     <span class="badge badge-info">
-                                        <i class="fas fa-question-circle" data-container="body" data-toggle="popover" title="{$INFO}" data-content="{$REQUIRED_HELP}"></i>
+                                        <i class="fas fa-question-circle" data-container="body" data-toggle="popover"
+                                            title="{$INFO}" data-content="{$REQUIRED_HELP}"></i>
                                     </span>
                                 </div>
 
                                 <div class="form-group custom-control custom-switch">
-                                    <input type="checkbox" id="inputEditable" name="editable" class="custom-control-input">
+                                    <input type="checkbox" id="inputEditable" name="editable"
+                                        class="custom-control-input">
                                     <label class="custom-control-label" for="inputEditable">
                                         {$EDITABLE}
                                     </label>
                                     <span class="badge badge-info">
-                                        <i class="fas fa-question-circle" data-container="body" data-toggle="popover" title="{$INFO}" data-content="{$EDITABLE_HELP}"></i>
+                                        <i class="fas fa-question-circle" data-container="body" data-toggle="popover"
+                                            title="{$INFO}" data-content="{$EDITABLE_HELP}"></i>
                                     </span>
                                 </div>
 
@@ -100,7 +105,8 @@
                                         {$PUBLIC}
                                     </label>
                                     <span class="badge badge-info">
-                                        <i class=" fas fa-question-circle" data-container="body" data-toggle="popover" title="{$INFO}" data-content="{$PUBLIC_HELP}"></i>
+                                        <i class=" fas fa-question-circle" data-container="body" data-toggle="popover"
+                                            title="{$INFO}" data-content="{$PUBLIC_HELP}"></i>
                                     </span>
                                 </div>
 
@@ -111,7 +117,8 @@
                                         {$DISPLAY_FIELD_ON_FORUM}
                                     </label>
                                     <span class="badge badge-info">
-                                        <i class="fas fa-question-circle" data-container="body" data-toggle="popover" title="{$INFO}" data-content="{$DISPLAY_FIELD_ON_FORUM_HELP}"></i>
+                                        <i class="fas fa-question-circle" data-container="body" data-toggle="popover"
+                                            title="{$INFO}" data-content="{$DISPLAY_FIELD_ON_FORUM_HELP}"></i>
                                     </span>
                                 </div>
 

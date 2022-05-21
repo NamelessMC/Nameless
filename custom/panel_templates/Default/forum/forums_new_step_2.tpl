@@ -41,7 +41,8 @@
                                     <h5 style="margin-top: 7px; margin-bottom: 7px;">{$CREATING_FORUM}</h5>
                                 </div>
                                 <div class="col-md-3">
-                                    <span class="float-md-right"><button class="btn btn-warning" onclick="showCancelModal()">{$CANCEL}</button></span>
+                                    <span class="float-md-right"><button class="btn btn-warning"
+                                            onclick="showCancelModal()">{$CANCEL}</button></span>
                                 </div>
                             </div>
                             <hr />
@@ -60,24 +61,29 @@
                                 </div>
                                 <div class="form-group custom-control custom-switch">
                                     <input type="hidden" name="news_forum" value="0">
-                                    <input id="InputNews" name="news_forum" type="checkbox" class="custom-control-input" value="1" />
+                                    <input id="InputNews" name="news_forum" type="checkbox" class="custom-control-input"
+                                        value="1" />
                                     <label for="InputNews" class="custom-control-label">
                                         {$DISPLAY_TOPICS_AS_NEWS}
                                     </label>
                                 </div>
                                 <div class="form-group custom-control custom-switch">
                                     <input type="hidden" name="redirect" value="0">
-                                    <input id="InputForumRedirect" name="redirect" type="checkbox" class="custom-control-input" value="1" />
+                                    <input id="InputForumRedirect" name="redirect" type="checkbox"
+                                        class="custom-control-input" value="1" />
                                     <label for="InputForumRedirect" class="custom-control-label">
                                         {$REDIRECT_FORUM}
                                     </label>
                                 </div>
                                 <div class="form-group">
                                     <label for="InputForumRedirectURL">{$REDIRECT_URL}</label>
-                                    <input placeholder="{$REDIRECT_URL}" name="redirect_url" id="InputForumRedirectURL" type="text" class="form-control" value="{$REDIRECT_URL_VALUE}" />
+                                    <input placeholder="{$REDIRECT_URL}" name="redirect_url" id="InputForumRedirectURL"
+                                        type="text" class="form-control" value="{$REDIRECT_URL_VALUE}" />
                                 </div>
                                 <div class="form-group">
-                                    <label for="InputHooks">{$INCLUDE_IN_HOOK} <span class="badge badge-info" data-toggle="popover" data-title="{$INFO}" data-content="{$HOOK_SELECT_INFO}"><i class="fa fa-question"></i></label>
+                                    <label for="InputHooks">{$INCLUDE_IN_HOOK} <span class="badge badge-info"
+                                            data-toggle="popover" data-title="{$INFO}"
+                                            data-content="{$HOOK_SELECT_INFO}"><i class="fa fa-question"></i></label>
                                     <select name="hooks[]" id="InputHooks" class="form-control" multiple>
                                         {foreach from=$HOOKS_ARRAY item=hook}
                                         <option value="{$hook.id}">{$hook.name|ucfirst}</option>

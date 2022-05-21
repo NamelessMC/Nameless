@@ -6,13 +6,13 @@
 </h2>
 
 {if isset($SUCCESS)}
-  <div class="ui success icon message">
-    <i class="check icon"></i>
-    <div class="content">
-      <div class="header">{$SUCCESS_TITLE}</div>
-      {$SUCCESS}
-    </div>
+<div class="ui success icon message">
+  <i class="check icon"></i>
+  <div class="content">
+    <div class="header">{$SUCCESS_TITLE}</div>
+    {$SUCCESS}
   </div>
+</div>
 {/if}
 
 {if isset($ERRORS)}
@@ -40,19 +40,19 @@
         </h3>
         <div class="ui middle aligned">
           {nocache}
-            {if count($PLACEHOLDERS_LIST)}
-            <table class="ui fixed single line selectable unstackable small padded res table">
-              <thead>
-                <tr>
-                  <th>{$NAME}</th>
-                  <th>{$VALUE}</th>
-                  <th>{$LAST_UPDATED}</th>
-                  <th>{$SHOW_ON_PROFILE}</th>
-                  <th>{$SHOW_ON_FORUM}</th>
-                </tr>
-              </thead>
-              <tbody>
-              
+          {if count($PLACEHOLDERS_LIST)}
+          <table class="ui fixed single line selectable unstackable small padded res table">
+            <thead>
+              <tr>
+                <th>{$NAME}</th>
+                <th>{$VALUE}</th>
+                <th>{$LAST_UPDATED}</th>
+                <th>{$SHOW_ON_PROFILE}</th>
+                <th>{$SHOW_ON_FORUM}</th>
+              </tr>
+            </thead>
+            <tbody>
+
               {foreach from=$PLACEHOLDERS_LIST item=data}
               <tr>
                 <td>
@@ -65,29 +65,29 @@
                   {$data.last_updated}
                 </td>
                 <td>
-                {if $data.show_on_profile eq 1}
-                    <i class="fa fa-check-circle"></i>
-                {else}
-                    <i class="fa fa-times-circle"></i>
-                {/if}
+                  {if $data.show_on_profile eq 1}
+                  <i class="fa fa-check-circle"></i>
+                  {else}
+                  <i class="fa fa-times-circle"></i>
+                  {/if}
                 </td>
                 <td>
-                {if $data.show_on_forum eq 1}
-                    <i class="fa fa-check-circle"></i>
-                {else}
-                    <i class="fa fa-times-circle"></i>
-                {/if}
+                  {if $data.show_on_forum eq 1}
+                  <i class="fa fa-check-circle"></i>
+                  {else}
+                  <i class="fa fa-times-circle"></i>
+                  {/if}
                 </td>
               </tr>
               {/foreach}
-            </table>
-            {else}
-              <div class="ui info message">
-                <div class="content">
-                  {$NO_PLACEHOLDERS}
-                </div>
-              </div>
-            {/if}
+          </table>
+          {else}
+          <div class="ui info message">
+            <div class="content">
+              {$NO_PLACEHOLDERS}
+            </div>
+          </div>
+          {/if}
           {/nocache}
         </div>
       </div>

@@ -6,13 +6,13 @@
 </h2>
 
 {if isset($ERROR)}
-  <div class="ui error icon message">
-    <i class="x icon"></i>
-    <div class="content">
-      <div class="header">{$ERROR_TITLE}</div>
-      {$ERROR}
-    </div>
+<div class="ui error icon message">
+  <i class="x icon"></i>
+  <div class="content">
+    <div class="header">{$ERROR_TITLE}</div>
+    {$ERROR}
   </div>
+</div>
 {/if}
 {if isset($ERRORS)}
 <div class="ui error icon message">
@@ -36,28 +36,28 @@
       <div class="ui segment">
         <h3 class="ui header">{$TWO_FACTOR_AUTH}</h3>
         {if isset($TFA_SCAN_CODE_TEXT)}
-          <div class="ui form">
-            <div class="field">
-              {$TFA_SCAN_CODE_TEXT}
-              <br />
-              <img src="{$IMG_SRC}">
-            </div>
+        <div class="ui form">
+          <div class="field">
+            {$TFA_SCAN_CODE_TEXT}
+            <br />
+            <img src="{$IMG_SRC}">
           </div>
-          <div class="ui info message">
-            {$TFA_CODE_TEXT} <strong>{$TFA_CODE}</strong>
-          </div>
-          <a class="ui primary button" href="{$LINK}">{$NEXT}</a>
-          <a class="ui red button" href="{$CANCEL_LINK}">{$CANCEL}</a>
+        </div>
+        <div class="ui info message">
+          {$TFA_CODE_TEXT} <strong>{$TFA_CODE}</strong>
+        </div>
+        <a class="ui primary button" href="{$LINK}">{$NEXT}</a>
+        <a class="ui red button" href="{$CANCEL_LINK}">{$CANCEL}</a>
         {else}
-          <form class="ui form" action="" method="post" id="form-tfa-code">
-            <div class="field">
-              {$TFA_ENTER_CODE}
-              <input type="text" name="tfa_code">
-            </div>
-            <input type="hidden" name="token" value="{$TOKEN}">
-            <input type="submit" class="ui primary button" value="{$SUBMIT}">
-            <a class="ui negative button" href="{$CANCEL_LINK}" >{$CANCEL}</a>
-          </form>
+        <form class="ui form" action="" method="post" id="form-tfa-code">
+          <div class="field">
+            {$TFA_ENTER_CODE}
+            <input type="text" name="tfa_code">
+          </div>
+          <input type="hidden" name="token" value="{$TOKEN}">
+          <input type="submit" class="ui primary button" value="{$SUBMIT}">
+          <a class="ui negative button" href="{$CANCEL_LINK}">{$CANCEL}</a>
+        </form>
         {/if}
       </div>
     </div>

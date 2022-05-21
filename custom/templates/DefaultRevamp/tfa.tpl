@@ -6,13 +6,13 @@
 </h2>
 
 {if isset($ERROR)}
-  <div class="ui error icon message">
-    <i class="x icon"></i>
-    <div class="content">
-      <div class="header">Error</div>
-      {$ERROR}
-    </div>
+<div class="ui error icon message">
+  <i class="x icon"></i>
+  <div class="content">
+    <div class="header">Error</div>
+    {$ERROR}
   </div>
+</div>
 {/if}
 
 <div class="ui padded segment" id="tfa">
