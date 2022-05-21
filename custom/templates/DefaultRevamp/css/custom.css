@@ -12,8 +12,8 @@ body.pushable>.pusher {
 }
 
 /*
- *  [ NAVIGATION BAR ]
- */
+  *  [ NAVIGATION BAR ]
+  */
 
 .ui.secondary.menu {
     background: #fff;
@@ -71,8 +71,8 @@ body.pushable>.pusher {
 }
 
 /*
- *  [ HEADER ]
- */
+  *  [ HEADER ]
+  */
 
 .ui.masthead {
     background: linear-gradient(90deg, rgb(41, 117, 286) 0%, rgb(2, 117, 216) 100%);
@@ -109,8 +109,8 @@ body.pushable>.pusher {
 }
 
 /*
- *  -[ SEGMENT ]-
- */
+  *  -[ SEGMENT ]-
+  */
 
 .ui.segment {
     background: #fff;
@@ -130,8 +130,8 @@ body.pushable>.pusher {
 }
 
 /*
- *  [ NEWS POST ]
- */
+  *  [ NEWS POST ]
+  */
 
 #news-post .badge,
 #news-post .ui.label {
@@ -146,8 +146,8 @@ body.pushable>.pusher {
 }
 
 /*
- *  [ FORUM NODE ]
- */
+  *  [ FORUM NODE ]
+  */
 
 #forum-node #last-post {
     width: 250px;
@@ -158,8 +158,8 @@ body.pushable>.pusher {
 }
 
 /*
- *  [ FORUM PAGE ]
- */
+  *  [ FORUM PAGE ]
+  */
 
 #sticky-threads tbody tr td:last-child:not(:first-child),
 #normal-threads tbody tr td:last-child:not(:first-child) {
@@ -187,8 +187,8 @@ body.pushable>.pusher {
 }
 
 /*
- *  [ TOPIC PAGE ]
- */
+  *  [ TOPIC PAGE ]
+  */
 
 #topic-post #post-sidebar .ui.small.image,
 #topic-reply #reply-sidebar .ui.small.image {
@@ -296,8 +296,8 @@ body.pushable>.pusher {
 }
 
 /*
- *  [ ACCOUNT MESSAGES ]
- */
+  *  [ ACCOUNT MESSAGES ]
+  */
 
 #view-message #message .header {
     font-size: 1.15rem;
@@ -320,8 +320,8 @@ body.pushable>.pusher {
 }
 
 /*
- *  -[ 404 ERROR ]-
- */
+  *  -[ 404 ERROR ]-
+  */
 
 #error-403 .ui.container,
 #error-404 .ui.container,
@@ -342,8 +342,8 @@ body.pushable>.pusher {
 }
 
 /*
- *  [ PROFILE PAGE ]
- */
+  *  [ PROFILE PAGE ]
+  */
 
 #profile-header {
     background: #fff;
@@ -366,8 +366,8 @@ body.pushable>.pusher {
 }
 
 /*
- *  [ FORUM SEARCH ]
- */
+  *  [ FORUM SEARCH ]
+  */
 
 #forum-search-result h3.ui.header {
     margin-top: 0;
@@ -375,16 +375,16 @@ body.pushable>.pusher {
 }
 
 /*
- *  [ SERVER PAGE ]
- */
+  *  [ SERVER PAGE ]
+  */
 
 [id*="server"] #server-players a:not(:last-child) {
     margin-right: .3rem;
 }
 
 /*
- *  [ WIDGETS ]
- */
+  *  [ WIDGETS ]
+  */
 
 [id*="widget"] .item .content {
     width: calc(100% - 40px) !important;
@@ -437,8 +437,8 @@ body.pushable>.pusher {
 }
 
 /*
- *  -[ FOOTER ]-
- */
+  *  -[ FOOTER ]-
+  */
 
 .ui.footer.segment {
     margin: 1rem 0 -.5rem 0;
@@ -452,8 +452,8 @@ body.pushable>.pusher {
 }
 
 /*
- *  [ TABLE ]
- */
+  *  [ TABLE ]
+  */
 
 @media (max-width: 576px) {
     .ui.table.res thead tr th:first-child {
@@ -480,8 +480,8 @@ body.pushable>.pusher {
 }
 
 /*
- *  -[ GRID ]-
- */
+  *  -[ GRID ]-
+  */
 
 .ui.grid+.grid {
     margin-top: 0.3rem;
@@ -502,8 +502,8 @@ body.pushable>.pusher {
 }
 
 /*
- *  [ LINK LIST ]
- */
+  *  [ LINK LIST ]
+  */
 
 .ui.link.list.list .item a:not(.ui):hover,
 .ui.link.list.list a.item:hover {
@@ -515,8 +515,8 @@ body.pushable>.pusher {
 }
 
 /*
- *  [ USES POPUP ]
- */
+  *  [ USES POPUP ]
+  */
 
 #user-popup .header {
     text-align: center;
@@ -531,8 +531,8 @@ body.pushable>.pusher {
 }
 
 /*
- *  [ COOKIE NOTICE ]
- */
+  *  [ COOKIE NOTICE ]
+  */
 
 .cc-window.cc-floating {
     padding: 1rem 1.5rem;
@@ -568,8 +568,8 @@ body.pushable>.pusher {
 }
 
 /*
- *  [ SPOILER ]
- */
+  *  [ SPOILER ]
+  */
 
 #tinymce .spoiler,
 .spoiler {
@@ -591,16 +591,16 @@ body.pushable>.pusher {
 }
 
 /*
- *  [ MESSAGE ]
- */
+  *  [ MESSAGE ]
+  */
 
 .ui.message>.close.icon {
     right: .8em;
 }
 
 /*
- *  [ UPDATE MESSAGE ]
- */
+  *  [ UPDATE MESSAGE ]
+  */
 
 #update-message {
     margin-bottom: 1rem;
@@ -632,8 +632,8 @@ body.pushable>.pusher {
 }
 
 /*
- *  [ PAGINATION ]
- */
+  *  [ PAGINATION ]
+  */
 
 .ui.mini.pagination.menu .item:first-child,
 .ui.mini.pagination.menu .item:last-child {
@@ -641,8 +641,8 @@ body.pushable>.pusher {
 }
 
 /*
- *  -[ ALIGNMENTS ]-
- */
+  *  -[ ALIGNMENTS ]-
+  */
 
 [class*="left aligned"] {
     text-align: left;
@@ -657,8 +657,8 @@ body.pushable>.pusher {
 }
 
 /*
- *  [ FLOATS ]
- */
+  *  [ FLOATS ]
+  */
 
 [class*="left floated"],
 [class*="res left floated"] {
@@ -696,8 +696,8 @@ body.pushable>.pusher {
 }
 
 /*
- *  [ DISPLAY ]
- */
+  *  [ DISPLAY ]
+  */
 
 [display="block"] {
     display: block !important;
@@ -712,8 +712,8 @@ body.pushable>.pusher {
 }
 
 /*
- *  [ VISIBILITY ]
- */
+  *  [ VISIBILITY ]
+  */
 
 @media only screen and (max-width: 576px) {
 
@@ -776,8 +776,8 @@ body.pushable>.pusher {
 }
 
 /*
- *  [ USER BADGES ]
- */
+  *  [ USER BADGES ]
+  */
 
 .badge {
     display: inline-block;
@@ -895,8 +895,8 @@ a.badge-dark:focus {
 }
 
 /*
- *  [ OTHER ]
- */
+  *  [ OTHER ]
+  */
 
 select {
     font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
@@ -959,8 +959,8 @@ select {
 }
 
 /*
- *  [ DARK MODE ]
- */
+  *  [ DARK MODE ]
+  */
 
 body.dark,
 body.dark>.pusher,
@@ -1272,8 +1272,21 @@ body.dark .tox .tox-tbtn svg {
     fill: #fff;
 }
 
-body.dark .tox .tox-statusbar {
+body.dark .tox .tox-menu,
+body.dark .tox .tox-statusbar,
+body.dark .tox .tox-menubar,
+body.dark .tox .tox-toolbar,
+body.dark .tox .tox-toolbar__overflow,
+body.dark .tox .tox-toolbar__primary {
     background-color: #222;
+}
+
+body.dark .tox .tox-collection--list .tox-collection__item--enabled {
+    background-color: #444;
+}
+
+body.dark .tox .tox-collection--list .tox-collection__item--active {
+    background-color: #666;
 }
 
 body.dark .ui.cards>.green.card,
@@ -1322,8 +1335,8 @@ body.dark .cc-window.cc-floating .cc-highlight .cc-btn.cc-allow {
 }
 
 /*
- * Colours
- */
+  * Colours
+  */
 
 body.dark .white {
     color: #fff;
