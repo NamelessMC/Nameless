@@ -351,7 +351,7 @@ body {
     .sidebar {
         width: 17rem !important;
     }
-    
+
     .sidebar.toggled {
         width: 7rem !important;
         overflow-y: scroll;
