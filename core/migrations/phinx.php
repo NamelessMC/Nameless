@@ -14,7 +14,7 @@ return [
             'name' => $conf['db'],
             'user' => $conf['username'],
             'pass' => $conf['password'],
-            'port' => $conf['db'],
+            'port' => $conf['port'],
         ],
     ],
 ];

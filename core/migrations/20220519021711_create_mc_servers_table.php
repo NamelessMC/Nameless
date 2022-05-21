@@ -28,7 +28,7 @@ final class CreateMcServersTable extends AbstractMigration
             ->addColumn('display', 'boolean', ['default' => true])
             ->addColumn('pre', 'boolean', ['default' => false])
             ->addColumn('player_list', 'boolean', ['default' => true])
-            ->addColumn('parent_server', 'integer', ['length' => 11, 'null' => true, 'default' => 0])
+            ->addColumn('parent_server', 'integer', ['length' => 11, 'null' => true, 'default' => 0]) // No foreign key because we use 0 for no parent server
             ->addColumn('bungee', 'boolean', ['default' => false])
             ->addColumn('bedrock', 'boolean', ['default' => false])
             ->addColumn('port', 'integer', ['length' => 11, 'null' => true, 'default' => null])
@@ -36,9 +36,6 @@ final class CreateMcServersTable extends AbstractMigration
             ->addColumn('banner_background', 'string', ['length' => 32, 'null' => true, 'default' => 'background.png'])
             ->addColumn('show_ip', 'boolean', ['default' => true])
             ->addColumn('order', 'integer', ['length' => 11, 'default' => 1]);
-
-        $table
-            ->addForeignKey('parent_server', 'nl2_mc_servers', 'id', ['delete' => 'SET_NULL', 'update' => 'NO_ACTION']);
 
         $table->create();
     }
