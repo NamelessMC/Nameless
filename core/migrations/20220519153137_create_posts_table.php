@@ -26,7 +26,7 @@ final class CreatePostsTable extends AbstractMigration
             ->addColumn('post_creator', 'integer', ['length' => 11])
             ->addColumn('post_content', 'text')
             ->addColumn('post_date', 'datetime')
-            ->addColumn('last_edited', 'integer', ['length' => 11])
+            ->addColumn('last_edited', 'integer', ['length' => 11, 'null' => true, 'default' => null])
             ->addColumn('ip_address', 'string', ['length' => 128, 'null' => true, 'default' => null])
             ->addColumn('deleted', 'boolean', ['default' => false])
             ->addColumn('created', 'integer', ['length' => 11]);
