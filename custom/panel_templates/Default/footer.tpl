@@ -13,7 +13,7 @@
                     <a class="ml-1" href="https://discord.gg/nameless" target="_blank" data-toggle="tooltip" data-placement="top" title="Discord"><i class="fab fa-discord fa-fw text-discord"></i></a>
                     <a class="ml-1" href="https://docs.namelessmc.com/en/faq" target="_blank" data-toggle="tooltip" data-placement="top" title="FAQ"><i class="fas fa-info-circle fa-fw text-info"></i></a>
                     <a class="ml-1" href="https://namelessmc.com" target="_blank" data-toggle="tooltip" data-placement="top" title="Website"><i class="fas fa-globe fa-fw text-primary"></i></a>
-                    <a class="ml-1" href="https://namelessmc.com/donate/" target="_blank" data-toggle="tooltip" data-placement="top" title="Donate"><i class="fas fa-heart fa-fw text-danger"></i></a>
+                    <a class="ml-1" href="https://namelessmc.com/donate" target="_blank" data-toggle="tooltip" data-placement="top" title="Donate"><i class="fas fa-heart fa-fw text-danger"></i></a>
                 </div>
             </div>
         </div>
