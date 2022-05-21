@@ -35,9 +35,11 @@
  			 <i class="dropdown icon"></i>
  			 <div class="default text">{$TO}</div>
  			 <div class="menu">
- 			   {foreach from=","|explode:$ALL_USERS|replace:'"':'' item="item"}
- 			     <div class="item" data-value="{$item}">{$item}</div>
- 			   {/foreach}
+				 {if count($ALL_USERS) > 1}
+				   {foreach from=","|explode:$ALL_USERS|replace:'"':'' item="item"}
+					 <div class="item" data-value="{$item}">{$item}</div>
+				   {/foreach}
+				 {/if}
  			 </div>
 			</div>
 		  </div>
