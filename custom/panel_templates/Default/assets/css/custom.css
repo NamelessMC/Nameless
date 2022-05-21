@@ -202,6 +202,11 @@ body {
     box-shadow: 2px 2px 2px 2px rgb(12 16 21 / 9%)
 }
 
+.dark .popover .arrow,
+.dark .popover .arrow::after {
+    border-top-color: #202630 !important;
+}
+
 .dark .card-header,
 .dark .popover-body,
 .dark .popover-header {
@@ -346,7 +351,7 @@ body {
     .sidebar {
         width: 17rem !important;
     }
-    
+
     .sidebar.toggled {
         width: 7rem !important;
         overflow-y: scroll;
