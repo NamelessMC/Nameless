@@ -158,6 +158,18 @@ abstract class UpgradeScript {
         }
     }
 
+    /**
+     * Execute any pending database migrations.
+     */
+    protected function migrateDb(): void {
+        PhinxAdapter::migrate();
+    }
+
+    /**
+     * Update the version of this NamelessMC website in the database.
+     *
+     * @param string $version Version to set
+     */
     protected function setVersion(string $version): void {
         $this->_queries->update('settings', ['name', 'nameless_version'], [
             'value' => $version

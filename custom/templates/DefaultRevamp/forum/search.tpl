@@ -14,7 +14,7 @@
     </div>
   </div>
 {/if}
-            
+
 <div class="ui padded segment" id="forum-search">
   <div class="ui stackable grid">
     <div class="ui centered row">
