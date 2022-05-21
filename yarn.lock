@@ -128,10 +128,10 @@ popper.js@>=1.10, popper.js@^1.16.1:
   resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.16.1.tgz#2a223cb3dc7b6213d740e40372be40de43e65b1b"
   integrity sha512-Wb4p1J4zyFTbM+u6WuO4XstYx4Ky9Cewe4DWrel7B0w6VVICvPwdOpotjzcf6eD8TsckVnIMNONQyPIUFOUbCQ==
 
-select2@4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/select2/-/select2-4.0.0.tgz#81b461456c77148e7e422eb63bd71ca0b254fce7"
-  integrity sha1-gbRhRWx3FI5+Qi62O9ccoLJU/Oc=
+select2@4.1.0-rc.0:
+  version "4.1.0-rc.0"
+  resolved "https://registry.yarnpkg.com/select2/-/select2-4.1.0-rc.0.tgz#ba3cd3901dda0155e1c0219ab41b74ba51ea22d8"
+  integrity sha512-Hr9TdhyHCZUtwznEH2CBf7967mEM0idtJ5nMtjvk3Up5tPukOLXbHUNmh10oRfeNIhj+3GD3niu+g6sVK+gK0A==
 
 tinymce@5.10.3:
   version "5.10.3"

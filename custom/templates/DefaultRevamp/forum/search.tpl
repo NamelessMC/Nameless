@@ -7,7 +7,7 @@
 
 {if isset($ERROR)}
 <div class="ui error icon message">
-  <i class="error icon"></i>
+  <i class="x icon"></i>
   <div class="content">
     <div class="header">{$ERROR_TITLE}</div>
     {$ERROR}
