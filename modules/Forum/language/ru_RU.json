@@ -186,5 +186,6 @@
     "forum/pre_topic_create_hook_info": "Пред. создание топика",
     "forum/pre_topic_edit_hook_info": "Пред. изменение топика",
     "forum/pre_post_edit_hook_info": "Пред. изменение поста",
-    "forum/user_object": "Объект пользователя"
+    "forum/user_object": "Объект пользователя",
+    "forum/no_news": "Нету постов новостей."
 }

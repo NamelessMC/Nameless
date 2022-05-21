@@ -293,6 +293,26 @@ if (Input::exists()) {
                 'topic_reply_date' => date('U')
             ]);
 
+            // Fire event
+            EventHandler::executeEvent('topicReply', [
+                'user_id' => $user->data()->id,
+                'username' => $user->data()->username,
+                'nickname' => $user->data()->nickname,
+                'content' => $forum_language->get('forum', 'new_topic_reply_text', [
+                    'forum' => $forum_parent[0]->forum_title,
+                    'author' => $user->getDisplayname(),
+                ]),
+                'content_full' => strip_tags(str_ireplace(['<br />', '<br>', '<br/>'], "\r\n", $content)),
+                'avatar_url' => $user->getAvatar(128, true),
+                'title' => $topic->topic_title,
+                'url' => Util::getSelfURL() . ltrim(URL::build('/forum/topic/' . urlencode($topic->id) . '-' . $forum->titleToURL($topic->topic_title)), '/'),
+                'topic_author_user_id' => $topic_user->data()->id,
+                'topic_author_username' => $topic_user->data()->username,
+                'topic_author_nickname' => $topic_user->data()->nickname,
+                'topic_id' => $tid,
+                'post_id' => $last_post_id,
+            ]);
+
             // Alerts + Emails
             $users_following = $queries->getWhere('topics_following', ['topic_id', $tid]);
             if (count($users_following)) {

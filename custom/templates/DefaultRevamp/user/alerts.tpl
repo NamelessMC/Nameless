@@ -14,12 +14,14 @@
       <div class="ui segment">
         <h3 class="ui header">
           {$ALERTS}
+          {if count($ALERTS_LIST)}
           <div class="res right floated">
             <form action="{$DELETE_ALL_LINK}" method="post" style="display:inline">
               <input type="hidden" name="token" value="{$TOKEN}">
               <button type="submit" class="ui mini negative button">{$DELETE_ALL}</button>
             </form>
           </div>
+          {/if}
         </h3>
         {if isset($ERROR)}
         <div class="ui negative message">{$ERROR}</div>
