@@ -47,10 +47,12 @@
                                                placeholder="{$SITE_NAME_LABEL}" value="{$SITE_NAME}">
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="inputContactEmail">{$CONTACT_EMAIL_ADDRESS}</label>
-                                        <input type="email" class="form-control" id="inputContactEmail"
-                                               name="contact_email" placeholder="{$CONTACT_EMAIL_ADDRESS}"
-                                               value="{$CONTACT_EMAIL_ADDRESS_VALUE}">
+                                        <label for="inputHomepage">{$HOMEPAGE_TYPE}</label>
+                                        <select name="homepage" class="form-control" id="inputHomepage">
+                                            <option value="news" {if $HOMEPAGE_VALUE eq 'news'} selected{/if}>{$HOMEPAGE_NEWS}</option>
+                                            <option value="custom" {if $HOMEPAGE_VALUE eq 'custom'} selected{/if}>{$HOMEPAGE_CUSTOM}</option>
+                                            <option value="portal" {if $HOMEPAGE_VALUE eq 'portal'} selected{/if}>{$HOMEPAGE_PORTAL}</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -95,11 +97,10 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <label for="inputHomepage">{$HOMEPAGE_TYPE}</label>
-                                        <select name="homepage" class="form-control" id="inputHomepage">
-                                            <option value="news" {if $HOMEPAGE_VALUE eq 'news'} selected{/if}>{$HOMEPAGE_NEWS}</option>
-                                            <option value="custom" {if $HOMEPAGE_VALUE eq 'custom'} selected{/if}>{$HOMEPAGE_CUSTOM}</option>
-                                            <option value="portal" {if $HOMEPAGE_VALUE eq 'portal'} selected{/if}>{$HOMEPAGE_PORTAL}</option>
+                                        <label for="inputEnableNicknames">{$ENABLE_NICKNAMES}</label>
+                                        <select name="displaynames" class="form-control" id="inputEnableNicknames">
+                                            <option value="true" {if $ENABLE_NICKNAMES_VALUE eq "true" } selected{/if}>{$ENABLED}</option>
+                                            <option value="false" {if $ENABLE_NICKNAMES_VALUE eq "false" } selected{/if}>{$DISABLED}</option>
                                         </select>
                                     </div>
                                     <div class="col-md-6">
@@ -155,17 +156,6 @@
                                         </select>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-				<div class="row">
-				    <div class="col-md-6">
-                                        <label for="inputEnableNicknames">{$ENABLE_NICKNAMES}</label>
-                                        <select name="displaynames" class="form-control" id="inputEnableNicknames">
-                                            <option value="true" {if $ENABLE_NICKNAMES_VALUE eq "true" } selected{/if}>{$ENABLED}</option>
-                                            <option value="false" {if $ENABLE_NICKNAMES_VALUE eq "false" } selected{/if}>{$DISABLED}</option>
-                                        </select>
-				    </div>
-				</div>
                             </div>
                             <div class="form-group">
                                 <input type="hidden" name="token" value="{$TOKEN}">

@@ -54,8 +54,8 @@ class Email {
      * @return array Array with reply-to email address and name
      */
     public static function getReplyTo(): array {
-        $contactemail = Util::getSetting(DB::getInstance(), 'incoming_email');
-        return ['email' => $contactemail, 'name' => Output::getClean(SITE_NAME)];
+        $incoming_email = Util::getSetting(DB::getInstance(), 'incoming_email');
+        return ['email' => $incoming_email, 'name' => Output::getClean(SITE_NAME)];
     }
 
     /**

@@ -66,15 +66,9 @@ if (Input::exists()) {
                 Validate::REQUIRED => true,
                 Validate::MIN => 2,
                 Validate::MAX => 64
-            ],
-            'contact_email' => [
-                Validate::REQUIRED => true,
-                Validate::MIN => 3,
-                Validate::MAX => 255
             ]
         ])->messages([
-            'sitename' => $language->get('admin', 'missing_sitename'),
-            'contact_email' => $language->get('admin', 'missing_contact_address')
+            'sitename' => $language->get('admin', 'missing_sitename')
         ]);
 
         if ($validation->passed()) {
@@ -87,11 +81,6 @@ if (Input::exists()) {
             // Update cache
             $cache->setCache('sitenamecache');
             $cache->store('sitename', Output::getClean(Input::get('sitename')));
-
-            // Email address
-            $queries->update('settings', ['name', 'incoming_email'], [
-                'value' => Output::getClean(Input::get('contact_email'))
-            ]);
 
             // Language
             // Get current default language
@@ -245,8 +234,8 @@ if (isset($errors) && count($errors)) {
 }
 
 // Get form values
-$contact_email = $queries->getWhere('settings', ['name', 'incoming_email']);
-$contact_email = Output::getClean($contact_email[0]->value);
+$incoming_email = $queries->getWhere('settings', ['name', 'incoming_email']);
+$incoming_email = Output::getClean($incoming_email[0]->value);
 
 $languages = $queries->getWhere('languages', ['id', '<>', 0]);
 $count = count($languages);
@@ -283,8 +272,6 @@ $smarty->assign([
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit'),
     'SITE_NAME_LABEL' => $language->get('admin', 'sitename'),
-    'CONTACT_EMAIL_ADDRESS' => $language->get('admin', 'contact_email_address'),
-    'CONTACT_EMAIL_ADDRESS_VALUE' => $contact_email,
     'INFO' => $language->get('general', 'info'),
     'DEFAULT_LANGUAGE' => $language->get('admin', 'default_language'),
     'DEFAULT_LANGUAGE_HELP' => $language->get('admin', 'default_language_help'),

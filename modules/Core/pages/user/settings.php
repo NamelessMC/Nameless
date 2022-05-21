@@ -388,8 +388,7 @@ if (isset($_GET['do'])) {
                                 Validate::REQUIRED => $language->get('user', 'password_required') . '<br />'
                             ],
                             'email' => [
-                                Validate::REQUIRED => $language->get('user', 'email_required') . '<br />',
-                                Validate::EMAIL => $language->get('general', 'contact_message_email') . '<br />'
+                                Validate::REQUIRED => $language->get('user', 'email_required') . '<br />'
                             ]
                         ]);
 
