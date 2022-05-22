@@ -82,8 +82,8 @@
                                         {$REQUIRED}
                                     </label>
                                     <span class="badge badge-info">
-                                        <i class="fas fa-question-circle" data-container="body" data-toggle="popover"
-                                            title="{$INFO}" data-content="{$REQUIRED_HELP}"></i>
+                                        <i class="fas fa-question-circle" data-placement="top" data-container="body"
+                                            data-toggle="popover" title="{$INFO}" data-content="{$REQUIRED_HELP}"></i>
                                     </span>
                                 </div>
 
@@ -94,8 +94,8 @@
                                         {$EDITABLE}
                                     </label>
                                     <span class="badge badge-info">
-                                        <i class="fas fa-question-circle" data-container="body" data-toggle="popover"
-                                            title="{$INFO}" data-content="{$EDITABLE_HELP}"></i>
+                                        <i class="fas fa-question-circle" data-placement="top" data-container="body"
+                                            data-toggle="popover" title="{$INFO}" data-content="{$EDITABLE_HELP}"></i>
                                     </span>
                                 </div>
 
@@ -105,8 +105,8 @@
                                         {$PUBLIC}
                                     </label>
                                     <span class="badge badge-info">
-                                        <i class=" fas fa-question-circle" data-container="body" data-toggle="popover"
-                                            title="{$INFO}" data-content="{$PUBLIC_HELP}"></i>
+                                        <i class="fas fa-question-circle" data-placement="top" data-container="body"
+                                            data-toggle="popover" title="{$INFO}" data-content="{$PUBLIC_HELP}"></i>
                                     </span>
                                 </div>
 
@@ -117,8 +117,9 @@
                                         {$DISPLAY_FIELD_ON_FORUM}
                                     </label>
                                     <span class="badge badge-info">
-                                        <i class="fas fa-question-circle" data-container="body" data-toggle="popover"
-                                            title="{$INFO}" data-content="{$DISPLAY_FIELD_ON_FORUM_HELP}"></i>
+                                        <i class="fas fa-question-circle" data-placement="top" data-container="body"
+                                            data-toggle="popover" title="{$INFO}"
+                                            data-content="{$DISPLAY_FIELD_ON_FORUM_HELP}"></i>
                                     </span>
                                 </div>
 

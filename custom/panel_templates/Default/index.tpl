@@ -243,12 +243,11 @@
                         ]
                     },
                     tooltips: {
-                        backgroundColor: "#303030",
+                        backgroundColor: "#161c25",
                         bodyFontColor: "rgb(189,189,189)",
                         titleMarginBottom: 10,
                         titleFontColor: 'rgb(189,189,189)',
                         titleFontSize: 14,
-                        borderColor: '#383838',
                         borderWidth: 1,
                         xPadding: 15,
                         yPadding: 15,
