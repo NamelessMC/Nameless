@@ -1234,5 +1234,8 @@
     "general/brown": "Коричневый",
     "general/grey": "Серый",
     "admin/custom_content": "Кастомный Контент",
-    "admin/homepage_news": "Новости"
+    "admin/homepage_news": "Новости",
+    "admin/user_group_added_hook_info": "Группа Пользователя Добавлена",
+    "admin/user_group_removed_hook_info": "Группа Пользователя Удалена",
+    "admin/group_name": "Имя Группы"
 }
