@@ -15,6 +15,8 @@ return [
             'user' => $conf['username'],
             'pass' => $conf['password'],
             'port' => $conf['port'],
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
         ],
     ],
 ];
