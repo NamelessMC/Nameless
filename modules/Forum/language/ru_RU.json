@@ -187,5 +187,10 @@
     "forum/pre_topic_edit_hook_info": "Пред. изменение топика",
     "forum/pre_post_edit_hook_info": "Пред. изменение поста",
     "forum/user_object": "Объект пользователя",
-    "forum/no_news": "Нету постов новостей."
+    "forum/no_news": "Нету постов новостей.",
+    "forum/topic_reply": "Ответ топика",
+    "forum/topic_author_username": "Имя автора топика",
+    "forum/topic_author_nickname": "Никнейм автора топика",
+    "forum/new_topic_reply_text": "Ответ топика создан в {{forum}} от {{author}}",
+    "forum/topic_author_uuid": "ID автора топика"
 }
