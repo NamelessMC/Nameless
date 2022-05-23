@@ -12,9 +12,9 @@
 class StatsWidget extends WidgetBase {
 
     private Cache $_cache;
-    private array $_language;
+    private Language $_language;
 
-    public function __construct(Smarty $smarty, array $language, Cache $cache) {
+    public function __construct(Smarty $smarty, Language $language, Cache $cache) {
         $this->_cache = $cache;
         $this->_smarty = $smarty;
         $this->_language = $language;
@@ -113,32 +113,28 @@ class StatsWidget extends WidgetBase {
                 $total_posts = $this->_cache->retrieve('total_posts');
             }
 
-            $this->_smarty->assign(
-                [
-                    'FORUM_STATISTICS' => $this->_language['forum_stats'],
-                    'TOTAL_THREADS' => $this->_language['total_threads'],
-                    'TOTAL_THREADS_VALUE' => $total_topics,
-                    'TOTAL_POSTS' => $this->_language['total_posts'],
-                    'TOTAL_POSTS_VALUE' => $total_posts,
-                ]
-            );
+            $this->_smarty->assign([
+                'FORUM_STATISTICS' => $this->_language->get('general', 'forum_statistics'),
+                'TOTAL_THREADS' => $this->_language->get('general', 'total_threads'),
+                'TOTAL_THREADS_VALUE' => $total_topics,
+                'TOTAL_POSTS' => $this->_language->get('general', 'total_posts'),
+                'TOTAL_POSTS_VALUE' => $total_posts,
+            ]);
         }
 
-        $this->_smarty->assign(
-            [
-                'STATISTICS' => $this->_language['statistics'],
-                'USERS_REGISTERED' => $this->_language['users_registered'],
-                'USERS_REGISTERED_VALUE' => $users_registered,
-                'LATEST_MEMBER' => $this->_language['latest_member'],
-                'LATEST_MEMBER_VALUE' => $latest_member,
-                'USERS_ONLINE' => $this->_language['users_online'],
-                'USERS_ONLINE_VALUE' => $online_users,
-                'GUESTS_ONLINE' => $this->_language['guests_online'],
-                'GUESTS_ONLINE_VALUE' => $online_guests,
-                'TOTAL_ONLINE' => $this->_language['total_online'],
-                'TOTAL_ONLINE_VALUE' => $online_guests + $online_users
-            ]
-        );
+        $this->_smarty->assign([
+            'STATISTICS' => $this->_language->get('general', 'statistics'),
+            'USERS_REGISTERED' => $this->_language->get('general', 'users_registered'),
+            'USERS_REGISTERED_VALUE' => $users_registered,
+            'LATEST_MEMBER' => $this->_language->get('general', 'latest_member'),
+            'LATEST_MEMBER_VALUE' => $latest_member,
+            'USERS_ONLINE' => $this->_language->get('general', 'online_users'),
+            'USERS_ONLINE_VALUE' => $online_users,
+            'GUESTS_ONLINE' => $this->_language->get('general', 'online_guests'),
+            'GUESTS_ONLINE_VALUE' => $online_guests,
+            'TOTAL_ONLINE' => $this->_language->get('general', 'total_online'),
+            'TOTAL_ONLINE_VALUE' => $online_guests + $online_users,
+        ]);
 
         $this->_content = $this->_smarty->fetch('widgets/statistics.tpl');
     }
