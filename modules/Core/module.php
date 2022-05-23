@@ -443,38 +443,6 @@ class Core_Module extends Module {
             ]
         );
 
-        // Webhooks
-        $cache->setCache('hooks');
-        if ($cache->isCached('hooks')) {
-            $hook_array = $cache->retrieve('hooks');
-        } else {
-            $hook_array = [];
-            if (Util::isModuleEnabled('Discord Integration')) {
-                $hooks = $queries->getWhere('hooks', ['id', '<>', 0]);
-                if (count($hooks)) {
-                    foreach ($hooks as $hook) {
-                        if ($hook->action != 2) {
-                            continue;
-                        }
-
-                        // TODO: more extendable webhook system, #2676
-                        if (!class_exists(DiscordHook::class)) {
-                            continue;
-                        }
-
-                        $hook_array[] = [
-                            'id' => $hook->id,
-                            'url' => Output::getClean($hook->url),
-                            'action' => 'DiscordHook::execute',
-                            'events' => json_decode($hook->events, true)
-                        ];
-                    }
-                    $cache->store('hooks', $hook_array);
-                }
-            }
-        }
-        EventHandler::registerWebhooks($hook_array);
-
         // Captcha
         $captchaPublicKey = $this->_configuration->get('Core', 'recaptcha_key');
         $captchaPrivateKey = $this->_configuration->get('Core', 'recaptcha_secret');

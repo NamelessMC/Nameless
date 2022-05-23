@@ -264,7 +264,7 @@
     "admin/hook_edited": "Hook edited successfully",
     "admin/hook_events": "Events to trigger this webhook",
     "admin/hook_name": "Webhook Name",
-    "admin/hook_select_info": "Only Hooks with 'New topic' selected as an event are shown.",
+    "admin\/hook_select_info": "Only Hooks with 'New topic' or 'Topic reply' selected as events are shown.",
     "admin/hook_type": "Webhook Type",
     "admin/hook_url": "Webhook URL",
     "admin/hooks": "Webhooks",
