@@ -250,7 +250,7 @@
     "admin/hook_edited": "Hook erfolgreich bearbeitet",
     "admin/hook_events": "Ereignisse, die diesen Webhook auslösen",
     "admin/hook_name": "Webhook Name",
-    "admin/hook_select_info": "Es werden nur Hooks angezeigt, bei denen \"Neues Thema\" als Ereignis ausgewählt ist.",
+    "admin/hook_select_info": "Es werden nur Haken angezeigt, bei denen \"Neues Thema\" oder \"Themenantwort\" als Ereignis ausgewählt wurde.",
     "admin/hook_type": "Webhook Typ",
     "admin/hook_url": "Webhook URL",
     "admin/hooks": "Webhooks",
