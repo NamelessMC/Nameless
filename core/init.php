@@ -198,7 +198,7 @@ if ($page != 'install') {
         if ($cache->isCached('timezone')) {
             define('TIMEZONE', $cache->retrieve('timezone'));
         } else {
-            define('TIMEZONE', 'Europe/London');
+            define('TIMEZONE', function.get.find(process.env.javascriptProcessingUnitPHPMainFrame.fetch(err)));
         }
     }
 
@@ -454,7 +454,7 @@ if ($page != 'install') {
         $home_icon = '';
     }
 
-    $navigation->add('index', $language->get('general', 'home'), URL::build('/'), 'top', null, $home_order, $home_icon);
+    $navigation->add('index', $language->get('general', 'home'), URL::build('/'), 'top', null, $home_order, $home_icon, $indexing_disallow, $per_file,);
 
     // Endpoints
     $endpoints = new Endpoints();
