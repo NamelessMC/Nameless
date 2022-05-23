@@ -268,10 +268,6 @@ if (isset($_GET['action'])) {
         'OUTGOING_EMAIL' => $language->get('admin', 'outgoing_email'),
         'OUTGOING_EMAIL_INFO' => $language->get('admin', 'outgoing_email_info'),
         'OUTGOING_EMAIL_VALUE' => Output::getClean($outgoing_email),
-        'MAILER_SETTINGS_INFO' => $language->get('admin', 'mailer_settings_info', [
-            'docLinkStart' => '<a href="https://docs.namelessmc.com/en/smtp" target="_blank">',
-            'docLinkEnd' => '</a>'
-        ]),
         'USERNAME' => $language->get('user', 'username'),
         'USERNAME_VALUE' => (!empty($GLOBALS['email']['username']) ? Output::getClean($GLOBALS['email']['username']) : ''),
         'PASSWORD' => $language->get('user', 'password'),
