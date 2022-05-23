@@ -198,7 +198,7 @@
     "admin\/enable_authme": "Enable AuthMe integration?",
     "admin\/enable_debug_mode": "Enable debug mode?",
     "admin\/enable_mailer": "Enable PHPMailer?",
-    "admin\/enable_mailer_help": "Enable this if emails aren't being sent by default. The use of PHPMailer requires you to have a service capable of sending emails, such as Gmail or an SMTP provider.",
+    "admin\/enable_mailer_help": "If enabled, emails will be sent using PHPMailer instead of the system default. This may help with delivery, but requires you configure a SMTP provider. <a target=\'_blank\' href=\'https://docs.namelessmc.com/en/smtp\'>Read more »</a>",
     "admin\/enable_maintenance_mode": "Enable maintenance mode?",
     "admin\/enable_minecraft_integration": "Enable Minecraft integration?",
     "admin\/enable_nicknames_on_registration": "Enable nicknames for registering users?",
