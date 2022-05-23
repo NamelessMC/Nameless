@@ -72,6 +72,7 @@
     "forum\/label_creation_error": "Error creating a label. Please ensure the name is no longer than 32 characters and that you have specified a type.",
     "forum\/label_creation_success": "Label created successfully.",
     "forum\/label_deleted_successfully": "Label deleted successfully.",
+    "forum\/label_type_in_use": "Label type is being used, cannot be deleted.",
     "forum\/label_edit_success": "Label successfully edited.",
     "forum\/label_forums": "Label Forums",
     "forum\/label_groups": "Label Groups",
