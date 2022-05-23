@@ -56,7 +56,6 @@
                                 <input type="text" id="InputOutgoingEmail" name="email" value="{$OUTGOING_EMAIL_VALUE}"
                                        class="form-control">
                             </div>
-                            <hr />
                             <div class="form-group custom-control custom-switch">
                                 <input type="hidden" name="enable_mailer" value="0">
                                 <input id="inputMailer"
@@ -108,7 +107,6 @@
                                             id="inputPort">
                                 </div>
                             </div>
-                            <hr />
                             <div class="form-group">
                                 <input type="hidden" name="token" value="{$TOKEN}">
                                 <input type="submit" class="btn btn-primary" value="{$SUBMIT}">
