@@ -18,7 +18,7 @@ class FacebookWidget extends WidgetBase {
         // Get widget
         $widget_query = self::getData('Facebook');
 
-        parent::__construct(self::parsePages($widget_query->pages), true);
+        parent::__construct(self::parsePages($widget_query), true);
 
         // Set widget variables
         $this->_module = 'Core';

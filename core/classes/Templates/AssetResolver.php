@@ -61,11 +61,13 @@ class AssetResolver extends AssetTree {
      */
     private function gatherAsset(string $name, array $asset, array &$css, array &$js): void {
         // Load the dependencies first so that they're the first to be added to the HTML
-        foreach ($asset['depends'] as $dependency) {
-            // Don't throw an exception if the dependency has already been resolved
-            // since it is a dependency, there is a high chance it has already been resolved anyway
-            if ($this->validateAsset($dependency, false)) {
-                $this->gatherAsset($dependency, parent::ASSET_TREE[$dependency], $css, $js);
+        if (isset($asset['depends'])) {
+            foreach ($asset['depends'] as $dependency) {
+                // Don't throw an exception if the dependency has already been resolved
+                // since it is a dependency, there is a high chance it has already been resolved anyway
+                if ($this->validateAsset($dependency, false)) {
+                    $this->gatherAsset($dependency, parent::ASSET_TREE[$dependency], $css, $js);
+                }
             }
         }
 
@@ -80,12 +82,16 @@ class AssetResolver extends AssetTree {
             }
         }
 
-        foreach ($asset['css'] as $cssFile) {
-            $css[] = $this->buildPath($cssFile, 'css');
+        if (isset($asset['css'])) {
+            foreach ($asset['css'] as $cssFile) {
+                $css[] = $this->buildPath($cssFile, 'css');
+            }
         }
 
-        foreach ($asset['js'] as $jsFile) {
-            $js[] = $this->buildPath($jsFile, 'js');
+        if (isset($asset['js'])) {
+            foreach ($asset['js'] as $jsFile) {
+                $js[] = $this->buildPath($jsFile, 'js');
+            }
         }
     }
 

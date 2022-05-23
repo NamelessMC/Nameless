@@ -23,7 +23,7 @@ class OnlineUsersWidget extends WidgetBase {
         // Get widget
         $widget_query = self::getData('Online Users');
 
-        parent::__construct(self::parsePages($widget_query->pages));
+        parent::__construct(self::parsePages($widget_query));
 
         // Set widget variables
         $this->_module = 'Core';

@@ -23,7 +23,7 @@ class ServerStatusWidget extends WidgetBase {
         // Get widget
         $widget_query = self::getData('Server Status');
 
-        parent::__construct(self::parsePages($widget_query->pages));
+        parent::__construct(self::parsePages($widget_query));
 
         // Set widget variables
         $this->_module = 'Core';

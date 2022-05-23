@@ -515,7 +515,7 @@ class Forum {
                 'author' => $item->topic_creator,
                 'content' => Util::truncate($post),
                 'replies' => $posts,
-                'label' => $labels[0],
+                'label' => count($labels) ? $labels[0] : null,
                 'labels' => $labels
             ];
         }

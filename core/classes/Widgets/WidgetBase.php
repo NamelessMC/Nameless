@@ -122,10 +122,13 @@ abstract class WidgetBase {
     /**
      * Parse the widgets JSON pages string into an array.
      *
-     * @param string|null $pages The JSON string to parse.
+     * @param object|null $data The widget data to get pages from.
      * @return array The parsed pages array.
      */
-    protected static function parsePages(?string $pages): array {
-        return json_decode($pages, true) ?? [];
+    protected static function parsePages(?object $data): array {
+        if (isset($data->pages)) {
+            return json_decode($data->pages, true) ?? [];
+        }
+        return [];
     }
 }
