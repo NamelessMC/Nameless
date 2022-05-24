@@ -60,7 +60,7 @@
     "forum/guests": "Invitados",
     "forum/has_no_parent": "No tiene foro principal",
     "forum/in": "en",
-    "forum/include_in_hook": "¿Incluir los nuevos temas de este foro en los webhooks?",
+    "forum/include_in_hook": "¿Incluir los nuevos eventos de este foro en los webhooks?",
     "forum/input_forum_description": "Por favor, introduzca una descripción para el foro.",
     "forum/input_forum_title": "Por favor, introduzca un título para el foro.",
     "forum/insert_quotes": "Insertar citas",
@@ -187,5 +187,11 @@
     "forum/pre_topic_edit_hook_info": "Previo a la edición del tema",
     "forum/user_object": "Objeto del usuario",
     "forum/topic_id": "ID del tema",
-    "forum/no_news": "No hay entradas de noticias."
+    "forum/no_news": "No hay entradas de noticias.",
+    "forum/label_type_in_use": "Se está utilizando el tipo de etiqueta, no se puede borrar.",
+    "forum/new_topic_reply_text": "Respuesta del tema creado en {{forum}} por {{author}}",
+    "forum/topic_reply": "Respuesta del tema",
+    "forum/topic_author_uuid": "ID de usuario del autor del tema",
+    "forum/topic_author_username": "Nombre de usuario del autor del tema",
+    "forum/topic_author_nickname": "Apodo del autor del tema"
 }
