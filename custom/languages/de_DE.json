@@ -1,5 +1,5 @@
 {
-    "admin/account_verification": "Minecraft Account Verifizierung",
+    "admin/account_verification": "Minecraft Konto Verifizierung",
     "admin/action": "Aktion",
     "admin/action_info": "Aktion Info",
     "admin/activate": "Aktivieren",
@@ -596,11 +596,9 @@
     "api/finish_registration_email": "Bitte überprüfen Sie Ihre E-Mails, um die Registrierung abzuschließen.",
     "api/finish_registration_link": "Bitte klicken Sie auf den folgenden Link, um die Registrierung abzuschließen:",
     "api/group_updated": "Gruppe erfolgreich aktualisiert",
-    "api/invalid_email_address": "Ungültige E-Mail-Adresse",
     "api/invalid_username": "Ungültiger Benutzername",
     "api/report_created": "Bericht erfolgreich erstellt",
     "api/server_info_updated": "Serverinformationen erfolgreich aktualisiert",
-    "api/unable_to_send_registration_email": "Sie können keine Registrierungs-E-Mail senden. Wenden Sie sich an einen Administrator, um Ihr Konto zu aktivieren",
     "api/unable_to_update_server_info": "Serverinformationen können nicht aktualisiert werden",
     "api/unable_to_update_username": "Benutzername kann nicht aktualisiert werden",
     "api/unknown_error": "Unbekannter Fehler",
@@ -1217,5 +1215,5 @@
     "general/grey": "Grau",
     "admin/user_group_removed_hook_info": "Benutzergruppe entfernt",
     "admin/user_group_added_hook_info": "Benutzergruppe hinzugefügt",
-    "admin/group_name": "Gruppe Name"
+    "admin/group_name": "Gruppen Name"
 }
