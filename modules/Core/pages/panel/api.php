@@ -30,7 +30,7 @@ if (!isset($_GET['view'])) {
                 // Generate new key
                 $new_api_key = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 32);
 
-                $plugin_api = $queries->getWhere('settings', ['name', '=', 'mc_api_key']);
+                $plugin_api = $queries->getWhere('settings', ['name', 'mc_api_key']);
                 $plugin_api = $plugin_api[0]->id;
 
                 // Update key
@@ -50,7 +50,7 @@ if (!isset($_GET['view'])) {
                 Redirect::to(URL::build('/panel/core/api'));
             }
 
-            $plugin_id = $queries->getWhere('settings', ['name', '=', 'use_api']);
+            $plugin_id = $queries->getWhere('settings', ['name', 'use_api']);
             $plugin_id = $plugin_id[0]->id;
             $queries->update(
                 'settings',
@@ -162,7 +162,7 @@ if (!isset($_GET['view'])) {
                     if ($_POST['action'] == 'delete') {
                         if (isset($_POST['id'])) {
                             try {
-                                $queries->delete('group_sync', ['id', '=', $_POST['id']]);
+                                $queries->delete('group_sync', ['id', $_POST['id']]);
                                 Session::flash('api_success', $language->get('admin', 'group_sync_rule_deleted_successfully'));
                             } catch (Exception $e) {
                                 // Redirect anyway
@@ -201,7 +201,7 @@ if (isset($errors) && count($errors)) {
 
 if (!isset($_GET['view'])) {
     // Is the API enabled?
-    $api_enabled = $queries->getWhere('settings', ['name', '=', 'use_api']);
+    $api_enabled = $queries->getWhere('settings', ['name', 'use_api']);
     if (count($api_enabled)) {
         $api_enabled = $api_enabled[0]->value;
     } else {
@@ -216,7 +216,7 @@ if (!isset($_GET['view'])) {
     }
 
     // Get API key
-    $api_key = $queries->getWhere('settings', ['name', '=', 'mc_api_key']);
+    $api_key = $queries->getWhere('settings', ['name', 'mc_api_key']);
     $api_key = $api_key[0]->value;
 
     // Is email verification enabled
@@ -251,7 +251,7 @@ if (!isset($_GET['view'])) {
             'CHANGE' => $language->get('general', 'change'),
             'API_URL' => $language->get('admin', 'api_url'),
             'API_URL_VALUE' => rtrim(Util::getSelfURL(), '/') . rtrim(URL::build('/api/v2/', '', 'non-friendly'), '/'),
-            'ENABLE_API_FOR_URL' => $language->get('api', 'api_disabled'),
+            'ENABLE_API_FOR_URL' => $language->get('admin', 'api_disabled'),
             'COPY' => $language->get('admin', 'copy'),
             'EMAIL_VERIFICATION' => $language->get('admin', 'email_verification'),
             'EMAIL_VERIFICATION_VALUE' => $emails,

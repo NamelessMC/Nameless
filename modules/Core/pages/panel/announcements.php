@@ -28,7 +28,7 @@ if (!isset($_GET['action'])) {
     foreach ($announcements->getAll() as $announcement) {
         $announcements_list[] = [
             $announcement,
-            'pages' => $announcements->getPagesCsv($announcement->pages)
+            'pages' => Announcements::getPagesCsv($announcement->pages)
         ];
     }
 
@@ -145,12 +145,11 @@ if (!isset($_GET['action'])) {
             }
 
             // Does the announcement exist?
-            $announcement = $queries->getWhere('custom_announcements', ['id', '=', $_GET['id']]);
-            if (!count($announcement)) {
+            $announcement = Announcement::find($_GET['id']);
+            if (!$announcement) {
                 // No, it doesn't exist
                 Redirect::to(URL::build('/panel/core/announcements'));
             }
-            $announcement = $announcement[0];
 
             if (Input::exists()) {
                 $errors = [];
@@ -243,7 +242,7 @@ if (!isset($_GET['action'])) {
             if (Input::exists()) {
                 if (Token::check(Input::get('token'))) {
                     if (isset($_POST['id'])) {
-                        $queries->delete('custom_announcements', ['id', '=', $_POST['id']]);
+                        $queries->delete('custom_announcements', ['id', $_POST['id']]);
 
                         $announcements->resetCache();
                         Session::flash('announcement_success', $language->get('admin', 'deleted_announcement_success'));
@@ -305,10 +304,10 @@ $smarty->assign([
     'SUBMIT' => $language->get('general', 'submit'),
     'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
     'CONFIRM_DELETE_ANNOUNCEMENT' => $language->get('admin', 'verify_delete_announcement'),
-    'ICON_INFO' => $language->get('admin', 'announcement_icon_instructions', [
+    'ICON_INFO' => Output::getClean($language->get('admin', 'announcement_icon_instructions', [
         'faLink' => '<a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>',
         'semLink' => '<a href="https://fomantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Fomantic UI</a>',
-    ]),
+    ])),
     'YES' => $language->get('general', 'yes'),
     'NO' => $language->get('general', 'no'),
     'ORDER' => $language->get('admin', 'announcement_order'),
@@ -322,7 +321,7 @@ $smarty->assign([
     'BACKGROUND_COLOUR' => $language->get('admin', 'background_colour'),
     'ICON' => $language->get('admin', 'icon'),
     'CLOSABLE' => $language->get('admin', 'closable'),
-    'PAGES_ARRAY' => $announcements->getPages($pages),
+    'PAGES_ARRAY' => Announcements::getPages($pages),
     'INFO' => $language->get('general', 'info'),
     'GUESTS' => $language->get('user', 'guests'),
     'NAME' => $language->get('admin', 'name'),

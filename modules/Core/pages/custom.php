@@ -10,7 +10,7 @@
  */
 
 // Get page info from URL
-$custom_page = $queries->getWhere('custom_pages', ['url', '=', rtrim($route, '/')]);
+$custom_page = $queries->getWhere('custom_pages', ['url', rtrim($route, '/')]);
 if (!count($custom_page)) {
     require(ROOT_PATH . '/404.php');
     die();
@@ -19,7 +19,7 @@ if (!count($custom_page)) {
 $custom_page = $custom_page[0];
 
 // Check permissions
-$perms = $queries->getWhere('custom_pages_permissions', ['page_id', '=', $custom_page->id]);
+$perms = $queries->getWhere('custom_pages_permissions', ['page_id', $custom_page->id]);
 if ($user->isLoggedIn()) {
     $groups = $user->getAllGroupIds();
     foreach ($groups as $group) {
@@ -61,6 +61,13 @@ define('PAGE', $custom_page->id);
 define('CUSTOM_PAGE', $custom_page->title);
 $page_title = Output::getClean($custom_page->title);
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+
+$template->assets()->include([
+    DARK_MODE
+        ? AssetTree::PRISM_DARK
+        : AssetTree::PRISM_LIGHT,
+    AssetTree::TINYMCE_SPOILER,
+]);
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);

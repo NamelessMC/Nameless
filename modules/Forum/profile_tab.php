@@ -9,16 +9,6 @@
  *  Forum module - forum profile tab
  */
 
-$template->addCSSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism_' . (DARK_MODE ? 'dark' : 'light_default') . '.css' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
-]);
-
-$template->addJSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => []
-]);
-
 if (!isset($forum) || (!$forum instanceof Forum)) {
     $forum = new Forum();
 }
@@ -50,7 +40,7 @@ if (!count($latest_posts)) {
         // Is the post somewhere the user can view?
         if (!isset($permissions[$latest_post->forum_id])) {
             $permission = false;
-            $forum_permissions = $queries->getWhere('forums_permissions', ['forum_id', '=', $latest_post->forum_id]);
+            $forum_permissions = $queries->getWhere('forums_permissions', ['forum_id', $latest_post->forum_id]);
             foreach ($forum_permissions as $forum_permission) {
                 if (in_array($forum_permission->group_id, $groups)) {
                     if ($forum_permission->view == 1 && $forum_permission->view_other_topics == 1) {
@@ -75,7 +65,7 @@ if (!count($latest_posts)) {
 
         // Get topic title
         if (!isset($topic_titles[$latest_post->topic_id])) {
-            $topic_title = $queries->getWhere('topics', ['id', '=', $latest_post->topic_id]);
+            $topic_title = $queries->getWhere('topics', ['id', $latest_post->topic_id]);
             if (!count($topic_title)) {
                 continue;
             }

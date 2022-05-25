@@ -25,7 +25,7 @@ if (!isset($_GET['tid']) || !is_numeric($_GET['tid'])) {
 }
 
 $topic_id = $_GET['tid'];
-$forum_id = DB::getInstance()->selectQuery('SELECT forum_id FROM nl2_topics WHERE id = ?', [$topic_id])->first();
+$forum_id = DB::getInstance()->query('SELECT forum_id FROM nl2_topics WHERE id = ?', [$topic_id])->first();
 $forum_id = $forum_id->forum_id;
 
 if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
@@ -37,7 +37,7 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
                 ]
             ]);
 
-            $posts_to_move = $queries->getWhere('posts', ['topic_id', '=', $topic_id]);
+            $posts_to_move = $queries->getWhere('posts', ['topic_id', $topic_id]);
             if ($validation->passed()) {
 
                 foreach ($posts_to_move as $post_to_move) {
@@ -45,7 +45,7 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
                         'topic_id' => Input::get('merge')
                     ]);
                 }
-                $queries->delete('topics', ['id', '=', $topic_id]);
+                $queries->delete('topics', ['id', $topic_id]);
                 Log::getInstance()->log(Log::Action('forums/merge'));
                 // Update latest posts in categories
                 $forum->updateForumLatestPosts();
@@ -66,7 +66,7 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
 $token = Token::get();
 
 // Get topics
-$topics = DB::getInstance()->selectQuery('SELECT * FROM nl2_topics WHERE forum_id = ? AND deleted = 0 AND id <> ? ORDER BY id ASC', [$forum_id, $topic_id])->results();
+$topics = DB::getInstance()->query('SELECT * FROM nl2_topics WHERE forum_id = ? AND deleted = 0 AND id <> ? ORDER BY id ASC', [$forum_id, $topic_id])->results();
 
 // Smarty
 $smarty->assign([

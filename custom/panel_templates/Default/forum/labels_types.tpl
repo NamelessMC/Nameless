@@ -52,8 +52,8 @@
                                     <div class="col-md-3">
                                         <div class="float-md-right">
                                             <a href="{$label_type.edit_link}" class="btn btn-info btn-sm">{$EDIT}</a>
-                                            <button onclick="showDeleteModal('{$label_type.delete_link}')"
-                                                    class="btn btn-danger btn-sm">{$DELETE}</button>
+                                                <button {if $label_type.usages < 1}onclick="showDeleteModal('{$label_type.delete_link}')"{/if}
+                                                        class="btn btn-danger btn-sm" {if $label_type.usages < 1}disabled{/if}>{$DELETE}</button>
                                         </div>
                                     </div>
                                 </div>

@@ -97,8 +97,9 @@
                                     <div class="col-md-6">
                                         <label for="inputHomepage">{$HOMEPAGE_TYPE}</label>
                                         <select name="homepage" class="form-control" id="inputHomepage">
-                                            <option value="default" {if $HOMEPAGE_VALUE eq 0} selected{/if}>{$HOMEPAGE_DEFAULT}</option>
-                                            <option value="portal" {if $HOMEPAGE_VALUE eq 1} selected{/if}>{$HOMEPAGE_PORTAL}</option>
+                                            <option value="news" {if $HOMEPAGE_VALUE eq 'news'} selected{/if}>{$HOMEPAGE_NEWS}</option>
+                                            <option value="custom" {if $HOMEPAGE_VALUE eq 'custom'} selected{/if}>{$HOMEPAGE_CUSTOM}</option>
+                                            <option value="portal" {if $HOMEPAGE_VALUE eq 'portal'} selected{/if}>{$HOMEPAGE_PORTAL}</option>
                                         </select>
                                     </div>
                                     <div class="col-md-6">

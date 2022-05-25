@@ -11,7 +11,7 @@
 abstract class IntegrationBase {
 
     private DB $_db;
-    private ?object $_data;
+    private IntegrationData $_data;
     protected string $_icon;
     private array $_errors = [];
     protected Language $_language;
@@ -22,21 +22,21 @@ abstract class IntegrationBase {
     public function __construct() {
         $this->_db = DB::getInstance();
 
-        $integration = $this->_db->selectQuery('SELECT * FROM nl2_integrations WHERE name = ?', [$this->_name]);
+        $integration = $this->_db->query('SELECT * FROM nl2_integrations WHERE name = ?', [$this->_name]);
         if ($integration->count()) {
             $integration = $integration->first();
 
-            $this->_data = $integration;
+            $this->_data = new IntegrationData($integration);
             $this->_order = $integration->order;
         } else {
             // Register integration to database
-            $this->_db->createQuery('INSERT INTO nl2_integrations (name) VALUES (?)', [
+            $this->_db->query('INSERT INTO nl2_integrations (name) VALUES (?)', [
                 $this->_name
             ]);
 
-            $integration = $this->_db->selectQuery('SELECT * FROM nl2_integrations WHERE name = ?', [$this->_name])->first();
+            $integration = $this->_db->query('SELECT * FROM nl2_integrations WHERE name = ?', [$this->_name])->first();
 
-            $this->_data = $integration;
+            $this->_data = new IntegrationData($integration);
             $this->_order = $integration->order;
         }
     }
@@ -80,9 +80,9 @@ abstract class IntegrationBase {
     /**
      * Get the integration data.
      *
-     * @return object This integration's data.
+     * @return IntegrationData This integration's data.
      */
-    public function data(): ?object {
+    public function data(): IntegrationData {
         return $this->_data;
     }
 

@@ -14,7 +14,7 @@ if ($cache->isCached('enabled')) {
     $status_enabled = $cache->retrieve('enabled');
 
 } else {
-    $status_enabled = $queries->getWhere('settings', ['name', '=', 'status_page']);
+    $status_enabled = $queries->getWhere('settings', ['name', 'status_page']);
     $status_enabled = $status_enabled[0]->value == 1 ? 1 : 0;
     $cache->store('enabled', $status_enabled);
 }

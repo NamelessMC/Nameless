@@ -392,7 +392,13 @@ class Util {
     public static function updateCheck(): string {
         $uid = self::getSetting(DB::getInstance(), 'unique_id');
 
-        $update_check = HttpClient::get('https://namelessmc.com/nl_core/nl2/stats.php?uid=' . $uid . '&version=' . NAMELESS_VERSION . '&php_version=' . urlencode(PHP_VERSION) . '&language=' . LANGUAGE . '&docker=' . (getenv('NAMELESSMC_METRICS_DOCKER') === false ? 'false' : 'true'));
+        $update_check = HttpClient::get('https://namelessmc.com/nl_core/nl2/stats.php?uid=' . $uid .
+            '&version=' . NAMELESS_VERSION .
+            '&php_version=' . urlencode(PHP_VERSION) .
+            '&language=' . LANGUAGE .
+            '&docker=' . (getenv('NAMELESSMC_METRICS_DOCKER') === false ? 'false' : 'true') .
+            '&mysql_server=' . DB::getInstance()->getPDO()->getAttribute(PDO::ATTR_SERVER_VERSION)
+        );
 
         if ($update_check->hasError()) {
             $error = $update_check->getError();
@@ -407,7 +413,7 @@ class Util {
             return json_encode(['error' => $error]);
         }
 
-        DB::getInstance()->createQuery("UPDATE nl2_settings SET `value`= ? WHERE `name` = 'version_checked'", [date('U')]);
+        DB::getInstance()->query("UPDATE nl2_settings SET `value`= ? WHERE `name` = 'version_checked'", [date('U')]);
 
         if ($update_check == 'None') {
             return json_encode(['no_update' => true]);
@@ -423,9 +429,7 @@ class Util {
             }
 
             $queries = new Queries();
-            $update_id = $queries->getWhere('settings', ['name', '=', 'version_update']);
-            $update_id = $update_id[0]->id;
-            $queries->update('settings', $update_id, [
+            $queries->update('settings', ['name', 'version_update'], [
                 'value' => $to_db
             ]);
         }
@@ -476,7 +480,7 @@ class Util {
      * @return mixed Setting from DB or $fallback.
      */
     public static function getSetting(DB $db, string $setting, $fallback = null) {
-        $value = $db->get('settings', ['name', '=', $setting]);
+        $value = $db->get('settings', ['name', $setting]);
 
         if ($value->count()) {
             return $value->first()->value;
@@ -493,7 +497,7 @@ class Util {
      */
     public static function getIngameRankName(int $website_group_id): ?string {
         $nameless_injector = GroupSyncManager::getInstance()->getInjectorByClass(NamelessMCGroupSyncInjector::class);
-        $data = DB::getInstance()->get('group_sync', [$nameless_injector->getColumnName(), '=', $website_group_id]);
+        $data = DB::getInstance()->get('group_sync', [$nameless_injector->getColumnName(), $website_group_id]);
 
         if ($data->count()) {
             return $data->first()->ingame_rank_name;
@@ -541,7 +545,8 @@ class Util {
     }
 
     /**
-     * Wrap text in HTML `<strong>` tags.
+     * Wrap text in HTML `<strong>` tags. Used for when variables in translations are bolded,
+     * since we want as little HTML in the translation strings as possible.
      *
      * @param string $text Text to wrap
      * @return string Text wrapped in `<strong>` tags
@@ -549,4 +554,26 @@ class Util {
     public static function bold(string $text): string {
         return '<strong>' . $text . '</strong>';
     }
+
+    /**
+     * Read the last part of a file, removing a leading partial line if necessary.
+     * @param string $file_path Path to file to read
+     * @param int $max_bytes Max number of bytes to read at end of file
+     * @return string Read string
+     */
+    public static function readFileEnd(string $file_path, int $max_bytes = 100_000): string {
+        $fp = fopen($file_path, 'r');
+        $size = filesize($file_path);
+        $start = max([$size - $max_bytes, 0]);
+        fseek($fp, $start);
+        $read_length = $size - $start;
+        $content = fread($fp, $read_length);
+        if ($start > 0) {
+            // Read content may contain partial line, remove it
+            $first_lf = strpos($content, PHP_EOL);
+            $content = substr($content, $first_lf + 1);
+        }
+        return $content;
+    }
+
 }

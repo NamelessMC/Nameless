@@ -128,7 +128,7 @@ class Discord {
     public static function getDiscordRoleId(DB $db, int $nameless_group_id): ?int {
         $nameless_injector = GroupSyncManager::getInstance()->getInjectorByClass(NamelessMCGroupSyncInjector::class);
 
-        $discord_role_id = $db->get('group_sync', [$nameless_injector->getColumnName(), '=', $nameless_group_id]);
+        $discord_role_id = $db->get('group_sync', [$nameless_injector->getColumnName(), $nameless_group_id]);
         if ($discord_role_id->count()) {
             return $discord_role_id->first()->discord_role_id;
         }
@@ -173,7 +173,14 @@ class Discord {
      * @return false|string Response from the Discord bot or false if the request failed
      */
     private static function discordBotRequest(string $url = '/status', ?string $body = null) {
-        $response = HttpClient::post(BOT_URL . $url, $body)->contents();
+        $client = HttpClient::post(BOT_URL . $url, $body);
+
+        if ($client->hasError()) {
+            Log::getInstance()->log(Log::Action('discord/role_set'), $client->getError());
+            return false;
+        }
+
+        $response = $client->contents();
 
         if (in_array($response, self::$_valid_responses)) {
             return $response;

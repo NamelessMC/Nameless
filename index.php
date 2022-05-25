@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.0.0-pr13
  *
  *  License: MIT
  *
@@ -14,7 +14,7 @@
 
 header('X-Frame-Options: SAMEORIGIN');
 
-if ((!defined('DEBUGGING') || !DEBUGGING) && getenv('NAMELESS_DEBUGGING')) {
+if ((!defined('DEBUGGING') || !DEBUGGING) && (getenv('NAMELESS_DEBUGGING') || isset($_SERVER['NAMELESS_DEBUGGING']))) {
     define('DEBUGGING', 1);
 }
 
@@ -27,6 +27,15 @@ if (defined('DEBUGGING') && DEBUGGING) {
 // Ensure PHP version >= 7.4
 if (PHP_VERSION_ID < 70400) {
     die('NamelessMC is not compatible with PHP versions older than 7.4');
+}
+
+if (!is_dir(__DIR__ . '/vendor')) {
+    die(
+        "Your installation is missing the 'vendor' directory. This directory is included in releases. For regular
+        installations, please make sure to download a release from the GitHub releases page, not from the button on
+        the home page to download the latest source code. If you do want to run the latest version from source control
+        for development versions, please run 'composer install' and 'yarnpkg'/'yarn install'."
+    );
 }
 
 // Start page load timer

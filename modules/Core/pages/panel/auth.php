@@ -29,7 +29,7 @@ $page_title = $language->get('admin', 're-authenticate');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Get login method
-$login_method = $queries->getWhere('settings', ['name', '=', 'login_method']);
+$login_method = $queries->getWhere('settings', ['name', 'login_method']);
 $login_method = $login_method[0]->value;
 
 // Deal with any input
@@ -110,16 +110,19 @@ if (Input::exists()) {
 
 if ($login_method == 'email') {
     $smarty->assign([
-        'EMAIL' => $language->get('user', 'email')
+        'EMAIL' => $language->get('user', 'email'),
+        'EMAIL_VALUE' => Output::getClean(Input::get('email')),
     ]);
 } else {
     if ($login_method == 'email_or_username') {
         $smarty->assign([
-            'USERNAME' => $language->get('user', 'email_or_username')
+            'USERNAME' => $language->get('user', 'email_or_username'),
+            'USERNAME_VALUE' => Output::getClean(Input::get('username')),
         ]);
     } else {
         $smarty->assign([
-            'USERNAME' => $language->get('user', 'username')
+            'USERNAME' => $language->get('user', 'username'),
+            'USERNAME_VALUE' => Output::getClean(Input::get('username')),
         ]);
     }
 }

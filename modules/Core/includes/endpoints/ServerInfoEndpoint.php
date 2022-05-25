@@ -12,15 +12,15 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
     public function execute(Nameless2API $api): void {
         $api->validateParams($_POST, ['server-id', 'max-memory', 'free-memory', 'allocated-memory', 'tps']);
         if (!isset($_POST['players'])) {
-            $api->throwError(6, $api->getLanguage()->get('api', 'invalid_post_contents'), 'players');
+            $api->throwError(Nameless2API::ERROR_INVALID_POST_CONTENTS, 'players');
         }
 
         $serverId = $_POST['server-id'];
         // Ensure server exists
-        $server_query = $api->getDb()->get('mc_servers', ['id', '=', $serverId]);
+        $server_query = $api->getDb()->get('mc_servers', ['id', $serverId]);
 
         if (!$server_query->count() || $server_query->first()->bedrock) {
-            $api->throwError(27, $api->getLanguage()->get('api', 'invalid_server_id') . ' - ' . $serverId);
+            $api->throwError(CoreApiErrors::ERROR_INVALID_SERVER_ID, $serverId);
         }
 
         try {
@@ -57,7 +57,7 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
                 file_put_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('server_query_cache') . '.cache', json_encode($to_cache));
             }
         } catch (Exception $e) {
-            $api->throwError(25, $api->getLanguage()->get('api', 'unable_to_update_server_info'), $e->getMessage(), 500);
+            $api->throwError(CoreApiErrors::ERROR_UNABLE_TO_UPDATE_SERVER_INFO, $e->getMessage(), 500);
         }
 
         $group_sync_log = [];
@@ -80,7 +80,7 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
                 }
             }
         } catch (Exception $e) {
-            $api->throwError(25, $api->getLanguage()->get('api', 'unable_to_update_server_info'), $e->getMessage(), 500);
+            $api->throwError(CoreApiErrors::ERROR_UNABLE_TO_UPDATE_SERVER_INFO, $e->getMessage(), 500);
         }
 
         $api->returnArray(array_merge(['message' => $api->getLanguage()->get('api', 'server_info_updated')], ['log' => $group_sync_log]));
@@ -131,7 +131,7 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
         $log = GroupSyncManager::getInstance()->broadcastChange(
             $user,
             MinecraftGroupSyncInjector::class,
-            isset($player['groups']) ? $player['groups'] : []
+            $player['groups'] ?? []
         );
 
         if (count($log)) {

@@ -56,7 +56,10 @@
                                                         </h5>
                                                     </div>
                                                     <div class="two wide column right aligned">
-                                                        <a href="{$topic.unfollow_link}" class="ui mini red button">{$UNFOLLOW_TOPIC}</a>
+                                                        <form action="{$topic.unfollow_link}" method="post" style="display: inline">
+                                                          <input type="hidden" value="{$TOKEN}" name="token" />
+                                                          <button class="ui mini red button">{$UNFOLLOW_TOPIC}</button>
+                                                        </form>
                                                     </div>
                                                 </div>
                                             </div>

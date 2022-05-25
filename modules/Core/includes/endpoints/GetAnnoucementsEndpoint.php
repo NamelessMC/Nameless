@@ -21,9 +21,9 @@ class GetAnnoucementsEndpoint extends NoAuthEndpoint {
 
         foreach ($announcements->getAvailable('api') as $announcement) {
             $guest_announcements[] = [
-                'id' => (int) $announcement->id,
-                'header' => Output::getClean($announcement->header),
-                'message' => Output::getPurified($announcement->message),
+                'id' => $announcement->id,
+                'header' => $announcement->header,
+                'message' => $announcement->message,
                 'pages' => json_decode($announcement->pages),
                 'groups' => array_map('intval', json_decode($announcement->groups)),
             ];

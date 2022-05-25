@@ -39,7 +39,7 @@ if (!isset($_GET['s'])) {
                 Redirect::to(URL::build('/forum/search/', 's=' . urlencode($search) . '&p=1'));
             }
 
-            $error = $forum_language->get('forum', 'invalid_search_query');
+            $error = $forum_language->get('forum', 'invalid_search_query', ['min' => 3, 'max' => 128]);
         } else {
             $error = $language->get('general', 'invalid_token');
         }
@@ -62,22 +62,22 @@ if (!isset($_GET['s'])) {
     $cache->setCache($search . '-' . rtrim(implode('-', $user_groups), '-'));
     if (!$cache->isCached('result')) {
         // Execute search
-        $search_topics = DB::getInstance()->selectQuery('SELECT * FROM nl2_topics WHERE topic_title LIKE ?', ['%' . $search . '%'])->results();
-        $search_posts = DB::getInstance()->selectQuery('SELECT * FROM nl2_posts WHERE post_content LIKE ?', ['%' . $search . '%'])->results();
+        $search_topics = DB::getInstance()->query('SELECT * FROM nl2_topics WHERE topic_title LIKE ?', ['%' . $search . '%'])->results();
+        $search_posts = DB::getInstance()->query('SELECT * FROM nl2_posts WHERE post_content LIKE ?', ['%' . $search . '%'])->results();
 
         $search_results = array_merge($search_topics, $search_posts);
 
         $results = [];
         foreach ($search_results as $result) {
             // Check permissions
-            $perms = $queries->getWhere('forums_permissions', ['forum_id', '=', $result->forum_id]);
+            $perms = $queries->getWhere('forums_permissions', ['forum_id', $result->forum_id]);
             foreach ($perms as $perm) {
                 if (in_array($perm->group_id, $user_groups) && $perm->view == 1 && $perm->view_other_topics == 1) {
                     if (isset($result->topic_id)) {
                         // Post
                         if (!isset($results[$result->id]) && $result->deleted == 0) {
                             // Get associated topic
-                            $topic = $queries->getWhere('topics', ['id', '=', $result->topic_id]);
+                            $topic = $queries->getWhere('topics', ['id', $result->topic_id]);
                             if (count($topic) && $topic[0]->deleted === 0) {
                                 $topic = $topic[0];
                                 $results[$result->id] = [
@@ -98,7 +98,7 @@ if (!isset($_GET['s'])) {
                         }
                     } else {
                         // Topic, get associated post
-                        $post = DB::getInstance()->selectQuery('SELECT * FROM nl2_posts WHERE topic_id = ? ORDER BY post_date ASC LIMIT 1', [$result->id]);
+                        $post = DB::getInstance()->query('SELECT * FROM nl2_posts WHERE topic_id = ? ORDER BY post_date ASC LIMIT 1', [$result->id]);
                         if ($post->count()) {
                             $post = $post->first();
                             if (!isset($results[$post->id]) && $post->deleted == 0) {
@@ -145,15 +145,8 @@ if (!isset($_GET['s'])) {
 }
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-$template->addCSSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.css' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
-]);
-
-$template->addJSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
+$template->assets()->include([
+    AssetTree::TINYMCE,
 ]);
 
 if (isset($_GET['s'])) {

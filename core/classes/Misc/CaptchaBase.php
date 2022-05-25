@@ -81,7 +81,7 @@ abstract class CaptchaBase {
             return false;
         }
 
-        return DB::getInstance()->selectQuery('SELECT `value` FROM nl2_settings WHERE `name` = ?', [$key])->first()->value == 'true';
+        return DB::getInstance()->query('SELECT `value` FROM nl2_settings WHERE `name` = ?', [$key])->first()->value == 'true';
     }
 
     /**

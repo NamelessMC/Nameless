@@ -11,7 +11,7 @@
 
 // Initialisation
 $page = 'image_uploads';
-define('ROOT_PATH', '../..');
+const ROOT_PATH = '../..';
 
 // Get the directory the user is trying to access
 $directory = $_SERVER['REQUEST_URI'];
@@ -23,8 +23,8 @@ if (!$user->isLoggedIn()) {
     die();
 }
 
-$image_extensions = array('jpg', 'png', 'jpeg');
-$delete_extensions = array_merge($image_extensions, array('gif'));
+$image_extensions = ['jpg', 'png', 'jpeg'];
+$delete_extensions = array_merge($image_extensions, ['gif']);
 
 if ($user->hasPermission('usercp.gif_avatar')) {
     $image_extensions[] = 'gif';
@@ -46,23 +46,23 @@ if (Input::exists()) {
 
         switch ($_POST['type']) {
             case 'background':
-                $image->setLocation(implode(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'uploads', 'backgrounds')));
+                $image->setLocation(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'backgrounds']));
                 break;
 
             case 'template_banner':
-                $image->setLocation(implode(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'uploads', 'template_banners')));
+                $image->setLocation(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'template_banners']));
                 break;
 
             case 'logo':
-                $image->setLocation(implode(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'uploads', 'logos')));
+                $image->setLocation(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'logos']));
                 break;
 
             case 'favicon':
-                $image->setLocation(implode(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'uploads', 'favicons')));
+                $image->setLocation(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'favicons']));
                 break;
 
             case 'default_avatar':
-                $image->setLocation(implode(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'uploads', 'avatars', 'defaults')));
+                $image->setLocation(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'avatars', 'defaults']));
                 break;
 
             case 'profile_banner':
@@ -71,13 +71,13 @@ if (Input::exists()) {
                 }
 
                 if (
-                    !is_dir(implode(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'uploads', 'profile_images', $user->data()->id)))
-                    && !mkdir(implode(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'uploads', 'profile_images', $user->data()->id)))
+                    !is_dir(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'profile_images', $user->data()->id]))
+                    && !mkdir(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'profile_images', $user->data()->id]))
                 ) {
                     die('uploads/profile_images folder not writable! <a href="' . URL::build('/profile/' . urlencode($user->data()->username)) . '">Back</a>');
                 }
 
-                $image->setLocation(implode(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'uploads', 'profile_images', $user->data()->id)));
+                $image->setLocation(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'profile_images', $user->data()->id]));
                 break;
 
             default:
@@ -86,63 +86,61 @@ if (Input::exists()) {
                     die('Custom avatar uploading is disabled');
                 }
 
-                $image->setLocation(implode(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'uploads', 'avatars')));
+                $image->setLocation(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'avatars']));
                 $image->setName($user->data()->id);
                 break;
-
         }
 
         if ($image['file']) {
             try {
                 $upload = $image->upload();
 
-                if ($upload) {
-                    // OK
-                    // Avatar?
-                    if (Input::get('type') == 'avatar') {
-                        // Need to delete any other avatars
-                        $diff = array_diff($delete_extensions, array(strtolower($upload->getMime())));
-
-                        $to_remove = [];
-                        foreach ($diff as $extension) {
-                            $to_remove += glob(ROOT_PATH . '/uploads/avatars/' . $user->data()->id . '.' . $extension);
-                        }
-
-                        foreach ($to_remove as $item) {
-                            unlink($item);
-                        }
-
-                        $user->update(
-                            array(
-                                'has_avatar' => 1,
-                                'avatar_updated' => date('U')
-                            )
-                        );
-
-                        Redirect::to(URL::build('/user/settings'));
-                    }
-
+                if (!$upload) {
                     if (Input::get('type') == 'profile_banner') {
-                        $user->update(
-                            array(
-                                'banner' => Output::getClean($user->data()->id . '/' . $upload->getName() . '.' . $upload->getMime())
-                            )
-                        );
-
+                        Session::flash('profile_banner_error', $image->getError());
                         Redirect::to(URL::build('/profile/' . urlencode($user->data()->username)));
                     }
 
-                    die('OK');
-                } else {
                     http_response_code(400);
-                    echo $image["error"];
-                    die();
+                    die($image->getError());
                 }
+
+                // OK
+                // Avatar?
+                if (Input::get('type') == 'avatar') {
+                    // Need to delete any other avatars
+                    $diff = array_diff($delete_extensions, [strtolower($upload->getMime())]);
+
+                    $to_remove = [];
+                    foreach ($diff as $extension) {
+                        $to_remove += glob(ROOT_PATH . '/uploads/avatars/' . $user->data()->id . '.' . $extension);
+                    }
+
+                    foreach ($to_remove as $item) {
+                        unlink($item);
+                    }
+
+                    $user->update([
+                        'has_avatar' => 1,
+                        'avatar_updated' => date('U')
+                    ]);
+
+                    Redirect::to(URL::build('/user/settings'));
+                }
+
+                if (Input::get('type') == 'profile_banner') {
+                    $user->update([
+                        'banner' => Output::getClean($user->data()->id . '/' . $upload->getName() . '.' . $upload->getMime())
+                    ]);
+
+                    Redirect::to(URL::build('/profile/' . urlencode($user->data()->username)));
+                }
+
+                die('OK');
             } catch (Exception $e) {
                 // Error
                 http_response_code(400);
-                echo $e->getMessage();
-                die();
+                die($e->getMessage());
             }
         } else {
             if (Input::get('type') == 'avatar') {
@@ -151,11 +149,8 @@ if (Input::exists()) {
 
             die('No image selected');
         }
-    } else {
-        // Invalid token
-        if (Input::get('type') == 'background') {
-            Session::flash('admin_images', '<div class="alert alert-danger">' . $language->get('general', 'invalid_token') . '</div>');
-        }
+    } else if (Input::get('type') == 'background') {
+        Session::flash('admin_images', '<div class="alert alert-danger">' . $language->get('general', 'invalid_token') . '</div>');
     }
 }
 

@@ -21,17 +21,17 @@ class Core_Sitemap {
         $sitemap->addItem(URL::build('/login'), 0.8);
         $sitemap->addItem(URL::build('/register'));
 
-        $portal = file_get_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('portal_cache') . '.cache');
-        $portal = json_decode($portal);
-        $portal = unserialize($portal->portal->data);
+        $home_type = file_get_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('home_type') . '.cache');
+        $home_type = json_decode($home_type);
+        $home_type = unserialize($home_type->portal->data);
 
-        if ($portal == 1) {
+        if ($home_type === 'portal') {
             $sitemap->addItem(URL::build('/home'), 0.9);
         }
 
         $db = DB::getInstance();
 
-        $users = $db->selectQuery('SELECT username FROM nl2_users')->results();
+        $users = $db->query('SELECT username FROM nl2_users')->results();
 
         foreach ($users as $user) {
             $sitemap->addItem(URL::build('/profile/' . urlencode($user->username)));
@@ -39,7 +39,7 @@ class Core_Sitemap {
 
         $users = null;
 
-        $pages = $db->selectQuery('SELECT id, url FROM nl2_custom_pages WHERE sitemap = 1 AND id IN (SELECT page_id FROM nl2_custom_pages_permissions WHERE group_id = 0 AND `view` = 1)')->results();
+        $pages = $db->query('SELECT id, url FROM nl2_custom_pages WHERE sitemap = 1 AND id IN (SELECT page_id FROM nl2_custom_pages_permissions WHERE group_id = 0 AND `view` = 1)')->results();
 
         foreach ($pages as $page) {
             $sitemap->addItem(URL::build(urlencode($page->url)));

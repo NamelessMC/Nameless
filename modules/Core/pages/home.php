@@ -14,14 +14,11 @@ const PAGE = 'index';
 $page_title = $language->get('general', 'home');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-$template->addCSSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism_' . (DARK_MODE ? 'dark' : 'light_default') . '.css' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => []
-]);
-
-$template->addJSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => []
+$template->assets()->include([
+    DARK_MODE
+        ? AssetTree::PRISM_DARK
+        : AssetTree::PRISM_LIGHT,
+    AssetTree::TINYMCE_SPOILER,
 ]);
 
 if (Session::exists('home')) {
@@ -34,10 +31,14 @@ if (Session::exists('home_error')) {
     $smarty->assign('ERROR_TITLE', $language->get('general', 'error'));
 }
 
-if (isset($front_page_modules)) {
+$smarty->assign('HOME_TYPE', $home_type);
+
+if ($home_type === 'news') {
     foreach ($front_page_modules as $module) {
         require(ROOT_PATH . '/' . $module);
     }
+} else if ($home_type === 'custom') {
+    $smarty->assign('CUSTOM_HOME_CONTENT', Util::getSetting(DB::getInstance(), 'home_custom_content'));
 }
 
 // Assign to Smarty variables

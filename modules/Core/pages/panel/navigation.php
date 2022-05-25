@@ -42,7 +42,7 @@ if (Input::exists()) {
             foreach ($_POST['inputIcon'] as $key => $item) {
                 if (is_numeric($key)) {
                     // Custom page?
-                    $custom_page = $queries->getWhere('custom_pages', ['id', '=', $key]);
+                    $custom_page = $queries->getWhere('custom_pages', ['id', $key]);
                     if (count($custom_page)) {
                         $queries->update('custom_pages', $key, [
                             'icon' => $item

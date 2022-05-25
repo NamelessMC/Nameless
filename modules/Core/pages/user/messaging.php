@@ -293,7 +293,7 @@ if (!isset($_GET['action'])) {
 
         if (isset($_GET['uid'])) {
             // Messaging a specific user
-            $user_messaging = $queries->getWhere('users', ['id', '=', $_GET['uid']]);
+            $user_messaging = $queries->getWhere('users', ['id', $_GET['uid']]);
 
             if (count($user_messaging)) {
                 $smarty->assign('TO_USER', Output::getClean($user_messaging[0]->nickname));
@@ -315,19 +315,12 @@ if (!isset($_GET['action'])) {
                 'MESSAGE_TITLE_VALUE' => (isset($_POST['title']) ? Output::getPurified($_POST['title']) : ''),
                 'TO' => $language->get('user', 'to'),
                 'SEPARATE_USERS_WITH_COMMAS' => $language->get('user', 'separate_users_with_commas'),
-                'ALL_USERS' => $user->listAllUsers()
+                'ALL_USERS' => $user->listAllOtherUsers()
             ]
         );
 
-        $template->addCSSFiles([
-            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism_' . (DARK_MODE ? 'dark' : 'light_default') . '.css' => [],
-            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
-        ]);
-
-        $template->addJSFiles([
-            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
-            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
-            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
+        $template->assets()->include([
+            AssetTree::TINYMCE,
         ]);
 
         $template->addJSScript(Input::createTinyEditor($language, 'reply', $content));
@@ -403,7 +396,7 @@ if (!isset($_GET['action'])) {
                     );
 
                     // Update PM as unread for all users
-                    $users = $queries->getWhere('private_messages_users', ['pm_id', '=', $pm[0]->id]);
+                    $users = $queries->getWhere('private_messages_users', ['pm_id', $pm[0]->id]);
 
                     foreach ($users as $item) {
                         if ($item->user_id != $user->data()->id) {
@@ -438,7 +431,7 @@ if (!isset($_GET['action'])) {
         }
 
         // Get all PM replies
-        $pm_replies = $queries->getWhere('private_messages_replies', ['pm_id', '=', $_GET['message']]);
+        $pm_replies = $queries->getWhere('private_messages_replies', ['pm_id', $_GET['message']]);
 
         // Pagination
         $paginator = new Paginator(
@@ -502,15 +495,8 @@ if (!isset($_GET['action'])) {
 
         $content = (isset($_POST['content'])) ? EventHandler::executeEvent('renderPrivateMessageEdit', ['content' => $_POST['content']])['content'] : null;
 
-        $template->addCSSFiles([
-            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism_' . (DARK_MODE ? 'dark' : 'light_default') . '.css' => [],
-            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
-        ]);
-
-        $template->addJSFiles([
-            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
-            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
-            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
+        $template->assets()->include([
+            AssetTree::TINYMCE,
         ]);
 
         $template->addJSScript(Input::createTinyEditor($language, 'reply', $content));
@@ -533,12 +519,12 @@ if (!isset($_GET['action'])) {
             Redirect::to(URL::build('/user/messaging'));
         }
 
-        $message = $queries->getWhere('private_messages_users', ['pm_id', '=', $_GET['message']]);
+        $message = $queries->getWhere('private_messages_users', ['pm_id', $_GET['message']]);
 
         if (count($message)) {
             foreach ($message as $item) {
                 if ($item->user_id == $user->data()->id) {
-                    $queries->delete('private_messages_users', ['id', '=', $item->id]);
+                    $queries->delete('private_messages_users', ['id', $item->id]);
                     break;
                 }
             }

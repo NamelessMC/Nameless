@@ -1,4 +1,8 @@
 <?php
+if (PHP_SAPI !== 'cli') {
+    die('This script must be run from the command line.');
+}
+
 require 'vendor/autoload.php';
 require 'core/config.php';
 
@@ -6,6 +10,9 @@ $classes = [
     'Seeder.php',
     'UserSeeder.php',
     'UserProfilePostSeeder.php',
+    'MinecraftServerSeeder.php',
+    'MinecraftPlaceholderSeeder.php',
+    'MinecraftPlaceholderDataSeeder.php',
 ];
 
 foreach ($classes as $class) {
@@ -16,6 +23,9 @@ foreach ($classes as $class) {
 $seeders = [
     new UserSeeder,
     new UserProfilePostSeeder,
+    new MinecraftServerSeeder,
+    new MinecraftPlaceholderSeeder,
+    new MinecraftPlaceholderDataSeeder,
 ];
 
 $faker = Faker\Factory::create();
@@ -25,6 +35,8 @@ $db = DB_Custom::getInstance(
     $conf['mysql']['db'],
     $conf['mysql']['username'],
     $conf['mysql']['password'],
+    3306,
+    'nl2_'
 );
 
 $wipe = false;
@@ -41,7 +53,7 @@ if (!$wipe && $db->get('users', ['id', '>', 0])->count() > 0) {
 if ($wipe) {
     foreach ($seeders as $seeder) {
         foreach ($seeder->tables as $table) {
-            $db->selectQuery("DELETE FROM {$table}");
+            $db->query("TRUNCATE {$table}");
         }
     }
     print '🧨 Deleted existing data!' . PHP_EOL;

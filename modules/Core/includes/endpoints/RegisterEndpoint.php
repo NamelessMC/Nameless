@@ -19,22 +19,22 @@ class RegisterEndpoint extends KeyAuthEndpoint {
         $api->validateParams($_POST, ['username', 'email']);
 
         if (strlen($_POST['username']) > 20) {
-            $api->throwError(8, $api->getLanguage()->get('api', 'invalid_username'));
+            $api->throwError(CoreApiErrors::ERROR_INVALID_USERNAME);
         }
 
         if (strlen($_POST['email']) > 64) {
-            $api->throwError(7, $api->getLanguage()->get('api', 'invalid_email_address'));
+            $api->throwError(CoreApiErrors::ERROR_INVALID_EMAIL_ADDRESS);
         }
 
         // Validate email
         if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-            $api->throwError(7, $api->getLanguage()->get('api', 'invalid_email_address'));
+            $api->throwError(CoreApiErrors::ERROR_INVALID_EMAIL_ADDRESS);
         }
 
         // Ensure user doesn't already exist
-        $username = $api->getDb()->get('users', ['username', '=', Output::getClean($_POST['username'])]);
+        $username = $api->getDb()->get('users', ['username', Output::getClean($_POST['username'])]);
         if (count($username->results())) {
-            $api->throwError(11, $api->getLanguage()->get('api', 'username_already_exists'));
+            $api->throwError(CoreApiErrors::ERROR_USERNAME_ALREADY_EXISTS);
         }
 
         // Integrations
@@ -51,20 +51,20 @@ class RegisterEndpoint extends KeyAuthEndpoint {
                 if ($integration != null) {
                     // Validate username and make sure username is unique
                     if (!$integration->validateUsername($item['username'])) {
-                        $api->throwError(38, $integration->getErrors()[0]);
+                        $api->throwError($integration->getErrors()[0]);
                     }
 
                     // Validate identifier and make sure identifier is unique
                     if (!$integration->validateIdentifier($item['identifier'])) {
-                        $api->throwError(39, $integration->getErrors()[0]);
+                        $api->throwError($integration->getErrors()[0]);
                     }
                 }
             }
         }
 
-        $email = $api->getDb()->get('users', ['email', '=', Output::getClean($_POST['email'])]);
+        $email = $api->getDb()->get('users', ['email', Output::getClean($_POST['email'])]);
         if (count($email->results())) {
-            $api->throwError(10, $api->getLanguage()->get('api', 'email_already_exists'));
+            $api->throwError(CoreApiErrors::ERROR_EMAIL_ALREADY_EXISTS);
         }
 
         if (Util::getSetting($api->getDb(), 'email_verification', true)) {
@@ -95,7 +95,7 @@ class RegisterEndpoint extends KeyAuthEndpoint {
             if (!is_file(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('default_group') . '.cache')) {
                 // Not cached, cache now
                 // Retrieve from database
-                $default_group = $api->getDb()->get('groups', ['default_group', '=', 1]);
+                $default_group = $api->getDb()->get('groups', ['default_group', true]);
                 if (!$default_group->count()) {
                     $default_group = 1;
                 } else {
@@ -179,7 +179,7 @@ class RegisterEndpoint extends KeyAuthEndpoint {
             return ['user_id' => $user_id];
 
         } catch (Exception $e) {
-            $api->throwError(13, $api->getLanguage()->get('api', 'unable_to_create_account'), $e->getMessage());
+            $api->throwError(CoreApiErrors::ERROR_UNABLE_TO_CREATE_ACCOUNT, $e->getMessage());
         }
     }
 
@@ -219,7 +219,7 @@ class RegisterEndpoint extends KeyAuthEndpoint {
                     'user_id' => $user_id
             ]);
 
-            $api->throwError(14, $api->getLanguage()->get('api', 'unable_to_send_registration_email'));
+            $api->throwError(CoreApiErrors::ERROR_UNABLE_TO_SEND_REGISTRATION_EMAIL);
         }
 
         $api->returnArray(['message' => $api->getLanguage()->get('api', 'finish_registration_email')]);

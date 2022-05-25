@@ -253,7 +253,7 @@
     "admin/hook_edited": "Вебхук оновлено",
     "admin/hook_events": "Події для надсилання",
     "admin/hook_name": "Назва вебхука",
-    "admin/hook_select_info": "Only Hooks with 'New topic' selected as an event are shown.",
+    "admin\/hook_select_info": "Only Hooks with 'New topic' or 'Topic reply' selected as events are shown.",
     "admin/hook_type": "Тип вебхука",
     "admin/hook_url": "URL вебхука",
     "admin/hooks": "Вебхукі",
@@ -1110,8 +1110,5 @@
     "user/x_reactions": "{{count}} реакцій",
     "user/x_replies": "{{count}} відповідей",
     "user/you_have_been_banned": "Ви були забанені!",
-    "user/you_have_received_a_warning": "Ви отримали попередження!",
-    "version/feed": "Стіна",
-    "version/password": "Пароль",
-    "version/validation_error": "Відбулася невідома помилка під час перевірки вашого облікового запису, будь ласка, звʼяжіться з адміністратором сайту."
+    "user/you_have_received_a_warning": "Ви отримали попередження!"
 }

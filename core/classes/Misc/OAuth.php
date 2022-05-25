@@ -1,8 +1,6 @@
 <?php
 
 use League\OAuth2\Client\Provider\AbstractProvider;
-use League\OAuth2\Client\Provider\Google as GoogleProvider;
-use Wohali\OAuth2\Client\Provider\Discord as DiscordProvider;
 
 /**
  * OAuth utility class.
@@ -14,16 +12,8 @@ use Wohali\OAuth2\Client\Provider\Discord as DiscordProvider;
  */
 class OAuth extends Instanceable {
 
-    public const DISCORD = 'discord';
-    public const GOOGLE = 'google';
-
-    private const PROVIDERS = [
-        self::DISCORD,
-        self::GOOGLE,
-    ];
-
-    private DiscordProvider $_discord_provider;
-    private GoogleProvider $_google_provider;
+    private array $_providers = [];
+    private array $_provider_instances = [];
 
     private DB $_db;
 
@@ -32,12 +22,31 @@ class OAuth extends Instanceable {
     }
 
     /**
+     * Add an OAuth provider to the system.
+     *
+     * @param string $name The name of the provider (Discord, Google, etc).
+     * @param array $data Metadata about the provider: class, user_id_name, scope_id_name, icon
+     */
+    public function registerProvider(string $name, array $data): void {
+        $this->_providers[$name] = $data;
+    }
+
+    /**
+     * Get an array of all registered provider names and their data.
+     *
+     * @return array An array of all registered OAuth providers.
+     */
+    public function getProviders(): array {
+        return $this->_providers;
+    }
+
+    /**
      * Determine if OAuth is available if at least one provider is setup.
      *
      * @return bool If any provider is setup
      */
     public function isAvailable(): bool {
-        foreach (self::PROVIDERS as $provider) {
+        foreach (array_keys($this->_providers) as $provider) {
             if ($this->isSetup($provider)) {
                 return true;
             }
@@ -52,7 +61,7 @@ class OAuth extends Instanceable {
      */
     public function getProvidersAvailable(): array {
         $providers = [];
-        foreach (self::PROVIDERS as $provider_name) {
+        foreach ($this->_providers as $provider_name => $provider_data) {
             if (!$this->isSetup($provider_name)) {
                 continue;
             }
@@ -62,11 +71,11 @@ class OAuth extends Instanceable {
             $providers[$provider_name] = [
                 'url' => $provider->getAuthorizationUrl([
                     'scope' => [
-                        $provider_name === self::DISCORD ? 'identify' : 'openid',
+                        $provider_data['scope_id_name'],
                         'email',
                     ],
                 ]),
-                'icon' => $this->getIcon($provider_name),
+                'icon' => $provider_data['icon'],
             ];
         }
 
@@ -88,16 +97,11 @@ class OAuth extends Instanceable {
             'redirectUri' => $url,
         ];
 
-        switch ($provider) {
-            case self::DISCORD:
-                return $this->_discord_provider ??= new DiscordProvider($options);
-
-            case self::GOOGLE:
-                return $this->_google_provider ??= new GoogleProvider($options);
-
-            default:
-                throw new RuntimeException("Unknown provider: $provider");
+        if (array_key_exists($provider, $this->_providers)) {
+            return $this->_provider_instances[$provider] ??= new $this->_providers[$provider]['class']($options);
         }
+
+        throw new RuntimeException("Unknown provider: $provider");
     }
 
     /**
@@ -107,7 +111,7 @@ class OAuth extends Instanceable {
      * @return bool If the provider is enabled
      */
     public function isEnabled(string $provider): bool {
-        return $this->_db->get('oauth', ['provider', '=', $provider])->first()->enabled == '1';
+        return $this->_db->get('oauth', ['provider', $provider])->first()->enabled == '1';
     }
 
     /**
@@ -117,7 +121,7 @@ class OAuth extends Instanceable {
      * @param int $enabled Whether to enable or disable the provider
      */
     public function setEnabled(string $provider, int $enabled): void {
-        $this->_db->createQuery("UPDATE nl2_oauth SET enabled = ? WHERE provider = ?", [$enabled, $provider]);
+        $this->_db->query("UPDATE nl2_oauth SET enabled = ? WHERE provider = ?", [$enabled, $provider]);
     }
 
     /**
@@ -144,32 +148,12 @@ class OAuth extends Instanceable {
      * @param string $provider The provider name
      * @return string The array key for the provider's client ID
      */
-    public function getIdName(string $provider): string {
-        switch ($provider) {
-            case self::DISCORD:
-                return 'id';
-            case self::GOOGLE:
-                return 'sub';
-            default:
-                throw new RuntimeException("Unknown provider: $provider");
+    public function getUserIdName(string $provider): string {
+        if (array_key_exists($provider, $this->_providers)) {
+            return $this->_providers[$provider]['user_id_name'];
         }
-    }
 
-    /**
-     * Get the FontAwesome icon for a specific provider.
-     *
-     * @param string $provider The provider name
-     * @return string The FontAwesome icon for the provider
-     */
-    public function getIcon(string $provider): string {
-        switch ($provider) {
-            case self::DISCORD:
-                return 'fab fa-discord';
-            case self::GOOGLE:
-                return 'fab fa-google';
-            default:
-                throw new RuntimeException("Unknown provider: $provider");
-        }
+        throw new RuntimeException("Unknown provider: $provider");
     }
 
     /**
@@ -179,7 +163,7 @@ class OAuth extends Instanceable {
      * @return array The configured credentials for this provider
      */
     public function getCredentials(string $provider): array {
-        $data = $this->_db->get('oauth', ['provider', '=', $provider])->first();
+        $data = $this->_db->get('oauth', ['provider', $provider])->first();
         return [
             $data->client_id,
             $data->client_secret,
@@ -194,7 +178,7 @@ class OAuth extends Instanceable {
      * @param string $client_secret The new client secret
      */
     public function setCredentials(string $provider, string $client_id, string $client_secret): void {
-        $this->_db->createQuery(
+        $this->_db->query(
             'INSERT INTO nl2_oauth (provider, client_id, client_secret) VALUES(?, ?, ?) ON DUPLICATE KEY UPDATE client_id=?, client_secret=?',
             [$provider, $client_id, $client_secret, $client_id, $client_secret]
         );
@@ -208,7 +192,7 @@ class OAuth extends Instanceable {
      * @return bool Whether the user is already linked to the provider
      */
     public function userExistsByProviderId(string $provider, string $provider_id): bool {
-        return $this->_db->selectQuery(
+        return $this->_db->query(
             'SELECT user_id FROM nl2_oauth_users WHERE provider = ? AND provider_id = ?',
             [$provider, $provider_id]
         )->count() > 0;
@@ -222,7 +206,7 @@ class OAuth extends Instanceable {
      * @return int The NamelessMC user ID of the user linked to the provider
      */
     public function getUserIdFromProviderId(string $provider, string $provider_id): int {
-        return $this->_db->selectQuery(
+        return $this->_db->query(
             'SELECT user_id FROM nl2_oauth_users WHERE provider = ? AND provider_id = ?',
             [$provider, $provider_id]
         )->first()->user_id;
@@ -236,7 +220,7 @@ class OAuth extends Instanceable {
      * @param string $provider_id  The provider user ID
      */
     public function saveUserProvider(string $user_id, string $provider, string $provider_id): void {
-        $this->_db->createQuery(
+        $this->_db->query(
             'INSERT INTO nl2_oauth_users (user_id, provider, provider_id) VALUES (?, ?, ?)',
             [$user_id, $provider, $provider_id]
         );
@@ -249,7 +233,7 @@ class OAuth extends Instanceable {
      * @return array The array
      */
     public function getAllProvidersForUser(int $user_id): array {
-        return $this->_db->selectQuery(
+        return $this->_db->query(
             'SELECT * FROM nl2_oauth_users WHERE user_id = ?',
             [$user_id]
         )->results();
@@ -262,7 +246,7 @@ class OAuth extends Instanceable {
      * @param string $provider The provider user ID
      */
     public function unlinkProviderForUser(int $user_id, string $provider): void {
-        $this->_db->createQuery(
+        $this->_db->query(
             'DELETE FROM nl2_oauth_users WHERE user_id = ? AND provider = ?',
             [$user_id, $provider]
         );

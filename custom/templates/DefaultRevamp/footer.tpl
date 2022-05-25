@@ -13,6 +13,9 @@
               <span class="item" id="page_load"></span>
             {/if}
             <a class="item" href="javascript:" onclick="toggleDarkLightMode()">{$TOGGLE_DARK_MODE_TEXT}</a>
+            {if !$LOGGED_IN_USER}
+              <a class="item" href="javascript:" onclick="toggleAutoLanguage()" id="auto-language"></a>
+            {/if}
           </div>
         </div>
         <div class="{if $SOCIAL_MEDIA_ICONS|count > 0}five{else}eight{/if} wide column">
@@ -83,6 +86,19 @@
         });
 
       return false;
+    }
+
+    const autoLanguage = document.getElementById('auto-language');
+    const autoLanguageValue = $.cookie('auto_language') ?? 'true';
+    autoLanguage.innerText = '{$AUTO_LANGUAGE_TEXT} (' + (autoLanguageValue === 'true' ? '{$ENABLED}' : '{$DISABLED}') + ')';
+
+    function toggleAutoLanguage() {
+      $.cookie(
+              'auto_language',
+              autoLanguageValue === 'true' ? 'false' : 'true',
+              { path: '/' }
+      );
+      window.location.reload();
     }
   </script>
 

@@ -25,7 +25,7 @@ if (!isset($_GET['action'])) {
     $templates = $queries->getWhere('templates', ['id', '<>', 0]);
 
     // Get all active templates
-    $active_templates = $queries->getWhere('templates', ['enabled', '=', 1]);
+    $active_templates = $queries->getWhere('templates', ['enabled', true]);
 
     $current_template = $template;
 
@@ -36,7 +36,7 @@ if (!isset($_GET['action'])) {
     foreach ($templates as $item) {
         // Prevent the white screen error and delete template with duplicate name
         if (in_array($item->name, $loaded_templates)) {
-            $queries->delete('templates', ['id', '=', $item->id]);
+            $queries->delete('templates', ['id', $item->id]);
             continue;
         }
 
@@ -47,7 +47,7 @@ if (!isset($_GET['action'])) {
         if (file_exists($template_path)) {
             require($template_path);
         } else {
-            $queries->delete('templates', ['id', '=', $item->id]);
+            $queries->delete('templates', ['id', $item->id]);
             continue;
         }
 
@@ -166,7 +166,7 @@ if (!isset($_GET['action'])) {
                     $folders = explode(DIRECTORY_SEPARATOR, $directory);
 
                     // Is it already in the database?
-                    $exists = $queries->getWhere('templates', ['name', '=', $folders[count($folders) - 1]]);
+                    $exists = $queries->getWhere('templates', ['name', $folders[count($folders) - 1]]);
                     if (!count($exists) && file_exists(ROOT_PATH . DIRECTORY_SEPARATOR . 'custom' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . str_replace(['../', '/', '..'], '', $folders[count($folders) - 1]) . DIRECTORY_SEPARATOR . 'template.php')) {
                         $template = null;
                         require_once(ROOT_PATH . DIRECTORY_SEPARATOR . 'custom' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . str_replace(['../', '/', '..'], '', $folders[count($folders) - 1]) . DIRECTORY_SEPARATOR . 'template.php');
@@ -192,7 +192,7 @@ if (!isset($_GET['action'])) {
             if (Token::check()) {
                 // Activate a template
                 // Ensure it exists
-                $template = $queries->getWhere('templates', ['id', '=', $_GET['template']]);
+                $template = $queries->getWhere('templates', ['id', $_GET['template']]);
                 if (!count($template)) {
                     // Doesn't exist
                     Redirect::to(URL::build('/panel/core/templates/'));
@@ -228,7 +228,7 @@ if (!isset($_GET['action'])) {
             if (Token::check()) {
                 // Deactivate a template
                 // Ensure it exists
-                $template = $queries->getWhere('templates', ['id', '=', $_GET['template']]);
+                $template = $queries->getWhere('templates', ['id', $_GET['template']]);
                 if (!count($template)) {
                     // Doesn't exist
                     Redirect::to(URL::build('/panel/core/templates/'));
@@ -259,7 +259,7 @@ if (!isset($_GET['action'])) {
 
                 try {
                     // Ensure template is not default or active
-                    $template = $queries->getWhere('templates', ['id', '=', $item]);
+                    $template = $queries->getWhere('templates', ['id', $item]);
                     if (count($template)) {
                         $template = $template[0];
                         if ($template->name == 'DefaultRevamp' || $template->id == 1 || $template->enabled == 1 || $template->is_default == 1) {
@@ -278,7 +278,7 @@ if (!isset($_GET['action'])) {
                     }
 
                     // Delete from database
-                    $queries->delete('templates', ['name', '=', $item]);
+                    $queries->delete('templates', ['name', $item]);
                 } catch (Exception $e) {
                     Session::flash('admin_templates_error', $e->getMessage());
                 }
@@ -292,7 +292,7 @@ if (!isset($_GET['action'])) {
             if (Token::check()) {
                 // Make a template default
                 // Ensure it exists
-                $new_default = $queries->getWhere('templates', ['id', '=', $_GET['template']]);
+                $new_default = $queries->getWhere('templates', ['id', $_GET['template']]);
                 if (!count($new_default)) {
                     // Doesn't exist
                     Redirect::to(URL::build('/panel/core/templates/'));
@@ -302,7 +302,7 @@ if (!isset($_GET['action'])) {
                 $new_default = $new_default[0]->id;
 
                 // Get current default template
-                $current_default = $queries->getWhere('templates', ['is_default', '=', 1]);
+                $current_default = $queries->getWhere('templates', ['is_default', true]);
                 if (count($current_default)) {
                     $current_default = $current_default[0]->id;
                     // No longer default
@@ -337,7 +337,7 @@ if (!isset($_GET['action'])) {
             $current_template = $template;
 
             // Get the template
-            $template_query = $queries->getWhere('templates', ['id', '=', $_GET['template']]);
+            $template_query = $queries->getWhere('templates', ['id', $_GET['template']]);
             if (count($template_query)) {
                 $template_query = $template_query[0];
             } else {
@@ -379,7 +379,7 @@ if (!isset($_GET['action'])) {
             }
 
             // Get the template
-            $template_query = $queries->getWhere('templates', ['id', '=', $_GET['template']]);
+            $template_query = $queries->getWhere('templates', ['id', $_GET['template']]);
             if (count($template_query)) {
                 $template_query = $template_query[0];
             } else {
@@ -398,7 +398,7 @@ if (!isset($_GET['action'])) {
 
                     $perm_exists = 0;
 
-                    $perm_query = $queries->getWhere('groups_templates', ['template_id', '=', $template_query->id]);
+                    $perm_query = $queries->getWhere('groups_templates', ['template_id', $template_query->id]);
                     if (count($perm_query)) {
                         foreach ($perm_query as $query) {
                             if ($query->group_id == 0) {
@@ -471,8 +471,8 @@ if (!isset($_GET['action'])) {
             }
 
             // Get permissions
-            $guest_query = DB::getInstance()->selectQuery('SELECT 0 AS id, can_use_template FROM nl2_groups_templates WHERE group_id = 0 AND template_id = ?', [$template_query->id])->results();
-            $group_query = DB::getInstance()->selectQuery('SELECT id, `name`, can_use_template FROM nl2_groups A LEFT JOIN (SELECT group_id, can_use_template FROM nl2_groups_templates WHERE template_id = ?) B ON A.id = B.group_id ORDER BY `order` ASC', [$template_query->id])->results();
+            $guest_query = DB::getInstance()->query('SELECT 0 AS id, can_use_template FROM nl2_groups_templates WHERE group_id = 0 AND template_id = ?', [$template_query->id])->results();
+            $group_query = DB::getInstance()->query('SELECT id, `name`, can_use_template FROM nl2_groups A LEFT JOIN (SELECT group_id, can_use_template FROM nl2_groups_templates WHERE template_id = ?) B ON A.id = B.group_id ORDER BY `order` ASC', [$template_query->id])->results();
 
             $smarty->assign([
                 'EDITING_TEMPLATE' => $language->get('admin', 'editing_template_x', [
@@ -500,7 +500,7 @@ if (!isset($_GET['action'])) {
                 Redirect::to(URL::build('/panel/core/templates'));
             }
             // Get the template
-            $template_query = $queries->getWhere('templates', ['id', '=', $_GET['template']]);
+            $template_query = $queries->getWhere('templates', ['id', $_GET['template']]);
             if (count($template_query)) {
                 $template_query = $template_query[0];
             } else {

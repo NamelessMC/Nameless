@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         try {
             $queries = new Queries();
 
-            $default_language = $queries->getWhere('languages', ['is_default', '=', 1]);
+            $default_language = $queries->getWhere('languages', ['is_default', true]);
 
             $ip = Util::getRemoteAddress();
 
@@ -99,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 Redirect::to('?step=conversion');
             }
 
-            $queries->delete('users', ['id', '=', 1]);
+            $queries->delete('users', ['id', 1]);
             display_error($language->get('installer', 'unable_to_login'));
         } catch (Exception $e) {
             display_error($language->get('installer', 'unable_to_create_account') . ': ' . $e->getMessage());

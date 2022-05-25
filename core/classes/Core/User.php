@@ -107,13 +107,13 @@ class User {
                 return true;
             }
 
-            $data = $this->_db->get('users', [$field, '=', $value]);
+            $data = $this->_db->get('users', [$field, $value]);
 
             if ($data->count()) {
                 $this->_data = new UserData($data->first());
 
                 // Get user groups
-                $groups_query = $this->_db->selectQuery('SELECT nl2_groups.* FROM nl2_users_groups INNER JOIN nl2_groups ON group_id = nl2_groups.id WHERE user_id = ? AND deleted = 0 ORDER BY `order`;', [$this->data()->id]);
+                $groups_query = $this->_db->query('SELECT nl2_groups.* FROM nl2_users_groups INNER JOIN nl2_groups ON group_id = nl2_groups.id WHERE user_id = ? AND deleted = 0 ORDER BY `order`;', [$this->data()->id]);
 
                 if ($groups_query->count()) {
 
@@ -130,12 +130,12 @@ class User {
                 } else {
                     // Get default group
                     // TODO: Use PRE_VALIDATED_DEFAULT ?
-                    $default_group = $this->_db->selectQuery('SELECT * FROM nl2_groups WHERE default_group = 1', [])->first();
+                    $default_group = $this->_db->query('SELECT * FROM nl2_groups WHERE default_group = 1', [])->first();
                     if ($default_group) {
                         $default_group_id = $default_group->id;
                     } else {
                         $default_group_id = 1; // default to 1
-                        $default_group = $this->_db->selectQuery('SELECT * FROM nl2_groups WHERE id = 1', [])->first();
+                        $default_group = $this->_db->query('SELECT * FROM nl2_groups WHERE id = 1', [])->first();
                     }
 
                     $this->addGroup($default_group_id, 0, $default_group);
@@ -162,7 +162,7 @@ class User {
             return false;
         }
 
-        $this->_db->createQuery(
+        $this->_db->query(
             'INSERT INTO `nl2_users_groups` (`user_id`, `group_id`, `received`, `expire`) VALUES (?, ?, ?, ?)',
             [
                 $this->data()->id,
@@ -180,6 +180,13 @@ class User {
         } else {
             $this->_groups[$group_id] = new Group($group_data);
         }
+
+        EventHandler::executeEvent('userGroupAdded', [
+            'username' => $this->data()->username,
+            'user_id' => $this->data()->id,
+            'group_id' => $group_id,
+            'group_name' => $this->_groups[$group_id]->name,
+        ]);
 
         return true;
     }
@@ -253,7 +260,7 @@ class User {
      * @return ?string Their username, null on failure.
      */
     public function idToName(int $id): ?string {
-        $data = $this->_db->get('users', ['id', '=', $id]);
+        $data = $this->_db->get('users', ['id', $id]);
 
         if ($data->count()) {
             $results = $data->results();
@@ -271,7 +278,7 @@ class User {
      * @return ?string Their nickname, null on failure.
      */
     public function idToNickname(int $id): ?string {
-        $data = $this->_db->get('users', ['id', '=', $id]);
+        $data = $this->_db->get('users', ['id', $id]);
 
         if ($data->count()) {
             $results = $data->results();
@@ -309,7 +316,7 @@ class User {
             if ($remember) {
                 $hash = Hash::unique();
                 $table = $is_admin ? 'users_admin_session' : 'users_session';
-                $hashCheck = $this->_db->get($table, ['user_id', '=', $this->data()->id]);
+                $hashCheck = $this->_db->get($table, ['user_id', $this->data()->id]);
 
                 if (!$hashCheck->count()) {
                     $this->_db->insert($table, [
@@ -417,7 +424,7 @@ class User {
     }
 
     /**
-     * Get all of a user's groups id.
+     * Get all of a user's groups id. Logged out/non-existent users will return just `0`.
      *
      * @return array Array of all their group IDs.
      */
@@ -527,7 +534,7 @@ class User {
      * Deletes their cookies, sessions and database session entry.
      */
     public function logout(): void {
-        $this->_db->delete('users_session', ['user_id', '=', $this->data()->id]);
+        $this->_db->delete('users_session', ['user_id', $this->data()->id]);
 
         Session::delete($this->_sessionName);
         Cookie::delete($this->_cookieName);
@@ -537,7 +544,7 @@ class User {
      * Process logout if user is admin
      */
     public function admLogout(): void {
-        $this->_db->delete('users_admin_session', ['user_id', '=', $this->data()->id]);
+        $this->_db->delete('users_admin_session', ['user_id', $this->data()->id]);
 
         Session::delete($this->_admSessionName);
         Cookie::delete($this->_cookieName . '_adm');
@@ -561,7 +568,7 @@ class User {
         return $this->_integrations ??= (function (): array {
             $integrations = Integrations::getInstance();
 
-            $integrations_query = $this->_db->selectQuery('SELECT nl2_users_integrations.*, nl2_integrations.name as integration_name FROM nl2_users_integrations LEFT JOIN nl2_integrations ON integration_id=nl2_integrations.id WHERE user_id = ?', [$this->data()->id]);
+            $integrations_query = $this->_db->query('SELECT nl2_users_integrations.*, nl2_integrations.name as integration_name FROM nl2_users_integrations LEFT JOIN nl2_integrations ON integration_id=nl2_integrations.id WHERE user_id = ?', [$this->data()->id]);
             if ($integrations_query->count()) {
                 $integrations_query = $integrations_query->results();
 
@@ -654,9 +661,9 @@ class User {
         if ($this->data()->id == 1) {
             return false;
         }
-        $this->_db->createQuery('DELETE FROM `nl2_users_groups` WHERE `user_id` = ?', [$this->data()->id]);
+        $this->_db->query('DELETE FROM `nl2_users_groups` WHERE `user_id` = ?', [$this->data()->id]);
 
-        $this->_db->createQuery(
+        $this->_db->query(
             'INSERT INTO `nl2_users_groups` (`user_id`, `group_id`, `received`, `expire`) VALUES (?, ?, ?, ?)',
             [
                 $this->data()->id,
@@ -693,13 +700,20 @@ class User {
             return false;
         }
 
-        $this->_db->createQuery(
+        $this->_db->query(
             'DELETE FROM `nl2_users_groups` WHERE `user_id` = ? AND `group_id` = ?',
             [
                 $this->data()->id,
                 $group_id
             ]
         );
+
+        EventHandler::executeEvent('userGroupRemoved', [
+            'username' => $this->data()->username,
+            'user_id' => $this->data()->id,
+            'group_id' => $group_id,
+            'group_name' => $this->_groups[$group_id]->name,
+        ]);
 
         unset($this->_groups[$group_id]);
 
@@ -716,20 +730,20 @@ class User {
     }
 
     /**
-     * Get a comma separated string of all users.
+     * Get a comma separated string of all other users.
      * For the new private message dropdown.
      *
-     * @return string CSV list of user's usernames.
+     * @return array Array of usernames.
      */
-    public function listAllUsers(): string {
-        $data = $this->_db->get('users', ['id', '<>', '0'])->results();
-        $return = '';
+    public function listAllOtherUsers(): array {
+        $data = $this->_db->query("SELECT `username` FROM `nl2_users` WHERE `id` <> ?", [$this->data()->id])->results();
+        $return = [];
 
         foreach ($data as $item) {
-            $return .= '"' . $item->username . '",';
+            $return[] = $item->username;
         }
 
-        return rtrim($return, ',');
+        return $return;
     }
 
     /**
@@ -740,7 +754,7 @@ class User {
      * @return ?int ID on success, null on failure.
      */
     public function nameToId(string $username): ?int {
-        $data = $this->_db->get('users', ['username', '=', $username]);
+        $data = $this->_db->get('users', ['username', $username]);
 
         if ($data->count()) {
             $results = $data->results();
@@ -757,7 +771,7 @@ class User {
      * @return ?int ID on success, false on failure.
      */
     public function emailToId(string $email): ?int {
-        $data = $this->_db->get('users', ['email', '=', $email]);
+        $data = $this->_db->get('users', ['email', $email]);
 
         if ($data->count()) {
             $results = $data->results();
@@ -777,21 +791,20 @@ class User {
         $return = []; // Array to return containing info of PMs
 
         // Get a list of PMs which the user is in
-        $data = $this->_db->get('private_messages_users', ['user_id', '=', $user_id]);
+        $data = $this->_db->get('private_messages_users', ['user_id', $user_id]);
 
         if ($data->count()) {
             $data = $data->results();
             foreach ($data as $result) {
                 // Get a list of users who are in this conversation and return them as an array
-                $pms = $this->_db->get('private_messages_users', ['pm_id', '=', $result->pm_id])->results();
+                $pms = $this->_db->get('private_messages_users', ['pm_id', $result->pm_id])->results();
                 $users = []; // Array containing users with permission
                 foreach ($pms as $pm) {
                     $users[] = $pm->user_id;
                 }
 
                 // Get the PM data
-                $pm = $this->_db->get('private_messages', ['id', '=', $result->pm_id])->results();
-                $pm = $pm[0];
+                $pm = $this->_db->get('private_messages', ['id', $result->pm_id])->first();
 
                 $return[$pm->id]['id'] = $pm->id;
                 $return[$pm->id]['title'] = $pm->title;
@@ -819,13 +832,13 @@ class User {
      */
     public function getPM(int $pm_id, int $user_id): ?array {
         // Get the PM - is the user the author?
-        $data = $this->_db->get('private_messages', ['id', '=', $pm_id]);
+        $data = $this->_db->get('private_messages', ['id', $pm_id]);
         if ($data->count()) {
             $data = $data->results();
             $data = $data[0];
 
             // Does the user have permission to view the PM?
-            $pms = $this->_db->get('private_messages_users', ['pm_id', '=', $pm_id])->results();
+            $pms = $this->_db->get('private_messages_users', ['pm_id', $pm_id])->results();
             foreach ($pms as $pm) {
                 if ($pm->user_id == $user_id) {
                     $has_permission = true;
@@ -846,12 +859,6 @@ class User {
             }
 
             // User has permission, return the PM information
-
-            // Get a list of users in the conversation
-            if (!isset($pms)) {
-                $pms = $this->_db->get('private_messages_users', ['pm_id', '=', $pm_id])->results();
-            }
-
             $users = []; // Array to store users
             foreach ($pms as $pm) {
                 $users[] = $pm->user_id;
@@ -880,12 +887,12 @@ class User {
             } else {
                 $_SESSION['last_page'] = URL::build($split[0]);
             }
+
+            if (defined('CONFIG_PATH')) {
+                $_SESSION['last_page'] = substr($_SESSION['last_page'], strlen(CONFIG_PATH));
+            }
         } else {
             $_SESSION['last_page'] = URL::build($_GET['route']);
-        }
-
-        if (defined('CONFIG_PATH')) {
-            $_SESSION['last_page'] = substr($_SESSION['last_page'], strlen(CONFIG_PATH));
         }
 
         if (!$this->isLoggedIn()) {
@@ -938,7 +945,7 @@ class User {
      * @return array<int, UserProfileField> Array of profile fields.
      */
     public function getProfileFields(bool $show_private = false, bool $only_forum = false): array {
-        $rows = DB::getInstance()->selectQuery('SELECT pf.*, upf.id as upf_id, upf.value FROM nl2_profile_fields pf LEFT JOIN nl2_users_profile_fields upf ON (pf.id = upf.field_id AND upf.user_id = ?)', [
+        $rows = DB::getInstance()->query('SELECT pf.*, upf.id as upf_id, upf.value, upf.updated FROM nl2_profile_fields pf LEFT JOIN nl2_users_profile_fields upf ON (pf.id = upf.field_id AND upf.user_id = ?)', [
             $this->data()->id,
         ])->results();
 
@@ -967,7 +974,7 @@ class User {
      */
     public function isBlocked(int $user, int $blocked): bool {
         if ($user && $blocked) {
-            $possible_users = $this->_db->get('blocked_users', ['user_id', '=', $user]);
+            $possible_users = $this->_db->get('blocked_users', ['user_id', $user]);
             if ($possible_users->count()) {
                 $possible_users = $possible_users->results();
 
@@ -1001,7 +1008,7 @@ class User {
      * @return bool Whether profile privatizing is allowed and if they have permission to use it.
      */
     public function canPrivateProfile(): bool {
-        $settings_data = $this->_db->get('settings', ['name', '=', 'private_profile']);
+        $settings_data = $this->_db->get('settings', ['name', 'private_profile']);
         $settings_results = $settings_data->results();
 
         return (($settings_results[0]->value == 1) && ($this->hasPermission('usercp.private_profile')));
@@ -1028,7 +1035,7 @@ class User {
         }
         $groups = rtrim($groups, ',') . ')';
 
-        return $this->_db->selectQuery('SELECT template.id, template.name FROM nl2_templates AS template WHERE template.enabled = 1 AND template.id IN (SELECT template_id FROM nl2_groups_templates WHERE can_use_template = 1 AND group_id IN ' . $groups . ')')->results();
+        return $this->_db->query('SELECT template.id, template.name FROM nl2_templates AS template WHERE template.enabled = 1 AND template.id IN (SELECT template_id FROM nl2_groups_templates WHERE can_use_template = 1 AND group_id IN ' . $groups . ')')->results();
     }
 
     /**
@@ -1049,7 +1056,7 @@ class User {
 
             $last_updated = time();
 
-            $this->_db->createQuery('INSERT INTO nl2_users_placeholders (server_id, uuid, name, value, last_updated) VALUES (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE value = ?, last_updated = ?', [
+            $this->_db->query('INSERT INTO nl2_users_placeholders (server_id, uuid, name, value, last_updated) VALUES (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE value = ?, last_updated = ?', [
                 $server_id,
                 $uuid,
                 $name,

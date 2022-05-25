@@ -23,7 +23,7 @@ class OnlineStaffWidget extends WidgetBase {
         $this->_smarty = $smarty;
         $this->_language = $language;
 
-        parent::__construct(self::parsePages($widget_query->pages));
+        parent::__construct(self::parsePages($widget_query));
 
         // Set widget variables
         $this->_module = 'Core';
@@ -39,7 +39,7 @@ class OnlineStaffWidget extends WidgetBase {
         if ($this->_cache->isCached('staff')) {
             $online = $this->_cache->retrieve('staff');
         } else {
-            $online = DB::getInstance()->selectQuery('SELECT U.id FROM nl2_users AS U JOIN nl2_users_groups AS UG ON (U.id = UG.user_id) JOIN nl2_groups AS G ON (UG.group_id = G.id) WHERE G.order = (SELECT min(iG.`order`) FROM nl2_users_groups AS iUG JOIN nl2_groups AS iG ON (iUG.group_id = iG.id) WHERE iUG.user_id = U.id GROUP BY iUG.user_id ORDER BY NULL) AND U.last_online > ' . strtotime('-5 minutes') . ' AND G.staff = 1', [])->results();
+            $online = DB::getInstance()->query('SELECT U.id FROM nl2_users AS U JOIN nl2_users_groups AS UG ON (U.id = UG.user_id) JOIN nl2_groups AS G ON (UG.group_id = G.id) WHERE G.order = (SELECT min(iG.`order`) FROM nl2_users_groups AS iUG JOIN nl2_groups AS iG ON (iUG.group_id = iG.id) WHERE iUG.user_id = U.id GROUP BY iUG.user_id ORDER BY NULL) AND U.last_online > ' . strtotime('-5 minutes') . ' AND G.staff = 1', [])->results();
             $this->_cache->store('staff', $online, 120);
         }
 

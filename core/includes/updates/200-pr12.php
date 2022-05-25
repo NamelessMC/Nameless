@@ -5,17 +5,17 @@ class Pre13 extends UpgradeScript {
     public function run(): void {
         // Default night mode to null instead of 0
         $this->databaseQuery(function (DB $db) {
-            $db->createQuery('ALTER TABLE nl2_users MODIFY night_mode tinyint(1) DEFAULT NULL NULL');
+            $db->query('ALTER TABLE nl2_users MODIFY night_mode tinyint(1) DEFAULT NULL NULL');
         });
 
         // Default log table user IP to null
         $this->databaseQuery(function (DB $db) {
-            $db->createQuery('ALTER TABLE nl2_logs MODIFY ip varchar(128) DEFAULT NULL NULL');
+            $db->query('ALTER TABLE nl2_logs MODIFY ip varchar(128) DEFAULT NULL NULL');
         });
 
         // Cookie policy
         $this->databaseQuery(function (DB $db) {
-            if (!$db->selectQuery('SELECT `id` FROM nl2_privacy_terms WHERE `name` = ?', ['cookies'])->count()) {
+            if (!$db->query('SELECT `id` FROM nl2_privacy_terms WHERE `name` = ?', ['cookies'])->count()) {
                 $db->insert('privacy_terms', array(
                     'name' => 'cookies',
                     'value' => '<span style="font-size:18px"><strong>What are cookies?</strong></span><br />Cookies are small files which are stored on your device by a website, unique to your web browser. The web browser will send these files to the website each time it communicates with the website.<br />Cookies are used by this website for a variety of reasons which are outlined below.<br /><br /><strong>Necessary cookies</strong><br />Necessary cookies are required for this website to function. These are used by the website to maintain your session, allowing for you to submit any forms, log into the website amongst other essential behaviour. It is not possible to disable these within the website, however you can disable cookies altogether via your browser.<br /><br /><strong>Functional cookies</strong><br />Functional cookies allow for the website to work as you choose. For example, enabling the &quot;Remember Me&quot; option as you log in will create a functional cookie to automatically log you in on future visits.<br /><br /><strong>Analytical cookies</strong><br />Analytical cookies allow both this website, and any third party services used by this website, to collect non-personally identifiable data about the user. This allows us (the website staff) to continue to improve the user experience and understand how the website is used.<br /><br />Further information about cookies can be found online, including the <a rel="nofollow noopener" target="_blank" href="https://ico.org.uk/your-data-matters/online/cookies/">ICO&#39;s website</a> which contains useful links to further documentation about configuring your browser.<br /><br /><span style="font-size:18px"><strong>Configuring cookie use</strong></span><br />By default, only necessary cookies are used by this website. However, some website functionality may be unavailable until the use of cookies has been opted into.<br />You can opt into, or continue to disallow, the use of cookies using the cookie notice popup on this website. If you would like to update your preference, the cookie notice popup can be re-enabled by clicking the button below.'
@@ -25,12 +25,12 @@ class Pre13 extends UpgradeScript {
 
         // delete old "version" row
         $this->databaseQuery(function (DB $db) {
-            $db->createQuery('DELETE FROM nl2_settings WHERE `name` = ?', ['version']);
+            $db->query('DELETE FROM nl2_settings WHERE `name` = ?', ['version']);
         });
 
         // oauth
         $this->databaseQuery(function (DB $db) {
-            $db->createQuery("CREATE TABLE `nl2_oauth` (
+            $db->query("CREATE TABLE `nl2_oauth` (
                                         `provider` varchar(256) NOT NULL,
                                         `enabled` tinyint(1) NOT NULL DEFAULT '0',
                                         `client_id` varchar(256) DEFAULT NULL,
@@ -38,7 +38,7 @@ class Pre13 extends UpgradeScript {
                                         PRIMARY KEY (`provider`),
                                         UNIQUE KEY `id` (`provider`)
                                     ) ENGINE=$this->_db_engine DEFAULT CHARSET=$this->_db_charset");
-            $db->createQuery("CREATE TABLE `nl2_oauth_users` (
+            $db->query("CREATE TABLE `nl2_oauth_users` (
                                       `user_id` int NOT NULL,
                                       `provider` varchar(256) NOT NULL,
                                       `provider_id` varchar(256) NOT NULL,
@@ -72,14 +72,14 @@ class Pre13 extends UpgradeScript {
 
         $this->databaseQuery(
             function (DB $db) {
-                $db->createQuery('ALTER TABLE `nl2_users_integrations` ADD INDEX `nl2_users_integrations_idx_integration_id` (`integration_id`)');
-                $db->createQuery('ALTER TABLE `nl2_users_integrations` ADD INDEX `nl2_users_integrations_idx_user_id` (`user_id`)');
+                $db->query('ALTER TABLE `nl2_users_integrations` ADD INDEX `nl2_users_integrations_idx_integration_id` (`integration_id`)');
+                $db->query('ALTER TABLE `nl2_users_integrations` ADD INDEX `nl2_users_integrations_idx_user_id` (`user_id`)');
             }
         );
 
         // Convert users integrations
         $this->databaseQuery(function (DB $db) {
-            $users = $db->selectQuery('SELECT id, username, uuid, discord_id, discord_username, joined FROM nl2_users')->results();
+            $users = $db->query('SELECT id, username, uuid, discord_id, discord_username, joined FROM nl2_users')->results();
             $query = 'INSERT INTO nl2_users_integrations (integration_id, user_id, identifier, username, verified, date) VALUES ';
             foreach ($users as $item) {
                 $inserts = [];
@@ -94,32 +94,32 @@ class Pre13 extends UpgradeScript {
 
                 $query .= implode('', $inserts);
             }
-            $db->createQuery(rtrim($query, ','));
+            $db->query(rtrim($query, ','));
 
             // Only delete after successful conversion
-            $db->createQuery('ALTER TABLE `nl2_users` DROP COLUMN `uuid`;');
-            $db->createQuery('ALTER TABLE `nl2_users` DROP COLUMN `discord_id`;');
-            $db->createQuery('ALTER TABLE `nl2_users` DROP COLUMN `discord_username`;');
+            $db->query('ALTER TABLE `nl2_users` DROP COLUMN `uuid`;');
+            $db->query('ALTER TABLE `nl2_users` DROP COLUMN `discord_id`;');
+            $db->query('ALTER TABLE `nl2_users` DROP COLUMN `discord_username`;');
         });
 
         // Add bedrock to nl2_mc_servers table
         $this->databaseQuery(function (DB $db) {
-            $db->createQuery('ALTER TABLE `nl2_mc_servers` ADD `bedrock` tinyint(1) NOT NULL DEFAULT \'0\'');
+            $db->query('ALTER TABLE `nl2_mc_servers` ADD `bedrock` tinyint(1) NOT NULL DEFAULT \'0\'');
         });
 
         // Increase length of name column
         $this->databaseQuery(function (DB $db) {
-            $db->createQuery('ALTER TABLE nl2_mc_servers MODIFY `name` VARCHAR(128) NOT NULL');
+            $db->query('ALTER TABLE nl2_mc_servers MODIFY `name` VARCHAR(128) NOT NULL');
         });
 
         // add unique constraint to modules table
         $this->databaseQuery(function (DB $db) {
-            $db->createQuery('ALTER TABLE nl2_modules ADD UNIQUE (`name`)');
+            $db->query('ALTER TABLE nl2_modules ADD UNIQUE (`name`)');
         });
 
         // Increase length of reset_code column
         $this->databaseQuery(function (DB $db) {
-            $db->createQuery('ALTER TABLE nl2_users MODIFY `reset_code` VARCHAR(64) NOT NULL');
+            $db->query('ALTER TABLE nl2_users MODIFY `reset_code` VARCHAR(64) NOT NULL');
         });
 
         // delete language cache since it will contain the old language names and not the short codes
@@ -128,9 +128,9 @@ class Pre13 extends UpgradeScript {
 
         // add short code column to languages table
         $this->databaseQuery(function (DB $db) {
-            $db->createQuery('ALTER TABLE nl2_languages ADD `short_code` VARCHAR(64) NOT NULL');
+            $db->query('ALTER TABLE nl2_languages ADD `short_code` VARCHAR(64) NOT NULL');
 
-            $languages = $db->selectQuery('SELECT * FROM nl2_languages')->results();
+            $languages = $db->query('SELECT * FROM nl2_languages')->results();
             $converted_languages = [];
             foreach (Language::LANGUAGES as $short_code => $meta) {
                 $key = array_search(str_replace(' ', '', $meta['name']), array_column($languages, 'name'));
@@ -152,19 +152,89 @@ class Pre13 extends UpgradeScript {
                 }
             }
 
-            $db->createQuery('DELETE FROM nl2_languages WHERE `short_code` IS NULL');
+            $db->query('DELETE FROM nl2_languages WHERE `short_code` IS NULL');
 
-            $default_language = $db->selectQuery('SELECT id FROM nl2_languages WHERE `is_default` = 1');
+            $default_language = $db->query('SELECT id FROM nl2_languages WHERE `is_default` = 1');
 
             if (!$default_language->count()) {
                 // Default to 1 (EnglishUK)
                 $default_language = 1;
-                $db->createQuery('UPDATE nl2_languages SET `is_default` = 1 WHERE `id` = 1');
+                $db->query('UPDATE nl2_languages SET `is_default` = 1 WHERE `id` = 1');
             } else {
                 $default_language = $default_language->first()->id;
             }
 
-            $db->createQuery('UPDATE nl2_users SET `language_id` = ? WHERE `language_id` NOT IN (' . implode(', ', $converted_languages) . ')', [$default_language]);
+            $db->query('UPDATE nl2_users SET `language_id` = ? WHERE `language_id` NOT IN (' . implode(', ', $converted_languages) . ')', [$default_language]);
+        });
+
+        // add updated column to users profile fields
+        $this->databaseQuery(function (DB $db) {
+            $db->addColumn('users_profile_fields', 'updated', 'int(11)');
+        });
+
+        // delete old class files
+        $this->deleteFiles([
+            'core/classes/Alert.php',
+            'core/classes/Announcements.php',
+            'core/classes/AvatarSource.php',
+            'core/classes/Cache.php',
+            'core/classes/CaptchaBase.php',
+            'core/classes/CollectionItemBase.php',
+            'core/classes/CollectionManager.php',
+            'core/classes/Config.php',
+            'core/classes/Configuration.php',
+            'core/classes/Cookie.php',
+            'core/classes/DB.php',
+            'core/classes/DB_Custom.php',
+            'core/classes/Discord.php',
+            'core/classes/Email.php',
+            'core/classes/EndpointBase.php',
+            'core/classes/Endpoints.php',
+            'core/classes/ErrorHandler.php',
+            'core/classes/ExternalMCQuery.php',
+            'core/classes/Hash.php',
+            'core/classes/HookHandler.php',
+            'core/classes/Input.php',
+            'core/classes/Language.php',
+            'core/classes/Log.php',
+            'core/classes/MCAssoc.php',
+            'core/classes/MCQuery.php',
+            'core/classes/MentionsParser.php',
+            'core/classes/MinecraftBanner.php',
+            'core/classes/MinecraftPing.php',
+            'core/classes/Module.php',
+            'core/classes/Navigation.php',
+            'core/classes/Output.php',
+            'core/classes/Pages.php',
+            'core/classes/Paginator.php',
+            'core/classes/PermissionHandler.php',
+            'core/classes/Placeholders.php',
+            'core/classes/Queries.php',
+            'core/classes/Redirect.php',
+            'core/classes/Report.php',
+            'core/classes/ServerBanner.php',
+            'core/classes/Session.php',
+            'core/classes/TemplateBase.php',
+            'core/classes/Timeago.php',
+            'core/classes/Token.php',
+            'core/classes/URL.php',
+            'core/classes/User.php',
+            'core/classes/Util.php',
+            'core/classes/Validate.php',
+            'core/classes/WidgetBase.php',
+            'core/classes/Widgets.php',
+        ]);
+
+        // delete old home type cache & update new cache
+        $this->_cache->setCache('portal_cache');
+        $portal = $this->_cache->retrieve('portal');
+        $this->_cache->eraseAll();
+        $this->_cache->setCache('home_type');
+        $this->_cache->store('type', $home_type = ($portal ? 'portal' : 'news'));
+        $this->databaseQuery(function (DB $db) use ($home_type) {
+            $db->query("DELETE FROM nl2_settings WHERE `name` = 'portal'");
+            $db->query("INSERT INTO nl2_settings (`name`, `value`) VALUES ('home_type', ?)", [$home_type]);
+            $db->query("INSERT INTO nl2_settings (`name`, `value`) VALUES ('home_custom_content', null)");
         });
 
         $this->setVersion('2.0.0-pr13');

@@ -180,5 +180,12 @@
     "forum/x_posts": "{{count}} mensajes",
     "forum/x_topics": "{{count}} temas",
     "forum/your_posts": "Tu número de publicaciones",
-    "forum/post_id": "ID del post"
+    "forum/post_id": "ID del post",
+    "forum/pre_post_create_hook_info": "Previo a la creación del post",
+    "forum/pre_post_edit_hook_info": "Previo a la edición del post",
+    "forum/pre_topic_create_hook_info": "Previo a la creación del tema",
+    "forum/pre_topic_edit_hook_info": "Previo a la edición del tema",
+    "forum/user_object": "Objeto del usuario",
+    "forum/topic_id": "ID del tema",
+    "forum/no_news": "No hay entradas de noticias."
 }

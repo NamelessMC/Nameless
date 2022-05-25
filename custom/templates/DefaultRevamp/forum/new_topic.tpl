@@ -26,7 +26,7 @@
         <form class="ui form" action="" method="post" id="form-new-topic">
           <div class="field">
             <label for="title">{$TOPIC_TITLE}</label>
-            <input type="text" id="title" name="title" placeholder="{$TOPIC_TITLE}" maxlength="64">
+            <input type="text" id="title" name="title" placeholder="{$TOPIC_TITLE}" maxlength="64" value="{$TOPIC_VALUE}">
           </div>
           {if count($LABELS)}
             <div class="inline fields labels">

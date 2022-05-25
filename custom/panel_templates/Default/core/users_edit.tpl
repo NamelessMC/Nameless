@@ -42,6 +42,7 @@
                             </div>
                             <div class="col-md-3">
                                     <span class="float-md-right">
+                                        {if isset($DELETE_USER) || isset($RESEND_ACTIVATION_EMAIL) || isset($VALIDATE_USER)}
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-primary dropdown-toggle"
                                                     data-toggle="dropdown" aria-haspopup="true"
@@ -55,6 +56,7 @@
                                                                              href="#" onclick="validateUser()">{$VALIDATE_USER}</a>{/if}
                                             </div>
                                         </div>
+                                        {/if}
                                         <a href="{$BACK_LINK}" class="btn btn-warning">{$BACK}</a>
                                     </span>
                             </div>

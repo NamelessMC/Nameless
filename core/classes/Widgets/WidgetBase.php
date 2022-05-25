@@ -116,16 +116,19 @@ abstract class WidgetBase {
      * @return object|null Widgets data.
      */
     protected static function getData(string $name): ?object {
-        return DB::getInstance()->selectQuery('SELECT `location`, `order`, `pages` FROM nl2_widgets WHERE `name` = ?', [$name])->first();
+        return DB::getInstance()->query('SELECT `location`, `order`, `pages` FROM nl2_widgets WHERE `name` = ?', [$name])->first();
     }
 
     /**
      * Parse the widgets JSON pages string into an array.
      *
-     * @param string|null $pages The JSON string to parse.
+     * @param object|null $data The widget data to get pages from.
      * @return array The parsed pages array.
      */
-    protected static function parsePages(?string $pages): array {
-        return json_decode($pages, true) ?? [];
+    protected static function parsePages(?object $data): array {
+        if (isset($data->pages)) {
+            return json_decode($data->pages, true) ?? [];
+        }
+        return [];
     }
 }

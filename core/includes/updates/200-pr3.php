@@ -3,49 +3,49 @@
 
 // Database changes
 try {
-    $queries->alterTable('groups', 'permissions', "mediumtext");
+    $queries->addColumn('groups', 'permissions', "mediumtext");
 } catch (Exception $e) {
     // Error
 }
 
 try {
-    $queries->alterTable('users', 'profile_views', "int(11) NOT NULL DEFAULT '0'");
+    $queries->addColumn('users', 'profile_views', "int(11) NOT NULL DEFAULT '0'");
 } catch (Exception $e) {
     // Error
 }
 
 try {
-    $queries->alterTable('users', 'private_profile', "tinyint(1) NOT NULL DEFAULT '0'");
+    $queries->addColumn('users', 'private_profile', "tinyint(1) NOT NULL DEFAULT '0'");
 } catch (Exception $e) {
     // Error
 }
 
 try {
-    $queries->alterTable('posts', 'created', "int(11) DEFAULT NULL");
+    $queries->addColumn('posts', 'created', "int(11) DEFAULT NULL");
 } catch (Exception $e) {
     // Error
 }
 
 try {
-    $queries->alterTable('forums', 'redirect_forum', "tinyint(1) NOT NULL DEFAULT '0'");
+    $queries->addColumn('forums', 'redirect_forum', "tinyint(1) NOT NULL DEFAULT '0'");
 } catch (Exception $e) {
     // Error
 }
 
 try {
-    $queries->alterTable('forums', 'redirect_url', "varchar(512) DEFAULT NULL");
+    $queries->addColumn('forums', 'redirect_url', "varchar(512) DEFAULT NULL");
 } catch (Exception $e) {
     // Error
 }
 
 try {
-    $queries->alterTable('query_results', 'extra', "text");
+    $queries->addColumn('query_results', 'extra', "text");
 } catch (Exception $e) {
     // Error
 }
 
 try {
-    $queries->alterTable('groups', 'default_group', "tinyint(1) NOT NULL DEFAULT '0'");
+    $queries->addColumn('groups', 'default_group', "tinyint(1) NOT NULL DEFAULT '0'");
 } catch (Exception $e) {
     // Error
 }
@@ -68,7 +68,7 @@ try {
 }
 
 try {
-    $setting_exists = $queries->getWhere('settings', array('name', '=', 'private_profile'));
+    $setting_exists = $queries->getWhere('settings', array('name', 'private_profile'));
     if (!count($setting_exists)) {
         $queries->create('settings', array(
             'name' => 'private_profile',
@@ -80,7 +80,7 @@ try {
 }
 
 try {
-    $setting_exists = $queries->getWhere('settings', array('name', '=', 'registration_disabled_message'));
+    $setting_exists = $queries->getWhere('settings', array('name', 'registration_disabled_message'));
     if (!count($setting_exists)) {
         $queries->create('settings', array(
             'name' => 'registration_disabled_message',
@@ -92,7 +92,7 @@ try {
 }
 
 try {
-    $setting_exists = $queries->getWhere('settings', array('name', '=', 'api_verification'));
+    $setting_exists = $queries->getWhere('settings', array('name', 'api_verification'));
     if (!count($setting_exists)) {
         $queries->create('settings', array(
             'name' => 'api_verification',
@@ -104,7 +104,7 @@ try {
 }
 
 try {
-    $setting_exists = $queries->getWhere('settings', array('name', '=', 'validate_user_action'));
+    $setting_exists = $queries->getWhere('settings', array('name', 'validate_user_action'));
     if (!count($setting_exists)) {
         $queries->create('settings', array(
             'name' => 'validate_user_action',
@@ -116,7 +116,7 @@ try {
 }
 
 try {
-    $setting_exists = $queries->getWhere('settings', array('name', '=', 'login_method'));
+    $setting_exists = $queries->getWhere('settings', array('name', 'login_method'));
     if (!count($setting_exists)) {
         $queries->create('settings', array(
             'name' => 'login_method',
@@ -128,7 +128,7 @@ try {
 }
 
 try {
-    $setting_exists = $queries->getWhere('settings', array('name', '=', 'username_sync'));
+    $setting_exists = $queries->getWhere('settings', array('name', 'username_sync'));
     if (!count($setting_exists)) {
         $queries->create('settings', array(
             'name' => 'username_sync',
@@ -140,7 +140,7 @@ try {
 }
 
 try {
-    $setting_exists = $queries->getWhere('settings', array('name', '=', 'privacy_policy'));
+    $setting_exists = $queries->getWhere('settings', array('name', 'privacy_policy'));
     if (!count($setting_exists)) {
         $queries->create('settings', array(
             'name' => 'privacy_policy',
@@ -170,7 +170,7 @@ try {
 }
 
 // Update version number
-$version_number_id = $queries->getWhere('settings', array('name', '=', 'nameless_version'));
+$version_number_id = $queries->getWhere('settings', array('name', 'nameless_version'));
 $version_number_id = $version_number_id[0]->id;
 
 if (count($version_number_id)) {
@@ -178,7 +178,7 @@ if (count($version_number_id)) {
         'value' => '2.0.0-pr4'
     ));
 } else {
-    $version_number_id = $queries->getWhere('settings', array('name', '=', 'version'));
+    $version_number_id = $queries->getWhere('settings', array('name', 'version'));
     $version_number_id = $version_number_id[0]->id;
 
     $queries->update('settings', $version_number_id, array(
@@ -186,7 +186,7 @@ if (count($version_number_id)) {
     ));
 }
 
-$version_update_id = $queries->getWhere('settings', array('name', '=', 'version_update'));
+$version_update_id = $queries->getWhere('settings', array('name', 'version_update'));
 $version_update_id = $version_update_id[0]->id;
 
 $queries->update('settings', $version_update_id, array(

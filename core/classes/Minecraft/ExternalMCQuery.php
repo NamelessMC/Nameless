@@ -4,7 +4,7 @@
  *
  * @package NamelessMC\Minecraft
  * @author Samerton
- * @version 2.0.0-pr8
+ * @version 2.0.0-pr13
  * @license MIT
  */
 class ExternalMCQuery {
@@ -15,10 +15,16 @@ class ExternalMCQuery {
      * @param string $ip IP to query
      * @param int $port Port to query, `25565` by default.
      * @param bool $bedrock Whether this is a Bedrock server or not.
-     * @return object Query result.
+     * @return object|false Query result, false on failure.
      */
-    public static function query(string $ip, int $port = 25565, bool $bedrock = false): object {
-        return HttpClient::get('https://api.namelessmc.com/api/' . ($bedrock ? 'bedrock' : 'server') . '/' . $ip . '/' . $port)->json();
+    public static function query(string $ip, int $port = 25565, bool $bedrock = false) {
+        $client = HttpClient::get('https://api.namelessmc.com/api/' . ($bedrock ? 'bedrock' : 'server') . '/' . $ip . '/' . $port);
+
+        if (!$client->hasError()) {
+            return $client->json();
+        }
+
+        return false;
     }
 
     /**
@@ -38,7 +44,12 @@ class ExternalMCQuery {
         $ip = $query_ip[0];
         $port = $query_ip[1] ?? ($bedrock ? 19132 : 25565);
 
-        $result = HttpClient::get('https://api.namelessmc.com/api/' . ($bedrock ? 'bedrock' : 'server') . '/' . $ip . '/' . $port)->json();
+        $client = HttpClient::get('https://api.namelessmc.com/api/' . ($bedrock ? 'bedrock' : 'server') . '/' . $ip . '/' . $port);
+        if ($client->hasError()) {
+            return false;
+        }
+
+        $result = $client->json();
 
         if (!$result->error && $result->response->description->favicon) {
             return $result->response->description->favicon;

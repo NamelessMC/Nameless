@@ -16,7 +16,7 @@ class DB_Custom {
 
     private static DB_Custom $_instance;
 
-    public function __construct(string $host, string $database, string $username, string $password, int $port = 3306) {
+    public function __construct(string $host, string $database, string $username, string $password, int $port = 3306, string $prefix = '') {
         try {
             $this->_pdo = new PDO(
                 'mysql:host=' . $host . ';port=' . $port . ';dbname=' . $database,
@@ -27,6 +27,7 @@ class DB_Custom {
                     PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"
                 ]
             );
+            $this->_prefix = $prefix;
         } catch (PDOException $e) {
             die("<strong>Error:<br /></strong><div class=\"alert alert-danger\">" . $e->getMessage() . '</div>Please check your database connection settings.');
         }
@@ -34,7 +35,7 @@ class DB_Custom {
         $this->_query_recorder = QueryRecorder::getInstance();
     }
 
-    public static function getInstance(string $host, string $database, string $username, string $password, int $port = 3306): DB_Custom {
-        return self::$_instance ??= new DB_Custom($host, $database, $username, $password, $port);
+    public static function getInstance(string $host, string $database, string $username, string $password, int $port = 3306, string $prefix = ''): DB_Custom {
+        return self::$_instance ??= new DB_Custom($host, $database, $username, $password, $port, $prefix);
     }
 }

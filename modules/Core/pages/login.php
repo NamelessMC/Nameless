@@ -20,7 +20,7 @@ if ($user->isLoggedIn()) {
 }
 
 // Get login method
-$login_method = $queries->getWhere('settings', ['name', '=', 'login_method']);
+$login_method = $queries->getWhere('settings', ['name', 'login_method']);
 $login_method = $login_method[0]->value;
 
 $captcha = CaptchaBase::isCaptchaEnabled('recaptcha_login');
@@ -127,7 +127,7 @@ if (Input::exists()) {
                                     // App
                                     $tfa = new \RobThree\Auth\TwoFactorAuth('NamelessMC');
 
-                                    if ($tfa->verifyCode($user_query->data()->tfa_secret, $_POST['tfa_code']) !== true) {
+                                    if ($tfa->verifyCode($user_query->data()->tfa_secret, str_replace(' ', '', $_POST['tfa_code'])) !== true) {
                                         Session::flash('tfa_signin', $language->get('user', 'invalid_tfa'));
                                         require(ROOT_PATH . '/core/includes/tfa_signin.php');
                                         die();
@@ -154,7 +154,7 @@ if (Input::exists()) {
                         // Is Minecraft and AuthMe integration enabled?
                         $minecraft = MINECRAFT;
 
-                        $authme_enabled = $queries->getWhere('settings', ['name', '=', 'authme']);
+                        $authme_enabled = $queries->getWhere('settings', ['name', 'authme']);
                         $authme_enabled = $authme_enabled[0]->value;
 
                         $cache->setCache('authme_cache');

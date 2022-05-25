@@ -10,7 +10,7 @@ $sortColumns = ['username' => 'username', 'nickname' => 'nickname', 'joined' => 
 
 $db = DB::getInstance();
 
-$total = $db->selectQuery('SELECT COUNT(*) as `total` FROM nl2_users', [])->first()->total;
+$total = $db->query('SELECT COUNT(*) as `total` FROM nl2_users', [])->first()->total;
 $query = 'SELECT u.id, u.username, u.nickname, u.joined, u.gravatar, u.email, u.has_avatar, u.avatar_updated, IFNULL(nl2_users_integrations.identifier, \'none\') as uuid FROM nl2_users u LEFT JOIN nl2_users_integrations ON user_id=u.id AND integration_id=1';
 $where = '';
 $order = '';
@@ -18,7 +18,7 @@ $limit = '';
 $params = [];
 
 if (isset($_GET['search']) && $_GET['search']['value'] != '') {
-    $where .= ' WHERE username LIKE ? OR nickname LIKE ? OR email LIKE ?';
+    $where .= ' WHERE u.username LIKE ? OR u.nickname LIKE ? OR u.email LIKE ?';
     array_push($params, '%' . $_GET['search']['value'] . '%', '%' . $_GET['search']['value'] . '%', '%' . $_GET['search']['value'] . '%');
 }
 
@@ -57,10 +57,10 @@ if (isset($_GET['start']) && $_GET['length'] != -1) {
 }
 
 if (strlen($where) > 0) {
-    $totalFiltered = $db->selectQuery('SELECT COUNT(*) as `total` FROM nl2_users' . $where, $params)->first()->total;
+    $totalFiltered = $db->query('SELECT COUNT(*) as `total` FROM nl2_users u' . $where, $params)->first()->total;
 }
 
-$results = $db->selectQuery($query . $where . $order . $limit, $params)->results();
+$results = $db->query($query . $where . $order . $limit, $params)->results();
 $data = [];
 $groups = [];
 
@@ -74,7 +74,7 @@ if (count($results)) {
         $obj->joined = date('d M Y', $result->joined);
 
         // Get group
-        $group = DB::getInstance()->selectQuery('SELECT `name` FROM nl2_groups g JOIN nl2_users_groups ug ON g.id = ug.group_id WHERE ug.user_id = ? ORDER BY g.order LIMIT 1', [$result->id]);
+        $group = DB::getInstance()->query('SELECT `name` FROM nl2_groups g JOIN nl2_users_groups ug ON g.id = ug.group_id WHERE ug.user_id = ? ORDER BY g.order LIMIT 1', [$result->id]);
         $obj->groupName = $group->first()->name;
 
         $data[] = $obj;

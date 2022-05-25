@@ -134,7 +134,7 @@ if ($page != 'install') {
     $configuration = new Configuration($cache);
 
     // Get the Nameless version
-    $nameless_version = $queries->getWhere('settings', ['name', '=', 'nameless_version']);
+    $nameless_version = $queries->getWhere('settings', ['name', 'nameless_version']);
     $nameless_version = $nameless_version[0]->value;
     define('NAMELESS_VERSION', $nameless_version);
 
@@ -146,7 +146,7 @@ if ($page != 'install') {
     // Do they need logging in (checked remember me)?
     if (Cookie::exists(Config::get('remember/cookie_name')) && !Session::exists(Config::get('session/session_name'))) {
         $hash = Cookie::get(Config::get('remember/cookie_name'));
-        $hashCheck = DB::getInstance()->get('users_session', ['hash', '=', $hash]);
+        $hashCheck = DB::getInstance()->get('users_session', ['hash', $hash]);
 
         if ($hashCheck->count()) {
             $user = new User($hashCheck->first()->user_id);
@@ -205,7 +205,7 @@ if ($page != 'install') {
     if ($cache->isCached('language')) {
         $default_language = $cache->retrieve('language');
     } else {
-        $default_language = $queries->getWhere('languages', ['is_default', '=', 1]);
+        $default_language = $queries->getWhere('languages', ['is_default', true]);
         if (count($default_language)) {
             $default_language = $default_language[0]->short_code;
             $cache->store('language', $default_language);
@@ -215,11 +215,18 @@ if ($page != 'install') {
     }
 
     if (!$user->isLoggedIn() || !($user->data()->language_id)) {
+        // Attempt to get the requested language from the browser if it exists
+        // and if the user has enabled auto language detection
+        $automatic_locale = Language::acceptFromHttp($_SERVER['HTTP_ACCEPT_LANGUAGE'] ?? '');
+        if ($automatic_locale !== false && (!Cookie::exists('auto_language') || Cookie::get('auto_language') === 'true')) {
+            $default_language = $automatic_locale;
+        }
+
         // Default language for guests
         define('LANGUAGE', $default_language);
     } else {
         // User selected language
-        $language = $queries->getWhere('languages', ['id', '=', $user->data()->language_id]);
+        $language = $queries->getWhere('languages', ['id', $user->data()->language_id]);
         if (!count($language)) {
             // Get default language
             define('LANGUAGE', $default_language);
@@ -252,7 +259,7 @@ if ($page != 'install') {
         }
     } else {
         // User selected template
-        $template = $queries->getWhere('templates', ['id', '=', $user->data()->theme_id]);
+        $template = $queries->getWhere('templates', ['id', $user->data()->theme_id]);
         if (!count($template)) {
             // Get default template
             $cache->setCache('templatecache');
@@ -399,7 +406,7 @@ if ($page != 'install') {
     }
 
     // Minecraft integration?
-    $mc_integration = $queries->getWhere('settings', ['name', '=', 'mc_integration']);
+    $mc_integration = $queries->getWhere('settings', ['name', 'mc_integration']);
     if (count($mc_integration) && $mc_integration[0]->value == '1') {
         define('MINECRAFT', true);
     } else {
@@ -488,6 +495,38 @@ if ($page != 'install') {
         }
     }
 
+    // Webhooks
+    $cache->setCache('hooks');
+    if ($cache->isCached('hooks')) {
+        $hook_array = $cache->retrieve('hooks');
+    } else {
+        $hook_array = [];
+        if (Util::isModuleEnabled('Discord Integration')) {
+            $hooks = $queries->getWhere('hooks', ['id', '<>', 0]);
+            if (count($hooks)) {
+                foreach ($hooks as $hook) {
+                    if ($hook->action != 2) {
+                        continue;
+                    }
+
+                    // TODO: more extendable webhook system, #2676
+                    if (!class_exists(DiscordHook::class)) {
+                        continue;
+                    }
+
+                    $hook_array[] = [
+                        'id' => $hook->id,
+                        'url' => Output::getClean($hook->url),
+                        'action' => 'DiscordHook::execute',
+                        'events' => json_decode($hook->events, true)
+                    ];
+                }
+                $cache->store('hooks', $hook_array);
+            }
+        }
+    }
+    EventHandler::registerWebhooks($hook_array);
+
     // Get IP
     $ip = Util::getRemoteAddress();
 
@@ -501,7 +540,7 @@ if ($page != 'install') {
         }
 
         // Is the IP address banned?
-        $ip_bans = $queries->getWhere('ip_bans', ['ip', '=', $ip]);
+        $ip_bans = $queries->getWhere('ip_bans', ['ip', $ip]);
         if (count($ip_bans)) {
             $user->logout();
             Session::flash('home_error', $language->get('user', 'you_have_been_banned'));
@@ -521,7 +560,7 @@ if ($page != 'install') {
         }
 
         // Insert it into the logs
-        $user_ip_logged = $queries->getWhere('users_ips', ['ip', '=', $ip]);
+        $user_ip_logged = $queries->getWhere('users_ips', ['ip', $ip]);
         if (!count($user_ip_logged)) {
             // Create the entry now
             $queries->create('users_ips', [
@@ -605,7 +644,7 @@ if ($page != 'install') {
     } else {
         // Perform tasks for guests
         if (!$_SESSION['checked'] || (isset($_SESSION['checked']) && $_SESSION['checked'] <= strtotime('-5 minutes'))) {
-            $already_online = $queries->getWhere('online_guests', ['ip', '=', $ip]);
+            $already_online = $queries->getWhere('online_guests', ['ip', $ip]);
 
             $date = date('U');
 

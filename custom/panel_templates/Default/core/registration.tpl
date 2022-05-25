@@ -143,50 +143,30 @@
                 <br />
                 <form action="" method="post">
                     <div class="row">
-                        <div class="col">
-                            <div class="card shadow mb-4">
-                                <div class="card-body">
-                                    <div class="form-group custom-control custom-switch text-center">
-                                        <input id="enable-discord" name="enable-discord" type="checkbox" class="custom-control-input" {if $DISCORD_OAUTH_ENABLED && $DISCORD_OAUTH_SETUP} checked{/if} />
-                                        <label for="enable-discord" id="enable-discord" class="custom-control-label">
-                                            Discord <i class="fab fa-discord fa-1x align-middle"></i>
-                                        </label>
-                                    </div>
+                        {foreach from=$OAUTH_PROVIDER_DATA key="provider_name" item="provider_data"}
+                            <div class="col">
+                                <div class="card shadow mb-4">
+                                    <div class="card-body">
+                                        <div class="form-group custom-control custom-switch text-center">
+                                            <input id="enable-{$provider_name}" name="enable-{$provider_name}" type="checkbox" class="custom-control-input" {if $provider_data['enabled'] && $provider_data['setup']} checked{/if} />
+                                            <label for="enable-{$provider_name}" id="enable-{$provider_name}" class="custom-control-label">
+                                                {$provider_name|ucfirst} <i class="{$provider_data['icon']} fa-1x"></i>
+                                            </label>
+                                        </div>
 
-                                    <div class="form-group">
-                                        <label for="client-id-discord">Client ID</label>
-                                        <input type="text" name="client-id-discord" class="form-control" id="client-id-discord" placeholder="{$CLIENT_ID}" value="{$DISCORD_CLIENT_ID}">
-                                    </div>
+                                        <div class="form-group">
+                                            <label for="client-id-discord">Client ID</label>
+                                            <input type="text" name="client-id-{$provider_name}" class="form-control" id="client-id-{$provider_name}" placeholder="Client ID" value="{$provider_data['client_id']}">
+                                        </div>
 
-                                    <div class="form-group">
-                                        <label for="client-secret-discord">Client Secret</label>
-                                        <input type="password" name="client-secret-discord" class="form-control" id="client-secret-discord" placeholder="{$CLIENT_SECRET}" value="{$DISCORD_CLIENT_SECRET}">
+                                        <div class="form-group">
+                                            <label for="client-secret-discord">Client Secret</label>
+                                            <input type="password" name="client-secret-{$provider_name}" class="form-control" id="client-secret-{$provider_name}" placeholder="Client Secret" value="{$provider_data['client_secret']}">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col">
-                            <div class="card shadow mb-4">
-                                <div class="card-body">
-                                    <div class="form-group custom-control custom-switch text-center">
-                                        <input id="enable-google" name="enable-google" type="checkbox" class="custom-control-input" {if $GOOGLE_OAUTH_ENABLED && $GOOGLE_OAUTH_SETUP} checked{/if} />
-                                        <label for="enable-google" id="enable-google" class="custom-control-label">
-                                            Google <i class="fab fa-google fa-1x align-middle"></i>
-                                        </label>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="client-id-google">Client ID</label>
-                                        <input type="text" name="client-id-google" class="form-control" id="client-id-google" placeholder="{$CLIENT_ID}" value="{$GOOGLE_CLIENT_ID}">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="client-secret-google">Client Secret</label>
-                                        <input type="password" name="client-secret-google" class="form-control" id="client-secret-google" placeholder="{$CLIENT_SECRET}" value="{$GOOGLE_CLIENT_SECRET}">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        {/foreach}
                     </div>
 
                     <div class="form-group">

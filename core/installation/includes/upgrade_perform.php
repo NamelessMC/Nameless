@@ -527,7 +527,7 @@ switch ($s) {
                         'user_id' => $item->id,
                         'group_id' => $item->group_id
                     ]);
-                    
+
                     $queries->create('users_integrations', [
                         'integration_id' => 1,
                         'user_id' => $item->id,
@@ -688,7 +688,7 @@ switch ($s) {
     case 8:
         // New settings/initialise cache
         // Site name
-        $sitename = $queries->getWhere('settings', ['name', '=', 'sitename']);
+        $sitename = $queries->getWhere('settings', ['name', 'sitename']);
         $cache->setCache('sitenamecache');
         if (!count($sitename)) {
             $cache->store('sitename', 'NamelessMC');
@@ -729,7 +729,7 @@ switch ($s) {
         ]);
         $cache->store('module_core', true);
         $cache->store('module_forum', true);
-        
+
         // Integrations
         $queries->create('integrations', [
             'name' => 'Minecraft',
@@ -808,13 +808,13 @@ switch ($s) {
         ]);
 
         // convert from "version" to "nameless_version"
-        $version = $queries->getWhere('settings', ['name', '=', 'version']);
+        $version = $queries->getWhere('settings', ['name', 'version']);
         if (count($version)) {
             $queries->update('settings', $version[0]->id, [
                 'name' => 'nameless_version',
                 'value' => '2.0.0-pr12'
             ]);
-            $queries->delete('settings', ['name', '=', 'version']);
+            $queries->delete('settings', ['name', 'version']);
         } else {
             $queries->create('settings', [
                 'name' => 'nameless_version',
@@ -822,7 +822,7 @@ switch ($s) {
             ]);
         }
 
-        $version_update = $queries->getWhere('settings', ['name', '=', 'version_update']);
+        $version_update = $queries->getWhere('settings', ['name', 'version_update']);
         if (count($version_update)) {
             $queries->update('settings', $version_update[0]->id, [
                 'value' => 'false'
@@ -834,7 +834,7 @@ switch ($s) {
             ]);
         }
 
-        $mcassoc = $queries->getWhere('settings', ['name', '=', 'use_mcassoc']);
+        $mcassoc = $queries->getWhere('settings', ['name', 'use_mcassoc']);
         if (count($mcassoc)) {
             $queries->update('settings', $mcassoc[0]->id, [
                 'name' => 'verify_accounts'
@@ -846,7 +846,7 @@ switch ($s) {
             ]);
         }
 
-        $avatar_site = $queries->getWhere('settings', ['name', '=', 'avatar_api']);
+        $avatar_site = $queries->getWhere('settings', ['name', 'avatar_api']);
         if (count($avatar_site)) {
             $queries->update('settings', $avatar_site[0]->id, [
                 'name' => 'avatar_site'
@@ -875,7 +875,7 @@ switch ($s) {
             'value' => 1
         ]);
 
-        $error_reporting = $queries->getWhere('settings', ['name', '=', 'error_reporting']);
+        $error_reporting = $queries->getWhere('settings', ['name', 'error_reporting']);
         if (count($error_reporting)) {
             $cache->setCache('error_cache');
             $cache->store('error_reporting', $error_reporting[0]->value);
@@ -895,7 +895,7 @@ switch ($s) {
         $cache->setCache('page_load_cache');
         $cache->store('page_load', 0);
 
-        $use_plugin = $queries->getWhere('settings', ['name', '=', 'use_plugin']);
+        $use_plugin = $queries->getWhere('settings', ['name', 'use_plugin']);
         if (count($use_plugin)) {
             $queries->update('settings', $use_plugin[0]->id, [
                 'name' => 'use_api'
@@ -971,7 +971,7 @@ switch ($s) {
             'value' => 'The following privacy policy outlines how your data is used on our website.<br /><br /><strong>Data</strong><br />Basic non-identifiable information about your user on the website is collected; the majority of which is provided during registration, such as email addresses and usernames.<br />In addition to this, IP addresses for registered users are stored within the system to aid with moderation duties. This includes spam prevention, and detecting alternative accounts.<br /><br />Accounts can be deleted by a site administrator upon request, which will remove all data relating to your user from our system.<br /><br /><strong>Cookies</strong><br />Cookies are used to store small pieces of non-identifiable information with your consent. In order to consent to the use of cookies, you must either close the cookie notice (as explained within the notice) or register on our website.<br />Data stored by cookies include any recently viewed topic IDs, along with a unique, unidentifiable hash upon logging in and selecting &quot;Remember Me&quot; to automatically log you in next time you visit.'
         ]);
 
-        $terms = $queries->getWhere('settings', ['name', '=', 't_and_c_site']);
+        $terms = $queries->getWhere('settings', ['name', 't_and_c_site']);
         if (count($terms)) {
             $queries->create('privacy_terms', [
                 'name' => 'terms',

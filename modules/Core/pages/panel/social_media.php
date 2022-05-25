@@ -27,10 +27,7 @@ if (Input::exists()) {
     if (Token::check()) {
         // Update database values
         // Youtube URL
-        $youtube_url_id = $queries->getWhere('settings', ['name', '=', 'youtube_url']);
-        $youtube_url_id = $youtube_url_id[0]->id;
-
-        $queries->update('settings', $youtube_url_id, [
+        $queries->update('settings', ['name', 'youtube_url'], [
             'value' => Output::getClean(Input::get('youtubeurl'))
         ]);
 
@@ -39,17 +36,14 @@ if (Input::exists()) {
         $cache->store('youtube', Output::getClean(Input::get('youtubeurl')));
 
         // Twitter URL
-        $twitter_url_id = $queries->getWhere('settings', ['name', '=', 'twitter_url']);
-        $twitter_url_id = $twitter_url_id[0]->id;
-
-        $queries->update('settings', $twitter_url_id, [
+        $queries->update('settings', ['name', 'twitter_url'], [
             'value' => Output::getClean(Input::get('twitterurl'))
         ]);
 
         $cache->store('twitter', Output::getClean(Input::get('twitterurl')));
 
         // Twitter dark theme
-        $twitter_dark_theme = $queries->getWhere('settings', ['name', '=', 'twitter_style']);
+        $twitter_dark_theme = $queries->getWhere('settings', ['name', 'twitter_style']);
         $twitter_dark_theme = $twitter_dark_theme[0]->id;
 
         if (isset($_POST['twitter_dark_theme']) && $_POST['twitter_dark_theme'] == 1) {
@@ -65,9 +59,7 @@ if (Input::exists()) {
         $cache->store('twitter_theme', $theme);
 
         // Facebook URL
-        $fb_url_id = $queries->getWhere('settings', ['name', '=', 'fb_url']);
-        $fb_url_id = $fb_url_id[0]->id;
-        $queries->update('settings', $fb_url_id, [
+        $queries->update('settings', ['name', 'fb_url'], [
             'value' => Output::getClean(Input::get('fburl'))
         ]);
 
@@ -98,10 +90,10 @@ if (isset($errors) && count($errors)) {
 }
 
 // Get values from database
-$youtube_url = $queries->getWhere('settings', ['name', '=', 'youtube_url']);
-$twitter_url = $queries->getWhere('settings', ['name', '=', 'twitter_url']);
-$twitter_style = $queries->getWhere('settings', ['name', '=', 'twitter_style']);
-$fb_url = $queries->getWhere('settings', ['name', '=', 'fb_url']);
+$youtube_url = $queries->getWhere('settings', ['name', 'youtube_url']);
+$twitter_url = $queries->getWhere('settings', ['name', 'twitter_url']);
+$twitter_style = $queries->getWhere('settings', ['name', 'twitter_style']);
+$fb_url = $queries->getWhere('settings', ['name', 'fb_url']);
 
 $smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,

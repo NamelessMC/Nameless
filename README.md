@@ -17,7 +17,7 @@ The following list is a brief summary of the features available in v2 pre-releas
 - 🎮 Minecraft integration
   - Display your Java edition or Bedrock servers statuses
   - Account verification using MCAssoc or the NamelessMC plugin
-  - [In-game plugin](https://www.spigotmc.org/resources/nameless-plugin-for-v2.59032)
+  - [In-game plugin](https://plugin.namelessmc.com)
     - Require in-game verification for NamelessMC accounts
     - Allow registering for accounts in-game
     - Synchronize Vault ranks with NamelessMC groups (unidirectional, game->website)
@@ -74,7 +74,7 @@ We welcome all contributions of code and translations. Please feel free to fork 
 - We generally keep a todo list in the Milestones tab of the the Issues page.
 - We use Composer to manage dependencies. Before you can install the dependencies, you need to install Composer on your local computer. Installation instructions are [here](https://getcomposer.org/doc/00-intro.md).
 - To install the Composer packages we depend on, run the following command in the root directory of the NamelessMC repository:
-    ```
+    ```console
     composer install --dev
     ```
   - This could take up to about a minute depending on your internet connection.

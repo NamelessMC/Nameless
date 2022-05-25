@@ -1,7 +1,7 @@
 <?php
 
 // Can user generate the debug link?
-if (!$user->hasPermission('admincp.core.debugging')) {
+if (!defined('DEBUGGING') && !$user->hasPermission('admincp.core.debugging')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }
@@ -104,7 +104,7 @@ foreach (DB::getInstance()->get('group_sync', ['id', '<>', 0])->results() as $ru
 }
 
 $webhooks = [];
-foreach (DB::getInstance()->selectQuery('SELECT `id`, `name`, `action`, `events` FROM nl2_hooks')->results() as $webhook) {
+foreach (DB::getInstance()->query('SELECT `id`, `name`, `action`, `events` FROM nl2_hooks')->results() as $webhook) {
     $webhooks[$webhook->id] = [
         'id' => (int)$webhook->id,
         'name' => $webhook->name,
@@ -114,7 +114,7 @@ foreach (DB::getInstance()->selectQuery('SELECT `id`, `name`, `action`, `events`
 }
 
 $forum_hooks = [];
-foreach (DB::getInstance()->selectQuery('SELECT `id`, `forum_title`, `hooks` FROM nl2_forums WHERE `hooks` IS NOT NULL')->results() as $forum) {
+foreach (DB::getInstance()->query('SELECT `id`, `forum_title`, `hooks` FROM nl2_forums WHERE `hooks` IS NOT NULL')->results() as $forum) {
     $forum_hooks[] = [
         'forum_id' => (int)$forum->id,
         'title' => $forum->forum_title,
@@ -152,15 +152,20 @@ foreach (Integrations::getInstance()->getAll() as $integration) {
 
 $namelessmc_version = trim(Util::getSetting(DB::getInstance(), 'nameless_version'));
 
-$uuid = DB::getInstance()->selectQuery('SELECT identifier FROM nl2_users_integrations INNER JOIN nl2_integrations on integration_id=nl2_integrations.id WHERE name = \'Minecraft\' AND user_id = ?;', [$user->data()->id]);
+$uuid = DB::getInstance()->query('SELECT identifier FROM nl2_users_integrations INNER JOIN nl2_integrations on integration_id=nl2_integrations.id WHERE name = \'Minecraft\' AND user_id = ?;', [$user->data()->id]);
 if ($uuid->count()) {
     $uuid = $uuid->first()->identifier;
 } else {
     $uuid = '';
 }
 
+$logs = [];
+foreach (['fatal', 'warning', 'notice', 'other', 'custom'] as $type) {
+    $file_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs', $type . '-log.log']);
+    $logs[$type] = file_exists($file_path) ? Util::readFileEnd($file_path) : '';
+}
+
 $data = [
-    'debug_version' => 1,
     'generated_at' => time(),
     'generated_by_name' => $user->data()->username,
     'generated_by_uuid' => $uuid,
@@ -198,6 +203,13 @@ $data = [
             'panel' => $namelessmc_panel_templates,
         ],
         'integrations' => $integrations,
+    ],
+    'logs' => [
+        'fatal' => $logs['fatal'],
+        'warning' => $logs['warning'],
+        'notice' => $logs['notice'],
+        'other' => $logs['other'],
+        'custom' => $logs['custom'],
     ],
     'environment' => [
         'php_version' => PHP_VERSION,

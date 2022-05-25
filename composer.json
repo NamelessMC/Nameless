@@ -25,7 +25,7 @@
         "samerton/i18next": "^1.0"
     },
     "require-dev": {
-        "phpstan/phpstan": "^1.5",
+        "phpstan/phpstan": "^1.6",
         "maximebf/debugbar": "^1.18",
         "junker/debugbar-smarty": "^0.2",
         "hannesvdvreken/guzzle-debugbar": "^3.0",

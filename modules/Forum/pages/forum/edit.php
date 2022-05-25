@@ -14,11 +14,6 @@ const PAGE = 'forum';
 $page_title = $forum_language->get('forum', 'edit_post');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-$template->addCSSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism_' . (DARK_MODE ? 'dark' : 'light_default') . '.css' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
-]);
-
 // User must be logged in to proceed
 if (!$user->isLoggedIn()) {
     Redirect::to(URL::build('/forum'));
@@ -38,7 +33,7 @@ if (isset($_GET['pid'], $_GET['tid']) && is_numeric($_GET['pid']) && is_numeric(
  *  Is the post the first in the topic? If so, allow the title to be edited.
  */
 
-$post_editing = DB::getInstance()->selectQuery('SELECT * FROM nl2_posts WHERE topic_id = ? ORDER BY id ASC LIMIT 1', [$topic_id])->results();
+$post_editing = DB::getInstance()->query('SELECT * FROM nl2_posts WHERE topic_id = ? ORDER BY id ASC LIMIT 1', [$topic_id])->results();
 
 // Check topic exists
 if (!count($post_editing)) {
@@ -52,7 +47,7 @@ if ($post_editing[0]->id == $post_id) {
 	 *  Get the title of the topic
 	 */
 
-    $post_title = $queries->getWhere('topics', ['id', '=', $topic_id]);
+    $post_title = $queries->getWhere('topics', ['id', $topic_id]);
     $post_labels = $post_title[0]->labels ? explode(',', $post_title[0]->labels) : [];
     $post_title = Output::getClean($post_title[0]->topic_title);
 }
@@ -61,7 +56,7 @@ if ($post_editing[0]->id == $post_id) {
  *  Get the post we're editing
  */
 
-$post_editing = $queries->getWhere('posts', ['id', '=', $post_id]);
+$post_editing = $queries->getWhere('posts', ['id', $post_id]);
 
 // Check post exists
 if (!count($post_editing)) {
@@ -139,7 +134,7 @@ if (Input::exists()) {
 
                 if (isset($_POST['topic_label']) && !empty($_POST['topic_label']) && is_array($_POST['topic_label'])) {
                     foreach ($_POST['topic_label'] as $topic_label) {
-                        $label = $queries->getWhere('forums_topic_labels', ['id', '=', $topic_label]);
+                        $label = $queries->getWhere('forums_topic_labels', ['id', $topic_label]);
                         if (count($label)) {
                             $lgroups = explode(',', $label[0]->gids);
 
@@ -218,7 +213,7 @@ if (isset($edit_title, $post_labels)) {
                 }
 
                 // Get label HTML
-                $label_html = $queries->getWhere('forums_labels', ['id', '=', $label->label]);
+                $label_html = $queries->getWhere('forums_labels', ['id', $label->label]);
                 if (!count($label_html)) {
                     continue;
                 }
@@ -250,10 +245,8 @@ $smarty->assign([
     'TOPIC_TITLE' => $forum_language->get('forum', 'topic_title')
 ]);
 
-$template->addJSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
+$template->assets()->include([
+    AssetTree::TINYMCE,
 ]);
 
 $template->addJSScript(Input::createTinyEditor($language, 'editor', $content, true));

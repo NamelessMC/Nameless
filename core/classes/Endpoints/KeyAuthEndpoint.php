@@ -16,12 +16,13 @@ class KeyAuthEndpoint extends EndpointBase {
      * @return bool Whether the API key is valid
      */
     final public function isAuthorised(Nameless2API $api): bool {
+        $headers = getallheaders();
 
-        if (!isset($_SERVER['HTTP_AUTHORIZATION'])) {
+        if (!isset($headers['Authorization'])) {
             return false;
         }
 
-        $exploded = explode(' ', trim($_SERVER['HTTP_AUTHORIZATION']));
+        $exploded = explode(' ', trim($headers['Authorization']));
 
         if (count($exploded) !== 2 ||
             strcasecmp($exploded[0], 'Bearer') !== 0) {
@@ -45,7 +46,7 @@ class KeyAuthEndpoint extends EndpointBase {
         if (!is_file(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('apicache') . '.cache')) {
             // Not cached, cache now
             // Retrieve from database
-            $correct_key = $api->getDb()->get('settings', ['name', '=', 'mc_api_key']);
+            $correct_key = $api->getDb()->get('settings', ['name', 'mc_api_key']);
             $correct_key = $correct_key->results();
             $correct_key = Output::getClean($correct_key[0]->value);
 

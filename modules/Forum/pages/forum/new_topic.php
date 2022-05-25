@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr13
  *
  *  License: MIT
  *
@@ -42,7 +42,7 @@ if (!$can_reply) {
     Redirect::to(URL::build('/forum/view/' . urlencode($fid)));
 }
 
-$current_forum = DB::getInstance()->selectQuery('SELECT * FROM nl2_forums WHERE id = ?', [$fid])->first();
+$current_forum = DB::getInstance()->query('SELECT * FROM nl2_forums WHERE id = ?', [$fid])->first();
 $forum_title = Output::getClean($current_forum->forum_title);
 
 // Topic labels
@@ -50,6 +50,7 @@ $smarty->assign('LABELS_TEXT', $forum_language->get('forum', 'label'));
 $labels = [];
 
 $default_labels = $current_forum->default_labels ? explode(',', $current_forum->default_labels) : [];
+$selected_labels = ((isset($_POST['topic_label']) && is_array($_POST['topic_label'])) ? Input::get('topic_label') : $default_labels);
 
 $forum_labels = $queries->getWhere('forums_topic_labels', ['id', '<>', 0]);
 if (count($forum_labels)) {
@@ -73,7 +74,7 @@ if (count($forum_labels)) {
             }
 
             // Get label HTML
-            $label_html = $queries->getWhere('forums_labels', ['id', '=', $label->label]);
+            $label_html = $queries->getWhere('forums_labels', ['id', $label->label]);
             if (!count($label_html)) {
                 continue;
             }
@@ -83,7 +84,7 @@ if (count($forum_labels)) {
             $labels[] = [
                 'id' => $label->id,
                 'html' => $label_html,
-                'checked' => in_array($label->id, $default_labels)
+                'checked' => in_array($label->id, $selected_labels)
             ];
         }
     }
@@ -131,7 +132,7 @@ if (Input::exists()) {
 
                 if (isset($_POST['topic_label']) && !empty($_POST['topic_label']) && is_array($_POST['topic_label'])) {
                     foreach ($_POST['topic_label'] as $topic_label) {
-                        $label = $queries->getWhere('forums_topic_labels', ['id', '=', $topic_label]);
+                        $label = $queries->getWhere('forums_topic_labels', ['id', $topic_label]);
                         if (count($label)) {
                             $lgroups = explode(',', $label[0]->gids);
 
@@ -198,7 +199,7 @@ if (Input::exists()) {
                 Log::getInstance()->log(Log::Action('forums/topic/create'), Output::getClean(Input::get('title')));
 
                 // Execute hooks and pass $available_hooks
-                $available_hooks = $queries->getWhere('forums', ['id', '=', $fid]);
+                $available_hooks = $queries->getWhere('forums', ['id', $fid]);
                 $available_hooks = json_decode($available_hooks[0]->hooks);
                 EventHandler::executeEvent('newTopic', [
                     'user_id' => Output::getClean($user->data()->id),
@@ -232,11 +233,6 @@ if (Input::exists()) {
 // Generate a token
 $token = Token::get();
 
-$template->addCSSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism_' . (DARK_MODE ? 'dark' : 'light_default') . '.css' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
-]);
-
 // Generate content for template
 if (isset($error)) {
     $smarty->assign('ERROR', $error);
@@ -246,7 +242,7 @@ $creating_topic_in = $forum_language->get('forum', 'creating_topic_in_x', ['foru
 $smarty->assign('CREATING_TOPIC_IN', $creating_topic_in);
 
 // Get info about forum
-$forum_query = $queries->getWhere('forums', ['id', '=', $fid]);
+$forum_query = $queries->getWhere('forums', ['id', $fid]);
 $forum_query = $forum_query[0];
 
 // Placeholder?
@@ -258,6 +254,7 @@ if ($forum_query->topic_placeholder) {
 $smarty->assign([
     'LABELS' => $labels,
     'TOPIC_TITLE' => $forum_language->get('forum', 'topic_title'),
+    'TOPIC_VALUE' => ((isset($_POST['title']) && $_POST['title']) ? Output::getClean(Input::get('title')) : ''),
     'LABEL' => $forum_language->get('forum', 'label'),
     'SUBMIT' => $language->get('general', 'submit'),
     'CANCEL' => $language->get('general', 'cancel'),
@@ -279,10 +276,8 @@ if ($content) {
     $content = EventHandler::executeEvent('renderPostEdit', ['content' => $content])['content'];
 }
 
-$template->addJSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => []
+$template->assets()->include([
+    AssetTree::TINYMCE,
 ]);
 
 $template->addJSScript(Input::createTinyEditor($language, 'reply', $content, true));

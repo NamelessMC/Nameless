@@ -157,6 +157,8 @@ class EventHandler {
         // Execute user made Discord webhooks
         foreach (self::$_webhooks as $webhook) {
             if (in_array($event, $webhook['events'])) {
+                // Since forum events are specific to certain hooks, we need to
+                // check that this hook is enabled for the event.
                 if (isset($params['available_hooks'])) {
                     if (in_array($webhook['id'], $params['available_hooks'])) {
                         $params['webhook'] = $webhook['url'];

@@ -19,7 +19,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     // User specified
     $md_profile = $profile[count($profile) - 1];
 
-    $page_metadata = $queries->getWhere('page_descriptions', ['page', '=', '/profile']);
+    $page_metadata = $queries->getWhere('page_descriptions', ['page', '/profile']);
     if (count($page_metadata)) {
         define('PAGE_DESCRIPTION', str_replace(['{site}', '{profile}'], [SITE_NAME, Output::getClean($md_profile)], $page_metadata[0]->description));
         define('PAGE_KEYWORDS', $page_metadata[0]->tags);
@@ -32,20 +32,12 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-$template->addCSSFiles(
-    [
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/image-picker/image-picker.css' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism_' . (DARK_MODE ? 'dark' : 'light_default') . '.css' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => []
-    ]
-);
-
-$template->addJSFiles(
-    [
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => []
-    ]
-);
+$template->assets()->include([
+    DARK_MODE
+        ? AssetTree::PRISM_DARK
+        : AssetTree::PRISM_LIGHT,
+    AssetTree::TINYMCE_SPOILER,
+]);
 
 $template->addCSSStyle(
     '.thumbnails li img{
@@ -172,7 +164,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                             // Validation successful
 
                             // Ensure post exists
-                            $post = $queries->getWhere('user_profile_wall_posts', ['id', '=', $_POST['post']]);
+                            $post = $queries->getWhere('user_profile_wall_posts', ['id', $_POST['post']]);
                             if (!count($post)) {
                                 Redirect::to($profile_user->getProfileURL());
                             }
@@ -270,7 +262,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                     if (Token::check()) {
                         if ($user->isBlocked($user->data()->id, $query->id)) {
                             // Unblock
-                            $blocked_id = $queries->getWhere('blocked_users', ['user_id', '=', $user->data()->id]);
+                            $blocked_id = $queries->getWhere('blocked_users', ['user_id', $user->data()->id]);
                             if (count($blocked_id)) {
                                 foreach ($blocked_id as $id) {
                                     if ($id->user_blocked_id == $query->id) {
@@ -280,7 +272,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                                 }
 
                                 if (is_numeric($blocked_id)) {
-                                    $queries->delete('blocked_users', ['id', '=', $blocked_id]);
+                                    $queries->delete('blocked_users', ['id', $blocked_id]);
                                     $success = $language->get('user', 'user_unblocked');
                                 }
                             }
@@ -301,7 +293,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                     // Ensure user is mod or owner of post
                     if (Token::check()) {
                         if (isset($_POST['post_id']) && is_numeric($_POST['post_id'])) {
-                            $post = $queries->getWhere('user_profile_wall_posts', ['id', '=', $_POST['post_id']]);
+                            $post = $queries->getWhere('user_profile_wall_posts', ['id', $_POST['post_id']]);
                             if (count($post)) {
                                 $post = $post[0];
                                 if ($user->canViewStaffCP() || $post->author_id == $user->data()->id) {
@@ -328,13 +320,13 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                     // Ensure user is mod or owner of post
                     if (Token::check()) {
                         if (isset($_POST['post_id']) && is_numeric($_POST['post_id'])) {
-                            $post = $queries->getWhere('user_profile_wall_posts', ['id', '=', $_POST['post_id']]);
+                            $post = $queries->getWhere('user_profile_wall_posts', ['id', $_POST['post_id']]);
                             if (count($post)) {
                                 $post = $post[0];
                                 if ($user->canViewStaffCP() || $post->author_id == $user->data()->id) {
                                     try {
-                                        $queries->delete('user_profile_wall_posts', ['id', '=', $_POST['post_id']]);
-                                        $queries->delete('user_profile_wall_posts_replies', ['post_id', '=', $_POST['post_id']]);
+                                        $queries->delete('user_profile_wall_posts', ['id', $_POST['post_id']]);
+                                        $queries->delete('user_profile_wall_posts_replies', ['post_id', $_POST['post_id']]);
                                     } catch (Exception $e) {
                                         $error = $e->getMessage();
                                     }
@@ -350,12 +342,12 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                     // Ensure user is mod or owner of reply
                     if (Token::check()) {
                         if (isset($_POST['post_id']) && is_numeric($_POST['post_id'])) {
-                            $post = $queries->getWhere('user_profile_wall_posts_replies', ['id', '=', $_POST['post_id']]);
+                            $post = $queries->getWhere('user_profile_wall_posts_replies', ['id', $_POST['post_id']]);
                             if (count($post)) {
                                 $post = $post[0];
                                 if ($user->canViewStaffCP() || $post->author_id == $user->data()->id) {
                                     try {
-                                        $queries->delete('user_profile_wall_posts_replies', ['id', '=', $_POST['post_id']]);
+                                        $queries->delete('user_profile_wall_posts_replies', ['id', $_POST['post_id']]);
                                     } catch (Exception $e) {
                                         $error = $e->getMessage();
                                     }
@@ -379,7 +371,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                 }
 
                 // Does the post exist?
-                $post = $queries->getWhere('user_profile_wall_posts', ['id', '=', $_GET['post']]);
+                $post = $queries->getWhere('user_profile_wall_posts', ['id', $_GET['post']]);
                 if (!count($post)) {
                     Redirect::to($profile_user->getProfileURL());
                 }
@@ -390,7 +382,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                 }
 
                 // Liking or unliking?
-                $post_likes = $queries->getWhere('user_profile_wall_posts_reactions', ['post_id', '=', $_GET['post']]);
+                $post_likes = $queries->getWhere('user_profile_wall_posts_reactions', ['post_id', $_GET['post']]);
                 if (count($post_likes)) {
                     foreach ($post_likes as $like) {
                         if ($like->user_id == $user->data()->id) {
@@ -402,7 +394,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
                 if (isset($has_liked)) {
                     // Unlike
-                    $queries->delete('user_profile_wall_posts_reactions', ['id', '=', $has_liked]);
+                    $queries->delete('user_profile_wall_posts_reactions', ['id', $has_liked]);
                 } else {
                     // Like
                     $queries->create('user_profile_wall_posts_reactions', [
@@ -629,7 +621,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
         // Display the correct number of posts
         foreach ($results->data as $nValue) {
-            $post_user = $queries->getWhere('users', ['id', '=', $nValue->author_id]);
+            $post_user = $queries->getWhere('users', ['id', $nValue->author_id]);
 
             if (!count($post_user)) {
                 continue;
@@ -639,7 +631,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
             $reactions = [];
             $replies = [];
 
-            $reactions_query = $queries->getWhere('user_profile_wall_posts_reactions', ['post_id', '=', $nValue->id]);
+            $reactions_query = $queries->getWhere('user_profile_wall_posts_reactions', ['post_id', $nValue->id]);
             if (count($reactions_query)) {
                 if (count($reactions_query) == 1) {
                     $reactions['count'] = $language->get('user', '1_reaction');
@@ -651,7 +643,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                     // Get reaction name and icon
                     // TODO
                     /*
-                    $reaction_name = $queries->getWhere('reactions', array('id', '=', $reaction->reaction_id));
+                    $reaction_name = $queries->getWhere('reactions', array('id', $reaction->reaction_id));
 
                     if (!count($reaction_name) || $reaction_name[0]->enabled == 0) continue;
                     $reaction_html = $reaction_name[0]->html;
@@ -834,17 +826,15 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     // Assign profile tabs
     $smarty->assign('TABS', $tabs);
 
-    if (isset($directories[1]) &&
-        !empty($directories[1]) &&
-        !isset($_GET['error']) &&
-        $user->isLoggedIn() &&
-        $user->data()->username == $profile) {
+    if (isset($directories[1]) && !empty($directories[1]) && !isset($_GET['error']) && $user->isLoggedIn() && $user->data()->username == $profile) {
         // Script for banner selector
-        $template->addJSFiles(
-            [
-                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/image-picker/image-picker.min.js' => []
-            ]
-        );
+        $template->assets()->include([
+            AssetTree::IMAGE_PICKER,
+        ]);
+    }
+
+    if (Session::exists('profile_banner_error')) {
+        $smarty->assign('ERROR', Session::flash('profile_banner_error'));
     }
 
     // Load modules + template

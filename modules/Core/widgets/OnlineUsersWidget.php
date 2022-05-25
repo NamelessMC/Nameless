@@ -23,7 +23,7 @@ class OnlineUsersWidget extends WidgetBase {
         // Get widget
         $widget_query = self::getData('Online Users');
 
-        parent::__construct(self::parsePages($widget_query->pages));
+        parent::__construct(self::parsePages($widget_query));
 
         // Set widget variables
         $this->_module = 'Core';
@@ -55,9 +55,9 @@ class OnlineUsersWidget extends WidgetBase {
             }
 
             if ($include_staff) {
-                $online = DB::getInstance()->selectQuery('SELECT id FROM nl2_users WHERE last_online > ?', [strtotime('-5 minutes')])->results();
+                $online = DB::getInstance()->query('SELECT id FROM nl2_users WHERE last_online > ?', [strtotime('-5 minutes')])->results();
             } else {
-                $online = DB::getInstance()->selectQuery('SELECT U.id FROM nl2_users AS U JOIN nl2_users_groups AS UG ON (U.id = UG.user_id) JOIN nl2_groups AS G ON (UG.group_id = G.id) WHERE G.order = (SELECT min(iG.`order`) FROM nl2_users_groups AS iUG JOIN nl2_groups AS iG ON (iUG.group_id = iG.id) WHERE iUG.user_id = U.id GROUP BY iUG.user_id ORDER BY NULL) AND U.last_online > ' . strtotime('-5 minutes') . ' AND G.staff = 0', [])->results();
+                $online = DB::getInstance()->query('SELECT U.id FROM nl2_users AS U JOIN nl2_users_groups AS UG ON (U.id = UG.user_id) JOIN nl2_groups AS G ON (UG.group_id = G.id) WHERE G.order = (SELECT min(iG.`order`) FROM nl2_users_groups AS iUG JOIN nl2_groups AS iG ON (iUG.group_id = iG.id) WHERE iUG.user_id = U.id GROUP BY iUG.user_id ORDER BY NULL) AND U.last_online > ' . strtotime('-5 minutes') . ' AND G.staff = 0', [])->results();
             }
 
             $this->_cache->store('users', $online, 120);

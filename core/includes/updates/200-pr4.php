@@ -51,70 +51,70 @@ try {
 
 // New columns
 try {
-    $queries->alterTable('profile_fields', 'editable', "tinyint(1) NOT NULL DEFAULT '1'");
+    $queries->addColumn('profile_fields', 'editable', "tinyint(1) NOT NULL DEFAULT '1'");
 } catch (Exception $e) {
     // unable to update table
     echo $e->getMessage() . '<br />';
 }
 
 try {
-    $queries->alterTable('forums', 'icon', "varchar(256) DEFAULT NULL");
+    $queries->addColumn('forums', 'icon', "varchar(256) DEFAULT NULL");
 } catch (Exception $e) {
     // unable to update table
     echo $e->getMessage() . '<br />';
 }
 
 try {
-    $queries->alterTable('custom_pages', 'sitemap', "tinyint(1) NOT NULL DEFAULT '0'");
+    $queries->addColumn('custom_pages', 'sitemap', "tinyint(1) NOT NULL DEFAULT '0'");
 } catch (Exception $e) {
     // unable to update table
     echo $e->getMessage() . '<br />';
 }
 
 try {
-    $queries->alterTable('widgets', '`order`', "int(11) NOT NULL DEFAULT '10'");
+    $queries->addColumn('widgets', '`order`', "int(11) NOT NULL DEFAULT '10'");
 } catch (Exception $e) {
     // unable to update table
     echo $e->getMessage() . '<br />';
 }
 
 try {
-    $queries->alterTable('groups', '`order`', "int(11) NOT NULL DEFAULT '1'");
+    $queries->addColumn('groups', '`order`', "int(11) NOT NULL DEFAULT '1'");
 } catch (Exception $e) {
     // unable to update table
     echo $e->getMessage() . '<br />';
 }
 
 try {
-    $queries->alterTable('infractions', 'created', "int(11) DEFAULT NULL");
+    $queries->addColumn('infractions', 'created', "int(11) DEFAULT NULL");
 } catch (Exception $e) {
     // unable to update table
     echo $e->getMessage() . '<br />';
 }
 
 try {
-    $queries->alterTable('reports', 'reported', "int(11) DEFAULT NULL");
+    $queries->addColumn('reports', 'reported', "int(11) DEFAULT NULL");
 } catch (Exception $e) {
     // unable to update table
     echo $e->getMessage() . '<br />';
 }
 
 try {
-    $queries->alterTable('reports', 'updated', "int(11) DEFAULT NULL");
+    $queries->addColumn('reports', 'updated', "int(11) DEFAULT NULL");
 } catch (Exception $e) {
     // unable to update table
     echo $e->getMessage() . '<br />';
 }
 
 try {
-    $queries->alterTable('reports_comments', 'date', "int(11) DEFAULT NULL");
+    $queries->addColumn('reports_comments', 'date', "int(11) DEFAULT NULL");
 } catch (Exception $e) {
     // unable to update table
     echo $e->getMessage() . '<br />';
 }
 
 try {
-    DB::getInstance()->createQuery('ALTER TABLE nl2_alerts MODIFY content_short VARCHAR(128) NOT NULL', array());
+    DB::getInstance()->query('ALTER TABLE nl2_alerts MODIFY content_short VARCHAR(128) NOT NULL', array());
 } catch (Exception $e) {
     // unable to update table
     echo $e->getMessage() . '<br />';
@@ -149,7 +149,7 @@ $cache->store('enabled_modules', $enabled_modules);
 $cache->store('module_core', true);
 $cache->store('module_forum', true);
 
-$modules = $queries->getWhere('modules', array('enabled', '=', 1));
+$modules = $queries->getWhere('modules', array('enabled', 1));
 
 foreach ($modules as $item) {
     if ($item->name != 'Core' && $item->name != 'Forum') {
@@ -160,18 +160,18 @@ foreach ($modules as $item) {
 $cache->setCache('templatecache');
 $cache->store('default', 'Default');
 
-$default_template = $queries->getWhere('templates', array('is_default', '=', 1));
+$default_template = $queries->getWhere('templates', array('is_default', 1));
 if ($default_template[0]->name != 'Default') {
     $queries->update('templates', $default_template[0]->id, array(
         'is_default' => 0
     ));
-    $default_template = $queries->getWhere('templates', array('name', '=', 'Default'));
+    $default_template = $queries->getWhere('templates', array('name', 'Default'));
     $queries->update('templates', $default_template[0]->id, array(
         'is_default' => 1
     ));
 }
 
-$enabled_templates = $queries->getWhere('templates', array('enabled', '=', 1));
+$enabled_templates = $queries->getWhere('templates', array('enabled', 1));
 foreach ($enabled_templates as $template) {
     if ($template->name != 'Default') {
         $queries->update('templates', $template->id, array(
@@ -192,7 +192,7 @@ $queries->update('groups', 2, array(
 ));
 
 // Update version number
-$version_number_id = $queries->getWhere('settings', array('name', '=', 'nameless_version'));
+$version_number_id = $queries->getWhere('settings', array('name', 'nameless_version'));
 $version_number_id = $version_number_id[0]->id;
 
 if (count($version_number_id)) {
@@ -200,7 +200,7 @@ if (count($version_number_id)) {
         'value' => '2.0.0-pr5'
     ));
 } else {
-    $version_number_id = $queries->getWhere('settings', array('name', '=', 'version'));
+    $version_number_id = $queries->getWhere('settings', array('name', 'version'));
     $version_number_id = $version_number_id[0]->id;
 
     $queries->update('settings', $version_number_id, array(
@@ -208,7 +208,7 @@ if (count($version_number_id)) {
     ));
 }
 
-$version_update_id = $queries->getWhere('settings', array('name', '=', 'version_update'));
+$version_update_id = $queries->getWhere('settings', array('name', 'version_update'));
 $version_update_id = $version_update_id[0]->id;
 
 $queries->update('settings', $version_update_id, array(

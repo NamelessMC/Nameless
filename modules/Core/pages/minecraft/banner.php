@@ -27,7 +27,7 @@ if (defined('MINECRAFT') && MINECRAFT === true) {
 
         $banner = urldecode($banner);
 
-        $server = $queries->getWhere('mc_servers', ['name', '=', $banner]);
+        $server = $queries->getWhere('mc_servers', ['name', $banner]);
 
         if (!count($server)) {
             die('Invalid server');
@@ -49,7 +49,7 @@ if (defined('MINECRAFT') && MINECRAFT === true) {
         $cache->setCache('banner_cache_' . urlencode($server->name));
         if (!$cache->isCached('image')) {
             // Internal or external query?
-            $query_type = $queries->getWhere('settings', ['name', '=', 'external_query']);
+            $query_type = $queries->getWhere('settings', ['name', 'external_query']);
             if (count($query_type)) {
                 if ($query_type[0]->value == '1') {
                     $query_type = 'external';

@@ -35,7 +35,7 @@ if (isset($_GET['user'])) {
 
     if (isset($_GET['do'], $_GET['id']) && $_GET['do'] == 'revoke' && is_numeric($_GET['id'])) {
         if (Token::checK()) {
-            $infraction = $queries->getWhere('infractions', ['id', '=', $_GET['id']]);
+            $infraction = $queries->getWhere('infractions', ['id', $_GET['id']]);
             if (!$user->hasPermission('modcp.punishments.revoke') || !count($infraction) || ($infraction[0]->punished != $query->id)) {
                 Redirect::to(URL::build('/panel/users/punishments/', 'user=' . urlencode($query->id)));
             }
@@ -62,7 +62,7 @@ if (isset($_GET['user'])) {
                             'active' => 1
                         ]);
 
-                        $queries->delete('ip_bans', ['ip', '=', $query->lastip]);
+                        $queries->delete('ip_bans', ['ip', $query->lastip]);
                     } catch (Exception $e) {
                         // Error
                         $errors = [$e->getMessage()];
@@ -162,7 +162,7 @@ if (isset($_GET['user'])) {
 
                                         $banned_user_ip = $banned_user->data()->lastip;
 
-                                        $queries->delete('users_session', ['user_id', '=', $query->id]);
+                                        $queries->delete('users_session', ['user_id', $query->id]);
 
                                         if ($type == 3) {
                                             // Ban IP
@@ -211,7 +211,7 @@ if (isset($_GET['user'])) {
                                 }
 
                                 // Send alerts
-                                $groups_query = DB::getInstance()->selectQuery('SELECT id FROM nl2_groups WHERE permissions LIKE \'%"modcp.punishments":1%\'');
+                                $groups_query = DB::getInstance()->query('SELECT id FROM nl2_groups WHERE permissions LIKE \'%"modcp.punishments":1%\'');
                                 if ($groups_query->count()) {
                                     $groups_query = $groups_query->results();
 
@@ -224,7 +224,7 @@ if (isset($_GET['user'])) {
                                     $groups = rtrim($groups, ',') . ')';
 
                                     // Get users in this group
-                                    $users = DB::getInstance()->selectQuery('SELECT DISTINCT(nl2_users.id) AS id FROM nl2_users LEFT JOIN nl2_users_groups ON nl2_users.id = nl2_users_groups.user_id WHERE group_id in ' . $groups);
+                                    $users = DB::getInstance()->query('SELECT DISTINCT(nl2_users.id) AS id FROM nl2_users LEFT JOIN nl2_users_groups ON nl2_users.id = nl2_users_groups.user_id WHERE group_id in ' . $groups);
 
                                     if ($users->count()) {
                                         $users = $users->results();
@@ -372,7 +372,7 @@ if (isset($_GET['user'])) {
 } else {
     if (Input::exists() && isset($_POST['username'])) {
         if (Token::check()) {
-            $check = DB::getInstance()->selectQuery('SELECT id FROM nl2_users WHERE username = ? OR nickname = ?', [$_POST['username'], $_POST['username']]);
+            $check = DB::getInstance()->query('SELECT id FROM nl2_users WHERE username = ? OR nickname = ?', [$_POST['username'], $_POST['username']]);
 
             if ($check->count()) {
                 $check = $check->first();
